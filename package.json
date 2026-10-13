@@ -1,0 +1,26 @@
+{
+  "name": "winmate-poc-v2",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Winmate v2 — PPT 레이아웃 템플릿 라이브러리 (Samsung B2B 제안서 에이전트 PoC)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "node scripts/check-data.mjs",
+    "import-layouts": "node scripts/import-layouts.mjs"
+  },
+  "dependencies": {
+    "pptxgenjs": "^3.12.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.7.0",
+    "vite": "^5.4.21"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

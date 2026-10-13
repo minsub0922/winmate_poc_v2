@@ -1,0 +1,29 @@
+/* 색 · 글꼴 · 반경 토큰. 밝은 테마가 기본이고, OS 다크 모드(또는 :root[data-theme="dark"])에서 바뀐다. */
+:root {
+  --bg: #f3f4f7; --surface: #ffffff; --surface-2: #f7f8fa; --surface-3: #eef0f4;
+  --ink: #121417; --ink-2: #3d4452; --muted: #596170; --faint: #6e7686; --line: #e2e5ea; --line-2: #d3d8e0;
+  --accent: #1428a0; --accent-2: #0f1f80; --accent-soft: #eaeefb; --accent-line: #c5cdf2; --on-accent: #ffffff;
+  --ok: #0d6e46; --ok-soft: #e1f3ea; --warn: #7a4f00; --warn-soft: #fff1d6; --danger: #b42318; --danger-soft: #fdecea;
+  --h-blue: #1428a0; --h-blue-bg: #eaeefb; --h-violet: #5b35c4; --h-violet-bg: #efeafd; --h-teal: #0b6e64; --h-teal-bg: #dcf1ed;
+  --h-amber: #8f5208; --h-amber-bg: #fbeedb; --h-green: #2b6f2f; --h-green-bg: #e3f2e4; --h-slate: #475163; --h-slate-bg: #eceff3;
+  --dot: #d6dae2; --shadow: 0 1px 2px rgba(18,20,23,.06), 0 6px 18px rgba(18,20,23,.06); --shadow-lg: 0 24px 64px rgba(18,20,23,.22);
+  --sans: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+  --num: 'Manrope', 'Noto Sans KR', system-ui, sans-serif;
+  --r-sm: 7px; --r: 10px; --r-lg: 14px; --sb-w: 252px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1117; --surface: #161a22; --surface-2: #1b2029; --surface-3: #222833; --ink: #e8ebf1; --ink-2: #c3c9d4; --muted: #a2aab8; --faint: #8e97a7; --line: #2a303b; --line-2: #363d4a;
+    --accent: #93a6ff; --accent-2: #b3c0ff; --accent-soft: #1e2546; --accent-line: #3b4783; --on-accent: #0b1030;
+    --ok: #6fd3a4; --ok-soft: #13352a; --warn: #f2c063; --warn-soft: #3a2c10; --danger: #ff8f84; --danger-soft: #3a1714;
+    --h-blue: #93a6ff; --h-blue-bg: #1e2546; --h-violet: #b9a3ff; --h-violet-bg: #2a2147; --h-teal: #5fd0c2; --h-teal-bg: #12332f; --h-amber: #f0b263; --h-amber-bg: #392914; --h-green: #8fd48f; --h-green-bg: #1c321d; --h-slate: #b4bdcc; --h-slate-bg: #262c36;
+    --dot: #2a303b; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 6px 18px rgba(0,0,0,.3); --shadow-lg: 0 24px 64px rgba(0,0,0,.55); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1117; --surface: #161a22; --surface-2: #1b2029; --surface-3: #222833; --ink: #e8ebf1; --ink-2: #c3c9d4; --muted: #a2aab8; --faint: #8e97a7; --line: #2a303b; --line-2: #363d4a;
+  --accent: #93a6ff; --accent-2: #b3c0ff; --accent-soft: #1e2546; --accent-line: #3b4783; --on-accent: #0b1030;
+  --ok: #6fd3a4; --ok-soft: #13352a; --warn: #f2c063; --warn-soft: #3a2c10; --danger: #ff8f84; --danger-soft: #3a1714;
+  --h-blue: #93a6ff; --h-blue-bg: #1e2546; --h-violet: #b9a3ff; --h-violet-bg: #2a2147; --h-teal: #5fd0c2; --h-teal-bg: #12332f; --h-amber: #f0b263; --h-amber-bg: #392914; --h-green: #8fd48f; --h-green-bg: #1c321d; --h-slate: #b4bdcc; --h-slate-bg: #262c36;
+  --dot: #2a303b; --shadow: 0 1px 2px rgba(0,0,0,.4), 0 6px 18px rgba(0,0,0,.3); --shadow-lg: 0 24px 64px rgba(0,0,0,.55); color-scheme: dark;
+}

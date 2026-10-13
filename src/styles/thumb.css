@@ -1,0 +1,47 @@
+/* 제품 · 솔루션 썸네일 (components/thumb/Thumb.jsx) — 사진이 있으면 사진, 없으면 일러스트 */
+.thumb { --th-ac: #0b8a7b; --th-bg1: #eef1f6; --th-bg2: #dde2ea; --th-floor: #d9dee6; --th-ceil: #dfe3ea; --th-win: #ffffff; --th-winl: #d5dae3; --th-wbar: #eef1f6; --th-mut: #e3e7ee; --th-mutd: #c3cad6; --th-sh: rgba(18,20,23,.14);
+  position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 8px; background: radial-gradient(130% 100% at 50% 0%, var(--th-bg1), var(--th-bg2)); }
+.thumb.product { --th-ac: #0b8a7b; --th-bg1: #eef8f6; --th-bg2: #d3ebe6; --th-ceil: #c6e3dd; --th-floor: #c6e3dd; }
+.thumb.solution { --th-ac: #2f45c4; --th-bg1: #f2f4fd; --th-bg2: #dbe2f8; --th-floor: #ccd5f3; }
+.thumb.case { --th-ac: #c27512; --th-bg1: #fdf6ea; --th-bg2: #f2e3c8; --th-floor: #e3cda8; --th-ceil: #ecdcbf; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .thumb { --th-bg1: #262c37; --th-bg2: #1b2029; --th-floor: #2c333f; --th-ceil: #2a303b; --th-win: #222937; --th-winl: #343c4c; --th-wbar: #2b3343; --th-mut: #323a4a; --th-mutd: #4a5468; --th-sh: rgba(0,0,0,.42); }
+  :root:not([data-theme="light"]) .thumb.product { --th-ac: #3fc7b4; --th-bg1: #1b3f3a; --th-bg2: #102824; --th-ceil: #1f4540; --th-floor: #1f4540; }
+  :root:not([data-theme="light"]) .thumb.solution { --th-ac: #8ea0ff; --th-bg1: #262f57; --th-bg2: #171d38; --th-floor: #2a3360; }
+  :root:not([data-theme="light"]) .thumb.case { --th-ac: #f0a640; --th-bg1: #3b2f1d; --th-bg2: #261d12; --th-floor: #4a3a26; --th-ceil: #403221; }
+  :root:not([data-theme="light"]) .thumb .lnk { stroke: #6b7485; }
+}
+:root[data-theme="dark"] .thumb { --th-bg1: #262c37; --th-bg2: #1b2029; --th-floor: #2c333f; --th-ceil: #2a303b; --th-win: #222937; --th-winl: #343c4c; --th-wbar: #2b3343; --th-mut: #323a4a; --th-mutd: #4a5468; --th-sh: rgba(0,0,0,.42); }
+:root[data-theme="dark"] .thumb.product { --th-ac: #3fc7b4; --th-bg1: #1b3f3a; --th-bg2: #102824; --th-ceil: #1f4540; --th-floor: #1f4540; }
+:root[data-theme="dark"] .thumb.solution { --th-ac: #8ea0ff; --th-bg1: #262f57; --th-bg2: #171d38; --th-floor: #2a3360; }
+:root[data-theme="dark"] .thumb.case { --th-ac: #f0a640; --th-bg1: #3b2f1d; --th-bg2: #261d12; --th-floor: #4a3a26; --th-ceil: #403221; }
+:root[data-theme="dark"] .thumb .lnk { stroke: #6b7485; }
+.thumb > svg { display: block; width: 100%; height: 100%; }
+.thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.thumb.cut img { object-fit: contain; padding: 7% 9%; filter: drop-shadow(0 6px 10px rgba(0,0,0,.2)); }
+.thumb.cut.white { background: #fff; }
+.thumb.cut.white img { filter: none; padding: 3%; }
+.thumb .k { fill: #1c2029; } .thumb .k2 { fill: #2b303b; } .thumb .k3 { fill: #454c59; } .thumb .rg { fill: #353b46; }
+.thumb .w { fill: #fdfdfe; stroke: #c3c9d3; stroke-width: 1; } .thumb .w2 { fill: #eceff3; stroke: #cfd4dc; stroke-width: .8; }
+.thumb .al { fill: #d4d8df; stroke: #b5bbc6; stroke-width: .8; } .thumb .g { fill: #8d96a6; } .thumb .g2 { fill: #b9c0cb; }
+.thumb .ln { fill: none; stroke: #8d96a6; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.thumb .lnk { fill: none; stroke: #2b303b; stroke-width: 2.4; stroke-linecap: round; }
+.thumb .sh { fill: var(--th-sh); } .thumb .gl { fill: #fff; opacity: .08; }
+.thumb .wd { fill: #c9a37c; } .thumb .wd2 { fill: #9c7552; } .thumb .wdl { fill: none; stroke: #a88159; stroke-width: .9; }
+.thumb .ct { fill: #ece8e1; stroke: #d6d0c5; stroke-width: .8; } .thumb .pl { fill: #5f9e72; }
+.thumb .ac, .thumb .acb { fill: var(--th-ac); } .thumb .ac2 { fill: var(--th-ac); opacity: .22; } .thumb .acf { fill: var(--th-ac); opacity: .88; }
+.thumb .acs { fill: none; stroke: var(--th-ac); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.thumb .acr { stroke: var(--th-ac); stroke-width: 3.5; stroke-linecap: round; } .thumb .acl { stroke: var(--th-ac); stroke-width: 1.2; filter: brightness(.8); }
+.thumb .okb, .thumb .okf { fill: #37b24d; }
+.thumb .fl { fill: var(--th-floor); } .thumb .ce { fill: var(--th-ceil); }
+.thumb .win { fill: var(--th-win); stroke: var(--th-winl); stroke-width: 1; } .thumb .wbar { fill: var(--th-wbar); }
+.thumb .mut { fill: var(--th-mut); } .thumb .mutd { fill: var(--th-mutd); } .thumb .mutl { stroke: var(--th-mutd); stroke-width: 1.4; } .thumb .mutr { stroke: var(--th-mut); stroke-width: 3.5; }
+.thumb .air { fill: none; stroke: var(--th-ac); stroke-width: 1.6; stroke-dasharray: 2.5 3; stroke-linecap: round; opacity: .65; }
+.thumb .fan, .thumb .fanl { fill: none; stroke: #b9c0cb; stroke-width: 1.2; } .thumb .lou { stroke: #c9ced7; stroke-width: .9; }
+.thumb .hole { fill: var(--th-bg2); stroke: #8d96a6; stroke-width: .8; } .thumb .paper { fill: #fff; stroke: #d5dae3; stroke-width: .8; }
+.thumb .bld { fill: #e9ecf1; stroke: #c3c9d3; stroke-width: 1; } .thumb .bldl { fill: none; stroke: #c3c9d3; stroke-width: 1; }
+.thumb .feedp { fill: #5c6b85; }
+.thumb .badge { fill: var(--th-win); stroke: var(--th-ac); stroke-width: 1.2; }
+.thumb .badge-g { fill: none; stroke: var(--th-ac); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.thumb.mini { width: 22px; height: 22px; aspect-ratio: auto; border-radius: 6px; flex-shrink: 0; box-shadow: 0 0 0 2px var(--surface); }
+.thumb.mini.cut img { padding: 1px; filter: none; }

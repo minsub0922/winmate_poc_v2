@@ -1,0 +1,61 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.*
+.yarn/
+.pnpm-store/
+
+# build output · caches
+dist/
+dist-ssr/
+build/
+.vite/
+.cache/
+.eslintcache
+.stylelintcache
+*.tsbuildinfo
+coverage/
+
+# test artifacts · screenshots
+test-results/
+playwright-report/
+blob-report/
+qa/
+shots/
+*.png.tmp
+
+# exported decks · archives made while testing
+*.pptx
+*.zip
+*.tgz
+
+# logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# env · secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# editors · OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# local scratch
+tmp/
+.tmp/
+*.local
