@@ -1,0 +1,218 @@
+build/test-cover.mjs:4:// is gone, old saved history migrated on load — data in the hidden deck part), adding a 표지 from PPT 레이아웃 추가 keeps it
+build/test-cover.mjs:6:import { chromium } from 'playwright';
+build/test-cover.mjs:7:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+build/test-cover.mjs:10:[Omitted long matching line]
+build/test-cover.mjs:11:const exe = fs.readdirSync('/opt/pw-browsers').filter((d) => d.startsWith('chromium-')).map((d) => '/opt/pw-browsers/' + d + '/chrome-linux/chrome').find((f) => fs.existsSync(f));
+build/test-cover.mjs:42:  // detail from the panel: 표지 · 전체 1쪽, 다음 → page 2
+build/test-cover.mjs:70:  // adding a 표지 from PPT 레이아웃 추가 keeps it off the Storyboard
+build/test-cover.mjs:96:  // saved history from before: a ‘표지’ part (표지 C + 목차), an empty ‘표지 · 목차’ part, ‘열기’ holding only 표지 A, an old
+build/test-cover.mjs:115:  ok(!names.some((n) => /표지|열기/.test(n)) && names[0] === '시장 · 전략', 'no 표지 bubble from the old history: ' + names.slice(0, 3).join(' · '));
+build/test-cases.mjs:3:import { chromium } from 'playwright';
+build/test-cases.mjs:4:import http from 'node:http';
+build/test-cases.mjs:5:import fs from 'node:fs';
+build/test-cases.mjs:6:import path from 'node:path';
+build/test-cases.mjs:17:}).listen(8791);
+build/test-cases.mjs:22:const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome', args: ['--no-sandbox'] });
+build/test-aisb.mjs:4:import { chromium } from 'playwright';
+build/test-aisb.mjs:5:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+build/test-aisb.mjs:9:[Omitted long matching line]
+build/test-aisb.mjs:10:const browser = await chromium.launch({ executablePath: process.env.CHROME || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome', args: ['--no-sandbox'] });
+build/test-aisb.mjs:130:// ---------- 3) no AI: rule-based flow, from an empty board ----------
+build/test-aisb.mjs:139:  ok(b.length >= 6, 'fallback builds the whole flow from the start: ' + b.join(' | '));
+build/test-fill.mjs:3:import { chromium } from 'playwright';
+build/test-fill.mjs:4:import http from 'node:http';
+build/test-fill.mjs:5:import fs from 'node:fs';
+build/test-fill.mjs:6:import path from 'node:path';
+build/test-fill.mjs:7:import { execSync } from 'node:child_process';
+build/test-fill.mjs:18:}).listen(8773);
+build/test-fill.mjs:19:const exe = fs.readdirSync('/opt/pw-browsers').filter((d) => d.startsWith('chromium-')).map((d) => '/opt/pw-browsers/' + d + '/chrome-linux/chrome').find((f) => fs.existsSync(f));
+build/test-fav.mjs:4:import { chromium } from 'playwright';
+build/test-fav.mjs:5:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+build/test-fav.mjs:8:[Omitted long matching line]
+build/test-fav.mjs:10:const exe = fs.readdirSync('/opt/pw-browsers').filter((d) => d.startsWith('chromium-')).map((d) => '/opt/pw-browsers/' + d + '/chrome-linux/chrome').find((f) => fs.existsSync(f));
+build/test-fav.mjs:36:// ---- the same layout, empty, from the template library ----
+build/test-fav.mjs:46:// another layout from its detail
+build/test-fav.mjs:107:// unfavourite from My › 찜
+build/test-fav.mjs:111:ok((await page.$$('.fav-card')).length === nFav - 1, '♡ again removes it from 찜');
+build/test-files.mjs:2:import { chromium } from 'playwright';
+build/test-files.mjs:3:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+build/test-files.mjs:7:[Omitted long matching line]
+build/test-files.mjs:8:const exe = '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
+build/test-detail.mjs:2:import { chromium } from 'playwright';
+build/test-detail.mjs:3:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+build/test-detail.mjs:6:[Omitted long matching line]
+build/test-detail.mjs:7:const exe = fs.readdirSync('/opt/pw-browsers').filter((d) => d.startsWith('chromium-')).map((d) => '/opt/pw-browsers/' + d + '/chrome-linux/chrome').find((f) => fs.existsSync(f));
+build/test-ctx-tiles.mjs:3:import { chromium } from 'playwright';
+build/test-ctx-tiles.mjs:4:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+build/test-ctx-tiles.mjs:7:[Omitted long matching line]
+build/test-ctx-tiles.mjs:8:const exe = fs.readdirSync('/opt/pw-browsers').filter((d) => d.startsWith('chromium-')).map((d) => '/opt/pw-browsers/' + d + '/chrome-linux/chrome').find((f) => fs.existsSync(f));
+build/test-ctx.mjs:1:// 제품 · 솔루션 매칭 popup beside the Storyboard bubble: rows open it at a kind, hover detail, remove, add from 추천 / 전체 목록,
+build/test-ctx.mjs:3:import { chromium } from 'playwright';
+build/test-ctx.mjs:4:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+build/test-ctx.mjs:7:[Omitted long matching line]
+build/test-ctx.mjs:8:const exe = fs.readdirSync('/opt/pw-browsers').filter((d) => d.startsWith('chromium-')).map((d) => '/opt/pw-browsers/' + d + '/chrome-linux/chrome').find((f) => fs.existsSync(f));
+build/test-ctx.mjs:35:  // add from 추천 → explorer at the recommendations
+build/test-ctx.mjs:40:  // add from the full list with search
+build/test-bsfilter.mjs:5:import { chromium } from 'playwright';
+build/test-bsfilter.mjs:6:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+build/test-bsfilter.mjs:9:[Omitted long matching line]
+build/test-bsfilter.mjs:10:const exe = fs.readdirSync('/opt/pw-browsers').filter((d) => d.startsWith('chromium-')).map((d) => '/opt/pw-browsers/' + d + '/chrome-linux/chrome').find((f) => fs.existsSync(f));
+build/test-bsfilter.mjs:114:{ // old saves: one product from the select · a strategy tab
+build/test-library.mjs:3:import { chromium } from 'playwright';
+build/test-library.mjs:4:import http from 'node:http';
+build/test-library.mjs:5:import fs from 'node:fs';
+build/test-library.mjs:6:import path from 'node:path';
+build/test-library.mjs:17:}).listen(8767);
+build/test-library.mjs:18:const exe = process.env.CHROME || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
+build/test-imglib.mjs:2:import { chromium } from 'playwright';
+build/test-imglib.mjs:3:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+build/test-imglib.mjs:21:// a site product with scenes from several sources
+build/test-imglib.mjs:24:[Omitted long matching line]
+build/test-imglib.mjs:25:const exe = fs.readdirSync('/opt/pw-browsers').filter((d) => d.startsWith('chromium-')).map((d) => '/opt/pw-browsers/' + d + '/chrome-linux/chrome').find((f) => fs.existsSync(f));
+build/test-media.mjs:4:import { chromium } from 'playwright';
+build/test-media.mjs:5:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+build/test-media.mjs:30:}).listen(PORT);
+build/test-media.mjs:31:const exe = fs.readdirSync('/opt/pw-browsers').filter((d) => d.startsWith('chromium-')).map((d) => '/opt/pw-browsers/' + d + '/chrome-linux/chrome').find((f) => fs.existsSync(f));
+build/test-media.mjs:127:        const { execSync } = await import('node:child_process');
+build/test-picker.mjs:4:import { chromium } from 'playwright';
+build/test-picker.mjs:5:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+build/test-picker.mjs:8:[Omitted long matching line]
+build/test-picker.mjs:9:const exe = fs.readdirSync('/opt/pw-browsers').filter((d) => d.startsWith('chromium-')).map((d) => '/opt/pw-browsers/' + d + '/chrome-linux/chrome').find((f) => fs.existsSync(f));
+build/test-peek.mjs:2:import { chromium } from 'playwright';
+build/test-peek.mjs:3:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+build/test-peek.mjs:7:[Omitted long matching line]
+build/test-peek.mjs:8:const exe = fs.readdirSync('/opt/pw-browsers').filter((d) => d.startsWith('chromium-')).map((d) => '/opt/pw-browsers/' + d + '/chrome-linux/chrome').find((f) => fs.existsSync(f));
+build/test-peek.mjs:55:  await story(page); await page.mouse.move(5, 5); await page.waitForTimeout(400); // the popup opens under the pointer — start from a clear spot
+build/test-photo.mjs:3:import { chromium } from 'playwright';
+build/test-photo.mjs:4:import http from 'node:http';
+build/test-photo.mjs:5:import fs from 'node:fs';
+build/test-photo.mjs:6:import path from 'node:path';
+build/test-photo.mjs:17:}).listen(8771);
+build/test-photo.mjs:18:const exe = fs.readdirSync('/opt/pw-browsers').filter((d) => d.startsWith('chromium-')).map((d) => '/opt/pw-browsers/' + d + '/chrome-linux/chrome').find((f) => fs.existsSync(f));
+build/test-part.mjs:2:import { chromium } from 'playwright';
+build/test-part.mjs:3:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+build/test-part.mjs:6:[Omitted long matching line]
+build/test-part.mjs:7:const exe = fs.readdirSync('/opt/pw-browsers').filter((d) => d.startsWith('chromium-')).map((d) => '/opt/pw-browsers/' + d + '/chrome-linux/chrome').find((f) => fs.existsSync(f));
+build/test-part.mjs:33:  const first2 = (await page.inputValue('#pe-name')); ok(!!first2 && !(await page.$('.pe-sugs')), 'arrow + Enter picks from the list: ' + first2);
+build/test-part-focus.mjs:2:import { chromium } from 'playwright';
+build/test-part-focus.mjs:3:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+build/test-part-focus.mjs:7:[Omitted long matching line]
+build/test-part-focus.mjs:8:const exe = fs.readdirSync('/opt/pw-browsers').filter((d) => d.startsWith('chromium-')).map((d) => '/opt/pw-browsers/' + d + '/chrome-linux/chrome').find((f) => fs.existsSync(f));
+build/test-sbview.mjs:7:import { chromium } from 'playwright';
+build/test-sbview.mjs:8:import http from 'node:http';
+build/test-sbview.mjs:9:import fs from 'node:fs';
+build/test-sbview.mjs:10:import path from 'node:path';
+build/test-sbview.mjs:20:}).listen(8771);
+build/test-sbview.mjs:21:const exe = process.env.CHROME || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
+build/test-sbview.mjs:65:  // 전체 PPT 보기 → the whole deck as big sheets, from the 표지 (p.1), ← → through every page
+build/test-tags.mjs:3:import { chromium } from 'playwright';
+build/test-tags.mjs:4:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+build/test-tags.mjs:8:[Omitted long matching line]
+build/test-tags.mjs:9:const exe = fs.readdirSync('/opt/pw-browsers').filter((d) => d.startsWith('chromium-')).map((d) => '/opt/pw-browsers/' + d + '/chrome-linux/chrome').find((f) => fs.existsSync(f));
+build/test-reviews.mjs:2:import { chromium } from 'playwright';
+build/test-reviews.mjs:3:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+build/test-reviews.mjs:6:[Omitted long matching line]
+build/test-reviews.mjs:7:const exe = '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
+build/test-reviews.mjs:41:// new review from the page
+build/test-libfilter.mjs:3:import { chromium } from 'playwright';
+build/test-libfilter.mjs:4:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+build/test-libfilter.mjs:7:[Omitted long matching line]
+build/test-libfilter.mjs:8:const exe = fs.readdirSync('/opt/pw-browsers').filter((d) => d.startsWith('chromium-')).map((d) => '/opt/pw-browsers/' + d + '/chrome-linux/chrome').find((f) => fs.existsSync(f));
+build/test-std.mjs:2:import { chromium } from 'playwright';
+build/test-std.mjs:3:import http from 'node:http';
+build/test-std.mjs:4:import fs from 'node:fs';
+build/test-std.mjs:5:import path from 'node:path';
+build/test-std.mjs:13:}).listen(8770);
+build/test-std.mjs:14:const exe = process.env.CHROME || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
+build/test-my.mjs:5:import { chromium } from 'playwright';
+build/test-my.mjs:6:import JSZip from 'jszip';
+build/test-my.mjs:7:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+build/test-my.mjs:11:[Omitted long matching line]
+build/test-my.mjs:13:const exe = fs.readdirSync('/opt/pw-browsers').filter((d) => d.startsWith('chromium-')).map((d) => '/opt/pw-browsers/' + d + '/chrome-linux/chrome').find((f) => fs.existsSync(f));
+build/test-my.mjs:36:ok(/고쳐서 My에 저장/.test(await page.locator('.my-or').innerText()), 'how to start from an existing layout is shown');
+build/test-my.mjs:47:[Omitted long matching line]
+build/test-my.mjs:108:// resize from the right handle
+build/test-my.mjs:141:ok(!!slotImg, 'image slot filled from the library: ' + slotImg.slice(0, 40));
+build/test-my.mjs:160:[Omitted long matching line]
+build/test-std-v25.mjs:3:import { chromium } from 'playwright';
+build/test-std-v25.mjs:4:import http from 'node:http';
+build/test-std-v25.mjs:5:import fs from 'node:fs';
+build/test-std-v25.mjs:6:import path from 'node:path';
+build/test-std-v25.mjs:15:}).listen(8772);
+build/test-std-v25.mjs:16:const exe = process.env.CHROME || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
+build/my/fidelity.mjs:3:import { build } from 'esbuild';
+build/my/fidelity.mjs:4:import { chromium } from 'playwright';
+build/my/fidelity.mjs:5:import sharp from 'sharp';
+build/my/fidelity.mjs:6:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path'; import { execFileSync } from 'node:child_process';
+build/my/fidelity.mjs:11:[Omitted long matching line]
+build/my/fidelity.mjs:19:}).listen(0);
+build/my/fidelity.mjs:21:const exe = fs.readdirSync('/opt/pw-browsers').filter((d) => d.startsWith('chromium-')).map((d) => '/opt/pw-browsers/' + d + '/chrome-linux/chrome').find((f) => fs.existsSync(f));
+build/test-proddb.mjs:4:import { chromium } from 'playwright';
+build/test-proddb.mjs:5:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+build/test-proddb.mjs:11:[Omitted long matching line]
+build/test-proddb.mjs:12:const exe = fs.readdirSync('/opt/pw-browsers').filter((d) => d.startsWith('chromium-')).map((d) => '/opt/pw-browsers/' + d + '/chrome-linux/chrome').find((f) => fs.existsSync(f));
+build/test-proddb.mjs:38:  // first rows get their photo from the packs
+build/my/roundtrip.mjs:3:import { build } from 'esbuild';
+build/my/roundtrip.mjs:4:import { chromium } from 'playwright';
+build/my/roundtrip.mjs:5:import sharp from 'sharp';
+build/my/roundtrip.mjs:6:import fs from 'node:fs'; import path from 'node:path'; import { execFileSync } from 'node:child_process';
+build/my/roundtrip.mjs:9:const js = (await build({ stdin: { contents: `
+build/my/roundtrip.mjs:10:import { convertPptx } from './src/my/pptx2html.js'; import { registerLayout } from './src/data.js'; import { exportPptx } from './src/pptx.js';
+build/my/roundtrip.mjs:18:const exe = fs.readdirSync('/opt/pw-browsers').filter((d) => d.startsWith('chromium-')).map((d) => '/opt/pw-browsers/' + d + '/chrome-linux/chrome').find((f) => fs.existsSync(f));
+build/test-std-sol.mjs:2:import { chromium } from 'playwright';
+build/test-std-sol.mjs:3:import http from 'node:http';
+build/test-std-sol.mjs:4:import fs from 'node:fs';
+build/test-std-sol.mjs:5:import path from 'node:path';
+build/test-std-sol.mjs:13:}).listen(8771);
+build/test-std-sol.mjs:14:const exe = process.env.CHROME || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
+build/test4.mjs:1:import { chromium } from 'playwright';
+build/test4.mjs:2:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+build/test4.mjs:5:[Omitted long matching line]
+build/test4.mjs:6:const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+build/test3.mjs:1:import { chromium } from 'playwright';
+build/test3.mjs:2:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+build/test3.mjs:5:[Omitted long matching line]
+build/test3.mjs:6:const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+build/test-req.mjs:4:import { chromium } from 'playwright';
+build/test-req.mjs:5:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+build/test-req.mjs:8:[Omitted long matching line]
+build/test-req.mjs:9:const exe = fs.readdirSync('/opt/pw-browsers').filter((d) => d.startsWith('chromium-')).map((d) => '/opt/pw-browsers/' + d + '/chrome-linux/chrome').find((f) => fs.existsSync(f));
+build/test-req.mjs:32:  // industry: pick from list
+build/test-req.mjs:93:  // reopen requirements from the summary card → 저장됨, only one popup at a time, Esc closes it
+build/test2.mjs:1:import { chromium } from 'playwright';
+build/test2.mjs:2:import http from 'node:http';
+build/test2.mjs:3:import fs from 'node:fs';
+build/test2.mjs:4:import path from 'node:path';
+build/test2.mjs:15:}).listen(8767);
+build/test2.mjs:17:const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+build/test-scenarios.mjs:5:import { chromium } from 'playwright';
+build/test-scenarios.mjs:6:import http from 'node:http';
+build/test-scenarios.mjs:7:import fs from 'node:fs';
+build/test-scenarios.mjs:8:import path from 'node:path';
+build/test-scenarios.mjs:18:}).listen(8769);
+build/test-scenarios.mjs:19:const exe = process.env.CHROME || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
+build/my/smoke.mjs:2:import { chromium } from 'playwright';
+build/my/smoke.mjs:3:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+build/my/smoke.mjs:7:[Omitted long matching line]
+build/my/smoke.mjs:8:const exe = fs.readdirSync('/opt/pw-browsers').filter((d) => d.startsWith('chromium-')).map((d) => '/opt/pw-browsers/' + d + '/chrome-linux/chrome').find((f) => fs.existsSync(f));
+build/test5.mjs:1:import { chromium } from 'playwright';
+build/test5.mjs:2:import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+build/test5.mjs:5:[Omitted long matching line]
+build/test5.mjs:6:const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+build/test5.mjs:26:// new free part from end candidates
+build/test-sim.mjs:5:import { chromium } from 'playwright';
+build/test-sim.mjs:6:import http from 'node:http';
+build/test-sim.mjs:7:import fs from 'node:fs';
+build/test-sim.mjs:8:import path from 'node:path';
+build/test-sim.mjs:19:}).listen(PORT);
+build/test-sim.mjs:20:const exe = process.env.CHROME || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
+build/test-sim.mjs:173:[Omitted long matching line]
+build/test-sim.mjs:179:  // overwrite a custom profile from the picker
+build/test-sim.mjs:202:  ok('session: opening line from customer (rules)', (await page.locator('.sim-msg.cust .sim-b').first().innerText()).length > 20);
+build/test-sim.mjs:295:  ok('ai: suggestions from model (3)', await page.locator('.sim-sug').count() === 3);
+build/test.mjs:1:import { chromium } from 'playwright';
+build/test.mjs:2:import http from 'node:http';
+build/test.mjs:3:import fs from 'node:fs';
+build/test.mjs:4:import path from 'node:path';
+build/test.mjs:14:}).listen(8765);
+build/test.mjs:16:const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
