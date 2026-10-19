@@ -7,7 +7,7 @@ import { INDUSTRIES, IND } from '../services/catalog.js';
 import { PARTS } from '../domain/proposals/parts.js';
 import { ACCEPT, fileKind, KIND_LABEL } from '../domain/review/parse.js';
 import { CATS, CAT, CR, CRITERIA, band, verdictOf } from '../domain/review/criteria.js';
-import { useReviews, startReview, rerunReview, retryReview, deleteReview, stopReview, isRunning, loadDoc, GROUPS } from '../repositories/reviews.js';
+import { useReviews, startReview, rerunReview, retryReview, deleteReview, stopReview, isRunning, loadDoc } from '../repositories/reviews.js';
 import { getDownloads, DL_ERR, safeName } from '../components/viewer.jsx';
 import { partHue } from '../components/common.jsx';
 import { TagChip } from '../components/tagcard.jsx';
@@ -21,11 +21,8 @@ const solIdOf = (name) => { const x = SOLUTIONS.find((q) => q.name === name); re
 
 const NCRIT = CRITERIA.length;
 const fmtSize = (b) => (b > 1048576 ? (b / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(b / 1024)) + ' KB');
-const AI_FAIL = {
-  unavailable: 'AI를 쓸 수 없는 화면이라 자동 점검 규칙으로 채점했어요.', not_granted: 'AI 사용이 허용되지 않아 자동 점검 규칙으로 채점했어요.', sampling_disabled: '이 계정에서는 AI를 쓸 수 없어 자동 점검 규칙으로 채점했어요.',
-  rate_limited: 'AI 요청이 많아 일부 기준은 자동 점검 규칙으로 채점했어요. 잠시 뒤 다시 평가해 보세요.', cancelled: 'AI 평가를 멈춰서 남은 기준은 자동 점검 규칙으로 채점했어요.',
-  prompt_too_large: '제안서가 너무 길어 일부 기준은 자동 점검 규칙으로 채점했어요.', images_unavailable: '장표 이미지를 보낼 수 없어 디자인 기준은 텍스트로만 평가했어요.',
-};
+// how the criterion scores of a review were made (older records in this browser keep their own label)
+const scoringLabel = (r) => (r.scoring === 'server' ? '서버 AI' : r.demo ? '예시' : r.ai ? 'AI + 자동 점검 (이전 방식)' : '자동 점검 (이전 방식)');
 
 function useFileDrop(onFiles) {
   const [over, setOver] = useState(false);
@@ -216,7 +213,15 @@ export function ReviewScreen({ id, go }) {
       </header>
       <div className="rv-body">
         {r.status === 'running' ? <Progress r={r} />
-          : r.status === 'error' ? <div className="rv-msg bad"><Icon name="alert" size={20} /><div><b>평가하지 못했어요</b><p>{r.error}</p><div className="rv-msg-act"><button className="btn btn-primary btn-sm" onClick={() => inp.current.click()}>다른 파일 올리기</button></div></div></div>
+          : r.status === 'error' ? (
+            <div className="rv-msg bad"><Icon name="alert" size={20} /><div><b>{r.cancelled ? '평가를 멈췄어요' : '평가하지 못했어요'}</b><p>{r.error}</p>
+              <div className="rv-msg-act">
+                {!r.noDoc && <button className="btn btn-primary btn-sm" onClick={() => retryReview(r.id)}><Icon name="refresh" size={14} />다시 시도</button>}
+                <button className={r.noDoc ? 'btn btn-primary btn-sm' : 'btn btn-sm'} onClick={() => inp.current.click()}>다른 파일 올리기</button>
+              </div>
+              {r.poc && r.poc.jobId && <div style={{ marginTop: 12 }}><PocJob r={r} /></div>}
+            </div></div>
+          )
             : r.status === 'interrupted' ? <div className="rv-msg"><Icon name="info" size={20} /><div><b>평가가 중간에 멈췄어요</b><p>페이지를 새로 열면서 진행 중이던 평가가 끊겼어요. 읽어 둔 내용으로 이어서 평가할 수 있어요.</p><div className="rv-msg-act"><button className="btn btn-primary btn-sm" onClick={() => retryReview(r.id)}><Icon name="refresh" size={14} />이어서 평가</button></div></div></div>
               : <Report r={r} />}
       </div>
@@ -250,42 +255,30 @@ function Progress({ r }) {
       <ol className="rv-steps">
         <Step k="parse" title="파일 읽기">{st === 'parse' && <span className="muted">{r.step || '파일을 여는 중'}</span>}{idx > 0 && r.units && <span className="muted">{r.units.length}{r.unitLabel} · 글자 · 도형 · 글자 크기 · 노트를 읽었어요</span>}</Step>
         <Step k="profile" title="제안서 파악">{p && <span className="muted">{[p.customer && '고객사 ' + p.customer, p.indName && p.indName, p.products.length ? '제품 ' + p.products.slice(0, 4).map((x) => x.model).join(', ') : ''].filter(Boolean).join(' · ') || '고객사 · 업종을 특정하지 못했어요'}</span>}</Step>
-        <Step k="ai" title={`평가 기준 ${applied ? applied + '개' : ''} 채점`}>
-          {r.sel && <span className="muted">{NCRIT}개 기준 중 이 제안서에 맞는 {applied}개를 골랐어요</span>}
-          {idx >= 2 && (
-            <ul className="rv-groups">
-              {GROUPS.map((g) => {
-                const s = r.groups && r.groups[g.id];
-                return (
-                  <li key={g.id} className={s ? s.state : 'wait'}>
-                    <span className="g-ic">{!s ? <span className="g-wait" /> : s.state === 'run' ? <span className="spin" /> : s.state === 'done' ? <Icon name="check" size={12} stroke={3} /> : s.state === 'fail' ? <Icon name="minus" size={12} stroke={3} /> : <Icon name="minus" size={12} />}</span>
-                    <span className="g-l">{g.label}</span>
-                    <span className="g-s num">{!s ? '대기' : s.state === 'run' ? (s.writing ? `${s.n}/${s.total} 작성 중` : `${s.total}개 읽는 중`) : s.state === 'done' ? `${s.n}/${s.total}${s.images ? ` · 화면 ${s.images}장` : ''}` : s.state === 'fail' ? '규칙으로 채점' : '해당 없음'}</span>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
+        <Step k="ai" title="서버 AI 채점">
+          {r.sel && <span className="muted">{NCRIT}개 기준 중 이 제안서에 맞는 {applied}개를 자동으로 골랐어요 · 서버 AI가 그중 채점할 기준을 다시 골라 1 · 2 · 3점으로 매겨요</span>}
+          {idx >= 2 && r.step && <span className="muted">{r.step}</span>}
         </Step>
         <Step k="summary" title="리포트 작성" />
       </ol>
-      {idx >= 2 && isRunning(r.id) && <button className="btn btn-sm" onClick={() => stopReview(r.id)}>AI 평가 멈추고 지금까지 결과로 마무리</button>}
-      {r.poc && r.poc.jobId && <div style={{ marginTop: 16 }}><PocJob r={r} /></div>}
+      {idx >= 2 && r.poc && r.poc.jobId ? <div style={{ marginTop: 16 }}><PocJob r={r} /></div>
+        : idx >= 2 && <p className="muted" style={{ margin: 0 }}><span className="spin" /> 서버 평가를 시작하는 중</p>}
+      {isRunning(r.id) && <button className="btn btn-sm" style={{ alignSelf: 'flex-start' }} onClick={() => stopReview(r.id)}><Icon name="x" size={13} />평가 멈추기</button>}
     </div>
   );
 }
 
-// ---------------------------------------------------------------- server PoC review (핵심 점검 점수)
-// A second, separate review from the server (proposal_score): it routes a subset of the same criteria ids and scores
-// them 1 · 2 · 3, then folds them into its own 0~100 (1→0 · 2→50 · 3→100, app category weights). It is shown next to
-// the original report — never mixed into the 0~100 criterion scores above.
+// ---------------------------------------------------------------- server review details
+// The server (proposal_score, Gemini) routes a subset of the criteria ids and scores them 1 · 2 · 3. The report above
+// shows those criteria on the 0~100 scale (1→0 · 2→50 · 3→100); this card keeps the server's own view — its aggregate,
+// how it routed, the 1 · 2 · 3 distribution and its per-criterion notes.
 const PSCORE = { 1: { k: 's1', label: '보완 필요' }, 2: { k: 's2', label: '보통' }, 3: { k: 's3', label: '양호' } };
-const ROUTE = { llm: 'AI가 기준 선택', rules: '규칙으로 기준 선택', 'rules-fallback': '규칙으로 기준 선택(AI 실패 대체)', forced: '지정한 기준' };
-const SMODE = { llm: 'AI 채점', rules: '규칙 채점', 'rules-fallback': '규칙 채점(AI 대체)' };
+const ROUTE = { llm: 'AI가 기준 선택', rules: '규칙으로 기준 선택', 'rules-fallback': '규칙으로 기준 선택(AI 실패)', forced: '지정한 기준' };
+const SMODE = { llm: 'AI 채점', rules: '규칙 채점', 'rules-fallback': '규칙 채점(AI 실패)' };
 function PocJob({ r }) {
   const poc = r.poc || {};
-  useAdopt(poc.status === 'running' ? poc.jobId : null, poc.jobId ? { purpose: 'review', owner: { type: 'review', id: r.id }, title: '핵심 점검 (서버)' } : null);
-  return poc.jobId ? <AgentJobControl id={poc.jobId} title="핵심 점검 (서버)" compact /> : null;
+  useAdopt(poc.status === 'running' ? poc.jobId : null, poc.jobId ? { purpose: 'review', owner: { type: 'review', id: r.id }, title: '제안서 검토 (서버 AI)' } : null);
+  return poc.jobId ? <AgentJobControl id={poc.jobId} title="제안서 검토 (서버 AI)" compact onRetry={r.noDoc ? undefined : () => retryReview(r.id)} /> : null;
 }
 function PocRow({ s, open, onToggle, unitOf, ul, onUnit, auto }) {
   const c = CR[s.id];
@@ -322,16 +315,18 @@ function PocSection({ r, ul, onUnit }) {
   const [all, setAll] = useState(false);
   const poc = r.poc;
   if (!poc) return null;
-  if (poc.status === 'skipped') return <div className="rv-note"><Icon name="info" size={15} />핵심 점검(서버)을 하지 않았어요 — {poc.note || '서버 기능을 쓸 수 없어요.'} 아래는 기존 검토 결과예요.</div>;
-  if (poc.status === 'failed' || poc.status === 'cancelled') return <div className="rv-note"><Icon name="info" size={15} />핵심 점검(서버)을 {poc.status === 'cancelled' ? '멈췄어요' : '하지 못했어요'}{poc.error ? ' — ' + poc.error : ''}. 아래 기존 검토 결과는 그대로예요.</div>;
+  // older records in this browser: their server review ran next to the previous scoring and may have failed or been skipped
+  if (poc.status === 'skipped') return <div className="rv-note"><Icon name="info" size={15} />서버 AI 평가를 하지 않은 이전 기록이에요 — {poc.note || '서버 기능을 쓸 수 없었어요.'} 다시 평가하면 서버 AI로 채점해요.</div>;
+  if (poc.status === 'failed' || poc.status === 'cancelled') return <div className="rv-note"><Icon name="info" size={15} />서버 AI 평가를 {poc.status === 'cancelled' ? '멈췄던' : '하지 못했던'} 이전 기록이에요{poc.error ? ' — ' + poc.error : ''}. 다시 평가하면 서버 AI로 채점해요.</div>;
   if (poc.status !== 'done' || !poc.result) {
     return (
-      <section className="rv-card" aria-label="핵심 점검 점수">
-        <div className="rv-card-h"><h3>핵심 점검 점수</h3><span className="faint">서버에서 따로 채점하는 중이에요 · 끝나면 여기에 나와요</span></div>
-        {poc.jobId ? <PocJob r={r} /> : <p className="muted" style={{ margin: 0 }}><span className="spin" /> 서버 점검을 시작하는 중</p>}
+      <section className="rv-card" aria-label="서버 AI 채점 상세">
+        <div className="rv-card-h"><h3>서버 AI 채점 상세</h3><span className="faint">서버에서 채점하는 중이에요 · 끝나면 여기에 나와요</span></div>
+        {poc.jobId ? <PocJob r={r} /> : <p className="muted" style={{ margin: 0 }}><span className="spin" /> 서버 평가를 시작하는 중</p>}
       </section>
     );
   }
+  const main = r.scoring === 'server';
   const res = poc.result; const ag = res.aggregate || {};
   const m = modeLabel(poc.llm);
   const tot = typeof ag.total === 'number' ? Math.round(ag.total) : null;
@@ -345,10 +340,10 @@ function PocSection({ r, ul, onUnit }) {
   const unreliable = (res.conversion && res.conversion.unreliable_criteria) || [];
   const toggle = (id) => setOpen((o) => { const n = new Set(o); n.has(id) ? n.delete(id) : n.add(id); return n; });
   return (
-    <section className="rv-card pocr" aria-label="핵심 점검 점수">
-      <div className="rv-card-h"><h3>핵심 점검 점수</h3><span className="faint">서버가 고른 기준만 1 · 2 · 3점으로 따로 채점했어요 · 위 종합 점수와 다른 방식이에요</span></div>
+    <section className="rv-card pocr" aria-label={main ? '서버 AI 채점 상세' : '핵심 점검 점수'}>
+      <div className="rv-card-h"><h3>{main ? '서버 AI 채점 상세' : '핵심 점검 점수'}</h3><span className="faint">{main ? '서버 AI가 고른 기준의 1 · 2 · 3점 원래 점수와 서버 집계예요 · 위 점수는 1점→0 · 2점→50 · 3점→100으로 바꾼 값이에요' : '서버가 고른 기준만 1 · 2 · 3점으로 따로 채점했어요 · 위 종합 점수와 다른 방식이에요'}</span></div>
       <div className="pocr-head">
-        <div className={'pocr-total ' + bk} aria-label={'핵심 점검 ' + (tot == null ? '평가 불가' : tot + '점')}><b className="num">{tot == null ? '—' : tot}</b><span>/ 100</span></div>
+        <div className={'pocr-total ' + bk} aria-label={'서버 집계 ' + (tot == null ? '평가 불가' : tot + '점')}><b className="num">{tot == null ? '—' : tot}</b><span>/ 100</span></div>
         <div className="pocr-sum">
           <h4>{ag.verdict || '평가 불가'}{ag.band ? ' · ' + ag.band : ''}</h4>
           <p>채점 기준 {ag.n_scored || 0}개 · 적용 가능 {ag.n_applicable || 0}개{typeof ag.weight_coverage === 'number' ? ` · 적용 가능 가중치의 ${Math.round(ag.weight_coverage * 100)}%` : ''}. 1점(보완 필요) · 2점(보통) · 3점(양호)을 0 · 50 · 100으로 바꿔 영역 가중치로 묶었어요.</p>
@@ -410,8 +405,8 @@ function Report({ r }) {
   const excluded = r.sel.filter((s) => !s.applied);
   const rows = applied.filter((s) => (!cat || CR[s.id].cat === cat) && (filter === 'all' || (filter === 'fix' ? res[s.id].score < 70 : res[s.id].score >= 70)));
   const nFix = applied.filter((s) => res[s.id].score < 70).length;
-  const aiFailed = Object.values(r.aiErrors || {});
-  const failMsg = r.poc?.jobId ? '기존 종합 점수는 자동 점검 규칙으로 계산했어요. 서버의 선별 평가는 핵심 점검 점수에서 따로 확인하세요.' : r.demo ? null : !r.ai ? AI_FAIL[aiFailed[0]] || AI_FAIL.unavailable : aiFailed.length ? (r.aborted ? AI_FAIL.cancelled : AI_FAIL[aiFailed[0]] || '일부 기준은 AI 응답을 받지 못해 자동 점검 규칙으로 채점했어요.') : null;
+  const failMsg = r.scoring === 'server' ? `서버 AI가 고른 기준 ${agg.nApplied}개만 채점했어요 · 기준 점수는 서버의 1 · 2 · 3점을 0 · 50 · 100점으로 바꾼 값이에요.`
+    : r.demo ? null : '이전 방식으로 만든 평가예요(자동 점검 규칙이 섞여 있을 수 있어요) · 기준 조정 · 다시 평가를 누르면 서버 AI로 다시 채점해요.';
   // issues per unit (for the strip)
   const perUnit = useMemo(() => {
     const m = {};
@@ -438,7 +433,7 @@ function Report({ r }) {
           <div><dt>평가 기준</dt><dd className="num">{agg.nApplied}<span className="faint"> / {NCRIT}</span></dd></div>
           <div><dt>보완 필요</dt><dd className="num">{nFix}<span className="faint">개</span></dd></div>
           <div><dt>분량</dt><dd className="num">{(r.units || []).length}<span className="faint">{ul}</span></dd></div>
-          <div><dt>채점</dt><dd>{r.demo ? '예시' : r.ai ? 'AI + 자동 점검' : '자동 점검'}</dd></div>
+          <div><dt>채점</dt><dd>{scoringLabel(r)}</dd></div>
         </dl>
       </section>
 
@@ -572,7 +567,7 @@ function CritRow({ s, x, open, onToggle, onUnit, ul }) {
       <button className="rv-crit-h" onClick={onToggle} aria-expanded={open}>
         <Badge s={x.score} />
         <span className="rv-crit-t">
-          <span className="rv-crit-name"><b>{c.name}</b><span className="rv-w" aria-label={'중요도 ' + c.w}>{[1, 2, 3].map((i) => <i key={i} className={i <= c.w ? 'on' : ''} />)}</span>{x.src === 'rule' && <span className="tag">규칙 채점</span>}</span>
+          <span className="rv-crit-name"><b>{c.name}</b><span className="rv-w" aria-label={'중요도 ' + c.w}>{[1, 2, 3].map((i) => <i key={i} className={i <= c.w ? 'on' : ''} />)}</span>{x.src === 'rule' && <span className="tag">규칙 채점</span>}{x.src === 'server' && PSCORE[x.rubric] && <span className="tag" title="서버 AI 1 · 2 · 3점 → 0 · 50 · 100점">서버 AI {x.rubric}점 → {x.score}</span>}</span>
           <span className="rv-crit-r">{x.reason}</span>
         </span>
         <Icon name={open ? 'chevU' : 'chevD'} size={16} />
@@ -587,6 +582,7 @@ function CritRow({ s, x, open, onToggle, onUnit, ul }) {
               {ev.map((e, i) => <li key={i}><UnitChip n={e.unit} label={ul} onOpen={onUnit} /><span>“{e.quote}”</span></li>)}
             </ul>
           )}
+          {x.src === 'server' && (x.notes || []).length > 0 && <div className="rv-auto"><span className="lbl"><Icon name="search" size={12} />서버 자동 점검 메모</span><ul>{x.notes.map((n, i) => <li key={i}>{n}</li>)}</ul></div>}
           {x.rule && (x.src === 'ai' ? x.rule.notes.length > 0 : ruleUnits.length > 0) && (
             <div className="rv-auto">
               <span className="lbl"><Icon name="search" size={12} />{x.src === 'ai' ? '자동 점검 · AI가 참고한 신호' : '자동 점검이 짚은 ' + ul}</span>
@@ -730,7 +726,8 @@ async function exportMd(r) {
   const ul = r.unitLabel || '장'; const res = r.results || {}; const agg = r.agg;
   const L = [];
   L.push(`# 제안서 검토 리포트 — ${r.title}`, '');
-  L.push(`- 평가일: ${new Date(r.createdAt).toLocaleString('ko-KR')}`, `- 파일: ${(r.files || []).map((f) => f.name).join(', ')}`, `- 종합: **${agg.overall}점 · ${verdictOf(agg.overall)}** (기준 ${agg.nApplied}/${NCRIT}개, ${r.ai ? 'AI + 자동 점검' : '자동 점검'})`, '');
+  L.push(`- 평가일: ${new Date(r.createdAt).toLocaleString('ko-KR')}`, `- 파일: ${(r.files || []).map((f) => f.name).join(', ')}`, `- 종합: **${agg.overall}점 · ${verdictOf(agg.overall)}** (기준 ${agg.nApplied}/${NCRIT}개, ${scoringLabel(r)})`, '');
+  if (r.scoring === 'server') L.push('> 기준 점수는 서버 AI의 1 · 2 · 3점을 0 · 50 · 100점으로 바꾼 값이에요.', '');
   L.push(`> ${r.summary.verdict}`, '', r.summary.summary, '');
   L.push('## 영역별 점수', '', '| 영역 | 점수 | 판정 |', '|---|---:|---|');
   for (const c of CATS) if (agg.cats[c.id] != null) L.push(`| ${c.name} | ${agg.cats[c.id]} | ${band(agg.cats[c.id]).label} |`);
@@ -742,7 +739,7 @@ async function exportMd(r) {
     L.push(`### ${c.name}`, '');
     for (const s of list) {
       const x = res[s.id];
-      L.push(`**${CR[s.id].name} — ${x.score}점 (${band(x.score).label})**${x.src === 'rule' ? ' · 규칙 채점' : ''}`, '', x.reason, '');
+      L.push(`**${CR[s.id].name} — ${x.score}점 (${band(x.score).label})**${x.src === 'rule' ? ' · 규칙 채점' : x.src === 'server' ? ` · 서버 AI ${x.rubric}점` : ''}`, '', x.reason, '');
       if (x.evidence && x.evidence.length) L.push(x.evidence.map((e) => `- ${e.unit}${ul}: “${e.quote}”`).join('\n'), '');
       if (x.fix) L.push(`고칠 방법: ${x.fix}`, '');
     }
@@ -751,7 +748,7 @@ async function exportMd(r) {
   if (ex.length) { L.push('## 적용하지 않은 기준', ''); for (const s of ex) L.push(`- ${CR[s.id].name} — ${s.why}`); }
   if (r.poc && r.poc.status === 'done' && r.poc.result) {
     const pr = r.poc.result; const ag = pr.aggregate || {}; const m = modeLabel(r.poc.llm);
-    L.push('', '## 핵심 점검 점수 (서버 · 1~3점 루브릭, 위 종합 점수와 별도)', '', `- ${ag.total == null ? '평가 불가' : Math.round(ag.total) + '점'} · ${ag.verdict || ''} · 채점 기준 ${ag.n_scored || 0}개${m ? ' · ' + m.label : ''}`, '');
+    L.push('', r.scoring === 'server' ? '## 서버 AI 채점 상세 (1~3점 루브릭 · 서버 집계)' : '## 핵심 점검 점수 (서버 · 1~3점 루브릭, 위 종합 점수와 별도)', '', `- ${ag.total == null ? '평가 불가' : Math.round(ag.total) + '점'} · ${ag.verdict || ''} · 채점 기준 ${ag.n_scored || 0}개${m ? ' · ' + m.label : ''}`, '');
     for (const s of pr.scores || []) L.push(`- **${CR[s.id] ? CR[s.id].name : s.id}** — ${s.score == null ? '채점 안 됨' : s.score + '점 (' + PSCORE[s.score].label + ')'} · ${SMODE[s.mode] || s.mode}${s.anchor ? ': ' + s.anchor : ''}${s.improve ? ' / 고칠 방법: ' + s.improve : ''}`);
   }
   const blob = new Blob([L.join('\n')], { type: 'text/markdown' });

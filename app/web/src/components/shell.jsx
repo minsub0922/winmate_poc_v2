@@ -1,6 +1,6 @@
 import React from 'react';
-import { useStore, proposalStep, stageOf, resetDemo, seedProposals, cloneProposal } from '../repositories/proposals.js';
-import { Icon, fmtWhen, partHue, toast } from './common.jsx';
+import { useStore, proposalStep, stageOf } from '../repositories/proposals.js';
+import { Icon, fmtWhen, partHue } from './common.jsx';
 import { IND, LAYOUTS, CASES, PRODUCTS, SOLUTIONS, storyParts } from '../services/catalog.js';
 import { Slide, FitSlide } from '../domain/slides/Slide.jsx';
 import { PARTS, classifyPart } from '../domain/proposals/parts.js';
@@ -82,7 +82,6 @@ export function Sidebar({ route, go, onNew, open, setOpen }) {
       <div className="sb-foot">
         <span className="avatar">최</span>
         <span className="sb-tx sb-me" style={{ minWidth: 0, flex: 1 }}><div style={{ fontSize: "var(--text-13px)", fontWeight: "var(--weight-600)" }}>최민섭</div><div style={{ fontSize: "var(--text-11-5px)", color: 'var(--muted)' }}>Samsung Research · AX그룹</div></span>
-        <button className="btn btn-ghost btn-sm sb-tx" title="데모 제안서를 처음 상태로" onClick={() => { resetDemo(); go({ name: 'home' }); }}>초기화</button>
       </div>
     </aside>
   );
@@ -111,18 +110,17 @@ export function Home({ go, onNew }) {
           <ReviewEntry go={go} />
         </div>
         {(() => {
-          // best = a seeded example proposal: opening it makes my own copy
-          const card = (p, best) => {
+          const card = (p) => {
               let ind = p.ind || inferIndustry(reqText(p));
               if (ind && !IND[ind]) ind = null;
               const cover = cardCover(p, ind);
               return (
-                <button key={p.id} className="hcard" onClick={best ? () => { const id = cloneProposal(p); toast('Best 제안서를 복사해서 열었어요 · 내 제안서로 자유롭게 고쳐 보세요'); go({ name: 'proposal', id }); } : () => go({ name: 'proposal', id: p.id })}>
+                <button key={p.id} className="hcard" onClick={() => go({ name: 'proposal', id: p.id })}>
                   <div className="hcard-thumb"><FitSlide f={cover.f} ov={cover.ov} lazy /></div>
                   <div className="hcard-body">
                     <div className="stepbar"><StepDots p={p} /></div>
                     <span className="t">{p.title}</span>
-                    <div className="hcard-meta"><span className="c">{(p.customer || '고객사 미정') + (ind ? ' · ' + IND[ind].name : '')}</span>{best ? <span className="hbest">BEST</span> : <span className="hwhen num">{fmtWhen(p.updatedAt)}</span>}</div>
+                    <div className="hcard-meta"><span className="c">{(p.customer || '고객사 미정') + (ind ? ' · ' + IND[ind].name : '')}</span><span className="hwhen num">{fmtWhen(p.updatedAt)}</span></div>
                   </div>
                 </button>
               );
@@ -130,12 +128,12 @@ export function Home({ go, onNew }) {
           return list.length ? (
             <section aria-label="작성 중인 제안서">
               <div className="sec-head"><h2>작성 중인 제안서</h2><span className="faint num" style={{ fontSize: "var(--text-12-5px)" }}>{list.length}건</span></div>
-              <div className="hgrid">{list.map((p) => card(p, false))}</div>
+              <div className="hgrid">{list.map((p) => card(p))}</div>
             </section>
           ) : (
-            <section aria-label="Best 제안서">
-              <div className="sec-head"><h2>Best 제안서</h2><span className="faint" style={{ fontSize: "var(--text-12-5px)" }}>작성 중인 제안서가 없어요 · 잘 짜인 제안서를 열면 내 제안서로 복사돼요</span></div>
-              <div className="hgrid">{seedProposals().filter((p) => p.parts.some((s) => s.layouts.length)).map((p) => card(p, true))}</div>
+            <section aria-label="작성 중인 제안서">
+              <div className="sec-head"><h2>작성 중인 제안서</h2><span className="faint" style={{ fontSize: "var(--text-12-5px)" }}>아직 제안서가 없어요 · 고객 요구사항부터 시작해 보세요</span></div>
+              <button type="button" className="btn btn-soft btn-sm" style={{ alignSelf: 'flex-start' }} onClick={() => onNew('free')}><Icon name="plus" size={14} stroke={2.4} />고객 요구사항으로 새 제안서 시작</button>
             </section>
           );
         })()}

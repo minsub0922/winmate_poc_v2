@@ -65,11 +65,27 @@ export async function importBackup(backup) {
   if (backup?.format!==FORMAT || backup.version!==1) throw new Error('Winmate 브라우저 백업 파일이 아닙니다.');
   const local=Object.entries(backup.local||{});
   for(const [key,value]of local)if(!STORAGE_KEYS.includes(key)||typeof value!=='string')throw new Error('알 수 없는 저장소 키: '+key);
+  const recordKeys={'winmate.v2.proposals':'id','winmate.v2.reviews':'id','winmate.v2.sims':'id','winmate.v2.favs':'id','winmate.v2.simPersonas':'key'};
+  const localPlans=local.map(([key,value])=>{
+    let incoming;try{incoming=JSON.parse(value);}catch{throw new Error('손상된 저장소 JSON: '+key);}
+    const field=recordKeys[key];
+    if(field){
+      if(!Array.isArray(incoming)||incoming.some(x=>!x||typeof x!=='object'||!x[field]))throw new Error('손상된 기록 목록: '+key);
+      let existing=[];try{const old=JSON.parse(browserStorage.getItem(key)||'[]');if(Array.isArray(old))existing=old;}catch{}
+      const ids=new Set(incoming.map(x=>x[field]));
+      value=JSON.stringify([...incoming,...existing.filter(x=>x&&!ids.has(x[field]))]);
+    }else if(key==='wm-linkmeta-v1'){
+      if(!incoming||typeof incoming!=='object'||Array.isArray(incoming))throw new Error('손상된 링크 캐시');
+      let existing={};try{const old=JSON.parse(browserStorage.getItem(key)||'{}');if(old&&typeof old==='object'&&!Array.isArray(old))existing=old;}catch{}
+      value=JSON.stringify({...existing,...incoming});
+    }
+    return [key,value];
+  });
   const plans=[];
   for(const [name,stores]of Object.entries(backup.databases||{})){
-    if(!DATABASES[name])throw new Error('알 수 없는 데이터베이스: '+name);
+    if(!Object.hasOwn(DATABASES,name))throw new Error('알 수 없는 데이터베이스: '+name);
     for(const [store,records]of Object.entries(stores)){
-      if(!DATABASES[name][store]||!Array.isArray(records))throw new Error('알 수 없는 저장소: '+store);
+      if(!Object.hasOwn(DATABASES[name],store)||!Array.isArray(records))throw new Error('알 수 없는 저장소: '+store);
       const decoded=records.map(row=>({key:decode(row.key),value:decode(row.value)}));
       if(decoded.some(row=>row.key==null||row.value===undefined))throw new Error('손상된 데이터: '+store);
       plans.push({name,store,records:decoded});
@@ -85,6 +101,6 @@ export async function importBackup(backup) {
       tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error||new Error('데이터 가져오기가 취소되었습니다.'));
     });}finally{db.close();}
   }
-  for(const [key,value]of local)browserStorage.setItem(key,value);
+  for(const [key,value]of localPlans)browserStorage.setItem(key,value);
   return {keys:local.length,records:count};
 }

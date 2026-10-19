@@ -6,8 +6,6 @@ import { LV, buildProfile, personaForLevel } from '../domain/simulation/profile.
 
 const KEY = 'winmate.v2.sims';
 const MAX = 15;
-const SEED_KEY = 'winmate.v2.sims.seedv';
-const SEEDV = 2; // 2: 인물 프로필(성별 · 얼굴)로 예시를 다시 만듦
 
 function load() {
   let list = [];
@@ -50,17 +48,8 @@ export function newSim(setup, level, persona) {
     id, createdAt: t, updatedAt: t, status: 'active', level, setup: structuredClone(setup), profile,
     msgs: [],
     trend: [{ v: L.start }],
-    cur: { satisfaction: L.start, trust: L.meters.trust * 18, interest: 50, mood: L.start >= 60 ? '호의' : L.start >= 40 ? '중립' : '의심', why: '', stage: 'open', scores: null, notes: {}, suggest: [], src: 'rule', evalAt: 0 },
-    aiOff: false, debrief: null,
+    // starting meters come from the difficulty level (setup values, not an evaluation); scores stay empty until the AI scores a turn
+    cur: { satisfaction: L.start, trust: L.meters.trust * 18, interest: 50, mood: L.start >= 60 ? '호의' : L.start >= 40 ? '중립' : '의심', why: '', stage: 'open', scores: null, notes: {}, suggest: [], src: 'none', evalAt: 0 },
+    debrief: null, debriefError: null, turnError: null,
   };
-}
-
-/** 예시 기록을 한 번만 넣는다 (지우면 다시 생기지 않음). */
-export function seedOnce(make) {
-  let sv = 0; try { sv = Number(browserStorage.getItem(SEED_KEY) || 0); } catch (e) {}
-  if (sv >= SEEDV) return;
-  try { browserStorage.setItem(SEED_KEY, String(SEEDV)); } catch (e) {}
-  const demos = make();
-  const ids = new Set(demos.map((d) => d.id));
-  state = { sims: [...state.sims.filter((s) => !ids.has(s.id)), ...demos].sort((a, b) => b.updatedAt - a.updatedAt) }; persist(); emit();
 }

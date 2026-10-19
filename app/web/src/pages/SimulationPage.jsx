@@ -21,9 +21,8 @@ import { usePersonas, addPersona, updatePersona, deletePersona } from '../reposi
 import { LOOKS, LOOK, SKINS, HAIRS, SUITS, GLASSES, skinOf, hairOf, suitOf, tweak } from '../domain/simulation/looks.js';
 import { Portrait } from '../components/persona.jsx';
 import { SIM_CATS, CHAT_DESC, critName, aggregate, band, similarScenarios, mentionedRefs } from '../domain/simulation/score.js';
-import { customerTurn, debrief } from '../domain/simulation/engine.js';
-import { useSims, getSim, putSim, patchSim, deleteSim, newSim, seedOnce } from '../repositories/simulations.js';
-import { demoSims } from '../domain/simulation/demo.js';
+import { customerTurn, debrief, turnErrorText } from '../domain/simulation/engine.js';
+import { useSims, getSim, putSim, patchSim, deleteSim, newSim } from '../repositories/simulations.js';
 
 // ---------- icons (sim only) ----------
 const SP = {
@@ -128,7 +127,6 @@ function ProfileCard({ pf, level, compact = false, mood }) {
    Page
    ========================================================= */
 export function SimPage({ go, id }) {
-  useEffect(() => { seedOnce(demoSims); }, []);
   const exists = useSims((s) => !!(id && s.sims.find((x) => x.id === id)));
   return exists ? <SimSession key={id} id={id} go={go} /> : <SimSetup go={go} />;
 }
@@ -570,11 +568,12 @@ function applyTurn(d, r) {
   const ev = r.ev;
   d.msgs.push({ id: uid('c'), who: 'cust', text: r.text, ts: Date.now(), ev: { satisfaction: ev.satisfaction, delta: ev.delta || 0, why: ev.why || '', mood: ev.mood, stage: ev.stage, revealed: ev.revealedNow || [], resolved: ev.resolvedNow || [], ai: !!r.ai } });
   if (ev.concerns) d.profile.concerns = ev.concerns.map((c) => ({ ...c }));
-  d.cur = { ...d.cur, satisfaction: ev.satisfaction, trust: ev.trust, interest: ev.interest, mood: ev.mood, why: ev.why || '', stage: ev.stage, scores: ev.scores || d.cur.scores, notes: ev.scores ? ev.notes : d.cur.notes, suggest: ev.suggest || [], src: r.ai ? 'ai' : 'rule', evalAt: d.msgs.length };
+  d.cur = { ...d.cur, satisfaction: ev.satisfaction, trust: ev.trust, interest: ev.interest, mood: ev.mood, why: ev.why || '', stage: ev.stage, scores: ev.scores || d.cur.scores, notes: ev.scores ? ev.notes : d.cur.notes, suggest: ev.suggest || [], src: 'ai', evalAt: d.msgs.length };
   d.trend.push({ v: ev.satisfaction });
   if (ev.end === 'win') d.status = 'won';
   else if (ev.end === 'lose') d.status = 'lost';
-  if (r.note === 'off') d.aiOff = true;
+  d.aiOff = false; // older records could carry a permanent "AI off" flag — the customer is always the server AI now
+  d.turnError = null;
 }
 
 function SimSession({ id, go }) {
@@ -603,22 +602,37 @@ function SimRoom({ sim, id, go }) {
     try {
       const r = await customerTurn(s0, { signal: c.signal, onText: (text) => setStream({ text }) });
       const d = patchSim(id, (x) => applyTurn(x, r));
-      if (r.note && r.note !== 'off') toast(r.note);
       if (d && d.status !== 'active' && !d.debrief) finish(d);
     } catch (e) {
       if (e && e.code === 'cancelled' && e.text && e.text.trim()) patchSim(id, (x) => { x.msgs.push({ id: uid('c'), who: 'cust', text: e.text.trim(), ts: Date.now(), stopped: true }); });
-      else if (!(e && e.code === 'cancelled')) { console.error(e); toast('고객 답을 만들지 못했어요', 'warn'); }
+      else if (!(e && e.code === 'cancelled')) {
+        // the conversation stays as it is (the last message is kept) — 다시 시도 asks the AI again
+        console.error(e);
+        patchSim(id, (x) => { x.turnError = turnErrorText(e); });
+      }
     } finally {
       if (ctl.current === c) ctl.current = null;
       setBusy(false); setStream(null);
     }
   };
+  const [debriefBusy, setDebriefBusy] = useState(false);
   const finish = async (d) => {
-    const r = await debrief(d);
-    patchSim(id, (x) => { x.debrief = r; });
+    if (!d) return;
+    setDebriefBusy(true);
+    patchSim(id, (x) => { x.debriefError = null; });
+    try {
+      const r = await debrief(d);
+      patchSim(id, (x) => { x.debrief = r; x.debriefError = null; });
+    } catch (e) {
+      console.error(e);
+      patchSim(id, (x) => { x.debriefError = turnErrorText(e); });
+    } finally { setDebriefBusy(false); }
   };
+  const retryTurn = () => { if (busy || !active) return; patchSim(id, (x) => { x.turnError = null; }); runTurn(); };
   useEffect(() => {
-    if (sim && !sim.msgs.length && active) runTurn();
+    if (sim && !sim.msgs.length && active && !sim.turnError) runTurn();
+    // a finished meeting whose 총평 never arrived (page closed while it was being written) — ask again
+    else if (sim && !active && !sim.debrief && !sim.debriefError) finish(getSim(id));
     return () => { if (ctl.current) ctl.current.abort(); };
   }, []);
   useEffect(() => { const el = listRef.current; if (el) el.scrollTop = el.scrollHeight; }, [sim.msgs.length, stream && stream.text, sim.debrief]);
@@ -626,7 +640,13 @@ function SimRoom({ sim, id, go }) {
   const send = (segs) => {
     segs = segs || draftRef.current;
     if (busy || !active || plainLen(segs) < 2) return;
-    patchSim(id, (x) => { x.msgs.push({ id: uid('m'), who: 'me', segs: structuredClone(segs), ts: Date.now() }); });
+    patchSim(id, (x) => {
+      const last=x.msgs.at(-1);
+      if(x.turnError&&last?.who==='me'){
+        last.previousVersions=[...(last.previousVersions||[]),{segs:last.segs,ts:last.ts}];last.segs=structuredClone(segs);last.ts=Date.now();
+      }else x.msgs.push({id:uid('m'),who:'me',segs:structuredClone(segs),ts:Date.now()});
+      x.turnError=null;
+    });
     setDraft([]);
     runTurn();
   };
@@ -673,8 +693,12 @@ function SimRoom({ sim, id, go }) {
         </div>
 
         <div className="sim-list" ref={listRef} aria-live="polite">
-          {sim.aiOff && <div className="sim-note"><Icon name="info" size={13} />AI를 쓸 수 없어 규칙 기반 고객과 자동 점검으로 진행해요. 실제 AI 고객은 claude.ai에서 열면 대화해요.</div>}
           {sim.msgs.map((m, i) => <Msg key={m.id} m={m} sim={sim} first={i === 0} peek={peek} />)}
+          {sim.turnError && !busy && active && (
+            <div className="sim-note" role="alert"><Icon name="alert" size={13} />{sim.turnError} 대화는 그대로 남아 있어요.
+              <button type="button" className="btn btn-ghost btn-sm" onClick={retryTurn}><Icon name="refresh" size={13} />다시 시도</button>
+            </div>
+          )}
           {stream && (
             <div className="sim-msg cust">
               <Avatar pf={sim.profile} size={36} mood={sim.cur.mood} />
@@ -684,7 +708,7 @@ function SimRoom({ sim, id, go }) {
               </div>
             </div>
           )}
-          {!active && <Result sim={sim} onAgain={again} onProposal={toProposal} />}
+          {!active && <Result sim={sim} onAgain={again} onProposal={toProposal} debriefBusy={debriefBusy} onRetryDebrief={() => finish(getSim(id))} />}
         </div>
 
         {active && (
@@ -795,7 +819,7 @@ function Msg({ m, sim, first, peek }) {
   );
 }
 
-function Result({ sim, onAgain, onProposal }) {
+function Result({ sim, onAgain, onProposal, debriefBusy = false, onRetryDebrief }) {
   const L = LV[sim.level]; const d = sim.debrief;
   const agg = aggregate(sim.cur.scores);
   const title = { won: '설득 성공', lost: '고객이 미팅을 끝냈어요', ended: '미팅 마무리' }[sim.status];
@@ -807,9 +831,13 @@ function Result({ sim, onAgain, onProposal }) {
         <span className="sr-n"><em>만족도</em><b className="num">{sim.cur.satisfaction}</b></span>
         <span className="sr-n"><em>제안 품질</em><b className="num">{agg.total ?? '—'}</b></span>
       </div>
-      {!d ? <div className="sr-load"><span className="spin" />전략 Agent가 총평을 정리하는 중…</div> : (
+      {!d && sim.debriefError && !debriefBusy ? (
+        <div className="sr-load" role="alert"><Icon name="alert" size={13} />{sim.debriefError}
+          {onRetryDebrief && <button type="button" className="btn btn-ghost btn-sm" onClick={onRetryDebrief}><Icon name="refresh" size={13} />총평 다시 받기</button>}
+        </div>
+      ) : !d ? <div className="sr-load"><span className="spin" />전략 Agent가 총평을 정리하는 중…</div> : (
         <div className="sr-b">
-          <p className="sr-v"><span className="sr-agent"><Icon name="sparkle" size={12} />전략 Agent 총평</span>{d.verdict}{d.ai ? '' : <span className="faint"> · 자동 총평</span>}</p>
+          <p className="sr-v"><span className="sr-agent"><Icon name="sparkle" size={12} />전략 Agent 총평</span>{d.verdict}{d.ai ? '' : <span className="faint"> · 이전 방식 자동 총평</span>}</p>
           <div className="sr-cols">
             <div><span className="k ok">잘한 점</span><ul>{d.good.map((x, i) => <li key={i}>{x}</li>)}</ul></div>
             <div><span className="k warn">고칠 점</span><ul>{d.improve.map((x, i) => <li key={i}>{x}</li>)}</ul></div>
@@ -886,7 +914,7 @@ function QualityCard({ sim, agg, busy }) {
   const b = agg.total == null ? null : band(agg.total);
   return (
     <section className="sim-card sim-q" aria-label="제안 품질">
-      <div className="sc-h"><span>제안 품질</span><span className="sc-src">{sim.cur.src === 'ai' ? 'AI 평가' : '자동 점검'} · 제안서 검토 기준</span></div>
+      <div className="sc-h"><span>제안 품질</span><span className="sc-src">{sim.cur.src === 'ai' ? 'Gemini 평가' : sim.cur.scores ? '이전 기록' : '평가 전'} · 제안서 검토 기준</span></div>
       <div className="sc-v">
         <b className="num">{agg.total ?? '—'}</b>{agg.total != null && <span className="sc-of num">/ 100</span>}
         {b && <span className={'sc-band b-' + b.k}>{b.label}</span>}

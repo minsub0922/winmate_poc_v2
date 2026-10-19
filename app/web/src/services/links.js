@@ -1,4 +1,5 @@
 import { fetchResource } from '../api/client.js';
+import { getBootstrap } from '../api/bootstrap.js';
 import { browserStorage } from '../repositories/browser.js';
 /* Winmate · 링크 태그 (window.__wmLink)
  * 요구사항 입력칸(MentionEditor, contentEditable)에 링크를 붙여 넣으면 @태그와 같은 칩(링크 아이콘 + 작은 썸네일 + 제목 · 사이트)으로 바꾼다.
@@ -16,7 +17,7 @@ export const linkTags = (function () {
   var save = function () { try { var ks = Object.keys(mem); if (ks.length > 300) ks.slice(0, ks.length - 300).forEach(function (k) { delete mem[k]; }); browserStorage.setItem(KEY, JSON.stringify(mem)); } catch (e) {} };
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
   var full = function (u) { return /^https?:\/\//i.test(u) ? u : 'https://' + u; };
-  var norm = function (u) { try { var x = new URL(full(u)); return (x.hostname.replace(/^www\./, '') + x.pathname).replace(/\/+$/, '').toLowerCase(); } catch (e) { return String(u).toLowerCase(); } };
+  var norm = function (u) { try { var x = new URL(full(u)); return x.protocol + '//' + x.hostname.replace(/^www\./, '').toLowerCase() + (x.port ? ':' + x.port : '') + x.pathname.replace(/\/+$/, '') + x.search; } catch (e) { return String(u).toLowerCase(); } };
   var host = function (u) { try { return new URL(full(u)).hostname.replace(/^www\./, ''); } catch (e) { return u; } };
   var SITES = [[/(^|\.)news\.samsung\.com$/, 'Samsung Newsroom'], [/(^|\.)samsung\.com$/, 'Samsung'], [/(^|\.)semiconductor\.samsung\.com$/, 'Samsung 반도체'], [/(^|\.)youtube\.com$|(^|\.)youtu\.be$/, 'YouTube'], [/(^|\.)naver\.com$/, '네이버'], [/(^|\.)daum\.net$/, '다음'], [/(^|\.)kakao\.com$/, '카카오'], [/(^|\.)google\.com$/, 'Google'], [/(^|\.)linkedin\.com$/, 'LinkedIn'], [/(^|\.)notion\.(so|site)$/, 'Notion'], [/(^|\.)github\.com$/, 'GitHub'], [/(^|\.)go\.kr$/, '정부 · 공공기관'], [/(^|\.)or\.kr$/, '기관']];
   var siteOf = function (u) { var h = host(u); for (var i = 0; i < SITES.length; i++) if (SITES[i][0].test(h)) return SITES[i][1]; return h; };
@@ -47,15 +48,19 @@ export const linkTags = (function () {
     if (idx) return idx;
     idx = { url: {}, model: {} };
     try {
-      var d = linkDependencies.data && linkDependencies.data(); if (!d) return idx;
+      var d = linkDependencies.data && linkDependencies.data();
+      if(!d){var b=getBootstrap();d={P:Object.fromEntries([...(b.catalog.products||[]),...(b.products.products||[])].map(p=>[p.id,p])),S:Object.fromEntries((b.catalog.solutions||[]).map(x=>[x.id,x])),C:Object.fromEntries((b.catalog.cases||[]).map(x=>[x.id,x]))};}
+      if (!d) {idx=null;return {url:{},model:{},info:{}};}
+      idx.info={};
       Object.keys(d.P || {}).forEach(function (id) {
         var p = d.P[id]; if (!p) return;
+        idx.info['product:'+id]={label:p.name,sub:p.spec||p.desc||''};
         if (p.url) idx.url[norm(p.url)] = idx.url[norm(p.url)] || 'product:' + id;
         [p.model].concat(p.models || []).forEach(function (m) { if (m && typeof m === 'string' && m.length >= 6) idx.model[m.toUpperCase()] = idx.model[m.toUpperCase()] || 'product:' + id; });
       });
-      Object.keys(d.C || {}).forEach(function (id) { var c = d.C[id]; if (c && c.url) idx.url[norm(c.url)] = 'case:' + id; });
-      Object.keys(d.S || {}).forEach(function (id) { var s = d.S[id]; if (s && s.url) idx.url[norm(s.url)] = 'solution:' + id; });
-    } catch (e) {}
+      Object.keys(d.C || {}).forEach(function (id) { var c = d.C[id]; if(c)idx.info['case:'+id]={label:c.cust,sub:c.title||c.sub||''}; if (c && c.url) idx.url[norm(c.url)] = 'case:' + id; });
+      Object.keys(d.S || {}).forEach(function (id) { var s = d.S[id]; if(s)idx.info['solution:'+id]={label:s.name,sub:s.desc||''}; if (s && s.url) idx.url[norm(s.url)] = 'solution:' + id; });
+    } catch (e) {idx=null;return {url:{},model:{},info:{}};}
     return idx;
   };
   var localRef = function (u) {
@@ -78,8 +83,8 @@ export const linkTags = (function () {
     if (pending[k]) return pending[k];
     var b = base(u);
     var ref = localRef(u); var tg = tag();
-    if (ref && tg && tg.info(ref)) {
-      var inf = tg.info(ref);
+    var inf=ref&&((tg&&tg.info(ref))||(buildIdx().info||{})[ref]);
+    if (inf) {
       var m = { title: inf.label, site: 'Samsung', img: '', ref: ref, desc: inf.sub || '', done: true };
       mem[k] = m; save(); return Promise.resolve(m);
     }

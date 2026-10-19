@@ -12,7 +12,7 @@ import { createPortal } from 'react-dom';
 import { update } from '../repositories/proposals.js';
 import { Icon, Modal, toast, partHue } from './common.jsx';
 import { PARTS, classifyPart, splitFree, partText } from '../domain/proposals/parts.js';
-import { aiPartItems } from '../services/ai.js';
+import { aiPartItems, aiErrorText } from '../services/ai.js';
 import { candidates } from './storyboard.jsx';
 
 export const PART_GROUPS = [
@@ -170,8 +170,10 @@ export function PartEditor({ p, part, onClose, isNew }) {
     if (busy) return;
     setBusy(true);
     let r;
-    try { r = await aiPartItems(p, { name, type: curType, form: 'list', text, items }); } catch (e) { r = { items: [], ai: false }; }
+    try { r = await aiPartItems(p, { name, type: curType, form: 'list', text, items }); } catch (e) { r = { items: [], ai: false, err: 'upstream_error' }; }
     setBusy(false);
+    // the model failed — nothing is added; the same AI 제안 button asks again
+    if (!r.ai) { toast(aiErrorText(r.err) + ' AI 제안을 다시 눌러 주세요.', 'warn'); return; }
     const have = new Set(lines);
     const add = [...new Set((r.items || []).map((x) => stripLine(String(x))).filter((x) => x && !have.has(x)))];
     if (!add.length) { toast('더 제안할 내용이 없어요'); return; }
@@ -256,7 +258,6 @@ export function PartEditor({ p, part, onClose, isNew }) {
         <Modal size="narrow" onClose={() => setProp(null)} title="AI 제안"
           sub={(name.trim() ? '‘' + name.trim() + '’에' : '이 파트에') + ' 넣을 내용이에요. 승인하면 지금 내용 뒤에 이어 붙여요.'}
           footer={<>
-            {!prop.ai && <span className="note">AI를 쓸 수 없어 이 파트의 기본 내용을 제안했어요</span>}
             <span className="sp" />
             <button className="btn" onClick={() => setProp(null)}>닫기</button>
             <button className="btn btn-primary" data-autofocus onClick={accept}><Icon name="check" size={15} />승인 · 내용에 추가</button>

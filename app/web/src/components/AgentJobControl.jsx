@@ -104,15 +104,24 @@ function QuestionForm({ job }) {
 /**
  * id: server job id (must be followed by repositories/jobs.js). children render under the header (e.g. pending-result actions).
  * onClose: shown for finished jobs (hide the card).
+ * onRetry: shown when the job failed (error · lost · a result without any model call) — starts a new job; the caller keeps
+ * the user's data as it is.
  */
-export function AgentJobControl({ id, title, defaultOpen = false, compact = false, onClose, children }) {
+export function AgentJobControl({ id, title, defaultOpen = false, compact = false, onClose, onRetry, children }) {
   const job = useJob(id);
   const [open, setOpen] = useState(defaultOpen);
   const [busy, setBusy] = useState(false);
   useEffect(() => { if (job && job.status === 'waiting') setOpen(true); }, [job && job.status]);
   if (!job) return null;
   const term = isTerminal(job.status);
-  const mode = modeLabel(job.llm, job.meta && job.meta.offline);
+  const failed = job.status === 'error' || job.status === 'lost' || (job.status === 'done' && job.outcome === 'failed');
+  const mode = modeLabel(job.llm);
+  const retry = async () => {
+    if (!onRetry) return;
+    setBusy(true);
+    try { await onRetry(job); } catch (e) { toast(requestErrorText(e), 'warn'); }
+    setBusy(false);
+  };
   const last = [...(job.events || [])].reverse().find((e) => e.type === 'text' && e.message);
   const cancel = async () => {
     setBusy(true);
@@ -134,12 +143,13 @@ export function AgentJobControl({ id, title, defaultOpen = false, compact = fals
           <button type="button" className="btn btn-ghost btn-sm" aria-expanded={open} onClick={() => setOpen((v) => !v)}><Icon name={open ? 'chevU' : 'list'} size={13} />{open ? '접기' : '진행 보기'}</button>
           {job.status === 'waiting' && !open && <button type="button" className="btn btn-primary btn-sm" onClick={() => setOpen(true)}>질문에 답하기</button>}
           {!term && <button type="button" className="btn btn-ghost btn-sm" disabled={busy} onClick={cancel}><Icon name="x" size={13} />멈추기</button>}
+          {term && (failed || job.status === 'cancelled') && onRetry && <button type="button" className="btn btn-primary btn-sm" disabled={busy} onClick={retry}>{busy ? <span className="spin" /> : <Icon name="refresh" size={13} />}다시 시도</button>}
           {term && onClose && <button type="button" className="btn btn-ghost btn-sm btn-icon" aria-label="작업 카드 닫기" onClick={onClose}><Icon name="x" size={13} /></button>}
         </span>
       </div>
       {job.net && job.net.fail ? <p className="ajc-net">서버 응답을 다시 기다리는 중이에요 · 재시도 {job.net.fail}회</p> : null}
       {job.error && job.error.message && term && <p className="ajc-err">{job.error.message}</p>}
-      {job.outcomeNote && term && job.outcome === 'fallback' && <p className="ajc-note">서버 결과 대신 기본 규칙으로 처리했어요.</p>}
+      {job.status === 'done' && job.outcome === 'failed' && job.outcomeNote && <p className="ajc-err">{job.outcomeNote}</p>}
       {children}
       {open && (
         <div className="ajc-b">

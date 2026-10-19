@@ -1,11 +1,11 @@
 // Proposal-side PoC workflows: RFP → requirement form choices, Layout Agent (empty Storyboard) and Storyboard
 // continuation (parts on the board). Jobs run on the server (repositories/jobs.js follows them); each result is applied
 // to its proposal once — the job id is recorded in the proposal (additive field `agent`) together with what was applied.
-// A failed job falls back to the original heuristics (ai.js) and says so; a cancelled job just stops.
+// There is no local substitute: a job that fails (or finishes without any successful model call) changes nothing in the
+// proposal, says why, and the same button / 다시 시도 submits a new job.
 import { update, getProposal, uid, segPlain } from '../repositories/proposals.js';
-import { trackJob, registerJobHandler, getJobRecord, setOutcome } from '../repositories/jobs.js';
-import { submitPocJob, planFor, requestErrorText, modeLabel, needsClassicFallback } from './poc-client.js';
-import { aiStoryboard, aiExtract, heuristicExtract } from './ai.js';
+import { trackJob, registerJobHandler, getJobRecord, setOutcome, hideJob } from '../repositories/jobs.js';
+import { retryPocJob, submitPocJob, planForFresh, requestErrorText, modeLabel, modelFailed, MODEL_FAILED_TEXT } from './poc-client.js';
 import { L, refInfo, storyParts } from './catalog.js';
 import { PARTS } from '../domain/proposals/parts.js';
 import { toast } from '../components/common.jsx';
@@ -16,7 +16,7 @@ const agentOf = (d) => { d.agent = d.agent && typeof d.agent === 'object' ? d.ag
 function markJob(pid, jobId, patch) {
   update(pid, (d) => { const a = agentOf(d); a.jobs[jobId] = { ...(a.jobs[jobId] || {}), ...patch }; }, { touch: false });
 }
-const modeText = (rec) => { const m = modeLabel(rec && rec.llm, rec && rec.meta && rec.meta.offline); return m ? m.label : '규칙'; };
+const modeText = (rec) => { const m = modeLabel(rec && rec.llm); return m ? m.label : 'AI'; };
 
 // ---------------------------------------------------------------- requirements (RFP)
 /** Same test the attachment reader uses: is there anything worth putting into the form? */
@@ -26,7 +26,7 @@ export function attachmentsText(files, full = {}) {
   return (files || []).filter((f) => (full[f.id] || f.text || '').trim() || (f.memo || '').trim())
     .map((f) => `# ${f.name}\n${f.memo || ''}\n${full[f.id] || f.text || ''}`).join('\n\n');
 }
-function formToChoice(f) {
+export function formToChoice(f) {
   return {
     project: String(f.project || ''), customer: String(f.customer || ''), target: String(f.target || ''),
     keymen: (f.keymen || []).map((k) => ({ name: String(k.name || '담당자'), weight: Number(k.weight || 0), reqs: (k.reqs || []).map(String).filter((x) => x.trim()) })),
@@ -34,21 +34,15 @@ function formToChoice(f) {
     stats: f.stats ? { items: f.stats.items || 0, merged: f.stats.merged || 0, unassigned: f.stats.unassigned || 0 } : null,
   };
 }
-/** The original extraction (askJson 'rfp' → heuristicExtract), exactly as the attachment reader does it. */
-export async function classicExtract(p, rulesOnly = false) {
-  const files = (p && p.req && p.req.files) || [];
-  const text = attachmentsText(files);
-  if (!text.trim()) return null;
-  const r = rulesOnly ? { ok: false } : await aiExtract(text);
-  return r.ok && r.data ? r.data : heuristicExtract(files.map((f) => [f.memo, f.text].filter((x) => (x || '').trim()).join('\n')).filter(Boolean).join('\n\n'));
-}
-/** Submit an RFP job for this proposal. {ok, id} or {ok:false, message} (the caller then uses the original extraction). */
-export async function startRfpJob(p, text, { offline = false } = {}) {
-  const body = { kind: 'rfp', text: String(text).slice(0, 400000), condition: 'chunk_carry_gap', title: String(p.title || '').slice(0, 120) };
-  if (offline) body.offline = true;
+/** Submit an RFP job for this proposal (the whole text). {ok, id} or {ok:false, message} — nothing else runs on failure. */
+export async function startRfpJob(p, text) {
+  const plan = await planForFresh('rfp');
+  if (!plan.job) return { ok: false, code: plan.reason, message: plan.note };
+  if(String(text).length>400000)return {ok:false,message:'RFP 원문은 400,000자 이하만 지원합니다. 문서를 나눠 첨부하세요.'};
+  const body = { kind: 'rfp', text: String(text), condition: 'chunk_carry_gap', title: String(p.title || '').slice(0, 120) };
   try {
     const snap = await submitPocJob(body);
-    trackJob(snap, { purpose: 'rfp', owner: { type: 'proposal', id: p.id }, title: 'RFP 요구사항 정리', meta: { offline } });
+    trackJob(snap, { purpose: 'rfp', owner: { type: 'proposal', id: p.id }, title: 'RFP 요구사항 정리', meta: {} });
     update(p.id, (d) => { const a = agentOf(d); a.jobs[snap.id] = { purpose: 'rfp', at: Date.now() }; a.rfpPending = null; }, { touch: false });
     return { ok: true, id: snap.id };
   } catch (e) {
@@ -70,22 +64,16 @@ registerJobHandler('rfp', {
   async onDone(rec) {
     const pid = rec.owner && rec.owner.id; const p = getProposal(pid);
     if (!p) return 'orphan';
-    if (needsClassicFallback(rec.llm)) {
-      const fallback = await classicExtract(p, true);
-      if (usefulForm(fallback)) setRfpPending(pid, { jobId: rec.id, source: 'classic', choices: [fallback], reason: '서버 AI를 쓰지 못해 기존 기본 규칙으로 읽었어요.', at: Date.now() });
-      return { outcome: 'fallback', note: '서버 AI 대신 기존 기본 규칙' };
+    if (modelFailed(rec.llm)) {
+      markJob(pid, rec.id, { status: 'error', final: true });
+      toast('첨부 정리 — ' + MODEL_FAILED_TEXT, 'warn');
+      return { outcome: 'failed', note: MODEL_FAILED_TEXT };
     }
     const choices = ((rec.result && rec.result.choices) || []).filter(usefulForm);
     if (choices.length) {
       setRfpPending(pid, { jobId: rec.id, source: 'poc', choices, llm: rec.llm || null, guards: (rec.result && rec.result.guards) || null, at: Date.now() });
       toast(choices.length > 1 ? `첨부 RFP에서 사업 ${choices.length}건을 정리했어요 · 고객 요구사항에서 고르세요` : '첨부 RFP를 정리했어요 · 고객 요구사항에서 확인하세요');
       return { outcome: 'delivered', note: modeText(rec) };
-    }
-    const d0 = await classicExtract(getProposal(pid));
-    if (d0 && usefulForm(d0)) {
-      setRfpPending(pid, { jobId: rec.id, source: 'classic', choices: [d0], reason: '서버 정리 결과에 요구사항이 없어 기본 규칙으로 읽었어요.', at: Date.now() });
-      toast('서버 정리 결과가 비어 기본 규칙으로 읽었어요 · 고객 요구사항에서 확인하세요', 'warn');
-      return { outcome: 'fallback', note: 'empty_result' };
     }
     markJob(pid, rec.id, { status: 'done', final: true });
     toast('첨부에서 요구사항을 찾지 못했어요', 'warn');
@@ -97,61 +85,78 @@ registerJobHandler('rfp', {
     markJob(pid, rec.id, { status: rec.status, final: true });
     if (rec.status === 'cancelled') { toast('요구사항 정리를 멈췄어요'); return 'cancelled'; }
     const why = (rec.error && rec.error.message) || '서버 작업이 실패했어요.';
-    const d0 = await classicExtract(getProposal(pid));
-    if (d0 && usefulForm(d0)) {
-      setRfpPending(pid, { jobId: rec.id, source: 'classic', choices: [d0], reason: why + ' 기본 규칙으로 읽었어요.', at: Date.now() });
-      toast('서버 정리가 실패해 기본 규칙으로 읽었어요 · 고객 요구사항에서 확인하세요', 'warn');
-      return { outcome: 'fallback', note: why };
-    }
-    toast('서버 정리가 실패했고 기본 규칙으로도 요구사항을 찾지 못했어요', 'warn');
+    toast('첨부 정리가 실패했어요 · ' + why + ' 다시 시도할 수 있어요', 'warn');
     return { outcome: 'failed', note: why };
   },
 });
 
 // ---------------------------------------------------------------- Storyboard compose (Layout Agent · Storyboard continuation)
 export const composeKind = (p) => (storyParts(p).length ? 'storyboard' : 'layout');
-function proposalInput(p) {
+export function proposalInput(p) {
   const f = p.req.form || {};
   return {
     id: String(p.id), title: p.title || f.project || '', customer: p.customer || f.customer || '', industry: p.ind || null,
     free_text: segText(p.req.free), project: f.project || '', target: f.target || '', note: f.note || '',
     keymen: (f.keymen || []).map((k) => ({ name: (k.name || '').trim() || '담당자', weight: Number(k.weight || 0), reqs: (k.reqs || []).map((r) => segText(r).trim()).filter(Boolean) }))
       .filter((k) => k.reqs.length || k.name !== '담당자'),
-    files: (p.req.files || []).filter((x) => (x.text || '').trim() || (x.memo || '').trim()).map((x) => ({ name: x.name, text: (x.text || '').slice(0, 30000), memo: x.memo || '' })),
+    files: (p.req.files || []).filter((x) => (x.text || '').trim() || (x.memo || '').trim()).map((x) => ({ name: x.name, text: x.text || '', memo: x.memo || '' })),
     products: (p.ctx.products || []).map(String), solutions: (p.ctx.solutions || []).map(String), cases: (p.ctx.cases || []).map(String),
   };
 }
-function storyboardPayload(p) {
+export function storyboardPayload(p) {
   const f = p.req.form || {};
   return {
     id: p.id, title: p.title || '', customer: p.customer || '', ind: p.ind || null,
     req: { free: p.req.free || [], form: { project: f.project || '', customer: f.customer || '', target: f.target || '', note: f.note || '',
       keymen: (f.keymen || []).map((k) => ({ name: k.name || '', weight: Number(k.weight || 0), reqs: k.reqs || [] })) },
-    files: (p.req.files || []).map((x) => ({ name: x.name, memo: x.memo || '', text: (x.text || '').slice(0, 4000) })) },
+    files: (p.req.files || []).map((x) => ({ name: x.name, memo: x.memo || '', text: x.text || '' })) },
     ctx: { products: p.ctx.products || [], solutions: p.ctx.solutions || [], cases: (p.ctx.cases || []).map(String) },
     parts: (p.parts || []).map((s) => ({ id: s.id, type: s.type, name: s.name || '', items: s.items || [], form: s.form, text: s.text || '', deck: !!s.deck,
       layouts: (s.layouts || []).map((x) => ({ f: x.f, ov: { t: (x.ov && x.ov.t) || {} } })) })),
   };
 }
 /**
- * AI로 나머지 구성 through the backend. {mode:'job', id} when a job was started; {mode:'classic', plan, error?} when the
- * caller should run the original flow (dummy / no key / not ready — plan.note says why — or the submit failed).
+ * AI로 나머지 구성 through the backend. {mode:'job', id} when a job was started; {mode:'error', error} when the server
+ * cannot run it right now (not ready · no key · submit failed) — the board is left as it is.
  */
 export async function startCompose(p) {
   const kind = composeKind(p);
-  const plan = planFor(kind);
-  if (!plan.job) return { mode: 'classic', plan };
+  const plan = await planForFresh(kind);
+  if (!plan.job) return { mode: 'error', plan, error: plan.note };
   const body = kind === 'layout' ? { kind: 'layout', input: proposalInput(p), interactive: true } : { kind: 'storyboard', proposal: storyboardPayload(p), mode: 'continue' };
-  if (plan.offline) body.offline = true;
   try {
     const snap = await submitPocJob(body);
     trackJob(snap, { purpose: 'compose', owner: { type: 'proposal', id: p.id }, title: kind === 'layout' ? 'Layout Agent · 제안서 구성' : 'Storyboard 이어서 구성',
-      meta: { kind, baseIds: storyParts(p).map((s) => s.id), inputFingerprint: JSON.stringify(proposalInput(p)), offline: !!plan.offline } });
+      meta: { kind, baseIds: storyParts(p).map((s) => s.id), inputFingerprint: JSON.stringify(proposalInput(p)) } });
     update(p.id, (d) => { agentOf(d).jobs[snap.id] = { purpose: 'compose', kind, at: Date.now() }; }, { touch: false });
     return { mode: 'job', id: snap.id, plan };
   } catch (e) {
-    return { mode: 'classic', plan, error: requestErrorText(e) };
+    return { mode: 'error', plan, error: requestErrorText(e) };
   }
+}
+/**
+ * 다시 시도 for a failed job card: submits a new job of the same purpose for the same proposal (nothing on the board or
+ * in the form is touched). Returns {ok, message}.
+ */
+export async function retryProposalJob(rec) {
+  const p = rec && rec.owner ? getProposal(rec.owner.id) : null;
+  if (!p) return { ok: false, message: '제안서를 찾지 못했어요.' };
+  if (rec.purpose === 'rfp') {
+    try {
+      const snap=await retryPocJob(rec.id);
+      trackJob(snap,{purpose:'rfp',owner:rec.owner,title:rec.title,meta:rec.meta});
+      update(p.id,d=>{agentOf(d).jobs[snap.id]={purpose:'rfp',at:Date.now()};},{touch:false});
+      hideJob(rec.id);
+      return {ok:true,id:snap.id};
+    } catch(error) { if(!['not_found','conflict'].includes(error.code))return {ok:false,message:requestErrorText(error)}; }
+    if((p.req.files||[]).some(f=>(f.extractedChars||0)>(f.text||'').length||f.extractedChars==null&&(f.text||'').length>=20000))return {ok:false,message:'서버의 원문이 만료되었습니다. 긴 파일을 다시 첨부하세요. 일부 본문만으로 다시 실행하지 않습니다.'};
+    const text = attachmentsText(p.req.files);
+    if (!text.trim()) return { ok: false, message: '다시 읽을 첨부 내용이 없어요.' };
+    return startRfpJob(p, text);
+  }
+  const r = await startCompose(p);
+  if(r.mode==='job')hideJob(rec.id);
+  return r.mode === 'job' ? { ok: true, id: r.id } : { ok: false, message: r.error || '서버 작업을 시작하지 못했어요.' };
 }
 function trimParts(parts, withLayouts) {
   return (Array.isArray(parts) ? parts : []).map((s) => ({
@@ -199,19 +204,6 @@ function applyStory(rec) {
   else toast('더 이어 갈 파트를 찾지 못했어요', 'warn');
   return { outcome: n ? 'applied' : 'empty' };
 }
-/** The original AI로 나머지 구성 (askJson 'storyboard' → fallbackStoryboard), run without the board UI. Returns parts added. */
-export async function classicCompose(pid, rulesOnly = true) {
-  const p = getProposal(pid); if (!p) return 0;
-  let n = 0;
-  await aiStoryboard(p, {
-    rulesOnly,
-    onPart: (x) => {
-      const part = { id: uid('s'), type: x.type, name: x.name, items: x.items, form: 'list', text: '', done: x.items.length > 0, layouts: [] };
-      update(pid, (d) => { d.parts.push(part); d.stage = 'story'; }); n++;
-    },
-  });
-  return n;
-}
 /** A Layout Agent result held back because the Storyboard changed while it ran — append it now, or drop it. */
 export function applyComposePending(jobId) {
   const rec = getJobRecord(jobId);
@@ -244,12 +236,11 @@ registerJobHandler('compose', {
     const pid = rec.owner && rec.owner.id; const p = getProposal(pid);
     if (!p) return 'orphan';
     const done = p.agent && p.agent.jobs && p.agent.jobs[rec.id];
-    if (done && (done.applied || done.discarded || done.fallback)) return done.fallback ? 'fallback' : 'applied';
-    if (needsClassicFallback(rec.llm)) {
-      const n = await classicCompose(pid);
-      markJob(pid, rec.id, { status: 'done', final: true, fallback: true });
-      toast(`서버 AI를 쓰지 못해 기존 기본 흐름으로 파트 ${n}개를 넣었어요`, 'warn');
-      return { outcome: 'fallback', note: '서버 AI 대신 기존 기본 규칙' };
+    if (done && (done.applied || done.discarded)) return 'applied';
+    if (modelFailed(rec.llm)) {
+      markJob(pid, rec.id, { status: 'error', final: true });
+      toast('구성 — ' + MODEL_FAILED_TEXT, 'warn');
+      return { outcome: 'failed', note: MODEL_FAILED_TEXT };
     }
     const t = rec.result || {};
     if (t.kind === 'layout') {
@@ -264,11 +255,9 @@ registerJobHandler('compose', {
     } else if ((t.parts || []).length) {
       return applyStory(rec);
     }
-    // nothing usable came back — the original flow, visibly
     markJob(pid, rec.id, { status: 'done', final: true });
-    const n = await classicCompose(pid);
-    toast(n ? `서버 결과에 넣을 파트가 없어 기본 흐름으로 파트 ${n}개를 이어 넣었어요` : '서버 결과에 넣을 파트가 없었어요', 'warn');
-    return { outcome: n ? 'fallback' : 'empty', note: 'empty_result' };
+    toast('서버 결과에 넣을 파트가 없었어요 · 요구사항을 보강한 뒤 다시 시도해 보세요', 'warn');
+    return { outcome: 'empty', note: 'empty_result' };
   },
   async onFail(rec) {
     const pid = rec.owner && rec.owner.id;
@@ -276,8 +265,7 @@ registerJobHandler('compose', {
     markJob(pid, rec.id, { status: rec.status, final: true });
     if (rec.status === 'cancelled') { toast('구성 작업을 멈췄어요'); return 'cancelled'; }
     const why = (rec.error && rec.error.message) || '서버 작업이 실패했어요.';
-    const n = await classicCompose(pid);
-    toast(n ? `서버 작업이 실패해 기본 흐름으로 파트 ${n}개를 이어 넣었어요` : '서버 작업이 실패했고 기본 흐름으로도 이어 갈 파트를 찾지 못했어요', 'warn');
-    return { outcome: n ? 'fallback' : 'failed', note: why };
+    toast('구성 작업이 실패했어요 · ' + why + ' 다시 시도할 수 있어요', 'warn');
+    return { outcome: 'failed', note: why };
   },
 });

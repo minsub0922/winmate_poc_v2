@@ -3,7 +3,6 @@ import { loadUi, saveUi } from '../repositories/proposals.js';
 import { Icon, Modal, toast, partHue } from '../components/common.jsx';
 import { PARTS, REQ_LABEL } from '../domain/proposals/parts.js';
 import { LAYOUTS, ALL_LAYOUTS, L, IND, INDUSTRIES, S, SOLUTIONS, P, isPhotoFirst } from '../services/catalog.js';
-import { searchLayouts } from '../services/search.js';
 import { useLayoutSearch } from '../hooks/useLayoutSearch.js';
 import { FitSlide, useWidth } from '../domain/slides/Slide.jsx';
 import { exportPptx } from '../domain/slides/export-pptx.js';
@@ -123,7 +122,8 @@ export function LayoutLibrary({ go }) {
   const remoteSearch = useLayoutSearch(q, {ind: f.ind.startsWith('_') ? '' : f.ind, products: prodIds(f.prod), solutions: f.sol.startsWith('_') ? [] : f.sol ? [f.sol] : [], part: f.part}, !f.my);
   const hits = useMemo(() => {
     if (!q || f.my) return null;
-    const all = remoteSearch.items ?? searchLayouts(q, {}, { limit: LAYOUTS.length });
+    // ranking = the server RAG answer only; while it runs / after it fails only the literal code · name lookup below shows
+    const all = remoteSearch.items || [];
     const top = all.length ? all[0].score : 0;
     const res = all.filter((r) => r.score >= top * 0.3); // keep the clearly relevant part of the ranking
     const lq = q.toLowerCase();
@@ -226,7 +226,8 @@ export function LayoutLibrary({ go }) {
             extra={<MyToggle on={f.my} n={myAll.length + favAll.length} onClick={toggleMy} />} />
         </div>
 
-        {remoteSearch.message && <p className="muted" role="status" style={{margin: '0 0 8px'}}>{remoteSearch.message}</p>}
+        {remoteSearch.message && !remoteSearch.error && <p className="muted" role="status" style={{margin: '0 0 8px'}}>{remoteSearch.busy && <span className="spin" />}{remoteSearch.message}</p>}
+        {remoteSearch.error && <p className="muted" role="alert" style={{margin: '0 0 8px'}}><Icon name="alert" size={13} />{remoteSearch.error} 코드 · 이름이 똑같은 레이아웃만 보여요. <button type="button" className="btn btn-ghost btn-sm" onClick={remoteSearch.retry}><Icon name="refresh" size={13} />다시 시도</button></p>}
         <div className="tl-sum">
           <span><b className="num">{list.length}</b>장{scopeName ? <span className="muted"> · {scopeName}</span> : null}{q && !f.my ? <span className="faint"> · 관련도순</span> : null}</span>
           <span className="sp" />

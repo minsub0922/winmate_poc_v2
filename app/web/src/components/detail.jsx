@@ -10,7 +10,7 @@ import { Icon, toast, AddRefInput } from './common.jsx';
 import { REQ_LABEL, partText, effectiveType } from '../domain/proposals/parts.js';
 import { L, IND, P, S, C, IMAGE_DB, refInfo, deckOrder, isCoverSheet } from '../services/catalog.js';
 import { reqText, inferIndustry } from '../services/search.js';
-import { aiFill, AI_ERR } from '../services/ai.js';
+import { aiFill, aiErrorText } from '../services/ai.js';
 import { Slide, readBlocks, readImageSlots } from '../domain/slides/Slide.jsx';
 import { SheetView } from './sheetview.jsx';
 import { PImg } from '../services/products.js';
@@ -449,6 +449,8 @@ function useFill({ p, part, x, l, mut, units }) {
         focus: key ? `${target[0].kind.name} 한 묶음 — 칸 ${blocks.map((b) => b.i).join(', ')}` : '아직 채우지 않은 칸만',
       });
       if (r.err === 'cancelled') { setSt({ step: 'idle' }); return; }
+      // the model failed — nothing is filled in; the sheet stays as it is and 다시 시도 runs the same scope again
+      if (!r.ai) { setSt({ step: 'error', scope, err: aiErrorText(r.err), retryKey: key }); return; }
     }
     const bySid = Object.fromEntries(pool.map((s) => [s.sid, s]));
     const changes = r.changes.map((c) => {
@@ -493,6 +495,19 @@ function useFill({ p, part, x, l, mut, units }) {
 
 function FillFlow({ fill, x }) {
   const { st, setSt } = fill;
+  if (st.step === 'error') {
+    return (
+      <div className="fillflow">
+        <div className="evp-head"><h3>AI로 채우지 못했어요</h3><p>{st.scope.label}</p></div>
+        <div className="hint" role="alert"><Icon name="alert" size={14} /><span>{st.err} 장표 내용은 그대로예요.</span></div>
+        <div style={{ display: 'flex', gap: "var(--space-8px)" }}>
+          <button className="btn" onClick={fill.close}>닫기</button>
+          <span style={{ flex: 1 }} />
+          <button className="btn btn-primary" onClick={() => fill.start(st.retryKey)}><Icon name="refresh" size={15} />다시 시도</button>
+        </div>
+      </div>
+    );
+  }
   if (st.step === 'run') {
     return (
       <div className="fillflow">
@@ -508,9 +523,8 @@ function FillFlow({ fill, x }) {
   return (
     <div className="fillflow">
       <div className="evp-head"><h3>AI 채우기 결과</h3><p>{st.scope.label} · 반영할 칸을 고르세요</p></div>
-      {!res.ai && <div className="hint"><Icon name="info" size={14} /><span>{AI_ERR[res.err] || 'AI에 연결하지 못했어요.'} 고객사 이름 · 제품 모델만 규칙으로 바꿨어요.</span></div>}
       {res.changes.length + res.imgs.length === 0 ? (
-        <div className="pk-empty" style={{ padding: "var(--space-20px)" }}>{res.ai ? 'AI가 보기에 바꿀 칸이 없어요. 필요한 정보를 더 넣고 다시 시도해 보세요.' : '바꿀 칸을 찾지 못했어요. 필요한 정보를 더 넣고 다시 시도해 보세요.'}</div>
+        <div className="pk-empty" style={{ padding: "var(--space-20px)" }}>AI가 보기에 바꿀 칸이 없어요. 필요한 정보를 더 넣고 다시 시도해 보세요.</div>
       ) : (
         <div className="diff">
           <div style={{ display: 'flex', alignItems: 'center', gap: "var(--space-8px)" }}>

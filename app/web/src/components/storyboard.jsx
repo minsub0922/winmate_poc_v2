@@ -4,7 +4,6 @@ import { Icon, RefChip, toast, partHue, useHoverCard } from './common.jsx';
 import { PARTS, NEXT, classifyPart, splitFree, partText, effectiveType } from '../domain/proposals/parts.js';
 import { IND, L, LAYOUTS, refInfo, isCoverSheet, isCoverOnlyPart, storyParts } from '../services/catalog.js';
 import { reqText, inferIndustry } from '../services/search.js';
-import { aiStoryboard } from '../services/ai.js';
 import { Slide } from '../domain/slides/Slide.jsx';
 import { refsOf } from './requirements.jsx';
 import { KIND, shortOf } from './refcard.jsx';
@@ -13,8 +12,7 @@ import { Thumb } from './Thumbs.jsx';
 import { LayoutPicker, LayoutDetail } from './layouts.jsx';
 import { tagMeta } from './tagcard.jsx';
 import { FavButton } from './fav.jsx';
-import { planFor } from '../services/poc-client.js';
-import { startCompose, composeKind, applyComposePending, discardComposePending } from '../services/poc-workflows.js';
+import { startCompose, applyComposePending, discardComposePending, retryProposalJob } from '../services/poc-workflows.js';
 import { isTerminal, hideJob } from '../repositories/jobs.js';
 import { AgentJobControl, useOwnerJobs, useAdopt } from './AgentJobControl.jsx';
 
@@ -44,70 +42,28 @@ export function candidates(p, afterIndex, n = 5) {
 }
 
 // ---------- AI로 나머지 구성 ----------
-// No popup: the AI designs only the parts that come after the bubbles already on the board. While it works, three
-// shimmer bubbles stand where the new parts will go; each part is added as a real bubble the moment the streamed answer
-// completes it (ai.js aiStoryboard → onPart), and the shimmer trail moves on behind it until the answer is done.
+// The button starts a server job: an empty Storyboard → Layout Agent, parts already on the board → Storyboard continuation.
+// The job keeps running when the proposal is left (AgentDock follows it, with 진행 보기 · 멈추기 · 다시 시도). When the
+// server cannot run it (not ready · no key · submit failed) the board stays as it is and the reason is shown; pressing the
+// button again is the retry.
 const GHOSTS = 3;
-const ADD_GAP = 160; // ms between two bubbles when several are ready at once (fallback · a burst in the stream)
-// With the PoC backend configured (WINMATE_STORYBOARD_MODE / WINMATE_LAYOUT_MODE = real and a server key), the same button
-// starts a server job instead: an empty Storyboard → Layout Agent, parts already on the board → Storyboard continuation.
-// The job keeps running when the proposal is left (AgentDock follows it); dummy mode and no key keep the flow below.
 function useAiCompose(p) {
-  const [st, setSt] = useState(null); // while running: { n: parts added, fresh: ids added in this run }
   const [submitting, setSubmitting] = useState(false);
-  const run = useRef(null);
+  const [err, setErr] = useState('');
   const jobs = useOwnerJobs('proposal', p.id, 'compose');
   const jobBusy = jobs.some((r) => !isTerminal(r.status));
-  // leaving the proposal (or the screen) stops the AI; parts already written still land in that proposal
-  useEffect(() => () => { if (run.current) run.current.end(true); setSt(null); }, [p.id]);
+  useEffect(() => { setErr(''); }, [p.id]);
   const start = () => {
-    if (run.current || submitting || jobBusy) return;
-    const plan = planFor(composeKind(p));
-    if (!plan.job) {
-      if (!plan.quiet && plan.note) toast(plan.note);
-      startClassic(!plan.quiet);
-      return;
-    }
-    setSubmitting(true);
+    if (submitting || jobBusy) return;
+    setSubmitting(true); setErr('');
     startCompose(p).then((r) => {
       setSubmitting(false);
-      if (r.mode === 'job') { toast(plan.offline ? '서버 PoC 규칙(오프라인)으로 구성을 시작했어요' : '서버에서 구성을 시작했어요 · 다른 화면으로 가도 계속돼요'); return; }
-      toast((r.error || (r.plan && r.plan.note) || '서버 작업을 시작하지 못했어요') + ' · 기본 흐름으로 구성해요', 'warn');
-      startClassic(true);
-    }, (e) => { setSubmitting(false); toast('서버 작업을 시작하지 못했어요 · 기본 흐름으로 구성해요', 'warn'); console.error(e); startClassic(true); });
+      if (r.mode === 'job') { toast('서버에서 구성을 시작했어요 · 다른 화면으로 가도 계속돼요'); return; }
+      const msg = r.error || '서버 작업을 시작하지 못했어요.';
+      setErr(msg); toast(msg + ' · 다시 시도할 수 있어요', 'warn');
+    }, (e) => { setSubmitting(false); console.error(e); setErr('서버 작업을 시작하지 못했어요.'); toast('서버 작업을 시작하지 못했어요 · 다시 시도할 수 있어요', 'warn'); });
   };
-  const startClassic = (rulesOnly = false) => {
-    if (run.current) return;
-    const pid = p.id;
-    const ctl = new AbortController();
-    const q = []; const fresh = [];
-    let timer = null, res = null, closed = false;
-    const add = (x) => {
-      const part = { id: uid('s'), type: x.type, name: x.name, items: x.items, form: 'list', text: '', done: x.items.length > 0, layouts: [] };
-      update(pid, (d) => { d.parts.push(part); d.stage = 'story'; });
-      fresh.push(part.id);
-      setSt({ n: fresh.length, fresh: new Set(fresh) });
-    };
-    const end = (quiet) => {
-      if (closed) return; closed = true;
-      clearTimeout(timer); while (q.length) add(q.shift()); // parts that are already written always land on the board
-      run.current = null;
-      setSt(null);
-      if (quiet) return;
-      const n = fresh.length;
-      if (res && res.stopped) toast(n ? '멈췄어요 · 파트 ' + n + '개를 넣었어요' : 'AI 구성을 멈췄어요');
-      else if (!n) toast('더 이어 갈 파트를 찾지 못했어요', 'warn');
-      else if (res && !res.ai) toast('AI에 연결하지 못해 기본 흐름으로 파트 ' + n + '개를 이어 넣었어요');
-      else toast('AI가 파트 ' + n + '개를 이어 넣었어요');
-    };
-    const step = () => { timer = null; const x = q.shift(); if (x) { add(x); timer = setTimeout(step, ADD_GAP); } else if (res) end(); };
-    run.current = { end: (quiet) => { ctl.abort(); end(quiet); }, stop: () => { ctl.abort(); } };
-    setSt({ n: 0, fresh: new Set() });
-    aiStoryboard(p, { rulesOnly, signal: ctl.signal, onPart: (x) => { if (closed || ctl.signal.aborted) return; q.push(x); if (!timer) step(); } })
-      .then((r) => { res = r; if (!timer) step(); }, () => { res = { stopped: ctl.signal.aborted }; if (!timer) step(); });
-  };
-  const stop = () => { if (run.current) run.current.stop(); };
-  return { busy: !!st, n: st ? st.n : 0, fresh: st ? st.fresh : null, start, stop, jobBusy: jobBusy || submitting, submitting };
+  return { busy: false, n: 0, fresh: null, start, stop: () => {}, jobBusy: jobBusy || submitting, submitting, err };
 }
 
 /** Starts following a job recorded in the proposal that this browser does not follow yet (cleared storage, other tab). */
@@ -123,12 +79,12 @@ function AgentDock({ p, reqOpen, onReq }) {
   const recorded = p.agent && p.agent.jobs ? Object.entries(p.agent.jobs).filter(([, v]) => v && !v.final) : [];
   const rfp = p.agent && p.agent.rfpPending;
   const now = Date.now();
-  const shown = jobs.filter((r) => !r.hidden && (!isTerminal(r.status) || r.outcome === 'pending' || (r.finishedAt && now - r.finishedAt < SHOW_DONE_MS) || (rfp && rfp.jobId === r.id)));
+  const shown = jobs.filter((r) => !r.hidden && (!isTerminal(r.status) || ['error','lost','cancelled'].includes(r.status) || r.outcome === 'pending' || (r.finishedAt && now - r.finishedAt < SHOW_DONE_MS) || (rfp && rfp.jobId === r.id)));
   const rfpCard = rfp && !shown.some((r) => r.id === rfp.jobId);
   if (!recorded.length && !shown.length && !rfpCard) return null;
   const rfpAsk = (
     <div className="ajc-pend">
-      <span>{rfp && rfp.source === 'classic' ? (rfp.reason || '기본 규칙으로 읽은 요구사항이 있어요.') : `첨부에서 읽은 요구사항 ${rfp && rfp.choices ? rfp.choices.length : 0}건이 확인을 기다려요.`}</span>
+      <span>{`첨부에서 읽은 요구사항 ${rfp && rfp.choices ? rfp.choices.length : 0}건이 확인을 기다려요.`}</span>
       {!reqOpen && <div className="row"><button type="button" className="btn btn-primary btn-sm" onClick={onReq}><Icon name="clip" size={13} />고객 요구사항에서 확인</button></div>}
     </div>
   );
@@ -137,7 +93,8 @@ function AgentDock({ p, reqOpen, onReq }) {
       {recorded.map(([id, v]) => <AdoptJob key={id} id={id} purpose={v.purpose} kind={v.kind} pid={p.id} />)}
       {rfpCard && <section className="ajc compact" aria-label="첨부에서 읽은 요구사항">{rfpAsk}</section>}
       {shown.map((r) => (
-        <AgentJobControl key={r.id} id={r.id} compact onClose={() => hideJob(r.id)}>
+        <AgentJobControl key={r.id} id={r.id} compact onClose={() => hideJob(r.id)}
+          onRetry={['rfp', 'compose'].includes(r.purpose) ? async () => { const out = await retryProposalJob(r); if (out.ok) { hideJob(r.id); toast('다시 시작했어요'); } else toast(out.message, 'warn'); } : undefined}>
           {r.purpose === 'compose' && r.outcome === 'pending' && (
             <div className="ajc-pend">
               <span>작업하는 동안 Storyboard가 바뀌어 결과(파트 {(r.result && r.result.parts ? r.result.parts.length : 0)}개)를 자동으로 넣지 않았어요.</span>
@@ -375,7 +332,8 @@ export function StoryCanvas({ p, open, stage = 'story', pop = null, onReq, onMat
               <span className="node-name" style={{ color: 'var(--accent)' }}>첫 번째 파트</span>
               <CandCard p={p} afterIndex={-1} title="첫 번째 파트를 골라 주세요" sub="요구사항 맥락으로 고른 후보예요. 고르면 이름과 내용이 미리 채워져요." onPick={(t) => addPart(t)} onCustom={() => addPart(null)} />
               {ai.jobBusy ? <button className="btn btn-ghost btn-sm end-ai" disabled><span className="spin" />{ai.submitting ? '서버에 요청하는 중' : '서버에서 구성하는 중'}</button>
-                : <button className="btn btn-ghost btn-sm end-ai" onClick={ai.start}><Icon name="sparkle" size={13} />AI로 나머지 구성</button>}
+                : <button className="btn btn-ghost btn-sm end-ai" onClick={ai.start}><Icon name={ai.err ? 'refresh' : 'sparkle'} size={13} />{ai.err ? 'AI로 나머지 구성 다시 시도' : 'AI로 나머지 구성'}</button>}
+              {ai.err && !ai.jobBusy && <span className="story-empty-hint" role="alert">{ai.err}</span>}
             </>
           ) : (
             <>
@@ -383,7 +341,8 @@ export function StoryCanvas({ p, open, stage = 'story', pop = null, onReq, onMat
               <span className="node-name" style={{ color: 'var(--accent)' }}>다음 파트</span>
               <span className="story-empty-hint">{nLay ? '레이아웃 ' + nLay + '장 · 끌어서 순서를 바꿀 수 있어요' : '각 파트에 PPT 레이아웃을 추가해 보세요'}</span>
               {ai.jobBusy ? <button className="btn btn-ghost btn-sm end-ai" disabled><span className="spin" />{ai.submitting ? '서버에 요청하는 중' : '서버에서 구성하는 중'}</button>
-                : <button className="btn btn-ghost btn-sm end-ai" onClick={ai.start}><Icon name="sparkle" size={13} />AI로 나머지 구성</button>}
+                : <button className="btn btn-ghost btn-sm end-ai" onClick={ai.start}><Icon name={ai.err ? 'refresh' : 'sparkle'} size={13} />{ai.err ? 'AI로 나머지 구성 다시 시도' : 'AI로 나머지 구성'}</button>}
+              {ai.err && !ai.jobBusy && <span className="story-empty-hint" role="alert">{ai.err}</span>}
             </>
           )}
         </div>

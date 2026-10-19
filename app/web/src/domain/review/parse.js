@@ -314,7 +314,8 @@ function canvasThumb(canvas, w = 360) {
 async function parsePdf(buf, onStep, { maxPages = 80, renders = true } = {}) {
   const lib = await loadPdfjs();
   const task = lib.getDocument({ data: new Uint8Array(buf), CMapReaderFactory: CMapFactory, cMapPacked: true, useWorkerFetch: false, isEvalSupported: false, disableFontFace: false });
-  const pdf = await task.promise;
+  let pdf;try{pdf=await task.promise;}catch(error){await task.destroy().catch(()=>{});throw error;}
+  try {
   const info = (await pdf.getMetadata().catch(() => ({}))).info || {};
   const n = Math.min(pdf.numPages, maxPages);
   const units = [];
@@ -332,7 +333,7 @@ async function parsePdf(buf, onStep, { maxPages = 80, renders = true } = {}) {
     let nImg = 0;
     const fonts = new Set();
     try {
-      const ops = await page.getOperatorList();
+      const ops = renders ? await page.getOperatorList() : {fnArray:[]};
       for (const fn of ops.fnArray) if (fn === lib.OPS.paintImageXObject || fn === lib.OPS.paintInlineImageXObject || fn === lib.OPS.paintImageMaskXObject) nImg++;
       for (const it of items) {
         try { const fo = page.commonObjs.get(it.fontName); if (fo && fo.name) fonts.add(String(fo.name).replace(/^[A-Z]{6}\+/, '').replace(/[-,](Bold|Regular|Medium|Light|Black|Thin|SemiBold|ExtraBold|Italic|BoldItalic|Heavy|DemiLight)$/i, '')); } catch (e) {}
@@ -375,6 +376,7 @@ async function parsePdf(buf, onStep, { maxPages = 80, renders = true } = {}) {
     kind: 'pdf', unitLabel: aspect > 1.1 ? '장' : '쪽', slides: aspect > 1.1, aspect, slideWpt: pageW, units, images, truncatedPages: pdf.numPages > n ? pdf.numPages : 0,
     meta: { title: info.Title || '', creator: info.Author || '', app: info.Creator || info.Producer || '', created: info.CreationDate || '', modified: info.ModDate || '', fonts: Object.fromEntries(fontsAll), pages: pdf.numPages },
   };
+  } finally {await pdf.destroy();}
 }
 
 // ---------------------------------------------------------------- DOCX
@@ -448,7 +450,7 @@ function alignByText(slides, pages) {
 }
 
 /** Parse one or more files. A PPTX + PDF pair: PPTX structure, PDF page images. */
-export async function parseFiles(files, onStep) {
+export async function parseFiles(files, onStep, { textOnly = false } = {}) {
   const list = Array.from(files);
   const by = (k) => list.find((f) => fileKind(f.name) === k);
   const primary = by('pptx') || by('pdf') || by('docx') || by('txt');
@@ -460,11 +462,12 @@ export async function parseFiles(files, onStep) {
   const buf = kind === 'txt' ? null : await primary.arrayBuffer();
   let doc;
   if (kind === 'pptx') doc = await parsePptx(buf, (i, n) => onStep && onStep(`${i}/${n}장 구조를 읽는 중`));
-  else if (kind === 'pdf') doc = await parsePdf(buf, (i, n) => onStep && onStep(`${i}/${n}쪽을 읽고 화면을 그리는 중`));
+  else if (kind === 'pdf') doc = await parsePdf(buf, (i, n) => onStep && onStep(`${i}/${n}쪽 ${textOnly?'본문을 읽는 중':'화면을 그리는 중'}`), {renders:!textOnly,maxPages:textOnly?1000:80});
   else if (kind === 'docx') doc = await parseDocx(buf);
   else doc = parseText(await primary.text());
   doc.files = [{ name: primary.name, size: primary.size, kind }];
-  const pdfSide = kind === 'pptx' ? by('pdf') : null;
+  if(textOnly && doc.truncatedPages)throw new Error('원문이 1,000쪽을 넘습니다. 문서를 나눠 첨부하세요. 일부 본문으로 처리하지 않습니다.');
+  const pdfSide = kind === 'pptx' && !textOnly ? by('pdf') : null;
   if (pdfSide) {
     try {
       const pd = await parsePdf(await pdfSide.arrayBuffer(), (i, n) => onStep && onStep(`함께 올린 PDF ${i}/${n}쪽 화면을 그리는 중`));

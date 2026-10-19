@@ -3,8 +3,8 @@ import { update, uid } from '../repositories/proposals.js';
 import { Icon, Modal, toast, partHue } from './common.jsx';
 import { PARTS, classifyPart, effectiveType } from '../domain/proposals/parts.js';
 import { L, LAYOUTS, IND, isPhotoFirst, isCoverSheet } from '../services/catalog.js';
-import { recommendLayouts, searchLayouts, reqText, inferIndustry } from '../services/search.js';
-import { aiRerank, AI_ERR } from '../services/ai.js';
+import { recommendLayouts, reqText, inferIndustry } from '../services/search.js';
+import { aiRerank, aiErrorText } from '../services/ai.js';
 import { useLayoutSearch } from '../hooks/useLayoutSearch.js';
 import { FitSlide } from '../domain/slides/Slide.jsx';
 import { usePickPeek, CardMeta } from './pickpeek.jsx';
@@ -57,7 +57,8 @@ export function LayoutPicker({ p, partId, mode = 'rec', onClose }) {
   const browseType = type === 'free' ? hintType : type;
   const rec = useMemo(() => (part ? recommendLayouts(part, ctx, 3) : []), [partId]); // one row of the 3-column grid
   const remoteSearch = useLayoutSearch(ran, { ...ctx, part: browseType || '' });
-  const found = useMemo(() => remoteSearch.items ?? (ran ? searchLayouts(ran, ctx, { limit: 40 }) : []), [ran, remoteSearch.items]);
+  // search results are the server RAG ranking only — while it runs or after it fails the list is empty (no stale results)
+  const found = useMemo(() => (ran && remoteSearch.items) || [], [ran, remoteSearch.items]);
   // Everything not in the top 3, grouped by part type — this part's type first; inside a group: industry match → generic → other industries.
   const groups = useMemo(() => {
     const inRec = new Set(rec.map((r) => r.l.f));
@@ -114,7 +115,8 @@ export function LayoutPicker({ p, partId, mode = 'rec', onClose }) {
     setAi({ busy: true });
     const r = await aiRerank(ran + (part ? ' (파트: ' + part.name + ')' : ''), found, { signal: ctl.current.signal });
     if (r.ai && r.order.length) { setAi({ order: r.order }); toast('AI가 ' + r.order.length + '개를 다시 골랐어요'); }
-    else { setAi(null); toast(AI_ERR[r.err] || 'AI에 연결하지 못해 검색 순위를 그대로 보여 드려요', 'warn'); }
+    else if (r.err === 'cancelled') setAi(null);
+    else { setAi(null); toast(aiErrorText(r.err) + ' 서버 검색 순위는 그대로예요.', 'warn'); }
   };
   const jump = (k) => { const el = document.getElementById('pk-g-' + k); if (el) el.scrollIntoView({ block: 'start', behavior: 'smooth' }); };
   const card = (r) => <PCard key={r.l.f} l={r.l} rank={r.rank} why={r.why} snip={r.snip} aiWhy={r.aiWhy} nAdded={counts[r.l.f]} hc={hc} onAdd={() => add(r.l)} />;
@@ -188,7 +190,8 @@ export function LayoutPicker({ p, partId, mode = 'rec', onClose }) {
         <button className={part.layouts.length ? 'btn btn-primary' : 'btn'} onClick={onClose}>{part.layouts.length ? '완료' : '건너뛰기'}</button>
       </>}>
       <form className="pk-searchbar" onSubmit={(e) => { e.preventDefault(); run(); }} role="search">
-        {remoteSearch.message && <p className="muted" role="status">{remoteSearch.message}</p>}
+        {remoteSearch.message && !remoteSearch.error && <p className="muted" role="status">{remoteSearch.busy && <span className="spin" />}{remoteSearch.message}</p>}
+        {remoteSearch.error && <p className="muted" role="alert"><Icon name="alert" size={13} />{remoteSearch.error} <button type="button" className="btn btn-ghost btn-sm" onClick={remoteSearch.retry}><Icon name="refresh" size={13} />다시 시도</button></p>}
         <label className="sr" htmlFor="pk-q">레이아웃 검색</label>
         <div className="pk-q">
           <Icon name="search" size={16} />
@@ -217,7 +220,10 @@ export function LayoutPicker({ p, partId, mode = 'rec', onClose }) {
         </div>
         {mySec}
         {favSec}
-        {list.length ? <div className="pk-grid pk-3">{list.map(card)}</div> : <div className="pk-empty">“{ran}”와 맞는 레이아웃이 없어요. 다른 표현으로 찾거나 범위를 ‘전체’로 바꿔 보세요.</div>}
+        {list.length ? <div className="pk-grid pk-3">{list.map(card)}</div>
+          : remoteSearch.busy ? <div className="pk-empty"><span className="spin" />서버에서 “{ran}”를 찾는 중이에요.</div>
+          : remoteSearch.error ? <div className="pk-empty">검색 결과를 받지 못했어요. 위의 다시 시도를 눌러 주세요.</div>
+          : <div className="pk-empty">“{ran}”와 맞는 레이아웃이 없어요. 다른 표현으로 찾거나 범위를 ‘전체’로 바꿔 보세요.</div>}
       </> : <>
         <section className="pk-rec" aria-labelledby="pk-rec-h">
           <div className="pk-sec-h">

@@ -1,29 +1,44 @@
 import { useEffect, useState } from 'react';
-import { getBootstrap } from '../api/bootstrap.js';
 import { postJson } from '../api/client.js';
 import { L } from '../services/catalog.js';
 
-/** Server PoC ranking, with the original browser ranking retained on error. */
+/** One server RAG search (POST /api/layouts/search). Throws with a readable message when the server can't answer. */
+export async function searchLayoutsRemote(payload, signal) {
+  const result = await postJson('/api/layouts/search', { ...payload, k: payload.k || 50 }, signal);
+  if (!result || result.mode !== 'real' || result.error || !Array.isArray(result.items)) {
+    const e = new Error((result && result.message) || '서버 검색 결과를 읽지 못했어요.');
+    e.code = (result && result.error) || 'bad_response';
+    throw e;
+  }
+  return result.items.filter((x) => x && L[x.f]).map((x) => ({ l: L[x.f], score: x.score, why: x.why || [], snip: x.when || '' }));
+}
+
+/**
+ * Server RAG ranking for a query — the only ranking shown as a search result (no local ranking stands in for it).
+ * Returns { items, busy, error, message, retry }: items is null while busy and on error (the caller shows no stale
+ * list then), error is a readable message, retry() runs the same search again.
+ */
 export function useLayoutSearch(query, context = {}, enabled = true) {
-  const real = getBootstrap().capabilities?.functions?.search?.mode === 'real';
   const q = query.trim();
   const key = JSON.stringify({ q, part: context.part || '', industry: context.ind || '', products: context.products || [], solutions: context.solutions || [] });
   const [state, setState] = useState(null);
+  const [nonce, setNonce] = useState(0);
   useEffect(() => {
-    if (!real || !enabled || !q) { setState(null); return; }
+    if (!enabled || !q) { setState(null); return; }
     const controller = new AbortController();
-    setState({ key, busy: true, items: null, message: '서버 RAG 검색 중…' });
+    setState({ key, busy: true, items: null, error: '', message: '서버 RAG 검색 중…' });
     const timer = setTimeout(async () => {
       try {
-        const payload = { ...JSON.parse(key), k: 50 };
-        const result = await postJson('/api/layouts/search', payload, controller.signal);
-        if (result.mode !== 'real') throw new Error(result.message || '검색 서버가 더미 모드입니다.');
-        if (!controller.signal.aborted) setState({ key, busy: false, items: result.items.filter(x => L[x.f]).map(x => ({ l: L[x.f], score: x.score, why: x.why || [], snip: x.when || '' })), message: '서버 RAG · BM25 + TF-IDF · 최대 50개 후보' });
+        const items = await searchLayoutsRemote(JSON.parse(key), controller.signal);
+        if (!controller.signal.aborted) setState({ key, busy: false, items, error: '', message: '서버 RAG 검색 · 최대 50개 후보' });
       } catch (error) {
-        if (!controller.signal.aborted) setState({ key, busy: false, items: null, message: `서버 검색을 사용하지 못해 기본 검색으로 표시합니다. ${error.message}` });
+        if (!controller.signal.aborted) setState({ key, busy: false, items: null, error: `서버 검색을 하지 못했어요. ${error.message || ''}`.trim(), message: '' });
       }
     }, 250);
     return () => { clearTimeout(timer); controller.abort(); };
-  }, [key, enabled, real]);
-  return real && enabled && q && state?.key === key ? state : { items: null, message: '', busy: false };
+  }, [key, enabled, nonce]);
+  const retry = () => setNonce((n) => n + 1);
+  if (!enabled || !q) return { items: null, busy: false, error: '', message: '', retry };
+  if (!state || state.key !== key) return { items: null, busy: true, error: '', message: '서버 RAG 검색 중…', retry };
+  return { ...state, retry };
 }

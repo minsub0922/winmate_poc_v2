@@ -1,7 +1,7 @@
 import { readAttachments } from '../services/attachments.js';
 import { linkTags } from '../services/links.js';
 import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { planFor, modeLabel } from '../services/poc-client.js';
+import { planForFresh, modeLabel } from '../services/poc-client.js';
 import { startRfpJob, attachmentsText, clearRfpPending, usefulForm } from '../services/poc-workflows.js';
 import { isTerminal } from '../repositories/jobs.js';
 import { AgentJobControl, useOwnerJobs } from './AgentJobControl.jsx';
@@ -9,7 +9,7 @@ import { update, uid, segRefs } from '../repositories/proposals.js';
 import { Icon, MentionEditor, RefChip, AddRefInput, Modal, toast } from './common.jsx';
 import { INDUSTRIES, IND, refInfo } from '../services/catalog.js';
 import { inferIndustry, recommendContext, reqText } from '../services/search.js';
-import { aiExtract, heuristicExtract } from '../services/ai.js';
+import { aiExtract, aiErrorText } from '../services/ai.js';
 import { isReqSaved, reqSig, industryLabel } from './ctxconfirm.jsx';
 import { BubblePopup } from './bubblepop.jsx';
 import { TagStrip } from './tagcard.jsx';
@@ -169,7 +169,6 @@ const hasInput = (p) => {
     || !!(f.project || f.customer || f.target)
     || (f.keymen || []).some((k) => (k.name || '').trim() || (k.reqs || []).some((r) => r.length));
 };
-const useful = (d) => !!d && (!!(d.project || d.customer || d.target || (d.summary || '').trim()) || (d.keymen || []).some((k) => k && (k.reqs || []).some(Boolean)));
 const filesText = (files) => files.filter((f) => (f.text || '').trim() || (f.memo || '').trim()).map((f) => `# ${f.name}\n${f.memo || ''}\n${f.text || ''}`).join('\n\n');
 
 // Attachments: compact name chips; details behind a small "!" button. Requirements are read from the files automatically —
@@ -190,6 +189,8 @@ function FilesTab({ p }) {
   const seenPending = useRef(null);
   const rfpJobs = useOwnerJobs('proposal', p.id, 'rfp');
   const activeJob = rfpJobs.find((r) => !isTerminal(r.status));
+  const last = rfpJobs[0];
+  const failedJob = last && !last.hidden && (['error', 'lost'].includes(last.status) || (last.status === 'done' && last.outcome === 'failed')) ? last : null; // newest job failed → 다시 시도
 
   const applyData = (d0, overwrite) => {
     update(p.id, (d) => {
@@ -210,31 +211,40 @@ function FilesTab({ p }) {
     const text = filesText(files);
     if (!text.trim()) return;
     const my = ++run.current;
-    // server RFP pipeline when configured; its result comes back as choices (p.agent.rfpPending) — never written silently
-    const plan = planFor('rfp');
-    if (plan.job) {
-      if (activeJob) { toast('첨부를 정리하는 작업이 이미 진행 중이에요'); return; }
-      const allText = attachmentsText(files, fullRef.current);
-      if (allText.trim().length >= 50) {
-        setBusy(true); setAsk(null); setFbNote('');
-        const sub = await startRfpJob(pRef.current, allText, { offline: plan.offline });
-        if (my !== run.current) return;
-        if (sub.ok) { setBusy(false); toast(plan.offline ? '서버 PoC 규칙(오프라인)으로 첨부를 정리해요' : '서버에서 첨부를 정리해요 · 다른 화면으로 가도 계속돼요'); return; }
-        setFbNote(sub.message + ' — 기본 규칙으로 읽었어요.');
-      }
-    } else if (!plan.quiet && plan.note) setFbNote(plan.note);
-    setBusy(true); setAsk(null);
-    const r = await aiExtract(text);
+    setFbNote('');
+    // the server RFP pipeline (Gemini); its result comes back as choices (p.agent.rfpPending) — never written silently
+    const plan = await planForFresh('rfp');
     if (my !== run.current) return;
-    const data = r.ok && r.data ? r.data : heuristicExtract(files.map((f) => [f.memo, f.text].filter((x) => (x || '').trim()).join('\n')).filter(Boolean).join('\n\n'));
+    if (!plan.job) { setFbNote(plan.note); return; }
+    if(files.some(f=>(f.extractedChars||0)>(f.text||'').length&&!fullRef.current[f.id])){setFbNote('긴 원문은 작업 카드의 다시 시도로 재실행하거나 파일을 다시 첨부하세요. 일부 본문으로 실행하지 않습니다.');return;}
+    const allText = attachmentsText(files, fullRef.current);
+    if (allText.trim().length >= 50) {
+      if (activeJob) { toast('첨부를 정리하는 작업이 이미 진행 중이에요'); return; }
+      setBusy(true); setAsk(null);
+      const sub = await startRfpJob(pRef.current, allText);
+      if (my !== run.current) return;
+      setBusy(false);
+      if (sub.ok) { toast('서버에서 첨부를 정리해요 · 다른 화면으로 가도 계속돼요'); return; }
+      setFbNote(sub.message);
+      return;
+    }
+    // a few words only (memo · very short text) — the RFP pipeline needs more, ask the model directly
+    setBusy(true); setAsk(null);
+    const r = await aiExtract(allText);
+    if (my !== run.current) return;
     setBusy(false);
-    if (!useful(data)) { toast('첨부에서 요구사항을 찾지 못했어요. 파일의 ! 를 눌러 핵심 메모를 남기면 다시 읽어요', 'warn'); return; }
+    if (!r.ok) {
+      if (r.err === 'invalid_output') toast('첨부에서 요구사항을 찾지 못했어요. 파일의 ! 를 눌러 핵심 메모를 남기면 다시 읽어요', 'warn');
+      else setFbNote(aiErrorText(r.err));
+      return;
+    }
+    const data = r.data;
     if (hasInput(pRef.current)) setAsk(data);
     else { applyData(data, false); toast('첨부에서 읽은 요구사항을 입력 폼과 자유형식에 채웠어요'); }
   };
   const addFiles = async (list) => {
-    const rich = planFor('rfp').job;
-    const read = await readAttachments(list, { full: rich, rich });
+    // PDF · PPTX · DOCX are always read in full (the whole text goes to the server)
+    const read = await readAttachments(list, { full: true, rich: true });
     if (!read.length) return;
     const arr = read.map(({ fullText, ...rec }) => { if (fullText && fullText.length > (rec.text || '').length) fullRef.current[rec.id] = fullText; return rec; });
     update(p.id, (d) => { d.req.files.push(...arr); });
@@ -253,7 +263,7 @@ function FilesTab({ p }) {
     if (!choices.length) { clearRfpPending(p.id); toast('첨부에서 요구사항을 찾지 못했어요', 'warn'); return; }
     if (choices.length === 1 && !hasInput(pRef.current)) {
       applyData(choices[0], false); clearRfpPending(p.id);
-      toast(pending.source === 'classic' ? '기본 규칙으로 읽은 요구사항을 입력 폼과 자유형식에 채웠어요' : '첨부에서 정리한 요구사항을 입력 폼과 자유형식에 채웠어요');
+      toast('첨부에서 정리한 요구사항을 입력 폼과 자유형식에 채웠어요');
       return;
     }
     setPick({ ...pending, choices, sel: 0 }); // several projects, or something is already written: the person decides
@@ -294,6 +304,7 @@ function FilesTab({ p }) {
             <b className="fname">{cur.name}</b>
             <button type="button" className="btn btn-ghost btn-sm btn-icon" aria-label="정보 닫기" onClick={() => setInfo(null)}><Icon name="x" size={13} /></button>
           </div>
+          {cur.readError && <p className="muted" role="alert">{cur.readError}</p>}
           <span className="fmeta num">{(cur.type || 'file').toUpperCase()} · {(cur.size / 1024).toFixed(0)} KB · {cur.text ? '본문 ' + cur.text.length.toLocaleString() + '자 읽음' : '본문을 읽을 수 없는 형식 · 메모로 핵심을 남겨 주세요'}</span>
           <label className="sr" htmlFor={'fm-' + cur.id}>메모</label>
           <input id={'fm-' + cur.id} className="input" style={{ minHeight: 30, height: 30, fontSize: "var(--text-12-5px)" }} value={cur.memo || ''} placeholder="이 파일의 핵심 메모 (예: 객실 300실 · 연회장 3) — 적으면 요구사항을 다시 읽어요"
@@ -307,7 +318,16 @@ function FilesTab({ p }) {
       )}
       {busy && <div className="thinking fx-busy"><span className="spin" />첨부 내용을 읽고 요구사항을 정리하는 중…</div>}
       {activeJob && <AgentJobControl id={activeJob.id} compact title="첨부 RFP 정리 (서버)" />}
-      {fbNote && !busy && <p className="agent-note"><Icon name="info" size={12} />{fbNote}</p>}
+      {fbNote && !busy && !activeJob && (
+        <p className="agent-note" role="alert"><Icon name="alert" size={12} />{fbNote}
+          <button type="button" className="btn btn-ghost btn-sm" onClick={() => extract(pRef.current.req.files)}><Icon name="refresh" size={12} />다시 시도</button>
+        </p>
+      )}
+      {!activeJob && !busy && !fbNote && failedJob && (
+        <p className="agent-note" role="alert"><Icon name="alert" size={12} />{(failedJob.error && failedJob.error.message) || failedJob.outcomeNote || '첨부 정리가 실패했어요.'}
+          <button type="button" className="btn btn-ghost btn-sm" onClick={() => extract(pRef.current.req.files)}><Icon name="refresh" size={12} />다시 시도</button>
+        </p>
+      )}
       {pending && !pick && pickChoices.length > 0 && (
         <button type="button" className="btn btn-soft btn-sm" style={{ alignSelf: 'flex-start' }} onClick={() => setPick({ ...pending, choices: pickChoices, sel: 0 })}>
           <Icon name="form" size={13} />첨부에서 읽은 요구사항 확인{pickChoices.length > 1 ? ' · ' + pickChoices.length + '건' : ''}
@@ -323,7 +343,7 @@ function FilesTab({ p }) {
           <Modal size="wide" onClose={() => setPick(null)} title={pick.choices.length > 1 ? `첨부에서 사업 ${pick.choices.length}건을 찾았어요` : '덮어쓰시겠습니까?'}
             sub={hi ? '이미 입력한 요구사항이 있어요. 고른 내용으로 덮어쓰거나, 비어 있는 칸만 채울 수 있어요.' : '하나를 고르면 입력 폼과 자유형식에 채워요.'}
             footer={<>
-              <span className="note">{pick.source === 'poc' ? `서버 RFP 정리${m ? ' · ' + m.label : ''}${gr != null ? ' · 근거 인용 확인 ' + gr + '%' : ''}` : (pick.reason || '기본 규칙으로 읽었어요')}</span>
+              <span className="note">{pick.source === 'poc' ? `서버 RFP 정리${m ? ' · ' + m.label : ''}${gr != null ? ' · 근거 인용 확인 ' + gr + '%' : ''}` : (pick.reason || 'AI가 첨부에서 읽었어요')}</span>
               <span className="sp" />
               <button className="btn" onClick={() => { clearRfpPending(p.id); setPick(null); toast('입력한 내용을 그대로 뒀어요'); }}>그대로 두기</button>
               {hi && <button className="btn" onClick={() => finish(false)}>빈 칸만 채우기</button>}
