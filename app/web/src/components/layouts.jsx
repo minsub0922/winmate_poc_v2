@@ -5,6 +5,7 @@ import { PARTS, classifyPart, effectiveType } from '../domain/proposals/parts.js
 import { L, LAYOUTS, IND, isPhotoFirst, isCoverSheet } from '../services/catalog.js';
 import { recommendLayouts, searchLayouts, reqText, inferIndustry } from '../services/search.js';
 import { aiRerank, AI_ERR } from '../services/ai.js';
+import { useLayoutSearch } from '../hooks/useLayoutSearch.js';
 import { FitSlide } from '../domain/slides/Slide.jsx';
 import { usePickPeek, CardMeta } from './pickpeek.jsx';
 import { useMy } from '../repositories/templates.js';
@@ -55,7 +56,8 @@ export function LayoutPicker({ p, partId, mode = 'rec', onClose }) {
   const hintType = part ? effectiveType(part) : null;
   const browseType = type === 'free' ? hintType : type;
   const rec = useMemo(() => (part ? recommendLayouts(part, ctx, 3) : []), [partId]); // one row of the 3-column grid
-  const found = useMemo(() => (ran ? searchLayouts(ran, ctx, { limit: 40 }) : []), [ran]);
+  const remoteSearch = useLayoutSearch(ran, { ...ctx, part: browseType || '' });
+  const found = useMemo(() => remoteSearch.items ?? (ran ? searchLayouts(ran, ctx, { limit: 40 }) : []), [ran, remoteSearch.items]);
   // Everything not in the top 3, grouped by part type — this part's type first; inside a group: industry match → generic → other industries.
   const groups = useMemo(() => {
     const inRec = new Set(rec.map((r) => r.l.f));
@@ -186,6 +188,7 @@ export function LayoutPicker({ p, partId, mode = 'rec', onClose }) {
         <button className={part.layouts.length ? 'btn btn-primary' : 'btn'} onClick={onClose}>{part.layouts.length ? '완료' : '건너뛰기'}</button>
       </>}>
       <form className="pk-searchbar" onSubmit={(e) => { e.preventDefault(); run(); }} role="search">
+        {remoteSearch.message && <p className="muted" role="status">{remoteSearch.message}</p>}
         <label className="sr" htmlFor="pk-q">레이아웃 검색</label>
         <div className="pk-q">
           <Icon name="search" size={16} />

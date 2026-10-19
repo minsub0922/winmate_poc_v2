@@ -1,0 +1,24 @@
+{
+  "key_configured": true,
+  "model": "gemini-3.1-flash-lite",
+  "checks": [
+    {
+      "kind": "json",
+      "ok": true,
+      "tokens": 28,
+      "seconds": 0.95
+    },
+    {
+      "kind": "text",
+      "ok": true,
+      "tokens": 9,
+      "seconds": 1.92
+    },
+    {
+      "kind": "stream",
+      "ok": true,
+      "chunks": 1,
+      "seconds": 2.31
+    }
+  ]
+}

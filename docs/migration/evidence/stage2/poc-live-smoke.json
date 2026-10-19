@@ -1,0 +1,150 @@
+{
+  "base": "http://127.0.0.1:8790",
+  "checks": [
+    {
+      "kind": "rfp",
+      "status": "done",
+      "answered_interrupt": false,
+      "seconds": 6.1,
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 3,
+        "calls_failed": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 1988,
+          "output": 1204
+        },
+        "fallbacks": [],
+        "errors": {},
+        "reason": null,
+        "consolidate_fallback": []
+      },
+      "error": null,
+      "keys": [
+        "meta",
+        "profile",
+        "chunks",
+        "items",
+        "forms",
+        "trace",
+        "guards",
+        "calls",
+        "llm"
+      ]
+    },
+    {
+      "kind": "storyboard",
+      "status": "done",
+      "answered_interrupt": false,
+      "seconds": 3.6,
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 1,
+        "calls_failed": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2383,
+          "output": 770
+        },
+        "fallbacks": [],
+        "errors": {},
+        "reason": null
+      },
+      "error": null,
+      "keys": [
+        "mode",
+        "kept_parts",
+        "storyboard",
+        "app_parts",
+        "warnings",
+        "llm"
+      ]
+    },
+    {
+      "kind": "review",
+      "status": "done",
+      "answered_interrupt": false,
+      "seconds": 10.2,
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 5,
+        "calls_failed": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 10495,
+          "output": 1954
+        },
+        "fallbacks": [],
+        "errors": {},
+        "reason": null,
+        "route_mode": "llm",
+        "score_modes": {
+          "llm": 4
+        }
+      },
+      "error": null,
+      "keys": [
+        "evaluation",
+        "conversion",
+        "llm"
+      ]
+    },
+    {
+      "kind": "layout",
+      "status": "done",
+      "answered_interrupt": true,
+      "seconds": 18.9,
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 12,
+        "calls_failed": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 22610,
+          "output": 8398
+        },
+        "fallbacks": [],
+        "errors": {},
+        "reason": null,
+        "note": "Layout Agent 는 규칙 결과에 LLM 결과를 병합합니다. LLM 단계가 실패하면 그 단계만 규칙 결과를 씁니다.",
+        "json_fallback_calls": 0
+      },
+      "error": null,
+      "keys": [
+        "partial",
+        "analysis",
+        "context",
+        "route",
+        "scenario_match",
+        "decomposition",
+        "choice",
+        "nodes",
+        "warnings",
+        "llm",
+        "parts",
+        "links",
+        "uncovered",
+        "review",
+        "slides",
+        "app_proposal"
+      ]
+    }
+  ]
+}

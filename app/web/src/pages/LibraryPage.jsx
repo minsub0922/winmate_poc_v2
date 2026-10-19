@@ -4,6 +4,7 @@ import { Icon, Modal, toast, partHue } from '../components/common.jsx';
 import { PARTS, REQ_LABEL } from '../domain/proposals/parts.js';
 import { LAYOUTS, ALL_LAYOUTS, L, IND, INDUSTRIES, S, SOLUTIONS, P, isPhotoFirst } from '../services/catalog.js';
 import { searchLayouts } from '../services/search.js';
+import { useLayoutSearch } from '../hooks/useLayoutSearch.js';
 import { FitSlide, useWidth } from '../domain/slides/Slide.jsx';
 import { exportPptx } from '../domain/slides/export-pptx.js';
 import { DECKS, DECK, TemplateDetail, saveBlob, safeName, slidesOf } from '../components/tplkit.jsx';
@@ -119,9 +120,10 @@ export function LayoutLibrary({ go }) {
   const reset = () => setF({ ...DEFAULT });
 
   const q = f.q.trim();
+  const remoteSearch = useLayoutSearch(q, {ind: f.ind.startsWith('_') ? '' : f.ind, products: prodIds(f.prod), solutions: f.sol.startsWith('_') ? [] : f.sol ? [f.sol] : [], part: f.part}, !f.my);
   const hits = useMemo(() => {
     if (!q || f.my) return null;
-    const all = searchLayouts(q, {}, { limit: LAYOUTS.length });
+    const all = remoteSearch.items ?? searchLayouts(q, {}, { limit: LAYOUTS.length });
     const top = all.length ? all[0].score : 0;
     const res = all.filter((r) => r.score >= top * 0.3); // keep the clearly relevant part of the ranking
     const lq = q.toLowerCase();
@@ -132,7 +134,7 @@ export function LayoutLibrary({ go }) {
     for (const l of ALL_LAYOUTS) if (l.retired && isQ(l) && L[l.retired]) m.set(l.retired, { l: L[l.retired], why: ['‘' + l.name + '’(' + l.code + ')을 대체한 사진 중심 버전'], snip: '' }); // 라이브러리에서 뺀 코드로 찾으면
     for (const r of res) if (!m.has(r.l.f)) m.set(r.l.f, r);
     return [...m.values()];
-  }, [q, f.my]);
+  }, [q, f.my, remoteSearch.items]);
   // My: the person's own templates — searched by name · text · file
   const myBase = useMemo(() => {
     if (!q) return myAll;
@@ -224,6 +226,7 @@ export function LayoutLibrary({ go }) {
             extra={<MyToggle on={f.my} n={myAll.length + favAll.length} onClick={toggleMy} />} />
         </div>
 
+        {remoteSearch.message && <p className="muted" role="status" style={{margin: '0 0 8px'}}>{remoteSearch.message}</p>}
         <div className="tl-sum">
           <span><b className="num">{list.length}</b>장{scopeName ? <span className="muted"> · {scopeName}</span> : null}{q && !f.my ? <span className="faint"> · 관련도순</span> : null}</span>
           <span className="sp" />

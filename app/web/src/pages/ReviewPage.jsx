@@ -13,6 +13,8 @@ import { partHue } from '../components/common.jsx';
 import { TagChip } from '../components/tagcard.jsx';
 import { SheetView } from '../components/sheetview.jsx';
 import { PRODUCTS, SOLUTIONS } from '../services/catalog.js';
+import { AgentJobControl, useAdopt } from '../components/AgentJobControl.jsx';
+import { modeLabel } from '../services/poc-client.js';
 // review profile keeps model / solution names — map them back to the catalog for thumbnails
 const prodIdOf = (model) => { const k = String(model || '').replace(/[- ]/g, '').toUpperCase(); const x = PRODUCTS.find((q) => q.model.replace(/[- ]/g, '').toUpperCase() === k); return x ? x.id : null; };
 const solIdOf = (name) => { const x = SOLUTIONS.find((q) => q.name === name); return x ? x.id : null; };
@@ -268,7 +270,105 @@ function Progress({ r }) {
         <Step k="summary" title="리포트 작성" />
       </ol>
       {idx >= 2 && isRunning(r.id) && <button className="btn btn-sm" onClick={() => stopReview(r.id)}>AI 평가 멈추고 지금까지 결과로 마무리</button>}
+      {r.poc && r.poc.jobId && <div style={{ marginTop: 16 }}><PocJob r={r} /></div>}
     </div>
+  );
+}
+
+// ---------------------------------------------------------------- server PoC review (핵심 점검 점수)
+// A second, separate review from the server (proposal_score): it routes a subset of the same criteria ids and scores
+// them 1 · 2 · 3, then folds them into its own 0~100 (1→0 · 2→50 · 3→100, app category weights). It is shown next to
+// the original report — never mixed into the 0~100 criterion scores above.
+const PSCORE = { 1: { k: 's1', label: '보완 필요' }, 2: { k: 's2', label: '보통' }, 3: { k: 's3', label: '양호' } };
+const ROUTE = { llm: 'AI가 기준 선택', rules: '규칙으로 기준 선택', 'rules-fallback': '규칙으로 기준 선택(AI 실패 대체)', forced: '지정한 기준' };
+const SMODE = { llm: 'AI 채점', rules: '규칙 채점', 'rules-fallback': '규칙 채점(AI 대체)' };
+function PocJob({ r }) {
+  const poc = r.poc || {};
+  useAdopt(poc.status === 'running' ? poc.jobId : null, poc.jobId ? { purpose: 'review', owner: { type: 'review', id: r.id }, title: '핵심 점검 (서버)' } : null);
+  return poc.jobId ? <AgentJobControl id={poc.jobId} title="핵심 점검 (서버)" compact /> : null;
+}
+function PocRow({ s, open, onToggle, unitOf, ul, onUnit, auto }) {
+  const c = CR[s.id];
+  const sc = PSCORE[s.score] || { k: 's0', label: '채점 안 됨' };
+  return (
+    <div className="pocr-row">
+      <button type="button" onClick={onToggle} aria-expanded={open}>
+        <span className={'pocr-sc ' + sc.k}><b className="num">{s.score == null ? '—' : s.score}</b>{sc.label}</span>
+        <span className="pocr-name">
+          <b>{c ? c.name : s.id}</b>
+          <span>{c && CAT[c.cat] ? CAT[c.cat].name + ' · ' : ''}{SMODE[s.mode] || s.mode || '채점'}{s.anchor ? ' · ' + s.anchor : ''}</span>
+        </span>
+        <Icon name={open ? 'chevU' : 'chevD'} size={15} />
+      </button>
+      {open && (
+        <div className="pocr-body">
+          {s.anchor && <p>{s.anchor}</p>}
+          {s.improve && <div className="rv-fix"><Icon name="wand" size={14} /><div><b>고칠 방법</b><p>{s.improve}</p></div></div>}
+          {s.evidence && s.evidence.length > 0 && (
+            <ul className="pocr-ev">
+              {s.evidence.map((e, i) => { const u = unitOf(e.sheet); return <li key={i}>{u ? <UnitChip n={u} label={ul} onOpen={onUnit} /> : <span className="faint num">{e.sheet || '?'}{ul}</span>}<span>“{e.quote}”</span></li>; })}
+            </ul>
+          )}
+          {auto && auto.length > 0 && <div className="rv-auto"><span className="lbl"><Icon name="search" size={12} />서버 자동 점검 메모</span><ul>{auto.map((n, i) => <li key={i}>{n}</li>)}</ul></div>}
+          {typeof s.grounded === 'number' && <p className="faint" style={{ fontSize: "var(--text-11-5px)" }}>근거 인용 대조 {Math.round(s.grounded * 100)}%{s.confidence ? ' · 확신 ' + s.confidence : ''}</p>}
+          {c && <p className="faint" style={{ fontSize: "var(--text-11-5px)" }}>보는 것 · {c.desc}</p>}
+        </div>
+      )}
+    </div>
+  );
+}
+function PocSection({ r, ul, onUnit }) {
+  const [open, setOpen] = useState(() => new Set());
+  const [all, setAll] = useState(false);
+  const poc = r.poc;
+  if (!poc) return null;
+  if (poc.status === 'skipped') return <div className="rv-note"><Icon name="info" size={15} />핵심 점검(서버)을 하지 않았어요 — {poc.note || '서버 기능을 쓸 수 없어요.'} 아래는 기존 검토 결과예요.</div>;
+  if (poc.status === 'failed' || poc.status === 'cancelled') return <div className="rv-note"><Icon name="info" size={15} />핵심 점검(서버)을 {poc.status === 'cancelled' ? '멈췄어요' : '하지 못했어요'}{poc.error ? ' — ' + poc.error : ''}. 아래 기존 검토 결과는 그대로예요.</div>;
+  if (poc.status !== 'done' || !poc.result) {
+    return (
+      <section className="rv-card" aria-label="핵심 점검 점수">
+        <div className="rv-card-h"><h3>핵심 점검 점수</h3><span className="faint">서버에서 따로 채점하는 중이에요 · 끝나면 여기에 나와요</span></div>
+        {poc.jobId ? <PocJob r={r} /> : <p className="muted" style={{ margin: 0 }}><span className="spin" /> 서버 점검을 시작하는 중</p>}
+      </section>
+    );
+  }
+  const res = poc.result; const ag = res.aggregate || {};
+  const m = modeLabel(poc.llm);
+  const tot = typeof ag.total === 'number' ? Math.round(ag.total) : null;
+  const bk = tot == null ? '' : tot >= 70 ? 'b-good' : tot >= 50 ? 'b-mid' : 'b-bad';
+  const map = poc.sheetMap || [];
+  const nUnits = (r.units || []).length;
+  const unitOf = (sheet) => { const u = map[(Number(sheet) || 0) - 1]; return u && u >= 1 && u <= nUnits ? u : null; };
+  const scores = (res.scores || []).slice().sort((a, b) => (a.score == null ? 9 : a.score) - (b.score == null ? 9 : b.score) || ((CR[b.id] && CR[b.id].w) || 0) - ((CR[a.id] && CR[a.id].w) || 0));
+  const rows = all ? scores : scores.slice(0, 8);
+  const dist = ag.dist || {};
+  const unreliable = (res.conversion && res.conversion.unreliable_criteria) || [];
+  const toggle = (id) => setOpen((o) => { const n = new Set(o); n.has(id) ? n.delete(id) : n.add(id); return n; });
+  return (
+    <section className="rv-card pocr" aria-label="핵심 점검 점수">
+      <div className="rv-card-h"><h3>핵심 점검 점수</h3><span className="faint">서버가 고른 기준만 1 · 2 · 3점으로 따로 채점했어요 · 위 종합 점수와 다른 방식이에요</span></div>
+      <div className="pocr-head">
+        <div className={'pocr-total ' + bk} aria-label={'핵심 점검 ' + (tot == null ? '평가 불가' : tot + '점')}><b className="num">{tot == null ? '—' : tot}</b><span>/ 100</span></div>
+        <div className="pocr-sum">
+          <h4>{ag.verdict || '평가 불가'}{ag.band ? ' · ' + ag.band : ''}</h4>
+          <p>채점 기준 {ag.n_scored || 0}개 · 적용 가능 {ag.n_applicable || 0}개{typeof ag.weight_coverage === 'number' ? ` · 적용 가능 가중치의 ${Math.round(ag.weight_coverage * 100)}%` : ''}. 1점(보완 필요) · 2점(보통) · 3점(양호)을 0 · 50 · 100으로 바꿔 영역 가중치로 묶었어요.</p>
+          <div className="pocr-facts">
+            {m && <span>처리 방식 · {m.label}</span>}
+            {res.route && res.route.mode && <span>{ROUTE[res.route.mode] || res.route.mode}</span>}
+            <span className="num">1점 {dist['1'] || 0} · 2점 {dist['2'] || 0} · 3점 {dist['3'] || 0}</span>
+            {typeof res.grounded_mean === 'number' && <span>근거 인용 대조 평균 {Math.round(res.grounded_mean * 100)}%</span>}
+          </div>
+        </div>
+      </div>
+      {unreliable.length > 0 && <p className="pocr-warn">업로드한 문서에는 화면 측정값이 없어 {unreliable.map((id) => (CR[id] ? CR[id].name : id)).join(' · ')} 기준의 자동 점검은 참고용이에요.</p>}
+      {poc.truncated && <p className="pocr-warn">장이 많아 앞쪽 120{ul}만 서버에서 채점했어요.</p>}
+      {(res.risk || []).length > 0 && <p className="pocr-warn">자동 점검 위험 신호 · {res.risk.map((id) => (CR[id] ? CR[id].name : id)).join(' · ')}</p>}
+      <div className="pocr-list">
+        {rows.map((s) => <PocRow key={s.id} s={s} open={open.has(s.id)} onToggle={() => toggle(s.id)} unitOf={unitOf} ul={ul} onUnit={onUnit} auto={(res.auto || {})[s.id]} />)}
+        {!rows.length && <div className="rv-empty">채점한 기준이 없어요.</div>}
+      </div>
+      {scores.length > 8 && <button type="button" className="btn btn-ghost btn-sm" style={{ alignSelf: 'flex-start' }} onClick={() => setAll((v) => !v)}>{all ? '접기' : `전체 ${scores.length}개 기준 보기`}</button>}
+    </section>
   );
 }
 
@@ -311,7 +411,7 @@ function Report({ r }) {
   const rows = applied.filter((s) => (!cat || CR[s.id].cat === cat) && (filter === 'all' || (filter === 'fix' ? res[s.id].score < 70 : res[s.id].score >= 70)));
   const nFix = applied.filter((s) => res[s.id].score < 70).length;
   const aiFailed = Object.values(r.aiErrors || {});
-  const failMsg = r.demo ? null : !r.ai ? AI_FAIL[aiFailed[0]] || AI_FAIL.unavailable : aiFailed.length ? (r.aborted ? AI_FAIL.cancelled : AI_FAIL[aiFailed[0]] || '일부 기준은 AI 응답을 받지 못해 자동 점검 규칙으로 채점했어요.') : null;
+  const failMsg = r.poc?.jobId ? '기존 종합 점수는 자동 점검 규칙으로 계산했어요. 서버의 선별 평가는 핵심 점검 점수에서 따로 확인하세요.' : r.demo ? null : !r.ai ? AI_FAIL[aiFailed[0]] || AI_FAIL.unavailable : aiFailed.length ? (r.aborted ? AI_FAIL.cancelled : AI_FAIL[aiFailed[0]] || '일부 기준은 AI 응답을 받지 못해 자동 점검 규칙으로 채점했어요.') : null;
   // issues per unit (for the strip)
   const perUnit = useMemo(() => {
     const m = {};
@@ -344,6 +444,7 @@ function Report({ r }) {
 
       <div className="rv-grid">
         <div className="rv-main">
+          {r.poc && <PocSection r={r} ul={ul} onUnit={setUnit} />}
           <section className="rv-card" aria-label="영역별 점수">
             <div className="rv-card-h"><h3>영역별 점수</h3><span className="faint">막대를 누르면 그 영역 기준만 봐요</span></div>
             <div className="rv-cats">
@@ -648,6 +749,11 @@ async function exportMd(r) {
   }
   const ex = r.sel.filter((s) => !s.applied);
   if (ex.length) { L.push('## 적용하지 않은 기준', ''); for (const s of ex) L.push(`- ${CR[s.id].name} — ${s.why}`); }
+  if (r.poc && r.poc.status === 'done' && r.poc.result) {
+    const pr = r.poc.result; const ag = pr.aggregate || {}; const m = modeLabel(r.poc.llm);
+    L.push('', '## 핵심 점검 점수 (서버 · 1~3점 루브릭, 위 종합 점수와 별도)', '', `- ${ag.total == null ? '평가 불가' : Math.round(ag.total) + '점'} · ${ag.verdict || ''} · 채점 기준 ${ag.n_scored || 0}개${m ? ' · ' + m.label : ''}`, '');
+    for (const s of pr.scores || []) L.push(`- **${CR[s.id] ? CR[s.id].name : s.id}** — ${s.score == null ? '채점 안 됨' : s.score + '점 (' + PSCORE[s.score].label + ')'} · ${SMODE[s.mode] || s.mode}${s.anchor ? ': ' + s.anchor : ''}${s.improve ? ' / 고칠 방법: ' + s.improve : ''}`);
+  }
   const blob = new Blob([L.join('\n')], { type: 'text/markdown' });
   const filename = safeName('제안서 검토 - ' + r.title) + '.md';
   const dl = await getDownloads();

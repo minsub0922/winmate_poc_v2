@@ -10,6 +10,7 @@ from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
 
 from .products import ProductRepository
+from .poc.routes import router as poc_router, initialize as initialize_poc, capabilities as poc_capabilities
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA = ROOT / 'app/data'
@@ -21,20 +22,23 @@ from prepare_data import prepare
 @asynccontextmanager
 async def lifespan(app):
     app.state.products = ProductRepository(prepare())
+    initialize_poc()
     yield
 
 
 app = FastAPI(title='Winmate v2',lifespan=lifespan)
+app.include_router(poc_router)
 
 
 @app.get('/api/health')
 def health():
-    return {'ok':True,'stage':1,'llm_mode':'dummy','products':len(app.state.products.list())}
+    capabilities=poc_capabilities()
+    return {'ok':True,'stage':2,'llm_mode':capabilities['settings']['mode'],'products':len(app.state.products.list()),'knowledge':capabilities['knowledge']}
 
 
 @app.get('/api/bootstrap')
 def bootstrap():
-    return {'catalog':json.loads((DATA/'catalog.json').read_text()),'images':json.loads((DATA/'images.json').read_text()),'products':app.state.products.bootstrap()}
+    return {'catalog':json.loads((DATA/'catalog.json').read_text()),'images':json.loads((DATA/'images.json').read_text()),'products':app.state.products.bootstrap(),'capabilities':poc_capabilities()}
 
 
 @app.get('/api/products')
@@ -54,11 +58,6 @@ def detail_pack(pack: int):
     result = app.state.products.detail_pack(pack)
     if not result['items']: raise HTTPException(404,'제품 상세 묶음을 찾지 못했습니다.')
     return result
-
-
-@app.post('/api/llm')
-def llm(body: dict):
-    return {'mode':'dummy','error':'unavailable','message':'AI 더미 모드: 기존 기본 규칙으로 처리합니다.'}
 
 
 app.mount('/img',StaticFiles(directory=DATA/'static/img'),name='images')

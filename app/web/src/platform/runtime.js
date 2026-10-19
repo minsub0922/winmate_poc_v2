@@ -19,15 +19,22 @@ function unwrap(result) {
   }
   return result;
 }
+function makeSample(feature) {
 const sample = async (turns, options = {}) => {
-  const result = unwrap(await requestCompletion({ kind: 'text', turns, model_tier: options.modelTier }, options));
+  const result = unwrap(await requestCompletion({ kind: 'text', turns, feature, model_tier: options.modelTier, stream: true }, options));
   if (options.onText) options.onText({ text: result.text });
   return result.text;
 };
 sample.json = async (prompt, options = {}) => {
-  const result = unwrap(await requestCompletion({ kind: 'json', prompt, model_tier: options.modelTier, images: options.images }, options));
+  const result = unwrap(await requestCompletion({ kind: 'json', prompt, feature, model_tier: options.modelTier, images: options.images, stream: true }, options));
   if (options.onText) options.onText({ text: JSON.stringify(result.data) });
   return result.data;
 };
 sample.limits = async () => ({ images: null });
-export const getSample = async () => sample;
+return sample;
+}
+const samples = new Map();
+export const getSample = async (feature = 'llm') => {
+  if (!samples.has(feature)) samples.set(feature, makeSample(feature));
+  return samples.get(feature);
+};

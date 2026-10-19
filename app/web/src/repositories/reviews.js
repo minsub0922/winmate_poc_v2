@@ -7,6 +7,8 @@ import { buildProfile, selectCriteria, ruleSignals, aggregate } from '../domain/
 import { aiEvaluate, aiSummary, GROUPS } from '../domain/review/ai.js';
 import { CR, CAT, CATS, verdictOf } from '../domain/review/criteria.js';
 import { DEMO_REVIEWS, DEMO_DOCS } from '../domain/review/seeds.js';
+import { planFor, submitPocJob, cancelPocJob, requestErrorText } from '../services/poc-client.js';
+import { trackJob, registerJobHandler } from './jobs.js';
 
 const KEY = 'winmate.v2.reviews';
 const MAX = 20;
@@ -15,7 +17,7 @@ const SEED_KEY = 'winmate.v2.reviews.seedv';
 const SEEDV = 1;
 function load() {
   let list = [];
-  try { const v = JSON.parse(browserStorage.getItem(KEY) || '[]'); if (Array.isArray(v)) list = v.map((r) => (r.status === 'running' ? { ...r, status: 'interrupted' } : r)); } catch (e) {}
+  try { const v = JSON.parse(browserStorage.getItem(KEY) || '[]'); if (Array.isArray(v)) list = v.map((r) => (r.status === 'running' ? { ...r, status: 'interrupted' } : r)).map(pocOnLoad); } catch (e) {}
   let sv = 0; try { sv = Number(browserStorage.getItem(SEED_KEY) || 0); } catch (e) {}
   if (sv < SEEDV) {
     const have = new Set(list.map((r) => r.id));
@@ -51,7 +53,11 @@ export function patch(id, fn) {
   const d = { ...state.reviews[i] }; fn(d);
   const list = state.reviews.slice(); list[i] = d; state = { reviews: list }; persist(); emit();
 }
-export function deleteReview(id) { state = { reviews: state.reviews.filter((r) => r.id !== id) }; persist(); emit(); delDoc(id); }
+export function deleteReview(id) {
+  const r = getReview(id);
+  if (r && r.poc && r.poc.jobId && r.poc.status === 'running') cancelPocJob(r.poc.jobId).catch(() => {}); // nobody will read it any more
+  state = { reviews: state.reviews.filter((x) => x.id !== id) }; persist(); emit(); delDoc(id);
+}
 
 // ---------- IndexedDB: parsed doc (units, boxes, thumbnails, page images) ----------
 let dbp = null;
@@ -155,7 +161,10 @@ async function run(id, src, settings) {
     // geometry flags were written onto boxes by buildProfile — keep them for the wireframes
     await saveDoc(id, doc);
     patch(id, (d) => { d.stage = 'ai'; d.step = ''; d.profile = slimProfile(x); d.sel = sel; d.units = unitIndex(doc); d.geom = x.geom.map((g) => ({ u: g.u, kind: g.kind, note: g.note })); });
-    const ev = await aiEvaluate(doc, x, sel, rules, { signal: ctl.signal, onGroup: (g, st) => patch(id, (d) => { d.groups = { ...d.groups, [g]: st }; }) });
+    // separate server review (proposal_score · 1~3점 루브릭) next to this one — it runs on the server and lands in r.poc
+    startPoc(id, doc, x, settings).catch((e) => console.error(e));
+    // The PoC job owns model scoring in real mode; keep the original score as an immediate rule baseline.
+    const ev = planFor('review').job ? { results: {}, ai: false, errors: {} } : await aiEvaluate(doc, x, sel, rules, { signal: ctl.signal, onGroup: (g, st) => patch(id, (d) => { d.groups = { ...d.groups, [g]: st }; }) });
     const results = {};
     const sel2 = sel.map((s) => ({ ...s }));
     for (const s of sel2) {
@@ -179,4 +188,87 @@ async function run(id, src, settings) {
     RUNNING.delete(id);
   }
 }
+// ---------- server PoC review (proposal_score) — additive field r.poc ----------
+// r.poc = { status: starting | running | done | failed | cancelled | skipped, jobId, sheetMap (PoC sheet n → unit n),
+//           llm (server llm block), result (trimmed evaluation), error, reason, note }
+function pocOnLoad(r) {
+  if (r && r.poc && r.poc.status === 'starting') return { ...r, poc: { ...r.poc, status: 'failed', error: '페이지를 새로 열면서 서버 점검 요청이 끊겼어요.' } };
+  return r;
+}
+/** The parsed document as the backend review adapter reads it (parse.js units; no thumbnails / page images). */
+function pocDoc(doc, visible) {
+  return {
+    kind: doc.kind, slides: !!doc.slides, slideWpt: doc.slideWpt || null, meta: { title: (doc.meta && doc.meta.title) || '' },
+    units: visible.map((u) => ({
+      n: u.n, title: u.title || '', text: String(u.text || '').slice(0, 6000), hidden: false, footer: u.footer || '', nPic: u.nPic || 0,
+      minFont: typeof u.minFont === 'number' ? u.minFont : null, lineSizes: Array.isArray(u.lineSizes) ? u.lineSizes.slice(0, 400) : undefined,
+      boxes: (u.boxes || []).slice(0, 160).map((b) => ({ kind: b.kind, text: b.text || '', x: b.x, y: b.y, w: b.w, h: b.h, max: b.max, min: b.min, name: b.name || '' })),
+    })),
+  };
+}
+async function startPoc(id, doc, x, settings) {
+  const r0 = getReview(id); if (!r0) return;
+  if (r0.poc && ['starting', 'running', 'done'].includes(r0.poc.status)) return; // 이어서 평가 keeps the server result it already has
+  const plan = planFor('review');
+  if (!plan.job) {
+    if (!plan.quiet) patch(id, (d) => { d.poc = { status: 'skipped', reason: plan.reason, note: plan.note }; }); // configured, but no key / not ready
+    return;
+  }
+  const visible = doc.units.filter((u) => !u.hidden).slice(0, 120);
+  const body = {
+    kind: 'review', doc: pocDoc(doc, visible),
+    context: { title: r0.title || '', customer: settings.customer || x.customer || '', ind: settings.ind || x.ind || undefined, ind_name: x.indName || undefined,
+      signals: (settings.reqList || []).map(String).filter((t) => t.trim()).slice(0, 100) },
+  };
+  if (plan.offline) body.offline = true;
+  patch(id, (d) => { d.poc = { status: 'starting', at: Date.now(), sheetMap: visible.map((u) => u.n), truncated: doc.units.filter((u) => !u.hidden).length > visible.length }; });
+  try {
+    const snap = await submitPocJob(body);
+    trackJob(snap, { purpose: 'review', owner: { type: 'review', id }, title: '핵심 점검 (서버)', meta: { offline: !!plan.offline } });
+    patch(id, (d) => { d.poc = { ...(d.poc || {}), jobId: snap.id, status: 'running' }; });
+  } catch (e) {
+    patch(id, (d) => { d.poc = { ...(d.poc || {}), status: 'failed', error: requestErrorText(e) }; });
+  }
+}
+const pick = (o, keys) => Object.fromEntries(keys.filter((k) => o && o[k] !== undefined).map((k) => [k, o[k]]));
+function trimPoc(res) {
+  const ev = (res && res.evaluation) || {};
+  const route = ev.route || {};
+  const scores = (ev.scores || []).map((s) => ({
+    id: String(s.id || ''), score: [1, 2, 3].includes(s.score) ? s.score : null, anchor: String(s.anchor || '').slice(0, 500), improve: String(s.improve || '').slice(0, 300),
+    confidence: String(s.confidence || ''), mode: String(s.mode || ''), grounded: typeof s.grounded === 'number' ? s.grounded : null, error: String(s.error || '').slice(0, 160),
+    evidence: (Array.isArray(s.evidence) ? s.evidence : []).slice(0, 4).map((e) => ({ sheet: Number(e && e.sheet) || 0, quote: String((e && e.quote) || '').slice(0, 80) })),
+  })).filter((s) => s.id);
+  const ids = new Set(scores.map((s) => s.id));
+  return {
+    aggregate: pick(ev.aggregate || {}, ['total', 'band', 'verdict', 'rubric_mean', 'categories', 'n_all', 'n_applicable', 'n_selected', 'n_scored', 'weight_coverage', 'dist', 'low']),
+    scores, route: { mode: String(route.mode || ''), error: String(route.error || '').slice(0, 200), selected: (route.selected || []).map(String) },
+    rule_pass: (ev.rule_pass || []).map(String), risk: (ev.risk || []).map(String), grounded_mean: typeof ev.grounded_mean === 'number' ? ev.grounded_mean : null,
+    auto: Object.fromEntries(Object.entries(ev.auto_checks || {}).filter(([k]) => ids.has(k)).map(([k, v]) => [k, (Array.isArray(v) ? v : []).slice(0, 3).map((t) => String(t).slice(0, 220))])),
+    conversion: res && res.conversion ? pick(res.conversion, ['source', 'kind', 'sheets', 'skipped_hidden', 'geometry', 'font_sizes', 'overflow_measured', 'unreliable_criteria', 'note']) : null,
+  };
+}
+registerJobHandler('review', {
+  trim: trimPoc,
+  onDone(rec) {
+    const id = rec.owner && rec.owner.id;
+    if (!getReview(id)) return 'orphan';
+    patch(id, (d) => { d.poc = { ...(d.poc || {}), jobId: rec.id, status: 'done', llm: rec.llm || null, result: rec.result, finishedAt: Date.now(), error: null }; });
+    return 'applied';
+  },
+  onFail(rec) {
+    const id = rec.owner && rec.owner.id;
+    if (!getReview(id)) return 'orphan';
+    patch(id, (d) => { d.poc = { ...(d.poc || {}), jobId: rec.id, status: rec.status === 'cancelled' ? 'cancelled' : 'failed', error: (rec.error && rec.error.message) || '서버 점검이 실패했어요.' }; });
+    return rec.status === 'cancelled' ? 'cancelled' : 'failed';
+  },
+});
 export { GROUPS, CAT };
+
+// A server job may outlive a reload while the local baseline was saving its parsed document.
+setTimeout(async () => {
+  for (const r of state.reviews.filter(r => r.status === 'interrupted' && r.poc?.jobId)) {
+    const doc = await loadDoc(r.id);
+    if (doc && !isRunning(r.id)) { patch(r.id, d => { d.status = 'running'; }); run(r.id, { doc, keep: true }, r.settings || {}); }
+  }
+}, 0);

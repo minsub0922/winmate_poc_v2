@@ -13,6 +13,10 @@ import { Thumb } from './Thumbs.jsx';
 import { LayoutPicker, LayoutDetail } from './layouts.jsx';
 import { tagMeta } from './tagcard.jsx';
 import { FavButton } from './fav.jsx';
+import { planFor } from '../services/poc-client.js';
+import { startCompose, composeKind, applyComposePending, discardComposePending } from '../services/poc-workflows.js';
+import { isTerminal, hideJob } from '../repositories/jobs.js';
+import { AgentJobControl, useOwnerJobs, useAdopt } from './AgentJobControl.jsx';
 
 export const ctxOf = (p) => ({ ind: p.ind || inferIndustry(reqText(p)), products: p.ctx.products, solutions: p.ctx.solutions, cases: p.ctx.cases });
 const FLOW = ['market', 'customer', 'user', 'competition', 'insight', 'challenge', 'value', 'effect', 'dss', 'products', 'scenario', 'birdseye', 'solution', 'case', 'why', 'spec', 'bom', 'execution', 'cost', 'closing', 'appendix', 'overview', 'requirements']; // no 'cover' — 표지 is not a Storyboard part
@@ -45,12 +49,34 @@ export function candidates(p, afterIndex, n = 5) {
 // completes it (ai.js aiStoryboard → onPart), and the shimmer trail moves on behind it until the answer is done.
 const GHOSTS = 3;
 const ADD_GAP = 160; // ms between two bubbles when several are ready at once (fallback · a burst in the stream)
+// With the PoC backend configured (WINMATE_STORYBOARD_MODE / WINMATE_LAYOUT_MODE = real and a server key), the same button
+// starts a server job instead: an empty Storyboard → Layout Agent, parts already on the board → Storyboard continuation.
+// The job keeps running when the proposal is left (AgentDock follows it); dummy mode and no key keep the flow below.
 function useAiCompose(p) {
   const [st, setSt] = useState(null); // while running: { n: parts added, fresh: ids added in this run }
+  const [submitting, setSubmitting] = useState(false);
   const run = useRef(null);
+  const jobs = useOwnerJobs('proposal', p.id, 'compose');
+  const jobBusy = jobs.some((r) => !isTerminal(r.status));
   // leaving the proposal (or the screen) stops the AI; parts already written still land in that proposal
   useEffect(() => () => { if (run.current) run.current.end(true); setSt(null); }, [p.id]);
   const start = () => {
+    if (run.current || submitting || jobBusy) return;
+    const plan = planFor(composeKind(p));
+    if (!plan.job) {
+      if (!plan.quiet && plan.note) toast(plan.note);
+      startClassic();
+      return;
+    }
+    setSubmitting(true);
+    startCompose(p).then((r) => {
+      setSubmitting(false);
+      if (r.mode === 'job') { toast(plan.offline ? '서버 PoC 규칙(오프라인)으로 구성을 시작했어요' : '서버에서 구성을 시작했어요 · 다른 화면으로 가도 계속돼요'); return; }
+      toast((r.error || (r.plan && r.plan.note) || '서버 작업을 시작하지 못했어요') + ' · 기본 흐름으로 구성해요', 'warn');
+      startClassic();
+    }, (e) => { setSubmitting(false); toast('서버 작업을 시작하지 못했어요 · 기본 흐름으로 구성해요', 'warn'); console.error(e); startClassic(); });
+  };
+  const startClassic = () => {
     if (run.current) return;
     const pid = p.id;
     const ctl = new AbortController();
@@ -81,7 +107,51 @@ function useAiCompose(p) {
       .then((r) => { res = r; if (!timer) step(); }, () => { res = { stopped: ctl.signal.aborted }; if (!timer) step(); });
   };
   const stop = () => { if (run.current) run.current.stop(); };
-  return { busy: !!st, n: st ? st.n : 0, fresh: st ? st.fresh : null, start, stop };
+  return { busy: !!st, n: st ? st.n : 0, fresh: st ? st.fresh : null, start, stop, jobBusy: jobBusy || submitting, submitting };
+}
+
+/** Starts following a job recorded in the proposal that this browser does not follow yet (cleared storage, other tab). */
+function AdoptJob({ id, purpose, pid, kind }) {
+  useAdopt(id, { purpose, owner: { type: 'proposal', id: pid }, title: purpose === 'rfp' ? 'RFP 요구사항 정리' : kind === 'storyboard' ? 'Storyboard 이어서 구성' : 'Layout Agent · 제안서 구성', meta: { kind } });
+  return null;
+}
+const SHOW_DONE_MS = 10 * 60e3; // a finished job card stays a while (with its real mode) unless closed
+
+/** Server jobs of this proposal — progress, questions, cancel, held-back results. Rendered only once a job exists. */
+function AgentDock({ p, reqOpen, onReq }) {
+  const jobs = useOwnerJobs('proposal', p.id);
+  const recorded = p.agent && p.agent.jobs ? Object.entries(p.agent.jobs).filter(([, v]) => v && !v.final) : [];
+  const rfp = p.agent && p.agent.rfpPending;
+  const now = Date.now();
+  const shown = jobs.filter((r) => !r.hidden && (!isTerminal(r.status) || r.outcome === 'pending' || (r.finishedAt && now - r.finishedAt < SHOW_DONE_MS) || (rfp && rfp.jobId === r.id)));
+  const rfpCard = rfp && !shown.some((r) => r.id === rfp.jobId);
+  if (!recorded.length && !shown.length && !rfpCard) return null;
+  const rfpAsk = (
+    <div className="ajc-pend">
+      <span>{rfp && rfp.source === 'classic' ? (rfp.reason || '기본 규칙으로 읽은 요구사항이 있어요.') : `첨부에서 읽은 요구사항 ${rfp && rfp.choices ? rfp.choices.length : 0}건이 확인을 기다려요.`}</span>
+      {!reqOpen && <div className="row"><button type="button" className="btn btn-primary btn-sm" onClick={onReq}><Icon name="clip" size={13} />고객 요구사항에서 확인</button></div>}
+    </div>
+  );
+  return (
+    <div className="agent-dock" onClick={(e) => e.stopPropagation()}>
+      {recorded.map(([id, v]) => <AdoptJob key={id} id={id} purpose={v.purpose} kind={v.kind} pid={p.id} />)}
+      {rfpCard && <section className="ajc compact" aria-label="첨부에서 읽은 요구사항">{rfpAsk}</section>}
+      {shown.map((r) => (
+        <AgentJobControl key={r.id} id={r.id} compact onClose={() => hideJob(r.id)}>
+          {r.purpose === 'compose' && r.outcome === 'pending' && (
+            <div className="ajc-pend">
+              <span>작업하는 동안 Storyboard가 바뀌어 결과(파트 {(r.result && r.result.parts ? r.result.parts.length : 0)}개)를 자동으로 넣지 않았어요.</span>
+              <div className="row">
+                <button type="button" className="btn btn-sm" onClick={() => discardComposePending(r.id)}>버리기</button>
+                <button type="button" className="btn btn-primary btn-sm" onClick={() => applyComposePending(r.id)}>지금 파트 뒤에 붙이기</button>
+              </div>
+            </div>
+          )}
+          {r.purpose === 'rfp' && rfp && rfp.jobId === r.id && rfpAsk}
+        </AgentJobControl>
+      ))}
+    </div>
+  );
 }
 
 /** Shimmer bubbles where the next parts go — the first one carries the status and 멈추기. */
@@ -304,14 +374,16 @@ export function StoryCanvas({ p, open, stage = 'story', pop = null, onReq, onMat
               <div className="node-top"><button className="end-plus pulse" aria-label="첫 번째 파트 직접 만들기" onClick={(e) => { e.stopPropagation(); addPart(null); }}><Icon name="plus" size={30} stroke={2} /></button></div>
               <span className="node-name" style={{ color: 'var(--accent)' }}>첫 번째 파트</span>
               <CandCard p={p} afterIndex={-1} title="첫 번째 파트를 골라 주세요" sub="요구사항 맥락으로 고른 후보예요. 고르면 이름과 내용이 미리 채워져요." onPick={(t) => addPart(t)} onCustom={() => addPart(null)} />
-              <button className="btn btn-ghost btn-sm end-ai" onClick={ai.start}><Icon name="sparkle" size={13} />AI로 나머지 구성</button>
+              {ai.jobBusy ? <button className="btn btn-ghost btn-sm end-ai" disabled><span className="spin" />{ai.submitting ? '서버에 요청하는 중' : '서버에서 구성하는 중'}</button>
+                : <button className="btn btn-ghost btn-sm end-ai" onClick={ai.start}><Icon name="sparkle" size={13} />AI로 나머지 구성</button>}
             </>
           ) : (
             <>
               <div className="node-top"><button className="end-plus pulse" aria-label="다음 파트 추가" onClick={(e) => { e.stopPropagation(); addPart(null); }}><Icon name="plus" size={30} stroke={2} /></button></div>
               <span className="node-name" style={{ color: 'var(--accent)' }}>다음 파트</span>
               <span className="story-empty-hint">{nLay ? '레이아웃 ' + nLay + '장 · 끌어서 순서를 바꿀 수 있어요' : '각 파트에 PPT 레이아웃을 추가해 보세요'}</span>
-              <button className="btn btn-ghost btn-sm end-ai" onClick={ai.start}><Icon name="sparkle" size={13} />AI로 나머지 구성</button>
+              {ai.jobBusy ? <button className="btn btn-ghost btn-sm end-ai" disabled><span className="spin" />{ai.submitting ? '서버에 요청하는 중' : '서버에서 구성하는 중'}</button>
+                : <button className="btn btn-ghost btn-sm end-ai" onClick={ai.start}><Icon name="sparkle" size={13} />AI로 나머지 구성</button>}
             </>
           )}
         </div>
@@ -325,6 +397,7 @@ export function StoryCanvas({ p, open, stage = 'story', pop = null, onReq, onMat
         <button className="btn btn-ghost btn-sm btn-icon" onClick={() => setZoom(1)} aria-label="100%로 되돌리기" title="100%로 되돌리기"><Icon name="fit" size={14} /></button>
       </div>
       {hc.node}
+      {!readOnly && <AgentDock p={p} reqOpen={reqOpen} onReq={onReq} />}
       {children}
     </div>
   );

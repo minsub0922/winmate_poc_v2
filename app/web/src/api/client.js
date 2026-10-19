@@ -7,6 +7,7 @@ export async function requestJson(url, options = {}) {
     const body = await res.json().catch(() => ({}));
     const error = new Error(body.detail || `요청 실패 (${res.status})`);
     error.code = body.code || 'upstream_error';
+    error.status = res.status;
     throw error;
   }
   return res.json();

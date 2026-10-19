@@ -1,6 +1,10 @@
 import { readAttachments } from '../services/attachments.js';
 import { linkTags } from '../services/links.js';
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
+import { planFor, modeLabel } from '../services/poc-client.js';
+import { startRfpJob, attachmentsText, clearRfpPending, usefulForm } from '../services/poc-workflows.js';
+import { isTerminal } from '../repositories/jobs.js';
+import { AgentJobControl, useOwnerJobs } from './AgentJobControl.jsx';
 import { update, uid, segRefs } from '../repositories/proposals.js';
 import { Icon, MentionEditor, RefChip, AddRefInput, Modal, toast } from './common.jsx';
 import { INDUSTRIES, IND, refInfo } from '../services/catalog.js';
@@ -180,12 +184,19 @@ function FilesTab({ p }) {
   const pRef = useRef(p); pRef.current = p;
   const run = useRef(0);
   const memo0 = useRef('');
+  const fullRef = useRef({}); // file id → full text read this session (PDF · PPTX · DOCX can be longer than the stored excerpt)
+  const [fbNote, setFbNote] = useState(''); // why the original extraction ran although the server is configured (no key …)
+  const [pick, setPick] = useState(null); // requirement forms waiting for a choice / overwrite answer (server job or its fallback)
+  const seenPending = useRef(null);
+  const rfpJobs = useOwnerJobs('proposal', p.id, 'rfp');
+  const activeJob = rfpJobs.find((r) => !isTerminal(r.status));
 
   const applyData = (d0, overwrite) => {
     update(p.id, (d) => {
       const f = d.req.form;
       for (const k of ['project', 'customer', 'target']) if (d0[k] && (overwrite || !f[k])) f[k] = d0[k];
       if (d0.customer && (overwrite || !d.customer)) d.customer = d0.customer;
+      if ((d0.note || '').trim() && (overwrite || !(f.note || '').trim())) { f.note = d0.note.trim(); f.noteSegs = [{ t: f.note }]; }
       const km = (d0.keymen || []).filter((k) => k && (k.reqs || []).some(Boolean))
         .map((k) => ({ id: uid('k'), name: k.name || '담당자', weight: Number(k.weight || 0), reqs: (k.reqs || []).filter(Boolean).map((r) => [{ t: String(r) }]) }));
       if (km.length) f.keymen = overwrite ? km : [...(f.keymen || []).filter((x) => x.name || x.reqs.some((r) => r.length)), ...km];
@@ -199,6 +210,19 @@ function FilesTab({ p }) {
     const text = filesText(files);
     if (!text.trim()) return;
     const my = ++run.current;
+    // server RFP pipeline when configured; its result comes back as choices (p.agent.rfpPending) — never written silently
+    const plan = planFor('rfp');
+    if (plan.job) {
+      if (activeJob) { toast('첨부를 정리하는 작업이 이미 진행 중이에요'); return; }
+      const allText = attachmentsText(files, fullRef.current);
+      if (allText.trim().length >= 50) {
+        setBusy(true); setAsk(null); setFbNote('');
+        const sub = await startRfpJob(pRef.current, allText, { offline: plan.offline });
+        if (my !== run.current) return;
+        if (sub.ok) { setBusy(false); toast(plan.offline ? '서버 PoC 규칙(오프라인)으로 첨부를 정리해요' : '서버에서 첨부를 정리해요 · 다른 화면으로 가도 계속돼요'); return; }
+        setFbNote(sub.message + ' — 기본 규칙으로 읽었어요.');
+      }
+    } else if (!plan.quiet && plan.note) setFbNote(plan.note);
     setBusy(true); setAsk(null);
     const r = await aiExtract(text);
     if (my !== run.current) return;
@@ -209,14 +233,32 @@ function FilesTab({ p }) {
     else { applyData(data, false); toast('첨부에서 읽은 요구사항을 입력 폼과 자유형식에 채웠어요'); }
   };
   const addFiles = async (list) => {
-    const arr = await readAttachments(list);
-    if (!arr.length) return;
+    const rich = planFor('rfp').job;
+    const read = await readAttachments(list, { full: rich, rich });
+    if (!read.length) return;
+    const arr = read.map(({ fullText, ...rec }) => { if (fullText && fullText.length > (rec.text || '').length) fullRef.current[rec.id] = fullText; return rec; });
     update(p.id, (d) => { d.req.files.push(...arr); });
     const all = [...pRef.current.req.files, ...arr];
     if (filesText(all).trim()) extract(all);
     else toast(arr.length + '개 파일을 붙였어요 · 본문을 읽을 수 없는 형식이라 ! 에서 핵심 메모를 남기면 요구사항을 읽어요');
   };
-  const remove = (i, id) => { update(p.id, (d) => { d.req.files.splice(i, 1); }); if (info === id) setInfo(null); };
+  const remove = (i, id) => { update(p.id, (d) => { d.req.files.splice(i, 1); }); if (info === id) setInfo(null); delete fullRef.current[id]; };
+  // a server result (or its visible fallback) arrived for this proposal — possibly while another screen was open
+  const pending = p.agent && p.agent.rfpPending;
+  const pendingKey = pending ? String(pending.jobId || pending.at || '') : null;
+  useEffect(() => {
+    if (!pending || seenPending.current === pendingKey) return;
+    seenPending.current = pendingKey;
+    const choices = (pending.choices || []).filter(usefulForm);
+    if (!choices.length) { clearRfpPending(p.id); toast('첨부에서 요구사항을 찾지 못했어요', 'warn'); return; }
+    if (choices.length === 1 && !hasInput(pRef.current)) {
+      applyData(choices[0], false); clearRfpPending(p.id);
+      toast(pending.source === 'classic' ? '기본 규칙으로 읽은 요구사항을 입력 폼과 자유형식에 채웠어요' : '첨부에서 정리한 요구사항을 입력 폼과 자유형식에 채웠어요');
+      return;
+    }
+    setPick({ ...pending, choices, sel: 0 }); // several projects, or something is already written: the person decides
+  }, [pendingKey]);
+  const pickChoices = pending ? (pending.choices || []).filter(usefulForm) : [];
   const cur = p.req.files.find((f) => f.id === info);
   const ci = cur ? p.req.files.indexOf(cur) : -1;
   const nReq = ask ? (ask.keymen || []).reduce((n, k) => n + ((k && k.reqs) || []).filter(Boolean).length, 0) : 0;
@@ -264,6 +306,48 @@ function FilesTab({ p }) {
         </div>
       )}
       {busy && <div className="thinking fx-busy"><span className="spin" />첨부 내용을 읽고 요구사항을 정리하는 중…</div>}
+      {activeJob && <AgentJobControl id={activeJob.id} compact title="첨부 RFP 정리 (서버)" />}
+      {fbNote && !busy && <p className="agent-note"><Icon name="info" size={12} />{fbNote}</p>}
+      {pending && !pick && pickChoices.length > 0 && (
+        <button type="button" className="btn btn-soft btn-sm" style={{ alignSelf: 'flex-start' }} onClick={() => setPick({ ...pending, choices: pickChoices, sel: 0 })}>
+          <Icon name="form" size={13} />첨부에서 읽은 요구사항 확인{pickChoices.length > 1 ? ' · ' + pickChoices.length + '건' : ''}
+        </button>
+      )}
+      {pick && (() => {
+        const hi = hasInput(p);
+        const c = pick.choices[pick.sel] || pick.choices[0];
+        const m = pick.source === 'poc' ? modeLabel(pick.llm) : null;
+        const gr = pick.guards && typeof pick.guards.grounded_rate === 'number' ? Math.round(pick.guards.grounded_rate * 100) : null;
+        const finish = (overwrite) => { applyData(c, overwrite); clearRfpPending(p.id); setPick(null); toast(overwrite ? '고른 내용으로 덮어썼어요' : '고른 내용으로 채웠어요'); };
+        return (
+          <Modal size="wide" onClose={() => setPick(null)} title={pick.choices.length > 1 ? `첨부에서 사업 ${pick.choices.length}건을 찾았어요` : '덮어쓰시겠습니까?'}
+            sub={hi ? '이미 입력한 요구사항이 있어요. 고른 내용으로 덮어쓰거나, 비어 있는 칸만 채울 수 있어요.' : '하나를 고르면 입력 폼과 자유형식에 채워요.'}
+            footer={<>
+              <span className="note">{pick.source === 'poc' ? `서버 RFP 정리${m ? ' · ' + m.label : ''}${gr != null ? ' · 근거 인용 확인 ' + gr + '%' : ''}` : (pick.reason || '기본 규칙으로 읽었어요')}</span>
+              <span className="sp" />
+              <button className="btn" onClick={() => { clearRfpPending(p.id); setPick(null); toast('입력한 내용을 그대로 뒀어요'); }}>그대로 두기</button>
+              {hi && <button className="btn" onClick={() => finish(false)}>빈 칸만 채우기</button>}
+              <button className="btn btn-primary" data-autofocus onClick={() => finish(hi)}>{hi ? '덮어쓰기' : '고른 내용으로 채우기'}</button>
+            </>}>
+            <div className="rfp-choices" role="radiogroup" aria-label="첨부에서 읽은 사업">
+              {pick.choices.map((x, i) => {
+                const nk = (x.keymen || []).filter((k) => k && (k.reqs || []).some(Boolean)).length;
+                const nr = (x.keymen || []).reduce((s, k) => s + ((k && k.reqs) || []).filter(Boolean).length, 0);
+                return (
+                  <label key={i} className={'rfp-choice' + (i === pick.sel ? ' on' : '')}>
+                    <input type="radio" name="rfp-pick" checked={i === pick.sel} onChange={() => setPick({ ...pick, sel: i })} />
+                    <span className="c-t">
+                      <b>{[x.customer, x.project].filter(Boolean).join(' · ') || '사업 ' + (i + 1)}</b>
+                      <span className="c-m num">키맨 {nk}명 · 요구사항 {nr}개{x.target ? ' · 제안대상 ' + x.target : ''}</span>
+                      {(x.summary || '').trim() && <p className="c-s">{x.summary}</p>}
+                    </span>
+                  </label>
+                );
+              })}
+            </div>
+          </Modal>
+        );
+      })()}
       {ask && (
         <Modal onClose={() => setAsk(null)} title="덮어쓰시겠습니까?"
           sub="이미 입력한 요구사항이 있어요. 첨부에서 읽은 내용으로 입력 폼과 자유형식을 덮어써요."
