@@ -1,0 +1,21 @@
+PASS  health (public)
+PASS  health product count
+PASS  auth status (public)
+PASS  auth configured
+PASS  unauthenticated API → 401
+PASS  unauthenticated page → /login.html
+PASS  login page (public)
+PASS  cross-origin login POST → 403
+PASS  login
+PASS  session cookie flags
+PASS  login response has no secrets
+PASS  auth status authenticated
+PASS  PoC capabilities
+PASS  products = 1068
+PASS  product detail
+PASS  app root
+PASS  frozen reference
+PASS  logout
+PASS  revoked session → 401
+
+OK — 0 failed

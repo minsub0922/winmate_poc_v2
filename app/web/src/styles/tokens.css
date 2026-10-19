@@ -514,3 +514,55 @@
 :root {
   --measure-74px: 74px;
 }
+
+/* Standalone authentication pages share this token source. */
+:root {
+  --auth-bg: #f3f5f9;
+  --auth-card: #ffffff;
+  --auth-ink: #141b2d;
+  --auth-muted: #5b6478;
+  --auth-line: #d9dee8;
+  --auth-accent: #1f4fd8;
+  --auth-accent-ink: #ffffff;
+  --auth-accent-hover: #1a43b8;
+  --auth-danger: #b42318;
+  --auth-danger-bg: #fef3f2;
+  --auth-warn: #8a5a00;
+  --auth-warn-bg: #fff8e6;
+  --auth-focus: rgba(31, 79, 216, .28);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --auth-bg: #0e1220;
+    --auth-card: #161b2c;
+    --auth-ink: #eef1f8;
+    --auth-muted: #9aa3b8;
+    --auth-line: #2a3149;
+    --auth-accent: #5b83ff;
+    --auth-accent-hover: #7596ff;
+    --auth-danger: #ff8a80;
+    --auth-danger-bg: #2a1616;
+    --auth-warn: #ffd27a;
+    --auth-warn-bg: #2a2212;
+    --auth-focus: rgba(91, 131, 255, .35);
+  }
+}
+:root {
+  --auth-measure-1: 1200px;
+  --auth-measure-2: 600px;
+  --auth-measure-3: 10%;
+  --auth-measure-4: -10%;
+  --auth-color-5: rgba(31, 79, 216, .10);
+  --auth-measure-6: 900px;
+  --auth-measure-7: 500px;
+  --auth-measure-8: 110%;
+  --auth-measure-9: 110%;
+  --auth-color-10: rgba(31, 79, 216, .08);
+  --auth-font-11: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", "Segoe UI", sans-serif;
+  --auth-color-12: rgba(16, 24, 40, .04);
+  --auth-color-13: rgba(16, 24, 40, .08);
+  --auth-color-14: #f5f6f8;
+  --auth-color-15: #222;
+  --auth-color-16: #e2e5ea;
+  --auth-color-17: #656c78;
+}

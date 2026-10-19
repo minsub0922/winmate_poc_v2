@@ -1,6 +1,13 @@
 let transport = (...args) => fetch(...args);
+let unauthorized;
 export function setTransport(next) { transport = next; }
-export const fetchResource = (...args) => transport(...args);
+export function setUnauthorizedHandler(handler) { unauthorized = handler; }
+export async function fetchResource(...args) {
+  const response = await transport(...args);
+  const target = typeof args[0] === 'string' ? args[0] : '';
+  if (response.status === 401 && target.startsWith('/') && !target.startsWith('//')) unauthorized?.();
+  return response;
+}
 export async function requestJson(url, options = {}) {
   const res = await fetchResource(url, options);
   if (!res.ok) {

@@ -2,6 +2,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 import unittest
+from dataclasses import replace
 from fastapi.testclient import TestClient
 from app.api.main import app
 
@@ -11,12 +12,14 @@ ROOT=Path(__file__).resolve().parents[2]
 class LocalContracts(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        cls.auth_previous=app.state.auth.reconfigure(replace(app.state.auth.config,enabled=False))
         cls.context=TestClient(app)
         cls.client=cls.context.__enter__()
 
     @classmethod
     def tearDownClass(cls):
         cls.context.__exit__(None,None,None)
+        app.state.auth.reconfigure(cls.auth_previous)
 
     def test_bootstrap_and_product_projection(self):
         catalog=json.loads((ROOT/'app/data/catalog.json').read_text())

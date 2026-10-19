@@ -16,8 +16,16 @@ export default defineConfig({
   server: {
     port: Number(process.env.WINMATE_WEB_PORT || 5173),
     strictPort: true,
-    proxy: Object.fromEntries(['/api', '/img', '/lib'].map(prefix => [prefix, { target: api }])),
-    fs: { allow: [path.resolve(here, '..')] },
+    proxy: Object.fromEntries(['/api', '/img', '/lib', '/tokens.css'].map(prefix => [prefix, { target: api, changeOrigin: true, configure(proxy) {
+      proxy.on('proxyReq', (outgoing, incoming) => {
+        // Only a browser on this loopback development server may use the same-origin API proxy.
+        try {
+          const source = new URL(incoming.headers.origin);
+          if (['127.0.0.1','localhost','[::1]'].includes(source.hostname) && source.port === String(process.env.WINMATE_WEB_PORT || 5173)) outgoing.setHeader('origin', api);
+        } catch { /* GET/non-browser requests have no Origin. */ }
+      });
+    } }])),
+    fs: { allow: [here] },
   },
   build: {
     target: ['chrome110', 'safari16', 'firefox115'],

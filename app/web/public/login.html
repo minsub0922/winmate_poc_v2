@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Winmate · 로그인</title>
+<link rel="stylesheet" href="/tokens.css">
+<style>
+:root {
+  color-scheme: light dark;
+}
+* { box-sizing: border-box; }
+html, body { height: var(--measure-100); }
+body {
+  margin: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--space-24px);
+  background:
+    radial-gradient(var(--auth-measure-1) var(--auth-measure-2) at var(--auth-measure-3) var(--auth-measure-4), var(--auth-color-5), transparent var(--measure-60)),
+    radial-gradient(var(--auth-measure-6) var(--auth-measure-7) at var(--auth-measure-8) var(--auth-measure-9), var(--auth-color-10), transparent var(--measure-60)),
+    var(--auth-bg);
+  color: var(--auth-ink);
+  font: var(--measure-15px)/1.5 var(--auth-font-11);
+  -webkit-font-smoothing: antialiased;
+}
+main {
+  width: var(--measure-100);
+  max-width: var(--measure-380px);
+  background: var(--auth-card);
+  border: var(--measure-1px) solid var(--auth-line);
+  border-radius: var(--radius-16px);
+  padding: var(--space-32px) var(--space-28px) var(--space-28px);
+  box-shadow: 0 var(--measure-1px) var(--measure-2px) var(--auth-color-12), 0 var(--measure-12px) var(--measure-32px) var(--auth-color-13);
+}
+.brand { display: flex; align-items: center; gap: var(--space-10px); margin-bottom: var(--space-22px); }
+.brand svg { flex: none; }
+.brand b { font-size: var(--text-18px); letter-spacing: var(--measure-08em); }
+.brand span { color: var(--auth-muted); font-size: var(--text-13px); }
+h1 { font-size: var(--text-20px); margin: 0 0 var(--space-4px); }
+p.lead { margin: 0 0 var(--space-22px); color: var(--auth-muted); font-size: var(--text-14px); }
+label { display: block; font-size: var(--text-13px); font-weight: 600; margin: 0 0 var(--space-6px); }
+.field { margin-bottom: var(--space-16px); }
+.input-wrap { position: relative; }
+input {
+  width: var(--measure-100);
+  height: var(--measure-44px);
+  padding: 0 var(--space-12px);
+  border: var(--measure-1px) solid var(--auth-line);
+  border-radius: var(--radius-10px);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+input:focus { border-color: var(--auth-accent); box-shadow: 0 0 0 var(--measure-4px) var(--auth-focus); }
+input:disabled { opacity: .6; }
+#password { padding-right: var(--space-64px); }
+.toggle {
+  position: absolute; right: var(--measure-6px); top: var(--measure-6px); height: var(--measure-32px); padding: 0 var(--space-10px);
+  border: 0; border-radius: var(--radius-8px); background: transparent; color: var(--auth-muted);
+  font: inherit; font-size: var(--text-12px); cursor: pointer;
+}
+.toggle:hover { color: var(--auth-ink); }
+.toggle:focus-visible { outline: var(--measure-2px) solid var(--auth-accent); }
+.hint { margin-top: var(--space-6px); font-size: var(--text-12px); color: var(--auth-warn); }
+button[type="submit"] {
+  width: var(--measure-100); height: var(--measure-46px); margin-top: var(--space-6px);
+  border: 0; border-radius: var(--radius-10px);
+  background: var(--auth-accent); color: var(--auth-accent-ink);
+  font: inherit; font-weight: 600; cursor: pointer;
+  transition: background .15s;
+}
+button[type="submit"]:hover:not(:disabled) { background: var(--auth-accent-hover); }
+button[type="submit"]:focus-visible { outline: var(--measure-3px) solid var(--auth-focus); outline-offset: var(--measure-2px); }
+button[type="submit"]:disabled { opacity: .6; cursor: default; }
+.msg { border-radius: var(--radius-10px); padding: var(--space-10px) var(--space-12px); font-size: var(--text-13px); margin-bottom: var(--space-16px); }
+.msg.error { background: var(--auth-danger-bg); color: var(--auth-danger); }
+.msg.warn { background: var(--auth-warn-bg); color: var(--auth-warn); }
+.msg code { font: var(--measure-12px)/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; word-break: break-all; }
+footer { margin-top: var(--space-20px); color: var(--auth-muted); font-size: var(--text-12px); text-align: center; }
+[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <div class="brand">
+    <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
+      <rect width="32" height="32" rx="8" fill="var(--auth-accent)"/>
+      <path d="M7 10l3.2 12h1.6L16 13.5 20.2 22h1.6L25 10h-2.4l-2.1 8.6L16.6 10h-1.2l-3.9 8.6L9.4 10z" fill="var(--auth-accent-ink)"/>
+    </svg>
+    <div><b>WINMATE</b><br><span>제안서 작업 공간</span></div>
+  </div>
+  <h1>로그인</h1>
+  <p class="lead">이 컴퓨터에서 실행 중인 Winmate 에 접속합니다.</p>
+
+  <div id="msg" class="msg" role="alert" aria-live="polite" hidden></div>
+
+  <form id="form" novalidate>
+    <div class="field">
+      <label for="username">아이디</label>
+      <input id="username" name="username" type="text" autocomplete="username" autocapitalize="off" spellcheck="false" value="admin" required maxlength="128">
+    </div>
+    <div class="field">
+      <label for="password">비밀번호</label>
+      <div class="input-wrap">
+        <input id="password" name="password" type="password" autocomplete="current-password" required maxlength="1024">
+        <button class="toggle" id="toggle" type="button" aria-controls="password" aria-pressed="false">보기</button>
+      </div>
+      <div class="hint" id="caps" hidden>Caps Lock 이 켜져 있습니다.</div>
+    </div>
+    <button type="submit" id="submit">로그인</button>
+  </form>
+  <footer>세션은 12시간 동안 유지됩니다.</footer>
+</main>
+<script>
+(function () {
+  'use strict';
+  var form = document.getElementById('form');
+  var user = document.getElementById('username');
+  var pass = document.getElementById('password');
+  var submit = document.getElementById('submit');
+  var msg = document.getElementById('msg');
+  var toggle = document.getElementById('toggle');
+  var caps = document.getElementById('caps');
+
+  // Only same-site absolute paths are accepted as a post-login destination.
+  function nextUrl() {
+    var raw = new URLSearchParams(location.search).get('next') || '/';
+    if (raw.charAt(0) !== '/' || raw.charAt(1) === '/' || raw.charAt(1) === '\\' || /[\u0000-\u001f]/.test(raw)) return '/';
+    if (raw.indexOf('/login.html') === 0) return '/';
+    return raw;
+  }
+
+  function show(kind, text, command) {
+    msg.className = 'msg ' + kind;
+    msg.textContent = text;
+    if (command) {
+      msg.appendChild(document.createElement('br'));
+      var code = document.createElement('code');
+      code.textContent = command;
+      msg.appendChild(code);
+    }
+    msg.hidden = false;
+  }
+
+  function setBusy(busy) {
+    submit.disabled = busy;
+    submit.textContent = busy ? '확인 중…' : '로그인';
+  }
+
+  function lockForm(locked) {
+    user.disabled = locked; pass.disabled = locked; submit.disabled = locked;
+  }
+
+  toggle.addEventListener('click', function () {
+    var visible = pass.type === 'text';
+    pass.type = visible ? 'password' : 'text';
+    toggle.textContent = visible ? '보기' : '숨기기';
+    toggle.setAttribute('aria-pressed', String(!visible));
+    pass.focus();
+  });
+
+  function capsCheck(e) {
+    if (e.getModifierState) caps.hidden = !e.getModifierState('CapsLock');
+  }
+  pass.addEventListener('keydown', capsCheck);
+  pass.addEventListener('keyup', capsCheck);
+
+  fetch('/api/auth/status', { credentials: 'same-origin', cache: 'no-store' })
+    .then(function (r) { return r.json(); })
+    .then(function (s) {
+      if (!s.enabled || s.authenticated) { location.replace(nextUrl()); return; }
+      if (!s.configured) {
+        lockForm(true);
+        show('warn', '로그인 계정이 아직 설정되지 않았습니다. 서버를 실행한 컴퓨터의 터미널에서 다음 명령으로 계정을 만든 뒤 새로고침하세요.',
+             'python app/scripts/manage_auth.py --set');
+        return;
+      }
+      (user.value ? pass : user).focus();
+    })
+    .catch(function () { show('error', '서버 상태를 확인하지 못했습니다. 서버가 실행 중인지 확인하세요.'); });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!user.value.trim() || !pass.value) {
+      show('error', '아이디와 비밀번호를 입력하세요.');
+      (user.value.trim() ? pass : user).focus();
+      return;
+    }
+    setBusy(true);
+    fetch('/api/auth/login', {
+      method: 'POST',
+      credentials: 'same-origin',
+      cache: 'no-store',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: user.value.trim(), password: pass.value })
+    }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (body) {
+        if (r.ok && body.ok) { pass.value = ''; location.replace(nextUrl()); return; }
+        pass.value = '';
+        if (r.status === 429) {
+          var wait = parseInt(r.headers.get('Retry-After') || '0', 10);
+          show('error', '로그인 실패가 너무 많습니다. ' + (wait ? Math.ceil(wait / 60) + '분 뒤에 ' : '잠시 뒤에 ') + '다시 시도하세요.');
+        } else if (r.status === 401) {
+          show('error', '아이디 또는 비밀번호가 맞지 않습니다.');
+        } else if (r.status === 503) {
+          lockForm(true);
+          show('warn', '로그인 계정이 아직 설정되지 않았습니다.', 'python app/scripts/manage_auth.py --set');
+          return;
+        } else if (r.status === 403) {
+          show('error', '요청 출처를 확인하지 못해 거부했습니다. 주소창의 주소로 직접 접속하세요.');
+        } else {
+          show('error', body.detail || ('로그인하지 못했습니다 (' + r.status + ').'));
+        }
+        setBusy(false);
+        pass.focus();
+      });
+    }).catch(function () {
+      setBusy(false);
+      show('error', '서버에 연결하지 못했습니다.');
+    });
+  });
+})();
+</script>
+</body>
+</html>

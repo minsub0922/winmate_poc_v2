@@ -10,6 +10,7 @@ from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
 
 from .products import ProductRepository
+from .auth import integrate_app
 from .poc.routes import router as poc_router, initialize as initialize_poc, capabilities as poc_capabilities
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -28,12 +29,13 @@ async def lifespan(app):
 
 app = FastAPI(title='Winmate v2',lifespan=lifespan)
 app.include_router(poc_router)
+integrate_app(app)
 
 
 @app.get('/api/health')
 def health():
     capabilities=poc_capabilities()
-    return {'ok':True,'stage':2,'llm_mode':capabilities['settings']['mode'],'products':len(app.state.products.list()),'knowledge':capabilities['knowledge']}
+    return {'ok':True,'stage':3,'llm_mode':capabilities['settings']['mode'],'products':len(app.state.products.list()),'knowledge':capabilities['knowledge']}
 
 
 @app.get('/api/bootstrap')
@@ -73,9 +75,19 @@ def favicon():
     return Response(status_code=204)
 
 
+@app.get('/tokens.css')
+def design_tokens():
+    return FileResponse(ROOT/'app/web/src/styles/tokens.css',media_type='text/css',headers={'Cache-Control':'no-cache'})
+
+
 @app.get('/migration.html')
 def migration():
     return FileResponse(WEB/'migration.html')
+
+
+@app.get('/account.html')
+def account():
+    return FileResponse(ROOT/'app/web/public/account.html',headers={'Cache-Control':'no-store'})
 
 
 @app.get('/migration-export.js')
