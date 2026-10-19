@@ -1,4 +1,6 @@
 import React from 'react';
+import { getBootstrap } from '../api/bootstrap.js';
+const accountName=getBootstrap().user?.username||'로컬 계정';
 import { useStore, proposalStep, stageOf } from '../repositories/proposals.js';
 import { Icon, fmtWhen, partHue } from './common.jsx';
 import { IND, LAYOUTS, CASES, PRODUCTS, SOLUTIONS, storyParts } from '../services/catalog.js';
@@ -80,8 +82,8 @@ export function Sidebar({ route, go, onNew, open, setOpen }) {
         })}
       </nav>
       <div className="sb-foot">
-        <span className="avatar">최</span>
-        <span className="sb-tx sb-me" style={{ minWidth: 0, flex: 1 }}><div style={{ fontSize: "var(--text-13px)", fontWeight: "var(--weight-600)" }}>최민섭</div><div style={{ fontSize: "var(--text-11-5px)", color: 'var(--muted)' }}>Samsung Research · AX그룹</div></span>
+        <span className="avatar">{accountName.slice(0,1).toUpperCase()}</span>
+        <span className="sb-tx sb-me" style={{ minWidth: 0, flex: 1 }}><div style={{ fontSize: "var(--text-13px)", fontWeight: "var(--weight-600)" }}>{accountName}</div><div style={{ fontSize: "var(--text-11-5px)", color: 'var(--muted)' }}>Winmate v2 · 로컬</div></span>
       </div>
     </aside>
   );

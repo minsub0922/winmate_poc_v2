@@ -64,7 +64,7 @@ export function ReviewEntry({ go }) {
         <span className="rv-entry-t">
           <b>제안서 검토</b>
           <span>{over ? '여기에 놓으면 바로 평가를 시작해요' : `완성한 제안서를 끌어다 놓거나 눌러서 올리면, ${NCRIT}개 검토 기준 중 이 제안서에 맞는 기준으로 점수와 근거를 매겨요`}</span>
-          <span className="rv-entry-fmt">PPTX · PDF · DOCX · PPTX와 같은 내용의 PDF를 함께 올리면 장표 화면까지 봐요</span>
+          <span className="rv-entry-fmt">PPTX · PDF · DOCX · PPTX와 같은 내용의 PDF를 함께 올리면 실제 화면 최대 4장을 함께 봐요</span>
         </span>
         <span className="rv-entry-cta"><Icon name="upload" size={16} />파일 올리기</span>
       </button>
@@ -418,6 +418,7 @@ function Report({ r }) {
   const toggle = (id) => setOpen((o) => { const n = new Set(o); n.has(id) ? n.delete(id) : n.add(id); return n; });
   return (
     <div className="rv-report">
+      {r.poc?.result?.conversion?.visual?.provided && <div className="rv-note">Gemini 비전으로 실제 화면을 확인한 장: {r.poc.result.conversion.visual.pages.map(n=>(r.poc.sheetMap||[])[n-1]||n).join(', ')}. 나머지는 본문·구조 정보로 평가했습니다.</div>}
       {r.demo && <div className="rv-note"><Icon name="info" size={15} />예시 평가예요 — 가상의 제안서로 만든 결과라 실제 고객 · 수치가 아니에요.{r.strategy ? ' 제안 전략: ' + r.strategy + '.' : ''}</div>}
       {failMsg && <div className="rv-note"><Icon name="info" size={15} />{failMsg}</div>}
       {r.pairWarn && <div className="rv-note"><Icon name="info" size={15} />{r.pairWarn}</div>}
@@ -681,7 +682,7 @@ function RerunModal({ r, go, onClose }) {
     const auto = Object.fromEntries(r.sel.map((s) => [s.id, s.applied]));
     const override = {}; for (const k of Object.keys(ov)) if (ov[k] !== auto[k]) override[k] = ov[k];
     if (pr && !auto.CU2 && override.CU2 == null) override.CU2 = true;
-    const settings = { customer: customer.trim(), ind: ind || null, note: note.trim(), linkedId: pr ? pr.id : '', linkedTitle: pr ? pr.title : '', reqText: pr ? reqText(pr) : '', reqList, override };
+    const settings = { customer: customer.trim(), ind: ind || null, note: note.trim(), linkedId: pr ? pr.id : '', linkedTitle: pr ? pr.title : '', reqText: pr ? reqText(pr) : '', reqList, override, selectedCriteria:Object.keys(ov).filter(id=>ov[id]) };
     const out = await rerunReview(r.id, settings);
     setBusy(false);
     if (!out || out.err) { setErr(out ? out.err : '다시 평가하지 못했어요'); return; }

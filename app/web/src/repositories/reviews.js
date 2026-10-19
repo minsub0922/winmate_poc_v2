@@ -196,6 +196,13 @@ export function pocDoc(doc, visible) {
     })),
   };
 }
+async function reviewPixelImages(doc,visible,profile) {
+  if(doc.kind!=='pdf'&&!doc.pairedPdf)return [];
+  const risks=new Set((profile.geom||[]).map(x=>x.u));
+  const images=(doc.images||[]).filter(x=>x.blob instanceof Blob&&visible.some(u=>u.n===x.n)).sort((a,b)=>Number(risks.has(b.n))-Number(risks.has(a.n))).slice(0,4);
+  if(!images.length)throw new Error('PDF 장표 화면을 만들지 못했습니다. 원본 파일을 확인하고 다시 첨부하세요.');
+  return Promise.all(images.map(async image=>({sheet:visible.findIndex(u=>u.n===image.n)+1,data_url:await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(image.blob);})})));
+}
 async function startPoc(id, doc, x, settings) {
   const r0 = getReview(id); if (!r0) return;
   const plan = await planForFresh('review');
@@ -205,7 +212,8 @@ async function startPoc(id, doc, x, settings) {
   }
   const visible = doc.units.filter((u) => !u.hidden).slice(0, 120);
   const body = {
-    kind: 'review', doc: pocDoc(doc, visible),
+    kind: 'review', doc: pocDoc(doc, visible), images:await reviewPixelImages(doc,visible,x),
+    ...(settings.selectedCriteria?{criteria:settings.selectedCriteria}:{}),
     context: { title: r0.title || '', customer: settings.customer || x.customer || '', ind: settings.ind || x.ind || undefined, ind_name: x.indName || undefined,
       signals: (settings.reqList || []).map(String).filter((t) => t.trim()).slice(0, 100) },
   };
@@ -234,7 +242,7 @@ export function trimPoc(res) {
     scores, route: { mode: String(route.mode || ''), error: String(route.error || '').slice(0, 200), selected: (route.selected || []).map(String) },
     rule_pass: (ev.rule_pass || []).map(String), risk: (ev.risk || []).map(String), grounded_mean: typeof ev.grounded_mean === 'number' ? ev.grounded_mean : null,
     auto: Object.fromEntries(Object.entries(ev.auto_checks || {}).filter(([k]) => ids.has(k)).map(([k, v]) => [k, (Array.isArray(v) ? v : []).slice(0, 3).map((t) => String(t).slice(0, 220))])),
-    conversion: res && res.conversion ? pick(res.conversion, ['source', 'kind', 'sheets', 'skipped_hidden', 'geometry', 'font_sizes', 'overflow_measured', 'unreliable_criteria', 'note']) : null,
+    conversion: res && res.conversion ? pick(res.conversion, ['source', 'kind', 'sheets', 'skipped_hidden', 'geometry', 'font_sizes', 'overflow_measured', 'unreliable_criteria', 'note', 'visual', 'criteria_source']) : null,
   };
 }
 

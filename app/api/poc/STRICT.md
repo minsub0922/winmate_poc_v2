@@ -113,3 +113,9 @@ re-asked and recovered (or the one that failed the job).
 `NOTES.md` · this file. `provider.py` is owned by the parent (unchanged). `main.py` unchanged (its lifespan
 `initialize_poc()` now fails fast without a provider). Original `poc/`, `src/`, `dist/`, `proddb/`,
 `reference/` untouched.
+
+## Real PDF pixels and manual criteria
+
+`POST /api/jobs` review accepts `images: [{sheet, data_url}]` (up to four, unique 1-based scenario sheet numbers). Data URLs are validated before work starts. Pixel-backed design-criterion scoring uses the configured vision Gemini model with those actual images; it is not a text-only claim. `conversion.visual` reports provided pages and actual model calls. If no design criterion is selected, a real vision observation still runs and is recorded.
+
+Optional `criteria: [id...]` is an explicit user's selection of 1–54 known, unique criterion IDs. It calls the original unmodified pipeline's `force` interface: route mode is `forced`, scoring remains actual Gemini. Without this field, the model performs criterion routing. Invalid selections fail with 422 before a job is created. A forced manual selection is not a model/rule fallback. `llm.models_used` records every model used, including the vision model.

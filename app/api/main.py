@@ -40,7 +40,7 @@ def health():
 
 @app.get('/api/bootstrap')
 def bootstrap():
-    return {'catalog':json.loads((DATA/'catalog.json').read_text()),'images':json.loads((DATA/'images.json').read_text()),'products':app.state.products.bootstrap(),'capabilities':poc_capabilities()}
+    return {'catalog':json.loads((DATA/'catalog.json').read_text()),'images':json.loads((DATA/'images.json').read_text()),'products':app.state.products.bootstrap(),'capabilities':poc_capabilities(),'user':{'username':app.state.auth.credentials().username if app.state.auth.config.enabled else None,'auth_enabled':app.state.auth.config.enabled}}
 
 
 @app.get('/api/products')

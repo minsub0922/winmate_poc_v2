@@ -53,6 +53,7 @@ class ModeTracker:
         self.output_tokens = 0
         self.models: set = set()
         self.steps: Dict[str, int] = {}
+        self.models_used=set()
         self.errors: Dict[str, int] = {}
         self.issues: List[dict] = []
 
@@ -60,6 +61,7 @@ class ModeTracker:
         with self._lock:
             self.ok += 1
             self.cached += int(result.cached)
+            self.models_used.add(result.model)
             self.prompt_tokens += result.prompt_tokens
             self.output_tokens += result.output_tokens
             if result.model:
@@ -89,7 +91,7 @@ class ModeTracker:
                 effective = 'llm' if self.ok else 'none'
             else:
                 effective = status  # error | cancelled
-            out = {'requested': 'real', 'effective': effective, 'strict': True, 'provider': self.provider_name,
+            out = {'requested': 'real', 'effective': effective, 'strict': True, 'models_used':sorted(self.models_used), 'provider': self.provider_name,
                    'model': (sorted(self.models)[0] if len(self.models) == 1 else sorted(self.models)) if self.models else None,
                    'llm_used': self.ok > 0, 'calls_ok': self.ok, 'calls_failed': self.failed, 'calls_rejected': self.rejected,
                    'cached': self.cached, 'tokens': {'prompt': self.prompt_tokens, 'output': self.output_tokens},
@@ -190,7 +192,7 @@ def _route_problem(stage: str, data: Any) -> str:
     return ''
 
 
-def make_score_backend(provider: Any, tracker: ModeTracker, job: Optional[Job] = None, max_asks: int = 2) -> Any:
+def make_score_backend(provider: Any, tracker: ModeTracker, job: Optional[Job] = None, max_asks: int = 2, visual_images=None, visual_pages=None) -> Any:
     ps = imports.score()
     llm = ps.llm
     _require(provider, 'review')
@@ -202,6 +204,7 @@ def make_score_backend(provider: Any, tracker: ModeTracker, job: Optional[Job] =
         def __init__(self) -> None:
             super().__init__()
             self.model = getattr(provider, 'model', 'gemini')
+            self.visual_calls=0
 
         def complete(self, stage, system, user, schema, meta=None, temperature=None):
             tag = (meta or {}).get('tag', '')
@@ -209,6 +212,10 @@ def make_score_backend(provider: Any, tracker: ModeTracker, job: Optional[Job] =
             temp = 0.0 if temperature is None else temperature
             m = _SCORE_IDS.search(user or '') if stage == 'score' else None
             expected = [x.strip() for x in m.group(1).split(',') if x.strip()] if m else []
+            use_vision=bool(visual_images) and stage=='score' and any(cid.startswith('DS') for cid in expected)
+            if use_vision:
+                self.visual_calls+=1
+                user+='\n[실제 장표 이미지] 첨부 이미지 순서의 장 번호: '+str(visual_pages)+'. 이 장은 실제 픽셀을 보고 시각 기준을 판단하세요. 나머지 장은 텍스트/메타데이터만 있습니다. 이미지에서 확인하지 못한 치수나 사실은 만들지 마세요.'
             problem = ''
             for _ in range(max(1, max_asks)):
                 if job is not None:
@@ -216,11 +223,11 @@ def make_score_backend(provider: Any, tracker: ModeTracker, job: Optional[Job] =
                 t0 = time.time()
                 try:
                     res = provider.generate_json(stage=f'score:{stage}', system=system, user=user, schema=schema, temperature=temp,
-                                                 max_output_tokens=8192, cancel=_cancel_check(job))
+                                                 max_output_tokens=8192, cancel=_cancel_check(job), images=visual_images if use_vision else None, model=provider.model_for('vision') if use_vision else None)
                 except ProviderError as exc:
                     self.log(llm.CallLog(stage, stage, int((time.time() - t0) * 1000), error=exc.code, tag=tag))
                     raise _provider_failed(tracker, step, exc, job) from None
-                tracker.record_ok(res, f'review:{stage}')
+                tracker.record_ok(res, 'review:score_vision' if use_vision else f'review:{stage}')
                 self.log(llm.CallLog(stage, stage, res.ms, res.prompt_tokens, res.output_tokens, cached=res.cached, tag=tag))
                 if stage == 'score' and expected:
                     problem = _score_problem(res.data, expected)

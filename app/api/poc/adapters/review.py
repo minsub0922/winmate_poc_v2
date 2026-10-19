@@ -23,6 +23,8 @@ from .. import imports, knowledge
 from ..backends import ModeTracker, make_score_backend
 from ..jobs import BadRequest, Job, Unavailable
 from ..settings import Settings
+from ..provider import image_parts,ProviderError
+from ..strict import from_provider
 from ..strict import failure, invalid_output
 from .common import Prepared, as_float, as_int, jsonable, resolve_mode, str_list
 
@@ -67,37 +69,62 @@ def prepare(body: dict, settings: Settings) -> Prepared:
         scenario, conversion = scenario_from_sheets(proposal, context)
     else:
         scenario, conversion = scenario_from_doc(doc, context)
+    images=body.get('images') or []
+    if not isinstance(images,list) or len(images)>4:raise BadRequest('검토 이미지는 최대 4장입니다.')
+    normalized=[];pages=[]
+    for image in images:
+        if not isinstance(image,dict) or isinstance(image.get('sheet'),bool) or not isinstance(image.get('sheet'),int) or not 1<=image['sheet']<=len(scenario['sheets']):raise BadRequest('검토 이미지의 sheet 번호가 올바르지 않습니다.')
+        if image['sheet'] in pages:raise BadRequest('검토 이미지 장 번호가 중복되었습니다.')
+        data=image.get('data_url')
+        try:image_parts([data])
+        except ProviderError as exc:raise BadRequest(exc.message,'invalid_image') from None
+        normalized.append(data);pages.append(image['sheet'])
+    conversion['visual']={'provided':bool(normalized),'pages':pages,'llm_calls':0}
+    forced=body.get('criteria')
+    if forced is not None:
+        cs,_,_=knowledge.score_assets()
+        if not isinstance(forced,list) or not forced or len(forced)>54 or any(not isinstance(i,str) or i not in cs.ids() for i in forced) or len(set(forced))!=len(forced):raise BadRequest('평가 기준은 알려진 기준 ID 1~54개를 중복 없이 고르세요.')
+    conversion['criteria_source']='manual' if forced else 'gemini'
     try:
         knowledge.bundle()
     except knowledge.KnowledgeError as exc:
         raise Unavailable(str(exc), exc.code) from None
     params = {'source': conversion['source'], 'sheets': conversion['sheets'], 'budget': budget, 'min_k': min_k, 'requested_mode': plan.requested}
     title = str(scenario.get('title') or '제안서')[:80]
-    return Prepared('review', f'제안서 검토 · {title}', params, lambda job: run(job, scenario, conversion, budget, min_k, temperature, plan), plan)
+    return Prepared('review', f'제안서 검토 · {title}', params, lambda job: run(job, scenario, conversion, budget, min_k, temperature, plan, normalized, pages, forced), plan)
 
 
-def run(job: Job, scenario: dict, conversion: dict, budget: int, min_k: int, temperature: Optional[float], plan: Any) -> dict:
+def run(job: Job, scenario: dict, conversion: dict, budget: int, min_k: int, temperature: Optional[float], plan: Any, visual_images=None, visual_pages=None, forced=None) -> dict:
     ps = imports.score()
     cs, tax, _ = knowledge.score_assets()
     p = ps.proposal.from_scenario(scenario)
     catalog = knowledge.score_catalog_for(p.all_text())
     tracker = ModeTracker('real', plan.provider)
     job.ctx['tracker'] = tracker
-    backend = make_score_backend(plan.provider, tracker, job)
+    backend = make_score_backend(plan.provider, tracker, job, visual_images=visual_images, visual_pages=visual_pages)
     ctx = ps.pipeline.Context(backend=backend, cs=cs, tax=tax, catalog=catalog, others=[], budget=budget, min_k=min_k, temperature=temperature)
     job.log(f"평가 시작 — {p.n}장 · Gemini {plan.provider.model} 라우팅 · 채점 (규칙 대체 없음)")
     job.check_cancel()
-    out = ps.pipeline.evaluate(p, ctx)
+    out = ps.pipeline.evaluate(p, ctx, force=forced)
     job.check_cancel()
     route = out.get('route') or {}
     route_mode = route.get('mode')
-    if route_mode != 'llm':
+    if route_mode != ('forced' if forced else 'llm'):
         raise invalid_output('review:route', f"라우팅이 Gemini 결과가 아닙니다(mode={route_mode}): {str(route.get('error') or '')[:160]}")
     bad = [s for s in out.get('scores', []) if s.get('mode') != 'llm']
     if bad:
         raise invalid_output('review:score', '규칙 점수로 대체된 기준: ' + ', '.join(str(s.get('id')) for s in bad[:10]), 'incomplete_output')
-    if not {'review:route_l1', 'review:route_l2'} <= set(tracker.steps):
+    if not forced and not {'review:route_l1', 'review:route_l2'} <= set(tracker.steps):
         raise failure('no_model_call', 'review:route', '라우팅 Gemini 호출 기록이 없습니다.')
+    if visual_images and not backend.visual_calls:
+        try:
+            observed=plan.provider.generate_json(stage='review:visual',user='첨부 장표의 가독성·정렬·정보 밀도를 실제 픽셀로 관찰하고 JSON {summary:한국어 요약}으로 답하세요. 제공 장 번호: '+str(visual_pages),schema={'type':'OBJECT','properties':{'summary':{'type':'STRING'}},'required':['summary']},images=visual_images,model=plan.provider.model_for('vision'),max_output_tokens=1024,cancel=job.cancelled)
+            if not observed.data.get('summary'):raise invalid_output('review:visual','시각 검토가 비어 있습니다.')
+            tracker.record_ok(observed,'review:visual');out['visual_summary']=observed.data['summary'];backend.visual_calls+=1
+        except ProviderError as exc:raise from_provider('review:visual',exc) from None
+    if visual_images:
+        conversion['visual'].update(llm_calls=backend.visual_calls,model=plan.provider.model_for('vision'))
+        job.log('실제 Gemini 비전 검토 완료 · 장 '+', '.join(map(str,visual_pages)))
     score_modes = Counter(s.get('mode') for s in out.get('scores', []))
     llm = tracker.summary(route_mode=route_mode, score_modes=dict(score_modes), selected=len(route.get('selected') or []))
     agg = out.get('aggregate') or {}
