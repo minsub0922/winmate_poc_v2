@@ -1,0 +1,146 @@
+{
+  "group": "pptx-negative",
+  "suite": "app/tests/functional-contracts.mjs",
+  "kind": "deterministic",
+  "live_llm": false,
+  "generatedAt": "2026-10-19T14:45:15.947Z",
+  "counts": {
+    "total": 10,
+    "passed": 10,
+    "failed": 0,
+    "minimum": 10
+  },
+  "meetsMinimum": true,
+  "cases": [
+    {
+      "id": "N01",
+      "title": "plain text renamed .pptx is rejected",
+      "status": "pass",
+      "ms": 1,
+      "details": {
+        "result": {
+          "ok": false,
+          "message": "Can't find end of central directory : is this a zip file ? If it is, see https://stuk.github.io/jszip/documentation/howto/read_zip.html"
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "N02",
+      "title": "empty file is rejected",
+      "status": "pass",
+      "ms": 1,
+      "details": {
+        "result": {
+          "ok": false,
+          "message": "End of data reached (data length = 0, asked index = 4). Corrupted zip ?"
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "N03",
+      "title": "zip without ppt/presentation.xml is rejected",
+      "status": "pass",
+      "ms": 1,
+      "details": {
+        "result": {
+          "ok": false,
+          "message": "PPTX가 아니거나 열 수 없는 파일이에요"
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "N04",
+      "title": "Word document package (.docx parts) is rejected",
+      "status": "pass",
+      "ms": 1,
+      "details": {
+        "result": {
+          "ok": false,
+          "message": "PPTX가 아니거나 열 수 없는 파일이에요"
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "N05",
+      "title": "truncated real export (first 55% of the bytes) is rejected",
+      "status": "pass",
+      "ms": 3,
+      "details": {
+        "result": {
+          "ok": false,
+          "message": "Corrupted zip: can't find end of central directory"
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "N06",
+      "title": "HTML with executable markup renamed pptx never executes",
+      "status": "pass",
+      "ms": 1,
+      "details": {
+        "result": {
+          "ok": false,
+          "message": "Can't find end of central directory : is this a zip file ? If it is, see https://stuk.github.io/jszip/documentation/howto/read_zip.html"
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "N07",
+      "title": "PDF signature renamed pptx is rejected",
+      "status": "pass",
+      "ms": 0,
+      "details": {
+        "result": {
+          "ok": false,
+          "message": "Can't find end of central directory : is this a zip file ? If it is, see https://stuk.github.io/jszip/documentation/howto/read_zip.html"
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "N08",
+      "title": "JSON document renamed pptx is rejected",
+      "status": "pass",
+      "ms": 1,
+      "details": {
+        "result": {
+          "ok": false,
+          "message": "Can't find end of central directory : is this a zip file ? If it is, see https://stuk.github.io/jszip/documentation/howto/read_zip.html"
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "N09",
+      "title": "empty ZIP package is rejected",
+      "status": "pass",
+      "ms": 0,
+      "details": {
+        "result": {
+          "ok": false,
+          "message": "PPTX가 아니거나 열 수 없는 파일이에요"
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "N10",
+      "title": "legacy binary PowerPoint signature is rejected",
+      "status": "pass",
+      "ms": 1,
+      "details": {
+        "result": {
+          "ok": false,
+          "message": "Can't find end of central directory : is this a zip file ? If it is, see https://stuk.github.io/jszip/documentation/howto/read_zip.html"
+        }
+      },
+      "error": null
+    }
+  ]
+}

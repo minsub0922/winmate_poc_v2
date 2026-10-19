@@ -1,5 +1,7 @@
 from __future__ import annotations
 import json
+import hashlib
+import tempfile
 from pathlib import Path
 import unittest
 from dataclasses import replace
@@ -13,13 +15,22 @@ class LocalContracts(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.auth_previous=app.state.auth.reconfigure(replace(app.state.auth.config,enabled=False))
+        import app.api.main as main_module
+        from app.api.poc import settings as cfg,provider as prov,service
+        cls.previous_settings=cfg._SETTINGS;cls.previous_override=dict(prov._OVERRIDE)
+        cfg._SETTINGS=cfg.load_settings({},[]);prov.set_provider_override(clear=True)
+        initializer=main_module.initialize_poc
+        main_module.initialize_poc=lambda:service.initialize(require_provider=False)
         cls.context=TestClient(app)
-        cls.client=cls.context.__enter__()
+        try:cls.client=cls.context.__enter__()
+        finally:main_module.initialize_poc=initializer
 
     @classmethod
     def tearDownClass(cls):
         cls.context.__exit__(None,None,None)
         app.state.auth.reconfigure(cls.auth_previous)
+        from app.api.poc import settings as cfg,provider as prov
+        cfg._SETTINGS=cls.previous_settings;prov._OVERRIDE.clear();prov._OVERRIDE.update(cls.previous_override)
 
     def test_bootstrap_and_product_projection(self):
         catalog=json.loads((ROOT/'app/data/catalog.json').read_text())
@@ -31,6 +42,22 @@ class LocalContracts(unittest.TestCase):
         response=self.client.get('/api/products').json()
         self.assertEqual(len(response['items']),1068)
         self.assertEqual(response['items'],expected)
+
+    def test_bootstrap_profile_uses_authenticated_account_ten_cases(self):
+        previous=app.state.auth.config
+        try:
+            with tempfile.TemporaryDirectory() as directory:
+                app.state.auth.reconfigure(replace(previous,enabled=True,auth_dir=Path(directory),iterations=1000))
+                for n in range(10):
+                    username=f'profile-user-{n}'
+                    with self.subTest(username=username):
+                        app.state.auth.set_credentials(username,'synthetic-test-password-1234')
+                        token,_=app.state.auth.issue_token()
+                        response=self.client.get('/api/bootstrap',headers={'Cookie':f'winmate_session={token}'})
+                        self.assertEqual(response.status_code,200)
+                        self.assertEqual(response.json()['user']['username'],username)
+                        self.assertNotIn('hash',response.json()['user'])
+        finally:app.state.auth.reconfigure(previous)
 
     def test_database_detail_packs_match_published_data(self):
         for path in sorted((ROOT/'reference/live/img/prod').glob('d[0-9][0-9].json')):
@@ -49,16 +76,15 @@ class LocalContracts(unittest.TestCase):
         self.assertEqual(full.status_code,200)
         self.assertEqual(full.content,path.read_bytes())
 
-    def test_dummy_mode_cannot_claim_model_execution(self):
-        result=self.client.post('/api/llm',json={'kind':'json','prompt':'Return a small object.'}).json()
-        self.assertEqual(result['mode'],'dummy')
-        self.assertEqual(result['error'],'unavailable')
-        self.assertNotIn('data',result)
+    def test_missing_provider_never_claims_model_execution(self):
+        response=self.client.post('/api/llm',json={'feature':'llm','kind':'json','prompt':'Return a small object.'})
+        self.assertEqual(response.status_code,503)
+        self.assertEqual(response.json()['code'],'no_api_key')
+        self.assertNotIn('data',response.json())
 
-    def test_published_reference_is_unmodified(self):
-        response=self.client.get('/reference/')
-        self.assertEqual(response.status_code,200)
-        self.assertEqual(response.content,(ROOT/'reference/live/index.html').read_bytes())
+    def test_reference_stays_unmodified_and_not_a_production_route(self):
+        self.assertEqual(self.client.get('/reference/').status_code,404)
+        self.assertEqual(hashlib.sha256((ROOT/'reference/live/index.html').read_bytes()).hexdigest(),'0ab69b8c61b4fd0999c79210c2c084796212717f3dc49c695e8e58712ba2e05b')
 
     def test_local_fonts_and_pdf_runtime(self):
         for path in ['/fonts/fonts.css','/lib/pdf.min.js','/lib/pdf.worker.min.js','/lib/pdf-cmaps-ko.js']:

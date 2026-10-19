@@ -1,0 +1,232 @@
+{
+  "group": "jobs",
+  "suite": "app/tests/strict_contracts.py",
+  "kind": "deterministic",
+  "live_llm": false,
+  "generatedAt": "2026-10-20T01:19:58+0900",
+  "counts": {
+    "total": 14,
+    "passed": 14,
+    "failed": 0,
+    "minimum": 10
+  },
+  "meetsMinimum": true,
+  "cases": [
+    {
+      "id": "J01",
+      "title": "queue: one worker runs jobs strictly one after another",
+      "status": "pass",
+      "ms": 166,
+      "details": {
+        "states": [
+          "queued",
+          "running",
+          "done"
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "J02",
+      "title": "cancel while queued: function never runs, job ends cancelled",
+      "status": "pass",
+      "ms": 14,
+      "details": {
+        "error": {
+          "code": "cancelled",
+          "message": "시작 전에 취소했습니다."
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "J03",
+      "title": "cancel while running is cooperative and leaves a warning event",
+      "status": "pass",
+      "ms": 70,
+      "details": {
+        "steps": 5
+      },
+      "error": null
+    },
+    {
+      "id": "J04",
+      "title": "waiting → validated resume → duplicate answer conflict → done",
+      "status": "pass",
+      "ms": 15,
+      "details": {
+        "states": [
+          "queued",
+          "running",
+          "waiting",
+          "running",
+          "done"
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "J05",
+      "title": "cancel a waiting job: immediate, clears waiting, later answers conflict",
+      "status": "pass",
+      "ms": 0,
+      "details": {},
+      "error": null
+    },
+    {
+      "id": "J06",
+      "title": "event cursor: since filter, next_seq, bounded buffer truncation",
+      "status": "pass",
+      "ms": 0,
+      "details": {
+        "last_seq": 24
+      },
+      "error": null
+    },
+    {
+      "id": "J07",
+      "title": "waiting longer than the TTL is closed as expired on housekeeping",
+      "status": "pass",
+      "ms": 130,
+      "details": {},
+      "error": null
+    },
+    {
+      "id": "J08",
+      "title": "failures become error state with stable code and redacted message",
+      "status": "pass",
+      "ms": 11,
+      "details": {
+        "errors": [
+          {
+            "code": "upstream_unavailable",
+            "message": "ProviderError: upstream_unavailable: HTTP 503 key=[redacted] [redacted]",
+            "retryable": false
+          },
+          {
+            "code": "ValueError",
+            "message": "ValueError: boom",
+            "retryable": false
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "J09",
+      "title": "retention evicts the oldest terminal jobs and never a waiting one",
+      "status": "pass",
+      "ms": 36,
+      "details": {
+        "retained": 2
+      },
+      "error": null
+    },
+    {
+      "id": "J10",
+      "title": "HTTP error contract: malformed bodies 422, unknown jobs 404 everywhere",
+      "status": "pass",
+      "ms": 7,
+      "details": {
+        "codes": {
+          "non-object": 422,
+          "unknown-kind": 422,
+          "/api/jobs/doesnotexist": 404,
+          "/api/jobs/doesnotexist/cancel": 404,
+          "/api/jobs/doesnotexist/answer": 404,
+          "/api/jobs/doesnotexist/events": 404
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "J11",
+      "title": "HTTP cursor, SSE resume, answer conflict and terminal cancel on a server-owned job",
+      "status": "pass",
+      "ms": 4,
+      "details": {
+        "sse_ids": [
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "J12",
+      "title": "failing provider never yields a success payload from /api/llm (error contract)",
+      "status": "pass",
+      "ms": 2,
+      "details": {
+        "json": {
+          "status": 503,
+          "keys": [
+            "code",
+            "detail",
+            "error",
+            "message",
+            "mode",
+            "provider_code",
+            "reason",
+            "retryable",
+            "step"
+          ]
+        },
+        "text": {
+          "status": 503,
+          "keys": [
+            "code",
+            "detail",
+            "error",
+            "message",
+            "mode",
+            "provider_code",
+            "reason",
+            "retryable",
+            "step"
+          ]
+        },
+        "stream": {
+          "status": 503,
+          "types": []
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "J13",
+      "title": "missing key: model endpoints answer a clear 503, never a rule/dummy success",
+      "status": "pass",
+      "ms": 3,
+      "details": {
+        "llm": {
+          "status": 503,
+          "body": {
+            "detail": "서버에 GEMINI_API_KEY 가 설정되어 있지 않아 AI 기능을 실행할 수 없습니다. 관리자에게 키 설정을 요청하세요.",
+            "code": "no_api_key",
+            "error": "no_api_key",
+            "message": "서버에 GEMINI_API_KEY 가 설정되어 있지 않아 AI 기능을 실행할 수 없습니다. 관리자에게 키 설정을 요청하세요.",
+            "mode": "real",
+            "retryable": false
+          }
+        },
+        "rfp": {
+          "status": 503
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "J14",
+      "title": "offline switch is rejected instead of running a substitute path",
+      "status": "pass",
+      "ms": 2,
+      "details": {
+        "status": 422
+      },
+      "error": null
+    }
+  ]
+}

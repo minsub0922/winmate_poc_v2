@@ -1,0 +1,191 @@
+{
+  "group": "catalog",
+  "suite": "app/tests/functional-contracts.mjs",
+  "kind": "deterministic",
+  "live_llm": false,
+  "generatedAt": "2026-10-19T14:45:13.758Z",
+  "counts": {
+    "total": 10,
+    "passed": 10,
+    "failed": 0,
+    "minimum": 10
+  },
+  "meetsMinimum": true,
+  "cases": [
+    {
+      "id": "C01",
+      "title": "collection sizes: 17 solutions · 218 cases · 22 scenarios · 594 active layouts · 1068 products",
+      "status": "pass",
+      "ms": 1,
+      "details": {
+        "solutions": 17,
+        "cases": 218,
+        "scenarios": 22,
+        "active": 594,
+        "all": 835,
+        "products": 1068,
+        "industries": 16,
+        "boot": {
+          "solutions": 17,
+          "cases": 218,
+          "industries": 16
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "C02",
+      "title": "identifiers are unique per collection and refInfo round-trips the first 10 of each",
+      "status": "pass",
+      "ms": 1,
+      "details": {
+        "dups": {
+          "solutions": [],
+          "cases": [],
+          "products": [],
+          "layouts": [],
+          "scenarios": [],
+          "industries": []
+        },
+        "badRefs": {
+          "product": [],
+          "solution": [],
+          "case": []
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "C03",
+      "title": "solutions: first 10 by id carry name/cat/keywords and resolvable industry, product and image refs",
+      "status": "pass",
+      "ms": 11,
+      "details": {
+        "first10": [
+          "biot",
+          "care",
+          "coldchain",
+          "content",
+          "dex",
+          "hvac",
+          "knoxcapture",
+          "knoxsuite",
+          "lynk",
+          "magicinfo"
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "C04",
+      "title": "cases: newest 10 have customer, title, ISO date, https url and a known industry; all industries known",
+      "status": "pass",
+      "ms": 2,
+      "details": {
+        "newest": [
+          3972,
+          3967,
+          3900,
+          3866,
+          3858,
+          3831,
+          3727,
+          3716,
+          3696,
+          3683
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "C05",
+      "title": "industries: unique codes and names; every industry referenced by data exists",
+      "status": "pass",
+      "ms": 1,
+      "details": {
+        "codes": [
+          "FB",
+          "RT",
+          "SV",
+          "HT",
+          "TP",
+          "VN",
+          "AD",
+          "OF",
+          "RS",
+          "ID",
+          "ED",
+          "PB",
+          "MD",
+          "MF",
+          "FN",
+          "OE"
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "C06",
+      "title": "Best Scenarios: requirement type, strategy, ending, industry and stage keys are known values",
+      "status": "pass",
+      "ms": 1,
+      "details": {
+        "checked": 22
+      },
+      "error": null
+    },
+    {
+      "id": "C07",
+      "title": "Best Scenarios: every slide layout, product, solution and case reference resolves",
+      "status": "pass",
+      "ms": 0,
+      "details": {
+        "slides": 345
+      },
+      "error": null
+    },
+    {
+      "id": "C08",
+      "title": "layouts: unique f, known canvas and part, retired layouts point at active replacements",
+      "status": "pass",
+      "ms": 1,
+      "details": {
+        "retiredCount": 241,
+        "noPart": 0
+      },
+      "error": null
+    },
+    {
+      "id": "C09",
+      "title": "layout HTML: 10 layouts from different canvases render at 1280×720 with unique text-block indexes",
+      "status": "pass",
+      "ms": 254,
+      "details": {
+        "layouts": [
+          "L_US_C (MI/user)",
+          "L_VP_F2 (VP/value)",
+          "L_SS_FB_B (SS/scenario)",
+          "L_SM_B (SP/dss)",
+          "L_C01 (CM/cover)",
+          "L_OV_C (EX/overview)",
+          "L_PH_MS_A (PH/market)",
+          "L_AIS_01 (ST/cover)",
+          "L_CP_B (MI/competition)",
+          "L_EF_D (VP/effect)"
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "C10",
+      "title": "layout references: products, solutions, industries and photo/text twins resolve for all active layouts",
+      "status": "pass",
+      "ms": 1,
+      "details": {
+        "withRefs": 360,
+        "nBad": 0
+      },
+      "error": null
+    }
+  ]
+}

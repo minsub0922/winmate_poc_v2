@@ -1,0 +1,197 @@
+{
+  "group": "products",
+  "suite": "app/tests/strict_contracts.py",
+  "kind": "deterministic",
+  "live_llm": false,
+  "generatedAt": "2026-10-20T01:19:57+0900",
+  "counts": {
+    "total": 12,
+    "passed": 12,
+    "failed": 0,
+    "minimum": 10
+  },
+  "meetsMinimum": true,
+  "cases": [
+    {
+      "id": "P01",
+      "title": "count is 1068 across list, health and bootstrap",
+      "status": "pass",
+      "ms": 116,
+      "details": {
+        "items": 1068,
+        "curated": 40,
+        "database": 1028
+      },
+      "error": null
+    },
+    {
+      "id": "P02",
+      "title": "order: 40 curated first in catalog order, stable positions, unique ids",
+      "status": "pass",
+      "ms": 134,
+      "details": {
+        "first": "qm55c",
+        "last": "ec_360_080"
+      },
+      "error": null
+    },
+    {
+      "id": "P03",
+      "title": "detail by id equals the list row (curated + database samples, encoded ids)",
+      "status": "pass",
+      "ms": 16,
+      "details": {
+        "checked": [
+          "qm55c",
+          "qm65c",
+          "qm43c",
+          "qm85c",
+          "qb55c",
+          "oh55a",
+          "vm55b",
+          "window",
+          "epaper",
+          "kiosk",
+          "sg_g000184171",
+          "sg_g000183440",
+          "sg_g000183560",
+          "ec_360_027",
+          "sg_g000184292",
+          "sg_g000183212",
+          "sg_g000181498",
+          "sg_g000184155",
+          "sg_g000180484",
+          "ec_228_010"
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "P04",
+      "title": "search q matches model, lower-case model and Korean category text",
+      "status": "pass",
+      "ms": 18,
+      "details": {
+        "QM55C": 2,
+        "qm55c": 2,
+        "사이니지": 57
+      },
+      "error": null
+    },
+    {
+      "id": "P05",
+      "title": "limit/offset windows tile the full list without gaps or duplicates",
+      "status": "pass",
+      "ms": 70,
+      "details": {
+        "pages": 12,
+        "searchItems": 5
+      },
+      "error": null
+    },
+    {
+      "id": "P06",
+      "title": "search total reports the filtered count, not the catalog size",
+      "status": "pass",
+      "ms": 4,
+      "details": {
+        "total": 2,
+        "matched": 2
+      },
+      "error": null
+    },
+    {
+      "id": "P07",
+      "title": "offset without limit is honoured",
+      "status": "pass",
+      "ms": 1,
+      "details": {
+        "returned": 8
+      },
+      "error": null
+    },
+    {
+      "id": "P08",
+      "title": "guards: invalid paging is 422, unknown ids/packs are 404, traversal is not 500",
+      "status": "pass",
+      "ms": 25,
+      "details": {
+        "statuses": {
+          "{\"limit\": 0}": 422,
+          "{\"limit\": 1069}": 422,
+          "{\"offset\": -1}": 422,
+          "{\"limit\": \"ten\"}": 422,
+          "{\"offset\": \"x\"}": 422,
+          "/api/products/not-a-product": 404,
+          "/api/products/..%2F..%2Fetc%2Fpasswd": 404,
+          "/api/products/qm55c%27%20OR%20%271%27%3D%271": 404,
+          "/api/product-packs/9999": 404,
+          "/api/product-packs/abc": 422
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "P09",
+      "title": "LIKE wildcards in q are literal characters",
+      "status": "pass",
+      "ms": 46,
+      "details": {
+        "%": {
+          "returned": 6,
+          "literal": 6
+        },
+        "_": {
+          "returned": 1034,
+          "literal": 1034
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "P10",
+      "title": "identity/spec fields are well-typed for every product",
+      "status": "pass",
+      "ms": 0,
+      "details": {
+        "checked": 1068,
+        "bad": [],
+        "withModel": 987
+      },
+      "error": null
+    },
+    {
+      "id": "P11",
+      "title": "thumbnail and gallery pack references resolve to images (10 distinct packs)",
+      "status": "pass",
+      "ms": 64,
+      "details": {
+        "refs": [
+          "img/prod/t03.json#127",
+          "img/prod/g07.json#156",
+          "img/prod/t00.json#9",
+          "img/prod/g00.json#27",
+          "img/prod/t04.json#414",
+          "img/prod/g09.json#207",
+          "img/prod/t01.json#43",
+          "img/prod/g02.json#112",
+          "img/prod/g03.json#173",
+          "img/prod/g06.json#131"
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "P12",
+      "title": "ten products resolve their references across the four published detail packs",
+      "status": "pass",
+      "ms": 598,
+      "details": {
+        "packs": [
+          0
+        ]
+      },
+      "error": null
+    }
+  ]
+}

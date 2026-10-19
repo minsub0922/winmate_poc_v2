@@ -1,107 +1,91 @@
 # Winmate v2 로컬 앱
 
-고정한 라이브 아티팩트의 UI·데이터·슬라이드 로직을 옮기는 작업이다. 원본 `src/`, `dist/`, `poc/`, `proddb/`는 수정하지 않는다. 라이브 재현 위에 PoC 백엔드와 로컬 로그인을 연결했다. 기본 모드는 dummy이며 기능별로 real을 켤 수 있다.
+고정 라이브 아티팩트의 UI·슬라이드 엔진을 옮긴 React/FastAPI 앱이다. **AI 기능은 모두 실제 Gemini만 사용한다.** 더미 모드, 규칙으로 만든 AI 응답·점수, 자동 예시 히스토리 주입을 제거했다. 모델이 실패하면 오류와 재시도를 표시하고 사용자 입력은 유지한다.
 
-## 실행
+## 설치·실행
 
-프로젝트 루트에서:
+프로젝트 루트에서 실행한다. Node 22, Python 3.12 또는 uv, 첫 설치용 인터넷 연결이 필요하다.
 
 ```sh
 ./start.sh
+# 또는 make up
 ```
 
-`make up`도 같은 명령이다. Node 22와 Python 3.12 또는 uv가 필요하다. 첫 실행에는 패키지 설치를 위한 인터넷 연결이 필요하다. 앱 UI 폰트 130개와 기존 게시 이미지·PDF 라이브러리는 로컬에서 제공한다. 서버는 `127.0.0.1:8788`에만 바인딩한다. 포트는 `WINMATE_API_PORT`로 설정한다. 같은 브라우저라도 포트가 바뀌면 저장소가 달라진다.
-
-필수 입력은 프로젝트의 `reference/live/`, `proddb/winmate_products.sqlite`, `poc/test/`, `app/data/`의 고정 JSON·레이아웃이다. 없으면 준비 단계에서 해당 파일 경로와 함께 종료한다. 기존 원본 DB는 읽기 전용으로 열어 `app/data/runtime/`에 별도 SQLite snapshot을 만들고, 고정 UI projection을 실제 SQLite 테이블로 저장한다. API는 그 테이블을 조회한다. 이 projection에는 큐레이션 문구·정렬·과거 이미지 pack 참조 등 원시 테이블에 없는 UI 계약이 명시적으로 포함되어 있다.
-
-첫 실행은 로컬 계정 `admin`과 무작위 비밀번호를 만들고 터미널에 한 번 표시한다. 서버에는 PBKDF2-SHA256 salt/hash만 저장한다. 비밀번호를 직접 정하거나 바꾸려면 다음을 실행한다. 기존 세션은 만료된다.
+웹·API는 `http://127.0.0.1:8788`에서 같은 origin으로 제공한다. 첫 실행은 admin 계정과 무작위 비밀번호를 만들고 터미널에 한 번 표시한다. 서버에는 PBKDF2 해시만 저장한다. 비대화식 첫 실행에는 WINMATE_SETUP_PASSWORD를 제공할 수 있으며, 이미 있는 계정은 변경하지 않는다.
 
 ```sh
+# 비밀번호 선택/변경 (터미널 숨김 입력, 기존 세션 만료)
 app/.venv/bin/python -B app/scripts/manage_auth.py --set
+# 포트 설정
+WINMATE_API_PORT=8788 ./start.sh
 ```
 
-세션은 HttpOnly/SameSite=Strict 쿠키로 12시간 유지한다. `/login.html`에서 로그인하고, 계정·서명 키는 Git에서 제외한 `app/data/runtime/auth/`에 0600으로 저장한다. 비대화식 초기화에는 `WINMATE_SETUP_PASSWORD` 환경 변수를 사용할 수 있다. 설정된 계정이 있으면 시작할 때 덮어쓰지 않는다. 로그인 해제는 `/account.html`에서 한다.
+로그아웃은 `/account.html`. 기본 바인딩은 127.0.0.1, 세션은 HttpOnly/SameSite=Strict 쿠키·12시간이다. API 키는 서버만 읽으며 프런트·Git에 포함하지 않는다. 원본 `src/`, `dist/`, `poc/`, `proddb/`는 수정하지 않는다.
 
-개발할 때는 API를 띄운 상태에서 `npm --prefix app/web run dev`를 실행한다. Vite는 `127.0.0.1:5173`이며 `/api`, `/img`, `/lib`를 로컬 API로 연결한다. 일반 실행은 Vite 개발 서버를 띄우지 않고 빌드본과 API를 같은 포트에서 제공한다.
+필수 입력은 제공된 `poc/test/`, `proddb/winmate_products.sqlite`, `reference/live/`, `app/data/`다. 시작 명령이 패키지 설치, 웹 빌드, 읽기 전용 SQLite snapshot, 정본 Agent KB, 데이터 점검, 계정 준비를 수행한다. 없거나 손상된 입력은 경로와 함께 오류로 안내한다. health가 준비되기 전에 **실제 Gemini 연결 확인**도 수행하며 실패하면 기동하지 않는다.
 
-## 구조
+## Gemini 설정
 
-| 위치 | 책임 |
+설정 우선순위는 실행 환경 > app/.env > poc/.env. app/.env.example을 참고한다. 실제 키 값은 커밋하지 않는다.
+
+| 변수 | 기본값·의미 |
 |---|---|
-| `web/src/pages/` | 홈·제안서·라이브러리·시나리오·검토·시뮬레이션 |
-| `web/src/components/` | 버블·탐색기·모달·태그·편집 패널 |
-| `web/src/services/` | 카탈로그·검색·링크·사진 묶음·AI 업무 로직 |
-| `web/src/repositories/` | 기존 localStorage/IndexedDB 계약 및 백업 |
-| `web/src/platform/` | HTTP 기반 sample, 브라우저 다운로드·클립보드. `artifact-backup`만 별도 구 origin 내보내기용 |
-| `web/src/api/` | 전송·초기화·JSON/SSE 응답 경계 |
-| `web/src/domain/slides/` | 1280×720 렌더·overrides·근거·PPTX 내보내기·복원 |
-| `web/src/domain/templates/` | 고정 레이아웃·시나리오 데이터 |
-| `web/src/styles/tokens.css` | 테마·색·간격·글꼴·반경 등 공통 값 |
-| `api/` | FastAPI·SQLite 제품 projection·로그인 |
-| `api/poc/` | 원본 PoC import·provider·작업 관리자·RAG |
-| `data/` | 고정 데이터, 원본을 건드리지 않는 runtime snapshot |
+| GEMINI_API_KEY | 필수. app/.env에서 없으면 기존 poc/.env 사용 |
+| GEMINI_MODEL | gemini-3.1-flash-lite |
+| GEMINI_QUICK_MODEL | GEMINI_MODEL과 동일 |
+| GEMINI_VISION_MODEL | gemini-3.8-flash, 이미지 입력 전용 |
+| GEMINI_BASE_URL | Google 공식 v1beta endpoint, 필요 시 HTTPS 게이트웨이 |
+| WINMATE_GEMINI_TIMEOUT | 60초, 재시도·대기를 포함한 한 모델 호출 시간 한도 |
+| WINMATE_GEMINI_RPM | 120, 계정 quota에 맞게 조정 |
+| WINMATE_GEMINI_CONCURRENCY | 4, 서버 전체 요청 동시성 상한 |
+| WINMATE_LLM_CACHE | off. 켜면 실제 모델 응답만 서버 runtime에 저장 |
+| WINMATE_KB_CACHE | off. 켜면 정본 레이아웃 색인 캐시 |
 
-원본 슬라이드 HTML과 좌표·PPTX 변환 본문은 바꾸지 않았다. media 메타데이터는 0단계에서 확인한 정상 인덱스로 교정했다. 가로 카드 DB 교체 패치와 후기 이미지 라이브러리는 고정 라이브에 없어 포함하지 않았다. 자세한 차이는 `docs/migration/` 보고서에 기록한다.
+WINMATE_MODE/기능별 *_MODE는 더 이상 모드를 바꾸지 못한다. 과거 값은 경고와 함께 무시하며 항상 real이다. API의 offline:true, llm:false 요청은 422로 거절한다. 키 누락이나 모델 오류를 정상 결과로 대체하지 않는다. 구조화 응답의 형식 보정도 Gemini에 다시 요청하며 재시도에는 한도가 있다.
 
-## 기존 브라우저 데이터
+제품/솔루션/사례 DB 조회, 실제 문서 파싱, 슬라이드 좌표/렌더, PPTX 변환, 점수 집계, 검색 후보 추출 등은 실제 데이터에 대한 알고리즘이다. 이 계산들은 유지한다. AI 판단·작성·채점·대화·총평·의미 재정렬은 Gemini다. 검색은 BM25+TF-IDF 후보를 Gemini가 재정렬하며 동일 질의는 실제 응답 캐시와 병합으로 처리한다.
 
-`/migration.html`은 주 UI와 분리한 JSON 백업·가져오기 도구다. 10개 localStorage 키와 IndexedDB 3개의 문서·Blob 이미지를 포함하며 인증 정보는 제외한다. 로컬 앱과 Claude iframe은 origin이 달라 같은 키만 사용해서는 기존 데이터가 자동으로 보이지 않는다.
-
-기존 Claude 프레임에서는 `/migration-export.js` 스크립트의 내용을 해당 프레임에서 실행한 다음 `WinmateBackup.download()`를 호출해 백업한다. 이 스크립트는 구 환경의 downloads 어댑터 또는 브라우저 다운로드로 JSON을 저장하며 외부 서버로 보내지 않는다. 로컬의 migration 페이지에서 JSON을 가져오고 앱을 새로 연다. 같은 ID는 갱신하며 다른 기존 항목은 삭제하지 않는다. 가져오기 전에 현재 로컬 데이터도 백업하는 것을 권한다.
-
-## 검증 명령
-
-서버를 실행한 후:
+## 검증
 
 ```sh
-npm --prefix app/web run test:e2e
-npm --prefix app/web run test:visual
-npm --prefix app/web run test:legacy
-```
-
-Playwright에 고정된 Chromium build 1194를 사용하며 `CHROME`으로 다른 실행 파일을 지정할 수 있다. 테스트는 별도 브라우저 context와 `app/tests/output/`를 사용한다. 개인 브라우저 상태를 사용하지 않는다. 원본 기존 테스트는 별도 작업 디렉터리에 복사하고 OS 경로·서버·HTTP/mock 전송만 적응하며 assertions는 유지한다. 고정 기준본과 새 앱의 결과를 함께 기록한다.
-
-스크린샷은 폭 1500/900/390, light/dark에서 같은 날짜·폰트·초기 저장소를 사용한다. UI 토큰화로 생긴 차이와 기준 자체의 media 문제를 구분한다. 주요 검증 보고서는 단계가 끝날 때 `docs/migration/01-*.md`에 남긴다.
-
-
-## real / dummy 전환
-
-`app/.env.example`을 참고해 `app/.env`를 만들고 서버를 다시 시작한다. 우선순위는 실행 환경 > `app/.env` > 기존 `poc/.env`다. 키는 서버만 읽으며 프런트 응답·번들·커밋에는 포함하지 않는다.
-
-```sh
-WINMATE_MODE=real ./start.sh
-# 또는 검색만 실제 PoC로
-WINMATE_SEARCH_MODE=real ./start.sh
-```
-
-전체 기본값 `WINMATE_MODE=dummy`. 개별 `WINMATE_RFP_MODE`, `WINMATE_LAYOUT_MODE`, `WINMATE_STORYBOARD_MODE`, `WINMATE_SEARCH_MODE`, `WINMATE_REVIEW_MODE`, `WINMATE_PART_MODE`, `WINMATE_FILL_MODE`, `WINMATE_SIMULATION_MODE`, `WINMATE_LLM_MODE`가 전체 값을 덮어쓴다. 값은 real/dummy다. Gemini 기본 모델은 `gemini-3.1-flash-lite`; `GEMINI_MODEL`/`GEMINI_QUICK_MODEL`/`GEMINI_BASE_URL`로 provider 설정을 바꿀 수 있다. `WINMATE_LLM_CACHE`와 `WINMATE_KB_CACHE`는 기본 off다.
-
-키가 없거나 호출이 실패하면 기존 규칙으로 대체하고 화면에 표시한다. 일부 단계만 실패하면 실제 성공/대체 내역을 구분한다. 검색은 BM25+TF-IDF라 키가 필요 없다. 진행 중인 작업은 서버가 소유하며 탭/화면 이동 후 다시 볼 수 있다. 서버 재시작 시에는 메모리 작업이 사라지며 기존 편집 결과는 브라우저 저장소에 남는다.
-
-검토의 ‘핵심 점검 점수’는 PoC가 선별한 기준을 평가한 값이다. 기존 54개 기준의 종합 점수와 동일한 척도라고 해석하면 안 된다. 업로드 문서의 좌표·이미지·넘침 측정이 불완전한 항목은 결과에 표시한다. My 템플릿은 로컬 IDB에 남으며 서버 RAG 후보에는 포함되지 않는다. 상세 한계는 `api/poc/NOTES.md`와 `../docs/migration/02-poc-integration.md` 참조.
-
-## 운영 점검과 테스트
-
-```sh
-# 패키지 준비 후 테스트 의존성 설치
 uv pip install --python app/.venv/bin/python -r app/tests/requirements.txt
-make test
-app/.venv/bin/python -B app/scripts/preflight.py --deep
+make test          # API·인증·실패 정책·provider·재시도·저장 계약, 모델 성공 응답을 흉내내지 않음
+make test-live     # 격리된 API/Vite에서 기능 14개 × 10건 = 실제 Gemini 140건 (비전·사용자 선택 기준 포함)
+```
+
+실제 테스트는 합성 고객 요구사항만 전송하며 API 사용량이 발생한다. 실행 후 소유한 테스트 서버만 종료한다. 결과·오류·응답 시간·실제 모델 처리 통계는 app/tests/output/strict/에 저장한다.
+
+별도의 실행 중 API에 대해 브라우저·입력 파일 검사를 실행할 수도 있다.
+
+```sh
+WINMATE_TEST_URL=http://127.0.0.1:8788 WINMATE_TEST_PASSWORD='로컬 계정 비밀번호' make test-browser
 app/.venv/bin/python -B app/scripts/smoke.py --prompt
+app/.venv/bin/python -B app/scripts/preflight.py --deep --require-auth
 app/.venv/bin/python -B app/scripts/check_secrets.py
 ```
 
-헬스 체크는 `/api/health`다. 로그인 만료 시 저장소의 반영을 기다린 뒤 로그인 화면으로 돌아오며, 기존 작업은 서버에서 계속된다. 인증·credential 값은 반환하지 않는다. API와 정적 앱은 한 프로세스/같은 포트에서 제공한다. 서버는 기본 127.0.0.1에만 바인딩하며 포트는 `WINMATE_API_PORT`로 지정한다. 서버용 비밀 설정과 포트용 셸 환경을 구분한다. Docker는 필수 실행 경로에 넣지 않았다.
+기본 브라우저는 Playwright 고정 Chromium이며 설치가 필요하면 app/web에서 `npx playwright install chromium`. 테스트는 격리된 브라우저 저장소를 사용한다. 캐시된 사용자 비밀번호를 읽지 않는다. 실제 UI 연결 검사는 `WINMATE_LIVE_WEB=<Vite 주소> node app/tests/live_journey.mjs`. 테스트가 종료된 앱의 사용자 데이터는 건드리지 않는다.
 
-자동화 브라우저 테스트는 격리된 테스트 서버에서 `WINMATE_AUTH=off WINMATE_ENV_FILES=none ./start.sh`로 실행한다. 이 값은 테스트용이며 일반 실행 기본값에는 적용되지 않는다. 브라우저 설치는 `cd app/web && npx playwright install chromium`. PoC UI 테스트는 `WINMATE_TEST_URL=http://127.0.0.1:포트 node app/tests/poc-e2e.mjs`; `?poc=offline` 테스트 옵션은 실제 PoC 규칙을 실행하고 외부 모델을 호출하지 않는다. 실제 provider smoke는 비용이 발생하므로 `poc-live-smoke.py`를 명시적으로 실행할 때만 수행한다.
+텍스트 검토 외에 PDF 실제 픽셀/사용자 선택 기준 검토도 10건 실제 모델로 검사한다. PDF 화면은 선택한 최대 4장을 비전으로 채점하고, 화면에 확인한 장 번호를 표시한다.
 
-## 데이터 갱신
+10개 레이아웃의 PPTX 렌더→편집 가능한 내보내기→My 복원, 잘못된 입력 10건, 브라우저 저장소·백업 13건, UI 조작 12건, 첨부 원문 읽기 12건도 검증한다. 과거 더미 동작 전용 테스트는 실제 API/실패 정책 테스트로 대체했다. 1~3단계의 예전 스크린샷·기존 테스트 비교는 당시 커밋과 보고서에 남아 있다. 원본 build/ 테스트를 수정하지 않았다.
 
-1. 원본 DB 자체를 갱신해야 할 때는 원본 `proddb/README.md`와 `build_db.py` 안내를 따른다. 이 이관 앱은 원본 DB를 수정하지 않는다.
-2. `app/scripts/prepare_data.py`는 원본 SQLite의 읽기 전용 백업과 고정 UI projection을 `app/data/runtime`에 다시 준비한다. 원본 DB가 변해도 고정 UI 문구·순서를 자동 변경하지 않는다.
-3. 라이브 데이터를 새 버전으로 갱신하려면 별도 reference snapshot·manifest와 UI 계약 차이를 먼저 검토한다. `app/data/*.json`, `layouts.b64`, 정적 파일 기준과 템플릿 모듈을 함께 갱신해야 한다.
-4. `node app/scripts/export_agent_data.mjs`로 정본 PoC KB를 다시 만들고 `preflight.py --deep`, API·E2E·화면 비교를 실행한다. 시작 명령도 KB 준비를 수행한다. PoC의 `sync_source.py`는 원본을 쓰므로 실행하지 않는다.
+## 구조·데이터 갱신
 
-브라우저 저장소/서버 credential/LLM cache는 데이터 정본과 별개다. 초기화·갱신 스크립트가 개인 브라우저 데이터를 지우지 않는다.
+- web/src/pages·components: 화면과 UI, hooks/services: 데이터·업무 처리, repositories: 저장 경계, api/platform: 전송/브라우저 기능.
+- web/src/domain/slides: 1280×720 HTML·overrides·PPTX 내보내기·복원. 유효 슬라이드의 변환 알고리즘은 유지했다.
+- web/src/styles/tokens.css: 공통 테마·색·간격·글꼴·반경. 로그인/계정 페이지도 같은 토큰 원천을 사용한다.
+- api/poc: 원본 PoC의 읽기 전용 import, strict 어댑터, provider, 작업/질문 재개, 검색.
+- data/runtime: 원본을 쓰지 않는 SQLite projection·정본 KB·인증·선택적 캐시. Git 제외.
 
-기존 테스트를 다시 돌릴 때는 제공된 원본 `build/`와 fixture도 필요하다. PPTX fidelity/roundtrip 수치 재생성은 LibreOffice와 Poppler가 설치된 환경에서 `node app/tests/fidelity-runner.mjs`를 실행한다. 기본 웹/API 기동에는 이 도구들이 필요하지 않다.
+원본 DB 갱신은 proddb/README.md와 build_db.py 안내를 따른다. 앱 snapshot을 다시 만들려면 `app/.venv/bin/python -B app/scripts/prepare_data.py --force`, KB는 `node app/scripts/export_agent_data.mjs`. 라이브 버전 갱신은 reference/정적 데이터/템플릿 계약을 함께 검토하고 테스트해야 한다. 원본을 쓰는 PoC sync_source.py는 실행하지 않는다.
+
+## 저장·한계
+
+기존 localStorage/IndexedDB 키와 데이터 형식을 유지한다. `/migration.html`에서 JSON/Blob을 백업·복원하며, 같은 ID는 갱신하고 다른 기존 기록은 유지한다. Claude origin의 개인 자료는 자동으로 복사하지 않는다. 과거 사용자 기록은 보존하되 새 예시 기록은 주입하지 않는다.
+
+긴 작업은 화면 이동과 새로고침 후 계속 확인할 수 있다. 실패/취소한 작업의 원문 재시도는 서버 메모리에서 한 시간 보관한다. 성공하면 원문 closure를 해제한다. 서버가 재시작되거나 자료가 만료된 긴 첨부는 재업로드가 필요하며 2만 자 excerpt로 조용히 다시 실행하지 않는다.
+
+PoC의 max_slides는 필수 파트를 유지하는 장수 목표다. 초과하면 경고한다. 업로드 문서 검토는 텍스트/구조와, PDF가 제공된 경우 선택한 실제 화면 최대 4장을 비전으로 확인한다. 정확히 측정하지 못한 시각 항목과 확인 범위는 결과에 표시한다. RFP는 PDF/PPTX/DOCX/TXT/MD를 읽으며 PDF 원문 읽기는 래스터 렌더를 생략한다. HWP·스캔 OCR·DeepAgents copilot·Tavily 확장·다중 사용자 인터넷 배포는 제공하지 않는다. 기본 앱 구동에 LibreOffice는 필요하지 않다.
+
+최신 변경과 기능별 테스트 결과는 `docs/migration/04-gemini-only.md`를 참조한다. 00~03 보고서는 더미 제거 전의 이전 단계 기록이다.

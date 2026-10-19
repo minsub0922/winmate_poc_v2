@@ -1,0 +1,32 @@
+{
+  "cases": [
+    {
+      "case": "paired PDF actual vision",
+      "pass": true,
+      "pages": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "models": [
+        "gemini-3.1-flash-lite",
+        "gemini-3.8-flash"
+      ]
+    },
+    {
+      "case": "manual criteria actual model rerun",
+      "pass": true,
+      "criteria": [
+        "CU1",
+        "DS4",
+        "DS7"
+      ],
+      "models": [
+        "gemini-3.1-flash-lite",
+        "gemini-3.8-flash"
+      ]
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,123 @@
+{
+  "visual_review": {
+    "visual_review": {
+      "cases": 10,
+      "passed": 10,
+      "failed": 0,
+      "p50_s": 17.791,
+      "p95_s": 30.653
+    }
+  },
+  "backend": {
+    "rfp": {
+      "cases": 10,
+      "passed": 10,
+      "failed": 0,
+      "median_s": 6.671,
+      "p95_s": 9.51,
+      "max_s": 9.51
+    },
+    "layout": {
+      "cases": 10,
+      "passed": 10,
+      "failed": 0,
+      "median_s": 15.354,
+      "p95_s": 24.775,
+      "max_s": 24.775
+    },
+    "storyboard": {
+      "cases": 10,
+      "passed": 10,
+      "failed": 0,
+      "median_s": 4.7455,
+      "p95_s": 7.682,
+      "max_s": 7.682
+    },
+    "search": {
+      "cases": 10,
+      "passed": 10,
+      "failed": 0,
+      "median_s": 1.5975000000000001,
+      "p95_s": 2.593,
+      "max_s": 2.593
+    },
+    "review": {
+      "cases": 10,
+      "passed": 10,
+      "failed": 0,
+      "median_s": 11.642,
+      "p95_s": 16.26,
+      "max_s": 16.26
+    }
+  },
+  "frontend": {
+    "part": {
+      "cases": 10,
+      "passed": 10,
+      "failed": 0,
+      "p50_s": 1.6595584579999996,
+      "p95_s": 2.099912875
+    },
+    "fill": {
+      "cases": 10,
+      "passed": 10,
+      "failed": 0,
+      "p50_s": 3.292685209000001,
+      "p95_s": 5.626165541999999
+    },
+    "rerank": {
+      "cases": 10,
+      "passed": 10,
+      "failed": 0,
+      "p50_s": 1.944268250000001,
+      "p95_s": 2.1256833750000004
+    },
+    "customer": {
+      "cases": 10,
+      "passed": 10,
+      "failed": 0,
+      "p50_s": 3.1638932090000016,
+      "p95_s": 6.444610500000002
+    },
+    "debrief": {
+      "cases": 10,
+      "passed": 10,
+      "failed": 0,
+      "p50_s": 2.2530646669999985,
+      "p95_s": 5.225600791999997
+    },
+    "json": {
+      "cases": 10,
+      "passed": 10,
+      "failed": 0,
+      "p50_s": 2.0165396249999903,
+      "p95_s": 4.524489209000007
+    },
+    "text": {
+      "cases": 10,
+      "passed": 10,
+      "failed": 0,
+      "p50_s": 2.34729529200001,
+      "p95_s": 6.075969291999995
+    },
+    "vision": {
+      "cases": 10,
+      "passed": 10,
+      "failed": 0,
+      "p50_s": 4.579337374999988,
+      "p95_s": 8.070362166999999
+    }
+  },
+  "seconds": 348.43,
+  "run": "20261019T161958Z",
+  "passed": 140,
+  "cases": 140,
+  "completed_kst": "2026-10-20T01:27:10.887847+09:00",
+  "endpoint_host": "generativelanguage.googleapis.com",
+  "models": {
+    "text": "gemini-3.1-flash-lite",
+    "vision": "gemini-3.8-flash"
+  },
+  "provider_mocks_in_live_suite": false,
+  "application_response_cache_in_live_suite": false
+}

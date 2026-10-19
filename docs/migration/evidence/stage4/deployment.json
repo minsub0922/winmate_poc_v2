@@ -1,0 +1,60 @@
+{
+  "steps": [
+    {
+      "name": "start.sh 하나로 패키지·웹·DB·KB·계정 준비 및 기동",
+      "ok": true,
+      "ms": 10197
+    },
+    {
+      "name": "로그인 전 API·화면 보호 및 외부 Origin 거부",
+      "ok": true,
+      "ms": 6
+    },
+    {
+      "name": "실제 로그인 화면 → 앱 → 제안서 저장",
+      "ok": true,
+      "ms": 2290
+    },
+    {
+      "name": "인증한 백그라운드 작업·SSE",
+      "ok": true,
+      "ms": 6815
+    },
+    {
+      "name": "계정 화면 로그아웃·재로그인 후 브라우저 데이터 유지",
+      "ok": true,
+      "ms": 829
+    },
+    {
+      "name": "스모크 스크립트·전체 데이터 해시·credential 권한",
+      "ok": true,
+      "ms": 1894
+    },
+    {
+      "name": "Vite 개발 프록시 로그인·CSRF·서버 파일 접근 차단",
+      "ok": true,
+      "ms": 4539
+    },
+    {
+      "name": "actual health proof and strict feature inventory",
+      "ok": true,
+      "ms": 26
+    },
+    {
+      "name": "filtered database count, offset and image Range through authenticated production",
+      "ok": true,
+      "ms": 7
+    },
+    {
+      "name": "repeat startup account preparation preserves the existing password",
+      "ok": true,
+      "ms": 367
+    },
+    {
+      "name": "legacy offline options rejected without a model call",
+      "ok": true,
+      "ms": 5
+    }
+  ],
+  "errors": []
+}

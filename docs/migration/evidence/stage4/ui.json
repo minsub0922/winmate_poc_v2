@@ -1,0 +1,194 @@
+{
+  "group": "ui",
+  "suite": "app/tests/real-functional-e2e.mjs",
+  "kind": "deterministic",
+  "live_llm": false,
+  "generatedAt": "2026-10-19T14:51:02.038Z",
+  "counts": {
+    "total": 12,
+    "passed": 12,
+    "failed": 0,
+    "minimum": 10
+  },
+  "meetsMinimum": true,
+  "blocked": [
+    {
+      "case": "U09",
+      "kind": "model",
+      "method": "POST",
+      "url": "http://127.0.0.1:5198/api/jobs"
+    },
+    {
+      "case": "U11",
+      "kind": "model",
+      "method": "POST",
+      "url": "http://127.0.0.1:5198/api/layouts/search"
+    }
+  ],
+  "modelCallsBlocked": 2,
+  "pageErrors": [],
+  "cases": [
+    {
+      "id": "U01",
+      "title": "sidebar “새 제안서 시작” creates one proposal and opens the requirements popup",
+      "status": "pass",
+      "ms": 2385,
+      "details": {
+        "id": "p1r3yq3t"
+      },
+      "error": null
+    },
+    {
+      "id": "U02",
+      "title": "title edit persists; clearing it falls back to “새 제안서”",
+      "status": "pass",
+      "ms": 3631,
+      "details": {
+        "final": "새 제안서"
+      },
+      "error": null
+    },
+    {
+      "id": "U03",
+      "title": "free requirement text with a keyboard @ mention stores text + product segment and links the product",
+      "status": "pass",
+      "ms": 2374,
+      "details": {
+        "segments": [
+          {
+            "t": "WMSTRICT-U03 전국 매장 메뉴보드 교체. 카운터에는 "
+          },
+          {
+            "ref": "product:qm55c"
+          },
+          {
+            "t": " "
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "U04",
+      "title": "pasted product link becomes a link chip, resolves locally to the product and links it",
+      "status": "pass",
+      "ms": 2380,
+      "details": {
+        "segment": {
+          "t": "https://www.samsung.com/sec/business/smart-signage/qmc-series/LH55QMCEBGCXKR/",
+          "link": {
+            "title": "스마트 사이니지 QM55C",
+            "site": "Samsung",
+            "ref": "product:qm55c",
+            "desc": "QM55C · LCD 사이니지"
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "U05",
+      "title": "form tab fields mirror into the proposal and the creator note keeps an @solution tag",
+      "status": "pass",
+      "ms": 3047,
+      "details": {
+        "note": "WMSTRICT-U05 파일럿부터 단계 도입. @MagicINFO "
+      },
+      "error": null
+    },
+    {
+      "id": "U06",
+      "title": "key-person weights: sum indicator flags ≠100%, added key person and requirement persist",
+      "status": "pass",
+      "ms": 2763,
+      "details": {},
+      "error": null
+    },
+    {
+      "id": "U07",
+      "title": "layout detail: replace the database product QM55C with QM65C — slide text and overrides change",
+      "status": "pass",
+      "ms": 3705,
+      "details": {
+        "ov": {
+          "t": {
+            "4": "QM65C"
+          },
+          "img": {}
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "U08",
+      "title": "layout detail: in-place text edit is saved as an override and shown again after reopening",
+      "status": "pass",
+      "ms": 4091,
+      "details": {
+        "block": 1,
+        "status": "partial"
+      },
+      "error": null
+    },
+    {
+      "id": "U09",
+      "title": "review: uploading a real PPTX parses its slide and stores the document locally",
+      "status": "pass",
+      "ms": 2640,
+      "details": {
+        "review": {
+          "id": "r5u9mzz7",
+          "status": "error",
+          "stage": "ai",
+          "poc": "failed"
+        },
+        "blocked": [
+          {
+            "kind": "model",
+            "method": "POST",
+            "url": "http://127.0.0.1:5198/api/jobs"
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "U10",
+      "title": "My templates: uploading a PPTX imports one page, saves it with its pictures, survives reload",
+      "status": "pass",
+      "ms": 3815,
+      "details": {
+        "pictures": 6
+      },
+      "error": null
+    },
+    {
+      "id": "U11",
+      "title": "layout picker: search failure is explicit; clearing it allows choosing a real catalog layout",
+      "status": "pass",
+      "ms": 3666,
+      "details": {
+        "blocked": [
+          {
+            "kind": "model",
+            "method": "POST",
+            "url": "http://127.0.0.1:5198/api/layouts/search"
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "U12",
+      "title": "PPTX export button downloads an editable deck with the edited text and pictures",
+      "status": "pass",
+      "ms": 2695,
+      "details": {
+        "media": 6,
+        "runs": 18,
+        "exportedAt": null
+      },
+      "error": null
+    }
+  ]
+}

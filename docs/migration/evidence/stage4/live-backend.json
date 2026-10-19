@@ -1,0 +1,2172 @@
+{
+  "actual_gemini": true,
+  "base": "http://127.0.0.1:55931",
+  "summary": {
+    "rfp": {
+      "cases": 10,
+      "passed": 10,
+      "failed": 0,
+      "median_s": 6.671,
+      "p95_s": 9.51,
+      "max_s": 9.51
+    },
+    "layout": {
+      "cases": 10,
+      "passed": 10,
+      "failed": 0,
+      "median_s": 15.354,
+      "p95_s": 24.775,
+      "max_s": 24.775
+    },
+    "storyboard": {
+      "cases": 10,
+      "passed": 10,
+      "failed": 0,
+      "median_s": 4.7455,
+      "p95_s": 7.682,
+      "max_s": 7.682
+    },
+    "search": {
+      "cases": 10,
+      "passed": 10,
+      "failed": 0,
+      "median_s": 1.5975000000000001,
+      "p95_s": 2.593,
+      "max_s": 2.593
+    },
+    "review": {
+      "cases": 10,
+      "passed": 10,
+      "failed": 0,
+      "median_s": 11.642,
+      "p95_s": 16.26,
+      "max_s": 16.26
+    }
+  },
+  "cases": [
+    {
+      "feature": "rfp",
+      "case": "C01",
+      "topic": "카페 메뉴보드",
+      "pass": true,
+      "job_id": "70a23acfdf5a4eb5",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 3,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 1970,
+          "output": 1104
+        },
+        "steps": {
+          "rfp:profile": 1,
+          "rfp:extract": 1,
+          "rfp:consolidate": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "consolidate_fallback": []
+      },
+      "interrupt_answers": 0,
+      "forms": 1,
+      "requirements": 5,
+      "grounded_rate": 1.0,
+      "seconds": 5.93
+    },
+    {
+      "feature": "rfp",
+      "case": "C02",
+      "topic": "브랜드 체험 매장",
+      "pass": true,
+      "job_id": "23e2ab059adb42c5",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 3,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2001,
+          "output": 1174
+        },
+        "steps": {
+          "rfp:profile": 1,
+          "rfp:extract": 1,
+          "rfp:consolidate": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "consolidate_fallback": []
+      },
+      "interrupt_answers": 0,
+      "forms": 1,
+      "requirements": 5,
+      "grounded_rate": 1.0,
+      "seconds": 6.932
+    },
+    {
+      "feature": "rfp",
+      "case": "C03",
+      "topic": "무인 매장 운영",
+      "pass": true,
+      "job_id": "f25f6f9f704d4e03",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 3,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 1992,
+          "output": 919
+        },
+        "steps": {
+          "rfp:profile": 1,
+          "rfp:extract": 1,
+          "rfp:consolidate": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "consolidate_fallback": []
+      },
+      "interrupt_answers": 0,
+      "forms": 1,
+      "requirements": 4,
+      "grounded_rate": 1.0,
+      "seconds": 6.41
+    },
+    {
+      "feature": "rfp",
+      "case": "C04",
+      "topic": "호텔 객실 안내",
+      "pass": true,
+      "job_id": "2364e43267b542bc",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 4,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2774,
+          "output": 1423
+        },
+        "steps": {
+          "rfp:profile": 1,
+          "rfp:extract": 1,
+          "rfp:gapfill": 1,
+          "rfp:consolidate": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "consolidate_fallback": []
+      },
+      "interrupt_answers": 0,
+      "forms": 1,
+      "requirements": 7,
+      "grounded_rate": 1.0,
+      "seconds": 9.51
+    },
+    {
+      "feature": "rfp",
+      "case": "C05",
+      "topic": "전시 동선 안내",
+      "pass": true,
+      "job_id": "7efdfd05988b4127",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 3,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2008,
+          "output": 1247
+        },
+        "steps": {
+          "rfp:profile": 1,
+          "rfp:extract": 1,
+          "rfp:consolidate": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "consolidate_fallback": []
+      },
+      "interrupt_answers": 0,
+      "forms": 1,
+      "requirements": 6,
+      "grounded_rate": 1.0,
+      "seconds": 7.187
+    },
+    {
+      "feature": "rfp",
+      "case": "C06",
+      "topic": "경기장 안내",
+      "pass": true,
+      "job_id": "9ab5ad6cd8b34b96",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 3,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 1961,
+          "output": 1159
+        },
+        "steps": {
+          "rfp:profile": 1,
+          "rfp:extract": 1,
+          "rfp:consolidate": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "consolidate_fallback": []
+      },
+      "interrupt_answers": 0,
+      "forms": 1,
+      "requirements": 7,
+      "grounded_rate": 0.857,
+      "seconds": 6.173
+    },
+    {
+      "feature": "rfp",
+      "case": "C07",
+      "topic": "옥외 광고 운영",
+      "pass": true,
+      "job_id": "0819515e5cd54ab4",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 3,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2067,
+          "output": 1260
+        },
+        "steps": {
+          "rfp:profile": 1,
+          "rfp:extract": 1,
+          "rfp:consolidate": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "consolidate_fallback": []
+      },
+      "interrupt_answers": 0,
+      "forms": 1,
+      "requirements": 6,
+      "grounded_rate": 1.0,
+      "seconds": 7.213
+    },
+    {
+      "feature": "rfp",
+      "case": "C08",
+      "topic": "사무실 협업",
+      "pass": true,
+      "job_id": "6503bd13f276444a",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 4,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2710,
+          "output": 1410
+        },
+        "steps": {
+          "rfp:profile": 1,
+          "rfp:extract": 1,
+          "rfp:gapfill": 1,
+          "rfp:consolidate": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "consolidate_fallback": []
+      },
+      "interrupt_answers": 0,
+      "forms": 1,
+      "requirements": 6,
+      "grounded_rate": 1.0,
+      "seconds": 7.697
+    },
+    {
+      "feature": "rfp",
+      "case": "C09",
+      "topic": "주거 공간 제안",
+      "pass": true,
+      "job_id": "87ba547ba61b40e6",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 3,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 1931,
+          "output": 810
+        },
+        "steps": {
+          "rfp:profile": 1,
+          "rfp:extract": 1,
+          "rfp:consolidate": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "consolidate_fallback": []
+      },
+      "interrupt_answers": 0,
+      "forms": 1,
+      "requirements": 3,
+      "grounded_rate": 1.0,
+      "seconds": 6.193
+    },
+    {
+      "feature": "rfp",
+      "case": "C10",
+      "topic": "파트너 공급",
+      "pass": true,
+      "job_id": "e45d2e2b0a2740ff",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 3,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 1861,
+          "output": 810
+        },
+        "steps": {
+          "rfp:profile": 1,
+          "rfp:extract": 1,
+          "rfp:consolidate": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "consolidate_fallback": []
+      },
+      "interrupt_answers": 0,
+      "forms": 1,
+      "requirements": 3,
+      "grounded_rate": 1.0,
+      "seconds": 6.168
+    },
+    {
+      "feature": "layout",
+      "case": "C01",
+      "topic": "카페 메뉴보드",
+      "pass": true,
+      "job_id": "09d4c0752b8a477f",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 6,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 7078,
+          "output": 1942
+        },
+        "steps": {
+          "layout:LLMAnalysis": 1,
+          "layout:LLMStoryItems": 1,
+          "layout:LLMLayoutPicks": 1,
+          "layout:LLMFill": 3
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "nodes_ok": [
+          "analyze",
+          "story_items",
+          "layout_pick",
+          "fill:L_C01",
+          "fill:L_VP_F2",
+          "fill:L_PH_C13"
+        ],
+        "nodes_failed": [],
+        "json_reask_ok": 0,
+        "note": "Layout Agent 의 모든 LLM 노드는 실제 Gemini 결과만 씁니다. 실패하면 작업이 error 로 끝납니다(규칙 대체 없음)."
+      },
+      "interrupt_answers": 0,
+      "slides": 3,
+      "route": "standard",
+      "requirements": 2,
+      "seconds": 10.095
+    },
+    {
+      "feature": "layout",
+      "case": "C02",
+      "topic": "브랜드 체험 매장",
+      "pass": true,
+      "job_id": "4f505920027543df",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 12,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 21199,
+          "output": 7334
+        },
+        "steps": {
+          "layout:LLMAnalysis": 1,
+          "layout:LLMScenarioPick": 1,
+          "layout:LLMStoryItems": 1,
+          "layout:LLMLayoutPicks": 2,
+          "layout:LLMFill": 7
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "nodes_ok": [
+          "analyze",
+          "best_pick",
+          "story_items",
+          "layout_pick",
+          "fill:L_C08",
+          "fill:L_PH_VP_D",
+          "fill:L_PH_P_L",
+          "fill:L_SA_D",
+          "fill:L_C12",
+          "fill:L_PH_SS_RT_A",
+          "layout_pick",
+          "fill:L_PH_CO_E"
+        ],
+        "nodes_failed": [],
+        "json_reask_ok": 0,
+        "note": "Layout Agent 의 모든 LLM 노드는 실제 Gemini 결과만 씁니다. 실패하면 작업이 error 로 끝납니다(규칙 대체 없음)."
+      },
+      "interrupt_answers": 0,
+      "slides": 7,
+      "route": "best",
+      "requirements": 7,
+      "seconds": 24.775
+    },
+    {
+      "feature": "layout",
+      "case": "C03",
+      "topic": "무인 매장 운영",
+      "pass": true,
+      "job_id": "582445e687e74d8d",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 9,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 14731,
+          "output": 5769
+        },
+        "steps": {
+          "layout:LLMAnalysis": 1,
+          "layout:LLMDecomposition": 1,
+          "layout:LLMStoryItems": 1,
+          "layout:LLMLayoutPicks": 1,
+          "layout:LLMFill": 5
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "nodes_ok": [
+          "analyze",
+          "decompose",
+          "story_items",
+          "layout_pick",
+          "fill:L_C01",
+          "fill:L_PH_C13",
+          "fill:L_PH_ES_A",
+          "fill:L_PH_P1_C",
+          "fill:L_PH_SO_I"
+        ],
+        "nodes_failed": [],
+        "json_reask_ok": 0,
+        "note": "Layout Agent 의 모든 LLM 노드는 실제 Gemini 결과만 씁니다. 실패하면 작업이 error 로 끝납니다(규칙 대체 없음)."
+      },
+      "interrupt_answers": 1,
+      "slides": 6,
+      "route": "decompose",
+      "requirements": 6,
+      "seconds": 19.076
+    },
+    {
+      "feature": "layout",
+      "case": "C04",
+      "topic": "호텔 객실 안내",
+      "pass": true,
+      "job_id": "041c022b00e3437a",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 6,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 6332,
+          "output": 1552
+        },
+        "steps": {
+          "layout:LLMAnalysis": 1,
+          "layout:LLMStoryItems": 1,
+          "layout:LLMLayoutPicks": 1,
+          "layout:LLMFill": 3
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "nodes_ok": [
+          "analyze",
+          "story_items",
+          "layout_pick",
+          "fill:L_AIS_01",
+          "fill:L_AIS_37",
+          "fill:L_VP_G"
+        ],
+        "nodes_failed": [],
+        "json_reask_ok": 0,
+        "note": "Layout Agent 의 모든 LLM 노드는 실제 Gemini 결과만 씁니다. 실패하면 작업이 error 로 끝납니다(규칙 대체 없음)."
+      },
+      "interrupt_answers": 0,
+      "slides": 3,
+      "route": "standard",
+      "requirements": 2,
+      "seconds": 11.797
+    },
+    {
+      "feature": "layout",
+      "case": "C05",
+      "topic": "전시 동선 안내",
+      "pass": true,
+      "job_id": "a5659750c2464984",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 10,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 18314,
+          "output": 5256
+        },
+        "steps": {
+          "layout:LLMAnalysis": 1,
+          "layout:LLMScenarioPick": 1,
+          "layout:LLMStoryItems": 1,
+          "layout:LLMLayoutPicks": 1,
+          "layout:LLMFill": 6
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "nodes_ok": [
+          "analyze",
+          "best_pick",
+          "story_items",
+          "layout_pick",
+          "fill:L_C02",
+          "fill:L_PH_SS_TP_A",
+          "fill:L_VP_N",
+          "fill:L_PH_P_L",
+          "fill:L_C12",
+          "fill:L_PH_SD_G"
+        ],
+        "nodes_failed": [],
+        "json_reask_ok": 0,
+        "note": "Layout Agent 의 모든 LLM 노드는 실제 Gemini 결과만 씁니다. 실패하면 작업이 error 로 끝납니다(규칙 대체 없음)."
+      },
+      "interrupt_answers": 0,
+      "slides": 6,
+      "route": "best",
+      "requirements": 6,
+      "seconds": 15.731
+    },
+    {
+      "feature": "layout",
+      "case": "C06",
+      "topic": "경기장 안내",
+      "pass": true,
+      "job_id": "bc02235418794d9a",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 10,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 17061,
+          "output": 6373
+        },
+        "steps": {
+          "layout:LLMAnalysis": 1,
+          "layout:LLMDecomposition": 1,
+          "layout:LLMStoryItems": 1,
+          "layout:LLMLayoutPicks": 1,
+          "layout:LLMFill": 6
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "nodes_ok": [
+          "analyze",
+          "decompose",
+          "story_items",
+          "layout_pick",
+          "fill:L_C02",
+          "fill:L_PH_ES_A",
+          "fill:L_PH_VP_L",
+          "fill:L_PH_P1_C",
+          "fill:L_PH_SO_I",
+          "fill:L_PH_C13"
+        ],
+        "nodes_failed": [],
+        "json_reask_ok": 0,
+        "note": "Layout Agent 의 모든 LLM 노드는 실제 Gemini 결과만 씁니다. 실패하면 작업이 error 로 끝납니다(규칙 대체 없음)."
+      },
+      "interrupt_answers": 1,
+      "slides": 7,
+      "route": "decompose",
+      "requirements": 6,
+      "seconds": 19.844
+    },
+    {
+      "feature": "layout",
+      "case": "C07",
+      "topic": "옥외 광고 운영",
+      "pass": true,
+      "job_id": "77fe7dfa5a814d7a",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 7,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 9096,
+          "output": 2573
+        },
+        "steps": {
+          "layout:LLMAnalysis": 1,
+          "layout:LLMStoryItems": 1,
+          "layout:LLMLayoutPicks": 1,
+          "layout:LLMFill": 4
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "nodes_ok": [
+          "analyze",
+          "story_items",
+          "layout_pick",
+          "fill:L_PH_C13",
+          "fill:L_C01",
+          "fill:L_VP_F2",
+          "fill:L_PH_P_L"
+        ],
+        "nodes_failed": [],
+        "json_reask_ok": 0,
+        "note": "Layout Agent 의 모든 LLM 노드는 실제 Gemini 결과만 씁니다. 실패하면 작업이 error 로 끝납니다(규칙 대체 없음)."
+      },
+      "interrupt_answers": 0,
+      "slides": 4,
+      "route": "standard",
+      "requirements": 2,
+      "seconds": 14.977
+    },
+    {
+      "feature": "layout",
+      "case": "C08",
+      "topic": "사무실 협업",
+      "pass": true,
+      "job_id": "dc3064618c024d4f",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 9,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 12008,
+          "output": 3204
+        },
+        "steps": {
+          "layout:LLMAnalysis": 1,
+          "layout:LLMScenarioPick": 1,
+          "layout:LLMStoryItems": 1,
+          "layout:LLMLayoutPicks": 1,
+          "layout:LLMFill": 5
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "nodes_ok": [
+          "analyze",
+          "best_pick",
+          "story_items",
+          "layout_pick",
+          "fill:L_SOL_01",
+          "fill:L_VP_N",
+          "fill:L_SOL_07",
+          "fill:L_SOL_11",
+          "fill:L_C12"
+        ],
+        "nodes_failed": [],
+        "json_reask_ok": 0,
+        "note": "Layout Agent 의 모든 LLM 노드는 실제 Gemini 결과만 씁니다. 실패하면 작업이 error 로 끝납니다(규칙 대체 없음)."
+      },
+      "interrupt_answers": 0,
+      "slides": 5,
+      "route": "best",
+      "requirements": 6,
+      "seconds": 14.461
+    },
+    {
+      "feature": "layout",
+      "case": "C09",
+      "topic": "주거 공간 제안",
+      "pass": true,
+      "job_id": "1f44f5c3f13942a2",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 9,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 13354,
+          "output": 4947
+        },
+        "steps": {
+          "layout:LLMAnalysis": 1,
+          "layout:LLMDecomposition": 1,
+          "layout:LLMStoryItems": 1,
+          "layout:LLMLayoutPicks": 1,
+          "layout:LLMFill": 5
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "nodes_ok": [
+          "analyze",
+          "decompose",
+          "story_items",
+          "layout_pick",
+          "fill:L_C01",
+          "fill:L_PH_ES_A",
+          "fill:L_PH_C13",
+          "fill:L_PH_P_I",
+          "fill:L_PH_SO_J"
+        ],
+        "nodes_failed": [],
+        "json_reask_ok": 0,
+        "note": "Layout Agent 의 모든 LLM 노드는 실제 Gemini 결과만 씁니다. 실패하면 작업이 error 로 끝납니다(규칙 대체 없음)."
+      },
+      "interrupt_answers": 1,
+      "slides": 6,
+      "route": "decompose",
+      "requirements": 6,
+      "seconds": 18.609
+    },
+    {
+      "feature": "layout",
+      "case": "C10",
+      "topic": "파트너 공급",
+      "pass": true,
+      "job_id": "8128d460a63a4ee0",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 7,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 9972,
+          "output": 3294
+        },
+        "steps": {
+          "layout:LLMAnalysis": 1,
+          "layout:LLMStoryItems": 1,
+          "layout:LLMLayoutPicks": 1,
+          "layout:LLMFill": 4
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "nodes_ok": [
+          "analyze",
+          "story_items",
+          "layout_pick",
+          "fill:L_C09",
+          "fill:L_PH_P_G",
+          "fill:L_PH_C13",
+          "fill:L_VP_G"
+        ],
+        "nodes_failed": [],
+        "json_reask_ok": 0,
+        "note": "Layout Agent 의 모든 LLM 노드는 실제 Gemini 결과만 씁니다. 실패하면 작업이 error 로 끝납니다(규칙 대체 없음)."
+      },
+      "interrupt_answers": 0,
+      "slides": 4,
+      "route": "standard",
+      "requirements": 2,
+      "seconds": 12.869
+    },
+    {
+      "feature": "storyboard",
+      "case": "C01",
+      "topic": "카페 메뉴보드",
+      "pass": true,
+      "job_id": "456154cc9aec4469",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 1,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2766,
+          "output": 968
+        },
+        "steps": {
+          "storyboard:design": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null
+      },
+      "interrupt_answers": 0,
+      "parts": 4,
+      "seconds": 4.741
+    },
+    {
+      "feature": "storyboard",
+      "case": "C02",
+      "topic": "브랜드 체험 매장",
+      "pass": true,
+      "job_id": "e1a803f77a264705",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 1,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2797,
+          "output": 1150
+        },
+        "steps": {
+          "storyboard:design": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null
+      },
+      "interrupt_answers": 0,
+      "parts": 5,
+      "seconds": 5.577
+    },
+    {
+      "feature": "storyboard",
+      "case": "C04",
+      "topic": "호텔 객실 안내",
+      "pass": true,
+      "job_id": "fa33a208cb38476d",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 1,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2721,
+          "output": 1085
+        },
+        "steps": {
+          "storyboard:design": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null
+      },
+      "interrupt_answers": 0,
+      "parts": 5,
+      "seconds": 4.75
+    },
+    {
+      "feature": "storyboard",
+      "case": "C03",
+      "topic": "무인 매장 운영",
+      "pass": true,
+      "job_id": "131ede7379ed4ba4",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 2,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 4667,
+          "output": 1874
+        },
+        "steps": {
+          "storyboard:design": 1,
+          "storyboard:repair": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null
+      },
+      "interrupt_answers": 0,
+      "parts": 4,
+      "seconds": 7.682
+    },
+    {
+      "feature": "storyboard",
+      "case": "C05",
+      "topic": "전시 동선 안내",
+      "pass": true,
+      "job_id": "436c3cf14cdc4988",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 1,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2783,
+          "output": 960
+        },
+        "steps": {
+          "storyboard:design": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null
+      },
+      "interrupt_answers": 0,
+      "parts": 4,
+      "seconds": 4.234
+    },
+    {
+      "feature": "storyboard",
+      "case": "C06",
+      "topic": "경기장 안내",
+      "pass": true,
+      "job_id": "97646fe9369b4edd",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 1,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2701,
+          "output": 1018
+        },
+        "steps": {
+          "storyboard:design": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null
+      },
+      "interrupt_answers": 0,
+      "parts": 4,
+      "seconds": 4.789
+    },
+    {
+      "feature": "storyboard",
+      "case": "C07",
+      "topic": "옥외 광고 운영",
+      "pass": true,
+      "job_id": "98436f13f5c74fc5",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 1,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2750,
+          "output": 968
+        },
+        "steps": {
+          "storyboard:design": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null
+      },
+      "interrupt_answers": 0,
+      "parts": 4,
+      "seconds": 4.303
+    },
+    {
+      "feature": "storyboard",
+      "case": "C08",
+      "topic": "사무실 협업",
+      "pass": true,
+      "job_id": "d4a4a2b9575e42f8",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 1,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2709,
+          "output": 959
+        },
+        "steps": {
+          "storyboard:design": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null
+      },
+      "interrupt_answers": 0,
+      "parts": 4,
+      "seconds": 4.704
+    },
+    {
+      "feature": "storyboard",
+      "case": "C09",
+      "topic": "주거 공간 제안",
+      "pass": true,
+      "job_id": "b6a5266f68e94897",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 1,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2832,
+          "output": 958
+        },
+        "steps": {
+          "storyboard:design": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null
+      },
+      "interrupt_answers": 0,
+      "parts": 4,
+      "seconds": 5.071
+    },
+    {
+      "feature": "storyboard",
+      "case": "C10",
+      "topic": "파트너 공급",
+      "pass": true,
+      "job_id": "f7ec404f9b8c4e64",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 1,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2720,
+          "output": 953
+        },
+        "steps": {
+          "storyboard:design": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null
+      },
+      "interrupt_answers": 0,
+      "parts": 4,
+      "seconds": 4.187
+    },
+    {
+      "feature": "search",
+      "case": "C02",
+      "topic": "브랜드 체험 매장",
+      "pass": true,
+      "items": 8,
+      "model": "gemini-3.1-flash-lite",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 1,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2354,
+          "output": 231
+        },
+        "steps": {
+          "search:rerank": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "cached_response": false
+      },
+      "seconds": 1.786
+    },
+    {
+      "feature": "search",
+      "case": "C01",
+      "topic": "카페 메뉴보드",
+      "pass": true,
+      "items": 8,
+      "model": "gemini-3.1-flash-lite",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 1,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2375,
+          "output": 186
+        },
+        "steps": {
+          "search:rerank": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "cached_response": false
+      },
+      "seconds": 2.593
+    },
+    {
+      "feature": "search",
+      "case": "C03",
+      "topic": "무인 매장 운영",
+      "pass": true,
+      "items": 8,
+      "model": "gemini-3.1-flash-lite",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 1,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2357,
+          "output": 232
+        },
+        "steps": {
+          "search:rerank": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "cached_response": false
+      },
+      "seconds": 1.506
+    },
+    {
+      "feature": "search",
+      "case": "C04",
+      "topic": "호텔 객실 안내",
+      "pass": true,
+      "items": 8,
+      "model": "gemini-3.1-flash-lite",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 1,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2422,
+          "output": 228
+        },
+        "steps": {
+          "search:rerank": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "cached_response": false
+      },
+      "seconds": 1.542
+    },
+    {
+      "feature": "search",
+      "case": "C05",
+      "topic": "전시 동선 안내",
+      "pass": true,
+      "items": 8,
+      "model": "gemini-3.1-flash-lite",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 1,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2356,
+          "output": 217
+        },
+        "steps": {
+          "search:rerank": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "cached_response": false
+      },
+      "seconds": 1.639
+    },
+    {
+      "feature": "search",
+      "case": "C06",
+      "topic": "경기장 안내",
+      "pass": true,
+      "items": 8,
+      "model": "gemini-3.1-flash-lite",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 1,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2359,
+          "output": 188
+        },
+        "steps": {
+          "search:rerank": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "cached_response": false
+      },
+      "seconds": 1.471
+    },
+    {
+      "feature": "search",
+      "case": "C07",
+      "topic": "옥외 광고 운영",
+      "pass": true,
+      "items": 8,
+      "model": "gemini-3.1-flash-lite",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 1,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2352,
+          "output": 240
+        },
+        "steps": {
+          "search:rerank": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "cached_response": false
+      },
+      "seconds": 1.978
+    },
+    {
+      "feature": "search",
+      "case": "C08",
+      "topic": "사무실 협업",
+      "pass": true,
+      "items": 8,
+      "model": "gemini-3.1-flash-lite",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 1,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2383,
+          "output": 160
+        },
+        "steps": {
+          "search:rerank": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "cached_response": false
+      },
+      "seconds": 1.556
+    },
+    {
+      "feature": "search",
+      "case": "C09",
+      "topic": "주거 공간 제안",
+      "pass": true,
+      "items": 8,
+      "model": "gemini-3.1-flash-lite",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 1,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2361,
+          "output": 232
+        },
+        "steps": {
+          "search:rerank": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "cached_response": false
+      },
+      "seconds": 1.536
+    },
+    {
+      "feature": "search",
+      "case": "C10",
+      "topic": "파트너 공급",
+      "pass": true,
+      "items": 8,
+      "model": "gemini-3.1-flash-lite",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 1,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 2390,
+          "output": 203
+        },
+        "steps": {
+          "search:rerank": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "cached_response": false
+      },
+      "seconds": 2.061
+    },
+    {
+      "feature": "review",
+      "case": "C02",
+      "topic": "브랜드 체험 매장",
+      "pass": true,
+      "job_id": "ebe11f7c12af4436",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 6,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 11494,
+          "output": 1905
+        },
+        "steps": {
+          "review:route_l1": 1,
+          "review:route_l2": 1,
+          "review:score": 4
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "route_mode": "llm",
+        "score_modes": {
+          "llm": 4
+        },
+        "selected": 4
+      },
+      "interrupt_answers": 0,
+      "criteria": 4,
+      "score": 42.9,
+      "seconds": 11.855
+    },
+    {
+      "feature": "review",
+      "case": "C01",
+      "topic": "카페 메뉴보드",
+      "pass": true,
+      "job_id": "598676acabef447d",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 6,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 11743,
+          "output": 1980
+        },
+        "steps": {
+          "review:route_l1": 1,
+          "review:route_l2": 1,
+          "review:score": 4
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "route_mode": "llm",
+        "score_modes": {
+          "llm": 4
+        },
+        "selected": 4
+      },
+      "interrupt_answers": 0,
+      "criteria": 4,
+      "score": 41.7,
+      "seconds": 12.382
+    },
+    {
+      "feature": "review",
+      "case": "C03",
+      "topic": "무인 매장 운영",
+      "pass": true,
+      "job_id": "6bfc4a7909734ab1",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 5,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 10048,
+          "output": 1892
+        },
+        "steps": {
+          "review:route_l1": 1,
+          "review:route_l2": 1,
+          "review:score": 3
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "route_mode": "llm",
+        "score_modes": {
+          "llm": 4
+        },
+        "selected": 4
+      },
+      "interrupt_answers": 0,
+      "criteria": 4,
+      "score": 9.0,
+      "seconds": 11.634
+    },
+    {
+      "feature": "review",
+      "case": "C04",
+      "topic": "호텔 객실 안내",
+      "pass": true,
+      "job_id": "017a5ec726724984",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 6,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 11050,
+          "output": 1923
+        },
+        "steps": {
+          "review:route_l1": 1,
+          "review:route_l2": 1,
+          "review:score": 4
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "route_mode": "llm",
+        "score_modes": {
+          "llm": 4
+        },
+        "selected": 4
+      },
+      "interrupt_answers": 0,
+      "criteria": 4,
+      "score": 41.1,
+      "seconds": 11.358
+    },
+    {
+      "feature": "review",
+      "case": "C05",
+      "topic": "전시 동선 안내",
+      "pass": true,
+      "job_id": "ac8d3237c8e14282",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 6,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 11114,
+          "output": 1914
+        },
+        "steps": {
+          "review:route_l1": 1,
+          "review:route_l2": 1,
+          "review:score": 4
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "route_mode": "llm",
+        "score_modes": {
+          "llm": 4
+        },
+        "selected": 4
+      },
+      "interrupt_answers": 0,
+      "criteria": 4,
+      "score": 59.4,
+      "seconds": 10.924
+    },
+    {
+      "feature": "review",
+      "case": "C06",
+      "topic": "경기장 안내",
+      "pass": true,
+      "job_id": "de948d0afb1f4249",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 6,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 11117,
+          "output": 1838
+        },
+        "steps": {
+          "review:route_l1": 1,
+          "review:route_l2": 1,
+          "review:score": 4
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "route_mode": "llm",
+        "score_modes": {
+          "llm": 4
+        },
+        "selected": 4
+      },
+      "interrupt_answers": 0,
+      "criteria": 4,
+      "score": 42.9,
+      "seconds": 11.65
+    },
+    {
+      "feature": "review",
+      "case": "C07",
+      "topic": "옥외 광고 운영",
+      "pass": true,
+      "job_id": "b4d462f6c7a4434f",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 6,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 11097,
+          "output": 1823
+        },
+        "steps": {
+          "review:route_l1": 1,
+          "review:route_l2": 1,
+          "review:score": 4
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "route_mode": "llm",
+        "score_modes": {
+          "llm": 4
+        },
+        "selected": 4
+      },
+      "interrupt_answers": 0,
+      "criteria": 4,
+      "score": 42.9,
+      "seconds": 10.585
+    },
+    {
+      "feature": "review",
+      "case": "C08",
+      "topic": "사무실 협업",
+      "pass": true,
+      "job_id": "1bd1df5031ff433c",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 6,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 11110,
+          "output": 2736
+        },
+        "steps": {
+          "review:route_l1": 1,
+          "review:route_l2": 1,
+          "review:score": 4
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "route_mode": "llm",
+        "score_modes": {
+          "llm": 4
+        },
+        "selected": 4
+      },
+      "interrupt_answers": 0,
+      "criteria": 4,
+      "score": 24.5,
+      "seconds": 16.26
+    },
+    {
+      "feature": "review",
+      "case": "C09",
+      "topic": "주거 공간 제안",
+      "pass": true,
+      "job_id": "1b77d72d8f944022",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 6,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 11167,
+          "output": 1760
+        },
+        "steps": {
+          "review:route_l1": 1,
+          "review:route_l2": 1,
+          "review:score": 4
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "route_mode": "llm",
+        "score_modes": {
+          "llm": 4
+        },
+        "selected": 4
+      },
+      "interrupt_answers": 0,
+      "criteria": 4,
+      "score": 30.5,
+      "seconds": 11.594
+    },
+    {
+      "feature": "review",
+      "case": "C10",
+      "topic": "파트너 공급",
+      "pass": true,
+      "job_id": "a1cb1ada5fff46bb",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 6,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 11088,
+          "output": 2286
+        },
+        "steps": {
+          "review:route_l1": 1,
+          "review:route_l2": 1,
+          "review:score": 4
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "route_mode": "llm",
+        "score_modes": {
+          "llm": 4
+        },
+        "selected": 4
+      },
+      "interrupt_answers": 0,
+      "criteria": 4,
+      "score": 41.5,
+      "seconds": 13.641
+    }
+  ]
+}

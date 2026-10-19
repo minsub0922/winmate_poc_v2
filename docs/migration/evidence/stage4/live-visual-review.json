@@ -1,0 +1,238 @@
+{
+  "actual_gemini": true,
+  "cases": [
+    {
+      "case": "C02",
+      "pass": true,
+      "seconds": 9.85,
+      "criteria": [
+        "CU4",
+        "DS1",
+        "DS6"
+      ],
+      "models": [
+        "gemini-3.1-flash-lite",
+        "gemini-3.8-flash"
+      ],
+      "visual": {
+        "provided": true,
+        "pages": [
+          1,
+          2
+        ],
+        "llm_calls": 1,
+        "model": "gemini-3.8-flash"
+      }
+    },
+    {
+      "case": "C01",
+      "pass": true,
+      "seconds": 30.653,
+      "criteria": [
+        "CU1",
+        "DS4",
+        "DS7"
+      ],
+      "models": [
+        "gemini-3.1-flash-lite",
+        "gemini-3.8-flash"
+      ],
+      "visual": {
+        "provided": true,
+        "pages": [
+          1,
+          2
+        ],
+        "llm_calls": 2,
+        "model": "gemini-3.8-flash"
+      }
+    },
+    {
+      "case": "C03",
+      "pass": true,
+      "seconds": 13.163,
+      "criteria": [
+        "PR3",
+        "DS4",
+        "WR5"
+      ],
+      "models": [
+        "gemini-3.1-flash-lite",
+        "gemini-3.8-flash"
+      ],
+      "visual": {
+        "provided": true,
+        "pages": [
+          1,
+          2
+        ],
+        "llm_calls": 1,
+        "model": "gemini-3.8-flash"
+      }
+    },
+    {
+      "case": "C04",
+      "pass": true,
+      "seconds": 23.902,
+      "criteria": [
+        "VS6",
+        "DS4",
+        "DS7"
+      ],
+      "models": [
+        "gemini-3.1-flash-lite",
+        "gemini-3.8-flash"
+      ],
+      "visual": {
+        "provided": true,
+        "pages": [
+          1,
+          2
+        ],
+        "llm_calls": 2,
+        "model": "gemini-3.8-flash"
+      }
+    },
+    {
+      "case": "C05",
+      "pass": true,
+      "seconds": 15.743,
+      "criteria": [
+        "MK3",
+        "DS4",
+        "WR1"
+      ],
+      "models": [
+        "gemini-3.1-flash-lite",
+        "gemini-3.8-flash"
+      ],
+      "visual": {
+        "provided": true,
+        "pages": [
+          1,
+          2
+        ],
+        "llm_calls": 1,
+        "model": "gemini-3.8-flash"
+      }
+    },
+    {
+      "case": "C06",
+      "pass": true,
+      "seconds": 23.905,
+      "criteria": [
+        "CU1",
+        "DS4",
+        "DS7"
+      ],
+      "models": [
+        "gemini-3.1-flash-lite",
+        "gemini-3.8-flash"
+      ],
+      "visual": {
+        "provided": true,
+        "pages": [
+          1,
+          2
+        ],
+        "llm_calls": 2,
+        "model": "gemini-3.8-flash"
+      }
+    },
+    {
+      "case": "C07",
+      "pass": true,
+      "seconds": 6.444,
+      "criteria": [
+        "CU4",
+        "DS1",
+        "DS6"
+      ],
+      "models": [
+        "gemini-3.1-flash-lite",
+        "gemini-3.8-flash"
+      ],
+      "visual": {
+        "provided": true,
+        "pages": [
+          1,
+          2
+        ],
+        "llm_calls": 1,
+        "model": "gemini-3.8-flash"
+      }
+    },
+    {
+      "case": "C08",
+      "pass": true,
+      "seconds": 14.349,
+      "criteria": [
+        "PR3",
+        "DS4",
+        "WR5"
+      ],
+      "models": [
+        "gemini-3.1-flash-lite",
+        "gemini-3.8-flash"
+      ],
+      "visual": {
+        "provided": true,
+        "pages": [
+          1,
+          2
+        ],
+        "llm_calls": 1,
+        "model": "gemini-3.8-flash"
+      }
+    },
+    {
+      "case": "C10",
+      "pass": true,
+      "seconds": 17.791,
+      "criteria": [
+        "MK3",
+        "DS4",
+        "WR1"
+      ],
+      "models": [
+        "gemini-3.1-flash-lite",
+        "gemini-3.8-flash"
+      ],
+      "visual": {
+        "provided": true,
+        "pages": [
+          1,
+          2
+        ],
+        "llm_calls": 1,
+        "model": "gemini-3.8-flash"
+      }
+    },
+    {
+      "case": "C09",
+      "pass": true,
+      "seconds": 26.202,
+      "criteria": [
+        "VS6",
+        "DS4",
+        "DS7"
+      ],
+      "models": [
+        "gemini-3.1-flash-lite",
+        "gemini-3.8-flash"
+      ],
+      "visual": {
+        "provided": true,
+        "pages": [
+          1,
+          2
+        ],
+        "llm_calls": 2,
+        "model": "gemini-3.8-flash"
+      }
+    }
+  ],
+  "passed": 10,
+  "total": 10,
+  "errors": []
+}

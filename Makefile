@@ -1,10 +1,19 @@
-.PHONY: up prepare test smoke
+.PHONY: up prepare test test-browser test-live smoke
 up:
 	./start.sh
 prepare:
 	node app/scripts/export_agent_data.mjs
 	app/.venv/bin/python -B app/scripts/prepare_data.py
 test:
-	WINMATE_AUTH=off WINMATE_ENV_FILES=none app/.venv/bin/python -B -m pytest app/tests/test_stage1_api.py app/tests/test_poc_adapters.py app/tests/test_feature_flags.py app/tests/test_auth.py -q
+	PYTHONDONTWRITEBYTECODE=1 app/.venv/bin/python -B -m pytest app/tests/test_stage1_api.py app/tests/test_strict_policy.py app/tests/test_provider_strict.py app/tests/test_job_retry.py app/tests/test_auth.py -q
+	node app/tests/transport.mjs
+	app/.venv/bin/python -B app/tests/strict_contracts.py
+test-browser:
+	node app/tests/functional-contracts.mjs
+	node app/tests/real-functional-e2e.mjs
+	node app/tests/input_readers.mjs
+	node app/tests/explorers.mjs
+test-live:
+	app/.venv/bin/python -B app/tests/run_live_suite.py
 smoke:
-	app/.venv/bin/python -B app/scripts/smoke.py
+	app/.venv/bin/python -B app/scripts/smoke.py --prompt

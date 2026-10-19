@@ -1,0 +1,62 @@
+[
+  {
+    "case": "HTTP JSON response",
+    "pass": true,
+    "ms": 8
+  },
+  {
+    "case": "SSE UTF8 byte boundaries",
+    "pass": true,
+    "ms": 2
+  },
+  {
+    "case": "SSE split CRLF boundaries",
+    "pass": true,
+    "ms": 0
+  },
+  {
+    "case": "multiple cumulative events",
+    "pass": true,
+    "ms": 0
+  },
+  {
+    "case": "keepalive comments",
+    "pass": true,
+    "ms": 0
+  },
+  {
+    "case": "multi-line data JSON",
+    "pass": true,
+    "ms": 0
+  },
+  {
+    "case": "HTTP typed error",
+    "pass": true,
+    "ms": 0
+  },
+  {
+    "case": "stream error is not success",
+    "pass": true,
+    "ms": 0
+  },
+  {
+    "case": "closed stream missing result",
+    "pass": true,
+    "ms": 0
+  },
+  {
+    "case": "malformed stream JSON",
+    "pass": true,
+    "ms": 0
+  },
+  {
+    "case": "aborted headers fetch",
+    "pass": true,
+    "ms": 0
+  },
+  {
+    "case": "aborted active stream",
+    "pass": true,
+    "ms": 0
+  }
+]

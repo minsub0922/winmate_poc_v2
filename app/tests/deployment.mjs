@@ -3,7 +3,7 @@ import {launch,settle,nav,root,output,assert} from './helpers.mjs';
 const folder=path.join(output,'deployment');fs.mkdirSync(folder,{recursive:true});
 const authDir=fs.mkdtempSync(path.join(folder,'auth-'));const port=process.env.WINMATE_DEPLOY_TEST_PORT||'8791';const base='http://127.0.0.1:'+port;
 const password=crypto.randomBytes(24).toString('base64url');
-const env={...process.env,WINMATE_API_PORT:port,WINMATE_MODE:'dummy',WINMATE_ENV_FILES:'none',WINMATE_AUTH:'on',WINMATE_AUTH_DIR:authDir,WINMATE_SETUP_PASSWORD:password,LANGSMITH_TRACING:'false'};
+const env={...process.env,WINMATE_API_PORT:port,WINMATE_ENV_FILES:'app/.env,poc/.env',WINMATE_AUTH:'on',WINMATE_AUTH_DIR:authDir,WINMATE_SETUP_PASSWORD:password,LANGSMITH_TRACING:'false'};
 const report={steps:[],errors:[]};let browser,server,dev,log='';
 const run=async(cmd,args,extra={})=>await new Promise((resolve,reject)=>{let text='';const p=spawn(cmd,args,{cwd:root,env:{...env,...extra}});p.stdout.on('data',b=>text+=b);p.stderr.on('data',b=>text+=b);p.on('error',reject);p.on('close',code=>code===0?resolve(text):reject(new Error(cmd+' failed ('+code+'): '+text)));});
 const step=async(name,fn)=>{const t=Date.now();await fn();report.steps.push({name,ok:true,ms:Date.now()-t});};
@@ -11,7 +11,7 @@ try{
  await step('start.sh 하나로 패키지·웹·DB·KB·계정 준비 및 기동',async()=>{
   server=spawn('/bin/bash',['./start.sh'],{cwd:root,env});server.stdout.on('data',b=>log+=b);server.stderr.on('data',b=>log+=b);
   let ready=false;
-  for(let i=0;i<180;i++){if(server.exitCode!=null)throw Error('server exited: '+log);try{const r=await fetch(base+'/api/health');if(r.ok){const h=await r.json();assert(h.stage===3&&h.products===1068,'health stage3/1068');ready=true;break;}}catch{}await new Promise(r=>setTimeout(r,500));}
+  for(let i=0;i<180;i++){if(server.exitCode!=null)throw Error('server exited: '+log);try{const r=await fetch(base+'/api/health');if(r.ok){const h=await r.json();assert(h.stage===3&&h.products===1068&&h.llm_mode==='real'&&h.gemini?.verified,'health includes actual Gemini connection proof');ready=true;break;}}catch{}await new Promise(r=>setTimeout(r,500));}
   assert(ready,'server started');assert(log.includes('--')||log.includes('127.0.0.1'),'loopback startup logged');
  });
  await step('로그인 전 API·화면 보호 및 외부 Origin 거부',async()=>{
@@ -28,7 +28,7 @@ try{
   await page.waitForTimeout(500);await page.screenshot({path:path.join(folder,'authenticated-app.png')});
  });
  await step('인증한 백그라운드 작업·SSE',async()=>{
-  const response=await context.request.post(base+'/api/jobs',{data:{kind:'rfp',offline:true,text:'사업명: 카페 메뉴보드 도입. 고객사: 테스트 커피. 매장 세 곳에 메뉴보드 여섯 대를 설치하고 원격으로 가격을 바꾼다. 파일럿은 사 주 안에 완료한다.'}});assert(response.status()===202,'job submitted');const job=await response.json();
+  const response=await context.request.post(base+'/api/jobs',{data:{kind:'rfp',text:'사업명: 카페 메뉴보드 도입. 고객사: 테스트 커피. 매장 세 곳에 메뉴보드 여섯 대를 설치하고 원격으로 가격을 바꾼다. 파일럿은 사 주 안에 완료한다.'}});assert(response.status()===202,'job submitted');const job=await response.json();
   const events=await context.request.get(base+'/api/jobs/'+job.id+'/events');const body=await events.text();assert(events.ok()&&body.includes('event: result')&&body.includes('id:'),'SSE authenticated and complete');
  });
  await step('계정 화면 로그아웃·재로그인 후 브라우저 데이터 유지',async()=>{
@@ -49,12 +49,31 @@ try{
   const isolated=await browser.newContext({viewport:{width:900,height:900}});const dp=await isolated.newPage();
   dp.on('pageerror',e=>report.errors.push(String(e)));
   await dp.goto(devBase+'/');await dp.waitForURL('**/login.html');await dp.locator('#username').fill('admin');await dp.locator('#password').fill(password);await dp.getByRole('button',{name:/로그인/}).click();await settle(dp);
-  const post=await isolated.request.post(devBase+'/api/llm',{headers:{Origin:devBase},data:{prompt:'dummy dev test',kind:'json'}});assert(post.status()===200&&(await post.json()).mode==='dummy','dev Origin passes only through loopback proxy');
+  const post=await isolated.request.post(devBase+'/api/llm',{headers:{Origin:devBase},data:{feature:'llm',prompt:'Return JSON with connected true.',kind:'json'}});assert(post.status()===200&&(await post.json()).mode==='real','dev Origin passes only through loopback proxy');
   const denied=await isolated.request.get(devBase+'/@fs/'+path.join(authDir,'credentials.json'));assert(denied.status()===403,'runtime files outside dev fs allowlist');
   await isolated.clearCookies();
   await dp.evaluate(async()=>{const client=await import('/src/api/client.js');await client.requestJson('/api/bootstrap').catch(()=>{});});
   await dp.waitForURL('**/login.html');
   await isolated.close();
+ });
+ await step('actual health proof and strict feature inventory',async()=>{
+  const h=await(await context.request.get(base+'/api/health')).json();assert(h.gemini?.verified&&h.gemini.model==='gemini-3.1-flash-lite','actual startup model handshake');
+  const caps=await(await context.request.get(base+'/api/poc/capabilities')).json();assert(Object.values(caps.functions).every(x=>x.mode==='real'&&!x.offline_override),'all functions strictly real');assert(caps.settings.endpoint_host==='generativelanguage.googleapis.com','direct official Gemini endpoint');
+ });
+ await step('filtered database count, offset and image Range through authenticated production',async()=>{
+  const q=await(await context.request.get(base+'/api/products?q=QM55C&limit=1')).json();assert(q.items.length===1&&q.total>=1&&q.total<1068,'filtered total');
+  const tail=await(await context.request.get(base+'/api/products?offset=1060')).json();assert(tail.items.length===8,'offset-only paging');
+  const range=await context.request.get(base+'/img/media/t.json',{headers:{Range:'bytes=12-111'}});assert(range.status()===206&&(await range.body()).length===100,'static range response');
+ });
+ await step('repeat startup account preparation preserves the existing password',async()=>{
+  const credential=path.join(authDir,'credentials.json');const before=fs.readFileSync(credential);
+  await run('app/.venv/bin/python',['-B','app/scripts/manage_auth.py','--ensure','--password-env','WINMATE_SETUP_PASSWORD'],{WINMATE_SETUP_PASSWORD:crypto.randomBytes(18).toString('hex')});
+  assert(fs.readFileSync(credential).equals(before),'existing account never overwritten');assert((await context.request.get(base+'/api/bootstrap')).ok(),'existing login remains valid');
+ });
+ await step('legacy offline options rejected without a model call',async()=>{
+  const before=(await(await context.request.get(base+'/api/poc/capabilities')).json()).provider.usage.requests;
+  for(const flags of [{offline:true},{llm:false},{mode:'dummy'}]){const r=await context.request.post(base+'/api/llm',{data:{feature:'llm',kind:'json',prompt:'do not execute this rejected request',...flags}});assert(r.status()===422,'unsupported request rejected');}
+  const after=(await(await context.request.get(base+'/api/poc/capabilities')).json()).provider.usage.requests;assert(before===after,'rejected requests never call the model');
  });
 }catch(e){report.failure=String(e.stack||e);}
 finally{

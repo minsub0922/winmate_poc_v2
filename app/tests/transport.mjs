@@ -1,0 +1,20 @@
+import assert from 'node:assert/strict';import fs from 'node:fs';import {requestCompletion,setTransport} from '../web/src/api/client.js';
+const tests=[];const add=(name,fn)=>tests.push({name,fn});const enc=new TextEncoder();
+const response=(text,step=Infinity)=>new Response(new ReadableStream({start(c){const bytes=enc.encode(text);for(let i=0;i<bytes.length;i+=step)c.enqueue(bytes.slice(i,i+step));c.close();}}),{headers:{'content-type':'text/event-stream'}});
+const frame=data=>'data: '+JSON.stringify(data)+'\n\n';
+const result=frame({type:'result',mode:'real',data:{verified:true}});
+const errorCode=async(code,fn)=>{await assert.rejects(fn,e=>e.code===code);};
+add('HTTP JSON response',async()=>{setTransport(async()=>Response.json({mode:'real',data:{n:1}}));assert.deepEqual((await requestCompletion({})).data,{n:1});});
+add('SSE UTF8 byte boundaries',async()=>{setTransport(async()=>response(frame({type:'text',text:'한글 😀'})+result,1));let text;await requestCompletion({},{onText:x=>text=x.text});assert.equal(text,'한글 😀');});
+add('SSE split CRLF boundaries',async()=>{setTransport(async()=>response(result.replaceAll('\n','\r\n'),1));assert.equal((await requestCompletion({})).data.verified,true);});
+add('multiple cumulative events',async()=>{setTransport(async()=>response(frame({type:'text',text:'가'})+frame({type:'text',text:'가나다'})+result,3));const out=[];await requestCompletion({},{onText:x=>out.push(x.text)});assert.deepEqual(out,['가','가나다']);});
+add('keepalive comments',async()=>{setTransport(async()=>response(': heartbeat\n\n'+result,2));assert.equal((await requestCompletion({})).data.verified,true);});
+add('multi-line data JSON',async()=>{setTransport(async()=>response('data: {"type":"result",\ndata: "data":{"n":3}}\n\n',4));assert.equal((await requestCompletion({})).data.n,3);});
+add('HTTP typed error',async()=>{setTransport(async()=>Response.json({code:'no_api_key',detail:'서버 설정이 필요합니다.'},{status:503}));await errorCode('no_api_key',()=>requestCompletion({}));});
+add('stream error is not success',async()=>{setTransport(async()=>response(frame({type:'error',code:'rate_limited',message:'제한'})));await errorCode('rate_limited',()=>requestCompletion({}));});
+add('closed stream missing result',async()=>{setTransport(async()=>response(frame({type:'text',text:'partial'})));await errorCode('response_incomplete',()=>requestCompletion({}));});
+add('malformed stream JSON',async()=>{setTransport(async()=>response('data: invalid\n\n'));await errorCode('invalid_json',()=>requestCompletion({}));});
+add('aborted headers fetch',async()=>{setTransport(async()=>{throw new DOMException('abort','AbortError');});await errorCode('cancelled',()=>requestCompletion({}));});
+add('aborted active stream',async()=>{const controller=new AbortController();setTransport(async()=>response(frame({type:'text',text:'partial'})+result,1));await errorCode('cancelled',()=>requestCompletion({},{signal:controller.signal,onText:()=>controller.abort()}));});
+const rows=[];for(const t of tests){const start=performance.now();try{await t.fn();rows.push({case:t.name,pass:true,ms:Math.round(performance.now()-start)});}catch(e){rows.push({case:t.name,pass:false,error:String(e.stack||e)});}}
+fs.mkdirSync('app/tests/output/strict',{recursive:true});fs.writeFileSync('app/tests/output/strict/transport.json',JSON.stringify(rows,null,2));console.log(JSON.stringify(rows,null,2));if(rows.some(x=>!x.pass))process.exitCode=1;

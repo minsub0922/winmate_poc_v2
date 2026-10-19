@@ -1,0 +1,60 @@
+{
+  "about": "Test-only fixtures for the strict deterministic suites. Created through the app's own repositories inside each isolated browser context; never production seed data.",
+  "requirementSegments": [
+    { "t": "전국 12개 매장 메뉴보드 교체. 카운터는 " },
+    { "ref": "product:qm55c" },
+    { "t": " 3면, 본사 원격 관리는 " },
+    { "ref": "solution:magicinfo" },
+    { "t": " 로 처리. 참고 " },
+    { "t": "https://www.samsung.com/sec/business/smart-signage/qmc-series/", "link": { "title": "QM55C", "site": "Samsung", "ref": "product:qm55c" } },
+    { "t": " WMSTRICT-R01 끝." }
+  ],
+  "storyProposal": {
+    "title": "WMSTRICT 스토리 제안서",
+    "customer": "스트릭트 커피",
+    "ind": "FB",
+    "stage": "story",
+    "reqTab": "form",
+    "req": {
+      "free": [{ "t": "카운터 메뉴보드 교체 " }, { "ref": "product:qm55c" }],
+      "form": {
+        "project": "카운터 메뉴보드 교체",
+        "customer": "스트릭트 커피",
+        "target": "운영본부장",
+        "keymen": [{ "id": "k_strict_1", "name": "운영본부장", "weight": 100, "reqs": [[{ "t": "신메뉴 당일 반영" }]] }],
+        "note": ""
+      },
+      "files": []
+    },
+    "ctx": { "products": ["qm55c"], "solutions": ["magicinfo"], "cases": [] },
+    "parts": [
+      {
+        "id": "s_strict_products", "type": "products", "name": "공간별 제품", "items": ["카운터 메뉴보드"], "done": true,
+        "layouts": [{ "uid": "l_strict_p3a", "f": "L_PH_P3_A", "status": "empty", "ov": { "t": {}, "img": {} } }]
+      }
+    ]
+  },
+  "pickerProposal": {
+    "title": "WMSTRICT 레이아웃 고르기",
+    "customer": "스트릭트 호텔",
+    "ind": "HT",
+    "stage": "story",
+    "reqTab": "form",
+    "req": {
+      "free": [{ "t": "로비 사이니지 신설" }],
+      "form": { "project": "로비 사이니지 신설", "customer": "스트릭트 호텔", "target": "총지배인", "keymen": [{ "id": "k_strict_2", "name": "총지배인", "weight": 100, "reqs": [[{ "t": "로비 안내 자동화" }]] }], "note": "" },
+      "files": []
+    },
+    "ctx": { "products": ["qm55c"], "solutions": [], "cases": [] },
+    "parts": [{ "id": "s_strict_pick", "type": "products", "name": "공간별 제품", "items": ["로비 사이니지"], "done": true, "layouts": [] }]
+  },
+  "simulationSetup": { "customer": "WMSTRICT 시뮬레이션 고객", "role": "운영본부장", "ind": "FB", "gender": "F", "sid": "bs01" },
+  "reviewDoc": {
+    "kind": "pptx", "slides": true, "slideWpt": 960, "unitLabel": "장", "meta": { "title": "WMSTRICT 검토 문서" },
+    "units": [
+      { "n": 1, "title": "WMSTRICT 검토 표지", "text": "WMSTRICT 검토 표지\nWMSTRICT-R05", "words": 3, "nPic": 1, "boxes": [{ "kind": "text", "text": "WMSTRICT 검토 표지", "x": 0.05, "y": 0.1, "w": 0.6, "h": 0.1, "max": 40, "min": 40, "name": "Title 1" }], "hidden": false, "minFont": 18 },
+      { "n": 2, "title": "도입 효과", "text": "도입 효과\n대기 30% 감소", "words": 4, "nPic": 0, "boxes": [], "hidden": false, "minFont": 14 }
+    ]
+  },
+  "pngColors": ["#1428A0", "#E4007F", "#00A651", "#F39800", "#7B2D8E", "#0099CC", "#C8102E", "#5C6670", "#2E7D32", "#8D6E63", "#3949AB", "#00897B"]
+}

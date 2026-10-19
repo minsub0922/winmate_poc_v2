@@ -1,0 +1,141 @@
+{
+  "group": "input-readers",
+  "suite": "app/tests/input_readers.mjs",
+  "kind": "deterministic",
+  "live_llm": false,
+  "generatedAt": "2026-10-19T15:04:37.533Z",
+  "counts": {
+    "total": 12,
+    "passed": 12,
+    "failed": 0,
+    "minimum": 10
+  },
+  "meetsMinimum": true,
+  "cases": [
+    {
+      "id": "I01",
+      "title": "Korean UTF8 source",
+      "status": "pass",
+      "ms": 2,
+      "details": {
+        "characters": 36
+      },
+      "error": null
+    },
+    {
+      "id": "I02",
+      "title": "emoji and supplementary Unicode survive",
+      "status": "pass",
+      "ms": 2,
+      "details": {
+        "characters": 34
+      },
+      "error": null
+    },
+    {
+      "id": "I03",
+      "title": "markdown headings and CRLF preserve full input",
+      "status": "pass",
+      "ms": 1,
+      "details": {
+        "characters": 44
+      },
+      "error": null
+    },
+    {
+      "id": "I04",
+      "title": "quoted CSV keeps embedded punctuation",
+      "status": "pass",
+      "ms": 0,
+      "details": {
+        "characters": 40
+      },
+      "error": null
+    },
+    {
+      "id": "I05",
+      "title": "large RFP retains the source beyond 20000 chars",
+      "status": "pass",
+      "ms": 5,
+      "details": {
+        "characters": 32408
+      },
+      "error": null
+    },
+    {
+      "id": "I06",
+      "title": "JSON source is not interpreted or fabricated",
+      "status": "pass",
+      "ms": 2,
+      "details": {
+        "characters": 63
+      },
+      "error": null
+    },
+    {
+      "id": "I07",
+      "title": "actual PPTX extracts every visible slide",
+      "status": "pass",
+      "ms": 20,
+      "details": {
+        "characters": 2245,
+        "ms": 15.5
+      },
+      "error": null
+    },
+    {
+      "id": "I08",
+      "title": "actual DOCX extracts source paragraphs",
+      "status": "pass",
+      "ms": 3,
+      "details": {
+        "characters": 68,
+        "ms": 0.9000005722045898
+      },
+      "error": null
+    },
+    {
+      "id": "I09",
+      "title": "PDF text-only mode matches rendered text without raster work",
+      "status": "pass",
+      "ms": 345,
+      "details": {
+        "pages": 12,
+        "rendered_ms": 318.4000005722046,
+        "text_only_ms": 17.09999942779541,
+        "speedup": 18.61988369746126
+      },
+      "error": null
+    },
+    {
+      "id": "I10",
+      "title": "corrupt PDF preserves metadata and a readable error",
+      "status": "pass",
+      "ms": 4,
+      "details": {
+        "error": "Invalid PDF structure."
+      },
+      "error": null
+    },
+    {
+      "id": "I11",
+      "title": "unsupported HWP does not fabricate extracted requirements",
+      "status": "pass",
+      "ms": 1,
+      "details": {
+        "error": "이 형식의 본문 추출은 지원하지 않습니다. PDF · PPTX · DOCX · TXT로 변환하거나 핵심 메모를 입력하세요."
+      },
+      "error": null
+    },
+    {
+      "id": "I12",
+      "title": "oversized file is rejected before allocating/parsing its body",
+      "status": "pass",
+      "ms": 1,
+      "details": {
+        "error": "60MB를 넘는 파일은 나누어 첨부하세요."
+      },
+      "error": null
+    }
+  ]
+}

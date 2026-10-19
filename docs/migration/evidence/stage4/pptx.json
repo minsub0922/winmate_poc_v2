@@ -1,0 +1,221 @@
+{
+  "group": "pptx",
+  "suite": "app/tests/functional-contracts.mjs",
+  "kind": "deterministic",
+  "live_llm": false,
+  "generatedAt": "2026-10-19T14:45:15.937Z",
+  "counts": {
+    "total": 10,
+    "passed": 10,
+    "failed": 0,
+    "minimum": 10
+  },
+  "meetsMinimum": true,
+  "cases": [
+    {
+      "id": "X01",
+      "title": "layout #1 (text override): render → export → zip → import",
+      "status": "pass",
+      "ms": 49,
+      "details": {
+        "layout": "L_US_C",
+        "canvas": "MI",
+        "part": "user",
+        "html": false,
+        "picture": false,
+        "runs": 46,
+        "media": 0,
+        "bytes": 91259,
+        "importedNT": 46,
+        "importedNI": 0,
+        "warnings": []
+      },
+      "error": null
+    },
+    {
+      "id": "X02",
+      "title": "layout #2 (inline-bold override): render → export → zip → import",
+      "status": "pass",
+      "ms": 62,
+      "details": {
+        "layout": "L_VP_F2",
+        "canvas": "VP",
+        "part": "value",
+        "html": true,
+        "picture": true,
+        "runs": 23,
+        "media": 2,
+        "bytes": 155438,
+        "importedNT": 22,
+        "importedNI": 2,
+        "warnings": []
+      },
+      "error": null
+    },
+    {
+      "id": "X03",
+      "title": "layout #3 (text override): render → export → zip → import",
+      "status": "pass",
+      "ms": 137,
+      "details": {
+        "layout": "L_SS_FB_B",
+        "canvas": "SS",
+        "part": "scenario",
+        "html": false,
+        "picture": true,
+        "runs": 70,
+        "media": 11,
+        "bytes": 542830,
+        "importedNT": 68,
+        "importedNI": 11,
+        "warnings": []
+      },
+      "error": null
+    },
+    {
+      "id": "X04",
+      "title": "layout #4 (text override + background): render → export → zip → import",
+      "status": "pass",
+      "ms": 99,
+      "details": {
+        "layout": "L_SM_B",
+        "canvas": "SP",
+        "part": "dss",
+        "html": false,
+        "picture": false,
+        "background": true,
+        "runs": 72,
+        "media": 6,
+        "bytes": 508478,
+        "importedNT": 71,
+        "importedNI": 5,
+        "warnings": []
+      },
+      "error": null
+    },
+    {
+      "id": "X05",
+      "title": "layout #5 (inline-bold override): render → export → zip → import",
+      "status": "pass",
+      "ms": 27,
+      "details": {
+        "layout": "L_C01",
+        "canvas": "CM",
+        "part": "cover",
+        "html": true,
+        "picture": true,
+        "runs": 8,
+        "media": 1,
+        "bytes": 53376,
+        "importedNT": 7,
+        "importedNI": 1,
+        "warnings": []
+      },
+      "error": null
+    },
+    {
+      "id": "X06",
+      "title": "layout #6 (text override + background): render → export → zip → import",
+      "status": "pass",
+      "ms": 36,
+      "details": {
+        "layout": "L_OV_C",
+        "canvas": "EX",
+        "part": "overview",
+        "html": false,
+        "picture": false,
+        "background": true,
+        "runs": 69,
+        "media": 2,
+        "bytes": 121827,
+        "importedNT": 67,
+        "importedNI": 1,
+        "warnings": []
+      },
+      "error": null
+    },
+    {
+      "id": "X07",
+      "title": "layout #7 (text override): render → export → zip → import",
+      "status": "pass",
+      "ms": 33,
+      "details": {
+        "layout": "L_PH_MS_A",
+        "canvas": "PH",
+        "part": "market",
+        "html": false,
+        "picture": true,
+        "runs": 19,
+        "media": 1,
+        "bytes": 66993,
+        "importedNT": 19,
+        "importedNI": 1,
+        "warnings": []
+      },
+      "error": null
+    },
+    {
+      "id": "X08",
+      "title": "layout #8 (inline-bold override + background): render → export → zip → import",
+      "status": "pass",
+      "ms": 16,
+      "details": {
+        "layout": "L_AIS_01",
+        "canvas": "ST",
+        "part": "cover",
+        "html": true,
+        "picture": true,
+        "background": true,
+        "runs": 12,
+        "media": 2,
+        "bytes": 59167,
+        "importedNT": 11,
+        "importedNI": 1,
+        "warnings": []
+      },
+      "error": null
+    },
+    {
+      "id": "X09",
+      "title": "three more layouts as one deck: slide count, order and per-slide text survive export and import",
+      "status": "pass",
+      "ms": 105,
+      "details": {
+        "layouts": [
+          "L_CP_B",
+          "L_EF_D",
+          "L_P1A"
+        ],
+        "bytes": 453470,
+        "imageCases": 5,
+        "bgCases": 3
+      },
+      "error": null
+    },
+    {
+      "id": "X10",
+      "title": "My template from an imported PPTX: register → render 1280×720 → re-export → import keeps the text",
+      "status": "pass",
+      "ms": 43,
+      "details": {
+        "pictures": 0,
+        "media": 6,
+        "distinctLayouts": [
+          "L_US_C",
+          "L_VP_F2",
+          "L_SS_FB_B",
+          "L_SM_B",
+          "L_C01",
+          "L_OV_C",
+          "L_PH_MS_A",
+          "L_AIS_01",
+          "L_CP_B",
+          "L_EF_D",
+          "L_P1A",
+          "L_MY_strict_x10"
+        ]
+      },
+      "error": null
+    }
+  ]
+}

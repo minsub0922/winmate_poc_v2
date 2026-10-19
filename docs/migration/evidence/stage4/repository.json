@@ -1,0 +1,257 @@
+{
+  "group": "repository",
+  "suite": "app/tests/functional-contracts.mjs",
+  "kind": "deterministic",
+  "live_llm": false,
+  "generatedAt": "2026-10-19T14:45:44.752Z",
+  "counts": {
+    "total": 13,
+    "passed": 13,
+    "failed": 0,
+    "minimum": 10
+  },
+  "meetsMinimum": true,
+  "blocked": [
+    {
+      "kind": "external",
+      "url": "https://api.microlink.io/?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DWMSTRICT01a"
+    },
+    {
+      "kind": "external",
+      "url": "https://api.microlink.io/?url=https%3A%2F%2Fexample.org%2Fsearch%3Fq%3DWMSTRICT"
+    },
+    {
+      "kind": "external",
+      "url": "https://api.microlink.io/?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DWMSTRICTaaa"
+    },
+    {
+      "kind": "external",
+      "url": "https://api.microlink.io/?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DWMSTRICTbbb"
+    },
+    {
+      "kind": "external",
+      "url": "https://api.microlink.io/?url=https%3A%2F%2Fexample.org%2Fsearch%3Fq%3Dfirst"
+    },
+    {
+      "kind": "external",
+      "url": "https://api.microlink.io/?url=https%3A%2F%2Fexample.org%2Fsearch%3Fq%3Dsecond"
+    }
+  ],
+  "cases": [
+    {
+      "id": "R01",
+      "title": "proposal text segments (@ref · link · plain) persist exactly and render as text",
+      "status": "pass",
+      "ms": 1788,
+      "details": {
+        "text": "전국 12개 매장 메뉴보드 교체. 카운터는 @QM55C 3면, 본사 원격 관리는 @MagicINFO 로 처리. 참고 https://www.samsung.com/sec/business/smart-signage/qmc-series/ WMSTRICT-R01 끝."
+      },
+      "error": null
+    },
+    {
+      "id": "R02",
+      "title": "link metadata: product URL maps to its product, others infer title/site, cache persists",
+      "status": "pass",
+      "ms": 1268,
+      "details": {
+        "m1": {
+          "title": "스마트 사이니지 QM55C",
+          "site": "Samsung",
+          "img": "",
+          "ref": "product:qm55c",
+          "desc": "QM55C · LCD 사이니지",
+          "done": true
+        },
+        "m2": {
+          "title": "YouTube 영상",
+          "site": "YouTube",
+          "img": "https://i.ytimg.com/vi/WMSTRICT01a/mqdefault.jpg",
+          "ref": "",
+          "desc": "",
+          "done": true,
+          "src": "url"
+        },
+        "m3": {
+          "title": "검색 · WMSTRICT",
+          "site": "example.org",
+          "img": "",
+          "ref": "",
+          "desc": "",
+          "done": true,
+          "src": "url"
+        },
+        "cache": [
+          "https://samsung.com/sec/business/smart-signage/qmc-series/LH55QMCEBGCXKR",
+          "https://youtube.com/watch?v=WMSTRICT01a",
+          "https://example.org/search?q=WMSTRICT"
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "R03",
+      "title": "My template: Blob picture + template in IndexedDB, registered as a layout, survives reload",
+      "status": "pass",
+      "ms": 2476,
+      "details": {
+        "template": {
+          "f": "L_MY_strict_r03",
+          "id": "imvfd97wiajhdr",
+          "sha": "2a234a050315bf5cc71ed5c46fe240c94c547d1c765533cb0b3785ea79963d41"
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "R04",
+      "title": "My template delete removes only pictures no other template uses",
+      "status": "pass",
+      "ms": 1363,
+      "details": {
+        "ids": {
+          "shared": "imvfd99ue6umi6",
+          "own": "imvfd99uf4xudq"
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "R05",
+      "title": "review document with a nested Blob thumbnail survives backup into another context",
+      "status": "pass",
+      "ms": 2574,
+      "details": {
+        "import": {
+          "keys": 0,
+          "records": 1
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "R06",
+      "title": "simulations: new/put/patch/delete persist newest first and keep at most 15",
+      "status": "pass",
+      "ms": 1733,
+      "details": {
+        "persisted": 15
+      },
+      "error": null
+    },
+    {
+      "id": "R07",
+      "title": "favourites: empty and filled variants of one layout are distinct, toggle removes only the target",
+      "status": "pass",
+      "ms": 1381,
+      "details": {
+        "layout": "L_US_C"
+      },
+      "error": null
+    },
+    {
+      "id": "R08",
+      "title": "backup export: versioned format, whitelisted keys only, every database/store, typed values encoded",
+      "status": "pass",
+      "ms": 1762,
+      "details": {
+        "local": [
+          "winmate.v2.proposals",
+          "winmate.v2.favs"
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "R09",
+      "title": "backup import rejects malformed input before writing anything",
+      "status": "pass",
+      "ms": 1364,
+      "details": {
+        "results": {
+          "format": {
+            "ok": false,
+            "message": "Winmate 브라우저 백업 파일이 아닙니다."
+          },
+          "version": {
+            "ok": false,
+            "message": "Winmate 브라우저 백업 파일이 아닙니다."
+          },
+          "foreignKey": {
+            "ok": false,
+            "message": "알 수 없는 저장소 키: evil.key"
+          },
+          "nonString": {
+            "ok": false,
+            "message": "알 수 없는 저장소 키: winmate.v2.favs"
+          },
+          "unknownDb": {
+            "ok": false,
+            "message": "알 수 없는 데이터베이스: unknown-db"
+          },
+          "unknownStore": {
+            "ok": false,
+            "message": "알 수 없는 저장소: nope"
+          },
+          "corrupt": {
+            "ok": false,
+            "message": "손상된 데이터: tpl"
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "R10",
+      "title": "restore is additive for IndexedDB: existing templates and pictures stay next to imported ones",
+      "status": "pass",
+      "ms": 2716,
+      "details": {
+        "result": {
+          "keys": 0,
+          "records": 2
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "R11",
+      "title": "restore is additive for proposals: existing local proposals are not deleted",
+      "status": "pass",
+      "ms": 4211,
+      "details": {
+        "ids": {
+          "existing": "ptpua1zd",
+          "imported": "phd5fhcv",
+          "stored": 2
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "R12",
+      "title": "separate-origin restore: proposal, favourite and My template with picture appear on the other origin",
+      "status": "pass",
+      "ms": 4850,
+      "details": {
+        "origins": [
+          "http://127.0.0.1:5199",
+          "http://localhost:5199"
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "R13",
+      "title": "link metadata cache keeps distinct entries for URLs that differ only in their query",
+      "status": "pass",
+      "ms": 1312,
+      "details": {
+        "a": "https://i.ytimg.com/vi/WMSTRICTaaa/mqdefault.jpg",
+        "b": "https://i.ytimg.com/vi/WMSTRICTbbb/mqdefault.jpg",
+        "s1": "검색 · first",
+        "s2": "검색 · second"
+      },
+      "error": null
+    }
+  ]
+}
