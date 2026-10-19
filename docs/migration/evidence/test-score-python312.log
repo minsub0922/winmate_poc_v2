@@ -1,0 +1,28 @@
+test_every_criterion_has_explicit_1_2_3 (proposal_score.tests.test_proposal_score.TestCriteria.test_every_criterion_has_explicit_1_2_3) ... ok
+test_gates (proposal_score.tests.test_proposal_score.TestCriteria.test_gates) ... ok
+test_parity_with_app (proposal_score.tests.test_proposal_score.TestCriteria.test_parity_with_app) ... ok
+test_rules_pipeline_on_all (proposal_score.tests.test_proposal_score.TestEndToEndOffline.test_rules_pipeline_on_all) ... ok
+test_live_small (proposal_score.tests.test_proposal_score.TestLiveGemini.test_live_small) ... skipped 'PS_LIVE=1 일 때만 Gemini 라이브 테스트'
+test_best_scenarios_loaded (proposal_score.tests.test_proposal_score.TestProposalAndChecks.test_best_scenarios_loaded) ... ok
+test_number_conflict_is_real_and_flagged (proposal_score.tests.test_proposal_score.TestProposalAndChecks.test_number_conflict_is_real_and_flagged)
+교란은 첫 등장을 남기고 일부 장만 바꿔야 하고(실제 충돌), 바뀐 수치는 MK4 위험 신호로 잡혀야 한다. ... ok
+test_perturbations_are_detected_by_checks (proposal_score.tests.test_proposal_score.TestProposalAndChecks.test_perturbations_are_detected_by_checks) ... ok
+test_spec_check_is_box_level (proposal_score.tests.test_proposal_score.TestProposalAndChecks.test_spec_check_is_box_level)
+앱 규칙(장 단위)은 옆 칸 수치를 모델에 잇는다 — bs01 10장 OH55A-S 는 55"(옆 KM24C 칸의 24" 아님), bs02 IAB 146" 는 모델명 속 숫자. ... ok
+test_hygiene_without_risk_is_rule_pass (proposal_score.tests.test_proposal_score.TestRouter.test_hygiene_without_risk_is_rule_pass) ... ok
+test_llm_failure_falls_back_to_rules (proposal_score.tests.test_proposal_score.TestRouter.test_llm_failure_falls_back_to_rules) ... ok
+test_llm_route_respects_relevance_priority_and_budget (proposal_score.tests.test_proposal_score.TestRouter.test_llm_route_respects_relevance_priority_and_budget) ... ok
+test_local_seeds_follow_deal_context (proposal_score.tests.test_proposal_score.TestRouter.test_local_seeds_follow_deal_context) ... ok
+test_risk_survives_full_budget (proposal_score.tests.test_proposal_score.TestRouter.test_risk_survives_full_budget)
+예산이 '채점할 가치 있음(2)' 기준으로 꽉 차도, 위험 신호가 있는 기준(우선순위 1)은 그보다 앞서 남는다. ... ok
+test_rules_route (proposal_score.tests.test_proposal_score.TestRouter.test_rules_route) ... ok
+test_aggregate_math (proposal_score.tests.test_proposal_score.TestScorer.test_aggregate_math) ... ok
+test_parse_validate_ground (proposal_score.tests.test_proposal_score.TestScorer.test_parse_validate_ground) ... ok
+test_deterministic_partition (proposal_score.tests.test_proposal_score.TestTaxonomy.test_deterministic_partition) ... ok
+test_louvain_two_cliques (proposal_score.tests.test_proposal_score.TestTaxonomy.test_louvain_two_cliques) ... ok
+test_structure (proposal_score.tests.test_proposal_score.TestTaxonomy.test_structure) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.966s
+
+OK (skipped=1)

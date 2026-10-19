@@ -1,0 +1,105 @@
+[
+  {
+    "kind": "replace",
+    "source_lines": [
+      13047,
+      13047
+    ],
+    "live_lines": [
+      13047,
+      13047
+    ],
+    "source_count": 1,
+    "live_count": 1,
+    "source_excerpt": "  var vn = { generated: \"2026-10-19\", counts: { case: 218, sol: 17, images: 2347, files: 2303, packs: 2 }, P: [\"img/media/g0.json\", \"img/media/g1.json\", \"img/media/t.json\"], L: { \"0\": [12, 21067, 22183, 24611, 8127, 21879, 14775, 16799, 17547, 22479, 16683, 20",
+    "live_excerpt": "  var vn = { generated: \"2026-10-19\", counts: { case: 218, sol: 17, images: 2347, files: 2303, packs: 2 }, P: [\"img/media/g0.json\", \"img/media/g1.json\", \"img/media/t.json\"], L: { \"0\": [12, 21067, 22183, 24611, 8127, 21879, 14775, 16799, 17547, 22479, 16683, 20",
+    "classification": "media-metadata",
+    "corresponding_source": "data/media.json",
+    "structured_evidence": "media-data-differences.json"
+  },
+  {
+    "kind": "replace",
+    "source_lines": [
+      13262,
+      13262
+    ],
+    "live_lines": [
+      13262,
+      13262
+    ],
+    "source_count": 1,
+    "live_count": 1,
+    "source_excerpt": "  var Ue = Te(lt()), Ev = { \"p-check\": \"M10 6h10 M10 12h10 M10 18h10 M3.5 6l1.5 1.5L7.5 5 M3.5 12l1.5 1.5L7.5 11 M3.5 18l1.5 1.5L7.5 17\", \"p-market\": \"M4 20v-5 M9 20v-8 M14 20v-6 M19 20v-9 M3 20h18 M4 10l5-4 4 3 7-6 M16 3h4v4\", \"p-scale\": \"M12 4v16 M8 20h8 M5 ",
+    "live_excerpt": "  var Ue = Te(lt()), Ev = { \"p-check\": \"M10 6h10 M10 12h10 M10 18h10 M3.5 6l1.5 1.5L7.5 5 M3.5 12l1.5 1.5L7.5 11 M3.5 18l1.5 1.5L7.5 17\", \"p-market\": \"M4 20v-5 M9 20v-8 M14 20v-6 M19 20v-9 M3 20h18 M4 10l5-4 4 3 7-6 M16 3h4v4\", \"p-scale\": \"M12 4v16 M8 20h8 M5 ",
+    "classification": "notice-icon",
+    "corresponding_source": "src/ui/common.jsx"
+  },
+  {
+    "kind": "insert",
+    "source_lines": [
+      21054,
+      21053
+    ],
+    "live_lines": [
+      21054,
+      21076
+    ],
+    "source_count": 0,
+    "live_count": 23,
+    "source_excerpt": "",
+    "live_excerpt": "  function wmCritInfo({ r: wmR, onClose: wmClose }) {\n    let wmJ = N.jsx, wmJs = N.jsxs, [wmCat, wmSetCat] = (0, pi.useState)(null), [wmOpen, wmSetOpen] = (0, pi.useState)(() => /* @__PURE__ */ new Set()), wmSel = Object.fromEntries((wmR && wmR.sel || []).map",
+    "classification": "review-criteria-component",
+    "corresponding_source": "src/ui/review.jsx"
+  },
+  {
+    "kind": "replace",
+    "source_lines": [
+      21055,
+      21055
+    ],
+    "live_lines": [
+      21078,
+      21078
+    ],
+    "source_count": 1,
+    "live_count": 1,
+    "source_excerpt": "    let t = MN(e.id), [i, o] = (0, pi.useState)(\"all\"), [a, s] = (0, pi.useState)(null), [n, d] = (0, pi.useState)(() => new Set(e.agg ? e.agg.priorities.slice(0, 1) : [])), [r, p] = (0, pi.useState)(null), [l, f] = (0, pi.useState)(false), c = e.profile || {}",
+    "live_excerpt": "    let [wmCiO, wmCiS] = (0, pi.useState)(false), t = MN(e.id), [i, o] = (0, pi.useState)(\"all\"), [a, s] = (0, pi.useState)(null), [n, d] = (0, pi.useState)(() => new Set(e.agg ? e.agg.priorities.slice(0, 1) : [])), [r, p] = (0, pi.useState)(null), [l, f] = (0",
+    "classification": "review-criteria-state",
+    "corresponding_source": "src/ui/review.jsx"
+  },
+  {
+    "kind": "replace",
+    "source_lines": [
+      21072,
+      21072
+    ],
+    "live_lines": [
+      21095,
+      21095
+    ],
+    "source_count": 1,
+    "live_count": 1,
+    "source_excerpt": "    return (0, N.jsxs)(\"div\", { className: \"rv-report\", children: [e.demo && (0, N.jsxs)(\"div\", { className: \"rv-note\", children: [(0, N.jsx)(D, { name: \"info\", size: 15 }), \"예시 평가예요 — 가상의 제안서로 만든 결과라 실제 고객 · 수치가 아니에요.\", e.strategy ? \" 제안 전략: \" + e.strategy + ",
+    "live_excerpt": "    return (0, N.jsxs)(\"div\", { className: \"rv-report\", children: [e.demo && (0, N.jsxs)(\"div\", { className: \"rv-note\", children: [(0, N.jsx)(D, { name: \"info\", size: 15 }), \"예시 평가예요 — 가상의 제안서로 만든 결과라 실제 고객 · 수치가 아니에요.\", e.strategy ? \" 제안 전략: \" + e.strategy + ",
+    "classification": "review-criteria-trigger",
+    "corresponding_source": "src/ui/review.jsx"
+  },
+  {
+    "kind": "replace",
+    "source_lines": [
+      21092,
+      21092
+    ],
+    "live_lines": [
+      21115,
+      21115
+    ],
+    "source_count": 1,
+    "live_count": 1,
+    "source_excerpt": "    }) }), t === false && (0, N.jsx)(\"p\", { className: \"faint\", style: { fontSize: 12 }, children: \"이 브라우저에 원본 미리보기가 없어 제목만 보여요.\" })] })] })] }), r != null && (0, N.jsx)(NN, { r: e, doc: t, n: r, setN: p, onClose: () => p(null) })] });",
+    "live_excerpt": "    }) }), t === false && (0, N.jsx)(\"p\", { className: \"faint\", style: { fontSize: 12 }, children: \"이 브라우저에 원본 미리보기가 없어 제목만 보여요.\" })] })] })] }), r != null && (0, N.jsx)(NN, { r: e, doc: t, n: r, setN: p, onClose: () => p(null) }), wmCiO && (0, N.jsx)(wmCritIn",
+    "classification": "review-criteria-render",
+    "corresponding_source": "src/ui/review.jsx"
+  }
+]

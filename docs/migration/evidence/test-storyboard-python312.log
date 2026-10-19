@@ -1,0 +1,19 @@
+test_kb_loaded (tests.test_agent.TestData.test_kb_loaded) ... ok
+test_strategy_label_masked (tests.test_agent.TestData.test_strategy_label_masked) ... ok
+test_fix_masks_only_the_claim (tests.test_agent.TestGrounding.test_fix_masks_only_the_claim) ... ok
+test_foreign_terms_false_positives (tests.test_agent.TestGrounding.test_foreign_terms_false_positives) ... ok
+test_new_or_other_unit_is_flagged (tests.test_agent.TestGrounding.test_new_or_other_unit_is_flagged) ... ok
+test_previous_storyboard_is_evidence (tests.test_agent.TestGrounding.test_previous_storyboard_is_evidence) ... ok
+test_same_value_other_format_is_supported (tests.test_agent.TestGrounding.test_same_value_other_format_is_supported) ... ok
+test_guards_fix_bad_draft (tests.test_agent.TestLLMPath.test_guards_fix_bad_draft) ... ok
+test_prompt_has_cards_not_raw_roles (tests.test_agent.TestLLMPath.test_prompt_has_cards_not_raw_roles) ... ok
+test_strategy_outside_candidates_is_replaced (tests.test_agent.TestLLMPath.test_strategy_outside_candidates_is_replaced) ... ok
+test_app_rules_matches_app_behaviour (tests.test_agent.TestOffline.test_app_rules_matches_app_behaviour) ... ok
+test_cold_storyboard_is_valid (tests.test_agent.TestOffline.test_cold_storyboard_is_valid) ... ok
+test_continue_keeps_previous_parts (tests.test_agent.TestOffline.test_continue_keeps_previous_parts) ... ok
+test_references_are_diverse_and_avoid_list (tests.test_agent.TestOffline.test_references_are_diverse_and_avoid_list) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.564s
+
+OK

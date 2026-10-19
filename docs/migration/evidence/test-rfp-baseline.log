@@ -1,0 +1,57 @@
+test_coverage_no_gap_no_overlap (test_rfp_pipeline.TestChunker) ... ok
+test_heading_path_kept (test_rfp_pipeline.TestChunker) ... ok
+test_long_doc_is_split_and_sized (test_rfp_pipeline.TestChunker) ... ok
+test_outline_is_short_and_has_contacts (test_rfp_pipeline.TestChunker) ... ok
+test_table_header_repeated_on_continuation (test_rfp_pipeline.TestChunker) ... ok
+test_grounding_and_numbers (test_rfp_pipeline.TestGeminiLive) ... skipped 'GEMINI_API_KEY 없음 또는 RFP_LIVE=0'
+test_long_doc_keeps_projects_apart (test_rfp_pipeline.TestGeminiLive) ... skipped 'GEMINI_API_KEY 없음 또는 RFP_LIVE=0'
+test_single_rfps_recall (test_rfp_pipeline.TestGeminiLive) ... skipped 'GEMINI_API_KEY 없음 또는 RFP_LIVE=0'
+test_grounded (test_rfp_pipeline.TestGuards) ... ok
+test_groups_join_ledger_text_verbatim (test_rfp_pipeline.TestGuards) ... ok
+test_ids_in_prose_are_replaced (test_rfp_pipeline.TestGuards) ... ok
+test_merge_guard_and_unassigned_kept (test_rfp_pipeline.TestGuards) ... ok
+test_unsupported_numbers (test_rfp_pipeline.TestGuards) ... ok
+test_consolidate_failure_falls_back (test_rfp_pipeline.TestPipelineOffline) ... ok
+test_context_is_carried_between_chunks (test_rfp_pipeline.TestPipelineOffline) ... ok
+test_degenerate_detector (test_rfp_pipeline.TestPipelineOffline) ... ok
+test_env_keys_from_example (test_rfp_pipeline.TestPipelineOffline) ... ok
+test_gapfill_asks_only_uncovered_lines (test_rfp_pipeline.TestPipelineOffline) ... ok
+test_gemini_max_tokens_and_retry (test_rfp_pipeline.TestPipelineOffline) ... ERROR
+test_gemini_request_cache_and_replay (test_rfp_pipeline.TestPipelineOffline)
+네트워크 없이 Gemini 백엔드의 요청 모양 · 캐시 기록 · replay 재현을 확인한다. ... ok
+test_nocarry_has_no_context (test_rfp_pipeline.TestPipelineOffline) ... ok
+test_replay_without_cache_fails_clearly (test_rfp_pipeline.TestPipelineOffline) ... ok
+test_rules_pipeline_all_tcs (test_rfp_pipeline.TestPipelineOffline) ... ok
+test_every_checkpoint_is_in_source (test_rfp_pipeline.TestTestCases) ... ok
+test_golden_forms_score_full_recall (test_rfp_pipeline.TestTestCases)
+사람이 정리한 히스토리(정답 폼)는 체크포인트를 모두 맞혀야 한다 — 채점기와 TC 검증. ... ok
+test_scorer_detects_misattribution (test_rfp_pipeline.TestTestCases) ... ok
+test_shared_boilerplate_is_not_misattribution (test_rfp_pipeline.TestTestCases)
+같은 은행 공통 문구(추첨 · 접수 메일)는 다른 사업에서 발견돼도 그 사업 원문에도 있으면 잘못된 귀속이 아니다. ... ok
+test_tc_shape (test_rfp_pipeline.TestTestCases) ... ok
+
+======================================================================
+ERROR: test_gemini_max_tokens_and_retry (test_rfp_pipeline.TestPipelineOffline)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/minseop/Dev/projects/sr_tasks/winmatev2/poc/test/rfp_pipeline.py", line 403, in complete
+    res = self._post(body)
+  File "/Users/minseop/Dev/projects/sr_tasks/winmatev2/poc/test/test_rfp_pipeline.py", line 268, in _post
+    raise urllib.error.HTTPError('u', 429, 'rate', {}, None)
+urllib.error.HTTPError: HTTP Error 429: rate
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/minseop/Dev/projects/sr_tasks/winmatev2/poc/test/test_rfp_pipeline.py", line 276, in test_gemini_max_tokens_and_retry
+    be.complete('extract', 's', 'u', {})
+  File "/Users/minseop/Dev/projects/sr_tasks/winmatev2/poc/test/rfp_pipeline.py", line 434, in complete
+    detail = e.read().decode('utf-8', 'replace')[:400]
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/tempfile.py", line 468, in __getattr__
+    file = self.__dict__['file']
+KeyError: 'file'
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.819s
+
+FAILED (errors=1, skipped=3)

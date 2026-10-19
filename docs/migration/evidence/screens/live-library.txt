@@ -1,0 +1,1333 @@
+    - main:
+      - generic: WINMATE · 템플릿 라이브러리
+      - heading "PPT 레이아웃 템플릿" [level=1]
+      - search:
+        - generic: 레이아웃 검색
+        - textbox "레이아웃 검색":
+          - /placeholder: 찾는 장면을 적어 보세요 · 예) 경쟁사와 비교하는 표, 매장 하루 동선
+      - button "필터 1":
+        - text: 필터
+        - generic: "1"
+      - button "My":
+        - text: My
+      - generic "적용한 필터":
+        - button "파트 공간 · 제품 전체 필터 빼기":
+          - generic: 파트
+          - generic: 공간 · 제품 전체
+        - button "모두 지우기"
+      - text: 208장
+      - generic: · 공간 · 제품 전체
+      - generic: 120장 이하로 좁히면 한 파일로 받을 수 있어요
+      - button "이 목록 PPTX로 받기" [disabled]:
+        - text: 이 목록 PPTX로 받기
+      - region "공간 · 제품":
+        - heading "공간 · 제품" [level=2]
+        - generic: "208"
+        - paragraph: DSS · 공간 맵 · 공간별 제품 · 구성 · 수량 · 공간 시나리오 · 조감도 · 공간 시안 · 제품 스펙
+        - region "DSS · 공간 맵":
+          - heading "DSS · 공간 맵 7" [level=3]:
+            - text: DSS · 공간 맵
+            - generic: "7"
+          - paragraph: 공간별 제품 · 솔루션 매칭
+          - button "공간 × 제품 수량표 크게 보기":
+            - generic: 04 · 공간별 제품
+            - generic: 다섯 공간, 다섯 제품 — 어디에 몇 대
+            - generic: 표준 매장 1곳 기준 · 칸의 숫자는 설치 대수
+            - generic: 공간 ↓ · 제품 →
+            - img "옥외 사이니지 OH55A-S · 정면"
+            - generic: OH55C
+            - generic: 옥외 사이니지
+            - img "삼성 키오스크 KM24C · 정면"
+            - generic: KM24C
+            - generic: 키오스크
+            - img "스마트 사이니지 QM55C · 정면"
+            - generic: QM55C
+            - generic: 메뉴보드
+            - img "스마트 사이니지 QM65C · 정면"
+            - generic: QM65C
+            - generic: 대형 사이니지
+            - img "스마트 사이니지 QM43C · 정면"
+            - generic: QM43C
+            - generic: 호출 사이니지
+            - generic: 매장당 합계
+            - generic: 매장 외부
+            - generic: 거리 · 외벽
+            - generic: "1"
+            - generic: —
+            - generic: —
+            - generic: —
+            - generic: —
+            - generic: "1"
+            - generic: 입구
+            - generic: 출입문 · 대기열
+            - generic: "1"
+            - generic: "1"
+            - generic: —
+            - generic: —
+            - generic: —
+            - generic: "2"
+            - generic: 매장 카운터
+            - generic: 주문 · 결제
+            - generic: —
+            - generic: —
+            - generic: "3"
+            - generic: —
+            - generic: —
+            - generic: "3"
+            - generic: 대기 공간
+            - generic: 좌석 · 벽면
+            - generic: —
+            - generic: —
+            - generic: —
+            - generic: "1"
+            - generic: —
+            - generic: "1"
+            - generic: 픽업대
+            - generic: 음료 수령
+            - generic: —
+            - generic: —
+            - generic: —
+            - generic: —
+            - generic: "1"
+            - generic: "1"
+            - generic: 합계
+            - generic: "2"
+            - generic: "1"
+            - generic: "3"
+            - generic: "1"
+            - generic: "1"
+            - generic: "8"
+            - generic: 설치 대수
+            - generic: —
+            - text: 설치 없음
+            - generic: × 320
+            - generic: 개 매장 =
+            - generic: "[0,000]"
+            - generic: 대
+            - generic: 고객사 로고
+            - generic: A 커피 프랜차이즈 · 디지털 메뉴보드 제안
+            - generic: CONFIDENTIAL · 15
+            - button "찜하기":
+            - generic: 공간 × 제품 수량표
+            - paragraph: 공간 · 제품이 많을 때
+          - button "동선 스트립 크게 보기":
+            - generic: 04 · 공간별 제품 — 매장 동선
+            - generic: 손님이 지나가는 순서대로 — 다섯 공간, 매장당 여덟 대
+            - generic: 입구에서 픽업대까지 · 공간마다 맡는 역할
+            - img "쇼윈도 사이니지 앞을 지나는 손님"
+            - generic: 매장 외부
+            - generic: "1"
+            - generic: 거리에서 멈춰 선다
+            - generic: 외부 메뉴와 대기 시간을 보여 발길을 잡는다
+            - generic: OH55C ×2
+            - generic: 옥외 55"
+            - img "키오스크로 주문하는 손님 (samsung.com)"
+            - generic: 입구 대기열
+            - generic: "2"
+            - generic: 줄 서서 메뉴를 고른다
+            - generic: 줄 선 채로 메뉴를 보고 키오스크로 주문
+            - generic: KM24C ×1
+            - generic: 키오스크 24"
+            - img "카운터 메뉴보드 정면 (말리커피 강남점)"
+            - generic: 카운터
+            - generic: "3"
+            - generic: 보고 바로 주문한다
+            - generic: 3연 메뉴보드 — 3m 거리에서도 한눈에
+            - generic: QM55C ×3
+            - generic: 메뉴보드 55"
+            - img "카페 좌석과 천장의 360 카세트 (프랜차이즈 카페)"
+            - generic: 대기 공간
+            - generic: "4"
+            - generic: 앉아서 음료를 기다린다
+            - generic: 신메뉴 · 프로모션으로 추가 주문 유도
+            - generic: QM65C ×1
+            - generic: 사이니지 65"
+            - img "픽업대 위 메뉴보드 (말리커피 강남점)"
+            - generic: 픽업대
+            - generic: "5"
+            - generic: 내 번호를 찾아간다
+            - generic: 주문 번호를 띄워 부르지 않아도 찾는다
+            - generic: QM43C ×1
+            - generic: 호출 43"
+            - generic: 표준 매장 1곳 기준 · 화살표는 손님 동선 · 수치는 예시
+            - generic: 매장당
+            - generic: "8"
+            - generic: 대
+            - generic: ×
+            - generic: "320"
+            - generic: 개 매장
+            - generic: =
+            - generic: 2,560
+            - generic: 대
+            - generic: 고객사 로고
+            - generic: A 커피 프랜차이즈 · 디지털 메뉴보드 제안
+            - generic: CONFIDENTIAL · 13
+            - button "찜하기":
+            - generic: 동선 스트립
+            - paragraph: 손님이 공간을 순서대로 지나갈 때
+          - button "공간 사진 카드 크게 보기":
+            - generic: 04 · 공간별 제품 — B 호텔 전체
+            - generic: B 호텔의 여섯 공간 — 공간마다 맡는 일이 다릅니다
+            - img "호텔 프런트데스크와 투숙객 (samsung.com)"
+            - generic: "01"
+            - generic: 로비 · 프런트
+            - generic: 첫인상과 체크인 — 줄 서지 않는 도착
+            - generic: The Wall IAB
+            - generic: QM55C 안내
+            - generic: KM24C 셀프 체크인
+            - img "객실 침실과 호텔 TV (크라운 파크 호텔 서울)"
+            - generic: "02"
+            - generic: 객실
+            - generic: ×300
+            - generic: 가장 오래 머무는 곳 — 조용한 냉방과 TV
+            - generic: 호텔 TV 55"
+            - generic: WindFree 1Way
+            - generic: 객실 냉장고
+            - img "레스토랑 좌석 (양재 엘타워)"
+            - generic: "03"
+            - generic: 레스토랑
+            - generic: 조식 · 디너 메뉴를 시간대별로 바꿔 띄운다
+            - generic: QM43C 메뉴
+            - generic: QM55C
+            - img "그랜드볼룸 대형 스크린 · 음향 (서울드래곤시티)"
+            - generic: "04"
+            - generic: 연회장
+            - generic: ×3
+            - generic: 행사마다 바뀌는 입구 안내와 발표 화면
+            - generic: QM55C 입구 안내
+            - generic: 대형 디스플레이
+            - img "피트니스 센터 러닝머신 존 (samsung.com)"
+            - generic: "05"
+            - generic: 피트니스
+            - generic: 운동하며 보는 화면 · 바람 없이 시원하게
+            - generic: 호텔 TV 43"
+            - generic: 360 카세트
+            - img "투숙객 세탁실 (나인트리 프리미어 호텔 서울 판교)"
+            - generic: "06"
+            - generic: BOH · 직원 공간
+            - generic: 객실 상태 · 업무 지시를 손안에서 처리
+            - generic: Galaxy Tab Active5 Pro
+            - generic: ViewFinity
+            - generic: 사진은 B 호텔 현장 사진으로 교체 · 공간별 수량은 다음 시트
+            - generic: 객실
+            - generic: "300"
+            - generic: 실 ·
+            - generic: 공용부
+            - generic: "5"
+            - generic: 개 공간 ·
+            - generic: 제품
+            - generic: "12"
+            - generic: 종
+            - generic: 고객사 로고
+            - generic: B 비즈니스 호텔 · 객실 · 공용부 리뉴얼 제안
+            - generic: CONFIDENTIAL · 13
+            - button "찜하기":
+            - generic: 공간 사진 카드
+            - paragraph: 공간 사진이 있고 4~6곳일 때
+          - button "층별 · 층마다 공간 사진 크게 보기":
+            - generic: 04 · 공간별 제품 — C 빌딩 전 층
+            - generic: 층마다 쓰임이 다르니, 제품도 층마다 다릅니다
+            - generic: 건물 전체 B1–10F · 옥상 · [0,000]대 — 업무층 · 공조 수량은 현장 실사 후 확정
+            - generic: RF
+            - generic: 옥상 · 설비
+            - img "옥상 실외기 (대구상공회의소)"
+            - generic: DVM S2 실외기 ×[00]
+            - generic: "[00]"
+            - generic: 층 합계
+            - generic: 10F
+            - generic: 회의 · 교육
+            - img "회의실 디스플레이 (한국IBM)"
+            - generic: Flip Pro WM75 ×6
+            - generic: 회의실 예약 사이니지 ×12
+            - generic: "18"
+            - generic: 층 합계
+            - generic: 3–9F
+            - generic: 업무층 × 7개 층
+            - img "사무 공간 천장 시스템에어컨 (대구상공회의소)"
+            - generic: ViewFinity 모니터 ×[000]/층
+            - generic: 360 카세트 ×[00]/층
+            - generic: "[0,000]"
+            - generic: 층 합계
+            - generic: 2F
+            - generic: 라운지 · 카페
+            - img "휴게 공간 사이니지 (한국IBM)"
+            - generic: QM55C 메뉴 ×2
+            - generic: 360 카세트 ×[0]
+            - generic: "[00]"
+            - generic: 층 합계
+            - generic: 1F
+            - generic: 로비
+            - img "공용부 세로형 안내 사이니지 (한국IBM)"
+            - generic: The Wall IAB 146" ×1
+            - generic: KM24C 방문객 키오스크 ×2
+            - generic: QM55C 안내 ×3
+            - generic: "6"
+            - generic: 층 합계
+            - generic: 고객사 로고
+            - generic: "C 빌딩 · 스마트 오피스 제안 · 수치는 예시 · 사진: samsung.com 오피스 도입사례"
+            - generic: CONFIDENTIAL · 13
+            - button "찜하기":
+            - generic: 층별 · 층마다 공간 사진
+            - paragraph: 건물 층마다 쓰임과 제품이 다를 때, 단면 대신 층마다 공간 사진 띠로 보여줄 때
+          - button "공간 사진 모자이크 + 2열 범례 크게 보기":
+            - generic: 03 · 공간별 제안
+            - generic: 스테이 공간별 시나리오
+            - generic: 여섯 개 공간, 열 개 제품 — 머무는 곳마다 AI가 손님을 맞습니다
+            - img "라운지형 아트리움 중앙의 대형 세로형 The Wall(폭포 영상)과 리셉션 데스크"
+            - generic: "1"
+            - generic: 라운지
+            - img "호텔 프런트 앞에서 갤럭시 태블릿으로 투숙객을 응대하는 직원(갤럭시 워치 착용)"
+            - generic: "2"
+            - generic: 리셉션
+            - 'img "호텔 객실: 침대 옆 비스포크 공기청정기, 에어드레서, 천장 1Way 시스템에어컨, 스탠드형 TV"'
+            - generic: "3"
+            - generic: 객실
+            - img "카페 벽면 비즈니스 TV에 커피·디저트 메뉴가 표시된 매장 전경"
+            - generic: "4"
+            - generic: 레스토랑
+            - img "테이블·의자가 있는 상업 공간 천장의 무풍 4Way 카세트(피트니스 사진 없음 – 대체)"
+            - generic: "5"
+            - generic: 피트니스 센터
+            - img "어두운 상영관 정면의 Samsung Onyx 시네마 LED 스크린과 좌석"
+            - generic: "6"
+            - generic: 연회장
+            - generic: 공간 · 제품
+            - generic: "1"
+            - generic: 라운지
+            - generic: 스마트 LED 사이니지 (The Wall)
+            - generic: 시스템에어컨 360
+            - generic: "2"
+            - generic: 리셉션
+            - generic: 갤럭시 S26
+            - generic: "3"
+            - generic: 객실
+            - generic: 호텔 TV
+            - generic: Infinite AI 무풍 시스템에어컨 1Way
+            - generic: Infinite AI 공기청정기
+            - generic: Bespoke 에어드레서
+            - generic: "4"
+            - generic: 레스토랑
+            - generic: 비즈니스 TV
+            - generic: "5"
+            - generic: 피트니스 센터
+            - generic: 무풍 시스템에어컨 4Way
+            - generic: "6"
+            - generic: 연회장
+            - generic: 시네마 LED 사이니지
+            - generic: 고객사 로고
+            - generic: "AI 스테이 · 호텔 AI 솔루션 제안 · 사진: samsung.com"
+            - generic: CONFIDENTIAL · 11
+            - button "찜하기":
+            - generic: 공간 사진 모자이크 + 2열 범례
+            - paragraph: 공간 여섯 곳과 공간별 제품을 사진 지도로 개관할 때
+            - generic: 호텔 · 리조트
+          - button "AI 스테이 Map · 공간 × 제품 매핑 크게 보기":
+            - generic: 03 · 공간별 제안
+            - generic: AI 스테이 Map
+            - generic: 공간마다 놓이는 삼성 제품을 한 장에 정리했습니다
+            - generic: "1"
+            - generic: 라운지
+            - img "실내용 The Wall IWC 제품 컷(사선, 폭포 화면)"
+            - text: 스마트 LED 사이니지
+            - text: (The Wall)
+            - img "360 카세트 에어컨(화이트, 사각 패널) 제품 컷"
+            - generic: 시스템에어컨 360
+            - generic: "2"
+            - generic: 리셉션
+            - img "갤럭시 S26 울트라 전면 · 후면 + S펜 제품 컷"
+            - generic: AI
+            - generic: 갤럭시 S26
+            - generic: "3"
+            - generic: 객실
+            - img "호텔 TV HU7000F 시리즈 정면 제품 컷"
+            - generic: 호텔 TV
+            - img "Infinite AI 무풍 시스템에어컨 천장형 1Way 실내기(전원 ON, 사선) 제품 컷"
+            - generic: AI
+            - text: Infinite AI 무풍
+            - text: 시스템에어컨 1Way
+            - img "Infinite AI 공기청정기(100㎡) 정면 제품 컷"
+            - generic: AI
+            - text: Infinite AI
+            - text: 공기청정기
+            - img "Bespoke AI 에어드레서(새틴 베이지) 정면 제품 컷"
+            - generic: AI
+            - text: Bespoke
+            - text: 에어드레서
+            - generic: "4"
+            - generic: 레스토랑
+            - img "비즈니스 TV BED 시리즈 정면 제품 컷(음료 메뉴 화면)"
+            - generic: 비즈니스 TV
+            - generic: "5"
+            - generic: 피트니스 센터
+            - img "무풍 4Way 카세트 실내기(사선) 제품 컷"
+            - generic: AI
+            - text: 무풍 시스템에어컨
+            - text: 4Way
+            - generic: "6"
+            - generic: 연회장
+            - img "어두운 상영관 정면의 Samsung Onyx 시네마 LED 스크린과 좌석"
+            - img "Onyx Cinema LED ICD 캐비닛(사선, 화면 콘텐츠) 제품 컷"
+            - generic: 시네마 LED 사이니지
+            - generic: 고객사 로고
+            - generic: AI 스테이 · 호텔 AI 솔루션 제안
+            - generic: CONFIDENTIAL · 22
+            - button "찜하기":
+            - generic: AI 스테이 Map · 공간 × 제품 매핑
+            - paragraph: 공간별 제안을 마무리하며 공간마다 놓일 제품을 한 장에 정리할 때
+            - generic: 호텔 · 리조트
+          - button "공간 지도 · 아이소메트릭 평면도 + 가치 콜아웃 3 + 공간 라벨 5 크게 보기":
+            - button "찜하기":
+            - generic: 공간 지도 · 아이소메트릭 평면도 + 가치 콜아웃 3 + 공간 라벨 5
+            - paragraph: 세 가지 가치가 어느 공간에 놓이는지 평면도 한 장으로 연결할 때
+            - generic: 오피스 · 업무 빌딩
+        - region "공간별 제품":
+          - heading "공간별 제품 46" [level=3]:
+            - text: 공간별 제품
+            - generic: "46"
+          - paragraph: 공간에 놓일 제품 소개
+          - button "제품 이미지 중심 (히어로) 크게 보기":
+            - button "찜하기":
+            - generic: 제품 이미지 중심 (히어로)
+            - paragraph: 공간 제품 소개 — 제품 1개 (A 이미지 · B 공간·설치 · C 스펙 · D 메시지)
+          - button "공간 · 설치 중심 크게 보기":
+            - button "찜하기":
+            - generic: 공간 · 설치 중심
+            - paragraph: 공간 제품 소개 — 제품 1개 (A 이미지 · B 공간·설치 · C 스펙 · D 메시지)
+          - button "공간 · 설치 중심 크게 보기":
+            - button "찜하기":
+            - generic: 공간 · 설치 중심
+            - paragraph: 공간 제품 소개 — 제품 2개
+          - button "주력 + 보조 (8:4) 크게 보기":
+            - button "찜하기":
+            - generic: 주력 + 보조 (8:4)
+            - paragraph: 공간 제품 소개 — 제품 2개
+          - button "공간 · 설치 중심 크게 보기":
+            - button "찜하기":
+            - generic: 공간 · 설치 중심
+            - paragraph: 공간 제품 소개 — 제품 3개
+          - button "라인업 (크기 비례 + 스펙) 크게 보기":
+            - button "찜하기":
+            - generic: 라인업 (크기 비례 + 스펙)
+            - paragraph: 공간 제품 소개 — 제품 3개
+          - button "주력 1 + 보조 2 크게 보기":
+            - button "찜하기":
+            - generic: 주력 1 + 보조 2
+            - paragraph: 공간 제품 소개 — 제품 3개
+          - button "공간 · 설치 중심 크게 보기":
+            - button "찜하기":
+            - generic: 공간 · 설치 중심
+            - paragraph: 공간 제품 소개 — 제품 4개
+          - button "주력 1 + 보조 3 크게 보기":
+            - button "찜하기":
+            - generic: 주력 1 + 보조 3
+            - paragraph: 공간 제품 소개 — 제품 4개
+          - button "공간 · 설치 중심 (동선) 크게 보기":
+            - button "찜하기":
+            - generic: 공간 · 설치 중심 (동선)
+            - paragraph: 공간 제품 소개 — 제품 5개 (6~8개는 P-T, 그 이상은 시트를 나눔)
+          - button "정면 입면도 · 치수 크게 보기":
+            - button "찜하기":
+            - generic: 정면 입면도 · 치수
+            - paragraph: 높이 · 간격이 설계 포인트일 때
+          - button "시야 거리 단면 크게 보기":
+            - button "찜하기":
+            - generic: 시야 거리 단면
+            - paragraph: 화면 크기를 거리로 증명할 때
+          - button "커버리지 평면 크게 보기":
+            - button "찜하기":
+            - generic: 커버리지 평면
+            - paragraph: 천장 속 제품, 닿는 범위가 핵심일 때
+          - button "제품 디테일 콜아웃 크게 보기":
+            - button "찜하기":
+            - generic: 제품 디테일 콜아웃
+            - paragraph: 제품 설계 자체가 논거일 때
+          - button "수량 · 용량 산정 근거 크게 보기":
+            - button "찜하기":
+            - generic: 수량 · 용량 산정 근거
+            - paragraph: “왜 이만큼”에 계산으로 답할 때
+          - button "직무별 기기 키트 크게 보기":
+            - button "찜하기":
+            - generic: 직무별 기기 키트
+            - paragraph: 기기가 자리가 아니라 사람을 따라갈 때
+          - button "카탈로그 6~8개 크게 보기":
+            - button "찜하기":
+            - generic: 카탈로그 6~8개
+            - paragraph: 한 공간에 제품이 많아도 한 장으로
+          - button "제품 3 · 컷 + 설치 장면 크게 보기":
+            - button "찜하기":
+            - generic: 제품 3 · 컷 + 설치 장면
+            - paragraph: 제품 세 개를 공식 제품 컷과 실제 설치 장면으로 함께 보여줄 때
+          - button "제품 4 · 설치 장면 크게 보기":
+            - button "찜하기":
+            - generic: 제품 4 · 설치 장면
+            - paragraph: 제품 네 개를 설치된 공간 사진 위주로 보여줄 때 — 제품 컷은 작게 곁들임
+          - button "무드 컷 · 풀블리드 크게 보기":
+            - button "찜하기":
+            - generic: 무드 컷 · 풀블리드
+            - paragraph: 사양보다 분위기로 설득할 때 — 설치된 공간 사진 한 장에 제품 이름과 핵심 세 가지
+          - button "한 제품 · 여러 공간 사진 크게 보기":
+            - button "찜하기":
+            - generic: 한 제품 · 여러 공간 사진
+            - paragraph: 한 모델로 통일하되 공간마다 역할이 다를 때 — 공간 사진 네 장으로
+          - button "설치 방식 옵션 · 사진 크게 보기":
+            - button "찜하기":
+            - generic: 설치 방식 옵션 · 사진
+            - paragraph: 제품은 정했고 다는 방식을 고를 때 — 방식마다 실제 설치 사진으로
+          - button "비디오월 · 실사 + 구성 크게 보기":
+            - button "찜하기":
+            - generic: 비디오월 · 실사 + 구성
+            - paragraph: 패널을 이어 붙여 벽을 채울 때 — 실제 비디오월 사진과 구성 정보를 함께
+          - button "한 제품 · 설치 사진 + 숫자 크게 보기":
+            - button "찜하기":
+            - generic: 한 제품 · 설치 사진 + 숫자
+            - paragraph: 제품 하나를, 실제 설치된 모습과 이 자리에 필요한 숫자 넷으로 설명할 때
+          - button "두 제품 VS · 각자의 자리 사진 크게 보기":
+            - button "찜하기":
+            - generic: 두 제품 VS · 각자의 자리 사진
+            - paragraph: 두 후보 제품을, 각각 어울리는 자리 사진과 같은 줄의 사양 비교로 고르게 할 때
+          - button "제품 5 · 설치 장면 5열 크게 보기":
+            - button "찜하기":
+            - generic: 제품 5 · 설치 장면 5열
+            - paragraph: 한 매장에 들어가는 다섯 제품을, 설치 장면 사진과 위치 · 수량으로 한 줄에 보여줄 때
+          - button "공간 조건 → 대응 · 사진 위 번호 크게 보기":
+            - button "찜하기":
+            - generic: 공간 조건 → 대응 · 사진 위 번호
+            - paragraph: 설치 공간의 조건(빛 · 온도 · 비 · 시간 · 거리)을 사진 위 번호로 짚고, 제품의 대응을 나란히
+          - button "기존 장비 → 교체 · 도입 후 사진 크게 보기":
+            - button "찜하기":
+            - generic: 기존 장비 → 교체 · 도입 후 사진
+            - paragraph: 지금 쓰는 장비 넷을 무엇으로 바꾸는지, 바꾼 뒤의 모습 사진과 바뀌는 점으로 보여줄 때
+          - button "사용자별 접점 · 인물 사진 3 크게 보기":
+            - button "찜하기":
+            - generic: 사용자별 접점 · 인물 사진 3
+            - paragraph: 같은 공간을 쓰는 사람마다 닿는 제품과 얻는 것이 다를 때, 사람 사진을 앞세워
+          - button "구성 3안 · 공간 사진 크게 보기":
+            - button "찜하기":
+            - generic: 구성 3안 · 공간 사진
+            - paragraph: 기본 · 권장 · 확장 세 가지 구성을, 구성마다 그 결과가 보이는 공간 사진과 함께 고르게 할 때
+          - button "한 세대 패키지 · 주방 사진 위 번호 크게 보기":
+            - button "찜하기":
+            - generic: 한 세대 패키지 · 주방 사진 위 번호
+            - paragraph: 한 세대(유닛)에 들어가는 가전 · 공조 · 세탁을, 대표 공간 사진 위 번호와 목록으로 보여줄 때
+          - button "공간 사진 + Key Message + 제품 카드 (라운지 · The Wall) 크게 보기":
+            - button "찜하기":
+            - generic: 공간 사진 + Key Message + 제품 카드 (라운지 · The Wall)
+            - paragraph: 공간 하나에 제품 하나 — 장면 사진과 기능 2~3개
+            - generic: 호텔 · 리조트
+          - button "공간 사진 + Key Message + 제품 카드 (라운지 · 360 카세트) 크게 보기":
+            - button "찜하기":
+            - generic: 공간 사진 + Key Message + 제품 카드 (라운지 · 360 카세트)
+            - paragraph: 공간 하나에 제품 하나 — 장면 사진과 기능 2~3개
+            - generic: 호텔 · 리조트
+          - button "공간 사진 + Key Message + 제품 카드 (리셉션 · 갤럭시) 크게 보기":
+            - button "찜하기":
+            - generic: 공간 사진 + Key Message + 제품 카드 (리셉션 · 갤럭시)
+            - paragraph: 모바일 기기를 공간 장면과 함께 소개할 때 (주석 포함)
+            - generic: 호텔 · 리조트
+          - button "공간 사진 + Key Message + 제품 카드 (객실 · 호텔 TV) 크게 보기":
+            - button "찜하기":
+            - generic: 공간 사진 + Key Message + 제품 카드 (객실 · 호텔 TV)
+            - paragraph: 공간 하나에 제품 하나 — 장면 사진과 기능 2~3개
+            - generic: 호텔 · 리조트
+          - button "공간 사진 + Key Message + 제품 카드 (객실 · 1Way + 인증) 크게 보기":
+            - button "찜하기":
+            - generic: 공간 사진 + Key Message + 제품 카드 (객실 · 1Way + 인증)
+            - paragraph: 인증 배지 · 인증 모델 주석이 필요한 제품
+            - generic: 호텔 · 리조트
+          - button "공간 사진 + Key Message + 제품 카드 (객실 · 공기청정기 + 주석) 크게 보기":
+            - button "찜하기":
+            - generic: 공간 사진 + Key Message + 제품 카드 (객실 · 공기청정기 + 주석)
+            - paragraph: 시험 성적 주석이 많은 제품 — 사진 아래 2열 주석
+            - generic: 호텔 · 리조트
+          - button "공간 사진 + Key Message + 제품 카드 (객실 · 에어드레서 + 주석) 크게 보기":
+            - button "찜하기":
+            - generic: 공간 사진 + Key Message + 제품 카드 (객실 · 에어드레서 + 주석)
+            - paragraph: 시험 성적 주석이 많은 제품 — 사진 아래 2열 주석
+            - generic: 호텔 · 리조트
+          - button "공간 사진 + Key Message + 제품 카드 (레스토랑 · 비즈니스 TV) 크게 보기":
+            - button "찜하기":
+            - generic: 공간 사진 + Key Message + 제품 카드 (레스토랑 · 비즈니스 TV)
+            - paragraph: 공간 하나에 제품 하나 — 장면 사진과 기능 2~3개
+            - generic: 호텔 · 리조트
+          - button "공간 사진 + Key Message + 제품 카드 (피트니스 · 4Way) 크게 보기":
+            - button "찜하기":
+            - generic: 공간 사진 + Key Message + 제품 카드 (피트니스 · 4Way)
+            - paragraph: 공간 하나에 제품 하나 — 장면 사진과 기능 2~3개
+            - generic: 호텔 · 리조트
+          - button "공간 사진 + Key Message + 제품 카드 (연회장 · 시네마 LED + 활용 사진 3) 크게 보기":
+            - button "찜하기":
+            - generic: 공간 사진 + Key Message + 제품 카드 (연회장 · 시네마 LED + 활용 사진 3)
+            - paragraph: 활용 장면 사진을 여러 장 곁들일 때
+            - generic: 호텔 · 리조트
+          - button "입구 · 로비 — 사진 2장 + 사이니지 라벨 3 + 제품 카드 · QR 크게 보기":
+            - button "찜하기":
+            - generic: 입구 · 로비 — 사진 2장 + 사이니지 라벨 3 + 제품 카드 · QR
+            - paragraph: 공간 하나에 같은 제품군 여러 형태(비디오월 · Flip · 단독형)를 사진 위 라벨로 보여 줄 때
+            - generic: 오피스 · 업무 빌딩
+          - button "업무 공간 2패널 — 프라이빗 · 오픈형 (패널별 제목 띠 · 제품 카드 · QR) 크게 보기":
+            - button "찜하기":
+            - generic: 업무 공간 2패널 — 프라이빗 · 오픈형 (패널별 제목 띠 · 제품 카드 · QR)
+            - paragraph: 같은 업무 공간을 두 유형(프라이빗 · 오픈형)으로 나눠 제품 구성을 비교해 보여 줄 때
+            - generic: 오피스 · 업무 빌딩
+          - button "미팅룸 — 발표 · 화상 회의 사진 2장 + 제품 카드 3 · 노트북 컷 · QR 2 크게 보기":
+            - button "찜하기":
+            - generic: 미팅룸 — 발표 · 화상 회의 사진 2장 + 제품 카드 3 · 노트북 컷 · QR 2
+            - paragraph: 회의 공간의 두 장면(발표 · 화상 회의)과 쓰이는 제품을 함께 보여 줄 때
+            - generic: 오피스 · 업무 빌딩
+          - button "라운지 — 넓은 공간 사진 + 제품 점 · 연결선 + 제품 카드 6 크게 보기":
+            - button "찜하기":
+            - generic: 라운지 — 넓은 공간 사진 + 제품 점 · 연결선 + 제품 카드 6
+            - paragraph: 한 공간에 놓이는 여러 가전을 사진 속 위치에 점으로 찍고 카드로 설명할 때
+            - generic: 오피스 · 업무 빌딩
+          - button "카페 — 큰 사진 + 작은 사진 2 (컬러 비교) + 제품 카드 · QR 크게 보기":
+            - button "찜하기":
+            - generic: 카페 — 큰 사진 + 작은 사진 2 (컬러 비교) + 제품 카드 · QR
+            - paragraph: 같은 제품의 색 · 컨셉 변화를 사진 세 장으로 비교해 보여 줄 때
+            - generic: 오피스 · 업무 빌딩
+        - region "구성 · 수량":
+          - heading "구성 · 수량 5" [level=3]:
+            - text: 구성 · 수량
+            - generic: "5"
+          - paragraph: 무엇을 몇 대 · 단계별 물량
+          - button "지역별 물량 크게 보기":
+            - button "찜하기":
+            - generic: 지역별 물량
+            - paragraph: 지점이 전국에 흩어져 설치 일정이 중요할 때
+          - button "구성표 · 제품 · 공간 사진 크게 보기":
+            - button "찜하기":
+            - generic: 구성표 · 제품 · 공간 사진
+            - paragraph: 견적 전 전체 물량을 확정할 때 — 행마다 제품 컷과 설치 공간 사진을 붙여 한눈에
+          - button "반복 유닛 + 공용부 · 공간 사진 크게 보기":
+            - button "찜하기":
+            - generic: 반복 유닛 + 공용부 · 공간 사진
+            - paragraph: 객실 · 세대처럼 반복되는 한 유닛의 키트와, 따로 세는 공용부를 사진으로 나눠 물량을 보여줄 때
+          - button "단계별 도입 물량 · 단계 사진 + 제품 컷 크게 보기":
+            - button "찜하기":
+            - generic: 단계별 도입 물량 · 단계 사진 + 제품 컷
+            - paragraph: 한 번에 전체가 아니라 단계별로 도입할 때, 단계마다 매장 사진 · 물량 · 다음 단계 조건을 — 제품은 왼쪽에 한 번만
+          - button "제안 제품 리스트 — 3열 공간 사진 + 제품 컷 · 이름 크게 보기":
+            - button "찜하기":
+            - generic: 제안 제품 리스트 — 3열 공간 사진 + 제품 컷 · 이름
+            - paragraph: 공간별로 제안 제품을 한 장에 정리해 범위를 확인할 때
+            - generic: 오피스 · 업무 빌딩
+        - region "공간 시나리오":
+          - heading "공간 시나리오 117" [level=3]:
+            - text: 공간 시나리오
+            - generic: "117"
+          - paragraph: 공간별 이용 장면 · 하루 동선 · 운영 모드
+          - button "외식 · 카페 프랜차이즈 · 대표 공간 장면 크게 보기":
+            - button "찜하기":
+            - generic: 외식 · 카페 프랜차이즈 · 대표 공간 장면
+            - paragraph: D 다이닝의 홀 테이블, 앉는 순간부터 일어난 뒤까지 매끄럽습니다
+            - generic: 외식 · 카페 프랜차이즈
+          - button "리테일 · 브랜드 플래그십 · 대표 공간 장면 크게 보기":
+            - button "찜하기":
+            - generic: 리테일 · 브랜드 플래그십 · 대표 공간 장면
+            - paragraph: H 백화점 VMD존, 상품 옆 화면과 공기가 하루 종일 알아서 바뀝니다
+            - generic: 리테일 · 브랜드 플래그십
+          - button "생활 편의 · 무인 매장 · 대표 공간 장면 크게 보기":
+            - button "찜하기":
+            - generic: 생활 편의 · 무인 매장 · 대표 공간 장면
+            - paragraph: P 스터디카페 오픈 스터디룸은 몇 시간을 머물러도 쾌적합니다
+            - generic: 생활 편의 · 무인 매장
+          - button "호텔 · 리조트 · 대표 공간 장면 크게 보기":
+            - button "찜하기":
+            - generic: 호텔 · 리조트 · 대표 공간 장면
+            - paragraph: N 호텔의 객실은 체크인부터 퇴실 후 정리까지 손님에 맞춰 움직입니다
+            - generic: 호텔 · 리조트
+          - button "오피스 · 업무 빌딩 · 대표 공간 장면 크게 보기":
+            - button "찜하기":
+            - generic: 오피스 · 업무 빌딩 · 대표 공간 장면
+            - paragraph: C 빌딩의 회의실은 예약부터 뒷정리까지 저절로 움직입니다
+            - generic: 오피스 · 업무 빌딩
+          - button "주거 분양 · 주택 · 대표 공간 장면 크게 보기":
+            - button "찜하기":
+            - generic: 주거 분양 · 주택 · 대표 공간 장면
+            - paragraph: R 건설의 주방은 모델하우스에서 팔리고, 매일 저녁 평가받습니다
+            - generic: 주거 분양 · 주택
+          - button "교육 · 캠퍼스 · 대표 공간 장면 크게 보기":
+            - button "찜하기":
+            - generic: 교육 · 캠퍼스 · 대표 공간 장면
+            - paragraph: E 대학교 강의실은 수업 전 · 중 · 후를 스스로 맞춥니다
+            - generic: 교육 · 캠퍼스
+          - button "공공 · 교통 인프라 · 대표 공간 장면 크게 보기":
+            - button "찜하기":
+            - generic: 공공 · 교통 인프라 · 대표 공간 장면
+            - paragraph: S 지자체 상황실은 한 장의 상황판으로 하루를 지킵니다
+            - generic: 공공 · 교통 인프라
+          - button "의료 · 요양 · 케어 · 대표 공간 장면 크게 보기":
+            - button "찜하기":
+            - generic: 의료 · 요양 · 케어 · 대표 공간 장면
+            - paragraph: W 요양병원의 병실은 치료 공간이자 환자가 사는 집입니다
+            - generic: 의료 · 요양 · 케어
+          - button "제조 · 물류 · 현장 · 대표 공간 장면 크게 보기":
+            - button "찜하기":
+            - generic: 제조 · 물류 · 현장 · 대표 공간 장면
+            - paragraph: 생산 라인은 L 제조의 수율 · 안전 · 기록이 함께 걸린 곳입니다
+            - generic: 제조 · 물류 · 현장
+          - button "공간 3개 한 장 크게 보기":
+            - button "찜하기":
+            - generic: 공간 3개 한 장
+            - paragraph: 나란히 비교
+          - button "조감도 위 솔루션 핀 크게 보기":
+            - button "찜하기":
+            - generic: 조감도 위 솔루션 핀
+            - paragraph: 조감도가 있을 때
+          - button "한 공간의 장면 3 크게 보기":
+            - button "찜하기":
+            - generic: 한 공간의 장면 3
+            - paragraph: 시간대별 장면이 있을 때
+          - button "솔루션 → 제품 → 가치 크게 보기":
+            - button "찜하기":
+            - generic: 솔루션 → 제품 → 가치
+            - paragraph: 인과를 보일 때
+          - button "이 공간 전 → 후 크게 보기":
+            - button "찜하기":
+            - generic: 이 공간 전 → 후
+            - paragraph: 변화가 눈에 보일 때
+          - button "두 공간 · 한 솔루션 크게 보기":
+            - button "찜하기":
+            - generic: 두 공간 · 한 솔루션
+            - paragraph: 미러형 (지점 데스크 · 고객 현장 × Samsung DeX)
+          - button "두 공간 · 솔루션 2개 크게 보기":
+            - button "찜하기":
+            - generic: 두 공간 · 솔루션 2개
+            - paragraph: 연결형 (프런트 → 객실, Knox Suite → LYNK Cloud)
+          - button "세 공간 · 한 솔루션 크게 보기":
+            - button "찜하기":
+            - generic: 세 공간 · 한 솔루션
+            - paragraph: 흐름형 (테마파크 동선 × MagicINFO)
+          - button "세 공간 · 솔루션 2개 크게 보기":
+            - button "찜하기":
+            - generic: 세 공간 · 솔루션 2개
+            - paragraph: 사진 3 + 솔루션 띠 (무인 매장 3종)
+          - button "세 공간 · 솔루션 3개 크게 보기":
+            - button "찜하기":
+            - generic: 세 공간 · 솔루션 3개
+            - paragraph: 1:1 대응 (리빙 매장)
+          - button "네 공간 · 솔루션 2개 크게 보기":
+            - button "찜하기":
+            - generic: 네 공간 · 솔루션 2개
+            - paragraph: 사분면 (복합 쇼핑몰)
+          - button "이용자 여정 포토 스트립 크게 보기":
+            - button "찜하기":
+            - generic: 이용자 여정 포토 스트립
+            - paragraph: 손님이 겪는 순서대로 보여줄 때
+          - button "한 장면 + 한 마디 크게 보기":
+            - button "찜하기":
+            - generic: 한 장면 + 한 마디
+            - paragraph: 사람의 경험으로 설득할 때
+          - button "시간대별 장면 4 크게 보기":
+            - button "찜하기":
+            - generic: 시간대별 장면 4
+            - paragraph: 같은 공간이 시간마다 달라질 때
+          - button "이벤트 대응 시나리오 크게 보기":
+            - button "찜하기":
+            - generic: 이벤트 대응 시나리오
+            - paragraph: 감지 → 알림 → 조치 → 기록
+          - button "장면 스토리보드 크게 보기":
+            - button "찜하기":
+            - generic: 장면 스토리보드
+            - paragraph: 장면이 6~8개 이어질 때
+          - button "공간 맵 · 포토 모자이크 크게 보기":
+            - button "찜하기":
+            - generic: 공간 맵 · 포토 모자이크
+            - paragraph: 한 매장 · 건물의 여러 공간을 도면 대신 공간 사진 모자이크로 보여줄 때
+          - button "하루 시나리오 · 시간대 사진 5 크게 보기":
+            - button "찜하기":
+            - generic: 하루 시나리오 · 시간대 사진 5
+            - paragraph: 시간에 따라 공간을 넘나드는 하루를, 시간대마다 장면 사진으로 보여줄 때
+          - button "공간 × 솔루션 · 사진 행 크게 보기":
+            - button "찜하기":
+            - generic: 공간 × 솔루션 · 사진 행
+            - paragraph: 공간과 솔루션을 격자로 맞추되, 공간은 사진으로 바로 알아보게 할 때
+          - button "외식 · 카페 · 대표 공간 네 장면 · 사진 크게 보기":
+            - button "찜하기":
+            - generic: 외식 · 카페 · 대표 공간 네 장면 · 사진
+            - paragraph: 외식 · 카페 제안에서 대표 공간 한 곳의 네 장면을, 장면마다 현장 사진과 KPI로 보여줄 때
+            - generic: 외식 · 카페 프랜차이즈
+          - button "리테일 · 대표 공간 네 장면 · 사진 크게 보기":
+            - button "찜하기":
+            - generic: 리테일 · 대표 공간 네 장면 · 사진
+            - paragraph: 리테일 제안에서 대표 공간 한 곳의 네 장면을, 장면마다 현장 사진과 KPI로 보여줄 때
+            - generic: 리테일 · 브랜드 플래그십
+          - button "생활 편의 · 무인 매장 · 대표 공간 네 장면 · 사진 크게 보기":
+            - button "찜하기":
+            - generic: 생활 편의 · 무인 매장 · 대표 공간 네 장면 · 사진
+            - paragraph: 생활 편의 · 무인 매장 제안에서 대표 공간 한 곳의 네 장면을, 장면마다 현장 사진과 KPI로 보여줄 때
+            - generic: 생활 편의 · 무인 매장
+          - button "호텔 · 리조트 · 대표 공간 네 장면 · 사진 크게 보기":
+            - button "찜하기":
+            - generic: 호텔 · 리조트 · 대표 공간 네 장면 · 사진
+            - paragraph: 호텔 · 리조트 제안에서 대표 공간 한 곳의 네 장면을, 장면마다 현장 사진과 KPI로 보여줄 때
+            - generic: 호텔 · 리조트
+          - button "테마파크 · 관광 · 전시 · 대표 공간 네 장면 · 사진 크게 보기":
+            - button "찜하기":
+            - generic: 테마파크 · 관광 · 전시 · 대표 공간 네 장면 · 사진
+            - paragraph: 테마파크 · 관광 · 전시 제안에서 대표 공간 한 곳의 네 장면을, 장면마다 현장 사진과 KPI로 보여줄 때
+            - generic: 테마파크 · 관광 · 전시
+          - button "공연장 · 경기장 · 영화관 · 대표 공간 네 장면 · 사진 크게 보기":
+            - button "찜하기":
+            - generic: 공연장 · 경기장 · 영화관 · 대표 공간 네 장면 · 사진
+            - paragraph: 공연장 · 경기장 · 영화관 제안에서 대표 공간 한 곳의 네 장면을, 장면마다 현장 사진과 KPI로 보여줄 때
+            - generic: 공연장 · 경기장 · 영화관
+          - button "옥외 · 미디어 광고 · 대표 공간 네 장면 · 사진 크게 보기":
+            - button "찜하기":
+            - generic: 옥외 · 미디어 광고 · 대표 공간 네 장면 · 사진
+            - paragraph: 옥외 · 미디어 광고 제안에서 대표 공간 한 곳의 네 장면을, 장면마다 현장 사진과 KPI로 보여줄 때
+            - generic: 옥외 · 미디어 광고
+          - button "오피스 · 업무 빌딩 · 대표 공간 네 장면 · 사진 크게 보기":
+            - button "찜하기":
+            - generic: 오피스 · 업무 빌딩 · 대표 공간 네 장면 · 사진
+            - paragraph: 오피스 · 업무 빌딩 제안에서 대표 공간 한 곳의 네 장면을, 장면마다 현장 사진과 KPI로 보여줄 때
+            - generic: 오피스 · 업무 빌딩
+          - button "주거 분양 · 주택 · 대표 공간 네 장면 · 사진 크게 보기":
+            - button "찜하기":
+            - generic: 주거 분양 · 주택 · 대표 공간 네 장면 · 사진
+            - paragraph: 주거 분양 · 주택 제안에서 대표 공간 한 곳의 네 장면을, 장면마다 현장 사진과 KPI로 보여줄 때
+            - generic: 주거 분양 · 주택
+          - button "인테리어 · 가구 · 빌트인 · 대표 공간 네 장면 · 사진 크게 보기":
+            - button "찜하기":
+            - generic: 인테리어 · 가구 · 빌트인 · 대표 공간 네 장면 · 사진
+            - paragraph: 인테리어 · 가구 · 빌트인 제안에서 대표 공간 한 곳의 네 장면을, 장면마다 현장 사진과 KPI로 보여줄 때
+            - generic: 인테리어 · 가구 · 빌트인 파트너
+          - button "교육 · 캠퍼스 · 대표 공간 네 장면 · 사진 크게 보기":
+            - button "찜하기":
+            - generic: 교육 · 캠퍼스 · 대표 공간 네 장면 · 사진
+            - paragraph: 교육 · 캠퍼스 제안에서 대표 공간 한 곳의 네 장면을, 장면마다 현장 사진과 KPI로 보여줄 때
+            - generic: 교육 · 캠퍼스
+          - button "공공 · 교통 인프라 · 대표 공간 네 장면 · 사진 크게 보기":
+            - button "찜하기":
+            - generic: 공공 · 교통 인프라 · 대표 공간 네 장면 · 사진
+            - paragraph: 공공 · 교통 인프라 제안에서 대표 공간 한 곳의 네 장면을, 장면마다 현장 사진과 KPI로 보여줄 때
+            - generic: 공공 · 교통 인프라
+          - button "의료 · 요양 · 케어 · 대표 공간 네 장면 · 사진 크게 보기":
+            - button "찜하기":
+            - generic: 의료 · 요양 · 케어 · 대표 공간 네 장면 · 사진
+            - paragraph: 의료 · 요양 · 케어 제안에서 대표 공간 한 곳의 네 장면을, 장면마다 현장 사진과 KPI로 보여줄 때
+            - generic: 의료 · 요양 · 케어
+          - button "제조 · 물류 · 현장 · 대표 공간 네 장면 · 사진 크게 보기":
+            - button "찜하기":
+            - generic: 제조 · 물류 · 현장 · 대표 공간 네 장면 · 사진
+            - paragraph: 제조 · 물류 · 현장 제안에서 대표 공간 한 곳의 네 장면을, 장면마다 현장 사진과 KPI로 보여줄 때
+            - generic: 제조 · 물류 · 현장
+          - button "금융 · 대표 공간 네 장면 · 사진 크게 보기":
+            - button "찜하기":
+            - generic: 금융 · 대표 공간 네 장면 · 사진
+            - paragraph: 금융 제안에서 대표 공간 한 곳의 네 장면을, 장면마다 현장 사진과 KPI로 보여줄 때
+            - generic: 금융
+          - button "파트너 전용 단말 · 대표 공간 네 장면 · 사진 크게 보기":
+            - button "찜하기":
+            - generic: 파트너 전용 단말 · 대표 공간 네 장면 · 사진
+            - paragraph: 파트너 전용 단말 제안에서 대표 공간 한 곳의 네 장면을, 장면마다 현장 사진과 KPI로 보여줄 때
+            - generic: 파트너 전용 단말 · 에디션
+          - button "동선 다섯 지점 · 사진 띠 크게 보기":
+            - button "찜하기":
+            - generic: 동선 다섯 지점 · 사진 띠
+            - paragraph: 한 공간 안의 동선을 따라 다섯 지점마다 무엇이 움직이고 무엇이 좋아지는지, 지점 사진으로
+          - button "한 공간 · 세 사람 · 공간 + 인물 사진 크게 보기":
+            - button "찜하기":
+            - generic: 한 공간 · 세 사람 · 공간 + 인물 사진
+            - paragraph: 같은 공간을 쓰는 세 사람이 얻는 것이 다를 때, 공간 사진 한 장과 사람마다 장면 사진으로
+          - button "한 공간 · 솔루션 N개 · 사진 위 번호 크게 보기":
+            - button "찜하기":
+            - generic: 한 공간 · 솔루션 N개 · 사진 위 번호
+            - paragraph: 한 공간에서 여러 솔루션이 나눠 일하는 것을, 공간 사진 위 번호와 솔루션별 하는 일 · KPI로
+          - button "열두 달 운영 · 시기별 사진 크게 보기":
+            - button "찜하기":
+            - generic: 열두 달 운영 · 시기별 사진
+            - paragraph: 학기 · 성수기처럼 시기마다 운영 방식이 바뀔 때, 열두 달 띠와 시기별 현장 사진으로
+          - button "외식 · 카페 · 공간 맵 · 공간 사진 7 크게 보기":
+            - button "찜하기":
+            - generic: 외식 · 카페 · 공간 맵 · 공간 사진 7
+            - paragraph: 외식 · 카페 고객사 한 사업장의 일곱 공간을 평면도 대신 공간 사진으로 — 공간마다 가치 · 놓는 제품, 아래는 솔루션 전체 구성
+            - generic: 외식 · 카페 프랜차이즈
+          - button "옥외 · 미디어 광고 · 공간 맵 · 공간 사진 7 크게 보기":
+            - button "찜하기":
+            - generic: 옥외 · 미디어 광고 · 공간 맵 · 공간 사진 7
+            - paragraph: 옥외 · 미디어 광고 고객사 한 사업장의 일곱 공간을 평면도 대신 공간 사진으로 — 공간마다 가치 · 놓는 제품, 아래는 솔루션 전체 구성
+            - generic: 옥외 · 미디어 광고
+          - button "오피스 · 업무 빌딩 · 공간 맵 · 공간 사진 7 크게 보기":
+            - button "찜하기":
+            - generic: 오피스 · 업무 빌딩 · 공간 맵 · 공간 사진 7
+            - paragraph: 오피스 · 업무 빌딩 고객사 한 사업장의 일곱 공간을 평면도 대신 공간 사진으로 — 공간마다 가치 · 놓는 제품, 아래는 솔루션 전체 구성
+            - generic: 오피스 · 업무 빌딩
+          - button "교육 · 캠퍼스 · 공간 맵 · 공간 사진 7 크게 보기":
+            - button "찜하기":
+            - generic: 교육 · 캠퍼스 · 공간 맵 · 공간 사진 7
+            - paragraph: 교육 · 캠퍼스 고객사 한 사업장의 일곱 공간을 평면도 대신 공간 사진으로 — 공간마다 가치 · 놓는 제품, 아래는 솔루션 전체 구성
+            - generic: 교육 · 캠퍼스
+          - button "공공 · 교통 인프라 · 공간 맵 · 공간 사진 7 크게 보기":
+            - button "찜하기":
+            - generic: 공공 · 교통 인프라 · 공간 맵 · 공간 사진 7
+            - paragraph: 공공 · 교통 인프라 고객사 한 사업장의 일곱 공간을 평면도 대신 공간 사진으로 — 공간마다 가치 · 놓는 제품, 아래는 솔루션 전체 구성
+            - generic: 공공 · 교통 인프라
+          - button "리테일 · 공간 맵 · 공간 사진 7 크게 보기":
+            - button "찜하기":
+            - generic: 리테일 · 공간 맵 · 공간 사진 7
+            - paragraph: 리테일 고객사 한 사업장의 일곱 공간을 평면도 대신 공간 사진으로 — 공간마다 가치 · 놓는 제품, 아래는 솔루션 전체 구성
+            - generic: 리테일 · 브랜드 플래그십
+          - button "금융 · 공간 맵 · 공간 사진 7 크게 보기":
+            - button "찜하기":
+            - generic: 금융 · 공간 맵 · 공간 사진 7
+            - paragraph: 금융 고객사 한 사업장의 일곱 공간을 평면도 대신 공간 사진으로 — 공간마다 가치 · 놓는 제품, 아래는 솔루션 전체 구성
+            - generic: 금융
+          - button "파트너 전용 단말 · 공간 맵 · 공간 사진 7 크게 보기":
+            - button "찜하기":
+            - generic: 파트너 전용 단말 · 공간 맵 · 공간 사진 7
+            - paragraph: 파트너 전용 단말 고객사 한 사업장의 일곱 공간을 평면도 대신 공간 사진으로 — 공간마다 가치 · 놓는 제품, 아래는 솔루션 전체 구성
+            - generic: 파트너 전용 단말 · 에디션
+          - button "의료 · 요양 · 케어 · 공간 맵 · 공간 사진 7 크게 보기":
+            - button "찜하기":
+            - generic: 의료 · 요양 · 케어 · 공간 맵 · 공간 사진 7
+            - paragraph: 의료 · 요양 · 케어 고객사 한 사업장의 일곱 공간을 평면도 대신 공간 사진으로 — 공간마다 가치 · 놓는 제품, 아래는 솔루션 전체 구성
+            - generic: 의료 · 요양 · 케어
+          - button "제조 · 물류 · 현장 · 공간 맵 · 공간 사진 7 크게 보기":
+            - button "찜하기":
+            - generic: 제조 · 물류 · 현장 · 공간 맵 · 공간 사진 7
+            - paragraph: 제조 · 물류 · 현장 고객사 한 사업장의 일곱 공간을 평면도 대신 공간 사진으로 — 공간마다 가치 · 놓는 제품, 아래는 솔루션 전체 구성
+            - generic: 제조 · 물류 · 현장
+          - button "주거 분양 · 주택 · 공간 맵 · 공간 사진 7 크게 보기":
+            - button "찜하기":
+            - generic: 주거 분양 · 주택 · 공간 맵 · 공간 사진 7
+            - paragraph: 주거 분양 · 주택 고객사 한 사업장의 일곱 공간을 평면도 대신 공간 사진으로 — 공간마다 가치 · 놓는 제품, 아래는 솔루션 전체 구성
+            - generic: 주거 분양 · 주택
+          - button "인테리어 · 가구 · 빌트인 · 공간 맵 · 공간 사진 7 크게 보기":
+            - button "찜하기":
+            - generic: 인테리어 · 가구 · 빌트인 · 공간 맵 · 공간 사진 7
+            - paragraph: 인테리어 · 가구 · 빌트인 고객사 한 사업장의 일곱 공간을 평면도 대신 공간 사진으로 — 공간마다 가치 · 놓는 제품, 아래는 솔루션 전체 구성
+            - generic: 인테리어 · 가구 · 빌트인 파트너
+          - button "생활 편의 · 무인 매장 · 공간 맵 · 공간 사진 7 크게 보기":
+            - button "찜하기":
+            - generic: 생활 편의 · 무인 매장 · 공간 맵 · 공간 사진 7
+            - paragraph: 생활 편의 · 무인 매장 고객사 한 사업장의 일곱 공간을 평면도 대신 공간 사진으로 — 공간마다 가치 · 놓는 제품, 아래는 솔루션 전체 구성
+            - generic: 생활 편의 · 무인 매장
+          - button "호텔 · 리조트 · 공간 맵 · 공간 사진 7 크게 보기":
+            - button "찜하기":
+            - generic: 호텔 · 리조트 · 공간 맵 · 공간 사진 7
+            - paragraph: 호텔 · 리조트 고객사 한 사업장의 일곱 공간을 평면도 대신 공간 사진으로 — 공간마다 가치 · 놓는 제품, 아래는 솔루션 전체 구성
+            - generic: 호텔 · 리조트
+          - button "테마파크 · 관광 · 전시 · 공간 맵 · 공간 사진 7 크게 보기":
+            - button "찜하기":
+            - generic: 테마파크 · 관광 · 전시 · 공간 맵 · 공간 사진 7
+            - paragraph: 테마파크 · 관광 · 전시 고객사 한 사업장의 일곱 공간을 평면도 대신 공간 사진으로 — 공간마다 가치 · 놓는 제품, 아래는 솔루션 전체 구성
+            - generic: 테마파크 · 관광 · 전시
+          - button "공연장 · 경기장 · 영화관 · 공간 맵 · 공간 사진 7 크게 보기":
+            - button "찜하기":
+            - generic: 공연장 · 경기장 · 영화관 · 공간 맵 · 공간 사진 7
+            - paragraph: 공연장 · 경기장 · 영화관 고객사 한 사업장의 일곱 공간을 평면도 대신 공간 사진으로 — 공간마다 가치 · 놓는 제품, 아래는 솔루션 전체 구성
+            - generic: 공연장 · 경기장 · 영화관
+          - button "외식 · 카페 · 하루 시나리오 · 시간대 사진 5 크게 보기":
+            - button "찜하기":
+            - generic: 외식 · 카페 · 하루 시나리오 · 시간대 사진 5
+            - paragraph: 외식 · 카페 고객사의 하루를 시간대 다섯 칸으로 — 칸마다 현장 사진과 이용 · 운영 장면 둘, 아래는 이어지는 일정
+            - generic: 외식 · 카페 프랜차이즈
+          - button "옥외 · 미디어 광고 · 하루 시나리오 · 시간대 사진 5 크게 보기":
+            - button "찜하기":
+            - generic: 옥외 · 미디어 광고 · 하루 시나리오 · 시간대 사진 5
+            - paragraph: 옥외 · 미디어 광고 고객사의 하루를 시간대 다섯 칸으로 — 칸마다 현장 사진과 이용 · 운영 장면 둘, 아래는 이어지는 일정
+            - generic: 옥외 · 미디어 광고
+          - button "오피스 · 업무 빌딩 · 하루 시나리오 · 시간대 사진 5 크게 보기":
+            - button "찜하기":
+            - generic: 오피스 · 업무 빌딩 · 하루 시나리오 · 시간대 사진 5
+            - paragraph: 오피스 · 업무 빌딩 고객사의 하루를 시간대 다섯 칸으로 — 칸마다 현장 사진과 이용 · 운영 장면 둘, 아래는 이어지는 일정
+            - generic: 오피스 · 업무 빌딩
+          - button "교육 · 캠퍼스 · 하루 시나리오 · 시간대 사진 5 크게 보기":
+            - button "찜하기":
+            - generic: 교육 · 캠퍼스 · 하루 시나리오 · 시간대 사진 5
+            - paragraph: 교육 · 캠퍼스 고객사의 하루를 시간대 다섯 칸으로 — 칸마다 현장 사진과 이용 · 운영 장면 둘, 아래는 이어지는 일정
+            - generic: 교육 · 캠퍼스
+          - button "공공 · 교통 인프라 · 하루 시나리오 · 시간대 사진 5 크게 보기":
+            - button "찜하기":
+            - generic: 공공 · 교통 인프라 · 하루 시나리오 · 시간대 사진 5
+            - paragraph: 공공 · 교통 인프라 고객사의 하루를 시간대 다섯 칸으로 — 칸마다 현장 사진과 이용 · 운영 장면 둘, 아래는 이어지는 일정
+            - generic: 공공 · 교통 인프라
+          - button "리테일 · 하루 시나리오 · 시간대 사진 5 크게 보기":
+            - button "찜하기":
+            - generic: 리테일 · 하루 시나리오 · 시간대 사진 5
+            - paragraph: 리테일 고객사의 하루를 시간대 다섯 칸으로 — 칸마다 현장 사진과 이용 · 운영 장면 둘, 아래는 이어지는 일정
+            - generic: 리테일 · 브랜드 플래그십
+          - button "금융 · 하루 시나리오 · 시간대 사진 5 크게 보기":
+            - button "찜하기":
+            - generic: 금융 · 하루 시나리오 · 시간대 사진 5
+            - paragraph: 금융 고객사의 하루를 시간대 다섯 칸으로 — 칸마다 현장 사진과 이용 · 운영 장면 둘, 아래는 이어지는 일정
+            - generic: 금융
+          - button "파트너 전용 단말 · 하루 시나리오 · 시간대 사진 5 크게 보기":
+            - button "찜하기":
+            - generic: 파트너 전용 단말 · 하루 시나리오 · 시간대 사진 5
+            - paragraph: 파트너 전용 단말 고객사의 하루를 시간대 다섯 칸으로 — 칸마다 현장 사진과 이용 · 운영 장면 둘, 아래는 이어지는 일정
+            - generic: 파트너 전용 단말 · 에디션
+          - button "의료 · 요양 · 케어 · 하루 시나리오 · 시간대 사진 5 크게 보기":
+            - button "찜하기":
+            - generic: 의료 · 요양 · 케어 · 하루 시나리오 · 시간대 사진 5
+            - paragraph: 의료 · 요양 · 케어 고객사의 하루를 시간대 다섯 칸으로 — 칸마다 현장 사진과 이용 · 운영 장면 둘, 아래는 이어지는 일정
+            - generic: 의료 · 요양 · 케어
+          - button "제조 · 물류 · 현장 · 하루 시나리오 · 시간대 사진 5 크게 보기":
+            - button "찜하기":
+            - generic: 제조 · 물류 · 현장 · 하루 시나리오 · 시간대 사진 5
+            - paragraph: 제조 · 물류 · 현장 고객사의 하루를 시간대 다섯 칸으로 — 칸마다 현장 사진과 이용 · 운영 장면 둘, 아래는 이어지는 일정
+            - generic: 제조 · 물류 · 현장
+          - button "주거 분양 · 주택 · 하루 시나리오 · 시간대 사진 5 크게 보기":
+            - button "찜하기":
+            - generic: 주거 분양 · 주택 · 하루 시나리오 · 시간대 사진 5
+            - paragraph: 주거 분양 · 주택 고객사의 하루를 시간대 다섯 칸으로 — 칸마다 현장 사진과 이용 · 운영 장면 둘, 아래는 이어지는 일정
+            - generic: 주거 분양 · 주택
+          - button "인테리어 · 가구 · 빌트인 · 하루 시나리오 · 시간대 사진 5 크게 보기":
+            - button "찜하기":
+            - generic: 인테리어 · 가구 · 빌트인 · 하루 시나리오 · 시간대 사진 5
+            - paragraph: 인테리어 · 가구 · 빌트인 고객사의 하루를 시간대 다섯 칸으로 — 칸마다 현장 사진과 이용 · 운영 장면 둘, 아래는 이어지는 일정
+            - generic: 인테리어 · 가구 · 빌트인 파트너
+          - button "생활 편의 · 무인 매장 · 하루 시나리오 · 시간대 사진 5 크게 보기":
+            - button "찜하기":
+            - generic: 생활 편의 · 무인 매장 · 하루 시나리오 · 시간대 사진 5
+            - paragraph: 생활 편의 · 무인 매장 고객사의 하루를 시간대 다섯 칸으로 — 칸마다 현장 사진과 이용 · 운영 장면 둘, 아래는 이어지는 일정
+            - generic: 생활 편의 · 무인 매장
+          - button "호텔 · 리조트 · 하루 시나리오 · 시간대 사진 5 크게 보기":
+            - button "찜하기":
+            - generic: 호텔 · 리조트 · 하루 시나리오 · 시간대 사진 5
+            - paragraph: 호텔 · 리조트 고객사의 하루를 시간대 다섯 칸으로 — 칸마다 현장 사진과 이용 · 운영 장면 둘, 아래는 이어지는 일정
+            - generic: 호텔 · 리조트
+          - button "테마파크 · 관광 · 전시 · 하루 시나리오 · 시간대 사진 5 크게 보기":
+            - button "찜하기":
+            - generic: 테마파크 · 관광 · 전시 · 하루 시나리오 · 시간대 사진 5
+            - paragraph: 테마파크 · 관광 · 전시 고객사의 하루를 시간대 다섯 칸으로 — 칸마다 현장 사진과 이용 · 운영 장면 둘, 아래는 이어지는 일정
+            - generic: 테마파크 · 관광 · 전시
+          - button "공연장 · 경기장 · 영화관 · 하루 시나리오 · 시간대 사진 5 크게 보기":
+            - button "찜하기":
+            - generic: 공연장 · 경기장 · 영화관 · 하루 시나리오 · 시간대 사진 5
+            - paragraph: 공연장 · 경기장 · 영화관 고객사의 하루를 시간대 다섯 칸으로 — 칸마다 현장 사진과 이용 · 운영 장면 둘, 아래는 이어지는 일정
+            - generic: 공연장 · 경기장 · 영화관
+          - button "리테일 · B1 식품관 · 동선 다섯 지점 · 사진 크게 보기":
+            - button "찜하기":
+            - generic: 리테일 · B1 식품관 · 동선 다섯 지점 · 사진
+            - paragraph: 리테일 고객사 — 한 공간의 동선을 따라 다섯 지점마다 움직이는 솔루션 · 기기와 지표를 지점 사진으로
+            - generic: 리테일 · 브랜드 플래그십
+          - button "공공 · 교통 인프라 · 공원 · 탐방로 · 세 사람 · 장면 사진 크게 보기":
+            - button "찜하기":
+            - generic: 공공 · 교통 인프라 · 공원 · 탐방로 · 세 사람 · 장면 사진
+            - paragraph: 공공 · 교통 인프라 고객사 — 같은 공간을 쓰는 세 사람이 겪는 순간과 얻는 가치를, 공간 사진과 사람마다 장면 사진으로
+            - generic: 공공 · 교통 인프라
+          - button "외식 · 카페 · 주방 + 냉장 · 냉동 보관 · 문제 → 해결 · 장면 사진 크게 보기":
+            - button "찜하기":
+            - generic: 외식 · 카페 · 주방 + 냉장 · 냉동 보관 · 문제 → 해결 · 장면 사진
+            - paragraph: 외식 · 카페 고객사 — 한 공간에서 매일 생기는 문제 셋을 지금 → 솔루션 → 가치로, 문제마다 장면 사진과 함께
+            - generic: 외식 · 카페 프랜차이즈
+          - button "테마파크 · 관광 · 전시 · 야외 공연 무대 · 운영 모드 둘 · 사진 비교 크게 보기":
+            - button "찜하기":
+            - generic: 테마파크 · 관광 · 전시 · 야외 공연 무대 · 운영 모드 둘 · 사진 비교
+            - paragraph: 테마파크 · 관광 · 전시 고객사 — 같은 기기로 두 운영 모드(피크 · 한산, 낮 · 밤 등)를 바꾸는 것을, 두 모드 사진을 나란히 놓고
+            - generic: 테마파크 · 관광 · 전시
+          - button "옥외 · 미디어 광고 · 지하철 환승통로 · 단계별 도입 · 단계 사진 크게 보기":
+            - button "찜하기":
+            - generic: 옥외 · 미디어 광고 · 지하철 환승통로 · 단계별 도입 · 단계 사진
+            - paragraph: 옥외 · 미디어 광고 고객사 — 한 공간에 시범 → 확대 → 전체로 단계적으로 들이는 계획을, 단계마다 사진 · 범위 · 넘어가는 기준과 함께
+            - generic: 옥외 · 미디어 광고
+          - button "옥외 · 미디어 광고 · 거리 미디어폴 · 세 사람 · 장면 사진 크게 보기":
+            - button "찜하기":
+            - generic: 옥외 · 미디어 광고 · 거리 미디어폴 · 세 사람 · 장면 사진
+            - paragraph: 옥외 · 미디어 광고 고객사 — 같은 공간을 쓰는 세 사람이 겪는 순간과 얻는 가치를, 공간 사진과 사람마다 장면 사진으로
+            - generic: 옥외 · 미디어 광고
+          - button "오피스 · 업무 빌딩 · 로비 · 외벽 · 동선 다섯 지점 · 사진 크게 보기":
+            - button "찜하기":
+            - generic: 오피스 · 업무 빌딩 · 로비 · 외벽 · 동선 다섯 지점 · 사진
+            - paragraph: 오피스 · 업무 빌딩 고객사 — 한 공간의 동선을 따라 다섯 지점마다 움직이는 솔루션 · 기기와 지표를 지점 사진으로
+            - generic: 오피스 · 업무 빌딩
+          - button "오피스 · 업무 빌딩 · 입주사 업무층 · 세 사람 · 장면 사진 크게 보기":
+            - button "찜하기":
+            - generic: 오피스 · 업무 빌딩 · 입주사 업무층 · 세 사람 · 장면 사진
+            - paragraph: 오피스 · 업무 빌딩 고객사 — 같은 공간을 쓰는 세 사람이 겪는 순간과 얻는 가치를, 공간 사진과 사람마다 장면 사진으로
+            - generic: 오피스 · 업무 빌딩
+          - button "교육 · 캠퍼스 · 중앙도서관 · 라운지 · 동선 다섯 지점 · 사진 크게 보기":
+            - button "찜하기":
+            - generic: 교육 · 캠퍼스 · 중앙도서관 · 라운지 · 동선 다섯 지점 · 사진
+            - paragraph: 교육 · 캠퍼스 고객사 — 한 공간의 동선을 따라 다섯 지점마다 움직이는 솔루션 · 기기와 지표를 지점 사진으로
+            - generic: 교육 · 캠퍼스
+          - button "교육 · 캠퍼스 · 기숙사 · 생활관 · 단계별 도입 · 단계 사진 크게 보기":
+            - button "찜하기":
+            - generic: 교육 · 캠퍼스 · 기숙사 · 생활관 · 단계별 도입 · 단계 사진
+            - paragraph: 교육 · 캠퍼스 고객사 — 한 공간에 시범 → 확대 → 전체로 단계적으로 들이는 계획을, 단계마다 사진 · 범위 · 넘어가는 기준과 함께
+            - generic: 교육 · 캠퍼스
+          - button "공공 · 교통 인프라 · 역사 · 정류장 · 문제 → 해결 · 장면 사진 크게 보기":
+            - button "찜하기":
+            - generic: 공공 · 교통 인프라 · 역사 · 정류장 · 문제 → 해결 · 장면 사진
+            - paragraph: 공공 · 교통 인프라 고객사 — 한 공간에서 매일 생기는 문제 셋을 지금 → 솔루션 → 가치로, 문제마다 장면 사진과 함께
+            - generic: 공공 · 교통 인프라
+          - button "외식 · 카페 · 매장 외부 · 대기 · 운영 모드 둘 · 사진 비교 크게 보기":
+            - button "찜하기":
+            - generic: 외식 · 카페 · 매장 외부 · 대기 · 운영 모드 둘 · 사진 비교
+            - paragraph: 외식 · 카페 고객사 — 같은 기기로 두 운영 모드(피크 · 한산, 낮 · 밤 등)를 바꾸는 것을, 두 모드 사진을 나란히 놓고
+            - generic: 외식 · 카페 프랜차이즈
+          - button "리테일 · VIP 라운지 · 세 사람 · 장면 사진 크게 보기":
+            - button "찜하기":
+            - generic: 리테일 · VIP 라운지 · 세 사람 · 장면 사진
+            - paragraph: 리테일 고객사 — 같은 공간을 쓰는 세 사람이 겪는 순간과 얻는 가치를, 공간 사진과 사람마다 장면 사진으로
+            - generic: 리테일 · 브랜드 플래그십
+          - button "금융 · 본점 대강당 · 운영 모드 둘 · 사진 비교 크게 보기":
+            - button "찜하기":
+            - generic: 금융 · 본점 대강당 · 운영 모드 둘 · 사진 비교
+            - paragraph: 금융 고객사 — 같은 기기로 두 운영 모드(피크 · 한산, 낮 · 밤 등)를 바꾸는 것을, 두 모드 사진을 나란히 놓고
+            - generic: 금융
+          - button "금융 · 방문 상담 · 현장 영업 · 단계별 도입 · 단계 사진 크게 보기":
+            - button "찜하기":
+            - generic: 금융 · 방문 상담 · 현장 영업 · 단계별 도입 · 단계 사진
+            - paragraph: 금융 고객사 — 한 공간에 시범 → 확대 → 전체로 단계적으로 들이는 계획을, 단계마다 사진 · 범위 · 넘어가는 기준과 함께
+            - generic: 금융
+          - button "파트너 전용 단말 · 매장 · 개통 카운터 · 문제 → 해결 · 장면 사진 크게 보기":
+            - button "찜하기":
+            - generic: 파트너 전용 단말 · 매장 · 개통 카운터 · 문제 → 해결 · 장면 사진
+            - paragraph: 파트너 전용 단말 고객사 — 한 공간에서 매일 생기는 문제 셋을 지금 → 솔루션 → 가치로, 문제마다 장면 사진과 함께
+            - generic: 파트너 전용 단말 · 에디션
+          - button "파트너 전용 단말 · 학교 · 학원 · 운영 모드 둘 · 사진 비교 크게 보기":
+            - button "찜하기":
+            - generic: 파트너 전용 단말 · 학교 · 학원 · 운영 모드 둘 · 사진 비교
+            - paragraph: 파트너 전용 단말 고객사 — 같은 기기로 두 운영 모드(피크 · 한산, 낮 · 밤 등)를 바꾸는 것을, 두 모드 사진을 나란히 놓고
+            - generic: 파트너 전용 단말 · 에디션
+          - button "의료 · 요양 · 케어 · 로비 · 원무 · 접수 · 운영 모드 둘 · 사진 비교 크게 보기":
+            - button "찜하기":
+            - generic: 의료 · 요양 · 케어 · 로비 · 원무 · 접수 · 운영 모드 둘 · 사진 비교
+            - paragraph: 의료 · 요양 · 케어 고객사 — 같은 기기로 두 운영 모드(피크 · 한산, 낮 · 밤 등)를 바꾸는 것을, 두 모드 사진을 나란히 놓고
+            - generic: 의료 · 요양 · 케어
+          - button "의료 · 요양 · 케어 · 재활치료센터 · 프로그램실 · 문제 → 해결 · 장면 사진 크게 보기":
+            - button "찜하기":
+            - generic: 의료 · 요양 · 케어 · 재활치료센터 · 프로그램실 · 문제 → 해결 · 장면 사진
+            - paragraph: 의료 · 요양 · 케어 고객사 — 한 공간에서 매일 생기는 문제 셋을 지금 → 솔루션 → 가치로, 문제마다 장면 사진과 함께
+            - generic: 의료 · 요양 · 케어
+          - button "제조 · 물류 · 현장 · 창고 · 물류 야드 · 배송 · 동선 다섯 지점 · 사진 크게 보기":
+            - button "찜하기":
+            - generic: 제조 · 물류 · 현장 · 창고 · 물류 야드 · 배송 · 동선 다섯 지점 · 사진
+            - paragraph: 제조 · 물류 · 현장 고객사 — 한 공간의 동선을 따라 다섯 지점마다 움직이는 솔루션 · 기기와 지표를 지점 사진으로
+            - generic: 제조 · 물류 · 현장
+          - button "제조 · 물류 · 현장 · 야외 작업장 · 설비 구역 · 세 사람 · 장면 사진 크게 보기":
+            - button "찜하기":
+            - generic: 제조 · 물류 · 현장 · 야외 작업장 · 설비 구역 · 세 사람 · 장면 사진
+            - paragraph: 제조 · 물류 · 현장 고객사 — 같은 공간을 쓰는 세 사람이 겪는 순간과 얻는 가치를, 공간 사진과 사람마다 장면 사진으로
+            - generic: 제조 · 물류 · 현장
+          - button "주거 분양 · 주택 · 세탁실 · 드레스룸 · 문제 → 해결 · 장면 사진 크게 보기":
+            - button "찜하기":
+            - generic: 주거 분양 · 주택 · 세탁실 · 드레스룸 · 문제 → 해결 · 장면 사진
+            - paragraph: 주거 분양 · 주택 고객사 — 한 공간에서 매일 생기는 문제 셋을 지금 → 솔루션 → 가치로, 문제마다 장면 사진과 함께
+            - generic: 주거 분양 · 주택
+          - button "주거 분양 · 주택 · 모델하우스 · 동선 다섯 지점 · 사진 크게 보기":
+            - button "찜하기":
+            - generic: 주거 분양 · 주택 · 모델하우스 · 동선 다섯 지점 · 사진
+            - paragraph: 주거 분양 · 주택 고객사 — 한 공간의 동선을 따라 다섯 지점마다 움직이는 솔루션 · 기기와 지표를 지점 사진으로
+            - generic: 주거 분양 · 주택
+          - button "인테리어 · 가구 · 빌트인 · 입구 · 상담 라운지 · 세 사람 · 장면 사진 크게 보기":
+            - button "찜하기":
+            - generic: 인테리어 · 가구 · 빌트인 · 입구 · 상담 라운지 · 세 사람 · 장면 사진
+            - paragraph: 인테리어 · 가구 · 빌트인 고객사 — 같은 공간을 쓰는 세 사람이 겪는 순간과 얻는 가치를, 공간 사진과 사람마다 장면 사진으로
+            - generic: 인테리어 · 가구 · 빌트인 파트너
+          - button "인테리어 · 가구 · 빌트인 · 거실 · 홈시네마 · 운영 모드 둘 · 사진 비교 크게 보기":
+            - button "찜하기":
+            - generic: 인테리어 · 가구 · 빌트인 · 거실 · 홈시네마 · 운영 모드 둘 · 사진 비교
+            - paragraph: 인테리어 · 가구 · 빌트인 고객사 — 같은 기기로 두 운영 모드(피크 · 한산, 낮 · 밤 등)를 바꾸는 것을, 두 모드 사진을 나란히 놓고
+            - generic: 인테리어 · 가구 · 빌트인 파트너
+          - button "생활 편의 · 무인 매장 · 출력 코너 · 단계별 도입 · 단계 사진 크게 보기":
+            - button "찜하기":
+            - generic: 생활 편의 · 무인 매장 · 출력 코너 · 단계별 도입 · 단계 사진
+            - paragraph: 생활 편의 · 무인 매장 고객사 — 한 공간에 시범 → 확대 → 전체로 단계적으로 들이는 계획을, 단계마다 사진 · 범위 · 넘어가는 기준과 함께
+            - generic: 생활 편의 · 무인 매장
+          - button "생활 편의 · 무인 매장 · 입구 · 좌석 키오스크 · 운영 모드 둘 · 사진 비교 크게 보기":
+            - button "찜하기":
+            - generic: 생활 편의 · 무인 매장 · 입구 · 좌석 키오스크 · 운영 모드 둘 · 사진 비교
+            - paragraph: 생활 편의 · 무인 매장 고객사 — 같은 기기로 두 운영 모드(피크 · 한산, 낮 · 밤 등)를 바꾸는 것을, 두 모드 사진을 나란히 놓고
+            - generic: 생활 편의 · 무인 매장
+          - button "호텔 · 리조트 · 연회장 · 회의실 · 운영 모드 둘 · 사진 비교 크게 보기":
+            - button "찜하기":
+            - generic: 호텔 · 리조트 · 연회장 · 회의실 · 운영 모드 둘 · 사진 비교
+            - paragraph: 호텔 · 리조트 고객사 — 같은 기기로 두 운영 모드(피크 · 한산, 낮 · 밤 등)를 바꾸는 것을, 두 모드 사진을 나란히 놓고
+            - generic: 호텔 · 리조트
+          - button "호텔 · 리조트 · 로비 · 리셉션 · 세 사람 · 장면 사진 크게 보기":
+            - button "찜하기":
+            - generic: 호텔 · 리조트 · 로비 · 리셉션 · 세 사람 · 장면 사진
+            - paragraph: 호텔 · 리조트 고객사 — 같은 공간을 쓰는 세 사람이 겪는 순간과 얻는 가치를, 공간 사진과 사람마다 장면 사진으로
+            - generic: 호텔 · 리조트
+          - button "테마파크 · 관광 · 전시 · 키즈 실내 놀이존 · 문제 → 해결 · 장면 사진 크게 보기":
+            - button "찜하기":
+            - generic: 테마파크 · 관광 · 전시 · 키즈 실내 놀이존 · 문제 → 해결 · 장면 사진
+            - paragraph: 테마파크 · 관광 · 전시 고객사 — 한 공간에서 매일 생기는 문제 셋을 지금 → 솔루션 → 가치로, 문제마다 장면 사진과 함께
+            - generic: 테마파크 · 관광 · 전시
+          - button "공연장 · 경기장 · 영화관 · 라커룸 · 체력단련실 · 문제 → 해결 · 장면 사진 크게 보기":
+            - button "찜하기":
+            - generic: 공연장 · 경기장 · 영화관 · 라커룸 · 체력단련실 · 문제 → 해결 · 장면 사진
+            - paragraph: 공연장 · 경기장 · 영화관 고객사 — 한 공간에서 매일 생기는 문제 셋을 지금 → 솔루션 → 가치로, 문제마다 장면 사진과 함께
+            - generic: 공연장 · 경기장 · 영화관
+          - button "공연장 · 경기장 · 영화관 · 컨코스 · 매점 · 동선 다섯 지점 · 사진 크게 보기":
+            - button "찜하기":
+            - generic: 공연장 · 경기장 · 영화관 · 컨코스 · 매점 · 동선 다섯 지점 · 사진
+            - paragraph: 공연장 · 경기장 · 영화관 고객사 — 한 공간의 동선을 따라 다섯 지점마다 움직이는 솔루션 · 기기와 지표를 지점 사진으로
+            - generic: 공연장 · 경기장 · 영화관
+          - button "한 공간 · 한 솔루션 · 현장 사진 위 기기 크게 보기":
+            - button "찜하기":
+            - generic: 한 공간 · 한 솔루션 · 현장 사진 위 기기
+            - paragraph: 한 공간에 한 솔루션을 깊게 — 현장 사진 위에 쓰는 기기를 번호로, 솔루션이 하는 일 셋과 기대 효과를
+          - button "2행 · 3단계 사진 시나리오 (글로벌 응대) 크게 보기":
+            - button "찜하기":
+            - generic: 2행 · 3단계 사진 시나리오 (글로벌 응대)
+            - paragraph: 한 가치 아래 두 장면을 3단계 흐름으로 보여 줄 때
+            - generic: 호텔 · 리조트
+          - button "AI 맞춤 환경 2행 · 3단계 — 장면 사진 + 제품 컷 크게 보기":
+            - button "찜하기":
+            - generic: AI 맞춤 환경 2행 · 3단계 — 장면 사진 + 제품 컷
+            - paragraph: 감지 → AI 판단 → 자동 조절을 두 줄(냉방 · 공기질)로 보여 줄 때, 양 끝 단계를 실제 객실 장면 사진으로
+            - generic: 호텔 · 리조트
+          - button "2행 · 3단계 사진 시나리오 (맞춤 서비스) 크게 보기":
+            - button "찜하기":
+            - generic: 2행 · 3단계 사진 시나리오 (맞춤 서비스)
+            - paragraph: 솔루션 · 기기가 이어지는 서비스 흐름을 보여 줄 때
+            - generic: 호텔 · 리조트
+        - region "조감도 · 공간 시안":
+          - heading "조감도 · 공간 시안 18" [level=3]:
+            - text: 조감도 · 공간 시안
+            - generic: "18"
+          - paragraph: 완성된 공간 미리 보기 · 존별 포인트
+          - button "풀폭 전경 크게 보기":
+            - button "찜하기":
+            - generic: 풀폭 전경
+            - paragraph: 조감도 한 장으로 충분할 때
+          - button "두 시점 비교 크게 보기":
+            - button "찜하기":
+            - generic: 두 시점 비교
+            - paragraph: 주간/야간, 도입 전/후
+          - button "전경 + 한 장 요약 크게 보기":
+            - button "찜하기":
+            - generic: 전경 + 한 장 요약
+            - paragraph: 경영진에게 전체 요약
+          - button "번호 콜아웃 크게 보기":
+            - button "찜하기":
+            - generic: 번호 콜아웃
+            - paragraph: 조감도 한 장 위에 포인트
+          - button "존 확대 컷 크게 보기":
+            - button "찜하기":
+            - generic: 존 확대 컷
+            - paragraph: 존마다 디테일 이미지가 있을 때
+          - button "시점 투어 · 평면도 + 렌더 4 크게 보기":
+            - button "찜하기":
+            - generic: 시점 투어 · 평면도 + 렌더 4
+            - paragraph: 조감도를 여러 시점으로 볼 때
+          - button "실사 핫스팟 · 제품 카드 크게 보기":
+            - button "찜하기":
+            - generic: 실사 핫스팟 · 제품 카드
+            - paragraph: 설치 사진 위에서 제품을 짚을 때
+          - button "현장 조사 · 사진 모자이크 크게 보기":
+            - button "찜하기":
+            - generic: 현장 조사 · 사진 모자이크
+            - paragraph: 고객 현장을 직접 보고 왔을 때
+          - button "실측 오버레이 · 설치 조건 크게 보기":
+            - button "찜하기":
+            - generic: 실측 오버레이 · 설치 조건
+            - paragraph: 설치 조건이 까다로울 때
+          - button "배치 시안 3안 크게 보기":
+            - button "찜하기":
+            - generic: 배치 시안 3안
+            - paragraph: 같은 공간에서 구성을 고르게 할 때
+          - button "현재 ↔ 시안 와이프 크게 보기":
+            - button "찜하기":
+            - generic: 현재 ↔ 시안 와이프
+            - paragraph: 고객 현장 사진에 제안을 겹쳐 볼 때
+          - button "공간별 지금 → 제안 시안 크게 보기":
+            - button "찜하기":
+            - generic: 공간별 지금 → 제안 시안
+            - paragraph: 여러 공간을 한 장에서 바꿔 보일 때
+          - button "화면 콘텐츠 시안 3 크게 보기":
+            - button "찜하기":
+            - generic: 화면 콘텐츠 시안 3
+            - paragraph: 화면에 무엇이 나올지 미리 보여줄 때
+          - button "무드보드 · 공간 톤 크게 보기":
+            - button "찜하기":
+            - generic: 무드보드 · 공간 톤
+            - paragraph: 디자인 조화가 핵심 요구일 때
+          - button "마감 · 소재 매칭 크게 보기":
+            - button "찜하기":
+            - generic: 마감 · 소재 매칭
+            - paragraph: 제품이 인테리어에 녹아드는지 보여줄 때
+          - button "2D 배치 도면 크게 보기":
+            - button "찜하기":
+            - generic: 2D 배치 도면
+            - paragraph: 치수 · 범례 · 수량까지 도면 그대로
+          - button "층별 평면 크게 보기":
+            - button "찜하기":
+            - generic: 층별 평면
+            - paragraph: 층마다 들어가는 것이 다를 때
+          - button "단지 · 캠퍼스 배치도 크게 보기":
+            - button "찜하기":
+            - generic: 단지 · 캠퍼스 배치도
+            - paragraph: 건물이 여러 동일 때
+        - region "제품 스펙":
+          - heading "제품 스펙 15" [level=3]:
+            - text: 제품 스펙
+            - generic: "15"
+          - paragraph: 사양 비교 · 상세 사양 · 인증
+          - button "사양 비교표 · 제품 4개 크게 보기":
+            - button "찜하기":
+            - generic: 사양 비교표 · 제품 4개
+            - paragraph: 제품 스펙 · 스펙 비교 — “제품별 사양 차이”
+          - button "사양 비교표 · 제품 5개 크게 보기":
+            - button "찜하기":
+            - generic: 사양 비교표 · 제품 5개
+            - paragraph: 제품 스펙 · 스펙 비교 — “제품별 사양 차이”
+          - button "요구사항 대응표 크게 보기":
+            - button "찜하기":
+            - generic: 요구사항 대응표
+            - paragraph: 요구사항 충족을 증명할 때
+          - button "그룹별 상세 사양 크게 보기":
+            - button "찜하기":
+            - generic: 그룹별 상세 사양
+            - paragraph: 사양 전체 정리
+          - button "치수 · 설치 정보 크게 보기":
+            - button "찜하기":
+            - generic: 치수 · 설치 정보
+            - paragraph: 설치 검토가 필요할 때
+          - button "제품 히어로 + 다각도 크게 보기":
+            - button "찜하기":
+            - generic: 제품 히어로 + 다각도
+            - paragraph: 제품 하나를 깊게 보여줄 때
+          - button "카드형 라인업 비교 크게 보기":
+            - button "찜하기":
+            - generic: 카드형 라인업 비교
+            - paragraph: 표보다 제품 모습이 중요할 때
+          - button "공조 사양 크게 보기":
+            - button "찜하기":
+            - generic: 공조 사양
+            - paragraph: 실내기 여러 종 + 실외기 조합일 때
+          - button "모바일 · 현장 단말 사양 크게 보기":
+            - button "찜하기":
+            - generic: 모바일 · 현장 단말 사양
+            - paragraph: 내구성 · 배터리 · 보안이 핵심일 때
+          - button "빌트인 가전 사양 크게 보기":
+            - button "찜하기":
+            - generic: 빌트인 가전 사양
+            - paragraph: 매립 치수 · 가구 시공이 핵심일 때
+          - button "옵션 · 구성품 · 라이선스 크게 보기":
+            - button "찜하기":
+            - generic: 옵션 · 구성품 · 라이선스
+            - paragraph: 본품 외 부품 · 라이선스까지 확정할 때
+          - button "모델 선택 가이드 크게 보기":
+            - button "찜하기":
+            - generic: 모델 선택 가이드
+            - paragraph: 설치 조건으로 모델이 갈릴 때
+          - button "인증 · 규격 현황 크게 보기":
+            - button "찜하기":
+            - generic: 인증 · 규격 현황
+            - paragraph: 제품별 인증 보유를 확인할 때
+          - button "사양 비교 · 제품 사진 3 크게 보기":
+            - button "찜하기":
+            - generic: 사양 비교 · 제품 사진 3
+            - paragraph: 사양 비교표 맨 위에 공식 제품 컷을 크게 — 표만 있는 비교를 피할 때
+          - button "LED 피치 · 시청 거리 — 관람 공간 사진 위 거리 자 크게 보기":
+            - button "찜하기":
+            - generic: LED 피치 · 시청 거리 — 관람 공간 사진 위 거리 자
+            - paragraph: LED 사이니지 피치 3안을 고를 때, 실제로 화면을 보는 자리(관중석 · 객석 · 거리) 사진 위에 피치별 선명 거리와 관람 구간을 겹쳐 보여 줄 때
+    - status
+- status
+- alert
+- status
+- status
+- status
+- status
+- status
+- status
+- status
+- status
+- status
+- status

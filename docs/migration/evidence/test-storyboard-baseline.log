@@ -1,0 +1,19 @@
+test_kb_loaded (tests.test_agent.TestData) ... ok
+test_strategy_label_masked (tests.test_agent.TestData) ... ok
+test_fix_masks_only_the_claim (tests.test_agent.TestGrounding) ... ok
+test_foreign_terms_false_positives (tests.test_agent.TestGrounding) ... ok
+test_new_or_other_unit_is_flagged (tests.test_agent.TestGrounding) ... ok
+test_previous_storyboard_is_evidence (tests.test_agent.TestGrounding) ... ok
+test_same_value_other_format_is_supported (tests.test_agent.TestGrounding) ... ok
+test_guards_fix_bad_draft (tests.test_agent.TestLLMPath) ... ok
+test_prompt_has_cards_not_raw_roles (tests.test_agent.TestLLMPath) ... ok
+test_strategy_outside_candidates_is_replaced (tests.test_agent.TestLLMPath) ... ok
+test_app_rules_matches_app_behaviour (tests.test_agent.TestOffline) ... ok
+test_cold_storyboard_is_valid (tests.test_agent.TestOffline) ... ok
+test_continue_keeps_previous_parts (tests.test_agent.TestOffline) ... ok
+test_references_are_diverse_and_avoid_list (tests.test_agent.TestOffline) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 1.319s
+
+OK

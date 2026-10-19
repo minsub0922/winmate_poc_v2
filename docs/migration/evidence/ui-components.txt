@@ -1,0 +1,129 @@
+src/ui/layouts.jsx:23:function PCard({ l, rank, why = [], snip, nAdded, onAdd, hc, aiWhy }) {
+src/ui/layouts.jsx:42:export function LayoutPicker({ p, partId, mode = 'rec', onClose }) {
+src/ui/imagepick.jsx:9:export const GROUPS = [['', '전체'], ['cut', '제품 컷'], ['case', '설치 사례'], ['life', '공식 연출'], ['ui', '솔루션 화면'], ['gen', '생성 이미지']];
+src/ui/imagepick.jsx:10:[Omitted long matching line]
+src/ui/imagepick.jsx:11:[Omitted long matching line]
+src/ui/imagepick.jsx:13:export function rankImages(list, { models = [], kind, hint, wModel = 3, wGroup = 2 }) {
+src/ui/imagepick.jsx:25:export async function fileToStoredImage(file) {
+src/ui/imagepick.jsx:45:export function ImagePicker({ slot, current, models = [], onPick, onClose }) {
+src/ui/imagepick.jsx:90:export function suggestImages(slots, x, productIds) {
+src/ui/sheetview.jsx:10:function useFitWidth(ref, aspect) {
+src/ui/sheetview.jsx:34:export function SheetView({ title, sub, onClose, stage, stageTop = null, aspect = 16 / 9, panel, panelRef, index = 0, total = 1, onNav, footerStart = null, actions = null,
+src/ui/mytpl.jsx:30:[Omitted long matching line]
+src/ui/mytpl.jsx:33:export function MyToggle({ on, n, onClick }) {
+src/ui/mytpl.jsx:42:export function MyUpload({ onFile, onBrowse, empty }) {
+src/ui/mytpl.jsx:72:export function myGroups(list) {
+src/ui/mytpl.jsx:83:export function MySections({ groups, cols, card, onDeleteGroup }) {
+src/ui/mytpl.jsx:108:export function ImportDialog({ file, onClose, onSaved }) {
+src/ui/mytpl.jsx:213:export function MyDetail({ list, index, onNav, onClose, onEdit }) {
+src/ui/mytpl.jsx:271:function normColor(v) {
+src/ui/mytpl.jsx:281:function colorsIn(root) {
+src/ui/mytpl.jsx:290:function replaceColor(root, from, to) {
+src/ui/mytpl.jsx:303:function pickEl(t, root) {
+src/ui/mytpl.jsx:318:function frameOf(el, root) {
+src/ui/mytpl.jsx:331:function posOf(el) {
+src/ui/mytpl.jsx:341:function setPos(el, st, dx, dy) {
+src/ui/mytpl.jsx:346:function renumber(node, root) {
+src/ui/mytpl.jsx:354:function serialize(root) {
+src/ui/mytpl.jsx:363:export function LayoutEditor({ f, ov: vals = null, onClose, onSaved }) {
+src/ui/mytpl.jsx:748:export const favOrder = (favs) => [...favs.filter((x) => x.filled), ...favs.filter((x) => !x.filled)];
+src/ui/mytpl.jsx:749:export function FavSections({ favs, cols, onOpen, hc }) {
+src/ui/persona.jsx:14:function Hair({ k, c, part }) {
+src/ui/persona.jsx:47:function Facial({ k, c }) {
+src/ui/persona.jsx:55:export function darken(hex, k = 0.12) {
+src/ui/persona.jsx:62:export function Portrait({ who, mood, size = 48, round = true, className = '', title }) {
+src/ui/persona.jsx:122:export const personaKey = (level, gender) => level + (gender === 'F' ? 'F' : 'M');
+src/ui/detail.jsx:31:function lines(text) { return String(text || '').split(/\n|(?<=[.!?。])\s+/).map((s) => s.trim()).filter(Boolean); }
+src/ui/detail.jsx:32:function buildQuestions(p, part, l) {
+src/ui/detail.jsx:70:function InfoCheck({ p, l, qs, setQs }) {
+src/ui/detail.jsx:121:function EvRow({ e, onRemove, onAdd, addLabel = '근거로' }) {
+src/ui/detail.jsx:147:function Sec({ title, icon, count, sub, children, className = '' }) {
+src/ui/detail.jsx:156:async function copyText(t) {
+src/ui/detail.jsx:164:function MediaStrip({ type, id, name, onInsertImage }) {
+src/ui/detail.jsx:181:function SheetPanel({ p, part, x, l, units, qs, setQs, onFill, onHi, onSelect, onInsertImage }) {
+src/ui/detail.jsx:304:function AddLink({ onAdd }) {
+src/ui/detail.jsx:322:function ProdRow({ id, onSwap }) {
+src/ui/detail.jsx:335:function unitIO(x, unit, slots) {
+src/ui/detail.jsx:342:function UnitPanel({ p, part, x, l, unit, pool, qs, setQs, onBack, onFill, onAddEv, onRemoveEv, onOpenImg, onSwap }) {
+src/ui/detail.jsx:416:function useFill({ p, part, x, l, mut, units }) {
+src/ui/detail.jsx:492:function FillFlow({ fill, x }) {
+src/ui/detail.jsx:550:function ImgPop({ anchor, slot, current, models, onPick, onFile, onMore, onClear, onClose }) {
+src/ui/detail.jsx:609:export function LayoutDetail({ p, partId, uid: luid, onClose, open, pageNo }) {
+src/ui/detail.jsx:617:function DetailBody({ p, part, x, l, onClose, open, pageNo }) {
+src/ui/sim.jsx:33:export function SimIcon({ name, size = 16, stroke = 2, className = '' }) {
+src/ui/sim.jsx:40:function Tip({ content, children, className = '', label, wide = false, as = 'div', place = 'side', focusable = true }) {
+src/ui/sim.jsx:54:function TipBox({ rect, children, wide, place }) {
+src/ui/sim.jsx:73:function LevelBadge({ level, small }) {
+src/ui/sim.jsx:78:function Avatar({ pf, size = 36, mood }) {
+src/ui/sim.jsx:81:function Dots({ n, max = 5 }) { return <span className="sim-dots" aria-label={n + ' / ' + max}>{Array.from({ length: max }, (_, i) => <i key={i} className={i < n ? 'on' : ''} />)}</span>; }
+src/ui/sim.jsx:82:function Bar({ v, cls = '' }) { return <span className={'sim-bar ' + cls}><i style={{ width: (v == null ? 0 : v) + '%' }} /></span>; }
+src/ui/sim.jsx:85:function ProfileCard({ pf, level, compact = false, mood }) {
+src/ui/sim.jsx:130:export function SimPage({ go, id }) {
+src/ui/sim.jsx:140:function SimSetup({ go }) {
+src/ui/sim.jsx:255:function SimIntro({ gender }) {
+src/ui/sim.jsx:284:function draftOf(p, level, gender) {
+src/ui/sim.jsx:292:function ProfileModal({ pf, sel, level, onClose, onNew, onEdit, onDelete }) {
+src/ui/sim.jsx:307:function PersonaPicker({ cur, customs, onPick, onNew, onEdit, onClose }) {
+src/ui/sim.jsx:339:function Swatches({ label, items, value, onPick, chip = false }) {
+src/ui/sim.jsx:354:function PersonaEditor({ init, canSave, role, onSave, onClose }) {
+src/ui/sim.jsx:432:function LevelTip({ L }) {
+src/ui/sim.jsx:448:function ReqModal({ st, onApply, onClose }) {
+src/ui/sim.jsx:519:function MiniSpark({ data, win }) {
+src/ui/sim.jsx:531:function HistRow({ s, go }) {
+src/ui/sim.jsx:569:function applyTurn(d, r) {
+src/ui/sim.jsx:580:function SimSession({ id, go }) {
+src/ui/sim.jsx:586:function SimRoom({ sim, id, go }) {
+src/ui/sim.jsx:725:function Suggestion({ sg, sim, busy, onPick, onSend }) {
+src/ui/sim.jsx:747:function PersonCard({ sim, busy }) {
+src/ui/sim.jsx:766:function Msg({ m, sim, first, peek }) {
+src/ui/sim.jsx:798:function Result({ sim, onAgain, onProposal }) {
+src/ui/sim.jsx:830:function Spark({ data, win, lose }) {
+src/ui/sim.jsx:847:function SatCard({ sim, busy }) {
+src/ui/sim.jsx:885:function QualityCard({ sim, agg, busy }) {
+src/ui/sim.jsx:909:function CatTip({ c, sim }) {
+src/ui/sim.jsx:928:function SimilarCard({ sim, onOpen }) {
+src/ui/parteditor.jsx:18:export const PART_GROUPS = [
+src/ui/parteditor.jsx:28:export function iconType(type, name, text) {
+src/ui/parteditor.jsx:32:export function partIcon(part) {
+src/ui/parteditor.jsx:76:export function suggestNames(q, limit = 6) {
+src/ui/parteditor.jsx:91:function Hl({ text, q }) {
+src/ui/parteditor.jsx:101:export function PartEditor({ p, part, onClose, isNew }) {
+src/ui/ctxexplorer.jsx:30:export const REC_MAX = 40;
+src/ui/ctxexplorer.jsx:40:function itemsOf(kind) {
+src/ui/ctxexplorer.jsx:59:function famOrder(kind) { return kind === 'cases' ? [...INDUSTRIES.map((i) => i.code), '_'] : [...(FAM[kind] || []).map(([f]) => f), ETC]; }
+src/ui/ctxexplorer.jsx:62:function buildTree(kind, items) {
+src/ui/ctxexplorer.jsx:84:function StateTag({ st, n, fu }) {
+src/ui/ctxexplorer.jsx:95:function Row({ it, st, n, fu, onToggle, ind, peek }) {
+src/ui/ctxexplorer.jsx:145:function RecTile({ rec, it, st, n, fu, onToggle }) {
+src/ui/ctxexplorer.jsx:173:export function ContextExplorer({ p, kind, start = 'all', ind, onClose, pick = null, filter = null, frame = null, closeLabel = '닫기' }) {
+src/ui/ctxexplorer.jsx:328:export const totalOf = (kind) => itemsOf(kind).length;
+src/ui/ctxexplorer.jsx:330:export function folderOf(kind, id) { const it = itemsOf(kind).find((x) => x.id === id); return it ? 'c:' + it.f + '/' + it.c : 'all'; }
+src/ui/ctxexplorer.jsx:331:export const startFor = (kind, ind) => (kind === 'cases' && ind && IND[ind] ? 'f:' + ind : 'all');
+src/ui/library.jsx:56:function fromSaved(u) {
+src/ui/library.jsx:67:function pass(l, f, skip) {
+src/ui/library.jsx:89:export function TemplateIcon({ size = 16 }) {
+src/ui/library.jsx:102:export function LayoutLibrary({ go }) {
+src/ui/library.jsx:316:function activeFilters(f) {
+src/ui/library.jsx:332:function FilterPopup({ f, base, onApply, onClose }) {
+src/ui/library.jsx:425:function ExportList({ list, slides = null, scope, onClose }) {
+src/ui/requirements.jsx:13:export function refsOf(p) { return [...p.ctx.products.map((x) => 'product:' + x), ...p.ctx.solutions.map((x) => 'solution:' + x), ...p.ctx.cases.map((x) => 'case:' + x)]; }
+src/ui/requirements.jsx:14:export function addRef(pid, ref) {
+src/ui/requirements.jsx:19:export function removeRef(pid, ref) {
+src/ui/requirements.jsx:24:export function lacking(p) { return KIND.filter(([k, , , min]) => p.ctx[k].length < min).map(([k]) => k); }
+src/ui/requirements.jsx:26:function mentionedRefs(p) {
+src/ui/requirements.jsx:34:export function ContextEditor({ p, only = null, showRecs = true, compact = false, idp = 'ce' }) {
+src/ui/requirements.jsx:70:function IndustryPicker({ p }) {
+src/ui/requirements.jsx:91:function FreeTab({ p, peek }) {
+src/ui/requirements.jsx:104:function FormTab({ p, peek }) {
+src/ui/requirements.jsx:172:function FilesTab({ p }) {
+src/ui/requirements.jsx:292:export function SufficiencyModal({ p, onClose, onGo }) {
+src/ui/requirements.jsx:328:export function ReqPopup({ p, onClose, onSaved }) {
+src/ui/filterpop.jsx:16:export const LAYOUT_UNIT = { noun: '레이아웃', n: '장' };
+src/ui/filterpop.jsx:17:export const SCENARIO_UNIT = { noun: '시나리오', n: '개' };
+src/ui/filterpop.jsx:20:export const idList = (v) => String(v || '').split(',').filter((id) => P[id]);
+src/ui/filterpop.jsx:24:export function FilterBar({ active, onOpen, onRemove, onClearAll, extra = null }) {
+src/ui/filterpop.jsx:46:export function FilterPopup({ unit = LAYOUT_UNIT, n, canReset, onReset, onApply, onClose, children }) {
+src/ui/filterpop.jsx:61:export function FStep({ no, title, hint, children }) {
+src/ui/filterpop.jsx:71:export function FChip({ on, n, onClick, pre, cls, title, children }) {
+src/ui/filterpop.jsx:80:export function FAll({ on, n, onClick }) {
+src/ui/filterpop.jsx:86:export function FProducts({ ids, counts, used, unit = LAYOUT_UNIT, onChange }) {
