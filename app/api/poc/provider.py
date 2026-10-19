@@ -15,6 +15,7 @@ from __future__ import annotations
 import base64
 import hashlib
 import json
+import os
 import re
 import threading
 import time
@@ -189,18 +190,46 @@ def turns_to_contents(turns: Sequence[Any]) -> Tuple[str, List[dict]]:
     return '\n'.join(system), contents
 
 
+class _ResponseLease:
+    """Own the network slot until a response/stream is closed, including exceptional exits."""
+    def __init__(self, response, release):
+        self.response, self.release = response, release
+    def __enter__(self):
+        return self
+    def __iter__(self):
+        return iter(self.response)
+    def read(self, *args):
+        return self.response.read(*args)
+    def __exit__(self, *args):
+        try:
+            self.response.close()
+        finally:
+            self.release()
+
+
 class Ledger:
     """Process-wide usage counters (no prompts, no secrets)."""
 
     def __init__(self) -> None:
         self._lock = threading.Lock()
         self.calls = 0
+        self.active = self.peak = self.requests = 0
         self.ok = 0
         self.failed = 0
         self.cached = 0
         self.prompt_tokens = 0
         self.output_tokens = 0
         self.errors: Dict[str, int] = {}
+
+    def begin_request(self):
+        with self._lock:
+            self.active += 1
+            self.requests += 1
+            self.peak = max(self.peak, self.active)
+
+    def end_request(self):
+        with self._lock:
+            self.active -= 1
 
     def record(self, ok: bool, result: Optional[GenerationResult] = None, code: str = '') -> None:
         with self._lock:
@@ -217,7 +246,8 @@ class Ledger:
     def view(self) -> dict:
         with self._lock:
             return {'calls': self.calls, 'ok': self.ok, 'failed': self.failed, 'cached': self.cached,
-                    'prompt_tokens': self.prompt_tokens, 'output_tokens': self.output_tokens, 'errors': dict(self.errors)}
+                    'prompt_tokens': self.prompt_tokens, 'output_tokens': self.output_tokens, 'errors': dict(self.errors),
+                    'requests': self.requests, 'active_requests': self.active, 'peak_requests': self.peak}
 
 
 # ---------------------------------------------------------------- provider
@@ -225,14 +255,21 @@ class GeminiProvider:
     name = 'gemini'
 
     def __init__(self, settings: Settings, urlopen: Optional[Callable[..., Any]] = None) -> None:
+        self._settings = settings
         self._key = settings.api_key()
         self.model = settings.model
         self.quick_model = settings.quick_model
+        self.vision_model = getattr(settings, 'vision_model', settings.model)
         self.base = (settings.base_url or DEFAULT_BASE).rstrip('/')
         self.timeout = settings.timeout
         self.min_gap = 60.0 / settings.rpm if settings.rpm else 0.0
         self.cache_dir: Optional[Path] = settings.cache_dir if settings.llm_cache else None
         self._urlopen = urlopen or urllib.request.urlopen
+        try:
+            self.concurrency = max(1, min(16, int(os.environ.get('WINMATE_GEMINI_CONCURRENCY', '4'))))
+        except ValueError:
+            self.concurrency = 4
+        self._slots = threading.BoundedSemaphore(self.concurrency)
         self._rate = threading.Lock()
         self._next = 0.0
         self._chat_lock = threading.Lock()
@@ -247,7 +284,8 @@ class GeminiProvider:
         return bool(self._key)
 
     def model_for(self, tier: Optional[str]) -> str:
-        return self.quick_model if (tier or '').lower() in ('quick', 'fast', 'small') else self.model
+        name=(tier or '').lower()
+        return self.vision_model if name == 'vision' else self.quick_model if name in ('quick', 'fast', 'small') else self.model
 
     def safe(self, text: Any) -> str:
         return redact(text, (self._key,))
@@ -256,20 +294,21 @@ class GeminiProvider:
     def _headers(self) -> dict:
         return {'content-type': 'application/json', 'x-goog-api-key': self._key}
 
-    def _wait_turn(self, cancel: CancelCheck) -> None:
+    def _wait_turn(self, cancel: CancelCheck, deadline=None) -> None:
         with self._rate:
-            now = time.time()
+            now = time.monotonic()
             t = max(now, self._next)
+            if deadline is not None and t>=deadline:raise ProviderError('timeout','AI 요청 대기 시간이 한도를 넘었습니다.')
             self._next = t + self.min_gap
         self._sleep(t - now, cancel)
 
     @staticmethod
     def _sleep(seconds: float, cancel: CancelCheck) -> None:
-        end = time.time() + max(0.0, seconds)
+        end = time.monotonic() + max(0.0, seconds)
         while True:
             if cancel and cancel():
                 raise ProviderError('cancelled', '작업이 취소되었습니다.')
-            left = end - time.time()
+            left = end - time.monotonic()
             if left <= 0:
                 return
             time.sleep(min(0.25, left))
@@ -285,12 +324,33 @@ class GeminiProvider:
             msg = raw
         return self.safe(msg)[:400]
 
-    def _post(self, model: str, body: dict) -> dict:
+    def _open(self, request, cancel=None, deadline=None):
+        deadline = deadline if deadline is not None else time.monotonic()+self.timeout
+        while not self._slots.acquire(timeout=0.1):
+            if time.monotonic()>=deadline:raise ProviderError('timeout','AI 요청 대기 시간이 한도를 넘었습니다.')
+            if cancel and cancel():
+                raise ProviderError('cancelled', '대기 중인 요청을 취소했습니다.')
+        self.ledger.begin_request()
+        def release():
+            self.ledger.end_request()
+            self._slots.release()
+        try:
+            if cancel and cancel():
+                raise ProviderError('cancelled', '요청을 취소했습니다.')
+            self._wait_turn(cancel,deadline)
+            remaining=deadline-time.monotonic()
+            if remaining<=0:raise ProviderError('timeout','AI 요청 시간이 한도를 넘었습니다.')
+            return _ResponseLease(self._urlopen(request, timeout=min(self.timeout,remaining)), release)
+        except BaseException:
+            release()
+            raise
+
+    def _post(self, model: str, body: dict, cancel=None, deadline=None) -> dict:
         if not self._key:
             raise ProviderError('no_api_key', 'GEMINI_API_KEY 가 서버에 설정되어 있지 않습니다.')
         req = urllib.request.Request(f'{self.base}/models/{model}:generateContent', data=json.dumps(body).encode('utf-8'),
                                      method='POST', headers=self._headers())
-        with self._urlopen(req, timeout=self.timeout) as resp:
+        with self._open(req, cancel,deadline) as resp:
             return json.loads(resp.read().decode('utf-8'))
 
     # ------------------------------------------------------------ cache (opt-in, app/data/runtime only)
@@ -321,14 +381,15 @@ class GeminiProvider:
 
     # ------------------------------------------------------------ core
     def _generate(self, *, stage: str, system: str, contents: List[dict], gen: dict, model: str, json_expected: bool,
-                  cancel: CancelCheck, max_attempts: int) -> GenerationResult:
-        cache_path = self._cache_path({'model': model, 'stage': stage, 'system': system, 'contents': contents, 'gen': gen})
+                  cancel: CancelCheck, max_attempts: int, cache_allowed: bool = True) -> GenerationResult:
+        cache_path = self._cache_path({'model': model, 'stage': stage, 'system': system, 'contents': contents, 'gen': gen}) if cache_allowed else None
         rec = self._cache_get(cache_path)
         if rec is not None:
             result = GenerationResult(rec.get('data'), rec.get('text', ''), model, rec.get('prompt_tokens', 0), rec.get('output_tokens', 0), 0, True)
             self.ledger.record(True, result)
             return result
         gen = dict(gen)
+        deadline=time.monotonic()+self.timeout
         t0 = time.time()
         last = ProviderError('upstream_error', '응답이 없습니다.')
         parse_fail = empty = 0
@@ -342,8 +403,7 @@ class GeminiProvider:
             if system:
                 body['systemInstruction'] = {'parts': [{'text': system}]}
             try:
-                self._wait_turn(cancel)
-                res = self._post(model, body)
+                res = self._post(model, body, cancel,deadline)
             except ProviderError as exc:
                 last = exc
                 break
@@ -356,8 +416,12 @@ class GeminiProvider:
                     continue
                 if exc.code in (429, 500, 502, 503, 504):
                     last = ProviderError('rate_limited' if exc.code == 429 else 'upstream_unavailable', f'HTTP {exc.code}: {detail}', exc.code)
+                    if attempt >= max_attempts:
+                        break
                     try:
-                        self._sleep(min(60, 3 * 2 ** (attempt - 1)), cancel)
+                        retry_after = (exc.headers or {}).get('Retry-After', '')
+                        delay = min(30.0, float(retry_after)) if str(retry_after).replace('.', '', 1).isdigit() else min(20, 2 ** (attempt - 1))
+                        self._sleep(min(delay,max(0,deadline-time.monotonic())), cancel)
                     except ProviderError as stop:
                         last = stop
                         break
@@ -367,8 +431,10 @@ class GeminiProvider:
                 break
             except (urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
                 last = ProviderError('network', f'{type(exc).__name__}: {self.safe(exc)}')
+                if attempt >= max_attempts:
+                    break
                 try:
-                    self._sleep(min(20, 2 ** (attempt - 1)), cancel)
+                    self._sleep(min(10, 2 ** (attempt - 1),max(0,deadline-time.monotonic())), cancel)
                 except ProviderError as stop:
                     last = stop
                     break
@@ -419,7 +485,7 @@ class GeminiProvider:
     def generate_json(self, *, stage: str, system: str = '', user: Optional[str] = None, schema: Optional[dict] = None,
                       temperature: float = 0.2, max_output_tokens: int = 8192, seed: Optional[int] = None, model: Optional[str] = None,
                       turns: Optional[Sequence[Any]] = None, images: Optional[Sequence[Any]] = None, cancel: CancelCheck = None,
-                      max_attempts: int = 6) -> GenerationResult:
+                      max_attempts: int = 3, cache_allowed: bool = True) -> GenerationResult:
         sys_text, contents = self._contents(system, user, turns, images)
         gen: Dict[str, Any] = {'temperature': float(temperature), 'responseMimeType': 'application/json', 'maxOutputTokens': int(max_output_tokens)}
         if schema:
@@ -427,11 +493,11 @@ class GeminiProvider:
         if seed is not None:
             gen['seed'] = int(seed)
         return self._generate(stage=stage, system=sys_text, contents=contents, gen=gen, model=model or self.model,
-                              json_expected=True, cancel=cancel, max_attempts=max_attempts)
+                              json_expected=True, cancel=cancel, max_attempts=max_attempts, cache_allowed=cache_allowed)
 
     def generate_text(self, *, stage: str, system: str = '', user: Optional[str] = None, turns: Optional[Sequence[Any]] = None,
                       temperature: float = 0.4, max_output_tokens: int = 8192, json_mode: bool = False, model: Optional[str] = None,
-                      images: Optional[Sequence[Any]] = None, cancel: CancelCheck = None, max_attempts: int = 4) -> GenerationResult:
+                      images: Optional[Sequence[Any]] = None, cancel: CancelCheck = None, max_attempts: int = 3) -> GenerationResult:
         sys_text, contents = self._contents(system, user, turns, images)
         gen: Dict[str, Any] = {'temperature': float(temperature), 'maxOutputTokens': int(max_output_tokens)}
         if json_mode:
@@ -441,7 +507,7 @@ class GeminiProvider:
 
     def stream_text(self, *, stage: str, system: str = '', user: Optional[str] = None, turns: Optional[Sequence[Any]] = None,
                     temperature: float = 0.4, max_output_tokens: int = 8192, json_mode: bool = False, model: Optional[str] = None,
-                    images: Optional[Sequence[Any]] = None, cancel: CancelCheck = None, max_attempts: int = 3) -> Iterator[str]:
+                    images: Optional[Sequence[Any]] = None, cancel: CancelCheck = None, max_attempts: int = 3, schema: Optional[dict] = None) -> Iterator[str]:
         """Yields the cumulative text after every streamed chunk. Retries only before the first chunk."""
         if not self._key:
             raise ProviderError('no_api_key', 'GEMINI_API_KEY 가 서버에 설정되어 있지 않습니다.')
@@ -449,24 +515,29 @@ class GeminiProvider:
         gen: Dict[str, Any] = {'temperature': float(temperature), 'maxOutputTokens': int(max_output_tokens)}
         if json_mode:
             gen['responseMimeType'] = 'application/json'
+            if schema:
+                gen['responseSchema'] = schema
         body: Dict[str, Any] = {'contents': contents, 'generationConfig': gen}
         if sys_text:
             body['systemInstruction'] = {'parts': [{'text': sys_text}]}
         model = model or self.model
         req = urllib.request.Request(f'{self.base}/models/{model}:streamGenerateContent?alt=sse', data=json.dumps(body).encode('utf-8'),
                                      method='POST', headers=self._headers())
+        deadline=time.monotonic()+self.timeout
         resp = None
         last = ProviderError('upstream_error', '응답이 없습니다.')
         for attempt in range(1, max(1, max_attempts) + 1):
             try:
-                self._wait_turn(cancel)
-                resp = self._urlopen(req, timeout=self.timeout)
+                resp = self._open(req, cancel,deadline)
+                break
+            except ProviderError as exc:
+                last=exc
                 break
             except urllib.error.HTTPError as exc:
                 detail = self._error_detail(exc)
                 if exc.code in (429, 500, 502, 503, 504) and attempt < max_attempts:
                     last = ProviderError('rate_limited' if exc.code == 429 else 'upstream_unavailable', f'HTTP {exc.code}: {detail}', exc.code)
-                    self._sleep(min(30, 3 * 2 ** (attempt - 1)), cancel)
+                    self._sleep(min(20, 2 ** (attempt - 1),max(0,deadline-time.monotonic())), cancel)
                     continue
                 code = {400: 'bad_request', 401: 'auth_failed', 403: 'auth_failed', 404: 'model_not_found', 429: 'rate_limited'}.get(exc.code, 'http_error')
                 last = ProviderError(code, f'HTTP {exc.code}: {detail}', exc.code)
@@ -474,7 +545,7 @@ class GeminiProvider:
             except (urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
                 last = ProviderError('network', f'{type(exc).__name__}: {self.safe(exc)}')
                 if attempt < max_attempts:
-                    self._sleep(min(10, 2 ** (attempt - 1)), cancel)
+                    self._sleep(min(10, 2 ** (attempt - 1),max(0,deadline-time.monotonic())), cancel)
         if resp is None:
             self.ledger.record(False, code=last.code)
             raise last
@@ -482,6 +553,7 @@ class GeminiProvider:
         try:
             with resp:
                 for raw in resp:
+                    if time.monotonic()>=deadline:raise ProviderError('timeout','AI 스트림 응답 시간이 한도를 넘었습니다.')
                     if cancel and cancel():
                         raise ProviderError('cancelled', '작업이 취소되었습니다.')
                     line = raw.decode('utf-8', 'replace').strip() if isinstance(raw, bytes) else str(raw).strip()
@@ -495,6 +567,11 @@ class GeminiProvider:
                         raise ProviderError('blocked', f"blockReason={chunk['promptFeedback']['blockReason']}")
                     usage = chunk.get('usageMetadata') or usage
                     cand = (chunk.get('candidates') or [{}])[0] or {}
+                    finish = cand.get('finishReason')
+                    if finish == 'MAX_TOKENS':
+                        raise ProviderError('max_tokens', '모델 출력 한도를 초과해 응답이 잘렸습니다.')
+                    if finish in ('SAFETY', 'RECITATION', 'PROHIBITED_CONTENT', 'BLOCKLIST', 'SPII'):
+                        raise ProviderError('blocked', f'finishReason={finish}')
                     piece = ''.join(p.get('text', '') for p in (cand.get('content') or {}).get('parts', []) or [] if isinstance(p, dict) and not p.get('thought'))
                     if piece:
                         acc += piece
@@ -566,7 +643,7 @@ def get_provider(settings: Settings) -> Tuple[Optional[Any], str]:
     if not settings.has_key:
         return None, 'no_api_key'
     with _LOCK:
-        if _PROVIDER is None or _PROVIDER._key != settings.api_key() or _PROVIDER.model != settings.model:
+        if _PROVIDER is None or _PROVIDER._key != settings.api_key() or _PROVIDER._settings != settings:
             _PROVIDER = GeminiProvider(settings)
         return _PROVIDER, ''
 

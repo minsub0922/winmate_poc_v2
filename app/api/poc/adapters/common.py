@@ -1,4 +1,4 @@
-"""Shared adapter helpers: mode resolution, request validation, JSON-safe serialization."""
+"""Shared adapter helpers: strict provider resolution, request validation, JSON-safe serialization."""
 from __future__ import annotations
 
 import dataclasses
@@ -7,16 +7,16 @@ from dataclasses import dataclass
 from typing import Any, Callable, Optional
 
 from ..jobs import BadRequest, Job
-from ..provider import get_provider
 from ..settings import Settings
+from ..strict import reject_legacy_options, require_provider
 
 
 @dataclass
 class ModePlan:
-    requested: str          # real | offline | dummy
-    run: bool               # False → respond with the dummy contract, run nothing
-    provider: Any = None    # None → PoC rules only (no network)
-    reason: str = ''        # why provider is None (offline_requested, no_api_key, llm_disabled_by_request, ...)
+    requested: str          # always 'real'
+    run: bool               # always True (kept for the old shape; there is no dummy contract any more)
+    provider: Any = None    # the server Gemini provider — never None once resolve_mode returned
+    reason: str = ''
 
 
 @dataclass
@@ -28,23 +28,10 @@ class Prepared:
     plan: ModePlan
 
 
-def resolve_mode(settings: Settings, function: str, body: dict, needs_llm: bool = True) -> ModePlan:
-    """``offline=true`` always runs the real PoC rules with no external call (even in dummy mode / no key)."""
-    if body.get('offline') is True:
-        return ModePlan('offline', True, None, 'offline_requested')
-    if settings.function_mode(function) != 'real':
-        return ModePlan('dummy', False, None, 'function_mode_dummy')
-    if not needs_llm:
-        return ModePlan('real', True, None, 'no_llm_needed')
-    if body.get('llm') is False:
-        return ModePlan('real', True, None, 'llm_disabled_by_request')
-    provider, reason = get_provider(settings)
-    return ModePlan('real', True, provider, reason)
-
-
-def dummy_response(kind: str, plan: ModePlan, message: str) -> dict:
-    return {'mode': 'dummy', 'error': 'unavailable', 'kind': kind, 'requested_mode': plan.requested, 'reason': plan.reason,
-            'message': message, 'job': None}
+def resolve_mode(settings: Settings, function: str, body: dict) -> ModePlan:
+    """Strict: rejects legacy ``offline``/``llm:false`` (422) and a missing provider (503). No rules-only plan."""
+    reject_legacy_options(body)
+    return ModePlan('real', True, require_provider(settings, function), '')
 
 
 def as_bool(body: dict, key: str, default: bool) -> bool:

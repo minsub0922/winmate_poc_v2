@@ -3,6 +3,9 @@
 ``build_graph(kb, llm, index)`` and ``run_config`` always get the canonical KB view, the app LLM shim
 and the TF-IDF index explicitly. Results are serialized from explicit public fields only;
 ``render.write_outputs`` is never called (no files are written).
+
+Strict: the app LLM shim is always online and its ``structured()`` raises on failure, so no node ever falls
+back to its rule result; the analysis node's ``llm`` flag is checked as proof that Gemini actually ran.
 """
 from __future__ import annotations
 
@@ -12,6 +15,7 @@ from .. import imports, knowledge
 from ..backends import ModeTracker, layout_llm_summary, make_layout_llm
 from ..jobs import BadRequest, Job, Unavailable, Waiting
 from ..settings import Settings
+from ..strict import failure
 from .common import Prepared, as_bool, as_int, jsonable, resolve_mode
 
 LEVELS = ('minimal', 'ambiguous', 'complex')
@@ -23,8 +27,6 @@ SCALAR = (str, int, float, bool, type(None))
 
 def prepare(body: dict, settings: Settings) -> Prepared:
     plan = resolve_mode(settings, 'layout', body)
-    if not plan.run:
-        return Prepared('layout', '레이아웃', {}, None, plan)  # type: ignore[arg-type]
     L = imports.layout()
     raw = body.get('input')
     if not isinstance(raw, dict):
@@ -79,12 +81,13 @@ def start(job: Job, inp: dict, options: dict, include_html: bool, plan: Any, set
         if bad:
             warnings.append(f'카탈로그에 없는 {key} id(PoC 분석에서 제외됨): ' + ', '.join(map(str, bad[:10])))
     kb = base_kb.with_products(wanted)
-    tracker = ModeTracker(plan.requested, plan.provider, plan.reason)
+    tracker = ModeTracker('real', plan.provider)
+    job.ctx['tracker'] = tracker
     llm = make_layout_llm(plan.provider, tracker, job)
     graph = L.graph.build_graph(kb, llm, index)
     cfg = L.graph.run_config(f'wm-{job.id}', llm)
     job.ctx.update(graph=graph, cfg=cfg, llm=llm, kb=kb, tracker=tracker, warnings=warnings, include_html=include_html)
-    job.log('시작 — ' + (f'LLM {llm.model_name} + 규칙' if llm.online else f'규칙만 ({plan.reason})'))
+    job.log(f'시작 — Gemini {llm.model_name} (LLM 노드 실패 시 규칙 대체 없이 중단)')
     _stream(job, {'input': inp, 'options': options})
     return _after(job)
 
@@ -152,11 +155,21 @@ def _after(job: Job) -> Any:
         if task.interrupts:
             payload = jsonable(task.interrupts[0].value)
             return Waiting(payload=payload, partial=serialize(job, snap.values, partial=True))
+    _require_model(job, snap.values)
     out = serialize(job, snap.values, partial=False)
     for warning in out['warnings']:
         job.log(warning, 'warn')
-    job.log(f"완료 — 슬라이드 {len(out.get('slides') or [])}장 · LLM 호출 {out['llm']['calls_ok'] + out['llm']['calls_failed']}회")
+    job.log(f"완료 — 슬라이드 {len(out.get('slides') or [])}장 · Gemini 호출 {out['llm']['calls_ok']}회")
     return out
+
+
+def _require_model(job: Job, st: dict) -> None:
+    """Proof that the run used Gemini: the analysis node merged a model answer and calls succeeded."""
+    tracker = job.ctx['tracker']
+    if tracker.ok == 0:
+        raise failure('no_model_call', 'layout', 'Gemini 호출 기록이 없습니다.')
+    if not (st.get('analysis') or {}).get('llm'):
+        raise failure('no_model_call', 'layout:analyze', '분석 노드가 Gemini 결과를 쓰지 않았습니다.')
 
 
 def serialize(job: Job, st: dict, partial: bool) -> dict:

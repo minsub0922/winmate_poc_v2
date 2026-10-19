@@ -158,8 +158,10 @@ def run(args: argparse.Namespace) -> int:
         r.check('product detail', status == 200 and isinstance(one, dict) and one.get('id') == first, f'HTTP {status}')
     status, headers, raw = c.request('GET', '/', headers={'Accept': 'text/html'})
     r.check('app root', status == 200 and b'<html' in raw[:4096].lower(), f'HTTP {status}')
-    status, _, _ = c.request('HEAD', '/reference/', headers={'Accept': 'text/html'})
-    r.check('frozen reference', status == 200, f'HTTP {status}')
+    status, _, _ = c.request('GET', '/reference/', headers={'Accept': 'text/html'})
+    r.check('reference is not a production route', status == 404, f'HTTP {status}')
+    status, _, result = c.json('POST','/api/llm',body={'feature':'llm','kind':'json','prompt':'Return JSON with status verified.','schema':{'type':'OBJECT','properties':{'status':{'type':'STRING'}},'required':['status']}})
+    r.check('actual Gemini completion', status==200 and isinstance(result,dict) and result.get('mode')=='real' and (result.get('data')or{}).get('status')=='verified' and str(result.get('model','')).startswith('gemini'), f'HTTP {status}')
 
     if enabled:
         status, headers, _ = c.json('POST', '/api/auth/logout', body={}, headers={'Origin': c.origin})

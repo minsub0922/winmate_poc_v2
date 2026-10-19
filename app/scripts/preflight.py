@@ -26,6 +26,7 @@ if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))
 
 try:
+    from app.api.poc.settings import load_settings as load_gemini_settings
     from app.api import auth as A  # noqa: E402  (no side effects at import)
 except ImportError as _exc:  # fastapi is imported by app.api.auth
     print(f'FAIL  python packages — {_exc}\n      → app/.venv/bin/python -m pip install -r app/api/requirements.txt\n\npreflight: FAILED')
@@ -102,11 +103,11 @@ def check_python(r: Results) -> None:
         r.fail('python', f'{sys.version.split()[0]} — 3.11 이상 필요(hashlib.file_digest)', 'app/start.sh 로 Python 3.12 가상환경을 만드세요.')
     else:
         r.ok('python', sys.version.split()[0])
-    missing = [m for m in ('fastapi', 'uvicorn') if importlib.util.find_spec(m) is None]
+    missing = [m for m in ('fastapi', 'uvicorn', 'langgraph', 'langchain_core', 'langchain_google_genai', 'numpy', 'sklearn') if importlib.util.find_spec(m) is None]
     if missing:
         r.fail('python packages', '없음: ' + ', '.join(missing), 'app/.venv/bin/python -m pip install -r app/api/requirements.txt')
     else:
-        r.ok('python packages', 'fastapi, uvicorn')
+        r.ok('python packages', 'FastAPI · LangGraph · Gemini · NumPy · scikit-learn')
 
 
 def check_source_db(r: Results, deep: bool) -> None:
@@ -300,6 +301,11 @@ def check_auth(r: Results, require: bool) -> bool:
 def run(deep: bool, require_auth: bool) -> Results:
     r = Results()
     check_python(r)
+    model = load_gemini_settings()
+    if model.has_key:
+        r.ok('Gemini', model.model + ' · key source: ' + model.key_source + ' · strict real-only')
+    else:
+        r.fail('Gemini', 'GEMINI_API_KEY가 없어 실제 AI 기능을 시작할 수 없습니다.', 'app/.env 또는 poc/.env에 서버 전용 Gemini 키를 설정하세요.')
     check_source_db(r, deep)
     check_reference(r, deep)
     check_app_data(r)

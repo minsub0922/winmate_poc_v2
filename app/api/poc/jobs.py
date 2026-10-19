@@ -9,6 +9,8 @@
 * Cancellation is cooperative: adapters call :meth:`Job.check_cancel` between steps.
 * ``resume`` is serialized by the job lock: only a job in ``waiting`` with no running thread may
   resume; every other call raises :class:`Conflict` (HTTP 409).
+* A required Gemini step that fails raises :class:`ModelFailure`; the job ends in ``error`` with a typed,
+  secret-safe ``{code, message, step, retryable}`` and the call counts so far — never a rule result.
 * Restart durability is not provided (in-memory).
 """
 from __future__ import annotations
@@ -53,6 +55,30 @@ class Unavailable(Exception):
         self.code = code
 
 
+class ModelFailure(Exception):
+    """A required Gemini step failed after the provider's bounded retries (strict real-only policy).
+
+    Deliberately *not* a subclass of any PoC ``BackendError`` (nor ValueError/KeyError/TypeError), so the
+    original PoC code cannot catch it and substitute a rule result. ``message`` is safe for clients.
+    """
+
+    def __init__(self, code: str, message: str, *, step: str = '', retryable: bool = False, status: int = 502,
+                 detail: str = '', provider_code: str = '', llm: Optional[dict] = None) -> None:
+        super().__init__(f'{code}: {message}')
+        self.code = code
+        self.message = redact(message)[:400]
+        self.step = step
+        self.retryable = retryable
+        self.status = status
+        self.detail = redact(detail)[:300]
+        self.provider_code = provider_code or code
+        self.llm = llm
+
+    def public(self) -> dict:
+        return {'code': self.code, 'message': self.message, 'step': self.step or None, 'retryable': self.retryable,
+                'provider_code': self.provider_code, 'detail': self.detail or None}
+
+
 @dataclass
 class Waiting:
     """Returned by a job function that paused for user input."""
@@ -76,6 +102,9 @@ class Job:
         self.modes: Optional[dict] = None
         self.ctx: Dict[str, Any] = {}           # adapter-private state (graph, kb view, ...) — never serialized
         self.cancel_event = threading.Event()
+        self.retry_fn = None  # private closure retains original input only for failed/cancelled jobs
+        self.retried_as = None
+        self.retry_of = None
         self.lock = threading.RLock()
         self.busy = False
         self._cond = threading.Condition(threading.Lock())
@@ -138,6 +167,8 @@ class Job:
                 'events': events, 'next_seq': last, 'first_seq': first, 'truncated': since + 1 < first,
                 'waiting': self.waiting if self.status == 'waiting' else None,
                 'error': self.error, 'llm': self.modes,
+                'can_retry': self.status in ('error','cancelled') and self.retry_fn is not None and time.time()-(self.finished or time.time()) < 3600,
+                'retry_of': self.retry_of, 'retried_as': self.retried_as,
             }
             if include_result:
                 out['result'] = self.result if self.status == 'done' else None
@@ -178,6 +209,7 @@ class JobManager:
             jobs = list(self._jobs.values())
         for job in jobs:
             with job.lock:
+                if job.terminal and job.finished and now-job.finished>=3600: job.retry_fn=None
                 if job.status == 'waiting' and not job.busy and now - job.updated > self.waiting_ttl:
                     job.status, job.finished = 'cancelled', now
                     job.error = {'code': 'expired', 'message': '답을 기다리는 시간이 지나 작업을 닫았습니다.'}
@@ -196,14 +228,35 @@ class JobManager:
     # ------------------------------------------------------------ lifecycle
     def submit(self, kind: str, title: str, params: dict, fn: JobFn) -> Job:
         job = Job(kind, title, params, self.max_events)
+        job.retry_fn = fn
         self._housekeep()
         with self._lock:
+            while len(self._jobs)>=self.max_jobs:
+                victims=sorted((j for j in self._jobs.values() if j.terminal),key=lambda j:j.created)
+                if not victims:raise Unavailable('진행·대기 작업이 많습니다. 기존 작업이 끝나면 다시 시도하세요.','jobs_full')
+                self._jobs.pop(victims[0].id,None)
             self._jobs[job.id] = job
         job._state()
         with job.lock:
             job.busy = True
         self._start(job, fn)
         return job
+
+    def retry(self, job_id: str) -> Job:
+        previous=self.get(job_id)
+        with previous.lock:
+            if previous.retried_as:
+                return self.get(previous.retried_as)
+            if previous.status not in ('error','cancelled'):
+                raise Conflict('실패하거나 취소한 작업만 다시 실행할 수 있습니다.')
+            if previous.retry_fn is None or time.time()-(previous.finished or time.time())>=3600:
+                previous.retry_fn=None
+                raise Conflict('원문 보관 시간이 지났습니다. 파일을 다시 첨부해 주세요.')
+            fresh=self.submit(previous.kind,previous.title,dict(previous.params),previous.retry_fn)
+            fresh.retry_of=previous.id
+            previous.retried_as=fresh.id
+            previous.retry_fn=None
+            return fresh
 
     def resume(self, job_id: str, fn: JobFn, before: Optional[Callable[[Job], None]] = None) -> Job:
         """Atomically move a waiting job back to running. ``before`` runs under the lock (validation)."""
@@ -258,6 +311,7 @@ class JobManager:
                         job.modes = (out.partial or {}).get('llm', job.modes)
                     else:
                         job.status, job.result, job.finished = 'done', out, time.time()
+                        job.retry_fn = None
                         job.modes = out.get('llm') if isinstance(out, dict) else None
                         job.ctx.clear()
                     job.busy = False
@@ -268,6 +322,15 @@ class JobManager:
                 with job.lock:
                     job.status, job.finished, job.busy = 'cancelled', time.time(), False
                     job.error = {'code': 'cancelled', 'message': '사용자가 취소했습니다.'}
+                    job.modes = _tracker_summary(job, 'cancelled') or job.modes
+                    job.ctx.clear()
+                    job._state()
+            except ModelFailure as exc:
+                log.warning('job %s (%s) model step failed: %s @ %s', job.id, job.kind, exc.code, exc.step or '-')
+                with job.lock:
+                    job.status, job.finished, job.busy = 'error', time.time(), False
+                    job.error = exc.public()
+                    job.modes = exc.llm or _tracker_summary(job, 'error') or job.modes
                     job.ctx.clear()
                     job._state()
             except Exception as exc:  # noqa: BLE001 — reported to the client in a secret-safe form
@@ -275,6 +338,16 @@ class JobManager:
                 code = getattr(exc, 'code', None) or type(exc).__name__
                 with job.lock:
                     job.status, job.finished, job.busy = 'error', time.time(), False
-                    job.error = {'code': str(code), 'message': redact(f'{type(exc).__name__}: {exc}')[:600]}
+                    job.error = {'code': str(code), 'message': redact(f'{type(exc).__name__}: {exc}')[:600], 'retryable': False}
+                    job.modes = _tracker_summary(job, 'error') or job.modes
                     job.ctx.clear()
                     job._state()
+
+
+def _tracker_summary(job: Job, status: str) -> Optional[dict]:
+    """Call counts of a failed/cancelled job (adapters keep their ModeTracker in ``job.ctx['tracker']``)."""
+    tracker = job.ctx.get('tracker')
+    try:
+        return tracker.summary(status=status) if tracker is not None else None
+    except Exception:  # noqa: BLE001
+        return None

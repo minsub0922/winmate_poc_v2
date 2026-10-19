@@ -41,7 +41,7 @@ POC_STANDARD = POC_TEST / 'layout_agent' / 'data' / 'standard_scenarios.json'
 NOTES = [
     'Layout Agent: P 는 제품 1,068개 전체(선택한 DB 제품 id 해석용), Analyzer 추천 · 모델명 탐지는 큐레이션 40개 + 요청에서 선택한 제품만 씁니다(DB 일반 제품명 오탐 방지).',
     'Storyboard Agent: 22개 시나리오 · 제품 1,068개 전체를 씁니다.',
-    'RAG 검색: BM25 + TF-IDF(char n-gram) 결정론 검색 — Gemini 임베딩을 쓰지 않습니다.',
+    'RAG 검색: BM25 + TF-IDF(char n-gram) 결정론 검색으로 후보를 뽑고, 상위 20개를 Gemini 가 다시 정렬합니다(임베딩은 쓰지 않음).',
     '숨김 업종 표지(L_IND_*)는 HTML · 레지스트리(hidden_layouts)에만 있고 추천 후보(kb.L / cards)에는 넣지 않습니다(PoC 의미 유지).',
 ]
 

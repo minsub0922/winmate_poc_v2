@@ -6,6 +6,6 @@ unmodified) on first use or by :func:`initialize`. See ``routes.py`` for the int
 """
 from __future__ import annotations
 
-from .service import capabilities, initialize
+from .service import PocStartupError, capabilities, initialize
 
-__all__ = ['initialize', 'capabilities']
+__all__ = ['initialize', 'capabilities', 'PocStartupError']

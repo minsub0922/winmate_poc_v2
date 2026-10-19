@@ -35,7 +35,7 @@ integrate_app(app)
 @app.get('/api/health')
 def health():
     capabilities=poc_capabilities()
-    return {'ok':True,'stage':3,'llm_mode':capabilities['settings']['mode'],'products':len(app.state.products.list()),'knowledge':capabilities['knowledge']}
+    return {'ok':True,'stage':3,'llm_mode':capabilities['settings']['mode'],'products':len(app.state.products.list()),'knowledge':capabilities['knowledge'],'gemini':capabilities.get('connection')}
 
 
 @app.get('/api/bootstrap')
@@ -45,7 +45,7 @@ def bootstrap():
 
 @app.get('/api/products')
 def products(q: str = '', offset: int = Query(0,ge=0), limit: int | None = Query(None,ge=1,le=1068)):
-    return {'items':app.state.products.list(q,offset,limit),'total':1068}
+    return {'items':app.state.products.list(q,offset,limit),'total':app.state.products.count(q)}
 
 
 @app.get('/api/products/{identifier}')
@@ -65,7 +65,7 @@ def detail_pack(pack: int):
 app.mount('/img',StaticFiles(directory=DATA/'static/img'),name='images')
 app.mount('/lib',StaticFiles(directory=DATA/'static/lib'),name='document-libraries')
 # Unmodified, frozen reference. It has no local platform adapter, exactly as exported.
-app.mount('/reference',StaticFiles(directory=ROOT/'reference/live',html=True),name='artifact-reference')
+# Frozen reference stays on disk for historical comparisons; it is not a production app route.
 app.mount('/assets',StaticFiles(directory=WEB/'assets',check_dir=False),name='web-assets')
 app.mount('/fonts',StaticFiles(directory=ROOT/'app/web/public/fonts',check_dir=False),name='fonts')
 

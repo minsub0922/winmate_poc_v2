@@ -15,13 +15,26 @@ class ProductRepository:
         sql = 'SELECT payload FROM wm_ui_product'
         args = []
         if query:
-            sql += ' WHERE name LIKE ? OR model LIKE ? OR payload LIKE ?'
-            args = ['%' + query + '%'] * 3
+            sql += " WHERE name LIKE ? ESCAPE '\\' OR model LIKE ? ESCAPE '\\' OR payload LIKE ? ESCAPE '\\'"
+            literal = query.replace('\\', '\\\\').replace('%', '\\%').replace('_', '\\_')
+            args = ['%' + literal + '%'] * 3
         sql += ' ORDER BY position'
         if limit is not None:
             sql += ' LIMIT ? OFFSET ?'; args += [limit,offset]
+        elif offset:
+            sql += ' LIMIT -1 OFFSET ?'; args.append(offset)
         with self.connect() as db:
             return [json.loads(row[0]) for row in db.execute(sql,args)]
+
+    def count(self, query: str = '') -> int:
+        sql = 'SELECT count(*) FROM wm_ui_product'
+        args = []
+        if query:
+            sql += " WHERE name LIKE ? ESCAPE '\\' OR model LIKE ? ESCAPE '\\' OR payload LIKE ? ESCAPE '\\'"
+            literal = query.replace('\\', '\\\\').replace('%', '\\%').replace('_', '\\_')
+            args = ['%' + literal + '%'] * 3
+        with self.connect() as db:
+            return db.execute(sql, args).fetchone()[0]
 
     def bootstrap(self):
         with self.connect() as db:

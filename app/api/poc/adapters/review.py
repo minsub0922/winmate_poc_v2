@@ -8,6 +8,10 @@ Two inputs:
   here to ``Sheet`` geometry. PPTX boxes carry real positions and font sizes; PDF/DOCX/TXT units have no
   box geometry, so their positions are *approximate* (reading order) and this is reported, together with
   the criteria whose automatic checks become unreliable. Nothing is filled in silently.
+
+Strict: routing (L1 · L2) and every selected criterion's score must come from Gemini. The backend validates
+and re-asks once; afterwards ``route.mode`` must be ``'llm'`` and every score ``mode == 'llm'`` — a PoC
+``rules-fallback`` anywhere ends the job with ``ModelFailure`` instead of returning rule scores.
 """
 from __future__ import annotations
 
@@ -19,6 +23,7 @@ from .. import imports, knowledge
 from ..backends import ModeTracker, make_score_backend
 from ..jobs import BadRequest, Job, Unavailable
 from ..settings import Settings
+from ..strict import failure, invalid_output
 from .common import Prepared, as_float, as_int, jsonable, resolve_mode, str_list
 
 W, H = 1280.0, 720.0
@@ -49,8 +54,6 @@ def classify_part(name: str) -> Optional[str]:
 
 def prepare(body: dict, settings: Settings) -> Prepared:
     plan = resolve_mode(settings, 'review', body)
-    if not plan.run:
-        return Prepared('review', '제안서 검토', {}, None, plan)  # type: ignore[arg-type]
     proposal, doc = body.get('proposal'), body.get('doc')
     if (proposal is None) == (doc is None):
         raise BadRequest('proposal(sheets 형태) 또는 doc(parse.js 결과) 중 하나만 보내 주세요.')
@@ -78,18 +81,25 @@ def run(job: Job, scenario: dict, conversion: dict, budget: int, min_k: int, tem
     cs, tax, _ = knowledge.score_assets()
     p = ps.proposal.from_scenario(scenario)
     catalog = knowledge.score_catalog_for(p.all_text())
-    tracker = ModeTracker(plan.requested, plan.provider, plan.reason)
-    backend = make_score_backend(plan.provider, tracker, job) if plan.provider is not None else None
+    tracker = ModeTracker('real', plan.provider)
+    job.ctx['tracker'] = tracker
+    backend = make_score_backend(plan.provider, tracker, job)
     ctx = ps.pipeline.Context(backend=backend, cs=cs, tax=tax, catalog=catalog, others=[], budget=budget, min_k=min_k, temperature=temperature)
-    job.log(f"평가 시작 — {p.n}장 · " + ('LLM 라우팅 · 채점 + 규칙 대체' if backend is not None else f'규칙 점검만 ({plan.reason})'))
+    job.log(f"평가 시작 — {p.n}장 · Gemini {plan.provider.model} 라우팅 · 채점 (규칙 대체 없음)")
     job.check_cancel()
     out = ps.pipeline.evaluate(p, ctx)
     job.check_cancel()
+    route = out.get('route') or {}
+    route_mode = route.get('mode')
+    if route_mode != 'llm':
+        raise invalid_output('review:route', f"라우팅이 Gemini 결과가 아닙니다(mode={route_mode}): {str(route.get('error') or '')[:160]}")
+    bad = [s for s in out.get('scores', []) if s.get('mode') != 'llm']
+    if bad:
+        raise invalid_output('review:score', '규칙 점수로 대체된 기준: ' + ', '.join(str(s.get('id')) for s in bad[:10]), 'incomplete_output')
+    if not {'review:route_l1', 'review:route_l2'} <= set(tracker.steps):
+        raise failure('no_model_call', 'review:route', '라우팅 Gemini 호출 기록이 없습니다.')
     score_modes = Counter(s.get('mode') for s in out.get('scores', []))
-    route_mode = (out.get('route') or {}).get('mode')
-    llm = tracker.summary(route_mode=route_mode, score_modes=dict(score_modes))
-    if backend is not None and llm['effective'] == 'llm' and (route_mode != 'llm' or any(m != 'llm' for m in score_modes)):
-        llm['effective'] = 'mixed'
+    llm = tracker.summary(route_mode=route_mode, score_modes=dict(score_modes), selected=len(route.get('selected') or []))
     agg = out.get('aggregate') or {}
     job.log(f"완료 — 총점 {agg.get('total')} · {agg.get('verdict')} · 채점 {agg.get('n_scored')}개")
     return {'evaluation': jsonable(out), 'conversion': conversion, 'llm': llm}

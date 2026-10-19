@@ -1,19 +1,23 @@
-"""FastAPI router for the PoC-backed functions (standalone; include it from app/api/main.py).
+"""FastAPI router for the PoC-backed functions — strict real-only (include it from app/api/main.py).
 
     from app.api.poc.routes import router as poc_router, initialize as poc_initialize, capabilities as poc_capabilities
-    app.include_router(poc_router)            # register BEFORE (or instead of) main.py's dummy POST /api/llm
-    # in lifespan: poc_initialize()
+    app.include_router(poc_router)
+    # in lifespan: poc_initialize()   — raises PocStartupError when the server has no Gemini provider
 
 Endpoints
     GET  /api/poc/capabilities
-    POST /api/jobs                      {kind: rfp|layout|storyboard|review, ...}  → 202 job snapshot | 200 dummy contract
+    POST /api/jobs                      {kind: rfp|layout|storyboard|review, ...}  → 202 job snapshot
     GET  /api/jobs                      recent jobs
     GET  /api/jobs/{id}?since=N         poll (events with seq > N)
     GET  /api/jobs/{id}/events          SSE (event: text|state|result), resumes from ?since=N or Last-Event-ID
     POST /api/jobs/{id}/answer          {answers: {question_id: value}, use_defaults?: bool}  → 409 unless waiting
     POST /api/jobs/{id}/cancel
-    POST /api/layouts/search            {q, part, industry, products, solutions, strategy, k, level, offline?}
-    POST /api/llm                       generic sample adapter (JSON or SSE)
+    POST /api/layouts/search            {q, part, industry, products, solutions, strategy, k, level}  BM25+TF-IDF → Gemini rerank
+    POST /api/llm                       generic sample adapter (JSON or SSE), {feature, kind, prompt|turns, schema?}
+
+Errors (JSON ``{detail, code, ...}``): 422 validation / ``unsupported_option`` (offline · llm:false · mode≠real),
+503 ``no_api_key`` / KB missing, 404, 409, and model failures with their typed status (429 · 502 · 503 · 504 ·
+422) plus ``{step, retryable}``. There is no dummy 200 response.
 """
 from __future__ import annotations
 
@@ -28,7 +32,7 @@ from fastapi.responses import JSONResponse, StreamingResponse
 from . import service
 from .adapters import llm as llm_adapter
 from .adapters import search as search_adapter
-from .jobs import BadRequest, Conflict, NotFound, Unavailable
+from .jobs import BadRequest, Conflict, ModelFailure, NotFound, Unavailable
 from .provider import redact
 from .service import capabilities, initialize
 from .settings import get_settings
@@ -38,8 +42,9 @@ __all__ = ['router', 'initialize', 'capabilities']
 SSE_HEADERS = {'Cache-Control': 'no-cache', 'X-Accel-Buffering': 'no', 'Connection': 'keep-alive'}
 
 
-def _error(status: int, code: str, message: str) -> JSONResponse:
-    return JSONResponse({'detail': redact(message)[:600], 'code': code}, status_code=status)
+def _error(status: int, code: str, message: str, **extra: Any) -> JSONResponse:
+    message = redact(message)[:600]
+    return JSONResponse({'detail': message, 'code': code, 'error': code, 'message': message, 'mode': 'real', **extra}, status_code=status)
 
 
 def _guard(fn, *args: Any) -> Any:
@@ -52,7 +57,10 @@ def _guard(fn, *args: Any) -> Any:
     except Conflict as exc:
         return _error(409, 'conflict', str(exc))
     except Unavailable as exc:
-        return _error(503, exc.code, str(exc))
+        return _error(503, exc.code, str(exc), retryable=exc.code in ('search_busy',))
+    except ModelFailure as exc:
+        return _error(exc.status, exc.code, exc.message, step=exc.step or None, retryable=exc.retryable, provider_code=exc.provider_code,
+                      reason=exc.detail or None)
     except Exception as exc:  # noqa: BLE001 — never leak internals/secrets
         code = getattr(exc, 'code', None) or 'internal_error'
         return _error(503 if code in ('kb_missing', 'kb_invalid') else 500, str(code), f'{type(exc).__name__}: {exc}')
@@ -89,6 +97,11 @@ def get_job(job_id: str, since: int = Query(0, ge=0)):
 @router.post('/api/jobs/{job_id}/answer')
 def answer_job(job_id: str, body: Any = Body(...)):
     return _guard(service.answer, job_id, body)
+
+
+@router.post('/api/jobs/{job_id}/retry')
+def retry_job(job_id: str):
+    return _guard(service.retry, job_id)
 
 
 @router.post('/api/jobs/{job_id}/cancel')
@@ -141,15 +154,14 @@ def layouts_search(body: Any = Body(...)):
 @router.post('/api/llm')
 def llm(request: Request, body: Any = Body(...)):
     def run():
-        req, provider, immediate = llm_adapter.parse(body, get_settings())
-        if immediate is not None:
-            return immediate
+        req, provider = llm_adapter.parse(body, get_settings())
         wants_stream = body.get('stream') is True or 'text/event-stream' in (request.headers.get('accept') or '')
         if not wants_stream:
             return llm_adapter.complete(req, provider)
+        events = llm_adapter.open_stream(req, provider)  # first chunk already received — start errors are HTTP errors
 
         def frames() -> Iterator[bytes]:
-            for ev in llm_adapter.stream(req, provider):
+            for ev in events:
                 yield _sse(ev)
         return StreamingResponse(frames(), media_type='text/event-stream', headers=SSE_HEADERS)
     return _guard(run)
