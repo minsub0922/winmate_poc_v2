@@ -1,0 +1,33 @@
+# 로컬 장표 작업물 (PPT 레이아웃 · as-is/to-be 등)
+ppt_layouts/
+
+# Migration: credentials and local execution state
+**/.env
+**/.env.*
+!**/.env.example
+**/.secret
+**/*.pem
+**/*.key
+**/node_modules/
+**/.venv/
+**/__pycache__/
+**/.pytest_cache/
+.DS_Store
+poc/test/testbench/auth.json
+
+# Stage 0: raw export is retained locally; unpacked published files are versioned
+reference/live/published.zip
+reference/source-build/
+reference/source-build-latest/
+# Reproducible intermediate duplicates (keep final diffs, manifests and focused evidence)
+docs/migration/evidence/*.pretty.js
+docs/migration/evidence/source.names-normalized.js
+docs/migration/evidence/live.js
+docs/migration/evidence/source.js
+docs/migration/evidence/dist.js
+docs/migration/evidence/dist.css
+docs/migration/evidence/source-vs-live-js.diff
+docs/migration/evidence/source-vs-live-semantic.diff
+docs/migration/evidence/bundle-change-hunks.json
+docs/migration/evidence/bundle-changes-compact.json
+docs/migration/evidence/live-page-assets.json
