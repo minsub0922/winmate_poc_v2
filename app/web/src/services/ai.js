@@ -111,7 +111,7 @@ export function streamedObjects(text) {
  * Parts arrive one at a time through onPart(part) as soon as each one is complete in the streamed answer, so the
  * board can add a bubble right away. Returns { n, ai, err } once the answer (or the rule-based fallback) is done.
  */
-export async function aiStoryboard(pr, { signal, onPart } = {}) {
+export async function aiStoryboard(pr, { signal, onPart, rulesOnly = false } = {}) {
   const have = storyParts(pr);
   const [lo, hi] = moreRange(have.length);
   const seen = new Set(have.map((s) => (s.name || '').trim()).filter(Boolean));
@@ -141,7 +141,7 @@ ${types}
 ${fence(ctxSummary(pr) + (have.length ? '\n--- 지금까지 만든 파트 (Storyboard 순서) ---\n' + board : ''))}
 JSON만 답하세요: {"parts":[{"type":"market","name":"...","items":["...","..."]}]}`;
   let raw = 0; // objects of the streamed answer already handed to emit
-  const r = await askJson(prompt, {
+  const r = rulesOnly ? { ok: false, err: 'unavailable' } : await askJson(prompt, {
     signal, feature: 'storyboard',
     onText: ({ text }) => { if (signal && signal.aborted) return; const objs = streamedObjects(text || ''); for (; raw < objs.length; raw++) emit(objs[raw]); },
   });

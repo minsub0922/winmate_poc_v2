@@ -7,7 +7,7 @@ import { buildProfile, selectCriteria, ruleSignals, aggregate } from '../domain/
 import { aiEvaluate, aiSummary, GROUPS } from '../domain/review/ai.js';
 import { CR, CAT, CATS, verdictOf } from '../domain/review/criteria.js';
 import { DEMO_REVIEWS, DEMO_DOCS } from '../domain/review/seeds.js';
-import { planFor, submitPocJob, cancelPocJob, requestErrorText } from '../services/poc-client.js';
+import { planFor, submitPocJob, cancelPocJob, requestErrorText, needsClassicFallback } from '../services/poc-client.js';
 import { trackJob, registerJobHandler } from './jobs.js';
 
 const KEY = 'winmate.v2.reviews';
@@ -253,6 +253,10 @@ registerJobHandler('review', {
   onDone(rec) {
     const id = rec.owner && rec.owner.id;
     if (!getReview(id)) return 'orphan';
+    if (needsClassicFallback(rec.llm)) {
+      patch(id, d => { d.poc = { ...(d.poc || {}), jobId: rec.id, status: 'failed', llm: rec.llm, error: '서버 AI를 쓰지 못해 기존 자동 점검 결과를 유지했어요.' }; });
+      return 'fallback';
+    }
     patch(id, (d) => { d.poc = { ...(d.poc || {}), jobId: rec.id, status: 'done', llm: rec.llm || null, result: rec.result, finishedAt: Date.now(), error: null }; });
     return 'applied';
   },

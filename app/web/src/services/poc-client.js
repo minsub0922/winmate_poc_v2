@@ -91,3 +91,6 @@ export function requestErrorText(e) {
   if (e instanceof TypeError || !e.code) return '서버에 연결하지 못했어요.';
   return e.message || '요청이 실패했어요.';
 }
+
+// Explicit offline tests use PoC rules; a failed real run returns to the artifact's original fallback.
+export const needsClassicFallback = llm => llm?.requested === 'real' && llm.effective === 'rules';

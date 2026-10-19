@@ -4,7 +4,7 @@
 // A failed job falls back to the original heuristics (ai.js) and says so; a cancelled job just stops.
 import { update, getProposal, uid, segPlain } from '../repositories/proposals.js';
 import { trackJob, registerJobHandler, getJobRecord, setOutcome } from '../repositories/jobs.js';
-import { submitPocJob, planFor, requestErrorText, modeLabel } from './poc-client.js';
+import { submitPocJob, planFor, requestErrorText, modeLabel, needsClassicFallback } from './poc-client.js';
 import { aiStoryboard, aiExtract, heuristicExtract } from './ai.js';
 import { L, refInfo, storyParts } from './catalog.js';
 import { PARTS } from '../domain/proposals/parts.js';
@@ -35,11 +35,11 @@ function formToChoice(f) {
   };
 }
 /** The original extraction (askJson 'rfp' → heuristicExtract), exactly as the attachment reader does it. */
-export async function classicExtract(p) {
+export async function classicExtract(p, rulesOnly = false) {
   const files = (p && p.req && p.req.files) || [];
   const text = attachmentsText(files);
   if (!text.trim()) return null;
-  const r = await aiExtract(text);
+  const r = rulesOnly ? { ok: false } : await aiExtract(text);
   return r.ok && r.data ? r.data : heuristicExtract(files.map((f) => [f.memo, f.text].filter((x) => (x || '').trim()).join('\n')).filter(Boolean).join('\n\n'));
 }
 /** Submit an RFP job for this proposal. {ok, id} or {ok:false, message} (the caller then uses the original extraction). */
@@ -70,6 +70,11 @@ registerJobHandler('rfp', {
   async onDone(rec) {
     const pid = rec.owner && rec.owner.id; const p = getProposal(pid);
     if (!p) return 'orphan';
+    if (needsClassicFallback(rec.llm)) {
+      const fallback = await classicExtract(p, true);
+      if (usefulForm(fallback)) setRfpPending(pid, { jobId: rec.id, source: 'classic', choices: [fallback], reason: '서버 AI를 쓰지 못해 기존 기본 규칙으로 읽었어요.', at: Date.now() });
+      return { outcome: 'fallback', note: '서버 AI 대신 기존 기본 규칙' };
+    }
     const choices = ((rec.result && rec.result.choices) || []).filter(usefulForm);
     if (choices.length) {
       setRfpPending(pid, { jobId: rec.id, source: 'poc', choices, llm: rec.llm || null, guards: (rec.result && rec.result.guards) || null, at: Date.now() });
@@ -195,10 +200,11 @@ function applyStory(rec) {
   return { outcome: n ? 'applied' : 'empty' };
 }
 /** The original AI로 나머지 구성 (askJson 'storyboard' → fallbackStoryboard), run without the board UI. Returns parts added. */
-export async function classicCompose(pid) {
+export async function classicCompose(pid, rulesOnly = true) {
   const p = getProposal(pid); if (!p) return 0;
   let n = 0;
   await aiStoryboard(p, {
+    rulesOnly,
     onPart: (x) => {
       const part = { id: uid('s'), type: x.type, name: x.name, items: x.items, form: 'list', text: '', done: x.items.length > 0, layouts: [] };
       update(pid, (d) => { d.parts.push(part); d.stage = 'story'; }); n++;
@@ -238,7 +244,13 @@ registerJobHandler('compose', {
     const pid = rec.owner && rec.owner.id; const p = getProposal(pid);
     if (!p) return 'orphan';
     const done = p.agent && p.agent.jobs && p.agent.jobs[rec.id];
-    if (done && (done.applied || done.discarded)) return 'applied';
+    if (done && (done.applied || done.discarded || done.fallback)) return done.fallback ? 'fallback' : 'applied';
+    if (needsClassicFallback(rec.llm)) {
+      const n = await classicCompose(pid);
+      markJob(pid, rec.id, { status: 'done', final: true, fallback: true });
+      toast(`서버 AI를 쓰지 못해 기존 기본 흐름으로 파트 ${n}개를 넣었어요`, 'warn');
+      return { outcome: 'fallback', note: '서버 AI 대신 기존 기본 규칙' };
+    }
     const t = rec.result || {};
     if (t.kind === 'layout') {
       const now = storyParts(p).map((s) => s.id).join(','); const base = ((rec.meta && rec.meta.baseIds) || []).join(',');

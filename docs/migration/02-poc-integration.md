@@ -31,7 +31,7 @@ Layout Analyzer의 자동 제품명 탐지는 큐레이션 40개와 사용자가
 ### 화면 연결 최종 확인
 
 - 2·3단계 최종 조합에서 API·PoC·기능 플래그·인증을 합쳐 **69 passed / 34 subtests passed**. 장수 목표 초과를 원본 결과 그대로 보존하고 알리는 추가 검사 3건도 통과했다. [전체 API 검사](evidence/stage2/api-tests.log) · [장수 목표 검사](evidence/stage2/soft-budget-tests.log)
-- UI 업무 8건을 **1500 light / 390 dark 양쪽**에서 통과했다. 질문 radio 선택이 그래프의 실제 전략으로 전달됨, 화면 이동/새로고침 후 같은 작업 재개, 적용 도중 새로고침 복구·중복 적용 방지, 기존 파트 뒤 SBA 이어 쓰기, 실제 RAG, 26KB RFP 전체를 읽어 네 사업 중 선택, PPTX 검토·결과 복구. 두 브라우저 모두 console error 0. [데스크톱](evidence/stage2/poc-e2e.json) · [모바일](evidence/stage2/poc-e2e-mobile.json)
+- UI 업무 9건을 **1500 light / 390 dark 양쪽**에서 통과했다. 질문 radio 선택이 그래프의 실제 전략으로 전달됨, 화면 이동/새로고침 후 같은 작업 재개, 적용 도중 새로고침 복구·중복 적용 방지, 기존 파트 뒤 SBA 이어 쓰기, 실제 RAG, 26KB RFP 전체를 읽어 네 사업 중 선택, PPTX 검토·결과 복구. 두 브라우저 모두 console error 0. [데스크톱](evidence/stage2/poc-e2e.json) · [모바일](evidence/stage2/poc-e2e-mobile.json)
 - 기존 전체 업무 E2E **10단계 재통과 / console error 0**. [결과](evidence/stage2/dummy-e2e.json)
 - 기본 더미 화면을 폭 1500/900/390 × light/dark로 **42회 재비교**, 29회 pixels까지 동일, 최대 변경 비율 **0.0006173%**, 회귀 실패 0·앱 콘솔 오류 0. reference 쪽 `ERR_INVALID_URL` 두 건은 별도로 남겼다. [결과](evidence/stage2/visual-regression.json)
 - 원본 PoC **5,971개 파일 해시 불변**. [근거](evidence/stage2/poc-unchanged.json)
@@ -54,3 +54,5 @@ Layout Analyzer의 자동 제품명 탐지는 큐레이션 40개와 사용자가
 자세한 API 계약과 한계는 `app/api/poc/NOTES.md`에 있다. 디자인·슬라이드 HTML·overrides/PPTX 알고리즘을 바꾸는 작업은 포함하지 않았다.
 
 추가 확인: `max_slides`는 엄격한 상한이 아니다. 원본 `trim_to_budget`는 필수 요구 연결 파트를 유지한다. 실제 요구 9건의 실행에서 목표 3장에 결과 8장이 나왔으며, 앱 어댑터는 이를 경고·로그로 알리고 원본 결과를 임의로 자르지 않는다.
+
+실제 실행이 `requested=real/effective=rules`로 끝나면 프런트는 원래 아티팩트의 더미/규칙으로 대체한다. 실패한 provider를 대체 경로에서 다시 호출하지 않는다. 부분 성공(mixed)은 PoC 결과와 단계별 대체 내역을 유지한다. 9번째 UI 검사는 실패 응답 주입으로 이 계약과 중복 모델 호출 0회를 검증한다.

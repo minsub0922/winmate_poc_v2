@@ -65,7 +65,7 @@ function useAiCompose(p) {
     const plan = planFor(composeKind(p));
     if (!plan.job) {
       if (!plan.quiet && plan.note) toast(plan.note);
-      startClassic();
+      startClassic(!plan.quiet);
       return;
     }
     setSubmitting(true);
@@ -73,10 +73,10 @@ function useAiCompose(p) {
       setSubmitting(false);
       if (r.mode === 'job') { toast(plan.offline ? '서버 PoC 규칙(오프라인)으로 구성을 시작했어요' : '서버에서 구성을 시작했어요 · 다른 화면으로 가도 계속돼요'); return; }
       toast((r.error || (r.plan && r.plan.note) || '서버 작업을 시작하지 못했어요') + ' · 기본 흐름으로 구성해요', 'warn');
-      startClassic();
-    }, (e) => { setSubmitting(false); toast('서버 작업을 시작하지 못했어요 · 기본 흐름으로 구성해요', 'warn'); console.error(e); startClassic(); });
+      startClassic(true);
+    }, (e) => { setSubmitting(false); toast('서버 작업을 시작하지 못했어요 · 기본 흐름으로 구성해요', 'warn'); console.error(e); startClassic(true); });
   };
-  const startClassic = () => {
+  const startClassic = (rulesOnly = false) => {
     if (run.current) return;
     const pid = p.id;
     const ctl = new AbortController();
@@ -103,7 +103,7 @@ function useAiCompose(p) {
     const step = () => { timer = null; const x = q.shift(); if (x) { add(x); timer = setTimeout(step, ADD_GAP); } else if (res) end(); };
     run.current = { end: (quiet) => { ctl.abort(); end(quiet); }, stop: () => { ctl.abort(); } };
     setSt({ n: 0, fresh: new Set() });
-    aiStoryboard(p, { signal: ctl.signal, onPart: (x) => { if (closed || ctl.signal.aborted) return; q.push(x); if (!timer) step(); } })
+    aiStoryboard(p, { rulesOnly, signal: ctl.signal, onPart: (x) => { if (closed || ctl.signal.aborted) return; q.push(x); if (!timer) step(); } })
       .then((r) => { res = r; if (!timer) step(); }, () => { res = { stopped: ctl.signal.aborted }; if (!timer) step(); });
   };
   const stop = () => { if (run.current) run.current.stop(); };

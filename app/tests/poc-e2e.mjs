@@ -3,7 +3,7 @@ import path from 'node:path';
 import {launch,settle,nav,showSidebar,origin,output,root,assert} from './helpers.mjs';
 const width=Number(process.env.POC_TEST_WIDTH||1500);const theme=process.env.POC_TEST_THEME||'light';
 const folder=path.join(output,width===1500&&theme==='light'?'poc-e2e':`poc-e2e-${width}-${theme}`);fs.mkdirSync(folder,{recursive:true});
-const report={steps:[],errors:[]};
+const report={steps:[],errors:[]};let simulateFailure=false, retryCalls=0;
 const browser=await launch();const context=await browser.newContext({viewport:{width,height:width<760?844:900},colorScheme:theme,acceptDownloads:true});
 const page=await context.newPage();page.setDefaultTimeout(30000);
 page.on('pageerror',e=>report.errors.push(String(e)));
@@ -11,6 +11,13 @@ page.on('console',m=>{if(m.type()==='error')report.errors.push(m.text());});
 const step=async(name,fn)=>{const t=Date.now();await fn();report.steps.push({name,ok:true,ms:Date.now()-t});};
 const jobs=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('winmate.v2.jobs')||'[]'));
 const waitJob=async(purpose,status)=>{await page.waitForFunction(({purpose,status})=>JSON.parse(localStorage.getItem('winmate.v2.jobs')||'[]').some(x=>x.purpose===purpose&&(status?x.status===status:['done','error','cancelled'].includes(x.status))),{purpose,status},{timeout:120000});return(await jobs()).find(x=>x.purpose===purpose);};
+context.on('request', request=>{if(simulateFailure&&request.url().endsWith('/api/llm'))retryCalls++;});
+await context.route('**/api/jobs/*',async route=>{
+ if(!simulateFailure||route.request().method()!=='GET')return route.continue();
+ const response=await route.fetch();const snapshot=await response.json();
+ if(snapshot.kind==='layout'&&snapshot.status==='done'){snapshot.llm={requested:'real',effective:'rules',llm_used:false,calls_ok:0,calls_failed:2,reason:'upstream_unavailable'};snapshot.result.llm=snapshot.llm;}
+ return route.fulfill({response,json:snapshot});
+});
 await context.route('**/api/jobs',async route=>{
  if(route.request().method()!=='POST')return route.continue();
  const body=route.request().postDataJSON();
@@ -113,6 +120,15 @@ try{
   assert((await page.locator('.col[data-pid]').count())===0,'changed input prevents automatic insertion');
   await page.getByRole('button',{name:'지금 파트 뒤에 붙이기',exact:true}).click();
   await page.waitForFunction(()=>JSON.parse(localStorage.getItem('winmate.v2.jobs')||'[]').some(x=>x.owner?.id==='p_guard_e2e'&&x.outcome==='applied'),null,{timeout:30000});
+ });
+ await step('모델 실패 응답 주입 → 기존 더미 흐름·중복 호출 없음',async()=>{
+  simulateFailure=true;
+  await page.evaluate(()=>{const list=JSON.parse(localStorage.getItem('winmate.v2.proposals'));const p=structuredClone(list.find(x=>x.id==='p_seed_acoffee'));p.id='p_failure_e2e';p.title='실패 대체 검증';p.parts=[];p.stage='story';delete p.agent;localStorage.setItem('winmate.v2.proposals',JSON.stringify([p,...list]));localStorage.setItem('winmate.v2.ui',JSON.stringify({route:{name:'proposal',id:p.id}}));});
+  await page.reload();await settle(page);await page.getByRole('button',{name:'AI로 나머지 구성',exact:true}).click();
+  await page.getByRole('group',{name:'Layout Agent 질문',exact:true}).waitFor({timeout:30000});await page.getByRole('button',{name:'기본값으로 진행',exact:true}).click();
+  await page.waitForFunction(()=>JSON.parse(localStorage.getItem('winmate.v2.jobs')||'[]').some(x=>x.owner?.id==='p_failure_e2e'&&x.outcome==='fallback'),null,{timeout:30000});
+  const p=await page.evaluate(()=>JSON.parse(localStorage.getItem('winmate.v2.proposals')).find(x=>x.id==='p_failure_e2e'));
+  assert(p.parts.filter(x=>!x.deck).length>=6,'original artifact fallback parts');assert(p.parts.every(x=>!x.agent?.source),'failed server layout result not substituted for original dummy');assert(retryCalls===0,'failed provider not called again by fallback');
  });
 }catch(e){report.failure=String(e.stack||e);await page.screenshot({path:path.join(folder,'failure.png')}).catch(()=>{});}
 finally{fs.writeFileSync(path.join(folder,'report.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));await browser.close();}
