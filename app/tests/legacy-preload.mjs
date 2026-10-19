@@ -10,14 +10,24 @@ const upstream=process.env.WINMATE_TEST_URL||'http://127.0.0.1:8788';
 const reference=process.env.LEGACY_TARGET==='reference';
 const createServer=http.createServer.bind(http);
 http.createServer=(handler,...rest)=>{
-  const server=createServer((req,res)=>{
+  const proxyHandler=(req,res)=>{
     let destination=req.url.split('?')[0];
     if(destination==='/'||destination==='/preview.html'||destination==='/index.html')destination=reference?'/reference/':'/';
     else if(reference&&(destination.startsWith('/img/')||destination.startsWith('/lib/')))destination='/reference'+destination;
     const target=new URL(destination,upstream);
     const proxy=http.request(target,{method:req.method,headers:req.headers},incoming=>{res.writeHead(incoming.statusCode,incoming.headers);incoming.pipe(res);});
     proxy.on('error',error=>{res.writeHead(502);res.end(error.message);});req.pipe(proxy);
-  },...rest);
+  };
+  const adaptedHandler=(req,res)=>{
+    const url=req.url.split('?')[0];
+    // Keep the original media server's Range/full-response counters and behavior.
+    // Only the new API and Vite/public resources need forwarding.
+    if(/^\/(api|assets|fonts)\//.test(url)||url==='/favicon.ico')return proxyHandler(req,res);
+    const type=({'.html':'text/html; charset=utf-8','.js':'text/javascript','.css':'text/css','.json':'application/json','.woff2':'font/woff2'})[path.extname(url)];
+    if(type){const writeHead=res.writeHead.bind(res);res.writeHead=(status,...args)=>{const last=args.length-1;if(args[last]&&typeof args[last]==='object')args[last]={...args[last],'content-type':type};else res.setHeader('content-type',type);return writeHead(status,...args);};}
+    return handler(req,res);
+  };
+  const server=createServer(process.env.LEGACY_UNIT==='1'?handler:adaptedHandler,...rest);
   const listen=server.listen.bind(server);
   let plannedPort;
   server.listen=(port,...args)=>{plannedPort=port||Number(process.env.LEGACY_PORT);return listen(plannedPort,'127.0.0.1',...args.filter(arg=>typeof arg==='function'));};
@@ -40,7 +50,7 @@ chromium.launch=async options=>{
       window.fetch=async(input,options={})=>{
         if(!String(input).endsWith('/api/llm')||!window.claude?.use)return nativeFetch(input,options);
         let sample;try{sample=await window.claude.use('sample');}catch(error){return new Response(JSON.stringify({error:error.code||'sampling_disabled'}),{headers:{'Content-Type':'application/json'}});}
-        if(!sample)return new Response(JSON.stringify({mode:'dummy',error:'sampling_disabled'}),{headers:{'Content-Type':'application/json'}});
+        if(!sample)return new Response(JSON.stringify({mode:'dummy',error:'unavailable'}),{headers:{'Content-Type':'application/json'}});
         const body=JSON.parse(options.body);const encoder=new TextEncoder();
         const stream=new ReadableStream({async start(controller){
           const send=value=>{try{controller.enqueue(encoder.encode('data: '+JSON.stringify(value)+'\n\n'));}catch{}};

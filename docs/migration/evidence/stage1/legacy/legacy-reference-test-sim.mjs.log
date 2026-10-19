@@ -1,0 +1,105 @@
+FAIL sidebar: sim button right below 제안서 검토 내역 rev -1 sim 6
+PASS sidebar: BETA badge 
+PASS setup: current page 
+PASS setup: 3 level tiles with faces 
+FAIL intro: 4 steps + 3 gains under the header 
+PASS intro: no collapse / toggle controls 
+PASS intro: flat read-only steps (no card borders / shadows) 
+PASS keyword: 전략 Agent on the setup page 
+PASS setup: no start button in the header 
+PASS setup: start bar right below the cards, full width {"y":22,"w":1096,"bw":1096,"h":92}
+PASS setup: no form fields on the page itself 
+PASS setup: history cards listed below (no button) 
+PASS history row: face + thumbnails + spark 
+PASS history: list placed well below the setup cards 178
+PASS setup: big profile photo 
+PASS picker: 6 default profiles + add tile 
+shot 01c-picker
+PASS picker: choosing a profile switches the customer 정하은 / 이준호
+shot 01-setup
+PASS setup: level hover shows stats 
+shot 01b-level-hover
+PASS profile popup: level 1 shows 1 hidden concerns 1
+PASS profile popup: no start button, has 새 프로필 + 고쳐서 새로 저장 
+PASS profile popup: level 3 shows 3 hidden concerns 3
+shot 02-profile-popup
+PASS req popup: preset selected 
+shot 02b-req-popup
+PASS req popup: my proposals listed 
+PASS req popup: proposal fills customer 
+PASS req popup: applied to summary 
+PASS editor: 30 photo choices 
+PASS editor: gender filter 
+PASS editor: save disabled without a name 
+PASS editor: tweaks change the preview 
+shot 02c-persona-editor
+PASS editor: new profile has no overwrite button 
+PASS new profile: selected on the setup card 
+PASS new profile: level follows the profile 
+PASS new profile: role override 
+PASS new profile: stored 
+PASS custom profile: level change keeps the person 
+PASS picker: my profile listed 
+PASS edit default: prefilled from the profile 
+PASS edit default: only save as new 
+PASS edit default: saved as a new profile 
+PASS edit custom: overwrite available 
+PASS edit custom: overwritten, not duplicated 
+PASS profile popup: custom quote shown 
+shot 02d-custom-profile
+PASS delete: profile removed, falls back to a default 
+PASS session: custom profile is the customer 
+PASS session: opening line from customer (rules) 
+PASS session: AI-off note 
+PASS session: 3 suggestions 
+PASS session: similar scenarios 3 
+PASS session: quality empty before first answer 
+PASS header: only 미팅 마무리 on the right 
+PASS no requirement strip 
+PASS composer: no helper text 
+PASS suggestions: no codes / plus / description 추천 답변 | 요구사항에 하나씩 답하기 | 말씀하신 "전 매장 동시 반영 속도"부터 짚겠습니다. 지금 방식에서 어디
+PASS panel: person card 
+PASS suggestion hover shows full text 
+shot 03b-sug-hover
+shot 03-session-open
+PASS composer: mention chip inserted 
+PASS session: my message has mention 
+PASS session: feedback line with delta 
+PASS quality: scored after first answer 31
+PASS hover: category shows criteria 
+PASS hover: no criterion codes 
+shot 04-hover-cat
+PASS hover: satisfaction detail 
+shot 05-hover-sat
+PASS suggestion fills composer 
+shot 06-session-turns
+shot 07-hover-profile
+PASS similar: opens Best Scenario detail 
+PASS finish: debrief shown 
+shot 08-result
+shot 09-dark
+PASS to proposal: navigated 
+PASS history: new sessions appear as rows 
+PASS history: single-column list 206,206
+shot 09b-history-list
+shot 10-demo
+PASS demo: won 
+shot 11-ai-streaming
+PASS stream: partial text visible, no delimiter 안녕하세요, 반갑습니다. 이번
+PASS stream: final text has no JSON 안녕하세요, 반갑습니다. 이번 건은 매장 메뉴판을 본사에서 한 번에 바꾸
+PASS ai: suggestions from model (3) 
+PASS ai: suggestion mentions rendered 
+PASS ai: no AI-off note 
+shot 12-ai-busy
+FAIL ai: concern revealed chip 
+PASS ai: quality source = AI 
+shot 13-ai-turn
+PASS stop: stopped message marked 
+PASS mobile setup: no horizontal scroll 0
+shot 14-mobile-setup
+shot 15-mobile-session
+shot 16-mobile-panel
+PASS mobile: drawer open 
+
+errors none
+FAILURES: sidebar: sim button right below 제안서 검토 내역 | intro: 4 steps + 3 gains under the header | ai: concern revealed chip

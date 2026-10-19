@@ -1,0 +1,27 @@
+ok heart inside a sheet card does not open the sheet
+ok Best Scenario sheet saved as a filled favourite: L_AIS_01
+ok heart stays on
+ok detail of the same filled sheet shows 찜함
+ok library finds L_AIS_01
+ok the empty layout is a different favourite (not on yet)
+ok heart on a library card does not open the detail
+ok same layout twice: filled + empty
+ok detail ♡ adds
+ok heart on a Storyboard card does not open it
+ok Storyboard detail shows 찜함
+ok picker: 찜 section between 추천 and 전체 (pk-rec,pk-fav,pk-all)
+ok it went in with the favourite’s values: [{"st":"partial","nt":10,"ni":1}]
+ok My › 찜 groups: 값이 채워진 장 | 빈 레이아웃
+ok same layout in both groups
+ok the filled one shows its own values, the empty one the layout’s sample text
+ok summary says My › 찜
+ok detail says it is a filled sheet
+ok editor starts with the favourite’s values
+ok saved as a My template (내 템플릿 tab)
+ok ♡ again removes it from 찜
+ok after reload: still there
+ok touch: heart always visible
+ok touch: tap the heart → 찜, card not opened
+
+FAIL proposal sheet with values → filled favourite (L_MI_FB_A)
+FAIL picker 찜: filled first, then empty: 값 있음,빈 레이아웃,빈 레이아웃,빈 레이아웃

@@ -14,7 +14,7 @@ export async function imageLimits() {
 }
 
 export const AI_ERR = {
-  not_granted: 'AI 사용이 허용되지 않았어요. 기본 규칙으로 처리했어요.', sampling_disabled: 'AI 더미 모드예요. 기본 규칙으로 처리했어요.',
+  not_granted: 'AI 사용이 허용되지 않았어요. 기본 규칙으로 처리했어요.', sampling_disabled: '이 계정에서는 AI를 쓸 수 없어요. 기본 규칙으로 처리했어요.',
   rate_limited: 'AI 요청이 많아요. 잠시 뒤 다시 시도해 주세요.', invalid_json: 'AI 답을 읽지 못했어요. 다시 시도해 주세요.', cancelled: '취소했어요.',
 };
 

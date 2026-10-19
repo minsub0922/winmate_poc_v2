@@ -1,0 +1,990 @@
+[
+  {
+    "file": "test-aisb.mjs",
+    "reference": {
+      "file": "test-aisb.mjs",
+      "branch": "reference",
+      "code": 1,
+      "signal": null,
+      "ms": 37967,
+      "failures": [
+        "FAIL added in answer order, no 표지, no repeat of an existing part: M 버거 DT 도입 효과 | F&B 매장은 메뉴판부터 화면으로 | 왜 삼성인가 | 단계별 전환 일정 | TCO · 예산",
+        "FAIL toast says how many were added"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-reference-test-aisb.mjs.log"
+    },
+    "app": {
+      "file": "test-aisb.mjs",
+      "branch": "app",
+      "code": 1,
+      "signal": null,
+      "ms": 32822,
+      "failures": [
+        "FAIL added in answer order, no 표지, no repeat of an existing part: M 버거 DT 도입 효과 | F&B 매장은 메뉴판부터 화면으로 | 왜 삼성인가 | 단계별 전환 일정 | TCO · 예산",
+        "FAIL toast says how many were added"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-app-test-aisb.mjs.log"
+    },
+    "classification": "fails-on-both"
+  },
+  {
+    "file": "test-bsfilter.mjs",
+    "reference": {
+      "file": "test-bsfilter.mjs",
+      "branch": "reference",
+      "code": 0,
+      "signal": null,
+      "ms": 32701,
+      "failures": [],
+      "passedAssertions": 41,
+      "log": "app/tests/output/legacy-reference-test-bsfilter.mjs.log"
+    },
+    "app": {
+      "file": "test-bsfilter.mjs",
+      "branch": "app",
+      "code": 0,
+      "signal": null,
+      "ms": 26614,
+      "failures": [],
+      "passedAssertions": 41,
+      "log": "app/tests/output/legacy-app-test-bsfilter.mjs.log"
+    },
+    "classification": "pass"
+  },
+  {
+    "file": "test-cases.mjs",
+    "reference": {
+      "file": "test-cases.mjs",
+      "branch": "reference",
+      "code": 1,
+      "signal": null,
+      "ms": 75957,
+      "failures": [
+        "FAIL p_case_f7: every part has 2~3 layouts — 표지:1, 제안 요약:1, 외식 운영 환경:1, 파일럿 결과:1, DT 환경 조건 → 사양:1, 제품 실사:1, 확산 계획:1, 다음 단계:1",
+        "FAIL p_case_f3: every part has 2~3 layouts — 표지:1, 물류 환경:1, 입고 현장의 흐름:1, 과제 ↔ 해결:1, 두 가지 단말:1, 입고 검수 전 → 후:1, 다음 단계:1",
+        "FAIL p_case_p4: every part has 2~3 layouts — 제안 요약:1, 파일럿 결과:1, 확산 단계:1, 상담 태블릿:1, Why Samsung:1",
+        "FAIL p_case_p1: every part has 2~3 layouts — 평가 항목 대응:1, 교통 인프라 동향:1, 정류장 조건 → 사양:1, 요구사항 대응표:1, Why Samsung:0, 설치 · 유지보수:1",
+        "FAIL p_case_s1: every part has 2~3 layouts — 어트랙션 이해:0, 대기하는 손님:0, 대기열 다섯 구간:0, 구간별 화면 · 음향:0, 몰입형 미디어 사례:0",
+        "FAIL p_case_f4: every part has 2~3 layouts — 표지:1, 옥외광고 시장:1, 고객사 이해:1, 제안 한 줄:1, Why Samsung:1, 다음 단계:1",
+        "FAIL p_case_f1: every part has 2~3 layouts — 표지:1, 고객사 이해:1, 지금 겪는 문제:1, 전기요금 환경:1, Value Propositions:1, 기대 효과:1, 파일럿 → 확산:1, 다음 단계:1",
+        "FAIL p_case_f6: every part has 2~3 layouts — 표지:1, 숙박 수요:1, 객실에서 생기는 문제:1, 과제 ↔ 해결:1, 사람마다 다른 접점:1, 투숙 하루:1, 객실 안내 갱신 전후:1, 요구 ↔ 강점:1, 다음 단계:1",
+        "FAIL p_case_p2: every part has 2~3 layouts — 구단 이해:1, 비교 대상:1, LED 구성:1, 경쟁사 주장 → 사실:1, 시즌 전 교체 일정:0, 다음 단계:1",
+        "FAIL p_case_f2: every part has 2~3 layouts — 표지:1, 요양 의료 환경:1, 지금의 병동:1, 문제와 영향:1, 이해관계자별 가치:1, 구성 · 수량:1, 무중단 공사 계획:1, 도입 사례:1, 다음 단계:1",
+        "FAIL p_case_p3: every part has 2~3 layouts — 고객사 이해:1, 두 가지 가치:1, 대회의실 vs 소회의실:1, 지점 구성:1, 운영 구조:1",
+        "FAIL p_case_f5: every part has 2~3 layouts — 표지:1, 주택 · 에너지 기준:1, 누구에게 어떤 가치:1, 네 가지 가치:1, 세대 패키지 구성:1, 입주민의 하루:1, 검증된 근거:1, 다음 단계:1",
+        "FAIL p_case_f8: every part has 2~3 layouts — 표지:1, 인문관 이해:1, 세 가지 가치:1, 강의실의 하루:1, 네 제품의 핵심 수치:1, 전체 구성:1, 요구 ↔ 강점:1, 다음 단계:1",
+        "FAIL p_case_p5: every part has 2~3 layouts — 고객사 이해:1, 누구에게 어떤 가치:1, 쇼룸의 하루:1, 14곳 확대:0, 다음 단계:0",
+        "FAIL seed version saved as 4",
+        "FAIL untouched v3 F1 became the v4 example (8 parts, 2+ layouts each)",
+        "FAIL untouched A 커피 became the v4 example",
+        "FAIL seed version saved as 4 after the v3 upgrade",
+        "18 FAILED"
+      ],
+      "passedAssertions": 94,
+      "log": "app/tests/output/legacy-reference-test-cases.mjs.log"
+    },
+    "app": {
+      "file": "test-cases.mjs",
+      "branch": "app",
+      "code": 1,
+      "signal": null,
+      "ms": 75153,
+      "failures": [
+        "FAIL p_case_f7: every part has 2~3 layouts — 표지:1, 제안 요약:1, 외식 운영 환경:1, 파일럿 결과:1, DT 환경 조건 → 사양:1, 제품 실사:1, 확산 계획:1, 다음 단계:1",
+        "FAIL p_case_f3: every part has 2~3 layouts — 표지:1, 물류 환경:1, 입고 현장의 흐름:1, 과제 ↔ 해결:1, 두 가지 단말:1, 입고 검수 전 → 후:1, 다음 단계:1",
+        "FAIL p_case_p4: every part has 2~3 layouts — 제안 요약:1, 파일럿 결과:1, 확산 단계:1, 상담 태블릿:1, Why Samsung:1",
+        "FAIL p_case_p1: every part has 2~3 layouts — 평가 항목 대응:1, 교통 인프라 동향:1, 정류장 조건 → 사양:1, 요구사항 대응표:1, Why Samsung:0, 설치 · 유지보수:1",
+        "FAIL p_case_s1: every part has 2~3 layouts — 어트랙션 이해:0, 대기하는 손님:0, 대기열 다섯 구간:0, 구간별 화면 · 음향:0, 몰입형 미디어 사례:0",
+        "FAIL p_case_f4: every part has 2~3 layouts — 표지:1, 옥외광고 시장:1, 고객사 이해:1, 제안 한 줄:1, Why Samsung:1, 다음 단계:1",
+        "FAIL p_case_f1: every part has 2~3 layouts — 표지:1, 고객사 이해:1, 지금 겪는 문제:1, 전기요금 환경:1, Value Propositions:1, 기대 효과:1, 파일럿 → 확산:1, 다음 단계:1",
+        "FAIL p_case_f6: every part has 2~3 layouts — 표지:1, 숙박 수요:1, 객실에서 생기는 문제:1, 과제 ↔ 해결:1, 사람마다 다른 접점:1, 투숙 하루:1, 객실 안내 갱신 전후:1, 요구 ↔ 강점:1, 다음 단계:1",
+        "FAIL p_case_p2: every part has 2~3 layouts — 구단 이해:1, 비교 대상:1, LED 구성:1, 경쟁사 주장 → 사실:1, 시즌 전 교체 일정:0, 다음 단계:1",
+        "FAIL p_case_f2: every part has 2~3 layouts — 표지:1, 요양 의료 환경:1, 지금의 병동:1, 문제와 영향:1, 이해관계자별 가치:1, 구성 · 수량:1, 무중단 공사 계획:1, 도입 사례:1, 다음 단계:1",
+        "FAIL p_case_p3: every part has 2~3 layouts — 고객사 이해:1, 두 가지 가치:1, 대회의실 vs 소회의실:1, 지점 구성:1, 운영 구조:1",
+        "FAIL p_case_f5: every part has 2~3 layouts — 표지:1, 주택 · 에너지 기준:1, 누구에게 어떤 가치:1, 네 가지 가치:1, 세대 패키지 구성:1, 입주민의 하루:1, 검증된 근거:1, 다음 단계:1",
+        "FAIL p_case_f8: every part has 2~3 layouts — 표지:1, 인문관 이해:1, 세 가지 가치:1, 강의실의 하루:1, 네 제품의 핵심 수치:1, 전체 구성:1, 요구 ↔ 강점:1, 다음 단계:1",
+        "FAIL p_case_p5: every part has 2~3 layouts — 고객사 이해:1, 누구에게 어떤 가치:1, 쇼룸의 하루:1, 14곳 확대:0, 다음 단계:0",
+        "FAIL seed version saved as 4",
+        "FAIL untouched v3 F1 became the v4 example (8 parts, 2+ layouts each)",
+        "FAIL untouched A 커피 became the v4 example",
+        "FAIL seed version saved as 4 after the v3 upgrade",
+        "18 FAILED"
+      ],
+      "passedAssertions": 94,
+      "log": "app/tests/output/legacy-app-test-cases.mjs.log"
+    },
+    "classification": "fails-on-both"
+  },
+  {
+    "file": "test-cover.mjs",
+    "reference": {
+      "file": "test-cover.mjs",
+      "branch": "reference",
+      "code": 0,
+      "signal": null,
+      "ms": 31267,
+      "failures": [
+        "  'FAIL next = page 2: 제안 개요 · 1번째 장 · 전체 2쪽',",
+        "  'FAIL 열기 is an empty part, still no 표지 bubble: 제안 개요 · 시장과 고객 · 가치와 매장 장면',",
+        "  'FAIL seed without 표지: bubbles unchanged (스마트 빌딩 경쟁)'"
+      ],
+      "passedAssertions": 29,
+      "log": "app/tests/output/legacy-reference-test-cover.mjs.log"
+    },
+    "app": {
+      "file": "test-cover.mjs",
+      "branch": "app",
+      "code": 0,
+      "signal": null,
+      "ms": 30314,
+      "failures": [
+        "  'FAIL next = page 2: 제안 개요 · 1번째 장 · 전체 2쪽',",
+        "  'FAIL 열기 is an empty part, still no 표지 bubble: 제안 개요 · 시장과 고객 · 가치와 매장 장면',",
+        "  'FAIL seed without 표지: bubbles unchanged (스마트 빌딩 경쟁)'"
+      ],
+      "passedAssertions": 29,
+      "log": "app/tests/output/legacy-app-test-cover.mjs.log"
+    },
+    "classification": "fails-on-both"
+  },
+  {
+    "file": "test-ctx-tiles.mjs",
+    "reference": {
+      "file": "test-ctx-tiles.mjs",
+      "branch": "reference",
+      "code": 0,
+      "signal": null,
+      "ms": 12630,
+      "failures": [],
+      "passedAssertions": 10,
+      "log": "app/tests/output/legacy-reference-test-ctx-tiles.mjs.log"
+    },
+    "app": {
+      "file": "test-ctx-tiles.mjs",
+      "branch": "app",
+      "code": 0,
+      "signal": null,
+      "ms": 11556,
+      "failures": [],
+      "passedAssertions": 10,
+      "log": "app/tests/output/legacy-app-test-ctx-tiles.mjs.log"
+    },
+    "classification": "pass"
+  },
+  {
+    "file": "test-ctx.mjs",
+    "reference": {
+      "file": "test-ctx.mjs",
+      "branch": "reference",
+      "code": 0,
+      "signal": null,
+      "ms": 16425,
+      "failures": [],
+      "passedAssertions": 11,
+      "log": "app/tests/output/legacy-reference-test-ctx.mjs.log"
+    },
+    "app": {
+      "file": "test-ctx.mjs",
+      "branch": "app",
+      "code": 0,
+      "signal": null,
+      "ms": 16112,
+      "failures": [],
+      "passedAssertions": 11,
+      "log": "app/tests/output/legacy-app-test-ctx.mjs.log"
+    },
+    "classification": "pass"
+  },
+  {
+    "file": "test-detail.mjs",
+    "reference": {
+      "file": "test-detail.mjs",
+      "branch": "reference",
+      "code": 0,
+      "signal": null,
+      "ms": 25244,
+      "failures": [],
+      "passedAssertions": 41,
+      "log": "app/tests/output/legacy-reference-test-detail.mjs.log"
+    },
+    "app": {
+      "file": "test-detail.mjs",
+      "branch": "app",
+      "code": 0,
+      "signal": null,
+      "ms": 26508,
+      "failures": [],
+      "passedAssertions": 41,
+      "log": "app/tests/output/legacy-app-test-detail.mjs.log"
+    },
+    "classification": "pass"
+  },
+  {
+    "file": "test-fav.mjs",
+    "reference": {
+      "file": "test-fav.mjs",
+      "branch": "reference",
+      "code": 1,
+      "signal": null,
+      "ms": 19662,
+      "failures": [
+        "FAIL proposal sheet with values → filled favourite (L_MI_FB_A)",
+        "FAIL picker 찜: filled first, then empty: 값 있음,빈 레이아웃,빈 레이아웃,빈 레이아웃"
+      ],
+      "passedAssertions": 24,
+      "log": "app/tests/output/legacy-reference-test-fav.mjs.log"
+    },
+    "app": {
+      "file": "test-fav.mjs",
+      "branch": "app",
+      "code": 1,
+      "signal": null,
+      "ms": 18351,
+      "failures": [
+        "FAIL proposal sheet with values → filled favourite (L_MI_FB_A)",
+        "FAIL picker 찜: filled first, then empty: 값 있음,빈 레이아웃,빈 레이아웃,빈 레이아웃"
+      ],
+      "passedAssertions": 24,
+      "log": "app/tests/output/legacy-app-test-fav.mjs.log"
+    },
+    "classification": "fails-on-both"
+  },
+  {
+    "file": "test-files.mjs",
+    "reference": {
+      "file": "test-files.mjs",
+      "branch": "reference",
+      "code": 1,
+      "signal": null,
+      "ms": 32482,
+      "failures": [
+        "page.click: Timeout 30000ms exceeded.",
+        "  name: 'TimeoutError'"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-reference-test-files.mjs.log"
+    },
+    "app": {
+      "file": "test-files.mjs",
+      "branch": "app",
+      "code": 1,
+      "signal": null,
+      "ms": 31656,
+      "failures": [
+        "page.click: Timeout 30000ms exceeded.",
+        "  name: 'TimeoutError'"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-app-test-files.mjs.log"
+    },
+    "classification": "fails-on-both"
+  },
+  {
+    "file": "test-fill.mjs",
+    "reference": {
+      "file": "test-fill.mjs",
+      "branch": "reference",
+      "code": 1,
+      "signal": null,
+      "ms": 52880,
+      "failures": [
+        "FAIL W 요양병원: 't6' · 't29' 사진이 채운 사진 대신 들어감"
+      ],
+      "passedAssertions": 12,
+      "log": "app/tests/output/legacy-reference-test-fill.mjs.log"
+    },
+    "app": {
+      "file": "test-fill.mjs",
+      "branch": "app",
+      "code": 1,
+      "signal": null,
+      "ms": 52315,
+      "failures": [
+        "FAIL W 요양병원: 't6' · 't29' 사진이 채운 사진 대신 들어감"
+      ],
+      "passedAssertions": 12,
+      "log": "app/tests/output/legacy-app-test-fill.mjs.log"
+    },
+    "classification": "fails-on-both"
+  },
+  {
+    "file": "test-imglib.mjs",
+    "reference": {
+      "file": "test-imglib.mjs",
+      "branch": "reference",
+      "code": 1,
+      "signal": null,
+      "ms": 257,
+      "failures": [
+        "Error: ENOENT: no such file or directory, open '/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/legacy-work/reference/dist/img/lib/index.json'"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-reference-test-imglib.mjs.log"
+    },
+    "app": {
+      "file": "test-imglib.mjs",
+      "branch": "app",
+      "code": 1,
+      "signal": null,
+      "ms": 144,
+      "failures": [
+        "Error: ENOENT: no such file or directory, open '/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/legacy-work/app/dist/img/lib/index.json'"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-app-test-imglib.mjs.log"
+    },
+    "classification": "fails-on-both"
+  },
+  {
+    "file": "test-libfilter.mjs",
+    "reference": {
+      "file": "test-libfilter.mjs",
+      "branch": "reference",
+      "code": 0,
+      "signal": null,
+      "ms": 23373,
+      "failures": [],
+      "passedAssertions": 29,
+      "log": "app/tests/output/legacy-reference-test-libfilter.mjs.log"
+    },
+    "app": {
+      "file": "test-libfilter.mjs",
+      "branch": "app",
+      "code": 0,
+      "signal": null,
+      "ms": 21004,
+      "failures": [],
+      "passedAssertions": 29,
+      "log": "app/tests/output/legacy-app-test-libfilter.mjs.log"
+    },
+    "classification": "pass"
+  },
+  {
+    "file": "test-library.mjs",
+    "reference": {
+      "file": "test-library.mjs",
+      "branch": "reference",
+      "code": 0,
+      "signal": null,
+      "ms": 33410,
+      "failures": [],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-reference-test-library.mjs.log"
+    },
+    "app": {
+      "file": "test-library.mjs",
+      "branch": "app",
+      "code": 0,
+      "signal": null,
+      "ms": 34636,
+      "failures": [],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-app-test-library.mjs.log"
+    },
+    "classification": "pass"
+  },
+  {
+    "file": "test-media.mjs",
+    "reference": {
+      "file": "test-media.mjs",
+      "branch": "reference",
+      "code": 1,
+      "signal": null,
+      "ms": 34852,
+      "failures": [
+        "FAIL range mode keeps downloads small"
+      ],
+      "passedAssertions": 20,
+      "log": "app/tests/output/legacy-reference-test-media.mjs.log"
+    },
+    "app": {
+      "file": "test-media.mjs",
+      "branch": "app",
+      "code": 0,
+      "signal": null,
+      "ms": 34425,
+      "failures": [],
+      "passedAssertions": 21,
+      "log": "app/tests/output/legacy-app-test-media.mjs.log"
+    },
+    "classification": "reference-fails-app-completes"
+  },
+  {
+    "file": "test-my.mjs",
+    "reference": {
+      "file": "test-my.mjs",
+      "branch": "reference",
+      "code": 0,
+      "signal": null,
+      "ms": 30044,
+      "failures": [],
+      "passedAssertions": 52,
+      "log": "app/tests/output/legacy-reference-test-my.mjs.log"
+    },
+    "app": {
+      "file": "test-my.mjs",
+      "branch": "app",
+      "code": 0,
+      "signal": null,
+      "ms": 29435,
+      "failures": [],
+      "passedAssertions": 52,
+      "log": "app/tests/output/legacy-app-test-my.mjs.log"
+    },
+    "classification": "pass"
+  },
+  {
+    "file": "test-part-focus.mjs",
+    "reference": {
+      "file": "test-part-focus.mjs",
+      "branch": "reference",
+      "code": 0,
+      "signal": null,
+      "ms": 4823,
+      "failures": [
+        "[ 'FAIL clicking the name focuses it and opens suggestions' ]"
+      ],
+      "passedAssertions": 5,
+      "log": "app/tests/output/legacy-reference-test-part-focus.mjs.log"
+    },
+    "app": {
+      "file": "test-part-focus.mjs",
+      "branch": "app",
+      "code": 0,
+      "signal": null,
+      "ms": 4150,
+      "failures": [
+        "[ 'FAIL clicking the name focuses it and opens suggestions' ]"
+      ],
+      "passedAssertions": 5,
+      "log": "app/tests/output/legacy-app-test-part-focus.mjs.log"
+    },
+    "classification": "fails-on-both"
+  },
+  {
+    "file": "test-part.mjs",
+    "reference": {
+      "file": "test-part.mjs",
+      "branch": "reference",
+      "code": 0,
+      "signal": null,
+      "ms": 16850,
+      "failures": [],
+      "passedAssertions": 30,
+      "log": "app/tests/output/legacy-reference-test-part.mjs.log"
+    },
+    "app": {
+      "file": "test-part.mjs",
+      "branch": "app",
+      "code": 0,
+      "signal": null,
+      "ms": 16780,
+      "failures": [],
+      "passedAssertions": 30,
+      "log": "app/tests/output/legacy-app-test-part.mjs.log"
+    },
+    "classification": "pass"
+  },
+  {
+    "file": "test-peek.mjs",
+    "reference": {
+      "file": "test-peek.mjs",
+      "branch": "reference",
+      "code": 1,
+      "signal": null,
+      "ms": 31361,
+      "failures": [
+        "page.click: Timeout 30000ms exceeded.",
+        "  name: 'TimeoutError'"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-reference-test-peek.mjs.log"
+    },
+    "app": {
+      "file": "test-peek.mjs",
+      "branch": "app",
+      "code": 1,
+      "signal": null,
+      "ms": 31646,
+      "failures": [
+        "page.click: Timeout 30000ms exceeded.",
+        "  name: 'TimeoutError'"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-app-test-peek.mjs.log"
+    },
+    "classification": "fails-on-both"
+  },
+  {
+    "file": "test-photo.mjs",
+    "reference": {
+      "file": "test-photo.mjs",
+      "branch": "reference",
+      "code": 1,
+      "signal": null,
+      "ms": 31914,
+      "failures": [
+        "page.click: Timeout 30000ms exceeded.",
+        "  name: 'TimeoutError'"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-reference-test-photo.mjs.log"
+    },
+    "app": {
+      "file": "test-photo.mjs",
+      "branch": "app",
+      "code": 1,
+      "signal": null,
+      "ms": 32082,
+      "failures": [
+        "page.click: Timeout 30000ms exceeded.",
+        "  name: 'TimeoutError'"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-app-test-photo.mjs.log"
+    },
+    "classification": "fails-on-both"
+  },
+  {
+    "file": "test-picker.mjs",
+    "reference": {
+      "file": "test-picker.mjs",
+      "branch": "reference",
+      "code": 0,
+      "signal": null,
+      "ms": 16798,
+      "failures": [],
+      "passedAssertions": 20,
+      "log": "app/tests/output/legacy-reference-test-picker.mjs.log"
+    },
+    "app": {
+      "file": "test-picker.mjs",
+      "branch": "app",
+      "code": 0,
+      "signal": null,
+      "ms": 16629,
+      "failures": [],
+      "passedAssertions": 20,
+      "log": "app/tests/output/legacy-app-test-picker.mjs.log"
+    },
+    "classification": "pass"
+  },
+  {
+    "file": "test-proddb.mjs",
+    "reference": {
+      "file": "test-proddb.mjs",
+      "branch": "reference",
+      "code": 0,
+      "signal": null,
+      "ms": 30226,
+      "failures": [],
+      "passedAssertions": 22,
+      "log": "app/tests/output/legacy-reference-test-proddb.mjs.log"
+    },
+    "app": {
+      "file": "test-proddb.mjs",
+      "branch": "app",
+      "code": 0,
+      "signal": null,
+      "ms": 30047,
+      "failures": [],
+      "passedAssertions": 22,
+      "log": "app/tests/output/legacy-app-test-proddb.mjs.log"
+    },
+    "classification": "pass"
+  },
+  {
+    "file": "test-req.mjs",
+    "reference": {
+      "file": "test-req.mjs",
+      "branch": "reference",
+      "code": 1,
+      "signal": null,
+      "ms": 37065,
+      "failures": [
+        "page.click: Timeout 30000ms exceeded.",
+        "  name: 'TimeoutError'"
+      ],
+      "passedAssertions": 31,
+      "log": "app/tests/output/legacy-reference-test-req.mjs.log"
+    },
+    "app": {
+      "file": "test-req.mjs",
+      "branch": "app",
+      "code": 1,
+      "signal": null,
+      "ms": 36542,
+      "failures": [
+        "page.click: Timeout 30000ms exceeded.",
+        "  name: 'TimeoutError'"
+      ],
+      "passedAssertions": 31,
+      "log": "app/tests/output/legacy-app-test-req.mjs.log"
+    },
+    "classification": "fails-on-both"
+  },
+  {
+    "file": "test-reviews.mjs",
+    "reference": {
+      "file": "test-reviews.mjs",
+      "branch": "reference",
+      "code": 1,
+      "signal": null,
+      "ms": 6461,
+      "failures": [
+        "FAIL sidebar button sits right above the proposal history: {\"text\":\"제안서 검토 3\",\"above\":false}"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-reference-test-reviews.mjs.log"
+    },
+    "app": {
+      "file": "test-reviews.mjs",
+      "branch": "app",
+      "code": 1,
+      "signal": null,
+      "ms": 6126,
+      "failures": [
+        "FAIL sidebar button sits right above the proposal history: {\"text\":\"제안서 검토 3\",\"above\":false}"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-app-test-reviews.mjs.log"
+    },
+    "classification": "fails-on-both"
+  },
+  {
+    "file": "test-sbview.mjs",
+    "reference": {
+      "file": "test-sbview.mjs",
+      "branch": "reference",
+      "code": 0,
+      "signal": null,
+      "ms": 55667,
+      "failures": [],
+      "passedAssertions": 26,
+      "log": "app/tests/output/legacy-reference-test-sbview.mjs.log"
+    },
+    "app": {
+      "file": "test-sbview.mjs",
+      "branch": "app",
+      "code": 0,
+      "signal": null,
+      "ms": 53764,
+      "failures": [],
+      "passedAssertions": 26,
+      "log": "app/tests/output/legacy-app-test-sbview.mjs.log"
+    },
+    "classification": "pass"
+  },
+  {
+    "file": "test-scenarios.mjs",
+    "reference": {
+      "file": "test-scenarios.mjs",
+      "branch": "reference",
+      "code": 0,
+      "signal": null,
+      "ms": 32301,
+      "failures": [],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-reference-test-scenarios.mjs.log"
+    },
+    "app": {
+      "file": "test-scenarios.mjs",
+      "branch": "app",
+      "code": 0,
+      "signal": null,
+      "ms": 33461,
+      "failures": [],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-app-test-scenarios.mjs.log"
+    },
+    "classification": "pass"
+  },
+  {
+    "file": "test-sim.mjs",
+    "reference": {
+      "file": "test-sim.mjs",
+      "branch": "reference",
+      "code": 0,
+      "signal": null,
+      "ms": 39200,
+      "failures": [
+        "FAIL sidebar: sim button right below 제안서 검토 내역 rev -1 sim 6",
+        "FAIL intro: 4 steps + 3 gains under the header ",
+        "FAIL ai: concern revealed chip ",
+        "FAILURES: sidebar: sim button right below 제안서 검토 내역 | intro: 4 steps + 3 gains under the header | ai: concern revealed chip"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-reference-test-sim.mjs.log"
+    },
+    "app": {
+      "file": "test-sim.mjs",
+      "branch": "app",
+      "code": 0,
+      "signal": null,
+      "ms": 40805,
+      "failures": [
+        "FAIL sidebar: sim button right below 제안서 검토 내역 rev -1 sim 6",
+        "FAIL intro: 4 steps + 3 gains under the header ",
+        "FAIL ai: suggestion mentions rendered ",
+        "FAIL ai: quality source = AI ",
+        "FAIL stop: stopped message marked ",
+        "FAILURES: sidebar: sim button right below 제안서 검토 내역 | intro: 4 steps + 3 gains under the header | ai: suggestion mentions rendered | ai: quality source = AI | stop: stopped message marked"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-app-test-sim.mjs.log"
+    },
+    "classification": "fails-on-both"
+  },
+  {
+    "file": "test-std-sol.mjs",
+    "reference": {
+      "file": "test-std-sol.mjs",
+      "branch": "reference",
+      "code": 0,
+      "signal": null,
+      "ms": 18141,
+      "failures": [],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-reference-test-std-sol.mjs.log"
+    },
+    "app": {
+      "file": "test-std-sol.mjs",
+      "branch": "app",
+      "code": 0,
+      "signal": null,
+      "ms": 18031,
+      "failures": [],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-app-test-std-sol.mjs.log"
+    },
+    "classification": "pass"
+  },
+  {
+    "file": "test-std-v25.mjs",
+    "reference": {
+      "file": "test-std-v25.mjs",
+      "branch": "reference",
+      "code": 0,
+      "signal": null,
+      "ms": 9170,
+      "failures": [
+        "FAIL 3"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-reference-test-std-v25.mjs.log"
+    },
+    "app": {
+      "file": "test-std-v25.mjs",
+      "branch": "app",
+      "code": 0,
+      "signal": null,
+      "ms": 9081,
+      "failures": [
+        "FAIL 3"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-app-test-std-v25.mjs.log"
+    },
+    "classification": "fails-on-both"
+  },
+  {
+    "file": "test-std.mjs",
+    "reference": {
+      "file": "test-std.mjs",
+      "branch": "reference",
+      "code": 0,
+      "signal": null,
+      "ms": 11549,
+      "failures": [],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-reference-test-std.mjs.log"
+    },
+    "app": {
+      "file": "test-std.mjs",
+      "branch": "app",
+      "code": 0,
+      "signal": null,
+      "ms": 12023,
+      "failures": [],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-app-test-std.mjs.log"
+    },
+    "classification": "pass"
+  },
+  {
+    "file": "test-tags.mjs",
+    "reference": {
+      "file": "test-tags.mjs",
+      "branch": "reference",
+      "code": 0,
+      "signal": null,
+      "ms": 42983,
+      "failures": [],
+      "passedAssertions": 29,
+      "log": "app/tests/output/legacy-reference-test-tags.mjs.log"
+    },
+    "app": {
+      "file": "test-tags.mjs",
+      "branch": "app",
+      "code": 0,
+      "signal": null,
+      "ms": 42584,
+      "failures": [],
+      "passedAssertions": 29,
+      "log": "app/tests/output/legacy-app-test-tags.mjs.log"
+    },
+    "classification": "pass"
+  },
+  {
+    "file": "test.mjs",
+    "reference": {
+      "file": "test.mjs",
+      "branch": "reference",
+      "code": 1,
+      "signal": null,
+      "ms": 34035,
+      "failures": [
+        "page.waitForSelector: Timeout 30000ms exceeded.",
+        "  name: 'TimeoutError'"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-reference-test.mjs.log"
+    },
+    "app": {
+      "file": "test.mjs",
+      "branch": "app",
+      "code": 1,
+      "signal": null,
+      "ms": 34163,
+      "failures": [
+        "page.waitForSelector: Timeout 30000ms exceeded.",
+        "  name: 'TimeoutError'"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-app-test.mjs.log"
+    },
+    "classification": "fails-on-both"
+  },
+  {
+    "file": "test2.mjs",
+    "reference": {
+      "file": "test2.mjs",
+      "branch": "reference",
+      "code": 1,
+      "signal": null,
+      "ms": 33495,
+      "failures": [
+        "page.waitForSelector: Timeout 30000ms exceeded.",
+        "  name: 'TimeoutError'"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-reference-test2.mjs.log"
+    },
+    "app": {
+      "file": "test2.mjs",
+      "branch": "app",
+      "code": 1,
+      "signal": null,
+      "ms": 33195,
+      "failures": [
+        "page.waitForSelector: Timeout 30000ms exceeded.",
+        "  name: 'TimeoutError'"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-app-test2.mjs.log"
+    },
+    "classification": "fails-on-both"
+  },
+  {
+    "file": "test3.mjs",
+    "reference": {
+      "file": "test3.mjs",
+      "branch": "reference",
+      "code": 1,
+      "signal": null,
+      "ms": 31249,
+      "failures": [
+        "page.click: Timeout 30000ms exceeded.",
+        "  name: 'TimeoutError'"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-reference-test3.mjs.log"
+    },
+    "app": {
+      "file": "test3.mjs",
+      "branch": "app",
+      "code": 1,
+      "signal": null,
+      "ms": 30881,
+      "failures": [
+        "page.click: Timeout 30000ms exceeded.",
+        "  name: 'TimeoutError'"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-app-test3.mjs.log"
+    },
+    "classification": "fails-on-both"
+  },
+  {
+    "file": "test4.mjs",
+    "reference": {
+      "file": "test4.mjs",
+      "branch": "reference",
+      "code": 1,
+      "signal": null,
+      "ms": 31384,
+      "failures": [
+        "page.click: Timeout 30000ms exceeded.",
+        "  name: 'TimeoutError'"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-reference-test4.mjs.log"
+    },
+    "app": {
+      "file": "test4.mjs",
+      "branch": "app",
+      "code": 1,
+      "signal": null,
+      "ms": 31377,
+      "failures": [
+        "page.click: Timeout 30000ms exceeded.",
+        "  name: 'TimeoutError'"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-app-test4.mjs.log"
+    },
+    "classification": "fails-on-both"
+  },
+  {
+    "file": "test5.mjs",
+    "reference": {
+      "file": "test5.mjs",
+      "branch": "reference",
+      "code": 1,
+      "signal": null,
+      "ms": 31095,
+      "failures": [
+        "page.click: Timeout 30000ms exceeded.",
+        "  name: 'TimeoutError'"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-reference-test5.mjs.log"
+    },
+    "app": {
+      "file": "test5.mjs",
+      "branch": "app",
+      "code": 1,
+      "signal": null,
+      "ms": 31742,
+      "failures": [
+        "page.click: Timeout 30000ms exceeded.",
+        "  name: 'TimeoutError'"
+      ],
+      "passedAssertions": 0,
+      "log": "app/tests/output/legacy-app-test5.mjs.log"
+    },
+    "classification": "fails-on-both"
+  }
+]

@@ -58,7 +58,7 @@ def detail_pack(pack: int):
 
 @app.post('/api/llm')
 def llm(body: dict):
-    return {'mode':'dummy','error':'sampling_disabled','message':'AI 더미 모드: 기존 기본 규칙으로 처리합니다.'}
+    return {'mode':'dummy','error':'unavailable','message':'AI 더미 모드: 기존 기본 규칙으로 처리합니다.'}
 
 
 app.mount('/img',StaticFiles(directory=DATA/'static/img'),name='images')

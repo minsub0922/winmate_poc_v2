@@ -1,0 +1,23 @@
+before 시장 · 전략 | 고객사 이해 | Value Propositions | 공간별 제품 | 공간 시나리오
+PASS 3 shimmer bubbles while the AI writes
+PASS no popup
+PASS the 다음 파트 bubble steps aside while the AI writes
+PASS first part lands as a bubble right away, shimmer moves behind it: 공간 시나리오 | M 버거 DT 도입 효과
+PASS existing bubbles untouched, new ones only after them
+FAIL added in answer order, no 표지, no repeat of an existing part: M 버거 DT 도입 효과 | F&B 매장은 메뉴판부터 화면으로 | 왜 삼성인가 | 단계별 전환 일정 | TCO · 예산
+PASS 다음 파트 bubble is back
+PASS prompt carries the existing parts and asks only for what follows
+PASS new parts are saved as 작성 완료 with their items (layout recommendations unlocked)
+FAIL toast says how many were added
+PASS no page errors 
+PASS toast on stop
+PASS 멈추기 keeps the written part and stops there (5 → 6 → 6)
+PASS another proposal opened mid-run shows no shimmer (J 교육지원청 · 초·중학교 전자칠판 교체 312실, end-node 0)
+PASS the left proposal keeps the parts written before leaving (5 → 6)
+PASS no page errors 
+PASS empty board (first-part bubble)
+PASS fallback builds the whole flow from the start: 시장 · 전략 | 고객사 이해 | 고객 과제 | Value Propositions | DSS · 공간 맵 | 공간별 제품 | 공간 시나리오 | 유관 사례 | Why Samsung | 실행 계획
+PASS toast says it used the basic flow
+PASS second run only appends, no duplicates: +마무리 · 다음 단계 | 비용 · 구매
+PASS light: canvas brings the shimmer trail into view {"l":821,"r":1157,"cl":65,"cr":1440}
+PASS dark: canvas brings the shimmer trail into view {"l":821,"r":1157,"cl":65,"cr":1440}

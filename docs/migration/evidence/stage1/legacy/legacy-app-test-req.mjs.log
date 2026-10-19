@@ -1,0 +1,69 @@
+ok no 고객 요구사항 — Storyboard stepper
+ok new proposal opens on the Storyboard, no separate requirements screen
+ok only the 고객 요구사항 bubble on the canvas
+ok popup sits right of the bubble with its arrow at the bubble: {"nr":295,"ql":326.109375,"nc":138,"qt":94,"qb":701.875,"arrow":true}
+ok bubble shows it is open
+ok requirements popup has only 저장 (no 제품 · 솔루션 매칭으로)
+ok 저장 closes the requirements popup at once — no modal
+ok 저장 adds the 제품 · 솔루션 매칭 bubble (parts not yet)
+ok matching popup sits right of its bubble: {"nr":688.9375,"ql":706.9375,"nc":138,"qt":94,"qb":888,"arrow":true}
+ok matching bubble shows it is open
+ok industry options filter: 외식 · 카페 프랜차이즈사례 23 / 생활 편의 · 무인 매장사례 9
+ok industry picked: 외식 · 카페 프랜차이즈
+ok no 제품 · 솔루션 · 유관사례 search box
+ok no “nothing linked” area
+ok product: + card with the recommendation card to its right
+ok solution: + card with the recommendation card to its right
+ok case: + card with the recommendation card to its right
+ok recommendation card shows thumbnails: 4
+ok 추천 opens inside the matching popup beside the bubble (no modal), with ← back
+ok popup title: 추천 제품
+ok all product recommendations: 18
+ok recommendation images are large: 247px
+ok opens on the 추천 folder
+ok two picked in the tray
+ok click again unpicks
+ok after 연결 the popup is back on 매칭
+ok linked: 스마트 사이니지 QM55C
+ok popup title: 제품 추가
+ok folder tree: 추천 / 전체 제품 / 디스플레이 / 공조 · 에어컨 / 모바일 · PC / 프린팅
+ok all products listed: 1068
+ok the linked product shows 연결됨
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+page.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('.ex-nd:has-text("디스플레이")')[22m
+[2m    - locator resolved to <button type="button" class="ex-nd" aria-expanded="false">…</button>[22m
+[2m  - attempting click action[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is visible, enabled and stable[22m
+[2m      - scrolling into view if needed[22m
+[2m      - done scrolling[22m
+[2m      - <header class="dpk-head">…</header> from <div class="dpk">…</div> subtree intercepts pointer events[22m
+[2m    - retrying click action[22m
+[2m    - waiting 20ms[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is visible, enabled and stable[22m
+[2m      - scrolling into view if needed[22m
+[2m      - done scrolling[22m
+[2m      - <header class="dpk-head">…</header> from <div class="dpk">…</div> subtree intercepts pointer events[22m
+[2m    - retrying click action[22m
+[2m      - waiting 100ms[22m
+[2m    56 × waiting for element to be visible, enabled and stable[22m
+[2m       - element is visible, enabled and stable[22m
+[2m       - scrolling into view if needed[22m
+[2m       - done scrolling[22m
+[2m       - <header class="dpk-head">…</header> from <div class="dpk">…</div> subtree intercepts pointer events[22m
+[2m     - retrying click action[22m
+[2m       - waiting 500ms[22m
+
+    at /Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/legacy-work/app/build/test-req.mjs:62:14
+    at async run (/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/legacy-work/app/build/test-req.mjs:12:262)
+    at async file:///Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/legacy-work/app/build/test-req.mjs:14:1 {
+  name: 'TimeoutError'
+}
+
+Node.js v22.22.3

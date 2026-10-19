@@ -30,6 +30,9 @@ function workspace(branch){
   }
   // Existing tests inspect this directory as well as opening its HTTP server.
   fs.copyFileSync(path.join(root,branch==='reference'?'reference/live/index.html':'app/web/dist/index.html'),path.join(dir,'dist/preview.html'));
+  fs.copyFileSync(path.join(root,branch==='reference'?'reference/live/index.html':'app/web/dist/index.html'),path.join(dir,'dist/index.html'));
+  // A later cover regression script injects this as test input; it is not shipped UI data.
+  if(fs.existsSync(path.join(root,'src/seeds_parts.json')))fs.copyFileSync(path.join(root,'src/seeds_parts.json'),path.join(dir,'src/seeds_parts.json'));
   link(path.join(root,'reference/live/img'),'dist/img');link(path.join(root,'reference/live/lib'),'dist/lib');
   return dir;
 }
@@ -48,11 +51,12 @@ function run(file,branch,index){return new Promise(resolve=>{
   child.on('exit',(code,signal)=>{clearTimeout(timeout);fs.closeSync(fd);const logText=fs.readFileSync(log,'utf8');const failures=logText.split('\n').filter(line=>/FAIL|Error:|Timeout|pageerror:/.test(line)).map(line=>line.slice(0,450));resolve({file,branch,code,signal,ms:Date.now()-started,failures,passedAssertions:logText.split('\n').filter(line=>/^ok[ :]/.test(line)).length,log:path.relative(root,log)});});
 });}
 const concurrency=Number(process.env.LEGACY_WORKERS||2);let cursor=0;
+if(process.argv.includes('--prepare')){workspace('reference');workspace('app');console.log('prepared source compatibility workspaces');process.exit(0);}
 await Promise.all(Array.from({length:concurrency},async()=>{
   while(cursor<files.length){const index=cursor++;const file=files[index];
     const a=await run(file,'reference',index);const b=await run(file,'app',index);
     const passed=r=>r.code===0&&!r.failures.length;
-    const item={file,reference:a,app:b,classification:passed(a)&&passed(b)?'pass':passed(a)?'needs-review':passed(b)?'baseline-failure-fixed':a.signal&&b.signal?'timeout-on-both':'fails-on-both'};report.push(item);
+    const item={file,reference:a,app:b,classification:passed(a)&&passed(b)?'pass':passed(a)?'needs-review':passed(b)?'reference-fails-app-completes':a.signal&&b.signal?'timeout-on-both':'fails-on-both'};report.push(item);
     fs.writeFileSync(path.join(output,reportName),JSON.stringify(report,null,2));console.log(file,item.classification,'assertions',a.passedAssertions,b.passedAssertions,'seconds',Math.round((a.ms+b.ms)/1000));
   }
 }));

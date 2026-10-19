@@ -1,0 +1,114 @@
+ok   sidebar lists 24 proposals (7 existing + 17 new): 24
+ok   every new case title is in the sidebar
+FAIL p_case_f7: every part has 2~3 layouts — 표지:1, 제안 요약:1, 외식 운영 환경:1, 파일럿 결과:1, DT 환경 조건 → 사양:1, 제품 실사:1, 확산 계획:1, 다음 단계:1
+FAIL p_case_f3: every part has 2~3 layouts — 표지:1, 물류 환경:1, 입고 현장의 흐름:1, 과제 ↔ 해결:1, 두 가지 단말:1, 입고 검수 전 → 후:1, 다음 단계:1
+FAIL p_case_p4: every part has 2~3 layouts — 제안 요약:1, 파일럿 결과:1, 확산 단계:1, 상담 태블릿:1, Why Samsung:1
+FAIL p_case_p1: every part has 2~3 layouts — 평가 항목 대응:1, 교통 인프라 동향:1, 정류장 조건 → 사양:1, 요구사항 대응표:1, Why Samsung:0, 설치 · 유지보수:1
+FAIL p_case_s1: every part has 2~3 layouts — 어트랙션 이해:0, 대기하는 손님:0, 대기열 다섯 구간:0, 구간별 화면 · 음향:0, 몰입형 미디어 사례:0
+FAIL p_case_f4: every part has 2~3 layouts — 표지:1, 옥외광고 시장:1, 고객사 이해:1, 제안 한 줄:1, Why Samsung:1, 다음 단계:1
+FAIL p_case_f1: every part has 2~3 layouts — 표지:1, 고객사 이해:1, 지금 겪는 문제:1, 전기요금 환경:1, Value Propositions:1, 기대 효과:1, 파일럿 → 확산:1, 다음 단계:1
+FAIL p_case_f6: every part has 2~3 layouts — 표지:1, 숙박 수요:1, 객실에서 생기는 문제:1, 과제 ↔ 해결:1, 사람마다 다른 접점:1, 투숙 하루:1, 객실 안내 갱신 전후:1, 요구 ↔ 강점:1, 다음 단계:1
+FAIL p_case_p2: every part has 2~3 layouts — 구단 이해:1, 비교 대상:1, LED 구성:1, 경쟁사 주장 → 사실:1, 시즌 전 교체 일정:0, 다음 단계:1
+FAIL p_case_f2: every part has 2~3 layouts — 표지:1, 요양 의료 환경:1, 지금의 병동:1, 문제와 영향:1, 이해관계자별 가치:1, 구성 · 수량:1, 무중단 공사 계획:1, 도입 사례:1, 다음 단계:1
+FAIL p_case_p3: every part has 2~3 layouts — 고객사 이해:1, 두 가지 가치:1, 대회의실 vs 소회의실:1, 지점 구성:1, 운영 구조:1
+FAIL p_case_f5: every part has 2~3 layouts — 표지:1, 주택 · 에너지 기준:1, 누구에게 어떤 가치:1, 네 가지 가치:1, 세대 패키지 구성:1, 입주민의 하루:1, 검증된 근거:1, 다음 단계:1
+FAIL p_case_f8: every part has 2~3 layouts — 표지:1, 인문관 이해:1, 세 가지 가치:1, 강의실의 하루:1, 네 제품의 핵심 수치:1, 전체 구성:1, 요구 ↔ 강점:1, 다음 단계:1
+FAIL p_case_p5: every part has 2~3 layouts — 고객사 이해:1, 누구에게 어떤 가치:1, 쇼룸의 하루:1, 14곳 확대:0, 다음 단계:0
+ok   fully filled cases: 8
+ok   p_case_f7: 7 layout cards on the canvas (expected 7, 표지 only in the PPT 레이아웃 panel)
+ok   p_case_f7: no 표지 bubble
+ok   p_case_f7: all 7 cards show 입력 완료
+ok   p_case_f7 #1: 빈 요소가 없어요
+ok   p_case_f7 #2: 빈 요소가 없어요
+ok   p_case_f7 #3: 빈 요소가 없어요
+ok   p_case_f7 #4: 빈 요소가 없어요
+ok   p_case_f7 #5: 빈 요소가 없어요
+ok   p_case_f7 #6: 빈 요소가 없어요
+ok   p_case_f7 #7: 빈 요소가 없어요
+ok   p_case_f3: 6 layout cards on the canvas (expected 6, 표지 only in the PPT 레이아웃 panel)
+ok   p_case_f3: no 표지 bubble
+ok   p_case_f3: all 6 cards show 입력 완료
+ok   p_case_f3 #1: 빈 요소가 없어요
+ok   p_case_f3 #2: 빈 요소가 없어요
+ok   p_case_f3 #3: 빈 요소가 없어요
+ok   p_case_f3 #4: 빈 요소가 없어요
+ok   p_case_f3 #5: 빈 요소가 없어요
+ok   p_case_f3 #6: 빈 요소가 없어요
+ok   p_case_f4: 5 layout cards on the canvas (expected 5, 표지 only in the PPT 레이아웃 panel)
+ok   p_case_f4: no 표지 bubble
+ok   p_case_f4: all 5 cards show 입력 완료
+ok   p_case_f4 #1: 빈 요소가 없어요
+ok   p_case_f4 #2: 빈 요소가 없어요
+ok   p_case_f4 #3: 빈 요소가 없어요
+ok   p_case_f4 #4: 빈 요소가 없어요
+ok   p_case_f4 #5: 빈 요소가 없어요
+ok   p_case_f1: 7 layout cards on the canvas (expected 7, 표지 only in the PPT 레이아웃 panel)
+ok   p_case_f1: no 표지 bubble
+ok   p_case_f1: all 7 cards show 입력 완료
+ok   p_case_f1 #1: 빈 요소가 없어요
+ok   p_case_f1 #2: 빈 요소가 없어요
+ok   p_case_f1 #3: 빈 요소가 없어요
+ok   p_case_f1 #4: 빈 요소가 없어요
+ok   p_case_f1 #5: 빈 요소가 없어요
+ok   p_case_f1 #6: 빈 요소가 없어요
+ok   p_case_f1 #7: 빈 요소가 없어요
+ok   p_case_f6: 8 layout cards on the canvas (expected 8, 표지 only in the PPT 레이아웃 panel)
+ok   p_case_f6: no 표지 bubble
+ok   p_case_f6: all 8 cards show 입력 완료
+ok   p_case_f6 #1: 빈 요소가 없어요
+ok   p_case_f6 #2: 빈 요소가 없어요
+ok   p_case_f6 #3: 빈 요소가 없어요
+ok   p_case_f6 #4: 빈 요소가 없어요
+ok   p_case_f6 #5: 빈 요소가 없어요
+ok   p_case_f6 #6: 빈 요소가 없어요
+ok   p_case_f6 #7: 빈 요소가 없어요
+ok   p_case_f6 #8: 빈 요소가 없어요
+ok   p_case_f2: 8 layout cards on the canvas (expected 8, 표지 only in the PPT 레이아웃 panel)
+ok   p_case_f2: no 표지 bubble
+ok   p_case_f2: all 8 cards show 입력 완료
+ok   p_case_f2 #1: 빈 요소가 없어요
+ok   p_case_f2 #2: 빈 요소가 없어요
+ok   p_case_f2 #3: 빈 요소가 없어요
+ok   p_case_f2 #4: 빈 요소가 없어요
+ok   p_case_f2 #5: 빈 요소가 없어요
+ok   p_case_f2 #6: 빈 요소가 없어요
+ok   p_case_f2 #7: 빈 요소가 없어요
+ok   p_case_f2 #8: 빈 요소가 없어요
+ok   p_case_f5: 7 layout cards on the canvas (expected 7, 표지 only in the PPT 레이아웃 panel)
+ok   p_case_f5: no 표지 bubble
+ok   p_case_f5: all 7 cards show 입력 완료
+ok   p_case_f5 #1: 빈 요소가 없어요
+ok   p_case_f5 #2: 빈 요소가 없어요
+ok   p_case_f5 #3: 빈 요소가 없어요
+ok   p_case_f5 #4: 빈 요소가 없어요
+ok   p_case_f5 #5: 빈 요소가 없어요
+ok   p_case_f5 #6: 빈 요소가 없어요
+ok   p_case_f5 #7: 빈 요소가 없어요
+ok   p_case_f8: 7 layout cards on the canvas (expected 7, 표지 only in the PPT 레이아웃 panel)
+ok   p_case_f8: no 표지 bubble
+ok   p_case_f8: all 7 cards show 입력 완료
+ok   p_case_f8 #1: 빈 요소가 없어요
+ok   p_case_f8 #2: 빈 요소가 없어요
+ok   p_case_f8 #3: 빈 요소가 없어요
+ok   p_case_f8 #4: 빈 요소가 없어요
+ok   p_case_f8 #5: 빈 요소가 없어요
+ok   p_case_f8 #6: 빈 요소가 없어요
+ok   p_case_f8 #7: 빈 요소가 없어요
+ok   selected unit shows state 직접 입력
+ok   p_case_p1: opens at story
+ok   p_case_p4: opens at story
+ok   p_case_s1: opens at story
+ok   p_case_r2: opens at req
+ok   p_case_r3: opens at req
+ok   no page errors: 
+ok   old history (1 item, seed v2) + 17 new cases = 18
+FAIL seed version saved as 4
+ok   deleted case stays deleted after reload: 17
+ok   v3 → v4 keeps the same 3 items: 3
+FAIL untouched v3 F1 became the v4 example (8 parts, 2+ layouts each)
+ok   user-changed P3 stays as the user left it
+FAIL untouched A 커피 became the v4 example
+FAIL seed version saved as 4 after the v3 upgrade
+ok   no page errors (v3 upgrade): 
+
+18 FAILED

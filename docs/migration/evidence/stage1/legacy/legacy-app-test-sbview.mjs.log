@@ -1,0 +1,42 @@
+shot 01-view
+F&B 프랜차이즈 · 전국 매장 디지털 메뉴보드 전환 | 제안 개요:2 · 시장과 고객:3 · 가치와 매장 장면:4 · 구성 · 물량:2 · 효과와 실행 계획:4 · Why Samsung:2
+ok   requirements + matching bubbles
+ok   every part bubble holds ≥ 2 layouts (2,3,4,2,4,2)
+ok   no 표지 bubble
+ok   no edit / insert affordances (0, draggable 0)
+ok   page numbers follow the deck (표지 = p.1) 2,3,4,5
+ok   view-only note: 보기 전용
+· 활용하기를 누르면 내 제안서로 고치고 넣을 수 있어요
+ok   footer: 전체 PPT 보기 | 닫기 | PPTX로 받기 | 활용하기
+ok   전체 PPT 보기 opens on p.1 of 18: 표지 D · 이미지 3컷 콜라주
+shot 01b-deck
+ok   → moves through the deck: p.3 제안 요약 · 히어로 사진
+ok   Esc closes the deck view, the Storyboard view stays
+ok   requirements popup: 4 keymen, inputs 0
+shot 02-req
+ok   Esc closes the popup, not the view
+ok   matching popup: 8 cards, buttons 닫기
+shot 03-match
+ok   part popup: 가치와 매장 장면 · items 4 · layouts 4 · width 480
+shot 04-part
+ok   layout in part popup → sheet detail: 가치 기둥 × 제품 · 3개 (기둥 수 n으로 2 · 3 · 4)
+shot 05-sheet
+ok   card → sheet detail over the view
+ok   confirm: 이 Best Scenario를 활용할까요? · 취소/활용하기
+  F&B 프랜차이즈 · 전국 매장 디지털 메뉴보드 전환 /  / 이 구성 그대로 내 제안서 히스토리에 추가하고 바로 열어요. 추가한 제안서에서는 요구사항 · 매칭 · 파트를 고치고 레이아웃을 넣거나 바꿀 수 있어요. 원본 Best Scenario는 바뀌지 않아요. /  / 고객 요구사항 · 키맨 4명 / 제품 4 · 솔루션 2 · 유관사례 2 / Storyboard 파트 6개 · 레이아웃 18장 (값 채움)
+shot 06-confirm
+ok   cancel → nothing added, still viewing
+ok   opened my proposal: F&B 프랜차이즈 · 전국 매장 디지털 메뉴보드 전환
+ok   same parts and layouts as the view (2,3,4,2,4,2)
+ok   now editable: + 6 · 레이아웃 추가 6 · 다음 파트 true · draggable 17
+ok   added to the history (top): F&B 프랜차이즈 · 전국 매장 디지털 메뉴보드 전환
+shot 07-proposal
+ok   requirements popup shows 저장됨
+shot 08-proposal-req
+ok   22 scenarios: storyboard parts ≥ 2 layouts, Samsung-style ending
+shot 09-mobile-dark
+ok   mobile: no page overflow (390, modal 350)
+ok   mobile: popup is a sheet
+shot 10-mobile-req
+no console errors
+ALL OK

@@ -1,0 +1,34 @@
+ok no 표지 card on the Storyboard (17 cards)
+ok 제안 개요 column: 목차 B · 섹션 썸네일, 제안 요약 · 히어로 사진
+ok its first card is page 2 — the 표지 is page 1
+ok no 표지 bubble — the first bubble is 제안 개요 (제안 개요)
+ok panel opens on the 표지: 표지 D · 이미지 3컷 콜라주
+ok as page 1 (1 / 18 · 완료 18)
+ok first thumbnail group is 표지
+ok then the part groups
+ok detail sub: 표지 · 전체 1쪽
+ok reopening PPT 레이아웃 goes back to the 표지
+ok no 표지 card either
+ok panel still opens on the 표지
+ok toast: 표지는 Storyboard에 두지 않고 PPT 레이아웃 패널의 첫 장으로 보여 드려요
+ok added 표지 is not in the column
+ok deck count includes it: 18장 · 완료 17
+ok sidebar flow without 표지: 고객 요구사항 → 제품 · 솔루션 매칭 → 제안 요약 → 외식 운영 환경 → 파일럿 결과 → DT 환경 조건
+ok no 표지 bubble: 제안 요약 · 외식 운영 환경 · 파일럿 결과 · DT 환경 조건 → 사양 · 제품 실사 · 확산 계획 · 다음 단계
+ok first bubble is 1
+ok no 표지 card
+ok PPT 레이아웃 shows it: 표지 C · 타이포 중심
+ok saved data migrated: DECK:표지[L_C03,L_C01,L_IND_FB,L_C04] · 시장 · 전략[L_MI01] · 시장 · 전략[L_MI_FB_A,L_MI01]
+ok no 표지 bubble from the old history: 시장 · 전략 · 시장 · 전략 · 고객사 이해
+ok no 표지 card
+ok panel: 표지 group first with its 4 sheets (3 표지 + 목차)
+ok panel opens on the 표지
+ok picker marks 표지 already in the deck as 선택됨
+ok no 표지 group when the deck has none
+ok mobile: no 표지 card
+ok mobile: no horizontal overflow
+[
+  'FAIL next = page 2: 제안 개요 · 1번째 장 · 전체 2쪽',
+  'FAIL 열기 is an empty part, still no 표지 bubble: 제안 개요 · 시장과 고객 · 가치와 매장 장면',
+  'FAIL seed without 표지: bubbles unchanged (스마트 빌딩 경쟁)'
+]

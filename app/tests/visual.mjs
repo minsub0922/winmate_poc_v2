@@ -39,6 +39,13 @@ const cases=[
   ['review-unit',async page=>{await report(page);await page.getByRole('button',{name:'4장',exact:true}).first().click();}],
   ['simulation',async page=>nav(page,'.sb-sim'),{media:true}],
   ['simulation-demo',async page=>{await nav(page,'.sb-sim');await page.getByRole('button',{name:'이준호 · A 커피 시뮬레이션 열기',exact:true}).last().click();},{media:true}],
+  ['my-import',async page=>{await nav(page,'.sb-tpl');await page.getByRole('button',{name:'My',exact:true}).click();await page.locator('input[data-my-file]').setInputFiles(path.join(root,'build/fixtures/my_sample.pptx'));await page.locator('.my-imp-card').first().waitFor({timeout:60000});}],
+  ['my-editor',async page=>{await nav(page,'.sb-tpl');await page.getByRole('button',{name:'My',exact:true}).click();await page.locator('input[data-my-file]').setInputFiles(path.join(root,'build/fixtures/my_sample.pptx'));await page.locator('.my-imp-card').first().waitFor({timeout:60000});await page.getByRole('button',{name:'4장 My에 저장',exact:true}).click();await page.getByRole('dialog').waitFor({state:'detached'});await page.locator('.my-grp .tl-card').first().click();await page.getByRole('button',{name:'고치기',exact:true}).click();await page.locator('.ed-box').waitFor();}],
+  ['template-editor',async page=>{await nav(page,'.sb-tpl');await page.locator('.tl-card').first().click();await page.getByRole('button',{name:'고쳐서 My에 저장',exact:true}).click();await page.locator('.ed-box').waitFor();}],
+  ['export-settings',async page=>{await sampleProposal(page);await page.getByRole('button',{name:/^PPT 레이아웃 \d+장/}).click();await page.getByRole('button',{name:'PPTX 내보내기',exact:true}).click();}],
+  ['simulation-profile',async page=>{await nav(page,'.sb-sim');await page.getByRole('button',{name:'이준호 프로필 자세히 보기',exact:true}).click();}],
+  ['simulation-personas',async page=>{await nav(page,'.sb-sim');await page.getByRole('region',{name:'만날 고객',exact:true}).getByRole('button',{name:'바꾸기',exact:true}).click();}],
+  ['fill-review',async page=>{await detail(page);await page.getByRole('button',{name:/빈 요소 \d+개 AI로 채우기/}).click();await page.locator('.fillflow .diff').waitFor({timeout:30000});},{runtimeCopy:true}],
 ];
 const widths=process.env.VISUAL_WIDTHS?process.env.VISUAL_WIDTHS.split(',').map(Number):[1500,900,390];
 const themes=process.env.VISUAL_THEMES?process.env.VISUAL_THEMES.split(','):['light','dark'];
@@ -71,11 +78,11 @@ try{
       metrics={changedPixels:changed,changedFraction:changed/(width*height),exactDifferentPixels:exact,meanAbsoluteError:total/(width*height*3)};
       if(changed)await sharp(diff,{raw:{width,height,channels:4}}).png().toFile(path.join(folder,tag+'-diff.png'));
     }
-    results.push({name,width,height,theme,knownMediaCorrection:!!options.media,metrics,issues});
+    results.push({name,width,height,theme,knownMediaCorrection:!!options.media,expectedRuntimeCopy:!!options.runtimeCopy,metrics,issues});
     fs.writeFileSync(path.join(folder,reportFile),JSON.stringify(results,null,2));
     console.log(tag,metrics?`diff=${(metrics.changedFraction*100).toFixed(4)}%`:'capture failed',issues.length?JSON.stringify(issues).slice(0,350):'');
   }
 }finally{await browser.close();}
-const failures=results.filter(r=>r.issues.some(i=>i.error||i.branch==='app')||!r.metrics||r.metrics.changedFraction>0.001&&!r.knownMediaCorrection);
+const failures=results.filter(r=>r.issues.some(i=>i.error||i.branch==='app')||!r.metrics||r.metrics.changedFraction>0.001&&!r.knownMediaCorrection&&!r.expectedRuntimeCopy);
 console.log(JSON.stringify({comparisons:results.length,zero:results.filter(r=>r.metrics?.exactDifferentPixels===0).length,knownCorrections:results.filter(r=>r.knownMediaCorrection&&r.metrics?.changedPixels).length,failures:failures.map(r=>({name:r.name,width:r.width,theme:r.theme,metrics:r.metrics,issues:r.issues}))},null,2));
 if(failures.length)process.exitCode=1;

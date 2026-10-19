@@ -1,0 +1,18 @@
+FAIL sidebar button sits right above the proposal history: {"text":"제안서 검토 3","above":false}
+PASS sidebar shows no review list
+[{"t":"F 오토파츠 아산공장 · 관제실 · 공조 교체 (경쟁 입찰)","score":"61","tags":["제조 · 물류 · 현장","경쟁 입찰 · 타사 교체"],"demo":true},{"t":"D 대학교병원 신관 · 환자 경험 디스플레이 (RFP)","score":"72","tags":["의료 · 요양 · 케어","신축 RFP 대응"],"demo":true},{"t":"C 베이커리 · 전국 180개 매장 디지털 메뉴보드 전환","score":"84","tags":["외식 · 카페 프랜차이즈","운영 효율 · TCO"],"demo":true}]
+PASS three example reviews with different industries and strategies
+PASS sidebar button marked current
+shot 01-list
+PASS example report opens with a demo note: {"note":"예시 평가예요 — 가상의 제안서로 만든 결과라 실제 고객 · 수치가 아니에요. 제안 전략: 운영 효율 · TCO.","score":"84","units":12,"wires":12,"prio":5}
+shot 02-report
+shot 03-unit
+PASS crumb goes back to the history page
+PASS home 평가 내역 opens the page
+PASS deleted one
+PASS route + deletion survive reload (examples are not re-added)
+PASS new review lands on top of the list
+shot 04-mobile
+PASS no horizontal overflow on phone
+shot 05-dark
+errs []

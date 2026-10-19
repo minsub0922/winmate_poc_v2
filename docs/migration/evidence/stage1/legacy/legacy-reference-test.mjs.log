@@ -1,0 +1,16 @@
+shot 01-home
+shot 02-mention
+shot 03-req-free
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+page.waitForSelector: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('.modal') to be visible[22m
+
+    at /Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/legacy-work/reference/build/test.mjs:43:12 {
+  name: 'TimeoutError'
+}
+
+Node.js v22.22.3

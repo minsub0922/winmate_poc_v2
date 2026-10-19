@@ -1,0 +1,35 @@
+scenarios on template page 0
+shot 01-page
+groups 7 rows 22 per line 1 row x positions 1 indent 33 title 21px title above details true sidebar current 1
+sheets per row 3 sheet width 382 numbers · captions · details on rows 0 whole row clickable false
+header count 0 group counts 0 n scenarios text false intro 요구사항 유형별로 전략부터 결말까지 미리 짜 둔 제안서 구성이에요. 골라서 바로 시작하세요.
+상세 보기 buttons 22 height 44
+sidebar icon is not the sparkle true bg-photo marks 0
+sheet hover detail 1 [ '3장 · 목차 · 01 Overview' ] 간지 · 01 Overview
+shot 01c-sheet-hover
+sheet click → detail 목차 · 사진 카드 6 | 목차 · 01 Overview · 여섯 장(章) 목차 · 사진 카드 | 2 / 37
+shot 01d-sheet-detail
+modals after close 0
+search rows 1 req labels 1 snips 0
+shot 02-search
+strategy filter rows 2 chips 전략 투자 회수형
+shot 02b-filter
+shot 03-storyboard
+storyboard (read-only) parts 6 layouts 17 edit affordances 0 (test-sbview.mjs has the details)
+peek 가치와 매장 장면 · 본사 일괄 운영 · 시간대 자동 전환 · 저전력 — 기둥마다 제품
+자세히 보기 button gone true
+전체 PPT 보기 → deck view 1 / 18
+shot 05-deck
+pptx 9002482
+started proposal, modals left 0
+shot 05b-proposal
+proposal slides filled ok,ok,ok,ok,ok,placeholder done badges 17
+route kept after reload 1
+shot 06-dark
+shot 07-m-page
+shot 07b-m-sheets
+mobile sheets [ 3, 262, 'swipe' ]
+mobile overflow [ 400, 400, 400 ]
+shot 08-m-storyboard
+modal overflow [ 360, 360 ]
+errors none

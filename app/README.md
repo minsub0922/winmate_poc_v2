@@ -50,6 +50,6 @@ npm --prefix app/web run test:visual
 npm --prefix app/web run test:legacy
 ```
 
-설치된 Chrome을 기본 사용하며 `CHROME`으로 Chromium 실행 파일을 지정할 수 있다. 테스트는 별도 브라우저 context와 `app/tests/output/`를 사용한다. 개인 브라우저 상태를 사용하지 않는다. 원본 기존 테스트는 별도 작업 디렉터리에 복사하고 OS 경로·서버·HTTP/mock 전송만 적응하며 assertions는 유지한다. 고정 기준본과 새 앱의 결과를 함께 기록한다.
+Playwright에 고정된 Chromium build 1194를 사용하며 `CHROME`으로 다른 실행 파일을 지정할 수 있다. 테스트는 별도 브라우저 context와 `app/tests/output/`를 사용한다. 개인 브라우저 상태를 사용하지 않는다. 원본 기존 테스트는 별도 작업 디렉터리에 복사하고 OS 경로·서버·HTTP/mock 전송만 적응하며 assertions는 유지한다. 고정 기준본과 새 앱의 결과를 함께 기록한다.
 
 스크린샷은 폭 1500/900/390, light/dark에서 같은 날짜·폰트·초기 저장소를 사용한다. UI 토큰화로 생긴 차이와 기준 자체의 media 문제를 구분한다. 주요 검증 보고서는 단계가 끝날 때 `docs/migration/01-*.md`에 남긴다.

@@ -1,0 +1,9 @@
+.col .node >> nth=0 {"active":"modal ","sel":0,"sugs":false,"title":"파트 편집"}
+ok 파트 편집: 이름 칸 포커스 · 선택 · 추천 목록 없음
+ok Esc still closes the popup
+.col .node-name >> nth=1 {"active":"modal ","sel":0,"sugs":false,"title":"파트 편집"}
+ok 파트 편집: 이름 칸 포커스 · 선택 · 추천 목록 없음
+ok Esc still closes the popup
+new {"active":"pe-name","sel":0,"sugs":false,"title":"새 파트"}
+ok 새 파트: 이름 칸 바로 입력 (그대로)
+[ 'FAIL clicking the name focuses it and opens suggestions' ]

@@ -1,0 +1,31 @@
+ok no candidate popover — new part popup opens directly
+ok no 기존 파트에서 고르기 area
+ok list stays closed until the name box is clicked
+ok no 작성 중으로 저장 button
+ok no 항목별 / 자유 양식 option
+ok empty name → every part type: 23
+ok no 표지 · 목차 part type (표지 lives only in the PPT 레이아웃 panel)
+ok groups, flow picks first: ‘공간 시나리오’ 다음에 이어지기 좋은 파트 / 이해 · 분석 / 과제 · 가치 / 공간 · 제품 / 실행 · 비용 / 구성
+ok every part shows what it is for
+ok no duplicates in the full list
+ok arrow + Enter picks from the list: 솔루션 제안
+ok typing switches to keyword matches
+ok name suggestions: 비용 · 구매, 비용 · TCO, 총소유비용, 5년 총소유비용, 현재 문제와 비용, 지금 겪는 문제와 그 비용
+ok suggestion shows what the part is for: 비용 · 구매 — 구매 방식을 비교하고 5년 총소유비용을 정리해 예산 판단을 도와요
+ok each suggestion names its part: 기존 파트, 비용 · 구매, 비용 · 구매, 비용 · 구매, 고객 과제, 고객 과제
+ok Escape closes the list only
+ok clicking a part in the list fills the name: 솔루션 제안
+ok AI 제안 sits in the content box top-right: {"inTop":8,"inRight":12,"label":"AI 제안"}
+ok loading spinner while AI works
+ok popup shows the suggestion: 3
+ok nothing added before 승인
+ok 승인 appends after the current content: 기존 내용 한 줄 | 메뉴 교체 리드타임 9일 → 1일 | 매장별 가격 표기 오류 0건 | 본사 일괄 송출로 운영 인력 절감
+ok nothing new to suggest → no popup (all already there)
+ok Escape / 닫기 drops the suggestion, popup stays
+ok part saved at the end: 공간 시나리오 / 솔루션 제안
+ok empty new part is dropped on close
+ok AI로 나머지 구성 still reachable under 다음 파트
+ok existing items load as lines (3)
+ok 첫 번째 파트 후보 describe the part (no 첫 파트로 많이 써요 · 레이아웃 N장): 시장 · 전략, 고객사 이해, Value Propositions, 경쟁사 분석, 제안 개요
+ok mobile: no horizontal overflow
+all good
