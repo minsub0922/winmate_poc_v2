@@ -11,7 +11,11 @@ shape (``'real'`` everywhere) for compatibility. Legacy ``WINMATE_MODE`` / ``WIN
 other than ``real`` are **not honored**: they are listed in ``legacy_ignored`` and reported as warnings.
 
 Keys
-  GEMINI_API_KEY               server-only credential (never returned or logged) — required
+  WINMATE_LLM_PROVIDER         internal (default) | gemini | registered adapter
+  INTERNAL_LLM_API_KEY         internal model credential (server only)
+  INTERNAL_LLM_MODEL           internal model identifier
+  INTERNAL_LLM_BASE_URL        internal model endpoint
+  GEMINI_API_KEY               Gemini credential when explicitly selected
   GEMINI_MODEL                 default model (gemini-3.1-flash-lite)
   GEMINI_QUICK_MODEL           model for model_tier=quick (default: GEMINI_MODEL)
   GEMINI_BASE_URL              https endpoint override (an internal gateway, for example)
@@ -20,7 +24,7 @@ Keys
   WINMATE_LLM_CACHE            on | off (default off) — response cache under app/data/runtime only
   WINMATE_KB_CACHE             on | off (default off) — layout card cache under app/data/runtime only
 
-Provider-neutral WINMATE_LLM_* options take precedence over legacy Gemini names.
+Provider-specific INTERNAL_LLM_* / GEMINI_* settings take precedence over shared WINMATE_LLM_* aliases.
 The queue is shared by every model/feature. RPM cannot exceed 42 or be disabled.
 See app/.env.example and app/README.md for SQLite/Redis and internal model setup.
 """
@@ -38,6 +42,7 @@ from .imports import ROOT, RUNTIME_DIR
 
 FUNCTIONS = ('rfp', 'requirements', 'layout', 'search', 'rerank', 'review', 'storyboard', 'part', 'fill', 'simulation', 'llm')
 MODES = ('real',)
+DEFAULT_PROVIDER = 'internal'
 DEFAULT_MODEL = 'gemini-3.1-flash-lite'
 DEFAULT_VISION_MODEL = 'gemini-3.8-flash'
 DEFAULT_ENV_FILES = ('app/.env', 'poc/.env')
@@ -46,7 +51,8 @@ _KEYS = ('WINMATE_MODE', *(f'WINMATE_{f.upper()}_MODE' for f in FUNCTIONS), 'GEM
          'GEMINI_VISION_MODEL', 'GEMINI_BASE_URL', 'WINMATE_GEMINI_TIMEOUT', 'WINMATE_GEMINI_RPM', 'WINMATE_GEMINI_CONCURRENCY', 'WINMATE_LLM_CACHE', 'WINMATE_KB_CACHE',
          'WINMATE_LLM_PROVIDER', 'WINMATE_LLM_API_KEY', 'WINMATE_LLM_MODEL', 'WINMATE_LLM_QUICK_MODEL', 'WINMATE_LLM_VISION_MODEL',
          'WINMATE_LLM_BASE_URL', 'WINMATE_LLM_TIMEOUT', 'WINMATE_LLM_RPM', 'WINMATE_LLM_CONCURRENCY', 'WINMATE_LLM_QUEUE_BACKEND',
-         'WINMATE_LLM_QUEUE_DB', 'WINMATE_LLM_REDIS_URL', 'WINMATE_LLM_QUEUE_NAMESPACE', 'WINMATE_LLM_QUEUE_TIMEOUT', 'WINMATE_LLM_SCHEMA_MODE')
+         'WINMATE_LLM_QUEUE_DB', 'WINMATE_LLM_REDIS_URL', 'WINMATE_LLM_QUEUE_NAMESPACE', 'WINMATE_LLM_QUEUE_TIMEOUT', 'WINMATE_LLM_SCHEMA_MODE',
+         'INTERNAL_LLM_API_KEY', 'INTERNAL_LLM_MODEL', 'INTERNAL_LLM_QUICK_MODEL', 'INTERNAL_LLM_VISION_MODEL', 'INTERNAL_LLM_BASE_URL')
 
 
 def parse_env_file(path: Path) -> Dict[str, str]:
@@ -89,7 +95,7 @@ class Settings:
     legacy_ignored: Tuple[str, ...] = ()  # legacy mode keys that were set to something other than 'real' (ignored)
     vision_model: str = DEFAULT_VISION_MODEL
     _api_key: str = field(default='', repr=False, compare=False)
-    provider: str = 'gemini'
+    provider: str = DEFAULT_PROVIDER
     concurrency: int = 4
     queue_backend: str = 'sqlite'
     queue_db: Path = field(default_factory=lambda: RUNTIME_DIR / 'llm-queue.sqlite')
@@ -155,12 +161,18 @@ def load_settings(environ: Optional[Mapping[str, str]] = None, env_files: Option
             legacy.append(legacy_key)
             warnings.append(f'{legacy_key}={value.lower()[:20]!r} ({source}) 는 더 이상 지원하지 않아 무시합니다 — 서버는 항상 실제 AI로만 실행합니다.')
     functions = {name: 'real' for name in FUNCTIONS}
-    provider = get('WINMATE_LLM_PROVIDER')[0].lower() or 'gemini'
+    provider = get('WINMATE_LLM_PROVIDER')[0].lower() or DEFAULT_PROVIDER
 
     def model_setting(generic: str, legacy: str = '') -> tuple[str, str]:
-        # Generic config wins; legacy Gemini values must not leak into an internal model.
-        value = get(generic)
-        return value if value[0] else get(legacy) if provider == 'gemini' and legacy else ('', '')
+        # Keep both provider profiles in one .env without sharing credentials/models.
+        if provider == 'gemini':
+            specific = legacy
+        elif provider == 'internal':
+            specific = generic.replace('WINMATE_LLM_', 'INTERNAL_LLM_', 1)
+        else:
+            specific = ''
+        value = get(specific) if specific else ('', '')
+        return value if value[0] else get(generic)
 
     key, key_source = model_setting('WINMATE_LLM_API_KEY', 'GEMINI_API_KEY')
     if not key:
@@ -172,7 +184,7 @@ def load_settings(environ: Optional[Mapping[str, str]] = None, env_files: Option
         warnings.append('AI 서버 주소는 https 주소(또는 로컬 게이트웨이)만 허용해 기본 주소를 씁니다.')
         base = ''
     if provider != 'gemini' and (not base or not model):
-        warnings.append('사내 모델에는 WINMATE_LLM_BASE_URL과 WINMATE_LLM_MODEL 설정이 필요합니다.')
+        warnings.append('선택한 모델의 API 주소와 모델 ID가 필요합니다. internal은 INTERNAL_LLM_BASE_URL · INTERNAL_LLM_MODEL을 설정하세요.')
 
     def number(key: str, default: int, lo: int, hi: int) -> int:
         value, _ = get(key)

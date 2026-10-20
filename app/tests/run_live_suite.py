@@ -19,7 +19,7 @@ def start(args,env,path):
 
 def main():
  settings=load_settings()
- if not settings.has_key:print('GEMINI_API_KEY가 없습니다. app/.env 또는 poc/.env를 준비하세요.');return 2
+ if not settings.has_key:print(f'선택한 LLM({settings.provider})의 인증 키가 없습니다. app/.env를 확인하세요.');return 2
  stamp=datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ');output=ROOT/'app/tests/output/strict/runs'/stamp;output.mkdir(parents=True)
  api_port=free_port();web_port=free_port();api=f'http://127.0.0.1:{api_port}';web=f'http://127.0.0.1:{web_port}'
  env={**os.environ,'PYTHONDONTWRITEBYTECODE':'1','WINMATE_AUTH':'off','WINMATE_LLM_CACHE':'off','WINMATE_GEMINI_RPM':os.environ.get('WINMATE_GEMINI_RPM','42'),'WINMATE_API_PORT':str(api_port),'WINMATE_WEB_PORT':str(web_port),'WINMATE_LIVE_URL':api,'WINMATE_LIVE_WEB':web,'LIVE_RUN':stamp,'LIVE_LIMIT':'10','LANGSMITH_TRACING':'false'}

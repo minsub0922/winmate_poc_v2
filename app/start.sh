@@ -24,11 +24,11 @@ else
   app/.venv/bin/python -m pip install -r app/api/requirements.txt
 fi
 if [[ ! -d app/web/node_modules ]]; then npm --prefix app/web ci --no-audit --no-fund; fi
-npm --prefix app/web run build
 app/.venv/bin/python -B app/scripts/prepare_data.py
 app/.venv/bin/python -B app/scripts/build_spatial_products.py
 node app/scripts/build_spatial_library.mjs
 node app/scripts/export_agent_data.mjs
+npm --prefix app/web run build
 app/.venv/bin/python -B app/scripts/preflight.py
 if [[ -n "${WINMATE_SETUP_PASSWORD:-}" ]]; then
   app/.venv/bin/python -B app/scripts/manage_auth.py --ensure --password-env WINMATE_SETUP_PASSWORD

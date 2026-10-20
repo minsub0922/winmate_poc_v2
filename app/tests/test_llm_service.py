@@ -38,7 +38,7 @@ def make_provider(tmp_path, vendor='gemini', fetch=None, *, settings=None, windo
     return LLMProvider(settings, urlopen=fetch, queue=queue)
 
 
-@pytest.mark.parametrize('vendor', ['gemini', 'openai'])
+@pytest.mark.parametrize('vendor', ['gemini', 'internal', 'openai'])
 def test_same_input_output_and_usage_for_both_adapters(tmp_path, vendor):
     seen = []
     def fetch(request, **kwargs):
@@ -71,7 +71,7 @@ def test_same_input_output_and_usage_for_both_adapters(tmp_path, vendor):
         assert sum(m['role'] == 'system' for m in body['messages']) == 1
 
 
-@pytest.mark.parametrize('vendor', ['gemini', 'openai'])
+@pytest.mark.parametrize('vendor', ['gemini', 'internal', 'openai'])
 def test_cumulative_stream_and_callback_contract_and_partial_close(tmp_path, vendor):
     opened = []
     def fetch(*args, **kwargs):
@@ -91,7 +91,7 @@ def test_cumulative_stream_and_callback_contract_and_partial_close(tmp_path, ven
     assert provider.ledger.view()['active_requests'] == 0
 
 
-@pytest.mark.parametrize('vendor', ['gemini', 'openai'])
+@pytest.mark.parametrize('vendor', ['gemini', 'internal', 'openai'])
 def test_retry_counts_every_upstream_attempt_and_cache_counts_none(tmp_path, vendor):
     calls = []
     def fetch(request, **kwargs):
@@ -150,6 +150,49 @@ def test_openai_refusal_truncation_and_unsupported_search_fail_explicitly(tmp_pa
         provider.search_web(stage='search', query='products')
     assert provider.queue.snapshot()['starts_last_minute'] == 1
     assert OpenAIAdapter(config('openai')).response({'choices': [{'message': {'refusal': 'refused'}}]})['candidates'][0]['finishReason'] == 'SAFETY'
+
+
+def test_default_internal_never_uses_legacy_gemini_credentials(monkeypatch):
+    monkeypatch.setattr(legacy, '_OVERRIDE', {})
+    settings = load_settings({'GEMINI_API_KEY': 'gemini-test-secret',
+                              'GEMINI_MODEL': 'gemini-test-model',
+                              'GEMINI_BASE_URL': 'https://gemini.example/v1'}, [])
+    assert settings.provider == 'internal'
+    assert not settings.has_key
+    assert settings.model == settings.quick_model == settings.vision_model == settings.base_url == ''
+    assert legacy.get_provider(settings) == (None, 'no_api_key')
+
+
+@pytest.mark.parametrize('vendor', ['internal', 'gemini'])
+def test_env_switch_keeps_provider_credentials_models_and_endpoints_separate(vendor, tmp_path):
+    env = tmp_path / 'profiles.env'
+    values = {
+        'WINMATE_LLM_PROVIDER': 'internal',
+        'INTERNAL_LLM_API_KEY': 'internal-test-secret',
+        'INTERNAL_LLM_MODEL': 'internal-model',
+        'INTERNAL_LLM_QUICK_MODEL': 'internal-quick',
+        'INTERNAL_LLM_VISION_MODEL': 'internal-vision',
+        'INTERNAL_LLM_BASE_URL': 'https://internal.example/v1',
+        'GEMINI_API_KEY': 'gemini-test-secret',
+        'GEMINI_MODEL': 'gemini-model',
+        'GEMINI_QUICK_MODEL': 'gemini-quick',
+        'GEMINI_VISION_MODEL': 'gemini-vision',
+        'GEMINI_BASE_URL': 'https://gemini.example/v1',
+        'WINMATE_LLM_API_KEY': 'shared-test-secret',
+        'WINMATE_LLM_MODEL': 'shared-model',
+        'WINMATE_LLM_BASE_URL': 'https://shared.example/v1',
+    }
+    env.write_text(''.join(f'{key}={value}\n' for key, value in values.items()))
+    settings = load_settings({'WINMATE_LLM_PROVIDER': vendor}, [str(env)])
+    assert settings.provider == vendor
+    assert settings.api_key() == vendor + '-test-secret'
+    assert settings.model == vendor + '-model'
+    assert settings.quick_model == vendor + '-quick'
+    assert settings.vision_model == vendor + '-vision'
+    assert settings.base_url == 'https://' + vendor + '.example/v1'
+    assert settings.key_source == str(env)
+    assert all(secret not in str(settings.public()) + repr(settings)
+               for secret in ['internal-test-secret', 'gemini-test-secret', 'shared-test-secret'])
 
 
 def test_settings_enforce_hard_cap_and_preserve_legacy_defaults():
@@ -286,7 +329,7 @@ def test_internal_model_keeps_layout_online_and_structured_output(tmp_path):
     assert tracker.ok == 1 and tracker.provider_name == 'openai'
 
 
-@pytest.mark.parametrize('vendor', ['gemini', 'openai'])
+@pytest.mark.parametrize('vendor', ['gemini', 'internal', 'openai'])
 def test_http_and_sse_shapes_are_unchanged_when_switching_models(tmp_path, monkeypatch, vendor):
     from fastapi import FastAPI
     from fastapi.testclient import TestClient

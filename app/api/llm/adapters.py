@@ -165,7 +165,16 @@ class OpenAIAdapter:
     def stream_chunk(self, value): return self._normalize(value, True)
 
 
-_FACTORIES: dict[str, Callable] = {'gemini': GeminiAdapter, 'openai': OpenAIAdapter}
+class InternalAdapter(OpenAIAdapter):
+    """Internal API boundary, initially using the existing chat-completions transport.
+
+    Adapt request/response/stream handling here after reading the user-supplied
+    API reference. The provider choice never falls back to Gemini.
+    """
+    name = 'internal'
+
+
+_FACTORIES: dict[str, Callable] = {'internal': InternalAdapter, 'gemini': GeminiAdapter, 'openai': OpenAIAdapter}
 
 
 def register_adapter(name: str, factory: Callable) -> None:

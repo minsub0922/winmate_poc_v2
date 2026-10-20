@@ -11,7 +11,7 @@ def isolated_queue(tmp_path,monkeypatch):
  monkeypatch.setattr('app.api.llm.provider.create_queue',lambda s:CallQueue(SQLiteBroker(tmp_path/'queue.sqlite',window=.005),rpm=s.rpm,concurrency=s.concurrency,timeout=s.queue_timeout))
 
 def settings(**kw):
- return load_settings({'GEMINI_API_KEY':'test-provider-secret-0123456789','WINMATE_LLM_RPM':'42',**kw},[])
+ return load_settings({'WINMATE_LLM_PROVIDER':'gemini','GEMINI_API_KEY':'test-provider-secret-0123456789','WINMATE_LLM_RPM':'42',**kw},[])
 def response(text='{"ok":true}',finish='STOP'):
  return io.BytesIO(json.dumps({'candidates':[{'content':{'parts':[{'text':text}]},'finishReason':finish}],'usageMetadata':{'promptTokenCount':4,'candidatesTokenCount':3}}).encode())
 def stream(text='hello',finish='STOP'):

@@ -7,7 +7,7 @@
 # 또는 make up
 ```
 
-설치, Gemini 설정, 인증, 데이터 갱신과 검증 방법은 [app/README.md](app/README.md)를 따른다.
+설치·재현·LLM 선택은 [BOOTSTRAP.md](BOOTSTRAP.md)를 따른다. 기본 LLM은 사내 모델이며, 환경변수로 Gemini를 선택할 수 있다. 인증·데이터 갱신·모듈의 상세 설명은 [app/README.md](app/README.md)에 있다.
 
 ```sh
 make prepare       # 앱 DB snapshot과 Agent KB 준비

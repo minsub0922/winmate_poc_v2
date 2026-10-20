@@ -1,6 +1,6 @@
 # Winmate v2 로컬 앱
 
-고정 라이브 아티팩트의 UI·슬라이드 엔진을 옮긴 React/FastAPI 앱이다. **AI 기능은 공통 LLM 모듈을 통해 실제 모델을 사용하며, 기본 제공자는 Gemini다.** 더미 모드, 규칙으로 만든 AI 응답·점수, 자동 예시 히스토리 주입을 제거했다. 모델이 실패하면 오류와 재시도를 표시하고 사용자 입력은 유지한다.
+고정 라이브 아티팩트의 UI·슬라이드 엔진을 옮긴 React/FastAPI 앱이다. **AI 기능은 공통 LLM 모듈을 통해 실제 모델을 사용하며, 기본 제공자는 사내 LLM(`internal`)이며, `WINMATE_LLM_PROVIDER=gemini`로 Gemini를 선택할 수 있다.** 더미 모드, 규칙으로 만든 AI 응답·점수, 자동 예시 히스토리 주입을 제거했다. 모델이 실패하면 오류와 재시도를 표시하고 사용자 입력은 유지한다.
 
 ## 설치·실행
 
@@ -22,7 +22,7 @@ WINMATE_API_PORT=8788 ./start.sh
 
 로그인 후 사이드바 프로필을 누르면 오른쪽 팝업에 계정 정보와 로그아웃 버튼만 표시된다. 바깥 클릭·Esc·프로필 재클릭으로 닫는다. `/account.html`은 직접 접근용 기존 경로로 유지한다. 기본 바인딩은 127.0.0.1, 세션은 HttpOnly/SameSite=Strict 쿠키·12시간이다. API 키는 서버만 읽으며 프런트·Git에 포함하지 않는다. 앱 변경은 `app/`에서 수행한다. `poc/`, `proddb/`와 `reference/`는 공용 AI 모듈·수집 원본·참고 자료로 보존한다. 루트 `src/`에는 자료 추출·평가 도구가 사용하는 모듈과 출처 자료만 남아 있으며 구버전 루트 `dist/`는 제거했다.
 
-필수 입력은 제공된 `poc/test/`, `proddb/winmate_products.sqlite`, `reference/live/`, `app/data/`다. 시작 명령이 패키지 설치, 웹 빌드, 읽기 전용 SQLite snapshot, 정본 Agent KB, 데이터 점검, 계정 준비를 수행한다. 없거나 손상된 입력은 경로와 함께 오류로 안내한다. health가 준비되기 전에 **실제 Gemini 연결 확인**도 수행하며 실패하면 기동하지 않는다.
+필수 입력은 제공된 `poc/test/`, `proddb/winmate_products.sqlite`, `reference/live/`, `app/data/`다. 시작 명령이 패키지 설치, 웹 빌드, 읽기 전용 SQLite snapshot, 정본 Agent KB, 데이터 점검, 계정 준비를 수행한다. 없거나 손상된 입력은 경로와 함께 오류로 안내한다. health가 준비되기 전에 **선택한 실제 LLM의 연결 확인**도 수행하며 실패하면 기동하지 않는다.
 
 ## 사용 가이드
 
@@ -34,7 +34,7 @@ WINMATE_API_PORT=8788 ./start.sh
 
 ### 가이드 에이전트
 
-가이드 팝업 안의 우측 하단 챗봇을 열면 먼저 인사하고 현재 가이드의 추천 질문 5개를 그 아래 고정 영역에 보여 준다. 답변 중에도 질문 위치를 유지하며 대화만 별도로 스크롤한다. 전체 가이드 10개·86단계와 앱 사용 규칙을 매 요청의 맥락으로 사용하는 실제 Gemini 에이전트다. 모델이 생성한 답변을 SSE로 바로 표시하고 핵심만 1~3문장으로 짧게 답한다. 답변 완료 후 관련 가이드·단계로 자동 이동하며, 챗봇을 열어 둔 상태에서도 가이드의 이전/다음·단계 선택을 조작할 수 있다. 가이드 팝업을 닫으면 챗봇도 함께 닫히고 대화가 삭제된다. 질문 전송은 기존 AI 작업과 같이 로그인이 필요하다.
+가이드 팝업 안의 우측 하단 챗봇을 열면 먼저 인사하고 현재 가이드의 추천 질문 5개를 그 아래 고정 영역에 보여 준다. 답변 중에도 질문 위치를 유지하며 대화만 별도로 스크롤한다. 전체 가이드 10개·86단계와 앱 사용 규칙을 매 요청의 맥락으로 사용하는 선택한 실제 LLM을 사용하는 에이전트다. 모델이 생성한 답변을 SSE로 바로 표시하고 핵심만 1~3문장으로 짧게 답한다. 답변 완료 후 관련 가이드·단계로 자동 이동하며, 챗봇을 열어 둔 상태에서도 가이드의 이전/다음·단계 선택을 조작할 수 있다. 가이드 팝업을 닫으면 챗봇도 함께 닫히고 대화가 삭제된다. 질문 전송은 기존 AI 작업과 같이 로그인이 필요하다.
 
 대화와 미전송 입력은 팝업 메모리에만 둔다. 챗봇을 닫으면 즉시 버리고 진행 중인 요청을 취소하며, 늦은 응답이 재열린 챗봇이나 가이드 이동에 반영되지 않는다. 서버 대화 저장·응답 캐시를 사용하지 않고, 챗봇 내용은 브라우저 활동 기록과 AI 오류 본문 기록에서 제외한다. 운영상의 요청·토큰 사용량 통계에는 대화 본문을 넣지 않는다.
 
@@ -60,7 +60,7 @@ WINMATE_API_PORT=8788 ./start.sh
 
 ## LLM 모듈과 전역 호출 큐
 
-`app/api/llm/`이 모델 호출·재시도·스트리밍·캐시·전역 큐를 관리한다. `poc/provider.py`는 기존 import와 singleton/test hook을 보존한다. 기존 `generate_json`, `generate_text`, `stream_text`, `structured`, `search_web`, `model_for` 호출 인자와 `GenerationResult`·`ProviderError` 형식은 유지한다. 스트림은 기존처럼 누적 문자열을 반환한다. `contracts.ModelProvider`가 애플리케이션 계약이며, `adapters.ModelAdapter`와 `ModelRequest`가 모델별 전송 경계다. 기본 Gemini 외에 사내 Chat Completions 호환 API를 연결할 수 있고, 다른 사내 프로토콜은 시작 전에 `register_adapter(name, factory)`로 등록한다. 어댑터는 HTTP 요청 생성·응답 변환만 담당하며 실제 전송은 공통 큐가 처리한다.
+`app/api/llm/`이 모델 호출·재시도·스트리밍·캐시·전역 큐를 관리한다. `poc/provider.py`는 기존 import와 singleton/test hook을 보존한다. 기존 `generate_json`, `generate_text`, `stream_text`, `structured`, `search_web`, `model_for` 호출 인자와 `GenerationResult`·`ProviderError` 형식은 유지한다. 스트림은 기존처럼 누적 문자열을 반환한다. `contracts.ModelProvider`가 애플리케이션 계약이며, `adapters.ModelAdapter`와 `ModelRequest`가 모델별 전송 경계다. 기본 `internal`은 `InternalAdapter`를 사용하고, `gemini`는 Gemini를 사용한다. `InternalAdapter`는 기존 Chat Completions 호환 전송을 기반으로 하며, `BOOTSTRAP.md`에 입력한 API 자료를 읽고 실제 규격에 맞춘다. 기존 `openai` 어댑터와 시작 전 `register_adapter(name, factory)` 등록도 유지한다. 어댑터는 HTTP 요청 생성·응답 변환만 담당하며 실제 전송은 공통 큐가 처리한다.
 
 모든 기능·기본/quick/vision 모델·시작 시 연결 확인·재시도를 합쳐 **임의의 연속 60초에 실제 전송 시도 최대 42회**다. 43번째 요청은 FIFO로 대기한다. 429/5xx/잘못된 JSON/스키마 보정 재시도도 각각 한도를 차감하며, 전송 후 실패한 호출의 한도는 돌려주지 않는다. 응답 캐시 적중은 전송하지 않으므로 한도를 사용하지 않는다. `chat_model()`도 큐를 통과하는 LangChain facade를 반환한다.
 
@@ -68,16 +68,18 @@ WINMATE_API_PORT=8788 ./start.sh
 
 큐에는 불투명한 요청 ID·순서·시각·lease만 저장하고 프롬프트·고객 문서·인증 키는 저장하지 않는다. 취소/대기 만료는 대기 메시지를 제거하고, 응답·스트림 종료는 실행 lease를 반환한다. 중단된 프로세스의 메시지와 lease는 만료로 회수한다. 큐 연결 장애 시 한도를 우회하지 않고 기존 오류 형식으로 실패한다. 큐가 요청 실행을 허가하며, 실제 실행과 응답은 원래 요청 프로세스가 담당한다. 프로세스 종료 시 미완료 생성 작업을 자동 재전송하지 않는다.
 
-설정은 실행 환경 > app/.env > poc/.env 순으로 각 키를 읽는다. 공통 `WINMATE_LLM_*` 설정이 있으면 대응하는 기존 `GEMINI_*`/`WINMATE_GEMINI_*`보다 우선한다. 실제 키 값은 커밋하지 않는다. 변경 후 API 서버를 재시작한다.
+설정은 실행 환경 > app/.env > poc/.env 순으로 각 키를 읽는다. 모델·키·API 주소는 선택한 제공자의 `INTERNAL_LLM_*` 또는 `GEMINI_*` 전용 설정이 공통 `WINMATE_LLM_*` 호환 설정보다 우선한다. 제공자를 바꾸면 해당 제공자의 프로필을 선택한다. 실제 키 값은 커밋하지 않는다. 변경 후 API 서버를 재시작한다.
 
 | 변수 | 기본값·의미 |
 |---|---|
-| WINMATE_LLM_PROVIDER | gemini 또는 openai, 등록한 어댑터 이름 |
-| WINMATE_LLM_API_KEY | 서버 전용 키. Gemini는 기존 GEMINI_API_KEY로도 설정 가능 |
+| WINMATE_LLM_PROVIDER | internal(기본) 또는 gemini. 기존 openai 및 등록한 어댑터도 지원 |
+| INTERNAL_LLM_API_KEY / INTERNAL_LLM_MODEL / INTERNAL_LLM_BASE_URL | 사내 LLM의 서버 전용 키·모델 ID·API 주소 |
+| INTERNAL_LLM_QUICK_MODEL / INTERNAL_LLM_VISION_MODEL | 생략하면 INTERNAL_LLM_MODEL |
+| WINMATE_LLM_API_KEY | 공통 호환 키. 각 제공자의 전용 키가 우선 |
 | WINMATE_LLM_MODEL | Gemini는 기존 GEMINI_MODEL 또는 gemini-3.1-flash-lite |
 | WINMATE_LLM_QUICK_MODEL | 기본 모델과 동일. Gemini는 GEMINI_QUICK_MODEL도 지원 |
 | WINMATE_LLM_VISION_MODEL | Gemini는 GEMINI_VISION_MODEL 또는 gemini-3.8-flash, 사내 모델은 기본 모델과 동일 |
-| WINMATE_LLM_BASE_URL | Gemini 공식 v1beta 주소. 사내 API는 HTTPS base URL 필수. 로컬 HTTP gateway도 허용 |
+| WINMATE_LLM_BASE_URL | 공통 호환 API 주소. 사내는 INTERNAL_LLM_BASE_URL, Gemini는 GEMINI_BASE_URL이 우선 |
 | WINMATE_LLM_TIMEOUT | 60초, 큐 대기를 제외한 응답·재시도 시간. 기존 WINMATE_GEMINI_TIMEOUT도 지원 |
 | WINMATE_LLM_RPM | 42. 1~42로 강제 제한, 0으로 해제 불가. 기존 WINMATE_GEMINI_RPM도 지원 |
 | WINMATE_LLM_CONCURRENCY | 4, 공유 큐의 동시 전송 상한. 기존 WINMATE_GEMINI_CONCURRENCY도 지원 |
@@ -119,7 +121,7 @@ WINMATE_MODE/기능별 *_MODE는 항상 real이다. API의 offline:true, llm:fal
 ```sh
 uv pip install --python app/.venv/bin/python -r app/tests/requirements.txt
 make test          # API·인증·실패 정책·provider·전역 큐·모델 교체·재시도·저장 계약, 모델 성공 응답을 흉내내지 않음
-make test-live     # 격리된 API/Vite에서 기능 14개 × 10건 = 실제 Gemini 140건 (비전·사용자 선택 기준 포함)
+WINMATE_LLM_PROVIDER=gemini make test-live  # 격리된 API/Vite에서 기능 14개 × 10건 = 실제 Gemini 140건 (비전·사용자 선택 기준 포함)
 ```
 
 Redis 통합 검증은 `redis-server`가 PATH에 있거나 `WINMATE_TEST_REDIS_SERVER`에 실행 파일 경로를 지정하면 임시 Redis를 자동 실행한다. 미설치 시 해당 통합 사례만 skip한다.
