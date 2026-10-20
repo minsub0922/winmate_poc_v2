@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs04:F05"
+ },
+ "prompt_tokens": 6277,
+ "output_tokens": 249,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "대부분의 시장 및 성과 수치에 구체적인 조사 기관과 연도가 명시되지 않았으며, 일부 출처는 '삼성전자 추정' 등 모호하게 표기되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "50% | 옵션 계약률 | 직전 단지 31% 대비"
+     },
+     {
+      "sheet": 6,
+      "quote": "청약 경쟁률 목표 | 6.0 대 1"
+     },
+     {
+      "sheet": 7,
+      "quote": "에어드레서 옵션 선택률 | 30%"
+     }
+    ],
+    "improve": "모든 시장 데이터와 성과 지표에 공신력 있는 기관명과 조사 연도를 명확히 기재하여 정보의 신뢰성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

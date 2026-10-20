@@ -7,6 +7,10 @@ import { L, deckOrder, isCoverSheet } from '../services/catalog.js';
 import { Slide, FitSlide } from '../domain/slides/Slide.jsx';
 import { exportPptx } from '../domain/slides/export-pptx.js';
 import { FavButton } from './fav.jsx';
+import { LayoutCompleteButton } from './layout-complete.jsx';
+import { ContextSlide } from './context-slide.jsx';
+import { contextPending } from '../domain/slides/context-policy.js';
+import { layoutIsComplete, inspectLayoutContext } from '../services/layout-context.js';
 
 /** Deck pages in order (표지 first — data.js deckOrder), numbered from 1 */
 export function flatSlides(p) {
@@ -46,7 +50,7 @@ export function Viewer({ p, cur, setCur, onClose, onEdit, onExport, readOnly = f
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); go(1); }
     if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); go(-1); }
   };
-  const nDone = list.filter((z) => z.x.status === 'done').length;
+  const nDone = list.filter((z) => layoutIsComplete(p, z.x)).length;
   const isCov = !!it && (isCoverSheet(it.x.f) || !!it.s.deck);
   const type = it ? (isCov ? 'cover' : it.s.type || classifyPart(it.s.name)) : null;
   const [vw, setVw] = useState(() => loadUi().vw2 || null);
@@ -85,13 +89,14 @@ export function Viewer({ p, cur, setCur, onClose, onEdit, onExport, readOnly = f
           <div className={'vinfo ' + partHue(type)}>
             <span className="pt">{isCov ? '표지' : it.s.name}</span>
             <span className="nm">{l.name}</span>
-            {!readOnly && <span className={'stbadge ' + it.x.status}>{it.x.status === 'done' ? '입력 완료' : it.x.status === 'partial' ? '작성 중' : '빈 레이아웃'}</span>}
-            <FavButton f={it.x.f} ov={it.x.ov} from={(readOnly ? 'Best Scenario · ' : '제안서 · ') + (p.title || '')} label />
+            {!readOnly && !layoutIsComplete(p, it.x) && <span className={'stbadge ' + it.x.status}>{contextPending(it.x) ? '고객 맥락 검토 중' : it.x.status === 'partial' ? '작성 중' : '빈 레이아웃'}</span>}
+            {readOnly && <FavButton f={it.x.f} ov={it.x.ov} from={'Best Scenario · ' + (p.title || '')} label />}
           </div>
-          <div className="vslide" role="button" tabIndex={0} onClick={() => onEdit(it.s.id, it.x.uid)}
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onEdit(it.s.id, it.x.uid); } }}
+          <div className={'vslide' + (!readOnly && layoutIsComplete(p, it.x) ? ' st-done' : '')} role="button" tabIndex={0} onClick={() => onEdit(it.s.id, it.x.uid)}
+            onKeyDown={(e) => { if (e.target === e.currentTarget && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); onEdit(it.s.id, it.x.uid); } }}
             title={readOnly ? '눌러서 크게 보기' : '눌러서 채우기 · 상세 열기'} aria-label={it.n + '쪽 ' + l.name + (readOnly ? ' — 눌러서 크게 보기' : ' — 눌러서 채우기 · 상세 열기')}>
-            <Slide f={it.x.f} ov={it.x.ov} pageNo={it.n} width={sw} />
+            {readOnly ? <Slide f={it.x.f} ov={it.x.ov} pageNo={it.n} width={sw} /> : <ContextSlide p={p} x={it.x} pageNo={it.n} width={sw} />}
+            {!readOnly && <><FavButton f={it.x.f} ov={it.x.ov} from={'제안서 · ' + (p.title || '')} /><LayoutCompleteButton p={p} x={it.x} /></>}
             <span className="vslide-hint" aria-hidden="true"><Icon name={readOnly ? 'eye' : 'edit'} size={13} />{readOnly ? '눌러서 크게 보기' : '눌러서 채우기 · 상세'}</span>
           </div>
           <div className="vnav">
@@ -112,10 +117,9 @@ export function Viewer({ p, cur, setCur, onClose, onEdit, onExport, readOnly = f
               <span className="gl"><i />{g.label}</span>
               <div className="row">
                 {g.items.map(({ x, n }) => (
-                  <button key={x.uid} className="vthumb" aria-current={x.uid === cur} onClick={() => setCur(x.uid)} aria-label={n + '쪽 ' + L[x.f].name}>
-                    <Slide f={x.f} ov={x.ov} width={128} lazy pageNo={n} />
+                  <button key={x.uid} className={'vthumb' + (!readOnly && layoutIsComplete(p, x) ? ' st-done' : '')} aria-current={x.uid === cur} onClick={() => setCur(x.uid)} aria-label={n + '쪽 ' + L[x.f].name}>
+                    {readOnly ? <Slide f={x.f} ov={x.ov} width={128} lazy pageNo={n} /> : <ContextSlide p={p} x={x} width={128} lazy pageNo={n} />}
                     <span className="no">{n}</span>
-                    {!readOnly && x.status === 'done' && <span className="ok"><Icon name="check" size={9} stroke={3.4} /></span>}
                   </button>
                 ))}
               </div>
@@ -136,14 +140,16 @@ export const safeName = (s) => String(s || 'Winmate 제안서').replace(/[\\/:*?
 
 export function ExportModal({ p, onClose }) {
   const list = flatSlides(p);
-  const nDone = list.filter((z) => z.x.status === 'done').length;
+  const nDone = list.filter((z) => layoutIsComplete(p, z.x)).length;
   const [scope, setScope] = useState('all');
   const [font, setFont] = useState('Noto Sans KR');
   const [name, setName] = useState(safeName(p.title));
   const [st, setSt] = useState(null); // {n, total} | {blob} | {err}
-  const chosen = scope === 'done' ? list.filter((z) => z.x.status === 'done') : list;
+  const chosen = scope === 'done' ? list.filter((z) => layoutIsComplete(p, z.x)) : list;
   const nEmpty = chosen.filter((z) => z.x.status === 'empty').length;
+  const blocked = chosen.some(({ x }) => contextPending(x) || x.adaptation?.phase === 'error' || inspectLayoutContext(p, x).some(issue => /선택하지 않은 제품|다른 이미지/.test(issue)));
   const run = async () => {
+    if (blocked) return;
     setSt({ n: 0, total: chosen.length });
     try {
       const blob = await exportPptx(chosen.map((z) => ({ f: z.x.f, ov: z.x.ov, part: z.s.name })), { title: p.title, font, onProgress: (n, total) => setSt({ n, total }) });
@@ -175,8 +181,9 @@ export function ExportModal({ p, onClose }) {
         <span className="sp" />
         <button className="btn" disabled={busy} onClick={onClose}>닫기</button>
         {st && st.blob && st.err ? <button className="btn btn-primary" onClick={() => save(st.blob)}><Icon name="download" size={15} />다시 저장</button>
-          : <button className="btn btn-primary" disabled={!chosen.length || busy} onClick={run}>{busy ? <span className="spin" /> : <Icon name="download" size={15} />}{busy ? '만드는 중…' : 'PPTX 만들기'}</button>}
+          : <button className="btn btn-primary" disabled={!chosen.length || busy || blocked} onClick={run}>{busy ? <span className="spin" /> : <Icon name="download" size={15} />}{busy ? '만드는 중…' : 'PPTX 만들기'}</button>}
       </>}>
+      {blocked && <p className="hint" role="status">현재 고객 맥락에 맞는지 확인 중이거나 실패한 장이 있어요. 채우기를 마친 뒤 내보낼 수 있어요.</p>}
       <div className="field"><label htmlFor="ex-name">파일 이름</label>
         <div style={{ display: 'flex', alignItems: 'center', gap: "var(--space-6px)" }}><input id="ex-name" className="input" value={name} onChange={(e) => setName(e.target.value)} /><span className="faint num">.pptx</span></div>
       </div>

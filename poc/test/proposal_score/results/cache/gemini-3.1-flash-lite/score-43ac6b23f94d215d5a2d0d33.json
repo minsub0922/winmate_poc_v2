@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10:F10"
+ },
+ "prompt_tokens": 2142,
+ "output_tokens": 209,
+ "data": {
+  "scores": [
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "13장에서 1차 전환 범위, 병행 운영 및 교육 일정, 발주 및 착수 후 8주 전환 등 구체적인 일정과 역할 분담을 명시함.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "1차 전환 범위 확정 - 대전점 · 청주점"
+     },
+     {
+      "sheet": 13,
+      "quote": "점별 2주 병행 운영 · 운영자 교육 3회"
+     },
+     {
+      "sheet": 13,
+      "quote": "착수 후 8주 1차 전환"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

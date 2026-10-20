@@ -1,0 +1,82 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs14~full:F01"
+ },
+ "prompt_tokens": 9728,
+ "output_tokens": 608,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명을 'L 제조'로 일관되게 표기하였으며, 업종 및 규모 정보가 장마다 일치합니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "L 제조"
+     },
+     {
+      "sheet": 2,
+      "quote": "L 제조의 이익은"
+     },
+     {
+      "sheet": 15,
+      "quote": "L 제조 현장 모바일"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "CU5",
+    "score": 3,
+    "anchor": "고객사의 구체적인 운영 수치, 현장 여정, 파일럿 일정 등이 전 장에 걸쳐 상세히 반영되어 있어 범용 장표가 아닙니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "납품 매출 2,400억 원"
+     },
+     {
+      "sheet": 14,
+      "quote": "3라인 · 입고 도크 1에서 4주 검증"
+     },
+     {
+      "sheet": 15,
+      "quote": "11월 2일 첫 라인이 바뀝니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "템플릿 잔여물이나 자리표시 문구가 발견되지 않았으며, 연락처는 제안 담당자의 정보로 적절히 기재되었습니다.",
+    "evidence": [
+     {
+      "sheet": 15,
+      "quote": "김도윤 프로 · 삼성전자 B2B 영업팀"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "원가, 마진, 내부 코드명 등 민감한 내부 정보가 포함되어 있지 않으며, 제안 담당자의 연락처 외 개인정보 노출도 없습니다.",
+    "evidence": [
+     {
+      "sheet": 15,
+      "quote": "김도윤 프로 · 삼성전자 B2B 영업팀"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~wrong_customer:F05"
+ },
+ "prompt_tokens": 3511,
+ "output_tokens": 283,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "제안서 내 대부분의 수치(260개, 11곳, 7종, 15년+, 16주 등)에 구체적인 조사 기관과 연도가 명시되어 있지 않으며, 일부는 '삼성전자 추정' 등으로 모호하게 표기되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "공급사 11곳 · 관리 도구 7종"
+     },
+     {
+      "sheet": 3,
+      "quote": "시장 수치는 삼성전자 추정(2026)"
+     },
+     {
+      "sheet": 8,
+      "quote": "15년+ | 사이니지 1위"
+     }
+    ],
+    "improve": "모든 수치 데이터 옆에 신뢰할 수 있는 조사 기관명과 연도를 명확히 기재하고, 고객사 내부 자료는 '고객 운영 자료(2024)'와 같이 출처를 구체화해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

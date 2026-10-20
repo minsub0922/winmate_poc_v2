@@ -1,0 +1,40 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01:F01"
+ },
+ "prompt_tokens": 9297,
+ "output_tokens": 325,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "16장의 담당자 연락처 및 이메일 주소는 제안서 템플릿의 예시 정보로 보이며, 이는 핵심 내용이 아닌 문서 하단에 위치합니다.",
+    "evidence": [
+     {
+      "sheet": 16,
+      "quote": "010-1234-5678 · b2b.proposal@samsung.com"
+     }
+    ],
+    "improve": "제안서 제출 전 실제 담당자의 연락처와 이메일 주소로 수정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 1,
+    "anchor": "16장에 담당자의 개인 휴대전화 번호와 이메일 주소가 그대로 노출되어 있어 민감 정보 포함 기준에 해당합니다.",
+    "evidence": [
+     {
+      "sheet": 16,
+      "quote": "010-1234-5678 · b2b.proposal@samsung.com"
+     }
+    ],
+    "improve": "개인 연락처를 삭제하거나 공식 고객 응대용 대표 번호 및 이메일로 변경해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

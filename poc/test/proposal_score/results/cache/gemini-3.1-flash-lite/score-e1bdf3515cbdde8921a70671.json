@@ -1,0 +1,61 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~full:F05"
+ },
+ "prompt_tokens": 7140,
+ "output_tokens": 484,
+ "data": {
+  "scores": [
+   {
+    "id": "MK1",
+    "score": 2,
+    "anchor": "시장 규모나 점유율에 대한 구체적인 수치 계산 근거가 부족하며, 업계 평균 수치에 대한 산출 근거가 명확하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "업계: 삼성전자 추정(2026)"
+     }
+    ],
+    "improve": "업계 평균 수치 산출을 위한 시장 조사 범위와 계산 근거를 구체적으로 명시해야 합니다.",
+    "confidence": "mid"
+   },
+   {
+    "id": "MK2",
+    "score": 3,
+    "anchor": "모든 인용 수치와 데이터가 2026년 기준임을 명시하고 있어 최신성을 유지하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "업계: 삼성전자 추정(2026)"
+     },
+     {
+      "sheet": 4,
+      "quote": "2026년 장애 이력"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "MK3",
+    "score": 2,
+    "anchor": "주요 수치에 출처가 명시되어 있으나, 일부 장에서는 출처 표기가 누락되거나 '삼성전자 추정'과 같이 포괄적으로 기재되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "업계: 삼성전자 추정(2026)"
+     },
+     {
+      "sheet": 7,
+      "quote": "삼성전자 추정(2026)"
+     }
+    ],
+    "improve": "모든 수치와 인용 자료에 대해 구체적인 조사 기관과 연도를 일관되게 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

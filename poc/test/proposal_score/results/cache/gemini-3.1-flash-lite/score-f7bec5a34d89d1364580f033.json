@@ -1,0 +1,56 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~placeholders:F01"
+ },
+ "prompt_tokens": 5192,
+ "output_tokens": 389,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'Y 그룹'이 일관되게 사용되었으며, 다른 고객사명이나 예시 고객명이 발견되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "Y 그룹"
+     },
+     {
+      "sheet": 4,
+      "quote": "Y 그룹의 목표는"
+     },
+     {
+      "sheet": 10,
+      "quote": "Y 그룹 사업장 디스플레이 통합"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "제안서 본문 내 핵심 수치와 문장에 [00]과 같은 자리표시가 6곳 이상 존재하며, 연락처 정보 또한 예시용으로 작성되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "[00]일"
+     },
+     {
+      "sheet": 5,
+      "quote": "[00]일 → 당일"
+     },
+     {
+      "sheet": 10,
+      "quote": "010-1234-5678"
+     }
+    ],
+    "improve": "본문 내 [00]으로 표기된 수치를 실제 데이터로 수정하고, 연락처 정보를 담당자의 실제 정보로 변경해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

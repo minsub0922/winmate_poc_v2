@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~wrong_customer:F01"
+ },
+ "prompt_tokens": 5164,
+ "output_tokens": 418,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 1,
+    "anchor": "제안서 전반에 걸쳐 고객사명이 'Y 그룹'으로 통일되어 있으나, 3장, 6장, 9장에서 'H 호텔'이라는 다른 고객사명이 혼용되어 사용되고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "H 호텔은 지금이 적기입니다"
+     },
+     {
+      "sheet": 6,
+      "quote": "도입 후 H 호텔"
+     },
+     {
+      "sheet": 9,
+      "quote": "H 호텔 · 사업장 디스플레이 통합 제안"
+     }
+    ],
+    "improve": "제안서 내 모든 장에서 고객사명을 'Y 그룹'으로 통일하고, 타 고객사명인 'H 호텔'을 삭제해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "다른 고객사명인 'H 호텔'이 3곳에 노출되어 있으며, 10장에는 실제 제출용이 아닌 예시용 연락처 정보가 그대로 남아 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "H 호텔은 지금이 적기입니다"
+     },
+     {
+      "sheet": 10,
+      "quote": "010-1234-5678"
+     }
+    ],
+    "improve": "타 고객사명인 'H 호텔'을 삭제하고, 10장의 연락처를 실제 담당자의 정보로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

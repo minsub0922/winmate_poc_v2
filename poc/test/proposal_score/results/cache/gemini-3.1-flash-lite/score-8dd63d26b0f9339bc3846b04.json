@@ -1,0 +1,69 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs05~full:F12"
+ },
+ "prompt_tokens": 8784,
+ "output_tokens": 511,
+ "data": {
+  "scores": [
+   {
+    "id": "WR2",
+    "score": 3,
+    "anchor": "전체적으로 맞춤법과 띄어쓰기가 정확하며, 제목에도 오류가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "줄 서는 시간까지 파크의 체험으로"
+     },
+     {
+      "sheet": 14,
+      "quote": "줄 서는 시간부터 밤의 무대까지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR8",
+    "score": 1,
+    "anchor": "RFP, XHB, IFR 등 고객이 생소할 수 있는 약어와 전문 용어에 대한 풀이가 제안서 내에 전혀 없습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "RFP 구역 계획 기준"
+     },
+     {
+      "sheet": 6,
+      "quote": "세로형 LED 사이니지 IFR"
+     },
+     {
+      "sheet": 7,
+      "quote": "실외 LED XHB"
+     }
+    ],
+    "improve": "제안서 내에 사용된 모든 약어(RFP, XHB, IFR, JBL 등)에 대해 처음 등장하는 시점에 풀이 설명을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR9",
+    "score": 3,
+    "anchor": "개조식 문체와 명사형 종결이 제안서 전반에 걸쳐 일관되게 사용되었으며, 고객을 존중하는 톤을 유지하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "기다림이 체험의 첫 장면이 됩니다"
+     },
+     {
+      "sheet": 14,
+      "quote": "시즌마다 새로워지는 구역을 함께 만들겠습니다."
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

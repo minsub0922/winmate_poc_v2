@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs02:F07"
+ },
+ "prompt_tokens": 2714,
+ "output_tokens": 225,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "에너지 절감 목표 20%에 대한 산정 근거와 탄소 감축량(331톤)의 배출계수, 산정 식, 환산 기준이 명확히 제시됨.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "목표 20% 기준 · 보수 범위 15%면 연 248톤 · 실측 리포트로 공시"
+     },
+     {
+      "sheet": 13,
+      "quote": "720 MWh/년 × 배출계수 0.4594 tCO₂/MWh = 탄소 감축 331 tCO₂e/년"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

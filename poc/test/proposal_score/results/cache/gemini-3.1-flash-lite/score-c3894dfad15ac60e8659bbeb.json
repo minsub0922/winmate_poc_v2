@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs05:F10"
+ },
+ "prompt_tokens": 5658,
+ "output_tokens": 400,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO를 통해 시즌별 콘텐츠 일괄 교체, 대기 시간 연동, 원격 진단 및 운영실 내 모니터링 장면을 상세히 제시함.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "MagicINFO 시즌 콘텐츠 일괄 편성 화면"
+     },
+     {
+      "sheet": 5,
+      "quote": "MagicINFO 모니터링 옥외 LED 온·습도·장애 알림"
+     },
+     {
+      "sheet": 7,
+      "quote": "일몰 시각 자동 전환·우천·행사 땐 운영실 한 번"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR7",
+    "score": 2,
+    "anchor": "시공 및 설치 환경에 대한 언급은 있으나, 상세한 유지보수 범위나 보증 조건에 대한 구체적인 내용은 부족함.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "설치 하단 1,200 mm · 벽 폭 5.4 m"
+     },
+     {
+      "sheet": 11,
+      "quote": "피치 · 캐비닛 수는 무대 구조 실측 후 확정"
+     }
+    ],
+    "improve": "유지보수 체계(정기 점검, 장애 대응 서비스)와 제품 보증 범위에 대한 구체적인 내용을 추가하십시오.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

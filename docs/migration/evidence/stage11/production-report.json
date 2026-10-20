@@ -1,0 +1,59 @@
+{
+  "base": "https://merit-origins-cargo-technician.trycloudflare.com",
+  "sampleCount": 6,
+  "cases": [
+    {
+      "name": "all sample histories receive owned persistent share IDs",
+      "passed": true,
+      "ms": 6687
+    },
+    {
+      "name": "sample 1: enabled sharing, correct link, no reuse button",
+      "passed": true,
+      "ms": 1230
+    },
+    {
+      "name": "sample 2: enabled sharing, correct link, no reuse button",
+      "passed": true,
+      "ms": 2031
+    },
+    {
+      "name": "sample 3: enabled sharing, correct link, no reuse button",
+      "passed": true,
+      "ms": 2399
+    },
+    {
+      "name": "sample 4: enabled sharing, correct link, no reuse button",
+      "passed": true,
+      "ms": 1265
+    },
+    {
+      "name": "sample 5: enabled sharing, correct link, no reuse button",
+      "passed": true,
+      "ms": 4920
+    },
+    {
+      "name": "sample 6: enabled sharing, correct link, no reuse button",
+      "passed": true,
+      "ms": 2203
+    },
+    {
+      "name": "another admin browser reuses the same sample IDs",
+      "passed": true,
+      "ms": 23954
+    },
+    {
+      "name": "shared sample opens for a guest without the reuse action",
+      "passed": true,
+      "ms": 4492
+    },
+    {
+      "name": "mobile admin can share a sample without the reuse action",
+      "passed": true,
+      "ms": 19534
+    }
+  ],
+  "errors": [],
+  "passed": 10,
+  "total": 10
+}

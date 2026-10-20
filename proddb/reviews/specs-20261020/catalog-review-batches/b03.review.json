@@ -1,0 +1,364 @@
+{
+  "reviews": [
+    {
+      "id": "ec_297_059",
+      "scope": "model",
+      "rows": [],
+      "reason": "p.37 라인업표에는 AIM-B12N의 용도 'DVM, CAC'만 있고 이미 기존 rows에 있습니다. 표가 병합 셀 구조라 제품군이 어디에 속하는지 분명하지 않습니다. 이 밖의 기술 사양, 설치 조건, 서비스 범위는 원문에 없습니다."
+    },
+    {
+      "id": "ec_297_060",
+      "scope": "model",
+      "rows": [],
+      "reason": "p.37 라인업표에는 AIM-B16N의 용도 'DVM, CAC'만 있고 이미 기존 rows에 있습니다. 이 밖의 사양은 원문에 없습니다."
+    },
+    {
+      "id": "ec_297_061",
+      "scope": "model",
+      "rows": [],
+      "reason": "p.37 라인업표에는 ACM-B102N의 용도 'DVM, CAC'만 있고 이미 기존 rows에 있습니다. 이 밖의 사양은 원문에 없습니다."
+    },
+    {
+      "id": "ec_297_062",
+      "scope": "model",
+      "rows": [],
+      "reason": "p.37 라인업표에는 AIM-B15N의 용도 'DVM, CAC'만 있고 이미 기존 rows에 있습니다. 이 밖의 사양은 원문에 없습니다."
+    },
+    {
+      "id": "ec_297_063",
+      "scope": "model",
+      "rows": [
+        {
+          "group": "제품 분류",
+          "name": "제품군",
+          "value": "설치 시운전 솔루션",
+          "dir": "297",
+          "page": 37,
+          "quote": "설치 시운전 솔루션 HASS Converter AIM-S10N DVM, CAC"
+        },
+        {
+          "group": "설치 조건",
+          "name": "시운전 소요시간",
+          "value": "기존 80분 → 개선 20분 (대형 멀티 DVM S, 모바일 HASS 기준)",
+          "dir": "297",
+          "page": 115,
+          "quote": "기존 80분 개선 20분 HASS Converter HASS App HASS Web Portal B2B 설치 ②무선 연결 ①모바일 시운전 ③설치 시운전 정보 자동 저장 * 대형 멀티 DVM S, 모바일 HASS 기준입니다."
+        },
+        {
+          "group": "지원 기능",
+          "name": "시운전 기능",
+          "value": "무선 연결, 모바일 시운전, 설치 시운전 정보 자동 저장",
+          "dir": "297",
+          "page": 115,
+          "quote": "기존 80분 개선 20분 HASS Converter HASS App HASS Web Portal B2B 설치 ②무선 연결 ①모바일 시운전 ③설치 시운전 정보 자동 저장 * 대형 멀티 DVM S, 모바일 HASS 기준입니다."
+        }
+      ],
+      "reason": "p.115는 HASS Converter, HASS App, HASS Web Portal을 묶은 HASS 설치 시운전 솔루션 전체 설명입니다. 따라서 시간 단축과 기능은 HASS 솔루션 기준 값입니다. 같은 쪽의 DVM S2 무게중심 표시, 이지패널, On-device InverterCheck 내용은 다른 제품의 것이라 넣지 않았습니다."
+    },
+    {
+      "id": "ec_297_064",
+      "scope": "model",
+      "rows": [],
+      "reason": "p.37에는 비고 '칠러 제품 전용'과 용도 'DVM Chiller'만 있고 둘 다 이미 기존 rows에 있습니다. 이 밖의 사양은 원문에 없습니다."
+    },
+    {
+      "id": "ec_297_065",
+      "scope": "model",
+      "rows": [],
+      "reason": "p.37에는 비고 '시스템청정환기 전용'과 용도 'ERV, 시스템청정환기'만 있고 둘 다 이미 기존 rows에 있습니다. 이 밖의 사양은 원문에 없습니다."
+    },
+    {
+      "id": "ec_297_066",
+      "scope": "model",
+      "rows": [],
+      "reason": "p.37의 'FCU 상위 제어기와연결 시 필요'에서 'FCU'가 용도 열인지 비고 열의 일부인지 구분되지 않아 새로 추출하지 않았습니다. 이 밖의 사양은 원문에 없습니다."
+    },
+    {
+      "id": "ec_297_033",
+      "scope": "family",
+      "rows": [
+        {
+          "group": "설치 조건",
+          "name": "설치 형태",
+          "value": "천장매립형",
+          "dir": "297",
+          "page": 20,
+          "quote": "덕트형 천장매립형 실내기 • 모든 환경에서 최적으로 운전하는 자동정압"
+        },
+        {
+          "group": "성능",
+          "name": "모델별 용량",
+          "value": "AM032KNLDBH1 3.2kW / AM040KNLDBH1 4.0kW / AM052DNLDBH1 5.2kW / AM072DNLDBH1 7.2kW / AM100FNLDBH1 10.0kW",
+          "dir": "297",
+          "page": 26,
+          "quote": "용량 kW 3.2 4.0 5.2 7.2 10.0 덕트형 저정압 중정압 저정압 AM032KNLDBH1 AM040KNLDBH1 AM052DNLDBH1 AM072DNLDBH1 AM100FNLDBH1"
+        }
+      ],
+      "reason": "p.26 라인업표에는 용량 5개와 모델 5개가 같은 순서로 나와 있어 1:1로 대응시켰습니다. 상세 사양 페이지(181쪽 이후)는 입력에 없어 소비전력, 치수, 정압 같은 값은 확인할 수 없습니다."
+    },
+    {
+      "id": "ec_297_034",
+      "scope": "family",
+      "rows": [
+        {
+          "group": "설치 조건",
+          "name": "설치 형태",
+          "value": "천장매립형",
+          "dir": "297",
+          "page": 20,
+          "quote": "덕트형 천장매립형 실내기 • 모든 환경에서 최적으로 운전하는 자동정압"
+        },
+        {
+          "group": "성능",
+          "name": "모델별 용량",
+          "value": "AM083DNMDBH1 8.3kW / AM100DNMDBH1 10.0kW / AM110DNMDBH1 11.0kW / AM130DNMDBH1 13.0kW / AM145DNMDBH1 14.5kW",
+          "dir": "297",
+          "page": 27,
+          "quote": "8.3 10.0 11.0 13.0 14.5 중정압 AM083DNMDBH1 AM100DNMDBH1 AM110DNMDBH1 AM130DNMDBH1 AM145DNMDBH1"
+        }
+      ],
+      "reason": "p.27에는 용량 5개와 중정압 모델 5개가 같은 순서로 나와 있어 1:1로 대응시켰습니다. 같은 쪽의 고정압, EHS, 실링 모델 값은 넣지 않았습니다. 상세 사양 페이지는 입력에 없습니다."
+    },
+    {
+      "id": "ec_297_009",
+      "scope": "family",
+      "rows": [
+        {
+          "group": "적용",
+          "name": "적용 분야",
+          "value": "다양한 HVAC 댐퍼 어플리케이션",
+          "dir": "297",
+          "page": 70,
+          "quote": "댐퍼Actuator는 다양한HVAC댐퍼 어플리케이션에 사용하도록 설계되었습니다."
+        },
+        {
+          "group": "토크",
+          "name": "비례제어 모델별 토크",
+          "value": "LM24A-SR 5Nm / NM24A-SR 10Nm / SM24A-SR 20Nm / GM24A-SR 40Nm",
+          "dir": "297",
+          "page": 70,
+          "quote": "비례제어 LM24A-SR NM24A-SR SM24A-SR GM24A-SR 5Nm 10Nm 20Nm 40Nm"
+        },
+        {
+          "group": "토크",
+          "name": "open/close 모델별 토크",
+          "value": "LM24A 5Nm / NM24A 10Nm / SM24A 20Nm / GM24A 40Nm",
+          "dir": "297",
+          "page": 70,
+          "quote": "open/close LM24A NM24A SM24A GM24A 5Nm 10Nm 20Nm 40Nm"
+        },
+        {
+          "group": "토크",
+          "name": "스프링 리턴 비례제어 모델별 토크",
+          "value": "LF24-SR 4Nm / NF24A-SR 10Nm / SF24A-SR 20Nm / EF24A-SR 30Nm",
+          "dir": "297",
+          "page": 70,
+          "quote": "스프링 리턴 비례제어 LF24-SR NF24A-SR SF24A-SR EF24A-SR 4Nm 10Nm 20Nm 30Nm"
+        },
+        {
+          "group": "토크",
+          "name": "스프링 리턴 open/close 모델별 토크",
+          "value": "LF24-S 4Nm / NFA-S2 10Nm / SFA-S2 20Nm / EF24A-S2 30Nm",
+          "dir": "297",
+          "page": 70,
+          "quote": "스프링 리턴 open/close LF24-S NFA-S2 SFA-S2 EF24A-S2 4Nm 10Nm 20Nm 30Nm"
+        }
+      ],
+      "reason": "p.70 표에서 각 종류마다 모델 4개와 토크 4개가 같은 순서로 나와 있어 1:1로 대응됩니다. 스프링 리턴 계열의 최대 토크는 30Nm입니다. 전원, 신호 같은 다른 사양은 원문에 없습니다."
+    },
+    {
+      "id": "ec_297_010",
+      "scope": "family",
+      "rows": [
+        {
+          "group": "호환성",
+          "name": "시스템 연동",
+          "value": "빌딩 자동화 시스템 BAS 과의 통합 가능",
+          "dir": "297",
+          "page": 71,
+          "quote": "탁월한 신뢰성,쉬운 설치 및 빌딩 자동화 시스템 BAS 과의 통합이 가능한 센서를 제공합니다."
+        },
+        {
+          "group": "측정",
+          "name": "측정 대상 및 적용처",
+          "value": "온도, 습도, 압력, CO2, 휘발성 유기 화합물 VOC / 파이프, 덕트 및 실외 어플리케이션",
+          "dir": "297",
+          "page": 71,
+          "quote": "온도, 습도,압력, CO2 및 파이프,덕트 및 실외 어플리케이션의휘발성 유기 화합물 VOC 측정용 센서를 포함하여 다양한 센서 라인업을 제공합니다."
+        },
+        {
+          "group": "구성",
+          "name": "모델별 종류",
+          "value": "외기온도 01UT-1B / 덕트 온습도 22DTH-11M / 외기 온습도 22UTH-13 / 덕트 CO2 22DC-11 / 필터 차압 스위치 01APS-10U / 덕트 차압 정압 감지기 22ADP-184 / 배관 차압 22WDP-114 / 배관 정압 22WP-117",
+          "dir": "297",
+          "page": 71,
+          "quote": "외기온도 01UT-1B 덕트 온습도 22DTH-11M 외기 온습도 22UTH-13 종류 이미지 모델명 비고 덕트 CO2 22DC-11 필터 차압 스위치 01APS-10U 덕트 차압 정압 감지기 22ADP-184 배관 차압 22WDP-114 배관 정압 22WP-117"
+        }
+      ],
+      "reason": "덕트온도와 배관온도 모델 4개(01DT-1BR, A-22D-A03, 01DT-1BL, A-22P-A14)는 각각 어느 종류에 속하는지, 비고 'Mount kit 만 다름'이 어느 모델에 해당하는지 분명하지 않아 넣지 않았습니다. VOC는 설명 문구에만 나오고 표에는 해당 모델이 없습니다."
+    },
+    {
+      "id": "ec_297_011",
+      "scope": "family",
+      "rows": [
+        {
+          "group": "구경",
+          "name": "2방 제어 밸브(물) 모델별 구경",
+          "value": "R2015-4-S1 15A / R2020-6P3-S1 20A / R2025-10-S2 25A / R2032-16-S2 32A / R2040-25-S2 40A / R2050-40-S3 50A / R664AO 65A / R679AO 80A / R6099AO 100A / R6124AO 125A / R6149AO 150A",
+          "dir": "297",
+          "page": 71,
+          "quote": "2방 제어 밸브 물 R2015-4-S1 R2020-6P3-S1 R2025-10-S2 R2032-16-S2 R2040-25-S2 R2050-40-S3 R664AO R679AO R6099AO R6124AO R6149AO 15A 20A 25A 32A 40A 50A 65A 80A 100A 125A 150A"
+        },
+        {
+          "group": "호환성",
+          "name": "밸브 구동기(물용) 적용 구경",
+          "value": "TR24-SR 15,20A 용 / LR24A-SR 25,32,40A 용 / NR24A-SR 50A 용 / SR24A-SR-5 65, 80A 용 / GR24A-SR-7 100, 125, 150A 용",
+          "dir": "297",
+          "page": 71,
+          "quote": "밸브 구동기 물용 TR24-SR LR24A-SR NR24A-SR SR24A-SR-5 GR24A-SR-7 15,20A 용 25,32,40A 용 50A 용 65, 80A 용 100, 125, 150A 용"
+        },
+        {
+          "group": "구경",
+          "name": "2방 제어 밸브(스팀) 모델별 구경",
+          "value": "R614AS 15A / R624AS 20A / R639AS 40A / R649AS 50A / R664AS 65A / R679AS 80A",
+          "dir": "297",
+          "page": 71,
+          "quote": "2방 제어 밸브 스팀 R614AS R624AS R639AS R649AS R664AS R679AS 15A 20A 40A 50A 65A 80A"
+        },
+        {
+          "group": "제어 방식",
+          "name": "밸브구동기(스팀용) 방식",
+          "value": "스프링리턴",
+          "dir": "297",
+          "page": 71,
+          "quote": "밸브구동기 스팀용, 스프링리턴 LFH24-SR-S SRF24A-SR-5"
+        },
+        {
+          "group": "전기 사양",
+          "name": "FCU용 밸브 일체형 구경/전원/제어",
+          "value": "C215Q-J+CQ230A 15A, 230V OPEN CLOSE / C220Q-K+CQ230A 20A, 230V OPEN CLOSE",
+          "dir": "297",
+          "page": 71,
+          "quote": "FCU용 밸브 일체형 C215Q-J+CQ230A C220Q-K+CQ230A 15A, 230V OPEN CLOSE 20A, 230V OPEN CLOSE"
+        },
+        {
+          "group": "제어 방식",
+          "name": "FCU용 복합밸브 일체형 사양",
+          "value": "15A, 20V 비례제어 / 20A, 24V 비례제어",
+          "dir": "297",
+          "page": 71,
+          "quote": "FCU용 복합밸브 일체형 C215QP-D+CQ24A-SR C220QP-F+CQ24A-SR C220QP-G+CQ24A-SR 15A, 20V 비례제어 20A, 24V 비례제어"
+        }
+      ],
+      "reason": "스팀용 밸브구동기의 적용 구경('40, 50, 15,25A 용 65, 80A 용')은 문구가 섞여 있어 모델별로 나누지 못했습니다. FCU용 복합밸브 일체형은 모델이 3개인데 사양은 2개라 모델별 대응 없이 계열 값만 적었습니다. 전자식 복합밸브 일체형은 구경 순서와 모델명이 서로 맞지 않는 부분이 있어 기존 구경 범위 외에는 추가하지 않았습니다."
+    },
+    {
+      "id": "ec_314_029",
+      "scope": "family",
+      "rows": [],
+      "reason": "p.23과 p.29는 침실 추천 Line-up 이미지에 제품명만 나오는 쪽입니다. 모델코드와 기술 사양, 호환성, 설치 조건이 전혀 없습니다."
+    },
+    {
+      "id": "ec_297_665",
+      "scope": "model",
+      "rows": [
+        {
+          "group": "배관 사양",
+          "name": "배관 규격·두께 Φ 액관/가스관",
+          "value": "9.52 0.7t / 6.35 0.7t, 12.7 0.8t / 6.35 0.7t, 15.88 1.0t / 6.35 0.7t, 15.88 1.0t / 9.52 0.7t (PE엠보·고무발포 동일)",
+          "dir": "297",
+          "page": 519,
+          "quote": "일체형 배관 PE엠보 9.52 0.7 t 6.35 0.7 t 12.7 0.8 t 6.35 0.7 t 15.88 1.0 t 6.35 0.7 t 15.88 1.0 t 9.52 0.7 t 일체형 배관 고무발포 9.52 0.7 t 6.35 0.7 t 12.7 0.8 t 6.35 0.7 t 15.88 1.0 t 6.35 0.7 t 15.88 1.0 t 9.52 0.7 t"
+        },
+        {
+          "group": "구성",
+          "name": "SET 구성",
+          "value": "분기관 + 기본 보양 작업",
+          "dir": "297",
+          "page": 519,
+          "quote": "* 일체형 분기관 SET 분기관 + 기본 보양 작업"
+        },
+        {
+          "group": "서비스 제공 범위",
+          "name": "추가 배관",
+          "value": "추가 배관은 500mm 최대 30M 연결 제공 가능 – 비용 별도",
+          "dir": "297",
+          "page": 519,
+          "quote": "추가 배관은 500mm 최대 30M 연결 제공 가능 – 비용 별도"
+        },
+        {
+          "group": "서비스 제공 범위",
+          "name": "제작 방식",
+          "value": "Order Made, 현장 Type別 제작",
+          "dir": "297",
+          "page": 519,
+          "quote": "* Order Made, 현장 Type別 제작 대상모델 DVM Home 단배관"
+        }
+      ],
+      "reason": "같은 쪽의 Tuffok 무용접 조인트 표(KS D 5301 동관두께 등)와 벌크형 분기관 내용은 다른 품목이라 넣지 않았습니다."
+    },
+    {
+      "id": "ec_297_666",
+      "scope": "family",
+      "rows": [],
+      "reason": "p.519에서 벌크형 분기관에 대해 확인되는 것은 '분기관 40ea / 40개 SET 포장'('23년 4월 기준)뿐이고 이미 기존 rows에 있습니다. p.516은 무용접 조인트 분기관 설명이라 넣지 않았습니다. 모델코드와 배관 규격은 없습니다."
+    },
+    {
+      "id": "ec_203_034",
+      "scope": "family",
+      "rows": [
+        {
+          "group": "호환성",
+          "name": "FPH-1412XS3 / FPH-1458XS1 적용 세트",
+          "value": "프레스티지 5.2kW(AP052CNPPBH1)·6.0kW(AP060CNPPBH1): FPH-1412XS3 / 7.2kW(AP072CNPPBH1): FPH-1458XS1",
+          "dir": "203",
+          "page": 106,
+          "quote": "모델명 실내기 AP052CNPPBH1 AP060CNPPBH1 AP072CNPPBH1 실외기 AC052CXAPBH1 AC060CXAPBH1 AC072CXAPBH1 배관 Kit FPH-1412XS3 FPH-1412XS3 FPH-1458XS1"
+        },
+        {
+          "group": "호환성",
+          "name": "FPH-3858XS5 적용 세트",
+          "value": "BESPOKE 냉난방 8.3·11.0·14.5kW (AP083BNPPBH6/7/8, AP110RNPPBH6/7/8, AP110RNPPHH6/7/8, AP145BNPPHH6/7/8)",
+          "dir": "203",
+          "page": 105,
+          "quote": "모델명 실내기 AP083BNPPBH6/7/8 AP110RNPPBH6/7/8 AP110RNPPHH6/7/8 AP145BNPPHH6/7/8 실외기 AP083BXPPBH3 AC110BXAPBH3 AC110BXAPHH3 AC145BXAPHH5 배관 Kit FPH-3858XS5 FPH-3858XS5 FPH-3858XS5 FPH-3858XS5"
+        },
+        {
+          "group": "호환성",
+          "name": "FPH-3878XS 적용 세트",
+          "value": "프리미엄 냉난방 23.0kW(AP230CNPDHH1)·29.0kW(AP290CNPDHH1)",
+          "dir": "203",
+          "page": 110,
+          "quote": "AP230CNPDHH1 AP290CNPDHH1 실외기 AC110BXAPHH3 AC130BXAPBH3 AC130BXAPHH3 AC145BXAPHH5 AP230CXPDHH1 AP290CXPDHH1 배관 Kit FPH-3858XS5 FPH-3858XS5 FPH-3858XS5 FPH-3858XS5 FPH-3878XS FPH-3878XS"
+        },
+        {
+          "group": "호환성",
+          "name": "FPC-3858XS2 적용 세트",
+          "value": "냉방전용 8.3·11.0·14.5kW (AP083CNPDBC1, AP110CNPDBC1, AP145CNPDHC1)",
+          "dir": "203",
+          "page": 111,
+          "quote": "모델명 실내기 AP083CNPDBC1 AP110CNPDBC1 AP145CNPDHC1 실외기 AC083CXADBC1 AC110CXADBC1 AP145CXPDHC1 배관 Kit FPC-3858XS2 FPC-3858XS2 FPC-3858XS2 시스템 구분 냉방 냉방 냉방"
+        }
+      ],
+      "reason": "p.104~111 사양표의 배관 액관/가스관 규격은 세트의 사양이고, 같은 Kit(예: FPH-1412XS3)에서도 표마다 값이 다릅니다(p.104 9.52/15.88, p.106 6.35/12.70). 그래서 Kit 규격으로 넣지 않았습니다. 1등급 5.2~7.2kW 세트의 Kit도 p.16(FPH-3858XS5)과 p.104(FPH-1412XS3/FPH-1458XS1)가 서로 달라 넣지 않았습니다."
+    },
+    {
+      "id": "ec_300_002",
+      "scope": "service",
+      "rows": [],
+      "reason": "p.11 sourcePages 텍스트에는 'EnterpriseEdition'이라는 표기와 연출 이미지 안내 문구만 있습니다. 보증기간, S/W 업데이트, Knox Suite 같은 혜택은 텍스트로 확인되지 않아 근거로 삼을 수 없습니다."
+    },
+    {
+      "id": "ec_314_037",
+      "scope": "family",
+      "rows": [],
+      "reason": "p.31은 스마트싱스 홈 라이프 소개 쪽입니다. 갤럭시 탭 S11 Ultra는 제품명으로만 나오고, 기기 연결과 컨트롤 문구는 이미 features에 있습니다. 탭 자체의 기술 사양과 호환성 수치는 없습니다."
+    },
+    {
+      "id": "ec_360_150",
+      "scope": "model",
+      "rows": [],
+      "reason": "p.95의 액세서리 목록에는 제품명과 모델코드 4종만 나옵니다. 같은 쪽의 버즈와 워치 사양은 다른 제품의 것입니다. 케이스의 소재, 치수, 지원 기능 같은 기술 사양은 원문에 없습니다."
+    }
+  ]
+}

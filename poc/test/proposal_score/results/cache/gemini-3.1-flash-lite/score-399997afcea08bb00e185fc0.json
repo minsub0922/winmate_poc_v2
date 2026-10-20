@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs21~full:F02"
+ },
+ "prompt_tokens": 13804,
+ "output_tokens": 633,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 2,
+    "anchor": "고객의 요구사항 R1~R4에 대해 전반적으로 대응하고 있으나, K4(공급사 신뢰)에 대한 명시적 언급이 부족하고 R1(프런트 업무 부담)에 대한 구체적 해결책이 다소 암시적입니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "외국인 투숙 비중 46% · 객실 312실 — 응대 · 환경 · 서비스를 AI로 바꾸는 세 가지 제안"
+     },
+     {
+      "sheet": 14,
+      "quote": "실시간 언어 변환으로 외국인 투숙객이 46%인 H 호텔 프런트에서도 체크인 / 체크아웃 및 다양한 호텔 서비스를 간편하게 제공할 수 있습니다."
+     }
+    ],
+    "improve": "공급사 신뢰를 입증할 수 있는 구체적인 인증, 수상 실적, 또는 파트너십 정보를 강화하고 프런트 업무 경감 효과를 수치화하여 제시해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "SB1",
+    "score": 2,
+    "anchor": "표지와 목차는 충실히 구성되어 있으나, 마무리 장에 연락처 정보가 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "H 호텔 | SAMSUNG AI BUSINESS | H 호텔 AI 스테이 | 2026. 10"
+     },
+     {
+      "sheet": 37,
+      "quote": ""
+     }
+    ],
+    "improve": "마무리 장에 제안 담당자의 연락처와 향후 실사 및 워크숍을 위한 구체적인 다음 단계 안내를 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "SB2",
+    "score": 2,
+    "anchor": "대부분의 장에 쪽번호와 기밀 표기가 있으나, 일부 간지 및 표지 장에서 쪽번호가 누락되어 일관성이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "CONFIDENTIAL · 3"
+     },
+     {
+      "sheet": 5,
+      "quote": "CONFIDENTIAL · 5"
+     }
+    ],
+    "improve": "모든 장(표지 및 간지 포함)에 일관된 위치에 쪽번호를 기입하여 문서의 체계성을 높여야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

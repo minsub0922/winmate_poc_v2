@@ -1,0 +1,86 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs21~full:F06"
+ },
+ "prompt_tokens": 10770,
+ "output_tokens": 703,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "객실 수(312실), 제품별 수량(라운지 6대, 객실 312대 등)이 모든 장에서 일관되게 기술되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "H 호텔 312개 객실"
+     },
+     {
+      "sheet": 11,
+      "quote": "객실 312실 · 공용부 다섯 곳 구성"
+     },
+     {
+      "sheet": 22,
+      "quote": "객실 312실 기준"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR6",
+    "score": 2,
+    "anchor": "공간별 모델과 수량은 명확히 제시되었으나, 설치 방식(브래킷, 마운트 등)이나 솔루션 라이선스에 대한 구체적인 정보가 누락되었습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "H 호텔의 여섯 공간, 열 개 제품"
+     },
+     {
+      "sheet": 22,
+      "quote": "H 호텔 AI 스테이 Map"
+     }
+    ],
+    "improve": "공간별 제품 설치 방식과 LYNK Cloud 운영을 위한 라이선스 구성 요소를 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS8",
+    "score": 2,
+    "anchor": "수치가 많은 제품 상세 페이지(16, 17, 18, 20장)에서 표 형식이 아닌 텍스트 나열로 정보를 제공하여 가독성이 다소 떨어집니다.",
+    "evidence": [
+     {
+      "sheet": 17,
+      "quote": "객실 — Infinite AI 공기청정기"
+     },
+     {
+      "sheet": 18,
+      "quote": "객실 — Bespoke 에어드레서"
+     }
+    ],
+    "improve": "제품 상세 사양 및 시험 결과 데이터를 표 형식으로 정리하여 가독성을 높여야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR4",
+    "score": 3,
+    "anchor": "인치, ㎡, 단위 등이 일관되게 표기되어 있으며 천 단위 구분과 소수점 표기 체계가 통일되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 17,
+      "quote": "100㎡"
+     },
+     {
+      "sheet": 36,
+      "quote": "905억 달러"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

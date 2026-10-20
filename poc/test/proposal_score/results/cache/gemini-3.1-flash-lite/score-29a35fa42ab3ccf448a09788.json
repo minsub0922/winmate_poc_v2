@@ -1,0 +1,82 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs06~full:F07"
+ },
+ "prompt_tokens": 9328,
+ "output_tokens": 644,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "6장에서 캠페인 교체 시간 단축(8시간→10분), 이벤트 존 체류 시간 증가(30%↑), 공기질 나쁨 시간 감소(40%↓) 등 정량 효과와 그 산정 근거를 제시함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "캠페인 교체 8시간 → 10분"
+     },
+     {
+      "sheet": 6,
+      "quote": "이벤트 존 체류 30% ↑"
+     },
+     {
+      "sheet": 6,
+      "quote": "공기질 나쁨 시간 40% ↓"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "삼성의 VXT 솔루션, b.IoT, 다양한 사이니지 라인업을 고객의 운영 과제(콘텐츠 교체, 공기질 관리)와 연결하여 구체적인 도입 사례와 함께 제시함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "Samsung VXT · LED · 비디오월 · 윈도 · 이페이퍼 통합 편성"
+     },
+     {
+      "sheet": 11,
+      "quote": "세 브랜드, 여섯 공간에서 먼저 바꿨습니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR5",
+    "score": 3,
+    "anchor": "제안서 내에 근거 없는 절대 표현(최초, 최고, 유일 등)이 발견되지 않음.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR7",
+    "score": 3,
+    "anchor": "AI 생성 시안 및 수치에 대해 '실제와 다를 수 있음'이라는 고지 문구를 각 장에 명시함.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "제안 = AI 생성 시안, 실제와 다를 수 있음"
+     },
+     {
+      "sheet": 8,
+      "quote": "VMD존 벽은 AI 생성 시안, 실제와 다를 수 있음"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

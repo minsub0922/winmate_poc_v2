@@ -1,0 +1,74 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~full:F01"
+ },
+ "prompt_tokens": 9078,
+ "output_tokens": 607,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'R 건설'이 일관되게 사용되었으며, 다른 고객사명이나 예시 고객명이 발견되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "R 건설 2지구 1,240세대"
+     },
+     {
+      "sheet": 13,
+      "quote": "R 건설 2지구 1,240세대"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "CU5",
+    "score": 3,
+    "anchor": "R 건설의 2지구 사업 규모, 84A 타입, 모델하우스 동선 및 구체적인 일정 등 고유 정보가 전 장에 걸쳐 상세히 반영되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "84A 한 세대 · 방 3 · 486세대"
+     },
+     {
+      "sheet": 13,
+      "quote": "12월까지, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "템플릿 잔여물이나 자리표시 문구가 없으며, 마무리 장의 연락처는 제안사 담당자의 공식 정보로 적절합니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 1,
+    "anchor": "9장에서 '원가'라는 표현이 명시적으로 사용되어 내부 정보가 고객용 문서에 노출되었습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "세대당 원가 최소 · 분양가 유지"
+     }
+    ],
+    "improve": "고객용 제안서에서 '원가'라는 표현을 삭제하고 '옵션 구성별 비용 효율성' 또는 '가격 경쟁력'과 같은 고객 친화적인 용어로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

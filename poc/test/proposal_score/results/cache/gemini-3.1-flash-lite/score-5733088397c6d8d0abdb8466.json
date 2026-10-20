@@ -1,0 +1,39 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs09:F02"
+ },
+ "prompt_tokens": 8092,
+ "output_tokens": 254,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 4가지 요구사항(R1~R4)에 대해 각각 대응하는 장(5장, 6장, 12장)에서 원인 분석과 해결책을 명시적으로 제시하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "여름 과열 꺼짐 · 함체 내부 58℃"
+     },
+     {
+      "sheet": 6,
+      "quote": "한낮엔 화면이 반사돼 안 보이고"
+     },
+     {
+      "sheet": 7,
+      "quote": "상황실은 한 장의 상황판으로 하루를 지킵니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "역사든 정류장이든, 4시간 안에 현장에 갑니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

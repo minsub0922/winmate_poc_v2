@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16:F06"
+ },
+ "prompt_tokens": 5736,
+ "output_tokens": 214,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "지점 수(180개, 21개)와 화면 수(360대, 42대)는 각각 전체 규모와 시범 운영 범위를 구분하여 명시하고 있어 수치 간 모순이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "M 베이커리 180개 지점"
+     },
+     {
+      "sheet": 4,
+      "quote": "지점당 2면 · 360대"
+     },
+     {
+      "sheet": 12,
+      "quote": "21개 지점 설치부터 검수까지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

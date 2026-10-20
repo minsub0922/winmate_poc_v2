@@ -1,0 +1,61 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs09~full:F02"
+ },
+ "prompt_tokens": 9004,
+ "output_tokens": 478,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 4가지 요구사항(R1~R4)에 대해 3장(현황), 5장(원인), 6~7장(해결), 12장(SLA)에서 명시적으로 대응하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "여름 오후엔 꺼집니다"
+     },
+     {
+      "sheet": 5,
+      "quote": "장애 복구 지연"
+     },
+     {
+      "sheet": 12,
+      "quote": "역사든 정류장이든, 4시간 안에 현장에 갑니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "SB1",
+    "score": 2,
+    "anchor": "표지와 마무리는 갖추었으나, 1장에 목차가 포함되어 있지 않아 구성 요소가 하나 빠졌습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "표지 · 목차"
+     }
+    ],
+    "improve": "1장에 목차 페이지를 추가하여 제안서의 전체 구성을 안내해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "SB2",
+    "score": 2,
+    "anchor": "모든 장에 푸터와 기밀 표기는 있으나, 1장(표지)을 제외한 나머지 장에서 쪽번호가 푸터에 포함되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "CONFIDENTIAL · 2"
+     }
+    ],
+    "improve": "각 장의 푸터에 일관된 쪽번호를 기재하여 문서의 체계성을 높여야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

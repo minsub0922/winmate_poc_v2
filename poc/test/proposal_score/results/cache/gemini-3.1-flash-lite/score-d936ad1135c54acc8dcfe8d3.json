@@ -1,0 +1,108 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11~full:F10"
+ },
+ "prompt_tokens": 8952,
+ "output_tokens": 936,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO와 Knox Suite를 활용하여 상황실, 대합실, 현장 단말을 통합 관리하는 운영 체계와 장면을 구체적으로 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "종합상황실 한 곳에서 12곳 · 단말 60대까지 관제"
+     },
+     {
+      "sheet": 9,
+      "quote": "Knox Suite 원격 잠금 · 초기화"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR7",
+    "score": 3,
+    "anchor": "설치 환경(전원, 통신), 고객 준비 사항(실사), 유지보수(3년 무상), 보증 범위를 명확히 기술했습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "실사 후 배선 설계"
+     },
+     {
+      "sheet": 11,
+      "quote": "현장 실사 · 설계 · 전원 · 통신 확인"
+     },
+     {
+      "sheet": 13,
+      "quote": "무상 3년 · 장애 4시간 내 복구"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "16주간의 단계별 일정, 3사 협력 추진 체계, 대상별 교육 계획 및 유지보수 방안을 구체적으로 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "세 회사가 한 팀, 보고 창구는 하나입니다"
+     },
+     {
+      "sheet": 11,
+      "quote": "계약부터 검수 · 이관까지 16주"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 2,
+    "anchor": "장애 대응 및 보안 요건 대응은 구체적이나, 공사 중 영업 중단 방지나 일정 지연 등 고객이 우려할 리스크에 대한 명시적 대응 방안이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "대합실 · 회의실은 운행 종료 후 야간 시공"
+     }
+    ],
+    "improve": "공사 중 영업 영향 최소화 및 일정 지연 방지를 위한 구체적인 리스크 관리 계획을 추가해야 합니다.",
+    "confidence": "mid"
+   },
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "마지막 장에 우선협상 및 기술 협상, 계약 착수 등 다음 단계와 담당자 정보를 명확히 기재했습니다.",
+    "evidence": [
+     {
+      "sheet": 15,
+      "quote": "우선협상 · 기술 협상 · 계약 · 착수"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "SB5",
+    "score": 1,
+    "anchor": "표지에 제출 날짜(2026.10)는 있으나, 자동 점검 결과 표지에 제출 날짜가 없다고 인식되는 등 표기 형식이 미흡합니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "2026. 10"
+     }
+    ],
+    "improve": "표지 내 제출 날짜를 명확한 위치에 표기하고 버전 정보를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

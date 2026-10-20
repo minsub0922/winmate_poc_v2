@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11~strip_images:F11"
+ },
+ "prompt_tokens": 3839,
+ "output_tokens": 575,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 초과하는 장이 10개로, 전체 15장 중 대다수가 발표 자료로 읽기에 너무 많은 텍스트를 포함하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "요구사항 28개, ID 단위로 빠짐없이 대응합니다"
+     },
+     {
+      "sheet": 9,
+      "quote": "공단 보안 요건 열 가지, 대응 기능과 근거"
+     }
+    ],
+    "improve": "장당 어절 수를 77어절 이하로 줄이고, 핵심 내용 위주로 개조식 요약을 강화해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "모든 장의 본문 글자 크기가 12pt(16px) 미만이며, 9pt(12px) 미만인 장도 11장이나 되어 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "본문 최소 11px(8.2pt)"
+     },
+     {
+      "sheet": 5,
+      "quote": "본문 최소 11px(8.2pt)"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정하여 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS6",
+    "score": 1,
+    "anchor": "15장 중 14장이 텍스트로만 구성되어 있고, 다수의 빈 이미지 칸이 존재하여 시각 자료 활용도가 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "사진 0 · 빈 이미지 칸 6"
+     },
+     {
+      "sheet": 10,
+      "quote": "사진 0 · 빈 이미지 칸 5"
+     }
+    ],
+    "improve": "빈 이미지 칸을 제거하고, 각 장의 핵심 내용을 시각화한 도식이나 실제 제품 사진을 배치해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

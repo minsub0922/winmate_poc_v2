@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs15:F04"
+ },
+ "prompt_tokens": 3785,
+ "output_tokens": 365,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "G마트의 폐기 손실(1.2억 원), 고장 건수(12건), 수기 작업 시간(72시간) 등 고객의 현재 문제를 구체적인 수치와 원인으로 명확히 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "1.2억 원 | 연 폐기 손실"
+     },
+     {
+      "sheet": 3,
+      "quote": "12건 | 연 고장"
+     },
+     {
+      "sheet": 3,
+      "quote": "72시간 | 월 수기 작업"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 1,
+    "anchor": "제안서 내에 실제 도입 사례에 대한 구체적인 성과나 고객명, 도입 구성이 제시되지 않았으며, 사진 캡션에 언급된 기업명은 실제 도입 사례의 성과를 증명하는 자료로 활용되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "유사 리테일 업종의 실제 도입 사례를 선정하여 도입 구성과 그로 인한 정량적 성과 수치를 구체적으로 제시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

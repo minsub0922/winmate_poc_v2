@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~wrong_customer:F08"
+ },
+ "prompt_tokens": 2254,
+ "output_tokens": 210,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "분양 포인트 4가지를 고객 언어(앱 제어, 난방, 빌트인, 케어)로 명확히 제시하고, 각 가치마다 대응하는 제품 및 솔루션을 짝지어 설명함.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "모델하우스에서 ‘이 단지’로 기억될 네 가지"
+     },
+     {
+      "sheet": 4,
+      "quote": "집 안 가전 · 난방을 앱 하나로"
+     },
+     {
+      "sheet": 4,
+      "quote": "입주 후 2년 케어"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

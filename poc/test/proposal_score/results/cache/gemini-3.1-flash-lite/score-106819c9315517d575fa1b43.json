@@ -1,0 +1,96 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~full:F10"
+ },
+ "prompt_tokens": 8026,
+ "output_tokens": 850,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "LYNK Cloud와 b.IoT를 활용해 객실 TV와 공조를 원격 관리하는 구체적인 운영 장면을 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "콘솔에서 원격 관리 · 오류 알림"
+     },
+     {
+      "sheet": 8,
+      "quote": "b.IoT 모니터링 | 원격검침 · 에너지 관리"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR7",
+    "score": 2,
+    "anchor": "시공 및 설치 계획은 구체적이나, 유지보수 및 보증 범위에 대한 명시적인 언급이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "반입 → 설치 → 시운전 → 복구"
+     }
+    ],
+    "improve": "유지보수 체계 및 제품 보증 범위에 대한 내용을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "층별 교체 일정과 단계는 명확하나, 교육 및 운영 이관에 대한 구체적인 계획이 빠져 있습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "첫 주 4F–8F · 층 × 날(D1–D6)"
+     }
+    ],
+    "improve": "시공 완료 후 호텔 운영 인력을 대상으로 한 교육 및 운영 이관 계획을 포함해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 2,
+    "anchor": "공사 중 영업 유지와 소음 민원 대응은 다루고 있으나, 호환성이나 일정 지연 등 잠재적 리스크에 대한 대응 방안이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "객실 판매는 층마다 하룻밤만 멈춥니다"
+     }
+    ],
+    "improve": "시스템 연동 시 발생할 수 있는 호환성 문제나 공사 지연 시의 비상 대응 계획을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "마지막 장에 샘플룸 운영, PMS 연동, 층별 교체 승인이라는 결정 사항과 담당자 및 일정이 명확히 제시되었습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "샘플룸 1실, 다음 2주에 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "SB5",
+    "score": 2,
+    "anchor": "표지 날짜는 명시되어 있으나, 제안서 내 버전 표기가 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "2026. 10. 21"
+     }
+    ],
+    "improve": "제안서 표지 또는 하단에 문서 버전(예: v1.0)을 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

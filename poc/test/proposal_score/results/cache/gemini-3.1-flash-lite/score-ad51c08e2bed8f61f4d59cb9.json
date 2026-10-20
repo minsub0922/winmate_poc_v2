@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11:F10"
+ },
+ "prompt_tokens": 4827,
+ "output_tokens": 250,
+ "data": {
+  "scores": [
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "일정, 역할 분담, 교육, 유지보수 계획은 구체적이나, 파일럿에서 확산으로 이어지는 단계적 도입 전략이 명시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "세 회사가 한 팀, 보고 창구는 하나입니다"
+     },
+     {
+      "sheet": 11,
+      "quote": "계약부터 검수 · 이관까지 16주, 네 단계로 책임집니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "수송 성수기 전에 먼저 점검합니다 — 1년 캘린더"
+     }
+    ],
+    "improve": "전체 사업 범위 내에서 파일럿 운영을 통해 검증하고 이를 전사적으로 확산하는 단계적 도입 로드맵을 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

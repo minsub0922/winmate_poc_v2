@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~number_conflict:F01"
+ },
+ "prompt_tokens": 5104,
+ "output_tokens": 343,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명을 'Y 그룹'으로 일관되게 표기하였으며, 사업장 수(260개, 208개 등)와 조직 정보가 문맥에 맞게 일관성 있게 기술되었습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "Y 그룹"
+     },
+     {
+      "sheet": 2,
+      "quote": "260개 사업장"
+     },
+     {
+      "sheet": 5,
+      "quote": "208개 사업장의 화면"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "10장에 제안 담당자의 연락처가 예시용 번호(010-1234-5678)로 기재되어 있어 템플릿 잔여물로 판단됩니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "010-1234-5678"
+     }
+    ],
+    "improve": "제안서 제출 전 담당자의 실제 연락처로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

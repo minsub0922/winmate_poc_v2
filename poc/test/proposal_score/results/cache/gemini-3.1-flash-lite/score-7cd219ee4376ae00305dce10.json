@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10:F11"
+ },
+ "prompt_tokens": 3088,
+ "output_tokens": 416,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 10개로, 1점 기준인 4장 이상을 크게 초과하여 발표 자료로 읽기에 부적합합니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "재계약 협상에서 나올 세 가지 말, 사실과 증거로 답합니다"
+     },
+     {
+      "sheet": 7,
+      "quote": "두 가지는 현 공급사가 앞섭니다 — 이렇게 메웁니다"
+     }
+    ],
+    "improve": "각 장의 핵심 메시지를 제외한 부연 설명을 과감히 삭제하여 장당 어절 수를 77어절 이하로 줄여야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "본문 최소 글자 크기가 12pt 미만인 장이 13장 중 13장이며, 9pt 미만인 장도 10장이나 되어 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "본문 최소 11px(8.2pt)"
+     },
+     {
+      "sheet": 8,
+      "quote": "본문 최소 11px(8.2pt)"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정하고, 작은 글자는 라벨이나 캡션 용도로만 제한해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

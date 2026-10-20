@@ -1,0 +1,34 @@
+{
+ "id": "K02",
+ "case": "K02",
+ "industry": "VN",
+ "strategy": null,
+ "req_type": null,
+ "title": "영화관 LED",
+ "level": "minimal",
+ "input": {
+  "title": "X 시네마 제안",
+  "customer": "X 시네마",
+  "industry": "VN",
+  "free_text": "멀티플렉스 영화관. Onyx 시네마 LED",
+  "products": [
+   "onyx"
+  ],
+  "id": "K02"
+ },
+ "gold": {
+  "scenario_any": [
+   "STD-VN"
+  ],
+  "must_parts": [
+   "value",
+   "products",
+   "case",
+   "why"
+  ],
+  "key_reqs": [],
+  "facts": [],
+  "level": "minimal",
+  "industry": "VN"
+ }
+}

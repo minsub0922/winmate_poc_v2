@@ -1,27 +1,32 @@
+import {FeedbackPopup} from '../components/feedback-popup.jsx';
+import { requireLogin } from '../api/session.js';
 // B2B 전략 시뮬레이션 (BETA) — 특정 요구사항을 두고 최종 제안 대상자(고객)와 채팅으로 전략을 시험한다.
 //   설정: 요구사항(예시 · 내 제안서 · 직접 입력) + 난이도 3단계(호의적 · 첫 고객 · 까다로운 고객) + 고객사 프로필
 //   대화: 고객 대사 스트리밍, @로 제품 · 솔루션 · 유관사례 언급, 입력창 위 추천 답변 3개
 //   오른쪽: 고객 만족도 · 제안 품질('제안서 검토' 기준 대표 4개 · 마우스를 올리면 상세) · 참고할 Best Scenario
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Icon, MentionEditor, AddRefInput, Modal, toast, fmtWhen } from '../components/common.jsx';
+import { DeleteButton, Icon, MentionEditor, AddRefInput, Modal, toast, fmtWhen } from '../components/common.jsx';
 import { TagChip, MentionInline } from '../components/tagcard.jsx';
-import { useDetailPeek } from '../components/peek.jsx';
-import { ScenarioDetail } from './ScenariosPage.jsx';
+import { useDetailPeek } from '../components/reference-detail.jsx';
+import { ScenarioStoryboard } from './ScenariosPage.jsx';
 import { FitSlide } from '../domain/slides/Slide.jsx';
 import { Thumb } from '../components/Thumbs.jsx';
 import { tagMeta } from '../components/tagcard.jsx';
 import { IND, INDUSTRIES, L as LAYOUT } from '../services/catalog.js';
 import { useStore, createProposal, update, seg, segRefs, uid } from '../repositories/proposals.js';
-import { REQ_TYPES, STAGES } from '../domain/templates/scenarios.js';
-import { fillOf } from '../domain/templates/scenario_fills.js';
-import { CR } from '../domain/review/criteria.js';
+import { REQ_TYPES } from '../domain/templates/scenarios.js';
+import { ovOf } from '../domain/templates/scenario_storyboard.js';
+import { CR } from '../domain/review/criteria-v1.js';
 import { LEVELS, LV, METERS, SIM_STAGES, STAGE_IX, PRESETS, PRESET_QUICK, setupFromScenario, setupFromProposal, emptySetup, buildProfile, setupText, setupRefs, josa, personaOf, defaultGender, PERSONAS } from '../domain/simulation/profile.js';
 import { usePersonas, addPersona, updatePersona, deletePersona } from '../repositories/personas.js';
 import { LOOKS, LOOK, SKINS, HAIRS, SUITS, GLASSES, skinOf, hairOf, suitOf, tweak } from '../domain/simulation/looks.js';
 import { Portrait } from '../components/persona.jsx';
+import { resolveExpression } from '../domain/simulation/expression.js';
 import { SIM_CATS, CHAT_DESC, critName, aggregate, band, similarScenarios, mentionedRefs } from '../domain/simulation/score.js';
-import { customerTurn, debrief, turnErrorText } from '../domain/simulation/engine.js';
+import { customerTurn, debrief, turnErrorText, completeSuggestions, sharedSkillSources, RECOMMENDATION_COUNT, RECOMMENDATION_CONFIDENCE_THRESHOLD } from '../domain/simulation/engine.js';
+import { SIMULATION_SKILLS, SIMULATION_SKILL, skillRequest, runSimulationSkill, skillDraftSegments } from '../domain/simulation/skills.js';
+import { SimulationSkillResult, SimulationSkillModal } from '../components/simulation-skill.jsx';
 import { useSims, getSim, putSim, patchSim, deleteSim, newSim } from '../repositories/simulations.js';
 
 // ---------- icons (sim only) ----------
@@ -74,21 +79,21 @@ function LevelBadge({ level, small }) {
   return <span className={'sim-lv lv-' + level + (small ? ' sm' : '')}><b className="num">{level}</b>{L.name}</span>;
 }
 const BASE_MOOD = { 1: '호의', 2: '중립', 3: '의심' };
-function Avatar({ pf, size = 36, mood }) {
-  return <span className={'sim-av lv-' + pf.level} style={{ width: size, height: size }} aria-hidden="true"><Portrait who={personaOf(pf)} mood={mood || BASE_MOOD[pf.level]} size={size} /></span>;
+function Avatar({ pf, size = 36, mood, satisfaction }) {
+  return <span className={'sim-av lv-' + pf.level} style={{ width: size, height: size }} aria-hidden="true"><Portrait who={personaOf(pf)} mood={mood || BASE_MOOD[pf.level]} satisfaction={satisfaction} size={size} /></span>;
 }
 function Dots({ n, max = 5 }) { return <span className="sim-dots" aria-label={n + ' / ' + max}>{Array.from({ length: max }, (_, i) => <i key={i} className={i < n ? 'on' : ''} />)}</span>; }
 function Bar({ v, cls = '' }) { return <span className={'sim-bar ' + cls}><i style={{ width: (v == null ? 0 : v) + '%' }} /></span>; }
 const bandCls = (v) => 'b-' + band(v).k;
 
-function ProfileCard({ pf, level, compact = false, mood }) {
+function ProfileCard({ pf, level, compact = false, mood, satisfaction }) {
   const L = LV[level];
   const per = personaOf(pf);
   const age = pf.age || per.age, career = pf.career || per.career, traits = pf.traits || per.traits, quote = pf.quote || per.quote, style = pf.style || per.style;
   return (
     <div className={'sim-prof lv-' + level + (compact ? ' compact' : '')}>
       <div className="sp-id">
-        <div className="sp-photo"><Portrait who={per} mood={mood || BASE_MOOD[level]} size={compact ? 104 : 148} round={false} title={pf.name + ' 프로필 사진'} /></div>
+        <div className="sp-photo"><Portrait who={per} mood={mood || BASE_MOOD[level]} satisfaction={satisfaction} size={compact ? 104 : 148} round={false} title={pf.name + ' 프로필 사진'} /></div>
         <div className="sp-main">
           <span className="sp-co"><i className="sp-logo" aria-hidden="true">{(pf.company || '고').replace(/\s+/g, '').slice(0, 1)}</i><span>{pf.company}</span>{pf.ind && <em>{indName(pf.ind).split(' · ')[0]}</em>}</span>
           <b className="sp-name">{pf.name}<span className="sp-age num">{age}</span></b>
@@ -154,6 +159,7 @@ function SimSetup({ go }) {
   const text = setupText(st);
   const ok = text.length >= 8;
   const start = () => {
+    if (!requireLogin()) return;
     if (!ok) { setPop('req'); toast('요구사항을 먼저 정해 주세요', 'warn'); return; }
     const s = { ...st, gender, customer: (st.customer || '').trim() || '고객사', role: (st.role || '').trim() || '의사결정자' };
     const sim = putSim(newSim(s, level, sel));
@@ -221,7 +227,7 @@ function SimSetup({ go }) {
           </section>
         </div>
 
-        <button className={'ss-go lv-' + level} onClick={start}>
+        <button className={'ss-go lv-' + level} onClick={start} data-login-required>
           <span className="ss-go-ic"><SimIcon name="chat" size={20} /></span>
           <span className="ss-go-t"><b>시뮬레이션 시작</b><span>{ok ? <>{pf.company} {pf.name} · {level}단계 {LV[level].name}</> : '요구사항을 먼저 정해 주세요'}</span></span>
           <span className="ss-go-face" aria-hidden="true"><Portrait who={per} mood={BASE_MOOD[level]} size={34} /></span>
@@ -243,7 +249,7 @@ function SimSetup({ go }) {
       {pop === 'pick' && <PersonaPicker cur={sel.key} customs={customs} level={level} onClose={() => setPop(null)}
         onPick={(p) => { choose(p); setPop(null); }} onNew={() => editFrom(null, true)} onEdit={(p) => editFrom(p, false)} />}
       {pop && pop.edit && <PersonaEditor init={pop.edit} canSave={!!pop.key} role={st.role} onClose={() => setPop(null)}
-        onSave={(d, asNew) => { const p = asNew ? addPersona(d) : updatePersona(pop.key, d); choose(p); setPop(null); toast(asNew ? '새 프로필을 저장했어요' : '프로필을 저장했어요'); }} />}
+        onSave={(d, asNew) => { if (!requireLogin()) return; const p = asNew ? addPersona(d) : updatePersona(pop.key, d); choose(p); setPop(null); toast(asNew ? '새 프로필을 저장했어요' : '프로필을 저장했어요'); }} />}
       {peek.node}
     </div>
   );
@@ -288,11 +294,10 @@ function draftOf(p, level, gender) {
 }
 
 function ProfileModal({ pf, sel, level, onClose, onNew, onEdit, onDelete }) {
-  const [sure, setSure] = useState(false);
   return (
     <Modal title="고객사 프로필" size="narrow" onClose={onClose}
       footer={<>
-        {sel.custom && <button className={'btn btn-ghost pm-del' + (sure ? ' sure' : '')} onClick={() => (sure ? onDelete() : setSure(true))}><Icon name="trash" size={14} />{sure ? '한 번 더 누르면 지워요' : '지우기'}</button>}
+        {sel.custom && <DeleteButton className="btn btn-ghost pm-del" confirmation={{title:'고객 프로필을 삭제할까요?',message:sel.name+' 프로필을 삭제합니다.'}} onClick={onDelete}><Icon name="trash" size={14}/>지우기</DeleteButton>}
         <span className="sp" />
         <button className="btn pm-new" onClick={onNew}><Icon name="plus" size={14} stroke={2.4} />새 프로필</button>
         <button className="btn btn-primary pm-edit" onClick={onEdit}><Icon name="edit" size={14} />{sel.custom ? '고치기' : '고쳐서 새로 저장'}</button>
@@ -494,7 +499,7 @@ function ReqModal({ st, onApply, onClose }) {
           <div className="ss-f">
             <span>고객이 중요하게 보는 것</span>
             <div className="ss-ints">
-              {d.interests.map((x, i) => <span key={i} className="sp-int">{x}<button aria-label={x + ' 빼기'} onClick={() => set((y) => { y.interests.splice(i, 1); })}><Icon name="x" size={11} stroke={2.6} /></button></span>)}
+              {d.interests.map((x, i) => <span key={i} className="sp-int">{x}<DeleteButton aria-label={x + ' 빼기'} onClick={() => set((y) => { y.interests.splice(i, 1); })}><Icon name="x" size={11} stroke={2.6} /></DeleteButton></span>)}
               {d.interests.length < 5 && (
                 <input className="ss-int-in" value={intIn} placeholder="+ 추가" aria-label="중요하게 보는 것 추가"
                   onChange={(e) => setIntIn(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter' && !e.nativeEvent.isComposing && intIn.trim()) { e.preventDefault(); const v = intIn.trim(); set((y) => { y.interests.push(v.slice(0, 40)); }); setIntIn(''); } }} />
@@ -536,7 +541,7 @@ function HistRow({ s, go }) {
   return (
     <div className={'ss-hr lv-' + s.level} role="listitem">
       <button className="ss-hr-main" onClick={() => go({ name: 'sim', id: s.id })} aria-label={pf.name + ' · ' + pf.company + ' 시뮬레이션 열기'}>
-        <span className="ss-hr-face"><Portrait who={per} mood={s.cur.mood} size={46} /></span>
+        <span className="ss-hr-face"><Portrait who={per} mood={s.cur.mood} satisfaction={s.cur.satisfaction} size={46} /></span>
         <span className="ss-hr-who">
           <b>{pf.name}<span>{pf.role}</span></b>
           <span className="co">{pf.company}{pf.ind && IND[pf.ind] ? ' · ' + IND[pf.ind].name.split(' · ')[0] : ''}</span>
@@ -556,7 +561,7 @@ function HistRow({ s, go }) {
         <span className={'ss-hr-n q ' + qk}><em>품질</em><span><b className="num">{q ?? '—'}</b></span></span>
         <span className="ss-hr-w">{turns}턴 · {fmtWhen(s.updatedAt)}{s.demo ? <i>예시</i> : null}</span>
       </button>
-      <button className="ss-hr-x" aria-label="기록 지우기" title="기록 지우기" onClick={() => deleteSim(s.id)}><Icon name="trash" size={14} /></button>
+      <DeleteButton className="ss-hr-x" aria-label="기록 지우기" title="기록 지우기" onClick={() => deleteSim(s.id)}><Icon name="trash" size={14} /></DeleteButton>
     </div>
   );
 }
@@ -585,11 +590,19 @@ const pseudoP = (st) => ({ id: '_sim', title: st.title || '', customer: st.custo
 function SimRoom({ sim, id, go }) {
   const [stream, setStream] = useState(null);
   const [busy, setBusy] = useState(false);
+  const [suggestionBusy, setSuggestionBusy] = useState(false);
+  const [suggestionError, setSuggestionError] = useState(null);
+  const [suggestionRetry, setSuggestionRetry] = useState(0);
   const [draft, setDraft] = useState([]);
+  const [skillPopup, setSkillPopup] = useState(null);
+  const [skillBusy, setSkillBusy] = useState(false);
+  const [draftEvidence, setDraftEvidence] = useState(null);
+  const skillCtl = useRef(null);
   const [drawer, setDrawer] = useState(false);
   const [detail, setDetail] = useState(null);
   const ctl = useRef(null);
   const listRef = useRef(null);
+  const followReply = useRef(true);
   const draftRef = useRef([]); draftRef.current = draft;
   const peek = useDetailPeek(useMemo(() => pseudoP(sim.setup), [sim.setup]));
   const L = LV[sim.level];
@@ -604,7 +617,7 @@ function SimRoom({ sim, id, go }) {
       const d = patchSim(id, (x) => applyTurn(x, r));
       if (d && d.status !== 'active' && !d.debrief) finish(d);
     } catch (e) {
-      if (e && e.code === 'cancelled' && e.text && e.text.trim()) patchSim(id, (x) => { x.msgs.push({ id: uid('c'), who: 'cust', text: e.text.trim(), ts: Date.now(), stopped: true }); });
+      if (e && e.code === 'cancelled' && e.text && e.text.trim()) patchSim(id, (x) => { x.msgs.push({ id: uid('c'), who: 'cust', text: e.text.trim(), ts: Date.now(), stopped: true }); x.cur.suggest = []; });
       else if (!(e && e.code === 'cancelled')) {
         // the conversation stays as it is (the last message is kept) — 다시 시도 asks the AI again
         console.error(e);
@@ -628,54 +641,106 @@ function SimRoom({ sim, id, go }) {
       patchSim(id, (x) => { x.debriefError = turnErrorText(e); });
     } finally { setDebriefBusy(false); }
   };
-  const retryTurn = () => { if (busy || !active) return; patchSim(id, (x) => { x.turnError = null; }); runTurn(); };
+  const retryTurn = () => { if (busy || skillBusy || !active) return; patchSim(id, (x) => { x.turnError = null; }); runTurn(); };
   useEffect(() => {
     if (sim && !sim.msgs.length && active && !sim.turnError) runTurn();
     // a finished meeting whose 총평 never arrived (page closed while it was being written) — ask again
     else if (sim && !active && !sim.debrief && !sim.debriefError) finish(getSim(id));
-    return () => { if (ctl.current) ctl.current.abort(); };
+    return () => { if (ctl.current) ctl.current.abort(); if (skillCtl.current) skillCtl.current.abort(); };
   }, []);
-  useEffect(() => { const el = listRef.current; if (el) el.scrollTop = el.scrollHeight; }, [sim.msgs.length, stream && stream.text, sim.debrief]);
+  const suggestionContext = useMemo(() => JSON.stringify(sim.msgs), [sim.msgs]);
+  const suggestionCount = sim.cur.suggest?.length || 0;
+  useEffect(() => {
+    setSuggestionBusy(false);
+    setSuggestionError(null);
+    const last = sim.msgs.at(-1);
+    if (!active || busy || sim.turnError || last?.who !== 'cust' || last.stopped || suggestionCount >= RECOMMENDATION_COUNT) return;
+    const c = new AbortController();
+    setSuggestionBusy(true);
+    completeSuggestions(sim, last.text || '', sim.cur.suggest || [], { signal: c.signal }).then((suggest) => {
+      if (!c.signal.aborted) patchSim(id, (x) => {
+        if (JSON.stringify(x.msgs) === suggestionContext) x.cur.suggest = suggest;
+      });
+    }).catch((error) => {
+      if (!c.signal.aborted) setSuggestionError(turnErrorText(error));
+    }).finally(() => { if (!c.signal.aborted) setSuggestionBusy(false); });
+    return () => c.abort();
+  }, [suggestionContext, suggestionCount, busy, active, sim.turnError, suggestionRetry]);
+  useLayoutEffect(() => {
+    const el = listRef.current;
+    if (el && followReply.current) el.scrollTop = el.scrollHeight;
+  }, [sim.msgs.length, stream?.text, sim.debrief, sim.skillRuns]);
+
+  const runSkill = async (skillId, segs = draftRef.current, requestRefs = []) => {
+    if (busy || skillBusy || skillCtl.current || !active || !SIMULATION_SKILL[skillId]) return;
+    const current = getSim(id); if (!current || current.status !== 'active') return;
+    let request;
+    try { request = skillRequest(current, skillId, segs); request.refs=[...new Set([...request.refs,...requestRefs])].slice(0,40); }
+    catch (e) { toast(e.message, 'warn'); return; }
+    const runId=uid('skill'), startedAt=Date.now(), c=new AbortController(); skillCtl.current=c;
+    patchSim(id,x=>{x.skillRuns=[...(x.skillRuns || []),{id:runId,skillId,prompt:request.prompt,requestRefs:request.refs,status:'running',startedAt,stages:{},progress:'현재 미팅 맥락을 준비하고 있어요…'}];});
+    setSkillPopup(runId);setDraft([]);setDraftEvidence(null);setSkillBusy(true);followReply.current=true;
+    const change=fn=>patchSim(id,x=>{const run=x.skillRuns?.find(r=>r.id===runId);if(run)fn(run);});
+    try {
+      const result=await runSimulationSkill(request,{signal:c.signal,onProgress:progress=>{if(!c.signal.aborted)change(run=>{run.progress=progress;});},onEvent:event=>{if(!c.signal.aborted)change(run=>{const {type,stage,text,...details}=event;run.stages={...run.stages,[stage]:{...run.stages?.[stage],...details}};if(text!=null)run.analysis=text.slice(0,16000);});}});
+      if(!c.signal.aborted)change(run=>{run.status='done';run.result=result;run.finishedAt=Date.now();});
+      else change(run=>{run.status='cancelled';run.error='스킬 실행을 취소했어요.';});
+    } catch(e) {
+      change(run=>{run.status=c.signal.aborted || e.code==='cancelled'?'cancelled':'error';run.error=run.status==='cancelled'?'스킬 실행을 취소했어요.':e.message || '자료를 준비하지 못했어요. 다시 실행해 주세요.';});
+    } finally {
+      if(skillCtl.current===c)skillCtl.current=null;
+      setSkillBusy(false);
+    }
+  };
 
   const send = (segs) => {
+    const useDraft=!segs;
     segs = segs || draftRef.current;
-    if (busy || !active || plainLen(segs) < 2) return;
+    if (busy || skillBusy || !active || plainLen(segs) < 2) return;
     patchSim(id, (x) => {
       const last=x.msgs.at(-1);
       if(x.turnError&&last?.who==='me'){
-        last.previousVersions=[...(last.previousVersions||[]),{segs:last.segs,ts:last.ts}];last.segs=structuredClone(segs);last.ts=Date.now();
-      }else x.msgs.push({id:uid('m'),who:'me',segs:structuredClone(segs),ts:Date.now()});
+        last.previousVersions=[...(last.previousVersions||[]),{segs:last.segs,ts:last.ts,materials:last.materials,skillRunId:last.skillRunId}];last.segs=structuredClone(segs);last.ts=Date.now();
+        if(useDraft&&draftEvidence){last.materials=structuredClone(draftEvidence.sources);last.skillRunId=draftEvidence.runId;}else{delete last.materials;delete last.skillRunId;}
+      }else x.msgs.push({id:uid('m'),who:'me',segs:structuredClone(segs),ts:Date.now(),...(useDraft && draftEvidence ? {materials:structuredClone(draftEvidence.sources),skillRunId:draftEvidence.runId} : {})});
       x.turnError=null;
     });
     setDraft([]);
+    setDraftEvidence(null);
+    followReply.current = true;
     runTurn();
   };
   const pickSuggestion = (sg) => {
+    setDraftEvidence(null);
     setDraft(structuredClone(sg.segs));
     setTimeout(() => { const el = document.getElementById('sim-ed'); if (!el) return; el.focus(); const r = document.createRange(); r.selectNodeContents(el); r.collapse(false); const s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }, 30);
   };
   const endMeeting = () => {
     if (ctl.current) ctl.current.abort();
+    if (skillCtl.current) skillCtl.current.abort();
     const d = patchSim(id, (x) => { if (x.status === 'active') x.status = 'ended'; });
     if (d) finish(d);
   };
-  const again = (lv) => { const s = putSim(newSim(sim.setup, lv || sim.level, personaOf(sim.profile))); go({ name: 'sim', id: s.id }); };
+  const again = (lv) => { if (!requireLogin()) return; const s = putSim(newSim(sim.setup, lv || sim.level, personaOf(sim.profile))); go({ name: 'sim', id: s.id }); };
   const toProposal = () => {
+    if (!requireLogin()) return;
     const pid = createProposal();
     const mine = sim.msgs.filter((m) => m.who === 'me');
-    const all = [...new Set([...setupRefs(sim.setup), ...mentionedRefs(sim)])];
+    const shared = sharedSkillSources(sim);
+    const all = [...new Set([...setupRefs(sim.setup), ...mentionedRefs(sim), ...shared.map(s=>s.ref).filter(Boolean)])];
     const memo = `\n\n[전략 시뮬레이션 · ${L.name} · ${{ won: '설득 성공', lost: '미팅 종료', ended: '마무리', active: '진행 중' }[sim.status]} · 만족도 ${sim.cur.satisfaction}]\n` + mine.slice(-4).map((m) => '- ' + m.segs.map((x) => (x.t != null ? x.t : '')).join('').replace(/\s+/g, ' ').trim().slice(0, 120)).join('\n');
     update(pid, (d) => {
       d.title = sim.setup.title || (sim.profile.company + ' · ' + (sim.profile.interests[0] || '제안'));
       d.customer = sim.profile.company; d.ind = sim.profile.ind || null; d.reqTab = 'free';
-      d.req.free = [...structuredClone(sim.setup.req), ...seg(memo)];
+      const references = shared.length ? '\n\n[대화에 사용한 참고 자료]\n' + shared.map(s=>'- '+s.title+(s.url?' · '+s.url:'')).join('\n') : '';
+      d.req.free = [...structuredClone(sim.setup.req), ...seg(memo + references)];
       d.ctx = { products: all.filter((r) => r.startsWith('product:')).map((r) => r.split(':')[1]), solutions: all.filter((r) => r.startsWith('solution:')).map((r) => r.split(':')[1]), cases: all.filter((r) => r.startsWith('case:')).map((r) => r.split(':')[1]) };
     });
     toast('시뮬레이션 내용으로 새 제안서를 만들었어요');
     go({ name: 'proposal', id: pid });
   };
 
-  const agg = aggregate(sim.cur.scores);
+  const agg = useMemo(() => aggregate(sim.cur.scores), [sim.cur.scores]);
   const sugs = active && !busy && sim.cur.suggest && sim.cur.suggest.length ? sim.cur.suggest : active && busy ? sim.cur.suggest || [] : [];
 
   return (
@@ -684,7 +749,7 @@ function SimRoom({ sim, id, go }) {
         <div className="sim-head">
           <button className="btn btn-ghost btn-icon btn-sm" onClick={() => go({ name: 'sim' })} aria-label="시뮬레이션 설정으로" title="새 시뮬레이션 · 기록"><Icon name="chevL" size={16} /></button>
           <button className="sim-who" onClick={() => setDrawer(true)} aria-label={sim.profile.name + ' 프로필 · 실시간 평가 보기'}>
-            <Avatar pf={sim.profile} size={38} mood={sim.cur.mood} />
+            <Avatar pf={sim.profile} size={38} mood={sim.cur.mood} satisfaction={sim.cur.satisfaction} />
             <span className="sim-who-t"><b>{sim.profile.name} <span>{sim.profile.role}</span></b><span className="faint">{sim.profile.company}</span></span>
           </button>
           <span className="sp" />
@@ -692,16 +757,19 @@ function SimRoom({ sim, id, go }) {
             : <button className="btn btn-sm sim-end" onClick={() => again()}><Icon name="refresh" size={14} /><span>다시 하기</span></button>}
         </div>
 
-        <div className="sim-list" ref={listRef} aria-live="polite">
-          {sim.msgs.map((m, i) => <Msg key={m.id} m={m} sim={sim} first={i === 0} peek={peek} />)}
+        <div className="sim-list" ref={listRef} role="log" aria-live="polite" aria-busy={busy || skillBusy} onScroll={() => {
+          const el = listRef.current;
+          followReply.current = el.scrollHeight - el.scrollTop - el.clientHeight < 80;
+        }}>
+          {[...sim.msgs.map((m,i)=>({kind:'message',key:m.id,ts:m.ts || 0,m,i})),...(sim.skillRuns || []).map(run=>({kind:'skill',key:run.id,ts:run.startedAt,run}))].sort((a,b)=>a.ts-b.ts).map(event=>event.kind==='message'?<Msg key={event.key} m={event.m} sim={sim} first={event.i === 0} peek={peek}/>:<SimulationSkillResult key={event.key} run={event.run} peek={peek} busy={busy || skillBusy || !active}
+            onOpen={()=>setSkillPopup(event.run.id)} onStop={()=>skillCtl.current?.abort()} onRetry={()=>runSkill(event.run.skillId,[{t:event.run.prompt || ''}],event.run.requestRefs || [])}
+            />)}
           {sim.turnError && !busy && active && (
-            <div className="sim-note" role="alert"><Icon name="alert" size={13} />{sim.turnError} 대화는 그대로 남아 있어요.
-              <button type="button" className="btn btn-ghost btn-sm" onClick={retryTurn}><Icon name="refresh" size={13} />다시 시도</button>
-            </div>
+            <FeedbackPopup message={sim.turnError} actionLabel="다시 시도" onAction={retryTurn}/>
           )}
           {stream && (
             <div className="sim-msg cust">
-              <Avatar pf={sim.profile} size={36} mood={sim.cur.mood} />
+              <Avatar pf={sim.profile} size={36} mood={sim.cur.mood} satisfaction={sim.cur.satisfaction} />
               <div className="sim-b-w">
                 <span className="sim-b-n">{sim.profile.name} {sim.profile.role}</span>
                 <div className="sim-b">{stream.text ? <>{stream.text}<i className="sim-caret" /></> : <span className="sim-typing" aria-label="입력 중"><i /><i /><i /></span>}</div>
@@ -712,21 +780,24 @@ function SimRoom({ sim, id, go }) {
         </div>
 
         {active && (
-          <div className="sim-foot">
+          <div className="sim-foot"><FeedbackPopup message={suggestionError} actionLabel="추천 답변 다시 받기" onAction={()=>setSuggestionRetry(x=>x+1)}/><FeedbackPopup message={suggestionBusy?"현재 대화에 맞는 추천 답변을 준비하고 있어요…":""} kind="progress"/>
             {sugs.length > 0 && (
               <div className={'sim-sugs' + (busy ? ' wait' : '')} aria-label="추천 답변">
                 <div className="sim-sugs-h"><Icon name="sparkle" size={13} /><b>추천 답변</b></div>
                 <div className="sim-sugs-l">
-                  {sugs.slice(0, 3).map((sg, i) => <Suggestion key={i} sg={sg} sim={sim} busy={busy} onPick={() => pickSuggestion(sg)} onSend={() => send(sg.segs)} />)}
+                  {sugs.slice(0, RECOMMENDATION_COUNT).map((sg, i) => <Suggestion key={sugTitle(sg) + JSON.stringify(sg.segs)} sg={sg} sim={sim} busy={busy || skillBusy} onPick={() => pickSuggestion(sg)} onSend={() => send(sg.segs)} />)}
+
                 </div>
               </div>
             )}
             <div className="sim-comp">
-              <MentionEditor id="sim-ed" label="고객에게 보낼 말" value={draft} onChange={setDraft} onEnter={() => send()} peek={peek}
-                placeholder={busy ? '고객이 답하는 중이에요…' : `${sim.profile.name} ${sim.profile.role}에게 답하기`} />
-              {busy ? <button className="sim-send stop" onClick={() => ctl.current && ctl.current.abort()} aria-label="멈추기" title="멈추기"><SimIcon name="stop" size={12} /></button>
+              <MentionEditor id="sim-ed" label="고객에게 보낼 말" describedBy="sim-mention-hint" value={draft} onChange={value=>{setDraft(value);if(!plainLen(value))setDraftEvidence(null);}} onEnter={() => send()} peek={peek}
+                mentionOptions={{includeAll:false,initialType:'product',skills:SIMULATION_SKILLS,onSkillPick:(skillId,segs)=>{if(!busy&&!skillBusy){runSkill(skillId,segs);}else toast('진행 중인 답변 준비를 마친 뒤 스킬을 선택해 주세요.','warn');}}}
+                placeholder={busy ? '고객이 답하는 중이에요…' : `${sim.profile.name} ${sim.profile.role}에게 답하기 · @로 자료 찾기`} />
+              {busy || skillBusy ? <button className="sim-send stop" onClick={() => skillBusy ? skillCtl.current?.abort() : ctl.current?.abort()} aria-label={skillBusy?'스킬 실행 멈추기':'멈추기'} title="멈추기"><SimIcon name="stop" size={12} /></button>
                 : <button className="sim-send" disabled={plainLen(draft) < 2} onClick={() => send()} aria-label="보내기" title="보내기"><SimIcon name="send" size={16} /></button>}
             </div>
+            <p className="sim-comp-hint" id="sim-mention-hint"><SimIcon name="at" size={13} /><span><b>@</b>로 제품 · 솔루션 · 유관사례를 연결하거나 스킬로 현재 맥락에 맞는 자료와 답변을 준비해요.</span></p>
           </div>
         )}
       </div>
@@ -739,7 +810,10 @@ function SimRoom({ sim, id, go }) {
         <SimilarCard sim={sim} onOpen={setDetail} />
       </aside>
       {drawer && <div className="sim-scrim" onClick={() => setDrawer(false)} />}
-      {detail && <ScenarioDetail s={detail} go={go} onClose={() => setDetail(null)} onSwitch={() => {}} />}
+      {detail && <ScenarioStoryboard key={detail.id} s={detail} go={go} onClose={() => setDetail(null)} />}
+      {skillPopup && sim.skillRuns?.find(r=>r.id===skillPopup) && (()=>{const run=sim.skillRuns.find(r=>r.id===skillPopup);return <SimulationSkillModal run={run} onClose={()=>setSkillPopup(null)} busy={busy || skillBusy || !active} peek={peek}
+        onStop={()=>skillCtl.current?.abort()} onRetry={()=>runSkill(run.skillId,[{t:run.prompt || ''}],run.requestRefs || [])}
+        onUse={reply=>{pickSuggestion({segs:skillDraftSegments(run.result,reply.text)});const ids=new Set(reply.source_ids || []);setDraftEvidence({runId:run.id,sources:ids.size?run.result.sources.filter(s=>ids.has(s.id)):run.result.sources || []});setSkillPopup(null);}}/>;})()}
       {peek.node}
     </div>
   );
@@ -748,18 +822,22 @@ function SimRoom({ sim, id, go }) {
 const sugTitle = (sg) => String(sg.title || sg.why || '추천').replace(/^\+\s*/, '');
 function Suggestion({ sg, sim, busy, onPick, onSend }) {
   const segs = sg.segs || [];
+  const confident = sg.confident === true && sg.confidence?.score >= RECOMMENDATION_CONFIDENCE_THRESHOLD
+    && sg.confidence.requirementsClear && sg.confidence.grounded && sg.confidence.concrete && !!sg.confidence.reason;
   const concern = sg.kind === 'concern' && sg.about ? sim.profile.concerns.find((c) => c.id === sg.about) : null;
   return (
-    <Tip as="div" place="top" wide className={'sim-sug k-' + (sg.kind || 'ai')} label={sugTitle(sg) + ' 추천 답변'} content={() => (
+    <Tip as="div" place="top" wide className={'sim-sug k-' + (sg.kind || 'ai') + (confident ? ' is-confident' : '')} label={sugTitle(sg) + (confident ? ' · 요구에 맞는 답변' : '') + ' 추천 답변'} content={() => (
       <div className="tp">
         <b className="tp-h"><span>{sugTitle(sg)}</span></b>
         <p className="tp-full">{segs.map((x, j) => (x.t != null ? <React.Fragment key={j}>{x.t}</React.Fragment> : <MentionInline key={j} r={x.ref} />))}</p>
+        {confident && <p className="tp-p"><span className="k">추천 근거</span>{sg.confidence.reason}</p>}
         {concern && <p className="tp-p"><span className="k">고객 우려</span>{concern.text}</p>}
         {(sg.crit || []).length > 0 && <p className="tp-p"><span className="k">채우는 기준</span>{sg.crit.map(critName).join(' · ')}</p>}
         <p className="tp-hint">누르면 입력창에 넣어 고쳐 쓸 수 있어요</p>
       </div>
     )}>
       <button className="sim-sug-b" disabled={busy} onClick={onPick}>
+        {confident && <span className="sim-sug-tag"><Icon name="check" size={12} stroke={2.6} />요구에 맞는 답변</span>}
         <span className="sim-sug-why">{sugTitle(sg)}</span>
         <span className="sim-sug-t">{segs.map((x, j) => (x.t != null ? <React.Fragment key={j}>{x.t}</React.Fragment> : <MentionInline key={j} r={x.ref} />))}</span>
       </button>
@@ -768,12 +846,12 @@ function Suggestion({ sg, sim, busy, onPick, onSend }) {
   );
 }
 
-function PersonCard({ sim, busy }) {
+const PersonCard = React.memo(function PersonCard({ sim, busy }) {
   const pf = sim.profile; const per = personaOf(pf);
   return (
-    <Tip className="sim-card sim-person" label={pf.name + ' 프로필 상세'} wide content={() => <ProfileCard pf={pf} level={sim.level} mood={sim.cur.mood} compact />}>
+    <Tip className="sim-card sim-person" label={pf.name + ' 프로필 상세'} wide content={() => <ProfileCard pf={pf} level={sim.level} mood={sim.cur.mood} satisfaction={sim.cur.satisfaction} compact />}>
       <div className="spc">
-        <span className="spc-photo"><Portrait who={per} mood={sim.cur.mood} size={84} round={false} title={pf.name + ' · 지금 표정 ' + sim.cur.mood} /></span>
+        <span className="spc-photo"><Portrait who={per} mood={sim.cur.mood} satisfaction={sim.cur.satisfaction} size={84} round={false} title={pf.name + ' · 만족도 ' + sim.cur.satisfaction} /></span>
         <span className="spc-t">
           <span className="spc-co">{pf.company}{pf.ind ? ' · ' + indName(pf.ind).split(' · ')[0] : ''}</span>
           <b>{pf.name}<span className="num">{pf.age || per.age}</span></b>
@@ -785,9 +863,9 @@ function PersonCard({ sim, busy }) {
       <span className="sc-hint">마우스를 올리면 프로필 전체</span>
     </Tip>
   );
-}
+});
 
-function Msg({ m, sim, first, peek }) {
+const Msg = React.memo(function Msg({ m, sim, first, peek }) {
   if (m.who === 'me') {
     return (
       <div className="sim-msg me">
@@ -799,7 +877,7 @@ function Msg({ m, sim, first, peek }) {
   const cn = (ids) => (ids || []).map((id) => sim.profile.concerns.find((c) => c.id === id)).filter(Boolean);
   return (
     <div className="sim-msg cust">
-      <Avatar pf={sim.profile} size={36} mood={ev && ev.mood} />
+      <Avatar pf={sim.profile} size={36} mood={ev && ev.mood} satisfaction={ev?.satisfaction ?? sim.cur.satisfaction} />
       <div className="sim-b-w">
         <span className="sim-b-n">{sim.profile.name} {sim.profile.role}</span>
         <div className="sim-b">{m.text}{m.stopped && <em className="sim-stopped"> · 중단됨</em>}</div>
@@ -817,7 +895,7 @@ function Msg({ m, sim, first, peek }) {
       </div>
     </div>
   );
-}
+});
 
 function Result({ sim, onAgain, onProposal, debriefBusy = false, onRetryDebrief }) {
   const L = LV[sim.level]; const d = sim.debrief;
@@ -832,10 +910,8 @@ function Result({ sim, onAgain, onProposal, debriefBusy = false, onRetryDebrief 
         <span className="sr-n"><em>제안 품질</em><b className="num">{agg.total ?? '—'}</b></span>
       </div>
       {!d && sim.debriefError && !debriefBusy ? (
-        <div className="sr-load" role="alert"><Icon name="alert" size={13} />{sim.debriefError}
-          {onRetryDebrief && <button type="button" className="btn btn-ghost btn-sm" onClick={onRetryDebrief}><Icon name="refresh" size={13} />총평 다시 받기</button>}
-        </div>
-      ) : !d ? <div className="sr-load"><span className="spin" />전략 Agent가 총평을 정리하는 중…</div> : (
+        <FeedbackPopup message={sim.debriefError} actionLabel={onRetryDebrief?"총평 다시 받기":undefined} onAction={onRetryDebrief}/>
+      ) : !d ? <FeedbackPopup message="전략 Agent가 총평을 정리하는 중…" kind="progress"/> : (
         <div className="sr-b">
           <p className="sr-v"><span className="sr-agent"><Icon name="sparkle" size={12} />전략 Agent 총평</span>{d.verdict}{d.ai ? '' : <span className="faint"> · 이전 방식 자동 총평</span>}</p>
           <div className="sr-cols">
@@ -872,8 +948,9 @@ function Spark({ data, win, lose }) {
     </svg>
   );
 }
-function SatCard({ sim, busy }) {
+const SatCard = React.memo(function SatCard({ sim, busy }) {
   const L = LV[sim.level]; const c = sim.cur;
+  const mood = { happy: '호의', flat: '중립', stern: '불만' }[resolveExpression(c.satisfaction, c.mood)];
   const lastEv = [...sim.msgs].reverse().find((m) => m.ev && m.who === 'cust');
   const delta = lastEv && sim.msgs.indexOf(lastEv) > 0 ? lastEv.ev.delta : 0;
   const k = c.satisfaction >= L.win ? 'ok' : c.satisfaction >= 55 ? 'good' : c.satisfaction >= 35 ? 'warn' : 'bad';
@@ -892,7 +969,7 @@ function SatCard({ sim, busy }) {
         <p className="tp-p"><span className="k">성공 조건</span>만족도 {L.win} 이상 + 우려 해소 + 결정 요청 → {sim.profile.ask}</p>
       </div>
     )}>
-      <div className="sc-h"><span>고객 만족도</span><span className={'sc-mood m-' + k}>{c.mood}</span></div>
+      <div className="sc-h"><span>고객 만족도</span><span className={'sc-mood m-' + k}>{mood}</span></div>
       <div className="sc-v">
         <b className="num">{c.satisfaction}</b>
         {delta !== 0 && <span className={'sc-d ' + (delta > 0 ? 'up' : 'down')}>{delta > 0 ? '+' + delta : delta}</span>}
@@ -909,12 +986,12 @@ function SatCard({ sim, busy }) {
       <span className="sc-hint">마우스를 올리면 상세</span>
     </Tip>
   );
-}
-function QualityCard({ sim, agg, busy }) {
+});
+const QualityCard = React.memo(function QualityCard({ sim, agg, busy }) {
   const b = agg.total == null ? null : band(agg.total);
   return (
     <section className="sim-card sim-q" aria-label="제안 품질">
-      <div className="sc-h"><span>제안 품질</span><span className="sc-src">{sim.cur.src === 'ai' ? 'Gemini 평가' : sim.cur.scores ? '이전 기록' : '평가 전'} · 제안서 검토 기준</span></div>
+      <div className="sc-h"><span>제안 품질</span><span className="sc-src">{sim.cur.src === 'ai' ? 'AI 평가' : sim.cur.scores ? '이전 기록' : '평가 전'} · 제안서 검토 기준</span></div>
       <div className="sc-v">
         <b className="num">{agg.total ?? '—'}</b>{agg.total != null && <span className="sc-of num">/ 100</span>}
         {b && <span className={'sc-band b-' + b.k}>{b.label}</span>}
@@ -933,7 +1010,7 @@ function QualityCard({ sim, agg, busy }) {
       <span className="sc-hint">기준마다 마우스를 올리면 세부 점수 · 근거</span>
     </section>
   );
-}
+});
 function CatTip({ c, sim }) {
   const sc = sim.cur.scores || {}; const notes = sim.cur.notes || {};
   return (
@@ -953,12 +1030,12 @@ function CatTip({ c, sim }) {
     </div>
   );
 }
-function SimilarCard({ sim, onOpen }) {
-  const list = useMemo(() => similarScenarios(sim, 3), [sim.msgs.length, sim.cur.stage, sim.profile.concerns.map((c) => c.revealed + '' + c.resolved).join()]);
+const SimilarCard = React.memo(function SimilarCard({ sim, onOpen }) {
+  const list = useMemo(() => similarScenarios(sim, 3), [sim]);
   const stage = SIM_STAGES[STAGE_IX[sim.cur.stage] ?? 0];
   return (
     <section className="sim-card sim-sim" aria-label="참고할 기존 제안서">
-      <div className="sc-h"><span>참고할 기존 제안서</span><span className="sc-src">Best Scenario · 지금 단계 “{stage.label}”</span></div>
+      <div className="sc-h"><span>참고할 기존 제안서</span><span className="sc-src">최근 대화 반영 · {stage.label}</span></div>
       <div className="ss-list">
         {list.map(({ s, why, tip, strat }) => {
           const all = s.flow.flatMap((g) => g.slides.map((x) => ({ ...x, key: g.key })));
@@ -966,9 +1043,9 @@ function SimilarCard({ sim, onOpen }) {
           let k = all.findIndex((x) => keys.includes(x.key)); if (k < 0) k = 0;
           const x = all[k];
           return (
-            <button key={s.id} className="ssc" onClick={() => onOpen(s)}>
+            <button key={s.id} className="ssc" onClick={() => onOpen(s)} aria-label={s.title + ' 상세 보기'}>
+              <span className="ssc-th">{x && LAYOUT[x.f] ? <FitSlide f={x.f} ov={ovOf(s.id, k, x.f)} lazy /> : null}</span>
               <div className="ssc-top">
-                <span className="ssc-th">{x && LAYOUT[x.f] ? <FitSlide f={x.f} ov={fillOf(s.id, k, x.f)} lazy /> : null}</span>
                 <span className="ssc-t">
                   <b>{s.title}</b>
                   <span className="ssc-m">{strat ? strat.label : ''} · {REQ_TYPES[s.req] ? REQ_TYPES[s.req].label.split(' · ')[0] : ''}</span>
@@ -980,10 +1057,11 @@ function SimilarCard({ sim, onOpen }) {
                 <p className="q">{tip.q}</p>
                 {tip.a && <p className="a">{tip.a}</p>}
               </div>
+              <span className="ssc-open">상세 보기<Icon name="chev" size={13} /></span>
             </button>
           );
         })}
       </div>
     </section>
   );
-}
+});

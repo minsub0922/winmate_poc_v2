@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~base:F04"
+ },
+ "prompt_tokens": 1625,
+ "output_tokens": 133,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 1,
+    "anchor": "제안서 내에 도입 사례에 대한 언급이 전혀 확인되지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "M 베이커리와 유사한 프랜차이즈 업종의 사이니지 도입 사례와 구체적인 운영 효율 개선 수치를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

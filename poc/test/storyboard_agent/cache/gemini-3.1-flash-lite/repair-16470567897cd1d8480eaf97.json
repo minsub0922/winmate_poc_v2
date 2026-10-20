@@ -1,0 +1,53 @@
+{
+ "stage": "repair",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.4,
+ "seed": 0,
+ "prompt_tokens": 3614,
+ "output_tokens": 503,
+ "data": {
+  "strategy": "pain",
+  "thesis": "W 요양병원의 20년 된 노후 중앙공조를 병실별 개별 제어 시스템으로 전환하여, 환자 만족도를 높이고 에너지 비용을 최적화하는 스마트 케어 환경을 구축합니다.",
+  "parts": [
+   {
+    "type": "customer"
+   },
+   {
+    "name": "고객사 현황 및 과제",
+    "ref": "R10, R11, R12, R13, R14",
+    "type": "customer"
+   },
+   {
+    "name": "병실별 개별 제어 및 공기질 개선",
+    "ref": "R4, R5, R6, R15",
+    "type": "value"
+   },
+   {
+    "name": "중앙 제어 및 유지관리 솔루션",
+    "ref": "R7, R8, R9",
+    "type": "solution"
+   },
+   {
+    "name": "병동 운영 유지 공사 시나리오",
+    "ref": "R1",
+    "type": "scenario"
+   },
+   {
+    "name": "에너지 비용 절감 및 예산 최적화",
+    "ref": "R2, R3",
+    "type": "effect"
+   },
+   {
+    "name": "실행 계획 및 다음 단계",
+    "ref": "R16",
+    "type": "execution"
+   }
+  ],
+  "ending": "workshop",
+  "questions": [
+   "기계실 반입 경로와 전기 용량 증설 여부를 확인하기 위해 10월 19일~23일 현장 실사가 가능하신지요?",
+   "반 층 단위 순차 공사를 위한 빈 병상 확보 계획에 대해 실무 협의를 진행해도 되겠습니까?"
+  ],
+  "strategy_why": "요양병원의 핵심 고충인 온도 민원과 에너지 비용 문제를 해결하고, 운영 중단 없는 공사라는 제약 조건을 논리적으로 풀어내기 위해 문제 해결형(pain) 전략을 선택했습니다."
+ }
+}

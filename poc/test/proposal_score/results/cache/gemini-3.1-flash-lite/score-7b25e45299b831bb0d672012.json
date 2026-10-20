@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~number_conflict:F09"
+ },
+ "prompt_tokens": 1812,
+ "output_tokens": 157,
+ "data": {
+  "scores": [
+   {
+    "id": "PR2",
+    "score": 1,
+    "anchor": "제안서 본문 내용이 제공되지 않아 사양을 확인할 수 없으며, 자동 점검 결과와 대조할 근거가 전무합니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "제안서 내에 사용된 제품의 상세 사양(모델명, 밝기, 운영 시간 등)을 명시하고 카탈로그와 일치하는지 검토해야 합니다.",
+    "confidence": "low"
+   }
+  ]
+ }
+}

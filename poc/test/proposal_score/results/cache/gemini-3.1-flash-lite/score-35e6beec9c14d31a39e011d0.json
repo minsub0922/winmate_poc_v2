@@ -1,0 +1,116 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~full:F11"
+ },
+ "prompt_tokens": 4391,
+ "output_tokens": 978,
+ "data": {
+  "scores": [
+   {
+    "id": "DS1",
+    "score": 2,
+    "anchor": "제목 위치가 2, 5, 10장에서 다른 장과 다르게 배치되어 일관성이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "제목 30px@(72,88)"
+     },
+     {
+      "sheet": 5,
+      "quote": "제목 40px@(84,108)"
+     },
+     {
+      "sheet": 10,
+      "quote": "제목 30px@(648,66)"
+     }
+    ],
+    "improve": "모든 장의 제목 위치와 크기를 동일한 좌표와 규격으로 통일해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS2",
+    "score": 2,
+    "anchor": "대부분 장은 요지가 보이나, 110어절을 넘는 장이 많아 텍스트 밀도가 높고 시선이 분산될 우려가 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "134어절"
+     },
+     {
+      "sheet": 7,
+      "quote": "123어절"
+     }
+    ],
+    "improve": "헤드라인 외의 본문 텍스트를 핵심 위주로 요약하여 시각적 강조점을 명확히 해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 5장으로, 기준인 4장 이상을 초과하여 발표 자료로서 밀도가 너무 높습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "134어절"
+     },
+     {
+      "sheet": 7,
+      "quote": "123어절"
+     }
+    ],
+    "improve": "장당 어절 수를 110어절 이하로 줄이고, 문단형 텍스트를 개조식으로 변경해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 36%가 10pt 미만이며, 9pt 미만 본문 칸이 포함된 장이 존재합니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "본문 최소 11.5px(8.6pt)"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS5",
+    "score": 2,
+    "anchor": "폰트는 일관되나 제목 크기가 30px와 40px로 혼용되어 체계가 완벽하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "제목 30px"
+     },
+     {
+      "sheet": 5,
+      "quote": "제목 40px"
+     }
+    ],
+    "improve": "모든 장의 제목 크기를 동일한 폰트 사이즈로 통일해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS6",
+    "score": 3,
+    "anchor": "모든 장에 내용과 부합하는 실제 사진이 배치되어 있으며 텍스트만 있는 장이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "사진 1"
+     },
+     {
+      "sheet": 7,
+      "quote": "사진 6"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

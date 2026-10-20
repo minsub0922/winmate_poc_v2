@@ -1,0 +1,59 @@
+{
+ "stage": "gapfill",
+ "model": "gemini-3.1-flash-lite",
+ "meta": {
+  "lines": [
+   "(2) 모니터 상세 스펙",
+   "(3) 노트북 상세 스펙",
+   "(4) 기타 제안 요건",
+   "Ex. PC를 제외하고 노트북/모니터만 계약하는 경우에도 납품단가에 변동이 없어야 함 |"
+  ],
+  "pid_hint": "P4",
+  "projects": [
+   {
+    "pid": "P1",
+    "name": "흑백프린터 도입 추진",
+    "customer": "신한은행",
+    "start_line": 13,
+    "issuer": "신한은행 총무부/Tech운영부"
+   },
+   {
+    "pid": "P2",
+    "name": "삼성생명 데스크탑 표준 모델 선정",
+    "customer": "삼성생명보험(주)",
+    "start_line": 217,
+    "issuer": "삼성생명보험(주) 정보전략팀"
+   },
+   {
+    "pid": "P3",
+    "name": "업무용 모니터(27인치) 도입 추진",
+    "customer": "신한은행",
+    "start_line": 495,
+    "issuer": "신한은행 총무부/Tech운영부"
+   },
+   {
+    "pid": "P4",
+    "name": "개인전산장비 단가계약",
+    "customer": "KB손해보험",
+    "start_line": 707,
+    "issuer": "KB손해보험"
+   }
+  ],
+  "idx": 19
+ },
+ "prompt_tokens": 2281,
+ "output_tokens": 118,
+ "data": {
+  "items": [
+   {
+    "pid": "P4",
+    "cat": "계약",
+    "text": "PC를 제외하고 노트북/모니터만 계약하는 경우에도 납품단가에 변동이 없어야 한다.",
+    "quote": "Ex. PC를 제외하고 노트북/모니터만 계약하는 경우에도 납품단가에 변동이 없어야 함",
+    "modality": "필수"
+   }
+  ],
+  "carry": ""
+ },
+ "raw_text": "{\n  \"items\": [\n    {\n      \"pid\": \"P4\",\n      \"cat\": \"계약\",\n      \"text\": \"PC를 제외하고 노트북/모니터만 계약하는 경우에도 납품단가에 변동이 없어야 한다.\",\n      \"quote\": \"Ex. PC를 제외하고 노트북/모니터만 계약하는 경우에도 납품단가에 변동이 없어야 함\",\n      \"modality\": \"필수\"\n    }\n  ],\n  \"carry\": \"\"\n}"
+}

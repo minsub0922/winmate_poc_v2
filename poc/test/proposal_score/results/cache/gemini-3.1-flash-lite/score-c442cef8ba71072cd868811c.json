@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~strip_images:F01"
+ },
+ "prompt_tokens": 8588,
+ "output_tokens": 153,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "16장의 담당자 연락처 정보에 예시용 전화번호와 이메일 주소가 그대로 남아 있습니다.",
+    "evidence": [
+     {
+      "sheet": 16,
+      "quote": "010-1234-5678 · b2b.proposal@samsung.com"
+     }
+    ],
+    "improve": "제출 전 실제 담당자의 연락처와 이메일 주소로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

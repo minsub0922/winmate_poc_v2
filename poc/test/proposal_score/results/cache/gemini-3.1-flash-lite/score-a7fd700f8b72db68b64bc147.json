@@ -1,0 +1,78 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~full:F09"
+ },
+ "prompt_tokens": 8033,
+ "output_tokens": 612,
+ "data": {
+  "scores": [
+   {
+    "id": "PR1",
+    "score": 3,
+    "anchor": "제안된 모델(QM55C, VM55B, DVM S2)은 모두 현재 카탈로그 라인업에 포함된 현행 모델이며, 단종이나 이전 세대 표기가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "QM55C · VM55B · DVM S2"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR2",
+    "score": 3,
+    "anchor": "제안서 내 모델별 사양(QM55C, VM55B, DVM S2 등)이 카탈로그 사양과 일치하며, 장별로 동일하게 표기되었습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "QM55C · VM55B · DVM S2"
+     },
+     {
+      "sheet": 10,
+      "quote": "스마트 사이니지 QM55C · 비디오월 VM55B · DVM S2 시스템에어컨"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR5",
+    "score": 3,
+    "anchor": "제품명과 모델명을 일관되게 사용하고 있으며, 제품군 이름과 모델명을 병기한 경우에도 혼용 없이 명확하게 표기되었습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "QM55C · VM55B · DVM S2"
+     },
+     {
+      "sheet": 10,
+      "quote": "스마트 사이니지 QM55C · 비디오월 VM55B · DVM S2 시스템에어컨"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR3",
+    "score": 3,
+    "anchor": "MagicINFO 등 브랜드명이 공식 표기법에 따라 일관되게 작성되었습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "MagicINFO"
+     },
+     {
+      "sheet": 11,
+      "quote": "MagicINFO"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

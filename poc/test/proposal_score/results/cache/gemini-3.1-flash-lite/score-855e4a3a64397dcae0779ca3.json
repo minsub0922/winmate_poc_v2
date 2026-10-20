@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11:F08"
+ },
+ "prompt_tokens": 2478,
+ "output_tokens": 417,
+ "data": {
+  "scores": [
+   {
+    "id": "VS3",
+    "score": 2,
+    "anchor": "전체적인 흐름은 논리적이나, 장 요약표상 [2]목차와 [4]평가 대응이 [3]사업 이해 뒤에 배치되어 흐름이 다소 끊깁니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "목차 — 평가표 순서 그대로"
+     },
+     {
+      "sheet": 4,
+      "quote": "배점 순서 그대로, 근거가 있는 쪽을 짚었습니다"
+     }
+    ],
+    "improve": "평가 대응 및 요구사항 분석 파트를 사업 이해 직후로 배치하고, 목차를 최상단으로 고정하여 흐름을 매끄럽게 조정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS7",
+    "score": 3,
+    "anchor": "본문 장 제목 13개 중 12개가 결론을 담은 문장형으로 구성되어 있으며, 제목만 읽어도 제안의 핵심 내용이 파악됩니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "요구사항 28개, ID 단위로 빠짐없이 대응합니다"
+     },
+     {
+      "sheet": 10,
+      "quote": "세 회사가 한 팀, 보고 창구는 하나입니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "수송 성수기 전에 먼저 점검합니다 — 1년 캘린더"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

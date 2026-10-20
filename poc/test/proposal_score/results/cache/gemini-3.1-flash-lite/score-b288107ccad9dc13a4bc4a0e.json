@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs02:F03"
+ },
+ "prompt_tokens": 3206,
+ "output_tokens": 221,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "6장에서 대표이사 및 경영진이 얻는 가치(임대 선호도, 에너지 절감 증빙 등)와 실무팀의 가치를 구분하여 제시하였고, 16장에서 결정권자가 판단할 설계 반영 범위 및 증빙 방식 등 의사결정 사항을 한 장에 정리함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "대표이사 · 경영진 | AI Ready 오피스를 실측 데이터로 증명합니다"
+     },
+     {
+      "sheet": 16,
+      "quote": "설계 확정 전, 함께 정할 세 가지 | C 빌딩 설계 반영 범위 확정 · 실측 증빙 방식 합의"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

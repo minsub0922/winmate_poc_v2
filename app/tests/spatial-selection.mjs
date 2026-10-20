@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {addStudioSelection} from '../web/src/domain/spatial/studio-selection.js';
+import {studioDocumentFromTemplate,createSceneFromForm,studioFormFromScene,emptyStudioForm} from '../web/src/domain/spatial/studio-form.js';
+import {mergeSpatialEditForm} from '../web/src/domain/spatial/edit.js';
+import {validateScene} from '../web/src/domain/spatial/scene.js';
+const library=JSON.parse(fs.readFileSync(new URL('../data/spatial/library.json',import.meta.url))),{scene,form}=studioDocumentFromTemplate(library.templates.find(t=>t.id==='cowork-full-standard'),library),roomId=form.rooms[0].id,original=structuredClone({form,scene});
+const selection=['product:qm65c','furniture:cafe-bentwood'],result=addStudioSelection(form,scene,library,selection,roomId);
+for(const id of selection)assert.equal(result.scene.objects.filter(o=>o.assetId===id&&o.roomId===roomId).length,scene.objects.filter(o=>o.assetId===id&&o.roomId===roomId).length+1);
+assert.equal(result.form.rooms[0].products.find(p=>p.productId==='qm65c').quantity,1);assert.deepEqual(result.form.rooms[0].furniture,[{assetId:'furniture:cafe-bentwood',quantity:1}]);assert(result.scene.objects.some(o=>o.assetId==='furniture:cafe-bentwood'&&o.studioFurniture));assert.deepEqual(validateScene(result.scene,library).errors,[]);
+assert.deepEqual({form,scene},original);assert.deepEqual(mergeSpatialEditForm(form,scene,result.scene,library),result.form);assert.deepEqual(mergeSpatialEditForm(result.form,result.scene,scene,library),form);
+const draft={...emptyStudioForm(),industry:'OF',rooms:[{id:'pending-room',name:'업무실',kind:'office',width:12,depth:10,capacity:'',products:[]}]},pending=addStudioSelection(draft,null,library,selection,'pending-room');assert.equal(pending.scene,null);const generated=createSceneFromForm(pending.form,library);assert(generated.objects.some(o=>o.assetId==='furniture:cafe-bentwood'&&o.studioFurniture));assert(generated.objects.some(o=>o.assetId==='product:qm65c'));assert.deepEqual(studioFormFromScene(generated).rooms[0].furniture,pending.form.rooms[0].furniture);
+assert.throws(()=>addStudioSelection(form,scene,library,['product:qm65c','unknown'],roomId));assert.throws(()=>addStudioSelection(form,scene,library,selection,'unknown-room'));const max=structuredClone(form);max.rooms[0].products.push({productId:'qm65c',quantity:30});assert.throws(()=>addStudioSelection(max,scene,library,selection,roomId),/30/);assert.deepEqual({form,scene},original);
+console.log('PASS mixed multiple selection, atomic addition, scene/input consistency, undo, pending furniture generation and quantity limits');

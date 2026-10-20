@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~base:F04"
+ },
+ "prompt_tokens": 3432,
+ "output_tokens": 200,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "유사 업종의 도입 사례와 구성은 제시하였으나, 각 사례에서 얻은 실제 성과 수치가 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "쇼핑몰 · 유통 · 상업시설이 이미 같은 구성을 씁니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "더현대 서울 | 백화점 · 스마트 LED 사이니지"
+     }
+    ],
+    "improve": "각 도입 사례별로 삼성 솔루션 도입 후 개선된 운영 효율이나 장애 감소율 등 구체적인 성과 수치를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

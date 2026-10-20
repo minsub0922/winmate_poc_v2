@@ -1,0 +1,611 @@
+{
+ "summary": {
+  "overall": 0.9835,
+  "by_level": {
+   "minimal": 0.9892,
+   "ambiguous": 0.9919,
+   "complex": 0.9693
+  },
+  "by_case": {
+   "H01": 0.9943,
+   "H02": 0.9842,
+   "H03": 0.9939,
+   "H04": 0.99,
+   "H05": 0.9423,
+   "H06": 0.9964
+  },
+  "metrics": {
+   "level": 1.0,
+   "industry": 1.0,
+   "scenario": 1.0,
+   "must_parts": 1.0,
+   "flow": 0.8125,
+   "layout_part": 1.0,
+   "layouts_any": 0.75,
+   "violations": 1.0,
+   "fill_clean": 0.9815,
+   "scenario_top3": 1.0,
+   "key_detect": 1.0,
+   "key_trace": 1.0,
+   "key_reflect": 1.0,
+   "must_cov": 1.0,
+   "facts": 1.0,
+   "priority": 1.0,
+   "dims": 1.0,
+   "questions": 1.0,
+   "eval": 1.0
+  },
+  "n": 6,
+  "name": "holdout-v11",
+  "llm": "offline",
+  "model": null,
+  "llm_calls": 0,
+  "llm_fail": 0,
+  "elapsed_s": 2.3
+ },
+ "rows": [
+  {
+   "id": "H01",
+   "case": "H01",
+   "level": "minimal",
+   "industry": "TP",
+   "score": 0.9943,
+   "metrics": {
+    "level": 1.0,
+    "industry": 1.0,
+    "scenario": 1.0,
+    "scenario_top3": null,
+    "must_parts": 1.0,
+    "flow": 0.875,
+    "layout_part": 1.0,
+    "layouts_any": 1.0,
+    "violations": 1.0,
+    "key_detect": null,
+    "key_trace": null,
+    "key_reflect": null,
+    "must_cov": null,
+    "facts": null,
+    "priority": null,
+    "fill_clean": 1.0,
+    "dims": null,
+    "conflicts": null,
+    "questions": null,
+    "eval": null
+   },
+   "detail": {
+    "scenario": "STD-TP",
+    "missing_parts": [],
+    "layouts_any_miss": [],
+    "key_reqs": [],
+    "fill": {
+     "slots": 222,
+     "changed": 92,
+     "placeholders_left": 41,
+     "unsupported_reverted": 0,
+     "sample_leak": 0,
+     "foreign_terms": 0,
+     "static_foreign_slides": 0
+    },
+    "fill_cov": 0.414
+   },
+   "n_slides": 9,
+   "n_req": 0,
+   "sec": 0.12,
+   "slides": [
+    "1.cover:L_C01",
+    "2.market:L_MI_TP_A",
+    "3.value:L_VP_F2",
+    "4.dss:L_SP00",
+    "5.products:L_P2B",
+    "6.case:L_CS03",
+    "7.why:L_WS02",
+    "8.why:L_SV_C",
+    "9.closing:L_C07"
+   ],
+   "parts": [
+    "S01:cover:표지",
+    "S02:market:업종 이해",
+    "S03:value:제품 · 솔루션별 핵심 가치",
+    "S04:dss:공간 맵",
+    "S05:products:공간별 제품",
+    "S06:case:유관 사례",
+    "S07:why:Why Samsung",
+    "S08:why:도입 후 지원 체계",
+    "S09:closing:마무리 · 다음 단계"
+   ]
+  },
+  {
+   "id": "H02",
+   "case": "H02",
+   "level": "minimal",
+   "industry": "PB",
+   "score": 0.9842,
+   "metrics": {
+    "level": 1.0,
+    "industry": 1.0,
+    "scenario": 1.0,
+    "scenario_top3": null,
+    "must_parts": 1.0,
+    "flow": 0.875,
+    "layout_part": 1.0,
+    "layouts_any": 1.0,
+    "violations": 1.0,
+    "key_detect": null,
+    "key_trace": null,
+    "key_reflect": null,
+    "must_cov": null,
+    "facts": null,
+    "priority": null,
+    "fill_clean": 0.8888888888888888,
+    "dims": null,
+    "conflicts": null,
+    "questions": null,
+    "eval": null
+   },
+   "detail": {
+    "scenario": "STD-PB",
+    "missing_parts": [],
+    "layouts_any_miss": [],
+    "key_reqs": [],
+    "fill": {
+     "slots": 230,
+     "changed": 100,
+     "placeholders_left": 67,
+     "unsupported_reverted": 0,
+     "sample_leak": 0,
+     "foreign_terms": 1,
+     "static_foreign_slides": 1
+    },
+    "fill_cov": 0.435
+   },
+   "n_slides": 9,
+   "n_req": 0,
+   "sec": 0.11,
+   "slides": [
+    "1.cover:L_C09",
+    "2.market:L_MI_PB_A",
+    "3.value:L_VP_G",
+    "4.dss:L_SP00",
+    "5.products:L_P1B",
+    "6.case:L_CS03",
+    "7.why:L_WS02",
+    "8.why:L_SV_B",
+    "9.closing:L_C07"
+   ],
+   "parts": [
+    "S01:cover:표지",
+    "S02:market:업종 이해",
+    "S03:value:제품 · 솔루션별 핵심 가치",
+    "S04:dss:공간 맵",
+    "S05:products:공간별 제품",
+    "S06:case:유관 사례",
+    "S07:why:Why Samsung",
+    "S08:why:도입 후 지원 체계",
+    "S09:closing:마무리 · 다음 단계"
+   ]
+  },
+  {
+   "id": "H03",
+   "case": "H03",
+   "level": "ambiguous",
+   "industry": "VN",
+   "score": 0.9939,
+   "metrics": {
+    "level": 1.0,
+    "industry": 1.0,
+    "scenario": 1.0,
+    "scenario_top3": 1.0,
+    "must_parts": 1.0,
+    "flow": 0.818,
+    "layout_part": 1.0,
+    "layouts_any": null,
+    "violations": 1.0,
+    "key_detect": 1.0,
+    "key_trace": 1.0,
+    "key_reflect": 1.0,
+    "must_cov": null,
+    "facts": null,
+    "priority": null,
+    "fill_clean": 1.0,
+    "dims": null,
+    "conflicts": null,
+    "questions": null,
+    "eval": null
+   },
+   "detail": {
+    "scenario": "bs12",
+    "top3": [
+     "bs12",
+     "bs05",
+     "bs19"
+    ],
+    "missing_parts": [],
+    "key_reqs": [
+     {
+      "kw": [
+       "관람객"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     }
+    ],
+    "fill": {
+     "slots": 696,
+     "changed": 147,
+     "placeholders_left": 169,
+     "unsupported_reverted": 0,
+     "sample_leak": 0,
+     "foreign_terms": 0,
+     "static_foreign_slides": 1
+    },
+    "fill_cov": 0.211
+   },
+   "n_slides": 14,
+   "n_req": 2,
+   "sec": 0.17,
+   "slides": [
+    "1.cover:L_C02",
+    "2.market:L_MI_VN_A",
+    "3.customer:L_MI_VN_B",
+    "4.value:L_VP_F",
+    "5.scenario:L_SS_VN_A",
+    "6.scenario:L_SS_VN_B",
+    "7.products:L_P_F",
+    "8.spec:L_SD_G",
+    "9.why:L_CM_C",
+    "10.why:L_ST_D",
+    "11.case:L_CD_D",
+    "12.why:L_SV_C",
+    "13.effect:L_EF_B",
+    "14.closing:L_C13"
+   ],
+   "parts": [
+    "S01:cover:열기",
+    "S02:market:맥락 · 경기일 비즈니스 · 시장 · 전략",
+    "S03:customer:맥락 · 경기일 비즈니스 · 고객사 이해",
+    "S04:value:핵심 가치",
+    "S05:scenario:장면 · 구장",
+    "S06:products:구성 · 화면 근거 · 공간별 제품",
+    "S07:spec:구성 · 화면 근거 · 제품 스펙",
+    "S08:why:근거 · 비교와 증거 · Why",
+    "S09:case:근거 · 비교와 증거 · 유관 사례",
+    "S10:why:실행 · 지원과 회수 · Why",
+    "S11:effect:실행 · 지원과 회수 · 기대 효과",
+    "S12:closing:결정 요청"
+   ]
+  },
+  {
+   "id": "H04",
+   "case": "H04",
+   "level": "ambiguous",
+   "industry": "AD",
+   "score": 0.99,
+   "metrics": {
+    "level": 1.0,
+    "industry": 1.0,
+    "scenario": 1.0,
+    "scenario_top3": 1.0,
+    "must_parts": 1.0,
+    "flow": 0.7,
+    "layout_part": 1.0,
+    "layouts_any": null,
+    "violations": 1.0,
+    "key_detect": 1.0,
+    "key_trace": 1.0,
+    "key_reflect": 1.0,
+    "must_cov": null,
+    "facts": null,
+    "priority": null,
+    "fill_clean": 1.0,
+    "dims": null,
+    "conflicts": null,
+    "questions": null,
+    "eval": null
+   },
+   "detail": {
+    "scenario": "bs20",
+    "top3": [
+     "bs20",
+     "bs05",
+     "bs01"
+    ],
+    "missing_parts": [],
+    "key_reqs": [
+     {
+      "kw": [
+       "수익"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     }
+    ],
+    "fill": {
+     "slots": 782,
+     "changed": 107,
+     "placeholders_left": 148,
+     "unsupported_reverted": 0,
+     "sample_leak": 0,
+     "foreign_terms": 0,
+     "static_foreign_slides": 2
+    },
+    "fill_cov": 0.137
+   },
+   "n_slides": 14,
+   "n_req": 1,
+   "sec": 0.18,
+   "slides": [
+    "1.cover:L_C02",
+    "2.market:L_MI_AD_A",
+    "3.market:L_MS_D",
+    "4.user:L_MI_AD_C",
+    "5.value:L_VP_F",
+    "6.scenario:L_SS_AD_B",
+    "7.scenario:L_SS_AD_E",
+    "8.spec:L_SD_G",
+    "9.scenario:L_SS_AD_C",
+    "10.solution:L_MGI_I",
+    "11.effect:L_EF_B",
+    "12.effect:L_EF_H",
+    "13.cost:L_CO_A",
+    "14.closing:L_C13"
+   ],
+   "parts": [
+    "S01:cover:열기",
+    "S02:market:맥락 · 시장과 시민 · 시장 · 전략",
+    "S03:user:맥락 · 시장과 시민 · 사용자",
+    "S04:value:핵심 가치",
+    "S05:scenario:장면 · 매체",
+    "S06:spec:구성 · 화면과 송출 · 제품 스펙",
+    "S07:scenario:구성 · 화면과 송출 · 공간 시나리오",
+    "S08:solution:구성 · 화면과 송출 · 솔루션 제안",
+    "S09:effect:근거 · 사업성",
+    "S10:cost:실행 · 구매 방식",
+    "S11:closing:결정 요청"
+   ]
+  },
+  {
+   "id": "H05",
+   "case": "H05",
+   "level": "complex",
+   "industry": "OE",
+   "score": 0.9423,
+   "metrics": {
+    "level": 1.0,
+    "industry": 1.0,
+    "scenario": 1.0,
+    "scenario_top3": null,
+    "must_parts": 1.0,
+    "flow": 0.75,
+    "layout_part": 1.0,
+    "layouts_any": 0.0,
+    "violations": 1.0,
+    "key_detect": 1.0,
+    "key_trace": 1.0,
+    "key_reflect": 1.0,
+    "must_cov": 1.0,
+    "facts": 1.0,
+    "priority": 1.0,
+    "fill_clean": 1.0,
+    "dims": 1.0,
+    "conflicts": null,
+    "questions": 1.0,
+    "eval": null
+   },
+   "detail": {
+    "strategy": "land",
+    "missing_parts": [],
+    "layouts_any_miss": [
+     "execution"
+    ],
+    "key_reqs": [
+     {
+      "kw": [
+       "3월"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     },
+     {
+      "kw": [
+       "원격 잠금"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     },
+     {
+      "kw": [
+       "단가"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     }
+    ],
+    "facts_miss": [],
+    "fill": {
+     "slots": 767,
+     "changed": 197,
+     "placeholders_left": 179,
+     "unsupported_reverted": 0,
+     "sample_leak": 0,
+     "foreign_terms": 0,
+     "static_foreign_slides": 2
+    },
+    "fill_cov": 0.257,
+    "dims": [
+     "기타",
+     "보안·인증·규제",
+     "비용·구매",
+     "사용자 경험·성과",
+     "운영·유지보수",
+     "일정·실행·확산"
+    ],
+    "conflicts": [
+     "키맨 관심사 분산"
+    ],
+    "n_questions": 8,
+    "interrupted": true
+   },
+   "n_slides": 15,
+   "n_req": 8,
+   "sec": 0.21,
+   "slides": [
+    "1.cover:L_C01",
+    "2.overview:L_ES_A",
+    "3.requirements:L_RM_A",
+    "4.value:L_VP_V",
+    "5.solution:L_KNX_I",
+    "6.scenario:L_SS_OE_B",
+    "7.scenario:L_SS_OE_C",
+    "8.scenario:L_SS_OE_D",
+    "9.products:L_P2B",
+    "10.execution:L_SE_A",
+    "11.effect:L_EF_A",
+    "12.case:L_CD_C",
+    "13.execution:L_SE_C",
+    "14.cost:L_CO_B",
+    "15.closing:L_C13"
+   ],
+   "parts": [
+    "S01:cover:표지",
+    "S02:overview:제안 요약",
+    "S03:requirements:키맨별 요구 이해",
+    "S04:value:가치 · 두 층",
+    "S05:solution:운영·유지보수 대응",
+    "S06:scenario:장면 · 하루와 개통",
+    "S07:products:공간별 제품",
+    "S08:execution:보안·인증·규제 대응",
+    "S09:effect:사용자 경험·성과 대응",
+    "S10:case:유관 사례",
+    "S11:execution:일정·실행·확산 대응",
+    "S12:cost:비용·구매 대응",
+    "S13:closing:결정 요청 · 예산 승인"
+   ]
+  },
+  {
+   "id": "H06",
+   "case": "H06",
+   "level": "complex",
+   "industry": "PB",
+   "score": 0.9964,
+   "metrics": {
+    "level": 1.0,
+    "industry": 1.0,
+    "scenario": 1.0,
+    "scenario_top3": null,
+    "must_parts": 1.0,
+    "flow": 0.857,
+    "layout_part": 1.0,
+    "layouts_any": 1.0,
+    "violations": 1.0,
+    "key_detect": 1.0,
+    "key_trace": 1.0,
+    "key_reflect": 1.0,
+    "must_cov": 1.0,
+    "facts": 1.0,
+    "priority": 1.0,
+    "fill_clean": 1.0,
+    "dims": 1.0,
+    "conflicts": null,
+    "questions": 1.0,
+    "eval": 1.0
+   },
+   "detail": {
+    "strategy": "rfp",
+    "missing_parts": [],
+    "layouts_any_miss": [],
+    "key_reqs": [
+     {
+      "kw": [
+       "다국어"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     },
+     {
+      "kw": [
+       "내부망"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     },
+     {
+      "kw": [
+       "2시간"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     }
+    ],
+    "facts_miss": [],
+    "fill": {
+     "slots": 780,
+     "changed": 330,
+     "placeholders_left": 264,
+     "unsupported_reverted": 0,
+     "sample_leak": 0,
+     "foreign_terms": 0,
+     "static_foreign_slides": 2
+    },
+    "fill_cov": 0.423,
+    "dims": [
+     "기타",
+     "범위·수량·공간",
+     "보안·인증·규제",
+     "사용자 경험·성과",
+     "운영·유지보수",
+     "평가·선정·자격"
+    ],
+    "conflicts": [
+     "키맨 관심사 분산"
+    ],
+    "n_questions": 8,
+    "interrupted": true
+   },
+   "n_slides": 15,
+   "n_req": 11,
+   "sec": 0.19,
+   "slides": [
+    "1.cover:L_C03",
+    "2.overview:L_OV_A",
+    "3.requirements:L_RM_A",
+    "4.requirements:L_RM_C",
+    "5.requirements:L_RM_B",
+    "6.value:L_VP_F2",
+    "7.products:L_P2B",
+    "8.bom:L_BM_A",
+    "9.spec:L_SC_B",
+    "10.execution:L_SE_A",
+    "11.effect:L_EF_A",
+    "12.case:L_CS03",
+    "13.why:L_CM_B",
+    "14.execution:L_MT_B",
+    "15.closing:L_C13"
+   ],
+   "parts": [
+    "S01:cover:표지",
+    "S02:overview:사업 이해",
+    "S03:requirements:키맨별 요구 이해",
+    "S04:requirements:평가 항목 대응",
+    "S05:requirements:요구사항 대응표",
+    "S06:value:핵심 가치",
+    "S07:products:공간별 제품",
+    "S08:bom:범위·수량·공간 대응",
+    "S09:spec:요구 규격 대응",
+    "S10:execution:보안·인증·규제 대응",
+    "S11:effect:사용자 경험·성과 대응",
+    "S12:case:유관 사례",
+    "S13:why:Why Samsung · 요구 기준 비교",
+    "S14:execution:운영·유지보수 대응",
+    "S15:closing:결정 요청 · 파일럿 승인"
+   ]
+  }
+ ]
+}

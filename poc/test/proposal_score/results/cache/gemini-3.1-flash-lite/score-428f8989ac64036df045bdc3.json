@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~number_conflict:F10"
+ },
+ "prompt_tokens": 5065,
+ "output_tokens": 408,
+ "data": {
+  "scores": [
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "11장에서 층별 교체 일정과 작업 시간을 구체적으로 제시했으나, 교육 및 유지보수, 운영 이관에 대한 구체적인 계획이 누락되었습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "객실 판매는 층마다 하룻밤만 멈춥니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "샘플룸 1실, 다음 2주에 정할 세 가지"
+     }
+    ],
+    "improve": "도입 후 운영 인력 교육 계획과 유지보수 체계, 운영 이관 절차를 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 3,
+    "anchor": "고객의 핵심 고민인 공사 중 영업 유지와 소음 민원, PMS 호환성 문제를 명확히 짚고, 층별 무중단 시공 및 투숙객 동선 차단 방안을 구체적으로 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "투숙객 동선 차단 없음 · 가림막"
+     },
+     {
+      "sheet": 13,
+      "quote": "PMS 연동 사양 확인"
+     },
+     {
+      "sheet": 8,
+      "quote": "객실마다 무풍 1Way · 투숙 객실만 운전"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

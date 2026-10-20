@@ -1,0 +1,82 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs17~full:F09"
+ },
+ "prompt_tokens": 8787,
+ "output_tokens": 617,
+ "data": {
+  "scores": [
+   {
+    "id": "PR1",
+    "score": 3,
+    "anchor": "제안서에 명시된 QM55C, KM24C, 갤럭시 탭 S11 울트라(SM-X930)는 모두 현재 카탈로그 라인업에 포함된 현행 모델입니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "갤럭시 탭 · QM55C · KM24C"
+     },
+     {
+      "sheet": 7,
+      "quote": "갤럭시 탭 S11 울트라"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR2",
+    "score": 3,
+    "anchor": "제안서 내 모델별 사양 표기가 카탈로그와 일치하며, 장마다 동일한 모델에 대해 일관된 사양 정보를 제공하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "갤럭시 탭 · QM55C · KM24C"
+     },
+     {
+      "sheet": 7,
+      "quote": "갤럭시 탭 S11 울트라"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR5",
+    "score": 3,
+    "anchor": "QM55C, KM24C, 갤럭시 탭 S11 울트라 등 모든 제품의 모델명을 제안서 전반에 걸쳐 일관되게 표기하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "갤럭시 탭 · QM55C · KM24C"
+     },
+     {
+      "sheet": 7,
+      "quote": "갤럭시 탭 S11 울트라"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR3",
+    "score": 3,
+    "anchor": "MagicINFO, Knox, Samsung DeX 등 브랜드 및 솔루션 명칭을 공식 표기법에 따라 정확하게 사용하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "Knox Suite"
+     },
+     {
+      "sheet": 7,
+      "quote": "Samsung DeX"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

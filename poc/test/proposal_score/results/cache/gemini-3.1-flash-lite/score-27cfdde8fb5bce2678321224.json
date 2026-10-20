@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs01:F10"
+ },
+ "prompt_tokens": 5596,
+ "output_tokens": 211,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO와 SmartThings Pro를 활용해 본사 담당자가 어떻게 메뉴와 가격을 수정하고 매장 전력을 관리하는지 구체적인 운영 시나리오가 묘사되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "본사 담당자가 가격 DB에서 한 번만 수정합니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "MagicINFO Server | 메뉴 · 가격 · 프로모션 원격 배포"
+     },
+     {
+      "sheet": 9,
+      "quote": "SmartThings Pro 루틴이 한산한 시간 냉난방을 낮춤"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -17,7 +17,7 @@ from ..backends import ModeTracker, make_story_backend
 from ..jobs import BadRequest, Job, Unavailable
 from ..settings import Settings
 from ..strict import failure
-from .common import Prepared, as_float, as_int, jsonable, resolve_mode
+from .common import Prepared, as_float, as_int, jsonable, resolve_mode, requirement_context
 
 MODES = ('continue', 'redesign')
 STRATEGIES = ('value', 'pain', 'space', 'roi', 'rfp', 'compete', 'land')
@@ -25,6 +25,7 @@ STRATEGIES = ('value', 'pain', 'space', 'roi', 'rfp', 'compete', 'land')
 
 def prepare(body: dict, settings: Settings) -> Prepared:
     plan = resolve_mode(settings, 'storyboard', body)
+    summary_context = requirement_context(body)
     pr =body.get('proposal', body.get('input'))
     if not isinstance(pr, dict):
         raise BadRequest('proposal(앱 제안서 객체)이 필요합니다.')
@@ -47,10 +48,10 @@ def prepare(body: dict, settings: Settings) -> Prepared:
               'previous_parts': len([p for p in pr.get('parts') or [] if isinstance(p, dict) and not p.get('deck')]), 'requested_mode': plan.requested}
     title = str(pr.get('title') or pr.get('customer') or '제안서')[:80]
     return Prepared('storyboard', f'Storyboard · {title}', params,
-                    lambda job: run(job, copy.deepcopy(pr), mode, strategy, temperature, seed, plan), plan)
+                    lambda job: run(job, copy.deepcopy(pr), mode, strategy, temperature, seed, plan, summary_context), plan)
 
 
-def run(job: Job, pr: dict, mode: str, strategy: Any, temperature: float, seed: int, plan: Any) -> dict:
+def run(job: Job, pr: dict, mode: str, strategy: Any, temperature: float, seed: int, plan: Any, summary_context: str = '') -> dict:
     S = imports.story()
     kbx = knowledge.story_kb()
     parts = [p for p in pr.get('parts') or [] if isinstance(p, dict)]
@@ -65,16 +66,16 @@ def run(job: Job, pr: dict, mode: str, strategy: Any, temperature: float, seed: 
             warnings.append(f'카탈로그에 없는 {key} id(Storyboard 근거에서 제외됨): ' + ', '.join(bad[:10]))
     tracker = ModeTracker('real', plan.provider)
     job.ctx['tracker'] = tracker
-    backend = make_story_backend(plan.provider, tracker, job)
+    backend = make_story_backend(plan.provider, tracker, job, requirement_context=summary_context)
     kept = len([p for p in parts if not p.get('deck') and p.get('type') != 'cover'])
-    job.log(f"시작 — {mode} · 이전 파트 {kept}개 · Gemini {plan.provider.model} 설계 + PoC 검증 (규칙 설계 대체 없음)")
+    job.log(f"시작 — {mode} · 이전 파트 {kept}개 · AI 설계 + PoC 검증 (규칙 설계 대체 없음)")
     job.check_cancel()
     out = S.agent.design(pr, backend=backend, options={'strategy': strategy, 'temperature': temperature, 'seed': seed, 'mode': mode}, kbx=kbx)
     job.check_cancel()
     for step in out.get('trace', {}).get('steps', []):
         job.log(step)
     if not out.get('llm') or 'storyboard:design' not in tracker.steps:
-        raise failure('no_model_call', 'storyboard:design', 'Storyboard 설계가 Gemini 결과가 아닙니다.')
+        raise failure('no_model_call', 'storyboard:design', 'Storyboard 설계가 AI 결과가 아닙니다.')
     app_parts = S.agent.to_app_parts(out)
     llm = tracker.summary()
     job.log(f"완료 — 새 파트 {len(app_parts)}개 · 남은 문제 {len(out.get('issues') or [])}개")

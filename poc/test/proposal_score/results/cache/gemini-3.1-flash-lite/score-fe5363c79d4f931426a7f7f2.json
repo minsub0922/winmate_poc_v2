@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs18:F01"
+ },
+ "prompt_tokens": 9303,
+ "output_tokens": 373,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명을 'U 통신사'로 일관되게 표기하였으며, 규모 및 담당 조직 정보가 장마다 동일하게 유지됩니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "U 통신사 갤럭시 키즈 에디션 공동 개발 제안"
+     },
+     {
+      "sheet": 13,
+      "quote": "U 통신사 갤럭시 키즈 에디션 공동 개발"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "제안서 내에 자리표시자나 템플릿 잔여 문구가 존재하지 않습니다.",
+    "evidence": [],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "제안사 담당자의 업무 연락처 외에 원가, 마진, 사내 코드명 등 민감한 내부 정보가 노출되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

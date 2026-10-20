@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01:F09"
+ },
+ "prompt_tokens": 9378,
+ "output_tokens": 348,
+ "data": {
+  "scores": [
+   {
+    "id": "PR2",
+    "score": 1,
+    "anchor": "10장에서 OH55A-S의 크기를 24인치로 잘못 표기하였으며, 이는 카탈로그 사양인 55인치와 다릅니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "옥외 사이니지 | OH55A-S | 55\" · 3,500nit(최대 4,000) · IP56"
+     }
+    ],
+    "improve": "10장의 OH55A-S 사양을 카탈로그와 일치하도록 55인치로 수정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "PR5",
+    "score": 3,
+    "anchor": "제안서 전반에서 QM55C 모델명을 일관되게 사용하고 있으며, 마케팅명과 모델명을 병기한 후 통일하여 표기하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "스마트 사이니지 QM55C"
+     },
+     {
+      "sheet": 10,
+      "quote": "스마트 사이니지 | QM55C"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

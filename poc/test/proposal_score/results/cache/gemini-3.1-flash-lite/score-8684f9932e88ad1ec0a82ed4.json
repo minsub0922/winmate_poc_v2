@@ -1,0 +1,104 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs18~full:F08"
+ },
+ "prompt_tokens": 5788,
+ "output_tokens": 856,
+ "data": {
+  "scores": [
+   {
+    "id": "MK6",
+    "score": 3,
+    "anchor": "2장에서 시장 분석 후 '그래서 U 통신사에게'라는 문구로 구체적인 제안 방향을 제시하고, 이후 4장에서 이를 가치 제안으로 연결함.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "그래서 U 통신사에게"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "아이와 보호자가 얻는 가치를 3가지(신규 회선, 안심, 해지율 감소)로 명확히 정의하고, 이를 구현하는 제품 솔루션을 연결함.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "아이와 보호자가 얻는 것이, U 통신사의 지표가 됩니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS3",
+    "score": 2,
+    "anchor": "전반적인 흐름은 논리적이나, 12장(유관 사례)이 실행 계획 뒤에 배치되어 흐름이 다소 끊김.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "한 번에 2,000곳이 아니라"
+     },
+     {
+      "sheet": 12,
+      "quote": "전용 단말을 먼저 함께 만든 두 파트너"
+     }
+    ],
+    "improve": "사례 장을 실행 계획 앞부분으로 이동시켜 제안의 신뢰도를 먼저 확보해야 함.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS9",
+    "score": 3,
+    "anchor": "표지, 2장, 13장에서 '첫 화면'과 '공동 개발'이라는 핵심 메시지를 일관되게 유지함.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "아이 손 안의 첫 화면, 함께 만드는 키즈 에디션"
+     },
+     {
+      "sheet": 13,
+      "quote": "U 통신사 갤럭시 키즈 에디션 공동 개발"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "DS7",
+    "score": 3,
+    "anchor": "모든 장의 제목이 라벨이 아닌 결론을 담은 문장형으로 작성되어 제목만으로도 제안의 핵심 내용을 파악할 수 있음.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "승부는 ‘첫 화면’에서 납니다"
+     },
+     {
+      "sheet": 10,
+      "quote": "착수부터 어린이날 출시까지 24주"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "DS9",
+    "score": 3,
+    "anchor": "13장의 분량은 제안의 범위와 논리적 흐름을 담기에 적절하며 중복되는 장이 없음.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "다음 3주, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

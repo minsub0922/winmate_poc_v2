@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~wrong_customer:F11"
+ },
+ "prompt_tokens": 3631,
+ "output_tokens": 572,
+ "data": {
+  "scores": [
+   {
+    "id": "DS1",
+    "score": 2,
+    "anchor": "4장에서 글자 넘침이 1곳 확인되었으며, 2, 12, 13, 16장의 제목 위치가 다른 장과 일관되지 않게 배치되었습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "① 메뉴 · 가격 반영"
+     },
+     {
+      "sheet": 2,
+      "quote": "제안 개요"
+     }
+    ],
+    "improve": "4장의 텍스트 넘침을 해결하고, 모든 장의 제목 위치를 동일한 좌표로 통일해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 10장으로 기준(4장 이상)을 초과하며, 장당 평균 어절 수도 145어절로 매우 높아 발표 자료로 적합하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "A 커피 DT 매장의 일곱 공간"
+     },
+     {
+      "sheet": 14,
+      "quote": "시범 매장 10곳은 유형별로 이렇게 고릅니다"
+     }
+    ],
+    "improve": "각 장의 텍스트를 핵심 위주로 대폭 줄여 장당 평균 어절 수를 77어절 이하로 낮춰야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸 중 12pt 미만인 경우가 84%에 달하며, 9pt 미만 본문 칸이 9장에 걸쳐 존재하여 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "카페 시장은 이미 화면으로 갑니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "손님 동선마다 삼성이 일합니다"
+     }
+    ],
+    "improve": "본문 텍스트의 기본 글자 크기를 12pt(16px) 이상으로 상향 조정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

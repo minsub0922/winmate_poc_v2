@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs20:F03"
+ },
+ "prompt_tokens": 3681,
+ "output_tokens": 218,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "10장과 11장에서 경영 지표인 투자 회수 기간과 수익 범위를 명확히 제시하고, 13장에서 결정권자가 확정해야 할 사항을 요약하여 정리했습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "기준 39개월, 보수로도 64개월에 회수합니다"
+     },
+     {
+      "sheet": 11,
+      "quote": "보수로 잡아도 5.4년, 수익은 범위로 말씀드립니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "다음 6주, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

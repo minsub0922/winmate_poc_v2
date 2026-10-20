@@ -189,7 +189,7 @@
 .rv-um-list { gap: var(--space-10px); }
 .rv-um-it { border: var(--stroke-1px) solid var(--line); border-radius: var(--radius-10px); padding: var(--space-10px) var(--space-12px); display: flex; flex-direction: column; gap: var(--space-6px); }
 .rv-um-ith { display: flex; align-items: center; gap: var(--space-10px); font-size: var(--text-14px); }
-.rv-um-q { margin: 0; font-size: var(--text-13px); color: var(--ink-2); padding-left: var(--space-10px); border-left: var(--stroke-3px) solid var(--line-2); }
+.rv-um-q { margin: 0; font-size: var(--text-13px); color: var(--ink-2); padding: var(--space-8px) var(--space-10px); border: var(--stroke-1px) solid var(--line); border-radius: var(--radius-8px); }
 .rv-um-fix { margin: 0; font-size: var(--text-12-5px); color: var(--ink-2); display: flex; gap: var(--space-6px); }
 .rv-um-fix svg { color: var(--accent); flex-shrink: 0; margin-top: var(--space-3px-x); }
 /* progress */
@@ -327,17 +327,15 @@
 .rvh-tags .rvh-strat { background: var(--accent-soft); color: var(--accent); }
 .rvh-cust { font-size: var(--text-12px); color: var(--muted); }
 .rvh-verdict { font-size: var(--text-13px); color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.rvh-fix { font-size: var(--text-12px); color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.rvh-fix .faint { margin-right: var(--space-6px); font-weight: var(--weight-700); }
 /* first three slides */
 .rvh-thumbs { display: grid; grid-template-columns: repeat(3, var(--measure-132px)); gap: var(--space-6px); }
 .rvh-th { position: relative; display: block; aspect-ratio: 16 / 9; border-radius: var(--radius-6px); border: var(--stroke-1px) solid var(--line); background: var(--surface); overflow: hidden; }
 .rvh-th.empty { background: var(--surface-2); border-style: dashed; }
 .rvh-th img { width: var(--measure-100); height: var(--measure-100); object-fit: contain; display: block; background: var(--color-fff); }
-.rvh-th .rv-wire { width: var(--measure-100); height: var(--measure-100); }
-.rvh-th-t { position: absolute; inset: 0; padding: var(--space-6px) var(--space-7px); font-size: var(--text-9-5px); font-weight: var(--weight-700); line-height: var(--leading-1-35); color: var(--muted); overflow: hidden; }
+.rvh-th .rv-original-preview { width: 100%; height: 100%; }
+.rvh-th-missing { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 6px; color: var(--faint); background: var(--surface-2); font-size: 10px; line-height: 1.4; text-align: center; }
 .rvh-card:hover .rvh-th:not(.empty) { border-color: var(--accent-line); }
-.rvh-cats { display: grid; grid-template-columns: repeat(7, var(--measure-28px)); gap: var(--space-4px); align-items: end; }
+.rvh-cats { display: grid; grid-template-columns: repeat(var(--rvh-category-count, 5), var(--measure-28px)); gap: var(--space-4px); align-items: end; }
 .rvh-cat { display: flex; flex-direction: column; align-items: center; gap: var(--space-3px-x); }
 .rvh-cat-l { font-size: var(--text-10px); font-weight: var(--weight-700); color: var(--faint); white-space: nowrap; }
 .rvh-cat-bar { width: var(--measure-10px); height: var(--measure-34px); border-radius: var(--radius-4px); background: var(--surface-3); display: flex; align-items: flex-end; overflow: hidden; }
@@ -356,7 +354,7 @@
   .rvh-score { width: var(--measure-56px); height: var(--measure-54px); } .rvh-score b { font-size: var(--text-19px); }
   .rvh-thumbs { grid-column: 1 / -1; grid-template-columns: repeat(3, minmax(0, var(--measure-1fr))); }
   .rvh-meta { grid-column: 1 / -1; text-align: left; }
-  .rvh-t b, .rvh-verdict, .rvh-fix { white-space: normal; }
+  .rvh-t b, .rvh-verdict { white-space: normal; }
 }
 
 /* ---------- home · hero emphasis + viewport-scaled spacing (wm-home-v2) ----------
@@ -433,4 +431,42 @@
 }
 @media (max-width: 760px) {
   .home-in { --home-top: 36px; }
+}
+
+/* Compact catalogue badges occupy the space above the existing desktop hero. */
+.home-intro { position: relative; }
+.home-metrics { position: absolute; bottom: calc(100% + 24px); left: 50%; transform: translateX(-50%); width: min(100%, 1040px); height: 64px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 64px; margin: 0; padding: 0; list-style: none; }
+.home-metric { position: relative; min-width: 0; display: flex; justify-content: center; align-items: center; text-align: center; }
+.home-metric-body { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.home-metric-icon { color: color-mix(in srgb, var(--accent) 55%, var(--muted)); margin-bottom: 2px; flex-shrink: 0; }
+.home-metric-label { color: var(--muted); font-size: 11px; font-weight: 400; line-height: 1.5; white-space: nowrap; }
+.home-metric-count { color: var(--ink-2); font-family: var(--num); font-size: 17px; font-weight: 800; line-height: 1.3; font-variant-numeric: tabular-nums; }
+.home-metric-laurel { position: absolute; top: 50%; transform: translateY(-50%); width: 16px; height: 46px; color: var(--line-2); pointer-events: none; }
+.home-metric-laurel.left { left: 0; }
+.home-metric-laurel.right { right: 0; transform: translateY(-50%) scaleX(-1); }
+@media (min-width: 1001px) and (max-width: 1100px) {
+  .home-metrics { gap: 44px; }
+}
+@media (min-width: 761px) and (max-width: 1000px) {
+  .home-metrics { gap: 24px; }
+  .home-metric-label { font-size: 10px; }
+  .home-metric-laurel { width: 12px; }
+}
+@media (min-width: 761px) and (max-height: 620px) {
+  .home-metrics { height: 36px; bottom: calc(100% + 8px); }
+  .home-metric-body { display: grid; grid-template-columns: 14px auto; gap: 2px 5px; }
+  .home-metric-icon { width: 14px; height: 14px; margin: 0; }
+  .home-metric-count { grid-column: 1 / -1; font-size: 14px; }
+  .home-metric-laurel { height: 30px; width: 12px; }
+}
+@media (min-width: 761px) and (max-width: 1000px) and (max-height: 620px) {
+  .home-metric-body { grid-template-columns: 10px auto; column-gap: 3px; }
+  .home-metric-icon { width: 10px; height: 10px; }
+  .home-metric-label { font-size: 9px; }
+  .home-metric-laurel { width: 10px; }
+}
+@media (max-width: 760px) {
+  .home-in { padding-top: 24px; }
+  .home-metrics { position: static; transform: none; width: 100%; height: auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 16px 32px; margin: 0 auto 24px; }
+  .home-metric { flex: 0 0 128px; min-height: 64px; }
 }

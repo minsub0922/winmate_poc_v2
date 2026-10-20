@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~wrong_customer:F08"
+ },
+ "prompt_tokens": 2161,
+ "output_tokens": 217,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "고객 언어로 된 4가지 가치(앱 제어, 히트펌프, 빌트인, 입주 케어)를 명확히 제시하고, 각 가치를 구현하는 제품 및 솔루션을 1:1로 연결하여 설명함.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "모델하우스에서 ‘이 단지’로 기억될 네 가지"
+     },
+     {
+      "sheet": 4,
+      "quote": "집 안 가전 · 난방을 앱 하나로"
+     },
+     {
+      "sheet": 4,
+      "quote": "히트펌프 난방 · 온수"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

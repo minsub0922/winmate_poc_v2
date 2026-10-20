@@ -8,7 +8,7 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Icon, Modal, toast } from './common.jsx';
 import { PRODUCTS, SOLUTIONS, CASES, INDUSTRIES, IND, P, PRODUCT_DB } from '../services/catalog.js';
-import { useDetailPeek } from './peek.jsx';
+import { useDetailPeek } from './reference-detail.jsx';
 import { recommendContext } from '../services/search.js';
 import { Thumb } from './Thumbs.jsx';
 import { addRef } from './requirements.jsx';

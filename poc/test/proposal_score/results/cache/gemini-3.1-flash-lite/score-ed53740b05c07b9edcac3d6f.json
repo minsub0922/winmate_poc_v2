@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~strip_images:F07"
+ },
+ "prompt_tokens": 4537,
+ "output_tokens": 366,
+ "data": {
+  "scores": [
+   {
+    "id": "MK5",
+    "score": 3,
+    "anchor": "경쟁사 비교 시 공개 자료와 삼성전자 추정치를 근거로 사용하였으며, 비방 없이 5년 총소유비용(TCO)이라는 명확한 기준을 제시함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "공개 자료 · 삼성전자 추정(2026)"
+     },
+     {
+      "sheet": 8,
+      "quote": "주장은 영업 현장 기준 예상"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "고객의 장애 및 AS 불만 과제를 해결하기 위해 원격 감시, SLA, 통합 관리 솔루션 등 삼성의 강점을 구체적인 수치와 사례로 연결함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "장애 · AS에서 차이는 분명합니다"
+     },
+     {
+      "sheet": 11,
+      "quote": "6개 점 어디서나 같은 기준으로 복구합니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "쇼핑몰 · 유통 · 상업시설이 이미 같은 구성을 씁니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

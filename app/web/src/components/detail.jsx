@@ -1,16 +1,16 @@
-import { copyText as clipboardCopy } from '../platform/runtime.js';
+import {FeedbackPopup} from './feedback-popup.jsx';
 // Layout detail popup (Storyboard) — the shared sheet popup frame (sheetview.jsx): same big sheet as everywhere else, this page's editing panel on the right.
 // Left: the slide — text is edited in place, a click selects its meaning unit (card · KPI tile · row …), an image click opens alternatives right there.
 // Right: nothing selected → what to reference for this sheet (product key messages · images, web sources, customer files, cases);
-//        a unit selected → the evidence behind that unit (web links · attached pptx/pdf · catalog). AI fill works in both (all empty units / just this one).
+//        a unit selected → the evidence behind that unit (web links · attached pptx/pdf · catalog).
 import React, { useState, useMemo, useRef, useEffect, useLayoutEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { update, segPlain, resolveImg } from '../repositories/proposals.js';
-import { Icon, toast, AddRefInput } from './common.jsx';
+import { DeleteButton, Icon, toast, AddRefInput } from './common.jsx';
 import { REQ_LABEL, partText, effectiveType } from '../domain/proposals/parts.js';
-import { L, IND, P, S, C, IMAGE_DB, refInfo, deckOrder, isCoverSheet } from '../services/catalog.js';
+import { L, IND, P, S, C, IMAGE_DB, refInfo, deckOrder, isCoverSheet,layoutHtml } from '../services/catalog.js';
 import { reqText, inferIndustry } from '../services/search.js';
-import { aiFill, aiErrorText } from '../services/ai.js';
+import { aiFill, aiErrorText, ctxSummary } from '../services/ai.js';
 import { Slide, readBlocks, readImageSlots } from '../domain/slides/Slide.jsx';
 import { SheetView } from './sheetview.jsx';
 import { PImg } from '../services/products.js';
@@ -18,12 +18,22 @@ import { mediaPhotos } from '../services/media.js';
 import { Thumb } from './Thumbs.jsx';
 import { TagChip, tagMeta } from './tagcard.jsx';
 import { ImagePicker } from './imagepick.jsx';
+import {SpatialLayoutPicker} from './spatial-layout-picker.jsx';
+import {isSpatialStoryboardLayout,selectSpatialStoryboardLayout} from '../domain/spatial/storyboard-layout.js';
+import { useImagePeek } from './imagepeek.jsx';
 import { rankImages, KIND_GROUP, KIND_NAME, fileToStoredImage, suggestImages } from '../services/images.js';
-import { readUnits, unitState, STATE_LABEL, buildPool, toEvidence, evKey, attribute, suggestForUnit, sheetRecs, WEB_KIND, hostOf, FIXED_RE, unitProducts, planProductSwap, productEv } from '../domain/slides/evidence.js';
+import { readUnits, unitState, STATE_LABEL, buildPool, toEvidence, evKey, attribute, suggestForUnit, sheetRecs, hostOf, FIXED_RE, unitProducts, planProductSwap, productEv } from '../domain/slides/evidence.js';
 import { ContextExplorer, folderOf } from './ctxexplorer.jsx';
 import { webSourcesFor } from '../services/websources.js';
 import { FavButton } from './fav.jsx';
+import { ContextSlide } from './context-slide.jsx';
+import { useImageLibrary } from '../services/image-library.js';
+import { relatedImages, imageProducts } from '../services/images.js';
+import { contextPending, layoutContextChanged } from '../domain/slides/context-policy.js';
+import { inspectLayoutContext, retryLayoutContext } from '../services/layout-context.js';
 import { useLayoutRemoval } from './layout-removal.jsx';
+import { LayoutEditor } from './mytpl.jsx';
+import { CustomerSources, SheetReferenceGrid, WebSources } from './sheet-sources.jsx';
 
 const isPh = (s) => /\[[^\]]{1,24}\]/.test(s);
 const clip = (s, n) => { s = String(s || '').replace(/\s+/g, ' ').trim(); return s.length > n ? s.slice(0, n - 1) + '…' : s; };
@@ -141,7 +151,7 @@ function EvRow({ e, onRemove, onAdd, addLabel = '근거로' }) {
       <span className="evact">
         {e.by === 'ai' ? <span className="evby" title="AI가 채울 때 기댄 자료">AI</span> : e.by === 'rule' ? <span className="evby rule" title="자동으로 연결한 자료">자동</span> : null}
         {onAdd && <button className="btn btn-sm" onClick={onAdd}><Icon name="plus" size={13} />{addLabel}</button>}
-        {onRemove && <button className="btn btn-ghost btn-icon btn-sm" aria-label={e.title + ' 근거에서 빼기'} title="근거에서 빼기" onClick={onRemove}><Icon name="x" size={14} /></button>}
+        {onRemove && <DeleteButton className="btn btn-ghost btn-icon btn-sm" aria-label={e.title + ' 근거에서 빼기'} title="근거에서 빼기" onClick={onRemove}><Icon name="x" size={14} /></DeleteButton>}
       </span>
     </div>
   );
@@ -154,10 +164,6 @@ function Sec({ title, icon, count, sub, children, className = '' }) {
       {children}
     </section>
   );
-}
-
-async function copyText(t) {
-  try { await clipboardCopy(t); toast('복사했어요'); } catch (e) { toast('복사하지 못했어요 — 직접 선택해 복사해 주세요', 'warn'); }
 }
 
 /* =========================================================
@@ -181,85 +187,33 @@ function MediaStrip({ type, id, name, onInsertImage }) {
   );
 }
 
-function SheetPanel({ p, part, x, l, units, qs, setQs, onFill, onHi, onSelect, onInsertImage }) {
-  useEffect(() => () => onHi(null), []); // the panel can be swapped out while hovered
+function SheetPanel({ p, part, x, l, onInsertImage }) {
   const recs = useMemo(() => sheetRecs(p, part, l), [p.id, part.id, x.f, p.ctx.products.join(), p.ctx.cases.join(), p.ctx.solutions.join(), (p.req.files || []).length]);
-  const states = units.map((u) => ({ u, s: unitState(x, u) }));
-  const todo = states.filter((z) => z.s === 'empty').map((z) => z.u);
-  const done = units.length - todo.length;
-  const todoImg = todo.filter((u) => u.isImg).length;
-  const pct = units.length ? Math.round((done / units.length) * 100) : 100;
   const phNote = (l.phs || []).some((s) => /출처|조사|기관|연도|\[0|\[N/.test(s));
   const sections = {
     products: (
-      <Sec key="products" title="제품 키 메시지 · 이미지" icon="monitor" count={recs.products.length || null}>
-        {recs.products.length ? recs.products.map(({ p: pr, msgs, cases, imgs }) => (
-          <div key={pr.id} className="kmsg">
-            <div className="km-head"><Thumb r={'product:' + pr.id} className="km-th" /><span className="km-name"><b>{pr.name}</b><span>{pr.model} · {pr.cat}</span><span className="km-spec">{pr.spec}</span></span></div>
-            <ul className="km-list">
-              {msgs.map((m) => (
-                <li key={m.k}><span className="k">{m.k}</span><span className="t">{m.t}</span>
-                  <button className="btn btn-ghost btn-icon btn-sm" aria-label={m.k + ' 복사'} title="복사" onClick={() => copyText(m.t)}><Icon name="doc" size={13} /></button></li>
-              ))}
-              {cases.slice(0, 1).map((c) => (
-                <li key={c.id}><span className="k">검증 사례</span><span className="t">{c.url ? <a href={c.url} target="_blank" rel="noopener noreferrer">{c.cust}</a> : c.cust} — {(c.proof || [])[0]}</span>
-                  <button className="btn btn-ghost btn-icon btn-sm" aria-label="사례 성과 복사" title="복사" onClick={() => copyText(c.cust + ' — ' + (c.proof || [])[0])}><Icon name="doc" size={13} /></button></li>
-              ))}
-            </ul>
-            {imgs.length ? (
-              <div className="km-imgs" role="list" aria-label={pr.model + ' 이미지'}>
-                {imgs.slice(0, 4).map((im) => (
-                  <button key={im.pid} role="listitem" className="km-img" title={im.desc + ' — 누르면 빈 이미지 칸에 넣어요'} onClick={() => onInsertImage(im)}>
-                    <PImg src={im.src} alt={im.desc} loading="lazy" style={{ objectFit: im.group === 'cut' ? 'contain' : 'cover' }} />
-                  </button>
-                ))}
-              </div>
-            ) : null}
-          </div>
-        )) : <div className="ev-empty">연결된 제품이 없어요. 고객 요구사항에서 @로 제품을 연결하면 키 메시지와 이미지가 여기 보여요.</div>}
+      <Sec key="products" title="제품" icon="monitor" count={recs.products.length || null}>
+        {recs.products.length ? <SheetReferenceGrid p={p} kind="product" onInsertImage={onInsertImage}
+          items={recs.products.map(({ p: product, imgs }) => ({ r: 'product:' + product.id, name: product.name, category: product.cat, images: imgs }))} />
+          : <div className="ev-empty">연결된 제품이 없어요. 고객 요구사항에서 @로 제품을 연결해 주세요.</div>}
       </Sec>
     ),
     web: (
-      <Sec key="web" title="웹 소스" icon="link" count={recs.web.length} sub={recs.indName ? recs.indName : ''}>
+      <Sec key="web" title="웹 소스" icon="link" count={recs.web.length} sub={recs.indName || ''}>
         {phNote && <div className="hint ev-hint"><Icon name="info" size={13} /><span>이 장의 <b>{(l.phs || []).slice(0, 3).join(' · ')}</b> 자리는 아래 소스에서 확인한 값으로 채우세요. AI는 웹을 읽지 않아 수치를 지어내지 않아요.</span></div>}
-        <div className="wlist">
-          {recs.web.map((w) => (
-            <a key={w.id} className="wsrc" href={w.url} target="_blank" rel="noopener noreferrer">
-              <span className={'wk k-' + w.kind}>{WEB_KIND[w.kind]}</span>
-              <span className="wt"><b>{w.name}</b><span className="wh">{hostOf(w.url)}<Icon name="ext" size={10} /></span></span>
-              <span className="ww">{w.what}</span>
-            </a>
-          ))}
-        </div>
+        <WebSources sources={recs.web} />
       </Sec>
     ),
     files: (
-      <Sec key="files" title="고객 자료" icon="clip" count={(recs.files.length + recs.reqs.length) || null}>
-        {recs.files.map((f) => (
-          <div key={f.id} className="fsrc">
-            <span className={'evk k-file f-' + String(f.type || '').toLowerCase()}><Icon name="file" size={11} />{String(f.type || f.name.split('.').pop()).toUpperCase()}</span>
-            <span className="evt"><b>{f.name}</b>{f.memo || f.text ? <span className="evs">{clip(f.memo || f.text, 110)}</span> : <span className="evs faint">내용을 아직 읽지 않은 파일</span>}</span>
-          </div>
-        ))}
-        {recs.reqs.length ? <ul className="reqq">{recs.reqs.map((r, k) => <li key={k}><span className="who">{r.who}</span>{r.t}</li>)}</ul> : null}
-        {!recs.files.length && !recs.reqs.length && <div className="ev-empty">첨부한 자료 · 키맨 요구사항이 없어요. 고객 요구사항에 RFP · 제안요청서(pdf · pptx)를 올리면 여기서 근거로 쓸 수 있어요.</div>}
+      <Sec key="files" title="고객 자료" icon="clip" count={recs.files.length || null}>
+        <CustomerSources p={p} />
       </Sec>
     ),
     cases: (
-      <Sec key="cases" title="유관사례 · 성과" icon="case" count={recs.cases.length || null}>
-        {recs.cases.length ? recs.cases.map(({ c, linked }) => (
-          <div key={c.id} className="csrc has-th">
-            <Thumb r={'case:' + c.id} className="cs-th" />
-            <div className="cs-b">
-              <div className="cs-top"><b>{c.cust}</b>{linked ? <span className="tag ok">연결됨</span> : <span className="tag">같은 업종</span>}</div>
-              <span className="cs-meta">{tagMeta('case:' + c.id) ? tagMeta('case:' + c.id).line : ''}</span>
-              <span className="cs-sub">{clip(c.sub || c.title, 70)}</span>
-              {(c.proof || []).slice(0, 2).map((pf, k) => <span key={k} className="cs-proof"><Icon name="check" size={11} stroke={3} />{pf}</span>)}
-              {c.url && <a className="evh" href={c.url} target="_blank" rel="noopener noreferrer">{hostOf(c.url)} 사례 페이지<Icon name="ext" size={10} /></a>}
-            </div>
-            {linked && <MediaStrip type="case" id={c.id} name={c.cust} onInsertImage={onInsertImage} />}
-          </div>
-        )) : <div className="ev-empty">이 업종의 사례를 찾지 못했어요.</div>}
+      <Sec key="cases" title="유관사례" icon="case" count={recs.cases.length || null}>
+        {recs.cases.length ? <SheetReferenceGrid p={p} kind="case" onInsertImage={onInsertImage}
+          items={recs.cases.map(({ c }) => ({ r: 'case:' + c.id, name: c.cust, images: mediaPhotos('case', c.id, c.cust) }))} />
+          : <div className="ev-empty">이 업종의 사례를 찾지 못했어요.</div>}
       </Sec>
     ),
     solutions: (
@@ -284,19 +238,7 @@ function SheetPanel({ p, part, x, l, units, qs, setQs, onFill, onHi, onSelect, o
         <h3>이 장 참고 자료</h3>
         <p>슬라이드의 요소를 누르면 그 요소에 쓴 근거를 볼 수 있어요.</p>
       </div>
-      <div className="fillcard" onPointerEnter={(e) => { if (e.pointerType === 'mouse') onHi(todo.map((u) => u.key)); }} onPointerLeave={() => onHi(null)}>
-        <div className="fc-row"><span><b className="num">{done}</b><span className="faint num"> / {units.length}</span> 요소 채움</span><span className="fc-left">{todo.length ? '남은 요소 ' + todo.length + '개' + (todoImg ? ' · 이미지 ' + todoImg : '') : '다 채웠어요'}</span></div>
-        <div className="meter" aria-hidden="true"><i style={{ width: pct + '%' }} /></div>
-        {todo.length ? (
-          <div className="fc-todo" aria-label="아직 채우지 않은 요소">
-            {todo.slice(0, 6).map((u) => <button key={u.key} className="utag" onClick={() => onSelect(u.key)} title={u.kind.hint}><Icon name={u.kind.icon} size={11} />{u.kind.name}{u.kind.hint ? <span>{clip(u.kind.hint, 14)}</span> : null}</button>)}
-            {todo.length > 6 && <span className="faint" style={{ fontSize: "var(--text-11-5px)" }}>외 {todo.length - 6}개</span>}
-          </div>
-        ) : null}
-        <InfoCheck p={p} l={l} qs={qs} setQs={setQs} />
-        <button className="btn btn-primary" disabled={!todo.length} onClick={() => onFill(null)}><Icon name="sparkle" size={15} />{todo.length ? '빈 요소 ' + todo.length + '개 AI로 채우기' : '빈 요소가 없어요'}</button>
-      </div>
-      {recs.order.map((k) => sections[k])}
+      {['products', ...recs.order.filter(k => k !== 'products')].map((k) => sections[k])}
     </>
   );
 }
@@ -338,16 +280,18 @@ function ProdRow({ id, onSwap }) {
 function unitIO(x, unit, slots) {
   const bl = readBlocks(x.f, x.ov);
   const blocks = unit.ft.map((i) => ({ i, s: (bl.find((b) => b.i === i) || {}).s || '', raw: x.ov.t && x.ov.t[i] }));
-  const imgs = unit.imgs.map((i) => { const cur = x.ov.img && x.ov.img[i]; const sl = slots.find((z) => z.i === i) || {}; return { i, src: cur ? cur.src : null, pid: cur ? null : sl.pid, kind: sl.kind }; });
+  const imgs = unit.imgs.map((i) => { const cur = x.ov.img && x.ov.img[i]; const sl = slots.find((z) => z.i === i) || {}; return { ...sl, ...cur, i, src: cur?.src || sl.src, pid: cur?.pid || sl.pid, name: cur?.name || sl.name, products: cur?.products || sl.products, kind: sl.kind }; });
   return { blocks, imgs };
 }
 
-function UnitPanel({ p, part, x, l, unit, pool, qs, setQs, onBack, onFill, onAddEv, onRemoveEv, onOpenImg, onSwap }) {
+function UnitPanel({ p, part, x, l, unit, pool, qs, setQs, onBack, onFill, onAddEv, onRemoveEv, onSwap }) {
   const state = unitState(x, unit);
   const ev = (x.ev && x.ev[unit.key]) || { src: [] };
-  const slotsAll = readImageSlots(x.f);
+  const slotsAll = readImageSlots(x.f, x.ov);
   const io = unitIO(x, unit, slotsAll);
-  const prods = unitProducts(io.blocks, io.imgs);
+  const currentProducts = unit.isImg ? imageProducts(io.imgs[0]) : [];
+  const linked = currentProducts.filter(id => p.ctx.products.includes(id));
+  const prods = currentProducts.length ? (linked.length ? linked : currentProducts) : unitProducts(io.blocks, io.imgs).filter(id => p.ctx.products.includes(id));
   const src = (ev.src || []).map((e, k) => ({ e, k })).filter(({ e }) => !(e.k === 'product' && prods.includes(e.ref)));
   const blocks = readBlocks(x.f, x.ov);
   const texts = unit.isImg ? [] : unit.ft.map((i) => (blocks.find((b) => b.i === i) || {}).s).filter(Boolean);
@@ -369,7 +313,7 @@ function UnitPanel({ p, part, x, l, unit, pool, qs, setQs, onBack, onFill, onAdd
         <div className="uc-top"><span className="ukind"><Icon name={unit.kind.icon} size={13} />{unit.kind.name}</span><span className={'ustate s-' + state}>{unit.isImg ? ({ empty: '예시 이미지', user: '직접 고름', rule: '자동 선택', ai: '자동 선택' }[state] || STATE_LABEL[state]) : STATE_LABEL[state]}</span></div>
         {unit.isImg ? (
           <div className="uc-img">
-            <span className="th">{img ? <img src={resolveImg(img.src)} alt={img.name || ''} style={{ objectFit: img.fit || 'cover' }} /> : <Icon name="image" size={22} />}</span>
+            <span className="th">{img ? <PImg src={resolveImg(img.src)} alt={img.name || ''} style={{ objectFit: img.fit || 'cover' }} /> : <Icon name="image" size={22} />}</span>
             <span className="evt"><b>{img ? img.name || '넣은 이미지' : '예시 자리표시'}</b><span className="evs">{(slot && slot.hint ? '“' + slot.hint + '” 자리 · ' : '') + (slot && KIND_NAME[slot.kind] ? KIND_NAME[slot.kind] + ' 칸' : '이미지 칸')}</span></span>
           </div>
         ) : (
@@ -390,9 +334,7 @@ function UnitPanel({ p, part, x, l, unit, pool, qs, setQs, onBack, onFill, onAdd
             : '직접 고친 문구예요. 근거를 연결해 두면 검토할 때 바로 확인할 수 있어요.'}</div>
         )}
       </Sec>
-      {unit.isImg ? (
-        <button className="btn" onClick={onOpenImg}><Icon name="swap" size={14} />대체 이미지 고르기</button>
-      ) : (
+      {!unit.isImg && (
         <>
           {sugg.length ? (
             <Sec title="이 요소에 맞는 자료" icon="search" count={sugg.length}>
@@ -408,7 +350,7 @@ function UnitPanel({ p, part, x, l, unit, pool, qs, setQs, onBack, onFill, onAdd
           <InfoCheck p={p} l={l} qs={qs} setQs={setQs} />
         </>
       )}
-      <button className="btn btn-primary" onClick={() => onFill(unit.key)}><Icon name="sparkle" size={15} />{unit.isImg ? '이 이미지 칸 자동으로 고르기' : '이 요소만 AI로 채우기'}</button>
+      {!unit.isImg && <button className="btn btn-primary" onClick={() => onFill(unit.key)}><Icon name="sparkle" size={15} />이 요소만 AI로 채우기</button>}
     </>
   );
 }
@@ -496,28 +438,8 @@ function useFill({ p, part, x, l, mut, units }) {
 
 function FillFlow({ fill, x }) {
   const { st, setSt } = fill;
-  if (st.step === 'error') {
-    return (
-      <div className="fillflow">
-        <div className="evp-head"><h3>AI로 채우지 못했어요</h3><p>{st.scope.label}</p></div>
-        <div className="hint" role="alert"><Icon name="alert" size={14} /><span>{st.err} 장표 내용은 그대로예요.</span></div>
-        <div style={{ display: 'flex', gap: "var(--space-8px)" }}>
-          <button className="btn" onClick={fill.close}>닫기</button>
-          <span style={{ flex: 1 }} />
-          <button className="btn btn-primary" onClick={() => fill.start(st.retryKey)}><Icon name="refresh" size={15} />다시 시도</button>
-        </div>
-      </div>
-    );
-  }
-  if (st.step === 'run') {
-    return (
-      <div className="fillflow">
-        <div className="evp-head"><h3>AI로 채우는 중</h3><p>{st.scope.label}</p></div>
-        <div className="thinking"><span className="spin" /><span>{st.n ? st.n + '칸을 이 고객에 맞게 쓰고, 칸마다 기댄 근거를 고르는 중…' : '이미지 칸에 맞는 이미지를 고르는 중…'}{st.got ? <span className="num faint"> {st.got}자 받음</span> : st.n ? ' 보통 10~30초' : ''}</span></div>
-        <button className="btn" onClick={fill.cancel}>취소</button>
-      </div>
-    );
-  }
+  if (st.step === 'error') return <FeedbackPopup title="AI로 채우지 못했어요" message={st.err} actionLabel="다시 시도" onAction={()=>fill.start(st.retryKey)} onDismiss={fill.close}/>;
+  if (st.step === 'run') return <FeedbackPopup message={st.n?`${st.n}칸의 글과 근거를 채우는 중…`:'이미지 칸에 맞는 이미지를 고르는 중…'} kind="progress" actionLabel="작업 취소" onAction={fill.cancel}/>;
   const { res, picks } = st;
   const nSel = Object.values(picks).filter(Boolean).length;
   const all = Object.values(picks).length && Object.values(picks).every(Boolean);
@@ -545,7 +467,7 @@ function FillFlow({ fill, x }) {
             <label key={'i' + c.i} className="drow">
               <input type="checkbox" checked={!!picks['i' + c.i]} onChange={(e) => setSt((s) => ({ ...s, picks: { ...s.picks, ['i' + c.i]: e.target.checked } }))} />
               <span style={{ display: 'flex', gap: "var(--space-10px)", alignItems: 'center', minWidth: 0 }}>
-                <img src={c.im.src} alt="" style={{ width: 64, height: 40, objectFit: 'cover', borderRadius: "var(--radius-4px)", background: 'var(--surface-3)', flexShrink: 0 }} />
+                <PImg src={c.im.src} alt="" compact style={{ width: 64, height: 40, objectFit: 'cover', borderRadius: "var(--radius-4px)", background: 'var(--surface-3)', flexShrink: 0 }} />
                 <span style={{ minWidth: 0 }}><div className="from">이미지 칸{c.hint ? ' · ' + c.hint : ''}</div><div className="to">{c.im.desc}</div></span>
               </span>
             </label>
@@ -564,11 +486,13 @@ function FillFlow({ fill, x }) {
 /* =========================================================
    Image popover — alternatives right next to the clicked image
    ========================================================= */
-function ImgPop({ anchor, slot, current, models, onPick, onFile, onMore, onClear, onClose }) {
+function ImgPop({ anchor, slot, current, models, context, contextText, onPick, onFile, onMore, onClear, onClose }) {
+  const peek = useImagePeek();
   const ref = useRef(null);
   const fileRef = useRef(null);
   const [pos, setPos] = useState({ left: -9999, top: 0, w: 340 });
-  const list = useMemo(() => rankImages(IMAGE_DB, { models, kind: slot && slot.kind, hint: slot && slot.hint, wModel: 2.5, wGroup: KIND_GROUP[slot && slot.kind] ? 4 : 0 }).slice(0, 9), [slot && slot.i]);
+  const library = useImageLibrary({ ...context, products: [...new Set([...(context?.products || []), ...imageProducts(current)])] });
+  const list = useMemo(() => relatedImages(library.images, { models, current, productIds: context?.products || [], kind: slot?.kind, hint: slot?.hint, contextText }).filter(im => im.src !== current?.src), [library.images, models, current, context, slot, contextText]);
   useLayoutEffect(() => {
     const place = () => {
       if (!anchor || !ref.current) return;
@@ -585,7 +509,7 @@ function ImgPop({ anchor, slot, current, models, onPick, onFile, onMore, onClear
     place();
     window.addEventListener('resize', place);
     return () => window.removeEventListener('resize', place);
-  }, [anchor]);
+  }, [anchor, list.length, library.loading]);
   useEffect(() => {
     const down = (e) => { if (ref.current && !ref.current.contains(e.target) && !(anchor && anchor.contains(e.target))) onClose(); };
     const key = (e) => { if (e.key === 'Escape') { e.stopPropagation(); e.preventDefault(); onClose(); } };
@@ -598,25 +522,29 @@ function ImgPop({ anchor, slot, current, models, onPick, onFile, onMore, onClear
   return createPortal(
     <div ref={ref} className="imgpop" role="dialog" aria-label="대체 이미지 고르기" style={{ left: pos.left, top: pos.top, width: pos.w }}>
       <div className="ip-head">
-        <span className="ip-t"><b>다른 이미지로 바꾸기</b><span>{(slot && slot.hint ? '“' + slot.hint + '” · ' : '') + (slot && KIND_NAME[slot.kind] ? KIND_NAME[slot.kind] + ' 칸' : '이미지 칸')}</span></span>
+        <span className="ip-t"><b>다른 이미지로 바꾸기</b><span>{((current?.name || slot?.hint) ? '“' + (current?.name || slot?.hint) + '” · ' : '') + (slot && KIND_NAME[slot.kind] ? KIND_NAME[slot.kind] + ' 칸' : '이미지 칸')}</span></span>
         <button className="btn btn-ghost btn-icon btn-sm" aria-label="닫기" onClick={onClose}><Icon name="x" size={15} /></button>
       </div>
-      <div className="ip-grid">
+      {library.loading && <p role="status">관련 제품 이미지를 찾는 중이에요.</p>}
+      {!library.loading && !list.length && <p className="muted">선택한 이미지와 정확히 연결된 대체 사진이 없어요.</p>}
+      {!!list.length && <p className="ip-count" role="status">관련 이미지 {list.length.toLocaleString()}개 · 아래로 스크롤해 더 보기</p>}
+      <div className="ip-grid" tabIndex={0} role="region" aria-label="관련 이미지 후보">
         {list.map((im) => (
-          <button key={im.pid} className={'ip-opt' + (cur === im.src ? ' on' : '')} aria-pressed={cur === im.src} title={im.desc} onClick={() => onPick(im)}>
-            <span className="th"><img src={im.src} alt={im.desc} loading="lazy" style={{ objectFit: im.group === 'cut' ? 'contain' : 'cover' }} /></span>
+          <button key={im.pid} className={'ip-opt' + (cur === im.src ? ' on' : '')} aria-pressed={cur === im.src} aria-label={im.desc} {...peek.bind(im)} onClick={() => onPick(im)}>
+            <span className="th"><PImg src={im.src} alt={im.desc} loading="lazy" style={{ objectFit: im.group === 'cut' ? 'contain' : 'cover' }} /></span>
             <span className="c">{im.desc}</span>
             {models.includes(String(im.model).toUpperCase()) ? <span className="ip-badge">연결 제품</span> : null}
           </button>
         ))}
       </div>
       <div className="ip-foot">
-        <button className="btn btn-sm" onClick={onMore}><Icon name="search" size={13} />라이브러리 전체</button>
+        <button className="btn btn-sm" onClick={onMore}><Icon name="search" size={13} />이미지 더 보기</button>
         <button className="btn btn-sm" onClick={() => fileRef.current && fileRef.current.click()}><Icon name="upload" size={13} />파일 올리기</button>
         <input ref={fileRef} type="file" accept="image/*" hidden onChange={(e) => { const f = e.target.files && e.target.files[0]; if (f) onFile(f); }} />
         <span style={{ flex: 1 }} />
-        {current && <button className="btn btn-ghost btn-sm btn-danger" onClick={onClear}><Icon name="trash" size={13} />비우기</button>}
+        {current && <DeleteButton className="btn btn-ghost btn-sm btn-danger" onClick={onClear}><Icon name="trash" size={13} />비우기</DeleteButton>}
       </div>
+      {peek.node}
     </div>, document.body);
 }
 
@@ -636,7 +564,9 @@ function DetailBody({ p, part, x, l, onClose, open, pageNo }) {
   const [hi, setHi] = useState(null); // unit keys to highlight
   const [pop, setPop] = useState(null); // { i, el } image alternatives
   const [pick, setPick] = useState(null); // slot index — full image library
+  const [spatialPick,setSpatialPick]=useState(false);
   const [swap, setSwap] = useState(null); // { key, from } — product explorer in replace mode
+  const [edit, setEdit] = useState(false);
   const rightRef = useRef(null);
   const mut = (fn) => update(p.id, (d) => { const s = d.parts.find((q) => q.id === part.id); const y = s && s.layouts.find((q) => q.uid === x.uid); if (y) { y.ov = y.ov || { t: {}, img: {} }; y.ov.t = y.ov.t || {}; y.ov.img = y.ov.img || {}; y.ev = y.ev || {}; fn(y, s, d); } });
   const units = useMemo(() => readUnits(x.f), [x.f]);
@@ -644,7 +574,8 @@ function DetailBody({ p, part, x, l, onClose, open, pageNo }) {
   const fill = useFill({ p, part, x, l, mut, units });
   const pool = useMemo(() => buildPool(p, part), [p.updatedAt, part.id]);
   const orig = useMemo(() => Object.fromEntries(readBlocks(x.f, null).map((b) => [b.i, b.s])), [x.f]);
-  const slots = useMemo(() => readImageSlots(x.f), [x.f]);
+  const slots = useMemo(() => readImageSlots(x.f, x.ov), [x.f, x.ov]);
+  const spatialEligible=useMemo(()=>isSpatialStoryboardLayout(l,layoutHtml(x.f)),[l,x.f]);
   const models = p.ctx.products.map((id) => P[id] && P[id].model.toUpperCase()).filter(Boolean);
   const unitOfTb = useMemo(() => { const m = {}; for (const u of units) for (const i of u.tbs) m[i] = u.key; return m; }, [units]);
   useEffect(() => { if (sel && !units.some((u) => u.key === sel)) setSel(null); }, [units]);
@@ -658,14 +589,13 @@ function DetailBody({ p, part, x, l, onClose, open, pageNo }) {
     if (y.status === 'empty') y.status = 'partial';
   });
   const setImg = (i, v, ev) => mut((y) => {
-    if (v) { const { pid, ...rest } = v; y.ov.img[i] = rest; } else delete y.ov.img[i];
+    if (v) y.ov.img[i] = { ...v, selectedBy: (ev?.by || 'user') === 'user' ? 'user' : v.selectedBy }; else delete y.ov.img[i];
     if (v) y.ev['i' + i] = { by: (ev && ev.by) || 'user', at: Date.now(), src: ev ? [ev] : [] }; else delete y.ev['i' + i];
     if (y.status === 'empty') y.status = 'partial';
   });
   const imgEv = (im, by = 'user') => ({ k: 'image', title: im.desc, sub: im.groupName + (im.model ? ' · ' + im.model : '') + ' · ' + (im.note || '앱 이미지 라이브러리'), ref: im.pid, by });
   const fromPicked = (v) => { const im = v && v.pid && IMAGE_DB.find((z) => z.pid === v.pid); return im ? imgEv(im) : v ? { k: 'upload', title: v.name || '직접 올린 이미지', sub: '직접 올린 이미지 · 이 브라우저에 보관', by: 'user' } : null; };
   const uploadTo = async (i, file) => { const r = await fileToStoredImage(file); if (r) { setImg(i, { ...r, fit: 'cover' }, { k: 'upload', title: r.name || file.name, sub: '직접 올린 이미지 · 이 브라우저에 보관', by: 'user' }); toast('이미지를 넣었어요'); return true; } toast('이미지 파일만 넣을 수 있어요', 'warn'); return false; };
-  const setStatus = (done) => mut((y) => { y.status = done ? 'done' : (Object.keys(y.ov.t).length || Object.keys(y.ov.img).length ? 'partial' : 'empty'); });
   const removal = useLayoutRemoval(p.id, { onRemoved:onClose });
   const addEv = (k, e) => {
     const cur0 = x.ev && x.ev[k];
@@ -700,19 +630,44 @@ function DetailBody({ p, part, x, l, onClose, open, pageNo }) {
     if (!slots.length) { toast('이 레이아웃에는 이미지 칸이 없어요', 'warn'); return; }
     const target = unit && unit.isImg ? unit.imgs[0] : (slots.find((s) => !(x.ov.img && x.ov.img[s.i])) || {}).i;
     if (target == null) { toast('빈 이미지 칸이 없어요 — 바꿀 이미지를 눌러 고르세요', 'warn'); return; }
-    setImg(target, { src: im.src, name: im.desc, fit: im.group === 'cut' ? 'contain' : 'cover' }, imgEv(im));
+    setImg(target, { src: im.src, name: im.desc, pid: im.pid, products: im.products || [], keep: true, fit: im.group === 'cut' ? 'contain' : 'cover' }, imgEv(im));
     setSel('i' + target); toast('이미지를 넣었어요');
+  };
+  const openSpatialPicker=()=>{
+    if(!spatialEligible||fill.st.step!=='idle')return;
+    setPop(null);setPick(null);setSpatialPick(true);
+  };
+  const selectSpatial=meta=>{
+    const changed=mut(y=>Object.assign(y,selectSpatialStoryboardLayout(y,L[y.f],meta,layoutHtml(y.f))));
+    if(!changed)throw new Error('이 제안서를 수정할 수 없어요.');
+    setSpatialPick(false);setSel(null);setHi(null);toast('조감도 레이아웃을 적용했어요');
   };
 
   // Esc clears the selection before it closes the popup
   useEffect(() => {
     const key = (e) => {
-      if (e.key !== 'Escape' || pop || pick != null || swap || !sel || (e.target && (e.target.isContentEditable || e.target.closest('[role="alertdialog"]')))) return;
+      if (e.key !== 'Escape' || edit || pop || pick != null || spatialPick || swap || !sel || (e.target && (e.target.isContentEditable || e.target.closest('[role="alertdialog"]')))) return;
       e.stopPropagation(); e.preventDefault(); setSel(null);
     };
     window.addEventListener('keydown', key, true);
     return () => window.removeEventListener('keydown', key, true);
-  }, [sel, pop, pick, swap]);
+  }, [sel, pop, pick, spatialPick, swap, edit]);
+
+  const savedLayout = (meta) => {
+    mut((y) => {
+      // The editor bakes the current values into a new template. Old slot overrides
+      // and evidence no longer describe its edited structure.
+      y.f = meta.f;
+      y.ov = { t: {}, img: {}, ...(y.ov.bg ? { bg: { ...y.ov.bg, embedded: true } } : {}) };
+      y.ev = {};
+      if (y.status === 'empty') y.status = 'partial';
+    });
+    setEdit(false); setSel(null); setHi(null);
+    toast('My 템플릿에 저장했어요');
+    onClose();
+  };
+
+  if (edit) return <LayoutEditor f={x.f} ov={x.ov} asCopy context={{ industry: p.ind || inferIndustry(reqText(p)), partName: part.name, requirements: reqText(p), proposal: ctxSummary(p, 'layout'), sheet: partText(part) }} onClose={() => { setEdit(false); onClose(); }} onSaved={savedLayout} />;
 
   const flat = deckOrder(p).map((z) => ({ partId: z.s.id, uid: z.x.uid })); // page order — 표지 first
   const at = flat.findIndex((z) => z.uid === x.uid);
@@ -720,46 +675,60 @@ function DetailBody({ p, part, x, l, onClose, open, pageNo }) {
   const idxInPart = part.layouts.filter((q) => !isCoverSheet(q.f)).findIndex((q) => q.uid === x.uid); // as the Storyboard column shows it (no 표지)
   const popSlot = pop ? slots.find((s) => s.i === pop.i) : null;
   const curSlot = pick != null ? slots.find((s) => s.i === pick) : null;
+  const adapting = contextPending(x);
+  const contextIssues = inspectLayoutContext(p, x);
+  const contextChanged = !adapting && layoutContextChanged(p, part, x);
+  const contextNote = contextChanged && <div className="layout-context-action">
+    <button className="btn layout-context-refill" aria-describedby="layout-context-details" onClick={() => retryLayoutContext(p.id, x.uid)}>
+      <Icon name="refresh" size={15} />현재 맥락으로 다시 채우기
+    </button>
+    <div id="layout-context-details" className="layout-context-details" role="tooltip">
+      <b>이전 채움 이후 고객 맥락이 바뀌었어요</b>
+      <p>현재 요구사항과 선택한 제품·솔루션, 파트 내용을 기준으로 모든 글과 이미지를 다시 검토해요.</p>
+      {[...new Set([...(x.adaptation?.missing || []), ...contextIssues, ...(x.adaptation?.error ? [x.adaptation.error] : [])])].map(issue => <p key={issue}>{issue}</p>)}
+    </div>
+  </div>;
   const hiKeys = fill.st.step !== 'idle' ? (fill.st.step === 'review' ? [...new Set([...fill.st.res.changes.map((c) => c.unit), ...fill.st.res.imgs.map((c) => 'i' + c.i)])] : fill.st.scope.keys) : hi;
   const runFill = (key) => { setPop(null); setHi(null); fill.start(key); };
 
   return (
-    <SheetView onClose={onClose} index={at} total={flat.length} onNav={(n) => go(n - at)}
+    <SheetView onClose={onClose} index={at} total={flat.length} onNav={edit ? undefined : (n) => go(n - at)}
       title={<span style={{ display: 'flex', alignItems: 'baseline', gap: "var(--space-8px)", flexWrap: 'wrap' }}>{l.name}</span>}
       sub={<>{isCoverSheet(x.f) ? '표지' : <>{part.name} · {idxInPart + 1}번째 장</>} · 전체 <span className="num">{pageNo}</span>쪽{l.ind && IND[l.ind] ? ' · ' + IND[l.ind].name : ''}</>}
       bodyClass="detail" stageClass="detail-left" panelClass="detail-right evpanel" panelRef={rightRef}
       onStageMouseDown={(e) => { if (!e.target.closest('.slide') && !e.target.closest('.edit-hint')) setSel(null); }}
+      stageActions={<>
+        <button className="btn btn-primary sv-edit" disabled={adapting || fill.st.step !== 'idle'} onClick={() => { setPop(null); setSel(null); setEdit(true); }} title="레이아웃 수정하기"><Icon name="edit" size={17} />수정하기</button>
+        <FavButton f={x.f} ov={x.ov} from={'제안서 · ' + (p.title || '')} label />
+      </>}
       stageTop={<div className="edit-hint">
         <span><i className="sw" style={{ boxShadow: 'inset 0 0 0 2px rgba(20,40,160,.7)' }} />요소 — 누르면 선택 · 글자는 바로 고치기 (Enter 저장 · Esc 취소)</span>
         <span><i className="sw" style={{ boxShadow: 'inset 0 0 0 2px #e8890c' }} />이미지 — 누르면 대체 이미지 · 파일 끌어다 놓기</span>
+        {spatialEligible&&<button type="button" className="btn btn-sm detail-spatial-pick" disabled={adapting||fill.st.step!=='idle'} onClick={openSpatialPicker}>조감도 레이아웃 선택</button>}
       </div>}
-      stage={(w) => <Slide f={x.f} ov={x.ov} pageNo={pageNo} width={w} editable onText={setText}
+      stage={(w) => <ContextSlide p={p} x={x} pageNo={pageNo} width={w} editable onText={setText}
         selUnit={sel} hiUnits={hiKeys} onSelect={(k) => setSel(k)}
+        onSpatial={spatialEligible?openSpatialPicker:undefined}
         onImage={(i, el) => { if (fill.st.step !== 'idle') return; setPop({ i, el }); }} onImageDrop={(i, file) => { uploadTo(i, file); setSel('i' + i); }} />}
-      panel={fill.st.step !== 'idle' ? <FillFlow fill={fill} x={x} />
+      panel={<>{contextNote}{adapting ? <FeedbackPopup message="현재 요구사항과 선택한 제품·솔루션으로 레이아웃을 채우는 중…" kind="progress"/> : fill.st.step !== 'idle' ? <FillFlow fill={fill} x={x} />
         : unit ? <UnitPanel key={unit.key} p={p} part={part} x={x} l={l} unit={unit} pool={pool} qs={fill.qs} setQs={fill.setQs}
           onBack={() => setSel(null)} onFill={runFill} onAddEv={(e) => addEv(unit.key, e)} onRemoveEv={(k) => removeEv(unit.key, k)}
-          onOpenImg={() => { const el = document.querySelector(`.detail-left [data-img="${unit.imgs[0]}"]`); if (el) setPop({ i: unit.imgs[0], el }); }}
           onSwap={(id) => { setPop(null); setSwap({ key: unit.key, from: id }); }} />
-        : <SheetPanel p={p} part={part} x={x} l={l} units={units} qs={fill.qs} setQs={fill.setQs} onFill={runFill} onHi={setHi} onSelect={setSel} onInsertImage={insertImage} />}
-      footerStart={<button className="btn btn-ghost btn-danger" onClick={() => removal.request(x.uid)}><Icon name="x" size={15} />선택 해제</button>}
+        : <SheetPanel p={p} part={part} x={x} l={l} onInsertImage={insertImage} />}</>}
       actions={<>
-        <FavButton f={x.f} ov={x.ov} from={'제안서 · ' + (p.title || '')} label />
-        <label className={'done-toggle' + (x.status === 'done' ? ' on' : '')}>
-          <input type="checkbox" checked={x.status === 'done'} onChange={(e) => setStatus(e.target.checked)} />
-          <span style={{ fontWeight: "var(--weight-700)", fontSize: "var(--text-13px)" }}>입력 완료</span>
-        </label>
+        <button className="btn btn-ghost btn-danger" onClick={() => removal.request(x.uid)}><Icon name="x" size={15} />선택 해제</button>
         <button className="btn btn-primary" onClick={onClose}>닫기</button>
       </>}>
       {removal.confirmation}
-      {pop && <ImgPop anchor={pop.el} slot={popSlot} current={x.ov.img && x.ov.img[pop.i]} models={models} onClose={() => setPop(null)}
-        onPick={(im) => { setImg(pop.i, { src: im.src, name: im.desc, fit: im.group === 'cut' ? 'contain' : 'cover' }, imgEv(im)); toast('이미지를 바꿨어요'); setPop(null); }}
+      {spatialPick&&spatialEligible&&<SpatialLayoutPicker target={l} html={layoutHtml(x.f)} industry={p.ind||l.ind||inferIndustry(reqText(p))} products={p.ctx.products} view={x.ov?.spatial?.view||l.my?.spatialLayout?.view||(/^L_SPATIAL_(2D|3D)$/.exec(x.f)?.[1]||'').toLowerCase()} onPick={selectSpatial} onClose={()=>setSpatialPick(false)}/>}
+      {pop && <ImgPop anchor={pop.el} slot={popSlot} current={{ ...popSlot, ...(x.ov.img && x.ov.img[pop.i]) }} models={models} context={p.ctx} contextText={reqText(p)} onClose={() => setPop(null)}
+        onPick={(im) => { setImg(pop.i, { src: im.src, name: im.desc, pid: im.pid, products: im.products || [], keep: true, fit: im.group === 'cut' ? 'contain' : 'cover' }, imgEv(im)); toast('이미지를 바꿨어요'); setPop(null); }}
         onFile={async (f) => { const i = pop.i; setPop(null); await uploadTo(i, f); }}
         onMore={() => { setPick(pop.i); setPop(null); }}
         onClear={() => { setImg(pop.i, null); toast('이미지를 비웠어요'); setPop(null); }} />}
       {swap && <ContextExplorer p={p} kind="products" start={folderOf('products', swap.from)} ind={p.ind || inferIndustry(reqText(p))}
         pick={{ current: 'product:' + swap.from, onPick: (ref) => doSwap(swap.key, swap.from, ref.split(':')[1]) }} onClose={() => setSwap(null)} />}
-      {pick != null && <ImagePicker slot={curSlot} current={x.ov.img && x.ov.img[pick]} models={models}
+      {pick != null && <ImagePicker slot={curSlot} current={{ ...curSlot, ...(x.ov.img && x.ov.img[pick]) }} models={models} context={p.ctx} contextText={reqText(p)}
         onClose={() => setPick(null)} onPick={(v) => { setImg(pick, v, fromPicked(v)); setPick(null); toast(v ? '이미지를 넣었어요' : '이미지를 비웠어요'); }} />}
     </SheetView>
   );

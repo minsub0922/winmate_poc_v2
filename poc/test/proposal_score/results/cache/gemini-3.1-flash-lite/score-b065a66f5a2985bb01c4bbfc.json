@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16:F07"
+ },
+ "prompt_tokens": 2738,
+ "output_tokens": 230,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 2,
+    "anchor": "5년 총소유비용(TCO)에 대한 정량적 비교 수치는 제시되었으나, 운영 효율화에 따른 시간 단축이나 매출 증대와 같은 구체적인 KPI 개선 효과에 대한 산정 근거는 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "5년 총비용 구성 · 억 원 | 8.9억 | 설치형 안"
+     },
+     {
+      "sheet": 11,
+      "quote": "5년 총비용 | −6% | 구독형 대비"
+     }
+    ],
+    "improve": "운영 효율화로 인해 단축되는 콘텐츠 교체 시간이나 관리 비용 절감액에 대한 구체적인 산정 전제와 근거를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,56 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~strip_images:F10"
+ },
+ "prompt_tokens": 5912,
+ "output_tokens": 393,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO와 SmartThings Pro를 활용하여 본사에서 메뉴를 원격 배포하고 매장 전력을 관리하는 구체적인 운영 장면과 역할을 명시했습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "제작 · 승인 · 배포 · 적용 확인까지 한 화면에서"
+     },
+     {
+      "sheet": 7,
+      "quote": "본사 담당자가 가격 DB에서 한 번만 수정합니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "본사 PC · MagicINFO Server | 전체 구성"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "파일럿 매장 선정, 12주간의 상세 일정, 설치 및 교육, 유지보수 계획이 구체적으로 포함되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "준비 2주 + 운영 8주 + 평가 2주"
+     },
+     {
+      "sheet": 14,
+      "quote": "설치 · 점주 교육 | 운영 8주 | 실사용"
+     },
+     {
+      "sheet": 16,
+      "quote": "시범 매장 10곳 · 실사 일정 확정"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

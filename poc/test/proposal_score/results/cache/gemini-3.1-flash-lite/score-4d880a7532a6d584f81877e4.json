@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs20:F03"
+ },
+ "prompt_tokens": 3260,
+ "output_tokens": 228,
+ "data": {
+  "scores": [
+   {
+    "id": "VS7",
+    "score": 3,
+    "anchor": "구매 방식 3가지(일시 구매, 리스, 수익 공유)를 비교하고, 투자 회수 기간을 시나리오별로 제시하며 유지보수 비용까지 포함하여 총소유비용을 투명하게 설명함.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "기준 39개월, 보수로도 64개월에 회수합니다"
+     },
+     {
+      "sheet": 11,
+      "quote": "보수로 잡아도 5.4년, 수익은 범위로 말씀드립니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "같은 매체, 세 가지 자금 구조로 도입할 수 있습니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

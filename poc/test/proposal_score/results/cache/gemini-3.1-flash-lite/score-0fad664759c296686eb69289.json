@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~no_proof:F07"
+ },
+ "prompt_tokens": 1607,
+ "output_tokens": 213,
+ "data": {
+  "scores": [
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "삼성의 통합 솔루션 강점을 원격 통합 관리 및 장애 선제 대응이라는 고객 과제와 연결하였으며, 한국IBM 사례와 수치적 근거를 제시함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "원격 통합 관리 | 한 번의 승인으로 6개 사업 배포"
+     },
+     {
+      "sheet": 5,
+      "quote": "장애 선제 대응 | 원격 모니터링으로 고장은 먼저 찾고"
+     },
+     {
+      "sheet": 5,
+      "quote": "사진: samsung.com 도입사례(한국IBM)"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

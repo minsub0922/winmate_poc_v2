@@ -29,9 +29,10 @@ function useFitWidth(ref, aspect) {
  * @param index · total · onNav(i)  page position; ← → keys and the footer arrows move through it
  * @param footerStart · actions     extra footer buttons (left of the arrows · right end)
  * @param stageTop  node above the sheet (e.g. editing hints)
+ * @param stageActions  persistent top-right controls for the layout preview
  * @param bodyClass · stageClass · panelClass  page hooks for styles and tests
  */
-export function SheetView({ title, sub, onClose, stage, stageTop = null, aspect = 16 / 9, panel, panelRef, index = 0, total = 1, onNav, footerStart = null, actions = null,
+export function SheetView({ title, sub, onClose, stage, stageTop = null, stageActions = null, aspect = 16 / 9, panel, panelRef, index = 0, total = 1, onNav, footerStart = null, actions = null,
   bodyClass = '', stageClass = '', panelClass = '', onStageMouseDown, children }) {
   const fitRef = useRef(null);
   const w = useFitWidth(fitRef, aspect || 16 / 9);
@@ -63,10 +64,13 @@ export function SheetView({ title, sub, onClose, stage, stageTop = null, aspect 
           </div>
         ) : null}
         <span className="sp" />
-        {actions}
+        {actions && <div className="sv-footer-actions">{actions}</div>}
       </>}>
       <div className={('sv-stage ' + stageClass).trim()} onMouseDown={onStageMouseDown}>
-        {stageTop}
+        {(stageTop || stageActions) && <div className="sv-stage-toolbar">
+          {stageTop && <div className="sv-stage-hint">{stageTop}</div>}
+          {stageActions && <div className="sv-stage-actions" role="toolbar" aria-label="레이아웃 작업">{stageActions}</div>}
+        </div>}
         <div ref={fitRef} className="sv-fit">{w > 0 ? stage(w) : null}</div>
       </div>
       <div ref={panelRef} className={('sv-panel ' + panelClass).trim()}>{panel}</div>

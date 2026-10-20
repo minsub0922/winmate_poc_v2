@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs02:F07"
+ },
+ "prompt_tokens": 2621,
+ "output_tokens": 196,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "에너지 절감 20%에 대한 목표 수치뿐만 아니라, 배출계수와 탄소 감축량 산정 전제(소나무 흡수량, 승용차 운행 효과 등)를 명확히 제시함.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "20% 줄인 전기는 해마다 탄소 331톤입니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "배출계수 0.4594 tCO₂/MWh"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

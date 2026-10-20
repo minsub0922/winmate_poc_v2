@@ -1,0 +1,73 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs21:F11"
+ },
+ "prompt_tokens": 8214,
+ "output_tokens": 654,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 초과하는 장이 10장으로 4장 이상이며, 장당 평균 어절 수 또한 108어절로 매우 높아 발표 자료로 읽기에 부적합합니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "H 호텔 312개 객실이 손님에 맞춰 온도와 공기를 스스로 맞춥니다"
+     },
+     {
+      "sheet": 17,
+      "quote": "객실 — Infinite AI 공기청정기"
+     },
+     {
+      "sheet": 18,
+      "quote": "객실 — Bespoke 에어드레서"
+     }
+    ],
+    "improve": "장당 어절 수를 77어절 이하로 줄이고, 핵심 내용을 개조식으로 간결하게 구성해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 이상 본문 칸의 대부분이 12pt(16px) 미만이며, 9pt(12px) 미만의 매우 작은 글씨를 포함한 장이 26장으로 기준을 크게 벗어납니다.",
+    "evidence": [
+     {
+      "sheet": 18,
+      "quote": "본문 최소 7.4px(5.6pt)"
+     },
+     {
+      "sheet": 17,
+      "quote": "본문 최소 7.6px(5.7pt)"
+     }
+    ],
+    "improve": "본문 폰트 크기를 최소 12pt(16px) 이상으로 상향 조정하여 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS6",
+    "score": 3,
+    "anchor": "대부분의 장에 제품 및 공간과 일치하는 실제 사진이 포함되어 있으며, 텍스트만 있는 장은 전체의 3% 수준으로 매우 적습니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "실내용 The Wall IWC 제품 컷"
+     },
+     {
+      "sheet": 16,
+      "quote": "침실 천장에 매립된 Infinite AI 무풍 시스템에어컨 1Way"
+     },
+     {
+      "sheet": 29,
+      "quote": "인스파이어 엔터테인먼트 리조트 외관 전경"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

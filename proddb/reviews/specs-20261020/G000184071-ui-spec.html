@@ -1,0 +1,79 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+		// KDP-101345 [상품][FO][B2C] 뉴닷컴 PD 개편 - 하단 자세히보기 영역
+		if (typeof goodsRevampMain != "undefined" && !!goodsRevampMain) {
+			console.log("뉴닷컴 pd 스펙");
+			goodsMain = goodsRevampMain;
+		} else {
+			console.log("goodsRevampMain is not defined.");
+		}
+
+		//패키지 상품 구성품 선택 시 구성품 스팩 조회
+		$(".spec-tabcontent-tab").on('click', 'a[name^=spec-tab]', function (e){
+			e.preventDefault();
+			var id = $(this).attr("aria-controls");
+	        $(this).closest('.tab-style-btn').find("a").attr("aria-selected", "false");
+	        $(this).attr("aria-selected", "true");
+	        $(this).closest('.tab-style-btn').parent().find("> .tab-content").hide();
+	        $("#"+id).show();
+	        
+			var cstrtGoodsId = $(this).data('cstrtGoodsId');
+			var goodsId = $(this).data('goodsId');
+			var cstrtDispGoodsNm = $(this).data('dispNm');
+			
+			var param = {
+				goodsId : cstrtGoodsId
+				, goodsTpCd : $("input[name=goodsTpCd]", goodsMain.vGoodsWrapId).val()
+				, goodsNm : cstrtDispGoodsNm
+				, adminYn : $(goodsMain.vGoodsWrapId).data("admin-yn")
+				, taskDtlGbCd : $(goodsMain.vGoodsWrapId).data("task-dtl-gb-cd")
+			};
+			goodsMain.fnGetHtml(".spec-table-wrap", "getGoodsSpecList", param, function(){
+				$("#specTabContent").show();
+			});
+		});
+
+
+		if($("input[name=goodsTpCd]", goodsMain.vGoodsWrapId).val() == '10'){
+			var specParam = {
+				goodsId : $("input[name=goodsId]", goodsMain.vGoodsWrapId).val()
+				, goodsTpCd : $("input[name=goodsTpCd]", goodsMain.vGoodsWrapId).val()
+				, goodsNm : typeof goodsRevampMain != "undefined" && !!goodsRevampMain ? $(goodsMain.vGoodsWrapId).data("goods-nm") : $(".itm-info-detail", goodsMain.vGoodsWrapId).data("goods-nm")
+				, adminYn : $(goodsMain.vGoodsWrapId).data("admin-yn")
+				, taskId : $(goodsMain.vGoodsWrapId).data("task-id")
+				, taskDtlNo : $(goodsMain.vGoodsWrapId).data("task-dtl-no")
+			};
+			goodsMain.fnGetHtml(".spec-table-wrap", "getGoodsSpecList", specParam, function(){
+				$("#specTabContent").show();
+			});
+			
+		}else if($("input[name=goodsTpCd]", goodsMain.vGoodsWrapId).val() == '20'){
+			$("a[name^=spec-tab]").eq(0).trigger('click');
+		}
+		
+	});
+	
+</script>
+	
+	<div class="spec-tabcontent-wrap">
+		<ul class="spec-tabcontent-tab tab-style-btn" role="tablist">
+				<li class="tab-item">
+						<a href="javascript:;" class="link" role="tab" name="spec-tab"
+							data-cstrt-goods-id="G000183827"
+							data-goods-id="G000184071"
+							data-disp-nm="LH43BEFHLBFXKR"
+							aria-selected="false" >LH43BEFHLBFXKR</a>
+					</li>
+				<li class="tab-item">
+						<a href="javascript:;" class="link" role="tab" name="spec-tab"
+							data-cstrt-goods-id="G000184035"
+							data-goods-id="G000184071"
+							data-disp-nm="HA-MTS1S43BLK"
+							aria-selected="false" >HA-MTS1S43BLK</a>
+					</li>
+				</ul>
+		<div class="spec-tabcontent-content tab-content" id="specTabContent" role="tabpanel" style="display:block;">
+			<div class="spec-table-wrap">
+			</div>
+		</div>
+	</div>

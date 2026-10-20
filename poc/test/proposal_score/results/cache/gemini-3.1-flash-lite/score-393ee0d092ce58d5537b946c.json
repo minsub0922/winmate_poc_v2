@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~no_proof:F02"
+ },
+ "prompt_tokens": 3863,
+ "output_tokens": 249,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 요구사항(R1~R3)과 평가 기준(K1~K3)에 대해 제안서 전반에서 명확히 대응하고 있습니다. 특히 2장에서 제안 요약을 통해 핵심을 전달하고, 3장에서 업계 현황과 경쟁사 사례를, 8장에서 구체적인 다음 단계를 제시하여 모든 요구를 충족합니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "한 장으로 보는 이번 제안 — 과제 → 제안 → 효과 → 왜 삼성"
+     },
+     {
+      "sheet": 3,
+      "quote": "동종 그룹 60%는 본사 통합 운영"
+     },
+     {
+      "sheet": 8,
+      "quote": "2주 안에 현장부터, 세 단계로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

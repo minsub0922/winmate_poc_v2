@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs01:F10"
+ },
+ "prompt_tokens": 5503,
+ "output_tokens": 215,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO와 SmartThings Pro를 하드웨어와 결합해 본사 운영자가 가격 및 전력을 원격 관리하는 구체적인 운영 장면을 시나리오로 상세히 제시함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "제작 · 승인 · 배포 · 적용 확인까지 한 화면에서."
+     },
+     {
+      "sheet": 7,
+      "quote": "본사 POS에서 가격 변경 | 본사 서버실 | MagicINFO"
+     },
+     {
+      "sheet": 8,
+      "quote": "본사 운영 | 전 매장을 한 화면에 | 본사 PC · MagicINFO Server"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

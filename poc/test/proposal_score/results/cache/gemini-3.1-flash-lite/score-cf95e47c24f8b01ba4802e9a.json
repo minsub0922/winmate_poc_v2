@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~no_proof:F04"
+ },
+ "prompt_tokens": 5800,
+ "output_tokens": 484,
+ "data": {
+  "scores": [
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "옥외 DT 공간에는 고휘도 IP56 등급의 OH55A-S를, 카운터에는 24/7 운영 가능한 QM55C를, 주문 공간에는 터치형 KM24C를 배치하여 각 환경 요구사항에 최적화된 제품을 제안했습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "QM55C 55\" 500nit 4K UHD 24/7 운영"
+     },
+     {
+      "sheet": 10,
+      "quote": "OH55A-S 55\" 3,500nit IP56 드라이브스루"
+     },
+     {
+      "sheet": 10,
+      "quote": "KM24C 24\" 세로형 터치 결제 연동"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "말리커피, 커피빈, 맥도날드 등 유사 업종의 도입 사례와 사진을 제시했으나, 해당 사례에서 도출된 구체적인 성과 수치(예: 매출 증대율, 운영 효율 개선치 등)가 명시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "말리커피 강남점, 맥도날드 고양삼송DT, 커피빈"
+     },
+     {
+      "sheet": 12,
+      "quote": "카운터 메뉴보드 — 말리커피 강남점"
+     }
+    ],
+    "improve": "제시된 도입 사례 매장에서 실제로 달성한 운영 효율 개선 수치나 매출 증대 효과를 구체적인 데이터로 함께 기재해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

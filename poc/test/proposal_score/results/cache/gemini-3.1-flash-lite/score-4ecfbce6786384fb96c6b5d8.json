@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs02:F09"
+ },
+ "prompt_tokens": 4367,
+ "output_tokens": 210,
+ "data": {
+  "scores": [
+   {
+    "id": "PR2",
+    "score": 1,
+    "anchor": "7장과 10장에서 QM55C 및 스마트 모니터 M8의 크기 사양을 146인치로 잘못 표기하여 카탈로그 사양과 불일치하는 사례가 다수 확인됨.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "QM55C 146\""
+     },
+     {
+      "sheet": 10,
+      "quote": "QM55C 146\""
+     }
+    ],
+    "improve": "전체 장에서 제품별 정확한 크기 사양으로 수정하고, 장마다 수치가 일관되게 표기되도록 통일해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

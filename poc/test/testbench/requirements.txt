@@ -1,0 +1,5 @@
+# 테스트 벤치 서버 + 화면에서 돌리는 모듈들의 의존성
+-r ../layout_agent/requirements.txt
+fastapi>=0.110
+uvicorn>=0.29
+pytest>=8

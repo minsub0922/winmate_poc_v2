@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~base:F07"
+ },
+ "prompt_tokens": 2914,
+ "output_tokens": 236,
+ "data": {
+  "scores": [
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "삼성의 통합 솔루션(MagicINFO, SmartThings Pro)과 하드웨어(QM55C, 360 카세트)를 고객의 핵심 과제인 운영 효율화 및 전력 절감과 연결하여 구체적인 수치와 사례로 제시함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "MagicINFO · QM55C · 360 카세트"
+     },
+     {
+      "sheet": 7,
+      "quote": "320곳 동시 반영 — 인쇄물 · 매장 작업 없이"
+     },
+     {
+      "sheet": 13,
+      "quote": "밀키프레소 — 방문 없이 가맹점 화면 원격 관리"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

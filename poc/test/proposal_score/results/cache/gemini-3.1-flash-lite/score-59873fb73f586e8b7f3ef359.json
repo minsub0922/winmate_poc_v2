@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs05:F04"
+ },
+ "prompt_tokens": 8739,
+ "output_tokens": 442,
+ "data": {
+  "scores": [
+   {
+    "id": "CU6",
+    "score": 3,
+    "anchor": "테마파크 업종에 특화된 용어(퍼레이드, 어트랙션, 프리쇼, 대기 동선)를 정확히 사용하고, 피크 시간 운영 및 동선 계획을 구체적으로 반영함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "줄 서는 시간까지 파크의 체험"
+     },
+     {
+      "sheet": 7,
+      "quote": "낮 퍼레이드와 야간 쇼"
+     },
+     {
+      "sheet": 12,
+      "quote": "시즌마다 새로워지는 구역, 열두 달 운영 캘린더"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 2,
+    "anchor": "대부분 환경에 적합한 제품을 배치했으나, 5장에서 실내용 키오스크(KM24C)를 웰컴 게이트(옥외 환경 가능성)에 배치하여 환경 적합성 확인이 다소 불명확함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "1 | 웰컴 게이트 · 매표 | XHB · 키오스크 KM24C 6대"
+     },
+     {
+      "sheet": 11,
+      "quote": "실외 LED XHB 피치 3안"
+     }
+    ],
+    "improve": "웰컴 게이트와 같이 옥외 노출이 예상되는 구역에는 실내용 키오스크 대신 옥외용 제품을 제안하거나 설치 환경을 구체화해야 함.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

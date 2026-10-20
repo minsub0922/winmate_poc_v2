@@ -1,0 +1,78 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs17~full:F01"
+ },
+ "prompt_tokens": 8972,
+ "output_tokens": 637,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'T 은행'과 업종, 규모, 담당 조직이 일관되게 기술되어 있으며, 다른 고객사명이나 예시 고객명이 발견되지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "T 은행 영업점 디지털 창구 · 전 지점 확산 제안"
+     },
+     {
+      "sheet": 11,
+      "quote": "확산 대상 240개 영업점"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "CU5",
+    "score": 3,
+    "anchor": "T 은행의 시범점 성과, 확산 대상 지점 수, 보안 요건 등 고객 고유의 운영 수치와 일정이 전 장에 걸쳐 상세히 반영되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "T 은행 시범 10개점 — 6개월 성과"
+     },
+     {
+      "sheet": 11,
+      "quote": "확산 대상 240개 영업점"
+     },
+     {
+      "sheet": 14,
+      "quote": "세 가지 결정으로 1월에 착수합니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "템플릿 잔여물이나 자리표시 문구가 없으며, 연락처는 제안 담당자의 정보로 정상 기재되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 2,
+    "anchor": "13장에 '할인율 미적용'이라는 내부 계산 기준이 노출되어 있으나, 이는 민감한 원가나 마진 정보는 아닙니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "할인율 미적용"
+     }
+    ],
+    "improve": "고객용 제안서에서 내부 계산 기준인 '할인율 미적용' 문구를 삭제해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

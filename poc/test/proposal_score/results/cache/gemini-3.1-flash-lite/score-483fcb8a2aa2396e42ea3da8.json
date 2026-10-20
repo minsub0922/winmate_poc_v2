@@ -1,0 +1,100 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~full:F10"
+ },
+ "prompt_tokens": 7479,
+ "output_tokens": 829,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "SmartThings를 통해 가전 제어, 에너지 모니터링, 홈케어 진단 등 누가 무엇을 어떻게 관리하는지 운영 장면을 구체적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "SmartThings · 빌트인 · 난방 · 도어락 (타사)을 계정 하나로"
+     },
+     {
+      "sheet": 11,
+      "quote": "입주민 앱 · 관리사무소 · 삼성 서비스"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR7",
+    "score": 3,
+    "anchor": "빌트인 가전의 매립 치수, 전원, 에너지 등 설치 환경 전제와 유지보수 및 보증 범위를 명확히 밝힘.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "매립 공간(W × H × D) · 여유 공간 · 전원"
+     },
+     {
+      "sheet": 11,
+      "quote": "입주 후 2년 무상, 이후 연장 케어는 선택"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "13장에서 도면 검토, 옵션 확정, 설치 일정 등 주요 마일스톤을 제시했으나, 교육 및 운영 이관에 대한 구체적 계획은 누락됨.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "12월까지, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "교육 및 운영 이관에 대한 구체적인 계획을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 1,
+    "anchor": "도입 리스크(공사 중 영업, 호환성, 일정 지연 등)와 그에 대한 대응 방안을 다루는 내용이 없음.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "공사 중 발생할 수 있는 리스크와 그에 대한 구체적인 대응 방안을 포함해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "마지막 장에서 고객이 결정해야 할 세 가지 항목과 그에 따른 일정 및 담당자를 명확히 제시함.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "12월까지, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "SB5",
+    "score": 1,
+    "anchor": "표지에 제출 날짜가 명시되어 있지 않아 최신성 확인이 어려움.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": ""
+     }
+    ],
+    "improve": "표지에 정확한 제출 날짜를 기입해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

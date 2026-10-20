@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs13:F07"
+ },
+ "prompt_tokens": 3808,
+ "output_tokens": 206,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "매장당 연 전력 비용 절감액과 투자 회수 기간을 명시하고, 산정 근거인 전력 단가(200원/kWh)와 가동 시간 가정 등을 10장과 11장에 상세히 기술함.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "단가 200원/kWh · 가동 시간 가정은 실측으로 확정"
+     },
+     {
+      "sheet": 11,
+      "quote": "가정 · 140개 매장 · 라이선스 · 점검 3년 포함"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

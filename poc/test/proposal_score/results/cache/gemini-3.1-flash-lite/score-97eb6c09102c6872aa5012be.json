@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs18:F10"
+ },
+ "prompt_tokens": 6785,
+ "output_tokens": 526,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "Knox Suite와 Knox Configure를 활용해 개통부터 운영, 원격 설정 변경까지의 구체적인 관리 장면을 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "Knox Configure 자동 설정 · S/W 리브랜딩"
+     },
+     {
+      "sheet": 7,
+      "quote": "Knox Suite 키오스크 모드"
+     },
+     {
+      "sheet": 6,
+      "quote": "KC 콘솔에서 새 프로필 배포"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "착수부터 출시까지의 상세 일정과 단계별 마일스톤은 명확하나, 운영 이관 및 교육에 대한 구체적인 계획이 누락되었습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "착수부터 어린이날 출시까지 24주"
+     },
+     {
+      "sheet": 11,
+      "quote": "500 → 1,400 → 2,000곳"
+     }
+    ],
+    "improve": "운영 이관 절차와 매장 직원 대상 교육 계획을 구체적으로 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 1,
+    "anchor": "일정 지연이나 사양 변경에 대한 대응은 언급되어 있으나, 고객이 우려할 만한 도입 리스크와 그에 대한 구체적인 대응 방안을 별도로 다루지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "도입 과정에서 발생할 수 있는 기술적 호환성, 운영 인력 부족, 일정 지연 등의 리스크와 그에 대한 구체적인 대응 방안을 포함해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

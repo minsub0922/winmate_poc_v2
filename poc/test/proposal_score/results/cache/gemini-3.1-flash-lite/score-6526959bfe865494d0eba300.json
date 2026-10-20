@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~base:F02"
+ },
+ "prompt_tokens": 8353,
+ "output_tokens": 264,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 요구사항 7가지(R1~R3, K1~K4)에 대해 각 장에서 명시적으로 대응하고 있습니다. 특히 체크인 대기(R1, K3), 무중단 교체(R2, K2), 소음 민원(R3, K1, K4)에 대한 해법과 근거가 각 장에 구체적으로 제시되었습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "리뷰 불만은 결과일 뿐, 원인은 대기 · 소음 · 정보에 있습니다"
+     },
+     {
+      "sheet": 11,
+      "quote": "객실 판매는 층마다 하룻밤만 멈춥니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "숫자로 보이는 효과, 투숙객이 느끼는 효과"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

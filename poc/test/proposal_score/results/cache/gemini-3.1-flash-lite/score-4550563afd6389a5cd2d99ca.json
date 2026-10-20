@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs12:F09"
+ },
+ "prompt_tokens": 4219,
+ "output_tokens": 179,
+ "data": {
+  "scores": [
+   {
+    "id": "PR2",
+    "score": 3,
+    "anchor": "제안서 내 제품 사양(XHB, QM55C, IFR 등)이 카탈로그 사양과 일치하며, 장마다 동일한 모델에 대해 일관된 사양 정보를 제공하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "6,500 nit · 밝기 자동 조절"
+     },
+     {
+      "sheet": 7,
+      "quote": "P10.0 · 6,500 nit"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

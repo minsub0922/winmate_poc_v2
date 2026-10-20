@@ -1,0 +1,69 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08:F04"
+ },
+ "prompt_tokens": 7844,
+ "output_tokens": 563,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "W 요양병원의 야간 호출 응답 시간(6분), 다인실 CO2 농도(1,800ppm), 주말 면회 대기 시간(15분) 등 현장 수치를 기반으로 과제와 영향을 구체화했습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "6분 | 야간 호출 응답"
+     },
+     {
+      "sheet": 4,
+      "quote": "1,800 | ppm · 야간"
+     },
+     {
+      "sheet": 4,
+      "quote": "15분 | 주말 면회 대기"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "병실의 24시간 운영, 감염 관리, 위생 조건을 고려하여 무풍 4Way, ERV, IP68 등급의 탭 액티브5 등 환경에 최적화된 제품을 배치했습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "IP68 · MIL-STD 태블릿"
+     },
+     {
+      "sheet": 10,
+      "quote": "무풍 4Way 카세트"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "성심요양병원 등 유사 업종의 사례를 사진과 함께 제시했으나, 해당 사례에서 도출된 구체적인 성과 수치가 명시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "사진: samsung.com (성심요양병원)"
+     },
+     {
+      "sheet": 10,
+      "quote": "도입사례(성심요양병원)"
+     }
+    ],
+    "improve": "성심요양병원 등 실제 도입 사례에서 삼성 솔루션 적용 후 개선된 정량적 성과 수치를 구체적으로 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

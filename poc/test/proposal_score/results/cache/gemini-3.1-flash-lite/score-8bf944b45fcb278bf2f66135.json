@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs17:F03"
+ },
+ "prompt_tokens": 5229,
+ "output_tokens": 366,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "제안 개요(2장)에서 경영 지표인 상담 시간 단축과 비용 절감 효과를 요약하고, 마지막 장(14장)에서 결정권자가 승인해야 할 예산과 일정을 명확히 정리했습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "시범점이 증명한 창구, 120곳으로 넓힙니다"
+     },
+     {
+      "sheet": 14,
+      "quote": "세 가지 결정으로 1월에 착수합니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS7",
+    "score": 3,
+    "anchor": "1차 확산에 따른 초기 투자비와 3.2년의 투자 회수 기간을 명시하고, 효과 산정의 가정과 유지보수 항목을 포함하여 비용 구조를 투명하게 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "3.2년 · 38개월이면 1차 투자비를 회수합니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "효과 항목 — 서식 · 출력, 홍보물 · 유지보수"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

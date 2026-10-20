@@ -1,0 +1,35 @@
+{
+ "id": "K01",
+ "case": "K01",
+ "industry": "ID",
+ "strategy": null,
+ "req_type": null,
+ "title": "주방 가구 파트너 쇼룸",
+ "level": "minimal",
+ "input": {
+  "title": "W 키친 제안",
+  "customer": "W 키친",
+  "industry": "ID",
+  "free_text": "주방 가구 브랜드. 빌트인 냉장고, 인덕션",
+  "products": [
+   "bi_fridge",
+   "bi_induction"
+  ],
+  "id": "K01"
+ },
+ "gold": {
+  "scenario_any": [
+   "STD-ID"
+  ],
+  "must_parts": [
+   "value",
+   "products",
+   "case",
+   "why"
+  ],
+  "key_reqs": [],
+  "facts": [],
+  "level": "minimal",
+  "industry": "ID"
+ }
+}

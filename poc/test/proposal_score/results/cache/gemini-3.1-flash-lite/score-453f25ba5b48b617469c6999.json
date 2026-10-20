@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs15:F03"
+ },
+ "prompt_tokens": 2707,
+ "output_tokens": 228,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 2,
+    "anchor": "경영 지표인 비용 절감액이 9장에 제시되어 있으나, 결정권자를 위한 별도의 요약 장(Executive Summary)이 존재하지 않으며 실무적인 실행 계획과 경영 지표가 분리되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "점포당 연 손실 · 운영비, 네 군데에서 줄어듭니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "1개 점포부터, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "제안서 초반부에 경영 지표와 기대 효과를 요약한 Executive Summary 장을 추가하여 결정권자가 핵심 성과를 즉시 파악할 수 있도록 구성해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

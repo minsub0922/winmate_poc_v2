@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~placeholders:F08"
+ },
+ "prompt_tokens": 1893,
+ "output_tokens": 222,
+ "data": {
+  "scores": [
+   {
+    "id": "DS7",
+    "score": 3,
+    "anchor": "본문 장 제목 13개 중 12개가 결론을 담은 문장형으로 구성되어 있으며, 제목만 순서대로 읽어도 제안의 핵심 논리와 흐름이 명확히 파악됩니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "가격이 아니라 5년 동안 덜 멈추는 쪽으로"
+     },
+     {
+      "sheet": 5,
+      "quote": "공급사는 '가격형'과 '운영 책임형'으로 나뉩니다"
+     },
+     {
+      "sheet": 9,
+      "quote": "5년을 보면, 처음 가격의 순서가 바뀝니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

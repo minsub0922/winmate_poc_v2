@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs20~full:F05"
+ },
+ "prompt_tokens": 7912,
+ "output_tokens": 547,
+ "data": {
+  "scores": [
+   {
+    "id": "MK1",
+    "score": 3,
+    "anchor": "디지털 옥외광고 시장 규모와 세그먼트별 성장률을 2026년 전망치 기준으로 일관되게 제시하며, 고객의 사업 영역인 랜드마크 LED와 미디어폴에 맞춘 시장 정의를 사용함.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "디지털 옥외광고 세그먼트별 2026E 규모"
+     },
+     {
+      "sheet": 2,
+      "quote": "국내 옥외광고 시장 | 디지털 · 비디지털 · 단위 억 원 · 출처 삼성전자 추정(2026)"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "MK2",
+    "score": 3,
+    "anchor": "모든 시장 수치와 전망치가 2026년 기준의 최신 전망 자료로 통일되어 있으며, 과거 자료를 현재처럼 혼용하지 않음.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "수치는 삼성전자 추정(2026)"
+     },
+     {
+      "sheet": 4,
+      "quote": "출처: 삼성전자 추정(2026)"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "MK3",
+    "score": 2,
+    "anchor": "주요 시장 데이터에는 출처가 명시되어 있으나, 5장, 7장, 10장 등 일부 장의 세부 수치에는 출처 표기가 누락되어 있음.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "출처 삼성전자 추정(2026)"
+     },
+     {
+      "sheet": 10,
+      "quote": ""
+     }
+    ],
+    "improve": "수치가 제시된 모든 장의 하단이나 각주에 해당 데이터의 출처와 기준 연도를 일관되게 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

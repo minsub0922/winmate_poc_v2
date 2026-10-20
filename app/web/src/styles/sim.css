@@ -148,7 +148,7 @@
 .sim-who-t .faint { font-size: var(--text-11-5px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 
-.sim-list { flex: 1; min-height: 0; overflow-y: auto; padding: var(--space-22px) var(--space-24px) var(--space-28px); display: flex; flex-direction: column; gap: var(--space-16px); scroll-behavior: smooth; }
+.sim-list { flex: 1; min-height: 0; overflow-y: auto; padding: var(--space-22px) var(--space-24px) var(--space-28px); display: flex; flex-direction: column; gap: var(--space-16px); scroll-behavior: auto; }
 .sim-list > * { width: var(--measure-100); max-width: var(--measure-820px); margin-left: auto; margin-right: auto; }
 .sim-note { display: flex; align-items: center; gap: var(--space-6px); font-size: var(--text-12px); color: var(--muted); background: var(--surface); border: var(--stroke-1px) dashed var(--line-2); border-radius: var(--radius-9px); padding: var(--space-7px) var(--space-11px); }
 .sim-msg { display: flex; gap: var(--space-10px); align-items: flex-start; }
@@ -188,18 +188,23 @@
 .sim-sugs-l > .sim-tip { outline-offset: var(--stroke-1px); }
 .sim-sug { position: relative; display: flex; min-width: 0; border: var(--stroke-1px) solid var(--line-2); border-radius: var(--radius-11px); background: var(--surface-2); overflow: hidden; transition: border-color var(--measure-15s), box-shadow var(--measure-15s); }
 .sim-sug:hover { border-color: var(--accent-line); box-shadow: var(--shadow); background: var(--surface); }
-.sim-sug::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: var(--measure-3px); background: var(--accent); opacity: .7; }
-.sim-sug.k-concern::before { background: var(--warn); opacity: 1; }
-.sim-sug.k-close::before { background: var(--ok); opacity: 1; }
-.sim-sug-b { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-2px); padding: var(--space-8px) var(--space-8px) var(--space-8px) var(--space-12px); border: 0; background: none; text-align: left; color: var(--ink); }
+.sim-sug.is-confident { border-color: color-mix(in srgb, var(--accent) 60%, var(--line)); background: var(--accent-soft); animation: simSuggestionGlow 3.6s ease-in-out 2; }
+.sim-sugs.wait .sim-sug.is-confident { animation: none; }
+@keyframes simSuggestionGlow { 0%, 100% { box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent); } 50% { box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 18%, transparent), 0 0 12px color-mix(in srgb, var(--accent) 12%, transparent); } }
+.sim-sug-tag { display: inline-flex; align-items: center; gap: 4px; align-self: flex-start; color: var(--accent); font-size: var(--text-11px); font-weight: var(--weight-700); }
+@media (prefers-reduced-motion: reduce) { .sim-sug.is-confident { animation: none; } }
+.sim-sug-b { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-7px); padding: var(--space-14px); border: 0; background: none; text-align: left; color: var(--ink); }
 .sim-sug-b:disabled, .sim-sug-go:disabled { cursor: default; }
-.sim-sug-why { display: block; font-size: var(--text-12-5px); font-weight: var(--weight-800); color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sim-sug-why { display: block; font-size: var(--text-14px); font-weight: var(--weight-800); color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-.sim-sug-t { display: block; font-size: var(--text-12px); line-height: var(--leading-1-5); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sim-sug-t { display: block; min-height: 0; font-size: var(--text-14px); line-height: 1.6; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .sim-sug-t .mention { vertical-align: baseline; }
 .sim-sug-t .mention { font-size: var(--text-9em); padding: 0 var(--space-5px); }
-.sim-sug-go { flex-shrink: 0; width: var(--measure-34px); display: grid; place-items: center; border: 0; border-left: var(--stroke-1px) solid var(--line); background: none; color: var(--accent); }
+.sim-sug-go { flex-shrink: 0; width: var(--measure-38px); display: grid; place-items: center; border: 0; border-left: var(--stroke-1px) solid var(--line); background: none; color: var(--accent); }
 .sim-sug-go:hover:not(:disabled) { background: var(--accent-soft); }
+.sim-comp-hint { display: flex; align-items: center; gap: var(--space-6px); margin-top: 0; margin-bottom: 0; color: var(--muted); font-size: var(--text-12px); line-height: 1.5; }
+.sim-comp-hint svg { flex-shrink: 0; color: var(--accent); }
+.sim-comp-hint b { color: var(--accent); }
 .sim-comp { display: flex; align-items: flex-end; gap: var(--space-6px); padding-right: var(--space-7px); border: var(--stroke-1px) solid var(--line-2); border-radius: var(--radius-13px); background: var(--surface); }
 .sim-comp .mention-editor { flex: 1; min-width: 0; }
 .sim-send { flex-shrink: 0; display: grid; place-items: center; width: var(--measure-34px); height: var(--measure-34px); margin-bottom: var(--space-7px); border-radius: var(--radius-10px); border: 0; background: var(--accent); color: var(--on-accent); }
@@ -282,16 +287,17 @@
 .sq-cat > b { font-size: var(--text-14-5px); font-weight: var(--weight-800); text-align: right; color: var(--bc, var(--ink)); }
 
 .ss-list { display: flex; flex-direction: column; gap: var(--space-8px); }
-.ssc { display: flex; flex-direction: column; gap: var(--space-8px); padding: var(--space-8px); border: var(--stroke-1px) solid var(--line); border-radius: var(--radius-11px); background: var(--surface); text-align: left; color: var(--ink); }
+.ssc { display: flex; flex-direction: column; gap: var(--space-10px); padding: 0 0 var(--space-12px); overflow: hidden; border: var(--stroke-1px) solid var(--line); border-radius: var(--radius-11px); background: var(--surface); text-align: left; color: var(--ink); }
 .ssc:hover { border-color: var(--accent-line); box-shadow: var(--shadow); }
-.ssc-top { display: grid; grid-template-columns: var(--measure-112px) minmax(0, var(--measure-1fr)); gap: var(--space-10px); align-items: start; }
-.ssc-th { display: block; border-radius: var(--radius-6px); overflow: hidden; border: var(--stroke-1px) solid var(--line); background: var(--surface-2); aspect-ratio: 16 / 9; }
+.ssc-top { padding: 0 var(--space-12px); }
+.ssc-th { display: block; width: 100%; overflow: hidden; border-bottom: var(--stroke-1px) solid var(--line); background: var(--surface-2); aspect-ratio: 16 / 9; }
 .ssc-t { display: flex; flex-direction: column; gap: var(--space-3px-x); min-width: 0; }
-.ssc-t b { font-size: var(--text-12-5px); font-weight: var(--weight-700); line-height: var(--leading-1-4); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.ssc-t b { font-size: var(--text-14px); font-weight: var(--weight-700); line-height: var(--leading-1-4); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .ssc-m { font-size: var(--text-11px); color: var(--muted); }
 .ssc-why { display: flex; flex-wrap: wrap; gap: var(--space-3px-x); }
 .ssc-why i { font-style: normal; font-size: var(--text-10-5px); font-weight: var(--weight-700); color: var(--accent); background: var(--accent-soft); padding: 0 var(--space-6px); border-radius: var(--radius-5px); white-space: nowrap; }
-.ssc-tip { border-radius: var(--radius-8px); background: var(--surface-2); padding: var(--space-7px) var(--space-9px-x); display: flex; flex-direction: column; gap: var(--space-2px); }
+.ssc-open { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-3px-x); padding: 0 var(--space-12px); font-size: var(--text-11-5px); font-weight: var(--weight-700); color: var(--accent); }
+.ssc-tip { margin: 0 var(--space-12px); border-radius: var(--radius-8px); background: var(--surface-2); padding: var(--space-7px) var(--space-9px-x); display: flex; flex-direction: column; gap: var(--space-2px); }
 .ssc-tip .k { font-size: var(--text-10-5px); font-weight: var(--weight-800); color: var(--muted); }
 .ssc-tip.k-objection .k { color: var(--warn); } .ssc-tip.k-ask .k { color: var(--ok); }
 .ssc-tip .q { margin: 0; font-size: var(--text-12px); font-weight: var(--weight-700); color: var(--ink); line-height: var(--leading-1-45); }
@@ -532,3 +538,39 @@
   .sr-cols { grid-template-columns: minmax(0, var(--measure-1fr)); }
   .sr-h { flex-wrap: wrap; }
 }
+
+/* Sales skills prepare sourced material separately from the customer role-play. */
+.mopt.skill .mo-th{display:grid;place-items:center;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line)}
+.mopt.skill .s{white-space:normal;line-height:1.55}
+.sim-selected-skill{display:flex;align-items:center;gap:9px;margin:0 0 8px;padding:9px 12px;background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:10px;color:var(--accent)}
+.sim-selected-skill>span{flex:1;min-width:0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}.sim-selected-skill b{font-size:13px}.sim-selected-skill small{font-size:12px;color:var(--muted)}
+.sim-skill-result{align-self:stretch;margin:16px 0;padding:22px;background:var(--surface);border:1px solid var(--accent-line);border-radius:16px;display:flex;flex-direction:column;gap:16px;min-width:0;box-shadow:var(--shadow-sm)}
+.sim-skill-result>header{display:flex;gap:10px;align-items:center}.sim-skill-icon{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;color:var(--accent);background:var(--accent-soft);flex:none}
+.sim-skill-result>header>div{display:flex;flex-direction:column;gap:3px}.sim-skill-result>header b{font-size:14px}.sim-skill-result>header small{font-size:11px;color:var(--muted)}
+.sim-skill-result h3{font-size:19px;margin:0;line-height:1.5}.sim-skill-result h4{font-size:14px;margin:0;line-height:1.5}.sim-skill-result p{font-size:14px;line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere;margin:0}
+.sim-skill-request{color:var(--muted);font-size:12px!important;padding:10px 12px;border-radius:8px;background:var(--surface-2)}
+.sim-skill-summary{color:var(--ink-2)}.sim-skill-progress{display:flex;align-items:center;gap:10px;color:var(--muted)}
+.sim-skill-finding{display:flex;flex-direction:column;gap:7px}.sim-skill-finding p{color:var(--ink-2)}
+.sim-skill-citations{display:flex;flex-wrap:wrap;gap:5px 8px;font-size:11px;line-height:1.6;margin-top:5px;min-width:0}.sim-skill-citations>a,.sim-skill-citations>span{max-width:100%;overflow-wrap:anywhere;color:var(--muted);background:var(--surface-2);border-radius:5px;padding:3px 6px}.sim-skill-citations a:hover{color:var(--accent)}
+.sim-skill-table{overflow-x:auto;border:1px solid var(--line);border-radius:10px;max-width:100%}.sim-skill-table table{width:100%;border-collapse:collapse;min-width:580px;font-size:12px;line-height:1.7}.sim-skill-table th,.sim-skill-table td{padding:11px 12px;vertical-align:top;border-bottom:1px solid var(--line);text-align:left}.sim-skill-table thead{background:var(--surface-2)}.sim-skill-table tr:last-child th,.sim-skill-table tr:last-child td{border-bottom:0}
+.sim-skill-recommendations{display:flex;flex-direction:column;gap:12px}.sim-skill-recommendations>div{padding:12px;border:1px solid var(--line);border-radius:10px;display:flex;flex-direction:column;align-items:flex-start;gap:7px}.sim-skill-recommendations small{font-size:12px;line-height:1.7;color:var(--muted)}
+.sim-skill-followup ul{padding-left:19px;margin:7px 0 0;color:var(--ink-2);font-size:13px;line-height:1.8}.sim-skill-draft{padding:16px;background:var(--accent-soft);border-radius:10px;display:flex;flex-direction:column;align-items:flex-start;gap:10px}.sim-skill-draft p{font-size:14px}
+.sim-skill-sources{font-size:12px;color:var(--muted)}.sim-skill-sources summary{cursor:pointer}.sim-skill-sources>div{margin-top:10px}.sim-skill-sources a{color:var(--accent);overflow-wrap:anywhere}.sim-skill-search-entry{width:100%;height:92px;border:0;border-radius:8px;background:transparent}
+.sim-skill-error{display:flex;flex-direction:column;align-items:flex-start;gap:10px;color:var(--muted)}
+@media(max-width:760px){.sim-skill-result{padding:16px;border-radius:12px;margin:12px 0}.sim-skill-result h3{font-size:17px}.sim-skill-table table{min-width:560px}.sim-selected-skill{padding:8px 10px}}
+.mmenu[aria-label*="스킬"] .mmenu-q{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}.mmenu[aria-label*="스킬"] .mmenu-tabs button{flex:none;white-space:nowrap}
+
+/* Contextual skill execution workspace. */
+.mmenu-tabs button.mmenu-skill-tab{display:inline-flex;align-items:center;gap:5px;margin-left:auto;padding-inline:10px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:8px;font-weight:750;box-shadow:0 2px 8px color-mix(in srgb,var(--accent) 10%,transparent)}
+.mmenu-tabs button.mmenu-skill-tab small{font-size:9px;line-height:1.4;background:var(--accent);color:white;padding:1px 4px;border-radius:4px;letter-spacing:.02em}.mmenu-tabs button.mmenu-skill-tab[aria-pressed=true]{background:var(--accent);color:white}.mmenu-tabs button.mmenu-skill-tab[aria-pressed=true] small{background:color-mix(in srgb,white 20%,transparent)}
+.sim-skill-open{align-self:flex-start}.sim-skill-ready{color:var(--accent);font-size:12px;font-weight:650}
+.modal.sim-skill-modal{width:min(1160px,100%);max-height:calc(100dvh - 40px)}
+.sim-skill-workspace{gap:20px;min-width:0}.sim-skill-workspace h3{font-size:22px;line-height:1.5;margin:0}.sim-skill-workspace h4{font-size:16px;line-height:1.5;margin:0}.sim-skill-workspace p{font-size:14px;line-height:1.85;margin:0;white-space:pre-wrap;overflow-wrap:anywhere}.sim-skill-workspace summary{cursor:pointer;font-size:13px;font-weight:650;color:var(--ink-2);line-height:1.6}
+.sim-skill-stages{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;list-style:none;margin:0;padding:0}.sim-skill-stages li{display:flex;flex-direction:column;align-items:center;gap:7px;position:relative;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:15px 5px;color:var(--muted);min-width:0}.sim-skill-stages b{font-size:12px;text-align:center}.sim-skill-stages small{font-size:10px}.sim-skill-stage-icon{height:23px;display:grid;place-items:center}.sim-skill-stages .running{background:var(--accent-soft);color:var(--accent);border-color:var(--accent-line)}.sim-skill-stages .done .sim-skill-stage-icon{color:var(--accent)}.sim-skill-stages .stopped{color:var(--danger)}
+.sim-skill-process,.sim-skill-analysis,.sim-skill-details{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--surface)}
+.sim-skill-process-list{display:flex;flex-direction:column;gap:14px;padding-top:16px}.sim-skill-process-list section{display:flex;flex-direction:column;gap:8px;min-width:0}.sim-skill-process-list section>b{font-size:12px;color:var(--muted)}.sim-skill-process-list section>small{font-size:12px;color:var(--muted)}
+.sim-skill-queries{display:flex;flex-wrap:wrap;gap:6px}.sim-skill-queries span{padding:5px 8px;border-radius:6px;background:var(--surface-2);color:var(--ink-2);font-size:12px;overflow-wrap:anywhere;max-width:100%}.sim-skill-collected{display:flex;flex-wrap:wrap;gap:6px 14px}.sim-skill-collected>a,.sim-skill-collected>span{display:inline-flex;align-items:center;gap:4px;max-width:100%;font-size:12px;line-height:1.7;overflow-wrap:anywhere;color:var(--muted)}.sim-skill-collected a:hover{color:var(--accent)}
+.sim-skill-analysis{background:var(--surface-2)}.sim-skill-analysis summary>svg{vertical-align:middle;margin-right:6px}.sim-skill-live{margin-left:8px;color:var(--accent);background:var(--accent-soft);padding:3px 5px;font-size:9px;border-radius:4px;letter-spacing:.04em}.sim-skill-stream{padding-top:14px;color:var(--ink-2)}
+.sim-skill-answer-heading{display:flex;flex-direction:column;gap:10px}.sim-skill-answer-heading>p{color:var(--muted)}.sim-skill-eyebrow{display:flex;align-items:center;gap:6px;color:var(--accent);font-size:12px;font-weight:700}
+.sim-skill-replies{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:stretch}.sim-skill-replies .sim-skill-draft{border:1px solid var(--accent-line);background:var(--surface);padding:20px;border-radius:14px;gap:12px;min-width:0;box-shadow:var(--shadow-sm)}.sim-skill-reply-num{font-size:11px;color:var(--accent);font-weight:750;letter-spacing:.03em}.sim-skill-draft>small{font-size:12px;line-height:1.7;color:var(--muted);min-height:40px}.sim-skill-draft>p{flex:1;line-height:1.9}.sim-skill-replies .sim-skill-draft>button{width:100%;justify-content:center;margin-top:4px}.sim-skill-replies .sim-skill-citations{max-height:85px;overflow:auto}.sim-skill-use-hint{font-size:12px!important;color:var(--muted)}.sim-skill-detail-body{display:flex;flex-direction:column;gap:20px;margin-top:18px}.sim-skill-legacy{color:var(--muted);font-size:12px!important}
+@media(max-width:800px){.sim-skill-replies{grid-template-columns:1fr}.sim-skill-draft>small{min-height:0}.sim-skill-replies .sim-skill-draft{padding:17px}.sim-skill-replies .sim-skill-citations{max-height:none}.sim-skill-stages{gap:4px}.sim-skill-stages li{padding:10px 2px;border-radius:8px}.sim-skill-stages b{font-size:10px}.sim-skill-stages small{font-size:9px}.sim-skill-workspace{padding:16px;gap:16px}.modal.sim-skill-modal{max-height:calc(100dvh - 24px)}.sim-skill-workspace h3{font-size:19px}.mmenu-tabs button.mmenu-skill-tab{padding-inline:7px;gap:3px}.sim-skill-process,.sim-skill-analysis,.sim-skill-details{padding:12px}.sim-skill-stages{flex:none}}

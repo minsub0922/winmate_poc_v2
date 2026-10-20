@@ -1,0 +1,70 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11~full:F07"
+ },
+ "prompt_tokens": 9036,
+ "output_tokens": 522,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 1,
+    "anchor": "제안서 전반에 걸쳐 정량적 효과(절감액, 시간 단축 등)에 대한 언급이 전혀 없습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "사업 수행을 통해 얻을 수 있는 구체적인 정량적 기대효과와 그 산정 근거를 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "삼성의 통합 솔루션(MagicINFO)과 Knox 보안 플랫폼을 고객의 관제 및 보안 요구사항과 연결하여 구체적으로 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "종합상황실 한 곳에서 12곳 · 단말 60대까지 관제"
+     },
+     {
+      "sheet": 9,
+      "quote": "Knox Suite 원격 잠금 · 초기화"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR5",
+    "score": 3,
+    "anchor": "제안서 내에 근거 없는 절대적 표현(최고, 최초 등)이 발견되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR7",
+    "score": 1,
+    "anchor": "제안서 내에 연출된 이미지나 사양 변경 가능성에 대한 고지 문구가 전혀 포함되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "연출 이미지 및 사양 변경 가능성에 대한 법적 고지 문구를 각 장의 하단이나 부록에 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

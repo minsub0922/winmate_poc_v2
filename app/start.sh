@@ -26,6 +26,8 @@ fi
 if [[ ! -d app/web/node_modules ]]; then npm --prefix app/web ci --no-audit --no-fund; fi
 npm --prefix app/web run build
 app/.venv/bin/python -B app/scripts/prepare_data.py
+app/.venv/bin/python -B app/scripts/build_spatial_products.py
+node app/scripts/build_spatial_library.mjs
 node app/scripts/export_agent_data.mjs
 app/.venv/bin/python -B app/scripts/preflight.py
 if [[ -n "${WINMATE_SETUP_PASSWORD:-}" ]]; then
@@ -35,5 +37,11 @@ else
   app/.venv/bin/python -B app/scripts/manage_auth.py --ensure
 fi
 app/.venv/bin/python -B app/scripts/preflight.py --require-auth
+winmate_asgi_app='app.api.main:app'
+# Local opt-in only: admin/ and its marker are ignored and absent from production.
+if [[ -f admin/.enabled && -f admin/server.py && -f admin/prepare.sh ]]; then
+  bash admin/prepare.sh
+  winmate_asgi_app='admin.server:app'
+fi
 printf '\nWinmate: http://127.0.0.1:%s\n\n' "$WINMATE_API_PORT"
-exec app/.venv/bin/python -B -m uvicorn app.api.main:app --host 127.0.0.1 --port "$WINMATE_API_PORT" --no-access-log
+exec app/.venv/bin/python -B -m uvicorn "$winmate_asgi_app" --host 127.0.0.1 --port "$WINMATE_API_PORT" --no-access-log

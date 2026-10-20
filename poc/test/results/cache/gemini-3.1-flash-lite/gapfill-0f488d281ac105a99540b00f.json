@@ -1,0 +1,34 @@
+{
+ "stage": "gapfill",
+ "model": "gemini-3.1-flash-lite",
+ "meta": {
+  "lines": [
+   "* ⑤ 제안서를 포함한 제출서류는 스캔하여 제안서 제출 기간내 삼성생명보험(주) 담당자에게 e-mail과 USB로 제출한다."
+  ],
+  "pid_hint": "P1",
+  "projects": [
+   {
+    "pid": "P1",
+    "name": "삼성생명 데스크탑 표준 모델 선정",
+    "customer": "삼성생명보험(주)",
+    "start_line": 1,
+    "issuer": "삼성생명보험(주) 정보전략팀 인프라운영P, IT기획P"
+   }
+  ],
+  "idx": 4
+ },
+ "prompt_tokens": 2123,
+ "output_tokens": 102,
+ "data": {
+  "items": [],
+  "carry": "",
+  "updates": [
+   {
+    "id": "R084",
+    "add": "제안서 제출 기간 내에 제출해야 함",
+    "quote": "제안서를 포함한 제출서류는 스캔하여 제안서 제출 기간내 삼성생명보험(주) 담당자에게 e-mail과 USB로 제출한다."
+   }
+  ]
+ },
+ "raw_text": "{\n  \"items\": [],\n  \"carry\": \"\",\n  \"updates\": [\n    {\n      \"id\": \"R084\",\n      \"add\": \"제안서 제출 기간 내에 제출해야 함\",\n      \"quote\": \"제안서를 포함한 제출서류는 스캔하여 제안서 제출 기간내 삼성생명보험(주) 담당자에게 e-mail과 USB로 제출한다.\"\n    }\n  ]\n}"
+}

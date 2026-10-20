@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~wrong_customer:F02"
+ },
+ "prompt_tokens": 8017,
+ "output_tokens": 262,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 2,
+    "anchor": "고객 요구사항 R1~R4 및 K1~K4에 대해 전반적으로 대응하고 있으나, R2(옵션 계약률 향상)에 대한 구체적인 전략적 근거가 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "모델하우스에서 ‘이 단지’로 기억될 네 가지"
+     },
+     {
+      "sheet": 7,
+      "quote": "둘러본 경험이 그대로 옵션 계약으로 이어집니다"
+     },
+     {
+      "sheet": 10,
+      "quote": "84A 주방, 빌트인 가전 세 가지의 매립 치수"
+     }
+    ],
+    "improve": "옵션 계약률을 높이기 위한 구체적인 프로모션이나 고객 심리 기반의 상담 전략을 추가하여 R2 요구사항에 대한 명확한 해법을 제시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

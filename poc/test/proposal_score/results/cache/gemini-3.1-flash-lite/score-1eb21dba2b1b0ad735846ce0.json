@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11~strip_images:F05"
+ },
+ "prompt_tokens": 6946,
+ "output_tokens": 236,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "대부분의 수치에 출처가 명시되어 있지 않으며, 일부 장에서는 출처 표기가 누락된 상태입니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "대합실 안내 장비 58% 내구연한 초과"
+     },
+     {
+      "sheet": 10,
+      "quote": "총 투입 22명"
+     },
+     {
+      "sheet": 14,
+      "quote": "서울교통공사 사이니지 4,218대"
+     }
+    ],
+    "improve": "모든 수치와 성과 데이터 옆에 [기관명, 연도] 또는 [고객 운영 자료, 연도]와 같은 구체적인 출처를 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

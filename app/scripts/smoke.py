@@ -4,7 +4,7 @@
   python app/scripts/smoke.py --base http://127.0.0.1:8788 --prompt   # ask for the password (hidden input)
   printf '%s\n' "$PW" | python app/scripts/smoke.py --password-stdin
 
-Checks: public health/status/login page, unauthenticated API 401 + page redirect, cross-origin POST 403,
+Checks: public health/status/catalog/app shell, private API 401, cross-origin POST 403,
 login (cookie flags), capabilities, 1,068 products, a product detail, the app root, logout revocation.
 With WINMATE_AUTH=off on the server the login checks are skipped. The password and session cookie are kept
 in process memory only and never printed. Exit status 0 = all passed, 1 = a check failed, 2 = usage error.
@@ -118,10 +118,11 @@ def run(args: argparse.Namespace) -> int:
         if not r.check('auth configured', bool(st['configured']), 'python app/scripts/manage_auth.py --set 을 먼저 실행하세요'):
             return 1
         status, _, body = c.json('GET', '/api/products')
-        r.check('unauthenticated API → 401', status == 401 and isinstance(body, dict) and body.get('code') == 'auth_required', f'HTTP {status}')
+        r.check('guest product catalog', status == 200 and isinstance(body, dict) and body.get('total') == EXPECTED_PRODUCTS, f'HTTP {status}')
+        status, _, body = c.json('GET', '/api/jobs')
+        r.check('private API → 401', status == 401 and isinstance(body, dict) and body.get('code') == 'auth_required', f'HTTP {status}')
         status, headers, _ = c.request('GET', '/', headers={'Accept': 'text/html'})
-        location = headers.get('Location', '') if headers else ''
-        r.check('unauthenticated page → /login.html', status in (302, 303, 307) and location.startswith('/login.html'), f'HTTP {status} {location}')
+        r.check('guest app shell', status == 200, f'HTTP {status}')
         status, _, raw = c.request('GET', '/login.html', headers={'Accept': 'text/html'})
         r.check('login page (public)', status == 200 and b'id="password"' in raw, f'HTTP {status}')
         status, _, _ = c.json('POST', '/api/auth/login', body={'username': 'x', 'password': 'x'}, headers={'Origin': 'http://evil.invalid'})
@@ -161,14 +162,16 @@ def run(args: argparse.Namespace) -> int:
     status, _, _ = c.request('GET', '/reference/', headers={'Accept': 'text/html'})
     r.check('reference is not a production route', status == 404, f'HTTP {status}')
     status, _, result = c.json('POST','/api/llm',body={'feature':'llm','kind':'json','prompt':'Return JSON with status verified.','schema':{'type':'OBJECT','properties':{'status':{'type':'STRING'}},'required':['status']}})
-    r.check('actual Gemini completion', status==200 and isinstance(result,dict) and result.get('mode')=='real' and (result.get('data')or{}).get('status')=='verified' and str(result.get('model','')).startswith('gemini'), f'HTTP {status}')
+    r.check('actual model completion', status==200 and isinstance(result,dict) and result.get('mode')=='real' and (result.get('data')or{}).get('status')=='verified' and bool(result.get('model')), f'HTTP {status}')
 
     if enabled:
         status, headers, _ = c.json('POST', '/api/auth/logout', body={}, headers={'Origin': c.origin})
         cleared, attrs = _session_cookie(headers) if headers else (None, '')
         r.check('logout', status == 200 and 'max-age=0' in attrs, f'HTTP {status}')
-        status, _, _ = c.json('GET', '/api/products')            # old cookie still attached on purpose
+        status, _, _ = c.json('GET', '/api/jobs')                # old cookie still attached on purpose
         r.check('revoked session → 401', status == 401, f'HTTP {status}')
+        status, _, products = c.json('GET', '/api/products')
+        r.check('catalog remains public after logout', status == 200 and isinstance(products,dict) and products.get('total') == EXPECTED_PRODUCTS, f'HTTP {status}')
         c.cookie = None
 
     print(f'\n{"OK" if not r.failed else "FAILED"} — {len(r.failed)} failed' + (': ' + ', '.join(r.failed) if r.failed else ''))

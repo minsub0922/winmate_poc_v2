@@ -1,0 +1,94 @@
+TAP version 13
+# Subtest: valid shared JSON remains unchanged
+ok 1 - valid shared JSON remains unchanged
+  ---
+  duration_ms: 11.637542
+  type: 'test'
+  ...
+# Subtest: 204 polling has no JSON body
+ok 2 - 204 polling has no JSON body
+  ---
+  duration_ms: 0.103292
+  type: 'test'
+  ...
+# Subtest: plain API error includes its HTTP status
+ok 3 - plain API error includes its HTTP status
+  ---
+  duration_ms: 0.386708
+  type: 'test'
+  ...
+# Subtest: conflict keeps the latest original for resolution
+ok 4 - conflict keeps the latest original for resolution
+  ---
+  duration_ms: 0.207625
+  type: 'test'
+  ...
+# Subtest: validation arrays show the field without echoing input values
+ok 5 - validation arrays show the field without echoing input values
+  ---
+  duration_ms: 0.237917
+  type: 'test'
+  ...
+# Subtest: HTML 403 is classified without displaying its markup
+ok 6 - HTML 403 is classified without displaying its markup
+  ---
+  duration_ms: 0.214292
+  type: 'test'
+  ...
+# Subtest: temporary HTML 502 retries and accepts a later document
+ok 7 - temporary HTML 502 retries and accepts a later document
+  ---
+  duration_ms: 0.357792
+  type: 'test'
+  ...
+# Subtest: 503 retries are bounded and retain the actual status
+ok 8 - 503 retries are bounded and retain the actual status
+  ---
+  duration_ms: 0.92425
+  type: 'test'
+  ...
+# Subtest: HTTP 200 HTML is a protocol error, not a successful share
+ok 9 - HTTP 200 HTML is a protocol error, not a successful share
+  ---
+  duration_ms: 0.317833
+  type: 'test'
+  ...
+# Subtest: a JSON page without a shared document is not accepted
+ok 10 - a JSON page without a shared document is not accepted
+  ---
+  duration_ms: 0.329375
+  type: 'test'
+  ...
+# Subtest: unanswered requests abort and stop after bounded retries
+ok 11 - unanswered requests abort and stop after bounded retries
+  ---
+  duration_ms: 32.901958
+  type: 'test'
+  ...
+# Subtest: retrying registration retains the same source and body
+ok 12 - retrying registration retains the same source and body
+  ---
+  duration_ms: 0.409875
+  type: 'test'
+  ...
+# Subtest: a transient network failure can recover
+ok 13 - a transient network failure can recover
+  ---
+  duration_ms: 0.197875
+  type: 'test'
+  ...
+# Subtest: 500 is reported once without an unsafe blind retry loop
+ok 14 - 500 is reported once without an unsafe blind retry loop
+  ---
+  duration_ms: 0.174583
+  type: 'test'
+  ...
+1..14
+# tests 14
+# suites 0
+# pass 14
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 112.163833

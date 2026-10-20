@@ -1,11 +1,12 @@
 import { getDownloads as runtimeDownloads } from '../platform/runtime.js';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Icon, toast, LayoutMeta } from './common.jsx';
 import { SheetView } from './sheetview.jsx';
 import { PARTS } from '../domain/proposals/parts.js';
 import { Slide } from '../domain/slides/Slide.jsx';
 import { exportPptx } from '../domain/slides/export-pptx.js';
 import { FavButton } from './fav.jsx';
+import { useDetailPeek } from './reference-detail.jsx';
 
 /* Shared pieces for the layout template library and Best Scenario: source decks, file saving, big preview. */
 
@@ -18,7 +19,7 @@ export const DECKS = [
   { k: 'EX', label: '05 보강', full: '시나리오 커버리지 · 보강 레이아웃' },
   { k: 'CM', label: '공통 · 솔루션', full: '표지 · 실행 · 솔루션 전용 · 이미지 중심' },
   { k: 'PH', label: '06 사진 중심', full: '텍스트 위주 장표를 사진으로 채운 버전 (samsung.com 사진)' },
-  { k: 'ST', label: '표준 제안서', full: '표준 제안서 양식 · 호텔 AI 스테이 37장 · 공유오피스 Lite 15장 (samsung.com 사진)' },
+  { k: 'ST', label: '표준 제안서', full: '업종별 표준 제안서 · 원본 기준 양식과 Markdown 설명 기반 재구성 판본' },
 ];
 export const DECK = Object.fromEntries(DECKS.map((d) => [d.k, d]));
 
@@ -40,6 +41,10 @@ export function TemplateDetail({ list, index, onNav, onClose, notes = null, note
   const l = list[index];
   const ov = ovs ? ovs[index] : null; // filled sample values (Best Scenario)
   const [busy, setBusy] = useState(false);
+  const peek = useDetailPeek();
+  useEffect(() => { peek.hide(); }, [l.f, index, peek.hide]);
+  const close = () => { peek.hide(); onClose(); };
+  const navigate = i => { peek.hide(); onNav(i); };
   const download = async () => {
     setBusy(true);
     try {
@@ -51,22 +56,24 @@ export function TemplateDetail({ list, index, onNav, onClose, notes = null, note
   };
   const pt = PARTS[l.p];
   return (
-    <SheetView onClose={onClose} index={index} total={list.length} onNav={onNav}
+    <><SheetView onClose={close} index={index} total={list.length} onNav={onNav ? navigate : undefined}
       title={<span className="tl-dt">{l.name}</span>}
       sub={[l.when || l.g, pt && pt.label, DECK[l.c] && DECK[l.c].label].filter(Boolean).join(' · ')}
       bodyClass="tl-detail" panelClass="tl-dr"
+      stageActions={<>
+        {onEdit && <button className="btn btn-primary sv-edit" onClick={() => { peek.hide(); onEdit(l, ov); onClose(); }} title="레이아웃 수정하기"><Icon name="edit" size={17} />수정하기</button>}
+        <FavButton f={l.f} ov={ov} from={favFrom} label />
+      </>}
       stage={(w) => <Slide key={l.f} f={l.f} ov={ov || undefined} pageNo={ov ? index + 1 : undefined} width={w} />}
       panel={<>
         {notes && notes[index] ? <div className="tl-ex tl-role"><span className="lbl">{noteLabel}</span><p>{notes[index]}</p></div> : null}
         {l.hl && !ov && <div className="tl-ex"><span className="lbl">예시 제목</span><p>{l.hl}</p>{l.sample ? <span className="faint" style={{ fontSize: "var(--text-12px)" }}>예시 고객 · {l.sample}</span> : null}</div>}
-        <LayoutMeta l={l} />
+        <LayoutMeta l={l} peek={peek} />
         <p className="hint"><Icon name="info" size={14} /><span>제안서에서 쓰려면 Storyboard 파트의 ‘레이아웃 추가’ → 검색에서 “{l.name}”로 찾으면 돼요.</span></p>
       </>}
       actions={<>
-        <FavButton f={l.f} ov={ov} from={favFrom} label />
-        <button className="btn" onClick={onClose}>닫기</button>
-        {onEdit && <button className="btn tl-edit" onClick={() => onEdit(l)} title="이 레이아웃을 고쳐 나만의 템플릿(My)으로 저장"><Icon name="edit" size={15} />고쳐서 My에 저장</button>}
+        <button className="btn" onClick={close}>닫기</button>
         <button className="btn btn-primary" disabled={busy} onClick={download}>{busy ? <span className="spin" /> : <Icon name="download" size={15} />}{busy ? '만드는 중…' : 'PPTX로 받기'}</button>
-      </>} />
+      </>} />{peek.node}</>
   );
 }

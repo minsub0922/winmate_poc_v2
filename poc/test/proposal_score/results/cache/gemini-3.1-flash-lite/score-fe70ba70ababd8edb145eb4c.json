@@ -1,0 +1,112 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~full:F10"
+ },
+ "prompt_tokens": 7379,
+ "output_tokens": 989,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO와 Samsung VXT 솔루션을 하드웨어와 연계하여 본사 관리자부터 지점 점장까지의 운영 역할과 관리 장면을 구체적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "CMS · 택1 | 운영 모델 하나를 선택"
+     },
+     {
+      "sheet": 8,
+      "quote": "신제품 하나를 올리면, 지점 세 곳 화면이 함께 바뀝니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR7",
+    "score": 2,
+    "anchor": "유지보수 및 설치에 대한 언급은 있으나, 전원 및 네트워크 환경 전제와 고객이 구체적으로 준비해야 할 사항에 대한 명시가 부족함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "전환부터 운영 이관까지 지원"
+     },
+     {
+      "sheet": 12,
+      "quote": "유지보수 계약 개시"
+     }
+    ],
+    "improve": "설치 환경 전제(전원, 네트워크)와 고객이 준비해야 할 인프라 요건을 명확히 기술해야 함.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "전환, 안정화, 이관의 3단계 실행 계획과 각 단계별 역할 분담, 교육, 유지보수 계획이 구체적으로 정리됨.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "전환 완료 → 안정화(공동 운영) → 이관"
+     },
+     {
+      "sheet": 12,
+      "quote": "본사 · 점장 교육 이수"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 2,
+    "anchor": "장애 대응 및 이중화 등 기술적 리스크 대응은 있으나, 공사 중 영업이나 일정 지연 등 고객이 현장에서 걱정할 운영 리스크에 대한 대응 방안이 부족함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "서버실 · 이중화 2대"
+     },
+     {
+      "sheet": 12,
+      "quote": "장애 알림 · 출동 리허설"
+     }
+    ],
+    "improve": "공사 중 영업 영향 최소화 방안이나 일정 지연 시 대응책 등 고객의 현장 운영 리스크를 추가해야 함.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "마지막 장에 고객이 결정해야 할 3가지 항목과 구체적인 일정, 담당자, 산출물을 명확히 제시함.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "다음 3주, 함께 정할 세 가지"
+     },
+     {
+      "sheet": 13,
+      "quote": "보안 · 서버 요건 확인 → 운영 모델 결정"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "SB5",
+    "score": 1,
+    "anchor": "표지에 제출 날짜는 있으나 버전 표기가 없으며, 자동 점검 결과 표지에 제출 날짜가 없다고 인식되는 등 표기 체계가 미흡함.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "2026. 10"
+     }
+    ],
+    "improve": "표지에 명확한 버전 정보를 추가하고, 본문 내 일정과 표지 날짜의 일관성을 재검토해야 함.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

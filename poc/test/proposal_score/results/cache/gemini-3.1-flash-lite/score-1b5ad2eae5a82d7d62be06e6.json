@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~no_proof:F04"
+ },
+ "prompt_tokens": 1597,
+ "output_tokens": 152,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 1,
+    "anchor": "제안서 내에 도입 사례를 제시하는 파트가 없으며, 다른 장에서도 유사 업종의 도입 사례나 성과 수치를 언급한 내용이 확인되지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "유사 업종의 실제 도입 사례를 선정하여 도입 구성과 구체적인 성과 수치를 포함한 사례 섹션을 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

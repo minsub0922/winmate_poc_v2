@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11:F09"
+ },
+ "prompt_tokens": 2870,
+ "output_tokens": 258,
+ "data": {
+  "scores": [
+   {
+    "id": "PR2",
+    "score": 3,
+    "anchor": "7장의 요구사항 대응표에서 QM65C의 밝기(500nit), 운영 시간(24/7), 해상도(4K UHD) 등 모든 사양이 카탈로그 사양과 일치하며, 다른 장에서도 동일한 모델 사양을 유지하고 있습니다. 자동 점검의 오탐(400nit 표기 등)은 7장 본문 내용과 대조 결과 사실이 아님을 확인했습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "QM65C | 500nit | 초과"
+     },
+     {
+      "sheet": 7,
+      "quote": "QM65C | 24/7 운영 설계"
+     },
+     {
+      "sheet": 7,
+      "quote": "QM65C | 4K UHD"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

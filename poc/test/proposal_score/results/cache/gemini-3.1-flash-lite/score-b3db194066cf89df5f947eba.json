@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs12:F04"
+ },
+ "prompt_tokens": 3871,
+ "output_tokens": 239,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "대구 삼성라이온즈파크 사례를 제시했으나, 해당 사례에서 발생한 실제 성과 수치(예: 광고 수익 증가율 등)가 명시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "대구 삼성라이온즈파크 — 시즌 중 멈추지 않는 설비 케어"
+     },
+     {
+      "sheet": 10,
+      "quote": "결과 | 114대 | 시스템에어컨 전담 관리 | 130만 | 연 관중의 쾌적한 직관"
+     }
+    ],
+    "improve": "대구 삼성라이온즈파크 사례에서 LED 빅보드 도입 후 실제 광고 수익 증대나 운영 효율 개선과 같은 구체적인 성과 수치를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

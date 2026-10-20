@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs04:F04"
+ },
+ "prompt_tokens": 2790,
+ "output_tokens": 229,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "유사한 주거 분양 업종의 사례(KCC스위첸, 그란츠 리버파크)를 제시하고, 도입 솔루션과 청약 마감 성과 및 기능적 해결 방안을 구체적으로 기재하였습니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "KCC스위첸, 과제: 밀레니얼 입주자 취향 맞춤, 해결: 키친핏 냉장고 1~4도어 조합"
+     },
+     {
+      "sheet": 12,
+      "quote": "그란츠 리버파크, 과제: 하이엔드 단지의 프리미엄 스마트홈 차별화, 해결: SmartThings"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

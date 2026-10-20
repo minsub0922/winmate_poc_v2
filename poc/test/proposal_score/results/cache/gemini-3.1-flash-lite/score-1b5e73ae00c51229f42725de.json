@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08:F09"
+ },
+ "prompt_tokens": 8019,
+ "output_tokens": 171,
+ "data": {
+  "scores": [
+   {
+    "id": "PR5",
+    "score": 2,
+    "anchor": "호텔 TV 제품을 'HG43BU'와 '호텔 TV 43\"'로 혼용하여 표기하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "HG43BU"
+     },
+     {
+      "sheet": 6,
+      "quote": "호텔 TV 43\" HG43BU"
+     }
+    ],
+    "improve": "호텔 TV 제품을 'HG43BU'로 통일하여 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs09:F08"
+ },
+ "prompt_tokens": 1765,
+ "output_tokens": 213,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "제안서는 '늘 보이고 늘 켜져 있는 안내'와 '한 장의 상황판'이라는 고객 언어 기반의 가치를 제시하며, 이를 구현할 제품과 솔루션을 6~10장에서 명확히 연결하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "안내는 늘 보이고 늘 켜져 있습니다"
+     },
+     {
+      "sheet": 7,
+      "quote": "상황실은 한 장의 상황판으로 하루를 지킵니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "다섯 조건, 다섯 대응"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

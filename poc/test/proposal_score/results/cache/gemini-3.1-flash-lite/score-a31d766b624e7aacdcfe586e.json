@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~strip_images:F01"
+ },
+ "prompt_tokens": 8343,
+ "output_tokens": 304,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명을 'B 호텔'로 일관되게 표기하였으며, 규모(300실)와 담당 조직(객실팀, 시설팀 등) 정보가 장마다 동일하게 유지됩니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "B 호텔"
+     },
+     {
+      "sheet": 10,
+      "quote": "객실 300실"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "원가, 마진, 내부 할인율 등 민감 정보가 없으며, 제안서 마지막 장에 기재된 영업 담당자의 연락처는 정상적인 비즈니스 정보입니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

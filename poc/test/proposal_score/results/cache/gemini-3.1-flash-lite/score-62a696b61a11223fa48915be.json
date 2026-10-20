@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~wrong_customer:F06"
+ },
+ "prompt_tokens": 5502,
+ "output_tokens": 205,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "지점 수(180개)와 시범 대상(21개) 등 주요 수치가 모든 장에서 일관되게 기술되어 있으며, 요약표와 본문 간의 수치 모순이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "M 베이커리 180개 지점"
+     },
+     {
+      "sheet": 12,
+      "quote": "21개 지점 설치부터"
+     },
+     {
+      "sheet": 13,
+      "quote": "인천 · 부산 21곳"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

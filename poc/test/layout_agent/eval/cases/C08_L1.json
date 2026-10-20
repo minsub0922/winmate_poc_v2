@@ -1,0 +1,46 @@
+{
+ "id": "C08_L1",
+ "case": "C08",
+ "industry": "RS",
+ "strategy": "value",
+ "req_type": "new",
+ "title": "아파트 분양 빌트인 · 스마트홈",
+ "level": "minimal",
+ "input": {
+  "title": "M 건설 제안",
+  "customer": "M 건설",
+  "industry": "RS",
+  "free_text": "아파트 분양 건. 빌트인 인덕션, 식기세척기, 냉장고",
+  "products": [
+   "bi_induction",
+   "bi_dish",
+   "bi_fridge"
+  ],
+  "id": "C08_L1"
+ },
+ "gold": {
+  "level": "minimal",
+  "industry": "RS",
+  "scenario_any": [
+   "STD-RS"
+  ],
+  "must_parts": [
+   "value",
+   "products",
+   "case",
+   "why"
+  ],
+  "layouts_any": {
+   "value": [
+    "L_RV_A",
+    "L_VP_F"
+   ],
+   "products": [
+    "L_P_R",
+    "L_P3B"
+   ]
+  },
+  "key_reqs": [],
+  "facts": []
+ }
+}

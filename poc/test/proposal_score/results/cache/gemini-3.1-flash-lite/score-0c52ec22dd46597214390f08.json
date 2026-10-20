@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01:F09"
+ },
+ "prompt_tokens": 5065,
+ "output_tokens": 199,
+ "data": {
+  "scores": [
+   {
+    "id": "PR2",
+    "score": 1,
+    "anchor": "10장에서 OH55A-S의 크기를 24인치로 잘못 표기하였으며, 이는 카탈로그 사양인 55인치와 일치하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "옥외 사이니지 | OH55A-S | 55\" · 3,500nit(최대 4,000) · IP56 | 드라이브스루 첫 메뉴판"
+     }
+    ],
+    "improve": "10장의 OH55A-S 크기 표기를 55인치로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

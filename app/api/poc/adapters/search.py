@@ -149,7 +149,8 @@ def search(body: dict, settings: Settings) -> dict:
     unknown = [p for p in products if p not in base_kb.P] + [s for s in solutions if s not in base_kb.S]
     model = provider.model_for('quick')
     key_src = {'q': q, 'part': part, 'industry': industry, 'strategy': strategy, 'level': level, 'k': k, 'products': sorted(set(products)),
-               'solutions': sorted(set(solutions)), 'model': model, 'kb': generated, 'pool': RERANK_POOL}
+               'solutions': sorted(set(solutions)), 'provider': provider.name, 'endpoint': getattr(provider, 'base', ''),
+               'model': model, 'kb': generated, 'pool': RERANK_POOL}
     key = hashlib.sha256(json.dumps(key_src, sort_keys=True, ensure_ascii=False).encode('utf-8')).hexdigest()
     t0 = time.time()
     out, cache_state = CACHE.get_or_compute(key, lambda: _run(provider, model, base_kb, index, q, part, industry, strategy, level, k,
@@ -200,7 +201,7 @@ def _run(provider: Any, model: str, base_kb: Any, index: Any, q: str, part: str,
         if f == pinned:
             why = ['코드 일치'] + why
         if reasons.get(f):
-            why = [f'Gemini · {reasons[f]}'] + why
+            why = [f'AI · {reasons[f]}'] + why
         # rerank order is authoritative: reranked block scores sit above every retrieval-only score, strictly decreasing
         score = round(top + 1.0 + 0.1 * (n_head - rank), 2) if rank < n_head else round(c['score'], 2)
         items.append({'f': f, 'code': c['code'], 'name': card['name'], 'score': score, 'retrieval_score': round(c['score'], 2), 'rank': rank + 1,
@@ -211,7 +212,7 @@ def _run(provider: Any, model: str, base_kb: Any, index: Any, q: str, part: str,
     llm = tracker.summary()
     if not pool:
         llm.update(effective='none', reason='no_candidates')
-    return {'mode': 'real', 'engine': ENGINE, 'requested_mode': 'real', 'query': ranked.get('query'), 'items': jsonable(items),
+    return {'mode': 'real', 'engine': 'bm25+tfidf+'+provider.name, 'requested_mode': 'real', 'query': ranked.get('query'), 'items': jsonable(items),
             'counts': {'candidates': len(cands), 'reranked_pool': len(pool), 'model_ordered': len(order),
                        'layouts_active': sum(1 for c in kb.cards.values() if not c.get('retired'))},
             'rerank': {'model': model if pool else None, 'pool': len(pool), 'ordered': len(order), 'pinned': pinned, 'retrieval_ms': retrieval_ms,

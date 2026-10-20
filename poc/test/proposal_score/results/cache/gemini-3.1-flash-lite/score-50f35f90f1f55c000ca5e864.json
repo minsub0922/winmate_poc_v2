@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs17:F11"
+ },
+ "prompt_tokens": 2786,
+ "output_tokens": 220,
+ "data": {
+  "scores": [
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 59%가 10pt 미만이며, 9pt 미만 본문 칸이 7개 장에 걸쳐 존재하여 가독성이 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "본문 최소 11px(8.2pt)"
+     },
+     {
+      "sheet": 6,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정하고, 캡션이나 라벨 외의 본문 영역에서 작은 글자를 제거해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

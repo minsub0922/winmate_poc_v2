@@ -1,0 +1,49 @@
+{
+ "meta": {
+  "run_id": "20261012-gemini-v3",
+  "prompt_version": "v2",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "keys": {
+   "GEMINI_API_KEY": true,
+   "GEMINI_MODEL": true,
+   "TAVILY_API_KEY": true
+  },
+  "conds": [
+   "chunk_carry_gap"
+  ],
+  "max_chars": [
+   3000
+  ],
+  "tcs": [
+   "TC5"
+  ],
+  "rescored": "2026-10-12 11:31"
+ },
+ "rows": [
+  {
+   "tc": "TC5",
+   "cond": "chunk_carry_gap",
+   "max_chars": 3000,
+   "recall": 0.977,
+   "recall_with_summary": 0.98,
+   "projects": "4/4",
+   "misattributed": 0,
+   "chunks": 12,
+   "items": 361,
+   "lines": 359,
+   "grounded": 0.986,
+   "unsupported_nums": 0,
+   "near_dups": 1,
+   "calls": 29,
+   "tokens": 130969,
+   "ms": 99659,
+   "missed": [
+    "c33 국가계약법 시행령 제27조",
+    "c02 모니터 연 500대",
+    "c03 노트북 연 360대"
+   ],
+   "errors": []
+  }
+ ]
+}

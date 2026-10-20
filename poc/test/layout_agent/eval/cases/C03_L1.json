@@ -1,0 +1,43 @@
+{
+ "id": "C03_L1",
+ "case": "C03",
+ "industry": "HT",
+ "strategy": "pain",
+ "req_type": "renew",
+ "title": "비즈니스 호텔 객실 리뉴얼",
+ "level": "minimal",
+ "input": {
+  "title": "G 호텔 제안",
+  "customer": "G 호텔",
+  "industry": "HT",
+  "free_text": "호텔 객실 TV 제안",
+  "products": [
+   "hoteltv"
+  ],
+  "id": "C03_L1"
+ },
+ "gold": {
+  "level": "minimal",
+  "industry": "HT",
+  "scenario_any": [
+   "STD-HT"
+  ],
+  "must_parts": [
+   "value",
+   "products",
+   "case",
+   "why"
+  ],
+  "layouts_any": {
+   "products": [
+    "L_P1B"
+   ],
+   "value": [
+    "L_VP_U_HT",
+    "L_VP_G"
+   ]
+  },
+  "key_reqs": [],
+  "facts": []
+ }
+}

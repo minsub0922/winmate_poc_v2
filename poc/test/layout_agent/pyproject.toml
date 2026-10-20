@@ -1,0 +1,21 @@
+[project]
+name = "winmate-layout-agent"
+version = "0.1.0"
+description = "Winmate v2 — 요구사항 분석 → storyboard → PPT 레이아웃 추천(RAG) → 값 입력 LangGraph 에이전트 (PoC)"
+requires-python = ">=3.10"
+dependencies = [
+  "langgraph>=1.0",
+  "langchain-core>=1.0",
+  "langchain-google-genai>=4.0",
+  "pydantic>=2.7",
+  "python-dotenv>=1.0",
+  "numpy>=1.26",
+  "scikit-learn>=1.4",
+]
+
+[project.optional-dependencies]
+agent = ["deepagents>=0.7; python_version >= '3.11'"]
+dev = ["pytest>=8", "playwright>=1.45", "pillow>=10"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs05:F04"
+ },
+ "prompt_tokens": 8850,
+ "output_tokens": 422,
+ "data": {
+  "scores": [
+   {
+    "id": "CU6",
+    "score": 3,
+    "anchor": "테마파크 업종의 핵심인 대기 동선, 시즌별 운영, 야간 공연 등 운영 맥락을 정확히 이해하고 있으며, 에버랜드 등 적절한 테마파크 사례를 인용함.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "가족 · 어린이 동반 48% | 아이가 지루하지 않게 — 대기 시간 · 동선 · 안전에 가장 민감"
+     },
+     {
+      "sheet": 12,
+      "quote": "시즌마다 새로워지는 구역, 열두 달 운영 캘린더로 미리 짭니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "옥외 무대용 XHB, 실내 몰입형 IFR, 관제용 VM55B 등 각 공간의 환경적 특성(직사광, 24/7 운영 등)에 최적화된 제품을 명확히 매칭함.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "실외 LED XHB (곡면) | 하만 프로 오디오(JBL) | 운영실 비디오월 VM55B"
+     },
+     {
+      "sheet": 11,
+      "quote": "실외 LED XHB 피치 3안 · 최적 시청 거리 · 해상도 · 캐비닛 수 · 밝기 · 상대 비용"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

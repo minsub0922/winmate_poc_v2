@@ -1,0 +1,207 @@
+<script>
+		$('button.spec-title').on("click", function(e){
+			e.preventDefault();
+			$('div[name="specLayer"] > .layer-header > h2').text(this.innerText);
+			$('div[name="specLayer"] > .layer-content > p').text(this.value);
+
+			let newId = $(this).data('popup-target');
+			$('div[name="specLayer"]').attr('id', newId);
+			$('div[name="specLayer"] > .pop-close').attr('data-focus-next', newId);
+			$('div[name="specLayer"]').attr('data-popup-layer', newId);
+			$('div[name="specLayer"]').attr('data-focus', newId);
+		});
+	</script>
+	<h3 class="spec-itm-title" id="cstrt-nm" ></h3>
+	<div class="spec-table">
+		<dl>
+						<dt>기본 사양</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">호환 기기</strong>
+													<p class="spec-desc">SL-C510, C510W, C513, C513W, C563FW, C563W&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>유니트 박스</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">제품크기 (WxDxH)</strong>
+													<p class="spec-desc">361 x 273 x 193 mm&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">무게 (카트리지+쿠션+박스+기타 포장재 무게)</strong>
+													<p class="spec-desc">3,100 g&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">무게 (박스 한)</strong>
+													<p class="spec-desc">400 g&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>마스터 박스</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">마스터 박스 내 유니트 박스 개수</strong>
+													<p class="spec-desc">4&nbsp;개</p>
+												</li>
+								<li>
+										<strong class="spec-title">제품크기 (WxDxH)</strong>
+													<p class="spec-desc">564 x 379 x 417 mm&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">무게 (카트리지+충격완충재+박스+기타 포장재)</strong>
+													<p class="spec-desc">13.6 kg&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>팔레트</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">제품크기 (WxDxH)</strong>
+													<p class="spec-desc">1,149 x 1,140 x 2,085 mm&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">컨테이너 내 팔레트 개수</strong>
+													<p class="spec-desc">20ft: 10 pallet/container, 40ft: 20 pallet/container, 40ft (H): 20 pallet/container&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">팔레트 내 마스터 박스 개수</strong>
+													<p class="spec-desc">20ft: 30 x 10 = 300 master box, 40ft: 30 x 20 = 600 master box, 40ft(H): 36 x 20 = 720 master box&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+				<dt>생활화학제품 및 <br/>상품기본 정보</dt>
+				<dd>
+					<ol>
+						<li>
+								<strong class="spec-title">품목</strong>
+								<p class="spec-desc">잉크∙토너
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">제품명</strong>
+								<p class="spec-desc">씨엘티-피510씨/티엔디(CLT-P510C/TND)
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">용도</strong>
+								<p class="spec-desc">인쇄용 토너
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">제형</strong>
+								<p class="spec-desc">카트리지형
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">제조연월</strong>
+								<p class="spec-desc">별도표기
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">유통기한</strong>
+								<p class="spec-desc">해당없음
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">중량∙용량∙매수</strong>
+								<p class="spec-desc">K: 1,500 / CMY: 1,000 
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">효과∙효능</strong>
+								<p class="spec-desc">해당없음
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">수입자</strong>
+								<p class="spec-desc">에이치피프린팅코리아 유한회사, (13105)경기도 성남시 수정구 연내개울로 26 (고등동) , 031 - 5176 - 7700
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">제조국</strong>
+								<p class="spec-desc">중국
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">제조사</strong>
+								<p class="spec-desc">푸타이화 정밀산업(Futaihua Precision Industry)</p>
+							</li>
+						<li>
+								<strong class="spec-title">어린이 보호포장대상 제품 유무</strong>
+								<p class="spec-desc">해당없음
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">제품에 사용된 화학물질 명칭</strong>
+								<p class="spec-desc">스타이렌-아크릴계 레진
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">사용상 주의사항</strong>
+								<p class="spec-desc">제품을 교체ㆍ제거할 때 내용물의 누출에 주의하시오.
+내용물 누출시 분진ㆍ미스트ㆍ증기의 흡입 또는 피부 접촉에 주의하시오.
+가정용 진공청소기로 토너를 청소하지 말고, 젖은 천으로 닦아내시오.
+용도 외에는 사용하지 마십시오.
+어린이의 손이 닿지 않는 곳에 보관하십시오.
+사람이나 음식물에 닿지 않도록 주의하십시오.
+용기와 결합된 뚜껑을 억지로 벗기지 마십시오.
+밀폐된 공간에서 사용 시 충분히 환기를 하십시오.
+사용 후 잔량은 잘못 사용될 우려가 있으므로 즉시 폐기하십시오.</p>
+							</li>
+						<li>
+								<strong class="spec-title">안전기준 적합확인 신고번호(자가검사번호)</strong>
+								<p class="spec-desc">HB22-18-0064
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">소비자상담 관련 전화번호</strong>
+								<p class="spec-desc">삼성전자서비스센터 / 1588-3366
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">KC 인증 필 유무</strong>
+								<p class="spec-desc">무(해당없음)
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">동일모델의 출시년월</strong>
+								<p class="spec-desc">2022년 11월
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">A/S 책임자와 전화번호</strong>
+								<p class="spec-desc">삼성전자서비스센터 / 1588-3366
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">품질보증기준</strong>
+								<p class="spec-desc">결함·하자 등에 따른 소비자피해에 대해서는 소비자분쟁해결기준(소비자기본법 제16조)에 따라 보상가능
+</p>
+							</li>
+						</ol>
+				</dd>
+			</dl>
+		</div>
+	<div class="layer-pop layer-normal layer-default specLayer active" name="specLayer" id="specLayer" tabindex="0" data-popup-layer="specLayer" data-focus="specLayer" aria-hidden="false" data-zindex="300" style="z-index: 300; display: none">
+		<div class="layer-header">
+			<h2></h2>
+		</div>
+		<div class="layer-content">
+			<p></p>
+		</div>
+		<button type="button" class="pop-close" data-focus-next="">팝업닫기</button>
+	</div>
+

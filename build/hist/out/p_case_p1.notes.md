@@ -1,0 +1,13 @@
+# P1 · S시 스마트 버스정류장 — 메모
+- 파트 8 · 장 16 + 표지 1 = 17장. 상태: 표지 · 기 · 승 done → 전 done/partial/empty → 결 empty.
+- 순서: RFP 평가 순서 — 사업 이해(RM_C · RQ_D) → 시장(TR_A · IM_B) → 옥외 조건(CH_A · CH_K) → 시스템 구성(SA_B · MGI_D) → 제품(P_K · P1_C) → 요구 대응(SC_B · VP_U) → 수행 실적(CD_C · CD_D) → 설치 · 유지보수(IP_A · MT_A).
+- 감사 반영:
+  - SC_B 6행 모두 공식 사양으로 충족(3,500 nit · IP56 · MagicINFO 원격 관리 · −30~50℃ · 24/7 · MagicINFO 장애 알림). t51 ‘6 / 6’ · t52 ‘충족 · 공식 사양 기준’ · t53 ‘다음 장’. 행 순서는 고정 아이콘 모양(넓음 · 넓음 · SW · 넓음 · 세로 · SW)에 맞춤 — 그래서 IK10 은 표에서 빠짐.
+  - 확인 중 3건(야간 휘도 · 재난 문자 · 4개 언어)은 [6.2] SE_B → L_PH_VP_U(partial)로 옮김. 수치 주장 없음, 뒤쪽 글 t29/t30 은 예시로 남김.
+  - RM_C t47 · 실행 items[1] ‘협력사 거점 확인 중’. t42 · t35 · t76 · RQ_D t2 · CH_A t22 · CH_K t29 · TR_A t0 문구 교체.
+  - 미디어폴 사진 2장으로 줄임(TR_A 야간 · CH_A 주간). 03(사용자 장면) · 06(원인) 각도 분리, P1_C 를 설치 · 운영 각도로.
+  - [7.2] PH_CL_C → L_CD_D(두 사례), [8.1] PH_IP_A(기본 사진 중복 · ‘[0]시간 안에 대응’ 칸) → L_IP_A(현장 체크리스트).
+- 새 사진 3: `p1-outdoor-plaza` · `p1-weather-proof` · `p1-stand-entrance` (OH55A-S 제품 페이지, samsung.com).
+- 검사 오류 0 · 확인 3(IM_B · VP_U 유형 — 의도, weather-proof 흰 여백 의심 — 눈으로 확인, 문제 없음).
+- dupcheck ✗ 0. ? 2쌍(bs11-8-1 대시보드 ↔ public.json#15 · r9-bs09#4)은 눈으로 확인 — 서로 다른 사진.
+- ledger 추가 없음.

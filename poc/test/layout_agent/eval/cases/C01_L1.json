@@ -1,0 +1,45 @@
+{
+ "id": "C01_L1",
+ "case": "C01",
+ "industry": "FB",
+ "strategy": "value",
+ "req_type": "new",
+ "title": "카페 프랜차이즈 디지털 메뉴보드",
+ "level": "minimal",
+ "input": {
+  "title": "C 커피 제안",
+  "customer": "C 커피 프랜차이즈",
+  "industry": "FB",
+  "free_text": "커피 프랜차이즈 고객. 스마트 사이니지랑 키오스크 제안",
+  "products": [
+   "qm55c",
+   "kiosk"
+  ],
+  "id": "C01_L1"
+ },
+ "gold": {
+  "level": "minimal",
+  "industry": "FB",
+  "scenario_any": [
+   "STD-FB"
+  ],
+  "must_parts": [
+   "value",
+   "products",
+   "case",
+   "why"
+  ],
+  "layouts_any": {
+   "value": [
+    "L_VP_F2",
+    "L_VP_U"
+   ],
+   "products": [
+    "L_P2B",
+    "L_P2A"
+   ]
+  },
+  "key_reqs": [],
+  "facts": []
+ }
+}

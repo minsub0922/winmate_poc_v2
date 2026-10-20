@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs03:F09"
+ },
+ "prompt_tokens": 7886,
+ "output_tokens": 221,
+ "data": {
+  "scores": [
+   {
+    "id": "PR5",
+    "score": 3,
+    "anchor": "제안서 전반에서 QM55C와 SM-X930을 각각 스마트 사이니지, 갤럭시 탭 S11 울트라와 함께 명시한 후, 이후에는 해당 모델명으로 일관되게 표기하여 혼동이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "QM55C ×5 · Flip Pro ×2"
+     },
+     {
+      "sheet": 9,
+      "quote": "QM55C | 55\" 스마트 사이니지"
+     },
+     {
+      "sheet": 8,
+      "quote": "교수용 탭 | SM-X930"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

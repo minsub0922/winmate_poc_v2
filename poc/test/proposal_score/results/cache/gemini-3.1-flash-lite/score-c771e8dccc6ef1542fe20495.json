@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs15:F11"
+ },
+ "prompt_tokens": 3051,
+ "output_tokens": 473,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 10개로 4장 이상이며, 장당 평균 어절 수가 149어절로 매우 높아 발표 자료로 읽히기에 부적합합니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "입구에서 계산대까지, 신선 · 냉동 · 공조를 한 화면으로"
+     },
+     {
+      "sheet": 6,
+      "quote": "냉장 · 냉동과 에어컨을 한 시스템으로"
+     }
+    ],
+    "improve": "각 장의 핵심 메시지를 중심으로 텍스트를 대폭 줄이고, 개조식 구성을 활용하여 장당 어절 수를 77어절 이하로 낮춰야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "12pt(16px) 미만인 본문 칸이 12장 전체에 존재하며, 9pt(12px) 미만인 본문 칸도 8장에 달해 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "본문 최소 9.5px(7.1pt)"
+     },
+     {
+      "sheet": 6,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 2,
+      "quote": "본문 최소 11px(8.2pt)"
+     }
+    ],
+    "improve": "모든 본문 텍스트의 크기를 12pt(16px) 이상으로 상향 조정하고, 작은 글자는 라벨이나 캡션 용도로만 제한해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

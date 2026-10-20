@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04:F07"
+ },
+ "prompt_tokens": 2502,
+ "output_tokens": 197,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 1,
+    "anchor": "제안서 내에 절감액, 시간, 매출, KPI 등 정량적 효과에 대한 수치나 그 산정 근거가 전혀 제시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": ""
+     },
+     {
+      "sheet": 12,
+      "quote": ""
+     }
+    ],
+    "improve": "제안하는 스마트홈 솔루션이나 빌트인 가전 도입을 통해 기대되는 에너지 절감률, 옵션 계약률 상승 목표치, 혹은 입주 후 민원 감소율 등을 구체적인 수치와 산정 근거로 제시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

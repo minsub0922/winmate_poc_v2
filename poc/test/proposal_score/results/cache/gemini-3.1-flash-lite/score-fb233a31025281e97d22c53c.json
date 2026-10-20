@@ -1,0 +1,82 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~strip_images:F11"
+ },
+ "prompt_tokens": 4407,
+ "output_tokens": 698,
+ "data": {
+  "scores": [
+   {
+    "id": "DS1",
+    "score": 2,
+    "anchor": "4장에서 텍스트 넘침이 발생하였고, 2, 12, 13, 16장의 제목 위치가 다른 장과 일관되지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "① 메뉴 · 가격 반영"
+     },
+     {
+      "sheet": 2,
+      "quote": "제안 개요"
+     }
+    ],
+    "improve": "제목 위치를 모든 장에서 동일하게 통일하고, 4장의 텍스트 넘침 문제를 해결해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 초과하는 장이 10개로 기준인 4개를 크게 상회하며, 장당 평균 어절 수도 145개로 매우 높습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "카페 시장은 이미 화면으로 갑니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "A 커피 DT 매장의 일곱 공간"
+     }
+    ],
+    "improve": "각 장의 텍스트를 핵심 위주로 요약하여 장당 어절 수를 77개 이하로 대폭 줄여야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 57%가 10pt 미만이며, 9pt 미만 본문 칸이 9개 장에 걸쳐 나타나 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "카페 시장은 이미 화면으로 갑니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "A 커피 DT 매장의 일곱 공간"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS6",
+    "score": 1,
+    "anchor": "15개 장 모두 실제 사진이나 도식 없이 텍스트로만 구성되어 있으며, 빈 이미지 칸이 다수 존재합니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": ""
+     },
+     {
+      "sheet": 10,
+      "quote": "카운터부터 DT까지"
+     }
+    ],
+    "improve": "텍스트 위주의 장표를 실제 제품 사진, 공간 도식, 차트 등 시각 자료로 대체해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

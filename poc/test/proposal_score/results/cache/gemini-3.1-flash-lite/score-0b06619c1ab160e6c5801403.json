@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs03:F09"
+ },
+ "prompt_tokens": 7994,
+ "output_tokens": 198,
+ "data": {
+  "scores": [
+   {
+    "id": "PR5",
+    "score": 2,
+    "anchor": "갤럭시 탭 S11 울트라와 SM-X930을 혼용하고 있으나, 문맥상 동일 제품임을 명확히 알 수 있습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "교수용 탭 | SM-X930"
+     },
+     {
+      "sheet": 5,
+      "quote": "갤럭시 탭 S11 울트라"
+     }
+    ],
+    "improve": "제안서 전반에서 갤럭시 탭 S11 울트라(SM-X930)와 같이 표기하거나 하나로 통일해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs14:F03"
+ },
+ "prompt_tokens": 2911,
+ "output_tokens": 231,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 2,
+    "anchor": "12장과 13장에 비용 절감 및 업무 효율 지표가 제시되어 있으나, 결정권자를 위한 별도의 요약 장(Executive Summary)이 존재하지 않고 실무 지표와 경영 지표가 혼재되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "이상 보고, 5단계 45분에서 2단계 10분으로"
+     },
+     {
+      "sheet": 13,
+      "quote": "전 공장 확산 후, 네 지표가 이렇게 달라집니다"
+     }
+    ],
+    "improve": "제안서 초반부에 경영진이 즉각적으로 판단할 수 있도록 비용 절감 및 리스크 관리 성과를 요약한 Executive Summary 장을 추가하십시오.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

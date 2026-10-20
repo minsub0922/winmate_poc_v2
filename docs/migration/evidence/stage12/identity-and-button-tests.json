@@ -1,0 +1,151 @@
+{
+  "passed": 24,
+  "total": 24,
+  "cases": [
+    {
+      "group": "identity",
+      "name": "API supplies the persistent shared ID and endpoint",
+      "passed": true,
+      "ms": 65
+    },
+    {
+      "group": "identity",
+      "name": "all ordinary histories receive endpoints without opening a storyboard",
+      "passed": true,
+      "ms": 2664
+    },
+    {
+      "group": "identity",
+      "name": "history endpoint survives reload and matches the browser address",
+      "passed": true,
+      "ms": 3160
+    },
+    {
+      "group": "identity",
+      "name": "the same local history ID reuses its endpoint in another browser",
+      "passed": true,
+      "ms": 16
+    },
+    {
+      "group": "identity",
+      "name": "a direct guest endpoint opens the exact saved original",
+      "passed": true,
+      "ms": 1579
+    },
+    {
+      "group": "identity",
+      "name": "legacy token-only metadata acquires its ID and endpoint",
+      "passed": true,
+      "ms": 1538
+    },
+    {
+      "group": "identity",
+      "name": "ID and endpoint metadata can share before a refresh succeeds",
+      "passed": true,
+      "ms": 1636
+    },
+    {
+      "group": "identity",
+      "name": "a long local history ID is never mistaken for a public endpoint",
+      "passed": true,
+      "ms": 1510
+    },
+    {
+      "group": "identity",
+      "name": "foreign URLs and malformed paths cannot become shared links",
+      "passed": true,
+      "ms": 1593
+    },
+    {
+      "group": "identity",
+      "name": "guest sharing retains the original endpoint without creating another ID",
+      "passed": true,
+      "ms": 1662
+    },
+    {
+      "group": "identity",
+      "name": "background histories do not continuously poll while no storyboard is open",
+      "passed": true,
+      "ms": 4829
+    },
+    {
+      "group": "identity",
+      "name": "re-registering a history ID preserves server edits and endpoint",
+      "passed": true,
+      "ms": 20
+    },
+    {
+      "group": "button",
+      "name": "offline refresh never disables copying an existing endpoint",
+      "passed": true,
+      "ms": 2925
+    },
+    {
+      "group": "button",
+      "name": "a delayed initial refresh does not block an existing link",
+      "passed": true,
+      "ms": 2027
+    },
+    {
+      "group": "button",
+      "name": "first registration still allows opening the sharing dialog",
+      "passed": true,
+      "ms": 3659
+    },
+    {
+      "group": "button",
+      "name": "registration errors are actionable inside the dialog and retry succeeds",
+      "passed": true,
+      "ms": 3719
+    },
+    {
+      "group": "button",
+      "name": "switching histories always copies the selected history endpoint",
+      "passed": true,
+      "ms": 3581
+    },
+    {
+      "group": "button",
+      "name": "a repaired token updates an already open sharing dialog",
+      "passed": true,
+      "ms": 1788
+    },
+    {
+      "group": "button",
+      "name": "a metadata change reconnects to the new session without remounting",
+      "passed": true,
+      "ms": 1976
+    },
+    {
+      "group": "button",
+      "name": "clipboard failure leaves the exact endpoint available for manual copy",
+      "passed": true,
+      "ms": 1791
+    },
+    {
+      "group": "button",
+      "name": "sidebar sharing opens the same persistent history endpoint",
+      "passed": true,
+      "ms": 2446
+    },
+    {
+      "group": "button",
+      "name": "390px mobile shares the selected history endpoint",
+      "passed": true,
+      "ms": 1492
+    },
+    {
+      "group": "button",
+      "name": "read-only guests copy the same endpoint",
+      "passed": true,
+      "ms": 1423
+    },
+    {
+      "group": "button",
+      "name": "editable guests share the original without a reuse action",
+      "passed": true,
+      "ms": 1436
+    }
+  ],
+  "errors": []
+}

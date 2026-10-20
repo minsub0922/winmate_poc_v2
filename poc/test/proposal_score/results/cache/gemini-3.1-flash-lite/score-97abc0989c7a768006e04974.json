@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~no_proof:F04"
+ },
+ "prompt_tokens": 2655,
+ "output_tokens": 223,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "말리커피 강남점이라는 실제 사례와 도입 구성, 성과 수치를 제시했으나, 해당 사례가 A 커피와 같은 프랜차이즈 규모의 도입 사례인지에 대한 적합성 설명이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "카운터 메뉴보드 — 말리커피 강남점"
+     },
+     {
+      "sheet": 12,
+      "quote": "메뉴 반영은 9일에서 당일로 줄어듭니다"
+     }
+    ],
+    "improve": "말리커피 강남점 사례가 A 커피와 같은 대규모 프랜차이즈 운영 환경에 어떻게 적용될 수 있는지 규모 적합성을 보완해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

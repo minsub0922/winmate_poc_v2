@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs13:F05"
+ },
+ "prompt_tokens": 8233,
+ "output_tokens": 260,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "대부분의 장에서 수치에 대한 구체적인 출처(기관명, 연도)가 명시되지 않았으며, 일부는 '삼성전자 추정'과 같이 모호하게 표기되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "140개 매장 전기료 −18%"
+     },
+     {
+      "sheet": 5,
+      "quote": "전기료는 2년 새 21% 올랐습니다"
+     },
+     {
+      "sheet": 10,
+      "quote": "매장당 연 전력 비용 1,680만 원"
+     }
+    ],
+    "improve": "모든 수치 데이터에 대해 조사 기관과 연도를 명확히 기재하고, 고객 내부 자료는 '고객사 운영 자료(2026)'와 같이 구체적으로 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

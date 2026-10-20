@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs02:F03"
+ },
+ "prompt_tokens": 3206,
+ "output_tokens": 183,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "6장에서 이해관계자별 가치를 경영진과 실무진으로 구분하여 정리하였고, 16장에서 결정권자가 최종적으로 확정해야 할 세 가지 사항을 명확히 요약하여 제시함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "대표이사 · 경영진 | AI Ready 오피스를 실측 데이터로 증명합니다"
+     },
+     {
+      "sheet": 16,
+      "quote": "설계 확정 전, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07:F01"
+ },
+ "prompt_tokens": 8658,
+ "output_tokens": 262,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명을 'B 호텔'로 일관되게 표기하였으며, 객실 수(300실)와 담당 조직(객실팀, 시설팀, 프런트 등) 정보가 장마다 동일하게 유지됩니다. 사례로 인용된 호텔명은 실제 도입 사례를 보여주기 위한 것으로, 제안 대상인 B 호텔의 정보와 혼동 없이 명확히 구분되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "B 호텔 객실 TV · 공조 교체와 투숙 경험 개선 제안"
+     },
+     {
+      "sheet": 10,
+      "quote": "객실 300실은 한 실의 키트로"
+     },
+     {
+      "sheet": 13,
+      "quote": "B 호텔 객실 TV · 공조 리뉴얼"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~base:F10"
+ },
+ "prompt_tokens": 2882,
+ "output_tokens": 363,
+ "data": {
+  "scores": [
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "실행 단계와 일정, 역할 분담은 명확히 제시되었으나, 교육 및 유지보수 계획에 대한 구체적인 언급이 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "실사부터 파일럿 결과까지 16주, 네 단계로 갑니다"
+     },
+     {
+      "sheet": 9,
+      "quote": "단계별 일정과 책임"
+     }
+    ],
+    "improve": "운영 이관을 위한 교육 계획과 향후 유지보수 체계에 대한 내용을 로드맵에 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "마지막 장에서 현장 실사, 워크숍, 맞춤 제안 및 파일럿 승인으로 이어지는 단계별 일정과 담당자, 산출물이 명확히 제시되었습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "2주 안에 현장부터, 세 단계로"
+     },
+     {
+      "sheet": 10,
+      "quote": "현장 실사 · 대표 사업장 3곳 · 11/02 – 11/13"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

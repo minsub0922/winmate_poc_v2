@@ -1,0 +1,57 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs09:F01"
+ },
+ "prompt_tokens": 8721,
+ "output_tokens": 411,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명을 'S 교통공사'로 일관되게 표기하였으며, 다른 고객사명이나 예시 고객명이 발견되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "S 교통공사"
+     },
+     {
+      "sheet": 13,
+      "quote": "S 교통공사"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "제안서 내에 자리표시자나 템플릿 잔여물이 존재하지 않으며, 13장의 연락처는 제안 담당자의 정보로 적절합니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 2,
+    "anchor": "10장에서 내부 검토용으로 보이는 '확인 필요' 문구가 5회 반복되어 내부 작업 표시로 판단됩니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "확인 필요"
+     }
+    ],
+    "improve": "10장의 '확인 필요' 문구를 실제 확인된 정보로 수정하거나 삭제해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

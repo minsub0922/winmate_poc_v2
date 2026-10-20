@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs09:F01"
+ },
+ "prompt_tokens": 8127,
+ "output_tokens": 156,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "13장에 제안 담당자의 연락처가 예시용(가짜) 값으로 기재되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · 010-1234-5678 · b2b.proposal@samsung.com"
+     }
+    ],
+    "improve": "제안서 제출 전 담당자의 실제 연락처 정보로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

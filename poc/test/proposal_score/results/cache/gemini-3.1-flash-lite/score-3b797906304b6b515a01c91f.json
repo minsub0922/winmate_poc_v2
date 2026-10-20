@@ -1,0 +1,56 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~number_conflict:F08"
+ },
+ "prompt_tokens": 1964,
+ "output_tokens": 450,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "고객의 요구사항인 운영 효율, 보안, 현장 사용성을 반영하여 3가지 핵심 가치를 제시하고, 각 가치를 구현하는 솔루션(CMS, 클라우드 등)을 명확히 연결함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "화면부터 운영 서비스까지, 바뀌는 층은 CMS 하나입니다"
+     },
+     {
+      "sheet": 6,
+      "quote": "데이터는 M 베이커리 안에 머뭅니다"
+     },
+     {
+      "sheet": 7,
+      "quote": "지점에는 화면만, 나머지는 클라우드에"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS3",
+    "score": 3,
+    "anchor": "현황 이해(2,3장)에서 가치 제안(4~7장), 해결책(8,9장), 비용 근거(10,11장), 실행 계획(12장) 및 결정 요청(13장)으로 이어지는 논리적 흐름이 자연스러움.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "M 베이커리 180개 지점, 61%가 수도권에 있습니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "시범이 끝나도 멈추지 않도록, 세 단계로 운영을 넘깁니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "다음 3주, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

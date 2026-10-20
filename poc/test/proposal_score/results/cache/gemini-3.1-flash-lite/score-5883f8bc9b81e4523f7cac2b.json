@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs03:F08"
+ },
+ "prompt_tokens": 2152,
+ "output_tokens": 222,
+ "data": {
+  "scores": [
+   {
+    "id": "DS7",
+    "score": 3,
+    "anchor": "14개 장 중 12개의 제목이 결론을 담은 문장형으로 구성되어 있으며, 전체 흐름을 읽으면 제안의 핵심 논리가 자연스럽게 연결됩니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "E 대학교가 놓인 시장은 참여형 수업 · 무인 운영으로 움직입니다"
+     },
+     {
+      "sheet": 6,
+      "quote": "E 대학교 강의실은 수업 전 · 중 · 후를 스스로 맞춥니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "학기를 멈추지 않고, 방학 6주에 끝냅니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

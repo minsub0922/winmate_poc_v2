@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs01:F03"
+ },
+ "prompt_tokens": 4377,
+ "output_tokens": 378,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "운영본부장 등 결정권자가 필요로 하는 성과와 리스크 지표를 제안 개요(2장)와 다음 단계(16장)에 명확히 구분하여 요약했습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "기대 효과 | 9일 → 당일 | 메뉴 · 가격 반영 | 연 −85% | 인쇄 · 배송비"
+     },
+     {
+      "sheet": 16,
+      "quote": "다음 2주, 함께 정할 세 가지 | 시범 매장 10곳 · 실사 일정 확정"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS7",
+    "score": 2,
+    "anchor": "파일럿 착수 단계에서 발주 방식을 논의하겠다고 명시했으나, 구체적인 비용 구조나 총소유비용(TCO) 산정 전제는 아직 제시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 16,
+      "quote": "구독 · 렌탈 · 구매 중 발주 방식"
+     }
+    ],
+    "improve": "구독, 렌탈, 구매 방식에 따른 총소유비용(TCO) 비교표와 유지보수 비용 등 숨은 비용에 대한 가이드를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

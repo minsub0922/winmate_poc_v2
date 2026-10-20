@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~base:F05"
+ },
+ "prompt_tokens": 8873,
+ "output_tokens": 275,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 2,
+    "anchor": "대부분의 수치에 출처가 명시되어 있으나, 일부 장(2, 5, 7, 9, 10, 11, 16)에서는 수치에 대한 구체적인 출처 표기가 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "단위 억 원 · 출처 삼성전자 추정(2026)"
+     },
+     {
+      "sheet": 4,
+      "quote": "지표는 A 커피 운영 자료(2026) 기준"
+     },
+     {
+      "sheet": 12,
+      "quote": "A 커피 운영 자료(2026) 기준"
+     }
+    ],
+    "improve": "출처가 누락된 장(2, 5, 7, 9, 10, 11, 16)의 모든 수치에 대해 조사 기관과 연도를 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

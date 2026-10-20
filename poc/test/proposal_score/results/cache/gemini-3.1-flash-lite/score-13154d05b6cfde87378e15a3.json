@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~wrong_customer:F11"
+ },
+ "prompt_tokens": 2679,
+ "output_tokens": 248,
+ "data": {
+  "scores": [
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "모든 장의 본문 글자 크기가 12pt(16px) 미만이며, 9pt(12px) 미만인 장이 7장이나 포함되어 있어 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "본문 최소 10px(7.5pt)"
+     },
+     {
+      "sheet": 11,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 7,
+      "quote": "본문 최소 11px(8.2pt)"
+     }
+    ],
+    "improve": "모든 본문 텍스트의 크기를 12pt(16px) 이상으로 상향 조정하여 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

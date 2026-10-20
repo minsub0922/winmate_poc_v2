@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs12:F01"
+ },
+ "prompt_tokens": 8032,
+ "output_tokens": 380,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "13장의 담당자 연락처 정보가 템플릿 형식으로 남아 있으며, 6장의 '인천SK행복드림구장'은 예시 고객명으로 판단됩니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "010-1234-5678 · b2b.proposal@samsung.com"
+     },
+     {
+      "sheet": 6,
+      "quote": "인천SK행복드림구장"
+     }
+    ],
+    "improve": "템플릿 잔여물인 연락처 예시를 삭제하고, 사례로 인용한 타 구장명을 명확히 구분하여 표기해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "12장의 할인율 언급은 제안의 가정 사항이며, 13장의 연락처는 영업 담당자의 공식 업무 연락처로 민감 정보 노출에 해당하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "할인율 미적용"
+     },
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

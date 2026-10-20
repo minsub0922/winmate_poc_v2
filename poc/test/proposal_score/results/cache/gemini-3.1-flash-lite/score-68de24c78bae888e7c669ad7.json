@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~base:F07"
+ },
+ "prompt_tokens": 4208,
+ "output_tokens": 225,
+ "data": {
+  "scores": [
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "삼성의 통합 솔루션(MagicINFO/VXT), 라인업(QM/OM/KM/QB), 전국 서비스망(유지보수 5년)을 고객의 운영 효율화 및 보안 과제와 연결하여 구체적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "운영 서비스 · 전환부터 운영 이관까지 지원"
+     },
+     {
+      "sheet": 6,
+      "quote": "데이터는 M 베이커리 안에 머뭅니다"
+     },
+     {
+      "sheet": 9,
+      "quote": "본사 PC 한 곳에서 180개 지점 · 화면 360대"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

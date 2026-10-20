@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~no_proof:F05"
+ },
+ "prompt_tokens": 8734,
+ "output_tokens": 248,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 2,
+    "anchor": "주요 시장 규모나 성과 지표에는 출처가 명시되어 있으나, 일부 장에서는 수치에 대한 구체적인 출처가 생략되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "수치는 삼성전자 추정"
+     },
+     {
+      "sheet": 4,
+      "quote": "지표는 A 커피 운영 자료(2026) 기준"
+     },
+     {
+      "sheet": 12,
+      "quote": "A 커피 운영 자료(2026) 기준"
+     }
+    ],
+    "improve": "출처가 누락된 장(2, 5, 7, 9, 10, 11, 15)의 모든 수치에 대해 근거 기관과 연도를 명확히 기재해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

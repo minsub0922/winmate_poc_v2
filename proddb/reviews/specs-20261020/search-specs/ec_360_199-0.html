@@ -1,0 +1,133 @@
+<script>
+		$('button.spec-title').on("click", function(e){
+			e.preventDefault();
+			$('div[name="specLayer"] > .layer-header > h2').text(this.innerText);
+			$('div[name="specLayer"] > .layer-content > p').text(this.value);
+
+			let newId = $(this).data('popup-target');
+			$('div[name="specLayer"]').attr('id', newId);
+			$('div[name="specLayer"] > .pop-close').attr('data-focus-next', newId);
+			$('div[name="specLayer"]').attr('data-popup-layer', newId);
+			$('div[name="specLayer"]').attr('data-focus', newId);
+		});
+	</script>
+	<h3 class="spec-itm-title" id="cstrt-nm" ></h3>
+	<div class="spec-table">
+		<dl>
+						<dt>기본 사양</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">호환 기기</strong>
+													<p class="spec-desc">CLP-360/365, C410, C42x, CLX-3300/3305, C460, C47x&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">매수</strong>
+													<p class="spec-desc">BK: 7,000 페이지, CLR: 1,750 페이지&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">무게</strong>
+													<p class="spec-desc">60 g&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>유니트 박스</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">제품크기 (WxDxH)</strong>
+													<p class="spec-desc">129 x 127 x 56 mm&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">무게 (카트리지+쿠션+박스+기타 포장재 무게)</strong>
+													<p class="spec-desc">110 g&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">무게 (박스 한)</strong>
+													<p class="spec-desc">50 g&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>마스터 박스</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">마스터 박스 내 유니트 박스 개수</strong>
+													<p class="spec-desc">6&nbsp;개</p>
+												</li>
+								<li>
+										<strong class="spec-title">제품크기 (WxDxH)</strong>
+													<p class="spec-desc">267 x 141 x 194 mm&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">무게 (카트리지+충격완충재+박스+기타 포장재)</strong>
+													<p class="spec-desc">900 g&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>팔레트</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">제품크기 (WxDxH)</strong>
+													<p class="spec-desc">801 x 705 x 120 mm&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">컨테이너 내 팔레트 개수</strong>
+													<p class="spec-desc">20ft : 8 pallet/container40ft : 18 pallet/container40ft (H) : 18 pallet/container&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">팔레트 내 마스터 박스 개수</strong>
+													<p class="spec-desc">20ft : 2 x 3 x 5 layer=30 master box/pallet40ft : 2 x 3 x 5 layer=30master box/pallet40ft (H): 2 x 3 x 6 layer=36master box/pallet&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+				<dt>상품 기본정보</dt>
+				<dd>
+					<ol>
+						<li>
+								<strong class="spec-title">제조자/수입자</strong>
+								<p class="spec-desc">HPPK</p>
+							</li>
+						<li>
+								<strong class="spec-title">제조국가</strong>
+								<p class="spec-desc">중국</p>
+							</li>
+						<li>
+								<strong class="spec-title">KC 인증 필 유무</strong>
+								<p class="spec-desc">무(해당없음)</p>
+							</li>
+						<li>
+								<strong class="spec-title">동일모델의 출시년월</strong>
+								<p class="spec-desc">해당없음</p>
+							</li>
+						<li>
+								<strong class="spec-title">A/S 책임자와 전화번호</strong>
+								<p class="spec-desc">삼성전자서비스센터 / 1588-3366</p>
+							</li>
+						<li>
+								<strong class="spec-title">품질보증기준</strong>
+								<p class="spec-desc">결함·하자 등에 따른 소비자피해에 대해서는 소비자분쟁해결기준(소비자기본법 제16조)에 따라 보상가능</p>
+							</li>
+						</ol>
+				</dd>
+			</dl>
+		</div>
+	<div class="layer-pop layer-normal layer-default specLayer active" name="specLayer" id="specLayer" tabindex="0" data-popup-layer="specLayer" data-focus="specLayer" aria-hidden="false" data-zindex="300" style="z-index: 300; display: none">
+		<div class="layer-header">
+			<h2></h2>
+		</div>
+		<div class="layer-content">
+			<p></p>
+		</div>
+		<button type="button" class="pop-close" data-focus-next="">팝업닫기</button>
+	</div>
+

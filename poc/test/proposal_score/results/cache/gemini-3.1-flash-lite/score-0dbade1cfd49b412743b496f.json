@@ -1,0 +1,61 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs06~full:F05"
+ },
+ "prompt_tokens": 7321,
+ "output_tokens": 494,
+ "data": {
+  "scores": [
+   {
+    "id": "MK1",
+    "score": 3,
+    "anchor": "국내 오프라인 리테일 시장 규모와 체험형 매장 비중을 2026년 전망치로 제시하며, 고객사의 업종인 리테일 시장과 일치하는 수치를 사용함.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "국내 오프라인 리테일 시장 규모와 체험형 · 플래그십 매장 비중"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "MK2",
+    "score": 3,
+    "anchor": "모든 시장 수치와 고객 조사 자료에 2026년이라는 기준 연도를 명확히 표기하였으며, 이는 미래 전망치로서 적절함.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "출처 삼성전자 추정(2026)"
+     },
+     {
+      "sheet": 3,
+      "quote": "D 리테일 고객 조사(2026. 9)"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "MK3",
+    "score": 2,
+    "anchor": "주요 시장 수치에는 출처가 명시되어 있으나, 6장, 7장, 9장 등 다수의 장에서 제시된 수치들에 대한 구체적인 출처 표기가 누락됨.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "출처 삼성전자 추정(2026)"
+     },
+     {
+      "sheet": 6,
+      "quote": ""
+     }
+    ],
+    "improve": "수치가 제시된 모든 장의 하단이나 각주에 해당 데이터의 출처와 기준 연도를 일관되게 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

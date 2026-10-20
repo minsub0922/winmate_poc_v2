@@ -23,7 +23,7 @@ HTTP contract (see ``app/api/DEPLOY_NOTES.md``)
   GET  /login.html       → standalone login page (public)
 
 ``integrate_app(app)`` adds these routes and an ASGI middleware that (1) rejects cross-origin unsafe requests
-on every path and (2) requires a valid session everywhere except the public paths below.
+on every path and (2) allows public catalog browsing and requires a valid session for private reads and all writes.
 """
 from __future__ import annotations
 
@@ -316,6 +316,7 @@ class Auth:
         self._secret: Tuple[Optional[Tuple[int, int, int]], bytes] = (None, b'')
         self._revoked: Dict[str, float] = {}
         self.last_error = ''
+        self.accounts = None  # Optional local administrator account directory; absent in the standard deployment.
 
     def reconfigure(self, config: AuthConfig) -> AuthConfig:
         """Swap the configuration in place (e.g. tests on the real app); returns the previous one.
@@ -330,7 +331,7 @@ class Auth:
         return previous
 
     # credentials -------------------------------------------------
-    def credentials(self) -> Optional[Credentials]:
+    def _legacy_credentials(self) -> Optional[Credentials]:
         path = self.config.credentials_path
         sig = _signature(path)
         with self._lock:
@@ -350,6 +351,14 @@ class Auth:
             self._creds = (sig, creds)
             return creds
 
+    def credentials(self, username: Optional[str] = None) -> Optional[Credentials]:
+        legacy = self._legacy_credentials()
+        if username is None:
+            return legacy
+        if self.accounts is not None:
+            return self.accounts.credentials(username, legacy)
+        return legacy if legacy and username == legacy.username else None
+
     @staticmethod
     def _parse_credentials(path: Path) -> Credentials:
         try:
@@ -368,7 +377,7 @@ class Auth:
         return Credentials(username, iterations, generation, str(d.get('created_at', '')), salt, digest)
 
     def configured(self) -> bool:
-        return self.credentials() is not None
+        return self.credentials() is not None or bool(self.accounts and self.accounts.configured())
 
     def set_credentials(self, username: str, password: str, iterations: Optional[int] = None) -> None:
         """Store a salted PBKDF2 hash (never the password). A new generation invalidates existing sessions."""
@@ -395,9 +404,19 @@ class Auth:
             except FileNotFoundError:
                 return False
 
+    def invalidate_legacy_sessions(self):
+        """Revoke sessions without changing the existing password hash."""
+        with self._lock:
+            record=json.loads(self.config.credentials_path.read_text())
+            record['generation']=secrets.token_hex(8)
+            write_private(self.config.credentials_path,(json.dumps(record,indent=1)+'\n').encode())
+            self._creds=(None,None)
+
     def verify_password(self, username: str, password: str) -> bool:
-        creds = self.credentials()
+        creds = self.credentials(username)
         if creds is None or not isinstance(username, str) or not isinstance(password, str):
+            if isinstance(username,str) and isinstance(password,str):
+                hash_password(password,b'\0'*16,self.config.iterations)
             return False
         digest = hash_password(password, creds._salt, creds.iterations)        # always computed (timing)
         ok_user = hmac.compare_digest(username.encode('utf-8'), creds.username.encode('utf-8'))
@@ -437,8 +456,8 @@ class Auth:
     def _sign(self, body: str) -> str:
         return hmac.new(self.secret(), body.encode('ascii'), hashlib.sha256).hexdigest()
 
-    def issue_token(self) -> Tuple[str, int]:
-        creds = self.credentials()
+    def issue_token(self, username: Optional[str] = None) -> Tuple[str, int]:
+        creds = self.credentials(username)
         if creds is None:
             raise AuthError('credentials are not configured')
         now = int(self.clock())
@@ -451,8 +470,7 @@ class Auth:
         """Payload of a valid, unexpired, unrevoked session for the current credentials, else None."""
         if not token or len(token) > 1024 or token.count('.') != 1:
             return None
-        creds = self.credentials()
-        if creds is None:                    # also avoids creating a session secret before any account exists
+        if not self.configured():             # avoids creating a session secret before any account exists
             return None
         body, sig = token.split('.', 1)
         try:
@@ -468,6 +486,9 @@ class Auth:
         except (ValueError, KeyError, TypeError, binascii.Error):
             return None
         now = self.clock()
+        creds = self.credentials(user)
+        if creds is None:
+            return None
         if exp <= now or iat > now + 60 or exp - iat > self.config.session_seconds:
             return None
         if not (hmac.compare_digest(gen.encode('utf-8'), creds.generation.encode('utf-8')) and user == creds.username):
@@ -475,6 +496,8 @@ class Auth:
         with self._lock:
             if sid in self._revoked:
                 return None
+        if self.accounts is not None:
+            d['role'] = self.accounts.role(user)
         return d
 
     def revoke(self, payload: Mapping[str, Any]) -> None:
@@ -486,11 +509,16 @@ class Auth:
             self._revoked[str(payload['sid'])] = float(payload['exp'])
 
     # status ------------------------------------------------------
-    def status(self, token: Optional[str]) -> Dict[str, bool]:
+    def status(self, token: Optional[str]) -> Dict[str, Any]:
         if not self.config.enabled:
             return {'enabled': False, 'configured': self.configured(), 'authenticated': True}
         configured = self.configured()
-        return {'enabled': True, 'configured': configured, 'authenticated': bool(configured and self.read_token(token))}
+        identity=self.read_token(token) if configured else None
+        result={'enabled': True, 'configured': configured, 'authenticated': bool(identity)}
+        if self.accounts is not None and identity:
+            result['user']={'username':identity['u'],'role':identity.get('role','member'),'tracking_enabled':True,
+                            'storage_legacy_owner':self.accounts.legacy_username}
+        return result
 
 
 # ---------------------------------------------------------------- HTTP
@@ -519,6 +547,15 @@ def _error(status: int, code: str, detail: str, headers: Optional[Dict[str, str]
     return _no_store(JSONResponse({'ok': False, 'code': code, 'detail': detail}, status_code=status, headers=headers))
 
 
+def _allows_browsing(method: str, path: str) -> bool:
+    if method not in {'GET', 'HEAD'}:
+        return False
+    return path in {'/', '/spatial', '/api/bootstrap', '/api/catalog/metrics', '/api/products', '/api/poc/capabilities'} or path.startswith((
+        '/assets/', '/img/', '/lib/', '/api/products/', '/api/product-packs/',
+        '/api/spatial/library', '/api/spatial/templates/', '/spatial/', '/storyboard/',
+    ))
+
+
 class AuthMiddleware:
     """Pure ASGI middleware (streams such as SSE pass through untouched)."""
 
@@ -539,6 +576,10 @@ class AuthMiddleware:
             await _error(403, 'csrf_rejected', '다른 사이트에서 보낸 요청이라 거부했습니다.')(scope, receive, send)
             return
         config = self.auth.config
+        from .storyboards import allows_shared_request
+        if _allows_browsing(method, path) or (method in {'GET', 'HEAD'} and allows_shared_request(scope, conn)):
+            await self.app(scope, receive, send)
+            return
         if not config.enabled or _is_public(config, path):
             await self.app(scope, receive, send)
             return
@@ -551,7 +592,7 @@ class AuthMiddleware:
         elif not self.auth.configured():
             response = _error(503, 'auth_not_configured', '로그인 계정이 아직 없습니다. 서버에서 python app/scripts/manage_auth.py --set 을 실행하세요.')
         else:
-            response = _error(401, 'auth_required', '로그인이 필요합니다. /login.html 에서 다시 로그인하세요.')
+            response = _error(401, 'auth_required', '로그인 후 이용할 수 있어요.')
         await response(scope, receive, send)
 
 
@@ -616,15 +657,27 @@ def build_router(auth: Auth):
             return _error(400, 'bad_request', 'username 과 password 를 문자열로 보내세요.')
         if not auth.configured():
             return _error(503, 'auth_not_configured', '로그인 계정이 아직 없습니다. 서버에서 python app/scripts/manage_auth.py --set 을 실행하세요.')
-        key = _client_key(request.scope)
+        key = _client_key(request.scope) + ':' + username.lower()
+        def audit_attempt(code):
+            from .telemetry import emit
+            legacy=auth.credentials()
+            known=auth.accounts.exists(username) if auth.accounts is not None else bool(legacy and legacy.username==username)
+            emit('auth.login',status='error',code=code,metadata={'attempted_username':username if known else '[unknown]',
+                 'identifier_fingerprint':hmac.new(auth.secret(),username.encode(),hashlib.sha256).hexdigest()[:16]})
         wait = auth.limiter.retry_after(key)
         if wait:
+            audit_attempt('too_many_attempts')
             return _error(429, 'too_many_attempts', f'로그인 실패가 많아 {wait}초 동안 막았습니다.', {'Retry-After': str(wait)})
         if not await run_in_threadpool(auth.verify_password, username, password):
             auth.limiter.failure(key)
+            audit_attempt('invalid_credentials')
             return _error(401, 'invalid_credentials', '아이디 또는 비밀번호가 맞지 않습니다.')
         auth.limiter.success(key)
-        token, _ = auth.issue_token()
+        token, _ = auth.issue_token(username)
+        if auth.accounts is not None:
+            auth.accounts.login(username)
+        from .telemetry import emit
+        emit('auth.login', username=username, status='ok', feature='auth', action='login')
         response = _no_store(JSONResponse({'ok': True, 'expires_in': config.session_seconds}))
         response.set_cookie(config.cookie_name, token, max_age=config.session_seconds, **cookie_args(request))
         return response
@@ -635,6 +688,8 @@ def build_router(auth: Auth):
         payload = auth.read_token(request.cookies.get(config.cookie_name)) if config.enabled else None
         if payload:
             auth.revoke(payload)
+            from .telemetry import emit
+            emit('auth.logout', username=payload['u'], status='ok', feature='auth', action='logout')
         response = _no_store(JSONResponse({'ok': True}))
         response.delete_cookie(config.cookie_name, **cookie_args(request))
         return response

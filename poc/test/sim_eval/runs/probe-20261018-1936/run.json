@@ -1,0 +1,68 @@
+{
+ "id": "probe-20261018-1936",
+ "tag": "probe",
+ "created": "2026-10-18T10:36:20.432Z",
+ "status": "done",
+ "set": "sets/diverse10.json",
+ "turns": 3,
+ "concurrency": 4,
+ "models": {
+  "customer": "gemini-3.1-flash-lite",
+  "seller": "gemini-3.5-flash",
+  "judge": "gemini-3.1-pro-preview"
+ },
+ "personaLevel": false,
+ "engine": {
+  "built": "2026-10-18T10:28:21.367Z",
+  "bytes": 3109364,
+  "sim_sources": [
+   "../../../src/sim/profile.js",
+   "../../../src/sim/score.js",
+   "../../../src/sim/engine.js"
+  ]
+ },
+ "sessions": [
+  {
+   "id": "01-ps12-L3-scenario",
+   "pid": "ps12",
+   "level": 3,
+   "sid": "bs07",
+   "mode": "scenario",
+   "label": "Z 부티크호텔 장석민 · 까다로운 고객",
+   "status": "ended",
+   "turn": 3,
+   "satisfaction": 55,
+   "quality": 52
+  }
+ ],
+ "finished": "2026-10-18T10:37:14.718Z",
+ "llm": {
+  "customer": {
+   "model": "gemini-3.1-flash-lite",
+   "calls": 5,
+   "fails": 0,
+   "avg_ms": 2728,
+   "tok_in": 16723,
+   "tok_out": 2595,
+   "tok_think": 0
+  },
+  "seller": {
+   "model": "gemini-3.5-flash",
+   "calls": 3,
+   "fails": 0,
+   "avg_ms": 2175,
+   "tok_in": 9105,
+   "tok_out": 446,
+   "tok_think": 0
+  },
+  "judge": {
+   "model": "gemini-3.1-pro-preview",
+   "calls": 1,
+   "fails": 0,
+   "avg_ms": 34004,
+   "tok_in": 3673,
+   "tok_out": 674,
+   "tok_think": 3534
+  }
+ }
+}

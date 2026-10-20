@@ -1,0 +1,132 @@
+{
+ "id": "C05_L3",
+ "case": "C05",
+ "industry": "ED",
+ "strategy": "space",
+ "req_type": "new",
+ "title": "대학 스마트 캠퍼스",
+ "level": "complex",
+ "input": {
+  "title": "J 대학교 스마트 캠퍼스 구축",
+  "customer": "J 대학교",
+  "project": "스마트 강의실 · 도서관 · 기숙사 구축",
+  "target": "기획처장",
+  "free_text": "대학혁신지원사업 예산으로 스마트 캠퍼스를 구축합니다. 강의실 120실을 스마트 강의실로 바꾸고, 중앙도서관 좌석 · 안내 사이니지, 기숙사 냉난방 제어를 포함합니다. 예산은 12월 말까지 집행해야 합니다. 평가는 기술 60점 · 가격 40점이며 제안 발표가 있습니다.",
+  "keymen": [
+   {
+    "name": "기획처장",
+    "weight": 40,
+    "reqs": [
+     "학생이 체감하는 학습 환경 개선",
+     "혁신지원사업 성과지표에 맞는 정량 효과",
+     "12월 말까지 예산 집행 완료"
+    ]
+   },
+   {
+    "name": "교수학습센터장",
+    "weight": 35,
+    "reqs": [
+     "강의실 120실 판서 · 녹화 · 원격 수업 지원",
+     "교수자 사용 교육",
+     "기존 LMS 와 연동"
+    ]
+   },
+   {
+    "name": "시설팀장",
+    "weight": 25,
+    "reqs": [
+     "기숙사 냉난방 원격 제어 · 에너지 절감",
+     "방학 중 시공",
+     "유지보수 창구 일원화"
+    ]
+   }
+  ],
+  "products": [
+   "flip",
+   "epaper",
+   "qm85c",
+   "wf1way"
+  ],
+  "solutions": [
+   "sac"
+  ],
+  "id": "C05_L3"
+ },
+ "gold": {
+  "level": "complex",
+  "industry": "ED",
+  "strategy_any": [
+   "rfp",
+   "space",
+   "compete"
+  ],
+  "must_parts": [
+   "requirements",
+   "execution"
+  ],
+  "dims_any": [
+   "평가·선정·자격",
+   "일정·실행·확산",
+   "사용자 경험·성과"
+  ],
+  "conflicts_any": [],
+  "min_questions": 4,
+  "eval_expected": true,
+  "key_reqs": [
+   {
+    "kw": [
+     "120실"
+    ],
+    "parts_any": [
+     "bom",
+     "products",
+     "scenario",
+     "requirements",
+     "execution"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "LMS"
+    ],
+    "parts_any": [
+     "execution",
+     "solution",
+     "requirements"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "12월"
+    ],
+    "parts_any": [
+     "execution",
+     "closing",
+     "requirements"
+    ],
+    "priority": "must"
+   },
+   {
+    "kw": [
+     "교육"
+    ],
+    "parts_any": [
+     "execution"
+    ],
+    "priority": "should"
+   }
+  ],
+  "facts": [
+   "120",
+   "60",
+   "40"
+  ],
+  "layouts_any": {
+   "requirements": [
+    "L_RM_C"
+   ]
+  }
+ }
+}

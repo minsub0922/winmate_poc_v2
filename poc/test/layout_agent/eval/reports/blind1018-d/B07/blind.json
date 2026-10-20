@@ -1,0 +1,376 @@
+{
+ "id": "B07",
+ "title": "통합 신사옥 로비·회의실 디스플레이 (키맨 간 비용 vs 품질 충돌)",
+ "exp_level": "complex",
+ "level": "complex",
+ "exp_industry": "OF",
+ "industry": "OF",
+ "exp_strategy": "space",
+ "strategy": "space",
+ "scenario": "space",
+ "exp_products": [
+  "flip",
+  "qm55c",
+  "qm85c",
+  "thewall"
+ ],
+ "products": [
+  "flip",
+  "thewall",
+  "thewall_aio"
+ ],
+ "solutions": [
+  "care",
+  "content"
+ ],
+ "prod_recall": 0.5,
+ "prod_precision": 0.667,
+ "must_show": 1.0,
+ "must_show_miss": [],
+ "facts": 0.667,
+ "facts_miss": [
+  "48"
+ ],
+ "must_not_hit": [],
+ "parts": [
+  "cover:제안서 표지",
+  "overview:제안 요약",
+  "requirements:핵심 이해관계자 분석",
+  "requirements:요구사항 대응 현황",
+  "value:가치 제안",
+  "value:브랜드 가치 강화",
+  "solution:운영 및 유지보수",
+  "dss:공간별 최적화 전략",
+  "scenario:사용자 경험 시나리오",
+  "products:공간별 맞춤 제품",
+  "bom:구축 범위 및 규모",
+  "spec:기술 규격 및 검토",
+  "execution:보안 및 관리 체계",
+  "effect:도입 효과 분석",
+  "case:유관 구축 사례",
+  "execution:일정 및 실행 계획",
+  "cost:비용 및 구매 전략",
+  "closing:결정 요청"
+ ],
+ "questions": [
+  "strategy",
+  "ending",
+  "keyman",
+  "conflict_C3",
+  "conflict_L1",
+  "conflict_L2",
+  "gap_products",
+  "gap_llm1",
+  "gap_llm2",
+  "llm_Q01",
+  "llm_Q02",
+  "llm_Q03",
+  "length"
+ ],
+ "conflicts": [
+  "보안 통제 vs 원격 관리",
+  "LLM 발견",
+  "LLM 발견"
+ ],
+ "issues": [
+  "[low] 편집할 수 없는(data-tb 없는) 다른 업종 샘플 문구가 남은 장표 2장 — 원본 레이아웃 보완 필요"
+ ],
+ "stats": {
+  "n_slides": 20,
+  "text_slots": 1052,
+  "placeholders": 80,
+  "slides_with_ph": 12,
+  "sample_text_kept": 336,
+  "img_slots": 9,
+  "img_filled": 9,
+  "photo_slides": 2,
+  "stray_slides": 1,
+  "slides": [
+   {
+    "no": 1,
+    "code": "C02",
+    "f": "L_C02",
+    "visual": [
+     "message",
+     "photo"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 0,
+    "stray": []
+   },
+   {
+    "no": 2,
+    "code": "ES-A",
+    "f": "L_ES_A",
+    "visual": [
+     "cards",
+     "message"
+    ],
+    "ph": 4,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 9,
+    "stray": []
+   },
+   {
+    "no": 3,
+    "code": "RM-A",
+    "f": "L_RM_A",
+    "visual": [
+     "table"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 7,
+    "stray": []
+   },
+   {
+    "no": 4,
+    "code": "RM-B",
+    "f": "L_RM_B",
+    "visual": [
+     "table"
+    ],
+    "ph": 3,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 16,
+    "stray": []
+   },
+   {
+    "no": 5,
+    "code": "VP-D",
+    "f": "L_VP_D",
+    "visual": [
+     "cards",
+     "photo"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 7,
+    "stray": []
+   },
+   {
+    "no": 6,
+    "code": "VP-N",
+    "f": "L_VP_N",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 0,
+    "img_slots": 4,
+    "img_filled": 4,
+    "kept_sample": 3,
+    "stray": []
+   },
+   {
+    "no": 7,
+    "code": "SF-B",
+    "f": "L_SF_B",
+    "visual": [
+     "cards",
+     "flow"
+    ],
+    "ph": 3,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 6,
+    "stray": []
+   },
+   {
+    "no": 8,
+    "code": "SM-D",
+    "f": "L_SM_D",
+    "visual": [
+     "cards",
+     "map"
+    ],
+    "ph": 16,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 28,
+    "stray": []
+   },
+   {
+    "no": 9,
+    "code": "SS-OF-A",
+    "f": "L_SS_OF_A",
+    "visual": [
+     "flow",
+     "image_heavy",
+     "map",
+     "table"
+    ],
+    "ph": 5,
+    "img_slots": 5,
+    "img_filled": 5,
+    "kept_sample": 24,
+    "stray": []
+   },
+   {
+    "no": 10,
+    "code": "SS-OF-C",
+    "f": "L_SS_OF_C",
+    "visual": [
+     "flow",
+     "map",
+     "table"
+    ],
+    "ph": 8,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 36,
+    "stray": []
+   },
+   {
+    "no": 11,
+    "code": "SS-A",
+    "f": "L_VS02",
+    "visual": [
+     "cards",
+     "flow"
+    ],
+    "ph": 3,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 3,
+    "stray": []
+   },
+   {
+    "no": 12,
+    "code": "P2-B",
+    "f": "L_P2B",
+    "visual": [
+     "cards"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 0,
+    "stray": []
+   },
+   {
+    "no": 13,
+    "code": "BM-C",
+    "f": "L_BM_C",
+    "visual": [
+     "cards"
+    ],
+    "ph": 20,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 36,
+    "stray": []
+   },
+   {
+    "no": 14,
+    "code": "SC-B",
+    "f": "L_SC_B",
+    "visual": [
+     "comparison",
+     "table"
+    ],
+    "ph": 7,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 13,
+    "stray": []
+   },
+   {
+    "no": 15,
+    "code": "SE-A",
+    "f": "L_SE_A",
+    "visual": [
+     "table"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 34,
+    "stray": [
+     "Knox Suite"
+    ]
+   },
+   {
+    "no": 16,
+    "code": "EF-C",
+    "f": "L_EF_C",
+    "visual": [
+     "cards",
+     "kpi"
+    ],
+    "ph": 4,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 6,
+    "stray": []
+   },
+   {
+    "no": 17,
+    "code": "CL-B",
+    "f": "L_CS03",
+    "visual": [
+     "cards",
+     "message"
+    ],
+    "ph": 2,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 2,
+    "stray": []
+   },
+   {
+    "no": 18,
+    "code": "IP-C",
+    "f": "L_IP_C",
+    "visual": [
+     "cards",
+     "diagram",
+     "flow"
+    ],
+    "ph": 5,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 24,
+    "stray": []
+   },
+   {
+    "no": 19,
+    "code": "CO-B",
+    "f": "L_CO_B",
+    "visual": [
+     "cards"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 56,
+    "stray": []
+   },
+   {
+    "no": 20,
+    "code": "C13",
+    "f": "L_C13",
+    "visual": [
+     "cards",
+     "flow",
+     "message"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 26,
+    "stray": []
+   }
+  ]
+ },
+ "sec": 33.5,
+ "llm_calls": 43,
+ "llm_fail": 0
+}

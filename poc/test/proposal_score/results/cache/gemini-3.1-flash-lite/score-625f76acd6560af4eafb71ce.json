@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs21:F02"
+ },
+ "prompt_tokens": 12414,
+ "output_tokens": 288,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 2,
+    "anchor": "고객 요구사항 R1, R2, R3, R4 중 R4(공급사 신뢰)에 대한 구체적 대응이 5장 도입 사례와 6장 Why Samsung에 분산되어 있으나, 이를 고객의 신뢰 요구와 직접 연결한 명시적 언급이 다소 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "외국인 투숙 비중 46% · 객실 312실"
+     },
+     {
+      "sheet": 29,
+      "quote": "인스파이어 엔터테인먼트 리조트"
+     },
+     {
+      "sheet": 32,
+      "quote": "20년간의 경험과 신뢰를 바탕으로"
+     }
+    ],
+    "improve": "도입 사례와 Why Samsung 장에서 고객의 공급사 신뢰 요구를 명시하고, 신뢰가 투숙객 경험 및 운영 효율과 어떻게 직결되는지 정리된 요약 문구를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~wrong_customer:F01"
+ },
+ "prompt_tokens": 9689,
+ "output_tokens": 522,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 1,
+    "anchor": "제안서 전반에 걸쳐 고객사명 'A 커피'와 'H 호텔'이 혼용되어 사용되고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "H 호텔의 매장 운영을 바꾸는 네 가지 흐름"
+     },
+     {
+      "sheet": 6,
+      "quote": "H 호텔 프랜차이즈 · 디지털 메뉴보드 제안"
+     },
+     {
+      "sheet": 9,
+      "quote": "H 호텔 DT 매장 앞"
+     }
+    ],
+    "improve": "제안서 전체의 고객사명을 'A 커피'로 통일해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "다른 고객명인 'H 호텔'이 5개 장에서 반복적으로 노출되고 있으며, 16장에는 담당자의 이메일 주소 일부가 템플릿 잔여물처럼 남아 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "H 호텔의 매장 운영을 바꾸는 네 가지 흐름"
+     },
+     {
+      "sheet": 16,
+      "quote": "b2b.proposal@samsung.com"
+     }
+    ],
+    "improve": "다른 고객사명을 모두 'A 커피'로 수정하고, 템플릿 잔여 문구를 삭제해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "제안서 마무리 장에 기재된 영업 담당자의 연락처는 고객과의 소통을 위한 정상적인 정보로 판단됩니다.",
+    "evidence": [
+     {
+      "sheet": 16,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

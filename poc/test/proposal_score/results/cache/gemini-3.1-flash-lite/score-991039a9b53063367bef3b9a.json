@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs03:F09"
+ },
+ "prompt_tokens": 7886,
+ "output_tokens": 207,
+ "data": {
+  "scores": [
+   {
+    "id": "PR5",
+    "score": 3,
+    "anchor": "제안서 전반에 걸쳐 제품명(QM55C, Flip Pro, 무풍 4Way 등)과 모델명(SM-X930 등)이 일관되게 표기되었으며, 마케팅명과 모델명을 병기한 후에는 해당 명칭을 통일하여 사용하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "Flip Pro WM75B · 교수용 탭 SM-X930"
+     },
+     {
+      "sheet": 9,
+      "quote": "QM55C · 55\" 스마트 사이니지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

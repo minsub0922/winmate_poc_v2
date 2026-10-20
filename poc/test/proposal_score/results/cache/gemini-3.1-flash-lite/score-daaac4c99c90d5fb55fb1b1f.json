@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs13:F04"
+ },
+ "prompt_tokens": 2948,
+ "output_tokens": 198,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "제안서 내에 실제 도입 사례가 아닌 '예상 효과'와 '가정' 수치만 제시되어 있으며, 실제 도입 사례 고객명과 그에 따른 실제 성과 데이터가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "수치는 파일럿 실측으로 확정"
+     },
+     {
+      "sheet": 11,
+      "quote": "수치는 예상치"
+     }
+    ],
+    "improve": "유사 업종의 실제 도입 사례를 선정하여, 해당 고객명과 도입 구성, 그리고 실제 측정된 성과 수치를 구체적으로 제시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

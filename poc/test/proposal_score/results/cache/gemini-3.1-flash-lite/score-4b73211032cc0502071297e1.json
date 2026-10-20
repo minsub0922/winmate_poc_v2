@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01:F02"
+ },
+ "prompt_tokens": 9024,
+ "output_tokens": 248,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 2,
+    "anchor": "고객 요구사항 R1~R4와 K1~K4에 대해 대부분 대응하고 있으나, K2(가맹점주 부담)와 K3(본사 통제력 및 장애 대응)에 대한 구체적인 비용 구조나 장애 대응 프로세스가 명시적이지 않고 암시적으로만 언급되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "매장별 전력 리포트가 따라옵니다."
+     },
+     {
+      "sheet": 15,
+      "quote": "권역별 A/S 4시간 내 대응"
+     }
+    ],
+    "improve": "가맹점주의 초기 비용 부담을 완화할 수 있는 구체적인 금융 프로그램(렌탈/리스)과 본사의 장애 대응 매뉴얼 및 SLA(서비스 수준 협약)를 명확히 기술해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

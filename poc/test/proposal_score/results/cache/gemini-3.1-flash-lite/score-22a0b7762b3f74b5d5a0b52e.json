@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~base:F08"
+ },
+ "prompt_tokens": 1664,
+ "output_tokens": 221,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "M 베이커리의 운영 효율을 위해 '운영 통일성', '보안', '현장 사용성'이라는 3가지 핵심 가치를 제시하고, 이를 구현하는 솔루션(CMS, 클라우드/온프레미스 모델)을 명확히 연결했습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "데이터는 M 베이커리 안에 머뭅니다"
+     },
+     {
+      "sheet": 7,
+      "quote": "지점에는 화면만, 나머지는 클라우드에"
+     },
+     {
+      "sheet": 9,
+      "quote": "유형마다 다른 권한 조합으로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

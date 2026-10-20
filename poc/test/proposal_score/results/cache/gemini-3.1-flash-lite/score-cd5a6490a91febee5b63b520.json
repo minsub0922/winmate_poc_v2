@@ -1,0 +1,40 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs04:F01"
+ },
+ "prompt_tokens": 8381,
+ "output_tokens": 331,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "13장에 제안사 담당자의 연락처 정보가 '010-1234-5678'과 같이 예시 형식으로 남아 있어 템플릿 잔여물로 판단됩니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · 010-1234-5678 · b2b.proposal@samsung.com"
+     }
+    ],
+    "improve": "마지막 장의 연락처를 실제 담당자의 연락처로 수정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 1,
+    "anchor": "9장에서 고객사에게 직접 전달할 제안서임에도 불구하고 '원가'라는 내부적 표현이 명시적으로 노출되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "원가에 맞춰 고르세요 · 세대당 원가 최소"
+     }
+    ],
+    "improve": "고객사 입장에서 거부감이 들 수 있는 '원가'라는 표현을 '예산'이나 '상품 구성' 등의 용어로 변경해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

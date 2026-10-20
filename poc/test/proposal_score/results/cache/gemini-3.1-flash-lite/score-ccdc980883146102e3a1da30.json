@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~no_proof:F02"
+ },
+ "prompt_tokens": 5251,
+ "output_tokens": 243,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 2,
+    "anchor": "고객의 AS 지연(R1)과 기존 자산 활용(K4)에 대한 대응이 명시적이지 않거나 부족합니다. AS 지연은 4장에서 원인 분석으로 다루지만, 기존 자산 활용에 대해서는 8장에서 교체 위주로 설명하여 기존 자산의 재활용 방안이 명확하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "AS 대기 1.5일"
+     },
+     {
+      "sheet": 8,
+      "quote": "지금 쓰는 장비를 이렇게 바꿉니다"
+     }
+    ],
+    "improve": "기존 자산 중 재사용 가능한 부분에 대한 구체적인 활용 계획을 추가하고, AS 지연 문제에 대한 삼성의 구체적인 SLA 보장 방안을 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

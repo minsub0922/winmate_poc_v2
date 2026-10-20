@@ -1,0 +1,82 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08~full:F04"
+ },
+ "prompt_tokens": 8891,
+ "output_tokens": 699,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "W 요양병원의 야간 호출 응답 시간(6분), 다인실 CO2 농도(1,800ppm), 주말 면회 대기 시간(15분) 등 현장 수치를 기반으로 과제를 구체화했습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "6분 | 야간 호출 응답"
+     },
+     {
+      "sheet": 4,
+      "quote": "1,800 | ppm · 야간"
+     },
+     {
+      "sheet": 4,
+      "quote": "15분 | 주말 면회 대기"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "CU6",
+    "score": 3,
+    "anchor": "요양병원 특유의 24시간 운영, 간호 인력의 호출 대응, 감염 관리, 면회 동선 등 운영 맥락을 정확히 반영하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "간호 인력 1인당 병상 4.8"
+     },
+     {
+      "sheet": 3,
+      "quote": "야간 순회 · 작은 위험에도 즉시 대응"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "병실의 24시간 무중단 운영, 감염 관리, 위생 환경을 고려하여 무풍 에어컨, ERV, IP68 등급 태블릿 등 적합한 제품을 배치했습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "IP68 · MIL-STD 태블릿"
+     },
+     {
+      "sheet": 10,
+      "quote": "무풍 4Way 카세트 | 바람 없이 병실 온도를 고르게 유지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "성심요양병원 등 실제 사례를 언급하고 사진을 활용했으나, 해당 사례에서 얻은 구체적인 성과 수치가 아닌 제안서 내 목표 수치와 혼용되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "도입사례(성심요양병원)"
+     }
+    ],
+    "improve": "사례 고객(성심요양병원)에서 실제 도입 후 측정된 정량적 성과 수치를 명확히 분리하여 제시해야 합니다.",
+    "confidence": "mid"
+   }
+  ]
+ }
+}

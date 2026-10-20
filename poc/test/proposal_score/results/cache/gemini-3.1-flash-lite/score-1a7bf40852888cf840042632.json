@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs17:F04"
+ },
+ "prompt_tokens": 3078,
+ "output_tokens": 210,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "T 은행의 고객 여정별 불편 사항을 15분 대기 및 서식 작성이라는 구체적 현장 장면으로 정의하고, 시범점 조사 수치(45%, 35%, 20%)를 활용해 고객 유형별 요구사항을 명확히 분석했습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "T 은행 고객의 불편은 15분 기다림과 서식, 두 순간에 몰려 있습니다"
+     },
+     {
+      "sheet": 3,
+      "quote": "비중 · 시범점 내점 고객 조사(2026. 6)"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

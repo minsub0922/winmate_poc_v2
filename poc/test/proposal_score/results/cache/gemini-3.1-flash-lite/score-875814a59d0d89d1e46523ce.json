@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08:F08"
+ },
+ "prompt_tokens": 2896,
+ "output_tokens": 228,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "5장에서 고객의 질문(간호사 부족, 공기질, 면회 혼잡)에 대응하는 3가지 핵심 가치와 그에 따른 솔루션을 명확히 연결하여 제시하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "질문은 간호부 · 감염관리실 · 원무팀 인터뷰에서 그대로"
+     },
+     {
+      "sheet": 5,
+      "quote": "답하는 제품 · 솔루션 | 갤럭시 탭 액티브5 프로 + b.IoT"
+     },
+     {
+      "sheet": 5,
+      "quote": "핵심 가치 | 호출과 병실 이상을 손 안에서 바로 봅니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

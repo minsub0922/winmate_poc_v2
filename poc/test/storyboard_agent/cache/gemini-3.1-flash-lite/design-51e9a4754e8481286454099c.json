@@ -1,0 +1,49 @@
+{
+ "stage": "design",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.4,
+ "seed": 0,
+ "prompt_tokens": 4698,
+ "output_tokens": 308,
+ "data": {
+  "strategy": "space",
+  "thesis": "K 리조트 객실 TV와 로비 키오스크를 삼성 스마트 솔루션으로 교체하여, 영업 중단 없는 비수기 리뉴얼과 투숙객 만족도 향상을 동시에 달성하겠습니다.",
+  "parts": [
+   {
+    "keep": "P1"
+   },
+   {
+    "keep": "P2"
+   },
+   {
+    "keep": "P3"
+   },
+   {
+    "keep": "P4"
+   },
+   {
+    "type": "scenario"
+   },
+   {
+    "name": "공간별 이용 시나리오",
+    "ref": "REF2:장면",
+    "type": "scenario"
+   },
+   {
+    "name": "공간별 이용 시나리오",
+    "ref": "REF2:장면",
+    "type": "scenario"
+   },
+   {
+    "name": "공간별 이용 시나리오",
+    "ref": "REF2:장면",
+    "type": "scenario"
+   },
+   {
+    "name": "공간별 이용 시나리오",
+    "ref": "REF2:장면",
+    "type": "scenario"
+   }
+  ]
+ }
+}

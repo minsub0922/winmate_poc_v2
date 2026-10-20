@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs02~full:F03"
+ },
+ "prompt_tokens": 4474,
+ "output_tokens": 356,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "6장에서 이해관계자별 가치를 경영 지표와 실무 지표로 구분하여 제시하고, 16장에서 대표이사가 결정해야 할 사항을 명확히 정리함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "대표이사 · 경영진 | AI Ready 오피스를 실측 데이터로 증명합니다"
+     },
+     {
+      "sheet": 16,
+      "quote": "설계 확정 전, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS7",
+    "score": 2,
+    "anchor": "재공사비 절감액(12억) 등 비용 절감 효과는 제시했으나, 솔루션 도입에 따른 총소유비용(TCO)이나 라이선스·유지보수 비용에 대한 구체적 정보가 부족함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "12억 | 재공사비 절감"
+     }
+    ],
+    "improve": "솔루션 운영에 필요한 라이선스 비용이나 준공 후 유지보수 비용 체계를 포함하여 총소유비용(TCO) 관점의 정보를 보완해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

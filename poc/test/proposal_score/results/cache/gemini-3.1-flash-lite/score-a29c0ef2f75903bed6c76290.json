@@ -1,0 +1,61 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11~wrong_customer:F01"
+ },
+ "prompt_tokens": 9070,
+ "output_tokens": 483,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 1,
+    "anchor": "제안서 전반에 걸쳐 고객사명인 'K 공단'과 다른 고객명인 'H 호텔'이 혼용되어 표기되고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "K 공단"
+     },
+     {
+      "sheet": 3,
+      "quote": "H 호텔이 이번 사업으로 이루려는 것"
+     }
+    ],
+    "improve": "제안서 내 모든 장표의 고객사명을 'K 공단'으로 통일해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "다른 고객명인 'H 호텔'이 5곳에서 발견되며, 마지막 장에 담당자 연락처 정보가 템플릿 형식으로 남아 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "H 호텔"
+     },
+     {
+      "sheet": 15,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "다른 고객명인 'H 호텔'을 모두 삭제하고, 템플릿 잔여 문구를 제거해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "제안서 마무리 장에 기재된 영업 담당자의 연락처는 고객과의 소통을 위한 정상적인 정보로 판단됩니다.",
+    "evidence": [
+     {
+      "sheet": 15,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10:F02"
+ },
+ "prompt_tokens": 7068,
+ "output_tokens": 252,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 2,
+    "anchor": "고객 요구사항 R1, R2, R3에 대한 대응은 4, 7, 8, 11장에서 명확히 제시되나, K4(기존 자산 활용)에 대한 구체적인 대응 방안이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "AS 대기 1.5일"
+     },
+     {
+      "sheet": 7,
+      "quote": "기존 장비 보상"
+     },
+     {
+      "sheet": 8,
+      "quote": "바꾸면 운영팀이 다시 배워야 한다"
+     }
+    ],
+    "improve": "기존 자산(노후 장비)을 어떻게 처리하거나 활용하여 고객의 비용 부담을 줄일 수 있는지에 대한 구체적인 보상 및 재활용 계획을 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

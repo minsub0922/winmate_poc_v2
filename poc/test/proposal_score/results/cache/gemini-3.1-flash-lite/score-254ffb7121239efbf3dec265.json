@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~strip_images:F06"
+ },
+ "prompt_tokens": 7945,
+ "output_tokens": 243,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 1,
+    "anchor": "객실 수와 관련하여 7장과 13장에서는 300실로 기재되어 있으나, 7장 내에서 30객실 및 10객실이라는 상이한 수치가 혼재되어 있어 일관성이 결여되었습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "직원이 적은 B 호텔일수록, 객실 TV가 서비스 창구가 됩니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "샘플룸 1실, 다음 2주에 정할 세 가지"
+     }
+    ],
+    "improve": "제안서 전반에 걸쳐 객실 수(300실)와 같은 핵심 수치를 통일하고, 오타나 잘못 기재된 수치를 전수 조사하여 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

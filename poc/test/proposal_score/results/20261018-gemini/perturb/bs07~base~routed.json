@@ -1,0 +1,899 @@
+{
+ "id": "bs07",
+ "variant": "~base",
+ "title": "호텔 객실 TV · 공조 교체 + 투숙 경험 개선",
+ "customer": "B 호텔",
+ "n_sheets": 13,
+ "req": "교체 · 리뉴얼",
+ "strategy": "문제 해결형",
+ "ind": "호텔 · 리조트",
+ "route": {
+  "selected": [
+   "CU1",
+   "CU2",
+   "CU4",
+   "MK4",
+   "PR3",
+   "PR6",
+   "VS1",
+   "VS2",
+   "VS6",
+   "VS8",
+   "DS1",
+   "DS4",
+   "WR1",
+   "WR6"
+  ],
+  "mode": "llm",
+  "error": "",
+  "l1": [
+   {
+    "id": "C3",
+    "relevance": 3,
+    "reason": "고객의 핵심 요구사항인 운영 인력 절감과 무중단 공사에 대한 정량적 근거가 부족하고 수치 출처가 불분명하여, 파일럿 승인을 위한 설득력 확보가 시급합니다."
+   },
+   {
+    "id": "C1",
+    "relevance": 3,
+    "reason": "객실 수(300실 vs 30실 vs 10실)에 대한 데이터 불일치와 템플릿 문구 노출 등 신뢰도를 저해하는 오류가 발견되어 즉각적인 수정이 필요합니다."
+   },
+   {
+    "id": "C4",
+    "relevance": 2,
+    "reason": "총지배인 등 경영진을 대상으로 하는 제안서임에도 일부 장표의 텍스트 밀도가 너무 높아 가독성이 떨어지며, 핵심 메시지 전달력을 개선할 여지가 있습니다."
+   },
+   {
+    "id": "C2",
+    "relevance": 2,
+    "reason": "영업 유지를 위한 무중단 교체 계획은 고객의 핵심 관심사이나, 실행 계획의 구체성과 리스크 관리 방안이 충분히 검증되었는지 확인해야 합니다."
+   }
+  ],
+  "l2": [
+   {
+    "id": "F01",
+    "relevance": 3,
+    "reason": "템플릿 잔여물과 내부 연락처가 포함되어 있어 고객 신뢰도에 치명적인 위험 신호가 확인됩니다."
+   },
+   {
+    "id": "F06",
+    "relevance": 3,
+    "reason": "객실 수 등 핵심 수치가 장마다 다르게 표기되어 있어 제안의 신뢰성을 즉시 확보해야 합니다."
+   },
+   {
+    "id": "F09",
+    "relevance": 2,
+    "reason": "호텔 객실 및 공용부 솔루션 제안이므로 제품 사양과 브랜드 표기의 정확성이 중요합니다."
+   },
+   {
+    "id": "F12",
+    "relevance": 1,
+    "reason": "전문 용어 풀이가 미흡하나 제안의 핵심 논리에 미치는 영향은 상대적으로 낮습니다."
+   },
+   {
+    "id": "F02",
+    "relevance": 2,
+    "reason": "파일럿 승인을 목표로 하므로 고객 요구사항 대응과 문서 형식의 완결성이 필수적입니다."
+   },
+   {
+    "id": "F10",
+    "relevance": 3,
+    "reason": "영업 중단 최소화와 무중단 교체 계획은 본 제안의 수주 가능성을 결정짓는 핵심 요소입니다."
+   },
+   {
+    "id": "F03",
+    "relevance": 2,
+    "reason": "총지배인과 구매 담당자가 결정권자이므로 비용 타당성과 운영 효율성 관점의 설득이 필요합니다."
+   },
+   {
+    "id": "F04",
+    "relevance": 3,
+    "reason": "호텔 업종 특유의 운영 과제와 공간별 제품 적합성을 얼마나 깊이 있게 다루었는지가 핵심입니다."
+   },
+   {
+    "id": "F05",
+    "relevance": 1,
+    "reason": "시장 데이터보다는 고객 현장 데이터의 정합성이 더 중요하여 우선순위가 낮습니다."
+   },
+   {
+    "id": "F07",
+    "relevance": 2,
+    "reason": "정량적 기대효과 산출 근거가 명확해야 파일럿 승인을 이끌어낼 수 있습니다."
+   },
+   {
+    "id": "F08",
+    "relevance": 2,
+    "reason": "고객의 문제를 해결하는 스토리 흐름이 선명해야 결정권자를 설득할 수 있습니다."
+   },
+   {
+    "id": "F11",
+    "relevance": 2,
+    "reason": "글자 넘침과 가독성 문제가 있어 시각적 완성도를 높여야 전문적인 인상을 줄 수 있습니다."
+   }
+  ],
+  "criteria": [
+   {
+    "id": "CU1",
+    "priority": 3,
+    "reason": "고객사명과 정보가 전반적으로 일치하는지 확인하여 범용 제안서라는 인상을 지워야 합니다."
+   },
+   {
+    "id": "WR1",
+    "priority": 3,
+    "reason": "템플릿 잔여물과 내부 연락처 노출은 즉시 수정해야 할 최우선 보안 사항입니다."
+   },
+   {
+    "id": "WR6",
+    "priority": 3,
+    "reason": "내부 기밀 정보가 포함된 상태로 고객에게 전달되는 것을 방지해야 합니다."
+   },
+   {
+    "id": "MK4",
+    "priority": 3,
+    "reason": "객실 수 등 핵심 수치의 불일치는 제안서 전체의 신뢰도를 떨어뜨립니다."
+   },
+   {
+    "id": "PR6",
+    "priority": 3,
+    "reason": "공간별 제품 수량과 구성이 명확해야 파일럿 승인을 위한 예산 산정이 가능합니다."
+   },
+   {
+    "id": "CU2",
+    "priority": 3,
+    "reason": "고객이 제시한 체크인 대기 및 소음 민원 해결책이 제안서에 명확히 반영되어야 합니다."
+   },
+   {
+    "id": "VS6",
+    "priority": 3,
+    "reason": "영업 중단 없는 교체 계획은 본 제안의 가장 큰 수주 포인트입니다."
+   },
+   {
+    "id": "VS8",
+    "priority": 2,
+    "reason": "공사 중 영업 유지라는 리스크에 대한 대응 방안이 구체적이어야 합니다."
+   },
+   {
+    "id": "CU4",
+    "priority": 2,
+    "reason": "고객의 현장 과제를 얼마나 구체적으로 이해하고 있는지 확인이 필요합니다."
+   },
+   {
+    "id": "PR3",
+    "priority": 2,
+    "reason": "호텔 객실 및 로비 환경에 적합한 제품 선정 여부를 검토해야 합니다."
+   },
+   {
+    "id": "VS2",
+    "priority": 2,
+    "reason": "투숙객 리뷰 점수 개선 등 정량적 기대효과의 근거를 확인해야 합니다."
+   },
+   {
+    "id": "VS1",
+    "priority": 2,
+    "reason": "고객이 얻는 가치가 선명하게 전달되는지 확인이 필요합니다."
+   },
+   {
+    "id": "DS1",
+    "priority": 2,
+    "reason": "글자 넘침 등 레이아웃 오류를 수정하여 문서의 완성도를 높여야 합니다."
+   },
+   {
+    "id": "DS4",
+    "priority": 2,
+    "reason": "본문 글자 크기가 작아 가독성이 떨어지는 문제를 해결해야 합니다."
+   }
+  ],
+  "gates": {
+   "CU1": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU2": {
+    "applies": true,
+    "why": "비교할 고객 요구사항 7개"
+   },
+   "CU3": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU4": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU6": {
+    "applies": true,
+    "why": "업종: 호텔 · 리조트"
+   },
+   "MK1": {
+    "applies": true,
+    "why": "수치 106개"
+   },
+   "MK2": {
+    "applies": true,
+    "why": "연도 언급 9개"
+   },
+   "MK3": {
+    "applies": true,
+    "why": "수치 106개"
+   },
+   "MK4": {
+    "applies": true,
+    "why": "수치 106개"
+   },
+   "MK5": {
+    "applies": false,
+    "why": "경쟁 비교 내용이 없어요"
+   },
+   "MK6": {
+    "applies": false,
+    "why": "분석 장이 없어요"
+   },
+   "PR1": {
+    "applies": true,
+    "why": "제품 4종 언급"
+   },
+   "PR2": {
+    "applies": true,
+    "why": "제품 4종 언급"
+   },
+   "PR3": {
+    "applies": true,
+    "why": "제품 4종 언급"
+   },
+   "PR4": {
+    "applies": true,
+    "why": "솔루션: MagicINFO, SmartThings Pro, b.IoT"
+   },
+   "PR5": {
+    "applies": true,
+    "why": "제품 4종 언급"
+   },
+   "PR6": {
+    "applies": true,
+    "why": "제품 4종 언급"
+   },
+   "PR7": {
+    "applies": true,
+    "why": "제품 4종 언급"
+   },
+   "VS1": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS2": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS3": {
+    "applies": true,
+    "why": "13장 흐름"
+   },
+   "VS4": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS6": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS7": {
+    "applies": true,
+    "why": "본 제안 분량"
+   },
+   "VS8": {
+    "applies": true,
+    "why": "본 제안 분량"
+   },
+   "VS9": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS10": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS1": {
+    "applies": true,
+    "why": "장마다 글자 상자 위치 · 크기를 쟀어요"
+   },
+   "DS2": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS3": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS4": {
+    "applies": true,
+    "why": "글자 크기 정보 있음"
+   },
+   "DS5": {
+    "applies": true,
+    "why": "폰트 2종"
+   },
+   "DS6": {
+    "applies": true,
+    "why": "장표형 문서"
+   },
+   "DS7": {
+    "applies": true,
+    "why": "장표형 문서"
+   },
+   "DS8": {
+    "applies": true,
+    "why": "차트 0 · 표 0 · 수치 106"
+   },
+   "DS9": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS10": {
+    "applies": false,
+    "why": "장표 화면(이미지)이 없어요 — 색 · 톤은 판단 불가"
+   },
+   "WR1": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR2": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR3": {
+    "applies": true,
+    "why": "브랜드 표기 MagicINFO, WindFree, b.IoT"
+   },
+   "WR4": {
+    "applies": true,
+    "why": "수치 106개"
+   },
+   "WR5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR6": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR7": {
+    "applies": true,
+    "why": "사양 · 효과 수치 · 이미지 있음"
+   },
+   "WR8": {
+    "applies": true,
+    "why": "약어 KPI, GOP, OTA, OCC"
+   },
+   "WR9": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "SB1": {
+    "applies": true,
+    "why": "장표형 문서"
+   },
+   "SB2": {
+    "applies": true,
+    "why": "5장 이상 장표"
+   },
+   "SB3": {
+    "applies": false,
+    "why": "앱에서 만든 장 · PDF 는 노트 · 숨김 장 · 댓글 정보가 없어요"
+   },
+   "SB4": {
+    "applies": false,
+    "why": "파일 속성이 없어요"
+   },
+   "SB5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "SB6": {
+    "applies": false,
+    "why": "RFP 형식 요구가 연결되지 않았어요"
+   }
+  }
+ },
+ "scores": [
+  {
+   "id": "CU1",
+   "score": 3,
+   "anchor": "모든 장에서 고객사명을 'B 호텔'로 일관되게 표기하였으며, 규모(300실)와 담당 조직(객실팀, 시설팀 등) 정보가 장마다 동일하게 유지됩니다.",
+   "evidence": [
+    {
+     "sheet": 1,
+     "quote": "B 호텔 객실 TV · 공조 교체와 투숙 경험 개선 제안"
+    },
+    {
+     "sheet": 10,
+     "quote": "객실 300실은 한 실의 키트로"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F01",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "CU2",
+   "score": 3,
+   "anchor": "고객의 요구사항 7가지(R1~R3, K1~K4)에 대해 각 장에서 명시적으로 대응하고 있습니다. 특히 체크인 대기(R1, K3), 무중단 교체(R2, K2), 소음 민원(R3, K1, K4)에 대한 해법과 근거가 각 장에 구체적으로 제시되었습니다.",
+   "evidence": [
+    {
+     "sheet": 4,
+     "quote": "리뷰 불만은 결과일 뿐, 원인은 대기 · 소음 · 정보에 있습니다"
+    },
+    {
+     "sheet": 11,
+     "quote": "객실 판매는 층마다 하룻밤만 멈춥니다"
+    },
+    {
+     "sheet": 12,
+     "quote": "숫자로 보이는 효과, 투숙객이 느끼는 효과"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F02",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "CU4",
+   "score": 3,
+   "anchor": "B 호텔의 체크인 대기 시간(12분), 객실 매출 비중(78%), 에어컨 노후화(2013년) 등 구체적인 수치와 현장 인터뷰를 바탕으로 문제의 원인과 영향을 명확히 분석했습니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "체크인 대기 | 12분 | 15–16시 집중"
+    },
+    {
+     "sheet": 4,
+     "quote": "15–16시 체크인 집중, 프런트 3명 앞 평균 12분 대기"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F04",
+   "mode": "llm",
+   "grounded": 0.5,
+   "error": ""
+  },
+  {
+   "id": "MK4",
+   "score": 3,
+   "anchor": "객실 수는 300실로 일관되게 기술되어 있으며, 자동 점검에서 지적된 30객실/10객실은 본문 내용과 무관한 오탐입니다.",
+   "evidence": [
+    {
+     "sheet": 10,
+     "quote": "객실 300실은 한 실의 키트로"
+    },
+    {
+     "sheet": 12,
+     "quote": "B 호텔 300실 기준"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F06",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "PR3",
+   "score": 3,
+   "anchor": "객실, 로비, 레스토랑 등 각 공간의 특성에 맞춰 카탈로그 권장 용도에 부합하는 제품(HG55BU, 무풍 1Way, QM55C, KM24C)을 적절히 배치했습니다.",
+   "evidence": [
+    {
+     "sheet": 9,
+     "quote": "객실 302대 | 호텔 TV 55\" HG55BU"
+    },
+    {
+     "sheet": 10,
+     "quote": "로비 · 프런트 | 6대 | QM55C ×3 · KM24C ×3"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F04",
+   "mode": "llm",
+   "grounded": 0.5,
+   "error": ""
+  },
+  {
+   "id": "PR6",
+   "score": 3,
+   "anchor": "객실 300실에 대한 키트 구성과 공용부(로비, 레스토랑, 연회장 등)의 모델별 수량이 명확히 구분되어 있으며, 라이선스 및 서버 구성까지 포함되어 총계 616대가 정확히 산출되었습니다.",
+   "evidence": [
+    {
+     "sheet": 10,
+     "quote": "객실 기기 600 + 공용부 16 = 616대"
+    },
+    {
+     "sheet": 10,
+     "quote": "LYNK Cloud 라이선스 ×1"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F06",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "VS1",
+   "score": 3,
+   "anchor": "고객의 질문(대기, 안내, 소음)에 대응하는 3가지 핵심 가치를 명확히 제시하고, 각 가치를 실현하는 제품(키오스크, 호텔 TV, 무풍 에어컨)을 1:1로 연결하여 설명함.",
+   "evidence": [
+    {
+     "sheet": 5,
+     "quote": "질문이 나온 자리, 답하는 제품, 핵심 가치"
+    },
+    {
+     "sheet": 5,
+     "quote": "Q1 호텔 안내 채널 Q2 셀프 체크인 Q3 무풍 냉방"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F08",
+   "mode": "llm",
+   "grounded": 0.5,
+   "error": ""
+  },
+  {
+   "id": "VS2",
+   "score": 3,
+   "anchor": "리뷰 평점, 체크인 대기 시간, 전력 절감률 등 구체적인 정량 효과를 제시하고, 각 수치에 대한 측정 기준(OTA 평균, 현장 계측, b.IoT 리포트 등)을 명시함.",
+   "evidence": [
+    {
+     "sheet": 12,
+     "quote": "정량 효과 | 8.6 | 리뷰 평점 목표 | 5분 | 체크인 평균 대기 | 25% | 객실당 냉난방 전력 절감"
+    },
+    {
+     "sheet": 12,
+     "quote": "측정 · 주요 OTA 10점 평균 | 측정 · 피크 시간 현장 계측 | 측정 · b.IoT 객실별 전력 리포트"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F07",
+   "mode": "llm",
+   "grounded": 0.5,
+   "error": ""
+  },
+  {
+   "id": "VS6",
+   "score": 2,
+   "anchor": "층별 교체 일정과 샘플룸 운영 계획은 구체적이나, 교육 및 유지보수 체계에 대한 구체적인 계획이 누락되어 있습니다.",
+   "evidence": [
+    {
+     "sheet": 11,
+     "quote": "객실 판매는 층마다 하룻밤만 멈춥니다"
+    },
+    {
+     "sheet": 13,
+     "quote": "샘플룸 1실, 다음 2주에 정할 세 가지"
+    }
+   ],
+   "improve": "운영 인력 대상 교육 프로그램과 향후 유지보수 지원 체계에 대한 구체적인 계획을 추가해야 합니다.",
+   "confidence": "high",
+   "community": "F10",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "VS8",
+   "score": 3,
+   "anchor": "고객의 핵심 고민인 공사 중 영업 유지와 호환성 문제를 명확히 짚고, 층별 무중단 시공 및 PMS 연동 계획 등 구체적인 대응 방안을 제시했습니다.",
+   "evidence": [
+    {
+     "sheet": 4,
+     "quote": "판매 중단 부담에 교체 지연"
+    },
+    {
+     "sheet": 11,
+     "quote": "객실 판매는 층마다 하룻밤만 멈춥니다"
+    },
+    {
+     "sheet": 13,
+     "quote": "PMS 연동 사양 확인"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F10",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "DS1",
+   "score": 2,
+   "anchor": "6장에서 텍스트 넘침이 발생하였고, 13장의 제목 위치가 다른 장들과 일관되지 않게 배치되었습니다.",
+   "evidence": [
+    {
+     "sheet": 6,
+     "quote": "넘침 2"
+    },
+    {
+     "sheet": 13,
+     "quote": "제목 30px@(648,66)"
+    }
+   ],
+   "improve": "6장의 텍스트 넘침을 해결하고 13장의 제목 위치를 다른 장과 동일하게 정렬해야 합니다.",
+   "confidence": "high",
+   "community": "F11",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  },
+  {
+   "id": "DS4",
+   "score": 1,
+   "anchor": "모든 장의 본문 글자 크기가 12pt 미만이며, 11개 장에서 9pt 미만의 매우 작은 글자가 사용되어 가독성이 낮습니다.",
+   "evidence": [
+    {
+     "sheet": 7,
+     "quote": "본문 최소 9.5px(7.1pt)"
+    },
+    {
+     "sheet": 8,
+     "quote": "본문 최소 9.5px(7.1pt)"
+    }
+   ],
+   "improve": "본문 글자 크기를 12pt(16px) 이상으로 상향 조정하여 가독성을 확보해야 합니다.",
+   "confidence": "high",
+   "community": "F11",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  },
+  {
+   "id": "WR1",
+   "score": 2,
+   "anchor": "13장에 담당자 연락처 및 이메일 주소가 기재되어 있으나, 이는 제안서 마무리를 위한 정보로 템플릿 잔여물로 보기 어렵습니다. 다만, 자동 점검에서 지적된 이메일 주소의 일부가 템플릿 형식으로 보일 여지가 있어 2점으로 판단합니다.",
+   "evidence": [
+    {
+     "sheet": 13,
+     "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678 · b2b.proposal@samsung.com"
+    }
+   ],
+   "improve": "이메일 주소 등 연락처 정보가 템플릿 예시처럼 보이지 않도록 명확한 실제 담당자 정보로 기재해야 합니다.",
+   "confidence": "mid",
+   "community": "F01",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "WR6",
+   "score": 3,
+   "anchor": "원가, 마진, 내부 할인율 등 민감한 내부 정보가 없으며, 13장에 기재된 담당자 연락처는 제안사 영업 담당자의 업무용 정보로 정상적인 표기입니다.",
+   "evidence": [
+    {
+     "sheet": 13,
+     "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678 · b2b.proposal@samsung.com"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F01",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  }
+ ],
+ "aggregate": {
+  "total": 83.2,
+  "band": "양호",
+  "verdict": "소폭 보완 후 제출",
+  "rubric_mean": 2.647,
+  "categories": {
+   "CU": 100.0,
+   "MK": 100.0,
+   "PR": 100.0,
+   "VS": 88.9,
+   "DS": 30.0,
+   "WR": 75.0
+  },
+  "communities": {
+   "F01": 2.67,
+   "F02": 3.0,
+   "F04": 3.0,
+   "F06": 3.0,
+   "F07": 3.0,
+   "F08": 3.0,
+   "F10": 2.5,
+   "F11": 1.5,
+   "C1": 2.8,
+   "C2": 2.67,
+   "C3": 3.0,
+   "C4": 2.0
+  },
+  "n_all": 54,
+  "n_applicable": 48,
+  "n_selected": 14,
+  "n_scored": 14,
+  "weight_coverage": 0.374,
+  "dist": {
+   "1": 1,
+   "2": 3,
+   "3": 10
+  },
+  "low": [
+   "DS4"
+  ]
+ },
+ "grounded_mean": 0.714,
+ "fallbacks": 0,
+ "auto_checks": {
+  "CU5": [
+   "고객사명 “B 호텔”이 나오는 장: 13/13장"
+  ],
+  "CU1": [
+   "고객사명 “B 호텔” 표기: 13개 장"
+  ],
+  "MK4": [
+   "“객실” 값이 여러 개: 30객실(7, 13장) · 10객실(7장)"
+  ],
+  "MK2": [
+   "자료 기준 연도 표기 1곳 · 3년 이상 된 자료 연도 없음"
+  ],
+  "MK3": [
+   "수치 3개 이상인 장 12개 중 출처 · 기준 표기 없는 장: 3, 4, 5, 6, 7, 10, 11, 13"
+  ],
+  "WR1": [
+   "자리표시 · 템플릿 문구 1곳: 13장 “프로 · B2B 영업팀 · 010-1234-5678 · b2b.proposal@”"
+  ],
+  "WR5": [
+   "절대 표현 0곳"
+  ],
+  "WR3": [
+   "공식 표기와 다른 브랜드명 0곳"
+  ],
+  "WR6": [
+   "내부 · 민감 정보 의심 표현 2곳: 13장 “프로 · B2B 영업팀 · 010-1234-5678 · b2b.proposal@”, 13장 “010-1234-5678 · b2b.proposal@samsung.com”"
+  ],
+  "WR7": [
+   "고지 · 전제 문구가 있는 장: 7, 8"
+  ],
+  "WR4": [
+   "단위 표기: 혼용 패턴을 찾지 못했어요"
+  ],
+  "WR8": [
+   "약어 13개 중 풀이가 보이지 않는 것: KPI, GOP, OCC, ADR, PMS, OFF, FCU, NEXT, STEPS"
+  ],
+  "PR2": [
+   "카탈로그 사양 — QM55C: 스마트 사이니지 QM55C · 55\" · 500nit · 4K UHD · 24/7 운영 / KM24C: 삼성 키오스크 KM24C · 24\" · 세로형 터치 · 결제 주변기기 연동 / HG55BU: 호텔 TV 55\" (HBU) · 55\" · LYNK Cloud 연동 · 웰컴 화면 · 미러링 / WindFree 1Way: 무풍 1Way 카세트 · 직바람 없는 무풍 냉방 · 슬림 · 객실/병실용"
+  ],
+  "PR3": [
+   "카탈로그 권장 공간 — QM55C: 카운터, 메뉴보드, 로비, 대기 공간, 매장 / KM24C: 카운터, 입구, 로비, 무인 매장 / HG55BU: 객실, 라운지 / WindFree 1Way: 객실, 병실, 사무실, 교실"
+  ],
+  "PR1": [
+   "카탈로그에 있는 모델 4종 · 카탈로그에 없는 모델 표기 없음"
+  ],
+  "DS1": [
+   "글자 넘침 2곳: 6장 칸4 “객실”, 6장 칸5 “300실 · 투숙 만족이 결정되는 곳” · 장표 밖 0곳 · 텍스트 겹침 0쌍",
+   "제목 위치가 다른 장과 다른 장: 13"
+  ],
+  "DS5": [
+   "제목 글자 크기 분포(px: 장 수) {30: 12} · 폰트: 앱 레이아웃 공통(Noto Sans KR · Manrope)"
+  ],
+  "DS7": [
+   "본문 장 12개 중 결론 · 메시지형 제목 12개 (100%)"
+  ],
+  "DS3": [
+   "장당 평균 174어절 · 최대 329어절 · 110어절 넘는 장: 2장(176), 3장(329), 4장(147), 5장(130), 6장(167), 7장(309), 8장(274), 9장(160), 10장(144), 11장(197)"
+  ],
+  "DS4": [
+   "본문(8자 넘는 칸, 푸터 제외) 최소 글자 크기가 12pt(16px) 미만인 장 13/13장 · 9pt(12px) 미만인 장 11장: 7장 9.5px(7.1pt), 8장 9.5px(7.1pt), 2장 11px(8.2pt), 3장 11px(8.2pt), 4장 11px(8.2pt), 5장 11px(8.2pt), 9장 11px(8.2pt), 10장 11px(8.2pt)",
+   "20자 넘는 본문 칸의 글자 크기 분포(px: 칸 수) {12: 58, 15: 14, 30: 11, 13: 10, 14: 7, 11: 5}"
+  ],
+  "DS6": [
+   "사진 · 이미지가 없는 본문 장 0/12장 · 빈 이미지 칸 0개 · 사진 중심 레이아웃 11장"
+  ],
+  "DS9": [
+   "13장 · 발표 미정분 · 중복 레이아웃 없음"
+  ],
+  "SB2": [
+   "쪽번호 · CONFIDENTIAL 푸터가 있는 장 12/13장 · 없는 장: 1"
+  ],
+  "SB1": [
+   "표지(1장): 고객사명 있음 · 날짜 있음 2026.10 · 제안사 표기 있음 · 목차 장: 없음 · 마무리 장: 13"
+  ],
+  "SB5": [
+   "표지 날짜: 2026.10 · 덱 안의 연 · 월 표기: 2026.01, 2026.10, 2027.01"
+  ],
+  "VS3": [
+   "단계 → 파트 순서: 열기(1) → 맥락 · 객실 비즈니스(2) → 문제 · 근본 원인(2) → 장면 · 객실의 하루(3) → 구성 · 교체 매핑(2) → 실행 · 무중단 교체(1) → 근거 · 효과(1) → 결정 요청(1)"
+  ],
+  "CU2": [
+   "요구 7개 중 핵심 낱말이 본문에 거의 없는 것 0개"
+  ]
+ },
+ "profile": {
+  "kind": "winmate",
+  "slides": true,
+  "units": 13,
+  "customer": "B 호텔",
+  "ind": "HT",
+  "ind_name": "호텔 · 리조트",
+  "products": [
+   "QM55C",
+   "KM24C",
+   "HG55BU",
+   "WindFree 1Way"
+  ],
+  "unknown_models": [],
+  "older_models": [],
+  "solutions": [
+   "MagicINFO",
+   "SmartThings Pro",
+   "b.IoT",
+   "LYNK Cloud",
+   "삼성 통합공조",
+   "SAC 제어 시스템"
+  ],
+  "figures": 106,
+  "years": 9,
+  "competitors": [],
+  "brand_terms": [
+   "MagicINFO",
+   "WindFree",
+   "b.IoT",
+   "LYNK Cloud"
+  ],
+  "abbrs": [
+   "KPI",
+   "GOP",
+   "OTA",
+   "OCC",
+   "ADR",
+   "PMS",
+   "BU",
+   "OFF",
+   "AHU",
+   "DVM",
+   "FCU",
+   "NEXT",
+   "STEPS"
+  ],
+  "font_count": 2,
+  "fonts": [
+   "Noto Sans KR",
+   "Manrope"
+  ],
+  "pics": 67,
+  "charts": 0,
+  "tables": 0,
+  "market_units": 0,
+  "comp_units": 0,
+  "cost_units": 0,
+  "rfp_like": false,
+  "rfp_format": false,
+  "visual": false,
+  "meta_avail": false
+ },
+ "calls": 10,
+ "tokens": {
+  "prompt": 76474,
+  "output": 5528
+ },
+ "seconds": 0.1,
+ "_kind": "base",
+ "_mode": "routed"
+}

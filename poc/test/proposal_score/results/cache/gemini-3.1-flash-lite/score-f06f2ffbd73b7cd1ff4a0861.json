@@ -1,0 +1,56 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08:F04"
+ },
+ "prompt_tokens": 6400,
+ "output_tokens": 523,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "W 요양병원의 야간 호출 응답 시간(6분), 다인실 CO2 농도(1,800ppm), 주말 면회 대기 시간(15분) 등 현장 측정 수치를 기반으로 문제와 원인을 구체적으로 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "야간 간호 인력 1명이 30병상을 맡고, 온도 · 환기 점검 순회까지 겹쳐 호출 응답이 늦어집니다 | 6분"
+     },
+     {
+      "sheet": 4,
+      "quote": "노후 공조는 창문 환기에 의존해 겨울 · 야간 다인실 CO₂가 기준을 넘고 | 1,800 ppm"
+     },
+     {
+      "sheet": 4,
+      "quote": "면회 시간 · 동선 · 수칙을 창구가 말로 안내해 주말 대기가 길고 | 15분"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "병실의 24시간 운영, 감염 관리, 위생 환경을 고려하여 무풍 4Way, ERV, IP68 등급의 탭 액티브5 등 공간별 최적화된 제품을 명확히 제안했습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "병실은 사무실과 조건이 다릅니다 — 다섯 조건, 다섯 대응"
+     },
+     {
+      "sheet": 10,
+      "quote": "닦고 떨어뜨려도 견디는 탭 액티브5 | IP68 · MIL-STD 태블릿"
+     },
+     {
+      "sheet": 10,
+      "quote": "바람 없이 병실 온도를 고르게 유지 | 무풍 4Way 카세트"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

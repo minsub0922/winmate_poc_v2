@@ -1,0 +1,82 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~full:F06"
+ },
+ "prompt_tokens": 9299,
+ "output_tokens": 641,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "전체 객실 수 300실과 교체 대상 수량 등이 모든 장에서 일관되게 기술되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "객실 300실은 한 실의 키트로"
+     },
+     {
+      "sheet": 10,
+      "quote": "객실 기기 600 + 공용부 16 = 616대"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR6",
+    "score": 3,
+    "anchor": "공간별 모델과 수량이 명확히 제시되었으며, 라이선스 및 서버 구성까지 포함하여 합계가 정확합니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "객실 1실 키트 | 스탠다드 · 트윈 · 스위트 공통"
+     },
+     {
+      "sheet": 10,
+      "quote": "합계 | 객실 기기 600 + 공용부 16 = 616대"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "DS8",
+    "score": 3,
+    "anchor": "표와 리스트 형식을 활용하여 수량과 구성 정보를 가독성 있게 정리하였으며, 단위와 합계가 정확합니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "교체 합계 | 616대"
+     },
+     {
+      "sheet": 10,
+      "quote": "객실 1실 키트 | 스탠다드 · 트윈 · 스위트 공통"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR4",
+    "score": 3,
+    "anchor": "인치(″), 수량, 금액 등 단위 표기가 제안서 전반에 걸쳐 일관되게 사용되었습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "호텔 TV 55\" HG55BU"
+     },
+     {
+      "sheet": 10,
+      "quote": "호텔 TV 55\" | HG55BU"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

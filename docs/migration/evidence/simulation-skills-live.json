@@ -1,0 +1,161 @@
+{
+  "createdAt": "2026-10-20T06:02:40.145Z",
+  "catalog": "app/web/src/domain/simulation/skills.json",
+  "catalogSha256": "e75cedf22a797a9f7dcc306c5c2fab696e7dd84d448b005af7e650a1ba21d572",
+  "skills": [
+    {
+      "id": "competitor-analysis",
+      "name": "경쟁사 분석",
+      "web": "required"
+    },
+    {
+      "id": "product-fit",
+      "name": "맞춤 제품 제시",
+      "web": "auto"
+    },
+    {
+      "id": "solution-design",
+      "name": "솔루션 구성 제안",
+      "web": "auto"
+    },
+    {
+      "id": "case-evidence",
+      "name": "유관 사례 탐색",
+      "web": "auto"
+    },
+    {
+      "id": "roi-tco",
+      "name": "투자효과·비용 정리",
+      "web": "auto"
+    },
+    {
+      "id": "objection-response",
+      "name": "고객 우려 대응",
+      "web": "auto"
+    },
+    {
+      "id": "pilot-plan",
+      "name": "파일럿·실행 계획",
+      "web": "auto"
+    },
+    {
+      "id": "decision-brief",
+      "name": "의사결정 요약",
+      "web": "auto"
+    }
+  ],
+  "liveChecks": [
+    {
+      "skill": "competitor-analysis",
+      "fixture": "app/tests/fixtures/simulation-skills/competitor-analysis-real.json",
+      "sha256": "872bcf78a45ba287987d4c1ea64ab20e621764c9c918deb047d8cf7ff08ebac9",
+      "sourceCount": 11,
+      "webUsed": true,
+      "webQueries": [
+        "LG 55UH5N-M specifications",
+        "Samsung QM55C specifications",
+        "Samsung VXT CMS features for retail menu board",
+        "benefits of Samsung MagicINFO for franchise menu board control",
+        "digital signage 24/7 operation reliability Samsung vs LG"
+      ],
+      "sourceIds": [
+        "product:qm55c",
+        "solution:vxt",
+        "product:sg_g000183433",
+        "case:3727",
+        "web:2",
+        "web:3",
+        "web:4",
+        "web:5",
+        "web:6",
+        "web:7",
+        "web:8"
+      ],
+      "model": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 3,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 14187,
+          "output": 2625
+        },
+        "steps": {
+          "simulation:skill:plan": 1,
+          "simulation:skill:web": 1,
+          "simulation:skill:answer": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null
+      },
+      "actualModelResult": true
+    },
+    {
+      "skill": "product-fit",
+      "fixture": "app/tests/fixtures/simulation-skills/product-fit-real.json",
+      "sha256": "802ade03d5e7fecda982658d800064894b99c6129342750e90bdb9b058fb7b26",
+      "sourceCount": 12,
+      "webUsed": true,
+      "webQueries": [
+        "프랜차이즈 매장 메뉴보드 원격 배포 솔루션 기능",
+        "삼성 스마트 사이니지 카페 메뉴보드 솔루션",
+        "삼성 스마트 사이니지 55형 24시간 운영 모델 사양",
+        "삼성 디지털 사이니지 원격 관리 솔루션 MagicINFO"
+      ],
+      "sourceIds": [
+        "product:qm55c",
+        "solution:magicinfo",
+        "product:sg_g000183916",
+        "solution:vxt",
+        "web:1",
+        "web:2",
+        "web:3",
+        "web:4",
+        "web:5",
+        "web:6",
+        "web:7",
+        "web:8"
+      ],
+      "model": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 3,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 24749,
+          "output": 2231
+        },
+        "steps": {
+          "simulation:skill:plan": 1,
+          "simulation:skill:web": 1,
+          "simulation:skill:answer": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null
+      },
+      "actualModelResult": true
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+import { chromium } from '/home/claude/wm/node_modules/playwright/index.mjs';
+const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+const pg = await b.newPage();
+const reqs = [];
+pg.on('request', (r) => { if (/xhr/.test(r.url())) reqs.push(r.method() + ' ' + r.url() + ' ' + (r.postData() || '')); });
+await pg.goto('https://www.samsung.com/sec/business/insights/case-study/', { waitUntil: 'domcontentloaded', timeout: 60000 });
+await pg.waitForTimeout(8000); console.log(reqs.join('\n'));
+const n = await pg.$$eval('li[data-lett-no]', (els) => els.length);
+console.log('items', n);
+console.log(await pg.$eval('li[data-lett-no]', (e) => e.outerHTML.slice(0, 1500)));
+await b.close();

@@ -1,0 +1,755 @@
+{
+ "tc": "TC3",
+ "title": "[신한은행] 업무용 모니터(27인치) 980대",
+ "cond": "chunk_carry_gap@1500",
+ "preset_products": [
+  "smartmonitor"
+ ],
+ "form_recall": 0.967,
+ "form_items": null,
+ "form_lines": 16,
+ "deck_content": 0.92,
+ "deck_content_given_form": 0.92,
+ "checklist_proc": 1.0,
+ "missed_content": [
+  "c02 27\" UHD 3840×2160",
+  "c13 USB-C PD"
+ ],
+ "missed_proc": [],
+ "level": "complex",
+ "industry": "FN",
+ "strategy": "rfp",
+ "answers": {
+  "strategy": "rfp",
+  "ending": "shortlist",
+  "keyman": "총무부(입찰/구매/계약)",
+  "conflict_C1": "규격 충족 + TCO · 지원으로 총가치 강조",
+  "conflict_L1": "우선 대응",
+  "gap_llm1": "자리표시로 두기",
+  "gap_llm2": "자리표시로 두기",
+  "gap_llm3": "자리표시로 두기",
+  "llm_Q01": "",
+  "llm_Q02": "",
+  "llm_Q03": "",
+  "length": "20"
+ },
+ "questions": [
+  {
+   "id": "strategy",
+   "q": "어떤 전략 축으로 제안서를 세울까요?",
+   "default": "rfp",
+   "options": [
+    "rfp: 요구 대응형 — 평가표 순서대로 빠짐없이 대응해 점수를 확보한다",
+    "compete: 경쟁 우위형 — 비교 기준을 우리 쪽으로 옮기고, 열위는 정직하게 보완한다",
+    "pain: 문제 해결형 — 고객이 겪는 문제와 그 비용에서 출발해 해법 · 전후로 닫는다"
+   ]
+  },
+  {
+   "id": "ending",
+   "q": "이 제안서로 끌어낼 결정(결말)은 무엇인가요?",
+   "default": "shortlist",
+   "options": [
+    "shortlist: 우선협상 선정",
+    "pilot: 파일럿 승인",
+    "scope: 범위 · 일정 확정"
+   ]
+  },
+  {
+   "id": "keyman",
+   "q": "어느 키맨의 요구를 앞에 둘까요?",
+   "default": "총무부(입찰/구매/계약)",
+   "options": [
+    "Tech운영부(기술/검증)",
+    "총무부(입찰/구매/계약)"
+   ]
+  },
+  {
+   "id": "conflict_C1",
+   "q": "[가격 vs 규격] 최저가로 결정되는데 규격 · 보안 필수 조건이 많다 — 규격은 '충족'으로 안전하게, 차별화는 TCO · 지원 체계로 — 어떻게 대응할까요?",
+   "default": "규격 충족 + TCO · 지원으로 총가치 강조",
+   "options": [
+    "규격 100% 충족 + 최저가 대응(원가 최소 구성)",
+    "규격 충족 + TCO · 지원으로 총가치 강조",
+    "대안 사양 제시(부분 충족 위험)"
+   ]
+  },
+  {
+   "id": "conflict_L1",
+   "q": "[LLM 발견] 가격 평가 100점(R22, R23)과 고사양 규격 요구사항(R01, R02, R09, R13) 간의 비용 효율성 충돌 — 어떻게 대응할까요?",
+   "default": "우선 대응",
+   "options": [
+    "우선 대응",
+    "보완 설명",
+    "범위 밖으로 명시"
+   ]
+  },
+  {
+   "id": "gap_llm1",
+   "q": "예정가격(Budget) 정보 부재",
+   "default": "자리표시로 두기",
+   "options": [
+    "값을 입력",
+    "자리표시로 두기"
+   ]
+  },
+  {
+   "id": "gap_llm2",
+   "q": "입찰 공고 번호 및 입찰 공고 명(R35 준수용)",
+   "default": "자리표시로 두기",
+   "options": [
+    "값을 입력",
+    "자리표시로 두기"
+   ]
+  },
+  {
+   "id": "gap_llm3",
+   "q": "금융권 납품 실적 증빙을 위한 구체적인 가이드라인",
+   "default": "자리표시로 두기",
+   "options": [
+    "값을 입력",
+    "자리표시로 두기"
+   ]
+  },
+  {
+   "id": "llm_Q01",
+   "q": "본 사업의 예정가격(Budget)은 얼마입니까? 최저가 낙찰제이므로 가격 경쟁력 확보를 위한 마지노선 파악이 필수입니다.",
+   "default": "",
+   "options": []
+  },
+  {
+   "id": "llm_Q02",
+   "q": "입찰 공고 번호와 정확한 입찰 공고 명을 확인해주십시오. (참가 의향서 제출 서식 준수용)",
+   "default": "",
+   "options": []
+  },
+  {
+   "id": "llm_Q03",
+   "q": "금융권 납품 실적 증빙 시, 특정 규모 이상의 계약 건만 인정되는지 혹은 건수 제한이 있는지 확인이 필요합니다.",
+   "default": "",
+   "options": []
+  },
+  {
+   "id": "length",
+   "q": "분량은 어느 정도로 할까요?",
+   "default": "20",
+   "options": [
+    "10: 요약(10장 내외)",
+    "15: 표준(15장 내외)",
+    "20: 상세 · 요구 대응(20장 이상)"
+   ]
+  }
+ ],
+ "conflicts": [
+  "가격 vs 규격",
+  "LLM 발견"
+ ],
+ "products": [
+  "smartmonitor"
+ ],
+ "solutions": [],
+ "parts": [
+  "cover:제안 개요",
+  "overview:사업 이해 및 범위",
+  "requirements:핵심 이해관계자 대응",
+  "requirements:평가 항목 및 준수사항",
+  "requirements:입찰 자격 및 대응",
+  "value:핵심 가치 및 편의성",
+  "products:공간별 최적 제품",
+  "bom:물품 공급 범위",
+  "spec:기술 규격 및 성능",
+  "execution:보안 및 기술지원",
+  "case:금융권 구축 사례",
+  "why:삼성전자 제안 강점",
+  "execution:운영 및 유지보수",
+  "execution:사업 일정 및 실행",
+  "cost:비용 및 가치 제안",
+  "closing:결정 요청"
+ ],
+ "review": {
+  "req_total": 48,
+  "coverage": 1.0,
+  "issues": [
+   "[high] 요구 크기(27인치)와 제안 제품 크기(S32DM80 32\")가 맞지 않음 — 카탈로그에 맞는 모델이 없으면 대안 사양으로 명시하거나 모델을 확인해야 함",
+   "[low] 입찰 절차 · 제출 조건 47개는 제출 체크리스트로 따로 확인(요구 대응표에 수록)"
+  ],
+  "checklist": 47
+ },
+ "stats": {
+  "n_slides": 20,
+  "text_slots": 1024,
+  "placeholders": 301,
+  "slides_with_ph": 18,
+  "sample_text_kept": 383,
+  "img_slots": 42,
+  "img_filled": 20,
+  "photo_slides": 8,
+  "stray_slides": 1,
+  "slides": [
+   {
+    "no": 1,
+    "code": "C03",
+    "f": "L_C03",
+    "visual": [
+     "message"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 0,
+    "stray": []
+   },
+   {
+    "no": 2,
+    "code": "PH-OV-A",
+    "f": "L_PH_OV_A",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "message",
+     "photo"
+    ],
+    "ph": 17,
+    "img_slots": 6,
+    "img_filled": 5,
+    "kept_sample": 24,
+    "stray": []
+   },
+   {
+    "no": 3,
+    "code": "RM-B",
+    "f": "L_RM_B",
+    "visual": [
+     "table"
+    ],
+    "ph": 13,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 27,
+    "stray": []
+   },
+   {
+    "no": 4,
+    "code": "RM-B",
+    "f": "L_RM_B",
+    "visual": [
+     "table"
+    ],
+    "ph": 15,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 32,
+    "stray": []
+   },
+   {
+    "no": 5,
+    "code": "RM-B",
+    "f": "L_RM_B",
+    "visual": [
+     "table"
+    ],
+    "ph": 15,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 32,
+    "stray": []
+   },
+   {
+    "no": 6,
+    "code": "RM-C",
+    "f": "L_RM_C",
+    "visual": [
+     "table"
+    ],
+    "ph": 38,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 31,
+    "stray": []
+   },
+   {
+    "no": 7,
+    "code": "PH-RQ-B",
+    "f": "L_PH_RQ_B",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 9,
+    "img_slots": 4,
+    "img_filled": 4,
+    "kept_sample": 19,
+    "stray": []
+   },
+   {
+    "no": 8,
+    "code": "VP-F",
+    "f": "L_VP_F2",
+    "visual": [
+     "cards",
+     "image",
+     "matrix",
+     "photo"
+    ],
+    "ph": 2,
+    "img_slots": 2,
+    "img_filled": 0,
+    "kept_sample": 2,
+    "stray": []
+   },
+   {
+    "no": 9,
+    "code": "PH-P-G",
+    "f": "L_PH_P_G",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 0,
+    "img_slots": 4,
+    "img_filled": 4,
+    "kept_sample": 0,
+    "stray": []
+   },
+   {
+    "no": 10,
+    "code": "PH-BM-A",
+    "f": "L_PH_BM_A",
+    "visual": [
+     "image_heavy",
+     "photo",
+     "table"
+    ],
+    "ph": 5,
+    "img_slots": 10,
+    "img_filled": 5,
+    "kept_sample": 3,
+    "stray": []
+   },
+   {
+    "no": 11,
+    "code": "SC-B",
+    "f": "L_SC_B",
+    "visual": [
+     "comparison",
+     "table"
+    ],
+    "ph": 29,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 12,
+    "stray": []
+   },
+   {
+    "no": 12,
+    "code": "SC-B",
+    "f": "L_SC_B",
+    "visual": [
+     "comparison",
+     "table"
+    ],
+    "ph": 25,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 6,
+    "stray": []
+   },
+   {
+    "no": 13,
+    "code": "SC-B",
+    "f": "L_SC_B",
+    "visual": [
+     "comparison",
+     "table"
+    ],
+    "ph": 30,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 7,
+    "stray": []
+   },
+   {
+    "no": 14,
+    "code": "SE-A",
+    "f": "L_SE_A",
+    "visual": [
+     "table"
+    ],
+    "ph": 44,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 39,
+    "stray": [
+     "Knox Suite"
+    ]
+   },
+   {
+    "no": 15,
+    "code": "PH-CL-C",
+    "f": "L_PH_CL_C",
+    "visual": [
+     "image_heavy",
+     "message",
+     "photo",
+     "table"
+    ],
+    "ph": 10,
+    "img_slots": 8,
+    "img_filled": 0,
+    "kept_sample": 2,
+    "stray": []
+   },
+   {
+    "no": 16,
+    "code": "PH-SV-B",
+    "f": "L_PH_SV_B",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 8,
+    "img_slots": 4,
+    "img_filled": 1,
+    "kept_sample": 19,
+    "stray": []
+   },
+   {
+    "no": 17,
+    "code": "MT-B",
+    "f": "L_MT_B",
+    "visual": [
+     "cards"
+    ],
+    "ph": 9,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 50,
+    "stray": []
+   },
+   {
+    "no": 18,
+    "code": "PH-IP-A",
+    "f": "L_PH_IP_A",
+    "visual": [
+     "cards",
+     "flow",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 3,
+    "img_slots": 4,
+    "img_filled": 1,
+    "kept_sample": 17,
+    "stray": []
+   },
+   {
+    "no": 19,
+    "code": "CO-B",
+    "f": "L_CO_B",
+    "visual": [
+     "cards"
+    ],
+    "ph": 26,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 52,
+    "stray": []
+   },
+   {
+    "no": 20,
+    "code": "C07",
+    "f": "L_C07",
+    "visual": [
+     "cards",
+     "message"
+    ],
+    "ph": 3,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 9,
+    "stray": []
+   }
+  ]
+ },
+ "time": {
+  "rfp_s": 0.0,
+  "layout_s": 23.1,
+  "rfp_calls": 0,
+  "layout_calls": 16,
+  "layout_fail": 0
+ },
+ "rows": [
+  {
+   "id": "c01",
+   "cat": "범위",
+   "desc": "수량 980대",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c02",
+   "cat": "규격",
+   "desc": "27\" UHD 3840×2160",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c03",
+   "cat": "규격",
+   "desc": "Pivot",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c04",
+   "cat": "규격",
+   "desc": "Swivel",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c05",
+   "cat": "규격",
+   "desc": "Tilt",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c06",
+   "cat": "규격",
+   "desc": "Elevation(높이)",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c07",
+   "cat": "규격",
+   "desc": "IPS 또는 VA",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c08",
+   "cat": "규격",
+   "desc": "300cd/㎡ 이상",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c09",
+   "cat": "규격",
+   "desc": "응답속도 8ms 이하",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c10",
+   "cat": "규격",
+   "desc": "시야각 178°",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c11",
+   "cat": "규격",
+   "desc": "60Hz 이상",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c12",
+   "cat": "규격",
+   "desc": "sRGB 90% 이상",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c13",
+   "cat": "규격",
+   "desc": "USB-C PD",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c14",
+   "cat": "규격",
+   "desc": "3Port 이상",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c15",
+   "cat": "규격",
+   "desc": "시력보호(플리커프리 · 블루라이트)",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c16",
+   "cat": "규격",
+   "desc": "별도 AC 어댑터 사용 불가",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c17",
+   "cat": "인증",
+   "desc": "KC · 전파인증",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c18",
+   "cat": "A/S",
+   "desc": "자산스티커 부착",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c19",
+   "cat": "구성",
+   "desc": "DP to DP 3M 케이블",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c20",
+   "cat": "규격",
+   "desc": "컬러 Black",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c21",
+   "cat": "선정",
+   "desc": "가격평가 100점",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c22",
+   "cat": "선정",
+   "desc": "최저가격 입찰",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c23",
+   "cat": "범위",
+   "desc": "사업기간 6개월 내외",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": true
+  },
+  {
+   "id": "c24",
+   "cat": "자격",
+   "desc": "금융권 모니터 납품 실적",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c25",
+   "cat": "일정",
+   "desc": "참가의향서 6/12",
+   "proc": true,
+   "form": true,
+   "deck": false,
+   "checklist": true
+  },
+  {
+   "id": "c26",
+   "cat": "일정",
+   "desc": "13:00 마감",
+   "proc": true,
+   "form": true,
+   "deck": false,
+   "checklist": true
+  },
+  {
+   "id": "c27",
+   "cat": "제출",
+   "desc": "시력보호기능 인증공문",
+   "proc": true,
+   "form": false,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c28",
+   "cat": "가격",
+   "desc": "입찰보증금 5%",
+   "proc": true,
+   "form": true,
+   "deck": false,
+   "checklist": true
+  },
+  {
+   "id": "c29",
+   "cat": "제출",
+   "desc": "접수 메일 주소",
+   "proc": true,
+   "form": true,
+   "deck": false,
+   "checklist": true
+  },
+  {
+   "id": "c30",
+   "cat": "A/S",
+   "desc": "무상기간 내 점검 · 수리",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  }
+ ]
+}

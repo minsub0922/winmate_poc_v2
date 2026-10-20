@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs12:F07"
+ },
+ "prompt_tokens": 7871,
+ "output_tokens": 350,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "12장에서 투자 회수 시점, 초기 투자비, 연간 효과 항목별 금액을 제시하고, 12장 하단에 홈 72경기 기준 등 산정 가정과 출처를 명시함.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "투자 회수 시점 28개월, 초기 투자 17.4억, 연간 효과 10.6억"
+     },
+     {
+      "sheet": 12,
+      "quote": "가정: 홈 72경기, 케어 연 1.2억, 광고 단가 2026 기준"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR5",
+    "score": 3,
+    "anchor": "9장에서 '국내 최초'라는 표현을 사용했으나, 뒤에 '롯데시네마 광음LED에 도입'이라는 구체적인 근거와 출처를 함께 기재하여 보증성 표현의 근거를 갖춤.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "롯데시네마 광음LED에 국내 최초 오닉스 도입"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs12:F06"
+ },
+ "prompt_tokens": 6308,
+ "output_tokens": 219,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "모든 장에서 동일한 지표(홈 72경기, 1인당 지출 14,500원 등)가 일관되게 사용되었으며, 요약표와 본문 간의 수치적 모순이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "좌석 점유율 72% · 1인당 지출 14,500원"
+     },
+     {
+      "sheet": 11,
+      "quote": "홈 72경기"
+     },
+     {
+      "sheet": 12,
+      "quote": "홈 72경기"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

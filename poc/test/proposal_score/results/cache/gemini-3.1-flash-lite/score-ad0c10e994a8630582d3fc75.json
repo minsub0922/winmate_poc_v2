@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01:F05"
+ },
+ "prompt_tokens": 8935,
+ "output_tokens": 244,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 2,
+    "anchor": "주요 시장 규모 및 성과 수치에 기관과 연도가 명시되어 있으나, 일부 수치는 '삼성전자 추정' 또는 출처가 명시되지 않은 경우가 존재합니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "단위 억 원 · 출처 삼성전자 추정(2026)"
+     },
+     {
+      "sheet": 4,
+      "quote": "지표는 A 커피 운영 자료(2026) 기준"
+     },
+     {
+      "sheet": 5,
+      "quote": "A 커피 운영본부 인터뷰(2026. 9)"
+     }
+    ],
+    "improve": "모든 수치 데이터에 대해 조사 기관과 연도를 일관되게 명시하여 출처의 신뢰성을 높여야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

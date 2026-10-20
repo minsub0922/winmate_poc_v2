@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs14:F08"
+ },
+ "prompt_tokens": 2406,
+ "output_tokens": 197,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "12장과 13장에서 이상 보고 시간 단축, 처리 시간 감소, 오류율 개선, 비용 절감이라는 4가지 명확한 결과형 가치를 제시하고, 이를 구현하는 갤럭시 기기와 Knox 솔루션을 구체적으로 연결함.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "이상 보고, 5단계 45분에서 2단계 10분으로"
+     },
+     {
+      "sheet": 13,
+      "quote": "전 공장 확산 후, 네 지표가 이렇게 달라집니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

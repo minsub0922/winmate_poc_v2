@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08~full:F12"
+ },
+ "prompt_tokens": 8315,
+ "output_tokens": 487,
+ "data": {
+  "scores": [
+   {
+    "id": "WR2",
+    "score": 3,
+    "anchor": "전체적으로 맞춤법과 띄어쓰기가 정확하며, 제목에도 오류가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "W 요양병원 병동 환자 경험 · 운영 리뉴얼 제안"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR8",
+    "score": 1,
+    "anchor": "ERV, DVM, PM, SLA 등 고객이 이해하기 어려운 전문 약어들을 처음 등장할 때 풀이하거나 설명하지 않고 그대로 사용했습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "1,800 ppm"
+     },
+     {
+      "sheet": 6,
+      "quote": "ERV 환기"
+     },
+     {
+      "sheet": 12,
+      "quote": "SLA는 계약 조건으로"
+     }
+    ],
+    "improve": "고객이 생소할 수 있는 약어(ERV, DVM, PM, SLA 등)를 처음 언급할 때 전체 명칭을 병기하거나 설명을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR9",
+    "score": 3,
+    "anchor": "전체적으로 개조식 문체와 명사형 종결을 일관되게 사용하였으며, 고객을 존중하는 톤을 유지하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "질문은 간호부 · 감염관리실 · 원무팀 인터뷰에서 그대로"
+     },
+     {
+      "sheet": 7,
+      "quote": "W 요양병원의 병실은 치료 공간이자 환자가 사는 집입니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

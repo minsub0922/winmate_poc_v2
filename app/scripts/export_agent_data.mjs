@@ -2,13 +2,14 @@
 // Canonical app-side knowledge snapshot for the PoC agents → app/data/runtime/kb (only).
 //
 //   node app/scripts/export_agent_data.mjs [--out app/data/runtime/kb] [--allow-count-drift]
-//        [--expect-total 835] [--expect-active 594] [--expect-products 1068] [--expect-scenarios 22]
+//        [--expect-total 856] [--expect-active 615] [--expect-products 1068] [--expect-scenarios 82]
 //
 // Sources (read-only):
 //   app/data/{catalog.json, images.json, products_db.json, layouts.b64}
 //   app/web/src/services/catalog.js   (ALL_LAYOUTS · LAYOUTS · L incl. hidden industry covers · RETIRED · PRODUCTS · P)
 //   app/web/src/domain/templates/{covers,photo_layouts,std_layouts,retired,scenarios}.js · domain/proposals/parts.js
-//   poc/test/layout_agent/data/standard_scenarios.json · poc/test/proposal_score/{criteria,taxonomy}/*.json (copied, never modified)
+//   poc/test/layout_agent/data/standard_scenarios.json (copied, never modified)
+//   app/web/src/domain/review/schema.json (current review rubric, score definitions, routing responsibilities)
 //
 // services/catalog.js reads getBootstrap() at module top level, so the bundle starts with a primer module
 // that calls configureBootstrap() with the same snapshot /api/bootstrap serves (catalog · images · products_db).
@@ -34,8 +35,8 @@ const arg = (name, dflt) => { const i = argv.indexOf('--' + name); return i >= 0
 const flag = (name) => argv.includes('--' + name);
 const OUT = path.resolve(ROOT, arg('out', path.join(RUNTIME, 'kb')));
 const EXPECT = {
-  layouts_total: Number(arg('expect-total', 835)), layouts_active: Number(arg('expect-active', 594)),
-  products: Number(arg('expect-products', 1068)), curated_products: 40, scenarios: Number(arg('expect-scenarios', 22)),
+  layouts_total: Number(arg('expect-total', 856)), layouts_active: Number(arg('expect-active', 615)),
+  products: Number(arg('expect-products', 1068)), curated_products: 40, scenarios: Number(arg('expect-scenarios', 82)),
 };
 const LAYOUT_KEYS = ['f', 'c', 'code', 'name', 'when', 'g', 'p', 'p2', 'ind', 'sol', 'pc', 'req', 'prods', 'sols', 'phs', 'ph', 'hl', 'txt', 'eb', 'foot', 'sample'];
 const PRODUCT_KEYS = ['id', 'name', 'model', 'cat', 'spec', 'spaces', 'ind', 'kw'];
@@ -49,15 +50,30 @@ if (OUT !== path.join(RUNTIME, 'kb') && !OUT.startsWith(RUNTIME + path.sep)) die
 
 const INPUTS = {
   catalog: path.join(DATA, 'catalog.json'), images: path.join(DATA, 'images.json'), products: path.join(DATA, 'products_db.json'),
+  media: path.join(DATA, 'media.json'),
   layouts: path.join(DATA, 'layouts.b64'),
   catalogJs: path.join(SRC, 'services', 'catalog.js'), bootstrapJs: path.join(SRC, 'api', 'bootstrap.js'), clientJs: path.join(SRC, 'api', 'client.js'),
   covers: path.join(SRC, 'domain', 'templates', 'covers.js'), photo: path.join(SRC, 'domain', 'templates', 'photo_layouts.js'),
   std: path.join(SRC, 'domain', 'templates', 'std_layouts.js'), retired: path.join(SRC, 'domain', 'templates', 'retired.js'),
+  spatial: path.join(SRC, 'domain', 'templates', 'spatial-layouts.js'),
+  verticalLayouts: path.join(SRC, 'domain', 'templates', 'vertical_layouts.js'),
+  verticalScenarios: path.join(SRC, 'domain', 'templates', 'vertical_scenarios.json'),
+  descriptionMeta: path.join(SRC, 'domain', 'templates', 'description_standard_meta.json'),
+  descriptionScenarios: path.join(SRC, 'domain', 'templates', 'description_standard_scenarios.json'),
+  descriptionLoader: path.join(SRC, 'domain', 'templates', 'description_standards.js'),
+  descriptionFit: path.join(SRC, 'domain', 'slides', 'description-fit.js'),
+  proposalDesign: path.join(SRC, 'domain', 'slides', 'proposal-design.js'),
+  descriptionHtml: path.join(DATA, 'description-standard-html.json.gz'),
+  descriptionGraphics: path.join(WEB, 'public', 'assets', 'description-standards', 'graphics', 'manifest.json'),
+  scenarioFills: path.join(SRC, 'domain', 'templates', 'scenario_fills.js'),
+  scenarioStory: path.join(SRC, 'domain', 'templates', 'scenario_story.js'),
+  scenarioBackgrounds: path.join(SRC, 'domain', 'templates', 'scenario_bg.json'),
   scenarios: path.join(SRC, 'domain', 'templates', 'scenarios.js'), parts: path.join(SRC, 'domain', 'proposals', 'parts.js'),
   standard: path.join(POC, 'layout_agent', 'data', 'standard_scenarios.json'),
-  criteria: path.join(POC, 'proposal_score', 'criteria', 'criteria.json'), rubrics: path.join(POC, 'proposal_score', 'criteria', 'rubrics.json'),
-  taxonomy: path.join(POC, 'proposal_score', 'taxonomy', 'taxonomy.json'),
+  reviewSchema: path.join(SRC, 'domain', 'review', 'schema.json'),
 };
+const detailDirectory = path.join(DATA, 'product-details');
+if (fs.existsSync(detailDirectory)) for (const file of fs.readdirSync(detailDirectory).filter(name => /^d\d\d\.json$/.test(name)).sort()) INPUTS['specs_' + file.slice(0, -5)] = path.join(detailDirectory, file);
 for (const [k, p] of Object.entries(INPUTS)) if (!fs.existsSync(p)) die(`입력 파일이 없습니다 (${k}): ${rel(p)}`);
 
 let esbuild;
@@ -69,6 +85,42 @@ if (!Array.isArray(bootstrap.products.products) || typeof bootstrap.products.cur
 for (const k of ['layouts', 'products', 'industries', 'solutions', 'cases', 'indKw']) if (!(k in bootstrap.catalog)) die(`catalog.json 에 ${k} 가 없습니다`);
 const curatedIds = bootstrap.catalog.products.map((p) => p.id);
 
+// Product reviews can be published independently while another task edits
+// layout modules. Keep the last validated layout snapshot and its source hashes.
+const readReviewedSpecs = () => {
+  const result = {};
+  for (const [key, file] of Object.entries(INPUTS)) if (key.startsWith('specs_')) for (const [id, detail] of Object.entries(readJson(file).items)) {
+    if (detail.specProductId !== id) continue;
+    result[id] = Object.fromEntries(Object.entries(detail).filter(([name]) => name === 'specs' || name.startsWith('spec')));
+  }
+  return result;
+};
+if (flag('products-only')) {
+  const catalogFile = path.join(OUT, 'catalog.json'), manifestFile = path.join(OUT, 'manifest.json');
+  if (!fs.existsSync(catalogFile) || !fs.existsSync(manifestFile)) die('--products-only 는 검증된 기존 KB 스냅샷이 필요합니다.');
+  const snapshot = readJson(catalogFile), manifest = readJson(manifestFile);
+  if (manifest.outputs?.['catalog.json']?.sha256 !== sha256(fs.readFileSync(catalogFile))) die('기존 KB catalog.json 해시가 맞지 않습니다.');
+  const products = [...bootstrap.catalog.products.map(p => ({ ...p, ...bootstrap.products.curated[p.id], cur: true })), ...bootstrap.products.products];
+  const previousIds = new Set(snapshot.products.map(p => p.id));
+  if (products.length !== EXPECT.products || new Set(products.map(p => p.id)).size !== products.length || products.some(p => !previousIds.has(p.id)) || previousIds.size !== products.length) die('--products-only 는 제품 추가·삭제를 허용하지 않습니다.');
+  const specs = readReviewedSpecs();
+  if (Object.keys(specs).some(id => !previousIds.has(id))) die('검토 사양에 알 수 없는 제품이 있습니다.');
+  snapshot.products = products.map(p => specs[p.id] ? { ...p, ...specs[p.id] } : p);
+  const content = Buffer.from(JSON.stringify(snapshot));
+  manifest.outputs['catalog.json'] = { size: content.length, sha256: sha256(content) };
+  for (const [key, file] of Object.entries(INPUTS)) if (key === 'products' || key.startsWith('specs_')) {
+    const input = fs.readFileSync(file); manifest.inputs[rel(file)] = { size: input.length, sha256: sha256(input) };
+  }
+  manifest.products_generated_at = new Date().toISOString();
+  manifest.product_spec_count = Object.keys(specs).length;
+  const temporary = catalogFile + '.specs-' + process.pid;
+  fs.writeFileSync(temporary, content); fs.renameSync(temporary, catalogFile);
+  const manifestTemporary = manifestFile + '.specs-' + process.pid;
+  fs.writeFileSync(manifestTemporary, JSON.stringify(manifest)); fs.renameSync(manifestTemporary, manifestFile);
+  console.log(`✓ 제품 KB 갱신 — ${products.length}개 · 검토 사양 ${Object.keys(specs).length}개`);
+  process.exit(0);
+}
+
 // ---------------------------------------------------------------- bundle the real app modules
 const spec = (p) => JSON.stringify(posix(p));
 const entry = `import 'wm-agent-primer';
@@ -76,10 +128,12 @@ import * as catalog from ${spec(INPUTS.catalogJs)};
 import { COVERS } from ${spec(INPUTS.covers)};
 import { PHOTO_META, PHOTO_HTML } from ${spec(INPUTS.photo)};
 import { STD_META, STD_HTML } from ${spec(INPUTS.std)};
+import { SPATIAL_META, SPATIAL_HTML } from ${spec(INPUTS.spatial)};
+import { VERTICAL_META, VERTICAL_HTML } from ${spec(INPUTS.verticalLayouts)};
 import { RETIRED_R4 } from ${spec(INPUTS.retired)};
 import * as parts from ${spec(INPUTS.parts)};
 import * as scenarios from ${spec(INPUTS.scenarios)};
-export { catalog, COVERS, PHOTO_META, PHOTO_HTML, STD_META, STD_HTML, RETIRED_R4, parts, scenarios };
+export { catalog, COVERS, PHOTO_META, PHOTO_HTML, STD_META, STD_HTML, SPATIAL_META, SPATIAL_HTML, VERTICAL_META, VERTICAL_HTML, RETIRED_R4, parts, scenarios };
 `;
 const primer = {
   name: 'wm-agent-primer',
@@ -118,14 +172,25 @@ const ALL = C.ALL_LAYOUTS, ACTIVE = C.LAYOUTS, L = C.L, RETIRED = C.RETIRED, PRO
 const allSet = new Set(ALL.map((l) => l.f));
 const hidden = Object.fromEntries(Object.keys(L).filter((f) => !allSet.has(f)).map((f) => [f, L[f]]));
 const html = JSON.parse(zlib.gunzipSync(Buffer.from(fs.readFileSync(INPUTS.layouts, 'utf8').trim(), 'base64')).toString('utf8'));
-Object.assign(html, mod.COVERS, mod.PHOTO_HTML, mod.STD_HTML); // same order as services/catalog.js loadLayoutHtml()
+Object.assign(html, mod.COVERS, mod.PHOTO_HTML, mod.STD_HTML, mod.SPATIAL_HTML, mod.VERTICAL_HTML);
+Object.assign(html, JSON.parse(zlib.gunzipSync(fs.readFileSync(INPUTS.descriptionHtml)).toString('utf8')));
 const partsOut = { PARTS: mod.parts.PARTS, NEXT: mod.parts.NEXT, RELATED: mod.parts.RELATED, REQ_LABEL: mod.parts.REQ_LABEL };
 const S = mod.scenarios;
 const scenariosOut = { REQ_TYPES: S.REQ_TYPES, REQ_ORDER: S.REQ_ORDER, STRATEGIES: S.STRATEGIES, ENDINGS: S.ENDINGS, STAGES: S.STAGES, SCENARIOS: S.SCENARIOS };
 const standard = readJson(INPUTS.standard);
-const criteria = readJson(INPUTS.criteria);
-const taxonomy = readJson(INPUTS.taxonomy);
-readJson(INPUTS.rubrics);
+const reviewSchema = readJson(INPUTS.reviewSchema);
+const criteria = { ...reviewSchema, source: rel(INPUTS.reviewSchema) };
+const rubrics = { version: reviewSchema.version, scoring: reviewSchema.scoring, scale: reviewSchema.scale, criteria: Object.fromEntries(criteria.criteria.map(c => [c.id, Object.fromEntries(['r1','r2','r3','gate','scope','concepts','checkpoints'].map(k => [k,c[k]]))])) };
+const idsFor = cat => criteria.criteria.filter(c => c.cat === cat).map(c => c.id);
+const fine = reviewSchema.communities.map(g => ({ id: g.id, parent: 'C_' + g.cat, criteria: g.criteria, name: g.name,
+  summary: g.criteria.map(id => criteria.criteria.find(c => c.id === id).desc).join(' '),
+  when_relevant: reviewSchema.cats.find(c => c.id === g.cat).desc, evidence: '실제 제안서의 본문·표·도형·제공된 화면으로 확인하며 같은 문제는 담당 기준에서 한 번만 채점한다.',
+  keywords: [...new Set(g.criteria.flatMap(id => criteria.criteria.find(c => c.id === id).concepts))] }));
+const coarse = reviewSchema.cats.map(c => ({ id: 'C_' + c.id, children: fine.filter(f => f.parent === 'C_' + c.id).map(f => f.id), criteria: idsFor(c.id), name: c.name, summary: c.desc, when_relevant: c.desc, evidence: '해당 기준에 지정된 실제 장표 근거', keywords: fine.filter(f => f.parent === 'C_' + c.id).flatMap(f => f.keywords) }));
+const taxonomy = { version: reviewSchema.version, source: rel(INPUTS.reviewSchema), summarized_by: 'curated rubric responsibilities',
+  root: { id: 'R', children: coarse.map(c => c.id), criteria: criteria.criteria.map(c => c.id), name: '제안서 검토', summary: reviewSchema.policies.join(' '), when_relevant: '고객 제출 제안서 검토', evidence: '제공된 제안서와 고객 요구사항', keywords: reviewSchema.cats.map(c => c.name) }, fine, coarse,
+  stats: { criteria: criteria.criteria.length, fine: fine.length, coarse: coarse.length } };
+
 
 // ---------------------------------------------------------------- assertions
 const errors = [], warnings = [];
@@ -171,8 +236,9 @@ const write = (name, data) => {
   outputs[name] = { size: data.length, sha256: sha256(data) };
 };
 const json = (v) => Buffer.from(JSON.stringify(v));
+const reviewedSpecs = readReviewedSpecs();
 write('catalog.json', json({
-  layouts: ALL, industries: bootstrap.catalog.industries, products: PRODUCTS, solutions: bootstrap.catalog.solutions,
+  layouts: ALL, industries: bootstrap.catalog.industries, products: PRODUCTS.map(p => reviewedSpecs[p.id] ? { ...p, ...reviewedSpecs[p.id] } : p), solutions: bootstrap.catalog.solutions,
   cases: bootstrap.catalog.cases, indKw: bootstrap.catalog.indKw, curated_product_ids: curatedIds,
 }));
 write('hidden_layouts.json', json(hidden));
@@ -182,18 +248,18 @@ write('parts.json', json(partsOut));
 write('best_scenarios.json', json(scenariosOut));
 write('images.json', fs.readFileSync(INPUTS.images));
 write('standard_scenarios.json', fs.readFileSync(INPUTS.standard));
-write('score/criteria.json', fs.readFileSync(INPUTS.criteria));
-write('score/rubrics.json', fs.readFileSync(INPUTS.rubrics));
-write('score/taxonomy.json', fs.readFileSync(INPUTS.taxonomy));
+write('score/criteria.json', json(criteria));
+write('score/rubrics.json', json(rubrics));
+write('score/taxonomy.json', json(taxonomy));
 const inputs = Object.fromEntries(Object.values(INPUTS).map((p) => { const b = fs.readFileSync(p); return [rel(p), { size: b.length, sha256: sha256(b) }]; }));
 const manifest = {
-  version: 1, generated_at: new Date().toISOString(), generator: 'app/scripts/export_agent_data.mjs', node: process.version, esbuild: esbuild.version,
+  version: 1, review_criteria: { version: criteria.version, categories: criteria.cats.length, criteria: criteria.criteria.length }, generated_at: new Date().toISOString(), generator: 'app/scripts/export_agent_data.mjs', node: process.version, esbuild: esbuild.version,
   counts, expected: EXPECT, warnings, inputs, outputs,
   notes: [
     'layouts = catalog.json + PHOTO_META + STD_META (services/catalog.js ALL_LAYOUTS), retired from services/catalog.js RETIRED',
     'hidden_layouts = services/catalog.js L entries outside ALL_LAYOUTS (industry covers L_IND_*)',
     'products = services/catalog.js PRODUCTS (curated 40 merged with products_db curated fields + products_db rows)',
-    'standard_scenarios / score criteria · rubrics · taxonomy copied verbatim from poc/test (read-only)',
+    'standard_scenarios copied verbatim from poc/test; score criteria, rubrics and curated routing taxonomy derived from app/web/src/domain/review/schema.json',
   ],
 };
 write('manifest.json', json(manifest));

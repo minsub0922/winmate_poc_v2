@@ -1,0 +1,43 @@
+{
+ "id": "C05_L2",
+ "case": "C05",
+ "industry": "ED",
+ "strategy": "space",
+ "req_type": "new",
+ "title": "대학 스마트 캠퍼스",
+ "level": "ambiguous",
+ "input": {
+  "title": "J 대학교 스마트 캠퍼스",
+  "customer": "J 대학교",
+  "free_text": "캠퍼스를 스마트하게 바꾸는 사업을 준비 중이라, 학생들이 체감할 수 있는 학습 경험 개선 방안을 알고 싶어 합니다.",
+  "id": "C05_L2"
+ },
+ "gold": {
+  "level": "ambiguous",
+  "industry": "ED",
+  "scenario_any": [
+   "bs03"
+  ],
+  "scenario_top3": [
+   "bs03"
+  ],
+  "must_parts": [
+   "value",
+   "scenario"
+  ],
+  "key_reqs": [
+   {
+    "kw": [
+     "학습"
+    ],
+    "parts_any": [
+     "value",
+     "scenario",
+     "user"
+    ],
+    "priority": "should"
+   }
+  ],
+  "facts": []
+ }
+}

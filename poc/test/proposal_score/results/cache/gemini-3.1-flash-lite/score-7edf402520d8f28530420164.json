@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~wrong_customer:F04"
+ },
+ "prompt_tokens": 3540,
+ "output_tokens": 248,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "A 커피의 현재 메뉴 교체 프로세스를 5단계로 세분화하고, 각 단계별 소요 시간(9일)과 비용(연 3.3억 원), 인력 투입(매장당 연 48시간) 등 구체적인 수치를 제시하여 고객의 문제를 명확히 정의했습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "메뉴 하나 바꾸는 데, 다섯 단계 · 9일이 걸립니다"
+     },
+     {
+      "sheet": 5,
+      "quote": "인쇄 · 배송비 연 3.3억 원이 반복됩니다"
+     },
+     {
+      "sheet": 5,
+      "quote": "점주 · 직원이 직접 교체 — 매장당 연 48시간 작업"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

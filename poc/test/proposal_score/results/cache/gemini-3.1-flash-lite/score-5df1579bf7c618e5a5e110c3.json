@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19:F11"
+ },
+ "prompt_tokens": 2702,
+ "output_tokens": 487,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 5장(2, 3, 4, 7, 10장)으로 4장 이상이며, 장당 평균 어절 수도 96어절로 110어절 이하 기준을 충족하지 못합니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "Y 그룹의 목표는 ‘그룹 운영 효율’, 풀어야 할 과제는 셋입니다"
+     },
+     {
+      "sheet": 7,
+      "quote": "6개 사업 모두, 업계는 이미 바꿨습니다"
+     }
+    ],
+    "improve": "각 장의 핵심 메시지를 제외한 부연 설명을 과감히 삭제하여 장당 어절 수를 77어절 이하로 줄여야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 36%가 10pt(13.3px) 미만이며, 9pt(12px) 미만 본문 칸이 포함된 장이 존재하여 1점 기준에 해당합니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "본문 최소 11.5px(8.6pt)"
+     },
+     {
+      "sheet": 2,
+      "quote": "본문 최소 11px(8.2pt)"
+     },
+     {
+      "sheet": 10,
+      "quote": "본문 최소 11px(8.2pt)"
+     }
+    ],
+    "improve": "모든 본문 텍스트의 크기를 최소 12pt(16px) 이상으로 상향 조정하고, 작은 글자는 캡션이나 라벨로만 제한해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

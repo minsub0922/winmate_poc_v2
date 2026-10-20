@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~wrong_customer:F10"
+ },
+ "prompt_tokens": 5634,
+ "output_tokens": 354,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO와 SmartThings Pro를 활용하여 본사에서 메뉴를 배포하고 매장 전력을 관리하는 구체적인 운영 장면을 제시함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "제작 · 승인 · 배포 · 적용 확인까지 한 화면에서"
+     },
+     {
+      "sheet": 7,
+      "quote": "본사 POS에서 가격 변경 | 본사 서버실 | MagicINFO"
+     },
+     {
+      "sheet": 8,
+      "quote": "SmartThings Pro 냉난방 스케줄 제어 화면"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 1,
+    "anchor": "도입 과정에서 발생할 수 있는 공사 중 영업 중단, 기존 시스템과의 호환성, 일정 지연 등 구체적인 리스크와 대응 방안에 대한 언급이 없음.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "파일럿 도입 시 발생할 수 있는 매장 영업 중단 최소화 방안, 기존 POS와의 호환성 확보, 설치 일정 지연 시 대책 등을 구체적으로 기술해야 함.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

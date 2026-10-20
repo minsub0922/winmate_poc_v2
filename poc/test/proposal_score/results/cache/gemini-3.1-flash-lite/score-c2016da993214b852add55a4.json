@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs06:F05"
+ },
+ "prompt_tokens": 6849,
+ "output_tokens": 256,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "수치가 포함된 대부분의 장(6, 7, 9, 10, 13장 등)에서 수치에 대한 구체적인 출처가 명시되지 않았으며, 일부는 '삼성 추정'과 같이 모호하게 표기되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "수치는 삼성 추정"
+     },
+     {
+      "sheet": 7,
+      "quote": "제안 = AI 생성 시안"
+     },
+     {
+      "sheet": 9,
+      "quote": "2026. 9 실측 기준"
+     }
+    ],
+    "improve": "모든 수치와 성과 지표에 대해 조사 기관과 연도를 명확히 기재하고, 고객사 내부 자료는 '고객 운영 자료(연도)'와 같이 구체적으로 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,56 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs05:F11"
+ },
+ "prompt_tokens": 3363,
+ "output_tokens": 509,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 초과하는 장이 9개로, 1점 기준인 4개 이상을 크게 상회하여 발표 자료로 읽기에 부적합합니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "P 테마파크 관람객의 하루는 대기 줄과 첫 장면에서 갈립니다"
+     },
+     {
+      "sheet": 5,
+      "quote": "P 테마파크 일곱 구역, 기다림부터 무대까지 화면과 소리가 이어집니다"
+     },
+     {
+      "sheet": 7,
+      "quote": "P 테마파크 야외 무대, 같은 화면과 음향이 낮과 밤 두 무대가 됩니다"
+     }
+    ],
+    "improve": "각 장의 어절 수를 77어절 이하로 줄이고, 문단형 서술을 개조식으로 변경하여 가독성을 높여야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "모든 장의 본문이 12pt 미만이며, 9pt 미만인 장이 11개로 확인되어 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "본문 최소 10px(7.5pt)"
+     },
+     {
+      "sheet": 2,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 5,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정하고, 12pt 미만 글자는 라벨이나 캡션 등 보조적인 용도로만 사용해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

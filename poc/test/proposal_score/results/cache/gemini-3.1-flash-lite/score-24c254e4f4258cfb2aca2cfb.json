@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07:F06"
+ },
+ "prompt_tokens": 8563,
+ "output_tokens": 252,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 1,
+    "anchor": "객실 수와 관련하여 7장에서는 300실, 10장에서는 300실로 일관되게 언급되나, 자동 점검에서 지적된 7장과 13장의 30객실 표기 등 수치 표기 오류가 존재하여 일관성이 결여되었습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "객실 300실은 한 실의 키트로"
+     },
+     {
+      "sheet": 13,
+      "quote": "샘플룸 1실, 다음 2주에 정할 세 가지"
+     }
+    ],
+    "improve": "제안서 전반에 걸쳐 객실 수 및 관련 수치를 300실로 통일하고, 오타나 잘못 기재된 수치를 전수 조사하여 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

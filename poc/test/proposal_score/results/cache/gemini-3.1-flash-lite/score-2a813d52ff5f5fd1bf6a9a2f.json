@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs17:F06"
+ },
+ "prompt_tokens": 3815,
+ "output_tokens": 211,
+ "data": {
+  "scores": [
+   {
+    "id": "PR6",
+    "score": 2,
+    "anchor": "공간별 모델과 수량은 제시되어 있으나, 설치에 필요한 브래킷, 라이선스 등 구체적인 액세서리 및 옵션 구성 내역이 명시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "10 → 130 → 250곳"
+     },
+     {
+      "sheet": 11,
+      "quote": "확산 대상 240개 영업점"
+     }
+    ],
+    "improve": "공간별 설치 모델에 따른 브래킷, 라이선스, 기타 액세서리 수량 및 구성 내역을 포함한 상세 명세표를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

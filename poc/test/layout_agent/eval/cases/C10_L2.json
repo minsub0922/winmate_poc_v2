@@ -1,0 +1,43 @@
+{
+ "id": "C10_L2",
+ "case": "C10",
+ "industry": "MD",
+ "strategy": "land",
+ "req_type": "scale",
+ "title": "요양병원 병동 확산",
+ "level": "ambiguous",
+ "input": {
+  "title": "P 요양병원 병동 확대",
+  "customer": "P 요양병원",
+  "free_text": "작년에 한 병동에서 파일럿을 했는데 반응이 좋아서 다른 병동으로도 넓힐지 고민이라고 합니다.",
+  "id": "C10_L2"
+ },
+ "gold": {
+  "level": "ambiguous",
+  "industry": "MD",
+  "scenario_any": [
+   "bs08",
+   "bs17"
+  ],
+  "scenario_top3": [
+   "bs08"
+  ],
+  "must_parts": [
+   "execution"
+  ],
+  "key_reqs": [
+   {
+    "kw": [
+     "파일럿"
+    ],
+    "parts_any": [
+     "execution",
+     "effect",
+     "case"
+    ],
+    "priority": "should"
+   }
+  ],
+  "facts": []
+ }
+}

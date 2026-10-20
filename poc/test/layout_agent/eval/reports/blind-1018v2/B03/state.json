@@ -1,0 +1,3473 @@
+{
+ "input": {
+  "id": "p_test",
+  "title": "누아르앤코 성수 플래그십 디스플레이",
+  "customer": "(주)누아르앤코",
+  "industry": null,
+  "free_text": "팀장님 아래 메일 전달드립니다. 누아르앤코 VMD팀에서 직접 온 문의입니다.\n\n---------- Forwarded message ----------\n보낸사람: 김지현 <jhkim.vmd@noirnco.kr>\n제목: [누아르앤코] 성수 플래그십 디스플레이 관련 문의드립니다\n\n안녕하세요, 누아르앤코 VMD팀 김지현입니다.\n저희가 내년 봄 성수동에 첫 플래그십 스토어 오픈을 준비하고 있습니다.\n매장 앞을 지나가는 분들이 '여기 뭐지?' 하고 들어오고 싶어지는 외관을 만들고 싶고, 안에서는 단순히 옷을 파는 매장보다는 갤러리처럼 브랜드 세계관을 경험하는 공간이었으면 합니다.\n시즌마다 콘텐츠를 바꿔서 고객분들이 다시 방문할 이유를 만들고 싶은데, 저희 팀이 영상 운영 경험이 많지 않아서 그 부분도 걱정이에요.\n그리고 저희 브랜드 컬러가 딥블랙이랑 버건디라서 화면에서 색이 탁하게 나오면 곤란합니다 ㅠㅠ\n예산이나 규모는 아직 내부 논의 중이라, 대략적인 방향 제안을 먼저 받아보고 싶습니다.\n\n감사합니다.\n김지현 드림",
+  "project": "성수 플래그십 스토어 디스플레이 연출",
+  "target": "브랜드마케팅 이사",
+  "keymen": [
+   {
+    "name": "VMD팀 (김지현 책임)",
+    "weight": 55.0,
+    "reqs": [
+     "지나가는 사람의 시선을 끄는 외관 연출",
+     "시즌별 콘텐츠 교체가 쉬워야 함"
+    ]
+   },
+   {
+    "name": "브랜드마케팅 이사",
+    "weight": 45.0,
+    "reqs": [
+     "딥블랙·버건디 브랜드 컬러가 정확히 표현될 것",
+     "매장보다는 갤러리 같은 분위기"
+    ]
+   }
+  ],
+  "note": "인증샷 포인트 만들어주는 방향으로 가면 먹힐 듯. 콘텐츠 제작 지원도 같이 묶어서 운영 걱정 덜어주기. 쇼룸 투어 초대 예정",
+  "files": [],
+  "products": [],
+  "solutions": [],
+  "cases": [],
+  "minutes": null,
+  "max_slides": null
+ },
+ "analysis": {
+  "industry": "RT",
+  "industry_name": "리테일 · 브랜드 플래그십",
+  "industry_source": "inferred",
+  "industry_conf": 1.0,
+  "req_type": "new",
+  "req_type_scores": {
+   "new": 0.2,
+   "renew": 0.4,
+   "compete": 0.0,
+   "ops": 0.4,
+   "scale": 0.0,
+   "brief": 0.0
+  },
+  "strategy": "value",
+  "strategy_scores": {
+   "value": 0.455,
+   "pain": 0.0,
+   "space": 0.455,
+   "roi": 0.091,
+   "rfp": 0.0,
+   "compete": 0.0,
+   "land": 0.0
+  },
+  "strategy_hits": 11,
+  "requirements": [
+   {
+    "id": "R01",
+    "text": "지나가는 사람의 시선을 끄는 외관 연출",
+    "source": "keyman:VMD팀 (김지현 책임)",
+    "keyman": "VMD팀 (김지현 책임)",
+    "weight": 55.0,
+    "tag": null,
+    "category": "기타",
+    "dimension": "기타",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "value",
+     "birdseye",
+     "scenario"
+    ],
+    "procedural": false,
+    "internal": false,
+    "llm_label": true,
+    "score": 3.1,
+    "rank": 1
+   },
+   {
+    "id": "R02",
+    "text": "시즌별 콘텐츠 교체가 쉬워야 함",
+    "source": "keyman:VMD팀 (김지현 책임)",
+    "keyman": "VMD팀 (김지현 책임)",
+    "weight": 55.0,
+    "tag": null,
+    "category": "운영·관리",
+    "dimension": "운영·유지보수",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "solution",
+     "execution"
+    ],
+    "procedural": false,
+    "internal": false,
+    "llm_label": true,
+    "score": 3.1,
+    "rank": 2
+   },
+   {
+    "id": "R03",
+    "text": "딥블랙·버건디 브랜드 컬러가 정확히 표현될 것",
+    "source": "keyman:브랜드마케팅 이사",
+    "keyman": "브랜드마케팅 이사",
+    "weight": 45.0,
+    "tag": null,
+    "category": "가치·브랜드",
+    "dimension": "가치·브랜드",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "value",
+     "why",
+     "market",
+     "spec",
+     "products"
+    ],
+    "procedural": false,
+    "internal": false,
+    "llm_label": true,
+    "score": 2.9,
+    "rank": 3
+   },
+   {
+    "id": "R04",
+    "text": "매장보다는 갤러리 같은 분위기",
+    "source": "keyman:브랜드마케팅 이사",
+    "keyman": "브랜드마케팅 이사",
+    "weight": 45.0,
+    "tag": null,
+    "category": "공간·설치",
+    "dimension": "범위·수량·공간",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "dss",
+     "scenario",
+     "products",
+     "birdseye"
+    ],
+    "procedural": false,
+    "internal": false,
+    "llm_label": true,
+    "score": 2.9,
+    "rank": 4
+   },
+   {
+    "id": "R11",
+    "text": "매장 앞을 지나가는 분들이 '여기 뭐지?' 하고 들어오고 싶어지는 외관을 만들고 싶고, 안에서는 단순히 옷을 파는 매장보다는 갤러리처럼 브랜드 세계관을 경험하는 공간이었으면 합니다.",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "공간·설치",
+    "dimension": "범위·수량·공간",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "dss",
+     "scenario",
+     "products",
+     "birdseye"
+    ],
+    "procedural": false,
+    "internal": false,
+    "llm_label": true,
+    "score": 2.0,
+    "rank": 5
+   },
+   {
+    "id": "R12",
+    "text": "시즌마다 콘텐츠를 바꿔서 고객분들이 다시 방문할 이유를 만들고 싶은데",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "운영·관리",
+    "dimension": "운영·유지보수",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "solution",
+     "execution"
+    ],
+    "procedural": false,
+    "internal": false,
+    "llm_label": true,
+    "score": 2.0,
+    "rank": 6
+   },
+   {
+    "id": "R13",
+    "text": "저희 팀이 영상 운영 경험이 많지 않아서 그 부분도 걱정이에요.",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "교육·지원",
+    "dimension": "운영·유지보수",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "solution",
+     "execution",
+     "why"
+    ],
+    "procedural": false,
+    "internal": false,
+    "llm_label": true,
+    "score": 2.0,
+    "rank": 7
+   },
+   {
+    "id": "R15",
+    "text": "예산이나 규모는 아직 내부 논의 중이라, 대략적인 방향 제안을 먼저 받아보고 싶습니다.",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "예산·비용",
+    "dimension": "비용·구매",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "cost",
+     "effect",
+     "overview"
+    ],
+    "procedural": false,
+    "internal": false,
+    "llm_label": true,
+    "score": 2.0,
+    "rank": 8
+   },
+   {
+    "id": "R18",
+    "text": "인증샷 포인트 만들어주는 방향으로 가면 먹힐 듯.",
+    "source": "note",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "사용자 경험",
+    "dimension": "사용자 경험·성과",
+    "priority": "should",
+    "customer": false,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "scenario",
+     "birdseye",
+     "value",
+     "user"
+    ],
+    "procedural": false,
+    "internal": true,
+    "llm_label": true,
+    "score": 1.4,
+    "rank": 9
+   },
+   {
+    "id": "R19",
+    "text": "콘텐츠 제작 지원도 같이 묶어서 운영 걱정 덜어주기.",
+    "source": "note",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "운영·관리",
+    "dimension": "운영·유지보수",
+    "priority": "could",
+    "customer": false,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "solution",
+     "execution"
+    ],
+    "procedural": false,
+    "internal": true,
+    "llm_label": true,
+    "score": 0.7,
+    "rank": 11
+   },
+   {
+    "id": "R20",
+    "text": "쇼룸 투어 초대 예정",
+    "source": "llm",
+    "keyman": null,
+    "weight": 0,
+    "tag": null,
+    "category": "기타",
+    "dimension": "기타",
+    "priority": "could",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "closing"
+    ],
+    "procedural": false,
+    "llm_added": true,
+    "internal": false,
+    "score": 1.0,
+    "rank": 10
+   }
+  ],
+  "context_lines": [
+   "팀장님 아래 메일 전달드립니다.",
+   "누아르앤코 VMD팀에서 직접 온 문의입니다.",
+   "--------- Forwarded message ----------",
+   "제목: [누아르앤코] 성수 플래그십 디스플레이 관련 문의드립니다",
+   "안녕하세요, 누아르앤코 VMD팀 김지현입니다.",
+   "저희가 내년 봄 성수동에 첫 플래그십 스토어 오픈을 준비하고 있습니다.",
+   "그리고 저희 브랜드 컬러가 딥블랙이랑 버건디라서 화면에서 색이 탁하게 나오면 곤란합니다 ㅠㅠ",
+   "감사합니다.",
+   "김지현 드림",
+   "쇼룸 투어 초대 예정"
+  ],
+  "facts": [],
+  "spaces": [
+   "매장",
+   "쇼룸",
+   "VMD",
+   "플래그십"
+  ],
+  "goals": [
+   "지나가는 사람의 시선을 끄는 외관 연출",
+   "갤러리처럼 브랜드 세계관을 경험하는 공간",
+   "시즌마다 콘텐츠를 바꿔 다시 방문할 이유 제공",
+   "인증샷 포인트 조성"
+  ],
+  "products": [],
+  "solutions": [
+   "content"
+  ],
+  "cases": [],
+  "keymen": [
+   {
+    "name": "VMD팀 (김지현 책임)",
+    "weight": 55.0,
+    "reqs": [
+     "지나가는 사람의 시선을 끄는 외관 연출",
+     "시즌별 콘텐츠 교체가 쉬워야 함"
+    ]
+   },
+   {
+    "name": "브랜드마케팅 이사",
+    "weight": 45.0,
+    "reqs": [
+     "딥블랙·버건디 브랜드 컬러가 정확히 표현될 것",
+     "매장보다는 갤러리 같은 분위기"
+    ]
+   }
+  ],
+  "signals": {
+   "n_statements": 20,
+   "n_req": 10,
+   "n_keymen": 2,
+   "n_must": 0,
+   "n_numbers": 0,
+   "eval_hits": 0,
+   "file_chars": 0,
+   "plain_chars": 515,
+   "n_categories": 7,
+   "n_goal": 4,
+   "n_goal_sent": 4,
+   "has_products": false,
+   "has_solutions": true
+  },
+  "context_level": "ambiguous",
+  "level_reason": "고객이 플래그십 스토어의 공간 경험과 브랜드 가치 구현을 원하나, 구체적인 예산 규모와 기술적 사양에 대한 기준이 확정되지 않은 초기 단계임. (LLM 판정)",
+  "level_label": "② 요구사항 모호 → Best Practice 시나리오",
+  "summary": "누아르앤코는 성수 플래그십 스토어 오픈을 앞두고 브랜드 아이덴티티인 딥블랙과 버건디 컬러를 완벽히 구현하는 디스플레이 솔루션을 찾고 있습니다. 갤러리 같은 공간 연출과 시즌별 콘텐츠 운영의 용이성을 중시하며, 영상 운영 경험 부족을 보완할 운영 지원 방안을 포함한 대략적인 제안을 요청했습니다.",
+  "llm": true,
+  "competitor_signal": 0,
+  "internal_grams": [
+   "가딥블랙이랑버건디라서화면에",
+   "건디라서화면에서색이탁하게나",
+   "고저희브랜드컬러가딥블랙이랑",
+   "그리고저희브랜드컬러가딥블랙",
+   "도같이묶어서운영걱정덜어주기",
+   "드컬러가딥블랙이랑버건디라서",
+   "디라서화면에서색이탁하게나오",
+   "딥블랙이랑버건디라서화면에서",
+   "라서화면에서색이탁하게나오면",
+   "랑버건디라서화면에서색이탁하",
+   "랙이랑버건디라서화면에서색이",
+   "랜드컬러가딥블랙이랑버건디라",
+   "러가딥블랙이랑버건디라서화면",
+   "리고저희브랜드컬러가딥블랙이",
+   "만들어주는방향으로가면먹힐듯",
+   "면에서색이탁하게나오면곤란합",
+   "버건디라서화면에서색이탁하게",
+   "브랜드컬러가딥블랙이랑버건디",
+   "블랙이랑버건디라서화면에서색",
+   "색이탁하게나오면곤란합니다ㅠ",
+   "샷포인트만들어주는방향으로가",
+   "서색이탁하게나오면곤란합니다",
+   "서화면에서색이탁하게나오면곤",
+   "에서색이탁하게나오면곤란합니",
+   "원도같이묶어서운영걱정덜어주",
+   "이랑버건디라서화면에서색이탁",
+   "이탁하게나오면곤란합니다ㅠㅠ",
+   "인증샷포인트만들어주는방향으",
+   "인트만들어주는방향으로가면먹",
+   "작지원도같이묶어서운영걱정덜",
+   "저희브랜드컬러가딥블랙이랑버",
+   "제작지원도같이묶어서운영걱정",
+   "증샷포인트만들어주는방향으로",
+   "지원도같이묶어서운영걱정덜어",
+   "츠제작지원도같이묶어서운영걱",
+   "컬러가딥블랙이랑버건디라서화",
+   "콘텐츠제작지원도같이묶어서운",
+   "텐츠제작지원도같이묶어서운영",
+   "트만들어주는방향으로가면먹힐",
+   "포인트만들어주는방향으로가면",
+   "화면에서색이탁하게나오면곤란",
+   "희브랜드컬러가딥블랙이랑버건"
+  ],
+  "contact_names": [
+   "김지현"
+  ],
+  "requested_items": [],
+  "dimensions": {
+   "기타": 2,
+   "운영·유지보수": 4,
+   "가치·브랜드": 1,
+   "범위·수량·공간": 2,
+   "비용·구매": 1,
+   "사용자 경험·성과": 1
+  }
+ },
+ "ctx": {
+  "industry": "RT",
+  "industry_name": "리테일 · 브랜드 플래그십",
+  "customer": "(주)누아르앤코",
+  "project": "성수 플래그십 스토어 디스플레이 연출",
+  "target": "브랜드마케팅 이사",
+  "products": [
+   "qm55c",
+   "vm55b",
+   "qm65c"
+  ],
+  "solutions": [
+   "content"
+  ],
+  "cases": [
+   "137",
+   "49",
+   "1761"
+  ],
+  "spaces": [
+   "매장",
+   "쇼룸",
+   "VMD",
+   "플래그십"
+  ],
+  "recommended": {
+   "products": [
+    {
+     "id": "qm55c",
+     "score": 5.55,
+     "why": "리테일 · 브랜드 플래그십에서 많이 씀"
+    },
+    {
+     "id": "vm55b",
+     "score": 5.0,
+     "why": "리테일 · 브랜드 플래그십에서 많이 씀"
+    },
+    {
+     "id": "qm65c",
+     "score": 4.35,
+     "why": "리테일 · 브랜드 플래그십에서 많이 씀"
+    }
+   ],
+   "solutions": [],
+   "cases": [
+    {
+     "id": "137",
+     "score": 8.35,
+     "why": "같은 업종",
+     "cust": "BMW 스타필드 시티 위례 스마트 쇼룸"
+    },
+    {
+     "id": "49",
+     "score": 8.1,
+     "why": "같은 업종",
+     "cust": "현대백화점 판교점"
+    },
+    {
+     "id": "1761",
+     "score": 7.3,
+     "why": "같은 업종",
+     "cust": "더현대 서울"
+    }
+   ]
+  },
+  "missing_items": []
+ },
+ "route": "best",
+ "scenario_match": {
+  "kind": "best",
+  "candidates": [
+   {
+    "id": "bs06",
+    "score": 9.41,
+    "why": "플래그십 스토어의 갤러리 공간 연출과 브랜드 컬러 구현에 최적화됨",
+    "sim": 1.0
+   },
+   {
+    "id": "bs19",
+    "score": 2.934,
+    "why": "예산 및 규모 확정 전, 브랜드 가치 중심의 초기 제안에 적합함",
+    "sim": 0.275
+   }
+  ],
+  "chosen": "bs06",
+  "llm": true
+ },
+ "decomposition": null,
+ "choice": null,
+ "parts": [
+  {
+   "type": "cover",
+   "name": "누아르앤코 플래그십",
+   "items": [
+    "공간과 제품, 사람이 어우러지는 브랜드 경험",
+    "누아르앤코 성수 플래그십 스토어 제안서"
+   ],
+   "stage": "open",
+   "goal": "브랜드 장면으로 연다",
+   "seed_layouts": [
+    {
+     "f": "L_C08",
+     "role": "공간 · 제품 · 사람 3컷 콜라주 표지",
+     "orig": "L_C08"
+    }
+   ],
+   "core": true,
+   "source": "best:bs06",
+   "req_ids": [],
+   "req_load": 0.0,
+   "priority": 0.28,
+   "priority_reason": "핵심 파트",
+   "priority_rank": 10,
+   "related": [],
+   "id": "S01",
+   "slides": 1
+  },
+  {
+   "type": "market",
+   "name": "경험 중심 리테일",
+   "items": [
+    "단순 판매를 넘어 브랜드 가치를 경험하는 공간",
+    "고객의 발길을 머무르게 하는 전략적 디스플레이"
+   ],
+   "stage": "context",
+   "goal": "경험 매장으로의 이동",
+   "seed_layouts": [
+    {
+     "f": "L_PH_MI_RT_A",
+     "role": "파는 매장 → 경험하는 매장",
+     "orig": "L_PH_MI_RT_A"
+    }
+   ],
+   "core": false,
+   "source": "best:bs06",
+   "req_ids": [],
+   "req_load": 0.0,
+   "priority": 0.16,
+   "priority_reason": "선택 파트",
+   "priority_rank": 11,
+   "related": [
+    "customer"
+   ],
+   "id": "S02",
+   "slides": 1
+  },
+  {
+   "type": "customer",
+   "name": "고객 여정의 이해",
+   "items": [
+    "매장 앞 고객의 호기심을 유도하는 첫인상",
+    "대기 공간에서 브랜드 몰입으로 이어지는 동선"
+   ],
+   "stage": "context",
+   "goal": "경험 매장으로의 이동",
+   "seed_layouts": [
+    {
+     "f": "L_PH_MI_RT_C",
+     "role": "체험에서 오르고 대기에서 꺾이는 고객 마음",
+     "orig": "L_PH_MI_RT_C"
+    }
+   ],
+   "core": false,
+   "source": "best:bs06",
+   "req_ids": [],
+   "req_load": 0.0,
+   "priority": 0.16,
+   "priority_reason": "선택 파트",
+   "priority_rank": 12,
+   "related": [
+    "market"
+   ],
+   "id": "S03",
+   "slides": 1
+  },
+  {
+   "type": "birdseye",
+   "name": "공간의 현재와 미래",
+   "items": [
+    "현재 매장의 공간적 특징 분석",
+    "브랜드 아이덴티티를 투영한 공간 시안"
+   ],
+   "stage": "context",
+   "goal": "경험 매장으로의 이동",
+   "seed_layouts": [
+    {
+     "f": "L_IS_A",
+     "role": "현장 조사 — 지금 매장 사진 모자이크",
+     "orig": "L_IS_A"
+    }
+   ],
+   "core": false,
+   "source": "best:bs06",
+   "req_ids": [],
+   "req_load": 0.0,
+   "priority": 0.16,
+   "priority_reason": "선택 파트",
+   "priority_rank": 13,
+   "related": [
+    "scenario"
+   ],
+   "id": "S04",
+   "slides": 1
+  },
+  {
+   "type": "value",
+   "name": "핵심 가치 제안",
+   "items": [
+    "지나가는 사람의 시선을 끄는 외관 연출",
+    "딥블랙·버건디 브랜드 컬러가 정확히 표현될 것",
+    "지나가는 이의 시선을 사로잡는 외관 연출",
+    "딥블랙과 버건디 컬러의 완벽한 구현",
+    "갤러리처럼 브랜드 세계관을 경험하는 공간"
+   ],
+   "stage": "value",
+   "goal": "모호한 요구를 가치 기둥으로 정리",
+   "seed_layouts": [
+    {
+     "f": null,
+     "role": "고객 목표 → 가치 기둥 · 그 가치를 만드는 제품"
+    }
+   ],
+   "core": true,
+   "source": "rule:value-required",
+   "req_ids": [
+    "R01",
+    "R03"
+   ],
+   "req_load": 6.0,
+   "priority": 0.862,
+   "priority_reason": "요구 2개 연결 · 핵심 파트",
+   "priority_rank": 3,
+   "related": [
+    "solution"
+   ],
+   "id": "S05",
+   "slides": 1
+  },
+  {
+   "type": "scenario",
+   "name": "공간 시나리오",
+   "items": [
+    "매장보다는 갤러리 같은 분위기",
+    "매장 앞을 지나가는 분들이 '여기 뭐지?' 하고 들어오고 싶어지는 외관을 만들고",
+    "인증샷 포인트 만들어주는 방향으로 가면 먹힐 듯",
+    "갤러리 분위기의 브랜드 세계관 구현",
+    "방문객의 호기심을 자극하는 외관 디자인"
+   ],
+   "stage": "space",
+   "goal": "바뀐 매장을 먼저",
+   "seed_layouts": [
+    {
+     "f": "L_PH_SS_RT_A",
+     "role": "외벽부터 식품관까지 공간 맵",
+     "orig": "L_PH_SS_RT_A"
+    },
+    {
+     "f": "L_PH_SS_RT_B",
+     "role": "VMD존 — 상품 옆 화면과 공기",
+     "orig": "L_PH_SS_RT_B"
+    }
+   ],
+   "core": true,
+   "source": "best:bs06",
+   "req_ids": [
+    "R04",
+    "R11",
+    "R18"
+   ],
+   "req_load": 6.3,
+   "priority": 0.885,
+   "priority_reason": "요구 3개 연결 · 핵심 파트",
+   "priority_rank": 2,
+   "related": [
+    "birdseye",
+    "solution"
+   ],
+   "id": "S06",
+   "slides": 2
+  },
+  {
+   "type": "birdseye",
+   "name": "존별 공간 시안",
+   "items": [
+    "공간별 현재 모습과 제안 시안 비교",
+    "브랜드 컬러가 강조된 존별 디스플레이"
+   ],
+   "stage": "space",
+   "goal": "바뀐 매장을 먼저",
+   "seed_layouts": [
+    {
+     "f": "L_GN_C",
+     "role": "공간별 지금 → 제안 시안",
+     "orig": "L_GN_C"
+    }
+   ],
+   "core": true,
+   "source": "best:bs06",
+   "req_ids": [],
+   "req_load": 0.0,
+   "priority": 0.4,
+   "priority_reason": "핵심 파트",
+   "priority_rank": 4,
+   "related": [
+    "scenario"
+   ],
+   "id": "S07",
+   "slides": 1
+  },
+  {
+   "type": "birdseye",
+   "name": "공간 톤앤매너",
+   "items": [
+    "브랜드 무드를 반영한 공간 디자인",
+    "시각적 통일감을 주는 무드보드 제안"
+   ],
+   "stage": "build",
+   "goal": "디자인 조화와 콘텐츠 운영",
+   "seed_layouts": [
+    {
+     "f": "L_MB_A",
+     "role": "무드보드 · 공간 톤",
+     "orig": "L_MB_A"
+    }
+   ],
+   "core": true,
+   "source": "best:bs06",
+   "req_ids": [],
+   "req_load": 0.0,
+   "priority": 0.4,
+   "priority_reason": "핵심 파트",
+   "priority_rank": 5,
+   "related": [
+    "scenario"
+   ],
+   "id": "S08",
+   "slides": 1
+  },
+  {
+   "type": "products",
+   "name": "디지털 디스플레이",
+   "items": [
+    "브랜드 메시지를 전달하는 비디오월",
+    "공간에 최적화된 LED 구성 솔루션"
+   ],
+   "stage": "build",
+   "goal": "디자인 조화와 콘텐츠 운영",
+   "seed_layouts": [
+    {
+     "f": "L_PH_P_L",
+     "role": "비디오월 · LED 구성",
+     "orig": "L_PH_P_L"
+    }
+   ],
+   "core": true,
+   "source": "best:bs06",
+   "req_ids": [],
+   "req_load": 0.0,
+   "priority": 0.4,
+   "priority_reason": "핵심 파트",
+   "priority_rank": 6,
+   "related": [],
+   "id": "S09",
+   "slides": 1
+  },
+  {
+   "type": "solution",
+   "name": "운영 효율화 솔루션",
+   "items": [
+    "시즌별 콘텐츠 교체가 쉬워야 함",
+    "시즌마다 콘텐츠를 바꿔서 고객분들이 다시 방문할 이유를 만들고 싶은데",
+    "저희 팀이 영상 운영 경험이 많지 않아서 그 부분도 걱정이에요",
+    "콘텐츠 제작 지원도 같이 묶어서 운영 걱정 덜어주기",
+    "시즌별 콘텐츠 교체가 용이한 운영 시스템"
+   ],
+   "stage": "build",
+   "goal": "디자인 조화와 콘텐츠 운영",
+   "seed_layouts": [
+    {
+     "f": null,
+     "role": "VXT 매장 시나리오 — 시즌 세일 일괄 전환",
+     "orig": "L_VXT_S_RT"
+    }
+   ],
+   "core": true,
+   "source": "best:bs06",
+   "req_ids": [
+    "R02",
+    "R12",
+    "R13",
+    "R19"
+   ],
+   "req_load": 7.8,
+   "priority": 1.0,
+   "priority_reason": "요구 4개 연결 · 핵심 파트",
+   "priority_rank": 1,
+   "related": [
+    "scenario",
+    "value"
+   ],
+   "id": "S10",
+   "slides": 1
+  },
+  {
+   "type": "case",
+   "name": "성공 사례",
+   "items": [
+    "리테일 브랜드 플래그십 구축 사례",
+    "공간 경험을 극대화한 디스플레이 레퍼런스"
+   ],
+   "stage": "proof",
+   "goal": "다른 브랜드의 매장",
+   "seed_layouts": [
+    {
+     "f": "L_CL_D",
+     "role": "리테일 사례 사진 카드 6",
+     "orig": "L_CL_D"
+    }
+   ],
+   "core": true,
+   "source": "best:bs06",
+   "req_ids": [],
+   "req_load": 0.0,
+   "priority": 0.4,
+   "priority_reason": "핵심 파트",
+   "priority_rank": 7,
+   "related": [],
+   "id": "S11",
+   "slides": 1
+  },
+  {
+   "type": "execution",
+   "name": "실행 및 일정",
+   "items": [
+    "예산이나 규모는 아직 내부 논의 중이라, 대략적인 방향 제안을 먼저 받아보고",
+    "유연한 예산 대응을 위한 단계별 방향 제안",
+    "매장 운영을 고려한 무중단 야간 시공"
+   ],
+   "stage": "plan",
+   "goal": "영업을 멈추지 않는 일정",
+   "seed_layouts": [
+    {
+     "f": "L_PH_IP_C",
+     "role": "무중단 · 야간 시공 일정",
+     "orig": "L_PH_IP_C"
+    }
+   ],
+   "core": false,
+   "source": "best:bs06",
+   "req_ids": [
+    "R15"
+   ],
+   "req_load": 2.0,
+   "priority": 0.314,
+   "priority_reason": "요구 1개 연결 · 선택 파트",
+   "priority_rank": 9,
+   "related": [
+    "closing"
+   ],
+   "id": "S12",
+   "slides": 1
+  },
+  {
+   "type": "closing",
+   "name": "향후 일정",
+   "items": [
+    "쇼룸 투어 초대 예정",
+    "쇼룸 투어를 통한 구체적 공간 경험",
+    "존별 시안 확정 및 오픈 일정 수립"
+   ],
+   "stage": "close",
+   "goal": "시안과 일정을 고른다",
+   "seed_layouts": [
+    {
+     "f": "L_PH_C13",
+     "role": "존별 시안 선택 · 시공 일정 · 오픈 D-day",
+     "orig": "L_PH_C13"
+    }
+   ],
+   "core": true,
+   "source": "best:bs06",
+   "req_ids": [
+    "R20"
+   ],
+   "req_load": 1.0,
+   "priority": 0.357,
+   "priority_reason": "요구 1개 연결 · 핵심 파트",
+   "priority_rank": 8,
+   "related": [
+    "execution"
+   ],
+   "id": "S13",
+   "slides": 1
+  }
+ ],
+ "links": {
+  "links": {
+   "R01": [
+    4
+   ],
+   "R02": [
+    9
+   ],
+   "R03": [
+    4
+   ],
+   "R04": [
+    5
+   ],
+   "R11": [
+    5
+   ],
+   "R12": [
+    9
+   ],
+   "R13": [
+    9
+   ],
+   "R15": [
+    11
+   ],
+   "R18": [
+    5
+   ],
+   "R19": [
+    9
+   ],
+   "R20": [
+    12
+   ]
+  },
+  "uncovered": []
+ },
+ "slides": [
+  {
+   "no": 1,
+   "part_id": "S01",
+   "part_type": "cover",
+   "part_name": "누아르앤코 플래그십",
+   "f": "L_C08",
+   "code": "C08",
+   "name": "표지 D · 이미지 3컷 콜라주",
+   "score": 21.0,
+   "why": [
+    "LLM · 브랜드 경험을 강조하는 공간·제품·사람 3컷 콜라주가 가장 적합함",
+    "파트 유형 일치 · 표지 · 목차",
+    "시나리오가 이 자리에 둔 장표",
+    "사진 중심 · 44%"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true
+   },
+   "role": "공간 · 제품 · 사람 3컷 콜라주 표지",
+   "seed": "L_C08",
+   "alternates": [
+    {
+     "f": "L_C01",
+     "code": "C01",
+     "name": "표지 A · 이미지 분할",
+     "score": 20.5
+    },
+    {
+     "f": "L_C02",
+     "code": "C02",
+     "name": "표지 B · 풀블리드 이미지",
+     "score": 20.0
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 2,
+   "part_id": "S02",
+   "part_type": "market",
+   "part_name": "경험 중심 리테일",
+   "f": "L_PH_MI_RT_A",
+   "code": "PH-MI-RT-A",
+   "name": "리테일 · 시장 · 트렌드 · 사진",
+   "score": 23.3,
+   "why": [
+    "LLM · 리테일 트렌드와 시장 흐름을 현장 사진과 함께 보여주기에 최적화됨",
+    "파트 유형 일치 · 시장 · 전략",
+    "시나리오가 이 자리에 둔 장표",
+    "업종 전용 · 리테일 · 브랜드 플래그십"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 0.5,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "파는 매장 → 경험하는 매장",
+   "seed": "L_PH_MI_RT_A",
+   "alternates": [
+    {
+     "f": "L_PH_MS_A",
+     "code": "PH-MS-A",
+     "name": "핵심 수치 4 · 현장 히어로",
+     "score": 22.8
+    },
+    {
+     "f": "L_PH_MS_C",
+     "code": "PH-MS-C",
+     "name": "시장 규모 · 세그먼트 사진",
+     "score": 22.3
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 3,
+   "part_id": "S03",
+   "part_type": "customer",
+   "part_name": "고객 여정의 이해",
+   "f": "L_PH_MI_RT_C",
+   "code": "PH-MI-RT-C",
+   "name": "리테일 · 고객 여정 · 사진",
+   "score": 23.65,
+   "why": [
+    "LLM · 고객 여정의 단계별 경험과 삼성의 개입을 시각적으로 표현하기 좋음",
+    "파트 유형 일치 · 고객사 이해",
+    "시나리오가 이 자리에 둔 장표",
+    "업종 전용 · 리테일 · 브랜드 플래그십"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 0.5,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "체험에서 오르고 대기에서 꺾이는 고객 마음",
+   "seed": "L_PH_MI_RT_C",
+   "alternates": [
+    {
+     "f": "L_PH_MI_RT_B",
+     "code": "PH-MI-RT-B",
+     "name": "리테일 · 고객 비즈니스 · 운영 과제 · 사진",
+     "score": 23.15
+    },
+    {
+     "f": "L_PH_CB_C",
+     "code": "PH-CB-C",
+     "name": "운영 흐름 · 포토 스트립",
+     "score": 22.65
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 4,
+   "part_id": "S04",
+   "part_type": "birdseye",
+   "part_name": "공간의 현재와 미래",
+   "f": "L_IS_A",
+   "code": "IS-A",
+   "name": "현장 조사 · 사진 모자이크",
+   "score": 21.0,
+   "why": [
+    "LLM · 현장 조사 결과를 사진 모자이크로 직관적으로 전달 가능함",
+    "파트 유형 일치 · 조감도 · 공간 시안",
+    "시나리오가 이 자리에 둔 장표",
+    "사진 중심 · 41%"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 0.5,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "현장 조사 — 지금 매장 사진 모자이크",
+   "seed": "L_IS_A",
+   "alternates": [
+    {
+     "f": "L_BV_C",
+     "code": "BV-C",
+     "name": "전경 + 한 장 요약",
+     "score": 20.5
+    },
+    {
+     "f": "L_BE02",
+     "code": "ZP-A",
+     "name": "번호 콜아웃",
+     "score": 20.0
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 5,
+   "part_id": "S05",
+   "part_type": "value",
+   "part_name": "핵심 가치 제안",
+   "f": "L_VP_F",
+   "code": "VP-F",
+   "name": "가치 기둥 × 제품 · 3개 (기둥 수 n으로 2 · 3 · 4)",
+   "score": 19.176,
+   "why": [
+    "LLM · 핵심 가치와 제품을 매칭하여 브랜드 컬러를 강조하기에 적합함",
+    "파트 유형 일치 · Value Propositions",
+    "제품 3개 구성"
+   ],
+   "fit": {
+    "relevance": 0.981,
+    "part": true,
+    "pc_diff": 0,
+    "readiness": 0.8,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "고객 목표 → 가치 기둥 · 그 가치를 만드는 제품",
+   "seed": null,
+   "alternates": [
+    {
+     "f": "L_VP_R",
+     "code": "VP-R",
+     "name": "실사 동선 투어",
+     "score": 18.676
+    },
+    {
+     "f": "L_VP_K",
+     "code": "VP-K",
+     "name": "공간 속 제품",
+     "score": 18.176
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 6,
+   "part_id": "S06",
+   "part_type": "scenario",
+   "part_name": "공간 시나리오",
+   "f": "L_PH_SS_RT_A",
+   "code": "PH-SS-RT-A",
+   "name": "리테일 · 공간 맵 · 공간 사진 7",
+   "score": 24.417,
+   "why": [
+    "LLM · 공간별 가치를 사진 중심으로 보여주어 갤러리 같은 분위기 연출 가능",
+    "파트 유형 일치 · 공간 시나리오",
+    "시나리오가 이 자리에 둔 장표",
+    "업종 전용 · 리테일 · 브랜드 플래그십"
+   ],
+   "fit": {
+    "relevance": 0.929,
+    "part": true,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "외벽부터 식품관까지 공간 맵",
+   "seed": "L_PH_SS_RT_A",
+   "alternates": [
+    {
+     "f": "L_SS_RT_B",
+     "code": "SS-RT-B",
+     "name": "리테일 · 브랜드 플래그십 · 대표 공간 장면",
+     "score": 23.917
+    },
+    {
+     "f": "L_PH_SS_RT_B",
+     "code": "PH-SS-RT-B",
+     "name": "리테일 · 대표 공간 네 장면 · 사진",
+     "score": 23.417
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 7,
+   "part_id": "S06",
+   "part_type": "scenario",
+   "part_name": "공간 시나리오",
+   "f": "L_SS_RT_B",
+   "code": "SS-RT-B",
+   "name": "리테일 · 브랜드 플래그십 · 대표 공간 장면",
+   "score": 23.452,
+   "why": [
+    "파트 유형 일치 · 공간 시나리오",
+    "업종 전용 · 리테일 · 브랜드 플래그십",
+    "전략 적합 · 공간 경험형",
+    "요구 표현 일치 · \"브랜드\""
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 0.75,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "VMD존 — 상품 옆 화면과 공기",
+   "seed": "L_PH_SS_RT_B",
+   "alternates": [
+    {
+     "f": "L_PH_SS_RT_B",
+     "code": "PH-SS-RT-B",
+     "name": "리테일 · 대표 공간 네 장면 · 사진",
+     "score": 23.952
+    },
+    {
+     "f": "L_PH_SS_RT_A",
+     "code": "PH-SS-RT-A",
+     "name": "리테일 · 공간 맵 · 공간 사진 7",
+     "score": 22.952
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 8,
+   "part_id": "S07",
+   "part_type": "birdseye",
+   "part_name": "존별 공간 시안",
+   "f": "L_GN_C",
+   "code": "GN-C",
+   "name": "공간별 지금 → 제안 시안",
+   "score": 20.445,
+   "why": [
+    "LLM · 공간별 현재와 제안 시안을 한 장에서 비교하기에 가장 효율적임",
+    "파트 유형 일치 · 조감도 · 공간 시안",
+    "시나리오가 이 자리에 둔 장표",
+    "전략 적합 · 공간 경험형"
+   ],
+   "fit": {
+    "relevance": 0.799,
+    "part": true,
+    "readiness": 0.5,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "공간별 지금 → 제안 시안",
+   "seed": "L_GN_C",
+   "alternates": [
+    {
+     "f": "L_BE02",
+     "code": "ZP-A",
+     "name": "번호 콜아웃",
+     "score": 19.945
+    },
+    {
+     "f": "L_BV_C",
+     "code": "BV-C",
+     "name": "전경 + 한 장 요약",
+     "score": 19.445
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 9,
+   "part_id": "S08",
+   "part_type": "birdseye",
+   "part_name": "공간 톤앤매너",
+   "f": "L_MB_A",
+   "code": "MB-A",
+   "name": "무드보드 · 공간 톤",
+   "score": 21.4,
+   "why": [
+    "LLM · 브랜드 무드보드와 공간 톤앤매너를 시각적으로 잘 보여줌",
+    "파트 유형 일치 · 조감도 · 공간 시안",
+    "시나리오가 이 자리에 둔 장표",
+    "사진 중심 · 36%"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "무드보드 · 공간 톤",
+   "seed": "L_MB_A",
+   "alternates": [
+    {
+     "f": "L_BV_C",
+     "code": "BV-C",
+     "name": "전경 + 한 장 요약",
+     "score": 20.9
+    },
+    {
+     "f": "L_BE03",
+     "code": "BV-B",
+     "name": "두 시점 비교",
+     "score": 20.4
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 10,
+   "part_id": "S09",
+   "part_type": "products",
+   "part_name": "디지털 디스플레이",
+   "f": "L_PH_P_L",
+   "code": "PH-P-L",
+   "name": "비디오월 · 실사 + 구성",
+   "score": 19.733,
+   "why": [
+    "LLM · 비디오월 설치 실사와 구성 정보를 함께 보여주어 신뢰도 제고",
+    "파트 유형 일치 · 공간별 제품",
+    "시나리오가 이 자리에 둔 장표",
+    "사진 중심 · 63%"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "pc_diff": 2,
+    "readiness": 0.67,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "비디오월 · LED 구성",
+   "seed": "L_PH_P_L",
+   "alternates": [
+    {
+     "f": "L_P3B",
+     "code": "P3-B",
+     "name": "공간 · 설치 중심",
+     "score": 19.233
+    },
+    {
+     "f": "L_PH_P3_A",
+     "code": "PH-P3-A",
+     "name": "제품 3 · 컷 + 설치 장면",
+     "score": 18.733
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 11,
+   "part_id": "S10",
+   "part_type": "solution",
+   "part_name": "운영 효율화 솔루션",
+   "f": "L_PH_SOL_S",
+   "code": "PH-SOL-S",
+   "name": "솔루션 시나리오 · 장면 4 사진",
+   "score": 14.969,
+   "why": [
+    "LLM · 콘텐츠 운영 시나리오를 자동화 규칙과 함께 보여주어 운영 불안 해소",
+    "파트 유형 일치 · 솔루션 제안",
+    "사진 중심 · 30%",
+    "전략 적합 · 공간 경험형"
+   ],
+   "fit": {
+    "relevance": 0.284,
+    "part": true,
+    "readiness": 0.67,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "VXT 매장 시나리오 — 시즌 세일 일괄 전환",
+   "seed": null,
+   "alternates": [
+    {
+     "f": "L_PH_SO_J",
+     "code": "PH-SO-J",
+     "name": "본사 → 매장 배포 · 담당자 · 화면 · 손님 사진",
+     "score": 14.469
+    },
+    {
+     "f": "L_PH_SO_Q",
+     "code": "PH-SO-Q",
+     "name": "같은 솔루션 · 사람마다 다른 화면 사진 짝",
+     "score": 13.969
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 12,
+   "part_id": "S11",
+   "part_type": "case",
+   "part_name": "성공 사례",
+   "f": "L_CL_D",
+   "code": "CL-D",
+   "name": "사례 사진 카드 6",
+   "score": 19.84,
+   "why": [
+    "LLM · 다양한 리테일 사례를 사진 카드로 나열하여 레퍼런스 강조",
+    "파트 유형 일치 · 유관 사례",
+    "시나리오가 이 자리에 둔 장표",
+    "사진 중심 · 35%"
+   ],
+   "fit": {
+    "relevance": 0.877,
+    "part": true,
+    "readiness": 0.67,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "리테일 사례 사진 카드 6",
+   "seed": "L_CL_D",
+   "alternates": [
+    {
+     "f": "L_CS02",
+     "code": "CL-A",
+     "name": "2건 비교",
+     "score": 19.34
+    },
+    {
+     "f": "L_CD_D",
+     "code": "CD-D",
+     "name": "사례 포토 에세이 · 원문 링크",
+     "score": 18.84
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 13,
+   "part_id": "S12",
+   "part_type": "execution",
+   "part_name": "실행 및 일정",
+   "f": "L_PH_IP_C",
+   "code": "PH-IP-C",
+   "name": "무중단 야간 시공 · 구역 사진 일정",
+   "score": 17.8,
+   "why": [
+    "LLM · 무중단 야간 시공의 특수성을 구역별 일정으로 명확히 전달",
+    "파트 유형 일치 · 실행 계획",
+    "시나리오가 이 자리에 둔 장표",
+    "부족 정보 · timeline"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 0.0,
+    "missing": [
+     "timeline",
+     "kpis"
+    ]
+   },
+   "role": "무중단 · 야간 시공 일정",
+   "seed": "L_PH_IP_C",
+   "alternates": [
+    {
+     "f": "L_PH_IP_A",
+     "code": "PH-IP-A",
+     "name": "구축 · 운영 단계 · 현장 사진",
+     "score": 17.3
+    },
+    {
+     "f": "L_PH_IP_B",
+     "code": "PH-IP-B",
+     "name": "공사 범위 R&R · 작업별 사진",
+     "score": 16.8
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 14,
+   "part_id": "S13",
+   "part_type": "closing",
+   "part_name": "향후 일정",
+   "f": "L_PH_C13",
+   "code": "PH-C13",
+   "name": "마무리 · 다음 단계 + 사진",
+   "score": 19.8,
+   "why": [
+    "LLM · 쇼룸 투어 초대와 다음 단계 결정을 유도하는 마무리로 적합함",
+    "파트 유형 일치 · 마무리 · 다음 단계",
+    "시나리오가 이 자리에 둔 장표",
+    "사진 중심 · 47%"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 0.0,
+    "missing": [
+     "contacts",
+     "timeline",
+     "kpis"
+    ]
+   },
+   "role": "존별 시안 선택 · 시공 일정 · 오픈 D-day",
+   "seed": "L_PH_C13",
+   "alternates": [
+    {
+     "f": "L_C12",
+     "code": "C12",
+     "name": "마무리 B · 도입 후 모습 (생성 시안)",
+     "score": 19.3
+    },
+    {
+     "f": "L_C07",
+     "code": "C07",
+     "name": "마무리 · 연락처",
+     "score": 18.8
+    }
+   ],
+   "llm": true
+  }
+ ],
+ "review": {
+  "req_total": 11,
+  "req_covered": 11,
+  "req_coverage": 1.0,
+  "must_uncovered": [],
+  "uncovered": [],
+  "checklist": [],
+  "spec_mismatch": [],
+  "flow_score": 0.75,
+  "n_slides": 14,
+  "industry_violations": [],
+  "solution_violations": [],
+  "duplicates": [],
+  "part_mismatch": [],
+  "fill": {
+   "slots": 612,
+   "changed": 314,
+   "placeholders_left": 104,
+   "unsupported_reverted": 0,
+   "sample_leak": 0,
+   "foreign_terms": 0,
+   "static_foreign_slides": 0
+  },
+  "issues": []
+ },
+ "fills": [
+  {
+   "no": 1,
+   "f": "L_C08",
+   "code": "C08",
+   "part_id": "S01",
+   "pg": 0,
+   "texts": {
+    "1": "B2B 제안서",
+    "2": "성수 플래그십 스토어 디스플레이 연출",
+    "3": "(주)누아르앤코 · 성수 플래그십 스토어 디스플레이",
+    "4": "브랜드 경험",
+    "5": "스마트 사이니지",
+    "6": "비디오월",
+    "7": "삼성전자 B2B",
+    "10": "01",
+    "11": "02",
+    "12": "03",
+    "13": "01",
+    "14": "공간과",
+    "15": "매장 내 쇼룸 연출",
+    "16": "02",
+    "17": "누아르앤",
+    "18": "브랜드 가치를 담은 공간",
+    "19": "(주)누아르앤코 · 성수 플래그십 스토어 디스플레이",
+    "20": "(주)누아르앤코 · 성수 플래그십 스토어 디스플레이",
+    "21": "(주)누아르앤코 · 성수 플래그십 스토어 디스플레이"
+   },
+   "sources": {
+    "1": "llm",
+    "2": "context",
+    "3": "context",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "item",
+    "15": "llm",
+    "16": "llm",
+    "17": "item",
+    "18": "llm",
+    "19": "context",
+    "20": "context",
+    "21": "context"
+   },
+   "images": {
+    "0": {
+     "pid": "fill.scan_tab",
+     "file": "img/fill/mobile.json#19",
+     "packed": true,
+     "label": "태블릿으로 바코드를 스캔 (samsung.com)",
+     "fit": "cover"
+    },
+    "1": {
+     "pid": "r4.rt-consult",
+     "file": "img/fill/r4-fbrt.json#17",
+     "packed": true,
+     "label": "가전 매장 상담 (KT x 삼성가전)",
+     "fit": "cover"
+    }
+   },
+   "checks": {
+    "n_slots": 20,
+    "changed": 14,
+    "coverage": 0.7,
+    "placeholders_left": 0,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 6,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": true
+  },
+  {
+   "no": 2,
+   "f": "L_PH_MI_RT_A",
+   "code": "PH-MI-RT-A",
+   "part_id": "S02",
+   "pg": 0,
+   "texts": {
+    "0": "02 · 시장 · 전략",
+    "1": "(주)누아르앤코의 시장은 ‘파는 매장’에서 ‘경험하는 매장’으로 갑니다",
+    "2": "국내 오프라인 리테일 시장 규모와 체험형 · 플래그십 매장 비중, 그리고 이 흐름이 (주)누아르앤코에 주는 시사점",
+    "3": "국내 오프라인 리테일 시장",
+    "4": "단위 조 원 · 출처 [조사 기관]",
+    "5": "2026E 시장 규모",
+    "6": "[000]",
+    "7": "조 원",
+    "8": "전년 대비 [0.0]%",
+    "9": "체험형 · 플래그십 성장",
+    "10": "[00.0]",
+    "11": "%",
+    "12": "연평균 · 전체 [0.0]%",
+    "13": "체험형 매장 비중",
+    "14": "[00]% → [00]",
+    "15": "%",
+    "16": "[0000] → 2026E",
+    "17": "01",
+    "18": "매장은 ‘경험하는 곳’으로",
+    "19": "구매는 온라인으로 옮겨 가고, 매장은 브랜드를 체험 · 공유하는 무대가 됩니다",
+    "20": "그래서 (주)누아르앤코에게",
+    "21": "플래그십 성과를 매출과 함께 체류 · 체험 참여로 관리해야 합니다",
+    "22": "02",
+    "23": "매장 외관이 곧 광고 매체",
+    "24": "파사드 · 쇼윈도 화면이 유동인구에게 영업시간 밖까지 브랜드를 알립니다",
+    "25": "그래서 (주)누아르앤코에게",
+    "26": "햇빛 · 비바람 · 심야에도 보이는 외부 화면이 첫 투자처입니다",
+    "27": "03",
+    "28": "콘텐츠 교체 주기 단축",
+    "29": "시즌 · 월별 프로모션과 신제품 · 클래스 안내가 늘어 인쇄물로는 속도를 못 맞춥니다",
+    "30": "그래서 (주)누아르앤코에게",
+    "31": "본사가 전 매장 화면을 원격으로 한 번에 바꾸는 체계가 필요합니다",
+    "32": "04",
+    "33": "설비도 인테리어의 일부로",
+    "34": "[내용]",
+    "35": "그래서 (주)누아르앤코에게",
+    "36": "[내용]",
+    "38": "(주)누아르앤코 · 성수 플래그십 스토어 디스플레이 연출"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "placeholder",
+    "35": "llm",
+    "36": "placeholder",
+    "38": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 38,
+    "changed": 11,
+    "coverage": 0.289,
+    "placeholders_left": 9,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 27,
+    "static_foreign": [],
+    "guarded": {
+     "category": [
+      34,
+      36
+     ]
+    }
+   },
+   "llm": true
+  },
+  {
+   "no": 3,
+   "f": "L_PH_MI_RT_C",
+   "code": "PH-MI-RT-C",
+   "part_id": "S03",
+   "pg": 0,
+   "texts": {
+    "0": "03 · 고객사 이해",
+    "1": "(주)누아르앤코 고객의 마음은 체험에서 오르고, 대기에서 꺾입니다",
+    "2": "유동 · 팬 · 목적 구매 고객이 플래그십을 지나는 다섯 순간 — 감정이 꺾이는 곳마다 삼성 제품 · 솔루션이 들어갈 자리",
+    "3": "(주)누아르앤코 플래그십 고객",
+    "4": "비중은 예시 · 조사 / 실측 후 반영",
+    "5": "지나가는 유동 고객",
+    "6": "[00]%",
+    "7": "멈출 이유가 보이면 들어온다 — 주요 순간 발견 · 입점",
+    "8": "브랜드 팬 · 체험 고객",
+    "9": "[00]%",
+    "10": "보고 · 찍고 · 공유하러 온다 — 주요 순간 입점 · 체험",
+    "11": "목적 구매 · 상담 고객",
+    "12": "[00]%",
+    "13": "비교하고 확신한 뒤 산다 — 주요 순간 체험 · 상담",
+    "14": "모든 고객 공통",
+    "15": "외국인 관광객 [00]% — 말을 몰라도 바로 알고 싶다 (주요 순간 탐색 · 구매)",
+    "16": "1",
+    "17": "발견 · 입점",
+    "18": "쇼윈도 · 입구 브랜드존",
+    "19": "결정적 순간",
+    "20": "고객",
+    "21": "햇빛에 묻힌 쇼윈도는 지나치고, 들어서면 세계관이 보여야",
+    "22": "직원 · 운영",
+    "23": "시즌 포스터 교체 · 부착, 오픈 전 화면 · 음향 점검",
+    "24": "고휘도 쇼윈도 사이니지 · LED 미디어월",
+    "25": "햇빛에도 선명, 대화면 첫 장면",
+    "26": "[항목]",
+    "27": "2",
+    "28": "매장 앞",
+    "29": "VMD존 · 층별 동선",
+    "30": "고객",
+    "31": "넓은 매장에서 상품을 못 찾고, 외국어 안내도 없음",
+    "32": "직원 · 운영",
+    "33": "층별 안내 · 가격 정보 갱신은 본사 몫",
+    "34": "[항목]",
+    "35": "위치 · 가격 · 상품 정보를 언어별로 안내",
+    "36": "원격 일괄 갱신",
+    "37": "3",
+    "38": "대기 공",
+    "39": "체험존 · 스튜디오",
+    "40": "결정적 순간",
+    "41": "고객",
+    "42": "전시 못한 라인업 · 컬러도 직접 보고 만져 보고 싶음",
+    "43": "직원 · 운영",
+    "44": "체험 콘텐츠 · 장비 운영은 매장 몫",
+    "45": "비디오월 · 인터랙티브",
+    "46": "가상 전시 · 터치 · 촬영 체험으로 몰입",
+    "47": "+ 콘텐츠 제작 지원",
+    "48": "4",
+    "49": "상담 · 대기",
+    "50": "상담 공간 · VIP 라운지",
+    "51": "고객",
+    "52": "오랜 상담 · 대기에 덥고 답답하면 결정을 미룸",
+    "53": "직원 · 운영",
+    "54": "상담 응대와 대기 고객 관리를 함께",
+    "55": "[제품]",
+    "56": "[내용]",
+    "57": "[솔루션]",
+    "58": "5",
+    "59": "구매 · 재방문",
+    "60": "카운터 · 클래스 · 이벤트",
+    "61": "결정적 순간",
+    "62": "고객",
+    "63": "결제 순간이 다음 클래스 · 신제품 소식을 알릴 기회",
+    "64": "직원 · 운영",
+    "65": "클래스 · 이벤트 공지 편성은 본사 몫",
+    "66": "[솔루션] 스케줄",
+    "67": "카운터 화면에 클래스 · 이벤트를 시간대별로",
+    "68": "+ 시간대별 자동 편성",
+    "69": "고객 감정",
+    "70": "지금",
+    "71": "삼성 적용 후",
+    "72": "결정적 순간 — 고객사를 평가하는 단계",
+    "74": "(주)누아르앤코 · 성수 플래그십 스토어 디스플레이 연출"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "placeholder",
+    "27": "llm",
+    "28": "item",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "placeholder",
+    "35": "llm",
+    "36": "llm",
+    "37": "llm",
+    "38": "item",
+    "39": "llm",
+    "40": "llm",
+    "41": "llm",
+    "42": "llm",
+    "43": "llm",
+    "44": "llm",
+    "45": "llm",
+    "46": "llm",
+    "47": "llm",
+    "48": "llm",
+    "49": "llm",
+    "50": "llm",
+    "51": "llm",
+    "52": "llm",
+    "53": "llm",
+    "54": "llm",
+    "55": "placeholder",
+    "56": "placeholder",
+    "57": "llm",
+    "58": "llm",
+    "59": "llm",
+    "60": "llm",
+    "61": "llm",
+    "62": "llm",
+    "63": "llm",
+    "64": "llm",
+    "65": "llm",
+    "66": "llm",
+    "67": "llm",
+    "68": "llm",
+    "69": "llm",
+    "70": "llm",
+    "71": "llm",
+    "72": "llm",
+    "74": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 74,
+    "changed": 13,
+    "coverage": 0.176,
+    "placeholders_left": 10,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 61,
+    "static_foreign": [],
+    "guarded": {
+     "category": [
+      26,
+      34,
+      55,
+      56
+     ]
+    }
+   },
+   "llm": true
+  },
+  {
+   "no": 4,
+   "f": "L_IS_A",
+   "code": "IS-A",
+   "part_id": "S04",
+   "pg": 0,
+   "texts": {
+    "0": "04 · 조감도 · 공간 시안",
+    "1": "성수 플래그십 스토어 공간 분석",
+    "2": "(주)누아르앤코 · 현장 조사 [0000].[00] · 실측 포함",
+    "3": "사진 [00]장",
+    "4": "실측 [0]곳",
+    "5": "01",
+    "6": "매장 입구",
+    "7": "브랜드 메시지 전달 및 고객 유입 필요",
+    "8": "면적",
+    "9": "[00]㎡",
+    "10": "천장",
+    "11": "[0.0]m",
+    "12": "전원",
+    "13": "[N]구",
+    "14": "02",
+    "15": "메인 쇼룸",
+    "16": "제품 정보 가독성 및 몰입감 개선 필요",
+    "17": "면적",
+    "18": "[00]㎡",
+    "19": "천장",
+    "20": "[0.0]m",
+    "21": "전원",
+    "22": "[N]구",
+    "23": "03",
+    "24": "VMD 존",
+    "25": "시즌별 콘텐츠 교체 및 운영 효율화",
+    "26": "면적",
+    "27": "[000]㎡",
+    "28": "천장",
+    "29": "[0.0]m",
+    "30": "전원",
+    "31": "[N]구",
+    "32": "04",
+    "33": "브랜드 월",
+    "34": "정적인 인쇄물 대신 미디어아트 활용",
+    "35": "면적",
+    "36": "[00]㎡",
+    "37": "천장",
+    "38": "[0.0]m",
+    "39": "전원",
+    "40": "[N]구",
+    "41": "05",
+    "42": "체험 공간",
+    "43": "고객 인터랙션 유도 및 정보 제공",
+    "44": "면적",
+    "45": "[00]㎡",
+    "46": "천장",
+    "47": "[0.0]m",
+    "48": "전원",
+    "49": "[N]구",
+    "50": "06",
+    "51": "매장 동선",
+    "52": "고객 이동 경로 내 직관적 안내 필요",
+    "53": "면적",
+    "54": "[00]㎡",
+    "55": "천장",
+    "56": "[0.0]m",
+    "57": "전원",
+    "58": "[N]구",
+    "60": "(주)누아르앤코 · 성수 플래그십 스토어 디스플레이 연출"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "placeholder",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "35": "llm",
+    "36": "llm",
+    "37": "llm",
+    "38": "llm",
+    "39": "llm",
+    "40": "llm",
+    "41": "llm",
+    "42": "llm",
+    "43": "llm",
+    "44": "llm",
+    "45": "llm",
+    "46": "llm",
+    "47": "llm",
+    "48": "llm",
+    "49": "llm",
+    "50": "llm",
+    "51": "llm",
+    "52": "llm",
+    "53": "llm",
+    "54": "llm",
+    "55": "llm",
+    "56": "llm",
+    "57": "llm",
+    "58": "llm",
+    "60": "context"
+   },
+   "images": {
+    "0": {
+     "pid": "fill.mall_vertical",
+     "file": "img/fill/retail.json#16",
+     "packed": true,
+     "label": "몰 통로의 세로형 터치 사이니지 (samsung.com)",
+     "fit": "cover"
+    },
+    "1": {
+     "pid": "fill.mi_console",
+     "file": "img/fill/ui.json#9",
+     "packed": true,
+     "label": "MagicINFO 웹 콘솔 대시보드 (samsung.com)",
+     "fit": "cover"
+    },
+    "2": {
+     "pid": "r4.rt-mall-media",
+     "file": "img/fill/r4-fbrt.json#15",
+     "packed": true,
+     "label": "백화점 미디어 라운지 대형 화면 (더현대 서울)",
+     "fit": "cover"
+    },
+    "3": {
+     "pid": "ph.rt-fashion-phone",
+     "file": "img/ph/rt-fashion-phone.jpg",
+     "packed": false,
+     "label": "패션 매장 사이니지와 모바일 연동 (samsung.com)",
+     "fit": "cover"
+    },
+    "4": {
+     "pid": "fill.cc_diagram",
+     "file": "img/fill/retail.json#4",
+     "packed": true,
+     "label": "b.IoT Cloud · Link Controller 원격관리 구성 (samsung.com)",
+     "fit": "cover"
+    },
+    "5": {
+     "pid": "fill.fashion_led",
+     "file": "img/fill/retail.json#10",
+     "packed": true,
+     "label": "패션 매장 벽면 · 기둥 사이니지 (samsung.com)",
+     "fit": "cover"
+    }
+   },
+   "checks": {
+    "n_slots": 60,
+    "changed": 17,
+    "coverage": 0.283,
+    "placeholders_left": 21,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 43,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": true
+  },
+  {
+   "no": 5,
+   "f": "L_VP_F",
+   "code": "VP-F",
+   "part_id": "S05",
+   "pg": 0,
+   "texts": {
+    "0": "05 · Value",
+    "1": "(주)누아르앤코를 위한 세 가지 핵심 가치",
+    "2": "지나가는 사람의 시선을 끄는 외관 연출 · 딥블랙·버건디 브랜드 컬러가 정확히 표현될 것",
+    "3": "QM55C",
+    "4": "01",
+    "5": "스마트 사이니지 QM55C",
+    "6": "55\" · 500nit · 4K UHD · 24/7 운영",
+    "7": "QM55C",
+    "8": "QM55C",
+    "9": "시선",
+    "10": "외관 연출 최적화",
+    "11": "VM55B",
+    "12": "02",
+    "13": "비디오월 VM55B",
+    "14": "55\" · 초슬림 베젤 · 다면 구성",
+    "15": "VM55B",
+    "16": "VM55B",
+    "17": "비디오월",
+    "18": "[00]분",
+    "19": "대기 공간 · 로비",
+    "20": "03",
+    "21": "QM65C",
+    "22": "65\" · 500nit · 4K UHD · 24/7 운영",
+    "23": "QM65C",
+    "24": "LCD 사이니지",
+    "25": "대기 공간",
+    "26": "[00]% ↓",
+    "28": "(주)누아르앤코 · 성수 플래그십 스토어 디스플레이 연출"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "req",
+    "3": "product",
+    "4": "llm",
+    "5": "product",
+    "6": "product",
+    "7": "product",
+    "8": "product",
+    "9": "llm",
+    "10": "llm",
+    "11": "product",
+    "12": "llm",
+    "13": "product",
+    "14": "product",
+    "15": "product",
+    "16": "product",
+    "17": "product",
+    "18": "llm",
+    "19": "product",
+    "20": "llm",
+    "21": "product",
+    "22": "product",
+    "23": "product",
+    "24": "product",
+    "25": "product",
+    "26": "llm",
+    "28": "context"
+   },
+   "images": {
+    "0": {
+     "pid": null,
+     "blank": true,
+     "label": "이미지 필요 · 솔루션 화면"
+    },
+    "1": {
+     "pid": null,
+     "blank": true,
+     "label": "이미지 필요 · 솔루션 화면"
+    },
+    "2": {
+     "pid": null,
+     "blank": true,
+     "label": "이미지 필요 · 솔루션 화면"
+    }
+   },
+   "checks": {
+    "n_slots": 28,
+    "changed": 22,
+    "coverage": 0.786,
+    "placeholders_left": 2,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 6,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": true
+  },
+  {
+   "no": 6,
+   "f": "L_PH_SS_RT_A",
+   "code": "PH-SS-RT-A",
+   "part_id": "S06",
+   "pg": 0,
+   "texts": {
+    "0": "06 · 공간 시나리오",
+    "1": "(주)누아르앤코 성수 플래그십, 공간마다 브랜드 세계관을 담은 디지털 경험",
+    "2": "매장보다는 갤러리 같은 분위기 · 매장 앞을 지나가는 분들이 '여기 뭐지?' 하고 들어오고 싶어지는",
+    "3": "3",
+    "4": "매장 내 VMD존",
+    "5": "쇼룸",
+    "6": "브랜드 세계관을 구현하는 디지털 VMD",
+    "7": "방문객 · 브랜드",
+    "8": "스마트 사이니지 QM65C · 비디오월 VM55B",
+    "9": "1",
+    "10": "매장 외관",
+    "11": "갤러리 같은 외관으로 호기심 자극",
+    "12": "스마트 사이니지 QM55C",
+    "13": "2",
+    "14": "매장 입구",
+    "15": "브랜드 메시지 전달 및 인증샷 포인트",
+    "16": "스마트 사이니지 QM55C",
+    "17": "4",
+    "18": "플래그십",
+    "19": "브랜드 아이덴티티를 강조하는 연출",
+    "20": "스마트 사이니지 QM65C",
+    "21": "5",
+    "22": "전시 공간",
+    "23": "브랜드 세계관 경험 극대화",
+    "24": "비디오월 VM55B",
+    "25": "6",
+    "26": "고객 휴게 공간",
+    "27": "브랜드 감성을 유지하는 편안한 분위기",
+    "28": "스마트 사이니지 QM55C",
+    "29": "7",
+    "30": "운영 관리실",
+    "31": "전체 사이니지 통합 운영 및 관리",
+    "32": "DMS 통합 관리",
+    "33": "전체 구성",
+    "34": "솔루션 · 활용 공간",
+    "35": "수량은 실사 후 확정",
+    "36": "[솔루션]",
+    "37": "콘텐츠 제작 지원 · 미디어아트",
+    "38": "1",
+    "39": "2",
+    "40": "3",
+    "41": "4",
+    "42": "5",
+    "43": "6",
+    "44": "[솔루션]",
+    "45": "DMS 스케줄 관리",
+    "46": "2",
+    "47": "3",
+    "48": "5",
+    "49": "6",
+    "50": "7",
+    "51": "[솔루션]",
+    "52": "화면 비율 및 공간 최적화",
+    "53": "4",
+    "54": "7",
+    "55": "[솔루션]",
+    "56": "통합 관제 시스템",
+    "57": "7",
+    "58": "콘텐츠 제작 지원",
+    "59": "공간 맞춤형 미디어아트 제작 · 전 공간 공통",
+    "60": "1",
+    "61": "2",
+    "62": "3",
+    "63": "4",
+    "64": "5",
+    "65": "6",
+    "66": "7",
+    "68": "(주)누아르앤코 · 성수 플래그십 스토어 디스플레이 연출"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "req",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "35": "llm",
+    "36": "llm",
+    "37": "llm",
+    "38": "llm",
+    "39": "llm",
+    "40": "llm",
+    "41": "llm",
+    "42": "llm",
+    "43": "llm",
+    "44": "llm",
+    "45": "llm",
+    "46": "llm",
+    "47": "llm",
+    "48": "llm",
+    "49": "llm",
+    "50": "llm",
+    "51": "llm",
+    "52": "llm",
+    "53": "llm",
+    "54": "llm",
+    "55": "llm",
+    "56": "llm",
+    "57": "llm",
+    "58": "llm",
+    "59": "llm",
+    "60": "llm",
+    "61": "llm",
+    "62": "llm",
+    "63": "llm",
+    "64": "llm",
+    "65": "llm",
+    "66": "llm",
+    "68": "context"
+   },
+   "images": {
+    "1": {
+     "pid": "r4.rt-telco-store",
+     "file": "img/fill/r4-fbrt.json#14",
+     "packed": true,
+     "label": "매장 천장 걸이 사이니지와 상담석 (SKT 매장)",
+     "fit": "cover"
+    },
+    "6": {
+     "pid": "ph.rt-mall-ac",
+     "file": "img/ph/rt-mall-ac.jpg",
+     "packed": false,
+     "label": "면세점 천장의 360 카세트 (두타면세점)",
+     "fit": "cover"
+    }
+   },
+   "checks": {
+    "n_slots": 68,
+    "changed": 38,
+    "coverage": 0.559,
+    "placeholders_left": 4,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 30,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": true
+  },
+  {
+   "no": 7,
+   "f": "L_SS_RT_B",
+   "code": "SS-RT-B",
+   "part_id": "S06",
+   "pg": 0,
+   "texts": {
+    "0": "06 · 공간 시나리오",
+    "1": "(주)누아르앤코 플래그십 스토어, 상품 옆 화면과 공간이 하루 종일 알아서 바뀝니다",
+    "2": "매장보다는 갤러리 같은 분위기 · 매장 앞을 지나가는 분들이 '여기 뭐지?' 하고 들어오고 싶어지는",
+    "3": "시점",
+    "4": "운영 예시",
+    "5": "장면",
+    "6": "매장 연출",
+    "7": "솔루션",
+    "8": "기능",
+    "9": "제품",
+    "10": "효과",
+    "11": "수치는 예시",
+    "12": "1",
+    "13": "09:30",
+    "14": "시즌 캠페인 일괄 교체",
+    "15": "개점 전 · VMD팀 · 전 매장 화면",
+    "16": "브랜드 캠페인 영상 송출",
+    "17": "통합 콘텐츠 관리",
+    "18": "스마트 사이니지 · 비디오월",
+    "19": "새 시즌 캠페인을 예약 시각에 일괄 송출",
+    "20": "스마트 사이니지 QM 시리즈",
+    "21": "수동 교체 업무가 사라집니다",
+    "22": "교체 소요 시간",
+    "23": "[0]시간 → [0]분",
+    "24": "2",
+    "25": "14:00",
+    "26": "신상품 런칭 연출",
+    "27": "쇼룸 내 신상품 집중 조명",
+    "29": "공간 맞춤형 미디어아트 송출",
+    "30": "이벤트 시각에 화면을 하나로 연결",
+    "31": "진열 상품 옆에서 몰입감 제공",
+    "32": "비디오월 VM55B",
+    "33": "브랜드 세계관을 경험하는 갤러리",
+    "34": "고객 체류 시간",
+    "35": "[00]% ↑",
+    "36": "3",
+    "37": "16:00",
+    "38": "쾌적한 쇼핑 환경 유지",
+    "39": "오후 혼잡 시간대 쇼룸 관리",
+    "40": "냉방 최적화 운영",
+    "41": "DMS 통합 제어",
+    "42": "혼잡 구역 중심 냉방 집중",
+    "43": "중앙에서 온도 범위 제한",
+    "44": "[항목]",
+    "45": "직바람 없이 고르게 머무는 공간",
+    "46": "냉방 관련 민원",
+    "47": "[00]% ↓",
+    "48": "4",
+    "49": "20:[00]",
+    "50": "폐점 후 원격 점검",
+    "52": "상태 점검",
+    "53": "원격 관리 및 케어 서비스",
+    "54": "재생 오류 발생 시 즉시 알림",
+    "55": "다음 개점 전 엔지니어 조치",
+    "56": "[항목]",
+    "57": "꺼진 화면 없이 개점 준비",
+    "58": "장애 발견 및 조치",
+    "59": "[0]시간 → [0]분",
+    "60": "플래그십 스토어 표준 구성",
+    "61": "(주)누아르앤코 [0]개 층 확장 적용",
+    "62": "스마트 사이니지 [0]면",
+    "63": "비디오월 1식",
+    "64": "안내 사이니지 [0]",
+    "65": "[항목]",
+    "66": "DMS 연동",
+    "67": "운영",
+    "68": "[내용]",
+    "70": "(주)누아르앤코 · 성수 플래그십 스토어 디스플레이"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "req",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "35": "llm",
+    "36": "llm",
+    "37": "llm",
+    "38": "llm",
+    "39": "llm",
+    "40": "llm",
+    "41": "llm",
+    "42": "llm",
+    "43": "llm",
+    "44": "placeholder",
+    "45": "llm",
+    "46": "llm",
+    "47": "llm",
+    "48": "llm",
+    "49": "llm",
+    "50": "llm",
+    "52": "llm",
+    "53": "llm",
+    "54": "llm",
+    "55": "llm",
+    "56": "placeholder",
+    "57": "llm",
+    "58": "llm",
+    "59": "llm",
+    "60": "llm",
+    "61": "llm",
+    "62": "llm",
+    "63": "llm",
+    "64": "llm",
+    "65": "placeholder",
+    "66": "llm",
+    "67": "llm",
+    "68": "placeholder",
+    "70": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 69,
+    "changed": 48,
+    "coverage": 0.696,
+    "placeholders_left": 12,
+    "overflow_fixed": [
+     52
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 21,
+    "static_foreign": [],
+    "guarded": {
+     "category": [
+      44,
+      56,
+      65
+     ]
+    }
+   },
+   "llm": true
+  },
+  {
+   "no": 8,
+   "f": "L_GN_C",
+   "code": "GN-C",
+   "part_id": "S07",
+   "pg": 0,
+   "texts": {
+    "0": "07 · 조감도 · 공간 시안",
+    "1": "성수 플래그십 스토어의 변화를 미리 확인합니다",
+    "2": "(주)누아르앤코 · 매장 현장 사진과 생성 시안 · 같은 시점에서 비교",
+    "3": "구역",
+    "4": "현재 매장 모습",
+    "5": "과제",
+    "6": "제안 시안 · AI 생성",
+    "7": "적용 제품",
+    "8": "01",
+    "9": "매장",
+    "10": "입구 메인 존 · [00]평",
+    "11": "브랜드 메시지 전달력 부족 및 시각적 집중도 저하",
+    "12": "공간별 현재 모습과 제안 시안 비교",
+    "13": "비디오월 VM55B ×[N]",
+    "14": "스마트 사이니지 QM65C ×[N]",
+    "15": "초슬림 베젤로 몰입감 극대화",
+    "16": "02",
+    "17": "쇼룸",
+    "18": "전시 존 · [00]평",
+    "19": "제품 정보 전달 및 고객 경험 요소 부족",
+    "20": "단조로운 디스플레이 구성",
+    "21": "스마트 사이니지 QM55C",
+    "22": "미디어아트 콘텐츠 송출",
+    "23": "브랜드 컬러 강조 미디어아트",
+    "24": "03",
+    "25": "VMD",
+    "26": "상품 진열 존 · [00]곳",
+    "27": "상품 정보 업데이트 및 홍보 지연",
+    "28": "정적인 홍보물로 고객 흥미 유도 한계",
+    "29": "스마트 사이니지 QM55C ×3",
+    "30": "콘텐츠 제작 지원 솔루션",
+    "31": "공간 맞춤형 메뉴 및 홍보",
+    "33": "(주)누아르앤코 · 성수 플래그십 스토어 디스플레이 연출"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "33": "context"
+   },
+   "images": {
+    "0": {
+     "pid": "fill.scan_tab",
+     "file": "img/fill/mobile.json#19",
+     "packed": true,
+     "label": "태블릿으로 바코드를 스캔 (samsung.com)",
+     "fit": "cover"
+    },
+    "1": {
+     "pid": "r4.rt-mall-atrium",
+     "file": "img/fill/r4-fbrt.json#16",
+     "packed": true,
+     "label": "백화점 아트리움 (더현대 서울)",
+     "fit": "cover"
+    },
+    "2": {
+     "pid": "ph.rt-fashion-phone",
+     "file": "img/ph/rt-fashion-phone.jpg",
+     "packed": false,
+     "label": "패션 매장 사이니지와 모바일 연동 (samsung.com)",
+     "fit": "cover"
+    },
+    "3": {
+     "pid": "fill.mall_vertical",
+     "file": "img/fill/retail.json#16",
+     "packed": true,
+     "label": "몰 통로의 세로형 터치 사이니지 (samsung.com)",
+     "fit": "cover"
+    },
+    "4": {
+     "pid": "fill.scan_phone",
+     "file": "img/fill/mobile.json#18",
+     "packed": true,
+     "label": "휴대폰으로 박스 라벨 바코드를 스캔 (samsung.com)",
+     "fit": "cover"
+    },
+    "5": {
+     "pid": "ph.rt-fashion-store",
+     "file": "img/ph/rt-fashion-store.jpg",
+     "packed": false,
+     "label": "패션 매장 세로형 사이니지 (samsung.com)",
+     "fit": "cover"
+    }
+   },
+   "checks": {
+    "n_slots": 33,
+    "changed": 28,
+    "coverage": 0.848,
+    "placeholders_left": 5,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 5,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": true
+  },
+  {
+   "no": 9,
+   "f": "L_MB_A",
+   "code": "MB-A",
+   "part_id": "S08",
+   "pg": 0,
+   "texts": {
+    "0": "08 · 조감도 · 공간 시안",
+    "1": "브랜드 가치를 담은 공간 연출",
+    "2": "성수 플래그십 스토어의 무드를 반영한 디스플레이 디자인",
+    "3": "매장 쇼룸 · 기존 톤",
+    "4": "스마트 사이니지 매립",
+    "5": "쇼룸 벽면 · 제안 시안",
+    "6": "메탈 마감",
+    "7": "디스플레이",
+    "8": "무드 키워드",
+    "9": "몰입형 조도",
+    "10": "브랜드 아이덴티티",
+    "11": "공간 일체형 설계",
+    "12": "컬러 팔레트",
+    "13": "딥 브라",
+    "14": "#4A3426",
+    "15": "샌드",
+    "16": "#D9C7AE",
+    "17": "리넨",
+    "18": "#EFE8DE",
+    "19": "차콜",
+    "20": "#2E3236",
+    "21": "소재",
+    "22": "월넛 우드",
+    "23": "벽면 · 가구",
+    "24": "라임스톤",
+    "25": "매장 바닥",
+    "26": "브러시드 브론즈",
+    "27": "디스플레이",
+    "28": "디스플레이 원칙",
+    "29": "01",
+    "30": "초슬림 베젤",
+    "31": "벽면과 일체화된 매립으로 시각적 몰입감 극대화",
+    "32": "02",
+    "33": "고해상도",
+    "34": "4K UHD 화질로 브랜드 콘텐츠를 선명하게 전달",
+    "35": "03",
+    "36": "공간 맞춤형 구성",
+    "37": "비디오월 구성을 통한 플래그십 스토어 최적화",
+    "39": "(주)누아르앤코 · 성수 플래그십 스토어 디스플레이 연출"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "35": "llm",
+    "36": "llm",
+    "37": "llm",
+    "39": "context"
+   },
+   "images": {
+    "0": {
+     "pid": "r4.rt-telco-store",
+     "file": "img/fill/r4-fbrt.json#14",
+     "packed": true,
+     "label": "매장 천장 걸이 사이니지와 상담석 (SKT 매장)",
+     "fit": "cover"
+    },
+    "1": {
+     "pid": "ph.rt-shoppers",
+     "file": "img/ph/rt-shoppers.jpg",
+     "packed": false,
+     "label": "태블릿으로 상품을 안내하는 직원 (samsung.com)",
+     "fit": "cover"
+    },
+    "2": {
+     "pid": "ph.rt-ceiling-ac",
+     "file": "img/ph/rt-ceiling-ac.jpg",
+     "packed": false,
+     "label": "매장 천장 360 카세트 (samsung.com)",
+     "fit": "cover"
+    },
+    "3": {
+     "pid": "fill.mi_console",
+     "file": "img/fill/ui.json#9",
+     "packed": true,
+     "label": "MagicINFO 웹 콘솔 대시보드 (samsung.com)",
+     "fit": "cover"
+    },
+    "4": {
+     "pid": "r4.rt-mall-atrium",
+     "file": "img/fill/r4-fbrt.json#16",
+     "packed": true,
+     "label": "백화점 아트리움 (더현대 서울)",
+     "fit": "cover"
+    },
+    "5": {
+     "pid": "r4.rt-elevator-sign",
+     "file": "img/fill/r4-fbrt.json#21",
+     "packed": true,
+     "label": "백화점 엘리베이터 홀 사이니지 (현대백화점 판교점)",
+     "fit": "cover"
+    },
+    "6": {
+     "pid": "r4.rt-fashion-led",
+     "file": "img/fill/r4-fbrt.json#19",
+     "packed": true,
+     "label": "의류 매장 벽면 LED (룰루레몬 파르나스몰)",
+     "fit": "cover"
+    },
+    "7": {
+     "pid": "r4.rt-vip-lounge",
+     "file": "img/fill/r4-fbrt.json#18",
+     "packed": true,
+     "label": "라운지 좌석과 공기청정기 (더한섬하우스 광주)",
+     "fit": "cover"
+    }
+   },
+   "checks": {
+    "n_slots": 39,
+    "changed": 23,
+    "coverage": 0.59,
+    "placeholders_left": 0,
+    "overflow_fixed": [
+     13,
+     27,
+     33
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 16,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": true
+  },
+  {
+   "no": 10,
+   "f": "L_PH_P_L",
+   "code": "PH-P-L",
+   "part_id": "S09",
+   "pg": 0,
+   "texts": {
+    "0": "09 · 공간별 제품",
+    "1": "비디오월 다면 구성 + 쇼룸 디스플레이",
+    "2": "04 · 공간별 제품 — 성수 플래그십",
+    "3": "매장 · 쇼룸 — 공간별 제품",
+    "4": "(주)누아르앤코 플래그십 스토어 비디오월 구성",
+    "5": "QM55",
+    "6": "QM55C",
+    "7": "비디오월",
+    "8": "비디오월 VM55B",
+    "9": "구성",
+    "10": "스마트 사이니지 QM65C",
+    "11": "구성",
+    "12": "콘텐츠 제작 지원 — 미디어아트 · 메뉴 템플릿",
+    "13": "성과",
+    "14": "브랜드 메시지 전달 및 타깃 브랜딩 효과",
+    "15": "참고 · BMW 스타필드 시티 위례 스마트 쇼룸 — 비디오월",
+    "17": "(주)누아르앤코 · 성수 플래그십 스토어 디스플레이 연출"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "product",
+    "6": "product",
+    "7": "product",
+    "8": "product",
+    "9": "llm",
+    "10": "product",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "17": "context"
+   },
+   "images": {
+    "0": {
+     "pid": "r4.rt-mall-atrium",
+     "file": "img/fill/r4-fbrt.json#16",
+     "packed": true,
+     "label": "백화점 아트리움 (더현대 서울)",
+     "fit": "cover"
+    },
+    "1": {
+     "pid": "r4.rt-elevator-sign",
+     "file": "img/fill/r4-fbrt.json#21",
+     "packed": true,
+     "label": "백화점 엘리베이터 홀 사이니지 (현대백화점 판교점)",
+     "fit": "cover"
+    }
+   },
+   "checks": {
+    "n_slots": 17,
+    "changed": 17,
+    "coverage": 1.0,
+    "placeholders_left": 0,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 0,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": true
+  },
+  {
+   "no": 11,
+   "f": "L_PH_SOL_S",
+   "code": "PH-SOL-S",
+   "part_id": "S10",
+   "pg": 0,
+   "texts": {
+    "0": "10 · 솔루션 제안",
+    "1": "성수 플래그십 스토어, 콘텐츠 운영을 자동화합니다",
+    "2": "시즌별 콘텐츠 교체부터 매장 디스플레이까지, 시스템이 알아서 관리합니다",
+    "3": "[0]",
+    "4": "오픈 전",
+    "5": "콘텐츠 자동 송출",
+    "6": "사이니지",
+    "7": "영업 시작 전, 시즌별 미디어아트가 자동으로 재생됩니다",
+    "8": "2",
+    "9": "오픈 시",
+    "10": "운영 루틴",
+    "11": "비디오월",
+    "12": "콘텐츠",
+    "13": "시즌별 콘텐츠 교체로 방문객에게 새로운 경험을 제공",
+    "14": "3",
+    "15": "피크 타임",
+    "16": "브랜딩 집중",
+    "17": "사이니지",
+    "18": "타깃 고객에 맞춘 캠페인 영상이 자동으로 전환됩니다",
+    "19": "4",
+    "20": "마감 시",
+    "21": "마감 루틴",
+    "22": "매장 전체",
+    "23": "모든 디스플레이 일괄 종료, 상태 확인은 원격으로",
+    "24": "운영",
+    "25": "콘텐츠 제작 지원으로 영상 운영 부담을 최소화합니다",
+    "26": "운영 효율 [00]%",
+    "28": "(주)누아르앤코 · 성수 플래그십 스토어 디스플레이 연출"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "28": "context"
+   },
+   "images": {
+    "0": {
+     "pid": "r4.rt-elevator-sign",
+     "file": "img/fill/r4-fbrt.json#21",
+     "packed": true,
+     "label": "백화점 엘리베이터 홀 사이니지 (현대백화점 판교점)",
+     "fit": "cover"
+    },
+    "1": {
+     "pid": "r4.rt-telco-store",
+     "file": "img/fill/r4-fbrt.json#14",
+     "packed": true,
+     "label": "매장 천장 걸이 사이니지와 상담석 (SKT 매장)",
+     "fit": "cover"
+    },
+    "2": {
+     "pid": "ph.rt-fashion-store",
+     "file": "img/ph/rt-fashion-store.jpg",
+     "packed": false,
+     "label": "패션 매장 세로형 사이니지 (samsung.com)",
+     "fit": "cover"
+    },
+    "3": {
+     "pid": "fill.cc_diagram",
+     "file": "img/fill/retail.json#4",
+     "packed": true,
+     "label": "b.IoT Cloud · Link Controller 원격관리 구성 (samsung.com)",
+     "fit": "cover"
+    }
+   },
+   "checks": {
+    "n_slots": 28,
+    "changed": 23,
+    "coverage": 0.821,
+    "placeholders_left": 2,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 5,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": true
+  },
+  {
+   "no": 12,
+   "f": "L_CL_D",
+   "code": "CL-D",
+   "part_id": "S11",
+   "pg": 0,
+   "texts": {
+    "0": "[00] · 유관 사례",
+    "1": "브랜드 가치를 높인 리테일 공간 사례",
+    "2": "플래그십 스토어 및 쇼룸에 최적화된 삼성 스마트 사이니지 도입 사례",
+    "4": "[성과 지표]",
+    "5": "BMW 스타필드",
+    "6": "한정된 매장에서 확장된 브랜드 경험 → 삼성 스마트",
+    "7": "[00]%",
+    "8": "[성과 지표]",
+    "10": "[성과 지표]",
+    "11": "[고객사]",
+    "12": "사이니지",
+    "13": "[00]%",
+    "14": "현대백화점 판교점",
+    "16": "[성과 지표]",
+    "17": "[고객사]",
+    "18": "기존 백화점 틀 깬 플래그십 존재감 →",
+    "19": "[00]%",
+    "20": "더현대 서울",
+    "21": "04",
+    "22": "[항목]",
+    "23": "[고객사]",
+    "24": "[내용]",
+    "25": "[00]%",
+    "26": "[항목]",
+    "27": "05",
+    "28": "[항목]",
+    "29": "[고객사]",
+    "30": "[내용]",
+    "31": "[00]%",
+    "32": "[항목]",
+    "33": "06",
+    "34": "[항목]",
+    "35": "[고객사]",
+    "36": "[제품]",
+    "37": "[00]%",
+    "38": "[항목]",
+    "40": "(주)누아르앤코 · 성수 플래그십 스토어 디스플레이 연출"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "4": "placeholder",
+    "5": "case",
+    "6": "case",
+    "7": "placeholder",
+    "8": "placeholder",
+    "10": "placeholder",
+    "11": "placeholder",
+    "12": "case",
+    "13": "placeholder",
+    "14": "case",
+    "16": "placeholder",
+    "17": "placeholder",
+    "18": "case",
+    "19": "placeholder",
+    "20": "case",
+    "21": "placeholder",
+    "22": "placeholder",
+    "23": "placeholder",
+    "24": "placeholder",
+    "25": "placeholder",
+    "26": "placeholder",
+    "27": "placeholder",
+    "28": "placeholder",
+    "29": "placeholder",
+    "30": "placeholder",
+    "31": "placeholder",
+    "32": "placeholder",
+    "33": "placeholder",
+    "34": "placeholder",
+    "35": "placeholder",
+    "36": "placeholder",
+    "37": "placeholder",
+    "38": "placeholder",
+    "40": "context"
+   },
+   "images": {
+    "0": {
+     "pid": null,
+     "blank": true,
+     "label": "이미지 필요 · 사례 사진"
+    },
+    "1": {
+     "pid": null,
+     "blank": true,
+     "label": "이미지 필요 · 사례 사진"
+    },
+    "3": {
+     "pid": null,
+     "blank": true,
+     "label": "이미지 필요 · 사례 사진"
+    },
+    "4": {
+     "pid": null,
+     "blank": true,
+     "label": "이미지 필요 · 사례 사진"
+    },
+    "5": {
+     "pid": null,
+     "blank": true,
+     "label": "이미지 필요 · 사례 사진"
+    }
+   },
+   "checks": {
+    "n_slots": 40,
+    "changed": 23,
+    "coverage": 0.575,
+    "placeholders_left": 25,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 17,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": true
+  },
+  {
+   "no": 13,
+   "f": "L_PH_IP_C",
+   "code": "PH-IP-C",
+   "part_id": "S12",
+   "pg": 0,
+   "texts": {
+    "0": "12 · 실행 계획",
+    "1": "성수 플래그십 스토어 무중단 야간 시공 계획",
+    "2": "예산이나 규모는 아직 내부 논의 중이라, 대략적인 방향 제안을 먼저",
+    "3": "매장 운영 시간 외 야간 집중 시공",
+    "4": "반입",
+    "5": "설치",
+    "6": "시운전",
+    "7": "복구",
+    "8": "D1",
+    "9": "[00]/[00]",
+    "10": "22",
+    "11": "02",
+    "12": "06",
+    "13": "06:00 복구 완료",
+    "14": "D2",
+    "15": "[00]/[00]",
+    "16": "22",
+    "17": "02",
+    "18": "06",
+    "19": "06:00 복구 완료",
+    "20": "D3",
+    "21": "[00]/[00]",
+    "22": "22",
+    "23": "02",
+    "24": "06",
+    "25": "06:00 복구 완료",
+    "26": "D4",
+    "27": "[00]/[00]",
+    "28": "22",
+    "29": "02",
+    "30": "06",
+    "31": "06:00 복구 완료",
+    "32": "D5",
+    "33": "[00]/[00]",
+    "34": "22",
+    "35": "02",
+    "36": "06",
+    "37": "06:00 복구 완료",
+    "38": "D6",
+    "39": "[00]/[00]",
+    "40": "22",
+    "41": "02",
+    "42": "06",
+    "43": "06:00 복구 완료",
+    "44": "구역 · 설치 제품",
+    "45": "쇼룸 메인 월",
+    "46": "비디오월 VM55B × [00]",
+    "47": "설치",
+    "48": "설치",
+    "49": "시운전",
+    "50": "매장 입구",
+    "51": "QM65C × [00]",
+    "52": "설치",
+    "53": "시운전",
+    "54": "VMD 존",
+    "55": "QM55C × [00]",
+    "56": "설치",
+    "57": "설치",
+    "58": "시운전",
+    "59": "쇼룸 내부",
+    "60": "QM55C × [00]",
+    "61": "설치",
+    "62": "설치",
+    "63": "시운전",
+    "64": "기타 구역",
+    "65": "QM55C × [00]",
+    "66": "설치",
+    "67": "소음 발생 작업은 02시 이전 완료",
+    "68": "소음 작업 02시 전 종료",
+    "69": "타공 · 앵커 작업은 22–02시 한정",
+    "70": "고객 동선 확보 및 가림막 설치",
+    "71": "작업 구역 가림막 설치 · 통로 확보",
+    "72": "매일 06시 원상 복구 및 사진 기록",
+    "73": "복구 전후 사진 담당자 공유",
+    "75": "(주)누아르앤코 · 성수 플래그십 스토어 디스플레이 연출"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "req",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "35": "llm",
+    "36": "llm",
+    "37": "llm",
+    "38": "llm",
+    "39": "llm",
+    "40": "llm",
+    "41": "llm",
+    "42": "llm",
+    "43": "llm",
+    "44": "llm",
+    "45": "llm",
+    "46": "llm",
+    "47": "llm",
+    "48": "llm",
+    "49": "llm",
+    "50": "llm",
+    "51": "llm",
+    "52": "llm",
+    "53": "llm",
+    "54": "llm",
+    "55": "llm",
+    "56": "llm",
+    "57": "llm",
+    "58": "llm",
+    "59": "llm",
+    "60": "llm",
+    "61": "llm",
+    "62": "llm",
+    "63": "llm",
+    "64": "llm",
+    "65": "llm",
+    "66": "llm",
+    "67": "llm",
+    "68": "llm",
+    "69": "llm",
+    "70": "llm",
+    "71": "llm",
+    "72": "llm",
+    "73": "llm",
+    "75": "context"
+   },
+   "images": {
+    "0": {
+     "pid": "ph.rt-atrium-kiosk",
+     "file": "img/ph/rt-atrium-kiosk.jpg",
+     "packed": false,
+     "label": "백화점 아트리움 안내 키오스크 (현대백화점 판교점)",
+     "fit": "cover"
+    }
+   },
+   "checks": {
+    "n_slots": 75,
+    "changed": 21,
+    "coverage": 0.28,
+    "placeholders_left": 11,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 54,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": true
+  },
+  {
+   "no": 14,
+   "f": "L_PH_C13",
+   "code": "PH-C13",
+   "part_id": "S13",
+   "pg": 0,
+   "texts": {
+    "0": "성수 플래그십 스토어 연출 예시",
+    "1": "향후 추진 일정",
+    "2": "다음 단계",
+    "3": "성수 플래그십 스토어 구축 다음 단계",
+    "4": "성공적인 도입을 위한 향후 일정",
+    "5": "01",
+    "6": "쇼룸 투어 초대 예정",
+    "7": "삼성 스마트 사이니지 쇼룸 투어 초대",
+    "8": "[00월 00일]",
+    "9": "(주)누아르앤코",
+    "10": "02",
+    "11": "쇼룸 투어를 통한 구체적 공간 경험",
+    "12": "공간 실측 및 설치 환경 최적화 검토",
+    "13": "[00월 00일]",
+    "14": "삼성 및 시공사",
+    "15": "03",
+    "16": "존별 시안 확정 및 오픈 일정 수립",
+    "17": "존별 콘텐츠 시안 확정 및 오픈 일정 수립",
+    "18": "[00월 00일]",
+    "19": "공동",
+    "20": "문의",
+    "21": "삼성전자 B2B 담당자 연락처",
+    "23": "(주)누아르앤코 · 성수 플래그십 스토어 디스플레이 연출"
+   },
+   "sources": {
+    "0": "llm",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "item",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "item",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "item",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "23": "context"
+   },
+   "images": {
+    "0": {
+     "pid": "r4.rt-mall-atrium",
+     "file": "img/fill/r4-fbrt.json#16",
+     "packed": true,
+     "label": "백화점 아트리움 (더현대 서울)",
+     "fit": "cover"
+    }
+   },
+   "checks": {
+    "n_slots": 23,
+    "changed": 16,
+    "coverage": 0.696,
+    "placeholders_left": 3,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 7,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": true
+  }
+ ]
+}

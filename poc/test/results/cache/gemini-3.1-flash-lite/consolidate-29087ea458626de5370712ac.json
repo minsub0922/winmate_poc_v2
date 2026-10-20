@@ -1,0 +1,279 @@
+{
+ "stage": "consolidate",
+ "model": "gemini-3.1-flash-lite",
+ "meta": {
+  "items": [
+   {
+    "pid": "P1",
+    "cat": "배경",
+    "text": "표준 데스크탑 단종에 따른 신규 모델 선정",
+    "quote": "표준 데스크탑 단종에 따른 신규 모델 선정",
+    "modality": "정보",
+    "section": "사업배경 및 목적",
+    "id": "R001",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P1",
+    "cat": "범위",
+    "text": "표준 모델 선정을 통한 안정적 공급 환경 구축",
+    "quote": "표준 모델 선정을 통한 안정적 공급 환경 구축",
+    "modality": "정보",
+    "section": "사업배경 및 목적",
+    "id": "R002",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P1",
+    "cat": "일정",
+    "text": "제안서 및 서류 제출 기한은 '26년 8월 21일 15시이다.",
+    "quote": "서류제출 | 제안서 및 서류 제출 | '26년 8월 21일 15時",
+    "modality": "필수",
+    "section": "사업일정",
+    "id": "R003",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P1",
+    "cat": "일정",
+    "text": "업체별 제안 발표는 '26년 8월 24일 9시이다.",
+    "quote": "제안발표 | 업체별 제안 발표 | '26년 8월 24일 9時",
+    "modality": "필수",
+    "section": "사업일정",
+    "id": "R004",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P1",
+    "cat": "일정",
+    "text": "평가 및 우선협상대상자 선정은 '26년 8월 26일 이후 진행한다.",
+    "quote": "평가/선정 | 평가/우선협상대상자 선정 | '26년 8월 26일 이후",
+    "modality": "필수",
+    "section": "사업일정",
+    "id": "R005",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P1",
+    "cat": "검증",
+    "text": "호환성 및 제안내용 검증은 '26년 8월 27일부터 시작한다.",
+    "quote": "성능검증 | 호환성 및 제안내용 검증 | '26년 8월 27일 ~",
+    "modality": "필수",
+    "section": "사업일정",
+    "id": "R006",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P1",
+    "cat": "납품",
+    "text": "최초 납품은 계약일로부터 12주 이내에 완료해야 한다.",
+    "quote": "납품 | 최초 납품 (생명 입고 기준) | 계약일로부터 12주내",
+    "modality": "필수",
+    "section": "사업일정",
+    "id": "R007",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P1",
+    "cat": "규격",
+    "text": "프로세서는 Intel Ultra7 265 (15세대) 이상이어야 한다.",
+    "quote": "프로세스 | Intel Ultra7 265 (15 세대) 이상",
+    "modality": "필수",
+    "section": "입찰조건 상세내용",
+    "id": "R008",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P1",
+    "cat": "규격",
+    "text": "메모리는 16GB(DDR5 / 16G*1) 이상이어야 한다.",
+    "quote": "메모리 | 16GB(DDR5 / 16G*1) 이상",
+    "modality": "필수",
+    "section": "입찰조건 상세내용",
+    "id": "R009",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P1",
+    "cat": "규격",
+    "text": "하드디스크는 M.2 NVMe SSD 256GB 이상이어야 한다.",
+    "quote": "하드디스크 | M.2 NVMe SSD 256GB 이상",
+    "modality": "필수",
+    "section": "입찰조건 상세내용",
+    "id": "R010",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P1",
+    "cat": "보안",
+    "text": "TPM 2.0은 필수이다.",
+    "quote": "Security | TPM 2.0 필수",
+    "modality": "필수",
+    "section": "입찰조건 상세내용",
+    "id": "R011",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P1",
+    "cat": "규격",
+    "text": "그래픽카드는 내장 그래픽이어야 한다.",
+    "quote": "그래픽카드 | 내장 그래픽",
+    "modality": "필수",
+    "section": "입찰조건 상세내용",
+    "id": "R012",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P1",
+    "cat": "규격",
+    "text": "ODD는 포함하지 않는다.",
+    "quote": "ODD | None",
+    "modality": "필수",
+    "section": "입찰조건 상세내용",
+    "id": "R013",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P1",
+    "cat": "규격",
+    "text": "파워는 400W 이상이어야 한다.",
+    "quote": "Power | 400W 이상",
+    "modality": "필수",
+    "section": "입찰조건 상세내용",
+    "id": "R014",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P1",
+    "cat": "규격",
+    "text": "인터페이스는 HDMI 필수 또는 RGB, DVI, DP 중 한 개 이상이 필수이며, USB 8개 이상(C-Type 포함) 및 3.5mm Audio를 지원해야 한다.",
+    "quote": "I/F | HDMI 필수 or RGB, DVI, DP 중 한 개 이상 필수",
+    "modality": "필수",
+    "section": "입찰조건 상세내용",
+    "id": "R015",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P1",
+    "cat": "규격",
+    "text": "LAN은 1Gigabit LAN on Mainboard여야 한다.",
+    "quote": "LAN | 1Gigabit LAN on Mainboard",
+    "modality": "필수",
+    "section": "입찰조건 상세내용",
+    "id": "R016",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P1",
+    "cat": "규격",
+    "text": "운영체제는 Windows 11 Pro여야 한다.",
+    "quote": "운영체제 | Windows 11 Pro",
+    "modality": "필수",
+    "section": "입찰조건 상세내용",
+    "id": "R017",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P1",
+    "cat": "규격",
+    "text": "Slim 모델은 제안할 수 없다.",
+    "quote": "Case | Slim모델 제안 불가",
+    "modality": "금지",
+    "section": "입찰조건 상세내용",
+    "id": "R018",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P1",
+    "cat": "A/S",
+    "text": "워런티는 1년 이상이어야 하며, 무상 유지보수 기간은 검수 완료 후 12개월이다.",
+    "quote": "WARRANTY | 1 년 이상",
+    "modality": "필수",
+    "section": "입찰조건 상세내용",
+    "id": "R019",
+    "chunk": 0,
+    "grounded": true
+   }
+  ],
+  "project": {
+   "pid": "P1",
+   "name": "삼성생명 데스크탑 표준 모델 선정",
+   "customer": "삼성생명보험(주)",
+   "start_line": 1,
+   "issuer": "삼성생명보험(주) 정보전략팀 인프라운영P, IT기획P"
+  }
+ },
+ "prompt_tokens": 937,
+ "output_tokens": 663,
+ "data": {
+  "project": "삼성생명 데스크탑 표준 모델 선정",
+  "customer": "삼성생명보험(주)",
+  "keymen": [
+   {
+    "name": "정보전략팀 인프라운영P (기술/검증 담당)",
+    "weight": 70,
+    "req_ids": [
+     "R001",
+     "R002",
+     "R006",
+     "R008",
+     "R009",
+     "R010",
+     "R011",
+     "R012",
+     "R013",
+     "R014",
+     "R015",
+     "R016",
+     "R017",
+     "R018",
+     "R019"
+    ],
+    "weight_basis": "추정"
+   },
+   {
+    "name": "IT기획P (입찰/계약 담당)",
+    "weight": 30,
+    "req_ids": [
+     "R003",
+     "R004",
+     "R005",
+     "R007"
+    ],
+    "weight_basis": "추정"
+   }
+  ],
+  "free": "본 사업은 기존 표준 데스크탑 단종에 대응하여 안정적인 공급 환경을 구축하기 위한 신규 표준 모델을 선정하는 프로젝트입니다. 제안사는 Intel Ultra7 265 이상의 프로세서와 16GB 메모리, 256GB SSD 등 명시된 하드웨어 규격을 준수하는 모델을 제안해야 합니다. 제안서 및 관련 서류는 '26년 8월 21일 15시까지 제출해야 하며, 이후 '26년 8월 24일 9시에 제안 발표가 진행됩니다. 우선협상대상자 선정은 '26년 8월 26일 이후 이루어지며, 최종 계약일로부터 12주 이내에 최초 납품을 완료해야 합니다.",
+  "evaluation": "기술 규격 준수 여부와 제안 발표를 통한 적합성 평가를 중심으로 우선협상대상자를 선정합니다. 기술적 요구사항은 필수 조건으로, 미충족 시 평가 대상에서 제외될 가능성이 높습니다.",
+  "merges": [],
+  "pitfalls": [
+   "Slim 모델 제안 금지 조항 위반 여부 확인",
+   "인터페이스 요구사항(HDMI 필수 및 USB 8개 이상)의 세부 규격 누락 주의",
+   "무상 유지보수 기간(검수 완료 후 12개월)과 워런티 기간(1년 이상)의 산정 기준 혼동"
+  ],
+  "target": "삼성생명보험(주) 표준 데스크탑 공급 업체",
+  "to_confirm": [
+   "제안서 평가 배점표(기술 vs 가격)의 구체적 비율",
+   "USB 8개 중 C-Type 포함 개수에 대한 최소 요구치 확인"
+  ]
+ },
+ "raw_text": "{\n  \"project\": \"삼성생명 데스크탑 표준 모델 선정\",\n  \"customer\": \"삼성생명보험(주)\",\n  \"keymen\": [\n    {\n      \"name\": \"정보전략팀 인프라운영P (기술/검증 담당)\",\n      \"weight\": 70,\n      \"req_ids\": [\"R001\", \"R002\", \"R006\", \"R008\", \"R009\", \"R010\", \"R011\", \"R012\", \"R013\", \"R014\", \"R015\", \"R016\", \"R017\", \"R018\", \"R019\"],\n      \"weight_basis\": \"추정\"\n    },\n    {\n      \"name\": \"IT기획P (입찰/계약 담당)\",\n      \"weight\": 30,\n      \"req_ids\": [\"R003\", \"R004\", \"R005\", \"R007\"],\n      \"weight_basis\": \"추정\"\n    }\n  ],\n  \"free\": \"본 사업은 기존 표준 데스크탑 단종에 대응하여 안정적인 공급 환경을 구축하기 위한 신규 표준 모델을 선정하는 프로젝트입니다. 제안사는 Intel Ultra7 265 이상의 프로세서와 16GB 메모리, 256GB SSD 등 명시된 하드웨어 규격을 준수하는 모델을 제안해야 합니다. 제안서 및 관련 서류는 '26년 8월 21일 15시까지 제출해야 하며, 이후 '26년 8월 24일 9시에 제안 발표가 진행됩니다. 우선협상대상자 선정은 '26년 8월 26일 이후 이루어지며, 최종 계약일로부터 12주 이내에 최초 납품을 완료해야 합니다.\",\n  \"evaluation\": \"기술 규격 준수 여부와 제안 발표를 통한 적합성 평가를 중심으로 우선협상대상자를 선정합니다. 기술적 요구사항은 필수 조건으로, 미충족 시 평가 대상에서 제외될 가능성이 높습니다.\",\n  \"merges\": [],\n  \"pitfalls\": [\n    \"Slim 모델 제안 금지 조항 위반 여부 확인\",\n    \"인터페이스 요구사항(HDMI 필수 및 USB 8개 이상)의 세부 규격 누락 주의\",\n    \"무상 유지보수 기간(검수 완료 후 12개월)과 워런티 기간(1년 이상)의 산정 기준 혼동\"\n  ],\n  \"target\": \"삼성생명보험(주) 표준 데스크탑 공급 업체\",\n  \"to_confirm\": [\n    \"제안서 평가 배점표(기술 vs 가격)의 구체적 비율\",\n    \"USB 8개 중 C-Type 포함 개수에 대한 최소 요구치 확인\"\n  ]\n}"
+}

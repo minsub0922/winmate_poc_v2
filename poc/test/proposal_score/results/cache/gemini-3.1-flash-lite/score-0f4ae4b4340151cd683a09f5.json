@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~no_proof:F04"
+ },
+ "prompt_tokens": 3129,
+ "output_tokens": 265,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "R 건설의 고객 여정별(탐색, 계약, 입주, 거주) 문제와 원인을 구체화하고, 세그먼트별 비중(42%, 46%, 12%) 및 서비스 대응 수치(2년 무상 점검)를 제시하여 고객 기준의 과제를 명확히 정의함.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "직전 단지 계약자 기준 · 삼성 분석 | 아이 있는 3–4인 가족 | 42%"
+     },
+     {
+      "sheet": 3,
+      "quote": "입주민 | 설치 일정 · 하자 점검 · 앱 등록이 한꺼번에 몰림"
+     },
+     {
+      "sheet": 3,
+      "quote": "하자보수 · CS | 전국 서비스망 | 2년 무상 점검 · 원격 진단"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

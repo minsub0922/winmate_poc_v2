@@ -1,0 +1,40 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11~full:F03"
+ },
+ "prompt_tokens": 6527,
+ "output_tokens": 304,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 2,
+    "anchor": "사업 이해와 성과 지표가 3장에 제시되어 있으나, 최종 결정권자가 판단할 경영 지표 중심의 요약 장이 별도로 구성되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "사업 목적 | 1 | 한 화면에서 보는 통합 관제"
+     }
+    ],
+    "improve": "경영진이 의사결정 시 고려할 리스크 관리 방안과 기대 효과를 요약한 별도의 경영진용 요약 장을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS7",
+    "score": 1,
+    "anchor": "비용 구조, TCO, 투자 회수 기간 등 비용 관련 정보가 제안서 내에 전혀 언급되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "총소유비용(TCO) 산정 근거와 유지보수 및 라이선스 비용을 포함한 비용 구조를 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

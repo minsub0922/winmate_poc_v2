@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs15:F01"
+ },
+ "prompt_tokens": 8006,
+ "output_tokens": 363,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 2,
+    "anchor": "고객사 규모 정보가 12장에서는 '1개 점포'로, 1장·9장·11장에서는 '42개 점포'로 다르게 표현되어 혼선을 줄 수 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "G 마트 42개 점포 콜드체인 신선 관리 제안"
+     },
+     {
+      "sheet": 12,
+      "quote": "1개 점포부터, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "전체 점포 대상 제안임을 명시하고, 파일럿 대상 점포를 별도로 구분하여 규모 정보를 통일해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "12장에 제안 담당자의 연락처가 예시용 번호(010-1234-5678)로 기재되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "제안서 제출 전 실제 담당자의 연락처로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

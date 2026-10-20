@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs02:F01"
+ },
+ "prompt_tokens": 9642,
+ "output_tokens": 187,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "16장에 담당자 연락처와 이메일이 예시 값(010-1234-5678, b2b.proposal@samsung.com)으로 작성되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 16,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678 · b2b.proposal@samsung.com"
+     }
+    ],
+    "improve": "제출 전 실제 담당자의 연락처와 이메일 주소로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

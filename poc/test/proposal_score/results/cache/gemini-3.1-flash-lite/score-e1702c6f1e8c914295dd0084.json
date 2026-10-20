@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~wrong_customer:F05"
+ },
+ "prompt_tokens": 6593,
+ "output_tokens": 258,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "대부분의 장에서 수치에 대한 구체적인 출처 기관과 연도가 명시되지 않았으며, 일부는 '삼성전자 추정'과 같이 모호하게 표기되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "월 장애율 3.0% · 사이니지 300대"
+     },
+     {
+      "sheet": 4,
+      "quote": "꺼진 채 평균 38시간 · 월 11건"
+     },
+     {
+      "sheet": 5,
+      "quote": "원 크기는 설치 규모 · 공개 자료"
+     }
+    ],
+    "improve": "모든 수치와 성과 지표에 대해 조사 기관과 연도를 명확히 기재하고, 고객 내부 자료는 '고객사 시설팀 자료(2026)'와 같이 구체적으로 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

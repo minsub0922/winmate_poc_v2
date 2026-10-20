@@ -1,0 +1,73 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs21:F11"
+ },
+ "prompt_tokens": 8160,
+ "output_tokens": 677,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 초과하는 장이 10장으로 4장 이상이며, 장당 평균 어절 수 또한 108어절로 매우 높아 발표 자료로 읽기에 지나치게 빽빽합니다.",
+    "evidence": [
+     {
+      "sheet": 18,
+      "quote": "Bespoke AI 에어드레서 406어절"
+     },
+     {
+      "sheet": 17,
+      "quote": "Infinite AI 공기청정기 299어절"
+     },
+     {
+      "sheet": 8,
+      "quote": "H 호텔 312개 객실 239어절"
+     }
+    ],
+    "improve": "각 장의 핵심 메시지를 제외한 상세 설명은 줄이고, 개조식 정리를 통해 장당 어절 수를 77어절 이하로 대폭 축소해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 약 49%가 10pt 미만으로 구성되어 있으며, 9pt 미만의 작은 글자가 포함된 장이 12장 이상으로 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 18,
+      "quote": "본문 최소 7.4px(5.6pt)"
+     },
+     {
+      "sheet": 17,
+      "quote": "본문 최소 7.6px(5.7pt)"
+     },
+     {
+      "sheet": 8,
+      "quote": "본문 최소 8.6px(6.4pt)"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정하고, 장표 내 텍스트 양을 줄여 폰트 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS6",
+    "score": 3,
+    "anchor": "대부분의 장에 제품 및 공간 시나리오와 일치하는 실제 사진이 배치되어 있으며, 텍스트만 있는 장은 36번 장 1개로 전체의 3% 수준입니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "실내용 The Wall IWC 제품 컷"
+     },
+     {
+      "sheet": 29,
+      "quote": "인스파이어 엔터테인먼트 리조트"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

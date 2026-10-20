@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~no_proof:F07"
+ },
+ "prompt_tokens": 1700,
+ "output_tokens": 225,
+ "data": {
+  "scores": [
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "삼성의 통합 솔루션 강점을 '원격 통합 관리'와 '실시간 확인'이라는 고객 과제 해결책으로 제시하고, 한국IBM 사례와 수치(7일→당일, -30%)를 통해 구체적으로 입증함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "원격 통합 관리 | 한 번의 승인으로 6개 사업 배포"
+     },
+     {
+      "sheet": 5,
+      "quote": "7일 → 당일 | 장애 선제 대응 | −30%"
+     },
+     {
+      "sheet": 5,
+      "quote": "사진: samsung.com 도입사례(한국IBM)"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

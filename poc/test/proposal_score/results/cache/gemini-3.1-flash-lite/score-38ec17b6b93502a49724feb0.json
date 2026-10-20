@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs15~full:F03"
+ },
+ "prompt_tokens": 3487,
+ "output_tokens": 402,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 2,
+    "anchor": "경영 지표인 폐기 손실 및 운영비 절감액이 9장에 제시되어 있으나, 결정권자를 위한 별도의 요약 장이 없고 실무적인 실행 계획과 경영 지표가 분리되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "점포당 연 손실 · 운영비, 네 군데에서 줄어듭니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "1개 점포부터, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "제안서 초반에 결정권자가 즉시 파악할 수 있는 경영 성과 요약(Executive Summary) 장을 추가하여 실무 지표와 명확히 구분해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS7",
+    "score": 3,
+    "anchor": "도입 전후의 연간 비용 구조를 항목별로 상세히 비교하고, 폐기 손실 및 운영비 절감액을 통해 투자 회수 관점의 데이터를 명확히 제시하였습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "점포당 연 손실 · 운영비 (만 원) | 20,800만 원 | 지금"
+     },
+     {
+      "sheet": 9,
+      "quote": "원격 감시 · 케어 비용 포함 순절감"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

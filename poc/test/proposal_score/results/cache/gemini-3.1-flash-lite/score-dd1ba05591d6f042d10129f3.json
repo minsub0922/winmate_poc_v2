@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs06:F04"
+ },
+ "prompt_tokens": 4959,
+ "output_tokens": 231,
+ "data": {
+  "scores": [
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "각 공간의 환경(외벽, VMD존, 라운지 등)을 분석하고, 옥외용 윈도 사이니지, 실내용 비디오월, 공기청정기 등 환경 요구에 최적화된 제품을 배치했습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "외벽부터 B1까지 공간마다 다른 화면과 공기"
+     },
+     {
+      "sheet": 7,
+      "quote": "외벽 · VMD존 · 대기 라운지, 세 공간의 전과 후"
+     },
+     {
+      "sheet": 8,
+      "quote": "화면은 인테리어에 녹이고, 기술은 숨깁니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs01:F03"
+ },
+ "prompt_tokens": 4470,
+ "output_tokens": 340,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "경영 지표와 실무 지표가 명확히 구분되어 있으며, 2장에서 성과·비용 지표를 요약하고 16장에서 결정권자가 의사결정할 항목을 정리함.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "과제 → 제안 → 효과 → 왜 삼성"
+     },
+     {
+      "sheet": 16,
+      "quote": "다음 2주, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS7",
+    "score": 2,
+    "anchor": "파일럿 승인 단계에서 구독·렌탈·구매 방식을 언급했으나, 구체적인 총소유비용(TCO) 구조나 투자 회수 기간에 대한 분석 내용은 누락됨.",
+    "evidence": [
+     {
+      "sheet": 16,
+      "quote": "구독 · 렌탈 · 구매 중 발주 방식"
+     }
+    ],
+    "improve": "제안하는 구매 방식별로 총소유비용(TCO)을 비교하고 예상되는 투자 회수 기간을 구체적인 데이터로 제시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

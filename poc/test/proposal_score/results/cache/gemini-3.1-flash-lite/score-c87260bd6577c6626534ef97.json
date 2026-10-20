@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs18:F08"
+ },
+ "prompt_tokens": 2089,
+ "output_tokens": 227,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "보호자, 아이, 통신사 등 이해관계자별로 얻는 결과형 가치를 3가지로 명확히 구분하고, 각 가치를 실현하는 제품 및 솔루션 기능을 짝지어 제시함.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "아이와 보호자가 얻는 것이, U 통신사의 지표가 됩니다"
+     },
+     {
+      "sheet": 4,
+      "quote": "쉬운 키즈 홈 화면, 친구 · 가족 연락만 빠르게"
+     },
+     {
+      "sheet": 4,
+      "quote": "도착 알림 · 사용 시간 원격 관리, 유해 콘텐츠는 출고 때부터 차단"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

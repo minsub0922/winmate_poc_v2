@@ -50,7 +50,7 @@ if (wanted.includes('catalog')) {
   if (!setupError) try { ({ page } = await fresh()); } catch (e) { setupError = e.message; }
   const inPage = (fn, arg) => page.evaluate(fn, arg);
 
-  cat.case('C01', 'collection sizes: 17 solutions · 218 cases · 22 scenarios · 594 active layouts · 1068 products', async (d) => {
+  cat.case('C01', 'collection sizes: 17 solutions · 218 cases · 82 scenarios · 615 active layouts · 1068 products', async (d) => {
     const r = await inPage(async () => {
       const c = await import('/src/services/catalog.js'); const s = await import('/src/domain/templates/scenarios.js');
       const b = (await import('/src/api/bootstrap.js')).getBootstrap();
@@ -59,7 +59,7 @@ if (wanted.includes('catalog')) {
         boot: { solutions: b.catalog.solutions.length, cases: b.catalog.cases.length, industries: b.catalog.industries.length } };
     });
     Object.assign(d, r);
-    eq(r.solutions, 17, 'solutions'); eq(r.cases, 218, 'cases'); eq(r.scenarios, 22, 'Best Scenarios'); eq(r.active, 594, 'active layouts'); eq(r.products, 1068, 'products');
+    eq(r.solutions, 17, 'solutions'); eq(r.cases, 218, 'cases'); eq(r.scenarios, 82, 'Best Scenarios'); eq(r.active, 615, 'active layouts'); eq(r.products, 1068, 'products');
     eq(r.boot.solutions, r.solutions, 'bootstrap solutions'); eq(r.boot.cases, r.cases, 'bootstrap cases'); eq(r.boot.industries, r.industries, 'bootstrap industries');
     ok(r.industries > 0 && r.all > r.active, 'industries present and retired layouts excluded from the active list');
   });
@@ -159,7 +159,7 @@ if (wanted.includes('catalog')) {
       });
     });
     d.checked = r.length;
-    eq(r.length, 22, 'scenarios checked');
+    eq(r.length, 82, 'scenarios checked');
     eq(r.filter((x) => x.problems.length), [], 'scenario enum problems');
   });
 
@@ -288,7 +288,25 @@ if (wanted.includes('pptx') || wanted.includes('pptx-negative')) {
     if (html) ok(rB.bold, 'inline <b> override exported as a bold run');
     ok(z.notes.some((x) => x.includes(xmlEscape(layout.name))), 'speaker notes carry the layout name');
     if (png) ok(z.media.some((m) => m.sha === png.sha), 'override picture embedded byte-for-byte');
-    if (bg && shown.bg) { ok(z.media.some((m) => m.sha === bgPng.sha), 'background picture embedded'); pptxState.bgCases++; }
+    if (bg && shown.bg) {
+      // Background export now crops and applies the preview effects before JPEG
+      // encoding, so the source PNG is intentionally not embedded byte-for-byte.
+      const expectedBg = await page.evaluate(async ([f, ov]) => {
+        const { renderBackgroundCanvas, readBackgroundEffects } = await import('/src/services/background-effects.js');
+        const { layoutHtml } = await import('/src/services/catalog.js');
+        const { applyOverrides } = await import('/src/domain/slides/Slide.jsx');
+        const host = document.createElement('div'); host.innerHTML = layoutHtml(f); document.body.appendChild(host);
+        try {
+          const root = host.firstElementChild; applyOverrides(root, ov);
+          const canvas = await renderBackgroundCanvas(root.getAttribute('data-bg'), root.hasAttribute('data-bg-effects') ? readBackgroundEffects(root) : undefined, { color: getComputedStyle(root).backgroundColor });
+          const bytes = await (await fetch(canvas.toDataURL('image/jpeg', .94))).arrayBuffer();
+          return window.__strict.sha256(bytes);
+        } finally { host.remove(); }
+      }, [layout.f, ov]);
+      ok(/<p:bg>[\s\S]*?<a:blipFill\b/.test(z.slides[0]), 'photo exported as a native slide background');
+      ok(z.media.some((m) => m.sha === expectedBg), 'processed preview background picture embedded');
+      pptxState.bgCases++;
+    }
     const imp = await page.evaluate(([b64]) => window.__strict.importBytes(b64), [exp.b64]);
     eq(imp.mode, 'slides', 'import mode'); eq(imp.slides.length, 1, 'imported slide count');
     eq(imp.size, { w: 12192000, h: 6858000 }, 'imported slide size');
@@ -367,7 +385,7 @@ if (wanted.includes('pptx') || wanted.includes('pptx-negative')) {
       d.result = r;
       ok(!r.ok, 'malformed input was accepted as a deck');
       ok(r.message && r.message.length > 3, 'rejection carries a message');
-      eq(await page.evaluate(() => window.__strict.layoutCount()), 594, 'app catalog intact after the rejection');
+      eq(await page.evaluate(() => window.__strict.layoutCount()), 615, 'app catalog intact after the rejection');
     };
     neg.case('N01', 'plain text renamed .pptx is rejected', async (d) => expectRejected(Buffer.from('this is not a presentation, just text').toString('base64'), d));
     neg.case('N02', 'empty file is rejected', async (d) => expectRejected('', d));
@@ -609,7 +627,7 @@ if (wanted.includes('repository')) {
     ok(!keys.includes('other.app.key'), 'foreign localStorage key exported');
     ok(keys.every((k) => k.startsWith('winmate.v2.') || k === 'wm-linkmeta-v1'), 'only whitelisted keys');
     ok(keys.includes('winmate.v2.proposals') && keys.includes('winmate.v2.favs'), 'proposal and favourite keys exported');
-    eq(Object.keys(backup.databases).sort(), ['winmate-my', 'winmate-v2', 'winmate-v2-review'], 'databases');
+    eq(Object.keys(backup.databases).sort(), ['winmate-my', 'winmate-requirements', 'winmate-v2', 'winmate-v2-review'], 'databases');
     eq(Object.keys(backup.databases['winmate-my']).sort(), ['img', 'tpl'], 'winmate-my stores');
     ok(backup.databases['winmate-my'].img.some((r) => r.value.__wmType === 'Blob' && r.value.data.startsWith('data:image/png;base64,')), 'Blob encoded as a data URL');
     const bytes = backup.databases['winmate-v2'].img.find((r) => r.key === 'u_strict_bytes');

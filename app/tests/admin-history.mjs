@@ -53,10 +53,10 @@ try {
  await test('new independent device receives samples',async()=>{
   const [ctx,page]=await context();await page.goto(base+'/');await ready(page);assert.equal((await history(page)).length,3);assert.equal(await page.evaluate(()=>localStorage.getItem('winmate.v2.seedv')),'admin-samples-1');
  });
- await test('slow application module always leaves a visible loading screen',async()=>{
+ await test('slow application module keeps startup messages hidden',async()=>{
   const [ctx,page]=await context();let release;const gate=new Promise(r=>release=r);await page.route(/\/assets\/App-.*\.js$/,async r=>{await gate;await r.continue();});
   await page.goto(base+'/',{waitUntil:'commit'});
-  try{await page.locator('#wm-startup').waitFor({state:'visible',timeout:10000});assert((await page.locator('#wm-startup').innerText()).includes('Winmate를 준비'));await page.screenshot({path:folder+'/slow-start.png'});}finally{release();}
+  try{await page.locator('#wm-startup').waitFor({state:'attached',timeout:10000});assert.equal(await page.locator('#wm-startup').isVisible(),false);assert.equal(await page.getByText('Winmate를 준비하고 있어요',{exact:true}).count(),0);await page.screenshot({path:folder+'/slow-start.png'});}finally{release();}
   await ready(page);
  });
  await test('blocked entry script shows retry instead of a white screen',async()=>{

@@ -1,0 +1,266 @@
+{
+ "id": "B04",
+ "title": "요양병원 병실 냉방·환기 개선 (오타 섞인 면담록)",
+ "exp_level": "ambiguous",
+ "level": "ambiguous",
+ "exp_industry": "MD",
+ "industry": "MD",
+ "exp_strategy": "pain",
+ "strategy": "pain",
+ "scenario": "bs08",
+ "exp_products": [
+  "erv",
+  "wf4way"
+ ],
+ "products": [
+  "erv"
+ ],
+ "solutions": [
+  "partnerapp"
+ ],
+ "prod_recall": 0.5,
+ "prod_precision": 1.0,
+ "must_show": 1.0,
+ "must_show_miss": [],
+ "facts": null,
+ "facts_miss": [],
+ "must_not_hit": [],
+ "parts": [
+  "cover:늘봄요양병원 환경 개선",
+  "market:요양 의료 환경의 변화",
+  "customer:늘봄의료재단의 가치",
+  "challenge:병실 환경의 주요 과제",
+  "value:시설 개선을 통한 가치",
+  "scenario:병실 및 로비 시나리오",
+  "value:사용자 중심 통합 관리",
+  "products:공간별 맞춤형 솔루션",
+  "effect:기대 효과 및 경쟁력",
+  "execution:유지관리 및 감염관리",
+  "closing:향후 추진 계획"
+ ],
+ "questions": [],
+ "conflicts": [],
+ "issues": [],
+ "stats": {
+  "n_slides": 13,
+  "text_slots": 449,
+  "placeholders": 95,
+  "slides_with_ph": 12,
+  "sample_text_kept": 199,
+  "img_slots": 44,
+  "img_filled": 12,
+  "photo_slides": 13,
+  "stray_slides": 0,
+  "slides": [
+   {
+    "no": 1,
+    "code": "C01",
+    "f": "L_C01",
+    "visual": [
+     "image",
+     "message",
+     "photo"
+    ],
+    "ph": 0,
+    "img_slots": 1,
+    "img_filled": 0,
+    "kept_sample": 1,
+    "stray": []
+   },
+   {
+    "no": 2,
+    "code": "PH-MI-MD-A",
+    "f": "L_PH_MI_MD_A",
+    "visual": [
+     "cards",
+     "flow",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 12,
+    "img_slots": 4,
+    "img_filled": 0,
+    "kept_sample": 20,
+    "stray": []
+   },
+   {
+    "no": 3,
+    "code": "PH-MI-MD-C",
+    "f": "L_PH_MI_MD_C",
+    "visual": [
+     "cards",
+     "flow",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 8,
+    "img_slots": 6,
+    "img_filled": 0,
+    "kept_sample": 60,
+    "stray": []
+   },
+   {
+    "no": 4,
+    "code": "PH-CH-A",
+    "f": "L_PH_CH_A",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 3,
+    "img_slots": 3,
+    "img_filled": 3,
+    "kept_sample": 5,
+    "stray": []
+   },
+   {
+    "no": 5,
+    "code": "PH-VP-U",
+    "f": "L_PH_VP_U",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "photo",
+     "qna"
+    ],
+    "ph": 3,
+    "img_slots": 6,
+    "img_filled": 3,
+    "kept_sample": 6,
+    "stray": []
+   },
+   {
+    "no": 6,
+    "code": "PH-SS-MD-A",
+    "f": "L_PH_SS_MD_A",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "map",
+     "photo"
+    ],
+    "ph": 18,
+    "img_slots": 7,
+    "img_filled": 0,
+    "kept_sample": 27,
+    "stray": []
+   },
+   {
+    "no": 7,
+    "code": "PH-SS-MD-B",
+    "f": "L_PH_SS_MD_B",
+    "visual": [
+     "image_heavy",
+     "kpi",
+     "photo",
+     "table"
+    ],
+    "ph": 12,
+    "img_slots": 4,
+    "img_filled": 0,
+    "kept_sample": 12,
+    "stray": []
+   },
+   {
+    "no": 8,
+    "code": "PH-SS-MD-D",
+    "f": "L_PH_SS_MD_D",
+    "visual": [
+     "cards",
+     "comparison",
+     "image",
+     "photo"
+    ],
+    "ph": 15,
+    "img_slots": 2,
+    "img_filled": 0,
+    "kept_sample": 27,
+    "stray": []
+   },
+   {
+    "no": 9,
+    "code": "VP-H",
+    "f": "L_VP_H",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "matrix",
+     "photo"
+    ],
+    "ph": 7,
+    "img_slots": 4,
+    "img_filled": 1,
+    "kept_sample": 4,
+    "stray": []
+   },
+   {
+    "no": 10,
+    "code": "PH-P-K",
+    "f": "L_PH_P_K",
+    "visual": [
+     "cards",
+     "flow",
+     "image",
+     "photo"
+    ],
+    "ph": 7,
+    "img_slots": 1,
+    "img_filled": 1,
+    "kept_sample": 4,
+    "stray": []
+   },
+   {
+    "no": 11,
+    "code": "PH-EF-C",
+    "f": "L_PH_EF_C",
+    "visual": [
+     "cards",
+     "image",
+     "kpi",
+     "photo"
+    ],
+    "ph": 4,
+    "img_slots": 1,
+    "img_filled": 1,
+    "kept_sample": 3,
+    "stray": []
+   },
+   {
+    "no": 12,
+    "code": "PH-IP-A",
+    "f": "L_PH_IP_A",
+    "visual": [
+     "cards",
+     "flow",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 5,
+    "img_slots": 4,
+    "img_filled": 2,
+    "kept_sample": 23,
+    "stray": []
+   },
+   {
+    "no": 13,
+    "code": "C12",
+    "f": "L_C12",
+    "visual": [
+     "cards",
+     "image",
+     "message",
+     "photo"
+    ],
+    "ph": 1,
+    "img_slots": 1,
+    "img_filled": 1,
+    "kept_sample": 7,
+    "stray": []
+   }
+  ]
+ },
+ "sec": 21.4,
+ "llm_calls": 17,
+ "llm_fail": 0
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11~wrong_customer:F09"
+ },
+ "prompt_tokens": 2776,
+ "output_tokens": 267,
+ "data": {
+  "scores": [
+   {
+    "id": "PR2",
+    "score": 3,
+    "anchor": "제안서 7장의 사양 요구 대응표에서 QM65C(500nit, 24/7, 4K), VM55B(초슬림 베젤), WM75B(75인치, 터치) 등 모든 제품 사양이 자동 점검의 카탈로그 사양과 일치하며, 제안서 내에서 일관되게 표기되었습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "QM65C | 500nit | 24/7 운영 설계 | 4K UHD"
+     },
+     {
+      "sheet": 7,
+      "quote": "VM55B | 초슬림 베젤 · 다면 구성"
+     },
+     {
+      "sheet": 7,
+      "quote": "WM75B | 75\" 터치 · 무선 공유"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

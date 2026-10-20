@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~placeholders:F02"
+ },
+ "prompt_tokens": 8023,
+ "output_tokens": 213,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 2,
+    "anchor": "고객 요구사항 R1~R4에 대해 전반적으로 대응하고 있으나, R2(옵션 계약률 향상)에 대한 구체적인 전략적 해법이 장별로 분산되어 있고 명시적인 언급이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "옵션 계약률 [00]%"
+     },
+     {
+      "sheet": 7,
+      "quote": "옵션 계약 전환 50%"
+     }
+    ],
+    "improve": "옵션 계약률 향상을 위한 구체적인 마케팅 전략이나 인센티브 구조를 명시적으로 기술하여 R2 요구사항에 대한 대응을 강화해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

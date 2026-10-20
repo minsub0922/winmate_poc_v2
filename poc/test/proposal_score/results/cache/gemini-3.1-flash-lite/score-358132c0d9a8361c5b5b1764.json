@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs17:F06"
+ },
+ "prompt_tokens": 6859,
+ "output_tokens": 184,
+ "data": {
+  "scores": [
+   {
+    "id": "DS8",
+    "score": 3,
+    "anchor": "모든 차트와 표에서 단위가 명확히 표기되어 있고, 수치 합계가 본문 내용과 일치하며 가독성이 높게 구성되었습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "합계 탭 2,880대 · 사이니지 480대"
+     },
+     {
+      "sheet": 13,
+      "quote": "초기 투자 · 1차 120곳 · 48.0억"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~number_conflict:F08"
+ },
+ "prompt_tokens": 2990,
+ "output_tokens": 193,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "본사 운영 효율화, 자동 전환, 전력 절감이라는 고객 언어의 결과형 가치 3가지를 제시하고, 각 가치마다 MagicINFO, SmartThings Pro 등 대응 솔루션을 명확히 연결함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "메뉴는 본사가 한 번에, 전환은 자동으로, 전력은 적게"
+     },
+     {
+      "sheet": 6,
+      "quote": "MagicINFO · QM55C, SmartThings Pro · 360 카세트"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

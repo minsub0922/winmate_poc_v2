@@ -1,0 +1,74 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08~full:F01"
+ },
+ "prompt_tokens": 8980,
+ "output_tokens": 627,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 1,
+    "anchor": "4장에서 야간 간호 인력 1명이 30병상을 맡는다고 기술했으나, 6장 이후부터는 선도 병동을 60병상으로 명시하여 규모 정보가 일치하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "야간 간호 인력 1명이 30병상을 맡고"
+     },
+     {
+      "sheet": 6,
+      "quote": "1단계는 3F 동병동 · 1F 로비 | 60병상"
+     }
+    ],
+    "improve": "병동 규모에 대한 수치를 30병상 또는 60병상 중 하나로 통일하여 기술해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "CU5",
+    "score": 3,
+    "anchor": "W 요양병원의 구체적인 과제, 공간 시나리오, 현장 측정값 및 향후 일정 등이 모든 장에 상세히 반영되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "W 요양병원 병동이 지금 겪는 세 가지 과제"
+     },
+     {
+      "sheet": 13,
+      "quote": "다음 4주, 선도 병동부터 정합니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "템플릿 잔여물이나 자리표시 문구가 발견되지 않았으며, 마무리 장의 연락처는 제안사 담당자의 공식 정보로 적절합니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "원가, 마진, 내부 할인율 등 기밀 정보나 다른 고객의 비공개 정보가 포함되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "금액은 견적서 · SLA는 계약 조건으로 확정"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

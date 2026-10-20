@@ -1,0 +1,301 @@
+{
+ "id": "B01",
+ "title": "카페 프랜차이즈 메뉴보드 디지털 전환 (정보 최소)",
+ "exp_level": "minimal",
+ "level": "ambiguous",
+ "exp_industry": "FB",
+ "industry": "FB",
+ "exp_strategy": null,
+ "strategy": "value",
+ "scenario": "bs01",
+ "exp_products": [
+  "qm55c"
+ ],
+ "products": [
+  "qm55c",
+  "qm65c",
+  "wf4way"
+ ],
+ "solutions": [
+  "magicinfo"
+ ],
+ "prod_recall": 1.0,
+ "prod_precision": 0.333,
+ "must_show": 1.0,
+ "must_show_miss": [],
+ "facts": null,
+ "facts_miss": [],
+ "must_not_hit": [],
+ "parts": [
+  "cover:브루하임 디지털 전환",
+  "overview:제안 핵심 요약",
+  "market:카페 시장의 디지털 표준",
+  "customer:브루하임 현장 진단",
+  "value:디지털 전환 핵심 가치",
+  "solution:실시간 운영 솔루션",
+  "scenario:매장 고객 경험 혁신",
+  "products:공간 맞춤형 디스플레이",
+  "bom:매장 규모별 구성",
+  "effect:도입 기대 효과",
+  "case:성공적인 도입 사례",
+  "execution:파일럿 프로젝트 계획",
+  "bom:단계별 확대 전략",
+  "closing:성공을 위한 제언"
+ ],
+ "questions": [],
+ "conflicts": [],
+ "issues": [],
+ "stats": {
+  "n_slides": 16,
+  "text_slots": 860,
+  "placeholders": 153,
+  "slides_with_ph": 14,
+  "sample_text_kept": 430,
+  "img_slots": 12,
+  "img_filled": 12,
+  "photo_slides": 5,
+  "stray_slides": 0,
+  "slides": [
+   {
+    "no": 1,
+    "code": "C08",
+    "f": "L_C08",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "message",
+     "photo"
+    ],
+    "ph": 0,
+    "img_slots": 3,
+    "img_filled": 3,
+    "kept_sample": 6,
+    "stray": []
+   },
+   {
+    "no": 2,
+    "code": "ES-A",
+    "f": "L_ES_A",
+    "visual": [
+     "cards",
+     "message"
+    ],
+    "ph": 11,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 20,
+    "stray": []
+   },
+   {
+    "no": 3,
+    "code": "MI-FB-A",
+    "f": "L_MI_FB_A",
+    "visual": [
+     "cards",
+     "flow"
+    ],
+    "ph": 24,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 31,
+    "stray": []
+   },
+   {
+    "no": 4,
+    "code": "CB-C",
+    "f": "L_CB_C",
+    "visual": [
+     "cards",
+     "flow"
+    ],
+    "ph": 3,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 41,
+    "stray": []
+   },
+   {
+    "no": 5,
+    "code": "CB-B",
+    "f": "L_CB_B",
+    "visual": [
+     "flow",
+     "table"
+    ],
+    "ph": 1,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 12,
+    "stray": []
+   },
+   {
+    "no": 6,
+    "code": "VP-F",
+    "f": "L_VP_F",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "matrix",
+     "photo"
+    ],
+    "ph": 3,
+    "img_slots": 3,
+    "img_filled": 3,
+    "kept_sample": 6,
+    "stray": []
+   },
+   {
+    "no": 7,
+    "code": "MGI-S",
+    "f": "L_MGI_S",
+    "visual": [
+     "cards",
+     "diagram",
+     "flow",
+     "image_heavy"
+    ],
+    "ph": 1,
+    "img_slots": 3,
+    "img_filled": 3,
+    "kept_sample": 28,
+    "stray": []
+   },
+   {
+    "no": 8,
+    "code": "SS-FB-A",
+    "f": "L_SS_FB_A",
+    "visual": [
+     "flow",
+     "image",
+     "map",
+     "table"
+    ],
+    "ph": 2,
+    "img_slots": 1,
+    "img_filled": 1,
+    "kept_sample": 36,
+    "stray": []
+   },
+   {
+    "no": 9,
+    "code": "SS-FB-D",
+    "f": "L_SS_FB_D",
+    "visual": [
+     "flow",
+     "image",
+     "map",
+     "table"
+    ],
+    "ph": 4,
+    "img_slots": 2,
+    "img_filled": 2,
+    "kept_sample": 37,
+    "stray": []
+   },
+   {
+    "no": 10,
+    "code": "P3-A",
+    "f": "L_P3A",
+    "visual": [
+     "cards",
+     "photo"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 0,
+    "stray": []
+   },
+   {
+    "no": 11,
+    "code": "BM-B",
+    "f": "L_BM_B",
+    "visual": [
+     "cards"
+    ],
+    "ph": 18,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 40,
+    "stray": []
+   },
+   {
+    "no": 12,
+    "code": "EF-A",
+    "f": "L_EF_A",
+    "visual": [
+     "cards",
+     "comparison",
+     "flow",
+     "kpi"
+    ],
+    "ph": 12,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 32,
+    "stray": []
+   },
+   {
+    "no": 13,
+    "code": "CD-C",
+    "f": "L_CD_C",
+    "visual": [
+     "cards",
+     "kpi"
+    ],
+    "ph": 7,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 9,
+    "stray": []
+   },
+   {
+    "no": 14,
+    "code": "PL-B",
+    "f": "L_PL_B",
+    "visual": [
+     "cards",
+     "flow",
+     "kpi"
+    ],
+    "ph": 15,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 42,
+    "stray": []
+   },
+   {
+    "no": 15,
+    "code": "BM-D",
+    "f": "L_BM_D",
+    "visual": [
+     "cards",
+     "flow"
+    ],
+    "ph": 34,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 58,
+    "stray": []
+   },
+   {
+    "no": 16,
+    "code": "C13",
+    "f": "L_C13",
+    "visual": [
+     "cards",
+     "flow",
+     "message"
+    ],
+    "ph": 18,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 32,
+    "stray": []
+   }
+  ]
+ },
+ "sec": 27.7,
+ "llm_calls": 35,
+ "llm_fail": 0
+}

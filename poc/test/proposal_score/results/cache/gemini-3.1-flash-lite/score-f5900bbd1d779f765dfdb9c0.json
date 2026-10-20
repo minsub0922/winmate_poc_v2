@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~wrong_customer:F10"
+ },
+ "prompt_tokens": 5550,
+ "output_tokens": 203,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO와 SmartThings Pro를 활용하여 본사 운영자가 메뉴와 전력을 어떻게 관리하는지 구체적인 운영 장면과 하드웨어 연결성을 제시함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "제작 · 승인 · 배포 · 적용 확인까지 한 화면에서"
+     },
+     {
+      "sheet": 8,
+      "quote": "본사 PC · MagicINFO Server | 전체 구성"
+     },
+     {
+      "sheet": 9,
+      "quote": "SmartThings Pro 루틴이 한산한 시간 냉난방을 낮춤"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

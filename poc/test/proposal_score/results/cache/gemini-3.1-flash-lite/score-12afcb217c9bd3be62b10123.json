@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~base:F11"
+ },
+ "prompt_tokens": 2996,
+ "output_tokens": 416,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 초과하는 장이 10개로, 4장 이상이라는 1점 기준을 충족합니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "202어절"
+     },
+     {
+      "sheet": 6,
+      "quote": "173어절"
+     },
+     {
+      "sheet": 7,
+      "quote": "166어절"
+     }
+    ],
+    "improve": "각 장의 핵심 메시지를 중심으로 텍스트를 대폭 줄이고 개조식으로 요약하여 장당 어절 수를 77어절 이하로 낮춰야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "모든 장의 본문이 12pt 미만이며, 9pt 미만인 장이 7장으로 1점 기준에 해당합니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "본문 최소 10px(7.5pt)"
+     },
+     {
+      "sheet": 11,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정하고, 12pt 미만은 라벨이나 캡션 등 부가 정보에만 사용해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

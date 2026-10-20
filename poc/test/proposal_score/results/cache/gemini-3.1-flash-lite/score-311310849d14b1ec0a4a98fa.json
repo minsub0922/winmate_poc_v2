@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11:F12"
+ },
+ "prompt_tokens": 8338,
+ "output_tokens": 236,
+ "data": {
+  "scores": [
+   {
+    "id": "WR8",
+    "score": 1,
+    "anchor": "제안서 내에서 RFP, SW, SFR, PER, SER, VPN, INF, MNT 등 다수의 약어를 처음 등장할 때 풀이 없이 사용하였습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "RFP 원문 요약과 제안사 해석"
+     },
+     {
+      "sheet": 5,
+      "quote": "SFR-001 · 필수"
+     },
+     {
+      "sheet": 9,
+      "quote": "RFP SER-001"
+     }
+    ],
+    "improve": "제안서 내 모든 약어(RFP, SW, SFR, PER, SER, VPN, INF, MNT 등)를 처음 언급하는 시점에 전체 명칭을 병기하여 고객의 이해를 도와야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

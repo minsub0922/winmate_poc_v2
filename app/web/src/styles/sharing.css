@@ -1,0 +1,10 @@
+.storyboard-share-control { display: inline-flex; }
+.storyboard-share-control > button:disabled { pointer-events: none; }
+.storyboard-share-control .share-alert { flex-shrink: 0; }
+.share-conflict-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.reuse-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; max-height: 320px; overflow-y: auto; margin: 12px 0; }
+.reuse-item { display: flex; flex-direction: column; gap: 5px; text-align: left; padding: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; color: var(--ink); }
+.reuse-item:hover, .reuse-item.selected { border-color: var(--accent); background: var(--accent-soft); }
+.reuse-item span, .reuse-item p { font-size: 12px; color: var(--muted); margin: 0; }
+.reuse-preview { border-top: 1px solid var(--line); padding-top: 14px; font-size: 13px; line-height: 1.6; }
+@media (max-width: 800px) { .topbar { flex-wrap: wrap; } .topbar .top-right { flex-wrap: wrap; } .reuse-list { grid-template-columns: 1fr; } }

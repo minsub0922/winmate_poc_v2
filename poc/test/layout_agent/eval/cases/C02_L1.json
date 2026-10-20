@@ -1,0 +1,44 @@
+{
+ "id": "C02_L1",
+ "case": "C02",
+ "industry": "OF",
+ "strategy": "space",
+ "req_type": "new",
+ "title": "신축 AI Ready 오피스",
+ "level": "minimal",
+ "input": {
+  "title": "F 자산운용 오피스",
+  "customer": "F 자산운용",
+  "industry": "OF",
+  "free_text": "오피스 빌딩 신축 건. The Wall, 전자칠판, 시스템에어컨 DVM",
+  "products": [
+   "thewall",
+   "flip",
+   "dvms2"
+  ],
+  "id": "C02_L1"
+ },
+ "gold": {
+  "level": "minimal",
+  "industry": "OF",
+  "scenario_any": [
+   "STD-OF"
+  ],
+  "must_parts": [
+   "value",
+   "products",
+   "case",
+   "why"
+  ],
+  "layouts_any": {
+   "value": [
+    "L_VP_F"
+   ],
+   "products": [
+    "L_P3B"
+   ]
+  },
+  "key_reqs": [],
+  "facts": []
+ }
+}

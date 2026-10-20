@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01:F10"
+ },
+ "prompt_tokens": 3460,
+ "output_tokens": 218,
+ "data": {
+  "scores": [
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "파일럿 매장 선정부터 12주간의 상세 일정, 유형별 비교군 설정, 설치 및 점주 교육, 운영 평가 지표까지 구체적으로 제시되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "유형별 선정 10곳 · 비교군 3곳 · 준비 2주 + 운영 8주 + 평가 2주"
+     },
+     {
+      "sheet": 14,
+      "quote": "설치 · 점주 교육"
+     },
+     {
+      "sheet": 16,
+      "quote": "시범 매장 10곳 · 실사 일정 확정"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

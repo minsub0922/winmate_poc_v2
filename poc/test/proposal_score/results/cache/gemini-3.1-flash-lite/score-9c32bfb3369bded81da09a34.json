@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs06~full:F03"
+ },
+ "prompt_tokens": 3371,
+ "output_tokens": 359,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 2,
+    "anchor": "결정권자가 판단할 성과와 리스크(야간 시공 일정 등)가 12장과 13장에 포함되어 있으나, 경영 지표와 실무 지표가 명확히 구분된 요약 장이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "영업을 멈추지 않고, 여섯 밤에 끝냅니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "다음 2주, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "제안서 도입부에 경영진이 즉각 판단할 수 있는 성과, 리스크, 예산 요약 장(Executive Summary)을 추가하십시오.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS7",
+    "score": 1,
+    "anchor": "비용 구조, 구매 방식, 투자 회수 기간 및 숨은 비용에 대한 정보가 제안서 내에 전혀 언급되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "총소유비용(TCO), 투자 회수 기간, 콘텐츠 및 유지보수 비용 등 고객이 의사결정에 필요한 비용 정보를 구체적으로 제시하십시오.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

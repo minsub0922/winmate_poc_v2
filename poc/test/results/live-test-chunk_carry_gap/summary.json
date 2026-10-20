@@ -1,0 +1,136 @@
+{
+ "meta": {
+  "run_id": "live-test-chunk_carry_gap",
+  "prompt_version": "v3.1",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "keys": {
+   "GEMINI_API_KEY": true,
+   "GEMINI_MODEL": true,
+   "TAVILY_API_KEY": true
+  },
+  "conds": [
+   "chunk_carry_gap"
+  ],
+  "max_chars": [
+   3000
+  ],
+  "tcs": [
+   "TC1",
+   "TC2",
+   "TC3",
+   "TC4",
+   "TC5"
+  ]
+ },
+ "rows": [
+  {
+   "tc": "TC1",
+   "cond": "chunk_carry_gap",
+   "max_chars": 3000,
+   "recall": 1.0,
+   "recall_with_summary": 1.0,
+   "projects": "1/1",
+   "misattributed": 0,
+   "chunks": 3,
+   "items": 69,
+   "lines": 26,
+   "grounded": 0.986,
+   "unsupported_nums": 0,
+   "near_dups": 0,
+   "calls": 8,
+   "tokens": 29579,
+   "ms": 26,
+   "missed": [],
+   "errors": []
+  },
+  {
+   "tc": "TC2",
+   "cond": "chunk_carry_gap",
+   "max_chars": 3000,
+   "recall": 0.97,
+   "recall_with_summary": 1.0,
+   "projects": "1/1",
+   "misattributed": 0,
+   "chunks": 4,
+   "items": 95,
+   "lines": 33,
+   "grounded": 0.989,
+   "unsupported_nums": 0,
+   "near_dups": 0,
+   "calls": 10,
+   "tokens": 36832,
+   "ms": 22,
+   "missed": [
+    "c32 동가 시 기술평가 우선"
+   ],
+   "errors": []
+  },
+  {
+   "tc": "TC3",
+   "cond": "chunk_carry_gap",
+   "max_chars": 3000,
+   "recall": 0.967,
+   "recall_with_summary": 0.967,
+   "projects": "1/1",
+   "misattributed": 0,
+   "chunks": 3,
+   "items": 69,
+   "lines": 16,
+   "grounded": 1.0,
+   "unsupported_nums": 0,
+   "near_dups": 0,
+   "calls": 8,
+   "tokens": 29465,
+   "ms": 10,
+   "missed": [
+    "c27 시력보호기능 인증공문"
+   ],
+   "errors": []
+  },
+  {
+   "tc": "TC4",
+   "cond": "chunk_carry_gap",
+   "max_chars": 3000,
+   "recall": 1.0,
+   "recall_with_summary": 1.0,
+   "projects": "1/1",
+   "misattributed": 0,
+   "chunks": 4,
+   "items": 125,
+   "lines": 41,
+   "grounded": 0.984,
+   "unsupported_nums": 0,
+   "near_dups": 0,
+   "calls": 10,
+   "tokens": 41151,
+   "ms": 33,
+   "missed": [],
+   "errors": []
+  },
+  {
+   "tc": "TC5",
+   "cond": "chunk_carry_gap",
+   "max_chars": 3000,
+   "recall": 0.977,
+   "recall_with_summary": 0.98,
+   "projects": "4/4",
+   "misattributed": 0,
+   "chunks": 12,
+   "items": 361,
+   "lines": 102,
+   "grounded": 0.986,
+   "unsupported_nums": 0,
+   "near_dups": 0,
+   "calls": 29,
+   "tokens": 134388,
+   "ms": 68,
+   "missed": [
+    "c33 국가계약법 시행령 제27조",
+    "c02 모니터 연 500대",
+    "c03 노트북 연 360대"
+   ],
+   "errors": []
+  }
+ ]
+}

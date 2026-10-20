@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~placeholders:F01"
+ },
+ "prompt_tokens": 7304,
+ "output_tokens": 241,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "제안서 전반에 걸쳐 [00]과 같은 자리표시가 8곳 이상 발견되었으며, 특히 2장과 3장 등 본문 핵심 수치 영역에 다수 포함되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "수도권 · 서울 인천 경기 | [00]%"
+     },
+     {
+      "sheet": 3,
+      "quote": "기획 | [00]일"
+     },
+     {
+      "sheet": 11,
+      "quote": "[00]억 | 설치형 안"
+     }
+    ],
+    "improve": "제안서 내 모든 [00] 및 자리표시 문구를 실제 데이터 값으로 수정하고, 템플릿 잔여물이 없는지 전수 조사해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

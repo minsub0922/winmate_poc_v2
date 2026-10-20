@@ -1,3 +1,4 @@
+import { requireLogin } from '../api/session.js';
 import { browserStorage, openDatabase } from './browser.js';
 import { useSyncExternalStore } from 'react';
 import { normalizeCovers } from '../services/catalog.js';
@@ -5,7 +6,12 @@ import { bgUrl } from '../services/packs.js';
 import { legacySrc } from '../domain/templates/legacy_img.js';
 import { getBootstrap } from '../api/bootstrap.js';
 import { mergeSampleHistory } from './sample-history.js';
+import { mergeReviewExampleProposals } from './sample-reviews.js';
 import { scenarioStoryboard } from '../domain/templates/scenario_storyboard.js';
+import { markLayoutChanges, retainHistoryLayouts } from '../domain/slides/context-policy.js';
+import { forgetHistory, historyRemoved, restoreHistory } from './history-preferences.js';
+import { historyPath, sharedIdentity } from '../services/shared-path.js';
+import { migrateProposalDesign } from '../domain/slides/proposal-design.js';
 
 const KEY = 'winmate.v2.proposals';
 const UKEY = 'winmate.v2.ui';
@@ -18,8 +24,9 @@ export const segRefs = (segs) => (segs || []).filter((s) => s.ref).map((s) => s.
 export const segPlain = (segs, label) => (Array.isArray(segs) ? segs.map((s) => (s.t != null ? s.t : '@' + (label ? label(s.ref) : s.ref))).join('') : String(segs || ''));
 
 function emptyProposal() {
+  const id = uid('p');
   return {
-    id: uid('p'), title: '새 제안서', customer: '', ind: null, createdAt: now(), updatedAt: now(), stage: 'req', reqTab: 'free',
+    id, endPath: historyPath(id), title: '새 제안서', customer: '', ind: null, createdAt: now(), updatedAt: now(), stage: 'req', reqTab: 'free',
     req: { free: [], form: { project: '', customer: '', target: '', keymen: [{ id: uid('k'), name: '', weight: 100, reqs: [[]] }], note: '' }, files: [] },
     ctx: { products: [], solutions: [], cases: [] }, parts: [], exportedAt: null,
   };
@@ -40,18 +47,38 @@ function load() {
   } catch (e) { return []; }
   const user = getBootstrap().user;
   const merged = mergeSampleHistory(list, user, browserStorage, scenarioStoryboard);
-  return merged;
+  const proposals = migrateCovers(mergeReviewExampleProposals(merged, user, browserStorage));
+  let migrated = false;
+  for (const p of proposals) {
+    const endPath = historyPath(p.id);
+    if (p.endPath !== endPath) { p.endPath = endPath; migrated = true; }
+    if (/^bs_std_/.test(p.scenario || '') && typeof p.title === 'string') {
+      const title = p.title.replace(/\s*— 표준 제안서 \d+장 \(설명 재구성\)$/, ' 표준 제안서');
+      if (title !== p.title) {
+        if (p.req?.form?.project === p.title) p.req.form.project = title;
+        p.title = title; migrated = true;
+      }
+    }
+  }
+  if (migrated) { try { browserStorage.setItem(KEY, JSON.stringify(proposals)); } catch { /* Retain the in-memory route. */ } }
+  return proposals;
 }
 // saved history: every 표지 (and any ‘표지’ part) moves into the hidden deck part — no 표지 bubble on any Storyboard, the 표지
 // stays as the first page of the PPT 레이아웃 panel (data.js normalizeCovers). Saved back once when something moved.
 function migrateCovers(list) {
   let n = 0;
-  for (const p of list) if (normalizeCovers(p, true)) n++;
+  for (const p of list) {
+    if (normalizeCovers(p, true)) n++;
+    if (migrateProposalDesign(p)) n++;
+    if (retainHistoryLayouts(p)) n++;
+  }
   if (n) { try { browserStorage.setItem(KEY, JSON.stringify(list)); } catch (e) {} }
   return list;
 }
-let state = { proposals: load() };
+let state = { proposals: load(), shared: {} };
 const subs = new Set();
+const changes = new Set();
+export function onProposalChange(fn) { changes.add(fn); return () => changes.delete(fn); }
 let saveT = null;
 function persist() {
   clearTimeout(saveT);
@@ -61,15 +88,75 @@ function emit() { for (const f of subs) f(); }
 export function useStore(sel) {
   return useSyncExternalStore((f) => { subs.add(f); return () => subs.delete(f); }, () => sel(state));
 }
-export function getProposal(id) { return state.proposals.find((p) => p.id === id); }
+export function getProposal(id) { return state.proposals.find((p) => p.id === id) || state.shared[id]; }
+export const allProposals = () => [...state.proposals, ...Object.values(state.shared).filter(p => !state.proposals.some(x => x.id === p.id))];
+export function getProposals() { return state.proposals; }
+export function sharedProposal(snapshot, preferredId) {
+  const previous = state.proposals.find(p => p._share?.token === snapshot.token)
+    || (snapshot.isOwner && state.proposals.find(p => p.id === snapshot.sourceId))
+    || Object.values(state.shared).find(p => p._share?.token === snapshot.token);
+  const id = preferredId || previous?.id || (snapshot.isOwner && snapshot.sourceId) || 'shared-' + snapshot.token;
+  const proposal = { ...structuredClone(snapshot.document), id, endPath: snapshot.isOwner ? historyPath(id) : '/s/' + snapshot.token, exportedAt: previous?.exportedAt || null, _share: {
+    ...sharedIdentity(snapshot), isOwner: snapshot.isOwner, canEdit: snapshot.canEdit,
+    permission: snapshot.permission, revision: snapshot.revision,
+  } };
+  if (previous?.sample && snapshot.isOwner) proposal.sample = structuredClone(previous.sample);
+  const history = !historyRemoved(id, snapshot.token) && (state.proposals.some(p => p.id === id) || snapshot.isOwner || snapshot.hasEdited);
+  const adaptation = new Map((previous?.parts || []).flatMap(s => s.layouts.map(x => [x.uid, x.adaptation])));
+  for (const part of proposal.parts) for (const layout of part.layouts) {
+    if (adaptation.get(layout.uid)) layout.adaptation = structuredClone(adaptation.get(layout.uid));
+  }
+  // A snapshot already contains saved sheets. First hydration is a read, not an
+  // insertion request; only later changes relative to a known proposal requeue.
+  retainHistoryLayouts(proposal);
+  if (snapshot.isOwner && previous) markLayoutChanges(proposal, previous);
+  const proposals = state.proposals.filter(p => p.id !== id && p._share?.token !== snapshot.token);
+  if (history) proposals.push(proposal);
+  proposals.sort((a, b) => b.updatedAt - a.updatedAt);
+  state = { proposals, shared: { ...state.shared, [id]: proposal } };
+  if (history) persist();
+  emit();
+  if (snapshot.isOwner) for (const fn of changes) fn(proposal, previous, { remote: true });
+  return proposal;
+}
+/** Only a blank draft is reusable; even a title, attachment or linked item is work. */
+function isEmptyDraft(p) {
+  const text = value => String(value ?? '').trim().length > 0;
+  const segments = value => Array.isArray(value)
+    ? value.some(s => text(s?.t) || !!s?.ref || !!s?.link)
+    : text(value);
+  if (!p || p._share || p.sample || p.agent || p.bg || p.exportedAt || p.reqSaved
+    || (p.stage && p.stage !== 'req') || (text(p.title) && p.title.trim() !== '새 제안서')
+    || text(p.customer) || text(p.ind) || text(p.indName) || p.parts?.length) return false;
+  if (Object.values(p.ctx || {}).some(items => items?.length)) return false;
+  const req = p.req || {}, form = req.form || {}, keymen = form.keymen || [];
+  if (segments(req.free) || req.files?.length
+    || ['project', 'customer', 'target', 'note'].some(key => text(form[key]))
+    || segments(form.noteSegs) || keymen.length > 1) return false;
+  return !keymen.some(k => text(k.name) || (k.weight != null && Number(k.weight) !== 100)
+    || k.reqs?.length > 1 || (k.reqs || []).some(segments));
+}
+
 export function createProposal() {
+  if (!requireLogin()) return null;
+  // Match the first (most recent) history entry. Never search older drafts or
+  // remove existing history: repeat clicks simply reopen the same blank draft.
+  const latest = state.proposals[0];
+  if (isEmptyDraft(latest)) return latest.id;
   const p = emptyProposal();
-  state = { proposals: [p, ...state.proposals] }; persist(); emit();
+  state = { ...state, proposals: [p, ...state.proposals] }; persist(); emit();
   return p.id;
 }
-export function deleteProposal(id) { state = { proposals: state.proposals.filter((p) => p.id !== id) }; persist(); emit(); }
+export function deleteProposal(id) { if (!requireLogin()) return false;
+  const proposal = getProposal(id);
+  if (!proposal) return false;
+  forgetHistory(id, proposal._share?.token);
+  const shared = { ...state.shared }; delete shared[id];
+  state = { ...state, proposals: state.proposals.filter(p => p.id !== id), shared }; persist(); emit();
+  return true;
+}
 /** Remove one selected instance, preserving its part and other copies of the same template. */
-export function removeLayout(id, layoutUid) {
+export function removeLayout(id, layoutUid) { if (!requireLogin()) return false;
   const proposal = getProposal(id);
   if (!proposal?.parts.some(part => part.layouts.some(layout => layout.uid === layoutUid))) return false;
   let removed = false;
@@ -83,10 +170,15 @@ export function removeLayout(id, layoutUid) {
 }
 /** Best 제안서 열기 — 원본은 그대로 두고 복사본을 내 제안서로 만든다 */
 export function cloneProposal(src) {
+  if (!requireLogin()) return null;
   const t = structuredClone(src);
-  t.id = uid('p'); t.createdAt = t.updatedAt = now();
+  delete t._share;
+  delete t.sample;
+  t.id = uid('p'); t.endPath = historyPath(t.id); t.createdAt = t.updatedAt = now(); t.exportedAt = null;
   normalizeCovers(t, true);
-  state = { proposals: [t, ...state.proposals] }; persist(); emit();
+  markLayoutChanges(t, null);
+  state = { ...state, proposals: [t, ...state.proposals] }; persist(); emit();
+  for (const fn of changes) fn(t, null);
   return t.id;
 }
 /** 배경 테마(p.bg, Best Scenario에서 시작한 제안서) — 모든 장에 배경이 있고, 장마다 다른 사진.
@@ -107,17 +199,24 @@ function syncBg(d) {
   }
 }
 /** update(id, draft => {...}) — copy-on-write */
-export function update(id, fn, { touch = true } = {}) {
+export function update(id, fn, { touch = true } = {}) { if (!requireLogin()) return false;
+  const original = getProposal(id);
+  if (!original || (original._share && !original._share.canEdit)) return false;
   const i = state.proposals.findIndex((p) => p.id === id);
-  if (i < 0) return;
-  const draft = structuredClone(state.proposals[i]);
+  const draft = structuredClone(original);
   fn(draft);
+  if (touch && original._share) restoreHistory(id, original._share.token);
   normalizeCovers(draft); // a 표지 added anywhere goes to the deck part — never a Storyboard bubble
   syncBg(draft);
+  markLayoutChanges(draft, original);
   if (touch) draft.updatedAt = now();
-  const list = state.proposals.slice(); list[i] = draft;
+  const list = state.proposals.slice(); if (i >= 0) list[i] = draft;
   list.sort((a, b) => b.updatedAt - a.updatedAt);
-  state = { proposals: list }; persist(); emit();
+  state = { proposals: list, shared: original._share ? { ...state.shared, [id]: draft } : state.shared };
+  if (i >= 0) persist();
+  emit();
+  for (const fn of changes) fn(draft, original);
+  return true;
 }
 
 /** Storyboard stage — 'req': 고객 요구사항 버블만 · 'match': 요구사항 저장 → 제품 · 솔루션 매칭 버블 · 'story': 매칭 저장 → 파트 */

@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs17:F07"
+ },
+ "prompt_tokens": 2827,
+ "output_tokens": 207,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "13장에서 투자 회수 기간, 초기 투자비, 연차별 효과를 정량적으로 제시하고, 산정 근거로 시범점 측정값과 할인율 미적용 등의 가정을 명시함.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "3.2년 · 38개월이면 1차 투자비를 회수합니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "가정 | 1차 120곳 · 투자비 48.0억 · 효과 연평균 +13% · 할인율 미적용"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,78 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs05~full:F07"
+ },
+ "prompt_tokens": 9068,
+ "output_tokens": 648,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "제안서 내 각 공간별로 대기 시간 단축, 만족도 향상, 운영 효율화 등 정량적 목표치를 제시하고, 이를 유사 사례 기준 삼성 추정치로 명시함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "대기 관련 문의 40% ↓, 대기 체감 만족도 30% ↑"
+     },
+     {
+      "sheet": 7,
+      "quote": "퍼레이드 구간 혼잡 민원 35% ↓, 쇼 종료 후 퇴장 소요 25분 → 15분"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "삼성의 통합 솔루션(MagicINFO, 하만 JBL, LED)을 고객의 운영 과제(시즌 교체, 낮/밤 연출)와 연결하여 구체적인 사례와 함께 제시함.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "MagicINFO · 콘텐츠 제작 지원, XHB 실외 LED · 하만 JBL"
+     },
+     {
+      "sheet": 13,
+      "quote": "에버랜드 신전무대 — 낮 정원에서 밤 공연까지 한 화면으로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR5",
+    "score": 3,
+    "anchor": "근거 없는 절대 표현(최초, 최고, 유일 등)을 사용하지 않았으며, 성과 수치에 대해서도 추정치임을 명시함.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "수치는 삼성전자 추정"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR7",
+    "score": 3,
+    "anchor": "연출 이미지, 사양 변경 가능성, 효과 수치의 전제 조건(삼성 추정)을 각 장 하단에 명확히 고지함.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "사양은 XHB-S 기준"
+     },
+     {
+      "sheet": 14,
+      "quote": "왼쪽 이미지는 AI로 생성한 시안으로, 실제 시공 결과와 다를 수 있습니다."
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

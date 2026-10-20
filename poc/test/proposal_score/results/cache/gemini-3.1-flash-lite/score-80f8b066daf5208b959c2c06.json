@@ -1,0 +1,57 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~base:F01"
+ },
+ "prompt_tokens": 9596,
+ "output_tokens": 416,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'A 커피'와 매장 수 320개, 담당 조직 정보가 일관되게 기술되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "A 커피 전국 320개 매장"
+     },
+     {
+      "sheet": 15,
+      "quote": "320곳 · 2,120대"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "자동 점검에서 지적된 연락처 정보는 제안사 담당자의 공식 업무 연락처로, 템플릿 잔여물이나 자리표시가 아닙니다.",
+    "evidence": [
+     {
+      "sheet": 16,
+      "quote": "김도윤 프로 · B2B 영업팀"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "제안서 내에 원가, 마진, 내부 할인율 등 민감 정보가 없으며, 마무리 장의 담당자 연락처는 정상적인 영업 활동의 일환입니다.",
+    "evidence": [
+     {
+      "sheet": 16,
+      "quote": "김도윤 프로 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

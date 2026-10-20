@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~base:F01"
+ },
+ "prompt_tokens": 5124,
+ "output_tokens": 350,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'Y 그룹'이 일관되게 사용되었으며, 규모 정보(260개 사업장)와 담당 조직(브랜드전략실, 인재개발원 등)이 장마다 동일하게 기술되었습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "Y 그룹"
+     },
+     {
+      "sheet": 2,
+      "quote": "260개 사업장"
+     },
+     {
+      "sheet": 4,
+      "quote": "그룹 브랜드전략실"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "10장에 기재된 연락처와 이메일 주소가 실제 담당자의 정보가 아닌 예시용 자리표시로 확인되어 1곳의 잔여물이 존재합니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "010-1234-5678 · b2b.proposal@samsung.com"
+     }
+    ],
+    "improve": "제출 전 실제 담당자의 연락처와 이메일 주소로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

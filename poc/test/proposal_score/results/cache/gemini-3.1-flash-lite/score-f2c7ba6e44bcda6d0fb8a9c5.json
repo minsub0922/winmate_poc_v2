@@ -1,0 +1,82 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs06~full:F04"
+ },
+ "prompt_tokens": 9614,
+ "output_tokens": 801,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "고객의 현재 문제(햇빛에 의한 시인성 저하, 수동 콘텐츠 교체 등)를 현장 장면과 함께 제시하고, 대기 시간(14분) 및 교체 시간(8시간→10분) 등 구체적인 수치를 통해 영향을 분석했습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "햇빛에 묻힌 쇼윈도는 지나치고, 들어서면 세계관이 보여야"
+     },
+     {
+      "sheet": 6,
+      "quote": "캠페인 교체 8시간 → 10분"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "CU6",
+    "score": 3,
+    "anchor": "리테일 플래그십 매장의 운영 맥락인 시즌 캠페인 교체, VMD존 상품 연출, 대기 고객 관리 등 업종 고유의 운영 방식을 정확히 반영하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "시즌 · 월별 프로모션과 신제품 · 클래스 안내가 늘어"
+     },
+     {
+      "sheet": 6,
+      "quote": "진열 상품 옆에서 영상과 공기가 함께 바뀌는 곳"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "옥외 직사광이 있는 쇼윈도에는 OM55B, 매장 벽면에는 IFR LED, 대기 라운지에는 공기청정기 등 각 공간의 환경 요구사항에 적합한 제품을 명확히 배치했습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "윈도 사이니지 OM55B · LED IFR 햇빛에도 선명"
+     },
+     {
+      "sheet": 5,
+      "quote": "윈도 사이니지 OM55B ×8 · VXT"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "룰루레몬, 더현대 서울 등 유관 업종 사례를 제시했으나, 사례별로 도입 구성과 성과 수치가 일부 혼재되어 있고, 룰루레몬 사례의 경우 구체적인 성과 수치(매출 등)가 명시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "룰루레몬 파르나스몰 스토어 · LED S-Box · MagicINFO 원격 관리"
+     },
+     {
+      "sheet": 11,
+      "quote": "더현대 서울 · 외벽 세로형 · 시네마형 LED · 9,000nit"
+     }
+    ],
+    "improve": "각 사례별로 도입 전후의 구체적인 성과 수치(예: 체류 시간 증가율, 운영 효율 개선 수치 등)를 명확히 기재해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

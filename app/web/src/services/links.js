@@ -1,4 +1,5 @@
 import { fetchResource } from '../api/client.js';
+import { imageMarkup } from './image-state.js';
 import { getBootstrap } from '../api/bootstrap.js';
 import { browserStorage } from '../repositories/browser.js';
 /* Winmate · 링크 태그 (window.__wmLink)
@@ -73,25 +74,27 @@ export const linkTags = (function () {
   };
   var tag = function () { try { return linkDependencies.tag && linkDependencies.tag(); } catch (e) { return null; } };
 
-  var base = function (u) { var y = ytId(u); return { title: guessTitle(u), site: siteOf(u), img: y ? 'https://i.ytimg.com/vi/' + y + '/mqdefault.jpg' : '', ref: '', desc: '' }; };
+  var base = function (u) { var y = ytId(u), icon = ''; try { icon = new URL('/favicon.ico', full(u)).href; } catch (e) {} return { title: guessTitle(u), site: siteOf(u), img: y ? 'https://i.ytimg.com/vi/' + y + '/mqdefault.jpg' : '', icon: icon, ref: '', desc: '' }; };
   var withTimeout = function (p, ms) { return Promise.race([p, new Promise(function (_, rej) { setTimeout(function () { rej(new Error('timeout')); }, ms); })]); };
   var pending = {};
   /** URL → 메타데이터(캐시 → 앱 DB → microlink → 주소 추론). 언제나 성공(추론값)으로 끝난다. */
-  var resolve = function (u) {
+  var resolve = function (u, options) {
     var k = norm(u);
-    if (mem[k] && mem[k].done) return Promise.resolve(mem[k]);
+    if (mem[k] && mem[k].done && (!(options && options.icon) || Object.prototype.hasOwnProperty.call(mem[k], 'icon'))) return Promise.resolve(mem[k]);
     if (pending[k]) return pending[k];
     var b = base(u);
     var ref = localRef(u); var tg = tag();
     var inf=ref&&((tg&&tg.info(ref))||(buildIdx().info||{})[ref]);
     if (inf) {
-      var m = { title: inf.label, site: 'Samsung', img: '', ref: ref, desc: inf.sub || '', done: true };
+      var m = { title: inf.label, site: 'Samsung', img: '', icon: b.icon, ref: ref, desc: inf.sub || '', done: true };
       mem[k] = m; save(); return Promise.resolve(m);
     }
     pending[k] = withTimeout(fetchResource('https://api.microlink.io/?url=' + encodeURIComponent(full(u))).then(function (r) { return r.ok ? r.json() : null; }), 5000)
       .then(function (j) {
         var d = j && j.status === 'success' && j.data;
         var m = { title: (d && d.title) || b.title, site: (d && d.publisher) || b.site, img: (d && ((d.image && d.image.url) || (d.logo && d.logo.url))) || b.img, ref: '', desc: (d && d.description) || '', done: true, src: d ? 'web' : 'url' };
+        var icon = d && ((d.logo && d.logo.url) || (d.icon && d.icon.url) || (typeof d.icon === 'string' && d.icon));
+        try { m.icon = icon ? new URL(icon, full(u)).href : b.icon; } catch (e) { m.icon = b.icon; }
         m.title = String(m.title).slice(0, 120); m.desc = String(m.desc).slice(0, 200);
         return m;
       })
@@ -109,7 +112,7 @@ export const linkTags = (function () {
     el.classList.toggle('loading', loading);
     var tg = tag(); var th = '';
     if (m.ref && tg) { try { th = tg.thumb(m.ref) || ''; } catch (e) { th = ''; } }
-    else if (m.img) th = '<img class="ml-img" src="' + esc(m.img) + '" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">';
+    else if (m.img) th = imageMarkup(m.img, { className: 'ml-img' });
     var t = m.title || host(u);
     el.innerHTML = '<span class="ml-ic">' + LINK_SVG + '</span>' + (th ? '<span class="ml-th">' + th + '</span>' : '') +
       '<span class="ml-t">' + esc(t.length > 34 ? t.slice(0, 33) + '…' : t) + '</span>' + ((m.site || host(u)) !== t ? '<span class="ml-d">' + esc(m.site || host(u)) + '</span>' : '');

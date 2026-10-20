@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~base:F06"
+ },
+ "prompt_tokens": 8766,
+ "output_tokens": 200,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "전체 매장 수(320개), 전력 절감률(12%), 메뉴 반영 시간(9일→당일) 등 핵심 지표가 모든 장에서 일관되게 기술되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "320개 매장"
+     },
+     {
+      "sheet": 6,
+      "quote": "매장 전력 12% ↓"
+     },
+     {
+      "sheet": 12,
+      "quote": "메뉴 반영은 9일에서 당일로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

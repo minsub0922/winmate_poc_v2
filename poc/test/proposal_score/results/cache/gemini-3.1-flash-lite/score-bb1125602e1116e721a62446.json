@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~strip_images:F02"
+ },
+ "prompt_tokens": 7685,
+ "output_tokens": 385,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 2,
+    "anchor": "고객 요구사항 R1, R3, K1, K3, K4는 장별로 명확히 대응되나, R2(옵션 계약률 향상)는 6, 7장에서 목표 수치로 언급될 뿐 구체적인 계약률 제고 전략이나 실행 방안이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "옵션 계약률 50%"
+     },
+     {
+      "sheet": 7,
+      "quote": "옵션 계약 전환 50%"
+     }
+    ],
+    "improve": "옵션 계약률을 높이기 위한 구체적인 프로모션 전략이나 고객 경험 개선 방안을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "SB1",
+    "score": 2,
+    "anchor": "표지, 마무리(연락처, 다음 단계)는 모두 포함되어 있으나, 제안서 내에 목차(Table of Contents) 페이지가 별도로 존재하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "표지 · 목차 · 목차"
+     },
+     {
+      "sheet": 13,
+      "quote": "마무리 · 다음 단계"
+     }
+    ],
+    "improve": "제안서 첫 부분에 각 장의 제목과 내용을 요약한 목차 페이지를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

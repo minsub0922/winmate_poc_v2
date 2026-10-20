@@ -1,5 +1,6 @@
-import React from 'react';
-import { toast } from './common.jsx';
+import { requireLogin } from '../api/session.js';
+import React,{useRef} from 'react';
+import { toast,confirmDelete } from './common.jsx';
 import { useFavs, favOf, toggleFav } from '../repositories/favorites.js';
 
 /** 찜 heart — works on any layout view. ov: the sheet's values (a filled sheet and the empty layout are different favourites).
@@ -7,10 +8,14 @@ import { useFavs, favOf, toggleFav } from '../repositories/favorites.js';
 export function FavButton({ f, ov = null, from = '', className = '', label = false }) {
   useFavs();
   const on = !!favOf(f, ov);
-  const act = (e) => {
+  const confirming=useRef(false);
+  const act = async (e) => {
     e.preventDefault(); e.stopPropagation();
+    if (!requireLogin()) return;
+    if(confirming.current)return;
+    if(on){confirming.current=true;try{if(!await confirmDelete({title:'찜을 해제할까요?',message:'이 항목을 저장된 찜 목록에서 제거합니다.',confirmLabel:'찜 해제'}))return;}finally{confirming.current=false;}}
     const x = toggleFav(f, ov, from);
-    toast(x ? (x.filled ? '값이 채워진 장으로 찜했어요 · My › 찜' : '빈 레이아웃으로 찜했어요 · My › 찜') : '찜을 풀었어요');
+    toast(x ? (x.filled ? '값이 채워진 장으로 찜했어요 · 찜 목록' : '빈 레이아웃으로 찜했어요 · 찜 목록') : '찜을 풀었어요');
   };
   const stop = (e) => e.stopPropagation();
   const tip = on ? '찜 풀기' : '찜하기';

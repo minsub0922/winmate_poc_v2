@@ -1,0 +1,2047 @@
+{
+ "version": 1,
+ "principle": "요구사항이 거의 없을 때(업종 · 선택 제품만 있음) — 전략보다 업종만 구분해, 선택 제품 · 솔루션별 가치 VP → 공간별 제품 → 유관 사례 → Why Samsung 으로 묶은 표준 제안서",
+ "rules": {
+  "value_map": [
+   {
+    "match": "LED|비디오월",
+    "values": [
+     "브랜드 · 공간 임팩트",
+     "고객 경험",
+     "원격 통합 관리"
+    ]
+   },
+   {
+    "match": "사이니지|이페이퍼",
+    "values": [
+     "고객 경험",
+     "원격 통합 관리",
+     "브랜드 · 공간 임팩트"
+    ]
+   },
+   {
+    "match": "키오스크",
+    "values": [
+     "업무 효율",
+     "고객 경험",
+     "비용 · 투자 효과"
+    ]
+   },
+   {
+    "match": "전자칠판|모니터|PC|노트북",
+    "values": [
+     "협업 · 회의",
+     "업무 효율",
+     "교육 · 학습 환경"
+    ]
+   },
+   {
+    "match": "호텔 TV",
+    "values": [
+     "고객 경험",
+     "원격 통합 관리",
+     "디자인 조화"
+    ]
+   },
+   {
+    "match": "에어컨|공조|히트펌프|환기",
+    "values": [
+     "쾌적 · 공기질",
+     "에너지 절감",
+     "원격 통합 관리"
+    ]
+   },
+   {
+    "match": "갤럭시|워치|태그",
+    "values": [
+     "업무 효율",
+     "보안 · 기기 통제",
+     "현장 내구성"
+    ]
+   },
+   {
+    "match": "빌트인|주방",
+    "values": [
+     "분양 · 자산 가치",
+     "디자인 조화",
+     "고객 경험"
+    ]
+   },
+   {
+    "match": "리빙가전|세탁",
+    "values": [
+     "고객 경험",
+     "쾌적 · 공기질",
+     "업무 효율"
+    ]
+   },
+   {
+    "match": "오디오|시네마",
+    "values": [
+     "브랜드 · 공간 임팩트",
+     "고객 경험",
+     "현장 내구성"
+    ]
+   },
+   {
+    "match": "CMS",
+    "values": [
+     "원격 통합 관리",
+     "콘텐츠 운영",
+     "업무 효율"
+    ]
+   },
+   {
+    "match": "IoT|에너지|빌딩|제어|공조",
+    "values": [
+     "에너지 절감",
+     "데이터 · 모니터링",
+     "원격 통합 관리"
+    ]
+   },
+   {
+    "match": "보안|기기 관리|Knox",
+    "values": [
+     "보안 · 기기 통제",
+     "업무 효율",
+     "시스템 연동"
+    ]
+   },
+   {
+    "match": "바코드|스캔",
+    "values": [
+     "업무 효율",
+     "시스템 연동",
+     "현장 내구성"
+    ]
+   },
+   {
+    "match": "",
+    "values": [
+     "고객 경험",
+     "업무 효율",
+     "비용 · 투자 효과"
+    ]
+   }
+  ],
+  "products_layout": {
+   "0": "L_SP00",
+   "1": "L_P1B",
+   "2": "L_P2B",
+   "3": "L_P3B",
+   "4": "L_P4B",
+   "5": "L_P5B",
+   "6+": "L_P_T"
+  },
+  "value_layout": {
+   "1": "L_VP_G",
+   "2": "L_VP_F2",
+   "3": "L_VP_F",
+   "4": "L_VP_F4"
+  },
+  "case_layout": {
+   "0": "L_CL_C",
+   "1": "L_CS01",
+   "2": "L_CS02",
+   "3": "L_CS03",
+   "4+": "L_CL_D"
+  },
+  "cover": {
+   "default": "L_C01",
+   "hero": "L_C09"
+  },
+  "solution_prefix": {
+   "magicinfo": "MGI",
+   "vxt": "VXT",
+   "stpro": "STP",
+   "biot": "BIT",
+   "lynk": "LYN",
+   "knoxsuite": "KNX",
+   "knoxcapture": "KCP",
+   "dex": "DEX",
+   "coldchain": "CCH",
+   "hvac": "HVC",
+   "sac": "SAC"
+  },
+  "solution_generic": "L_VP_J",
+  "max_solutions": 2,
+  "led_products": [
+   "thewall",
+   "thewall_aio",
+   "led_outdoor",
+   "led_indoor",
+   "onyx",
+   "vm55b"
+  ],
+  "mobile_products": [
+   "tabs11",
+   "tabactive5",
+   "xcover7",
+   "galaxyA",
+   "watch",
+   "smarttag",
+   "book"
+  ]
+ },
+ "scenarios": [
+  {
+   "id": "STD-BASE",
+   "ind": null,
+   "title": "표준 제안서 · 업종 공통",
+   "short": "업종을 모를 때 — 선택 제품 · 솔루션의 가치 → 공간별 제품 → 사례 → Why Samsung",
+   "sections": [
+    {
+     "key": "open",
+     "part": "cover",
+     "name": "표지",
+     "rule": "cover",
+     "core": true,
+     "goal": "고객사 · 제안 범위를 한 장으로"
+    },
+    {
+     "key": "industry",
+     "part": "market",
+     "name": "업종 이해",
+     "rule": "industry_mi",
+     "core": false,
+     "goal": "업종 트렌드로 공감대 — 요구가 없을수록 업종 언어로 연다"
+    },
+    {
+     "key": "value",
+     "part": "value",
+     "name": "제품 · 솔루션별 핵심 가치",
+     "rule": "value",
+     "core": true,
+     "goal": "선택한 제품 · 솔루션마다 하나의 가치 기둥"
+    },
+    {
+     "key": "value_qna",
+     "part": "value",
+     "name": "현장 질문에 답하는 가치",
+     "rule": "value_qna",
+     "core": false,
+     "goal": "업종 현장의 대표 질문 → 제품 · 솔루션 → 가치"
+    },
+    {
+     "key": "solution",
+     "part": "solution",
+     "name": "솔루션 소개",
+     "rule": "solution",
+     "core": true,
+     "goal": "선택한 솔루션의 역할 · 연결 제품"
+    },
+    {
+     "key": "space_map",
+     "part": "dss",
+     "name": "공간 맵",
+     "rule": "space_map",
+     "core": false,
+     "goal": "어느 공간에 무엇이 놓이는지 먼저"
+    },
+    {
+     "key": "products",
+     "part": "products",
+     "name": "공간별 제품",
+     "rule": "products",
+     "core": true,
+     "goal": "공간마다 놓일 제품 · 설치 방식"
+    },
+    {
+     "key": "case",
+     "part": "case",
+     "name": "유관 사례",
+     "rule": "cases",
+     "core": true,
+     "goal": "같은 업종 · 같은 제품의 도입 성과"
+    },
+    {
+     "key": "why",
+     "part": "why",
+     "name": "Why Samsung",
+     "rule": "why",
+     "core": true,
+     "goal": "삼성이어야 하는 이유 — 강점 셋"
+    },
+    {
+     "key": "support",
+     "part": "why",
+     "name": "도입 후 지원 체계",
+     "rule": "support",
+     "core": false,
+     "goal": "설치 · 운영 · AS 를 누가 어떻게"
+    },
+    {
+     "key": "close",
+     "part": "closing",
+     "name": "마무리 · 다음 단계",
+     "rule": "closing",
+     "core": true,
+     "goal": "다음 단계 · 담당자"
+    }
+   ],
+   "variant": {},
+   "note": "업종 공통 레이아웃만 사용"
+  },
+  {
+   "id": "STD-FB",
+   "ind": "FB",
+   "title": "표준 제안서 · 외식 · 카페 프랜차이즈",
+   "short": "외식 · 카페 프랜차이즈 — 카운터 · 메뉴보드 · DT 등 매장 동선 중심. 업종 top 요구: 디자인 조화, 고객 경험, 쾌적 · 공기질",
+   "sections": [
+    {
+     "key": "open",
+     "part": "cover",
+     "name": "표지",
+     "rule": "cover",
+     "core": true,
+     "goal": "고객사 · 제안 범위를 한 장으로"
+    },
+    {
+     "key": "industry",
+     "part": "market",
+     "name": "업종 이해",
+     "rule": "industry_mi",
+     "core": false,
+     "goal": "업종 트렌드로 공감대 — 요구가 없을수록 업종 언어로 연다"
+    },
+    {
+     "key": "value",
+     "part": "value",
+     "name": "제품 · 솔루션별 핵심 가치",
+     "rule": "value",
+     "core": true,
+     "goal": "선택한 제품 · 솔루션마다 하나의 가치 기둥"
+    },
+    {
+     "key": "value_qna",
+     "part": "value",
+     "name": "현장 질문에 답하는 가치",
+     "rule": "value_qna",
+     "core": false,
+     "goal": "업종 현장의 대표 질문 → 제품 · 솔루션 → 가치"
+    },
+    {
+     "key": "solution",
+     "part": "solution",
+     "name": "솔루션 소개",
+     "rule": "solution",
+     "core": true,
+     "goal": "선택한 솔루션의 역할 · 연결 제품"
+    },
+    {
+     "key": "space_map",
+     "part": "dss",
+     "name": "공간 맵",
+     "rule": "space_map",
+     "core": false,
+     "goal": "어느 공간에 무엇이 놓이는지 먼저"
+    },
+    {
+     "key": "products",
+     "part": "products",
+     "name": "공간별 제품",
+     "rule": "products",
+     "core": true,
+     "goal": "공간마다 놓일 제품 · 설치 방식"
+    },
+    {
+     "key": "case",
+     "part": "case",
+     "name": "유관 사례",
+     "rule": "cases",
+     "core": true,
+     "goal": "같은 업종 · 같은 제품의 도입 성과"
+    },
+    {
+     "key": "why",
+     "part": "why",
+     "name": "Why Samsung",
+     "rule": "why",
+     "core": true,
+     "goal": "삼성이어야 하는 이유 — 강점 셋"
+    },
+    {
+     "key": "support",
+     "part": "why",
+     "name": "도입 후 지원 체계",
+     "rule": "support",
+     "core": false,
+     "goal": "설치 · 운영 · AS 를 누가 어떻게"
+    },
+    {
+     "key": "close",
+     "part": "closing",
+     "name": "마무리 · 다음 단계",
+     "rule": "closing",
+     "core": true,
+     "goal": "다음 단계 · 담당자"
+    }
+   ],
+   "variant": {
+    "value_qna": "L_VP_U",
+    "support": "L_SV_B"
+   },
+   "note": "카운터 · 메뉴보드 · DT 등 매장 동선 중심",
+   "top_values": [
+    "디자인 조화",
+    "고객 경험",
+    "쾌적 · 공기질",
+    "업무 효율",
+    "원격 통합 관리",
+    "브랜드 · 공간 임팩트"
+   ]
+  },
+  {
+   "id": "STD-RT",
+   "ind": "RT",
+   "title": "표준 제안서 · 리테일 · 브랜드 플래그십",
+   "short": "리테일 · 브랜드 플래그십 — 쇼윈도 · VMD · 계산대 등 매장 경험 중심. 업종 top 요구: 브랜드 · 공간 임팩트, 디자인 조화, 고객 경험",
+   "sections": [
+    {
+     "key": "open",
+     "part": "cover",
+     "name": "표지",
+     "rule": "cover",
+     "core": true,
+     "goal": "고객사 · 제안 범위를 한 장으로"
+    },
+    {
+     "key": "industry",
+     "part": "market",
+     "name": "업종 이해",
+     "rule": "industry_mi",
+     "core": false,
+     "goal": "업종 트렌드로 공감대 — 요구가 없을수록 업종 언어로 연다"
+    },
+    {
+     "key": "value",
+     "part": "value",
+     "name": "제품 · 솔루션별 핵심 가치",
+     "rule": "value",
+     "core": true,
+     "goal": "선택한 제품 · 솔루션마다 하나의 가치 기둥"
+    },
+    {
+     "key": "value_qna",
+     "part": "value",
+     "name": "현장 질문에 답하는 가치",
+     "rule": "value_qna",
+     "core": false,
+     "goal": "업종 현장의 대표 질문 → 제품 · 솔루션 → 가치"
+    },
+    {
+     "key": "solution",
+     "part": "solution",
+     "name": "솔루션 소개",
+     "rule": "solution",
+     "core": true,
+     "goal": "선택한 솔루션의 역할 · 연결 제품"
+    },
+    {
+     "key": "space_map",
+     "part": "dss",
+     "name": "공간 맵",
+     "rule": "space_map",
+     "core": false,
+     "goal": "어느 공간에 무엇이 놓이는지 먼저"
+    },
+    {
+     "key": "products",
+     "part": "products",
+     "name": "공간별 제품",
+     "rule": "products",
+     "core": true,
+     "goal": "공간마다 놓일 제품 · 설치 방식"
+    },
+    {
+     "key": "case",
+     "part": "case",
+     "name": "유관 사례",
+     "rule": "cases",
+     "core": true,
+     "goal": "같은 업종 · 같은 제품의 도입 성과"
+    },
+    {
+     "key": "why",
+     "part": "why",
+     "name": "Why Samsung",
+     "rule": "why",
+     "core": true,
+     "goal": "삼성이어야 하는 이유 — 강점 셋"
+    },
+    {
+     "key": "support",
+     "part": "why",
+     "name": "도입 후 지원 체계",
+     "rule": "support",
+     "core": false,
+     "goal": "설치 · 운영 · AS 를 누가 어떻게"
+    },
+    {
+     "key": "close",
+     "part": "closing",
+     "name": "마무리 · 다음 단계",
+     "rule": "closing",
+     "core": true,
+     "goal": "다음 단계 · 담당자"
+    }
+   ],
+   "variant": {
+    "value_qna": "L_VP_UC_RT",
+    "support": "L_SV_B"
+   },
+   "note": "쇼윈도 · VMD · 계산대 등 매장 경험 중심",
+   "top_values": [
+    "브랜드 · 공간 임팩트",
+    "디자인 조화",
+    "고객 경험",
+    "설치 · 시공",
+    "확장성",
+    "현장 내구성"
+   ]
+  },
+  {
+   "id": "STD-SV",
+   "ind": "SV",
+   "title": "표준 제안서 · 생활 편의 · 무인 매장",
+   "short": "생활 편의 · 무인 매장 — 무인 운영 · 다점포 원격 관리 중심. 업종 top 요구: 고객 경험, 업무 효율, 확장성",
+   "sections": [
+    {
+     "key": "open",
+     "part": "cover",
+     "name": "표지",
+     "rule": "cover",
+     "core": true,
+     "goal": "고객사 · 제안 범위를 한 장으로"
+    },
+    {
+     "key": "industry",
+     "part": "market",
+     "name": "업종 이해",
+     "rule": "industry_mi",
+     "core": false,
+     "goal": "업종 트렌드로 공감대 — 요구가 없을수록 업종 언어로 연다"
+    },
+    {
+     "key": "value",
+     "part": "value",
+     "name": "제품 · 솔루션별 핵심 가치",
+     "rule": "value",
+     "core": true,
+     "goal": "선택한 제품 · 솔루션마다 하나의 가치 기둥"
+    },
+    {
+     "key": "value_qna",
+     "part": "value",
+     "name": "현장 질문에 답하는 가치",
+     "rule": "value_qna",
+     "core": false,
+     "goal": "업종 현장의 대표 질문 → 제품 · 솔루션 → 가치"
+    },
+    {
+     "key": "solution",
+     "part": "solution",
+     "name": "솔루션 소개",
+     "rule": "solution",
+     "core": true,
+     "goal": "선택한 솔루션의 역할 · 연결 제품"
+    },
+    {
+     "key": "space_map",
+     "part": "dss",
+     "name": "공간 맵",
+     "rule": "space_map",
+     "core": false,
+     "goal": "어느 공간에 무엇이 놓이는지 먼저"
+    },
+    {
+     "key": "products",
+     "part": "products",
+     "name": "공간별 제품",
+     "rule": "products",
+     "core": true,
+     "goal": "공간마다 놓일 제품 · 설치 방식"
+    },
+    {
+     "key": "case",
+     "part": "case",
+     "name": "유관 사례",
+     "rule": "cases",
+     "core": true,
+     "goal": "같은 업종 · 같은 제품의 도입 성과"
+    },
+    {
+     "key": "why",
+     "part": "why",
+     "name": "Why Samsung",
+     "rule": "why",
+     "core": true,
+     "goal": "삼성이어야 하는 이유 — 강점 셋"
+    },
+    {
+     "key": "support",
+     "part": "why",
+     "name": "도입 후 지원 체계",
+     "rule": "support",
+     "core": false,
+     "goal": "설치 · 운영 · AS 를 누가 어떻게"
+    },
+    {
+     "key": "close",
+     "part": "closing",
+     "name": "마무리 · 다음 단계",
+     "rule": "closing",
+     "core": true,
+     "goal": "다음 단계 · 담당자"
+    }
+   ],
+   "variant": {
+    "support": "L_SV_B"
+   },
+   "note": "무인 운영 · 다점포 원격 관리 중심",
+   "top_values": [
+    "고객 경험",
+    "업무 효율",
+    "확장성",
+    "유지보수 · AS",
+    "현장 내구성",
+    "비용 · 투자 효과"
+   ]
+  },
+  {
+   "id": "STD-HT",
+   "ind": "HT",
+   "title": "표준 제안서 · 호텔 · 리조트",
+   "short": "호텔 · 리조트 — 객실 · 로비 · 연회장 투숙 경험 중심. 업종 top 요구: 고객 경험, 디자인 조화, 브랜드 · 공간 임팩트",
+   "sections": [
+    {
+     "key": "open",
+     "part": "cover",
+     "name": "표지",
+     "rule": "cover",
+     "core": true,
+     "goal": "고객사 · 제안 범위를 한 장으로"
+    },
+    {
+     "key": "industry",
+     "part": "market",
+     "name": "업종 이해",
+     "rule": "industry_mi",
+     "core": false,
+     "goal": "업종 트렌드로 공감대 — 요구가 없을수록 업종 언어로 연다"
+    },
+    {
+     "key": "value",
+     "part": "value",
+     "name": "제품 · 솔루션별 핵심 가치",
+     "rule": "value",
+     "core": true,
+     "goal": "선택한 제품 · 솔루션마다 하나의 가치 기둥"
+    },
+    {
+     "key": "value_qna",
+     "part": "value",
+     "name": "현장 질문에 답하는 가치",
+     "rule": "value_qna",
+     "core": false,
+     "goal": "업종 현장의 대표 질문 → 제품 · 솔루션 → 가치"
+    },
+    {
+     "key": "solution",
+     "part": "solution",
+     "name": "솔루션 소개",
+     "rule": "solution",
+     "core": true,
+     "goal": "선택한 솔루션의 역할 · 연결 제품"
+    },
+    {
+     "key": "space_map",
+     "part": "dss",
+     "name": "공간 맵",
+     "rule": "space_map",
+     "core": false,
+     "goal": "어느 공간에 무엇이 놓이는지 먼저"
+    },
+    {
+     "key": "products",
+     "part": "products",
+     "name": "공간별 제품",
+     "rule": "products",
+     "core": true,
+     "goal": "공간마다 놓일 제품 · 설치 방식"
+    },
+    {
+     "key": "case",
+     "part": "case",
+     "name": "유관 사례",
+     "rule": "cases",
+     "core": true,
+     "goal": "같은 업종 · 같은 제품의 도입 성과"
+    },
+    {
+     "key": "why",
+     "part": "why",
+     "name": "Why Samsung",
+     "rule": "why",
+     "core": true,
+     "goal": "삼성이어야 하는 이유 — 강점 셋"
+    },
+    {
+     "key": "support",
+     "part": "why",
+     "name": "도입 후 지원 체계",
+     "rule": "support",
+     "core": false,
+     "goal": "설치 · 운영 · AS 를 누가 어떻게"
+    },
+    {
+     "key": "close",
+     "part": "closing",
+     "name": "마무리 · 다음 단계",
+     "rule": "closing",
+     "core": true,
+     "goal": "다음 단계 · 담당자"
+    }
+   ],
+   "variant": {
+    "value_qna": "L_VP_U_HT",
+    "support": "L_SV_C"
+   },
+   "note": "객실 · 로비 · 연회장 투숙 경험 중심",
+   "top_values": [
+    "고객 경험",
+    "디자인 조화",
+    "브랜드 · 공간 임팩트",
+    "쾌적 · 공기질",
+    "원격 통합 관리",
+    "비용 · 투자 효과"
+   ]
+  },
+  {
+   "id": "STD-TP",
+   "ind": "TP",
+   "title": "표준 제안서 · 테마파크 · 관광 · 전시",
+   "short": "테마파크 · 관광 · 전시 — 몰입형 체험 · 대형 LED 중심. 업종 top 요구: 브랜드 · 공간 임팩트, 고객 경험, 디자인 조화",
+   "sections": [
+    {
+     "key": "open",
+     "part": "cover",
+     "name": "표지",
+     "rule": "cover",
+     "core": true,
+     "goal": "고객사 · 제안 범위를 한 장으로"
+    },
+    {
+     "key": "industry",
+     "part": "market",
+     "name": "업종 이해",
+     "rule": "industry_mi",
+     "core": false,
+     "goal": "업종 트렌드로 공감대 — 요구가 없을수록 업종 언어로 연다"
+    },
+    {
+     "key": "value",
+     "part": "value",
+     "name": "제품 · 솔루션별 핵심 가치",
+     "rule": "value",
+     "core": true,
+     "goal": "선택한 제품 · 솔루션마다 하나의 가치 기둥"
+    },
+    {
+     "key": "value_qna",
+     "part": "value",
+     "name": "현장 질문에 답하는 가치",
+     "rule": "value_qna",
+     "core": false,
+     "goal": "업종 현장의 대표 질문 → 제품 · 솔루션 → 가치"
+    },
+    {
+     "key": "solution",
+     "part": "solution",
+     "name": "솔루션 소개",
+     "rule": "solution",
+     "core": true,
+     "goal": "선택한 솔루션의 역할 · 연결 제품"
+    },
+    {
+     "key": "space_map",
+     "part": "dss",
+     "name": "공간 맵",
+     "rule": "space_map",
+     "core": false,
+     "goal": "어느 공간에 무엇이 놓이는지 먼저"
+    },
+    {
+     "key": "products",
+     "part": "products",
+     "name": "공간별 제품",
+     "rule": "products",
+     "core": true,
+     "goal": "공간마다 놓일 제품 · 설치 방식"
+    },
+    {
+     "key": "case",
+     "part": "case",
+     "name": "유관 사례",
+     "rule": "cases",
+     "core": true,
+     "goal": "같은 업종 · 같은 제품의 도입 성과"
+    },
+    {
+     "key": "why",
+     "part": "why",
+     "name": "Why Samsung",
+     "rule": "why",
+     "core": true,
+     "goal": "삼성이어야 하는 이유 — 강점 셋"
+    },
+    {
+     "key": "support",
+     "part": "why",
+     "name": "도입 후 지원 체계",
+     "rule": "support",
+     "core": false,
+     "goal": "설치 · 운영 · AS 를 누가 어떻게"
+    },
+    {
+     "key": "close",
+     "part": "closing",
+     "name": "마무리 · 다음 단계",
+     "rule": "closing",
+     "core": true,
+     "goal": "다음 단계 · 담당자"
+    }
+   ],
+   "variant": {
+    "products_led": "L_P_L",
+    "support": "L_SV_C"
+   },
+   "note": "몰입형 체험 · 대형 LED 중심",
+   "top_values": [
+    "브랜드 · 공간 임팩트",
+    "고객 경험",
+    "디자인 조화",
+    "설치 · 시공",
+    "콘텐츠 운영",
+    "다국어 안내"
+   ]
+  },
+  {
+   "id": "STD-VN",
+   "ind": "VN",
+   "title": "표준 제안서 · 공연장 · 경기장 · 영화관",
+   "short": "공연장 · 경기장 · 영화관 — 관람 경험 · LED 빅보드 중심. 업종 top 요구: 고객 경험, 브랜드 · 공간 임팩트, 설치 · 시공",
+   "sections": [
+    {
+     "key": "open",
+     "part": "cover",
+     "name": "표지",
+     "rule": "cover",
+     "core": true,
+     "goal": "고객사 · 제안 범위를 한 장으로"
+    },
+    {
+     "key": "industry",
+     "part": "market",
+     "name": "업종 이해",
+     "rule": "industry_mi",
+     "core": false,
+     "goal": "업종 트렌드로 공감대 — 요구가 없을수록 업종 언어로 연다"
+    },
+    {
+     "key": "value",
+     "part": "value",
+     "name": "제품 · 솔루션별 핵심 가치",
+     "rule": "value",
+     "core": true,
+     "goal": "선택한 제품 · 솔루션마다 하나의 가치 기둥"
+    },
+    {
+     "key": "value_qna",
+     "part": "value",
+     "name": "현장 질문에 답하는 가치",
+     "rule": "value_qna",
+     "core": false,
+     "goal": "업종 현장의 대표 질문 → 제품 · 솔루션 → 가치"
+    },
+    {
+     "key": "solution",
+     "part": "solution",
+     "name": "솔루션 소개",
+     "rule": "solution",
+     "core": true,
+     "goal": "선택한 솔루션의 역할 · 연결 제품"
+    },
+    {
+     "key": "space_map",
+     "part": "dss",
+     "name": "공간 맵",
+     "rule": "space_map",
+     "core": false,
+     "goal": "어느 공간에 무엇이 놓이는지 먼저"
+    },
+    {
+     "key": "products",
+     "part": "products",
+     "name": "공간별 제품",
+     "rule": "products",
+     "core": true,
+     "goal": "공간마다 놓일 제품 · 설치 방식"
+    },
+    {
+     "key": "case",
+     "part": "case",
+     "name": "유관 사례",
+     "rule": "cases",
+     "core": true,
+     "goal": "같은 업종 · 같은 제품의 도입 성과"
+    },
+    {
+     "key": "why",
+     "part": "why",
+     "name": "Why Samsung",
+     "rule": "why",
+     "core": true,
+     "goal": "삼성이어야 하는 이유 — 강점 셋"
+    },
+    {
+     "key": "support",
+     "part": "why",
+     "name": "도입 후 지원 체계",
+     "rule": "support",
+     "core": false,
+     "goal": "설치 · 운영 · AS 를 누가 어떻게"
+    },
+    {
+     "key": "close",
+     "part": "closing",
+     "name": "마무리 · 다음 단계",
+     "rule": "closing",
+     "core": true,
+     "goal": "다음 단계 · 담당자"
+    }
+   ],
+   "variant": {
+    "products_led": "L_P_L",
+    "support": "L_SV_C"
+   },
+   "note": "관람 경험 · LED 빅보드 중심",
+   "top_values": [
+    "고객 경험",
+    "브랜드 · 공간 임팩트",
+    "설치 · 시공",
+    "업무 효율",
+    "유지보수 · AS",
+    "쾌적 · 공기질"
+   ]
+  },
+  {
+   "id": "STD-AD",
+   "ind": "AD",
+   "title": "표준 제안서 · 옥외 · 미디어 광고",
+   "short": "옥외 · 미디어 광고 — 매체 가치 · 옥외 내구성 중심. 업종 top 요구: 브랜드 · 공간 임팩트, 현장 내구성, 설치 · 시공",
+   "sections": [
+    {
+     "key": "open",
+     "part": "cover",
+     "name": "표지",
+     "rule": "cover",
+     "core": true,
+     "goal": "고객사 · 제안 범위를 한 장으로"
+    },
+    {
+     "key": "industry",
+     "part": "market",
+     "name": "업종 이해",
+     "rule": "industry_mi",
+     "core": false,
+     "goal": "업종 트렌드로 공감대 — 요구가 없을수록 업종 언어로 연다"
+    },
+    {
+     "key": "value",
+     "part": "value",
+     "name": "제품 · 솔루션별 핵심 가치",
+     "rule": "value",
+     "core": true,
+     "goal": "선택한 제품 · 솔루션마다 하나의 가치 기둥"
+    },
+    {
+     "key": "value_qna",
+     "part": "value",
+     "name": "현장 질문에 답하는 가치",
+     "rule": "value_qna",
+     "core": false,
+     "goal": "업종 현장의 대표 질문 → 제품 · 솔루션 → 가치"
+    },
+    {
+     "key": "solution",
+     "part": "solution",
+     "name": "솔루션 소개",
+     "rule": "solution",
+     "core": true,
+     "goal": "선택한 솔루션의 역할 · 연결 제품"
+    },
+    {
+     "key": "space_map",
+     "part": "dss",
+     "name": "공간 맵",
+     "rule": "space_map",
+     "core": false,
+     "goal": "어느 공간에 무엇이 놓이는지 먼저"
+    },
+    {
+     "key": "products",
+     "part": "products",
+     "name": "공간별 제품",
+     "rule": "products",
+     "core": true,
+     "goal": "공간마다 놓일 제품 · 설치 방식"
+    },
+    {
+     "key": "case",
+     "part": "case",
+     "name": "유관 사례",
+     "rule": "cases",
+     "core": true,
+     "goal": "같은 업종 · 같은 제품의 도입 성과"
+    },
+    {
+     "key": "why",
+     "part": "why",
+     "name": "Why Samsung",
+     "rule": "why",
+     "core": true,
+     "goal": "삼성이어야 하는 이유 — 강점 셋"
+    },
+    {
+     "key": "support",
+     "part": "why",
+     "name": "도입 후 지원 체계",
+     "rule": "support",
+     "core": false,
+     "goal": "설치 · 운영 · AS 를 누가 어떻게"
+    },
+    {
+     "key": "close",
+     "part": "closing",
+     "name": "마무리 · 다음 단계",
+     "rule": "closing",
+     "core": true,
+     "goal": "다음 단계 · 담당자"
+    }
+   ],
+   "variant": {
+    "products_led": "L_P_L",
+    "support": "L_SV_B"
+   },
+   "note": "매체 가치 · 옥외 내구성 중심",
+   "top_values": [
+    "브랜드 · 공간 임팩트",
+    "현장 내구성",
+    "설치 · 시공",
+    "규제 · 인증",
+    "유지보수 · AS",
+    "디자인 조화"
+   ]
+  },
+  {
+   "id": "STD-OF",
+   "ind": "OF",
+   "title": "표준 제안서 · 오피스 · 업무 빌딩",
+   "short": "오피스 · 업무 빌딩 — 로비 · 업무층 · 회의실 경험과 통합 관제. 업종 top 요구: 원격 통합 관리, 브랜드 · 공간 임팩트, 설치 · 시공",
+   "sections": [
+    {
+     "key": "open",
+     "part": "cover",
+     "name": "표지",
+     "rule": "cover",
+     "core": true,
+     "goal": "고객사 · 제안 범위를 한 장으로"
+    },
+    {
+     "key": "industry",
+     "part": "market",
+     "name": "업종 이해",
+     "rule": "industry_mi",
+     "core": false,
+     "goal": "업종 트렌드로 공감대 — 요구가 없을수록 업종 언어로 연다"
+    },
+    {
+     "key": "value",
+     "part": "value",
+     "name": "제품 · 솔루션별 핵심 가치",
+     "rule": "value",
+     "core": true,
+     "goal": "선택한 제품 · 솔루션마다 하나의 가치 기둥"
+    },
+    {
+     "key": "value_qna",
+     "part": "value",
+     "name": "현장 질문에 답하는 가치",
+     "rule": "value_qna",
+     "core": false,
+     "goal": "업종 현장의 대표 질문 → 제품 · 솔루션 → 가치"
+    },
+    {
+     "key": "solution",
+     "part": "solution",
+     "name": "솔루션 소개",
+     "rule": "solution",
+     "core": true,
+     "goal": "선택한 솔루션의 역할 · 연결 제품"
+    },
+    {
+     "key": "space_map",
+     "part": "dss",
+     "name": "공간 맵",
+     "rule": "space_map",
+     "core": false,
+     "goal": "어느 공간에 무엇이 놓이는지 먼저"
+    },
+    {
+     "key": "products",
+     "part": "products",
+     "name": "공간별 제품",
+     "rule": "products",
+     "core": true,
+     "goal": "공간마다 놓일 제품 · 설치 방식"
+    },
+    {
+     "key": "case",
+     "part": "case",
+     "name": "유관 사례",
+     "rule": "cases",
+     "core": true,
+     "goal": "같은 업종 · 같은 제품의 도입 성과"
+    },
+    {
+     "key": "why",
+     "part": "why",
+     "name": "Why Samsung",
+     "rule": "why",
+     "core": true,
+     "goal": "삼성이어야 하는 이유 — 강점 셋"
+    },
+    {
+     "key": "support",
+     "part": "why",
+     "name": "도입 후 지원 체계",
+     "rule": "support",
+     "core": false,
+     "goal": "설치 · 운영 · AS 를 누가 어떻게"
+    },
+    {
+     "key": "close",
+     "part": "closing",
+     "name": "마무리 · 다음 단계",
+     "rule": "closing",
+     "core": true,
+     "goal": "다음 단계 · 담당자"
+    }
+   ],
+   "variant": {
+    "support": "L_SV_C"
+   },
+   "note": "로비 · 업무층 · 회의실 경험과 통합 관제",
+   "top_values": [
+    "원격 통합 관리",
+    "브랜드 · 공간 임팩트",
+    "설치 · 시공",
+    "쾌적 · 공기질",
+    "에너지 절감",
+    "협업 · 회의"
+   ]
+  },
+  {
+   "id": "STD-RS",
+   "ind": "RS",
+   "title": "표준 제안서 · 주거 분양 · 주택",
+   "short": "주거 분양 · 주택 — 세대 · 모델하우스 · 분양 가치 중심. 업종 top 요구: 분양 · 자산 가치, 디자인 조화, 쾌적 · 공기질",
+   "sections": [
+    {
+     "key": "open",
+     "part": "cover",
+     "name": "표지",
+     "rule": "cover",
+     "core": true,
+     "goal": "고객사 · 제안 범위를 한 장으로"
+    },
+    {
+     "key": "industry",
+     "part": "market",
+     "name": "업종 이해",
+     "rule": "industry_mi",
+     "core": false,
+     "goal": "업종 트렌드로 공감대 — 요구가 없을수록 업종 언어로 연다"
+    },
+    {
+     "key": "value",
+     "part": "value",
+     "name": "제품 · 솔루션별 핵심 가치",
+     "rule": "value",
+     "core": true,
+     "goal": "선택한 제품 · 솔루션마다 하나의 가치 기둥"
+    },
+    {
+     "key": "sales_point",
+     "part": "value",
+     "name": "분양 포인트",
+     "rule": "fixed",
+     "layouts": [
+      "L_RV_A"
+     ],
+     "core": true,
+     "goal": "단지 차별화 포인트"
+    },
+    {
+     "key": "value_qna",
+     "part": "value",
+     "name": "현장 질문에 답하는 가치",
+     "rule": "value_qna",
+     "core": false,
+     "goal": "업종 현장의 대표 질문 → 제품 · 솔루션 → 가치"
+    },
+    {
+     "key": "solution",
+     "part": "solution",
+     "name": "솔루션 소개",
+     "rule": "solution",
+     "core": true,
+     "goal": "선택한 솔루션의 역할 · 연결 제품"
+    },
+    {
+     "key": "space_map",
+     "part": "dss",
+     "name": "공간 맵",
+     "rule": "space_map",
+     "core": false,
+     "goal": "어느 공간에 무엇이 놓이는지 먼저"
+    },
+    {
+     "key": "products",
+     "part": "products",
+     "name": "공간별 제품",
+     "rule": "products",
+     "core": true,
+     "goal": "공간마다 놓일 제품 · 설치 방식"
+    },
+    {
+     "key": "case",
+     "part": "case",
+     "name": "유관 사례",
+     "rule": "cases",
+     "core": true,
+     "goal": "같은 업종 · 같은 제품의 도입 성과"
+    },
+    {
+     "key": "why",
+     "part": "why",
+     "name": "Why Samsung",
+     "rule": "why",
+     "core": true,
+     "goal": "삼성이어야 하는 이유 — 강점 셋"
+    },
+    {
+     "key": "support",
+     "part": "why",
+     "name": "도입 후 지원 체계",
+     "rule": "support",
+     "core": false,
+     "goal": "설치 · 운영 · AS 를 누가 어떻게"
+    },
+    {
+     "key": "close",
+     "part": "closing",
+     "name": "마무리 · 다음 단계",
+     "rule": "closing",
+     "core": true,
+     "goal": "다음 단계 · 담당자"
+    }
+   ],
+   "variant": {
+    "products_multi": "L_P_R",
+    "support": "L_SV_C"
+   },
+   "note": "세대 · 모델하우스 · 분양 가치 중심",
+   "top_values": [
+    "분양 · 자산 가치",
+    "디자인 조화",
+    "쾌적 · 공기질",
+    "에너지 절감",
+    "비용 · 투자 효과",
+    "데이터 · 모니터링"
+   ]
+  },
+  {
+   "id": "STD-ID",
+   "ind": "ID",
+   "title": "표준 제안서 · 인테리어 · 가구 · 빌트인 파트너",
+   "short": "인테리어 · 가구 · 빌트인 파트너 — 빌트인 · 쇼룸 · 시공 파트너 중심. 업종 top 요구: 디자인 조화, 브랜드 · 공간 임팩트, 설치 · 시공",
+   "sections": [
+    {
+     "key": "open",
+     "part": "cover",
+     "name": "표지",
+     "rule": "cover",
+     "core": true,
+     "goal": "고객사 · 제안 범위를 한 장으로"
+    },
+    {
+     "key": "industry",
+     "part": "market",
+     "name": "업종 이해",
+     "rule": "industry_mi",
+     "core": false,
+     "goal": "업종 트렌드로 공감대 — 요구가 없을수록 업종 언어로 연다"
+    },
+    {
+     "key": "value",
+     "part": "value",
+     "name": "제품 · 솔루션별 핵심 가치",
+     "rule": "value",
+     "core": true,
+     "goal": "선택한 제품 · 솔루션마다 하나의 가치 기둥"
+    },
+    {
+     "key": "value_qna",
+     "part": "value",
+     "name": "현장 질문에 답하는 가치",
+     "rule": "value_qna",
+     "core": false,
+     "goal": "업종 현장의 대표 질문 → 제품 · 솔루션 → 가치"
+    },
+    {
+     "key": "solution",
+     "part": "solution",
+     "name": "솔루션 소개",
+     "rule": "solution",
+     "core": true,
+     "goal": "선택한 솔루션의 역할 · 연결 제품"
+    },
+    {
+     "key": "space_map",
+     "part": "dss",
+     "name": "공간 맵",
+     "rule": "space_map",
+     "core": false,
+     "goal": "어느 공간에 무엇이 놓이는지 먼저"
+    },
+    {
+     "key": "products",
+     "part": "products",
+     "name": "공간별 제품",
+     "rule": "products",
+     "core": true,
+     "goal": "공간마다 놓일 제품 · 설치 방식"
+    },
+    {
+     "key": "case",
+     "part": "case",
+     "name": "유관 사례",
+     "rule": "cases",
+     "core": true,
+     "goal": "같은 업종 · 같은 제품의 도입 성과"
+    },
+    {
+     "key": "why",
+     "part": "why",
+     "name": "Why Samsung",
+     "rule": "why",
+     "core": true,
+     "goal": "삼성이어야 하는 이유 — 강점 셋"
+    },
+    {
+     "key": "support",
+     "part": "why",
+     "name": "도입 후 지원 체계",
+     "rule": "support",
+     "core": false,
+     "goal": "설치 · 운영 · AS 를 누가 어떻게"
+    },
+    {
+     "key": "close",
+     "part": "closing",
+     "name": "마무리 · 다음 단계",
+     "rule": "closing",
+     "core": true,
+     "goal": "다음 단계 · 담당자"
+    }
+   ],
+   "variant": {
+    "products_multi": "L_P_R",
+    "support": "L_SV_C"
+   },
+   "note": "빌트인 · 쇼룸 · 시공 파트너 중심",
+   "top_values": [
+    "디자인 조화",
+    "브랜드 · 공간 임팩트",
+    "설치 · 시공",
+    "쾌적 · 공기질",
+    "에너지 절감",
+    "맞춤 개발"
+   ]
+  },
+  {
+   "id": "STD-ED",
+   "ind": "ED",
+   "title": "표준 제안서 · 교육 · 캠퍼스",
+   "short": "교육 · 캠퍼스 — 강의실 · 도서관 · 기숙사 학습 환경 중심. 업종 top 요구: 교육 · 학습 환경, 업무 효율, 협업 · 회의",
+   "sections": [
+    {
+     "key": "open",
+     "part": "cover",
+     "name": "표지",
+     "rule": "cover",
+     "core": true,
+     "goal": "고객사 · 제안 범위를 한 장으로"
+    },
+    {
+     "key": "industry",
+     "part": "market",
+     "name": "업종 이해",
+     "rule": "industry_mi",
+     "core": false,
+     "goal": "업종 트렌드로 공감대 — 요구가 없을수록 업종 언어로 연다"
+    },
+    {
+     "key": "value",
+     "part": "value",
+     "name": "제품 · 솔루션별 핵심 가치",
+     "rule": "value",
+     "core": true,
+     "goal": "선택한 제품 · 솔루션마다 하나의 가치 기둥"
+    },
+    {
+     "key": "value_qna",
+     "part": "value",
+     "name": "현장 질문에 답하는 가치",
+     "rule": "value_qna",
+     "core": false,
+     "goal": "업종 현장의 대표 질문 → 제품 · 솔루션 → 가치"
+    },
+    {
+     "key": "solution",
+     "part": "solution",
+     "name": "솔루션 소개",
+     "rule": "solution",
+     "core": true,
+     "goal": "선택한 솔루션의 역할 · 연결 제품"
+    },
+    {
+     "key": "space_map",
+     "part": "dss",
+     "name": "공간 맵",
+     "rule": "space_map",
+     "core": false,
+     "goal": "어느 공간에 무엇이 놓이는지 먼저"
+    },
+    {
+     "key": "products",
+     "part": "products",
+     "name": "공간별 제품",
+     "rule": "products",
+     "core": true,
+     "goal": "공간마다 놓일 제품 · 설치 방식"
+    },
+    {
+     "key": "case",
+     "part": "case",
+     "name": "유관 사례",
+     "rule": "cases",
+     "core": true,
+     "goal": "같은 업종 · 같은 제품의 도입 성과"
+    },
+    {
+     "key": "why",
+     "part": "why",
+     "name": "Why Samsung",
+     "rule": "why",
+     "core": true,
+     "goal": "삼성이어야 하는 이유 — 강점 셋"
+    },
+    {
+     "key": "support",
+     "part": "why",
+     "name": "도입 후 지원 체계",
+     "rule": "support",
+     "core": false,
+     "goal": "설치 · 운영 · AS 를 누가 어떻게"
+    },
+    {
+     "key": "close",
+     "part": "closing",
+     "name": "마무리 · 다음 단계",
+     "rule": "closing",
+     "core": true,
+     "goal": "다음 단계 · 담당자"
+    }
+   ],
+   "variant": {
+    "support": "L_SV_C"
+   },
+   "note": "강의실 · 도서관 · 기숙사 학습 환경 중심",
+   "top_values": [
+    "교육 · 학습 환경",
+    "업무 효율",
+    "협업 · 회의",
+    "쾌적 · 공기질",
+    "시스템 연동",
+    "유지보수 · AS"
+   ]
+  },
+  {
+   "id": "STD-PB",
+   "ind": "PB",
+   "title": "표준 제안서 · 공공 · 교통 인프라",
+   "short": "공공 · 교통 인프라 — 현장 내구성 · 안전 · 관제 중심. 업종 top 요구: 현장 내구성, 데이터 · 모니터링, 안전 · 재난",
+   "sections": [
+    {
+     "key": "open",
+     "part": "cover",
+     "name": "표지",
+     "rule": "cover",
+     "core": true,
+     "goal": "고객사 · 제안 범위를 한 장으로"
+    },
+    {
+     "key": "industry",
+     "part": "market",
+     "name": "업종 이해",
+     "rule": "industry_mi",
+     "core": false,
+     "goal": "업종 트렌드로 공감대 — 요구가 없을수록 업종 언어로 연다"
+    },
+    {
+     "key": "value",
+     "part": "value",
+     "name": "제품 · 솔루션별 핵심 가치",
+     "rule": "value",
+     "core": true,
+     "goal": "선택한 제품 · 솔루션마다 하나의 가치 기둥"
+    },
+    {
+     "key": "value_qna",
+     "part": "value",
+     "name": "현장 질문에 답하는 가치",
+     "rule": "value_qna",
+     "core": false,
+     "goal": "업종 현장의 대표 질문 → 제품 · 솔루션 → 가치"
+    },
+    {
+     "key": "solution",
+     "part": "solution",
+     "name": "솔루션 소개",
+     "rule": "solution",
+     "core": true,
+     "goal": "선택한 솔루션의 역할 · 연결 제품"
+    },
+    {
+     "key": "space_map",
+     "part": "dss",
+     "name": "공간 맵",
+     "rule": "space_map",
+     "core": false,
+     "goal": "어느 공간에 무엇이 놓이는지 먼저"
+    },
+    {
+     "key": "products",
+     "part": "products",
+     "name": "공간별 제품",
+     "rule": "products",
+     "core": true,
+     "goal": "공간마다 놓일 제품 · 설치 방식"
+    },
+    {
+     "key": "case",
+     "part": "case",
+     "name": "유관 사례",
+     "rule": "cases",
+     "core": true,
+     "goal": "같은 업종 · 같은 제품의 도입 성과"
+    },
+    {
+     "key": "why",
+     "part": "why",
+     "name": "Why Samsung",
+     "rule": "why",
+     "core": true,
+     "goal": "삼성이어야 하는 이유 — 강점 셋"
+    },
+    {
+     "key": "support",
+     "part": "why",
+     "name": "도입 후 지원 체계",
+     "rule": "support",
+     "core": false,
+     "goal": "설치 · 운영 · AS 를 누가 어떻게"
+    },
+    {
+     "key": "close",
+     "part": "closing",
+     "name": "마무리 · 다음 단계",
+     "rule": "closing",
+     "core": true,
+     "goal": "다음 단계 · 담당자"
+    }
+   ],
+   "variant": {
+    "support": "L_SV_B"
+   },
+   "note": "현장 내구성 · 안전 · 관제 중심",
+   "top_values": [
+    "현장 내구성",
+    "데이터 · 모니터링",
+    "안전 · 재난",
+    "시스템 연동",
+    "확장성",
+    "보안 · 기기 통제"
+   ]
+  },
+  {
+   "id": "STD-MD",
+   "ind": "MD",
+   "title": "표준 제안서 · 의료 · 요양 · 케어",
+   "short": "의료 · 요양 · 케어 — 병동 · 환자 경험 · 감염 관리 중심. 업종 top 요구: 쾌적 · 공기질, 업무 효율, 원격 통합 관리",
+   "sections": [
+    {
+     "key": "open",
+     "part": "cover",
+     "name": "표지",
+     "rule": "cover",
+     "core": true,
+     "goal": "고객사 · 제안 범위를 한 장으로"
+    },
+    {
+     "key": "industry",
+     "part": "market",
+     "name": "업종 이해",
+     "rule": "industry_mi",
+     "core": false,
+     "goal": "업종 트렌드로 공감대 — 요구가 없을수록 업종 언어로 연다"
+    },
+    {
+     "key": "value",
+     "part": "value",
+     "name": "제품 · 솔루션별 핵심 가치",
+     "rule": "value",
+     "core": true,
+     "goal": "선택한 제품 · 솔루션마다 하나의 가치 기둥"
+    },
+    {
+     "key": "value_qna",
+     "part": "value",
+     "name": "현장 질문에 답하는 가치",
+     "rule": "value_qna",
+     "core": false,
+     "goal": "업종 현장의 대표 질문 → 제품 · 솔루션 → 가치"
+    },
+    {
+     "key": "solution",
+     "part": "solution",
+     "name": "솔루션 소개",
+     "rule": "solution",
+     "core": true,
+     "goal": "선택한 솔루션의 역할 · 연결 제품"
+    },
+    {
+     "key": "space_map",
+     "part": "dss",
+     "name": "공간 맵",
+     "rule": "space_map",
+     "core": false,
+     "goal": "어느 공간에 무엇이 놓이는지 먼저"
+    },
+    {
+     "key": "products",
+     "part": "products",
+     "name": "공간별 제품",
+     "rule": "products",
+     "core": true,
+     "goal": "공간마다 놓일 제품 · 설치 방식"
+    },
+    {
+     "key": "case",
+     "part": "case",
+     "name": "유관 사례",
+     "rule": "cases",
+     "core": true,
+     "goal": "같은 업종 · 같은 제품의 도입 성과"
+    },
+    {
+     "key": "why",
+     "part": "why",
+     "name": "Why Samsung",
+     "rule": "why",
+     "core": true,
+     "goal": "삼성이어야 하는 이유 — 강점 셋"
+    },
+    {
+     "key": "support",
+     "part": "why",
+     "name": "도입 후 지원 체계",
+     "rule": "support",
+     "core": false,
+     "goal": "설치 · 운영 · AS 를 누가 어떻게"
+    },
+    {
+     "key": "close",
+     "part": "closing",
+     "name": "마무리 · 다음 단계",
+     "rule": "closing",
+     "core": true,
+     "goal": "다음 단계 · 담당자"
+    }
+   ],
+   "variant": {
+    "value_qna": "L_VP_U_MD",
+    "support": "L_SV_B"
+   },
+   "note": "병동 · 환자 경험 · 감염 관리 중심",
+   "top_values": [
+    "쾌적 · 공기질",
+    "업무 효율",
+    "원격 통합 관리",
+    "고객 경험",
+    "에너지 절감",
+    "데이터 · 모니터링"
+   ]
+  },
+  {
+   "id": "STD-MF",
+   "ind": "MF",
+   "title": "표준 제안서 · 제조 · 물류 · 현장",
+   "short": "제조 · 물류 · 현장 — 현장 단말 · 내구성 · 보안 중심. 업종 top 요구: 현장 내구성, 업무 효율, 원격 통합 관리",
+   "sections": [
+    {
+     "key": "open",
+     "part": "cover",
+     "name": "표지",
+     "rule": "cover",
+     "core": true,
+     "goal": "고객사 · 제안 범위를 한 장으로"
+    },
+    {
+     "key": "industry",
+     "part": "market",
+     "name": "업종 이해",
+     "rule": "industry_mi",
+     "core": false,
+     "goal": "업종 트렌드로 공감대 — 요구가 없을수록 업종 언어로 연다"
+    },
+    {
+     "key": "value",
+     "part": "value",
+     "name": "제품 · 솔루션별 핵심 가치",
+     "rule": "value",
+     "core": true,
+     "goal": "선택한 제품 · 솔루션마다 하나의 가치 기둥"
+    },
+    {
+     "key": "value_qna",
+     "part": "value",
+     "name": "현장 질문에 답하는 가치",
+     "rule": "value_qna",
+     "core": false,
+     "goal": "업종 현장의 대표 질문 → 제품 · 솔루션 → 가치"
+    },
+    {
+     "key": "solution",
+     "part": "solution",
+     "name": "솔루션 소개",
+     "rule": "solution",
+     "core": true,
+     "goal": "선택한 솔루션의 역할 · 연결 제품"
+    },
+    {
+     "key": "space_map",
+     "part": "dss",
+     "name": "공간 맵",
+     "rule": "space_map",
+     "core": false,
+     "goal": "어느 공간에 무엇이 놓이는지 먼저"
+    },
+    {
+     "key": "products",
+     "part": "products",
+     "name": "공간별 제품",
+     "rule": "products",
+     "core": true,
+     "goal": "공간마다 놓일 제품 · 설치 방식"
+    },
+    {
+     "key": "case",
+     "part": "case",
+     "name": "유관 사례",
+     "rule": "cases",
+     "core": true,
+     "goal": "같은 업종 · 같은 제품의 도입 성과"
+    },
+    {
+     "key": "why",
+     "part": "why",
+     "name": "Why Samsung",
+     "rule": "why",
+     "core": true,
+     "goal": "삼성이어야 하는 이유 — 강점 셋"
+    },
+    {
+     "key": "support",
+     "part": "why",
+     "name": "도입 후 지원 체계",
+     "rule": "support",
+     "core": false,
+     "goal": "설치 · 운영 · AS 를 누가 어떻게"
+    },
+    {
+     "key": "close",
+     "part": "closing",
+     "name": "마무리 · 다음 단계",
+     "rule": "closing",
+     "core": true,
+     "goal": "다음 단계 · 담당자"
+    }
+   ],
+   "variant": {
+    "products_mobile": "L_P_Q",
+    "support": "L_SV_B"
+   },
+   "note": "현장 단말 · 내구성 · 보안 중심",
+   "top_values": [
+    "현장 내구성",
+    "업무 효율",
+    "원격 통합 관리",
+    "에너지 절감",
+    "데이터 · 모니터링",
+    "고객 경험"
+   ]
+  },
+  {
+   "id": "STD-FN",
+   "ind": "FN",
+   "title": "표준 제안서 · 금융",
+   "short": "금융 — 창구 · 상담 · 보안 통제 중심. 업종 top 요구: 고객 경험, 보안 · 기기 통제, 브랜드 · 공간 임팩트",
+   "sections": [
+    {
+     "key": "open",
+     "part": "cover",
+     "name": "표지",
+     "rule": "cover",
+     "core": true,
+     "goal": "고객사 · 제안 범위를 한 장으로"
+    },
+    {
+     "key": "industry",
+     "part": "market",
+     "name": "업종 이해",
+     "rule": "industry_mi",
+     "core": false,
+     "goal": "업종 트렌드로 공감대 — 요구가 없을수록 업종 언어로 연다"
+    },
+    {
+     "key": "value",
+     "part": "value",
+     "name": "제품 · 솔루션별 핵심 가치",
+     "rule": "value",
+     "core": true,
+     "goal": "선택한 제품 · 솔루션마다 하나의 가치 기둥"
+    },
+    {
+     "key": "value_qna",
+     "part": "value",
+     "name": "현장 질문에 답하는 가치",
+     "rule": "value_qna",
+     "core": false,
+     "goal": "업종 현장의 대표 질문 → 제품 · 솔루션 → 가치"
+    },
+    {
+     "key": "solution",
+     "part": "solution",
+     "name": "솔루션 소개",
+     "rule": "solution",
+     "core": true,
+     "goal": "선택한 솔루션의 역할 · 연결 제품"
+    },
+    {
+     "key": "space_map",
+     "part": "dss",
+     "name": "공간 맵",
+     "rule": "space_map",
+     "core": false,
+     "goal": "어느 공간에 무엇이 놓이는지 먼저"
+    },
+    {
+     "key": "products",
+     "part": "products",
+     "name": "공간별 제품",
+     "rule": "products",
+     "core": true,
+     "goal": "공간마다 놓일 제품 · 설치 방식"
+    },
+    {
+     "key": "case",
+     "part": "case",
+     "name": "유관 사례",
+     "rule": "cases",
+     "core": true,
+     "goal": "같은 업종 · 같은 제품의 도입 성과"
+    },
+    {
+     "key": "why",
+     "part": "why",
+     "name": "Why Samsung",
+     "rule": "why",
+     "core": true,
+     "goal": "삼성이어야 하는 이유 — 강점 셋"
+    },
+    {
+     "key": "support",
+     "part": "why",
+     "name": "도입 후 지원 체계",
+     "rule": "support",
+     "core": false,
+     "goal": "설치 · 운영 · AS 를 누가 어떻게"
+    },
+    {
+     "key": "close",
+     "part": "closing",
+     "name": "마무리 · 다음 단계",
+     "rule": "closing",
+     "core": true,
+     "goal": "다음 단계 · 담당자"
+    }
+   ],
+   "variant": {
+    "support": "L_SV_B"
+   },
+   "note": "창구 · 상담 · 보안 통제 중심",
+   "top_values": [
+    "고객 경험",
+    "보안 · 기기 통제",
+    "브랜드 · 공간 임팩트",
+    "설치 · 시공",
+    "비용 · 투자 효과",
+    "쾌적 · 공기질"
+   ]
+  },
+  {
+   "id": "STD-OE",
+   "ind": "OE",
+   "title": "표준 제안서 · 파트너 전용 단말 · 에디션",
+   "short": "파트너 전용 단말 · 에디션 — 파트너 전용 단말 · 맞춤 개발 중심. 업종 top 요구: 맞춤 개발, 시스템 연동, 보안 · 기기 통제",
+   "sections": [
+    {
+     "key": "open",
+     "part": "cover",
+     "name": "표지",
+     "rule": "cover",
+     "core": true,
+     "goal": "고객사 · 제안 범위를 한 장으로"
+    },
+    {
+     "key": "industry",
+     "part": "market",
+     "name": "업종 이해",
+     "rule": "industry_mi",
+     "core": false,
+     "goal": "업종 트렌드로 공감대 — 요구가 없을수록 업종 언어로 연다"
+    },
+    {
+     "key": "value",
+     "part": "value",
+     "name": "제품 · 솔루션별 핵심 가치",
+     "rule": "value",
+     "core": true,
+     "goal": "선택한 제품 · 솔루션마다 하나의 가치 기둥"
+    },
+    {
+     "key": "edition",
+     "part": "execution",
+     "name": "전용 에디션 사양",
+     "rule": "fixed",
+     "layouts": [
+      "L_CU_A"
+     ],
+     "core": true,
+     "goal": "파트너 맞춤 사양"
+    },
+    {
+     "key": "value_qna",
+     "part": "value",
+     "name": "현장 질문에 답하는 가치",
+     "rule": "value_qna",
+     "core": false,
+     "goal": "업종 현장의 대표 질문 → 제품 · 솔루션 → 가치"
+    },
+    {
+     "key": "solution",
+     "part": "solution",
+     "name": "솔루션 소개",
+     "rule": "solution",
+     "core": true,
+     "goal": "선택한 솔루션의 역할 · 연결 제품"
+    },
+    {
+     "key": "space_map",
+     "part": "dss",
+     "name": "공간 맵",
+     "rule": "space_map",
+     "core": false,
+     "goal": "어느 공간에 무엇이 놓이는지 먼저"
+    },
+    {
+     "key": "products",
+     "part": "products",
+     "name": "공간별 제품",
+     "rule": "products",
+     "core": true,
+     "goal": "공간마다 놓일 제품 · 설치 방식"
+    },
+    {
+     "key": "case",
+     "part": "case",
+     "name": "유관 사례",
+     "rule": "cases",
+     "core": true,
+     "goal": "같은 업종 · 같은 제품의 도입 성과"
+    },
+    {
+     "key": "why",
+     "part": "why",
+     "name": "Why Samsung",
+     "rule": "why",
+     "core": true,
+     "goal": "삼성이어야 하는 이유 — 강점 셋"
+    },
+    {
+     "key": "support",
+     "part": "why",
+     "name": "도입 후 지원 체계",
+     "rule": "support",
+     "core": false,
+     "goal": "설치 · 운영 · AS 를 누가 어떻게"
+    },
+    {
+     "key": "close",
+     "part": "closing",
+     "name": "마무리 · 다음 단계",
+     "rule": "closing",
+     "core": true,
+     "goal": "다음 단계 · 담당자"
+    }
+   ],
+   "variant": {
+    "products_mobile": "L_P_Q",
+    "support": "L_SV_C"
+   },
+   "note": "파트너 전용 단말 · 맞춤 개발 중심",
+   "top_values": [
+    "맞춤 개발",
+    "시스템 연동",
+    "보안 · 기기 통제",
+    "현장 내구성",
+    "고객 경험",
+    "안전 · 재난"
+   ]
+  }
+ ]
+}

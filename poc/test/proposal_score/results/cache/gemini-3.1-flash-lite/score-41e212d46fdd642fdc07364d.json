@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs01:F10"
+ },
+ "prompt_tokens": 6352,
+ "output_tokens": 391,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO와 SmartThings Pro를 활용해 본사 운영부터 매장 환경 제어까지의 구체적인 운영 시나리오와 관리 주체(본사, 매장)를 명확히 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "제작·승인·배포·적용 확인까지 한 화면에서"
+     },
+     {
+      "sheet": 7,
+      "quote": "본사 POS에서 가격 변경, MagicINFO가 새 가격을 콘텐츠에 연결"
+     },
+     {
+      "sheet": 9,
+      "quote": "SmartThings Pro 루틴이 한산한 시간 냉난방을 낮춤"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "파일럿 매장 선정 기준, 12주간의 상세 일정, 교육 및 운영 이관을 포함한 구체적인 실행 계획을 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "준비 2주 + 운영 8주 + 평가 2주, 설치·점주 교육"
+     },
+     {
+      "sheet": 16,
+      "quote": "시범 매장 10곳 실사 일정 확정, 파일럿 승인·착수"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,56 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs09:F10"
+ },
+ "prompt_tokens": 4893,
+ "output_tokens": 446,
+ "data": {
+  "scores": [
+   {
+    "id": "PR7",
+    "score": 3,
+    "anchor": "설치 환경(전원, 통신, 시공)과 고객 준비 사항, 유지보수 및 보증 범위를 모두 명시하였습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "타공 · 앵커 · 절단은 23–02시에만"
+     },
+     {
+      "sheet": 12,
+      "quote": "전담 서비스망 · 장애 대응 기준(SLA)"
+     },
+     {
+      "sheet": 13,
+      "quote": "삼성 · 시설팀 · 시공사가 11/02–11/06 실측 · 전원 · 통신 확인"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "일정, 단계, 유지보수 계획은 구체적이나, 운영 이관 및 교육에 대한 구체적인 내용이 누락되었습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "안내를 끊지 않고, 시범 구간을 여섯 밤에 바꿉니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "전담 서비스망 · 장애 대응 기준(SLA)"
+     },
+     {
+      "sheet": 13,
+      "quote": "2027년 1월 시범 설치, 설치 후 12주 운영 결과로 확산 판단"
+     }
+    ],
+    "improve": "시범 운영 이후 고객사 담당자를 대상으로 한 운영 교육 및 시스템 이관 절차를 구체적으로 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

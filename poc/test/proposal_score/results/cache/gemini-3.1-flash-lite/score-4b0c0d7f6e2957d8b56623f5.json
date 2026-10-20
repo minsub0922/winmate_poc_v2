@@ -1,0 +1,56 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19:F08"
+ },
+ "prompt_tokens": 2842,
+ "output_tokens": 429,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "5장에서 7일→당일(운영 효율), 장애 선제 대응(비용 절감), 단계적 도입(실행 안정성)이라는 3가지 결과형 가치를 명확히 제시하고 각 가치와 솔루션을 연결함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "7일 → 당일 | 원격 통합 관리"
+     },
+     {
+      "sheet": 5,
+      "quote": "-30% | 장애 선제 대응"
+     },
+     {
+      "sheet": 5,
+      "quote": "16주 | 단계적 도입"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "DS7",
+    "score": 3,
+    "anchor": "전체 10개 장 중 9개 장의 제목이 결론을 담은 문장형이며, 5장 또한 '260개 사업장의 화면을 (본사에서 바꾼다)'는 맥락을 포함하여 전체 스토리가 자연스럽게 이어짐.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "260개 사업장 화면, 그룹 본사에서 한 번에 바꿉니다"
+     },
+     {
+      "sheet": 3,
+      "quote": "업계는 이미 움직였고, Y 그룹은 지금이 적기입니다"
+     },
+     {
+      "sheet": 10,
+      "quote": "2주 안에 현장부터, 세 단계로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

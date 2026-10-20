@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs04:F10"
+ },
+ "prompt_tokens": 2361,
+ "output_tokens": 216,
+ "data": {
+  "scores": [
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "13장에서 도면 검토, 옵션 확정, 모델하우스 설치 일정 등 구체적인 날짜와 역할 분담은 명시되어 있으나, 운영 이관 및 교육 내용이 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "12월까지, 함께 정할 세 가지"
+     },
+     {
+      "sheet": 13,
+      "quote": "도면 · 치수 검토 | 타입 4종 주방 도면 · 삼성 · 설계팀 · 가구사"
+     }
+    ],
+    "improve": "입주 후 유지보수 체계와 운영 이관 및 입주민 대상 교육 계획을 상세히 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

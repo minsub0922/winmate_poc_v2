@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs05:F05"
+ },
+ "prompt_tokens": 6636,
+ "output_tokens": 239,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "대부분의 시장 및 성과 수치에 출처가 명시되어 있지 않거나, 일부는 '삼성전자 추정'과 같이 모호하게 표기되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "수량은 실측 후 확정"
+     },
+     {
+      "sheet": 6,
+      "quote": "목표치는 유사 사례 기준 삼성 추정"
+     },
+     {
+      "sheet": 11,
+      "quote": "시청 거리 = 피치(mm) × 2 m"
+     }
+    ],
+    "improve": "모든 수치와 성과 지표에 구체적인 조사 기관 및 연도를 명시하고, 자체 추정치인 경우 근거와 산출 기준을 명확히 기재해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

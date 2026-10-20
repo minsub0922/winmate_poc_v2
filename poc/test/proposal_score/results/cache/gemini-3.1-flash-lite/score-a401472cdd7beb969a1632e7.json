@@ -1,0 +1,82 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11~full:F09"
+ },
+ "prompt_tokens": 9319,
+ "output_tokens": 656,
+ "data": {
+  "scores": [
+   {
+    "id": "PR1",
+    "score": 3,
+    "anchor": "제안된 모델(QM65C, VM55B, WM75B)은 모두 현재 카탈로그 라인업에 포함된 현행 모델이며, 단종이나 이전 세대 표기가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "QM65C, VM55B, WM75B"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR2",
+    "score": 3,
+    "anchor": "제안서에 기재된 모델별 사양(밝기, 해상도, 운영 시간 등)이 카탈로그 공식 사양과 모두 일치하며, 장별로 동일하게 표기되었습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "QM65C 500nit, 24/7 운영, 4K UHD"
+     },
+     {
+      "sheet": 7,
+      "quote": "VM55B 초슬림 베젤, 다면 구성"
+     },
+     {
+      "sheet": 7,
+      "quote": "WM75B 75\" 터치, 무선 공유"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR5",
+    "score": 3,
+    "anchor": "제안서 전반에 걸쳐 제품 모델명을 QM65C, VM55B, WM75B로 일관되게 표기하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "VM55B 3×6, QM65C × 24, WM75B × 8"
+     },
+     {
+      "sheet": 7,
+      "quote": "QM65C, VM55B, WM75B"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR3",
+    "score": 3,
+    "anchor": "MagicINFO, Knox Suite 등 브랜드명과 삼성전자 표기가 공식 가이드라인에 따라 일관되게 작성되었습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "MagicINFO, Knox Suite"
+     },
+     {
+      "sheet": 9,
+      "quote": "Knox Suite, Knox Manage, Knox Vault"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

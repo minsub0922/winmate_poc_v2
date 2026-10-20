@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs20:F09"
+ },
+ "prompt_tokens": 4588,
+ "output_tokens": 199,
+ "data": {
+  "scores": [
+   {
+    "id": "PR2",
+    "score": 2,
+    "anchor": "6장의 미디어폴 OH55A-S 밝기가 3,000nit로 표기되어 있으나, 카탈로그 사양인 3,500nit(최대 4,000nit)와 차이가 있습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "옥외형 사이니지 OH55A-S · 양면 · 폴당 2대 / 한낮 밝기 / 3,000nit"
+     }
+    ],
+    "improve": "제안서 내 제품 사양을 공식 카탈로그의 표준 사양과 일치하도록 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

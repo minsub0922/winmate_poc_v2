@@ -1,0 +1,34 @@
+{
+  "id": "B05",
+  "title": "물류센터 현장 단말 교체 pilot (영어 혼용 메모)",
+  "input": {
+    "title": "한결로지스 이천센터 field device 교체",
+    "customer": "한결로지스(주)",
+    "project": "이천 물류센터 현장 업무 단말 교체 pilot",
+    "target": "물류운영본부장",
+    "free_text": "한결로지스 이천센터 field device 교체 건입니다.\n현재 쓰는 legacy PDA가 Windows CE 기반이라 EOS 되서 vendor support 끊김. 현장에서 drop 파손 많고 battery 오래 못감, 바코드 scan 속도도 불만 많음.\nIT팀은 MDM으로 central 관리 되야 한다는 입장이고, WMS 앱은 웹 기반이라 Android로 넘어가도 문제 없을거라고 함.\n지게차 기사분들은 화면 큰거 원함 (거치형).\n일단 이천센터 pilot 먼저 해보고 결과 좋으면 다른 센터들도 roll-out 검토한다고.",
+    "keymen": [
+      {"name": "물류운영팀 (이천센터장)", "weight": 50, "reqs": ["떨어뜨려도 안 깨지는 단말", "장갑 끼고도 터치·스캔 가능", "교대 근무 동안 배터리 유지"]},
+      {"name": "IT팀", "weight": 50, "reqs": ["MDM으로 중앙 관리", "기존 웹 WMS 그대로 사용", "분실 시 원격 잠금"]}
+    ],
+    "note": "XCover7 Pro + Knox Capture면 전용 스캐너 없이 카메라 스캔 가능. 지게차 거치는 Tab Active5 Pro. pilot 단말 무상 대여 되는지 내부 확인 필요. roll-out 때 Knox Suite 라이선스로 upsell",
+    "files": [],
+    "products": ["xcover7", "tabactive5"]
+  },
+  "expect": {
+    "level": "ambiguous",
+    "industry": "MF",
+    "products_expected": ["xcover7", "tabactive5"],
+    "must_show": [
+      {"kw": ["파일럿", "pilot", "시범", "단계적"], "why": "이천센터 pilot 후 전 센터 확산이라는 도입 방식"},
+      {"kw": ["내구성", "낙하", "러기드", "파손"], "why": "현장 drop 파손이 가장 큰 불만"},
+      {"kw": ["바코드", "스캔", "Knox Capture"], "why": "스캔 속도 불만과 전용 PDA 대체"},
+      {"kw": ["MDM", "Knox Suite", "중앙 관리", "원격 관리"], "why": "IT팀의 중앙 관리·원격 잠금 요구"},
+      {"kw": ["지게차", "거치"], "why": "지게차 기사용 대화면 거치형 단말 요구"}
+    ],
+    "facts": [],
+    "must_not": ["메뉴보드", "객실", "교실"],
+    "strategy": "land",
+    "good_proposal": "EOS된 legacy PDA 문제(파손·배터리·스캔 속도)를 짧게 짚은 뒤, 이천센터 pilot 범위(작업자용 XCover7 Pro, 지게차 거치용 Tab Active5 Pro)와 성공 기준을 명확히 제시하고 이후 전 센터 roll-out 로드맵으로 확장하는 '작게 시작해 확산' 구조여야 한다. Knox Capture 스캔, MDM(Knox Suite) 중앙 관리, 기존 웹 WMS 호환을 현장·IT 양쪽 요구에 맞춰 보여주고, 센터 수·대수는 입력에 없으니 지어내지 말 것."
+  }
+}

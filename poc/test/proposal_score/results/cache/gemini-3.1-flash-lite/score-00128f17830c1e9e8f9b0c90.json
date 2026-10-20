@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~no_proof:F07"
+ },
+ "prompt_tokens": 2981,
+ "output_tokens": 221,
+ "data": {
+  "scores": [
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "삼성의 통합 솔루션(사이니지+공조)과 원격 감시/SLA 강점을 고객의 장애 및 운영 과제와 연결하여 5년 총비용(TCO) 수치로 구체화함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "354면과 공조를 한 창구에서, 덜 멈추게"
+     },
+     {
+      "sheet": 6,
+      "quote": "5년 총비용은 삼성 안이 낮습니다"
+     },
+     {
+      "sheet": 7,
+      "quote": "5년 총비용은 12% 낮습니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

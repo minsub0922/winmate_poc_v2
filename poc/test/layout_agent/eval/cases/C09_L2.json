@@ -1,0 +1,43 @@
+{
+ "id": "C09_L2",
+ "case": "C09",
+ "industry": "SV",
+ "strategy": "roi",
+ "req_type": "ops",
+ "title": "무인 스터디카페 에너지 절감",
+ "level": "ambiguous",
+ "input": {
+  "title": "N 스터디카페 전기료",
+  "customer": "N 스터디카페",
+  "free_text": "무인 매장을 여러 곳 운영하는데 전기료가 많이 나와서 고민이라고 합니다. 매장에 사람이 없어서 관리도 어렵다고 하네요.",
+  "id": "C09_L2"
+ },
+ "gold": {
+  "level": "ambiguous",
+  "industry": "SV",
+  "scenario_any": [
+   "bs13"
+  ],
+  "scenario_top3": [
+   "bs13"
+  ],
+  "must_parts": [
+   "effect"
+  ],
+  "key_reqs": [
+   {
+    "kw": [
+     "전기료"
+    ],
+    "parts_any": [
+     "effect",
+     "challenge",
+     "value",
+     "cost"
+    ],
+    "priority": "should"
+   }
+  ],
+  "facts": []
+ }
+}

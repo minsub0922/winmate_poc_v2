@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~placeholders:F11"
+ },
+ "prompt_tokens": 2996,
+ "output_tokens": 438,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 초과하는 장이 10개로, 1점 기준인 4장 이상을 크게 상회하여 발표 자료로 읽기에 부적합합니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "시범이 끝나도 멈추지 않도록, 세 단계로 운영을 넘깁니다"
+     },
+     {
+      "sheet": 6,
+      "quote": "데이터는 M 베이커리 안에 머뭅니다"
+     },
+     {
+      "sheet": 7,
+      "quote": "지점에는 화면만, 나머지는 클라우드에"
+     }
+    ],
+    "improve": "장당 어절 수를 77어절 이하로 대폭 줄이고, 핵심 메시지 위주로 개조식 구성을 강화해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 30% 이상이 10pt 미만이며, 9pt 미만인 장이 7장으로 확인되어 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "데이터는 M 베이커리 안에 머뭅니다"
+     },
+     {
+      "sheet": 11,
+      "quote": "5년을 보면 순서가 바뀌고, 차이는 6%입니다"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정하여 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

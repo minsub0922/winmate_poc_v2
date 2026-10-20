@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~no_proof:F03"
+ },
+ "prompt_tokens": 2412,
+ "output_tokens": 186,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "제안 요약 장(2장)에 경영 지표인 TCO와 장애율이 요약되어 있고, 마무리 장(9장)에 결정권자가 승인해야 할 3가지 사항이 명확히 정리되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "5년 −12% | 5년 총비용 · 현 공급사 안 대비"
+     },
+     {
+      "sheet": 9,
+      "quote": "12월 발주 전 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~strip_images:F07"
+ },
+ "prompt_tokens": 2618,
+ "output_tokens": 218,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "5년 총소유비용(TCO)을 설치형, 구독형, 렌탈형으로 구분하여 산정하고, 180개 지점 및 360대 기기라는 명확한 산정 전제와 구성 항목을 제시함.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "180개 지점 · 5년 · 360대가 5년 동안 켜 있는"
+     },
+     {
+      "sheet": 11,
+      "quote": "5년 총비용 구성 · 억 원 · 8.9억 · 9.5억 · 9.7억"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

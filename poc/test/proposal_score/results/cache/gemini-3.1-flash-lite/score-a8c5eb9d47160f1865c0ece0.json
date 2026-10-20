@@ -1,0 +1,39 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs12:F02"
+ },
+ "prompt_tokens": 7762,
+ "output_tokens": 260,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 4가지 요구사항(화질·시야각, 광고 수익, 장애 대응, 시공 기간)에 대해 각각 대응하는 장을 명시하고 구체적인 해법과 근거를 제시함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "본부석 상단 165 m에서도 읽히는 빅보드"
+     },
+     {
+      "sheet": 12,
+      "quote": "광고 · 매점 수익으로 28개월 만에 회수합니다"
+     },
+     {
+      "sheet": 11,
+      "quote": "홈경기 상주 엔지니어 · 월간 점검 리포트"
+     },
+     {
+      "sheet": 13,
+      "quote": "착수 후 14주 안에 개막 전 완공"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

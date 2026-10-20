@@ -1,0 +1,39 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs04:F02"
+ },
+ "prompt_tokens": 8040,
+ "output_tokens": 287,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 4가지 요구사항(R1~R3, K1~K4)에 대해 제안서 2~12장에서 각각의 해결책(분양 차별화, 옵션 패키지, 빌트인 치수, 서비스 체계)을 명시적으로 제시하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "분양 포인트 · 분양 문구 예시 · 인근 경쟁 단지와 비교"
+     },
+     {
+      "sheet": 7,
+      "quote": "모델하우스, 둘러본 경험이 그대로 옵션 계약으로 이어집니다"
+     },
+     {
+      "sheet": 10,
+      "quote": "84A 주방, 빌트인 가전 세 가지의 매립 치수"
+     },
+     {
+      "sheet": 11,
+      "quote": "입주 한 달 전부터 2년 동안, 입주민이 만나는 서비스"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

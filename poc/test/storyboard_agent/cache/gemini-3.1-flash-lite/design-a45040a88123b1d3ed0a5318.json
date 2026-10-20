@@ -1,0 +1,144 @@
+{
+ "stage": "design",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.4,
+ "seed": 0,
+ "prompt_tokens": 3561,
+ "output_tokens": 1352,
+ "data": {
+  "strategy": "pain",
+  "strategy_why": "전국 320개 매장의 인쇄 메뉴판 운영으로 발생하는 관리 비효율과 매장별 가격 불일치 등 고객의 실질적인 운영 고통을 해결하는 데 집중합니다.",
+  "thesis": "본사 통합 운영 시스템과 스마트 매장 솔루션으로 전국 320개 매장의 운영 효율을 극대화하고 에너지 비용을 절감합니다.",
+  "ending": "pilot",
+  "parts": [
+   {
+    "keep": "P1",
+    "type": "market",
+    "name": "시장 · 전략",
+    "goal": "",
+    "items": [],
+    "answers": [],
+    "ref": "",
+    "adapted": ""
+   },
+   {
+    "keep": "P2",
+    "type": "customer",
+    "name": "고객사 이해",
+    "goal": "",
+    "items": [],
+    "answers": [],
+    "ref": "",
+    "adapted": ""
+   },
+   {
+    "keep": "",
+    "type": "challenge",
+    "name": "운영 과제와 비용",
+    "goal": "인쇄 메뉴판 운영의 비효율과 매장 관리의 한계를 명확히 함",
+    "items": [
+     "매장별 가격 표기 불일치로 인한 고객 신뢰 저하",
+     "신메뉴 출시 시 전국 320개 매장 인쇄물 교체 인력 및 비용 발생",
+     "냉난방 전력 관리 부재로 인한 에너지 낭비"
+    ],
+    "answers": [
+     "R1",
+     "R2",
+     "R3",
+     "R11"
+    ],
+    "ref": "REF2:문제",
+    "adapted": "외식 프랜차이즈의 메뉴 운영 비효율과 에너지 관리 문제를 중심으로 재구성함"
+   },
+   {
+    "keep": "P3",
+    "type": "value",
+    "name": "Value Propositions",
+    "goal": "",
+    "items": [],
+    "answers": [],
+    "ref": "",
+    "adapted": ""
+   },
+   {
+    "keep": "P4",
+    "type": "products",
+    "name": "공간별 제품",
+    "goal": "",
+    "items": [],
+    "answers": [],
+    "ref": "",
+    "adapted": ""
+   },
+   {
+    "keep": "",
+    "type": "solution",
+    "name": "운영 솔루션 구성",
+    "goal": "MagicINFO와 SmartThings Pro를 통한 통합 운영 체계 제시",
+    "items": [
+     "MagicINFO로 전국 320개 매장 메뉴·가격 원격 실시간 변경",
+     "시간대별 메뉴 및 프로모션 자동 스케줄링",
+     "SmartThings Pro를 활용한 매장별 냉난방 및 조명 원격 에너지 제어"
+    ],
+    "answers": [
+     "R1",
+     "R4",
+     "R6",
+     "R7",
+     "R9"
+    ],
+    "ref": "REF3:장면",
+    "adapted": "카페 프랜차이즈 운영 환경에 맞게 매장 에너지 관리와 콘텐츠 배포 솔루션을 결합함"
+   },
+   {
+    "keep": "P5",
+    "type": "scenario",
+    "name": "공간 시나리오",
+    "goal": "",
+    "items": [],
+    "answers": [],
+    "ref": "",
+    "adapted": ""
+   },
+   {
+    "keep": "",
+    "type": "case",
+    "name": "도입 성공 사례",
+    "goal": "디지털 전환의 성과와 신뢰성 입증",
+    "items": [
+     "맥도날드 고양삼송DT점: 아날로그 메뉴판 없는 디지털 매장 구축",
+     "스타벅스 의왕청계DT점: 옥외형 사이니지를 통한 외부 집객 효과 확인",
+     "커피빈 학동역 DT점: 시스템에어컨 360과 사이니지 통합 운영 사례"
+    ],
+    "answers": [
+     "R5",
+     "R10"
+    ],
+    "ref": "REF1:근거",
+    "adapted": "고객이 언급한 DT 매장 사례를 포함하여 디지털 전환의 효과를 강조함"
+   },
+   {
+    "keep": "",
+    "type": "closing",
+    "name": "다음 단계 제안",
+    "goal": "파일럿 매장 운영을 통한 검증 제안",
+    "items": [
+     "플래그십 매장 대상 파일럿 구축을 통한 운영 효율 검증",
+     "전국 320개 매장 확산을 위한 단계별 로드맵 제시",
+     "운영본부장 대상 현장 시연 및 워크숍 일정 협의"
+    ],
+    "answers": [
+     "R8"
+    ],
+    "ref": "REF2:결정",
+    "adapted": "전국 확산 전 파일럿을 통한 검증 단계로 유도함"
+   }
+  ],
+  "questions": [
+   "전국 320개 매장의 네트워크 환경이 MagicINFO 원격 제어를 지원하는 상태인가요?",
+   "현재 매장별로 설치된 냉난방기 모델이 SmartThings Pro 연동 가능한 기종인가요?",
+   "신메뉴 및 가격 변경 시 본사 마케팅팀의 승인 프로세스가 별도로 존재하나요?",
+   "DT 매장 외부 옥외형 사이니지 설치를 위한 지자체 옥외광고물 허가 현황은 어떠한가요?"
+  ]
+ }
+}

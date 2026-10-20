@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs15:F08"
+ },
+ "prompt_tokens": 2074,
+ "output_tokens": 197,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "9장에서 폐기 손실 감소, 전력 절감, 수기 기록 자동화, 수리 효율화라는 4가지 명확한 결과형 가치를 제시하고, 각 가치별 절감액과 솔루션 연결 고리를 수치로 명시함.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "점포당 연 손실 · 운영비, 네 군데에서 줄어듭니다"
+     },
+     {
+      "sheet": 9,
+      "quote": "폐기 손실, 전력, 기록, 수리 · 출동"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,82 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs06~full:F09"
+ },
+ "prompt_tokens": 9724,
+ "output_tokens": 623,
+ "data": {
+  "scores": [
+   {
+    "id": "PR1",
+    "score": 2,
+    "anchor": "제안서 내 VM55B-U라는 모델명이 사용되었으나, 카탈로그상 현행 모델은 VM55B로 확인되어 모델명 표기가 모호함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "VM55B-U 4×3"
+     },
+     {
+      "sheet": 9,
+      "quote": "VM55B-U 4×3"
+     }
+    ],
+    "improve": "VM55B-U를 카탈로그에 명시된 공식 모델명인 VM55B로 통일하여 표기해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "PR2",
+    "score": 3,
+    "anchor": "제안서에 기재된 제품 사양(모델명 및 주요 특징)이 카탈로그 정보와 일치하며, 장별로 동일하게 유지됨.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "윈도 사이니지 OM55B"
+     },
+     {
+      "sheet": 9,
+      "quote": "VM55B-U · 베젤 3.5mm · 500nit"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR5",
+    "score": 3,
+    "anchor": "제품군 명칭과 모델명을 병기하거나 모델명으로 통일하여 사용하고 있으며, 혼용으로 인한 혼동이 없음.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "컬러 이페이퍼 EM32DX"
+     },
+     {
+      "sheet": 7,
+      "quote": "컬러 이페이퍼 EM32DX ×2"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR3",
+    "score": 3,
+    "anchor": "Samsung VXT, SmartThings 등 브랜드명이 공식 표기법에 따라 일관되게 작성됨.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "Samsung VXT"
+     },
+     {
+      "sheet": 5,
+      "quote": "SmartThings 연동"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

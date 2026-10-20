@@ -1,0 +1,61 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs03~full:F12"
+ },
+ "prompt_tokens": 8281,
+ "output_tokens": 471,
+ "data": {
+  "scores": [
+   {
+    "id": "WR2",
+    "score": 3,
+    "anchor": "전체적으로 맞춤법과 띄어쓰기가 정확하며 제목에도 오류가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "E 대학교 스마트 강의실 · 중앙도서관 구축 제안"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR8",
+    "score": 1,
+    "anchor": "FCU, AHU 등 고객이 생소할 수 있는 기술 약어에 대한 풀이가 전혀 제공되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "진리관 FCU · 미래관 무풍 4Way를 시간표대로 가동"
+     },
+     {
+      "sheet": 10,
+      "quote": "AHU | 대강당 | 13–16시 행사 시간만 대강당 공조기 운전"
+     }
+    ],
+    "improve": "FCU(Fan Coil Unit), AHU(Air Handling Unit) 등 전문 용어를 처음 사용할 때 괄호를 사용하여 풀이하거나 설명 문구를 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR9",
+    "score": 3,
+    "anchor": "개조식과 명사형 종결을 일관되게 사용하여 가독성이 높고 고객 존중 톤을 유지하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "강의실마다 수업 형태에 맞는 기기 · 무선 공유가 필요합니다"
+     },
+     {
+      "sheet": 14,
+      "quote": "11월 안에 함께 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

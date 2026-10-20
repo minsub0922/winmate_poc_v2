@@ -1,0 +1,11 @@
+import { chromium } from 'playwright'; import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+const dist='/home/claude/wm/dist';
+const srv=http.createServer((q,r)=>{const f=path.join(dist,decodeURIComponent(q.url.split('?')[0])); if(!fs.existsSync(f)||fs.statSync(f).isDirectory()){r.writeHead(404);return r.end();} r.writeHead(200,{'content-type':f.endsWith('.json')?'application/json':f.endsWith('.html')?'text/html':'image/jpeg'}); fs.createReadStream(f).pipe(r);});
+await new Promise(o=>srv.listen(0,o));
+const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium-1194/chrome-linux/chrome'}); const p=await b.newPage();
+await p.goto(`http://localhost:${srv.address().port}/_h.html`); await p.waitForFunction(()=>window.H); await p.evaluate(()=>window.H.loadLayoutHtml());
+const r=await p.evaluate(async()=>{const H=window.H; const st=document.getElementById('stage'); st.innerHTML=H.layoutHtml('L_C13'); const root=st.firstElementChild;
+ H.applyOverrides(root,{t:{},img:{'s:3D 조감도':{src:'img/bs/bs01-7-1.jpg'}}}); 
+ st.innerHTML=H.layoutHtml('L_PH_P3_A'); const r2=st.firstElementChild; H.applyOverrides(r2,{img:{'0':{src:'img/bs/bs01-7-1.jpg',keep:true}}}); await H.fillReady(r2);
+ await new Promise(o=>setTimeout(o,500)); const im=r2.querySelector('[data-img="0"] img'); return {fill:im.getAttribute('data-fill'), w:im.naturalWidth, src:im.getAttribute('src').slice(0,20)};});
+console.log(r); await b.close(); srv.close();

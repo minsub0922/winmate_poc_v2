@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs05:F10"
+ },
+ "prompt_tokens": 5751,
+ "output_tokens": 412,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO 솔루션을 활용해 시즌별 콘텐츠 일괄 교체, 운영실에서 화면 전환 및 원격 모니터링을 수행하는 구체적인 운영 장면을 제시하였습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "MagicINFO · 콘텐츠 제작 지원"
+     },
+     {
+      "sheet": 7,
+      "quote": "일몰 시각 자동 전환 · 우천 · 행사 땐 운영실 한 번"
+     },
+     {
+      "sheet": 12,
+      "quote": "시즌마다 새로워지는 구역, 열두 달 운영 캘린더로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR7",
+    "score": 2,
+    "anchor": "설치 시 고려해야 할 환경(IP66 방수, 캐비닛 수, 하단 높이 등)은 기재했으나, 네트워크 인프라, 유지보수 절차, 보증 조건에 대한 구체적인 내용은 누락되었습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "하단 1,200 mm · 벽 폭 5.4 m"
+     },
+     {
+      "sheet": 11,
+      "quote": "IP66 방진 · 방수"
+     }
+    ],
+    "improve": "네트워크 구성 방안, 유지보수 서비스 수준 협약(SLA) 및 제품 보증 기간을 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

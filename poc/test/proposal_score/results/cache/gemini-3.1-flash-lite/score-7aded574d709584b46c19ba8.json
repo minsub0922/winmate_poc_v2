@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08:F01"
+ },
+ "prompt_tokens": 8450,
+ "output_tokens": 354,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 1,
+    "anchor": "4장에서 야간 간호 인력이 30병상을 맡는다고 기술했으나, 6장 이후부터는 선도 병동을 60병상으로 명시하여 규모 정보가 충돌합니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "야간 간호 인력 1명이 30병상을 맡고"
+     },
+     {
+      "sheet": 6,
+      "quote": "1단계는 3F 동병동 · 1F 로비 · 60병상"
+     }
+    ],
+    "improve": "병동 규모에 대한 기술을 30병상 또는 60병상 중 하나로 통일해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "13장에 제안 담당자의 연락처가 예시용 번호(010-1234-5678)로 기재되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "010-1234-5678"
+     }
+    ],
+    "improve": "제안서 제출 전 담당자의 실제 연락처로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

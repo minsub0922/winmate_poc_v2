@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~full:F12"
+ },
+ "prompt_tokens": 5065,
+ "output_tokens": 502,
+ "data": {
+  "scores": [
+   {
+    "id": "WR2",
+    "score": 3,
+    "anchor": "전체적으로 맞춤법과 띄어쓰기가 정확하며, 제목에도 오류가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "전국 260개 사업장을 하나의 화면처럼"
+     },
+     {
+      "sheet": 10,
+      "quote": "2주 안에 현장부터, 세 단계로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR8",
+    "score": 2,
+    "anchor": "KEY, MARKET, VALUE, PROPS 등은 제안서의 섹션 제목으로 사용된 영문 표기이며, 본문 내 전문 약어인 DID나 LFD 등은 사용되지 않았으나 일부 영문 약어에 대한 풀이가 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "MARKET INTELLIGENCE"
+     },
+     {
+      "sheet": 5,
+      "quote": "VALUE PROPS"
+     }
+    ],
+    "improve": "섹션 제목으로 사용된 영문 약어에 대해 하단 주석 등을 통해 의미를 명확히 설명해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR9",
+    "score": 3,
+    "anchor": "전체적으로 개조식 문체와 명사형 종결을 일관되게 유지하고 있으며, 고객을 존중하는 정중한 톤을 유지하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "260개 사업장 화면, 그룹 본사에서 한 번에 바꿉니다"
+     },
+     {
+      "sheet": 9,
+      "quote": "실사부터 파일럿 결과까지 16주, 네 단계로 갑니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

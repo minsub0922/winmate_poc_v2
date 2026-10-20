@@ -59,7 +59,7 @@ def run(job: Job, text: str, cond: str, max_chars: int, title: str, plan: Any) -
         job.log(stage + (f' · 조각 {idx + 1}' if isinstance(idx, int) else '') + (f" · 사업 {proj.get('name', '')}" if isinstance(proj, dict) else ''))
 
     backend = make_rfp_backend(plan.provider, tracker, job, on_call)
-    job.log(f'시작 — {cond}@{max_chars} · {len(text):,}자 · Gemini {plan.provider.model} (규칙 대체 없음)')
+    job.log(f'시작 — {cond}@{max_chars} · {len(text):,}자 · AI 분석 (규칙 대체 없음)')
     t0 = time.time()
     res = rp.run_pipeline(text, backend, rp.RunConfig(condition=cond, max_chars=max_chars, enrich=False))
     job.check_cancel()
@@ -68,15 +68,15 @@ def run(job: Job, text: str, cond: str, max_chars: int, title: str, plan: Any) -
     if consolidate_fb:  # unreachable with the strict backend — guard against a PoC change
         raise invalid_output('rfp:consolidate', '규칙 통합 대체가 감지되었습니다: ' + str(consolidate_fb[0].get('reason'))[:120])
     if tracker.ok == 0 or 'rfp:profile' not in tracker.steps:
-        raise failure('no_model_call', 'rfp:profile', 'Gemini 호출 기록이 없습니다.')
+        raise failure('no_model_call', 'rfp:profile', 'AI 호출 기록이 없습니다.')
     if res.forms and 'rfp:consolidate' not in tracker.steps:
-        raise failure('no_model_call', 'rfp:consolidate', '통합 단계 Gemini 호출 기록이 없습니다.')
+        raise failure('no_model_call', 'rfp:consolidate', '통합 단계 AI 호출 기록이 없습니다.')
     forms = []
     for f in res.forms:
         form = jsonable(f)
         form['layout_input'] = to_layout_input(f, text, title)
         forms.append(form)
-    job.log(f"완료 — 항목 {len(res.items)}개 · 사업 {len(res.forms)}개 · Gemini 호출 {tracker.ok}회")
+    job.log(f"완료 — 항목 {len(res.items)}개 · 사업 {len(res.forms)}개 · AI 호출 {tracker.ok}회")
     return {
         'meta': {'condition': cond, 'max_chars': max_chars, 'chars': len(text), 'prompt_version': getattr(rp, 'PROMPT_VERSION', ''),
                  'seconds': round(time.time() - t0, 1)},

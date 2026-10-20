@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~base:F11"
+ },
+ "prompt_tokens": 3395,
+ "output_tokens": 168,
+ "data": {
+  "scores": [
+   {
+    "id": "DS6",
+    "score": 2,
+    "anchor": "대부분의 장에 시각 자료가 포함되어 있으나, 10장(제품 스펙)은 텍스트 위주로 구성되어 있고 사진이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "84A 주방, 빌트인 가전 세 가지의 매립 치수"
+     }
+    ],
+    "improve": "10장의 빌트인 가전 매립 치수를 도식화하여 시각적으로 이해하기 쉽게 보완해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

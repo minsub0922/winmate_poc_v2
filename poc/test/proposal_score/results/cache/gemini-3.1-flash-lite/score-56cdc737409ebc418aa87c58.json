@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10:F10"
+ },
+ "prompt_tokens": 4017,
+ "output_tokens": 383,
+ "data": {
+  "scores": [
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "13장에서 1차 전환 범위, 병행 운영 및 교육 일정, 발주 및 착수 일정을 구체적으로 제시하고 11장에서 유지보수 체계를 명시함.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "1차 전환 범위 확정 — 대전점 · 청주점"
+     },
+     {
+      "sheet": 13,
+      "quote": "점별 2주 병행 운영 · 운영자 교육 3회"
+     },
+     {
+      "sheet": 11,
+      "quote": "6개 점 어디서나 같은 기준으로 복구합니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 3,
+    "anchor": "고객이 우려하는 운영팀 숙련도(운영 인력)와 전환 리스크를 7장에서 명확히 짚고 병행 운영 및 교육 등 구체적 대응 방안을 제시함.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "운영팀 숙련도 · 원인 · 새 CMS · 화면 학습 필요"
+     },
+     {
+      "sheet": 7,
+      "quote": "점별 2주 병행 운영 · 운영자 교육 3회"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

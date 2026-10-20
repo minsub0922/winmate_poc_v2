@@ -1,0 +1,82 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~full:F07"
+ },
+ "prompt_tokens": 7871,
+ "output_tokens": 703,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "배포 시간 단축(6일→5분), 장애 인지 시간 단축(3일→15분) 등 정량적 효과를 제시하고, 180개 지점 및 5년 기준이라는 산정 전제를 명시함.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "신제품 화면 하나가 지점에 닿기까지 6일 걸립니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "5분 내 반영"
+     },
+     {
+      "sheet": 11,
+      "quote": "180개 지점 · 5년 · 막대 길이는 예시"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS4",
+    "score": 2,
+    "anchor": "삼성의 통합 솔루션(MagicINFO, VXT)과 전국 서비스망을 고객 과제와 연결했으나, Why Samsung을 별도 장으로 구성하지 않아 차별성 강조가 다소 분산됨.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "지점 화면 운영 여섯 가지 중, 이번에 세 가지부터"
+     },
+     {
+      "sheet": 5,
+      "quote": "유지보수 5년"
+     }
+    ],
+    "improve": "삼성의 통합 솔루션과 보안 강점을 고객의 보안 정책 요구사항과 직접 연결하여 강조하는 별도의 'Why Samsung' 장을 추가하십시오.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR5",
+    "score": 3,
+    "anchor": "제안서 내에 근거 없는 절대적 표현(최초, 최고, 유일 등)이 발견되지 않음.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR7",
+    "score": 2,
+    "anchor": "일부 장에 예시 사진임을 명시했으나, 모든 연출 이미지와 효과 수치에 대한 전제 조건 고지가 일관되게 포함되지 않음.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "현장 사진은 예시"
+     },
+     {
+      "sheet": 11,
+      "quote": "금액은 삼성전자 추정"
+     }
+    ],
+    "improve": "모든 연출 이미지와 예상 효과 수치가 포함된 장마다 '이미지는 연출된 화면이며 실제와 다를 수 있음' 및 '산정 전제'를 명확히 고지하십시오.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

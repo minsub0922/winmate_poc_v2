@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~wrong_customer:F01"
+ },
+ "prompt_tokens": 5184,
+ "output_tokens": 383,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 1,
+    "anchor": "제안서 전반에 걸쳐 고객사명 'Y 그룹'과 'H 호텔'이 혼용되어 일관성이 결여되었습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "Y 그룹"
+     },
+     {
+      "sheet": 3,
+      "quote": "H 호텔은 지금이 적기입니다"
+     }
+    ],
+    "improve": "제안서 전체의 고객사명을 'Y 그룹'으로 통일하고, 사례를 제외한 모든 곳에서 'H 호텔'이라는 명칭을 삭제해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "다른 고객명(H 호텔)이 3곳에 노출되어 있고, 연락처 정보가 예시용 값으로 남아 있어 3곳 이상의 잔여물로 판단됩니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "H 호텔은 지금이 적기입니다"
+     },
+     {
+      "sheet": 6,
+      "quote": "도입 후 H 호텔"
+     },
+     {
+      "sheet": 10,
+      "quote": "010-1234-5678"
+     }
+    ],
+    "improve": "다른 고객명을 모두 삭제하고, 연락처 정보를 실제 담당자의 정보로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

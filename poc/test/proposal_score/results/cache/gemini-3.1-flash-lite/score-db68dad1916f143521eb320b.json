@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs20:F02"
+ },
+ "prompt_tokens": 8507,
+ "output_tokens": 262,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 4가지 요구사항(광고 판매, 투자 회수, 송출 안정성, 인허가)에 대해 각각 3장(광고), 10~11장(회수), 5~6·8~9장(송출), 13장(인허가)에서 명시적으로 해법을 제시하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "시민이 Q 미디어 화면 앞을 지나는 몇 초가 곧 광고 상품입니다"
+     },
+     {
+      "sheet": 10,
+      "quote": "기준 39개월, 보수로도 64개월에 회수합니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "Q 미디어의 하루, 관제실은 화면이 꺼지기 전에 먼저 움직입니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

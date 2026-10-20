@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~placeholders:F03"
+ },
+ "prompt_tokens": 2921,
+ "output_tokens": 199,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "12장에서 정량적 효과(리뷰 평점, 대기 시간, 전력 절감)를 요약하고, 13장에서 결정권자가 승인해야 할 샘플룸 운영 및 교체 일정을 명확히 구분하여 제시함.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "정량 효과 | 8.6 | 리뷰 평점 목표"
+     },
+     {
+      "sheet": 13,
+      "quote": "07 · NEXT STEPS | 샘플룸 1실, 다음 2주에 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

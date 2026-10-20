@@ -1,0 +1,16 @@
+import { build } from 'esbuild';
+import fs from 'node:fs'; import path from 'node:path'; import http from 'node:http';
+import { chromium } from 'playwright';
+const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
+const res = await build({ entryPoints: [path.join(root, 'build/thumbsheet.jsx')], bundle: true, write: false, format: 'iife', jsx: 'automatic', loader: { '.json': 'json' }, define: { 'process.env.NODE_ENV': '"production"' }, logLevel: 'warning' });
+const css = ['styles.css', 'cards.css'].map((f) => fs.readFileSync(path.join(root, 'src', f), 'utf8')).join('\n');
+const theme = process.env.THEME || 'light';
+fs.writeFileSync(path.join(root, 'dist/thumbs.html'), `<!doctype html><html data-theme="${theme}"><head><meta charset="utf-8"><style>${css}</style></head><body><div id="root"></div><script>${res.outputFiles[0].text}</script></body></html>`);
+const srv = http.createServer((q, r) => { const f = path.join(root, 'dist', decodeURIComponent(q.url.split('?')[0])); if (!fs.existsSync(f)) { r.writeHead(404); return r.end(); } r.writeHead(200); fs.createReadStream(f).pipe(r); }).listen(8790);
+const exe = fs.readdirSync('/opt/pw-browsers').filter((d) => d.startsWith('chromium-')).map((d) => '/opt/pw-browsers/' + d + '/chrome-linux/chrome').find((f) => fs.existsSync(f));
+const b = await chromium.launch({ executablePath: exe });
+const pg = await (await b.newContext({ viewport: { width: 1100, height: 900 }, deviceScaleFactor: 1 })).newPage();
+const errs = []; pg.on('pageerror', (e) => errs.push(e.message)); pg.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') errs.push(m.text().slice(0, 300)); });
+await pg.goto('http://localhost:8790/thumbs.html'); await pg.waitForTimeout(300); await pg.evaluate(() => document.querySelectorAll('img').forEach((i) => { i.loading = 'eager'; })); await pg.waitForTimeout(900);
+await pg.screenshot({ path: path.join(root, 'build/qa/thumbs-' + theme + '.png'), fullPage: true });
+console.log('errs', errs.slice(0, 10)); await b.close(); srv.close();

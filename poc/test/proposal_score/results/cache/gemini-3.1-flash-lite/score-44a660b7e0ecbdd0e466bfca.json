@@ -1,0 +1,57 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19:F01"
+ },
+ "prompt_tokens": 5348,
+ "output_tokens": 421,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명을 'Y 그룹'으로 일관되게 표기하였으며, 규모 정보(260개 사업장)와 담당 조직(브랜드전략실, 인재개발원 등)이 장마다 동일하게 기술되었습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "260개 사업장 화면"
+     },
+     {
+      "sheet": 4,
+      "quote": "그룹 브랜드전략실"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "제안서 내에 자리표시자나 템플릿 잔여 문구가 존재하지 않으며, 10장의 연락처 정보는 제안사 담당자의 정상적인 정보입니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "김도윤 프로 · B2B 영업팀"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "원가, 마진, 내부 할인율 등 민감한 내부 정보가 없으며, 마무리 장에 기재된 담당자 연락처는 정상적인 영업 활동의 일환입니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "김도윤 프로 · B2B 영업팀"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

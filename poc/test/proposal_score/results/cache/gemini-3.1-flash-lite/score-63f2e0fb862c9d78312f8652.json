@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~no_proof:F10"
+ },
+ "prompt_tokens": 5681,
+ "output_tokens": 401,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO와 SmartThings Pro를 활용해 본사에서 메뉴와 전력을 원격 관리하는 구체적인 운영 시나리오를 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "제작 · 승인 · 배포 · 적용 확인까지 한 화면에서"
+     },
+     {
+      "sheet": 7,
+      "quote": "본사 POS에서 가격 변경 | 본사 담당자가 가격 DB에서 한 번만 수정"
+     },
+     {
+      "sheet": 8,
+      "quote": "본사 운영 | 전 매장을 한 화면에 | 본사 PC · MagicINFO Server"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 2,
+    "anchor": "파일럿 운영을 통해 리스크를 검증하겠다는 계획은 있으나, 공사 중 영업 중단이나 기존 POS 호환성 등 구체적인 도입 리스크에 대한 대응 방안이 명시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "시범 매장 10곳은 유형별로 이렇게 고릅니다"
+     },
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "공사 중 매장 영업에 미치는 영향 최소화 방안과 기존 POS 시스템과의 기술적 호환성 확보 계획을 구체적으로 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

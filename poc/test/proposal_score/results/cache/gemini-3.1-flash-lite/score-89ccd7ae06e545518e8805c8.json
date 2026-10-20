@@ -1,0 +1,74 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs20~full:F01"
+ },
+ "prompt_tokens": 9523,
+ "output_tokens": 613,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'Q 미디어'가 일관되게 사용되었으며, 다른 고객사명이나 예시 고객명이 발견되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "Q 미디어 랜드마크 매체 사업성 제안"
+     },
+     {
+      "sheet": 13,
+      "quote": "Q 미디어 랜드마크 매체 사업성 — 오늘 정할 것"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "CU5",
+    "score": 3,
+    "anchor": "고객의 사업 환경(랜드마크 외벽, 미디어폴)과 구체적인 운영 시나리오, 투자 회수 수치가 전 장에 걸쳐 반영되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "Q 미디어의 랜드마크 외벽은 아침부터 심야까지"
+     },
+     {
+      "sheet": 10,
+      "quote": "기준 39개월, 보수로도 64개월에 회수합니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "템플릿 잔여물이나 자리표시 문구가 발견되지 않았으며, 연락처는 제안 담당자의 정상적인 정보입니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 2,
+    "anchor": "10장에서 '할인율 미적용'이라는 내부적인 비용 산정 기준이 노출되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "수수료 차감 후 · 할인율 미적용"
+     }
+    ],
+    "improve": "고객 제안서에서 내부적인 비용 산정 기준인 '할인율 미적용' 문구를 삭제하고 일반적인 수익성 지표로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs14:F04"
+ },
+ "prompt_tokens": 4728,
+ "output_tokens": 219,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "L 제조 현장의 구체적인 공정별 문제(종이 보고, 재입력 등)와 그로 인한 시간 손실(45분), 오류 건수(월 310건) 등을 고객사 기준으로 명확히 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "라인 이상 하나가 MES에 오르기까지, 다섯 단계 45분"
+     },
+     {
+      "sheet": 4,
+      "quote": "재입력 월 310건"
+     },
+     {
+      "sheet": 5,
+      "quote": "현장 기록 오류 · 누락 월 74건"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

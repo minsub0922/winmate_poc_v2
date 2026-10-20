@@ -1,0 +1,82 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs18~full:F09"
+ },
+ "prompt_tokens": 9405,
+ "output_tokens": 536,
+ "data": {
+  "scores": [
+   {
+    "id": "PR1",
+    "score": 3,
+    "anchor": "제안된 Galaxy A 및 SmartTag2는 현재 카탈로그 라인업에 포함된 현행 모델이며, 구형이나 단종 모델에 대한 표기가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "Samsung Galaxy A"
+     },
+     {
+      "sheet": 6,
+      "quote": "SmartTag2"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR2",
+    "score": 3,
+    "anchor": "제안서 내 모델 사양 표기가 공식 카탈로그 정보와 일치하며, 장마다 동일한 모델에 대해 일관된 사양 정보를 제공합니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "Samsung Galaxy A"
+     },
+     {
+      "sheet": 6,
+      "quote": "SmartTag2"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR5",
+    "score": 3,
+    "anchor": "Galaxy A 및 SmartTag2 등 제품명을 제안서 전반에 걸쳐 일관된 명칭으로 표기하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "Samsung Galaxy A"
+     },
+     {
+      "sheet": 6,
+      "quote": "SmartTag2"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR3",
+    "score": 3,
+    "anchor": "Knox, Galaxy 등 브랜드명과 삼성전자 표기가 공식 가이드라인에 따라 정확하게 기재되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "Knox"
+     },
+     {
+      "sheet": 5,
+      "quote": "Knox Configure"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

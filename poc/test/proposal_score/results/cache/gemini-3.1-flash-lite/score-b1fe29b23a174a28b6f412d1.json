@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs05:F08"
+ },
+ "prompt_tokens": 2187,
+ "output_tokens": 225,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "고객의 요구사항인 대기 경험, 낮과 밤의 무대, 시즌 교체 용이성을 중심으로 3가지 핵심 가치를 제시하고, 각각에 대응하는 삼성의 제품 및 솔루션을 명확히 매칭하였습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "대기도 체험이 됩니다 | IFR LED · VM55B · MagicINFO"
+     },
+     {
+      "sheet": 4,
+      "quote": "낮과 밤, 두 무대 | XHB 실외 LED · 하만 JBL"
+     },
+     {
+      "sheet": 4,
+      "quote": "시즌마다 새로운 구역 | MagicINFO · 콘텐츠 제작 지원"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

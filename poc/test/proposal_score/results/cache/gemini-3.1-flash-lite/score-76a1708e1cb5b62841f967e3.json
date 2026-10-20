@@ -1,0 +1,56 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs05:F04"
+ },
+ "prompt_tokens": 8850,
+ "output_tokens": 460,
+ "data": {
+  "scores": [
+   {
+    "id": "CU6",
+    "score": 3,
+    "anchor": "테마파크 업종의 대기 동선, 공연 시간, 낮/밤 운영 모드 및 시즌별 교체 운영 등 고유 운영 맥락을 정확히 이해하고 반영함.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "가족 · 어린이 동반 48% | 아이가 지루하지 않게"
+     },
+     {
+      "sheet": 7,
+      "quote": "낮 공연 · 퍼레이드 11:00–17:00 · 햇빛 · 광장 혼잡"
+     },
+     {
+      "sheet": 12,
+      "quote": "시기마다 운영 모드가 바뀌고, 모드마다 화면 · 음향 · 점검이 함께 바뀝니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "옥외 무대용 XHB, 대기홀 비디오월 VM55B, 실내 몰입형 IFR, 고객 안내용 KM24C 등 각 공간 환경에 최적화된 제품을 구체적으로 매칭함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "입장 대기 동선 · 프리쇼 | IFR LED · 비디오월 VM55B"
+     },
+     {
+      "sheet": 7,
+      "quote": "야외 공연 무대 | 실외 LED XHB (곡면)"
+     },
+     {
+      "sheet": 11,
+      "quote": "야외 무대 LED, 피치는 객석 거리로 고릅니다 | 실외 LED XHB"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~placeholders:F05"
+ },
+ "prompt_tokens": 8862,
+ "output_tokens": 261,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "수치 3개 이상인 장 14개 중 8개 장에서 출처 표기가 누락되었으며, 일부 장에서는 '[00]'과 같은 자리표시가 그대로 남아 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "01 | 지금의 과제 | [00]일 | 메뉴 교체 1회 소요"
+     },
+     {
+      "sheet": 3,
+      "quote": "2026E 시장 규모 | [00] | 억 원"
+     },
+     {
+      "sheet": 5,
+      "quote": "01 | 본사 기획 | 지금 문제 | [00]일"
+     }
+    ],
+    "improve": "모든 수치 데이터에 대해 조사 기관과 연도를 명확히 기재하고, 자리표시자([00])를 실제 데이터로 교체해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

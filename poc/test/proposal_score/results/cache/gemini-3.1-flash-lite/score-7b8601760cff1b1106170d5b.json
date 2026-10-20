@@ -1,0 +1,108 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~full:F11"
+ },
+ "prompt_tokens": 5237,
+ "output_tokens": 934,
+ "data": {
+  "scores": [
+   {
+    "id": "DS1",
+    "score": 2,
+    "anchor": "제목 위치가 2장과 13장에서 다른 장과 다르게 배치되어 일관성이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "제목 30px@(72,88)"
+     },
+     {
+      "sheet": 13,
+      "quote": "제목 30px@(648,66)"
+     }
+    ],
+    "improve": "모든 장의 제목 위치를 동일한 좌표로 통일해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS2",
+    "score": 2,
+    "anchor": "대부분 장의 요지는 명확하나, 텍스트 밀도가 높은 장들은 메시지가 분산되어 시선이 흩어질 우려가 있습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "재계약 협상에서 나올 세 가지 말, 사실과 증거로 답합니다"
+     }
+    ],
+    "improve": "텍스트 밀도가 높은 장의 내용을 핵심 위주로 요약하여 시각적 집중도를 높여야 합니다.",
+    "confidence": "mid"
+   },
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 10장으로 기준치인 4장을 크게 초과하여 발표 자료로서의 가독성이 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "161어절"
+     },
+     {
+      "sheet": 8,
+      "quote": "171어절"
+     }
+    ],
+    "improve": "장당 어절 수를 110어절 이하로 대폭 줄이고 핵심 내용 위주로 재구성해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 52%가 10pt 미만이며, 9pt 미만 본문 칸이 3장 이상 존재합니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "본문 최소 11px(8.2pt)"
+     },
+     {
+      "sheet": 7,
+      "quote": "본문 최소 11px(8.2pt)"
+     },
+     {
+      "sheet": 13,
+      "quote": "본문 최소 11px(8.2pt)"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS5",
+    "score": 3,
+    "anchor": "폰트 2종을 사용하고 있으며, 모든 장에서 제목과 본문의 크기 및 굵기 체계가 일관되게 적용되었습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": "폰트 2종: Noto Sans KR, Manrope"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "DS6",
+    "score": 3,
+    "anchor": "모든 장에 내용과 부합하는 실제 사진과 도식이 포함되어 있으며, 텍스트만 있는 장이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": "사진 · 이미지가 없는 본문 장 0/12장"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~wrong_customer:F04"
+ },
+ "prompt_tokens": 2547,
+ "output_tokens": 233,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "M 베이커리의 180개 지점 현황과 신제품 배포 시 발생하는 6일의 소요 시간, 1.2억 원의 배포 비용 등 구체적인 수치와 현장 장면을 통해 문제를 명확히 정의했습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "M 베이커리 180개 지점, 61%가 수도권에 있습니다"
+     },
+     {
+      "sheet": 3,
+      "quote": "신제품 화면 하나가 지점에 닿기까지 6일 걸립니다"
+     },
+     {
+      "sheet": 3,
+      "quote": "1.2억 | 배포비 · 연"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

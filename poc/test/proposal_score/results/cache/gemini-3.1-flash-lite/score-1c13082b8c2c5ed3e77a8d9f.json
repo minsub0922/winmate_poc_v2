@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~placeholders:F10"
+ },
+ "prompt_tokens": 4632,
+ "output_tokens": 532,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO 솔루션을 통한 장애 감지, 원격 재부팅, 콘텐츠 배포 등 운영 관리 역할이 하드웨어와 연결되어 구체적으로 제시됨.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "MagicINFO 설치형 | 꺼진 화면 즉시 알림 · 일괄 배포"
+     },
+     {
+      "sheet": 11,
+      "quote": "MagicINFO 원격 진단 · 재부팅 · 콘텐츠 복구"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "1차 전환 범위, 현장 확인, 병행 운영, 교육, 견적 및 발주 승인까지의 구체적인 일정과 단계별 역할이 명시됨.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "1차 전환 범위 확정 — 대전점 · 청주점 | 10/26 – 11/06"
+     },
+     {
+      "sheet": 13,
+      "quote": "점별 2주 병행 운영 · 운영자 교육 3회"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 3,
+    "anchor": "고객이 우려하는 운영팀 숙련도와 초기 비용 문제를 리스크로 정의하고, 병행 운영, 교육, 보상 매입 등 구체적 대응 방안을 제시함.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "운영팀 숙련도 | 새 CMS · 화면 학습 필요 | 병행 운영 · 운영자 교육"
+     },
+     {
+      "sheet": 7,
+      "quote": "처음 가격 | 신규 구매 vs 재계약 인하가 | 보상 매입 · 분할 납부"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

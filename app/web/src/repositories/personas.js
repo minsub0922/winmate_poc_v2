@@ -1,3 +1,4 @@
+import { requireLogin } from '../api/session.js';
 import { browserStorage } from './browser.js';
 // 직접 만든 고객 프로필 (localStorage). 기본 6명(PERSONAS)은 고칠 수 없고, 고쳐서 '새 프로필로 저장'하면 여기 들어온다.
 import { useSyncExternalStore } from 'react';
@@ -41,4 +42,4 @@ export function updatePersona(key, d) {
   const list = state.list.slice(); list[i] = p; state = { list }; save(); emit();
   return p;
 }
-export function deletePersona(key) { state = { list: state.list.filter((p) => p.key !== key) }; save(); emit(); }
+export function deletePersona(key) { if (!requireLogin()) return false; state = { list: state.list.filter((p) => p.key !== key) }; save(); emit(); }

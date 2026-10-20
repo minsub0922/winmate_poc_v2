@@ -10,6 +10,7 @@ from . import imports, knowledge
 from .adapters import layout as layout_adapter
 from .adapters import review as review_adapter
 from .adapters import rfp as rfp_adapter
+from .adapters import requirements as requirements_adapter
 from .adapters import search as search_adapter
 from .adapters import storyboard as storyboard_adapter
 from .adapters.common import Prepared
@@ -20,10 +21,9 @@ from .strict import FAILURES, STRICT_POLICY
 
 log = logging.getLogger('winmate.poc')
 JOBS = JobManager()
-_ADAPTERS = {'rfp': rfp_adapter, 'layout': layout_adapter, 'storyboard': storyboard_adapter, 'review': review_adapter}
+_ADAPTERS = {'rfp': rfp_adapter, 'requirements': requirements_adapter, 'layout': layout_adapter, 'storyboard': storyboard_adapter, 'review': review_adapter}
 _NEEDS_KB = ('layout', 'search', 'rerank', 'review', 'storyboard')
 _IMPORT_OF = {'rfp': 'rfp', 'layout': 'layout', 'search': 'layout', 'rerank': 'layout', 'review': 'review', 'storyboard': 'storyboard'}
-_ENGINE = {'search': 'bm25+tfidf+gemini', 'rerank': 'gemini', 'rfp': 'gemini', 'layout': 'gemini', 'review': 'gemini', 'storyboard': 'gemini'}
 _STATE: Dict[str, Any] = {'initialized': False, 'warm': 'idle', 'warm_error': None, 'import_errors': {}}
 _LOCK = threading.Lock()
 
@@ -55,10 +55,10 @@ def initialize(warm: bool = True, require_provider: bool = True) -> dict:
         try:
             probe=provider.generate_json(stage='startup:connection',user='Return JSON with connected true.',schema={'type':'OBJECT','properties':{'connected':{'type':'BOOLEAN'}},'required':['connected']},max_output_tokens=1024,max_attempts=2,cache_allowed=False)
             if not isinstance(probe.data,dict) or probe.data.get('connected') is not True:
-                raise PocStartupError('Gemini 연결 확인 응답 형식이 올바르지 않습니다.','invalid_output')
+                raise PocStartupError('AI 연결 확인 응답 형식이 올바르지 않습니다.','invalid_output')
             _STATE['connection']={'verified':True,'model':probe.model,'ms':probe.ms,'checked_at':datetime.now(timezone.utc).isoformat()}
         except ProviderError as exc:
-            raise PocStartupError('Gemini 실제 연결 확인 실패: '+exc.code+' — 서버 키·모델·네트워크를 확인하세요.',exc.code) from None
+            raise PocStartupError('AI 실제 연결 확인 실패: '+exc.code+' — 서버 키·모델·네트워크를 확인하세요.',exc.code) from None
     imports.ensure_paths()
     errors: Dict[str, str] = {}
     for name, loader in (('rfp', imports.rfp), ('layout', imports.layout), ('storyboard', imports.story), ('review', imports.score)):
@@ -95,6 +95,7 @@ def capabilities() -> dict:
     settings = get_settings()
     provider, reason = get_provider(settings)
     kb = knowledge.status()
+    provider_name = getattr(provider, 'name', getattr(settings, 'provider', 'gemini'))
     errs = _STATE.get('import_errors') or {}
     functions = {}
     for name in FUNCTIONS:
@@ -111,12 +112,12 @@ def capabilities() -> dict:
         else:
             why = None
         functions[name] = {'mode': 'real', 'effective': 'llm' if ready else 'unavailable', 'ready': bool(ready), 'needs_kb': needs_kb,
-                           'needs_provider': True, 'engine': _ENGINE.get(name, 'gemini'), 'unavailable_reason': why,
+                           'needs_provider': True, 'engine': ('bm25+tfidf+' if name == 'search' else '') + provider_name, 'unavailable_reason': why,
                            'provider_reason': None if provider is not None else (reason or 'no_api_key'), 'import_error': import_error,
                            'offline_override': False, 'rule_fallback': False}
     return {
         'initialized': _STATE['initialized'], 'connection':_STATE.get('connection'), 'policy': dict(STRICT_POLICY), 'settings': settings.public(),
-        'provider': {'name': 'gemini', 'available': provider is not None, 'reason': None if provider is not None else (reason or 'no_api_key'),
+        'provider': {'name': provider_name, 'available': provider is not None, 'reason': None if provider is not None else (reason or 'no_api_key'),
                      'model': getattr(provider, 'model', None) if provider is not None else settings.model,
                      'quick_model': getattr(provider, 'quick_model', None) if provider is not None else settings.quick_model,
                      'usage': provider_usage()},
@@ -124,8 +125,8 @@ def capabilities() -> dict:
         'jobs': {'kinds': list(KINDS), 'recent': JOBS.recent(10), 'persistence': 'memory'},
         'search_cache': search_adapter.CACHE.stats(),
         'notes': list(kb.get('notes') or knowledge.NOTES) + [
-            '엄격한 실제 실행: 모든 AI 기능은 서버 Gemini 로만 실행하며 규칙 대체 · 더미 · offline 요청이 없습니다.',
-            '모든 결과의 llm.effective 는 실제로 성공한 Gemini 호출이 있을 때만 llm 입니다. 모델 단계가 실패하면 작업은 error 로 끝납니다.',
+            '엄격한 실제 실행: 모든 AI 기능은 서버 AI로만 실행하며 규칙 대체 · 더미 · offline 요청이 없습니다.',
+            '모든 결과의 llm.effective 는 실제로 성공한 AI 호출이 있을 때만 llm 입니다. 모델 단계가 실패하면 작업은 error 로 끝납니다.',
             '계약 · 제한 사항: app/api/poc/STRICT.md · NOTES.md',
         ],
     }

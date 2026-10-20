@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~strip_images:F02"
+ },
+ "prompt_tokens": 6415,
+ "output_tokens": 213,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 요구사항 4가지(K1~K4)와 발언(R1~R3)에 대해 7~11장에서 구체적인 해법과 근거를 명시적으로 제시하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "운영팀 숙련도, 처음 가격 등 열위 보완"
+     },
+     {
+      "sheet": 8,
+      "quote": "재계약 협상에서 나올 세 가지 말 대응"
+     },
+     {
+      "sheet": 11,
+      "quote": "6개 점 어디서나 같은 기준으로 복구"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

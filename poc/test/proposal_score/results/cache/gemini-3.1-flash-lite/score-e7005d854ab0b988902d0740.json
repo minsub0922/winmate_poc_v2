@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~number_conflict:F10"
+ },
+ "prompt_tokens": 2387,
+ "output_tokens": 196,
+ "data": {
+  "scores": [
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "실행 계획은 16주 로드맵과 3단계 다음 단계로 구체적이나, 교육 및 유지보수 계획이 명시되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "실사부터 파일럿 결과까지 16주, 네 단계로 갑니다"
+     },
+     {
+      "sheet": 10,
+      "quote": "2주 안에 현장부터, 세 단계로"
+     }
+    ],
+    "improve": "도입 이후의 운영 안정성을 위해 교육 프로그램과 유지보수 지원 체계를 로드맵에 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

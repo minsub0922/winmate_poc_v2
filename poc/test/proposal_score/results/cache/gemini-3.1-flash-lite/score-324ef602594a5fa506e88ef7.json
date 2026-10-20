@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~number_conflict:F07"
+ },
+ "prompt_tokens": 3149,
+ "output_tokens": 188,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "메뉴 반영 시간, 가격 오류 건수, 매장 전력 사용량 등 구체적인 KPI 전후 수치를 제시하고, 산정 기준을 'A 커피 운영 자료(2026) 기준'으로 명시함.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "목표치 · A 커피 운영 자료(2026) 기준"
+     },
+     {
+      "sheet": 12,
+      "quote": "메뉴 반영은 9일에서 당일로 줄어듭니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

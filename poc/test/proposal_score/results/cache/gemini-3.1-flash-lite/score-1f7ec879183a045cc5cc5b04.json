@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs20:F07"
+ },
+ "prompt_tokens": 3171,
+ "output_tokens": 215,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "10장과 11장에서 투자 회수 기간, 연간 순현금, 광고 매출 등 정량적 효과를 제시하고, 각 수치의 산정 기준(판매율 60%, 순단가 등)과 가정 및 출처를 명확히 기재함.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "연간 순현금 9.8억 = 광고 매출 14.4억 − 운영비 4.6억"
+     },
+     {
+      "sheet": 11,
+      "quote": "보수 · 기준 · 낙관 세 경우 · 기준값의 근거와 가정을 함께"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

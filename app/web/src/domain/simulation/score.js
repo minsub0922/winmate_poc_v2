@@ -1,7 +1,7 @@
 // B2B 전략 시뮬레이션 — 제안 품질 집계 · 추천 후보 · 참고할 제안서.
-// 품질 기준은 '제안서 검토'의 평가 기준(review/criteria.js)에서 대화로 확인할 수 있는 대표 기준만 골랐다.
+// 기존 연습·대화 기록의 13개 대표 기준은 review/criteria-v1.js로 고정한다. 검토 v2 개편으로 과거 연습 점수를 바꾸지 않는다.
 // 고객 대사 · 점수 · 추천 답변은 모두 AI(engine.js)가 만든다. 여기는 그 값을 묶어 계산하고 자료 후보를 고르는 일만 한다.
-import { CR, CAT, band } from '../review/criteria.js';
+import { CR, CAT, band } from '../review/criteria-v1.js';
 import { P, S, C } from '../../services/catalog.js';
 import { SCENARIOS, REQ_TYPES, STRATEGIES, STAGES } from '../templates/scenarios.js';
 import { toks, recommendContext } from '../../services/search.js';
@@ -97,33 +97,81 @@ const REQ_HINT = [
   ['ops', ['운영', '효율', '에너지', '원격', '절감', '자동화']], ['scale', ['파일럿', '확산', '전 지점', '공동 개발']],
   ['new', ['신규', '구축', '신축', '오픈', '처음']], ['brief', ['경영진', '첫 미팅', '투자 심의', '대표']],
 ];
+// Cache the proposal text; only the live conversation weights change on each turn.
+let scenarioDocs;
+function referenceDocs() {
+  if (scenarioDocs) return scenarioDocs;
+  const rows = SCENARIOS.map((s) => ({ s, tokens: new Set(toks([
+    s.title, s.short, s.situation, s.thesis, ...(s.signals || []), ...(s.criteria || []), ...(s.kpis || []),
+    ...(s.objections || []).flat(), ...(s.products || []).map((id) => P[id]?.name || ''),
+    ...(s.solutions || []).map((id) => S[id]?.name || ''), ...(s.cases || []).map((id) => C[id]?.title || ''),
+  ].join(' '))) }));
+  const counts = new Map();
+  for (const row of rows) for (const token of row.tokens) counts.set(token, (counts.get(token) || 0) + 1);
+  scenarioDocs = rows.map((row) => ({ ...row, weights: new Map([...row.tokens].map((token) => [token, Math.log(1 + rows.length / counts.get(token))])) }));
+  return scenarioDocs;
+}
+function relevance(tokens, doc) {
+  if (!tokens.size) return 0;
+  let hit = 0, total = 0;
+  for (const token of tokens) {
+    // Generic meeting words shared by many proposals should not dominate specific needs.
+    const w = doc.weights.get(token);
+    if (w) hit += w;
+    total += w || 2;
+  }
+  return total ? hit / total : 0;
+}
 export function similarScenarios(sim, limit = 3) {
   const pf = sim.profile;
-  const convo = [setupText(sim.setup), pf.interests.join(' '), ...sim.msgs.map(msgPlain)].join('\n');
-  const ct = new Set(toks(convo));
-  const refs = new Set([...setupRefs(sim.setup), ...sellerRefs(sim)]);
-  const reqTypes = REQ_HINT.filter(([, ws]) => ws.some((w) => convo.includes(w))).map(([k]) => k);
-  if (sim.level === 3 && !reqTypes.includes('compete')) reqTypes.push('compete');
-  const open = (sim.profile.concerns || []).filter((c) => c.revealed && !c.resolved);
+  const msgs = sim.msgs || [];
+  const recent = msgs.slice(-4);
+  const latestCustomer = [...msgs].reverse().find((m) => m.who === 'cust');
+  const currentText = latestCustomer ? msgPlain(latestCustomer).toLowerCase() : '';
+  const baseText = [setupText(sim.setup), ...(pf.interests || [])].join(' ').toLowerCase();
+  const open = (pf.concerns || []).filter((c) => c.revealed && !c.resolved);
+  const base = new Set(toks(baseText));
+  const live = new Set(toks(recent.map(msgPlain).join(' ')));
+  const latest = new Set(toks(currentText));
+  const concerns = new Set(toks(open.map((c) => [c.text, ...(c.kw || [])].join(' ')).join(' ')));
+  const baseRefs = new Set(setupRefs(sim.setup));
+  const allRefs = new Set(sellerRefs(sim));
+  const recentRefs = new Set(recent.filter((m) => m.who === 'me').flatMap((m) => segRefs(m.segs)));
+  // Customers use product names rather than @ tokens. Match those names in their latest request too.
+  const mentions = (type, id) => {
+    if (recentRefs.has(type + ':' + id)) return true;
+    const item = type === 'product' ? P[id] : type === 'solution' ? S[id] : C[id];
+    return [item?.name, item?.model, type === 'case' && item?.title].some((name) => name && name.length > 2 && currentText.includes(name.toLowerCase()));
+  };
+  const baseTypes = REQ_HINT.filter(([, ws]) => ws.some((w) => baseText.includes(w.toLowerCase()))).map(([k]) => k);
+  const liveTypes = REQ_HINT.filter(([, ws]) => ws.some((w) => currentText.includes(w.toLowerCase()))).map(([k]) => k);
   const stage = sim.cur.stage || 'open';
-  return SCENARIOS.map((s) => {
+  return referenceDocs().map((doc) => {
+    const s = doc.s;
     let sc = 0; const why = [];
-    if (sim.setup.sid === s.id) { sc += 4; why.push('이 요구사항의 원본'); }
-    if (pf.ind && s.ind === pf.ind) { sc += 3; why.push('같은 업종'); } else if (!s.ind) sc += 0.6;
-    if (reqTypes.includes(s.req)) { sc += 1.6; why.push(REQ_TYPES[s.req].label.split(' · ')[0]); }
-    const hitP = s.products.filter((id) => refs.has('product:' + id)); const hitS = s.solutions.filter((id) => refs.has('solution:' + id)); const hitC = s.cases.filter((id) => refs.has('case:' + id));
-    sc += hitP.length * 0.9 + hitS.length * 1.1 + hitC.length * 1.4;
-    for (const id of hitS.slice(0, 1)) why.push(S[id].name);
-    for (const id of hitP.slice(0, 1)) why.push(P[id].model);
-    const st = toks([s.title, s.situation, s.signals.join(' '), s.criteria.join(' '), s.kpis.join(' '), s.objections.map((o) => o[0]).join(' ')].join(' '));
-    let hit = 0; for (const w of new Set(st)) if (ct.has(w)) hit++;
-    sc += Math.min(3, hit * 0.06);
-    // 지금 흐름에서 참고할 포인트
+    if (sim.setup.sid === s.id) { sc += 1; why.push('요구사항 원본'); }
+    if (pf.ind && s.ind === pf.ind) { sc += 2; why.push('같은 업종'); } else if (!s.ind) sc += 0.3;
+    if (liveTypes.includes(s.req)) { sc += 4; why.unshift('방금 나온 ' + REQ_TYPES[s.req].label.split(' · ')[0]); }
+    else if (baseTypes.includes(s.req)) sc += 0.8;
+    for (const [type, ids, weight] of [['product', s.products, 2], ['solution', s.solutions, 2.5], ['case', s.cases, 3]]) {
+      for (const id of ids || []) {
+        const ref = type + ':' + id;
+        if (mentions(type, id)) {
+          sc += weight * 2;
+          const item = type === 'product' ? P[id] : type === 'solution' ? S[id] : C[id];
+          why.unshift(item?.model || item?.name || item?.title || '최근 언급 자료');
+        } else if (baseRefs.has(ref)) sc += weight * 0.35;
+        else if (allRefs.has(ref)) sc += weight * 0.15;
+      }
+    }
+    const liveFit = relevance(latest, doc);
+    sc += relevance(base, doc) * 2 + relevance(live, doc) * 5 + liveFit * 12 + relevance(concerns, doc) * 5;
+    if (liveFit >= 0.15) why.unshift('최근 고객 요구와 연결');
     let tip = null;
     for (const c of open) {
-      const ck = new Set(toks(c.text + ' ' + c.kw.join(' ')));
-      const ob = s.objections.map(([q, a]) => ({ q, a, n: toks(q).filter((w) => ck.has(w)).length })).sort((a, b) => b.n - a.n)[0];
-      if (ob && ob.n >= 2) { tip = { kind: 'objection', label: '고객 우려 대응', q: ob.q, a: ob.a }; sc += 1.2; why.push('같은 우려 대응'); break; }
+      const ck = new Set(toks(c.text + ' ' + (c.kw || []).join(' ')));
+      const ob = s.objections.map(([q, a]) => ({ q, a, n: new Set(toks(q).filter((w) => ck.has(w))).size })).sort((a, b) => b.n - a.n)[0];
+      if (ob && ob.n >= 2) { tip = { kind: 'objection', label: '고객 우려 대응', q: ob.q, a: ob.a }; sc += 1.5; why.unshift('남아 있는 우려 대응'); break; }
     }
     if (!tip) {
       const keys = SIM_STAGES[STAGE_IX[stage] ?? 0].keys;
@@ -132,6 +180,6 @@ export function similarScenarios(sim, limit = 3) {
         : { kind: 'stage', label: g.name, q: g.goal, a: stage === 'value' || stage === 'open' ? s.thesis : (g.slides[0] && g.slides[0].role) || '' };
     }
     return { s, score: sc, why: [...new Set(why)].slice(0, 3), tip, strat: STRATEGIES[s.strategy] };
-  }).sort((a, b) => b.score - a.score).slice(0, limit);
+  }).sort((a, b) => b.score - a.score || a.s.id.localeCompare(b.s.id)).slice(0, limit);
 }
 export { STAGES };

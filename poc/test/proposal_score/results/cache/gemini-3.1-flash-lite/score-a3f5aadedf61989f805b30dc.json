@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07:F04"
+ },
+ "prompt_tokens": 4629,
+ "output_tokens": 327,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "B 호텔의 체크인 대기 시간(12분), 객실 매출 비중(78%), 에어컨 노후화(2013년) 등 현장 수치와 원인을 구체적으로 분석했습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "체크인 대기 12분, 객실 매출 78%"
+     },
+     {
+      "sheet": 4,
+      "quote": "2013년 정속형 에어컨, 15-16시 체크인 집중"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 1,
+    "anchor": "제안서 내에 실제 도입 사례에 대한 구체적인 고객명, 도입 구성, 성과 수치가 제시된 장이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "유사한 호텔 업종의 실제 도입 사례를 선정하여 도입 제품 구성과 그로 인한 정량적 성과를 구체적으로 기술해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

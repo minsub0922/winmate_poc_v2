@@ -1,0 +1,116 @@
+{
+ "id": "H05",
+ "case": "H05",
+ "industry": "OE",
+ "strategy": "land",
+ "req_type": null,
+ "title": "통신사 키즈폰 에디션",
+ "level": "complex",
+ "input": {
+  "title": "U 텔레콤 키즈폰 에디션",
+  "customer": "U 텔레콤",
+  "project": "키즈폰 전용 에디션 공동 개발",
+  "target": "단말기획본부장",
+  "free_text": "초등학생용 키즈폰 전용 에디션을 공동 개발하려 합니다. 내년 3월 신학기 출시가 목표이고, 1차 물량은 5만 대입니다. 전파 인증과 KC 인증 일정까지 포함한 개발 일정이 필요합니다.",
+  "keymen": [
+   {
+    "name": "단말기획본부장",
+    "weight": 45,
+    "reqs": [
+     "아이 맞춤 홈 화면 · 앱 제한",
+     "보호자 앱과 위치 · 사용 시간 연동",
+     "내년 3월 신학기 출시"
+    ]
+   },
+   {
+    "name": "보안팀장",
+    "weight": 30,
+    "reqs": [
+     "분실 시 원격 잠금 · 위치 확인",
+     "유해 사이트 차단 정책 일괄 적용"
+    ]
+   },
+   {
+    "name": "구매팀장",
+    "weight": 25,
+    "reqs": [
+     "대당 공급 단가 한도",
+     "1차 5만 대 · 추가 물량 단계 공급"
+    ]
+   }
+  ],
+  "products": [
+   "galaxyA",
+   "watch"
+  ],
+  "solutions": [
+   "knoxsuite"
+  ],
+  "id": "H05"
+ },
+ "gold": {
+  "strategy_any": [
+   "land",
+   "value",
+   "roi"
+  ],
+  "must_parts": [
+   "requirements",
+   "execution"
+  ],
+  "dims_any": [
+   "일정·실행·확산",
+   "보안·인증·규제",
+   "비용·구매"
+  ],
+  "conflicts_any": [],
+  "min_questions": 4,
+  "key_reqs": [
+   {
+    "kw": [
+     "3월"
+    ],
+    "parts_any": [
+     "execution",
+     "closing",
+     "requirements"
+    ],
+    "priority": "must"
+   },
+   {
+    "kw": [
+     "원격 잠금"
+    ],
+    "parts_any": [
+     "execution",
+     "spec",
+     "solution",
+     "requirements"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "단가"
+    ],
+    "parts_any": [
+     "cost",
+     "requirements"
+    ],
+    "priority": "must"
+   }
+  ],
+  "facts": [
+   "5"
+  ],
+  "layouts_any": {
+   "execution": [
+    "L_CU_B",
+    "L_CU_A",
+    "L_PL_A"
+   ]
+  },
+  "level": "complex",
+  "industry": "OE"
+ }
+}

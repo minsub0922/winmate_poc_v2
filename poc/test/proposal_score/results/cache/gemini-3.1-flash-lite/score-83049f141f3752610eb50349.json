@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs21:F08"
+ },
+ "prompt_tokens": 3535,
+ "output_tokens": 176,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "H 호텔의 핵심 니즈 3가지(응대, 환경, 서비스)에 대응하는 AI 기술과 핵심 가치를 3열 구조로 명확히 연결하여 제시하였습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "H 호텔 투숙객의 세 가지 니즈에 삼성 AI 기술로 답합니다"
+     },
+     {
+      "sheet": 6,
+      "quote": "AI 글로벌 응대, AI 맞춤 환경, AI 맞춤 서비스"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

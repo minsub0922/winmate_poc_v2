@@ -1,0 +1,602 @@
+{
+ "summary": {
+  "overall": 0.9853,
+  "by_level": {
+   "minimal": 0.9948,
+   "ambiguous": 0.9908,
+   "complex": 0.9704
+  },
+  "by_case": {
+   "K01": 0.9948,
+   "K02": 0.9948,
+   "K03": 0.993,
+   "K04": 0.9886,
+   "K05": 0.9462,
+   "K06": 0.9945
+  },
+  "metrics": {
+   "level": 1.0,
+   "industry": 0.8333,
+   "scenario": 1.0,
+   "must_parts": 1.0,
+   "flow": 0.8288,
+   "layout_part": 0.975,
+   "violations": 1.0,
+   "must_cov": 1.0,
+   "fill_clean": 1.0,
+   "stray": 1.0,
+   "scenario_top3": 1.0,
+   "key_detect": 1.0,
+   "key_trace": 1.0,
+   "key_reflect": 1.0,
+   "layouts_any": 1.0,
+   "facts": 1.0,
+   "priority": 1.0,
+   "dims": 1.0,
+   "questions": 1.0,
+   "eval": 1.0,
+   "conflicts": 1.0
+  },
+  "n": 6,
+  "name": "eval1018-h2",
+  "llm": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "llm_calls": 164,
+  "llm_fail": 0,
+  "elapsed_s": 129.3
+ },
+ "rows": [
+  {
+   "id": "K01",
+   "case": "K01",
+   "level": "minimal",
+   "industry": "ID",
+   "score": 0.9948,
+   "metrics": {
+    "level": 1.0,
+    "industry": 1.0,
+    "scenario": 1.0,
+    "scenario_top3": null,
+    "must_parts": 1.0,
+    "flow": 0.875,
+    "layout_part": 1.0,
+    "layouts_any": null,
+    "violations": 1.0,
+    "key_detect": null,
+    "key_trace": null,
+    "key_reflect": null,
+    "must_cov": 1.0,
+    "facts": null,
+    "priority": null,
+    "fill_clean": 1.0,
+    "stray": 1.0,
+    "dims": null,
+    "conflicts": null,
+    "questions": null,
+    "eval": null
+   },
+   "detail": {
+    "scenario": "STD-ID",
+    "missing_parts": [],
+    "key_reqs": [],
+    "stray": {},
+    "fill": {
+     "slots": 266,
+     "changed": 174,
+     "placeholders_left": 43,
+     "unsupported_reverted": 0,
+     "sample_leak": 0,
+     "foreign_terms": 0,
+     "static_foreign_slides": 1
+    },
+    "fill_cov": 0.654
+   },
+   "n_slides": 9,
+   "n_req": 1,
+   "sec": 13.92,
+   "slides": [
+    "1.cover:L_C09",
+    "2.market:L_MI_ID_A",
+    "3.value:L_VP_F2",
+    "4.dss:L_SP00",
+    "5.products:L_P2B",
+    "6.case:L_CS03",
+    "7.why:L_WS02",
+    "8.why:L_SV_A",
+    "9.closing:L_C13"
+   ],
+   "parts": [
+    "S01:cover:W 키친 파트너십 제안",
+    "S02:market:인테리어 시장과 핵심 요구",
+    "S03:value:제품별 핵심 가치 제안",
+    "S04:dss:주방 공간 최적화",
+    "S05:products:공간별 맞춤형 제품",
+    "S06:case:유관 업종 성공 사례",
+    "S07:why:삼성전자 선택의 이유",
+    "S08:why:도입 후 지원 체계",
+    "S09:closing:향후 협력 방안"
+   ]
+  },
+  {
+   "id": "K02",
+   "case": "K02",
+   "level": "minimal",
+   "industry": "VN",
+   "score": 0.9948,
+   "metrics": {
+    "level": 1.0,
+    "industry": 1.0,
+    "scenario": 1.0,
+    "scenario_top3": null,
+    "must_parts": 1.0,
+    "flow": 0.875,
+    "layout_part": 1.0,
+    "layouts_any": null,
+    "violations": 1.0,
+    "key_detect": null,
+    "key_trace": null,
+    "key_reflect": null,
+    "must_cov": 1.0,
+    "facts": null,
+    "priority": null,
+    "fill_clean": 1.0,
+    "stray": 1.0,
+    "dims": null,
+    "conflicts": null,
+    "questions": null,
+    "eval": null
+   },
+   "detail": {
+    "scenario": "STD-VN",
+    "missing_parts": [],
+    "key_reqs": [],
+    "stray": {},
+    "fill": {
+     "slots": 260,
+     "changed": 159,
+     "placeholders_left": 46,
+     "unsupported_reverted": 0,
+     "sample_leak": 0,
+     "foreign_terms": 0,
+     "static_foreign_slides": 2
+    },
+    "fill_cov": 0.612
+   },
+   "n_slides": 9,
+   "n_req": 1,
+   "sec": 13.39,
+   "slides": [
+    "1.cover:L_C09",
+    "2.market:L_MI_VN_A",
+    "3.value:L_VP_G",
+    "4.dss:L_SP00",
+    "5.products:L_P1D",
+    "6.case:L_CS02",
+    "7.why:L_WS02",
+    "8.why:L_SV_A",
+    "9.closing:L_C13"
+   ],
+   "parts": [
+    "S01:cover:X 시네마 혁신 제안",
+    "S02:market:공연장 및 영화관 트렌드",
+    "S03:value:Onyx 핵심 가치",
+    "S04:dss:공간별 최적화 전략",
+    "S05:products:Onyx 시네마 LED",
+    "S06:case:성공적인 도입 사례",
+    "S07:why:삼성전자 선택 이유",
+    "S08:why:운영 및 유지보수 지원",
+    "S09:closing:향후 협력 방안"
+   ]
+  },
+  {
+   "id": "K03",
+   "case": "K03",
+   "level": "ambiguous",
+   "industry": "TP",
+   "score": 0.993,
+   "metrics": {
+    "level": 1.0,
+    "industry": 1.0,
+    "scenario": 1.0,
+    "scenario_top3": 1.0,
+    "must_parts": 1.0,
+    "flow": 0.909,
+    "layout_part": 0.9333333333333333,
+    "layouts_any": null,
+    "violations": 1.0,
+    "key_detect": 1.0,
+    "key_trace": 1.0,
+    "key_reflect": 1.0,
+    "must_cov": null,
+    "facts": null,
+    "priority": null,
+    "fill_clean": 1.0,
+    "stray": 1.0,
+    "dims": null,
+    "conflicts": null,
+    "questions": null,
+    "eval": null
+   },
+   "detail": {
+    "scenario": "bs05",
+    "top3": [
+     "bs05"
+    ],
+    "missing_parts": [],
+    "key_reqs": [
+     {
+      "kw": [
+       "체험"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     }
+    ],
+    "stray": {},
+    "fill": {
+     "slots": 694,
+     "changed": 408,
+     "placeholders_left": 91,
+     "unsupported_reverted": 0,
+     "sample_leak": 0,
+     "foreign_terms": 0,
+     "static_foreign_slides": 3
+    },
+    "fill_cov": 0.588
+   },
+   "n_slides": 15,
+   "n_req": 2,
+   "sec": 23.69,
+   "slides": [
+    "1.cover:L_C02",
+    "2.market:L_MI_TP_A",
+    "3.user:L_SS_TP_B",
+    "4.value:L_VP_N",
+    "5.scenario:L_SS_TP_A",
+    "6.scenario:L_VM_C",
+    "7.scenario:L_SS_TP_D",
+    "8.birdseye:L_BE02",
+    "9.birdseye:L_GN_D",
+    "10.products:L_P_L",
+    "11.spec:L_SD_G",
+    "12.scenario:L_SS_E",
+    "13.case:L_CD_D",
+    "14.closing:L_C12",
+    "15.closing:L_C13"
+   ],
+   "parts": [
+    "S01:cover:Y 과학관의 새로운 미래",
+    "S02:market:몰입형 전시 시장의 변화",
+    "S03:user:관람객의 첫인상 설계",
+    "S04:value:전시 가치의 극대화",
+    "S05:scenario:공간 시나리오 및 동선",
+    "S06:birdseye:전시 공간 조감도",
+    "S07:birdseye:콘텐츠와 LED 구성",
+    "S08:products:공간별 최적 제품",
+    "S09:spec:제품 스펙 및 기술",
+    "S10:scenario:시즌별 운영 전략",
+    "S11:case:성공적인 테마파크 사례",
+    "S12:closing:비전과 다음 단계"
+   ]
+  },
+  {
+   "id": "K04",
+   "case": "K04",
+   "level": "ambiguous",
+   "industry": "PB",
+   "score": 0.9886,
+   "metrics": {
+    "level": 1.0,
+    "industry": 1.0,
+    "scenario": 1.0,
+    "scenario_top3": null,
+    "must_parts": 1.0,
+    "flow": 0.636,
+    "layout_part": 1.0,
+    "layouts_any": null,
+    "violations": 1.0,
+    "key_detect": 1.0,
+    "key_trace": 1.0,
+    "key_reflect": 1.0,
+    "must_cov": 1.0,
+    "facts": null,
+    "priority": null,
+    "fill_clean": 1.0,
+    "stray": 1.0,
+    "dims": null,
+    "conflicts": null,
+    "questions": null,
+    "eval": null
+   },
+   "detail": {
+    "scenario": "bs09",
+    "missing_parts": [],
+    "key_reqs": [
+     {
+      "kw": [
+       "민원"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     }
+    ],
+    "stray": {},
+    "fill": {
+     "slots": 712,
+     "changed": 314,
+     "placeholders_left": 128,
+     "unsupported_reverted": 0,
+     "sample_leak": 0,
+     "foreign_terms": 0,
+     "static_foreign_slides": 2
+    },
+    "fill_cov": 0.441
+   },
+   "n_slides": 14,
+   "n_req": 2,
+   "sec": 31.47,
+   "slides": [
+    "1.cover:L_C01",
+    "2.customer:L_MI_PB_B",
+    "3.user:L_US_C",
+    "4.birdseye:L_IS_A",
+    "5.challenge:L_CH_C",
+    "6.value:L_VP_F2",
+    "7.scenario:L_SS_PB_D",
+    "8.scenario:L_SS_PB_B",
+    "9.products:L_P_K",
+    "10.products:L_P_N",
+    "11.spec:L_SE_B",
+    "12.execution:L_IP_C",
+    "13.why:L_SV_B",
+    "14.closing:L_C13"
+   ],
+   "parts": [
+    "S01:cover:Z구청 민원실 혁신",
+    "S02:customer:지속 가능한 운영",
+    "S03:user:시민 중심 환경",
+    "S04:birdseye:현장 진단 및 분석",
+    "S05:challenge:민원 불편 해소",
+    "S06:value:핵심 가치 제안",
+    "S07:scenario:스마트 민원 환경",
+    "S08:products:최적화된 제품 구성",
+    "S09:spec:제품 규격 및 신뢰성",
+    "S10:execution:무중단 실행 계획",
+    "S11:why:서비스 품질 보장",
+    "S12:closing:향후 추진 방향"
+   ]
+  },
+  {
+   "id": "K05",
+   "case": "K05",
+   "level": "complex",
+   "industry": "AD",
+   "score": 0.9462,
+   "metrics": {
+    "level": 1.0,
+    "industry": 0.0,
+    "scenario": 1.0,
+    "scenario_top3": null,
+    "must_parts": 1.0,
+    "flow": 0.909,
+    "layout_part": 0.9166666666666666,
+    "layouts_any": 1.0,
+    "violations": 1.0,
+    "key_detect": 1.0,
+    "key_trace": 1.0,
+    "key_reflect": 1.0,
+    "must_cov": 1.0,
+    "facts": 1.0,
+    "priority": 1.0,
+    "fill_clean": 1.0,
+    "stray": 1.0,
+    "dims": 1.0,
+    "conflicts": null,
+    "questions": 1.0,
+    "eval": 1.0
+   },
+   "detail": {
+    "strategy": "rfp",
+    "missing_parts": [],
+    "layouts_any_miss": [],
+    "key_reqs": [
+     {
+      "kw": [
+       "최소 보장"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     },
+     {
+      "kw": [
+       "휘도"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     }
+    ],
+    "facts_miss": [],
+    "stray": {},
+    "fill": {
+     "slots": 520,
+     "changed": 328,
+     "placeholders_left": 67,
+     "unsupported_reverted": 0,
+     "sample_leak": 0,
+     "foreign_terms": 0,
+     "static_foreign_slides": 2
+    },
+    "fill_cov": 0.631,
+    "dims": [
+     "기능·성능 규격",
+     "비용·구매",
+     "운영·유지보수",
+     "평가·선정·자격"
+    ],
+    "conflicts": [
+     "LLM 발견"
+    ],
+    "n_questions": 11,
+    "interrupted": true
+   },
+   "n_slides": 12,
+   "n_req": 9,
+   "sec": 20.12,
+   "slides": [
+    "1.cover:L_C03",
+    "2.overview:L_OV_A",
+    "3.requirements:L_RM_A",
+    "4.requirements:L_RM_C",
+    "5.value:L_VP_F2",
+    "6.solution:L_OP_C",
+    "7.products:L_P1B",
+    "8.spec:L_SC_B",
+    "9.case:L_CS03",
+    "10.why:L_CM_B",
+    "11.cost:L_EF_H",
+    "12.closing:L_C13"
+   ],
+   "parts": [
+    "S01:cover:AA 교통공사 미디어 사업",
+    "S02:overview:사업 추진 방향",
+    "S03:requirements:핵심 이해관계자 대응",
+    "S04:requirements:평가 항목별 전략",
+    "S05:value:삼성의 핵심 가치",
+    "S06:solution:운영 및 유지보수",
+    "S07:products:공간 맞춤형 제품",
+    "S08:spec:기술 규격 및 안전",
+    "S09:case:성공적인 운영 사례",
+    "S10:why:삼성 선택의 이유",
+    "S11:cost:비용 및 수익 전략",
+    "S12:closing:최적의 파트너"
+   ]
+  },
+  {
+   "id": "K06",
+   "case": "K06",
+   "level": "complex",
+   "industry": "FB",
+   "score": 0.9945,
+   "metrics": {
+    "level": 1.0,
+    "industry": 1.0,
+    "scenario": 1.0,
+    "scenario_top3": null,
+    "must_parts": 1.0,
+    "flow": 0.769,
+    "layout_part": 1.0,
+    "layouts_any": 1.0,
+    "violations": 1.0,
+    "key_detect": 1.0,
+    "key_trace": 1.0,
+    "key_reflect": 1.0,
+    "must_cov": 1.0,
+    "facts": 1.0,
+    "priority": 1.0,
+    "fill_clean": 1.0,
+    "stray": 1.0,
+    "dims": 1.0,
+    "conflicts": 1.0,
+    "questions": 1.0,
+    "eval": null
+   },
+   "detail": {
+    "strategy": "value",
+    "missing_parts": [],
+    "layouts_any_miss": [],
+    "key_reqs": [
+     {
+      "kw": [
+       "POS"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     },
+     {
+      "kw": [
+       "30%"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     },
+     {
+      "kw": [
+       "렌탈"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     }
+    ],
+    "facts_miss": [],
+    "stray": {},
+    "fill": {
+     "slots": 854,
+     "changed": 384,
+     "placeholders_left": 67,
+     "unsupported_reverted": 0,
+     "sample_leak": 0,
+     "foreign_terms": 0,
+     "static_foreign_slides": 0
+    },
+    "fill_cov": 0.45,
+    "dims": [
+     "범위·수량·공간",
+     "비용·구매",
+     "사용자 경험·성과",
+     "시스템 연동",
+     "운영·유지보수",
+     "일정·실행·확산"
+    ],
+    "conflicts": [
+     "LLM 발견",
+     "시공 vs 영업 유지"
+    ],
+    "n_questions": 12,
+    "interrupted": true
+   },
+   "n_slides": 15,
+   "n_req": 9,
+   "sec": 25.31,
+   "slides": [
+    "1.cover:L_C08",
+    "2.overview:L_ES_A",
+    "3.requirements:L_RM_A",
+    "4.value:L_VP_F",
+    "5.solution:L_SA_D",
+    "6.scenario:L_SS_FB_A",
+    "7.scenario:L_SS_FB_D",
+    "8.products:L_P2B",
+    "9.bom:L_BM_C",
+    "10.execution:L_IG_B",
+    "11.effect:L_EF_A",
+    "12.execution:L_IP_C",
+    "13.execution:L_IP_B",
+    "14.cost:L_CO_A",
+    "15.closing:L_C13"
+   ],
+   "parts": [
+    "S01:cover:BB 버거 디지털 전환 제안",
+    "S02:overview:제안 요약",
+    "S03:requirements:핵심 이해관계자 요구사항",
+    "S04:value:삼성 B2B 핵심 가치",
+    "S05:solution:운영 및 유지보수 최적화",
+    "S06:scenario:매장 환경별 고객 경험",
+    "S07:products:공간별 최적 디스플레이",
+    "S08:bom:구축 범위 및 수량",
+    "S09:execution:시스템 연동 전략",
+    "S10:effect:기대 효과",
+    "S11:execution:단계별 확산 일정",
+    "S12:execution:무중단 야간 시공",
+    "S13:cost:비용 효율적 구매 전략",
+    "S14:closing:파일럿 프로젝트 승인 요청"
+   ]
+  }
+ ]
+}

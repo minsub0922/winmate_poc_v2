@@ -1,0 +1,40 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs13:F01"
+ },
+ "prompt_tokens": 8609,
+ "output_tokens": 279,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "14장에 제안 담당자의 연락처가 예시 형식(010-1234-5678)으로 기재되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "010-1234-5678"
+     }
+    ],
+    "improve": "제출 전 실제 담당자의 연락처로 수정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 2,
+    "anchor": "11장에 '할인율 미적용'이라는 내부 검토용 표현이 포함되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "할인율 미적용"
+     }
+    ],
+    "improve": "고객에게 전달되는 제안서이므로 내부적인 산출 근거 문구는 삭제하거나 고객 친화적인 표현으로 변경해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

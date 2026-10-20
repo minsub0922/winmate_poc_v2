@@ -25,6 +25,7 @@ from ..jobs import BadRequest
 from ..provider import ProviderError, parse_json
 from ..settings import FUNCTIONS, Settings
 from ..strict import failure, from_provider, invalid_output, reject_legacy_options, require_provider
+from ... import telemetry
 
 SCHEMA_TYPES = ('OBJECT', 'ARRAY', 'STRING', 'INTEGER', 'NUMBER', 'BOOLEAN')
 SCHEMA_KEYS = {'type', 'properties', 'items', 'required', 'enum', 'description', 'nullable', 'format', 'minItems', 'maxItems', 'propertyOrdering'}
@@ -237,6 +238,7 @@ def _frames(req: LlmRequest, model: str, step: str, gen: Iterator[str], first: s
             yield {'type': 'text', 'text': acc}
     except ProviderError as exc:
         err = from_provider(step, exc)
+        telemetry.emit('application.error',status='error',feature=req.feature,stage=step,code=err.code,message=err.message,stack=telemetry.stack(exc),model=model)
         yield {'type': 'error', 'code': err.code, 'message': err.message, 'retryable': err.retryable}
         return
     finally:
@@ -248,17 +250,20 @@ def _frames(req: LlmRequest, model: str, step: str, gen: Iterator[str], first: s
             data = parse_json(last)
         except ValueError:
             err = failure('invalid_json', step)
+            telemetry.emit('application.error',status='error',feature=req.feature,stage=step,code=err.code,message=err.message,model=model)
             yield {'type': 'error', 'code': err.code, 'message': err.message, 'retryable': True}
             return
         problem = conforms(data, req.schema) if req.schema else ''
         if problem:
             err = invalid_output(step, problem)
+            telemetry.emit('application.error',status='error',feature=req.feature,stage=step,code=err.code,message=err.message,model=model)
             yield {'type': 'error', 'code': err.code, 'message': err.message, 'retryable': True}
             return
         yield {'type': 'result', 'mode': 'real', 'feature': req.feature, 'data': data, 'model': model, 'schema_validated': bool(req.schema)}
     else:
         if not last.strip():
             err = failure('empty', step)
+            telemetry.emit('application.error',status='error',feature=req.feature,stage=step,code=err.code,message=err.message,model=model)
             yield {'type': 'error', 'code': err.code, 'message': err.message, 'retryable': True}
             return
         yield {'type': 'result', 'mode': 'real', 'feature': req.feature, 'text': last, 'model': model}

@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs14:F03"
+ },
+ "prompt_tokens": 3004,
+ "output_tokens": 278,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 2,
+    "anchor": "경영 지표(단말 총비용 등)와 실무 지표(처리 시간 등)가 12장과 13장에 제시되어 있으나, 결정권자가 한눈에 볼 수 있는 요약 장(Executive Summary)이 별도로 존재하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "단말 총비용 | 대당 · 5년 TCO | 310 | 만 원 | 150 | 만 원 | ▼ 52%"
+     },
+     {
+      "sheet": 13,
+      "quote": "건당 처리 시간 | 입고 검수 · 박스 1건 | 90 | 초 | 60 | 초 | ▼ 33%"
+     }
+    ],
+    "improve": "제안서 초반부에 경영 지표와 핵심 성과를 요약한 Executive Summary 장을 추가하여 결정권자가 의사결정에 필요한 정보를 즉시 파악할 수 있도록 구성해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

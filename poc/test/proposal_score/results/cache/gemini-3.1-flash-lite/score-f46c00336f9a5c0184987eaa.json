@@ -1,0 +1,40 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs03~full:F03"
+ },
+ "prompt_tokens": 3615,
+ "output_tokens": 323,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 2,
+    "anchor": "14장에 결정할 사항이 정리되어 있으나, 경영 지표(비용, 리스크 등)가 요약 장에 모여 있지 않고 실무적인 시공 일정 위주로 구성되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "11월 안에 함께 정할 세 가지"
+     }
+    ],
+    "improve": "14장에 결정권자가 판단할 수 있도록 예산 집행 효율성, 운영 리스크 관리 방안, 기대 성과를 요약한 경영 지표 섹션을 추가하십시오.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS7",
+    "score": 1,
+    "anchor": "비용 구조, 구매 방식, 투자 회수 기간 및 숨은 비용에 대한 정보가 제안서 내에 전혀 언급되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "구매 방식(일시불/리스 등), 총소유비용(TCO) 산정 근거, 유지보수 및 라이선스 비용을 포함한 비용 구조를 명시하십시오.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

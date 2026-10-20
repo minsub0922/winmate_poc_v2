@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~wrong_customer:F04"
+ },
+ "prompt_tokens": 6211,
+ "output_tokens": 408,
+ "data": {
+  "scores": [
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "각 공간별 환경(옥외, 카운터, 키오스크 등)에 적합한 제품(OH55A-S, QM55C, KM24C)이 명시되었으며, 각 제품의 사양(옥외용 IP56, 24/7 운영 등)이 환경 요구사항을 충족합니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "QM55C 55\" · 500nit · 4K UHD · 24/7 운영"
+     },
+     {
+      "sheet": 10,
+      "quote": "OH55A-S 55\" · 3,500nit(최대 4,000) · IP56"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "밀키프레소 사례를 통해 업종 적합성, 도입 구성(화면, 솔루션), 성과 수치(방문 0회, 원격 관리)를 명확히 제시하였습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "밀키프레소 — 방문 없이 가맹점 화면 원격 관리"
+     },
+     {
+      "sheet": 13,
+      "quote": "0회 화면 교체를 위한 매장 방문"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

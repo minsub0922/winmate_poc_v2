@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs17:F02"
+ },
+ "prompt_tokens": 8088,
+ "output_tokens": 274,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 요구사항 7가지(R1~R3, K1~K4)에 대해 각 장에서 명시적으로 대응하고 있습니다. 파일럿 성과는 4장, 보안은 8~9장, 확산 일정 및 물량은 10~11장, 연차별 효과는 13장에서 구체적인 수치와 계획으로 답하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "T 은행 시범 10개점 — 6개월 성과"
+     },
+     {
+      "sheet": 8,
+      "quote": "보안 요건 10개 중 8개 충족, 2개는 사전 협의"
+     },
+     {
+      "sheet": 11,
+      "quote": "확산 대상 240개 영업점, 절반인 120곳이 수도권에 있습니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

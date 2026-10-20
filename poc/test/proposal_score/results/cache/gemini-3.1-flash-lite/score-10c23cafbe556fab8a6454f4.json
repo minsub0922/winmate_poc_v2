@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01:F04"
+ },
+ "prompt_tokens": 6161,
+ "output_tokens": 388,
+ "data": {
+  "scores": [
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "옥외 사이니지 OH55A-S, 실내 메뉴보드 QM55C, 키오스크 KM24C 등 각 공간의 환경적 특성(옥외 직사광, 24/7 운영 등)에 적합한 제품이 명확히 매칭되어 제안되었습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "QM55C 55\" 500nit 4K UHD 24/7 운영"
+     },
+     {
+      "sheet": 10,
+      "quote": "OH55A-S 55\" 3,500nit IP56 드라이브스루 첫 메뉴판"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "카페 프랜차이즈인 밀키프레소와 말리커피의 도입 사례를 통해 구성 제품과 성과 수치를 구체적으로 제시하였습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "밀키프레소 — 방문 없이 가맹점 화면 원격 관리"
+     },
+     {
+      "sheet": 12,
+      "quote": "카운터 메뉴보드 — 말리커피 강남점"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

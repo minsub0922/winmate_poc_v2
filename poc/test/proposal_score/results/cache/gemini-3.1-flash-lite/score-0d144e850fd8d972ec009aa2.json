@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs09:F04"
+ },
+ "prompt_tokens": 6980,
+ "output_tokens": 409,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "S 교통공사의 현장 조사(6곳)를 바탕으로 장애 원인(과열, 발주 구조 등)과 영향(장애 인지 시간, 복구 시간 등)을 수치로 구체화했습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "장애 현장 여섯 곳을 직접 보고 왔습니다"
+     },
+     {
+      "sheet": 5,
+      "quote": "장애 인지 평균 90분 · 복구 평균 26시간"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 2,
+    "anchor": "대부분 공간에 적합한 제품을 제안했으나, 6장과 10장에서 실내용인 QM85C를 환승통로 천장형으로 제안하여 옥외 환경과의 적합성 확인이 필요합니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "QM85C 천장형 (환승통로)"
+     },
+     {
+      "sheet": 10,
+      "quote": "QM85C · 통로 천장 행거 · 하중 · 내진 기준 확인 중"
+     }
+    ],
+    "improve": "환승통로가 실내 환경임을 명확히 기술하거나, 해당 공간의 온습도 및 먼지 조건에 QM85C가 적합함을 입증하는 자료를 보완해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

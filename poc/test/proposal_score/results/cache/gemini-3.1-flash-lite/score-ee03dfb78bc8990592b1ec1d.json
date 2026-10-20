@@ -1,0 +1,57 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~base:F01"
+ },
+ "prompt_tokens": 8992,
+ "output_tokens": 562,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명을 'B 호텔'로 일관되게 표기하였으며, 규모(300실)와 담당 조직(객실팀, 시설팀 등) 정보가 장마다 동일하게 유지됩니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "B 호텔 객실 TV · 공조 교체와 투숙 경험 개선 제안"
+     },
+     {
+      "sheet": 10,
+      "quote": "객실 300실은 한 실의 키트로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "13장에 담당자 연락처 및 이메일 주소가 기재되어 있으나, 이는 제안서 마무리를 위한 정보로 템플릿 잔여물로 보기 어렵습니다. 다만, 자동 점검에서 지적된 이메일 주소의 일부가 템플릿 형식으로 보일 여지가 있어 2점으로 판단합니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678 · b2b.proposal@samsung.com"
+     }
+    ],
+    "improve": "이메일 주소 등 연락처 정보가 템플릿 예시처럼 보이지 않도록 명확한 실제 담당자 정보로 기재해야 합니다.",
+    "confidence": "mid"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "원가, 마진, 내부 할인율 등 민감한 내부 정보가 없으며, 13장에 기재된 담당자 연락처는 제안사 영업 담당자의 업무용 정보로 정상적인 표기입니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678 · b2b.proposal@samsung.com"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

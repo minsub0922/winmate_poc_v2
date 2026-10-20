@@ -123,7 +123,7 @@ def make_rfp_backend(provider: Any, tracker: ModeTracker, job: Optional[Job] = N
     _require(provider, 'rfp')
 
     class AppRfpBackend(rp.Backend):
-        name = 'gemini'
+        name = provider.name
 
         def complete(self, stage, system, user, meta):
             if job is not None:
@@ -192,13 +192,13 @@ def _route_problem(stage: str, data: Any) -> str:
     return ''
 
 
-def make_score_backend(provider: Any, tracker: ModeTracker, job: Optional[Job] = None, max_asks: int = 2, visual_images=None, visual_pages=None) -> Any:
+def make_score_backend(provider: Any, tracker: ModeTracker, job: Optional[Job] = None, max_asks: int = 2, visual_images=None, visual_pages=None, requirement_context: str = '') -> Any:
     ps = imports.score()
     llm = ps.llm
     _require(provider, 'review')
 
     class AppScoreBackend(llm.Backend):
-        name = 'gemini'
+        name = provider.name
         online = True
 
         def __init__(self) -> None:
@@ -207,29 +207,38 @@ def make_score_backend(provider: Any, tracker: ModeTracker, job: Optional[Job] =
             self.visual_calls=0
 
         def complete(self, stage, system, user, schema, meta=None, temperature=None):
+            user = (user or '') + requirement_context
             tag = (meta or {}).get('tag', '')
             step = f'review:{stage}' + (f':{tag.split(":", 1)[1]}' if ':' in tag else '')
             temp = 0.0 if temperature is None else temperature
             m = _SCORE_IDS.search(user or '') if stage == 'score' else None
-            expected = [x.strip() for x in m.group(1).split(',') if x.strip()] if m else []
-            use_vision=bool(visual_images) and stage=='score' and any(cid.startswith('DS') for cid in expected)
+            detailed = stage == 'score_detail'
+            expected = (meta or {}).get('criteria_ids', []) if detailed else [x.strip() for x in m.group(1).split(',') if x.strip()] if m else []
+            from .review_schema import schema as review_schema
+            review_rules = review_schema()
+            system += '\n현재 평가 정책:\n' + '\n'.join(review_rules['policies'])
+            visual_ids = {c['id'] for c in review_rules['criteria'] if c.get('visual')}
+            use_vision=bool(visual_images) and stage in ('score', 'score_detail') and any(cid in visual_ids or cid.startswith('DS') for cid in expected)
             if use_vision:
                 self.visual_calls+=1
                 user+='\n[실제 장표 이미지] 첨부 이미지 순서의 장 번호: '+str(visual_pages)+'. 이 장은 실제 픽셀을 보고 시각 기준을 판단하세요. 나머지 장은 텍스트/메타데이터만 있습니다. 이미지에서 확인하지 못한 치수나 사실은 만들지 마세요.'
             problem = ''
-            for _ in range(max(1, max_asks)):
+            for _ in range(max(1, 3 if detailed else max_asks)):
                 if job is not None:
                     job.check_cancel()
                 t0 = time.time()
                 try:
                     res = provider.generate_json(stage=f'score:{stage}', system=system, user=user, schema=schema, temperature=temp,
-                                                 max_output_tokens=8192, cancel=_cancel_check(job), images=visual_images if use_vision else None, model=provider.model_for('vision') if use_vision else None)
+                                                 max_output_tokens=16384 if detailed else 8192, cancel=_cancel_check(job), images=visual_images if use_vision else None, model=provider.model_for('vision') if use_vision else None)
                 except ProviderError as exc:
                     self.log(llm.CallLog(stage, stage, int((time.time() - t0) * 1000), error=exc.code, tag=tag))
                     raise _provider_failed(tracker, step, exc, job) from None
                 tracker.record_ok(res, 'review:score_vision' if use_vision else f'review:{stage}')
                 self.log(llm.CallLog(stage, stage, res.ms, res.prompt_tokens, res.output_tokens, cached=res.cached, tag=tag))
-                if stage == 'score' and expected:
+                if detailed:
+                    from .detailed_review import response_problem
+                    problem = response_problem(res.data, expected, {c['id']: c for c in review_rules['criteria']}, (meta or {})['proposal'])
+                elif stage == 'score' and expected:
                     problem = _score_problem(res.data, expected)
                 elif stage in ('route_l1', 'route_l2'):
                     problem = _route_problem(stage, res.data)
@@ -238,21 +247,39 @@ def make_score_backend(provider: Any, tracker: ModeTracker, job: Optional[Job] =
                 if not problem:
                     return res.data
                 tracker.record_rejected(step, problem)
+                if detailed:
+                    prior = json.dumps(res.data, ensure_ascii=False)
+                    user += '\n이전 응답 수정 필요: ' + problem + '\n정상 체크포인트의 판단은 유지하고 잘못된 인용·형식만 고치세요. 수정 대상 원응답:\n' + prior
+                    point_id = problem.split('의', 1)[0]
+                    for row in res.data.get('scores', []) if isinstance(res.data, dict) else []:
+                        if not isinstance(row, dict):
+                            continue
+                        for point in row.get('checks', []):
+                            if not isinstance(point, dict):
+                                continue
+                            if point.get('id') == point_id:
+                                for ev in point.get('evidence', []):
+                                    if not isinstance(ev, dict) or type(ev.get('sheet')) is not int:
+                                        continue
+                                    sheet = (meta or {})['proposal'].sheet(ev.get('sheet', 0))
+                                    if sheet:
+                                        user += '\n인용할 수 있는 ' + str(sheet.n) + '장 실제 원문:\n' + sheet.text[:8000]
             raise invalid_output(step, problem, 'incomplete_output' if stage == 'score' else 'invalid_output')
 
     return AppScoreBackend()
 
 
 # ---------------------------------------------------------------- storyboard
-def make_story_backend(provider: Any, tracker: ModeTracker, job: Optional[Job] = None) -> Any:
+def make_story_backend(provider: Any, tracker: ModeTracker, job: Optional[Job] = None, requirement_context: str = '') -> Any:
     sb = imports.story().llm
     _require(provider, 'storyboard')
 
     class AppStoryBackend(sb.Backend):
-        name = 'gemini'
+        name = provider.name
         online = True
 
         def complete(self, stage, system, user, *, schema=None, temperature=0.4, seed=0, max_tokens=8192):
+            user = (user or '') + requirement_context
             if job is not None:
                 job.check_cancel()
             step = f'storyboard:{stage}'
@@ -311,7 +338,7 @@ def _split(messages: List[tuple]) -> tuple[str, str]:
     return system, user
 
 
-def make_layout_llm(provider: Any, tracker: ModeTracker, job: Optional[Job] = None, temperature: float = 0.2, max_tokens: int = 8192) -> Any:
+def make_layout_llm(provider: Any, tracker: ModeTracker, job: Optional[Job] = None, temperature: float = 0.2, max_tokens: int = 8192, requirement_context: str = '') -> Any:
     L = imports.layout()
     _require(provider, 'layout')
     from pydantic import ValidationError  # PoC dependency (winmate_layout.schemas)
@@ -320,9 +347,14 @@ def make_layout_llm(provider: Any, tracker: ModeTracker, job: Optional[Job] = No
         def __init__(self) -> None:
             super().__init__('offline', temperature=temperature)  # never builds the PoC ChatGoogleGenerativeAI
             self._provider = provider
-            self.mode = 'gemini'
+            self.mode = provider.name
             self.model_name = provider.model
             self._chat = _ProviderChat(provider, self, tracker, job, max_tokens)
+
+        @property
+        def online(self):
+            # The PoC base class recognizes only the literal mode 'gemini'.
+            return self._provider.available and self._chat is not None
 
         @property
         def chat_model(self):  # tool-calling model for a future copilot — provider-owned
@@ -330,6 +362,9 @@ def make_layout_llm(provider: Any, tracker: ModeTracker, job: Optional[Job] = No
 
         def structured(self, schema, system, user, *, tag):
             """PoC sequence (structured → one plain-JSON re-ask) but strict: failure raises, never ``None``."""
+            if tag == 'layout_pick':
+                system += '\n덱 전체에서 primary 레이아웃 f는 한 번만 사용하세요. 다른 장표의 primary와 중복되지 않는 후보를 고르세요.'
+            user = (user or '') + requirement_context
             step = f'layout:{tag}'
             t0 = time.time()
             first = ''
@@ -375,5 +410,5 @@ def layout_llm_summary(llm: Any, tracker: ModeTracker, status: str = 'done') -> 
     base = tracker.summary(status=status)
     base.update({'nodes_ok': [t.get('tag') for t in ok][:60], 'nodes_failed': [t.get('tag') for t in trace if not t.get('ok')][:20],
                  'json_reask_ok': sum(1 for t in ok if t.get('note') == 'fallback-json'),
-                 'note': 'Layout Agent 의 모든 LLM 노드는 실제 Gemini 결과만 씁니다. 실패하면 작업이 error 로 끝납니다(규칙 대체 없음).'})
+                 'note': 'Layout Agent 의 모든 LLM 노드는 실제 AI 결과만 씁니다. 실패하면 작업이 error 로 끝납니다(규칙 대체 없음).'})
     return base

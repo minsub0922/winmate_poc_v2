@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07:F04"
+ },
+ "prompt_tokens": 2419,
+ "output_tokens": 228,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "제안서 내에 호텔 객실 TV 및 공조 리뉴얼과 관련된 구체적인 도입 사례가 제시되지 않았으며, 5장과 12장에 언급된 사진 속 호텔명은 예시일 뿐 실제 도입 사례로 설명되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "사진: 객실 데스크와 호텔 TV (크라운 파크 호텔 서울)"
+     },
+     {
+      "sheet": 5,
+      "quote": "호텔 로비와 프런트 (IBC 호텔)"
+     }
+    ],
+    "improve": "B 호텔과 유사한 규모 및 업종의 호텔에 솔루션을 도입하여 얻은 구체적인 성과 수치와 구성 내용을 포함한 실제 도입 사례를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs05:F04"
+ },
+ "prompt_tokens": 6872,
+ "output_tokens": 427,
+ "data": {
+  "scores": [
+   {
+    "id": "PR3",
+    "score": 2,
+    "anchor": "대부분 공간에 적합한 제품을 제안했으나, 5장에서 실내용 키오스크 KM24C를 옥외(웰컴 게이트) 용도로 배치하여 설치 환경 적합성에 의문이 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "웰컴 게이트 · 매표 | 줄 서기 전에 공연 · 대기를 한눈에 | XHB · 키오스크 KM24C 6대"
+     },
+     {
+      "sheet": 11,
+      "quote": "야외 무대 LED, 피치는 객석 거리로 고릅니다 | 실외 LED XHB"
+     }
+    ],
+    "improve": "옥외 게이트에 배치된 KM24C를 옥외 전용 키오스크 제품으로 변경하거나, 해당 위치에 적합한 방진·방수 사양을 명시해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "에버랜드 신전무대 등 테마파크 업종의 구체적인 도입 사례를 구성, 성과 수치와 함께 제시하였습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "에버랜드 신전무대 — 낮 정원에서 밤 공연까지 한 화면으로"
+     },
+     {
+      "sheet": 13,
+      "quote": "옥외 스마트 LED XAJ(최대 6,300니트 · IP65/IP45)"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

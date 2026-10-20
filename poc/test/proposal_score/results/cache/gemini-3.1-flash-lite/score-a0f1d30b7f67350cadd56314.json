@@ -1,0 +1,57 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~number_conflict:F01"
+ },
+ "prompt_tokens": 7823,
+ "output_tokens": 419,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'M 베이커리'와 지점 수 180개, 담당 조직 등이 일관되게 기술되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "M 베이커리 180개 지점"
+     },
+     {
+      "sheet": 9,
+      "quote": "M 베이커리 본사 한 곳이 144개 지점을"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "자동 점검에서 지적된 연락처는 제안 담당자의 정보로 템플릿 잔여물이 아니며, 그 외 자리표시나 예시 고객명은 없습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "노출된 정보는 제안 담당자의 업무 연락처로, 원가나 내부 민감 정보는 포함되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

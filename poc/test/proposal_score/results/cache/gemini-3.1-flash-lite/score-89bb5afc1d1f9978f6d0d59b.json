@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~placeholders:F08"
+ },
+ "prompt_tokens": 2909,
+ "output_tokens": 377,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "고객이 얻는 가치를 '운영 효율화', '장애 선제 대응', '단계적 도입'이라는 3가지 결과형 언어로 명확히 제시하고, 각 가치를 실현하는 솔루션(원격 통합 관리, 모니터링, 파일럿)을 짝지어 설명함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "원격 통합 관리, 장애 선제 대응, 단계적 도입"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "DS7",
+    "score": 3,
+    "anchor": "전체 10개 장 중 9개 장의 제목이 결론을 담은 문장형으로 구성되어 있으며, 제목만 순서대로 읽어도 제안의 핵심 스토리라인이 명확하게 파악됨.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "260개 사업장 화면, 그룹 본사에서 한 번에 바꿉니다"
+     },
+     {
+      "sheet": 3,
+      "quote": "업계는 이미 움직였고, Y 그룹은 지금이 적기입니다"
+     },
+     {
+      "sheet": 10,
+      "quote": "2주 안에 현장부터, 세 단계로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

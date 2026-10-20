@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~base:F11"
+ },
+ "prompt_tokens": 2693,
+ "output_tokens": 171,
+ "data": {
+  "scores": [
+   {
+    "id": "DS6",
+    "score": 3,
+    "anchor": "모든 장에 내용과 부합하는 실제 사진이 배치되어 있으며, 텍스트만으로 구성된 장이 없어 시각 자료 활용도가 매우 높습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "사진 1"
+     },
+     {
+      "sheet": 5,
+      "quote": "사진 1"
+     },
+     {
+      "sheet": 7,
+      "quote": "사진 6"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

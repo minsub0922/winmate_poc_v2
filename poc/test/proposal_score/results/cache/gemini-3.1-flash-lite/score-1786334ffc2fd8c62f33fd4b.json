@@ -1,0 +1,104 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs18~full:F10"
+ },
+ "prompt_tokens": 8200,
+ "output_tokens": 811,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "Knox Suite와 Knox Configure를 활용해 개통부터 운영, 원격 설정 변경까지의 관리 장면을 구체적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "Knox Configure 자동 설정 · S/W 리브랜딩"
+     },
+     {
+      "sheet": 7,
+      "quote": "Knox Suite 키오스크 모드"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR7",
+    "score": 2,
+    "anchor": "유지보수 및 교육에 대한 언급은 있으나, 설치 환경 전제(전원, 네트워크 등)에 대한 구체적인 기술이 부족함.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "대리점 교육 이수율 95% 이상"
+     }
+    ],
+    "improve": "설치 환경 전제와 고객 준비 사항을 명시해야 함.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "착수부터 출시까지의 24주 일정, 3단계 확산 계획, 역할 분담 및 교육 계획이 구체적으로 정리됨.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "착수부터 어린이날 출시까지 24주"
+     },
+     {
+      "sheet": 11,
+      "quote": "500 → 1,400 → 2,000곳"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 1,
+    "anchor": "도입 리스크와 대응 방안을 다루는 별도의 섹션이 없음.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "일정 지연, 호환성 등 예상되는 리스크와 대응 방안을 추가해야 함.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "마지막 장에 결정할 세 가지 사항과 구체적인 일정, 담당자를 명시함.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "다음 3주, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "SB5",
+    "score": 3,
+    "anchor": "표지의 제출일과 본문 내 일정(10월 착수, 4월 출시)이 일관되게 작성됨.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "2026. 10. 21"
+     },
+     {
+      "sheet": 10,
+      "quote": "11. 16 착수"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

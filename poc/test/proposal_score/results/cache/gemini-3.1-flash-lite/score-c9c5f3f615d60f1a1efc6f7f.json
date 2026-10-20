@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16:F03"
+ },
+ "prompt_tokens": 3353,
+ "output_tokens": 207,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 2,
+    "anchor": "비용과 운영 모델에 대한 경영 지표가 10장과 11장에 제시되어 있으나, 결정권자를 위한 별도의 요약 장(Executive Summary)이 존재하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "04 · 비용 · 구매 vs 구독"
+     },
+     {
+      "sheet": 11,
+      "quote": "04 · 5년 총소유비용"
+     }
+    ],
+    "improve": "제안서 초반부에 결정권자가 한눈에 성과와 비용, 리스크를 파악할 수 있는 요약 장(Executive Summary)을 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

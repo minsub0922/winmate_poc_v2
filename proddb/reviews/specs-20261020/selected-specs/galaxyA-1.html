@@ -1,0 +1,408 @@
+<script>
+		$('button.spec-title').on("click", function(e){
+			e.preventDefault();
+			$('div[name="specLayer"] > .layer-header > h2').text(this.innerText);
+			$('div[name="specLayer"] > .layer-content > p').text(this.value);
+
+			let newId = $(this).data('popup-target');
+			$('div[name="specLayer"]').attr('id', newId);
+			$('div[name="specLayer"] > .pop-close').attr('data-focus-next', newId);
+			$('div[name="specLayer"]').attr('data-popup-layer', newId);
+			$('div[name="specLayer"]').attr('data-focus', newId);
+		});
+	</script>
+	<h3 class="spec-itm-title" id="cstrt-nm" ></h3>
+	<div class="spec-table">
+		<dl>
+						<dt>프로세서</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">CPU 속도</strong>
+													<p class="spec-desc">2.2 GHz,2 GHz&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">CPU 종류</strong>
+													<p class="spec-desc">Octa-Core&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>디스플레이</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">크기 (Main Display)</strong>
+													<p class="spec-desc">169.1mm&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">해상도 (Main Display)</strong>
+													<p class="spec-desc">1080 x 2340 (FHD+)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">종류 (Main Display)</strong>
+													<p class="spec-desc">Super AMOLED&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">색심도 (Main Display)</strong>
+													<p class="spec-desc">16 M&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">최대 주사율 (Main Display)</strong>
+													<p class="spec-desc">90 Hz&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>카메라</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">후면 카메라 - 화소 (Multiple)</strong>
+													<p class="spec-desc">50.0 MP + 5.0 MP + 2.0 MP&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">후면 카메라 - 조리개 값 (Multiple)</strong>
+													<p class="spec-desc">F1.8 , F2.2 , F2.4&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">후면 카메라 - 오토 포커스</strong>
+													<p class="spec-desc">예&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">후면 카메라 - OIS</strong>
+													<p class="spec-desc">예&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">후면 카메라 줌</strong>
+													<p class="spec-desc">최대 10배 디지털줌&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">전면 카메라 - 화소</strong>
+													<p class="spec-desc">13.0 MP&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">전면 카메라 - 조리개 값</strong>
+													<p class="spec-desc">F2.0&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">전면 카메라 - 오토 포커스</strong>
+													<p class="spec-desc">아니오&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">전면 카메라 - OIS</strong>
+													<p class="spec-desc">아니오&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">후면 카메라 - 플래쉬</strong>
+													<p class="spec-desc">예&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">전면 카메라 - 플래쉬</strong>
+													<p class="spec-desc">아니오&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">동영상 녹화 해상도</strong>
+													<p class="spec-desc">FHD (1920 x 1080) @30fps&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">슬로우 모션</strong>
+													<p class="spec-desc">120fps @HD&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>메모리/스토리지(저장 용량)</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">메모리 (GB)</strong>
+													<p class="spec-desc">6 GB&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">스토리지(저장 용량) (GB)</strong>
+													<p class="spec-desc">128 GB&nbsp;</p>
+												</li>
+								<li>
+										<button type="button" class="spec-title" data-popup-target="specLayer43" value="제품의 저장공간 중 일부는 OS와 기본 앱 설치 등에 사용되므로, 이 부분을 제외하고 실제 사용 가능한 스토리지(저장 용량)를 별도로 표기해드리고 있습니다." aria-haspopup="true">
+													사용 가능한 스토리지(저장 용량) (GB)</button>
+												<p class="spec-desc">106.8GB&nbsp;</p>
+											</li>
+								<li>
+										<strong class="spec-title">외장 스토리지(저장 용량) 지원</strong>
+													<p class="spec-desc">MicroSD (최대 2 TB)&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>네트워크</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">SIM 개수</strong>
+													<p class="spec-desc">Single-SIM&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">SIM 사이즈</strong>
+													<p class="spec-desc">Nano-SIM (4FF)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">SIM 슬롯 타입</strong>
+													<p class="spec-desc">SIM 1 + MicroSD&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>네트워크 (S/W 사용)</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">2G GSM</strong>
+													<p class="spec-desc">GSM850,GSM900,DCS1800,PCS1900&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">3G UMTS</strong>
+													<p class="spec-desc">B1(2100),B2(1900),B4(AWS),B5(850),B8(900)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">4G FDD LTE</strong>
+													<p class="spec-desc">B1(2100),B2(1900),B3(1800),B4(AWS),B5(850),B7(2600),B8(900),B12(700),B17(700),B20(800),B26(850),B28(700),B66(AWS-3)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">4G TDD LTE</strong>
+													<p class="spec-desc">B38(2600),B40(2300),B41(2500)&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>연결</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">USB 인터페이스</strong>
+													<p class="spec-desc">USB Type-C&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">USB 버전</strong>
+													<p class="spec-desc">USB 2.0&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">위치 기술</strong>
+													<p class="spec-desc">GPS,Glonass,Beidou,Galileo,QZSS&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">이어잭</strong>
+													<p class="spec-desc">USB Type-C&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">MHL</strong>
+													<p class="spec-desc">아니오&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Wi-Fi</strong>
+													<p class="spec-desc">802.11a/b/g/n/ac 2.4GHz+5GHz, VHT80&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Wi-Fi Direct</strong>
+													<p class="spec-desc">예&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">블루투스 버전</strong>
+													<p class="spec-desc">Bluetooth v5.3&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">NFC</strong>
+													<p class="spec-desc">예&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">PC 싱크</strong>
+													<p class="spec-desc">Smart Switch (PC version)&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>운영체제</dt>
+						<dd>
+							<ol>
+								<li>
+										<p class="spec-desc">Android&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>기본 사양</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">색상</strong>
+													<p class="spec-desc">블랙&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">형태</strong>
+													<p class="spec-desc">터치 바&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>센서</dt>
+						<dd>
+							<ol>
+								<li>
+										<p class="spec-desc">가속도 센서,지문 센서,자이로 센서,지자기 센서,조도 센서,가상근접 센싱&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>외관 사양</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">크기(세로x가로x두께, mm)</strong>
+													<p class="spec-desc">164.4 x 77.9 x 7.5&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">무게 (g)</strong>
+													<p class="spec-desc">190&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>배터리</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">비디오 재생 시간 (Hours, Wireless)</strong>
+													<p class="spec-desc">최대 18&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">배터리 용량 (mAh, Typical)</strong>
+													<p class="spec-desc">5000&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">교체 가능</strong>
+													<p class="spec-desc">아니오&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>오디오/비디오</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">스테레오 지원</strong>
+													<p class="spec-desc">아니오&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">동영상 지원 포맷</strong>
+													<p class="spec-desc">MP4,M4V,3GP,3G2,AVI,FLV,MKV,WEBM&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">동영상 지원 해상도</strong>
+													<p class="spec-desc">FHD (1920 x 1080) @60fps&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">오디오 지원 포맷</strong>
+													<p class="spec-desc">MP3,M4A,3GA,AAC,OGG,OGA,WAV,AMR,AWB,FLAC,MID,MIDI,XMF,MXMF,IMY,RTTTL,RTX,OTA&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>서비스</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">Gear 서포트</strong>
+													<p class="spec-desc">갤럭시 링,갤럭시 버즈 코어,갤럭시 버즈3 프로,갤럭시 버즈2 프로,갤럭시 버즈 프로,갤럭시 버즈 라이브,갤럭시 버즈+,갤럭시 버즈3,갤럭시 버즈2,갤럭시 버즈,갤럭시 버즈3 FE,갤럭시 버즈 FE,갤럭시 핏3,갤럭시 핏2,갤럭시 핏e,갤럭시 핏,갤럭시 워치 FE,갤럭시 워치 울트라,갤럭시 워치8,갤럭시 워치7,갤럭시 워치6,갤럭시 워치5,갤럭시 워치4,갤럭시 워치3,갤럭시 워치,갤럭시 워치 액티브2,갤럭시 워치 액티브&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">삼성 덱스 서포트</strong>
+													<p class="spec-desc">미지원&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">SmartThings 지원</strong>
+													<p class="spec-desc">지원&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">모바일 TV</strong>
+													<p class="spec-desc">아니오&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>소프트웨어 지원</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">보안 업데이트 지원 기한</strong>
+													<p class="spec-desc">2031년 9월 30일&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+				<dt>상품 기본정보</dt>
+				<dd>
+					<ol>
+						<li>
+								<strong class="spec-title">제품명</strong>
+								<p class="spec-desc">LTE 이동통신용 무선설비의 기기(육상이동국의 송수신장치)		
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">제조자/수입자</strong>
+								<p class="spec-desc">삼성전자㈜		
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">제조국가</strong>
+								<p class="spec-desc">베트남		
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">KC 인증 필 유무</strong>
+								<p class="spec-desc"><img src='//images.samsung.com/is/image/samsung/p5/sec/common/icon-kc.png?$ORIGIN_PNG$' alt='KC 인증 로고'>R-C-SEC-SMA175		
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">동일모델의 출시년월</strong>
+								<p class="spec-desc">25년 11월		
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">A/S 책임자와 전화번호</strong>
+								<p class="spec-desc">삼성전자서비스센터/1588-3366		
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">품질보증기준</strong>
+								<p class="spec-desc">결함·하자 등에 따른 소비자 피해에 대해서는 소비자분쟁해결기준(소비자기본법 제16조)에 따라 보상 가능		
+</p>
+							</li>
+						</ol>
+				</dd>
+			</dl>
+		</div>
+	<div class="layer-pop layer-normal layer-default specLayer active" name="specLayer" id="specLayer" tabindex="0" data-popup-layer="specLayer" data-focus="specLayer" aria-hidden="false" data-zindex="300" style="z-index: 300; display: none">
+		<div class="layer-header">
+			<h2></h2>
+		</div>
+		<div class="layer-content">
+			<p></p>
+		</div>
+		<button type="button" class="pop-close" data-focus-next="">팝업닫기</button>
+	</div>
+

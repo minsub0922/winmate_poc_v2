@@ -1,0 +1,56 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~base:F10"
+ },
+ "prompt_tokens": 6179,
+ "output_tokens": 435,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO와 SmartThings Pro를 활용해 본사 운영자가 메뉴를 원격 배포하고 매장 전력을 관리하는 구체적인 운영 시나리오가 공간별로 제시됨.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "본사에서 한 번 바꾸면 매장 화면까지 자동"
+     },
+     {
+      "sheet": 8,
+      "quote": "MagicINFO 메뉴 · 가격 · 프로모션 원격 배포"
+     },
+     {
+      "sheet": 9,
+      "quote": "SmartThings Pro 루틴이 한산한 시간 냉난방을 낮춤"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "파일럿 매장 선정 기준, 12주간의 상세 일정, 설치 및 교육 계획, 운영 이관을 포함한 단계적 확산 로드맵이 구체적으로 명시됨.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "유형별 선정 10곳 · 비교군 3곳 · 준비 2주 + 운영 8주 + 평가 2주"
+     },
+     {
+      "sheet": 15,
+      "quote": "한 번에 320곳이 아니라 — 10 → 100 → 320"
+     },
+     {
+      "sheet": 16,
+      "quote": "시범 매장 10곳 · 실사 일정 확정"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

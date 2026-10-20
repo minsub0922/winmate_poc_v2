@@ -1,0 +1,82 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~full:F09"
+ },
+ "prompt_tokens": 8818,
+ "output_tokens": 599,
+ "data": {
+  "scores": [
+   {
+    "id": "PR1",
+    "score": 3,
+    "anchor": "제안된 Bespoke Built-in 및 EHS 모델은 현재 카탈로그 라인업에 부합하며, 단종 모델이나 이전 세대 명칭이 확인되지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "Samsung Bespoke Built-in · 키친핏"
+     },
+     {
+      "sheet": 3,
+      "quote": "EHS 난방 · 온수"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR2",
+    "score": 3,
+    "anchor": "제안서 내 제품 사양(매립 치수, 성능 등)이 일관되게 표기되어 있으며, 카탈로그 사양과 상충하는 내용이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "냉장고 W 930 H 1,870 D 700"
+     },
+     {
+      "sheet": 11,
+      "quote": "영하 25℃ 성능 유지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR5",
+    "score": 3,
+    "anchor": "Bespoke Built-in, EHS, SmartThings 등 제품 및 솔루션 명칭이 제안서 전반에 걸쳐 일관된 표기를 유지하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "BESPOKE 키친핏"
+     },
+     {
+      "sheet": 9,
+      "quote": "BESPOKE AI 인덕션"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR3",
+    "score": 3,
+    "anchor": "SmartThings 등 브랜드명이 공식 표기법(대소문자 및 띄어쓰기)에 맞춰 정확하게 기재되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "SmartThings"
+     },
+     {
+      "sheet": 11,
+      "quote": "SmartThings"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

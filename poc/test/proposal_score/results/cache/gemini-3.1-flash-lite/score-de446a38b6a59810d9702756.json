@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs04:F04"
+ },
+ "prompt_tokens": 2837,
+ "output_tokens": 173,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "유사한 주거 분양 단지 사례를 제시하며 과제, 해결 구성, 그리고 청약 마감과 같은 성과를 명시하였습니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "KCC스위첸 · 높은 경쟁률 · 2개 단지"
+     },
+     {
+      "sheet": 12,
+      "quote": "그란츠 리버파크 · 하이엔드 단지 프리미엄"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

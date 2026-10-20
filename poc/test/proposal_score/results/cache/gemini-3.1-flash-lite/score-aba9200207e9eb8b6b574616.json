@@ -1,0 +1,96 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs05~full:F10"
+ },
+ "prompt_tokens": 7227,
+ "output_tokens": 885,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO 솔루션을 통해 구역별 화면 편성, 대기시간 연동, 시즌 콘텐츠 일괄 교체 등 운영 장면을 구체적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "MagicINFO · 구역 화면 편성 · 대기시간 연동"
+     },
+     {
+      "sheet": 7,
+      "quote": "MagicINFO · 일몰 시각 자동 전환"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR7",
+    "score": 2,
+    "anchor": "설치 환경 전제(실측 후 확정)와 시공 관련 언급은 있으나, 전원·네트워크 인프라 구축에 대한 구체적인 준비 사항이나 유지보수·보증 범위가 명시되지 않음.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "피치 · 캐비닛 수는 무대 구조 실측 후 확정"
+     }
+    ],
+    "improve": "전원 및 네트워크 인프라 요구사항과 구체적인 유지보수 및 보증 정책을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "12월까지의 단계별 일정은 제시되어 있으나, 역할 분담, 교육, 유지보수 및 운영 이관에 대한 구체적인 계획이 부족함.",
+    "evidence": [
+     {
+      "sheet": 15,
+      "quote": "12월 2차 리뷰까지 정할 세 가지"
+     }
+    ],
+    "improve": "단계별 역할 분담, 운영 인력 교육 계획, 유지보수 및 운영 이관 절차를 구체화해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 1,
+    "anchor": "테마파크 운영 중 공사 리스크나 호환성, 인력 문제 등 도입 시 발생할 수 있는 리스크와 대응 방안을 다루는 내용이 없음.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "공사 중 영업 방해 최소화, 시스템 호환성, 운영 인력 숙련도 등 주요 리스크에 대한 대응 방안을 포함해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "마지막 장에 12월 2차 리뷰까지 결정해야 할 세 가지 항목과 구체적인 일정, 담당자를 명확히 제시함.",
+    "evidence": [
+     {
+      "sheet": 15,
+      "quote": "12월 2차 리뷰까지 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "SB5",
+    "score": 1,
+    "anchor": "표지에 제출 날짜가 명시되어 있으나, 자동 점검 결과 표지 날짜가 없다고 인식되는 등 표기 체계에 혼선이 있음.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "2026. 10"
+     }
+    ],
+    "improve": "표지 상단에 제출 날짜와 버전 정보를 명확하고 일관되게 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

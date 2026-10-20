@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs20:F07"
+ },
+ "prompt_tokens": 3264,
+ "output_tokens": 260,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "10장과 11장에서 투자 회수 기간, 연간 순현금, 광고 매출 등 정량적 효과를 제시하고, 각 수치에 대한 산정 전제(구좌 단가, 판매율, 운영비 등)와 출처를 명확히 기재함.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "연간 순현금 9.8억 = 광고 매출 14.4억 − 운영비 4.6억"
+     },
+     {
+      "sheet": 11,
+      "quote": "출처: 삼성전자 추정(2026) · Q 미디어 기존 매체 실적"
+     },
+     {
+      "sheet": 11,
+      "quote": "보수 50% · 기준 60% · 낙관 70%"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

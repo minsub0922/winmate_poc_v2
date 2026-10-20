@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~wrong_customer:F03"
+ },
+ "prompt_tokens": 2921,
+ "output_tokens": 213,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "12장에서 기대 효과를 정량(리뷰 평점, 대기 시간, 전력 절감)과 정성으로 구분하여 제시하고, 13장에서 결정권자가 승인해야 할 샘플룸 운영, PMS 연동, 층별 교체 일정을 한 장에 명확히 정리함.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "정량 효과 | 8.6 | 리뷰 평점 목표"
+     },
+     {
+      "sheet": 13,
+      "quote": "07 · NEXT STEPS | 샘플룸 1실, 다음 2주에 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

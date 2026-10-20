@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs05:F08"
+ },
+ "prompt_tokens": 2187,
+ "output_tokens": 220,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "고객의 요구사항을 반영한 3가지 결과형 가치(대기 체험화, 낮과 밤의 무대, 시즌 운영 효율화)를 제시하고, 각 가치를 구현하는 제품 및 솔루션을 명확히 연결하였습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "대기도 체험이 됩니다 | IFR LED · VM55B"
+     },
+     {
+      "sheet": 4,
+      "quote": "낮과 밤, 두 무대 | XHB 실외 LED · 하만 JBL"
+     },
+     {
+      "sheet": 4,
+      "quote": "시즌마다 새로운 구역 | MagicINFO"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

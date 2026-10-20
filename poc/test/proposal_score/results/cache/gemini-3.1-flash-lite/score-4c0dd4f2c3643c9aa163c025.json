@@ -1,0 +1,82 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs02~full:F06"
+ },
+ "prompt_tokens": 9521,
+ "output_tokens": 725,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "에너지 절감률 20%, 총 수량 311대 등 주요 지표가 모든 장에서 일관되게 기술되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "설계부터 층별 계량 · 관제를 넣어 20% 절감을 실측으로 증명"
+     },
+     {
+      "sheet": 10,
+      "quote": "건물 전체 B1–12F · 옥상 · 311대"
+     },
+     {
+      "sheet": 13,
+      "quote": "목표 20% 기준"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR6",
+    "score": 2,
+    "anchor": "공간별 주요 모델과 수량은 명확하나, 설치에 필요한 브래킷, 라이선스 등 부속 요소에 대한 구체적인 명시가 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "층마다 쓰임이 다르니, 제품도 층마다 다릅니다"
+     }
+    ],
+    "improve": "공간별 제품 설치 시 필요한 브래킷, 라이선스, 플레이어 등 부속 자재 및 소프트웨어 라이선스 항목을 상세 목록에 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS8",
+    "score": 2,
+    "anchor": "표와 차트가 아닌 텍스트 기반의 나열식 구성이 많아 가독성이 다소 떨어지며, 일부 수치 표에서 단위가 생략된 경우가 있습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "층 합계 | 12F | 회의 · 교육 | Flip Pro WM75B ×10 | QM55C 현황판 ×2 | 12"
+     }
+    ],
+    "improve": "텍스트로 나열된 수치들을 정형화된 표 형식으로 정리하고, 모든 수치에 단위를 명확히 기재하여 가독성을 높여야 합니다.",
+    "confidence": "mid"
+   },
+   {
+    "id": "WR4",
+    "score": 3,
+    "anchor": "인치, ㎡, 원, 억 등 단위 표기가 문서 전체에서 일관되게 사용되고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "72만 ㎡"
+     },
+     {
+      "sheet": 4,
+      "quote": "12억 원"
+     },
+     {
+      "sheet": 10,
+      "quote": "The Wall IAB 146\""
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

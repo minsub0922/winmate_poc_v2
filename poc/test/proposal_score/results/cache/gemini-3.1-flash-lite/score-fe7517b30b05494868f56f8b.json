@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs21:F07"
+ },
+ "prompt_tokens": 12762,
+ "output_tokens": 380,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 1,
+    "anchor": "정량적 효과를 제시하지 않고 '재방문율과 수익 창출의 기회를 키웁니다'와 같은 정성적인 표현만 사용되었습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "재방문율과 수익 창출의 기회를 키웁니다"
+     }
+    ],
+    "improve": "정량적 기대효과를 산정하기 위한 기준 데이터와 예상되는 수치적 향상 폭을 구체적으로 제시해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR5",
+    "score": 1,
+    "anchor": "제안서 내에 '최고 수준', '세계 최초', '최고의' 등 근거가 명확하지 않거나 보증 성격의 절대적 표현이 3곳 이상 확인됩니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "최고 수준의 시청 경험"
+     },
+     {
+      "sheet": 21,
+      "quote": "세계 최초로 선보인 시네마 LED"
+     },
+     {
+      "sheet": 33,
+      "quote": "최고의 전문가 집단"
+     }
+    ],
+    "improve": "절대적 표현을 사용하기보다 객관적인 수치나 인증 기관의 명칭을 구체적으로 명시하여 표현을 완화해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

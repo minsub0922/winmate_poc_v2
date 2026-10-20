@@ -1,0 +1,57 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~strip_images:F01"
+ },
+ "prompt_tokens": 7209,
+ "output_tokens": 474,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'M 베이커리'와 지점 수 180개, 담당 조직(마케팅, IT팀, 운영팀)이 일관되게 기술되었습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "M 베이커리 180개 지점"
+     },
+     {
+      "sheet": 9,
+      "quote": "M 베이커리 본사 한 곳이 180개 지점을"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "13장의 담당자 연락처 정보가 템플릿 형식으로 기재되어 있으나, 이는 핵심 내용이 아닌 푸터/연락처 영역입니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "연락처 기재 형식을 템플릿 잔여물 느낌이 나지 않도록 정제해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "제안서 내에 원가, 마진, 내부 할인율 등 민감 정보가 없으며, 담당자 연락처는 정상적인 영업 활동의 일환입니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

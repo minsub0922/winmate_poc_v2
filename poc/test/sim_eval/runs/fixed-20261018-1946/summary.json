@@ -1,0 +1,9537 @@
+{
+ "run": {
+  "id": "fixed-20261018-1946",
+  "tag": "fixed",
+  "created": "2026-10-18T10:46:42.432Z",
+  "finished": "2026-10-18T10:49:24.772Z",
+  "status": "done",
+  "models": {
+   "customer": "gemini-3.1-flash-lite",
+   "seller": "gemini-3.5-flash",
+   "judge": "gemini-3.1-pro-preview"
+  },
+  "turns": 14,
+  "personaLevel": false,
+  "engine": {
+   "which": "current",
+   "file": "winmate_sim.mjs",
+   "label": "현재 앱 src/sim",
+   "built": "2026-10-18T10:45:32.225Z",
+   "bytes": 3114994,
+   "sim_sources": [
+    "src/sim/profile.js",
+    "src/sim/score.js",
+    "src/sim/engine.js"
+   ]
+  },
+  "llm": {
+   "customer": {
+    "model": "gemini-3.1-flash-lite",
+    "calls": 176,
+    "fails": 0,
+    "avg_ms": 2349,
+    "tok_in": 731153,
+    "tok_out": 82483,
+    "tok_think": 0
+   },
+   "seller": {
+    "model": "gemini-3.5-flash",
+    "calls": 110,
+    "fails": 0,
+    "avg_ms": 1979,
+    "tok_in": 359382,
+    "tok_out": 15231,
+    "tok_think": 653
+   },
+   "judge": {
+    "model": "gemini-3.1-pro-preview",
+    "calls": 26,
+    "fails": 0,
+    "avg_ms": 28803,
+    "tok_in": 101864,
+    "tok_out": 17995,
+    "tok_think": 76087
+   }
+  }
+ },
+ "totals": {
+  "sessions": 26,
+  "done": 26,
+  "turns": 151,
+  "aiRate": 100,
+  "avgCustMs": 2495,
+  "avgReplyChars": 185,
+  "ruleGap": 25.1,
+  "stageAgree": 27.4,
+  "calibMae": 19.6,
+  "calibBias": 18.1,
+  "outcomeAgree": 53.8,
+  "discrimination": {
+   "quality": 58.5,
+   "satisfaction": 76,
+   "judgeQuality": 54.7
+  }
+ },
+ "modes": {
+  "scenario": {
+   "n": 10,
+   "won": 10,
+   "lost": 0,
+   "ended": 0,
+   "winRate": 100,
+   "quality": 81.5,
+   "satisfaction": 87.7,
+   "turns": 5.9,
+   "judgeQuality": 63.4,
+   "sellerQ": 3
+  },
+  "expert": {
+   "n": 10,
+   "won": 10,
+   "lost": 0,
+   "ended": 0,
+   "winRate": 100,
+   "quality": 79.1,
+   "satisfaction": 83,
+   "turns": 4.4,
+   "judgeQuality": 66.9,
+   "sellerQ": 3.3
+  },
+  "weak": {
+   "n": 3,
+   "won": 0,
+   "lost": 3,
+   "ended": 0,
+   "winRate": 0,
+   "quality": 23,
+   "satisfaction": 11.7,
+   "turns": 2.3,
+   "judgeQuality": 8.7,
+   "sellerQ": 1
+  },
+  "suggest": {
+   "n": 3,
+   "won": 3,
+   "lost": 0,
+   "ended": 0,
+   "winRate": 100,
+   "quality": 82,
+   "satisfaction": 87,
+   "turns": 5,
+   "judgeQuality": 43.3,
+   "sellerQ": 1.7
+  }
+ },
+ "levels": {
+  "1": {
+   "n": 3,
+   "won": 3,
+   "lost": 0,
+   "ended": 0,
+   "winRate": 100,
+   "quality": 76,
+   "satisfaction": 89.3,
+   "turns": 3.3,
+   "judgeQuality": 64.3,
+   "sellerQ": 3
+  },
+  "2": {
+   "n": 4,
+   "won": 4,
+   "lost": 0,
+   "ended": 0,
+   "winRate": 100,
+   "quality": 82.5,
+   "satisfaction": 86,
+   "turns": 5,
+   "judgeQuality": 66.5,
+   "sellerQ": 3.3
+  },
+  "3": {
+   "n": 3,
+   "won": 3,
+   "lost": 0,
+   "ended": 0,
+   "winRate": 100,
+   "quality": 85.7,
+   "satisfaction": 88.3,
+   "turns": 9.7,
+   "judgeQuality": 58.3,
+   "sellerQ": 2.7
+  }
+ },
+ "checks": [
+  {
+   "id": "reply_long",
+   "label": "고객 대사가 200자 규칙을 넘음",
+   "n": 59,
+   "sessions": 20,
+   "level": "warn"
+  },
+  {
+   "id": "multi_reveal",
+   "label": "숨은 우려를 한 턴에 2개 이상 드러냄",
+   "n": 54,
+   "sessions": 17,
+   "level": "warn"
+  },
+  {
+   "id": "reply_sentences",
+   "label": "고객 대사가 4문장을 넘음",
+   "n": 27,
+   "sessions": 15,
+   "level": "warn"
+  },
+  {
+   "id": "ungrounded_high",
+   "label": "영업이 말하지 않은 근거로 높은 점수",
+   "n": 25,
+   "sessions": 10,
+   "level": "warn"
+  },
+  {
+   "id": "score_drop",
+   "label": "누적 점수가 한 턴에 20 넘게 떨어짐",
+   "n": 1,
+   "sessions": 1,
+   "level": "warn"
+  }
+ ],
+ "judgeDims": {
+  "persona_fidelity": 3.3,
+  "level_fit": 3.2,
+  "concern_realism": 3,
+  "satisfaction_plausibility": 2.7,
+  "score_calibration": 2.3,
+  "outcome_plausibility": 3.3,
+  "reply_naturalness": 3.1
+ },
+ "critBias": {
+  "CU2": {
+   "name": "고객 요구사항 반영도",
+   "bias": 12.9,
+   "mae": 13.7,
+   "n": 26
+  },
+  "CU3": {
+   "name": "의사결정자 관점",
+   "bias": 19.3,
+   "mae": 19.7,
+   "n": 26
+  },
+  "CU4": {
+   "name": "고객 과제 구체성",
+   "bias": 14.8,
+   "mae": 14.8,
+   "n": 26
+  },
+  "PR3": {
+   "name": "공간 · 용도 적합성",
+   "bias": 8.8,
+   "mae": 11.2,
+   "n": 26
+  },
+  "PR4": {
+   "name": "솔루션 · 서비스 연계",
+   "bias": 6.7,
+   "mae": 9,
+   "n": 26
+  },
+  "PR6": {
+   "name": "구성 · 수량 명확성",
+   "bias": 20.2,
+   "mae": 21.7,
+   "n": 26
+  },
+  "VS1": {
+   "name": "가치 제안 명확성",
+   "bias": 11.9,
+   "mae": 12.7,
+   "n": 26
+  },
+  "VS2": {
+   "name": "기대효과 정량화",
+   "bias": 35.9,
+   "mae": 35.9,
+   "n": 26
+  },
+  "VS4": {
+   "name": "Why Samsung 차별성",
+   "bias": 16.9,
+   "mae": 18.5,
+   "n": 26
+  },
+  "VS6": {
+   "name": "실행 계획 구체성",
+   "bias": 9.2,
+   "mae": 14.2,
+   "n": 26
+  },
+  "VS5": {
+   "name": "도입 사례 근거",
+   "bias": 25.7,
+   "mae": 29.7,
+   "n": 26
+  },
+  "MK3": {
+   "name": "출처 표기",
+   "bias": 37.5,
+   "mae": 37.5,
+   "n": 26
+  },
+  "WR5": {
+   "name": "과장 · 보증성 표현",
+   "bias": 15.4,
+   "mae": 16.2,
+   "n": 26
+  }
+ },
+ "issues": [
+  {
+   "turn": 3,
+   "type": "concern",
+   "severity": "mid",
+   "text": "영업이 아직 '디자인팀 체험 계정 제공'을 구체적으로 제안하지 않은 시점임에도 엔진이 c2(운영 난이도 우려)를 조기 해소 처리함.",
+   "session": "01-ps01-L2-scenario",
+   "pid": "ps01",
+   "level": 2,
+   "mode": "scenario"
+  },
+  {
+   "turn": 3,
+   "type": "reply",
+   "severity": "high",
+   "text": "고객이 이전 턴에서 지적했던 '유사 규모 프랜차이즈 사례 부족' 문제를 스스로 덮고, 영업에게 '직접 체험해 볼 방법'과 '도입 비용 및 기기 구성'을 묻는 등 정답(Ask 조건)을 노골적으로 유도하는 부자연스러운 대사를 출력함.",
+   "session": "01-ps01-L2-scenario",
+   "pid": "ps01",
+   "level": 2,
+   "mode": "scenario"
+  },
+  {
+   "turn": 4,
+   "type": "outcome",
+   "severity": "high",
+   "text": "페르소나의 핵심 우려인 '비슷한 규모 프랜차이즈 실제 사례(예: 밀키프레소)'가 끝까지 제시되지 않고 엉뚱한 대형 사례(커피빈)가 나왔음에도 불구하고, 엔진은 c1 우려가 완전히 해소된 것으로 오판하고 최종 Win 판정을 내림.",
+   "session": "01-ps01-L2-scenario",
+   "pid": "ps01",
+   "level": 2,
+   "mode": "scenario"
+  },
+  {
+   "turn": 4,
+   "type": "score",
+   "severity": "mid",
+   "text": "영업이 적합하지 않은 규모의 레퍼런스를 들었고, 삼성 솔루션만의 차별화 포인트를 명확히 짚지 못했음에도 VS5(도입 사례 근거) 75점, VS4(Why Samsung 차별성) 75점 등으로 과대평가함.",
+   "session": "01-ps01-L2-scenario",
+   "pid": "ps01",
+   "level": 2,
+   "mode": "scenario"
+  },
+  {
+   "turn": 4,
+   "type": "concern",
+   "severity": "mid",
+   "text": "영업 담당자가 실제 5년 총비용(TCO) 수치를 제시하지 않고 '비교표로 작성했다'고만 답했음에도, 고객이 이를 바로 수용하고 엔진이 모든 우려(c1, c2, c3)가 해소된 것으로 잘못 판정했습니다.",
+   "session": "02-ps12-L3-scenario",
+   "pid": "ps12",
+   "level": 3,
+   "mode": "scenario"
+  },
+  {
+   "turn": 5,
+   "type": "reply",
+   "severity": "high",
+   "text": "5턴부터 11턴까지 영업과 고객이 '문서를 가져오겠다', '가져오면 검토하겠다'는 의미 없는 내용만 7차례 반복하는 심각한 대화 루프에 빠졌습니다.",
+   "session": "02-ps12-L3-scenario",
+   "pid": "ps12",
+   "level": 3,
+   "mode": "scenario"
+  },
+  {
+   "turn": 6,
+   "type": "satisfaction",
+   "severity": "high",
+   "text": "까다로운 고객(Level 3) 설정임에도 불구하고, 대화가 단순히 반복되는 5턴~7턴 구간에서 만족도가 매 턴 10점씩 비정상적으로 상승했습니다.",
+   "session": "02-ps12-L3-scenario",
+   "pid": "ps12",
+   "level": 3,
+   "mode": "scenario"
+  },
+  {
+   "turn": 12,
+   "type": "outcome",
+   "severity": "mid",
+   "text": "최종 확정이 아닌 '내일 미팅에서 사양을 확정하고 진행하자'는 조건부 검토 단계로 끝났으나, 엔진은 이를 최종 수주(win)로 과대 판정했습니다.",
+   "session": "02-ps12-L3-scenario",
+   "pid": "ps12",
+   "level": 3,
+   "mode": "scenario"
+  },
+  {
+   "turn": 12,
+   "type": "score",
+   "severity": "high",
+   "text": "영업 담당자가 타사 도입 사례(크라운 파크 호텔)를 전혀 언급하지 않았음에도 VS5(도입 사례 근거)에 90점을 부여했고, 수치의 출처(MK3)가 없는데도 90점을 주는 등 평가 시스템이 붕괴되었습니다.",
+   "session": "02-ps12-L3-scenario",
+   "pid": "ps12",
+   "level": 3,
+   "mode": "scenario"
+  },
+  {
+   "turn": 2,
+   "type": "reply",
+   "severity": "mid",
+   "text": "영업 담당자가 먼저 '2호점 Wi-Fi Kit 적용'을 제안해야 하는 상황임에도 불구하고, 고객이 스스로 해당 구체적인 해결책을 언급하며 답변을 유도하는 작위적인 대화 흐름이 나타났습니다.",
+   "session": "03-ps14-L1-scenario",
+   "pid": "ps14",
+   "level": 1,
+   "mode": "scenario"
+  },
+  {
+   "turn": 3,
+   "type": "satisfaction",
+   "severity": "high",
+   "text": "고객이 로드맵에 안심하고 일정을 묻는 긍정적인 상황이며 엔진의 평가 이유도 '만족함'으로 기재되었으나, 실제 만족도 점수는 오히려 1점 하락(75 -> 74)하는 모순이 발생했습니다.",
+   "session": "03-ps14-L1-scenario",
+   "pid": "ps14",
+   "level": 1,
+   "mode": "scenario"
+  },
+  {
+   "turn": 4,
+   "type": "score",
+   "severity": "high",
+   "text": "영업 담당자가 에너지 절감률이나 재계약률 등 기대효과를 전혀 정량화하지 않았음에도 VS2(기대효과 정량화) 점수가 75점으로 지나치게 높게 산정되었습니다.",
+   "session": "03-ps14-L1-scenario",
+   "pid": "ps14",
+   "level": 1,
+   "mode": "scenario"
+  },
+  {
+   "turn": 4,
+   "type": "score",
+   "severity": "high",
+   "text": "유사 업종의 도입 사례(예: 에피소드 용산)가 대화 중 전혀 언급되지 않았음에도 VS5(도입 사례 근거) 점수가 70점으로 높게 매겨졌습니다.",
+   "session": "03-ps14-L1-scenario",
+   "pid": "ps14",
+   "level": 1,
+   "mode": "scenario"
+  },
+  {
+   "turn": 4,
+   "type": "score",
+   "severity": "mid",
+   "text": "수치화된 데이터나 출처가 전혀 제시되지 않은 제안임에도 MK3(출처 표기) 점수가 60점으로 평가된 오류가 있습니다.",
+   "session": "03-ps14-L1-scenario",
+   "pid": "ps14",
+   "level": 1,
+   "mode": "scenario"
+  },
+  {
+   "turn": 5,
+   "type": "satisfaction",
+   "severity": "mid",
+   "text": "고객이 통합 연동 시나리오 제안에 신뢰를 표하며 다음 주 실사 및 데모를 수락하는 긍정적인 답변을 했으나, 만족도 증가가 +0으로 처리됨.",
+   "session": "04-ps17-L2-scenario",
+   "pid": "ps17",
+   "level": 2,
+   "mode": "scenario"
+  },
+  {
+   "turn": 3,
+   "type": "concern",
+   "severity": "mid",
+   "text": "c2 우려 해소 조건은 '시청 거리/조명 실측 및 실제 도면 판독 데모' 진행인데, 영업 담당자가 구체적인 실측 언급 없이 데모만 약속했음에도 우려가 조기 해소됨.",
+   "session": "04-ps17-L2-scenario",
+   "pid": "ps17",
+   "level": 2,
+   "mode": "scenario"
+  },
+  {
+   "turn": 6,
+   "type": "score",
+   "severity": "high",
+   "text": "영업 담당자가 6개 실에 대한 구체적 수량을 밝히지 않았고 정량적 효과(KPI)나 수치 출처를 제시하지 않았음에도 엔진의 PR6, VS2, MK3 점수가 과도하게 높게 측정됨.",
+   "session": "04-ps17-L2-scenario",
+   "pid": "ps17",
+   "level": 2,
+   "mode": "scenario"
+  },
+  {
+   "turn": 1,
+   "type": "level",
+   "severity": "high",
+   "text": "숫자를 요구하는 까다로운 고객(Level 3)임에도 영업이 일반론적 답변만 제시했는데 만족도가 5점 상승함. 난이도 규칙(만족도는 천천히 오름)에 어긋남.",
+   "session": "05-ps21-L3-scenario",
+   "pid": "ps21",
+   "level": 3,
+   "mode": "scenario"
+  },
+  {
+   "turn": 4,
+   "type": "satisfaction",
+   "severity": "high",
+   "text": "영업이 구체적인 데이터 없이 리포트와 TCO 비교표를 다음 미팅에 가져오겠다고 약속만 한 상태에서 만족도가 10점이나 크게 상승함.",
+   "session": "05-ps21-L3-scenario",
+   "pid": "ps21",
+   "level": 3,
+   "mode": "scenario"
+  },
+  {
+   "turn": 7,
+   "type": "concern",
+   "severity": "high",
+   "text": "영업이 우려에 대한 실질적인 수치를 제시하지 않고 다음 워크숍에서 증명하겠다고 미루었음에도, 엔진은 모든 우려(c1, c2, c3)가 완전히 해소된 것으로 잘못 판정함.",
+   "session": "05-ps21-L3-scenario",
+   "pid": "ps21",
+   "level": 3,
+   "mode": "scenario"
+  },
+  {
+   "turn": 8,
+   "type": "reply",
+   "severity": "mid",
+   "text": "턴 7부터 10까지 영업과 고객이 '다음 주 워크숍에서 확인 후 결정하겠다'는 동일한 내용의 대화를 4번이나 불필요하게 반복하며 대화가 지연됨.",
+   "session": "05-ps21-L3-scenario",
+   "pid": "ps21",
+   "level": 3,
+   "mode": "scenario"
+  },
+  {
+   "turn": 10,
+   "type": "score",
+   "severity": "high",
+   "text": "구체적인 수량이나 고객 맞춤형 비용 절감 수치가 제시되지 않았음에도 엔진은 PR6(구성/수량 명확성) 85점, VS2(기대효과 정량화) 80점 등 품질 점수를 과대평가함.",
+   "session": "05-ps21-L3-scenario",
+   "pid": "ps21",
+   "level": 3,
+   "mode": "scenario"
+  },
+  {
+   "turn": 10,
+   "type": "outcome",
+   "severity": "high",
+   "text": "고객이 '다음 주 워크숍 자료를 보고 최종 판단하겠다'며 명확히 의사결정을 보류했음에도 엔진은 이를 최종 성공(win)으로 무리하게 판정함.",
+   "session": "05-ps21-L3-scenario",
+   "pid": "ps21",
+   "level": 3,
+   "mode": "scenario"
+  },
+  {
+   "turn": 2,
+   "type": "reply",
+   "severity": "high",
+   "text": "영업 담당자가 우려 해소의 정답(단계별 오픈 등)을 제시하지 않고 API 연동만 언급했으나, 고객이 스스로 '다음 달 사양서 확정'을 제안하며 자신의 우려를 스스로 해소하는 어색한 전개가 발생했습니다.",
+   "session": "06-ps26-L1-scenario",
+   "pid": "ps26",
+   "level": 1,
+   "mode": "scenario"
+  },
+  {
+   "turn": 2,
+   "type": "score",
+   "severity": "high",
+   "text": "대화 전체에서 기대효과 정량화(VS2)나 구체적 수치 및 출처(MK3)가 전혀 제시되지 않았음에도, 최종 기준 점수에서 각각 75점이라는 높은 점수가 부여되었습니다.",
+   "session": "06-ps26-L1-scenario",
+   "pid": "ps26",
+   "level": 1,
+   "mode": "scenario"
+  },
+  {
+   "turn": 3,
+   "type": "satisfaction",
+   "severity": "mid",
+   "text": "영업 담당자가 고객이 턴 2에서 먼저 제안한 일정을 그대로 앵무새처럼 반복하며 수용했을 뿐인데, 만족도가 한 번에 15점이나 급상승하여 89점이 된 것은 과도합니다.",
+   "session": "06-ps26-L1-scenario",
+   "pid": "ps26",
+   "level": 1,
+   "mode": "scenario"
+  },
+  {
+   "turn": 3,
+   "type": "score",
+   "severity": "mid",
+   "text": "실행 계획 구체성(VS6)이 85점으로 높게 채점되었으나, 실질적인 실행 방안(다음 달 착수 회의 및 사양서 확정)은 영업 담당자가 아닌 고객의 입에서 먼저 나왔습니다.",
+   "session": "06-ps26-L1-scenario",
+   "pid": "ps26",
+   "level": 1,
+   "mode": "scenario"
+  },
+  {
+   "turn": 3,
+   "type": "concern",
+   "severity": "mid",
+   "text": "영업 담당자가 아직 c1의 해소 조건 중 하나인 '쇼룸 시연'을 제안하지 않았음에도 엔진은 c1 우려가 해소되었다고 조기 판정했습니다.",
+   "session": "07-ps31-L2-scenario",
+   "pid": "ps31",
+   "level": 2,
+   "mode": "scenario"
+  },
+  {
+   "turn": 3,
+   "type": "persona",
+   "severity": "mid",
+   "text": "영업이 '완벽히 충족' 등 단정적 표현을 사용하고 정량적 근거를 생략했음에도, '어디 기준인가요?'라고 되묻는 페르소나 룰이 전혀 작동하지 않았습니다.",
+   "session": "07-ps31-L2-scenario",
+   "pid": "ps31",
+   "level": 2,
+   "mode": "scenario"
+  },
+  {
+   "turn": 5,
+   "type": "score",
+   "severity": "high",
+   "text": "정량적 기대효과(VS2), 비용 및 결정권자 관점(CU3), 객관적 출처 표기(MK3)가 대화 내에 전혀 등장하지 않았는데도 해당 기준에 85~88점의 과도하게 높은 점수를 부여했습니다.",
+   "session": "07-ps31-L2-scenario",
+   "pid": "ps31",
+   "level": 2,
+   "mode": "scenario"
+  },
+  {
+   "turn": 2,
+   "type": "reply",
+   "severity": "low",
+   "text": "고객의 질문이 자연스러운 대화라기보다는 영업 담당자가 다음 준비된 시나리오(무안경 3D, 콘텐츠 가이드)를 전개하기 쉽도록 작위적으로 유도하는 느낌을 줍니다.",
+   "session": "07-ps31-L2-scenario",
+   "pid": "ps31",
+   "level": 2,
+   "mode": "scenario"
+  },
+  {
+   "turn": 2,
+   "type": "persona",
+   "severity": "high",
+   "text": "고객 페르소나의 현재 VOC는 월 1,350건이고 800건은 '목표'인데, 엔진이 고객 대사에서 'VOC 월 800건 이상인 건'이라고 말하며 페르소나의 페인포인트와 목표 데이터를 혼동했습니다.",
+   "session": "08-ps33-L3-scenario",
+   "pid": "ps33",
+   "level": 3,
+   "mode": "scenario"
+  },
+  {
+   "turn": 2,
+   "type": "satisfaction",
+   "severity": "high",
+   "text": "영업 담당자가 TCO 비교표 요청에 즉각 답하지 않고 데이터(VOC 건수)를 되물으며 회피했음에도 불구하고, '만족도가 천천히 오르는' 레벨 3 조건에 어긋나게 만족도가 10점이나 크게 상승했습니다.",
+   "session": "08-ps33-L3-scenario",
+   "pid": "ps33",
+   "level": 3,
+   "mode": "scenario"
+  },
+  {
+   "turn": 5,
+   "type": "score",
+   "severity": "mid",
+   "text": "영업 담당자가 '완벽히 제어합니다'라는 과장된 표현을 썼고 고객도 이를 지적했음에도, 과장 및 보증성 표현을 평가하는 WR5 기준 점수가 80점으로 높게 책정되었습니다.",
+   "session": "08-ps33-L3-scenario",
+   "pid": "ps33",
+   "level": 3,
+   "mode": "scenario"
+  },
+  {
+   "turn": 6,
+   "type": "concern",
+   "severity": "high",
+   "text": "고객의 핵심 우려인 c1(단가 차이 및 출고가 상한)에 대해 영업 담당자가 실제 수치나 구성안을 보여주지 않고 제출하겠다는 약속만 했음에도 엔진이 c1을 해소된 것으로 잘못 판정했습니다.",
+   "session": "08-ps33-L3-scenario",
+   "pid": "ps33",
+   "level": 3,
+   "mode": "scenario"
+  },
+  {
+   "turn": 7,
+   "type": "outcome",
+   "severity": "high",
+   "text": "숫자와 TCO 비교표를 중시하는 '원가 민감, VOC 판단' 성향의 레벨 3 고객이 실제 수치가 담긴 문서를 보지도 않은 채, 제출하겠다는 약속만으로 성공(win) 판정을 내린 것은 난이도와 페르소나 설정에 맞지 않습니다.",
+   "session": "08-ps33-L3-scenario",
+   "pid": "ps33",
+   "level": 3,
+   "mode": "scenario"
+  },
+  {
+   "turn": 7,
+   "type": "score",
+   "severity": "mid",
+   "text": "구체적인 개통 철회율(7.2%), AS 비용, 단가 등의 정량적 근거나 출처가 전혀 제시되지 않았음에도 VS2(기대효과 정량화)와 MK3(출처 표기) 점수가 각각 80점, 75점으로 과대 평가되었습니다.",
+   "session": "08-ps33-L3-scenario",
+   "pid": "ps33",
+   "level": 3,
+   "mode": "scenario"
+  },
+  {
+   "turn": 2,
+   "type": "concern",
+   "severity": "high",
+   "text": "고객이 영업의 답변에 대해 '책임자를 어떻게 세우고... 그림이 그려져야'라며 추가적인 세부 방안을 요구하고 있음에도 엔진이 우려(c1)를 조기 해소 처리함.",
+   "session": "09-ps38-L1-scenario",
+   "pid": "ps38",
+   "level": 1,
+   "mode": "scenario"
+  },
+  {
+   "turn": 2,
+   "type": "satisfaction",
+   "severity": "mid",
+   "text": "고객의 핵심 우려(운영 주체 및 인수인계 방식)가 아직 완전히 풀리지 않은 상태임에도 만족도를 10점이나 크게 상승시킴.",
+   "session": "09-ps38-L1-scenario",
+   "pid": "ps38",
+   "level": 1,
+   "mode": "scenario"
+  },
+  {
+   "turn": 3,
+   "type": "score",
+   "severity": "mid",
+   "text": "영업 담당자가 페르소나 카드에 있는 타겟 사례인 '포스코 현장에서 1,200여 대 운영'을 매우 구체적으로 제시했으나 엔진의 VS5(도입 사례 근거) 점수가 60점으로 낮게 부여됨.",
+   "session": "09-ps38-L1-scenario",
+   "pid": "ps38",
+   "level": 1,
+   "mode": "scenario"
+  },
+  {
+   "turn": 1,
+   "type": "satisfaction",
+   "severity": "mid",
+   "text": "영업 담당자가 수치적 근거나 구체적인 데이터 없이 일반론만 언급하고 질문을 던졌음에도 만족도가 7점 상승함. '데이터 확인'을 중시하는 페르소나에 비해 엔진의 평가가 지나치게 관대함.",
+   "session": "10-ps45-L2-scenario",
+   "pid": "ps45",
+   "level": 2,
+   "mode": "scenario"
+  },
+  {
+   "turn": 3,
+   "type": "satisfaction",
+   "severity": "high",
+   "text": "영업이 고객의 실효성 의문에 구체적 사례 없이 제품 스펙(360 Cassette, WindFree)만 반복함. 고객 역시 '스펙 설명은 충분하고 결과를 원한다'고 지적했으나 만족도는 오히려 10점이나 대폭 상승하는 모순이 발생함.",
+   "session": "10-ps45-L2-scenario",
+   "pid": "ps45",
+   "level": 2,
+   "mode": "scenario"
+  },
+  {
+   "turn": 4,
+   "type": "concern",
+   "severity": "high",
+   "text": "C1(개방 좌석 효과 우려) 해소를 위한 조건인 '구체적 도입 사례와 점주 코멘트'가 전혀 제시되지 않고 영업의 일방적인 불만 감소 주장만 있었음에도 C1이 완전히 해소된 것으로 오판함.",
+   "session": "10-ps45-L2-scenario",
+   "pid": "ps45",
+   "level": 2,
+   "mode": "scenario"
+  },
+  {
+   "turn": 4,
+   "type": "concern",
+   "severity": "mid",
+   "text": "C2(점주의 실제 사용성 우려) 해소 조건인 'SmartThings Pro 휴대폰 직접 데모 시연'을 영업이 수행하지 않았음에도 시범 운영 제안만으로 우려가 해소된 것으로 처리함.",
+   "session": "10-ps45-L2-scenario",
+   "pid": "ps45",
+   "level": 2,
+   "mode": "scenario"
+  },
+  {
+   "turn": 5,
+   "type": "score",
+   "severity": "high",
+   "text": "최종 품질 점수에서 데이터 출처(MK3)가 없었음에도 75점, 공간 구성 및 수량(PR6) 언급이 없었음에도 80점, '100% 자동' 등 과장성 표현을 썼음에도 WR5에 85점을 부여하는 등 채점 기준이 완전히 무너짐.",
+   "session": "10-ps45-L2-scenario",
+   "pid": "ps45",
+   "level": 2,
+   "mode": "scenario"
+  },
+  {
+   "turn": 5,
+   "type": "outcome",
+   "severity": "mid",
+   "text": "고객이 요구한 데이터와 증거(사례) 제시가 누락된 상태에서 시범 운영 제안 하나만으로 최종 win 판정을 내려, 근거를 꼼꼼히 따지는 까다로운 고객의 의사결정 규칙을 무시함.",
+   "session": "10-ps45-L2-scenario",
+   "pid": "ps45",
+   "level": 2,
+   "mode": "scenario"
+  },
+  {
+   "turn": 2,
+   "type": "concern",
+   "severity": "high",
+   "text": "영업 담당자가 비슷한 규모가 아닌 대형 글로벌 프랜차이즈(맥도날드, 커피빈) 사례를 제시했음에도, 고객은 인력 부족(c2) 문제로 화제를 넘겨버려 c1(유사 규모 사례 요구) 미해결 상태를 명확히 유지하지 못했습니다.",
+   "session": "11-ps01-L2-expert",
+   "pid": "ps01",
+   "level": 2,
+   "mode": "expert"
+  },
+  {
+   "turn": 2,
+   "type": "persona",
+   "severity": "mid",
+   "text": "페르소나 지시사항에 '근거 없는 수치에는 어디 기준인지 되묻는다'고 명시되어 있으나, 영업이 제시한 맥도날드의 '평균 9일에서 당일로 단축' 수치에 대해 출처나 기준을 묻지 않았습니다.",
+   "session": "11-ps01-L2-expert",
+   "pid": "ps01",
+   "level": 2,
+   "mode": "expert"
+  },
+  {
+   "turn": 4,
+   "type": "outcome",
+   "severity": "high",
+   "text": "영업 담당자가 끝까지 '비슷한 규모 카페 프랜차이즈' 사례(밀키프레소 등)를 제시하지 않았음에도, 엔진은 파일럿 제안이 나왔다는 이유만으로 c1 우려가 해소되었다고 오판하고 최종 성공(win) 처리했습니다.",
+   "session": "11-ps01-L2-expert",
+   "pid": "ps01",
+   "level": 2,
+   "mode": "expert"
+  },
+  {
+   "turn": 4,
+   "type": "score",
+   "severity": "mid",
+   "text": "엔진의 평가 점수에서, 고객 규모에 맞지 않는 엉뚱한 대형 사례만 들었음에도 VS5(도입 사례 근거)를 85점으로 과대평가하고, 반대로 완벽하게 요구조건(직영 3곳 4주 시범)을 제시한 VS6(실행 계획 구체성)은 70점으로 과소평가했습니다.",
+   "session": "11-ps01-L2-expert",
+   "pid": "ps01",
+   "level": 2,
+   "mode": "expert"
+  },
+  {
+   "turn": 7,
+   "type": "score",
+   "severity": "high",
+   "text": "영업 담당자가 타 호텔 도입 사례를 전혀 언급하지 않았음에도 VS5(도입 사례 근거)를 80점으로 잘못 채점함.",
+   "session": "12-ps12-L3-expert",
+   "pid": "ps12",
+   "level": 3,
+   "mode": "expert"
+  },
+  {
+   "turn": 7,
+   "type": "score",
+   "severity": "mid",
+   "text": "TCO 절감액 등에 대한 객관적인 출처나 기준을 제시하지 않았으나 MK3(출처 표기)를 80점으로 높게 평가함.",
+   "session": "12-ps12-L3-expert",
+   "pid": "ps12",
+   "level": 3,
+   "mode": "expert"
+  },
+  {
+   "turn": 6,
+   "type": "concern",
+   "severity": "mid",
+   "text": "실제 비교표와 시안을 보지 못하고 다음 미팅에서 확인하기로 약속만 한 상태임에도 단가(c1) 및 다국어(c3) 우려를 조기 해소 처리함.",
+   "session": "12-ps12-L3-expert",
+   "pid": "ps12",
+   "level": 3,
+   "mode": "expert"
+  },
+  {
+   "turn": 2,
+   "type": "satisfaction",
+   "severity": "high",
+   "text": "숫자 위주로 평가하고 만족도가 천천히 오르는 까다로운 고객 설정임에도, 구체적 수치 없이 일반적인 공정 안내만 한 상황에서 만족도를 10점이나 올림.",
+   "session": "12-ps12-L3-expert",
+   "pid": "ps12",
+   "level": 3,
+   "mode": "expert"
+  },
+  {
+   "turn": 5,
+   "type": "concern",
+   "severity": "low",
+   "text": "3번 턴에서 이미 해소(해소 c2) 처리된 영업 손실 우려가 5번 턴에서 중복으로 해소 처리됨.",
+   "session": "12-ps12-L3-expert",
+   "pid": "ps12",
+   "level": 3,
+   "mode": "expert"
+  },
+  {
+   "turn": 2,
+   "type": "concern",
+   "severity": "high",
+   "text": "영업 담당자가 우려 해소안으로 제안해야 할 핵심 정보(가장 노후화된 2호점 152실)를 엔진이 먼저 언급하여 스스로 우려를 해소해버리는 문제가 발생했습니다.",
+   "session": "13-ps14-L1-expert",
+   "pid": "ps14",
+   "level": 1,
+   "mode": "expert"
+  },
+  {
+   "turn": 3,
+   "type": "score",
+   "severity": "high",
+   "text": "유사 업종 도입 사례(VS5)가 대화 중 전혀 언급되지 않았음에도 엔진은 70점이라는 높은 점수를 부여했습니다.",
+   "session": "13-ps14-L1-expert",
+   "pid": "ps14",
+   "level": 1,
+   "mode": "expert"
+  },
+  {
+   "turn": 3,
+   "type": "score",
+   "severity": "high",
+   "text": "기대효과 정량화(VS2) 항목에서 에너지 절감이나 재계약률 등의 구체적인 KPI 수치가 없었으나 75점을 부여했습니다.",
+   "session": "13-ps14-L1-expert",
+   "pid": "ps14",
+   "level": 1,
+   "mode": "expert"
+  },
+  {
+   "turn": 3,
+   "type": "score",
+   "severity": "mid",
+   "text": "데이터의 출처(MK3)가 전혀 표기되지 않았음에도 0점이 아닌 50점을 부여했습니다.",
+   "session": "13-ps14-L1-expert",
+   "pid": "ps14",
+   "level": 1,
+   "mode": "expert"
+  },
+  {
+   "turn": 1,
+   "type": "persona",
+   "severity": "mid",
+   "text": "페르소나 카드의 톤앤매너인 '입주자 하루 시나리오를 구체적으로 말한다'는 특징이 대화 전반에서 전혀 드러나지 않고 관리자 관점의 이야기만 진행되었습니다.",
+   "session": "13-ps14-L1-expert",
+   "pid": "ps14",
+   "level": 1,
+   "mode": "expert"
+  },
+  {
+   "turn": 2,
+   "type": "concern",
+   "severity": "high",
+   "text": "엔진은 c2(LED 필요성)가 해소되었다고 판정했으나, 고객은 대사에서 '직접 눈으로 확인하기 전까진 확신이 안 선다'며 여전히 의문을 제기하고 있어 해소 판정에 모순이 있습니다.",
+   "session": "14-ps17-L2-expert",
+   "pid": "ps17",
+   "level": 2,
+   "mode": "expert"
+  },
+  {
+   "turn": 2,
+   "type": "satisfaction",
+   "severity": "mid",
+   "text": "고객이 제안에 대해 확신하지 못하고 시연을 강하게 요구하는 상황임에도 불구하고 만족도가 10점이나 크게 상승한 것은 다소 어색합니다.",
+   "session": "14-ps17-L2-expert",
+   "pid": "ps17",
+   "level": 2,
+   "mode": "expert"
+  },
+  {
+   "turn": 3,
+   "type": "concern",
+   "severity": "low",
+   "text": "고객이 121㎡ 면적 차이를 지적하며 추가 데이터를 요구(c2 관련 미해결 상태)했으나, 엔진은 내부적으로 계속 우려가 해소된 상태(해소 c2)로 잘못 유지하고 있습니다.",
+   "session": "14-ps17-L2-expert",
+   "pid": "ps17",
+   "level": 2,
+   "mode": "expert"
+  },
+  {
+   "turn": 4,
+   "type": "score",
+   "severity": "mid",
+   "text": "영업 담당자가 18억 예산 제약, 1985년 건물의 하중 문제 등 리스크를 다루지 않았고 전체 수량을 구체화하지 않았음에도 엔진은 CU3(의사결정자 관점) 80점, PR6(구성·수량) 70점 등 과도하게 높은 점수를 부여했습니다.",
+   "session": "14-ps17-L2-expert",
+   "pid": "ps17",
+   "level": 2,
+   "mode": "expert"
+  },
+  {
+   "turn": 2,
+   "type": "concern",
+   "severity": "high",
+   "text": "영업 담당자가 c2(시스템 이원화)에 대해 단계별 통합안이나 교육 계획 없이 'b.IoT로 통합된다'는 원론적 답변만 했으나, 엔진은 이를 우려 해소로 쉽게 판정함.",
+   "session": "15-ps21-L3-expert",
+   "pid": "ps21",
+   "level": 3,
+   "mode": "expert"
+  },
+  {
+   "turn": 3,
+   "type": "level",
+   "severity": "high",
+   "text": "영업이 '완전히 해소', '오차 없는', '근본적으로 사라집니다' 등 심한 과장과 단정적 표현을 썼음에도, 레벨3 난이도 규칙(과장에 바로 반박)이 작동하지 않고 만족도가 +10 상승함.",
+   "session": "15-ps21-L3-expert",
+   "pid": "ps21",
+   "level": 3,
+   "mode": "expert"
+  },
+  {
+   "turn": 4,
+   "type": "reply",
+   "severity": "mid",
+   "text": "고객이 프롬프트에 주어진 결정 요청 조건(10년 총비용 비교표 검토 후 공조 기본 사양 확정 등)을 스스로 완벽하게 요약해 영업에게 떠먹여 주어 대화의 자연스러움이 떨어짐.",
+   "session": "15-ps21-L3-expert",
+   "pid": "ps21",
+   "level": 3,
+   "mode": "expert"
+  },
+  {
+   "turn": 5,
+   "type": "concern",
+   "severity": "high",
+   "text": "c1(경쟁사 단가 차이)에 대해 영업이 즉석에서 환산된 10년 총비용 데이터를 제시하지 않고 '다음 주 워크숍'으로 미뤘음에도, 엔진은 우려가 모두 해소되었다고 판단함.",
+   "session": "15-ps21-L3-expert",
+   "pid": "ps21",
+   "level": 3,
+   "mode": "expert"
+  },
+  {
+   "turn": 6,
+   "type": "score",
+   "severity": "high",
+   "text": "절대적 보증과 과장된 표현이 지속적으로 사용되었음에도 WR5(과장·보증성 표현) 점수를 80점으로 높게 채점해 품질 평가 기준이 무너짐.",
+   "session": "15-ps21-L3-expert",
+   "pid": "ps21",
+   "level": 3,
+   "mode": "expert"
+  },
+  {
+   "turn": 6,
+   "type": "score",
+   "severity": "mid",
+   "text": "공간별 구성 및 수량(PR6), 절감 수치의 명확한 근거와 출처(MK3)가 대화에 전혀 등장하지 않았음에도 모두 80점 이상의 높은 점수를 부여함.",
+   "session": "15-ps21-L3-expert",
+   "pid": "ps21",
+   "level": 3,
+   "mode": "expert"
+  },
+  {
+   "turn": 2,
+   "type": "outcome",
+   "severity": "high",
+   "text": "성공(win) 조건인 '최종 결정 요청(발주 및 착수 회의 일정 확정)'을 영업 담당자가 하지 않았습니다. 고객(엔진)이 역으로 일정을 물어보는 대사를 출력한 직후 담당자의 대답을 듣기도 전에 시뮬레이션을 승리로 강제 종료했습니다.",
+   "session": "16-ps26-L1-expert",
+   "pid": "ps26",
+   "level": 1,
+   "mode": "expert"
+  },
+  {
+   "turn": 2,
+   "type": "concern",
+   "severity": "high",
+   "text": "병원정보시스템 연동은 4개월이 걸리는 제약 사항이 있음에도, 영업 담당자가 1차 오픈 전(단기간)에 연동 테스트를 완료하겠다는 비현실적인 제안을 했습니다. 그러나 엔진은 이를 지적하지 않고 우려 해소(c1)로 판정했으며, 고객 대사로 정답인 '단계별 오픈'을 먼저 제시하는 오류를 범했습니다.",
+   "session": "16-ps26-L1-expert",
+   "pid": "ps26",
+   "level": 1,
+   "mode": "expert"
+  },
+  {
+   "turn": 2,
+   "type": "score",
+   "severity": "mid",
+   "text": "영업 담당자가 기대효과를 정량화하거나(VS2), 도입 사례를 언급(VS5)한 적이 전혀 없음에도 엔진은 해당 기준에 각각 65점이라는 높은 점수를 부여했습니다.",
+   "session": "16-ps26-L1-expert",
+   "pid": "ps26",
+   "level": 1,
+   "mode": "expert"
+  },
+  {
+   "turn": 2,
+   "type": "persona",
+   "severity": "low",
+   "text": "턴 1에서 고객이 '갤럭시 탭 액티브5'를 특정하여 원했는데, 영업 담당자가 턴 2에서 설명 없이 'SM-X350(탭 A9+)'을 제안했습니다. 호의적인 고객이더라도 기기가 달라진 점에 대해 가벼운 확인이나 질문이 있어야 자연스럽습니다.",
+   "session": "16-ps26-L1-expert",
+   "pid": "ps26",
+   "level": 1,
+   "mode": "expert"
+  },
+  {
+   "turn": 3,
+   "type": "reply",
+   "severity": "mid",
+   "text": "고객이 프롬프트의 'ask' 조건(쇼룸 시연 후 통로 1구간 4주 시험 설치)을 거의 토씨 하나 틀리지 않고 그대로 읊으며 영업에게 먼저 요청하는 방식이 다소 작위적입니다.",
+   "session": "17-ps31-L2-expert",
+   "pid": "ps31",
+   "level": 2,
+   "mode": "expert"
+  },
+  {
+   "turn": 3,
+   "type": "concern",
+   "severity": "high",
+   "text": "고객이 여전히 '세밀한 스케줄 운영이 가능한지 확인이 필요하다'며 우려(c2)를 남겼음에도, 엔진은 해당 턴에서 c2를 '해소'로 성급하게 판정했습니다. (실제 해결책인 매직인포는 4턴에서 제시됨)",
+   "session": "17-ps31-L2-expert",
+   "pid": "ps31",
+   "level": 2,
+   "mode": "expert"
+  },
+  {
+   "turn": 4,
+   "type": "score",
+   "severity": "mid",
+   "text": "영업 담당자가 대기 구간 만족도 점수나 SNS 게시물 수 등 구체적인 KPI 수치를 전혀 활용하여 정량화하지 않았음에도, VS2(기대효과 정량화) 점수를 85점으로 과대평가했습니다.",
+   "session": "17-ps31-L2-expert",
+   "pid": "ps31",
+   "level": 2,
+   "mode": "expert"
+  },
+  {
+   "turn": 4,
+   "type": "score",
+   "severity": "mid",
+   "text": "제안 내용 중 구체적인 데이터나 통계의 출처가 제시되지 않았음에도 MK3(출처 표기) 점수가 80점으로 높게 채점되었습니다.",
+   "session": "17-ps31-L2-expert",
+   "pid": "ps31",
+   "level": 2,
+   "mode": "expert"
+  },
+  {
+   "turn": 4,
+   "type": "reply",
+   "severity": "high",
+   "text": "영업 담당자가 제시해야 할 해결책(3세대 단말 6개월 병행 운영)을 고객(엔진)이 먼저 구체적으로 언급하며 떠먹여 줌.",
+   "session": "18-ps33-L3-expert",
+   "pid": "ps33",
+   "level": 3,
+   "mode": "expert"
+  },
+  {
+   "turn": 4,
+   "type": "concern",
+   "severity": "mid",
+   "text": "영업이 OS 업데이트 사전 검증 절차나 일정 공유를 명확히 제시하지 않았음에도 c3 우려가 해소된 것으로 잘못 판정함.",
+   "session": "18-ps33-L3-expert",
+   "pid": "ps33",
+   "level": 3,
+   "mode": "expert"
+  },
+  {
+   "turn": 5,
+   "type": "concern",
+   "severity": "mid",
+   "text": "2년 TCO에 개통 철회 손실 및 펌웨어 수정 비용 등 요구된 상세 항목이 모두 포함되지 않았음에도 c1 우려를 완전히 해소된 것으로 판정함.",
+   "session": "18-ps33-L3-expert",
+   "pid": "ps33",
+   "level": 3,
+   "mode": "expert"
+  },
+  {
+   "turn": 5,
+   "type": "satisfaction",
+   "severity": "high",
+   "text": "'까다로운 고객' 페르소나임에도 불구하고, 영업이 완벽한 답변을 하지 않았는데도 턴마다 기계적으로 만족도가 10씩 상승함.",
+   "session": "18-ps33-L3-expert",
+   "pid": "ps33",
+   "level": 3,
+   "mode": "expert"
+  },
+  {
+   "turn": 6,
+   "type": "level",
+   "severity": "mid",
+   "text": "원가에 민감하고 단도직입적인 고객이 단순히 이메일로 비교표를 보내주겠다는 약속만으로 지나치게 호의적으로 돌변하여 합의를 진행함.",
+   "session": "18-ps33-L3-expert",
+   "pid": "ps33",
+   "level": 3,
+   "mode": "expert"
+  },
+  {
+   "turn": 7,
+   "type": "score",
+   "severity": "low",
+   "text": "엔진의 MK3(출처 표기) 점수가 80점이나, 영업은 'VOC 처리 건당 1만 원'이라는 자의적 가정을 사용했을 뿐 명확한 출처를 대지 않았음.",
+   "session": "18-ps33-L3-expert",
+   "pid": "ps33",
+   "level": 3,
+   "mode": "expert"
+  },
+  {
+   "turn": 3,
+   "type": "score",
+   "severity": "high",
+   "text": "영업 담당자가 제시한 국립공원공단 사례(VS5)를 고객이 제철소와 맞지 않다고 지적했음에도, 엔진 최종 평가에서 VS5에 80점이라는 높은 점수를 부여함.",
+   "session": "19-ps38-L1-expert",
+   "pid": "ps38",
+   "level": 1,
+   "mode": "expert"
+  },
+  {
+   "turn": 3,
+   "type": "score",
+   "severity": "mid",
+   "text": "영업 담당자의 발화 중 수치화된 정량적 기대효과(VS2)나 명확한 출처(MK3)가 전혀 언급되지 않았으나, 엔진은 각각 60점, 70점을 부여하여 점수가 과대평가됨.",
+   "session": "19-ps38-L1-expert",
+   "pid": "ps38",
+   "level": 1,
+   "mode": "expert"
+  },
+  {
+   "turn": 2,
+   "type": "concern",
+   "severity": "high",
+   "text": "고객이 여전히 소음과 냉방 성능에 대한 검증을 의심하며 질문을 던졌음에도 엔진은 C1(개방 좌석 효과 우려)이 해소된 것으로 잘못 판정했습니다.",
+   "session": "20-ps45-L2-expert",
+   "pid": "ps45",
+   "level": 2,
+   "mode": "expert"
+  },
+  {
+   "turn": 3,
+   "type": "persona",
+   "severity": "high",
+   "text": "고객이 숨겨진 요구 조건인 '직영점 1곳 4주 시범 운영과 리뉴얼 센터 실사'를 토씨 하나 틀리지 않고 먼저 읊어버리는 심각한 프롬프트 유출(스크립트 읽기)이 발생했습니다.",
+   "session": "20-ps45-L2-expert",
+   "pid": "ps45",
+   "level": 2,
+   "mode": "expert"
+  },
+  {
+   "turn": 3,
+   "type": "concern",
+   "severity": "high",
+   "text": "C2 해소 조건은 영업 담당자의 모바일 제어 데모 시연과 시범 운영 제안인데, 영업 담당자는 스케줄 기능만 설명했을 뿐 시범 운영은 고객이 먼저 제안했음에도 C2가 해소 처리되었습니다.",
+   "session": "20-ps45-L2-expert",
+   "pid": "ps45",
+   "level": 2,
+   "mode": "expert"
+  },
+  {
+   "turn": 4,
+   "type": "outcome",
+   "severity": "mid",
+   "text": "영업 담당자가 주도적으로 클로징(다음 단계 제안)을 하지 못했고 고객이 정답을 떠먹여 주었음에도 불구하고 엔진은 그대로 Win 판정을 내렸습니다.",
+   "session": "20-ps45-L2-expert",
+   "pid": "ps45",
+   "level": 2,
+   "mode": "expert"
+  },
+  {
+   "turn": 4,
+   "type": "score",
+   "severity": "mid",
+   "text": "영업 담당자가 공간별 제품 구성, 수량, 구체적인 도면이나 단계별 계획을 전혀 언급하지 않았으나 PR6(구성·수량 명확성)에 70점이라는 높은 점수가 부여되었습니다.",
+   "session": "20-ps45-L2-expert",
+   "pid": "ps45",
+   "level": 2,
+   "mode": "expert"
+  },
+  {
+   "turn": 4,
+   "type": "score",
+   "severity": "mid",
+   "text": "영업 담당자가 절감액을 말할 때 객관적인 출처 없이 고객이 언급한 '20~30만 원'을 그대로 반복하기만 했음에도 MK3(출처 표기) 점수가 75점으로 과대 평가되었습니다.",
+   "session": "20-ps45-L2-expert",
+   "pid": "ps45",
+   "level": 2,
+   "mode": "expert"
+  },
+  {
+   "turn": 1,
+   "type": "level",
+   "severity": "mid",
+   "text": "난이도 규칙에 '만족도는 잘 안 떨어진다'고 명시되었음에도 불구하고, 매 턴 기계적으로 15점씩 차감되어 너무 빠르게 실패(15점)에 도달했습니다. 영업 담당자의 제안 품질이 매우 낮아 큰 감점이 타당할 수 있으나 차감 폭이 다소 가혹합니다.",
+   "session": "21-ps14-L1-weak",
+   "pid": "ps14",
+   "level": 1,
+   "mode": "weak"
+  },
+  {
+   "turn": 1,
+   "type": "concern",
+   "severity": "low",
+   "text": "영업 담당자가 시스템 연동이나 로드맵에 대한 아무런 단서를 주지 않았음에도 고객이 첫 턴부터 숨은 우려인 '기존 지점 이원화' 문제를 스스로 꺼내어, 우려 발현 과정이 다소 빠릅니다.",
+   "session": "21-ps14-L1-weak",
+   "pid": "ps14",
+   "level": 1,
+   "mode": "weak"
+  },
+  {
+   "turn": 3,
+   "type": "reply",
+   "severity": "low",
+   "text": "만족도 15점으로 최종 종료(lose)되는 상황임에도 고객의 마지막 대사가 '자료를 다시 준비해 주시는 게 좋겠어요'라며 다소 여지를 주는 온건한 톤을 유지합니다. 호의적인 성향을 반영한 것이지만 종료 선언치고는 모호합니다.",
+   "session": "21-ps14-L1-weak",
+   "pid": "ps14",
+   "level": 1,
+   "mode": "weak"
+  },
+  {
+   "turn": 1,
+   "type": "score",
+   "severity": "low",
+   "text": "영업 담당자가 첫 턴부터 '무조건', '100%' 등 과장된 표현과 근거 없는 수치를 남발했음에도 제안 품질 점수가 39점으로 다소 관대하게 평가되었습니다.",
+   "session": "22-ps01-L2-weak",
+   "pid": "ps01",
+   "level": 2,
+   "mode": "weak"
+  },
+  {
+   "turn": 2,
+   "type": "reply",
+   "severity": "low",
+   "text": "영업의 막무가내식 제안에 대해 고객이 지적하는 패턴이 약간 길고 설명적으로 반복되는 경향이 있습니다.",
+   "session": "22-ps01-L2-weak",
+   "pid": "ps01",
+   "level": 2,
+   "mode": "weak"
+  },
+  {
+   "turn": 1,
+   "type": "score",
+   "severity": "low",
+   "text": "WR5(과장·보증성 표현 지양) 기준에서 영업 담당자가 '100% 만족', '무조건' 등을 남발했으므로 20점보다 더 낮은 최하점(0~10점)을 부여하는 것이 더 정교함.",
+   "session": "23-ps12-L3-weak",
+   "pid": "ps12",
+   "level": 3,
+   "mode": "weak"
+  },
+  {
+   "turn": 2,
+   "type": "score",
+   "severity": "high",
+   "text": "영업담당자가 기대효과 정량화(VS2), 도입 사례(VS5), 출처 표기(MK3)를 전혀 하지 않았음에도 엔진은 해당 항목들에 60~70점이라는 부당하게 높은 점수를 부여했습니다.",
+   "session": "24-ps14-L1-suggest",
+   "pid": "ps14",
+   "level": 1,
+   "mode": "suggest"
+  },
+  {
+   "turn": 2,
+   "type": "outcome",
+   "severity": "high",
+   "text": "고객이 마지막 대사에서 'IoT 사양 구성'과 '확산 일정'을 물으며 답변을 요구했음에도 불구하고, 영업담당자가 이를 제안하기도 전에 엔진이 시뮬레이션을 성공(win)으로 성급하게 종료했습니다.",
+   "session": "24-ps14-L1-suggest",
+   "pid": "ps14",
+   "level": 1,
+   "mode": "suggest"
+  },
+  {
+   "turn": 2,
+   "type": "reply",
+   "severity": "mid",
+   "text": "고객이 영업의 제안 내용(2호점 152실부터 Wi-Fi Kit 단계적 확장)을 앵무새처럼 그대로 반복하며 칭찬하는 대사 흐름이 다소 작위적이고 부자연스럽습니다.",
+   "session": "24-ps14-L1-suggest",
+   "pid": "ps14",
+   "level": 1,
+   "mode": "suggest"
+  },
+  {
+   "turn": 1,
+   "type": "persona",
+   "severity": "high",
+   "text": "페르소나 지시사항(일반론에 '어디 기준인가요?'라고 되묻기)을 무시하고 영업의 추상적인 제안을 너무 쉽게 수용함.",
+   "session": "25-ps01-L2-suggest",
+   "pid": "ps01",
+   "level": 2,
+   "mode": "suggest"
+  },
+  {
+   "turn": 2,
+   "type": "concern",
+   "severity": "mid",
+   "text": "c1 우려 해소 조건인 '점주 만족 코멘트'가 제시되지 않았음에도 고객이 사례를 가볍게 납득하고 다음 우려로 넘어감.",
+   "session": "25-ps01-L2-suggest",
+   "pid": "ps01",
+   "level": 2,
+   "mode": "suggest"
+  },
+  {
+   "turn": 3,
+   "type": "persona",
+   "severity": "high",
+   "text": "고객이 자신의 우려 해소 조건이자 미팅 목표인 '디자인팀 2주 체험 계정'을 스스로 영업에게 먼저 요청해버림.",
+   "session": "25-ps01-L2-suggest",
+   "pid": "ps01",
+   "level": 2,
+   "mode": "suggest"
+  },
+  {
+   "turn": 4,
+   "type": "concern",
+   "severity": "mid",
+   "text": "영업이 제대로 된 증명을 제공하지 않아 조건이 완전히 충족되지 않은 c1 우려가 엔진에서 일괄 해소(resolve)된 것으로 판정됨.",
+   "session": "25-ps01-L2-suggest",
+   "pid": "ps01",
+   "level": 2,
+   "mode": "suggest"
+  },
+  {
+   "turn": 5,
+   "type": "score",
+   "severity": "high",
+   "text": "영업이 공간 제약(PR3), 삼성의 차별점(VS4), 데이터 출처(MK3)를 전혀 언급하지 않았음에도 엔진은 해당 항목들에 75~85점의 과도하게 높은 점수를 부여함.",
+   "session": "25-ps01-L2-suggest",
+   "pid": "ps01",
+   "level": 2,
+   "mode": "suggest"
+  },
+  {
+   "turn": 4,
+   "type": "persona",
+   "severity": "high",
+   "text": "고객이 스스로 최종 목표인 '1개 층 선교체' 조건을 영업 사원에게 떠먹여 주며 까다로운 고객 페르소나가 완전히 붕괴됨.",
+   "session": "26-ps12-L3-suggest",
+   "pid": "ps12",
+   "level": 3,
+   "mode": "suggest"
+  },
+  {
+   "turn": 6,
+   "type": "reply",
+   "severity": "high",
+   "text": "영업 사원이 '00% 감소, 00분 단축'이라는 빈 템플릿을 제시했음에도 고객은 '수치 근거는 명확하다'며 억지로 수용하고 칭찬함.",
+   "session": "26-ps12-L3-suggest",
+   "pid": "ps12",
+   "level": 3,
+   "mode": "suggest"
+  },
+  {
+   "turn": 2,
+   "type": "satisfaction",
+   "severity": "high",
+   "text": "턴 2부터 8까지 매 턴 만족도가 예외 없이 +10점씩 상승하여, '만족도는 천천히 오르고 쉽게 떨어진다'는 난이도 규칙을 전혀 지키지 않음.",
+   "session": "26-ps12-L3-suggest",
+   "pid": "ps12",
+   "level": 3,
+   "mode": "suggest"
+  },
+  {
+   "turn": 5,
+   "type": "concern",
+   "severity": "mid",
+   "text": "실제 비용 수치가 제시되지 않고 '비교표를 바탕으로 보고하겠다'는 말만 했는데도 가장 중요한 우려인 c1(단가 비교)이 해소된 것으로 판정함.",
+   "session": "26-ps12-L3-suggest",
+   "pid": "ps12",
+   "level": 3,
+   "mode": "suggest"
+  },
+  {
+   "turn": 8,
+   "type": "score",
+   "severity": "high",
+   "text": "실제 데이터나 도입 사례가 전무한 제안임에도 엔진은 VS2(기대효과 정량화) 90점, VS5(도입 사례) 85점 등 터무니없이 높은 최종 점수를 부여함.",
+   "session": "26-ps12-L3-suggest",
+   "pid": "ps12",
+   "level": 3,
+   "mode": "suggest"
+  },
+  {
+   "turn": 7,
+   "type": "reply",
+   "severity": "mid",
+   "text": "고객의 말투가 '짧고 날카롭다'는 설정과 정반대로 매 턴 매우 길고 장황하며 협조적임.",
+   "session": "26-ps12-L3-suggest",
+   "pid": "ps12",
+   "level": 3,
+   "mode": "suggest"
+  }
+ ],
+ "sessions": [
+  {
+   "id": "01-ps01-L2-scenario",
+   "pid": "ps01",
+   "level": 2,
+   "levelName": "첫 고객",
+   "mode": "scenario",
+   "modeLabel": "Best Scenario 스토리라인을 따르는 담당자",
+   "customer": "M 디저트카페",
+   "person": "한서윤 · 대표이사",
+   "ind": "FB",
+   "indName": "외식 · 카페 프랜차이즈",
+   "scenario": "bs01",
+   "scenarioTitle": "bs01 F&B 프랜차이즈 · 전국 매장 디지털 메뉴보드 전환",
+   "reqTitle": "가맹 확장 전, 매장 메뉴 · 프로모션 화면 표준화",
+   "ask": "직영 3곳 4주 시범 운영(디자인팀 체험 계정 포함)",
+   "win": 80,
+   "lose": 15,
+   "startSat": 45,
+   "status": "won",
+   "turns": 4,
+   "satisfaction": 80,
+   "quality": 75,
+   "cats": {
+    "CU": 79,
+    "PR": 75,
+    "VS": 76,
+    "MK": 68
+   },
+   "scores": {
+    "CU2": 80,
+    "CU3": 75,
+    "CU4": 80,
+    "PR3": 75,
+    "PR4": 80,
+    "PR6": 70,
+    "VS1": 80,
+    "VS2": 75,
+    "VS4": 75,
+    "VS6": 70,
+    "VS5": 75,
+    "MK3": 60,
+    "WR5": 70
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 45,
+     "q": null,
+     "rq": null,
+     "stage": "needs",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 52,
+     "q": 47,
+     "rq": 27,
+     "stage": "proof",
+     "story": "open",
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 58,
+     "q": 55,
+     "rq": 42,
+     "stage": "objection",
+     "story": "proof",
+     "rv": [
+      "c2"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 3,
+     "sat": 66,
+     "q": 57,
+     "rq": 46,
+     "stage": "proof",
+     "story": "value",
+     "rv": [
+      "c2"
+     ],
+     "rs": [
+      "c2"
+     ],
+     "end": null
+    },
+    {
+     "n": 4,
+     "sat": 80,
+     "q": 75,
+     "rq": 64,
+     "stage": "close",
+     "story": "value",
+     "rv": [
+      "c1",
+      "c2"
+     ],
+     "rs": [
+      "c1",
+      "c2"
+     ],
+     "end": "win"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "비슷한 규모 카페 프랜차이즈에서 정말 효과를 본 사례가 있는지 모르겠다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    },
+    {
+     "id": "c2",
+     "text": "디자인팀 2명이 45개 매장 화면을 다 관리할 수 있을지 걱정이다",
+     "revealed": true,
+     "resolved": true,
+     "at": 2
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 5,
+   "nTurns": 5,
+   "avgCustMs": 2515,
+   "avgReplyChars": 206,
+   "avgSellerChars": 206,
+   "checks": {
+    "reply_long": {
+     "n": 3,
+     "level": "warn",
+     "turns": [
+      0,
+      1,
+      3
+     ]
+    },
+    "multi_reveal": {
+     "n": 1,
+     "level": "warn",
+     "turns": [
+      4
+     ]
+    }
+   },
+   "ruleGap": 19.7,
+   "stageAgree": 25,
+   "calib": {
+    "mae": 10.4,
+    "bias": 8.1,
+    "r": 0.45,
+    "per": {
+     "CU2": {
+      "engine": 80,
+      "judge": 60
+     },
+     "CU3": {
+      "engine": 75,
+      "judge": 70
+     },
+     "CU4": {
+      "engine": 80,
+      "judge": 80
+     },
+     "PR3": {
+      "engine": 75,
+      "judge": 80
+     },
+     "PR4": {
+      "engine": 80,
+      "judge": 80
+     },
+     "PR6": {
+      "engine": 70,
+      "judge": 70
+     },
+     "VS1": {
+      "engine": 80,
+      "judge": 70
+     },
+     "VS2": {
+      "engine": 75,
+      "judge": 60
+     },
+     "VS4": {
+      "engine": 75,
+      "judge": 50
+     },
+     "VS6": {
+      "engine": 70,
+      "judge": 80
+     },
+     "VS5": {
+      "engine": 75,
+      "judge": 50
+     },
+     "MK3": {
+      "engine": 60,
+      "judge": 40
+     },
+     "WR5": {
+      "engine": 70,
+      "judge": 70
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 33116,
+    "scores": {
+     "persona_fidelity": 3,
+     "level_fit": 2,
+     "concern_realism": 2,
+     "satisfaction_plausibility": 2,
+     "score_calibration": 3,
+     "outcome_plausibility": 2,
+     "reply_naturalness": 2
+    },
+    "criteria": {
+     "CU2": 60,
+     "CU3": 70,
+     "CU4": 80,
+     "PR3": 80,
+     "PR4": 80,
+     "PR6": 70,
+     "VS1": 70,
+     "VS2": 60,
+     "VS4": 50,
+     "VS6": 80,
+     "VS5": 50,
+     "MK3": 40,
+     "WR5": 70
+    },
+    "expected_outcome": "undecided",
+    "seller_quality": 3,
+    "issues": [
+     {
+      "turn": 3,
+      "type": "concern",
+      "severity": "mid",
+      "text": "영업이 아직 '디자인팀 체험 계정 제공'을 구체적으로 제안하지 않은 시점임에도 엔진이 c2(운영 난이도 우려)를 조기 해소 처리함."
+     },
+     {
+      "turn": 3,
+      "type": "reply",
+      "severity": "high",
+      "text": "고객이 이전 턴에서 지적했던 '유사 규모 프랜차이즈 사례 부족' 문제를 스스로 덮고, 영업에게 '직접 체험해 볼 방법'과 '도입 비용 및 기기 구성'을 묻는 등 정답(Ask 조건)을 노골적으로 유도하는 부자연스러운 대사를 출력함."
+     },
+     {
+      "turn": 4,
+      "type": "outcome",
+      "severity": "high",
+      "text": "페르소나의 핵심 우려인 '비슷한 규모 프랜차이즈 실제 사례(예: 밀키프레소)'가 끝까지 제시되지 않고 엉뚱한 대형 사례(커피빈)가 나왔음에도 불구하고, 엔진은 c1 우려가 완전히 해소된 것으로 오판하고 최종 Win 판정을 내림."
+     },
+     {
+      "turn": 4,
+      "type": "score",
+      "severity": "mid",
+      "text": "영업이 적합하지 않은 규모의 레퍼런스를 들었고, 삼성 솔루션만의 차별화 포인트를 명확히 짚지 못했음에도 VS5(도입 사례 근거) 75점, VS4(Why Samsung 차별성) 75점 등으로 과대평가함."
+     }
+    ],
+    "summary": "핵심 우려(유사 규모 사례)가 미해결되었음에도 엔진이 정답을 스스로 유도하며 억지 성공(Win) 판정을 내려 시뮬레이터로서의 역할을 다하지 못했습니다.",
+    "sid": "01-ps01-L2-scenario",
+    "t": 55.1
+   },
+   "judgeQuality": 67,
+   "errors": [],
+   "debrief": {
+    "verdict": "고객의 페인포인트를 정확히 짚어내고 실현 가능한 대안을 제시하여 신뢰를 얻은 우수한 상담입니다.",
+    "good": [
+     "고객의 비즈니스 고민(브랜드 통일성, 리드타임)을 정확히 파악하여 삼성 솔루션과의 연계점을 명확히 제시하였습니다.",
+     "막연한 불안감을 해소하기 위해 '4주 시범 운영'과 '디자인팀 체험 계정'이라는 구체적인 검증안을 제안하여 고객의 구매 결정을 이끌어냈습니다."
+    ],
+    "improve": [
+     "시범 운영 제안 시, 단순히 시스템을 써보라는 말보다 45개 매장 확대 시의 구체적인 비용 절감 수치나 예상 수익 개선폭을 제시했다면 설득력이 더 높아졌을 것입니다.",
+     "실행 계획 논의 단계에서 도입 시 발생할 수 있는 초기 설치 공사나 매장별 통신 환경 등 기술적 리스크에 대한 언급이 부족해 아쉽습니다."
+    ],
+    "next": "시범 운영 결과 데이터 분석 보고서 작성 및 본 계약 전환을 위한 ROI 세부 산출 연습을 추천합니다.",
+    "ai": true
+   }
+  },
+  {
+   "id": "02-ps12-L3-scenario",
+   "pid": "ps12",
+   "level": 3,
+   "levelName": "까다로운 고객",
+   "mode": "scenario",
+   "modeLabel": "Best Scenario 스토리라인을 따르는 담당자",
+   "customer": "Z 부티크호텔",
+   "person": "장석민 · 객실운영 이사",
+   "ind": "HT",
+   "indName": "호텔 · 리조트",
+   "scenario": "bs07",
+   "scenarioTitle": "bs07 호텔 객실 TV · 공조 교체 + 투숙 경험 개선",
+   "reqTitle": "외국인 투숙객용 다국어 객실 TV 전면 교체",
+   "ask": "3개 안 5년 총비용 비교표 검토 후 1개 층 조건부 선교체(문의 건수 기준 합의)",
+   "win": 85,
+   "lose": 15,
+   "startSat": 30,
+   "status": "won",
+   "turns": 12,
+   "satisfaction": 94,
+   "quality": 92,
+   "cats": {
+    "CU": 95,
+    "PR": 90,
+    "VS": 94,
+    "MK": 90
+   },
+   "scores": {
+    "CU2": 95,
+    "CU3": 95,
+    "CU4": 95,
+    "PR3": 90,
+    "PR4": 90,
+    "PR6": 90,
+    "VS1": 95,
+    "VS2": 95,
+    "VS4": 90,
+    "VS6": 95,
+    "VS5": 90,
+    "MK3": 90,
+    "WR5": 90
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 30,
+     "q": null,
+     "rq": null,
+     "stage": "open",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 25,
+     "q": 36,
+     "rq": 31,
+     "stage": "objection",
+     "story": "open",
+     "rv": [
+      "c1",
+      "c2"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 30,
+     "q": 46,
+     "rq": 46,
+     "stage": "objection",
+     "story": "needs",
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 3,
+     "sat": 40,
+     "q": 47,
+     "rq": 51,
+     "stage": "objection",
+     "story": "needs",
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 4,
+     "sat": 50,
+     "q": 67,
+     "rq": 63,
+     "stage": "close",
+     "story": "proof",
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": null
+    },
+    {
+     "n": 5,
+     "sat": 60,
+     "q": 83,
+     "rq": 68,
+     "stage": "close",
+     "story": "close",
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": null
+    },
+    {
+     "n": 6,
+     "sat": 70,
+     "q": 91,
+     "rq": 69,
+     "stage": "close",
+     "story": "close",
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": null
+    },
+    {
+     "n": 7,
+     "sat": 80,
+     "q": 81,
+     "rq": 69,
+     "stage": "close",
+     "story": "close",
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": null
+    },
+    {
+     "n": 8,
+     "sat": 84,
+     "q": 85,
+     "rq": 70,
+     "stage": "close",
+     "story": "close",
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": null
+    },
+    {
+     "n": 9,
+     "sat": 84,
+     "q": 83,
+     "rq": 72,
+     "stage": "close",
+     "story": "close",
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": null
+    },
+    {
+     "n": 10,
+     "sat": 84,
+     "q": 86,
+     "rq": 72,
+     "stage": "close",
+     "story": "close",
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": null
+    },
+    {
+     "n": 11,
+     "sat": 84,
+     "q": 87,
+     "rq": 72,
+     "stage": "close",
+     "story": "close",
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": null
+    },
+    {
+     "n": 12,
+     "sat": 94,
+     "q": 92,
+     "rq": 72,
+     "stage": "close",
+     "story": "close",
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": "win"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "경쟁사 A가 22% 싸고, 셋톱박스만 교체하면 비용이 절반 아래다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    },
+    {
+     "id": "c2",
+     "text": "교체 중에 객실을 닫으면 점유율 84% 호텔에서 매출 손실이 크다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    },
+    {
+     "id": "c3",
+     "text": "중화권 · 일본 투숙객에게 필요한 언어가 실제로 다 나오는지 확신이 없다",
+     "revealed": true,
+     "resolved": true,
+     "at": 2
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 13,
+   "nTurns": 13,
+   "avgCustMs": 2243,
+   "avgReplyChars": 155,
+   "avgSellerChars": 163,
+   "checks": {
+    "reply_long": {
+     "n": 4,
+     "level": "warn",
+     "turns": [
+      0,
+      2,
+      3,
+      4
+     ]
+    },
+    "multi_reveal": {
+     "n": 12,
+     "level": "warn",
+     "turns": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+     ]
+    },
+    "reply_sentences": {
+     "n": 3,
+     "level": "warn",
+     "turns": [
+      4,
+      10,
+      12
+     ]
+    },
+    "ungrounded_high": {
+     "n": 8,
+     "level": "warn",
+     "turns": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+     ]
+    }
+   },
+   "ruleGap": 23.4,
+   "stageAgree": 66.7,
+   "calib": {
+    "mae": 46.2,
+    "bias": 46.2,
+    "r": 0.53,
+    "per": {
+     "CU2": {
+      "engine": 95,
+      "judge": 60
+     },
+     "CU3": {
+      "engine": 95,
+      "judge": 50
+     },
+     "CU4": {
+      "engine": 95,
+      "judge": 60
+     },
+     "PR3": {
+      "engine": 90,
+      "judge": 60
+     },
+     "PR4": {
+      "engine": 90,
+      "judge": 60
+     },
+     "PR6": {
+      "engine": 90,
+      "judge": 40
+     },
+     "VS1": {
+      "engine": 95,
+      "judge": 50
+     },
+     "VS2": {
+      "engine": 95,
+      "judge": 50
+     },
+     "VS4": {
+      "engine": 90,
+      "judge": 40
+     },
+     "VS6": {
+      "engine": 95,
+      "judge": 70
+     },
+     "VS5": {
+      "engine": 90,
+      "judge": 0
+     },
+     "MK3": {
+      "engine": 90,
+      "judge": 20
+     },
+     "WR5": {
+      "engine": 90,
+      "judge": 40
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 29479,
+    "scores": {
+     "persona_fidelity": 3,
+     "level_fit": 2,
+     "concern_realism": 3,
+     "satisfaction_plausibility": 1,
+     "score_calibration": 1,
+     "outcome_plausibility": 2,
+     "reply_naturalness": 1
+    },
+    "criteria": {
+     "CU2": 60,
+     "CU3": 50,
+     "CU4": 60,
+     "PR3": 60,
+     "PR4": 60,
+     "PR6": 40,
+     "VS1": 50,
+     "VS2": 50,
+     "VS4": 40,
+     "VS6": 70,
+     "VS5": 0,
+     "MK3": 20,
+     "WR5": 40
+    },
+    "expected_outcome": "undecided",
+    "seller_quality": 2,
+    "issues": [
+     {
+      "turn": 4,
+      "type": "concern",
+      "severity": "mid",
+      "text": "영업 담당자가 실제 5년 총비용(TCO) 수치를 제시하지 않고 '비교표로 작성했다'고만 답했음에도, 고객이 이를 바로 수용하고 엔진이 모든 우려(c1, c2, c3)가 해소된 것으로 잘못 판정했습니다."
+     },
+     {
+      "turn": 5,
+      "type": "reply",
+      "severity": "high",
+      "text": "5턴부터 11턴까지 영업과 고객이 '문서를 가져오겠다', '가져오면 검토하겠다'는 의미 없는 내용만 7차례 반복하는 심각한 대화 루프에 빠졌습니다."
+     },
+     {
+      "turn": 6,
+      "type": "satisfaction",
+      "severity": "high",
+      "text": "까다로운 고객(Level 3) 설정임에도 불구하고, 대화가 단순히 반복되는 5턴~7턴 구간에서 만족도가 매 턴 10점씩 비정상적으로 상승했습니다."
+     },
+     {
+      "turn": 12,
+      "type": "outcome",
+      "severity": "mid",
+      "text": "최종 확정이 아닌 '내일 미팅에서 사양을 확정하고 진행하자'는 조건부 검토 단계로 끝났으나, 엔진은 이를 최종 수주(win)로 과대 판정했습니다."
+     },
+     {
+      "turn": 12,
+      "type": "score",
+      "severity": "high",
+      "text": "영업 담당자가 타사 도입 사례(크라운 파크 호텔)를 전혀 언급하지 않았음에도 VS5(도입 사례 근거)에 90점을 부여했고, 수치의 출처(MK3)가 없는데도 90점을 주는 등 평가 시스템이 붕괴되었습니다."
+     }
+    ],
+    "summary": "중반 이후 동일한 대화가 7턴 이상 반복되는 치명적인 루프가 발생했으며, 무의미한 반복에도 만족도가 상승해 수주 처리되고 언급 없는 항목에 고득점을 주는 등 채점 시스템이 오작동했습니다.",
+    "sid": "02-ps12-L3-scenario",
+    "t": 82.4
+   },
+   "judgeQuality": 47,
+   "errors": [],
+   "debrief": {
+    "verdict": "고객의 숫자에 대한 갈증을 철저한 데이터 기반 제안으로 해결한 우수한 영업 사례입니다.",
+    "good": [
+     "5년 총비용 비교표와 ROI 역전 근거를 제시하여, 단순히 비싸다는 인식에 정량적 수치로 설득했습니다.",
+     "비수기 야간 공정 계획과 실증을 위한 1개 층 선교체 전략으로, 고객의 리스크를 효과적으로 차단했습니다."
+    ],
+    "improve": [
+     "공정표나 수치를 제시할 때, 고객이 '모호하다'고 지적하기 전에 선제적으로 시각화 자료를 먼저 펼치며 제안하는 연습이 필요합니다.",
+     "중국어·일본어 구동 테스트에 대한 의구심을 표할 때, 말로 설명하기보다 즉각적으로 기기에 연동된 웰컴 화면 이미지를 보여주는 시연 과정이 부족했습니다."
+    ],
+    "next": "비용 문제로 초기 반발이 큰 고객을 대상으로, 시각적 ROI 대시보드를 활용해 논박을 넘어서는 연습을 추천합니다.",
+    "ai": true
+   }
+  },
+  {
+   "id": "03-ps14-L1-scenario",
+   "pid": "ps14",
+   "level": 1,
+   "levelName": "호의적인 고객",
+   "mode": "scenario",
+   "modeLabel": "Best Scenario 스토리라인을 따르는 담당자",
+   "customer": "O 리빙",
+   "person": "이유진 · 운영기획팀장",
+   "ind": "RS",
+   "indName": "주거 분양 · 주택",
+   "scenario": "bs04",
+   "scenarioTitle": "bs04 주거 분양 · 빌트인 가전 + 스마트홈 사양 제안",
+   "reqTitle": "신규 지점 248실 스마트홈 · 공조 통합 운영",
+   "ask": "신규 지점 세대 IoT 사양 확정과 2호점 152실 확산 일정 합의",
+   "win": 75,
+   "lose": 15,
+   "startSat": 60,
+   "status": "won",
+   "turns": 4,
+   "satisfaction": 89,
+   "quality": 76,
+   "cats": {
+    "CU": 80,
+    "PR": 77,
+    "VS": 76,
+    "MK": 70
+   },
+   "scores": {
+    "CU2": 80,
+    "CU3": 80,
+    "CU4": 80,
+    "PR3": 70,
+    "PR4": 80,
+    "PR6": 80,
+    "VS1": 75,
+    "VS2": 75,
+    "VS4": 75,
+    "VS6": 80,
+    "VS5": 70,
+    "MK3": 60,
+    "WR5": 80
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 60,
+     "q": null,
+     "rq": null,
+     "stage": "needs",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 65,
+     "q": 46,
+     "rq": 31,
+     "stage": "objection",
+     "story": "open",
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 75,
+     "q": 55,
+     "rq": 40,
+     "stage": "objection",
+     "story": "needs",
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 3,
+     "sat": 74,
+     "q": 73,
+     "rq": 42,
+     "stage": "close",
+     "story": "needs",
+     "rv": [
+      "c1"
+     ],
+     "rs": [
+      "c1"
+     ],
+     "end": null
+    },
+    {
+     "n": 4,
+     "sat": 89,
+     "q": 76,
+     "rq": 44,
+     "stage": "close",
+     "story": "close",
+     "rv": [
+      "c1"
+     ],
+     "rs": [
+      "c1"
+     ],
+     "end": "win"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "신규 지점만 바꾸면 기존 4개 지점과 운영 방식이 둘로 갈린다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 5,
+   "nTurns": 5,
+   "avgCustMs": 2269,
+   "avgReplyChars": 130,
+   "avgSellerChars": 173,
+   "checks": {
+    "ungrounded_high": {
+     "n": 2,
+     "level": "warn",
+     "turns": [
+      3,
+      4
+     ]
+    }
+   },
+   "ruleGap": 28.8,
+   "stageAgree": 25,
+   "calib": {
+    "mae": 19.6,
+    "bias": 16.5,
+    "r": 0.7,
+    "per": {
+     "CU2": {
+      "engine": 80,
+      "judge": 80
+     },
+     "CU3": {
+      "engine": 80,
+      "judge": 70
+     },
+     "CU4": {
+      "engine": 80,
+      "judge": 70
+     },
+     "PR3": {
+      "engine": 70,
+      "judge": 80
+     },
+     "PR4": {
+      "engine": 80,
+      "judge": 80
+     },
+     "PR6": {
+      "engine": 80,
+      "judge": 70
+     },
+     "VS1": {
+      "engine": 75,
+      "judge": 70
+     },
+     "VS2": {
+      "engine": 75,
+      "judge": 10
+     },
+     "VS4": {
+      "engine": 75,
+      "judge": 50
+     },
+     "VS6": {
+      "engine": 80,
+      "judge": 80
+     },
+     "VS5": {
+      "engine": 70,
+      "judge": 10
+     },
+     "MK3": {
+      "engine": 60,
+      "judge": 10
+     },
+     "WR5": {
+      "engine": 80,
+      "judge": 90
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 28285,
+    "scores": {
+     "persona_fidelity": 4,
+     "level_fit": 4,
+     "concern_realism": 3,
+     "satisfaction_plausibility": 2,
+     "score_calibration": 2,
+     "outcome_plausibility": 5,
+     "reply_naturalness": 3
+    },
+    "criteria": {
+     "CU2": 80,
+     "CU3": 70,
+     "CU4": 70,
+     "PR3": 80,
+     "PR4": 80,
+     "PR6": 70,
+     "VS1": 70,
+     "VS2": 10,
+     "VS4": 50,
+     "VS6": 80,
+     "VS5": 10,
+     "MK3": 10,
+     "WR5": 90
+    },
+    "expected_outcome": "win",
+    "seller_quality": 3,
+    "issues": [
+     {
+      "turn": 2,
+      "type": "reply",
+      "severity": "mid",
+      "text": "영업 담당자가 먼저 '2호점 Wi-Fi Kit 적용'을 제안해야 하는 상황임에도 불구하고, 고객이 스스로 해당 구체적인 해결책을 언급하며 답변을 유도하는 작위적인 대화 흐름이 나타났습니다."
+     },
+     {
+      "turn": 3,
+      "type": "satisfaction",
+      "severity": "high",
+      "text": "고객이 로드맵에 안심하고 일정을 묻는 긍정적인 상황이며 엔진의 평가 이유도 '만족함'으로 기재되었으나, 실제 만족도 점수는 오히려 1점 하락(75 -> 74)하는 모순이 발생했습니다."
+     },
+     {
+      "turn": 4,
+      "type": "score",
+      "severity": "high",
+      "text": "영업 담당자가 에너지 절감률이나 재계약률 등 기대효과를 전혀 정량화하지 않았음에도 VS2(기대효과 정량화) 점수가 75점으로 지나치게 높게 산정되었습니다."
+     },
+     {
+      "turn": 4,
+      "type": "score",
+      "severity": "high",
+      "text": "유사 업종의 도입 사례(예: 에피소드 용산)가 대화 중 전혀 언급되지 않았음에도 VS5(도입 사례 근거) 점수가 70점으로 높게 매겨졌습니다."
+     },
+     {
+      "turn": 4,
+      "type": "score",
+      "severity": "mid",
+      "text": "수치화된 데이터나 출처가 전혀 제시되지 않은 제안임에도 MK3(출처 표기) 점수가 60점으로 평가된 오류가 있습니다."
+     }
+    ],
+    "summary": "고객이 해결책을 스스로 제시하는 작위적 흐름이 있으며, 기대효과 수치화 및 도입 사례 언급이 없음에도 관련 품질 점수가 과대평가되었습니다.",
+    "sid": "03-ps14-L1-scenario",
+    "t": 50.2
+   },
+   "judgeQuality": 61,
+   "errors": [],
+   "debrief": {
+    "verdict": "고객의 운영 효율 고민을 정확히 파악해 통합 솔루션을 성공적으로 제시함.",
+    "good": [
+     "고객이 언급한 냉난방·도어락 통합 제어 요구를 SmartThings Pro 플랫폼으로 명쾌하게 연결함.",
+     "기존 지점과의 운영 이중화 우려를 로드맵 제안을 통해 선제적으로 해소하고 신뢰를 확보함."
+    ],
+    "improve": [
+     "통합 대시보드 시연 시, 에너지 절감 효과를 정량적인 수치나 구체적인 지표로 강조했다면 가치 제안이 더 강력했을 것임.",
+     "Wi-Fi Kit 설치 시 발생할 수 있는 현장 제약 사항이나 타사 기기 연동의 기술적 한계를 미리 언급해 신뢰성을 높여야 함."
+    ],
+    "next": "대시보드의 실시간 에너지 절감 효율을 정량적 수치로 시각화하여 다시 제안해보세요.",
+    "ai": true
+   }
+  },
+  {
+   "id": "04-ps17-L2-scenario",
+   "pid": "ps17",
+   "level": 2,
+   "levelName": "첫 고객",
+   "mode": "scenario",
+   "modeLabel": "Best Scenario 스토리라인을 따르는 담당자",
+   "customer": "U 대학교",
+   "person": "임동혁 · 시설관리팀장",
+   "ind": "ED",
+   "indName": "교육 · 캠퍼스",
+   "scenario": "bs03",
+   "scenarioTitle": "bs03 대학 캠퍼스 · 스마트 강의실 · 도서관 구축",
+   "reqTitle": "공대 대형 강의실 6실 스마트 강의실 리뉴얼",
+   "ask": "스마트 강의실 견학과 200석 강의실 1실 현장 실사 · 가독성 데모",
+   "win": 80,
+   "lose": 15,
+   "startSat": 45,
+   "status": "won",
+   "turns": 6,
+   "satisfaction": 91,
+   "quality": 84,
+   "cats": {
+    "CU": 84,
+    "PR": 85,
+    "VS": 83,
+    "MK": 82
+   },
+   "scores": {
+    "CU2": 85,
+    "CU3": 80,
+    "CU4": 85,
+    "PR3": 85,
+    "PR4": 85,
+    "PR6": 85,
+    "VS1": 80,
+    "VS2": 80,
+    "VS4": 85,
+    "VS6": 90,
+    "VS5": 90,
+    "MK3": 75,
+    "WR5": 80
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 45,
+     "q": null,
+     "rq": null,
+     "stage": "needs",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 48,
+     "q": 46,
+     "rq": 31,
+     "stage": "objection",
+     "story": "open",
+     "rv": [
+      "c2"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 55,
+     "q": 47,
+     "rq": 34,
+     "stage": "objection",
+     "story": "needs",
+     "rv": [
+      "c2"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 3,
+     "sat": 67,
+     "q": 65,
+     "rq": 43,
+     "stage": "proof",
+     "story": "needs",
+     "rv": [
+      "c2"
+     ],
+     "rs": [
+      "c2"
+     ],
+     "end": null
+    },
+    {
+     "n": 4,
+     "sat": 79,
+     "q": 71,
+     "rq": 46,
+     "stage": "objection",
+     "story": "objection",
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 5,
+     "sat": 79,
+     "q": 80,
+     "rq": 54,
+     "stage": "close",
+     "story": "proof",
+     "rv": [
+      "c1"
+     ],
+     "rs": [
+      "c1",
+      "c2"
+     ],
+     "end": null
+    },
+    {
+     "n": 6,
+     "sat": 91,
+     "q": 84,
+     "rq": 58,
+     "stage": "close",
+     "story": "close",
+     "rv": [
+      "c1",
+      "c2"
+     ],
+     "rs": [
+      "c1",
+      "c2"
+     ],
+     "end": "win"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "대학 대형 강의실에 LED 사이니지와 전자칠판을 함께 넣어 효과를 본 사례가 있는지 모르겠다",
+     "revealed": true,
+     "resolved": true,
+     "at": 4
+    },
+    {
+     "id": "c2",
+     "text": "레이저 프로젝터로 바꿔도 뒷줄 가독성이 해결된다는데 LED가 왜 필요한지 모르겠다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 7,
+   "nTurns": 7,
+   "avgCustMs": 2599,
+   "avgReplyChars": 211,
+   "avgSellerChars": 213,
+   "checks": {
+    "reply_long": {
+     "n": 6,
+     "level": "warn",
+     "turns": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    },
+    "reply_sentences": {
+     "n": 1,
+     "level": "warn",
+     "turns": [
+      3
+     ]
+    },
+    "multi_reveal": {
+     "n": 1,
+     "level": "warn",
+     "turns": [
+      6
+     ]
+    }
+   },
+   "ruleGap": 24.1,
+   "stageAgree": 33.3,
+   "calib": {
+    "mae": 6.2,
+    "bias": 5.4,
+    "r": 0.65,
+    "per": {
+     "CU2": {
+      "engine": 85,
+      "judge": 85
+     },
+     "CU3": {
+      "engine": 80,
+      "judge": 80
+     },
+     "CU4": {
+      "engine": 85,
+      "judge": 85
+     },
+     "PR3": {
+      "engine": 85,
+      "judge": 85
+     },
+     "PR4": {
+      "engine": 85,
+      "judge": 90
+     },
+     "PR6": {
+      "engine": 85,
+      "judge": 60
+     },
+     "VS1": {
+      "engine": 80,
+      "judge": 80
+     },
+     "VS2": {
+      "engine": 80,
+      "judge": 50
+     },
+     "VS4": {
+      "engine": 85,
+      "judge": 85
+     },
+     "VS6": {
+      "engine": 90,
+      "judge": 90
+     },
+     "VS5": {
+      "engine": 90,
+      "judge": 90
+     },
+     "MK3": {
+      "engine": 75,
+      "judge": 60
+     },
+     "WR5": {
+      "engine": 80,
+      "judge": 75
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 34010,
+    "scores": {
+     "persona_fidelity": 4,
+     "level_fit": 4,
+     "concern_realism": 4,
+     "satisfaction_plausibility": 3,
+     "score_calibration": 3,
+     "outcome_plausibility": 5,
+     "reply_naturalness": 4
+    },
+    "criteria": {
+     "CU2": 85,
+     "CU3": 80,
+     "CU4": 85,
+     "PR3": 85,
+     "PR4": 90,
+     "PR6": 60,
+     "VS1": 80,
+     "VS2": 50,
+     "VS4": 85,
+     "VS6": 90,
+     "VS5": 90,
+     "MK3": 60,
+     "WR5": 75
+    },
+    "expected_outcome": "win",
+    "seller_quality": 4,
+    "issues": [
+     {
+      "turn": 5,
+      "type": "satisfaction",
+      "severity": "mid",
+      "text": "고객이 통합 연동 시나리오 제안에 신뢰를 표하며 다음 주 실사 및 데모를 수락하는 긍정적인 답변을 했으나, 만족도 증가가 +0으로 처리됨."
+     },
+     {
+      "turn": 3,
+      "type": "concern",
+      "severity": "mid",
+      "text": "c2 우려 해소 조건은 '시청 거리/조명 실측 및 실제 도면 판독 데모' 진행인데, 영업 담당자가 구체적인 실측 언급 없이 데모만 약속했음에도 우려가 조기 해소됨."
+     },
+     {
+      "turn": 6,
+      "type": "score",
+      "severity": "high",
+      "text": "영업 담당자가 6개 실에 대한 구체적 수량을 밝히지 않았고 정량적 효과(KPI)나 수치 출처를 제시하지 않았음에도 엔진의 PR6, VS2, MK3 점수가 과도하게 높게 측정됨."
+     }
+    ],
+    "summary": "우려 제기와 데모 성사 흐름은 페르소나에 맞게 자연스러우나, 일부 만족도 누락과 평가의 관대함이 아쉬움.",
+    "sid": "04-ps17-L2-scenario",
+    "t": 66.6
+   },
+   "judgeQuality": 78,
+   "errors": [],
+   "debrief": {
+    "verdict": "고객의 페인포인트에 맞춰 제품의 가치와 통합 솔루션을 논리적으로 잘 제안했습니다.",
+    "good": [
+     "단순 제품 제안을 넘어 SmartThings Pro를 활용한 교수진의 운영 편의성까지 고려한 통합 솔루션 관점이 탁월함.",
+     "국민대학교 성공 사례를 적절히 인용하여 고객의 의구심을 해소하고 신뢰를 확보함."
+    ],
+    "improve": [
+     "시공 기간(8주)에 대한 우려에 대해 '8주 공정표'를 언급하긴 했으나, 구체적인 물류 및 공사 단계별 리스크 관리 방안을 먼저 제시했다면 설득력이 더 높았을 것입니다.",
+     "고객이 프로젝터와 LED의 비용 대비 가치를 반복적으로 질문한 만큼, 단순 내구성을 넘어 TCO(총 소유 비용) 관점에서의 정량적 비교 자료를 초반부터 제시했으면 좋았을 것입니다."
+    ],
+    "next": "다음 연습에서는 예산 검토 단계의 의사결정권자를 설득하기 위한 TCO 분석 및 정량적 가치 제안을 강화해 봅시다.",
+    "ai": true
+   }
+  },
+  {
+   "id": "05-ps21-L3-scenario",
+   "pid": "ps21",
+   "level": 3,
+   "levelName": "까다로운 고객",
+   "mode": "scenario",
+   "modeLabel": "Best Scenario 스토리라인을 따르는 담당자",
+   "customer": "F 오피스",
+   "person": "류민정 · 자산운영본부장",
+   "ind": "OF",
+   "indName": "오피스 · 업무 빌딩",
+   "scenario": "bs02",
+   "scenarioTitle": "bs02 신축 오피스 · AI Ready 스마트 빌딩 설계 반영",
+   "reqTitle": "신축 오피스 입주사 앱 연동 공조 · 에너지 통합 관리",
+   "ask": "10년 총비용 비교표 검토 후 공조는 기본 사양 확정, 앱 연동은 2개 층 조건부 선적용(임대 · VOC 성과 기준 합의)",
+   "win": 85,
+   "lose": 15,
+   "startSat": 30,
+   "status": "won",
+   "turns": 10,
+   "satisfaction": 86,
+   "quality": 83,
+   "cats": {
+    "CU": 85,
+    "PR": 83,
+    "VS": 83,
+    "MK": 82
+   },
+   "scores": {
+    "CU2": 85,
+    "CU3": 85,
+    "CU4": 85,
+    "PR3": 80,
+    "PR4": 85,
+    "PR6": 85,
+    "VS1": 85,
+    "VS2": 80,
+    "VS4": 80,
+    "VS6": 85,
+    "VS5": 80,
+    "MK3": 80,
+    "WR5": 85
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 30,
+     "q": null,
+     "rq": null,
+     "stage": "needs",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 35,
+     "q": 37,
+     "rq": 27,
+     "stage": "value",
+     "story": "open",
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 40,
+     "q": 49,
+     "rq": 51,
+     "stage": "objection",
+     "story": "needs",
+     "rv": [
+      "c2",
+      "c3"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 3,
+     "sat": 45,
+     "q": 49,
+     "rq": 54,
+     "stage": "objection",
+     "story": "proof",
+     "rv": [
+      "c3",
+      "c2"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 4,
+     "sat": 55,
+     "q": 55,
+     "rq": 59,
+     "stage": "objection",
+     "story": "proof",
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 5,
+     "sat": 60,
+     "q": 55,
+     "rq": 61,
+     "stage": "proof",
+     "story": "value",
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 6,
+     "sat": 70,
+     "q": 70,
+     "rq": 65,
+     "stage": "proof",
+     "story": "proof",
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 7,
+     "sat": 80,
+     "q": 83,
+     "rq": 68,
+     "stage": "close",
+     "story": "close",
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": null
+    },
+    {
+     "n": 8,
+     "sat": 84,
+     "q": 86,
+     "rq": 71,
+     "stage": "close",
+     "story": "close",
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": null
+    },
+    {
+     "n": 9,
+     "sat": 84,
+     "q": 86,
+     "rq": 71,
+     "stage": "close",
+     "story": "close",
+     "rv": [],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": null
+    },
+    {
+     "n": 10,
+     "sat": 86,
+     "q": 83,
+     "rq": 71,
+     "stage": "close",
+     "story": "close",
+     "rv": [],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": "win"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "경쟁사 A가 공조 패키지를 18% 낮게 제시해 초기 비용 차이가 크다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    },
+    {
+     "id": "c2",
+     "text": "기존 2개 동과 신축 동 시스템이 달라지면 위탁관리사가 두 체계를 따로 운영해야 한다",
+     "revealed": true,
+     "resolved": true,
+     "at": 2
+    },
+    {
+     "id": "c3",
+     "text": "층별 에너지 데이터를 입주사가 정산 근거로 인정하지 않으면 분쟁이 그대로 남는다",
+     "revealed": true,
+     "resolved": true,
+     "at": 2
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 11,
+   "nTurns": 11,
+   "avgCustMs": 2391,
+   "avgReplyChars": 175,
+   "avgSellerChars": 173,
+   "checks": {
+    "reply_long": {
+     "n": 5,
+     "level": "warn",
+     "turns": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    },
+    "reply_sentences": {
+     "n": 3,
+     "level": "warn",
+     "turns": [
+      1,
+      4,
+      5
+     ]
+    },
+    "multi_reveal": {
+     "n": 7,
+     "level": "warn",
+     "turns": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+     ]
+    }
+   },
+   "ruleGap": 22,
+   "stageAgree": 70,
+   "calib": {
+    "mae": 20.8,
+    "bias": 20.8,
+    "r": 0.26,
+    "per": {
+     "CU2": {
+      "engine": 85,
+      "judge": 70
+     },
+     "CU3": {
+      "engine": 85,
+      "judge": 70
+     },
+     "CU4": {
+      "engine": 85,
+      "judge": 60
+     },
+     "PR3": {
+      "engine": 80,
+      "judge": 70
+     },
+     "PR4": {
+      "engine": 85,
+      "judge": 70
+     },
+     "PR6": {
+      "engine": 85,
+      "judge": 40
+     },
+     "VS1": {
+      "engine": 85,
+      "judge": 70
+     },
+     "VS2": {
+      "engine": 80,
+      "judge": 40
+     },
+     "VS4": {
+      "engine": 80,
+      "judge": 60
+     },
+     "VS6": {
+      "engine": 85,
+      "judge": 70
+     },
+     "VS5": {
+      "engine": 80,
+      "judge": 80
+     },
+     "MK3": {
+      "engine": 80,
+      "judge": 40
+     },
+     "WR5": {
+      "engine": 85,
+      "judge": 70
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 31015,
+    "scores": {
+     "persona_fidelity": 3,
+     "level_fit": 2,
+     "concern_realism": 2,
+     "satisfaction_plausibility": 2,
+     "score_calibration": 2,
+     "outcome_plausibility": 2,
+     "reply_naturalness": 3
+    },
+    "criteria": {
+     "CU2": 70,
+     "CU3": 70,
+     "CU4": 60,
+     "PR3": 70,
+     "PR4": 70,
+     "PR6": 40,
+     "VS1": 70,
+     "VS2": 40,
+     "VS4": 60,
+     "VS6": 70,
+     "VS5": 80,
+     "MK3": 40,
+     "WR5": 70
+    },
+    "expected_outcome": "undecided",
+    "seller_quality": 3,
+    "issues": [
+     {
+      "turn": 1,
+      "type": "level",
+      "severity": "high",
+      "text": "숫자를 요구하는 까다로운 고객(Level 3)임에도 영업이 일반론적 답변만 제시했는데 만족도가 5점 상승함. 난이도 규칙(만족도는 천천히 오름)에 어긋남."
+     },
+     {
+      "turn": 4,
+      "type": "satisfaction",
+      "severity": "high",
+      "text": "영업이 구체적인 데이터 없이 리포트와 TCO 비교표를 다음 미팅에 가져오겠다고 약속만 한 상태에서 만족도가 10점이나 크게 상승함."
+     },
+     {
+      "turn": 7,
+      "type": "concern",
+      "severity": "high",
+      "text": "영업이 우려에 대한 실질적인 수치를 제시하지 않고 다음 워크숍에서 증명하겠다고 미루었음에도, 엔진은 모든 우려(c1, c2, c3)가 완전히 해소된 것으로 잘못 판정함."
+     },
+     {
+      "turn": 8,
+      "type": "reply",
+      "severity": "mid",
+      "text": "턴 7부터 10까지 영업과 고객이 '다음 주 워크숍에서 확인 후 결정하겠다'는 동일한 내용의 대화를 4번이나 불필요하게 반복하며 대화가 지연됨."
+     },
+     {
+      "turn": 10,
+      "type": "score",
+      "severity": "high",
+      "text": "구체적인 수량이나 고객 맞춤형 비용 절감 수치가 제시되지 않았음에도 엔진은 PR6(구성/수량 명확성) 85점, VS2(기대효과 정량화) 80점 등 품질 점수를 과대평가함."
+     },
+     {
+      "turn": 10,
+      "type": "outcome",
+      "severity": "high",
+      "text": "고객이 '다음 주 워크숍 자료를 보고 최종 판단하겠다'며 명확히 의사결정을 보류했음에도 엔진은 이를 최종 성공(win)으로 무리하게 판정함."
+     }
+    ],
+    "summary": "구체적 수치 없이 다음 미팅 시 자료 제공 약속만으로 우려가 일괄 해소되고 만족도가 급상승하며 부당하게 성공 판정됨.",
+    "sid": "05-ps21-L3-scenario",
+    "t": 78
+   },
+   "judgeQuality": 62,
+   "errors": [],
+   "debrief": {
+    "verdict": "고객의 까다로운 TCO 요구를 차별화된 스마트 솔루션으로 잘 방어하며 협상을 이끌었습니다.",
+    "good": [
+     "고객이 언급한 18% 단가 차이를 단순 가격 할인이 아닌 TCO(총비용) 절감 논리로 적절히 전환했습니다.",
+     "대구상공회의소와 팩토리얼 성수 등 적합한 도입 사례를 통해 솔루션의 신뢰성을 효과적으로 확보했습니다."
+    ],
+    "improve": [
+     "초반에 고객이 층별 데이터 정산 신뢰도를 의심했을 때, 리포트 샘플을 즉시 제시하지 못하고 말로만 설명한 점은 아쉬움이 남습니다.",
+     "위탁관리사 운영 교육에 대해 '매뉴얼 제공'이라는 일반적 답변보다는, 현장 인력들이 겪을 실제 운영상의 애로사항을 공감하며 구체적인 현장 실습 계획을 언급했어야 합니다."
+    ],
+    "next": "다음 워크숍에서 고객의 요구사항을 수치화한 TCO 분석 자료와 앱 연동 성공 시나리오를 시뮬레이션해 보세요.",
+    "ai": true
+   }
+  },
+  {
+   "id": "06-ps26-L1-scenario",
+   "pid": "ps26",
+   "level": 1,
+   "levelName": "호의적인 고객",
+   "mode": "scenario",
+   "modeLabel": "Best Scenario 스토리라인을 따르는 담당자",
+   "customer": "E 병원",
+   "person": "노승훈 · 행정부원장",
+   "ind": "MD",
+   "indName": "의료 · 요양 · 케어",
+   "scenario": "bs08",
+   "scenarioTitle": "bs08 요양병원 · 병동 환자 경험 · 운영 리뉴얼",
+   "reqTitle": "병상 개인 태블릿으로 TV · 입원 안내 · 서류 신청",
+   "ask": "1차 2개 병동 80병상 발주와 병원정보시스템 연동 착수 회의 일정 확정",
+   "win": 75,
+   "lose": 15,
+   "startSat": 60,
+   "status": "won",
+   "turns": 3,
+   "satisfaction": 89,
+   "quality": 82,
+   "cats": {
+    "CU": 82,
+    "PR": 83,
+    "VS": 80,
+    "MK": 82
+   },
+   "scores": {
+    "CU2": 85,
+    "CU3": 80,
+    "CU4": 80,
+    "PR3": 80,
+    "PR4": 85,
+    "PR6": 85,
+    "VS1": 80,
+    "VS2": 75,
+    "VS4": 80,
+    "VS6": 85,
+    "VS5": 85,
+    "MK3": 75,
+    "WR5": 85
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 60,
+     "q": null,
+     "rq": null,
+     "stage": "needs",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 65,
+     "q": 52,
+     "rq": 22,
+     "stage": "objection",
+     "story": "open",
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 74,
+     "q": 70,
+     "rq": 38,
+     "stage": "objection",
+     "story": "needs",
+     "rv": [
+      "c1"
+     ],
+     "rs": [
+      "c1"
+     ],
+     "end": null
+    },
+    {
+     "n": 3,
+     "sat": 89,
+     "q": 82,
+     "rq": 41,
+     "stage": "close",
+     "story": "close",
+     "rv": [],
+     "rs": [
+      "c1"
+     ],
+     "end": "win"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "병원정보시스템 연동 개발이 늦어지면 태블릿만 깔리고 서류 신청은 못 하는 상태가 된다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 4,
+   "nTurns": 4,
+   "avgCustMs": 2682,
+   "avgReplyChars": 175,
+   "avgSellerChars": 166,
+   "checks": {
+    "reply_long": {
+     "n": 1,
+     "level": "warn",
+     "turns": [
+      2
+     ]
+    },
+    "reply_sentences": {
+     "n": 1,
+     "level": "warn",
+     "turns": [
+      2
+     ]
+    },
+    "ungrounded_high": {
+     "n": 2,
+     "level": "warn",
+     "turns": [
+      2,
+      3
+     ]
+    }
+   },
+   "ruleGap": 36.6,
+   "stageAgree": 33.3,
+   "calib": {
+    "mae": 23.1,
+    "bias": 23.1,
+    "r": 0.78,
+    "per": {
+     "CU2": {
+      "engine": 85,
+      "judge": 70
+     },
+     "CU3": {
+      "engine": 80,
+      "judge": 40
+     },
+     "CU4": {
+      "engine": 80,
+      "judge": 60
+     },
+     "PR3": {
+      "engine": 80,
+      "judge": 70
+     },
+     "PR4": {
+      "engine": 85,
+      "judge": 80
+     },
+     "PR6": {
+      "engine": 85,
+      "judge": 80
+     },
+     "VS1": {
+      "engine": 80,
+      "judge": 60
+     },
+     "VS2": {
+      "engine": 75,
+      "judge": 20
+     },
+     "VS4": {
+      "engine": 80,
+      "judge": 70
+     },
+     "VS6": {
+      "engine": 85,
+      "judge": 50
+     },
+     "VS5": {
+      "engine": 85,
+      "judge": 80
+     },
+     "MK3": {
+      "engine": 75,
+      "judge": 20
+     },
+     "WR5": {
+      "engine": 85,
+      "judge": 60
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 26126,
+    "scores": {
+     "persona_fidelity": 4,
+     "level_fit": 3,
+     "concern_realism": 2,
+     "satisfaction_plausibility": 2,
+     "score_calibration": 2,
+     "outcome_plausibility": 4,
+     "reply_naturalness": 2
+    },
+    "criteria": {
+     "CU2": 70,
+     "CU3": 40,
+     "CU4": 60,
+     "PR3": 70,
+     "PR4": 80,
+     "PR6": 80,
+     "VS1": 60,
+     "VS2": 20,
+     "VS4": 70,
+     "VS6": 50,
+     "VS5": 80,
+     "MK3": 20,
+     "WR5": 60
+    },
+    "expected_outcome": "win",
+    "seller_quality": 2,
+    "issues": [
+     {
+      "turn": 2,
+      "type": "reply",
+      "severity": "high",
+      "text": "영업 담당자가 우려 해소의 정답(단계별 오픈 등)을 제시하지 않고 API 연동만 언급했으나, 고객이 스스로 '다음 달 사양서 확정'을 제안하며 자신의 우려를 스스로 해소하는 어색한 전개가 발생했습니다."
+     },
+     {
+      "turn": 2,
+      "type": "score",
+      "severity": "high",
+      "text": "대화 전체에서 기대효과 정량화(VS2)나 구체적 수치 및 출처(MK3)가 전혀 제시되지 않았음에도, 최종 기준 점수에서 각각 75점이라는 높은 점수가 부여되었습니다."
+     },
+     {
+      "turn": 3,
+      "type": "satisfaction",
+      "severity": "mid",
+      "text": "영업 담당자가 고객이 턴 2에서 먼저 제안한 일정을 그대로 앵무새처럼 반복하며 수용했을 뿐인데, 만족도가 한 번에 15점이나 급상승하여 89점이 된 것은 과도합니다."
+     },
+     {
+      "turn": 3,
+      "type": "score",
+      "severity": "mid",
+      "text": "실행 계획 구체성(VS6)이 85점으로 높게 채점되었으나, 실질적인 실행 방안(다음 달 착수 회의 및 사양서 확정)은 영업 담당자가 아닌 고객의 입에서 먼저 나왔습니다."
+     }
+    ],
+    "summary": "고객이 영업 사원을 대신해 스스로 해결책과 일정을 제시하며, 엔진의 점수 산정이 과대평가됨.",
+    "sid": "06-ps26-L1-scenario",
+    "t": 45.2
+   },
+   "judgeQuality": 60,
+   "errors": [],
+   "debrief": {
+    "verdict": "고객의 페인포인트를 정확히 타겟팅하여 높은 신뢰를 얻은 성공적인 제안입니다.",
+    "good": [
+     "구체적인 구축 사례(메드렉스 병원)와 삼성의 전용 솔루션을 언급하여 기술적 우려를 효과적으로 해소했습니다.",
+     "다음 단계로 나아가기 위한 구체적인 실행 방안(EMR 연동 착수 회의)을 선제적으로 제시하여 주도권을 잡았습니다."
+    ],
+    "improve": [
+     "도입 시 환자 만족도 증가나 간호사 업무 시간 단축 등 정량적인 기대효과를 수치로 제시했다면 설득력이 더욱 강화되었을 것입니다.",
+     "단순히 일정을 제안하는 것에 그치지 않고, 삼성 솔루션만의 차별화된 가치 제안(ROI 측면)을 강조하는 화법을 추가하면 좋겠습니다."
+    ],
+    "next": "정량적 수치를 활용하여 병원 운영 효율성을 극대화하는 비즈니스 가치 제안 연습을 권장합니다.",
+    "ai": true
+   }
+  },
+  {
+   "id": "07-ps31-L2-scenario",
+   "pid": "ps31",
+   "level": 2,
+   "levelName": "첫 고객",
+   "mode": "scenario",
+   "modeLabel": "Best Scenario 스토리라인을 따르는 담당자",
+   "customer": "E 테마파크",
+   "person": "홍채원 · 콘텐츠기획 파트장",
+   "ind": "TP",
+   "indName": "테마파크 · 관광 · 전시",
+   "scenario": "bs05",
+   "scenarioTitle": "bs05 테마파크 · 몰입형 체험 구역 신규 조성",
+   "reqTitle": "트램 대기 통로 120m를 동물 3D 체험 공간으로",
+   "ask": "쇼룸 시연 후 통로 1구간(2면) 4주 시험 설치로 관람객 반응 측정",
+   "win": 80,
+   "lose": 15,
+   "startSat": 45,
+   "status": "won",
+   "turns": 5,
+   "satisfaction": 91,
+   "quality": 87,
+   "cats": {
+    "CU": 88,
+    "PR": 88,
+    "VS": 87,
+    "MK": 84
+   },
+   "scores": {
+    "CU2": 90,
+    "CU3": 85,
+    "CU4": 88,
+    "PR3": 90,
+    "PR4": 85,
+    "PR6": 90,
+    "VS1": 85,
+    "VS2": 88,
+    "VS4": 85,
+    "VS6": 90,
+    "VS5": 88,
+    "MK3": 85,
+    "WR5": 80
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 45,
+     "q": null,
+     "rq": null,
+     "stage": "needs",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 55,
+     "q": 42,
+     "rq": 27,
+     "stage": "objection",
+     "story": "open",
+     "rv": [
+      "c2"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 62,
+     "q": 54,
+     "rq": 39,
+     "stage": "proof",
+     "story": "open",
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 3,
+     "sat": 72,
+     "q": 57,
+     "rq": 50,
+     "stage": "objection",
+     "story": "proof",
+     "rv": [
+      "c1",
+      "c2"
+     ],
+     "rs": [
+      "c1"
+     ],
+     "end": null
+    },
+    {
+     "n": 4,
+     "sat": 79,
+     "q": 77,
+     "rq": 52,
+     "stage": "close",
+     "story": "value",
+     "rv": [
+      "c2"
+     ],
+     "rs": [
+      "c2"
+     ],
+     "end": null
+    },
+    {
+     "n": 5,
+     "sat": 91,
+     "q": 87,
+     "rq": 54,
+     "stage": "close",
+     "story": "close",
+     "rv": [
+      "c1",
+      "c2"
+     ],
+     "rs": [
+      "c1",
+      "c2"
+     ],
+     "end": "win"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "테마파크 대기 공간에 무안경 3D 화면을 실제로 운영한 사례가 있는지 모르겠다",
+     "revealed": true,
+     "resolved": true,
+     "at": 2
+    },
+    {
+     "id": "c2",
+     "text": "사육 구역 바로 옆이라 화면 빛과 소리가 동물에게 스트레스를 줄 수 있다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 6,
+   "nTurns": 6,
+   "avgCustMs": 2474,
+   "avgReplyChars": 190,
+   "avgSellerChars": 212,
+   "checks": {
+    "reply_long": {
+     "n": 2,
+     "level": "warn",
+     "turns": [
+      0,
+      2
+     ]
+    },
+    "reply_sentences": {
+     "n": 1,
+     "level": "warn",
+     "turns": [
+      1
+     ]
+    },
+    "multi_reveal": {
+     "n": 2,
+     "level": "warn",
+     "turns": [
+      3,
+      5
+     ]
+    }
+   },
+   "ruleGap": 27.8,
+   "stageAgree": 40,
+   "calib": {
+    "mae": 20.6,
+    "bias": 20.3,
+    "r": 0.33,
+    "per": {
+     "CU2": {
+      "engine": 90,
+      "judge": 85
+     },
+     "CU3": {
+      "engine": 85,
+      "judge": 40
+     },
+     "CU4": {
+      "engine": 88,
+      "judge": 80
+     },
+     "PR3": {
+      "engine": 90,
+      "judge": 90
+     },
+     "PR4": {
+      "engine": 85,
+      "judge": 70
+     },
+     "PR6": {
+      "engine": 90,
+      "judge": 60
+     },
+     "VS1": {
+      "engine": 85,
+      "judge": 80
+     },
+     "VS2": {
+      "engine": 88,
+      "judge": 20
+     },
+     "VS4": {
+      "engine": 85,
+      "judge": 80
+     },
+     "VS6": {
+      "engine": 90,
+      "judge": 90
+     },
+     "VS5": {
+      "engine": 88,
+      "judge": 90
+     },
+     "MK3": {
+      "engine": 85,
+      "judge": 20
+     },
+     "WR5": {
+      "engine": 80,
+      "judge": 60
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 31145,
+    "scores": {
+     "persona_fidelity": 3,
+     "level_fit": 3,
+     "concern_realism": 3,
+     "satisfaction_plausibility": 4,
+     "score_calibration": 2,
+     "outcome_plausibility": 4,
+     "reply_naturalness": 3
+    },
+    "criteria": {
+     "CU2": 85,
+     "CU3": 40,
+     "CU4": 80,
+     "PR3": 90,
+     "PR4": 70,
+     "PR6": 60,
+     "VS1": 80,
+     "VS2": 20,
+     "VS4": 80,
+     "VS6": 90,
+     "VS5": 90,
+     "MK3": 20,
+     "WR5": 60
+    },
+    "expected_outcome": "win",
+    "seller_quality": 4,
+    "issues": [
+     {
+      "turn": 3,
+      "type": "concern",
+      "severity": "mid",
+      "text": "영업 담당자가 아직 c1의 해소 조건 중 하나인 '쇼룸 시연'을 제안하지 않았음에도 엔진은 c1 우려가 해소되었다고 조기 판정했습니다."
+     },
+     {
+      "turn": 3,
+      "type": "persona",
+      "severity": "mid",
+      "text": "영업이 '완벽히 충족' 등 단정적 표현을 사용하고 정량적 근거를 생략했음에도, '어디 기준인가요?'라고 되묻는 페르소나 룰이 전혀 작동하지 않았습니다."
+     },
+     {
+      "turn": 5,
+      "type": "score",
+      "severity": "high",
+      "text": "정량적 기대효과(VS2), 비용 및 결정권자 관점(CU3), 객관적 출처 표기(MK3)가 대화 내에 전혀 등장하지 않았는데도 해당 기준에 85~88점의 과도하게 높은 점수를 부여했습니다."
+     },
+     {
+      "turn": 2,
+      "type": "reply",
+      "severity": "low",
+      "text": "고객의 질문이 자연스러운 대화라기보다는 영업 담당자가 다음 준비된 시나리오(무안경 3D, 콘텐츠 가이드)를 전개하기 쉽도록 작위적으로 유도하는 느낌을 줍니다."
+     }
+    ],
+    "summary": "영업이 핵심 조건을 정확히 제시하여 '성공' 판정은 타당하나, 까다로운 페르소나 룰이 작동하지 않았고 부재한 정량적/출처 지표에 과도하게 높은 점수를 매긴 것이 한계입니다.",
+    "sid": "07-ps31-L2-scenario",
+    "t": 58
+   },
+   "judgeQuality": 67,
+   "errors": [],
+   "debrief": {
+    "verdict": "고객의 페인포인트를 정확히 타겟팅하여 구체적인 실행 계획으로 신뢰를 얻은 우수한 상담입니다.",
+    "good": [
+     "고객의 핵심 고민인 동물 환경 보호를 위해 기술적 대안을 제시하고 즉각적인 시험 운영안을 제안함.",
+     "구체적인 설치 사례와 삼성의 전문 솔루션을 연결하여 제안의 타당성을 높이고 고객의 불안을 해소함."
+    ],
+    "improve": [
+     "시험 운영 시 관람객 만족도와 동물 생태 반응을 정량적으로 측정할 '구체적인 지표'를 미리 제시했다면 설득력이 더 높았을 것입니다.",
+     "도입 사례 언급 시 에버랜드 사파리월드와 판다월드를 재차 강조하는 대신, 테마파크 환경에 특화된 기술적 차별점을 더 명확히 설명하는 것이 좋습니다."
+    ],
+    "next": "검증 결과를 바탕으로 예산 최적화와 향후 전 구간 확대 시 기대효과를 정량화하는 제안 연습을 권장합니다.",
+    "ai": true
+   }
+  },
+  {
+   "id": "08-ps33-L3-scenario",
+   "pid": "ps33",
+   "level": 3,
+   "levelName": "까다로운 고객",
+   "mode": "scenario",
+   "modeLabel": "Best Scenario 스토리라인을 따르는 담당자",
+   "customer": "Y 텔레콤",
+   "person": "남소희 · 단말기획팀 책임",
+   "ind": "OE",
+   "indName": "파트너 전용 단말 · 에디션",
+   "scenario": "bs18",
+   "scenarioTitle": "bs18 통신사 · 파트너 전용 단말 에디션 공동 개발",
+   "reqTitle": "4세대 키즈폰 전용 에디션 공동 개발",
+   "ask": "2년 총비용 비교표 검토 후 초도 2만 대 단계 도입(VOC 월 800건 이하 성과 기준 합의)",
+   "win": 85,
+   "lose": 15,
+   "startSat": 30,
+   "status": "won",
+   "turns": 7,
+   "satisfaction": 85,
+   "quality": 82,
+   "cats": {
+    "CU": 85,
+    "PR": 83,
+    "VS": 81,
+    "MK": 78
+   },
+   "scores": {
+    "CU2": 85,
+    "CU3": 85,
+    "CU4": 85,
+    "PR3": 80,
+    "PR4": 85,
+    "PR6": 85,
+    "VS1": 80,
+    "VS2": 80,
+    "VS4": 80,
+    "VS6": 85,
+    "VS5": 80,
+    "MK3": 75,
+    "WR5": 80
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 30,
+     "q": null,
+     "rq": null,
+     "stage": "needs",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 25,
+     "q": 39,
+     "rq": 31,
+     "stage": "needs",
+     "story": "open",
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 35,
+     "q": 46,
+     "rq": 44,
+     "stage": "objection",
+     "story": "needs",
+     "rv": [
+      "c2"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 3,
+     "sat": 45,
+     "q": 41,
+     "rq": 50,
+     "stage": "objection",
+     "story": "value",
+     "rv": [
+      "c2"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 4,
+     "sat": 55,
+     "q": 51,
+     "rq": 55,
+     "stage": "objection",
+     "story": "value",
+     "rv": [
+      "c3"
+     ],
+     "rs": [
+      "c2"
+     ],
+     "end": null
+    },
+    {
+     "n": 5,
+     "sat": 65,
+     "q": 56,
+     "rq": 57,
+     "stage": "value",
+     "story": "value",
+     "rv": [
+      "c3"
+     ],
+     "rs": [
+      "c3"
+     ],
+     "end": null
+    },
+    {
+     "n": 6,
+     "sat": 75,
+     "q": 75,
+     "rq": 67,
+     "stage": "close",
+     "story": "objection",
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": null
+    },
+    {
+     "n": 7,
+     "sat": 85,
+     "q": 82,
+     "rq": 68,
+     "stage": "close",
+     "story": "close",
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": "win"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "경쟁사 A 공급가가 20% 낮아 출고가 상한 39만 9천 원을 맞추기 어렵다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    },
+    {
+     "id": "c2",
+     "text": "ODM에서 바꾸면 3세대 가입자의 기기변경 · 안심 앱 데이터 이전이 꼬일 수 있다",
+     "revealed": true,
+     "resolved": true,
+     "at": 2
+    },
+    {
+     "id": "c3",
+     "text": "OS가 올라가면 녹스 설정이나 캐릭터 테마가 깨져 또 VOC가 터질 수 있다",
+     "revealed": true,
+     "resolved": true,
+     "at": 4
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 8,
+   "nTurns": 8,
+   "avgCustMs": 2558,
+   "avgReplyChars": 202,
+   "avgSellerChars": 195,
+   "checks": {
+    "reply_long": {
+     "n": 4,
+     "level": "warn",
+     "turns": [
+      1,
+      2,
+      4,
+      5
+     ]
+    },
+    "reply_sentences": {
+     "n": 4,
+     "level": "warn",
+     "turns": [
+      1,
+      2,
+      3,
+      5
+     ]
+    },
+    "multi_reveal": {
+     "n": 2,
+     "level": "warn",
+     "turns": [
+      6,
+      7
+     ]
+    }
+   },
+   "ruleGap": 17.5,
+   "stageAgree": 28.6,
+   "calib": {
+    "mae": 15.8,
+    "bias": 15.8,
+    "r": 0.52,
+    "per": {
+     "CU2": {
+      "engine": 85,
+      "judge": 75
+     },
+     "CU3": {
+      "engine": 85,
+      "judge": 60
+     },
+     "CU4": {
+      "engine": 85,
+      "judge": 60
+     },
+     "PR3": {
+      "engine": 80,
+      "judge": 80
+     },
+     "PR4": {
+      "engine": 85,
+      "judge": 85
+     },
+     "PR6": {
+      "engine": 85,
+      "judge": 70
+     },
+     "VS1": {
+      "engine": 80,
+      "judge": 70
+     },
+     "VS2": {
+      "engine": 80,
+      "judge": 40
+     },
+     "VS4": {
+      "engine": 80,
+      "judge": 80
+     },
+     "VS6": {
+      "engine": 85,
+      "judge": 80
+     },
+     "VS5": {
+      "engine": 80,
+      "judge": 80
+     },
+     "MK3": {
+      "engine": 75,
+      "judge": 30
+     },
+     "WR5": {
+      "engine": 80,
+      "judge": 50
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 31651,
+    "scores": {
+     "persona_fidelity": 2,
+     "level_fit": 2,
+     "concern_realism": 3,
+     "satisfaction_plausibility": 2,
+     "score_calibration": 2,
+     "outcome_plausibility": 2,
+     "reply_naturalness": 3
+    },
+    "criteria": {
+     "CU2": 75,
+     "CU3": 60,
+     "CU4": 60,
+     "PR3": 80,
+     "PR4": 85,
+     "PR6": 70,
+     "VS1": 70,
+     "VS2": 40,
+     "VS4": 80,
+     "VS6": 80,
+     "VS5": 80,
+     "MK3": 30,
+     "WR5": 50
+    },
+    "expected_outcome": "undecided",
+    "seller_quality": 3,
+    "issues": [
+     {
+      "turn": 2,
+      "type": "persona",
+      "severity": "high",
+      "text": "고객 페르소나의 현재 VOC는 월 1,350건이고 800건은 '목표'인데, 엔진이 고객 대사에서 'VOC 월 800건 이상인 건'이라고 말하며 페르소나의 페인포인트와 목표 데이터를 혼동했습니다."
+     },
+     {
+      "turn": 2,
+      "type": "satisfaction",
+      "severity": "high",
+      "text": "영업 담당자가 TCO 비교표 요청에 즉각 답하지 않고 데이터(VOC 건수)를 되물으며 회피했음에도 불구하고, '만족도가 천천히 오르는' 레벨 3 조건에 어긋나게 만족도가 10점이나 크게 상승했습니다."
+     },
+     {
+      "turn": 5,
+      "type": "score",
+      "severity": "mid",
+      "text": "영업 담당자가 '완벽히 제어합니다'라는 과장된 표현을 썼고 고객도 이를 지적했음에도, 과장 및 보증성 표현을 평가하는 WR5 기준 점수가 80점으로 높게 책정되었습니다."
+     },
+     {
+      "turn": 6,
+      "type": "concern",
+      "severity": "high",
+      "text": "고객의 핵심 우려인 c1(단가 차이 및 출고가 상한)에 대해 영업 담당자가 실제 수치나 구성안을 보여주지 않고 제출하겠다는 약속만 했음에도 엔진이 c1을 해소된 것으로 잘못 판정했습니다."
+     },
+     {
+      "turn": 7,
+      "type": "outcome",
+      "severity": "high",
+      "text": "숫자와 TCO 비교표를 중시하는 '원가 민감, VOC 판단' 성향의 레벨 3 고객이 실제 수치가 담긴 문서를 보지도 않은 채, 제출하겠다는 약속만으로 성공(win) 판정을 내린 것은 난이도와 페르소나 설정에 맞지 않습니다."
+     },
+     {
+      "turn": 7,
+      "type": "score",
+      "severity": "mid",
+      "text": "구체적인 개통 철회율(7.2%), AS 비용, 단가 등의 정량적 근거나 출처가 전혀 제시되지 않았음에도 VS2(기대효과 정량화)와 MK3(출처 표기) 점수가 각각 80점, 75점으로 과대 평가되었습니다."
+     }
+    ],
+    "summary": "TCO 수치와 비교표를 요구하는 까다로운 고객임에도, 영업의 빈약한 데이터 제시와 서류 약속만으로 매 턴 만족도가 10점씩 오르며 너무 쉽게 성공 처리되었습니다.",
+    "sid": "08-ps33-L3-scenario",
+    "t": 67.6
+   },
+   "judgeQuality": 66,
+   "errors": [],
+   "debrief": {
+    "verdict": "고객의 페인포인트를 TCO 관점에서 논리적으로 설득해 성과를 이끌어낸 수준 높은 제안입니다.",
+    "good": [
+     "Knox Suite를 활용한 기술적 해결책과 실제 운영 효율 개선 효과를 명확히 연결하여 고객의 신뢰를 확보했습니다.",
+     "업데이트 검증 프로세스를 계약 조건으로 제시하며 고객의 불안 요소를 성공적으로 제거하고 협의를 이끌어냈습니다."
+    ],
+    "improve": [
+     "사전 조사 부족으로 인해 VOC 수치를 묻는 고객의 질문에 즉각 대응하지 못한 점은 전문성을 저해하므로 데이터 숙지가 필요합니다.",
+     "제시한 2년 TCO 비교표가 현장에서 준비되지 않아 논의가 지연되었습니다. 초기부터 수치화된 근거 자료를 준비해 신뢰도를 높여야 합니다."
+    ],
+    "next": "준비된 TCO 비교표를 바탕으로 고객이 의심하는 수치의 타당성을 방어하고 계약 조건을 확정하는 대화를 연습하세요.",
+    "ai": true
+   }
+  },
+  {
+   "id": "09-ps38-L1-scenario",
+   "pid": "ps38",
+   "level": 1,
+   "levelName": "호의적인 고객",
+   "mode": "scenario",
+   "modeLabel": "Best Scenario 스토리라인을 따르는 담당자",
+   "customer": "P 제철",
+   "person": "표상우 · 안전보건실 부장",
+   "ind": "MF",
+   "indName": "제조 · 물류 · 현장",
+   "scenario": "bs14",
+   "scenarioTitle": "bs14 제조 · 물류 현장 모바일 업무 디지털화",
+   "reqTitle": "단독 작업자 쓰러짐 · 추락 즉시 감지 체계",
+   "ask": "직영 1,600명 지급 일정과 협력사 1차 10곳 확산 범위 확정",
+   "win": 75,
+   "lose": 15,
+   "startSat": 60,
+   "status": "won",
+   "turns": 3,
+   "satisfaction": 90,
+   "quality": 70,
+   "cats": {
+    "CU": 79,
+    "PR": 73,
+    "VS": 66,
+    "MK": 60
+   },
+   "scores": {
+    "CU2": 80,
+    "CU3": 75,
+    "CU4": 80,
+    "PR3": 75,
+    "PR4": 75,
+    "PR6": 70,
+    "VS1": 70,
+    "VS2": 60,
+    "VS4": 60,
+    "VS6": 75,
+    "VS5": 60,
+    "MK3": 40,
+    "WR5": 80
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 60,
+     "q": null,
+     "rq": null,
+     "stage": "needs",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 65,
+     "q": 48,
+     "rq": 27,
+     "stage": "objection",
+     "story": "open",
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 75,
+     "q": 51,
+     "rq": 33,
+     "stage": "objection",
+     "story": "needs",
+     "rv": [],
+     "rs": [
+      "c1"
+     ],
+     "end": null
+    },
+    {
+     "n": 3,
+     "sat": 90,
+     "q": 70,
+     "rq": 45,
+     "stage": "close",
+     "story": "value",
+     "rv": [],
+     "rs": [
+      "c1"
+     ],
+     "end": "win"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "협력사 41곳 작업자에게 지급하면 분실 · 충전 · 퇴사자 회수를 누가 챙길지 막막하다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 4,
+   "nTurns": 4,
+   "avgCustMs": 2477,
+   "avgReplyChars": 199,
+   "avgSellerChars": 193,
+   "checks": {
+    "reply_long": {
+     "n": 3,
+     "level": "warn",
+     "turns": [
+      0,
+      1,
+      2
+     ]
+    },
+    "reply_sentences": {
+     "n": 2,
+     "level": "warn",
+     "turns": [
+      0,
+      1
+     ]
+    }
+   },
+   "ruleGap": 26.7,
+   "stageAgree": 0,
+   "calib": {
+    "mae": 6.2,
+    "bias": -2.3,
+    "r": 0.7,
+    "per": {
+     "CU2": {
+      "engine": 80,
+      "judge": 80
+     },
+     "CU3": {
+      "engine": 75,
+      "judge": 70
+     },
+     "CU4": {
+      "engine": 80,
+      "judge": 80
+     },
+     "PR3": {
+      "engine": 75,
+      "judge": 80
+     },
+     "PR4": {
+      "engine": 75,
+      "judge": 80
+     },
+     "PR6": {
+      "engine": 70,
+      "judge": 70
+     },
+     "VS1": {
+      "engine": 70,
+      "judge": 70
+     },
+     "VS2": {
+      "engine": 60,
+      "judge": 40
+     },
+     "VS4": {
+      "engine": 60,
+      "judge": 70
+     },
+     "VS6": {
+      "engine": 75,
+      "judge": 80
+     },
+     "VS5": {
+      "engine": 60,
+      "judge": 90
+     },
+     "MK3": {
+      "engine": 40,
+      "judge": 40
+     },
+     "WR5": {
+      "engine": 80,
+      "judge": 80
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 26528,
+    "scores": {
+     "persona_fidelity": 4,
+     "level_fit": 4,
+     "concern_realism": 3,
+     "satisfaction_plausibility": 3,
+     "score_calibration": 3,
+     "outcome_plausibility": 4,
+     "reply_naturalness": 4
+    },
+    "criteria": {
+     "CU2": 80,
+     "CU3": 70,
+     "CU4": 80,
+     "PR3": 80,
+     "PR4": 80,
+     "PR6": 70,
+     "VS1": 70,
+     "VS2": 40,
+     "VS4": 70,
+     "VS6": 80,
+     "VS5": 90,
+     "MK3": 40,
+     "WR5": 80
+    },
+    "expected_outcome": "win",
+    "seller_quality": 4,
+    "issues": [
+     {
+      "turn": 2,
+      "type": "concern",
+      "severity": "high",
+      "text": "고객이 영업의 답변에 대해 '책임자를 어떻게 세우고... 그림이 그려져야'라며 추가적인 세부 방안을 요구하고 있음에도 엔진이 우려(c1)를 조기 해소 처리함."
+     },
+     {
+      "turn": 2,
+      "type": "satisfaction",
+      "severity": "mid",
+      "text": "고객의 핵심 우려(운영 주체 및 인수인계 방식)가 아직 완전히 풀리지 않은 상태임에도 만족도를 10점이나 크게 상승시킴."
+     },
+     {
+      "turn": 3,
+      "type": "score",
+      "severity": "mid",
+      "text": "영업 담당자가 페르소나 카드에 있는 타겟 사례인 '포스코 현장에서 1,200여 대 운영'을 매우 구체적으로 제시했으나 엔진의 VS5(도입 사례 근거) 점수가 60점으로 낮게 부여됨."
+     }
+    ],
+    "summary": "우려가 완전히 해소되지 않은 시점에서의 성급한 해소 판정과 명확한 도입 사례(VS5)에 대한 과소평가가 아쉽습니다.",
+    "sid": "09-ps38-L1-scenario",
+    "t": 44.4
+   },
+   "judgeQuality": 72,
+   "errors": [],
+   "debrief": {
+    "verdict": "고객의 페인포인트를 정확히 짚어냈으나, 데이터 기반의 가치 입증이 다소 부족합니다.",
+    "good": [
+     "고객의 잠재적 불안요소인 관리 문제를 Knox Suite와 수거 프로세스로 명쾌하게 해결책을 제시했습니다.",
+     "포스코 도입 사례를 적절히 언급하여 고객의 신뢰를 확보하고 의사결정을 유도했습니다."
+    ],
+    "improve": [
+     "도입 사례를 언급할 때 단순히 운영 중이라는 사실보다, 해당 시스템 도입 후 사고 감소율이나 관리 효율성 등 구체적인 정량적 수치를 제시하여 설득력을 높여야 합니다.",
+     "협력사 확산 계획을 설명할 때 막연한 단계적 진행보다는, 실제 10개 협력사 도입 시 예상되는 비용 대비 안전 사고 예방 효과를 기대효과로 구체화하여 제시하는 것이 좋습니다."
+    ],
+    "next": "정량적 데이터와 Why Samsung 차별성을 강화하여, 고객 내부 보고용 제안서의 기대효과 파트를 재구성하는 연습을 권장합니다.",
+    "ai": true
+   }
+  },
+  {
+   "id": "10-ps45-L2-scenario",
+   "pid": "ps45",
+   "level": 2,
+   "levelName": "첫 고객",
+   "mode": "scenario",
+   "modeLabel": "Best Scenario 스토리라인을 따르는 담당자",
+   "customer": "T 스터디센터",
+   "person": "길준호 · 가맹운영팀장",
+   "ind": "SV",
+   "indName": "생활 편의 · 무인 매장",
+   "scenario": "bs13",
+   "scenarioTitle": "bs13 다점포 무인 매장 에너지 절감 · 공조 자동화",
+   "reqTitle": "가맹 센터 표준 냉난방 사양과 무인 시간 원격 제어",
+   "ask": "직영 1곳 4주 원격 제어 시범과 리뉴얼 예정 센터 1곳 실사",
+   "win": 80,
+   "lose": 15,
+   "startSat": 45,
+   "status": "won",
+   "turns": 5,
+   "satisfaction": 82,
+   "quality": 84,
+   "cats": {
+    "CU": 87,
+    "PR": 82,
+    "VS": 84,
+    "MK": 82
+   },
+   "scores": {
+    "CU2": 90,
+    "CU3": 85,
+    "CU4": 85,
+    "PR3": 80,
+    "PR4": 85,
+    "PR6": 80,
+    "VS1": 80,
+    "VS2": 85,
+    "VS4": 80,
+    "VS6": 90,
+    "VS5": 85,
+    "MK3": 75,
+    "WR5": 85
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 45,
+     "q": null,
+     "rq": null,
+     "stage": "needs",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 52,
+     "q": 52,
+     "rq": 37,
+     "stage": "objection",
+     "story": "open",
+     "rv": [
+      "c2"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 48,
+     "q": 45,
+     "rq": 43,
+     "stage": "objection",
+     "story": "needs",
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 3,
+     "sat": 58,
+     "q": 51,
+     "rq": 45,
+     "stage": "proof",
+     "story": "value",
+     "rv": [
+      "c1",
+      "c2"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 4,
+     "sat": 70,
+     "q": 68,
+     "rq": 54,
+     "stage": "close",
+     "story": "proof",
+     "rv": [
+      "c1",
+      "c2"
+     ],
+     "rs": [
+      "c1",
+      "c2"
+     ],
+     "end": null
+    },
+    {
+     "n": 5,
+     "sat": 82,
+     "q": 84,
+     "rq": 60,
+     "stage": "close",
+     "story": "close",
+     "rv": [
+      "c1",
+      "c2"
+     ],
+     "rs": [
+      "c1",
+      "c2"
+     ],
+     "end": "win"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "장시간 공부하는 개방 좌석에서 효과를 본 사례가 있는지 모르겠다",
+     "revealed": true,
+     "resolved": true,
+     "at": 2
+    },
+    {
+     "id": "c2",
+     "text": "무인 시간 원격 제어를 점주들이 실제로 쓸 수 있을지 의문이다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 6,
+   "nTurns": 6,
+   "avgCustMs": 2471,
+   "avgReplyChars": 223,
+   "avgSellerChars": 214,
+   "checks": {
+    "reply_long": {
+     "n": 5,
+     "level": "warn",
+     "turns": [
+      0,
+      1,
+      2,
+      3,
+      4
+     ]
+    },
+    "multi_reveal": {
+     "n": 3,
+     "level": "warn",
+     "turns": [
+      3,
+      4,
+      5
+     ]
+    }
+   },
+   "ruleGap": 22.3,
+   "stageAgree": 20,
+   "calib": {
+    "mae": 30.4,
+    "bias": 30.4,
+    "r": 0.49,
+    "per": {
+     "CU2": {
+      "engine": 90,
+      "judge": 60
+     },
+     "CU3": {
+      "engine": 85,
+      "judge": 60
+     },
+     "CU4": {
+      "engine": 85,
+      "judge": 50
+     },
+     "PR3": {
+      "engine": 80,
+      "judge": 80
+     },
+     "PR4": {
+      "engine": 85,
+      "judge": 80
+     },
+     "PR6": {
+      "engine": 80,
+      "judge": 20
+     },
+     "VS1": {
+      "engine": 80,
+      "judge": 60
+     },
+     "VS2": {
+      "engine": 85,
+      "judge": 50
+     },
+     "VS4": {
+      "engine": 80,
+      "judge": 50
+     },
+     "VS6": {
+      "engine": 90,
+      "judge": 80
+     },
+     "VS5": {
+      "engine": 85,
+      "judge": 40
+     },
+     "MK3": {
+      "engine": 75,
+      "judge": 20
+     },
+     "WR5": {
+      "engine": 85,
+      "judge": 40
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 35435,
+    "scores": {
+     "persona_fidelity": 4,
+     "level_fit": 4,
+     "concern_realism": 3,
+     "satisfaction_plausibility": 2,
+     "score_calibration": 1,
+     "outcome_plausibility": 2,
+     "reply_naturalness": 4
+    },
+    "criteria": {
+     "CU2": 60,
+     "CU3": 60,
+     "CU4": 50,
+     "PR3": 80,
+     "PR4": 80,
+     "PR6": 20,
+     "VS1": 60,
+     "VS2": 50,
+     "VS4": 50,
+     "VS6": 80,
+     "VS5": 40,
+     "MK3": 20,
+     "WR5": 40
+    },
+    "expected_outcome": "undecided",
+    "seller_quality": 2,
+    "issues": [
+     {
+      "turn": 1,
+      "type": "satisfaction",
+      "severity": "mid",
+      "text": "영업 담당자가 수치적 근거나 구체적인 데이터 없이 일반론만 언급하고 질문을 던졌음에도 만족도가 7점 상승함. '데이터 확인'을 중시하는 페르소나에 비해 엔진의 평가가 지나치게 관대함."
+     },
+     {
+      "turn": 3,
+      "type": "satisfaction",
+      "severity": "high",
+      "text": "영업이 고객의 실효성 의문에 구체적 사례 없이 제품 스펙(360 Cassette, WindFree)만 반복함. 고객 역시 '스펙 설명은 충분하고 결과를 원한다'고 지적했으나 만족도는 오히려 10점이나 대폭 상승하는 모순이 발생함."
+     },
+     {
+      "turn": 4,
+      "type": "concern",
+      "severity": "high",
+      "text": "C1(개방 좌석 효과 우려) 해소를 위한 조건인 '구체적 도입 사례와 점주 코멘트'가 전혀 제시되지 않고 영업의 일방적인 불만 감소 주장만 있었음에도 C1이 완전히 해소된 것으로 오판함."
+     },
+     {
+      "turn": 4,
+      "type": "concern",
+      "severity": "mid",
+      "text": "C2(점주의 실제 사용성 우려) 해소 조건인 'SmartThings Pro 휴대폰 직접 데모 시연'을 영업이 수행하지 않았음에도 시범 운영 제안만으로 우려가 해소된 것으로 처리함."
+     },
+     {
+      "turn": 5,
+      "type": "score",
+      "severity": "high",
+      "text": "최종 품질 점수에서 데이터 출처(MK3)가 없었음에도 75점, 공간 구성 및 수량(PR6) 언급이 없었음에도 80점, '100% 자동' 등 과장성 표현을 썼음에도 WR5에 85점을 부여하는 등 채점 기준이 완전히 무너짐."
+     },
+     {
+      "turn": 5,
+      "type": "outcome",
+      "severity": "mid",
+      "text": "고객이 요구한 데이터와 증거(사례) 제시가 누락된 상태에서 시범 운영 제안 하나만으로 최종 win 판정을 내려, 근거를 꼼꼼히 따지는 까다로운 고객의 의사결정 규칙을 무시함."
+     }
+    ],
+    "summary": "고객 대사는 페르소나의 꼼꼼한 특성을 잘 살렸으나, 엔진이 영업의 부실한 근거와 스펙 나열에 만족도를 높이고 우려를 조기 해소해 평가 신뢰도를 크게 떨어뜨림.",
+    "sid": "10-ps45-L2-scenario",
+    "t": 62.5
+   },
+   "judgeQuality": 54,
+   "errors": [],
+   "debrief": {
+    "verdict": "고객의 핵심 니즈를 빠르게 파악하고 실효성 있는 PoC를 제안하여 신뢰를 확보함.",
+    "good": [
+     "고객의 페인 포인트인 '운영 번거로움'과 '온도 불만'을 SmartThings Pro 자동화로 정확히 연결함.",
+     "막연한 제품 설명에 그치지 않고 직영 매장 시범 운영 및 실사를 제안해 고객의 의사결정을 유도함."
+    ],
+    "improve": [
+     "고객이 '구체적인 결과값'을 반복 요구했음에도 초반에 일반적인 절감률 수치만 제시함. 타사 사례의 데이터 시트를 미리 준비해 시각적 근거를 제시했다면 설득력을 더 높였을 것임.",
+     "기능 중심의 설명에서 벗어나, 점주들이 실제 앱을 활용할 때 겪을 화면 구성이나 관리자 페이지의 직관성을 미리 시연했더라면 '복잡한 기능'에 대한 고객의 우려를 더 빨리 해소했을 것임."
+    ],
+    "next": "PoC 진행 시 발생 가능한 데이터 오류나 운영 이슈에 대비한 사후 기술 지원 로드맵을 선제적으로 구성해보세요.",
+    "ai": true
+   }
+  },
+  {
+   "id": "11-ps01-L2-expert",
+   "pid": "ps01",
+   "level": 2,
+   "levelName": "첫 고객",
+   "mode": "expert",
+   "modeLabel": "Best Scenario 스토리라인 + 그 자리에서 구체적으로 답하는 숙련 담당자",
+   "customer": "M 디저트카페",
+   "person": "한서윤 · 대표이사",
+   "ind": "FB",
+   "indName": "외식 · 카페 프랜차이즈",
+   "scenario": "bs01",
+   "scenarioTitle": "bs01 F&B 프랜차이즈 · 전국 매장 디지털 메뉴보드 전환",
+   "reqTitle": "가맹 확장 전, 매장 메뉴 · 프로모션 화면 표준화",
+   "ask": "직영 3곳 4주 시범 운영(디자인팀 체험 계정 포함)",
+   "win": 80,
+   "lose": 15,
+   "startSat": 45,
+   "status": "won",
+   "turns": 4,
+   "satisfaction": 80,
+   "quality": 77,
+   "cats": {
+    "CU": 79,
+    "PR": 75,
+    "VS": 76,
+    "MK": 80
+   },
+   "scores": {
+    "CU2": 80,
+    "CU3": 75,
+    "CU4": 80,
+    "PR3": 75,
+    "PR4": 80,
+    "PR6": 70,
+    "VS1": 80,
+    "VS2": 75,
+    "VS4": 75,
+    "VS6": 70,
+    "VS5": 85,
+    "MK3": 70,
+    "WR5": 85
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 45,
+     "q": null,
+     "rq": null,
+     "stage": "needs",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 53,
+     "q": 54,
+     "rq": 24,
+     "stage": "proof",
+     "story": "open",
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 58,
+     "q": 58,
+     "rq": 49,
+     "stage": "objection",
+     "story": "proof",
+     "rv": [
+      "c2"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 3,
+     "sat": 66,
+     "q": 58,
+     "rq": 57,
+     "stage": "objection",
+     "story": "value",
+     "rv": [
+      "c2"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 4,
+     "sat": 80,
+     "q": 77,
+     "rq": 66,
+     "stage": "close",
+     "story": "objection",
+     "rv": [
+      "c1",
+      "c2"
+     ],
+     "rs": [
+      "c1",
+      "c2"
+     ],
+     "end": "win"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "비슷한 규모 카페 프랜차이즈에서 정말 효과를 본 사례가 있는지 모르겠다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    },
+    {
+     "id": "c2",
+     "text": "디자인팀 2명이 45개 매장 화면을 다 관리할 수 있을지 걱정이다",
+     "revealed": true,
+     "resolved": true,
+     "at": 2
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 5,
+   "nTurns": 5,
+   "avgCustMs": 2431,
+   "avgReplyChars": 164,
+   "avgSellerChars": 200,
+   "checks": {
+    "multi_reveal": {
+     "n": 1,
+     "level": "warn",
+     "turns": [
+      4
+     ]
+    }
+   },
+   "ruleGap": 23.7,
+   "stageAgree": 25,
+   "calib": {
+    "mae": 11.2,
+    "bias": 8.1,
+    "r": 0.2,
+    "per": {
+     "CU2": {
+      "engine": 80,
+      "judge": 80
+     },
+     "CU3": {
+      "engine": 75,
+      "judge": 65
+     },
+     "CU4": {
+      "engine": 80,
+      "judge": 80
+     },
+     "PR3": {
+      "engine": 75,
+      "judge": 60
+     },
+     "PR4": {
+      "engine": 80,
+      "judge": 80
+     },
+     "PR6": {
+      "engine": 70,
+      "judge": 70
+     },
+     "VS1": {
+      "engine": 80,
+      "judge": 80
+     },
+     "VS2": {
+      "engine": 75,
+      "judge": 60
+     },
+     "VS4": {
+      "engine": 75,
+      "judge": 60
+     },
+     "VS6": {
+      "engine": 70,
+      "judge": 90
+     },
+     "VS5": {
+      "engine": 85,
+      "judge": 50
+     },
+     "MK3": {
+      "engine": 70,
+      "judge": 40
+     },
+     "WR5": {
+      "engine": 85,
+      "judge": 80
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 29995,
+    "scores": {
+     "persona_fidelity": 3,
+     "level_fit": 4,
+     "concern_realism": 3,
+     "satisfaction_plausibility": 2,
+     "score_calibration": 2,
+     "outcome_plausibility": 2,
+     "reply_naturalness": 4
+    },
+    "criteria": {
+     "CU2": 80,
+     "CU3": 65,
+     "CU4": 80,
+     "PR3": 60,
+     "PR4": 80,
+     "PR6": 70,
+     "VS1": 80,
+     "VS2": 60,
+     "VS4": 60,
+     "VS6": 90,
+     "VS5": 50,
+     "MK3": 40,
+     "WR5": 80
+    },
+    "expected_outcome": "undecided",
+    "seller_quality": 3,
+    "issues": [
+     {
+      "turn": 2,
+      "type": "concern",
+      "severity": "high",
+      "text": "영업 담당자가 비슷한 규모가 아닌 대형 글로벌 프랜차이즈(맥도날드, 커피빈) 사례를 제시했음에도, 고객은 인력 부족(c2) 문제로 화제를 넘겨버려 c1(유사 규모 사례 요구) 미해결 상태를 명확히 유지하지 못했습니다."
+     },
+     {
+      "turn": 2,
+      "type": "persona",
+      "severity": "mid",
+      "text": "페르소나 지시사항에 '근거 없는 수치에는 어디 기준인지 되묻는다'고 명시되어 있으나, 영업이 제시한 맥도날드의 '평균 9일에서 당일로 단축' 수치에 대해 출처나 기준을 묻지 않았습니다."
+     },
+     {
+      "turn": 4,
+      "type": "outcome",
+      "severity": "high",
+      "text": "영업 담당자가 끝까지 '비슷한 규모 카페 프랜차이즈' 사례(밀키프레소 등)를 제시하지 않았음에도, 엔진은 파일럿 제안이 나왔다는 이유만으로 c1 우려가 해소되었다고 오판하고 최종 성공(win) 처리했습니다."
+     },
+     {
+      "turn": 4,
+      "type": "score",
+      "severity": "mid",
+      "text": "엔진의 평가 점수에서, 고객 규모에 맞지 않는 엉뚱한 대형 사례만 들었음에도 VS5(도입 사례 근거)를 85점으로 과대평가하고, 반대로 완벽하게 요구조건(직영 3곳 4주 시범)을 제시한 VS6(실행 계획 구체성)은 70점으로 과소평가했습니다."
+     }
+    ],
+    "summary": "영업이 고객의 핵심 우려인 '유사 규모 프랜차이즈 사례'를 끝까지 제시하지 않았음에도, 우려가 해소되었다며 억지로 성공 처리한 심각한 논리적 오류가 있습니다.",
+    "sid": "11-ps01-L2-expert",
+    "t": 52
+   },
+   "judgeQuality": 70,
+   "errors": [],
+   "debrief": {
+    "verdict": "고객의 페인포인트를 정확히 타겟팅하여 구체적 솔루션으로 설득한 우수한 영업 제안입니다.",
+    "good": [
+     "구체적인 타사 레퍼런스를 제시하여 솔루션의 실효성을 입증하고 고객의 신뢰를 확보했습니다.",
+     "시범 운영(PoC) 제안을 통해 고객이 느끼는 운영 불안감을 효과적으로 해소하고 클로징을 끌어냈습니다."
+    ],
+    "improve": [
+     "디자인팀의 업무 부담 우려 시, 기존 대비 시간 단축 효과나 자동화의 편의성을 구체적인 지표로 보충했으면 더 좋았을 것입니다.",
+     "4주 시범 운영을 제안할 때, 성공 판단 기준(KPI)을 미리 정의하여 고객과 합의하는 과정을 포함하면 더욱 전문적인 인상을 줍니다."
+    ],
+    "next": "시범 운영 이후 실제 전 매장 확산 시 기대되는 ROI를 정량적 수치로 제시하여 예산 승인을 받는 연습을 해보세요.",
+    "ai": true
+   }
+  },
+  {
+   "id": "12-ps12-L3-expert",
+   "pid": "ps12",
+   "level": 3,
+   "levelName": "까다로운 고객",
+   "mode": "expert",
+   "modeLabel": "Best Scenario 스토리라인 + 그 자리에서 구체적으로 답하는 숙련 담당자",
+   "customer": "Z 부티크호텔",
+   "person": "장석민 · 객실운영 이사",
+   "ind": "HT",
+   "indName": "호텔 · 리조트",
+   "scenario": "bs07",
+   "scenarioTitle": "bs07 호텔 객실 TV · 공조 교체 + 투숙 경험 개선",
+   "reqTitle": "외국인 투숙객용 다국어 객실 TV 전면 교체",
+   "ask": "3개 안 5년 총비용 비교표 검토 후 1개 층 조건부 선교체(문의 건수 기준 합의)",
+   "win": 85,
+   "lose": 15,
+   "startSat": 30,
+   "status": "won",
+   "turns": 7,
+   "satisfaction": 85,
+   "quality": 81,
+   "cats": {
+    "CU": 84,
+    "PR": 80,
+    "VS": 81,
+    "MK": 80
+   },
+   "scores": {
+    "CU2": 85,
+    "CU3": 85,
+    "CU4": 80,
+    "PR3": 80,
+    "PR4": 80,
+    "PR6": 80,
+    "VS1": 80,
+    "VS2": 80,
+    "VS4": 80,
+    "VS6": 85,
+    "VS5": 80,
+    "MK3": 80,
+    "WR5": 80
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 30,
+     "q": null,
+     "rq": null,
+     "stage": "needs",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 25,
+     "q": 37,
+     "rq": 31,
+     "stage": "objection",
+     "story": "open",
+     "rv": [
+      "c2"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 35,
+     "q": 45,
+     "rq": 47,
+     "stage": "objection",
+     "story": "needs",
+     "rv": [
+      "c2"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 3,
+     "sat": 45,
+     "q": 51,
+     "rq": 57,
+     "stage": "objection",
+     "story": "objection",
+     "rv": [
+      "c1",
+      "c3"
+     ],
+     "rs": [
+      "c2"
+     ],
+     "end": null
+    },
+    {
+     "n": 4,
+     "sat": 55,
+     "q": 56,
+     "rq": 64,
+     "stage": "objection",
+     "story": "value",
+     "rv": [
+      "c1",
+      "c3"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 5,
+     "sat": 65,
+     "q": 63,
+     "rq": 68,
+     "stage": "objection",
+     "story": "close",
+     "rv": [
+      "c1",
+      "c3"
+     ],
+     "rs": [
+      "c2"
+     ],
+     "end": null
+    },
+    {
+     "n": 6,
+     "sat": 75,
+     "q": 73,
+     "rq": 68,
+     "stage": "close",
+     "story": "close",
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": null
+    },
+    {
+     "n": 7,
+     "sat": 85,
+     "q": 81,
+     "rq": 68,
+     "stage": "close",
+     "story": "close",
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": "win"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "경쟁사 A가 22% 싸고, 셋톱박스만 교체하면 비용이 절반 아래다",
+     "revealed": true,
+     "resolved": true,
+     "at": 3
+    },
+    {
+     "id": "c2",
+     "text": "교체 중에 객실을 닫으면 점유율 84% 호텔에서 매출 손실이 크다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    },
+    {
+     "id": "c3",
+     "text": "중화권 · 일본 투숙객에게 필요한 언어가 실제로 다 나오는지 확신이 없다",
+     "revealed": true,
+     "resolved": true,
+     "at": 3
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 8,
+   "nTurns": 8,
+   "avgCustMs": 2359,
+   "avgReplyChars": 154,
+   "avgSellerChars": 212,
+   "checks": {
+    "reply_sentences": {
+     "n": 3,
+     "level": "warn",
+     "turns": [
+      0,
+      3,
+      4
+     ]
+    },
+    "reply_long": {
+     "n": 1,
+     "level": "warn",
+     "turns": [
+      1
+     ]
+    },
+    "multi_reveal": {
+     "n": 5,
+     "level": "warn",
+     "turns": [
+      3,
+      4,
+      5,
+      6,
+      7
+     ]
+    },
+    "ungrounded_high": {
+     "n": 2,
+     "level": "warn",
+     "turns": [
+      6,
+      7
+     ]
+    }
+   },
+   "ruleGap": 21.1,
+   "stageAgree": 42.9,
+   "calib": {
+    "mae": 15.4,
+    "bias": 12.3,
+    "r": 0.4,
+    "per": {
+     "CU2": {
+      "engine": 85,
+      "judge": 90
+     },
+     "CU3": {
+      "engine": 85,
+      "judge": 85
+     },
+     "CU4": {
+      "engine": 80,
+      "judge": 80
+     },
+     "PR3": {
+      "engine": 80,
+      "judge": 80
+     },
+     "PR4": {
+      "engine": 80,
+      "judge": 90
+     },
+     "PR6": {
+      "engine": 80,
+      "judge": 80
+     },
+     "VS1": {
+      "engine": 80,
+      "judge": 80
+     },
+     "VS2": {
+      "engine": 80,
+      "judge": 60
+     },
+     "VS4": {
+      "engine": 80,
+      "judge": 70
+     },
+     "VS6": {
+      "engine": 85,
+      "judge": 90
+     },
+     "VS5": {
+      "engine": 80,
+      "judge": 0
+     },
+     "MK3": {
+      "engine": 80,
+      "judge": 20
+     },
+     "WR5": {
+      "engine": 80,
+      "judge": 70
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 36369,
+    "scores": {
+     "persona_fidelity": 3,
+     "level_fit": 2,
+     "concern_realism": 3,
+     "satisfaction_plausibility": 2,
+     "score_calibration": 2,
+     "outcome_plausibility": 4,
+     "reply_naturalness": 4
+    },
+    "criteria": {
+     "CU2": 90,
+     "CU3": 85,
+     "CU4": 80,
+     "PR3": 80,
+     "PR4": 90,
+     "PR6": 80,
+     "VS1": 80,
+     "VS2": 60,
+     "VS4": 70,
+     "VS6": 90,
+     "VS5": 0,
+     "MK3": 20,
+     "WR5": 70
+    },
+    "expected_outcome": "win",
+    "seller_quality": 4,
+    "issues": [
+     {
+      "turn": 7,
+      "type": "score",
+      "severity": "high",
+      "text": "영업 담당자가 타 호텔 도입 사례를 전혀 언급하지 않았음에도 VS5(도입 사례 근거)를 80점으로 잘못 채점함."
+     },
+     {
+      "turn": 7,
+      "type": "score",
+      "severity": "mid",
+      "text": "TCO 절감액 등에 대한 객관적인 출처나 기준을 제시하지 않았으나 MK3(출처 표기)를 80점으로 높게 평가함."
+     },
+     {
+      "turn": 6,
+      "type": "concern",
+      "severity": "mid",
+      "text": "실제 비교표와 시안을 보지 못하고 다음 미팅에서 확인하기로 약속만 한 상태임에도 단가(c1) 및 다국어(c3) 우려를 조기 해소 처리함."
+     },
+     {
+      "turn": 2,
+      "type": "satisfaction",
+      "severity": "high",
+      "text": "숫자 위주로 평가하고 만족도가 천천히 오르는 까다로운 고객 설정임에도, 구체적 수치 없이 일반적인 공정 안내만 한 상황에서 만족도를 10점이나 올림."
+     },
+     {
+      "turn": 5,
+      "type": "concern",
+      "severity": "low",
+      "text": "3번 턴에서 이미 해소(해소 c2) 처리된 영업 손실 우려가 5번 턴에서 중복으로 해소 처리됨."
+     }
+    ],
+    "summary": "도입 사례 누락 및 출처 부족을 점수에 반영하지 못했고, 까다로운 고객임에도 서면 확인 전 우려를 쉽게 해소했습니다.",
+    "sid": "12-ps12-L3-expert",
+    "t": 72.3
+   },
+   "judgeQuality": 71,
+   "errors": [],
+   "debrief": {
+    "verdict": "고객의 페인 포인트인 TCO와 리스크를 명확히 파악하여 성공적으로 설득했습니다.",
+    "good": [
+     "고객이 우려하는 매출 손실에 대해 층별 무중단 순차 교체 및 시간대별 작업이라는 구체적인 대안을 제시하여 설득력을 높였습니다.",
+     "막연한 비용 절감 주장에서 벗어나 셋톱박스 임대료, 인쇄비, 인건비를 포함한 3개 안 TCO 비교를 약속함으로써 전문성을 입증했습니다."
+    ],
+    "improve": [
+     "고객이 '지금 당장 서면으로 보여달라'고 압박할 때, 즉각적인 자료 제공이 불가능한 상황을 인정하고 다음 미팅으로 유도하는 과정에서 준비 부족이 다소 아쉬웠습니다.",
+     "중국어/일본어 UI의 우수성을 단순 언급하는 대신, 기존 고객 사례의 실제 인터페이스 이미지를 휴대용 태블릿 등으로 즉시 제시했더라면 더 강력한 설득이 되었을 것입니다."
+    ],
+    "next": "다음 시연 단계에서 소유주를 즉시 설득할 수 있도록 시각화된 TCO 비교 대시보드와 UI 데모를 사전에 완벽히 준비하여 시뮬레이션하십시오.",
+    "ai": true
+   }
+  },
+  {
+   "id": "13-ps14-L1-expert",
+   "pid": "ps14",
+   "level": 1,
+   "levelName": "호의적인 고객",
+   "mode": "expert",
+   "modeLabel": "Best Scenario 스토리라인 + 그 자리에서 구체적으로 답하는 숙련 담당자",
+   "customer": "O 리빙",
+   "person": "이유진 · 운영기획팀장",
+   "ind": "RS",
+   "indName": "주거 분양 · 주택",
+   "scenario": "bs04",
+   "scenarioTitle": "bs04 주거 분양 · 빌트인 가전 + 스마트홈 사양 제안",
+   "reqTitle": "신규 지점 248실 스마트홈 · 공조 통합 운영",
+   "ask": "신규 지점 세대 IoT 사양 확정과 2호점 152실 확산 일정 합의",
+   "win": 75,
+   "lose": 15,
+   "startSat": 60,
+   "status": "won",
+   "turns": 3,
+   "satisfaction": 85,
+   "quality": 73,
+   "cats": {
+    "CU": 79,
+    "PR": 75,
+    "VS": 74,
+    "MK": 63
+   },
+   "scores": {
+    "CU2": 80,
+    "CU3": 75,
+    "CU4": 80,
+    "PR3": 75,
+    "PR4": 80,
+    "PR6": 70,
+    "VS1": 75,
+    "VS2": 75,
+    "VS4": 75,
+    "VS6": 70,
+    "VS5": 70,
+    "MK3": 50,
+    "WR5": 70
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 60,
+     "q": null,
+     "rq": null,
+     "stage": "needs",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 70,
+     "q": 58,
+     "rq": 28,
+     "stage": "value",
+     "story": "open",
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 75,
+     "q": 60,
+     "rq": 42,
+     "stage": "objection",
+     "story": "value",
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 3,
+     "sat": 85,
+     "q": 73,
+     "rq": 47,
+     "stage": "close",
+     "story": "value",
+     "rv": [
+      "c1"
+     ],
+     "rs": [
+      "c1"
+     ],
+     "end": "win"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "신규 지점만 바꾸면 기존 4개 지점과 운영 방식이 둘로 갈린다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 4,
+   "nTurns": 4,
+   "avgCustMs": 2462,
+   "avgReplyChars": 165,
+   "avgSellerChars": 211,
+   "checks": {
+    "ungrounded_high": {
+     "n": 1,
+     "level": "warn",
+     "turns": [
+      3
+     ]
+    }
+   },
+   "ruleGap": 32.4,
+   "stageAgree": 0,
+   "calib": {
+    "mae": 15,
+    "bias": 10.4,
+    "r": 0.61,
+    "per": {
+     "CU2": {
+      "engine": 80,
+      "judge": 80
+     },
+     "CU3": {
+      "engine": 75,
+      "judge": 60
+     },
+     "CU4": {
+      "engine": 80,
+      "judge": 80
+     },
+     "PR3": {
+      "engine": 75,
+      "judge": 80
+     },
+     "PR4": {
+      "engine": 80,
+      "judge": 80
+     },
+     "PR6": {
+      "engine": 70,
+      "judge": 80
+     },
+     "VS1": {
+      "engine": 75,
+      "judge": 80
+     },
+     "VS2": {
+      "engine": 75,
+      "judge": 30
+     },
+     "VS4": {
+      "engine": 75,
+      "judge": 60
+     },
+     "VS6": {
+      "engine": 70,
+      "judge": 80
+     },
+     "VS5": {
+      "engine": 70,
+      "judge": 20
+     },
+     "MK3": {
+      "engine": 50,
+      "judge": 20
+     },
+     "WR5": {
+      "engine": 70,
+      "judge": 60
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 27927,
+    "scores": {
+     "persona_fidelity": 2,
+     "level_fit": 4,
+     "concern_realism": 2,
+     "satisfaction_plausibility": 4,
+     "score_calibration": 2,
+     "outcome_plausibility": 5,
+     "reply_naturalness": 3
+    },
+    "criteria": {
+     "CU2": 80,
+     "CU3": 60,
+     "CU4": 80,
+     "PR3": 80,
+     "PR4": 80,
+     "PR6": 80,
+     "VS1": 80,
+     "VS2": 30,
+     "VS4": 60,
+     "VS6": 80,
+     "VS5": 20,
+     "MK3": 20,
+     "WR5": 60
+    },
+    "expected_outcome": "win",
+    "seller_quality": 3,
+    "issues": [
+     {
+      "turn": 2,
+      "type": "concern",
+      "severity": "high",
+      "text": "영업 담당자가 우려 해소안으로 제안해야 할 핵심 정보(가장 노후화된 2호점 152실)를 엔진이 먼저 언급하여 스스로 우려를 해소해버리는 문제가 발생했습니다."
+     },
+     {
+      "turn": 3,
+      "type": "score",
+      "severity": "high",
+      "text": "유사 업종 도입 사례(VS5)가 대화 중 전혀 언급되지 않았음에도 엔진은 70점이라는 높은 점수를 부여했습니다."
+     },
+     {
+      "turn": 3,
+      "type": "score",
+      "severity": "high",
+      "text": "기대효과 정량화(VS2) 항목에서 에너지 절감이나 재계약률 등의 구체적인 KPI 수치가 없었으나 75점을 부여했습니다."
+     },
+     {
+      "turn": 3,
+      "type": "score",
+      "severity": "mid",
+      "text": "데이터의 출처(MK3)가 전혀 표기되지 않았음에도 0점이 아닌 50점을 부여했습니다."
+     },
+     {
+      "turn": 1,
+      "type": "persona",
+      "severity": "mid",
+      "text": "페르소나 카드의 톤앤매너인 '입주자 하루 시나리오를 구체적으로 말한다'는 특징이 대화 전반에서 전혀 드러나지 않고 관리자 관점의 이야기만 진행되었습니다."
+     }
+    ],
+    "summary": "우려 해소를 위한 핵심 정보를 엔진이 먼저 노출했으며, 언급되지 않은 제안 기준(도입 사례, 정량 효과 등)에 높은 점수를 남발했습니다.",
+    "sid": "13-ps14-L1-expert",
+    "t": 45.5
+   },
+   "judgeQuality": 64,
+   "errors": [],
+   "debrief": {
+    "verdict": "고객의 페인포인트를 정확히 타격하여 신뢰를 확보한 성공적인 영업 제안입니다.",
+    "good": [
+     "기존 지점의 운영 비효율을 구체적으로 언급하며 스마트싱스 프로 도입의 필요성을 명확히 제시함.",
+     "단계별 로드맵(2027년 신규-2호점 확산)을 제시하여 고객의 통합 관리 불안감을 효과적으로 해소함."
+    ],
+    "improve": [
+     "통합 제어 시 타사 도어락과의 호환성 범위를 언급했으나, 구체적인 API 연동 방식이나 보안성 확보 방안을 보강하면 설득력이 높아짐.",
+     "실행 계획에서 4주 내 완료를 약속할 때, 현장 인프라 점검 등 예기치 못한 변수에 대한 리스크 관리나 사전 점검 프로세스를 언급할 필요가 있음."
+    ],
+    "next": "결재권자를 설득하기 위한 기대효과(에너지 절감액 등)를 정량화한 수치 기반 제안 연습을 권장합니다.",
+    "ai": true
+   }
+  },
+  {
+   "id": "14-ps17-L2-expert",
+   "pid": "ps17",
+   "level": 2,
+   "levelName": "첫 고객",
+   "mode": "expert",
+   "modeLabel": "Best Scenario 스토리라인 + 그 자리에서 구체적으로 답하는 숙련 담당자",
+   "customer": "U 대학교",
+   "person": "임동혁 · 시설관리팀장",
+   "ind": "ED",
+   "indName": "교육 · 캠퍼스",
+   "scenario": "bs03",
+   "scenarioTitle": "bs03 대학 캠퍼스 · 스마트 강의실 · 도서관 구축",
+   "reqTitle": "공대 대형 강의실 6실 스마트 강의실 리뉴얼",
+   "ask": "스마트 강의실 견학과 200석 강의실 1실 현장 실사 · 가독성 데모",
+   "win": 80,
+   "lose": 15,
+   "startSat": 45,
+   "status": "won",
+   "turns": 4,
+   "satisfaction": 84,
+   "quality": 80,
+   "cats": {
+    "CU": 82,
+    "PR": 78,
+    "VS": 81,
+    "MK": 80
+   },
+   "scores": {
+    "CU2": 85,
+    "CU3": 80,
+    "CU4": 80,
+    "PR3": 80,
+    "PR4": 85,
+    "PR6": 70,
+    "VS1": 85,
+    "VS2": 75,
+    "VS4": 80,
+    "VS6": 85,
+    "VS5": 85,
+    "MK3": 75,
+    "WR5": 80
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 45,
+     "q": null,
+     "rq": null,
+     "stage": "needs",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 50,
+     "q": 39,
+     "rq": 31,
+     "stage": "objection",
+     "story": "open",
+     "rv": [
+      "c2"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 60,
+     "q": 53,
+     "rq": 35,
+     "stage": "proof",
+     "story": "needs",
+     "rv": [
+      "c1"
+     ],
+     "rs": [
+      "c2"
+     ],
+     "end": null
+    },
+    {
+     "n": 3,
+     "sat": 72,
+     "q": 63,
+     "rq": 50,
+     "stage": "proof",
+     "story": "proof",
+     "rv": [
+      "c1"
+     ],
+     "rs": [
+      "c2"
+     ],
+     "end": null
+    },
+    {
+     "n": 4,
+     "sat": 84,
+     "q": 80,
+     "rq": 53,
+     "stage": "close",
+     "story": "proof",
+     "rv": [
+      "c1",
+      "c2"
+     ],
+     "rs": [
+      "c1",
+      "c2"
+     ],
+     "end": "win"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "대학 대형 강의실에 LED 사이니지와 전자칠판을 함께 넣어 효과를 본 사례가 있는지 모르겠다",
+     "revealed": true,
+     "resolved": true,
+     "at": 2
+    },
+    {
+     "id": "c2",
+     "text": "레이저 프로젝터로 바꿔도 뒷줄 가독성이 해결된다는데 LED가 왜 필요한지 모르겠다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 5,
+   "nTurns": 5,
+   "avgCustMs": 2358,
+   "avgReplyChars": 204,
+   "avgSellerChars": 213,
+   "checks": {
+    "reply_long": {
+     "n": 3,
+     "level": "warn",
+     "turns": [
+      1,
+      2,
+      3
+     ]
+    },
+    "multi_reveal": {
+     "n": 1,
+     "level": "warn",
+     "turns": [
+      4
+     ]
+    }
+   },
+   "ruleGap": 25.6,
+   "stageAgree": 25,
+   "calib": {
+    "mae": 4.6,
+    "bias": 3.1,
+    "r": 0.87,
+    "per": {
+     "CU2": {
+      "engine": 85,
+      "judge": 85
+     },
+     "CU3": {
+      "engine": 80,
+      "judge": 65
+     },
+     "CU4": {
+      "engine": 80,
+      "judge": 75
+     },
+     "PR3": {
+      "engine": 80,
+      "judge": 85
+     },
+     "PR4": {
+      "engine": 85,
+      "judge": 85
+     },
+     "PR6": {
+      "engine": 70,
+      "judge": 60
+     },
+     "VS1": {
+      "engine": 85,
+      "judge": 85
+     },
+     "VS2": {
+      "engine": 75,
+      "judge": 70
+     },
+     "VS4": {
+      "engine": 80,
+      "judge": 75
+     },
+     "VS6": {
+      "engine": 85,
+      "judge": 85
+     },
+     "VS5": {
+      "engine": 85,
+      "judge": 90
+     },
+     "MK3": {
+      "engine": 75,
+      "judge": 70
+     },
+     "WR5": {
+      "engine": 80,
+      "judge": 75
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 35648,
+    "scores": {
+     "persona_fidelity": 4,
+     "level_fit": 4,
+     "concern_realism": 3,
+     "satisfaction_plausibility": 3,
+     "score_calibration": 3,
+     "outcome_plausibility": 5,
+     "reply_naturalness": 4
+    },
+    "criteria": {
+     "CU2": 85,
+     "CU3": 65,
+     "CU4": 75,
+     "PR3": 85,
+     "PR4": 85,
+     "PR6": 60,
+     "VS1": 85,
+     "VS2": 70,
+     "VS4": 75,
+     "VS6": 85,
+     "VS5": 90,
+     "MK3": 70,
+     "WR5": 75
+    },
+    "expected_outcome": "win",
+    "seller_quality": 4,
+    "issues": [
+     {
+      "turn": 2,
+      "type": "concern",
+      "severity": "high",
+      "text": "엔진은 c2(LED 필요성)가 해소되었다고 판정했으나, 고객은 대사에서 '직접 눈으로 확인하기 전까진 확신이 안 선다'며 여전히 의문을 제기하고 있어 해소 판정에 모순이 있습니다."
+     },
+     {
+      "turn": 2,
+      "type": "satisfaction",
+      "severity": "mid",
+      "text": "고객이 제안에 대해 확신하지 못하고 시연을 강하게 요구하는 상황임에도 불구하고 만족도가 10점이나 크게 상승한 것은 다소 어색합니다."
+     },
+     {
+      "turn": 3,
+      "type": "concern",
+      "severity": "low",
+      "text": "고객이 121㎡ 면적 차이를 지적하며 추가 데이터를 요구(c2 관련 미해결 상태)했으나, 엔진은 내부적으로 계속 우려가 해소된 상태(해소 c2)로 잘못 유지하고 있습니다."
+     },
+     {
+      "turn": 4,
+      "type": "score",
+      "severity": "mid",
+      "text": "영업 담당자가 18억 예산 제약, 1985년 건물의 하중 문제 등 리스크를 다루지 않았고 전체 수량을 구체화하지 않았음에도 엔진은 CU3(의사결정자 관점) 80점, PR6(구성·수량) 70점 등 과도하게 높은 점수를 부여했습니다."
+     }
+    ],
+    "summary": "고객의 까다로운 질문과 페르소나 연기는 훌륭했으나, 엔진의 우려 해소 판정이 지나치게 성급했습니다.",
+    "sid": "14-ps17-L2-expert",
+    "t": 57.4
+   },
+   "judgeQuality": 77,
+   "errors": [],
+   "debrief": {
+    "verdict": "고객의 페인포인트를 정확히 타겟팅하여 신뢰를 구축하고 수주에 성공한 우수한 제안입니다.",
+    "good": [
+     "고객의 고충(뒷줄 가독성, 냉방 민원)을 즉시 파악하고 삼성 제품을 연계한 명확한 솔루션을 제시함.",
+     "국민대 구축 사례와 현장 데모 제안을 통해 고객의 불안감을 해소하고 실행 의지를 강력하게 피력함."
+    ],
+    "improve": [
+     "구체적인 기대효과(유지비 절감액 등)를 수치로 제시하면 비용 논란을 더 효과적으로 방어할 수 있습니다.",
+     "200석 규모와 121㎡ 사례 간 차이에 대해 먼저 수치적 비교를 언급했다면 전문성이 더 돋보였을 것입니다."
+    ],
+    "next": "수치화된 ROI 데이터를 포함한 제안서 작성과 까다로운 예산 산정 질의에 대비한 논리 훈련을 권장합니다.",
+    "ai": true
+   }
+  },
+  {
+   "id": "15-ps21-L3-expert",
+   "pid": "ps21",
+   "level": 3,
+   "levelName": "까다로운 고객",
+   "mode": "expert",
+   "modeLabel": "Best Scenario 스토리라인 + 그 자리에서 구체적으로 답하는 숙련 담당자",
+   "customer": "F 오피스",
+   "person": "류민정 · 자산운영본부장",
+   "ind": "OF",
+   "indName": "오피스 · 업무 빌딩",
+   "scenario": "bs02",
+   "scenarioTitle": "bs02 신축 오피스 · AI Ready 스마트 빌딩 설계 반영",
+   "reqTitle": "신축 오피스 입주사 앱 연동 공조 · 에너지 통합 관리",
+   "ask": "10년 총비용 비교표 검토 후 공조는 기본 사양 확정, 앱 연동은 2개 층 조건부 선적용(임대 · VOC 성과 기준 합의)",
+   "win": 85,
+   "lose": 15,
+   "startSat": 30,
+   "status": "won",
+   "turns": 6,
+   "satisfaction": 85,
+   "quality": 84,
+   "cats": {
+    "CU": 89,
+    "PR": 80,
+    "VS": 84,
+    "MK": 80
+   },
+   "scores": {
+    "CU2": 90,
+    "CU3": 90,
+    "CU4": 85,
+    "PR3": 80,
+    "PR4": 80,
+    "PR6": 80,
+    "VS1": 85,
+    "VS2": 85,
+    "VS4": 80,
+    "VS6": 85,
+    "VS5": 80,
+    "MK3": 80,
+    "WR5": 80
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 30,
+     "q": null,
+     "rq": null,
+     "stage": "needs",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 35,
+     "q": 44,
+     "rq": 31,
+     "stage": "objection",
+     "story": "open",
+     "rv": [
+      "c2"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 45,
+     "q": 51,
+     "rq": 44,
+     "stage": "objection",
+     "story": "value",
+     "rv": [
+      "c3"
+     ],
+     "rs": [
+      "c2"
+     ],
+     "end": null
+    },
+    {
+     "n": 3,
+     "sat": 55,
+     "q": 53,
+     "rq": 49,
+     "stage": "objection",
+     "story": "proof",
+     "rv": [
+      "c1",
+      "c3"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 4,
+     "sat": 65,
+     "q": 70,
+     "rq": 63,
+     "stage": "objection",
+     "story": "proof",
+     "rv": [
+      "c1",
+      "c3"
+     ],
+     "rs": [
+      "c2",
+      "c3"
+     ],
+     "end": null
+    },
+    {
+     "n": 5,
+     "sat": 75,
+     "q": 81,
+     "rq": 68,
+     "stage": "close",
+     "story": "close",
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": null
+    },
+    {
+     "n": 6,
+     "sat": 85,
+     "q": 84,
+     "rq": 71,
+     "stage": "close",
+     "story": "close",
+     "rv": [],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": "win"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "경쟁사 A가 공조 패키지를 18% 낮게 제시해 초기 비용 차이가 크다",
+     "revealed": true,
+     "resolved": true,
+     "at": 3
+    },
+    {
+     "id": "c2",
+     "text": "기존 2개 동과 신축 동 시스템이 달라지면 위탁관리사가 두 체계를 따로 운영해야 한다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    },
+    {
+     "id": "c3",
+     "text": "층별 에너지 데이터를 입주사가 정산 근거로 인정하지 않으면 분쟁이 그대로 남는다",
+     "revealed": true,
+     "resolved": true,
+     "at": 2
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 7,
+   "nTurns": 7,
+   "avgCustMs": 2390,
+   "avgReplyChars": 185,
+   "avgSellerChars": 191,
+   "checks": {
+    "reply_long": {
+     "n": 3,
+     "level": "warn",
+     "turns": [
+      1,
+      3,
+      4
+     ]
+    },
+    "reply_sentences": {
+     "n": 1,
+     "level": "warn",
+     "turns": [
+      2
+     ]
+    },
+    "multi_reveal": {
+     "n": 3,
+     "level": "warn",
+     "turns": [
+      3,
+      4,
+      5
+     ]
+    }
+   },
+   "ruleGap": 22.2,
+   "stageAgree": 66.7,
+   "calib": {
+    "mae": 37.7,
+    "bias": 37.7,
+    "r": -0.03,
+    "per": {
+     "CU2": {
+      "engine": 90,
+      "judge": 50
+     },
+     "CU3": {
+      "engine": 90,
+      "judge": 40
+     },
+     "CU4": {
+      "engine": 85,
+      "judge": 50
+     },
+     "PR3": {
+      "engine": 80,
+      "judge": 60
+     },
+     "PR4": {
+      "engine": 80,
+      "judge": 60
+     },
+     "PR6": {
+      "engine": 80,
+      "judge": 30
+     },
+     "VS1": {
+      "engine": 85,
+      "judge": 50
+     },
+     "VS2": {
+      "engine": 85,
+      "judge": 40
+     },
+     "VS4": {
+      "engine": 80,
+      "judge": 50
+     },
+     "VS6": {
+      "engine": 85,
+      "judge": 40
+     },
+     "VS5": {
+      "engine": 80,
+      "judge": 60
+     },
+     "MK3": {
+      "engine": 80,
+      "judge": 30
+     },
+     "WR5": {
+      "engine": 80,
+      "judge": 30
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 33159,
+    "scores": {
+     "persona_fidelity": 3,
+     "level_fit": 2,
+     "concern_realism": 2,
+     "satisfaction_plausibility": 2,
+     "score_calibration": 2,
+     "outcome_plausibility": 2,
+     "reply_naturalness": 2
+    },
+    "criteria": {
+     "CU2": 50,
+     "CU3": 40,
+     "CU4": 50,
+     "PR3": 60,
+     "PR4": 60,
+     "PR6": 30,
+     "VS1": 50,
+     "VS2": 40,
+     "VS4": 50,
+     "VS6": 40,
+     "VS5": 60,
+     "MK3": 30,
+     "WR5": 30
+    },
+    "expected_outcome": "undecided",
+    "seller_quality": 2,
+    "issues": [
+     {
+      "turn": 2,
+      "type": "concern",
+      "severity": "high",
+      "text": "영업 담당자가 c2(시스템 이원화)에 대해 단계별 통합안이나 교육 계획 없이 'b.IoT로 통합된다'는 원론적 답변만 했으나, 엔진은 이를 우려 해소로 쉽게 판정함."
+     },
+     {
+      "turn": 3,
+      "type": "level",
+      "severity": "high",
+      "text": "영업이 '완전히 해소', '오차 없는', '근본적으로 사라집니다' 등 심한 과장과 단정적 표현을 썼음에도, 레벨3 난이도 규칙(과장에 바로 반박)이 작동하지 않고 만족도가 +10 상승함."
+     },
+     {
+      "turn": 4,
+      "type": "reply",
+      "severity": "mid",
+      "text": "고객이 프롬프트에 주어진 결정 요청 조건(10년 총비용 비교표 검토 후 공조 기본 사양 확정 등)을 스스로 완벽하게 요약해 영업에게 떠먹여 주어 대화의 자연스러움이 떨어짐."
+     },
+     {
+      "turn": 5,
+      "type": "concern",
+      "severity": "high",
+      "text": "c1(경쟁사 단가 차이)에 대해 영업이 즉석에서 환산된 10년 총비용 데이터를 제시하지 않고 '다음 주 워크숍'으로 미뤘음에도, 엔진은 우려가 모두 해소되었다고 판단함."
+     },
+     {
+      "turn": 6,
+      "type": "score",
+      "severity": "high",
+      "text": "절대적 보증과 과장된 표현이 지속적으로 사용되었음에도 WR5(과장·보증성 표현) 점수를 80점으로 높게 채점해 품질 평가 기준이 무너짐."
+     },
+     {
+      "turn": 6,
+      "type": "score",
+      "severity": "mid",
+      "text": "공간별 구성 및 수량(PR6), 절감 수치의 명확한 근거와 출처(MK3)가 대화에 전혀 등장하지 않았음에도 모두 80점 이상의 높은 점수를 부여함."
+     }
+    ],
+    "summary": "'숫자 우선, 과장 배척'이라는 까다로운 난이도 설정이 무시된 채, 구체성 없는 과장된 제안에 만족도를 퍼주고 쉽게 승리 판정을 내렸습니다.",
+    "sid": "15-ps21-L3-expert",
+    "t": 63.5
+   },
+   "judgeQuality": 46,
+   "errors": [],
+   "debrief": {
+    "verdict": "고객의 페인 포인트인 관리비 분쟁과 TCO 이슈를 논리적으로 방어하여 합의를 이끌어낸 우수한 영업.",
+    "good": [
+     "통합 관제 및 에너지 계량 데이터 제시를 통해 고객의 관리 효율화 우려를 효과적으로 해소함.",
+     "막연한 주장 대신 3년 내 회수 가능한 TCO 비교를 언급하여 경쟁사와의 가격 차이를 가치로 전환함."
+    ],
+    "improve": [
+     "고객이 '월간 리포트' 서식과 위탁관리사 교육안을 요구했을 때, 추후 미팅으로 미루지 말고 현재의 시스템 인터페이스 특징을 미리 언급했다면 신뢰도를 더 높였을 것입니다.",
+     "고객이 '눈으로 직접 봐야겠다'고 강조한 대목에서, 현장에서 태블릿을 활용해 SAC 대시보드 샘플을 시각적으로 즉각 보여주었다면 설득력이 배가되었을 것입니다."
+    ],
+    "next": "다음 워크숍에서 제시할 10년 총비용 비교표와 정산 데이터 샘플을 실제 수치와 가시적인 서식으로 시뮬레이션해 보세요.",
+    "ai": true
+   }
+  },
+  {
+   "id": "16-ps26-L1-expert",
+   "pid": "ps26",
+   "level": 1,
+   "levelName": "호의적인 고객",
+   "mode": "expert",
+   "modeLabel": "Best Scenario 스토리라인 + 그 자리에서 구체적으로 답하는 숙련 담당자",
+   "customer": "E 병원",
+   "person": "노승훈 · 행정부원장",
+   "ind": "MD",
+   "indName": "의료 · 요양 · 케어",
+   "scenario": "bs08",
+   "scenarioTitle": "bs08 요양병원 · 병동 환자 경험 · 운영 리뉴얼",
+   "reqTitle": "병상 개인 태블릿으로 TV · 입원 안내 · 서류 신청",
+   "ask": "1차 2개 병동 80병상 발주와 병원정보시스템 연동 착수 회의 일정 확정",
+   "win": 75,
+   "lose": 15,
+   "startSat": 60,
+   "status": "won",
+   "turns": 2,
+   "satisfaction": 80,
+   "quality": 70,
+   "cats": {
+    "CU": 77,
+    "PR": 70,
+    "VS": 69,
+    "MK": 62
+   },
+   "scores": {
+    "CU2": 80,
+    "CU3": 70,
+    "CU4": 80,
+    "PR3": 70,
+    "PR4": 70,
+    "PR6": 70,
+    "VS1": 70,
+    "VS2": 65,
+    "VS4": 70,
+    "VS6": 70,
+    "VS5": 65,
+    "MK3": 50,
+    "WR5": 70
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 60,
+     "q": null,
+     "rq": null,
+     "stage": "needs",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 65,
+     "q": 54,
+     "rq": 24,
+     "stage": "objection",
+     "story": "open",
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 80,
+     "q": 70,
+     "rq": 36,
+     "stage": "close",
+     "story": "needs",
+     "rv": [],
+     "rs": [
+      "c1"
+     ],
+     "end": "win"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "병원정보시스템 연동 개발이 늦어지면 태블릿만 깔리고 서류 신청은 못 하는 상태가 된다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 3,
+   "nTurns": 3,
+   "avgCustMs": 2425,
+   "avgReplyChars": 168,
+   "avgSellerChars": 212,
+   "checks": {
+    "ungrounded_high": {
+     "n": 1,
+     "level": "warn",
+     "turns": [
+      2
+     ]
+    }
+   },
+   "ruleGap": 34.2,
+   "stageAgree": 0,
+   "calib": {
+    "mae": 25.4,
+    "bias": 25.4,
+    "r": 0.8,
+    "per": {
+     "CU2": {
+      "engine": 80,
+      "judge": 70
+     },
+     "CU3": {
+      "engine": 70,
+      "judge": 50
+     },
+     "CU4": {
+      "engine": 80,
+      "judge": 70
+     },
+     "PR3": {
+      "engine": 70,
+      "judge": 60
+     },
+     "PR4": {
+      "engine": 70,
+      "judge": 60
+     },
+     "PR6": {
+      "engine": 70,
+      "judge": 50
+     },
+     "VS1": {
+      "engine": 70,
+      "judge": 60
+     },
+     "VS2": {
+      "engine": 65,
+      "judge": 0
+     },
+     "VS4": {
+      "engine": 70,
+      "judge": 50
+     },
+     "VS6": {
+      "engine": 70,
+      "judge": 40
+     },
+     "VS5": {
+      "engine": 65,
+      "judge": 0
+     },
+     "MK3": {
+      "engine": 50,
+      "judge": 0
+     },
+     "WR5": {
+      "engine": 70,
+      "judge": 60
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 25094,
+    "scores": {
+     "persona_fidelity": 3,
+     "level_fit": 4,
+     "concern_realism": 2,
+     "satisfaction_plausibility": 2,
+     "score_calibration": 2,
+     "outcome_plausibility": 1,
+     "reply_naturalness": 3
+    },
+    "criteria": {
+     "CU2": 70,
+     "CU3": 50,
+     "CU4": 70,
+     "PR3": 60,
+     "PR4": 60,
+     "PR6": 50,
+     "VS1": 60,
+     "VS2": 0,
+     "VS4": 50,
+     "VS6": 40,
+     "VS5": 0,
+     "MK3": 0,
+     "WR5": 60
+    },
+    "expected_outcome": "undecided",
+    "seller_quality": 2,
+    "issues": [
+     {
+      "turn": 2,
+      "type": "outcome",
+      "severity": "high",
+      "text": "성공(win) 조건인 '최종 결정 요청(발주 및 착수 회의 일정 확정)'을 영업 담당자가 하지 않았습니다. 고객(엔진)이 역으로 일정을 물어보는 대사를 출력한 직후 담당자의 대답을 듣기도 전에 시뮬레이션을 승리로 강제 종료했습니다."
+     },
+     {
+      "turn": 2,
+      "type": "concern",
+      "severity": "high",
+      "text": "병원정보시스템 연동은 4개월이 걸리는 제약 사항이 있음에도, 영업 담당자가 1차 오픈 전(단기간)에 연동 테스트를 완료하겠다는 비현실적인 제안을 했습니다. 그러나 엔진은 이를 지적하지 않고 우려 해소(c1)로 판정했으며, 고객 대사로 정답인 '단계별 오픈'을 먼저 제시하는 오류를 범했습니다."
+     },
+     {
+      "turn": 2,
+      "type": "score",
+      "severity": "mid",
+      "text": "영업 담당자가 기대효과를 정량화하거나(VS2), 도입 사례를 언급(VS5)한 적이 전혀 없음에도 엔진은 해당 기준에 각각 65점이라는 높은 점수를 부여했습니다."
+     },
+     {
+      "turn": 2,
+      "type": "persona",
+      "severity": "low",
+      "text": "턴 1에서 고객이 '갤럭시 탭 액티브5'를 특정하여 원했는데, 영업 담당자가 턴 2에서 설명 없이 'SM-X350(탭 A9+)'을 제안했습니다. 호의적인 고객이더라도 기기가 달라진 점에 대해 가벼운 확인이나 질문이 있어야 자연스럽습니다."
+     }
+    ],
+    "summary": "영업의 비현실적 일정 제안을 우려 해소로 오판했으며, 담당자가 최종 요청을 하기도 전에 엔진이 스스로 질문하고 승리로 성급히 종료했습니다.",
+    "sid": "16-ps26-L1-expert",
+    "t": 39.6
+   },
+   "judgeQuality": 46,
+   "errors": [],
+   "debrief": {
+    "verdict": "고객 페인 포인트를 잘 파악하고 실행력을 보여준 신뢰도 높은 제안입니다.",
+    "good": [
+     "고객이 언급한 현장의 반복 업무와 채널 다툼 문제를 핵심 과제로 정확히 정의함.",
+     "HIS 연동 불안감을 해소하기 위해 전담 개발팀 투입과 단계적 테스트 일정을 구체적으로 제시함."
+    ],
+    "improve": [
+     "마지막 질문에서 전산팀 및 시스템 업체와의 회의 일정을 제안할 때, 단순히 '확정'하기보다 삼성의 협업 경험을 살린 구체적인 가이드라인과 킥오프 제안이 부족함.",
+     "연동 테스트 외에 갤럭시 탭 액티브5의 견고함이나 Knox 보안이 병원 환경에서 갖는 차별적 가치를 제안에 좀 더 전략적으로 녹여낼 필요가 있음."
+    ],
+    "next": "HIS 연동 과정에서 발생 가능한 기술적 리스크 대응 방안과 전산팀 협업 체계 확립에 집중하여 연습해 보세요.",
+    "ai": true
+   }
+  },
+  {
+   "id": "17-ps31-L2-expert",
+   "pid": "ps31",
+   "level": 2,
+   "levelName": "첫 고객",
+   "mode": "expert",
+   "modeLabel": "Best Scenario 스토리라인 + 그 자리에서 구체적으로 답하는 숙련 담당자",
+   "customer": "E 테마파크",
+   "person": "홍채원 · 콘텐츠기획 파트장",
+   "ind": "TP",
+   "indName": "테마파크 · 관광 · 전시",
+   "scenario": "bs05",
+   "scenarioTitle": "bs05 테마파크 · 몰입형 체험 구역 신규 조성",
+   "reqTitle": "트램 대기 통로 120m를 동물 3D 체험 공간으로",
+   "ask": "쇼룸 시연 후 통로 1구간(2면) 4주 시험 설치로 관람객 반응 측정",
+   "win": 80,
+   "lose": 15,
+   "startSat": 45,
+   "status": "won",
+   "turns": 4,
+   "satisfaction": 84,
+   "quality": 88,
+   "cats": {
+    "CU": 88,
+    "PR": 89,
+    "VS": 89,
+    "MK": 85
+   },
+   "scores": {
+    "CU2": 90,
+    "CU3": 85,
+    "CU4": 88,
+    "PR3": 90,
+    "PR4": 92,
+    "PR6": 85,
+    "VS1": 90,
+    "VS2": 85,
+    "VS4": 85,
+    "VS6": 95,
+    "VS5": 90,
+    "MK3": 80,
+    "WR5": 85
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 45,
+     "q": null,
+     "rq": null,
+     "stage": "needs",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 48,
+     "q": 45,
+     "rq": 27,
+     "stage": "objection",
+     "story": "open",
+     "rv": [
+      "c1",
+      "c2"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 60,
+     "q": 59,
+     "rq": 41,
+     "stage": "objection",
+     "story": "proof",
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 3,
+     "sat": 72,
+     "q": 70,
+     "rq": 41,
+     "stage": "objection",
+     "story": "value",
+     "rv": [
+      "c1",
+      "c2"
+     ],
+     "rs": [
+      "c1",
+      "c2"
+     ],
+     "end": null
+    },
+    {
+     "n": 4,
+     "sat": 84,
+     "q": 88,
+     "rq": 47,
+     "stage": "close",
+     "story": "close",
+     "rv": [
+      "c1",
+      "c2"
+     ],
+     "rs": [
+      "c1",
+      "c2"
+     ],
+     "end": "win"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "테마파크 대기 공간에 무안경 3D 화면을 실제로 운영한 사례가 있는지 모르겠다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    },
+    {
+     "id": "c2",
+     "text": "사육 구역 바로 옆이라 화면 빛과 소리가 동물에게 스트레스를 줄 수 있다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 5,
+   "nTurns": 5,
+   "avgCustMs": 2302,
+   "avgReplyChars": 208,
+   "avgSellerChars": 219,
+   "checks": {
+    "reply_long": {
+     "n": 2,
+     "level": "warn",
+     "turns": [
+      0,
+      3
+     ]
+    },
+    "multi_reveal": {
+     "n": 3,
+     "level": "warn",
+     "turns": [
+      1,
+      3,
+      4
+     ]
+    },
+    "reply_sentences": {
+     "n": 1,
+     "level": "warn",
+     "turns": [
+      2
+     ]
+    }
+   },
+   "ruleGap": 28,
+   "stageAgree": 50,
+   "calib": {
+    "mae": 9.6,
+    "bias": 8.8,
+    "r": 0.72,
+    "per": {
+     "CU2": {
+      "engine": 90,
+      "judge": 90
+     },
+     "CU3": {
+      "engine": 85,
+      "judge": 85
+     },
+     "CU4": {
+      "engine": 88,
+      "judge": 85
+     },
+     "PR3": {
+      "engine": 90,
+      "judge": 90
+     },
+     "PR4": {
+      "engine": 92,
+      "judge": 90
+     },
+     "PR6": {
+      "engine": 85,
+      "judge": 85
+     },
+     "VS1": {
+      "engine": 90,
+      "judge": 85
+     },
+     "VS2": {
+      "engine": 85,
+      "judge": 40
+     },
+     "VS4": {
+      "engine": 85,
+      "judge": 70
+     },
+     "VS6": {
+      "engine": 95,
+      "judge": 90
+     },
+     "VS5": {
+      "engine": 90,
+      "judge": 95
+     },
+     "MK3": {
+      "engine": 80,
+      "judge": 40
+     },
+     "WR5": {
+      "engine": 85,
+      "judge": 80
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 34145,
+    "scores": {
+     "persona_fidelity": 4,
+     "level_fit": 4,
+     "concern_realism": 4,
+     "satisfaction_plausibility": 4,
+     "score_calibration": 3,
+     "outcome_plausibility": 4,
+     "reply_naturalness": 3
+    },
+    "criteria": {
+     "CU2": 90,
+     "CU3": 85,
+     "CU4": 85,
+     "PR3": 90,
+     "PR4": 90,
+     "PR6": 85,
+     "VS1": 85,
+     "VS2": 40,
+     "VS4": 70,
+     "VS6": 90,
+     "VS5": 95,
+     "MK3": 40,
+     "WR5": 80
+    },
+    "expected_outcome": "win",
+    "seller_quality": 4,
+    "issues": [
+     {
+      "turn": 3,
+      "type": "reply",
+      "severity": "mid",
+      "text": "고객이 프롬프트의 'ask' 조건(쇼룸 시연 후 통로 1구간 4주 시험 설치)을 거의 토씨 하나 틀리지 않고 그대로 읊으며 영업에게 먼저 요청하는 방식이 다소 작위적입니다."
+     },
+     {
+      "turn": 3,
+      "type": "concern",
+      "severity": "high",
+      "text": "고객이 여전히 '세밀한 스케줄 운영이 가능한지 확인이 필요하다'며 우려(c2)를 남겼음에도, 엔진은 해당 턴에서 c2를 '해소'로 성급하게 판정했습니다. (실제 해결책인 매직인포는 4턴에서 제시됨)"
+     },
+     {
+      "turn": 4,
+      "type": "score",
+      "severity": "mid",
+      "text": "영업 담당자가 대기 구간 만족도 점수나 SNS 게시물 수 등 구체적인 KPI 수치를 전혀 활용하여 정량화하지 않았음에도, VS2(기대효과 정량화) 점수를 85점으로 과대평가했습니다."
+     },
+     {
+      "turn": 4,
+      "type": "score",
+      "severity": "mid",
+      "text": "제안 내용 중 구체적인 데이터나 통계의 출처가 제시되지 않았음에도 MK3(출처 표기) 점수가 80점으로 높게 채점되었습니다."
+     }
+    ],
+    "summary": "페르소나의 우려를 단계적으로 제기하는 흐름은 좋았으나, 설정된 목표 지시문을 고객 대사에 그대로 노출하고 우려 해소를 한 턴 일찍 판정한 점이 아쉽습니다.",
+    "sid": "17-ps31-L2-expert",
+    "t": 55.5
+   },
+   "judgeQuality": 80,
+   "errors": [],
+   "debrief": {
+    "verdict": "고객의 기술적 우려를 데이터와 솔루션으로 완벽히 해소한 수준 높은 영업입니다.",
+    "good": [
+     "구체적인 현장 제안(벽면 밀착형 사이니지)과 도입 사례(에버랜드 사례)를 통해 고객의 신뢰를 빠르게 확보했습니다.",
+     "사육사 우려 사항을 MagicINFO 원격 제어 및 파일럿 테스트로 명확하게 해결하며 도입 거부감을 낮췄습니다."
+    ],
+    "improve": [
+     "무안경 3D 기술의 실제 구현 가능성에 대해 답변할 때, 원리 설명 없이 사례 언급만 하여 고객의 기술적 의구심을 완전히 해소하지 못했습니다.",
+     "초기 제안 시 통로 공간의 물리적 제약에 대한 설계적 근거를 조금 더 구체적으로 제시했다면 고객의 만족도를 더 높였을 것입니다."
+    ],
+    "next": "테마파크 공간의 특수성을 고려하여, 유지보수 및 긴급 장애 대응 시 운영 공백을 최소화하는 사후 서비스 계획을 추가로 연습해 보세요.",
+    "ai": true
+   }
+  },
+  {
+   "id": "18-ps33-L3-expert",
+   "pid": "ps33",
+   "level": 3,
+   "levelName": "까다로운 고객",
+   "mode": "expert",
+   "modeLabel": "Best Scenario 스토리라인 + 그 자리에서 구체적으로 답하는 숙련 담당자",
+   "customer": "Y 텔레콤",
+   "person": "남소희 · 단말기획팀 책임",
+   "ind": "OE",
+   "indName": "파트너 전용 단말 · 에디션",
+   "scenario": "bs18",
+   "scenarioTitle": "bs18 통신사 · 파트너 전용 단말 에디션 공동 개발",
+   "reqTitle": "4세대 키즈폰 전용 에디션 공동 개발",
+   "ask": "2년 총비용 비교표 검토 후 초도 2만 대 단계 도입(VOC 월 800건 이하 성과 기준 합의)",
+   "win": 85,
+   "lose": 15,
+   "startSat": 30,
+   "status": "won",
+   "turns": 7,
+   "satisfaction": 90,
+   "quality": 86,
+   "cats": {
+    "CU": 91,
+    "PR": 85,
+    "VS": 85,
+    "MK": 82
+   },
+   "scores": {
+    "CU2": 90,
+    "CU3": 90,
+    "CU4": 95,
+    "PR3": 80,
+    "PR4": 85,
+    "PR6": 90,
+    "VS1": 85,
+    "VS2": 85,
+    "VS4": 80,
+    "VS6": 90,
+    "VS5": 80,
+    "MK3": 80,
+    "WR5": 85
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 30,
+     "q": null,
+     "rq": null,
+     "stage": "needs",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 35,
+     "q": 38,
+     "rq": 35,
+     "stage": "objection",
+     "story": "open",
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 40,
+     "q": 48,
+     "rq": 47,
+     "stage": "objection",
+     "story": "value",
+     "rv": [
+      "c2"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 3,
+     "sat": 50,
+     "q": 56,
+     "rq": 50,
+     "stage": "objection",
+     "story": "value",
+     "rv": [
+      "c2",
+      "c3"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 4,
+     "sat": 60,
+     "q": 60,
+     "rq": 62,
+     "stage": "objection",
+     "story": "value",
+     "rv": [
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c3"
+     ],
+     "end": null
+    },
+    {
+     "n": 5,
+     "sat": 70,
+     "q": 79,
+     "rq": 66,
+     "stage": "close",
+     "story": "value",
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": null
+    },
+    {
+     "n": 6,
+     "sat": 80,
+     "q": 78,
+     "rq": 71,
+     "stage": "close",
+     "story": "close",
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": null
+    },
+    {
+     "n": 7,
+     "sat": 90,
+     "q": 86,
+     "rq": 72,
+     "stage": "close",
+     "story": "close",
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": "win"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "경쟁사 A 공급가가 20% 낮아 출고가 상한 39만 9천 원을 맞추기 어렵다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    },
+    {
+     "id": "c2",
+     "text": "ODM에서 바꾸면 3세대 가입자의 기기변경 · 안심 앱 데이터 이전이 꼬일 수 있다",
+     "revealed": true,
+     "resolved": true,
+     "at": 2
+    },
+    {
+     "id": "c3",
+     "text": "OS가 올라가면 녹스 설정이나 캐릭터 테마가 깨져 또 VOC가 터질 수 있다",
+     "revealed": true,
+     "resolved": true,
+     "at": 3
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 8,
+   "nTurns": 8,
+   "avgCustMs": 2430,
+   "avgReplyChars": 127,
+   "avgSellerChars": 198,
+   "checks": {
+    "multi_reveal": {
+     "n": 5,
+     "level": "warn",
+     "turns": [
+      3,
+      4,
+      5,
+      6,
+      7
+     ]
+    }
+   },
+   "ruleGap": 19.7,
+   "stageAgree": 28.6,
+   "calib": {
+    "mae": 7.7,
+    "bias": 4.6,
+    "r": 0.24,
+    "per": {
+     "CU2": {
+      "engine": 90,
+      "judge": 85
+     },
+     "CU3": {
+      "engine": 90,
+      "judge": 85
+     },
+     "CU4": {
+      "engine": 95,
+      "judge": 80
+     },
+     "PR3": {
+      "engine": 80,
+      "judge": 75
+     },
+     "PR4": {
+      "engine": 85,
+      "judge": 90
+     },
+     "PR6": {
+      "engine": 90,
+      "judge": 80
+     },
+     "VS1": {
+      "engine": 85,
+      "judge": 85
+     },
+     "VS2": {
+      "engine": 85,
+      "judge": 80
+     },
+     "VS4": {
+      "engine": 80,
+      "judge": 85
+     },
+     "VS6": {
+      "engine": 90,
+      "judge": 85
+     },
+     "VS5": {
+      "engine": 80,
+      "judge": 90
+     },
+     "MK3": {
+      "engine": 80,
+      "judge": 60
+     },
+     "WR5": {
+      "engine": 85,
+      "judge": 75
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 26066,
+    "scores": {
+     "persona_fidelity": 3,
+     "level_fit": 2,
+     "concern_realism": 2,
+     "satisfaction_plausibility": 2,
+     "score_calibration": 3,
+     "outcome_plausibility": 3,
+     "reply_naturalness": 3
+    },
+    "criteria": {
+     "CU2": 85,
+     "CU3": 85,
+     "CU4": 80,
+     "PR3": 75,
+     "PR4": 90,
+     "PR6": 80,
+     "VS1": 85,
+     "VS2": 80,
+     "VS4": 85,
+     "VS6": 85,
+     "VS5": 90,
+     "MK3": 60,
+     "WR5": 75
+    },
+    "expected_outcome": "win",
+    "seller_quality": 4,
+    "issues": [
+     {
+      "turn": 4,
+      "type": "reply",
+      "severity": "high",
+      "text": "영업 담당자가 제시해야 할 해결책(3세대 단말 6개월 병행 운영)을 고객(엔진)이 먼저 구체적으로 언급하며 떠먹여 줌."
+     },
+     {
+      "turn": 4,
+      "type": "concern",
+      "severity": "mid",
+      "text": "영업이 OS 업데이트 사전 검증 절차나 일정 공유를 명확히 제시하지 않았음에도 c3 우려가 해소된 것으로 잘못 판정함."
+     },
+     {
+      "turn": 5,
+      "type": "concern",
+      "severity": "mid",
+      "text": "2년 TCO에 개통 철회 손실 및 펌웨어 수정 비용 등 요구된 상세 항목이 모두 포함되지 않았음에도 c1 우려를 완전히 해소된 것으로 판정함."
+     },
+     {
+      "turn": 5,
+      "type": "satisfaction",
+      "severity": "high",
+      "text": "'까다로운 고객' 페르소나임에도 불구하고, 영업이 완벽한 답변을 하지 않았는데도 턴마다 기계적으로 만족도가 10씩 상승함."
+     },
+     {
+      "turn": 6,
+      "type": "level",
+      "severity": "mid",
+      "text": "원가에 민감하고 단도직입적인 고객이 단순히 이메일로 비교표를 보내주겠다는 약속만으로 지나치게 호의적으로 돌변하여 합의를 진행함."
+     },
+     {
+      "turn": 7,
+      "type": "score",
+      "severity": "low",
+      "text": "엔진의 MK3(출처 표기) 점수가 80점이나, 영업은 'VOC 처리 건당 1만 원'이라는 자의적 가정을 사용했을 뿐 명확한 출처를 대지 않았음."
+     }
+    ],
+    "summary": "엔진이 해결책을 먼저 제시하고 기계적으로 만족도를 올려 까다로운 고객 페르소나를 잃었습니다.",
+    "sid": "18-ps33-L3-expert",
+    "t": 61.5
+   },
+   "judgeQuality": 82,
+   "errors": [],
+   "debrief": {
+    "verdict": "고객의 핵심 우려인 TCO와 리스크를 논리적 수치로 설득하여 성공적인 합의를 이끌어냈습니다.",
+    "good": [
+     "단순 가격 비교가 아닌 Knox Suite를 활용한 TCO 관점의 경제성 제시로 고객의 인식을 효과적으로 전환했습니다.",
+     "파일럿 검증, 6개월 병행 운영, 전담 CS 파트 등 실질적인 리스크 완화 방안을 적시에 제시하여 신뢰를 확보했습니다."
+    ],
+    "improve": [
+     "테마 깨짐 현상에 대해 기술적 원리만 설명하기보다, 기존 사례의 데이터나 비교 영상을 활용해 더 시각적인 확신을 주었어야 합니다.",
+     "도입 결정 동의를 구하는 과정에서 다소 공격적인 마감(Close)보다는 상대의 내부 보고 환경을 고려한 공감형 제안이 더 매끄러웠을 것입니다."
+    ],
+    "next": "비교표를 확인한 고객의 추가 질문이나 예산 승인 단계에서 발생할 수 있는 내부 반대 의견 대응 연습을 추천합니다.",
+    "ai": true
+   }
+  },
+  {
+   "id": "19-ps38-L1-expert",
+   "pid": "ps38",
+   "level": 1,
+   "levelName": "호의적인 고객",
+   "mode": "expert",
+   "modeLabel": "Best Scenario 스토리라인 + 그 자리에서 구체적으로 답하는 숙련 담당자",
+   "customer": "P 제철",
+   "person": "표상우 · 안전보건실 부장",
+   "ind": "MF",
+   "indName": "제조 · 물류 · 현장",
+   "scenario": "bs14",
+   "scenarioTitle": "bs14 제조 · 물류 현장 모바일 업무 디지털화",
+   "reqTitle": "단독 작업자 쓰러짐 · 추락 즉시 감지 체계",
+   "ask": "직영 1,600명 지급 일정과 협력사 1차 10곳 확산 범위 확정",
+   "win": 75,
+   "lose": 15,
+   "startSat": 60,
+   "status": "won",
+   "turns": 3,
+   "satisfaction": 75,
+   "quality": 72,
+   "cats": {
+    "CU": 75,
+    "PR": 70,
+    "VS": 66,
+    "MK": 77
+   },
+   "scores": {
+    "CU2": 75,
+    "CU3": 70,
+    "CU4": 80,
+    "PR3": 75,
+    "PR4": 75,
+    "PR6": 60,
+    "VS1": 70,
+    "VS2": 60,
+    "VS4": 70,
+    "VS6": 65,
+    "VS5": 80,
+    "MK3": 70,
+    "WR5": 80
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 60,
+     "q": null,
+     "rq": null,
+     "stage": "needs",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 65,
+     "q": 51,
+     "rq": 23,
+     "stage": "needs",
+     "story": "open",
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 60,
+     "q": 52,
+     "rq": 33,
+     "stage": "objection",
+     "story": "needs",
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 3,
+     "sat": 75,
+     "q": 72,
+     "rq": 46,
+     "stage": "close",
+     "story": "value",
+     "rv": [
+      "c1"
+     ],
+     "rs": [
+      "c1"
+     ],
+     "end": "win"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "협력사 41곳 작업자에게 지급하면 분실 · 충전 · 퇴사자 회수를 누가 챙길지 막막하다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 4,
+   "nTurns": 4,
+   "avgCustMs": 3544,
+   "avgReplyChars": 225,
+   "avgSellerChars": 220,
+   "checks": {
+    "reply_long": {
+     "n": 3,
+     "level": "warn",
+     "turns": [
+      1,
+      2,
+      3
+     ]
+    },
+    "reply_sentences": {
+     "n": 1,
+     "level": "warn",
+     "turns": [
+      1
+     ]
+    },
+    "ungrounded_high": {
+     "n": 1,
+     "level": "warn",
+     "turns": [
+      3
+     ]
+    }
+   },
+   "ruleGap": 27.2,
+   "stageAgree": 0,
+   "calib": {
+    "mae": 11.5,
+    "bias": 4.6,
+    "r": 0.21,
+    "per": {
+     "CU2": {
+      "engine": 75,
+      "judge": 80
+     },
+     "CU3": {
+      "engine": 70,
+      "judge": 75
+     },
+     "CU4": {
+      "engine": 80,
+      "judge": 80
+     },
+     "PR3": {
+      "engine": 75,
+      "judge": 70
+     },
+     "PR4": {
+      "engine": 75,
+      "judge": 80
+     },
+     "PR6": {
+      "engine": 60,
+      "judge": 70
+     },
+     "VS1": {
+      "engine": 70,
+      "judge": 75
+     },
+     "VS2": {
+      "engine": 60,
+      "judge": 40
+     },
+     "VS4": {
+      "engine": 70,
+      "judge": 70
+     },
+     "VS6": {
+      "engine": 65,
+      "judge": 80
+     },
+     "VS5": {
+      "engine": 80,
+      "judge": 40
+     },
+     "MK3": {
+      "engine": 70,
+      "judge": 30
+     },
+     "WR5": {
+      "engine": 80,
+      "judge": 80
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 19660,
+    "scores": {
+     "persona_fidelity": 4,
+     "level_fit": 5,
+     "concern_realism": 5,
+     "satisfaction_plausibility": 5,
+     "score_calibration": 3,
+     "outcome_plausibility": 5,
+     "reply_naturalness": 4
+    },
+    "criteria": {
+     "CU2": 80,
+     "CU3": 75,
+     "CU4": 80,
+     "PR3": 70,
+     "PR4": 80,
+     "PR6": 70,
+     "VS1": 75,
+     "VS2": 40,
+     "VS4": 70,
+     "VS6": 80,
+     "VS5": 40,
+     "MK3": 30,
+     "WR5": 80
+    },
+    "expected_outcome": "win",
+    "seller_quality": 4,
+    "issues": [
+     {
+      "turn": 3,
+      "type": "score",
+      "severity": "high",
+      "text": "영업 담당자가 제시한 국립공원공단 사례(VS5)를 고객이 제철소와 맞지 않다고 지적했음에도, 엔진 최종 평가에서 VS5에 80점이라는 높은 점수를 부여함."
+     },
+     {
+      "turn": 3,
+      "type": "score",
+      "severity": "mid",
+      "text": "영업 담당자의 발화 중 수치화된 정량적 기대효과(VS2)나 명확한 출처(MK3)가 전혀 언급되지 않았으나, 엔진은 각각 60점, 70점을 부여하여 점수가 과대평가됨."
+     }
+    ],
+    "summary": "페르소나의 우려 사항이 자연스럽게 해소되는 과정이 훌륭하나, 일부 평가 지표(사례 및 수치)에서 점수가 관대하게 채점되었습니다.",
+    "sid": "19-ps38-L1-expert",
+    "t": 41.3
+   },
+   "judgeQuality": 68,
+   "errors": [],
+   "debrief": {
+    "verdict": "고객의 운영상 우려를 기술과 정책으로 정확히 해소하여 신뢰를 확보했습니다.",
+    "good": [
+     "고객이 언급한 1,100건의 단독 작업 환경을 정확히 짚어 문제 의식을 잘 공유했습니다.",
+     "막연한 우려를 Knox Suite의 자동화 정책과 단계적 확산 로드맵으로 체계적으로 해결했습니다."
+    ],
+    "improve": [
+     "협력사 41곳의 관리 부담을 구체적인 운영 매뉴얼로 제안했으나, 정량적 기대효과나 비용 절감 측면의 언급이 부족했습니다.",
+     "협력사 확산 과정에서 발생할 수 있는 현장 작업자의 저항감이나 교육 방안에 대한 구체적 언급이 없었습니다."
+    ],
+    "next": "제안한 1차 확산 로드맵에 기반하여 예상되는 비용 효율성 및 정량적 안전 개선 효과를 포함한 PT를 준비하십시오.",
+    "ai": true
+   }
+  },
+  {
+   "id": "20-ps45-L2-expert",
+   "pid": "ps45",
+   "level": 2,
+   "levelName": "첫 고객",
+   "mode": "expert",
+   "modeLabel": "Best Scenario 스토리라인 + 그 자리에서 구체적으로 답하는 숙련 담당자",
+   "customer": "T 스터디센터",
+   "person": "길준호 · 가맹운영팀장",
+   "ind": "SV",
+   "indName": "생활 편의 · 무인 매장",
+   "scenario": "bs13",
+   "scenarioTitle": "bs13 다점포 무인 매장 에너지 절감 · 공조 자동화",
+   "reqTitle": "가맹 센터 표준 냉난방 사양과 무인 시간 원격 제어",
+   "ask": "직영 1곳 4주 원격 제어 시범과 리뉴얼 예정 센터 1곳 실사",
+   "win": 80,
+   "lose": 15,
+   "startSat": 45,
+   "status": "won",
+   "turns": 4,
+   "satisfaction": 82,
+   "quality": 80,
+   "cats": {
+    "CU": 82,
+    "PR": 78,
+    "VS": 79,
+    "MK": 80
+   },
+   "scores": {
+    "CU2": 85,
+    "CU3": 80,
+    "CU4": 80,
+    "PR3": 80,
+    "PR4": 85,
+    "PR6": 70,
+    "VS1": 80,
+    "VS2": 85,
+    "VS4": 75,
+    "VS6": 70,
+    "VS5": 85,
+    "MK3": 75,
+    "WR5": 80
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 45,
+     "q": null,
+     "rq": null,
+     "stage": "open",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 52,
+     "q": 51,
+     "rq": 28,
+     "stage": "proof",
+     "story": "open",
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 58,
+     "q": 54,
+     "rq": 42,
+     "stage": "objection",
+     "story": "proof",
+     "rv": [
+      "c2"
+     ],
+     "rs": [
+      "c1"
+     ],
+     "end": null
+    },
+    {
+     "n": 3,
+     "sat": 70,
+     "q": 60,
+     "rq": 43,
+     "stage": "proof",
+     "story": "value",
+     "rv": [
+      "c2"
+     ],
+     "rs": [
+      "c2"
+     ],
+     "end": null
+    },
+    {
+     "n": 4,
+     "sat": 82,
+     "q": 80,
+     "rq": 56,
+     "stage": "close",
+     "story": "close",
+     "rv": [
+      "c1",
+      "c2"
+     ],
+     "rs": [
+      "c1",
+      "c2"
+     ],
+     "end": "win"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "장시간 공부하는 개방 좌석에서 효과를 본 사례가 있는지 모르겠다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    },
+    {
+     "id": "c2",
+     "text": "무인 시간 원격 제어를 점주들이 실제로 쓸 수 있을지 의문이다",
+     "revealed": true,
+     "resolved": true,
+     "at": 2
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 5,
+   "nTurns": 5,
+   "avgCustMs": 2519,
+   "avgReplyChars": 212,
+   "avgSellerChars": 194,
+   "checks": {
+    "reply_long": {
+     "n": 3,
+     "level": "warn",
+     "turns": [
+      0,
+      2,
+      3
+     ]
+    },
+    "multi_reveal": {
+     "n": 1,
+     "level": "warn",
+     "turns": [
+      4
+     ]
+    }
+   },
+   "ruleGap": 24.3,
+   "stageAgree": 50,
+   "calib": {
+    "mae": 14.6,
+    "bias": 13.8,
+    "r": 0.47,
+    "per": {
+     "CU2": {
+      "engine": 85,
+      "judge": 70
+     },
+     "CU3": {
+      "engine": 80,
+      "judge": 70
+     },
+     "CU4": {
+      "engine": 80,
+      "judge": 75
+     },
+     "PR3": {
+      "engine": 80,
+      "judge": 80
+     },
+     "PR4": {
+      "engine": 85,
+      "judge": 85
+     },
+     "PR6": {
+      "engine": 70,
+      "judge": 20
+     },
+     "VS1": {
+      "engine": 80,
+      "judge": 75
+     },
+     "VS2": {
+      "engine": 85,
+      "judge": 50
+     },
+     "VS4": {
+      "engine": 75,
+      "judge": 80
+     },
+     "VS6": {
+      "engine": 70,
+      "judge": 70
+     },
+     "VS5": {
+      "engine": 85,
+      "judge": 75
+     },
+     "MK3": {
+      "engine": 75,
+      "judge": 40
+     },
+     "WR5": {
+      "engine": 80,
+      "judge": 60
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 29341,
+    "scores": {
+     "persona_fidelity": 2,
+     "level_fit": 3,
+     "concern_realism": 2,
+     "satisfaction_plausibility": 2,
+     "score_calibration": 2,
+     "outcome_plausibility": 2,
+     "reply_naturalness": 2
+    },
+    "criteria": {
+     "CU2": 70,
+     "CU3": 70,
+     "CU4": 75,
+     "PR3": 80,
+     "PR4": 85,
+     "PR6": 20,
+     "VS1": 75,
+     "VS2": 50,
+     "VS4": 80,
+     "VS6": 70,
+     "VS5": 75,
+     "MK3": 40,
+     "WR5": 60
+    },
+    "expected_outcome": "undecided",
+    "seller_quality": 3,
+    "issues": [
+     {
+      "turn": 2,
+      "type": "concern",
+      "severity": "high",
+      "text": "고객이 여전히 소음과 냉방 성능에 대한 검증을 의심하며 질문을 던졌음에도 엔진은 C1(개방 좌석 효과 우려)이 해소된 것으로 잘못 판정했습니다."
+     },
+     {
+      "turn": 3,
+      "type": "persona",
+      "severity": "high",
+      "text": "고객이 숨겨진 요구 조건인 '직영점 1곳 4주 시범 운영과 리뉴얼 센터 실사'를 토씨 하나 틀리지 않고 먼저 읊어버리는 심각한 프롬프트 유출(스크립트 읽기)이 발생했습니다."
+     },
+     {
+      "turn": 3,
+      "type": "concern",
+      "severity": "high",
+      "text": "C2 해소 조건은 영업 담당자의 모바일 제어 데모 시연과 시범 운영 제안인데, 영업 담당자는 스케줄 기능만 설명했을 뿐 시범 운영은 고객이 먼저 제안했음에도 C2가 해소 처리되었습니다."
+     },
+     {
+      "turn": 4,
+      "type": "outcome",
+      "severity": "mid",
+      "text": "영업 담당자가 주도적으로 클로징(다음 단계 제안)을 하지 못했고 고객이 정답을 떠먹여 주었음에도 불구하고 엔진은 그대로 Win 판정을 내렸습니다."
+     },
+     {
+      "turn": 4,
+      "type": "score",
+      "severity": "mid",
+      "text": "영업 담당자가 공간별 제품 구성, 수량, 구체적인 도면이나 단계별 계획을 전혀 언급하지 않았으나 PR6(구성·수량 명확성)에 70점이라는 높은 점수가 부여되었습니다."
+     },
+     {
+      "turn": 4,
+      "type": "score",
+      "severity": "mid",
+      "text": "영업 담당자가 절감액을 말할 때 객관적인 출처 없이 고객이 언급한 '20~30만 원'을 그대로 반복하기만 했음에도 MK3(출처 표기) 점수가 75점으로 과대 평가되었습니다."
+     }
+    ],
+    "summary": "고객이 숨겨진 결정 요청 조건을 스스로 읊으며 정답을 떠먹여 주고, 미해결된 우려를 조기 해소 처리하는 등 엔진의 치명적인 오류가 있습니다.",
+    "sid": "20-ps45-L2-expert",
+    "t": 51.1
+   },
+   "judgeQuality": 65,
+   "errors": [],
+   "debrief": {
+    "verdict": "고객의 페인포인트를 정확히 타겟팅하여 구체적인 실행 합의까지 성공적으로 도출했습니다.",
+    "good": [
+     "고객이 언급한 전기료 낭비와 불쾌한 직바람 문제를 SmartThings와 무풍 에어컨으로 명쾌하게 연결했습니다.",
+     "시범 운영 제안을 통해 고객이 내부 점주들을 설득할 수 있는 실질적인 데이터 확보 기회를 마련했습니다."
+    ],
+    "improve": [
+     "상대적인 노후 사례(2017년형)에 대한 고객의 우려에 대해 최신 모델의 저소음/고효율 기술적 차별성을 더 구체적으로 제시해야 합니다.",
+     "키오스크 연동 자동화 시 발생할 수 있는 운영 오류 대응이나 초기 설정 과정의 간편함을 강조하여 점주들의 심리적 장벽을 낮춰야 합니다."
+    ],
+    "next": "실사 이후 확보된 데이터를 활용하여 반대 의견이 많은 점주를 설득하는 Q&A 상황을 연습해보세요.",
+    "ai": true
+   }
+  },
+  {
+   "id": "21-ps14-L1-weak",
+   "pid": "ps14",
+   "level": 1,
+   "levelName": "호의적인 고객",
+   "mode": "weak",
+   "modeLabel": "미숙한 담당자(대조군)",
+   "customer": "O 리빙",
+   "person": "이유진 · 운영기획팀장",
+   "ind": "RS",
+   "indName": "주거 분양 · 주택",
+   "scenario": "bs04",
+   "scenarioTitle": "bs04 주거 분양 · 빌트인 가전 + 스마트홈 사양 제안",
+   "reqTitle": "신규 지점 248실 스마트홈 · 공조 통합 운영",
+   "ask": "신규 지점 세대 IoT 사양 확정과 2호점 152실 확산 일정 합의",
+   "win": 75,
+   "lose": 15,
+   "startSat": 60,
+   "status": "lost",
+   "turns": 3,
+   "satisfaction": 15,
+   "quality": 21,
+   "cats": {
+    "CU": 23,
+    "PR": 27,
+    "VS": 18,
+    "MK": 13
+   },
+   "scores": {
+    "CU2": 20,
+    "CU3": 30,
+    "CU4": 20,
+    "PR3": 40,
+    "PR4": 30,
+    "PR6": 10,
+    "VS1": 20,
+    "VS2": 20,
+    "VS4": 20,
+    "VS6": 10,
+    "VS5": 20,
+    "MK3": 10,
+    "WR5": 10
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 60,
+     "q": null,
+     "rq": null,
+     "stage": "needs",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 45,
+     "q": 35,
+     "rq": 27,
+     "stage": "objection",
+     "story": "open",
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 30,
+     "q": 36,
+     "rq": 27,
+     "stage": "objection",
+     "story": "value",
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 3,
+     "sat": 15,
+     "q": 21,
+     "rq": 30,
+     "stage": "objection",
+     "story": "close",
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": "lose"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "신규 지점만 바꾸면 기존 4개 지점과 운영 방식이 둘로 갈린다",
+     "revealed": true,
+     "resolved": false,
+     "at": 1
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 4,
+   "nTurns": 4,
+   "avgCustMs": 2561,
+   "avgReplyChars": 226,
+   "avgSellerChars": 195,
+   "checks": {
+    "reply_sentences": {
+     "n": 2,
+     "level": "warn",
+     "turns": [
+      0,
+      2
+     ]
+    },
+    "reply_long": {
+     "n": 3,
+     "level": "warn",
+     "turns": [
+      1,
+      2,
+      3
+     ]
+    }
+   },
+   "ruleGap": 13.8,
+   "stageAgree": 0,
+   "calib": {
+    "mae": 6.9,
+    "bias": 6.9,
+    "r": 0.87,
+    "per": {
+     "CU2": {
+      "engine": 20,
+      "judge": 10
+     },
+     "CU3": {
+      "engine": 30,
+      "judge": 20
+     },
+     "CU4": {
+      "engine": 20,
+      "judge": 10
+     },
+     "PR3": {
+      "engine": 40,
+      "judge": 30
+     },
+     "PR4": {
+      "engine": 30,
+      "judge": 20
+     },
+     "PR6": {
+      "engine": 10,
+      "judge": 10
+     },
+     "VS1": {
+      "engine": 20,
+      "judge": 10
+     },
+     "VS2": {
+      "engine": 20,
+      "judge": 10
+     },
+     "VS4": {
+      "engine": 20,
+      "judge": 10
+     },
+     "VS6": {
+      "engine": 10,
+      "judge": 10
+     },
+     "VS5": {
+      "engine": 20,
+      "judge": 10
+     },
+     "MK3": {
+      "engine": 10,
+      "judge": 10
+     },
+     "WR5": {
+      "engine": 10,
+      "judge": 10
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 24320,
+    "scores": {
+     "persona_fidelity": 4,
+     "level_fit": 3,
+     "concern_realism": 4,
+     "satisfaction_plausibility": 3,
+     "score_calibration": 5,
+     "outcome_plausibility": 5,
+     "reply_naturalness": 4
+    },
+    "criteria": {
+     "CU2": 10,
+     "CU3": 20,
+     "CU4": 10,
+     "PR3": 30,
+     "PR4": 20,
+     "PR6": 10,
+     "VS1": 10,
+     "VS2": 10,
+     "VS4": 10,
+     "VS6": 10,
+     "VS5": 10,
+     "MK3": 10,
+     "WR5": 10
+    },
+    "expected_outcome": "lose",
+    "seller_quality": 1,
+    "issues": [
+     {
+      "turn": 1,
+      "type": "level",
+      "severity": "mid",
+      "text": "난이도 규칙에 '만족도는 잘 안 떨어진다'고 명시되었음에도 불구하고, 매 턴 기계적으로 15점씩 차감되어 너무 빠르게 실패(15점)에 도달했습니다. 영업 담당자의 제안 품질이 매우 낮아 큰 감점이 타당할 수 있으나 차감 폭이 다소 가혹합니다."
+     },
+     {
+      "turn": 1,
+      "type": "concern",
+      "severity": "low",
+      "text": "영업 담당자가 시스템 연동이나 로드맵에 대한 아무런 단서를 주지 않았음에도 고객이 첫 턴부터 숨은 우려인 '기존 지점 이원화' 문제를 스스로 꺼내어, 우려 발현 과정이 다소 빠릅니다."
+     },
+     {
+      "turn": 3,
+      "type": "reply",
+      "severity": "low",
+      "text": "만족도 15점으로 최종 종료(lose)되는 상황임에도 고객의 마지막 대사가 '자료를 다시 준비해 주시는 게 좋겠어요'라며 다소 여지를 주는 온건한 톤을 유지합니다. 호의적인 성향을 반영한 것이지만 종료 선언치고는 모호합니다."
+     }
+    ],
+    "summary": "최악의 제안을 하는 영업 담당자에 대한 고객의 논리적 반박과 평가는 훌륭하나, '호의적인 고객' 설정에 비해 만족도 감점이 너무 기계적이고 가파릅니다.",
+    "sid": "21-ps14-L1-weak",
+    "t": 41.4
+   },
+   "judgeQuality": 13,
+   "errors": [],
+   "debrief": {
+    "verdict": "추상적인 수사와 근거 없는 주장으로 고객의 신뢰를 상실한 제안입니다.",
+    "good": [
+     "장기 고객과의 유대 관계를 활용하여 친근하게 대화를 시작하며 라포를 형성하려 노력함.",
+     "삼성의 핵심 솔루션인 SmartThings와 시스템 에어컨 연계를 통해 문제 해결 방향성을 제시함."
+    ],
+    "improve": [
+     "고객이 '운영 이원화'라는 구체적인 현장 우려를 제기했음에도 '완벽하다'는 말만 반복함. 실질적인 통합 대시보드 구조와 기존 4개 지점 연동 시나리오를 기술적으로 설명해야 함.",
+     "'무조건 절감', '알아서 처리' 등 보증성 발언만 남발하여 고객의 불신을 키움. 50% 절감의 산출 근거를 제시하고 고객의 현실적인 고충에 맞춘 실행 계획을 먼저 보여주어야 함."
+    ],
+    "next": "기존 지점과 신규 지점의 시스템 통합 기술 명세와 운영 로드맵이 포함된 상세 제안서 발표 연습.",
+    "ai": true
+   }
+  },
+  {
+   "id": "22-ps01-L2-weak",
+   "pid": "ps01",
+   "level": 2,
+   "levelName": "첫 고객",
+   "mode": "weak",
+   "modeLabel": "미숙한 담당자(대조군)",
+   "customer": "M 디저트카페",
+   "person": "한서윤 · 대표이사",
+   "ind": "FB",
+   "indName": "외식 · 카페 프랜차이즈",
+   "scenario": "bs01",
+   "scenarioTitle": "bs01 F&B 프랜차이즈 · 전국 매장 디지털 메뉴보드 전환",
+   "reqTitle": "가맹 확장 전, 매장 메뉴 · 프로모션 화면 표준화",
+   "ask": "직영 3곳 4주 시범 운영(디자인팀 체험 계정 포함)",
+   "win": 80,
+   "lose": 15,
+   "startSat": 45,
+   "status": "lost",
+   "turns": 3,
+   "satisfaction": 5,
+   "quality": 19,
+   "cats": {
+    "CU": 27,
+    "PR": 23,
+    "VS": 15,
+    "MK": 10
+   },
+   "scores": {
+    "CU2": 30,
+    "CU3": 20,
+    "CU4": 30,
+    "PR3": 30,
+    "PR4": 20,
+    "PR6": 20,
+    "VS1": 20,
+    "VS2": 10,
+    "VS4": 20,
+    "VS6": 10,
+    "VS5": 10,
+    "MK3": 10,
+    "WR5": 10
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 45,
+     "q": null,
+     "rq": null,
+     "stage": "needs",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 35,
+     "q": 39,
+     "rq": 27,
+     "stage": "proof",
+     "story": "open",
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 20,
+     "q": 22,
+     "rq": 30,
+     "stage": "objection",
+     "story": "value",
+     "rv": [
+      "c2"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 3,
+     "sat": 5,
+     "q": 19,
+     "rq": 39,
+     "stage": "objection",
+     "story": "close",
+     "rv": [
+      "c1",
+      "c2"
+     ],
+     "rs": [],
+     "end": "lose"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "비슷한 규모 카페 프랜차이즈에서 정말 효과를 본 사례가 있는지 모르겠다",
+     "revealed": true,
+     "resolved": false,
+     "at": 1
+    },
+    {
+     "id": "c2",
+     "text": "디자인팀 2명이 45개 매장 화면을 다 관리할 수 있을지 걱정이다",
+     "revealed": true,
+     "resolved": false,
+     "at": 2
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 4,
+   "nTurns": 4,
+   "avgCustMs": 2515,
+   "avgReplyChars": 180,
+   "avgSellerChars": 160,
+   "checks": {
+    "reply_long": {
+     "n": 2,
+     "level": "warn",
+     "turns": [
+      0,
+      1
+     ]
+    },
+    "reply_sentences": {
+     "n": 1,
+     "level": "warn",
+     "turns": [
+      0
+     ]
+    },
+    "score_drop": {
+     "n": 1,
+     "level": "warn",
+     "turns": [
+      2
+     ]
+    },
+    "multi_reveal": {
+     "n": 1,
+     "level": "warn",
+     "turns": [
+      3
+     ]
+    }
+   },
+   "ruleGap": 19.2,
+   "stageAgree": 0,
+   "calib": {
+    "mae": 11.5,
+    "bias": 11.5,
+    "r": 0.89,
+    "per": {
+     "CU2": {
+      "engine": 30,
+      "judge": 10
+     },
+     "CU3": {
+      "engine": 20,
+      "judge": 10
+     },
+     "CU4": {
+      "engine": 30,
+      "judge": 10
+     },
+     "PR3": {
+      "engine": 30,
+      "judge": 20
+     },
+     "PR4": {
+      "engine": 20,
+      "judge": 10
+     },
+     "PR6": {
+      "engine": 20,
+      "judge": 10
+     },
+     "VS1": {
+      "engine": 20,
+      "judge": 10
+     },
+     "VS2": {
+      "engine": 10,
+      "judge": 0
+     },
+     "VS4": {
+      "engine": 20,
+      "judge": 10
+     },
+     "VS6": {
+      "engine": 10,
+      "judge": 0
+     },
+     "VS5": {
+      "engine": 10,
+      "judge": 0
+     },
+     "MK3": {
+      "engine": 10,
+      "judge": 0
+     },
+     "WR5": {
+      "engine": 10,
+      "judge": 0
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 18593,
+    "scores": {
+     "persona_fidelity": 5,
+     "level_fit": 5,
+     "concern_realism": 5,
+     "satisfaction_plausibility": 5,
+     "score_calibration": 4,
+     "outcome_plausibility": 5,
+     "reply_naturalness": 4
+    },
+    "criteria": {
+     "CU2": 10,
+     "CU3": 10,
+     "CU4": 10,
+     "PR3": 20,
+     "PR4": 10,
+     "PR6": 10,
+     "VS1": 10,
+     "VS2": 0,
+     "VS4": 10,
+     "VS6": 0,
+     "VS5": 0,
+     "MK3": 0,
+     "WR5": 0
+    },
+    "expected_outcome": "lose",
+    "seller_quality": 1,
+    "issues": [
+     {
+      "turn": 1,
+      "type": "score",
+      "severity": "low",
+      "text": "영업 담당자가 첫 턴부터 '무조건', '100%' 등 과장된 표현과 근거 없는 수치를 남발했음에도 제안 품질 점수가 39점으로 다소 관대하게 평가되었습니다."
+     },
+     {
+      "turn": 2,
+      "type": "reply",
+      "severity": "low",
+      "text": "영업의 막무가내식 제안에 대해 고객이 지적하는 패턴이 약간 길고 설명적으로 반복되는 경향이 있습니다."
+     }
+    ],
+    "summary": "근거 없는 수치와 과장된 제안을 일삼는 담당자에게 페르소나 지시대로 적절히 대처하고 잘 종료했습니다.",
+    "sid": "22-ps01-L2-weak",
+    "t": 35.5
+   },
+   "judgeQuality": 7,
+   "errors": [],
+   "debrief": {
+    "verdict": "근거 없는 과장된 수치 제시와 고객 우려에 대한 공감 부족으로 신뢰 형성에 실패했습니다.",
+    "good": [
+     "고객의 비즈니스 현황인 매장 확대와 메뉴판 관리 니즈를 초반에 파악하려 한 점은 긍정적입니다.",
+     "삼성전자 스마트 사이니지 제품군(QM55C 등)을 적절히 선정하여 제안한 점은 좋습니다."
+    ],
+    "improve": [
+     "매출 30% 증가와 같은 근거 없는 수치를 남발하기보다, 실제 동종 업계 레퍼런스를 제시하여 신뢰성을 확보해야 합니다.",
+     "디자인팀 인원 부족을 걱정하는 고객에게 '무조건 된다'는 말 대신, 원격 관리 솔루션의 구체적인 워크플로우를 시연하거나 프로세스로 설명해야 합니다."
+    ],
+    "next": "구체적인 성공 사례를 바탕으로 솔루션의 운영 효율성을 논리적으로 설명하는 연습을 다시 진행하세요.",
+    "ai": true
+   }
+  },
+  {
+   "id": "23-ps12-L3-weak",
+   "pid": "ps12",
+   "level": 3,
+   "levelName": "까다로운 고객",
+   "mode": "weak",
+   "modeLabel": "미숙한 담당자(대조군)",
+   "customer": "Z 부티크호텔",
+   "person": "장석민 · 객실운영 이사",
+   "ind": "HT",
+   "indName": "호텔 · 리조트",
+   "scenario": "bs07",
+   "scenarioTitle": "bs07 호텔 객실 TV · 공조 교체 + 투숙 경험 개선",
+   "reqTitle": "외국인 투숙객용 다국어 객실 TV 전면 교체",
+   "ask": "3개 안 5년 총비용 비교표 검토 후 1개 층 조건부 선교체(문의 건수 기준 합의)",
+   "win": 85,
+   "lose": 15,
+   "startSat": 30,
+   "status": "lost",
+   "turns": 1,
+   "satisfaction": 15,
+   "quality": 29,
+   "cats": {
+    "CU": 30,
+    "PR": 33,
+    "VS": 30,
+    "MK": 23
+   },
+   "scores": {
+    "CU2": 30,
+    "CU3": 30,
+    "CU4": 30,
+    "PR3": 40,
+    "PR4": 30,
+    "PR6": 30,
+    "VS1": 30,
+    "VS2": 30,
+    "VS4": 30,
+    "VS6": 30,
+    "VS5": 30,
+    "MK3": 20,
+    "WR5": 20
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 30,
+     "q": null,
+     "rq": null,
+     "stage": "open",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 15,
+     "q": 29,
+     "rq": 27,
+     "stage": "needs",
+     "story": "open",
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": "lose"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "경쟁사 A가 22% 싸고, 셋톱박스만 교체하면 비용이 절반 아래다",
+     "revealed": true,
+     "resolved": false,
+     "at": 1
+    },
+    {
+     "id": "c2",
+     "text": "교체 중에 객실을 닫으면 점유율 84% 호텔에서 매출 손실이 크다",
+     "revealed": false,
+     "resolved": false,
+     "at": null
+    },
+    {
+     "id": "c3",
+     "text": "중화권 · 일본 투숙객에게 필요한 언어가 실제로 다 나오는지 확신이 없다",
+     "revealed": false,
+     "resolved": false,
+     "at": null
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 2,
+   "nTurns": 2,
+   "avgCustMs": 2589,
+   "avgReplyChars": 159,
+   "avgSellerChars": 157,
+   "checks": {},
+   "ruleGap": 12.2,
+   "stageAgree": 0,
+   "calib": {
+    "mae": 23.8,
+    "bias": 23.8,
+    "r": 0.65,
+    "per": {
+     "CU2": {
+      "engine": 30,
+      "judge": 10
+     },
+     "CU3": {
+      "engine": 30,
+      "judge": 10
+     },
+     "CU4": {
+      "engine": 30,
+      "judge": 0
+     },
+     "PR3": {
+      "engine": 40,
+      "judge": 20
+     },
+     "PR4": {
+      "engine": 30,
+      "judge": 0
+     },
+     "PR6": {
+      "engine": 30,
+      "judge": 0
+     },
+     "VS1": {
+      "engine": 30,
+      "judge": 10
+     },
+     "VS2": {
+      "engine": 30,
+      "judge": 10
+     },
+     "VS4": {
+      "engine": 30,
+      "judge": 10
+     },
+     "VS6": {
+      "engine": 30,
+      "judge": 0
+     },
+     "VS5": {
+      "engine": 30,
+      "judge": 0
+     },
+     "MK3": {
+      "engine": 20,
+      "judge": 0
+     },
+     "WR5": {
+      "engine": 20,
+      "judge": 0
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 22283,
+    "scores": {
+     "persona_fidelity": 5,
+     "level_fit": 5,
+     "concern_realism": 5,
+     "satisfaction_plausibility": 5,
+     "score_calibration": 4,
+     "outcome_plausibility": 5,
+     "reply_naturalness": 5
+    },
+    "criteria": {
+     "CU2": 10,
+     "CU3": 10,
+     "CU4": 0,
+     "PR3": 20,
+     "PR4": 0,
+     "PR6": 0,
+     "VS1": 10,
+     "VS2": 10,
+     "VS4": 10,
+     "VS6": 0,
+     "VS5": 0,
+     "MK3": 0,
+     "WR5": 0
+    },
+    "expected_outcome": "lose",
+    "seller_quality": 1,
+    "issues": [
+     {
+      "turn": 1,
+      "type": "score",
+      "severity": "low",
+      "text": "WR5(과장·보증성 표현 지양) 기준에서 영업 담당자가 '100% 만족', '무조건' 등을 남발했으므로 20점보다 더 낮은 최하점(0~10점)을 부여하는 것이 더 정교함."
+     }
+    ],
+    "summary": "까다로운 고객의 페르소나와 감점 규칙을 완벽하게 반영하여, 근거 없는 제안에 대해 합리적으로 조기 종료를 선언함.",
+    "sid": "23-ps12-L3-weak",
+    "t": 29.3
+   },
+   "judgeQuality": 6,
+   "errors": [],
+   "debrief": {
+    "verdict": "고객이 미팅을 끝냈어요 · 다른 전략으로 다시",
+    "good": [
+     "공간 · 용도 적합성 — 제품 1종 중 1종이 업종 · 공간에 맞음",
+     "고객 요구사항 반영도 — 요구사항에 대한 구체적 대응 부재"
+    ],
+    "improve": [
+     "과장 · 보증성 표현 — 과장 및 단정적 표현 남발",
+     "출처 표기 — 수치에 출처가 없어요"
+    ],
+    "next": "\"경쟁사 A가 22% 싸고, …\" 우려에 먼저 답하는 흐름으로 다시 해 보세요",
+    "ai": false
+   }
+  },
+  {
+   "id": "24-ps14-L1-suggest",
+   "pid": "ps14",
+   "level": 1,
+   "levelName": "호의적인 고객",
+   "mode": "suggest",
+   "modeLabel": "앱 추천 답변을 그대로 쓰는 담당자(대조군)",
+   "customer": "O 리빙",
+   "person": "이유진 · 운영기획팀장",
+   "ind": "RS",
+   "indName": "주거 분양 · 주택",
+   "scenario": "bs04",
+   "scenarioTitle": "bs04 주거 분양 · 빌트인 가전 + 스마트홈 사양 제안",
+   "reqTitle": "신규 지점 248실 스마트홈 · 공조 통합 운영",
+   "ask": "신규 지점 세대 IoT 사양 확정과 2호점 152실 확산 일정 합의",
+   "win": 75,
+   "lose": 15,
+   "startSat": 60,
+   "status": "won",
+   "turns": 2,
+   "satisfaction": 80,
+   "quality": 73,
+   "cats": {
+    "CU": 79,
+    "PR": 73,
+    "VS": 70,
+    "MK": 68
+   },
+   "scores": {
+    "CU2": 80,
+    "CU3": 75,
+    "CU4": 80,
+    "PR3": 70,
+    "PR4": 80,
+    "PR6": 70,
+    "VS1": 70,
+    "VS2": 70,
+    "VS4": 70,
+    "VS6": 70,
+    "VS5": 65,
+    "MK3": 60,
+    "WR5": 80
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 60,
+     "q": null,
+     "rq": null,
+     "stage": "needs",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 65,
+     "q": 56,
+     "rq": 28,
+     "stage": "objection",
+     "story": null,
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 80,
+     "q": 73,
+     "rq": 32,
+     "stage": "close",
+     "story": null,
+     "rv": [],
+     "rs": [
+      "c1"
+     ],
+     "end": "win"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "신규 지점만 바꾸면 기존 4개 지점과 운영 방식이 둘로 갈린다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 3,
+   "nTurns": 3,
+   "avgCustMs": 2570,
+   "avgReplyChars": 200,
+   "avgSellerChars": 130,
+   "checks": {
+    "reply_long": {
+     "n": 2,
+     "level": "warn",
+     "turns": [
+      1,
+      2
+     ]
+    },
+    "reply_sentences": {
+     "n": 2,
+     "level": "warn",
+     "turns": [
+      1,
+      2
+     ]
+    },
+    "ungrounded_high": {
+     "n": 1,
+     "level": "warn",
+     "turns": [
+      2
+     ]
+    }
+   },
+   "ruleGap": 36.4,
+   "stageAgree": null,
+   "calib": {
+    "mae": 29.2,
+    "bias": 29.2,
+    "r": 0.8,
+    "per": {
+     "CU2": {
+      "engine": 80,
+      "judge": 60
+     },
+     "CU3": {
+      "engine": 75,
+      "judge": 40
+     },
+     "CU4": {
+      "engine": 80,
+      "judge": 60
+     },
+     "PR3": {
+      "engine": 70,
+      "judge": 60
+     },
+     "PR4": {
+      "engine": 80,
+      "judge": 70
+     },
+     "PR6": {
+      "engine": 70,
+      "judge": 50
+     },
+     "VS1": {
+      "engine": 70,
+      "judge": 50
+     },
+     "VS2": {
+      "engine": 70,
+      "judge": 10
+     },
+     "VS4": {
+      "engine": 70,
+      "judge": 20
+     },
+     "VS6": {
+      "engine": 70,
+      "judge": 40
+     },
+     "VS5": {
+      "engine": 65,
+      "judge": 10
+     },
+     "MK3": {
+      "engine": 60,
+      "judge": 10
+     },
+     "WR5": {
+      "engine": 80,
+      "judge": 80
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 21808,
+    "scores": {
+     "persona_fidelity": 4,
+     "level_fit": 4,
+     "concern_realism": 4,
+     "satisfaction_plausibility": 3,
+     "score_calibration": 1,
+     "outcome_plausibility": 2,
+     "reply_naturalness": 3
+    },
+    "criteria": {
+     "CU2": 60,
+     "CU3": 40,
+     "CU4": 60,
+     "PR3": 60,
+     "PR4": 70,
+     "PR6": 50,
+     "VS1": 50,
+     "VS2": 10,
+     "VS4": 20,
+     "VS6": 40,
+     "VS5": 10,
+     "MK3": 10,
+     "WR5": 80
+    },
+    "expected_outcome": "undecided",
+    "seller_quality": 2,
+    "issues": [
+     {
+      "turn": 2,
+      "type": "score",
+      "severity": "high",
+      "text": "영업담당자가 기대효과 정량화(VS2), 도입 사례(VS5), 출처 표기(MK3)를 전혀 하지 않았음에도 엔진은 해당 항목들에 60~70점이라는 부당하게 높은 점수를 부여했습니다."
+     },
+     {
+      "turn": 2,
+      "type": "outcome",
+      "severity": "high",
+      "text": "고객이 마지막 대사에서 'IoT 사양 구성'과 '확산 일정'을 물으며 답변을 요구했음에도 불구하고, 영업담당자가 이를 제안하기도 전에 엔진이 시뮬레이션을 성공(win)으로 성급하게 종료했습니다."
+     },
+     {
+      "turn": 2,
+      "type": "reply",
+      "severity": "mid",
+      "text": "고객이 영업의 제안 내용(2호점 152실부터 Wi-Fi Kit 단계적 확장)을 앵무새처럼 그대로 반복하며 칭찬하는 대사 흐름이 다소 작위적이고 부자연스럽습니다."
+     }
+    ],
+    "summary": "빈약한 단답형 제안에 점수를 과대평가했으며, 고객의 최종 질문에 답하기도 전에 조기 종료된 점이 치명적입니다.",
+    "sid": "24-ps14-L1-suggest",
+    "t": 31.2
+   },
+   "judgeQuality": 45,
+   "errors": [],
+   "debrief": {
+    "verdict": "고객 페인 포인트를 정확히 타격하여 신뢰를 확보한 전략적 제안입니다.",
+    "good": [
+     "고객의 핵심 고민인 관리 이원화 문제를 SmartThings Pro 통합 로드맵으로 명쾌하게 해결했습니다.",
+     "기존 2호점의 연동 범위를 구체적으로 언급하며 실행 가능한 단계적 확장 전략을 잘 제시했습니다."
+    ],
+    "improve": [
+     "통합 로드맵을 설명할 때 단순히 확장 가능성만 말하지 말고, 통합 시 운영 비용이 구체적으로 얼마나 절감되는지 정량적인 기대효과를 함께 제시했으면 더 완벽했을 것입니다.",
+     "Wi-Fi Kit 적용 및 시스템 통합 과정에서 발생할 수 있는 현장 작업의 어려움이나 도입 사례를 미리 언급하여 고객의 실행 불안감을 선제적으로 낮춰야 합니다."
+    ],
+    "next": "비용 절감 효과와 도입 후 운영 효율을 수치화하여 제안하는 연습을 추가하세요.",
+    "ai": true
+   }
+  },
+  {
+   "id": "25-ps01-L2-suggest",
+   "pid": "ps01",
+   "level": 2,
+   "levelName": "첫 고객",
+   "mode": "suggest",
+   "modeLabel": "앱 추천 답변을 그대로 쓰는 담당자(대조군)",
+   "customer": "M 디저트카페",
+   "person": "한서윤 · 대표이사",
+   "ind": "FB",
+   "indName": "외식 · 카페 프랜차이즈",
+   "scenario": "bs01",
+   "scenarioTitle": "bs01 F&B 프랜차이즈 · 전국 매장 디지털 메뉴보드 전환",
+   "reqTitle": "가맹 확장 전, 매장 메뉴 · 프로모션 화면 표준화",
+   "ask": "직영 3곳 4주 시범 운영(디자인팀 체험 계정 포함)",
+   "win": 80,
+   "lose": 15,
+   "startSat": 45,
+   "status": "won",
+   "turns": 5,
+   "satisfaction": 91,
+   "quality": 84,
+   "cats": {
+    "CU": 84,
+    "PR": 83,
+    "VS": 84,
+    "MK": 83
+   },
+   "scores": {
+    "CU2": 85,
+    "CU3": 80,
+    "CU4": 85,
+    "PR3": 80,
+    "PR4": 85,
+    "PR6": 85,
+    "VS1": 85,
+    "VS2": 80,
+    "VS4": 80,
+    "VS6": 90,
+    "VS5": 85,
+    "MK3": 75,
+    "WR5": 90
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 45,
+     "q": null,
+     "rq": null,
+     "stage": "needs",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 52,
+     "q": 48,
+     "rq": 27,
+     "stage": "proof",
+     "story": null,
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 55,
+     "q": 48,
+     "rq": 31,
+     "stage": "objection",
+     "story": null,
+     "rv": [
+      "c2"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 3,
+     "sat": 67,
+     "q": 57,
+     "rq": 38,
+     "stage": "objection",
+     "story": null,
+     "rv": [
+      "c2"
+     ],
+     "rs": [
+      "c2"
+     ],
+     "end": null
+    },
+    {
+     "n": 4,
+     "sat": 79,
+     "q": 77,
+     "rq": 44,
+     "stage": "close",
+     "story": null,
+     "rv": [],
+     "rs": [
+      "c1",
+      "c2"
+     ],
+     "end": null
+    },
+    {
+     "n": 5,
+     "sat": 91,
+     "q": 84,
+     "rq": 48,
+     "stage": "close",
+     "story": null,
+     "rv": [
+      "c1",
+      "c2"
+     ],
+     "rs": [
+      "c1",
+      "c2"
+     ],
+     "end": "win"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "비슷한 규모 카페 프랜차이즈에서 정말 효과를 본 사례가 있는지 모르겠다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    },
+    {
+     "id": "c2",
+     "text": "디자인팀 2명이 45개 매장 화면을 다 관리할 수 있을지 걱정이다",
+     "revealed": true,
+     "resolved": true,
+     "at": 2
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 6,
+   "nTurns": 6,
+   "avgCustMs": 2326,
+   "avgReplyChars": 185,
+   "avgSellerChars": 105,
+   "checks": {
+    "reply_long": {
+     "n": 2,
+     "level": "warn",
+     "turns": [
+      4,
+      5
+     ]
+    },
+    "ungrounded_high": {
+     "n": 2,
+     "level": "warn",
+     "turns": [
+      4,
+      5
+     ]
+    },
+    "multi_reveal": {
+     "n": 1,
+     "level": "warn",
+     "turns": [
+      5
+     ]
+    }
+   },
+   "ruleGap": 31.2,
+   "stageAgree": null,
+   "calib": {
+    "mae": 27.7,
+    "bias": 27.7,
+    "r": 0.87,
+    "per": {
+     "CU2": {
+      "engine": 85,
+      "judge": 60
+     },
+     "CU3": {
+      "engine": 80,
+      "judge": 50
+     },
+     "CU4": {
+      "engine": 85,
+      "judge": 60
+     },
+     "PR3": {
+      "engine": 80,
+      "judge": 30
+     },
+     "PR4": {
+      "engine": 85,
+      "judge": 80
+     },
+     "PR6": {
+      "engine": 85,
+      "judge": 50
+     },
+     "VS1": {
+      "engine": 85,
+      "judge": 60
+     },
+     "VS2": {
+      "engine": 80,
+      "judge": 40
+     },
+     "VS4": {
+      "engine": 80,
+      "judge": 40
+     },
+     "VS6": {
+      "engine": 90,
+      "judge": 85
+     },
+     "VS5": {
+      "engine": 85,
+      "judge": 70
+     },
+     "MK3": {
+      "engine": 75,
+      "judge": 30
+     },
+     "WR5": {
+      "engine": 90,
+      "judge": 70
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 29648,
+    "scores": {
+     "persona_fidelity": 2,
+     "level_fit": 2,
+     "concern_realism": 2,
+     "satisfaction_plausibility": 3,
+     "score_calibration": 1,
+     "outcome_plausibility": 2,
+     "reply_naturalness": 3
+    },
+    "criteria": {
+     "CU2": 60,
+     "CU3": 50,
+     "CU4": 60,
+     "PR3": 30,
+     "PR4": 80,
+     "PR6": 50,
+     "VS1": 60,
+     "VS2": 40,
+     "VS4": 40,
+     "VS6": 85,
+     "VS5": 70,
+     "MK3": 30,
+     "WR5": 70
+    },
+    "expected_outcome": "undecided",
+    "seller_quality": 2,
+    "issues": [
+     {
+      "turn": 1,
+      "type": "persona",
+      "severity": "high",
+      "text": "페르소나 지시사항(일반론에 '어디 기준인가요?'라고 되묻기)을 무시하고 영업의 추상적인 제안을 너무 쉽게 수용함."
+     },
+     {
+      "turn": 2,
+      "type": "concern",
+      "severity": "mid",
+      "text": "c1 우려 해소 조건인 '점주 만족 코멘트'가 제시되지 않았음에도 고객이 사례를 가볍게 납득하고 다음 우려로 넘어감."
+     },
+     {
+      "turn": 3,
+      "type": "persona",
+      "severity": "high",
+      "text": "고객이 자신의 우려 해소 조건이자 미팅 목표인 '디자인팀 2주 체험 계정'을 스스로 영업에게 먼저 요청해버림."
+     },
+     {
+      "turn": 4,
+      "type": "concern",
+      "severity": "mid",
+      "text": "영업이 제대로 된 증명을 제공하지 않아 조건이 완전히 충족되지 않은 c1 우려가 엔진에서 일괄 해소(resolve)된 것으로 판정됨."
+     },
+     {
+      "turn": 5,
+      "type": "score",
+      "severity": "high",
+      "text": "영업이 공간 제약(PR3), 삼성의 차별점(VS4), 데이터 출처(MK3)를 전혀 언급하지 않았음에도 엔진은 해당 항목들에 75~85점의 과도하게 높은 점수를 부여함."
+     }
+    ],
+    "summary": "고객이 스스로 해결책을 제시하며 대화를 이끌었고, 영업의 빈약한 제안에 관대하게 반응하여 평가 점수가 크게 부풀려졌습니다.",
+    "sid": "25-ps01-L2-suggest",
+    "t": 45.4
+   },
+   "judgeQuality": 55,
+   "errors": [],
+   "debrief": {
+    "verdict": "고객의 페인포인트를 정확히 타격하고, 구체적인 파일럿 제안으로 계약을 이끌어낸 훌륭한 영업입니다.",
+    "good": [
+     "고객의 운영 인력 부족 고민을 즉각적인 템플릿 배포 및 자동화 기능으로 해결하여 신뢰를 확보했습니다.",
+     "2주 체험 및 직영점 4주 시범 운영을 제안하여 고객의 거부감을 줄이고 실질적인 구매 단계로 유도했습니다."
+    ],
+    "improve": [
+     "도입 사례 제시 시 단순히 '밀키프레소'를 언급하는 데 그치지 않고, 실제 정량적 데이터나 디자인팀 업무 단축 수치를 구체적으로 수치화하여 언급했다면 더욱 설득력이 높았을 것입니다.",
+     "의사결정자가 디자인팀 인력 이슈를 제기했을 때, 솔루션의 편의성뿐만 아니라 삼성의 사후 지원(기술 교육 등)을 함께 언급하여 막연한 불안감을 더 확실히 해소했어야 합니다."
+    ],
+    "next": "비슷한 규모의 다른 프랜차이즈 도입 성공 사례의 구체적 정량 지표를 활용하여 제안의 가치를 숫자로 증명하는 연습이 필요합니다.",
+    "ai": true
+   }
+  },
+  {
+   "id": "26-ps12-L3-suggest",
+   "pid": "ps12",
+   "level": 3,
+   "levelName": "까다로운 고객",
+   "mode": "suggest",
+   "modeLabel": "앱 추천 답변을 그대로 쓰는 담당자(대조군)",
+   "customer": "Z 부티크호텔",
+   "person": "장석민 · 객실운영 이사",
+   "ind": "HT",
+   "indName": "호텔 · 리조트",
+   "scenario": "bs07",
+   "scenarioTitle": "bs07 호텔 객실 TV · 공조 교체 + 투숙 경험 개선",
+   "reqTitle": "외국인 투숙객용 다국어 객실 TV 전면 교체",
+   "ask": "3개 안 5년 총비용 비교표 검토 후 1개 층 조건부 선교체(문의 건수 기준 합의)",
+   "win": 85,
+   "lose": 15,
+   "startSat": 30,
+   "status": "won",
+   "turns": 8,
+   "satisfaction": 90,
+   "quality": 89,
+   "cats": {
+    "CU": 91,
+    "PR": 88,
+    "VS": 90,
+    "MK": 85
+   },
+   "scores": {
+    "CU2": 90,
+    "CU3": 92,
+    "CU4": 90,
+    "PR3": 85,
+    "PR4": 88,
+    "PR6": 90,
+    "VS1": 90,
+    "VS2": 90,
+    "VS4": 85,
+    "VS6": 95,
+    "VS5": 85,
+    "MK3": 85,
+    "WR5": 85
+   },
+   "trend": [
+    {
+     "n": 0,
+     "sat": 30,
+     "q": null,
+     "rq": null,
+     "stage": "needs",
+     "story": null,
+     "rv": [],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 1,
+     "sat": 20,
+     "q": 38,
+     "rq": 27,
+     "stage": "objection",
+     "story": null,
+     "rv": [
+      "c1"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 2,
+     "sat": 30,
+     "q": 42,
+     "rq": 32,
+     "stage": "objection",
+     "story": null,
+     "rv": [
+      "c2"
+     ],
+     "rs": [],
+     "end": null
+    },
+    {
+     "n": 3,
+     "sat": 40,
+     "q": 58,
+     "rq": 37,
+     "stage": "objection",
+     "story": null,
+     "rv": [
+      "c3"
+     ],
+     "rs": [
+      "c2"
+     ],
+     "end": null
+    },
+    {
+     "n": 4,
+     "sat": 50,
+     "q": 67,
+     "rq": 40,
+     "stage": "close",
+     "story": null,
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c2",
+      "c3"
+     ],
+     "end": null
+    },
+    {
+     "n": 5,
+     "sat": 60,
+     "q": 82,
+     "rq": 46,
+     "stage": "close",
+     "story": null,
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": null
+    },
+    {
+     "n": 6,
+     "sat": 70,
+     "q": 81,
+     "rq": 52,
+     "stage": "close",
+     "story": null,
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": null
+    },
+    {
+     "n": 7,
+     "sat": 80,
+     "q": 82,
+     "rq": 52,
+     "stage": "close",
+     "story": null,
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": null
+    },
+    {
+     "n": 8,
+     "sat": 90,
+     "q": 89,
+     "rq": 52,
+     "stage": "close",
+     "story": null,
+     "rv": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "rs": [
+      "c1",
+      "c2",
+      "c3"
+     ],
+     "end": "win"
+    }
+   ],
+   "concerns": [
+    {
+     "id": "c1",
+     "text": "경쟁사 A가 22% 싸고, 셋톱박스만 교체하면 비용이 절반 아래다",
+     "revealed": true,
+     "resolved": true,
+     "at": 1
+    },
+    {
+     "id": "c2",
+     "text": "교체 중에 객실을 닫으면 점유율 84% 호텔에서 매출 손실이 크다",
+     "revealed": true,
+     "resolved": true,
+     "at": 2
+    },
+    {
+     "id": "c3",
+     "text": "중화권 · 일본 투숙객에게 필요한 언어가 실제로 다 나오는지 확신이 없다",
+     "revealed": true,
+     "resolved": true,
+     "at": 3
+    }
+   ],
+   "aiRate": 100,
+   "aiTurns": 9,
+   "nTurns": 9,
+   "avgCustMs": 2404,
+   "avgReplyChars": 187,
+   "avgSellerChars": 108,
+   "checks": {
+    "reply_long": {
+     "n": 2,
+     "level": "warn",
+     "turns": [
+      1,
+      4
+     ]
+    },
+    "reply_sentences": {
+     "n": 1,
+     "level": "warn",
+     "turns": [
+      4
+     ]
+    },
+    "multi_reveal": {
+     "n": 5,
+     "level": "warn",
+     "turns": [
+      4,
+      5,
+      6,
+      7,
+      8
+     ]
+    },
+    "ungrounded_high": {
+     "n": 5,
+     "level": "warn",
+     "turns": [
+      4,
+      5,
+      6,
+      7,
+      8
+     ]
+    }
+   },
+   "ruleGap": 31.2,
+   "stageAgree": null,
+   "calib": {
+    "mae": 58.5,
+    "bias": 58.5,
+    "r": 0.3,
+    "per": {
+     "CU2": {
+      "engine": 90,
+      "judge": 40
+     },
+     "CU3": {
+      "engine": 92,
+      "judge": 30
+     },
+     "CU4": {
+      "engine": 90,
+      "judge": 40
+     },
+     "PR3": {
+      "engine": 85,
+      "judge": 30
+     },
+     "PR4": {
+      "engine": 88,
+      "judge": 50
+     },
+     "PR6": {
+      "engine": 90,
+      "judge": 20
+     },
+     "VS1": {
+      "engine": 90,
+      "judge": 40
+     },
+     "VS2": {
+      "engine": 90,
+      "judge": 10
+     },
+     "VS4": {
+      "engine": 85,
+      "judge": 30
+     },
+     "VS6": {
+      "engine": 95,
+      "judge": 40
+     },
+     "VS5": {
+      "engine": 85,
+      "judge": 10
+     },
+     "MK3": {
+      "engine": 85,
+      "judge": 10
+     },
+     "WR5": {
+      "engine": 85,
+      "judge": 40
+     }
+    }
+   },
+   "judge": {
+    "type": "judge",
+    "model": "gemini-3.1-pro-preview",
+    "ms": 28025,
+    "scores": {
+     "persona_fidelity": 1,
+     "level_fit": 1,
+     "concern_realism": 2,
+     "satisfaction_plausibility": 1,
+     "score_calibration": 1,
+     "outcome_plausibility": 1,
+     "reply_naturalness": 1
+    },
+    "criteria": {
+     "CU2": 40,
+     "CU3": 30,
+     "CU4": 40,
+     "PR3": 30,
+     "PR4": 50,
+     "PR6": 20,
+     "VS1": 40,
+     "VS2": 10,
+     "VS4": 30,
+     "VS6": 40,
+     "VS5": 10,
+     "MK3": 10,
+     "WR5": 40
+    },
+    "expected_outcome": "lose",
+    "seller_quality": 1,
+    "issues": [
+     {
+      "turn": 4,
+      "type": "persona",
+      "severity": "high",
+      "text": "고객이 스스로 최종 목표인 '1개 층 선교체' 조건을 영업 사원에게 떠먹여 주며 까다로운 고객 페르소나가 완전히 붕괴됨."
+     },
+     {
+      "turn": 6,
+      "type": "reply",
+      "severity": "high",
+      "text": "영업 사원이 '00% 감소, 00분 단축'이라는 빈 템플릿을 제시했음에도 고객은 '수치 근거는 명확하다'며 억지로 수용하고 칭찬함."
+     },
+     {
+      "turn": 2,
+      "type": "satisfaction",
+      "severity": "high",
+      "text": "턴 2부터 8까지 매 턴 만족도가 예외 없이 +10점씩 상승하여, '만족도는 천천히 오르고 쉽게 떨어진다'는 난이도 규칙을 전혀 지키지 않음."
+     },
+     {
+      "turn": 5,
+      "type": "concern",
+      "severity": "mid",
+      "text": "실제 비용 수치가 제시되지 않고 '비교표를 바탕으로 보고하겠다'는 말만 했는데도 가장 중요한 우려인 c1(단가 비교)이 해소된 것으로 판정함."
+     },
+     {
+      "turn": 8,
+      "type": "score",
+      "severity": "high",
+      "text": "실제 데이터나 도입 사례가 전무한 제안임에도 엔진은 VS2(기대효과 정량화) 90점, VS5(도입 사례) 85점 등 터무니없이 높은 최종 점수를 부여함."
+     },
+     {
+      "turn": 7,
+      "type": "reply",
+      "severity": "mid",
+      "text": "고객의 말투가 '짧고 날카롭다'는 설정과 정반대로 매 턴 매우 길고 장황하며 협조적임."
+     }
+    ],
+    "summary": "영업 사원이 내용 없는 템플릿(00%)만 읊었음에도, 엔진이 스스로 정답을 제시하고 만족도를 무조건 올려 억지 성공을 만듦.",
+    "sid": "26-ps12-L3-suggest",
+    "t": 79.9
+   },
+   "judgeQuality": 30,
+   "errors": [],
+   "debrief": {
+    "verdict": "고객의 요구를 정확히 파악하여 정량적 데이터로 의사결정을 이끌어낸 훌륭한 제안입니다.",
+    "good": [
+     "경쟁사 대비 총소유비용(TCO)을 구체적인 수치로 제시하여 고객의 비용 우려를 효과적으로 해소했습니다.",
+     "호텔 가동률 이슈에 대해 구체적인 층별 2주 공정표와 선교체 방안을 제시하며 실질적 대안을 도출했습니다."
+    ],
+    "improve": [
+     "마지막에 '오늘 바로 서명하시겠습니까?'라는 표현은 의사결정권자(소유주)가 존재한다는 상황에 비추어 다소 성급하게 느껴집니다. '소유주 보고를 위한 최종 검토 절차'를 먼저 제안하는 것이 더 정중합니다.",
+     "다국어 지원 관련 논의 시 '미지원 항목을 콘텐츠로 보완'하겠다는 말은 추상적입니다. 실제 UI 템플릿의 예시를 화면으로 즉시 보여주며 논의를 구체화하는 시연 능력을 더 보완해야 합니다."
+    ],
+    "next": "소유주 보고 시 발생 가능한 예상 반대 질문 3가지와 이에 대응할 논리적인 방어 답변을 준비해보세요.",
+    "ai": true
+   }
+  }
+ ]
+}

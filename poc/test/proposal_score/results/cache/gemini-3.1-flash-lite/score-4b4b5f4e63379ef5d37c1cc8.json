@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04:F10"
+ },
+ "prompt_tokens": 2361,
+ "output_tokens": 226,
+ "data": {
+  "scores": [
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "13장에서 도면 검토, 옵션 확정, 설치 일정 등 구체적인 날짜와 단계는 제시되었으나, 교육 및 유지보수, 운영 이관에 대한 구체적인 계획이 누락되었습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "12월까지, 함께 정할 세 가지"
+     },
+     {
+      "sheet": 13,
+      "quote": "01 도면 · 치수 검토 02 옵션 패키지 확정 03 모델하우스 설치 일정 합의"
+     }
+    ],
+    "improve": "입주 후 서비스 체계와 연계된 교육, 유지보수 및 운영 이관에 대한 구체적인 실행 계획을 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

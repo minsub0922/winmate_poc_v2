@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs03:F04"
+ },
+ "prompt_tokens": 1948,
+ "output_tokens": 231,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "국민대학교와 서울교육대학교라는 교육 업종 사례를 제시하고, 도입한 제품 구성과 해결한 과제 및 성과 수치를 구체적으로 명시하였습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "국민대학교 | 과제 | 121㎡ 대형 강의실 몰입 · 정밀 자료 표시 · 고른 온도 | 해결 | Flip Pro + LED 사이니지 + 시스템에어컨 360"
+     },
+     {
+      "sheet": 11,
+      "quote": "서울교육대학교 | 과제 | 수업 형태별 기기 제어 · 자료 실시간 공유 | 해결 | 탭 S11 울트라 + 무풍 4Way + 통합 제어"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

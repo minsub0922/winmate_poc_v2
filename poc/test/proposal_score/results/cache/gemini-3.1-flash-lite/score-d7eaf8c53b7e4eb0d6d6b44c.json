@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~wrong_customer:F10"
+ },
+ "prompt_tokens": 6381,
+ "output_tokens": 370,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO와 VXT 솔루션을 하드웨어와 연계하여 본사 마케팅팀과 지점 점장이 각각 어떤 권한으로 어떻게 운영하는지 구체적인 장면을 제시함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "화면부터 운영 서비스까지, 바뀌는 층은 CMS 하나입니다"
+     },
+     {
+      "sheet": 7,
+      "quote": "지점에는 화면만, 나머지는 클라우드에"
+     },
+     {
+      "sheet": 9,
+      "quote": "유형마다 다른 권한 조합으로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "전환-안정화-이관의 3단계 프로세스와 각 단계별 담당자, 검수 기준, 산출물, 향후 3주간의 구체적 일정을 명시함.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "전환 완료 → 안정화(공동 운영) → 이관"
+     },
+     {
+      "sheet": 13,
+      "quote": "다음 3주, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

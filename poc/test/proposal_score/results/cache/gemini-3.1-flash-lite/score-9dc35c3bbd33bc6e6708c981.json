@@ -1,0 +1,116 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs20~full:F11"
+ },
+ "prompt_tokens": 5320,
+ "output_tokens": 995,
+ "data": {
+  "scores": [
+   {
+    "id": "DS1",
+    "score": 2,
+    "anchor": "13장의 제목 위치가 다른 장들과 달리 우측 상단(648, 66)에 배치되어 일관성이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "제목 10px@(64,40)"
+     },
+     {
+      "sheet": 13,
+      "quote": "제목 30px@(648,66)"
+     }
+    ],
+    "improve": "모든 장의 제목 위치를 동일한 좌표로 통일해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS2",
+    "score": 2,
+    "anchor": "대부분 장의 요지는 명확하나, 2, 3, 4, 5, 6, 7, 8, 9장 등 다수의 장에서 어절 수가 많아 시선이 분산될 우려가 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "315어절"
+     },
+     {
+      "sheet": 8,
+      "quote": "257어절"
+     }
+    ],
+    "improve": "장당 어절 수를 줄이고 핵심 메시지를 강조하는 시각적 요소를 강화해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 10장으로 기준인 4장을 크게 초과하며, 장당 평균 어절 수도 169어절로 매우 높습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "315어절"
+     },
+     {
+      "sheet": 8,
+      "quote": "257어절"
+     }
+    ],
+    "improve": "전반적인 텍스트 분량을 대폭 축소하여 발표 자료로서의 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 71%가 10pt 미만이며, 9pt 미만 본문 칸이 7개 장에 존재하여 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 3,
+      "quote": "본문 최소 11px(8.2pt)"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS5",
+    "score": 3,
+    "anchor": "폰트 2종을 사용하고 모든 장의 제목 크기가 30px로 통일되어 일관성이 유지됩니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "폰트: 앱 레이아웃 공통(Noto Sans KR · Manrope)"
+     },
+     {
+      "sheet": 10,
+      "quote": "제목 30px@(64,66)"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "DS6",
+    "score": 3,
+    "anchor": "모든 장에 실제 사진이 포함되어 있으며, 텍스트만 있는 장이 없어 시각 자료 활용도가 높습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "사진 1"
+     },
+     {
+      "sheet": 11,
+      "quote": "사진 5"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

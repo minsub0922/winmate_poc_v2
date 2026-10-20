@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~wrong_customer:F10"
+ },
+ "prompt_tokens": 4278,
+ "output_tokens": 346,
+ "data": {
+  "scores": [
+   {
+    "id": "VS8",
+    "score": 3,
+    "anchor": "고객이 우려하는 운영팀 숙련도 문제와 전환 리스크를 7장에서 명확히 짚고, 병행 운영 및 교육 등 구체적인 대응 방안을 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "운영팀 숙련도 · 새 CMS · 화면 학습 필요"
+     },
+     {
+      "sheet": 7,
+      "quote": "점별 2주 병행 운영 · 운영자 교육 3회"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "마지막 장에서 12월 발주를 위해 고객이 결정해야 할 세 가지 항목과 각 단계별 담당자, 구체적인 일정을 명시했습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "12월 발주 전 정할 세 가지"
+     },
+     {
+      "sheet": 13,
+      "quote": "구매 · 운영 · IT팀 · 10/26 – 11/06 현장 확인 후 결정"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

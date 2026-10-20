@@ -1,0 +1,237 @@
+<script>
+		$('button.spec-title').on("click", function(e){
+			e.preventDefault();
+			$('div[name="specLayer"] > .layer-header > h2').text(this.innerText);
+			$('div[name="specLayer"] > .layer-content > p').text(this.value);
+
+			let newId = $(this).data('popup-target');
+			$('div[name="specLayer"]').attr('id', newId);
+			$('div[name="specLayer"] > .pop-close').attr('data-focus-next', newId);
+			$('div[name="specLayer"]').attr('data-popup-layer', newId);
+			$('div[name="specLayer"]').attr('data-focus', newId);
+		});
+	</script>
+	<h3 class="spec-itm-title" id="cstrt-nm" ></h3>
+	<div class="spec-table">
+		<dl>
+						<dt>네트워크</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">인프라</strong>
+													<p class="spec-desc">Wi-Fi only,블루투스 only&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>오디오/비디오</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">오디오 지원 포맷</strong>
+													<p class="spec-desc">MP3,M4A,3GA,AAC,OGG,OGA,WAV,AMR,AWB&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>연결</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">위치 기술</strong>
+													<p class="spec-desc">GPS,Glonass,Beidou,Galileo&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Wi-Fi</strong>
+													<p class="spec-desc">802.11a/b/g/n 2.4GHz+5GHz&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">NFC</strong>
+													<p class="spec-desc">예&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">블루투스 버전</strong>
+													<p class="spec-desc">Bluetooth v5.3&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">블루투스 프로파일</strong>
+													<p class="spec-desc">A2DP,AVRCP,HFP,HSP&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>운영체제</dt>
+						<dd>
+							<ol>
+								<li>
+										<p class="spec-desc">Wear OS Powered by Samsung&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>디스플레이</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">종류 (Main Display)</strong>
+													<p class="spec-desc">Super AMOLED&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">크기 (Main Display)</strong>
+													<p class="spec-desc">37.3 mm&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">해상도 (Main Display)</strong>
+													<p class="spec-desc">480 x 480&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">색심도 (Main Display)</strong>
+													<p class="spec-desc">16 M&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>프로세서</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">CPU 속도</strong>
+													<p class="spec-desc">1.6 GHz ,1.5 GHz&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">CPU 종류</strong>
+													<p class="spec-desc">Penta-Core&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>메모리/스토리지(저장 용량)</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">메모리 (GB)</strong>
+													<p class="spec-desc">2&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">스토리지(저장 용량) (GB)</strong>
+													<p class="spec-desc">32 GB&nbsp;</p>
+												</li>
+								<li>
+										<button type="button" class="spec-title" data-popup-target="specLayer73" value="제품의 저장공간 중 일부는 OS와 기본 앱 설치 등에 사용되므로, 이 부분을 제외하고 실제 사용 가능한 스토리지(저장 용량)를 별도로 표기해드리고 있습니다." aria-haspopup="true">
+													사용 가능한 스토리지(저장 용량) (GB)</button>
+												<p class="spec-desc">20.2GB&nbsp;</p>
+											</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>센서</dt>
+						<dd>
+							<ol>
+								<li>
+										<p class="spec-desc">가속도 센서,기압 센서,생체전기 임피던스 분석 센서,전기 심박 센서,자이로 센서,지자기 센서,적외선 체온 센서,조도 센서,광학 심박 센서&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>외관 사양</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">본체 크기 (세로x가로x두께, mm)</strong>
+													<p class="spec-desc">46.0 x 43.7 x 8.6&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">본체 무게 (g)</strong>
+													<p class="spec-desc">34.0&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">내구성</strong>
+													<p class="spec-desc">5 ATM&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>배터리</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">배터리 용량 (mAh, Typical)</strong>
+													<p class="spec-desc">435&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">교체 가능</strong>
+													<p class="spec-desc">아니오&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">사용 시간 (AOD 끔, 시간)</strong>
+													<p class="spec-desc">최대 40&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">사용 시간 (AOD 켬, 시간)</strong>
+													<p class="spec-desc">최대 30&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+				<dt>상품 기본정보</dt>
+				<dd>
+					<ol>
+						<li>
+								<strong class="spec-title">제품명</strong>
+								<p class="spec-desc">LTE 이동통신용 무선설비의 기기(육상이동국의 송수신 장치)		
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">제조자/수입자</strong>
+								<p class="spec-desc">삼성전자㈜		
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">제조국가</strong>
+								<p class="spec-desc">베트남		
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">KC 인증 필 유무</strong>
+								<p class="spec-desc"><img src='//images.samsung.com/is/image/samsung/p5/sec/common/icon-kc.png?$ORIGIN_PNG$' alt='KC 인증 로고'>R-C-SEC-SML335		
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">동일모델의 출시년월</strong>
+								<p class="spec-desc">2025년 07월		
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">A/S 책임자와 전화번호</strong>
+								<p class="spec-desc">삼성전자서비스센터/1588-3366		
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">품질보증기준</strong>
+								<p class="spec-desc">결함·하자 등에 따른 소비자 피해에 대해서는 소비자분쟁해결기준(소비자기본법 제16조)에 따라 보상 가능		
+</p>
+							</li>
+						</ol>
+				</dd>
+			</dl>
+		</div>
+	<div class="layer-pop layer-normal layer-default specLayer active" name="specLayer" id="specLayer" tabindex="0" data-popup-layer="specLayer" data-focus="specLayer" aria-hidden="false" data-zindex="300" style="z-index: 300; display: none">
+		<div class="layer-header">
+			<h2></h2>
+		</div>
+		<div class="layer-content">
+			<p></p>
+		</div>
+		<button type="button" class="pop-close" data-focus-next="">팝업닫기</button>
+	</div>
+

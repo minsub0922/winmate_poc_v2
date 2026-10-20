@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs04:F01"
+ },
+ "prompt_tokens": 8165,
+ "output_tokens": 179,
+ "data": {
+  "scores": [
+   {
+    "id": "WR6",
+    "score": 1,
+    "anchor": "9장에 '원가'라는 내부용 표현이 명시적으로 노출되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "원가에 맞춰 고르세요"
+     },
+     {
+      "sheet": 9,
+      "quote": "세대당 원가 최소"
+     }
+    ],
+    "improve": "제안서 내에서 '원가'라는 표현을 '고객사 예산' 또는 '최적화된 패키지 구성'과 같은 고객 지향적 언어로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,9 +1,10 @@
 // Best Scenario — whole-deck compositions built only from layouts in the catalog.
 // Each scenario answers three questions: which requirement it fits (req), which strategy it argues with (strategy),
 // and how the deck flows from opening to the ask (flow → ending). Slides reference layout files (`f`).
-
+import VERTICAL from './vertical_scenarios.json' with { type: 'json' };
+import DESCRIPTION from './description_standard_scenarios.json' with { type: 'json' };
 export const REQ_TYPES = {
-  std: { label: '표준 제안서', desc: '업종별 표준 제안서 양식 그대로. 표지부터 Why Samsung까지 빠짐없는 기본 구성에서 출발할 때', hue: 'slate' },
+  std: { label: '표준 제안서', desc: '업종별 표준 구성. 원본 기준 양식과 Markdown 설명 기반 재구성 판본에서 출발할 때', hue: 'slate' },
   new: { label: '신규 구축 · RFP', desc: '새 공간 · 첫 도입. 범위와 사양을 처음부터 함께 정해야 할 때', hue: 'blue' },
   renew: { label: '교체 · 리뉴얼', desc: '쓰던 장비 · 공간을 바꿀 때. 영업 중단 최소화와 전후 비교가 핵심', hue: 'teal' },
   compete: { label: '경쟁 입찰 · 공급사 전환', desc: '다른 공급사와 나란히 평가받을 때. 비교 기준을 먼저 잡는 쪽이 이김', hue: 'amber' },
@@ -698,6 +699,8 @@ export const SCENARIOS = [
   },
 ];
 
+SCENARIOS.push(...VERTICAL.scenarios);
+SCENARIOS.push(...DESCRIPTION.scenarios);
 export const SC = Object.fromEntries(SCENARIOS.map((s) => [s.id, s]));
 
 // Shown first on the template page — three different requirement types and strategies.

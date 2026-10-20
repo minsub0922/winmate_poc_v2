@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~no_proof:F04"
+ },
+ "prompt_tokens": 1708,
+ "output_tokens": 189,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "한국IBM 사례를 제시했으나, Y 그룹과 동일하거나 유사한 업종이라는 근거가 부족하며, 사례 고객의 성과 수치가 명확히 제시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "한국IBM"
+     },
+     {
+      "sheet": 5,
+      "quote": "도입사례(한국IBM)"
+     }
+    ],
+    "improve": "Y 그룹의 업종과 유사한 실제 고객사의 도입 사례를 선정하고, 해당 사례에서 도출된 구체적인 성과 수치를 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07:F11"
+ },
+ "prompt_tokens": 3145,
+ "output_tokens": 383,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 10개로, 4장 이상이라는 1점 기준을 충족합니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "B 호텔 투숙객의 하룻밤, 평가는 입실과 취침 순간에 갈립니다"
+     },
+     {
+      "sheet": 7,
+      "quote": "직원이 적은 B 호텔일수록, 객실 TV가 서비스 창구가 됩니다"
+     }
+    ],
+    "improve": "장당 어절 수를 77어절 이하로 대폭 줄이고, 문단형 텍스트를 개조식으로 변경해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "9pt(12px) 미만인 장이 11장으로, 3장 이상이라는 1점 기준을 충족합니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "본문 최소 9.5px(7.1pt)"
+     },
+     {
+      "sheet": 8,
+      "quote": "본문 최소 9.5px(7.1pt)"
+     }
+    ],
+    "improve": "모든 본문 글자 크기를 12pt(16px) 이상으로 상향 조정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

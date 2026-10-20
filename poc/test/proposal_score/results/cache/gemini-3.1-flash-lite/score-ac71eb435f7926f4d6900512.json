@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~wrong_customer:F01"
+ },
+ "prompt_tokens": 7526,
+ "output_tokens": 373,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 1,
+    "anchor": "제안서 전반에 걸쳐 고객사명 'G 쇼핑몰'과 'H 호텔'이 혼용되어 사용되고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "G 쇼핑몰"
+     },
+     {
+      "sheet": 3,
+      "quote": "H 호텔"
+     }
+    ],
+    "improve": "제안서 전체의 고객사명을 'G 쇼핑몰'로 통일하고, 사례로 인용된 'H 호텔'을 제외한 모든 고객사 표기를 수정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "제안서 내에 다른 고객명인 'H 호텔'이 4곳에서 반복적으로 등장하며, 13장에는 실제 연락처가 아닌 예시용 연락처가 남아 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "H 호텔"
+     },
+     {
+      "sheet": 13,
+      "quote": "010-1234-5678"
+     }
+    ],
+    "improve": "제안서 내의 모든 'H 호텔' 표기를 삭제하거나 적절한 사례로 변경하고, 13장의 담당자 연락처를 실제 정보로 기입해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

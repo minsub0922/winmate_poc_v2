@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs03:F11"
+ },
+ "prompt_tokens": 2783,
+ "output_tokens": 293,
+ "data": {
+  "scores": [
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "전체 14개 장 중 6개 장에서 9pt(12px) 미만의 본문 칸이 확인되며, 20자 넘는 본문 칸의 60%가 10pt(13.3px) 미만으로 구성되어 가독성이 현저히 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 5,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 8,
+      "quote": "본문 최소 11px(8.2pt)"
+     }
+    ],
+    "improve": "제안서 내 모든 본문 글자 크기를 12pt(16px) 이상으로 상향 조정하고, 12pt 미만 글자는 라벨이나 캡션 등 부가 정보에만 사용하도록 배치 구조를 개선해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

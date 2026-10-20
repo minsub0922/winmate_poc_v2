@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~strip_images:F11"
+ },
+ "prompt_tokens": 2376,
+ "output_tokens": 200,
+ "data": {
+  "scores": [
+   {
+    "id": "DS6",
+    "score": 1,
+    "anchor": "표지 외 모든 본문 장(2~10장)에 실제 사진이나 도식이 전혀 없으며, 빈 이미지 칸만 25개 존재하여 시각 자료 활용이 매우 부족함.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "사진 0 · 빈 이미지 칸 1"
+     },
+     {
+      "sheet": 7,
+      "quote": "사진 0 · 빈 이미지 칸 6"
+     }
+    ],
+    "improve": "제품, 공간, 사례를 설명하는 각 장에 실제 사진이나 도식화된 자료를 배치하여 텍스트 위주의 구성을 개선해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

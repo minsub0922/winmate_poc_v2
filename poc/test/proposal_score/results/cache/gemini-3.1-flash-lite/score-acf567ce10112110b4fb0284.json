@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~wrong_customer:F09"
+ },
+ "prompt_tokens": 3362,
+ "output_tokens": 219,
+ "data": {
+  "scores": [
+   {
+    "id": "PR2",
+    "score": 3,
+    "anchor": "제안서 내 언급된 모델명(QM55C, KM24C, HG55BU, 무풍 1Way)과 그 기능적 특징(55인치, 24인치, 웰컴 화면, 무풍 냉방 등)이 장 9와 10에서 일관되게 기술되어 있으며, 카탈로그 사양과 상충하는 수치가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "호텔 TV 55\" HG55BU"
+     },
+     {
+      "sheet": 10,
+      "quote": "QM55C ×3 · KM24C ×3"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs15:F02"
+ },
+ "prompt_tokens": 7508,
+ "output_tokens": 238,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 2,
+    "anchor": "고객 요구사항 R1, R2, R4에 대한 대응은 명확하나, R3(설비 수명·에너지)에 대한 구체적인 언급이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "밤사이 멈춘 냉동고, 버리는 재고"
+     },
+     {
+      "sheet": 7,
+      "quote": "온도 이력 · 조치 내역 위생 기록에 저장"
+     },
+     {
+      "sheet": 9,
+      "quote": "전력 · 인버터 운전"
+     }
+    ],
+    "improve": "설비 수명 연장 및 에너지 효율 개선이 고객의 핵심 요구사항임을 명시하고, 이를 위한 구체적인 기술적 근거를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

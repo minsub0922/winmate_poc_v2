@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~number_conflict:F06"
+ },
+ "prompt_tokens": 8783,
+ "output_tokens": 214,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 2,
+    "anchor": "전체 매장 수를 320개로 일관되게 제시하나, 11장에서 256개 매장을 표준 패키지로 구성한다고 언급하여 수치상 혼선이 발생함.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "320개 매장"
+     },
+     {
+      "sheet": 11,
+      "quote": "256개 매장을 세 가지 표준 패키지로"
+     }
+    ],
+    "improve": "11장에서 언급한 256개 매장이 전체 320개 중 표준 패키지 적용 대상임을 명확히 기술하여 수치 간의 관계를 명확히 해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

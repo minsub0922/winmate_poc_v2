@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs01:F05"
+ },
+ "prompt_tokens": 8842,
+ "output_tokens": 257,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 2,
+    "anchor": "주요 수치는 '삼성전자 추정(2026)', 'A 커피 운영 자료(2026)' 등으로 명시되어 있으나, 일부 기대 효과 및 물량 수치 등에서는 출처가 생략된 곳이 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "단위 억 원 · 출처 삼성전자 추정(2026)"
+     },
+     {
+      "sheet": 4,
+      "quote": "지표는 A 커피 운영 자료(2026) 기준"
+     },
+     {
+      "sheet": 12,
+      "quote": "목표치 · A 커피 운영 자료(2026) 기준"
+     }
+    ],
+    "improve": "제안서 내 모든 수치 및 통계 자료에 대해 출처를 빠짐없이 명시하여 신뢰도를 높여야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,230 @@
+{
+ "stage": "consolidate",
+ "model": "gemini-3.1-flash-lite",
+ "meta": {
+  "items": [
+   {
+    "pid": "P4",
+    "cat": "규격",
+    "text": "PC는 Intel i5 14세대 이상 또는 AMD Ryzen 5 8000 시리즈 이상(6코어, 12쓰레드 이상)이어야 한다.",
+    "quote": "Intel i5 14세대 이상 or AMD Ryzen 5 8000 시리즈 이상 (6코어, 12쓰레드 이상)",
+    "modality": "필수",
+    "section": "2-1. 구매요청 사양",
+    "id": "R001",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P4",
+    "cat": "규격",
+    "text": "PC 메모리는 8GB, DDR5 4800MHz(PC5-38400) 이상이어야 한다.",
+    "quote": "8GB, DDR5 4800MHz(PC5-38400) 이상",
+    "modality": "필수",
+    "section": "2-1. 구매요청 사양",
+    "id": "R002",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P4",
+    "cat": "규격",
+    "text": "PC SSD는 256GB 이상(NVMe)이어야 한다.",
+    "quote": "256GB 이상 (NVMe)",
+    "modality": "필수",
+    "section": "2-1. 구매요청 사양",
+    "id": "R003",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P4",
+    "cat": "규격",
+    "text": "PC는 슬림타워 이하 사이즈여야 한다.",
+    "quote": "슬림타워 이하",
+    "modality": "필수",
+    "section": "2-1. 구매요청 사양",
+    "id": "R004",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P4",
+    "cat": "규격",
+    "text": "PC는 듀얼 모니터 연결이 필수이며, 내장형 그래픽을 사용해야 한다.",
+    "quote": "내장형 (듀얼 모니터 연결 필수, 당사 필요시 젠더 제공 필수)",
+    "modality": "필수",
+    "section": "2-1. 구매요청 사양",
+    "id": "R005",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P4",
+    "cat": "규격",
+    "text": "PC는 Windows 11 Professional(64bit) 운영체제를 탑재해야 한다.",
+    "quote": "Windows 11 Professional (64bit)",
+    "modality": "필수",
+    "section": "2-1. 구매요청 사양",
+    "id": "R006",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P4",
+    "cat": "규격",
+    "text": "PC는 무상유지보수를 2년 이상 제공해야 한다.",
+    "quote": "무상유지보수 2년 이상",
+    "modality": "필수",
+    "section": "2-1. 구매요청 사양",
+    "id": "R007",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P4",
+    "cat": "규격",
+    "text": "모니터는 22인치 와이드(16:9) 이상이어야 한다.",
+    "quote": "22인치 와이드(16:9) 이상",
+    "modality": "필수",
+    "section": "2-1. 구매요청 사양",
+    "id": "R008",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P4",
+    "cat": "규격",
+    "text": "모니터는 1920 * 1080 이상의 해상도를 지원해야 한다.",
+    "quote": "1920 * 1080 이상",
+    "modality": "필수",
+    "section": "2-1. 구매요청 사양",
+    "id": "R009",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P4",
+    "cat": "규격",
+    "text": "모니터는 5ms 이하의 응답속도를 가져야 한다.",
+    "quote": "5ms 이하",
+    "modality": "필수",
+    "section": "2-1. 구매요청 사양",
+    "id": "R010",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P4",
+    "cat": "규격",
+    "text": "노트북은 Intel core 5(i5 14세대) 이상 또는 AMD Ryzen 7 7735U 이상(8코어, 12쓰레드 이상)이어야 한다.",
+    "quote": "Intel core 5(i5 14세대)이상 or AMD Ryzen 7 7735U 이상 (8코어, 12쓰레드 이상)",
+    "modality": "필수",
+    "section": "2-1. 구매요청 사양",
+    "id": "R011",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P4",
+    "cat": "규격",
+    "text": "노트북 메모리는 16GB, DDR4 5600MHz(PC5-44800) 이상이어야 한다.",
+    "quote": "16GB, DDR4 5600MHz(PC5-44800) 이상",
+    "modality": "필수",
+    "section": "2-1. 구매요청 사양",
+    "id": "R012",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P4",
+    "cat": "규격",
+    "text": "노트북 무게는 본체 기준 2.0kg 이하여야 한다.",
+    "quote": "본체 무게 2.0 Kg 이하",
+    "modality": "필수",
+    "section": "2-1. 구매요청 사양",
+    "id": "R013",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P4",
+    "cat": "납품",
+    "text": "납품 장비에 대한 부품 보유 연한은 최소 5년이어야 한다.",
+    "quote": "납품 장비에 대한 부품 보유 연한은 최소 5년",
+    "modality": "필수",
+    "section": "2-3. 제안요건 (상세)",
+    "id": "R014",
+    "chunk": 0,
+    "grounded": true
+   },
+   {
+    "pid": "P4",
+    "cat": "설치",
+    "text": "납품 시 배송요원은 반드시 2인 1조 이상이어야 한다.",
+    "quote": "납품시 배송요원은 반드시 2인1조 이상",
+    "modality": "필수",
+    "section": "2-3. 제안요건 (상세)",
+    "id": "R015",
+    "chunk": 0,
+    "grounded": true
+   }
+  ],
+  "project": {
+   "pid": "P4",
+   "name": "개인전산장비 단가계약",
+   "customer": "KB손해보험",
+   "start_line": 707,
+   "issuer": "KB손해보험"
+  }
+ },
+ "prompt_tokens": 871,
+ "output_tokens": 585,
+ "data": {
+  "project": "개인전산장비 단가계약",
+  "customer": "KB손해보험",
+  "keymen": [
+   {
+    "name": "기술검증팀",
+    "weight": 60,
+    "req_ids": [
+     "R001",
+     "R002",
+     "R003",
+     "R004",
+     "R005",
+     "R006",
+     "R008",
+     "R009",
+     "R010",
+     "R011",
+     "R012",
+     "R013"
+    ],
+    "weight_basis": "추정"
+   },
+   {
+    "name": "구매계약팀",
+    "weight": 40,
+    "req_ids": [
+     "R007",
+     "R014",
+     "R015"
+    ],
+    "weight_basis": "추정"
+   }
+  ],
+  "free": "본 사업은 KB손해보험의 업무 효율화를 위한 개인전산장비 단가계약 건입니다. PC는 Intel i5 14세대 또는 AMD Ryzen 5 8000 시리즈 이상, 노트북은 Intel core 5 또는 AMD Ryzen 7 7735U 이상의 고성능 사양을 요구합니다. 모니터는 22인치 이상, 1920*1080 해상도 및 5ms 이하 응답속도를 충족해야 합니다. 납품 시 2인 1조 배송이 필수이며, 부품 보유 연한 5년 및 무상유지보수 2년을 보장해야 합니다.",
+  "evaluation": "기술 규격 적합성 평가를 통해 필수 사양 충족 여부를 1차 검증하며, 이후 단가 경쟁력을 종합하여 최종 업체를 선정합니다.",
+  "merges": [],
+  "pitfalls": [
+   "노트북 메모리 규격(DDR4 5600MHz)이 일반적인 DDR4 클럭 범위를 상회하므로 호환성 확인 필요",
+   "배송 인력 2인 1조 준수 여부에 대한 증빙 계획 누락 주의"
+  ],
+  "target": "개인전산장비 단가계약",
+  "to_confirm": [
+   "R012의 DDR4 5600MHz 사양은 DDR5 규격과 혼용되었을 가능성이 있어 확인 필요",
+   "R011의 AMD Ryzen 7 7735U 쓰레드 수(12쓰레드)가 실제 사양과 일치하는지 확인 필요"
+  ]
+ },
+ "raw_text": "{\n  \"project\": \"개인전산장비 단가계약\",\n  \"customer\": \"KB손해보험\",\n  \"keymen\": [\n    {\n      \"name\": \"기술검증팀\",\n      \"weight\": 60,\n      \"req_ids\": [\"R001\", \"R002\", \"R003\", \"R004\", \"R005\", \"R006\", \"R008\", \"R009\", \"R010\", \"R011\", \"R012\", \"R013\"],\n      \"weight_basis\": \"추정\"\n    },\n    {\n      \"name\": \"구매계약팀\",\n      \"weight\": 40,\n      \"req_ids\": [\"R007\", \"R014\", \"R015\"],\n      \"weight_basis\": \"추정\"\n    }\n  ],\n  \"free\": \"본 사업은 KB손해보험의 업무 효율화를 위한 개인전산장비 단가계약 건입니다. PC는 Intel i5 14세대 또는 AMD Ryzen 5 8000 시리즈 이상, 노트북은 Intel core 5 또는 AMD Ryzen 7 7735U 이상의 고성능 사양을 요구합니다. 모니터는 22인치 이상, 1920*1080 해상도 및 5ms 이하 응답속도를 충족해야 합니다. 납품 시 2인 1조 배송이 필수이며, 부품 보유 연한 5년 및 무상유지보수 2년을 보장해야 합니다.\",\n  \"evaluation\": \"기술 규격 적합성 평가를 통해 필수 사양 충족 여부를 1차 검증하며, 이후 단가 경쟁력을 종합하여 최종 업체를 선정합니다.\",\n  \"merges\": [],\n  \"pitfalls\": [\"노트북 메모리 규격(DDR4 5600MHz)이 일반적인 DDR4 클럭 범위를 상회하므로 호환성 확인 필요\", \"배송 인력 2인 1조 준수 여부에 대한 증빙 계획 누락 주의\"],\n  \"target\": \"개인전산장비 단가계약\",\n  \"to_confirm\": [\"R012의 DDR4 5600MHz 사양은 DDR5 규격과 혼용되었을 가능성이 있어 확인 필요\", \"R011의 AMD Ryzen 7 7735U 쓰레드 수(12쓰레드)가 실제 사양과 일치하는지 확인 필요\"]\n}"
+}

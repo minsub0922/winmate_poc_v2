@@ -1,0 +1,45 @@
+{
+ "id": "H03",
+ "case": "H03",
+ "industry": "VN",
+ "strategy": null,
+ "req_type": null,
+ "title": "야구장 전광판",
+ "level": "ambiguous",
+ "input": {
+  "title": "S 구단 제안",
+  "customer": "S 구단",
+  "free_text": "야구장 전광판이 오래돼서 관람객 경험을 확 바꿀 방법을 찾고 있다고 합니다. 다른 구장들처럼 화려하게 하고 싶다고요.",
+  "id": "H03"
+ },
+ "gold": {
+  "scenario_any": [
+   "bs12",
+   "bs09",
+   "bs06"
+  ],
+  "scenario_top3": [
+   "bs12"
+  ],
+  "must_parts": [
+   "value"
+  ],
+  "key_reqs": [
+   {
+    "kw": [
+     "관람객"
+    ],
+    "parts_any": [
+     "value",
+     "scenario",
+     "user",
+     "challenge"
+    ],
+    "priority": "should"
+   }
+  ],
+  "facts": [],
+  "level": "ambiguous",
+  "industry": "VN"
+ }
+}

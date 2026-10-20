@@ -9,6 +9,8 @@ import { retryPocJob, submitPocJob, planForFresh, requestErrorText, modeLabel, m
 import { L, refInfo, storyParts } from './catalog.js';
 import { PARTS } from '../domain/proposals/parts.js';
 import { toast } from '../components/common.jsx';
+import { usedLayoutIds, repeatedAutoLayouts } from './layout-usage.js';
+import { withRequirementSummary, taskRequirementContext } from './requirement-summary.js';
 
 const refLabel = (r) => { const x = refInfo(r); return x ? x.label : String(r || '').split(':').pop(); };
 const segText = (s) => segPlain(s, refLabel);
@@ -120,10 +122,13 @@ export function storyboardPayload(p) {
  * cannot run it right now (not ready · no key · submit failed) — the board is left as it is.
  */
 export async function startCompose(p) {
+  try { p = await withRequirementSummary(p); } catch (error) { return { mode: 'error', error: error.message }; }
   const kind = composeKind(p);
   const plan = await planForFresh(kind);
   if (!plan.job) return { mode: 'error', plan, error: plan.note };
-  const body = kind === 'layout' ? { kind: 'layout', input: proposalInput(p), interactive: true } : { kind: 'storyboard', proposal: storyboardPayload(p), mode: 'continue' };
+  const body = kind === 'layout' ? { kind: 'layout', input: proposalInput(p), interactive: true, used_layouts: [...usedLayoutIds(p)] } : { kind: 'storyboard', proposal: storyboardPayload(p), mode: 'continue' };
+  const summary = taskRequirementContext(p, kind === 'layout' ? 'layout' : 'strategy');
+  if (summary) body.requirement_context = summary;
   try {
     const snap = await submitPocJob(body);
     trackJob(snap, { purpose: 'compose', owner: { type: 'proposal', id: p.id }, title: kind === 'layout' ? 'Layout Agent · 제안서 구성' : 'Storyboard 이어서 구성',
@@ -177,6 +182,11 @@ function applyLayout(rec) {
   const pid = rec.owner.id;
   const parts = toAppParts((rec.result && rec.result.parts) || [], rec.id, 'layout');
   if (!parts.length) return null;
+  if (repeatedAutoLayouts(parts, getProposal(pid)).length) {
+    markJob(pid, rec.id, { status: 'error', final: true });
+    toast('사용 중인 레이아웃과 겹치는 자동 구성은 넣지 않았어요. 현재 Storyboard 기준으로 다시 시도해 주세요.', 'warn');
+    return { outcome: 'failed', note: 'duplicate_layouts' };
+  }
   let n = 0, m = 0;
   update(pid, (d) => {
     const a = agentOf(d);

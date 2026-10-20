@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19:F08"
+ },
+ "prompt_tokens": 1748,
+ "output_tokens": 216,
+ "data": {
+  "scores": [
+   {
+    "id": "DS7",
+    "score": 3,
+    "anchor": "본문 장 제목 9개 중 8개가 결론을 담은 문장형이며, 제목만 순서대로 읽어도 제안의 핵심 스토리와 흐름이 명확하게 파악됩니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "260개 사업장 화면, 그룹 본사에서 한 번에 바꿉니다"
+     },
+     {
+      "sheet": 3,
+      "quote": "업계는 이미 움직였고, Y 그룹은 지금이 적기입니다"
+     },
+     {
+      "sheet": 10,
+      "quote": "2주 안에 현장부터, 세 단계로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

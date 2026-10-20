@@ -1,0 +1,78 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs09~full:F09"
+ },
+ "prompt_tokens": 9196,
+ "output_tokens": 659,
+ "data": {
+  "scores": [
+   {
+    "id": "PR1",
+    "score": 3,
+    "anchor": "제안서에 명시된 모델명(QM85C, OH55A-S, VM55B, XHB)은 모두 현재 삼성전자 B2B 카탈로그 라인업과 일치하며, 단종 모델이나 이전 세대 표기가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "QM85C, VM55B, OH55A-S, XHB LED"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR2",
+    "score": 1,
+    "anchor": "OH55A-S 모델의 밝기 사양을 3,000nit로 표기하였으나, 공식 카탈로그 사양은 3,500nit(최대 4,000nit)로 서로 다릅니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "OH55A-S / 3,000nit"
+     },
+     {
+      "sheet": 9,
+      "quote": "OH55A-S · 3,000nit"
+     }
+    ],
+    "improve": "OH55A-S 모델의 밝기 사양을 공식 카탈로그 기준인 3,500nit(최대 4,000nit)로 수정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "PR5",
+    "score": 3,
+    "anchor": "제안서 전반에 걸쳐 제품명과 모델명을 일관되게 사용하고 있으며, 혼용 사례가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "옥외형 사이니지 OH55A-S"
+     },
+     {
+      "sheet": 10,
+      "quote": "OH55A-S"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR3",
+    "score": 3,
+    "anchor": "MagicINFO 등 브랜드명이 공식 표기법에 따라 정확하게 기재되어 있으며, 표기 오류나 혼용이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "MagicINFO 원격 관리"
+     },
+     {
+      "sheet": 12,
+      "quote": "MagicINFO 자동 감지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

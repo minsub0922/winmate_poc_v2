@@ -1,0 +1,287 @@
+{
+  "version": 5,
+  "generatedAt": "2026-10-20T05:10:02.469Z",
+  "bundle": "app/web/src/domain/review/linked-review-examples.json",
+  "sha256": "b5aa4a6d5422119b4be6153288671243a42e709eb5748c30b7cf0b52f79eda1c",
+  "schema": "app/web/src/domain/review/schema.json",
+  "schemaSha256": "eca898fa9ccf5e7a5f3e38dfd5bbf8b0131b7a27727468ef3e2ee5fde61c1ca2",
+  "scoring": "proposal-stage-checkpoints",
+  "levelPoints": {
+    "0": 0,
+    "1": 40,
+    "2": 65,
+    "3": 85,
+    "4": 100
+  },
+  "benchmarkScore": 85,
+  "forceMean": false,
+  "scorePostprocessing": "none; mean of checkpoint conversion points only",
+  "meanOfDisplayedScores": 86.3,
+  "weakDraftCheck": "app/tests/output/proposal-calibration-v5/weak-draft.json",
+  "runtimeModelCalls": 0,
+  "previousEvidence": "linked-review-examples-v4.json",
+  "examples": [
+    {
+      "scenario": "bs01",
+      "proposalId": "review-example-bs01-v5",
+      "reviewId": "r_linked_example_bs01_v5",
+      "slides": 22,
+      "sameSourceTextAsPrevious": true,
+      "sourceTextSha256": "4131f4c2fca312e0a30b2a0b94ec7587f269c4032afe63f811d761d3a1c0bac9",
+      "overall": 87.8,
+      "categories": {
+        "CU": 88.1,
+        "PR": 86.3,
+        "VS": 86.9,
+        "DQ": 90
+      },
+      "checkpoints": 96,
+      "levelDistribution": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 78,
+        "4": 18
+      },
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite",
+          "gemini-3.8-flash"
+        ],
+        "provider": "gemini",
+        "model": [
+          "gemini-3.1-flash-lite",
+          "gemini-3.8-flash"
+        ],
+        "llm_used": true,
+        "calls_ok": 13,
+        "calls_failed": 0,
+        "calls_rejected": 1,
+        "cached": 0,
+        "tokens": {
+          "prompt": 204414,
+          "output": 17915
+        },
+        "steps": {
+          "review:score_detail": 12,
+          "review:score_vision": 1
+        },
+        "fallbacks": [],
+        "errors": {
+          "invalid_output": 1
+        },
+        "issues": [
+          {
+            "step": "review:score_detail:detail-12",
+            "code": "invalid_output",
+            "message": "VS1.4의 근거 수준과 단계가 충돌합니다. 현재 제안에 충분한 가정·계획과 설명이 있는지 단계 정의에 따라 구분하세요."
+          }
+        ],
+        "reason": null,
+        "route_mode": "forced",
+        "score_modes": {
+          "llm": 24
+        },
+        "selected": 24
+      },
+      "groundedMean": 1,
+      "visualPages": [
+        {
+          "page": 1,
+          "path": "app/web/public/assets/review-examples/v5-bs01-1.jpg",
+          "sha256": "2e65bcf044275ac00e57f4287a12a1167c9f1295f5cb3a1fc1ee5f91997711b0"
+        },
+        {
+          "page": 9,
+          "path": "app/web/public/assets/review-examples/v5-bs01-9.jpg",
+          "sha256": "a152b82cf6739642612c3efdf61d2ad8a51f74c4e0da6cd865e8f6cf3911d5ea"
+        },
+        {
+          "page": 21,
+          "path": "app/web/public/assets/review-examples/v5-bs01-21.jpg",
+          "sha256": "2cf651b4717f690667d19f1282403d3aa248306c94969aa0b8cb318dfd61cf08"
+        },
+        {
+          "page": 22,
+          "path": "app/web/public/assets/review-examples/v5-bs01-22.jpg",
+          "sha256": "5bc975495272bc211047931e18423421eca3d16d4d71eb97c8d9a950d92cc64c"
+        }
+      ]
+    },
+    {
+      "scenario": "bs21",
+      "proposalId": "review-example-bs21-v5",
+      "reviewId": "r_linked_example_bs21_v5",
+      "slides": 41,
+      "sameSourceTextAsPrevious": true,
+      "sourceTextSha256": "bc40276ffa0425958af1d9b6fda03c1ab673675a86c821c36ef0e781c81d6676",
+      "overall": 85.6,
+      "categories": {
+        "CU": 87.5,
+        "PR": 85,
+        "VS": 85,
+        "DQ": 85
+      },
+      "checkpoints": 96,
+      "levelDistribution": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 92,
+        "4": 4
+      },
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite",
+          "gemini-3.8-flash"
+        ],
+        "provider": "gemini",
+        "model": [
+          "gemini-3.1-flash-lite",
+          "gemini-3.8-flash"
+        ],
+        "llm_used": true,
+        "calls_ok": 13,
+        "calls_failed": 0,
+        "calls_rejected": 1,
+        "cached": 0,
+        "tokens": {
+          "prompt": 288790,
+          "output": 17361
+        },
+        "steps": {
+          "review:score_detail": 12,
+          "review:score_vision": 1
+        },
+        "fallbacks": [],
+        "errors": {
+          "invalid_output": 1
+        },
+        "issues": [
+          {
+            "step": "review:score_detail:detail-18",
+            "code": "invalid_output",
+            "message": "DQ1.4의 근거 수준과 단계가 충돌합니다. 현재 제안에 충분한 가정·계획과 설명이 있는지 단계 정의에 따라 구분하세요."
+          }
+        ],
+        "reason": null,
+        "route_mode": "forced",
+        "score_modes": {
+          "llm": 24
+        },
+        "selected": 24
+      },
+      "groundedMean": 1,
+      "visualPages": [
+        {
+          "page": 1,
+          "path": "app/web/public/assets/review-examples/v5-bs21-1.jpg",
+          "sha256": "8b80f638f09d004547fd3f1f69409a6d920498e81d493a1e9d6178274917ec2c"
+        },
+        {
+          "page": 18,
+          "path": "app/web/public/assets/review-examples/v5-bs21-18.jpg",
+          "sha256": "7e4a42c846a59085a856e15baec967b2df5850622826f3060de50e8c57a9cee2"
+        },
+        {
+          "page": 40,
+          "path": "app/web/public/assets/review-examples/v5-bs21-40.jpg",
+          "sha256": "0d0558b709aba168ef02867efd513aca89bd059c0ab3eaf5bc74529bc1c81d6d"
+        },
+        {
+          "page": 41,
+          "path": "app/web/public/assets/review-examples/v5-bs21-41.jpg",
+          "sha256": "09226a00dbbbdaffbe91e04c3b58928cb71ca60486be73b6ee46d9711d57087a"
+        }
+      ]
+    },
+    {
+      "scenario": "bs03",
+      "proposalId": "review-example-bs03-v5",
+      "reviewId": "r_linked_example_bs03_v5",
+      "slides": 19,
+      "sameSourceTextAsPrevious": true,
+      "sourceTextSha256": "59b27c4712ee4746c64f569e9bafa1d44cf6d2177c08e126a6e1bad5003e78cb",
+      "overall": 85.6,
+      "categories": {
+        "CU": 86,
+        "PR": 85.6,
+        "VS": 85,
+        "DQ": 85.6
+      },
+      "checkpoints": 96,
+      "levelDistribution": {
+        "0": 0,
+        "1": 0,
+        "2": 1,
+        "3": 90,
+        "4": 5
+      },
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite",
+          "gemini-3.8-flash"
+        ],
+        "provider": "gemini",
+        "model": [
+          "gemini-3.1-flash-lite",
+          "gemini-3.8-flash"
+        ],
+        "llm_used": true,
+        "calls_ok": 12,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 159947,
+          "output": 16095
+        },
+        "steps": {
+          "review:score_detail": 11,
+          "review:score_vision": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "route_mode": "forced",
+        "score_modes": {
+          "llm": 24
+        },
+        "selected": 24
+      },
+      "groundedMean": 1,
+      "visualPages": [
+        {
+          "page": 1,
+          "path": "app/web/public/assets/review-examples/v5-bs03-1.jpg",
+          "sha256": "4570fcd39c1ff5f4991124ef08339efdc2b26c28f0581bbee9379c495250cb8e"
+        },
+        {
+          "page": 3,
+          "path": "app/web/public/assets/review-examples/v5-bs03-3.jpg",
+          "sha256": "6a1454a34d2437ae3877f596e731584ddea804afe68d96f12b221185e222b1e4"
+        },
+        {
+          "page": 18,
+          "path": "app/web/public/assets/review-examples/v5-bs03-18.jpg",
+          "sha256": "1ebd9f01109fecd871e03af6b172b36a39c6a637da556fead818e2fbdbedb5a6"
+        },
+        {
+          "page": 19,
+          "path": "app/web/public/assets/review-examples/v5-bs03-19.jpg",
+          "sha256": "d942f6061b26a41b917b95ceba2a45793bfccc7ac0476287be680c327f2b2e45"
+        }
+      ]
+    }
+  ]
+}

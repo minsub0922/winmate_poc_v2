@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11:F08"
+ },
+ "prompt_tokens": 2035,
+ "output_tokens": 239,
+ "data": {
+  "scores": [
+   {
+    "id": "DS7",
+    "score": 3,
+    "anchor": "본문 장 제목 15개 중 14개가 결론을 담은 문장형으로 구성되어 93%의 비율을 보이며, 제목만 순서대로 읽어도 제안의 핵심 전략과 실행 계획이 명확히 전달됩니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "요구사항 28개, ID 단위로 빠짐없이 대응합니다"
+     },
+     {
+      "sheet": 11,
+      "quote": "계약부터 검수 · 이관까지 16주, 네 단계로 책임집니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "수송 성수기 전에 먼저 점검합니다 — 1년 캘린더"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

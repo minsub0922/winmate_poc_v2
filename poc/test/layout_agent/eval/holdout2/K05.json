@@ -1,0 +1,98 @@
+{
+ "id": "K05",
+ "case": "K05",
+ "industry": "AD",
+ "strategy": null,
+ "req_type": null,
+ "title": "옥외 미디어 입찰",
+ "level": "complex",
+ "input": {
+  "title": "AA 공사 옥외 미디어 입찰",
+  "customer": "AA 교통공사",
+  "project": "역사 옥외 미디어 운영사 선정",
+  "target": "광고사업처장",
+  "free_text": "역사 12곳의 대형 LED 미디어 운영사를 선정하는 입찰입니다. 평가는 사업 계획 40점, 기술 30점, 가격 30점이며 운영 기간은 5년입니다. 연간 최소 보장 광고 수익을 제시해야 하고, 야간 소음과 빛 공해 민원 기준을 지켜야 합니다.",
+  "keymen": [
+   {
+    "name": "광고사업처장",
+    "weight": 50,
+    "reqs": [
+     "연간 최소 보장 수익 제시",
+     "5년 운영 계획",
+     "콘텐츠 송출 관리 체계"
+    ]
+   },
+   {
+    "name": "시설안전팀장",
+    "weight": 50,
+    "reqs": [
+     "구조 안전 검토",
+     "야간 휘도 자동 조절",
+     "장애 시 2시간 내 복구"
+    ]
+   }
+  ],
+  "products": [
+   "led_outdoor"
+  ],
+  "solutions": [
+   "magicinfo"
+  ],
+  "id": "K05"
+ },
+ "gold": {
+  "strategy_any": [
+   "rfp",
+   "roi",
+   "compete"
+  ],
+  "must_parts": [
+   "requirements",
+   "cost"
+  ],
+  "dims_any": [
+   "평가·선정·자격",
+   "비용·구매",
+   "운영·유지보수"
+  ],
+  "conflicts_any": [],
+  "min_questions": 4,
+  "eval_expected": true,
+  "key_reqs": [
+   {
+    "kw": [
+     "최소 보장"
+    ],
+    "parts_any": [
+     "cost",
+     "effect",
+     "requirements"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "휘도"
+    ],
+    "parts_any": [
+     "spec",
+     "products",
+     "requirements",
+     "solution"
+    ],
+    "priority": "should"
+   }
+  ],
+  "facts": [
+   "12",
+   "40"
+  ],
+  "layouts_any": {
+   "requirements": [
+    "L_RM_C"
+   ]
+  },
+  "level": "complex",
+  "industry": "AD"
+ }
+}

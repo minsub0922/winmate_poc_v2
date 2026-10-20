@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs21:F08"
+ },
+ "prompt_tokens": 4417,
+ "output_tokens": 344,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "고객의 니즈(외국인 응대, 쾌적함, 서비스)를 해결하는 3가지 가치를 명확히 제시하고, 각 가치별로 대응하는 제품 및 솔루션을 1:1로 연결하여 구성했습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "H 호텔 투숙객의 세 가지 니즈에 삼성 AI 기술로 답합니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "DS7",
+    "score": 2,
+    "anchor": "전체 37개 장 중 결론형 문장 제목이 66% 수준으로, 일부 공간별 제품 소개 장 등에서 라벨형 제목이 혼재되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "리셉션 — 갤럭시 S26"
+     },
+     {
+      "sheet": 15,
+      "quote": "객실 — 호텔 TV"
+     }
+    ],
+    "improve": "라벨형으로 작성된 공간별 제품 소개 장의 제목을 '객실 TV로 고객 경험을 혁신합니다'와 같이 결론형 문장으로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

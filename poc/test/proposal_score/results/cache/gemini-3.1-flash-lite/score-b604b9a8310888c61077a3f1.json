@@ -1,0 +1,39 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16:F02"
+ },
+ "prompt_tokens": 7297,
+ "output_tokens": 275,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 요구사항 4가지(운영 통일성, 보안/서버, 비용, 현장 사용성)에 대해 각각 대응하는 장(3, 6, 7, 10, 11)이 명확히 제시되어 있으며, 각 장에서 해당 요구에 대한 구체적인 해법과 근거를 기술하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "지점마다 방식이 달라, 본사는 한 번에 보내지도 바로 확인하지도 못합니다"
+     },
+     {
+      "sheet": 6,
+      "quote": "데이터는 M 베이커리 안에 머뭅니다"
+     },
+     {
+      "sheet": 10,
+      "quote": "같은 화면 구성, 세 가지 방식으로 도입할 수 있습니다"
+     },
+     {
+      "sheet": 7,
+      "quote": "점장은 모바일로 수정"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

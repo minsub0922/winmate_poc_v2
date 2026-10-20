@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~strip_images:F08"
+ },
+ "prompt_tokens": 2771,
+ "output_tokens": 386,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "5장에서 7일→당일(운영 효율), 장애 선제 대응(비용 절감), 단계적 도입(실행력)이라는 3가지 결과형 가치를 제시하고 각 가치와 연결된 솔루션을 명확히 짝지었습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "7일 → 당일 | 원격 통합 관리"
+     },
+     {
+      "sheet": 5,
+      "quote": "−30% | 장애 선제 대응"
+     },
+     {
+      "sheet": 5,
+      "quote": "16주 | 단계적 도입"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "DS7",
+    "score": 2,
+    "anchor": "대부분의 제목이 문장형으로 구성되어 스토리를 형성하나, 5장 제목이 명사형으로 끝나며 결론을 완결하지 못해 3점 기준인 80% 이상 문장형 조건을 충족하지 못했습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "260개 사업장의 화면을"
+     }
+    ],
+    "improve": "5장의 제목을 '260개 사업장의 화면을 본사에서 당일에 바꿉니다'와 같이 결론을 포함한 완전한 문장으로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,222 @@
+{
+  "version": 2,
+  "generatedAt": "2026-10-20T04:07:06.404Z",
+  "bundle": "app/web/src/domain/review/linked-review-examples.json",
+  "sha256": "1b06f07a4809e9012a421e63625d3f9991d2dbcdc443a8a54675df43cc4a0e77",
+  "source": "Existing native Best Scenarios, fictional customers. Full source text and geometry plus four actual rendered pages per proposal.",
+  "criteriaVersion": 2,
+  "criteriaCount": 26,
+  "runtimeModelCalls": 0,
+  "examples": [
+    {
+      "scenario": "bs01",
+      "proposalId": "review-example-bs01-v2",
+      "reviewId": "r_linked_example_bs01_v2",
+      "title": "F&B 프랜차이즈 · 전국 매장 디지털 메뉴보드 전환",
+      "slides": 18,
+      "linkedId": "review-example-bs01-v2",
+      "previewProposalId": "review-example-bs01-v2",
+      "overall": 89,
+      "groundedMean": 0.951,
+      "route": "forced",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite",
+          "gemini-3.8-flash"
+        ],
+        "provider": "gemini",
+        "model": [
+          "gemini-3.1-flash-lite",
+          "gemini-3.8-flash"
+        ],
+        "llm_used": true,
+        "calls_ok": 10,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 72217,
+          "output": 4861
+        },
+        "steps": {
+          "review:score": 8,
+          "review:score_vision": 2
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "route_mode": "forced",
+        "score_modes": {
+          "llm": 26
+        },
+        "selected": 26
+      },
+      "visualPages": [
+        {
+          "page": 1,
+          "path": "app/web/public/assets/review-examples/v2-bs01-1.jpg",
+          "sha256": "2e65bcf044275ac00e57f4287a12a1167c9f1295f5cb3a1fc1ee5f91997711b0"
+        },
+        {
+          "page": 9,
+          "path": "app/web/public/assets/review-examples/v2-bs01-9.jpg",
+          "sha256": "a152b82cf6739642612c3efdf61d2ad8a51f74c4e0da6cd865e8f6cf3911d5ea"
+        },
+        {
+          "page": 2,
+          "path": "app/web/public/assets/review-examples/v2-bs01-2.jpg",
+          "sha256": "eeef6f814e9c2dd8df4454bb5d306d372477a85b43018833a9ed48ffbaca84ca"
+        },
+        {
+          "page": 7,
+          "path": "app/web/public/assets/review-examples/v2-bs01-7.jpg",
+          "sha256": "ff5ed061151277d8f2dd4c8f546eb34ebdc35de253e8eb87c6316a04ae240de3"
+        }
+      ]
+    },
+    {
+      "scenario": "bs21",
+      "proposalId": "review-example-bs21-v2",
+      "reviewId": "r_linked_example_bs21_v2",
+      "title": "호텔 · 리조트 AI 스테이 — 표준 제안서 37장",
+      "slides": 37,
+      "linkedId": "review-example-bs21-v2",
+      "previewProposalId": "review-example-bs21-v2",
+      "overall": 82,
+      "groundedMean": 0.957,
+      "route": "forced",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite",
+          "gemini-3.8-flash"
+        ],
+        "provider": "gemini",
+        "model": [
+          "gemini-3.1-flash-lite",
+          "gemini-3.8-flash"
+        ],
+        "llm_used": true,
+        "calls_ok": 10,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 91630,
+          "output": 4850
+        },
+        "steps": {
+          "review:score": 8,
+          "review:score_vision": 2
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "route_mode": "forced",
+        "score_modes": {
+          "llm": 26
+        },
+        "selected": 26
+      },
+      "visualPages": [
+        {
+          "page": 1,
+          "path": "app/web/public/assets/review-examples/v2-bs21-1.jpg",
+          "sha256": "8b80f638f09d004547fd3f1f69409a6d920498e81d493a1e9d6178274917ec2c"
+        },
+        {
+          "page": 18,
+          "path": "app/web/public/assets/review-examples/v2-bs21-18.jpg",
+          "sha256": "7e4a42c846a59085a856e15baec967b2df5850622826f3060de50e8c57a9cee2"
+        },
+        {
+          "page": 2,
+          "path": "app/web/public/assets/review-examples/v2-bs21-2.jpg",
+          "sha256": "304deaf62ab9b88a6624932551495183f318271371a712f76823bb1f4dada00a"
+        },
+        {
+          "page": 5,
+          "path": "app/web/public/assets/review-examples/v2-bs21-5.jpg",
+          "sha256": "62ce208818f917de811c81cb4de0723c8cc538255eb142220a25a225f6d527b4"
+        }
+      ]
+    },
+    {
+      "scenario": "bs03",
+      "proposalId": "review-example-bs03-v2",
+      "reviewId": "r_linked_example_bs03_v2",
+      "title": "대학 캠퍼스 · 스마트 강의실 · 도서관 구축",
+      "slides": 15,
+      "linkedId": "review-example-bs03-v2",
+      "previewProposalId": "review-example-bs03-v2",
+      "overall": 83,
+      "groundedMean": 0.909,
+      "route": "forced",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite",
+          "gemini-3.8-flash"
+        ],
+        "provider": "gemini",
+        "model": [
+          "gemini-3.1-flash-lite",
+          "gemini-3.8-flash"
+        ],
+        "llm_used": true,
+        "calls_ok": 10,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 59766,
+          "output": 4258
+        },
+        "steps": {
+          "review:score": 8,
+          "review:score_vision": 2
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "route_mode": "forced",
+        "score_modes": {
+          "llm": 26
+        },
+        "selected": 26
+      },
+      "visualPages": [
+        {
+          "page": 1,
+          "path": "app/web/public/assets/review-examples/v2-bs03-1.jpg",
+          "sha256": "4570fcd39c1ff5f4991124ef08339efdc2b26c28f0581bbee9379c495250cb8e"
+        },
+        {
+          "page": 3,
+          "path": "app/web/public/assets/review-examples/v2-bs03-3.jpg",
+          "sha256": "6a1454a34d2437ae3877f596e731584ddea804afe68d96f12b221185e222b1e4"
+        },
+        {
+          "page": 2,
+          "path": "app/web/public/assets/review-examples/v2-bs03-2.jpg",
+          "sha256": "d2dcfa2860eff6a03509abd317883e322212bf3d0e79f78f8b7f6ba0daaa1084"
+        },
+        {
+          "page": 4,
+          "path": "app/web/public/assets/review-examples/v2-bs03-4.jpg",
+          "sha256": "c5bd90abd00cd4cd4f8b699bc2fe91e911538dc4abf5c5c5d54b3af7d5edf25b"
+        }
+      ]
+    }
+  ]
+}

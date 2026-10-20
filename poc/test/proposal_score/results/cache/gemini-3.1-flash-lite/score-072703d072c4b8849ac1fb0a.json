@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs05:F10"
+ },
+ "prompt_tokens": 5761,
+ "output_tokens": 330,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO 솔루션을 통해 구역별 화면 편성, 콘텐츠 제작 지원, 운영실 모니터링 등 구체적인 관리 역할과 운영 장면을 제시하였습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "MagicINFO | 구역 화면 편성 · 대기시간 연동"
+     },
+     {
+      "sheet": 7,
+      "quote": "일몰 시각 자동 전환 · 우천 · 행사 땐 운영실 한 번 | MagicINFO"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "12월 2차 리뷰까지의 단계별 일정은 구체적이나, 교육 및 유지보수, 운영 이관에 대한 내용은 포함되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 15,
+      "quote": "12월 2차 리뷰까지 정할 세 가지"
+     }
+    ],
+    "improve": "전체 일정뿐만 아니라 운영 인력 대상 교육 프로그램과 사후 유지보수 체계, 최종 운영 이관 절차를 구체적으로 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs04:F03"
+ },
+ "prompt_tokens": 2867,
+ "output_tokens": 244,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 2,
+    "anchor": "결정권자가 신경 쓰는 성과(옵션 계약률, 민원 감소)와 비용/일정(도면 검토, 옵션 패키지 확정)이 각각 표지와 마지막 장에 언급되어 있으나, 이를 통합하여 요약한 경영진 대상 전용 요약 장(Executive Summary)이 별도로 존재하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "옵션 계약률 50% · 가전 민원 감소 40%"
+     },
+     {
+      "sheet": 13,
+      "quote": "12월까지, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "제안서 초반에 경영진이 한눈에 성과 목표와 예산, 리스크 관리 계획을 파악할 수 있는 Executive Summary 장을 추가하십시오.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

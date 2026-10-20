@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~strip_images:F10"
+ },
+ "prompt_tokens": 4369,
+ "output_tokens": 224,
+ "data": {
+  "scores": [
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "층별 교체 일정과 샘플룸 운영 계획은 구체적이나, 교육 및 유지보수, 운영 이관에 대한 구체적인 계획이 명시되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "첫 주 4F–8F · 층 × 날(D1–D6) · 11:00–19:00"
+     },
+     {
+      "sheet": 13,
+      "quote": "샘플룸 1실, 다음 2주에 정할 세 가지"
+     }
+    ],
+    "improve": "교육, 유지보수, 운영 이관에 대한 구체적인 계획을 추가하여 실행 계획의 완성도를 높여야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -20,6 +20,8 @@ import threading
 import time
 import traceback
 import uuid
+from contextvars import copy_context
+from .. import telemetry
 from collections import deque
 from dataclasses import dataclass
 from typing import Any, Callable, Deque, Dict, List, Optional
@@ -28,7 +30,7 @@ from .provider import redact
 
 log = logging.getLogger('winmate.poc.jobs')
 TERMINAL = ('done', 'error', 'cancelled')
-KINDS = ('rfp', 'layout', 'storyboard', 'review')
+KINDS = ('rfp', 'requirements', 'layout', 'storyboard', 'review')
 
 
 class JobCancelled(Exception):
@@ -89,6 +91,9 @@ class Waiting:
 class Job:
     def __init__(self, kind: str, title: str, params: dict, max_events: int) -> None:
         self.id = uuid.uuid4().hex[:16]
+        self.trace_context = telemetry.current()
+        self.owner = self.trace_context.get('username')
+        self.trace_stack = None
         self.kind, self.title, self.params = kind, title, params
         self.status = 'queued'
         self.created = time.time()
@@ -127,6 +132,14 @@ class Job:
     def _state(self) -> None:
         self.emit('state', status=self.status, waiting=self.waiting if self.status == 'waiting' else None,
                   error=self.error if self.status == 'error' else None)
+        if telemetry.enabled():
+            telemetry.emit('job.state', **{**self.trace_context,'username':self.owner or 'system',
+                'span_id':'job-'+self.id,'parent_id':self.trace_context.get('span_id'),
+                'trace_id':self.trace_context.get('trace_id') or self.id,'feature':self.kind,'job_id':self.id,
+                'started':self.started or self.created,'ended':self.finished or None,
+                'status':'error' if self.status=='error' else 'cancelled' if self.status=='cancelled' else 'ok' if self.status=='done' else 'running',
+                'code':(self.error or {}).get('code'),'message':(self.error or {}).get('message'),'stack':self.trace_stack,
+                'metadata':{'snapshot':self.snapshot(include_result=True)}})
 
     def events_since(self, since: int) -> tuple[List[dict], int, int]:
         with self._cond:
@@ -196,12 +209,18 @@ class JobManager:
             job = self._jobs.get(job_id)
         if job is None:
             raise NotFound(job_id)
+        actor=telemetry.current()
+        if telemetry.enabled() and actor.get('username') and actor.get('role')!='admin' and job.owner and job.owner!=actor['username']:
+            raise NotFound(job_id)
         return job
 
     def recent(self, n: int = 30) -> List[dict]:
         with self._lock:
-            jobs = sorted(self._jobs.values(), key=lambda j: -j.created)[:n]
-        return [j.brief() for j in jobs]
+            jobs = sorted(self._jobs.values(), key=lambda j: -j.created)
+        actor=telemetry.current()
+        if telemetry.enabled() and actor.get('username') and actor.get('role')!='admin':
+            jobs=[job for job in jobs if job.owner==actor['username']]
+        return [j.brief() for j in jobs[:n]]
 
     def _housekeep(self) -> None:
         now = time.time()
@@ -289,7 +308,12 @@ class JobManager:
         return job
 
     def _start(self, job: Job, fn: JobFn, resumed: bool = False) -> None:
-        threading.Thread(target=self._run, args=(job, fn, resumed), name=f'winmate-job-{job.id}', daemon=True).start()
+        context=copy_context()
+        def work():
+            with telemetry.scope(**{**job.trace_context,'username':job.owner or 'system','feature':job.kind,
+                                  'job_id':job.id,'parent_id':job.trace_context.get('span_id'),'span_id':'job-'+job.id}):
+                self._run(job,fn,resumed)
+        threading.Thread(target=context.run, args=(work,), name=f'winmate-job-{job.id}', daemon=True).start()
 
     def _run(self, job: Job, fn: JobFn, resumed: bool) -> None:
         with self._sem:
@@ -326,6 +350,7 @@ class JobManager:
                     job.ctx.clear()
                     job._state()
             except ModelFailure as exc:
+                self.trace_stack=telemetry.stack(exc)
                 log.warning('job %s (%s) model step failed: %s @ %s', job.id, job.kind, exc.code, exc.step or '-')
                 with job.lock:
                     job.status, job.finished, job.busy = 'error', time.time(), False
@@ -334,6 +359,7 @@ class JobManager:
                     job.ctx.clear()
                     job._state()
             except Exception as exc:  # noqa: BLE001 — reported to the client in a secret-safe form
+                self.trace_stack=telemetry.stack(exc)
                 log.warning('job %s (%s) failed: %s', job.id, job.kind, redact(''.join(traceback.format_exception_only(type(exc), exc))).strip())
                 code = getattr(exc, 'code', None) or type(exc).__name__
                 with job.lock:

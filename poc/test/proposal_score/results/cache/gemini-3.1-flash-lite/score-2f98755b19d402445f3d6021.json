@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~strip_images:F04"
+ },
+ "prompt_tokens": 5971,
+ "output_tokens": 358,
+ "data": {
+  "scores": [
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "각 공간별(주방, 거실, 침실, 세탁실 등)로 설치될 제품이 명시되어 있으며, 빌트인 가전의 매립 치수와 환경 요구사항(전원, 타공 등)이 구체적으로 제시됨.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "84A 세대 여섯 공간과 분양 현장"
+     },
+     {
+      "sheet": 10,
+      "quote": "84A 주방, 빌트인 가전 세 가지의 매립 치수"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "주거 분양 업종인 KCC스위첸과 그란츠 리버파크 사례를 제시하며, 각각의 과제, 해결책(도입 구성), 청약 마감 성과를 명확히 기술함.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "같은 고민을 먼저 푼 두 단지"
+     },
+     {
+      "sheet": 12,
+      "quote": "KCC스위첸 · 높은 경쟁률"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

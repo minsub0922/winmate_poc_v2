@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08:F07"
+ },
+ "prompt_tokens": 2882,
+ "output_tokens": 244,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "11장에서 야간 호출 응답 시간, CO2 농도, 만족도 등 정량적 효과를 제시하고, 선도 병동 60병상 기준이라는 산정 전제와 측정 근거를 명확히 기술함.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "선도 병동 60병상 기준 — 정량은 너스콜 · b.IoT · 설문 데이터"
+     },
+     {
+      "sheet": 11,
+      "quote": "평균 6분 → 3분 · 측정 · 너스콜 기록 · 간호부"
+     },
+     {
+      "sheet": 11,
+      "quote": "76점 → 85점 · 측정 · 반기 만족도 설문"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

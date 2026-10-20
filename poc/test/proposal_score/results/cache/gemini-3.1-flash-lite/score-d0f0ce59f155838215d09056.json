@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs02:F04"
+ },
+ "prompt_tokens": 4356,
+ "output_tokens": 232,
+ "data": {
+  "scores": [
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "각 공간의 용도와 환경 특성(로비의 대형 LED, 회의실의 디지털 칠판, 업무층의 공조기 등)에 적합한 제품이 매칭되었으며, 환경 요구사항에 부합하는 제품군이 선정되었습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "로비 · 정문 | The Wall IAB 146\""
+     },
+     {
+      "sheet": 9,
+      "quote": "12F 공용 회의실 | Flip Pro WM75B"
+     },
+     {
+      "sheet": 10,
+      "quote": "3–11F | 업무층 | DVM S2 실내기"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

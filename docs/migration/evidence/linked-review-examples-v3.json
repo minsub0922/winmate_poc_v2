@@ -1,0 +1,250 @@
+{
+  "version": 3,
+  "generatedAt": "2026-10-20T04:21:36.077Z",
+  "bundle": "app/web/src/domain/review/linked-review-examples.json",
+  "sha256": "ae282c52ff4d21fe3c80114621351848f3c8ffeecb341a09be17eb6bd0b461ad",
+  "schema": "app/web/src/domain/review/schema.json",
+  "schemaSha256": "d7d073b3cab66f29a6e855c0d2d61bcb35fbe68055f220cf84b99492df611cdc",
+  "source": "Existing native Best Scenarios plus four source-linked appendix slides each: customer decision, execution/risk, illustrative investment, provenance/disclosure. All customer/financial assumptions are explicitly fictional.",
+  "criteriaVersion": 3,
+  "criteriaCount": 24,
+  "categoryWeights": [
+    25,
+    25,
+    25,
+    25
+  ],
+  "criterionWeight": 1,
+  "runtimeModelCalls": 0,
+  "previousEvidence": "linked-review-examples-v2.json",
+  "examples": [
+    {
+      "scenario": "bs01",
+      "proposalId": "review-example-bs01-v3",
+      "reviewId": "r_linked_example_bs01_v3",
+      "title": "F&B 프랜차이즈 · 전국 매장 디지털 메뉴보드 전환",
+      "slides": 22,
+      "linkedId": "review-example-bs01-v3",
+      "previewProposalId": "review-example-bs01-v3",
+      "overall": 100,
+      "categories": {
+        "CU": 100,
+        "PR": 100,
+        "VS": 100,
+        "DQ": 100
+      },
+      "groundedMean": 0.979,
+      "route": "forced",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite",
+          "gemini-3.8-flash"
+        ],
+        "provider": "gemini",
+        "model": [
+          "gemini-3.1-flash-lite",
+          "gemini-3.8-flash"
+        ],
+        "llm_used": true,
+        "calls_ok": 4,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 46916,
+          "output": 4279
+        },
+        "steps": {
+          "review:score": 3,
+          "review:score_vision": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "route_mode": "forced",
+        "score_modes": {
+          "llm": 24
+        },
+        "selected": 24
+      },
+      "visualPages": [
+        {
+          "page": 1,
+          "path": "app/web/public/assets/review-examples/v3-bs01-1.jpg",
+          "sha256": "2e65bcf044275ac00e57f4287a12a1167c9f1295f5cb3a1fc1ee5f91997711b0"
+        },
+        {
+          "page": 9,
+          "path": "app/web/public/assets/review-examples/v3-bs01-9.jpg",
+          "sha256": "a152b82cf6739642612c3efdf61d2ad8a51f74c4e0da6cd865e8f6cf3911d5ea"
+        },
+        {
+          "page": 21,
+          "path": "app/web/public/assets/review-examples/v3-bs01-21.jpg",
+          "sha256": "2cf651b4717f690667d19f1282403d3aa248306c94969aa0b8cb318dfd61cf08"
+        },
+        {
+          "page": 22,
+          "path": "app/web/public/assets/review-examples/v3-bs01-22.jpg",
+          "sha256": "5bc975495272bc211047931e18423421eca3d16d4d71eb97c8d9a950d92cc64c"
+        }
+      ]
+    },
+    {
+      "scenario": "bs21",
+      "proposalId": "review-example-bs21-v3",
+      "reviewId": "r_linked_example_bs21_v3",
+      "title": "호텔 · 리조트 AI 스테이 — 표준 제안서 37장",
+      "slides": 41,
+      "linkedId": "review-example-bs21-v3",
+      "previewProposalId": "review-example-bs21-v3",
+      "overall": 94,
+      "categories": {
+        "CU": 92,
+        "PR": 100,
+        "VS": 100,
+        "DQ": 83
+      },
+      "groundedMean": 0.896,
+      "route": "forced",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite",
+          "gemini-3.8-flash"
+        ],
+        "provider": "gemini",
+        "model": [
+          "gemini-3.1-flash-lite",
+          "gemini-3.8-flash"
+        ],
+        "llm_used": true,
+        "calls_ok": 4,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 59592,
+          "output": 4243
+        },
+        "steps": {
+          "review:score": 3,
+          "review:score_vision": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "route_mode": "forced",
+        "score_modes": {
+          "llm": 24
+        },
+        "selected": 24
+      },
+      "visualPages": [
+        {
+          "page": 1,
+          "path": "app/web/public/assets/review-examples/v3-bs21-1.jpg",
+          "sha256": "8b80f638f09d004547fd3f1f69409a6d920498e81d493a1e9d6178274917ec2c"
+        },
+        {
+          "page": 18,
+          "path": "app/web/public/assets/review-examples/v3-bs21-18.jpg",
+          "sha256": "7e4a42c846a59085a856e15baec967b2df5850622826f3060de50e8c57a9cee2"
+        },
+        {
+          "page": 40,
+          "path": "app/web/public/assets/review-examples/v3-bs21-40.jpg",
+          "sha256": "0d0558b709aba168ef02867efd513aca89bd059c0ab3eaf5bc74529bc1c81d6d"
+        },
+        {
+          "page": 41,
+          "path": "app/web/public/assets/review-examples/v3-bs21-41.jpg",
+          "sha256": "09226a00dbbbdaffbe91e04c3b58928cb71ca60486be73b6ee46d9711d57087a"
+        }
+      ]
+    },
+    {
+      "scenario": "bs03",
+      "proposalId": "review-example-bs03-v3",
+      "reviewId": "r_linked_example_bs03_v3",
+      "title": "대학 캠퍼스 · 스마트 강의실 · 도서관 구축",
+      "slides": 19,
+      "linkedId": "review-example-bs03-v3",
+      "previewProposalId": "review-example-bs03-v3",
+      "overall": 96,
+      "categories": {
+        "CU": 92,
+        "PR": 100,
+        "VS": 100,
+        "DQ": 92
+      },
+      "groundedMean": 0.935,
+      "route": "forced",
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite",
+          "gemini-3.8-flash"
+        ],
+        "provider": "gemini",
+        "model": [
+          "gemini-3.1-flash-lite",
+          "gemini-3.8-flash"
+        ],
+        "llm_used": true,
+        "calls_ok": 4,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 42725,
+          "output": 3873
+        },
+        "steps": {
+          "review:score": 3,
+          "review:score_vision": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null,
+        "route_mode": "forced",
+        "score_modes": {
+          "llm": 24
+        },
+        "selected": 24
+      },
+      "visualPages": [
+        {
+          "page": 1,
+          "path": "app/web/public/assets/review-examples/v3-bs03-1.jpg",
+          "sha256": "4570fcd39c1ff5f4991124ef08339efdc2b26c28f0581bbee9379c495250cb8e"
+        },
+        {
+          "page": 3,
+          "path": "app/web/public/assets/review-examples/v3-bs03-3.jpg",
+          "sha256": "6a1454a34d2437ae3877f596e731584ddea804afe68d96f12b221185e222b1e4"
+        },
+        {
+          "page": 18,
+          "path": "app/web/public/assets/review-examples/v3-bs03-18.jpg",
+          "sha256": "1ebd9f01109fecd871e03af6b172b36a39c6a637da556fead818e2fbdbedb5a6"
+        },
+        {
+          "page": 19,
+          "path": "app/web/public/assets/review-examples/v3-bs03-19.jpg",
+          "sha256": "d942f6061b26a41b917b95ceba2a45793bfccc7ac0476287be680c327f2b2e45"
+        }
+      ]
+    }
+  ]
+}

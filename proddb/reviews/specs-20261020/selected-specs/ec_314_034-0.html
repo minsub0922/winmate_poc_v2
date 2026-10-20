@@ -1,0 +1,248 @@
+<script>
+		$('button.spec-title').on("click", function(e){
+			e.preventDefault();
+			$('div[name="specLayer"] > .layer-header > h2').text(this.innerText);
+			$('div[name="specLayer"] > .layer-content > p').text(this.value);
+
+			let newId = $(this).data('popup-target');
+			$('div[name="specLayer"]').attr('id', newId);
+			$('div[name="specLayer"] > .pop-close').attr('data-focus-next', newId);
+			$('div[name="specLayer"]').attr('data-popup-layer', newId);
+			$('div[name="specLayer"]').attr('data-focus', newId);
+		});
+	</script>
+	<h3 class="spec-itm-title" id="cstrt-nm" ></h3>
+	<div class="spec-table">
+		<dl>
+						<dt>일반</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">패키지 구성품</strong>
+													<p class="spec-desc">타워, 서브우퍼, 디지털 허브, HDMI 케이블, 광학 케이블, 전원코드, 리모컨, 조절식 고무 받침대, 카펫 스파이크, 설명서 등&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">기타</strong>
+													<p class="spec-desc">4K 패스스루 지원&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">SW 업데이트 방식</strong>
+													<p class="spec-desc">자동 업데이트(이더넷 및 Wi-Fi 연결 시)&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>사운드</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">주파수 응답</strong>
+													<p class="spec-desc">35Hz - 20kHz&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">기타</strong>
+													<p class="spec-desc">최대 SPL : 99dB&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">드라이버 크기</strong>
+													<p class="spec-desc">타워 : 32mm, 서브우퍼 : 250mm&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">출력</strong>
+													<p class="spec-desc">450W (타워 : 125W X 2대, 서브우퍼 : 200W)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">스피커 수</strong>
+													<p class="spec-desc">49개&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">멀티 스피커 연결</strong>
+													<p class="spec-desc">지원&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>색상</dt>
+						<dd>
+							<ol>
+								<li>
+										<p class="spec-desc">블랙&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>규격</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">크기</strong>
+													<p class="spec-desc">타워 : 320mm x 1769mm(각 7.6kg), 서브우퍼 : 296mm x 400mm x 296mm(14.6kg)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">무게</strong>
+													<p class="spec-desc">48,200g&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>연결성</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">입력단자</strong>
+													<p class="spec-desc">OPTICAL 및 AUX 입력 단자 지원&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">블루투스</strong>
+													<p class="spec-desc">지원&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">3.5mm 오디오 입력</strong>
+													<p class="spec-desc">지원&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">HDMI 입/출력 수</strong>
+													<p class="spec-desc">4개 / 1개&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">출력단자</strong>
+													<p class="spec-desc">HDMI (TV ARC)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">기타</strong>
+													<p class="spec-desc">Wi-Fi 연결 지원(802.11 a/b/g/n/ac)&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>사운드 기술</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">기타</strong>
+													<p class="spec-desc">사운드 모드 : Surround / Standard / Music / Movie / News / Night (서라운드/표준/음악/영화/뉴스/야간)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">돌비</strong>
+													<p class="spec-desc">Dolby Audio&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">DTS</strong>
+													<p class="spec-desc">DTS Digital Surround&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>전원 사양</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">전압</strong>
+													<p class="spec-desc">100-240V~50/60Hz&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>리모트 컨트롤</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">연결방식</strong>
+													<p class="spec-desc">블루투스&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>지원앱</dt>
+						<dd>
+							<ol>
+								<li>
+										<p class="spec-desc">Google Home&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>사용환경</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">작동 온도</strong>
+													<p class="spec-desc">0°C - 45°C&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">기타</strong>
+													<p class="spec-desc">구글 크롬캐스트, 에어플레이2 지원&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>HDMI</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">지원 사양</strong>
+													<p class="spec-desc">버전 2.3 (ARC)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">해상도</strong>
+													<p class="spec-desc">HDR10&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+				<dt>상품 기본정보</dt>
+				<dd>
+					<ol>
+						<li>
+								<strong class="spec-title">제품명</strong>
+								<p class="spec-desc">RADIANCE 2400</p>
+							</li>
+						<li>
+								<strong class="spec-title">제조자/수입자</strong>
+								<p class="spec-desc">Harman International Industries, Incorporated / 삼성전자㈜</p>
+							</li>
+						<li>
+								<strong class="spec-title">제조국가</strong>
+								<p class="spec-desc">중국</p>
+							</li>
+						<li>
+								<strong class="spec-title">KC 인증 필 유무</strong>
+								<p class="spec-desc"><img src='//images.samsung.com/is/image/samsung/p5/sec/common/icon-kc.png?$ORIGIN_PNG$' alt='KC 인증 로고'>R-R-SEC-RadianceRC, R-R-SEC-RadianceSub, R-R-SEC-RadianceTower</p>
+							</li>
+						<li>
+								<strong class="spec-title">동일모델의 출시년월</strong>
+								<p class="spec-desc">2021년 10월</p>
+							</li>
+						<li>
+								<strong class="spec-title">A/S 책임자와 전화번호</strong>
+								<p class="spec-desc">하만오디오 전문 서비스 센터 02-553-3494</p>
+							</li>
+						<li>
+								<strong class="spec-title">품질보증기준</strong>
+								<p class="spec-desc">결함·하자 등에 따른 소비자 피해에 대해서는 소비자분쟁해결기준 (소비자기본법 제16조)에 따라 보상 가능</p>
+							</li>
+						</ol>
+				</dd>
+			</dl>
+		</div>
+	<div class="layer-pop layer-normal layer-default specLayer active" name="specLayer" id="specLayer" tabindex="0" data-popup-layer="specLayer" data-focus="specLayer" aria-hidden="false" data-zindex="300" style="z-index: 300; display: none">
+		<div class="layer-header">
+			<h2></h2>
+		</div>
+		<div class="layer-content">
+			<p></p>
+		</div>
+		<button type="button" class="pop-close" data-focus-next="">팝업닫기</button>
+	</div>
+

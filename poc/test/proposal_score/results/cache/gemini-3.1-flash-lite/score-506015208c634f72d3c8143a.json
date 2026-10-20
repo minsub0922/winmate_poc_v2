@@ -1,0 +1,57 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~full:F04"
+ },
+ "prompt_tokens": 5378,
+ "output_tokens": 522,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "G 쇼핑몰의 현재 장애율, 복구 시간, 운영비 등 구체적인 수치를 제시하고, 노후 장비와 원격 감시 부재라는 근본 원인을 고객사 운영팀 인터뷰를 통해 명확히 분석했습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "G 쇼핑몰, 다섯 지표 중 셋이 업계보다 무겁습니다"
+     },
+     {
+      "sheet": 4,
+      "quote": "꺼진 화면은 결과, 원인은 감시 · AS 구조에 있습니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "6개 점의 공간별(매장, 아트리움, CMS, 실외기) 환경을 분석하여 24/7 운영에 적합한 QM55C, 비디오월 VM55B, DVM S2 등을 명확히 매칭하여 제안했습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "지금 쓰는 장비를 이렇게 바꿉니다 — 6개 점 네 가지 교체"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "유사 업종(백화점, 면세점, 쇼룸)의 도입 사례를 제시했으나, 각 사례에서 얻은 구체적인 성과 수치(예: 장애율 감소폭, 운영 효율 개선치 등)가 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "쇼핑몰 · 유통 · 상업시설이 이미 같은 구성을 씁니다"
+     }
+    ],
+    "improve": "각 사례별로 도입 전후의 구체적인 성과 수치를 추가하여 제안의 신뢰도를 높여야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

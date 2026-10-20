@@ -1,0 +1,69 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~placeholders:F11"
+ },
+ "prompt_tokens": 4114,
+ "output_tokens": 630,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 초과하는 장이 10장으로, 4장 이상이라는 1점 기준을 충족합니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "R 건설의 다음 분양은 세대 안의 사양으로 경쟁합니다"
+     },
+     {
+      "sheet": 3,
+      "quote": "R 건설의 고객은 모델하우스에서 고르고, 입주 후 매일 평가합니다"
+     },
+     {
+      "sheet": 5,
+      "quote": "R 건설 분양 세대의 공간마다 삼성이 만드는 가치가 다릅니다"
+     }
+    ],
+    "improve": "각 장의 핵심 메시지를 제외한 부연 설명을 대폭 줄여 장당 어절 수를 77어절 이하로 낮춰야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 70%가 10pt 미만이며, 9pt 미만 본문 칸이 4장에 존재하여 1점 기준에 해당합니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 3,
+      "quote": "본문 최소 11px(8.2pt)"
+     },
+     {
+      "sheet": 5,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     }
+    ],
+    "improve": "본문 텍스트의 기본 폰트 크기를 16px(12pt) 이상으로 상향 조정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS6",
+    "score": 2,
+    "anchor": "대부분 장에 시각 자료가 포함되어 있으나, 10장이 텍스트로만 구성되어 있어 3점 기준을 충족하지 못합니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "84A 주방, 빌트인 가전 세 가지의 매립 치수"
+     }
+    ],
+    "improve": "텍스트로만 구성된 10장에 빌트인 가전 매립 치수를 시각화한 도식이나 도면을 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,82 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs05~full:F04"
+ },
+ "prompt_tokens": 9336,
+ "output_tokens": 713,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "테마파크 관람객의 하루를 대기 줄과 첫 장면으로 정의하고, 시즌 콘텐츠 교체 시간(14일→2일) 및 대기 시간 단축(90분→60분) 등 구체적인 수치를 제시함.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "시즌 연출을 관제에서 일괄 교체 — 14일 → 2일"
+     },
+     {
+      "sheet": 6,
+      "quote": "최대 대기 시간 | 90분 → 60분"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "CU6",
+    "score": 3,
+    "anchor": "테마파크의 운영 맥락인 시즌별 연출, 낮과 밤의 무대 전환, 대기 동선 관리 등을 정확히 반영하였으며, 에버랜드 등 적합한 사례를 인용함.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "낮 공연 · 퍼레이드 | 11:00–17:00"
+     },
+     {
+      "sheet": 12,
+      "quote": "시즌마다 새로워지는 구역, 열두 달 운영 캘린더"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "옥외 무대에는 고휘도 XHB, 실내 대기 홀에는 비디오월 VM55B, 안내용으로 KM24C 등 각 공간 환경에 최적화된 제품을 명시함.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "대기 홀 벽면, 12면 비디오월로 | VM55B-U"
+     },
+     {
+      "sheet": 11,
+      "quote": "실외 LED XHB 피치 3안"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "에버랜드 신전무대 사례를 통해 옥외 LED 도입 구성과 낮/밤 운영 성과를 구체적인 수치와 함께 제시함.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "에버랜드 신전무대 — 낮 정원에서 밤 공연까지"
+     },
+     {
+      "sheet": 13,
+      "quote": "6,300 | 최대 밝기(니트) · 낮에도 선명"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~base:F06"
+ },
+ "prompt_tokens": 6613,
+ "output_tokens": 217,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "제안서 내 모든 장에서 동일한 지표(6개 점, 354면, 390대 등)가 일관되게 사용되었으며, 12장의 비디오월 수치는 서로 다른 사례(BMW, 캐딜락)를 인용한 것으로 모순이 아닙니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "6개 점 · 390대 교체"
+     },
+     {
+      "sheet": 9,
+      "quote": "354면"
+     },
+     {
+      "sheet": 10,
+      "quote": "6개 점 네 가지 교체"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

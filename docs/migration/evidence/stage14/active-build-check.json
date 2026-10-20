@@ -1,0 +1,20 @@
+{
+  "indexSha256": "3e7377d89b75bf3609c003f8ca5dd00f558cfc9a582f7a964eb9944339417baf",
+  "entrypoints": [
+    "/assets/app-DYAG7J3R.js"
+  ],
+  "appChunks": [
+    "App-B06ISkvx.js"
+  ],
+  "activeFeatures": {
+    "oldGenericError": false,
+    "newGatewayHandling": true,
+    "historyLookup": true,
+    "initialResponseGuard": true
+  },
+  "sourceMatchesVerified": {
+    "sharing.js": true,
+    "share-http.js": true
+  },
+  "note": "Other UI work rebuilt the active application after the fixed snapshot was published; the new sharing implementation remains present and production tests are rerun on this active build."
+}

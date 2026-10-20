@@ -1,0 +1,61 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs04:F11"
+ },
+ "prompt_tokens": 4252,
+ "output_tokens": 533,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 10장이나 되어 기준치를 크게 상회하며, 장당 평균 어절 수 또한 160어절로 매우 높습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "318어절"
+     },
+     {
+      "sheet": 5,
+      "quote": "234어절"
+     }
+    ],
+    "improve": "각 장의 핵심 메시지를 요약하여 어절 수를 대폭 줄이고, 개조식 구성을 적극적으로 도입해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 70%가 10pt(13.3px) 미만이며, 9pt(12px) 미만 본문 칸이 4장(2, 3, 5, 9)에 존재합니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "본문 최소 10.5px"
+     },
+     {
+      "sheet": 3,
+      "quote": "본문 최소 11px"
+     }
+    ],
+    "improve": "전반적인 본문 폰트 크기를 12pt(16px) 이상으로 상향 조정하고 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS6",
+    "score": 2,
+    "anchor": "대부분의 장에 사진이 배치되어 있으나, 10장에는 시각 자료가 전혀 없이 텍스트로만 구성되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "사진 0"
+     }
+    ],
+    "improve": "10장과 같이 텍스트만 있는 장에 빌트인 가전 매립 치수 관련 도식이나 사진을 추가하여 시각화해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,61 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs18:F10"
+ },
+ "prompt_tokens": 6692,
+ "output_tokens": 515,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "Knox Suite와 Knox Configure를 활용해 개통 세팅, 설정 잠금, 원격 프로필 배포 등 운영 관리 장면을 구체적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "Knox Configure 자동 설정 · S/W 리브랜딩"
+     },
+     {
+      "sheet": 7,
+      "quote": "Knox Configure 프로필 · 에디션별 프로필 하나로 모든 단말이 같은 설정"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "24주간의 상세 개발 일정과 마일스톤은 제시되었으나, 운영 이관 및 교육에 대한 구체적인 계획이 누락됨.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "착수부터 어린이날 출시까지 24주"
+     },
+     {
+      "sheet": 11,
+      "quote": "500 → 1,400 → 2,000곳"
+     }
+    ],
+    "improve": "운영 이관 절차와 매장 직원을 위한 교육 및 유지보수 체계에 대한 구체적인 계획을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 1,
+    "anchor": "일정 지연이나 설정 누락 등 발생 가능한 리스크를 언급하고 있으나, 이를 종합적인 리스크 관리 항목으로 다루지 않음.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "도입 과정에서 발생할 수 있는 주요 리스크(일정 지연, 호환성 문제, 운영 인력 부족 등)와 그에 대한 구체적인 대응 방안을 별도 항목으로 구성해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

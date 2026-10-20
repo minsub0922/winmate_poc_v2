@@ -1,0 +1,41 @@
+{
+ "id": "C10_L1",
+ "case": "C10",
+ "industry": "MD",
+ "strategy": "land",
+ "req_type": "scale",
+ "title": "요양병원 병동 확산",
+ "level": "minimal",
+ "input": {
+  "title": "P 요양병원 제안",
+  "customer": "P 요양병원",
+  "industry": "MD",
+  "free_text": "요양병원 병실 TV, 공기청정기",
+  "products": [
+   "hoteltv43",
+   "purifier"
+  ],
+  "id": "C10_L1"
+ },
+ "gold": {
+  "level": "minimal",
+  "industry": "MD",
+  "scenario_any": [
+   "STD-MD"
+  ],
+  "must_parts": [
+   "value",
+   "products",
+   "case",
+   "why"
+  ],
+  "layouts_any": {
+   "value": [
+    "L_VP_F2",
+    "L_VP_U_MD"
+   ]
+  },
+  "key_reqs": [],
+  "facts": []
+ }
+}

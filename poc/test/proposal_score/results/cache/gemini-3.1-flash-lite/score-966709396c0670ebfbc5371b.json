@@ -1,0 +1,74 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs20~full:F07"
+ },
+ "prompt_tokens": 9161,
+ "output_tokens": 656,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "투자 회수 기간, 연간 순현금, 광고 매출 등 정량적 효과를 제시하고, 각 수치에 대한 기준 시나리오와 가정(판매율, 순단가 등)을 명확히 기술함.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "연간 순현금 9.8억 = 광고 매출 14.4억 − 운영비 4.6억"
+     },
+     {
+      "sheet": 11,
+      "quote": "가정 = 실측 전 세운 값 · KPI마다 눈금이 다릅니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS4",
+    "score": 2,
+    "anchor": "MagicINFO 솔루션과 XHB 등 삼성 제품의 강점을 언급했으나, 이를 'Why Samsung'으로 종합하여 고객 과제와 연결하는 별도의 장이 없어 차별성 강조가 다소 분산됨.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "MagicINFO — Q 미디어 서버에서 모든 매체를 송출합니다"
+     }
+    ],
+    "improve": "삼성의 통합 솔루션과 전국 유지보수망이 고객의 송출 안정성 고민을 어떻게 해결하는지 종합적으로 정리한 'Why Samsung' 장을 추가하십시오.",
+    "confidence": "mid"
+   },
+   {
+    "id": "WR5",
+    "score": 3,
+    "anchor": "제안서 내에 근거 없는 절대 표현(최초, 최고, 유일 등)이 발견되지 않으며, 성과를 보증하는 문장 대신 추정치임을 명시함.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "실측 전이라 범위로 제시"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR7",
+    "score": 3,
+    "anchor": "각 장마다 연출 이미지, 사양 변경 가능성, 효과 수치의 전제 조건(삼성전자 추정치 등)을 명시하여 법적 고지를 충실히 이행함.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "수치는 삼성전자 추정(2026)"
+     },
+     {
+      "sheet": 11,
+      "quote": "가정 = 실측 전 세운 값"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs21:F04"
+ },
+ "prompt_tokens": 12731,
+ "output_tokens": 385,
+ "data": {
+  "scores": [
+   {
+    "id": "CU6",
+    "score": 3,
+    "anchor": "호텔 업종의 특성인 객실 관리, 투숙객 응대, 공간별(라운지, 연회장 등) 운영 맥락을 정확히 이해하고 반영함.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "글로벌 고객의 체크인 요청"
+     },
+     {
+      "sheet": 8,
+      "quote": "객실 내 인원의 활동량 변화를 감지"
+     },
+     {
+      "sheet": 21,
+      "quote": "그랜드볼룸을 영화 · 콘서트 · 게임을 상영하는 프라이빗 영화관으로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "유관 업종 사례를 제시했으나, 사례에서 얻은 구체적인 성과 수치가 누락되어 있음.",
+    "evidence": [
+     {
+      "sheet": 29,
+      "quote": "인스파이어 엔터테인먼트 리조트"
+     },
+     {
+      "sheet": 30,
+      "quote": "오크우드 프리미어 코엑스 센터"
+     }
+    ],
+    "improve": "각 도입 사례를 통해 해당 호텔이 얻은 구체적인 운영 효율 개선 수치나 고객 만족도 향상 지표를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs03:F05"
+ },
+ "prompt_tokens": 8036,
+ "output_tokens": 242,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "대부분의 수치에 출처가 표기되지 않았으며, 일부 출처는 '삼성전자 추정' 등으로 모호하게 기재되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "국내 대학 교육 환경 투자 규모와, E 대학교의 강의실"
+     },
+     {
+      "sheet": 3,
+      "quote": "구성원 14,200명 중 비중 · E 대학교 2026 학사 통계 기준"
+     },
+     {
+      "sheet": 4,
+      "quote": "수업 시작이 평균 8분 늦어집니다"
+     }
+    ],
+    "improve": "모든 정량적 수치와 인용구 뒤에 조사 기관과 연도를 명확하게 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,1573 @@
+{
+ "id": "bs04",
+ "variant": "~full",
+ "title": "주거 분양 · 빌트인 가전 + 스마트홈 사양 제안",
+ "customer": "R 건설",
+ "n_sheets": 13,
+ "req": "신규 구축 · RFP",
+ "strategy": "가치 선도형",
+ "ind": "주거 분양 · 주택",
+ "route": {
+  "selected": [
+   "CU1",
+   "CU2",
+   "CU3",
+   "CU4",
+   "CU5",
+   "CU6",
+   "MK1",
+   "MK2",
+   "MK3",
+   "MK4",
+   "MK6",
+   "PR1",
+   "PR2",
+   "PR3",
+   "PR4",
+   "PR5",
+   "PR6",
+   "PR7",
+   "VS1",
+   "VS2",
+   "VS3",
+   "VS4",
+   "VS5",
+   "VS6",
+   "VS7",
+   "VS8",
+   "VS9",
+   "VS10",
+   "DS1",
+   "DS2",
+   "DS3",
+   "DS4",
+   "DS5",
+   "DS6",
+   "DS7",
+   "DS8",
+   "DS9",
+   "WR1",
+   "WR2",
+   "WR3",
+   "WR4",
+   "WR5",
+   "WR6",
+   "WR7",
+   "WR8",
+   "WR9",
+   "SB1",
+   "SB2",
+   "SB5"
+  ],
+  "mode": "forced",
+  "error": "",
+  "l1": [],
+  "l2": [],
+  "criteria": [],
+  "seeds": {},
+  "local": {},
+  "rule_pass": [],
+  "risk": [],
+  "gates": {
+   "CU1": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU2": {
+    "applies": true,
+    "why": "비교할 고객 요구사항 7개"
+   },
+   "CU3": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU4": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU6": {
+    "applies": true,
+    "why": "업종: 주거 분양 · 주택"
+   },
+   "MK1": {
+    "applies": true,
+    "why": "시장 관련 1장"
+   },
+   "MK2": {
+    "applies": true,
+    "why": "연도 언급 5개"
+   },
+   "MK3": {
+    "applies": true,
+    "why": "수치 53개"
+   },
+   "MK4": {
+    "applies": true,
+    "why": "수치 53개"
+   },
+   "MK5": {
+    "applies": false,
+    "why": "경쟁 비교 내용이 없어요"
+   },
+   "MK6": {
+    "applies": true,
+    "why": "시장 · 분석 장 있음"
+   },
+   "PR1": {
+    "applies": true,
+    "why": "제품 2종 언급"
+   },
+   "PR2": {
+    "applies": true,
+    "why": "제품 2종 언급"
+   },
+   "PR3": {
+    "applies": true,
+    "why": "제품 2종 언급"
+   },
+   "PR4": {
+    "applies": true,
+    "why": "솔루션: SmartThings"
+   },
+   "PR5": {
+    "applies": true,
+    "why": "제품 2종 언급"
+   },
+   "PR6": {
+    "applies": true,
+    "why": "제품 2종 언급"
+   },
+   "PR7": {
+    "applies": true,
+    "why": "제품 2종 언급"
+   },
+   "VS1": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS2": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS3": {
+    "applies": true,
+    "why": "13장 흐름"
+   },
+   "VS4": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS6": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS7": {
+    "applies": true,
+    "why": "본 제안 분량"
+   },
+   "VS8": {
+    "applies": true,
+    "why": "본 제안 분량"
+   },
+   "VS9": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS10": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS1": {
+    "applies": true,
+    "why": "장마다 글자 상자 위치 · 크기를 쟀어요"
+   },
+   "DS2": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS3": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS4": {
+    "applies": true,
+    "why": "글자 크기 정보 있음"
+   },
+   "DS5": {
+    "applies": true,
+    "why": "폰트 2종"
+   },
+   "DS6": {
+    "applies": true,
+    "why": "장표형 문서"
+   },
+   "DS7": {
+    "applies": true,
+    "why": "장표형 문서"
+   },
+   "DS8": {
+    "applies": true,
+    "why": "차트 0 · 표 0 · 수치 53"
+   },
+   "DS9": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS10": {
+    "applies": false,
+    "why": "장표 화면(이미지)이 없어요 — 색 · 톤은 판단 불가"
+   },
+   "WR1": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR2": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR3": {
+    "applies": true,
+    "why": "브랜드 표기 SmartThings"
+   },
+   "WR4": {
+    "applies": true,
+    "why": "수치 53개"
+   },
+   "WR5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR6": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR7": {
+    "applies": true,
+    "why": "사양 · 효과 수치 · 이미지 있음"
+   },
+   "WR8": {
+    "applies": true,
+    "why": "약어 MARKET, EHS, VALUE, PROPS"
+   },
+   "WR9": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "SB1": {
+    "applies": true,
+    "why": "장표형 문서"
+   },
+   "SB2": {
+    "applies": true,
+    "why": "5장 이상 장표"
+   },
+   "SB3": {
+    "applies": false,
+    "why": "앱에서 만든 장 · PDF 는 노트 · 숨김 장 · 댓글 정보가 없어요"
+   },
+   "SB4": {
+    "applies": false,
+    "why": "파일 속성이 없어요"
+   },
+   "SB5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "SB6": {
+    "applies": false,
+    "why": "RFP 형식 요구가 연결되지 않았어요"
+   }
+  }
+ },
+ "scores": [
+  {
+   "id": "CU1",
+   "score": 3,
+   "anchor": "모든 장에서 고객사명 'R 건설'이 일관되게 사용되었으며, 다른 고객사명이나 예시 고객명이 발견되지 않았습니다.",
+   "evidence": [
+    {
+     "sheet": 1,
+     "quote": "R 건설 2지구 1,240세대"
+    },
+    {
+     "sheet": 13,
+     "quote": "R 건설 2지구 1,240세대"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F01",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "CU2",
+   "score": 3,
+   "anchor": "고객의 요구사항(R1~R4)에 대해 4장(차별화), 6~7장(옵션 계약률), 11장(서비스 체계), 10장(시공 정합)에서 각각 명시적으로 해법을 제시하고 있습니다.",
+   "evidence": [
+    {
+     "sheet": 4,
+     "quote": "모델하우스에서 ‘이 단지’로 기억될 네 가지"
+    },
+    {
+     "sheet": 7,
+     "quote": "옵션 계약 전환 50%"
+    },
+    {
+     "sheet": 11,
+     "quote": "입주 한 달 전부터 2년 동안, 입주민이 만나는 서비스"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F02",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "CU3",
+   "score": 3,
+   "anchor": "제안서 1장에서 옵션 계약률과 가전 민원 감소라는 경영 성과를 제시하고, 13장에서 결정권자가 검토해야 할 도면, 옵션 패키지, 설치 일정을 명확히 구분하여 정리했습니다.",
+   "evidence": [
+    {
+     "sheet": 1,
+     "quote": "50% 옵션 계약률, 40% 가전 민원 감소"
+    },
+    {
+     "sheet": 13,
+     "quote": "12월까지, 함께 정할 세 가지"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F03",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "CU4",
+   "score": 3,
+   "anchor": "R 건설의 분양 여정(모델하우스-옵션-입주-거주)을 따라 각 단계별 문제와 목표 수치를 구체적으로 제시했습니다.",
+   "evidence": [
+    {
+     "sheet": 3,
+     "quote": "모델하우스에서 고르고, 입주 후 매일 평가합니다"
+    },
+    {
+     "sheet": 7,
+     "quote": "옵션 상담 시간 25분 → 12분"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F04",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "CU5",
+   "score": 3,
+   "anchor": "R 건설의 2지구 사업 규모, 84A 타입, 모델하우스 동선 및 구체적인 일정 등 고유 정보가 전 장에 걸쳐 상세히 반영되어 있습니다.",
+   "evidence": [
+    {
+     "sheet": 8,
+     "quote": "84A 한 세대 · 방 3 · 486세대"
+    },
+    {
+     "sheet": 13,
+     "quote": "12월까지, 함께 정할 세 가지"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F01",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "CU6",
+   "score": 3,
+   "anchor": "주거 분양 업종의 핵심인 모델하우스 동선, 옵션 계약, 입주 지원 등 운영 맥락을 정확히 반영했습니다.",
+   "evidence": [
+    {
+     "sheet": 3,
+     "quote": "모델하우스에서 고르고, 입주 후 매일 평가"
+    },
+    {
+     "sheet": 7,
+     "quote": "모델하우스, 둘러본 경험이 그대로 옵션 계약으로"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F04",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "MK1",
+   "score": 3,
+   "anchor": "국내 공동주택 분양 시장을 기준으로 2026년 전망치를 제시하였으며, 분양 물량과 옵션 시장 규모 및 성장률 수치가 논리적으로 일관되게 구성되어 있습니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "국내 공동주택 분양 시장 · 출처: 삼성전자 추정(2026)"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F05",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "MK2",
+   "score": 3,
+   "anchor": "모든 시장 수치와 전망치가 2026년 기준의 최신 전망 자료로 명시되어 있어 데이터의 최신성이 확보되었습니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "2026E 분양 물량 · 23 · 만 세대 · 연간 · 2026E는 전망"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F05",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  },
+  {
+   "id": "MK3",
+   "score": 1,
+   "anchor": "시장 수치와 성과 목표 수치가 다수 포함된 장들에서 출처와 기준 연도가 누락된 경우가 많아 출처 표기 기준을 충족하지 못합니다.",
+   "evidence": [
+    {
+     "sheet": 5,
+     "quote": "R 건설 · 2지구 제안 · 84A 기준"
+    },
+    {
+     "sheet": 8,
+     "quote": "R 건설 · 옵션가 12/04 확정"
+    },
+    {
+     "sheet": 11,
+     "quote": "R 건설 · 2지구 제안"
+    }
+   ],
+   "improve": "모든 수치와 성과 지표 옆에 해당 자료의 출처 기관과 기준 연도를 명확히 기재해야 합니다.",
+   "confidence": "high",
+   "community": "F05",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "MK4",
+   "score": 3,
+   "anchor": "전체 세대수(1,240세대)와 84A 타입 세대수(486세대)가 장별로 구분되어 일관되게 사용되었습니다.",
+   "evidence": [
+    {
+     "sheet": 1,
+     "quote": "R 건설 2지구 1,240세대"
+    },
+    {
+     "sheet": 8,
+     "quote": "84A 세대 · 방 3 · 486세대"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F06",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "MK6",
+   "score": 3,
+   "anchor": "시장 분석 장(2, 3장)에서 도출된 시사점이 '그래서 R 건설에게'라는 문구와 함께 구체적인 제안 방향으로 연결되며, 이후 장들에서 이를 해결하는 가치와 제품을 제시함.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "그래서 R 건설에게 | 옵션 라인업이 곧 청약 경쟁력"
+    },
+    {
+     "sheet": 3,
+     "quote": "결정적 순간 — 고객사를 평가하는 단계"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F08",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "PR1",
+   "score": 3,
+   "anchor": "제안된 Bespoke Built-in 및 EHS 모델은 현재 카탈로그 라인업에 부합하며, 단종 모델이나 이전 세대 명칭이 확인되지 않습니다.",
+   "evidence": [
+    {
+     "sheet": 1,
+     "quote": "Samsung Bespoke Built-in · 키친핏"
+    },
+    {
+     "sheet": 3,
+     "quote": "EHS 난방 · 온수"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F09",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "PR2",
+   "score": 3,
+   "anchor": "제안서 내 제품 사양(매립 치수, 성능 등)이 일관되게 표기되어 있으며, 카탈로그 사양과 상충하는 내용이 없습니다.",
+   "evidence": [
+    {
+     "sheet": 10,
+     "quote": "냉장고 W 930 H 1,870 D 700"
+    },
+    {
+     "sheet": 11,
+     "quote": "영하 25℃ 성능 유지"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F09",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "PR3",
+   "score": 3,
+   "anchor": "각 공간(주방, 드레스룸, 실외기실 등)별로 적합한 빌트인 가전과 EHS 히트펌프를 매칭하고 설치 환경을 명시했습니다.",
+   "evidence": [
+    {
+     "sheet": 5,
+     "quote": "R 건설 분양 세대의 공간마다 삼성이 만드는 가치가 다릅니다"
+    },
+    {
+     "sheet": 10,
+     "quote": "84A 주방, 빌트인 가전 세 가지의 매립 치수"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F04",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "PR4",
+   "score": 3,
+   "anchor": "SmartThings를 통해 가전 제어, 에너지 모니터링, 홈케어 진단 등 누가 무엇을 어떻게 관리하는지 운영 장면을 구체적으로 제시함.",
+   "evidence": [
+    {
+     "sheet": 5,
+     "quote": "SmartThings · 빌트인 · 난방 · 도어락 (타사)을 계정 하나로"
+    },
+    {
+     "sheet": 11,
+     "quote": "입주민 앱 · 관리사무소 · 삼성 서비스"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F10",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "PR5",
+   "score": 3,
+   "anchor": "Bespoke Built-in, EHS, SmartThings 등 제품 및 솔루션 명칭이 제안서 전반에 걸쳐 일관된 표기를 유지하고 있습니다.",
+   "evidence": [
+    {
+     "sheet": 8,
+     "quote": "BESPOKE 키친핏"
+    },
+    {
+     "sheet": 9,
+     "quote": "BESPOKE AI 인덕션"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F09",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "PR6",
+   "score": 2,
+   "anchor": "8장과 9장에서 84A 타입에 대한 제품별 수량은 명시되어 있으나, 전체 단지(1,240세대)에 대한 총 수량 합계나 설치 방식에 대한 상세 표가 누락되었습니다.",
+   "evidence": [
+    {
+     "sheet": 8,
+     "quote": "84A 세대당 5대"
+    },
+    {
+     "sheet": 9,
+     "quote": "84A 타입 486세대 기준"
+    }
+   ],
+   "improve": "전체 1,240세대에 대한 공간별 제품 총 수량과 설치 방식이 포함된 종합 구성표를 추가해야 합니다.",
+   "confidence": "high",
+   "community": "F06",
+   "mode": "llm",
+   "grounded": 0.5,
+   "error": ""
+  },
+  {
+   "id": "PR7",
+   "score": 3,
+   "anchor": "빌트인 가전의 매립 치수, 전원, 에너지 등 설치 환경 전제와 유지보수 및 보증 범위를 명확히 밝힘.",
+   "evidence": [
+    {
+     "sheet": 10,
+     "quote": "매립 공간(W × H × D) · 여유 공간 · 전원"
+    },
+    {
+     "sheet": 11,
+     "quote": "입주 후 2년 무상, 이후 연장 케어는 선택"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F10",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "VS1",
+   "score": 3,
+   "anchor": "고객 언어로 된 4가지 가치(앱 제어, 히트펌프, 빌트인, 2년 케어)가 명확히 제시되었으며, 각 가치를 구현하는 제품 및 솔루션이 짝지어져 있음.",
+   "evidence": [
+    {
+     "sheet": 4,
+     "quote": "모델하우스에서 ‘이 단지’로 기억될 네 가지"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F08",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "VS2",
+   "score": 3,
+   "anchor": "옵션 계약률, 상담 시간, 가전 민원 감소 등 정량적 목표를 제시하고, 각 수치의 산정 기준(직전 단지 대비, 삼성전자 추정 등)을 명시함.",
+   "evidence": [
+    {
+     "sheet": 1,
+     "quote": "50% | 옵션 계약률 | 직전 단지 31% 대비"
+    },
+    {
+     "sheet": 1,
+     "quote": "12분 | 옵션 상담 시간 | 모델하우스 · 현재 25분"
+    },
+    {
+     "sheet": 1,
+     "quote": "40% | 가전 민원 감소 | 입주 1년 · 직전 단지 대비"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F07",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  },
+  {
+   "id": "VS3",
+   "score": 2,
+   "anchor": "전반적인 흐름은 논리적이나, 11장(사례) 이후 12장(사례)이 다시 배치되어 흐름이 다소 반복적이며, 8~10장에서 제품 구성과 스펙이 분산되어 있음.",
+   "evidence": [
+    {
+     "sheet": 11,
+     "quote": "입주 한 달 전부터 2년 동안, 입주민이 만나는 서비스"
+    },
+    {
+     "sheet": 12,
+     "quote": "같은 고민을 먼저 푼 두 단지"
+    }
+   ],
+   "improve": "사례 장(11, 12장)을 하나로 통합하고, 제품 구성과 스펙 장을 연속 배치하여 흐름을 매끄럽게 조정해야 함.",
+   "confidence": "high",
+   "community": "F08",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "VS4",
+   "score": 3,
+   "anchor": "삼성의 통합 솔루션(SmartThings, EHS)과 전국 서비스망을 고객의 과제(분양 차별화, 입주 후 민원 감소)와 연결하여 구체적 사례와 함께 제시함.",
+   "evidence": [
+    {
+     "sheet": 3,
+     "quote": "전국 서비스망 | 2년 무상 점검 · 원격 진단"
+    },
+    {
+     "sheet": 12,
+     "quote": "같은 고민을 먼저 푼 두 단지"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F07",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "VS5",
+   "score": 2,
+   "anchor": "유관 사례를 제시했으나, 사례에서 얻은 실제 성과 수치가 아닌 제안사의 해결 방안 위주로 기술되었습니다.",
+   "evidence": [
+    {
+     "sheet": 12,
+     "quote": "같은 고민을 먼저 푼 두 단지"
+    }
+   ],
+   "improve": "사례 단지에서 실제 도입 후 확인된 구체적인 성과 수치(예: 옵션 계약률 상승폭 등)를 추가해야 합니다.",
+   "confidence": "high",
+   "community": "F04",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "VS6",
+   "score": 2,
+   "anchor": "13장에서 도면 검토, 옵션 확정, 설치 일정 등 주요 마일스톤을 제시했으나, 교육 및 운영 이관에 대한 구체적 계획은 누락됨.",
+   "evidence": [
+    {
+     "sheet": 13,
+     "quote": "12월까지, 함께 정할 세 가지"
+    }
+   ],
+   "improve": "교육 및 운영 이관에 대한 구체적인 계획을 추가해야 합니다.",
+   "confidence": "high",
+   "community": "F10",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "VS7",
+   "score": 2,
+   "anchor": "13장에서 옵션 패키지별 세대당 금액과 구성안을 언급하고 있으나, 총소유비용(TCO)이나 투자 회수 기간에 대한 구체적인 산정 전제 및 숨은 비용 정보가 부족합니다.",
+   "evidence": [
+    {
+     "sheet": 13,
+     "quote": "구성 3안 중 1안 · 옵션 3종 · 타입별 세대당 금액"
+    }
+   ],
+   "improve": "옵션 패키지별 세대당 금액뿐만 아니라, 입주 후 유지보수 비용을 포함한 총소유비용(TCO) 분석과 투자 회수 기간에 대한 정보를 추가해야 합니다.",
+   "confidence": "high",
+   "community": "F03",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "VS8",
+   "score": 1,
+   "anchor": "도입 리스크(공사 중 영업, 호환성, 일정 지연 등)와 그에 대한 대응 방안을 다루는 내용이 없음.",
+   "evidence": [
+    {
+     "sheet": 0,
+     "quote": ""
+    }
+   ],
+   "improve": "공사 중 발생할 수 있는 리스크와 그에 대한 구체적인 대응 방안을 포함해야 합니다.",
+   "confidence": "high",
+   "community": "F10",
+   "mode": "llm",
+   "grounded": null,
+   "error": ""
+  },
+  {
+   "id": "VS9",
+   "score": 3,
+   "anchor": "표지(1장)와 결론(13장)에서 '모델하우스에서 팔리고 매일 저녁 평가받는'이라는 핵심 메시지를 일관되게 유지하고 있음.",
+   "evidence": [
+    {
+     "sheet": 1,
+     "quote": "모델하우스에서 팔리고, 매일 저녁 평가받는 주방"
+    },
+    {
+     "sheet": 13,
+     "quote": "매일 저녁 평가받는 빌트인 주방"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F08",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "VS10",
+   "score": 3,
+   "anchor": "마지막 장에서 고객이 결정해야 할 세 가지 항목과 그에 따른 일정 및 담당자를 명확히 제시함.",
+   "evidence": [
+    {
+     "sheet": 13,
+     "quote": "12월까지, 함께 정할 세 가지"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F10",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "DS1",
+   "score": 2,
+   "anchor": "13장의 제목 위치가 다른 장들과 달리 우측 상단(648, 66)에 배치되어 일관성이 부족합니다.",
+   "evidence": [
+    {
+     "sheet": 1,
+     "quote": "B2B PROPOSAL"
+    },
+    {
+     "sheet": 13,
+     "quote": "12월까지, 함께 정할 세 가지"
+    }
+   ],
+   "improve": "모든 장의 제목 위치를 좌측 상단으로 통일해야 합니다.",
+   "confidence": "high",
+   "community": "F11",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "DS2",
+   "score": 2,
+   "anchor": "대부분 장은 헤드라인이 명확하나, 2장부터 9장까지는 어절 수가 많아 메시지가 분산될 우려가 있습니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "R 건설의 다음 분양은 세대 안의 사양으로 경쟁합니다"
+    },
+    {
+     "sheet": 3,
+     "quote": "R 건설의 고객은 모델하우스에서 고르고, 입주 후 매일 평가합니다"
+    }
+   ],
+   "improve": "장별 핵심 메시지를 한 줄로 요약하고, 본문 내용을 개조식으로 간결하게 줄여야 합니다.",
+   "confidence": "high",
+   "community": "F11",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "DS3",
+   "score": 1,
+   "anchor": "110어절을 넘는 장이 10장으로 매우 많아 발표 자료로서의 가독성이 떨어집니다.",
+   "evidence": [
+    {
+     "sheet": 3,
+     "quote": "318어절"
+    },
+    {
+     "sheet": 5,
+     "quote": "234어절"
+    }
+   ],
+   "improve": "장당 어절 수를 110어절 이하로 대폭 줄이고 핵심 위주로 재구성해야 합니다.",
+   "confidence": "high",
+   "community": "F11",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  },
+  {
+   "id": "DS4",
+   "score": 1,
+   "anchor": "20자 넘는 본문 칸의 70%가 10pt 미만이며, 9pt 미만인 장이 4장 존재하여 가독성이 매우 낮습니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "본문 최소 10.5px(7.9pt)"
+    },
+    {
+     "sheet": 3,
+     "quote": "본문 최소 11px(8.2pt)"
+    }
+   ],
+   "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정해야 합니다.",
+   "confidence": "high",
+   "community": "F11",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  },
+  {
+   "id": "DS5",
+   "score": 3,
+   "anchor": "Noto Sans KR과 Manrope 2종의 폰트를 사용하며, 제목과 본문의 스타일 체계가 모든 장에서 일관됩니다.",
+   "evidence": [
+    {
+     "sheet": 1,
+     "quote": "Noto Sans KR · Manrope"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F11",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  },
+  {
+   "id": "DS6",
+   "score": 3,
+   "anchor": "텍스트만 있는 장이 1장(8%)으로 기준치인 10% 이하를 충족하며, 대부분 실제 사진을 활용하고 있습니다.",
+   "evidence": [
+    {
+     "sheet": 10,
+     "quote": "사진 0"
+    },
+    {
+     "sheet": 5,
+     "quote": "사진 7"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F11",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  },
+  {
+   "id": "DS7",
+   "score": 3,
+   "anchor": "모든 장의 제목이 라벨형이 아닌 결론을 담은 문장형으로 구성되어 있어 제목만 읽어도 제안의 핵심 스토리가 파악됨.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "R 건설의 다음 분양은 세대 안의 사양으로 경쟁합니다"
+    },
+    {
+     "sheet": 6,
+     "quote": "R 건설의 주방은 모델하우스에서 팔리고, 매일 저녁 평가받습니다"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F08",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "DS8",
+   "score": 1,
+   "anchor": "수치가 많은 제안서임에도 불구하고 데이터를 시각화한 차트나 표가 전혀 없으며, 텍스트로만 나열되어 가독성이 떨어집니다.",
+   "evidence": [
+    {
+     "sheet": 7,
+     "quote": ""
+    },
+    {
+     "sheet": 8,
+     "quote": ""
+    }
+   ],
+   "improve": "주요 수치와 옵션 구성, 서비스 프로세스를 한눈에 파악할 수 있도록 차트와 표를 적극적으로 활용해야 합니다.",
+   "confidence": "high",
+   "community": "F06",
+   "mode": "llm",
+   "grounded": null,
+   "error": ""
+  },
+  {
+   "id": "DS9",
+   "score": 3,
+   "anchor": "13장의 분량은 제안 범위(분양, 빌트인, 스마트홈)를 다루기에 적절하며 중복되는 장표 없이 논리적으로 구성됨.",
+   "evidence": [
+    {
+     "sheet": 13,
+     "quote": "12월까지, 함께 정할 세 가지"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F08",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "WR1",
+   "score": 3,
+   "anchor": "템플릿 잔여물이나 자리표시 문구가 없으며, 마무리 장의 연락처는 제안사 담당자의 공식 정보로 적절합니다.",
+   "evidence": [
+    {
+     "sheet": 13,
+     "quote": "김도윤 프로 · 010-1234-5678"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F01",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "WR2",
+   "score": 3,
+   "anchor": "전체적으로 오탈자나 띄어쓰기 오류가 거의 발견되지 않으며, 제목 또한 정확하게 표기되었습니다.",
+   "evidence": [
+    {
+     "sheet": 1,
+     "quote": "B2B PROPOSAL"
+    },
+    {
+     "sheet": 13,
+     "quote": "12월까지, 함께 정할 세 가지"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F12",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "WR3",
+   "score": 3,
+   "anchor": "SmartThings 등 브랜드명이 공식 표기법(대소문자 및 띄어쓰기)에 맞춰 정확하게 기재되어 있습니다.",
+   "evidence": [
+    {
+     "sheet": 3,
+     "quote": "SmartThings"
+    },
+    {
+     "sheet": 11,
+     "quote": "SmartThings"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F09",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "WR4",
+   "score": 1,
+   "anchor": "금액 단위가 '억 원', '원', '만 원'으로 혼용되어 표기되어 있어 수치 비교 시 혼란을 줄 수 있습니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "9,700 | 억 원"
+    },
+    {
+     "sheet": 8,
+     "quote": "에어드레서 190만"
+    }
+   ],
+   "improve": "제안서 내 모든 금액 단위를 '원' 또는 '백만 원' 등으로 통일하여 표기해야 합니다.",
+   "confidence": "high",
+   "community": "F06",
+   "mode": "llm",
+   "grounded": 0.5,
+   "error": ""
+  },
+  {
+   "id": "WR5",
+   "score": 3,
+   "anchor": "근거 없는 절대 표현이 없으며, 성과 수치 등은 목표치임을 명시하여 보증성 표현을 피함.",
+   "evidence": [
+    {
+     "sheet": 6,
+     "quote": "R 건설 · 수치는 목표"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F07",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "WR6",
+   "score": 1,
+   "anchor": "9장에서 '원가'라는 표현이 명시적으로 사용되어 내부 정보가 고객용 문서에 노출되었습니다.",
+   "evidence": [
+    {
+     "sheet": 9,
+     "quote": "세대당 원가 최소 · 분양가 유지"
+    }
+   ],
+   "improve": "고객용 제안서에서 '원가'라는 표현을 삭제하고 '옵션 구성별 비용 효율성' 또는 '가격 경쟁력'과 같은 고객 친화적인 용어로 수정해야 합니다.",
+   "confidence": "high",
+   "community": "F01",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "WR7",
+   "score": 2,
+   "anchor": "연출 이미지 및 수치에 대한 고지는 있으나, '사양 변경 가능성'에 대한 명시적인 고지 문구가 누락됨.",
+   "evidence": [
+    {
+     "sheet": 6,
+     "quote": "R 건설 · 수치는 목표"
+    },
+    {
+     "sheet": 13,
+     "quote": "도입 후 모습 · 참고 연출"
+    }
+   ],
+   "improve": "제안서 내에 '본 제안의 사양 및 수치는 설계 변경 등에 따라 달라질 수 있음'과 같은 사양 변경 가능성 고지 문구를 추가해야 함.",
+   "confidence": "high",
+   "community": "F07",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "WR8",
+   "score": 1,
+   "anchor": "MARKET, EHS, LDK, SPEC 등 고객이 생소할 수 있는 약어들을 본문에서 전혀 풀이하지 않고 사용하였습니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "01 · MARKET INTELLIGENCE"
+    },
+    {
+     "sheet": 5,
+     "quote": "LDK · 분양의 얼굴"
+    },
+    {
+     "sheet": 10,
+     "quote": "04 · 빌트인 매립 치수"
+    }
+   ],
+   "improve": "고객이 이해하기 어려운 약어(EHS, LDK, SPEC 등)를 처음 등장할 때 풀어서 설명하거나 주석을 달아야 합니다.",
+   "confidence": "high",
+   "community": "F12",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "WR9",
+   "score": 3,
+   "anchor": "전체적으로 개조식 문체와 명사형 종결이 일관되게 유지되고 있으며, 고객을 존중하는 정중한 톤을 유지하고 있습니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "R 건설의 다음 분양은 세대 안의 사양으로 경쟁합니다"
+    },
+    {
+     "sheet": 13,
+     "quote": "12월까지, 함께 정할 세 가지"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F12",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "SB1",
+   "score": 2,
+   "anchor": "표지와 마무리는 갖추었으나, 1장에 목차가 포함되어 있지 않아 구성 요소가 일부 누락되었습니다.",
+   "evidence": [
+    {
+     "sheet": 1,
+     "quote": "열기 · 표지 · 목차 · “B2B PROPOSAL”"
+    }
+   ],
+   "improve": "1장에 목차 내용을 추가하여 제안서의 전체 구성을 명확히 안내해야 합니다.",
+   "confidence": "high",
+   "community": "F02",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  },
+  {
+   "id": "SB2",
+   "score": 2,
+   "anchor": "모든 장의 푸터에 제안명과 기밀 표기는 일관되게 있으나, 1장을 제외한 본문 장들에 쪽번호가 표기되어 있지 않습니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "CONFIDENTIAL · 2"
+    },
+    {
+     "sheet": 13,
+     "quote": "CONFIDENTIAL · 13"
+    }
+   ],
+   "improve": "각 장의 푸터 영역에 해당 장의 쪽번호를 명확히 기입하여 일관성을 확보해야 합니다.",
+   "confidence": "high",
+   "community": "F02",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "SB5",
+   "score": 1,
+   "anchor": "표지에 제출 날짜가 명시되어 있지 않아 최신성 확인이 어려움.",
+   "evidence": [
+    {
+     "sheet": 1,
+     "quote": ""
+    }
+   ],
+   "improve": "표지에 정확한 제출 날짜를 기입해야 합니다.",
+   "confidence": "high",
+   "community": "F10",
+   "mode": "llm",
+   "grounded": null,
+   "error": ""
+  }
+ ],
+ "aggregate": {
+  "total": 76.4,
+  "band": "양호",
+  "verdict": "소폭 보완 후 제출",
+  "rubric_mean": 2.5,
+  "categories": {
+   "CU": 100.0,
+   "MK": 80.0,
+   "PR": 92.9,
+   "VS": 76.3,
+   "DS": 52.9,
+   "WR": 63.3,
+   "SB": 33.3
+  },
+  "communities": {
+   "F01": 2.5,
+   "F02": 2.33,
+   "F03": 2.5,
+   "F04": 2.75,
+   "F05": 2.33,
+   "F06": 1.75,
+   "F07": 2.75,
+   "F08": 2.83,
+   "F09": 3.0,
+   "F10": 2.17,
+   "F11": 2.0,
+   "F12": 2.33,
+   "C1": 2.4,
+   "C2": 2.22,
+   "C3": 2.62,
+   "C4": 2.42
+  },
+  "n_all": 54,
+  "n_applicable": 49,
+  "n_selected": 49,
+  "n_scored": 49,
+  "weight_coverage": 1.0,
+  "dist": {
+   "1": 9,
+   "2": 10,
+   "3": 30
+  },
+  "low": [
+   "WR6",
+   "MK3",
+   "DS3",
+   "DS4",
+   "VS8",
+   "DS8",
+   "WR4",
+   "WR8",
+   "SB5"
+  ]
+ },
+ "rule_pass": [],
+ "risk": [],
+ "grounded_mean": 0.826,
+ "fallbacks": 0,
+ "auto_checks": {
+  "CU5": [
+   "고객사명 “R 건설”이 나오는 장: 13/13장",
+   "앱 규칙 점검: 고객사명이 나오는 장 비율 108%"
+  ],
+  "CU1": [
+   "고객사명 “R 건설” 표기: 13개 장",
+   "앱 규칙 점검: 고객사명 “R 건설” 언급: 13개 장"
+  ],
+  "MK4": [
+   "“세대” 값이 여러 개: 486세대(8, 9장) · 1240세대(1, 13장) — 같은 대상(전체 규모)인지 문장으로 확인: 부분 · 단계 · 1인당 비율 · 현재/제안이면 충돌 아님"
+  ],
+  "MK2": [
+   "자료 기준 연도 표기 2곳 · 3년 이상 된 자료 연도 없음",
+   "앱 규칙 점검: 데이터 기준 연도: 2026"
+  ],
+  "MK3": [
+   "수치 3개 이상인 장 8개 중 출처 · 기준 표기 없는 장: 1, 3, 5, 6, 7, 8, 11",
+   "앱 규칙 점검: 수치가 있는 장 4개 중 출처 표기 1개 · 출처가 없는 곳: 5장, 8장, 11장"
+  ],
+  "WR1": [
+   "자리표시 · 템플릿 문구 0곳",
+   "예시용(가짜) 연락처 — 제출 전 실제 값으로 바꿀 자리: 13장 “김도윤 프로 · 010-1234-5678 · b2b.proposal@”",
+   "앱 규칙 점검: 자리표시 · 템플릿 문구를 찾지 못했어요"
+  ],
+  "WR5": [
+   "절대 표현 0곳",
+   "앱 규칙 점검: 근거 없는 절대 표현을 찾지 못했어요"
+  ],
+  "WR3": [
+   "공식 표기와 다른 브랜드명 0곳",
+   "앱 규칙 점검: 브랜드 표기는 공식 표기와 맞아요"
+  ],
+  "WR6": [
+   "내부 · 민감 정보 의심 표현 2곳: 9장 “대, 세 가지 기본 사양 — 원가에 맞춰 고르세요”, 9장 “세대당 원가 최소 · 분양가 유지”",
+   "앱 규칙 점검: 내부용 표현: 9장 “원가”, 9장 “원가”, 9장 “원가”"
+  ],
+  "WR7": [
+   "고지 · 전제 문구가 있는 장: 2, 3, 5, 6, 7, 13",
+   "앱 규칙 점검: 연출 이미지 · 사양 변경 · 효과 전제 고지가 없어요"
+  ],
+  "WR4": [
+   "단위 표기: 혼용 패턴을 찾지 못했어요",
+   "앱 규칙 점검: 단위 표기 혼용 — 금액: 억 원 / 원 / 만 원"
+  ],
+  "WR8": [
+   "약어 8개 중 풀이가 보이지 않는 것: MARKET, EHS, VALUE, PROPS, SPEC, PROOF, KCC",
+   "앱 규칙 점검: 처음 쓸 때 풀이가 없는 약어: MARKET, EHS, VALUE, PROPS, LDK, SPEC, PROOF, KCC"
+  ],
+  "PR2": [
+   "카탈로그 사양 — EHS: EHS 히트펌프 보일러 · 전기 난방 · 영하 25℃ 성능 유지 · 고온수 / Bespoke Built-in: 비스포크 냉장고 (빌트인) · 키친핏 · 패널 컬러 맞춤",
+   "앱 규칙 점검: 모델 옆에 사양 수치가 거의 없어 대조할 게 적어요"
+  ],
+  "PR3": [
+   "카탈로그 권장 공간 — EHS: 세대, 주택, 기숙사 / Bespoke Built-in: 주방, 모델하우스, 객실",
+   "앱 규칙 점검: 공간 · 용도와 맞지 않는 제품 배치 신호를 찾지 못했어요"
+  ],
+  "PR1": [
+   "카탈로그에 있는 모델 2종 · 카탈로그에 없는 모델 표기 없음",
+   "앱 규칙 점검: 카탈로그 현행 모델: EHS, Bespoke Built-in"
+  ],
+  "DS1": [
+   "글자 넘침 0곳 · 장표 밖 0곳 · 텍스트 겹침 0쌍",
+   "제목 위치가 다른 장과 다른 장: 13",
+   "앱 규칙 점검: 도형 정보가 없어 화면 이미지로만 판단해요"
+  ],
+  "DS5": [
+   "제목 글자 크기 분포(px: 장 수) {30: 12} · 폰트: 앱 레이아웃 공통(Noto Sans KR · Manrope)",
+   "앱 규칙 점검: 폰트 2종: Noto Sans KR, Manrope"
+  ],
+  "DS7": [
+   "본문 장 12개 중 결론 · 메시지형 제목 12개 (100%)",
+   "앱 규칙 점검: 라벨형 제목 1/11 · 예: 12장 “같은 고민을 먼저 푼 두 단지”"
+  ],
+  "DS3": [
+   "장당 평균 160어절 · 최대 318어절 · 110어절 넘는 장: 2장(219), 3장(318), 4장(140), 5장(234), 6장(137), 7장(182), 8장(149), 9장(184), 10장(147), 11장(133)",
+   "앱 규칙 점검: 장당 평균 176어절 · 최대 336어절 · 110어절을 넘는 장: 2(239), 3(336), 4(160), 5(251), 6(152), 7(201), 8(163), 9(197)"
+  ],
+  "DS4": [
+   "20자 넘는 본문 칸 94개: 12pt(16px) 이상 12개(13%) · 10pt(13.3px) 미만 66개(70%) · 9pt(12px) 미만 본문 칸이 있는 장 4장 (2, 3, 5, 9)",
+   "20자 넘는 본문 칸의 글자 크기 분포(px: 칸 수) {12: 42, 13: 20, 15: 11, 30: 10, 14: 5, 11: 2}",
+   "앱 규칙 점검: 12pt 미만 글자가 있는 장 10개"
+  ],
+  "DS6": [
+   "사진 · 이미지가 없는 본문 장 1/12장 (10) · 빈 이미지 칸 0개 · 사진 중심 레이아웃 10장",
+   "앱 규칙 점검: 그림 · 차트 · 표 없이 글만 있는 장 1개 (8%)"
+  ],
+  "DS9": [
+   "13장 · 발표 미정분 · 중복 레이아웃 없음",
+   "앱 규칙 점검: 13장"
+  ],
+  "SB2": [
+   "쪽번호 · CONFIDENTIAL 푸터가 있는 본문 장 12/12장 (표지 · 간지 제외)",
+   "앱 규칙 점검: 쪽번호가 있는 장 0/12 · 기밀 표기가 있어요"
+  ],
+  "SB1": [
+   "표지(1장): 고객사명 있음 · 날짜 있음 2026.10 · 제안사 표기 있음 · 목차 장: 없음 · 마무리 장: 13",
+   "앱 규칙 점검: 표지 있음 · 목차 없음 · 마무리 있음"
+  ],
+  "SB5": [
+   "표지 날짜: 2026.10 · 덱 안의 연 · 월 표기: 2026.09, 2026.10, 2027.02",
+   "앱 규칙 점검: 표지에 제출 날짜가 없어요"
+  ],
+  "VS3": [
+   "단계 → 파트 순서: 열기(1) → 맥락 · 분양 시장(2) → 가치 · 분양 포인트(1) → 장면 · 세대와 모델하우스(3) → 구성 · 옵션과 사양(3) → 근거 · 사례와 서비스(2) → 결정 요청(1)",
+   "앱 규칙 점검: 파트 흐름: 표지 · 목차 → 경쟁사 분석 → 공간별 제품 → Why Samsung → 공간별 제품 → Why Samsung → 제품 스펙 → 공간별 제품 → · → 고객 과제 → 마무리 · 다음 단계 · 흐름이 앞 단계로 되돌아가는 곳: 12장"
+  ],
+  "CU2": [
+   "요구 7개 중 핵심 낱말이 본문에 거의 없는 것 1개: 옵션 계약률을 올리고 싶어요",
+   "앱 규칙 점검: 요구사항 4개 중 4개가 본문 표현과 맞닿아요"
+  ],
+  "CU3": [
+   "앱 규칙 점검: 결정권자용 요약(Executive Summary) 장이 없어요 · 결정권자 언급: 대표"
+  ],
+  "CU4": [
+   "앱 규칙 점검: 고객 과제 · 고객사 이해 장이 있어요 · 과제를 수치와 함께 쓴 장: 1, 3, 7, 11"
+  ],
+  "CU6": [
+   "앱 규칙 점검: 주거 분양 · 주택 업종 용어 5개 사용: 주거, 분양, 건설, 세대, 모델하우스"
+  ],
+  "MK1": [
+   "앱 규칙 점검: 시장 · 분석 장 1개, 수치 3개 · 출처가 붙은 시장 장 1개"
+  ],
+  "MK5": [
+   "앱 규칙 점검: 비교 기준 · 출처 표기가 보이지 않아요"
+  ],
+  "MK6": [
+   "앱 규칙 점검: 분석 뒤에 시사점 · 제안 방향을 정리한 장이 없어요"
+  ],
+  "PR4": [
+   "앱 규칙 점검: 언급된 솔루션: SmartThings · 운영 장면 표현 14회"
+  ],
+  "PR6": [
+   "앱 규칙 점검: 수량 표기 14곳 (6, 8, 9장) · 총계 · 구성표가 보이지 않아요"
+  ],
+  "PR7": [
+   "앱 규칙 점검: 도입 조건 언급: 설치, 시공, 전원"
+  ],
+  "VS1": [
+   "앱 규칙 점검: 가치 제안 장: 5"
+  ],
+  "VS2": [
+   "앱 규칙 점검: 정량 효과(절감 · 단축 · 증가 수치)가 없어요"
+  ],
+  "VS4": [
+   "앱 규칙 점검: Why Samsung 장이 있어요 · 차별점 표현: 서비스망, 차별점, 차별화"
+  ],
+  "VS5": [
+   "앱 규칙 점검: 도입 사례 장이 없어요 · 언급된 사례 고객: 그란츠 리버파크, KCC스위첸"
+  ],
+  "VS6": [
+   "앱 규칙 점검: 실행 계획을 다루는 장이 없어요 · 실행 표현: 단계, 일정, 1개월, 3개월, 착수, 오픈"
+  ],
+  "VS7": [
+   "앱 규칙 점검: 비용 관련 표현: 견적"
+  ],
+  "VS8": [
+   "앱 규칙 점검: 도입 리스크와 대응을 다룬 곳이 없어요"
+  ],
+  "VS9": [
+   "앱 규칙 점검: 처음과 끝의 핵심어 겹침 27%"
+  ],
+  "VS10": [
+   "앱 규칙 점검: 마무리에 결정 요청 · 다음 단계가 있어요"
+  ],
+  "DS2": [
+   "앱 규칙 점검: 장당 평균 176어절 · 글이 많은 장: 2, 3, 4, 5, 6, 7, 8, 9"
+  ],
+  "DS8": [
+   "앱 규칙 점검: 차트 0 · 표 0 · 수치가 많은데 차트 · 표가 없는 장: 1, 7, 8, 11"
+  ],
+  "WR2": [
+   "앱 규칙 점검: 맞춤법은 AI가 문장을 읽고 판단해요"
+  ],
+  "WR9": [
+   "앱 규칙 점검: 문체가 대체로 한 가지로 맞춰져 있어요"
+  ],
+  "SB3": [
+   "앱 규칙 점검: 노트 · 숨김 장 · 댓글이 없어요"
+  ],
+  "SB6": [
+   "앱 규칙 점검: RFP 형식 요구는 AI가 대조해요"
+  ]
+ },
+ "profile": {
+  "kind": "winmate",
+  "slides": true,
+  "units": 13,
+  "customer": "R 건설",
+  "ind": "RS",
+  "ind_name": "주거 분양 · 주택",
+  "products": [
+   "EHS",
+   "Bespoke Built-in"
+  ],
+  "unknown_models": [],
+  "older_models": [],
+  "solutions": [
+   "SmartThings"
+  ],
+  "figures": 53,
+  "years": 5,
+  "competitors": [],
+  "brand_terms": [
+   "SmartThings"
+  ],
+  "abbrs": [
+   "MARKET",
+   "EHS",
+   "VALUE",
+   "PROPS",
+   "LDK",
+   "SPEC",
+   "PROOF",
+   "KCC"
+  ],
+  "font_count": 2,
+  "fonts": [
+   "Noto Sans KR",
+   "Manrope"
+  ],
+  "pics": 43,
+  "charts": 0,
+  "tables": 0,
+  "market_units": 1,
+  "comp_units": 0,
+  "cost_units": 0,
+  "rfp_like": false,
+  "rfp_format": false,
+  "visual": false,
+  "meta_avail": false
+ },
+ "calls": 12,
+ "tokens": {
+  "prompt": 89122,
+  "output": 7979
+ },
+ "seconds": 0.2
+}

@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~placeholders:F10"
+ },
+ "prompt_tokens": 5726,
+ "output_tokens": 369,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO와 SmartThings Pro를 활용하여 본사 운영자가 메뉴 배포부터 매장 전력 관리까지 수행하는 구체적인 운영 시나리오를 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "제작 · 승인 · 배포 · 적용 확인까지 한 화면에서"
+     },
+     {
+      "sheet": 7,
+      "quote": "본사 담당자가 가격 DB에서 한 번만 수정합니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "본사 PC · MagicINFO Server | 전 매장을 한 화면에"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 1,
+    "anchor": "도입 과정에서 발생할 수 있는 공사 중 영업 중단, 기존 POS와의 호환성, 일정 지연 등 구체적인 리스크와 그에 대한 대응 방안이 제안서 내에 언급되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "공사 중 매장 운영 방안, 기존 POS 시스템과의 데이터 호환성 확보, 설치 일정 지연 시 대책 등 고객이 우려할 만한 리스크와 대응책을 포함해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

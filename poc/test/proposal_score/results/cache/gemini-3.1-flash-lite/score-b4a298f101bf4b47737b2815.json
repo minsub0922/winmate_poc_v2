@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~strip_images:F05"
+ },
+ "prompt_tokens": 8144,
+ "output_tokens": 236,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "수치 3개 이상인 장 14개 중 6개 장에서 출처 표기가 누락되었으며, 일부 수치는 '삼성전자 추정' 등 모호한 출처로 기재되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "수치 7"
+     },
+     {
+      "sheet": 5,
+      "quote": "수치 12"
+     },
+     {
+      "sheet": 10,
+      "quote": "수치 6"
+     }
+    ],
+    "improve": "모든 수치와 성과 지표에 대해 조사 기관과 연도를 명확히 기재하고, 고객사 내부 자료는 '고객 운영 자료(연도)'로 통일하여 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

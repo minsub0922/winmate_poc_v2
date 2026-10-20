@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~base:F06"
+ },
+ "prompt_tokens": 6132,
+ "output_tokens": 248,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "제안서 내 모든 장에서 옵션 계약률(50%), 가전 민원 감소(40%), 옵션 상담 시간(12분) 등 주요 지표가 일관되게 기술되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "50% | 옵션 계약률 | 12분 | 옵션 상담 시간 | 40% | 가전 민원 감소"
+     },
+     {
+      "sheet": 6,
+      "quote": "옵션 계약률 | 50% | 입주민 만족도 목표 | 4.5점"
+     },
+     {
+      "sheet": 7,
+      "quote": "옵션 상담 시간 | 25분 → 12분 | 옵션 계약 전환 | 50%"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

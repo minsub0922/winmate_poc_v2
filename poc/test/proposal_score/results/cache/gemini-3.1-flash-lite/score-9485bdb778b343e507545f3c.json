@@ -1,0 +1,82 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs14~full:F07"
+ },
+ "prompt_tokens": 9405,
+ "output_tokens": 680,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "도입 전후의 KPI 지표(처리 시간, 오류율, 비용 등)를 명확히 제시하고, 10월 현장 측정치와 삼성전자 추정치라는 산정 근거 및 전제를 각 장에 명시함.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "예상치 · 10월 샘플 측정 기준 · 삼성전자 추정"
+     },
+     {
+      "sheet": 14,
+      "quote": "도입 전 값은 10/28 정밀 측정"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "Knox 보안, Knox Capture, 기기 라인업 등 삼성만의 통합 솔루션을 고객의 현장 과제(보안, 스캐너 고장, 교대 로그인)와 직접 연결하여 구체적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "Knox Suite에 포함된 스캔 솔루션"
+     },
+     {
+      "sheet": 8,
+      "quote": "칩 수준부터 내장된 Knox 보안으로 기기 속 데이터 보호"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR5",
+    "score": 3,
+    "anchor": "제안서 내에 근거 없는 절대적 표현(최초, 최고, 유일 등)이 발견되지 않으며, 성과를 보증하는 문장 대신 예상치와 측정 기준을 명시함.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "예상치 · 10월 샘플 측정 기준"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR7",
+    "score": 3,
+    "anchor": "연출 이미지, 사양 변경 가능성, 효과 수치의 전제 조건(추정치, 예상치 등)을 각 장 하단에 명시하여 법적 고지 요건을 충족함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "스캐너 구매 없이 · 추정치"
+     },
+     {
+      "sheet": 13,
+      "quote": "예상치 · 10월 샘플 측정 기준"
+     },
+     {
+      "sheet": 15,
+      "quote": "사진: samsung.com"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

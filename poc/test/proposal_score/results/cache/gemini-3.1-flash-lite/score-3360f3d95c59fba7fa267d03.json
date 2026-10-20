@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~base:F02"
+ },
+ "prompt_tokens": 8969,
+ "output_tokens": 257,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 4가지 요구사항(R1~R4)과 4가지 평가 기준(K1~K4)에 대해 각 장에서 명시적으로 대응하고 있습니다. 특히 전기료 관련 요구는 6장과 8장에서 SmartThings Pro를 통한 전력 관리 및 절감 효과로 구체적으로 답하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "① 메뉴 · 가격 반영 | 신메뉴 · 가격이 매장마다 늦고 다르게 걸림"
+     },
+     {
+      "sheet": 6,
+      "quote": "03 | 저전력 자동 운영 | 매장 전력 | 12% ↓"
+     },
+     {
+      "sheet": 8,
+      "quote": "SmartThings 에너지 | 매장별 전력 사용 · 절감 리포트"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

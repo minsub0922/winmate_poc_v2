@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs12:F10"
+ },
+ "prompt_tokens": 4079,
+ "output_tokens": 355,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO를 활용한 원격 관리, 편성, 리포트 기능과 케어 서비스가 하드웨어와 결합되어 컨트롤룸 운영자의 구체적인 업무 장면으로 제시됨.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "MagicINFO 서버 · 원격 감시"
+     },
+     {
+      "sheet": 5,
+      "quote": "MagicINFO 원격 관리 · XHB · QM55C"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "선정부터 시공 완료까지의 구체적인 날짜와 단계별 일정은 제시되었으나, 운영 인력에 대한 교육 계획이 누락됨.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "10/20–10/30 검토 후 선정"
+     },
+     {
+      "sheet": 13,
+      "quote": "12월 착수 · 착수 후 14주 안에 개막 전 완공"
+     }
+    ],
+    "improve": "운영 효율화를 위한 담당자 대상 MagicINFO 활용 교육 및 유지보수 인계 계획을 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

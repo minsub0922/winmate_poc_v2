@@ -1,0 +1,40 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs01:F01"
+ },
+ "prompt_tokens": 9329,
+ "output_tokens": 298,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "16장의 담당자 연락처와 이메일 주소에 제안서 템플릿의 예시성 정보가 포함되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 16,
+      "quote": "010-1234-5678 · b2b.proposal@samsung.com"
+     }
+    ],
+    "improve": "제안서 마무리 단계의 연락처 정보를 실제 담당자의 고유 정보로 수정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "제안서 내에 원가, 마진, 다른 고객의 비공개 정보는 없으며, 마무리 장의 담당자 연락처는 정상적인 영업 활동의 일부입니다.",
+    "evidence": [
+     {
+      "sheet": 16,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

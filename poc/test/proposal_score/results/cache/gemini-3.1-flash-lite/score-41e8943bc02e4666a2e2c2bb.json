@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~base:F04"
+ },
+ "prompt_tokens": 6333,
+ "output_tokens": 473,
+ "data": {
+  "scores": [
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "각 공간별(주방, 거실, 침실, 드레스룸, 실외기실)로 적합한 제품이 명시되었으며, 특히 EHS 히트펌프의 영하 25도 성능 및 빌트인 가전의 매립 치수 등 환경 요구사항을 반영한 제안이 확인됩니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "84A 세대 여섯 공간과 분양 현장 — 공간마다 놓이는 삼성 제품"
+     },
+     {
+      "sheet": 8,
+      "quote": "EHS 히트펌프 보일러 ×1 · 거실 · 침실 바닥 난방 · 온수 · 영하 25℃ 성능 유지"
+     },
+     {
+      "sheet": 10,
+      "quote": "84A 주방, 빌트인 가전 세 가지의 매립 치수"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "주거 분양 업종인 KCC스위첸과 그란츠 리버파크 사례를 제시하며, 각각의 과제와 해결책(빌트인룩, 스마트홈 차별화) 및 성과(높은 경쟁률 등)를 구체적으로 기술하였습니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "KCC스위첸 · 과제 · 밀레니얼 입주자 취향 맞춤"
+     },
+     {
+      "sheet": 12,
+      "quote": "그란츠 리버파크 · 과제 · 하이엔드 단지의 프리미엄 스마트홈 차별화"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~number_conflict:F10"
+ },
+ "prompt_tokens": 5550,
+ "output_tokens": 207,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO와 SmartThings Pro를 활용하여 본사 담당자가 원격으로 메뉴를 배포하고 매장 전력을 관리하는 구체적인 운영 시나리오가 공간별로 상세히 제시되었습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "제작 · 승인 · 배포 · 적용 확인까지 한 화면에서"
+     },
+     {
+      "sheet": 7,
+      "quote": "본사 담당자가 가격 DB에서 한 번만 수정합니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "본사 PC · MagicINFO Server | 전체 구성"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

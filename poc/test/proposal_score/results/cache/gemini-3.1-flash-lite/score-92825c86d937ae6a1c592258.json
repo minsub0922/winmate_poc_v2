@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs09:F09"
+ },
+ "prompt_tokens": 8453,
+ "output_tokens": 403,
+ "data": {
+  "scores": [
+   {
+    "id": "PR2",
+    "score": 1,
+    "anchor": "9장에서 QM85C를 46인치로 표기하는 등 카탈로그 사양과 다른 수치가 2곳 이상 확인됩니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "대합실 · 42역 | 46\" 실내 LCD 168대 | 작은 글씨 · 개별 관리 | 도입 후 | Smart Signage QM85C"
+     },
+     {
+      "sheet": 3,
+      "quote": "옥외형 OH55A-S | 3,000nit · IP56 · 24시간 운영"
+     }
+    ],
+    "improve": "카탈로그의 공식 사양과 제안서 내 수치를 전수 조사하여 일치시키고, 모델별 사양 표기를 통일해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "PR5",
+    "score": 3,
+    "anchor": "제품명과 모델명을 혼용하지 않고 일관되게 표기하고 있으며, 마케팅명과 모델명을 함께 명시한 후 통일하여 사용하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "OH55A-S 옥외형 (출입구 · 정류장)"
+     },
+     {
+      "sheet": 7,
+      "quote": "VM55B 24면 · 초슬림 베젤"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

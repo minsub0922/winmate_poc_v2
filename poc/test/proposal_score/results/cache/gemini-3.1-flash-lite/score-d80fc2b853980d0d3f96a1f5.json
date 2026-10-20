@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs20:F03"
+ },
+ "prompt_tokens": 3774,
+ "output_tokens": 221,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "제안서 10~13장에서 투자 회수 기간, 수익 범위, 구매 방식 등 경영 지표를 요약하고, 13장에서 결정권자가 판단할 다음 단계와 결정 사항을 명확히 정리함.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "기준 39개월, 보수로도 64개월에 회수합니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "같은 매체, 세 가지 자금 구조로 도입할 수 있습니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "다음 6주, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~number_conflict:F06"
+ },
+ "prompt_tokens": 3608,
+ "output_tokens": 231,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 1,
+    "anchor": "사업장 수치가 2장에서는 260개, 3장과 5장에서는 208개로 서로 다르게 기재되어 있어 수치 일관성이 결여되었습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "고객 접점 화면 · 260곳"
+     },
+     {
+      "sheet": 3,
+      "quote": "208개 사업장 화면을"
+     },
+     {
+      "sheet": 5,
+      "quote": "208개 사업장의 화면을"
+     }
+    ],
+    "improve": "제안서 전반에 걸쳐 언급되는 사업장 수치를 260개 또는 208개 중 하나로 통일해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

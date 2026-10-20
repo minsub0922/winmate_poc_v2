@@ -1,0 +1,124 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs17~full:F10"
+ },
+ "prompt_tokens": 7259,
+ "output_tokens": 1037,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "Knox Suite를 통한 단말 관리와 DeX를 활용한 업무 환경, MagicINFO를 통한 사이니지 운영 등 솔루션별 역할과 관리 주체가 명확히 제시됨.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "Knox Suite | 전원만 켜면 T 은행 설정"
+     },
+     {
+      "sheet": 7,
+      "quote": "Samsung DeX | 탭 한 대로 두 공간"
+     },
+     {
+      "sheet": 12,
+      "quote": "MagicINFO 전 지점 현황 대시보드"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR7",
+    "score": 3,
+    "anchor": "설치 환경(영업 마감 후 설치), 고객 준비 사항(검수 확인서), 유지보수 및 보증 범위(유지보수 계약)가 구체적으로 명시됨.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "영업 마감 후 설치, 다음 날 개점 전 검수"
+     },
+     {
+      "sheet": 12,
+      "quote": "지점장 검수 확인서 서명"
+     },
+     {
+      "sheet": 12,
+      "quote": "유지보수 계약 개시"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "파일럿에서 확산으로 이어지는 단계별 일정, 역할 분담, 교육 및 운영 이관 계획이 구체적으로 정리됨.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "시범 10곳 → 1차 수도권 120곳 → 2차 지방 120곳"
+     },
+     {
+      "sheet": 12,
+      "quote": "지점 설치 · 검수 → 안정화(공동 운영) → 이관"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 3,
+    "anchor": "영업 중단 방지(영업 마감 후 설치), 호환성(기존 시스템 연동), 운영 인력(본점 IT 이관) 등 리스크별 대응 방안이 제시됨.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "금융 보안 점검 · 직원 적응 · 상품별 서식 전환을 한 번에 하면 현장 영업이 멈춥니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "장애 대응 절차 리허설"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "마지막 장에 고객이 승인해야 할 세 가지 결정 사항과 구체적인 일정 및 담당자가 명시됨.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "세 가지 결정으로 1월에 착수합니다"
+     },
+     {
+      "sheet": 14,
+      "quote": "1차 예산 승인 — 48.0억"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "SB5",
+    "score": 3,
+    "anchor": "표지에 2026.10이 명시되어 있고, 본문 내 일정(2027.01 착수 등)과 논리적으로 일치함.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "2026. 10"
+     },
+     {
+      "sheet": 14,
+      "quote": "2027. 1월 착수"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

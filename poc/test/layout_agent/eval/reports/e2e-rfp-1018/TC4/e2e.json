@@ -1,0 +1,846 @@
+{
+ "tc": "TC4",
+ "title": "[KB손해보험] 개인전산장비 단가계약",
+ "cond": "chunk_carry_gap@1500",
+ "form_recall": 1.0,
+ "form_items": 136,
+ "form_lines": 39,
+ "deck_content": 0.405,
+ "deck_content_given_form": 0.405,
+ "checklist_proc": 1.0,
+ "missed_content": [
+  "c05 Ryzen 5 8000 시리즈",
+  "c06 PC DDR5 4800MHz",
+  "c07 슬림타워 이하",
+  "c08 PS2 포트",
+  "c09 키보드스킨",
+  "c11 명암비 1,000:1",
+  "c12 모니터 응답속도 5ms",
+  "c14 노트북 15.6인치",
+  "c15 노트북 2.0kg 이하",
+  "c16 WiFi 6 이상",
+  "c18 단종 시 동일 금액 후속 모델",
+  "c19 분리 발주 시 단가 변동 없음",
+  "c20 수량 보장 없는 조건부 단가계약",
+  "c21 매월 설치 완료 후 정산",
+  "c26 부품 보유 5년",
+  "c27 서비스 센터 핫라인",
+  "c30 1회 최대 모니터 2,000대",
+  "c31 최초 발주 PC 300대",
+  "c32 배송 2인 1조",
+  "c33 OS 마스터 이미지 탑재",
+  "c34 최근 3년 금융권 누적 1,000대 실적",
+  "c39 메인보드 제조번호 확인"
+ ],
+ "missed_proc": [],
+ "level": "complex",
+ "industry": "FN",
+ "strategy": "rfp",
+ "answers": {
+  "strategy": "rfp",
+  "ending": "pilot",
+  "keyman": "IT기획파트(기술/규격/검증)",
+  "conflict_C4": "단계 납품(우선 지점 먼저)",
+  "conflict_L1": "우선 대응",
+  "conflict_L2": "우선 대응",
+  "gap_products": "자리표시로 두기",
+  "gap_llm1": "자리표시로 두기",
+  "gap_llm2": "자리표시로 두기",
+  "llm_Q01": "연간 총량 계약 후 분할 납품",
+  "llm_Q02": "동등 성능 이상이면 무관",
+  "llm_Q03": "유지보수 업체와 직접 협의",
+  "length": "20"
+ },
+ "questions": [
+  {
+   "id": "strategy",
+   "q": "어떤 전략 축으로 제안서를 세울까요?",
+   "default": "rfp",
+   "options": [
+    "rfp: 요구 대응형 — 평가표 순서대로 빠짐없이 대응해 점수를 확보한다",
+    "value: 가치 선도형 — 가치 기둥을 먼저 세우고 제품 · 효과로 받친다",
+    "compete: 경쟁 우위형 — 비교 기준을 우리 쪽으로 옮기고, 열위는 정직하게 보완한다"
+   ]
+  },
+  {
+   "id": "ending",
+   "q": "이 제안서로 끌어낼 결정(결말)은 무엇인가요?",
+   "default": "pilot",
+   "options": [
+    "pilot: 파일럿 승인",
+    "shortlist: 우선협상 선정",
+    "scope: 범위 · 일정 확정"
+   ]
+  },
+  {
+   "id": "keyman",
+   "q": "어느 키맨의 요구를 앞에 둘까요?",
+   "default": "IT기획파트(기술/규격/검증)",
+   "options": [
+    "IT기획파트(기술/규격/검증)",
+    "총무파트(입찰/가격/계약/제출)"
+   ]
+  },
+  {
+   "id": "conflict_C4",
+   "q": "[물량 vs 일정] 1000대 규모인데 짧은 기한 조건이 있다 — 물량 확보 · 설치 인력 계획을 먼저 보여 줘야 함 — 어떻게 대응할까요?",
+   "default": "단계 납품(우선 지점 먼저)",
+   "options": [
+    "재고 확보 + 지역별 동시 설치",
+    "단계 납품(우선 지점 먼저)",
+    "BMT · 샘플 먼저, 본 물량은 계약 후"
+   ]
+  },
+  {
+   "id": "conflict_L1",
+   "q": "[LLM 발견] R30의 최초 발주 납품 가능 규모(PC 300대)와 R02/R40의 연간 예상 수량(PC 100대) 간의 괴리 — 어떻게 대응할까요?",
+   "default": "우선 대응",
+   "options": [
+    "우선 대응",
+    "보완 설명",
+    "범위 밖으로 명시"
+   ]
+  },
+  {
+   "id": "conflict_L2",
+   "q": "[LLM 발견] R08의 노트북 CPU 사양(Intel i5 14세대 vs AMD Ryzen 7 7735U) 간 성능 동등성 검증 필요 — 어떻게 대응할까요?",
+   "default": "우선 대응",
+   "options": [
+    "우선 대응",
+    "보완 설명",
+    "범위 밖으로 명시"
+   ]
+  },
+  {
+   "id": "gap_products",
+   "q": "제안할 제품을 확정해 주세요 (추천: 업종 기본 제품)",
+   "default": "자리표시로 두기",
+   "options": [
+    "값을 입력",
+    "자리표시로 두기"
+   ]
+  },
+  {
+   "id": "gap_llm1",
+   "q": "제안 제품의 구체적인 모델명 및 상세 사양",
+   "default": "자리표시로 두기",
+   "options": [
+    "값을 입력",
+    "자리표시로 두기"
+   ]
+  },
+  {
+   "id": "gap_llm2",
+   "q": "유지보수 업체와의 위탁 설치 계약을 위한 표준 단가 또는 가이드라인",
+   "default": "자리표시로 두기",
+   "options": [
+    "값을 입력",
+    "자리표시로 두기"
+   ]
+  },
+  {
+   "id": "llm_Q01",
+   "q": "최초 발주 시 요구되는 PC 300대 납품 조건이 연간 예상 수량(100대)보다 많은데, 이를 충족하기 위한 재고 확보 전략이 필요합니다. 실제 발주 단위가 어떻게 됩니까?",
+   "default": "연간 총량 계약 후 분할 납품",
+   "options": [
+    "연간 총량 계약 후 분할 납품",
+    "최초 발주 시 일괄 납품",
+    "협의 후 조정 가능"
+   ]
+  },
+  {
+   "id": "llm_Q02",
+   "q": "노트북 CPU 사양으로 제시된 Intel i5 14세대와 AMD Ryzen 7 7735U는 성능 체급 차이가 있습니다. 제안 시 어느 쪽을 우선시해야 합니까?",
+   "default": "동등 성능 이상이면 무관",
+   "options": [
+    "Intel i5 14세대 기준",
+    "AMD Ryzen 7 7735U 기준",
+    "동등 성능 이상이면 무관"
+   ]
+  },
+  {
+   "id": "llm_Q03",
+   "q": "설치비는 물품 단가에 포함할 수 없다고 명시되어 있습니다. 유지보수 업체와의 별도 계약 시 제안사가 참고할 수 있는 표준 설치 비용 가이드가 있습니까?",
+   "default": "유지보수 업체와 직접 협의",
+   "options": [
+    "별도 가이드 없음(제안사 자율)",
+    "유지보수 업체와 직접 협의",
+    "당사 지정 단가 존재"
+   ]
+  },
+  {
+   "id": "length",
+   "q": "분량은 어느 정도로 할까요?",
+   "default": "20",
+   "options": [
+    "10: 요약(10장 내외)",
+    "15: 표준(15장 내외)",
+    "20: 상세 · 요구 대응(20장 이상)"
+   ]
+  }
+ ],
+ "conflicts": [
+  "물량 vs 일정",
+  "LLM 발견",
+  "LLM 발견"
+ ],
+ "products": [
+  "qm55c",
+  "book",
+  "tabs11"
+ ],
+ "solutions": [
+  "care"
+ ],
+ "parts": [
+  "cover:제안서 표지",
+  "overview:사업 이해 및 전략",
+  "requirements:고객 요구사항 분석",
+  "requirements:평가 기준 및 준수",
+  "requirements:요구사항 대응 전략",
+  "value:문의 및 소통 채널",
+  "solution:운영 및 유지보수",
+  "products:공간별 최적 장비",
+  "bom:범위 및 수량 대응",
+  "spec:기능 및 성능 규격",
+  "execution:보안 및 무상 유지보수",
+  "case:금융권 구축 사례",
+  "why:차별화 및 경쟁력",
+  "execution:일정 및 배송 계획",
+  "execution:단계별 납품 계획",
+  "cost:비용 및 구매 프로세스",
+  "closing:파일럿 승인 요청"
+ ],
+ "review": {
+  "req_total": 37,
+  "coverage": 1.0,
+  "issues": [
+   "[low] 파트 유형과 다른 장표(연관 장표로 대체): ['L_MT_B']",
+   "[low] 편집할 수 없는(data-tb 없는) 다른 업종 샘플 문구가 남은 장표 1장 — 원본 레이아웃 보완 필요",
+   "[high] 요구 크기(22인치)와 제안 제품 크기(QM55C 55\")가 맞지 않음 — 카탈로그에 맞는 모델이 없으면 대안 사양으로 명시하거나 모델을 확인해야 함",
+   "[low] 입찰 절차 · 제출 조건 13개는 제출 체크리스트로 따로 확인(요구 대응표에 수록)"
+  ],
+  "checklist": 13
+ },
+ "stats": {
+  "n_slides": 17,
+  "placeholders": 65,
+  "slides_with_ph": 9,
+  "sample_text_kept": 321,
+  "img_slots": 3,
+  "img_filled": 3,
+  "photo_slides": 1,
+  "stray_slides": 1,
+  "slides": [
+   {
+    "no": 1,
+    "code": "C03",
+    "f": "L_C03",
+    "visual": [
+     "message"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 0,
+    "stray": []
+   },
+   {
+    "no": 2,
+    "code": "OV-A",
+    "f": "L_OV_A",
+    "visual": [
+     "cards",
+     "flow",
+     "message"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 21,
+    "stray": []
+   },
+   {
+    "no": 3,
+    "code": "RM-A",
+    "f": "L_RM_A",
+    "visual": [
+     "table"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 4,
+    "stray": []
+   },
+   {
+    "no": 4,
+    "code": "RM-C",
+    "f": "L_RM_C",
+    "visual": [
+     "table"
+    ],
+    "ph": 5,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 23,
+    "stray": []
+   },
+   {
+    "no": 5,
+    "code": "RM-B",
+    "f": "L_RM_B",
+    "visual": [
+     "table"
+    ],
+    "ph": 3,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 23,
+    "stray": []
+   },
+   {
+    "no": 6,
+    "code": "VP-U",
+    "f": "L_VP_U",
+    "visual": [
+     "cards",
+     "flow",
+     "image_heavy",
+     "qna"
+    ],
+    "ph": 0,
+    "img_slots": 3,
+    "img_filled": 3,
+    "kept_sample": 3,
+    "stray": []
+   },
+   {
+    "no": 7,
+    "code": "OP-C",
+    "f": "L_OP_C",
+    "visual": [
+     "cards",
+     "comparison",
+     "flow",
+     "kpi"
+    ],
+    "ph": 6,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 32,
+    "stray": []
+   },
+   {
+    "no": 8,
+    "code": "P3-B",
+    "f": "L_P3B",
+    "visual": [
+     "cards"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 0,
+    "stray": []
+   },
+   {
+    "no": 9,
+    "code": "BM-E",
+    "f": "L_BM_E",
+    "visual": [
+     "cards",
+     "flow"
+    ],
+    "ph": 12,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 11,
+    "stray": []
+   },
+   {
+    "no": 10,
+    "code": "SC-B",
+    "f": "L_SC_B",
+    "visual": [
+     "comparison",
+     "table"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 12,
+    "stray": []
+   },
+   {
+    "no": 11,
+    "code": "SE-A",
+    "f": "L_SE_A",
+    "visual": [
+     "table"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 33,
+    "stray": [
+     "Knox Suite"
+    ]
+   },
+   {
+    "no": 12,
+    "code": "CL-B",
+    "f": "L_CS03",
+    "visual": [
+     "cards",
+     "message"
+    ],
+    "ph": 1,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 0,
+    "stray": []
+   },
+   {
+    "no": 13,
+    "code": "CM-B",
+    "f": "L_CM_B",
+    "visual": [
+     "cards",
+     "comparison"
+    ],
+    "ph": 5,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 8,
+    "stray": []
+   },
+   {
+    "no": 14,
+    "code": "IP-C",
+    "f": "L_IP_C",
+    "visual": [
+     "cards",
+     "diagram",
+     "flow"
+    ],
+    "ph": 3,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 47,
+    "stray": []
+   },
+   {
+    "no": 15,
+    "code": "PL-A",
+    "f": "L_PL_A",
+    "visual": [
+     "cards",
+     "flow"
+    ],
+    "ph": 12,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 39,
+    "stray": []
+   },
+   {
+    "no": 16,
+    "code": "MT-B",
+    "f": "L_MT_B",
+    "visual": [
+     "cards"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 36,
+    "stray": []
+   },
+   {
+    "no": 17,
+    "code": "C13",
+    "f": "L_C13",
+    "visual": [
+     "cards",
+     "flow",
+     "message"
+    ],
+    "ph": 18,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 29,
+    "stray": []
+   }
+  ]
+ },
+ "time": {
+  "rfp_s": 51.7,
+  "layout_s": 30.9,
+  "rfp_calls": 14,
+  "layout_calls": 37,
+  "layout_fail": 0
+ },
+ "rows": [
+  {
+   "id": "c01",
+   "cat": "범위",
+   "desc": "PC 연 100대",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c02",
+   "cat": "범위",
+   "desc": "모니터 연 500대",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c03",
+   "cat": "범위",
+   "desc": "노트북 연 360대",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c04",
+   "cat": "규격",
+   "desc": "PC i5 14세대 이상",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c05",
+   "cat": "규격",
+   "desc": "Ryzen 5 8000 시리즈",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c06",
+   "cat": "규격",
+   "desc": "PC DDR5 4800MHz",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c07",
+   "cat": "규격",
+   "desc": "슬림타워 이하",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c08",
+   "cat": "규격",
+   "desc": "PS2 포트",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c09",
+   "cat": "규격",
+   "desc": "키보드스킨",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c10",
+   "cat": "규격",
+   "desc": "모니터 22인치 와이드",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c11",
+   "cat": "규격",
+   "desc": "명암비 1,000:1",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c12",
+   "cat": "규격",
+   "desc": "모니터 응답속도 5ms",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c13",
+   "cat": "규격",
+   "desc": "노트북 Ryzen 7 7735U",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c14",
+   "cat": "규격",
+   "desc": "노트북 15.6인치",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c15",
+   "cat": "규격",
+   "desc": "노트북 2.0kg 이하",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c16",
+   "cat": "규격",
+   "desc": "WiFi 6 이상",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c17",
+   "cat": "A/S",
+   "desc": "무상유지보수 2년 이상",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": true
+  },
+  {
+   "id": "c18",
+   "cat": "계약",
+   "desc": "단종 시 동일 금액 후속 모델",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c19",
+   "cat": "계약",
+   "desc": "분리 발주 시 단가 변동 없음",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c20",
+   "cat": "계약",
+   "desc": "수량 보장 없는 조건부 단가계약",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c21",
+   "cat": "계약",
+   "desc": "매월 설치 완료 후 정산",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c22",
+   "cat": "납품",
+   "desc": "전국 9개 노드",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c23",
+   "cat": "설치",
+   "desc": "설치비 단가 포함 금지 · 별도 계약",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": true
+  },
+  {
+   "id": "c24",
+   "cat": "A/S",
+   "desc": "서비스 완료 목표 2일",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c25",
+   "cat": "A/S",
+   "desc": "부품 없으면 3일 + 대체 장비",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c26",
+   "cat": "A/S",
+   "desc": "부품 보유 5년",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c27",
+   "cat": "A/S",
+   "desc": "서비스 센터 핫라인",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c28",
+   "cat": "A/S",
+   "desc": "DOA 즉시 교체",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c29",
+   "cat": "납품",
+   "desc": "발주 후 3주 이내",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c30",
+   "cat": "납품",
+   "desc": "1회 최대 모니터 2,000대",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c31",
+   "cat": "납품",
+   "desc": "최초 발주 PC 300대",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c32",
+   "cat": "납품",
+   "desc": "배송 2인 1조",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c33",
+   "cat": "납품",
+   "desc": "OS 마스터 이미지 탑재",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c34",
+   "cat": "자격",
+   "desc": "최근 3년 금융권 누적 1,000대 실적",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": true
+  },
+  {
+   "id": "c35",
+   "cat": "제출",
+   "desc": "구매포탈 등록",
+   "proc": true,
+   "form": true,
+   "deck": false,
+   "checklist": true
+  },
+  {
+   "id": "c36",
+   "cat": "유의",
+   "desc": "공란 · 판단 불가 0점",
+   "proc": true,
+   "form": true,
+   "deck": true,
+   "checklist": true
+  },
+  {
+   "id": "c37",
+   "cat": "제출",
+   "desc": "발급서류 3개월 이내",
+   "proc": true,
+   "form": true,
+   "deck": false,
+   "checklist": true
+  },
+  {
+   "id": "c38",
+   "cat": "구성",
+   "desc": "KB CI 스티커",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c39",
+   "cat": "규격",
+   "desc": "메인보드 제조번호 확인",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c40",
+   "cat": "자격",
+   "desc": "원제작사 또는 기술지원 확약 · 파트너십",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": true
+  }
+ ]
+}

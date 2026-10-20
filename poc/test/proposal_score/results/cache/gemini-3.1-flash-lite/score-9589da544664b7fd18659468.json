@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11~base:F05"
+ },
+ "prompt_tokens": 7428,
+ "output_tokens": 261,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "제안서 내 대부분의 수치(장비 수량, 일정, 인원 등)에 대해 출처나 기준 연도가 명시되어 있지 않으며, 자동 점검 결과에서도 다수의 장에서 출처 표기가 누락된 것으로 확인됩니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "대합실 안내 장비 58% 내구연한 초과"
+     },
+     {
+      "sheet": 10,
+      "quote": "총 투입 22명"
+     },
+     {
+      "sheet": 11,
+      "quote": "계약부터 검수 · 이관까지 16주"
+     }
+    ],
+    "improve": "모든 수치 데이터 옆에 [출처: 기관명, 연도] 또는 [근거: RFP p.00]와 같이 명확한 출처를 기재해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

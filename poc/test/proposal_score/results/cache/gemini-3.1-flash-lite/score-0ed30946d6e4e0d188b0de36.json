@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~strip_images:F02"
+ },
+ "prompt_tokens": 4404,
+ "output_tokens": 245,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 요구사항(R1~R3, K1~K3)에 대해 제안서 전반에서 명확히 대응하고 있습니다. 특히 업계 사례(R2, K2)는 7장에서, 시간 효율성(R3)은 2장과 5장에서, 다음 단계(K3)는 9장과 10장에서 구체적으로 제시합니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "6개 사업 모두, 업계는 이미 바꿨습니다"
+     },
+     {
+      "sheet": 2,
+      "quote": "7일 → 당일 | 콘텐츠 교체"
+     },
+     {
+      "sheet": 10,
+      "quote": "2주 안에 현장부터, 세 단계로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

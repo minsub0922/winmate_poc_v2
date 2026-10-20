@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs04:F07"
+ },
+ "prompt_tokens": 2409,
+ "output_tokens": 216,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 1,
+    "anchor": "제안서 내에 절감액, 시간 단축, 매출 증가 등 정량적 효과에 대한 구체적인 수치나 그에 따른 산정 근거가 전혀 제시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "분양 문구 예시"
+     },
+     {
+      "sheet": 12,
+      "quote": "같은 고민을 먼저 푼 두 단지"
+     }
+    ],
+    "improve": "제안된 가전 및 스마트홈 솔루션을 도입했을 때 기대되는 에너지 절감액, 옵션 계약률 상승 목표치, 혹은 관리비 절감 효과 등을 구체적인 수치와 산정 근거로 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

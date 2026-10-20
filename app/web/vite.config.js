@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { localProxyOrigin } from './dev-proxy.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const api = `http://127.0.0.1:${process.env.WINMATE_API_PORT || 8788}`;
@@ -18,19 +19,20 @@ export default defineConfig({
     strictPort: true,
     proxy: Object.fromEntries(['/api', '/img', '/lib', '/tokens.css'].map(prefix => [prefix, { target: api, changeOrigin: true, configure(proxy) {
       proxy.on('proxyReq', (outgoing, incoming) => {
-        // Only a browser on this loopback development server may use the same-origin API proxy.
-        try {
-          const source = new URL(incoming.headers.origin);
-          if (['127.0.0.1','localhost','[::1]'].includes(source.hostname) && source.port === String(process.env.WINMATE_WEB_PORT || 5173)) outgoing.setHeader('origin', api);
-        } catch { /* GET/non-browser requests have no Origin. */ }
+        const origin = localProxyOrigin(incoming, api);
+        if (origin) outgoing.setHeader('origin', origin);
       });
     } }])),
     fs: { allow: [here] },
   },
   build: {
+    // Open tabs can request lazy chunks from their original build hours later.
+    // Keep the entire hashed dependency graph when publishing the next build.
+    emptyOutDir: false,
     target: ['chrome110', 'safari16', 'firefox115'],
     chunkSizeWarningLimit: 7000,
     rollupOptions: { input: { app: path.join(here, 'index.html'), migration: path.join(here, 'migration.html') } },
   },
-  define: { global: 'window' },
+  // The GIF decoder runs in a Worker, which has no window object.
+  define: { global: 'globalThis' },
 });

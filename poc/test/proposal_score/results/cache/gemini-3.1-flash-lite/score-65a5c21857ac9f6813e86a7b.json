@@ -1,0 +1,108 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs03~full:F11"
+ },
+ "prompt_tokens": 5434,
+ "output_tokens": 960,
+ "data": {
+  "scores": [
+   {
+    "id": "DS1",
+    "score": 2,
+    "anchor": "14장의 제목 위치가 다른 장들과 달리 상단 중앙이 아닌 좌측 상단에 배치되어 일관성이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "제목 10px@(64,64)"
+     },
+     {
+      "sheet": 14,
+      "quote": "제목 30px@(648,66)"
+     }
+    ],
+    "improve": "모든 장의 제목 위치를 동일한 좌표로 통일해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS2",
+    "score": 1,
+    "anchor": "장당 평균 어절 수가 164어절에 달하며, 대부분의 장에서 헤드라인 외에 본문 내용이 과도하게 많아 핵심이 한눈에 들어오지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "314어절"
+     },
+     {
+      "sheet": 5,
+      "quote": "258어절"
+     }
+    ],
+    "improve": "장당 핵심 메시지를 한 줄로 요약하고, 불필요한 본문 텍스트를 대폭 줄여야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 9장으로 기준인 4장을 크게 초과하며, 장당 평균 어절 수도 164어절로 매우 높습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "314어절"
+     },
+     {
+      "sheet": 5,
+      "quote": "258어절"
+     }
+    ],
+    "improve": "각 장의 텍스트를 핵심 위주로 요약하여 장당 110어절 이하로 줄여야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 60%가 10pt 미만이며, 9pt 미만 본문 칸이 6개 장에 존재하여 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 3,
+      "quote": "본문 최소 11px(8.2pt)"
+     }
+    ],
+    "improve": "본문 텍스트의 최소 글자 크기를 12pt(16px) 이상으로 상향 조정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS5",
+    "score": 3,
+    "anchor": "Noto Sans KR과 Manrope 2종의 폰트를 사용하며, 모든 장에서 제목과 본문의 크기 및 굵기 체계가 일관되게 적용되었습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": "폰트: 앱 레이아웃 공통(Noto Sans KR · Manrope)"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "DS6",
+    "score": 3,
+    "anchor": "모든 장에 실제 공간 및 제품 사진이 포함되어 있으며, 텍스트만으로 구성된 장이 없어 시각 자료 활용도가 높습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": "사진 중심 레이아웃 13장"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

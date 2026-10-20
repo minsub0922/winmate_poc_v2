@@ -1,0 +1,61 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~full:F05"
+ },
+ "prompt_tokens": 9527,
+ "output_tokens": 510,
+ "data": {
+  "scores": [
+   {
+    "id": "MK1",
+    "score": 3,
+    "anchor": "국내 커피·음료 전문점 시장 규모와 성장률을 2026년 전망치로 일관되게 제시하였으며, 고객사의 업종인 카페 프랜차이즈 시장과 정합성이 높습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "국내 커피 · 음료 전문점 시장 규모와, A 커피의 매장 운영을 바꾸는 네 가지 흐름"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "MK2",
+    "score": 3,
+    "anchor": "모든 시장 데이터와 운영 지표의 기준 연도를 2026년으로 명시하여 최신 전망치를 사용하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "단위 억 원 · 출처 삼성전자 추정(2026)"
+     },
+     {
+      "sheet": 4,
+      "quote": "지표는 A 커피 운영 자료(2026) 기준"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "MK3",
+    "score": 2,
+    "anchor": "주요 시장 수치와 고객 운영 자료의 출처는 명시되어 있으나, 일부 장의 세부 수치나 제품 사양 등에는 출처 표기가 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "단위 억 원 · 출처 삼성전자 추정(2026)"
+     },
+     {
+      "sheet": 4,
+      "quote": "지표는 A 커피 운영 자료(2026) 기준"
+     }
+    ],
+    "improve": "모든 장의 수치와 인용 자료에 대해 출처를 명확히 기재하여 신뢰도를 높여야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

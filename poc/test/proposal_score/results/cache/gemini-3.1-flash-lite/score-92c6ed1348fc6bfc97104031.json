@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs20:F01"
+ },
+ "prompt_tokens": 8839,
+ "output_tokens": 339,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'Q 미디어'가 일관되게 사용되었으며, 사례로 인용된 기관 외에 다른 고객사명이나 예시 고객명이 발견되지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "Q 미디어 랜드마크 매체 사업성 제안"
+     },
+     {
+      "sheet": 13,
+      "quote": "Q 미디어 랜드마크 매체 사업성 제안"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 2,
+    "anchor": "10장에서 '할인율 미적용'이라는 표현이 사용되었는데, 이는 제안서 내에서 내부적인 계산 기준을 언급한 것으로 보여 내부용 표현으로 판단됩니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "수수료 차감 후 · 할인율 미적용"
+     }
+    ],
+    "improve": "고객에게 혼란을 줄 수 있는 내부 계산 기준인 '할인율 미적용'이라는 표현을 삭제하거나 고객이 이해하기 쉬운 용어로 변경해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

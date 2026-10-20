@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs03:F04"
+ },
+ "prompt_tokens": 1948,
+ "output_tokens": 189,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "유사한 교육 업종인 국민대와 서울교대의 사례를 고객명과 함께 제시하고, 도입 솔루션 구성과 운영 성과(온도 제어, 통합 제어 등)를 구체적으로 기술하였습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "국민대학교 | 과제 | 121㎡ 대형 강의실 몰입"
+     },
+     {
+      "sheet": 11,
+      "quote": "서울교육대학교 | 과제 | 수업 형태별 기기 제어"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

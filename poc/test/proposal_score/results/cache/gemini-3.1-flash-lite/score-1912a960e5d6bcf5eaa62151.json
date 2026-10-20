@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs04:F02"
+ },
+ "prompt_tokens": 8133,
+ "output_tokens": 267,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "R1, R2, R3, K1, K2, K3, K4 등 모든 요구사항에 대해 제안서 내에서 구체적인 장을 통해 해법을 제시하고 있다. 특히 R2(옵션 계약률)는 1장, 6장, 7장에서 구체적인 수치와 시나리오로 명시적으로 대응하고 있다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "02 · VALUE PROPS — 분양 · 입주민 가치"
+     },
+     {
+      "sheet": 6,
+      "quote": "03 · 공간별 가치 제공 시나리오 | R 건설의 주방은 모델하우스에서 팔리고, 매일 저녁 평가받습니다"
+     },
+     {
+      "sheet": 10,
+      "quote": "04 · 빌트인 매립 치수"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

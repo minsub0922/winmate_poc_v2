@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11~no_proof:F11"
+ },
+ "prompt_tokens": 3205,
+ "output_tokens": 422,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 초과하는 장이 10개로, 1점 기준인 4개 이상을 크게 상회하여 발표 자료로 읽기에 부적합합니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "요구사항 28개, ID 단위로 빠짐없이 대응합니다"
+     },
+     {
+      "sheet": 9,
+      "quote": "공단 보안 요건 열 가지, 대응 기능과 근거"
+     }
+    ],
+    "improve": "각 장의 핵심 메시지를 제외한 상세 내용을 부록으로 이동시키고, 장당 어절 수를 77어절 이하로 대폭 줄여야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 대부분이 12pt 미만이며, 9pt 미만인 장이 11장으로 3장 이상 존재하여 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "K 공단이 이번 사업으로 이루려는 것"
+     },
+     {
+      "sheet": 5,
+      "quote": "요구사항 28개, ID 단위로 빠짐없이 대응합니다"
+     }
+    ],
+    "improve": "본문 텍스트의 최소 글자 크기를 12pt(16px) 이상으로 상향 조정하고, 라벨이나 캡션 외의 본문은 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

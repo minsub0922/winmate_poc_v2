@@ -16,7 +16,8 @@ from ..backends import ModeTracker, layout_llm_summary, make_layout_llm
 from ..jobs import BadRequest, Job, Unavailable, Waiting
 from ..settings import Settings
 from ..strict import failure
-from .common import Prepared, as_bool, as_int, jsonable, resolve_mode
+from ..layout_uniqueness import build_graph
+from .common import Prepared, as_bool, as_int, jsonable, resolve_mode, requirement_context
 
 LEVELS = ('minimal', 'ambiguous', 'complex')
 ANALYSIS_FIELDS = ('industry', 'industry_name', 'industry_source', 'industry_conf', 'req_type', 'strategy', 'context_level', 'level_label',
@@ -53,6 +54,11 @@ def prepare(body: dict, settings: Settings) -> Prepared:
     except knowledge.KnowledgeError as exc:
         raise Unavailable(str(exc), exc.code) from None
     options: Dict[str, Any] = {}
+    options['requirement_context'] = requirement_context(body)
+    excluded = body.get('used_layouts', [])
+    if not isinstance(excluded, list) or len(excluded) > 2000 or any(not isinstance(f, str) or len(f) > 120 for f in excluded):
+        raise BadRequest('used_layouts는 기존 레이아웃 ID 목록이어야 합니다.')
+    options['used_layouts'] = list(dict.fromkeys(excluded))
     if not interactive:
         options['auto_answer'] = True
     if answers is not None:
@@ -83,11 +89,11 @@ def start(job: Job, inp: dict, options: dict, include_html: bool, plan: Any, set
     kb = base_kb.with_products(wanted)
     tracker = ModeTracker('real', plan.provider)
     job.ctx['tracker'] = tracker
-    llm = make_layout_llm(plan.provider, tracker, job)
-    graph = L.graph.build_graph(kb, llm, index)
+    llm = make_layout_llm(plan.provider, tracker, job, requirement_context=options.get('requirement_context', ''))
+    graph = build_graph(L, kb, llm, index, options.get('used_layouts', []))
     cfg = L.graph.run_config(f'wm-{job.id}', llm)
     job.ctx.update(graph=graph, cfg=cfg, llm=llm, kb=kb, tracker=tracker, warnings=warnings, include_html=include_html)
-    job.log(f'시작 — Gemini {llm.model_name} (LLM 노드 실패 시 규칙 대체 없이 중단)')
+    job.log('시작 — AI 레이아웃 생성 (LLM 노드 실패 시 규칙 대체 없이 중단)')
     _stream(job, {'input': inp, 'options': options})
     return _after(job)
 
@@ -159,7 +165,7 @@ def _after(job: Job) -> Any:
     out = serialize(job, snap.values, partial=False)
     for warning in out['warnings']:
         job.log(warning, 'warn')
-    job.log(f"완료 — 슬라이드 {len(out.get('slides') or [])}장 · Gemini 호출 {out['llm']['calls_ok']}회")
+    job.log(f"완료 — 슬라이드 {len(out.get('slides') or [])}장 · AI 호출 {out['llm']['calls_ok']}회")
     return out
 
 
@@ -167,9 +173,9 @@ def _require_model(job: Job, st: dict) -> None:
     """Proof that the run used Gemini: the analysis node merged a model answer and calls succeeded."""
     tracker = job.ctx['tracker']
     if tracker.ok == 0:
-        raise failure('no_model_call', 'layout', 'Gemini 호출 기록이 없습니다.')
+        raise failure('no_model_call', 'layout', 'AI 호출 기록이 없습니다.')
     if not (st.get('analysis') or {}).get('llm'):
-        raise failure('no_model_call', 'layout:analyze', '분석 노드가 Gemini 결과를 쓰지 않았습니다.')
+        raise failure('no_model_call', 'layout:analyze', '분석 노드가 AI 결과를 쓰지 않았습니다.')
 
 
 def serialize(job: Job, st: dict, partial: bool) -> dict:

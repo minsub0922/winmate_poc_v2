@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08:F10"
+ },
+ "prompt_tokens": 2644,
+ "output_tokens": 208,
+ "data": {
+  "scores": [
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "12장에서 유지보수(케어 플랜)와 13장에서 단계별 일정 및 역할 분담을 제시했으나, 사용자 교육에 대한 구체적인 계획이 누락되었습니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "세 가지 케어 플랜 — 병동 규모와 24시간 운영에 맞춰"
+     },
+     {
+      "sheet": 13,
+      "quote": "다음 4주, 선도 병동부터 정합니다"
+     }
+    ],
+    "improve": "운영 인력 및 간호 인력을 대상으로 한 시스템 활용 교육 계획을 추가하여 실행 계획의 완성도를 높여야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

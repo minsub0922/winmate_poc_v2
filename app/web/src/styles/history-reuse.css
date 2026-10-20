@@ -38,6 +38,18 @@
 .reuse-context-info dd { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
 .reuse-context-source { display: inline-flex; align-items: center; gap: var(--space-4px); margin-top: var(--space-12px); color: var(--accent); }
 .reuse-context-empty { color: var(--muted); margin: 0; padding: var(--space-12px) 0; }
+/* Import selection prioritizes pictures and concise metadata. */
+.reuse-context-groups.compact .reuse-context-items { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; align-items: start; }
+.reuse-context-groups.compact [data-context-kind="products"] .reuse-context-items { grid-template-columns: repeat(4,minmax(0,1fr)); }
+.reuse-context-groups.compact [data-context-kind="solutions"] .reuse-context-items { grid-template-columns: repeat(3,minmax(0,1fr)); }
+.reuse-context-groups.compact .reuse-context-card { display: flex; flex-direction: column; align-items: stretch; min-width: 0; gap: 8px; padding: 8px; overflow: hidden; }
+.reuse-context-groups.compact .reuse-context-photo { width: 100%; height: auto; aspect-ratio: 1; }
+.reuse-context-groups.compact :is(.solution,.case) .reuse-context-photo { aspect-ratio: 16 / 9; }
+.reuse-context-groups.compact .reuse-context-info { display: grid; gap: 4px; }
+.reuse-context-groups.compact .reuse-context-info h5 { margin: 0; font-size: 13px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.reuse-context-meta { display: grid; gap: 2px; min-width: 0; color: var(--muted); font-size: 11px; line-height: 1.5; }
+.reuse-context-meta > span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.reuse-context-groups.compact .reuse-context-info > p { margin: 0; font-size: 11px; line-height: 1.5; }
 @media (max-width: 1050px) { .history-reuse { --reuse-sidebar-width: 240px; --reuse-photo-width: 160px; } }
 @media (max-width: 800px) {
   .history-reuse .reuse-body { padding: var(--space-12px); }

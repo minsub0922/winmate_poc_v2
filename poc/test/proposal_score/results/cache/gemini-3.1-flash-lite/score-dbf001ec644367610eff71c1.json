@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~wrong_customer:F03"
+ },
+ "prompt_tokens": 3221,
+ "output_tokens": 221,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "10장과 11장에서 비용(구매/구독/렌탈)을 경영 지표로 명확히 비교하고, 13장에서 결정권자가 승인해야 할 3가지 사항을 요약하여 정리했습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "구매 vs 구독 | 같은 화면 구성, 세 가지 방식으로 도입할 수 있습니다"
+     },
+     {
+      "sheet": 11,
+      "quote": "5년을 보면 순서가 바뀌고, 차이는 6%입니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "다음 3주, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

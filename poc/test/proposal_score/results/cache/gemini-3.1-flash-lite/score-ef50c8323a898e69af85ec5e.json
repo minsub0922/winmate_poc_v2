@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~placeholders:F01"
+ },
+ "prompt_tokens": 8507,
+ "output_tokens": 424,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "제안서 전반에 걸쳐 [00]과 같은 자리표시가 8곳 이상 확인되며, 특히 6장과 7장의 핵심 수치 부분에 다수 포함되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "2026E 분양 물량 | [00] | 만 세대"
+     },
+     {
+      "sheet": 6,
+      "quote": "청약 경쟁률 목표 | [00] 대 [00]"
+     },
+     {
+      "sheet": 7,
+      "quote": "대기 중 단순 문의 | [00]% ↓"
+     }
+    ],
+    "improve": "모든 자리표시([00])를 실제 제안 수치로 기입하고, 템플릿 문구를 완전히 삭제해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 1,
+    "anchor": "9장에서 고객에게 직접적으로 '원가'라는 표현을 사용하여 내부적인 비용 산정 기준을 노출하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "원가에 맞춰 고르세요"
+     },
+     {
+      "sheet": 9,
+      "quote": "세대당 원가 최소 · 분양가 유지"
+     }
+    ],
+    "improve": "고객 제안서에서 '원가'라는 표현을 삭제하고, '옵션 구성' 또는 '예산 최적화'와 같은 고객 지향적 용어로 변경해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~number_conflict:F04"
+ },
+ "prompt_tokens": 4777,
+ "output_tokens": 357,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "A 커피의 메뉴 교체 절차를 5단계로 세분화하고, 각 단계별 소요 시간과 인쇄·배송비 등 구체적인 비용 수치를 제시하여 고객의 현재 문제를 명확히 정의했습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "메뉴 하나 바꾸는 데, 다섯 단계 · 9일이 걸립니다"
+     },
+     {
+      "sheet": 5,
+      "quote": "인쇄 · 배송비 연 3.3억 원이 반복됩니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "카페 프랜차이즈인 '밀키프레소' 사례를 통해 도입 구성(화면 설치 공간)과 성과 수치(방문 0회, 원격 관리)를 구체적으로 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "밀키프레소 — 방문 없이 가맹점 화면 원격 관리"
+     },
+     {
+      "sheet": 13,
+      "quote": "0회 | 화면 교체를 위한 매장 방문"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs12:F07"
+ },
+ "prompt_tokens": 7751,
+ "output_tokens": 181,
+ "data": {
+  "scores": [
+   {
+    "id": "WR5",
+    "score": 3,
+    "anchor": "9장의 '국내 최초' 표현은 '삼성전자 고객 사례'라는 출처와 '롯데시네마 광음LED'라는 구체적 근거를 함께 명시하여 보증성 표현의 요건을 충족합니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "폭 오닉스 스크린 · 국내 최초"
+     },
+     {
+      "sheet": 9,
+      "quote": "롯데시네마 광음LED에 국내 최초 오닉스 도입"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

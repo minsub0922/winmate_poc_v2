@@ -1,0 +1,96 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs21~full:F10"
+ },
+ "prompt_tokens": 12845,
+ "output_tokens": 849,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "LYNK Cloud를 통해 객실 TV의 원격 관리, 콘텐츠 배포, 데이터 분석 및 양방향 서비스 제공 과정을 구체적으로 설명함.",
+    "evidence": [
+     {
+      "sheet": 26,
+      "quote": "LYNK Cloud 관리 화면에서 객실 TV의 전원 · 볼륨 · 입력을 일괄 제어"
+     },
+     {
+      "sheet": 27,
+      "quote": "객실 TV로 시설 예약 · 룸서비스 주문"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR7",
+    "score": 2,
+    "anchor": "설치 및 유지보수 서비스는 언급되어 있으나, 고객이 준비해야 할 네트워크 환경이나 전원 등 구체적인 설치 전제 조건이 누락됨.",
+    "evidence": [
+     {
+      "sheet": 35,
+      "quote": "배송부터 설치, 서비스, 유지보수까지 비즈니스 고객을 위한 체계적인 프로세스"
+     }
+    ],
+    "improve": "설치 환경 전제(전원, 네트워크 등)와 고객 준비 사항을 명시해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 1,
+    "anchor": "실행 계획에 관한 별도의 장이나 구체적인 일정, 단계별 추진 체계가 제안서 내에 존재하지 않음.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "파일럿부터 확산까지의 단계별 일정, 역할 분담, 교육 및 유지보수 계획을 구체적으로 포함해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 1,
+    "anchor": "도입 시 발생할 수 있는 리스크(공사 중 영업, 호환성 등)와 그에 대한 대응 방안을 다루는 내용이 없음.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "고객이 우려할 만한 도입 리스크를 식별하고, 이를 해결하기 위한 구체적인 대응 방안을 제시해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS10",
+    "score": 1,
+    "anchor": "마지막 장에 고객이 내릴 결정이나 다음 단계(미팅, 파일럿 등)에 대한 구체적인 안내가 없음.",
+    "evidence": [
+     {
+      "sheet": 37,
+      "quote": "다음 단계 · “H 호텔”"
+     }
+    ],
+    "improve": "마지막 장에 고객이 실사 및 워크숍을 결정하도록 유도하고, 구체적인 다음 일정과 담당자를 명시해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "SB5",
+    "score": 3,
+    "anchor": "표지에 2026.10 날짜가 명시되어 있으며, 본문 내용과 일관되게 유지됨.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "2026. 10"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

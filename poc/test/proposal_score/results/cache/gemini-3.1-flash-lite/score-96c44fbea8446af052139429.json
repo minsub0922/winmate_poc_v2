@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~wrong_customer:F10"
+ },
+ "prompt_tokens": 2882,
+ "output_tokens": 323,
+ "data": {
+  "scores": [
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "실행 계획의 단계와 일정은 구체적이나, 교육 및 유지보수 계획에 대한 구체적인 언급이 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "실사부터 파일럿 결과까지 16주, 네 단계로 갑니다"
+     }
+    ],
+    "improve": "교육 및 유지보수 체계에 대한 구체적인 계획을 로드맵에 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "마지막 장에서 현장 실사, 워크숍, 맞춤 제안 및 파일럿 승인으로 이어지는 단계별 일정과 담당자, 산출물이 명확히 제시되었습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "2주 안에 현장부터, 세 단계로"
+     },
+     {
+      "sheet": 10,
+      "quote": "11/02 – 11/13 · 삼성 · Y 그룹 실무 참석"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -5,7 +5,7 @@
 //   item = { th: 카드 썸네일 코드, g: [[이미지 코드, 종류 한 글자, 설명, w, h, 원본("^번호|나머지" = 사전 D 앞부분 + 나머지, e-카탈로그는 비움), 출처 쪽 번호, e-카탈로그 표시?]], pages: [출처 쪽 주소] }
 //   이미지 코드 = 묶음 번호 × 10000 + 묶음 안 번호 → "img/media/g1.json#37"
 // 이미지는 AVIF data URL 묶음(img/media/t.json 카드 썸네일 · g0~g2.json 갤러리)에 있고, 묶음 안 바이트 범위로 한 장씩 받는다(bgpack.js).
-import MEDIA from '../../../data/media.json';
+import MEDIA from '../../../data/media.json' with { type: 'json' };
 import { registerRanges } from './packs.js';
 import { C } from './catalog.js';
 

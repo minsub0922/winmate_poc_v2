@@ -1,0 +1,3627 @@
+{
+ "input": {
+  "id": "p_test",
+  "title": "늘봄요양병원 공조 개선",
+  "customer": "의료법인 늘봄의료재단 늘봄요양병원",
+  "industry": null,
+  "free_text": "[면담록] 늘봄요양병원 (10/15 목)\n참석: 행정원장님, 시설과장님 / 당사 박OO\n\n- 여름마다 병실 에어콘 바람때문에 민원 많음. 어르신들 직접 바람 맞으면 감기 걸린다고 보호자 컴플래인 계속 들어옴\n- 그래서 간호사들이 에어콘 꺼버리면 또 덥다고 민원 ㅋ 악순환\n- 겨울엔 추워서 창문 환기를 못시킴 → 병실 냄새 + 공기 답답. 감염관리 신경 많이 씀 (코로나때 고생 많이 하심)\n- 기존 에어콘 오래됨, 고장 잦고 부품 구하기 힘들다고 시설과장님 하소연\n- 원장님은 '쾌적한 병원' 이미지 원하심. 보호자들이 요양병원 고를때 시설 엄청 본다고\n- 예산은 이사장님 결제 받아야 함. 규모는 아직 모름\n- 다음 미팅때 대략적인 그림 보여달라고 하심",
+  "project": "병실 냉난방·환기 환경 개선",
+  "target": "이사장",
+  "keymen": [
+   {
+    "name": "행정원장",
+    "weight": 60.0,
+    "reqs": [
+     "보호자 민원 줄이기",
+     "쾌적한 병원 이미지로 입원 경쟁력 확보"
+    ]
+   },
+   {
+    "name": "시설과장",
+    "weight": 40.0,
+    "reqs": [
+     "고장 잦은 노후 에어컨 교체",
+     "관리하기 편한 설비"
+    ]
+   }
+  ],
+  "note": "무풍 딱임. 환기는 ERV 묶어서. 공청기는 로비/면회실 정도만? 이사장님 보고용이니 너무 기술적으로 가지 말 것",
+  "files": [],
+  "products": [],
+  "solutions": [],
+  "cases": [],
+  "minutes": null,
+  "max_slides": null
+ },
+ "analysis": {
+  "industry": "MD",
+  "industry_name": "의료 · 요양 · 케어",
+  "industry_source": "inferred",
+  "industry_conf": 1.0,
+  "req_type": "renew",
+  "req_type_scores": {
+   "new": 0.0,
+   "renew": 0.667,
+   "compete": 0.333,
+   "ops": 0.0,
+   "scale": 0.0,
+   "brief": 0.0
+  },
+  "strategy": "value",
+  "strategy_scores": {
+   "value": 0.2,
+   "pain": 0.5,
+   "space": 0.1,
+   "roi": 0.1,
+   "rfp": 0.0,
+   "compete": 0.1,
+   "land": 0.0
+  },
+  "strategy_hits": 10,
+  "requirements": [
+   {
+    "id": "R01",
+    "text": "보호자 민원 줄이기",
+    "source": "keyman:행정원장",
+    "keyman": "행정원장",
+    "weight": 60.0,
+    "tag": null,
+    "category": "사용자 경험",
+    "dimension": "사용자 경험·성과",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "challenge",
+     "scenario",
+     "value",
+     "user",
+     "effect"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 3.2,
+    "rank": 2
+   },
+   {
+    "id": "R02",
+    "text": "쾌적한 병원 이미지로 입원 경쟁력 확보",
+    "source": "keyman:행정원장",
+    "keyman": "행정원장",
+    "weight": 60.0,
+    "tag": null,
+    "category": "예산·비용",
+    "dimension": "비용·구매",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "cost",
+     "effect",
+     "value"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 3.2,
+    "rank": 3
+   },
+   {
+    "id": "R03",
+    "text": "고장 잦은 노후 에어컨 교체",
+    "source": "keyman:시설과장",
+    "keyman": "시설과장",
+    "weight": 40.0,
+    "tag": null,
+    "category": "기타",
+    "dimension": "기타",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "value",
+     "products",
+     "spec"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 2.8,
+    "rank": 4
+   },
+   {
+    "id": "R04",
+    "text": "관리하기 편한 설비",
+    "source": "keyman:시설과장",
+    "keyman": "시설과장",
+    "weight": 40.0,
+    "tag": null,
+    "category": "운영·관리",
+    "dimension": "운영·유지보수",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "solution",
+     "execution",
+     "insight"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 2.8,
+    "rank": 5
+   },
+   {
+    "id": "R05",
+    "text": "늘봄요양병원 (10/15 목)",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": "면담록",
+    "category": "예산·비용",
+    "dimension": "비용·구매",
+    "priority": "should",
+    "customer": true,
+    "measurable": true,
+    "numbers": [
+     "10",
+     "15"
+    ],
+    "products": [],
+    "parts": [
+     "cost",
+     "effect"
+    ],
+    "procedural": false,
+    "score": 2.3,
+    "rank": 6
+   },
+   {
+    "id": "R07",
+    "text": "여름마다 병실 에어콘 바람때문에 민원 많음.",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "사용자 경험",
+    "dimension": "사용자 경험·성과",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "challenge",
+     "scenario",
+     "value",
+     "user",
+     "solution"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 2.0,
+    "rank": 7
+   },
+   {
+    "id": "R08",
+    "text": "어르신들 직접 바람 맞으면 감기 걸린다고 보호자 컴플래인 계속 들어옴",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "사용자 경험",
+    "dimension": "사용자 경험·성과",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "scenario",
+     "value",
+     "user",
+     "challenge",
+     "solution"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 2.0,
+    "rank": 8
+   },
+   {
+    "id": "R11",
+    "text": "감염관리 신경 많이 씀 (코로나때 고생 많이 하심)",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "운영·관리",
+    "dimension": "운영·유지보수",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "solution",
+     "execution",
+     "effect"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 2.0,
+    "rank": 9
+   },
+   {
+    "id": "R12",
+    "text": "기존 에어콘 오래됨, 고장 잦고 부품 구하기 힘들다고 시설과장님 하소연",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "기타",
+    "dimension": "기타",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "value",
+     "challenge",
+     "products"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 2.0,
+    "rank": 10
+   },
+   {
+    "id": "R12",
+    "text": "겨울엔 추워서 창문 환기를 못시킴",
+    "source": "llm",
+    "keyman": null,
+    "weight": 0,
+    "tag": null,
+    "category": "운영·관리",
+    "dimension": "운영·유지보수",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "challenge",
+     "solution"
+    ],
+    "procedural": false,
+    "llm_added": true,
+    "score": 2.0,
+    "rank": 11
+   },
+   {
+    "id": "R13",
+    "text": "원장님은 '쾌적한 병원' 이미지 원하심.",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "가치·브랜드",
+    "dimension": "가치·브랜드",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "value",
+     "why",
+     "market",
+     "birdseye"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 2.0,
+    "rank": 12
+   },
+   {
+    "id": "R13",
+    "text": "간호사들이 에어콘 꺼버리면 또 덥다고 민원",
+    "source": "llm",
+    "keyman": null,
+    "weight": 0,
+    "tag": null,
+    "category": "운영·관리",
+    "dimension": "운영·유지보수",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "challenge",
+     "solution"
+    ],
+    "procedural": false,
+    "llm_added": true,
+    "score": 2.0,
+    "rank": 13
+   },
+   {
+    "id": "R14",
+    "text": "예산은 이사장님 결제 받아야 함",
+    "source": "llm",
+    "keyman": null,
+    "weight": 0,
+    "tag": null,
+    "category": "평가·선정",
+    "dimension": "평가·선정·자격",
+    "priority": "must",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "overview",
+     "closing"
+    ],
+    "procedural": false,
+    "llm_added": true,
+    "score": 4.0,
+    "rank": 1
+   },
+   {
+    "id": "R17",
+    "text": "다음 미팅때 대략적인 그림 보여달라고 하심",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "기타",
+    "dimension": "기타",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "value",
+     "birdseye",
+     "dss"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 2.0,
+    "rank": 14
+   }
+  ],
+  "context_lines": [
+   "참석: 행정원장님, 시설과장님 / 당사 박OO",
+   "그래서 간호사들이 에어콘 꺼버리면 또 덥다고 민원 ㅋ 악순환",
+   "겨울엔 추워서 창문 환기를 못시킴 → 병실 냄새 + 공기 답답.",
+   "보호자들이 요양병원 고를때 시설 엄청 본다고",
+   "예산은 이사장님 결제 받아야 함.",
+   "규모는 아직 모름",
+   "무풍 딱임.",
+   "환기는 ERV 묶어서.",
+   "공청기는 로비/면회실 정도만?",
+   "이사장님 보고용이니 너무 기술적으로 가지 말 것"
+  ],
+  "facts": [
+   {
+    "text": "10",
+    "value": "10",
+    "unit": "",
+    "label": "면담록 늘봄요양병원",
+    "sentence": "[면담록] 늘봄요양병원 (10/15 목)",
+    "kind": "value"
+   },
+   {
+    "text": "15",
+    "value": "15",
+    "unit": "",
+    "label": "면담록 늘봄요양병원 10",
+    "sentence": "[면담록] 늘봄요양병원 (10/15 목)",
+    "kind": "value"
+   }
+  ],
+  "spaces": [
+   "로비",
+   "병실"
+  ],
+  "goals": [
+   "쾌적한 병원 이미지 확보",
+   "보호자 민원 감소",
+   "입원 경쟁력 강화"
+  ],
+  "products": [
+   "erv"
+  ],
+  "solutions": [],
+  "cases": [],
+  "keymen": [
+   {
+    "name": "행정원장",
+    "weight": 60.0,
+    "reqs": [
+     "보호자 민원 줄이기",
+     "쾌적한 병원 이미지로 입원 경쟁력 확보"
+    ]
+   },
+   {
+    "name": "시설과장",
+    "weight": 40.0,
+    "reqs": [
+     "고장 잦은 노후 에어컨 교체",
+     "관리하기 편한 설비"
+    ]
+   }
+  ],
+  "signals": {
+   "n_statements": 21,
+   "n_req": 11,
+   "n_keymen": 2,
+   "n_must": 0,
+   "n_numbers": 0,
+   "eval_hits": 0,
+   "file_chars": 0,
+   "plain_chars": 368,
+   "n_categories": 5,
+   "n_goal": 0,
+   "n_goal_sent": 1,
+   "has_products": true,
+   "has_solutions": false
+  },
+  "context_level": "complex",
+  "level_reason": "병실 환경 개선을 위한 기술적 요구와 보호자 민원 해결, 이사장 결재를 위한 이미지 제고 등 다수의 이해관계자와 요구사항이 얽혀 있음. (LLM 판정)",
+  "level_label": "③ 요구사항 복잡 → 분해 · 기준별 정리 · 사용자 인터랙션",
+  "summary": "늘봄요양병원은 노후화된 냉난방 설비로 인한 잦은 고장과 보호자 민원, 환기 부족 문제를 겪고 있습니다. 무풍 에어컨과 환기 시스템(ERV) 도입을 통해 쾌적한 환경을 조성하여 병원 이미지를 개선하고, 이사장 결재를 위한 시각적 제안 자료를 준비해야 합니다.",
+  "llm": true,
+  "dimensions": {
+   "사용자 경험·성과": 3,
+   "비용·구매": 2,
+   "기타": 3,
+   "운영·유지보수": 4,
+   "가치·브랜드": 1,
+   "평가·선정·자격": 1
+  }
+ },
+ "ctx": {
+  "industry": "MD",
+  "industry_name": "의료 · 요양 · 케어",
+  "customer": "의료법인 늘봄의료재단 늘봄요양병원",
+  "project": "병실 냉난방·환기 환경 개선",
+  "target": "이사장",
+  "products": [
+   "erv"
+  ],
+  "solutions": [],
+  "cases": [
+   "2538",
+   "3656",
+   "96"
+  ],
+  "spaces": [
+   "로비",
+   "병실"
+  ],
+  "recommended": {
+   "products": [],
+   "solutions": [],
+   "cases": [
+    {
+     "id": "2538",
+     "score": 6.25,
+     "why": "같은 업종",
+     "cust": "성심요양병원"
+    },
+    {
+     "id": "3656",
+     "score": 5.65,
+     "why": "같은 업종",
+     "cust": "KB 골든라이프케어 은평 빌리지"
+    },
+    {
+     "id": "96",
+     "score": 5.5,
+     "why": "같은 업종",
+     "cust": "헤리티지 산후조리원"
+    }
+   ]
+  }
+ },
+ "route": "decompose",
+ "scenario_match": {
+  "kind": "strategy",
+  "chosen": "value",
+  "candidates": [
+   {
+    "strategy": "value",
+    "label": "가치 선도형",
+    "desc": "가치 기둥을 먼저 세우고 제품 · 효과로 받친다",
+    "score": 0.2,
+    "best_ref": "bs19",
+    "best_title": "경영진 첫 미팅 · 10장 브리프"
+   },
+   {
+    "strategy": "pain",
+    "label": "문제 해결형",
+    "desc": "고객이 겪는 문제와 그 비용에서 출발해 해법 · 전후로 닫는다",
+    "score": 0.853,
+    "best_ref": "bs08",
+    "best_title": "요양병원 · 병동 환자 경험 · 운영 리뉴얼"
+   },
+   {
+    "strategy": "compete",
+    "label": "경쟁 우위형",
+    "desc": "비교 기준을 우리 쪽으로 옮기고, 열위는 정직하게 보완한다",
+    "score": 0.116,
+    "best_ref": "bs10",
+    "best_title": "경쟁사 장비 교체 · 공급사 전환 제안"
+   }
+  ]
+ },
+ "decomposition": {
+  "groups": [
+   {
+    "dimension": "운영·유지보수",
+    "req_ids": [
+     "R04",
+     "R11",
+     "R12",
+     "R13"
+    ],
+    "n": 4,
+    "must": 0,
+    "score": 8.8,
+    "summary": "관리하기 편한 설비 / 감염관리 신경 많이 씀 (코로나때 고생 많이 하심) / 겨울엔 추워서 창문 환기를 못시킴",
+    "answer_part": "execution",
+    "answer_layouts": [
+     "L_MT_B",
+     "L_SV_B",
+     "L_TO_A"
+    ],
+    "stage": "plan",
+    "keymen": [
+     "시설과장"
+    ]
+   },
+   {
+    "dimension": "사용자 경험·성과",
+    "req_ids": [
+     "R01",
+     "R07",
+     "R08"
+    ],
+    "n": 3,
+    "must": 0,
+    "score": 7.2,
+    "summary": "보호자 민원 줄이기 / 여름마다 병실 에어콘 바람때문에 민원 많음. / 어르신들 직접 바람 맞으면 감기 걸린다고 보호자 컴플래인 계속 들어옴",
+    "answer_part": "effect",
+    "answer_layouts": [
+     "L_EF_A",
+     "L_EF_C"
+    ],
+    "stage": "proof",
+    "keymen": [
+     "행정원장"
+    ]
+   },
+   {
+    "dimension": "기타",
+    "req_ids": [
+     "R03",
+     "R12",
+     "R17"
+    ],
+    "n": 3,
+    "must": 0,
+    "score": 6.8,
+    "summary": "고장 잦은 노후 에어컨 교체 / 기존 에어콘 오래됨, 고장 잦고 부품 구하기 힘들다고 시설과장님 하소연 / 다음 미팅때 대략적인 그림 보여달라고 하심",
+    "answer_part": "value",
+    "answer_layouts": [],
+    "stage": "value",
+    "keymen": [
+     "시설과장"
+    ]
+   },
+   {
+    "dimension": "비용·구매",
+    "req_ids": [
+     "R02",
+     "R05"
+    ],
+    "n": 2,
+    "must": 0,
+    "score": 5.5,
+    "summary": "쾌적한 병원 이미지로 입원 경쟁력 확보 / 늘봄요양병원 (10/15 목)",
+    "answer_part": "cost",
+    "answer_layouts": [
+     "L_CO_B",
+     "L_CO_A",
+     "L_EF_B"
+    ],
+    "stage": "plan",
+    "keymen": [
+     "행정원장"
+    ]
+   },
+   {
+    "dimension": "평가·선정·자격",
+    "req_ids": [
+     "R14"
+    ],
+    "n": 1,
+    "must": 1,
+    "score": 4.0,
+    "summary": "예산은 이사장님 결제 받아야 함",
+    "answer_part": "requirements",
+    "answer_layouts": [
+     "L_RM_C",
+     "L_RM_B",
+     "L_CL_C"
+    ],
+    "stage": "context",
+    "keymen": []
+   },
+   {
+    "dimension": "가치·브랜드",
+    "req_ids": [
+     "R13"
+    ],
+    "n": 1,
+    "must": 0,
+    "score": 2.0,
+    "summary": "원장님은 '쾌적한 병원' 이미지 원하심.",
+    "answer_part": "value",
+    "answer_layouts": [
+     "L_VP_D"
+    ],
+    "stage": "value",
+    "keymen": []
+   }
+  ],
+  "eval": null,
+  "conflicts": [
+   {
+    "id": "C5",
+    "kind": "키맨 관심사 분산",
+    "reqs": [],
+    "note": "행정원장과 시설과장이 보는 기준이 겹치지 않는다 — 이해관계자별 가치 장표(VP-D · RM-A)로 둘 다 답해야 함",
+    "options": [
+     "행정원장 우선",
+     "시설과장 우선",
+     "이해관계자별로 나눠 답함"
+    ],
+    "default": 2
+   },
+   {
+    "id": "L1",
+    "kind": "LLM 발견",
+    "reqs": [
+     "R02",
+     "R13",
+     "R03",
+     "R04"
+    ],
+    "note": "행정원장의 '쾌적한 병원 이미지(R02, R13)'와 시설과장의 '관리 편의성 및 노후 설비 교체(R03, R04)' 간의 우선순위 충돌",
+    "options": [
+     "우선 대응",
+     "보완 설명",
+     "범위 밖으로 명시"
+    ]
+   },
+   {
+    "id": "L2",
+    "kind": "LLM 발견",
+    "reqs": [
+     "R13",
+     "R01",
+     "R08"
+    ],
+    "note": "간호사의 에어컨 제어(R13)와 보호자의 민원(R01, R08) 간의 운영상 상충",
+    "options": [
+     "우선 대응",
+     "보완 설명",
+     "범위 밖으로 명시"
+    ]
+   }
+  ],
+  "gaps": [
+   {
+    "field": "quantities",
+    "label": "수량 · 범위",
+    "why": "대상 수량(대수 · 매장 수 · 실 수)이 없습니다",
+    "question": "수량 · 범위 정보를 알려 주실 수 있나요? (대상 수량(대수 · 매장 수 · 실 수)이 없습니다)"
+   },
+   {
+    "field": "timeline",
+    "label": "일정",
+    "why": "도입 · 오픈 일정이 없습니다",
+    "question": "일정 정보를 알려 주실 수 있나요? (도입 · 오픈 일정이 없습니다)"
+   },
+   {
+    "field": "llm1",
+    "label": "교체 대상 에어컨의 정확한 수량 및 ",
+    "why": "교체 대상 에어컨의 정확한 수량 및 병실 규모(범위)",
+    "question": "교체 대상 에어컨의 정확한 수량 및 병실 규모(범위)"
+   },
+   {
+    "field": "llm2",
+    "label": "이사장 결재를 위한 최종 제안 마감 ",
+    "why": "이사장 결재를 위한 최종 제안 마감 일정",
+    "question": "이사장 결재를 위한 최종 제안 마감 일정"
+   },
+   {
+    "field": "llm3",
+    "label": "감염 관리를 위한 구체적인 공조 시스",
+    "why": "감염 관리를 위한 구체적인 공조 시스템 요구 사양(R11)",
+    "question": "감염 관리를 위한 구체적인 공조 시스템 요구 사양(R11)"
+   }
+  ],
+  "strategy_options": [
+   {
+    "strategy": "value",
+    "label": "가치 선도형",
+    "desc": "가치 기둥을 먼저 세우고 제품 · 효과로 받친다",
+    "score": 0.2,
+    "best_ref": "bs19",
+    "best_title": "경영진 첫 미팅 · 10장 브리프"
+   },
+   {
+    "strategy": "pain",
+    "label": "문제 해결형",
+    "desc": "고객이 겪는 문제와 그 비용에서 출발해 해법 · 전후로 닫는다",
+    "score": 0.853,
+    "best_ref": "bs08",
+    "best_title": "요양병원 · 병동 환자 경험 · 운영 리뉴얼"
+   },
+   {
+    "strategy": "compete",
+    "label": "경쟁 우위형",
+    "desc": "비교 기준을 우리 쪽으로 옮기고, 열위는 정직하게 보완한다",
+    "score": 0.116,
+    "best_ref": "bs10",
+    "best_title": "경쟁사 장비 교체 · 공급사 전환 제안"
+   }
+  ],
+  "questions": [
+   {
+    "id": "strategy",
+    "question": "어떤 전략 축으로 제안서를 세울까요?",
+    "options": [
+     "value: 가치 선도형 — 가치 기둥을 먼저 세우고 제품 · 효과로 받친다",
+     "pain: 문제 해결형 — 고객이 겪는 문제와 그 비용에서 출발해 해법 · 전후로 닫는다",
+     "compete: 경쟁 우위형 — 비교 기준을 우리 쪽으로 옮기고, 열위는 정직하게 보완한다"
+    ],
+    "default": "value",
+    "affects": [
+     "storyboard 흐름",
+     "레이아웃 선택"
+    ]
+   },
+   {
+    "id": "ending",
+    "question": "이 제안서로 끌어낼 결정(결말)은 무엇인가요?",
+    "options": [
+     "pilot: 파일럿 승인",
+     "shortlist: 우선협상 선정",
+     "scope: 범위 · 일정 확정"
+    ],
+    "default": "pilot",
+    "affects": [
+     "마무리 장표",
+     "실행 계획 깊이"
+    ]
+   },
+   {
+    "id": "keyman",
+    "question": "어느 키맨의 요구를 앞에 둘까요?",
+    "options": [
+     "행정원장",
+     "시설과장"
+    ],
+    "default": "행정원장",
+    "affects": [
+     "파트 우선순위"
+    ]
+   },
+   {
+    "id": "conflict_C5",
+    "question": "[키맨 관심사 분산] 행정원장과 시설과장이 보는 기준이 겹치지 않는다 — 이해관계자별 가치 장표(VP-D · RM-A)로 둘 다 답해야 함 — 어떻게 대응할까요?",
+    "options": [
+     "행정원장 우선",
+     "시설과장 우선",
+     "이해관계자별로 나눠 답함"
+    ],
+    "default": "이해관계자별로 나눠 답함",
+    "affects": [
+     "대응 장표",
+     "메시지"
+    ]
+   },
+   {
+    "id": "conflict_L1",
+    "question": "[LLM 발견] 행정원장의 '쾌적한 병원 이미지(R02, R13)'와 시설과장의 '관리 편의성 및 노후 설비 교체(R03, R04)' 간의 우선순위 충돌 — 어떻게 대응할까요?",
+    "options": [
+     "우선 대응",
+     "보완 설명",
+     "범위 밖으로 명시"
+    ],
+    "default": "우선 대응",
+    "affects": [
+     "대응 장표",
+     "메시지"
+    ]
+   },
+   {
+    "id": "conflict_L2",
+    "question": "[LLM 발견] 간호사의 에어컨 제어(R13)와 보호자의 민원(R01, R08) 간의 운영상 상충 — 어떻게 대응할까요?",
+    "options": [
+     "우선 대응",
+     "보완 설명",
+     "범위 밖으로 명시"
+    ],
+    "default": "우선 대응",
+    "affects": [
+     "대응 장표",
+     "메시지"
+    ]
+   },
+   {
+    "id": "gap_quantities",
+    "question": "수량 · 범위 정보를 알려 주실 수 있나요? (대상 수량(대수 · 매장 수 · 실 수)이 없습니다)",
+    "options": [
+     "값을 입력",
+     "자리표시로 두기"
+    ],
+    "default": "자리표시로 두기",
+    "affects": [
+     "채우기(값 입력)"
+    ]
+   },
+   {
+    "id": "gap_timeline",
+    "question": "일정 정보를 알려 주실 수 있나요? (도입 · 오픈 일정이 없습니다)",
+    "options": [
+     "값을 입력",
+     "자리표시로 두기"
+    ],
+    "default": "자리표시로 두기",
+    "affects": [
+     "채우기(값 입력)"
+    ]
+   },
+   {
+    "id": "gap_llm1",
+    "question": "교체 대상 에어컨의 정확한 수량 및 병실 규모(범위)",
+    "options": [
+     "값을 입력",
+     "자리표시로 두기"
+    ],
+    "default": "자리표시로 두기",
+    "affects": [
+     "채우기(값 입력)"
+    ]
+   },
+   {
+    "id": "llm_Q01",
+    "question": "이사장님이 예산 승인 시 가장 중요하게 고려하는 지표는 무엇입니까?",
+    "options": [
+     "초기 도입 비용 절감",
+     "장기적인 유지보수 비용 효율성",
+     "환자 만족도 및 병원 브랜드 가치 제고"
+    ],
+    "default": "환자 만족도 및 병원 브랜드 가치 제고",
+    "affects": [
+     "roi",
+     "value"
+    ]
+   },
+   {
+    "id": "llm_Q02",
+    "question": "현재 교체가 필요한 에어컨의 대수와 설치 공간의 특성(병실, 복도, 로비 등)은 어떻게 됩니까?",
+    "options": [],
+    "default": "",
+    "affects": [
+     "space",
+     "land"
+    ]
+   },
+   {
+    "id": "llm_Q03",
+    "question": "감염 관리를 위해 특별히 요구되는 공조 기능(예: 공기청정, 살균, 풍향 제어 등)이 있습니까?",
+    "options": [],
+    "default": "",
+    "affects": [
+     "value",
+     "pain"
+    ]
+   },
+   {
+    "id": "length",
+    "question": "분량은 어느 정도로 할까요?",
+    "options": [
+     "10: 요약(10장 내외)",
+     "15: 표준(15장 내외)",
+     "20: 상세 · 요구 대응(20장 이상)"
+    ],
+    "default": "15",
+    "affects": [
+     "장수 · 우선순위 컷"
+    ]
+   }
+  ],
+  "llm": true
+ },
+ "choice": {
+  "strategy": "value",
+  "ending": "pilot",
+  "budget": 15,
+  "keyman": "행정원장",
+  "conflicts": {
+   "C5": {
+    "answer": "이해관계자별로 나눠 답함",
+    "option": 2,
+    "kind": "키맨 관심사 분산",
+    "reqs": [],
+    "custom": false
+   },
+   "L1": {
+    "answer": "우선 대응",
+    "option": 0,
+    "kind": "LLM 발견",
+    "reqs": [
+     "R02",
+     "R13",
+     "R03",
+     "R04"
+    ],
+    "custom": false
+   },
+   "L2": {
+    "answer": "우선 대응",
+    "option": 0,
+    "kind": "LLM 발견",
+    "reqs": [
+     "R13",
+     "R01",
+     "R08"
+    ],
+    "custom": false
+   }
+  },
+  "gaps": {
+   "quantities": "",
+   "timeline": "",
+   "llm1": ""
+  },
+  "notes": [
+   {
+    "id": "llm_Q01",
+    "question": "이사장님이 예산 승인 시 가장 중요하게 고려하는 지표는 무엇입니까?",
+    "answer": "환자 만족도 및 병원 브랜드 가치 제고",
+    "default": "환자 만족도 및 병원 브랜드 가치 제고"
+   }
+  ],
+  "raw": {
+   "strategy": "value",
+   "ending": "pilot",
+   "keyman": "행정원장",
+   "conflict_C5": "이해관계자별로 나눠 답함",
+   "conflict_L1": "우선 대응",
+   "conflict_L2": "우선 대응",
+   "gap_quantities": "자리표시로 두기",
+   "gap_timeline": "자리표시로 두기",
+   "gap_llm1": "자리표시로 두기",
+   "llm_Q01": "환자 만족도 및 병원 브랜드 가치 제고",
+   "llm_Q02": "",
+   "llm_Q03": "",
+   "length": "15"
+  }
+ },
+ "parts": [
+  {
+   "type": "cover",
+   "name": "늘봄요양병원 환경 개선 제안",
+   "items": [
+    "늘봄요양병원 병실 냉난방·환기 환경 개선 제안서",
+    "환자와 보호자가 안심하는 쾌적한 의료 환경 조성"
+   ],
+   "stage": "open",
+   "goal": "",
+   "seed_layouts": [
+    {
+     "f": "L_C01",
+     "role": "표지"
+    }
+   ],
+   "core": true,
+   "source": "strategy",
+   "req_ids": [],
+   "pin": true,
+   "req_load": 0.0,
+   "priority": 0.28,
+   "priority_reason": "핵심 파트",
+   "priority_rank": 9,
+   "related": [],
+   "id": "S01",
+   "slides": 1
+  },
+  {
+   "type": "overview",
+   "name": "제안 핵심 요약",
+   "items": [
+    "예산은 이사장님 결제 받아야 함",
+    "이사장님 결재를 위한 최적의 비용 효율적 솔루션",
+    "냉난방·환기 과제 해결을 통한 병원 운영 가치 제고"
+   ],
+   "stage": "open",
+   "goal": "",
+   "seed_layouts": [
+    {
+     "f": "L_ES_A",
+     "role": "결정권자용 한 장 요약"
+    }
+   ],
+   "core": true,
+   "source": "strategy",
+   "req_ids": [
+    "R14"
+   ],
+   "pin": true,
+   "req_load": 4.0,
+   "priority": 0.585,
+   "priority_reason": "요구 1개 연결(필수 1) · 핵심 파트",
+   "priority_rank": 4,
+   "related": [
+    "requirements",
+    "insight"
+   ],
+   "id": "S02",
+   "slides": 1
+  },
+  {
+   "type": "requirements",
+   "name": "핵심 의사결정자 요구사항",
+   "items": [
+    "행정원장: 운영 효율성과 예산 최적화 중심",
+    "시설과장: 유지보수 편의성과 설비 안정성 중심"
+   ],
+   "stage": "context",
+   "goal": "",
+   "seed_layouts": [
+    {
+     "f": "L_RM_A",
+     "role": "키맨별 요구와 대응 방향"
+    }
+   ],
+   "core": true,
+   "source": "strategy",
+   "req_ids": [],
+   "pin": true,
+   "req_load": 0.0,
+   "priority": 0.4,
+   "priority_reason": "핵심 파트",
+   "priority_rank": 6,
+   "related": [
+    "overview",
+    "customer"
+   ],
+   "id": "S03",
+   "slides": 1
+  },
+  {
+   "type": "requirements",
+   "name": "요구사항 대응 전략",
+   "items": [
+    "현장 중심의 실질적인 해결 방안 제시"
+   ],
+   "stage": "context",
+   "goal": "",
+   "seed_layouts": [
+    {
+     "f": "L_RM_B",
+     "role": "요구 전수 대응표"
+    }
+   ],
+   "core": true,
+   "source": "strategy",
+   "req_ids": [],
+   "pin": false,
+   "req_load": 0.0,
+   "priority": 0.4,
+   "priority_reason": "핵심 파트",
+   "priority_rank": 7,
+   "related": [
+    "overview",
+    "customer"
+   ],
+   "id": "S04",
+   "slides": 1
+  },
+  {
+   "type": "customer",
+   "name": "늘봄요양병원 운영 맥락",
+   "items": [
+    "요양병원 운영 현황 및 냉난방 환경 분석",
+    "경영 목표 달성을 위한 시설 개선 과제 도출"
+   ],
+   "stage": "context",
+   "goal": "고객 얘기로",
+   "seed_layouts": [
+    {
+     "f": "L_CB_B",
+     "role": "고객 전략 목표 → 실행 과제",
+     "orig": "L_CB_B"
+    }
+   ],
+   "core": false,
+   "source": "strategy:value<-bs19",
+   "req_ids": [],
+   "req_load": 0.0,
+   "priority": 0.16,
+   "priority_reason": "선택 파트",
+   "priority_rank": 11,
+   "related": [],
+   "id": "S05",
+   "slides": 1
+  },
+  {
+   "type": "insight",
+   "name": "환경 개선 시사점",
+   "items": [
+    "환자 건강과 보호자 만족을 위한 환경 개선 필수",
+    "쾌적한 병실 환경이 곧 병원의 경쟁력"
+   ],
+   "stage": "context",
+   "goal": "고객 얘기로",
+   "seed_layouts": [
+    {
+     "f": "L_IM_B",
+     "role": "시장 4분면 요약 + 결론",
+     "orig": "L_IM_B"
+    }
+   ],
+   "core": false,
+   "source": "strategy:value<-bs19",
+   "req_ids": [],
+   "req_load": 0.0,
+   "priority": 0.16,
+   "priority_reason": "선택 파트",
+   "priority_rank": 12,
+   "related": [
+    "value"
+   ],
+   "id": "S06",
+   "slides": 1
+  },
+  {
+   "type": "value",
+   "name": "환자 중심 가치 제안",
+   "items": [
+    "보호자 민원 줄이기",
+    "고장 잦은 노후 에어컨 교체",
+    "여름마다 병실 에어콘 바람때문에 민원 많음",
+    "어르신들 직접 바람 맞으면 감기 걸린다고 보호자 컴플래인 계속 들어옴",
+    "직접 바람 없는 무풍으로 보호자 민원 해소"
+   ],
+   "stage": "value",
+   "goal": "기억에 남을 한 줄",
+   "seed_layouts": [
+    {
+     "f": "L_VP05",
+     "role": "한 문장 + 근거 3",
+     "orig": "L_VP05"
+    }
+   ],
+   "core": true,
+   "source": "strategy:value<-bs19",
+   "req_ids": [
+    "R01",
+    "R03",
+    "R07",
+    "R08",
+    "R17"
+   ],
+   "req_load": 12.96,
+   "priority": 1.0,
+   "priority_reason": "요구 5개 연결 · 핵심 파트",
+   "priority_rank": 1,
+   "related": [],
+   "id": "S07",
+   "slides": 1
+  },
+  {
+   "type": "value",
+   "name": "운영 효율화 대응",
+   "items": [
+    "간호사들이 에어콘 꺼버리면 또 덥다고 민원",
+    "간호사 업무 부담을 줄이는 스마트 온도 제어",
+    "행정원장과 시설과장의 고민을 해결하는 솔루션"
+   ],
+   "stage": "value",
+   "goal": "가치·브랜드 요구 1개(필수 0)",
+   "seed_layouts": [
+    {
+     "f": "L_VP_D",
+     "role": "가치·브랜드 요구 대응"
+    }
+   ],
+   "core": true,
+   "source": "dimension:가치·브랜드 + conflict:C5",
+   "req_ids": [
+    "R13"
+   ],
+   "direction": "이해관계자별로 나눠 답함",
+   "req_load": 2.0,
+   "priority": 0.493,
+   "priority_reason": "요구 1개 연결 · 핵심 파트",
+   "priority_rank": 5,
+   "related": [],
+   "id": "S08",
+   "slides": 1
+  },
+  {
+   "type": "birdseye",
+   "name": "병실 환경 개선 시안",
+   "items": [
+    "환자 중심의 병실 냉난방·환기 조감도",
+    "도입 전후 비교를 통한 환경 개선 효과 시각화"
+   ],
+   "stage": "value",
+   "goal": "기억에 남을 한 줄",
+   "seed_layouts": [
+    {
+     "f": "L_BV_C",
+     "role": "도입 후 전경 + 한 장 요약",
+     "orig": "L_BV_C"
+    }
+   ],
+   "core": false,
+   "source": "strategy:value<-bs19",
+   "req_ids": [],
+   "req_load": 0.0,
+   "priority": 0.16,
+   "priority_reason": "선택 파트",
+   "priority_rank": 13,
+   "related": [],
+   "id": "S09",
+   "slides": 1
+  },
+  {
+   "type": "products",
+   "name": "공간별 맞춤 솔루션",
+   "items": [
+    "병실 특화 무풍 냉난방기 및 환기 시스템",
+    "쾌적한 공기질을 유지하는 ERV 도입"
+   ],
+   "stage": "build",
+   "goal": "",
+   "seed_layouts": [
+    {
+     "f": "L_P1B",
+     "role": "공간별 제품 · 설치 방식"
+    }
+   ],
+   "core": true,
+   "source": "rule:products-required",
+   "req_ids": [],
+   "pin": false,
+   "req_load": 0.0,
+   "priority": 0.4,
+   "priority_reason": "핵심 파트",
+   "priority_rank": 8,
+   "related": [],
+   "id": "S10",
+   "slides": 1
+  },
+  {
+   "type": "case",
+   "name": "요양·의료시설 성공 사례",
+   "items": [
+    "성심요양병원 및 주요 요양시설 구축 사례",
+    "검증된 기술력으로 안심할 수 있는 환경 조성"
+   ],
+   "stage": "proof",
+   "goal": "",
+   "seed_layouts": [
+    {
+     "f": "L_CS03",
+     "role": "유관 사례"
+    }
+   ],
+   "core": false,
+   "source": "strategy",
+   "req_ids": [],
+   "pin": false,
+   "req_load": 0.0,
+   "priority": 0.16,
+   "priority_reason": "선택 파트",
+   "priority_rank": 14,
+   "related": [],
+   "id": "S11",
+   "slides": 1
+  },
+  {
+   "type": "execution",
+   "name": "유지보수 및 감염 관리",
+   "items": [
+    "관리하기 편한 설비",
+    "감염관리 신경 많이 씀 (코로나때 고생 많이 하심)",
+    "겨울엔 추워서 창문 환기를 못시킴",
+    "시설과장이 관리하기 편한 스마트 설비",
+    "감염 관리를 고려한 철저한 환기 시스템"
+   ],
+   "stage": "plan",
+   "goal": "운영·유지보수 요구 4개(필수 0)",
+   "seed_layouts": [
+    {
+     "f": "L_MT_B",
+     "role": "운영·유지보수 요구 대응"
+    }
+   ],
+   "core": true,
+   "source": "dimension:운영·유지보수",
+   "req_ids": [
+    "R04",
+    "R11",
+    "R12"
+   ],
+   "req_load": 6.8,
+   "priority": 0.715,
+   "priority_reason": "요구 3개 연결 · 핵심 파트",
+   "priority_rank": 2,
+   "related": [
+    "cost",
+    "closing"
+   ],
+   "id": "S12",
+   "slides": 1
+  },
+  {
+   "type": "cost",
+   "name": "입원 경쟁력 확보 전략",
+   "items": [
+    "쾌적한 병원 이미지로 입원 경쟁력 확보",
+    "늘봄요양병원 (10/15 목)",
+    "쾌적한 병원 이미지로 입원 경쟁력 강화",
+    "늘봄요양병원 맞춤형 투자 가치 제안"
+   ],
+   "stage": "plan",
+   "goal": "비용·구매 요구 2개(필수 0)",
+   "seed_layouts": [
+    {
+     "f": "L_CO_B",
+     "role": "비용·구매 요구 대응"
+    }
+   ],
+   "core": true,
+   "source": "dimension:비용·구매",
+   "req_ids": [
+    "R02",
+    "R05"
+   ],
+   "req_load": 6.46,
+   "priority": 0.699,
+   "priority_reason": "요구 2개 연결 · 핵심 파트",
+   "priority_rank": 3,
+   "related": [
+    "execution"
+   ],
+   "id": "S13",
+   "slides": 1
+  },
+  {
+   "type": "closing",
+   "name": "파일럿 도입 제안",
+   "items": [
+    "효과 검증을 위한 병실 파일럿 승인 요청",
+    "늘봄요양병원의 성공적인 환경 개선 파트너"
+   ],
+   "stage": "close",
+   "goal": "",
+   "seed_layouts": [
+    {
+     "f": "L_C13",
+     "role": "결정 요청 · 다음 단계"
+    }
+   ],
+   "core": true,
+   "source": "strategy",
+   "req_ids": [],
+   "pin": true,
+   "req_load": 0.0,
+   "priority": 0.28,
+   "priority_reason": "핵심 파트",
+   "priority_rank": 10,
+   "related": [
+    "execution"
+   ],
+   "id": "S14",
+   "slides": 1
+  }
+ ],
+ "links": {
+  "links": {
+   "R01": [
+    6
+   ],
+   "R02": [
+    12
+   ],
+   "R03": [
+    6
+   ],
+   "R04": [
+    11
+   ],
+   "R05": [
+    12
+   ],
+   "R07": [
+    6
+   ],
+   "R08": [
+    6
+   ],
+   "R11": [
+    11
+   ],
+   "R12": [
+    11
+   ],
+   "R13": [
+    7
+   ],
+   "R14": [
+    1
+   ],
+   "R17": [
+    6
+   ]
+  },
+  "uncovered": []
+ },
+ "slides": [
+  {
+   "no": 1,
+   "part_id": "S01",
+   "part_type": "cover",
+   "part_name": "늘봄요양병원 환경 개선 제안",
+   "f": "L_C01",
+   "code": "C01",
+   "name": "표지 A · 이미지 분할",
+   "score": 14.693,
+   "why": [
+    "LLM · 요양병원의 쾌적한 환경을 강조하기 위해 이미지 분할 레이아웃이 신뢰감과 전문성을 전달하기에 가장 적합합니다.",
+    "파트 유형 일치 · 표지 · 목차",
+    "시나리오가 이 자리에 둔 장표"
+   ],
+   "fit": {
+    "relevance": 0.623,
+    "part": true
+   },
+   "role": "표지",
+   "seed": "L_C01",
+   "alternates": [
+    {
+     "f": "L_C03",
+     "code": "C03",
+     "name": "표지 C · 타이포 중심",
+     "score": 14.193
+    },
+    {
+     "f": "L_C08",
+     "code": "C08",
+     "name": "표지 D · 이미지 3컷 콜라주",
+     "score": 13.693
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 2,
+   "part_id": "S02",
+   "part_type": "overview",
+   "part_name": "제안 핵심 요약",
+   "f": "L_ES_A",
+   "code": "ES-A",
+   "name": "제안 요약 4단",
+   "score": 17.267,
+   "why": [
+    "LLM · 결정권자용 한 장 요약에 최적화된 레이아웃으로, 과제·제안·효과·삼성의 강점을 구조적으로 배치해 이사장님 설득에 가장 효과적입니다.",
+    "파트 유형 일치 · 제안 개요",
+    "시나리오가 이 자리에 둔 장표",
+    "부족 정보 · solutions"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 0.33,
+    "missing": [
+     "solutions",
+     "kpis"
+    ]
+   },
+   "role": "결정권자용 한 장 요약",
+   "seed": "L_ES_A",
+   "alternates": [
+    {
+     "f": "L_ES_B",
+     "code": "ES-B",
+     "name": "숫자로 보는 제안",
+     "score": 16.767
+    },
+    {
+     "f": "L_IM_B",
+     "code": "IM-B",
+     "name": "4분면 요약 + 결론",
+     "score": 16.267
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 3,
+   "part_id": "S03",
+   "part_type": "requirements",
+   "part_name": "핵심 의사결정자 요구사항",
+   "f": "L_RM_A",
+   "code": "RM-A",
+   "name": "고객 요구 이해",
+   "score": 15.737,
+   "why": [
+    "LLM · 키맨별 요구사항이 명확히 구분되어 있어, 이를 대조하고 대응 방향을 제시하기에 가장 적합한 레이아웃입니다.",
+    "파트 유형 일치 · 고객 요구 이해",
+    "시나리오가 이 자리에 둔 장표",
+    "편집 불가 문구 · 다른 업종"
+   ],
+   "fit": {
+    "relevance": 0.876,
+    "part": true,
+    "static_foreign": true,
+    "readiness": 0.67,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "키맨별 요구와 대응 방향",
+   "seed": "L_RM_A",
+   "alternates": [
+    {
+     "f": "L_RM_B",
+     "code": "RM-B",
+     "name": "요구사항 대응표",
+     "score": 15.237
+    },
+    {
+     "f": "L_MI_MD_B",
+     "code": "MI-MD-B",
+     "name": "의료 · 요양 · 케어 · 고객 비즈니스 · 운영 과제",
+     "score": 14.737
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 4,
+   "part_id": "S04",
+   "part_type": "requirements",
+   "part_name": "요구사항 대응 전략",
+   "f": "L_RM_B",
+   "code": "RM-B",
+   "name": "요구사항 대응표",
+   "score": 17.833,
+   "why": [
+    "LLM · 요구사항 전수 대응표로서 RFP 대응에 최적화된 구조이며, 현장 중심의 해결 방안을 체계적으로 제시하기에 가장 적합합니다.",
+    "파트 유형 일치 · 고객 요구 이해",
+    "시나리오가 이 자리에 둔 장표"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 0.67,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "요구 전수 대응표",
+   "seed": "L_RM_B",
+   "alternates": [
+    {
+     "f": "L_RM_C",
+     "code": "RM-C",
+     "name": "평가 항목 · 배점 대응",
+     "score": 17.333
+    },
+    {
+     "f": "L_SC_B",
+     "code": "SC-B",
+     "name": "요구사항 대응표",
+     "score": 16.833
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 5,
+   "part_id": "S05",
+   "part_type": "customer",
+   "part_name": "늘봄요양병원 운영 맥락",
+   "f": "L_MI_MD_B",
+   "code": "MI-MD-B",
+   "name": "의료 · 요양 · 케어 · 고객 비즈니스 · 운영 과제",
+   "score": 16.521,
+   "why": [
+    "LLM · 의료·요양 업종 특화 레이아웃으로 병원 운영 맥락과 과제를 구조화하기에 가장 적합합니다.",
+    "파트 유형 일치 · 고객사 이해",
+    "업종 전용 · 의료 · 요양 · 케어",
+    "부족 정보 · solutions"
+   ],
+   "fit": {
+    "relevance": 0.883,
+    "part": true,
+    "readiness": 0.33,
+    "missing": [
+     "solutions",
+     "kpis"
+    ]
+   },
+   "role": "고객 전략 목표 → 실행 과제",
+   "seed": "L_CB_B",
+   "alternates": [
+    {
+     "f": "L_CB_B",
+     "code": "CB-B",
+     "name": "전략 목표 → 과제 트리",
+     "score": 16.021
+    },
+    {
+     "f": "L_CB_C",
+     "code": "CB-C",
+     "name": "운영 흐름 속 문제",
+     "score": 15.521
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 6,
+   "part_id": "S06",
+   "part_type": "insight",
+   "part_name": "환경 개선 시사점",
+   "f": "L_IM_B",
+   "code": "IM-B",
+   "name": "4분면 요약 + 결론",
+   "score": 18.033,
+   "why": [
+    "LLM · 4분면 구조를 통해 요양병원 환경 개선의 필요성과 경쟁력을 명확히 요약하고 결론을 도출하기에 가장 적합합니다.",
+    "파트 유형 일치 · 시사점 · 제안 방향",
+    "시나리오가 이 자리에 둔 장표",
+    "전략 적합 · 가치 선도형"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 0.67,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "시장 4분면 요약 + 결론",
+   "seed": "L_IM_B",
+   "alternates": [
+    {
+     "f": "L_MI_MD_A",
+     "code": "MI-MD-A",
+     "name": "의료 · 요양 · 케어 · 시장 · 트렌드",
+     "score": 17.533
+    },
+    {
+     "f": "L_IM_A",
+     "code": "IM-A",
+     "name": "발견 → 시사점 → 방향",
+     "score": 17.033
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 7,
+   "part_id": "S07",
+   "part_type": "value",
+   "part_name": "환자 중심 가치 제안",
+   "f": "L_VP_U_MD",
+   "code": "VP-U",
+   "name": "· 병원 (ind = hospital)",
+   "score": 16.317,
+   "why": [
+    "LLM · 요양병원 현장의 보호자 민원(직접 바람)을 질문으로 던지고 무풍 솔루션으로 해결하는 구조가 가장 적합합니다.",
+    "파트 유형 일치 · Value Propositions",
+    "업종 전용 · 의료 · 요양 · 케어",
+    "부족 정보 · solutions"
+   ],
+   "fit": {
+    "relevance": 0.522,
+    "part": true,
+    "readiness": 0.75,
+    "missing": [
+     "solutions"
+    ]
+   },
+   "role": "한 문장 + 근거 3",
+   "seed": "L_VP05",
+   "alternates": [
+    {
+     "f": "L_VP05",
+     "code": "VP-C",
+     "name": "한 문장 + 근거 3",
+     "score": 15.817
+    },
+    {
+     "f": "L_VP_G",
+     "code": "VP-G",
+     "name": "한 문장 + 제품 히어로",
+     "score": 15.317
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 8,
+   "part_id": "S08",
+   "part_type": "value",
+   "part_name": "운영 효율화 대응",
+   "f": "L_VP_H",
+   "code": "VP-H",
+   "name": "이해관계자 × 만나는 화면",
+   "score": 15.92,
+   "why": [
+    "파트 유형 일치 · Value Propositions",
+    "부족 정보 · solutions",
+    "전략 적합 · 가치 선도형"
+   ],
+   "fit": {
+    "relevance": 0.935,
+    "part": true,
+    "readiness": 0.6,
+    "missing": [
+     "solutions",
+     "kpis"
+    ]
+   },
+   "role": "가치·브랜드 요구 대응",
+   "seed": "L_VP_D",
+   "alternates": [
+    {
+     "f": "L_VP_U_MD",
+     "code": "VP-U",
+     "name": "· 병원 (ind = hospital)",
+     "score": 16.42
+    },
+    {
+     "f": "L_VP_D",
+     "code": "VP-D",
+     "name": "이해관계자별 가치",
+     "score": 15.42
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 9,
+   "part_id": "S09",
+   "part_type": "birdseye",
+   "part_name": "병실 환경 개선 시안",
+   "f": "L_BV_C",
+   "code": "BV-C",
+   "name": "전경 + 한 장 요약",
+   "score": 17.1,
+   "why": [
+    "LLM · 도입 전후 비교와 한 장 요약이 필수적인 병실 환경 개선 시안에 최적화된 레이아웃입니다.",
+    "파트 유형 일치 · 조감도 · 공간 시안",
+    "시나리오가 이 자리에 둔 장표",
+    "부족 정보 · solutions"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 0.5,
+    "missing": [
+     "solutions"
+    ]
+   },
+   "role": "도입 후 전경 + 한 장 요약",
+   "seed": "L_BV_C",
+   "alternates": [
+    {
+     "f": "L_BE03",
+     "code": "BV-B",
+     "name": "두 시점 비교",
+     "score": 16.6
+    },
+    {
+     "f": "L_BV_D",
+     "code": "BV-D",
+     "name": "시점 투어 · 평면도 + 렌더 4",
+     "score": 16.1
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 10,
+   "part_id": "S10",
+   "part_type": "products",
+   "part_name": "공간별 맞춤 솔루션",
+   "f": "L_P2D",
+   "code": "P2-D",
+   "name": "주력 + 보조 (8:4)",
+   "score": 16.656,
+   "why": [
+    "LLM · 요양병원 공간별 2가지 솔루션을 병렬로 배치하여 효율성과 쾌적함을 동시에 강조하기 적합합니다.",
+    "파트 유형 일치 · 공간별 제품",
+    "전략 적합 · 가치 선도형"
+   ],
+   "fit": {
+    "relevance": 0.369,
+    "part": true,
+    "pc_diff": 1,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "공간별 제품 · 설치 방식",
+   "seed": "L_P1B",
+   "alternates": [
+    {
+     "f": "L_P2A",
+     "code": "P2-A",
+     "name": "이미지 중심 (나란히)",
+     "score": 16.156
+    },
+    {
+     "f": "L_P_I",
+     "code": "P-I",
+     "name": "무드 컷 · 풀블리드",
+     "score": 15.656
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 11,
+   "part_id": "S11",
+   "part_type": "case",
+   "part_name": "요양·의료시설 성공 사례",
+   "f": "L_CS03",
+   "code": "CL-B",
+   "name": "3건 요약",
+   "score": 13.597,
+   "why": [
+    "LLM · 요양병원 특성상 신뢰도가 중요하므로, 다수의 구축 사례를 요약하여 검증된 기술력을 강조하는 레이아웃이 가장 적합합니다.",
+    "파트 유형 일치 · 유관 사례",
+    "시나리오가 이 자리에 둔 장표",
+    "부족 정보 · solutions"
+   ],
+   "fit": {
+    "relevance": 0.733,
+    "part": true,
+    "readiness": 0.33,
+    "missing": [
+     "solutions",
+     "kpis"
+    ]
+   },
+   "role": "유관 사례",
+   "seed": "L_CS03",
+   "alternates": [
+    {
+     "f": "L_CL_C",
+     "code": "CL-C",
+     "name": "레퍼런스 월",
+     "score": 13.097
+    },
+    {
+     "f": "L_CD_D",
+     "code": "CD-D",
+     "name": "사례 포토 에세이 · 원문 링크",
+     "score": 12.597
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 12,
+   "part_id": "S12",
+   "part_type": "execution",
+   "part_name": "유지보수 및 감염 관리",
+   "f": "L_MT_B",
+   "code": "MT-B",
+   "name": "케어 플랜 등급",
+   "score": 17.063,
+   "why": [
+    "LLM · 유지보수 및 감염 관리 요구사항을 케어 플랜 등급화하여 체계적으로 제시하고, 운영 편의성을 강조하기에 가장 적합합니다.",
+    "파트 유형 일치 · 실행 계획",
+    "시나리오가 이 자리에 둔 장표",
+    "부족 정보 · timeline"
+   ],
+   "fit": {
+    "relevance": 0.941,
+    "part": true,
+    "readiness": 0.0,
+    "missing": [
+     "timeline",
+     "kpis"
+    ]
+   },
+   "role": "운영·유지보수 요구 대응",
+   "seed": "L_MT_B",
+   "alternates": [
+    {
+     "f": "L_TO_B",
+     "code": "TO-B",
+     "name": "운영 이관 체크리스트",
+     "score": 16.563
+    },
+    {
+     "f": "L_TO_A",
+     "code": "TO-A",
+     "name": "교육 계획",
+     "score": 16.063
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 13,
+   "part_id": "S13",
+   "part_type": "cost",
+   "part_name": "입원 경쟁력 확보 전략",
+   "f": "L_EF_C",
+   "code": "EF-C",
+   "name": "정량 + 정성 효과",
+   "score": 19.2,
+   "why": [
+    "LLM · 쾌적한 이미지와 입원 경쟁력이라는 정성적 가치를 정량적 효과와 함께 제시하여 투자 가치를 설득하기에 가장 적합합니다.",
+    "연관 파트 · 기대 효과",
+    "부족 정보 · solutions",
+    "전략 적합 · 가치 선도형"
+   ],
+   "fit": {
+    "relevance": 0.242,
+    "part": false,
+    "readiness": 0.0,
+    "missing": [
+     "kpis",
+     "solutions"
+    ]
+   },
+   "role": "비용·구매 요구 대응",
+   "seed": "L_CO_B",
+   "alternates": [
+    {
+     "f": "L_CO_B",
+     "code": "CO-B",
+     "name": "총소유비용 5년",
+     "score": 18.7
+    },
+    {
+     "f": "L_EF_A",
+     "code": "EF-A",
+     "name": "KPI 전 → 후",
+     "score": 18.2
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 14,
+   "part_id": "S14",
+   "part_type": "closing",
+   "part_name": "파일럿 도입 제안",
+   "f": "L_C13",
+   "code": "C13",
+   "name": "마무리 C · 다음 단계",
+   "score": 17.0,
+   "why": [
+    "LLM · 파일럿 승인 요청과 파트너십 강조를 위해 결정 단계에 최적화된 C13이 적합하며, 비전 제시나 구체적 설계안을 보완할 수 있습니다.",
+    "파트 유형 일치 · 마무리 · 다음 단계",
+    "시나리오가 이 자리에 둔 장표",
+    "부족 정보 · timeline"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 0.0,
+    "missing": [
+     "contacts",
+     "timeline",
+     "kpis"
+    ]
+   },
+   "role": "결정 요청 · 다음 단계",
+   "seed": "L_C13",
+   "alternates": [
+    {
+     "f": "L_C12",
+     "code": "C12",
+     "name": "마무리 B · 도입 후 모습 (생성 시안)",
+     "score": 16.5
+    },
+    {
+     "f": "L_PL_B",
+     "code": "PL-B",
+     "name": "파일럿 설계",
+     "score": 16.0
+    }
+   ],
+   "llm": true
+  }
+ ],
+ "review": {
+  "req_total": 12,
+  "req_covered": 12,
+  "req_coverage": 1.0,
+  "must_uncovered": [],
+  "uncovered": [],
+  "checklist": [],
+  "spec_mismatch": [],
+  "flow_score": 0.846,
+  "n_slides": 14,
+  "industry_violations": [],
+  "solution_violations": [],
+  "duplicates": [],
+  "part_mismatch": [
+   "L_EF_C"
+  ],
+  "fill": {
+   "slots": 574,
+   "changed": 376,
+   "placeholders_left": 63,
+   "unsupported_reverted": 0,
+   "sample_leak": 0,
+   "foreign_terms": 0,
+   "static_foreign_slides": 2
+  },
+  "issues": [
+   {
+    "sev": "low",
+    "msg": "파트 유형과 다른 장표(연관 장표로 대체): ['L_EF_C']"
+   },
+   {
+    "sev": "low",
+    "msg": "편집할 수 없는(data-tb 없는) 다른 업종 샘플 문구가 남은 장표 2장 — 원본 레이아웃 보완 필요"
+   }
+  ]
+ },
+ "fills": [
+  {
+   "no": 1,
+   "f": "L_C01",
+   "code": "C01",
+   "part_id": "S01",
+   "texts": {
+    "0": "늘봄요양병원 전열교환 환기 시스템 설치 예시",
+    "2": "B2B 제안서",
+    "3": "병실 냉난방·환기 환경 개선",
+    "4": "의료법인 늘봄의료재단 늘봄요양병원 · 병실 냉난방·환기 환경",
+    "5": "삼성전자 B2B팀",
+    "6": "2026. 10"
+   },
+   "sources": {
+    "0": "llm",
+    "2": "llm",
+    "3": "context",
+    "4": "context",
+    "5": "llm",
+    "6": "llm"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 6,
+    "changed": 5,
+    "coverage": 0.833,
+    "placeholders_left": 0,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 1,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 2,
+   "f": "L_ES_A",
+   "code": "ES-A",
+   "part_id": "S02",
+   "texts": {
+    "0": "02 · 제안 개요",
+    "1": "늘봄요양병원 병실 냉난방 및 환기 환경 개선 제안",
+    "2": "예산은 이사장님 결제 받아야 함",
+    "3": "01",
+    "4": "현재 과제",
+    "5": "[00]",
+    "6": "현황",
+    "7": "쾌적한 병실 환경 조성",
+    "8": "환기 부족 및 온도 제어 한계",
+    "9": "이사장님 결재를 위한 최적의 비용 효율",
+    "10": "환기 및 냉난방 개선 필요",
+    "11": "02",
+    "12": "제안 내용",
+    "13": "환기 시스템",
+    "14": "ERV",
+    "15": "병실",
+    "16": "공기 정화",
+    "17": "필터",
+    "18": "로비",
+    "19": "에너지 관리",
+    "20": "통합 제어",
+    "21": "범위",
+    "22": "병실 및 로비 냉난방·환기 개선",
+    "23": "기간",
+    "24": "계약 후 [00]주",
+    "25": "03",
+    "26": "기대 효과",
+    "27": "예산은 이사장",
+    "28": "공기질 개선",
+    "29": "이사장님 결재를",
+    "30": "운영비 절감",
+    "31": "냉난방·환기",
+    "32": "효율 향상",
+    "33": "04",
+    "34": "삼성 선택",
+    "35": "검증된 의료 시설 솔루션",
+    "36": "근거 · 솔루션 구성 p.[00]",
+    "37": "요양병원 맞춤형 성공 사례",
+    "38": "근거 · 도입 사례 p.[00]",
+    "39": "전국 직영 서비스망",
+    "40": "근거 · 서비스 체계 p.[00]",
+    "41": "KEY MESSAGE",
+    "42": "환자 중심의 쾌적한 병원 환경 구현",
+    "43": "결정 요청",
+    "44": "이사장님 최종 결재 승인",
+    "46": "의료법인 늘봄의료재단 늘봄요양병원 · 병실 냉난방·환기"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "req",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "item",
+    "28": "llm",
+    "29": "item",
+    "30": "llm",
+    "31": "item",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "35": "llm",
+    "36": "llm",
+    "37": "llm",
+    "38": "llm",
+    "39": "llm",
+    "40": "llm",
+    "41": "llm",
+    "42": "llm",
+    "43": "llm",
+    "44": "llm",
+    "46": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 46,
+    "changed": 31,
+    "coverage": 0.674,
+    "placeholders_left": 5,
+    "overflow_fixed": [
+     9
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 15,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 3,
+   "f": "L_RM_A",
+   "code": "RM-A",
+   "part_id": "S03",
+   "texts": {
+    "0": "03 · 고객 요구 이해",
+    "1": "늘봄요양병원의 핵심 요구사항을 분석했습니다",
+    "2": "키맨별 요구사항 및 가중치 분석 · 면담록 기반",
+    "3": "60%",
+    "4": "행정원장",
+    "5": "40%",
+    "6": "시설과장",
+    "7": "[0]%",
+    "8": "기타",
+    "9": "행",
+    "10": "행정원장",
+    "11": "관심사 · 경험 · 비용",
+    "12": "가중치",
+    "13": "60%",
+    "14": "요구사항 분석",
+    "15": "중요도",
+    "16": "“보호자 민원 줄이기”",
+    "17": "“쾌적한 병원 이미지로 입원 경쟁력 확보”",
+    "18": "운영 효율 및 예산 최적화",
+    "19": "시",
+    "20": "시설과장",
+    "21": "관심사 · 기타 · 운영",
+    "22": "가중치",
+    "23": "40%",
+    "24": "요구사항 분석",
+    "25": "중요도",
+    "26": "“고장 잦은 노후 에어컨 교체”",
+    "27": "“관리하기 편한 설비”",
+    "28": "유지보수 및 설비 안정성",
+    "29": "-",
+    "30": "기타",
+    "31": "기타 요구사항",
+    "32": "가중치",
+    "33": "[0]%",
+    "34": "요구사항 분석",
+    "35": "중요도",
+    "36": "해당 없음",
+    "37": "해당 없음",
+    "38": "해당 없음",
+    "39": "공통 요구",
+    "40": "[0]",
+    "41": "병실 환경 개선 및 환자 만족도",
+    "42": "쾌적한 병실 환경",
+    "43": "요구",
+    "44": "환기",
+    "45": "구현",
+    "46": "에너지 절감",
+    "47": "요구",
+    "48": "효율",
+    "49": "구현",
+    "50": "부딪치는 요구",
+    "51": "[0]",
+    "52": "행정원장",
+    "53": "시설과장",
+    "54": "비용 최적화",
+    "55": "성능",
+    "56": "고효율 제품 제안 및 단계적 도입",
+    "57": "장표",
+    "59": "의료법인 늘봄의료재단 늘봄요양병원 · 병실 냉난방·환기 환경 개선"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "req",
+    "4": "req",
+    "5": "req",
+    "6": "req",
+    "7": "placeholder",
+    "8": "llm",
+    "9": "req",
+    "10": "req",
+    "11": "req",
+    "12": "llm",
+    "13": "req",
+    "14": "llm",
+    "15": "llm",
+    "16": "req",
+    "17": "req",
+    "18": "llm",
+    "19": "req",
+    "20": "req",
+    "21": "req",
+    "22": "llm",
+    "23": "req",
+    "24": "llm",
+    "25": "llm",
+    "26": "req",
+    "27": "req",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "placeholder",
+    "34": "llm",
+    "35": "llm",
+    "36": "llm",
+    "37": "llm",
+    "38": "llm",
+    "39": "llm",
+    "40": "placeholder",
+    "41": "llm",
+    "42": "llm",
+    "43": "llm",
+    "44": "llm",
+    "45": "llm",
+    "46": "llm",
+    "47": "llm",
+    "48": "llm",
+    "49": "llm",
+    "50": "llm",
+    "51": "placeholder",
+    "52": "req",
+    "53": "req",
+    "54": "llm",
+    "55": "llm",
+    "56": "llm",
+    "57": "llm",
+    "59": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 59,
+    "changed": 51,
+    "coverage": 0.864,
+    "placeholders_left": 4,
+    "overflow_fixed": [
+     41
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 8,
+    "static_foreign": [
+     "본사 예약 배포 · 매장 작업 0",
+     "템플릿 잠금 · 지역 메뉴만 허용",
+     "창가 매장은 고휘도 모델"
+    ]
+   },
+   "llm": true
+  },
+  {
+   "no": 4,
+   "f": "L_RM_B",
+   "code": "RM-B",
+   "part_id": "S04",
+   "texts": {
+    "0": "04 · 고객 요구 이해",
+    "1": "요구사항 [00]개, 빠짐없이 대응합니다",
+    "2": "충족[00]",
+    "3": "부분[0]",
+    "4": "대안[0]",
+    "5": "1 / 2",
+    "6": "ID",
+    "7": "구분",
+    "8": "요구사항",
+    "9": "필수",
+    "10": "대응 방안",
+    "11": "수준",
+    "12": "위치",
+    "13": "변경",
+    "14": "R04",
+    "15": "운영",
+    "16": "관리하기 편한 설비",
+    "17": "권장",
+    "18": "ERV 통합 제어 시스템 구축",
+    "19": "p.05",
+    "20": "R11",
+    "21": "운영",
+    "22": "감염관리 신경 많이 씀 (코로나때 고생",
+    "23": "권장",
+    "24": "미세먼지 필터 적용",
+    "25": "p.06",
+    "26": "R12",
+    "27": "운영",
+    "28": "겨울엔 추워서 창문",
+    "29": "권장",
+    "30": "외기 열회수 환기 도입",
+    "31": "p.07",
+    "32": "R13",
+    "33": "운영",
+    "34": "환기 환경 개선",
+    "35": "권장",
+    "36": "현장 맞춤형 ERV 설계",
+    "37": "p.08",
+    "38": "NEW",
+    "39": "R02",
+    "40": "비용",
+    "41": "쾌적한 병원 이미지로 입원",
+    "42": "권장",
+    "43": "[제품] 시스템 에어컨 제안",
+    "44": "p.09",
+    "45": "R05",
+    "46": "비용",
+    "47": "늘봄요양병원 (10/15 목)",
+    "48": "권장",
+    "49": "현장 실사 기반 최적화",
+    "50": "p.10",
+    "51": "R01",
+    "52": "경험",
+    "53": "병실 쾌적성",
+    "54": "권장",
+    "55": "[제품] 냉방 솔루션 적용",
+    "56": "p.11",
+    "57": "NEW",
+    "58": "R07",
+    "59": "경험",
+    "60": "여름마다 병실 에어콘",
+    "61": "권장",
+    "62": "[제품] 운전 모드 적용",
+    "63": "p.12",
+    "64": "R08",
+    "65": "경험",
+    "66": "어르신들 직접 바람",
+    "67": "권장",
+    "68": "직바람 없는 [제품] 냉방",
+    "69": "p.13",
+    "70": "R13",
+    "71": "가치",
+    "72": "원장님은 '쾌적한 병원' 이미지",
+    "73": "권장",
+    "74": "프리미엄 환기 솔루션",
+    "75": "p.14",
+    "76": "충족",
+    "77": "부분 충족",
+    "78": "대안 제시",
+    "79": "NEW",
+    "80": "수정",
+    "81": "1–10 / [00]다음 쪽에 이어집니다",
+    "83": "의료법인 늘봄의료재단 늘봄요양병원 · 병실 냉난방·환기 환경 개선"
+   },
+   "sources": {
+    "0": "context",
+    "1": "composed",
+    "2": "placeholder",
+    "3": "placeholder",
+    "4": "placeholder",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "req",
+    "15": "req",
+    "16": "req",
+    "17": "req",
+    "18": "llm",
+    "19": "llm",
+    "20": "req",
+    "21": "req",
+    "22": "req",
+    "23": "req",
+    "24": "llm",
+    "25": "llm",
+    "26": "req",
+    "27": "req",
+    "28": "req",
+    "29": "req",
+    "30": "llm",
+    "31": "llm",
+    "32": "req",
+    "33": "req",
+    "34": "llm",
+    "35": "req",
+    "36": "llm",
+    "37": "llm",
+    "38": "llm",
+    "39": "req",
+    "40": "req",
+    "41": "req",
+    "42": "req",
+    "43": "llm",
+    "44": "llm",
+    "45": "req",
+    "46": "req",
+    "47": "req",
+    "48": "req",
+    "49": "llm",
+    "50": "llm",
+    "51": "req",
+    "52": "req",
+    "53": "llm",
+    "54": "req",
+    "55": "llm",
+    "56": "llm",
+    "57": "llm",
+    "58": "req",
+    "59": "req",
+    "60": "req",
+    "61": "req",
+    "62": "llm",
+    "63": "llm",
+    "64": "req",
+    "65": "req",
+    "66": "req",
+    "67": "req",
+    "68": "llm",
+    "69": "llm",
+    "70": "req",
+    "71": "req",
+    "72": "req",
+    "73": "req",
+    "74": "llm",
+    "75": "llm",
+    "76": "llm",
+    "77": "llm",
+    "78": "llm",
+    "79": "llm",
+    "80": "llm",
+    "81": "req",
+    "83": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 83,
+    "changed": 67,
+    "coverage": 0.807,
+    "placeholders_left": 9,
+    "overflow_fixed": [
+     22,
+     28,
+     41,
+     60,
+     66,
+     72
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 16,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 5,
+   "f": "L_MI_MD_B",
+   "code": "MI-MD-B",
+   "part_id": "S05",
+   "texts": {
+    "0": "05 · 고객사 이해",
+    "1": "의료법인 늘봄의료재단 늘봄요양병원의 매출은 병상에서, 비용은 24시간 병동에서 나옵니다",
+    "2": "병상 운영 구조와 단계별 KPI · 운영 과제 — 파란 표시는 삼성 제품 · 솔루션이 함께할 수 있는 지점입니다",
+    "3": "매출 구조",
+    "4": "병상이 매출을 만듭니다",
+    "5": "연 가동 병상일",
+    "6": "[00,000]일",
+    "7": "병상 수 × 가동률 × 365",
+    "8": "병상 1일 수익",
+    "9": "[00]만 원",
+    "10": "다인실 · 1인실 · VIP 가중",
+    "11": "재활 · 프로그램",
+    "12": "[0]억 원",
+    "13": "부가 서비스",
+    "14": "연 매출",
+    "15": "[00]억 원",
+    "16": "늘봄요양병원 실적 기준",
+    "17": "×",
+    "18": "＋",
+    "19": "＝",
+    "20": "비용 구조",
+    "21": "24시간 병동이 비용을 만듭니다",
+    "22": "수치는 예시",
+    "23": "간호 · 요양 인력",
+    "24": "[00]%",
+    "25": "냉난방 · 공조 에너지",
+    "26": "[00]%",
+    "27": "시설 · 위생",
+    "28": "[00]%",
+    "29": "식사 · 기타",
+    "30": "[00]%",
+    "31": "01",
+    "32": "입원 상담 · 병실 배정",
+    "33": "상담실 · 원무 · 병실",
+    "34": "병상 가동률",
+    "35": "[00]%",
+    "36": "1인실 · VIP 비중",
+    "37": "[00]%",
+    "38": "보호자는 병실의 공기 · 온도 · 청결을 보고 병원을 고릅니다",
+    "39": "삼성",
+    "40": "1인실 · VIP는 객실 수준의 실내 환경을 기대합니다",
+    "41": "삼성",
+    "42": "02",
+    "43": "치료 · 재활 · 생활",
+    "44": "병실 · 재활센터 · 식당",
+    "45": "평균 재원일수",
+    "46": "[000]일",
+    "47": "재활 프로그램 참여율",
+    "48": "[00]%",
+    "49": "환자 상태마다 적정 온도가 다르고, 직바람은 피해야 합니다",
+    "50": "삼성",
+    "51": "식당 · 재활센터는 운영 시간과 부하가 병실과 다릅니다",
+    "52": "삼성",
+    "53": "03",
+    "54": "병동 간호 · 돌봄",
+    "55": "간호스테이션 · 병실 · 복도",
+    "56": "간호 인력 1인당 병상",
+    "57": "[0.0]",
+    "58": "호출 응답 시간",
+    "59": "[00]초",
+    "60": "한정된 간호 · 요양 인력으로 24시간 병동을 지킵니다",
+    "61": "고객",
+    "62": "호실 순회 점검 · 호출 응대 · 동의서 처리로 동선이 깁니다",
+    "63": "삼성",
+    "64": "04",
+    "65": "시설 · 에너지 · 행정",
+    "66": "시설팀 · 기계실 · 원무",
+    "67": "병상당 월 에너지 비용",
+    "68": "[00]만 원",
+    "69": "피크 전력",
+    "70": "[000] kW",
+    "71": "24시간 냉난방으로 전기요금 · 피크 전력 부담이 큽니다",
+    "72": "삼성",
+    "73": "수백 대 실내기 · 가전을 층마다 사람이 따로 관리합니다",
+    "74": "삼성",
+    "75": "운영 과제",
+    "76": "삼성",
+    "77": "고객",
+    "78": "[ ] 는 늘봄요양병원 데이터로 채울 값",
+    "80": "의료법인 늘봄의료재단 늘봄요양병원 · 병실 냉난방"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "35": "llm",
+    "36": "llm",
+    "37": "llm",
+    "38": "llm",
+    "39": "llm",
+    "40": "llm",
+    "41": "llm",
+    "42": "llm",
+    "43": "llm",
+    "44": "llm",
+    "45": "llm",
+    "46": "llm",
+    "47": "llm",
+    "48": "llm",
+    "49": "llm",
+    "50": "llm",
+    "51": "llm",
+    "52": "llm",
+    "53": "llm",
+    "54": "llm",
+    "55": "llm",
+    "56": "llm",
+    "57": "llm",
+    "58": "llm",
+    "59": "llm",
+    "60": "llm",
+    "61": "llm",
+    "62": "llm",
+    "63": "llm",
+    "64": "llm",
+    "65": "llm",
+    "66": "llm",
+    "67": "llm",
+    "68": "llm",
+    "69": "llm",
+    "70": "llm",
+    "71": "llm",
+    "72": "llm",
+    "73": "llm",
+    "74": "llm",
+    "75": "llm",
+    "76": "llm",
+    "77": "llm",
+    "78": "llm",
+    "80": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 80,
+    "changed": 9,
+    "coverage": 0.113,
+    "placeholders_left": 17,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 71,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 6,
+   "f": "L_IM_B",
+   "code": "IM-B",
+   "part_id": "S06",
+   "texts": {
+    "0": "06 · 시사점 · 제안 방향",
+    "1": "늘봄요양병원 환경 개선을 위한 제안",
+    "2": "01의료",
+    "3": "요양 케어 수요",
+    "4": "늘봄요양병원 맞춤형 환경 개선",
+    "5": "환자 건강과 보호자 만족을 위한 환경 개선 필수",
+    "6": "02병원",
+    "7": "10~15",
+    "8": "면담록 기반 개선 필요",
+    "9": "쾌적한 병실 환경이 곧 병원의 경쟁력",
+    "10": "03환자",
+    "11": "[00]%",
+    "12": "병실 내 쾌적도 만족도",
+    "13": "전열교환 환기 시스템으로 공기질 관리",
+    "14": "04차별",
+    "15": "[00]%",
+    "16": "전문 환기 솔루션 점유율",
+    "17": "미세먼지 필터 기반 차별화된 환기",
+    "18": "결론",
+    "19": "통합제어",
+    "20": "ERV로 병실 환경 최적화",
+    "22": "의료법인 늘봄의료재단 늘봄요양병원 · 병실 냉난방·환기"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "22": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 22,
+    "changed": 19,
+    "coverage": 0.864,
+    "placeholders_left": 2,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 3,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 7,
+   "f": "L_VP_U_MD",
+   "code": "VP-U",
+   "part_id": "S07",
+   "texts": {
+    "0": "07 · Value Propositions",
+    "1": "늘봄요양병원 현장의 고민, 삼성 [제품]으로 해결합니다",
+    "2": "의료 · 요양",
+    "3": "병실 · 로비",
+    "4": "늘봄요양병원 현장 인터뷰 및 요구사항 기반 제안",
+    "5": "현장에서 듣는 질문",
+    "6": "답하는 제품 · 솔루션",
+    "7": "핵심 가치 · 해결 키워드",
+    "8": "Q1",
+    "9": "병실 환자",
+    "10": "“에어컨 바람이 직접 닿아 감기 걸릴까 걱정돼요”",
+    "11": "삼성 [제품] 시스템에어컨",
+    "12": "직접 바람 없는 [제품] 냉방",
+    "13": "핵심 가치",
+    "14": "찬 바람 없이 쾌적한 병실 환경 조성",
+    "15": "#[제품] 냉방",
+    "16": "#민원 해소",
+    "17": "Q2",
+    "18": "보호자",
+    "19": "“여름철 병실 에어컨 민원이 너무 많아요”",
+    "20": "[제품] 시스템",
+    "21": "보호자 만족도 향상",
+    "22": "핵심 가치",
+    "23": "불필요한 민원 감소 및 쾌적한 케어",
+    "24": "#민원 감소",
+    "25": "#환자 케어",
+    "26": "Q3",
+    "27": "시설 관리",
+    "28": "“노후된 에어컨 교체와 환기가 고민이에요”",
+    "29": "전열교환 환기 시스템",
+    "30": "미세먼지 필터 및 환기",
+    "31": "핵심 가치",
+    "32": "깨끗한 공기질 유지 및 에너지 효율",
+    "33": "#공기질 관리",
+    "34": "#에너지 절감",
+    "36": "의료법인 늘봄의료재단 늘봄요양병원 · 병실 냉난방·환기 환경 개선"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "36": "context"
+   },
+   "images": {
+    "0": {
+     "pid": null,
+     "label": "이미지 필요 · ERV 제품 · 설치 사진"
+    },
+    "1": {
+     "pid": null,
+     "label": "이미지 필요 · 사진"
+    },
+    "2": {
+     "pid": null,
+     "label": "이미지 필요 · 사진"
+    }
+   },
+   "checks": {
+    "n_slots": 36,
+    "changed": 26,
+    "coverage": 0.722,
+    "placeholders_left": 5,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 10,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 8,
+   "f": "L_VP_H",
+   "code": "VP-H",
+   "part_id": "S08",
+   "texts": {
+    "0": "08 · Value",
+    "1": "늘봄요양병원이 얻는 쾌적한 환경과 운영 효율",
+    "2": "경영진",
+    "3": "에너지 절감과 시설 관리 최적화로 병원 경쟁력 강화",
+    "4": "행정원장 · 시설과장",
+    "5": "운영비 절감 및 관리 효율",
+    "6": "통합 관리 화면",
+    "7": "삼성 시스템에어컨 통합 제어",
+    "8": "가치",
+    "9": "운영비가 눈에 보이게 내려갑니다",
+    "10": "비용",
+    "11": "61% ↓",
+    "12": "간호팀",
+    "13": "환자 케어 집중 환경 조성",
+    "14": "스마트 제어 화면",
+    "15": "스마트싱스 온도 제어",
+    "16": "가치",
+    "17": "냉난방 민원 해결 및 업무 부담 감소",
+    "18": "민원",
+    "20": "입원 환자",
+    "21": "쾌적한 실내 공기질 유지",
+    "22": "병실 환경",
+    "23": "전열교환 환기 시스템",
+    "24": "가치",
+    "25": "미세먼지 없는 쾌적한 요양 환경",
+    "26": "먼지",
+    "27": "99%",
+    "28": "환자",
+    "29": "안심할 수 있는 병실 환경",
+    "30": "공기질 모니터링",
+    "31": "쾌적한 병원 이미지 구축",
+    "32": "가치",
+    "33": "살균 및 청정 환기 시스템",
+    "34": "세균",
+    "35": "99% ↓",
+    "37": "의료법인 늘봄의료재단 늘봄요양병원 · 병실 냉난방·환기 환경 개선"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "35": "llm",
+    "37": "context"
+   },
+   "images": {
+    "0": {
+     "pid": null,
+     "label": "이미지 필요 · ERV 제품 · 설치 사진"
+    },
+    "1": {
+     "pid": null,
+     "label": "이미지 필요 · 솔루션 화면"
+    },
+    "2": {
+     "pid": null,
+     "label": "이미지 필요 · 모바일 화면"
+    },
+    "3": {
+     "pid": null,
+     "label": "이미지 필요 · 키오스크 사진"
+    }
+   },
+   "checks": {
+    "n_slots": 37,
+    "changed": 35,
+    "coverage": 0.946,
+    "placeholders_left": 1,
+    "overflow_fixed": [
+     27
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 2,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 9,
+   "f": "L_BV_C",
+   "code": "BV-C",
+   "part_id": "S09",
+   "texts": {
+    "0": "09 · 조감도 · 공간 시안",
+    "1": "늘봄요양병원의 쾌적한 미래를 설계합니다",
+    "2": "병실 및 로비 [0]D 조감도",
+    "3": "환기 시스템",
+    "4": "환경 개선",
+    "5": "효과",
+    "6": "환자 중심의 병실 냉난방·환기 조감도",
+    "7": "ERV",
+    "8": "적용",
+    "9": "도입 전후 비교를 통한 환경 개선 효과",
+    "10": "99%",
+    "11": "살균",
+    "12": "절감",
+    "13": "61%",
+    "14": "환자 중",
+    "15": "전열교환 환기 시스템으로 쾌적한 공기질",
+    "16": "통합",
+    "17": "도입 전",
+    "18": "미세먼지 필터와 외기 열회수 환기로 쾌적한 병실 환경 조성",
+    "19": "핵심 변화",
+    "20": "0.3㎛ 미세먼지 99.999% 제거 및 필터 속",
+    "21": "[제품] 운전으로 일반 운전 대비 전력 최대 61% 절감 가능",
+    "22": "실시간 모니터링으로 병실별 냉난방 환경 최적화",
+    "24": "의료법인 늘봄의료재단 늘봄요양병원 · 병실 냉난방·환기"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "item",
+    "15": "llm",
+    "16": "llm",
+    "17": "item",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "24": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 24,
+    "changed": 23,
+    "coverage": 0.958,
+    "placeholders_left": 2,
+    "overflow_fixed": [
+     15,
+     20
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 1,
+    "static_foreign": [
+     "매장 외부",
+     "매장 카운터"
+    ]
+   },
+   "llm": true
+  },
+  {
+   "no": 10,
+   "f": "L_P2D",
+   "code": "P2-D",
+   "part_id": "S10",
+   "texts": {
+    "0": "10 · 공간별 제품",
+    "1": "늘봄요양병원 로비 및 병실 환경 최적화",
+    "2": "주력",
+    "3": "제품 이미지",
+    "4": "[제품] 시스템에어컨",
+    "5": "직바람 없는 [제품] 냉방 및 정밀 온도 제어",
+    "6": "병실 특화 [제품] 냉난방기 및 환기 시스템",
+    "7": "×10",
+    "8": "쾌적한 공기질을 유지하는 ERV",
+    "9": "보조",
+    "10": "전열교환 환기 시스템",
+    "11": "외기 열회수 및 미세먼지 필터",
+    "12": "실내 공기질 상시 청정 유지",
+    "13": "×15",
+    "14": "환기 시스템 도입",
+    "16": "의료법인 늘봄의료재단 늘봄요양병원 · 병실 냉난방·환기"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "16": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 16,
+    "changed": 13,
+    "coverage": 0.812,
+    "placeholders_left": 3,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 3,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 11,
+   "f": "L_CS03",
+   "code": "CL-B",
+   "part_id": "S11",
+   "texts": {
+    "0": "[00] · 유관 사례",
+    "1": "요양·의료시설 검증된 솔루션",
+    "2": "현장 이미지",
+    "3": "성심요양병원",
+    "4": "DVM 칠러 8대 설치",
+    "5": "장기 생활 환자 위한 24시간 쾌적 냉난방 → DVM 칠러 8대(혼합축열)",
+    "6": "시스템에어컨",
+    "7": "256실",
+    "8": "실시간 통합 제어",
+    "9": "현장 이미지",
+    "10": "KB 골든라이프케어",
+    "11": "1Way 무풍 운전 시 일반",
+    "12": "실내 공기질 실시간 감지·케어 시스템 → 스마트싱스(자동화 루틴",
+    "13": "시스템에어컨",
+    "14": "61%",
+    "15": "최대 전력 절감",
+    "16": "현장 이미지",
+    "17": "헤리티지 산후조리원",
+    "18": "호텔/서비스 · 전 객실",
+    "19": "산모·신생아 위한 최적 공기질 → 삼성 큐브 공기청정기(하이브리드",
+    "20": "시스템에어컨",
+    "21": "[00]%",
+    "22": "미세먼지 제거",
+    "24": "의료법인 늘봄의료재단 늘봄요양병원 · 병실 냉난방·환기"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "case",
+    "4": "case",
+    "5": "case",
+    "6": "case",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "case",
+    "11": "case",
+    "12": "case",
+    "13": "case",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "case",
+    "18": "case",
+    "19": "case",
+    "20": "case",
+    "21": "placeholder",
+    "22": "llm",
+    "24": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 24,
+    "changed": 20,
+    "coverage": 0.833,
+    "placeholders_left": 2,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 4,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 12,
+   "f": "L_MT_B",
+   "code": "MT-B",
+   "part_id": "S12",
+   "texts": {
+    "0": "12 · 실행 계획",
+    "1": "유지보수 및 감염 관리 — 병원 맞춤형 케어",
+    "2": "늘봄요양병원 환경 기준 · 가운데가 추천",
+    "3": "기본",
+    "4": "표준 비용",
+    "5": "보증 기간 내 방문 수리",
+    "6": "무상 보증",
+    "7": "1년",
+    "8": "원격 모니터링",
+    "9": "미포함",
+    "10": "장애 대응 방문",
+    "12": "정기 점검",
+    "13": "연 1회",
+    "14": "예비품 보유",
+    "15": "미포함",
+    "16": "환기 필터 관리",
+    "17": "미포함",
+    "18": "리포트",
+    "19": "미포함",
+    "20": "이럴 때",
+    "21": "시설 관리 인력이 상주할 때",
+    "22": "표준",
+    "23": "추천",
+    "24": "최적 비용",
+    "25": "원격 진단 후 필요 시 방문",
+    "26": "무상 보증",
+    "27": "2년",
+    "28": "원격 모니터링",
+    "29": "포함",
+    "30": "장애 대응 방문",
+    "31": "관리하기 편한 설비",
+    "32": "정기 점검",
+    "33": "감염관리 신경",
+    "34": "예비품 보유",
+    "35": "겨울엔 추워서",
+    "36": "환기 필터 관리",
+    "37": "시설과장이",
+    "38": "리포트",
+    "39": "감염 관",
+    "40": "이럴 때",
+    "41": "병실 환경 최적화가 필요할 때",
+    "42": "프리미엄",
+    "43": "우선 비용",
+    "44": "상시 모니터링 및 즉각 대응",
+    "45": "무상 보증",
+    "47": "원격 모니터링",
+    "48": "포함",
+    "49": "장애 대응 방문",
+    "51": "정기 점검",
+    "52": "분기",
+    "53": "예비품 보유",
+    "54": "병원 근처",
+    "55": "환기 필터 관리",
+    "56": "상시",
+    "57": "리포트",
+    "58": "월간",
+    "59": "이럴 때",
+    "60": "24시간 감염 관리가 중요할 때",
+    "61": "추천 이유",
+    "62": "병실 10~15실",
+    "63": "시설 관리 인원 [0]명",
+    "64": "환기 시스템 [00]곳",
+    "65": "포함",
+    "66": "미포함",
+    "68": "의료법인 늘봄의료재단 늘봄요양병원 · 병실 냉난방·환기 환경 개선"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "item",
+    "32": "llm",
+    "33": "item",
+    "34": "llm",
+    "35": "item",
+    "36": "llm",
+    "37": "item",
+    "38": "llm",
+    "39": "item",
+    "40": "llm",
+    "41": "llm",
+    "42": "llm",
+    "43": "llm",
+    "44": "llm",
+    "45": "llm",
+    "47": "llm",
+    "48": "llm",
+    "49": "llm",
+    "51": "llm",
+    "52": "llm",
+    "53": "llm",
+    "54": "llm",
+    "55": "llm",
+    "56": "llm",
+    "57": "llm",
+    "58": "llm",
+    "59": "llm",
+    "60": "llm",
+    "61": "llm",
+    "62": "llm",
+    "63": "llm",
+    "64": "llm",
+    "65": "llm",
+    "66": "llm",
+    "68": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 68,
+    "changed": 33,
+    "coverage": 0.485,
+    "placeholders_left": 5,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 35,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 13,
+   "f": "L_EF_C",
+   "code": "EF-C",
+   "part_id": "S13",
+   "texts": {
+    "0": "[00] · 비용 · 구매",
+    "1": "운영 효율과 환자 만족도를 함께 높입니다",
+    "2": "정량 효과",
+    "3": "데이터로 증명되는 병원 환경 개선",
+    "4": "61%",
+    "5": "쾌적한 병원 이미지로 입원",
+    "6": "[제품] 운전 전력 절감",
+    "7": "99%",
+    "8": "늘봄요양병원 (10/15",
+    "9": "필터 속 세균 살균율",
+    "11": "쾌적한 병원 이미지로 입원",
+    "12": "0.3㎛ 미세먼지 제거율",
+    "13": "[00]%",
+    "14": "늘봄요양병원 맞춤형 투자",
+    "15": "통합 제어 시스템 효율",
+    "16": "정성 효과",
+    "17": "환자와 보호자가 체감하는 변화",
+    "18": "쾌적한 병실 환경",
+    "19": "미세먼지 없는 청정 공기로 안심 케어",
+    "20": "환자",
+    "21": "효율적인 시설 관리",
+    "22": "중앙 제어로 병실별 맞춤 온도 유지",
+    "23": "병원",
+    "24": "입원 경쟁력 강화",
+    "25": "쾌적한 이미지로 병원 브랜드 가치 제고",
+    "26": "경영진",
+    "27": "지속 가능한 운영",
+    "28": "에너지 절감으로 운영 비용 최적화",
+    "29": "재단",
+    "31": "의료법인 늘봄의료재단 늘봄요양병원 · 병실 냉난방·환기"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "item",
+    "6": "llm",
+    "7": "llm",
+    "8": "item",
+    "9": "llm",
+    "11": "item",
+    "12": "llm",
+    "13": "llm",
+    "14": "item",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "31": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 31,
+    "changed": 27,
+    "coverage": 0.871,
+    "placeholders_left": 4,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 4,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 14,
+   "f": "L_C13",
+   "code": "C13",
+   "part_id": "S14",
+   "texts": {
+    "0": "NEXT STEPS",
+    "1": "다음 단계 및 결정 요청",
+    "2": "의료법인 늘봄의료재단 늘봄요양병원 · 병실 냉난방·환기 환경",
+    "3": "1",
+    "4": "현장 실사",
+    "5": "대상",
+    "6": "늘봄요양병원",
+    "7": "참석",
+    "8": "병실 파일럿 도입",
+    "9": "기간",
+    "10": "10/10 – 10/15",
+    "11": "일정 협의",
+    "12": "확정",
+    "13": "10/10",
+    "14": "2",
+    "15": "시범 범위 확정",
+    "16": "범위",
+    "17": "병실 환기 환경 개선",
+    "18": "콘텐츠",
+    "19": "운영 주체",
+    "20": "회의",
+    "21": "10/15",
+    "22": "범위 최종 확정",
+    "23": "확정",
+    "24": "10/15",
+    "25": "[0]",
+    "26": "PoC 승인 및 착수",
+    "27": "계약",
+    "28": "발주 방식",
+    "29": "착수 목표",
+    "31": "첫 오픈",
+    "32": "착수 후 2주",
+    "33": "결정 · 병원장",
+    "34": "승인",
+    "36": "담당",
+    "37": "삼성전자 담당자",
+    "38": "이메일",
+    "39": "b2b.samsung@samsung.com",
+    "40": "전화"
+   },
+   "sources": {
+    "0": "llm",
+    "1": "llm",
+    "2": "context",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "36": "llm",
+    "37": "llm",
+    "38": "llm",
+    "39": "llm",
+    "40": "llm"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 42,
+    "changed": 17,
+    "coverage": 0.405,
+    "placeholders_left": 4,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 25,
+    "static_foreign": []
+   },
+   "llm": true
+  }
+ ]
+}

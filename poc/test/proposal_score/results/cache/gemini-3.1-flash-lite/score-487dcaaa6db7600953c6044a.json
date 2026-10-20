@@ -1,0 +1,69 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08:F10"
+ },
+ "prompt_tokens": 6631,
+ "output_tokens": 582,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "하드웨어(태블릿, 사이니지, 공조기)와 솔루션(b.IoT, MagicINFO)을 결합하여 간호사, 원무팀, 관리자가 각자의 화면에서 어떻게 운영하는지 구체적인 장면을 제시함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "b.IoT 공기질 관리 | 공기청정기 · ERV · 공기질 센서"
+     },
+     {
+      "sheet": 8,
+      "quote": "MagicINFO | b.IoT 루틴 | 통합공조 | 기기는 그대로"
+     },
+     {
+      "sheet": 9,
+      "quote": "이 사람이 만나는 화면 | b.IoT 월간 설비 · 에너지 리포트"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "선도 병동 실사부터 착수까지의 구체적인 날짜와 일정을 제시하고, 유지보수 플랜(방문 수리, 원격 모니터링 등)을 3단계로 구분하여 구체적으로 정리함.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "세 가지 케어 플랜 — 병동 규모와 24시간 운영에 맞춰"
+     },
+     {
+      "sheet": 13,
+      "quote": "다음 4주, 선도 병동부터 정합니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 3,
+    "anchor": "24시간 운영 병동의 특성을 고려하여 공사 중 영업 지속 방안(병실 순차 시공)과 장애 대응 방안을 구체적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "병실 2실씩 순차 시공 | 공사 중에도 병동 운영"
+     },
+     {
+      "sheet": 12,
+      "quote": "장애 대응 방문 | 4시간 이내"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

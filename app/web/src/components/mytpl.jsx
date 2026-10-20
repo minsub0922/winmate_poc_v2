@@ -1,5 +1,7 @@
+import { requireLogin } from '../api/session.js';
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
-import { Icon, Modal, toast, partHue } from './common.jsx';
+import { DeleteButton,confirmDelete,Icon, Modal, toast, partHue } from './common.jsx';
+import { EditorHelp } from './editor-help.jsx';
 import { PARTS, classifyPart } from '../domain/proposals/parts.js';
 import { L, layoutHtml, unregisterLayout } from '../services/catalog.js';
 import { FitSlide, Slide, applyOverrides } from '../domain/slides/Slide.jsx';
@@ -8,35 +10,35 @@ import { SheetView } from './sheetview.jsx';
 import { saveBlob, safeName } from './tplkit.jsx';
 import { exportPptx } from '../domain/slides/export-pptx.js';
 import { convertPptx } from '../domain/slides/import/pptx2html.js';
-import { myMeta, newF, saveTemplates, putImages, deleteTemplates, dropImages, updateMeta, tokenize, isMy, storeImage, imgUrl, measure, myPersistent, previewRegister } from '../repositories/templates.js';
+import { myMeta, newF, saveTemplates, putImages, deleteTemplates, dropImages, updateMeta, tokenize, isMy, storeImage, imgUrl, measure, myPersistent, myAccountStorage, previewRegister } from '../repositories/templates.js';
+import { useWorkContext } from '../services/customer-voice-context.js';
 import { ImagePicker } from './imagepick.jsx';
 import { resolveImg, useStore } from '../repositories/proposals.js';
 import { hydrateFill } from '../services/fill.js';
 import { bgUrl, loadBg } from '../services/packs.js';
+import { BackgroundPicker } from './backgroundpick.jsx';
+import { backgroundState, clearLayoutBackground, setLayoutBackground, setBackgroundEffects } from '../services/layout-background.js';
+import { BackgroundEffects } from './background-effects.jsx';
+import { LayoutPromptAgent } from './layout-prompt.jsx';
+import { reflowProducts } from '../services/layout-reflow.js';
+import { visibleRepeatCards } from '../services/layout-repeat.js';
+import { createBackgroundPreviewSession, disposeBackgroundPreviews, renderBackgroundPreview } from '../services/background-effects.js';
+import { inferIndustry } from '../services/search.js';
+import { fetchResource } from '../api/client.js';
 
 /* =========================================================
-   My 템플릿 — the person's own templates on the PPT 레이아웃 템플릿 page
-   MyToggle   'My' button next to '필터' — shows only My templates (upload first, then the list)
+   My 템플릿 — the person's own templates on a dedicated sidebar page
    MyUpload   PPTX → Winmate templates (ImportDialog: convert · review · save)
    MySections the list, one group per uploaded file (+ one for edited layouts)
    MyDetail   a My template: name · part type · source, 고치기 · 지우기 · PPTX
-   LayoutEditor  edit any layout (a library layout → '고쳐서 My에 저장', or a My template) and save it as a My template
+   LayoutEditor  edit any layout (a library layout → '수정하기', or a My template) and save it as a My template
    ========================================================= */
 
 const PART_OPTS = [['', '미분류'], ...Object.entries(PARTS).map(([k, v]) => [k, v.label])];
 const BLANK = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 const PPTX_RE = /\.(pptx|potx|ppsx|pptm)$/i;
 const fmtDate = (t) => { if (!t) return ''; const d = new Date(t); return d.getFullYear() + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + String(d.getDate()).padStart(2, '0'); };
-export const srcLabel = (l) => (!l || !l.my ? '' : l.my.kind === 'pptx' ? (l.my.file || 'PPTX') + (l.my.page ? ' · ' + l.my.page + '쪽' : '') : L[l.my.from] ? '‘' + L[l.my.from].name + '’을 고쳐 만듦' : '레이아웃을 고쳐 만듦');
-
-/** 'My' — next to '필터' */
-export function MyToggle({ on, n, onClick }) {
-  return (
-    <button type="button" className={'btn tl-mybtn' + (on ? ' on' : '')} aria-pressed={on} onClick={onClick} title="나만의 템플릿 — PPTX를 올리거나 레이아웃을 고쳐 저장한 것만 보기">
-      <Icon name="user" size={15} />My{n ? <span className="tl-fn num">{n}</span> : null}
-    </button>
-  );
-}
+export const srcLabel = (l) => (!l || !l.my ? '' : l.my.kind === 'spatial' ? '공간 조감도에서 추출한 레이아웃' : l.my.kind === 'pptx' ? (l.my.file || 'PPTX') + (l.my.page ? ' · ' + l.my.page + '쪽' : '') : L[l.my.from] ? '‘' + L[l.my.from].name + '’을 고쳐 만듦' : '레이아웃을 고쳐 만듦');
 
 /** PPTX drop zone (first thing in My) */
 export function MyUpload({ onFile, onBrowse, empty }) {
@@ -55,12 +57,12 @@ export function MyUpload({ onFile, onBrowse, empty }) {
           <b>PPTX를 올려 내 템플릿 만들기</b>
           <span>장마다 원본과 최대한 같게 복원해요. 글자는 고칠 수 있는 글 칸, 사진은 바꿀 수 있는 이미지 칸이 돼요.</span>
         </div>
-        <button type="button" className="btn btn-primary my-pick" onClick={() => ref.current && ref.current.click()}><Icon name="file" size={15} />PPTX 고르기</button>
+        <button type="button" className="btn btn-primary my-pick" onClick={() => { if (requireLogin()) ref.current?.click(); }}><Icon name="file" size={15} />PPTX 고르기</button>
         <input ref={ref} type="file" accept=".pptx,.potx,.ppsx,.pptm,application/vnd.openxmlformats-officedocument.presentationml.presentation" hidden data-my-file onChange={(e) => { take(e.target.files); e.target.value = ''; }} />
       </div>
       <div className="my-or">
         <Icon name="edit" size={14} />
-        <span>기존 레이아웃으로 만들기 — 레이아웃을 열고 <b>‘고쳐서 My에 저장’</b>을 누르세요.</span>
+        <span>기존 레이아웃으로 만들기 — 레이아웃을 열고 <b>‘수정하기’</b>를 누르세요.</span>
         <button type="button" className="btn btn-ghost btn-sm" onClick={onBrowse}>레이아웃 고르러 가기<Icon name="arrowR" size={13} /></button>
       </div>
       {!myPersistent() && <p className="hint" style={{ color: 'var(--warn)' }}><Icon name="alert" size={14} />이 브라우저에서는 저장 공간을 쓸 수 없어, 이번 방문 동안만 남아요.</p>}
@@ -72,26 +74,24 @@ export function MyUpload({ onFile, onBrowse, empty }) {
 export function myGroups(list) {
   const m = new Map();
   for (const l of list) {
-    const k = l.my.kind === 'pptx' ? 'b:' + (l.my.batch || l.my.file) : 'edit';
-    if (!m.has(k)) m.set(k, { key: k, edit: k === 'edit', file: l.my.file, at: 0, items: [] });
+    const k = l.my.kind === 'pptx' ? 'b:' + (l.my.batch || l.my.file) : l.my.kind === 'spatial' ? 'spatial' : 'edit';
+    if (!m.has(k)) m.set(k, { key: k, edit: k === 'edit', spatial:k==='spatial', file: l.my.file, at: 0, items: [] });
     const g = m.get(k); g.items.push(l); g.at = Math.max(g.at, l.my.at || 0);
   }
   const gs = [...m.values()].sort((a, b) => b.at - a.at);
-  for (const g of gs) g.items.sort((a, b) => (g.edit ? (b.my.up || 0) - (a.my.up || 0) : (a.my.page || 0) - (b.my.page || 0)));
+  for (const g of gs) g.items.sort((a, b) => (g.edit||g.spatial ? (b.my.up || 0) - (a.my.up || 0) : (a.my.page || 0) - (b.my.page || 0)));
   return gs;
 }
 export function MySections({ groups, cols, card, onDeleteGroup }) {
-  const [ask, setAsk] = useState('');
   return (
     <div className="tl-sections my-secs">
       {groups.map((g) => (
-        <section key={g.key} className="tl-grp h-blue my-grp" aria-label={g.edit ? '고쳐 만든 레이아웃' : g.file}>
+        <section key={g.key} className="tl-grp h-blue my-grp" aria-label={g.spatial?'조감도 레이아웃':g.edit ? '고쳐 만든 레이아웃' : g.file}>
           <div className="tl-grp-h">
-            <i className="dot" /><h2>{g.edit ? '고쳐 만든 레이아웃' : g.file}</h2><span className="num">{g.items.length}</span>
+            <i className="dot" /><h2>{g.spatial?'조감도 레이아웃':g.edit ? '고쳐 만든 레이아웃' : g.file}</h2><span className="num">{g.items.length}</span>
             <span className="sp" />
-            {!g.edit && <button type="button" className={'btn btn-ghost btn-sm' + (ask === g.key ? ' btn-danger' : '')} onClick={() => { if (ask === g.key) { setAsk(''); onDeleteGroup(g); } else setAsk(g.key); }} onBlur={() => setAsk('')}>
-              <Icon name="trash" size={13} />{ask === g.key ? '한 번 더 누르면 이 파일의 ' + g.items.length + '장을 지워요' : '파일 전체 지우기'}</button>}
-            <p>{g.edit ? '레이아웃 템플릿을 열어 고친 뒤 저장한 것' : 'PPTX에서 가져옴 · ' + fmtDate(g.at)}</p>
+            {!g.edit&&!g.spatial && <DeleteButton className="btn btn-ghost btn-sm" confirmation={{title:'파일의 템플릿을 모두 삭제할까요?',message:g.file+'에서 가져온 '+g.items.length+'장을 삭제합니다.'}} onClick={()=>onDeleteGroup(g)}><Icon name="trash" size={13}/>파일 전체 지우기</DeleteButton>}
+            <p>{g.spatial?'공간 조감도에서 저장한 레이아웃':g.edit ? '레이아웃 템플릿을 열어 고친 뒤 저장한 것' : 'PPTX에서 가져옴 · ' + fmtDate(g.at)}</p>
           </div>
           <div className="tl-grp-in">
             <div className="tl-grid" style={{ gridTemplateColumns: 'repeat(' + cols + ', minmax(0, 1fr))' }}>{g.items.map(card)}</div>
@@ -213,13 +213,13 @@ export function ImportDialog({ file, onClose, onSaved }) {
 export function MyDetail({ list, index, onNav, onClose, onEdit }) {
   const l = list[index];
   const [name, setName] = useState(l ? l.name : '');
-  const [del, setDel] = useState(false);
   const [busy, setBusy] = useState(false);
   const proposals = useStore((s) => s.proposals);
-  useEffect(() => { if (l) setName(l.name); setDel(false); }, [l && l.f, l && l.name]);
+  useEffect(() => { if (l) setName(l.name); }, [l && l.f, l && l.name]);
   if (!l) return null;
   const used = proposals.filter((p) => p.parts.some((s) => (s.layouts || []).some((x) => x.f === l.f))).length;
-  const commitName = () => { const v = name.trim(); if (v && v !== l.name) updateMeta(l.f, { name: v }); else setName(l.name); };
+  const patchMeta = async patch => { try { await updateMeta(l.f, patch); } catch (error) { setName(l.name); toast('템플릿 정보를 저장하지 못했어요: ' + error.message, 'warn'); } };
+  const commitName = () => { const v = name.trim(); if (v && v !== l.name) void patchMeta({ name: v }); else setName(l.name); };
   const download = async () => {
     setBusy(true);
     try {
@@ -238,25 +238,26 @@ export function MyDetail({ list, index, onNav, onClose, onEdit }) {
     <SheetView onClose={onClose} index={index} total={list.length} onNav={onNav}
       title={<span className="tl-dt">{l.name}</span>} sub={['My 템플릿', srcLabel(l), PARTS[l.p] && PARTS[l.p].label].filter(Boolean).join(' · ')}
       bodyClass="tl-detail my-detail" panelClass="tl-dr"
+      stageActions={<>
+        <button className="btn btn-primary sv-edit" onClick={() => { onEdit(l); onClose(); }}><Icon name="edit" size={17} />수정하기</button>
+        <FavButton f={l.f} from="My 템플릿" label />
+      </>}
       stage={(w) => <Slide key={l.f + ':' + l.my.up} f={l.f} width={w} />}
       panel={<>
         <div className="field"><label htmlFor="my-d-name">이름</label>
           <input id="my-d-name" className="input" value={name} onChange={(e) => setName(e.target.value)} onBlur={commitName} onKeyDown={(e) => { if (e.key === 'Enter') e.currentTarget.blur(); }} /></div>
         <div className="field"><label htmlFor="my-d-part">파트 유형</label>
-          <select id="my-d-part" className="input" value={l.p || ''} onChange={(e) => updateMeta(l.f, { p: e.target.value })}>{PART_OPTS.map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select></div>
+          <select id="my-d-part" className="input" value={l.p || ''} onChange={(e) => void patchMeta({ p: e.target.value })}>{PART_OPTS.map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select></div>
         <dl className="meta-grid">
           <dt>출처</dt><dd>{l.my.kind === 'pptx' ? <>PPTX · {l.my.file}{l.my.page ? ' ' + l.my.page + '쪽' : ''}</> : srcLabel(l)}</dd>
           <dt>칸</dt><dd>글 {l.nT}칸 · 이미지 {l.nI}칸</dd>
           <dt>만든 날</dt><dd className="num">{fmtDate(l.my.at)}{l.my.up && fmtDate(l.my.up) !== fmtDate(l.my.at) ? ' · 고친 날 ' + fmtDate(l.my.up) : ''}</dd>
           <dt>쓰는 곳</dt><dd>{used ? '제안서 ' + used + '곳' : '아직 없음'}</dd>
         </dl>
-        <p className="hint"><Icon name="info" size={14} /><span>제안서에서 쓰려면 Storyboard 파트의 ‘레이아웃 추가’ 팝업 맨 위 <b>My 템플릿</b>에서 고르면 돼요. 이 브라우저에만 저장돼요.</span></p>
+        <p className="hint"><Icon name="info" size={14} /><span>제안서에서 쓰려면 Storyboard 파트의 ‘레이아웃 추가’ 팝업 맨 위 <b>My 템플릿</b>에서 고르면 돼요. {myAccountStorage() ? '로그인한 계정에 저장되어 다른 브라우저에서도 사용할 수 있어요.' : '이 브라우저에만 저장돼요.'}</span></p>
       </>}
       actions={<>
-        <FavButton f={l.f} from="My 템플릿" label />
-        <button className={'btn btn-ghost' + (del ? ' btn-danger' : '')} onClick={() => (del ? remove() : setDel(true))} onBlur={() => setDel(false)}>
-          <Icon name="trash" size={14} />{del ? (used ? '제안서 ' + used + '곳에서 써요 · 그래도 지우기' : '한 번 더 누르면 지워요') : '지우기'}</button>
-        <button className="btn" onClick={() => onEdit(l)}><Icon name="edit" size={15} />고치기</button>
+        <DeleteButton className="btn btn-ghost" confirmation={{title:'템플릿을 삭제할까요?',message:l.name+'을 삭제합니다.'+(used?' 현재 제안서 '+used+'곳에서 사용 중입니다.':'')}} onClick={remove}><Icon name="trash" size={14}/>지우기</DeleteButton>
         <button className="btn btn-primary" disabled={busy} onClick={download}>{busy ? <span className="spin" /> : <Icon name="download" size={15} />}{busy ? '만드는 중…' : 'PPTX로 받기'}</button>
       </>} />
   );
@@ -301,7 +302,7 @@ const isSvg = (e) => e && e.namespaceURI === 'http://www.w3.org/2000/svg';
 const abs = (e) => { const p = getComputedStyle(e).position; return p === 'absolute' || p === 'fixed'; };
 /** the element a press picks: a text block, an image slot, a shape (PPTX: its wrapper), or the nearest visible box */
 function pickEl(t, root) {
-  if (!t || !root.contains(t) || t === root) return null;
+  if (!t || !root || !root.contains(t) || t === root) return null;
   const tb = t.closest('[data-tb]'); if (tb && root.contains(tb)) return tb;
   const im = t.closest('[data-img]'); if (im && root.contains(im)) return frameOf(im, root);
   if (root.hasAttribute('data-my')) { const sp = t.closest('[data-sp]'); if (sp && root.contains(sp)) return sp; }
@@ -360,11 +361,11 @@ function serialize(root) {
 }
 const KIND = (el) => (!el ? '' : el.hasAttribute('data-tb') ? '글' : el.querySelector && (el.hasAttribute('data-img') || el.querySelector('[data-img]')) ? '이미지 칸' : el.hasAttribute('data-sp') || el.tagName === 'svg' ? '도형' : '요소');
 
-export function LayoutEditor({ f, ov: vals = null, onClose, onSaved }) {
+export function LayoutEditor({ f, ov: vals = null, asCopy = false, context = {}, onClose, onSaved }) {
   const src = L[f];
-  const own = isMy(f);
+  const own = isMy(f) && !asCopy;
   const [name, setName] = useState(src ? (own ? src.name : src.name + ' · 내 버전') : '내 템플릿');
-  const [part, setPart] = useState(src ? src.p || '' : '');
+  const part = src?.p || '';
   const [sel, setSel] = useState(null);
   const [editing, setEditing] = useState(false);
   const [, setTick] = useState(0); const bump = () => setTick((t) => t + 1);
@@ -372,25 +373,39 @@ export function LayoutEditor({ f, ov: vals = null, onClose, onSaved }) {
   const [dirty, setDirty] = useState(false);
   const [ask, setAsk] = useState(false);
   const [pick, setPick] = useState(null); // image slot being filled
+  const [backgroundPick, setBackgroundPick] = useState(false);
+  const [improving, setImproving] = useState(false);
+  const initialStructure = useRef(null), initialRepeats = useRef(0);
   const [scale, setScale] = useState(0.5);
   const [ov, setOv] = useState(null); // selection box on screen
+  const [hover, setHover] = useState(null);
+  const hovered = useRef(null);
   const [recol, setRecol] = useState(null); // colour being replaced
   const boxRef = useRef(null), hostRef = useRef(null), fitRef = useRef(null);
   const hist = useRef({ u: [], r: [] });
+  useWorkContext('layout_editor', () => ({ f, name, part, asCopy, dirty, busy, improving, editing, context,
+    selection: sel ? { text: sel.textContent, textId: sel.getAttribute('data-tb'), imageId: sel.getAttribute('data-img'), shapeId: sel.getAttribute('data-sp'), style: sel.getAttribute('style') } : null,
+    undo: hist.current.u.length, redo: hist.current.r.length, html: hostRef.current?.firstElementChild ? tokenize(serialize(hostRef.current.firstElementChild)) : '' }));
   const colSnap = useRef(false);
+  const bgEdited = useRef(false);
+  const bgPreviews = useRef(null), bgAdopting = useRef(null);
+  if (!bgPreviews.current) bgPreviews.current = createBackgroundPreviewSession();
   const rootOf = () => (hostRef.current ? hostRef.current.firstElementChild : null);
+  const refreshBackground = async (r = rootOf()) => { await renderBackgroundPreview(r, bgPreviews.current); if (r === rootOf()) bump(); };
+  const previewBackground = (r = rootOf()) => { refreshBackground(r).catch(error => toast('배경 효과를 적용하지 못했어요: ' + error.message, 'warn')); };
+  useEffect(() => () => disposeBackgroundPreviews(bgPreviews.current), []);
 
-  // a filled sheet (찜 with values) starts with its values baked in
-  useLayoutEffect(() => { hostRef.current.innerHTML = layoutHtml(f); const r = rootOf(); if (r) { if (vals) applyOverrides(r, vals); hydrateFill(r); r.querySelectorAll('img').forEach((im) => im.setAttribute('draggable', 'false')); } bump(); }, []);
+  // A filled sheet (찜 or Storyboard) starts with its current values baked in.
+  useLayoutEffect(() => { hostRef.current.innerHTML = layoutHtml(f); const r = rootOf(); if (r) { initialStructure.current = r.getAttribute('data-layout-reflow'); initialRepeats.current = visibleRepeatCards(r).length; if (vals) applyOverrides(r, vals); hydrateFill(r); r.querySelectorAll('img').forEach((im) => im.setAttribute('draggable', 'false')); if (r.hasAttribute('data-bg')) previewBackground(r); } bump(); }, []);
   useEffect(() => { // its background photo comes from a shared pack — keep a copy of its own so the template stands alone
-    if (!vals || !vals.bg || !vals.bg.src) return;
+    if (!vals || !vals.bg || !vals.bg.src || vals.bg.embedded) return;
     let alive = true;
     (async () => {
       try {
         const u = bgUrl(vals.bg.src) || (await loadBg(vals.bg.src)) || resolveImg(vals.bg.src);
         if (!u || !alive) return;
-        const id = await storeImage(u); const r = rootOf(); if (!r || !alive) return;
-        r.removeAttribute('data-bg-wait'); r.style.backgroundImage = 'url("' + imgUrl(id) + '")'; r.style.backgroundSize = 'cover'; r.style.backgroundPosition = 'center'; r.setAttribute('data-bg', imgUrl(id)); bump();
+        const id = await storeImage(u); const r = rootOf(); if (!r || !alive || bgEdited.current) return;
+        r.removeAttribute('data-bg-wait'); r.style.backgroundImage = 'url("' + imgUrl(id) + '")'; r.style.backgroundSize = 'cover'; r.style.backgroundPosition = 'center'; r.setAttribute('data-bg', imgUrl(id)); previewBackground(r); bump();
       } catch (e) {}
     })();
     return () => { alive = false; };
@@ -411,14 +426,33 @@ export function LayoutEditor({ f, ov: vals = null, onClose, onSaved }) {
     if (!ov || JSON.stringify(ov) !== JSON.stringify(next)) setOv(next);
   });
 
+  // Preview the same frame that clicking would select; keep all hover decoration outside saved slide HTML.
+  const clearHover = () => { hovered.current = null; setHover(null); };
+  const showHover = el => {
+    const root = rootOf(), box = boxRef.current;
+    if (!el || !root?.contains(el) || !box || editing || busy || improving || ask || pick || backgroundPick) { clearHover(); return; }
+    const frame = frameOf(el, root);
+    if (sel && root.contains(sel) && frame === frameOf(sel, root)) { clearHover(); return; }
+    const a = box.getBoundingClientRect(), b = frame.getBoundingClientRect();
+    if (b.width <= 0 || b.height <= 0) { clearHover(); return; }
+    hovered.current = el;
+    const next = { l: b.left - a.left, t: b.top - a.top, w: b.width, h: b.height, label: KIND(el), edge: b.right > a.right - 135 };
+    setHover(previous => previous && Object.keys(next).every(k => previous[k] === next[k]) ? previous : next);
+  };
+  useLayoutEffect(() => { showHover(hovered.current); });
+  const onHover = event => {
+    if (event.pointerType === 'touch' || event.buttons) { clearHover(); return; }
+    showHover(pickEl(event.target, rootOf()));
+  };
+
   const snap = () => { const r = rootOf(); hist.current.u.push(r.outerHTML); if (hist.current.u.length > 80) hist.current.u.shift(); hist.current.r = []; setDirty(true); };
-  const restore = (html) => { hostRef.current.innerHTML = html; const r = rootOf(); hydrateFill(r); setSel(null); setEditing(false); bump(); };
+  const restore = (html) => { clearHover(); hostRef.current.innerHTML = html; const r = rootOf(); hydrateFill(r); if (r.hasAttribute('data-bg')) previewBackground(r); setSel(null); setEditing(false); bump(); };
   const undo = () => { const h = hist.current; if (!h.u.length) return; stopEdit(); h.r.push(rootOf().outerHTML); restore(h.u.pop()); };
   const redo = () => { const h = hist.current; if (!h.r.length) return; stopEdit(); h.u.push(rootOf().outerHTML); restore(h.r.pop()); };
 
   const startEdit = (el, ev) => {
     if (!el || !el.hasAttribute('data-tb')) return;
-    snap();
+    clearHover(); snap();
     el.setAttribute('contenteditable', 'true'); el.setAttribute('spellcheck', 'false'); el.focus({ preventScroll: true });
     const s = window.getSelection();
     let r = null;
@@ -442,6 +476,7 @@ export function LayoutEditor({ f, ov: vals = null, onClose, onSaved }) {
   // press on the slide: select · drag to move · press a selected text again to type
   const onPointerDown = (e) => {
     if (e.button !== 0) return;
+    clearHover();
     const root = rootOf(); const t = e.target;
     if (editing && sel && sel.contains(t)) return;
     if (editing) stopEdit();
@@ -464,7 +499,7 @@ export function LayoutEditor({ f, ov: vals = null, onClose, onSaved }) {
   };
   const onDouble = (e) => { const root = rootOf(); const el = pickEl(e.target, root); if (el && el.hasAttribute('data-tb') && !editing) startEdit(el, e); };
   const onHandle = (dir) => (e) => {
-    e.preventDefault(); e.stopPropagation();
+    e.preventDefault(); e.stopPropagation(); clearHover();
     const root = rootOf(); const fr = frameOf(sel, root); const st = posOf(fr);
     const x0 = e.clientX, y0 = e.clientY, k = scale; let moved = false;
     const move = (ev) => {
@@ -486,7 +521,8 @@ export function LayoutEditor({ f, ov: vals = null, onClose, onSaved }) {
 
   // actions on the selection
   const frame = () => (sel ? frameOf(sel, rootOf()) : null);
-  const remove = () => { const fr = frame(); if (!fr || fr === rootOf()) return; snap(); fr.remove(); setSel(null); };
+  const confirmingRemoval=useRef(false);
+  const remove = async () => {const fr=frame();if(!fr||fr===rootOf()||confirmingRemoval.current)return;confirmingRemoval.current=true;try{if(await confirmDelete({title:'선택 영역을 삭제할까요?',message:'선택한 '+KIND(sel)+' 영역과 내용을 삭제합니다.'})){if(!fr.isConnected)return;snap();fr.remove();setSel(null);}}finally{confirmingRemoval.current=false;}};
   const duplicate = () => {
     const fr = frame(); const root = rootOf(); if (!fr || fr === root) return;
     snap(); const c = fr.cloneNode(true); renumber(c, root);
@@ -548,16 +584,57 @@ export function LayoutEditor({ f, ov: vals = null, onClose, onSaved }) {
     d.textContent = '이미지'; r.appendChild(d); setSel(d); setPick(d);
   };
   const bgColor = root ? normColor(getComputedStyle(root).backgroundColor) || '#ffffff' : '#ffffff';
-  const hasBgPic = root ? !!root.querySelector(':scope > [data-bg-fill], :scope > div > [data-bg-fill]') : false;
-  const setBg = (c) => { const r = rootOf(); if (!colSnap.current) { snap(); colSnap.current = true; } r.style.background = c; r.querySelectorAll('[data-bg-fill]').forEach((x) => x.remove()); bump(); };
+  const background = backgroundState(root);
+  const hasBgPic = background.hasPhoto;
+  const sheetText = root?.textContent || src?.txt || '';
+  const backgroundContext = { industry: src?.ind || inferIndustry(sheetText) || context.industry || L[src?.my?.from]?.ind, text: [sheetText, context.partName, src?.name].filter(Boolean).join(' '), part };
+  const setBg = (c) => { const r = rootOf(); if (!colSnap.current) { snap(); colSnap.current = true; } bgEdited.current = true; clearLayoutBackground(r); r.style.background = c; bump(); };
+  const putBackground = async image => {
+    let address = image.src.startsWith('u:') ? resolveImg(image.src) : image.src;
+    if (/\.json#\d+$/.test(address)) address = await loadBg(address);
+    if (!address) throw new Error('사진 원본을 읽지 못했어요.');
+    const response = await fetchResource(address);
+    if (!response.ok) throw new Error('배경 사진을 불러오지 못했어요. 다시 선택해 주세요.');
+    const blob = await response.blob();
+    if (!blob.type.startsWith('image/')) throw new Error('이미지 원본을 읽지 못했어요.');
+    const id = await storeImage(blob);
+    stopEdit(); snap(); bgEdited.current = true;
+    setLayoutBackground(rootOf(), imgUrl(id), image); setSel(null); await refreshBackground(); bump();
+  };
+  const removeBackground = async () => {if(await confirmDelete({title:'배경 사진을 삭제할까요?',message:'레이아웃의 배경 사진을 삭제합니다.'})){snap();bgEdited.current=true;clearLayoutBackground(rootOf());bump();}};
+  const changeBackgroundEffects = patch => {
+    if (busy) return;
+    const r = rootOf();
+    if (!colSnap.current) { snap(); colSnap.current = true; }
+    bgEdited.current = true; setBackgroundEffects(r, patch); bump();
+    (async () => {
+      // A full-bleed cover/imported picture can become an adjustable background
+      // without asking the user to choose the same photograph again.
+      if (!r.hasAttribute('data-bg')) {
+        const original = backgroundState(r);
+        if (!original.src) return;
+        if (bgAdopting.current?.root !== r) {
+          const promise = (async () => {
+            const id = await storeImage(original.src);
+            if (r !== rootOf() || r.hasAttribute('data-bg') || !r.hasAttribute('data-bg-effects')) return;
+            setLayoutBackground(r, imgUrl(id), { src: original.source || original.src, id: original.id || 'existing', title: original.name });
+          })();
+          bgAdopting.current = { root: r, promise };
+        }
+        const adoption = bgAdopting.current;
+        try { await adoption.promise; } finally { if (bgAdopting.current === adoption) bgAdopting.current = null; }
+      }
+      if (r === rootOf()) await refreshBackground(r);
+    })().catch(error => toast('배경 효과를 적용하지 못했어요: ' + error.message, 'warn'));
+  };
   const doRecolor = (to) => { const r = rootOf(); if (!recol) return; if (!colSnap.current) { snap(); colSnap.current = true; } const n = replaceColor(r, recol, to); setRecol(normColor(to)); bump(); return n; };
 
   // keys
   const keyRef = useRef(null);
   keyRef.current = (e) => {
     const t = e.target;
-    if (pick) return;
-    if (t && (/^(INPUT|SELECT|TEXTAREA)$/.test(t.tagName))) return;
+    if (pick || backgroundPick || ask || busy || improving || document.querySelector('.delete-confirmation')) return;
+    if (t && (/^(INPUT|SELECT|TEXTAREA)$/.test(t.tagName) || t.closest?.('.ed-help-button, .ed-action-popover'))) return;
     const mod = e.metaKey || e.ctrlKey;
     if (editing) { if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); stopEdit(); } return; }
     if (mod && e.key.toLowerCase() === 'z') { e.preventDefault(); e.shiftKey ? redo() : undo(); return; }
@@ -574,24 +651,71 @@ export function LayoutEditor({ f, ov: vals = null, onClose, onSaved }) {
   useEffect(() => { const h = (e) => keyRef.current && keyRef.current(e); document.addEventListener('keydown', h, true); return () => document.removeEventListener('keydown', h, true); }, []);
 
   const save = async (asNew) => {
+    if (busy || improving) return;
     stopEdit(); setBusy(true);
     try {
       const r = rootOf();
+      if (bgAdopting.current?.root === r) await bgAdopting.current.promise;
+      const photo = r.getAttribute('data-bg') || r.getAttribute('data-bg-wait');
+      if (photo && !tokenize(photo).startsWith('wmimg:')) {
+        const address = /\.json#\d+$/.test(photo) ? await loadBg(photo) : resolveImg(photo) || photo;
+        if (!address) throw new Error('배경 사진을 읽지 못했어요. 다시 시도해 주세요.');
+        const id = await storeImage(address);
+        bgEdited.current = true; r.removeAttribute('data-bg-wait');
+        r.style.backgroundImage = 'url("' + imgUrl(id) + '")'; r.setAttribute('data-bg', imgUrl(id));
+      }
+      if (r.hasAttribute('data-bg')) {
+        await refreshBackground(r);
+        const rendered = r.getAttribute('data-bg-rendered');
+        if (rendered && !tokenize(rendered).startsWith('wmimg:')) {
+          const id = await storeImage(rendered);
+          r.style.backgroundImage = 'url("' + imgUrl(id) + '")'; r.setAttribute('data-bg-rendered', imgUrl(id));
+        }
+      }
+      const repeatCount = visibleRepeatCards(r).length;
+      if (r.hasAttribute('data-repeat-count')) {
+        r.setAttribute('data-repeat-count', String(repeatCount));
+        if (repeatCount !== initialRepeats.current) {
+          if (r.getAttribute('data-layout-reflow') === initialStructure.current) r.removeAttribute('data-reflow-report');
+          for (const attr of ['data-tb', 'data-img']) [...r.querySelectorAll('[' + attr + ']')].forEach((el, i) => el.setAttribute(attr, String(i)));
+        }
+      }
       const html = tokenize(serialize(r));
       const m = measure(r);
       const nm = name.trim() || (src ? src.name : '내 템플릿');
-      const keep = own && !asNew;
+      const structureChanged = r.getAttribute('data-layout-reflow') !== initialStructure.current || repeatCount !== initialRepeats.current;
+      const keep = own && !asNew && !structureChanged;
       const base = { name: nm, p: part, text: m.text, title: m.title, nT: m.nT, nI: m.nI, pf: m.pf };
       const meta = keep
         ? myMeta({ ...base, f, when: src.when, kind: src.my.kind, file: src.my.file, page: src.my.page, from: src.my.from, batch: src.my.batch, at: src.my.at })
         : myMeta({ ...base, f: newF(), when: src ? '‘' + src.name + '’을 고쳐 만듦' : '', kind: 'edit', from: own ? src.my.from || src.f : f, batch: 'edit' });
+      if (r.hasAttribute('data-repeat-count')) {
+        meta.pc = r.getAttribute('data-repeat-unit') === 'card' ? 0 : Number(r.getAttribute('data-repeat-count'));
+        meta.repeat = { count: Number(r.getAttribute('data-repeat-count')), unit: r.getAttribute('data-repeat-unit'), label: r.getAttribute('data-repeat-label') || '항목' };
+        meta.prods = reflowProducts(r);
+        meta.ind = src.ind || context.industry || null;
+        meta.req = src.req || [];
+        meta.sols = src.sols || []; meta.sol = src.sol || null; meta.p2 = src.p2 || null;
+        meta.nT = r.querySelectorAll('[data-tb]').length;
+        const slots = [...r.querySelectorAll('[data-img]')]; meta.ik = slots.map(el => el.getAttribute('data-kind') || 'photo'); meta.ih = slots.map(el => el.getAttribute('data-hint') || '이미지');
+        const placeholders = [...r.querySelectorAll('[data-tb]')].map(el => el.textContent).filter(text => /\[[^\]]+\]/.test(text)); meta.ph = placeholders.length; meta.phs = placeholders.slice(0, 8);
+        try { meta.my.reflow = JSON.parse(r.getAttribute('data-reflow-report')); } catch { /* Manual edits may have no AI audit. */ }
+      }
       const [saved] = await saveTemplates([{ meta, html }]);
       setDirty(false);
       onSaved(saved, keep);
     } catch (e) { console.error(e); toast(/quota/i.test(String(e && (e.name || e.message))) ? '브라우저 저장 공간이 모자라요. 다른 My 템플릿을 지워 주세요' : '저장하지 못했어요: ' + (e && e.message ? e.message : e), 'warn'); }
     setBusy(false);
   };
-  const close = () => { if (dirty) setAsk(true); else onClose(); };
+  const close = () => { if (busy) return; stopEdit(); if (dirty) setAsk(true); else onClose(); };
+  const applyReflow = result => {
+    stopEdit(); snap(); restore(result.html);
+    const expected = src ? (own ? src.name : src.name + ' · 내 버전') : '내 템플릿';
+    if (result.name && name === expected) setName(result.name);
+    toast('요청한 레이아웃 변경을 적용했어요 · 저장하면 원본과 별도로 보관돼요');
+  };
+  const structureChanged = root?.getAttribute('data-layout-reflow') !== initialStructure.current || !!root && visibleRepeatCards(root).length !== initialRepeats.current;
+  const saveLabel = structureChanged ? '새 My 템플릿으로 저장' : '저장';
   const fr = sel && root ? frameOf(sel, root) : null;
   const frPos = fr && fr !== root ? posOf(fr) : null;
   const shownX = frPos ? (frPos.abs ? fr.offsetLeft : frPos.x) : 0, shownY = frPos ? (frPos.abs ? fr.offsetTop : frPos.y) : 0;
@@ -612,20 +736,18 @@ export function LayoutEditor({ f, ov: vals = null, onClose, onSaved }) {
   );
 
   return (
-    <Modal size="sheet" onClose={close} bodyClass="myed" title={<span className="tl-dt">{own ? '고치기 · ' + src.name : '고쳐서 My에 저장 · ' + (src ? src.name : '')}</span>}
-      sub={own ? 'My 템플릿을 고쳐요. 저장하면 이 템플릿이 바뀌고, ‘새 템플릿으로 저장’은 복사본을 만들어요.' : '원본 레이아웃은 그대로 두고, 고친 결과를 My 템플릿으로 저장해요.'}
+    <Modal size="sheet" onClose={close} bodyClass="myed" title={<span className="tl-dt">레이아웃 수정 · {src?.name || '내 템플릿'}</span>}
+      headerActions={<EditorHelp own={own} asCopy={asCopy} />}
       footer={<>
-        {ask ? <span className="ed-ask"><Icon name="alert" size={14} />저장하지 않은 변경이 있어요.<button className="btn btn-sm btn-ghost btn-danger" onClick={onClose}>저장하지 않고 닫기</button><button className="btn btn-sm" onClick={() => setAsk(false)}>계속 고치기</button></span>
-          : <span className="note ed-keys">누르기 선택 · 끌기 이동 · 글자 한 번 더 누르기 = 글 고치기 · Delete 지우기 · ⌘/Ctrl+Z 되돌리기</span>}
         <span className="sp" />
         <button className="btn" disabled={busy} onClick={close}>닫기</button>
-        {own && <button className="btn" disabled={busy} onClick={() => save(true)}><Icon name="copy" size={14} />새 템플릿으로 저장</button>}
-        <button className="btn btn-primary" disabled={busy} onClick={() => save(false)}>{busy ? <span className="spin" /> : <Icon name="check" size={15} />}{own ? '저장' : 'My에 저장'}</button>
+        {own && !structureChanged && <button className="btn" disabled={busy || improving} onClick={() => save(true)}><Icon name="copy" size={14} />새 템플릿으로 저장</button>}
+        <button className="btn btn-primary" disabled={busy || improving} onClick={() => save(false)}>{busy ? <span className="spin" /> : <Icon name="check" size={15} />}{saveLabel}</button>
       </>}>
       <div className="ed-main">
         <div className="ed-bar" role="toolbar" aria-label="편집 도구">
-          <button className="btn btn-sm btn-icon" disabled={!hist.current.u.length} onClick={undo} aria-label="되돌리기" title="되돌리기 (⌘/Ctrl+Z)"><Icon name="undo" size={15} /></button>
-          <button className="btn btn-sm btn-icon" disabled={!hist.current.r.length} onClick={redo} aria-label="다시 하기" title="다시 하기 (⌘/Ctrl+Shift+Z)"><Icon name="redo" size={15} /></button>
+          <button className="btn btn-sm btn-icon" disabled={!hist.current.u.length} onClick={undo} aria-label="되돌리기" title="되돌리기"><Icon name="undo" size={15} /></button>
+          <button className="btn btn-sm btn-icon" disabled={!hist.current.r.length} onClick={redo} aria-label="다시 하기" title="다시 하기"><Icon name="redo" size={15} /></button>
           <span className="ed-sep" />
           <button className="btn btn-sm" onClick={addText}><Icon name="type" size={14} />글 상자</button>
           <button className="btn btn-sm" onClick={addImage}><Icon name="image" size={14} />이미지 칸</button>
@@ -633,9 +755,12 @@ export function LayoutEditor({ f, ov: vals = null, onClose, onSaved }) {
           {sel ? <span className="ed-selname"><b>{KIND(sel)}</b> 선택됨{editing ? ' · 입력 중' : ''}</span> : <span className="faint ed-selname">요소를 눌러 고르세요</span>}
         </div>
         <div ref={fitRef} className="ed-fit">
-          <div ref={boxRef} className={'ed-box' + (editing ? ' typing' : '')} style={{ width: Math.round(1280 * scale), height: Math.round(720 * scale) }}
-            onPointerDown={onPointerDown} onDoubleClick={onDouble} onKeyDown={onEditKey} onPaste={onPaste}>
+          <div ref={boxRef} className={'ed-box' + (editing ? ' typing' : '') + (hover ? ' has-hover' : '')} style={{ width: Math.round(1280 * scale), height: Math.round(720 * scale) }}
+            onPointerMove={onHover} onPointerOver={onHover} onPointerLeave={clearHover} onPointerDown={onPointerDown} onDoubleClick={onDouble} onKeyDown={onEditKey} onPaste={onPaste}>
             <div ref={hostRef} className="ed-host" style={{ transform: 'scale(' + scale + ')' }} />
+            {hover && <div className="ed-hover" data-hover-kind={hover.label} aria-hidden="true" style={{ left: hover.l, top: hover.t, width: hover.w, height: hover.h }}>
+              <span className={'ed-hover-label' + (hover.edge ? ' edge' : '')} style={{ top: hover.t < 24 ? 3 : -23 }}><b>{hover.label}</b><span>클릭하여 선택</span></span>
+            </div>}
             {ov && (
               <div className="ed-sel" style={{ left: ov.l, top: ov.t, width: ov.w, height: ov.h }} aria-hidden="true">
                 {!editing && ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w'].map((d) => <span key={d} className={'ed-h ' + d} onPointerDown={onHandle(d)} />)}
@@ -644,6 +769,7 @@ export function LayoutEditor({ f, ov: vals = null, onClose, onSaved }) {
             {ov && ov.inner && <div className="ed-sel inner" style={{ left: ov.inner.l, top: ov.inner.t, width: ov.inner.w, height: ov.inner.h }} aria-hidden="true" />}
           </div>
         </div>
+        <LayoutPromptAgent getRoot={rootOf} meta={src} context={context} onApply={applyReflow} onBusy={setImproving} onPrepare={stopEdit} />
       </div>
       <aside className="ed-panel" aria-label="속성">
         {sel ? (
@@ -719,31 +845,32 @@ export function LayoutEditor({ f, ov: vals = null, onClose, onSaved }) {
             <section className="ed-sec">
               <h4><Icon name="cover" size={14} />배경</h4>
               {colorRow(bgColor, setBg, '배경색')}
+              <button className="btn btn-sm" disabled={busy} onClick={() => { stopEdit(); setBackgroundPick(true); }}><Icon name="image" size={14} />{hasBgPic ? '배경 사진 바꾸기' : '배경 사진 선택'}</button>
+              {background.src && <img className="ed-background-thumb" src={background.preview} alt={background.name} />}
+              {background.src && <BackgroundEffects value={background.effects} disabled={busy} onChange={changeBackgroundEffects} onStart={() => { colSnap.current = false; }} onEnd={() => { colSnap.current = false; }} />}
+              {hasBgPic && <button className="btn btn-ghost btn-sm" onClick={removeBackground}><Icon name="trash" size={13} />배경 사진 지우기</button>}
               {hasBgPic && <p className="ed-help">배경색을 고르면 배경 그림은 빠져요.</p>}
             </section>
-            <section className="ed-sec">
-              <h4><Icon name="info" size={14} />고치는 법</h4>
-              <ul className="ed-tips">
-                <li>요소를 누르면 선택, 끌면 옮겨져요. 모서리 점으로 크기를 바꿔요.</li>
-                <li>선택한 글을 한 번 더 누르거나 두 번 누르면 글을 고칠 수 있어요.</li>
-                <li>이미지 칸을 고르고 ‘이미지 바꾸기’로 라이브러리나 내 파일의 사진을 넣어요.</li>
-              </ul>
-            </section>
+
           </>
         )}
-        <section className="ed-sec ed-save">
-          <h4><Icon name="user" size={14} />My 템플릿으로 저장</h4>
-          <div className="field"><label htmlFor="ed-name">이름</label><input id="ed-name" className="input" value={name} onChange={(e) => setName(e.target.value)} /></div>
-          <div className="field"><label htmlFor="ed-part">파트 유형</label><select id="ed-part" className="input" value={part} onChange={(e) => setPart(e.target.value)}>{PART_OPTS.map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select></div>
-        </section>
       </aside>
-      {pick && <ImagePicker slot={{ kind: pick.getAttribute('data-kind') || 'photo', hint: '' }} current={pick.querySelector && pick.querySelector('img') ? { src: '' } : null} onPick={putImg} onClose={() => setPick(null)} />}
+      {pick && <ImagePicker slot={{ kind: pick.getAttribute('data-kind') || 'photo', hint: '' }} current={pick.querySelector?.('img') ? { src: pick.querySelector('img').getAttribute('data-fill') || pick.querySelector('img').getAttribute('src'), name: pick.querySelector('img').alt, pid: pick.getAttribute('data-pid') } : null} onPick={putImg} onClose={() => setPick(null)} />}
+      {backgroundPick && <BackgroundPicker context={backgroundContext} current={background} onPick={putBackground} onClose={() => setBackgroundPick(false)} />}
+      {ask && <Modal title="변경 내용을 저장할까요?" onClose={() => { if (!busy) setAsk(false); }}
+        footer={<>
+          <button className="btn" disabled={busy} data-autofocus onClick={() => setAsk(false)}>취소</button>
+          <button className="btn btn-ghost btn-danger" disabled={busy} onClick={onClose}>저장 안 함</button>
+          <button className="btn btn-primary" disabled={busy || improving} onClick={() => save(false)}>{busy ? <span className="spin" /> : <Icon name="check" size={15} />}저장</button>
+        </>}>
+        <p>수정한 레이아웃을 {own && !structureChanged ? 'My 템플릿에' : '새 My 템플릿으로'} 저장{asCopy ? '하고 현재 장에 적용해요.' : '할 수 있어요.'}</p>
+      </Modal>}
     </Modal>
   );
 }
 
 /* =========================================================
-   My › 찜 — favourites from any layout view; a filled sheet and the empty layout are kept apart
+   찜 페이지 — favourites from any layout view; a filled sheet and the empty layout are kept apart
    ========================================================= */
 export const favOrder = (favs) => [...favs.filter((x) => x.filled), ...favs.filter((x) => !x.filled)];
 export function FavSections({ favs, cols, onOpen, hc }) {

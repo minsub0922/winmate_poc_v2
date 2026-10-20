@@ -1,0 +1,34 @@
+{
+ "stage": "route_l1",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~number_conflict"
+ },
+ "prompt_tokens": 2852,
+ "output_tokens": 305,
+ "data": {
+  "communities": [
+   {
+    "id": "C1",
+    "relevance": 3,
+    "reason": "전체 매장 수(320개 vs 256개)의 불일치와 전기료 절감 근거 부재는 고객의 신뢰를 즉각적으로 훼손할 수 있는 치명적인 오류입니다."
+   },
+   {
+    "id": "C2",
+    "relevance": 3,
+    "reason": "파일럿 승인을 목표로 하는 제안서에서 실행 로드맵의 구체성과 RFP 요구사항 준수 여부는 수주 가능성을 결정짓는 핵심 요소입니다."
+   },
+   {
+    "id": "C3",
+    "relevance": 3,
+    "reason": "운영본부장 등 경영진을 설득하기 위해 제안의 논리적 타당성과 정량적 효과 산출 근거를 명확히 하여 가치 선도형 전략을 완성해야 합니다."
+   },
+   {
+    "id": "C4",
+    "relevance": 2,
+    "reason": "가독성이 낮은 폰트 크기와 과도한 텍스트 밀도는 결정권자의 피로도를 높일 수 있으므로 시각적 전달력을 개선할 필요가 있습니다."
+   }
+  ]
+ }
+}

@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~base:F11"
+ },
+ "prompt_tokens": 2510,
+ "output_tokens": 362,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 2,
+    "anchor": "110어절을 넘는 장이 5장(2, 3, 4, 7, 10장)으로 1~3장 기준을 초과하나, 장당 평균이 96어절로 77~110어절 구간에 해당합니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "116어절"
+     },
+     {
+      "sheet": 4,
+      "quote": "134어절"
+     }
+    ],
+    "improve": "각 장의 어절 수를 77어절 이하로 줄여 가독성을 높여야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 36%가 10pt 미만이며, 9pt 미만 본문 칸이 포함된 장이 존재하여 1점 정의에 부합합니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "본문 최소 11.5px(8.6pt)"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

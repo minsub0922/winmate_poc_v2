@@ -1,0 +1,61 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs12~full:F02"
+ },
+ "prompt_tokens": 8667,
+ "output_tokens": 528,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 요구사항 4가지(화질/시야각, 광고 수익, 장애 대응, 시공 기간)에 대해 각각 6~7장(화질), 2~5장(광고), 8~11장(장애), 11~13장(시공)에서 명시적으로 대응하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "본부석 상단 165 m에서도 읽히는 빅보드"
+     },
+     {
+      "sheet": 2,
+      "quote": "리본보드 · 빅보드를 이닝 단위 광고 구좌로"
+     },
+     {
+      "sheet": 11,
+      "quote": "홈경기 상주 엔지니어 · 월간 점검 리포트"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "SB1",
+    "score": 2,
+    "anchor": "표지와 마무리는 충실히 구성되어 있으나, 1장 표지 내에 목차가 포함되어 있을 뿐 별도의 목차 페이지가 존재하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "열기 · 표지 · 목차"
+     }
+    ],
+    "improve": "표지 이후 별도의 목차 페이지를 추가하여 구성의 명확성을 높여야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "SB2",
+    "score": 2,
+    "anchor": "모든 장에 푸터와 기밀 표기가 일관되게 적용되어 있으나, 1장 표지를 제외한 본문 장들에 쪽번호가 표기되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "CONFIDENTIAL · 2"
+     }
+    ],
+    "improve": "각 장의 푸터 영역에 해당 장의 쪽번호를 명확히 기입해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

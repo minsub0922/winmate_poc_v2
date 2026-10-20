@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs13:F04"
+ },
+ "prompt_tokens": 2777,
+ "output_tokens": 188,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "제안서 내에 '골프존파크 덕풍레이크점'과 같은 실제 매장 사진과 사례가 언급되어 있으나, 해당 매장이 구체적으로 어떤 성과를 거두었는지에 대한 정량적 수치와 상세 구성 설명이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "골프존파크 덕풍레이크점"
+     }
+    ],
+    "improve": "해당 매장의 도입 전후 전력 사용량 변화나 구체적인 운영 효율 개선 수치를 명시하여 성과를 증명해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

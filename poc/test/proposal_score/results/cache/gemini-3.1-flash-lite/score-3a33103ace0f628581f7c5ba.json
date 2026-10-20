@@ -1,0 +1,104 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs09~full:F10"
+ },
+ "prompt_tokens": 7301,
+ "output_tokens": 876,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO를 통한 원격 관리와 장애 감지, 상황실 비디오월 연동 등 운영 솔루션과 하드웨어의 연결 및 관리 주체가 명확히 제시됨.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "MagicINFO가 화면 상태를 원격 감시"
+     },
+     {
+      "sheet": 7,
+      "quote": "MagicINFO 알림 · 원격 재부팅"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR7",
+    "score": 3,
+    "anchor": "설치 환경(전원, 통신, 구조 검토), 유지보수 SLA, 보증 범위가 구체적으로 명시됨.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "전원 · 통신 확인"
+     },
+     {
+      "sheet": 12,
+      "quote": "전담 서비스망 · 장애 대응 기준(SLA)"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "시범 구간 설치 일정과 단계는 구체적이나, 운영 인력 교육 및 운영 이관에 대한 상세 계획이 부족함.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "시범 구간을 여섯 밤에 바꿉니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "2027년 1월 시범 설치"
+     }
+    ],
+    "improve": "운영 인력 대상 교육 프로그램 및 운영 이관 절차를 구체화해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 2,
+    "anchor": "공사 중 시민 동선 차단 방지 및 야간 시공 등 대응 방안은 있으나, 호환성이나 운영 인력 부족 등 잠재적 리스크에 대한 포괄적 대응이 부족함.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "시민 동선 차단 없음 · 가림막"
+     }
+    ],
+    "improve": "기존 시스템과의 호환성 문제 및 운영 인력 숙련도 부족 등 발생 가능한 리스크와 대응 방안을 추가해야 합니다.",
+    "confidence": "mid"
+   },
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "마지막 장에 시범 구간 승인, 실측, 연동 확인 등 고객이 내릴 결정과 향후 일정이 명확히 제시됨.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "시범 구간부터, 11월에 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "SB5",
+    "score": 2,
+    "anchor": "표지에 2026.10 날짜가 명시되어 있으나, 버전 표기가 누락됨.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "2026. 10"
+     }
+    ],
+    "improve": "제안서 표지에 버전 정보를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

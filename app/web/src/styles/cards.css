@@ -1,8 +1,8 @@
 /* Winmate v2 — thumbnails + context cards (Storyboard top-bar popup). Concatenated after styles.css by build/build.mjs. */
-/* ---------- thumbnails (src/thumbs.jsx) — photo when the catalog has one, otherwise an illustration ---------- */
+/* ---------- thumbnails (src/thumbs.jsx) — real photos with shared loading/error states ---------- */
 .thumb { --th-ac: #0b8a7b; --th-bg1: #eef1f6; --th-bg2: #dde2ea; --th-floor: #d9dee6; --th-ceil: #dfe3ea; --th-win: #ffffff; --th-winl: #d5dae3; --th-wbar: #eef1f6; --th-mut: #e3e7ee; --th-mutd: #c3cad6; --th-sh: rgba(18,20,23,.14);
   position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden; border-radius: var(--radius-8px); background: radial-gradient(var(--measure-130) var(--measure-100) at var(--measure-50) var(--measure-0), var(--th-bg1), var(--th-bg2)); }
-.thumb.product { --th-ac: #0b8a7b; --th-bg1: #eef8f6; --th-bg2: #d3ebe6; --th-ceil: #c6e3dd; --th-floor: #c6e3dd; }
+.thumb.product { --th-ac: #0b8a7b; --th-bg1: #eef8f6; --th-bg2: #d3ebe6; --th-ceil: #c6e3dd; --th-floor: #c6e3dd; background: var(--color-fff); }
 .thumb.solution { --th-ac: #2f45c4; --th-bg1: #f2f4fd; --th-bg2: #dbe2f8; --th-floor: #ccd5f3; }
 .thumb.case { --th-ac: #c27512; --th-bg1: #fdf6ea; --th-bg2: #f2e3c8; --th-floor: #e3cda8; --th-ceil: #ecdcbf; }
 @media (prefers-color-scheme: dark) {

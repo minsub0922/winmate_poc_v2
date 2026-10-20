@@ -1,0 +1,82 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs12~full:F04"
+ },
+ "prompt_tokens": 8597,
+ "output_tokens": 657,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "V 경기장의 경기일 매출 구조와 운영 과제를 5단계로 나누어 분석하고, 각 단계별 영향(대기 시간, 만족도, 매출 등)을 수치로 구체화했습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "V 경기장의 매출은 경기일 다섯 단계에서 나고, 과제도 거기 있습니다"
+     },
+     {
+      "sheet": 5,
+      "quote": "개장 전 화면 점검 40분 → 15분"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "CU6",
+    "score": 3,
+    "anchor": "경기장 운영의 핵심인 이닝 교대, 리플레이, 게이트 안내 등 고유한 운영 맥락을 정확히 반영하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "이닝 · 장면 단위로 바뀌는 디지털 구좌"
+     },
+     {
+      "sheet": 5,
+      "quote": "이닝 교대 · 응원 · 광고"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "외야 빅보드(XHB), 컨코스(IFR), 게이트(QM55C) 등 각 공간의 환경(직사광, 실외 노출 등)에 최적화된 제품을 배치했습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "6,500 nit · 밝기 자동 조절"
+     },
+     {
+      "sheet": 7,
+      "quote": "전면 · 후면 방진 · 방수"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "대구 삼성라이온즈파크와 롯데시네마 등 유사 업종의 실제 도입 사례를 구성과 성과 수치와 함께 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "대구 삼성라이온즈파크 — 시즌 중 멈추지 않는 설비 케어"
+     },
+     {
+      "sheet": 9,
+      "quote": "롯데시네마 광음LED에 국내 최초 오닉스 도입"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

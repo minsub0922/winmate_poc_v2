@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~placeholders:F02"
+ },
+ "prompt_tokens": 7020,
+ "output_tokens": 238,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 2,
+    "anchor": "고객의 AS 불만(R1)과 기존 자산 활용(K4)에 대해 4장과 10장에서 구체적으로 대응하고 있으나, 자동 점검에서 지적된 것처럼 본문 내에 해당 요구사항의 핵심 문구가 명시적으로 인용되지 않아 대응 관계가 다소 암시적입니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "AS 대기 1.5일"
+     },
+     {
+      "sheet": 10,
+      "quote": "철거 · 보상 매입 포함"
+     }
+    ],
+    "improve": "고객의 요구사항(R1, K4 등)을 본문 내에 직접적으로 언급하며 해당 장이 그 요구에 대한 해법임을 명시하는 문장을 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

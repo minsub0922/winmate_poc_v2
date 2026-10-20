@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs15:F04"
+ },
+ "prompt_tokens": 2739,
+ "output_tokens": 207,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "G 마트의 구체적인 폐기 손실액(1.2억 원), 고장 건수(12건), 수기 작업 시간(72시간)을 명시하여 고객의 문제를 현장 수치로 구체화했습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "1.2억 원 | 연 폐기 손실"
+     },
+     {
+      "sheet": 3,
+      "quote": "12건 | 연 고장"
+     },
+     {
+      "sheet": 3,
+      "quote": "72시간 | 월 수기 작업"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

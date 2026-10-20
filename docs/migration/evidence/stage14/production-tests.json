@@ -1,0 +1,74 @@
+{
+  "base": "https://merit-origins-cargo-technician.trycloudflare.com",
+  "sampleCount": 6,
+  "cases": [
+    {
+      "name": "all sample histories receive owned persistent share IDs",
+      "passed": true,
+      "ms": 6309
+    },
+    {
+      "name": "sample 1: enabled sharing, correct link, no reuse button",
+      "passed": true,
+      "ms": 10728
+    },
+    {
+      "name": "sample 2: enabled sharing, correct link, no reuse button",
+      "passed": true,
+      "ms": 1870
+    },
+    {
+      "name": "sample 3: enabled sharing, correct link, no reuse button",
+      "passed": true,
+      "ms": 1418
+    },
+    {
+      "name": "sample 4: enabled sharing, correct link, no reuse button",
+      "passed": true,
+      "ms": 1082
+    },
+    {
+      "name": "sample 5: enabled sharing, correct link, no reuse button",
+      "passed": true,
+      "ms": 1465
+    },
+    {
+      "name": "sample 6: enabled sharing, correct link, no reuse button",
+      "passed": true,
+      "ms": 1301
+    },
+    {
+      "name": "another admin browser reuses the same sample IDs",
+      "passed": true,
+      "ms": 16218
+    },
+    {
+      "name": "shared sample opens for a guest without the reuse action",
+      "passed": true,
+      "ms": 6568
+    },
+    {
+      "name": "mobile admin can share a sample without the reuse action",
+      "passed": true,
+      "ms": 5614
+    },
+    {
+      "name": "an existing history endpoint remains copyable when synchronization fails",
+      "passed": true,
+      "ms": 1731
+    },
+    {
+      "name": "existing server histories share when document registration is unavailable",
+      "passed": true,
+      "ms": 8125
+    },
+    {
+      "name": "temporary gateway responses recover against the deployed sharing API",
+      "passed": true,
+      "ms": 2107
+    }
+  ],
+  "errors": [],
+  "passed": 13,
+  "total": 13
+}

@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~placeholders:F01"
+ },
+ "prompt_tokens": 7911,
+ "output_tokens": 524,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'M 베이커리'와 규모(180개 지점)가 일관되게 기술되었으며, 다른 고객사명이나 예시 고객명이 발견되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "M 베이커리 사이니지 통합 운영 제안"
+     },
+     {
+      "sheet": 2,
+      "quote": "M 베이커리 180개 지점"
+     },
+     {
+      "sheet": 13,
+      "quote": "M 베이커리 사이니지 통합 운영"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "장표 곳곳에 [00]과 같은 자리표시가 다수 남아 있으며, 특히 11장의 핵심 비용 수치 부분에도 잔여물이 존재합니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "수도권 · 서울 인천 경기 | [00]%"
+     },
+     {
+      "sheet": 11,
+      "quote": "[00]억 | 설치형 안"
+     }
+    ],
+    "improve": "모든 장표의 [00] 및 템플릿 자리표시를 실제 데이터로 수정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "제안서 내에 원가, 마진, 내부 할인율 등 민감 정보가 없으며, 마무리 장의 담당자 연락처는 정상적인 영업 활동의 일환입니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

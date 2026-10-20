@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~base:F06"
+ },
+ "prompt_tokens": 3506,
+ "output_tokens": 187,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "제안서 전반에서 260개 사업장, 16주, 6개 사업 등 핵심 수치가 일관되게 유지되고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "260개 사업장 화면"
+     },
+     {
+      "sheet": 9,
+      "quote": "실사부터 파일럿 결과까지 16주"
+     },
+     {
+      "sheet": 10,
+      "quote": "6개 사업 2회"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

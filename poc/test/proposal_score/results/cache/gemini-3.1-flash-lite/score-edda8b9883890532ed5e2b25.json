@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs02~full:F12"
+ },
+ "prompt_tokens": 9902,
+ "output_tokens": 505,
+ "data": {
+  "scores": [
+   {
+    "id": "WR2",
+    "score": 3,
+    "anchor": "전체적으로 맞춤법과 띄어쓰기가 정확하며, 제목에 오류가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "C 빌딩이 들어설 도심 오피스, 경쟁은 이제 운영 품질입니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR8",
+    "score": 1,
+    "anchor": "RF, CBD, KPI, DVM, VOC, EV 등 고객이 생소할 수 있는 약어들이 제안서 전반에 걸쳐 설명 없이 사용되었습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "C 빌딩 권역(CBD) 공실률"
+     },
+     {
+      "sheet": 4,
+      "quote": "입주사별 운영 시간이 달라 냉난방 VOC가 몰림"
+     },
+     {
+      "sheet": 5,
+      "quote": "08:40 · 엘리베이터 홀"
+     }
+    ],
+    "improve": "제안서 내 사용된 모든 약어(RF, CBD, KPI, DVM, VOC, EV 등)를 처음 등장하는 시점에 풀어서 설명해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR9",
+    "score": 3,
+    "anchor": "개조식 문체와 명사형 종결이 제안서 전체에서 일관되게 유지되고 있으며, 고객을 존중하는 톤을 유지하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "층마다의 설비가 하나의 관리 화면으로"
+     },
+     {
+      "sheet": 14,
+      "quote": "배관 · 배선까지, 네 주체가 지금 나눠 맡습니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~base:F06"
+ },
+ "prompt_tokens": 3654,
+ "output_tokens": 189,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "제안서 내에서 언급된 260개 사업장, 6개 사업, 16주, 7일, 40% 등 주요 수치들이 모든 장에서 일관되게 사용되었습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "260개 사업장 화면"
+     },
+     {
+      "sheet": 5,
+      "quote": "16주"
+     },
+     {
+      "sheet": 9,
+      "quote": "6개 사업 담당"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

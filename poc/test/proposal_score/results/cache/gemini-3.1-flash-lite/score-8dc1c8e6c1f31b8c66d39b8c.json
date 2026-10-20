@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08:F06"
+ },
+ "prompt_tokens": 7498,
+ "output_tokens": 224,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 2,
+    "anchor": "4장에서 야간 간호 인력 1명이 30병상을 맡는다고 언급했으나, 6·9·11·12장에서는 선도 병동을 60병상으로 설정하여 수치가 상이합니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "야간 간호 인력 1명이 30병상을 맡고"
+     },
+     {
+      "sheet": 6,
+      "quote": "선도 병동 60병상"
+     }
+    ],
+    "improve": "4장의 30병상 언급이 60병상 병동 내 특정 구역을 의미하는 것인지 명확히 기술하여 수치 혼선을 방지해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

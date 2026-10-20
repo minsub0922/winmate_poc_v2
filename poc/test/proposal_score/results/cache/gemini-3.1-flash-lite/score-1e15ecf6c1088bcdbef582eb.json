@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~base:F01"
+ },
+ "prompt_tokens": 9430,
+ "output_tokens": 319,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'A 커피'와 매장 수 320개, 담당 조직(운영본부, 마케팅팀 등)이 일관되게 기술되었습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "A 커피 전국 320개 매장"
+     },
+     {
+      "sheet": 16,
+      "quote": "운영본부장 · 함께 보는 사람: 마케팅팀장"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "16장의 연락처 정보가 예시용 값으로 기재되어 있어 템플릿 잔여물로 판단됩니다.",
+    "evidence": [
+     {
+      "sheet": 16,
+      "quote": "010-1234-5678 · b2b.proposal@samsung.com"
+     }
+    ],
+    "improve": "제출 전 실제 담당자의 연락처와 이메일 주소로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

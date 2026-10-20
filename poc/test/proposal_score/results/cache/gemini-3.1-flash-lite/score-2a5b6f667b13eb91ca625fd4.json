@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs12:F07"
+ },
+ "prompt_tokens": 7964,
+ "output_tokens": 354,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "12장에서 투자 회수 시점과 연간 효과 항목별 금액을 제시하고, 하단에 홈 72경기 기준 및 할인율 미적용 등 산정 가정과 근거를 명시함.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "투자 회수 시점 28개월, 연간 효과 10.6억"
+     },
+     {
+      "sheet": 12,
+      "quote": "홈 72경기 · 케어 연 1.2억 · 광고 단가 2026 기준"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR5",
+    "score": 3,
+    "anchor": "9장에서 '국내 최초'라는 표현을 사용했으나, 뒤이어 '삼성전자 고객 사례'라는 근거 출처를 명시하여 절대 표현의 근거를 갖춤.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "국내 최초 오닉스 도입 — 모든 좌석 균일 화질"
+     },
+     {
+      "sheet": 9,
+      "quote": "근거 자료 | 삼성전자 고객 사례"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

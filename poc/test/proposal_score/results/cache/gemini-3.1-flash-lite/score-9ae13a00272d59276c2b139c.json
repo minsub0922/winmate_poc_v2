@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~base:F07"
+ },
+ "prompt_tokens": 2792,
+ "output_tokens": 224,
+ "data": {
+  "scores": [
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "삼성의 통합 솔루션(SmartThings), 서비스망(2년 무상 점검), 레퍼런스(KCC스위첸 등)를 고객의 분양 차별화 및 민원 감소 과제와 연결하여 구체적 수치와 사례로 제시함.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "입주 후 2년 케어 · 입주 첫 겨울까지 점검"
+     },
+     {
+      "sheet": 11,
+      "quote": "40% · 가전 민원 감소 목표"
+     },
+     {
+      "sheet": 12,
+      "quote": "같은 고민을 먼저 푼 두 단지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

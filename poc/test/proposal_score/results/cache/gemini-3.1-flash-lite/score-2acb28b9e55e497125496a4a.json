@@ -1,0 +1,61 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~number_conflict:F01"
+ },
+ "prompt_tokens": 5344,
+ "output_tokens": 480,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'Y 그룹'이 일관되게 사용되었으며, 규모 정보(260개 사업장, 208개 사업장 등)와 담당 조직 정보가 장마다 일관되게 기술되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "260개 사업장 화면"
+     },
+     {
+      "sheet": 5,
+      "quote": "208개 사업장의 화면"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "CU5",
+    "score": 3,
+    "anchor": "Y 그룹의 경영 목표, 사업장 수, 구체적인 실행 로드맵 및 일정 등 고객 고유 정보가 10개 장 전체에 걸쳐 상세히 반영되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "2026 경영 목표 | 그룹 운영 효율"
+     },
+     {
+      "sheet": 10,
+      "quote": "11/02 – 11/13 · 삼성 · Y 그룹 실무 참석"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "10장에 담당자 연락처가 예시용 번호(010-1234-5678)로 기재되어 있어 실제 제출 전 수정이 필요합니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "010-1234-5678"
+     }
+    ],
+    "improve": "제출 전 담당자의 실제 연락처로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

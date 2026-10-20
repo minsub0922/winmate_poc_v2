@@ -1,0 +1,69 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs17~full:F05"
+ },
+ "prompt_tokens": 7532,
+ "output_tokens": 506,
+ "data": {
+  "scores": [
+   {
+    "id": "MK1",
+    "score": 1,
+    "anchor": "시장 규모나 성장률에 대한 분석 장 자체가 존재하지 않으며, 시장 정의나 근거 자료가 전혀 제시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "제안하는 솔루션이 속한 시장의 규모와 성장률, 그리고 고객의 사업 환경과 연계된 시장 분석 데이터를 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "MK2",
+    "score": 3,
+    "anchor": "제안서 내 인용된 모든 수치는 2026년 및 2027년 기준의 최신 자료를 사용하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "시범점 내점 고객 조사(2026. 6)"
+     },
+     {
+      "sheet": 4,
+      "quote": "T 은행 영업기획부 시범점 측정(2026. 9)"
+     },
+     {
+      "sheet": 14,
+      "quote": "2027. 1월 착수"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "대부분의 주요 성과 수치와 시장 관련 데이터에 구체적인 출처 기관과 연도가 명시되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": ""
+     },
+     {
+      "sheet": 5,
+      "quote": ""
+     },
+     {
+      "sheet": 13,
+      "quote": ""
+     }
+    ],
+    "improve": "모든 수치와 인용 자료 옆에 해당 데이터를 산출한 기관명과 기준 연도를 명확히 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19:F10"
+ },
+ "prompt_tokens": 2227,
+ "output_tokens": 195,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "본사 운영실 대시보드와 원격 통합 관리 솔루션을 통해 누가(본사), 무엇을(260개 사업장 화면), 어떻게(당일 배포 및 실시간 확인) 관리하는지 구체적인 운영 장면을 제시함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "본사 운영실 대시보드 비디오월"
+     },
+     {
+      "sheet": 5,
+      "quote": "원격 통합 관리 | 한 번의 승인으로 6개 사업 배포 · 실시간 확인"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

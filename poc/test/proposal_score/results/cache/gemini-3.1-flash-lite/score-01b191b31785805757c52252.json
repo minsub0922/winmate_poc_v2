@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~number_conflict:F06"
+ },
+ "prompt_tokens": 9005,
+ "output_tokens": 261,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 2,
+    "anchor": "전체 매장 수(320개)와 실제 도입 대상 매장 수(256개)가 구분되어 있으나, 11장과 15장의 매장당 기기 수 합계와 총 기기 수 계산에서 일부 수치 불일치가 확인됩니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "256개 매장 · 소형 600대 + 표준 1,120대 + DT 480대 = 2,200대"
+     },
+     {
+      "sheet": 15,
+      "quote": "누적 도입 320곳 · 2,120대"
+     }
+    ],
+    "improve": "매장 유형별 패키지 구성에 따른 총 기기 수 산출 근거를 11장과 15장에서 동일하게 일치시켜야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

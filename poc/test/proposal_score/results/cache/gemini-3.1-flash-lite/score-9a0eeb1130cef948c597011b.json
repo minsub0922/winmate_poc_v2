@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~wrong_customer:F01"
+ },
+ "prompt_tokens": 4828,
+ "output_tokens": 248,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "제안서 내에 'H 호텔'이라는 다른 고객명이 3곳에 걸쳐 반복적으로 노출되어 있으며, 10장에는 실제 연락처 대신 템플릿용 예시 연락처가 기재되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "H 호텔은 지금이 적기입니다"
+     },
+     {
+      "sheet": 6,
+      "quote": "도입 후 H 호텔"
+     },
+     {
+      "sheet": 10,
+      "quote": "010-1234-5678"
+     }
+    ],
+    "improve": "제안서 전반에 걸쳐 잘못 기재된 고객명 'H 호텔'을 'Y 그룹'으로 수정하고, 10장의 연락처를 실제 담당자의 정보로 변경해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

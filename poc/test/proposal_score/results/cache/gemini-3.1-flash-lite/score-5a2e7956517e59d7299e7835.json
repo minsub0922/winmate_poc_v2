@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08:F09"
+ },
+ "prompt_tokens": 4196,
+ "output_tokens": 206,
+ "data": {
+  "scores": [
+   {
+    "id": "PR2",
+    "score": 3,
+    "anchor": "제안서 내 언급된 QM43C, HG43BU, 갤럭시 탭 액티브5 프로 등 주요 제품의 사양과 특징이 카탈로그 정보와 일치하며, 장별로 모델명과 사양 표기가 일관되게 유지됨.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "무풍 4Way · ERV 환기 · 비스포크 AI 공기청정기 · 호텔 TV 43\" HG43BU"
+     },
+     {
+      "sheet": 10,
+      "quote": "IP68 · MIL-STD 태블릿"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

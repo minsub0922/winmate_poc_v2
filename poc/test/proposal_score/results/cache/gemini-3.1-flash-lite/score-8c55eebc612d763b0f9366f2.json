@@ -1,0 +1,82 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs02~full:F01"
+ },
+ "prompt_tokens": 10542,
+ "output_tokens": 658,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'C 빌딩'이 일관되게 사용되었으며, 업종, 규모, 담당 조직 정보가 장마다 일치합니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "C 빌딩 신축 · AI Ready 스마트 빌딩 설계 반영 제안"
+     },
+     {
+      "sheet": 5,
+      "quote": "입주사 임직원 1,100명"
+     },
+     {
+      "sheet": 16,
+      "quote": "C 빌딩 설계 반영 범위 확정"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "CU5",
+    "score": 3,
+    "anchor": "고객사의 구체적인 공간 구성, 운영 KPI, 설계 일정 및 워크숍 계획이 전 장에 걸쳐 상세히 반영되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "준공 후 넣으면 재공사비 12억 원"
+     },
+     {
+      "sheet": 14,
+      "quote": "도면 확정 3주 전 4자 회의로"
+     },
+     {
+      "sheet": 16,
+      "quote": "삼성 · 설계사 · PM사 2회 (11/4 · 11/11)"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "템플릿 잔여물이나 자리표시 문구가 없으며, 연락처는 제안사 담당자의 정상적인 정보입니다.",
+    "evidence": [
+     {
+      "sheet": 16,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "원가, 마진, 내부 할인율 등 민감한 내부 정보가 포함되어 있지 않으며, 제안 담당자의 연락처만 기재되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 16,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

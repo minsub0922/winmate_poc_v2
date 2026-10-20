@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~strip_images:F05"
+ },
+ "prompt_tokens": 8237,
+ "output_tokens": 284,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "제안서 내 대부분의 성과 수치와 시장 데이터에 구체적인 출처가 명시되어 있지 않으며, 자동 점검에서 지적된 바와 같이 다수의 장에서 출처 표기가 누락되었습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "연 -85% | 인쇄 · 배송비 | -12% | 매장 전력"
+     },
+     {
+      "sheet": 5,
+      "quote": "인쇄 · 배송비 연 3.3억 원이 반복됩니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "메뉴 · 가격 반영 | 확정 → 전 매장 반영 · 1회 | 9 | 일 | 4 | 시간"
+     }
+    ],
+    "improve": "모든 시장 데이터 및 성과 지표 옆에 [기관명, 연도] 또는 [고객사 운영 자료, 연도]와 같은 구체적인 출처를 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

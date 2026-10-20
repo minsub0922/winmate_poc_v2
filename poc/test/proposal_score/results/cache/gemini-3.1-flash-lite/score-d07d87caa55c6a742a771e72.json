@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs05:F02"
+ },
+ "prompt_tokens": 9306,
+ "output_tokens": 399,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 2,
+    "anchor": "고객 요구사항 R1, R2, R3, K2, K3, K4에 대한 구체적인 대응 장은 명시되어 있으나, K1(몰입감·화제성)에 대한 명시적인 대응과 근거가 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "줄 서는 시간까지 파크의 체험이 됩니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "시즌마다 새로워지는 구역"
+     },
+     {
+      "sheet": 11,
+      "quote": "야외 무대 LED, 피치는 객석 거리로 고릅니다"
+     }
+    ],
+    "improve": "몰입감과 화제성을 높이기 위한 구체적인 솔루션이나 제안 내용을 추가하고 이를 고객의 요구사항과 직접 연결하여 기술해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "SB2",
+    "score": 2,
+    "anchor": "대부분의 장에는 푸터와 쪽번호가 일관되게 적용되어 있으나, 14페이지에는 쪽번호와 푸터가 모두 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": ""
+     }
+    ],
+    "improve": "14페이지에 누락된 쪽번호와 푸터(제안명, 기밀 표기)를 다른 장과 동일하게 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

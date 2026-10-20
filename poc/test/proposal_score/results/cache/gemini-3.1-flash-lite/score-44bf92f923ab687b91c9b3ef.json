@@ -1,0 +1,82 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs15~full:F09"
+ },
+ "prompt_tokens": 8424,
+ "output_tokens": 617,
+ "data": {
+  "scores": [
+   {
+    "id": "PR1",
+    "score": 3,
+    "anchor": "제안된 모델(QM43C, EM32DX, DVM S2, AQ020~050)은 모두 현재 카탈로그 라인업에 해당하며, 구형이나 단종 모델 표기가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "스탠드 사이니지 QM43C"
+     },
+     {
+      "sheet": 6,
+      "quote": "인버터 콘덴싱 유닛 AQ020~050"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR2",
+    "score": 3,
+    "anchor": "제안서 내 모델별 사양 표기가 카탈로그와 일치하며, 장마다 동일한 모델에 대해 일관된 사양 정보를 제공하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "스탠드 사이니지 QM43C"
+     },
+     {
+      "sheet": 6,
+      "quote": "인버터 콘덴싱 유닛 AQ020~050"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR5",
+    "score": 3,
+    "anchor": "각 제품의 모델명을 일관되게 표기하고 있으며, 제품군 명칭과 모델명을 병기한 경우에도 혼동 없이 동일한 제품을 지칭합니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "스탠드 사이니지 QM43C"
+     },
+     {
+      "sheet": 6,
+      "quote": "DVM S2 시스템에어컨"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR3",
+    "score": 3,
+    "anchor": "MagicINFO, b.IoT Cloud 등 브랜드 및 솔루션 명칭이 공식 표기법에 따라 일관되게 작성되었습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "b.IoT Cloud"
+     },
+     {
+      "sheet": 8,
+      "quote": "MagicINFO"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

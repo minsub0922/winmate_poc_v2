@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs15:F06"
+ },
+ "prompt_tokens": 7343,
+ "output_tokens": 201,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "매장 수(42개), 폐기 절감률(25%), 고장 건수(12건), 수기 작업 시간(72시간) 등 주요 지표가 모든 장에서 일관되게 기술되었습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "직영 점포 42개"
+     },
+     {
+      "sheet": 3,
+      "quote": "연 고장 12건"
+     },
+     {
+      "sheet": 4,
+      "quote": "신선 폐기 25% ↓"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

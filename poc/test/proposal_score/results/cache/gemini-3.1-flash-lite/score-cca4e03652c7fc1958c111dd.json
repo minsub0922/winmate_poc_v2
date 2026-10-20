@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11~placeholders:F01"
+ },
+ "prompt_tokens": 8434,
+ "output_tokens": 234,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "제안서 전반에 걸쳐 [00]과 같은 자리표시가 8곳 이상 발견되었으며, 특히 4장과 8장 등 핵심 평가 대응 페이지에 다수 포함되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "[00] | 사업 이해 · 평가 배점"
+     },
+     {
+      "sheet": 4,
+      "quote": "[00] | 점"
+     },
+     {
+      "sheet": 10,
+      "quote": "투입 인원 | [00]명"
+     }
+    ],
+    "improve": "제안서 내 모든 자리표시([00], [00]명 등)를 실제 수치와 내용으로 수정하여 완성도를 높여야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,86 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~strip_images:F11"
+ },
+ "prompt_tokens": 3905,
+ "output_tokens": 729,
+ "data": {
+  "scores": [
+   {
+    "id": "DS1",
+    "score": 2,
+    "anchor": "6장에서 텍스트 넘침 현상이 발생하였고, 13장의 제목 위치가 다른 장들과 일관되지 않게 배치되었습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "넘침 2"
+     },
+     {
+      "sheet": 13,
+      "quote": "제목 30px@(648,66)"
+     }
+    ],
+    "improve": "6장의 텍스트 넘침을 해결하고 13장의 제목 위치를 다른 장과 동일하게 조정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 초과하는 장이 10장으로 기준인 4장을 크게 상회하며, 장당 평균 어절 수도 174어절로 매우 높습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "176어절"
+     },
+     {
+      "sheet": 3,
+      "quote": "329어절"
+     },
+     {
+      "sheet": 7,
+      "quote": "309어절"
+     }
+    ],
+    "improve": "각 장의 핵심 메시지를 제외한 부연 설명을 대폭 줄여 장당 어절 수를 77어절 이하로 낮춰야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "모든 장의 본문이 12pt 미만이며, 9pt 미만인 장이 11장으로 기준인 3장을 초과하여 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "본문 최소 9.5px(7.1pt)"
+     },
+     {
+      "sheet": 8,
+      "quote": "본문 최소 9.5px(7.1pt)"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정하여 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS6",
+    "score": 1,
+    "anchor": "표지를 제외한 모든 본문 장이 텍스트로만 구성되어 있고, 시각 자료가 전혀 포함되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "사진 0"
+     },
+     {
+      "sheet": 3,
+      "quote": "사진 0"
+     }
+    ],
+    "improve": "제품 및 공간 제안 장표에 실제 사진이나 도식 등 시각 자료를 적극적으로 배치해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~placeholders:F01"
+ },
+ "prompt_tokens": 9041,
+ "output_tokens": 521,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명을 'B 호텔'로 일관되게 표기하였으며, 규모(300실)와 담당 조직(객실팀, 시설팀 등) 정보가 장마다 동일하게 유지됩니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "B 호텔 객실 TV · 공조 교체와 투숙 경험 개선 제안"
+     },
+     {
+      "sheet": 10,
+      "quote": "객실 300실은 한 실의 키트로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "본문 및 핵심 수치 영역에 '[00]'과 같은 자리표시자가 9곳 이상 다수 포함되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "월 [00] 건"
+     },
+     {
+      "sheet": 6,
+      "quote": "프로모션 이용 [00]% ↑"
+     },
+     {
+      "sheet": 9,
+      "quote": "교체 합계 [00]대"
+     }
+    ],
+    "improve": "모든 자리표시자([00], [00]:[00] 등)를 실제 수치나 확정된 데이터로 수정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "제안서 마무리 장에 기재된 담당자 연락처는 제안사 영업 담당자의 공식 업무 정보로, 기밀 정보 노출에 해당하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

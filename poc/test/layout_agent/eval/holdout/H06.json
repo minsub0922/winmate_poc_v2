@@ -1,0 +1,119 @@
+{
+ "id": "H06",
+ "case": "H06",
+ "industry": "PB",
+ "strategy": "rfp",
+ "req_type": null,
+ "title": "지자체 통합 안내 · 관제 입찰",
+ "level": "complex",
+ "input": {
+  "title": "V 시 통합 안내 · 관제 고도화",
+  "customer": "V 시청",
+  "project": "버스 정보 안내 · 통합 관제 고도화 사업",
+  "target": "교통정책과장",
+  "free_text": "V 시 버스 정보 안내 · 통합 관제 고도화 사업 제안요청입니다. 정류장 120곳 안내 사이니지(BIT) 교체와 상황실 비디오월 구축이 범위입니다. 평가는 기술 80점 · 가격 20점이며 제안 발표 평가가 있습니다.",
+  "keymen": [
+   {
+    "name": "교통정책과장",
+    "weight": 40,
+    "reqs": [
+     "정류장 도착 정보 실시간 안내",
+     "다국어 4개 안내",
+     "긴급 재난 문자 즉시 표출"
+    ]
+   },
+   {
+    "name": "정보통신팀장",
+    "weight": 35,
+    "reqs": [
+     "상황실 화면 통합 표출",
+     "내부망 분리 운영",
+     "관리자 접근 기록"
+    ]
+   },
+   {
+    "name": "시설관리팀장",
+    "weight": 25,
+    "reqs": [
+     "옥외 IP 등급 · 24시간 운영",
+     "장애 2시간 내 복구"
+    ]
+   }
+  ],
+  "products": [
+   "oh55a",
+   "vm55b"
+  ],
+  "solutions": [
+   "magicinfo"
+  ],
+  "id": "H06"
+ },
+ "gold": {
+  "strategy_any": [
+   "rfp",
+   "compete"
+  ],
+  "must_parts": [
+   "requirements",
+   "spec"
+  ],
+  "dims_any": [
+   "평가·선정·자격",
+   "보안·인증·규제",
+   "운영·유지보수"
+  ],
+  "conflicts_any": [],
+  "min_questions": 4,
+  "eval_expected": true,
+  "key_reqs": [
+   {
+    "kw": [
+     "다국어"
+    ],
+    "parts_any": [
+     "scenario",
+     "value",
+     "user",
+     "requirements",
+     "solution"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "내부망"
+    ],
+    "parts_any": [
+     "execution",
+     "spec",
+     "requirements"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "2시간"
+    ],
+    "parts_any": [
+     "execution",
+     "why",
+     "requirements"
+    ],
+    "priority": "should"
+   }
+  ],
+  "facts": [
+   "120",
+   "80"
+  ],
+  "layouts_any": {
+   "requirements": [
+    "L_RM_C",
+    "L_RM_B"
+   ]
+  },
+  "level": "complex",
+  "industry": "PB"
+ }
+}

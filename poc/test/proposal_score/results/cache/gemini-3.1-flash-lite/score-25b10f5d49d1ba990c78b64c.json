@@ -1,0 +1,90 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs03:F10"
+ },
+ "prompt_tokens": 7195,
+ "output_tokens": 773,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "하드웨어(Flip Pro, QM55C 등)와 솔루션(b.IoT, MagicINFO, Knox)을 연계하여 공간별 운영 장면과 관리 주체를 구체적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "공간마다 놓을 삼성 제품 · 솔루션과 그 가치"
+     },
+     {
+      "sheet": 6,
+      "quote": "시간표 연동 · 갤럭시 탭 · 수업 준비"
+     },
+     {
+      "sheet": 7,
+      "quote": "MagicINFO · QM55C 좌석 현황"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR7",
+    "score": 2,
+    "anchor": "시공 계획과 교육 및 유지보수 서비스는 언급되었으나, 전원 및 네트워크 환경 등 설치를 위한 기술적 전제 조건이 명시되지 않음.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "학기를 멈추지 않고, 방학 6주에 끝냅니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "종합세척 · 첫 학기 현장 지원"
+     }
+    ],
+    "improve": "설치 환경을 위한 전원, 네트워크 인프라 요구사항 및 고객 준비 사항을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "방학 기간(6주) 내 상세 일정, 단계별 설치 구역, 역할 분담, 교육 과정 및 운영 이관 계획이 구체적으로 정리됨.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "구역 × 주(W1–W6) · 겨울방학 12/21–1/29"
+     },
+     {
+      "sheet": 13,
+      "quote": "대상 × 과정 · 필수 ● · 선택 ○"
+     },
+     {
+      "sheet": 14,
+      "quote": "11월 안에 함께 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 2,
+    "anchor": "공사 중 소음 및 동선 관리, 장애 대응 교육 등은 언급했으나, 일정 지연이나 기존 시스템과의 호환성 문제에 대한 리스크 대응 방안이 부족함.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "도서관 소음 작업 18시 이후"
+     },
+     {
+      "sheet": 13,
+      "quote": "장애 대응 · 2시간"
+     }
+    ],
+    "improve": "공사 일정 지연 시 대책과 기존 학사 시스템과의 데이터 호환성 확보 방안을 구체적으로 제시해야 합니다.",
+    "confidence": "mid"
+   }
+  ]
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04:F03"
+ },
+ "prompt_tokens": 2774,
+ "output_tokens": 200,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "표지(1장)에 옵션 계약률, 가전 민원 감소 등 경영 성과 지표가 요약되어 있고, 마지막 장(13장)에 결정권자가 승인해야 할 도면 검토, 옵션 확정, 일정 등 결정 사항이 명확히 정리되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "50% 옵션 계약률, 40% 가전 민원 감소"
+     },
+     {
+      "sheet": 13,
+      "quote": "12월까지, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

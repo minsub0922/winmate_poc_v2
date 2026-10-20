@@ -1,0 +1,7 @@
+모델 확인: models/gemini-3.1-flash-lite · 입력 한도 1048576 · 출력 한도 65536
+[20261012-gemini-main] keys: {'GEMINI_API_KEY': True, 'GEMINI_MODEL': True, 'TAVILY_API_KEY': True}
+    · extract     0 5549ms  in 4105 / out 2218 tok
+    · consolidate  3033ms  in 1171 / out 684 tok
+  TC1 single@5784          recall 0.800 (+요약 0.800) 사업 1/1 misattr 0 항목 23 grounded 1.00 unsup 0 호출 3 8593ms
+    · extract     0 5297ms  in 1755 / out 1806 tok
+    · extract     1 3979ms  in 1992 / out 1298 tok

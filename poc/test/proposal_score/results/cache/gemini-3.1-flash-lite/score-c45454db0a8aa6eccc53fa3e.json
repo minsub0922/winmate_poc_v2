@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~strip_images:F10"
+ },
+ "prompt_tokens": 5106,
+ "output_tokens": 215,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO와 SmartThings Pro를 활용하여 본사 운영자가 메뉴 배포부터 매장 전력 관리까지 수행하는 구체적인 운영 시나리오를 제시함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "MagicINFO · QM55C | 01 | 본사에서 한 번에 운영"
+     },
+     {
+      "sheet": 8,
+      "quote": "본사가 바꾼 가격, 5분 안에 그대로 | MagicINFO · Data Link"
+     },
+     {
+      "sheet": 9,
+      "quote": "SmartThings Pro 루틴이 한산한 시간 냉난방을 낮춤"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs12:F11"
+ },
+ "prompt_tokens": 3148,
+ "output_tokens": 452,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 10장으로, 1점 기준인 4장을 크게 초과하여 발표 자료로 읽기에 부적합합니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "V 경기장의 일곱 공간, 경기 한 판이 빅보드에서 매점까지 이어집니다"
+     },
+     {
+      "sheet": 2,
+      "quote": "V 경기장의 관람 시장은 커지고, 승부는 관람 경험에서 납니다"
+     }
+    ],
+    "improve": "각 장의 핵심 메시지를 제외한 상세 텍스트를 과감히 줄이고, 시각적 요소 위주로 재구성해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 대부분이 12pt 미만이며, 9pt 미만인 장이 9장이나 포함되어 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 4,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 3,
+      "quote": "본문 최소 11px(8.2pt)"
+     }
+    ],
+    "improve": "본문 텍스트의 글자 크기를 최소 12pt(16px) 이상으로 상향 조정하고, 불필요한 텍스트를 줄여 공간을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

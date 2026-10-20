@@ -42,6 +42,7 @@ def build_app(auth: A.Auth) -> FastAPI:
     def health():
         return {'ok': True}
 
+    @app.get('/api/private')
     @app.get('/api/products')
     def products():
         return {'total': 1068}
@@ -132,14 +133,24 @@ class SessionTests(AuthCase):
         self.assertEqual(status.headers['cache-control'], 'no-store')
 
     def test_unconfigured_server_fails_closed(self):
-        response = self.get('/api/products')
+        response = self.get('/api/private')
         self.assertEqual(response.status_code, 503)
         self.assertEqual(response.json()['code'], 'auth_not_configured')
         page = self.get('/', accept='text/html')
-        self.assertEqual(page.status_code, 303)
-        self.assertEqual(page.headers['location'], '/login.html?next=%2F')
+        self.assertEqual(page.status_code, 200)
         self.assertEqual(self.login().status_code, 503)
         self.assertFalse(self.dir.joinpath('credentials.json').exists())
+
+    def test_guest_browsing_does_not_open_private_reads_or_writes(self):
+        self.configure()
+        for path in ('/', '/api/products', '/img/a.png'):
+            self.assertEqual(self.get(path).status_code, 200, path)
+        for path in ('/api/private', '/api/jobs', '/api/spatial/history'):
+            self.assertEqual(self.get(path).status_code, 401, path)
+        for method in ('post', 'put', 'patch', 'delete'):
+            for path in ('/api/jobs', '/api/storyboards', '/api/spatial/history'):
+                self.assertEqual(getattr(self.client, method)(path, json={}).status_code if method != 'delete'
+                                 else self.client.delete(path).status_code, 401, (method, path))
 
     def test_credential_files_store_only_a_salted_hash(self):
         self.configure()
@@ -177,7 +188,7 @@ class SessionTests(AuthCase):
         for flag in ('httponly', 'samesite=strict', 'max-age=43200', 'path=/'):
             self.assertIn(flag, attrs)
         self.assertNotIn('secure', attrs)        # plain-http loopback; https requests get Secure
-        self.assertEqual(self.get('/api/products', value).json(), {'total': 1068})
+        self.assertEqual(self.get('/api/private', value).json(), {'total': 1068})
         self.assertEqual(self.get('/', value, accept='text/html').status_code, 200)
 
     def test_invalid_logins(self):
@@ -201,17 +212,17 @@ class SessionTests(AuthCase):
 
     def test_protected_and_public_routes_without_session(self):
         self.configure()
-        api = self.get('/api/products')
+        api = self.get('/api/private')
         self.assertEqual(api.status_code, 401)
         self.assertEqual(api.json()['code'], 'auth_required')
         self.assertEqual(self.client.post('/api/jobs', json={}).status_code, 401)
-        for path in ('/', '/reference/index.html'):
+        for path in ('/reference/index.html',):
             page = self.get(path, accept='text/html')
             self.assertEqual(page.status_code, 303, path)
             self.assertTrue(page.headers['location'].startswith('/login.html?next='))
         self.assertEqual(self.get('/reference/index.html?x=1', accept='text/html').headers['location'],
                          '/login.html?next=%2Freference%2Findex.html%3Fx%3D1')
-        self.assertEqual(self.get('/img/a.png', accept='image/*').status_code, 401)
+        self.assertEqual(self.get('/img/a.png', accept='image/*').status_code, 200)
         self.assertEqual(self.get('/fonts/a.woff2').status_code, 200)
         self.assertEqual(self.get('/api/health').status_code, 200)
         page = self.get('/login.html')
@@ -243,18 +254,18 @@ class SessionTests(AuthCase):
         ]
         for value in forged:
             with self.subTest(value=value[:24]):
-                self.assertEqual(self.get('/api/products', value).status_code, 401)
+                self.assertEqual(self.get('/api/private', value).status_code, 401)
                 self.assertIsNone(self.auth.read_token(value))
         self.assertIsNone(self.auth.read_token('é.' + sig))
-        self.assertEqual(self.get('/api/products', token).status_code, 200)
+        self.assertEqual(self.get('/api/private', token).status_code, 200)
         self.auth.rotate_secret()
-        self.assertEqual(self.get('/api/products', token).status_code, 401)
+        self.assertEqual(self.get('/api/private', token).status_code, 401)
 
     def test_password_change_ends_existing_sessions(self):
         self.configure()
         token = self.token()
         self.configure('a different password 42')
-        self.assertEqual(self.get('/api/products', token).status_code, 401)
+        self.assertEqual(self.get('/api/private', token).status_code, 401)
         self.assertEqual(self.login().status_code, 401)
         self.assertEqual(self.login(password='a different password 42').status_code, 200)
 
@@ -262,9 +273,9 @@ class SessionTests(AuthCase):
         self.configure()
         token = self.token()
         self.clock.t += 12 * 3600 - 1
-        self.assertEqual(self.get('/api/products', token).status_code, 200)
+        self.assertEqual(self.get('/api/private', token).status_code, 200)
         self.clock.t += 2
-        self.assertEqual(self.get('/api/products', token).status_code, 401)
+        self.assertEqual(self.get('/api/private', token).status_code, 401)
         self.assertEqual(self.get('/api/auth/status', token).json()['authenticated'], False)
 
     def test_logout_revokes_the_session(self):
@@ -276,10 +287,10 @@ class SessionTests(AuthCase):
         value, attrs = session_cookie(response)
         self.assertFalse(value)
         self.assertIn('max-age=0', attrs)
-        self.assertEqual(self.get('/api/products', token).status_code, 401)
+        self.assertEqual(self.get('/api/private', token).status_code, 401)
         self.assertFalse(self.get('/api/auth/status', token).json()['authenticated'])
         self.assertEqual(self.client.post('/api/auth/logout').status_code, 200)       # idempotent without a session
-        self.assertEqual(self.get('/api/products', self.token()).status_code, 200)    # a new login still works
+        self.assertEqual(self.get('/api/private', self.token()).status_code, 200)    # a new login still works
 
     def test_failed_logins_are_rate_limited(self):
         self.configure()
@@ -314,7 +325,7 @@ class SessionTests(AuthCase):
         token = self.token()
         responses = [
             self.get('/api/auth/status'), self.get('/api/auth/status', token), self.login(password='wrong password!!'),
-            self.login(), self.get('/api/products'), self.get('/', accept='text/html'), self.get('/login.html'),
+            self.login(), self.get('/api/private'), self.get('/', accept='text/html'), self.get('/login.html'),
             self.client.post('/api/auth/logout', headers={'Cookie': f'{A.COOKIE_NAME}={token}'}),
             self.client.post('/api/auth/login', json={'username': 'admin', 'password': PASSWORD}, headers={'Origin': 'http://evil.example'}),
         ]
@@ -327,12 +338,12 @@ class SessionTests(AuthCase):
 
     def test_reconfigure_switches_in_place_and_back(self):
         self.configure()
-        self.assertEqual(self.get('/api/products').status_code, 401)
+        self.assertEqual(self.get('/api/private').status_code, 401)
         previous = self.auth.reconfigure(A.AuthConfig(enabled=False, auth_dir=self.dir))
-        self.assertEqual(self.get('/api/products').status_code, 200)
+        self.assertEqual(self.get('/api/private').status_code, 200)
         self.assertEqual(self.login().status_code, 409)
         self.auth.reconfigure(previous)
-        self.assertEqual(self.get('/api/products').status_code, 401)
+        self.assertEqual(self.get('/api/private').status_code, 401)
         self.assertEqual(self.login().status_code, 200)
 
 
@@ -353,7 +364,7 @@ class CsrfTests(AuthCase):
         self.assertEqual(self.client.post('/api/jobs', json={}, headers={**cookie, 'Origin': 'http://testserver'}).status_code, 200)
         self.assertEqual(self.client.post('/api/jobs', json={}, headers={**cookie, 'Sec-Fetch-Site': 'same-origin'}).status_code, 200)
         self.assertEqual(self.client.post('/api/jobs', json={}, headers=cookie).status_code, 200)      # non-browser client
-        self.assertEqual(self.get('/api/products', token, Origin='http://evil.example').status_code, 200)  # safe method
+        self.assertEqual(self.get('/api/private', token, Origin='http://evil.example').status_code, 200)  # safe method
 
     def test_loopback_aliases_on_the_same_port(self):
         self.configure()
@@ -391,7 +402,7 @@ class DisabledTests(AuthCase):
     enabled = False
 
     def test_explicit_off_skips_login_but_keeps_origin_checks(self):
-        self.assertEqual(self.get('/api/products').status_code, 200)
+        self.assertEqual(self.get('/api/private').status_code, 200)
         self.assertEqual(self.get('/', accept='text/html').status_code, 200)
         self.assertEqual(self.get('/api/auth/status').json(), {'enabled': False, 'configured': False, 'authenticated': True})
         self.assertEqual(self.login().status_code, 409)

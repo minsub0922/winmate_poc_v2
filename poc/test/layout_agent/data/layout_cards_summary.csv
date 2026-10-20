@@ -1,0 +1,447 @@
+﻿f,code,part,part2,ind,sol,pc,capacity,n_text,n_image,visual,strategy_fit,req_type_fit,level_fit,audience,needs,name,when
+L_MI01,MS-A,market,,,,0,4,21,0,cards|kpi,roi,brief,best,mixed,industry|kpis,핵심 수치 4,"지표는 여럿, 연도별 추이는 없을 때"
+L_MI02,MS-B,market,,,,0,3,27,0,cards,roi,brief,best,mixed,industry|kpis,성장 추이,연도별 시장 규모 데이터가 있을 때
+L_MS_C,MS-C,market,,,,0,3,27,0,cards,roi,brief,best,mixed,industry|kpis,TAM · SAM · SOM,전체 중 노릴 수 있는 몫을 말할 때
+L_MS_D,MS-D,market,,,,0,5,42,0,cards|matrix,roi,brief|ops,best,mixed,industry|kpis,세그먼트 규모 × 성장률,"어디가 크고 빠른지, 고객 위치"
+L_MS_E,MS-E,market,,,,0,3,30,0,cards|flow|kpi,roi,brief,best,mixed,industry|kpis,성장 동인 → 전망,수치는 적어도 왜 커지는지 설득할 때
+L_MI06,TR-A,market,,,,0,4,20,0,cards|flow,roi|value,,best,mixed,industry|kpis,흐름 타임라인,과거에서 다음으로 가는 방향
+L_TR_B,TR-B,market,,,,0,3,35,0,cards|flow,roi|value,,best,mixed,industry|kpis|solutions,트렌드 → 고객 시사점,트렌드마다 '그래서 A 커피는'
+L_TR_C,TR-C,market,,,,0,6,47,0,cards|matrix,roi|value,,best,mixed,industry|kpis,영향도 × 시급성,트렌드가 많아 우선순위가 필요할 때
+L_MI03,CB-A,customer,,,,0,3,19,0,cards|message,pain,,best,mixed,customer|challenges|kpis,한 줄 요약 + 3단,공개 자료로 현황 요약
+L_CB_B,CB-B,customer,,,,0,2,36,0,flow|table,pain|value,brief,best,mixed,customer|challenges|solutions|kpis,전략 목표 → 과제 트리,고객 전략과 제안을 연결할 때
+L_CB_C,CB-C,customer,,,,0,5,55,0,cards|flow,pain|value,new|ops,best,mixed,customer|challenges|kpis,운영 흐름 속 문제,업무 단계마다 문제가 있을 때
+L_CB_D,CB-D,customer,,,,0,2,33,0,cards,pain,ops,best,mixed,customer|challenges|kpis,SWOT,내부 · 외부 상황을 균형 있게
+L_MI05,US-A,user,,,,0,3,30,0,cards,pain|space,,best,mixed,users,페르소나 3,사용자 유형이 뚜렷이 나뉠 때
+L_US_B,US-B,user,,,,0,5,50,0,cards|flow|map,pain|space,,best,mixed,users,고객 여정 맵,경험 흐름 속 개입 지점
+L_US_C,US-C,user,,,,0,4,46,0,cards,pain|space,,best,mixed,users|kpis,사용자 구성 + 니즈,방문객 구성 비율 데이터가 있을 때
+L_MI04,CP-A,competition,,,,0,5,31,0,comparison|table,compete,compete,best,mixed,competitors,비교표,공급사를 항목별로 따져볼 때
+L_CP_B,CP-B,competition,,,,0,3,35,0,cards|comparison|map,compete,compete,best,mixed,competitors|kpis,포지셔닝 맵,구도와 빈자리를 한눈에
+L_CP_C,CP-C,competition,,,,0,3,52,0,cards,compete,compete,best,mixed,competitors|kpis,점유율 + 추이,점유율 데이터가 있을 때
+L_IM_A,IM-A,insight,,,,0,2,39,0,cards|flow,pain,brief,best,mixed,challenges|values|kpis,발견 → 시사점 → 방향,MI를 제안 방향 하나로 좁힐 때
+L_IM_B,IM-B,insight,,,,0,4,24,0,cards|matrix|message,value,brief,best,exec,challenges|values|kpis,4분면 요약 + 결론,경영진용 한 장 요약
+L_MI_FB_A,MI-FB-A,market,,FB,,0,4,57,0,cards|flow,roi|value,new,best|standard,mixed,industry|kpis,외식 · 카페 프랜차이즈 · 시장 · 트렌드,"A 커피의 시장은 커지고, 승부는 매장 경험에서 갈립니다"
+L_MI_FB_B,MI-FB-B,customer,,FB,,0,6,94,0,cards|flow,pain|value,new,best,mixed,customer|challenges|solutions|kpis,외식 · 카페 프랜차이즈 · 고객 비즈니스 · 운영 과제,"A 커피의 수익은 가맹점 매출에서 나오고, 과제도 매장에 있습니다"
+L_MI_FB_C,MI-FB-C,user,,FB,,0,3,80,4,cards|flow|image_heavy,pain|space,,best,mixed,users|solutions|kpis,외식 · 카페 프랜차이즈 · 사용자 · 이해관계자 여정,A 커피 손님의 경험은 메뉴판 앞과 머무는 자리에서 갈립니다
+L_MI_RT_A,MI-RT-A,market,,RT,,0,4,62,0,cards|flow,roi|space|value,renew,best|standard,mixed,industry|kpis,리테일 · 브랜드 플래그십 · 시장 · 트렌드,D 리테일의 시장은 ‘파는 매장’에서 ‘경험하는 매장’으로 갑니다
+L_MI_RT_B,MI-RT-B,customer,,RT,,0,6,97,0,cards|flow,pain,ops,best,mixed,customer|challenges|solutions|kpis,리테일 · 브랜드 플래그십 · 고객 비즈니스 · 운영 과제,"D 리테일의 매출은 고객 접점에서, 비용은 운영에서 갈립니다"
+L_MI_RT_C,MI-RT-C,user,,RT,,0,4,106,4,cards|flow|image_heavy,pain|space,renew,best,mixed,users|solutions|kpis,리테일 · 브랜드 플래그십 · 사용자 · 이해관계자 여정,"D 리테일 고객의 마음은 체험에서 오르고, 대기에서 꺾입니다"
+L_MI_SV_A,MI-SV-A,market,,SV,,0,4,57,0,cards|flow,roi|value,,standard,mixed,industry|kpis|competitors,생활 편의 · 무인 매장 · 시장 · 트렌드,N 체인이 뛰는 무인 매장 시장은 [0]년 새 [0.0]배 커졌습니다
+L_MI_SV_B,MI-SV-B,customer,,SV,,0,5,82,0,cards|flow,pain|roi,ops,best,mixed,customer|challenges|kpis,생활 편의 · 무인 매장 · 고객 비즈니스 · 운영 과제,N 체인의 수익은 점원 없는 24시간 지점에서 만들어집니다
+L_MI_SV_C,MI-SV-C,user,,SV,,0,6,84,0,cards|flow,pain|space,,best,mixed,users|kpis,생활 편의 · 무인 매장 · 사용자 · 이해관계자 여정,N 체인의 손님은 아무도 없는 매장에서 혼자 끝까지 해결합니다
+L_MI_HT_A,MI-HT-A,market,,HT,,0,4,59,4,cards|flow|image_heavy,roi|value,,standard,mixed,industry|kpis|competitors,호텔 · 리조트 · 시장 · 트렌드,"B 호텔의 시장은 커지고, 경쟁은 투숙 경험으로 옮겨갑니다"
+L_MI_HT_B,MI-HT-B,customer,,HT,,0,10,93,0,cards|flow,pain,renew,best,mixed,customer|challenges|solutions|kpis,호텔 · 리조트 · 고객 비즈니스 · 운영 과제,B 호텔의 매출과 운영 과제는 모두 객실을 중심으로 돕니다
+L_MI_HT_C,MI-HT-C,user,,HT,,0,6,99,0,cards|flow,pain|space,renew,best,mixed,users|solutions|kpis,호텔 · 리조트 · 사용자 · 이해관계자 여정,"B 호텔 투숙객의 하룻밤, 평가는 입실과 취침 순간에 갈립니다"
+L_MI_TP_A,MI-TP-A,market,,TP,,0,3,73,0,cards|flow,roi|space|value,new,best|standard,mixed,industry|kpis,테마파크 · 관광 · 전시 · 시장 · 트렌드,P 테마파크의 시장은 '보는 관람'에서 '몰입 체험'으로 이동 중입니다
+L_MI_TP_B,MI-TP-B,customer,,TP,,0,10,93,0,cards|flow,pain,,best,mixed,customer|challenges|solutions|kpis,테마파크 · 관광 · 전시 · 고객 비즈니스 · 운영 과제,P 테마파크의 전시는 한 번 짓고 매 시즌 다시 바꾸는 사업입니다
+L_MI_TP_C,MI-TP-C,user,,TP,,0,7,93,1,cards|flow|image,pain|space,new,best,mixed,users|solutions|kpis,테마파크 · 관광 · 전시 · 사용자 · 이해관계자 여정,P 테마파크 관람객의 하루는 대기 줄과 첫 장면에서 갈립니다
+L_MI_VN_A,MI-VN-A,market,,VN,,0,4,65,0,cards|flow,compete|roi|value,compete,best|standard,mixed,industry|kpis|competitors,공연장 · 경기장 · 영화관 · 시장 · 트렌드,"V 경기장의 관람 시장은 커지고, 승부는 관람 경험에서 납니다"
+L_MI_VN_B,MI-VN-B,customer,,VN,,0,3,85,0,cards|flow,compete|pain,compete,best,mixed,customer|challenges|kpis,공연장 · 경기장 · 영화관 · 고객 비즈니스 · 운영 과제,"V 경기장의 매출은 경기일 다섯 단계에서 나고, 과제도 거기 있습니다"
+L_MI_VN_C,MI-VN-C,user,,VN,,0,5,92,0,cards|flow,pain|space,,best,mixed,users|kpis,공연장 · 경기장 · 영화관 · 사용자 · 이해관계자 여정,V 경기장의 관람 경험은 입장 줄과 휴식 시간에서 갈립니다
+L_MI_AD_A,MI-AD-A,market,,AD,,0,4,60,0,cards|flow,roi|value,brief,best|standard,mixed,industry|kpis,옥외 · 미디어 광고 · 시장 · 트렌드,Q 미디어의 시장은 디지털 랜드마크로 옮겨 가고 있습니다
+L_MI_AD_B,MI-AD-B,customer,,AD,,0,5,98,0,cards|flow,pain,,best,mixed,customer|challenges|solutions|kpis,옥외 · 미디어 광고 · 고객 비즈니스 · 운영 과제,Q 미디어의 매출은 팔린 구좌와 멈추지 않는 송출에서 나옵니다
+L_MI_AD_C,MI-AD-C,user,,AD,,0,5,74,0,cards|flow,pain|roi|space,brief,best,mixed,users|solutions|kpis,옥외 · 미디어 광고 · 사용자 · 이해관계자 여정,시민이 Q 미디어 화면 앞을 지나는 몇 초가 곧 광고 상품입니다
+L_MI_OF_A,MI-OF-A,market,,OF,,0,4,69,0,cards|flow,roi|space|value,new,best|standard,mixed,industry|kpis|competitors,오피스 · 업무 빌딩 · 시장 · 트렌드,C 빌딩이 놓인 오피스 시장은 '스마트 빌딩'으로 경쟁합니다
+L_MI_OF_B,MI-OF-B,customer,,OF,,0,5,86,0,cards|flow,pain|space,new,best,mixed,customer|challenges|solutions|kpis,오피스 · 업무 빌딩 · 고객 비즈니스 · 운영 과제,"C 빌딩의 수익은 임대에서, 경쟁력은 운영에서 결정됩니다"
+L_MI_OF_C,MI-OF-C,user,,OF,,0,4,95,4,cards|flow|image_heavy,pain|space,new,best,mixed,users|solutions|kpis,오피스 · 업무 빌딩 · 사용자 · 이해관계자 여정,"C 빌딩의 평가는 로비 · 자리 · 회의실, 세 순간에 결정됩니다"
+L_MI_RS_A,MI-RS-A,market,,RS,,0,4,46,0,cards|flow,roi|value,new,best|standard,mixed,industry|kpis|competitors,주거 분양 · 주택 · 시장 · 트렌드,R 건설의 다음 분양은 세대 안의 사양으로 경쟁합니다
+L_MI_RS_B,MI-RS-B,customer,,RS,,0,10,96,0,cards|flow,pain,,best,mixed,customer|challenges|solutions|kpis,주거 분양 · 주택 · 고객 비즈니스 · 운영 과제,"R 건설의 수익은 분양에서, 평판은 입주 후에 만들어집니다"
+L_MI_RS_C,MI-RS-C,user,,RS,,0,6,72,0,cards|flow,pain|space|value,new,best,mixed,users|solutions|kpis,주거 분양 · 주택 · 사용자 · 이해관계자 여정,"R 건설의 고객은 모델하우스에서 고르고, 입주 후 매일 평가합니다"
+L_MI_ID_A,MI-ID-A,market,,ID,,0,4,64,0,cards|flow,roi|value,,standard,mixed,industry|kpis|competitors,인테리어 · 가구 · 빌트인 파트너 · 시장 · 트렌드,I 키친이 놓인 주방 시장은 '가구 + 가전 한 번에'로 움직입니다
+L_MI_ID_B,MI-ID-B,customer,,ID,,0,10,87,0,cards|flow,pain,,best,mixed,customer|challenges|solutions|kpis,인테리어 · 가구 · 빌트인 파트너 · 고객 비즈니스 · 운영 과제,I 키친의 매출은 쇼룸에서 정해지고 시공 · 입주에서 지켜집니다
+L_MI_ID_C,MI-ID-C,user,,ID,,0,4,83,0,cards|flow,pain|space,,best,mixed,users|solutions|kpis,인테리어 · 가구 · 빌트인 파트너 · 사용자 · 이해관계자 여정,I 키친 고객의 마음은 체험에서 오르고 시공에서 꺾입니다
+L_MI_ED_A,MI-ED-A,market,,ED,,0,4,74,0,cards|flow,roi|space|value,new,best|standard,mixed,industry|kpis,교육 · 캠퍼스 · 시장 · 트렌드,E 대학교가 놓인 시장은 참여형 수업 · 무인 운영으로 움직입니다
+L_MI_ED_B,MI-ED-B,customer,,ED,,0,5,88,0,cards|flow,pain,,best,mixed,customer|challenges|solutions|kpis,교육 · 캠퍼스 · 고객 비즈니스 · 운영 과제,E 대학교의 교육 환경 투자는 충원 · 평판으로 되돌아옵니다
+L_MI_ED_C,MI-ED-C,user,,ED,,0,4,136,0,cards|flow,pain|space,new,best,mixed,users|solutions|kpis,교육 · 캠퍼스 · 사용자 · 이해관계자 여정,"E 대학교 학생의 하루, 불편은 수업 사이사이에 쌓입니다"
+L_MI_PB_A,MI-PB-A,market,,PB,,0,4,53,0,cards|flow,roi|value,,standard,mixed,industry|kpis|competitors,공공 · 교통 인프라 · 시장 · 트렌드,S 지자체가 놓인 시장은 관제 · 안내 · 안전 투자로 움직입니다
+L_MI_PB_B,MI-PB-B,customer,,PB,,0,11,79,0,cards|flow,pain,renew,best,mixed,customer|challenges|kpis,공공 · 교통 인프라 · 고객 비즈니스 · 운영 과제,S 지자체의 운영 과제는 구축 이후 24시간 운영에 몰려 있습니다
+L_MI_PB_C,MI-PB-C,user,,PB,,0,4,91,4,cards|flow|image_heavy,pain|space,renew,best,mixed,users|kpis,공공 · 교통 인프라 · 사용자 · 이해관계자 여정,S 지자체 시민은 안내와 위급의 순간에 인프라를 체감합니다
+L_MI_MD_A,MI-MD-A,market,,MD,,0,4,67,0,cards|flow,pain|roi|value,renew,best|standard,mixed,industry|kpis,의료 · 요양 · 케어 · 시장 · 트렌드,W 요양병원이 놓인 시장은 오래 머무는 환자와 함께 커집니다
+L_MI_MD_B,MI-MD-B,customer,,MD,,0,4,82,0,cards|flow,pain,,best,mixed,customer|challenges|solutions|kpis,의료 · 요양 · 케어 · 고객 비즈니스 · 운영 과제,"W 요양병원의 매출은 병상에서, 비용은 24시간 병동에서 나옵니다"
+L_MI_MD_C,MI-MD-C,user,,MD,,0,3,87,0,cards|flow,pain|space,renew,best,mixed,users|solutions|kpis,의료 · 요양 · 케어 · 사용자 · 이해관계자 여정,W 요양병원의 신뢰는 병상 곁의 작은 순간에서 만들어집니다
+L_MI_MF_A,MI-MF-A,market,,MF,,0,4,60,0,cards|flow,roi|value,,standard,mixed,industry|kpis,제조 · 물류 · 현장 · 시장 · 트렌드,L 제조가 놓인 시장은 ‘연결된 현장’으로 움직이고 있습니다
+L_MI_MF_B,MI-MF-B,customer,,MF,,0,5,145,0,cards|flow,pain,ops,best,mixed,customer|challenges|solutions|kpis,제조 · 물류 · 현장 · 고객 비즈니스 · 운영 과제,L 제조의 이익은 라인 · 사람 · 출하가 멈추지 않을 때 나옵니다
+L_MI_MF_C,MI-MF-C,user,,MF,,0,4,90,4,cards|flow|image_heavy,pain|space,ops,best,mixed,users|kpis,제조 · 물류 · 현장 · 사용자 · 이해관계자 여정,L 제조 현장의 하루는 ‘이상이 생긴 순간’에 판가름 납니다
+L_MI_FN_A,MI-FN-A,market,,FN,,0,4,55,0,cards|flow,roi|value,,standard,mixed,industry|kpis,금융 · 시장 · 트렌드,"T 은행의 창구는 디지털로 바뀌고, 그 속도는 보안이 정합니다"
+L_MI_FN_B,MI-FN-B,customer,,FN,,0,5,93,0,cards|flow,pain,,best,mixed,customer|challenges|solutions|kpis,금융 · 고객 비즈니스 · 운영 과제,"T 은행의 수익은 창구 상담에서 나오지만, 시간은 서식이 가져갑니다"
+L_MI_FN_C,MI-FN-C,user,,FN,,0,6,93,0,cards|flow,land|pain|space,scale,best,mixed,users|solutions|kpis,금융 · 사용자 · 이해관계자 여정,"T 은행 고객의 불편은 기다림과 서식, 두 순간에 몰려 있습니다"
+L_MI_OE_A,MI-OE-A,market,,OE,,0,4,54,0,cards|flow,land|roi|value,scale,best|standard,mixed,industry|kpis,파트너 전용 단말 · 에디션 · 시장 · 트렌드,"U 통신사의 전용 단말 시장은 커지고, 승부는 ‘첫 화면’에서 납니다"
+L_MI_OE_B,MI-OE-B,customer,,OE,,0,10,79,0,cards|flow,pain,,best,mixed,customer|challenges|kpis,파트너 전용 단말 · 에디션 · 고객 비즈니스 · 운영 과제,U 통신사 전용 단말의 수익은 개통 이후에 쌓입니다
+L_MI_OE_C,MI-OE-C,user,,OE,,0,3,96,0,cards|flow,land|pain|space,scale,best,mixed,users|kpis,파트너 전용 단말 · 에디션 · 사용자 · 이해관계자 여정,U 통신사 전용폰의 고객은 둘입니다
+L_CH_A,CH-A,challenge,,,,0,3,35,0,cards,pain|roi,ops|renew,best,mixed,challenges|kpis,과제 3 + 영향,문제와 그 비용을 함께
+L_CH_B,CH-B,challenge,,,,0,4,25,0,cards|flow,pain|space,new|renew,best,mixed,challenges|kpis,지금 → 바라는 모습,원하는 상태가 분명할 때
+L_CH_C,CH-C,challenge,,,,0,3,29,0,cards|flow,compete|pain,compete|ops|renew,best,mixed,challenges|kpis,문제 → 근본 원인,제안의 필요성을 만들 때
+L_VP01,VP-A,value,,,,0,6,26,0,cards|photo,pain,,best,mixed,values|products|solutions|spaces|kpis,과제 ↔ 해결 1:1,과제마다 해법을 짝지을 때
+L_VP02,VP-B,value,,,,0,2,16,0,cards|photo,value,,standard,mixed,values|products|solutions|spaces,가치 기둥 · 2개,Key Message 수만큼
+L_VP03,VP-B,value,,,,0,3,18,0,cards|photo,value,,standard,mixed,values|products|solutions|spaces|kpis,가치 기둥 · 3개,
+L_VP04,VP-B,value,,,,0,4,22,0,cards|matrix|photo,value,,standard,mixed,values|products|solutions|spaces|kpis,가치 기둥 · 4개 (2×2),
+L_VP05,VP-C,value,,,,0,2,11,0,cards|message|photo,value,brief,best,exec,values|products|solutions|spaces,한 문장 + 근거 3,메시지 하나를 강하게
+L_VP_D,VP-D,value,,,,0,3,28,0,cards|photo,space|value,new|ops,best,mixed,values|products|solutions|spaces|kpis,이해관계자별 가치,의사결정자가 여럿일 때
+L_EF_A,EF-A,effect,,,,0,4,39,0,cards|comparison|flow|kpi,compete|pain|value,new|ops|renew,best,mixed,kpis,KPI 전 → 후,개선 수치가 있을 때
+L_EF_B,EF-B,effect,,,,0,3,34,0,cards,compete|roi,brief|compete|ops,best,exec,kpis,투자 회수,재무 관점으로 설득할 때
+L_EF_C,EF-C,effect,,,,0,4,33,0,cards|kpi,pain|value,renew,best,mixed,kpis|solutions,정량 + 정성 효과,수치와 체감을 함께
+L_VP_E,VP-E,value,,,,0,3,36,3,cards|flow|image_heavy|photo,pain,,best,mixed,values|products|solutions|spaces|kpis,과제 → 제품 → 가치,"VP-A의 이미지판, 과제마다 해결 제품을 보여줄 때"
+L_VP_F2,VP-F,value,,,,2,2,22,2,cards|image|matrix|photo,value,,standard,mixed,values|products|solutions|spaces|kpis,가치 기둥 × 제품 · 2개,VP-B의 이미지판
+L_VP_F,VP-F,value,,,,3,3,30,3,cards|image_heavy|matrix|photo,value,new,best|standard,mixed,values|products|solutions|spaces|kpis,가치 기둥 × 제품 · 3개 (기둥 수 n으로 2 · 3 · 4),
+L_VP_F4,VP-F,value,,,,4,4,30,4,cards|image_heavy|matrix|photo,value,,standard,mixed,values|products|solutions|spaces|kpis,가치 기둥 × 제품 · 4개 (2×2),
+L_VP_G,VP-G,value,,,,0,3,25,4,image_heavy|message|photo|table,value,brief,standard,mixed,values|products|solutions|spaces,한 문장 + 제품 히어로,"VP-C의 이미지판, 대표 제품 하나로 말할 때"
+L_VP_H,VP-H,value,,,,0,4,39,4,cards|image_heavy|matrix|photo,pain|value,renew,best,mixed,values|products|solutions|spaces|kpis,이해관계자 × 만나는 화면,"VP-D의 이미지판, 역할마다 쓰는 제품이 다를 때"
+L_VP_I,VP-I,value,,,,0,4,31,1,image|matrix|photo|table,value,ops,standard,mixed,values|products|solutions|spaces|kpis,제품 콜아웃,제품 하나의 기능이 곧 가치일 때
+L_VP_J,VP-J,value,,,,0,4,38,5,image_heavy|matrix|photo|table,value,ops,standard,mixed,values|products|solutions|spaces|kpis,솔루션 화면 + 연결 제품,소프트웨어가 여러 기기를 묶을 때
+L_VP_K,VP-K,value,,,,0,5,28,4,flow|image_heavy|matrix|photo|table,space,new,best,mixed,values|products|solutions|spaces,공간 속 제품,손님 동선 위에서 제품마다 가치를 짚을 때
+L_VP_L,VP-L,value,,,,0,3,26,1,comparison|flow|image|kpi|matrix|photo|table,pain,renew,best,mixed,values|products|solutions|spaces|kpis,도입 전 → 후,같은 자리에서 변화가 눈에 보일 때
+L_VP_M,VP-M,value,,,,0,5,38,5,image_heavy|matrix|photo|table,value,,best,mixed,values|products|solutions|spaces|kpis,제품 × 가치 매트릭스,제품도 가치도 여럿일 때
+L_EF_D,EF-D,effect,,,,0,3,39,3,image_heavy|matrix|photo|table,value,ops,best,mixed,kpis|solutions,제품별 기대 효과,효과를 제품 단위로 증명할 때
+L_VP_N,VP-N,value,,,,0,3,21,4,cards|image_heavy|photo,space|value,new,best,mixed,values|products|solutions|spaces,실사 히어로 + 가치 3,도입 후 모습(설치 사례)을 먼저 보여 줄 때
+L_VP_O,VP-O,value,,,,0,3,36,4,cards|image_heavy|photo,value,,standard,mixed,values|products|solutions|spaces,제품 라인업 실사,공식 제품 컷 + 가치 + 근거 스펙 (VP-F의 실사판)
+L_VP_P,VP-P,value,,,,0,3,36,2,cards|image|photo,value,ops,standard,mixed,values|products|solutions|spaces,솔루션 실제 화면 + 주석,소프트웨어 가치를 진짜 화면으로 (VP-J의 실사판)
+L_VP_Q,VP-Q,value,,,,0,4,26,3,cards|image_heavy|photo,compete|pain,compete,best,mixed,values|products|solutions|spaces|kpis,레퍼런스 사례,같은 문제를 먼저 푼 곳의 실제 설치 사진
+L_VP_R,VP-R,value,,,,0,4,27,4,cards|flow|image_heavy|photo,space,new,best,mixed,values|products|solutions|spaces,실사 동선 투어,손님 동선 순서대로 (VP-K의 실사판)
+L_VP_S,VP-S,value,,,,0,3,27,1,cards|flow|image|photo,pain|space,ops|renew,best,mixed,values|products|solutions|spaces|kpis,고객 매장 사진 → 도입 후 실사 (VP-L의 실사판),
+L_VP_T,VP-T,value,,,,0,3,28,3,cards|image_heavy|photo,value,,standard,mixed,values|products|solutions|kpis,제품 실사 + 공식 연출 + 근거 스펙 (VP-I의 실사판),
+L_EF_E,EF-E,effect,,,,0,3,39,3,cards|image_heavy|photo,roi,ops,best,mixed,kpis|solutions,기대 효과 + 매달 확인할 실제 화면,
+L_VP_U,VP-U,value,,,,0,3,38,3,cards|flow|image_heavy|qna,pain,,standard,mixed,values|products|solutions|spaces,현장 질문 → 제품 · 솔루션 → 핵심 가치 + 키워드,업종 현장의 불편 · 요구 3개에 답할 때 (ind로 업종 전환)
+L_VP_UC,VP-U·C,value,,,,0,3,31,3,cards|flow|image_heavy|photo|qna,pain,,standard,mixed,values|products|solutions|spaces,현장 질문 · 열형,질문이 짧고 제품 이미지를 크게 보여 줄 때
+L_VP_US,VP-U·S,value,,,,0,3,33,4,cards|flow|image_heavy|photo|qna,pain,,standard,mixed,values|products|solutions|spaces,매장 실사 위 질문 핀,질문이 나오는 자리를 사진으로 짚을 때
+L_VP_U_HT,VP-U,value,,HT,,0,3,38,3,cards|flow|image_heavy|qna,pain,renew,best|standard,mixed,values|products|solutions|spaces,· 호텔 (ind = hotel),
+L_VP_U_MD,VP-U,value,,MD,,0,3,38,3,cards|flow|image_heavy|qna,pain,renew,best|standard,mixed,values|products|solutions|spaces,· 병원 (ind = hospital),
+L_VP_UC_RT,VP-U·C,value,,RT,,0,3,31,3,cards|flow|image_heavy|qna,pain,,standard,mixed,values|products|solutions|spaces,· 리테일 (ind = retail),
+L_SS_FB_A,SS-FB-A,scenario,,FB,,0,2,117,1,flow|image|map|table,space|value,new,best,mixed,spaces|solutions|products|kpis,외식 · 카페 프랜차이즈 · 공간 맵,"D 다이닝 한 매장의 일곱 공간, 손님 동선마다 삼성이 일합니다"
+L_SS_FB_B,SS-FB-B,scenario,,FB,,0,2,70,2,flow|image|map|table,space,new,best,mixed,spaces|solutions|products|kpis,외식 · 카페 프랜차이즈 · 대표 공간 장면,"D 다이닝의 홀 테이블, 앉는 순간부터 일어난 뒤까지 매끄럽습니다"
+L_SS_FB_C,SS-FB-C,scenario,,FB,,0,16,131,0,flow|map|table,space,new,best,mixed,spaces|solutions|products|kpis,외식 · 카페 프랜차이즈 · 하루 · 동선 시나리오,"D 다이닝의 하루, 두 번의 피크에도 매장은 흔들리지 않습니다"
+L_SS_FB_D,SS-FB-D,scenario,,FB,,0,3,51,2,flow|image|map|table,space|value,new|ops,best,mixed,spaces|solutions|products|kpis,외식 · 카페 프랜차이즈 · 공간 시나리오 · 매장 외부 · 대기,"D 다이닝 매장 앞, 붐빌 땐 줄을 줄이고 한산할 땐 손님을 부릅니다"
+L_SS_FB_E,SS-FB-E,scenario,,FB,,0,3,76,1,flow|image|map|table,space,new,best,mixed,spaces|solutions|products|kpis,외식 · 카페 프랜차이즈 · 공간 시나리오 · 주방 + 냉장 · 냉동 보관,"D 다이닝 주방 뒤편, 매일 생기던 세 가지 문제가 사라집니다"
+L_SS_RT_A,SS-RT-A,scenario,,RT,,0,2,113,0,flow|map|table,space,new|renew,best,mixed,spaces|solutions|products|kpis,리테일 · 브랜드 플래그십 · 공간 맵,"H 백화점 건물 한 동, 외벽부터 식품관까지 공간마다 다른 화면과 공기"
+L_SS_RT_B,SS-RT-B,scenario,,RT,,0,2,72,3,flow|image_heavy|map|table,space,new|renew,best,mixed,spaces|solutions|products|kpis,리테일 · 브랜드 플래그십 · 대표 공간 장면,"H 백화점 VMD존, 상품 옆 화면과 공기가 하루 종일 알아서 바뀝니다"
+L_SS_RT_C,SS-RT-C,scenario,,RT,,0,16,131,0,flow|map|table,space,new,best,mixed,spaces|solutions|products|kpis,리테일 · 브랜드 플래그십 · 하루 · 동선 시나리오,"H 백화점의 하루, 고객이 닿기 전에 화면과 공기가 먼저 준비됩니다"
+L_SS_RT_D,SS-RT-D,scenario,,RT,,0,3,73,0,flow|map|table,pain|space,new|ops,best,mixed,spaces|solutions|products|kpis,리테일 · 브랜드 플래그십 · 공간 시나리오 · B1 식품관,"B1 식품관, 장보는 길 지점마다 신선도와 기다림을 챙깁니다"
+L_SS_RT_E,SS-RT-E,scenario,,RT,,0,3,67,0,flow|map|table,space,new,best,mixed,spaces|solutions|products|kpis,리테일 · 브랜드 플래그십 · 공간 시나리오 · VIP 라운지,"VIP 라운지, 고객 · 쇼퍼 · 매니저가 저마다 다른 편안함을 얻습니다"
+L_SS_SV_A,SS-SV-A,scenario,,SV,,0,2,95,1,flow|image|map|table,space,new,best,mixed,spaces|solutions|products|kpis,생활 편의 · 무인 매장 · 공간 맵,"P 스터디카페 한 매장, 점주가 없어도 공간마다 알아서 맞춰집니다"
+L_SS_SV_B,SS-SV-B,scenario,,SV,,0,4,87,1,flow|image|map|table,space,new,best,mixed,spaces|solutions|products|kpis,생활 편의 · 무인 매장 · 대표 공간 장면,P 스터디카페 오픈 스터디룸은 몇 시간을 머물러도 쾌적합니다
+L_SS_SV_C,SS-SV-C,scenario,,SV,,0,14,119,0,flow|map|table,space,new,best,mixed,spaces|solutions|products|kpis,생활 편의 · 무인 매장 · 하루 · 동선 시나리오,"P 스터디카페의 24시간, 점주는 매장 밖에서도 먼저 알고 움직입니다"
+L_SS_SV_D,SS-SV-D,scenario,,SV,,0,3,69,0,flow|map|table,space,new|ops,best,mixed,spaces|solutions|products|kpis,생활 편의 · 무인 매장 · 공간 시나리오 · 출력 코너,"점주 없이 도는 출력 코너, 직영에서 검증하고 전 지점으로"
+L_SS_SV_E,SS-SV-E,scenario,,SV,,0,3,47,2,flow|image|map|table,space,new,best,mixed,spaces|solutions|products|kpis,생활 편의 · 무인 매장 · 공간 시나리오 · 입구 · 좌석 키오스크,"점주가 없는 심야에도, 입구는 낮과 같은 흐름으로 손님을 맞습니다"
+L_SS_HT_A,SS-HT-A,scenario,,HT,,0,4,118,1,flow|image|map|table,space,new,best,mixed,spaces|solutions|products|kpis,호텔 · 리조트 · 공간 맵,"N 호텔의 일곱 공간, 머무는 곳마다 다른 경험을 한 팀이 운영합니다"
+L_SS_HT_B,SS-HT-B,scenario,,HT,,0,4,71,4,flow|image_heavy|map|table,pain|space,new|renew,best,mixed,spaces|solutions|products|kpis,호텔 · 리조트 · 대표 공간 장면,N 호텔의 객실은 체크인부터 퇴실 후 정리까지 손님에 맞춰 움직입니다
+L_SS_HT_C,SS-HT-C,scenario,,HT,,0,16,131,0,flow|map|table,space,new,best,mixed,spaces|solutions|products|kpis,호텔 · 리조트 · 하루 · 동선 시나리오,"N 호텔의 하루, 체크아웃 · 행사 · 체크인이 겹쳐도 한 흐름으로 돌아갑니다"
+L_SS_HT_D,SS-HT-D,scenario,,HT,,0,2,50,2,flow|image|map|table,space,new|ops,best,mixed,spaces|solutions|products|kpis,호텔 · 리조트 · 공간 시나리오 · 연회장 · 회의실,"N 호텔 연회장, 행사일엔 손님을 맞고 빈 날엔 스스로 쉽니다"
+L_SS_HT_E,SS-HT-E,scenario,,HT,,0,2,70,1,flow|image|map|table,space,new,best,mixed,spaces|solutions|products|kpis,호텔 · 리조트 · 공간 시나리오 · 로비 · 리셉션,"N 호텔 로비, 늦게 온 손님도 처음 온 손님도 헤매지 않습니다"
+L_SS_TP_A,SS-TP-A,scenario,,TP,,0,4,102,1,flow|image|map|table,space,new,best,mixed,spaces|solutions|products,테마파크 · 관광 · 전시 · 공간 맵,"Z 파크의 일곱 구역, 기다림부터 공연까지 화면과 공기가 이어집니다"
+L_SS_TP_B,SS-TP-B,scenario,,TP,,0,4,82,0,flow|map|table,space,new,best,mixed,spaces|solutions|products|kpis,테마파크 · 관광 · 전시 · 대표 공간 장면,"Z 파크의 입장 대기 동선, 줄 서는 시간까지 파크의 체험이 됩니다"
+L_SS_TP_C,SS-TP-C,scenario,,TP,,0,17,137,0,flow|map|table,space,new,best,mixed,spaces|solutions|products|kpis,테마파크 · 관광 · 전시 · 하루 · 동선 시나리오,"Z 파크의 하루, 운영팀이 한발 먼저 움직이면 방문객은 즐기기만 합니다"
+L_SS_TP_D,SS-TP-D,scenario,,TP,,0,6,57,0,flow|map|table,space,new|ops,best,mixed,spaces|solutions|products|kpis,테마파크 · 관광 · 전시 · 공간 시나리오 · 야외 공연 무대,"Z 파크 야외 무대, 같은 화면과 음향이 낮과 밤 두 무대가 됩니다"
+L_SS_TP_E,SS-TP-E,scenario,,TP,,0,2,84,0,flow|map|table,space,new,best,mixed,spaces|solutions|products|kpis,테마파크 · 관광 · 전시 · 공간 시나리오 · 키즈 실내 놀이존,"Z 파크 키즈존, 아이는 마음껏 놀고 보호자는 앉아서 안심합니다"
+L_SS_VN_A,SS-VN-A,scenario,,VN,,0,5,115,0,flow|map|table,compete|space,compete|new,best,mixed,spaces|solutions|products|kpis,공연장 · 경기장 · 영화관 · 공간 맵,"B 볼파크의 일곱 공간, 경기 한 판이 빅보드에서 매점까지 이어집니다"
+L_SS_VN_B,SS-VN-B,scenario,,VN,,0,4,83,0,flow|map|table,compete|space,compete|new,best,mixed,spaces|solutions|products|kpis,공연장 · 경기장 · 영화관 · 대표 공간 장면,B 볼파크의 빅보드는 컨트롤룸 한 자리에서 경기 흐름을 따라갑니다
+L_SS_VN_C,SS-VN-C,scenario,,VN,,0,16,131,0,flow|map|table,space,new,best,mixed,spaces|solutions|products|kpis,공연장 · 경기장 · 영화관 · 하루 · 동선 시나리오,"B 볼파크의 경기일, 오전 훈련부터 마지막 소등까지 한 흐름입니다"
+L_SS_VN_D,SS-VN-D,scenario,,VN,,0,5,82,0,flow|map|table,space,new|ops,best,mixed,spaces|solutions|products|kpis,공연장 · 경기장 · 영화관 · 공간 시나리오 · 라커룸 · 체력단련실,"B 볼파크 라커룸, 땀 · 습기 · 고장 걱정 없이 시즌을 치릅니다"
+L_SS_VN_E,SS-VN-E,scenario,,VN,,0,5,80,0,flow|map|table,space,new,best,mixed,spaces|solutions|products|kpis,공연장 · 경기장 · 영화관 · 공간 시나리오 · 컨코스 · 매점,"B 볼파크 매점, 이닝 사이에 사 먹고 다음 이닝 전에 돌아옵니다"
+L_SS_AD_A,SS-AD-A,scenario,,AD,,0,3,88,0,cards|flow|map|table,space,new,best,mixed,spaces|solutions|products|kpis,옥외 · 미디어 광고 · 공간 맵,"J 미디어의 여섯 매체, 장소는 달라도 송출은 관제실 한 곳에서"
+L_SS_AD_B,SS-AD-B,scenario,,AD,,0,4,70,0,cards|flow|map|table,roi|space,brief|new,best,mixed,spaces|solutions|products|kpis,옥외 · 미디어 광고 · 대표 공간 장면,J 미디어의 랜드마크 외벽은 아침부터 심야까지 스스로 표정을 바꿉니다
+L_SS_AD_C,SS-AD-C,scenario,,AD,,0,17,137,0,cards|flow|map|table,roi|space,brief|new,best,mixed,spaces|solutions|products|kpis,옥외 · 미디어 광고 · 하루 · 동선 시나리오,"J 미디어의 하루, 관제실은 화면이 꺼지기 전에 먼저 움직입니다"
+L_SS_AD_D,SS-AD-D,scenario,,AD,,0,3,77,0,cards|flow|map|table,space,new|ops,best,mixed,spaces|solutions|products|kpis,옥외 · 미디어 광고 · 공간 시나리오 · 지하철 환승통로,"환승통로 기둥, 한 역에서 검증하고 노선 전체로 넓힙니다"
+L_SS_AD_E,SS-AD-E,scenario,,AD,,0,2,69,1,cards|flow|image|map|table,roi|space,brief|new,best,mixed,spaces|solutions|products|kpis,옥외 · 미디어 광고 · 공간 시나리오 · 거리 미디어폴,미디어폴 한 화면이 시민 · 광고주 · 구청에게 각자 다르게 일합니다
+L_SS_OF_A,SS-OF-A,scenario,,OF,,0,2,84,5,flow|image_heavy|map|table,space,new,best,mixed,spaces|solutions|products|kpis,오피스 · 업무 빌딩 · 공간 맵,"C 빌딩의 여섯 공간, 제품은 공간마다 다르고 관리는 하나입니다"
+L_SS_OF_B,SS-OF-B,scenario,,OF,,0,4,69,4,flow|image_heavy|map|table,space,new,best,mixed,spaces|solutions|products|kpis,오피스 · 업무 빌딩 · 대표 공간 장면,C 빌딩의 회의실은 예약부터 뒷정리까지 저절로 움직입니다
+L_SS_OF_C,SS-OF-C,scenario,,OF,,0,12,98,0,flow|map|table,space,new,best,mixed,spaces|solutions|products|kpis,오피스 · 업무 빌딩 · 하루 · 동선 시나리오,"C 빌딩의 하루, 이용자가 느끼기 전에 운영이 먼저 움직입니다"
+L_SS_OF_D,SS-OF-D,scenario,,OF,,0,5,79,0,flow|map|table,space,new|ops,best,mixed,spaces|solutions|products|kpis,오피스 · 업무 빌딩 · 공간 시나리오 · 로비 · 외벽,C 빌딩은 거리에서 업무층 입구까지 안내가 끊기지 않습니다
+L_SS_OF_E,SS-OF-E,scenario,,OF,,0,4,74,1,flow|image|map|table,space,new,best,mixed,spaces|solutions|products|kpis,오피스 · 업무 빌딩 · 공간 시나리오 · 입주사 업무층,"C 빌딩 업무층, 자리는 고르게 쾌적하고 빈 층은 비용이 줄어듭니다"
+L_SS_RS_A,SS-RS-A,scenario,,RS,,0,3,95,1,flow|image|map|table,space|value,new,best,mixed,spaces|solutions|products|kpis,주거 분양 · 주택 · 공간 맵,R 건설 분양 세대의 공간마다 삼성이 만드는 가치가 다릅니다
+L_SS_RS_B,SS-RS-B,scenario,,RS,,0,4,77,1,flow|image|map|table,space|value,new,best,mixed,spaces|solutions|products|kpis,주거 분양 · 주택 · 대표 공간 장면,"R 건설의 주방은 모델하우스에서 팔리고, 매일 저녁 평가받습니다"
+L_SS_RS_C,SS-RS-C,scenario,,RS,,0,7,87,0,flow|map|table,space,new,best,mixed,spaces|solutions|products|kpis,주거 분양 · 주택 · 하루 · 동선 시나리오,"R 건설 입주민의 하루, 세대가 먼저 알고 움직입니다"
+L_SS_RS_D,SS-RS-D,scenario,,RS,,0,5,85,0,flow|map|table,space,new|ops,best,mixed,spaces|solutions|products|kpis,주거 분양 · 주택 · 공간 시나리오 · 세탁실 · 드레스룸,"R 건설 세탁실 · 드레스룸은 눅눅하지 않고, 빨래와 옷 관리가 가볍습니다"
+L_SS_RS_E,SS-RS-E,scenario,,RS,,0,5,82,0,flow|map|table,space|value,new,best,mixed,spaces|solutions|products|kpis,주거 분양 · 주택 · 공간 시나리오 · 모델하우스,"R 건설 모델하우스, 둘러본 경험이 그대로 옵션 계약으로 이어집니다"
+L_SS_ID_A,SS-ID-A,scenario,,ID,,0,3,80,1,flow|image|map|table,space,new,best,mixed,spaces|solutions|products,인테리어 · 가구 · 빌트인 파트너 · 공간 맵,I 키친 쇼룸 여섯 공간마다 삼성이 가구처럼 놓입니다
+L_SS_ID_B,SS-ID-B,scenario,,ID,,0,4,68,1,flow|image|map|table,space,new,best,mixed,spaces|solutions|products|kpis,인테리어 · 가구 · 빌트인 파트너 · 대표 공간 장면,I 키친의 계약은 키친 존의 네 장면에서 만들어집니다
+L_SS_ID_C,SS-ID-C,scenario,,ID,,0,9,59,0,flow|map|table,space,new,best,mixed,spaces|solutions|products|kpis,인테리어 · 가구 · 빌트인 파트너 · 하루 · 동선 시나리오,I 키친 쇼룸의 하루
+L_SS_ID_D,SS-ID-D,scenario,,ID,,0,3,72,1,flow|image|map|table,space,new|ops,best,mixed,spaces|solutions|products|kpis,인테리어 · 가구 · 빌트인 파트너 · 공간 시나리오 · 입구 · 상담 라운지,"같은 라운지, 고객은 덜 기다리고 디자이너는 한 번에 보여 줍니다"
+L_SS_ID_E,SS-ID-E,scenario,,ID,,0,3,47,2,flow|image|map|table,space,new,best,mixed,spaces|solutions|products|kpis,인테리어 · 가구 · 빌트인 파트너 · 공간 시나리오 · 거실 · 홈시네마,"평일엔 1:1 상담실, 주말엔 클래스룸"
+L_SS_ED_A,SS-ED-A,scenario,,ED,,0,4,101,1,flow|image|map|table,space,new,best,mixed,spaces|solutions|products|kpis,교육 · 캠퍼스 · 공간 맵,"E 대학교 일곱 공간, 공간마다 맞춘 구성을 한 화면으로 운영합니다"
+L_SS_ED_B,SS-ED-B,scenario,,ED,,0,3,95,2,flow|image|map|table,space,new,best,mixed,spaces|solutions|products|kpis,교육 · 캠퍼스 · 대표 공간 장면,E 대학교 강의실은 수업 전 · 중 · 후를 스스로 맞춥니다
+L_SS_ED_C,SS-ED-C,scenario,,ED,,0,17,137,0,flow|map|table,space,new,best,mixed,spaces|solutions|products|kpis,교육 · 캠퍼스 · 하루 · 동선 시나리오,"E 대학교의 하루, 운영팀은 학생보다 한발 먼저 움직입니다"
+L_SS_ED_D,SS-ED-D,scenario,,ED,,0,5,69,0,flow|map|table,space,new|ops,best,mixed,spaces|solutions|products|kpis,교육 · 캠퍼스 · 공간 시나리오 · 중앙도서관 · 라운지,"입구에서 열람석 · 출력까지, 도서관 안에서 헤매지 않습니다"
+L_SS_ED_E,SS-ED-E,scenario,,ED,,0,3,65,1,flow|image|map|table,space,new,best,mixed,spaces|solutions|products|kpis,교육 · 캠퍼스 · 공간 시나리오 · 기숙사 · 생활관,"생활관은 학기 중 불편 없이, 한 동에서 시작해 방학마다 넓힙니다"
+L_SS_PB_A,SS-PB-A,scenario,,PB,,0,2,88,0,flow|map|table,space,new,best,mixed,spaces|solutions|products,공공 · 교통 인프라 · 공간 맵,"S 지자체의 여섯 공간, 화면과 단말이 상황실로 이어집니다"
+L_SS_PB_B,SS-PB-B,scenario,,PB,,0,2,69,1,flow|image|map|message|table,pain|space,new|renew,best,mixed,spaces|solutions|products|kpis,공공 · 교통 인프라 · 대표 공간 장면,S 지자체 상황실은 한 장의 상황판으로 하루를 지킵니다
+L_SS_PB_C,SS-PB-C,scenario,,PB,,0,6,79,0,flow|map|table,space,new,best,mixed,spaces|solutions|products|kpis,공공 · 교통 인프라 · 하루 · 동선 시나리오,S 지자체 시민의 하루 뒤에서 관제 · 현장 · 운영이 함께 움직입니다
+L_SS_PB_D,SS-PB-D,scenario,,PB,,0,5,87,0,flow|map|table,pain|space,new|ops|renew,best,mixed,spaces|solutions|products|kpis,공공 · 교통 인프라 · 공간 시나리오 · 역사 · 정류장,"S 지자체 역 · 정류장, 안내는 늘 보이고 늘 켜져 있습니다"
+L_SS_PB_E,SS-PB-E,scenario,,PB,,0,3,72,0,flow|map|table,space,new,best,mixed,spaces|solutions|products|kpis,공공 · 교통 인프라 · 공간 시나리오 · 공원 · 탐방로,"S 지자체 공원 · 탐방로, 탐방객도 대원도 한 화면 안에서 안전합니다"
+L_SS_MD_A,SS-MD-A,scenario,,MD,,0,5,108,4,flow|image_heavy|map|table,pain|space,new|renew,best,mixed,spaces|solutions|products|kpis,의료 · 요양 · 케어 · 공간 맵,W 요양병원의 일곱 공간은 하나의 관리 화면으로 이어집니다
+L_SS_MD_B,SS-MD-B,scenario,,MD,,0,3,86,4,flow|image_heavy|map|table,pain|space,new|renew,best,mixed,spaces|solutions|products|kpis,의료 · 요양 · 케어 · 대표 공간 장면,W 요양병원의 병실은 치료 공간이자 환자가 사는 집입니다
+L_SS_MD_C,SS-MD-C,scenario,,MD,,0,15,121,0,flow|map|table,space,new,best,mixed,spaces|solutions|products|kpis,의료 · 요양 · 케어 · 하루 · 동선 시나리오,"W 요양병원의 하루, 환자 곁과 관리실이 함께 움직입니다"
+L_SS_MD_D,SS-MD-D,scenario,,MD,,0,3,65,0,flow|map|table,pain|space,new|ops|renew,best,mixed,spaces|solutions|products|kpis,의료 · 요양 · 케어 · 공간 시나리오 · 로비 · 원무 · 접수,"W 요양병원 로비는 평일엔 입원 상담, 주말엔 면회 안내가 됩니다"
+L_SS_MD_E,SS-MD-E,scenario,,MD,,0,5,91,0,flow|map|table,space,new,best,mixed,spaces|solutions|products|kpis,의료 · 요양 · 케어 · 공간 시나리오 · 재활치료센터 · 프로그램실,"W 요양병원 재활센터, 운동은 쾌적하게 기록은 그 자리에서"
+L_SS_MF_A,SS-MF-A,scenario,,MF,,0,7,125,5,flow|image_heavy|map|table,space,new,best,mixed,spaces|solutions|products,제조 · 물류 · 현장 · 공간 맵,"L 제조 공장의 여섯 공간, 하나의 관제 화면으로 이어집니다"
+L_SS_MF_B,SS-MF-B,scenario,,MF,,0,4,84,5,flow|image_heavy|map|table,space,new,best,mixed,spaces|solutions|products|kpis,제조 · 물류 · 현장 · 대표 공간 장면,생산 라인은 L 제조의 수율 · 안전 · 기록이 함께 걸린 곳입니다
+L_SS_MF_C,SS-MF-C,scenario,,MF,,0,8,128,0,flow|map|table,space,new,best,mixed,spaces|solutions|products|kpis,제조 · 물류 · 현장 · 하루 · 동선 시나리오,L 제조의 하루
+L_SS_MF_D,SS-MF-D,scenario,,MF,,0,5,77,0,flow|map|table,space,new|ops,best,mixed,spaces|solutions|products|kpis,제조 · 물류 · 현장 · 공간 시나리오 · 창고 · 물류 야드 · 배송,"입고부터 인수 서명까지, L 제조 물류가 종이 없이 이어집니다"
+L_SS_MF_E,SS-MF-E,scenario,,MF,,0,2,77,1,flow|image|map|table,space,new,best,mixed,spaces|solutions|products|kpis,제조 · 물류 · 현장 · 공간 시나리오 · 야외 작업장 · 설비 구역,흩어진 야외 현장도 세 사람이 한 안전망으로 지킵니다
+L_SS_FN_A,SS-FN-A,scenario,,FN,,0,3,101,0,flow|map|table,space,new,best,mixed,spaces|solutions|products|kpis,금융 · 공간 맵,T 은행의 여섯 공간이 본점 한 곳에서 움직입니다
+L_SS_FN_B,SS-FN-B,scenario,,FN,,0,2,71,3,flow|image_heavy|map|table,land|space,new|scale,best,mixed,spaces|solutions|products|kpis,금융 · 대표 공간 장면,"T 은행 창구의 상담 한 건, 태블릿 한 대로 끝납니다"
+L_SS_FN_C,SS-FN-C,scenario,,FN,,0,11,105,0,flow|map|table,space,new,best,mixed,spaces|solutions|products|kpis,금융 · 하루 · 동선 시나리오,T 은행 영업점의 하루
+L_SS_FN_D,SS-FN-D,scenario,,FN,,0,3,50,0,flow|map|table,space,new|ops,best,mixed,spaces|solutions|products|kpis,금융 · 공간 시나리오 · 본점 대강당,"T 은행 대강당, 장비 교체 없이 교육장에서 주주총회장으로"
+L_SS_FN_E,SS-FN-E,scenario,,FN,,0,0,65,1,flow|image|map|table,land|space,new|scale,best,mixed,spaces|solutions|products|kpis,금융 · 공간 시나리오 · 방문 상담 · 현장 영업,"T 은행 방문 상담, 시범부터 확인하며 전 영업점으로 넓힙니다"
+L_SS_OE_A,SS-OE-A,scenario,,OE,,0,4,100,4,flow|image_heavy|map|table,space,new,best,mixed,spaces|solutions|products|kpis,파트너 전용 단말 · 에디션 · 공간 맵,"U 통신사 전용폰은 매장에서 켜지고, 아이의 생활권에서 일합니다"
+L_SS_OE_B,SS-OE-B,scenario,,OE,,0,4,71,1,flow|image|map|table,land|space,new|scale,best,mixed,spaces|solutions|products|kpis,파트너 전용 단말 · 에디션 · 대표 공간 장면,U 통신사의 대표 공간은 아이 손 안의 ‘첫 화면’입니다
+L_SS_OE_C,SS-OE-C,scenario,,OE,,0,6,76,0,flow|map|table,land|space,new|scale,best,mixed,spaces|solutions|products|kpis,파트너 전용 단말 · 에디션 · 하루 · 동선 시나리오,등교부터 잠들 때까지
+L_SS_OE_D,SS-OE-D,scenario,,OE,,0,2,76,1,flow|image|map|table,land|space,new|ops|scale,best,mixed,spaces|solutions|products|kpis,파트너 전용 단말 · 에디션 · 공간 시나리오 · 매장 · 개통 카운터,U 통신사 개통 카운터
+L_SS_OE_E,SS-OE-E,scenario,,OE,,0,2,61,2,flow|image|map|table,space,new,best,mixed,spaces|solutions|products|kpis,파트너 전용 단말 · 에디션 · 공간 시나리오 · 학교 · 학원,"수업엔 조용히, 하교 후엔 안심"
+L_VS01,VM-A,scenario,,,,0,3,29,0,flow|map|matrix|table,space,,best,mixed,spaces|solutions|products,공간 × 솔루션 매트릭스,격자로 맞을 때
+L_VS03,VM-B,scenario,,,,0,3,29,0,cards|comparison|flow|map|message,space,,best,mixed,spaces|solutions|products|kpis,공간 3개 한 장,나란히 비교
+L_VM_C,VM-C,scenario,,,,0,5,44,0,cards|flow|map,space,,best,mixed,spaces|solutions|products,조감도 위 솔루션 핀,조감도가 있을 때
+L_VM_D,VM-D,scenario,,,,0,10,60,0,cards|flow|map|matrix,space,ops,best,mixed,spaces|solutions|products,하루 타임라인 × 공간,시간에 따라 공간을 넘나들 때
+L_VS02,SS-A,scenario,,,,0,3,27,0,cards|flow,space,new,best,mixed,spaces|solutions|products,한 공간의 장면 3,시간대별 장면이 있을 때
+L_SS_B,SS-B,scenario,,,,0,2,35,0,cards|flow,space,new,best,mixed,spaces|solutions|products|kpis,솔루션 → 제품 → 가치,인과를 보일 때
+L_SS_C,SS-C,scenario,,,,0,2,22,0,cards|comparison|flow|kpi,space,new,best,mixed,spaces|solutions|products|kpis,이 공간 전 → 후,변화가 눈에 보일 때
+L_VC_11A,VC-1·1A,scenario,,,,0,4,48,0,cards|matrix,space,,best,mixed,spaces|solutions|products|kpis,한 공간 · 한 솔루션,집중형 (옥외 전광판 × MagicINFO)
+L_VC_11B,VC-1·1B,scenario,,,,0,3,58,2,cards|image|matrix,space,,best,mixed,spaces|solutions|products|kpis,한 공간 · 한 솔루션,기능 3단 (입고 검수장 × Knox Capture)
+L_VC_12,VC-1·2,scenario,,,,0,3,61,0,cards|matrix,space,,best,mixed,spaces|solutions|products|kpis,한 공간 · 솔루션 2개,역할 분담 (민원실 × VXT + Knox Suite)
+L_VC_13,VC-1·3,scenario,,,,0,3,52,0,cards|matrix,pain|space,ops,best,mixed,spaces|solutions|products|kpis,한 공간 · 솔루션 3개,레이어 스택 (신선 코너 × MagicINFO + 콜드체인 + 통합공조)
+L_VC_14,VC-1·4,scenario,,,,0,4,84,0,cards|matrix,space,,best,mixed,spaces|solutions|products|kpis,한 공간 · 솔루션 4개,허브형 (카페 한 매장 × 4 솔루션)
+L_VC_1Z,VC-1·Z,scenario,,,,0,4,76,0,cards|matrix,space,,best,mixed,spaces|solutions|products|kpis,한 공간 · 존 분할 (플래그십 스토어 1층 × 존 4),
+L_VC_21,VC-2·1,scenario,,,,0,3,48,0,cards|comparison|matrix,land|space,scale,best,mixed,spaces|solutions|products|kpis,두 공간 · 한 솔루션,미러형 (지점 데스크 · 고객 현장 × Samsung DeX)
+L_VC_22,VC-2·2,scenario,,,,0,2,62,0,cards|comparison|flow,space,,best,mixed,spaces|solutions|products|kpis,두 공간 · 솔루션 2개,"연결형 (프런트 → 객실, Knox Suite → LYNK Cloud)"
+L_VC_23,VC-2·3,scenario,,,,0,3,46,0,cards|comparison,space,,best,mixed,spaces|solutions|products|kpis,두 공간 · 솔루션 3개,공유 + 전용 (교실 · 교무실)
+L_VC_24,VC-2·4,scenario,,,,0,2,69,1,cards|comparison|image,space,,best,mixed,spaces|solutions|products|kpis,두 공간 · 솔루션 4개,2열 비교 (상온 · 저온 창고)
+L_VC_31,VC-3·1,scenario,,,,0,3,49,0,cards|flow|matrix,space,,best,mixed,spaces|solutions|products|kpis,세 공간 · 한 솔루션,흐름형 (테마파크 동선 × MagicINFO)
+L_VC_32,VC-3·2,scenario,,,,0,8,46,0,cards|flow|photo,space,,best,mixed,spaces|solutions|products|kpis,세 공간 · 솔루션 2개,사진 3 + 솔루션 띠 (무인 매장 3종)
+L_VC_33,VC-3·3,scenario,,,,0,3,59,1,cards|flow|image,space,,best,mixed,spaces|solutions|products|kpis,세 공간 · 솔루션 3개,1:1 대응 (리빙 매장)
+L_VC_34,VC-3·4,scenario,,,,0,3,67,0,cards|flow,space,,best,mixed,spaces|solutions|products|kpis,세 공간 · 솔루션 4개,공통 기반 + 추가 (컨벤션 센터)
+L_VC_42,VC-4·2,scenario,,,,0,2,69,0,cards|flow|matrix,space,,best,mixed,spaces|solutions|products|kpis,네 공간 · 솔루션 2개,사분면 (복합 쇼핑몰)
+L_VC_43,VC-4·3,scenario,,,,0,3,63,0,cards|flow|map,space,,best,mixed,spaces|solutions|products|kpis,네 공간 · 솔루션 3개,평면도 위 범위 (푸드홀)
+L_VC_64,VC-6·4,scenario,,,,0,4,114,0,cards|flow|map,space,,best,mixed,spaces|solutions|products|kpis,여섯 공간 · 솔루션 4개,히트맵 (리조트)
+L_VC_N,VC-N,scenario,,,,0,2,70,1,cards|flow|image,space|value,ops,best,mixed,spaces|solutions|products|kpis,지점 여러 곳,본사 + 지점 유형 (편의점 프랜차이즈)
+L_VC_J,VC-J,scenario,,,,0,11,69,0,cards|flow|matrix,space,,best,mixed,spaces|solutions|products|kpis,공간 동선 × 솔루션 레인 (멀티플렉스 영화관),
+L_SP00,SM-A,dss,,,,0,3,25,0,cards|map,space,new,standard,mixed,spaces|products,존 맵 + 목록,공간이 3곳 안팎일 때
+L_SM_B,SM-B,dss,,,,0,5,71,0,map|matrix|table,space,new,best,mixed,spaces|products|kpis,공간 × 제품 수량표,공간 · 제품이 많을 때
+L_SM_C,SM-C,dss,,,,0,4,51,0,cards|flow|map,space,new,best,mixed,spaces|products,동선 스트립,손님이 공간을 순서대로 지나갈 때
+L_SM_D,SM-D,dss,,,,0,2,58,0,cards|map,space,new|ops,best,mixed,spaces|products|kpis,층별 단면,층마다 쓰임이 다른 건물일 때
+L_SM_E,SM-E,dss,,,,0,2,49,0,cards|map|photo,space,new,standard,mixed,spaces|products,공간 사진 카드,공간 사진이 있고 4~6곳일 때
+L_P1A,P1-A,products,,,,1,3,19,0,cards|message|photo,value,new,standard,mixed,spaces|products,제품 이미지 중심 (히어로),
+L_P1B,P1-B,products,,,,1,3,15,0,cards|message|photo,space,new,standard,mixed,spaces|products,공간 · 설치 중심,
+L_P1C,P1-C,products,,,,1,8,31,0,cards|message|photo,rfp,new,standard,mixed,spaces|products|solutions|kpis,스펙 중심,
+L_P1D,P1-D,products,,,,1,1,9,0,message|photo,value,new|ops,standard,mixed,spaces|products,메시지 강조,
+L_P2A,P2-A,products,,,,2,2,15,0,cards|photo,value,new,standard,mixed,spaces|products,이미지 중심 (나란히),
+L_P2B,P2-B,products,,,,2,2,20,0,cards,space,new,standard,mixed,spaces|products,공간 · 설치 중심,
+L_P2C,P2-C,products,,,,2,6,31,0,cards|comparison,compete|rfp,compete|new,standard,mixed,spaces|products|kpis,스펙 비교 (VS),
+L_P2D,P2-D,products,,,,2,2,18,0,,value,new|ops,standard,mixed,spaces|products,주력 + 보조 (8:4),
+L_P3A,P3-A,products,,,,3,3,17,0,cards|photo,value,new,best|standard,mixed,spaces|products,이미지 중심 (3열),
+L_P3B,P3-B,products,,,,3,3,27,0,cards,space,new,standard,mixed,spaces|products,공간 · 설치 중심,
+L_P3C,P3-C,products,,,,3,3,24,0,cards,rfp,new,standard,mixed,spaces|products|solutions|kpis,라인업 (크기 비례 + 스펙),
+L_P3D,P3-D,products,,,,3,2,22,0,cards,value,new|ops,standard,mixed,spaces|products,주력 1 + 보조 2,
+L_P4A,P4-A,products,,,,4,4,21,0,cards|photo,value,new,standard,mixed,spaces|products,이미지 중심 (4열),
+L_P4B,P4-B,products,,,,4,4,30,0,cards,space,new,standard,mixed,spaces|products,공간 · 설치 중심,
+L_P4C,P4-C,products,,,,4,4,42,0,cards|kpi|matrix,rfp,new,standard,mixed,spaces|products|kpis,핵심 수치 2×2,
+L_P4D,P4-D,products,,,,4,3,22,0,cards,value,new|ops,standard,mixed,spaces|products,주력 1 + 보조 3,
+L_P5A,P5-A,products,,,,5,5,35,0,cards|photo,value,new,standard,mixed,spaces|products,이미지 중심 (5열),
+L_P5B,P5-B,products,,,,5,5,41,0,cards|flow,space,new,standard,mixed,spaces|products,공간 · 설치 중심 (동선),
+L_P5C,P5-C,products,,,,5,5,45,0,table,rfp,new,standard,mixed,spaces|products,리스트 (위치 · 수량 · 스펙),
+L_P5D,P5-D,products,,,,5,3,29,0,cards,value,new|ops,standard,mixed,spaces|products,주력 2 + 보조 3,
+L_P_E,P-E,products,,,,0,2,39,0,cards|map|photo,,new,best,working,spaces|products|kpis,정면 입면도 · 치수,높이 · 간격이 설계 포인트일 때
+L_P_F,P-F,products,,,,0,3,45,0,cards|map|photo,compete,compete|new,best,working,spaces|products|kpis,시야 거리 단면,화면 크기를 거리로 증명할 때
+L_P_G,P-G,products,,,,0,2,53,0,cards|map|photo,,new,best,mixed,spaces|products|kpis,설치 방식 옵션,제품은 정했고 다는 방식을 고를 때
+L_P_H,P-H,products,,,,0,5,35,0,cards|map|photo,,new,best,working,spaces|products|kpis,커버리지 평면,"천장 속 제품, 닿는 범위가 핵심일 때"
+L_P_I,P-I,products,,,,0,2,14,0,cards|map|photo,,new|ops,standard,mixed,spaces|products,무드 컷 · 풀블리드,사양보다 분위기로 설득할 때
+L_P_J,P-J,products,,,,0,3,35,0,cards,,new,best,mixed,spaces|products|solutions|kpis,제품 디테일 콜아웃,제품 설계 자체가 논거일 때
+L_P_K,P-K,products,,,,0,5,41,0,cards|flow,pain,new|renew,best,mixed,spaces|products|kpis,공간 조건 → 대응 사양,옥외 · 고온 · 24시간처럼 조건이 까다로울 때
+L_P_L,P-L,products,,,,0,2,33,0,cards,space,new|renew,best,mixed,spaces|products|kpis,비디오월 · LED 구성,패널을 이어 붙여 벽을 채울 때
+L_P_M,P-M,products,,,,0,4,74,0,cards,roi,new,best,working,spaces|products|kpis,수량 · 용량 산정 근거,“왜 이만큼”에 계산으로 답할 때
+L_P_N,P-N,products,,,,0,4,43,0,cards|comparison|flow,compete|pain,compete|new|renew,best,mixed,spaces|products|kpis,기존 장비 → 교체 매핑,쓰던 장비를 바꾸는 제안일 때
+L_P_O,P-O,products,,,,0,2,67,0,cards|comparison,roi|value,new,best,mixed,spaces|products|solutions,구성 3안 (기본 · 권장 · 확장),예산으로 고르게 할 때
+L_P_P,P-P,products,,,,0,3,56,0,cards,space,new,best,mixed,spaces|products|solutions|kpis,사용자별 접점,한 공간을 여러 사람이 다르게 쓸 때
+L_P_Q,P-Q,products,,,,0,2,79,0,cards,pain,new|ops,best,mixed,spaces|products|solutions|kpis,직무별 기기 키트,기기가 자리가 아니라 사람을 따라갈 때
+L_P_R,P-R,products,,,,0,2,79,0,cards,,new,best,mixed,spaces|products|kpis,유닛 패키지,한 세대 · 한 실에 여러 제품군이 들어갈 때
+L_P_S,P-S,products,,,,0,3,53,0,cards,space,new|ops,standard,mixed,spaces|products|kpis,한 제품 · 여러 공간,한 모델로 통일하고 공간마다 역할이 다를 때
+L_P_T,P-T,products,,,,0,2,74,0,cards|message,,new,standard,mixed,spaces|products,카탈로그 6~8개,한 공간에 제품이 많아도 한 장으로
+L_BM_A,BM-A,bom,,,,0,5,98,0,table,,new,best,working,products|quantities|solutions|kpis,전체 구성표,견적 전에 전체 물량 확정
+L_BM_B,BM-B,bom,,,,0,5,72,0,cards,value,new,best,working,products|quantities|kpis,매장 유형별 구성,매장 규모가 여러 가지일 때
+L_BM_C,BM-C,bom,,,,0,12,129,0,cards,pain|space,new|renew,best,working,products|quantities|kpis,반복 유닛 + 공용부,객실 · 교실처럼 같은 공간이 반복될 때
+L_BM_D,BM-D,bom,,,,0,5,135,0,cards|flow,land|value,new|ops|scale,best,working,products|quantities|solutions|kpis|timeline,단계별 도입 물량,파일럿 → 확대 → 전체로 나눌 때
+L_BM_E,BM-E,bom,,,,0,6,99,0,cards|flow,land,scale,best,working,products|quantities|kpis|timeline,지역별 물량,지점이 전국에 흩어져 설치 일정이 중요할 때
+L_C01,C01,cover,,,,0,0,8,0,message|photo,land|pain|space,new|ops|renew|scale,best|standard,mixed,customer|project,표지 A · 이미지 분할,
+L_C02,C02,cover,,,,0,0,7,0,message|photo,compete|roi|space,brief|compete|new,best|standard,mixed,customer|project,표지 B · 풀블리드 이미지,
+L_C03,C03,cover,,,,0,0,6,0,message,compete|pain|rfp|roi|value,brief|compete|ops|renew,best|standard,exec,customer|project,표지 C · 타이포 중심,
+L_C04,C04,cover,,,,0,8,28,0,cards|message,rfp|space,compete|new,best|standard,mixed,customer|project,목차,
+L_C05,C05,cover,,,,0,2,9,0,cards|message,,,best,mixed,customer|project,섹션 간지 A · 대형 번호,
+L_C06,C06,cover,,,,0,4,13,0,cards|message|photo,,,best,mixed,customer|project,섹션 간지 B · 이미지 분할 + 시트 목록,
+L_C07,C07,closing,,,,0,3,12,0,cards|message,rfp,compete,best|standard,mixed,contacts|timeline|kpis,마무리 · 연락처,
+L_BE01,BV-A,birdseye,,,,0,0,10,0,map|message,space,new,best,mixed,spaces,풀폭 전경,조감도 한 장으로 충분할 때
+L_BE03,BV-B,birdseye,,,,0,2,12,0,cards|comparison|map,space,new,best,mixed,spaces,두 시점 비교,"주간/야간, 도입 전/후"
+L_BV_C,BV-C,birdseye,,,,0,2,26,0,cards|map|message,space|value,brief|new,best,mixed,spaces|solutions,전경 + 한 장 요약,경영진에게 전체 요약
+L_BE02,ZP-A,birdseye,,,,0,4,23,0,cards|map|message,space,new,best,mixed,spaces,번호 콜아웃,조감도 한 장 위에 포인트
+L_ZP_B,ZP-B,birdseye,,,,0,4,27,0,cards|map|photo,space,new,best,mixed,spaces,존 확대 컷,존마다 디테일 이미지가 있을 때
+L_ZP_C,ZP-C,birdseye,,,,0,4,30,0,cards|flow|map,space,new,best,mixed,spaces,고객 동선 따라가기,동선 순서로 설명할 때
+L_SOL01,SA-A,solution,,,,0,2,32,0,cards|diagram|flow,rfp,compete,best,mixed,solutions|products|kpis,통합 계층형,본사 → 클라우드 → 매장 구조
+L_SA_B,SA-B,solution,,,,0,3,28,0,cards|diagram,,,best,mixed,solutions|products,허브형,솔루션 하나가 여러 기기를 묶을 때
+L_SA_C,SA-C,solution,,,,0,2,53,0,cards|diagram,value,ops,best,mixed,solutions|products|kpis,레이어 스택,제공 범위(누가 무엇을)
+L_SOL02,OP-A,solution,,,,0,4,30,0,cards|flow,,,best,mixed,solutions|products,단계 타임라인,하루 · 이벤트 흐름
+L_OP_B,OP-B,solution,,,,0,8,48,0,cards|flow,,,best,mixed,solutions|products,역할별 스윔레인,여러 역할이 한 흐름에
+L_OP_C,OP-C,solution,,,,0,5,59,0,cards|comparison|flow|kpi,pain|roi,ops,best,mixed,solutions|products|kpis,도입 전 → 후 업무,얼마나 줄어드나
+L_SOL03,SF-A,solution,,,,0,3,16,0,cards,,,best,mixed,solutions|products,솔루션 + 함께 쓰는 제품,솔루션 하나 소개
+L_SF_B,SF-B,solution,,,,0,5,35,0,cards|flow,,,best,mixed,solutions|products|kpis,기능 → 고객 효과,기능을 고객의 언어로
+L_CS01,CD-A,case,,,,0,3,22,0,cards,pain,,standard,mixed,cases|solutions|kpis,과제 · 해결 · 성과,사례를 이야기로
+L_CD_B,CD-B,case,,,,0,3,22,0,cards|comparison|flow|kpi|photo,pain,renew,best,mixed,cases|kpis,도입 전 → 후 사진,전후 사진이 있을 때
+L_CD_C,CD-C,case,,,,0,3,29,0,cards|kpi,compete|land|value,compete|new|scale,best|standard,mixed,cases|solutions|kpis,성과 수치 + 코멘트,공개 수치가 강할 때
+L_CS02,CL-A,case,,,,0,2,27,0,cards|comparison,compete|land|space|value,compete|new|scale,best|standard,mixed,cases|solutions|kpis,2건 비교,비슷한 사례 두 건
+L_CS03,CL-B,case,,,,0,3,26,0,cards|message,compete,brief|compete,standard,mixed,cases|solutions|kpis,3건 요약,업종이 다른 사례 세 건
+L_CL_C,CL-C,case,,,,0,4,40,0,cards|message,compete|land,brief|compete|scale,best,mixed,cases|kpis,레퍼런스 월,사례 수 자체가 메시지일 때
+L_WS01,CM-A,why,competition,,,0,6,40,0,comparison|table,compete,compete,best,mixed,competitors|values|solutions,비교표 (삼성 강조),항목별 우위
+L_CM_B,CM-B,why,competition,,,0,5,40,0,cards|comparison,compete|rfp,compete,complex,mixed,competitors|values|kpis,요구사항별 충족도,고객 요구 기준으로
+L_CM_C,CM-C,why,competition,,,0,6,48,0,cards|comparison,compete,compete,best,mixed,competitors|values|kpis,레이더 종합 비교,여러 기준을 종합
+L_WS02,ST-A,why,,,,0,3,20,0,cards,value,,standard,mixed,competitors|values|solutions|kpis,강점 3,강점이 3개로 정리될 때
+L_WS03,ST-B,why,,,,0,4,26,0,cards|matrix,compete,compete,best,mixed,competitors|values|solutions|kpis,요구 ↔ 강점 2×2,요구사항 4개에 하나씩
+L_WS04,ST-C,why,,,,0,3,22,0,cards|kpi,compete|value,brief|compete,best,mixed,competitors|values|solutions|kpis,강점 + 증거 수치,검증된 수치가 있을 때
+L_SV_A,SV-A,why,execution,,,0,8,45,0,cards|flow|map,land|rfp|space|value,brief|compete|new|scale,best,mixed,competitors|values|kpis,도입 로드맵,일정 · 단계 · 책임
+L_SV_B,SV-B,why,,,,0,5,54,0,cards|map,compete|pain,compete|ops|renew,best|standard,mixed,competitors|values|solutions|kpis,서비스 커버리지 + SLA,매장이 전국에 흩어져 있을 때
+L_SPEC2,SC-A,spec,,,,2,5,40,0,comparison|table,rfp,,complex,working,products|solutions|kpis,사양 비교표 · 제품 2개,
+L_SPEC3,SC-A,spec,,,,3,6,52,0,comparison|table,rfp|space,new,best|complex,working,products|solutions|kpis,사양 비교표 · 제품 3개,
+L_SPEC4,SC-A,spec,,,,4,6,64,0,comparison|table,rfp,,complex,working,products|solutions|kpis,사양 비교표 · 제품 4개,
+L_SPEC5,SC-A,spec,,,,5,6,76,0,comparison|table,rfp,,complex,working,products|solutions|kpis,사양 비교표 · 제품 5개,
+L_SC_B,SC-B,spec,requirements,,,0,2,57,0,comparison|table,rfp,compete,best|complex,working,products|solutions|kpis,요구사항 대응표,요구사항 충족을 증명할 때
+L_SPEC1,SD-A,spec,,,,0,4,58,0,cards,rfp,,complex,working,products|solutions|kpis,그룹별 상세 사양,사양 전체 정리
+L_SD_B,SD-B,spec,,,,0,6,33,0,cards,rfp,,complex,working,products|kpis,치수 · 설치 정보,설치 검토가 필요할 때
+L_MGI_I,MGI-I,solution,,,magicinfo,0,4,40,4,cards|diagram|flow|image_heavy,roi,brief|ops,best|standard,mixed,solutions|products,MagicINFO 소개,서버 · 보안 요건과 데이터 연동
+L_MGI_D,MGI-D,solution,,,magicinfo,0,3,46,8,cards|diagram|flow|image_heavy,value,ops,best,mixed,solutions|products,MagicINFO 구성도,사내 서버 · 방화벽 안에서 도는 구조
+L_MGI_S,MGI-S,solution,scenario,,magicinfo,0,3,53,3,cards|diagram|flow|image_heavy,space|value,new|ops,best,mixed,solutions|products|kpis,MagicINFO 공간 시나리오,가격이 바뀌면 매장까지 몇 분
+L_VXT_I,VXT-I,solution,,,vxt,0,3,44,5,cards|flow|image_heavy,,ops,standard,mixed,solutions|products,Samsung VXT 소개,설치 없이 바로 쓰는 구독형
+L_VXT_D,VXT-D,solution,,,vxt,0,3,48,6,cards|diagram|flow|image_heavy,value,ops,best,mixed,solutions|products,Samsung VXT 구성도,"매장엔 화면만, 나머지는 클라우드"
+L_VXT_S,VXT-S,solution,scenario,,vxt,0,2,44,3,cards|flow|image_heavy,space,ops,best,mixed,solutions|products|kpis,Samsung VXT 공간 시나리오,점장이 휴대폰으로 3분 만에 교체
+L_STP_I,STP-I,solution,,,stpro,0,3,49,5,cards|flow|image_heavy,roi,ops,best|standard,mixed,solutions|products,SmartThings Pro 소개,여러 매장의 기기 · 에너지를 한 화면에
+L_STP_D,STP-D,solution,,,stpro,0,3,58,6,cards|diagram|flow|image_heavy,,ops,best,mixed,solutions|products|kpis,SmartThings Pro 구성도,"기기는 매장에, 판단은 클라우드에"
+L_STP_S,STP-S,solution,scenario,,stpro,0,3,76,2,cards|flow|image,space,ops,best,mixed,solutions|products|kpis,SmartThings Pro 공간 시나리오,"매장의 하루, 에너지 자동화"
+L_BIT_I,BIT-I,solution,,,biot,0,3,43,4,cards|comparison|flow|image_heavy,,ops,standard,mixed,solutions|products,b.IoT 소개,공조 중심 기능 · b.IoT / Lite 비교
+L_BIT_D,BIT-D,solution,,,biot,0,3,73,4,cards|diagram|flow|image_heavy|map,space,new|ops,best,mixed,solutions|products|kpis,b.IoT 구성도,층별 설비 → 게이트웨이 → 관리 화면
+L_BIT_S,BIT-S,solution,scenario,,biot,0,4,93,3,cards|flow|image_heavy|matrix,space,ops,best,mixed,solutions|products|kpis,b.IoT 공간 시나리오,"층 × 시간, 쓰는 층만 쾌적하게"
+L_LYN_I,LYN-I,solution,,,lynk,0,4,34,2,cards|flow|image,,ops,standard,mixed,solutions|products,LYNK Cloud 소개,투숙객 · 호텔 양쪽의 가치
+L_LYN_D,LYN-D,solution,,,lynk,0,3,51,3,cards|diagram|flow|image_heavy,,ops,best,mixed,solutions|products|kpis,LYNK Cloud 구성도,PMS ↔ LYNK Cloud ↔ 객실 TV
+L_LYN_S,LYN-S,solution,scenario,,lynk,0,4,68,5,cards|flow|image_heavy,space,ops,best,mixed,solutions|products|kpis,LYNK Cloud 공간 시나리오,체크인부터 체크아웃까지
+L_KNX_I,KNX-I,solution,,,knoxsuite,0,6,44,2,cards|flow|image,,ops,standard,mixed,solutions|products|kpis,Knox Suite 소개,"받는 날부터 회수까지, 기기 수명주기"
+L_KNX_D,KNX-D,solution,,,knoxsuite,0,6,56,4,cards|diagram|flow|image_heavy,,ops,best,mixed,solutions|products|kpis,Knox Suite 구성도,콘솔 하나 · 기기 속 업무 영역
+L_KNX_S,KNX-S,solution,scenario,,knoxsuite,0,5,55,2,cards|flow|image,space,ops,best,mixed,solutions|products|kpis,Knox Suite 공간 시나리오,새 태블릿이 매장에서 바로 일하기까지
+L_KCP_I,KCP-I,solution,,,knoxcapture,0,4,58,4,cards|flow|image_heavy,pain,ops,best|standard,mixed,solutions|products|kpis,Knox Capture 소개,전용 스캐너 + 단말 → 갤럭시 1대
+L_KCP_D,KCP-D,solution,,,knoxcapture,0,2,58,6,cards|diagram|flow|image_heavy,,ops,best,mixed,solutions|products|kpis,Knox Capture 구성도,스캔 값이 기존 앱까지 가는 길
+L_KCP_S,KCP-S,solution,scenario,,knoxcapture,0,4,62,5,cards|flow|image_heavy,space,ops,best,mixed,solutions|products|kpis,Knox Capture 공간 시나리오,입고부터 계산대까지 한 대로
+L_DEX_I,DEX-I,solution,,,dex,0,3,38,5,cards|flow|image_heavy,,ops,standard,mixed,solutions|products,Samsung DeX 소개,휴대폰 하나로 PC 업무까지
+L_DEX_D,DEX-D,solution,,,dex,0,3,42,3,cards|diagram|flow|image_heavy,,ops,best,mixed,solutions|products,Samsung DeX 구성도,연결 방식 · 업무 자원 · 보안
+L_DEX_S,DEX-S,solution,scenario,,dex,0,2,55,4,cards|flow|image_heavy,space,ops,best,mixed,solutions|products,Samsung DeX 공간 시나리오,"영업 사원의 하루, 기기는 하나"
+L_CCH_I,CCH-I,solution,,,coldchain,0,3,76,8,cards|flow|image_heavy,pain,ops,best|standard,mixed,solutions|products,삼성 콜드체인 소개,성능 · 설치 · 관리 · 서비스 4 UP
+L_CCH_D,CCH-D,solution,,,coldchain,0,4,50,8,cards|diagram|flow|image_heavy,,ops,best,mixed,solutions|products|kpis,삼성 콜드체인 구성도,냉매 배관과 데이터 · 서비스 흐름
+L_CCH_S,CCH-S,solution,scenario,,coldchain,0,3,80,6,cards|flow|image_heavy|map,space,ops,best,mixed,solutions|products|kpis,삼성 콜드체인 공간 시나리오,매장 평면 · 24시간 · 보관 온도
+L_HVC_I,HVC-I,solution,,,hvac,0,2,89,11,cards|flow|image_heavy|table,,ops,standard,mixed,solutions|products|kpis,삼성 통합공조 소개,"개별 + 중앙 = b.IoT, 라인업 표"
+L_HVC_D,HVC-D,solution,,,hvac,0,4,67,7,cards|diagram|flow|image_heavy,,ops,best,mixed,solutions|products|kpis,삼성 통합공조 구성도,열원 · 냉수 · AHU · FCU · 개별 DVM
+L_HVC_S,HVC-S,solution,scenario,,hvac,0,2,91,6,cards|flow|image_heavy|map,space,new|ops,best,mixed,solutions|products|kpis,삼성 통합공조 공간 시나리오,캠퍼스 배치도 · 건물별 운전 시간
+L_SAC_I,SAC-I,solution,,,sac,0,2,82,10,cards|diagram|flow|image_heavy,,ops,standard,mixed,solutions|products,SAC 제어 시스템 소개,제어 단계 계단 · 건물별 추천 단계
+L_SAC_D,SAC-D,solution,,,sac,0,6,95,15,cards|diagram|flow|image_heavy,,ops,best,mixed,solutions|products|kpis,SAC 제어 시스템 구성도,DMS · R1/R2 · F1/F2 통신 버스
+L_SAC_S,SAC-S,solution,scenario,,sac,0,5,69,8,cards|diagram|flow|image_heavy,space,ops,best,mixed,solutions|products|kpis,SAC 제어 시스템 공간 시나리오,임대 층 · 시간대 · 호실별 전력량
+L_MGI_S_RT,MGI-S-RT,solution,scenario,RT,magicinfo,0,2,48,4,cards|diagram|flow|image_heavy,space,ops,best,mixed,solutions|products|kpis,MagicINFO 공간 시나리오 · 매장,"본사 서버에서 바꾸면, 전 지점 매장이 한 번에 바뀝니다"
+L_MGI_S_HT,MGI-S-HT,solution,scenario,HT,magicinfo,0,10,73,3,cards|diagram|flow|image_heavy,space,ops,best,mixed,solutions|products,MagicINFO 공간 시나리오 · 비즈니스 호텔,"조식 · 런치 · 디너, 화면이 시간대에 맞춰 바뀝니다"
+L_VXT_S_RT,VXT-S-RT,solution,scenario,RT,vxt,0,6,63,5,cards|flow|image_heavy,space,ops|renew,best,mixed,solutions|products|kpis,Samsung VXT 공간 시나리오 · 매장,"시즌 세일, 창문에서 계산대까지 시간대별로 바뀝니다"
+L_VXT_S_GF,VXT-S-GF,solution,scenario,SV,vxt,0,2,50,5,cards|flow|image_heavy,space,ops,best,mixed,solutions|products,Samsung VXT 공간 시나리오 · 스크린골프장,"점주가 휴대폰으로 바꾸고, 영업이 끝나면 화면도 꺼집니다"
+L_STP_S_OF,STP-S-OF,solution,scenario,OF,stpro,0,2,51,6,cards|flow|image_heavy,space,new|ops,best,mixed,solutions|products,SmartThings Pro 공간 시나리오 · 오피스,"출근부터 퇴근까지, 오피스 기기는 알아서 켜지고 꺼집니다"
+L_STP_S_HT,STP-S-HT,solution,scenario,HT,stpro,0,4,51,5,cards|flow|image_heavy,space,ops,best,mixed,solutions|products,SmartThings Pro 공간 시나리오 · 비즈니스 호텔,QR 한 번이면 객실이 투숙객 취향대로 움직입니다
+L_STP_S_GF,STP-S-GF,solution,scenario,SV,stpro,0,3,102,4,cards|comparison|flow|image_heavy,roi|space,ops,best,mixed,solutions|products|kpis,SmartThings Pro 공간 시나리오 · 스크린골프장,"타석이 비면 꺼지고, 여러 매장은 한 화면에서 비교합니다"
+L_BIT_S_HT,BIT-S-HT,solution,scenario,HT,biot,0,2,91,5,cards|flow|image_heavy,space,ops,best,mixed,solutions|products|kpis,b.IoT 공간 시나리오 · 비즈니스 호텔,"투숙객이 있는 층만 쾌적하게, 나머지는 절전으로"
+L_BIT_S_RT,BIT-S-RT,solution,scenario,RT,biot,0,3,80,7,cards|flow|image_heavy|map,space,ops,best,mixed,solutions|products|kpis,b.IoT 공간 시나리오 · 매장,"열기 전엔 미리 시원하게, 영업 중엔 존별로, 닫으면 한 번에"
+L_LYN_S_HT,LYN-S-HT,solution,scenario,HT,lynk,0,4,86,6,cards|flow|image_heavy,pain|space,ops|renew,best,mixed,solutions|products,LYNK Cloud 공간 시나리오 · 비즈니스 호텔,"직원이 적은 호텔일수록, 객실 TV가 서비스 창구가 됩니다"
+L_KNX_S_AC,KNX-S-AC,solution,scenario,ED,knoxsuite,0,4,57,6,cards|flow|image_heavy,space,ops,best,mixed,solutions|products|kpis,Knox Suite 공간 시나리오 · 학원,지점이 늘어도 출결 태블릿은 본사가 한 번에
+L_KNX_S_FD,KNX-S-FD,solution,scenario,MF,knoxsuite,0,2,75,4,cards|flow|image_heavy,pain|space,ops,best,mixed,solutions|products|kpis,Knox Suite 공간 시나리오 · 제조 현장,"교대조가 함께 쓰는 현장 단말, 로그인부터 분석까지"
+L_KCP_S_LG,KCP-S-LG,solution,scenario,MF,knoxcapture,0,4,68,9,cards|flow|image_heavy,pain|space,ops,best,mixed,solutions|products|kpis,Knox Capture 공간 시나리오 · 물류센터 · 택배,"입고 도크부터 고객 문 앞까지, 갤럭시로 찍으면 바로 기록됩니다"
+L_DEX_S_OF,DEX-S-OF,solution,scenario,OF,dex,0,4,44,5,cards|flow|image_heavy,space,ops,best,mixed,solutions|products,Samsung DeX 공간 시나리오 · 오피스,"공용 좌석에서도 회의실에서도, 휴대폰 하나로"
+L_DEX_S_FD,DEX-S-FD,solution,scenario,MF,dex,0,3,41,4,cards|flow|image_heavy,space,ops,best,mixed,solutions|products,Samsung DeX 공간 시나리오 · 현장,"현장 기록부터 보고서까지, 노트북 없이 기기 하나로"
+L_CCH_S_RT,CCH-S-RT,solution,scenario,RT,coldchain,0,4,61,8,cards|flow|image_heavy,pain|space,ops,best,mixed,solutions|products,삼성 콜드체인 공간 시나리오 · 식품 매장,"입구에서 계산대까지, 신선 · 냉동 · 공조를 한 화면으로"
+L_CCH_S_WH,CCH-S-WH,solution,scenario,MF,coldchain,0,6,90,5,cards|flow|image_heavy,space,ops,best,mixed,solutions|products,삼성 콜드체인 공간 시나리오 · 저온 저장시설,"입고부터 출고까지, 저장고 온도는 24시간 365일 그대로"
+L_HVC_S_OF,HVC-S-OF,solution,scenario,OF,hvac,0,4,65,8,cards|flow|image_heavy,space,ops,best,mixed,solutions|products|kpis,삼성 통합공조 공간 시나리오 · 오피스 빌딩,"로비와 업무층은 한 번에, 회의실과 야근 구역은 따로"
+L_HVC_S_HT,HVC-S-HT,solution,scenario,HT,hvac,0,4,80,7,cards|flow|image_heavy,pain|space,ops|renew,best,mixed,solutions|products|kpis,삼성 통합공조 공간 시나리오 · 호텔형 연수원 · 비즈니스 호텔,"체크인 피크부터 객실의 밤까지, 공간마다 다르게"
+L_SAC_S_AC,SAC-S-AC,solution,scenario,ED,sac,0,2,67,7,cards|diagram|flow|image_heavy,space,ops,best,mixed,solutions|products|kpis,시스템에어컨 제어 공간 시나리오 · 학원,"수업 시간표대로 켜고, 마지막 수업 뒤엔 한 번에 끕니다"
+L_SAC_S_GF,SAC-S-GF,solution,scenario,SV,sac,0,5,67,8,cards|diagram|flow|image_heavy,roi|space,ops,best,mixed,solutions|products|kpis,시스템에어컨 제어 공간 시나리오 · 스크린골프장,"고객은 타석에서 조절하고, 빈 타석은 알아서 멈춥니다"
+L_C08,C08,cover,,,,0,2,22,3,cards|image_heavy|message|photo,space|value,new|renew,best|standard,mixed,customer|project,표지 D · 이미지 3컷 콜라주,공간 · 제품 · 사람 이미지가 모두 있을 때
+L_C09,C09,cover,,,,0,3,18,1,image|message|photo|table,land|value,new|scale,best|standard,mixed,customer|project|kpis,표지 E · 제품 누끼 히어로,대표 제품 하나로 말할 때
+L_C10,C10,cover,,,,0,6,36,6,image_heavy|message|photo|table,,,best,mixed,customer|project,목차 B · 섹션 썸네일,섹션마다 대표 이미지가 있을 때
+L_C11,C11,cover,,,,0,3,15,1,cards|image|message|photo,space,,best,mixed,customer|project,간지 C · 풀블리드 사진 + 밴드,장을 장면으로 열 때
+L_C12,C12,closing,,,,0,4,16,1,cards|image|message|photo,space,new,best,exec,contacts|timeline|kpis,마무리 B · 도입 후 모습 (생성 시안),비전 한 장으로 끝낼 때
+L_BV_D,BV-D,birdseye,,,,0,2,35,4,cards|image_heavy|map,space,new|ops,best,mixed,spaces,시점 투어 · 평면도 + 렌더 4,조감도를 여러 시점으로 볼 때
+L_ZP_D,ZP-D,birdseye,,,,0,4,34,5,cards|image_heavy|map|photo,space,new|ops,best,mixed,spaces|kpis,실사 핫스팟 · 제품 카드,설치 사진 위에서 제품을 짚을 때
+L_IS_A,IS-A,birdseye,,,,0,6,62,6,cards|image_heavy|map|photo,pain|space,new|renew,best,mixed,spaces|kpis,현장 조사 · 사진 모자이크,고객 현장을 직접 보고 왔을 때
+L_IS_B,IS-B,birdseye,,,,0,5,27,1,cards|image|map,space,new,best,mixed,spaces|kpis,실측 오버레이 · 설치 조건,설치 조건이 까다로울 때
+L_UX_A,UX-A,scenario,,,,0,5,33,5,cards|flow|image_heavy|photo,space,,best,mixed,spaces|solutions|products|kpis,이용자 여정 포토 스트립,손님이 겪는 순서대로 보여줄 때
+L_UX_B,UX-B,scenario,,,,0,3,16,1,cards|image|message,space,,best,mixed,spaces|solutions|products|kpis,한 장면 + 한 마디,사람의 경험으로 설득할 때
+L_UX_C,UX-C,scenario,,,,0,5,28,4,cards|image_heavy,space,,best,mixed,spaces|solutions|products,시간대별 장면 4,같은 공간이 시간마다 달라질 때
+L_SF_C,SF-C,solution,,,,0,3,28,4,image_heavy|message|photo|table,,,best,mixed,solutions|products|kpis,솔루션 KV 히어로 + 함께 쓰는 기기,솔루션 소개를 한 장으로 열 때
+L_SF_D,SF-D,solution,,,,0,3,22,4,image_heavy|photo|table,,ops,best,mixed,solutions|products,실제 화면 투어 · 확대 3,관리 화면의 기능을 짚을 때
+L_SF_E,SF-E,solution,,,,0,6,33,6,image_heavy|photo|table,value,ops,best,mixed,solutions|products|kpis,솔루션 포트폴리오 타일,이번 제안이 전체 중 어디인지 보여줄 때
+L_SA_D,SA-D,solution,,,,0,3,35,4,flow|image_heavy|photo|table,value,ops,best,mixed,solutions|products|kpis,화면 → 현장,관리 화면에서 한 번 바꾸면 현장이 바뀔 때
+L_GN_A,GN-A,birdseye,,,,0,2,37,3,cards|image_heavy|map|photo,space,new,best,mixed,spaces|kpis,배치 시안 3안,같은 공간에서 구성을 고르게 할 때
+L_GN_B,GN-B,birdseye,,,,0,3,29,2,cards|image|photo,space,new,best,mixed,spaces|kpis,현재 ↔ 시안 와이프,고객 현장 사진에 제안을 겹쳐 볼 때
+L_GN_C,GN-C,birdseye,,,,0,3,35,6,cards|flow|image_heavy|message|photo,space,new|renew,best,mixed,spaces|kpis,공간별 지금 → 제안 시안,여러 공간을 한 장에서 바꿔 보일 때
+L_GN_D,GN-D,birdseye,,,,0,3,24,3,cards|image_heavy|photo,space,new|ops,best,mixed,spaces|kpis,화면 콘텐츠 시안 3,화면에 무엇이 나올지 미리 보여줄 때
+L_MB_A,MB-A,birdseye,,,,0,3,41,8,cards|image_heavy|photo,space,renew,best,mixed,spaces,무드보드 · 공간 톤,디자인 조화가 핵심 요구일 때
+L_MB_B,MB-B,birdseye,,,,0,3,44,6,cards|image_heavy,space,renew,best,mixed,spaces|kpis,마감 · 소재 매칭,제품이 인테리어에 녹아드는지 보여줄 때
+L_CD_D,CD-D,case,,,,0,3,37,4,cards|image_heavy|photo,compete|space,compete|new|ops,best|standard,mixed,cases|kpis,사례 포토 에세이 · 원문 링크,실제 설치 사진이 많은 사례일 때
+L_CL_D,CL-D,case,,,,0,6,42,6,cards|image_heavy|photo,compete|space|value,brief|compete|ops|renew,best|standard,mixed,cases|solutions|kpis,사례 사진 카드 6,업종이 다른 사례를 사진으로 훑을 때
+L_ST_D,ST-D,why,,,,0,3,30,3,cards|image_heavy|matrix|photo,compete|value,compete|ops,best|standard,mixed,competitors|values|kpis,강점 × 증거 사진,강점을 눈으로 확인시킬 때
+L_SV_C,SV-C,why,,,,0,4,34,4,cards|flow|image_heavy|photo,compete,compete,best|standard,mixed,competitors|values|kpis,서비스 현장 4단계,도입 후 지원을 사람으로 보여줄 때
+L_SD_C,SD-C,spec,,,,0,6,29,6,cards|image_heavy|photo,rfp,,complex,working,products|kpis,제품 히어로 + 다각도,제품 하나를 깊게 보여줄 때
+L_SC_C,SC-C,spec,,,,0,2,50,3,cards|comparison|image_heavy|photo,,,best,working,products|kpis,카드형 라인업 비교,표보다 제품 모습이 중요할 때
+L_AX_A,AX-A,appendix,,,,0,9,73,9,cards|image_heavy|photo,,,best,mixed,sources|solutions|kpis,이미지 출처 · 사용 조건,제안서에 쓴 이미지를 한 번에 확인할 때
+L_AX_B,AX-B,appendix,,,,0,12,68,12,cards|image_heavy|photo,,,best,mixed,sources|kpis,현장 사진 갤러리,본문에 못 넣은 사진을 부록으로
+L_ES_A,ES-A,overview,,,,0,3,48,0,cards|message,value,brief|new,best,exec,customer|project|values|solutions|kpis,제안 요약 4단,결정권자가 맨 앞 한 장만 볼 때
+L_ES_B,ES-B,overview,,,,0,4,65,0,cards|kpi|message,compete|land|roi,brief|compete|ops|scale,best,exec,customer|project|values|solutions|kpis,숫자로 보는 제안,경영진 보고 · KPI 네 개로 말할 때
+L_OV_A,OV-A,overview,,,,0,5,74,0,cards|flow|message,rfp,compete|new,best|complex,mixed,customer|project|values|kpis,사업 이해,RFP가 배경 · 목적 · 범위 · 일정을 요구할 때
+L_OV_B,OV-B,overview,,,,0,6,54,0,cards|message,rfp,,complex,exec,customer|project|values|solutions|kpis,제안 범위,포함 · 제외 · 선택 옵션을 분명히 할 때
+L_OV_C,OV-C,overview,,,,0,3,66,0,cards|flow|message,rfp,,complex,mixed,customer|project|values|kpis,전제 조건 · 확인 요청,금액 · 일정이 가정에 기댈 때
+L_C13,C13,closing,,,,0,3,45,0,cards|flow|message,compete|land|pain|roi|space|value,brief|compete|new|ops|renew|scale,best|standard,exec,contacts|timeline|kpis,마무리 C · 다음 단계,결정 요청으로 끝낼 때
+L_RM_A,RM-A,requirements,,,,0,3,61,0,table,rfp,,complex,mixed,keymen|challenges|kpis,고객 요구 이해,키맨이 여럿이고 가중치가 다를 때
+L_RM_B,RM-B,requirements,,,,0,4,85,0,table,rfp,compete,best|complex,working,keymen|challenges|kpis,요구사항 대응표,요구가 10개 이상 · RFP 대응 (쪽이 이어짐)
+L_RM_C,RM-C,requirements,,,,0,6,78,0,table,rfp,compete,best|complex,mixed,keymen|challenges|kpis,평가 항목 · 배점 대응,RFP 평가표가 있을 때
+L_MS_F,MS-F,market,,,,0,4,67,0,cards,roi,brief,best,mixed,industry|kpis,지역 · 국가별 시장,여러 나라 · 지역에 걸친 고객일 때
+L_TR_D,TR-D,market,,,,0,4,59,0,cards|flow,roi|value,ops,best,mixed,industry|kpis|solutions,규제 · 정책 타임라인,규제 시행이 도입 동인일 때
+L_CB_E,CB-E,customer,,,,0,17,80,0,cards,pain|value,ops,best,mixed,customer|challenges|kpis,거점 · 지점 분포,지점이 지역에 흩어진 고객일 때
+L_CB_F,CB-F,customer,,,,0,5,57,0,cards|comparison|kpi,compete|pain|roi,compete|ops,best,mixed,customer|challenges|kpis,KPI 벤치마크,고객 지표를 업계와 비교할 때
+L_CB_G,CB-G,customer,,,,0,5,76,0,cards,pain,,best,mixed,customer|challenges|solutions|kpis,성숙도 진단,현재 수준과 목표를 축별로 보일 때
+L_US_D,US-D,user,,,,0,8,53,0,cards,pain|space,ops,best,mixed,users|kpis,VOC · 리뷰 분석,손님의 말(리뷰 · 설문)이 많을 때
+L_CH_D,CH-D,challenge,,,,0,4,56,0,cards,pain,ops,complex,mixed,challenges|kpis,과제 우선순위,과제가 5개 이상일 때
+L_VP_V,VP-V,value,,,,0,3,45,1,cards|image,land|value,scale,best,mixed,values|products|solutions|kpis,두 층 가치,고객사와 고객의 고객이 모두 이득일 때
+L_EF_F,EF-F,effect,,,,0,6,46,0,cards|kpi,land|roi,scale,best,mixed,kpis,연차별 누적 효과,효과가 해마다 커질 때
+L_EF_G,EF-G,effect,,,,0,5,45,0,cards,pain|roi,ops,best,mixed,kpis,비용 절감 워터폴,절감 항목이 여럿일 때
+L_EF_H,EF-H,effect,,,,0,4,62,0,cards|kpi,roi,brief,best|complex,exec,kpis,효과 범위,수치가 불확실해 범위로 말할 때
+L_EF_I,EF-I,effect,,,,0,4,60,0,cards,roi|space,new|ops,best|standard,mixed,kpis,ESG · 탄소 감축,에너지 절감을 탄소 · 공시로 바꿀 때
+L_CM_D,CM-D,competition,why,,,0,3,112,0,cards|comparison|qna,compete,compete|ops,best,mixed,competitors|kpis,경쟁사 프로파일,경쟁사마다 상세를 보일 때 (익명)
+L_CM_E,CM-E,why,competition,,,0,2,57,0,cards|comparison|flow|qna,compete,compete,best,mixed,competitors|values|kpis,열위 → 보완 방안,경쟁사가 앞서는 항목을 정직하게 다룰 때
+L_ST_E,ST-E,why,,,,0,3,30,0,cards|comparison|flow|qna,compete,compete,best,mixed,competitors|values|kpis,경쟁사 주장 → 반론 · 근거,예상되는 비교 공세에 미리 답할 때
+L_CO_A,CO-A,cost,,,,0,7,74,0,cards|comparison,roi|value,brief|ops,best|complex,exec,costs|kpis,구매 방식 비교,일시 구매 · 구독 · 렌탈 중 고를 때
+L_CO_B,CO-B,cost,,,,0,6,63,0,cards,compete|roi|value,compete|ops,best|complex,mixed,costs|kpis,총소유비용 5년,처음 가격과 운영비를 함께 볼 때
+L_SD_D,SD-D,spec,,,,0,3,72,5,cards|image_heavy,rfp,ops,complex,working,products|kpis,공조 사양,실내기 여러 종 + 실외기 조합일 때
+L_SD_E,SD-E,spec,,,,0,4,58,2,cards|image,pain|rfp,ops,best|complex,working,products|solutions|kpis,모바일 · 현장 단말 사양,내구성 · 배터리 · 보안이 핵심일 때
+L_SD_F,SD-F,spec,,,,0,6,78,0,cards,rfp|value,new,best|complex,working,products|kpis,빌트인 가전 사양,매립 치수 · 가구 시공이 핵심일 때
+L_SD_G,SD-G,spec,,,,0,5,67,0,cards,compete|rfp|roi|space,brief|compete|new,best|complex,working,products|kpis,LED 사양,피치를 시청 거리로 고를 때
+L_SC_D,SC-D,spec,,,,0,3,103,0,cards,rfp,ops,complex,working,products|solutions|kpis,옵션 · 구성품 · 라이선스,본품 외 부품 · 라이선스까지 확정할 때
+L_SC_E,SC-E,spec,,,,0,3,38,4,cards|image_heavy,,,best,working,products|kpis,모델 선택 가이드,설치 조건으로 모델이 갈릴 때
+L_SC_F,SC-F,spec,,,,0,4,74,4,cards|comparison|flow|image_heavy,,renew,best,working,products|kpis,단종 → 후속 모델,제안 중 모델이 바뀌었을 때
+L_SE_B,SE-B,spec,,,,0,2,78,5,cards|image_heavy,pain|rfp,compete|renew,best|complex,working,products|kpis,인증 · 규격 현황,제품별 인증 보유를 확인할 때
+L_BV_E,BV-E,birdseye,,,,0,2,83,0,cards|map,space,new,best,mixed,spaces|kpis,2D 배치 도면,치수 · 범례 · 수량까지 도면 그대로
+L_BV_F,BV-F,birdseye,,,,0,4,87,0,cards|map,space,new,best,mixed,spaces|solutions|kpis,층별 평면,층마다 들어가는 것이 다를 때
+L_BV_G,BV-G,birdseye,,,,0,8,96,0,cards|map,space,new,best,mixed,spaces|kpis,단지 · 캠퍼스 배치도,건물이 여러 동일 때
+L_SS_D,SS-D,scenario,,,,0,5,49,5,cards|flow|image_heavy,pain|space,new|ops,best,mixed,spaces|solutions|products|kpis,이벤트 대응 시나리오,감지 → 알림 → 조치 → 기록
+L_SS_E,SS-E,scenario,,,,0,13,93,0,cards|flow,space,new,best,mixed,spaces|solutions|products|kpis,연간 운영 캘린더,계절 · 학기 · 성수기에 따라 운영이 바뀔 때
+L_SS_F,SS-F,scenario,,,,0,7,46,7,cards|flow|image_heavy,space,new,best,mixed,spaces|solutions|products|kpis,장면 스토리보드,장면이 6~8개 이어질 때
+L_OG_A,OG-A,execution,,,,0,4,59,0,cards|diagram,land|rfp,compete|new|scale,best|complex,working,timeline|kpis,추진 체계,여러 회사 · 팀이 함께 수행할 때
+L_IP_A,IP-A,execution,,,,0,3,73,1,diagram|image|table,rfp,new,complex,working,timeline|kpis,현장 조건 체크리스트,설치 전 확인할 것이 많을 때
+L_IP_B,IP-B,execution,,,,0,3,85,0,cards|diagram,rfp|space,new,best|complex,working,timeline|kpis,공사 범위 R&R,여러 주체가 공사를 나눌 때
+L_IP_C,IP-C,execution,,,,0,6,78,0,cards|diagram|flow,pain|rfp|space,new|renew,best|complex,working,timeline|kpis,무중단 · 야간 시공 일정,영업을 멈추지 않고 시공할 때
+L_IG_A,IG-A,execution,,,,0,6,72,0,diagram|matrix|table,rfp,ops,complex,working,timeline|solutions|kpis,시스템 연동 매트릭스,고객 시스템과 붙을 곳이 여럿일 때
+L_IG_B,IG-B,execution,,,,0,8,51,0,cards|diagram|flow,pain|rfp,ops,best|complex,working,timeline|solutions|kpis,연동 데이터 흐름,데이터가 어디서 와서 어디로 가는지
+L_PL_A,PL-A,execution,,,,0,3,74,0,cards|flow,land,scale,best,mixed,timeline|kpis,파일럿 → 확산 단계,성공 기준을 넘으면 넓힐 때
+L_PL_B,PL-B,execution,,,,0,4,87,0,cards|flow|kpi,land|pain|roi|value,new|ops|scale,best|complex,mixed,timeline|kpis,파일럿 설계,시범 대상 · 기간 · 측정 지표를 정할 때
+L_CU_A,CU-A,execution,,,,0,7,74,1,cards|flow|image,land,scale,best,mixed,timeline|kpis,전용 에디션 사양,기본 단말을 맞춤 에디션으로 바꿀 때
+L_CU_B,CU-B,execution,,,,0,12,69,0,cards|flow,land,scale,best,mixed,timeline|kpis,맞춤 개발 · 공급 일정,개발 · 인증 · 양산 · 출고까지
+L_SE_A,SE-A,execution,,,,0,4,90,0,table,land|rfp,compete|scale,best|complex,working,timeline|solutions|kpis,보안 요건 대응표,금융 · 공공 보안 요건에 답할 때
+L_SE_C,SE-C,execution,,,,0,2,83,0,cards|flow,land|rfp,scale,best|complex,working,timeline|kpis,개인정보 처리 흐름,수집부터 파기까지 보여줄 때
+L_TO_A,TO-A,execution,,,,0,3,47,0,cards,land|rfp|space,compete|new|ops,best|complex,working,timeline|kpis,교육 계획,대상마다 필요한 교육이 다를 때
+L_TO_B,TO-B,execution,,,,0,3,50,0,table,land|value,ops|scale,best|complex,working,timeline|kpis,운영 이관 체크리스트,구축 후 고객 운영으로 넘길 때
+L_MT_A,MT-A,execution,,,,0,6,49,0,cards|flow,land|pain|rfp,compete|ops,best|complex,working,timeline|solutions|kpis,유지보수 점검 캘린더,1년 점검 · 시즌 케어 일정
+L_MT_B,MT-B,execution,,,,0,5,70,0,cards,land|pain,ops|renew,best|complex,working,timeline|kpis,케어 플랜 등급,유지보수 상품을 고르게 할 때
+L_RV_A,RV-A,value,products,RS,,0,4,52,0,cards,value,new,best,mixed,values|products|solutions|kpis,분양 포인트,건설사 · 모델하우스에서 단지를 차별화할 때
+L_RV_B,RV-B,value,products,RS,,0,4,70,0,cards,value,new,best,mixed,values|products|solutions|kpis,세대 타입별 옵션,타입마다 옵션 패키지가 다를 때
+L_RV_C,RV-C,value,products,RS,,0,3,47,0,cards,value,new,best,mixed,values|products|solutions|kpis,입주 후 서비스,입주민이 만나는 서비스를 시점별로
+L_QA_A,QA-A,appendix,,,,0,6,48,0,qna|table,rfp,compete,best|complex,mixed,sources|kpis,예상 질문 · 답변,발표 · 평가 질의에 대비할 때
+L_AX_C,AX-C,appendix,,,,0,4,85,0,cards|kpi|qna,,,best,mixed,sources|kpis,출처 · 참고 자료,수치 · 주장의 근거를 모아 둘 때
+L_AX_D,AX-D,appendix,,,,0,5,57,0,cards|qna,,ops,best,mixed,sources|solutions|kpis,용어 · 약어,처음 보는 용어가 많은 제안서일 때

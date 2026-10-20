@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~strip_images:F04"
+ },
+ "prompt_tokens": 6260,
+ "output_tokens": 405,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "A 커피의 메뉴 교체 절차를 5단계로 세분화하고, 인쇄·배송비 연 3.3억 원 및 매장당 연 48시간 작업 등 구체적인 수치로 문제의 원인과 영향을 명시했습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "메뉴 하나 바꾸는 데, 다섯 단계 · 9일이 걸립니다"
+     },
+     {
+      "sheet": 5,
+      "quote": "인쇄 · 배송비 연 3.3억 원이 반복됩니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "매장 외부 DT 공간에는 고휘도·IP56 등급의 OH55A-S를, 카운터와 픽업대에는 24/7 운영이 가능한 QM55C를 배치하는 등 공간별 환경 요구사항에 최적화된 제품을 제안했습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "매장 외부 · DT · OH55A-S ×2 · 고휘도 · IP56"
+     },
+     {
+      "sheet": 10,
+      "quote": "QM55C · 55\" · 500nit · 4K UHD · 24/7 운영"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

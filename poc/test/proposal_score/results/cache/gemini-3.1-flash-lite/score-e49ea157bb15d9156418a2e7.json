@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~number_conflict:F06"
+ },
+ "prompt_tokens": 6325,
+ "output_tokens": 188,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "전체 세대수(1240세대)와 84A 타입 세대수(486세대)는 서로 다른 대상을 지칭하며, 제안서 내에서 일관되게 사용되어 수치 충돌이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "R 건설 2지구 1,240세대"
+     },
+     {
+      "sheet": 8,
+      "quote": "84A 세대 · 방 3 · 486세대"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

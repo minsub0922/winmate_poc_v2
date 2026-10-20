@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08:F04"
+ },
+ "prompt_tokens": 6307,
+ "output_tokens": 360,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "W 요양병원의 야간 호출 응답 시간(6분), 다인실 CO2 농도(1,800ppm), 주말 면회 대기 시간(15분) 등 현장 수치를 기반으로 문제와 원인을 구체화했습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "야간 호출 응답 6분, 다인실 CO2 1,800ppm, 주말 면회 대기 15분"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "병실의 24시간 운영 및 감염 관리 환경에 맞춰 무풍 에어컨, ERV, IP68 등급 태블릿 등 공간별 최적화된 제품을 명확히 제안했습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "병실은 사무실과 조건이 다릅니다 — 다섯 조건, 다섯 대응"
+     },
+     {
+      "sheet": 10,
+      "quote": "IP68 · MIL-STD 태블릿, 닦고 떨어뜨려도 견디는 탭 액티브5"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

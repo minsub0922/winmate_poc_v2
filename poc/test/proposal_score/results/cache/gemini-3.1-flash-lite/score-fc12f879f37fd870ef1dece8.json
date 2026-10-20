@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs09:F06"
+ },
+ "prompt_tokens": 6915,
+ "output_tokens": 225,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 1,
+    "anchor": "비디오월 구성 수량이 4장과 9장에서는 18면으로 기재되었으나, 7장에서는 24면으로 상이하게 기술되어 일관성이 결여되었습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "비디오월 18면"
+     },
+     {
+      "sheet": 7,
+      "quote": "VM55B 24면"
+     },
+     {
+      "sheet": 9,
+      "quote": "비디오월 18면"
+     }
+    ],
+    "improve": "제안서 전반에 걸쳐 비디오월 구성 수량을 18면 또는 24면 중 하나로 통일해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

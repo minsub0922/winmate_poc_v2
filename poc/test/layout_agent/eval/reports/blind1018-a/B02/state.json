@@ -1,0 +1,1904 @@
+{
+ "input": {
+  "id": "p_test",
+  "title": "오션브릿지호텔 객실 TV",
+  "customer": "해운대 오션브릿지호텔",
+  "industry": null,
+  "free_text": "해운대 오션브릿지호텔 신축 객실 TV 건 (27년 상반기 오픈 예정)\nHG55BU 기준 제안서 요청. 객실수·세부 요구사항 아직 없음",
+  "project": "신축 호텔 객실 TV 도입",
+  "target": "",
+  "keymen": [],
+  "note": "",
+  "files": [],
+  "products": [
+   "hoteltv"
+  ],
+  "solutions": [],
+  "cases": [],
+  "minutes": null,
+  "max_slides": null
+ },
+ "analysis": {
+  "industry": "HT",
+  "industry_name": "호텔 · 리조트",
+  "industry_source": "inferred",
+  "industry_conf": 1.0,
+  "req_type": "new",
+  "req_type_scores": {
+   "new": 1.0,
+   "renew": 0.0,
+   "compete": 0.0,
+   "ops": 0.0,
+   "scale": 0.0,
+   "brief": 0.0
+  },
+  "strategy": "value",
+  "strategy_scores": {
+   "value": 0.0,
+   "pain": 0.0,
+   "space": 0.8,
+   "roi": 0.0,
+   "rfp": 0.2,
+   "compete": 0.0,
+   "land": 0.0
+  },
+  "strategy_hits": 5,
+  "requirements": [
+   {
+    "id": "R02",
+    "text": "HG55BU 기준 제안서 요청.",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "규격·성능",
+    "dimension": "기능·성능 규격",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [
+     "hoteltv"
+    ],
+    "parts": [
+     "spec",
+     "products"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 2.0,
+    "rank": 2
+   },
+   {
+    "id": "R03",
+    "text": "27년 상반기 오픈 예정",
+    "source": "llm",
+    "keyman": null,
+    "weight": 0,
+    "tag": null,
+    "category": "일정",
+    "dimension": "일정·실행·확산",
+    "priority": "should",
+    "customer": true,
+    "measurable": true,
+    "numbers": [
+     "27년"
+    ],
+    "products": [],
+    "parts": [
+     "execution"
+    ],
+    "procedural": false,
+    "llm_added": true,
+    "score": 2.3,
+    "rank": 1
+   },
+   {
+    "id": "R03",
+    "text": "객실수·세부 요구사항 아직 없음",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "범위·수량",
+    "dimension": "범위·수량·공간",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "requirements",
+     "bom",
+     "overview"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 2.0,
+    "rank": 3
+   }
+  ],
+  "context_lines": [
+   "해운대 오션브릿지호텔 신축 객실 TV 건 (27년 상반기 오픈 예정)"
+  ],
+  "facts": [
+   {
+    "text": "27년",
+    "value": "27",
+    "unit": "년",
+    "label": "신축 객실 TV",
+    "sentence": "해운대 오션브릿지호텔 신축 객실 TV 건 (27년 상반기 오픈 예정)",
+    "kind": "value"
+   }
+  ],
+  "spaces": [
+   "객실"
+  ],
+  "goals": [],
+  "products": [
+   "hoteltv"
+  ],
+  "solutions": [],
+  "cases": [],
+  "keymen": [],
+  "signals": {
+   "n_statements": 3,
+   "n_req": 2,
+   "n_keymen": 0,
+   "n_must": 0,
+   "n_numbers": 1,
+   "eval_hits": 0,
+   "file_chars": 0,
+   "plain_chars": 47,
+   "n_categories": 2,
+   "n_goal": 0,
+   "n_goal_sent": 0,
+   "has_products": true,
+   "has_solutions": false
+  },
+  "context_level": "minimal",
+  "level_reason": "업종과 제품 모델명 외에 구체적인 요구사항이나 평가 기준이 제시되지 않은 초기 단계의 프로젝트입니다. (LLM 판정)",
+  "level_label": "① 요구사항 거의 없음 → 표준 제안서 시나리오",
+  "summary": "해운대 오션브릿지호텔 신축 객실 TV 도입 건으로, 2027년 상반기 오픈을 목표로 HG55BU 모델 기준의 제안서를 요청함.",
+  "llm": true,
+  "dimensions": {
+   "기능·성능 규격": 1,
+   "일정·실행·확산": 1,
+   "범위·수량·공간": 1
+  }
+ },
+ "ctx": {
+  "industry": "HT",
+  "industry_name": "호텔 · 리조트",
+  "customer": "해운대 오션브릿지호텔",
+  "project": "신축 호텔 객실 TV 도입",
+  "target": "",
+  "products": [
+   "hoteltv"
+  ],
+  "solutions": [],
+  "cases": [
+   "13",
+   "1",
+   "90"
+  ],
+  "spaces": [
+   "객실"
+  ],
+  "recommended": {
+   "products": [],
+   "solutions": [],
+   "cases": [
+    {
+     "id": "13",
+     "score": 6.55,
+     "why": "같은 업종",
+     "cust": "부티크 호텔 XYM"
+    },
+    {
+     "id": "1",
+     "score": 6.4,
+     "why": "같은 업종",
+     "cust": "크라운 파크 호텔 서울"
+    },
+    {
+     "id": "90",
+     "score": 6.3,
+     "why": "같은 업종",
+     "cust": "IBC 호텔"
+    }
+   ]
+  }
+ },
+ "route": "standard",
+ "scenario_match": {
+  "kind": "standard",
+  "candidates": [
+   {
+    "id": "STD-HT",
+    "score": 1.0,
+    "why": "업종 일치 · 호텔 · 리조트 표준 구성"
+   },
+   {
+    "id": "STD-BASE",
+    "score": 0.5,
+    "why": "업종 공통 표준 구성"
+   }
+  ],
+  "chosen": "STD-HT"
+ },
+ "decomposition": null,
+ "choice": null,
+ "parts": [
+  {
+   "type": "cover",
+   "name": "해운대 오션브릿지호텔 제안",
+   "items": [
+    "해운대 오션브릿지호텔 신축 객실 TV 도입 제안",
+    "HG55BU 모델을 통한 프리미엄 객실 환경 구축"
+   ],
+   "stage": "open",
+   "goal": "고객사 · 제안 범위를 한 장으로",
+   "seed_layouts": [
+    {
+     "f": "L_C09",
+     "role": "고객사 · 제안명 · 대표 이미지"
+    }
+   ],
+   "core": true,
+   "source": "standard:STD-HT",
+   "req_ids": [],
+   "req_load": 0.0,
+   "priority": 0.28,
+   "priority_reason": "핵심 파트",
+   "priority_rank": 5,
+   "related": [],
+   "id": "S01",
+   "slides": 1
+  },
+  {
+   "type": "market",
+   "name": "호텔 트렌드와 고객 경험",
+   "items": [
+    "호텔·리조트 시장의 최신 디지털 트렌드 분석",
+    "투숙객의 만족도를 높이는 차별화된 고객 경험",
+    "공간의 품격을 높이는 인테리어 조화와 디자인"
+   ],
+   "stage": "industry",
+   "goal": "업종 트렌드로 공감대 — 요구가 없을수록 업종 언어로 연다",
+   "seed_layouts": [
+    {
+     "f": "L_MI_HT_A",
+     "role": "업종 시장 · 트렌드 — 왜 지금인가"
+    }
+   ],
+   "core": false,
+   "source": "standard:STD-HT",
+   "req_ids": [],
+   "req_load": 0.0,
+   "priority": 0.16,
+   "priority_reason": "선택 파트",
+   "priority_rank": 7,
+   "related": [],
+   "id": "S02",
+   "slides": 1
+  },
+  {
+   "type": "value",
+   "name": "HG55BU 핵심 가치",
+   "items": [
+    "고객 경험 — HG55BU"
+   ],
+   "stage": "value",
+   "goal": "선택한 제품 · 솔루션마다 하나의 가치 기둥",
+   "seed_layouts": [
+    {
+     "f": "L_VP_G",
+     "role": "가치 기둥 1개 × 그 가치를 만드는 제품 · 솔루션"
+    }
+   ],
+   "core": true,
+   "source": "standard:STD-HT",
+   "req_ids": [],
+   "req_load": 0.0,
+   "priority": 0.4,
+   "priority_reason": "핵심 파트",
+   "priority_rank": 2,
+   "related": [],
+   "id": "S03",
+   "slides": 1
+  },
+  {
+   "type": "value",
+   "name": "현장 맞춤형 솔루션",
+   "items": [
+    "호텔 운영 현장의 핵심 질문에 대한 삼성의 답변",
+    "질문별 최적화된 제품 및 솔루션 매칭 제안"
+   ],
+   "stage": "value_qna",
+   "goal": "업종 현장의 대표 질문 → 제품 · 솔루션 → 가치",
+   "seed_layouts": [
+    {
+     "f": "L_VP_U_HT",
+     "role": "업종 현장 질문 3개 → 제품 · 솔루션 → 가치"
+    }
+   ],
+   "core": false,
+   "source": "standard:STD-HT",
+   "req_ids": [],
+   "req_load": 0.0,
+   "priority": 0.16,
+   "priority_reason": "선택 파트",
+   "priority_rank": 8,
+   "related": [],
+   "id": "S04",
+   "slides": 1
+  },
+  {
+   "type": "dss",
+   "name": "객실 공간 최적화",
+   "items": [
+    "투숙객의 휴식과 편의를 고려한 객실 공간 구성"
+   ],
+   "stage": "space_map",
+   "goal": "어느 공간에 무엇이 놓이는지 먼저",
+   "seed_layouts": [
+    {
+     "f": "L_SP00",
+     "role": "공간 × 제품 매칭"
+    }
+   ],
+   "core": false,
+   "source": "standard:STD-HT",
+   "req_ids": [],
+   "req_load": 0.0,
+   "priority": 0.16,
+   "priority_reason": "선택 파트",
+   "priority_rank": 9,
+   "related": [
+    "products"
+   ],
+   "id": "S05",
+   "slides": 1
+  },
+  {
+   "type": "products",
+   "name": "객실용 HG55BU 제안",
+   "items": [
+    "HG55BU 기준 제안서 요청",
+    "객실수·세부 요구사항 아직 없음",
+    "HG55BU 모델을 통한 객실 스마트 환경 구축",
+    "LYNK Cloud 연동 및 웰컴 화면으로 브랜드 가치 제고",
+    "모바일 미러링 기능으로 투숙객 편의성 극대화"
+   ],
+   "stage": "products",
+   "goal": "공간마다 놓일 제품 · 설치 방식",
+   "seed_layouts": [
+    {
+     "f": "L_P1B",
+     "role": "공간별 제품 1종 · 설치 방식"
+    }
+   ],
+   "core": true,
+   "source": "standard:STD-HT",
+   "req_ids": [
+    "R02",
+    "R03"
+   ],
+   "req_load": 4.0,
+   "priority": 1.0,
+   "priority_reason": "요구 2개 연결 · 핵심 파트",
+   "priority_rank": 1,
+   "related": [
+    "dss"
+   ],
+   "id": "S06",
+   "slides": 1
+  },
+  {
+   "type": "case",
+   "name": "성공적인 호텔 도입 사례",
+   "items": [
+    "부티크 호텔 XYM 등 다수 호텔의 성공적 구축",
+    "크라운 파크 호텔 및 IBC 호텔의 삼성 TV 도입 사례"
+   ],
+   "stage": "case",
+   "goal": "같은 업종 · 같은 제품의 도입 성과",
+   "seed_layouts": [
+    {
+     "f": "L_CS03",
+     "role": "유관 사례 3건 — 같은 업종 · 같은 제품"
+    }
+   ],
+   "core": true,
+   "source": "standard:STD-HT",
+   "req_ids": [],
+   "req_load": 0.0,
+   "priority": 0.4,
+   "priority_reason": "핵심 파트",
+   "priority_rank": 3,
+   "related": [
+    "why"
+   ],
+   "id": "S07",
+   "slides": 1
+  },
+  {
+   "type": "why",
+   "name": "삼성전자를 선택해야 하는 이유",
+   "items": [
+    "제품부터 솔루션까지 통합 제공하는 원스톱 서비스",
+    "전국 단위의 신속한 설치 및 전문 AS 지원 체계"
+   ],
+   "stage": "why",
+   "goal": "삼성이어야 하는 이유 — 강점 셋",
+   "seed_layouts": [
+    {
+     "f": "L_WS02",
+     "role": "삼성 강점 3 — 제품 · 솔루션 통합 / 지원 체계 / 레퍼런스"
+    }
+   ],
+   "core": true,
+   "source": "standard:STD-HT",
+   "req_ids": [],
+   "req_load": 0.0,
+   "priority": 0.4,
+   "priority_reason": "핵심 파트",
+   "priority_rank": 4,
+   "related": [
+    "case"
+   ],
+   "id": "S08",
+   "slides": 1
+  },
+  {
+   "type": "why",
+   "name": "안정적인 운영 지원 체계",
+   "items": [
+    "전문 인력의 체계적인 설치 및 시운전 지원",
+    "운영 효율을 높이는 담당자 대상 운영 교육",
+    "지속 가능한 유지보수 및 신속한 AS 체계"
+   ],
+   "stage": "support",
+   "goal": "설치 · 운영 · AS 를 누가 어떻게",
+   "seed_layouts": [
+    {
+     "f": "L_SV_C",
+     "role": "도입 후 지원 — 설치 · 운영 · AS"
+    }
+   ],
+   "core": false,
+   "source": "standard:STD-HT",
+   "req_ids": [],
+   "req_load": 0.0,
+   "priority": 0.16,
+   "priority_reason": "선택 파트",
+   "priority_rank": 10,
+   "related": [
+    "case"
+   ],
+   "id": "S09",
+   "slides": 1
+  },
+  {
+   "type": "closing",
+   "name": "향후 추진 계획",
+   "items": [
+    "현장 실사를 통한 상세 견적 및 최적화 설계",
+    "성공적인 프로젝트 완수를 위한 담당자 연락처"
+   ],
+   "stage": "close",
+   "goal": "다음 단계 · 담당자",
+   "seed_layouts": [
+    {
+     "f": "L_C07",
+     "role": "다음 단계 · 연락처"
+    }
+   ],
+   "core": true,
+   "source": "standard:STD-HT",
+   "req_ids": [],
+   "req_load": 0.0,
+   "priority": 0.28,
+   "priority_reason": "핵심 파트",
+   "priority_rank": 6,
+   "related": [],
+   "id": "S10",
+   "slides": 1
+  }
+ ],
+ "links": {
+  "links": {
+   "R02": [
+    5
+   ],
+   "R03": [
+    5
+   ]
+  },
+  "uncovered": []
+ },
+ "slides": [
+  {
+   "no": 1,
+   "part_id": "S01",
+   "part_type": "cover",
+   "part_name": "해운대 오션브릿지호텔 제안",
+   "f": "L_C09",
+   "code": "C09",
+   "name": "표지 E · 제품 누끼 히어로",
+   "score": 20.381,
+   "why": [
+    "LLM · 호텔 객실 TV 도입 제안이므로 제품 누끼를 강조하는 C09가 가장 적합하며, 미니멀한 느낌을 위해 풀블리드나 타이포 중심 레이아웃을 대안으로 선정했습니다.",
+    "파트 유형 일치 · 표지 · 목차",
+    "시나리오가 이 자리에 둔 장표",
+    "전략 적합 · 가치 선도형"
+   ],
+   "fit": {
+    "relevance": 0.87,
+    "part": true,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "고객사 · 제안명 · 대표 이미지",
+   "seed": "L_C09",
+   "alternates": [
+    {
+     "f": "L_C02",
+     "code": "C02",
+     "name": "표지 B · 풀블리드 이미지",
+     "score": 19.881
+    },
+    {
+     "f": "L_C03",
+     "code": "C03",
+     "name": "표지 C · 타이포 중심",
+     "score": 19.381
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 2,
+   "part_id": "S02",
+   "part_type": "market",
+   "part_name": "호텔 트렌드와 고객 경험",
+   "f": "L_MI_HT_A",
+   "code": "MI-HT-A",
+   "name": "호텔 · 리조트 · 시장 · 트렌드",
+   "score": 21.333,
+   "why": [
+    "LLM · 호텔·리조트 전용 레이아웃으로 트렌드와 고객 경험을 시각적으로 구조화하기에 가장 적합하며, 미니멀한 디자인 기조와도 잘 부합합니다.",
+    "파트 유형 일치 · 시장 · 전략",
+    "시나리오가 이 자리에 둔 장표",
+    "업종 전용 · 호텔 · 리조트"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 0.67,
+    "missing": [
+     "competitors"
+    ]
+   },
+   "role": "업종 시장 · 트렌드 — 왜 지금인가",
+   "seed": "L_MI_HT_A",
+   "alternates": [
+    {
+     "f": "L_MI06",
+     "code": "TR-A",
+     "name": "흐름 타임라인",
+     "score": 20.833
+    },
+    {
+     "f": "L_MS_E",
+     "code": "MS-E",
+     "name": "성장 동인 → 전망",
+     "score": 20.333
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 3,
+   "part_id": "S03",
+   "part_type": "value",
+   "part_name": "HG55BU 핵심 가치",
+   "f": "L_VP_G",
+   "code": "VP-G",
+   "name": "한 문장 + 제품 히어로",
+   "score": 16.378,
+   "why": [
+    "LLM · 호텔의 미니멀한 컨셉에 맞춰 단일 제품(HG55BU)의 가치를 강조하기에 최적화된 히어로 레이아웃입니다.",
+    "파트 유형 일치 · Value Propositions",
+    "시나리오가 이 자리에 둔 장표",
+    "부족 정보 · solutions"
+   ],
+   "fit": {
+    "relevance": 0.544,
+    "part": true,
+    "readiness": 0.75,
+    "missing": [
+     "solutions"
+    ]
+   },
+   "role": "가치 기둥 1개 × 그 가치를 만드는 제품 · 솔루션",
+   "seed": "L_VP_G",
+   "alternates": [
+    {
+     "f": "L_VP_F2",
+     "code": "VP-F",
+     "name": "가치 기둥 × 제품 · 2개",
+     "score": 15.878
+    },
+    {
+     "f": "L_VP_U_HT",
+     "code": "VP-U",
+     "name": "· 호텔 (ind = hotel)",
+     "score": 15.378
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 4,
+   "part_id": "S04",
+   "part_type": "value",
+   "part_name": "현장 맞춤형 솔루션",
+   "f": "L_VP_U_HT",
+   "code": "VP-U",
+   "name": "· 호텔 (ind = hotel)",
+   "score": 19.889,
+   "why": [
+    "LLM · 호텔 업종에 특화된 Q&A 기반 레이아웃으로, 현장 질문 3개와 솔루션 매칭 구조에 가장 적합합니다.",
+    "파트 유형 일치 · Value Propositions",
+    "시나리오가 이 자리에 둔 장표",
+    "업종 전용 · 호텔 · 리조트"
+   ],
+   "fit": {
+    "relevance": 0.972,
+    "part": true,
+    "readiness": 0.75,
+    "missing": [
+     "solutions"
+    ]
+   },
+   "role": "업종 현장 질문 3개 → 제품 · 솔루션 → 가치",
+   "seed": "L_VP_U_HT",
+   "alternates": [
+    {
+     "f": "L_VP_U",
+     "code": "VP-U",
+     "name": "현장 질문 → 제품 · 솔루션 → 핵심 가치 + 키워드",
+     "score": 19.389
+    },
+    {
+     "f": "L_VP_F2",
+     "code": "VP-F",
+     "name": "가치 기둥 × 제품 · 2개",
+     "score": 18.889
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 5,
+   "part_id": "S05",
+   "part_type": "dss",
+   "part_name": "객실 공간 최적화",
+   "f": "L_SS_HT_B",
+   "code": "SS-HT-B",
+   "name": "호텔 · 리조트 · 대표 공간 장면",
+   "score": 18.472,
+   "why": [
+    "LLM · 호텔 객실 공간 최적화에 특화된 레이아웃으로, 투숙객의 동선과 공간별 제품 매칭을 시각적으로 가장 잘 표현합니다.",
+    "연관 파트 · 공간 시나리오",
+    "업종 전용 · 호텔 · 리조트",
+    "부족 정보 · solutions"
+   ],
+   "fit": {
+    "relevance": 0.908,
+    "part": false,
+    "readiness": 0.75,
+    "missing": [
+     "solutions"
+    ]
+   },
+   "role": "공간 × 제품 매칭",
+   "seed": "L_SP00",
+   "alternates": [
+    {
+     "f": "L_SP00",
+     "code": "SM-A",
+     "name": "존 맵 + 목록",
+     "score": 17.972
+    },
+    {
+     "f": "L_SM_E",
+     "code": "SM-E",
+     "name": "공간 사진 카드",
+     "score": 17.472
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 6,
+   "part_id": "S06",
+   "part_type": "products",
+   "part_name": "객실용 HG55BU 제안",
+   "f": "L_P1B",
+   "code": "P1-B",
+   "name": "공간 · 설치 중심",
+   "score": 18.477,
+   "why": [
+    "LLM · 공간별 제품 1종과 설치 방식 중심의 구성이므로, 공간·설치 정보 전달에 최적화된 L_P1B가 가장 적합합니다.",
+    "파트 유형 일치 · 공간별 제품",
+    "시나리오가 이 자리에 둔 장표",
+    "편집 불가 문구 · 다른 업종"
+   ],
+   "fit": {
+    "relevance": 0.519,
+    "part": true,
+    "static_foreign": true,
+    "pc_diff": 0,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "공간별 제품 1종 · 설치 방식",
+   "seed": "L_P1B",
+   "alternates": [
+    {
+     "f": "L_P1D",
+     "code": "P1-D",
+     "name": "메시지 강조",
+     "score": 17.977
+    },
+    {
+     "f": "L_P1A",
+     "code": "P1-A",
+     "name": "제품 이미지 중심 (히어로)",
+     "score": 17.477
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 7,
+   "part_id": "S07",
+   "part_type": "case",
+   "part_name": "성공적인 호텔 도입 사례",
+   "f": "L_CS03",
+   "code": "CL-B",
+   "name": "3건 요약",
+   "score": 15.533,
+   "why": [
+    "LLM · 호텔 업종의 유관 사례 3건을 미니멀하게 요약하여 검증된 신뢰감을 전달하기에 가장 적합합니다.",
+    "파트 유형 일치 · 유관 사례",
+    "시나리오가 이 자리에 둔 장표",
+    "부족 정보 · solutions"
+   ],
+   "fit": {
+    "relevance": 0.532,
+    "part": true,
+    "readiness": 0.67,
+    "missing": [
+     "solutions"
+    ]
+   },
+   "role": "유관 사례 3건 — 같은 업종 · 같은 제품",
+   "seed": "L_CS03",
+   "alternates": [
+    {
+     "f": "L_CD_C",
+     "code": "CD-C",
+     "name": "성과 수치 + 코멘트",
+     "score": 15.033
+    },
+    {
+     "f": "L_CD_D",
+     "code": "CD-D",
+     "name": "사례 포토 에세이 · 원문 링크",
+     "score": 14.533
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 8,
+   "part_id": "S08",
+   "part_type": "why",
+   "part_name": "삼성전자를 선택해야 하는 이유",
+   "f": "L_WS02",
+   "code": "ST-A",
+   "name": "강점 3",
+   "score": 16.5,
+   "why": [
+    "LLM · 호텔의 미니멀한 톤앤매너에 맞춰 강점 3가지를 직관적이고 깔끔하게 구조화할 수 있는 L_WS02가 가장 적합합니다.",
+    "파트 유형 일치 · Why Samsung",
+    "시나리오가 이 자리에 둔 장표",
+    "부족 정보 · competitors, solutions"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 0.5,
+    "missing": [
+     "competitors",
+     "solutions"
+    ]
+   },
+   "role": "삼성 강점 3 — 제품 · 솔루션 통합 / 지원 체계 / 레퍼런스",
+   "seed": "L_WS02",
+   "alternates": [
+    {
+     "f": "L_ST_D",
+     "code": "ST-D",
+     "name": "강점 × 증거 사진",
+     "score": 16.0
+    },
+    {
+     "f": "L_SV_A",
+     "code": "SV-A",
+     "name": "도입 로드맵",
+     "score": 15.5
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 9,
+   "part_id": "S09",
+   "part_type": "why",
+   "part_name": "안정적인 운영 지원 체계",
+   "f": "L_SV_A",
+   "code": "SV-A",
+   "name": "도입 로드맵",
+   "score": 17.48,
+   "why": [
+    "파트 유형 일치 · Why Samsung",
+    "편집 불가 문구 · 다른 업종",
+    "부족 정보 · competitors",
+    "전략 적합 · 가치 선도형"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "static_foreign": true,
+    "readiness": 0.67,
+    "missing": [
+     "competitors"
+    ]
+   },
+   "role": "도입 후 지원 — 설치 · 운영 · AS",
+   "seed": "L_SV_C",
+   "alternates": [
+    {
+     "f": "L_WS02",
+     "code": "ST-A",
+     "name": "강점 3",
+     "score": 17.98
+    },
+    {
+     "f": "L_ST_D",
+     "code": "ST-D",
+     "name": "강점 × 증거 사진",
+     "score": 16.98
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 10,
+   "part_id": "S10",
+   "part_type": "closing",
+   "part_name": "향후 추진 계획",
+   "f": "L_C13",
+   "code": "C13",
+   "name": "마무리 C · 다음 단계",
+   "score": 17.733,
+   "why": [
+    "LLM · 다음 단계인 실사 일정과 담당자 연락처를 명확히 배치할 수 있으며, 호텔 제안서의 미니멀한 마무리에 최적화된 구조입니다.",
+    "파트 유형 일치 · 마무리 · 다음 단계",
+    "전략 적합 · 가치 선도형"
+   ],
+   "fit": {
+    "relevance": 0.796,
+    "part": true,
+    "readiness": 0.67,
+    "missing": [
+     "contacts"
+    ]
+   },
+   "role": "다음 단계 · 연락처",
+   "seed": "L_C07",
+   "alternates": [
+    {
+     "f": "L_C07",
+     "code": "C07",
+     "name": "마무리 · 연락처",
+     "score": 17.233
+    },
+    {
+     "f": "L_C12",
+     "code": "C12",
+     "name": "마무리 B · 도입 후 모습 (생성 시안)",
+     "score": 16.733
+    }
+   ],
+   "llm": true
+  }
+ ],
+ "review": {
+  "req_total": 2,
+  "req_covered": 2,
+  "req_coverage": 1.0,
+  "must_uncovered": [],
+  "uncovered": [],
+  "checklist": [],
+  "spec_mismatch": [],
+  "flow_score": 0.889,
+  "n_slides": 10,
+  "industry_violations": [],
+  "solution_violations": [],
+  "duplicates": [],
+  "part_mismatch": [
+   "L_SS_HT_B"
+  ],
+  "fill": {
+   "slots": 341,
+   "changed": 201,
+   "placeholders_left": 44,
+   "unsupported_reverted": 0,
+   "sample_leak": 0,
+   "foreign_terms": 0,
+   "static_foreign_slides": 2
+  },
+  "issues": [
+   {
+    "sev": "low",
+    "msg": "파트 유형과 다른 장표(연관 장표로 대체): ['L_SS_HT_B']"
+   },
+   {
+    "sev": "low",
+    "msg": "편집할 수 없는(data-tb 없는) 다른 업종 샘플 문구가 남은 장표 2장 — 원본 레이아웃 보완 필요"
+   }
+  ]
+ },
+ "fills": [
+  {
+   "no": 1,
+   "f": "L_C09",
+   "code": "C09",
+   "part_id": "S01",
+   "texts": {
+    "1": "B2B 제안서",
+    "2": "신축 호텔 객실 TV 도입",
+    "3": "해운대 오션브릿지호텔 · 신축 호텔 객실 TV 도입 제안",
+    "4": "제안 모델",
+    "5": "삼성 호텔 TV 55\" (HG55BU)",
+    "6": "27년",
+    "7": "도입 예정",
+    "8": "신축 객실 TV 도입",
+    "9": "[솔루션]",
+    "10": "Cloud",
+    "11": "연동 솔루션",
+    "13": "고객 만족",
+    "14": "웰컴 화면 및 미러링",
+    "15": "삼성전자 B2B"
+   },
+   "sources": {
+    "1": "llm",
+    "2": "context",
+    "3": "context",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm"
+   },
+   "images": {
+    "0": {
+     "pid": null,
+     "label": "이미지 필요 · samsung.com 공식"
+    }
+   },
+   "checks": {
+    "n_slots": 16,
+    "changed": 13,
+    "coverage": 0.812,
+    "placeholders_left": 2,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 3,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 2,
+   "f": "L_MI_HT_A",
+   "code": "MI-HT-A",
+   "part_id": "S02",
+   "texts": {
+    "0": "02 · 시장 · 전략",
+    "1": "해운대 오션브릿지호텔의 시장은 커지고, 경쟁은 투숙 경험으로 옮겨갑니다",
+    "2": "호텔·리조트 시장의 최신 디지털 트렌드 분석 및 해운대 오션브릿지호텔의 대응 전략",
+    "3": "국내 호텔 시장 규모",
+    "4": "객실·F&B·연회 매출 합계 (단위: 억 원)",
+    "5": "비즈니스·셀렉트 — 해운대 오션브릿지호텔 세그먼트",
+    "9": "[0000]",
+    "11": "[0000]",
+    "13": "[0000]",
+    "15": "[0000]",
+    "17": "[0000]",
+    "20": "해운대",
+    "28": "[0000]–2026E 연평균",
+    "32": "해운대 지역 기준 · 객실 판매",
+    "33": "수치는 예시 · 조사 후 반영 · 세그먼트 구분은 해운대 오션브릿지호텔과 협의",
+    "34": "해운대 오션브릿지호텔이 체감할 네 가지",
+    "39": "가격이 비슷하면 객실 첫인상과 로비 분위기가 선택과 리뷰를 가릅니다",
+    "40": "해운대 오션브릿지호텔은 웰컴 화면으로 입실 첫 순간부터 브랜드 가치를 전달해야 합니다",
+    "44": "언어·교통·시설 정보를 프런트에 묻기보다 객실과 로비에서 직접 찾습니다",
+    "45": "해운대 오션브릿지호텔은 다국어 객실 TV 홈 메뉴로 반복 문의를 효율적으로 해결해야 합니다",
+    "49": "객실 TV와 공조를 개별 설정·점검하면 인력과 시간이 많이 소요됩니다",
+    "50": "해운대 오션브릿지호텔은 전 객실 TV를 통합 관리하여 운영 효율을 극대화해야 합니다",
+    "54": "냉난방 취향은 객실마다 다르고, 성수기 공조 고장은 곧 판매 손실입니다",
+    "55": "해운대 오션브릿지호텔은 객실별 개별 공조 및 사전점검 체계로 운영비를 절감해야 합니다",
+    "57": "해운대 오션브릿지호텔 · 신축 호텔 객실 TV 도입"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "9": "placeholder",
+    "11": "placeholder",
+    "13": "placeholder",
+    "15": "placeholder",
+    "17": "placeholder",
+    "20": "customer",
+    "28": "placeholder",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "39": "llm",
+    "40": "llm",
+    "44": "llm",
+    "45": "llm",
+    "49": "llm",
+    "50": "llm",
+    "54": "llm",
+    "55": "llm",
+    "57": "context"
+   },
+   "images": {
+    "0": {
+     "pid": null,
+     "label": "이미지 필요 · 호텔 로비 벽면 대형 LED "
+    },
+    "1": {
+     "pid": null,
+     "label": "이미지 필요 · 객실 벽걸이 호텔 TV의 웰컴"
+    },
+    "2": {
+     "pid": null,
+     "label": "이미지 필요 · 프런트 직원이 관리 화면으로 "
+    },
+    "3": {
+     "pid": null,
+     "label": "이미지 필요 · 객실 침대 옆 공기청정기 (예"
+    }
+   },
+   "checks": {
+    "n_slots": 57,
+    "changed": 22,
+    "coverage": 0.386,
+    "placeholders_left": 15,
+    "overflow_fixed": [
+     20,
+     34
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 35,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 3,
+   "f": "L_VP_G",
+   "code": "VP-G",
+   "part_id": "S03",
+   "texts": {
+    "0": "03 · Value",
+    "1": "해운대 오션브릿지호텔을 위한 최적의 객실 솔루션",
+    "2": "02",
+    "3": "고객 경험",
+    "4": "호텔 TV 55\" (HBU) — 55\" · LYNK Cloud 연동 · 웰컴 화면",
+    "5": "HG55BU",
+    "6": "03",
+    "7": "운영 효율",
+    "8": "[내용]",
+    "9": "HG55BU",
+    "11": "신뢰성",
+    "12": "전국 188개 서비스센터의 신속한 유지보수 지원",
+    "13": "도입 로드맵",
+    "14": "신축 객실 TV 도입",
+    "15": "27년 신축 호텔 객실 TV 도입을 통한 프리미엄 환경 구축",
+    "16": "HG55BU",
+    "17": "스마트 미러링",
+    "18": "HG55BU",
+    "19": "웰컴 화면 설정",
+    "20": "HG55BU",
+    "21": "[솔루션]",
+    "23": "해운대 오션브릿지호텔 · 신축 호텔 객실 TV 도입"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "pillar",
+    "4": "pillar",
+    "5": "pillar",
+    "6": "llm",
+    "7": "llm",
+    "8": "placeholder",
+    "9": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "23": "context"
+   },
+   "images": {
+    "0": {
+     "pid": null,
+     "label": "이미지 필요 · HG55BU 제품 · 설치 사진"
+    },
+    "1": {
+     "pid": null,
+     "label": "이미지 필요 · 키오스크 사진"
+    },
+    "2": {
+     "pid": null,
+     "label": "이미지 필요 · 외부 사진"
+    },
+    "3": {
+     "pid": null,
+     "label": "이미지 필요 · 픽업대 사진"
+    }
+   },
+   "checks": {
+    "n_slots": 23,
+    "changed": 21,
+    "coverage": 0.913,
+    "placeholders_left": 2,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 2,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 4,
+   "f": "L_VP_U_HT",
+   "code": "VP-U",
+   "part_id": "S04",
+   "texts": {
+    "0": "04 · Value Propositions",
+    "1": "해운대 오션브릿지호텔의 고민, 삼성전자가 답합니다",
+    "2": "호텔 · 리조트",
+    "3": "객실",
+    "4": "호텔 운영 현장의 핵심 질문에 대한 삼성의 답변",
+    "5": "현장에서 듣는 질문",
+    "6": "답하는 제품",
+    "7": "핵심 가치 · 해결 키워드",
+    "8": "Q1",
+    "9": "객실 운영팀",
+    "10": "“객실 TV로 호텔 안내와 부대시설을 알릴 수 있나요?”",
+    "11": "삼성 호텔 TV",
+    "12": "55\" 호텔 TV",
+    "13": "핵심 가치",
+    "14": "웰컴 화면으로 호텔 정보를 즉시 전달합니다",
+    "15": "#웰컴 화면",
+    "16": "#정보 전달",
+    "17": "Q2",
+    "18": "프런트",
+    "19": "“투숙객에게 차별화된 객실 경험을 제공하고 싶어요”",
+    "20": "삼성 TV",
+    "21": "모바일 미러링 지원",
+    "22": "핵심 가치",
+    "23": "개인 콘텐츠를 TV로 즐기는 편의성 제공",
+    "24": "#미러링",
+    "25": "#고객 경험",
+    "26": "Q3",
+    "27": "시설팀",
+    "28": "“신축 호텔의 효율적인 객실 관리가 고민입니다”",
+    "29": "삼성 호텔 TV 솔루션",
+    "30": "[솔루션] 통합 관리",
+    "31": "핵심 가치",
+    "32": "원격 제어로 운영 효율성 극대화",
+    "33": "#통합 관리",
+    "34": "#운영 효율",
+    "36": "해운대 오션브릿지호텔 · 신축 호텔 객실 TV 도입"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "36": "context"
+   },
+   "images": {
+    "0": {
+     "pid": null,
+     "label": "이미지 필요 · HG55BU 제품 · 설치 사진"
+    },
+    "1": {
+     "pid": null,
+     "label": "이미지 필요 · 사진"
+    },
+    "2": {
+     "pid": null,
+     "label": "이미지 필요 · 사진"
+    }
+   },
+   "checks": {
+    "n_slots": 36,
+    "changed": 21,
+    "coverage": 0.583,
+    "placeholders_left": 1,
+    "overflow_fixed": [
+     11
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 15,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 5,
+   "f": "L_SS_HT_B",
+   "code": "SS-HT-B",
+   "part_id": "S05",
+   "texts": {
+    "0": "05 · DSS · 공간 맵",
+    "1": "해운대 오션브릿지호텔 객실은 체크인부터 퇴실까지 손님 맞춤형으로 운영됩니다",
+    "2": "투숙객이 가장 오래 머무는 대표 공간 ② 객실 — 한 번의 숙박을 네 장면으로: 순간 → 솔루션 → 제품 → 가치",
+    "3": "장면",
+    "4": "순간",
+    "5": "솔루션",
+    "6": "운영",
+    "7": "제품",
+    "8": "가치",
+    "9": "해운대 오션브릿지호텔 객실",
+    "10": "1",
+    "11": "HG55BU",
+    "12": "객실",
+    "13": "체크인 직후 · 객실 입장",
+    "14": "호텔 TV 55\" (HBU)",
+    "15": "PMS 연동 웰컴 화면 및 언어 설정",
+    "16": "재실 루틴에 따른 냉방 · 조명 자동화",
+    "17": "웰컴 메시지 및 시설 안내",
+    "18": "객실 환경 자동 최적화",
+    "19": "부대시설 안내",
+    "20": "[00]% ↑",
+    "21": "해운대 오션브릿지호텔 객실",
+    "22": "2",
+    "23": "22:30",
+    "24": "휴식 및 콘텐츠",
+    "25": "밤 · 객실 휴식 시간",
+    "26": "개인화된 콘텐츠 및 환경 제어",
+    "27": "휴식 모드 조명 및 온도 조절",
+    "28": "모바일 미러링 콘텐츠 감상",
+    "29": "호텔 TV · 에어컨 · 조명",
+    "30": "프런트 문의 감소",
+    "31": "객실 요청 콜",
+    "32": "[00]% ↓",
+    "33": "해운대 오션브릿지호텔 객실",
+    "34": "3",
+    "35": "10:[00]",
+    "36": "체크아웃",
+    "37": "다음 날 아침 · 체크아웃",
+    "38": "호텔 TV ([솔루션])",
+    "39": "데이터 초기화 및 기본 화면 복귀",
+    "40": "개인 정보 자동 삭제",
+    "41": "호텔 TV 관리 시스템",
+    "42": "다음 손님 맞이 준비",
+    "43": "객실 TV 자동 초기화",
+    "44": "운영 효율화",
+    "45": "해운대 오션브릿지호텔 객실",
+    "46": "4",
+    "47": "12:30",
+    "48": "객실 정비",
+    "49": "공실 · 하우스키핑",
+    "50": "재실 센서 기반 에너지 관리",
+    "51": "공실 감지 시 냉난방 · 조명 절전",
+    "52": "청소 상태 실시간 공유",
+    "53": "재실 센서 · 호텔 TV",
+    "54": "에너지 절감 및 정비 효율",
+    "55": "공실 에너지 관리",
+    "56": "[00]% 절감",
+    "57": "객실 1실 표준 구성",
+    "58": "해운대 오션브릿지호텔 객실 [000]실 적용",
+    "59": "호텔 TV 1",
+    "60": "시스템에어컨 1",
+    "61": "조명 · 스마트 플러그",
+    "62": "재실 · 열림 센서",
+    "63": "객실 TV 관리 · PMS 연동",
+    "64": "운영",
+    "65": "신축 호텔 객실 TV 27년 기준 최적화 솔루션 제안",
+    "66": "수치 · 시간은 예시",
+    "67": "유사 사례 기준",
+    "69": "해운대 오션브릿지호텔 · 신축 호텔 객실 TV 도입"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "space",
+    "12": "space",
+    "13": "llm",
+    "14": "space",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "35": "llm",
+    "36": "llm",
+    "37": "llm",
+    "38": "llm",
+    "39": "llm",
+    "40": "llm",
+    "41": "llm",
+    "42": "llm",
+    "43": "llm",
+    "44": "llm",
+    "45": "llm",
+    "46": "llm",
+    "47": "llm",
+    "48": "llm",
+    "49": "llm",
+    "50": "llm",
+    "51": "llm",
+    "52": "llm",
+    "53": "llm",
+    "54": "llm",
+    "55": "llm",
+    "56": "llm",
+    "57": "llm",
+    "58": "llm",
+    "59": "llm",
+    "60": "llm",
+    "61": "llm",
+    "62": "llm",
+    "63": "llm",
+    "64": "llm",
+    "65": "llm",
+    "66": "llm",
+    "67": "llm",
+    "69": "context"
+   },
+   "images": {
+    "0": {
+     "pid": null,
+     "label": "이미지 필요 · 객실 호텔 TV 웰컴 화면 ("
+    },
+    "1": {
+     "pid": null,
+     "label": "이미지 필요 · 호텔 객실 침대 옆 (예시 사"
+    },
+    "2": {
+     "pid": null,
+     "label": "이미지 필요 · 프런트 직원이 객실 TV 관리"
+    },
+    "3": {
+     "pid": null,
+     "label": "이미지 필요 · 천장 에어컨과 객실 TV · "
+    }
+   },
+   "checks": {
+    "n_slots": 69,
+    "changed": 46,
+    "coverage": 0.667,
+    "placeholders_left": 6,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 23,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 6,
+   "f": "L_P1B",
+   "code": "P1-B",
+   "part_id": "S06",
+   "texts": {
+    "0": "06 · 공간별 제품",
+    "1": "객실 — 프리미엄 스마트 환경 구축",
+    "2": "해운대 오션브릿지호텔 맞춤형 HG55BU 제안",
+    "3": "도입 규모 협의 중",
+    "4": "호텔 TV (HG55BU)",
+    "5": "[내용]",
+    "6": "호텔 TV",
+    "7": "호텔 TV 55\" (HBU)",
+    "8": "[00]대",
+    "9": "신축 객실 TV 27년",
+    "10": "투숙객 편의 및 브랜드",
+    "11": "스마트 객실 솔루션 구현",
+    "13": "해운대 오션브릿지호텔 · 신축 호텔 객실 TV 도입"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "placeholder",
+    "6": "product",
+    "7": "product",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "13": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 13,
+    "changed": 13,
+    "coverage": 1.0,
+    "placeholders_left": 2,
+    "overflow_fixed": [
+     10
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 0,
+    "static_foreign": [
+     "카운터 · 메뉴보드",
+     "/ 매장 · 960대"
+    ]
+   },
+   "llm": true
+  },
+  {
+   "no": 7,
+   "f": "L_CS03",
+   "code": "CL-B",
+   "part_id": "S07",
+   "texts": {
+    "0": "07 · 유관 사례",
+    "1": "검증된 호텔 솔루션 도입 사례",
+    "2": "현장 이미지",
+    "3": "부티크 호텔 XYM",
+    "4": "오픈 4개월 만에 단골 다수 확보",
+    "5": "삼성 호텔 TV 및 IT 솔루션으로 고객 만족도 제고",
+    "6": "TV/음향시스템 · 프린팅/IT",
+    "7": "[00]%",
+    "8": "단골 고객 확보",
+    "9": "현장 이미지",
+    "10": "크라운 파크 호텔",
+    "11": "제안 후 6개월 만에 전 객실",
+    "12": "호텔 운영 효율·표준화된 운영 체계 → 삼성 호텔 TV(셋톱박스",
+    "13": "TV/음향시스템",
+    "14": "[00]%",
+    "15": "전 객실 도입 완료",
+    "16": "현장 이미지",
+    "17": "IBC 호텔",
+    "18": "호텔/서비스 · 호텔 TV",
+    "19": "장기 투숙객 엔터테인먼트·휴식 → 삼성 더 프레임(로비·아트모드)",
+    "20": "시스템에어컨 · TV/음향시스템",
+    "21": "[00]%",
+    "22": "운영 효율 증대",
+    "24": "해운대 오션브릿지호텔 · 신축 호텔 객실 TV 도입"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "case",
+    "4": "case",
+    "5": "llm",
+    "6": "case",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "case",
+    "11": "case",
+    "12": "case",
+    "13": "case",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "case",
+    "18": "case",
+    "19": "case",
+    "20": "case",
+    "21": "llm",
+    "22": "llm",
+    "24": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 24,
+    "changed": 18,
+    "coverage": 0.75,
+    "placeholders_left": 3,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 6,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 8,
+   "f": "L_WS02",
+   "code": "ST-A",
+   "part_id": "S08",
+   "texts": {
+    "0": "08 · Why Samsung",
+    "1": "해운대 오션브릿지호텔을 위한 삼성의 약속",
+    "2": "01",
+    "3": "호텔 맞춤형 통합 솔루션 제공",
+    "4": "전국 단위의 신속한 설치 및 전문 AS 지원 체계",
+    "5": "27년",
+    "6": "신축 객실 TV 운영 신뢰성",
+    "7": "02",
+    "8": "검증된 호텔 전용 기술력",
+    "9": "웰컴 화면 및 미러링 등 투숙객 만족도를 높이는 호텔 전용 기능 지원",
+    "10": "188개",
+    "11": "전국 서비스센터",
+    "12": "03",
+    "13": "전국 단위 밀착 지원 체계",
+    "14": "전국 188개 서비스센터를 통한 신속한 설치 및 전문 유지보수 지원",
+    "15": "[00]시간",
+    "16": "평균 방문 대응 시간",
+    "18": "해운대 오션브릿지호텔 · 신축 호텔 객실 TV 도입"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "part",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "18": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 18,
+    "changed": 13,
+    "coverage": 0.722,
+    "placeholders_left": 1,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 5,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 9,
+   "f": "L_SV_A",
+   "code": "SV-A",
+   "part_id": "S09",
+   "texts": {
+    "0": "09 · Why Samsung",
+    "1": "해운대 오션브릿지호텔을 위한 삼성의 책임 지원",
+    "2": "신축 객실 TV 27년 도입을 위한 단계별 일정 및 책임",
+    "3": "삼성 주도",
+    "4": "공동",
+    "5": "호텔 주도",
+    "6": "일정",
+    "7": "단계 · 책임",
+    "8": "W1",
+    "9": "W2",
+    "10": "W3",
+    "11": "W4",
+    "12": "W5",
+    "13": "W6",
+    "14": "W7",
+    "15": "W8",
+    "16": "W9",
+    "17": "HG55",
+    "18": "HG55",
+    "19": "HG55",
+    "20": "HG55",
+    "21": "HG55",
+    "22": "HG55",
+    "23": "HG55",
+    "24": "현장 실사 · 설계",
+    "25": "삼성",
+    "26": "실측 · 설치 설계",
+    "27": "설치 및 시운전",
+    "28": "공동",
+    "29": "설치 · 운영 검증",
+    "30": "객실 TV 도입",
+    "31": "삼성",
+    "32": "신속한 AS 체계",
+    "33": "최종 점검",
+    "34": "삼성",
+    "35": "유지보수 지원",
+    "36": "운영 안정화",
+    "37": "호텔",
+    "38": "운영 교육",
+    "39": "마일스톤",
+    "40": "시범 오픈 W6",
+    "41": "담당자 운영 교육",
+    "43": "해운대 오션브릿지호텔 · 신축 호텔 객실 TV 도입"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "35": "llm",
+    "36": "llm",
+    "37": "llm",
+    "38": "llm",
+    "39": "llm",
+    "40": "llm",
+    "41": "llm",
+    "43": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 43,
+    "changed": 22,
+    "coverage": 0.512,
+    "placeholders_left": 0,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 21,
+    "static_foreign": [
+     "A 커피 주도",
+     "A 커피"
+    ]
+   },
+   "llm": true
+  },
+  {
+   "no": 10,
+   "f": "L_C13",
+   "code": "C13",
+   "part_id": "S10",
+   "texts": {
+    "0": "NEXT STEPS",
+    "1": "향후 추진 계획",
+    "2": "해운대 오션브릿지호텔 · 신축 호텔 객실 TV 도입 제안",
+    "3": "1",
+    "4": "현장 실사",
+    "5": "대상",
+    "6": "객실 TV 설치",
+    "7": "참석",
+    "8": "상세 견적 및 최적화 설계",
+    "9": "기간",
+    "10": "[00]/[00] – [00]/[00]",
+    "11": "실사 일정 협의",
+    "12": "확정",
+    "13": "[00]/[00]",
+    "14": "[0]",
+    "15": "도입 범위 확정",
+    "16": "범위",
+    "17": "호텔 객실 TV 최적화 구성",
+    "18": "콘텐츠",
+    "19": "운영 주체",
+    "20": "회의",
+    "21": "[00]/[00]",
+    "22": "도입 사양 확정",
+    "23": "확정",
+    "24": "[00]/[00]",
+    "25": "[0]",
+    "26": "최종 계약 및 착수",
+    "27": "계약",
+    "28": "발주 방식",
+    "29": "착수 목표",
+    "30": "[00]월",
+    "31": "첫 오픈",
+    "32": "착수 후 [0]주",
+    "33": "최종 의사결정",
+    "34": "승인",
+    "35": "[00]/[00]",
+    "36": "담당",
+    "37": "[이름] · [직급]",
+    "38": "이메일",
+    "39": "[email@company.com]",
+    "40": "전화",
+    "41": "[000-0000-0000]"
+   },
+   "sources": {
+    "0": "llm",
+    "1": "llm",
+    "2": "context",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "35": "llm",
+    "36": "llm",
+    "37": "llm",
+    "38": "llm",
+    "39": "llm",
+    "40": "llm",
+    "41": "llm"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 42,
+    "changed": 12,
+    "coverage": 0.286,
+    "placeholders_left": 12,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 30,
+    "static_foreign": []
+   },
+   "llm": true
+  }
+ ]
+}

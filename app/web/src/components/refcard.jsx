@@ -2,13 +2,13 @@
 // Shared by the Storyboard 제품 · 솔루션 매칭 bubble and its popup (ctxconfirm.jsx MatchPopup); ContextCards is the former tabbed matching modal's content, currently unused.
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Icon, AddRefInput, toast } from './common.jsx';
+import { DeleteButton, Icon, AddRefInput, toast } from './common.jsx';
 import { P, S, C, IND, refInfo } from '../services/catalog.js';
 import { Thumb } from './Thumbs.jsx';
 import { recommendContext, inferIndustry, reqText } from '../services/search.js';
 import { addRef, removeRef, refsOf } from './requirements.jsx';
 import { segRefs } from '../repositories/proposals.js';
-import { useDetailPeek } from './peek.jsx';
+import { useDetailPeek } from './reference-detail.jsx';
 import { tagMeta } from './tagcard.jsx';
 
 // [ctx key, ref type, label, recommended minimum] — same order as the requirements screen
@@ -91,7 +91,7 @@ export function RefCard({ r, p, onRemove, mentioned }) {
         <Thumb r={r} />
         <span className="rc-tag">{m.tag}</span>
         {mentioned && <span className="rc-at" title="고객 요구사항 본문에서 @로 부른 항목">@ 본문</span>}
-        {onRemove && <button className="rc-x" onClick={() => onRemove(r)} aria-label={info.label + ' 연결 해제'} title="연결 해제"><Icon name="x" size={14} stroke={2.4} /></button>}
+        {onRemove && <DeleteButton className="rc-x" onClick={() => onRemove(r)} aria-label={info.label + ' 연결 해제'} title="연결 해제"><Icon name="x" size={14} stroke={2.4} /></DeleteButton>}
       </div>
       <div className="rc-body">
         <h4 className="rc-name" title={info.label}>{info.label}</h4>
@@ -143,12 +143,12 @@ function CTile({ r, p, rec, mentioned, onRemove, onAdd, peek }) {
     );
   }
   return (
-    <div className={'ctile ' + type} tabIndex={0} {...hov} aria-label={info.label}>
+    <div className={'ctile ' + type} tabIndex={0} {...hov} {...peek.detailProps(r)} aria-label={info.label}>
       <span className="ct-media">
         <Thumb r={r} />
         {mentioned && <span className="rc-at" title="고객 요구사항 본문에서 @로 부른 항목">@ 본문</span>}
       </span>
-      <button className="rc-x" onClick={(e) => { e.stopPropagation(); peek.hide(); onRemove(r); }} onFocus={(e) => e.stopPropagation()} aria-label={info.label + ' 연결 해제'} title="연결 해제"><Icon name="x" size={14} stroke={2.4} /></button>
+      <DeleteButton className="rc-x" onClick={(e) => { e.stopPropagation(); peek.hide(); onRemove(r); }} onFocus={(e) => e.stopPropagation()} aria-label={info.label + ' 연결 해제'} title="연결 해제"><Icon name="x" size={14} stroke={2.4} /></DeleteButton>
       <span className="ct-body">
         <b className="ct-name" title={info.label}>{info.label}</b>
         <span className={'ct-sub' + (type === 'product' ? ' num' : '')}>{type === 'solution' ? m.tag : [m.sub, type === 'product' ? m.tag : ''].filter(Boolean).join(' · ') || m.tag}</span>

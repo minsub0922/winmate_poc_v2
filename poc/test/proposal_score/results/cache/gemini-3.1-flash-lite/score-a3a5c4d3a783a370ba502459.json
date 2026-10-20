@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~number_conflict:F06"
+ },
+ "prompt_tokens": 6660,
+ "output_tokens": 196,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 1,
+    "anchor": "일 가동 시간 지표가 4장과 6장에서는 14시간으로, 9장에서는 11시간으로 서로 다르게 기재되어 수치 일관성이 결여되었습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "일 14시간 가동"
+     },
+     {
+      "sheet": 9,
+      "quote": "하루 11시간 가동"
+     }
+    ],
+    "improve": "제안서 전반에 걸쳐 고객사 운영 환경에 대한 수치(일 가동 시간 등)를 하나로 통일해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

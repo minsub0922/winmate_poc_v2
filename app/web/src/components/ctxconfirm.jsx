@@ -6,13 +6,13 @@
 import React, { useState, useRef, useEffect, useLayoutEffect, useMemo, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { update } from '../repositories/proposals.js';
-import { Icon, toast } from './common.jsx';
+import { DeleteButton, Icon, toast } from './common.jsx';
 import { BubblePopup } from './bubblepop.jsx';
 import { INDUSTRIES, IND, refInfo } from '../services/catalog.js';
 import { inferIndustry, recommendContext, reqText } from '../services/search.js';
 import { Thumb } from './Thumbs.jsx';
 import { KIND, RefCard, metaOf, shortOf } from './refcard.jsx';
-import { useDetailPeek } from './peek.jsx';
+import { useDetailPeek } from './reference-detail.jsx';
 import { removeRef } from './requirements.jsx';
 import { ContextExplorer, totalOf, startFor, REC_MAX } from './ctxexplorer.jsx';
 import { HistoryReuse } from './history-reuse.jsx';
@@ -70,7 +70,7 @@ function IndustryCombo({ p }) {
             else if (e.key === 'Enter' && !e.nativeEvent.isComposing) { e.preventDefault(); if (open && act >= 0 && list[act]) pick(list[act].code); else { commit(); setOpen(false); } }
             else if (e.key === 'Escape' && open) { e.stopPropagation(); e.nativeEvent.stopImmediatePropagation(); setOpen(false); }
           }} />
-        {(p.ind || p.indName) && <button type="button" className="cc-x" aria-label="업종 지우기" onClick={() => { update(p.id, (d) => { d.ind = null; d.indName = null; }); setQ(''); }}><Icon name="x" size={13} /></button>}
+        {(p.ind || p.indName) && <DeleteButton type="button" className="cc-x" aria-label="업종 지우기" onClick={() => { update(p.id, (d) => { d.ind = null; d.indName = null; }); setQ(''); }}><Icon name="x" size={13} /></DeleteButton>}
         {open && list.length > 0 && (
           <div className="cc-list" id="cc-ind-list" role="listbox" onMouseDown={(e) => e.preventDefault()}>
             {list.map((i, k) => (
@@ -98,14 +98,13 @@ function LinkedCard({ r, p, onRemove, peek }) {
   return (
     <article className={'cc-card ' + m.type} tabIndex={0} aria-label={info.label + (tag ? ' · ' + tag : '') + ' · 상세 보기'}
       onMouseEnter={(e) => peek.show(r, e.currentTarget)} onMouseLeave={peek.hide}
-      onClick={(e) => peek.show(r, e.currentTarget, true)}
+      {...peek.detailProps(r)}
       onFocus={(e) => { if (own(e) && e.currentTarget.matches(':focus-visible')) peek.show(r, e.currentTarget, true); }}
-      onBlur={(e) => { if (own(e)) peek.hide(e); }}
-      onKeyDown={(e) => { if (own(e) && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); peek.show(r, e.currentTarget, true); } }}>
+      onBlur={(e) => { if (own(e)) peek.hide(e); }}>
       <Thumb r={r} />
       <b className="cc-name" title={info.label}>{info.label}</b>
       {tag && <span className="cc-tag" title={tag}>{tag}</span>}
-      <button type="button" className="cc-rm" onClick={(e) => { e.stopPropagation(); peek.hide(); onRemove(r); }} aria-label={info.label + ' 연결 해제'} title="연결 해제"><Icon name="x" size={13} stroke={2.4} /></button>
+      <DeleteButton type="button" className="cc-rm" onClick={(e) => { e.stopPropagation(); peek.hide(); onRemove(r); }} aria-label={info.label + ' 연결 해제'} title="연결 해제"><Icon name="x" size={13} stroke={2.4} /></DeleteButton>
     </article>
   );
 }

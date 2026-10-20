@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10:F08"
+ },
+ "prompt_tokens": 2004,
+ "output_tokens": 216,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "제안 요약에서 장애율 감소, 복구 시간 단축, 총비용 절감이라는 3가지 고객 언어의 결과형 가치를 제시하고, 이를 달성할 제품 및 솔루션을 명확히 연결함.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "3.0% → 1.0% 사이니지 월 장애율 38 → 8시간 평균 복구 시간 5년 −12% 5년 총비용"
+     },
+     {
+      "sheet": 2,
+      "quote": "QM55C · VM55B · DVM S2 MagicINFO 원격 감시"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

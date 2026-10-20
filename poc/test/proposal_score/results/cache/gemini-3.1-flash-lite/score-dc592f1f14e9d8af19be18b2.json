@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs12:F04"
+ },
+ "prompt_tokens": 3778,
+ "output_tokens": 182,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "대구 삼성라이온즈파크 사례를 통해 에어컨 케어서비스 도입 구성과 연 130만 관중이라는 성과 수치를 명확히 제시하였습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "대구 삼성라이온즈파크 — 시즌 중 멈추지 않는 설비 케어"
+     },
+     {
+      "sheet": 10,
+      "quote": "130만 | 연 관중의 쾌적한 직관"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

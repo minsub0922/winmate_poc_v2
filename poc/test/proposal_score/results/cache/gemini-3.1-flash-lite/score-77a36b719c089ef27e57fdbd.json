@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~placeholders:F06"
+ },
+ "prompt_tokens": 5115,
+ "output_tokens": 240,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 1,
+    "anchor": "1장과 13장에서는 1,240세대로 표기했으나, 8장과 9장에서는 486세대로 표기하여 동일한 대상에 대한 세대 수가 장마다 다르게 나타납니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "R 건설 2지구 1,240세대"
+     },
+     {
+      "sheet": 8,
+      "quote": "84A 세대 · 방 3 · 486세대"
+     }
+    ],
+    "improve": "제안서 전체에서 언급되는 대상 단지의 총 세대 수를 1,240세대로 통일하거나, 486세대가 84A 타입의 세대 수임을 명확히 구분하여 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

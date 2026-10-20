@@ -1,0 +1,78 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11~full:F01"
+ },
+ "prompt_tokens": 9415,
+ "output_tokens": 626,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명을 'K 공단'으로 일관되게 표기하였으며, 업종 및 사업 규모 정보가 장마다 동일하게 기술되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "K 공단"
+     },
+     {
+      "sheet": 15,
+      "quote": "K 공단"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "CU5",
+    "score": 3,
+    "anchor": "RFP 기반의 요구사항 28개, 16주 일정, 12곳의 대합실 등 고객 고유의 사업 범위와 운영 수치가 전 장에 걸쳐 상세히 반영되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "대합실 12곳 · 회의실 — 관제와 안내를 한 체계로"
+     },
+     {
+      "sheet": 11,
+      "quote": "계약부터 검수 · 이관까지 16주"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "템플릿 잔여물이나 자리표시 문구가 발견되지 않았으며, 연락처는 제안사 담당자의 정상적인 정보로 기재되었습니다.",
+    "evidence": [
+     {
+      "sheet": 15,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 2,
+    "anchor": "8장과 9장에서 '확인 필요'라는 내부 검토용 메모가 노출되어 있으나, 이는 민감한 기밀 정보는 아닙니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "확인 필요"
+     },
+     {
+      "sheet": 9,
+      "quote": "○ 확인 필요 2"
+     }
+    ],
+    "improve": "제안서 내부에 남아 있는 '확인 필요'와 같은 내부 검토용 문구를 삭제하거나 확정된 내용으로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

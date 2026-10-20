@@ -1,0 +1,41 @@
+{
+ "id": "H01",
+ "case": "H01",
+ "industry": "TP",
+ "strategy": null,
+ "req_type": null,
+ "title": "테마파크 신규 구역",
+ "level": "minimal",
+ "input": {
+  "title": "Q 파크 제안",
+  "customer": "Q 테마파크",
+  "industry": "TP",
+  "free_text": "테마파크 신규 구역. LED 사이니지, 하만 오디오",
+  "products": [
+   "led_indoor",
+   "harman"
+  ],
+  "id": "H01"
+ },
+ "gold": {
+  "scenario_any": [
+   "STD-TP"
+  ],
+  "must_parts": [
+   "value",
+   "products",
+   "case",
+   "why"
+  ],
+  "layouts_any": {
+   "products": [
+    "L_P_L",
+    "L_P2B"
+   ]
+  },
+  "key_reqs": [],
+  "facts": [],
+  "level": "minimal",
+  "industry": "TP"
+ }
+}

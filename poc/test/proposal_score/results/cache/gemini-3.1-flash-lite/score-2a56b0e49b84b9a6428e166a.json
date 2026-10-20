@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19:F02"
+ },
+ "prompt_tokens": 4832,
+ "output_tokens": 222,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 요구사항인 업계 사례(R2, K2), 시간 효율성(R3), 다음 단계(K3)를 각 장에서 명시적으로 다루고 있으며, Y 그룹의 상황(K1)을 4장에서 구체적으로 분석하여 대응하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "6개 사업 모두, 업계는 이미 바꿨습니다"
+     },
+     {
+      "sheet": 4,
+      "quote": "Y 그룹의 목표는 ‘그룹 운영 효율’"
+     },
+     {
+      "sheet": 10,
+      "quote": "2주 안에 현장부터, 세 단계로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

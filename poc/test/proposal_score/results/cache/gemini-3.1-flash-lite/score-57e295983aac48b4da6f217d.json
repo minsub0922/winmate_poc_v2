@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~base:F01"
+ },
+ "prompt_tokens": 9297,
+ "output_tokens": 328,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'A 커피'와 매장 수 320개, 담당 조직이 일관되게 기술되었습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "A 커피 전국 320개 매장"
+     },
+     {
+      "sheet": 4,
+      "quote": "본사 · 전국 매장 320개"
+     },
+     {
+      "sheet": 16,
+      "quote": "A 커피 디지털 메뉴보드 전환"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "16장의 연락처 정보에 템플릿 예시용 이메일 주소(b2b.proposal@)가 남아 있습니다.",
+    "evidence": [
+     {
+      "sheet": 16,
+      "quote": "b2b.proposal@samsung.com"
+     }
+    ],
+    "improve": "제안서 마지막 장의 담당자 연락처 이메일 주소를 실제 담당자의 이메일로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

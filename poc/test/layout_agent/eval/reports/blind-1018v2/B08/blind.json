@@ -1,0 +1,416 @@
+{
+ "id": "B08",
+ "title": "프로야구 홈구장 전광판·관람환경 리뉴얼 (경쟁사 선제안 상황)",
+ "exp_level": "complex",
+ "level": "complex",
+ "exp_industry": "VN",
+ "industry": "AD",
+ "exp_strategy": "compete",
+ "strategy": "compete",
+ "scenario": "compete",
+ "exp_products": [
+  "kiosk",
+  "led_outdoor",
+  "qm55c"
+ ],
+ "products": [
+  "kiosk",
+  "led_outdoor"
+ ],
+ "solutions": [
+  "care",
+  "content"
+ ],
+ "prod_recall": 0.667,
+ "prod_precision": 1.0,
+ "must_show": 1.0,
+ "must_show_miss": [],
+ "facts": 1.0,
+ "facts_miss": [],
+ "must_not_hit": [],
+ "parts": [
+  "cover:한빛파크 리뉴얼 제안",
+  "overview:사업 범위 및 목적",
+  "requirements:이해관계자별 니즈",
+  "requirements:핵심 평가 항목 대응",
+  "requirements:요구사항 준수 계획",
+  "customer:고객사 현황 및 과제",
+  "challenge:주요 문제 해결 방안",
+  "value:이해관계자 가치 창출",
+  "solution:운영 및 유지보수",
+  "products:공간별 최적 제품",
+  "bom:범위 및 수량 대응",
+  "spec:기능 및 성능 규격",
+  "execution:시스템 연동 및 대응",
+  "effect:사용자 경험 개선",
+  "case:유관 구축 사례",
+  "why:경쟁 우위 전략",
+  "execution:일정 및 실행 계획",
+  "cost:비용 및 구매 전략",
+  "closing:결정 요청"
+ ],
+ "questions": [
+  "strategy",
+  "ending",
+  "keyman",
+  "conflict_C5",
+  "conflict_L1",
+  "conflict_L2",
+  "gap_llm1",
+  "gap_llm2",
+  "gap_llm3",
+  "llm_Q01",
+  "llm_Q02",
+  "llm_Q03",
+  "length"
+ ],
+ "conflicts": [
+  "키맨 관심사 분산",
+  "LLM 발견",
+  "LLM 발견"
+ ],
+ "issues": [
+  "[low] 입찰 절차 · 제출 조건 3개는 제출 체크리스트로 따로 확인(요구 대응표에 수록)"
+ ],
+ "stats": {
+  "n_slides": 22,
+  "text_slots": 1014,
+  "placeholders": 243,
+  "slides_with_ph": 21,
+  "sample_text_kept": 391,
+  "img_slots": 55,
+  "img_filled": 35,
+  "photo_slides": 13,
+  "stray_slides": 0,
+  "slides": [
+   {
+    "no": 1,
+    "code": "C03",
+    "f": "L_C03",
+    "visual": [
+     "message"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 0,
+    "stray": []
+   },
+   {
+    "no": 2,
+    "code": "PH-OV-A",
+    "f": "L_PH_OV_A",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "message",
+     "photo"
+    ],
+    "ph": 22,
+    "img_slots": 6,
+    "img_filled": 5,
+    "kept_sample": 29,
+    "stray": []
+   },
+   {
+    "no": 3,
+    "code": "PH-RQ-C",
+    "f": "L_PH_RQ_C",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 3,
+    "img_slots": 4,
+    "img_filled": 4,
+    "kept_sample": 11,
+    "stray": []
+   },
+   {
+    "no": 4,
+    "code": "RM-C",
+    "f": "L_RM_C",
+    "visual": [
+     "table"
+    ],
+    "ph": 30,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 33,
+    "stray": []
+   },
+   {
+    "no": 5,
+    "code": "RM-B",
+    "f": "L_RM_B",
+    "visual": [
+     "table"
+    ],
+    "ph": 13,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 26,
+    "stray": []
+   },
+   {
+    "no": 6,
+    "code": "RM-B",
+    "f": "L_RM_B",
+    "visual": [
+     "table"
+    ],
+    "ph": 13,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 26,
+    "stray": []
+   },
+   {
+    "no": 7,
+    "code": "RM-B",
+    "f": "L_RM_B",
+    "visual": [
+     "table"
+    ],
+    "ph": 14,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 27,
+    "stray": []
+   },
+   {
+    "no": 8,
+    "code": "PH-CB-F",
+    "f": "L_PH_CB_F",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "kpi",
+     "photo"
+    ],
+    "ph": 9,
+    "img_slots": 6,
+    "img_filled": 5,
+    "kept_sample": 17,
+    "stray": []
+   },
+   {
+    "no": 9,
+    "code": "PH-CH-C",
+    "f": "L_PH_CH_C",
+    "visual": [
+     "cards",
+     "flow",
+     "image",
+     "photo"
+    ],
+    "ph": 1,
+    "img_slots": 1,
+    "img_filled": 1,
+    "kept_sample": 13,
+    "stray": []
+   },
+   {
+    "no": 10,
+    "code": "PH-VP-D",
+    "f": "L_PH_VP_D",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 2,
+    "img_slots": 4,
+    "img_filled": 1,
+    "kept_sample": 0,
+    "stray": []
+   },
+   {
+    "no": 11,
+    "code": "PH-SO-J",
+    "f": "L_PH_SO_J",
+    "visual": [
+     "cards",
+     "flow",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 6,
+    "img_slots": 7,
+    "img_filled": 2,
+    "kept_sample": 5,
+    "stray": []
+   },
+   {
+    "no": 12,
+    "code": "PH-P-L",
+    "f": "L_PH_P_L",
+    "visual": [
+     "cards",
+     "image",
+     "photo"
+    ],
+    "ph": 1,
+    "img_slots": 2,
+    "img_filled": 2,
+    "kept_sample": 1,
+    "stray": []
+   },
+   {
+    "no": 13,
+    "code": "PH-BM-A",
+    "f": "L_PH_BM_A",
+    "visual": [
+     "image_heavy",
+     "photo",
+     "table"
+    ],
+    "ph": 5,
+    "img_slots": 10,
+    "img_filled": 7,
+    "kept_sample": 5,
+    "stray": []
+   },
+   {
+    "no": 14,
+    "code": "SC-B",
+    "f": "L_SC_B",
+    "visual": [
+     "comparison",
+     "table"
+    ],
+    "ph": 26,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 12,
+    "stray": []
+   },
+   {
+    "no": 15,
+    "code": "SC-B",
+    "f": "L_SC_B",
+    "visual": [
+     "comparison",
+     "table"
+    ],
+    "ph": 38,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 11,
+    "stray": []
+   },
+   {
+    "no": 16,
+    "code": "IG-A",
+    "f": "L_IG_A",
+    "visual": [
+     "diagram",
+     "matrix",
+     "table"
+    ],
+    "ph": 5,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 40,
+    "stray": []
+   },
+   {
+    "no": 17,
+    "code": "PH-EF-A",
+    "f": "L_PH_EF_A",
+    "visual": [
+     "cards",
+     "comparison",
+     "flow",
+     "image",
+     "kpi",
+     "photo"
+    ],
+    "ph": 13,
+    "img_slots": 1,
+    "img_filled": 1,
+    "kept_sample": 25,
+    "stray": []
+   },
+   {
+    "no": 18,
+    "code": "CL-B",
+    "f": "L_CS03",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "message"
+    ],
+    "ph": 7,
+    "img_slots": 3,
+    "img_filled": 0,
+    "kept_sample": 3,
+    "stray": []
+   },
+   {
+    "no": 19,
+    "code": "PH-SV-B",
+    "f": "L_PH_SV_B",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 5,
+    "img_slots": 4,
+    "img_filled": 1,
+    "kept_sample": 18,
+    "stray": []
+   },
+   {
+    "no": 20,
+    "code": "PH-MT-A",
+    "f": "L_PH_MT_A",
+    "visual": [
+     "cards",
+     "flow",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 4,
+    "img_slots": 6,
+    "img_filled": 5,
+    "kept_sample": 27,
+    "stray": []
+   },
+   {
+    "no": 21,
+    "code": "CO-B",
+    "f": "L_CO_B",
+    "visual": [
+     "cards"
+    ],
+    "ph": 25,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 54,
+    "stray": []
+   },
+   {
+    "no": 22,
+    "code": "C12",
+    "f": "L_C12",
+    "visual": [
+     "cards",
+     "image",
+     "message",
+     "photo"
+    ],
+    "ph": 1,
+    "img_slots": 1,
+    "img_filled": 1,
+    "kept_sample": 8,
+    "stray": []
+   }
+  ]
+ },
+ "sec": 26.6,
+ "llm_calls": 20,
+ "llm_fail": 0
+}

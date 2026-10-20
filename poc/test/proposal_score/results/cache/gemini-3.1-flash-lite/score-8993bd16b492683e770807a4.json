@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs03:F03"
+ },
+ "prompt_tokens": 2357,
+ "output_tokens": 213,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "14장에 결정권자(기획처장 등)가 판단할 범위, 일정, 리스크 관리 방안이 요약되어 있으며 실무 요구사항과 분리되어 명확히 정리되었습니다.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "11월 안에 함께 정할 세 가지"
+     },
+     {
+      "sheet": 14,
+      "quote": "1차년도 범위 확정 — 강의실 20실"
+     },
+     {
+      "sheet": 14,
+      "quote": "방학 시공 일정 합의 — 12/21 착수"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

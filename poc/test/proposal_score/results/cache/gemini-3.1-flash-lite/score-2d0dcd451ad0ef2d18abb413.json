@@ -1,0 +1,82 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~full:F01"
+ },
+ "prompt_tokens": 9478,
+ "output_tokens": 719,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'B 호텔'이 일관되게 사용되었으며, 객실 수(300실)와 담당 조직(객실팀, 시설팀 등) 정보가 전 장에 걸쳐 동일하게 기술되었습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "B 호텔 매출의 78%"
+     },
+     {
+      "sheet": 10,
+      "quote": "객실 300실은 한 실의 키트로"
+     },
+     {
+      "sheet": 13,
+      "quote": "B 호텔 객실 TV · 공조 리뉴얼"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "CU5",
+    "score": 3,
+    "anchor": "B 호텔의 객실 수, 매출 비중, 운영 과제(체크인 대기, 에어컨 소음), 구체적인 교체 일정 및 샘플룸 운영 계획 등 고객 고유 정보가 전 장에 걸쳐 상세히 반영되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "B 호텔 매출의 78%"
+     },
+     {
+      "sheet": 11,
+      "quote": "4F 객실 20실 · HG55BU · 1Way × 20"
+     },
+     {
+      "sheet": 13,
+      "quote": "12F 스탠다드 더블 1실 · 11/16–11/27 운영"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "템플릿 잔여물이나 자리표시 문구가 발견되지 않았으며, 연락처는 제안사 담당자의 공식 업무용 정보로 적절하게 기재되었습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "원가, 마진, 내부 할인율 등 민감한 내부 정보가 포함되어 있지 않으며, 제안사 담당자의 업무 연락처 외에 제3자의 개인정보도 노출되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

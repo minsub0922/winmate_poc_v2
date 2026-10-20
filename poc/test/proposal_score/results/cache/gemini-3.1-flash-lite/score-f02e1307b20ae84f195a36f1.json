@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs06:F09"
+ },
+ "prompt_tokens": 5649,
+ "output_tokens": 190,
+ "data": {
+  "scores": [
+   {
+    "id": "PR1",
+    "score": 2,
+    "anchor": "제안서 내 VM55B-U 모델명은 카탈로그상 VM55B와 세대 표기가 모호하게 기재되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "비디오월 VM55B 4×3"
+     },
+     {
+      "sheet": 9,
+      "quote": "VM55B-U 4×3"
+     }
+    ],
+    "improve": "제안서 전반의 모델명을 카탈로그상의 공식 명칭인 VM55B로 통일하여 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

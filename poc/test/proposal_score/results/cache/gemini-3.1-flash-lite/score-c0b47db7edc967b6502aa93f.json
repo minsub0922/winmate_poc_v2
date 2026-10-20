@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11:F06"
+ },
+ "prompt_tokens": 7417,
+ "output_tokens": 176,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "제안서 내 대합실 12곳, 단말 60대, 16주 일정 등 주요 수치가 모든 장에서 일관되게 기술되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "대합실 12곳 · 단말 60대까지 관제"
+     },
+     {
+      "sheet": 11,
+      "quote": "계약부터 검수 · 이관까지 16주"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

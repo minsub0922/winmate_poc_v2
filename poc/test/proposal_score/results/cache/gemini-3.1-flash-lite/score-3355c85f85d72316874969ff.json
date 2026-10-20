@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs15:F02"
+ },
+ "prompt_tokens": 7601,
+ "output_tokens": 252,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 2,
+    "anchor": "고객 요구사항 R1, R2, R3, K1, K2, K4에 대한 대응은 명확하나, K3(설비 수명 · 에너지)에 대한 구체적인 언급이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "밤사이 멈춘 냉동고, 버리는 재고"
+     },
+     {
+      "sheet": 7,
+      "quote": "온도 이력 · 조치 내역 위생 기록에 저장"
+     },
+     {
+      "sheet": 8,
+      "quote": "냉난방 전력 20% 절감"
+     }
+    ],
+    "improve": "설비 수명 연장 및 에너지 효율 향상에 대한 구체적인 기대 효과와 관리 방안을 추가하여 K3 요구사항을 명시적으로 충족해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs05:F10"
+ },
+ "prompt_tokens": 4880,
+ "output_tokens": 216,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO를 활용해 시즌별 콘텐츠 일괄 교체, 원격 진단, 운영실에서의 화면 편성 및 모니터링 등 구체적인 운영 장면과 하드웨어 연계 방식을 상세히 제시함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "MagicINFO 구역 화면 편성 · 대기시간 연동"
+     },
+     {
+      "sheet": 7,
+      "quote": "일몰 시각 자동 전환 · 우천 · 행사 땐 운영실 한 번"
+     },
+     {
+      "sheet": 12,
+      "quote": "운영 중엔 원격 진단 · 알림만"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

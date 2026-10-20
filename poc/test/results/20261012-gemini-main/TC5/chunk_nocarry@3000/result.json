@@ -1,0 +1,5112 @@
+{
+ "score": {
+  "recall": 0.887,
+  "projects_expected": 4,
+  "projects_found": 4,
+  "projects_matched": 4,
+  "misattributed": 1,
+  "per_project": [
+   {
+    "key": "printer",
+    "matched_pid": "P1",
+    "recall": 0.733,
+    "recall_with_summary": 0.733,
+    "missed": [
+     "c11 BMT 기기 1주일 내 배치",
+     "c14 예정가격 이하 최저가",
+     "c15 동일가격 즉시 추첨",
+     "c16 설치비 포함 총액입찰",
+     "c20 제조사 공급 · 기술지원 확약서",
+     "c21 PDF 1개 파일",
+     "c22 실명번호 뒤 7자리 마스킹",
+     "c26 제안 설명 미참석 시 제안포기"
+    ],
+    "rows": [
+     {
+      "id": "c01",
+      "cat": "범위",
+      "desc": "수량 152대",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c02",
+      "cat": "규격",
+      "desc": "20 PPM 이상",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c03",
+      "cat": "규격",
+      "desc": "양면 인쇄 필수",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c04",
+      "cat": "보안",
+      "desc": "USB 스캔 사용 불가",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c05",
+      "cat": "보안",
+      "desc": "출력물 보안 시스템 연동",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c06",
+      "cat": "보안",
+      "desc": "무선 접속 출력 제거",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c07",
+      "cat": "보안",
+      "desc": "IP 접속 웹 직접 출력 제거",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c08",
+      "cat": "인증",
+      "desc": "KC(전파) 인증",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c09",
+      "cat": "인증",
+      "desc": "WHQL 드라이버",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c10",
+      "cat": "선정",
+      "desc": "BMT 85% 이상 협상적격자",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c11",
+      "cat": "검증",
+      "desc": "BMT 기기 1주일 내 배치",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c12",
+      "cat": "자격",
+      "desc": "최근 5년 금융권 납품 실적",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c13",
+      "cat": "자격",
+      "desc": "누적 100대 이상",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c14",
+      "cat": "선정",
+      "desc": "예정가격 이하 최저가",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c15",
+      "cat": "선정",
+      "desc": "동일가격 즉시 추첨",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c16",
+      "cat": "범위",
+      "desc": "설치비 포함 총액입찰",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c17",
+      "cat": "일정",
+      "desc": "참가의향서 6/12",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c18",
+      "cat": "일정",
+      "desc": "13:00 마감",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c19",
+      "cat": "제출",
+      "desc": "접수 메일 주소",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c20",
+      "cat": "제출",
+      "desc": "제조사 공급 · 기술지원 확약서",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c21",
+      "cat": "형식",
+      "desc": "PDF 1개 파일",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c22",
+      "cat": "형식",
+      "desc": "실명번호 뒤 7자리 마스킹",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c23",
+      "cat": "가격",
+      "desc": "입찰보증금 5%",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c24",
+      "cat": "가격",
+      "desc": "보증기간 30일 이상",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c25",
+      "cat": "가격",
+      "desc": "1년 내 성실 이행 업체 보증금 면제",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c26",
+      "cat": "선정",
+      "desc": "제안 설명 미참석 시 제안포기",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c27",
+      "cat": "범위",
+      "desc": "사업기간 12개월 내외",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c28",
+      "cat": "청렴",
+      "desc": "청렴계약",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c29",
+      "cat": "유의",
+      "desc": "공고 정보 목적 외 사용 · 제3자 공유 금지",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c30",
+      "cat": "자격",
+      "desc": "부정당업자 제재",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     }
+    ]
+   },
+   {
+    "key": "desktop",
+    "matched_pid": "P2",
+    "recall": 0.939,
+    "recall_with_summary": 0.939,
+    "missed": [
+     "c29 3.5인치 저장장치 추가 여부",
+     "c33 국가계약법 시행령 제27조"
+    ],
+    "rows": [
+     {
+      "id": "c01",
+      "cat": "규격",
+      "desc": "Intel Ultra7 265 이상",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c02",
+      "cat": "규격",
+      "desc": "메모리 16GB",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c03",
+      "cat": "규격",
+      "desc": "DDR5",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c04",
+      "cat": "규격",
+      "desc": "NVMe SSD 256GB",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c05",
+      "cat": "인증",
+      "desc": "TPM 2.0 필수",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c06",
+      "cat": "규격",
+      "desc": "Power 400W 이상",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c07",
+      "cat": "규격",
+      "desc": "USB 8개 이상",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c08",
+      "cat": "규격",
+      "desc": "1Gigabit LAN",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c09",
+      "cat": "규격",
+      "desc": "Windows 11 Pro",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c10",
+      "cat": "규격",
+      "desc": "Slim 모델 제안 불가",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c11",
+      "cat": "계약",
+      "desc": "무상 유지보수 검수 후 12개월",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c12",
+      "cat": "범위",
+      "desc": "2026년 600대 이상",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c13",
+      "cat": "구성",
+      "desc": "실크 인쇄",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c14",
+      "cat": "구성",
+      "desc": "Master(이미지)",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c15",
+      "cat": "선정",
+      "desc": "기술평가 45점 미만 제외",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c16",
+      "cat": "검증",
+      "desc": "5일 이내 테스트 장비",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c17",
+      "cat": "검증",
+      "desc": "호환성 검증 통과",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c18",
+      "cat": "일정",
+      "desc": "서류 제출 8/21",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c19",
+      "cat": "일정",
+      "desc": "제안 발표 8/24",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c20",
+      "cat": "납품",
+      "desc": "최초 납품 계약 후 12주 내",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c21",
+      "cat": "자격",
+      "desc": "공동수급 불허",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c22",
+      "cat": "가격",
+      "desc": "부가세 포함",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c23",
+      "cat": "가격",
+      "desc": "대당 단가",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c24",
+      "cat": "가격",
+      "desc": "견적서 밀봉 제출",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c25",
+      "cat": "형식",
+      "desc": "A4 가로 파워포인트",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c26",
+      "cat": "형식",
+      "desc": "모호한 표현은 미수용 간주",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c27",
+      "cat": "제안서",
+      "desc": "메모리 · SSD 최대 운영기간",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c28",
+      "cat": "제안서",
+      "desc": "로드맵 · 단종 대응",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c29",
+      "cat": "제안서",
+      "desc": "3.5인치 저장장치 추가 여부",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c30",
+      "cat": "제안서",
+      "desc": "서비스센터 · 전국망",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c31",
+      "cat": "제출",
+      "desc": "제출처 메일",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c32",
+      "cat": "선정",
+      "desc": "동가 시 기술평가 우선",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c33",
+      "cat": "자격",
+      "desc": "국가계약법 시행령 제27조",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     }
+    ]
+   },
+   {
+    "key": "monitor",
+    "matched_pid": "P3",
+    "recall": 0.933,
+    "recall_with_summary": 0.933,
+    "missed": [
+     "c27 시력보호기능 인증공문",
+     "c29 접수 메일 주소"
+    ],
+    "rows": [
+     {
+      "id": "c01",
+      "cat": "범위",
+      "desc": "수량 980대",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c02",
+      "cat": "규격",
+      "desc": "27\" UHD 3840×2160",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c03",
+      "cat": "규격",
+      "desc": "Pivot",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c04",
+      "cat": "규격",
+      "desc": "Swivel",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c05",
+      "cat": "규격",
+      "desc": "Tilt",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c06",
+      "cat": "규격",
+      "desc": "Elevation(높이)",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c07",
+      "cat": "규격",
+      "desc": "IPS 또는 VA",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c08",
+      "cat": "규격",
+      "desc": "300cd/㎡ 이상",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c09",
+      "cat": "규격",
+      "desc": "응답속도 8ms 이하",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c10",
+      "cat": "규격",
+      "desc": "시야각 178°",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c11",
+      "cat": "규격",
+      "desc": "60Hz 이상",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c12",
+      "cat": "규격",
+      "desc": "sRGB 90% 이상",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c13",
+      "cat": "규격",
+      "desc": "USB-C PD",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c14",
+      "cat": "규격",
+      "desc": "3Port 이상",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c15",
+      "cat": "규격",
+      "desc": "시력보호(플리커프리 · 블루라이트)",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c16",
+      "cat": "규격",
+      "desc": "별도 AC 어댑터 사용 불가",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c17",
+      "cat": "인증",
+      "desc": "KC · 전파인증",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c18",
+      "cat": "A/S",
+      "desc": "자산스티커 부착",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c19",
+      "cat": "구성",
+      "desc": "DP to DP 3M 케이블",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c20",
+      "cat": "규격",
+      "desc": "컬러 Black",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c21",
+      "cat": "선정",
+      "desc": "가격평가 100점",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c22",
+      "cat": "선정",
+      "desc": "최저가격 입찰",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c23",
+      "cat": "범위",
+      "desc": "사업기간 6개월 내외",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c24",
+      "cat": "자격",
+      "desc": "금융권 모니터 납품 실적",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c25",
+      "cat": "일정",
+      "desc": "참가의향서 6/12",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c26",
+      "cat": "일정",
+      "desc": "13:00 마감",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c27",
+      "cat": "제출",
+      "desc": "시력보호기능 인증공문",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c28",
+      "cat": "가격",
+      "desc": "입찰보증금 5%",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c29",
+      "cat": "제출",
+      "desc": "접수 메일 주소",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c30",
+      "cat": "A/S",
+      "desc": "무상기간 내 점검 · 수리",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     }
+    ]
+   },
+   {
+    "key": "kb_pc",
+    "matched_pid": "P4",
+    "recall": 0.925,
+    "recall_with_summary": 0.925,
+    "missed": [
+     "c02 모니터 연 500대",
+     "c03 노트북 연 360대",
+     "c37 발급서류 3개월 이내"
+    ],
+    "rows": [
+     {
+      "id": "c01",
+      "cat": "범위",
+      "desc": "PC 연 100대",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c02",
+      "cat": "범위",
+      "desc": "모니터 연 500대",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c03",
+      "cat": "범위",
+      "desc": "노트북 연 360대",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c04",
+      "cat": "규격",
+      "desc": "PC i5 14세대 이상",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c05",
+      "cat": "규격",
+      "desc": "Ryzen 5 8000 시리즈",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c06",
+      "cat": "규격",
+      "desc": "PC DDR5 4800MHz",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c07",
+      "cat": "규격",
+      "desc": "슬림타워 이하",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c08",
+      "cat": "규격",
+      "desc": "PS2 포트",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c09",
+      "cat": "규격",
+      "desc": "키보드스킨",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c10",
+      "cat": "규격",
+      "desc": "모니터 22인치 와이드",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c11",
+      "cat": "규격",
+      "desc": "명암비 1,000:1",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c12",
+      "cat": "규격",
+      "desc": "모니터 응답속도 5ms",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c13",
+      "cat": "규격",
+      "desc": "노트북 Ryzen 7 7735U",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c14",
+      "cat": "규격",
+      "desc": "노트북 15.6인치",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c15",
+      "cat": "규격",
+      "desc": "노트북 2.0kg 이하",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c16",
+      "cat": "규격",
+      "desc": "WiFi 6 이상",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c17",
+      "cat": "A/S",
+      "desc": "무상유지보수 2년 이상",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c18",
+      "cat": "계약",
+      "desc": "단종 시 동일 금액 후속 모델",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c19",
+      "cat": "계약",
+      "desc": "분리 발주 시 단가 변동 없음",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c20",
+      "cat": "계약",
+      "desc": "수량 보장 없는 조건부 단가계약",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c21",
+      "cat": "계약",
+      "desc": "매월 설치 완료 후 정산",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c22",
+      "cat": "납품",
+      "desc": "전국 9개 노드",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c23",
+      "cat": "설치",
+      "desc": "설치비 단가 포함 금지 · 별도 계약",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c24",
+      "cat": "A/S",
+      "desc": "서비스 완료 목표 2일",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c25",
+      "cat": "A/S",
+      "desc": "부품 없으면 3일 + 대체 장비",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c26",
+      "cat": "A/S",
+      "desc": "부품 보유 5년",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c27",
+      "cat": "A/S",
+      "desc": "서비스 센터 핫라인",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c28",
+      "cat": "A/S",
+      "desc": "DOA 즉시 교체",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c29",
+      "cat": "납품",
+      "desc": "발주 후 3주 이내",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c30",
+      "cat": "납품",
+      "desc": "1회 최대 모니터 2,000대",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c31",
+      "cat": "납품",
+      "desc": "최초 발주 PC 300대",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c32",
+      "cat": "납품",
+      "desc": "배송 2인 1조",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c33",
+      "cat": "납품",
+      "desc": "OS 마스터 이미지 탑재",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c34",
+      "cat": "자격",
+      "desc": "최근 3년 금융권 누적 1,000대 실적",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c35",
+      "cat": "제출",
+      "desc": "구매포탈 등록",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c36",
+      "cat": "유의",
+      "desc": "공란 · 판단 불가 0점",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c37",
+      "cat": "제출",
+      "desc": "발급서류 3개월 이내",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": true
+     },
+     {
+      "id": "c38",
+      "cat": "구성",
+      "desc": "KB CI 스티커",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c39",
+      "cat": "규격",
+      "desc": "메인보드 제조번호 확인",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c40",
+      "cat": "자격",
+      "desc": "원제작사 또는 기술지원 확약 · 파트너십",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     }
+    ]
+   }
+  ]
+ },
+ "cost": {
+  "calls": 17,
+  "cached": 17,
+  "prompt_tokens": 37148,
+  "output_tokens": 32226,
+  "ms": 114,
+  "errors": []
+ },
+ "guards": {
+  "items": 278,
+  "grounded_rate": 0.989,
+  "ungrounded_ids": [
+   "R001",
+   "R172",
+   "R175"
+  ],
+  "unsupported_numbers": {
+   "P1": [],
+   "P2": [],
+   "P3": [],
+   "P4": [
+    "4개"
+   ]
+  },
+  "near_duplicates": 4
+ },
+ "profile": {
+  "projects": [
+   {
+    "pid": "P1",
+    "name": "흑백프린터 도입 추진",
+    "customer": "신한은행",
+    "start_line": 13,
+    "issuer": "신한은행 총무부/Tech운영부"
+   },
+   {
+    "pid": "P2",
+    "name": "삼성생명 데스크탑 표준 모델 선정",
+    "customer": "삼성생명보험(주)",
+    "start_line": 217,
+    "issuer": "삼성생명보험(주) 정보전략팀"
+   },
+   {
+    "pid": "P3",
+    "name": "업무용 모니터(27인치) 도입 추진",
+    "customer": "신한은행",
+    "start_line": 495,
+    "issuer": "신한은행 총무부/Tech운영부"
+   },
+   {
+    "pid": "P4",
+    "name": "개인전산장비 단가계약",
+    "customer": "KB손해보험",
+    "start_line": 707,
+    "issuer": "KB손해보험"
+   }
+  ],
+  "doc_type": "제안요청서(RFP) 및 입찰공고",
+  "glossary": [
+   "제한경쟁입찰",
+   "총액입찰",
+   "우선협상대상자",
+   "협상에 의한 계약",
+   "단가계약",
+   "청렴계약",
+   "입찰무효사유",
+   "부정당업자"
+  ]
+ },
+ "chunks": [
+  {
+   "idx": 0,
+   "path": "금융권 제안요청서(RFP) 및 입찰공고 통합 관리 문서",
+   "chars": 2224,
+   "lines": [
+    0,
+    79
+   ],
+   "table_header": false
+  },
+  {
+   "idx": 1,
+   "path": "1. [신한은행] 흑백프린터 도입 추진 (152대) > 입 찰 공 고 > 5. 문의사항",
+   "chars": 2443,
+   "lines": [
+    79,
+    173
+   ],
+   "table_header": false
+  },
+  {
+   "idx": 2,
+   "path": "1. [신한은행] 흑백프린터 도입 추진 (152대) > 입 찰 공 고 > [붙임 3] 입찰무효사유",
+   "chars": 1818,
+   "lines": [
+    173,
+    255
+   ],
+   "table_header": false
+  },
+  {
+   "idx": 3,
+   "path": "제 안 요 청 서 > Ⅰ. 사업개요 > 2. 사업배경 및 목적",
+   "chars": 2688,
+   "lines": [
+    255,
+    351
+   ],
+   "table_header": false
+  },
+  {
+   "idx": 4,
+   "path": "제 안 요 청 서 > Ⅳ. 사업자 선정 > 4. 제안 평가",
+   "chars": 2027,
+   "lines": [
+    351,
+    404
+   ],
+   "table_header": false
+  },
+  {
+   "idx": 5,
+   "path": "제 안 요 청 서 > Ⅴ. 제안서 작성 > 3. 제안서 제출 안내",
+   "chars": 2120,
+   "lines": [
+    404,
+    494
+   ],
+   "table_header": false
+  },
+  {
+   "idx": 6,
+   "path": "3. [신한은행] 2026년 주요 단말장치(모니터) 연간 도입 추진 (27인치 980대)",
+   "chars": 2324,
+   "lines": [
+    494,
+    569
+   ],
+   "table_header": false
+  },
+  {
+   "idx": 7,
+   "path": "3. [신한은행] 2026년 주요 단말장치(모니터) 연간 도입 추진 (27인치 980대) > 입 찰 공 고 > 5. 문의사항",
+   "chars": 2459,
+   "lines": [
+    569,
+    663
+   ],
+   "table_header": false
+  },
+  {
+   "idx": 8,
+   "path": "3. [신한은행] 2026년 주요 단말장치(모니터) 연간 도입 추진 (27인치 980대) > 입 찰 공 고 > [붙임 3] 입찰무효사유",
+   "chars": 2149,
+   "lines": [
+    663,
+    734
+   ],
+   "table_header": false
+  },
+  {
+   "idx": 9,
+   "path": "4. [KB손해보험] 개인전산장비 단가계약 제안요청서 > 개인전산장비 단가계약 제안요청서 (2025년) > 2. 제안 무효 사항",
+   "chars": 2943,
+   "lines": [
+    734,
+    819
+   ],
+   "table_header": false
+  },
+  {
+   "idx": 10,
+   "path": "4. [KB손해보험] 개인전산장비 단가계약 제안요청서 > 제안 요청 사항 > 2-1. 구매요청 사양 (PC, 모니터, 노트북)",
+   "chars": 2228,
+   "lines": [
+    819,
+    896
+   ],
+   "table_header": true
+  },
+  {
+   "idx": 11,
+   "path": "4. [KB손해보험] 개인전산장비 단가계약 제안요청서 > 제안 요청 사항 > 제안서류 작성 지침",
+   "chars": 1608,
+   "lines": [
+    896,
+    948
+   ],
+   "table_header": false
+  }
+ ],
+ "trace": [
+  {
+   "stage": "profile",
+   "projects": [
+    [
+     "P1",
+     "흑백프린터 도입 추진",
+     13
+    ],
+    [
+     "P2",
+     "삼성생명 데스크탑 표준 모델 선정",
+     217
+    ],
+    [
+     "P3",
+     "업무용 모니터(27인치) 도입 추진",
+     495
+    ],
+    [
+     "P4",
+     "개인전산장비 단가계약",
+     707
+    ]
+   ]
+  },
+  {
+   "stage": "extract",
+   "chunk": 0,
+   "chars": 2224,
+   "path": "금융권 제안요청서(RFP) 및 입찰공고 통합 관리 문서",
+   "new": 12,
+   "updates": 0,
+   "carry": "",
+   "open_refs": []
+  },
+  {
+   "stage": "extract",
+   "chunk": 1,
+   "chars": 2443,
+   "path": "1. [신한은행] 흑백프린터 도입 추진 (152대) > 입 찰 공 고 > 5. 문의사항",
+   "new": 12,
+   "updates": 0,
+   "carry": "",
+   "open_refs": []
+  },
+  {
+   "stage": "extract",
+   "chunk": 2,
+   "chars": 1818,
+   "path": "1. [신한은행] 흑백프린터 도입 추진 (152대) > 입 찰 공 고 > [붙임 3] 입찰무효사유",
+   "new": 11,
+   "updates": 0,
+   "carry": "",
+   "open_refs": []
+  },
+  {
+   "stage": "extract",
+   "chunk": 3,
+   "chars": 2688,
+   "path": "제 안 요 청 서 > Ⅰ. 사업개요 > 2. 사업배경 및 목적",
+   "new": 39,
+   "updates": 0,
+   "carry": "",
+   "open_refs": []
+  },
+  {
+   "stage": "extract",
+   "chunk": 4,
+   "chars": 2027,
+   "path": "제 안 요 청 서 > Ⅳ. 사업자 선정 > 4. 제안 평가",
+   "new": 33,
+   "updates": 0,
+   "carry": "",
+   "open_refs": []
+  },
+  {
+   "stage": "extract",
+   "chunk": 5,
+   "chars": 2120,
+   "path": "제 안 요 청 서 > Ⅴ. 제안서 작성 > 3. 제안서 제출 안내",
+   "new": 16,
+   "updates": 0,
+   "carry": "",
+   "open_refs": []
+  },
+  {
+   "stage": "extract",
+   "chunk": 6,
+   "chars": 2324,
+   "path": "3. [신한은행] 2026년 주요 단말장치(모니터) 연간 도입 추진 (27인치 980대)",
+   "new": 27,
+   "updates": 0,
+   "carry": "",
+   "open_refs": []
+  },
+  {
+   "stage": "extract",
+   "chunk": 7,
+   "chars": 2459,
+   "path": "3. [신한은행] 2026년 주요 단말장치(모니터) 연간 도입 추진 (27인치 980대) > 입 찰 공 고 > 5. 문의사항",
+   "new": 12,
+   "updates": 0,
+   "carry": "",
+   "open_refs": []
+  },
+  {
+   "stage": "extract",
+   "chunk": 8,
+   "chars": 2149,
+   "path": "3. [신한은행] 2026년 주요 단말장치(모니터) 연간 도입 추진 (27인치 980대) > 입 찰 공 고 > [붙임 3] 입찰무효사유",
+   "new": 15,
+   "updates": 0,
+   "carry": "",
+   "open_refs": []
+  },
+  {
+   "stage": "extract",
+   "chunk": 9,
+   "chars": 2943,
+   "path": "4. [KB손해보험] 개인전산장비 단가계약 제안요청서 > 개인전산장비 단가계약 제안요청서 (2025년) > 2. 제안 무효 사항",
+   "new": 45,
+   "updates": 0,
+   "carry": "",
+   "open_refs": []
+  },
+  {
+   "stage": "extract",
+   "chunk": 10,
+   "chars": 2228,
+   "path": "4. [KB손해보험] 개인전산장비 단가계약 제안요청서 > 제안 요청 사항 > 2-1. 구매요청 사양 (PC, 모니터, 노트북)",
+   "new": 35,
+   "updates": 0,
+   "carry": "",
+   "open_refs": []
+  },
+  {
+   "stage": "extract",
+   "chunk": 11,
+   "chars": 1608,
+   "path": "4. [KB손해보험] 개인전산장비 단가계약 제안요청서 > 제안 요청 사항 > 제안서류 작성 지침",
+   "new": 21,
+   "updates": 0,
+   "carry": "",
+   "open_refs": []
+  }
+ ],
+ "forms": [
+  {
+   "pid": "P1",
+   "project": "흑백프린터 도입 추진",
+   "customer": "신한은행",
+   "target": "2026년 06월 12일 13:00",
+   "keymen": [
+    {
+     "name": "Tech운영부 (기술/검증 담당)",
+     "weight": 60,
+     "weight_basis": "추정",
+     "reqs": [
+      "[범위] 신한은행 흑백프린터 152대 도입 사업",
+      "[규격] 흑백프린터 인쇄 속도는 20 PPM 이상이어야 함",
+      "[규격] 흑백프린터는 양면 인쇄 기능을 갖추어야 함",
+      "[보안] 이동식 저장장치(USB)를 통한 스캔 기능 사용이 금지됨",
+      "[보안] 당행 출력물 보안 시스템과 연동되어야 함",
+      "[보안] 무선 통신에 의한 접속 출력 기능을 제거해야 함",
+      "[보안] 기기 IP 접속을 통한 웹 페이지 문서 직접 출력 기능을 제거해야 함",
+      "[인증] KC인증(전파인증) 및 WHQL인증 드라이버를 필수 제공해야 함",
+      "[문의] 업무담당자 연락처는 Tech운영부 팀장 이영훈 02-2151-8702입니다."
+     ],
+     "req_ids": [
+      "R001",
+      "R002",
+      "R003",
+      "R004",
+      "R005",
+      "R006",
+      "R007",
+      "R008",
+      "R014"
+     ]
+    },
+    {
+     "name": "총무부 (도입/구매/계약 담당)",
+     "weight": 40,
+     "weight_basis": "추정",
+     "reqs": [
+      "[일정] 사업기간은 계약체결일로부터 12개월 내외임",
+      "[선정] BMT 평가 배점 한도의 85% 이상인 자를 협상적격자로 선정함",
+      "[자격] 최근 5년 이내 금융권 흑백프린터 납품 실적(누적 100대 이상)이 있는 제조사 또는 총판사여야 함",
+      "[제출] 참가 의향서를 2026년 06월 12일 13:00까지 이메일(shb_ictcont@shinhan.com)로 제출해야 함",
+      "[문의] 도입담당자 연락처는 총무부 팀장 유종렬 02-2151-8033입니다.",
+      "[자격] 자격조건 미달, 부정당업체, 서류 미비 업체는 추가 제안요청서를 보증하지 않습니다.",
+      "[보안] 입찰 공고 정보를 참가의향서 작성 외 목적으로 사용하거나 제3자와 공유할 수 없습니다.",
+      "[무효] 입찰 공고 정보의 무단 사용 및 공유 시 입찰이 무효될 수 있습니다.",
+      "[제출] 제안 참여업체의 제출 자료는 일체 반환하지 않습니다.",
+      "[가격] 답변자료 작성 관련 비용에 대해 당행은 어떠한 책임도 지지 않습니다.",
+      "[일정] 참가의향서 제출 업체 대상 사전 심사 후 입찰통지서를 발송합니다.",
+      "[청렴] 입찰참가신청서 제출 시 청렴계약 이행 서약서를 제출해야 합니다.",
+      "[가격] 입찰보증금은 입찰금액의 5%를 보증보험증권으로 제출해야 합니다.",
+      "[가격] 입찰보증금 보증기간은 입찰일 이전부터 입찰일로부터 30일 이상이어야 합니다.",
+      "[가격] 최근 1년 이내 신한은행 또는 신한금융그룹사와 계약 이행한 업체는 입찰보증금을 면제합니다.",
+      "[무효] 입찰 참가자격이 없는 자가 한 입찰은 무효로 한다.",
+      "[무효] 입찰보증금을 납부일시까지 납부하지 아니한 입찰은 무효로 한다.",
+      "[무효] 입찰서가 도착일시까지 입찰장소에 도착하지 아니한 입찰은 무효로 한다.",
+      "[무효] 동일인이 동일사항에 2통 이상의 입찰서를 제출한 입찰은 무효로 한다.",
+      "[무효] 신고된 사용인감과 입찰서 날인 인감이 상이한 입찰은 무효로 한다.",
+      "[무효] 담합 또는 경쟁참가자 방해로 인한 입찰은 무효로 한다.",
+      "[무효] 대리참석자와 위임장에 기재된 자가 상이한 입찰은 무효로 한다.",
+      "[무효] 정해진 양식을 사용하지 아니한 입찰은 무효로 한다.",
+      "[무효] 입찰금액을 정정한 입찰은 무효로 한다.",
+      "[기타] 입찰 무효 시 개찰 참가 입찰자 입회 하에 사유를 명시하고 통보한다.",
+      "[자격] 부정당업자는 2년 이하의 범위 내에서 입찰참가를 제한한다."
+     ],
+     "req_ids": [
+      "R009",
+      "R010",
+      "R011",
+      "R012",
+      "R013",
+      "R015",
+      "R016",
+      "R017",
+      "R018",
+      "R019",
+      "R020",
+      "R021",
+      "R022",
+      "R023",
+      "R024",
+      "R025",
+      "R026",
+      "R027",
+      "R028",
+      "R029",
+      "R030",
+      "R031",
+      "R032",
+      "R033",
+      "R034",
+      "R035"
+     ]
+    }
+   ],
+   "free": "신한은행은 업무 효율화를 위해 흑백프린터 152대를 도입하고자 합니다. 본 사업은 20 PPM 이상의 인쇄 속도와 양면 인쇄 기능을 갖춘 기기를 대상으로 하며, 당행 보안 시스템 연동 및 무선/웹 접속 기능 제거 등 엄격한 보안 규격을 준수해야 합니다. 참가 희망 업체는 최근 5년 이내 금융권 납품 실적 100대 이상을 보유해야 합니다. 참가 의향서는 2026년 06월 12일 13:00까지 이메일로 제출해야 하며, 이후 사전 심사를 거쳐 입찰통지서가 발송됩니다. 사업 기간은 계약 체결일로부터 12개월 내외입니다.",
+   "note": "평가 구조: BMT 평가 배점 한도의 85% 이상을 득점해야 협상적격자로 선정되는 기술 중심의 평가 구조입니다. 입찰 무효 사유가 매우 구체적이므로 서류 작성 시 각별한 주의가 필요합니다.\n놓치기 쉬운 점: 보안 기능(무선/웹 접속) 제거 여부에 대한 기술적 검증 누락 / 입찰보증금 면제 대상(최근 1년 내 계약 이행) 여부 확인 미흡 / 입찰 무효 사유(인감 상이, 금액 정정 등)에 대한 형식적 요건 미준수\n확인 필요: BMT 평가 배점의 구체적인 항목별 가중치(기술 vs 가격 비율) / 입찰보증금 면제 대상인 '신한금융그룹사'의 구체적 범위",
+   "stats": {
+    "items": 35,
+    "merged": 0,
+    "unassigned": 0,
+    "merge_log": []
+   }
+  },
+  {
+   "pid": "P2",
+   "project": "삼성생명 데스크탑 표준 모델 선정",
+   "customer": "삼성생명보험(주)",
+   "target": "삼성생명보험(주) 정보전략팀",
+   "keymen": [
+    {
+     "name": "정보전략팀 기술 담당",
+     "weight": 60,
+     "weight_basis": "추정",
+     "reqs": [
+      "[배경] 표준 데스크탑 단종에 따른 신규 모델을 선정한다.",
+      "[배경] 표준 모델 선정을 통해 안정적인 공급 환경을 구축한다.",
+      "[검증] 호환성 및 제안내용 검증은 '26년 8월 27일부터 시작한다.",
+      "[범위] 데스크탑 도입에 필요한 일체의 사항은 삼성생명보험(주) 정보전략팀의 요청을 따른다.",
+      "[검증] 성능검증에 수반되는 모든 비용은 서비스 제공자가 부담한다.",
+      "[검증] 성능검증 중 사고 발생 시 즉시 응급조치 및 담당자 통보를 해야 하며, 피해에 대한 책임은 서비스 제공자에게 있다.",
+      "[규격] 프로세서는 Intel Ultra7 265 (15 세대) 이상이어야 한다.",
+      "[규격] 메모리는 16GB(DDR5 / 16G*1) 이상이어야 한다.",
+      "[규격] 하드디스크는 M.2 NVMe SSD 256GB 이상이어야 한다.",
+      "[규격] TPM 2.0을 필수로 탑재해야 한다.",
+      "[규격] 그래픽카드는 내장 그래픽을 사용해야 한다.",
+      "[규격] ODD는 포함하지 않는다.",
+      "[규격] 파워는 400W 이상이어야 한다.",
+      "[규격] HDMI 필수, RGB/DVI/DP 중 하나 이상 필수, USB 8개 이상(C-Type 포함), 3.5mm Audio를 지원해야 한다.",
+      "[규격] LAN은 1Gigabit LAN on Mainboard를 지원해야 한다.",
+      "[규격] 운영체제는 Windows 11 Pro여야 한다.",
+      "[규격] Slim 모델은 제안할 수 없다.",
+      "[A/S] 보증기간은 1년 이상이어야 하며, 무상 유지보수 기간은 검수완료 후 12개월이다.",
+      "[기타] 키보드/마우스, 실크 인쇄, Master, 배송이 포함되어야 하며, '26년 도입 예정 수량은 600대 이상이다.",
+      "[제출] 제안서에는 회사소개, 제품소개, 신용평가서, 상세 스펙, 사진, 확장 슬롯 명시, 저장장치 추가 여부, 교체 방법이 포함되어야 한다.",
+      "[제출] 제안서에는 부품 운영 방안(메모리, SSD 최대 운영기간)을 명시해야 한다.",
+      "[제출] 제안서에는 서비스센터 보유 현황, 유지보수 계획, 전국망 서비스 현황, 처리 프로세스를 포함해야 한다.",
+      "[제출] 제안서에는 모델 로드맵, 단종 시 대응 방안, 생산/Master/실크인쇄 소요시간을 명시해야 한다.",
+      "[선정] 기술평가는 제안평가, 기술평가, 회사평가로 구성된다.",
+      "[선정] 기술평가점수가 45점 미만인 경우 평가에서 제외한다.",
+      "[검증] 삼성생명 호환성 및 제안 검증 테스트를 통과해야 최종 선정된다.",
+      "[제출] 삼성생명이 추가 상세 내용을 요구하는 경우 이에 응해야 하며 추가 내용은 제안서의 일부로 간주한다.",
+      "[문의] 제안 상세요건 관련 문의처는 정보전략팀 인프라운영P 최영신 프로이다.",
+      "[문의] 사업관리 문의처는 정보전략팀 IT기획P 노나현 프로이다."
+     ],
+     "req_ids": [
+      "R036",
+      "R037",
+      "R041",
+      "R044",
+      "R049",
+      "R050",
+      "R058",
+      "R059",
+      "R060",
+      "R061",
+      "R062",
+      "R063",
+      "R064",
+      "R065",
+      "R066",
+      "R067",
+      "R068",
+      "R069",
+      "R070",
+      "R071",
+      "R072",
+      "R073",
+      "R074",
+      "R076",
+      "R078",
+      "R081",
+      "R114",
+      "R115",
+      "R116"
+     ]
+    },
+    {
+     "name": "도입/구매 담당",
+     "weight": 40,
+     "weight_basis": "추정",
+     "reqs": [
+      "[일정] 제안서 및 서류 제출 기한은 '26년 8월 21일 15時까지이다.",
+      "[일정] 업체별 제안 발표는 '26년 8월 24일 9時에 실시한다.",
+      "[선정] 평가 및 우선협상대상자 선정은 '26년 8월 26일 이후에 진행한다.",
+      "[납품] 최초 납품은 계약일로부터 12주 이내에 완료해야 한다.",
+      "[일정] 삼성생명보험(주)의 요청에 의해 사업 일정은 변경될 수 있다.",
+      "[유의] 입찰자는 입찰 전 현장여건 및 사업내용을 검토해야 하며, 미확인으로 인한 이의 제기는 불가하다.",
+      "[형식] 제출 서류 및 자료의 언어는 MS-Office를 원칙으로 한다.",
+      "[형식] 삼성생명보험(주)가 인정하는 경우 외국어 또는 외국어와 한국어를 병행하여 사용할 수 있다.",
+      "[기타] 문서 해석에 있어 삼성생명보험(주)와 계약자 간 상이할 경우 삼성생명보험(주)의 해석이 우선한다.",
+      "[보안] 삼성생명보험(주)는 제출된 자료 및 기술지식을 이익을 위해 복사, 이용, 공개할 수 있다.",
+      "[보안] 서비스 제공자는 계약을 통해 얻은 정보나 기밀사항을 외부에 누설할 수 없다.",
+      "[선정] 기술 및 가격 평가 최고점 업체를 우선협상 대상자로 선정한다.",
+      "[선정] 우선협상 대상자와 협상 결렬 시 차순위 업체와 진행한다.",
+      "[자격] 최근 3년간 부정당업체 제재조치를 받지 않은 업체여야 한다.",
+      "[자격] 삼성생명보험(주)가 지정한 업체여야 한다.",
+      "[자격] 본 사업은 공동수급을 허용하지 않는다.",
+      "[선정] 기술평가와 가격평가를 종합하여 평가한다.",
+      "[선정] 평가 합산점수가 가장 높은 업체를 우선협상대상자로 선정한다.",
+      "[납품] 우선협상대상자는 5일 이내에 테스트 장비를 제공해야 한다.",
+      "[납품] 테스트 장비 제공은 협의를 통해 연기할 수 있다.",
+      "[선정] 동점자 발생 시 기술평가 점수가 높은 사업자를 우선한다.",
+      "[선정] 협상 결렬 시 협상조건을 수정하여 재협상을 실시한다.",
+      "[제출] 실적 증빙서류를 기한 내 제출하지 않거나 미비할 경우 제출된 서류만으로 심사한다.",
+      "[선정] 평가위원, 기술평가 자료 및 결과, 협상결과는 공개하지 않으며 이의를 제기할 수 없다.",
+      "[선정] 사업자 선정결과는 e-메일로 통보하며 미선정 사유는 공개하지 않는다.",
+      "[계약] 명시되지 않은 사항은 삼성생명보험(주)의 제반 규정을 따른다.",
+      "[계약] 사업 추진 중 발생하는 안전사고 및 제반 비용은 계약자가 부담한다.",
+      "[계약] 제안서 내용은 계약서와 동일한 효력을 가진다.",
+      "[계약] 계약서에 별도 명시된 사항이 제안서 내용보다 우선한다.",
+      "[계약] 산출물의 소유권은 삼성생명보험(주)에 귀속된다.",
+      "[계약] 사업 수행 중 발생하는 저작권, 사용권, 특허 등 문제에 대한 책임은 제안사가 진다.",
+      "[제출] 모든 사본은 원본대조필 명기 후 인감 날인하여 제출한다.",
+      "[제출] 객관적 자료 미제출 시 최하점으로 처리한다.",
+      "[형식] 해당 내용이 없는 항목은 해당없음으로 기술한다.",
+      "[형식] 제안서는 대한민국 표준어로 작성한다.",
+      "[형식] 제안서는 A4용지 가로방향 파워포인트로 작성하고 쪽번호를 부여한다.",
+      "[제출] 제안서, 사업참여신청서, 서약서를 스캔하여 e-mail과 USB로 제출한다.",
+      "[유의] 제안 정보 부정확으로 인한 불이익은 제안사가 책임지며 이의를 제기할 수 없다.",
+      "[제출] 제안서 내용을 입증할 근거자료는 별첨으로 제출한다.",
+      "[유의] 모호한 표현(할 수 있다, 가능하다 등) 사용 시 제안 조건 미수용으로 간주한다.",
+      "[유의] 제출된 제안서는 삼성생명보험(주)의 요청이 없는 한 수정, 변경, 교체할 수 없다.",
+      "[제출] 제안발표용 제안서는 접수 마감일에 제출한다.",
+      "[제출] 제출서류가 담긴 USB는 제안발표일에 제출한다.",
+      "[가격] 가격투찰은 제안사의 견적서 양식으로 제출한다.",
+      "[가격] 가격투찰은 부가세를 포함한 대당 단가로 제출한다.",
+      "[가격] 견적서는 제안발표일에 밀봉하여 제출한다.",
+      "[제출] 제안서 제출처는 삼성생명 최영신 프로(youngshin.choi@samsung.com)이다.",
+      "[제출] 제출기한 내 제안서를 제출하지 않을 경우 제안 의사가 없는 것으로 간주한다.",
+      "[제출] 제출기한은 이메일이 수신된 시각을 기준으로 한다.",
+      "[제출] 이메일 제출이 어려운 경우 제출기한 내 USB로 제출할 수 있다.",
+      "[가격] 제안과 관련된 제반 비용은 제안사가 일체 부담한다.",
+      "[제출] 제출된 제안서는 반환하지 않는다.",
+      "[자격] 부정한 방법으로 서류를 작성한 사실이 확인될 경우 평가기준에 따른 처리에 이의를 제기할 수 없다.",
+      "[제출] 사업 참여 신청 시 사업자등록증 사본, 신용평가 등급서, 재무현황(최근 3년), 서약서를 제출해야 한다.",
+      "[자격] 허위 기재 사항 확인 시 참가자격에서 제외되어도 이의를 제기하지 않는다.",
+      "[검증] 심사위원회의 평가방법, 기준, 결과에 대해 이의를 제기하지 않는다.",
+      "[청렴] 삼성생명의 비즈니스 가이드라인을 준수하고 저촉되는 행위를 하지 않는다.",
+      "[청렴] 거래업체는 뇌물, 향응, 부당 청탁, 정보 유출, 인력 스카웃 주도 등을 금지한다.",
+      "[문의] 비즈니스 가이드라인 위반 사항은 02-751-8114 또는 jebo@samsung.com으로 제보한다."
+     ],
+     "req_ids": [
+      "R038",
+      "R039",
+      "R040",
+      "R042",
+      "R043",
+      "R045",
+      "R046",
+      "R047",
+      "R048",
+      "R051",
+      "R052",
+      "R053",
+      "R054",
+      "R055",
+      "R056",
+      "R057",
+      "R075",
+      "R077",
+      "R079",
+      "R080",
+      "R082",
+      "R083",
+      "R084",
+      "R085",
+      "R086",
+      "R087",
+      "R088",
+      "R089",
+      "R090",
+      "R091",
+      "R092",
+      "R093",
+      "R094",
+      "R095",
+      "R096",
+      "R097",
+      "R098",
+      "R099",
+      "R100",
+      "R101",
+      "R102",
+      "R103",
+      "R104",
+      "R105",
+      "R106",
+      "R107",
+      "R108",
+      "R109",
+      "R110",
+      "R111",
+      "R112",
+      "R113",
+      "R117",
+      "R118",
+      "R119",
+      "R120",
+      "R121",
+      "R122",
+      "R123"
+     ]
+    }
+   ],
+   "free": "삼성생명보험(주)는 기존 표준 데스크탑 단종에 따라 안정적인 공급 환경을 구축하기 위해 신규 표준 모델을 선정합니다. 도입 예정 수량은 600대 이상이며, Intel Ultra7 265 프로세서와 Windows 11 Pro 등 명시된 기술 규격을 충족해야 합니다. 제안사는 회사소개, 제품 상세 스펙, 유지보수 계획 등을 포함한 제안서를 '26년 8월 21일 15시까지 이메일 및 USB로 제출해야 합니다. 이후 8월 24일 제안 발표와 8월 27일부터의 호환성 검증을 거쳐 최종 우선협상대상자를 선정합니다.",
+   "note": "평가 구조: 기술평가와 가격평가를 종합하여 최고점 업체를 우선협상대상자로 선정하며, 기술평가 점수가 45점 미만인 경우 평가에서 제외됩니다. 동점 시 기술평가 점수가 높은 업체를 우선하며, 최종 선정은 호환성 및 제안 검증 테스트 통과를 전제로 합니다.\n놓치기 쉬운 점: 기술 규격(R058~R068) 중 하나라도 미달 시 부적격 처리될 위험이 높음 / 모호한 표현(할 수 있다 등) 사용 시 제안 조건 미수용으로 간주되므로 명확한 확약 필요 / 제출 기한(8월 21일 15시) 엄수 및 이메일 수신 시각 기준에 대한 주의 필요\n확인 필요: R070의 600대 도입이 확정 물량인지 추정 물량인지 확인 필요 / R042의 계약일 기준 12주 납품과 R079의 테스트 장비 제공 5일 이내 조건의 선후 관계 확인",
+   "stats": {
+    "items": 88,
+    "merged": 0,
+    "unassigned": 0,
+    "merge_log": []
+   }
+  },
+  {
+   "pid": "P3",
+   "project": "업무용 모니터(27인치) 도입 추진",
+   "customer": "신한은행",
+   "target": "2026년 06월 12일 13:00",
+   "keymen": [
+    {
+     "name": "Tech운영부(기술 담당)",
+     "weight": 40,
+     "weight_basis": "추정",
+     "reqs": [
+      "[규격] 모니터 해상도는 27인치 UHD 4K(3840 x 2160)여야 함",
+      "[규격] 모니터는 Pivot, Elevation, Swivel, Tilt 조절이 가능해야 함",
+      "[규격] 모니터 색상은 Black이어야 함",
+      "[규격] 패널 타입은 IPS 또는 VA 중 선택 가능함",
+      "[규격] 패널 백라이트는 LED 방식이어야 함",
+      "[규격] 밝기는 300cd/㎡ 이상이어야 함",
+      "[규격] 응답속도는 8ms 이하이어야 함",
+      "[규격] 시야각은 좌우 178도 이상이어야 함",
+      "[규격] 인터페이스는 HDMI, DP, USB-C PD(3Port 이상)를 지원해야 함",
+      "[규격] 최대 주사율은 60Hz 이상이어야 함",
+      "[규격] 색재현율(sRGB)은 90% 이상이어야 함",
+      "[규격] 플리커프리, 블루라이트 차단, 눈부심 방지 등 시력보호기능을 갖춰야 함",
+      "[규격] 별도 AC 전원 어댑터를 사용하는 모델은 참여할 수 없음",
+      "[인증] KC인증 및 전파인증을 획득해야 함",
+      "[A/S] 무상기간 내 장애 발생 시 점검 및 수리를 수행해야 함",
+      "[설치] 자산스티커를 부착해야 함",
+      "[구성] 모니터 도입 수량의 100%에 해당하는 DP to DP 3M 케이블을 추가 제공해야 함",
+      "[문의] 업무담당자 연락처는 Tech운영부 팀장 이영훈 02-2151-8702이다."
+     ],
+     "req_ids": [
+      "R125",
+      "R126",
+      "R127",
+      "R128",
+      "R129",
+      "R130",
+      "R131",
+      "R132",
+      "R133",
+      "R134",
+      "R135",
+      "R136",
+      "R137",
+      "R138",
+      "R139",
+      "R140",
+      "R141",
+      "R152"
+     ]
+    },
+    {
+     "name": "총무부(도입/구매 담당)",
+     "weight": 60,
+     "weight_basis": "가격평가 100점 만점 기준",
+     "reqs": [
+      "[범위] 업무용 모니터(27인치) 980대 도입 사업",
+      "[일정] 사업기간은 계약체결일로부터 6개월 내외임",
+      "[선정] 가격평가 100점 만점으로 평가함",
+      "[선정] 예정가격 이하의 최저 제안 업체를 우선순위자로 선정함",
+      "[자격] 최근 5년 이내 금융권 모니터 납품 실적이 있는 제조사 또는 총판사여야 함",
+      "[자격] 부도, 화의, 워크아웃, 법정관리 중인 사업자 및 부정당업자 제재 대상은 참여 불가함",
+      "[제출] 참가 의향서를 2026년 06월 12일(금) 13:00까지 이메일로 제출해야 함",
+      "[형식] 참가 의향서는 PDF 파일 1개로 작성해야 함",
+      "[유의] 참가 의향서 제출 후 반드시 유선으로 도입담당자에게 연락해야 함",
+      "[유의] 제안서 설명 안내장소에 미참석 시 입찰 의사가 없는 것으로 간주함",
+      "[문의] 도입담당자 연락처는 총무부 팀장 유종렬 02-2151-8043이다.",
+      "[자격] 자격조건 미달, 부정당업체, 제출서류 미비 업체는 추가 제안요청서 발송 대상에서 제외된다.",
+      "[보안] 입찰 공고 정보를 참가의향서 작성 외 목적으로 사용하거나 제3자와 공유하는 것을 금지한다.",
+      "[무효] 입찰 공고 정보의 무단 사용 및 공유 시 입찰 무효 사유가 될 수 있다.",
+      "[제출] 제안 참여업체의 제출 자료는 일체 반환하지 않는다.",
+      "[가격] 답변자료 작성 관련 비용에 대해 당행은 어떠한 책임도 지지 않는다.",
+      "[일정] 참가의향서 제출 업체 대상 사전 심사 후 입찰통지서를 발송한다.",
+      "[청렴] 입찰참가신청서 제출 시 청렴계약 이행 서약서를 제출해야 한다.",
+      "[가격] 입찰보증금은 입찰금액의 5%를 보증보험증권으로 제출해야 한다.",
+      "[가격] 입찰보증금 보증기간은 입찰일 이전부터 입찰일로부터 30일 이상이어야 한다.",
+      "[가격] 최근 1년 이내 신한은행 또는 신한금융그룹사와 계약 이행 실적이 있는 업체는 입찰보증금을 면제한다.",
+      "[무효] 입찰 참가자격이 없는 자가 한 입찰은 무효로 한다.",
+      "[무효] 입찰보증금을 납부기한까지 납부하지 않은 입찰은 무효로 한다.",
+      "[무효] 입찰서가 도착일시까지 입찰장소에 도착하지 않은 입찰은 무효로 한다.",
+      "[무효] 동일인이 2통 이상의 입찰서를 제출한 입찰은 무효로 한다.",
+      "[무효] 신고된 사용인감과 입찰서 날인 인감이 상이한 입찰은 무효로 한다.",
+      "[무효] 담합 또는 경쟁참가자 방해로 인한 입찰은 무효로 한다.",
+      "[무효] 대리참석자와 위임장 기재자가 상이한 입찰은 무효로 한다.",
+      "[무효] 정해진 양식을 사용하지 않은 입찰은 무효로 한다.",
+      "[무효] 입찰금액을 정정한 입찰은 무효로 한다.",
+      "[자격] 부정당업자는 2년 이하의 범위 내에서 입찰참가를 제한한다.",
+      "[일정] 계약기간은 계약체결 후부터 1년까지이다.",
+      "[자격] 입찰 참가자는 원제작사, 기술지원 확약서 또는 파트너쉽 증빙서류 제출이 가능한 회사여야 한다.",
+      "[제출] 입찰 시 상세 견적서, 사업자등록증, 법인등기부등본, 법인인감증명서, 사용인감계, 대리인 명함, 기술지원확약서, 신용평가등급확인서를 제출해야 한다.",
+      "[제출] 발급 서류는 제출일 기준 3개월 이내 발급분이어야 한다.",
+      "[제출] 사본 제출 시 원본 대조필 및 법인 인감을 날인해야 한다."
+     ],
+     "req_ids": [
+      "R124",
+      "R142",
+      "R143",
+      "R144",
+      "R145",
+      "R146",
+      "R147",
+      "R148",
+      "R149",
+      "R150",
+      "R151",
+      "R153",
+      "R154",
+      "R155",
+      "R156",
+      "R157",
+      "R158",
+      "R159",
+      "R160",
+      "R161",
+      "R162",
+      "R163",
+      "R164",
+      "R165",
+      "R166",
+      "R167",
+      "R168",
+      "R169",
+      "R170",
+      "R171",
+      "R172",
+      "R173",
+      "R174",
+      "R175",
+      "R176",
+      "R177"
+     ]
+    }
+   ],
+   "free": "신한은행은 업무 효율성 향상을 위해 27인치 UHD 4K 모니터 980대를 도입하고자 합니다. 본 사업은 IPS/VA 패널, 시력보호 기능, USB-C PD 지원 등 엄격한 기술 규격을 준수해야 하며, 6개월 내외의 사업 기간 동안 설치 및 자산 관리까지 완료해야 합니다. 참여를 희망하는 업체는 2026년 06월 12일 13:00까지 참가 의향서를 PDF 형식으로 제출하고 유선 확인을 마쳐야 합니다. 최종 선정은 예정가격 이하 최저가 제안 업체를 우선순위로 결정하며, 금융권 납품 실적 및 기술지원 확약서 제출이 필수입니다.",
+   "note": "평가 구조: 본 사업은 기술 규격 충족을 전제로 한 가격 경쟁 입찰 방식입니다. 예정가격 이하 최저가 제안 업체를 우선순위자로 선정하므로, 기술적 적합성 확보와 동시에 가격 최적화가 핵심입니다.\n놓치기 쉬운 점: 참가 의향서 제출 후 유선 연락 누락 시 입찰 의사 없음으로 간주될 위험 / 입찰보증금 면제 대상(최근 1년 내 실적) 확인 미비로 인한 보증보험증권 미제출 / 제출 서류(발급 3개월 이내)의 원본 대조필 및 인감 날인 누락\n확인 필요: R142(사업기간 6개월)와 R173(계약기간 1년)의 기간 정의가 상이함 / 입찰보증금 면제 대상인 '신한금융그룹사'의 구체적 범위 확인 필요",
+   "stats": {
+    "items": 54,
+    "merged": 0,
+    "unassigned": 0,
+    "merge_log": []
+   }
+  },
+  {
+   "pid": "P4",
+   "project": "개인전산장비 단가계약",
+   "customer": "KB손해보험",
+   "target": "",
+   "keymen": [
+    {
+     "name": "기술검증팀",
+     "weight": 60,
+     "weight_basis": "추정",
+     "reqs": [
+      "[규격] PC CPU는 Intel i5 14세대 이상 또는 AMD Ryzen 5 8000 시리즈 이상이어야 한다.",
+      "[규격] PC 메모리는 8GB, DDR5 4800MHz 이상이어야 한다.",
+      "[규격] PC SSD는 256GB 이상(NVMe)이어야 한다.",
+      "[규격] PC는 DVD-ROM 또는 ODD 제거 중 택 1 해야 한다.",
+      "[규격] PC 사이즈는 슬림타워 이하이어야 한다.",
+      "[규격] PC 그래픽은 내장형이어야 하며 듀얼 모니터 연결이 필수이다.",
+      "[규격] PC 네트워크는 Gigabit Ethernet이어야 한다.",
+      "[규격] PC 입력장치는 키보드, 마우스, 키보드스킨을 포함해야 한다.",
+      "[규격] PC 포트는 USB 전면 2개 이상, 후면 4개 이상, PS2 2개, HDMI 2개, 추가 1포트가 필수이다.",
+      "[규격] PC 운영체제는 Windows 11 Professional (64bit)이어야 한다.",
+      "[규격] PC 무상유지보수는 2년 이상이어야 한다.",
+      "[규격] PC 사양 단종 시 동일 스펙 이상 동일 금액 후속 모델을 납품해야 한다.",
+      "[규격] 모니터 사이즈는 22인치 와이드(16:9) 이상이어야 한다.",
+      "[규격] 모니터 해상도는 1920 * 1080 이상이어야 한다.",
+      "[규격] 모니터 명암비는 1,000 : 1 이상이어야 한다.",
+      "[규격] 모니터 밝기는 250cd 이상이어야 한다.",
+      "[규격] 모니터 응답속도는 5ms 이하이어야 한다.",
+      "[규격] 모니터 입력단자는 HDMI 필수 및 추가 포트를 제공해야 한다.",
+      "[규격] 모니터는 Tilt 기능을 지원해야 한다.",
+      "[규격] 모니터 무상유지보수는 2년 이상이어야 한다.",
+      "[규격] 노트북 CPU는 Intel core 5(i5 14세대) 이상 또는 AMD Ryzen 7 7735U 이상이어야 한다.",
+      "[규격] 노트북 메모리는 16GB, DDR4 5600MHz 이상이어야 한다.",
+      "[규격] 노트북 SSD는 256GB 이상(NVMe)이어야 한다.",
+      "[규격] 노트북 LCD는 15.6 인치 (1920 * 1080) 이상이어야 한다.",
+      "[규격] 노트북 그래픽은 내장형이어야 하며 듀얼 모니터 연결이 필수이다.",
+      "[규격] 노트북 포트는 USB 3개 이상, HDMI 1개 이상이어야 한다.",
+      "[규격] 노트북 LAN은 유선(Gigabit Ethernet), 무선(WIFI 6이상)이어야 한다.",
+      "[규격] 노트북 무게는 본체 2.0 Kg 이하이어야 한다.",
+      "[규격] 노트북 운영체제는 Windows 11 Professional (64bit)이어야 한다.",
+      "[규격] 노트북 무상유지보수는 2년 이상이어야 한다.",
+      "[규격] 노트북은 가방, 마우스, 랜 젠더를 포함해야 한다.",
+      "[규격] 노트북은 물리적 시건이 가능하도록 시건 구멍을 제공해야 한다.",
+      "[규격] 제안 사양 단종 시 동일 스펙 이상의 동일 금액 후속 모델을 납품해야 한다.",
+      "[규격] PC 명령어를 통해 메인보드상 제조번호 확인이 가능해야 한다.",
+      "[규격] 요청 시 제조사 CI 위치상에 당사 CI를 부착해야 한다.",
+      "[검증] 당사 납품 실적이 없는 경우 별도 장비 테스트를 진행할 수 있으며 결과에 따라 선정에서 제외될 수 있다.",
+      "[검증] 장비 사용 중 이상 발열 발생 여부를 테스트한다.",
+      "[검증] 당사 운영 시스템 사용 관련 호환 오류 발생 여부를 테스트한다.",
+      "[인증] 무상 유지보수 기간은 제조일자 또는 납품일자로부터 2년 이상이어야 한다.",
+      "[인증] 무상 유지보수 기간을 제품에 별도 명시하거나 스티커를 부착해야 한다.",
+      "[A/S] 설치 시 발생하는 불량 제품은 동일한 새 제품으로 교체해야 한다.",
+      "[A/S] 펌웨어, 하드웨어 문제 등으로 인한 리콜 발생 시 새 부품으로 교체해야 한다.",
+      "[A/S] DOA 발생 시 동일 새 제품으로 즉시 교체해야 한다.",
+      "[A/S] 서비스 센터 방문 입고 및 서비스 완료 목표 시간은 최대 2일 이내여야 한다.",
+      "[A/S] 교체 자재가 없는 경우 최대 3일 이내 서비스 처리를 완료하고 해당 기간 동안 대체 장비를 투입해야 한다.",
+      "[A/S] 납품 장비에 대한 부품 보유 연한은 최소 5년 이상이어야 한다.",
+      "[A/S] 당사와의 서비스 센터 핫라인을 제공해야 한다.",
+      "[A/S] 전국 서비스 센터는 KB손해보험 노드 거점 지역 내에 위치해야 한다.",
+      "[A/S] 출장 방문 또는 서비스 진행 시 대체 장비를 반드시 제공해야 한다.",
+      "[A/S] 제조사 B2B 서비스 인력 지원이 가능해야 한다.",
+      "[납품] 당사 OS 마스터 이미지를 제작 및 탑재 후 공급해야 한다."
+     ],
+     "req_ids": [
+      "R193",
+      "R194",
+      "R195",
+      "R196",
+      "R197",
+      "R198",
+      "R199",
+      "R200",
+      "R201",
+      "R202",
+      "R203",
+      "R204",
+      "R205",
+      "R206",
+      "R207",
+      "R208",
+      "R209",
+      "R210",
+      "R211",
+      "R212",
+      "R213",
+      "R214",
+      "R215",
+      "R216",
+      "R217",
+      "R218",
+      "R219",
+      "R220",
+      "R221",
+      "R222",
+      "R223",
+      "R224",
+      "R225",
+      "R230",
+      "R231",
+      "R236",
+      "R237",
+      "R238",
+      "R239",
+      "R240",
+      "R241",
+      "R242",
+      "R243",
+      "R244",
+      "R245",
+      "R246",
+      "R247",
+      "R248",
+      "R249",
+      "R250",
+      "R255"
+     ]
+    },
+    {
+     "name": "구매계약팀",
+     "weight": 40,
+     "weight_basis": "추정",
+     "reqs": [
+      "[무효] 제안 참가자격이 없는 자가 한 제안은 무효이다.",
+      "[무효] 제출서류에 중대한 오류가 있거나 제안서 기재 내용이 허위 또는 과장된 경우 제안은 무효이다.",
+      "[무효] 제안 요청 사항을 충실히 반영하지 않은 제안은 무효이다.",
+      "[무효] 제안 업체간 담합했다고 판단되는 경우 제안은 무효이다.",
+      "[무효] 제출 마감시간까지 서류가 제출되지 않은 경우 제안은 무효이다.",
+      "[무효] 제출 마감시간까지 구매포탈시스템에 전산등록되지 않은 경우 제안은 무효이다.",
+      "[선정] 내부 평가기준에 따라 우선 협상 대상자를 선정한다.",
+      "[선정] 평가 및 협상결과는 공개하지 않는다.",
+      "[계약] 우선 협상 대상자와 세부 협상 후 이견이 없을 경우 최종 계약을 체결한다.",
+      "[계약] 최초 우선 협상 대상자와 결렬 시 차 순위자와 세부 협상을 진행한다.",
+      "[청렴] 계약 관련 임직원에게 금품, 향응 등 부당한 이익을 제공하지 아니한다.",
+      "[청렴] 입찰가격 사전 협의 또는 담합 등 공정한 경쟁 방해 행위를 금지한다.",
+      "[청렴] 알선·청탁을 통한 특정 정보 제공 요구 행위를 금지한다.",
+      "[청렴] 금품 제공 사실 적발 시 입찰제한, 계약해지, 거래중단 등 불이익을 감수한다.",
+      "[청렴] 금품 제공 사실 적발 시 민·형사상 일체의 이의를 제기하지 아니한다.",
+      "[계약] 제안 품목은 분리 발주가 가능하며, 일부 계약 시에도 납품 단가 변동이 없어야 한다.",
+      "[계약] 계약 시 수량을 보장하지 않는 조건부 단가 계약을 체결한다.",
+      "[계약] 매월 실구매 수량에 대해 사용자 설치 완료 후 정산한다.",
+      "[납품] 장비는 당사 지정 장소(전국 9개 노드)로 배송해야 한다.",
+      "[설치] 장비 설치는 당사 유지보수 업체와 별도 계약하여 진행하며, 물품 제안 단가에 설치비를 포함해서는 안 된다.",
+      "[자격] 제안사는 최근 3년간 요약 재무제표 및 기업신용평가등급 조회가 가능해야 한다.",
+      "[자격] 제안사는 최근 3년간 제1, 2 금융권 회사 내 누적 1,000대 이상 납품 실적을 보유해야 한다.",
+      "[자격] 제안사는 프로젝트 수행 가능 조직 및 인력을 보유해야 한다.",
+      "[납품] 1회 최대 납품 가능 규모는 PC 1,000대, 모니터 2,000대, 노트북 100대 이상이어야 한다.",
+      "[납품] 납품 시 배송 요원은 반드시 2인 1조 이상으로 구성해야 한다.",
+      "[납품] 대량 납품 시 당사 지정 장소에 책임 배송(건물 내 또는 층별 배송 등)을 수행해야 한다.",
+      "[납품] 소량 배송 시 배송 책임은 납품사에 귀속된다.",
+      "[일정] 납품은 발주 후 3주 이내 설치 일정에 맞추어 지정된 장소로 배송해야 한다.",
+      "[납품] 최초 발주 시 납품 가능 규모는 PC 300대, 모니터 300대, 노트북 100대 이상이어야 한다.",
+      "[형식] 견적서는 본 제안요청서 및 부속문서에 준하여 작성해야 한다.",
+      "[형식] 견적서 문서 크기는 A4 규격으로 작성해야 한다.",
+      "[제출] 요청항목 외 추가 제안 또는 자료는 별첨으로 제시할 수 있다.",
+      "[형식] 제안서는 제안사 양식에 따라 제안요건 목차를 준수하여 작성해야 한다.",
+      "[가격] 제안가격 근거파일을 당사 구매포탈에 첨부해야 한다.",
+      "[가격] 견적서에 무상유지보수기간, 유상유지보수요율, 소모품 일체 및 용량 등 상세조건을 명시해야 한다.",
+      "[보안] 제안요청서 및 프로젝트 관련 자료는 외부에 공개할 수 없다.",
+      "[제출] 접수된 모든 자료는 반환하지 않는다.",
+      "[기타] 제안 관련 일체의 경비는 제안업체가 부담한다.",
+      "[유의] 요구사항을 잘못 이해하여 작성된 제안서의 책임은 제안사에 있다.",
+      "[검증] 평가항목이 공란, 판단 불가, 실적 미기재 시 0점 처리한다.",
+      "[검증] 추가 제출 자료는 제안서 본문과 동일한 효력을 가진다.",
+      "[유의] 부정당한 사유 발생 시 향후 2년간 당사 사업 참여가 제한될 수 있다.",
+      "[문의] 공식 질의는 문서 또는 e-mail로 담당자에게 해야 한다.",
+      "[선정] 평가결과에 대해 이의를 제기할 수 없다.",
+      "[검증] 모든 참고자료는 증빙자료를 제시해야 한다.",
+      "[계약] 견적서에 기술된 내용은 계약서에 포함되는 것으로 간주한다.",
+      "[제출] 제안가격은 KB손해보험 구매포탈에 등록해야 한다.",
+      "[제출] 견적서 파일은 KB손해보험 구매포탈 내 견적서 첨부란에 업로드해야 한다.",
+      "[일정] 지정된 시한 이후 제출된 제안서는 선정 후보에서 제외한다.",
+      "[자격] 원 제조사가 아닌 경우 기술지원확약서 또는 협력사 증빙자료를 제출해야 한다."
+     ],
+     "req_ids": [
+      "R178",
+      "R179",
+      "R180",
+      "R181",
+      "R182",
+      "R183",
+      "R184",
+      "R185",
+      "R186",
+      "R187",
+      "R188",
+      "R189",
+      "R190",
+      "R191",
+      "R192",
+      "R226",
+      "R227",
+      "R228",
+      "R229",
+      "R232",
+      "R233",
+      "R234",
+      "R235",
+      "R251",
+      "R252",
+      "R253",
+      "R254",
+      "R256",
+      "R257",
+      "R258",
+      "R259",
+      "R260",
+      "R261",
+      "R262",
+      "R263",
+      "R264",
+      "R265",
+      "R266",
+      "R267",
+      "R268",
+      "R269",
+      "R270",
+      "R271",
+      "R272",
+      "R273",
+      "R274",
+      "R275",
+      "R276",
+      "R277",
+      "R278"
+     ]
+    }
+   ],
+   "free": "본 사업은 KB손해보험의 개인전산장비(PC, 모니터, 노트북) 단가계약을 위한 제안요청입니다. 제안사는 기술 규격 및 유지보수 요건을 충족하는 장비를 공급해야 하며, 전국 9개 노드 거점에 대한 책임 배송 및 설치 지원 체계를 갖추어야 합니다. 제안서는 구매포탈을 통해 제출하며, 기술 및 가격 평가를 거쳐 우선 협상 대상자를 선정합니다. 모든 장비는 발주 후 3주 이내에 납품 완료되어야 하며, 계약은 수량 보장 없는 조건부 단가 계약으로 진행됩니다.",
+   "note": "평가 구조: 내부 평가기준에 따라 기술 및 가격을 종합 평가하여 우선 협상 대상자를 선정하며, 평가 결과는 비공개입니다. 기술 규격 미달 및 제출 서류 오류 시 즉시 무효 처리되므로 요건 준수가 핵심입니다.\n놓치기 쉬운 점: 설치비가 제안 단가에 포함되지 않도록 주의해야 함 / 제조사 기술지원확약서 미제출 시 자격 미달 / OS 마스터 이미지 탑재 및 CI 부착 등 세부 운영 요건 누락 주의\n확인 필요: R251(1회 최대 납품 규모)과 R257(최초 발주 납품 규모)의 수량 차이에 대한 우선순위 확인 필요 / 전국 9개 노드 거점의 구체적인 위치 및 배송 책임 범위 확인 필요",
+   "stats": {
+    "items": 101,
+    "merged": 0,
+    "unassigned": 0,
+    "merge_log": []
+   }
+  }
+ ],
+ "items": [
+  {
+   "pid": "P1",
+   "cat": "범위",
+   "text": "신한은행 흑백프린터 152대 도입 사업",
+   "quote": "사업명: 흑백프린터 도입 추진, 수량: 152대",
+   "modality": "필수",
+   "section": "1. 입찰에 부치는 사항",
+   "id": "R001",
+   "chunk": 0,
+   "grounded": false
+  },
+  {
+   "pid": "P1",
+   "cat": "규격",
+   "text": "흑백프린터 인쇄 속도는 20 PPM 이상이어야 함",
+   "quote": "속도 : 20 PPM 이상",
+   "modality": "필수",
+   "section": "1. 입찰에 부치는 사항",
+   "id": "R002",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "규격",
+   "text": "흑백프린터는 양면 인쇄 기능을 갖추어야 함",
+   "quote": "양면 인쇄 기능 필수",
+   "modality": "필수",
+   "section": "1. 입찰에 부치는 사항",
+   "id": "R003",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "보안",
+   "text": "이동식 저장장치(USB)를 통한 스캔 기능 사용이 금지됨",
+   "quote": "이동식 저장장치 USB 스캔 사용 불가",
+   "modality": "금지",
+   "section": "1. 입찰에 부치는 사항",
+   "id": "R004",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "보안",
+   "text": "당행 출력물 보안 시스템과 연동되어야 함",
+   "quote": "당행 출력물 보안 시스템과 연동 조건임",
+   "modality": "필수",
+   "section": "1. 입찰에 부치는 사항",
+   "id": "R005",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "보안",
+   "text": "무선 통신에 의한 접속 출력 기능을 제거해야 함",
+   "quote": "무선 통신에 의한 접속 출력 기능 제거",
+   "modality": "필수",
+   "section": "1. 입찰에 부치는 사항",
+   "id": "R006",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "보안",
+   "text": "기기 IP 접속을 통한 웹 페이지 문서 직접 출력 기능을 제거해야 함",
+   "quote": "기기 IP접속하여 웹 페이지 문서 직접 출력 기능 제거",
+   "modality": "필수",
+   "section": "1. 입찰에 부치는 사항",
+   "id": "R007",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "인증",
+   "text": "KC인증(전파인증) 및 WHQL인증 드라이버를 필수 제공해야 함",
+   "quote": "KC인증(전파인증) 및 WHQL인증 드라이버 필수 제공",
+   "modality": "필수",
+   "section": "1. 입찰에 부치는 사항",
+   "id": "R008",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "일정",
+   "text": "사업기간은 계약체결일로부터 12개월 내외임",
+   "quote": "사업기간: 계약체결일로부터 12개월 내외",
+   "modality": "기준",
+   "section": "1. 입찰에 부치는 사항",
+   "id": "R009",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "선정",
+   "text": "BMT 평가 배점 한도의 85% 이상인 자를 협상적격자로 선정함",
+   "quote": "BMT 평가를 수행하여 배점 한도의 85% 이상인 자를 협상적격자로 선정",
+   "modality": "기준",
+   "section": "2. 업체선정방법",
+   "id": "R010",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "자격",
+   "text": "최근 5년 이내 금융권 흑백프린터 납품 실적(누적 100대 이상)이 있는 제조사 또는 총판사여야 함",
+   "quote": "최근 5년 이내에 금융권에 흑백프린터 납품 실적이 있는 제조사 또는 제조사가 지정한 총판사",
+   "modality": "필수",
+   "section": "3. 자격 조건",
+   "id": "R011",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "제출",
+   "text": "참가 의향서를 2026년 06월 12일 13:00까지 이메일(shb_ictcont@shinhan.com)로 제출해야 함",
+   "quote": "제출기한: 2026년 06월 12일(금) 13:00 까지, email 접수",
+   "modality": "필수",
+   "section": "4. 참가 의향서 제출 내용",
+   "id": "R012",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "문의",
+   "text": "도입담당자 연락처는 총무부 팀장 유종렬 02-2151-8033입니다.",
+   "quote": "도입담당자: 총무부 팀장 유종렬 (☎ 02-2151-8033)",
+   "modality": "정보",
+   "id": "R013",
+   "chunk": 1,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "문의",
+   "text": "업무담당자 연락처는 Tech운영부 팀장 이영훈 02-2151-8702입니다.",
+   "quote": "업무담당자: Tech운영부 팀장 이영훈 (☎ 02-2151-8702)",
+   "modality": "정보",
+   "id": "R014",
+   "chunk": 1,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "자격",
+   "text": "자격조건 미달, 부정당업체, 서류 미비 업체는 추가 제안요청서를 보증하지 않습니다.",
+   "quote": "자격조건 미달업체, 부정당업체(입찰무효사유 포함) 및 제출서류 미비 등의 요건 미달 업체",
+   "modality": "필수",
+   "id": "R015",
+   "chunk": 1,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "보안",
+   "text": "입찰 공고 정보를 참가의향서 작성 외 목적으로 사용하거나 제3자와 공유할 수 없습니다.",
+   "quote": "참가의향서 제출 작성 외 다른 목적으로도 사용할 수 없으며",
+   "modality": "금지",
+   "id": "R016",
+   "chunk": 1,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "무효",
+   "text": "입찰 공고 정보의 무단 사용 및 공유 시 입찰이 무효될 수 있습니다.",
+   "quote": "만일 이를 위반에는 입찰 무효의 사유가 될 수 있습니다.",
+   "modality": "기준",
+   "id": "R017",
+   "chunk": 1,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "제출",
+   "text": "제안 참여업체의 제출 자료는 일체 반환하지 않습니다.",
+   "quote": "제안 참여업체의 제출 자료는 일체 반환하지 않습니다.",
+   "modality": "필수",
+   "id": "R018",
+   "chunk": 1,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "가격",
+   "text": "답변자료 작성 관련 비용에 대해 당행은 어떠한 책임도 지지 않습니다.",
+   "quote": "답변자료 작성과 관련하여 발생하는 모든 비용에 대하여 어떠한 책임도 지지 않습니다.",
+   "modality": "정보",
+   "id": "R019",
+   "chunk": 1,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "일정",
+   "text": "참가의향서 제출 업체 대상 사전 심사 후 입찰통지서를 발송합니다.",
+   "quote": "참가의향서를 제출한 업체를 대상으로 사전 심사 후, 입찰통지서를 발송할 예정입니다.",
+   "modality": "정보",
+   "id": "R020",
+   "chunk": 1,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "청렴",
+   "text": "입찰참가신청서 제출 시 청렴계약 이행 서약서를 제출해야 합니다.",
+   "quote": "입찰참가신청서 제출시 청렴계약 이행을 확약하는 서약서를 제출하여야 합니다.",
+   "modality": "필수",
+   "id": "R021",
+   "chunk": 1,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "가격",
+   "text": "입찰보증금은 입찰금액의 5%를 보증보험증권으로 제출해야 합니다.",
+   "quote": "입찰보증금액 : 입찰금액의 5% (보증보험증권으로 징구)",
+   "modality": "필수",
+   "id": "R022",
+   "chunk": 1,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "가격",
+   "text": "입찰보증금 보증기간은 입찰일 이전부터 입찰일로부터 30일 이상이어야 합니다.",
+   "quote": "보증기간 : 입찰일(견적 제출일) 이전 ~ 입찰일로부터 30일 이상일 것",
+   "modality": "필수",
+   "id": "R023",
+   "chunk": 1,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "가격",
+   "text": "최근 1년 이내 신한은행 또는 신한금융그룹사와 계약 이행한 업체는 입찰보증금을 면제합니다.",
+   "quote": "최근 1년 이내 신한은행 또는 신한금융그룹사와 계약체결하고 성실히 이행한 업체는 면제합니다.",
+   "modality": "조건",
+   "id": "R024",
+   "chunk": 1,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "무효",
+   "text": "입찰 참가자격이 없는 자가 한 입찰은 무효로 한다.",
+   "quote": "입찰 참가자격이 없는 자가 한 입찰",
+   "modality": "필수",
+   "section": "붙임 3 입찰무효사유",
+   "id": "R025",
+   "chunk": 2,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "무효",
+   "text": "입찰보증금을 납부일시까지 납부하지 아니한 입찰은 무효로 한다.",
+   "quote": "입찰보증금의 납부일시까지 소정의 입찰보증금을 납부하지 아니하고 한 입찰",
+   "modality": "필수",
+   "section": "붙임 3 입찰무효사유",
+   "id": "R026",
+   "chunk": 2,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "무효",
+   "text": "입찰서가 도착일시까지 입찰장소에 도착하지 아니한 입찰은 무효로 한다.",
+   "quote": "입찰서가 그 도착일시까지 소정의 입찰장소에 도착하지 아니한 입찰",
+   "modality": "필수",
+   "section": "붙임 3 입찰무효사유",
+   "id": "R027",
+   "chunk": 2,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "무효",
+   "text": "동일인이 동일사항에 2통 이상의 입찰서를 제출한 입찰은 무효로 한다.",
+   "quote": "동일사항에 동일인이 2통 이상의 입찰서를 제출한 입찰",
+   "modality": "필수",
+   "section": "붙임 3 입찰무효사유",
+   "id": "R028",
+   "chunk": 2,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "무효",
+   "text": "신고된 사용인감과 입찰서 날인 인감이 상이한 입찰은 무효로 한다.",
+   "quote": "신고된 사용인감과 입찰서에 날인한 인감이 상이한 입찰",
+   "modality": "필수",
+   "section": "붙임 3 입찰무효사유",
+   "id": "R029",
+   "chunk": 2,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "무효",
+   "text": "담합 또는 경쟁참가자 방해로 인한 입찰은 무효로 한다.",
+   "quote": "담합 또는 경쟁참가자의 방해로 인한 입찰",
+   "modality": "필수",
+   "section": "붙임 3 입찰무효사유",
+   "id": "R030",
+   "chunk": 2,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "무효",
+   "text": "대리참석자와 위임장에 기재된 자가 상이한 입찰은 무효로 한다.",
+   "quote": "대리참석자와 위임장에 개재된 자가 상이한 입찰",
+   "modality": "필수",
+   "section": "붙임 3 입찰무효사유",
+   "id": "R031",
+   "chunk": 2,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "무효",
+   "text": "정해진 양식을 사용하지 아니한 입찰은 무효로 한다.",
+   "quote": "정해진 양식에 의한 입찰서를 사용하지 아니한 입찰",
+   "modality": "필수",
+   "section": "붙임 3 입찰무효사유",
+   "id": "R032",
+   "chunk": 2,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "무효",
+   "text": "입찰금액을 정정한 입찰은 무효로 한다.",
+   "quote": "입찰금액을 정정한 입찰",
+   "modality": "필수",
+   "section": "붙임 3 입찰무효사유",
+   "id": "R033",
+   "chunk": 2,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "기타",
+   "text": "입찰 무효 시 개찰 참가 입찰자 입회 하에 사유를 명시하고 통보한다.",
+   "quote": "개찰에 참가한 입찰자의 입회 하에서 사유를 명시하고 그 뜻을 알려드립니다",
+   "modality": "필수",
+   "section": "붙임 3 입찰무효사유",
+   "id": "R034",
+   "chunk": 2,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "자격",
+   "text": "부정당업자는 2년 이하의 범위 내에서 입찰참가를 제한한다.",
+   "quote": "부정당업자에 대하여는 2년 이하의 범위 내에서 입찰참가를 제한합니다.",
+   "modality": "필수",
+   "section": "붙임 4 부정당업자의 입찰참가 제한",
+   "id": "R035",
+   "chunk": 2,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "배경",
+   "text": "표준 데스크탑 단종에 따른 신규 모델을 선정한다.",
+   "quote": "표준 데스크탑 단종에 따른 신규 모델 선정",
+   "modality": "정보",
+   "id": "R036",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "배경",
+   "text": "표준 모델 선정을 통해 안정적인 공급 환경을 구축한다.",
+   "quote": "표준 모델 선정을 통한 안정적 공급 환경 구축",
+   "modality": "정보",
+   "id": "R037",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "일정",
+   "text": "제안서 및 서류 제출 기한은 '26년 8월 21일 15時까지이다.",
+   "quote": "서류제출 | 제안서 및 서류 제출 | '26년 8월 21일 15時",
+   "modality": "필수",
+   "id": "R038",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "일정",
+   "text": "업체별 제안 발표는 '26년 8월 24일 9時에 실시한다.",
+   "quote": "제안발표 | 업체별 제안 발표 | '26년 8월 24일 9時",
+   "modality": "필수",
+   "id": "R039",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "선정",
+   "text": "평가 및 우선협상대상자 선정은 '26년 8월 26일 이후에 진행한다.",
+   "quote": "평가/선정 | 평가/우선협상대상자 선정 | '26년 8월 26일 이후",
+   "modality": "필수",
+   "id": "R040",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "검증",
+   "text": "호환성 및 제안내용 검증은 '26년 8월 27일부터 시작한다.",
+   "quote": "성능검증 | 호환성 및 제안내용 검증 | '26년 8월 27일 ~",
+   "modality": "필수",
+   "id": "R041",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "납품",
+   "text": "최초 납품은 계약일로부터 12주 이내에 완료해야 한다.",
+   "quote": "납품 | 최초 납품 (생명 입고 기준) | 계약일로부터 12주내",
+   "modality": "필수",
+   "id": "R042",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "일정",
+   "text": "삼성생명보험(주)의 요청에 의해 사업 일정은 변경될 수 있다.",
+   "quote": "삼성생명보험(주)의 요청에 의해 일정 변경 가능",
+   "modality": "조건",
+   "id": "R043",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "범위",
+   "text": "데스크탑 도입에 필요한 일체의 사항은 삼성생명보험(주) 정보전략팀의 요청을 따른다.",
+   "quote": "데스크탑 도입에 필요한 일체의 사항은 삼성생명보험(주) 정보전략팀 요청에 따른다.",
+   "modality": "필수",
+   "id": "R044",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "유의",
+   "text": "입찰자는 입찰 전 현장여건 및 사업내용을 검토해야 하며, 미확인으로 인한 이의 제기는 불가하다.",
+   "quote": "입찰 전 현장여건 및 사업내용 등을 면밀히 검토 후 입찰서를 제출해야 하며",
+   "modality": "필수",
+   "id": "R045",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "형식",
+   "text": "제출 서류 및 자료의 언어는 MS-Office를 원칙으로 한다.",
+   "quote": "제출되는 모든 서류와 자료 등에 사용되는 언어는 MS-Office를 원칙으로 한다.",
+   "modality": "기준",
+   "id": "R046",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "형식",
+   "text": "삼성생명보험(주)가 인정하는 경우 외국어 또는 외국어와 한국어를 병행하여 사용할 수 있다.",
+   "quote": "외국어를 사용하거나 외국어와 한국어를 병행하여 사용할 수 있다.",
+   "modality": "선택",
+   "id": "R047",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "기타",
+   "text": "문서 해석에 있어 삼성생명보험(주)와 계약자 간 상이할 경우 삼성생명보험(주)의 해석이 우선한다.",
+   "quote": "삼성생명보험(주)와 계약자 간에 상이할 경우 삼성생명보험(주)의 해석이 우선한다.",
+   "modality": "기준",
+   "id": "R048",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "검증",
+   "text": "성능검증에 수반되는 모든 비용은 서비스 제공자가 부담한다.",
+   "quote": "성능검증時 수반되는 모든 비용은 서비스 제공자 부담으로 한다.",
+   "modality": "필수",
+   "id": "R049",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "검증",
+   "text": "성능검증 중 사고 발생 시 즉시 응급조치 및 담당자 통보를 해야 하며, 피해에 대한 책임은 서비스 제공자에게 있다.",
+   "quote": "작업 중 발생하는 일체의 사고 및 피해에 대하여 서비스 제공자가 책임을 진다.",
+   "modality": "필수",
+   "id": "R050",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "보안",
+   "text": "삼성생명보험(주)는 제출된 자료 및 기술지식을 이익을 위해 복사, 이용, 공개할 수 있다.",
+   "quote": "기술지식의 전부 또는 일부를 삼성생명보험(주)의 이익을 위하여 복사, 이용 또는 공개할 수 있다.",
+   "modality": "정보",
+   "id": "R051",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "보안",
+   "text": "서비스 제공자는 계약을 통해 얻은 정보나 기밀사항을 외부에 누설할 수 없다.",
+   "quote": "계약이행의 전후를 막론하고 외부에 누설할 수 없다.",
+   "modality": "금지",
+   "id": "R052",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "선정",
+   "text": "기술 및 가격 평가 최고점 업체를 우선협상 대상자로 선정한다.",
+   "quote": "기술 및 가격 평가를 통해 최고점을 득한 업체를 우선협상 대상자로 선정한다.",
+   "modality": "기준",
+   "id": "R053",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "선정",
+   "text": "우선협상 대상자와 협상 결렬 시 차순위 업체와 진행한다.",
+   "quote": "우선협상 대상자와의 협상 결렬 시 차순위 업체와 진행한다.",
+   "modality": "기준",
+   "id": "R054",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "자격",
+   "text": "최근 3년간 부정당업체 제재조치를 받지 않은 업체여야 한다.",
+   "quote": "최근 3년간 국가를 당사자로 하는 계약에 관한 법률 시행령 제27조 및 동법 시행규칙 제76조에 의하여 부정당업체 제재조치를 받지 않은 업체",
+   "modality": "필수",
+   "id": "R055",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "자격",
+   "text": "삼성생명보험(주)가 지정한 업체여야 한다.",
+   "quote": "삼성생명보험㈜ 가 지정한 업체",
+   "modality": "필수",
+   "id": "R056",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "자격",
+   "text": "본 사업은 공동수급을 허용하지 않는다.",
+   "quote": "본 사업의 원활한 수행과 고품질의 성과 달성을 위해 공동수급은 허용하지 않는다.",
+   "modality": "금지",
+   "id": "R057",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "규격",
+   "text": "프로세서는 Intel Ultra7 265 (15 세대) 이상이어야 한다.",
+   "quote": "프로세스 | Intel Ultra7 265 (15 세대) 이상",
+   "modality": "필수",
+   "id": "R058",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "규격",
+   "text": "메모리는 16GB(DDR5 / 16G*1) 이상이어야 한다.",
+   "quote": "메모리 | 16GB(DDR5 / 16G*1) 이상",
+   "modality": "필수",
+   "id": "R059",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "규격",
+   "text": "하드디스크는 M.2 NVMe SSD 256GB 이상이어야 한다.",
+   "quote": "하드디스크 | M.2 NVMe SSD 256GB 이상",
+   "modality": "필수",
+   "id": "R060",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "규격",
+   "text": "TPM 2.0을 필수로 탑재해야 한다.",
+   "quote": "Security | TPM 2.0 필수",
+   "modality": "필수",
+   "id": "R061",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "규격",
+   "text": "그래픽카드는 내장 그래픽을 사용해야 한다.",
+   "quote": "그래픽카드 | 내장 그래픽",
+   "modality": "필수",
+   "id": "R062",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "규격",
+   "text": "ODD는 포함하지 않는다.",
+   "quote": "ODD | None",
+   "modality": "필수",
+   "id": "R063",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "규격",
+   "text": "파워는 400W 이상이어야 한다.",
+   "quote": "Power | 400W 이상",
+   "modality": "필수",
+   "id": "R064",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "규격",
+   "text": "HDMI 필수, RGB/DVI/DP 중 하나 이상 필수, USB 8개 이상(C-Type 포함), 3.5mm Audio를 지원해야 한다.",
+   "quote": "I/F | HDMI 필수 or RGB, DVI, DP 중 한 개 이상 필수 USB 8개 이상 (C-Type 포함), 3.5mm Audio",
+   "modality": "필수",
+   "id": "R065",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "규격",
+   "text": "LAN은 1Gigabit LAN on Mainboard를 지원해야 한다.",
+   "quote": "LAN | 1Gigabit LAN on Mainboard",
+   "modality": "필수",
+   "id": "R066",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "규격",
+   "text": "운영체제는 Windows 11 Pro여야 한다.",
+   "quote": "운영체제 | Windows 11 Pro",
+   "modality": "필수",
+   "id": "R067",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "규격",
+   "text": "Slim 모델은 제안할 수 없다.",
+   "quote": "Case | Slim모델 제안 불가",
+   "modality": "금지",
+   "id": "R068",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "A/S",
+   "text": "보증기간은 1년 이상이어야 하며, 무상 유지보수 기간은 검수완료 후 12개월이다.",
+   "quote": "WARRANTY | 1 년 이상 ※ 무상 유지보수 기간 : 검수완료 후 12 개월",
+   "modality": "필수",
+   "id": "R069",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "기타",
+   "text": "키보드/마우스, 실크 인쇄, Master, 배송이 포함되어야 하며, '26년 도입 예정 수량은 600대 이상이다.",
+   "quote": "기타 | 키보드/마우스, 실크 인쇄, Master, 배송 포함 ※ '26 년 도입 예정 수량 : 600 대 이상",
+   "modality": "필수",
+   "id": "R070",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "제출",
+   "text": "제안서에는 회사소개, 제품소개, 신용평가서, 상세 스펙, 사진, 확장 슬롯 명시, 저장장치 추가 여부, 교체 방법이 포함되어야 한다.",
+   "quote": "① 회사소개, 제품소개, 신용평가서(국내 법인) ② 제안모델 상세 스펙 및 제품 사진",
+   "modality": "필수",
+   "id": "R071",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "제출",
+   "text": "제안서에는 부품 운영 방안(메모리, SSD 최대 운영기간)을 명시해야 한다.",
+   "quote": "③ 부품 운영 방안 (메모리, SSD 최대 운영기간 명시 必)",
+   "modality": "필수",
+   "id": "R072",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "제출",
+   "text": "제안서에는 서비스센터 보유 현황, 유지보수 계획, 전국망 서비스 현황, 처리 프로세스를 포함해야 한다.",
+   "quote": "④ 서비스센터 보유 현황 및 유지보수 계획",
+   "modality": "필수",
+   "id": "R073",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "제출",
+   "text": "제안서에는 모델 로드맵, 단종 시 대응 방안, 생산/Master/실크인쇄 소요시간을 명시해야 한다.",
+   "quote": "⑤ 제안 모델 상세 로드맵 및 단종時 대응 방안 ⑥ 장비 발주後 “생산, Master, 실크인쇄 等” 소요시간 명시",
+   "modality": "필수",
+   "id": "R074",
+   "chunk": 3,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "선정",
+   "text": "기술평가와 가격평가를 종합하여 평가한다.",
+   "quote": "기술평가와 가격평가로 구분하여 종합평가점수로 평가한다.",
+   "modality": "기준",
+   "section": "4. 제안 평가",
+   "id": "R075",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "선정",
+   "text": "기술평가는 제안평가, 기술평가, 회사평가로 구성된다.",
+   "quote": "기술평가는 제안평가, 기술평가, 회사평가로 구분된다.",
+   "modality": "필수",
+   "section": "4. 제안 평가",
+   "id": "R076",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "선정",
+   "text": "평가 합산점수가 가장 높은 업체를 우선협상대상자로 선정한다.",
+   "quote": "평가 합산점수가 가장 높은 업체를 우선협상대상자로 선정한다.",
+   "modality": "기준",
+   "section": "4. 제안 평가",
+   "id": "R077",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "선정",
+   "text": "기술평가점수가 45점 미만인 경우 평가에서 제외한다.",
+   "quote": "기술평가점수가 45점 미만은 평가에서 제외한다.",
+   "modality": "금지",
+   "section": "4. 제안 평가",
+   "id": "R078",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "납품",
+   "text": "우선협상대상자는 5일 이내에 테스트 장비를 제공해야 한다.",
+   "quote": "우선협상대상자는 5일이내 테스트 장비를 제공해야 한다.",
+   "modality": "필수",
+   "section": "4. 제안 평가",
+   "id": "R079",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "납품",
+   "text": "테스트 장비 제공은 협의를 통해 연기할 수 있다.",
+   "quote": "일정내 제공이 어려운 경우 협의를 통해 연기할 수 있다.",
+   "modality": "선택",
+   "section": "4. 제안 평가",
+   "id": "R080",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "검증",
+   "text": "삼성생명 호환성 및 제안 검증 테스트를 통과해야 최종 선정된다.",
+   "quote": "삼성생명 호환성, 제안 검증 테스트가 통과하면 최종 선정된다.",
+   "modality": "필수",
+   "section": "4. 제안 평가",
+   "id": "R081",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "선정",
+   "text": "동점자 발생 시 기술평가 점수가 높은 사업자를 우선한다.",
+   "quote": "낙찰자가 될 동가의 입찰자가 2인 이상인 때에는 기술평가에서 높은 점수를 받은 사업자가 우선한다.",
+   "modality": "기준",
+   "section": "4. 제안 평가",
+   "id": "R082",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "선정",
+   "text": "협상 결렬 시 협상조건을 수정하여 재협상을 실시한다.",
+   "quote": "협상대상자와의 협상이 모두 결렬되면, 협상조건을 수정하여 당초 협상 순서에 따라 재협상을 실시한다.",
+   "modality": "필수",
+   "section": "4. 제안 평가",
+   "id": "R083",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "제출",
+   "text": "실적 증빙서류를 기한 내 제출하지 않거나 미비할 경우 제출된 서류만으로 심사한다.",
+   "quote": "요구한 서류를 기한 내에 제출하지 않거나 제출된 서류 등이 미비 또는 불명확한 경우에는 제출된 서류만으로 심사한다.",
+   "modality": "기준",
+   "section": "4. 제안 평가",
+   "id": "R084",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "선정",
+   "text": "평가위원, 기술평가 자료 및 결과, 협상결과는 공개하지 않으며 이의를 제기할 수 없다.",
+   "quote": "기술평가 관련 자료 및 그 결과의 내용과 협상결과 등은 공개하지 아니하며, 제안사는 이에 대하여 이의를 제기할 수 없다.",
+   "modality": "금지",
+   "section": "4. 제안 평가",
+   "id": "R085",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "선정",
+   "text": "사업자 선정결과는 e-메일로 통보하며 미선정 사유는 공개하지 않는다.",
+   "quote": "사업자 선정결과는 e-메일로 통보하며, 평가 결과 및 미선정 사유는 공개하지 않는다.",
+   "modality": "필수",
+   "section": "4. 제안 평가",
+   "id": "R086",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "계약",
+   "text": "명시되지 않은 사항은 삼성생명보험(주)의 제반 규정을 따른다.",
+   "quote": "본 제안요청서에 명시되지 아니한 사항은 삼성생명보험(주)의 제반 규정에 따른다.",
+   "modality": "기준",
+   "section": "5. 계약조건",
+   "id": "R087",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "계약",
+   "text": "사업 추진 중 발생하는 안전사고 및 제반 비용은 계약자가 부담한다.",
+   "quote": "본 사업 추진과정에서 발생하는 제반 안전사고의 책임과 행정/기술적 제반 비용 및 문제 처리는 전적으로 계약자가 부담한다.",
+   "modality": "필수",
+   "section": "5. 계약조건",
+   "id": "R088",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "계약",
+   "text": "제안서 내용은 계약서와 동일한 효력을 가진다.",
+   "quote": "제안서의 내용은 계약서에 명시하지 않더라도 계약서와 동일한 효력을 가진다.",
+   "modality": "기준",
+   "section": "5. 계약조건",
+   "id": "R089",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "계약",
+   "text": "계약서에 별도 명시된 사항이 제안서 내용보다 우선한다.",
+   "quote": "제안서에 포함된 사항이라도 계약서에 별도 명시한 경우에는 계약서의 내용이 우선한다.",
+   "modality": "기준",
+   "section": "5. 계약조건",
+   "id": "R090",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "계약",
+   "text": "산출물의 소유권은 삼성생명보험(주)에 귀속된다.",
+   "quote": "본 사업수행으로 제작되는 모든 산출물의 소유권은 삼성생명보험(주)에 귀속되며",
+   "modality": "필수",
+   "section": "5. 계약조건",
+   "id": "R091",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "계약",
+   "text": "사업 수행 중 발생하는 저작권, 사용권, 특허 등 문제에 대한 책임은 제안사가 진다.",
+   "quote": "제안사는 본 사업을 수행함에 있어 발생하는 저작권, 사용권, 특허 등 문제에 대한 모든 책임을 진다.",
+   "modality": "필수",
+   "section": "5. 계약조건",
+   "id": "R092",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "제출",
+   "text": "모든 사본은 원본대조필 명기 후 인감 날인하여 제출한다.",
+   "quote": "모든 사본은 원본대조필 명기 후 인감 날인하여 제출한다.",
+   "modality": "필수",
+   "section": "Ⅴ. 제안서 작성",
+   "id": "R093",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "제출",
+   "text": "객관적 자료 미제출 시 최하점으로 처리한다.",
+   "quote": "객관적 자료 미제출시 최하점 처리한다.",
+   "modality": "기준",
+   "section": "Ⅴ. 제안서 작성",
+   "id": "R094",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "형식",
+   "text": "해당 내용이 없는 항목은 해당없음으로 기술한다.",
+   "quote": "항목 중 해당내용이 없는 경우에는 “해당없음” 간략히 기술한다.",
+   "modality": "필수",
+   "section": "Ⅴ. 제안서 작성",
+   "id": "R095",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "형식",
+   "text": "제안서는 대한민국 표준어로 작성한다.",
+   "quote": "제안서는 대한민국 표준어로 작성한다.",
+   "modality": "필수",
+   "section": "Ⅴ. 제안서 작성",
+   "id": "R096",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "형식",
+   "text": "제안서는 A4용지 가로방향 파워포인트로 작성하고 쪽번호를 부여한다.",
+   "quote": "제안서 규격은 A4용지 가로방향 파워포인트 작성을 원칙으로 하고, 페이지별로 중앙에 쪽번호를 부여한다.",
+   "modality": "필수",
+   "section": "Ⅴ. 제안서 작성",
+   "id": "R097",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "제출",
+   "text": "제안서, 사업참여신청서, 서약서를 스캔하여 e-mail과 USB로 제출한다.",
+   "quote": "제출서류 (스캔 후 e-mail과 USB 로 제출): ① 제안서 ② 사업참여신청서(별지 서식1) ③ 서약서 (별지 서식2)",
+   "modality": "필수",
+   "section": "Ⅴ. 제안서 작성",
+   "id": "R098",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "유의",
+   "text": "제안 정보 부정확으로 인한 불이익은 제안사가 책임지며 이의를 제기할 수 없다.",
+   "quote": "제안사가 제시한 정보들의 부정확으로 인해 발생하는 불이익은 삼성생명보험(주)에 책임이 없으며, 제안사는 이의를 제기할 수 없다.",
+   "modality": "필수",
+   "section": "Ⅴ. 제안서 작성",
+   "id": "R099",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "제출",
+   "text": "제안서 내용을 입증할 근거자료는 별첨으로 제출한다.",
+   "quote": "제안서의 내용을 객관적으로 입증할 수 있는 근거자료 및 참고자료 등은 별첨으로 제출하여야 한다.",
+   "modality": "필수",
+   "section": "Ⅴ. 제안서 작성",
+   "id": "R100",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "유의",
+   "text": "모호한 표현(할 수 있다, 가능하다 등) 사용 시 제안 조건 미수용으로 간주한다.",
+   "quote": "‘~할 수 있다’, ‘가능하다’, ‘고려할 수 있다’ 등의 모호한 표현은 제안 조건 미수용으로 간주한다.",
+   "modality": "금지",
+   "section": "Ⅴ. 제안서 작성",
+   "id": "R101",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "유의",
+   "text": "제출된 제안서는 삼성생명보험(주)의 요청이 없는 한 수정, 변경, 교체할 수 없다.",
+   "quote": "제출한 제안서의 내용은 삼성생명보험(주)의 요청이 없는 한 수정, 변경 및 교체할 수 없다.",
+   "modality": "금지",
+   "section": "Ⅴ. 제안서 작성",
+   "id": "R102",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "제출",
+   "text": "제안발표용 제안서는 접수 마감일에 제출한다.",
+   "quote": "제안발표용 제안서가 있는 경우 접수 마감일에 같이 제출한다.",
+   "modality": "필수",
+   "section": "Ⅴ. 제안서 작성",
+   "id": "R103",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "제출",
+   "text": "제출서류가 담긴 USB는 제안발표일에 제출한다.",
+   "quote": "제출서류가 담긴 USB는 제안발표일에 제출한다.",
+   "modality": "필수",
+   "section": "Ⅴ. 제안서 작성",
+   "id": "R104",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "가격",
+   "text": "가격투찰은 제안사의 견적서 양식으로 제출한다.",
+   "quote": "가격투찰은 제안사의 견적서 양식으로 제출한다.",
+   "modality": "필수",
+   "section": "Ⅴ. 제안서 작성",
+   "id": "R105",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "가격",
+   "text": "가격투찰은 부가세를 포함한 대당 단가로 제출한다.",
+   "quote": "가격투찰은 부가세를 포함한 대당 단가로 제출한다.",
+   "modality": "필수",
+   "section": "Ⅴ. 제안서 작성",
+   "id": "R106",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "가격",
+   "text": "견적서는 제안발표일에 밀봉하여 제출한다.",
+   "quote": "견적서는 제안발표일에 밀봉하여 제출한다.",
+   "modality": "필수",
+   "section": "Ⅴ. 제안서 작성",
+   "id": "R107",
+   "chunk": 4,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "제출",
+   "text": "제안서 제출처는 삼성생명 최영신 프로(youngshin.choi@samsung.com)이다.",
+   "quote": "제 출 처: 삼성생명 최영신 프로 (youngshin.choi@samsung.com)",
+   "modality": "필수",
+   "section": "제안서 제출 안내",
+   "id": "R108",
+   "chunk": 5,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "제출",
+   "text": "제출기한 내 제안서를 제출하지 않을 경우 제안 의사가 없는 것으로 간주한다.",
+   "quote": "제출기한 내 제안서를 제출하지 않을 경우, 제안 의사가 없는 것으로 간주한다.",
+   "modality": "기준",
+   "section": "제안서 제출 안내",
+   "id": "R109",
+   "chunk": 5,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "제출",
+   "text": "제출기한은 이메일이 수신된 시각을 기준으로 한다.",
+   "quote": "제출기한은 e-mail이 수신된 시각을 기준으로 한다.",
+   "modality": "기준",
+   "section": "제안서 제출 안내",
+   "id": "R110",
+   "chunk": 5,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "제출",
+   "text": "이메일 제출이 어려운 경우 제출기한 내 USB로 제출할 수 있다.",
+   "quote": "e-mail 제출이 어려운 경우 제출기한내 USB로 제출한다.",
+   "modality": "선택",
+   "section": "제안서 제출 안내",
+   "id": "R111",
+   "chunk": 5,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "가격",
+   "text": "제안과 관련된 제반 비용은 제안사가 일체 부담한다.",
+   "quote": "본 제안과 관련된 제반비용은 제안사가 일체 부담하며",
+   "modality": "필수",
+   "section": "제안서 제출 안내",
+   "id": "R112",
+   "chunk": 5,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "제출",
+   "text": "제출된 제안서는 반환하지 않는다.",
+   "quote": "제출된 제안서는 반환되지 않는다.",
+   "modality": "필수",
+   "section": "제안서 제출 안내",
+   "id": "R113",
+   "chunk": 5,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "제출",
+   "text": "삼성생명이 추가 상세 내용을 요구하는 경우 이에 응해야 하며 추가 내용은 제안서의 일부로 간주한다.",
+   "quote": "추가로 더 상세한 내용을 요구하는 경우, 이에 응해야 하며 추가된 내용은 제안서의 일부로 간주한다.",
+   "modality": "필수",
+   "section": "제안서 제출 안내",
+   "id": "R114",
+   "chunk": 5,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "문의",
+   "text": "제안 상세요건 관련 문의처는 정보전략팀 인프라운영P 최영신 프로이다.",
+   "quote": "정보전략팀 인프라운영P 최영신 프로 (youngshin.choi@samsung.com, 02-772-6406)",
+   "modality": "정보",
+   "section": "제안서 제출 안내",
+   "id": "R115",
+   "chunk": 5,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "문의",
+   "text": "사업관리 문의처는 정보전략팀 IT기획P 노나현 프로이다.",
+   "quote": "정보전략팀 IT기획P 노나현 프로 (nono.no@samsung.com, 02-772-6490)",
+   "modality": "정보",
+   "section": "제안서 제출 안내",
+   "id": "R116",
+   "chunk": 5,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "자격",
+   "text": "부정한 방법으로 서류를 작성한 사실이 확인될 경우 평가기준에 따른 처리에 이의를 제기할 수 없다.",
+   "quote": "부정한 방법으로 작성된 사실이 확인될 경우에는 삼성생명보험(주)의 제안서 평가기준에서 정한 바에 따라 처리하여도 아무런 이의를 제기하지 않을 것을 확약합니다.",
+   "modality": "필수",
+   "section": "사업 참여 신청서",
+   "id": "R117",
+   "chunk": 5,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "제출",
+   "text": "사업 참여 신청 시 사업자등록증 사본, 신용평가 등급서, 재무현황(최근 3년), 서약서를 제출해야 한다.",
+   "quote": "붙임: 1. 사업자등록증 사본 1부. 2. 신용평가 등급서 3. 재무현황 (최근 3년) 4. 서약서",
+   "modality": "필수",
+   "section": "사업 참여 신청서",
+   "id": "R118",
+   "chunk": 5,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "자격",
+   "text": "허위 기재 사항 확인 시 참가자격에서 제외되어도 이의를 제기하지 않는다.",
+   "quote": "허위 기재 사항 등이 확인될 경우에는 참가자격에서 제외되어도 아무런 이의를 제기하지 않겠습니다.",
+   "modality": "필수",
+   "section": "서약서",
+   "id": "R119",
+   "chunk": 5,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "검증",
+   "text": "심사위원회의 평가방법, 기준, 결과에 대해 이의를 제기하지 않는다.",
+   "quote": "제안서 평가를 위해 구성된 심사위원회의 평가방법 및 평가기준, 평가결과에 어떠한 이의 제기도 하지 않겠습니다.",
+   "modality": "필수",
+   "section": "서약서",
+   "id": "R120",
+   "chunk": 5,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "청렴",
+   "text": "삼성생명의 비즈니스 가이드라인을 준수하고 저촉되는 행위를 하지 않는다.",
+   "quote": "삼성생명의 「비즈니스 가이드라인」을 명확하게 인지하였고 이에 저촉되는 일체의 행위를 하지 않을 것을 서약합니다.",
+   "modality": "필수",
+   "section": "비즈니스 가이드라인 준수 서약서",
+   "id": "R121",
+   "chunk": 5,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "청렴",
+   "text": "거래업체는 뇌물, 향응, 부당 청탁, 정보 유출, 인력 스카웃 주도 등을 금지한다.",
+   "quote": "금전, 현금성 자산, 선물 등 어떠한 뇌물도 받지 않습니다. 과도한 식사, 골프 및 술 접대 등 향응을 제공 받지 않습니다.",
+   "modality": "금지",
+   "section": "비즈니스 가이드라인",
+   "id": "R122",
+   "chunk": 5,
+   "grounded": true
+  },
+  {
+   "pid": "P2",
+   "cat": "문의",
+   "text": "비즈니스 가이드라인 위반 사항은 02-751-8114 또는 jebo@samsung.com으로 제보한다.",
+   "quote": "삼성생명보험 주식회사 : 02-751-8114, jebo@samsung.com",
+   "modality": "정보",
+   "section": "비즈니스 가이드라인",
+   "id": "R123",
+   "chunk": 5,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "범위",
+   "text": "업무용 모니터(27인치) 980대 도입 사업",
+   "quote": "사업명: 업무용 모니터(27인치)도입 추진",
+   "modality": "필수",
+   "id": "R124",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "규격",
+   "text": "모니터 해상도는 27인치 UHD 4K(3840 x 2160)여야 함",
+   "quote": "해상도 : 27” UHD 4K (3840 x 2160)",
+   "modality": "필수",
+   "id": "R125",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "규격",
+   "text": "모니터는 Pivot, Elevation, Swivel, Tilt 조절이 가능해야 함",
+   "quote": "Pivot(회전), Elevation(높이), Swivel(좌우각도), Tilt(상하각도) 조절가능 제품",
+   "modality": "필수",
+   "id": "R126",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "규격",
+   "text": "모니터 색상은 Black이어야 함",
+   "quote": "제품 컬러 : Black",
+   "modality": "필수",
+   "id": "R127",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "규격",
+   "text": "패널 타입은 IPS 또는 VA 중 선택 가능함",
+   "quote": "패널 타입 : IPS, VA 택 1",
+   "modality": "필수",
+   "id": "R128",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "규격",
+   "text": "패널 백라이트는 LED 방식이어야 함",
+   "quote": "패널백라이트 : LED",
+   "modality": "필수",
+   "id": "R129",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "규격",
+   "text": "밝기는 300cd/㎡ 이상이어야 함",
+   "quote": "밝기(cd/㎡) : 300cd/㎡이상",
+   "modality": "필수",
+   "id": "R130",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "규격",
+   "text": "응답속도는 8ms 이하이어야 함",
+   "quote": "응답속도 : 8ms이하",
+   "modality": "필수",
+   "id": "R131",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "규격",
+   "text": "시야각은 좌우 178도 이상이어야 함",
+   "quote": "시야각(좌/우) : 178˚ / 178˚ 이상",
+   "modality": "필수",
+   "id": "R132",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "규격",
+   "text": "인터페이스는 HDMI, DP, USB-C PD(3Port 이상)를 지원해야 함",
+   "quote": "인터페이스 : HDMI, DP, USB-C PD지원(3Port 이상)",
+   "modality": "필수",
+   "id": "R133",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "규격",
+   "text": "최대 주사율은 60Hz 이상이어야 함",
+   "quote": "최대주사율(Hz) : 60Hz 이상",
+   "modality": "필수",
+   "id": "R134",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "규격",
+   "text": "색재현율(sRGB)은 90% 이상이어야 함",
+   "quote": "색재현율(sRGB) : 90%이상",
+   "modality": "필수",
+   "id": "R135",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "규격",
+   "text": "플리커프리, 블루라이트 차단, 눈부심 방지 등 시력보호기능을 갖춰야 함",
+   "quote": "시력보호기능 : 플리커프리, 블루라이트 차단, 눈부심방지 등",
+   "modality": "필수",
+   "id": "R136",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "규격",
+   "text": "별도 AC 전원 어댑터를 사용하는 모델은 참여할 수 없음",
+   "quote": "별도 AC전원 어댑터 사용 불가",
+   "modality": "금지",
+   "id": "R137",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "인증",
+   "text": "KC인증 및 전파인증을 획득해야 함",
+   "quote": "KC인증 및 전파인증 필수",
+   "modality": "필수",
+   "id": "R138",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "A/S",
+   "text": "무상기간 내 장애 발생 시 점검 및 수리를 수행해야 함",
+   "quote": "무상기간 내, 장애 발생 시, 점검 및 수리 필수",
+   "modality": "필수",
+   "id": "R139",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "설치",
+   "text": "자산스티커를 부착해야 함",
+   "quote": "자산스티커 부착 필수",
+   "modality": "필수",
+   "id": "R140",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "구성",
+   "text": "모니터 도입 수량의 100%에 해당하는 DP to DP 3M 케이블을 추가 제공해야 함",
+   "quote": "추가 품목 : DP to DP 3M케이블 모니터 도입수량의 100%",
+   "modality": "필수",
+   "id": "R141",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "일정",
+   "text": "사업기간은 계약체결일로부터 6개월 내외임",
+   "quote": "사업기간: 계약체결일로부터 6개월 내외",
+   "modality": "기준",
+   "id": "R142",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "선정",
+   "text": "가격평가 100점 만점으로 평가함",
+   "quote": "평가배점: 100점 만점(가격평가 100점)",
+   "modality": "기준",
+   "id": "R143",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "선정",
+   "text": "예정가격 이하의 최저 제안 업체를 우선순위자로 선정함",
+   "quote": "예정가격 이하의 최저 제안 업체를 우선순위자로 선정",
+   "modality": "기준",
+   "id": "R144",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "자격",
+   "text": "최근 5년 이내 금융권 모니터 납품 실적이 있는 제조사 또는 총판사여야 함",
+   "quote": "최근 5년 이내에 금융권에 모니터 납품 실적이 있는 제조사 또는 제조사가 지정한 총판사",
+   "modality": "필수",
+   "id": "R145",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "자격",
+   "text": "부도, 화의, 워크아웃, 법정관리 중인 사업자 및 부정당업자 제재 대상은 참여 불가함",
+   "quote": "부도, 화의, 워크아웃, 법정관리 중에 있는 사업자와 당행의 부정당업자로 제재받고 있는 사업자",
+   "modality": "금지",
+   "id": "R146",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "제출",
+   "text": "참가 의향서를 2026년 06월 12일(금) 13:00까지 이메일로 제출해야 함",
+   "quote": "제출기한: 2026년 06월 12일(금) 13:00 까지",
+   "modality": "필수",
+   "id": "R147",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "형식",
+   "text": "참가 의향서는 PDF 파일 1개로 작성해야 함",
+   "quote": "pdf 문서로 작성 요청 (1개의 파일로 작성 제출)",
+   "modality": "필수",
+   "id": "R148",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "유의",
+   "text": "참가 의향서 제출 후 반드시 유선으로 도입담당자에게 연락해야 함",
+   "quote": "참가의향서를 e-mail로 제출한 후 반드시 유선으로 도입담당자에게 연락하시길 바랍니다.",
+   "modality": "필수",
+   "id": "R149",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "유의",
+   "text": "제안서 설명 안내장소에 미참석 시 입찰 의사가 없는 것으로 간주함",
+   "quote": "미 참석 시에는 입찰의사가 없음으로 인정하여, 해당업체는 금번 사업에 대한 제안포기 공문을 제출",
+   "modality": "기준",
+   "id": "R150",
+   "chunk": 6,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "문의",
+   "text": "도입담당자 연락처는 총무부 팀장 유종렬 02-2151-8043이다.",
+   "quote": "도입담당자: 총무부 팀장 유종렬 (☎ 02-2151-8043)",
+   "modality": "정보",
+   "id": "R151",
+   "chunk": 7,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "문의",
+   "text": "업무담당자 연락처는 Tech운영부 팀장 이영훈 02-2151-8702이다.",
+   "quote": "업무담당자: Tech운영부 팀장 이영훈 (☎ 02-2151-8702)",
+   "modality": "정보",
+   "id": "R152",
+   "chunk": 7,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "자격",
+   "text": "자격조건 미달, 부정당업체, 제출서류 미비 업체는 추가 제안요청서 발송 대상에서 제외된다.",
+   "quote": "자격조건 미달업체, 부정당업체(입찰무효사유 포함) 및 제출서류 미비 등의 요건 미달 업체는 이후 당행의 추가 제안요청서를 보증하지 않습니다.",
+   "modality": "필수",
+   "id": "R153",
+   "chunk": 7,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "보안",
+   "text": "입찰 공고 정보를 참가의향서 작성 외 목적으로 사용하거나 제3자와 공유하는 것을 금지한다.",
+   "quote": "입찰 참가회사는 본 입찰공고가 포함하고 있는 정보를 참가의향서 제출 작성 외 다른 목적으로도 사용할 수 없으며",
+   "modality": "금지",
+   "id": "R154",
+   "chunk": 7,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "무효",
+   "text": "입찰 공고 정보의 무단 사용 및 공유 시 입찰 무효 사유가 될 수 있다.",
+   "quote": "만일 이를 위반에는 입찰 무효의 사유가 될 수 있습니다.",
+   "modality": "조건",
+   "id": "R155",
+   "chunk": 7,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "제출",
+   "text": "제안 참여업체의 제출 자료는 일체 반환하지 않는다.",
+   "quote": "제안 참여업체의 제출 자료는 일체 반환하지 않습니다.",
+   "modality": "필수",
+   "id": "R156",
+   "chunk": 7,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "가격",
+   "text": "답변자료 작성 관련 비용에 대해 당행은 어떠한 책임도 지지 않는다.",
+   "quote": "본 사업공시에 대한 답변자료 작성과 관련하여 발생하는 모든 비용에 대하여 어떠한 책임도 지지 않습니다.",
+   "modality": "정보",
+   "id": "R157",
+   "chunk": 7,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "일정",
+   "text": "참가의향서 제출 업체 대상 사전 심사 후 입찰통지서를 발송한다.",
+   "quote": "참가의향서를 제출한 업체를 대상으로 사전 심사 후, 입찰통지서를 발송할 예정입니다.",
+   "modality": "기준",
+   "id": "R158",
+   "chunk": 7,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "청렴",
+   "text": "입찰참가신청서 제출 시 청렴계약 이행 서약서를 제출해야 한다.",
+   "quote": "입찰참가신청서 제출시 청렴계약 이행을 확약하는 서약서를 제출하여야 합니다.",
+   "modality": "필수",
+   "id": "R159",
+   "chunk": 7,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "가격",
+   "text": "입찰보증금은 입찰금액의 5%를 보증보험증권으로 제출해야 한다.",
+   "quote": "입찰보증금액 : 입찰금액의 5% (보증보험증권으로 징구)",
+   "modality": "필수",
+   "id": "R160",
+   "chunk": 7,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "가격",
+   "text": "입찰보증금 보증기간은 입찰일 이전부터 입찰일로부터 30일 이상이어야 한다.",
+   "quote": "보증기간 : 입찰일(견적 제출일) 이전 ~ 입찰일로부터 30일 이상일 것",
+   "modality": "필수",
+   "id": "R161",
+   "chunk": 7,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "가격",
+   "text": "최근 1년 이내 신한은행 또는 신한금융그룹사와 계약 이행 실적이 있는 업체는 입찰보증금을 면제한다.",
+   "quote": "최근 1년 이내 신한은행 또는 신한금융그룹사와 계약체결하고 성실히 이행한 업체는 면제합니다.",
+   "modality": "조건",
+   "id": "R162",
+   "chunk": 7,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "무효",
+   "text": "입찰 참가자격이 없는 자가 한 입찰은 무효로 한다.",
+   "quote": "입찰 참가자격이 없는 자가 한 입찰",
+   "modality": "금지",
+   "section": "붙임 3",
+   "id": "R163",
+   "chunk": 8,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "무효",
+   "text": "입찰보증금을 납부기한까지 납부하지 않은 입찰은 무효로 한다.",
+   "quote": "입찰보증금의 납부일시까지 소정의 입찰보증금을 납부하지 아니하고 한 입찰",
+   "modality": "금지",
+   "section": "붙임 3",
+   "id": "R164",
+   "chunk": 8,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "무효",
+   "text": "입찰서가 도착일시까지 입찰장소에 도착하지 않은 입찰은 무효로 한다.",
+   "quote": "입찰서가 그 도착일시까지 소정의 입찰장소에 도착하지 아니한 입찰",
+   "modality": "금지",
+   "section": "붙임 3",
+   "id": "R165",
+   "chunk": 8,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "무효",
+   "text": "동일인이 2통 이상의 입찰서를 제출한 입찰은 무효로 한다.",
+   "quote": "동일사항에 동일인이 2통 이상의 입찰서를 제출한 입찰",
+   "modality": "금지",
+   "section": "붙임 3",
+   "id": "R166",
+   "chunk": 8,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "무효",
+   "text": "신고된 사용인감과 입찰서 날인 인감이 상이한 입찰은 무효로 한다.",
+   "quote": "신고된 사용인감과 입찰서에 날인한 인감이 상이한 입찰",
+   "modality": "금지",
+   "section": "붙임 3",
+   "id": "R167",
+   "chunk": 8,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "무효",
+   "text": "담합 또는 경쟁참가자 방해로 인한 입찰은 무효로 한다.",
+   "quote": "담합 또는 경쟁참가자의 방해로 인한 입찰",
+   "modality": "금지",
+   "section": "붙임 3",
+   "id": "R168",
+   "chunk": 8,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "무효",
+   "text": "대리참석자와 위임장 기재자가 상이한 입찰은 무효로 한다.",
+   "quote": "대리참석자와 위임장에 개재된 자가 상이한 입찰",
+   "modality": "금지",
+   "section": "붙임 3",
+   "id": "R169",
+   "chunk": 8,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "무효",
+   "text": "정해진 양식을 사용하지 않은 입찰은 무효로 한다.",
+   "quote": "정해진 양식에 의한 입찰서를 사용하지 아니한 입찰",
+   "modality": "금지",
+   "section": "붙임 3",
+   "id": "R170",
+   "chunk": 8,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "무효",
+   "text": "입찰금액을 정정한 입찰은 무효로 한다.",
+   "quote": "입찰금액을 정정한 입찰",
+   "modality": "금지",
+   "section": "붙임 3",
+   "id": "R171",
+   "chunk": 8,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "자격",
+   "text": "부정당업자는 2년 이하의 범위 내에서 입찰참가를 제한한다.",
+   "quote": "부정당업자... 2년 이하의 범위 내에서 입찰참가를 제한합니다.",
+   "modality": "필수",
+   "section": "붙임 4",
+   "id": "R172",
+   "chunk": 8,
+   "grounded": false
+  },
+  {
+   "pid": "P3",
+   "cat": "일정",
+   "text": "계약기간은 계약체결 후부터 1년까지이다.",
+   "quote": "계약기간 : 계약체결후 ~ 1년",
+   "modality": "기준",
+   "section": "사업 개요",
+   "id": "R173",
+   "chunk": 8,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "자격",
+   "text": "입찰 참가자는 원제작사, 기술지원 확약서 또는 파트너쉽 증빙서류 제출이 가능한 회사여야 한다.",
+   "quote": "원제작사, 기술지원 확약서 또는 파트너쉽 증빙서류 제출 가능한 회사",
+   "modality": "필수",
+   "section": "사업 개요",
+   "id": "R174",
+   "chunk": 8,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "제출",
+   "text": "입찰 시 상세 견적서, 사업자등록증, 법인등기부등본, 법인인감증명서, 사용인감계, 대리인 명함, 기술지원확약서, 신용평가등급확인서를 제출해야 한다.",
+   "quote": "상세 견적서 1부, 사업자등록증 사본 1부... 기술지원확약서 또는 파트너쉽 증빙서류 1부",
+   "modality": "필수",
+   "section": "사업 개요",
+   "id": "R175",
+   "chunk": 8,
+   "grounded": false
+  },
+  {
+   "pid": "P3",
+   "cat": "제출",
+   "text": "발급 서류는 제출일 기준 3개월 이내 발급분이어야 한다.",
+   "quote": "제출일 기준 최근 3개월 이내 발급 분에 한하며",
+   "modality": "필수",
+   "section": "사업 개요",
+   "id": "R176",
+   "chunk": 8,
+   "grounded": true
+  },
+  {
+   "pid": "P3",
+   "cat": "제출",
+   "text": "사본 제출 시 원본 대조필 및 법인 인감을 날인해야 한다.",
+   "quote": "제출 서류가 사본일 경우에는 「원본 대조필」 및 「법인 인감」 도장 날인 후 제출",
+   "modality": "필수",
+   "section": "사업 개요",
+   "id": "R177",
+   "chunk": 8,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "무효",
+   "text": "제안 참가자격이 없는 자가 한 제안은 무효이다.",
+   "quote": "제안 참가자격이 없는 자가 한 제안",
+   "modality": "금지",
+   "section": "2. 제안 무효 사항",
+   "id": "R178",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "무효",
+   "text": "제출서류에 중대한 오류가 있거나 제안서 기재 내용이 허위 또는 과장된 경우 제안은 무효이다.",
+   "quote": "제출서류에 중대한 오류가 있거나, 제안서 기재 내용이 허위 또는 과장된 경우",
+   "modality": "금지",
+   "section": "2. 제안 무효 사항",
+   "id": "R179",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "무효",
+   "text": "제안 요청 사항을 충실히 반영하지 않은 제안은 무효이다.",
+   "quote": "제안 요청 사항을 충실히 반영하지 않은 제안",
+   "modality": "금지",
+   "section": "2. 제안 무효 사항",
+   "id": "R180",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "무효",
+   "text": "제안 업체간 담합했다고 판단되는 경우 제안은 무효이다.",
+   "quote": "제안내용의 전부 또는 일부에 대하여 제안 업체간 담합했다고 판단되는 경우",
+   "modality": "금지",
+   "section": "2. 제안 무효 사항",
+   "id": "R181",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "무효",
+   "text": "제출 마감시간까지 서류가 제출되지 않은 경우 제안은 무효이다.",
+   "quote": "제출 서류의 일부 또는 전부가 제안 제출 마감시간까지 제출되지 않은 경우",
+   "modality": "금지",
+   "section": "2. 제안 무효 사항",
+   "id": "R182",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "무효",
+   "text": "제출 마감시간까지 구매포탈시스템에 전산등록되지 않은 경우 제안은 무효이다.",
+   "quote": "제출 서류의 일부 또는 전부의 원본 파일 또는 스캔본이 제출 마감시간까지 당사",
+   "modality": "금지",
+   "section": "2. 제안 무효 사항",
+   "id": "R183",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "선정",
+   "text": "내부 평가기준에 따라 우선 협상 대상자를 선정한다.",
+   "quote": "내부 평가기준에 따라 우선 협상 대상자를 선정하고",
+   "modality": "필수",
+   "section": "3. 업체선정 방식",
+   "id": "R184",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "선정",
+   "text": "평가 및 협상결과는 공개하지 않는다.",
+   "quote": "평가 및 협상결과는 공개하지 않음",
+   "modality": "금지",
+   "section": "3. 업체선정 방식",
+   "id": "R185",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "계약",
+   "text": "우선 협상 대상자와 세부 협상 후 이견이 없을 경우 최종 계약을 체결한다.",
+   "quote": "우선 협상 대상자와 계약 내용에 대한 세부 협상 후에 이견이 없을 경우 최종",
+   "modality": "필수",
+   "section": "3. 업체선정 방식",
+   "id": "R186",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "계약",
+   "text": "최초 우선 협상 대상자와 결렬 시 차 순위자와 세부 협상을 진행한다.",
+   "quote": "최초 우선 협상 대상자와 계약을 위한 세부 협상이 결렬될 경우, 차 순위자와",
+   "modality": "필수",
+   "section": "3. 업체선정 방식",
+   "id": "R187",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "청렴",
+   "text": "계약 관련 임직원에게 금품, 향응 등 부당한 이익을 제공하지 아니한다.",
+   "quote": "당사의 계약관련 임직원에게 직·간접적으로 금품, 향응 등 접대나 부당한 이익",
+   "modality": "금지",
+   "section": "4. 청렴계약 이행사항",
+   "id": "R188",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "청렴",
+   "text": "입찰가격 사전 협의 또는 담합 등 공정한 경쟁 방해 행위를 금지한다.",
+   "quote": "입찰가격의 사전 협의 또는 특정인의 낙찰을 위한 담합 등 공정한 경쟁을 방해",
+   "modality": "금지",
+   "section": "4. 청렴계약 이행사항",
+   "id": "R189",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "청렴",
+   "text": "알선·청탁을 통한 특정 정보 제공 요구 행위를 금지한다.",
+   "quote": "알선·청탁을 통하여 입찰 또는 계약과 관련된 특정 정보의 제공을 요구하거나",
+   "modality": "금지",
+   "section": "4. 청렴계약 이행사항",
+   "id": "R190",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "청렴",
+   "text": "금품 제공 사실 적발 시 입찰제한, 계약해지, 거래중단 등 불이익을 감수한다.",
+   "quote": "금품, 향응 등을 제공하였을 경우에는 입찰제한, 계약해지, 거래중단 등 어떠한",
+   "modality": "필수",
+   "section": "4. 청렴계약 이행사항",
+   "id": "R191",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "청렴",
+   "text": "금품 제공 사실 적발 시 민·형사상 일체의 이의를 제기하지 아니한다.",
+   "quote": "민·형사상 일체의 이의를 제기하지 아니한다.",
+   "modality": "금지",
+   "section": "4. 청렴계약 이행사항",
+   "id": "R192",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "PC CPU는 Intel i5 14세대 이상 또는 AMD Ryzen 5 8000 시리즈 이상이어야 한다.",
+   "quote": "Intel i5 14세대 이상 or AMD Ryzen 5 8000 시리즈 이상 (6코어, 12쓰레드 이상)",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (PC)",
+   "id": "R193",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "PC 메모리는 8GB, DDR5 4800MHz 이상이어야 한다.",
+   "quote": "8GB, DDR5 4800MHz(PC5-38400) 이상",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (PC)",
+   "id": "R194",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "PC SSD는 256GB 이상(NVMe)이어야 한다.",
+   "quote": "256GB 이상 (NVMe)",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (PC)",
+   "id": "R195",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "PC는 DVD-ROM 또는 ODD 제거 중 택 1 해야 한다.",
+   "quote": "DVD-ROM(Read가능/Write불가) 또는 ODD 제거 中 택 1",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (PC)",
+   "id": "R196",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "PC 사이즈는 슬림타워 이하이어야 한다.",
+   "quote": "슬림타워 이하",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (PC)",
+   "id": "R197",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "PC 그래픽은 내장형이어야 하며 듀얼 모니터 연결이 필수이다.",
+   "quote": "내장형 (듀얼 모니터 연결 필수, 당사 필요시 젠더 제공 필수)",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (PC)",
+   "id": "R198",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "PC 네트워크는 Gigabit Ethernet이어야 한다.",
+   "quote": "Gigabit Ethernet",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (PC)",
+   "id": "R199",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "PC 입력장치는 키보드, 마우스, 키보드스킨을 포함해야 한다.",
+   "quote": "키보드, 마우스, 키보드스킨 포함",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (PC)",
+   "id": "R200",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "PC 포트는 USB 전면 2개 이상, 후면 4개 이상, PS2 2개, HDMI 2개, 추가 1포트가 필수이다.",
+   "quote": "USB(전면)*2이상, 후면*4이상, PS2*2, HDMI*2 필수 + 추가 1포트 필수 제공",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (PC)",
+   "id": "R201",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "PC 운영체제는 Windows 11 Professional (64bit)이어야 한다.",
+   "quote": "Windows 11 Professional (64bit)",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (PC)",
+   "id": "R202",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "PC 무상유지보수는 2년 이상이어야 한다.",
+   "quote": "무상유지보수 2년 이상",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (PC)",
+   "id": "R203",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "PC 사양 단종 시 동일 스펙 이상 동일 금액 후속 모델을 납품해야 한다.",
+   "quote": "제안 사양 단종시 동일 스펙 이상 동일 금액 후속 모델 납품",
+   "modality": "필수",
+   "section": "2-1. 구매요청 사양 (PC)",
+   "id": "R204",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "모니터 사이즈는 22인치 와이드(16:9) 이상이어야 한다.",
+   "quote": "22인치 와이드(16:9) 이상",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (모니터)",
+   "id": "R205",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "모니터 해상도는 1920 * 1080 이상이어야 한다.",
+   "quote": "1920 * 1080 이상",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (모니터)",
+   "id": "R206",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "모니터 명암비는 1,000 : 1 이상이어야 한다.",
+   "quote": "1,000 : 1 이상",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (모니터)",
+   "id": "R207",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "모니터 밝기는 250cd 이상이어야 한다.",
+   "quote": "250cd 이상",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (모니터)",
+   "id": "R208",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "모니터 응답속도는 5ms 이하이어야 한다.",
+   "quote": "5ms 이하",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (모니터)",
+   "id": "R209",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "모니터 입력단자는 HDMI 필수 및 추가 포트를 제공해야 한다.",
+   "quote": "HDMI 필수 + 추가포트 제공(HDMI, DVI, DP, D-Sub)이상",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (모니터)",
+   "id": "R210",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "모니터는 Tilt 기능을 지원해야 한다.",
+   "quote": "Tilt 지원",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (모니터)",
+   "id": "R211",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "모니터 무상유지보수는 2년 이상이어야 한다.",
+   "quote": "무상유지보수 2년 이상",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (모니터)",
+   "id": "R212",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "노트북 CPU는 Intel core 5(i5 14세대) 이상 또는 AMD Ryzen 7 7735U 이상이어야 한다.",
+   "quote": "Intel core 5(i5 14세대)이상 or AMD Ryzen 7 7735U 이상",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (노트북)",
+   "id": "R213",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "노트북 메모리는 16GB, DDR4 5600MHz 이상이어야 한다.",
+   "quote": "16GB, DDR4 5600MHz(PC5-44800) 이상",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (노트북)",
+   "id": "R214",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "노트북 SSD는 256GB 이상(NVMe)이어야 한다.",
+   "quote": "256GB 이상 (NVMe)",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (노트북)",
+   "id": "R215",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "노트북 LCD는 15.6 인치 (1920 * 1080) 이상이어야 한다.",
+   "quote": "15.6 인치 (1920 * 1080) 이상",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (노트북)",
+   "id": "R216",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "노트북 그래픽은 내장형이어야 하며 듀얼 모니터 연결이 필수이다.",
+   "quote": "내장형 (듀얼 모니터 연결 필수, ※제조사 전용 포트 사용시 젠더 제공 필수)",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (노트북)",
+   "id": "R217",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "노트북 포트는 USB 3개 이상, HDMI 1개 이상이어야 한다.",
+   "quote": "USB*3 이상(Type-C 가능), HDMI*1",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (노트북)",
+   "id": "R218",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "노트북 LAN은 유선(Gigabit Ethernet), 무선(WIFI 6이상)이어야 한다.",
+   "quote": "유선(Gigabit Ethernet), 무선(WIFI 6이상)",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (노트북)",
+   "id": "R219",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "노트북 무게는 본체 2.0 Kg 이하이어야 한다.",
+   "quote": "본체 무게 2.0 Kg 이하",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (노트북)",
+   "id": "R220",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "노트북 운영체제는 Windows 11 Professional (64bit)이어야 한다.",
+   "quote": "Windows 11 Professional (64bit)",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (노트북)",
+   "id": "R221",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "노트북 무상유지보수는 2년 이상이어야 한다.",
+   "quote": "무상유지보수 2년 이상",
+   "modality": "기준",
+   "section": "2-1. 구매요청 사양 (노트북)",
+   "id": "R222",
+   "chunk": 9,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "노트북은 가방, 마우스, 랜 젠더를 포함해야 한다.",
+   "quote": "가방, 마우스, 랜 젠더 포함",
+   "modality": "필수",
+   "section": "표 계속",
+   "id": "R223",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "노트북은 물리적 시건이 가능하도록 시건 구멍을 제공해야 한다.",
+   "quote": "노트북의 물리적 시건 가능해야 함 (시건 구멍 제공)",
+   "modality": "필수",
+   "section": "표 계속",
+   "id": "R224",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "제안 사양 단종 시 동일 스펙 이상의 동일 금액 후속 모델을 납품해야 한다.",
+   "quote": "제안 사양 단종시 동일 스펙 이상 동일 금액 후속 모델 납품",
+   "modality": "필수",
+   "section": "표 계속",
+   "id": "R225",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "계약",
+   "text": "제안 품목은 분리 발주가 가능하며, 일부 계약 시에도 납품 단가 변동이 없어야 한다.",
+   "quote": "제안품목은 분리발주 가능하며, 일부 계약에 따른 단가변동이 없어야 함",
+   "modality": "필수",
+   "section": "기타 제안 요건",
+   "id": "R226",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "계약",
+   "text": "계약 시 수량을 보장하지 않는 조건부 단가 계약을 체결한다.",
+   "quote": "계약시의 수량을 보장하지 않는 조건부 단가 계약 체결",
+   "modality": "필수",
+   "section": "기타 제안 요건",
+   "id": "R227",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "계약",
+   "text": "매월 실구매 수량에 대해 사용자 설치 완료 후 정산한다.",
+   "quote": "매월 실구매 수량 사용자 설치 완료 후 정산",
+   "modality": "필수",
+   "section": "기타 제안 요건",
+   "id": "R228",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "납품",
+   "text": "장비는 당사 지정 장소(전국 9개 노드)로 배송해야 한다.",
+   "quote": "당사 지정장소 (전국 9개 노드)",
+   "modality": "필수",
+   "section": "기타 제안 요건",
+   "id": "R229",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "PC 명령어를 통해 메인보드상 제조번호 확인이 가능해야 한다.",
+   "quote": "PC 명령어를 통한 메인보드상 제조번호 확인 가능",
+   "modality": "필수",
+   "section": "기타 제안 요건",
+   "id": "R230",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "규격",
+   "text": "요청 시 제조사 CI 위치상에 당사 CI를 부착해야 한다.",
+   "quote": "요청 시 제조사 CI 위치상에 당사 CI 부착",
+   "modality": "필수",
+   "section": "기타 제안 요건",
+   "id": "R231",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "설치",
+   "text": "장비 설치는 당사 유지보수 업체와 별도 계약하여 진행하며, 물품 제안 단가에 설치비를 포함해서는 안 된다.",
+   "quote": "물품 제안 단가에 포함 금지 (제안사와 당사 유지보수업체 간 별도 계약)",
+   "modality": "금지",
+   "section": "기타 제안 요건",
+   "id": "R232",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "자격",
+   "text": "제안사는 최근 3년간 요약 재무제표 및 기업신용평가등급 조회가 가능해야 한다.",
+   "quote": "제안사의 최근 3년간 요약 재무제표 및 기업신용평가등급 조회 가능 업체",
+   "modality": "필수",
+   "section": "제안업체 일반",
+   "id": "R233",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "자격",
+   "text": "제안사는 최근 3년간 제1, 2 금융권 회사 내 누적 1,000대 이상 납품 실적을 보유해야 한다.",
+   "quote": "최근 3년간 제1,2 금융권 회사 내 누적 1,000대 이상 납품실적 보유 업체",
+   "modality": "필수",
+   "section": "제안업체 일반",
+   "id": "R234",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "자격",
+   "text": "제안사는 프로젝트 수행 가능 조직 및 인력을 보유해야 한다.",
+   "quote": "프로젝트 수행 가능 조직 및 인력 보유 업체",
+   "modality": "필수",
+   "section": "제안업체 일반",
+   "id": "R235",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "검증",
+   "text": "당사 납품 실적이 없는 경우 별도 장비 테스트를 진행할 수 있으며 결과에 따라 선정에서 제외될 수 있다.",
+   "quote": "당사에 납품 실적이 없는 경우, 별도 장비 테스트 진행할 수 있으며 결과에 따라 선정 예외할 수 있음",
+   "modality": "조건",
+   "section": "제안업체 일반",
+   "id": "R236",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "검증",
+   "text": "장비 사용 중 이상 발열 발생 여부를 테스트한다.",
+   "quote": "장비 사용 중 이상 발열 발생 유무",
+   "modality": "기준",
+   "section": "제안업체 일반",
+   "id": "R237",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "검증",
+   "text": "당사 운영 시스템 사용 관련 호환 오류 발생 여부를 테스트한다.",
+   "quote": "당사 운영 시스템 사용 관련 호환 오류 발생 유무",
+   "modality": "기준",
+   "section": "제안업체 일반",
+   "id": "R238",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "인증",
+   "text": "무상 유지보수 기간은 제조일자 또는 납품일자로부터 2년 이상이어야 한다.",
+   "quote": "무상 유지보수 기간은 제조일자 또는 납품일자로부터 2년 이상",
+   "modality": "필수",
+   "section": "무상 기간내 교체 기준",
+   "id": "R239",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "인증",
+   "text": "무상 유지보수 기간을 제품에 별도 명시하거나 스티커를 부착해야 한다.",
+   "quote": "무상 유지보수 기간을 제품에 별도 명시 또는 스티커 부착",
+   "modality": "필수",
+   "section": "무상 기간내 교체 기준",
+   "id": "R240",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "A/S",
+   "text": "설치 시 발생하는 불량 제품은 동일한 새 제품으로 교체해야 한다.",
+   "quote": "설치시 발생하는 불량 제품은 동일한 새 제품으로 교체",
+   "modality": "필수",
+   "section": "무상 기간내 교체 기준",
+   "id": "R241",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "A/S",
+   "text": "펌웨어, 하드웨어 문제 등으로 인한 리콜 발생 시 새 부품으로 교체해야 한다.",
+   "quote": "펌웨어, 하드웨어 문제 등으로 인한 리콜 발생시 새 부품으로 교체",
+   "modality": "필수",
+   "section": "무상 기간내 교체 기준",
+   "id": "R242",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "A/S",
+   "text": "DOA 발생 시 동일 새 제품으로 즉시 교체해야 한다.",
+   "quote": "DOA(Dead On Arrive) 발생 시 동일 새 제품으로 즉시 교체",
+   "modality": "필수",
+   "section": "무상 기간내 교체 기준",
+   "id": "R243",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "A/S",
+   "text": "서비스 센터 방문 입고 및 서비스 완료 목표 시간은 최대 2일 이내여야 한다.",
+   "quote": "서비스 센터에서 방문하여 입고 진행 및 서비스 완료 목표 시간은 최대 2일 이내",
+   "modality": "필수",
+   "section": "유지보수 및 서비스 센터 관리 방안",
+   "id": "R244",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "A/S",
+   "text": "교체 자재가 없는 경우 최대 3일 이내 서비스 처리를 완료하고 해당 기간 동안 대체 장비를 투입해야 한다.",
+   "quote": "최대 3일 이내 서비스 처리 완료가 되어야 하며 해당 기간 동안 대체 장비 투입",
+   "modality": "필수",
+   "section": "유지보수 및 서비스 센터 관리 방안",
+   "id": "R245",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "A/S",
+   "text": "납품 장비에 대한 부품 보유 연한은 최소 5년 이상이어야 한다.",
+   "quote": "납품 장비에 대한 부품 보유 연한은 최소 5년",
+   "modality": "필수",
+   "section": "유지보수 및 서비스 센터 관리 방안",
+   "id": "R246",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "A/S",
+   "text": "당사와의 서비스 센터 핫라인을 제공해야 한다.",
+   "quote": "당사와의 서비스 센터 핫라인 제공",
+   "modality": "필수",
+   "section": "유지보수 및 서비스 센터 관리 방안",
+   "id": "R247",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "A/S",
+   "text": "전국 서비스 센터는 KB손해보험 노드 거점 지역 내에 위치해야 한다.",
+   "quote": "전국 서비스 센터는 KB손해보험 노드 거점 지역 내 위치",
+   "modality": "필수",
+   "section": "유지보수 및 서비스 센터 관리 방안",
+   "id": "R248",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "A/S",
+   "text": "출장 방문 또는 서비스 진행 시 대체 장비를 반드시 제공해야 한다.",
+   "quote": "출장방문 또는 서비스 진행시, 대체장비는 반드시 제공",
+   "modality": "필수",
+   "section": "유지보수 및 서비스 센터 관리 방안",
+   "id": "R249",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "A/S",
+   "text": "제조사 B2B 서비스 인력 지원이 가능해야 한다.",
+   "quote": "제조사 B2B서비스 인력 지원이 가능해야함",
+   "modality": "필수",
+   "section": "유지보수 및 서비스 센터 관리 방안",
+   "id": "R250",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "납품",
+   "text": "1회 최대 납품 가능 규모는 PC 1,000대, 모니터 2,000대, 노트북 100대 이상이어야 한다.",
+   "quote": "1회 최대 납품 가능 규모는 PC 1,000대 이상, 모니터 2,000대 이상, 노트북 100대 이상",
+   "modality": "필수",
+   "section": "납품 및 설치 방안",
+   "id": "R251",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "납품",
+   "text": "납품 시 배송 요원은 반드시 2인 1조 이상으로 구성해야 한다.",
+   "quote": "납품시 배송요원은 반드시 2인1조 이상",
+   "modality": "필수",
+   "section": "납품 및 설치 방안",
+   "id": "R252",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "납품",
+   "text": "대량 납품 시 당사 지정 장소에 책임 배송(건물 내 또는 층별 배송 등)을 수행해야 한다.",
+   "quote": "대량 납품시 당사가 지정한 장소에 반드시 책임 배송(건물내 배송 또는 층별 배송 등)",
+   "modality": "필수",
+   "section": "납품 및 설치 방안",
+   "id": "R253",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "납품",
+   "text": "소량 배송 시 배송 책임은 납품사에 귀속된다.",
+   "quote": "소량 배송시(택배 등) 배송 책임은 납품사 귀속",
+   "modality": "필수",
+   "section": "납품 및 설치 방안",
+   "id": "R254",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "납품",
+   "text": "당사 OS 마스터 이미지를 제작 및 탑재 후 공급해야 한다.",
+   "quote": "당사 OS 마스터 이미지는 제작 / 탑재 후 공급",
+   "modality": "필수",
+   "section": "납품 및 설치 방안",
+   "id": "R255",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "일정",
+   "text": "납품은 발주 후 3주 이내 설치 일정에 맞추어 지정된 장소로 배송해야 한다.",
+   "quote": "납품은 발주 후 3주 이내 설치 일정에 맞추어 지정된 장소로 배송",
+   "modality": "필수",
+   "section": "납품 및 설치 방안",
+   "id": "R256",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "납품",
+   "text": "최초 발주 시 납품 가능 규모는 PC 300대, 모니터 300대, 노트북 100대 이상이어야 한다.",
+   "quote": "최초 발주 시 납품 가능 규모는 PC 300대, 모니터 300대, 노트북 100대 이상이어야 함",
+   "modality": "필수",
+   "section": "납품 및 설치 방안",
+   "id": "R257",
+   "chunk": 10,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "형식",
+   "text": "견적서는 본 제안요청서 및 부속문서에 준하여 작성해야 한다.",
+   "quote": "견적서는 본 제안요청서 및 부속문서에 준하여 작성",
+   "modality": "필수",
+   "id": "R258",
+   "chunk": 11,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "형식",
+   "text": "견적서 문서 크기는 A4 규격으로 작성해야 한다.",
+   "quote": "견적서 작성 시 문서의 크기는 A4규격으로 작성",
+   "modality": "필수",
+   "id": "R259",
+   "chunk": 11,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "제출",
+   "text": "요청항목 외 추가 제안 또는 자료는 별첨으로 제시할 수 있다.",
+   "quote": "요청항목 외 추가 제안 또는 자료가 있는 경우 별첨으로 제시",
+   "modality": "선택",
+   "id": "R260",
+   "chunk": 11,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "형식",
+   "text": "제안서는 제안사 양식에 따라 제안요건 목차를 준수하여 작성해야 한다.",
+   "quote": "제안사 양식에 따라 제안요건 목차를 준수하여 작성",
+   "modality": "필수",
+   "id": "R261",
+   "chunk": 11,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "가격",
+   "text": "제안가격 근거파일을 당사 구매포탈에 첨부해야 한다.",
+   "quote": "당사 구매포탈에 제안가격 근거파일 첨부",
+   "modality": "필수",
+   "id": "R262",
+   "chunk": 11,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "가격",
+   "text": "견적서에 무상유지보수기간, 유상유지보수요율, 소모품 일체 및 용량 등 상세조건을 명시해야 한다.",
+   "quote": "무상유지보수기간/유상유지보수요율/소모품 일체 및 용량 등 기타 상세조건 명시",
+   "modality": "필수",
+   "id": "R263",
+   "chunk": 11,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "보안",
+   "text": "제안요청서 및 프로젝트 관련 자료는 외부에 공개할 수 없다.",
+   "quote": "본 제안요청서에 포함된 당사 내부 자료 및 프로젝트에 대한 모든 자료는 외부에 공개 할 수 없으며",
+   "modality": "금지",
+   "id": "R264",
+   "chunk": 11,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "제출",
+   "text": "접수된 모든 자료는 반환하지 않는다.",
+   "quote": "견적서와 함께 접수된 모든 자료는 반환하지 않고",
+   "modality": "필수",
+   "id": "R265",
+   "chunk": 11,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "기타",
+   "text": "제안 관련 일체의 경비는 제안업체가 부담한다.",
+   "quote": "본 제안 관련 일체의 경비는 제안업체의 부담으로 함",
+   "modality": "필수",
+   "id": "R266",
+   "chunk": 11,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "유의",
+   "text": "요구사항을 잘못 이해하여 작성된 제안서의 책임은 제안사에 있다.",
+   "quote": "잘못 이해된 요구사항이 있는 경우 이에 기반한 제안서에 대해서는 귀사가 책임져야 함",
+   "modality": "필수",
+   "id": "R267",
+   "chunk": 11,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "검증",
+   "text": "평가항목이 공란, 판단 불가, 실적 미기재 시 0점 처리한다.",
+   "quote": "평가항목이 공란 및 판단 불가 또는 실적이 기재되지 않은 경우 해당 부분은 0점 처리",
+   "modality": "기준",
+   "id": "R268",
+   "chunk": 11,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "검증",
+   "text": "추가 제출 자료는 제안서 본문과 동일한 효력을 가진다.",
+   "quote": "추가 제출 내용에 대해서는 제안서 본문과 동일한 효력을 가짐",
+   "modality": "기준",
+   "id": "R269",
+   "chunk": 11,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "유의",
+   "text": "부정당한 사유 발생 시 향후 2년간 당사 사업 참여가 제한될 수 있다.",
+   "quote": "부정당업체로 등록되어 해당 업체는 향후 2년간 당사가 진행하는 모든 사업에 참여할 수 없음",
+   "modality": "기준",
+   "id": "R270",
+   "chunk": 11,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "문의",
+   "text": "공식 질의는 문서 또는 e-mail로 담당자에게 해야 한다.",
+   "quote": "공식적인 확인이 필요한 부분에 대해서는 문서 또는 e-mail로 질의",
+   "modality": "필수",
+   "id": "R271",
+   "chunk": 11,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "선정",
+   "text": "평가결과에 대해 이의를 제기할 수 없다.",
+   "quote": "당사의 평가기준에 따른 평가결과에 대해서 어떠한 경우에도 이의를 제기할 수 없음",
+   "modality": "금지",
+   "id": "R272",
+   "chunk": 11,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "검증",
+   "text": "모든 참고자료는 증빙자료를 제시해야 한다.",
+   "quote": "작성, 제출되는 내용의 모든 참고자료는 증빙자료를 제시할 수 있어야 함",
+   "modality": "필수",
+   "id": "R273",
+   "chunk": 11,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "계약",
+   "text": "견적서에 기술된 내용은 계약서에 포함되는 것으로 간주한다.",
+   "quote": "견적서에 기술된 모든 내용은 계약서에 포함되는 것으로 간주",
+   "modality": "기준",
+   "id": "R274",
+   "chunk": 11,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "제출",
+   "text": "제안가격은 KB손해보험 구매포탈에 등록해야 한다.",
+   "quote": "제안가격은 KB손해보험 구매포탈 등록",
+   "modality": "필수",
+   "id": "R275",
+   "chunk": 11,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "제출",
+   "text": "견적서 파일은 KB손해보험 구매포탈 내 견적서 첨부란에 업로드해야 한다.",
+   "quote": "KB손해보험 구매포탈 (https://sp.kbinsure.co.kr) 내 견적서 첨부란에 업로드",
+   "modality": "필수",
+   "id": "R276",
+   "chunk": 11,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "일정",
+   "text": "지정된 시한 이후 제출된 제안서는 선정 후보에서 제외한다.",
+   "quote": "지정된 시한 이후에 제출된 제안서는 선정 후보에서 제외할 것이오니",
+   "modality": "필수",
+   "id": "R277",
+   "chunk": 11,
+   "grounded": true
+  },
+  {
+   "pid": "P4",
+   "cat": "자격",
+   "text": "원 제조사가 아닌 경우 기술지원확약서 또는 협력사 증빙자료를 제출해야 한다.",
+   "quote": "원 제조사가 아닌 경우, 원 제조사의 기술지원확약서 1부 또는 협력사(파트너)관련 증빙자료 1부를 제출합니다.",
+   "modality": "필수",
+   "id": "R278",
+   "chunk": 11,
+   "grounded": true
+  }
+ ],
+ "enrich": []
+}

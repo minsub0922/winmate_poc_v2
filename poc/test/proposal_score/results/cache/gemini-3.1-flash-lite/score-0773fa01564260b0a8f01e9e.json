@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~strip_images:F04"
+ },
+ "prompt_tokens": 2822,
+ "output_tokens": 203,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "주거 분양 업종인 KCC스위첸과 그란츠 리버파크 사례를 제시하며, 도입 구성(빌트인룩, 스마트홈)과 성과(청약 마감, 높은 경쟁률)를 구체적으로 명시함.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "KCC스위첸 · 과제 · 해결 · 청약 마감 · 높은 경쟁률"
+     },
+     {
+      "sheet": 12,
+      "quote": "그란츠 리버파크 · 과제 · 해결 · 앱 하나 · AI 절약"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

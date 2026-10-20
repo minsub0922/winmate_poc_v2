@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs04:F09"
+ },
+ "prompt_tokens": 5160,
+ "output_tokens": 248,
+ "data": {
+  "scores": [
+   {
+    "id": "PR2",
+    "score": 3,
+    "anchor": "10장의 빌트인 가전(냉장고, 인덕션, 식기세척기) 매립 치수가 제품 규격과 일치하며, 제안서 내에서 일관되게 서술되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "Bespoke Built-in · 4도어 키친핏 | W 930 H 1870 D 700"
+     },
+     {
+      "sheet": 10,
+      "quote": "AI Induction | W 560 H 100 D 490"
+     },
+     {
+      "sheet": 10,
+      "quote": "AI Dishwasher | W 600 H 820 D 580"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

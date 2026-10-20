@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~no_proof:F11"
+ },
+ "prompt_tokens": 3036,
+ "output_tokens": 225,
+ "data": {
+  "scores": [
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 60%가 10pt 미만이며, 9pt 미만 본문 칸이 포함된 장이 8장으로 기준을 충족하지 못함.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "카페 시장은 이미 화면으로 갑니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "A 커피 DT 매장의 일곱 공간"
+     },
+     {
+      "sheet": 9,
+      "quote": "A 커피 DT 매장 앞"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정하여 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

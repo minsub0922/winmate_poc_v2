@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs05:F02"
+ },
+ "prompt_tokens": 9213,
+ "output_tokens": 375,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "R1, R2, R3 및 K1~K4 요구사항에 대해 3, 6, 7, 9, 12장에서 구체적 해법과 근거를 명시적으로 제시하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "줄 서는 시간까지 파크의 체험이 됩니다"
+     },
+     {
+      "sheet": 7,
+      "quote": "야외 무대, 같은 화면과 음향이 낮과 밤 두 무대가 됩니다"
+     },
+     {
+      "sheet": 9,
+      "quote": "시즌마다 새로워지는 대기 줄 화면"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "SB2",
+    "score": 2,
+    "anchor": "대부분의 장에 푸터와 쪽번호가 일관되게 기재되어 있으나, 14페이지에는 푸터와 쪽번호가 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "CONFIDENTIAL · 13"
+     },
+     {
+      "sheet": 14,
+      "quote": ""
+     }
+    ],
+    "improve": "14페이지에도 다른 장과 동일한 푸터 양식과 쪽번호를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

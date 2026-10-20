@@ -1,0 +1,78 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs20~full:F04"
+ },
+ "prompt_tokens": 9391,
+ "output_tokens": 618,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "고객의 유동인구, 광고주 재집행률, 송출 가용률 등 현장 지표를 기반으로 문제와 영향력을 구체화했습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "일 유동인구 11만 명 · 구성비는 추정"
+     },
+     {
+      "sheet": 3,
+      "quote": "재집행률 40%, 화제성과 노출 증빙을 원함"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "CU6",
+    "score": 3,
+    "anchor": "옥외 광고 업종의 핵심인 송출 가용률, 밝기 조절, 재난 정보 송출 등 운영 맥락을 정확히 반영했습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "송출 가용률 99.8%를 KPI로 관리합니다"
+     },
+     {
+      "sheet": 5,
+      "quote": "심야 밝기 25% 이하"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "옥외 환경에 적합한 XHB(고휘도/IP66)와 미디어폴용 OH55A-S를 공간별로 명확히 배치했습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "IP66 방진 · 방수"
+     },
+     {
+      "sheet": 9,
+      "quote": "XHB · 실외 LED · 외벽"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "강남대로 미디어폴 등 실제 사례를 언급했으나, 해당 사례에서 얻은 구체적인 성과 수치가 명시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "강남대로 미디어폴 사례 참고"
+     }
+    ],
+    "improve": "언급된 사례에서 실제 도입 후 광고 매출 증가율이나 운영 효율 개선 수치를 구체적으로 제시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

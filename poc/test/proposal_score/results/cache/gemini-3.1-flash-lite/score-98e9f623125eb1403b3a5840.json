@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~number_conflict:F04"
+ },
+ "prompt_tokens": 2559,
+ "output_tokens": 229,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "M 베이커리의 지점 운영 현황을 180개 지점 분포, 콘텐츠 배포에 걸리는 6일, 연간 배포비 1.2억 등 구체적인 수치와 현장 장면으로 분석했습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "M 베이커리 180개 지점, 61%가 수도권에 있습니다"
+     },
+     {
+      "sheet": 3,
+      "quote": "신제품 화면 하나가 지점에 닿기까지 6일 걸립니다"
+     },
+     {
+      "sheet": 3,
+      "quote": "1.2억 | 배포비 · 연"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

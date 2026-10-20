@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs01:F04"
+ },
+ "prompt_tokens": 6208,
+ "output_tokens": 479,
+ "data": {
+  "scores": [
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "옥외(OH55A-S), 실내(QM55C), 무인주문(KM24C), 냉난방(360 카세트) 등 공간 환경에 적합한 제품을 명확히 매칭했습니다. 자동 점검의 오탐(4장, 9장)은 본문 8, 9, 10, 11장에서 옥외용 OH55A-S와 실내용 기기를 구분하여 명시적으로 제안하고 있어 해당 사항이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "QM55C 500nit 4K UHD 24/7 운영"
+     },
+     {
+      "sheet": 10,
+      "quote": "OH55A-S 3,500nit IP56 드라이브스루"
+     },
+     {
+      "sheet": 11,
+      "quote": "소형 15평 이하 QM55C 3대 KM24C 1대"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "카페 프랜차이즈인 밀키프레소 사례를 통해 도입 구성과 원격 관리 성과를 명확히 제시하였으며, 말리커피 사례로도 카운터 메뉴보드 구성을 증명했습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "밀키프레소 방문 없이 가맹점 화면 원격 관리"
+     },
+     {
+      "sheet": 13,
+      "quote": "매장을 직접 방문하지 않아도 원격으로 통합 관리"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

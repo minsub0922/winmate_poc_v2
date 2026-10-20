@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~placeholders:F01"
+ },
+ "prompt_tokens": 9617,
+ "output_tokens": 498,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "고객사명 'A 커피'와 매장 수 320개 등 주요 정보가 모든 장에서 일관되게 기술되었습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "A 커피 전국 320개 매장 디지털 메뉴보드 전환 제안"
+     },
+     {
+      "sheet": 11,
+      "quote": "320개 매장을 세 가지 표준 패키지로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "제안서 전반에 걸쳐 수치 데이터 자리에 '[00]'이라는 자리표시자가 8곳 이상 반복적으로 노출되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "[00]일"
+     },
+     {
+      "sheet": 3,
+      "quote": "2026E 시장 규모 | [00] | 억 원"
+     },
+     {
+      "sheet": 5,
+      "quote": "[00]일"
+     }
+    ],
+    "improve": "모든 장표의 [00] 자리표시자를 실제 제안 수치로 수정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "제안서 내에 원가, 마진 등 민감한 내부 정보는 없으며, 마지막 장의 담당자 연락처는 정상적인 비즈니스 정보입니다.",
+    "evidence": [
+     {
+      "sheet": 16,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

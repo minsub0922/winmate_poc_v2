@@ -1,0 +1,74 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs05~full:F01"
+ },
+ "prompt_tokens": 9448,
+ "output_tokens": 589,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'P 테마파크'가 일관되게 사용되었으며, 사례로 인용된 에버랜드 외에 다른 고객사명이나 예시 고객명이 존재하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "P 테마파크"
+     },
+     {
+      "sheet": 13,
+      "quote": "에버랜드 신전무대"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "CU5",
+    "score": 3,
+    "anchor": "P 테마파크의 구체적인 공간 시나리오, 운영 캘린더, 시즌별 콘텐츠 계획 등 고유 정보가 전체 장의 70% 이상에 반영되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "P 테마파크 일곱 구역"
+     },
+     {
+      "sheet": 12,
+      "quote": "운영 1년차(2027. 9 – 2028. 8) 계획안"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "템플릿 잔여물이나 자리표시 문구가 없으며, 연락처는 제안 담당자의 정보로 정상 기재되었습니다.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "김도윤 프로 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "원가, 마진, 내부 할인율 등 민감한 내부 정보가 포함되어 있지 않으며, 제안 담당자의 연락처 외 제3자 개인정보도 없습니다.",
+    "evidence": [
+     {
+      "sheet": 15,
+      "quote": "김도윤 프로 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

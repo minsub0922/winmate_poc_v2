@@ -1,0 +1,56 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~number_conflict:F08"
+ },
+ "prompt_tokens": 2895,
+ "output_tokens": 469,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "고객 언어로 된 결과형 가치 3가지(운영 효율, 장애 대응, 단계적 도입)가 명확하며, 각 가치를 실현하는 솔루션(원격 통합 관리, 원격 모니터링, 파일럿 도입)이 짝지어져 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "7일 → 당일 | 원격 통합 관리 | 한 번의 승인으로 6개 사업 배포"
+     },
+     {
+      "sheet": 5,
+      "quote": "-30% | 장애 선제 대응 | 원격 모니터링으로 고장은 먼저 찾고"
+     },
+     {
+      "sheet": 5,
+      "quote": "16주 | 단계적 도입 | 실사 · 워크숍 · 파일럿 2곳 후 확대"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "DS7",
+    "score": 3,
+    "anchor": "본문 장 제목 10개 중 9개가 결론을 담은 문장형이며, 제목만 순서대로 읽어도 제안의 핵심 스토리(현황-문제-해결-실행)가 완벽하게 이어집니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "260개 사업장 화면, 그룹 본사에서 한 번에 바꿉니다"
+     },
+     {
+      "sheet": 3,
+      "quote": "업계는 이미 움직였고, Y 그룹은 지금이 적기입니다"
+     },
+     {
+      "sheet": 10,
+      "quote": "2주 안에 현장부터, 세 단계로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

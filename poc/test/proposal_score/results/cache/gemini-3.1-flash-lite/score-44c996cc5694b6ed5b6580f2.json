@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs04:F04"
+ },
+ "prompt_tokens": 3355,
+ "output_tokens": 238,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "R 건설의 고객 여정을 모델하우스와 입주 후 거주 단계로 구분하고, 세그먼트별 비율과 영향(난방·온수 평가, 설거지 시간 단축 등)을 수치와 함께 구체적으로 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "아이 있는 3–4인 가족 | 42% | 고른 바닥 난방과 넉넉한 온수, 식기세척기로 줄어드는 저녁 설거지"
+     },
+     {
+      "sheet": 3,
+      "quote": "맞벌이 · 소형 가구 | 46% | 컬러 · 조합은 취향대로, 가사 부담은 덜고, 돌출 없는 가전"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -7,7 +7,7 @@
 // 마우스를 올리면 peek(useDetailPeek)로 큰 상세 카드가 뜬다(넘긴 경우).
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { Icon } from './common.jsx';
+import { DeleteButton, Icon } from './common.jsx';
 import { P, S, C, IND, TYPE_LABEL } from '../services/catalog.js';
 import { Thumb } from './Thumbs.jsx';
 
@@ -62,6 +62,7 @@ const hoverProps = (peek, r) => (peek ? {
   onMouseEnter: (e) => peek.show(r, e.currentTarget), onMouseLeave: peek.hide,
   onFocus: (e) => { if (e.target === e.currentTarget) peek.show(r, e.currentTarget, true); }, onBlur: peek.hide,
 } : {});
+export { hoverProps as tagHoverProps };
 
 /**
  * One tagged item. state: 'linked' | 'unlinked' | null — shown as a small badge (requirements screen).
@@ -72,7 +73,7 @@ export function TagCard({ r, peek, size = 'md', state = null, onLink, onRemove, 
   if (!m) return null;
   const sm = size === 'sm';
   return (
-    <div className={'tagc ' + m.type + ' ' + size + (state === 'unlinked' ? ' off' : '')} tabIndex={peek ? 0 : undefined} {...hoverProps(peek, r)}
+    <div className={'tagc ' + m.type + ' ' + size + (state === 'unlinked' ? ' off' : '')} tabIndex={peek ? 0 : undefined} {...hoverProps(peek, r)} {...peek?.detailProps?.(r)}
       aria-label={TYPE_LABEL[m.type] + ' ' + m.name + ' · ' + m.line}>
       <span className="tg-th"><Thumb r={r} /></span>
       <span className="tg-b">
@@ -99,7 +100,7 @@ export function TagCard({ r, peek, size = 'md', state = null, onLink, onRemove, 
           </span>
         )}
       </span>
-      {onRemove && <button type="button" className="tg-x" onClick={(e) => { e.stopPropagation(); peek && peek.hide(); onRemove(r); }} onFocus={(e) => e.stopPropagation()} aria-label={m.name + ' 빼기'} title="빼기"><Icon name="x" size={12} stroke={2.6} /></button>}
+      {onRemove && <DeleteButton type="button" className="tg-x" onClick={(e) => { e.stopPropagation(); peek && peek.hide(); onRemove(r); }} onFocus={(e) => e.stopPropagation()} aria-label={m.name + ' 빼기'} title="빼기"><Icon name="x" size={12} stroke={2.6} /></DeleteButton>}
     </div>
   );
 }
@@ -139,9 +140,9 @@ export function TagChip({ r, peek, onRemove, onClick, pressed, label }) {
     );
   }
   return (
-    <span className={cls} tabIndex={peek ? 0 : undefined} {...hoverProps(peek, r)} title={m.name + ' · ' + m.line}>
+    <span className={cls} tabIndex={peek ? 0 : undefined} {...hoverProps(peek, r)} {...peek?.detailProps?.(r)} title={m.name + ' · ' + m.line}>
       {inner}
-      {onRemove && <button type="button" className="tgc-x" onClick={(e) => { e.stopPropagation(); peek && peek.hide(); onRemove(r); }} aria-label={m.name + ' 빼기'}><Icon name="x" size={11} stroke={2.6} /></button>}
+      {onRemove && <DeleteButton type="button" className="tgc-x" onClick={(e) => { e.stopPropagation(); peek && peek.hide(); onRemove(r); }} aria-label={m.name + ' 빼기'}><Icon name="x" size={11} stroke={2.6} /></DeleteButton>}
     </span>
   );
 }
@@ -151,7 +152,7 @@ export function MentionInline({ r, peek }) {
   const m = tagMeta(r);
   if (!m) return <span className="mention" data-type="x">@{String(r).split(':')[1] || r}</span>;
   return (
-    <span className="mention has-th" data-type={m.type} data-ref={r} tabIndex={peek ? 0 : undefined} {...hoverProps(peek, r)} title={m.name + ' · ' + m.line}>
+    <span className="mention has-th" data-type={m.type} data-ref={r} tabIndex={peek ? 0 : undefined} {...hoverProps(peek, r)} {...peek?.detailProps?.(r)} title={m.name + ' · ' + m.line}>
       <Thumb r={r} mini className="mn-th" />@{m.short}
     </span>
   );

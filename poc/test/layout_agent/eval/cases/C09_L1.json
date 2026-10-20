@@ -1,0 +1,40 @@
+{
+ "id": "C09_L1",
+ "case": "C09",
+ "industry": "SV",
+ "strategy": "roi",
+ "req_type": "ops",
+ "title": "무인 스터디카페 에너지 절감",
+ "level": "minimal",
+ "input": {
+  "title": "N 스터디 제안",
+  "customer": "N 스터디카페",
+  "industry": "SV",
+  "free_text": "무인 스터디카페 체인. 키오스크랑 시스템에어컨",
+  "products": [
+   "kiosk",
+   "wf4way"
+  ],
+  "id": "C09_L1"
+ },
+ "gold": {
+  "level": "minimal",
+  "industry": "SV",
+  "scenario_any": [
+   "STD-SV"
+  ],
+  "must_parts": [
+   "value",
+   "products",
+   "case",
+   "why"
+  ],
+  "layouts_any": {
+   "products": [
+    "L_P2B"
+   ]
+  },
+  "key_reqs": [],
+  "facts": []
+ }
+}

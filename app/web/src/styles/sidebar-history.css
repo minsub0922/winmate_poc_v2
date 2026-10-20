@@ -1,0 +1,24 @@
+.sb-history-row { --history-row-bg: var(--surface-2); position: relative; flex-shrink: 0; min-width: 0; border-radius: var(--radius-9px); }
+.sb-history-row:is(:hover, :has(:focus-visible), .menu-open) { --history-row-bg: var(--surface-3); }
+.sb-history-row.current { --history-row-bg: var(--accent-soft); }
+.sb-history-row > .sb-item { width: 100%; }
+.sb-history-row > .sb-item::before { top: -2px; bottom: -2px; }
+.sb-history-row:first-child > .sb-item::before { top: 4px; }
+.sb-history-row:last-child > .sb-item::before { bottom: 50%; }
+.sb-history-row:has(+ .sb-history-divider) > .sb-item::before { bottom: 50%; }
+.sb-history-divider + .sb-history-row > .sb-item::before { top: 4px; }
+.sb-history-divider { height: 1px; flex-shrink: 0; margin: 6px 10px; background: var(--line-2); }
+.sb-history-row:is(:hover, :has(:focus-visible), .menu-open) > .sb-item { background: var(--history-row-bg); }
+.sb-history-actions { position: absolute; inset: 0 3px 0 auto; width: 42px; border-radius: inherit; background: linear-gradient(90deg, transparent, var(--history-row-bg) 30%); opacity: 0; pointer-events: none; transition: opacity .15s ease; }
+.sb-history-row:is(:hover, :has(:focus-visible), .pinned) .sb-history-actions { opacity: 1; }
+.sb-history-more, .sb-history-pin { position: absolute; right: 2px; top: 50%; width: 28px; height: 28px; transform: translateY(-50%); display: grid; place-items: center; border: 0; border-radius: 7px; background: transparent; color: var(--muted); transition: opacity .15s ease; }
+.sb-history-pin { color: var(--accent); pointer-events: none; }
+.sb-history-more { pointer-events: none; opacity: 0; }
+.sb-history-row:is(:hover, :has(:focus-visible)) .sb-history-more { pointer-events: auto; opacity: 1; }
+.sb-history-row:is(:hover, :has(:focus-visible)) .sb-history-pin { opacity: 0; }
+.sb-history-more:hover { background: var(--surface-3); color: var(--ink); }
+.sb-history-more:focus-visible { outline-offset: -2px; }
+.sb-history-menu { position: fixed; z-index: 150; width: 168px; max-width: calc(100vw - 16px); padding: 5px; border: 1px solid var(--line-2); border-radius: 10px; background: var(--surface); color: var(--ink); box-shadow: var(--shadow-lg); }
+.sb-history-menu > button { display: flex; align-items: center; gap: 9px; width: 100%; min-height: 36px; padding: 7px 10px; border: 0; border-radius: 6px; background: transparent; font-size: 13px; text-align: left; }
+.sb-history-menu > button:is(:hover, :focus-visible) { background: var(--surface-2); outline-offset: -2px; }
+.sb-history-menu > button.danger { color: var(--danger); }

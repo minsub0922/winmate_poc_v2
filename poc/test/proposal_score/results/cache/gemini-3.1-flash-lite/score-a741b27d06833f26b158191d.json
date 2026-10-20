@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs14:F06"
+ },
+ "prompt_tokens": 3099,
+ "output_tokens": 182,
+ "data": {
+  "scores": [
+   {
+    "id": "PR6",
+    "score": 3,
+    "anchor": "11장에서 현장 단말 94대의 모델별 수량(엑스커버7 프로 54대, 탭 액티브5 프로 40대)과 Knox Suite 라이선스 및 연동 방식을 명확히 제시하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "현장 단말 94대 | 현장 · 엑스커버7 프로 × 54 | 현장 · 탭 액티브5 프로 × 40 | Knox Suite"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

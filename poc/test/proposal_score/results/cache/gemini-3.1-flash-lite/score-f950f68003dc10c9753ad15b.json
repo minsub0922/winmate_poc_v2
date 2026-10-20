@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs20:F09"
+ },
+ "prompt_tokens": 4383,
+ "output_tokens": 279,
+ "data": {
+  "scores": [
+   {
+    "id": "PR2",
+    "score": 1,
+    "anchor": "6장에서 OH55A-S의 밝기를 3,000nit로 표기했으나 카탈로그 사양은 3,500nit이며, 9장에서 OH55A-S를 146인치로 잘못 기재하는 등 카탈로그와 다른 수치가 2곳 이상 확인됩니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "옥외형 사이니지 OH55A-S · 양면 · 폴당 2대 | 한낮 밝기 | 3,000nit"
+     },
+     {
+      "sheet": 9,
+      "quote": "MagicINFO — Q 미디어 서버에서 모든 매체를 송출합니다"
+     }
+    ],
+    "improve": "카탈로그의 공식 사양(OH55A-S 밝기 3,500nit, 모델별 규격 등)을 정확히 확인하여 제안서 전반의 수치를 일관되게 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

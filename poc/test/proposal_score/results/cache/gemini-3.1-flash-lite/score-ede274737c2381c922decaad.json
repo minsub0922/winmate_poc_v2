@@ -1,0 +1,61 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs09~full:F12"
+ },
+ "prompt_tokens": 8372,
+ "output_tokens": 449,
+ "data": {
+  "scores": [
+   {
+    "id": "WR2",
+    "score": 3,
+    "anchor": "덱 전체를 검토한 결과 오탈자나 띄어쓰기 오류가 2곳 이하로 확인되며 제목에는 오류가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR8",
+    "score": 2,
+    "anchor": "SLA, BIS 등 주요 약어에 대한 풀이가 본문에 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "SLA는 계약 조건에 따라 확정"
+     },
+     {
+      "sheet": 13,
+      "quote": "관제 시스템 · BIS · CCTV"
+     }
+    ],
+    "improve": "SLA(Service Level Agreement), BIS(Bus Information System) 등 고객이 생소할 수 있는 약어를 처음 등장할 때 풀어서 설명해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR9",
+    "score": 2,
+    "anchor": "전반적으로 개조식과 명사형 종결을 사용하여 일관성을 유지하려 했으나, 일부 장에서 경어체 문장이 혼용되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "삼성이 함께할 수 있는 곳"
+     },
+     {
+      "sheet": 6,
+      "quote": "안내는 늘 보이고 늘 켜져 있습니다"
+     }
+    ],
+    "improve": "개조식과 명사형 종결로 통일하여 문체 일관성을 높여야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

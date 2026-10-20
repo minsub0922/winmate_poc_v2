@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs18:F04"
+ },
+ "prompt_tokens": 2294,
+ "output_tokens": 177,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "12장에서 LG U+ 키즈폰 사례를 통해 갤럭시 A24 기반의 커스터마이징 구성과 배터리, 인증 등 구체적인 성과 수치를 제시함.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "LG U+ 키즈폰 | 갤럭시 A24 + Knox Configure"
+     },
+     {
+      "sheet": 12,
+      "quote": "5,000mAh | 배터리 · Eye Care 인증"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

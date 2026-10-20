@@ -6,6 +6,8 @@ import { linkTags, configureLinkTags } from '../services/links.js';
 import { PARTS, REQ_LABEL } from '../domain/proposals/parts.js';
 import { Slide } from '../domain/slides/Slide.jsx';
 import { Thumb } from './Thumbs.jsx';
+import {NotificationHost} from './feedback-popup.jsx';
+import {notify} from '../services/notifications.js';
 import { TagChip, tagMeta, mentionThumbHtml, mentionShort, mentionTitle } from './tagcard.jsx';
 
 // ---------- icons ----------
@@ -35,12 +37,15 @@ const PATHS = {
   upload: 'M12 15V4 M7 9l5-5 5 5 M4 15v5h16v-5', file: 'M7 3h7l5 5v13H7z M14 3v5h5', grip: 'M9 6h.01 M15 6h.01 M9 12h.01 M15 12h.01 M9 18h.01 M15 18h.01',
   trash: 'M4 7h16 M9 7V4h6v3 M6 7l1 13h10l1-13', edit: 'M4 20h4L19 9l-4-4L4 16z M14 6l4 4', eye: 'M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z',
   panel: 'M3 4h18v16H3z M14 4v16', panelOff: 'M3 4h18v16H3z M14 4v16 M17 10l-2 2 2 2', download: 'M12 4v11 M7 10l5 5 5-5 M4 20h16', image: 'M3 5h18v14H3z M8.5 10.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z M21 15l-5-5L5 19',
+  chat: 'M21 11.5a8.5 8.5 0 0 1-8.5 8.5 9 9 0 0 1-4-.9L3 21l1.9-5.5A9 9 0 0 1 4 11.5a8.5 8.5 0 0 1 17 0z M8 11.5h.01 M12.5 11.5h.01 M17 11.5h.01',
+  help: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M9.1 9a3 3 0 0 1 5.8 1c0 2-2.9 2.2-2.9 4 M12 17v.01',
   notice: 'M12 5v9.5 M12 19v.2',
   info: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M12 11v5 M12 8v.5', link: 'M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1 M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1',
   ext: 'M14 4h6v6 M20 4l-9 9 M18 14v6H4V6h6', dots: 'M5 12h.01 M12 12h.01 M19 12h.01', arrowR: 'M5 12h14 M13 6l6 6-6 6', arrowL: 'M19 12H5 M11 6l-6 6 6 6', minus: 'M5 12h14',
   fit: 'M4 9V4h5 M20 9V4h-5 M4 15v5h5 M20 15v5h-5', swap: 'M7 7h13l-3-3 M17 17H4l3 3', product: 'M3 4h18v12H3z M8 20h8 M12 16v4', solution: 'M12 3l9 5-9 5-9-5z M3 13l9 5 9-5', case: 'M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.5 2.9 1-6.1L3.2 9.5l6.1-.9z',
   clipCheck: 'M9 4h6v3H9z M7 5.5H5V21h14V5.5h-2 M8.5 14l2.5 2.5 4.5-5', clock: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M12 7v5l3 2',
   history: 'M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8 M3 3v5h5 M12 7v5l4 2',
+  pin: 'm16 3 5 5-4 1-4 4 1 3-2 2-6-6 2-2 3 1 4-4z M8 16l-5 5',
   form: 'M5 4h14v16H5z M8 8h8 M8 12h8 M8 16h5',
   // My 템플릿 · 레이아웃 편집기
   user: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M4 21c1-4 4-6 8-6s7 2 8 6', undo: 'M9 14L4 9l5-5 M4 9h10a6 6 0 0 1 0 12h-3', redo: 'M15 14l5-5-5-5 M20 9H10a6 6 0 0 0 0 12h3',
@@ -58,24 +63,47 @@ export function Icon({ name, size = 16, stroke = 2, className = '', title }) {
 }
 
 // ---------- toasts ----------
-const toastSubs = new Set();
-export function toast(msg, kind = '') { for (const f of toastSubs) f({ id: Math.random(), msg, kind }); }
+export function toast(msg, kind = '', options) { return notify(msg,kind,options); }
 export function Toasts() {
-  const [list, setList] = useState([]);
-  useEffect(() => {
-    const f = (t) => { setList((l) => [...l, t]); setTimeout(() => setList((l) => l.filter((x) => x.id !== t.id)), 2600); };
-    toastSubs.add(f); return () => toastSubs.delete(f);
-  }, []);
-  return <div className="toasts" role="status" aria-live="polite">{list.map((t) => <div key={t.id} className={'toast ' + t.kind}>{t.msg}</div>)}</div>;
+  return <><DeleteConfirmations/><NotificationHost/></>;
+}
+
+const deleteRequests=[];
+const deleteSubscribers=new Set();
+const notifyDelete=()=>{for(const subscriber of deleteSubscribers)subscriber();};
+export function confirmDelete(options={}) {
+  return new Promise(resolve=>{deleteRequests.push({title:'삭제할까요?',message:'선택한 내용을 삭제합니다.',...options,resolve});notifyDelete();});
+}
+function DeleteConfirmations(){
+  const [,refresh]=useState(0);
+  useEffect(()=>{const update=()=>refresh(n=>n+1);deleteSubscribers.add(update);update();return()=>deleteSubscribers.delete(update);},[]);
+  const request=deleteRequests[0];
+  if(!request)return null;
+  const finish=accepted=>{if(deleteRequests[0]!==request)return;deleteRequests.shift();request.resolve(accepted);notifyDelete();};
+  return <Modal title={request.title} size="narrow delete-confirmation" onClose={()=>finish(false)} onKeyDown={event=>{
+    if(event.key!=='Tab')return;
+    const buttons=[...event.currentTarget.querySelectorAll('button:not(:disabled)')],first=buttons[0],last=buttons.at(-1);
+    if(event.shiftKey&&document.activeElement===first){event.preventDefault();last?.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first?.focus();}
+  }}
+    footer={<><button type="button" className="btn" data-autofocus onClick={()=>finish(false)}>취소</button><button type="button" className="btn btn-danger" onClick={()=>finish(true)}>{request.confirmLabel||'삭제'}</button></>}>
+    <p>{request.message}</p>{request.items?.length>0&&<ul className="delete-confirmation-items">{request.items.map((item,i)=><li key={i}>{item}</li>)}</ul>}
+  </Modal>;
+}
+export function DeleteButton({onClick,confirmation,disabled,children,...props}){
+  const [waiting,setWaiting]=useState(false);
+  return <button type="button" {...props} disabled={disabled||waiting} onClick={async event=>{
+    const trigger=event.currentTarget;event.preventDefault();event.stopPropagation();setWaiting(true);
+    try{if(await confirmDelete(confirmation))await onClick?.(event);}catch(error){toast(error.message||'삭제하지 못했어요.');}finally{setWaiting(false);requestAnimationFrame(()=>{if(trigger.isConnected)trigger.focus({preventScroll:true});});}
+  }}>{children}</button>;
 }
 
 // ---------- modal ----------
 const MODAL_STACK = [];
-export function Modal({ title, sub, onClose, children, footer, size = '', labelledBy, bodyClass = 'mbody', bodyStyle, role = 'dialog', describedBy, onKeyDown }) {
+export function Modal({ title, sub, onClose, children, footer, size = '', labelledBy, bodyClass = 'mbody', bodyStyle, role = 'dialog', describedBy, onKeyDown, headerActions }) {
   const ref = useRef(null);
   const closeRef = useRef(onClose);
   closeRef.current = onClose;
-  useEffect(() => {
+  useLayoutEffect(() => {
     const prev = document.activeElement;
     const me = {};
     MODAL_STACK.push(me);
@@ -85,7 +113,8 @@ export function Modal({ title, sub, onClose, children, footer, size = '', labell
       e.stopPropagation(); closeRef.current && closeRef.current();
     };
     document.addEventListener('keydown', onKey);
-    setTimeout(() => { if (!ref.current) return; const el = ref.current.querySelector('[data-autofocus]') || ref.current; el.focus({ preventScroll: true }); }, 30);
+    const el = ref.current?.querySelector('[data-autofocus]') || ref.current;
+    el?.focus({ preventScroll: true });
     return () => { MODAL_STACK.splice(MODAL_STACK.indexOf(me), 1); document.removeEventListener('keydown', onKey); prev && prev.focus && prev.focus({ preventScroll: true }); };
   }, []);
   return createPortal(
@@ -94,7 +123,8 @@ export function Modal({ title, sub, onClose, children, footer, size = '', labell
         {title != null && (
           <div className="mhead">
             <div style={{ minWidth: 0 }}><h2>{title}</h2>{sub && <p>{sub}</p>}</div>
-            <button className="btn btn-ghost btn-icon x" onClick={onClose} aria-label="닫기"><Icon name="x" /></button>
+            {headerActions ? <div className="mhead-actions">{headerActions}<button className="btn btn-ghost btn-icon x" onClick={onClose} aria-label="닫기"><Icon name="x" /></button></div>
+              : <button className="btn btn-ghost btn-icon x" onClick={onClose} aria-label="닫기"><Icon name="x" /></button>}
           </div>
         )}
         <div className={bodyClass} style={bodyStyle}>{children}</div>
@@ -110,12 +140,16 @@ export function RefChip({ r, onRemove, onClick, peek }) {
 }
 
 // ---------- mention menu ----------
-export function MentionMenu({ query, anchor, onPick, onClose, exclude = [], types = null, activeRef }) {
-  const [tab, setTab] = useState(types && types.length === 1 ? types[0] : 'all');
+export function MentionMenu({ query, anchor, onPick, onClose, exclude = [], types = null, activeRef, includeAll = true, initialType, skills = [] }) {
+  const menu = useRef(null);
+  const [tab, setTab] = useState(initialType || (types && types.length === 1 ? types[0] : includeAll ? 'all' : 'product'));
   const [active, setActive] = useState(0);
   const groups = mentionSearch(query, { types: tab === 'all' ? types : [tab], exclude, limit: tab === 'all' ? 5 : 12 });
-  const flat = [...groups.product, ...groups.solution, ...groups.case];
+  const q = String(query || '').trim().toLowerCase();
+  groups.skill = tab === 'skill' ? skills.filter(s => !q || [s.name, s.description, ...(s.keywords || [])].join(' ').toLowerCase().includes(q)).map(s => ({ ref:'skill:' + s.id, type:'skill', label:s.name, sub:s.description, icon:s.icon })) : [];
+  const flat = [...groups.product, ...groups.solution, ...groups.case, ...groups.skill];
   useEffect(() => { setActive(0); }, [query, tab]);
+  useEffect(() => { menu.current?.querySelector('.mopt[aria-selected="true"]')?.scrollIntoView({ block:'nearest' }); }, [active, tab]);
   useEffect(() => {
     if (!activeRef) return;
     activeRef.current = {
@@ -146,7 +180,7 @@ export function MentionMenu({ query, anchor, onPick, onClose, exclude = [], type
       {tab === 'all' && <div className="mmenu-g">{label}</div>}
       {groups[k].map((o) => { idx++; const i = idx; const tm = tagMeta(o.ref); const f2 = tm && (tm.type === 'solution' ? ['설명', tm.sub] : tm.facts.find(([fk]) => fk !== '사양')); return (
         <button key={o.ref} className={'mopt ' + o.type} role="option" aria-selected={i === active} onMouseDown={(e) => { e.preventDefault(); onPick(o.ref); }} onMouseEnter={() => setActive(i)}>
-          <span className="mo-th"><Thumb r={o.ref} /></span>
+          <span className="mo-th">{k === 'skill' ? <Icon name={o.icon || 'sparkle'} size={22} /> : <Thumb r={o.ref} />}</span>
           <span style={{ minWidth: 0 }}>
             <div className="l">{o.label}</div>
             <div className={'s' + (o.type === 'product' ? ' num' : '')}>{tm ? (o.type === 'case' ? tm.line : [tm.kind, tm.line].filter((x, j, a) => x && a.indexOf(x) === j).join(' · ')) : o.sub}</div>
@@ -156,15 +190,15 @@ export function MentionMenu({ query, anchor, onPick, onClose, exclude = [], type
         </button>); })}
     </div>) : null;
   return createPortal(
-    <div className="mmenu" style={pos} onMouseDown={(e) => e.preventDefault()} role="listbox" aria-label="제품 · 솔루션 · 유관사례 찾기">
+    <div ref={menu} className="mmenu" style={pos} onMouseDown={(e) => e.preventDefault()} role="listbox" aria-label={skills.length ? '제품 · 솔루션 · 유관사례 · 스킬 찾기' : '제품 · 솔루션 · 유관사례 찾기'}>
       <div className="mmenu-tabs">
-        {[['all', '전체'], ['product', '제품'], ['solution', '솔루션'], ['case', '유관사례']].filter(([k]) => k === 'all' || !types || types.includes(k)).map(([k, l]) => (
-          <button key={k} aria-pressed={tab === k} onMouseDown={(e) => { e.preventDefault(); setTab(k); }}>{l}</button>
+        {[...(includeAll ? [['all', '전체']] : []), ['product', '제품'], ['solution', '솔루션'], ['case', '유관사례'], ...(skills.length ? [['skill','스킬']] : [])].filter(([k]) => k === 'all' || k === 'skill' || !types || types.includes(k)).map(([k, l]) => (
+          <button key={k} className={k === 'skill' ? 'mmenu-skill-tab' : undefined} aria-label={l} aria-pressed={tab === k} onMouseDown={(e) => { e.preventDefault(); setTab(k); }}>{k==='skill'&&<Icon name="sparkle" size={14}/>}<span>{l}</span>{k==='skill'&&<small aria-hidden="true">AI</small>}</button>
         ))}
         <span className="mmenu-q">{query ? '“' + query + '”' : '이름 · 모델 · 키워드'} <span className="kbd">↑↓</span> <span className="kbd">Enter</span></span>
       </div>
       <div className="mmenu-list">
-        {flat.length ? [sec('product', '제품'), sec('solution', '솔루션'), sec('case', '유관사례')] : <div className="mmenu-empty">“{query}”와 맞는 항목이 없어요</div>}
+        {flat.length ? [sec('product', '제품'), sec('solution', '솔루션'), sec('case', '유관사례'), sec('skill','스킬')] : <div className="mmenu-empty">“{query}”와 맞는 항목이 없어요</div>}
       </div>
     </div>, document.body);
 }
@@ -203,7 +237,7 @@ function readSegs(el) {
   walk(el);
   return out;
 }
-export function MentionEditor({ value, onChange, onMention, placeholder, single = false, label, id, exclude, peek, onEnter }) {
+export function MentionEditor({ value, onChange, onMention, placeholder, single = false, label, id, exclude, peek, onEnter, describedBy, mentionOptions }) {
   const el = useRef(null);
   const last = useRef('');
   const [m, setM] = useState(null); // {q, anchor}
@@ -229,10 +263,11 @@ export function MentionEditor({ value, onChange, onMention, placeholder, single 
     if (!m) return;
     const { node, start, end } = m;
     const after = node.splitText(start); after.data = after.data.slice(end - start);
-    const chip = chipEl(ref); const sp = document.createTextNode(' ');
-    node.parentNode.insertBefore(chip, after); node.parentNode.insertBefore(sp, after);
+    const skill = ref.startsWith('skill:') && mentionOptions?.onSkillPick;
+    const chip = skill ? null : chipEl(ref); const sp = document.createTextNode(' ');
+    if (chip) node.parentNode.insertBefore(chip, after); node.parentNode.insertBefore(sp, after);
     const sel = window.getSelection(); const r = document.createRange(); r.setStart(sp, 1); r.collapse(true); sel.removeAllRanges(); sel.addRange(r);
-    setM(null); emit(); onMention && onMention(ref);
+    setM(null); emit(); if (skill) mentionOptions.onSkillPick(ref.slice(6), readSegs(el.current)); else onMention && onMention(ref);
   };
   const onKeyDown = (e) => {
     if (m && menuKeys.current && menuKeys.current.key(e)) return;
@@ -248,12 +283,12 @@ export function MentionEditor({ value, onChange, onMention, placeholder, single 
   const onPaste = (e) => { e.preventDefault(); const t = e.clipboardData.getData('text/plain'); if (linkTags && linkTags.paste(t, el.current, single, emit, onMention)) return; document.execCommand('insertText', false, single ? t.replace(/\n+/g, ' ') : t); };
   return (
     <div className="mention-editor">
-      <div ref={el} id={id} className={'me-area' + (single ? ' single' : '')} contentEditable suppressContentEditableWarning role="textbox" aria-multiline={!single} aria-label={label || placeholder}
+      <div ref={el} id={id} className={'me-area' + (single ? ' single' : '')} contentEditable suppressContentEditableWarning role="textbox" aria-multiline={!single} aria-label={label || placeholder} aria-describedby={describedBy}
         data-ph={placeholder} onInput={() => { emit(); detect(); }} onKeyDown={onKeyDown} onKeyUp={(e) => { if (!['ArrowDown', 'ArrowUp', 'Enter', 'Tab', 'Escape'].includes(e.key)) detect(); }}
         onClick={detect} onBlur={() => setTimeout(() => setM(null), 120)} onPaste={onPaste}
         onMouseOver={peek ? (e) => { const c = e.target.closest && e.target.closest('.mention[data-ref]'); if (c && el.current.contains(c) && !m) peek.show(c.dataset.ref, c); } : undefined}
         onMouseOut={peek ? (e) => { const c = e.target.closest && e.target.closest('.mention[data-ref]'); if (c && !(e.relatedTarget && c.contains(e.relatedTarget))) peek.hide(e); } : undefined} />
-      {m && <MentionMenu query={m.q} anchor={m.anchor} onPick={pick} onClose={() => setM(null)} activeRef={menuKeys} exclude={exclude} />}
+      {m && <MentionMenu {...mentionOptions} query={m.q} anchor={m.anchor} onPick={pick} onClose={() => setM(null)} activeRef={menuKeys} exclude={exclude} />}
     </div>
   );
 }
@@ -294,7 +329,7 @@ export function AddRefInput({ onAdd, types = null, exclude = [], placeholder = '
 
 // ---------- layout metadata ----------
 export function partHue(type) { return 'h-' + ((PARTS[type] && PARTS[type].hue) || 'slate'); }
-export function LayoutMeta({ l, compact = false }) {
+export function LayoutMeta({ l, compact = false, peek }) {
   if (!l) return null;
   const pt = PARTS[l.p];
   return (
@@ -304,7 +339,7 @@ export function LayoutMeta({ l, compact = false }) {
       {!compact && <><dt>묶음</dt><dd>{l.g}</dd></>}
       <dt>업종 · 솔루션</dt><dd>{l.ind && IND[l.ind] ? IND[l.ind].name : '범용'}{l.sol && S[l.sol] ? ' · ' + S[l.sol].name + ' 전용' : ''}</dd>
       <dt>필요한 정보</dt><dd><div className="tagrow">{(l.req || []).map((r) => <span key={r} className="tag rq">{REQ_LABEL[r] || r}</span>)}</div></dd>
-      {!compact && l.prods && l.prods.length ? <><dt>예시 제품</dt><dd><div className="tagchips">{l.prods.filter((id) => P[id]).map((id) => <TagChip key={id} r={'product:' + id} label={P[id].model} />)}</div></dd></> : null}
+      {!compact && l.prods && l.prods.length ? <><dt>예시 제품</dt><dd><div className="tagchips">{l.prods.filter((id) => P[id]).map((id) => <TagChip key={id} r={'product:' + id} label={P[id].model} peek={peek} />)}</div></dd></> : null}
       {!compact && (() => { const cv = CANVAS[l.cv] || CANVAS[l.c]; return <><dt>원본</dt><dd>{cv && cv.url ? <a href={cv.url} target="_blank" rel="noopener" style={{ color: 'var(--accent)' }}>{cv.name}</a> : (cv ? cv.name : l.c)}</dd></>; })()}
     </dl>
   );
@@ -320,11 +355,14 @@ export function useHoverCard() {
   return { show, hide, node };
 }
 function HoverCard({ l, r }) {
-  const W = Math.min(520, window.innerWidth - 24);
+  const ref = useRef(null);
+  const [height, setHeight] = useState(0);
+  const W = Math.min(720, window.innerWidth - 24);
+  useLayoutEffect(() => { setHeight(ref.current?.offsetHeight || 0); }, [l.f, W]);
   let left = r.right + 12; if (left + W > window.innerWidth - 12) left = r.left - W - 12; if (left < 12) left = 12;
-  let top = Math.max(12, Math.min(r.top - 20, window.innerHeight - 560));
+  const top = Math.max(12, Math.min(r.top - 20, window.innerHeight - height - 12));
   return createPortal(
-    <div className="hovercard" style={{ left, top, width: W }} role="tooltip">
+    <div ref={ref} className="hovercard" style={{ left, top, width: W }} role="tooltip">
       <div style={{ display: 'flex', gap: "var(--space-8px)", alignItems: 'baseline' }}><b style={{ fontSize: "var(--text-15px)" }}>{l.name}</b></div>
       <Slide f={l.f} width={W - 26} />
       {l.hl && <div style={{ fontSize: "var(--text-12-5px)", color: 'var(--ink-2)' }}>예시 제목 · {l.hl}</div>}

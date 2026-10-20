@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07:F08"
+ },
+ "prompt_tokens": 2450,
+ "output_tokens": 199,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "5장에서 고객의 질문(대기, 정보, 소음)에 대응하는 3가지 핵심 가치(웰컴 화면, 셀프 체크인, 무풍 냉방)를 명확히 제시하고, 각 가치를 구현하는 제품과 솔루션을 1:1로 연결했습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "질문이 나온 자리, 답하는 제품, 핵심 가치"
+     },
+     {
+      "sheet": 5,
+      "quote": "Q1 객실 TV Q2 셀프 체크인 Q3 무풍 냉방"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~number_conflict:F06"
+ },
+ "prompt_tokens": 8381,
+ "output_tokens": 232,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "자동 점검에서 지적된 30객실, 10객실은 제안서 내에 존재하지 않는 수치이며, 실제 제안서 본문(6, 9, 10, 12장)에서 객실 수는 300실로 일관되게 기술되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "300실 · 투숙 만족이 결정되는 곳"
+     },
+     {
+      "sheet": 10,
+      "quote": "객실 300실은 한 실의 키트로"
+     },
+     {
+      "sheet": 12,
+      "quote": "B 호텔 300실 기준"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

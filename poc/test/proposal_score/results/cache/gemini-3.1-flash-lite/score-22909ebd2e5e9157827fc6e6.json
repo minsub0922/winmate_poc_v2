@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs13~full:F12"
+ },
+ "prompt_tokens": 8670,
+ "output_tokens": 519,
+ "data": {
+  "scores": [
+   {
+    "id": "WR2",
+    "score": 3,
+    "anchor": "전체적으로 맞춤법과 띄어쓰기가 정확하며, 제목에도 오류가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "다점포 무인 매장 에너지 절감 · 공조 자동화"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR8",
+    "score": 1,
+    "anchor": "SAC, DVM, KPI, API 등 고객이 생소할 수 있는 전문 용어와 약어에 대한 풀이가 본문 내에 전혀 없습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "360 카세트 · SAC 제어"
+     },
+     {
+      "sheet": 4,
+      "quote": "J 스크린골프 · 업계: 삼성전자 추정(2026) · 고객: 가맹본부 제공 2026.09"
+     },
+     {
+      "sheet": 6,
+      "quote": "Enterprise API"
+     }
+    ],
+    "improve": "고객이 이해하기 어려운 SAC, DVM, KPI, API 등의 약어를 처음 등장할 때 풀어서 설명해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR9",
+    "score": 3,
+    "anchor": "개조식 문체와 명사형 종결이 제안서 전반에 걸쳐 일관되게 사용되었으며, 고객을 존중하는 정중한 톤을 유지하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "140개 매장 전기료 −18%, 22개월이면 회수합니다"
+     },
+     {
+      "sheet": 14,
+      "quote": "결정해 주시면, 11월에 첫 실측이 시작됩니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,57 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs03:F01"
+ },
+ "prompt_tokens": 8596,
+ "output_tokens": 469,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'E 대학교'로 일관되게 표기되었으며, 사례로 인용된 타 대학(국민대, 서울교대 등)을 제외하고 예시 고객명이나 다른 고객 정보는 발견되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "E 대학교 스마트 강의실 · 중앙도서관 구축 제안"
+     },
+     {
+      "sheet": 14,
+      "quote": "E 대학교 스마트 강의실 · 도서관 구축"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "자리표시자나 템플릿 잔여물 없이 문서가 완성되었으며, 14장의 담당자 연락처는 비즈니스 제안서의 일반적인 마무리 정보입니다.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "원가, 마진 등 내부 민감 정보는 포함되어 있지 않으며, 제안서 마지막 장에 기재된 영업 담당자 연락처는 정상적인 고객 소통용 정보입니다.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

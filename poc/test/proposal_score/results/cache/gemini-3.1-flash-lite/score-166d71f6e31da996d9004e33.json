@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~no_proof:F11"
+ },
+ "prompt_tokens": 3319,
+ "output_tokens": 408,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 초과하는 장이 10장으로, 4장 이상이라는 1점 기준을 충족합니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "A 커피 DT 매장의 일곱 공간, 손님 동선마다 삼성이 일합니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "시범 매장 10곳은 유형별로 이렇게 고릅니다"
+     }
+    ],
+    "improve": "장당 어절 수를 77어절 이하로 줄이고, 핵심 메시지 위주로 내용을 요약하여 가독성을 높여야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "모든 장의 본문이 12pt 미만이며, 9pt 미만인 장이 13장으로 3장 이상 존재하여 1점입니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "A 커피 DT 매장 앞, 붐빌 땐 줄을 줄이고 한산할 땐 손님을 부릅니다"
+     },
+     {
+      "sheet": 3,
+      "quote": "카페 시장은 이미 화면으로 갑니다, 차이는 운영 방식입니다"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정하여 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

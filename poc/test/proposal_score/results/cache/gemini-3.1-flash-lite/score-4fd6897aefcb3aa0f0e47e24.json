@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs17:F05"
+ },
+ "prompt_tokens": 7057,
+ "output_tokens": 253,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "대부분의 수치와 성과 지표에 구체적인 출처 기관과 연도가 명시되어 있지 않으며, 일부 장에서는 '자체 추정'이나 '예시'와 같은 모호한 표현이 사용되었습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "시범 10곳 연환산"
+     },
+     {
+      "sheet": 5,
+      "quote": "상담 1건 평균"
+     },
+     {
+      "sheet": 13,
+      "quote": "막대 높이는 예시"
+     }
+    ],
+    "improve": "모든 수치와 성과 지표에 데이터의 출처 기관과 조사 연도를 명확히 기재하고, '예시'나 '추정' 대신 근거가 되는 구체적인 산출 근거를 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

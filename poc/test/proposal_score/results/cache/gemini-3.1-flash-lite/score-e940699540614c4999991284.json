@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~strip_images:F10"
+ },
+ "prompt_tokens": 5376,
+ "output_tokens": 363,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO와 SmartThings Pro를 활용하여 본사에서 메뉴를 원격 배포하고 매장 전력을 관리하는 구체적인 운영 장면을 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "제작 · 승인 · 배포 · 적용 확인까지 한 화면에서"
+     },
+     {
+      "sheet": 7,
+      "quote": "본사에서 한 번 바꾸면 매장 화면까지 자동"
+     },
+     {
+      "sheet": 8,
+      "quote": "본사 운영 | 전 매장을 한 화면에 | 본사 PC · MagicINFO Server"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 1,
+    "anchor": "도입 시 발생할 수 있는 공사 중 영업 지장, 기존 POS 호환성, 일정 지연 등 구체적인 리스크와 그에 대한 대응 방안을 다루지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "디지털 메뉴보드 설치 공사 시 매장 영업에 미치는 영향과 기존 POS 시스템과의 연동 호환성 문제, 그리고 일정 지연 시의 대응 방안을 포함해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

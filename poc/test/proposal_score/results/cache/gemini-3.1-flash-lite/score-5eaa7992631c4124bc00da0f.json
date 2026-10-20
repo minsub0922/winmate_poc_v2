@@ -1,0 +1,56 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs17:F10"
+ },
+ "prompt_tokens": 6021,
+ "output_tokens": 422,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "갤럭시 탭과 Knox Suite, Samsung DeX를 활용한 업무 영역 분리 및 원격 관리, DeX를 통한 PC 업무 연동 등 하드웨어와 솔루션의 구체적인 운영 장면이 제시됨.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "Knox Suite 전원만 켜면 T 은행 설정"
+     },
+     {
+      "sheet": 7,
+      "quote": "탭 한 대로 두 공간, DeX로 마감"
+     },
+     {
+      "sheet": 12,
+      "quote": "MagicINFO 전 지점 현황 대시보드"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "파일럿에서 1·2차 확산으로 이어지는 단계별 일정과 기간, 삼성과 은행 간의 역할 분담, 교육 및 운영 이관 절차가 구체적으로 명시됨.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "시범 10곳 → 1차 수도권 120곳 → 2차 지방 120곳"
+     },
+     {
+      "sheet": 12,
+      "quote": "지점 설치 → 안정화(공동 운영) → 이관"
+     },
+     {
+      "sheet": 14,
+      "quote": "세 가지 결정으로 1월에 착수합니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

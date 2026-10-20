@@ -1,0 +1,56 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs17:F10"
+ },
+ "prompt_tokens": 6114,
+ "output_tokens": 418,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "갤럭시 탭과 Knox Suite, DeX를 활용한 업무 영역 분리 및 원격 관리, MagicINFO를 통한 사이니지 운영 등 하드웨어와 솔루션의 연계 운영 장면이 구체적으로 제시됨.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "Knox Suite | 전원만 켜면 T 은행 설정 · 홈화면 자동"
+     },
+     {
+      "sheet": 7,
+      "quote": "Samsung DeX | 탭 한 대로 두 공간"
+     },
+     {
+      "sheet": 12,
+      "quote": "MagicINFO 전 지점 현황 대시보드"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "파일럿에서 전 지점 확산까지의 3단계 일정, 기간, 역할 분담, 교육 및 운영 이관 절차가 구체적으로 명시됨.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "1단계 · 시범 지점 | 6개월"
+     },
+     {
+      "sheet": 10,
+      "quote": "STEP 2 · 1차 확산 | 수도권 120곳 · 14주"
+     },
+     {
+      "sheet": 12,
+      "quote": "지점 설치 · 검수 → 안정화(공동 운영) → 이관"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

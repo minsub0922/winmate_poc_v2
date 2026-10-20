@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~placeholders:F04"
+ },
+ "prompt_tokens": 6117,
+ "output_tokens": 425,
+ "data": {
+  "scores": [
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "옥외 DT 매장에는 고휘도 IP56 등급의 OH55A-S를, 카운터에는 24/7 운영 가능한 QM55C를, 주문 공간에는 터치형 KM24C를 배치하여 각 공간 환경에 최적화된 제품을 제안했습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "QM55C 55\" 500nit 4K UHD 24/7 운영"
+     },
+     {
+      "sheet": 10,
+      "quote": "OH55A-S 55\" 3,500nit IP56 드라이브스루 첫 메뉴판"
+     },
+     {
+      "sheet": 10,
+      "quote": "KM24C 24\" 세로형 터치 결제 연동"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "카페 프랜차이즈인 밀키프레소 사례를 통해 원격 관리 솔루션 도입 구성과 매장 방문 0회라는 구체적인 성과를 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "밀키프레소 — 방문 없이 가맹점 화면 원격 관리"
+     },
+     {
+      "sheet": 13,
+      "quote": "0회 화면 교체를 위한 매장 방문"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

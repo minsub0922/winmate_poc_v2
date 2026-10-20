@@ -4,8 +4,7 @@
 // 사진은 시나리오마다 img/bg/<시나리오>.json 한 파일로 묶여 있고, 배경 주소는 "img/bg/bs01.json#<번호>" (src/bgpack.js).
 // 렌더링: slide.jsx applyOverrides 가 ov.bg 를 레이아웃 루트 배경으로 깐다 · PPTX는 장마다 슬라이드 배경(서식 › 배경)으로.
 // 이 구성으로 시작한 제안서는 p.bg(테마 · 사진 목록)를 이어받아, 나중에 넣는 장에도 아직 안 쓴 사진을 깐다(store.js syncBg).
-import BG from './scenario_bg.json';
-
+import BG from './scenario_bg.json' with { type: 'json' };
 export const SCENARIO_BG = BG; // { bsNN: { name, pack, n (장 수), spare (여분 수), from: [원본 사진], map?: [장 k → 묶음 번호] } }
 // map: Storyboard로 다시 짜며(2026-10-19) 장 순서가 바뀐 시나리오 — 원래 장은 원래 배경 사진 그대로, 새로 넣은 장은 빠진 장 · 여분 사진.
 

@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~base:F01"
+ },
+ "prompt_tokens": 7524,
+ "output_tokens": 350,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'M 베이커리'와 지점 수 180개, 담당 조직 정보가 일관되게 기술되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "M 베이커리 180개 지점"
+     },
+     {
+      "sheet": 9,
+      "quote": "M 베이커리 본사 한 곳이 180개 지점을"
+     },
+     {
+      "sheet": 13,
+      "quote": "M 베이커리 사이니지 통합 운영"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "13장의 연락처 정보에 'b2b.proposal@'라는 템플릿형 이메일 주소가 남아 있으나, 이는 핵심 내용이 아닌 담당자 정보 영역입니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "b2b.proposal@samsung.com"
+     }
+    ],
+    "improve": "담당자 이메일 주소를 실제 운영팀의 공식 이메일 주소로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

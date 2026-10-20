@@ -1,0 +1,16 @@
+services:
+  llm-redis:
+    image: redis:7.4.2-alpine
+    command: [redis-server, --appendonly, 'yes', --appendfsync, always, --maxmemory-policy, noeviction]
+    ports:
+      - '127.0.0.1:6379:6379'
+    volumes:
+      - llm-redis:/data
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 5s
+      timeout: 2s
+      retries: 5
+volumes:
+  llm-redis:

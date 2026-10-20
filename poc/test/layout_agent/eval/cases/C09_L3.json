@@ -1,0 +1,125 @@
+{
+ "id": "C09_L3",
+ "case": "C09",
+ "industry": "SV",
+ "strategy": "roi",
+ "req_type": "ops",
+ "title": "무인 스터디카페 에너지 절감",
+ "level": "complex",
+ "input": {
+  "title": "N 스터디카페 · 전 지점 에너지 자동화",
+  "customer": "N 스터디카페",
+  "project": "120개 지점 냉난방 · 키오스크 통합 운영",
+  "target": "대표",
+  "free_text": "120개 무인 지점의 냉난방을 이용자 입퇴실에 맞춰 자동으로 돌리고 싶습니다. 지점당 월 전기료가 평균 85만 원입니다. 투자 회수는 18개월 이내여야 하고, 초기 비용 부담 때문에 렌탈을 선호합니다. 5개 지점 파일럿 후 결정합니다.",
+  "keymen": [
+   {
+    "name": "대표",
+    "weight": 60,
+    "reqs": [
+     "투자 회수 18개월 이내",
+     "렌탈 · 구독 방식",
+     "5개 지점 파일럿으로 효과 검증"
+    ]
+   },
+   {
+    "name": "운영팀장",
+    "weight": 40,
+    "reqs": [
+     "입퇴실 연동 냉난방 자동 제어",
+     "키오스크 무인 결제 연동",
+     "장애를 본사에서 원격 확인"
+    ]
+   }
+  ],
+  "products": [
+   "kiosk",
+   "wf4way"
+  ],
+  "solutions": [
+   "stpro"
+  ],
+  "id": "C09_L3"
+ },
+ "gold": {
+  "level": "complex",
+  "industry": "SV",
+  "strategy_any": [
+   "roi",
+   "land",
+   "pain"
+  ],
+  "must_parts": [
+   "effect",
+   "cost",
+   "execution"
+  ],
+  "dims_any": [
+   "비용·구매",
+   "일정·실행·확산",
+   "운영·유지보수"
+  ],
+  "conflicts_any": [],
+  "min_questions": 4,
+  "key_reqs": [
+   {
+    "kw": [
+     "18개월"
+    ],
+    "parts_any": [
+     "effect",
+     "cost",
+     "requirements"
+    ],
+    "priority": "must"
+   },
+   {
+    "kw": [
+     "렌탈"
+    ],
+    "parts_any": [
+     "cost"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "파일럿"
+    ],
+    "parts_any": [
+     "execution",
+     "closing"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "입퇴실"
+    ],
+    "parts_any": [
+     "solution",
+     "scenario",
+     "value"
+    ],
+    "priority": "should"
+   }
+  ],
+  "facts": [
+   "120",
+   "85",
+   "18",
+   "5"
+  ],
+  "layouts_any": {
+   "cost": [
+    "L_CO_A",
+    "L_CO_B"
+   ],
+   "effect": [
+    "L_EF_B",
+    "L_EF_A",
+    "L_EF_G"
+   ]
+  }
+ }
+}

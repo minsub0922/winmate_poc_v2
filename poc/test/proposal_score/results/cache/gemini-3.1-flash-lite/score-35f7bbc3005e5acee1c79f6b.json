@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19:F04"
+ },
+ "prompt_tokens": 2285,
+ "output_tokens": 201,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "고객사의 경영 목표와 연계하여 3가지 전략 과제를 도출하고, 각 과제별로 현장 장면과 구체적인 수치(교체 7일, 단순 문의 40%, 출동 -30% 등)를 제시하여 고객 맞춤형으로 분석했습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "교체 1회 7일 · 공급사 11곳"
+     },
+     {
+      "sheet": 4,
+      "quote": "장애 선제 대응 · 현장 출동 −30% 목표"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

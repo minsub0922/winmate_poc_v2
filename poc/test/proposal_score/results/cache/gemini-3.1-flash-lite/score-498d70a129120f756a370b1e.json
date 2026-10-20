@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11~base:F07"
+ },
+ "prompt_tokens": 2231,
+ "output_tokens": 171,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 1,
+    "anchor": "사업 목적을 달성하기 위한 정량적 효과(절감액, 시간, KPI 변화 등)와 그에 대한 산정 근거가 제시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "사업 목적 | 1 | 한 화면에서 보는 통합 관제"
+     }
+    ],
+    "improve": "도입 전후의 관제 효율성, 장애 대응 시간 단축 등 정량적 기대효과와 그 산정 근거를 구체적으로 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

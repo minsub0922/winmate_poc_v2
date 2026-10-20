@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08:F02"
+ },
+ "prompt_tokens": 2239,
+ "output_tokens": 190,
+ "data": {
+  "scores": [
+   {
+    "id": "SB2",
+    "score": 2,
+    "anchor": "쪽번호가 모든 장에서 누락되어 있으며, 푸터와 기밀 표기는 2장부터 13장까지 일관되게 존재합니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "W 요양병원 · 병동 리뉴얼 제안 · CONFIDENTIAL"
+     },
+     {
+      "sheet": 13,
+      "quote": "W 요양병원 · 병동 리뉴얼 제안 · CONFIDENTIAL"
+     }
+    ],
+    "improve": "모든 장의 하단에 쪽번호를 추가하여 일관성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

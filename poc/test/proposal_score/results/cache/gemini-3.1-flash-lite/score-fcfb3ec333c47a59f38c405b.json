@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~number_conflict:F06"
+ },
+ "prompt_tokens": 8579,
+ "output_tokens": 474,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 2,
+    "anchor": "자동 점검에서 지적된 30객실/10객실은 본문 내용과 무관한 오탐이며, 실제 객실 수는 300실로 일관되게 기술되어 있습니다. 다만 11장의 층별 시공 계획에서 4F(16실)와 5F~8F(각 20실)의 합계가 96실로, 300실 전체를 구성하는 세부 수치와 일부 혼동을 줄 여지가 있습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "객실 300실은 한 실의 키트로"
+     },
+     {
+      "sheet": 11,
+      "quote": "4F 객실 16실"
+     }
+    ],
+    "improve": "층별 시공 계획표에서 전체 300실을 완수하기 위한 층별 배분 수량을 명확히 표기하여 수치 간의 연관성을 높여야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "PR6",
+    "score": 3,
+    "anchor": "객실 1실당 키트 구성과 공용부 공간별 모델 및 수량이 명확히 구분되어 있으며, 라이선스(LYNK Cloud)와 서버(MagicINFO, b.IoT)를 포함한 총계 616대가 정확히 산출되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "객실 기기 600 + 공용부 16 = 616대"
+     },
+     {
+      "sheet": 10,
+      "quote": "LYNK Cloud | 라이선스 | ×1"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

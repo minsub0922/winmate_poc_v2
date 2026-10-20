@@ -1,0 +1,78 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~full:F04"
+ },
+ "prompt_tokens": 8909,
+ "output_tokens": 643,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "R 건설의 분양 여정(모델하우스-옵션-입주-거주)을 따라 각 단계별 문제와 목표 수치를 구체적으로 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "모델하우스에서 고르고, 입주 후 매일 평가합니다"
+     },
+     {
+      "sheet": 7,
+      "quote": "옵션 상담 시간 25분 → 12분"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "CU6",
+    "score": 3,
+    "anchor": "주거 분양 업종의 핵심인 모델하우스 동선, 옵션 계약, 입주 지원 등 운영 맥락을 정확히 반영했습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "모델하우스에서 고르고, 입주 후 매일 평가"
+     },
+     {
+      "sheet": 7,
+      "quote": "모델하우스, 둘러본 경험이 그대로 옵션 계약으로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "각 공간(주방, 드레스룸, 실외기실 등)별로 적합한 빌트인 가전과 EHS 히트펌프를 매칭하고 설치 환경을 명시했습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "R 건설 분양 세대의 공간마다 삼성이 만드는 가치가 다릅니다"
+     },
+     {
+      "sheet": 10,
+      "quote": "84A 주방, 빌트인 가전 세 가지의 매립 치수"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "유관 사례를 제시했으나, 사례에서 얻은 실제 성과 수치가 아닌 제안사의 해결 방안 위주로 기술되었습니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "같은 고민을 먼저 푼 두 단지"
+     }
+    ],
+    "improve": "사례 단지에서 실제 도입 후 확인된 구체적인 성과 수치(예: 옵션 계약률 상승폭 등)를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

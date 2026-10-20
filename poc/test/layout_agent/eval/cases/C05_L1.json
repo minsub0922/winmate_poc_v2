@@ -1,0 +1,40 @@
+{
+ "id": "C05_L1",
+ "case": "C05",
+ "industry": "ED",
+ "strategy": "space",
+ "req_type": "new",
+ "title": "대학 스마트 캠퍼스",
+ "level": "minimal",
+ "input": {
+  "title": "J 대학교 제안",
+  "customer": "J 대학교",
+  "industry": "ED",
+  "free_text": "대학교 강의실. 전자칠판 WA75D, 이페이퍼",
+  "products": [
+   "flip",
+   "epaper"
+  ],
+  "id": "C05_L1"
+ },
+ "gold": {
+  "level": "minimal",
+  "industry": "ED",
+  "scenario_any": [
+   "STD-ED"
+  ],
+  "must_parts": [
+   "value",
+   "products",
+   "case",
+   "why"
+  ],
+  "layouts_any": {
+   "products": [
+    "L_P2B"
+   ]
+  },
+  "key_reqs": [],
+  "facts": []
+ }
+}

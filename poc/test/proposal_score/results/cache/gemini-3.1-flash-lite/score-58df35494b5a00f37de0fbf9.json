@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04:F06"
+ },
+ "prompt_tokens": 6318,
+ "output_tokens": 241,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "전체 세대수(1,240세대)와 84A 타입 세대수(486세대)가 장별로 구분되어 일관되게 사용되었으며, 옵션 계약률(50%) 및 상담 시간(12분) 등 주요 지표가 모든 장에서 동일하게 기재되었습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "R 건설 2지구 1,240세대"
+     },
+     {
+      "sheet": 8,
+      "quote": "84A 세대 · 방 3 · 486세대"
+     },
+     {
+      "sheet": 7,
+      "quote": "옵션 상담 시간 | 25분 → 12분"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

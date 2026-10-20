@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs12:F08"
+ },
+ "prompt_tokens": 2046,
+ "output_tokens": 187,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "4장과 5장에서 경기장 공간 시나리오를 통해 관람 경험 개선과 운영 효율화라는 고객 언어의 결과형 가치를 명확히 제시하고, 이를 구현하는 빅보드 및 컨트롤룸 솔루션을 연결함.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "경기 한 판이 빅보드에서 매점까지 이어집니다"
+     },
+     {
+      "sheet": 5,
+      "quote": "빅보드는 컨트롤룸 한 자리에서 경기 흐름을 따라갑니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs17:F03"
+ },
+ "prompt_tokens": 3081,
+ "output_tokens": 230,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "제안 개요(2장)에서 기대 효과와 투자 비용을 요약하고, 마지막 장(14장)에서 부행장 승인을 위한 예산과 일정을 명확히 정리하여 결정권자 관점의 정보를 제공함.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "기대 효과 · 20분 → 14분 · 창구 평균 상담 시간 −30% · 1차 120곳 예산 48억"
+     },
+     {
+      "sheet": 14,
+      "quote": "세 가지 결정으로 1월에 착수합니다 · 1차 예산 승인 — 48.0억 · 120곳"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

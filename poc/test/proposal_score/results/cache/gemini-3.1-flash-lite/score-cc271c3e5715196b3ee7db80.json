@@ -1,0 +1,57 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~strip_images:F10"
+ },
+ "prompt_tokens": 4204,
+ "output_tokens": 424,
+ "data": {
+  "scores": [
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "13장에서 1차 전환 범위, 병행 운영 및 교육 일정, 발주 및 착수 일정을 구체적으로 제시하고 11장에서 서비스 SLA와 전담 엔지니어 체계를 명시함.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "12월 발주 전 정할 세 가지"
+     },
+     {
+      "sheet": 11,
+      "quote": "6개 점 어디서나 같은 기준으로 복구합니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 3,
+    "anchor": "고객이 우려하는 운영팀 숙련도와 초기 비용 문제를 7장에서 명확히 짚고, 병행 운영, 교육, 보상 매입 등 구체적인 대응 방안을 제시함.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "두 가지는 현 공급사가 앞섭니다 — 이렇게 메웁니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "13장에서 고객이 결정해야 할 세 가지 항목과 각 단계별 일정, 담당 부서, 산출물을 명확히 정리함.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "12월 발주 전 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

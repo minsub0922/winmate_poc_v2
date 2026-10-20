@@ -1,0 +1,56 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs01:F11"
+ },
+ "prompt_tokens": 3474,
+ "output_tokens": 487,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 초과하는 장이 10장 존재하여 기준을 크게 상회하며, 장당 평균 어절 수 또한 145어절로 발표용 자료로서의 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "250어절"
+     },
+     {
+      "sheet": 14,
+      "quote": "232어절"
+     },
+     {
+      "sheet": 3,
+      "quote": "224어절"
+     }
+    ],
+    "improve": "전체 장의 개수를 늘리고 장당 어절 수를 77어절 이하로 줄여 핵심 메시지 위주의 개조식 구성으로 재편해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 57%가 10pt(13.3px) 미만이며, 9pt 미만의 작은 본문이 9개 장에 걸쳐 다수 확인되어 가독성이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 8,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 9,
+      "quote": "본문 최소 10px(7.5pt)"
+     }
+    ],
+    "improve": "모든 본문 텍스트의 크기를 최소 12pt(16px) 이상으로 상향 조정하고, 라벨 및 캡션 외의 본문에는 작은 글씨를 배제해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

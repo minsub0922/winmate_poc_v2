@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~placeholders:F10"
+ },
+ "prompt_tokens": 5666,
+ "output_tokens": 364,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "SmartThings를 통해 가전 제어, 에너지 모니터링, 홈케어 진단 등 운영 솔루션의 역할과 입주민의 실제 사용 장면을 구체적으로 연결했습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "SmartThings · 빌트인 · 난방 · 도어락 (타사)을 계정 하나로"
+     },
+     {
+      "sheet": 5,
+      "quote": "홈케어 진단 | 기기 상태를 점검해 이상 징후를 먼저 알림"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "도면 검토, 옵션 확정, 모델하우스 설치 등 주요 일정은 구체적이나, 입주 후 유지보수 체계나 운영 이관에 대한 구체적인 교육 계획이 누락되었습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "12월까지, 함께 정할 세 가지 | R 건설 2지구 1,240세대"
+     }
+    ],
+    "improve": "입주 후 유지보수 서비스의 구체적인 운영 이관 절차와 입주민 대상 교육 계획을 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

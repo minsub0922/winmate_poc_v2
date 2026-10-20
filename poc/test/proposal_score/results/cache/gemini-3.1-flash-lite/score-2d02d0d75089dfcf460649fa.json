@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04:F01"
+ },
+ "prompt_tokens": 8423,
+ "output_tokens": 321,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "제안서 내에 자리표시나 템플릿 잔여물로 의심되는 문구는 발견되지 않았습니다. 13장의 연락처는 제안 담당자의 정보로 정상적인 기재입니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 1,
+    "anchor": "9장에서 '원가'라는 표현을 사용하여 내부적인 비용 산정 기준이 고객에게 직접적으로 노출되었습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "원가에 맞춰 고르세요"
+     },
+     {
+      "sheet": 9,
+      "quote": "세대당 원가 최소"
+     }
+    ],
+    "improve": "고객에게 노출되는 제안서에서 '원가'라는 표현을 '예산' 또는 '옵션 구성' 등의 고객 친화적인 용어로 변경해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

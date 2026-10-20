@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs03:F03"
+ },
+ "prompt_tokens": 2264,
+ "output_tokens": 223,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "14장에서 결정권자가 판단해야 할 1차년도 범위, 예산 집행 일정, 시공 합의 사항을 한 장에 명확히 정리하여 제시함.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "11월 안에 함께 정할 세 가지"
+     },
+     {
+      "sheet": 14,
+      "quote": "1차년도 범위 확정 — 강의실 20실 · 도서관 1층"
+     },
+     {
+      "sheet": 14,
+      "quote": "방학 시공 일정 합의 — 12/21 착수 · 3/2 개강 오픈"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,786 @@
+{
+ "id": "bs01",
+ "variant": "~placeholders",
+ "title": "F&B 프랜차이즈 · 전국 매장 디지털 메뉴보드 전환",
+ "customer": "A 커피",
+ "n_sheets": 16,
+ "req": "신규 구축 · RFP",
+ "strategy": "가치 선도형",
+ "ind": "외식 · 카페 프랜차이즈",
+ "route": {
+  "selected": [
+   "CU1",
+   "CU2",
+   "MK3",
+   "VS1",
+   "DS1",
+   "DS3",
+   "DS4",
+   "WR1",
+   "WR6"
+  ],
+  "mode": "llm",
+  "error": "",
+  "l1": [
+   {
+    "id": "C1",
+    "relevance": 3,
+    "reason": "템플릿 문구 미수정 및 수치 출처 누락 등 신뢰도를 저해하는 위험 신호가 다수 발견되어 즉각적인 수정이 필요합니다."
+   },
+   {
+    "id": "C2",
+    "relevance": 2,
+    "reason": "파일럿 도입 로드맵은 구체적이나, 고객의 핵심 요구사항인 '전기료 절감'에 대한 구체적인 솔루션 근거가 부족하여 실행 체계의 보완이 필요합니다."
+   },
+   {
+    "id": "C3",
+    "relevance": 3,
+    "reason": "운영본부장 등 결정권자에게 제안의 타당성을 입증하기 위해 정량적 효과 산출 근거와 시장 분석 데이터의 객관성을 확보하는 것이 수주 가능성에 직결됩니다."
+   },
+   {
+    "id": "C4",
+    "relevance": 2,
+    "reason": "전반적인 논리 흐름은 양호하나, 일부 장표의 텍스트 밀도가 높아 가독성을 개선하고 핵심 메시지를 더 명확히 강조할 필요가 있습니다."
+   }
+  ],
+  "l2": [
+   {
+    "id": "F01",
+    "relevance": 3,
+    "reason": "템플릿 잔여물과 내부 연락처가 포함되어 있어 고객 신뢰도에 치명적인 위험 요소입니다."
+   },
+   {
+    "id": "F02",
+    "relevance": 3,
+    "reason": "고객의 핵심 요구사항인 전기료 절감 방안이 본문에 누락되어 있어 보완이 시급합니다."
+   },
+   {
+    "id": "F05",
+    "relevance": 2,
+    "reason": "수치 데이터의 출처가 다수 누락되어 제안의 객관적 근거를 확보해야 합니다."
+   },
+   {
+    "id": "F08",
+    "relevance": 2,
+    "reason": "전체적인 스토리 흐름은 좋으나, 고객의 핵심 과제 해결을 위한 논리적 연결을 강화해야 합니다."
+   },
+   {
+    "id": "F11",
+    "relevance": 2,
+    "reason": "텍스트 밀도가 높고 글자 크기가 작아 가독성 개선이 필요합니다."
+   },
+   {
+    "id": "F06",
+    "relevance": 1,
+    "reason": "수치 일관성은 양호하나, 데이터의 신뢰성을 위해 출처 표기 보완이 우선입니다."
+   },
+   {
+    "id": "F09",
+    "relevance": 1,
+    "reason": "제품 사양은 정확하나, 제안서의 완성도를 위해 최종 검토가 필요합니다."
+   },
+   {
+    "id": "F12",
+    "relevance": 1,
+    "reason": "약어 정의 등 기본적인 문서 표현의 정합성을 다듬어야 합니다."
+   },
+   {
+    "id": "F10",
+    "relevance": 1,
+    "reason": "실행 계획은 구체적이나, 파일럿 단계의 리스크 대응을 더 명확히 할 필요가 있습니다."
+   },
+   {
+    "id": "F03",
+    "relevance": 1,
+    "reason": "의사결정자 관점의 비용 타당성 논리를 보강하면 수주 가능성이 높아집니다."
+   },
+   {
+    "id": "F04",
+    "relevance": 1,
+    "reason": "업종 이해도는 높으나, 실제 현장 적용 시의 제약 사항을 더 구체화해야 합니다."
+   },
+   {
+    "id": "F07",
+    "relevance": 1,
+    "reason": "기대효과 산정 근거를 명확히 하여 제안의 신뢰성을 높여야 합니다."
+   }
+  ],
+  "criteria": [
+   {
+    "id": "CU1",
+    "priority": 3,
+    "reason": "고객사 정보의 일관성은 제안서의 기본 신뢰도와 직결됩니다."
+   },
+   {
+    "id": "WR1",
+    "priority": 3,
+    "reason": "템플릿 잔여물은 즉시 수정해야 할 심각한 오류입니다."
+   },
+   {
+    "id": "WR6",
+    "priority": 3,
+    "reason": "내부 기밀 정보 노출은 보안상 즉각 삭제가 필요합니다."
+   },
+   {
+    "id": "CU2",
+    "priority": 3,
+    "reason": "전기료 절감 등 고객의 핵심 요구사항에 대한 대응 논리가 반드시 포함되어야 합니다."
+   },
+   {
+    "id": "MK3",
+    "priority": 2,
+    "reason": "데이터 출처를 명시하여 제안의 객관적 근거를 확보해야 합니다."
+   },
+   {
+    "id": "VS2",
+    "priority": 2,
+    "reason": "기대효과에 대한 정량적 근거를 보강하여 설득력을 높여야 합니다."
+   },
+   {
+    "id": "DS1",
+    "priority": 2,
+    "reason": "글자 넘침 등 레이아웃 오류를 수정하여 전문성을 보여야 합니다."
+   },
+   {
+    "id": "DS3",
+    "priority": 2,
+    "reason": "텍스트 밀도가 높은 장표를 시각화하여 가독성을 개선해야 합니다."
+   },
+   {
+    "id": "DS4",
+    "priority": 2,
+    "reason": "글자 크기를 조정하여 가독성을 확보해야 합니다."
+   },
+   {
+    "id": "VS1",
+    "priority": 2,
+    "reason": "고객이 얻는 가치를 더욱 선명하게 강조해야 합니다."
+   },
+   {
+    "id": "PR2",
+    "priority": 1,
+    "reason": "제품 사양의 정확성은 이미 확인되었으나 최종 점검이 필요합니다."
+   },
+   {
+    "id": "VS6",
+    "priority": 1,
+    "reason": "파일럿 실행 계획의 구체성을 유지해야 합니다."
+   },
+   {
+    "id": "WR8",
+    "priority": 1,
+    "reason": "약어 정의를 추가하여 가독성을 높여야 합니다."
+   },
+   {
+    "id": "SB1",
+    "priority": 1,
+    "reason": "목차 추가 등 문서의 기본 형식을 완성해야 합니다."
+   }
+  ],
+  "gates": {
+   "CU1": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU2": {
+    "applies": true,
+    "why": "비교할 고객 요구사항 8개"
+   },
+   "CU3": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU4": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU6": {
+    "applies": true,
+    "why": "업종: 외식 · 카페 프랜차이즈"
+   },
+   "MK1": {
+    "applies": true,
+    "why": "시장 관련 1장"
+   },
+   "MK2": {
+    "applies": true,
+    "why": "연도 언급 6개"
+   },
+   "MK3": {
+    "applies": true,
+    "why": "수치 170개"
+   },
+   "MK4": {
+    "applies": true,
+    "why": "수치 170개"
+   },
+   "MK5": {
+    "applies": false,
+    "why": "경쟁 비교 내용이 없어요"
+   },
+   "MK6": {
+    "applies": true,
+    "why": "시장 · 분석 장 있음"
+   },
+   "PR1": {
+    "applies": true,
+    "why": "제품 4종 언급"
+   },
+   "PR2": {
+    "applies": true,
+    "why": "제품 4종 언급"
+   },
+   "PR3": {
+    "applies": true,
+    "why": "제품 4종 언급"
+   },
+   "PR4": {
+    "applies": true,
+    "why": "솔루션: MagicINFO, SmartThings Pro, SmartThings"
+   },
+   "PR5": {
+    "applies": true,
+    "why": "제품 4종 언급"
+   },
+   "PR6": {
+    "applies": true,
+    "why": "제품 4종 언급"
+   },
+   "PR7": {
+    "applies": true,
+    "why": "제품 4종 언급"
+   },
+   "VS1": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS2": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS3": {
+    "applies": true,
+    "why": "16장 흐름"
+   },
+   "VS4": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS6": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS7": {
+    "applies": true,
+    "why": "본 제안 분량"
+   },
+   "VS8": {
+    "applies": true,
+    "why": "본 제안 분량"
+   },
+   "VS9": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS10": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS1": {
+    "applies": true,
+    "why": "장마다 글자 상자 위치 · 크기를 쟀어요"
+   },
+   "DS2": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS3": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS4": {
+    "applies": true,
+    "why": "글자 크기 정보 있음"
+   },
+   "DS5": {
+    "applies": true,
+    "why": "폰트 2종"
+   },
+   "DS6": {
+    "applies": true,
+    "why": "장표형 문서"
+   },
+   "DS7": {
+    "applies": true,
+    "why": "장표형 문서"
+   },
+   "DS8": {
+    "applies": true,
+    "why": "차트 0 · 표 0 · 수치 170"
+   },
+   "DS9": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS10": {
+    "applies": false,
+    "why": "장표 화면(이미지)이 없어요 — 색 · 톤은 판단 불가"
+   },
+   "WR1": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR2": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR3": {
+    "applies": true,
+    "why": "브랜드 표기 MagicINFO, SmartThings"
+   },
+   "WR4": {
+    "applies": true,
+    "why": "수치 170개"
+   },
+   "WR5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR6": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR7": {
+    "applies": true,
+    "why": "사양 · 효과 수치 · 이미지 있음"
+   },
+   "WR8": {
+    "applies": true,
+    "why": "약어 KEY, MARKET, VALUE, PROPS"
+   },
+   "WR9": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "SB1": {
+    "applies": true,
+    "why": "장표형 문서"
+   },
+   "SB2": {
+    "applies": true,
+    "why": "5장 이상 장표"
+   },
+   "SB3": {
+    "applies": false,
+    "why": "앱에서 만든 장 · PDF 는 노트 · 숨김 장 · 댓글 정보가 없어요"
+   },
+   "SB4": {
+    "applies": false,
+    "why": "파일 속성이 없어요"
+   },
+   "SB5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "SB6": {
+    "applies": false,
+    "why": "RFP 형식 요구가 연결되지 않았어요"
+   }
+  }
+ },
+ "scores": [
+  {
+   "id": "CU1",
+   "score": 3,
+   "anchor": "고객사명 'A 커피'와 매장 수 320개 등 주요 정보가 모든 장에서 일관되게 기술되었습니다.",
+   "evidence": [
+    {
+     "sheet": 1,
+     "quote": "A 커피 전국 320개 매장 디지털 메뉴보드 전환 제안"
+    },
+    {
+     "sheet": 11,
+     "quote": "320개 매장을 세 가지 표준 패키지로"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F01",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "CU2",
+   "score": 3,
+   "anchor": "고객의 4가지 요구사항(R1~R4)과 4가지 평가 기준(K1~K4)에 대해 각 장에서 명시적으로 대응하고 있습니다. 특히 R4(전기료)는 6장과 8장에서 SmartThings Pro를 통한 전력 관리로 명확히 해결책을 제시합니다.",
+   "evidence": [
+    {
+     "sheet": 5,
+     "quote": "종이 메뉴판이라 매번 9일 · 인쇄 · 배송비 연 3.3억 원이 반복됩니다"
+    },
+    {
+     "sheet": 6,
+     "quote": "매장 전력 12% ↓"
+    },
+    {
+     "sheet": 8,
+     "quote": "SmartThings 에너지 | 매장별 전력 사용 · 절감 리포트"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F02",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "MK3",
+   "score": 1,
+   "anchor": "대부분의 장에서 시장 규모, 매장 수, 성과 지표 등에 대한 구체적인 출처가 명시되지 않았으며, 일부 장에서는 '[00]'과 같은 자리표시가 그대로 남아 있습니다.",
+   "evidence": [
+    {
+     "sheet": 3,
+     "quote": "단위 억 원 · 출처 삼성전자 추정(2026)"
+    },
+    {
+     "sheet": 5,
+     "quote": "A 커피 운영본부 인터뷰(2026. 9)"
+    },
+    {
+     "sheet": 12,
+     "quote": "A 커피 운영 자료(2026) 기준"
+    }
+   ],
+   "improve": "모든 시장 데이터와 성과 수치 옆에 조사 기관과 연도를 명확히 기재하고, 자리표시자([00])를 실제 데이터로 교체해야 합니다.",
+   "confidence": "high",
+   "community": "F05",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "VS1",
+   "score": 3,
+   "anchor": "고객의 운영 효율화와 전력 절감이라는 결과형 가치를 3가지 기둥으로 명확히 제시하고, 각 가치마다 MagicINFO, QM55C, SmartThings Pro 등 대응 솔루션을 구체적으로 연결함.",
+   "evidence": [
+    {
+     "sheet": 6,
+     "quote": "메뉴는 본사가 한 번에, 전환은 자동으로, 전력은 적게"
+    },
+    {
+     "sheet": 6,
+     "quote": "MagicINFO · QM55C · SmartThings Pro · 360 카세트"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F08",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "DS1",
+   "score": 2,
+   "anchor": "4장에서 글자 넘침이 발생하였고, 2, 12, 13, 16장의 제목 위치가 다른 장과 일관되지 않습니다.",
+   "evidence": [
+    {
+     "sheet": 4,
+     "quote": "① 메뉴 · 가격 반영"
+    },
+    {
+     "sheet": 2,
+     "quote": "320개 매장 메뉴판을, 본사에서 한 번에 바꿉니다"
+    }
+   ],
+   "improve": "제목 위치를 모든 장에서 동일하게 통일하고, 4장의 텍스트 넘침 문제를 해결해야 합니다.",
+   "confidence": "high",
+   "community": "F11",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "DS3",
+   "score": 1,
+   "anchor": "110어절을 넘는 장이 10장으로 매우 많고, 장당 평균 어절 수도 145어절로 기준을 크게 초과합니다.",
+   "evidence": [
+    {
+     "sheet": 8,
+     "quote": "A 커피 DT 매장의 일곱 공간, 손님 동선마다 삼성이 일합니다"
+    },
+    {
+     "sheet": 14,
+     "quote": "시범 매장 10곳은 유형별로 이렇게 고릅니다"
+    }
+   ],
+   "improve": "각 장의 텍스트를 핵심 위주로 대폭 줄여 장당 어절 수를 77어절 이하로 낮춰야 합니다.",
+   "confidence": "high",
+   "community": "F11",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "DS4",
+   "score": 1,
+   "anchor": "모든 장의 본문이 12pt 미만이며, 9pt 미만인 장도 14장이나 되어 가독성이 매우 낮습니다.",
+   "evidence": [
+    {
+     "sheet": 9,
+     "quote": "A 커피 DT 매장 앞, 붐빌 땐 줄을 줄이고 한산할 땐 손님을 부릅니다"
+    },
+    {
+     "sheet": 3,
+     "quote": "카페 시장은 이미 화면으로 갑니다, 차이는 운영 방식입니다"
+    }
+   ],
+   "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정해야 합니다.",
+   "confidence": "high",
+   "community": "F11",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "WR1",
+   "score": 1,
+   "anchor": "제안서 전반에 걸쳐 수치 데이터 자리에 '[00]'이라는 자리표시자가 8곳 이상 반복적으로 노출되어 있습니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "[00]일"
+    },
+    {
+     "sheet": 3,
+     "quote": "2026E 시장 규모 | [00] | 억 원"
+    },
+    {
+     "sheet": 5,
+     "quote": "[00]일"
+    }
+   ],
+   "improve": "모든 장표의 [00] 자리표시자를 실제 제안 수치로 수정해야 합니다.",
+   "confidence": "high",
+   "community": "F01",
+   "mode": "llm",
+   "grounded": 0.667,
+   "error": ""
+  },
+  {
+   "id": "WR6",
+   "score": 3,
+   "anchor": "제안서 내에 원가, 마진 등 민감한 내부 정보는 없으며, 마지막 장의 담당자 연락처는 정상적인 비즈니스 정보입니다.",
+   "evidence": [
+    {
+     "sheet": 16,
+     "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F01",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  }
+ ],
+ "aggregate": {
+  "total": 59.8,
+  "band": "보완",
+  "verdict": "보완 필요",
+  "rubric_mean": 2.125,
+  "categories": {
+   "CU": 100.0,
+   "MK": 0.0,
+   "VS": 100.0,
+   "DS": 21.4,
+   "WR": 50.0
+  },
+  "communities": {
+   "F01": 2.33,
+   "F02": 3.0,
+   "F05": 1.0,
+   "F08": 3.0,
+   "F11": 1.33,
+   "C1": 2.33,
+   "C2": 3.0,
+   "C3": 1.0,
+   "C4": 1.75
+  },
+  "n_all": 54,
+  "n_applicable": 49,
+  "n_selected": 9,
+  "n_scored": 9,
+  "weight_coverage": 0.261,
+  "dist": {
+   "1": 4,
+   "2": 1,
+   "3": 4
+  },
+  "low": [
+   "WR1",
+   "MK3",
+   "DS3",
+   "DS4"
+  ]
+ },
+ "grounded_mean": 0.963,
+ "fallbacks": 0,
+ "auto_checks": {
+  "CU5": [
+   "고객사명 “A 커피”이 나오는 장: 16/16장"
+  ],
+  "CU1": [
+   "고객사명 “A 커피” 표기: 16개 장"
+  ],
+  "MK4": [
+   "규모(매장 · 객실 · 병상 수)와 절감 · 향상 비율 표기에서 서로 다른 값을 찾지 못했어요"
+  ],
+  "MK2": [
+   "자료 기준 연도 표기 2곳 · 3년 이상 된 자료 연도 없음"
+  ],
+  "MK3": [
+   "수치 3개 이상인 장 14개 중 출처 · 기준 표기 없는 장: 2, 4, 5, 7, 9, 10, 11, 16"
+  ],
+  "WR1": [
+   "자리표시 · 템플릿 문구 9곳: 2장 “[00]일”, 2장 “[00]일 → 당일”, 3장 “[00]”, 3장 “[00]”, 4장 “[00]개”, 4장 “[00]만 원”, 5장 “[00]일”, 5장 “[00]일”"
+  ],
+  "WR5": [
+   "절대 표현 0곳"
+  ],
+  "WR3": [
+   "공식 표기와 다른 브랜드명 0곳"
+  ],
+  "WR6": [
+   "내부 · 민감 정보 의심 표현 2곳: 16장 “프로 · B2B 영업팀 · 010-1234-5678 · b2b.proposal@”, 16장 “010-1234-5678 · b2b.proposal@samsung.com”"
+  ],
+  "WR7": [
+   "고지 · 전제 문구가 있는 장: 3, 4, 10, 14, 16"
+  ],
+  "WR4": [
+   "단위 표기: 혼용 패턴을 찾지 못했어요"
+  ],
+  "WR8": [
+   "약어 7개 중 풀이가 보이지 않는 것: KEY, MARKET, VALUE, PROPS, DB, POP"
+  ],
+  "PR2": [
+   "카탈로그 사양 — QM55C: 스마트 사이니지 QM55C · 55\" · 500nit · 4K UHD · 24/7 운영 / OH55A-S: 옥외형 사이니지 OH55A-S · 55\" · 3,500nit(최대 4,000) · IP56 · IK10 · 직사광선 대응 / KM24C: 삼성 키오스크 KM24C · 24\" · 세로형 터치 · 결제 주변기기 연동 / 360 Cassette: 360 카세트 · 원형 360° 기류 · 인테리어 조화"
+  ],
+  "PR3": [
+   "카탈로그 권장 공간 — QM55C: 카운터, 메뉴보드, 로비, 대기 공간, 매장 / OH55A-S: 매장 외부, 드라이브스루, 정류장, 주차장 / KM24C: 카운터, 입구, 로비, 무인 매장 / 360 Cassette: 매장, 카페, 쇼룸, 라운지"
+  ],
+  "PR1": [
+   "카탈로그에 있는 모델 4종 · 카탈로그에 없는 모델 표기 없음"
+  ],
+  "DS1": [
+   "글자 넘침 1곳: 4장 칸14 “① 메뉴 · 가격 반영” · 장표 밖 0곳 · 텍스트 겹침 0쌍",
+   "제목 위치가 다른 장과 다른 장: 2, 12, 13, 16"
+  ],
+  "DS5": [
+   "제목 글자 크기 분포(px: 장 수) {30: 15} · 폰트: 앱 레이아웃 공통(Noto Sans KR · Manrope)"
+  ],
+  "DS7": [
+   "본문 장 15개 중 결론 · 메시지형 제목 15개 (100%)"
+  ],
+  "DS3": [
+   "장당 평균 145어절 · 최대 250어절 · 110어절 넘는 장: 2장(111), 3장(230), 4장(168), 5장(132), 6장(114), 8장(250), 9장(200), 11장(169), 14장(232), 15장(212)"
+  ],
+  "DS4": [
+   "본문(8자 넘는 칸, 푸터 제외) 최소 글자 크기가 12pt(16px) 미만인 장 16/16장 · 9pt(12px) 미만인 장 14장: 9장 10px(7.5pt), 3장 10.5px(7.9pt), 8장 10.5px(7.9pt), 15장 10.5px(7.9pt), 2장 11px(8.2pt), 4장 11px(8.2pt), 7장 11px(8.2pt), 12장 11px(8.2pt)",
+   "20자 넘는 본문 칸의 글자 크기 분포(px: 칸 수) {12: 37, 13: 21, 14: 16, 15: 15, 30: 14, 10: 6}"
+  ],
+  "DS6": [
+   "사진 · 이미지가 없는 본문 장 0/15장 · 빈 이미지 칸 0개 · 사진 중심 레이아웃 15장"
+  ],
+  "DS9": [
+   "16장 · 발표 미정분 · 중복 레이아웃 없음"
+  ],
+  "SB2": [
+   "쪽번호 · CONFIDENTIAL 푸터가 있는 장 16/16장"
+  ],
+  "SB1": [
+   "표지(1장): 고객사명 있음 · 날짜 있음 2026.10 · 제안사 표기 있음 · 목차 장: 없음 · 마무리 장: 16"
+  ],
+  "SB5": [
+   "표지 날짜: 2026.10 · 덱 안의 연 · 월 표기: 2026.09, 2026.10"
+  ],
+  "VS3": [
+   "단계 → 파트 순서: 열기(2) → 맥락 · 시장과 고객(3) → 가치 · 세 기둥(2) → 장면 · 매장 안팎(2) → 구성 · 물량(2) → 근거 · 효과(2) → 실행 · 파일럿(2) → 결정 요청(1)"
+  ],
+  "CU2": [
+   "요구 8개 중 핵심 낱말이 본문에 거의 없는 것 1개: 전기료가 매장 운영비에서 계속 늘어요"
+  ]
+ },
+ "profile": {
+  "kind": "winmate",
+  "slides": true,
+  "units": 16,
+  "customer": "A 커피",
+  "ind": "FB",
+  "ind_name": "외식 · 카페 프랜차이즈",
+  "products": [
+   "QM55C",
+   "OH55A-S",
+   "KM24C",
+   "360 Cassette"
+  ],
+  "unknown_models": [],
+  "older_models": [],
+  "solutions": [
+   "MagicINFO",
+   "SmartThings Pro",
+   "SmartThings",
+   "파트너 앱 · 주문 결제 연동"
+  ],
+  "figures": 170,
+  "years": 6,
+  "competitors": [],
+  "brand_terms": [
+   "MagicINFO",
+   "SmartThings"
+  ],
+  "abbrs": [
+   "KEY",
+   "MARKET",
+   "VALUE",
+   "PROPS",
+   "POS",
+   "DB",
+   "POP"
+  ],
+  "font_count": 2,
+  "fonts": [
+   "Noto Sans KR",
+   "Manrope"
+  ],
+  "pics": 77,
+  "charts": 0,
+  "tables": 0,
+  "market_units": 1,
+  "comp_units": 0,
+  "cost_units": 0,
+  "rfp_like": false,
+  "rfp_format": false,
+  "visual": false,
+  "meta_avail": false
+ },
+ "calls": 7,
+ "tokens": {
+  "prompt": 52501,
+  "output": 3647
+ },
+ "seconds": 0.1,
+ "_kind": "placeholders",
+ "_mode": "routed"
+}

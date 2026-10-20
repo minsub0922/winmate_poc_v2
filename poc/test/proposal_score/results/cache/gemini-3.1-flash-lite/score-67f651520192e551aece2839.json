@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs09:F10"
+ },
+ "prompt_tokens": 5470,
+ "output_tokens": 552,
+ "data": {
+  "scores": [
+   {
+    "id": "PR7",
+    "score": 3,
+    "anchor": "설치 환경(전원, 통신 확인), 고객 준비 사항(실측, 연동 회의), 유지보수 및 보증 범위(SLA, 4시간 현장 방문)를 모두 명시함.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "전 구간 4시간 · 전담 엔지니어 방문"
+     },
+     {
+      "sheet": 13,
+      "quote": "삼성 · 시설팀 · 시공사가 11/02–11/06 실측 · 전원 · 통신 확인"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "일정, 단계, 역할 분담은 구체적이나, 운영 인력 교육에 대한 내용이 누락됨.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "안내를 끊지 않고, 시범 구간을 여섯 밤에 바꿉니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "2027년 1월 시범 설치, 설치 후 12주 운영 결과로 확산 판단"
+     }
+    ],
+    "improve": "시범 설치 및 운영 이후 고객사 운영 인력을 대상으로 한 교육 계획을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 3,
+    "anchor": "공사 중 영업(시민 동선 차단 없음), 호환성(BIS, CCTV 연동), 일정 지연(야간 시공) 등 리스크를 짚고 대응 방안을 제시함.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "시민 동선 차단 없음 · 가림막"
+     },
+     {
+      "sheet": 13,
+      "quote": "등록 모델 · 규격서 확인, 11/10 연동 회의에서 결정"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

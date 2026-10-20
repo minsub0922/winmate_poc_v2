@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~wrong_customer:F01"
+ },
+ "prompt_tokens": 9068,
+ "output_tokens": 521,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 1,
+    "anchor": "제안서 전반에 걸쳐 고객사명 'B 호텔'과 다른 'A 커피'라는 명칭이 혼용되어 일관성이 결여되었습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "A 커피 투숙객의 하룻밤"
+     },
+     {
+      "sheet": 6,
+      "quote": "A 커피의 객실은"
+     },
+     {
+      "sheet": 9,
+      "quote": "A 커피 · 객실 TV"
+     }
+    ],
+    "improve": "제안서 내 모든 장표에서 고객사명을 'B 호텔'로 통일하고, 사례로 인용된 'A 커피' 명칭을 삭제해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "다른 고객명인 'A 커피'가 4곳에서 발견되었으며, 13장에 담당자 연락처 및 이메일 주소 등 템플릿 잔여물이 포함되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "A 커피 투숙객의 하룻밤"
+     },
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀"
+     }
+    ],
+    "improve": "다른 고객명인 'A 커피'를 모두 삭제하고, 13장의 담당자 정보는 제안서 형식에 맞게 정제해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "제안서 마무리 장에 기재된 영업 담당자의 연락처는 고객과의 소통을 위한 정상적인 정보로 판단됩니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

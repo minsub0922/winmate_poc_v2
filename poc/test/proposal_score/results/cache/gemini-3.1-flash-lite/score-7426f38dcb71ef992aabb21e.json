@@ -1,0 +1,78 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~full:F01"
+ },
+ "prompt_tokens": 10002,
+ "output_tokens": 629,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'A 커피'와 매장 수 320개, 담당 조직 등 정보가 일관되게 기술되었습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "320개 매장 메뉴판을, 본사에서 한 번에 바꿉니다"
+     },
+     {
+      "sheet": 16,
+      "quote": "A 커피 디지털 메뉴보드 전환"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "CU5",
+    "score": 3,
+    "anchor": "전체 16개 장 중 16개 장 모두에 A 커피의 운영 과제, 매장 유형, 구체적인 수치 등 고유 정보가 반영되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "메뉴 하나 바꾸는 데, 다섯 단계 · 9일이 걸립니다"
+     },
+     {
+      "sheet": 11,
+      "quote": "320개 매장을 세 가지 표준 패키지로"
+     },
+     {
+      "sheet": 14,
+      "quote": "시범 매장 10곳은 유형별로 이렇게 고릅니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "템플릿 잔여물이나 자리표시 문구가 발견되지 않았으며, 연락처는 제안사 담당자의 정상적인 정보입니다.",
+    "evidence": [
+     {
+      "sheet": 16,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "원가, 마진, 내부 할인율 등 민감한 내부 정보가 포함되어 있지 않으며, 제안 담당자의 연락처만 기재되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 16,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

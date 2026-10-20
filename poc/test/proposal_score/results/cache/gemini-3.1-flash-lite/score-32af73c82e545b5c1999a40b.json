@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11~base:F11"
+ },
+ "prompt_tokens": 3492,
+ "output_tokens": 186,
+ "data": {
+  "scores": [
+   {
+    "id": "DS6",
+    "score": 3,
+    "anchor": "전체 15장 중 14장에 시각 자료가 포함되어 있으며, 제품 및 공간 관련 장에 실제 사진이 적절히 배치되어 텍스트만 있는 장이 10% 이하입니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "사양 요구 6건, 제안 모델로 모두 충족합니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "제안 품목 다섯 가지, 발주 요건 증빙을 갖췄습니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

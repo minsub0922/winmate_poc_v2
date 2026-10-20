@@ -1,0 +1,658 @@
+{
+ "score": {
+  "recall": 0.485,
+  "projects_expected": 1,
+  "projects_found": 1,
+  "projects_matched": 1,
+  "misattributed": 0,
+  "per_project": [
+   {
+    "key": "desktop",
+    "matched_pid": "P1",
+    "recall": 0.485,
+    "recall_with_summary": 0.485,
+    "missed": [
+     "c12 2026년 600대 이상",
+     "c13 실크 인쇄",
+     "c14 Master(이미지)",
+     "c15 기술평가 45점 미만 제외",
+     "c16 5일 이내 테스트 장비",
+     "c21 공동수급 불허",
+     "c22 부가세 포함",
+     "c23 대당 단가",
+     "c24 견적서 밀봉 제출",
+     "c25 A4 가로 파워포인트",
+     "c26 모호한 표현은 미수용 간주",
+     "c27 메모리 · SSD 최대 운영기간",
+     "c29 3.5인치 저장장치 추가 여부",
+     "c30 서비스센터 · 전국망",
+     "c31 제출처 메일",
+     "c32 동가 시 기술평가 우선",
+     "c33 국가계약법 시행령 제27조"
+    ],
+    "rows": [
+     {
+      "id": "c01",
+      "cat": "규격",
+      "desc": "Intel Ultra7 265 이상",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c02",
+      "cat": "규격",
+      "desc": "메모리 16GB",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c03",
+      "cat": "규격",
+      "desc": "DDR5",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c04",
+      "cat": "규격",
+      "desc": "NVMe SSD 256GB",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c05",
+      "cat": "인증",
+      "desc": "TPM 2.0 필수",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c06",
+      "cat": "규격",
+      "desc": "Power 400W 이상",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c07",
+      "cat": "규격",
+      "desc": "USB 8개 이상",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c08",
+      "cat": "규격",
+      "desc": "1Gigabit LAN",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c09",
+      "cat": "규격",
+      "desc": "Windows 11 Pro",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c10",
+      "cat": "규격",
+      "desc": "Slim 모델 제안 불가",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c11",
+      "cat": "계약",
+      "desc": "무상 유지보수 검수 후 12개월",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c12",
+      "cat": "범위",
+      "desc": "2026년 600대 이상",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c13",
+      "cat": "구성",
+      "desc": "실크 인쇄",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c14",
+      "cat": "구성",
+      "desc": "Master(이미지)",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c15",
+      "cat": "선정",
+      "desc": "기술평가 45점 미만 제외",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c16",
+      "cat": "검증",
+      "desc": "5일 이내 테스트 장비",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c17",
+      "cat": "검증",
+      "desc": "호환성 검증 통과",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c18",
+      "cat": "일정",
+      "desc": "서류 제출 8/21",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c19",
+      "cat": "일정",
+      "desc": "제안 발표 8/24",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c20",
+      "cat": "납품",
+      "desc": "최초 납품 계약 후 12주 내",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c21",
+      "cat": "자격",
+      "desc": "공동수급 불허",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c22",
+      "cat": "가격",
+      "desc": "부가세 포함",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c23",
+      "cat": "가격",
+      "desc": "대당 단가",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c24",
+      "cat": "가격",
+      "desc": "견적서 밀봉 제출",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c25",
+      "cat": "형식",
+      "desc": "A4 가로 파워포인트",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c26",
+      "cat": "형식",
+      "desc": "모호한 표현은 미수용 간주",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c27",
+      "cat": "제안서",
+      "desc": "메모리 · SSD 최대 운영기간",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c28",
+      "cat": "제안서",
+      "desc": "로드맵 · 단종 대응",
+      "hit": true,
+      "hit_with_summary": true,
+      "misattributed": false
+     },
+     {
+      "id": "c29",
+      "cat": "제안서",
+      "desc": "3.5인치 저장장치 추가 여부",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c30",
+      "cat": "제안서",
+      "desc": "서비스센터 · 전국망",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c31",
+      "cat": "제출",
+      "desc": "제출처 메일",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c32",
+      "cat": "선정",
+      "desc": "동가 시 기술평가 우선",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     },
+     {
+      "id": "c33",
+      "cat": "자격",
+      "desc": "국가계약법 시행령 제27조",
+      "hit": false,
+      "hit_with_summary": false,
+      "misattributed": false
+     }
+    ]
+   }
+  ]
+ },
+ "cost": {
+  "calls": 3,
+  "cached": 3,
+  "prompt_tokens": 7439,
+  "output_tokens": 2685,
+  "ms": 5,
+  "errors": []
+ },
+ "guards": {
+  "items": 19,
+  "grounded_rate": 1.0,
+  "ungrounded_ids": [],
+  "unsupported_numbers": {
+   "P1": []
+  },
+  "near_duplicates": 0
+ },
+ "profile": {
+  "projects": [
+   {
+    "pid": "P1",
+    "name": "삼성생명 데스크탑 표준 모델 선정",
+    "customer": "삼성생명보험(주)",
+    "start_line": 1,
+    "issuer": "삼성생명보험(주) 정보전략팀 인프라운영P, IT기획P"
+   }
+  ],
+  "doc_type": "제안요청서",
+  "glossary": [
+   "경쟁입찰",
+   "기술평가",
+   "가격평가",
+   "성능검증",
+   "원본대조필"
+  ]
+ },
+ "chunks": [
+  {
+   "idx": 0,
+   "path": "",
+   "chars": 7332,
+   "lines": [
+    0,
+    272
+   ],
+   "table_header": false
+  }
+ ],
+ "trace": [
+  {
+   "stage": "profile",
+   "projects": [
+    [
+     "P1",
+     "삼성생명 데스크탑 표준 모델 선정",
+     1
+    ]
+   ]
+  },
+  {
+   "stage": "extract",
+   "chunk": 0,
+   "chars": 7332,
+   "path": "",
+   "new": 19,
+   "updates": 0,
+   "carry": "",
+   "open_refs": []
+  }
+ ],
+ "forms": [
+  {
+   "pid": "P1",
+   "project": "삼성생명 데스크탑 표준 모델 선정",
+   "customer": "삼성생명보험(주)",
+   "target": "삼성생명보험(주) 표준 데스크탑 공급 업체",
+   "keymen": [
+    {
+     "name": "정보전략팀 인프라운영P (기술/검증 담당)",
+     "weight": 70,
+     "weight_basis": "추정",
+     "reqs": [
+      "[배경] 표준 데스크탑 단종에 따른 신규 모델 선정",
+      "[범위] 표준 모델 선정을 통한 안정적 공급 환경 구축",
+      "[검증] 호환성 및 제안내용 검증은 '26년 8월 27일부터 시작한다.",
+      "[규격] 프로세서는 Intel Ultra7 265 (15세대) 이상이어야 한다.",
+      "[규격] 메모리는 16GB(DDR5 / 16G*1) 이상이어야 한다.",
+      "[규격] 하드디스크는 M.2 NVMe SSD 256GB 이상이어야 한다.",
+      "[보안] TPM 2.0은 필수이다.",
+      "[규격] 그래픽카드는 내장 그래픽이어야 한다.",
+      "[규격] ODD는 포함하지 않는다.",
+      "[규격] 파워는 400W 이상이어야 한다.",
+      "[규격] 인터페이스는 HDMI 필수 또는 RGB, DVI, DP 중 한 개 이상이 필수이며, USB 8개 이상(C-Type 포함) 및 3.5mm Audio를 지원해야 한다.",
+      "[규격] LAN은 1Gigabit LAN on Mainboard여야 한다.",
+      "[규격] 운영체제는 Windows 11 Pro여야 한다.",
+      "[규격] Slim 모델은 제안할 수 없다.",
+      "[A/S] 워런티는 1년 이상이어야 하며, 무상 유지보수 기간은 검수 완료 후 12개월이다."
+     ],
+     "req_ids": [
+      "R001",
+      "R002",
+      "R006",
+      "R008",
+      "R009",
+      "R010",
+      "R011",
+      "R012",
+      "R013",
+      "R014",
+      "R015",
+      "R016",
+      "R017",
+      "R018",
+      "R019"
+     ]
+    },
+    {
+     "name": "IT기획P (입찰/계약 담당)",
+     "weight": 30,
+     "weight_basis": "추정",
+     "reqs": [
+      "[일정] 제안서 및 서류 제출 기한은 '26년 8월 21일 15시이다.",
+      "[일정] 업체별 제안 발표는 '26년 8월 24일 9시이다.",
+      "[일정] 평가 및 우선협상대상자 선정은 '26년 8월 26일 이후 진행한다.",
+      "[납품] 최초 납품은 계약일로부터 12주 이내에 완료해야 한다."
+     ],
+     "req_ids": [
+      "R003",
+      "R004",
+      "R005",
+      "R007"
+     ]
+    }
+   ],
+   "free": "본 사업은 기존 표준 데스크탑 단종에 대응하여 안정적인 공급 환경을 구축하기 위한 신규 표준 모델을 선정하는 프로젝트입니다. 제안사는 Intel Ultra7 265 이상의 프로세서와 16GB 메모리, 256GB SSD 등 명시된 하드웨어 규격을 준수하는 모델을 제안해야 합니다. 제안서 및 관련 서류는 '26년 8월 21일 15시까지 제출해야 하며, 이후 '26년 8월 24일 9시에 제안 발표가 진행됩니다. 우선협상대상자 선정은 '26년 8월 26일 이후 이루어지며, 최종 계약일로부터 12주 이내에 최초 납품을 완료해야 합니다.",
+   "note": "평가 구조: 기술 규격 준수 여부와 제안 발표를 통한 적합성 평가를 중심으로 우선협상대상자를 선정합니다. 기술적 요구사항은 필수 조건으로, 미충족 시 평가 대상에서 제외될 가능성이 높습니다.\n놓치기 쉬운 점: Slim 모델 제안 금지 조항 위반 여부 확인 / 인터페이스 요구사항(HDMI 필수 및 USB 8개 이상)의 세부 규격 누락 주의 / 무상 유지보수 기간(검수 완료 후 12개월)과 워런티 기간(1년 이상)의 산정 기준 혼동\n확인 필요: 제안서 평가 배점표(기술 vs 가격)의 구체적 비율 / USB 8개 중 C-Type 포함 개수에 대한 최소 요구치 확인",
+   "stats": {
+    "items": 19,
+    "merged": 0,
+    "unassigned": 0,
+    "merge_log": []
+   }
+  }
+ ],
+ "items": [
+  {
+   "pid": "P1",
+   "cat": "배경",
+   "text": "표준 데스크탑 단종에 따른 신규 모델 선정",
+   "quote": "표준 데스크탑 단종에 따른 신규 모델 선정",
+   "modality": "정보",
+   "section": "사업배경 및 목적",
+   "id": "R001",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "범위",
+   "text": "표준 모델 선정을 통한 안정적 공급 환경 구축",
+   "quote": "표준 모델 선정을 통한 안정적 공급 환경 구축",
+   "modality": "정보",
+   "section": "사업배경 및 목적",
+   "id": "R002",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "일정",
+   "text": "제안서 및 서류 제출 기한은 '26년 8월 21일 15시이다.",
+   "quote": "서류제출 | 제안서 및 서류 제출 | '26년 8월 21일 15時",
+   "modality": "필수",
+   "section": "사업일정",
+   "id": "R003",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "일정",
+   "text": "업체별 제안 발표는 '26년 8월 24일 9시이다.",
+   "quote": "제안발표 | 업체별 제안 발표 | '26년 8월 24일 9時",
+   "modality": "필수",
+   "section": "사업일정",
+   "id": "R004",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "일정",
+   "text": "평가 및 우선협상대상자 선정은 '26년 8월 26일 이후 진행한다.",
+   "quote": "평가/선정 | 평가/우선협상대상자 선정 | '26년 8월 26일 이후",
+   "modality": "필수",
+   "section": "사업일정",
+   "id": "R005",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "검증",
+   "text": "호환성 및 제안내용 검증은 '26년 8월 27일부터 시작한다.",
+   "quote": "성능검증 | 호환성 및 제안내용 검증 | '26년 8월 27일 ~",
+   "modality": "필수",
+   "section": "사업일정",
+   "id": "R006",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "납품",
+   "text": "최초 납품은 계약일로부터 12주 이내에 완료해야 한다.",
+   "quote": "납품 | 최초 납품 (생명 입고 기준) | 계약일로부터 12주내",
+   "modality": "필수",
+   "section": "사업일정",
+   "id": "R007",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "규격",
+   "text": "프로세서는 Intel Ultra7 265 (15세대) 이상이어야 한다.",
+   "quote": "프로세스 | Intel Ultra7 265 (15 세대) 이상",
+   "modality": "필수",
+   "section": "입찰조건 상세내용",
+   "id": "R008",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "규격",
+   "text": "메모리는 16GB(DDR5 / 16G*1) 이상이어야 한다.",
+   "quote": "메모리 | 16GB(DDR5 / 16G*1) 이상",
+   "modality": "필수",
+   "section": "입찰조건 상세내용",
+   "id": "R009",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "규격",
+   "text": "하드디스크는 M.2 NVMe SSD 256GB 이상이어야 한다.",
+   "quote": "하드디스크 | M.2 NVMe SSD 256GB 이상",
+   "modality": "필수",
+   "section": "입찰조건 상세내용",
+   "id": "R010",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "보안",
+   "text": "TPM 2.0은 필수이다.",
+   "quote": "Security | TPM 2.0 필수",
+   "modality": "필수",
+   "section": "입찰조건 상세내용",
+   "id": "R011",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "규격",
+   "text": "그래픽카드는 내장 그래픽이어야 한다.",
+   "quote": "그래픽카드 | 내장 그래픽",
+   "modality": "필수",
+   "section": "입찰조건 상세내용",
+   "id": "R012",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "규격",
+   "text": "ODD는 포함하지 않는다.",
+   "quote": "ODD | None",
+   "modality": "필수",
+   "section": "입찰조건 상세내용",
+   "id": "R013",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "규격",
+   "text": "파워는 400W 이상이어야 한다.",
+   "quote": "Power | 400W 이상",
+   "modality": "필수",
+   "section": "입찰조건 상세내용",
+   "id": "R014",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "규격",
+   "text": "인터페이스는 HDMI 필수 또는 RGB, DVI, DP 중 한 개 이상이 필수이며, USB 8개 이상(C-Type 포함) 및 3.5mm Audio를 지원해야 한다.",
+   "quote": "I/F | HDMI 필수 or RGB, DVI, DP 중 한 개 이상 필수",
+   "modality": "필수",
+   "section": "입찰조건 상세내용",
+   "id": "R015",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "규격",
+   "text": "LAN은 1Gigabit LAN on Mainboard여야 한다.",
+   "quote": "LAN | 1Gigabit LAN on Mainboard",
+   "modality": "필수",
+   "section": "입찰조건 상세내용",
+   "id": "R016",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "규격",
+   "text": "운영체제는 Windows 11 Pro여야 한다.",
+   "quote": "운영체제 | Windows 11 Pro",
+   "modality": "필수",
+   "section": "입찰조건 상세내용",
+   "id": "R017",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "규격",
+   "text": "Slim 모델은 제안할 수 없다.",
+   "quote": "Case | Slim모델 제안 불가",
+   "modality": "금지",
+   "section": "입찰조건 상세내용",
+   "id": "R018",
+   "chunk": 0,
+   "grounded": true
+  },
+  {
+   "pid": "P1",
+   "cat": "A/S",
+   "text": "워런티는 1년 이상이어야 하며, 무상 유지보수 기간은 검수 완료 후 12개월이다.",
+   "quote": "WARRANTY | 1 년 이상",
+   "modality": "필수",
+   "section": "입찰조건 상세내용",
+   "id": "R019",
+   "chunk": 0,
+   "grounded": true
+  }
+ ],
+ "enrich": []
+}

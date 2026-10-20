@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs14:F11"
+ },
+ "prompt_tokens": 3634,
+ "output_tokens": 549,
+ "data": {
+  "scores": [
+   {
+    "id": "DS1",
+    "score": 2,
+    "anchor": "11장에서 텍스트 겹침이 발생하였고, 13장과 15장의 제목 위치가 다른 장들과 일치하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "겹침 1"
+     },
+     {
+      "sheet": 13,
+      "quote": "제목 위치가 다른 장과 다른 장"
+     }
+    ],
+    "improve": "11장의 텍스트 배치를 조정하여 겹침을 해소하고, 모든 장의 제목 위치를 통일해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 10장으로 기준인 4장을 크게 초과하며, 장당 평균 어절 수도 167어절로 매우 높습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "336어절"
+     },
+     {
+      "sheet": 7,
+      "quote": "237어절"
+     }
+    ],
+    "improve": "각 장의 텍스트를 핵심 위주로 대폭 줄여 장당 평균 어절 수를 77어절 이하로 낮춰야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 대부분이 12pt 미만이며, 9pt 미만인 장도 11장이나 되어 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "본문 최소 10px(7.5pt)"
+     },
+     {
+      "sheet": 8,
+      "quote": "본문 최소 10px(7.5pt)"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정하여 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

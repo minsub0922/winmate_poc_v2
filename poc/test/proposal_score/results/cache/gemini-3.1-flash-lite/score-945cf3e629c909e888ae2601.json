@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs01:F03"
+ },
+ "prompt_tokens": 3524,
+ "output_tokens": 224,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "경영 지표(비용 절감, 운영 효율)가 2장에서 한 번에 요약되어 있고, 16장에서 결정권자가 판단할 파일럿 승인 및 다음 단계가 명확히 정리되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "기대 효과 | 9일 → 당일 | 메뉴 · 가격 반영 | 연 −85% | 인쇄 · 배송비 | −12% | 매장 전력"
+     },
+     {
+      "sheet": 16,
+      "quote": "다음 2주, 함께 정할 세 가지 | 파일럿 승인 · 착수 | 구독 · 렌탈 · 구매 중 발주 방식"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

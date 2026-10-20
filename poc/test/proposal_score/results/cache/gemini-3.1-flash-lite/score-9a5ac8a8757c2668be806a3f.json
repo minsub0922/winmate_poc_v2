@@ -1,0 +1,69 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~strip_images:F11"
+ },
+ "prompt_tokens": 3135,
+ "output_tokens": 628,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 5장(2, 3, 4, 7, 10장)으로 4장 이상이며, 장당 평균이 96어절로 77어절을 초과합니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "134어절"
+     },
+     {
+      "sheet": 7,
+      "quote": "123어절"
+     }
+    ],
+    "improve": "각 장의 핵심 메시지를 제외한 부연 설명을 과감히 삭제하여 장당 어절 수를 77어절 이하로 줄여야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 36%가 10pt(13.3px) 미만이며, 12pt(16px) 이상인 칸은 26%에 불과하여 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "본문 최소 11px(8.2pt)"
+     },
+     {
+      "sheet": 4,
+      "quote": "본문 최소 11.5px(8.6pt)"
+     },
+     {
+      "sheet": 10,
+      "quote": "본문 최소 11px(8.2pt)"
+     }
+    ],
+    "improve": "본문 텍스트의 최소 글자 크기를 16px(12pt) 이상으로 상향 조정하여 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS6",
+    "score": 1,
+    "anchor": "표지(1장)를 제외한 모든 본문 장(9장)이 텍스트로만 구성되어 있고, 실제 사진이나 도식 없이 빈 이미지 칸만 존재합니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "사진 0 · 빈 이미지 칸 1"
+     },
+     {
+      "sheet": 7,
+      "quote": "사진 0 · 빈 이미지 칸 6"
+     }
+    ],
+    "improve": "빈 이미지 칸을 활용하여 제안하는 솔루션의 실제 제품 사진이나 시각적 도식을 배치해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

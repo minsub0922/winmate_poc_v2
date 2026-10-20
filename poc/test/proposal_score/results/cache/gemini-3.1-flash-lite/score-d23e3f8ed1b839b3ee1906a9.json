@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10:F10"
+ },
+ "prompt_tokens": 2828,
+ "output_tokens": 331,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "하드웨어 교체와 함께 MagicINFO를 통한 장애 감지 및 원격 재부팅 등 운영 솔루션의 역할과 관리 방식을 구체적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "MagicINFO 설치형 | 꺼진 화면 즉시 알림"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "1차 전환 범위, 병행 운영 기간, 교육 횟수, 발주 및 착수 일정을 구체적인 날짜와 함께 명시함.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "1차 전환 범위 확정 — 대전점 · 청주점"
+     },
+     {
+      "sheet": 13,
+      "quote": "점별 2주 병행 운영 · 운영자 교육 3회"
+     },
+     {
+      "sheet": 13,
+      "quote": "12월 발주, 착수 후 8주 1차 전환"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

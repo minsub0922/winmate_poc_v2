@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~base:F01"
+ },
+ "prompt_tokens": 7379,
+ "output_tokens": 360,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'G 쇼핑몰'과 규모(6개 점, 354면 등)가 일관되게 기술되었으며, 사례로 인용된 기업 외에 다른 고객사명이나 예시 고객명이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "G 쇼핑몰"
+     },
+     {
+      "sheet": 3,
+      "quote": "G 쇼핑몰, 다섯 지표 중 셋이 업계보다 무겁습니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "G 쇼핑몰 사이니지 · 공조 공급사 전환 제안"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "13장에 담당자 연락처가 예시용(010-1234-5678)으로 남아 있어 템플릿 잔여물로 판단됩니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "010-1234-5678"
+     }
+    ],
+    "improve": "제출 전 실제 담당자의 연락처로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs02:F01"
+ },
+ "prompt_tokens": 9549,
+ "output_tokens": 144,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "16장의 연락처 정보가 예시용(가짜)으로 기재되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 16,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "제출 전 실제 담당자의 연락처 정보를 입력해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

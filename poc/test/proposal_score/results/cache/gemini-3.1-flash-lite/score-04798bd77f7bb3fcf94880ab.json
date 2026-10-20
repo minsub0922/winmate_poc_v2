@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs21:F05"
+ },
+ "prompt_tokens": 9012,
+ "output_tokens": 224,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "수치가 포함된 대부분의 장에서 시장 조사 기관이나 연도 등 구체적인 출처가 명시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "외국인 투숙 비중 46% · 객실 312실"
+     },
+     {
+      "sheet": 8,
+      "quote": "312개 객실"
+     },
+     {
+      "sheet": 36,
+      "quote": "글로벌 5위 | 2025 | 905억 달러"
+     }
+    ],
+    "improve": "모든 시장 수치 및 성과 지표에 조사 기관과 연도를 명확히 기재해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

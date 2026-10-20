@@ -1,0 +1,94 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~full:F09"
+ },
+ "prompt_tokens": 9290,
+ "output_tokens": 701,
+ "data": {
+  "scores": [
+   {
+    "id": "PR1",
+    "score": 3,
+    "anchor": "제안된 모델(QM55C, KM24C, HG55BU, WindFree 1Way)은 모두 현재 카탈로그 라인업에 해당하며, 단종 모델이나 이전 세대 표기가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "호텔 TV 55\" HG55BU"
+     },
+     {
+      "sheet": 9,
+      "quote": "무풍 1Way 카세트"
+     },
+     {
+      "sheet": 9,
+      "quote": "Smart Signage QM55C"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR2",
+    "score": 3,
+    "anchor": "제안서 내 모델별 사양 표기가 카탈로그와 일치하며, 장마다 동일한 모델에 대해 일관된 사양 정보를 제공하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "호텔 TV HG55BU"
+     },
+     {
+      "sheet": 9,
+      "quote": "Smart Signage QM55C"
+     },
+     {
+      "sheet": 9,
+      "quote": "삼성 키오스크 KM24C"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR5",
+    "score": 2,
+    "anchor": "무풍 1Way 카세트를 '무풍 1Way 카세트'와 'WindFree 1Way'로 혼용하여 표기하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "무풍 1Way 카세트"
+     },
+     {
+      "sheet": 8,
+      "quote": "WindFree 1Way"
+     }
+    ],
+    "improve": "제안서 전체에서 'WindFree 1Way' 또는 '무풍 1Way 카세트' 중 하나로 표기를 통일해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR3",
+    "score": 3,
+    "anchor": "MagicINFO, LYNK Cloud, b.IoT 등 브랜드명이 공식 표기법에 맞게 일관되게 사용되었습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "MagicINFO"
+     },
+     {
+      "sheet": 6,
+      "quote": "LYNK Cloud"
+     },
+     {
+      "sheet": 8,
+      "quote": "b.IoT"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,342 @@
+{
+ "id": "B06",
+ "title": "교육청 스마트교실 전자칠판 입찰 (RFP·평가표 첨부)",
+ "exp_level": "complex",
+ "level": "complex",
+ "exp_industry": "ED",
+ "industry": "ED",
+ "exp_strategy": "rfp",
+ "strategy": "rfp",
+ "scenario": "rfp",
+ "exp_products": [
+  "flip"
+ ],
+ "products": [
+  "flip"
+ ],
+ "solutions": [
+  "care",
+  "content"
+ ],
+ "prod_recall": 1.0,
+ "prod_precision": 1.0,
+ "must_show": 1.0,
+ "must_show_miss": [],
+ "facts": 1.0,
+ "facts_miss": [],
+ "must_not_hit": [
+  "매장"
+ ],
+ "parts": [
+  "cover:제안서 표지",
+  "overview:사업 이해 및 범위",
+  "requirements:핵심 이해관계자 분석",
+  "requirements:평가 항목 대응 전략",
+  "requirements:요구사항 전수 대응",
+  "value:이해관계자별 가치 제안",
+  "solution:운영 및 유지보수",
+  "products:공간별 최적 솔루션",
+  "bom:범위 및 설치 협력",
+  "spec:규격 및 성능 대응",
+  "execution:보안 및 교육 지원",
+  "case:유관 구축 사례",
+  "why:차별화 전략",
+  "execution:겨울방학 설치 계획",
+  "execution:야간 및 단계 시공",
+  "execution:단계별 납품 계획",
+  "cost:교육 지원 계획",
+  "closing:결론 및 제언"
+ ],
+ "questions": [
+  "strategy",
+  "ending",
+  "keyman",
+  "conflict_C2",
+  "conflict_C4",
+  "conflict_C5",
+  "gap_spaces",
+  "gap_llm1",
+  "gap_llm2",
+  "llm_Q01",
+  "llm_Q02",
+  "llm_Q03",
+  "length"
+ ],
+ "conflicts": [
+  "시공 vs 영업 유지",
+  "물량 vs 일정",
+  "키맨 관심사 분산",
+  "LLM 발견",
+  "LLM 발견"
+ ],
+ "issues": [
+  "[low] 파트 유형과 다른 장표(연관 장표로 대체): ['L_TO_A']",
+  "[low] 편집할 수 없는(data-tb 없는) 다른 업종 샘플 문구가 남은 장표 3장 — 원본 레이아웃 보완 필요"
+ ],
+ "stats": {
+  "n_slides": 18,
+  "text_slots": 1012,
+  "placeholders": 102,
+  "slides_with_ph": 11,
+  "sample_text_kept": 357,
+  "img_slots": 0,
+  "img_filled": 0,
+  "photo_slides": 0,
+  "stray_slides": 1,
+  "slides": [
+   {
+    "no": 1,
+    "code": "C03",
+    "f": "L_C03",
+    "visual": [
+     "message"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 0,
+    "stray": []
+   },
+   {
+    "no": 2,
+    "code": "OV-A",
+    "f": "L_OV_A",
+    "visual": [
+     "cards",
+     "flow",
+     "message"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 22,
+    "stray": []
+   },
+   {
+    "no": 3,
+    "code": "RM-A",
+    "f": "L_RM_A",
+    "visual": [
+     "table"
+    ],
+    "ph": 7,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 3,
+    "stray": []
+   },
+   {
+    "no": 4,
+    "code": "RM-C",
+    "f": "L_RM_C",
+    "visual": [
+     "table"
+    ],
+    "ph": 24,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 39,
+    "stray": []
+   },
+   {
+    "no": 5,
+    "code": "RM-B",
+    "f": "L_RM_B",
+    "visual": [
+     "table"
+    ],
+    "ph": 3,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 21,
+    "stray": []
+   },
+   {
+    "no": 6,
+    "code": "VP-D",
+    "f": "L_VP_D",
+    "visual": [
+     "cards",
+     "photo"
+    ],
+    "ph": 3,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 7,
+    "stray": []
+   },
+   {
+    "no": 7,
+    "code": "SF-B",
+    "f": "L_SF_B",
+    "visual": [
+     "cards",
+     "flow"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 7,
+    "stray": []
+   },
+   {
+    "no": 8,
+    "code": "P1-B",
+    "f": "L_P1B",
+    "visual": [
+     "cards",
+     "message",
+     "photo"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 0,
+    "stray": []
+   },
+   {
+    "no": 9,
+    "code": "BM-C",
+    "f": "L_BM_C",
+    "visual": [
+     "cards"
+    ],
+    "ph": 24,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 38,
+    "stray": []
+   },
+   {
+    "no": 10,
+    "code": "SC-B",
+    "f": "L_SC_B",
+    "visual": [
+     "comparison",
+     "table"
+    ],
+    "ph": 1,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 13,
+    "stray": []
+   },
+   {
+    "no": 11,
+    "code": "SE-A",
+    "f": "L_SE_A",
+    "visual": [
+     "table"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 33,
+    "stray": [
+     "Knox Suite"
+    ]
+   },
+   {
+    "no": 12,
+    "code": "CD-A",
+    "f": "L_CS01",
+    "visual": [
+     "cards"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 3,
+    "stray": []
+   },
+   {
+    "no": 13,
+    "code": "CM-B",
+    "f": "L_CM_B",
+    "visual": [
+     "cards",
+     "comparison"
+    ],
+    "ph": 5,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 8,
+    "stray": []
+   },
+   {
+    "no": 14,
+    "code": "IP-C",
+    "f": "L_IP_C",
+    "visual": [
+     "cards",
+     "diagram",
+     "flow"
+    ],
+    "ph": 5,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 15,
+    "stray": []
+   },
+   {
+    "no": 15,
+    "code": "IP-B",
+    "f": "L_IP_B",
+    "visual": [
+     "cards",
+     "diagram"
+    ],
+    "ph": 7,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 63,
+    "stray": []
+   },
+   {
+    "no": 16,
+    "code": "PL-A",
+    "f": "L_PL_A",
+    "visual": [
+     "cards",
+     "flow"
+    ],
+    "ph": 19,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 35,
+    "stray": []
+   },
+   {
+    "no": 17,
+    "code": "TO-A",
+    "f": "L_TO_A",
+    "visual": [
+     "cards"
+    ],
+    "ph": 4,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 25,
+    "stray": []
+   },
+   {
+    "no": 18,
+    "code": "C13",
+    "f": "L_C13",
+    "visual": [
+     "cards",
+     "flow",
+     "message"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 25,
+    "stray": []
+   }
+  ]
+ },
+ "sec": 30.1,
+ "llm_calls": 39,
+ "llm_fail": 0
+}

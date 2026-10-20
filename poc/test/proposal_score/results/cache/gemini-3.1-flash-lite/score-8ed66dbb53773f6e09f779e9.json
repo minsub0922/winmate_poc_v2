@@ -1,0 +1,112 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs03~full:F10"
+ },
+ "prompt_tokens": 7571,
+ "output_tokens": 993,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "하드웨어와 솔루션(MagicINFO, b.IoT, Knox 등)을 매칭하고, 운영실에서 캠퍼스 전체를 관리하는 장면과 역할이 구체적으로 제시됨.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "공간마다 놓을 삼성 제품 · 솔루션과 그 가치"
+     },
+     {
+      "sheet": 10,
+      "quote": "건물마다 다른 운전 시간, 한 화면에서"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR7",
+    "score": 2,
+    "anchor": "시공 및 교육 계획은 포함되어 있으나, 전원·네트워크 환경 전제나 유지보수·보증 범위에 대한 구체적인 기술적 전제 조건이 부족함.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "학기를 멈추지 않고, 방학 6주에 끝냅니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "교수님이 첫 수업부터 쓰도록 가르칩니다"
+     }
+    ],
+    "improve": "설치 환경(전원, 네트워크) 및 유지보수·보증 범위에 대한 구체적인 도입 전제 조건을 명시해야 함.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "방학 기간(6주)을 활용한 구체적인 주차별 시공 일정과 대상별 교육 계획, 역할 분담이 명확히 정리되어 있음.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "학기를 멈추지 않고, 방학 6주에 끝냅니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "교수님이 첫 수업부터 쓰도록 가르칩니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 2,
+    "anchor": "공사 중 영업 방해 최소화(가림막 설치 등)와 장애 대응 계획은 있으나, 호환성이나 일정 지연 등 잠재적 리스크에 대한 포괄적인 대응 방안은 부족함.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "이용자 동선 차단 없음 · 가림막"
+     },
+     {
+      "sheet": 13,
+      "quote": "장애 대응 심화"
+     }
+    ],
+    "improve": "호환성 문제나 일정 지연 등 발생 가능한 리스크와 그에 따른 구체적인 대응 방안을 추가해야 함.",
+    "confidence": "mid"
+   },
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "마지막 장에서 고객이 결정해야 할 세 가지 항목과 담당자, 기한이 명확하게 제시됨.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "11월 안에 함께 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "SB5",
+    "score": 3,
+    "anchor": "표지에 2026.10 날짜가 명시되어 있고, 본문 내 일정(12월 착수, 3월 개강)과 모순 없이 일치함.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "2026. 10"
+     },
+     {
+      "sheet": 14,
+      "quote": "12/21 착수 · 3/2 개강 오픈"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

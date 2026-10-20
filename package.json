@@ -1,0 +1,23 @@
+{
+  "name": "winmate",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Winmate 현재 앱 실행 명령 및 자료 제작·평가 도구 의존성",
+  "scripts": {
+    "start": "./start.sh",
+    "build": "npm --prefix app/web run build",
+    "test": "make test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "esbuild": "^0.24.0",
+    "pdfjs-dist": "3.11.174",
+    "playwright": "^1.56.0",
+    "pptxgenjs": "^3.12.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sharp": "^0.35.5"
+  }
+}

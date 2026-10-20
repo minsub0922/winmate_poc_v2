@@ -1,0 +1,56 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~no_proof:F10"
+ },
+ "prompt_tokens": 5659,
+ "output_tokens": 435,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "SmartThings 솔루션을 통해 가전 제어, 에너지 모니터링, 홈케어 진단 등 입주민이 앱으로 무엇을 어떻게 관리하는지 구체적인 운영 장면을 제시함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "SmartThings | 빌트인 · 난방 · 도어락 (타사)을 계정 하나로"
+     },
+     {
+      "sheet": 5,
+      "quote": "에너지 모니터링 | 거실~주방 난방 사용량과 요금을 앱에서 확인"
+     },
+     {
+      "sheet": 5,
+      "quote": "홈케어 진단 | 기기 상태를 점검해 이상 징후를 먼저 알림"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "11장에서 고객이 결정해야 할 세 가지 항목과 각 항목별 세부 일정, 담당 부서 및 산출물을 명확히 제시함.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "12월까지, 함께 정할 세 가지"
+     },
+     {
+      "sheet": 11,
+      "quote": "01 | 도면 · 치수 검토 | 타입 4종 주방 도면"
+     },
+     {
+      "sheet": 11,
+      "quote": "02 | 옵션 패키지 확정 | 구성 3안 중 1안"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07:F10"
+ },
+ "prompt_tokens": 5815,
+ "output_tokens": 389,
+ "data": {
+  "scores": [
+   {
+    "id": "PR7",
+    "score": 2,
+    "anchor": "설치 환경 전제와 시공 계획은 구체적이나, 유지보수 및 보증 범위에 대한 명시적인 언급이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "반입 → 설치 → 시운전 → 복구"
+     },
+     {
+      "sheet": 11,
+      "quote": "천장 타공 · 앵커는 11–15시, 투숙객 외출 시간에만"
+     }
+    ],
+    "improve": "유지보수 체계와 제품 보증 범위에 대한 내용을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "샘플룸 운영과 층별 교체 일정은 구체적이나, 교육 및 운영 이관에 대한 계획이 누락되었습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "샘플룸 1실, 다음 2주에 정할 세 가지"
+     },
+     {
+      "sheet": 11,
+      "quote": "첫 주 4F–8F · 층 × 날(D1–D6) · 11:00–19:00"
+     }
+    ],
+    "improve": "도입 후 호텔 직원을 대상으로 한 운영 교육 및 유지보수 이관 계획을 포함해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

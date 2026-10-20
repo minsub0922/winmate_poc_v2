@@ -1,0 +1,108 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs12~full:F10"
+ },
+ "prompt_tokens": 6804,
+ "output_tokens": 894,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO 솔루션을 통해 컨트롤룸에서 전 화면을 원격 관리하고 광고 편성 및 장애를 모니터링하는 운영 장면을 구체적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "MagicINFO 서버 · 원격 감시"
+     },
+     {
+      "sheet": 5,
+      "quote": "MagicINFO 원격 관리 · XHB · QM55C"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR7",
+    "score": 3,
+    "anchor": "설치 환경 실측, 전원 및 중계 신호 확인, 유지보수 및 SLA 조건 등 도입 전제와 고객 준비 사항을 명확히 밝힘.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "빅보드 · 리본 구조 · 하중 실측 도면과 설치 조건 보고서 — 전원 · 중계 신호까지 확인"
+     },
+     {
+      "sheet": 11,
+      "quote": "SLA 조건 · p.11"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "실측부터 설치, 교육, 시즌 중 상주 지원까지 단계별 일정과 역할 분담을 구체적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "실측부터 시즌 중까지, 구장에 사람이 있습니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "개막 전 완공, 지금 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 3,
+    "anchor": "시즌 중 장애 발생 리스크를 핵심 과제로 정의하고, 상주 엔지니어 배치 및 원격 진단 등 구체적인 대응 방안을 제시함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "시즌 중 장애 14 → 2시간"
+     },
+     {
+      "sheet": 11,
+      "quote": "홈경기 상주 엔지니어 · 월간 점검 리포트 · 원격 장애 진단"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "마지막 장에서 우선협상 선정, 실측 및 테스트, 시공 착수라는 고객의 결정 사항과 구체적인 일정을 명시함.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "개막 전 완공, 지금 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "SB5",
+    "score": 2,
+    "anchor": "표지에 제출 날짜(2026.10)가 명시되어 있으나, 제안서 버전 표기가 누락됨.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "삼성전자 한국총괄 B2B 영업팀 · 2026. 10"
+     }
+    ],
+    "improve": "표지에 제안서 버전 정보를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

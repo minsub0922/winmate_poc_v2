@@ -1,0 +1,287 @@
+{
+ "id": "B03",
+ "title": "패션 브랜드 성수 플래그십 공간 연출 (전달 메일)",
+ "exp_level": "ambiguous",
+ "level": "ambiguous",
+ "exp_industry": "RT",
+ "industry": "RT",
+ "exp_strategy": "value",
+ "strategy": "space",
+ "scenario": "bs06",
+ "exp_products": [
+  "thewall",
+  "window"
+ ],
+ "products": [
+  "qm55c",
+  "qm65c",
+  "vm55b"
+ ],
+ "solutions": [
+  "content"
+ ],
+ "prod_recall": 0.0,
+ "prod_precision": 0.0,
+ "must_show": 1.0,
+ "must_show_miss": [],
+ "facts": null,
+ "facts_miss": [],
+ "must_not_hit": [],
+ "parts": [
+  "cover:누아르앤코 플래그십",
+  "market:경험 중심 리테일",
+  "customer:고객 여정의 이해",
+  "birdseye:공간의 현재와 미래",
+  "value:핵심 가치 제안",
+  "scenario:공간 시나리오",
+  "birdseye:존별 공간 시안",
+  "birdseye:공간 톤앤매너",
+  "products:디지털 디스플레이",
+  "solution:운영 효율화 솔루션",
+  "case:성공 사례",
+  "execution:실행 및 일정",
+  "closing:향후 일정"
+ ],
+ "questions": [],
+ "conflicts": [],
+ "issues": [],
+ "stats": {
+  "n_slides": 14,
+  "text_slots": 612,
+  "placeholders": 113,
+  "slides_with_ph": 11,
+  "sample_text_kept": 298,
+  "img_slots": 65,
+  "img_filled": 32,
+  "photo_slides": 14,
+  "stray_slides": 0,
+  "slides": [
+   {
+    "no": 1,
+    "code": "C08",
+    "f": "L_C08",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "message",
+     "photo"
+    ],
+    "ph": 0,
+    "img_slots": 3,
+    "img_filled": 2,
+    "kept_sample": 6,
+    "stray": []
+   },
+   {
+    "no": 2,
+    "code": "PH-MI-RT-A",
+    "f": "L_PH_MI_RT_A",
+    "visual": [
+     "cards",
+     "flow",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 10,
+    "img_slots": 4,
+    "img_filled": 0,
+    "kept_sample": 27,
+    "stray": []
+   },
+   {
+    "no": 3,
+    "code": "PH-MI-RT-C",
+    "f": "L_PH_MI_RT_C",
+    "visual": [
+     "cards",
+     "flow",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 10,
+    "img_slots": 6,
+    "img_filled": 0,
+    "kept_sample": 61,
+    "stray": []
+   },
+   {
+    "no": 4,
+    "code": "IS-A",
+    "f": "L_IS_A",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "map",
+     "photo"
+    ],
+    "ph": 22,
+    "img_slots": 6,
+    "img_filled": 6,
+    "kept_sample": 43,
+    "stray": []
+   },
+   {
+    "no": 5,
+    "code": "VP-F",
+    "f": "L_VP_F",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "matrix",
+     "photo"
+    ],
+    "ph": 2,
+    "img_slots": 3,
+    "img_filled": 0,
+    "kept_sample": 6,
+    "stray": []
+   },
+   {
+    "no": 6,
+    "code": "PH-SS-RT-A",
+    "f": "L_PH_SS_RT_A",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "map",
+     "photo"
+    ],
+    "ph": 4,
+    "img_slots": 7,
+    "img_filled": 2,
+    "kept_sample": 30,
+    "stray": []
+   },
+   {
+    "no": 7,
+    "code": "SS-RT-B",
+    "f": "L_SS_RT_B",
+    "visual": [
+     "flow",
+     "image_heavy",
+     "map",
+     "table"
+    ],
+    "ph": 14,
+    "img_slots": 4,
+    "img_filled": 0,
+    "kept_sample": 21,
+    "stray": []
+   },
+   {
+    "no": 8,
+    "code": "GN-C",
+    "f": "L_GN_C",
+    "visual": [
+     "cards",
+     "flow",
+     "image_heavy",
+     "message",
+     "photo"
+    ],
+    "ph": 5,
+    "img_slots": 6,
+    "img_filled": 6,
+    "kept_sample": 5,
+    "stray": []
+   },
+   {
+    "no": 9,
+    "code": "MB-A",
+    "f": "L_MB_A",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 0,
+    "img_slots": 8,
+    "img_filled": 8,
+    "kept_sample": 16,
+    "stray": []
+   },
+   {
+    "no": 10,
+    "code": "PH-P-L",
+    "f": "L_PH_P_L",
+    "visual": [
+     "cards",
+     "image",
+     "photo"
+    ],
+    "ph": 0,
+    "img_slots": 2,
+    "img_filled": 2,
+    "kept_sample": 0,
+    "stray": []
+   },
+   {
+    "no": 11,
+    "code": "PH-SOL-S",
+    "f": "L_PH_SOL_S",
+    "visual": [
+     "cards",
+     "flow",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 2,
+    "img_slots": 4,
+    "img_filled": 4,
+    "kept_sample": 5,
+    "stray": []
+   },
+   {
+    "no": 12,
+    "code": "CL-D",
+    "f": "L_CL_D",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 24,
+    "img_slots": 6,
+    "img_filled": 0,
+    "kept_sample": 17,
+    "stray": []
+   },
+   {
+    "no": 13,
+    "code": "PH-IP-C",
+    "f": "L_PH_IP_C",
+    "visual": [
+     "cards",
+     "flow",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 17,
+    "img_slots": 5,
+    "img_filled": 1,
+    "kept_sample": 54,
+    "stray": []
+   },
+   {
+    "no": 14,
+    "code": "PH-C13",
+    "f": "L_PH_C13",
+    "visual": [
+     "cards",
+     "flow",
+     "image",
+     "message",
+     "photo"
+    ],
+    "ph": 3,
+    "img_slots": 1,
+    "img_filled": 1,
+    "kept_sample": 7,
+    "stray": []
+   }
+  ]
+ },
+ "sec": 24.5,
+ "llm_calls": 18,
+ "llm_fail": 0
+}

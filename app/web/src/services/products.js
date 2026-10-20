@@ -5,6 +5,8 @@ import { fetchResource } from '../api/client.js';
 import { createElement, useEffect, useRef, useState } from 'react';
 import { bgUrl, loadBg } from './packs.js';
 import { P } from './catalog.js';
+import { manageImage, packedImage, IMAGE_ERROR_PATH } from './image-state.js';
+import '../styles/image-state.css';
 
 const DETAIL = new Map(); // pack no → Promise<{ id: detail }>
 const packUrl = (n) => `/api/product-packs/${n}`;
@@ -52,16 +54,29 @@ export function usePacked(addr, lazy = true) {
       io.observe(el);
     } else go();
     return () => { live = false; if (io) io.disconnect(); };
-  }, [addr]);
+  }, [addr, lazy]);
   return [url, ref];
 }
 
 /** e-카탈로그 쪽 바로가기(뷰어가 그 쪽을 펴서 엶) */
 export const ecatUrl = (dir, page) => `https://samsung.aiibook.net/b2b/access/ecatalogt.php?catimage=&start=${page || 1}&callmode=&eclang=ko&Dir=${dir}`;
 
-/** <img> that also takes a packed address ("img/prod/g01.json#3") — shows nothing until the pack is in */
-export function PImg({ src, ...rest }) {
-  const packed = /\.json#\d+$/.test(src || '');
-  const [url] = usePacked(packed ? src : null, false);
-  return createElement('img', { ...rest, src: packed ? url || undefined : src });
+/** Real image with shimmer → decoded image, or an explicit load-error state. */
+export function PImg({ src, className = '', style, compact = false, ...rest }) {
+  const image = useRef(null);
+  const source = String(src || '');
+  useEffect(() => manageImage(image.current), [source]);
+  const frameStyle = {};
+  for (const key of ['width', 'height', 'maxWidth', 'maxHeight', 'minWidth', 'minHeight', 'borderRadius', 'flexShrink', 'flexGrow', 'flexBasis', 'aspectRatio']) {
+    if (style?.[key] != null) frameStyle[key] = style[key];
+  }
+  if (rest.width != null && frameStyle.width == null) frameStyle.width = rest.width;
+  if (rest.height != null && frameStyle.height == null) frameStyle.height = rest.height;
+  return createElement('span', { key: source, className: 'image-state' + (compact ? ' compact' : '') + (className ? ' ' + className : ''), style: frameStyle, 'data-image-state': 'loading', 'aria-busy': true },
+    createElement('img', { ...rest, style, ref: image, src: packedImage(source) ? undefined : source || undefined, 'data-image-source': source }),
+    createElement('span', { className: 'image-state-shimmer', 'aria-hidden': true }),
+    createElement('span', { className: 'image-state-error', role: 'img', 'aria-label': (rest.alt ? rest.alt + ' · ' : '') + '이미지 로드 오류' },
+      createElement('svg', { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': true },
+        createElement('path', { d: IMAGE_ERROR_PATH })),
+      createElement('span', null, '이미지 로드 오류')));
 }

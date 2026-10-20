@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~placeholders:F06"
+ },
+ "prompt_tokens": 8386,
+ "output_tokens": 181,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "제안서 전반에서 객실 수는 300실로 일관되게 기술되어 있으며, 자동 점검에서 언급된 30객실이나 10객실은 본문 내에서 확인되지 않는 오탐입니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "객실 300실은 한 실의 키트로"
+     },
+     {
+      "sheet": 12,
+      "quote": "B 호텔 300실 기준"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

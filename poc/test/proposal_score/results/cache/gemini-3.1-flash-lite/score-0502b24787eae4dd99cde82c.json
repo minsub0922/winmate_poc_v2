@@ -1,0 +1,69 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~full:F02"
+ },
+ "prompt_tokens": 9387,
+ "output_tokens": 641,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 요구사항(R1~R3)과 평가 기준(K1~K4)에 대해 4장(원인 분석), 5장(제품 매핑), 8장(공조 스케줄), 11장(무중단 시공), 12장(기대 효과)에서 명시적으로 대응하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "리뷰 불만은 결과일 뿐, 원인은 대기 · 소음 · 정보에 있습니다"
+     },
+     {
+      "sheet": 5,
+      "quote": "체크인 대기가 길다는 리뷰가 많아요"
+     },
+     {
+      "sheet": 11,
+      "quote": "객실 판매는 층마다 하룻밤만 멈춥니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "SB1",
+    "score": 2,
+    "anchor": "표지와 마무리는 갖추었으나, 제안서 내에 별도의 목차 페이지가 존재하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "B 호텔 · B2B PROPOSAL · 2026. 10. 21"
+     },
+     {
+      "sheet": 13,
+      "quote": "샘플룸 1실, 다음 2주에 정할 세 가지"
+     }
+    ],
+    "improve": "제안서의 전체 구성을 한눈에 파악할 수 있는 목차 페이지를 1장 뒤에 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "SB2",
+    "score": 2,
+    "anchor": "모든 장의 푸터에 제안명과 기밀 표기는 일관되게 있으나, 1장을 제외한 본문 장들에 쪽번호가 기재되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "B 호텔 · 객실 TV · 공조 리뉴얼 제안 · CONFIDENTIAL · 2"
+     },
+     {
+      "sheet": 12,
+      "quote": "B 호텔 · 객실 TV · 공조 리뉴얼 제안 · CONFIDENTIAL · 12"
+     }
+    ],
+    "improve": "각 장의 푸터 영역에 해당 장의 번호와 일치하는 쪽번호를 명확히 기재해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

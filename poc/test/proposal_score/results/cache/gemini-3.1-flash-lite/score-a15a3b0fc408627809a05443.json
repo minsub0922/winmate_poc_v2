@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~number_conflict:F11"
+ },
+ "prompt_tokens": 2204,
+ "output_tokens": 233,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 초과하는 장이 5장(2, 3, 4, 7, 10장)으로 4장 이상이며, 장당 평균 어절 수도 96어절로 1점 기준에 해당합니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "116어절"
+     },
+     {
+      "sheet": 4,
+      "quote": "134어절"
+     },
+     {
+      "sheet": 7,
+      "quote": "123어절"
+     }
+    ],
+    "improve": "각 장의 핵심 메시지를 제외한 부연 설명을 과감히 삭제하여 장당 어절 수를 77어절 이하로 줄여야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

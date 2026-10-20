@@ -1,0 +1,64 @@
+{
+  "base": "https://merit-origins-cargo-technician.trycloudflare.com",
+  "sampleCount": 6,
+  "cases": [
+    {
+      "name": "all sample histories receive owned persistent share IDs",
+      "passed": true,
+      "ms": 6655
+    },
+    {
+      "name": "sample 1: enabled sharing, correct link, no reuse button",
+      "passed": true,
+      "ms": 1446
+    },
+    {
+      "name": "sample 2: enabled sharing, correct link, no reuse button",
+      "passed": true,
+      "ms": 2318
+    },
+    {
+      "name": "sample 3: enabled sharing, correct link, no reuse button",
+      "passed": true,
+      "ms": 1799
+    },
+    {
+      "name": "sample 4: enabled sharing, correct link, no reuse button",
+      "passed": true,
+      "ms": 1382
+    },
+    {
+      "name": "sample 5: enabled sharing, correct link, no reuse button",
+      "passed": true,
+      "ms": 1545
+    },
+    {
+      "name": "sample 6: enabled sharing, correct link, no reuse button",
+      "passed": true,
+      "ms": 2469
+    },
+    {
+      "name": "another admin browser reuses the same sample IDs",
+      "passed": true,
+      "ms": 35730
+    },
+    {
+      "name": "shared sample opens for a guest without the reuse action",
+      "passed": true,
+      "ms": 5951
+    },
+    {
+      "name": "mobile admin can share a sample without the reuse action",
+      "passed": true,
+      "ms": 12786
+    },
+    {
+      "name": "an existing history endpoint remains copyable when synchronization fails",
+      "passed": true,
+      "ms": 1661
+    }
+  ],
+  "errors": [],
+  "passed": 11,
+  "total": 11
+}

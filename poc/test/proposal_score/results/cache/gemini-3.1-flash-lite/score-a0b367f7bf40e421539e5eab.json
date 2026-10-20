@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01:F11"
+ },
+ "prompt_tokens": 3100,
+ "output_tokens": 228,
+ "data": {
+  "scores": [
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "본문 글자 크기가 12pt(16px) 미만인 장이 16개 중 16개이며, 그중 9pt(12px) 미만인 장이 14개로 기준의 1점 정의에 해당합니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "본문 최소 10px(7.5pt)"
+     },
+     {
+      "sheet": 3,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 8,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

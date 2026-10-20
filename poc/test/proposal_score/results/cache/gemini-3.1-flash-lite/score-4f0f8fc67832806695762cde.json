@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~base:F02"
+ },
+ "prompt_tokens": 7031,
+ "output_tokens": 244,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 요구사항 4가지(K1~K4)와 발언(R1~R3)에 대해 4장(AS 구조), 7장(운영팀 교육 및 기존 자산 보상), 8장(가격 및 운영 리스크), 9장(TCO)에서 명시적으로 대응하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "AS 대기 1.5일 · 출동까지 평균 1.5일"
+     },
+     {
+      "sheet": 7,
+      "quote": "기존 장비 보상 · 보상 매입 · 철거 포함"
+     },
+     {
+      "sheet": 8,
+      "quote": "바꾸면 운영팀이 다시 배워야 한다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

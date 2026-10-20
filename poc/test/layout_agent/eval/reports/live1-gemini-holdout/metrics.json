@@ -1,0 +1,624 @@
+{
+ "summary": {
+  "overall": 0.9712,
+  "by_level": {
+   "minimal": 0.9909,
+   "ambiguous": 0.9411,
+   "complex": 0.9817
+  },
+  "by_case": {
+   "H01": 0.9952,
+   "H02": 0.9866,
+   "H03": 0.8961,
+   "H04": 0.9862,
+   "H05": 0.9978,
+   "H06": 0.9655
+  },
+  "metrics": {
+   "level": 1.0,
+   "industry": 1.0,
+   "scenario": 1.0,
+   "must_parts": 1.0,
+   "flow": 0.8372,
+   "layout_part": 0.9458,
+   "layouts_any": 1.0,
+   "violations": 1.0,
+   "must_cov": 1.0,
+   "fill_clean": 1.0,
+   "stray": 0.9872,
+   "scenario_top3": 1.0,
+   "key_detect": 1.0,
+   "key_trace": 0.6667,
+   "key_reflect": 1.0,
+   "facts": 1.0,
+   "priority": 1.0,
+   "dims": 1.0,
+   "questions": 1.0,
+   "eval": 1.0
+  },
+  "n": 6,
+  "name": "live-gemini-holdout",
+  "llm": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "llm_calls": 166,
+  "llm_fail": 0,
+  "elapsed_s": 122.1
+ },
+ "rows": [
+  {
+   "id": "H01",
+   "case": "H01",
+   "level": "minimal",
+   "industry": "TP",
+   "score": 0.9952,
+   "metrics": {
+    "level": 1.0,
+    "industry": 1.0,
+    "scenario": 1.0,
+    "scenario_top3": null,
+    "must_parts": 1.0,
+    "flow": 0.875,
+    "layout_part": 1.0,
+    "layouts_any": 1.0,
+    "violations": 1.0,
+    "key_detect": null,
+    "key_trace": null,
+    "key_reflect": null,
+    "must_cov": 1.0,
+    "facts": null,
+    "priority": null,
+    "fill_clean": 1.0,
+    "stray": 1.0,
+    "dims": null,
+    "conflicts": null,
+    "questions": null,
+    "eval": null
+   },
+   "detail": {
+    "scenario": "STD-TP",
+    "missing_parts": [],
+    "layouts_any_miss": [],
+    "key_reqs": [],
+    "stray": {},
+    "fill": {
+     "slots": 260,
+     "changed": 134,
+     "placeholders_left": 41,
+     "unsupported_reverted": 0,
+     "sample_leak": 0,
+     "foreign_terms": 0,
+     "static_foreign_slides": 0
+    },
+    "fill_cov": 0.515
+   },
+   "n_slides": 9,
+   "n_req": 2,
+   "sec": 14.51,
+   "slides": [
+    "1.cover:L_C02",
+    "2.market:L_MI_TP_A",
+    "3.value:L_VP_F2",
+    "4.dss:L_SP00",
+    "5.products:L_P2B",
+    "6.case:L_CD_D",
+    "7.why:L_WS02",
+    "8.why:L_ST_D",
+    "9.closing:L_C13"
+   ],
+   "parts": [
+    "S01:cover:Q 테마파크 제안서",
+    "S02:market:테마파크 시장 트렌드",
+    "S03:value:핵심 가치 제안",
+    "S04:dss:공간별 솔루션 맵",
+    "S05:products:공간별 맞춤형 제품",
+    "S06:case:성공적인 도입 사례",
+    "S07:why:삼성전자 선택 이유",
+    "S08:why:운영 지원 체계",
+    "S09:closing:향후 추진 계획"
+   ]
+  },
+  {
+   "id": "H02",
+   "case": "H02",
+   "level": "minimal",
+   "industry": "PB",
+   "score": 0.9866,
+   "metrics": {
+    "level": 1.0,
+    "industry": 1.0,
+    "scenario": 1.0,
+    "scenario_top3": null,
+    "must_parts": 1.0,
+    "flow": 0.875,
+    "layout_part": 0.8888888888888888,
+    "layouts_any": 1.0,
+    "violations": 1.0,
+    "key_detect": null,
+    "key_trace": null,
+    "key_reflect": null,
+    "must_cov": 1.0,
+    "facts": null,
+    "priority": null,
+    "fill_clean": 1.0,
+    "stray": 1.0,
+    "dims": null,
+    "conflicts": null,
+    "questions": null,
+    "eval": null
+   },
+   "detail": {
+    "scenario": "STD-PB",
+    "missing_parts": [],
+    "layouts_any_miss": [],
+    "key_reqs": [],
+    "stray": {},
+    "fill": {
+     "slots": 316,
+     "changed": 138,
+     "placeholders_left": 46,
+     "unsupported_reverted": 0,
+     "sample_leak": 0,
+     "foreign_terms": 0,
+     "static_foreign_slides": 2
+    },
+    "fill_cov": 0.437
+   },
+   "n_slides": 9,
+   "n_req": 1,
+   "sec": 13.55,
+   "slides": [
+    "1.cover:L_C09",
+    "2.market:L_MI_PB_A",
+    "3.value:L_VP_G",
+    "4.dss:L_SS_PB_A",
+    "5.products:L_P1B",
+    "6.case:L_CS03",
+    "7.why:L_WS02",
+    "8.why:L_SV_A",
+    "9.closing:L_C13"
+   ],
+   "parts": [
+    "S01:cover:R 시청 스마트 인프라 제안",
+    "S02:market:공공 교통 인프라의 미래",
+    "S03:value:OH55A-S의 핵심 가치",
+    "S04:dss:정류장 공간 최적화",
+    "S05:products:정류장 맞춤형 사이니지",
+    "S06:case:공공 분야 성공 사례",
+    "S07:why:삼성전자를 선택해야 하는 이유",
+    "S08:why:안정적인 운영 지원 체계",
+    "S09:closing:성공적인 프로젝트를 위한 제언"
+   ]
+  },
+  {
+   "id": "H03",
+   "case": "H03",
+   "level": "ambiguous",
+   "industry": "VN",
+   "score": 0.8961,
+   "metrics": {
+    "level": 1.0,
+    "industry": 1.0,
+    "scenario": 1.0,
+    "scenario_top3": 1.0,
+    "must_parts": 1.0,
+    "flow": 0.818,
+    "layout_part": 0.9285714285714286,
+    "layouts_any": null,
+    "violations": 1.0,
+    "key_detect": 1.0,
+    "key_trace": 0.0,
+    "key_reflect": 1.0,
+    "must_cov": null,
+    "facts": null,
+    "priority": null,
+    "fill_clean": 1.0,
+    "stray": 1.0,
+    "dims": null,
+    "conflicts": null,
+    "questions": null,
+    "eval": null
+   },
+   "detail": {
+    "scenario": "bs12",
+    "top3": [
+     "bs12"
+    ],
+    "missing_parts": [],
+    "key_reqs": [
+     {
+      "kw": [
+       "관람객"
+      ],
+      "detect": true,
+      "trace": false,
+      "reflect": true
+     }
+    ],
+    "stray": {},
+    "fill": {
+     "slots": 700,
+     "changed": 218,
+     "placeholders_left": 159,
+     "unsupported_reverted": 0,
+     "sample_leak": 0,
+     "foreign_terms": 0,
+     "static_foreign_slides": 1
+    },
+    "fill_cov": 0.311
+   },
+   "n_slides": 14,
+   "n_req": 2,
+   "sec": 22.78,
+   "slides": [
+    "1.cover:L_C02",
+    "2.market:L_MI_VN_A",
+    "3.customer:L_CB_C",
+    "4.value:L_VP_F",
+    "5.scenario:L_SS_VN_A",
+    "6.scenario:L_SS_VN_B",
+    "7.products:L_P_F",
+    "8.spec:L_SD_G",
+    "9.why:L_CM_C",
+    "10.why:L_ST_D",
+    "11.case:L_CD_D",
+    "12.why:L_SV_C",
+    "13.effect:L_EF_B",
+    "14.closing:L_IP_C"
+   ],
+   "parts": [
+    "S01:cover:S 구단 승리를 위한 제안",
+    "S02:market:관람 경험의 새로운 기준",
+    "S03:customer:S 구단의 고민과 해결",
+    "S04:value:압도적 관람 경험 제공",
+    "S05:scenario:경기장 전체의 디지털화",
+    "S06:products:공간별 최적화 화면 구성",
+    "S07:spec:최고의 화질을 위한 스펙",
+    "S08:why:삼성만의 독보적 기술력",
+    "S09:case:성공적인 화려한 연출 사례",
+    "S10:why:안정적인 운영 지원 체계",
+    "S11:effect:수익 창출을 통한 투자 회수",
+    "S12:closing:성공적인 시즌을 위한 제언"
+   ]
+  },
+  {
+   "id": "H04",
+   "case": "H04",
+   "level": "ambiguous",
+   "industry": "AD",
+   "score": 0.9862,
+   "metrics": {
+    "level": 1.0,
+    "industry": 1.0,
+    "scenario": 1.0,
+    "scenario_top3": 1.0,
+    "must_parts": 1.0,
+    "flow": 0.7,
+    "layout_part": 0.9285714285714286,
+    "layouts_any": null,
+    "violations": 1.0,
+    "key_detect": 1.0,
+    "key_trace": 1.0,
+    "key_reflect": 1.0,
+    "must_cov": null,
+    "facts": null,
+    "priority": null,
+    "fill_clean": 1.0,
+    "stray": 1.0,
+    "dims": null,
+    "conflicts": null,
+    "questions": null,
+    "eval": null
+   },
+   "detail": {
+    "scenario": "bs20",
+    "top3": [
+     "bs20"
+    ],
+    "missing_parts": [],
+    "key_reqs": [
+     {
+      "kw": [
+       "수익"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     }
+    ],
+    "stray": {},
+    "fill": {
+     "slots": 727,
+     "changed": 186,
+     "placeholders_left": 139,
+     "unsupported_reverted": 0,
+     "sample_leak": 0,
+     "foreign_terms": 0,
+     "static_foreign_slides": 2
+    },
+    "fill_cov": 0.256
+   },
+   "n_slides": 14,
+   "n_req": 2,
+   "sec": 23.05,
+   "slides": [
+    "1.cover:L_C02",
+    "2.market:L_MI_AD_A",
+    "3.market:L_MS_D",
+    "4.user:L_SS_AD_E",
+    "5.value:L_VP_F2",
+    "6.scenario:L_SS_AD_B",
+    "7.scenario:L_VS02",
+    "8.spec:L_SD_G",
+    "9.scenario:L_SS_AD_C",
+    "10.solution:L_MGI_I",
+    "11.effect:L_EF_H",
+    "12.effect:L_EF_B",
+    "13.cost:L_CO_A",
+    "14.closing:L_C13"
+   ],
+   "parts": [
+    "S01:cover:T 미디어 랜드마크 전략",
+    "S02:market:수익성 중심 시장 전략",
+    "S03:user:시민의 시선과 광고 가치",
+    "S04:value:핵심 수익 모델",
+    "S05:scenario:랜드마크 미디어 시나리오",
+    "S06:spec:최적화된 화면 스펙",
+    "S07:scenario:효율적인 관제 운영",
+    "S08:solution:랜드마크 솔루션",
+    "S09:effect:사업성 검증",
+    "S10:cost:유연한 실행 방식",
+    "S11:closing:사업 추진 결정"
+   ]
+  },
+  {
+   "id": "H05",
+   "case": "H05",
+   "level": "complex",
+   "industry": "OE",
+   "score": 0.9978,
+   "metrics": {
+    "level": 1.0,
+    "industry": 1.0,
+    "scenario": 1.0,
+    "scenario_top3": null,
+    "must_parts": 1.0,
+    "flow": 0.909,
+    "layout_part": 1.0,
+    "layouts_any": 1.0,
+    "violations": 1.0,
+    "key_detect": 1.0,
+    "key_trace": 1.0,
+    "key_reflect": 1.0,
+    "must_cov": 1.0,
+    "facts": 1.0,
+    "priority": 1.0,
+    "fill_clean": 1.0,
+    "stray": 1.0,
+    "dims": 1.0,
+    "conflicts": null,
+    "questions": 1.0,
+    "eval": null
+   },
+   "detail": {
+    "strategy": "value",
+    "missing_parts": [],
+    "layouts_any_miss": [],
+    "key_reqs": [
+     {
+      "kw": [
+       "3월"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     },
+     {
+      "kw": [
+       "원격 잠금"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     },
+     {
+      "kw": [
+       "단가"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     }
+    ],
+    "facts_miss": [],
+    "stray": {},
+    "fill": {
+     "slots": 799,
+     "changed": 387,
+     "placeholders_left": 210,
+     "unsupported_reverted": 0,
+     "sample_leak": 0,
+     "foreign_terms": 0,
+     "static_foreign_slides": 3
+    },
+    "fill_cov": 0.484,
+    "dims": [
+     "범위·수량·공간",
+     "보안·인증·규제",
+     "비용·구매",
+     "사용자 경험·성과",
+     "시스템 연동",
+     "일정·실행·확산"
+    ],
+    "conflicts": [
+     "LLM 발견",
+     "보안 통제 vs 원격 관리",
+     "키맨 관심사 분산"
+    ],
+    "n_questions": 13,
+    "interrupted": true
+   },
+   "n_slides": 15,
+   "n_req": 8,
+   "sec": 21.84,
+   "slides": [
+    "1.cover:L_C09",
+    "2.overview:L_ES_A",
+    "3.requirements:L_RM_A",
+    "4.value:L_VP_D",
+    "5.solution:L_SF_E",
+    "6.solution:L_SA_C",
+    "7.solution:L_KNX_D",
+    "8.solution:L_SA_D",
+    "9.scenario:L_SS_OE_C",
+    "10.products:L_P2B",
+    "11.bom:L_BM_D",
+    "12.execution:L_SE_A",
+    "13.execution:L_CU_B",
+    "14.cost:L_CO_B",
+    "15.closing:L_C13"
+   ],
+   "parts": [
+    "S01:cover:U 텔레콤 키즈폰 공동 개발",
+    "S02:overview:제안 요약 및 기대효과",
+    "S03:requirements:핵심 이해관계자 요구사항",
+    "S04:value:이해관계자별 맞춤 가치",
+    "S05:solution:키즈 특화 솔루션 제안",
+    "S06:scenario:사용자 경험 시나리오",
+    "S07:products:에디션 전용 제품군",
+    "S08:bom:공급 범위 및 물량 계획",
+    "S09:execution:보안 및 인증 대응",
+    "S10:execution:출시 일정 및 실행 계획",
+    "S11:cost:비용 및 구매 최적화",
+    "S12:closing:결정 요청 및 확정"
+   ]
+  },
+  {
+   "id": "H06",
+   "case": "H06",
+   "level": "complex",
+   "industry": "PB",
+   "score": 0.9655,
+   "metrics": {
+    "level": 1.0,
+    "industry": 1.0,
+    "scenario": 1.0,
+    "scenario_top3": null,
+    "must_parts": 1.0,
+    "flow": 0.846,
+    "layout_part": 0.9285714285714286,
+    "layouts_any": 1.0,
+    "violations": 1.0,
+    "key_detect": 1.0,
+    "key_trace": 0.6666666666666666,
+    "key_reflect": 1.0,
+    "must_cov": 1.0,
+    "facts": 1.0,
+    "priority": 1.0,
+    "fill_clean": 1.0,
+    "stray": 0.9230769230769231,
+    "dims": 1.0,
+    "conflicts": null,
+    "questions": 1.0,
+    "eval": 1.0
+   },
+   "detail": {
+    "strategy": "rfp",
+    "missing_parts": [],
+    "layouts_any_miss": [],
+    "key_reqs": [
+     {
+      "kw": [
+       "다국어"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     },
+     {
+      "kw": [
+       "내부망"
+      ],
+      "detect": true,
+      "trace": false,
+      "reflect": true
+     },
+     {
+      "kw": [
+       "2시간"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     }
+    ],
+    "facts_miss": [],
+    "stray": {
+     "SE-A": [
+      "Knox Suite"
+     ]
+    },
+    "fill": {
+     "slots": 766,
+     "changed": 409,
+     "placeholders_left": 152,
+     "unsupported_reverted": 0,
+     "sample_leak": 0,
+     "foreign_terms": 0,
+     "static_foreign_slides": 2
+    },
+    "fill_cov": 0.534,
+    "dims": [
+     "기능·성능 규격",
+     "기타",
+     "범위·수량·공간",
+     "보안·인증·규제",
+     "사용자 경험·성과",
+     "시스템 연동",
+     "운영·유지보수",
+     "평가·선정·자격"
+    ],
+    "conflicts": [
+     "LLM 발견",
+     "키맨 관심사 분산"
+    ],
+    "n_questions": 12,
+    "interrupted": true
+   },
+   "n_slides": 14,
+   "n_req": 11,
+   "sec": 23.89,
+   "slides": [
+    "1.cover:L_C03",
+    "2.overview:L_OV_A",
+    "3.requirements:L_RM_A",
+    "4.requirements:L_RM_C",
+    "5.requirements:L_RM_B",
+    "6.value:L_VP_D",
+    "7.solution:L_SS_PB_D",
+    "8.products:L_P2B",
+    "9.bom:L_BM_A",
+    "10.spec:L_SC_B",
+    "11.execution:L_SE_A",
+    "12.case:L_CS03",
+    "13.why:L_CM_B",
+    "14.closing:L_C13"
+   ],
+   "parts": [
+    "S01:cover:V시 버스 정보 고도화",
+    "S02:overview:사업 이해 및 전략",
+    "S03:requirements:핵심 이해관계자 분석",
+    "S04:requirements:평가 항목별 대응 전략",
+    "S05:requirements:요구사항 완벽 준수",
+    "S06:value:이해관계자별 가치 제안",
+    "S07:solution:운영 및 유지보수 솔루션",
+    "S08:products:공간별 최적 제품",
+    "S09:bom:사업 범위 및 물량",
+    "S10:spec:기능 및 성능 규격",
+    "S11:execution:보안 및 장애 대응",
+    "S12:case:성공적인 수행 사례",
+    "S13:why:삼성전자 제안의 강점",
+    "S14:closing:사업 성공을 위한 제언"
+   ]
+  }
+ ]
+}

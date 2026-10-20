@@ -1,0 +1,69 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08~full:F02"
+ },
+ "prompt_tokens": 8990,
+ "output_tokens": 599,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 4가지 요구사항(R1~R4)에 대해 5장에서 각각의 질문과 대응 제품을 명시하고, 6~11장에서 구체적인 공간 시나리오와 효과로 답하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "Q1 간호부 “간호사가 부족해 호출 대응이 늦어요”"
+     },
+     {
+      "sheet": 5,
+      "quote": "Q2 감염관리실 “공기질 · 감염 관리가 중요해요”"
+     },
+     {
+      "sheet": 5,
+      "quote": "Q3 원무팀 “면회객 안내가 혼잡해요”"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "SB1",
+    "score": 2,
+    "anchor": "표지와 마무리는 갖추었으나, 1장에 목차가 포함되어 있지 않아 구성 요소가 하나 빠졌습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "W 요양병원 | B2B PROPOSAL | 병실은 집처럼"
+     },
+     {
+      "sheet": 13,
+      "quote": "07 · NEXT STEPS | 다음 4주, 선도 병동부터 정합니다"
+     }
+    ],
+    "improve": "1장에 제안서의 전체 구성을 파악할 수 있는 목차를 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "SB2",
+    "score": 2,
+    "anchor": "모든 장의 푸터에 제안명과 기밀 표기는 일관되게 있으나, 본문 장에 쪽번호가 표기되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "W 요양병원 · 병동 리뉴얼 제안 · CONFIDENTIAL · 2"
+     },
+     {
+      "sheet": 12,
+      "quote": "W 요양병원 · 병동 리뉴얼 제안 · CONFIDENTIAL · 12"
+     }
+    ],
+    "improve": "각 장의 푸터 영역에 명확한 쪽번호를 기입하여 문서의 일관성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

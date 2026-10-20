@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~base:F11"
+ },
+ "prompt_tokens": 3312,
+ "output_tokens": 205,
+ "data": {
+  "scores": [
+   {
+    "id": "DS6",
+    "score": 3,
+    "anchor": "모든 장에 내용과 부합하는 실제 사진 및 도식이 배치되어 있으며, 텍스트만으로 구성된 장이 없어 시각 자료 활용도가 매우 높습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "패션관 매장 기둥의 세로형 사이니지"
+     },
+     {
+      "sheet": 10,
+      "quote": "에스컬레이터 옆 층별 안내 사이니지"
+     },
+     {
+      "sheet": 12,
+      "quote": "백화점 미디어 라운지 대형 화면"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,108 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs12~full:F11"
+ },
+ "prompt_tokens": 5283,
+ "output_tokens": 938,
+ "data": {
+  "scores": [
+   {
+    "id": "DS1",
+    "score": 2,
+    "anchor": "5장에서 텍스트 넘침이 발생하고 13장의 제목 위치가 다른 장과 달라 정렬이 일부 어긋납니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "빅보드 · 컨트롤룸"
+     },
+     {
+      "sheet": 13,
+      "quote": "개막 전 완공, 지금 정할 세 가지"
+     }
+    ],
+    "improve": "5장의 텍스트 넘침을 해결하고 13장의 제목 위치를 다른 장과 동일하게 조정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS2",
+    "score": 2,
+    "anchor": "대부분 장은 헤드라인으로 요지가 보이나, 어절 수가 많아 시선이 흩어질 가능성이 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "V 경기장의 일곱 공간, 경기 한 판이 빅보드에서 매점까지 이어집니다"
+     }
+    ],
+    "improve": "장당 어절 수를 줄여 핵심 메시지가 더 빠르게 전달되도록 간결하게 다듬어야 합니다.",
+    "confidence": "mid"
+   },
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 10장으로 기준치인 4장을 크게 초과하여 발표 자료로 읽기에 밀도가 너무 높습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "260어절"
+     },
+     {
+      "sheet": 7,
+      "quote": "194어절"
+     }
+    ],
+    "improve": "각 장의 텍스트를 핵심 위주로 대폭 요약하여 장당 어절 수를 110어절 이하로 줄여야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "10pt 미만 본문 칸이 6장에 존재하며, 20자 넘는 본문 칸의 58%가 10pt 미만으로 가독성이 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 4,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정하여 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS5",
+    "score": 3,
+    "anchor": "폰트 2종을 사용하고 제목과 본문의 크기 및 굵기 체계가 모든 장에서 일관되게 유지됩니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "Noto Sans KR · Manrope"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "DS6",
+    "score": 3,
+    "anchor": "모든 장에 내용과 부합하는 실제 사진이 포함되어 있으며 텍스트만 있는 장이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "대구 삼성라이온즈파크"
+     },
+     {
+      "sheet": 11,
+      "quote": "실측부터 시즌 중까지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

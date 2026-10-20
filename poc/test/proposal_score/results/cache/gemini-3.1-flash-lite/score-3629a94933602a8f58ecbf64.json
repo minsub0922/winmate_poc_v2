@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs13:F10"
+ },
+ "prompt_tokens": 6249,
+ "output_tokens": 373,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "SmartThings Pro와 SAC 제어 시스템을 통해 타석별 공조 제어, 멀티사이트 대시보드, 루틴 자동화 등 운영 장면이 구체적으로 제시됨.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "140개 매장의 공조와 전력을 한 화면에서 봅니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "고객은 타석에서 조절하고, 빈 타석은 알아서 멈춥니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "파일럿 일정과 단계, 측정 지표는 구체적이나, 교육 및 운영 이관에 대한 구체적인 계획이 누락됨.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "직영 3개 매장, 이렇게 골라 4주 실측합니다"
+     },
+     {
+      "sheet": 14,
+      "quote": "결정해 주시면, 11월에 첫 실측이 시작됩니다"
+     }
+    ],
+    "improve": "파일럿 종료 후 가맹점주 대상 교육 계획과 본사 운영팀으로의 운영 이관 절차를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

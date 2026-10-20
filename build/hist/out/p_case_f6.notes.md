@@ -1,0 +1,33 @@
+# F6 · K 리조트 — 메모
+
+- 검사(감사 반영 후): `node build/hist/check.mjs p_case_f6 --shots` → 오류 0 · 확인 3(CD_C 레이아웃이 why 파트 · f6-lynk-network 흰 여백 의심 — 공식 연출의 흰 바탕, 눈으로 확인). `python3 build/hist/dupcheck.py p_case_f6` → ✗ 0 · ? 17쌍(같은 호텔의 다른 객실 · 같은 LYNK 화면 · 줄무늬 오탐 — 시트에서 눈으로 확인, 같은 컷 없음). 대장 밖 숫자 0.
+- 구조: 표지 1(L_C01) + 11파트 22장, 전부 done. 사진 64칸 모두 채움 · 덱 안 중복 0.
+  - 기 · market「다시 늘어나는 방한 관광객」 L_PH_MS_A(공식 통계 4) · L_PH_MI_HT_A(변화 4 → K 리조트에게 주는 의미, 머리 수치 +15.7% · 휴양콘도 50,318실 · 외국인 18%)
+  - 기 · customer「K 리조트 420실의 운영」 L_PH_CB_A · L_PH_CB_C(안내 갱신 5단계 9일)
+  - 승 · challenge「객실에서 생기는 문제」 L_PH_CH_A(고장 46 · 문의 130 · 외국인 18%) · L_PH_CH_B(지금 22분 대기 · 9일 · 로그인 흔적 VOC → 바라는 모습)
+  - 승 · user「투숙객 · 객실관리팀 · 총지배인」 L_PH_US_A(페르소나 3) · L_PH_US_I(로비 — 투숙객 vs 프런트)
+  - 전 · value「한 번 등록하면 420실에」 L_PH_VP_A · L_PH_VP_B
+  - 전 · scenario「투숙객의 하루」 L_PH_SO_M(4장면 · 객실 TV) · L_PH_SS_HT_E(로비 세 사람)
+  - 전 · products「호텔 TV · LYNK Cloud · 키오스크」 L_PH_P_P · L_PH_P_N(지금 → 교체 매핑 4, 1단계 426대)
+  - 전 · why「요구 ↔ 강점, 먼저 바꾼 호텔」 L_PH_ST_A(420대 · 크라운 파크 6개월 · 17년 연속 1위) · L_PH_CD_C(인스파이어)
+  - 결 · effect「안내 갱신 9일 → 3일」 L_PH_EF_A(KPI 전 → 후 4) · L_PH_EF_C(정량 3 + 객실관리팀장 요구 원문)
+  - 결 · execution「비수기 21작업일, 영업 중단 없이」 L_PH_IP_A(샘플 → 교체 → 교육 · 인수 → 운영) · L_PH_PL_A(샘플 2실 → 1단계 420실 → 2단계 콘도 침실 160대)
+  - 결 · closing「11/04 1단계 발주」 L_PH_C13 · L_C12
+- PLAN 과 다르게 한 것: 효과 1장은 L_PH_VP_L 대신 L_PH_EF_A(효과 파트 장). 사용자 2장째는 여정(US_B) 대신 로비 두 시선(US_I) — US_B 의 고정 감정 곡선이 체크아웃(불편)에서 가장 높아 내용과 어긋남. 시나리오 2장째는 SS_HT_E(로비). 실행은 IP_C(야간 구역 일정 막대가 고정) 대신 IP_A.
+- 새 사진(samsung.com, `build/hist/newimg/`, 주소 `img/hist/<이름>.jpg`) 25장 — 1차 6장 + 감사 반영 19장:
+  - f6-crown-lobby · f6-crown-room · f6-crown-room2 — crownparkhotel 도입사례(case-study_0002_02/03, 반씩 자름)
+  - f6-shilla-suite — reference-shillastay(case-study_0310_02 왼쪽)
+  - f6-signiel-living — reference-signiel(case-study_0503_03 위쪽, 흰 테두리 잘라냄)
+  - f6-xym-room — reference-xym(case-study_0111_04 왼쪽)
+  - 감사 반영: f6-xym-bed(reference-xym 0111_02 오른쪽) · f6-shilla-bed(reference-shillastay 0310_04 오른쪽) · f6-payto-room(payto-hotel 0005_07 오른쪽 아래 — 천장 에어컨 잘라냄) · f6-inspire-signage(inspire 도입사례 pc_case_03 위 사진)
+  - 감사 반영 · 공식 연출: 호텔 TV HU8000/HU7000/CU700 페이지 — f6-room-dark · f6-room-city · f6-tv-bedroom-sea · f6-tv-wall · f6-tv-cast · f6-welcome-ui · f6-gym-tv / uk LYNK Cloud 페이지 — f6-lynk-remote · f6-lynk-checkout · f6-lynk-network · f6-lynk-promo · f6-lynk-guests · f6-lynk-info / uk 키오스크 페이지 — f6-kiosk-win · f6-kiosk-blue (둘 다 지금은 안 씀)
+- ledger 추가: 15.7(B1 산출) · 50,318 · 250(B2 휴양콘도) · 426(= 420 + 4 + 2, 1단계 합계) · 25(비수기 25작업일) · 15,000 · 150(case 3080 원문) · 2024 · 2017(사례 게시 연도) · 2009(FACTS C) · 감사 반영 2단계 · 4대 · 12월(21번째 작업일 12/14 월).
+- 정확성: 15.84 같은 목표값 없음. 3일은 ‘산출’, 21작업일은 객실관리팀 계획, 문의 · 대기 · 고장 감소는 수치 없이 ‘측정해서 확인’으로 둠. 따옴표 인용은 키맨 요구 원문(“고장 46건 줄이기” 등)과 사례 원문만 — P_P 의 지금 상황 문구는 따옴표를 뺌.
+- 감사(22항목) 반영: 글 — SO_M t30 · US_A t21 · SS_HT_E t1/t46 · US_I t5/t30 · VP_A t2 · VP_B t2 · CB_C t2/t34 · P_N t2 · EF_C t9~11 · CH_A t1 · MS_A t8 · CD_C t4 · IP_A t4(+t2 날짜 표기 11/16~12/18) · PL_A t9 · C12 t11~13 · C13 t1/t23, 사진 출처가 바뀐 장 꼬리말(CH_B t2 · EF_C · PL_A · IP_A). 사진 — C13 ht-welcome-tv · VP_B ais-b#11 · 다른 컷 교체(장03 · 장10/11 · 장11/14 · 장18/20) · 다른 업종 · 공조 사진 전부 호텔 · LYNK 컷으로(장02 img1 태블릿 스탠드 셀프 입력 · img3 LYNK Cloud 노트북, 장04 img3 트윈 객실, 장05 img0 XYM 객실, 장06 img1 공식 연출 객실, 장07 img1 PC 담당자, 장11 img0 호텔 로비 · 키오스크 칩은 KM24C 제품 컷, 장13 img0 객실 TV 앞 투숙객 · img2 태블릿 직원, 장14 img2 KM24C 제품 컷, 장19 실사 XYM 객실 · 시공 벽걸이 TV · 교육 태블릿 직원 · 운영 관제 화면). dupcheck 로 새로 잡힌 같은 LYNK 화면 묶음(bs07-7-5 · bs07-7-2 · ais-a#3 · ais-a#16)은 한 장 + 칩 하나만 남김.
+- 남은 점:
+  - 호텔 로비 키오스크 실사진은 여전히 없음 — 키오스크는 KM24C 제품 컷(칩 · P_N) + 태블릿 스탠드 셀프 입력 사진(MI_HT_A)으로 대신.
+  - TV 설치 · 시공 현장 사진도 없음 — IP_A 시공 칸은 벽에 건 호텔 TV 공식 연출, 운영 칸은 대구 삼성 창조 캠퍼스 관제실(참고).
+  - SO_M 4장면 ‘마지막 날’ 사진은 피트니스(레이아웃 원래 칸 설명 ‘체크아웃 전 부대시설’) — 체크아웃 화면은 아래 칩(LYNK Cloud 체크아웃 → 정보 삭제 흐름)으로 보여 줌.
+  - dupcheck 도구 메모: ais-a#15 ↔ f6-shilla-bed 가 일치점 152 ✗ 로 나왔는데 대응점이 한 점으로 모이는 퇴화 호모그래피(줄무늬 커튼) 오탐 — ais-a#15 를 빼서 우회. f6-room-dark ↔ f6-payto-room 75 도 같은 종류의 오탐.
+  - 일부 사례 사진의 TV 화면에 사례 호텔 이름이 작게 보임(크라운 파크 · XYM) — 사례 표기 칸에서만.
+  - 덱 제작 스크립트: /tmp/claude-0/-home-claude/651cb9fe-f70c-51ab-ba98-6834b97bc43a/scratchpad/f6/build.py (재생성용).

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs03:F04"
+ },
+ "prompt_tokens": 7882,
+ "output_tokens": 226,
+ "data": {
+  "scores": [
+   {
+    "id": "CU6",
+    "score": 3,
+    "anchor": "대학 캠퍼스 내 학생의 이동 동선(강의실-도서관-생활관), 학사 일정(방학, 개강), 교수진의 수업 환경(강의 시작 지연 등)을 정확히 파악하여 공간별 솔루션을 제안함.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "강의 시작 몇 분 안에 기기 연결"
+     },
+     {
+      "sheet": 7,
+      "quote": "입구에서 열람석 · 스터디룸까지"
+     },
+     {
+      "sheet": 12,
+      "quote": "학기를 멈추지 않고, 방학 6주에 끝냅니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs02:F02"
+ },
+ "prompt_tokens": 9508,
+ "output_tokens": 266,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 요구사항 R1~R4를 모두 본문에 구체적으로 반영했습니다. R1은 14~16장의 설계 반영 일정, R2는 3~5장의 차별화 방안, R3는 13장의 실측 증빙, R4는 6·14장의 시공 부담 경감 내용으로 명시적 해법을 제시합니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "1 설계 · 설비 투자 | 준공 후 넣으면 재공사비 12억 원"
+     },
+     {
+      "sheet": 13,
+      "quote": "20% 줄인 전기는 해마다 탄소 331톤입니다"
+     },
+     {
+      "sheet": 14,
+      "quote": "배관 · 배선까지, 네 주체가 지금 나눠 맡습니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~no_proof:F04"
+ },
+ "prompt_tokens": 1561,
+ "output_tokens": 125,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 1,
+    "anchor": "제안서 내에 도입 사례에 대한 언급이 전혀 없습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "G 쇼핑몰과 유사한 업종의 실제 도입 사례를 도입 구성 및 성과 수치와 함께 제시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

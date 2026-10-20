@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~base:F06"
+ },
+ "prompt_tokens": 8579,
+ "output_tokens": 364,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "객실 수는 300실로 일관되게 기술되어 있으며, 자동 점검에서 지적된 30객실/10객실은 본문 내용과 무관한 오탐입니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "객실 300실은 한 실의 키트로"
+     },
+     {
+      "sheet": 12,
+      "quote": "B 호텔 300실 기준"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR6",
+    "score": 3,
+    "anchor": "객실 300실에 대한 키트 구성과 공용부(로비, 레스토랑, 연회장 등)의 모델별 수량이 명확히 구분되어 있으며, 라이선스 및 서버 구성까지 포함되어 총계 616대가 정확히 산출되었습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "객실 기기 600 + 공용부 16 = 616대"
+     },
+     {
+      "sheet": 10,
+      "quote": "LYNK Cloud 라이선스 ×1"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

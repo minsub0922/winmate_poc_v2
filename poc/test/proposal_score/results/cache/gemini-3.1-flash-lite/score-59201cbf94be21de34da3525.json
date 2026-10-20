@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~no_proof:F10"
+ },
+ "prompt_tokens": 2205,
+ "output_tokens": 188,
+ "data": {
+  "scores": [
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "일정, 단계, 역할 분담은 명시되어 있으나, 교육 및 유지보수 계획에 대한 구체적인 언급이 누락되었습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "실사부터 파일럿 결과까지 16주, 네 단계로 갑니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "2주 안에 현장부터, 세 단계로"
+     }
+    ],
+    "improve": "실행 계획에 도입 이후의 사용자 교육 프로그램과 유지보수 체계에 대한 내용을 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,47 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {createServer} from '../web/node_modules/vite/dist/node/index.js';
+import {chromium} from '../web/node_modules/playwright/index.mjs';
+import {createScene,sceneHash} from '../web/src/domain/spatial/scene.js';
+import {emptyStudioForm} from '../web/src/domain/spatial/studio-form.js';
+import {planSvg,svgData} from '../web/src/domain/spatial/plan-svg.js';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),output=path.join(root,'app/tests/output/spatial-history-preview');fs.mkdirSync(output,{recursive:true});
+const apiPort=process.env.SPATIAL_TEST_API_PORT||'8996',webPort=Number(process.env.SPATIAL_TEST_WEB_PORT||5296);
+process.env.WINMATE_API_PORT=String(apiPort);process.env.WINMATE_WEB_PORT=String(webPort);
+const base='http://127.0.0.1:'+webPort,server=await createServer({root:path.join(root,'app/web'),configFile:path.join(root,'app/web/vite.config.js'),cacheDir:path.join(root,'.wm_tmp/vite-history-preview-'+webPort),logLevel:'error',server:{host:'127.0.0.1',port:webPort,strictPort:true,hmr:false}});
+let browser,page;const errors=[],checks=[],pass=s=>{checks.push(s);console.log('PASS '+s);};
+try{
+ await server.listen();browser=await chromium.launch({headless:true,args:['--enable-unsafe-swiftshader']});const context=await browser.newContext({viewport:{width:1560,height:1080}});
+ assert.equal((await context.request.post(base+'/api/auth/login',{data:{username:'admin',password:'spatial-isolated-test-password'}})).status(),200);
+ const library=await(await context.request.get(base+'/api/spatial/library')).json(),scene=createScene({templateId:'cowork-full-standard'},library);scene.title='내 조감도 미리보기';scene.contentHash=sceneHash(scene);
+ const savedResponse=await context.request.post(base+'/api/spatial/history',{data:{scene,view:'2d'}});assert.equal(savedResponse.status(),201);const saved=await savedResponse.json();
+ const draftResponse=await context.request.post(base+'/api/spatial/drafts',{data:{form:emptyStudioForm(),view:'3d'}});assert.equal(draftResponse.status(),201);const draft=await draftResponse.json();
+ const items=(await(await context.request.get(base+'/api/spatial/history')).json()).items,personal=items.find(i=>i.id===saved.id),empty=items.find(i=>i.id===draft.id);
+ const archived=structuredClone(library);archived.sourceHash='deadbeef';archived.assets.find(a=>a.id==='product:qm55c').size[0]*=1.1;
+ const frozenScene={...structuredClone(scene),assetRevision:'deadbeef'};frozenScene.contentHash=sceneHash(frozenScene);
+ const frozen={...personal,id:'sp-frozen-preview',title:'이전 버전 조감도',preview:frozenScene};
+ const broken={...personal,id:'sp-broken-thumbnail',title:'누락된 썸네일 조감도',thumbnail:'/assets/history-preview-missing.webp'};
+ let frozenRequests=0;
+ await context.route(url=>url.pathname==='/api/spatial/history',route=>route.request().method()==='GET'?route.fulfill({json:{items:[personal,broken,frozen,empty]}}):route.continue());
+ await context.route('**/api/spatial/library/deadbeef',route=>{frozenRequests++;return route.fulfill({json:archived});});
+ await context.route('**/assets/history-preview-missing.webp',route=>route.fulfill({status:404,body:''}));
+ await context.route(u=>['/api/llm','/api/jobs'].includes(u.pathname),route=>route.request().method()==='POST'?route.fulfill({status:503,json:{detail:'isolated history preview test'}}):route.continue());
+ await context.addInitScript(()=>{localStorage.setItem('winmate.v2.proposals','[]');localStorage.setItem('winmate.v2.seedv','admin-samples-1');localStorage.setItem('winmate.v2.review-example-proposals.seedv','skip-history-preview-test');});
+ page=await context.newPage();page.setDefaultTimeout(30000);page.on('pageerror',e=>errors.push(e.message));await page.goto(base+'/spatial');await page.locator('.sp-home-launches').waitFor({timeout:120000});
+ const home=page.locator('.sp-home-launches');assert.equal(await page.locator('.sp-home-maps').count(),0);await home.locator('img').evaluate(img=>img.decode());const studioBounds=await home.locator('.sp-studio-launch').boundingBox(),templateBounds=await home.locator('.sp-template-launch').boundingBox();assert(templateBounds.x>=studioBounds.x+studioBounds.width);assert(Math.abs(studioBounds.y-templateBounds.y)<1);assert.equal(await page.getByRole('button',{name:'입력에 활용',exact:true}).count(),0);
+ await home.getByRole('button',{name:'업종별 템플릿 활용하기',exact:true}).click();const maps=page.getByRole('dialog',{name:'업종 템플릿',exact:true});await maps.waitFor();assert.equal(await maps.getByRole('button',{name:'활용하기',exact:true}).count(),18);await page.keyboard.press('Escape');await maps.waitFor({state:'hidden'});pass('thumbnail entry sits beside studio creation and opens the template dialog directly');
+ const card=id=>page.locator('.sp-history-card[data-history-id="'+id+'"]'),main=card(saved.id),other=card(broken.id),older=card(frozen.id),draftCard=card(draft.id);
+ await main.scrollIntoViewIfNeeded();await main.locator('img').waitFor();assert.match(await main.locator('img').getAttribute('src'),/^data:image\/svg\+xml/);assert.equal(await main.getByRole('button',{name:'2D 보기',exact:true}).getAttribute('aria-pressed'),'true');
+ const url=page.url();await main.getByRole('button',{name:'3D 보기',exact:true}).click();await page.waitForFunction(id=>document.querySelector('[data-history-id="'+id+'"] img')?.src.startsWith('data:image/png'),saved.id,{timeout:120000});await main.locator('img').evaluate(img=>img.decode());assert.equal(page.url(),url);assert.equal(await main.locator('.sp-map-preview').getAttribute('data-view'),'3d');assert.equal(await other.locator('.sp-map-preview').getAttribute('data-view'),'2d');await page.screenshot({path:output+'/history-3d.png'});pass('personal history renders actual 3D without navigation or changing other cards');
+ await main.getByRole('button',{name:'2D 보기',exact:true}).click();assert.match(await main.locator('img').getAttribute('src'),/^data:image\/svg\+xml/);assert.equal((await(await context.request.get(base+'/api/spatial/history/'+saved.id)).json()).view,'2d');pass('2D/3D preview switches are independent of the saved scene and view');
+ await other.getByRole('button',{name:'3D 보기',exact:true}).click();await page.waitForFunction(()=>document.querySelector('[data-history-id="sp-broken-thumbnail"] img')?.src.startsWith('data:image/png'),null,{timeout:120000});assert.equal(await page.getByRole('alert').count(),0);pass('missing cached thumbnails are regenerated in 3D rather than replaced by a 2D image');
+ await older.scrollIntoViewIfNeeded();await older.locator('img').waitFor();assert.equal(frozenRequests,1);assert.equal(await older.locator('img').getAttribute('src'),svgData(planSvg(frozenScene,archived,{width:640,height:410,productPins:false,labels:true,dimensions:false})));pass('old history previews load their frozen object version');
+ assert.equal(await draftCard.getByRole('button',{name:/^[23]D 보기$/}).count(),0);assert.match(await draftCard.innerText(),/작성 중인 조감도/);assert.equal(await page.getByRole('button',{name:/^(계속 입력하기|조감도 열기)$/}).count(),0);assert.equal(await draftCard.locator('.sp-history-open').count(),1);pass('history omits redundant open actions while draft thumbnails remain accessible');
+ const columns=await page.locator('.sp-history .sp-map-grid').evaluateAll(grids=>grids.map(grid=>getComputedStyle(grid).gridTemplateColumns.split(' ')));assert(columns.every(values=>values.length===4));pass('history retains four desktop columns');
+ await page.setViewportSize({width:390,height:844});await main.scrollIntoViewIfNeeded();await main.getByRole('button',{name:'3D 보기',exact:true}).click();await main.locator('img').evaluate(img=>img.decode());const bounds=await main.locator('.sp-map-view-switch').boundingBox();assert(bounds.x>=0&&bounds.x+bounds.width<=391);assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await home.scrollIntoViewIfNeeded();const mobileStudio=await home.locator('.sp-studio-launch').boundingBox(),mobileTemplate=await home.locator('.sp-template-launch').boundingBox();assert(mobileTemplate.x>=mobileStudio.x+mobileStudio.width);assert(Math.abs(mobileStudio.y-mobileTemplate.y)<1);await page.screenshot({path:output+'/history-mobile.png'});pass('history view controls fit mobile and continue working');
+ await page.mouse.move(380,10);await page.setViewportSize({width:1560,height:1080});await page.mouse.move(1500,10);await page.waitForFunction(()=>document.querySelector('.sidebar').getBoundingClientRect().width<100);const previewBounds=await main.locator('.sp-history-open').boundingBox();await main.locator('.sp-history-open').click({position:{x:previewBounds.width-18,y:24}});await page.waitForURL(base+'/spatial/'+saved.id);await page.locator('.sp-view[data-ready=true]').waitFor({timeout:120000});pass('opening the saved history still enters its editor normally');
+ assert.deepEqual(errors,[]);fs.writeFileSync(output+'/report.json',JSON.stringify({ok:true,checks,errors},null,2));
+}catch(error){await page?.screenshot({path:output+'/failure.png'}).catch(()=>{});fs.writeFileSync(output+'/report.json',JSON.stringify({ok:false,checks,errors,error:String(error)},null,2));throw error;}
+finally{await browser?.close();await server.close();}

@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~placeholders:F06"
+ },
+ "prompt_tokens": 2190,
+ "output_tokens": 218,
+ "data": {
+  "scores": [
+   {
+    "id": "PR6",
+    "score": 2,
+    "anchor": "공간별 모델과 수량은 제시되었으나, 설치에 필요한 브래킷이나 라이선스 등 부속 액세서리에 대한 명시가 누락되었습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "지금 쓰는 장비를 이렇게 바꿉니다 — 6개 점 네 가지 교체"
+     },
+     {
+      "sheet": 10,
+      "quote": "교체 합계 | 390대 | 철거 · 보상 매입 포함 · 야간 시공"
+     }
+    ],
+    "improve": "공간별 모델 및 수량과 함께 설치에 필요한 브래킷, 플레이어, 라이선스 등 필수 액세서리 목록을 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

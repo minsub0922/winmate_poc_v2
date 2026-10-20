@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~no_proof:F11"
+ },
+ "prompt_tokens": 2943,
+ "output_tokens": 258,
+ "data": {
+  "scores": [
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "본문 최소 글자 크기가 12pt(16px) 미만인 장이 8장(3, 4, 6, 8, 9, 11, 13, 14)으로 확인되어 1점 정의에 해당합니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 8,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 9,
+      "quote": "본문 최소 10px(7.5pt)"
+     }
+    ],
+    "improve": "모든 본문 텍스트의 글자 크기를 12pt(16px) 이상으로 상향 조정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

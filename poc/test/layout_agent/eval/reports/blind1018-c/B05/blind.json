@@ -1,0 +1,326 @@
+{
+ "id": "B05",
+ "title": "물류센터 현장 단말 교체 pilot (영어 혼용 메모)",
+ "exp_level": "ambiguous",
+ "level": "complex",
+ "exp_industry": "MF",
+ "industry": "MF",
+ "exp_strategy": "land",
+ "strategy": "pain",
+ "scenario": "pain",
+ "exp_products": [
+  "tabactive5",
+  "xcover7"
+ ],
+ "products": [
+  "tabactive5",
+  "xcover7"
+ ],
+ "solutions": [
+  "knoxsuite",
+  "knoxcapture"
+ ],
+ "prod_recall": 1.0,
+ "prod_precision": 1.0,
+ "must_show": 1.0,
+ "must_show_miss": [],
+ "facts": null,
+ "facts_miss": [],
+ "must_not_hit": [],
+ "parts": [
+  "cover:제안서 표지",
+  "overview:제안 요약",
+  "requirements:핵심 요구사항",
+  "requirements:요구사항 대응",
+  "customer:현장 가치 제고",
+  "user:사용자 경험",
+  "customer:운영 흐름 분석",
+  "challenge:현장 과제 해결",
+  "value:이해관계자 가치",
+  "solution:운영 및 유지보수",
+  "products:공간별 제품",
+  "spec:성능 및 규격",
+  "execution:보안 대응",
+  "case:유관 사례",
+  "execution:실행 및 확산",
+  "cost:비용 및 구매",
+  "closing:결정 요청"
+ ],
+ "questions": [
+  "strategy",
+  "ending",
+  "keyman",
+  "conflict_C5",
+  "conflict_L1",
+  "conflict_L2",
+  "gap_quantities",
+  "gap_timeline",
+  "gap_budget",
+  "llm_Q01",
+  "llm_Q02",
+  "llm_Q03",
+  "length"
+ ],
+ "conflicts": [
+  "키맨 관심사 분산",
+  "LLM 발견",
+  "LLM 발견"
+ ],
+ "issues": [
+  "[low] 편집할 수 없는(data-tb 없는) 다른 업종 샘플 문구가 남은 장표 2장 — 원본 레이아웃 보완 필요"
+ ],
+ "stats": {
+  "n_slides": 17,
+  "text_slots": 936,
+  "placeholders": 93,
+  "slides_with_ph": 15,
+  "sample_text_kept": 484,
+  "img_slots": 11,
+  "img_filled": 11,
+  "photo_slides": 2,
+  "stray_slides": 1,
+  "slides": [
+   {
+    "no": 1,
+    "code": "C03",
+    "f": "L_C03",
+    "visual": [
+     "message"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 0,
+    "stray": []
+   },
+   {
+    "no": 2,
+    "code": "ES-A",
+    "f": "L_ES_A",
+    "visual": [
+     "cards",
+     "message"
+    ],
+    "ph": 8,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 17,
+    "stray": []
+   },
+   {
+    "no": 3,
+    "code": "RM-A",
+    "f": "L_RM_A",
+    "visual": [
+     "table"
+    ],
+    "ph": 4,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 8,
+    "stray": []
+   },
+   {
+    "no": 4,
+    "code": "RM-B",
+    "f": "L_RM_B",
+    "visual": [
+     "table"
+    ],
+    "ph": 7,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 16,
+    "stray": []
+   },
+   {
+    "no": 5,
+    "code": "MI-MF-B",
+    "f": "L_MI_MF_B",
+    "visual": [
+     "cards",
+     "flow"
+    ],
+    "ph": 2,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 131,
+    "stray": [
+     "삼성 통합공조"
+    ]
+   },
+   {
+    "no": 6,
+    "code": "US-B",
+    "f": "L_US_B",
+    "visual": [
+     "cards",
+     "flow",
+     "map"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 26,
+    "stray": []
+   },
+   {
+    "no": 7,
+    "code": "CB-C",
+    "f": "L_CB_C",
+    "visual": [
+     "cards",
+     "flow"
+    ],
+    "ph": 10,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 28,
+    "stray": []
+   },
+   {
+    "no": 8,
+    "code": "CH-C",
+    "f": "L_CH_C",
+    "visual": [
+     "cards",
+     "flow"
+    ],
+    "ph": 1,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 7,
+    "stray": []
+   },
+   {
+    "no": 9,
+    "code": "VP-D",
+    "f": "L_VP_D",
+    "visual": [
+     "cards",
+     "photo"
+    ],
+    "ph": 3,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 7,
+    "stray": []
+   },
+   {
+    "no": 10,
+    "code": "KCP-S-LG",
+    "f": "L_KCP_S_LG",
+    "visual": [
+     "cards",
+     "flow",
+     "image_heavy"
+    ],
+    "ph": 4,
+    "img_slots": 9,
+    "img_filled": 9,
+    "kept_sample": 49,
+    "stray": []
+   },
+   {
+    "no": 11,
+    "code": "P2-B",
+    "f": "L_P2B",
+    "visual": [
+     "cards"
+    ],
+    "ph": 2,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 0,
+    "stray": []
+   },
+   {
+    "no": 12,
+    "code": "SD-E",
+    "f": "L_SD_E",
+    "visual": [
+     "cards",
+     "image"
+    ],
+    "ph": 4,
+    "img_slots": 2,
+    "img_filled": 2,
+    "kept_sample": 23,
+    "stray": []
+   },
+   {
+    "no": 13,
+    "code": "SE-A",
+    "f": "L_SE_A",
+    "visual": [
+     "table"
+    ],
+    "ph": 10,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 46,
+    "stray": []
+   },
+   {
+    "no": 14,
+    "code": "CD-A",
+    "f": "L_CS01",
+    "visual": [
+     "cards"
+    ],
+    "ph": 2,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 5,
+    "stray": []
+   },
+   {
+    "no": 15,
+    "code": "PL-B",
+    "f": "L_PL_B",
+    "visual": [
+     "cards",
+     "flow",
+     "kpi"
+    ],
+    "ph": 9,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 40,
+    "stray": []
+   },
+   {
+    "no": 16,
+    "code": "CO-A",
+    "f": "L_CO_A",
+    "visual": [
+     "cards",
+     "comparison"
+    ],
+    "ph": 7,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 52,
+    "stray": []
+   },
+   {
+    "no": 17,
+    "code": "C13",
+    "f": "L_C13",
+    "visual": [
+     "cards",
+     "flow",
+     "message"
+    ],
+    "ph": 20,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 29,
+    "stray": []
+   }
+  ]
+ },
+ "sec": 27.0,
+ "llm_calls": 37,
+ "llm_fail": 0
+}

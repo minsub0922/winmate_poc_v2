@@ -1,0 +1,26 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {productMentionQuery,mentionedProductChoices,addMentionedProduct} from '../web/src/domain/spatial/product-mentions.js';
+import {emptyStudioForm,newStudioRoom,createSceneFromForm} from '../web/src/domain/spatial/studio-form.js';
+
+const library=JSON.parse(fs.readFileSync(new URL('../data/spatial/library.json',import.meta.url)));
+assert.equal(productMentionQuery('QM55C'),null);
+assert.equal(productMentionQuery('  ＠QM55C'),'QM55C');
+assert.equal(productMentionQuery('@'),'');
+assert.equal(productMentionQuery('@QM55C @'),null);
+const matches=mentionedProductChoices(library.assets,productMentionQuery('@qm55c'));
+assert.equal(matches[0].productId,'qm55c');
+assert(matches.every(a=>a.physical&&a.productId&&a.catalogVisible!==false));
+assert.equal(mentionedProductChoices(library.assets,'nonexistent-model-98765').length,0);
+assert(mentionedProductChoices(library.assets,'사이니지').length>0);
+assert.deepEqual(mentionedProductChoices([{...matches[0],catalogVisible:false},{...matches[0],physical:false}],''),[]);
+const selected=addMentionedProduct([],matches[0]);
+selected[0].quantity=3;
+assert.equal(addMentionedProduct(selected,matches[0]),selected);
+assert.equal(selected[0].quantity,3);
+const room={...newStudioRoom(),name:'제품 멘션 회의실',kind:'meeting',products:selected};
+const form=JSON.parse(JSON.stringify({...emptyStudioForm(),industry:'OF',rooms:[room]}));
+const scene=createSceneFromForm(form,library);
+assert.equal(scene.objects.filter(o=>o.assetId==='product:qm55c'&&o.roomId===room.id).length,3);
+assert.deepEqual(scene.objects.filter(o=>o.assetId.startsWith('product:')).map(o=>o.assetId),Array(3).fill('product:qm55c'));
+console.log('PASS @ model/name search, visible physical products only, duplicates preserve quantity, IDs survive JSON and generate exact products');

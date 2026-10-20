@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~base:F10"
+ },
+ "prompt_tokens": 4623,
+ "output_tokens": 540,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "하드웨어(사이니지, 공조)와 MagicINFO 솔루션, 서비스 SLA를 연결하여 운영팀이 장애를 감지하고 원격 조치하는 구체적인 운영 장면을 제시함.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "MagicINFO 설치형 | 꺼진 화면 즉시 알림 · 일괄 배포"
+     },
+     {
+      "sheet": 11,
+      "quote": "MagicINFO 원격 진단 · 재부팅 · 콘텐츠 복구"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "1차 전환 범위, 병행 운영, 교육, 보상 단가 확정 등 단계별 일정과 역할 분담이 구체적으로 명시됨.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "1차 전환 범위 확정 — 대전점 · 청주점 | 10/26 – 11/06"
+     },
+     {
+      "sheet": 13,
+      "quote": "점별 2주 병행 운영 · 운영자 교육 3회 · 보상 단가 확정"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 3,
+    "anchor": "고객이 우려하는 운영팀 숙련도(교육), 처음 가격(보상 매입), 전환 리스크(병행 운영)를 명확히 짚고 대응 방안을 제시함.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "병행 운영 · 운영자 교육 3회 · 템플릿 사전 이관"
+     },
+     {
+      "sheet": 7,
+      "quote": "5년 총비용으로 비교 · 기존 장비 보상 · 3년 분할 납부"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

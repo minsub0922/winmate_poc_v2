@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~full:F12"
+ },
+ "prompt_tokens": 7599,
+ "output_tokens": 488,
+ "data": {
+  "scores": [
+   {
+    "id": "WR2",
+    "score": 3,
+    "anchor": "전체적으로 맞춤법과 띄어쓰기가 정확하며, 제목에도 오류가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "관리 창구는 하나로, 방식은 정책에 맞게"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR8",
+    "score": 1,
+    "anchor": "POP, CMS, DB, VPN 등 고객이 생소할 수 있는 약어들을 처음 등장할 때 풀이하지 않고 그대로 사용하였습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "인쇄 POP"
+     },
+     {
+      "sheet": 5,
+      "quote": "바뀌는 층은 CMS 하나입니다"
+     },
+     {
+      "sheet": 6,
+      "quote": "서버와 DB는"
+     }
+    ],
+    "improve": "제안서 내에서 처음 사용하는 약어(POP, CMS, DB, VPN, KPI 등)는 괄호를 사용하여 전체 명칭을 병기해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR9",
+    "score": 3,
+    "anchor": "개조식 문체와 명사형 종결이 제안서 전반에 걸쳐 일관되게 사용되었으며, 고객을 존중하는 톤을 유지하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "신제품 하나를 올리면, 지점 세 곳 화면이 함께 바뀝니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "시범이 끝나도 멈추지 않도록, 세 단계로 운영을 넘깁니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

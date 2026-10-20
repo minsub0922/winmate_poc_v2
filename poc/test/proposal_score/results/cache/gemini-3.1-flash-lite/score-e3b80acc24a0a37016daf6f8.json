@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~no_proof:F10"
+ },
+ "prompt_tokens": 6444,
+ "output_tokens": 413,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO와 SmartThings Pro를 활용하여 본사 운영자가 메뉴 배포부터 매장 전력 관리까지 수행하는 구체적인 운영 시나리오를 제시함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "제작 · 승인 · 배포 · 적용 확인까지 한 화면에서"
+     },
+     {
+      "sheet": 7,
+      "quote": "본사 POS에서 가격 변경 | 본사 담당자가 가격 DB에서 한 번만 수정"
+     },
+     {
+      "sheet": 8,
+      "quote": "본사 운영 | 전 매장을 한 화면에 | 본사 PC · MagicINFO Server"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR7",
+    "score": 2,
+    "anchor": "설치 환경 전제와 유지보수 계획은 포함되어 있으나, 고객이 사전에 준비해야 할 구체적인 인프라(전원 공사, 네트워크 환경 등)에 대한 명시가 부족함.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "설치 · 유지관리 서비스 | 정기 점검 · 장애 원격 진단"
+     },
+     {
+      "sheet": 14,
+      "quote": "권역별 A/S 4시간 내 대응"
+     }
+    ],
+    "improve": "설치 전 고객사가 준비해야 할 매장 내 전원 및 네트워크 인프라 요건을 구체적으로 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

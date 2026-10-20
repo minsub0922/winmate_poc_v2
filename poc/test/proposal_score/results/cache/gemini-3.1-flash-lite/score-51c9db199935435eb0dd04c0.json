@@ -1,0 +1,112 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~full:F11"
+ },
+ "prompt_tokens": 5348,
+ "output_tokens": 953,
+ "data": {
+  "scores": [
+   {
+    "id": "DS1",
+    "score": 2,
+    "anchor": "13장의 제목 위치가 다른 장들과 달리 우측 상단(648, 66)에 배치되어 일관성이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "B2B PROPOSAL"
+     },
+     {
+      "sheet": 13,
+      "quote": "12월까지, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "모든 장의 제목 위치를 좌측 상단으로 통일해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS2",
+    "score": 2,
+    "anchor": "대부분 장은 헤드라인이 명확하나, 2장부터 9장까지는 어절 수가 많아 메시지가 분산될 우려가 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "R 건설의 다음 분양은 세대 안의 사양으로 경쟁합니다"
+     },
+     {
+      "sheet": 3,
+      "quote": "R 건설의 고객은 모델하우스에서 고르고, 입주 후 매일 평가합니다"
+     }
+    ],
+    "improve": "장별 핵심 메시지를 한 줄로 요약하고, 본문 내용을 개조식으로 간결하게 줄여야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 10장으로 매우 많아 발표 자료로서의 가독성이 떨어집니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "318어절"
+     },
+     {
+      "sheet": 5,
+      "quote": "234어절"
+     }
+    ],
+    "improve": "장당 어절 수를 110어절 이하로 대폭 줄이고 핵심 위주로 재구성해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 70%가 10pt 미만이며, 9pt 미만인 장이 4장 존재하여 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 3,
+      "quote": "본문 최소 11px(8.2pt)"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS5",
+    "score": 3,
+    "anchor": "Noto Sans KR과 Manrope 2종의 폰트를 사용하며, 제목과 본문의 스타일 체계가 모든 장에서 일관됩니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "Noto Sans KR · Manrope"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "DS6",
+    "score": 3,
+    "anchor": "텍스트만 있는 장이 1장(8%)으로 기준치인 10% 이하를 충족하며, 대부분 실제 사진을 활용하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "사진 0"
+     },
+     {
+      "sheet": 5,
+      "quote": "사진 7"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

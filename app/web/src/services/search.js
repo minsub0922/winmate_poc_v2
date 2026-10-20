@@ -110,6 +110,7 @@ export function searchLayouts(query, ctx = {}, opts = {}) {
 
 /** Recommend up to 20 layouts for a storyboard part. */
 export function recommendLayouts(part, ctx = {}, limit = 20) {
+  const used = new Set([...(ctx.usedLayouts || []), ...(part.layouts || []).map(x => x.f)]);
   const rawType = part.type || classifyPart(part.name) || null;
   const isFree = rawType === 'free';
   const type = isFree ? null : rawType;
@@ -155,7 +156,7 @@ export function recommendLayouts(part, ctx = {}, limit = 20) {
     const best = r.l.pv.map((f) => byF[f]).filter(Boolean).sort((a, b) => base(b) - base(a))[0];
     if (best && base(best) + 0.3 > r.score) { r.score = base(best) + 0.3; if (!r.why.includes('사진 중심')) r.why.push('사진 중심'); if (!best.l.retired) r.why.unshift('‘' + best.l.name + '’의 사진 버전'); }
   }
-  return out.filter((r) => !r.l.retired).sort((a, b) => b.score - a.score).slice(0, limit);
+  return out.filter((r) => !r.l.retired && !used.has(r.l.f)).sort((a, b) => b.score - a.score).slice(0, limit);
 }
 
 // ---------- mention / context search ----------

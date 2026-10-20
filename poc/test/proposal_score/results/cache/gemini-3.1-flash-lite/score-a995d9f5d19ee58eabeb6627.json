@@ -1,0 +1,61 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs02:F11"
+ },
+ "prompt_tokens": 3751,
+ "output_tokens": 520,
+ "data": {
+  "scores": [
+   {
+    "id": "DS1",
+    "score": 2,
+    "anchor": "9장에서 글자 넘침이 발생하였고, 16장의 제목 위치가 다른 장과 달라 일관성이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "12F 공용 회의실"
+     },
+     {
+      "sheet": 16,
+      "quote": "설계 확정 전, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "9장의 텍스트 넘침을 수정하고 16장의 제목 위치를 다른 장과 동일하게 통일하십시오.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 10개로 기준을 크게 초과하며, 장당 평균 어절 수 또한 160어절로 매우 높습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "C 빌딩의 평가는 로비 · 자리 · 회의실, 세 순간에 결정됩니다"
+     }
+    ],
+    "improve": "각 장의 텍스트 양을 대폭 줄이고 개조식 요약 위주로 내용을 재구성하십시오.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 65%가 10pt 미만이며, 9개 장에서 9pt 미만의 작은 글자가 확인됩니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "층마다의 설비가 하나의 관리 화면으로"
+     },
+     {
+      "sheet": 12,
+      "quote": "출근부터 퇴근까지, 느끼기 전에 건물이 먼저 움직입니다"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt 이상으로 상향 조정하여 가독성을 확보하십시오.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

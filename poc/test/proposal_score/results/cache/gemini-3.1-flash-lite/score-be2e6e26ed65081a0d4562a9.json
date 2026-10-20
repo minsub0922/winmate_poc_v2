@@ -1,0 +1,70 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs15~full:F07"
+ },
+ "prompt_tokens": 8138,
+ "output_tokens": 576,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "폐기 손실, 전력, 수리비 등 정량적 절감 효과를 제시하고, G 마트 2025 자료를 근거로 산정 전제를 명시함.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "점포당 연간 · G 마트 2025 자료 기준 삼성전자 추정"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "냉장·냉동과 공조를 통합한 솔루션 강점을 고객 과제와 연결하고, 전국 7개 서비스센터 등 구체적 근거를 제시함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "b.IoT Cloud 하나로 1 화면 콜드체인 + 에어컨 통합"
+     },
+     {
+      "sheet": 11,
+      "quote": "7곳 콜드체인 거점 2명 전담 엔지니어"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR5",
+    "score": 3,
+    "anchor": "근거 없는 절대 표현이 없으며, 성과를 보증하는 문장 대신 목표치임을 명시함.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "수치는 목표치 · 파일럿으로 검증"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR7",
+    "score": 2,
+    "anchor": "효과 수치의 전제 조건은 9장에 명시되어 있으나, 연출 이미지에 대한 고지가 일부 장에서 누락됨.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "점포당 연간 · G 마트 2025 자료 기준 삼성전자 추정"
+     }
+    ],
+    "improve": "연출된 이미지나 예시 화면을 사용하는 모든 장에 '이미지는 연출된 화면임'이라는 고지를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

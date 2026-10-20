@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs12:F02"
+ },
+ "prompt_tokens": 7669,
+ "output_tokens": 253,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 4가지 요구사항(시야각, 광고 수익, 장애 대응, 시공 기간)에 대해 각각 6~7장(시야각), 2~5장(광고), 6~11장(장애), 11~13장(시공)에서 명시적으로 해법을 제시하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "본부석 상단 165 m에서도 읽히는 빅보드"
+     },
+     {
+      "sheet": 12,
+      "quote": "광고 · 매점 수익으로 28개월 만에 회수"
+     },
+     {
+      "sheet": 11,
+      "quote": "홈경기 상주 엔지니어 · 월간 점검 리포트"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

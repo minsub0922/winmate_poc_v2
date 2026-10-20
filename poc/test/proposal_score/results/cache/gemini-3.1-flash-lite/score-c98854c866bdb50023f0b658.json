@@ -1,0 +1,82 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~full:F07"
+ },
+ "prompt_tokens": 8712,
+ "output_tokens": 687,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "옵션 계약률, 상담 시간, 가전 민원 감소 등 정량적 목표를 제시하고, 각 수치의 산정 기준(직전 단지 대비, 삼성전자 추정 등)을 명시함.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "50% | 옵션 계약률 | 직전 단지 31% 대비"
+     },
+     {
+      "sheet": 1,
+      "quote": "12분 | 옵션 상담 시간 | 모델하우스 · 현재 25분"
+     },
+     {
+      "sheet": 1,
+      "quote": "40% | 가전 민원 감소 | 입주 1년 · 직전 단지 대비"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "삼성의 통합 솔루션(SmartThings, EHS)과 전국 서비스망을 고객의 과제(분양 차별화, 입주 후 민원 감소)와 연결하여 구체적 사례와 함께 제시함.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "전국 서비스망 | 2년 무상 점검 · 원격 진단"
+     },
+     {
+      "sheet": 12,
+      "quote": "같은 고민을 먼저 푼 두 단지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR5",
+    "score": 3,
+    "anchor": "근거 없는 절대 표현이 없으며, 성과 수치 등은 목표치임을 명시하여 보증성 표현을 피함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "R 건설 · 수치는 목표"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR7",
+    "score": 2,
+    "anchor": "연출 이미지 및 수치에 대한 고지는 있으나, '사양 변경 가능성'에 대한 명시적인 고지 문구가 누락됨.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "R 건설 · 수치는 목표"
+     },
+     {
+      "sheet": 13,
+      "quote": "도입 후 모습 · 참고 연출"
+     }
+    ],
+    "improve": "제안서 내에 '본 제안의 사양 및 수치는 설계 변경 등에 따라 달라질 수 있음'과 같은 사양 변경 가능성 고지 문구를 추가해야 함.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,133 @@
+{
+ "id": "C02_L3",
+ "case": "C02",
+ "industry": "OF",
+ "strategy": "space",
+ "req_type": "new",
+ "title": "신축 AI Ready 오피스",
+ "level": "complex",
+ "input": {
+  "title": "용산 업무시설 재개발 AI Ready 오피스",
+  "customer": "F 자산운용",
+  "project": "용산 업무시설 재개발 AI Ready 오피스",
+  "target": "대표이사",
+  "free_text": "지상 22층 업무시설 재개발. 설계 도면이 이번 분기에 확정되어 그 전에 AI 인프라 반영 범위를 정해야 합니다. 설계사 · PM사와 함께 검토하며, 기존 BMS 와 연동돼야 합니다.",
+  "keymen": [
+   {
+    "name": "대표이사",
+    "weight": 50,
+    "reqs": [
+     "사용자를 인식하고 반응하는 AI Ready 오피스",
+     "국내 최초 AI Ready 오피스로 알리기",
+     "에너지 사용량 20% 절감을 실측으로 증빙"
+    ]
+   },
+   {
+    "name": "공간컨텐츠실장",
+    "weight": 30,
+    "reqs": [
+     "로비에서 건물 정체성을 보여 주는 미디어",
+     "회의실 예약부터 뒷정리까지 자동화",
+     "건물 가치 · 임대 선호도 제고"
+    ]
+   },
+   {
+    "name": "개발사업팀장",
+    "weight": 20,
+    "reqs": [
+     "AI 인프라를 설계 단계에 반영",
+     "시공 · 운영 유지보수 부담 최소화",
+     "기존 BMS 와 시스템 연동"
+    ]
+   }
+  ],
+  "products": [
+   "thewall",
+   "flip",
+   "qm55c",
+   "dvms2"
+  ],
+  "solutions": [
+   "biot",
+   "stpro"
+  ],
+  "id": "C02_L3"
+ },
+ "gold": {
+  "level": "complex",
+  "industry": "OF",
+  "strategy_any": [
+   "space",
+   "value",
+   "roi"
+  ],
+  "must_parts": [
+   "requirements",
+   "value",
+   "scenario"
+  ],
+  "dims_any": [
+   "사용자 경험·성과",
+   "일정·실행·확산",
+   "운영·유지보수"
+  ],
+  "conflicts_any": [],
+  "min_questions": 4,
+  "key_reqs": [
+   {
+    "kw": [
+     "20%"
+    ],
+    "parts_any": [
+     "effect",
+     "value",
+     "requirements"
+    ],
+    "priority": "must"
+   },
+   {
+    "kw": [
+     "설계"
+    ],
+    "parts_any": [
+     "execution",
+     "overview",
+     "requirements"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "BMS"
+    ],
+    "parts_any": [
+     "execution",
+     "solution",
+     "requirements"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "회의실"
+    ],
+    "parts_any": [
+     "scenario",
+     "value",
+     "dss",
+     "products"
+    ],
+    "priority": "should"
+   }
+  ],
+  "facts": [
+   "20",
+   "22"
+  ],
+  "layouts_any": {
+   "requirements": [
+    "L_RM_A"
+   ]
+  }
+ }
+}

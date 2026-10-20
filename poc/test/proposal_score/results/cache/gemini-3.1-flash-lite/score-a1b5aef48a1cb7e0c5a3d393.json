@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~full:F03"
+ },
+ "prompt_tokens": 4082,
+ "output_tokens": 380,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 2,
+    "anchor": "비용과 운영 모델에 대한 경영 지표는 10, 11장에 제시되어 있으나, 결정권자를 위한 요약 장(Executive Summary)이 별도로 존재하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "04 · 비용 · 구매 vs 구독"
+     },
+     {
+      "sheet": 11,
+      "quote": "04 · 5년 총소유비용"
+     }
+    ],
+    "improve": "제안서 도입부에 결정권자가 즉시 판단할 수 있도록 핵심 성과, 비용, 리스크를 요약한 Executive Summary 장을 추가하십시오.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS7",
+    "score": 3,
+    "anchor": "설치형, 구독형, 렌탈 방식별로 5년 총소유비용(TCO)을 비교하고, 라이선스, 유지보수, 서버 운영 등 숨은 비용을 포함하여 산정 전제를 명확히 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "같은 화면 구성, 세 가지 방식으로 도입할 수 있습니다"
+     },
+     {
+      "sheet": 11,
+      "quote": "5년을 보면 순서가 바뀌고, 차이는 6%입니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

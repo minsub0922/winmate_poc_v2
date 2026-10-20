@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs03:F07"
+ },
+ "prompt_tokens": 1978,
+ "output_tokens": 196,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 2,
+    "anchor": "6장과 10장에서 15% 절감이라는 정량적 수치를 제시했으나, 해당 수치가 어떤 기준과 가정에 의해 산출되었는지에 대한 근거가 명시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "15% 절감"
+     },
+     {
+      "sheet": 10,
+      "quote": "15% 절감"
+     }
+    ],
+    "improve": "15% 절감이라는 수치가 도출된 구체적인 산정 기준, 가정, 출처를 명확히 기재해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

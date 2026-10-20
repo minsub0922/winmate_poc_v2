@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs09:F04"
+ },
+ "prompt_tokens": 7109,
+ "output_tokens": 362,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "고객사의 현장 조사 결과(시청역, 중앙역 등)를 바탕으로 장애 원인과 영향(시간, 민원 건수 등)을 구체적인 수치로 제시하였습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "장애 현장 여섯 곳을 직접 보고 왔습니다"
+     },
+     {
+      "sheet": 5,
+      "quote": "장애 인지 평균 90분 · 복구 평균 26시간"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "정류장, 출입구, 대합실, 상황실 등 각 공간의 환경적 특성(직사광, IP56 방진·방수, 24/7 운영)을 명시하고 이에 적합한 제품을 매핑하였습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "정류장 · 출입구는 실내와 조건이 다릅니다"
+     },
+     {
+      "sheet": 9,
+      "quote": "옥외형 사이니지 OH55A-S | 한낮에도 선명"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

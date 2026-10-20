@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10:F02"
+ },
+ "prompt_tokens": 7388,
+ "output_tokens": 398,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 2,
+    "anchor": "고객의 AS 불만(R1), 운영팀 교육(R2), 가격(R3)에 대한 대응은 명확하나, 기존 자산 활용(K4)에 대한 구체적인 대응 방안이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "AS 대기 1.5일"
+     },
+     {
+      "sheet": 7,
+      "quote": "운영자 교육 3회"
+     },
+     {
+      "sheet": 9,
+      "quote": "5년 총비용은 12% 낮습니다"
+     }
+    ],
+    "improve": "기존 자산의 보상 매입 외에 재활용 가능한 부분이나 자산 가치 평가에 대한 구체적인 내용을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "SB1",
+    "score": 2,
+    "anchor": "표지와 마무리는 구성되어 있으나, 제안서 내에 목차 페이지가 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "G 쇼핑몰 | B2B PROPOSAL"
+     },
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀"
+     }
+    ],
+    "improve": "제안서의 전체 구조를 한눈에 파악할 수 있도록 목차 페이지를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,301 @@
+{
+ "id": "B03",
+ "title": "패션 브랜드 성수 플래그십 공간 연출 (전달 메일)",
+ "exp_level": "ambiguous",
+ "level": "complex",
+ "exp_industry": "RT",
+ "industry": "RT",
+ "exp_strategy": "value",
+ "strategy": "space",
+ "scenario": "space",
+ "exp_products": [
+  "thewall",
+  "window"
+ ],
+ "products": [
+  "ac360",
+  "qm55c",
+  "vm55b"
+ ],
+ "solutions": [
+  "content"
+ ],
+ "prod_recall": 0.0,
+ "prod_precision": 0.0,
+ "must_show": 1.0,
+ "must_show_miss": [],
+ "facts": null,
+ "facts_miss": [],
+ "must_not_hit": [
+  "메뉴보드"
+ ],
+ "parts": [
+  "cover:성수 플래그십 제안",
+  "overview:제안 요약",
+  "requirements:핵심 이해관계자 분석",
+  "requirements:요구사항 대응",
+  "birdseye:공간 경험 및 외관",
+  "value:핵심 가치",
+  "solution:운영 및 유지보수",
+  "dss:공간 맵",
+  "scenario:공간 시나리오",
+  "products:공간별 제품",
+  "spec:성능 규격",
+  "case:유관 사례",
+  "cost:비용 및 구매",
+  "closing:향후 일정"
+ ],
+ "questions": [
+  "strategy",
+  "ending",
+  "keyman",
+  "conflict_L1",
+  "gap_quantities",
+  "gap_baseline",
+  "gap_products",
+  "llm_Q01",
+  "llm_Q02",
+  "llm_Q03",
+  "length"
+ ],
+ "conflicts": [
+  "LLM 발견"
+ ],
+ "issues": [
+  "[low] 편집할 수 없는(data-tb 없는) 다른 업종 샘플 문구가 남은 장표 2장 — 원본 레이아웃 보완 필요"
+ ],
+ "stats": {
+  "n_slides": 15,
+  "text_slots": 794,
+  "placeholders": 134,
+  "slides_with_ph": 13,
+  "sample_text_kept": 351,
+  "img_slots": 17,
+  "img_filled": 17,
+  "photo_slides": 4,
+  "stray_slides": 0,
+  "slides": [
+   {
+    "no": 1,
+    "code": "C02",
+    "f": "L_C02",
+    "visual": [
+     "message",
+     "photo"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 0,
+    "stray": []
+   },
+   {
+    "no": 2,
+    "code": "ES-A",
+    "f": "L_ES_A",
+    "visual": [
+     "cards",
+     "message"
+    ],
+    "ph": 6,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 17,
+    "stray": []
+   },
+   {
+    "no": 3,
+    "code": "RM-A",
+    "f": "L_RM_A",
+    "visual": [
+     "table"
+    ],
+    "ph": 5,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 5,
+    "stray": []
+   },
+   {
+    "no": 4,
+    "code": "RM-B",
+    "f": "L_RM_B",
+    "visual": [
+     "table"
+    ],
+    "ph": 17,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 26,
+    "stray": []
+   },
+   {
+    "no": 5,
+    "code": "IS-A",
+    "f": "L_IS_A",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "map",
+     "photo"
+    ],
+    "ph": 2,
+    "img_slots": 6,
+    "img_filled": 6,
+    "kept_sample": 42,
+    "stray": []
+   },
+   {
+    "no": 6,
+    "code": "VP-N",
+    "f": "L_VP_N",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 0,
+    "img_slots": 4,
+    "img_filled": 4,
+    "kept_sample": 4,
+    "stray": []
+   },
+   {
+    "no": 7,
+    "code": "OP-C",
+    "f": "L_OP_C",
+    "visual": [
+     "cards",
+     "comparison",
+     "flow",
+     "kpi"
+    ],
+    "ph": 16,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 40,
+    "stray": []
+   },
+   {
+    "no": 8,
+    "code": "SM-C",
+    "f": "L_SM_C",
+    "visual": [
+     "cards",
+     "flow",
+     "map"
+    ],
+    "ph": 10,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 7,
+    "stray": []
+   },
+   {
+    "no": 9,
+    "code": "SS-RT-A",
+    "f": "L_SS_RT_A",
+    "visual": [
+     "flow",
+     "map",
+     "table"
+    ],
+    "ph": 11,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 44,
+    "stray": []
+   },
+   {
+    "no": 10,
+    "code": "SS-RT-B",
+    "f": "L_SS_RT_B",
+    "visual": [
+     "flow",
+     "image_heavy",
+     "map",
+     "table"
+    ],
+    "ph": 14,
+    "img_slots": 3,
+    "img_filled": 3,
+    "kept_sample": 20,
+    "stray": []
+   },
+   {
+    "no": 11,
+    "code": "P-L",
+    "f": "L_P_L",
+    "visual": [
+     "cards"
+    ],
+    "ph": 16,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 22,
+    "stray": []
+   },
+   {
+    "no": 12,
+    "code": "SC-B",
+    "f": "L_SC_B",
+    "visual": [
+     "comparison",
+     "table"
+    ],
+    "ph": 7,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 21,
+    "stray": []
+   },
+   {
+    "no": 13,
+    "code": "CD-D",
+    "f": "L_CD_D",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 4,
+    "img_slots": 4,
+    "img_filled": 4,
+    "kept_sample": 11,
+    "stray": []
+   },
+   {
+    "no": 14,
+    "code": "CO-A",
+    "f": "L_CO_A",
+    "visual": [
+     "cards",
+     "comparison"
+    ],
+    "ph": 7,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 63,
+    "stray": []
+   },
+   {
+    "no": 15,
+    "code": "C13",
+    "f": "L_C13",
+    "visual": [
+     "cards",
+     "flow",
+     "message"
+    ],
+    "ph": 19,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 29,
+    "stray": []
+   }
+  ]
+ },
+ "sec": 26.4,
+ "llm_calls": 33,
+ "llm_fail": 0
+}

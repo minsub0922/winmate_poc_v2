@@ -1,6 +1,9 @@
 # 로컬 장표 작업물 (PPT 레이아웃 · as-is/to-be 등)
 ppt_layouts/
 
+# Isolated admin application and its local databases (not shipped to production)
+/admin/
+
 # Migration: credentials and local execution state
 **/.env
 **/.env.*
@@ -39,3 +42,11 @@ app/data/runtime/
 app/web/dist/
 app/tests/output/
 app/tests/legacy-work/
+
+# Local build/transfer history; required source assets live in the versioned app/data, img and proddb inputs.
+/output/
+/.codex-build/
+/.wm_tmp/
+/_to_delete/
+/.dev_md5.txt
+/winmatev2*.zip

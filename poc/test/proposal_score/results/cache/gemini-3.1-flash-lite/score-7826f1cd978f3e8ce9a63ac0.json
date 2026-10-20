@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs02:F02"
+ },
+ "prompt_tokens": 9601,
+ "output_tokens": 242,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 4가지 요구사항(설계 확정 시점, 임차인 차별점, 에너지 실측 증빙, 유지보수 부담)에 대해 각 14, 15, 16장에서 구체적인 해법과 일정을 명시적으로 제시하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "도면 확정 전에 주체를 정합니다"
+     },
+     {
+      "sheet": 15,
+      "quote": "29.02 준공 · 관제 개시 — 층별 실측으로 20% 절감을 증빙합니다"
+     },
+     {
+      "sheet": 16,
+      "quote": "설계 확정 전, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

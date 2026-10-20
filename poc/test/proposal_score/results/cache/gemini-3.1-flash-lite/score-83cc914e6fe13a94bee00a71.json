@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~number_conflict:F07"
+ },
+ "prompt_tokens": 2527,
+ "output_tokens": 260,
+ "data": {
+  "scores": [
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "삼성의 하드웨어와 솔루션 통합 역량, 전국 서비스망을 고객의 운영 효율 과제와 연결하여 15년 연속 1위, 18년 연속 TV 1위 등 구체적 수치로 제시함.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "하드웨어와 솔루션을 함께 | 디스플레이 · 관리 솔루션 · 서비스를 한 회사가, 한 체계로 운영합니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "구축 이후가 더 든든한 서비스 | 전국 서비스망과 원격 모니터링으로 장애를 먼저 찾아 대응합니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "15년+ | 사이니지 1위 | 18년+ | TV 1위"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

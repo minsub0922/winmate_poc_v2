@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs17:F01"
+ },
+ "prompt_tokens": 8289,
+ "output_tokens": 325,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명을 'T 은행'으로 일관되게 표기하였으며, 규모 및 담당 조직 정보 또한 장마다 동일하게 기술되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "T 은행"
+     },
+     {
+      "sheet": 11,
+      "quote": "확산 대상 240개 영업점"
+     },
+     {
+      "sheet": 14,
+      "quote": "디지털금융 부행장"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 2,
+    "anchor": "13장에서 '할인율 미적용'이라는 내부 계산 기준이 노출되었습니다. 이는 민감한 원가 정보는 아니나 내부용 작업 문구로 판단됩니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "할인율 미적용"
+     }
+    ],
+    "improve": "고객용 제안서에서 내부 계산 기준인 '할인율 미적용' 문구를 삭제하십시오.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

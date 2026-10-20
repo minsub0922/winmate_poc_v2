@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07:F06"
+ },
+ "prompt_tokens": 8470,
+ "output_tokens": 248,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "제안서 내 객실 수(300실), 체크인 대기 시간(12분), 교체 대상 수량(616대) 등 핵심 지표가 모든 장에서 일관되게 기술되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "15–16시 체크인 집중, 프런트 3명 앞 평균 12분 대기"
+     },
+     {
+      "sheet": 10,
+      "quote": "객실 300실은 한 실의 키트로, 공용부는 따로 셉니다"
+     },
+     {
+      "sheet": 10,
+      "quote": "합계 | 객실 기기 600 + 공용부 16 = 616대"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

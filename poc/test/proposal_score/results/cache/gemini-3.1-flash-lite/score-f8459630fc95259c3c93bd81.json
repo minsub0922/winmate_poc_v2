@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19:F03"
+ },
+ "prompt_tokens": 2952,
+ "output_tokens": 189,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "제안 요약 장(2장)에서 비용 절감 및 운영 효율화 등 경영 지표를 명확히 제시하고, 마지막 장(10장)에서 결정권자별 의사결정 단계를 구분하여 정리했습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "연 −15% 운영 · 유지보수비"
+     },
+     {
+      "sheet": 10,
+      "quote": "구성 · 예산안 보고 → 2027년 1월 파일럿 착수"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

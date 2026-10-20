@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs20:F03"
+ },
+ "prompt_tokens": 3899,
+ "output_tokens": 357,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "10장과 11장에서 경영 지표인 투자 회수 기간과 수익 범위를 제시하고, 13장에서 결정권자가 확정해야 할 3가지 사항을 요약하여 정리했습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "기준 39개월, 보수로도 64개월에 회수합니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "다음 6주, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS7",
+    "score": 3,
+    "anchor": "12장에서 구매 방식별 비용 구조와 유지보수 포함 여부를 명시하고, 10~11장에서 투자 회수 기간과 산정 전제를 상세히 설명했습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "연간 순현금 9.8억 = 광고 매출 14.4억 − 운영비 4.6억"
+     },
+     {
+      "sheet": 12,
+      "quote": "같은 매체, 세 가지 자금 구조로 도입할 수 있습니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

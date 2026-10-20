@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs15:F04"
+ },
+ "prompt_tokens": 2421,
+ "output_tokens": 170,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 1,
+    "anchor": "제안서 내에 G 마트의 도입 사례나 타사 도입 사례에 대한 구체적인 성과 데이터가 제시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "점포당 연 손실 · 운영비 (만 원) | 20,800만 원"
+     }
+    ],
+    "improve": "유사 리테일 업종의 실제 도입 사례를 추가하고, 해당 사례에서 얻은 구체적인 성과 수치를 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,132 @@
+{
+ "id": "C10_L3",
+ "case": "C10",
+ "industry": "MD",
+ "strategy": "land",
+ "req_type": "scale",
+ "title": "요양병원 병동 확산",
+ "level": "complex",
+ "input": {
+  "title": "P 요양병원 · 전 병동 확산",
+  "customer": "P 요양병원",
+  "project": "스마트 병동 전 병동 확산",
+  "target": "이사장",
+  "free_text": "작년 1개 병동 파일럿에서 호출 응답 시간이 30% 줄었습니다. 이 결과로 남은 7개 병동에 단계 확산을 하려 하며, 2차 예산은 이사회 승인이 필요합니다. 감염 관리 때문에 공기질 관리가 중요하고, 환자 정보는 병원 내부망 밖으로 나가면 안 됩니다.",
+  "keymen": [
+   {
+    "name": "이사장",
+    "weight": 45,
+    "reqs": [
+     "파일럿 성과를 근거로 이사회 예산 승인",
+     "병동별 단계 확산 일정"
+    ]
+   },
+   {
+    "name": "간호부장",
+    "weight": 35,
+    "reqs": [
+     "간호사 호출 응답 부담 줄이기",
+     "야간 낙상 위험 알림",
+     "보호자 안내 화면"
+    ]
+   },
+   {
+    "name": "행정원장",
+    "weight": 20,
+    "reqs": [
+     "환자 정보 내부망 보관",
+     "병실 공기질 관리"
+    ]
+   }
+  ],
+  "products": [
+   "hoteltv43",
+   "purifier",
+   "qm43c",
+   "smarttag"
+  ],
+  "solutions": [
+   "lynk"
+  ],
+  "id": "C10_L3"
+ },
+ "gold": {
+  "level": "complex",
+  "industry": "MD",
+  "strategy_any": [
+   "land",
+   "roi",
+   "pain"
+  ],
+  "must_parts": [
+   "requirements",
+   "execution",
+   "effect"
+  ],
+  "dims_any": [
+   "일정·실행·확산",
+   "보안·인증·규제",
+   "사용자 경험·성과"
+  ],
+  "conflicts_any": [],
+  "min_questions": 4,
+  "key_reqs": [
+   {
+    "kw": [
+     "30%"
+    ],
+    "parts_any": [
+     "effect",
+     "case",
+     "requirements"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "이사회"
+    ],
+    "parts_any": [
+     "closing",
+     "overview",
+     "execution",
+     "cost",
+     "requirements"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "내부망"
+    ],
+    "parts_any": [
+     "execution",
+     "spec",
+     "requirements"
+    ],
+    "priority": "must"
+   },
+   {
+    "kw": [
+     "단계"
+    ],
+    "parts_any": [
+     "execution",
+     "bom"
+    ],
+    "priority": "should"
+   }
+  ],
+  "facts": [
+   "30",
+   "7"
+  ],
+  "layouts_any": {
+   "execution": [
+    "L_PL_A",
+    "L_SV_A",
+    "L_PL_B"
+   ]
+  }
+ }
+}

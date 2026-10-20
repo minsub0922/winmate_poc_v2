@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs21:F08"
+ },
+ "prompt_tokens": 3457,
+ "output_tokens": 238,
+ "data": {
+  "scores": [
+   {
+    "id": "DS7",
+    "score": 2,
+    "anchor": "본문 장 제목 중 19개가 메시지형으로 구성되었으나, 공간별 제품 소개 및 Why Samsung 파트 등에서 라벨형 제목이 다수 섞여 있어 80% 기준을 충족하지 못함.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "라운지 — 스마트 LED 사이니지 (The Wall)"
+     },
+     {
+      "sheet": 24,
+      "quote": "LYNK Cloud"
+     },
+     {
+      "sheet": 34,
+      "quote": "통합 오퍼링"
+     }
+    ],
+    "improve": "라벨형으로 작성된 공간별 제품 및 Why Samsung 파트의 제목을 제품의 효용이나 제안의 핵심 가치를 담은 문장형으로 변경해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

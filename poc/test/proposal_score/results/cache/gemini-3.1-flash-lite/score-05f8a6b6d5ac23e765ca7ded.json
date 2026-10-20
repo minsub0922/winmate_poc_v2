@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs21~full:F03"
+ },
+ "prompt_tokens": 4079,
+ "output_tokens": 364,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 1,
+    "anchor": "제안서 전반에 걸쳐 제품의 기능과 사양 위주로 설명하고 있으며, 총지배인 등 결정권자가 판단할 경영 성과나 리스크, 예산 관련 정보가 포함된 요약 장이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "H 호텔에 필요한 AI, Device · Solution · Service로 한 번에"
+     },
+     {
+      "sheet": 6,
+      "quote": "H 호텔 투숙객의 세 가지 니즈에 삼성 AI 기술로 답합니다"
+     }
+    ],
+    "improve": "제안서 도입부에 총지배인 등 결정권자를 위한 경영 성과(매출 증대, 비용 절감, 리스크 관리) 요약 장을 추가하십시오.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS7",
+    "score": 1,
+    "anchor": "비용 구조, 총소유비용(TCO), 투자 회수 기간 등 비용 관련 정보가 전혀 언급되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "구매 방식(렌탈/구매), 총소유비용, 투자 회수 기간 및 유지보수 비용 등 고객이 의사결정에 참고할 비용 정보를 포함하십시오.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

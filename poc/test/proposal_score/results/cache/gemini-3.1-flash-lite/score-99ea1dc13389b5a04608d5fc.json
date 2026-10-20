@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs01:F09"
+ },
+ "prompt_tokens": 5065,
+ "output_tokens": 208,
+ "data": {
+  "scores": [
+   {
+    "id": "PR2",
+    "score": 1,
+    "anchor": "10장에서 옥외 사이니지 OH55A-S의 사양을 기술하며 크기를 24인치로 잘못 표기하여 카탈로그 사양(55인치)과 일치하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "옥외 사이니지 | OH55A-S | 55\" · 3,500nit(최대 4,000) · IP56"
+     }
+    ],
+    "improve": "10장의 OH55A-S 크기 표기를 55인치로 수정하여 카탈로그 사양과 일치시켜야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

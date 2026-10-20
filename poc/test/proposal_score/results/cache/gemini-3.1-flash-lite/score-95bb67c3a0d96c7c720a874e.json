@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~placeholders:F05"
+ },
+ "prompt_tokens": 3392,
+ "output_tokens": 272,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "제안서 내 대부분의 수치에 구체적인 조사 기관과 연도가 명시되어 있지 않으며, 일부 장에서는 '[00]일'과 같은 자리표시가 그대로 남아 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "연 −15% | 운영 · 유지보수비 | −30% | 현장 출동"
+     },
+     {
+      "sheet": 3,
+      "quote": "2028년 9,600억 원 · 연 7% 성장"
+     },
+     {
+      "sheet": 10,
+      "quote": "11/02 – 11/13 · 삼성 · Y 그룹 실무 참석"
+     }
+    ],
+    "improve": "모든 시장 데이터와 성과 수치에 신뢰할 수 있는 조사 기관과 연도를 명시하고, 자리표시(00)를 실제 데이터로 교체해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

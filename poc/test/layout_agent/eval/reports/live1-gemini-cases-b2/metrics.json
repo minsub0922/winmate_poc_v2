@@ -1,0 +1,672 @@
+{
+ "summary": {
+  "overall": 0.9689,
+  "by_level": {
+   "minimal": 0.9784,
+   "ambiguous": 0.9416,
+   "complex": 0.9868
+  },
+  "by_case": {
+   "C03": 0.9609,
+   "C04": 0.9769
+  },
+  "metrics": {
+   "level": 1.0,
+   "industry": 1.0,
+   "scenario": 1.0,
+   "must_parts": 1.0,
+   "flow": 0.8262,
+   "layout_part": 0.9872,
+   "layouts_any": 1.0,
+   "violations": 1.0,
+   "must_cov": 1.0,
+   "fill_clean": 1.0,
+   "stray": 0.914,
+   "scenario_top3": 1.0,
+   "key_detect": 1.0,
+   "key_trace": 0.8125,
+   "key_reflect": 0.875,
+   "facts": 1.0,
+   "priority": 1.0,
+   "dims": 1.0,
+   "conflicts": 1.0,
+   "questions": 1.0,
+   "eval": 1.0
+  },
+  "n": 6,
+  "name": "live-gemini-cases-b2",
+  "llm": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "llm_calls": 170,
+  "llm_fail": 0,
+  "elapsed_s": 126.1
+ },
+ "rows": [
+  {
+   "id": "C03_L1",
+   "case": "C03",
+   "level": "minimal",
+   "industry": "HT",
+   "score": 0.9615,
+   "metrics": {
+    "level": 1.0,
+    "industry": 1.0,
+    "scenario": 1.0,
+    "scenario_top3": null,
+    "must_parts": 1.0,
+    "flow": 0.889,
+    "layout_part": 1.0,
+    "layouts_any": 1.0,
+    "violations": 1.0,
+    "key_detect": null,
+    "key_trace": null,
+    "key_reflect": null,
+    "must_cov": 1.0,
+    "facts": null,
+    "priority": null,
+    "fill_clean": 1.0,
+    "stray": 0.5555555555555556,
+    "dims": null,
+    "conflicts": null,
+    "questions": null,
+    "eval": null
+   },
+   "detail": {
+    "scenario": "STD-HT",
+    "missing_parts": [],
+    "layouts_any_miss": [],
+    "key_reqs": [],
+    "stray": {
+     "VP-G": [
+      "LYNK Cloud"
+     ],
+     "VP-U": [
+      "LYNK Cloud"
+     ],
+     "SM-A": [
+      "LYNK Cloud"
+     ],
+     "ST-A": [
+      "LYNK Cloud"
+     ]
+    },
+    "fill": {
+     "slots": 284,
+     "changed": 152,
+     "placeholders_left": 67,
+     "unsupported_reverted": 0,
+     "sample_leak": 0,
+     "foreign_terms": 0,
+     "static_foreign_slides": 2
+    },
+    "fill_cov": 0.535
+   },
+   "n_slides": 10,
+   "n_req": 1,
+   "sec": 14.07,
+   "slides": [
+    "1.cover:L_C02",
+    "2.market:L_MI_HT_A",
+    "3.value:L_VP_G",
+    "4.value:L_VP_U_HT",
+    "5.dss:L_SP00",
+    "6.products:L_P1B",
+    "7.case:L_CS03",
+    "8.why:L_WS02",
+    "9.why:L_SV_A",
+    "10.closing:L_C13"
+   ],
+   "parts": [
+    "S01:cover:G 호텔 제안서",
+    "S02:market:호텔 시장 및 트렌드",
+    "S03:value:HG55BU 핵심 가치",
+    "S04:value:현장 맞춤형 솔루션",
+    "S05:dss:객실 공간 최적화",
+    "S06:products:객실 전용 TV 제안",
+    "S07:case:성공적인 도입 사례",
+    "S08:why:삼성전자를 선택해야 하는 이유",
+    "S09:why:체계적인 운영 지원",
+    "S10:closing:향후 추진 계획"
+   ]
+  },
+  {
+   "id": "C03_L2",
+   "case": "C03",
+   "level": "ambiguous",
+   "industry": "HT",
+   "score": 0.9426,
+   "metrics": {
+    "level": 1.0,
+    "industry": 1.0,
+    "scenario": 1.0,
+    "scenario_top3": 1.0,
+    "must_parts": 1.0,
+    "flow": 0.818,
+    "layout_part": 0.9230769230769231,
+    "layouts_any": null,
+    "violations": 1.0,
+    "key_detect": 1.0,
+    "key_trace": 1.0,
+    "key_reflect": 0.5,
+    "must_cov": null,
+    "facts": null,
+    "priority": null,
+    "fill_clean": 1.0,
+    "stray": 1.0,
+    "dims": null,
+    "conflicts": null,
+    "questions": null,
+    "eval": null
+   },
+   "detail": {
+    "scenario": "bs07",
+    "top3": [
+     "bs07",
+     "bs10"
+    ],
+    "missing_parts": [],
+    "key_reqs": [
+     {
+      "kw": [
+       "불만"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": false
+     },
+     {
+      "kw": [
+       "교체"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     }
+    ],
+    "stray": {},
+    "fill": {
+     "slots": 745,
+     "changed": 219,
+     "placeholders_left": 114,
+     "unsupported_reverted": 0,
+     "sample_leak": 0,
+     "foreign_terms": 0,
+     "static_foreign_slides": 1
+    },
+    "fill_cov": 0.294
+   },
+   "n_slides": 13,
+   "n_req": 3,
+   "sec": 21.22,
+   "slides": [
+    "1.cover:L_C01",
+    "2.customer:L_MI_HT_B",
+    "3.user:L_SS_HT_B",
+    "4.challenge:L_CH_C",
+    "5.value:L_VP_U_HT",
+    "6.scenario:L_LYN_S_HT",
+    "7.solution:L_LYN_S",
+    "8.solution:L_LYN_D",
+    "9.products:L_P_N",
+    "10.bom:L_BM_C",
+    "11.execution:L_IP_C",
+    "12.effect:L_EF_C",
+    "13.closing:L_C13"
+   ],
+   "parts": [
+    "S01:cover:G 호텔 객실 리뉴얼 제안",
+    "S02:customer:객실 중심의 비즈니스",
+    "S03:user:투숙객의 경험 가치",
+    "S04:challenge:투숙객 불만 해결",
+    "S05:value:호텔을 위한 가치",
+    "S06:scenario:객실의 하루 시나리오",
+    "S07:solution:스마트 객실 솔루션",
+    "S08:products:맞춤형 제품 제안",
+    "S09:bom:최적의 구성 및 물량",
+    "S10:execution:무중단 교체 전략",
+    "S11:effect:기대 효과 및 성과",
+    "S12:closing:성공적인 파트너십"
+   ]
+  },
+  {
+   "id": "C03_L3",
+   "case": "C03",
+   "level": "complex",
+   "industry": "HT",
+   "score": 0.9785,
+   "metrics": {
+    "level": 1.0,
+    "industry": 1.0,
+    "scenario": 1.0,
+    "scenario_top3": null,
+    "must_parts": 1.0,
+    "flow": 0.846,
+    "layout_part": 1.0,
+    "layouts_any": 1.0,
+    "violations": 1.0,
+    "key_detect": 1.0,
+    "key_trace": 0.75,
+    "key_reflect": 1.0,
+    "must_cov": 1.0,
+    "facts": 1.0,
+    "priority": 1.0,
+    "fill_clean": 1.0,
+    "stray": 1.0,
+    "dims": 1.0,
+    "conflicts": 1.0,
+    "questions": 1.0,
+    "eval": null
+   },
+   "detail": {
+    "strategy": "pain",
+    "missing_parts": [],
+    "layouts_any_miss": [],
+    "key_reqs": [
+     {
+      "kw": [
+       "체크인"
+      ],
+      "detect": true,
+      "trace": false,
+      "reflect": true
+     },
+     {
+      "kw": [
+       "영업",
+       "유지"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     },
+     {
+      "kw": [
+       "소음"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     },
+     {
+      "kw": [
+       "4시간"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     }
+    ],
+    "facts_miss": [],
+    "stray": {},
+    "fill": {
+     "slots": 799,
+     "changed": 323,
+     "placeholders_left": 110,
+     "unsupported_reverted": 0,
+     "sample_leak": 0,
+     "foreign_terms": 0,
+     "static_foreign_slides": 2
+    },
+    "fill_cov": 0.404,
+    "dims": [
+     "경쟁·차별화",
+     "기능·성능 규격",
+     "범위·수량·공간",
+     "사용자 경험·성과",
+     "운영·유지보수",
+     "일정·실행·확산"
+    ],
+    "conflicts": [
+     "LLM 발견",
+     "시공 vs 영업 유지"
+    ],
+    "n_questions": 13,
+    "interrupted": true
+   },
+   "n_slides": 15,
+   "n_req": 12,
+   "sec": 24.28,
+   "slides": [
+    "1.cover:L_C01",
+    "2.overview:L_ES_A",
+    "3.requirements:L_RM_A",
+    "4.challenge:L_CH_C",
+    "5.value:L_VP_U_HT",
+    "6.scenario:L_SS_HT_B",
+    "7.solution:L_LYN_S_HT",
+    "8.solution:L_LYN_D",
+    "9.products:L_P_N",
+    "10.bom:L_BM_C",
+    "11.effect:L_EF_C",
+    "12.why:L_CM_B",
+    "13.execution:L_IP_C",
+    "14.execution:L_MT_B",
+    "15.closing:L_C13"
+   ],
+   "parts": [
+    "S01:cover:G 비즈니스 호텔 리뉴얼",
+    "S02:overview:제안 요약",
+    "S03:requirements:핵심 이해관계자 요구",
+    "S04:challenge:현장 문제와 근본 원인",
+    "S05:value:삼성의 가치 제안",
+    "S06:scenario:객실의 하루 시나리오",
+    "S07:solution:스마트 객실 솔루션",
+    "S08:products:공간별 최적 제품",
+    "S09:bom:프로젝트 범위 및 수량",
+    "S10:effect:기대 효과",
+    "S11:why:삼성만의 차별화",
+    "S12:execution:무중단 시공 계획",
+    "S13:execution:운영 및 유지보수",
+    "S14:closing:제안 마무리"
+   ]
+  },
+  {
+   "id": "C04_L1",
+   "case": "C04",
+   "level": "minimal",
+   "industry": "FN",
+   "score": 0.9952,
+   "metrics": {
+    "level": 1.0,
+    "industry": 1.0,
+    "scenario": 1.0,
+    "scenario_top3": null,
+    "must_parts": 1.0,
+    "flow": 0.875,
+    "layout_part": 1.0,
+    "layouts_any": 1.0,
+    "violations": 1.0,
+    "key_detect": null,
+    "key_trace": null,
+    "key_reflect": null,
+    "must_cov": 1.0,
+    "facts": null,
+    "priority": null,
+    "fill_clean": 1.0,
+    "stray": 1.0,
+    "dims": null,
+    "conflicts": null,
+    "questions": null,
+    "eval": null
+   },
+   "detail": {
+    "scenario": "STD-FN",
+    "missing_parts": [],
+    "layouts_any_miss": [],
+    "key_reqs": [],
+    "stray": {},
+    "fill": {
+     "slots": 255,
+     "changed": 143,
+     "placeholders_left": 69,
+     "unsupported_reverted": 0,
+     "sample_leak": 0,
+     "foreign_terms": 0,
+     "static_foreign_slides": 2
+    },
+    "fill_cov": 0.561
+   },
+   "n_slides": 9,
+   "n_req": 2,
+   "sec": 14.0,
+   "slides": [
+    "1.cover:L_C09",
+    "2.market:L_MI_FN_A",
+    "3.value:L_VP_G",
+    "4.dss:L_SP00",
+    "5.products:L_P1B",
+    "6.case:L_CS03",
+    "7.why:L_WS02",
+    "8.why:L_SV_A",
+    "9.closing:L_C13"
+   ],
+   "parts": [
+    "S01:cover:H 은행 디지털 혁신 제안",
+    "S02:market:금융 환경의 변화와 요구",
+    "S03:value:S32DM80의 핵심 가치",
+    "S04:dss:은행 지점 최적화 배치",
+    "S05:products:지점 맞춤형 스마트 모니터",
+    "S06:case:금융권 성공 도입 사례",
+    "S07:why:삼성전자를 선택해야 하는 이유",
+    "S08:why:안정적인 운영 지원 체계",
+    "S09:closing:성공적인 프로젝트를 위한 제언"
+   ]
+  },
+  {
+   "id": "C04_L2",
+   "case": "C04",
+   "level": "ambiguous",
+   "industry": "FN",
+   "score": 0.9406,
+   "metrics": {
+    "level": 1.0,
+    "industry": 1.0,
+    "scenario": 1.0,
+    "scenario_top3": 1.0,
+    "must_parts": 1.0,
+    "flow": 0.6,
+    "layout_part": 1.0,
+    "layouts_any": null,
+    "violations": 1.0,
+    "key_detect": 1.0,
+    "key_trace": 0.5,
+    "key_reflect": 1.0,
+    "must_cov": null,
+    "facts": null,
+    "priority": null,
+    "fill_clean": 1.0,
+    "stray": 1.0,
+    "dims": null,
+    "conflicts": null,
+    "questions": null,
+    "eval": null
+   },
+   "detail": {
+    "scenario": "bs17",
+    "top3": [
+     "bs17"
+    ],
+    "missing_parts": [],
+    "key_reqs": [
+     {
+      "kw": [
+       "대기"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     },
+     {
+      "kw": [
+       "창구"
+      ],
+      "detect": true,
+      "trace": false,
+      "reflect": true
+     }
+    ],
+    "stray": {},
+    "fill": {
+     "slots": 857,
+     "changed": 327,
+     "placeholders_left": 177,
+     "unsupported_reverted": 0,
+     "sample_leak": 0,
+     "foreign_terms": 0,
+     "static_foreign_slides": 1
+    },
+    "fill_cov": 0.382
+   },
+   "n_slides": 15,
+   "n_req": 2,
+   "sec": 23.04,
+   "slides": [
+    "1.cover:L_C01",
+    "2.overview:L_ES_B",
+    "3.user:L_MI_FN_C",
+    "4.value:L_VP_F2",
+    "5.case:L_CD_C",
+    "6.scenario:L_SS_FN_B",
+    "7.scenario:L_VC_21",
+    "8.scenario:L_SS_FN_E",
+    "9.execution:L_SE_A",
+    "10.execution:L_SE_C",
+    "11.execution:L_PL_A",
+    "12.execution:L_TO_B",
+    "13.bom:L_BM_E",
+    "14.effect:L_EF_F",
+    "15.closing:L_C13"
+   ],
+   "parts": [
+    "S01:cover:H은행 디지털 창구 제안",
+    "S02:overview:디지털 창구 전환 개요",
+    "S03:user:고객 불편사항 분석",
+    "S04:value:핵심 가치 제안",
+    "S05:case:파일럿 성과 검증",
+    "S06:scenario:디지털 창구 상담 시나리오",
+    "S07:execution:금융 보안 체계",
+    "S08:execution:단계별 실행 계획",
+    "S09:bom:도입 구성 및 일정",
+    "S10:effect:기대 효과",
+    "S11:closing:향후 추진 계획"
+   ]
+  },
+  {
+   "id": "C04_L3",
+   "case": "C04",
+   "level": "complex",
+   "industry": "FN",
+   "score": 0.995,
+   "metrics": {
+    "level": 1.0,
+    "industry": 1.0,
+    "scenario": 1.0,
+    "scenario_top3": null,
+    "must_parts": 1.0,
+    "flow": 0.929,
+    "layout_part": 1.0,
+    "layouts_any": 1.0,
+    "violations": 1.0,
+    "key_detect": 1.0,
+    "key_trace": 1.0,
+    "key_reflect": 1.0,
+    "must_cov": 1.0,
+    "facts": 1.0,
+    "priority": 1.0,
+    "fill_clean": 1.0,
+    "stray": 0.9285714285714286,
+    "dims": 1.0,
+    "conflicts": 1.0,
+    "questions": 1.0,
+    "eval": 1.0
+   },
+   "detail": {
+    "strategy": "rfp",
+    "missing_parts": [],
+    "layouts_any_miss": [],
+    "key_reqs": [
+     {
+      "kw": [
+       "어댑터"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     },
+     {
+      "kw": [
+       "USB-C"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     },
+     {
+      "kw": [
+       "KC"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     },
+     {
+      "kw": [
+       "최저가"
+      ],
+      "detect": true,
+      "trace": true,
+      "reflect": true
+     }
+    ],
+    "facts_miss": [],
+    "stray": {
+     "SE-A": [
+      "Knox Suite"
+     ]
+    },
+    "fill": {
+     "slots": 825,
+     "changed": 480,
+     "placeholders_left": 124,
+     "unsupported_reverted": 0,
+     "sample_leak": 0,
+     "foreign_terms": 0,
+     "static_foreign_slides": 2
+    },
+    "fill_cov": 0.582,
+    "dims": [
+     "기능·성능 규격",
+     "범위·수량·공간",
+     "보안·인증·규제",
+     "비용·구매",
+     "운영·유지보수",
+     "평가·선정·자격"
+    ],
+    "conflicts": [
+     "LLM 발견",
+     "가격 vs 규격",
+     "키맨 관심사 분산"
+    ],
+    "n_questions": 13,
+    "interrupted": true
+   },
+   "n_slides": 15,
+   "n_req": 41,
+   "sec": 27.26,
+   "slides": [
+    "1.cover:L_C09",
+    "2.overview:L_OV_A",
+    "3.requirements:L_RM_A",
+    "4.requirements:L_RM_C",
+    "5.requirements:L_RM_B",
+    "6.value:L_VP_F2",
+    "7.products:L_P1B",
+    "8.bom:L_BM_A",
+    "9.spec:L_SC_B",
+    "10.execution:L_SE_A",
+    "11.case:L_CL_C",
+    "12.why:L_CM_B",
+    "13.execution:L_MT_B",
+    "14.cost:L_CO_B",
+    "15.closing:L_C13"
+   ],
+   "parts": [
+    "S01:cover:신한은행 모니터 도입 제안",
+    "S02:overview:사업 이해 및 추진 방향",
+    "S03:requirements:핵심 이해관계자 요구사항",
+    "S04:requirements:입찰 평가 항목 대응 전략",
+    "S05:requirements:입찰 요구사항 준수 방안",
+    "S06:value:이해관계자별 가치 제안",
+    "S07:products:금융 업무 최적화 제품",
+    "S08:bom:공급 범위 및 수량 대응",
+    "S09:spec:기술 규격 및 성능 대응",
+    "S10:execution:보안 및 설치 표준 준수",
+    "S11:case:금융권 구축 성공 사례",
+    "S12:why:삼성전자 제안의 차별점",
+    "S13:execution:운영 및 유지보수 계획",
+    "S14:cost:가격 경쟁력 및 총가치",
+    "S15:closing:성공적인 사업 수행 약속"
+   ]
+  }
+ ]
+}

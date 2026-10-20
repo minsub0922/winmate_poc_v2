@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs04:F09"
+ },
+ "prompt_tokens": 5067,
+ "output_tokens": 219,
+ "data": {
+  "scores": [
+   {
+    "id": "PR2",
+    "score": 3,
+    "anchor": "장 10에서 제시된 빌트인 가전의 매립 치수(W, H, D)와 모델 스펙이 제안서 전체 맥락에서 일관되게 유지되며, 외부 카탈로그 사양과도 상충하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "Bespoke Built-in · 4도어 키친핏 | W 930 | H 1,870 | D 700"
+     },
+     {
+      "sheet": 10,
+      "quote": "AI Dishwasher | W 600 | H 820 | D 580"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

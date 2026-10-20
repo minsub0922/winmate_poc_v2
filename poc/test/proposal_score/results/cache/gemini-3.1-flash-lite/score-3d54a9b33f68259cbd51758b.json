@@ -1,0 +1,69 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~full:F02"
+ },
+ "prompt_tokens": 10192,
+ "output_tokens": 618,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 2,
+    "anchor": "고객 요구사항 R1~R4와 K1~K4에 대해 대부분 대응하고 있으나, K2(가맹점주 부담)와 K3(본사 통제력 및 장애 대응)에 대한 구체적인 해법이 명시적이지 않음.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "전 매장 메뉴 · 가격 · 프로모션을 본사가 같은 날 바꾸는 체계가 필요합니다"
+     },
+     {
+      "sheet": 6,
+      "quote": "매장별 전력 리포트가 따라옵니다"
+     },
+     {
+      "sheet": 14,
+      "quote": "점주 의지 | 네트워크 | 가격 오류 | 전력"
+     }
+    ],
+    "improve": "가맹점주의 초기 비용 부담을 완화할 수 있는 구체적인 금융 프로그램(렌탈/구독)과 본사의 장애 대응 프로세스를 명시해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "SB1",
+    "score": 2,
+    "anchor": "표지와 마무리는 갖추었으나, 제안서 내에 별도의 목차 페이지가 존재하지 않음.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "A 커피 전국 320개 매장 디지털 메뉴보드 전환 제안"
+     },
+     {
+      "sheet": 16,
+      "quote": "다음 2주, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "제안서의 전체 구조를 한눈에 파악할 수 있도록 표지 뒤에 목차 페이지를 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "SB2",
+    "score": 2,
+    "anchor": "모든 장에 푸터와 기밀 표기는 있으나, 1장부터 16장까지 쪽번호가 본문 내에 명시적으로 표기되어 있지 않음.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "CONFIDENTIAL · 2"
+     },
+     {
+      "sheet": 16,
+      "quote": "CONFIDENTIAL · 16"
+     }
+    ],
+    "improve": "각 장의 하단 푸터 영역에 명확한 쪽번호를 기입하여 문서의 일관성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

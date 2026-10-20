@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs05:F09"
+ },
+ "prompt_tokens": 6163,
+ "output_tokens": 162,
+ "data": {
+  "scores": [
+   {
+    "id": "PR1",
+    "score": 2,
+    "anchor": "제안서 내 VM55B-U 모델명이 기재되어 있으나, 삼성 카탈로그상 현행 모델은 VM55B로 확인되어 모델명 표기가 다소 모호함.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "VM55B-U"
+     }
+    ],
+    "improve": "제안서 내 모델명을 카탈로그와 일치하는 VM55B로 통일하여 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

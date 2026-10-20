@@ -1,0 +1,74 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs06~full:F01"
+ },
+ "prompt_tokens": 9695,
+ "output_tokens": 630,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'D 리테일'이 일관되게 사용되었으며, 사례로 인용된 타 브랜드(룰루레몬 등) 외에 다른 고객사명이나 예시 고객명이 존재하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "D 리테일 성수 플래그십 리뉴얼"
+     },
+     {
+      "sheet": 13,
+      "quote": "D 리테일 성수 플래그십 리뉴얼"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "CU5",
+    "score": 3,
+    "anchor": "성수 플래그십의 구체적인 공간(B1~4F), 현장 실측 데이터, 야간 시공 일정 등 고객 고유 정보가 전 장에 걸쳐 상세히 반영되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "성수 플래그십 B1–4F, 여섯 곳을 직접 보고 왔습니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "영업을 멈추지 않고, 여섯 밤에 끝냅니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "자리표시자나 템플릿 잔여 문구가 발견되지 않았으며, 연락처는 제안사 담당자의 공식 업무용 정보로 적절합니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "원가, 마진, 내부 코드명 등 민감한 내부 정보가 포함되어 있지 않으며, 제안 담당자의 연락처 외에 제3자의 개인정보도 없습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

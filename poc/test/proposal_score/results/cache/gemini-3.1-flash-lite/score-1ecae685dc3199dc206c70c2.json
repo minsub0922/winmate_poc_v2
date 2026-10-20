@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~wrong_customer:F04"
+ },
+ "prompt_tokens": 4596,
+ "output_tokens": 373,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "고객의 분양 여정별(탐색, 옵션, 입주, 거주) 결정적 순간과 그에 따른 고객사 접점 및 페인 포인트를 구체적으로 분석했습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "H 호텔의 고객은 모델하우스에서 고르고, 입주 후 매일 평가합니다"
+     },
+     {
+      "sheet": 3,
+      "quote": "결정적 순간 — 고객사를 평가하는 단계"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "유관 사례를 제시했으나, 사례에서 얻은 구체적인 성과 수치(예: 옵션 계약률 상승폭, 민원 감소율 등)가 누락되었습니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "같은 고민을 먼저 푼 두 단지"
+     },
+     {
+      "sheet": 12,
+      "quote": "청약 마감 | 높은 경쟁률 · 2개 단지"
+     }
+    ],
+    "improve": "사례 단지에서 삼성 솔루션 도입 후 실제 옵션 계약률이나 입주민 만족도 등 정량적인 성과 수치를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

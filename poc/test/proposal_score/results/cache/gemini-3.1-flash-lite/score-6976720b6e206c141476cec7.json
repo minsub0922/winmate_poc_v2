@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs12~full:F12"
+ },
+ "prompt_tokens": 8059,
+ "output_tokens": 502,
+ "data": {
+  "scores": [
+   {
+    "id": "WR2",
+    "score": 3,
+    "anchor": "전체적으로 맞춤법과 띄어쓰기가 정확하며, 제목에도 오류가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "V 경기장 빅보드 · 리본보드 LED 교체 제안"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR8",
+    "score": 1,
+    "anchor": "XHB, IFR, SLA 등 고객이 이해하기 어려운 기술 약어와 사내 용어에 대한 풀이가 전혀 없습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "실외 LED XHB · 하만 JBL 프로 오디오"
+     },
+     {
+      "sheet": 4,
+      "quote": "IFR LED · QM55C 메뉴보드"
+     },
+     {
+      "sheet": 11,
+      "quote": "SLA 조건 · p.11"
+     }
+    ],
+    "improve": "제안서 내 사용된 모든 기술 약어(XHB, IFR, SLA 등)에 대해 처음 등장하는 페이지에서 풀이 설명을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR9",
+    "score": 3,
+    "anchor": "개조식 문체와 명사형 종결이 제안서 전체에서 일관되게 유지되고 있으며, 고객을 존중하는 톤을 유지하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "V 경기장의 관람 시장은 커지고, 승부는 관람 경험에서 납니다"
+     },
+     {
+      "sheet": 4,
+      "quote": "V 경기장의 일곱 공간, 경기 한 판이 빅보드에서 매점까지 이어집니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

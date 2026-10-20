@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~base:F05"
+ },
+ "prompt_tokens": 6236,
+ "output_tokens": 271,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "대부분의 시장 및 성과 수치에 구체적인 조사 기관과 연도가 명시되지 않았으며, 자동 점검 결과 수치가 포함된 8개 장 모두에서 출처 표기가 미흡합니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "50% | 옵션 계약률 | 직전 단지 31% 대비"
+     },
+     {
+      "sheet": 2,
+      "quote": "2026E 분양 물량 | 23 | 만 세대"
+     },
+     {
+      "sheet": 6,
+      "quote": "청약 경쟁률 목표 | 6.0 대 1"
+     }
+    ],
+    "improve": "모든 시장 데이터와 성과 목표 수치 옆에 [조사 기관, 연도] 또는 [삼성전자 추정, 2026]과 같은 구체적인 출처를 일관되게 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

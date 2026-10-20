@@ -1,0 +1,61 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11~full:F05"
+ },
+ "prompt_tokens": 8033,
+ "output_tokens": 411,
+ "data": {
+  "scores": [
+   {
+    "id": "MK1",
+    "score": 1,
+    "anchor": "제안서 내에 시장 규모, 성장률, 점유율 등을 분석한 시장 조사 장이 존재하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "고객 사업과 관련된 시장 규모 및 성장률 데이터를 포함한 시장 분석 장을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "MK2",
+    "score": 1,
+    "anchor": "시장 조사 데이터 자체가 제안서에 포함되어 있지 않아 기준 연도를 확인할 수 없습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "최근 2년 이내의 시장 통계 자료를 인용하고 기준 연도를 명확히 표기해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "제안서 내 주요 수치 및 성과 지표에 대한 출처 표기가 대부분 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": ""
+     },
+     {
+      "sheet": 6,
+      "quote": ""
+     },
+     {
+      "sheet": 10,
+      "quote": ""
+     }
+    ],
+    "improve": "모든 시장 수치 및 인용 자료에 신뢰할 수 있는 기관명과 연도를 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

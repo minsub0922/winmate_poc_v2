@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs20:F06"
+ },
+ "prompt_tokens": 7261,
+ "output_tokens": 238,
+ "data": {
+  "scores": [
+   {
+    "id": "DS8",
+    "score": 3,
+    "anchor": "모든 차트와 표에서 축, 단위, 범례가 명확하게 표기되어 있으며, 수치 간의 합계와 논리적 관계가 일관되게 구성되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "연간 순현금 9.8억 = 광고 매출 14.4억 − 운영비 4.6억"
+     },
+     {
+      "sheet": 11,
+      "quote": "보수 50% · 기준 60% · 낙관 70%"
+     },
+     {
+      "sheet": 12,
+      "quote": "초기 비용 29.4억 원 · 월 비용 7,400만 원"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

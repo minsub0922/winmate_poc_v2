@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~base:F11"
+ },
+ "prompt_tokens": 3330,
+ "output_tokens": 211,
+ "data": {
+  "scores": [
+   {
+    "id": "DS6",
+    "score": 3,
+    "anchor": "모든 장에 내용과 부합하는 실제 호텔 객실 및 솔루션 사진이 배치되어 있으며, 텍스트만으로 구성된 장이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "호텔 TV 55\" HG55BU · 호텔 로비와 프런트"
+     },
+     {
+      "sheet": 7,
+      "quote": "내 폰 영상 → 객실 TV 캐스팅 · LYNK Cloud"
+     },
+     {
+      "sheet": 9,
+      "quote": "객실 벽면 호텔 TV · 침실 천장에 매립된 무풍"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

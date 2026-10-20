@@ -1,0 +1,139 @@
+<script>
+		$('button.spec-title').on("click", function(e){
+			e.preventDefault();
+			$('div[name="specLayer"] > .layer-header > h2').text(this.innerText);
+			$('div[name="specLayer"] > .layer-content > p').text(this.value);
+
+			let newId = $(this).data('popup-target');
+			$('div[name="specLayer"]').attr('id', newId);
+			$('div[name="specLayer"] > .pop-close').attr('data-focus-next', newId);
+			$('div[name="specLayer"]').attr('data-popup-layer', newId);
+			$('div[name="specLayer"]').attr('data-focus', newId);
+		});
+	</script>
+	<h3 class="spec-itm-title" id="cstrt-nm" ></h3>
+	<div class="spec-table">
+		<dl>
+						<dt>색상</dt>
+						<dd>
+							<ol>
+								<li>
+										<p class="spec-desc">블랙&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>호환성</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">호환모델</strong>
+													<p class="spec-desc">Galaxy Watch5 시리즈, Watch6 시리즈, Watch7 시리즈, Watch8 시리즈, Watch9, Watch Ultra, Watch Ultra2 및 이후 출시되는 Galaxy Watch 모델&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>일반</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">인터페이스</strong>
+													<p class="spec-desc">USB Type-C&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">패키지 구성</strong>
+													<p class="spec-desc">충전독&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>규격</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">케이블 길이</strong>
+													<p class="spec-desc">0.8&nbsp;m</p>
+												</li>
+								<li>
+										<strong class="spec-title">제품 외관 (가로x높이x깊이)</strong>
+													<p class="spec-desc">29.3x29.3x7.61&nbsp;mm</p>
+												</li>
+								<li>
+										<strong class="spec-title">중량</strong>
+													<p class="spec-desc">27.6&nbsp;g</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>전원</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">입력 최대 전류 (일반 충전)</strong>
+													<p class="spec-desc">2&nbsp;A</p>
+												</li>
+								<li>
+										<strong class="spec-title">입력 최대 전압 (일반 충전)</strong>
+													<p class="spec-desc">5&nbsp;V</p>
+												</li>
+								<li>
+										<strong class="spec-title">출력 최대 전류 (일반 충전)</strong>
+													<p class="spec-desc">1&nbsp;A</p>
+												</li>
+								<li>
+										<strong class="spec-title">출력 최대 전압 (일반 충전)</strong>
+													<p class="spec-desc">5&nbsp;V</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+				<dt>상품 기본정보</dt>
+				<dd>
+					<ol>
+						<li>
+								<strong class="spec-title">제품명</strong>
+								<p class="spec-desc">갤럭시 워치 고속 무선 충전기 (2026)</p>
+							</li>
+						<li>
+								<strong class="spec-title">제조자/수입자</strong>
+								<p class="spec-desc">삼성전자㈜</p>
+							</li>
+						<li>
+								<strong class="spec-title">제조국가</strong>
+								<p class="spec-desc">베트남</p>
+							</li>
+						<li>
+								<strong class="spec-title">KC 인증 필 유무</strong>
+								<p class="spec-desc"><img src='//images.samsung.com/is/image/samsung/p5/sec/common/icon-kc.png?$ORIGIN_PNG$' alt='KC 인증 로고'>R-R-SEC-EPOL715</p>
+							</li>
+						<li>
+								<strong class="spec-title">동일모델의 출시년월</strong>
+								<p class="spec-desc">2026년 8월</p>
+							</li>
+						<li>
+								<strong class="spec-title">A/S 책임자와 전화번호</strong>
+								<p class="spec-desc">삼성전자서비스센터 / 1588-3366</p>
+							</li>
+						<li>
+								<strong class="spec-title">품질보증기준</strong>
+								<p class="spec-desc">결함·하자 등에 따른 소비자피해에 대해서는 소비자분쟁해결기준(소비자기본법 제16조)에 따름 (품질보증 기간은 사용설명서 내 제품보증서 참조)</p>
+							</li>
+						</ol>
+				</dd>
+			</dl>
+		</div>
+	<div class="layer-pop layer-normal layer-default specLayer active" name="specLayer" id="specLayer" tabindex="0" data-popup-layer="specLayer" data-focus="specLayer" aria-hidden="false" data-zindex="300" style="z-index: 300; display: none">
+		<div class="layer-header">
+			<h2></h2>
+		</div>
+		<div class="layer-content">
+			<p></p>
+		</div>
+		<button type="button" class="pop-close" data-focus-next="">팝업닫기</button>
+	</div>
+

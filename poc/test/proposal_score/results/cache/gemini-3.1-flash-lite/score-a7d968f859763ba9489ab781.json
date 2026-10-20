@@ -1,0 +1,78 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs17~full:F04"
+ },
+ "prompt_tokens": 8831,
+ "output_tokens": 678,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "T 은행의 시범점 데이터를 기반으로 창구 상담 시간, 대기 시간, 서식 출력량 등 구체적인 수치를 제시하여 고객의 불편을 명확히 정의했습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "T 은행 고객의 불편은 15분 기다림과 서식, 두 순간에 몰려 있습니다"
+     },
+     {
+      "sheet": 4,
+      "quote": "창구 평균 상담 시간 20분 → 14분"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "CU6",
+    "score": 3,
+    "anchor": "금융권의 보안 규제, 창구 상담 동선, 전자서식 처리 등 업종 고유의 운영 맥락을 정확히 반영하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "보안 요건 10개 중 8개 충족, 2개는 사전 협의"
+     },
+     {
+      "sheet": 9,
+      "quote": "고객 정보는 은행 서버로만, 사이니지엔 번호만"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "영업점 창구, 대기석, 방문 상담 등 각 공간의 특성에 맞춰 갤럭시 탭, 사이니지(QM55C, KM24C)를 적절히 배치하고 용도를 명시했습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "갤럭시 탭 · QM55C · KM24C"
+     },
+     {
+      "sheet": 5,
+      "quote": "영업점 창구 — 시범점 상담 한 건을 네 장면으로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "시범점 성과 수치는 제시했으나, 제안서 내에 'T 은행' 외의 다른 실제 고객사명(사례 기업명)이 명시된 외부 도입 사례가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "T 은행 시범 10개점 — 6개월 성과"
+     }
+    ],
+    "improve": "유사한 금융권 타 고객사의 실제 도입 사례와 성과를 구체적으로 추가하여 신뢰도를 높여야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

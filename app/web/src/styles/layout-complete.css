@@ -1,0 +1,25 @@
+.layout-complete {
+  position: absolute; z-index: 5; top: 10px; right: 82px;
+  display: grid; place-items: center; width: 30px; height: 30px; padding: 0;
+  border: 1px solid var(--ok); border-radius: 50%; background: var(--surface); color: var(--ok);
+  box-shadow: var(--shadow); cursor: pointer; opacity: 0; pointer-events: none; transform: scale(.9);
+  transition: opacity .12s, transform .12s, background .12s;
+}
+:is(.lcard, .vslide):is(:hover, :focus-within) .layout-complete {
+  opacity: 1; pointer-events: auto; transform: none;
+}
+.layout-complete:hover { background: var(--ok-soft); }
+.layout-complete.on { background: var(--ok); color: var(--surface); }
+.layout-complete:disabled { cursor: not-allowed; filter: saturate(.6); }
+.layout-complete:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.vslide .layout-complete { right: 46px; }
+.vslide .fav-btn { top: 10px; right: 10px; }
+.vslide:is(:hover, :focus-within) .fav-btn { opacity: 1; transform: none; }
+.viewer .vslide.st-done .slide { box-shadow: 0 0 0 1.5px var(--ok); }
+.viewer .vthumb.st-done { border-color: var(--ok); }
+@media (hover: none) {
+  .layout-complete { opacity: 1; pointer-events: auto; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .layout-complete { transition: none; }
+}

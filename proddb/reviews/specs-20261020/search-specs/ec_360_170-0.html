@@ -1,0 +1,112 @@
+<script>
+		$('button.spec-title').on("click", function(e){
+			e.preventDefault();
+			$('div[name="specLayer"] > .layer-header > h2').text(this.innerText);
+			$('div[name="specLayer"] > .layer-content > p').text(this.value);
+
+			let newId = $(this).data('popup-target');
+			$('div[name="specLayer"]').attr('id', newId);
+			$('div[name="specLayer"] > .pop-close').attr('data-focus-next', newId);
+			$('div[name="specLayer"]').attr('data-popup-layer', newId);
+			$('div[name="specLayer"]').attr('data-focus', newId);
+		});
+	</script>
+	<h3 class="spec-itm-title" id="cstrt-nm" ></h3>
+	<div class="spec-table">
+		<dl>
+						<dt>General Feature</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">Interface</strong>
+													<p class="spec-desc">USB 3.2 Gen.2 (10Gbps)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Capacity</strong>
+													<p class="spec-desc">1TB (*1 GB=1,000,000,000 bytes, 1 TB=1,000,000,000,000 bytes)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Dimension (WxHxD)</strong>
+													<p class="spec-desc">85 x 57 x 8.0mm&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Weight</strong>
+													<p class="spec-desc">58 g (* The exact weight of the product may vary by capacity)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Encryption</strong>
+													<p class="spec-desc">AES 256-bit hardware encryption&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">UASP Mode</strong>
+													<p class="spec-desc">Supported&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Transfer Speed</strong>
+													<p class="spec-desc">Sequential Read : Up to 1,050MB/sec Sequential Write : Up to 1,000 MB/sec* (* Performance may vary depending on system environment even with USB 3.2 interface with supporting UASP)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Security</strong>
+													<p class="spec-desc">Samsumg Portable SSD Software 1.0  (*Optional Password Protection)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Certification</strong>
+													<p class="spec-desc">CE, BSMI, KC, VCCI, C-tick, FCC, IC, UL, TUV, CB, EAC&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">RoHS Compliance</strong>
+													<p class="spec-desc">RoHS2&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Warranty</strong>
+													<p class="spec-desc">Limited 3-year**For the full warranty statement, please visit www.samsung.com/ssd and www.samsung.com/support&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+				<dt>상품 기본정보</dt>
+				<dd>
+					<ol>
+						<li>
+								<strong class="spec-title">제품명</strong>
+								<p class="spec-desc">외장 SSD T7</p>
+							</li>
+						<li>
+								<strong class="spec-title">제조자/수입자</strong>
+								<p class="spec-desc">삼성전자(주)</p>
+							</li>
+						<li>
+								<strong class="spec-title">제조국가</strong>
+								<p class="spec-desc">한국/베트남 병행생산</p>
+							</li>
+						<li>
+								<strong class="spec-title">KC 인증 필 유무</strong>
+								<p class="spec-desc"><img src='//images.samsung.com/is/image/samsung/p5/sec/common/icon-kc.png?$ORIGIN_PNG$' alt='KC 인증 로고'>R-R-SEC-MU-PC1T0</p>
+							</li>
+						<li>
+								<strong class="spec-title">동일모델의 출시년월</strong>
+								<p class="spec-desc">2020년 5월</p>
+							</li>
+						<li>
+								<strong class="spec-title">A/S 책임자와 전화번호</strong>
+								<p class="spec-desc">1588-3366</p>
+							</li>
+						<li>
+								<strong class="spec-title">품질보증기준</strong>
+								<p class="spec-desc">결함·하자 등에 따른 소비자피해에 대해서는 소비자분쟁해결기준(소비자기본법 제16조)에 따라 보상 가능</p>
+							</li>
+						</ol>
+				</dd>
+			</dl>
+		</div>
+	<div class="layer-pop layer-normal layer-default specLayer active" name="specLayer" id="specLayer" tabindex="0" data-popup-layer="specLayer" data-focus="specLayer" aria-hidden="false" data-zindex="300" style="z-index: 300; display: none">
+		<div class="layer-header">
+			<h2></h2>
+		</div>
+		<div class="layer-content">
+			<p></p>
+		</div>
+		<button type="button" class="pop-close" data-focus-next="">팝업닫기</button>
+	</div>
+

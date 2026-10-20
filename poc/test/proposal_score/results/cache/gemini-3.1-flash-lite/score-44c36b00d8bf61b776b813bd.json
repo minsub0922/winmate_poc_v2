@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~placeholders:F11"
+ },
+ "prompt_tokens": 2602,
+ "output_tokens": 448,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 2,
+    "anchor": "110어절을 초과하는 장이 5장(2, 3, 4, 7, 10장) 존재하여 1점 기준에 해당하나, 장당 평균 어절 수가 96어절로 2점 기준 범위에 속함.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "업계는 이미 움직였고, Y 그룹은 지금이 적기입니다"
+     },
+     {
+      "sheet": 4,
+      "quote": "Y 그룹의 목표는 ‘그룹 운영 효율’, 풀어야 할 과제는 셋입니다"
+     }
+    ],
+    "improve": "각 장의 어절 수를 110어절 이하로 줄이고, 전체 평균을 77어절 이하로 낮추어 가독성을 높여야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸 중 10pt(13.3px) 미만인 칸이 36%를 차지하며, 9pt(12px) 미만 본문 칸이 포함된 장이 존재함.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "본문 최소 11.5px(8.6pt)"
+     },
+     {
+      "sheet": 10,
+      "quote": "본문 최소 11px(8.2pt)"
+     }
+    ],
+    "improve": "모든 본문 텍스트의 크기를 12pt(16px) 이상으로 상향 조정하여 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

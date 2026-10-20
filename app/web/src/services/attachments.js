@@ -1,5 +1,7 @@
 import { uid } from '../repositories/proposals.js';
 import { parseFiles, fileKind } from '../domain/review/parse.js';
+import { saveAttachmentSource } from './attachment-sources.js';
+import { sourceDigest } from '../domain/proposals/requirement-summary.js';
 const TEXTY = /\.(txt|md|csv|eml|json|html?)$/i;
 const RICH = new Set(['pdf', 'pptx', 'docx']); // read with the review parser (domain/review/parse.js) — the same full-text reader the app already ships
 const KEEP = 20000;                           // characters stored with the proposal (localStorage)
@@ -34,6 +36,7 @@ export async function readAttachments(files, { full = false, rich = false } = {}
     if(rich&&!all&&!readError&&!TEXTY.test(file.name)&&!(file.type||'').startsWith('text/'))readError='이 형식의 본문 추출은 지원하지 않습니다. PDF · PPTX · DOCX · TXT로 변환하거나 핵심 메모를 입력하세요.';
     text = all.slice(0, KEEP);
     const rec = { id: uid('f'), name: file.name, size: file.size, type: (file.name.split('.').pop() || '').toLowerCase(), text, memo: '', extractedChars: all.length, ...(readError?{readError}:{}) };
+    if (all) { rec.sourceKey = sourceDigest(all.replace(/\r\n/g, '\n').trim()); await saveAttachmentSource(rec.id, all); }
     if (full) rec.fullText = all;
     records.push(rec);
   }

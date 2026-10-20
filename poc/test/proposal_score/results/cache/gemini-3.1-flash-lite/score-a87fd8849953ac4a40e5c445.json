@@ -1,0 +1,124 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~full:F10"
+ },
+ "prompt_tokens": 8246,
+ "output_tokens": 1035,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO와 SmartThings Pro를 활용하여 본사 운영, 시간대별 자동 전환, 매장 전력 관리 등 누가 무엇을 어떻게 관리하는지 운영 장면을 구체적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "MagicINFO · QM55C · SmartThings Pro"
+     },
+     {
+      "sheet": 7,
+      "quote": "본사에서 한 번 바꾸면 매장 화면까지 자동"
+     },
+     {
+      "sheet": 8,
+      "quote": "본사 PC · MagicINFO Server"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR7",
+    "score": 3,
+    "anchor": "설치 환경 전제, 고객 준비 사항, 유지보수 및 A/S 범위를 명확히 기술함.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "설치 · 유지관리 서비스 · 정기 점검 · 장애 원격 진단"
+     },
+     {
+      "sheet": 14,
+      "quote": "설치 · 점주 교육"
+     },
+     {
+      "sheet": 15,
+      "quote": "권역별 A/S 4시간 내 대응"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "파일럿에서 전 매장 확산까지의 단계별 일정, 역할 분담, 교육 및 유지보수 계획이 구체적으로 정리됨.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "준비 2주 + 운영 8주 + 평가 2주"
+     },
+     {
+      "sheet": 15,
+      "quote": "1차 파일럿 → 2차 확대 → 3차 전 매장"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 2,
+    "anchor": "장애 대응 및 원격 진단 등 운영 리스크는 다루고 있으나, 공사 중 영업 중단이나 기존 POS 호환성 등 고객이 가장 우려할 도입 리스크에 대한 구체적 대응 방안이 부족함.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "정기 점검 · 장애 원격 진단"
+     },
+     {
+      "sheet": 15,
+      "quote": "화면 장애 1건 이하"
+     }
+    ],
+    "improve": "공사 중 매장 영업 유지 방안과 기존 POS 시스템과의 구체적인 호환성 확보 방안을 추가해야 함.",
+    "confidence": "mid"
+   },
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "마지막 장에 고객이 결정할 사항과 향후 2주간의 구체적인 일정 및 담당자를 명시함.",
+    "evidence": [
+     {
+      "sheet": 16,
+      "quote": "다음 2주, 함께 정할 세 가지"
+     },
+     {
+      "sheet": 16,
+      "quote": "시범 매장 10곳 · 실사 일정 확정"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "SB5",
+    "score": 3,
+    "anchor": "표지의 제출일이 2026.10.22로 최신이며, 본문 내 일정과 날짜가 일관되게 작성됨.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "2026. 10. 22"
+     },
+     {
+      "sheet": 16,
+      "quote": "10/26 · 11/3 · 11/16"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

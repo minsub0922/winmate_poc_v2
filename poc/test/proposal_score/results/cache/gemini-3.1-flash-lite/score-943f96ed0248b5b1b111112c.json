@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~placeholders:F10"
+ },
+ "prompt_tokens": 2885,
+ "output_tokens": 310,
+ "data": {
+  "scores": [
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "단계별 일정과 역할 분담은 명시되어 있으나, 교육 및 운영 이관에 대한 구체적인 계획이 누락되었습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "실사부터 파일럿 결과까지 16주, 네 단계로 갑니다"
+     }
+    ],
+    "improve": "교육 프로그램 및 운영 이관 절차에 대한 구체적인 계획을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "현장 실사, 워크숍, 맞춤 제안으로 이어지는 단계별 일정과 담당자, 산출물이 명확하게 제시되었습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "2주 안에 현장부터, 세 단계로"
+     },
+     {
+      "sheet": 10,
+      "quote": "11/02 – 11/13 · 삼성 · Y 그룹 실무 참석"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,42 @@
+{
+ "id": "K04",
+ "case": "K04",
+ "industry": "PB",
+ "strategy": null,
+ "req_type": null,
+ "title": "구청 민원실 안내",
+ "level": "ambiguous",
+ "input": {
+  "title": "Z 구청 민원실",
+  "customer": "Z 구청",
+  "free_text": "구청 민원실 대기 안내가 불편하다는 민원이 많아서 개선 방안을 찾고 있습니다. 어르신 방문객이 많다고 하네요.",
+  "id": "K04"
+ },
+ "gold": {
+  "scenario_any": [
+   "bs09",
+   "bs11",
+   "bs16"
+  ],
+  "must_parts": [
+   "value"
+  ],
+  "key_reqs": [
+   {
+    "kw": [
+     "민원"
+    ],
+    "parts_any": [
+     "challenge",
+     "user",
+     "value",
+     "scenario"
+    ],
+    "priority": "should"
+   }
+  ],
+  "facts": [],
+  "level": "ambiguous",
+  "industry": "PB"
+ }
+}

@@ -1,0 +1,78 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~full:F04"
+ },
+ "prompt_tokens": 9984,
+ "output_tokens": 706,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "A 커피의 현재 메뉴 교체 프로세스(5단계, 9일 소요)와 그로 인한 비용, 가격 오류 건수 등 구체적인 운영 과제를 수치로 명확히 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "메뉴 하나 바꾸는 데, 다섯 단계 · 9일이 걸립니다"
+     },
+     {
+      "sheet": 5,
+      "quote": "인쇄 · 배송비 연 3.3억 원이 반복됩니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "CU6",
+    "score": 3,
+    "anchor": "카페 프랜차이즈의 피크 타임 운영, 드라이브스루(DT) 동선, 메뉴판 교체 주기 등 업종 특유의 운영 맥락을 정확히 이해하고 반영했습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "피크 주문을 직원 수가 아니라 화면 구성으로 나눠 받아야 합니다"
+     },
+     {
+      "sheet": 9,
+      "quote": "DT 차량당 주문 시간 20% ↓"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "카운터(QM55C), 드라이브스루 옥외(OH55A-S), 셀프 주문(KM24C) 등 각 공간의 환경적 요구사항에 적합한 제품을 명확히 매칭했습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "카운터부터 DT까지, 세 가지 제품으로"
+     },
+     {
+      "sheet": 10,
+      "quote": "OH55A-S 3,500nit · IP56 드라이브스루 첫 메뉴판"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "밀키프레소 사례를 통해 원격 관리 성과를 제시했으나, 해당 사례의 구체적인 정량적 성과 수치(예: 비용 절감액, 시간 단축률 등)가 명시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "밀키프레소 — 방문 없이 가맹점 화면 원격 관리"
+     }
+    ],
+    "improve": "밀키프레소 사례에서 원격 관리 도입 후 실제 절감된 비용이나 시간 등 구체적인 성과 수치를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

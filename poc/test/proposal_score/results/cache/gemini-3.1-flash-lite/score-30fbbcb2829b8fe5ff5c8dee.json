@@ -1,0 +1,61 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07:F04"
+ },
+ "prompt_tokens": 6485,
+ "output_tokens": 535,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "B 호텔의 체크인 대기 시간(12분), 객실 매출 비중(78%), 에어컨 노후화(2013년) 등 현장 수치를 기반으로 문제와 원인을 구체적으로 분석했습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "체크인 대기 12분 · 15–16시 집중"
+     },
+     {
+      "sheet": 4,
+      "quote": "15–16시 체크인 집중, 프런트 3명 앞 평균 12분 대기"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "객실, 로비, 레스토랑 등 각 공간의 특성에 맞춰 호텔 TV, 무풍 에어컨, 사이니지, 키오스크를 적절하게 배치했습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "객실 302대 40\" 일반 TV + 셋톱박스 도입 후 호텔 TV 55\" HG55BU"
+     },
+     {
+      "sheet": 10,
+      "quote": "객실 1실 키트 스탠다드 · 트윈 · 스위트 공통 호텔 TV 55\" HG55BU"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 1,
+    "anchor": "제안서 내에 실제 도입 사례에 대한 구체적인 고객명, 도입 구성, 성과 수치가 명시된 장이나 파트가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "유사한 규모의 호텔 도입 사례를 선정하여 도입 장비 구성과 그로 인해 달성한 실제 성과 수치를 구체적으로 제시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

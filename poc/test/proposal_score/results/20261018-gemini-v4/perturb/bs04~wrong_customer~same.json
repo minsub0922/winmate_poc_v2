@@ -1,0 +1,729 @@
+{
+ "id": "bs04",
+ "variant": "~wrong_customer",
+ "title": "주거 분양 · 빌트인 가전 + 스마트홈 사양 제안",
+ "customer": "R 건설",
+ "n_sheets": 13,
+ "req": "신규 구축 · RFP",
+ "strategy": "가치 선도형",
+ "ind": "주거 분양 · 주택",
+ "route": {
+  "selected": [
+   "CU2",
+   "MK3",
+   "MK4",
+   "PR4",
+   "VS1",
+   "VS5",
+   "VS10",
+   "DS3",
+   "DS4",
+   "DS6",
+   "WR1",
+   "WR6"
+  ],
+  "mode": "forced",
+  "error": "",
+  "l1": [],
+  "l2": [],
+  "criteria": [],
+  "seeds": {},
+  "local": {},
+  "rule_pass": [],
+  "risk": [],
+  "gates": {
+   "CU1": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU2": {
+    "applies": true,
+    "why": "비교할 고객 요구사항 7개"
+   },
+   "CU3": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU4": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU6": {
+    "applies": true,
+    "why": "업종: 주거 분양 · 주택"
+   },
+   "MK1": {
+    "applies": true,
+    "why": "시장 관련 1장"
+   },
+   "MK2": {
+    "applies": true,
+    "why": "연도 언급 5개"
+   },
+   "MK3": {
+    "applies": true,
+    "why": "수치 53개"
+   },
+   "MK4": {
+    "applies": true,
+    "why": "수치 53개"
+   },
+   "MK5": {
+    "applies": false,
+    "why": "경쟁 비교 내용이 없어요"
+   },
+   "MK6": {
+    "applies": true,
+    "why": "시장 · 분석 장 있음"
+   },
+   "PR1": {
+    "applies": true,
+    "why": "제품 2종 언급"
+   },
+   "PR2": {
+    "applies": true,
+    "why": "제품 2종 언급"
+   },
+   "PR3": {
+    "applies": true,
+    "why": "제품 2종 언급"
+   },
+   "PR4": {
+    "applies": true,
+    "why": "솔루션: SmartThings"
+   },
+   "PR5": {
+    "applies": true,
+    "why": "제품 2종 언급"
+   },
+   "PR6": {
+    "applies": true,
+    "why": "제품 2종 언급"
+   },
+   "PR7": {
+    "applies": true,
+    "why": "제품 2종 언급"
+   },
+   "VS1": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS2": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS3": {
+    "applies": true,
+    "why": "13장 흐름"
+   },
+   "VS4": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS6": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS7": {
+    "applies": true,
+    "why": "본 제안 분량"
+   },
+   "VS8": {
+    "applies": true,
+    "why": "본 제안 분량"
+   },
+   "VS9": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS10": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS1": {
+    "applies": true,
+    "why": "장마다 글자 상자 위치 · 크기를 쟀어요"
+   },
+   "DS2": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS3": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS4": {
+    "applies": true,
+    "why": "글자 크기 정보 있음"
+   },
+   "DS5": {
+    "applies": true,
+    "why": "폰트 2종"
+   },
+   "DS6": {
+    "applies": true,
+    "why": "장표형 문서"
+   },
+   "DS7": {
+    "applies": true,
+    "why": "장표형 문서"
+   },
+   "DS8": {
+    "applies": true,
+    "why": "차트 0 · 표 0 · 수치 53"
+   },
+   "DS9": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS10": {
+    "applies": false,
+    "why": "장표 화면(이미지)이 없어요 — 색 · 톤은 판단 불가"
+   },
+   "WR1": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR2": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR3": {
+    "applies": true,
+    "why": "브랜드 표기 SmartThings"
+   },
+   "WR4": {
+    "applies": true,
+    "why": "수치 53개"
+   },
+   "WR5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR6": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR7": {
+    "applies": true,
+    "why": "사양 · 효과 수치 · 이미지 있음"
+   },
+   "WR8": {
+    "applies": true,
+    "why": "약어 MARKET, EHS, VALUE, PROPS"
+   },
+   "WR9": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "SB1": {
+    "applies": true,
+    "why": "장표형 문서"
+   },
+   "SB2": {
+    "applies": true,
+    "why": "5장 이상 장표"
+   },
+   "SB3": {
+    "applies": false,
+    "why": "앱에서 만든 장 · PDF 는 노트 · 숨김 장 · 댓글 정보가 없어요"
+   },
+   "SB4": {
+    "applies": false,
+    "why": "파일 속성이 없어요"
+   },
+   "SB5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "SB6": {
+    "applies": false,
+    "why": "RFP 형식 요구가 연결되지 않았어요"
+   }
+  }
+ },
+ "scores": [
+  {
+   "id": "CU2",
+   "score": 3,
+   "anchor": "고객의 4가지 요구사항(차별화, 옵션 계약률, 가전 민원, 시공 정합)과 4가지 평가 기준에 대해 각 장에서 명시적으로 해법을 제시하고 있습니다. 특히 옵션 계약률은 1장, 6장, 7장에서 목표 수치와 함께 구체적인 전략으로 다루고 있습니다.",
+   "evidence": [
+    {
+     "sheet": 4,
+     "quote": "모델하우스에서 ‘이 단지’로 기억될 네 가지"
+    },
+    {
+     "sheet": 7,
+     "quote": "옵션 계약 전환 50%"
+    },
+    {
+     "sheet": 11,
+     "quote": "40% 가전 민원 감소 목표"
+    },
+    {
+     "sheet": 10,
+     "quote": "84A 주방, 빌트인 가전 세 가지의 매립 치수"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F02",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "MK3",
+   "score": 1,
+   "anchor": "제안서 내 대부분의 수치(성과 목표, 시장 데이터 등)에 구체적인 조사 기관과 연도가 명시되어 있지 않으며, 일부는 '삼성전자 추정'과 같이 모호하게 표기되어 있습니다.",
+   "evidence": [
+    {
+     "sheet": 1,
+     "quote": "50% | 옵션 계약률 | 직전 단지 31% 대비"
+    },
+    {
+     "sheet": 2,
+     "quote": "2026E 분양 물량 | 23 | 만 세대"
+    },
+    {
+     "sheet": 7,
+     "quote": "옵션 계약 전환 | 50% | 관람 → 상담 대기 | 20분 → 5분"
+    }
+   ],
+   "improve": "모든 시장 데이터 및 성과 목표 수치 옆에 구체적인 조사 기관(예: 국토교통부, 한국부동산원 등)과 연도를 명확히 기재해야 합니다.",
+   "confidence": "high",
+   "community": "F05",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  },
+  {
+   "id": "MK4",
+   "score": 1,
+   "anchor": "제안서 내 세대 수가 1장과 13장에서는 1,240세대로, 8장과 9장에서는 486세대로 서로 다르게 기재되어 있어 수치 일관성이 결여되었습니다.",
+   "evidence": [
+    {
+     "sheet": 1,
+     "quote": "R 건설 2지구 1,240세대"
+    },
+    {
+     "sheet": 8,
+     "quote": "84A 세대 · 방 3 · 486세대"
+    }
+   ],
+   "improve": "전체 단지 세대 수와 특정 타입(84A) 세대 수를 명확히 구분하여 표기하고, 모든 장에서 일관된 수치를 사용해야 합니다.",
+   "confidence": "high",
+   "community": "F06",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "PR4",
+   "score": 3,
+   "anchor": "SmartThings를 통해 가전 제어, 에너지 모니터링, 홈케어 진단 등 운영 솔루션의 역할이 공간별로 명확히 제시되었으며, 입주민이 앱을 통해 관리하는 운영 장면이 구체적으로 묘사됨.",
+   "evidence": [
+    {
+     "sheet": 5,
+     "quote": "SmartThings · 빌트인 · 난방 · 도어락을 계정 하나로"
+    },
+    {
+     "sheet": 5,
+     "quote": "홈케어 진단 | 기기 상태를 점검해 이상 징후를 먼저 알림"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F10",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "VS1",
+   "score": 3,
+   "anchor": "분양 포인트 4가지를 고객 언어(앱 제어, 난방, 빌트인, 케어)로 명확히 제시하고, 각 가치마다 대응하는 제품 및 솔루션을 짝지어 설명함.",
+   "evidence": [
+    {
+     "sheet": 4,
+     "quote": "모델하우스에서 ‘이 단지’로 기억될 네 가지"
+    },
+    {
+     "sheet": 4,
+     "quote": "집 안 가전 · 난방을 앱 하나로"
+    },
+    {
+     "sheet": 4,
+     "quote": "입주 후 2년 케어"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F08",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "VS5",
+   "score": 3,
+   "anchor": "주거 분양 업종인 KCC스위첸과 그란츠 리버파크 사례를 제시하며, 도입 구성(빌트인, 스마트홈)과 성과(청약 마감, 높은 경쟁률)를 명확히 기술함.",
+   "evidence": [
+    {
+     "sheet": 12,
+     "quote": "KCC스위첸 · 과제 · 밀레니얼 입주자 취향 맞춤"
+    },
+    {
+     "sheet": 12,
+     "quote": "그란츠 리버파크 · 과제 · 하이엔드 단지의 프리미엄 스마트홈 차별화"
+    },
+    {
+     "sheet": 12,
+     "quote": "청약 마감 · 높은 경쟁률 · 2개 단지"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F04",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  },
+  {
+   "id": "VS10",
+   "score": 3,
+   "anchor": "12월까지 확정해야 할 세 가지 결정 사항(도면 검토, 옵션 패키지, 모델하우스 일정)과 각 단계별 담당자 및 세부 일정이 명확히 제시됨.",
+   "evidence": [
+    {
+     "sheet": 13,
+     "quote": "12월까지, 함께 정할 세 가지"
+    },
+    {
+     "sheet": 13,
+     "quote": "도면 · 치수 검토 | 옵션 패키지 확정 | 모델하우스 설치 일정 합의"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F10",
+   "mode": "llm",
+   "grounded": 0.5,
+   "error": ""
+  },
+  {
+   "id": "DS3",
+   "score": 1,
+   "anchor": "110어절을 초과하는 장이 10장으로, 4장 이상이라는 기준을 크게 상회하여 발표 자료로 읽히기에 부적합합니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "219어절"
+    },
+    {
+     "sheet": 3,
+     "quote": "318어절"
+    },
+    {
+     "sheet": 5,
+     "quote": "234어절"
+    }
+   ],
+   "improve": "각 장의 핵심 메시지를 중심으로 텍스트를 대폭 줄이고, 개조식 구성을 활용하여 어절 수를 77어절 이하로 낮춰야 합니다.",
+   "confidence": "high",
+   "community": "F11",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  },
+  {
+   "id": "DS4",
+   "score": 1,
+   "anchor": "20자 넘는 본문 칸의 70%가 10pt 미만이며, 9pt 미만 본문 칸이 4장에 존재하여 가독성이 매우 낮습니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "본문 최소 10.5px(7.9pt)"
+    },
+    {
+     "sheet": 3,
+     "quote": "본문 최소 11px(8.2pt)"
+    },
+    {
+     "sheet": 5,
+     "quote": "본문 최소 10.5px(7.9pt)"
+    }
+   ],
+   "improve": "본문 텍스트의 최소 글자 크기를 12pt(16px) 이상으로 상향 조정하여 가독성을 확보해야 합니다.",
+   "confidence": "high",
+   "community": "F11",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  },
+  {
+   "id": "DS6",
+   "score": 2,
+   "anchor": "대부분 장에 시각 자료가 포함되어 있으나, 10장(제품 스펙)은 사진 없이 텍스트로만 구성되어 있습니다.",
+   "evidence": [
+    {
+     "sheet": 10,
+     "quote": "사진 0"
+    }
+   ],
+   "improve": "10장에 빌트인 가전의 매립 치수를 직관적으로 보여주는 도식이나 상세 도면 이미지를 추가해야 합니다.",
+   "confidence": "high",
+   "community": "F11",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  },
+  {
+   "id": "WR1",
+   "score": 1,
+   "anchor": "제안서 전반에 걸쳐 고객사명이 'R 건설'임에도 불구하고, 3장, 6장, 9장, 12장에서 'H 호텔'이라는 다른 고객명이 반복적으로 사용되었습니다.",
+   "evidence": [
+    {
+     "sheet": 3,
+     "quote": "H 호텔의 고객은 모델하우스에서 고르고"
+    },
+    {
+     "sheet": 6,
+     "quote": "H 호텔의 주방은 모델하우스에서 팔리고"
+    },
+    {
+     "sheet": 9,
+     "quote": "H 호텔이 얻는 것"
+    }
+   ],
+   "improve": "제안서 내 모든 'H 호텔' 명칭을 실제 고객사인 'R 건설'로 수정해야 합니다.",
+   "confidence": "high",
+   "community": "F01",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "WR6",
+   "score": 1,
+   "anchor": "9장에서 '원가에 맞춰 고르세요', '세대당 원가 최소'와 같이 내부적인 원가 관리 지표가 고객에게 노출되는 표현이 포함되어 있습니다.",
+   "evidence": [
+    {
+     "sheet": 9,
+     "quote": "원가에 맞춰 고르세요"
+    },
+    {
+     "sheet": 9,
+     "quote": "세대당 원가 최소"
+    }
+   ],
+   "improve": "고객에게 노출되는 제안서에서 '원가'라는 단어를 삭제하고 '예산' 또는 '옵션 구성' 등의 고객 친화적인 용어로 변경해야 합니다.",
+   "confidence": "high",
+   "community": "F01",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  }
+ ],
+ "aggregate": {
+  "total": 61.4,
+  "band": "보완",
+  "verdict": "보완 필요",
+  "rubric_mean": 1.889,
+  "categories": {
+   "CU": 100.0,
+   "MK": 0.0,
+   "PR": 100.0,
+   "VS": 100.0,
+   "DS": 16.7,
+   "WR": 0.0
+  },
+  "communities": {
+   "F01": 1.0,
+   "F02": 3.0,
+   "F04": 3.0,
+   "F05": 1.0,
+   "F06": 1.0,
+   "F08": 3.0,
+   "F10": 3.0,
+   "F11": 1.33,
+   "C1": 1.0,
+   "C2": 3.0,
+   "C3": 2.0,
+   "C4": 1.75
+  },
+  "n_all": 54,
+  "n_applicable": 49,
+  "n_selected": 12,
+  "n_scored": 12,
+  "weight_coverage": 0.293,
+  "dist": {
+   "1": 6,
+   "2": 1,
+   "3": 5
+  },
+  "low": [
+   "WR1",
+   "WR6",
+   "MK3",
+   "MK4",
+   "DS3",
+   "DS4"
+  ]
+ },
+ "rule_pass": [],
+ "risk": [],
+ "grounded_mean": 0.542,
+ "fallbacks": 0,
+ "auto_checks": {
+  "CU5": [
+   "고객사명 “R 건설”이 나오는 장: 9/13장"
+  ],
+  "CU1": [
+   "고객사명 “R 건설” 표기: 9개 장",
+   "다른 시나리오 고객명이 들어 있음: 3장 “H 호텔”, 6장 “H 호텔”, 9장 “H 호텔”, 12장 “H 호텔”"
+  ],
+  "WR1": [
+   "이전 · 다른 고객명: 3장 “H 호텔”, 6장 “H 호텔”, 9장 “H 호텔”, 12장 “H 호텔”",
+   "자리표시 · 템플릿 문구 0곳",
+   "예시용(가짜) 연락처 — 제출 전 실제 값으로 바꿀 자리: 13장 “김도윤 프로 · 010-1234-5678 · b2b.proposal@”"
+  ],
+  "MK4": [
+   "“세대” 값이 여러 개: 486세대(8, 9장) · 1240세대(1, 13장)"
+  ],
+  "MK2": [
+   "자료 기준 연도 표기 2곳 · 3년 이상 된 자료 연도 없음"
+  ],
+  "MK3": [
+   "수치 3개 이상인 장 8개 중 출처 · 기준 표기 없는 장: 1, 3, 5, 6, 7, 8, 11"
+  ],
+  "WR5": [
+   "절대 표현 0곳"
+  ],
+  "WR3": [
+   "공식 표기와 다른 브랜드명 0곳"
+  ],
+  "WR6": [
+   "내부 · 민감 정보 의심 표현 2곳: 9장 “대, 세 가지 기본 사양 — 원가에 맞춰 고르세요”, 9장 “세대당 원가 최소 · 분양가 유지”"
+  ],
+  "WR7": [
+   "고지 · 전제 문구가 있는 장: 2, 3, 5, 6, 7, 13"
+  ],
+  "WR4": [
+   "단위 표기: 혼용 패턴을 찾지 못했어요"
+  ],
+  "WR8": [
+   "약어 8개 중 풀이가 보이지 않는 것: MARKET, EHS, VALUE, PROPS, SPEC, PROOF, KCC"
+  ],
+  "PR2": [
+   "카탈로그 사양 — EHS: EHS 히트펌프 보일러 · 전기 난방 · 영하 25℃ 성능 유지 · 고온수 / Bespoke Built-in: 비스포크 냉장고 (빌트인) · 키친핏 · 패널 컬러 맞춤"
+  ],
+  "PR3": [
+   "카탈로그 권장 공간 — EHS: 세대, 주택, 기숙사 / Bespoke Built-in: 주방, 모델하우스, 객실"
+  ],
+  "PR1": [
+   "카탈로그에 있는 모델 2종 · 카탈로그에 없는 모델 표기 없음"
+  ],
+  "DS1": [
+   "글자 넘침 0곳 · 장표 밖 0곳 · 텍스트 겹침 0쌍",
+   "제목 위치가 다른 장과 다른 장: 13"
+  ],
+  "DS5": [
+   "제목 글자 크기 분포(px: 장 수) {30: 12} · 폰트: 앱 레이아웃 공통(Noto Sans KR · Manrope)"
+  ],
+  "DS7": [
+   "본문 장 12개 중 결론 · 메시지형 제목 12개 (100%)"
+  ],
+  "DS3": [
+   "장당 평균 160어절 · 최대 318어절 · 110어절 넘는 장: 2장(219), 3장(318), 4장(140), 5장(234), 6장(137), 7장(182), 8장(149), 9장(184), 10장(147), 11장(133)"
+  ],
+  "DS4": [
+   "20자 넘는 본문 칸 94개: 12pt(16px) 이상 12개(13%) · 10pt(13.3px) 미만 66개(70%) · 9pt(12px) 미만 본문 칸이 있는 장 4장 (2, 3, 5, 9)",
+   "20자 넘는 본문 칸의 글자 크기 분포(px: 칸 수) {12: 42, 13: 20, 15: 11, 30: 10, 14: 5, 11: 2}"
+  ],
+  "DS6": [
+   "사진 · 이미지가 없는 본문 장 1/12장 (10) · 빈 이미지 칸 0개 · 사진 중심 레이아웃 10장"
+  ],
+  "DS9": [
+   "13장 · 발표 미정분 · 중복 레이아웃 없음"
+  ],
+  "SB2": [
+   "쪽번호 · CONFIDENTIAL 푸터가 있는 본문 장 12/12장 (표지 · 간지 제외)"
+  ],
+  "SB1": [
+   "표지(1장): 고객사명 있음 · 날짜 있음 2026.10 · 제안사 표기 있음 · 목차 장: 없음 · 마무리 장: 13"
+  ],
+  "SB5": [
+   "표지 날짜: 2026.10 · 덱 안의 연 · 월 표기: 2026.09, 2026.10, 2027.02"
+  ],
+  "VS3": [
+   "단계 → 파트 순서: 열기(1) → 맥락 · 분양 시장(2) → 가치 · 분양 포인트(1) → 장면 · 세대와 모델하우스(3) → 구성 · 옵션과 사양(3) → 근거 · 사례와 서비스(2) → 결정 요청(1)"
+  ],
+  "CU2": [
+   "요구 7개 중 핵심 낱말이 본문에 거의 없는 것 1개: 옵션 계약률을 올리고 싶어요"
+  ]
+ },
+ "profile": {
+  "kind": "winmate",
+  "slides": true,
+  "units": 13,
+  "customer": "R 건설",
+  "ind": "RS",
+  "ind_name": "주거 분양 · 주택",
+  "products": [
+   "EHS",
+   "Bespoke Built-in"
+  ],
+  "unknown_models": [],
+  "older_models": [],
+  "solutions": [
+   "SmartThings"
+  ],
+  "figures": 53,
+  "years": 5,
+  "competitors": [],
+  "brand_terms": [
+   "SmartThings"
+  ],
+  "abbrs": [
+   "MARKET",
+   "EHS",
+   "VALUE",
+   "PROPS",
+   "LDK",
+   "SPEC",
+   "PROOF",
+   "KCC"
+  ],
+  "font_count": 2,
+  "fonts": [
+   "Noto Sans KR",
+   "Manrope"
+  ],
+  "pics": 43,
+  "charts": 0,
+  "tables": 0,
+  "market_units": 1,
+  "comp_units": 0,
+  "cost_units": 0,
+  "rfp_like": false,
+  "rfp_format": false,
+  "visual": false,
+  "meta_avail": false
+ },
+ "calls": 8,
+ "tokens": {
+  "prompt": 103784,
+  "output": 7392
+ },
+ "seconds": 16.2,
+ "_kind": "wrong_customer",
+ "_mode": "same"
+}

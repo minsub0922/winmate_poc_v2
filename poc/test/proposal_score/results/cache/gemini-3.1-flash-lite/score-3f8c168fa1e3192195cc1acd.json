@@ -1,0 +1,69 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~full:F06"
+ },
+ "prompt_tokens": 4058,
+ "output_tokens": 577,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "모든 장에서 260개 사업장, 16주, 7일 등 동일한 지표가 일관되게 사용되었습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "260개 사업장 화면"
+     },
+     {
+      "sheet": 9,
+      "quote": "실사부터 파일럿 결과까지 16주"
+     },
+     {
+      "sheet": 3,
+      "quote": "콘텐츠 교체 7일을 당일로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "DS8",
+    "score": 1,
+    "anchor": "수치가 많은 장(2, 3, 9, 10)에서 차트나 표를 전혀 사용하지 않고 텍스트로만 나열하여 가독성이 떨어집니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "7일 | 콘텐츠 교체 1회 소요 | 계열사별 제작 · 배포 · 현장 교체 | 공급사 11곳 · 관리 도구 7종"
+     },
+     {
+      "sheet": 9,
+      "quote": "1–3주 | 4–6주 | 7–10주 | 11–16주"
+     }
+    ],
+    "improve": "텍스트로 나열된 수치와 일정 정보를 표나 차트로 시각화하여 가독성을 높여야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR4",
+    "score": 2,
+    "anchor": "금액 단위 표기가 '9,600억 원'과 '원'으로 혼용되어 나타납니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "2028년 9,600억 원"
+     },
+     {
+      "sheet": 9,
+      "quote": "예산"
+     }
+    ],
+    "improve": "금액 단위 표기를 '억 원'으로 통일하거나 문맥에 맞게 일관된 단위를 사용해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07:F10"
+ },
+ "prompt_tokens": 5722,
+ "output_tokens": 341,
+ "data": {
+  "scores": [
+   {
+    "id": "PR7",
+    "score": 2,
+    "anchor": "시공 일정과 방식은 구체적으로 제시되었으나, 유지보수 및 보증 범위에 대한 명시적인 언급이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "층별 판매 중단 일정 · 2027. 1월 착수"
+     }
+    ],
+    "improve": "유지보수 체계와 제품 보증 기간 및 범위에 대한 내용을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "샘플룸 운영부터 층별 확산까지의 일정은 구체적이나, 교육 및 운영 이관에 대한 계획이 포함되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "샘플룸 1실, 다음 2주에 정할 세 가지"
+     },
+     {
+      "sheet": 11,
+      "quote": "층별 판매 중단 일정 · 2027. 1월 착수"
+     }
+    ],
+    "improve": "도입 후 호텔 직원을 대상으로 한 제품 운영 교육 및 유지보수 이관 계획을 구체화해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

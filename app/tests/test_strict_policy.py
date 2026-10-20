@@ -68,7 +68,7 @@ def test_legacy_environment_never_turns_model_off(old):
  assert s.mode=='real' and all(s.function_mode(f)=='real'for f in cfg.FUNCTIONS)
  assert s.legacy_ignored and s.warnings
 
-@pytest.mark.parametrize('selection',[[], 'DS4', {'DS4':True}, [True], ['unknown'], ['DS4','DS4'], [' DS4'], ['ds4'], ['DS4',None], ['CU1']*55])
+@pytest.mark.parametrize('selection',[[], 'DS4', {'DS4':True}, [True], ['unknown'], ['DS4','DS4'], [' DS4'], ['ds4'], ['DS4',None], ['CU1']*55, ['MK3'], ['WR1'], ['SB1'], ['DS4']])
 def test_manual_criteria_reject_invalid_inputs_before_any_model(client,selection):
  providers.set_provider_override(FailingProvider('network'))
  body={'kind':'review','doc':{'kind':'txt','units':[{'n':1,'title':'test','text':'synthetic source'}]},'criteria':selection}

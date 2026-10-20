@@ -1,0 +1,45 @@
+{
+ "meta": {
+  "run_id": "smoke-tc1",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "keys": {
+   "GEMINI_API_KEY": true,
+   "GEMINI_MODEL": true,
+   "TAVILY_API_KEY": true
+  },
+  "conds": [
+   "chunk_carry"
+  ],
+  "max_chars": [
+   3000
+  ],
+  "tcs": [
+   "TC1"
+  ]
+ },
+ "rows": [
+  {
+   "tc": "TC1",
+   "cond": "chunk_carry",
+   "max_chars": 3000,
+   "recall": 0.933,
+   "recall_with_summary": 0.933,
+   "projects": "1/1",
+   "misattributed": 0,
+   "chunks": 3,
+   "items": 44,
+   "grounded": 1.0,
+   "unsupported_nums": 0,
+   "near_dups": 0,
+   "calls": 5,
+   "tokens": 15804,
+   "ms": 18192,
+   "missed": [
+    "c16 설치비 포함 총액입찰",
+    "c20 제조사 공급 · 기술지원 확약서"
+   ],
+   "errors": []
+  }
+ ]
+}

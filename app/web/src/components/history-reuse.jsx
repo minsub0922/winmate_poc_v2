@@ -5,7 +5,6 @@ import { reqText } from '../services/search.js';
 import { refInfo } from '../services/catalog.js';
 import { HistoryContextPreview } from './history-context-preview.jsx';
 import { HistoryRequirementsPreview } from './history-requirements-preview.jsx';
-import { useHistoryHover } from './history-hover.jsx';
 import '../styles/history-reuse.css';
 
 export function HistoryReuse({ p, kind }) {
@@ -13,13 +12,12 @@ export function HistoryReuse({ p, kind }) {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
   const [query, setQuery] = useState('');
-  const hover = useHistoryHover(kind);
   const req = kind === 'req';
   const label = req ? '고객 요구사항' : '제품 · 솔루션 매칭';
   const candidates = proposals.filter(x => x.id !== p.id && (req ? reqText({ ...x, title: '', customer: '' }).trim() : Object.values(x.ctx).some(xs => xs.length))
     && (!query.trim() || [x.title, x.customer, req ? reqText(x) : Object.entries(x.ctx).flatMap(([k, ids]) => ids.map(id => refInfo(`${k === 'products' ? 'product' : k === 'solutions' ? 'solution' : 'case'}:${id}`)?.label || '')).join(' ')].join(' ').toLowerCase().includes(query.trim().toLowerCase())));
   const source = proposals.find(x => x.id === selected);
-  const close = () => { hover.hide(); setOpen(false); setSelected(null); setQuery(''); };
+  const close = () => { setOpen(false); setSelected(null); setQuery(''); };
   const apply = () => {
     if (!source) return;
     update(p.id, d => {
@@ -41,13 +39,12 @@ export function HistoryReuse({ p, kind }) {
     {open && <Modal size="wide history-reuse" bodyClass="mbody reuse-body" title={`이전 ${label} 재사용`} onClose={close}
       sub="이전 제안서를 선택해 내용을 확인한 뒤 불러오세요. 현재 버블의 내용이 선택한 내역으로 바뀝니다."
       footer={<><span className="sp" /><button className="btn" onClick={close}>취소</button><button className="btn btn-primary" disabled={!source} onClick={apply}>이 내역 불러오기</button></>}>
-      <input className="input reuse-search" aria-label="히스토리 검색" placeholder="제안서 · 고객사 · 내용 검색" value={query} onChange={e => { hover.hide(); setQuery(e.target.value); }} />
-      <div className="reuse-workspace"><div className="reuse-list" aria-label="이전 제안서 목록" onScroll={() => hover.hide()}>{candidates.map(x => <button key={x.id} className={'reuse-item' + (selected === x.id ? ' selected' : '')} aria-pressed={selected === x.id} {...hover.bind(x)} onClick={() => { hover.hide(); setSelected(x.id); }}>
+      <input className="input reuse-search" aria-label="히스토리 검색" placeholder="제안서 · 고객사 · 내용 검색" value={query} onChange={e => setQuery(e.target.value)} />
+      <div className="reuse-workspace"><div className="reuse-list" aria-label="이전 제안서 목록">{candidates.map(x => <button key={x.id} className={'reuse-item' + (selected === x.id ? ' selected' : '')} aria-pressed={selected === x.id} onClick={() => setSelected(x.id)}>
         <b>{x.title}</b><span>{x.customer || '고객사 미정'} · {fmtWhen(x.updatedAt)}</span>
         <p>{req ? reqText(x).slice(0, 180) : `제품 ${x.ctx.products.length} · 솔루션 ${x.ctx.solutions.length} · 유관사례 ${x.ctx.cases.length}`}</p>
       </button>)}{!candidates.length && <p className="muted">재사용할 이전 내역이 없어요.</p>}</div>
-      {source ? <section key={source.id} className="reuse-preview" aria-label="불러올 내용"><h3>불러올 내용</h3><p className="reuse-preview-source">{source.title} · {source.customer || '고객사 미정'}</p>{req ? <HistoryRequirementsPreview source={source} /> : <HistoryContextPreview source={source} />}</section> : <section className="reuse-preview reuse-preview-empty"><b>히스토리를 선택해 주세요</b><span className="muted">마우스를 올리면 상세 미리보기, 클릭하면 불러올 내역을 선택해요.</span></section>}</div>
+      {source ? <section key={source.id} className="reuse-preview" aria-label="불러올 내용"><h3>불러올 내용</h3><p className="reuse-preview-source">{source.title} · {source.customer || '고객사 미정'}</p>{req ? <HistoryRequirementsPreview source={source} /> : <HistoryContextPreview source={source} compact />}</section> : <section className="reuse-preview reuse-preview-empty"><b>히스토리를 선택해 주세요</b><span className="muted">히스토리를 클릭하면 불러올 내용을 확인할 수 있어요.</span></section>}</div>
     </Modal>}
-    {hover.node}
   </>;
 }

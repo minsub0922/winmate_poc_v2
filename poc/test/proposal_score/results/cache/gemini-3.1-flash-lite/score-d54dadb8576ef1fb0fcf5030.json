@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs21:F10"
+ },
+ "prompt_tokens": 10674,
+ "output_tokens": 173,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "LYNK Cloud 솔루션을 활용하여 객실 TV를 원격 통합 관리하는 구체적인 운영 방식과 서버실에서의 관리 장면을 명확히 제시하였습니다.",
+    "evidence": [
+     {
+      "sheet": 26,
+      "quote": "서버실 한 곳에서 관리합니다"
+     },
+     {
+      "sheet": 26,
+      "quote": "LYNK Cloud 관리 화면에서 객실 TV의 전원 · 볼륨 · 입력을 일괄 제어"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

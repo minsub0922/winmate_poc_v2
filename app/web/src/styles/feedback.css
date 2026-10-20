@@ -1,0 +1,22 @@
+.feedback-popups{position:fixed;z-index:400;right:20px;bottom:20px;width:min(360px,calc(100vw - 24px));max-height:calc(100dvh - 40px);display:flex;flex-direction:column;gap:10px;overflow:auto;overscroll-behavior:contain;pointer-events:none;color:var(--ink,#18202e);font:13px/1.6 var(--font,sans-serif)}
+.feedback-popup{position:relative;flex-shrink:0;pointer-events:auto;padding:15px 38px 15px 16px;border:1px solid var(--line,#d8dee8);border-radius:12px;background:var(--surface,#fff);box-shadow:0 8px 32px #15233a28;overflow:hidden}
+.feedback-popup.error,.feedback-popup.warn{border-left:3px solid var(--danger,#bd453e)}
+.feedback-popup.progress{border-left:3px solid var(--accent,#171fba)}
+.feedback-close{position:absolute;z-index:3;right:8px;top:7px;width:25px;height:25px;border:0;border-radius:50%;background:var(--surface-2,#f2f4f8);color:var(--muted,#697384);font:18px/1 sans-serif;cursor:pointer}
+.feedback-close:hover{color:var(--ink,#18202e);background:var(--line,#d8dee8)}
+.feedback-heading{display:flex;align-items:center;gap:8px;margin-bottom:5px;font-size:12px}
+.feedback-heading>span:not(.feedback-spinner){display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--surface-2,#eef1f7);font-weight:800;color:var(--accent,#171fba)}
+.feedback-message{max-height:180px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;color:var(--ink-2,#384459)}
+.feedback-actions{display:flex;justify-content:flex-end;margin-top:10px}
+.feedback-content{max-height:min(620px,calc(100dvh - 110px));overflow:auto;overscroll-behavior:contain;min-width:0}
+.feedback-popup.custom{padding:30px 10px 10px}
+.feedback-content>.ajc,.feedback-content>.rv-msg,.feedback-content>.rv-progress{margin:0;max-width:100%;border:0;box-shadow:none}
+.feedback-content .ajc-h{flex-wrap:wrap}
+.feedback-content .ajc-acts{flex-wrap:wrap}
+.feedback-content .ajc-log{max-height:220px}
+.feedback-content .rv-progress{padding:8px}
+.feedback-content .rv-prog-head h2{font-size:15px}
+.feedback-content .rv-steps{padding-left:0}
+.feedback-spinner{width:15px;height:15px;border:2px solid var(--line,#d8dee8);border-top-color:var(--accent,#171fba);border-radius:50%;animation:feedback-spin .8s linear infinite}
+@keyframes feedback-spin{to{transform:rotate(360deg)}}
+@media(max-width:520px){.feedback-popups{right:12px;bottom:12px;max-height:calc(100dvh - 24px)}.feedback-content{max-height:calc(100dvh - 100px)}}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~no_proof:F08"
+ },
+ "prompt_tokens": 1629,
+ "output_tokens": 214,
+ "data": {
+  "scores": [
+   {
+    "id": "DS7",
+    "score": 3,
+    "anchor": "본문 장 제목 9개 중 8개가 결론을 담은 문장형이며, 제목만 순서대로 읽어도 제안의 핵심 논리와 흐름이 명확하게 파악됩니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "가격이 아니라 5년 동안 덜 멈추는 쪽으로"
+     },
+     {
+      "sheet": 4,
+      "quote": "꺼진 화면은 결과, 원인은 감시 · AS 구조에 있습니다"
+     },
+     {
+      "sheet": 7,
+      "quote": "5년을 보면, 처음 가격의 순서가 바뀝니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

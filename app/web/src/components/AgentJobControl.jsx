@@ -1,3 +1,4 @@
+import {FeedbackPopup} from './feedback-popup.jsx';
 // One server PoC job: status, the mode that actually ran (server llm.effective), 진행 보기 (log), 멈추기 (cancel) and,
 // when the Layout Agent stops for its strategy interview, the questions with their options — answered here.
 import React, { useEffect, useMemo, useRef, useState } from 'react';
@@ -130,7 +131,7 @@ export function AgentJobControl({ id, title, defaultOpen = false, compact = fals
   };
   const icon = job.status === 'done' ? <Icon name="check" size={12} stroke={3} /> : job.status === 'waiting' ? <Icon name="notice" size={13} stroke={2.8} />
     : term ? <Icon name="alert" size={12} /> : <span className="spin" />;
-  return (
+  return <FeedbackPopup message={title || job.title || '서버 작업'} kind={failed?'error':term?'info':'progress'} content={
     <section className={'ajc st-' + job.status + (compact ? ' compact' : '')} aria-label={(title || job.title || '서버 작업') + ' · ' + (STATUS[job.status] || job.status)}>
       <div className="ajc-h">
         <span className="ajc-ic" aria-hidden="true">{icon}</span>
@@ -158,5 +159,5 @@ export function AgentJobControl({ id, title, defaultOpen = false, compact = fals
         </div>
       )}
     </section>
-  );
+  }/>;
 }

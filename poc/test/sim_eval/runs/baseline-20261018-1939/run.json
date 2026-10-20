@@ -1,0 +1,248 @@
+{
+ "id": "baseline-20261018-1939",
+ "tag": "baseline",
+ "created": "2026-10-18T10:39:32.662Z",
+ "status": "done",
+ "set": "sets/diverse10.json",
+ "turns": 14,
+ "concurrency": 16,
+ "models": {
+  "customer": "gemini-3.1-flash-lite",
+  "seller": "gemini-3.5-flash",
+  "judge": "gemini-3.1-pro-preview"
+ },
+ "personaLevel": false,
+ "engine": {
+  "built": "2026-10-18T10:28:21.367Z",
+  "bytes": 3109364,
+  "sim_sources": [
+   "../../../src/sim/profile.js",
+   "../../../src/sim/score.js",
+   "../../../src/sim/engine.js"
+  ]
+ },
+ "sessions": [
+  {
+   "id": "01-ps01-L2-scenario",
+   "pid": "ps01",
+   "level": 2,
+   "sid": "bs01",
+   "mode": "scenario",
+   "label": "M 디저트카페 한서윤 · 첫 고객",
+   "status": "won",
+   "turn": 4,
+   "satisfaction": 85,
+   "quality": 84
+  },
+  {
+   "id": "02-ps12-L3-scenario",
+   "pid": "ps12",
+   "level": 3,
+   "sid": "bs07",
+   "mode": "scenario",
+   "label": "Z 부티크호텔 장석민 · 까다로운 고객",
+   "status": "won",
+   "turn": 5,
+   "satisfaction": 88,
+   "quality": 92
+  },
+  {
+   "id": "03-ps14-L1-scenario",
+   "pid": "ps14",
+   "level": 1,
+   "sid": "bs04",
+   "mode": "scenario",
+   "label": "O 리빙 이유진 · 호의적인 고객",
+   "status": "won",
+   "turn": 3,
+   "satisfaction": 85,
+   "quality": 78
+  },
+  {
+   "id": "04-ps17-L2-scenario",
+   "pid": "ps17",
+   "level": 2,
+   "sid": "bs03",
+   "mode": "scenario",
+   "label": "U 대학교 임동혁 · 첫 고객",
+   "status": "won",
+   "turn": 4,
+   "satisfaction": 95,
+   "quality": 87
+  },
+  {
+   "id": "05-ps21-L3-scenario",
+   "pid": "ps21",
+   "level": 3,
+   "sid": "bs02",
+   "mode": "scenario",
+   "label": "F 오피스 류민정 · 까다로운 고객",
+   "status": "won",
+   "turn": 6,
+   "satisfaction": 90,
+   "quality": 88
+  },
+  {
+   "id": "06-ps26-L1-scenario",
+   "pid": "ps26",
+   "level": 1,
+   "sid": "bs08",
+   "mode": "scenario",
+   "label": "E 병원 노승훈 · 호의적인 고객",
+   "status": "won",
+   "turn": 3,
+   "satisfaction": 85,
+   "quality": 84
+  },
+  {
+   "id": "07-ps31-L2-scenario",
+   "pid": "ps31",
+   "level": 2,
+   "sid": "bs05",
+   "mode": "scenario",
+   "label": "E 테마파크 홍채원 · 첫 고객",
+   "status": "won",
+   "turn": 4,
+   "satisfaction": 90,
+   "quality": 85
+  },
+  {
+   "id": "08-ps33-L3-scenario",
+   "pid": "ps33",
+   "level": 3,
+   "sid": "bs18",
+   "mode": "scenario",
+   "label": "Y 텔레콤 남소희 · 까다로운 고객",
+   "status": "won",
+   "turn": 6,
+   "satisfaction": 85,
+   "quality": 86
+  },
+  {
+   "id": "09-ps38-L1-scenario",
+   "pid": "ps38",
+   "level": 1,
+   "sid": "bs14",
+   "mode": "scenario",
+   "label": "P 제철 표상우 · 호의적인 고객",
+   "status": "won",
+   "turn": 4,
+   "satisfaction": 83,
+   "quality": 52
+  },
+  {
+   "id": "10-ps45-L2-scenario",
+   "pid": "ps45",
+   "level": 2,
+   "sid": "bs13",
+   "mode": "scenario",
+   "label": "T 스터디센터 길준호 · 첫 고객",
+   "status": "won",
+   "turn": 4,
+   "satisfaction": 95,
+   "quality": 89
+  },
+  {
+   "id": "11-ps14-L1-weak",
+   "pid": "ps14",
+   "level": 1,
+   "sid": "bs04",
+   "mode": "weak",
+   "label": "O 리빙 이유진 · 호의적인 고객",
+   "status": "lost",
+   "turn": 3,
+   "satisfaction": 15,
+   "quality": 15
+  },
+  {
+   "id": "12-ps01-L2-weak",
+   "pid": "ps01",
+   "level": 2,
+   "sid": "bs01",
+   "mode": "weak",
+   "label": "M 디저트카페 한서윤 · 첫 고객",
+   "status": "lost",
+   "turn": 2,
+   "satisfaction": 15,
+   "quality": 12
+  },
+  {
+   "id": "13-ps12-L3-weak",
+   "pid": "ps12",
+   "level": 3,
+   "sid": "bs07",
+   "mode": "weak",
+   "label": "Z 부티크호텔 장석민 · 까다로운 고객",
+   "status": "lost",
+   "turn": 2,
+   "satisfaction": 10,
+   "quality": 12
+  },
+  {
+   "id": "14-ps14-L1-suggest",
+   "pid": "ps14",
+   "level": 1,
+   "sid": "bs04",
+   "mode": "suggest",
+   "label": "O 리빙 이유진 · 호의적인 고객",
+   "status": "won",
+   "turn": 4,
+   "satisfaction": 95,
+   "quality": 85
+  },
+  {
+   "id": "15-ps01-L2-suggest",
+   "pid": "ps01",
+   "level": 2,
+   "sid": "bs01",
+   "mode": "suggest",
+   "label": "M 디저트카페 한서윤 · 첫 고객",
+   "status": "won",
+   "turn": 5,
+   "satisfaction": 95,
+   "quality": 89
+  },
+  {
+   "id": "16-ps12-L3-suggest",
+   "pid": "ps12",
+   "level": 3,
+   "sid": "bs07",
+   "mode": "suggest",
+   "label": "Z 부티크호텔 장석민 · 까다로운 고객",
+   "status": "won",
+   "turn": 8,
+   "satisfaction": 95,
+   "quality": 90
+  }
+ ],
+ "finished": "2026-10-18T10:40:47.657Z",
+ "llm": {
+  "customer": {
+   "model": "gemini-3.1-flash-lite",
+   "calls": 99,
+   "fails": 0,
+   "avg_ms": 2468,
+   "tok_in": 346873,
+   "tok_out": 49276,
+   "tok_think": 0
+  },
+  "seller": {
+   "model": "gemini-3.5-flash",
+   "calls": 50,
+   "fails": 0,
+   "avg_ms": 1926,
+   "tok_in": 146853,
+   "tok_out": 6490,
+   "tok_think": 579
+  },
+  "judge": {
+   "model": "gemini-3.1-pro-preview",
+   "calls": 16,
+   "fails": 0,
+   "avg_ms": 31751,
+   "tok_in": 61712,
+   "tok_out": 11947,
+   "tok_think": 48522
+  }
+ }
+}

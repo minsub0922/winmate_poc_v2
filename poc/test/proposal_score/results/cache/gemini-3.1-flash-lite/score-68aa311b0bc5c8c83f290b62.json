@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~number_conflict:F05"
+ },
+ "prompt_tokens": 3604,
+ "output_tokens": 265,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "시장 수치와 성과 수치가 다수 포함되어 있으나, 대부분의 장에서 구체적인 기관명과 연도가 명시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "연 −15% | 운영 · 유지보수비 | −30% | 현장 출동"
+     },
+     {
+      "sheet": 3,
+      "quote": "2028년 9,600억 원 · 연 7% 성장"
+     },
+     {
+      "sheet": 5,
+      "quote": "7일 → 당일 | −30% | 장애 선제 대응 | 16주"
+     }
+    ],
+    "improve": "모든 수치 데이터 옆에 출처 기관과 연도를 명확히 기재하고, 고객사 내부 자료는 '고객 운영 자료(연도)'와 같이 구체적으로 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

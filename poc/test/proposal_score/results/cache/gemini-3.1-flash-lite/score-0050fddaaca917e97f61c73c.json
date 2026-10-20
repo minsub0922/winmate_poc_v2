@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs06:F07"
+ },
+ "prompt_tokens": 2215,
+ "output_tokens": 187,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 1,
+    "anchor": "제안서 내에 정량적 효과(절감액, 시간, 매출 등)에 대한 언급이 없으며, 사례 장에서도 기술적 사양 위주로 기술되어 정량적 기대효과를 확인할 수 없습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "세 브랜드, 여섯 공간에서 먼저 바꿨습니다"
+     }
+    ],
+    "improve": "리뉴얼을 통해 기대되는 집객 증가율, 운영 시간 단축, 혹은 에너지 절감액 등 구체적인 정량적 지표와 그 산정 근거를 제시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

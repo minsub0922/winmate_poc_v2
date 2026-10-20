@@ -1,0 +1,40 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~no_proof:F01"
+ },
+ "prompt_tokens": 9113,
+ "output_tokens": 318,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "자동 점검에서 지적된 이메일 주소는 제안사 담당자의 공식 연락처로, 템플릿 잔여물이나 자리표시가 아닙니다. 본문 내에 자리표시나 템플릿 잔여물은 확인되지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 15,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "제안서 마무리 장에 기재된 연락처는 제안사 담당자의 업무용 정보로, 고객에게 제공하는 정상적인 정보입니다. 그 외 내부 원가, 마진, 타 고객 정보 등 민감 정보는 없습니다.",
+    "evidence": [
+     {
+      "sheet": 15,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

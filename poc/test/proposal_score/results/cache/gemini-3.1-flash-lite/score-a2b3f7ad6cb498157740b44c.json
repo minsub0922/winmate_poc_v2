@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs20:F01"
+ },
+ "prompt_tokens": 8837,
+ "output_tokens": 333,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "자동 점검에서 지적된 연락처는 제안서 마무리 장에 기재된 정상적인 영업 담당자의 정보이며, 그 외 템플릿 잔여물이나 자리표시는 확인되지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "10장의 할인율 미적용은 사업성 분석의 가정을 설명하는 문구이며, 13장의 연락처는 정상적인 영업 담당자 정보로 민감한 내부 정보 노출이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "수수료 차감 후 · 할인율 미적용"
+     },
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,86 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs02~full:F07"
+ },
+ "prompt_tokens": 10189,
+ "output_tokens": 728,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "에너지 절감률(20%, 30%)과 시간 단축(7분→1분 등) 등 정량적 효과를 제시하고, 각 수치의 산정 기준과 출처를 명시함.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "설계부터 층별 계량 · 관제를 넣어 20% 절감을 실측으로 증명"
+     },
+     {
+      "sheet": 9,
+      "quote": "회의 준비 시간 7분 → 1분"
+     },
+     {
+      "sheet": 13,
+      "quote": "목표 20% 기준 · 보수 범위 15%면 연 248톤"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "삼성의 통합 솔루션(b.IoT, SmartThings Pro, The Wall 등)을 고객의 운영 과제와 연결하여 구체적인 사례와 함께 제시함.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "삼성 · b.IoT 통합 관제"
+     },
+     {
+      "sheet": 7,
+      "quote": "C 빌딩의 여섯 공간, 제품은 공간마다 다르고 관리는 하나입니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR5",
+    "score": 3,
+    "anchor": "절대 표현을 사용하지 않았으며, 성과 수치에 대해서는 추정치임을 명시하여 보증성 표현을 피함.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "재공사비는 삼성 추정"
+     },
+     {
+      "sheet": 8,
+      "quote": "수치는 삼성 추정"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR7",
+    "score": 2,
+    "anchor": "효과 수치의 전제 조건은 명시되어 있으나, 연출 이미지나 사양 변경 가능성에 대한 고지가 누락됨.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "KPI는 준공 후 목표 · 재공사비는 삼성 추정"
+     },
+     {
+      "sheet": 11,
+      "quote": "수량은 기본설계 기준, 실시설계에서 확정"
+     }
+    ],
+    "improve": "제안서 내 모든 연출 이미지와 제품 사양에 대해 '이미지는 연출된 화면이며 실제와 다를 수 있음' 및 '사양은 변경될 수 있음'이라는 고지 문구를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

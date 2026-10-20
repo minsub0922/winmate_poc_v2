@@ -1,0 +1,495 @@
+<script>
+		$('button.spec-title').on("click", function(e){
+			e.preventDefault();
+			$('div[name="specLayer"] > .layer-header > h2').text(this.innerText);
+			$('div[name="specLayer"] > .layer-content > p').text(this.value);
+
+			let newId = $(this).data('popup-target');
+			$('div[name="specLayer"]').attr('id', newId);
+			$('div[name="specLayer"] > .pop-close').attr('data-focus-next', newId);
+			$('div[name="specLayer"]').attr('data-popup-layer', newId);
+			$('div[name="specLayer"]').attr('data-focus', newId);
+		});
+	</script>
+	<h3 class="spec-itm-title" id="cstrt-nm" ></h3>
+	<div class="spec-table">
+		<dl>
+						<dt>디스플레이</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">화면사이즈 (cm)</strong>
+													<p class="spec-desc">80.0&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">화면사이즈 (Class)</strong>
+													<p class="spec-desc">32&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">평면 / 곡면</strong>
+													<p class="spec-desc">Flat&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">엑티브 디스플레이 사이즈 (H x V) (mm)</strong>
+													<p class="spec-desc">697.306 x 392.234&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">화면비율</strong>
+													<p class="spec-desc">16:9&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">패널 타입</strong>
+													<p class="spec-desc">VA&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">밝기 (Typical)</strong>
+													<p class="spec-desc">400&nbsp;cd/㎡</p>
+												</li>
+								<li>
+										<strong class="spec-title">밝기 (Min)</strong>
+													<p class="spec-desc">300&nbsp;cd/㎡</p>
+												</li>
+								<li>
+										<strong class="spec-title">명암비</strong>
+													<p class="spec-desc">3,000:1(Static)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">HDR(High Dynamic Range)</strong>
+													<p class="spec-desc">HDR10&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">HDR10+</strong>
+													<p class="spec-desc">Certified (HDR10+)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">해상도</strong>
+													<p class="spec-desc">4 K (3,840 x 2,160)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">응답속도 (ms)</strong>
+													<p class="spec-desc">4 (GTG)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">시야각(수평/수직)</strong>
+													<p class="spec-desc">178°(H)/178°(V)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">칼라지원</strong>
+													<p class="spec-desc">Max 1 B&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">색재현성(Color Gamut, sRGB Coverage)</strong>
+													<p class="spec-desc">99 % (CIE1931)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">주사율</strong>
+													<p class="spec-desc">Max 60 Hz&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">서브픽셀</strong>
+													<p class="spec-desc">3 Sub Pixel&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>기능</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">눈 보호 모드</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">플리커프리</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">이미지 사이즈</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Window 인증</strong>
+													<p class="spec-desc">Windows 11&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Virtual AIM Point</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">게임 바</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">게이밍 허브</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">HDMI-CEC</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">외부입력 자동 전환</strong>
+													<p class="spec-desc">외부입력 자동 전환+&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">AI 화질 최적화</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">슈퍼 울트라와이드 게임뷰</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>스마트</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">스마트 여부</strong>
+													<p class="spec-desc">Smart&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">운영체제</strong>
+													<p class="spec-desc">Tizen™&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">빅스비</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">원거리 음성인식</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">TV Plus</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">SmartThings 허브</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">멀티 디바이스 경험</strong>
+													<p class="spec-desc">Mobile to Screen, Screen initiate mirroring, Sound Mirroring, Wireless On, Tap View&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">마이 콘텐츠</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">스크린 바이탈 체크</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">멀티뷰</strong>
+													<p class="spec-desc">최대 2 화면&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">스마트 화질 조정</strong>
+													<p class="spec-desc">기본모드&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">NFT</strong>
+													<p class="spec-desc">Klip Drops&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">녹스 볼트</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">유니버설 가이드</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">워크스페이스</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>입출력 및 연결성</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">무선 Display 연결</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">HDMI</strong>
+													<p class="spec-desc">1&nbsp;개</p>
+												</li>
+								<li>
+										<strong class="spec-title">HDMI 버전</strong>
+													<p class="spec-desc">2.0&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">HDCP 버전 (HDMI)</strong>
+													<p class="spec-desc">2.2&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">USB Ports</strong>
+													<p class="spec-desc">2&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">USB Hub 버전</strong>
+													<p class="spec-desc">2.0&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">USB-C</strong>
+													<p class="spec-desc">1&nbsp;개</p>
+												</li>
+								<li>
+										<strong class="spec-title">USB-C 충전 사양</strong>
+													<p class="spec-desc">65 W&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">HDCP 버전 (USB-C)</strong>
+													<p class="spec-desc">2.2&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">WiFi</strong>
+													<p class="spec-desc">있음 (WiFi5)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">블루투스</strong>
+													<p class="spec-desc">있음 (5.2)&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>음향</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">스피커</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">스피커 출력</strong>
+													<p class="spec-desc">10 W&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">AI 사운드 최적화+</strong>
+													<p class="spec-desc">AI 사운드 최적화+&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>동작조건</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">온도</strong>
+													<p class="spec-desc">10 ~ 40&nbsp;℃</p>
+												</li>
+								<li>
+										<strong class="spec-title">습도</strong>
+													<p class="spec-desc">10 ~ 80 (non-condensing)&nbsp;%</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>특수 기능</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">Factory 튜닝</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>디자인</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">전면 색상</strong>
+													<p class="spec-desc">WARM WHITE&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">후면 색상</strong>
+													<p class="spec-desc">WARM WHITE&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">스탠드 색상</strong>
+													<p class="spec-desc">Warm White&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">스탠드 형태</strong>
+													<p class="spec-desc">HAS PIVOT&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">HAS(Height Adjustable Stand)</strong>
+													<p class="spec-desc">120.0 ± 5.0&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">틸트</strong>
+													<p class="spec-desc">-2.0˚(±2.0˚) ~ +15.0˚(±2.0˚)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">피봇</strong>
+													<p class="spec-desc">-92.0˚(±2.0˚) ~ +92.0˚(±2.0˚)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">월 마운트</strong>
+													<p class="spec-desc">100 x 100&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>전원</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">정격입력</strong>
+													<p class="spec-desc">AC 100~240 V&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">전원 타입</strong>
+													<p class="spec-desc">External Adaptor&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">소비전력 (Typical)</strong>
+													<p class="spec-desc">64.0&nbsp;W</p>
+												</li>
+								<li>
+										<strong class="spec-title">소비전력 (Max)</strong>
+													<p class="spec-desc">140&nbsp;W</p>
+												</li>
+								<li>
+										<strong class="spec-title">소비전력 (DPMS)</strong>
+													<p class="spec-desc">0.5&nbsp;W</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>크기</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">스탠드포함(가로x높이x깊이)</strong>
+													<p class="spec-desc">713.4 x 616.2 x 200.1&nbsp;mm</p>
+												</li>
+								<li>
+										<strong class="spec-title">스탠드제외(가로x높이x깊이)</strong>
+													<p class="spec-desc">713.4 x 423.8 x 24.5&nbsp;mm</p>
+												</li>
+								<li>
+										<strong class="spec-title">포장(가로x높이x깊이)</strong>
+													<p class="spec-desc">925 x 132 x 485&nbsp;mm</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>무게</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">제품 무게 (스탠드 포함)</strong>
+													<p class="spec-desc">7.2&nbsp;kg</p>
+												</li>
+								<li>
+										<strong class="spec-title">제품 무게 (스탠드 제외)</strong>
+													<p class="spec-desc">4.2&nbsp;kg</p>
+												</li>
+								<li>
+										<strong class="spec-title">무게 (박스 포장)</strong>
+													<p class="spec-desc">10.4&nbsp;kg</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>액세서리</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">전원 케이블 길이</strong>
+													<p class="spec-desc">1.5 m&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">HDMI 케이블</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">USB Type-C 케이블</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">리모컨</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">카메라</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Pogo 젠더</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+				<dt>상품 기본정보</dt>
+				<dd>
+					<ol>
+						<li>
+								<strong class="spec-title">제품명</strong>
+								<p class="spec-desc">LED 모니터</p>
+							</li>
+						<li>
+								<strong class="spec-title">제조자/수입자</strong>
+								<p class="spec-desc">삼성전자㈜</p>
+							</li>
+						<li>
+								<strong class="spec-title">제조국가</strong>
+								<p class="spec-desc">한국 (베트남,중국,헝가리,멕시코,슬로바키아,태국)</p>
+							</li>
+						<li>
+								<strong class="spec-title">KC 인증 필 유무</strong>
+								<p class="spec-desc"><img src='//images.samsung.com/is/image/samsung/p5/sec/common/icon-kc.png?$ORIGIN_PNG$' alt='KC 인증 로고'>R-R-SEC-S32CM801U, SU10349-21002 
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">동일모델의 출시년월</strong>
+								<p class="spec-desc">2024년 4월</p>
+							</li>
+						<li>
+								<strong class="spec-title">A/S 책임자와 전화번호</strong>
+								<p class="spec-desc">삼성전자서비스센터 / 1588-3366
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">품질보증기준</strong>
+								<p class="spec-desc">결함·하자 등에 따른 소비자 피해에 대해서는 소비자분쟁해결기준(소비자기본법 제16조)에 따라 보상 가능</p>
+							</li>
+						<li>
+								<strong class="spec-title">에너지소비효율등급</strong>
+								<p class="spec-desc">최저소비효율기준 만족</p>
+							</li>
+						</ol>
+				</dd>
+			</dl>
+		</div>
+	<div class="layer-pop layer-normal layer-default specLayer active" name="specLayer" id="specLayer" tabindex="0" data-popup-layer="specLayer" data-focus="specLayer" aria-hidden="false" data-zindex="300" style="z-index: 300; display: none">
+		<div class="layer-header">
+			<h2></h2>
+		</div>
+		<div class="layer-content">
+			<p></p>
+		</div>
+		<button type="button" class="pop-close" data-focus-next="">팝업닫기</button>
+	</div>
+

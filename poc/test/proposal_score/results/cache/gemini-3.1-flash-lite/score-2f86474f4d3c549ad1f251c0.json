@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~no_proof:F11"
+ },
+ "prompt_tokens": 2301,
+ "output_tokens": 407,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 2,
+    "anchor": "110어절을 넘는 장이 4장(2, 3, 4, 8장) 존재하며, 장당 평균 어절 수가 95어절로 77~110어절 구간에 해당합니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "116어절"
+     },
+     {
+      "sheet": 4,
+      "quote": "134어절"
+     }
+    ],
+    "improve": "각 장의 핵심 메시지를 제외한 부연 설명을 줄여 장당 어절 수를 77어절 이하로 조정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸 중 10pt(13.3px) 미만인 칸이 32%를 차지하며, 9pt(12px) 미만 본문 칸이 포함된 장이 존재합니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "본문 최소 11.5px(8.6pt)"
+     },
+     {
+      "sheet": 8,
+      "quote": "본문 최소 11px(8.2pt)"
+     }
+    ],
+    "improve": "모든 본문 텍스트의 크기를 최소 16px(12pt) 이상으로 상향 조정하여 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

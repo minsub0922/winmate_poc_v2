@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01:F10"
+ },
+ "prompt_tokens": 6352,
+ "output_tokens": 391,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO와 SmartThings Pro를 활용하여 본사 운영, 매장 자동 전환, 전력 관리 등 구체적인 운영 시나리오와 하드웨어 연결을 명확히 제시함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "MagicINFO · QM55C · SmartThings Pro · 360 카세트"
+     },
+     {
+      "sheet": 7,
+      "quote": "본사에서 한 번 바꾸면 매장 화면까지 자동"
+     },
+     {
+      "sheet": 8,
+      "quote": "MagicINFO · 메뉴 · 가격 · 프로모션 원격 배포"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "파일럿 매장 선정 기준, 12주간의 상세 일정, 교육 및 유지보수 계획이 구체적으로 명시됨.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "유형별 선정 10곳 · 비교군 3곳 · 준비 2주 + 운영 8주 + 평가 2주"
+     },
+     {
+      "sheet": 16,
+      "quote": "시범 매장 10곳 · 실사 일정 확정 · 11/16 착수"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

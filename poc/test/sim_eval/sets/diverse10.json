@@ -1,0 +1,194 @@
+{
+ "name": "diverse10",
+ "created": "2026-10-18T10:31:31.875Z",
+ "rule": "업종 · Best Scenario 중복 없음 · 난이도 3/4/3 · 성별 균형 · 요구 유형 고루",
+ "items": [
+  {
+   "pid": "ps01",
+   "level": 2,
+   "sid": "bs01",
+   "label": "M 디저트카페 한서윤 · 첫 고객",
+   "ind": "FB",
+   "indName": "외식 · 카페 프랜차이즈",
+   "gender": "F",
+   "reqType": "new",
+   "scenario": "bs01 F&B 프랜차이즈 · 전국 매장 디지털 메뉴보드 전환",
+   "strategy": "value",
+   "match": 9.5,
+   "why": [
+    "같은 업종",
+    "같은 요구 유형",
+    "같은 전략",
+    "제품 qm55c"
+   ]
+  },
+  {
+   "pid": "ps12",
+   "level": 3,
+   "sid": "bs07",
+   "label": "Z 부티크호텔 장석민 · 까다로운 고객",
+   "ind": "HT",
+   "indName": "호텔 · 리조트",
+   "gender": "M",
+   "reqType": "renew",
+   "scenario": "bs07 호텔 객실 TV · 공조 교체 + 투숙 경험 개선",
+   "strategy": "pain",
+   "match": 9.8,
+   "why": [
+    "같은 업종",
+    "같은 요구 유형",
+    "제품 hoteltv,qm55c",
+    "솔루션 lynk"
+   ]
+  },
+  {
+   "pid": "ps14",
+   "level": 1,
+   "sid": "bs04",
+   "label": "O 리빙 이유진 · 호의적인 고객",
+   "ind": "RS",
+   "indName": "주거 분양 · 주택",
+   "gender": "F",
+   "reqType": "new",
+   "scenario": "bs04 주거 분양 · 빌트인 가전 + 스마트홈 사양 제안",
+   "strategy": "value",
+   "match": 7.8,
+   "why": [
+    "같은 업종",
+    "같은 요구 유형",
+    "솔루션 smartthings"
+   ]
+  },
+  {
+   "pid": "ps17",
+   "level": 2,
+   "sid": "bs03",
+   "label": "U 대학교 임동혁 · 첫 고객",
+   "ind": "ED",
+   "indName": "교육 · 캠퍼스",
+   "gender": "M",
+   "reqType": "renew",
+   "scenario": "bs03 대학 캠퍼스 · 스마트 강의실 · 도서관 구축",
+   "strategy": "space",
+   "match": 7.3,
+   "why": [
+    "같은 업종",
+    "같은 전략",
+    "제품 flip",
+    "솔루션 magicinfo"
+   ]
+  },
+  {
+   "pid": "ps21",
+   "level": 3,
+   "sid": "bs02",
+   "label": "F 오피스 류민정 · 까다로운 고객",
+   "ind": "OF",
+   "indName": "오피스 · 업무 빌딩",
+   "gender": "F",
+   "reqType": "new",
+   "scenario": "bs02 신축 오피스 · AI Ready 스마트 빌딩 설계 반영",
+   "strategy": "space",
+   "match": 10.4,
+   "why": [
+    "같은 업종",
+    "같은 요구 유형",
+    "제품 dvms2",
+    "솔루션 stpro,biot,magicinfo"
+   ]
+  },
+  {
+   "pid": "ps26",
+   "level": 1,
+   "sid": "bs08",
+   "label": "E 병원 노승훈 · 호의적인 고객",
+   "ind": "MD",
+   "indName": "의료 · 요양 · 케어",
+   "gender": "M",
+   "reqType": "ops",
+   "scenario": "bs08 요양병원 · 병동 환자 경험 · 운영 리뉴얼",
+   "strategy": "pain",
+   "match": 6.8,
+   "why": [
+    "같은 업종",
+    "제품 tabactive5,qm43c",
+    "솔루션 magicinfo"
+   ]
+  },
+  {
+   "pid": "ps31",
+   "level": 2,
+   "sid": "bs05",
+   "label": "E 테마파크 홍채원 · 첫 고객",
+   "ind": "TP",
+   "indName": "테마파크 · 관광 · 전시",
+   "gender": "F",
+   "reqType": "renew",
+   "scenario": "bs05 테마파크 · 몰입형 체험 구역 신규 조성",
+   "strategy": "space",
+   "match": 7.1,
+   "why": [
+    "같은 업종",
+    "같은 전략",
+    "솔루션 content,magicinfo"
+   ]
+  },
+  {
+   "pid": "ps33",
+   "level": 3,
+   "sid": "bs18",
+   "label": "Y 텔레콤 남소희 · 까다로운 고객",
+   "ind": "OE",
+   "indName": "파트너 전용 단말 · 에디션",
+   "gender": "F",
+   "reqType": "scale",
+   "scenario": "bs18 통신사 · 파트너 전용 단말 에디션 공동 개발",
+   "strategy": "land",
+   "match": 8.8,
+   "why": [
+    "같은 업종",
+    "같은 요구 유형",
+    "제품 galaxyA",
+    "솔루션 knoxsuite"
+   ]
+  },
+  {
+   "pid": "ps38",
+   "level": 1,
+   "sid": "bs14",
+   "label": "P 제철 표상우 · 호의적인 고객",
+   "ind": "MF",
+   "indName": "제조 · 물류 · 현장",
+   "gender": "M",
+   "reqType": "scale",
+   "scenario": "bs14 제조 · 물류 현장 모바일 업무 디지털화",
+   "strategy": "pain",
+   "match": 6.5,
+   "why": [
+    "같은 업종",
+    "같은 전략",
+    "제품 watch"
+   ]
+  },
+  {
+   "pid": "ps45",
+   "level": 2,
+   "sid": "bs13",
+   "label": "T 스터디센터 길준호 · 첫 고객",
+   "ind": "SV",
+   "indName": "생활 편의 · 무인 매장",
+   "gender": "M",
+   "reqType": "ops",
+   "scenario": "bs13 다점포 무인 매장 에너지 절감 · 공조 자동화",
+   "strategy": "roi",
+   "match": 11.3,
+   "why": [
+    "같은 업종",
+    "같은 요구 유형",
+    "같은 전략",
+    "제품 ac360,wf1way",
+    "솔루션 stpro"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~no_proof:F04"
+ },
+ "prompt_tokens": 1615,
+ "output_tokens": 205,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "한국IBM 사례를 제시했으나, Y 그룹의 업종이 미정인 상태에서 해당 사례가 Y 그룹과 업종 및 규모 면에서 적합한지 명확히 설명되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "도입사례(한국IBM)"
+     },
+     {
+      "sheet": 5,
+      "quote": "7일 → 당일"
+     }
+    ],
+    "improve": "제시된 한국IBM 사례가 Y 그룹의 업종과 어떤 유사성을 가지는지, 혹은 왜 이 사례가 Y 그룹의 과제 해결에 적합한지 근거를 보완해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs06:F02"
+ },
+ "prompt_tokens": 8765,
+ "output_tokens": 248,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 요구사항(R1~R3)과 평가 기준(K1~K4)에 대해 각 장에서 명시적으로 대응하고 있습니다. 특히 인테리어 조화(R2, K1)는 8장에서, 오픈일 준수(R3, K3)는 12장에서 구체적인 실행 계획으로 답하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "화면은 인테리어에 녹이고, 기술은 숨깁니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "영업을 멈추지 않고, 여섯 밤에 끝냅니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "다음 2주, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

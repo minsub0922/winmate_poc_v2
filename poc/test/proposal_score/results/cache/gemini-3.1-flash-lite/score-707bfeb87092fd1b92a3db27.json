@@ -1,0 +1,40 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs12:F01"
+ },
+ "prompt_tokens": 8080,
+ "output_tokens": 279,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "13장에 제안 담당자의 연락처가 예시용(010-1234-5678)으로 남아 있습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "제출 전 실제 담당자의 연락처로 수정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 2,
+    "anchor": "12장에 내부적인 산출 근거인 '할인율 미적용'이라는 표현이 포함되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "할인율 미적용"
+     }
+    ],
+    "improve": "고객에게 불필요한 내부 산출 기준 문구는 삭제해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

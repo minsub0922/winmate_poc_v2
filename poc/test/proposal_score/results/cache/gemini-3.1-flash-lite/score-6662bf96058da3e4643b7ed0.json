@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs05:F09"
+ },
+ "prompt_tokens": 6256,
+ "output_tokens": 176,
+ "data": {
+  "scores": [
+   {
+    "id": "PR1",
+    "score": 2,
+    "anchor": "제안서 내 'VM55B-U'라는 모델명이 기재되어 있으나, 이는 카탈로그상 현행 모델인 'VM55B'와 세대 표기가 일치하지 않아 확인이 필요합니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "4 × 3 · 12면 · VM55B-U"
+     }
+    ],
+    "improve": "제안서 내 모델명을 카탈로그와 일치하는 'VM55B'로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

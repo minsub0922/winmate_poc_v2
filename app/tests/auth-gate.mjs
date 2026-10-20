@@ -1,0 +1,23 @@
+import assert from 'node:assert/strict';
+import { configureSession, sessionSnapshot, closeLogin } from '../web/src/api/session.js';
+import { fetchResource, setTransport, setUnauthorizedHandler } from '../web/src/api/client.js';
+let calls=0, unauthorized=0;
+setTransport(async()=>{calls++;return Response.json({ok:true});});
+setUnauthorizedHandler(()=>unauthorized++);
+configureSession({guest:true});
+await fetchResource('/api/products');assert.equal(calls,1);assert.equal(sessionSnapshot().modal,false);
+await Promise.all(['POST','PUT','PATCH','DELETE'].map(async method=>{
+  const response=await fetchResource('/api/jobs',{method});assert.equal(response.status,401);
+}));
+assert.equal(calls,1);assert.equal(sessionSnapshot().modal,true);
+assert.equal((await fetchResource(new Request('http://winmate.local/api/jobs', {method:'POST'}))).status,401);
+assert.equal((await fetchResource(new URL('http://winmate.local/api/jobs'), {method:'POST'})).status,401);
+assert.equal(calls,1);
+closeLogin();assert.equal(sessionSnapshot().modal,false);
+await fetchResource(new URL('http://winmate.local/api/auth/login'),{method:'POST'});assert.equal(calls,2);
+setTransport(async()=>new Response(null,{status:401}));
+await fetchResource('/api/auth/login',{method:'POST'});assert.equal(unauthorized,0);
+configureSession({guest:false});
+setTransport(async()=>{calls++;return Response.json({ok:true});});
+await fetchResource('/api/jobs',{method:'POST'});assert.equal(calls,3);
+console.log('PASS guest reads, concurrent write blocking, single modal state, dismissal, login failure, authenticated writes');

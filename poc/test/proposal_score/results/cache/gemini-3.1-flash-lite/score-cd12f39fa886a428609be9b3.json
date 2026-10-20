@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~number_conflict:F08"
+ },
+ "prompt_tokens": 2517,
+ "output_tokens": 269,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "고객이 얻는 가치를 '당일 배포', '장애 선제 대응', '단계적 도입'이라는 3가지 결과형 언어로 명확히 제시하고, 각 가치를 실현하는 솔루션(원격 통합 관리, 원격 모니터링, 실사·워크숍)을 짝지어 설명함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "7일 → 당일 | 원격 통합 관리 | 한 번의 승인으로 6개 사업 배포"
+     },
+     {
+      "sheet": 5,
+      "quote": "−30% | 장애 선제 대응 | 원격 모니터링으로 고장은 먼저 찾고"
+     },
+     {
+      "sheet": 5,
+      "quote": "16주 | 단계적 도입 | 실사 · 워크숍 · 파일럿 2곳 후 확대"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

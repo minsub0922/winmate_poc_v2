@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~base:F04"
+ },
+ "prompt_tokens": 2535,
+ "output_tokens": 189,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "유관 사례 6건을 제시하였으나, 각 사례의 실제 성과 수치가 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "6개 사업 모두, 업계는 이미 바꿨습니다"
+     },
+     {
+      "sheet": 7,
+      "quote": "사례명 · 원문 링크는 외부 제출 전 확인"
+     }
+    ],
+    "improve": "각 사례별로 도입 전후의 구체적인 성과 수치(예: 운영 시간 단축률, 비용 절감액 등)를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

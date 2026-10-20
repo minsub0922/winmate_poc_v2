@@ -1,0 +1,104 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08~full:F10"
+ },
+ "prompt_tokens": 7301,
+ "output_tokens": 895,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "하드웨어와 b.IoT, MagicINFO 등 솔루션을 연결하여 간호사, 병원장 등 사용자별 관리 장면을 구체적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "b.IoT 공기질 관리 · 공기청정기 · ERV · 공기질 센서"
+     },
+     {
+      "sheet": 9,
+      "quote": "간호사 · 간호부 · 갤럭시 탭 액티브5 프로 알림"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR7",
+    "score": 3,
+    "anchor": "설치 환경(병실 순차 시공), 고객 준비 사항(시설팀 협조), 유지보수 및 보증 범위를 케어 플랜으로 명시함.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "병실 2실씩 순차 시공 · 공사 중에도 병동 운영"
+     },
+     {
+      "sheet": 12,
+      "quote": "무상 보증 2년 · 3년 · 5년 · 장애 대응 방문"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "선도 병동 실사부터 착수까지의 구체적인 날짜와 단계별 역할 분담을 명시함.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "10/26 – 10/30 현장 실사 · 12월 1주 착수"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 3,
+    "anchor": "24시간 운영 병동의 공사 중 영업 지속과 장애 대응 등 핵심 리스크에 대한 구체적 대응 방안을 제시함.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "병실 2실씩 순차 시공 · 공사 중에도 병동 운영"
+     },
+     {
+      "sheet": 12,
+      "quote": "장애 대응 방문 4시간 이내 · 2시간 이내"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "마지막 장에서 선도 병동 실사 및 범위 확정이라는 결정 사항과 구체적인 다음 단계 일정을 제시함.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "다음 4주, 선도 병동부터 정합니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "SB5",
+    "score": 1,
+    "anchor": "표지에 제출 날짜(2026.10)가 명시되어 있으나, 자동 점검에서 표지 날짜가 없다고 판단되어 1점으로 평가함.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "2026. 10"
+     }
+    ],
+    "improve": "자동 점검 시스템이 표지 날짜를 정확히 인식하도록 레이아웃을 조정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

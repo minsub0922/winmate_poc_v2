@@ -1,3 +1,4 @@
+import {FeedbackPopup} from './feedback-popup.jsx';
 import { readAttachments } from '../services/attachments.js';
 import { linkTags } from '../services/links.js';
 import React, { useState, useMemo, useRef, useEffect } from 'react';
@@ -6,15 +7,16 @@ import { startRfpJob, attachmentsText, clearRfpPending, usefulForm } from '../se
 import { isTerminal } from '../repositories/jobs.js';
 import { AgentJobControl, useOwnerJobs } from './AgentJobControl.jsx';
 import { update, uid, segRefs } from '../repositories/proposals.js';
-import { Icon, MentionEditor, RefChip, AddRefInput, Modal, toast } from './common.jsx';
+import { DeleteButton, Icon, MentionEditor, RefChip, AddRefInput, Modal, toast } from './common.jsx';
 import { INDUSTRIES, IND, refInfo } from '../services/catalog.js';
 import { inferIndustry, recommendContext, reqText } from '../services/search.js';
 import { aiExtract, aiErrorText } from '../services/ai.js';
 import { isReqSaved, reqSig, industryLabel } from './ctxconfirm.jsx';
 import { BubblePopup } from './bubblepop.jsx';
 import { TagStrip } from './tagcard.jsx';
-import { useDetailPeek } from './peek.jsx';
+import { useDetailPeek } from './reference-detail.jsx';
 import { HistoryReuse } from './history-reuse.jsx';
+import { ensureRequirementSummary } from '../services/requirement-summary.js';
 
 const KIND = [['products', 'product', '제품', 2], ['solutions', 'solution', '솔루션', 1], ['cases', 'case', '유관사례', 1]];
 export function refsOf(p) { return [...p.ctx.products.map((x) => 'product:' + x), ...p.ctx.solutions.map((x) => 'solution:' + x), ...p.ctx.cases.map((x) => 'case:' + x)]; }
@@ -134,14 +136,14 @@ function FormTab({ p, peek }) {
             <label className="sr" htmlFor={'km-' + k.id}>키맨 직책</label>
             <input id={'km-' + k.id} className="input" style={{ fontWeight: "var(--weight-700)" }} value={k.name} placeholder="키맨 · 예) 대표이사" onChange={(e) => { const v = e.target.value; set((ff) => { ff.keymen[ki].name = v; }); }} />
             <span className="weight"><label htmlFor={'kw-' + k.id}>가중치</label><input id={'kw-' + k.id} className="input" inputMode="numeric" value={k.weight} onChange={(e) => { const v = e.target.value.replace(/[^\d]/g, '').slice(0, 3); set((ff) => { ff.keymen[ki].weight = Number(v || 0); }); }} />%</span>
-            {f.keymen.length > 1 && <button className="btn btn-ghost btn-sm btn-danger" style={{ alignSelf: 'flex-start' }} onClick={() => set((ff) => { ff.keymen.splice(ki, 1); })}><Icon name="trash" size={14} />키맨 빼기</button>}
+            {f.keymen.length > 1 && <DeleteButton className="btn btn-ghost btn-sm btn-danger" style={{ alignSelf: 'flex-start' }} onClick={() => set((ff) => { ff.keymen.splice(ki, 1); })}><Icon name="trash" size={14} />키맨 빼기</DeleteButton>}
           </div>
           <div className="km-reqs">
             {(k.reqs || []).map((r, ri) => (
               <div className="km-req" key={ri}>
                 <span className="n">{ri + 1}</span>
                 <MentionEditor single label={(k.name || '키맨') + ' 요구사항 ' + (ri + 1)} value={r} placeholder="요구사항 · 예) 에너지 사용량 20% 절감" onChange={(segs) => set((ff) => { ff.keymen[ki].reqs[ri] = segs; })} onMention={(ref) => addRef(p.id, ref)} peek={peek} />
-                <button className="btn btn-ghost btn-sm btn-icon" aria-label={'요구사항 ' + (ri + 1) + ' 빼기'} onClick={() => set((ff) => { ff.keymen[ki].reqs.splice(ri, 1); if (!ff.keymen[ki].reqs.length) ff.keymen[ki].reqs.push([]); })}><Icon name="x" size={13} /></button>
+                <DeleteButton className="btn btn-ghost btn-sm btn-icon" aria-label={'요구사항 ' + (ri + 1) + ' 빼기'} onClick={() => set((ff) => { ff.keymen[ki].reqs.splice(ri, 1); if (!ff.keymen[ki].reqs.length) ff.keymen[ki].reqs.push([]); })}><Icon name="x" size={13} /></DeleteButton>
                 <TagStrip refs={segRefs(r)} peek={peek} size="sm" className="km-tags" linkedOf={linkedIn(p)} onLink={relink(p)} />
               </div>
             ))}
@@ -213,7 +215,7 @@ function FilesTab({ p }) {
     if (!text.trim()) return;
     const my = ++run.current;
     setFbNote('');
-    // the server RFP pipeline (Gemini); its result comes back as choices (p.agent.rfpPending) — never written silently
+    // the server RFP pipeline (AI); its result comes back as choices (p.agent.rfpPending) — never written silently
     const plan = await planForFresh('rfp');
     if (my !== run.current) return;
     if (!plan.job) { setFbNote(plan.note); return; }
@@ -293,7 +295,7 @@ function FilesTab({ p }) {
               <span className={'fic k-' + (FKIND[f.type] || 'etc')} aria-hidden="true"><Icon name="file" size={14} /></span>
               <span className="fchip-name" title={f.name}>{f.name}</span>
               <button type="button" className="fchip-info" aria-label={f.name + ' 정보 보기'} aria-expanded={info === f.id} title="파일 정보" onClick={() => { setInfo(info === f.id ? null : f.id); setFull(false); }}>!</button>
-              <button type="button" className="fchip-x" aria-label={f.name + ' 빼기'} title="빼기" onClick={() => remove(i, f.id)}><Icon name="x" size={11} stroke={2.6} /></button>
+              <DeleteButton type="button" className="fchip-x" aria-label={f.name + ' 빼기'} title="빼기" onClick={() => remove(i, f.id)}><Icon name="x" size={11} stroke={2.6} /></DeleteButton>
             </li>
           ))}
         </ul>
@@ -305,7 +307,7 @@ function FilesTab({ p }) {
             <b className="fname">{cur.name}</b>
             <button type="button" className="btn btn-ghost btn-sm btn-icon" aria-label="정보 닫기" onClick={() => setInfo(null)}><Icon name="x" size={13} /></button>
           </div>
-          {cur.readError && <p className="muted" role="alert">{cur.readError}</p>}
+          <FeedbackPopup message={cur.readError}/>
           <span className="fmeta num">{(cur.type || 'file').toUpperCase()} · {(cur.size / 1024).toFixed(0)} KB · {cur.text ? '본문 ' + cur.text.length.toLocaleString() + '자 읽음' : '본문을 읽을 수 없는 형식 · 메모로 핵심을 남겨 주세요'}</span>
           <label className="sr" htmlFor={'fm-' + cur.id}>메모</label>
           <input id={'fm-' + cur.id} className="input" style={{ minHeight: 30, height: 30, fontSize: "var(--text-12-5px)" }} value={cur.memo || ''} placeholder="이 파일의 핵심 메모 (예: 객실 300실 · 연회장 3) — 적으면 요구사항을 다시 읽어요"
@@ -317,17 +319,13 @@ function FilesTab({ p }) {
           {cur.text && cur.text.length > 1200 && <button className="btn btn-ghost btn-sm" style={{ alignSelf: 'flex-start', color: 'var(--accent)' }} aria-expanded={full} onClick={() => setFull((v) => !v)}><Icon name={full ? 'x' : 'text'} size={13} />{full ? '원문 접기' : '원문 전체 보기 · ' + cur.text.length.toLocaleString() + '자'}</button>}
         </div>
       )}
-      {busy && <div className="thinking fx-busy"><span className="spin" />첨부 내용을 읽고 요구사항을 정리하는 중…</div>}
+      <FeedbackPopup message={busy?"첨부 내용을 읽고 요구사항을 정리하는 중…":""} kind="progress"/>
       {activeJob && <AgentJobControl id={activeJob.id} compact title="첨부 RFP 정리 (서버)" />}
       {fbNote && !busy && !activeJob && (
-        <p className="agent-note" role="alert"><Icon name="alert" size={12} />{fbNote}
-          <button type="button" className="btn btn-ghost btn-sm" onClick={() => extract(pRef.current.req.files)}><Icon name="refresh" size={12} />다시 시도</button>
-        </p>
+        <FeedbackPopup message={fbNote} actionLabel="다시 시도" onAction={()=>extract(pRef.current.req.files)}/>
       )}
       {!activeJob && !busy && !fbNote && failedJob && (
-        <p className="agent-note" role="alert"><Icon name="alert" size={12} />{(failedJob.error && failedJob.error.message) || failedJob.outcomeNote || '첨부 정리가 실패했어요.'}
-          <button type="button" className="btn btn-ghost btn-sm" onClick={() => extract(pRef.current.req.files)}><Icon name="refresh" size={12} />다시 시도</button>
-        </p>
+        <FeedbackPopup message={failedJob.error?.message || failedJob.outcomeNote || "첨부 정리가 실패했어요."} actionLabel="다시 시도" onAction={()=>extract(pRef.current.req.files)}/>
       )}
       {pending && !pick && pickChoices.length > 0 && (
         <button type="button" className="btn btn-soft btn-sm" style={{ alignSelf: 'flex-start' }} onClick={() => setPick({ ...pending, choices: pickChoices, sel: 0 })}>
@@ -439,6 +437,7 @@ export function ReqPopup({ p, onClose, onSaved }) {
     peek.hide();
     // 요구사항 단계 → 저장하면 제품 · 솔루션 매칭 버블이 생김
     update(p.id, (d) => { d.reqSaved = reqSig(d); if (!d.parts.length && d.stage !== 'story') d.stage = 'match'; });
+    void ensureRequirementSummary(p.id);
     toast('고객 요구사항을 저장했어요');
     onSaved();
   };

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~placeholders:F08"
+ },
+ "prompt_tokens": 2253,
+ "output_tokens": 214,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "고객이 얻는 가치를 4가지로 명확히 정의하고, 각 가치별로 분양 문구와 이를 구현하는 제품 및 솔루션을 1:1로 연결하여 제시함.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "모델하우스에서 ‘이 단지’로 기억될 네 가지"
+     },
+     {
+      "sheet": 4,
+      "quote": "집 안 가전 · 난방을 앱 하나로 | SmartThings"
+     },
+     {
+      "sheet": 4,
+      "quote": "빌트인 가전 패키지 | Bespoke 빌트인"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

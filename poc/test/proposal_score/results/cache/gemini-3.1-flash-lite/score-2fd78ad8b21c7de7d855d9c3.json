@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~base:F07"
+ },
+ "prompt_tokens": 2616,
+ "output_tokens": 208,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "180개 지점, 360대, 5년 운영이라는 명확한 산정 전제하에 설치형, 구독형, 렌탈 방식별 총소유비용(TCO)을 정량적으로 비교 제시함.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "지점 180곳 · QM55C 360대 · 같은 구성 · 5년 기준"
+     },
+     {
+      "sheet": 11,
+      "quote": "5년 총비용 구성 · 억 원 | 8.9억 | 설치형 안"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

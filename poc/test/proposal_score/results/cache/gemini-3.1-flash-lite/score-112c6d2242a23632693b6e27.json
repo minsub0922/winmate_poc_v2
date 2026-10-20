@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~placeholders:F10"
+ },
+ "prompt_tokens": 5750,
+ "output_tokens": 382,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "SmartThings를 통해 가전 제어, 에너지 모니터링, 홈케어 진단 등 운영 솔루션의 역할과 입주민의 실제 사용 장면을 공간별로 구체적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "SmartThings · 빌트인 · 난방 · 도어락 (타사)을 계정 하나로"
+     },
+     {
+      "sheet": 5,
+      "quote": "홈케어 진단 | 기기 상태를 점검해 이상 징후를 먼저 알림"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "마지막 장에서 고객이 결정해야 할 세 가지 항목과 각 항목별 세부 일정, 담당자 정보를 명확히 제시함.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "12월까지, 함께 정할 세 가지 | R 건설 2지구 1,240세대 빌트인 · 스마트홈 사양 — 결정과 일정"
+     },
+     {
+      "sheet": 13,
+      "quote": "01 | 도면 · 치수 검토 | 10/26 – 11/13 검토"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,43 @@
+{
+ "stage": "design",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.4,
+ "seed": 0,
+ "prompt_tokens": 7321,
+ "output_tokens": 361,
+ "data": {
+  "strategy": "rfp",
+  "thesis": "금융 환경에 최적화된 고성능 전산장비와 전국 9개 노드 기반의 밀착형 유지관리 서비스로 KB손해보험의 안정적인 업무 연속성을 보장합니다.",
+  "parts": [
+   {
+    "type": "overview"
+   },
+   {
+    "name": "사업 이해 및 제안",
+    "type": "requirements"
+   },
+   {
+    "name": "구매요청 사양 대응",
+    "type": "spec"
+   },
+   {
+    "name": "유지보수 및 서비스",
+    "type": "solution"
+   },
+   {
+    "name": "납품 및 설치 체계",
+    "type": "execution"
+   },
+   {
+    "name": "결정 요청 및 연락처",
+    "type": "closing"
+   }
+  ],
+  "ending": "shortlist",
+  "questions": [
+   "노트북 메모리 사양(DDR4 5600MHz)은 DDR5 규격의 오기입인지 확인이 필요합니다.",
+   "제안요청서 내 2025년 사업 연도에 맞춘 최신 모델 공급을 확약합니다."
+  ],
+  "strategy_why": "평가 기준이 비공개인 경쟁 입찰 상황에서 RFP의 목차와 요구사항을 100% 충실히 반영하여 감점 요인을 제거하고 우선협상대상자로 선정되는 것이 최우선입니다."
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs14:F02"
+ },
+ "prompt_tokens": 8741,
+ "output_tokens": 255,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 요구사항 4가지(R1~R4)에 대해 각각 대응하는 장(R1: 6, 7장 / R2: 8장 / R3: 4, 12장 / R4: 11장)이 명확히 존재하며, 각 장에서 해당 요구를 언급하고 해법을 제시함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "전용 스캐너가 비싸고 자주 고장 나요"
+     },
+     {
+      "sheet": 8,
+      "quote": "교대조가 함께 쓰는 현장 단말, 로그인부터 분석까지"
+     },
+     {
+      "sheet": 12,
+      "quote": "이상 보고, 5단계 45분에서 2단계 10분으로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

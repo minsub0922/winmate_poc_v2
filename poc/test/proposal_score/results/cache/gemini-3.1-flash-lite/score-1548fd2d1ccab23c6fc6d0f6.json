@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~no_proof:F01"
+ },
+ "prompt_tokens": 4181,
+ "output_tokens": 300,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'Y 그룹'이 일관되게 사용되었으며, 사례로 인용된 기업 외에 다른 고객사명이나 예시 고객명이 발견되지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "Y 그룹"
+     },
+     {
+      "sheet": 8,
+      "quote": "Y 그룹 사업장 디스플레이 통합"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "8장에 제안 담당자의 연락처가 예시용(010-1234-5678)으로 기재되어 있어 템플릿 잔여물로 판단됩니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "010-1234-5678"
+     }
+    ],
+    "improve": "제출 전 실제 담당자의 연락처 정보로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

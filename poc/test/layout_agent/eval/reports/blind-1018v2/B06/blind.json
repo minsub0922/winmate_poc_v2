@@ -1,0 +1,395 @@
+{
+ "id": "B06",
+ "title": "교육청 스마트교실 전자칠판 입찰 (RFP·평가표 첨부)",
+ "exp_level": "complex",
+ "level": "complex",
+ "exp_industry": "ED",
+ "industry": "ED",
+ "exp_strategy": "rfp",
+ "strategy": "rfp",
+ "scenario": "rfp",
+ "exp_products": [
+  "flip"
+ ],
+ "products": [
+  "flip"
+ ],
+ "solutions": [
+  "care",
+  "content"
+ ],
+ "prod_recall": 1.0,
+ "prod_precision": 1.0,
+ "must_show": 1.0,
+ "must_show_miss": [],
+ "facts": 0.667,
+ "facts_miss": [
+  "3년"
+ ],
+ "must_not_hit": [],
+ "parts": [
+  "cover:제안 개요",
+  "overview:사업 이해 및 전략",
+  "requirements:핵심 이해관계자 분석",
+  "requirements:평가 항목 대응 전략",
+  "requirements:요구사항 완벽 대응",
+  "value:사용자 중심 가치",
+  "products:공간별 맞춤 솔루션",
+  "bom:범위 및 수량 대응",
+  "spec:성능 및 규격 준수",
+  "execution:보안 및 상생 협력",
+  "case:유관 구축 사례",
+  "why:차별화된 경쟁력",
+  "execution:운영 및 유지보수",
+  "execution:일정 및 품질 보증",
+  "execution:야간 시공 계획",
+  "execution:단계별 납품 계획",
+  "cost:교육 지원 계획",
+  "closing:제안 마무리"
+ ],
+ "questions": [
+  "strategy",
+  "ending",
+  "keyman",
+  "conflict_C2",
+  "conflict_C4",
+  "conflict_C5",
+  "gap_spaces",
+  "gap_llm1",
+  "gap_llm2",
+  "llm_Q01",
+  "llm_Q02",
+  "llm_Q03",
+  "length"
+ ],
+ "conflicts": [
+  "시공 vs 영업 유지",
+  "물량 vs 일정",
+  "키맨 관심사 분산",
+  "LLM 발견",
+  "LLM 발견",
+  "LLM 발견"
+ ],
+ "issues": [
+  "[low] 편집할 수 없는(data-tb 없는) 다른 업종 샘플 문구가 남은 장표 1장 — 원본 레이아웃 보완 필요"
+ ],
+ "stats": {
+  "n_slides": 21,
+  "text_slots": 1044,
+  "placeholders": 304,
+  "slides_with_ph": 20,
+  "sample_text_kept": 412,
+  "img_slots": 41,
+  "img_filled": 28,
+  "photo_slides": 10,
+  "stray_slides": 1,
+  "slides": [
+   {
+    "no": 1,
+    "code": "C01",
+    "f": "L_C01",
+    "visual": [
+     "image",
+     "message",
+     "photo"
+    ],
+    "ph": 0,
+    "img_slots": 1,
+    "img_filled": 1,
+    "kept_sample": 1,
+    "stray": []
+   },
+   {
+    "no": 2,
+    "code": "PH-OV-A",
+    "f": "L_PH_OV_A",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "message",
+     "photo"
+    ],
+    "ph": 17,
+    "img_slots": 6,
+    "img_filled": 5,
+    "kept_sample": 28,
+    "stray": []
+   },
+   {
+    "no": 3,
+    "code": "RM-B",
+    "f": "L_RM_B",
+    "visual": [
+     "table"
+    ],
+    "ph": 13,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 31,
+    "stray": []
+   },
+   {
+    "no": 4,
+    "code": "RM-B",
+    "f": "L_RM_B",
+    "visual": [
+     "table"
+    ],
+    "ph": 13,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 29,
+    "stray": []
+   },
+   {
+    "no": 5,
+    "code": "RM-B",
+    "f": "L_RM_B",
+    "visual": [
+     "table"
+    ],
+    "ph": 14,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 31,
+    "stray": []
+   },
+   {
+    "no": 6,
+    "code": "RM-C",
+    "f": "L_RM_C",
+    "visual": [
+     "table"
+    ],
+    "ph": 24,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 40,
+    "stray": []
+   },
+   {
+    "no": 7,
+    "code": "SC-B",
+    "f": "L_SC_B",
+    "visual": [
+     "comparison",
+     "table"
+    ],
+    "ph": 27,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 12,
+    "stray": []
+   },
+   {
+    "no": 8,
+    "code": "SC-B",
+    "f": "L_SC_B",
+    "visual": [
+     "comparison",
+     "table"
+    ],
+    "ph": 38,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 11,
+    "stray": []
+   },
+   {
+    "no": 9,
+    "code": "PH-VP-D",
+    "f": "L_PH_VP_D",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 2,
+    "img_slots": 4,
+    "img_filled": 2,
+    "kept_sample": 0,
+    "stray": []
+   },
+   {
+    "no": 10,
+    "code": "PH-P-G",
+    "f": "L_PH_P_G",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 2,
+    "img_slots": 4,
+    "img_filled": 4,
+    "kept_sample": 0,
+    "stray": []
+   },
+   {
+    "no": 11,
+    "code": "PH-BM-A",
+    "f": "L_PH_BM_A",
+    "visual": [
+     "image_heavy",
+     "photo",
+     "table"
+    ],
+    "ph": 14,
+    "img_slots": 10,
+    "img_filled": 6,
+    "kept_sample": 7,
+    "stray": []
+   },
+   {
+    "no": 12,
+    "code": "SD-A",
+    "f": "L_SPEC1",
+    "visual": [
+     "cards",
+     "image"
+    ],
+    "ph": 13,
+    "img_slots": 1,
+    "img_filled": 1,
+    "kept_sample": 13,
+    "stray": []
+   },
+   {
+    "no": 13,
+    "code": "SE-A",
+    "f": "L_SE_A",
+    "visual": [
+     "table"
+    ],
+    "ph": 46,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 35,
+    "stray": [
+     "Knox Suite"
+    ]
+   },
+   {
+    "no": 14,
+    "code": "CL-B",
+    "f": "L_CS03",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "message"
+    ],
+    "ph": 7,
+    "img_slots": 3,
+    "img_filled": 0,
+    "kept_sample": 3,
+    "stray": []
+   },
+   {
+    "no": 15,
+    "code": "PH-CM-A",
+    "f": "L_PH_CM_A",
+    "visual": [
+     "cards",
+     "comparison",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 7,
+    "img_slots": 5,
+    "img_filled": 4,
+    "kept_sample": 9,
+    "stray": []
+   },
+   {
+    "no": 16,
+    "code": "TO-A",
+    "f": "L_TO_A",
+    "visual": [
+     "cards"
+    ],
+    "ph": 4,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 23,
+    "stray": []
+   },
+   {
+    "no": 17,
+    "code": "PH-IP-A",
+    "f": "L_PH_IP_A",
+    "visual": [
+     "cards",
+     "flow",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 4,
+    "img_slots": 4,
+    "img_filled": 2,
+    "kept_sample": 23,
+    "stray": []
+   },
+   {
+    "no": 18,
+    "code": "IP-C",
+    "f": "L_IP_C",
+    "visual": [
+     "cards",
+     "diagram",
+     "flow"
+    ],
+    "ph": 26,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 51,
+    "stray": []
+   },
+   {
+    "no": 19,
+    "code": "PH-PL-A",
+    "f": "L_PH_PL_A",
+    "visual": [
+     "cards",
+     "flow",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 4,
+    "img_slots": 3,
+    "img_filled": 3,
+    "kept_sample": 5,
+    "stray": []
+   },
+   {
+    "no": 20,
+    "code": "CO-B",
+    "f": "L_CO_B",
+    "visual": [
+     "cards"
+    ],
+    "ph": 26,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 55,
+    "stray": []
+   },
+   {
+    "no": 21,
+    "code": "C07",
+    "f": "L_C07",
+    "visual": [
+     "cards",
+     "message"
+    ],
+    "ph": 3,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 5,
+    "stray": []
+   }
+  ]
+ },
+ "sec": 24.2,
+ "llm_calls": 18,
+ "llm_fail": 0
+}

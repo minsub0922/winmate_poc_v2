@@ -1,0 +1,150 @@
+<script>
+		$('button.spec-title').on("click", function(e){
+			e.preventDefault();
+			$('div[name="specLayer"] > .layer-header > h2').text(this.innerText);
+			$('div[name="specLayer"] > .layer-content > p').text(this.value);
+
+			let newId = $(this).data('popup-target');
+			$('div[name="specLayer"]').attr('id', newId);
+			$('div[name="specLayer"] > .pop-close').attr('data-focus-next', newId);
+			$('div[name="specLayer"]').attr('data-popup-layer', newId);
+			$('div[name="specLayer"]').attr('data-focus', newId);
+		});
+	</script>
+	<h3 class="spec-itm-title" id="cstrt-nm" ></h3>
+	<div class="spec-table">
+		<dl>
+						<dt>연결성</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">블루투스</strong>
+													<p class="spec-desc">BLE v5.3&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">UWB</strong>
+													<p class="spec-desc">O&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">거리</strong>
+													<p class="spec-desc">최대 120 m (BLE)&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>규격</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">제품 외관 (가로x높이x깊이)</strong>
+													<p class="spec-desc">28.8 x 52.44 x 8.0&nbsp;mm</p>
+												</li>
+								<li>
+										<strong class="spec-title">중량</strong>
+													<p class="spec-desc">13.75&nbsp;g</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>색상</dt>
+						<dd>
+							<ol>
+								<li>
+										<p class="spec-desc">블랙 2 개, 화이트 2 개&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>호환성</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">호환모델</strong>
+													<p class="spec-desc">Android 9.0 (P OS) 이상의 갤럭시 기기 (스마트폰, 태블릿) / UWB 기능 : UWB 탑재 갤럭시 기기&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>일반</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">패키지 구성</strong>
+													<p class="spec-desc">갤럭시 스마트태그2, 배터리(체결상태), 트레이 분리 핀, 간단사용설명서&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">방수방진</strong>
+													<p class="spec-desc">IP67&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">스피커</strong>
+													<p class="spec-desc">버저&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">버튼</strong>
+													<p class="spec-desc">1 개&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>배터리</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">타입</strong>
+													<p class="spec-desc">교체형 CR2032 1 개&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">연속사용시간</strong>
+													<p class="spec-desc">최대 500 일&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>법적필수고지정보</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">제조자/수입자</strong>
+													<p class="spec-desc">삼성전자&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">제조국/원산지</strong>
+													<p class="spec-desc">베트남&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">동일모델의 출시년월</strong>
+													<p class="spec-desc">2023년 10월&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">KC인증필 유무</strong>
+													<p class="spec-desc">유 / R-C-SEC-EI-T5600&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">품질 보증 기준</strong>
+													<p class="spec-desc">품질 보증 기준 결함, 하자 등에 따른 소비자피해에 대해서는 소비자분쟁해결기준(소비자기본법 제16조)에 따라 보상가능&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">A/S책임자와 전화번호</strong>
+													<p class="spec-desc">삼성 A/S 센터 1588-3366&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				</div>
+	<div class="layer-pop layer-normal layer-default specLayer active" name="specLayer" id="specLayer" tabindex="0" data-popup-layer="specLayer" data-focus="specLayer" aria-hidden="false" data-zindex="300" style="z-index: 300; display: none">
+		<div class="layer-header">
+			<h2></h2>
+		</div>
+		<div class="layer-content">
+			<p></p>
+		</div>
+		<button type="button" class="pop-close" data-focus-next="">팝업닫기</button>
+	</div>
+

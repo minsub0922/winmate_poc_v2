@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~wrong_customer:F02"
+ },
+ "prompt_tokens": 2164,
+ "output_tokens": 199,
+ "data": {
+  "scores": [
+   {
+    "id": "SB1",
+    "score": 2,
+    "anchor": "표지에는 고객사, 제안명, 날짜, 제안사가 모두 포함되어 있으나, 1장 내에 목차가 명시적으로 구성되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "B 호텔 | B2B PROPOSAL | B 호텔 객실 TV · 공조 교체와 투숙 경험 개선 제안 | 삼성전자 한국총괄 B2B 영업팀 | 2026. 10. 21"
+     }
+    ],
+    "improve": "1장 표지 뒤에 제안서의 전체 구성을 파악할 수 있는 목차 페이지를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

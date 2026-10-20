@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~no_proof:F07"
+ },
+ "prompt_tokens": 2689,
+ "output_tokens": 255,
+ "data": {
+  "scores": [
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "삼성의 통합 솔루션(MagicINFO, SmartThings Pro)과 제품(QM55C, 360 카세트)을 고객의 핵심 과제인 운영 효율화 및 전력 절감과 연결하여 구체적인 수치(12% 절감, 5분 내 반영)로 제시함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "MagicINFO · QM55C | 01 | 본사에서 한 번에 운영"
+     },
+     {
+      "sheet": 6,
+      "quote": "SmartThings Pro · 360 카세트 | 03 | 저전력 자동 운영"
+     },
+     {
+      "sheet": 7,
+      "quote": "가격이 바뀌면 5분 안에 320개 매장이 바뀝니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

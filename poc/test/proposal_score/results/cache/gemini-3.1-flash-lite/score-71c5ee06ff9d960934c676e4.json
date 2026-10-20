@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~full:F02"
+ },
+ "prompt_tokens": 9000,
+ "output_tokens": 540,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 요구사항(R1~R4)에 대해 4장(차별화), 6~7장(옵션 계약률), 11장(서비스 체계), 10장(시공 정합)에서 각각 명시적으로 해법을 제시하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "모델하우스에서 ‘이 단지’로 기억될 네 가지"
+     },
+     {
+      "sheet": 7,
+      "quote": "옵션 계약 전환 50%"
+     },
+     {
+      "sheet": 11,
+      "quote": "입주 한 달 전부터 2년 동안, 입주민이 만나는 서비스"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "SB1",
+    "score": 2,
+    "anchor": "표지와 마무리는 갖추었으나, 1장에 목차가 포함되어 있지 않아 구성 요소가 일부 누락되었습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "열기 · 표지 · 목차 · “B2B PROPOSAL”"
+     }
+    ],
+    "improve": "1장에 목차 내용을 추가하여 제안서의 전체 구성을 명확히 안내해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "SB2",
+    "score": 2,
+    "anchor": "모든 장의 푸터에 제안명과 기밀 표기는 일관되게 있으나, 1장을 제외한 본문 장들에 쪽번호가 표기되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "CONFIDENTIAL · 2"
+     },
+     {
+      "sheet": 13,
+      "quote": "CONFIDENTIAL · 13"
+     }
+    ],
+    "improve": "각 장의 푸터 영역에 해당 장의 쪽번호를 명확히 기입하여 일관성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

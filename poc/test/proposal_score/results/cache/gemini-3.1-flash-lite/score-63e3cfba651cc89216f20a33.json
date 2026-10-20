@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~placeholders:F01"
+ },
+ "prompt_tokens": 9069,
+ "output_tokens": 226,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "제안서 전반에 걸쳐 [00]과 같은 자리표시가 8곳 이상 발견되며, 특히 2장과 5장의 핵심 수치 및 기대 효과 부분에 잔여물이 남아 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "[00]일"
+     },
+     {
+      "sheet": 3,
+      "quote": "[00] 억 원"
+     },
+     {
+      "sheet": 5,
+      "quote": "[00]일"
+     }
+    ],
+    "improve": "제안서 내 모든 [00] 자리표시를 실제 수치로 수정하고, 16장의 예시 연락처를 실제 담당자 정보로 변경해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

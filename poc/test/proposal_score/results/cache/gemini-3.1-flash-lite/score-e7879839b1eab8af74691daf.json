@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~base:F01"
+ },
+ "prompt_tokens": 8364,
+ "output_tokens": 323,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'R 건설'이 일관되게 사용되었으며, 사례로 인용된 기업 외에 다른 고객사명이나 예시 고객명이 존재하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "R 건설 2지구 1,240세대"
+     },
+     {
+      "sheet": 13,
+      "quote": "R 건설 2지구 1,240세대"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "13장에 제안 담당자의 연락처가 예시용(010-1234-5678)으로 남아 있어 1곳의 잔여물이 확인됩니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · 010-1234-5678"
+     }
+    ],
+    "improve": "제안서 제출 전 담당자의 실제 연락처로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

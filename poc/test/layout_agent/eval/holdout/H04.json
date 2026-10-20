@@ -1,0 +1,44 @@
+{
+ "id": "H04",
+ "case": "H04",
+ "industry": "AD",
+ "strategy": null,
+ "req_type": null,
+ "title": "옥외 미디어 사업",
+ "level": "ambiguous",
+ "input": {
+  "title": "T 미디어 제안",
+  "customer": "T 미디어",
+  "free_text": "옥외 광고 매체 사업을 새로 해 보려는데 수익성이 나올지 고민이라고 합니다. 랜드마크가 될 만한 자리를 보고 있대요.",
+  "id": "H04"
+ },
+ "gold": {
+  "scenario_any": [
+   "bs20"
+  ],
+  "scenario_top3": [
+   "bs20"
+  ],
+  "must_parts": [
+   "value",
+   "effect"
+  ],
+  "key_reqs": [
+   {
+    "kw": [
+     "수익"
+    ],
+    "parts_any": [
+     "effect",
+     "cost",
+     "value",
+     "market"
+    ],
+    "priority": "should"
+   }
+  ],
+  "facts": [],
+  "level": "ambiguous",
+  "industry": "AD"
+ }
+}

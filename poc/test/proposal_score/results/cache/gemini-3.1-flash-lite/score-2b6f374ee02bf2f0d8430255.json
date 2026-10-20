@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~wrong_customer:F10"
+ },
+ "prompt_tokens": 4492,
+ "output_tokens": 198,
+ "data": {
+  "scores": [
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "11장에서 층별 교체 일정과 작업 시간을 구체적으로 제시했으나, 교육 및 유지보수 계획에 대한 구체적인 언급이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "객실 판매는 층마다 하룻밤만 멈춥니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "샘플룸 1실, 다음 2주에 정할 세 가지"
+     }
+    ],
+    "improve": "파일럿 이후의 운영 인력 교육 계획과 향후 유지보수 체계에 대한 내용을 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

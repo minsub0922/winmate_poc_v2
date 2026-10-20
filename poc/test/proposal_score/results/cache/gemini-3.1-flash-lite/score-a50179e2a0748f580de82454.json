@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07:F10"
+ },
+ "prompt_tokens": 5209,
+ "output_tokens": 365,
+ "data": {
+  "scores": [
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "층별 교체 일정과 샘플룸 운영 계획은 구체적이나, 교육 및 유지보수 체계에 대한 구체적인 내용이 누락되었습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "층별 판매 중단 일정 · 2027. 1월 착수"
+     },
+     {
+      "sheet": 13,
+      "quote": "샘플룸 1실, 다음 2주에 정할 세 가지"
+     }
+    ],
+    "improve": "운영 인력 대상 교육 계획과 향후 유지보수 지원 체계를 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 3,
+    "anchor": "고객의 핵심 고민인 공사 중 영업 유지와 소음 민원 해결을 위한 구체적인 무중단 시공 계획 및 공조 스케줄 대응 방안을 제시하였습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "객실 판매는 층마다 하룻밤만 멈춥니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "에어컨 소음 민원이 있어요 → 객실마다 무풍 1Way"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

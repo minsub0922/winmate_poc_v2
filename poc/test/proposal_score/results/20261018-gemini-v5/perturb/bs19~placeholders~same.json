@@ -1,0 +1,647 @@
+{
+ "id": "bs19",
+ "variant": "~placeholders",
+ "title": "경영진 첫 미팅 · 10장 브리프",
+ "customer": "Y 그룹",
+ "n_sheets": 10,
+ "req": "첫 미팅 · 경영진 · 투자 심의",
+ "strategy": "가치 선도형",
+ "ind": "",
+ "route": {
+  "selected": [
+   "CU2",
+   "CU3",
+   "MK3",
+   "VS1",
+   "VS6",
+   "VS10",
+   "DS3",
+   "DS4",
+   "DS7",
+   "WR1"
+  ],
+  "mode": "forced",
+  "error": "",
+  "l1": [],
+  "l2": [],
+  "criteria": [],
+  "seeds": {},
+  "local": {},
+  "rule_pass": [],
+  "risk": [],
+  "gates": {
+   "CU1": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU2": {
+    "applies": true,
+    "why": "비교할 고객 요구사항 6개"
+   },
+   "CU3": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU4": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU6": {
+    "applies": false,
+    "why": "업종을 특정하지 못했어요"
+   },
+   "MK1": {
+    "applies": true,
+    "why": "시장 관련 1장"
+   },
+   "MK2": {
+    "applies": true,
+    "why": "연도 언급 7개"
+   },
+   "MK3": {
+    "applies": true,
+    "why": "수치 52개"
+   },
+   "MK4": {
+    "applies": true,
+    "why": "수치 52개"
+   },
+   "MK5": {
+    "applies": false,
+    "why": "경쟁 비교 내용이 없어요"
+   },
+   "MK6": {
+    "applies": true,
+    "why": "시장 · 분석 장 있음"
+   },
+   "PR1": {
+    "applies": false,
+    "why": "제품 · 모델명 언급이 없어요"
+   },
+   "PR2": {
+    "applies": false,
+    "why": "제품 · 모델명 언급이 없어요"
+   },
+   "PR3": {
+    "applies": false,
+    "why": "제품 · 모델명 언급이 없어요"
+   },
+   "PR4": {
+    "applies": true,
+    "why": "솔루션: MagicINFO, LYNK Cloud, 케어 · 유지관리 서비스"
+   },
+   "PR5": {
+    "applies": false,
+    "why": "제품 · 모델명 언급이 없어요"
+   },
+   "PR6": {
+    "applies": false,
+    "why": "제품 · 모델명 언급이 없어요"
+   },
+   "PR7": {
+    "applies": false,
+    "why": "제품 · 모델명 언급이 없어요"
+   },
+   "VS1": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS2": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS3": {
+    "applies": true,
+    "why": "10장 흐름"
+   },
+   "VS4": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS6": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS7": {
+    "applies": true,
+    "why": "본 제안 분량"
+   },
+   "VS8": {
+    "applies": true,
+    "why": "본 제안 분량"
+   },
+   "VS9": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS10": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS1": {
+    "applies": true,
+    "why": "장마다 글자 상자 위치 · 크기를 쟀어요"
+   },
+   "DS2": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS3": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS4": {
+    "applies": true,
+    "why": "글자 크기 정보 있음"
+   },
+   "DS5": {
+    "applies": true,
+    "why": "폰트 2종"
+   },
+   "DS6": {
+    "applies": true,
+    "why": "장표형 문서"
+   },
+   "DS7": {
+    "applies": true,
+    "why": "장표형 문서"
+   },
+   "DS8": {
+    "applies": true,
+    "why": "차트 0 · 표 0 · 수치 52"
+   },
+   "DS9": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS10": {
+    "applies": false,
+    "why": "장표 화면(이미지)이 없어요 — 색 · 톤은 판단 불가"
+   },
+   "WR1": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR2": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR3": {
+    "applies": false,
+    "why": "삼성 브랜드 · 솔루션 표기가 없어요"
+   },
+   "WR4": {
+    "applies": true,
+    "why": "수치 52개"
+   },
+   "WR5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR6": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR7": {
+    "applies": true,
+    "why": "사양 · 효과 수치 · 이미지 있음"
+   },
+   "WR8": {
+    "applies": true,
+    "why": "약어 KEY, MARKET, VALUE, PROPS"
+   },
+   "WR9": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "SB1": {
+    "applies": true,
+    "why": "장표형 문서"
+   },
+   "SB2": {
+    "applies": true,
+    "why": "5장 이상 장표"
+   },
+   "SB3": {
+    "applies": false,
+    "why": "앱에서 만든 장 · PDF 는 노트 · 숨김 장 · 댓글 정보가 없어요"
+   },
+   "SB4": {
+    "applies": false,
+    "why": "파일 속성이 없어요"
+   },
+   "SB5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "SB6": {
+    "applies": false,
+    "why": "RFP 형식 요구가 연결되지 않았어요"
+   }
+  }
+ },
+ "scores": [
+  {
+   "id": "CU2",
+   "score": 3,
+   "anchor": "고객의 요구사항(R1~R3, K1~K3)에 대해 제안서 전반에서 명시적으로 대응하고 있습니다. 특히 업계 사례(R2, K2)는 7장에서, 시간 효율성(R3)은 2장과 10장에서, 다음 단계(K3)는 9장과 10장에서 구체적으로 제시합니다.",
+   "evidence": [
+    {
+     "sheet": 7,
+     "quote": "6개 사업 모두, 업계는 이미 바꿨습니다"
+    },
+    {
+     "sheet": 10,
+     "quote": "2주 안에 현장부터, 세 단계로"
+    },
+    {
+     "sheet": 2,
+     "quote": "한 장으로 보는 이번 제안"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F02",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "CU3",
+   "score": 3,
+   "anchor": "제안 개요 장에서 경영 지표(운영비, 유지보수비, 현장 출동 감소)를 요약하여 제시하고, 마지막 장에서 결정권자가 승인해야 할 다음 단계(실사, 워크숍, 파일럿)를 명확히 구분하여 정리했습니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "운영 · 유지보수비 | −15% | 현장 출동 | −30%"
+    },
+    {
+     "sheet": 10,
+     "quote": "06 · 다음 단계 | 2주 안에 현장부터, 세 단계로"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F03",
+   "mode": "llm",
+   "grounded": 0.5,
+   "error": ""
+  },
+  {
+   "id": "MK3",
+   "score": 1,
+   "anchor": "제안서 내 대부분의 수치에 구체적인 조사 기관과 연도가 명시되어 있지 않으며, 일부 장에서는 '[00]일'과 같은 자리표시가 그대로 남아 있습니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "연 −15% | 운영 · 유지보수비 | −30% | 현장 출동"
+    },
+    {
+     "sheet": 3,
+     "quote": "2028년 9,600억 원 · 연 7% 성장"
+    },
+    {
+     "sheet": 10,
+     "quote": "11/02 – 11/13 · 삼성 · Y 그룹 실무 참석"
+    }
+   ],
+   "improve": "모든 시장 데이터와 성과 수치에 신뢰할 수 있는 조사 기관과 연도를 명시하고, 자리표시(00)를 실제 데이터로 교체해야 합니다.",
+   "confidence": "high",
+   "community": "F05",
+   "mode": "llm",
+   "grounded": 0.667,
+   "error": ""
+  },
+  {
+   "id": "VS1",
+   "score": 3,
+   "anchor": "고객이 얻는 가치를 '운영 효율화', '장애 선제 대응', '단계적 도입'이라는 3가지 결과형 언어로 명확히 제시하고, 각 가치를 실현하는 솔루션(원격 통합 관리, 모니터링, 파일럿)을 짝지어 설명함.",
+   "evidence": [
+    {
+     "sheet": 5,
+     "quote": "원격 통합 관리, 장애 선제 대응, 단계적 도입"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F08",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  },
+  {
+   "id": "VS6",
+   "score": 2,
+   "anchor": "단계별 일정과 역할 분담은 명시되어 있으나, 교육 및 운영 이관에 대한 구체적인 계획이 누락되었습니다.",
+   "evidence": [
+    {
+     "sheet": 9,
+     "quote": "실사부터 파일럿 결과까지 16주, 네 단계로 갑니다"
+    }
+   ],
+   "improve": "교육 프로그램 및 운영 이관 절차에 대한 구체적인 계획을 추가해야 합니다.",
+   "confidence": "high",
+   "community": "F10",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "VS10",
+   "score": 3,
+   "anchor": "현장 실사, 워크숍, 맞춤 제안으로 이어지는 단계별 일정과 담당자, 산출물이 명확하게 제시되었습니다.",
+   "evidence": [
+    {
+     "sheet": 10,
+     "quote": "2주 안에 현장부터, 세 단계로"
+    },
+    {
+     "sheet": 10,
+     "quote": "11/02 – 11/13 · 삼성 · Y 그룹 실무 참석"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F10",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "DS3",
+   "score": 2,
+   "anchor": "110어절을 초과하는 장이 5장(2, 3, 4, 7, 10장) 존재하여 1점 기준에 해당하나, 장당 평균 어절 수가 96어절로 2점 기준 범위에 속함.",
+   "evidence": [
+    {
+     "sheet": 3,
+     "quote": "업계는 이미 움직였고, Y 그룹은 지금이 적기입니다"
+    },
+    {
+     "sheet": 4,
+     "quote": "Y 그룹의 목표는 ‘그룹 운영 효율’, 풀어야 할 과제는 셋입니다"
+    }
+   ],
+   "improve": "각 장의 어절 수를 110어절 이하로 줄이고, 전체 평균을 77어절 이하로 낮추어 가독성을 높여야 합니다.",
+   "confidence": "high",
+   "community": "F11",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "DS4",
+   "score": 1,
+   "anchor": "20자 넘는 본문 칸 중 10pt(13.3px) 미만인 칸이 36%를 차지하며, 9pt(12px) 미만 본문 칸이 포함된 장이 존재함.",
+   "evidence": [
+    {
+     "sheet": 4,
+     "quote": "본문 최소 11.5px(8.6pt)"
+    },
+    {
+     "sheet": 10,
+     "quote": "본문 최소 11px(8.2pt)"
+    }
+   ],
+   "improve": "모든 본문 텍스트의 크기를 12pt(16px) 이상으로 상향 조정하여 가독성을 확보해야 합니다.",
+   "confidence": "high",
+   "community": "F11",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  },
+  {
+   "id": "DS7",
+   "score": 3,
+   "anchor": "전체 10개 장 중 9개 장의 제목이 결론을 담은 문장형으로 구성되어 있으며, 제목만 순서대로 읽어도 제안의 핵심 스토리라인이 명확하게 파악됨.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "260개 사업장 화면, 그룹 본사에서 한 번에 바꿉니다"
+    },
+    {
+     "sheet": 3,
+     "quote": "업계는 이미 움직였고, Y 그룹은 지금이 적기입니다"
+    },
+    {
+     "sheet": 10,
+     "quote": "2주 안에 현장부터, 세 단계로"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F08",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "WR1",
+   "score": 1,
+   "anchor": "제안서 본문 내 핵심 수치와 문장에 [00]과 같은 자리표시가 6곳 이상 반복적으로 노출되어 있습니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "[00]일 | 콘텐츠 교체 1회 소요"
+    },
+    {
+     "sheet": 3,
+     "quote": "[00]개 사업장 화면을 그룹 본사"
+    },
+    {
+     "sheet": 5,
+     "quote": "[00]일 → 당일 | 원격 통합 관리"
+    }
+   ],
+   "improve": "모든 자리표시([00])를 실제 수치로 수정하고, 연락처 등 예시 정보를 실제 담당자 정보로 교체해야 합니다.",
+   "confidence": "high",
+   "community": "F01",
+   "mode": "llm",
+   "grounded": 0.333,
+   "error": ""
+  }
+ ],
+ "aggregate": {
+  "total": 55.0,
+  "band": "보완",
+  "verdict": "보완 필요",
+  "rubric_mean": 2.182,
+  "categories": {
+   "CU": 100.0,
+   "MK": 0.0,
+   "VS": 83.3,
+   "DS": 50.0,
+   "WR": 0.0
+  },
+  "communities": {
+   "F01": 1.0,
+   "F02": 3.0,
+   "F03": 3.0,
+   "F05": 1.0,
+   "F08": 3.0,
+   "F10": 2.5,
+   "F11": 1.5,
+   "C1": 1.0,
+   "C2": 2.67,
+   "C3": 2.0,
+   "C4": 2.25
+  },
+  "n_all": 54,
+  "n_applicable": 41,
+  "n_selected": 10,
+  "n_scored": 10,
+  "weight_coverage": 0.289,
+  "dist": {
+   "1": 3,
+   "2": 2,
+   "3": 5
+  },
+  "low": [
+   "WR1",
+   "MK3",
+   "DS4"
+  ]
+ },
+ "rule_pass": [],
+ "risk": [],
+ "grounded_mean": 0.65,
+ "fallbacks": 0,
+ "auto_checks": {
+  "CU5": [
+   "고객사명 “Y 그룹”이 나오는 장: 10/10장"
+  ],
+  "CU1": [
+   "고객사명 “Y 그룹” 표기: 10개 장"
+  ],
+  "MK4": [
+   "규모(매장 · 객실 · 병상 수)와 절감 · 향상 비율 표기에서 서로 다른 값을 찾지 못했어요"
+  ],
+  "MK2": [
+   "자료 기준 연도 표기 2곳 · 3년 이상 된 자료 연도 없음"
+  ],
+  "MK3": [
+   "수치 3개 이상인 장 5개 중 출처 · 기준 표기 없는 장: 2, 3, 9, 10"
+  ],
+  "WR1": [
+   "자리표시 · 템플릿 문구 6곳: 2장 “[00]일”, 2장 “[00]일 → 당일”, 3장 “[00]개 사업장 화면을 그룹 본사”, 4장 “[00]% 개선”, 5장 “[00]일 → 당일”, 5장 “−[00]%”",
+   "예시용(가짜) 연락처 — 제출 전 실제 값으로 바꿀 자리: 10장 “프로 · B2B 영업팀 · 010-1234-5678 · b2b.proposal@”"
+  ],
+  "WR5": [
+   "절대 표현 0곳"
+  ],
+  "WR3": [
+   "공식 표기와 다른 브랜드명 0곳"
+  ],
+  "WR6": [
+   "내부 · 민감 정보 의심 표현 0곳"
+  ],
+  "WR7": [
+   "고지 · 전제 문구가 있는 장: 3, 10"
+  ],
+  "WR4": [
+   "단위 표기: 혼용 패턴을 찾지 못했어요"
+  ],
+  "WR8": [
+   "약어 6개 중 풀이가 보이지 않는 것: KEY, MARKET, VALUE, PROPS, IBM, WHY"
+  ],
+  "PR1": [
+   "카탈로그에 있는 모델 0종 · 카탈로그에 없는 모델 표기 없음"
+  ],
+  "DS1": [
+   "글자 넘침 0곳 · 장표 밖 0곳 · 텍스트 겹침 0쌍",
+   "제목 위치가 다른 장과 다른 장: 2, 5, 10"
+  ],
+  "DS5": [
+   "제목 글자 크기 분포(px: 장 수) {30: 8, 40: 1} · 폰트: 앱 레이아웃 공통(Noto Sans KR · Manrope)"
+  ],
+  "DS7": [
+   "본문 장 9개 중 결론 · 메시지형 제목 8개 (89%) · 라벨형일 수 있는 제목: 5장 “260개 사업장의 화면을”"
+  ],
+  "DS3": [
+   "장당 평균 96어절 · 최대 126어절 · 110어절 넘는 장: 2장(116), 3장(126), 4장(126), 7장(123), 10장(113)"
+  ],
+  "DS4": [
+   "20자 넘는 본문 칸 47개: 12pt(16px) 이상 12개(26%) · 10pt(13.3px) 미만 17개(36%) · 9pt(12px) 미만 본문 칸이 있는 장 1장 (4)",
+   "20자 넘는 본문 칸의 글자 크기 분포(px: 칸 수) {13: 13, 15: 9, 14: 9, 30: 5, 12: 4, 17: 2}"
+  ],
+  "DS6": [
+   "사진 · 이미지가 없는 본문 장 0/9장 · 빈 이미지 칸 0개 · 사진 중심 레이아웃 10장"
+  ],
+  "DS9": [
+   "10장 · 발표 10분 → 장당 1.0분 · 중복 레이아웃 없음"
+  ],
+  "SB2": [
+   "쪽번호 · CONFIDENTIAL 푸터가 있는 본문 장 9/9장 (표지 · 간지 제외)"
+  ],
+  "SB1": [
+   "표지(1장): 고객사명 있음 · 날짜 있음 2026.10 · 제안사 표기 있음 · 목차 장: 없음 · 마무리 장: 10"
+  ],
+  "SB5": [
+   "표지 날짜: 2026.10 · 덱 안의 연 · 월 표기: 2026.10, 2026.11, 2027.01, 2028.09"
+  ],
+  "VS3": [
+   "단계 → 파트 순서: 열기(2) → 맥락 · 시장과 전략(2) → 가치 · 한 문장(2) → 근거 · 사례와 강점(2) → 실행 · 로드맵(1) → 결정 요청(1)"
+  ],
+  "CU2": [
+   "요구 6개 중 핵심 낱말이 본문에 거의 없는 것 5개: 일단 한번 들어 볼게요 / 우리 업계에선 어떻게 하고 있나요? / 시간이 많지 않아요 / 경쟁사는 하고 있나 / 다음에 무엇을 하면 되나"
+  ]
+ },
+ "profile": {
+  "kind": "winmate",
+  "slides": true,
+  "units": 10,
+  "customer": "Y 그룹",
+  "ind": null,
+  "ind_name": "",
+  "products": [],
+  "unknown_models": [],
+  "older_models": [],
+  "solutions": [
+   "MagicINFO",
+   "LYNK Cloud",
+   "케어 · 유지관리 서비스"
+  ],
+  "figures": 52,
+  "years": 7,
+  "competitors": [],
+  "brand_terms": [],
+  "abbrs": [
+   "KEY",
+   "MARKET",
+   "VALUE",
+   "PROPS",
+   "IBM",
+   "WHY"
+  ],
+  "font_count": 2,
+  "fonts": [
+   "Noto Sans KR",
+   "Manrope"
+  ],
+  "pics": 26,
+  "charts": 0,
+  "tables": 0,
+  "market_units": 1,
+  "comp_units": 0,
+  "cost_units": 0,
+  "rfp_like": false,
+  "rfp_format": false,
+  "visual": false,
+  "meta_avail": false
+ },
+ "calls": 7,
+ "tokens": {
+  "prompt": 65709,
+  "output": 6442
+ },
+ "seconds": 0.1,
+ "_kind": "placeholders",
+ "_mode": "same"
+}

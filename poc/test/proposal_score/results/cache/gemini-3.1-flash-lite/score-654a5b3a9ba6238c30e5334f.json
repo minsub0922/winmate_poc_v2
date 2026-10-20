@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~strip_images:F09"
+ },
+ "prompt_tokens": 5008,
+ "output_tokens": 219,
+ "data": {
+  "scores": [
+   {
+    "id": "PR1",
+    "score": 3,
+    "anchor": "제안된 모델(HG55BU, KM24C, QM55C, 무풍 1Way 카세트)은 모두 현재 삼성전자 B2B 카탈로그 라인업에 포함된 현행 모델이며, 단종되거나 이전 세대 명칭이 사용되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "호텔 TV 55\" HG55BU"
+     },
+     {
+      "sheet": 9,
+      "quote": "KM24C 셀프 체크인"
+     },
+     {
+      "sheet": 9,
+      "quote": "Smart Signage QM55C"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

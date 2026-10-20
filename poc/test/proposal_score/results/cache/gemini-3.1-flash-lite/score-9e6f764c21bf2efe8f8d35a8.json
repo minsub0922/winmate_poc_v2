@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~full:F04"
+ },
+ "prompt_tokens": 3570,
+ "output_tokens": 399,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "고객사의 현재 운영 문제(콘텐츠 교체 7일, 단순 문의 40%)를 구체적인 수치와 함께 현장 언어로 명확히 정의하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "교체 1회 7일 · 공급사 11곳"
+     },
+     {
+      "sheet": 3,
+      "quote": "단순 문의 40%를 화면으로"
+     },
+     {
+      "sheet": 4,
+      "quote": "장애 선제 대응 · 현장 출동 −30% 목표"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "유관 사례를 제시하고 있으나, 사례 고객명이 '국내 버거 프랜차이즈' 등 익명으로 처리되어 있고 실제 성과 수치가 구체적으로 명시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "국내 버거 프랜차이즈 · 메뉴보드"
+     },
+     {
+      "sheet": 7,
+      "quote": "국내 특급호텔 · 호텔 TV"
+     }
+    ],
+    "improve": "익명 사례 대신 실제 고객사명을 명시하고, 각 사례에서 달성한 구체적인 정량적 성과 수치를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

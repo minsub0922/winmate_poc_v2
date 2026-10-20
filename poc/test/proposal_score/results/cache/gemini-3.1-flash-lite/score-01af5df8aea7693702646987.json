@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~wrong_customer:F11"
+ },
+ "prompt_tokens": 2997,
+ "output_tokens": 375,
+ "data": {
+  "scores": [
+   {
+    "id": "DS1",
+    "score": 2,
+    "anchor": "6장에서 글자 넘침이 발생하였고, 13장의 제목 위치가 다른 장들과 일치하지 않아 배치가 어긋납니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "객실은 입실부터 퇴실 후 정리까지"
+     },
+     {
+      "sheet": 13,
+      "quote": "샘플룸 1실, 다음 2주에 정할 세 가지"
+     }
+    ],
+    "improve": "6장의 글자 넘침을 해결하고, 13장의 제목 위치를 다른 장들과 동일하게 조정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "모든 장의 본문 글자 크기가 12pt 미만이며, 9pt 미만인 장이 11장으로 다수 포함되어 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "직원이 적은 B 호텔일수록"
+     },
+     {
+      "sheet": 8,
+      "quote": "체크인 피크부터 조용한 밤까지"
+     }
+    ],
+    "improve": "모든 본문 텍스트의 글자 크기를 12pt(16px) 이상으로 상향 조정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

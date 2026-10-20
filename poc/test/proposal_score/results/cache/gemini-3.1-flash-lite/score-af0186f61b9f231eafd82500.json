@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~base:F01"
+ },
+ "prompt_tokens": 7472,
+ "output_tokens": 373,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'G 쇼핑몰'이 일관되게 사용되었으며, 규모(6개 점, 354면 등)와 담당 조직(구매, 운영, IT팀 등) 정보가 모든 장에서 동일하게 기술되었습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "6개 점 · 390대 교체"
+     },
+     {
+      "sheet": 3,
+      "quote": "G 쇼핑몰, 다섯 지표 중 셋이 업계보다 무겁습니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "1차 전환 범위 확정 — 대전점 · 청주점"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "13장에 담당자 연락처가 예시용 번호(010-1234-5678)로 기재되어 있어 템플릿 잔여물로 판단됩니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "010-1234-5678"
+     }
+    ],
+    "improve": "제출 전 실제 담당자의 연락처로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

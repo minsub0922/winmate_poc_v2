@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~wrong_customer:F01"
+ },
+ "prompt_tokens": 8477,
+ "output_tokens": 384,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 1,
+    "anchor": "제안서 전반에 걸쳐 고객사명인 'R 건설' 대신 'H 호텔'이라는 다른 고객사명이 4개 장에서 반복적으로 노출되고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "H 호텔의 고객은 모델하우스에서 고르고"
+     },
+     {
+      "sheet": 6,
+      "quote": "H 호텔의 주방은 모델하우스에서 팔리고"
+     },
+     {
+      "sheet": 9,
+      "quote": "H 호텔이 얻는 것"
+     }
+    ],
+    "improve": "제안서 내 모든 장에서 'H 호텔'로 잘못 표기된 부분을 'R 건설'로 수정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 1,
+    "anchor": "9장에서 '원가'라는 내부 민감 정보가 명시적으로 노출되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "원가에 맞춰 고르세요"
+     },
+     {
+      "sheet": 9,
+      "quote": "세대당 원가 최소"
+     }
+    ],
+    "improve": "고객용 제안서에서 '원가'와 같은 내부 민감 정보 표현을 삭제하고 '예산' 또는 '옵션 구성' 등의 용어로 변경해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,90 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs02~full:F09"
+ },
+ "prompt_tokens": 10484,
+ "output_tokens": 729,
+ "data": {
+  "scores": [
+   {
+    "id": "PR1",
+    "score": 3,
+    "anchor": "제안서에 명시된 모델명(QM55C, WM75B, IAB 146\", M8, DVM S2)은 모두 현재 삼성전자 B2B 카탈로그 라인업에 포함된 현행 모델입니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "Flip Pro WM75B · QM55C 현황판"
+     },
+     {
+      "sheet": 10,
+      "quote": "The Wall IAB 146\" · QM55C"
+     },
+     {
+      "sheet": 11,
+      "quote": "DVM S2 ×40"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR2",
+    "score": 3,
+    "anchor": "제안서 내 제품 사양 표기가 공식 카탈로그 사양과 일치하며, 동일 모델에 대해 장별로 일관된 사양 정보를 제공하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "Flip Pro WM75B · QM55C 현황판"
+     },
+     {
+      "sheet": 10,
+      "quote": "The Wall IAB 146\" ×1"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR5",
+    "score": 3,
+    "anchor": "QM55C, WM75B, IAB 146\", DVM S2 등 모든 제품을 제안서 전반에 걸쳐 일관된 모델명으로 표기하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "Flip Pro WM75B · QM55C 현황판"
+     },
+     {
+      "sheet": 10,
+      "quote": "Flip Pro WM75B ×10 · QM55C 현황판 ×2"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR3",
+    "score": 3,
+    "anchor": "MagicINFO, SmartThings, The Wall, b.IoT 등 모든 브랜드 및 솔루션 명칭을 공식 표기법에 따라 정확하게 사용하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "MagicINFO · The Wall IAB 146\""
+     },
+     {
+      "sheet": 11,
+      "quote": "b.IoT · 빌딩 에너지 관리"
+     },
+     {
+      "sheet": 12,
+      "quote": "SmartThings Pro · 비즈니스 IoT"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

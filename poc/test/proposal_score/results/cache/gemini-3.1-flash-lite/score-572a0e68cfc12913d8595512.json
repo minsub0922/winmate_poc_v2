@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~wrong_customer:F03"
+ },
+ "prompt_tokens": 3590,
+ "output_tokens": 369,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "제안 요약 장(2장)에 경영 지표(운영비 절감, 현장 출동 감소)와 실무 지표가 구분되어 명시되었으며, 결정 요청 사항이 10장에 정리되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "연 −15% 운영 · 유지보수비 | −30% 현장 출동"
+     },
+     {
+      "sheet": 10,
+      "quote": "2주 안에 현장부터, 세 단계로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS7",
+    "score": 2,
+    "anchor": "운영비 절감 효과와 유지보수비 감소 등 비용 구조의 일부는 제시되었으나, 구체적인 총소유비용(TCO)이나 투자 회수 기간에 대한 명확한 산정 전제가 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "연 −15% 운영 · 유지보수비 | −30% 현장 출동"
+     }
+    ],
+    "improve": "운영비 절감액을 바탕으로 한 구체적인 투자 회수 기간(ROI)과 초기 도입 비용을 포함한 TCO 산정 전제를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

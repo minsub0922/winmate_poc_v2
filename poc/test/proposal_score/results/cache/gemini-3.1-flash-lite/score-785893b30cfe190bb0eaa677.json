@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19:F01"
+ },
+ "prompt_tokens": 4820,
+ "output_tokens": 163,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "10장의 연락처 정보가 실제 담당자 정보가 아닌 템플릿용 예시 값으로 작성되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678 · b2b.proposal@samsung.com"
+     }
+    ],
+    "improve": "10장의 연락처 정보를 실제 담당자의 정보로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

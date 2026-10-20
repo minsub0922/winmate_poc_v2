@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11~number_conflict:F01"
+ },
+ "prompt_tokens": 8720,
+ "output_tokens": 353,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명을 'K 공단'으로 일관되게 표기하였으며, 규모 정보(대합실 12곳, 단말 60대 등) 또한 전 장에서 동일하게 유지되었습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "K 공단"
+     },
+     {
+      "sheet": 3,
+      "quote": "대합실 12곳 · 단말 60대"
+     },
+     {
+      "sheet": 6,
+      "quote": "대합실 12곳 · 단말 60대"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "제안서 내에 원가, 마진, 내부 코드명 등 민감 정보가 없으며, 15장의 담당자 연락처는 제안사 영업 담당자의 공식 정보로 정상적인 기재입니다.",
+    "evidence": [
+     {
+      "sheet": 15,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10:F04"
+ },
+ "prompt_tokens": 2538,
+ "output_tokens": 197,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "G 쇼핑몰의 현재 장애 현황을 2026년 1-9월 데이터 기반으로 수치화하고, 장애 발생부터 복구까지의 근본 원인을 운영팀 인터뷰와 연계하여 구체적으로 분석했습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "사이니지 월 장애율 3.0% · 평균 복구 시간 38시간"
+     },
+     {
+      "sheet": 4,
+      "quote": "꺼진 채 평균 38시간 · AS 대기 1.5일"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

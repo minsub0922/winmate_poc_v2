@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08:F06"
+ },
+ "prompt_tokens": 7679,
+ "output_tokens": 225,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "4장의 30병상은 야간 간호 인력 1명이 담당하는 병상 수이며, 6·9·11·12장의 60병상은 선도 병동 전체 규모로 서로 다른 대상을 지칭하므로 수치 일관성에 문제가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "야간 간호 인력 1명이 30병상을 맡고"
+     },
+     {
+      "sheet": 6,
+      "quote": "선도 병동 60병상"
+     },
+     {
+      "sheet": 11,
+      "quote": "선도 병동 60병상 기준"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

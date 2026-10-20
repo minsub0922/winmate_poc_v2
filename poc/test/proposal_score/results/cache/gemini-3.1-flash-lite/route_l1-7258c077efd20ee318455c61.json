@@ -1,0 +1,34 @@
+{
+ "stage": "route_l1",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01"
+ },
+ "prompt_tokens": 2764,
+ "output_tokens": 296,
+ "data": {
+  "communities": [
+   {
+    "id": "C1",
+    "relevance": 3,
+    "reason": "제품 사양 오류(PR2, PR3)와 템플릿 잔재(WR1, WR6) 등 치명적인 신뢰도 저하 요소가 발견되어 즉각적인 수정이 필요합니다."
+   },
+   {
+    "id": "C2",
+    "relevance": 2,
+    "reason": "고객의 핵심 요구사항인 '전기료 절감'에 대한 구체적 근거가 부족하여 실행 계획의 설득력을 보완해야 합니다."
+   },
+   {
+    "id": "C3",
+    "relevance": 3,
+    "reason": "수치 데이터의 출처 불분명(MK3)과 핵심 요구사항 누락(CU2)은 경영진의 최종 승인을 받는 데 있어 논리적 타당성을 크게 훼손합니다."
+   },
+   {
+    "id": "C4",
+    "relevance": 2,
+    "reason": "전반적인 텍스트 밀도가 높고 글자 크기가 작아(DS3, DS4) 결정권자가 핵심 메시지를 직관적으로 파악하기 어렵습니다."
+   }
+  ]
+ }
+}

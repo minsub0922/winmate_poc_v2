@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10:F03"
+ },
+ "prompt_tokens": 2637,
+ "output_tokens": 199,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "제안 개요(2장)에서 경영 지표인 TCO와 장애율 개선 효과를 요약하고, 마무리(13장)에서 결정권자별 승인 일정과 결정 사항을 명확히 구분하여 정리했습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "5년 −12% | 5년 총비용 · 현 공급사 안 대비"
+     },
+     {
+      "sheet": 13,
+      "quote": "12월 발주 전 정할 세 가지 | 01 | 1차 전환 범위 확정"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

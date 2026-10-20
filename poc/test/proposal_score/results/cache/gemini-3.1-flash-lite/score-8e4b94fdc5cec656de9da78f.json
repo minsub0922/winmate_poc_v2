@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~base:F11"
+ },
+ "prompt_tokens": 3961,
+ "output_tokens": 200,
+ "data": {
+  "scores": [
+   {
+    "id": "DS6",
+    "score": 3,
+    "anchor": "모든 장에 내용과 부합하는 실제 사진과 도식이 배치되어 있으며, 텍스트만으로 구성된 장이 없어 시각 자료 활용도가 매우 높습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "A 커피 DT 매장의 일곱 공간"
+     },
+     {
+      "sheet": 10,
+      "quote": "카운터부터 DT까지, 세 가지 제품으로"
+     },
+     {
+      "sheet": 13,
+      "quote": "밀키프레소 — 방문 없이 가맹점 화면 원격 관리"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs21:F04"
+ },
+ "prompt_tokens": 13044,
+ "output_tokens": 554,
+ "data": {
+  "scores": [
+   {
+    "id": "CU6",
+    "score": 3,
+    "anchor": "H 호텔의 312개 객실 운영 맥락을 반영하여 객실 TV 관리, 냉방 자동 조절, 공기청정기 항균 기능 등 호텔 운영 특성에 맞는 AI 솔루션을 제안함.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "H 호텔 312개 객실이 손님에 맞춰 온도와 공기를 스스로 맞춥니다"
+     },
+     {
+      "sheet": 26,
+      "quote": "H 호텔 객실 TV 312대를 서버실 한 곳에서 관리합니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "라운지, 리셉션, 객실 등 호텔 공간별로 적합한 삼성 제품을 명시하고, 각 제품의 환경적 요구사항을 기술함.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "H 호텔의 여섯 공간, 열 개 제품"
+     },
+     {
+      "sheet": 16,
+      "quote": "Infinite AI 무풍 시스템에어컨 1Way"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "인스파이어 엔터테인먼트 리조트와 오크우드 프리미어 코엑스 센터 사례를 제시했으나, 해당 사례에서 얻은 정량적 성과 수치가 누락됨.",
+    "evidence": [
+     {
+      "sheet": 29,
+      "quote": "인스파이어 엔터테인먼트 리조트"
+     },
+     {
+      "sheet": 30,
+      "quote": "오크우드 프리미어 코엑스 센터"
+     }
+    ],
+    "improve": "사례 제시 시 해당 호텔이 솔루션 도입 후 매출 증대, 운영 비용 절감 등 구체적으로 어떤 성과를 거두었는지 수치화하여 보완해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

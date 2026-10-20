@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs09:F09"
+ },
+ "prompt_tokens": 4825,
+ "output_tokens": 252,
+ "data": {
+  "scores": [
+   {
+    "id": "PR2",
+    "score": 1,
+    "anchor": "OH55A-S 모델의 밝기 사양이 카탈로그(3,500nit)와 달리 3,000nit로 6장과 9장에서 반복적으로 다르게 표기되었습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "OH55A-S 옥외형 (출입구 · 정류장) | · 3,000nit · IP56"
+     },
+     {
+      "sheet": 9,
+      "quote": "OH55A-S · 3,000nit · IP56"
+     }
+    ],
+    "improve": "제안서 내 모든 OH55A-S 모델의 밝기 사양을 공식 카탈로그 사양인 3,500nit(최대 4,000nit)로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

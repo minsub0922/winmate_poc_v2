@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~strip_images:F01"
+ },
+ "prompt_tokens": 9006,
+ "output_tokens": 336,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'A 커피'와 매장 수 320개, 담당 조직(운영본부, 마케팅팀 등)이 일관되게 기술되었습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "320개 매장 메뉴판을, 본사에서 한 번에 바꿉니다"
+     },
+     {
+      "sheet": 16,
+      "quote": "A 커피 디지털 메뉴보드 전환"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "16장에 제안 담당자의 연락처가 예시용 번호(010-1234-5678)로 기재되어 있어 템플릿 잔여물로 판단됩니다.",
+    "evidence": [
+     {
+      "sheet": 16,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "제안서 제출 전 담당자의 실제 연락처로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

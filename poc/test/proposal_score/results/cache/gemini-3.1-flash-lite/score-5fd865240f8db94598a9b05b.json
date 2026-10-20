@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs09:F10"
+ },
+ "prompt_tokens": 2845,
+ "output_tokens": 207,
+ "data": {
+  "scores": [
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "11장과 13장에서 시범 구간 설치 일정과 단계적 확산 계획은 구체적으로 제시되었으나, 운영 이관 및 교육에 관한 구체적인 계획은 확인되지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "안내를 끊지 않고, 시범 구간을 여섯 밤에 바꿉니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "1단계 교체 대상 확정과 시범 구간 설치 승인"
+     }
+    ],
+    "improve": "시범 운영 이후 고객사 운영팀으로의 기술 이관 절차와 담당자 대상 교육 계획을 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

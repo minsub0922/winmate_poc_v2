@@ -1,3 +1,4 @@
+import {FeedbackPopup} from './feedback-popup.jsx';
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { update, uid, segPlain } from '../repositories/proposals.js';
 import { Icon, RefChip, toast, partHue, useHoverCard } from './common.jsx';
@@ -12,10 +13,15 @@ import { Thumb } from './Thumbs.jsx';
 import { LayoutPicker, LayoutDetail } from './layouts.jsx';
 import { tagMeta } from './tagcard.jsx';
 import { FavButton } from './fav.jsx';
+import { LayoutCompleteButton } from './layout-complete.jsx';
 import { startCompose, applyComposePending, discardComposePending, retryProposalJob } from '../services/poc-workflows.js';
 import { isTerminal, hideJob } from '../repositories/jobs.js';
 import { AgentJobControl, useOwnerJobs, useAdopt } from './AgentJobControl.jsx';
 import { useLayoutRemoval } from './layout-removal.jsx';
+import { ContextSlide } from './context-slide.jsx';
+import { contextPending } from '../domain/slides/context-policy.js';
+import { layoutIsComplete } from '../services/layout-context.js';
+import { RequirementSummaryCard } from './requirement-summary.jsx';
 
 export const ctxOf = (p) => ({ ind: p.ind || inferIndustry(reqText(p)), products: p.ctx.products, solutions: p.ctx.solutions, cases: p.ctx.cases });
 const FLOW = ['market', 'customer', 'user', 'competition', 'insight', 'challenge', 'value', 'effect', 'dss', 'products', 'scenario', 'birdseye', 'solution', 'case', 'why', 'spec', 'bom', 'execution', 'cost', 'closing', 'appendix', 'overview', 'requirements']; // no 'cover' — 표지 is not a Storyboard part
@@ -48,6 +54,7 @@ export function candidates(p, afterIndex, n = 5) {
 // server cannot run it (not ready · no key · submit failed) the board stays as it is and the reason is shown; pressing the
 // button again is the retry.
 const GHOSTS = 3;
+const STORY_SLIDE_WIDTH = 321; // 336px column, minus card padding and borders.
 function useAiCompose(p) {
   const [submitting, setSubmitting] = useState(false);
   const [err, setErr] = useState('');
@@ -76,7 +83,7 @@ const SHOW_DONE_MS = 10 * 60e3; // a finished job card stays a while (with its r
 
 /** Server jobs of this proposal — progress, questions, cancel, held-back results. Rendered only once a job exists. */
 function AgentDock({ p, reqOpen, onReq }) {
-  const jobs = useOwnerJobs('proposal', p.id);
+  const jobs = useOwnerJobs('proposal', p.id).filter(r => r.purpose !== 'requirements-summary');
   const recorded = p.agent && p.agent.jobs ? Object.entries(p.agent.jobs).filter(([, v]) => v && !v.final) : [];
   const rfp = p.agent && p.agent.rfpPending;
   const now = Date.now();
@@ -92,7 +99,7 @@ function AgentDock({ p, reqOpen, onReq }) {
   return (
     <div className="agent-dock" onClick={(e) => e.stopPropagation()}>
       {recorded.map(([id, v]) => <AdoptJob key={id} id={id} purpose={v.purpose} kind={v.kind} pid={p.id} />)}
-      {rfpCard && <section className="ajc compact" aria-label="첨부에서 읽은 요구사항">{rfpAsk}</section>}
+      {rfpCard&&<FeedbackPopup message="첨부에서 읽은 요구사항 확인" kind="info" content={rfpAsk}/>}
       {shown.map((r) => (
         <AgentJobControl key={r.id} id={r.id} compact onClose={() => hideJob(r.id)}
           onRetry={['rfp', 'compose'].includes(r.purpose) ? async () => { const out = await retryProposalJob(r); if (out.ok) { hideJob(r.id); toast('다시 시작했어요'); } else toast(out.message, 'warn'); } : undefined}>
@@ -122,10 +129,7 @@ function GhostParts({ n, onStop }) {
         <span className="ghost-bar ghost-name shimmer" />
         <span className="ghost-bar ghost-btn shimmer" />
         {i === 0 && (
-          <div className="ghost-note">
-            <span role="status" aria-live="polite"><span className="spin" />{n ? '파트 ' + n + '개 넣음 · ' : ''}다음 파트를 쓰는 중</span>
-            <button type="button" className="btn btn-ghost btn-sm" onClick={onStop}><Icon name="x" size={13} />멈추기</button>
-          </div>
+          <FeedbackPopup message={(n?n+"개 파트 추가 · ":"")+"다음 파트를 쓰는 중…"} kind="progress" actionLabel="작업 취소" onAction={onStop}/>
         )}
       </div>
     </React.Fragment>
@@ -134,7 +138,8 @@ function GhostParts({ n, onStop }) {
 
 // ---------- canvas ----------
 function StatusBadge({ s }) {
-  if (s === 'done') return <span className="stbadge done"><Icon name="check" size={11} stroke={3} />입력 완료</span>;
+  if (s === 'loading') return <span className="stbadge">맥락에 맞게 채우는 중</span>;
+  if (s === 'done') return null;
   if (s === 'partial') return null;
   return <span className="stbadge empty">빈 레이아웃</span>;
 }
@@ -264,6 +269,7 @@ export function StoryCanvas({ p, open, stage = 'story', pop = null, onReq, onMat
             <b>{p.customer || '고객사 미정'}</b>
             <span>{p.ind && IND[p.ind] ? IND[p.ind].name : '업종 자동 추론'}</span>
           </button>
+          <RequirementSummaryCard p={p} onOpenReq={onReq} readOnly={readOnly} />
         </div>
         {stage !== 'req' && <>
         <div className="conn" />
@@ -296,7 +302,7 @@ export function StoryCanvas({ p, open, stage = 'story', pop = null, onReq, onMat
                     return (
                       <React.Fragment key={x.uid}>
                         {drop && drop.pid === s.id && drop.before === x.uid && <div className="dropline" />}
-                        <div className={'lcard st-' + (readOnly ? 'view' : x.status) + (drag === x.uid ? ' dragging' : '')} draggable={!readOnly} data-layout-uid={x.uid}
+                        <div className={'lcard st-' + (readOnly ? 'view' : layoutIsComplete(p, x) ? 'done' : 'partial') + (drag === x.uid ? ' dragging' : '')} draggable={!readOnly} data-layout-uid={x.uid}
                           onDragStart={(e) => { if (readOnly) return; setDrag(x.uid); e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', x.uid); hc.hide(); }}
                           onDragEnd={() => { setDrag(null); setDrop(null); }}
                           onDragOver={(e) => { if (!drag) return; e.preventDefault(); e.stopPropagation(); const r = e.currentTarget.getBoundingClientRect(); const before = e.clientY < r.top + r.height / 2 ? x.uid : (vis[vis.indexOf(x) + 1] || {}).uid || null; setDrop({ pid: s.id, before }); }}
@@ -304,15 +310,16 @@ export function StoryCanvas({ p, open, stage = 'story', pop = null, onReq, onMat
                           onClick={() => open({ type: 'detail', partId: s.id, uid: x.uid })}
                           onMouseEnter={(e) => !drag && hc.show(l, e.currentTarget)} onMouseLeave={hc.hide}
                           role="button" tabIndex={0} onKeyDown={(e) => { if (e.target === e.currentTarget && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); open({ type: 'detail', partId: s.id, uid: x.uid }); } }} aria-label={l.name + ' 열기'}>
-                          <Slide f={x.f} ov={x.ov} width={322} lazy pageNo={pageOf(x.uid)} />
+                          {readOnly ? <Slide f={x.f} ov={x.ov} width={STORY_SLIDE_WIDTH} lazy pageNo={pageOf(x.uid)} /> : <ContextSlide p={p} x={x} width={STORY_SLIDE_WIDTH} lazy pageNo={pageOf(x.uid)} />}
                           <FavButton f={x.f} ov={x.ov} from={(readOnly ? 'Best Scenario · ' : '제안서 · ') + (p.title || '')} />
+                          {!readOnly && <LayoutCompleteButton p={p} x={x} onHover={hc.hide} />}
                           {!readOnly && <button type="button" className="layout-remove" draggable={false} aria-label={l.name + ' 선택 해제'} title="레이아웃 선택 해제"
                             onPointerDown={(e) => e.stopPropagation()} onMouseDown={(e) => { e.preventDefault(); e.stopPropagation(); }}
                             onDragStart={(e) => { e.preventDefault(); e.stopPropagation(); }} onMouseEnter={hc.hide} onFocus={hc.hide}
                             onKeyDown={(e) => e.stopPropagation()} onClick={(e) => { e.preventDefault(); e.stopPropagation(); e.currentTarget.focus({ preventScroll:true }); hc.hide(); removal.request(x.uid); }}><Icon name="x" size={15} /></button>}
                           {!readOnly && <span className="grip" title="끌어서 순서 바꾸기"><Icon name="grip" size={14} stroke={3} /></span>}
                           <span className="pg">{pageOf(x.uid)}</span>
-                          <div className="lcard-meta"><span className="nm">{l.name}</span>{!readOnly && <StatusBadge s={x.status} />}</div>
+                          <div className="lcard-meta"><span className="nm">{l.name}</span>{!readOnly && <StatusBadge s={contextPending(x) ? 'loading' : layoutIsComplete(p, x) ? 'done' : 'partial'} />}</div>
                         </div>
                       </React.Fragment>
                     );
@@ -339,7 +346,7 @@ export function StoryCanvas({ p, open, stage = 'story', pop = null, onReq, onMat
               <CandCard p={p} afterIndex={-1} title="첫 번째 파트를 골라 주세요" sub="요구사항 맥락으로 고른 후보예요. 고르면 이름과 내용이 미리 채워져요." onPick={(t) => addPart(t)} onCustom={() => addPart(null)} />
               {ai.jobBusy ? <button className="btn btn-ghost btn-sm end-ai" disabled><span className="spin" />{ai.submitting ? '서버에 요청하는 중' : '서버에서 구성하는 중'}</button>
                 : <button className="btn btn-ghost btn-sm end-ai" onClick={ai.start}><Icon name={ai.err ? 'refresh' : 'sparkle'} size={13} />{ai.err ? 'AI로 나머지 구성 다시 시도' : 'AI로 나머지 구성'}</button>}
-              {ai.err && !ai.jobBusy && <span className="story-empty-hint" role="alert">{ai.err}</span>}
+              <FeedbackPopup message={!ai.jobBusy?ai.err:""}/>
             </>
           ) : (
             <>
@@ -348,7 +355,7 @@ export function StoryCanvas({ p, open, stage = 'story', pop = null, onReq, onMat
               <span className="story-empty-hint">{nLay ? '레이아웃 ' + nLay + '장 · 끌어서 순서를 바꿀 수 있어요' : '각 파트에 PPT 레이아웃을 추가해 보세요'}</span>
               {ai.jobBusy ? <button className="btn btn-ghost btn-sm end-ai" disabled><span className="spin" />{ai.submitting ? '서버에 요청하는 중' : '서버에서 구성하는 중'}</button>
                 : <button className="btn btn-ghost btn-sm end-ai" onClick={ai.start}><Icon name={ai.err ? 'refresh' : 'sparkle'} size={13} />{ai.err ? 'AI로 나머지 구성 다시 시도' : 'AI로 나머지 구성'}</button>}
-              {ai.err && !ai.jobBusy && <span className="story-empty-hint" role="alert">{ai.err}</span>}
+              <FeedbackPopup message={!ai.jobBusy?ai.err:""}/>
             </>
           )}
         </div>

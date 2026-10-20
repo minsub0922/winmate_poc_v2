@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11~base:F01"
+ },
+ "prompt_tokens": 8692,
+ "output_tokens": 311,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명을 'K 공단'으로 일관되게 표기하였으며, 사례로 인용된 서울교통공사 및 국립공원공단 외에 다른 고객사명이나 예시 고객명이 발견되지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "K 공단"
+     },
+     {
+      "sheet": 14,
+      "quote": "서울교통공사 사이니지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "15장의 연락처 정보에 예시용으로 보이는 전화번호와 이메일 주소가 포함되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 15,
+      "quote": "010-1234-5678 · b2b.proposal@samsung.com"
+     }
+    ],
+    "improve": "실제 담당자의 연락처와 이메일 주소로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~number_conflict:F06"
+ },
+ "prompt_tokens": 6507,
+ "output_tokens": 209,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "제안서 전반에서 6개 점, 354면(사이니지/비디오월), 390대(교체 합계) 등 주요 수치가 일관되게 유지되고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "6개 점 · 390대 교체"
+     },
+     {
+      "sheet": 9,
+      "quote": "354면 · 5년 총소유비용"
+     },
+     {
+      "sheet": 10,
+      "quote": "교체 합계 390대"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

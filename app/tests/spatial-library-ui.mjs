@@ -1,0 +1,42 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {createServer} from '../web/node_modules/vite/dist/node/index.js';
+import {chromium} from '../web/node_modules/playwright/index.mjs';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
+const output=path.join(root,'app/tests/output/spatial');fs.mkdirSync(output,{recursive:true});
+process.env.WINMATE_API_PORT='8793';process.env.WINMATE_WEB_PORT='5193';
+const server=await createServer({root:path.join(root,'app/web'),configFile:path.join(root,'app/web/vite.config.js'),logLevel:'warn',server:{host:'127.0.0.1',port:5193,strictPort:true,hmr:false}});
+let browser;const errors=[];
+try{
+  await server.listen();browser=await chromium.launch({headless:true,args:['--enable-unsafe-swiftshader']});
+  const context=await browser.newContext({viewport:{width:1560,height:1080}});
+  const login=await context.request.post('http://127.0.0.1:5193/api/auth/login',{data:{username:'admin',password:'spatial-isolated-test-password'}});assert.equal(login.status(),200);
+  const page=await context.newPage();page.setDefaultTimeout(30000);page.on('pageerror',e=>errors.push(e.message));
+  await page.goto('http://127.0.0.1:5193/spatial');const home=page.locator('.sp-home-launches');await home.waitFor({timeout:120000});
+  assert.equal(await page.locator('.sp-home-maps').count(),0);
+  await home.locator('img').evaluate(img=>img.decode());
+  await page.screenshot({path:output+'/library-before-history.png'});console.log('PASS thumbnail entry replaces the home template section');
+  const open=()=>home.getByRole('button',{name:'업종별 템플릿 활용하기',exact:true}).click();
+  await open();const modal=page.locator('.sp-maps-modal'),defaults=modal.getByRole('group',{name:'기본 썸네일',exact:true});
+  assert.equal(await defaults.getByRole('button',{name:'2D',exact:true}).getAttribute('aria-pressed'),'true');
+  const allMode=mode=>page.waitForFunction(mode=>{const cards=[...document.querySelectorAll('.sp-maps-modal .sp-map-preview')];return cards.length>0&&cards.every(c=>c.dataset.view===mode);},mode);
+  await defaults.getByRole('button',{name:'3D',exact:true}).click();await allMode('3d');
+  await page.waitForFunction(()=>document.querySelector('.sp-maps-modal .sp-template-card img')?.src.startsWith('data:image/png'),null,{timeout:120000});
+  const first=modal.locator('.sp-template-card').first();await first.getByRole('button',{name:'2D 보기',exact:true}).click();assert.equal(await first.locator('.sp-map-preview').getAttribute('data-view'),'2d');
+  assert.equal(await defaults.getByRole('button',{name:'3D',exact:true}).getAttribute('aria-pressed'),'true');
+  await defaults.getByRole('button',{name:'2D',exact:true}).click();await allMode('2d');
+  await defaults.getByRole('button',{name:'3D',exact:true}).click();await allMode('3d');
+  const search=modal.locator('.sp-filterbar input');await search.fill('공유오피스');await allMode('3d');assert(await modal.locator('.sp-template-card').count()>0);
+  await page.screenshot({path:output+'/library-default-3d.png'});console.log('PASS popup default applies to cards and search while allowing individual view overrides');
+  await page.keyboard.press('Escape');await modal.waitFor({state:'hidden'});await open();assert.equal(await defaults.getByRole('button',{name:'3D',exact:true}).getAttribute('aria-pressed'),'true');await allMode('3d');
+  await page.reload();await home.waitFor({timeout:120000});await open();await allMode('3d');assert.equal(await defaults.getByRole('button',{name:'3D',exact:true}).getAttribute('aria-pressed'),'true');
+  console.log('PASS default thumbnail choice survives closing and reloading');
+  await page.keyboard.press('Escape');await page.setViewportSize({width:390,height:844});await open();await defaults.waitFor();const box=await defaults.boundingBox();assert(box.x>=0&&box.x+box.width<=391);
+  await defaults.getByRole('button',{name:'2D',exact:true}).click();await allMode('2d');assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+  await page.screenshot({path:output+'/library-default-mobile.png'});assert.deepEqual(errors,[]);
+  console.log('PASS mobile default controls remain visible and usable; no page errors');
+  fs.writeFileSync(output+'/library-default-report.json',JSON.stringify({ok:true,errors},null,2));
+}catch(error){fs.writeFileSync(output+'/library-default-report.json',JSON.stringify({ok:false,errors,error:String(error)},null,2));throw error;}
+finally{await browser?.close();await server.close();}

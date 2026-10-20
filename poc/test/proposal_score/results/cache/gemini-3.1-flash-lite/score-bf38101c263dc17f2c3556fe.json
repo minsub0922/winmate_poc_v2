@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~placeholders:F05"
+ },
+ "prompt_tokens": 3299,
+ "output_tokens": 252,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "제안서 내 주요 수치들에 대해 구체적인 기관명과 연도가 명시되지 않았으며, 일부 장에서는 출처 표기가 아예 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "연 -15% | 운영 · 유지보수비"
+     },
+     {
+      "sheet": 3,
+      "quote": "2028년 9,600억 원 · 연 7% 성장"
+     },
+     {
+      "sheet": 9,
+      "quote": "실사부터 파일럿 결과까지 16주"
+     }
+    ],
+    "improve": "모든 시장 수치와 성과 지표에 대해 신뢰할 수 있는 조사 기관명과 연도를 명확히 기재하고, 고객사 내부 자료는 출처를 구체적으로 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs20:F02"
+ },
+ "prompt_tokens": 8600,
+ "output_tokens": 252,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 핵심 요구사항인 광고 매출(R1, K1), 송출 안정성(R2, K3), 투자 회수 기간(R3, K2)에 대해 각각 3장, 5·6·8·9장, 10·11장에서 명시적으로 해법과 근거를 제시하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "시민이 Q 미디어 화면 앞을 지나는 몇 초가 곧 광고 상품입니다"
+     },
+     {
+      "sheet": 5,
+      "quote": "출근 시간대 송출 가용률 99.8%"
+     },
+     {
+      "sheet": 10,
+      "quote": "기준 39개월, 보수로도 64개월에 회수합니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

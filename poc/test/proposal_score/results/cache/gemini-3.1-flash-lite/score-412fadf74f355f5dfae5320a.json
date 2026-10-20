@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs06:F08"
+ },
+ "prompt_tokens": 1725,
+ "output_tokens": 205,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "5장에서 공간별 화면과 공기라는 고객 경험 가치를 제시하고, 6~10장에서 이를 구현하는 VMD존 자동화, 비디오월, 시간대별 운영 솔루션을 명확히 연결함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "공간마다 다른 화면과 공기"
+     },
+     {
+      "sheet": 6,
+      "quote": "상품 옆 화면과 공기가 하루 종일 알아서 바뀝니다"
+     },
+     {
+      "sheet": 10,
+      "quote": "시간대별로 바뀝니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

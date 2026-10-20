@@ -1,3 +1,4 @@
+import { requireLogin } from '../api/session.js';
 import { browserStorage } from './browser.js';
 // 찜 — layouts the person marked from any PPT layout view, kept in this browser (localStorage).
 // The same layout is two different favourites when one has values (a filled sheet: ov with text · images · replacements ·
@@ -37,7 +38,7 @@ export function favOf(f, ov) {
   return LIST.find((x) => sigOf(x.f, x.ov) === s) || null;
 }
 /** toggle — returns the favourite it added, or null when it took one away */
-export function toggleFav(f, ov, from = '') {
+export function toggleFav(f, ov, from = '') { if (!requireLogin()) return false;
   const cur = favOf(f, ov);
   if (cur) { LIST = LIST.filter((x) => x !== cur); save(); return null; }
   const vals = valuesOf(ov);
@@ -45,6 +46,6 @@ export function toggleFav(f, ov, from = '') {
   LIST = [x, ...LIST]; save();
   return x;
 }
-export function removeFav(id) { LIST = LIST.filter((x) => x.id !== id); save(); }
+export function removeFav(id) { if (!requireLogin()) return false; LIST = LIST.filter((x) => x.id !== id); save(); }
 /** favourites whose layout no longer exists (a deleted My template) stay hidden */
 export const liveFavs = (list) => list.filter((x) => L[x.f]);

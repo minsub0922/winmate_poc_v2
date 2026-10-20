@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07:F01"
+ },
+ "prompt_tokens": 8638,
+ "output_tokens": 210,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명을 'B 호텔'로 일관되게 표기하였으며, 객실 수(300실)와 담당 조직(객실팀, 시설팀, 프런트 등) 정보가 장마다 동일하게 유지됩니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "B 호텔"
+     },
+     {
+      "sheet": 10,
+      "quote": "객실 300실은 한 실의 키트로"
+     },
+     {
+      "sheet": 13,
+      "quote": "B 호텔 객실 TV · 공조 리뉴얼"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

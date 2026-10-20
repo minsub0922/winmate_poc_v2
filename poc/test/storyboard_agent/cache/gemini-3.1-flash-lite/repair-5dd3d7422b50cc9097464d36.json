@@ -1,0 +1,63 @@
+{
+ "stage": "repair",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.4,
+ "seed": 0,
+ "prompt_tokens": 3603,
+ "output_tokens": 556,
+ "data": {
+  "strategy": "pain",
+  "thesis": "W요양병원의 노후 중앙공조를 무풍 시스템에어컨과 SAC 통합 제어로 전환하여, 환자에게는 쾌적한 무풍 환경을, 운영진에게는 에너지 절감과 효율적인 병동 관리를 제공합니다.",
+  "parts": [
+   {
+    "type": "customer"
+   },
+   {
+    "name": "고객사 이해",
+    "ref": "R10, R11, R12, R13, R14",
+    "type": "customer"
+   },
+   {
+    "name": "병동 운영의 과제",
+    "ref": "R1, R12, R13, R14",
+    "type": "challenge"
+   },
+   {
+    "name": "무풍 냉난방 솔루션",
+    "ref": "R4, R5, R6",
+    "type": "value"
+   },
+   {
+    "name": "공간별 맞춤 구성",
+    "ref": "R16",
+    "type": "products"
+   },
+   {
+    "name": "통합 제어와 공기질",
+    "ref": "R7, R8, R9, R15",
+    "type": "solution"
+   },
+   {
+    "name": "운영 중단 없는 공사",
+    "ref": "R1",
+    "type": "execution"
+   },
+   {
+    "name": "도입 기대 효과",
+    "ref": "R2, R3, R6",
+    "type": "effect"
+   },
+   {
+    "name": "다음 단계: 실사 및 계획",
+    "ref": "R10, R11",
+    "type": "closing"
+   }
+  ],
+  "ending": "workshop",
+  "questions": [
+   "기계실 반입 경로 및 전기 용량 증설 여부 확인",
+   "시범 구역 선정 및 환자 전실 계획 협의"
+  ],
+  "strategy_why": "노후 설비로 인한 온도 민원과 에너지 비용 과다라는 명확한 페인 포인트(Pain Point)를 해결하고, 요양병원 특유의 운영 연속성을 보장하는 솔루션 제안이 가장 적합합니다."
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs13:F07"
+ },
+ "prompt_tokens": 3715,
+ "output_tokens": 242,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "10장과 11장에서 매장당 연간 전력 비용 절감액과 투자 회수 기간을 명시하고, 산정 근거로 가맹본부 전력 자료, 단가 200원/kWh, 140개 매장 기준 등을 상세히 제시함.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "매장당 연 전력 비용, 네 군데에서 줄어듭니다"
+     },
+     {
+      "sheet": 11,
+      "quote": "22개월이면 투자비를 회수합니다"
+     },
+     {
+      "sheet": 11,
+      "quote": "가정: 140개 매장 · 라이선스 · 점검 3년 포함"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

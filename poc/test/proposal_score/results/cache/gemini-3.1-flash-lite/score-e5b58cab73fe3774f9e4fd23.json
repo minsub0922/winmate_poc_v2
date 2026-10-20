@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07:F10"
+ },
+ "prompt_tokens": 4466,
+ "output_tokens": 217,
+ "data": {
+  "scores": [
+   {
+    "id": "VS8",
+    "score": 3,
+    "anchor": "공사 중 영업 유지(무중단 교체)를 핵심 과제로 설정하고, 층별 야간 시공 및 소음 작업 시간 제한 등 구체적인 대응 방안을 제시함.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "객실 판매는 층마다 하룻밤만 멈춥니다"
+     },
+     {
+      "sheet": 11,
+      "quote": "소음 작업 15시 전 종료"
+     },
+     {
+      "sheet": 11,
+      "quote": "작업 층 복도만 가림막 · 통로 폭 1.2 m 유지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

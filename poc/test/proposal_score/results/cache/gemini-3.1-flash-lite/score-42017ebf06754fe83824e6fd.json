@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08:F03"
+ },
+ "prompt_tokens": 3494,
+ "output_tokens": 229,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "9장에서 이해관계자별(병원장/행정부원장 등) 관심사와 성과 지표를 명확히 구분하여 요약하였고, 13장에서 결정권자가 판단할 다음 단계와 일정을 한 장에 정리하였습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "병원장 · 행정부원장 | 관심사 · 운영비 · 설비 안정 | 이 사람이 만나는 화면 | b.IoT 월간 설비 · 에너지 리포트"
+     },
+     {
+      "sheet": 13,
+      "quote": "다음 4주, 선도 병동부터 정합니다 | W 요양병원 병동 리뉴얼 — 오늘 결정할 것과 그다음 일정"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Winmate PoC 테스트 벤치</title>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="side">
+    <div class="brand"><b>Winmate PoC 테스트 벤치</b><span>poc/test 모듈을 실행하고 검증합니다</span></div>
+    <nav class="nav" id="nav" aria-label="모듈">
+      <a href="#/home" data-route="home">상태</a>
+      <div class="group">RFP → 요구사항 정리</div>
+      <a href="#/rfp/run" data-route="rfp/run">원문 정리 실행<span class="dot" data-dot="rfp"></span></a>
+      <a href="#/rfp/runs" data-route="rfp/runs">저장된 실험 결과</a>
+      <a href="#/rfp/batch" data-route="rfp/batch">배치 실험<span class="dot" data-dot="experiment"></span></a>
+      <div class="group">레이아웃 추천 Agent</div>
+      <a href="#/layout/run" data-route="layout/run">제안서 구성 실행<span class="dot" data-dot="layout"></span></a>
+      <a href="#/layout/search" data-route="layout/search">레이아웃 검색(RAG)</a>
+      <a href="#/layout/eval" data-route="layout/eval">평가 리포트<span class="dot" data-dot="eval"></span></a>
+      <div class="group">제안 시뮬레이션</div>
+      <a href="#/sim/live" data-route="sim/live">실성능 검증 · 실시간<span class="dot" data-dot="sim"></span></a>
+      <div class="group">검증</div>
+      <a href="#/tests" data-route="tests">자동 테스트<span class="dot" data-dot="selftest"></span></a>
+      <a href="#/jobs" data-route="jobs">작업 기록</a>
+    </nav>
+    <div class="side-foot">
+      <div class="keys" id="keys"></div>
+      <div id="who"></div>
+      <button type="button" id="logout">로그아웃</button>
+    </div>
+  </aside>
+  <main class="main" id="main"></main>
+</div>
+<script src="/static/app.js"></script>
+</body>
+</html>

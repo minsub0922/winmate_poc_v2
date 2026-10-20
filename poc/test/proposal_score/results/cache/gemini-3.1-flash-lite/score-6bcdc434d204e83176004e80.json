@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19:F05"
+ },
+ "prompt_tokens": 3636,
+ "output_tokens": 271,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "제안서 내 대부분의 수치(260개, 7일, 11곳, 15년+, 16주 등)에 대해 구체적인 조사 기관과 연도가 명시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "260개 사업장 화면, 그룹 본사에서 한 번에 바꿉니다"
+     },
+     {
+      "sheet": 3,
+      "quote": "2028년 9,600억 원 · 연 7% 성장"
+     },
+     {
+      "sheet": 8,
+      "quote": "15년+ | 사이니지 1위"
+     }
+    ],
+    "improve": "모든 시장 데이터와 성과 수치 옆에 [기관명, 연도]를 명확히 기재하고, 고객사 내부 자료는 '고객 운영 자료(연도)'로 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

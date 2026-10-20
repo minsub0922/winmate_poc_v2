@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07:F08"
+ },
+ "prompt_tokens": 2543,
+ "output_tokens": 302,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "고객의 질문(대기, 소음, 정보)에 대응하는 3가지 핵심 가치(웰컴 화면, 셀프 체크인, 무풍 냉방)를 명확히 제시하고, 각 가치를 구현하는 제품과 솔루션을 1:1로 연결하였습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "Q1 객실팀 “객실 TV로 조식 · 리무진 · 부대시설을 알릴 수 있나요?” 답하는 제품 · 솔루션 호텔 TV HG55BU + LYNK Cloud"
+     },
+     {
+      "sheet": 5,
+      "quote": "Q2 프런트 “체크인 대기가 길다는 리뷰가 많아요” 답하는 제품 · 솔루션 KM24C 셀프 체크인 키오스크 3대"
+     },
+     {
+      "sheet": 5,
+      "quote": "Q3 시설팀 “에어컨 소음 민원이 있어요” 답하는 제품 · 솔루션 무풍 1Way 카세트"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

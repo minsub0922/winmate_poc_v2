@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~wrong_customer:F01"
+ },
+ "prompt_tokens": 8769,
+ "output_tokens": 386,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 1,
+    "anchor": "제안서 전반에 걸쳐 고객사명 'B 호텔'과 'A 커피'가 혼용되어 사용되고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "B 호텔 매출의 78%"
+     },
+     {
+      "sheet": 3,
+      "quote": "A 커피 투숙객의 하룻밤"
+     }
+    ],
+    "improve": "제안서 전체에서 고객사명을 'B 호텔'로 통일하고, 사례로 인용된 'A 커피'를 해당 호텔의 실제 사례나 일반적인 호텔 사례로 수정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "다른 고객명인 'A 커피'가 4곳에서 발견되었으며, 13장에 연락처 정보가 템플릿 형식으로 남아 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "A 커피 투숙객의 하룻밤"
+     },
+     {
+      "sheet": 13,
+      "quote": "010-1234-5678 · b2b.proposal@"
+     }
+    ],
+    "improve": "제안서 내 모든 'A 커피' 명칭을 'B 호텔'로 변경하고, 13장의 연락처 정보를 실제 담당자의 정보로 기입해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

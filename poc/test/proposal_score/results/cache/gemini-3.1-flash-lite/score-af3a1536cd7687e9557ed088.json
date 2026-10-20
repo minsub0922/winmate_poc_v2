@@ -1,0 +1,61 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs17:F01"
+ },
+ "prompt_tokens": 8694,
+ "output_tokens": 500,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명을 'T 은행'으로 일관되게 표기하였으며, 규모 및 담당 조직 정보가 장마다 일치합니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "T 은행 영업점 디지털 창구 · 전 지점 확산 제안"
+     },
+     {
+      "sheet": 11,
+      "quote": "확산 대상 240개 영업점"
+     },
+     {
+      "sheet": 14,
+      "quote": "T 은행 영업점 디지털 창구 · 1차 확산 예산 승인 요청"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "자리표시자나 템플릿 잔여물이 발견되지 않았으며, 연락처는 제안 담당자의 정보로 적절히 기재되었습니다.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 2,
+    "anchor": "13장에 '할인율 미적용'이라는 내부용 표현이 포함되어 있으나, 이는 제안서의 경제성 분석 과정에서 사용된 용어로 민감한 기밀 정보는 아닙니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "효과 연평균 +13% · 할인율 미적용"
+     }
+    ],
+    "improve": "경제성 분석 장표에서 '할인율 미적용'과 같은 내부 용어를 고객 친화적인 표현으로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

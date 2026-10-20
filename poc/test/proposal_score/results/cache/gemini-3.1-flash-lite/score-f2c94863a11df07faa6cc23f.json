@@ -1,0 +1,116 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08~full:F11"
+ },
+ "prompt_tokens": 5151,
+ "output_tokens": 942,
+ "data": {
+  "scores": [
+   {
+    "id": "DS1",
+    "score": 2,
+    "anchor": "13장의 제목 위치가 다른 장들과 다르게 배치되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "제목 30px@(648,66)"
+     }
+    ],
+    "improve": "모든 장의 제목 위치를 동일한 좌표로 통일해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS2",
+    "score": 2,
+    "anchor": "대부분 장은 요지가 보이나, 2, 3, 6, 8장 등은 어절 수가 많아 메시지가 분산될 우려가 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "355어절"
+     },
+     {
+      "sheet": 6,
+      "quote": "260어절"
+     }
+    ],
+    "improve": "장당 어절 수를 줄이고 핵심 메시지를 한 줄로 명확히 요약해야 합니다.",
+    "confidence": "mid"
+   },
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 9장으로 기준인 4장을 크게 초과하여 발표 자료로 읽기에 밀도가 너무 높습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "213어절"
+     },
+     {
+      "sheet": 3,
+      "quote": "355어절"
+     },
+     {
+      "sheet": 6,
+      "quote": "260어절"
+     }
+    ],
+    "improve": "장당 어절 수를 110어절 이하로 대폭 줄이고 개조식 구성을 활용해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "12pt 미만 본문 칸이 있는 장이 4장 이상이며, 20자 넘는 본문 칸의 62%가 10pt 미만으로 가독성이 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 3,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 8,
+      "quote": "본문 최소 10px(7.5pt)"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS5",
+    "score": 3,
+    "anchor": "폰트 2종을 사용하고 있으며, 모든 장의 제목 크기가 30px로 일관되게 유지되고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "폰트 2종: Noto Sans KR, Manrope"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "DS6",
+    "score": 3,
+    "anchor": "모든 장에 실제 사진이 포함되어 있으며, 텍스트만 있는 장이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "사진 1"
+     },
+     {
+      "sheet": 6,
+      "quote": "사진 7"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

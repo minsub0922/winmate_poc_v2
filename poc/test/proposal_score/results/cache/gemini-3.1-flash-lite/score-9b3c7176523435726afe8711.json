@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs03:F04"
+ },
+ "prompt_tokens": 7882,
+ "output_tokens": 225,
+ "data": {
+  "scores": [
+   {
+    "id": "CU6",
+    "score": 3,
+    "anchor": "대학 캠퍼스의 학사 시간표 연동, 강의실과 도서관의 이용자 동선, 방학 중 시공 계획 등 교육 현장의 운영 맥락을 정확히 반영하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "강의 · 모둠 · 도서관 · 생활관을 하루에 오가는 가장 큰 사용자층"
+     },
+     {
+      "sheet": 6,
+      "quote": "시간표에 맞춰 칠판 · 에어컨이 미리 켜지고"
+     },
+     {
+      "sheet": 12,
+      "quote": "학기를 멈추지 않고, 방학 6주에 끝냅니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

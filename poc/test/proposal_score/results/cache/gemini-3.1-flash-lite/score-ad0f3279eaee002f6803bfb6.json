@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~number_conflict:F10"
+ },
+ "prompt_tokens": 2720,
+ "output_tokens": 249,
+ "data": {
+  "scores": [
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "마지막 장에서 현장 실사, 워크숍, 맞춤 제안 및 파일럿 승인으로 이어지는 단계별 일정과 담당자, 결정 사항을 명확히 제시함.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "01 | 현장 실사 · 대표 사업장 3곳 | 11/02 – 11/13"
+     },
+     {
+      "sheet": 10,
+      "quote": "02 | 요구사항 워크숍 · 6개 사업 2회 | 11/18 · 12/02"
+     },
+     {
+      "sheet": 10,
+      "quote": "03 | 맞춤 제안 · 파일럿 승인 | 구성 · 예산안 보고"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

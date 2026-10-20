@@ -1,0 +1,39 @@
+{
+ "id": "H02",
+ "case": "H02",
+ "industry": "PB",
+ "strategy": null,
+ "req_type": null,
+ "title": "정류장 안내 사이니지",
+ "level": "minimal",
+ "input": {
+  "title": "R 시청 제안",
+  "customer": "R 시청",
+  "industry": "PB",
+  "free_text": "지자체 버스 정류장 안내 사이니지",
+  "products": [
+   "oh55a"
+  ],
+  "id": "H02"
+ },
+ "gold": {
+  "scenario_any": [
+   "STD-PB"
+  ],
+  "must_parts": [
+   "value",
+   "products",
+   "case",
+   "why"
+  ],
+  "layouts_any": {
+   "products": [
+    "L_P1B"
+   ]
+  },
+  "key_reqs": [],
+  "facts": [],
+  "level": "minimal",
+  "industry": "PB"
+ }
+}

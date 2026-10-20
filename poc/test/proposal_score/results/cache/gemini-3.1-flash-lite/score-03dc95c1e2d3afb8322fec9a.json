@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs12:F04"
+ },
+ "prompt_tokens": 2865,
+ "output_tokens": 186,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "V 경기장의 매출 구조와 경기일 5단계별 운영 과제를 구체적인 수치(입장 대기 18분, 1인당 지출 14,500원 등)와 함께 현장 장면으로 명확히 분석했습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "입장 대기 18분"
+     },
+     {
+      "sheet": 3,
+      "quote": "1인당 지출 14,500원"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

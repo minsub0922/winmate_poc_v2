@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~no_proof:F05"
+ },
+ "prompt_tokens": 8827,
+ "output_tokens": 258,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 2,
+    "anchor": "주요 시장 규모 및 성과 수치에 기관과 연도가 명시되어 있으나, 일부 장에서는 수치에 대한 출처가 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "단위 억 원 · 출처 삼성전자 추정(2026)"
+     },
+     {
+      "sheet": 4,
+      "quote": "지표는 A 커피 운영 자료(2026) 기준"
+     },
+     {
+      "sheet": 5,
+      "quote": "A 커피 운영본부 인터뷰(2026. 9)"
+     }
+    ],
+    "improve": "출처가 누락된 장(2, 7, 9, 10, 11, 15 등)의 모든 수치에 대해 근거 기관과 연도를 일관되게 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,128 @@
+{
+  "live": {
+    "pass": true,
+    "version": 2,
+    "selected": [
+      "CU1",
+      "PR4",
+      "VS2",
+      "VS5"
+    ],
+    "score_modes": [
+      "llm",
+      "llm",
+      "llm",
+      "llm"
+    ],
+    "categories": [
+      "CU",
+      "PR",
+      "VS"
+    ],
+    "n_all": 26,
+    "seconds": 9.3,
+    "llm": {
+      "requested": "real",
+      "effective": "llm",
+      "strict": true,
+      "models_used": [
+        "gemini-3.1-flash-lite"
+      ],
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "llm_used": true,
+      "calls_ok": 5,
+      "calls_failed": 0,
+      "calls_rejected": 0,
+      "cached": 0,
+      "tokens": {
+        "prompt": 8941,
+        "output": 1752
+      },
+      "steps": {
+        "review:route_l1": 1,
+        "review:route_l2": 1,
+        "review:score": 3
+      },
+      "fallbacks": [],
+      "errors": {},
+      "issues": [],
+      "reason": null,
+      "route_mode": "llm",
+      "score_modes": {
+        "llm": 4
+      },
+      "selected": 4
+    }
+  },
+  "live-visual": {
+    "pass": true,
+    "criteria_version": 2,
+    "selected": [
+      "DQ1",
+      "DQ3",
+      "DQ5",
+      "DQ7"
+    ],
+    "score_modes": [
+      "llm",
+      "llm",
+      "llm",
+      "llm"
+    ],
+    "visual": {
+      "provided": true,
+      "pages": [
+        1
+      ],
+      "llm_calls": 1,
+      "model": "gemini-3.8-flash"
+    },
+    "n_all": 26,
+    "seconds": 14.0,
+    "llm": {
+      "requested": "real",
+      "effective": "llm",
+      "strict": true,
+      "models_used": [
+        "gemini-3.1-flash-lite",
+        "gemini-3.8-flash"
+      ],
+      "provider": "gemini",
+      "model": [
+        "gemini-3.1-flash-lite",
+        "gemini-3.8-flash"
+      ],
+      "llm_used": true,
+      "calls_ok": 2,
+      "calls_failed": 0,
+      "calls_rejected": 0,
+      "cached": 0,
+      "tokens": {
+        "prompt": 4111,
+        "output": 515
+      },
+      "steps": {
+        "review:score": 1,
+        "review:score_vision": 1
+      },
+      "fallbacks": [],
+      "errors": {},
+      "issues": [],
+      "reason": null,
+      "route_mode": "forced",
+      "score_modes": {
+        "llm": 4
+      },
+      "selected": 4
+    }
+  },
+  "summary": {
+    "schema_version": 2,
+    "categories": 5,
+    "criteria": 26,
+    "model_calls_succeeded": 7,
+    "real_documents_used": false,
+    "fallbacks": 0
+  }
+}

@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs09:F09"
+ },
+ "prompt_tokens": 4581,
+ "output_tokens": 238,
+ "data": {
+  "scores": [
+   {
+    "id": "PR2",
+    "score": 1,
+    "anchor": "9장에서 QM85C를 85인치로 표기했으나 기존 장비인 46인치와 혼동하여 기술했고, 6장과 8장에서 OH55A-S의 밝기를 3,000nit로 표기했으나 카탈로그 사양인 3,500nit와 일치하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "도입 후 | Smart Signage QM85C"
+     },
+     {
+      "sheet": 8,
+      "quote": "3,000nit + 자동 밝기"
+     }
+    ],
+    "improve": "카탈로그의 공식 사양을 재확인하여 모든 장에서 모델명과 사양 수치를 일관되게 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

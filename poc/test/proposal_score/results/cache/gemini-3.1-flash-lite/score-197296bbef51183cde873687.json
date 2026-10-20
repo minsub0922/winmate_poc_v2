@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs17~full:F03"
+ },
+ "prompt_tokens": 5322,
+ "output_tokens": 356,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "제안 개요(2장)에서 경영 지표인 비용과 기대 효과를 요약하고, 마지막 장(14장)에서 결정권자별 승인 사항을 명확히 구분하여 정리했습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "결정 요청 · 1차 120곳 예산 48억"
+     },
+     {
+      "sheet": 14,
+      "quote": "세 가지 결정으로 1월에 착수합니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS7",
+    "score": 3,
+    "anchor": "1차 확산 투자비 48억 원에 대한 투자 회수 기간(3.2년)을 명시하고, 유지보수 및 콘텐츠 등 숨은 비용 산정 전제를 포함했습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "3.2년 · 38개월이면 1차 투자비를 회수합니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "효과 항목 — 서식 · 출력, 홍보물 · 유지보수"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

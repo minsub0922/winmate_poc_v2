@@ -10,7 +10,7 @@
 import React, { useState, useRef, useEffect, useLayoutEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { update } from '../repositories/proposals.js';
-import { Icon, Modal, toast, partHue } from './common.jsx';
+import { DeleteButton, Icon, Modal, toast, partHue } from './common.jsx';
 import { PARTS, classifyPart, splitFree, partText } from '../domain/proposals/parts.js';
 import { aiPartItems, aiErrorText } from '../services/ai.js';
 import { candidates } from './storyboard.jsx';
@@ -204,7 +204,7 @@ export function PartEditor({ p, part, onClose, isNew }) {
   return (
     <Modal onClose={onClose} title={isNew ? '새 파트' : '파트 편집'} sub="이름과 이 파트에서 말할 내용을 적어 주세요. 완료하면 맞는 PPT 레이아웃을 추천해 드려요."
       footer={<>
-        {!isNew && <button className="btn btn-ghost btn-danger" onClick={() => { update(p.id, (d) => { d.parts = d.parts.filter((x) => x.id !== part.id); }); toast('파트를 지웠어요'); onClose(); }}><Icon name="trash" size={15} />파트 지우기</button>}
+        {!isNew && <DeleteButton className="btn btn-ghost btn-danger" onClick={() => { update(p.id, (d) => { d.parts = d.parts.filter((x) => x.id !== part.id); }); toast('파트를 지웠어요'); onClose(); }}><Icon name="trash" size={15} />파트 지우기</DeleteButton>}
         <span className="sp" />
         <button className="btn btn-primary" disabled={!ok} onClick={save}><Icon name="check" size={15} />작성 완료</button>
       </>}>

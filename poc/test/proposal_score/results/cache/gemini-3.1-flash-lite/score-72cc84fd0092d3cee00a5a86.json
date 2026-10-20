@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~no_proof:F05"
+ },
+ "prompt_tokens": 5016,
+ "output_tokens": 261,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 2,
+    "anchor": "대부분의 수치에 출처가 명시되어 있으나, 일부 수치는 '삼성전자 추정'이나 '영업 현장 기준' 등 모호한 표현을 사용하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "업계: 삼성전자 추정(2026) · 고객: G 쇼핑몰 시설팀 자료(2026. 09)"
+     },
+     {
+      "sheet": 5,
+      "quote": "공개 자료 · 삼성전자 추정(2026)"
+     },
+     {
+      "sheet": 6,
+      "quote": "출처: 영업 현장 · 삼성전자 추정(2026)"
+     }
+    ],
+    "improve": "모든 수치에 대해 추정 근거를 구체적인 조사 기관이나 데이터 소스 명칭으로 명확히 기재해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

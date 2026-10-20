@@ -1,0 +1,95 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~full:F07"
+ },
+ "prompt_tokens": 7899,
+ "output_tokens": 772,
+ "data": {
+  "scores": [
+   {
+    "id": "MK5",
+    "score": 3,
+    "anchor": "경쟁사 비교 기준을 명시하고, 공개 자료 및 삼성전자 추정치를 근거로 사용하여 비방 없이 객관적으로 비교하였습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "공급사는 '가격형'과 '운영 책임형'으로 나뉩니다"
+     },
+     {
+      "sheet": 6,
+      "quote": "G 쇼핑몰 평가 기준 다섯 가지로 비교"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "장애율, 복구 시간, 5년 총비용 등 정량적 효과를 제시하고, 각 수치의 산정 전제와 출처를 명확히 기재하였습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "3.0% → 1.0% | 사이니지 월 장애율"
+     },
+     {
+      "sheet": 9,
+      "quote": "5년 총소유비용(구매 · 설치 · CMS · 전기 · 장애 출동 · 교체)"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "삼성의 통합 솔루션(사이니지+공조), 원격 감시, 전국 서비스망 등 강점을 고객의 장애 및 운영 과제와 연결하여 구체적으로 제시하였습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "장애 · AS에서 차이는 분명합니다"
+     },
+     {
+      "sheet": 11,
+      "quote": "6개 점 어디서나 같은 기준으로 복구합니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR5",
+    "score": 3,
+    "anchor": "근거 없는 절대 표현(최초, 최고, 유일 등)을 사용하지 않았으며, 성과 수치에는 산정 근거를 명시하였습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "5년 −12% | 5년 총비용 · 현 공급사 안 대비"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR7",
+    "score": 3,
+    "anchor": "각 장 하단에 연출 이미지, 경쟁사 익명 처리, 수치 산정 근거 및 전제 조건을 명시하였습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "위치는 예시 · 경쟁사 익명 · 사진: samsung.com 도입사례"
+     },
+     {
+      "sheet": 9,
+      "quote": "산출 가정은 견적서 첨부"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

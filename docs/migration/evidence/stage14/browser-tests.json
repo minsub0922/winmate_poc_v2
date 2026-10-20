@@ -1,0 +1,289 @@
+{
+  "passed": 47,
+  "total": 47,
+  "cases": [
+    {
+      "group": "identity",
+      "name": "API supplies the persistent shared ID and endpoint",
+      "passed": true,
+      "ms": 72
+    },
+    {
+      "group": "identity",
+      "name": "all ordinary histories receive endpoints without opening a storyboard",
+      "passed": true,
+      "ms": 3004
+    },
+    {
+      "group": "identity",
+      "name": "history endpoint survives reload and matches the browser address",
+      "passed": true,
+      "ms": 5888
+    },
+    {
+      "group": "identity",
+      "name": "the same local history ID reuses its endpoint in another browser",
+      "passed": true,
+      "ms": 50
+    },
+    {
+      "group": "identity",
+      "name": "a direct guest endpoint opens the exact saved original",
+      "passed": true,
+      "ms": 4787
+    },
+    {
+      "group": "identity",
+      "name": "legacy token-only metadata acquires its ID and endpoint",
+      "passed": true,
+      "ms": 4235
+    },
+    {
+      "group": "identity",
+      "name": "ID and endpoint metadata can share before a refresh succeeds",
+      "passed": true,
+      "ms": 2699
+    },
+    {
+      "group": "identity",
+      "name": "a long local history ID is never mistaken for a public endpoint",
+      "passed": true,
+      "ms": 2338
+    },
+    {
+      "group": "identity",
+      "name": "foreign URLs and malformed paths cannot become shared links",
+      "passed": true,
+      "ms": 1689
+    },
+    {
+      "group": "identity",
+      "name": "guest sharing retains the original endpoint without creating another ID",
+      "passed": true,
+      "ms": 1446
+    },
+    {
+      "group": "identity",
+      "name": "background histories do not continuously poll while no storyboard is open",
+      "passed": true,
+      "ms": 5251
+    },
+    {
+      "group": "identity",
+      "name": "re-registering a history ID preserves server edits and endpoint",
+      "passed": true,
+      "ms": 13
+    },
+    {
+      "group": "Cloudflare",
+      "name": "existing histories reconnect even if Cloudflare rejects POST",
+      "passed": true,
+      "ms": 1572
+    },
+    {
+      "group": "Cloudflare",
+      "name": "a stale local token resolves the original without reposting its document",
+      "passed": true,
+      "ms": 1563
+    },
+    {
+      "group": "Cloudflare",
+      "name": "existing server originals do not depend on expired local blob uploads",
+      "passed": true,
+      "ms": 1568
+    },
+    {
+      "group": "Cloudflare",
+      "name": "a new source registers once only after an actual not-found lookup",
+      "passed": true,
+      "ms": 1567
+    },
+    {
+      "group": "Cloudflare",
+      "name": "HTML 403 on owner lookup is visible and never causes a duplicate upload",
+      "passed": true,
+      "ms": 1539
+    },
+    {
+      "group": "Cloudflare",
+      "name": "an intermittent HTML 503 on lookup retries against the real server",
+      "passed": true,
+      "ms": 2598
+    },
+    {
+      "group": "Cloudflare",
+      "name": "intermittent HTML 502 on an existing link recovers automatically",
+      "passed": true,
+      "ms": 2977
+    },
+    {
+      "group": "Cloudflare",
+      "name": "edits made before the first delayed response are preserved and then saved",
+      "passed": true,
+      "ms": 3397
+    },
+    {
+      "group": "Cloudflare",
+      "name": "rate limiting retains the exact 429 status and an already saved link",
+      "passed": true,
+      "ms": 2477
+    },
+    {
+      "group": "Cloudflare",
+      "name": "an upload rejection explains the actual 413 status",
+      "passed": true,
+      "ms": 1468
+    },
+    {
+      "group": "Cloudflare",
+      "name": "a successful HTML page is rejected as an invalid API response",
+      "passed": true,
+      "ms": 1420
+    },
+    {
+      "group": "direct route",
+      "name": "old histories acquire their own path even when registration fails",
+      "passed": true,
+      "ms": 1390
+    },
+    {
+      "group": "direct route",
+      "name": "clicking an unregistered old history immediately changes the address",
+      "passed": true,
+      "ms": 1841
+    },
+    {
+      "group": "direct route",
+      "name": "reloading a local history path survives sharing API failure",
+      "passed": true,
+      "ms": 2983
+    },
+    {
+      "group": "direct route",
+      "name": "Back and Forward restore the selected history and its path",
+      "passed": true,
+      "ms": 1858
+    },
+    {
+      "group": "direct route",
+      "name": "clicking the currently selected history never resets its address",
+      "passed": true,
+      "ms": 2218
+    },
+    {
+      "group": "direct route",
+      "name": "restoring a legacy saved route fills its address without waiting for sharing",
+      "passed": true,
+      "ms": 1483
+    },
+    {
+      "group": "direct route",
+      "name": "the explicit history path wins over the previously saved screen",
+      "passed": true,
+      "ms": 2731
+    },
+    {
+      "group": "direct route",
+      "name": "another authenticated browser restores a direct path from the server",
+      "passed": true,
+      "ms": 2870
+    },
+    {
+      "group": "direct route",
+      "name": "an unknown direct path shows an error without silently returning home",
+      "passed": true,
+      "ms": 2772
+    },
+    {
+      "group": "direct route",
+      "name": "sharing from an owner path opens the exact original for a guest",
+      "passed": true,
+      "ms": 2969
+    },
+    {
+      "group": "button",
+      "name": "offline refresh never disables copying an existing endpoint",
+      "passed": true,
+      "ms": 2399
+    },
+    {
+      "group": "button",
+      "name": "a delayed initial refresh does not block an existing link",
+      "passed": true,
+      "ms": 1476
+    },
+    {
+      "group": "button",
+      "name": "first registration still allows opening the sharing dialog",
+      "passed": true,
+      "ms": 3328
+    },
+    {
+      "group": "button",
+      "name": "registration errors are actionable inside the dialog and retry succeeds",
+      "passed": true,
+      "ms": 3112
+    },
+    {
+      "group": "button",
+      "name": "switching histories always copies the selected history endpoint",
+      "passed": true,
+      "ms": 3873
+    },
+    {
+      "group": "button",
+      "name": "a repaired token updates an already open sharing dialog",
+      "passed": true,
+      "ms": 1813
+    },
+    {
+      "group": "button",
+      "name": "a metadata change reconnects to the new session without remounting",
+      "passed": true,
+      "ms": 2458
+    },
+    {
+      "group": "button",
+      "name": "clipboard failure leaves the exact endpoint available for manual copy",
+      "passed": true,
+      "ms": 1487
+    },
+    {
+      "group": "button",
+      "name": "missing clipboard API uses the browser copy fallback",
+      "passed": true,
+      "ms": 1436
+    },
+    {
+      "group": "button",
+      "name": "denied clipboard permission falls back without a sharing error",
+      "passed": true,
+      "ms": 1450
+    },
+    {
+      "group": "button",
+      "name": "sidebar sharing opens the same persistent history endpoint",
+      "passed": true,
+      "ms": 1910
+    },
+    {
+      "group": "button",
+      "name": "390px mobile shares the selected history endpoint",
+      "passed": true,
+      "ms": 1470
+    },
+    {
+      "group": "button",
+      "name": "read-only guests copy the same endpoint",
+      "passed": true,
+      "ms": 1530
+    },
+    {
+      "group": "button",
+      "name": "editable guests share the original without a reuse action",
+      "passed": true,
+      "ms": 1437
+    }
+  ],
+  "errors": []
+}

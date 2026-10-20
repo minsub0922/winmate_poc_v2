@@ -1,0 +1,1289 @@
+[
+  {
+    "code": "FB",
+    "rooms": [
+      {
+        "key": "fb-hero",
+        "name": "홀 테이블",
+        "productsText": "갤럭시 탭 테이블 오더 · 무풍 에어컨 · 공기청정기",
+        "purpose": "내 언어로 바로 주문, 연기 없이 오래",
+        "sourceNumber": "3"
+      },
+      {
+        "key": "fb-1",
+        "name": "매장 외부 · 대기",
+        "productsText": "실외용 사이니지 · 대기 접수 탭",
+        "purpose": "줄 대신 번호로, 메뉴는 미리",
+        "sourceNumber": "1"
+      },
+      {
+        "key": "fb-2",
+        "name": "입구 카운터 · 결제",
+        "productsText": "결제 갤럭시 탭 · 메뉴보드 QM",
+        "purpose": "단정한 카운터, 기다림 없는 결제",
+        "sourceNumber": "2"
+      },
+      {
+        "key": "fb-3",
+        "name": "주방",
+        "productsText": "주방 탭 · 무풍 에어컨 · 에어모니터",
+        "purpose": "주문은 화면으로, 열기는 빠르게",
+        "sourceNumber": "4"
+      },
+      {
+        "key": "fb-4",
+        "name": "냉장 · 냉동 보관",
+        "productsText": "워크인 냉장 · 냉동 · 온도 센서",
+        "purpose": "온도 이탈을 마감 전에 알림",
+        "sourceNumber": "5"
+      },
+      {
+        "key": "fb-5",
+        "name": "겉옷 케어 존",
+        "productsText": "에어드레서 · 공기청정기",
+        "purpose": "고기 냄새 없이 가볍게 귀가",
+        "sourceNumber": "6"
+      },
+      {
+        "key": "fb-6",
+        "name": "본사 운영",
+        "productsText": "본사 PC · 점장 갤럭시 탭",
+        "purpose": "전 매장을 한 화면에",
+        "sourceNumber": "7"
+      }
+    ],
+    "source": "L_SS_FB_A",
+    "solutions": [
+      [
+        "테이블 오더 · Knox Suite",
+        "주문 · 결제 앱 + 탭 원격 관리 — 테이블 · 주방 · 카운터 탭",
+        "1·2·3·4·7"
+      ],
+      [
+        "Samsung VXT",
+        "메뉴 · 대기 · 프로모션 화면 — 실외용 사이니지 · 메뉴보드 QM",
+        "1·2·7"
+      ],
+      [
+        "SmartThings Pro",
+        "냉난방 · 조명 · 영업시간 루틴 — 에어컨 · 공기청정기 · 에어드레서",
+        "1·3·4·5·6·7"
+      ],
+      [
+        "삼성 콜드체인",
+        "냉장 · 냉동 온도 감시 · 기록 — 워크인 저장고 · 온도 센서",
+        "5·7"
+      ],
+      [
+        "케어 · 유지관리 서비스",
+        "에어컨 세척 · 설비 점검 — 전 공간 공통",
+        "1·2·3·4·5·6·7"
+      ]
+    ]
+  },
+  {
+    "code": "AD",
+    "rooms": [
+      {
+        "key": "ad-hero",
+        "name": "랜드마크 외벽",
+        "productsText": "실외 곡면 LED 사이니지 · 외벽 두 면 연결",
+        "purpose": "한낮에도 선명하게, 두 면을 끊김 없이",
+        "sourceNumber": "1"
+      },
+      {
+        "key": "ad-1",
+        "name": "광장 LED",
+        "productsText": "실외 LED 사이니지 · MagicINFO",
+        "purpose": "머물고 찍어 가는 광장",
+        "sourceNumber": "2"
+      },
+      {
+        "key": "ad-2",
+        "name": "광장 무대",
+        "productsText": "무대 비디오월 · 케어 · 유지관리",
+        "purpose": "행사 날엔 무대와 화면을 한 번에",
+        "sourceNumber": "2"
+      },
+      {
+        "key": "ad-3",
+        "name": "거리 미디어폴",
+        "productsText": "실외용 스마트 사이니지 OH55C · 폴당 [0]대",
+        "purpose": "평소엔 광고 · 소식, 재난 땐 경보",
+        "sourceNumber": "3"
+      },
+      {
+        "key": "ad-4",
+        "name": "지하철 환승통로",
+        "productsText": "스마트 사이니지 QM · 피봇 · 슬림 베젤",
+        "purpose": "짧게 지나가도 기둥 4면에 노출",
+        "sourceNumber": "4"
+      },
+      {
+        "key": "ad-5",
+        "name": "공항 입국장",
+        "productsText": "실내 스마트 LED · 가로 · 세로 · L자",
+        "purpose": "365일 송출, 점검도 중단 없이",
+        "sourceNumber": "5"
+      },
+      {
+        "key": "ad-6",
+        "name": "송출 관제실",
+        "productsText": "관제 비디오월 · 모니터 · MagicINFO 서버",
+        "purpose": "여섯 매체 편성 · 상태를 한 화면에",
+        "sourceNumber": "6"
+      }
+    ],
+    "source": "L_SS_AD_A",
+    "solutions": [
+      [
+        "MagicINFO · 편성",
+        "시간대 · 광고주 · 긴급 편성 — LED · 스마트 사이니지 전 매체",
+        "1·2·3·4·5·6"
+      ],
+      [
+        "MagicINFO · 원격 관제",
+        "상태 감시 · 장애 알림 · 송출 리포트 — 관제 비디오월 · 모니터",
+        "6"
+      ],
+      [
+        "케어 · 유지관리 서비스",
+        "정기 점검 · 세척 · 전담 엔지니어 — 실외 LED · 광장 · 입국장 LED",
+        "1·2·5"
+      ],
+      [
+        "콘텐츠 제작 지원",
+        "곡면 · 세로형 미디어아트 — 곡면 LED · 광장 LED",
+        "1·2"
+      ]
+    ]
+  },
+  {
+    "code": "OF",
+    "rooms": [
+      {
+        "key": "of-hero",
+        "name": "회의실 · 협업",
+        "productsText": "삼성 Flip · 갤럭시 탭(문 앞 예약) · 스마트 버튼 · 재실 센서",
+        "purpose": "문 앞에서 예약 확인, 필기한 화면을 바로 공유",
+        "sourceNumber": "2"
+      },
+      {
+        "key": "of-1",
+        "name": "입주사 업무층",
+        "productsText": "시스템에어컨 360 · 무풍 · PM1.0 센서",
+        "purpose": "앱으로 냉난방 · 조명, 균일한 온도",
+        "sourceNumber": "1"
+      },
+      {
+        "key": "of-2",
+        "name": "라운지 · 휴게 · 다목적",
+        "productsText": "벽면 스마트 사이니지 · 시스템에어컨 · 환기",
+        "purpose": "공지는 화면으로, 공기는 쾌적하게",
+        "sourceNumber": "3"
+      },
+      {
+        "key": "of-3",
+        "name": "로비 · 외벽 · 공용 동선",
+        "productsText": "기둥 · 곡면 외벽 LED · 컬러 이페이퍼",
+        "purpose": "웰컴 · 길 안내로 건물의 첫인상",
+        "sourceNumber": "4"
+      },
+      {
+        "key": "of-4",
+        "name": "타운홀 · 대강당",
+        "productsText": "LED 대화면 · 하만 프로 오디오 · 조정실 콘솔",
+        "purpose": "선명한 대화면, 균일한 음향",
+        "sourceNumber": "5"
+      },
+      {
+        "key": "of-5",
+        "name": "관리실 · 기계실",
+        "productsText": "DVM S 실외기 · 공조기 · 전열교환기",
+        "purpose": "적은 인력이 전 층 설비를 한 화면에",
+        "sourceNumber": "6"
+      },
+      {
+        "key": "of-6",
+        "name": "옥상 · 열원 설비",
+        "productsText": "DVM S 실외기 · 냉각탑",
+        "purpose": "⑥ 관리실에서 일괄 제어",
+        "sourceNumber": "RF"
+      }
+    ],
+    "source": "L_SS_OF_A",
+    "solutions": [
+      [
+        "MagicINFO",
+        "사이니지 — LED · 스마트 사이니지 · 비디오월",
+        "3·4·5"
+      ],
+      [
+        "SmartThings",
+        "앱 · 자동화 — 시스템에어컨 · 조명 · 블라인드 · 센서",
+        "1·2·3"
+      ],
+      [
+        "Knox Configure",
+        "갤럭시 탭 · 회의실 예약 솔루션",
+        "2"
+      ],
+      [
+        "b.IoT · DMS",
+        "공조 · 전력 — DVM S · 공조 · 조명 · 전력 · 보안",
+        "1·2·3·4·5·6"
+      ],
+      [
+        "케어 서비스",
+        "유지보수 — 설계 · 시공 · 전담 엔지니어",
+        "1·5·6"
+      ]
+    ]
+  },
+  {
+    "code": "ED",
+    "rooms": [
+      {
+        "key": "ed-hero",
+        "name": "대형 강의실",
+        "productsText": "LED 사이니지 · Flip Pro · 360 에어컨 · 좌석 PC",
+        "purpose": "뒷자리까지 선명하게, 자리마다 고른 냉방",
+        "sourceNumber": "1"
+      },
+      {
+        "key": "ed-1",
+        "name": "미래교실 · 모둠실",
+        "productsText": "갤럭시 탭 · 무빙스타일 · 이페이퍼",
+        "purpose": "원터치 세팅 · 실시간 공유",
+        "sourceNumber": "2"
+      },
+      {
+        "key": "ed-2",
+        "name": "공용 전산실 · 고사장",
+        "productsText": "데스크탑 PC · 갤럭시 탭 · 충전함",
+        "purpose": "오류 PC는 바로 복구, 종이 없는 시험",
+        "sourceNumber": "3"
+      },
+      {
+        "key": "ed-3",
+        "name": "학생회관 · 출력 거점",
+        "productsText": "디지털 복합기 · 카드 · NFC 결제기",
+        "purpose": "카드 충전 없이 24시간 무인 출력",
+        "sourceNumber": "4"
+      },
+      {
+        "key": "ed-4",
+        "name": "중앙도서관 · 라운지",
+        "productsText": "비디오월 · 키오스크 · 올인원 PC",
+        "purpose": "빈 좌석 · 다국어 공지를 한눈에",
+        "sourceNumber": "5"
+      },
+      {
+        "key": "ed-5",
+        "name": "기숙사 · 생활관",
+        "productsText": "시스템에어컨 · 공기청정기 · 에어드레서",
+        "purpose": "공용 공간의 공기 · 위생을 깨끗하게",
+        "sourceNumber": "6"
+      },
+      {
+        "key": "ed-6",
+        "name": "본관 · 운영실",
+        "productsText": "대시보드 PC · 갤럭시 탭",
+        "purpose": "캠퍼스 전체를 한 화면에",
+        "sourceNumber": "7"
+      }
+    ],
+    "source": "L_SS_ED_A",
+    "solutions": [
+      [
+        "SmartThings Pro · b.IoT",
+        "공간 · 에너지 자동 제어 — 시스템에어컨 · 공기청정기 · 센서",
+        "1·2·6·7"
+      ],
+      [
+        "무인 과금 · 출력 관리",
+        "카드 결제 · 원격 모니터링 — 디지털 복합기 (흑백 · 컬러)",
+        "4·6·7"
+      ],
+      [
+        "Knox · 백업 복원",
+        "태블릿 · PC 관리와 보안 — 갤럭시 탭 · 데스크탑 PC · 보관 · 충전함",
+        "2·3·5·7"
+      ],
+      [
+        "MagicINFO",
+        "공지 · 좌석 현황 콘텐츠 — 비디오월 · 사이니지 키오스크",
+        "5"
+      ],
+      [
+        "케어 · 유지관리 서비스",
+        "세척 · 상주 엔지니어 · 장기 관리 — 시스템에어컨 · 복합기 · 태블릿",
+        "1·2·3·4·5·6·7"
+      ]
+    ]
+  },
+  {
+    "code": "PB",
+    "rooms": [
+      {
+        "key": "pb-hero",
+        "name": "교통정보센터 상황실",
+        "productsText": "The Wall 모듈러 LED · 퀀텀 프로세서 Flex · CCTV · 교통 데이터 연동",
+        "purpose": "수십 대 모니터 대신 한 장의 상황판으로 교대 관제",
+        "sourceNumber": "1"
+      },
+      {
+        "key": "pb-1",
+        "name": "역 출입구 · 정류장",
+        "productsText": "고휘도 스마트 사이니지 · MagicINFO",
+        "purpose": "햇빛 · 먼지 속에서도 읽히는 안내",
+        "sourceNumber": "2"
+      },
+      {
+        "key": "pb-2",
+        "name": "대합실 · 승강장",
+        "productsText": "터치형 안내 사이니지 · 종합안내 앱",
+        "purpose": "다국어 길찾기 · 외국어 음성 안내",
+        "sourceNumber": "2"
+      },
+      {
+        "key": "pb-3",
+        "name": "시청 · 행정 사무 공간",
+        "productsText": "A3 컬러 디지털 복합기 · 카드 태깅",
+        "purpose": "정보 유출 없이, 장애는 바로 대응",
+        "sourceNumber": "3"
+      },
+      {
+        "key": "pb-4",
+        "name": "도서관 · 공공시설",
+        "productsText": "시스템에어컨 360 · 4계절 공기청정",
+        "purpose": "오래 머물러도 직바람 없이 쾌적",
+        "sourceNumber": "4"
+      },
+      {
+        "key": "pb-5",
+        "name": "하천 · 재난 현장",
+        "productsText": "갤럭시 엑스커버 · PS-LTE PTT · Knox",
+        "purpose": "장갑 낀 손으로 비상 PTT",
+        "sourceNumber": "5"
+      },
+      {
+        "key": "pb-6",
+        "name": "공원 · 탐방로",
+        "productsText": "갤럭시 워치 (대여 · 직원) · 안전 관제 앱",
+        "purpose": "스스로 알려 골든타임 확보",
+        "sourceNumber": "6"
+      }
+    ],
+    "source": "L_SS_PB_A",
+    "solutions": [
+      [
+        "The Wall 상황판",
+        "기존 관제 · CCTV 연동 — 퀀텀 프로세서 Flex 상황판",
+        "1"
+      ],
+      [
+        "MagicINFO · 종합안내 앱",
+        "안내 화면 원격 관리 — 스마트 · 터치형 사이니지 · 파트너",
+        "2"
+      ],
+      [
+        "Knox · PS-LTE PTT",
+        "현장 안전 — 갤럭시 엑스커버 · 워치 · 안전 관제 앱",
+        "5·6"
+      ],
+      [
+        "보안 출력 · 케어 서비스",
+        "시설 — 디지털 복합기 · 시스템에어컨 360",
+        "3·4"
+      ],
+      [
+        "관제망",
+        "안내 화면 상태 · 현장 단말 위치 · SOS가 상황실로",
+        "1·2·5·6"
+      ]
+    ]
+  },
+  {
+    "code": "RT",
+    "rooms": [
+      {
+        "key": "rt-hero",
+        "name": "층별 VMD존 · 미디어 칼럼",
+        "productsText": "스마트 LED 사이니지(미디어 칼럼) · 비디오월 · 360",
+        "purpose": "상품과 영상이 함께 바뀌는 디지털 VMD",
+        "sourceNumber": "3"
+      },
+      {
+        "key": "rt-1",
+        "name": "건물 외벽 LED 미디어",
+        "productsText": "스마트 LED 사이니지 · 실외 · 곡면 대형 화면",
+        "purpose": "건물 전체가 캠페인 매체, 자동 편성",
+        "sourceNumber": "1"
+      },
+      {
+        "key": "rt-2",
+        "name": "정문 · 1층 로비",
+        "productsText": "비디오월 · 층별 안내 사이니지 · 360",
+        "purpose": "들어서는 순간 오늘의 행사 · 층 안내",
+        "sourceNumber": "2"
+      },
+      {
+        "key": "rt-3",
+        "name": "B1 식품관",
+        "productsText": "쇼케이스 · 프라이스 사이니지 · 메뉴보드",
+        "purpose": "신선도는 온도로, 가격 · 메뉴는 화면으로",
+        "sourceNumber": "4"
+      },
+      {
+        "key": "rt-4",
+        "name": "문화센터 · 라이브 스튜디오",
+        "productsText": "스튜디오 LED · 스마트 사이니지",
+        "purpose": "클래스 · 방송 배경을 화면으로 바로 전환",
+        "sourceNumber": "5"
+      },
+      {
+        "key": "rt-5",
+        "name": "VIP 라운지",
+        "productsText": "에어드레서 · 무풍 · 공기청정기",
+        "purpose": "조용한 공기와 겉옷 케어, 오래 머묾",
+        "sourceNumber": "6"
+      },
+      {
+        "key": "rt-6",
+        "name": "방재 · 관리실",
+        "productsText": "관제 화면 · DMS",
+        "purpose": "전 층 공조 · 전력 · 화면을 한 곳에서",
+        "sourceNumber": "7"
+      }
+    ],
+    "source": "L_SS_RT_A",
+    "solutions": [
+      [
+        "MagicINFO",
+        "LED · 비디오월 · 사이니지 통합 편성",
+        "1·2·3·4·5·6"
+      ],
+      [
+        "SAC 제어 시스템",
+        "360 카세트 · 무풍 · DMS 스케줄",
+        "2·3·5·6·7"
+      ],
+      [
+        "삼성 콜드체인",
+        "쇼케이스 · 워크인 냉장 온도 기록",
+        "4·7"
+      ],
+      [
+        "b.IoT",
+        "공조 · 조명 · 전력 건물 관제",
+        "7"
+      ],
+      [
+        "콘텐츠 제작 · 케어 서비스",
+        "시즌 콘텐츠 · 정기 점검 · 엔지니어 — 전 공간 공통",
+        "1·2·3·4·5·6·7"
+      ]
+    ]
+  },
+  {
+    "code": "FN",
+    "rooms": [
+      {
+        "key": "fn-hero",
+        "name": "영업점 창구",
+        "productsText": "갤럭시 탭 + S펜 · 직원 모니터 · 무풍 시스템에어컨 4Way",
+        "purpose": "종이 없는 창구, 중장년도 쉬운 작성 · 서명",
+        "sourceNumber": "5"
+      },
+      {
+        "key": "fn-1",
+        "name": "본점 로비",
+        "productsText": "LED 기둥 사이니지 · 무풍 4Way",
+        "purpose": "디지털 은행의 첫인상",
+        "sourceNumber": "1"
+      },
+      {
+        "key": "fn-2",
+        "name": "라운지 · 사내 카페",
+        "productsText": "더 프레임 · 카페 사이니지",
+        "purpose": "카페에서도 디지털 은행 인상",
+        "sourceNumber": "1"
+      },
+      {
+        "key": "fn-3",
+        "name": "본점 대강당",
+        "productsText": "LED 메인 무대 · 양측 비디오월",
+        "purpose": "현수막 없이 행사 전환",
+        "sourceNumber": "2"
+      },
+      {
+        "key": "fn-4",
+        "name": "영업점 입구 · 객장",
+        "productsText": "세로형 사이니지 · 객장 화면 · 4Way",
+        "purpose": "본점이 바꾸면 전 지점 동시에",
+        "sourceNumber": "3"
+      },
+      {
+        "key": "fn-5",
+        "name": "창구 대기 공간",
+        "productsText": "갤럭시 탭 거치대 · 무풍 4Way",
+        "purpose": "대기 중 서식 작성, 직바람 없이",
+        "sourceNumber": "4"
+      },
+      {
+        "key": "fn-6",
+        "name": "방문 상담 · 현장 영업",
+        "productsText": "갤럭시 탭 · S펜 현장 전자서명",
+        "purpose": "찾아가 그 자리에서 가입",
+        "sourceNumber": "6"
+      }
+    ],
+    "source": "L_SS_FN_A",
+    "solutions": [
+      [
+        "MagicINFO",
+        "본점 · 전 지점 화면의 콘텐츠 · 스케줄 — LED · 비디오월 · 사이니지",
+        "1·2·3"
+      ],
+      [
+        "Knox",
+        "갤럭시 탭 칩 단계 보안 · 기능 통제 — 전 지점 · 방문 상담 태블릿",
+        "4·5·6"
+      ],
+      [
+        "T 은행 앱 · 전자서식",
+        "미리작성 · 상품 영상 · 전자서명",
+        "4·5·6"
+      ],
+      [
+        "무풍 시스템에어컨",
+        "4Way · 공기청정 옵션 · 직바람 없이",
+        "1·3·4·5"
+      ]
+    ]
+  },
+  {
+    "code": "OE",
+    "rooms": [
+      {
+        "key": "oe-hero",
+        "name": "매장 · 개통 카운터",
+        "productsText": "키즈 전용 단말 · 에디션 패키지 · Knox Configure 자동설정",
+        "purpose": "첫 부팅에 앱 · 테마 · 보호 설정, 개통 세팅 [00]분 → [0]분",
+        "sourceNumber": "1"
+      },
+      {
+        "key": "oe-1",
+        "name": "집 · 가정 학습",
+        "productsText": "갤럭시 탭 학습용 · KC 고급 설정 · 부모 앱",
+        "purpose": "사용 갈등은 줄고 학습 몰입",
+        "sourceNumber": "2"
+      },
+      {
+        "key": "oe-2",
+        "name": "등하교길 · 외부활동",
+        "productsText": "XCover · 스마트태그 · U 안심 앱",
+        "purpose": "도착 · 이탈 알림으로 안심",
+        "sourceNumber": "3"
+      },
+      {
+        "key": "oe-3",
+        "name": "학교 · 학원",
+        "productsText": "전용 단말 · Knox 보안 · 시간표 모드",
+        "purpose": "수업 방해 차단 · 도착 확인",
+        "sourceNumber": "4"
+      },
+      {
+        "key": "oe-4",
+        "name": "경기장 · 골프장",
+        "productsText": "Z 플립 · 워치 제휴 에디션",
+        "purpose": "소장 가치로 신규 회선 유입",
+        "sourceNumber": "5"
+      },
+      {
+        "key": "oe-5",
+        "name": "제휴 매장 · 팬",
+        "productsText": "KC 리브랜딩 · 제휴 테마 · 이용권",
+        "purpose": "한정판 · 제휴 테마가 구매 이유",
+        "sourceNumber": "5"
+      },
+      {
+        "key": "oe-6",
+        "name": "U 통신사 운영 데스크",
+        "productsText": "Knox Configure 웹 콘솔 · 원격 변경",
+        "purpose": "출시 리드타임 [0]개월 → [0]개월",
+        "sourceNumber": "6"
+      }
+    ],
+    "source": "L_SS_OE_A",
+    "solutions": [
+      [
+        "Knox Configure",
+        "자동설정 · 고급 설정 · 웹 콘솔 — 앱 · 테마 · 보호 정책 무선 적용",
+        "1·2·6"
+      ],
+      [
+        "Knox 보안",
+        "설정 우회 방지 · 시간표 모드 — 키즈 · 주니어 전용 단말",
+        "4"
+      ],
+      [
+        "U 안심 앱 · 스마트태그",
+        "위치 · 안심존, 도착 · 이탈 알림 — 갤럭시 XCover",
+        "3"
+      ],
+      [
+        "KC S/W 리브랜딩",
+        "학습 · 제휴 앱 선탑재 · 제휴 테마 — 탭 학습용 · Z 플립 · 워치",
+        "2·5"
+      ]
+    ]
+  },
+  {
+    "code": "MD",
+    "rooms": [
+      {
+        "key": "md-hero",
+        "name": "병실 · 호실",
+        "productsText": "무풍 1Way · 4Way · 공기청정기 · 에어모니터 · 센서 · 병상 탭 · 호텔 TV",
+        "purpose": "직바람 없는 24시간 쾌적, 누운 채 TV · 호출",
+        "sourceNumber": "1"
+      },
+      {
+        "key": "md-1",
+        "name": "간호스테이션 · 복도",
+        "productsText": "관리 PC · 탭 대시보드 · 갤럭시 북",
+        "purpose": "순회 없는 호실 점검 · 전자서명",
+        "sourceNumber": "2"
+      },
+      {
+        "key": "md-2",
+        "name": "재활치료센터 · 프로그램실",
+        "productsText": "무풍 4Way · FCU 360 · 청정환기",
+        "purpose": "운동 중에도 공기질 실시간 케어",
+        "sourceNumber": "3"
+      },
+      {
+        "key": "md-3",
+        "name": "진료실 · 상담실",
+        "productsText": "사이니지 · 진료용 모니터 · 무풍 1Way",
+        "purpose": "영상은 크게, 진료 설명은 화면으로",
+        "sourceNumber": "4"
+      },
+      {
+        "key": "md-4",
+        "name": "로비 · 원무 · 접수",
+        "productsText": "스마트 사이니지 · 모니터 · 360 원형 패널",
+        "purpose": "첫인상 · 대기 · 면회 안내를 화면으로",
+        "sourceNumber": "5"
+      },
+      {
+        "key": "md-5",
+        "name": "식당 · 거실 · 휴게",
+        "productsText": "DVM S 개별 공조 · 청정환기 · AI 스팀",
+        "purpose": "식당은 따로 운전, 청소 · 환기는 루틴",
+        "sourceNumber": "6"
+      },
+      {
+        "key": "md-6",
+        "name": "관리실 · 기계실",
+        "productsText": "DMS 2.5 · DVM 칠러 · AI 실외기 DVM S2",
+        "purpose": "전 층 공조 · 에너지를 한 화면에서",
+        "sourceNumber": "7"
+      }
+    ],
+    "source": "L_SS_MD_A",
+    "solutions": [
+      [
+        "SmartThings Pro",
+        "공간별 루틴 · 순회 없는 점검 — 무풍 · 공기청정기 · 센서",
+        "1·2·3·6·7"
+      ],
+      [
+        "DMS 2.5 · 공조 제어",
+        "전 층 공조 · 피크 · 축열 — DVM 칠러 · S2 · 무풍 · FCU 360",
+        "1·3·4·5·6·7"
+      ],
+      [
+        "병상 · 전자서식 앱",
+        "누운 채 TV · 호출, 전자서명 — 갤럭시 탭 · 북(S펜) · 호텔 TV",
+        "1·2"
+      ],
+      [
+        "안내 · 진료 화면",
+        "대기 안내 · 홍보 · 영상 · 설명 — 스마트 사이니지 · 진료용 모니터",
+        "4·5"
+      ]
+    ]
+  },
+  {
+    "code": "MF",
+    "rooms": [
+      {
+        "key": "mf-hero",
+        "name": "생산 라인 · 클린룸",
+        "productsText": "DVM 칠러 · S2 · 탭 액티브 · 갤럭시 워치 · DMS · 현장 업무 앱",
+        "purpose": "라인별 온 · 습도를 규격 안에 — 수율과 점검 기록을 함께",
+        "sourceNumber": "1"
+      },
+      {
+        "key": "mf-1",
+        "name": "검사 · 연구실",
+        "productsText": "DVM S2 개별공조 · DMS · 케어 서비스",
+        "purpose": "실마다 정밀 환경, 고장 전에 점검",
+        "sourceNumber": "2"
+      },
+      {
+        "key": "mf-2",
+        "name": "브리핑룸 · 교대실",
+        "productsText": "탭 액티브 · Knox Configure · 업무 앱",
+        "purpose": "켜면 업무 모드, 늘 최신 절차로",
+        "sourceNumber": "3"
+      },
+      {
+        "key": "mf-3",
+        "name": "야외 작업장 · 설비 구역",
+        "productsText": "갤럭시 워치 · 안전 관제",
+        "purpose": "넘어짐 · 심박 이상 · 온열 위험을 바로",
+        "sourceNumber": "4"
+      },
+      {
+        "key": "mf-4",
+        "name": "창고 · 출하장",
+        "productsText": "스마트태그2 · SmartThings Find",
+        "purpose": "출하품 위치를 실시간으로",
+        "sourceNumber": "5"
+      },
+      {
+        "key": "mf-5",
+        "name": "물류 야드 · 배송 차량",
+        "productsText": "탭 액티브 · 스마트태그2 · Knox 보안",
+        "purpose": "분실 시에도 정보는 차단",
+        "sourceNumber": "5"
+      },
+      {
+        "key": "mf-6",
+        "name": "통합 관제실",
+        "productsText": "SmartThings Pro · DMS · 안전 관제",
+        "purpose": "공조 · 에너지 · 작업자 상태를 한 화면에",
+        "sourceNumber": "6"
+      }
+    ],
+    "source": "L_SS_MF_A",
+    "solutions": [
+      [
+        "DMS · SmartThings Pro",
+        "라인 · 실별 온 · 습도, 케어 서비스 — 시스템에어컨 DVM S2 · DVM 칠러",
+        "1·2·6"
+      ],
+      [
+        "Knox Configure · 업무 앱",
+        "켜면 업무 모드인 공용 단말 — 갤럭시 탭 액티브",
+        "1·3·5·6"
+      ],
+      [
+        "안전 관제 · SmartThings Pro",
+        "넘어짐 · 심박 이상 · 온열 위험 감지 — 갤럭시 워치",
+        "1·4·6"
+      ],
+      [
+        "SmartThings Find · Knox 보안",
+        "출하품 실시간 위치, 분실 시 정보 차단 — 갤럭시 스마트태그2",
+        "5"
+      ]
+    ]
+  },
+  {
+    "code": "RS",
+    "rooms": [
+      {
+        "key": "rs-hero",
+        "name": "주방 · 아일랜드",
+        "productsText": "키친핏 냉장고 · 빌트인 인덕션 · 식기세척기 · 오븐",
+        "purpose": "가구와 일체감 + 유상 옵션 매출",
+        "sourceNumber": "1"
+      },
+      {
+        "key": "rs-1",
+        "name": "거실",
+        "productsText": "무풍 시스템에어컨 · 대화면 TV",
+        "purpose": "직바람 없이 거실~주방 균일 냉방",
+        "sourceNumber": "2"
+      },
+      {
+        "key": "rs-2",
+        "name": "침실 · 공부방",
+        "productsText": "무풍 · 청정환기 · 에어모니터 · 수면 센서",
+        "purpose": "잠든 사이 온도 · 공기질 자동 관리",
+        "sourceNumber": "3"
+      },
+      {
+        "key": "rs-3",
+        "name": "세탁실 · 드레스룸",
+        "productsText": "빌트인 세탁기 · 건조기 (직렬) · 에어드레서",
+        "purpose": "좁은 공간에 맞춘 빌트인, 가사는 가볍게",
+        "sourceNumber": "4"
+      },
+      {
+        "key": "rs-4",
+        "name": "현관 · 세대 전체",
+        "productsText": "도어락 · 조명 · 커튼 · 보일러 연동 · 빅스비",
+        "purpose": "앱 하나로 귀가 · 외출 · 취침 모드",
+        "sourceNumber": "5"
+      },
+      {
+        "key": "rs-5",
+        "name": "천장 · 실외기실",
+        "productsText": "실외기 · 슬림 실내기 · 전열교환기 (ERV)",
+        "purpose": "설계 단계에 냉난방 부하 · 천장고 반영",
+        "sourceNumber": "6"
+      },
+      {
+        "key": "rs-6",
+        "name": "모델하우스",
+        "productsText": "실물 연출 · TV로 SmartThings 시연",
+        "purpose": "청약 결정 순간에 차별점 체감",
+        "sourceNumber": "7"
+      }
+    ],
+    "source": "L_SS_RS_A",
+    "solutions": [
+      [
+        "SmartThings",
+        "빌트인 · TV · 도어락 · 보일러 (타사)를 삼성 계정 하나로",
+        "1·2·3·4·5·7"
+      ],
+      [
+        "Wi-Fi Kit · 공조 제어",
+        "시스템에어컨 · 청정환기 · 실외기를 SmartThings에 연결",
+        "2·3·6"
+      ],
+      [
+        "자동화 루틴 · 모드",
+        "귀가 · 외출 · 취침 모드 — 빅스비 음성 제어",
+        "3·5"
+      ],
+      [
+        "AI 절약 모드",
+        "거실~주방 무풍 냉방의 사용량을 맞춰 줄임",
+        "1·2"
+      ],
+      [
+        "홈케어 진단",
+        "기기 상태를 점검해 이상 징후를 먼저 알림",
+        "1·4"
+      ]
+    ]
+  },
+  {
+    "code": "ID",
+    "rooms": [
+      {
+        "key": "id-hero",
+        "name": "키친 · 아일랜드",
+        "productsText": "맞춤 패널 냉장 · 김치냉장고 · 식기세척기 · AI 인덕션 · 후드 Air",
+        "purpose": "가구장과 하나의 면, 살아 있는 조리 시연",
+        "sourceNumber": "2"
+      },
+      {
+        "key": "id-1",
+        "name": "입구 · 상담 라운지",
+        "productsText": "시스템에어컨 360 (인감지 · PM1.0) · 무풍",
+        "purpose": "사각지대 없이 쾌적, 빈 구역은 절전",
+        "sourceNumber": "1"
+      },
+      {
+        "key": "id-2",
+        "name": "다이닝 · 서브 키친",
+        "productsText": "빌트인 와인 · 김치냉장고 · 큐커 · 수납 슬롯",
+        "purpose": "수납장에 딱 맞춘 가전으로 공간 활용",
+        "sourceNumber": "3"
+      },
+      {
+        "key": "id-3",
+        "name": "거실 · 홈시네마",
+        "productsText": "Neo QLED 8K · 더 프리미어 9 · 무풍",
+        "purpose": "스마트홈 루틴으로 '사는 집'을 체험",
+        "sourceNumber": "4"
+      },
+      {
+        "key": "id-4",
+        "name": "침실 · 알파룸",
+        "productsText": "무풍 · AI 에어 콤보 · TV + 삼성 헬스",
+        "purpose": "냉방 · 제습 · 환기 · 청정을 한 번에",
+        "sourceNumber": "5"
+      },
+      {
+        "key": "id-5",
+        "name": "세탁 · 드레스룸",
+        "productsText": "그랑데 AI · 에어드레서 · 슈드레서",
+        "purpose": "가구장 컬러에 맞춘 세탁 · 의류 관리",
+        "sourceNumber": "6"
+      },
+      {
+        "key": "id-6",
+        "name": "쇼룸 운영 · 본사",
+        "productsText": "SmartThings 루틴 · 360 인감지 센서",
+        "purpose": "전 층 조명 · 공조 · 가전을 한 번에",
+        "sourceNumber": "7"
+      }
+    ],
+    "source": "L_SS_ID_A",
+    "solutions": [
+      [
+        "빌트인 주방가전",
+        "1도어 냉장 · 김치냉장고 · 식기세척기 · AI 인덕션 · 후드 Air",
+        "2·3"
+      ],
+      [
+        "리빙가전",
+        "와인 · 큐커 · 그랑데 AI 세탁 · 건조 · 에어드레서 · 슈드레서",
+        "3·6"
+      ],
+      [
+        "시스템에어컨 · 환기",
+        "360 인감지 · 무풍 · AI 에어 콤보 (환기 · 제습)",
+        "1·4·5"
+      ],
+      [
+        "TV · 프로젝터",
+        "Neo QLED 8K (3D 맵 뷰) · 더 프리미어 9 · 삼성 헬스",
+        "4·5"
+      ],
+      [
+        "SmartThings",
+        "주방가전 연동 · 귀가 / 영화 / 취침 / 외출 모드 · 필터 알림",
+        "2·4·5·6·7"
+      ]
+    ]
+  },
+  {
+    "code": "SV",
+    "rooms": [
+      {
+        "key": "sv-hero",
+        "name": "오픈 스터디룸",
+        "productsText": "360 카세트 · 공기청정기 · 에어모니터 · 재실 센서",
+        "purpose": "자리마다 고른 공기, 비면 스스로 절전",
+        "sourceNumber": "2"
+      },
+      {
+        "key": "sv-1",
+        "name": "입구 · 좌석 키오스크",
+        "productsText": "탭 키오스크 · 사이니지 · 열림 센서",
+        "purpose": "혼자서 좌석 고르고 결제 · 입실",
+        "sourceNumber": "1"
+      },
+      {
+        "key": "sv-2",
+        "name": "1인 집중실",
+        "productsText": "무풍 시스템에어컨 · 조명 · 재실 센서",
+        "purpose": "방마다 켜고 끄고, 조용한 냉난방",
+        "sourceNumber": "3"
+      },
+      {
+        "key": "sv-3",
+        "name": "스터디 라운지 · 휴게",
+        "productsText": "사이니지 · 공기청정기 · 스마트 플러그",
+        "purpose": "공지 · 이벤트는 화면으로, 원격 교체",
+        "sourceNumber": "4"
+      },
+      {
+        "key": "sv-4",
+        "name": "출력 코너",
+        "productsText": "디지털 복합기 · 결제 단말 (파트너)",
+        "purpose": "카드로 결제하고 24시간 셀프 출력",
+        "sourceNumber": "5"
+      },
+      {
+        "key": "sv-5",
+        "name": "점주 · 매장 밖",
+        "productsText": "갤럭시 스마트폰 · SmartThings Pro",
+        "purpose": "매장에 가지 않고 확인 · 조치",
+        "sourceNumber": "6"
+      },
+      {
+        "key": "sv-6",
+        "name": "본사 · 유지보수",
+        "productsText": "본사 PC 모니터 · VXT · Knox · 케어",
+        "purpose": "가맹 [000]점을 한 화면에서",
+        "sourceNumber": "6"
+      }
+    ],
+    "source": "L_SS_SV_A",
+    "solutions": [
+      [
+        "SmartThings Pro",
+        "재실 · 냉난방 자동 · 출입 알림 — 에어컨 · 공기청정기 · 센서 · 조명",
+        "1·2·3·4·6"
+      ],
+      [
+        "Samsung VXT",
+        "입구 · 라운지 화면 원격 편성 — 스마트 사이니지 QM 시리즈",
+        "1·4·6"
+      ],
+      [
+        "Knox Suite",
+        "좌석 키오스크 모드 · 원격 관리 — 갤럭시 탭 · 좌석 키오스크",
+        "1·6"
+      ],
+      [
+        "무인 과금 (파트너)",
+        "출력 · 복사 카드 셀프 결제 — 디지털 복합기 · 결제 단말",
+        "5"
+      ],
+      [
+        "케어 · 유지관리 서비스",
+        "세척 · 점검 · 전담 엔지니어 — 에어컨 · 공기청정기 · 복합기",
+        "1·2·3·4·5·6"
+      ]
+    ]
+  },
+  {
+    "code": "HT",
+    "rooms": [
+      {
+        "key": "ht-hero",
+        "name": "객실",
+        "productsText": "호텔 TV · 무풍 시스템에어컨 · 조명 · 재실 센서",
+        "purpose": "이름으로 맞는 첫 화면, 빈 객실은 알아서 절전",
+        "sourceNumber": "2"
+      },
+      {
+        "key": "ht-1",
+        "name": "로비 · 리셉션",
+        "productsText": "스마트 LED · 사이니지 · 갤럭시 탭",
+        "purpose": "길 안내는 화면이, 체크인은 짧게",
+        "sourceNumber": "1"
+      },
+      {
+        "key": "ht-2",
+        "name": "연회장 · 회의실",
+        "productsText": "사이니지 · 하만 프로 오디오 · 에어컨",
+        "purpose": "안내는 자동, 뒷자리까지 또렷한 소리",
+        "sourceNumber": "3"
+      },
+      {
+        "key": "ht-3",
+        "name": "레스토랑 · 라운지",
+        "productsText": "벽면 메뉴 디스플레이 · 360 에어컨",
+        "purpose": "시간대별 메뉴 · 프로모션 원격 교체",
+        "sourceNumber": "4"
+      },
+      {
+        "key": "ht-4",
+        "name": "피트니스 · 스파",
+        "productsText": "시스템에어컨 · 공기청정기 · 에어모니터",
+        "purpose": "운영시간에 맞춘 쾌적한 운동 환경",
+        "sourceNumber": "5"
+      },
+      {
+        "key": "ht-5",
+        "name": "투숙객 코인 세탁실",
+        "productsText": "상업용 세탁기 · 건조기 · 에어드레서",
+        "purpose": "카드 · 간편결제로 셀프 세탁",
+        "sourceNumber": "6"
+      },
+      {
+        "key": "ht-6",
+        "name": "관리실 · 기계실",
+        "productsText": "DMS · DVM S · DVM 칠러 · 관제 PC",
+        "purpose": "전 층 공조 · 전력 · 설비를 한 화면에",
+        "sourceNumber": "7"
+      }
+    ],
+    "source": "L_SS_HT_A",
+    "solutions": [
+      [
+        "LYNK Cloud",
+        "객실 TV 웰컴 · 안내 · 캐스팅 — 호텔 TV · PMS 연동",
+        "2"
+      ],
+      [
+        "MagicINFO",
+        "로비 · 연회 · 레스토랑 화면 편성 — 스마트 LED · 스마트 사이니지",
+        "1·3·4"
+      ],
+      [
+        "SmartThings Pro",
+        "객실 냉난방 · 조명 · 재실 루틴 — 무풍 에어컨 · 조명 · 재실 센서",
+        "2"
+      ],
+      [
+        "SAC 제어 · b.IoT",
+        "공용부 공조 스케줄 · 설비 관제 — DVM S · DMS · DVM 칠러",
+        "3·4·5·7"
+      ],
+      [
+        "Knox Suite",
+        "프런트 · 하우스키핑 태블릿 관리 — 갤럭시 탭 · 지정 앱 모드",
+        "1·2"
+      ]
+    ]
+  },
+  {
+    "code": "TP",
+    "rooms": [
+      {
+        "key": "tp-hero",
+        "name": "입장 대기 동선 · 프리쇼",
+        "productsText": "스마트 LED 사이니지 · QM55C · JBL 스피커",
+        "purpose": "기다림이 체험의 첫 장면이 됩니다",
+        "sourceNumber": "2"
+      },
+      {
+        "key": "tp-1",
+        "name": "입장 게이트 · 매표",
+        "productsText": "실외용 사이니지 · 키오스크",
+        "purpose": "줄 서기 전에 공연 · 대기를 한눈에",
+        "sourceNumber": "1"
+      },
+      {
+        "key": "tp-2",
+        "name": "실내 몰입 체험관",
+        "productsText": "곡면 LED · 하만 프로 오디오",
+        "purpose": "어두운 관에서도 360° 몰입",
+        "sourceNumber": "3"
+      },
+      {
+        "key": "tp-3",
+        "name": "야외 공연 무대",
+        "productsText": "실외 LED · 하만 프로 오디오",
+        "purpose": "한낮에도, 밤 쇼에도 선명한 무대",
+        "sourceNumber": "4"
+      },
+      {
+        "key": "tp-4",
+        "name": "키즈 실내 놀이존",
+        "productsText": "360 에어컨 · 공기청정기 · 에어모니터",
+        "purpose": "아이가 노는 공기 · 온도를 숫자로",
+        "sourceNumber": "5"
+      },
+      {
+        "key": "tp-5",
+        "name": "식음 · 기념품",
+        "productsText": "메뉴보드 QM55C · 360 에어컨",
+        "purpose": "공연 · 대기에 맞춘 메뉴 · 상품",
+        "sourceNumber": "6"
+      },
+      {
+        "key": "tp-6",
+        "name": "파크 운영실",
+        "productsText": "모니터 · 갤럭시 탭 · 워치",
+        "purpose": "파크 전체를 한곳에서 운영",
+        "sourceNumber": "7"
+      }
+    ],
+    "source": "L_SS_TP_A",
+    "solutions": [
+      [
+        "MagicINFO",
+        "파크 화면 편성 · 대기시간 연동 — LED · 사이니지 · 키오스크",
+        "1·2·3·4·6"
+      ],
+      [
+        "SmartThings Pro",
+        "공기질 · 냉난방 자동 운영 — 360 에어컨 · 공기청정기 · 에어모니터",
+        "5·6"
+      ],
+      [
+        "Knox · 안전 관제 앱",
+        "스태프 기기 관리 · 안전 알림 — 갤럭시 워치 · 갤럭시 탭",
+        "4·5·7"
+      ],
+      [
+        "콘텐츠 제작 지원",
+        "프리쇼 · 몰입 · 공연 콘텐츠 — 스마트 LED · 하만 프로 오디오",
+        "2·3·4"
+      ],
+      [
+        "케어 · 유지관리",
+        "LED · 오디오 점검 · 공조 세척 — 전 구역 화면 · 음향 · 공조",
+        "1·2·3·4·5·6·7"
+      ]
+    ]
+  },
+  {
+    "code": "VN",
+    "rooms": [
+      {
+        "key": "vn-hero",
+        "name": "외야 빅보드 · 리본보드",
+        "productsText": "스마트 LED 사이니지 · 하만 프로 오디오",
+        "purpose": "외야석까지 선명한 리플레이 · 응원 화면",
+        "sourceNumber": "1"
+      },
+      {
+        "key": "vn-1",
+        "name": "컨트롤룸 · 기록실",
+        "productsText": "스마트 사이니지 · 모니터 · PC",
+        "purpose": "경기 흐름대로 한 자리에서 송출",
+        "sourceNumber": "2"
+      },
+      {
+        "key": "vn-2",
+        "name": "관중석 · 스윗박스",
+        "productsText": "시스템에어컨 · 하만 프로 오디오",
+        "purpose": "쾌적한 온도, 고른 장내 음향",
+        "sourceNumber": "3"
+      },
+      {
+        "key": "vn-3",
+        "name": "컨코스 · 매점",
+        "productsText": "스마트 사이니지 · 키오스크",
+        "purpose": "이닝 사이에 주문 · 픽업까지",
+        "sourceNumber": "4"
+      },
+      {
+        "key": "vn-4",
+        "name": "라커룸 · 체력단련실",
+        "productsText": "무풍 시스템에어컨 · 에어드레서",
+        "purpose": "시즌 내내 컨디션에 맞춘 공기",
+        "sourceNumber": "5"
+      },
+      {
+        "key": "vn-5",
+        "name": "외부 광장 · 게이트",
+        "productsText": "실외용 사이니지 · 갤럭시 XCover",
+        "purpose": "폰 티켓 스캔으로 입장 대기 단축",
+        "sourceNumber": "6"
+      },
+      {
+        "key": "vn-6",
+        "name": "구장 운영 · 시설 관리",
+        "productsText": "DVM 칠러 · 조명 · 갤럭시 탭",
+        "purpose": "설비 · 에너지 · 단말을 한 화면에",
+        "sourceNumber": "7"
+      }
+    ],
+    "source": "L_SS_VN_A",
+    "solutions": [
+      [
+        "MagicINFO",
+        "전 화면 편성 · 원격 관리 — LED 빅보드 · 리본 · 컨코스 · 광장 화면",
+        "1·2·4·6"
+      ],
+      [
+        "Samsung VXT",
+        "매점 메뉴보드 · 품절 반영 — 스마트 사이니지 QM43C · QM55C",
+        "4"
+      ],
+      [
+        "Knox Capture · Suite",
+        "티켓 스캔 · 업무 단말 관리 — 갤럭시 XCover · 갤럭시 탭",
+        "4·6·7"
+      ],
+      [
+        "SAC 제어 · 케어 서비스",
+        "실별 냉난방 · 시즌 중 점검 — 시스템에어컨 · DMS · 공기청정기",
+        "3·5"
+      ],
+      [
+        "b.IoT",
+        "공조 · 조명 · 전력 통합 관제 — DVM 칠러 · 조명 · 전력 계측",
+        "1·2·3·4·5·6·7"
+      ]
+    ]
+  }
+]

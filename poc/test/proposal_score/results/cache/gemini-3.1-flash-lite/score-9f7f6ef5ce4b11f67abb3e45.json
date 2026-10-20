@@ -1,0 +1,69 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~base:F11"
+ },
+ "prompt_tokens": 4208,
+ "output_tokens": 616,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 초과하는 장이 10장으로, 1점 기준인 4장 이상을 크게 상회하여 발표 자료로 읽기에 밀도가 매우 높습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "219어절"
+     },
+     {
+      "sheet": 3,
+      "quote": "318어절"
+     },
+     {
+      "sheet": 5,
+      "quote": "234어절"
+     }
+    ],
+    "improve": "각 장의 핵심 메시지를 제외한 부연 설명을 과감히 삭제하고, 개조식 구성을 강화하여 장당 어절 수를 77어절 이하로 줄여야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "9pt(12px) 미만 본문 칸이 4장에 존재하며, 20자 넘는 본문 칸의 70%가 10pt 미만으로 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 3,
+      "quote": "본문 최소 11px(8.2pt)"
+     },
+     {
+      "sheet": 5,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     }
+    ],
+    "improve": "본문 텍스트의 기본 폰트 크기를 16px(12pt) 이상으로 상향 조정하고, 텍스트 양을 줄여 레이아웃 여백을 확보해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS6",
+    "score": 2,
+    "anchor": "대부분 장에 시각 자료가 포함되어 있으나, 10장(제품 스펙)은 텍스트만으로 구성되어 있어 시각적 정보 전달이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": ""
+     }
+    ],
+    "improve": "10장에 빌트인 가전의 매립 치수를 직관적으로 확인할 수 있는 도면이나 도식 이미지를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

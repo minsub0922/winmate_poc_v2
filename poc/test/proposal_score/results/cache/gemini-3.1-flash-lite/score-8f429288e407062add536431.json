@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs05:F02"
+ },
+ "prompt_tokens": 8424,
+ "output_tokens": 205,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "R1~R3는 6·7·12장에서, K1~K4는 2·4·5·6·7·11장에서 구체적인 제품과 운영 시나리오로 모두 대응하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "줄 서는 시간까지 파크의 체험이 됩니다"
+     },
+     {
+      "sheet": 7,
+      "quote": "낮과 밤 두 무대가 됩니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "시즌마다 새로워지는 구역"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

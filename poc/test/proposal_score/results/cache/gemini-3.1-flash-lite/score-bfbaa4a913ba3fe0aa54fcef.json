@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs05:F02"
+ },
+ "prompt_tokens": 9213,
+ "output_tokens": 353,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "R1은 6장, R2는 9·12장, R3는 7장에서 명시적으로 대응하며, K1~K4 기준도 각 장의 가치 제안과 운영 시나리오를 통해 구체적으로 해법을 제시함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "줄 서는 시간까지 파크의 체험이 됩니다"
+     },
+     {
+      "sheet": 9,
+      "quote": "시즌마다 새로워지는 대기 줄 화면"
+     },
+     {
+      "sheet": 7,
+      "quote": "낮과 밤 두 무대가 됩니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "SB2",
+    "score": 2,
+    "anchor": "대부분의 장에 푸터와 기밀 표기가 일관되게 있으나, 14장에는 푸터와 쪽번호가 누락되어 있음.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": ""
+     }
+    ],
+    "improve": "14장 하단에 다른 장과 동일한 푸터(제안명, 기밀 표기, 쪽번호)를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

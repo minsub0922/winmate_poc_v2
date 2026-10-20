@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~placeholders:F05"
+ },
+ "prompt_tokens": 6596,
+ "output_tokens": 270,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "수치 3개 이상인 장 11개 중 5개 장에서 출처나 기준 표기가 누락되었으며, 제안서 전반에 걸쳐 수치에 대한 구체적인 기관 및 연도 표기가 일관되지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "월 장애율 [00]% | 평균 복구 38시간"
+     },
+     {
+      "sheet": 4,
+      "quote": "꺼진 채 평균 [00]시간 | 월 [00] 건"
+     },
+     {
+      "sheet": 5,
+      "quote": "원 크기는 설치 규모 · 공개 자료"
+     }
+    ],
+    "improve": "모든 수치와 성과 지표에 대해 구체적인 조사 기관과 연도를 명시하고, 고객 내부 자료는 '고객 운영 자료(연도)'와 같이 명확하게 출처를 기재해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

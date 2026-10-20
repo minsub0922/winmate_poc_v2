@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~no_proof:F11"
+ },
+ "prompt_tokens": 2997,
+ "output_tokens": 369,
+ "data": {
+  "scores": [
+   {
+    "id": "DS1",
+    "score": 2,
+    "anchor": "6장에서 텍스트 넘침이 발생하였고, 13장의 제목 위치가 다른 장들과 일관되지 않게 배치되었습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "넘침 2"
+     },
+     {
+      "sheet": 13,
+      "quote": "제목 30px@(648,66)"
+     }
+    ],
+    "improve": "6장의 텍스트 넘침을 해결하고 13장의 제목 위치를 다른 장과 동일하게 정렬해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "모든 장의 본문 글자 크기가 12pt 미만이며, 11개 장에서 9pt 미만의 매우 작은 글자가 사용되어 가독성이 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "본문 최소 9.5px(7.1pt)"
+     },
+     {
+      "sheet": 8,
+      "quote": "본문 최소 9.5px(7.1pt)"
+     }
+    ],
+    "improve": "본문 글자 크기를 12pt(16px) 이상으로 상향 조정하여 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

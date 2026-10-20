@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~strip_images:F02"
+ },
+ "prompt_tokens": 6322,
+ "output_tokens": 273,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 요구사항 7가지(R1~R3, K1~K4)에 대해 각 장에서 명시적으로 대응하고 있습니다. R1(AS 지연)은 4장과 11장에서, R2(운영 교육)는 7장과 8장에서, R3(가격 인하)는 8장과 9장에서, K1~K4는 5장, 7장, 9장, 10장에서 각각 해법과 근거를 제시합니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "AS 대기 1.5일"
+     },
+     {
+      "sheet": 7,
+      "quote": "점별 2주 병행 운영 · 운영자 교육 3회"
+     },
+     {
+      "sheet": 10,
+      "quote": "철거 · 보상 매입 포함"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

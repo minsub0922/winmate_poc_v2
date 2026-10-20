@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~strip_images:F03"
+ },
+ "prompt_tokens": 2910,
+ "output_tokens": 200,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "12장에서 정량적 경영 지표(리뷰 평점, 대기 시간, 전력 절감)를 제시하고, 13장에서 결정권자가 승인해야 할 다음 단계와 일정을 명확히 정리함.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "리뷰 평점 목표, 체크인 평균 대기, 객실당 냉난방 전력 절감"
+     },
+     {
+      "sheet": 13,
+      "quote": "샘플룸 선정, PMS 연동 사양 확인, 층별 교체안 승인"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

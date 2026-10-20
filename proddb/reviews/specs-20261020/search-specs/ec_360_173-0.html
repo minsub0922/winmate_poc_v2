@@ -1,0 +1,156 @@
+<script>
+		$('button.spec-title').on("click", function(e){
+			e.preventDefault();
+			$('div[name="specLayer"] > .layer-header > h2').text(this.innerText);
+			$('div[name="specLayer"] > .layer-content > p').text(this.value);
+
+			let newId = $(this).data('popup-target');
+			$('div[name="specLayer"]').attr('id', newId);
+			$('div[name="specLayer"] > .pop-close').attr('data-focus-next', newId);
+			$('div[name="specLayer"]').attr('data-popup-layer', newId);
+			$('div[name="specLayer"]').attr('data-focus', newId);
+		});
+	</script>
+	<h3 class="spec-itm-title" id="cstrt-nm" ></h3>
+	<div class="spec-table">
+		<dl>
+						<dt>General Feature</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">Product Type</strong>
+													<p class="spec-desc">microSDXC Memory Card&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Product Name</strong>
+													<p class="spec-desc">T7&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Application</strong>
+													<p class="spec-desc">Mobile phone, Tablet, Action Camera, 360° Camera, Drone, Laptop, Gaming console, etc.&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Capacity</strong>
+													<p class="spec-desc">128GB (1GB=1Billion byte) * Actual storage capacity may be lower than the labeled capacity. Part of the storage may be used for system files and other storage control purposes.&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Interface</strong>
+													<p class="spec-desc">UHS-I, compatible to UHS interface&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Dimension (WxHxD)</strong>
+													<p class="spec-desc">15x11x1 mm&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Weight</strong>
+													<p class="spec-desc">Approx. 0.25g&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>Reliability</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">Warranty</strong>
+													<p class="spec-desc">Limited 3-year warranty. * Warranty does not extend to dashcam, CCTV, surveillance camera and other write-intensive uses. * Warranty for SD adapter is limited to 1 year.&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>Performance</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">Speed</strong>
+													<p class="spec-desc">Read : up to 170MB/s * Read speed requires compatible devices capable of reaching such speeds and it may vary among different host devices and testing conditions. * For products incompatible with UHS-I interface, the speeds may vary subject to different interface conditions&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Speed Class</strong>
+													<p class="spec-desc">U3, V30, A2&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>Environment</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">Operating Voltage</strong>
+													<p class="spec-desc">2.7~3.6V&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Non-Operating Temperature</strong>
+													<p class="spec-desc">-40℃ to 85℃&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Operating Temperature</strong>
+													<p class="spec-desc">-25℃ to 85℃&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Durability</strong>
+													<p class="spec-desc">10,000 mating cycles&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>Certification</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">EMC</strong>
+													<p class="spec-desc">CE(UKCA)/FCC/VCCI/RCM&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+				<dt>상품 기본정보</dt>
+				<dd>
+					<ol>
+						<li>
+								<strong class="spec-title">제품명</strong>
+								<p class="spec-desc">microSD T7 128GB</p>
+							</li>
+						<li>
+								<strong class="spec-title">제조자/수입자</strong>
+								<p class="spec-desc">삼성전자㈜</p>
+							</li>
+						<li>
+								<strong class="spec-title">제조국가</strong>
+								<p class="spec-desc">필리핀</p>
+							</li>
+						<li>
+								<strong class="spec-title">KC 인증 필 유무</strong>
+								<p class="spec-desc"><p class='spec-desc'><img src='//images.samsung.com/is/image/samsung/p5/sec/common/icon-kc.png?$ORIGIN_PNG$' alt='KC 인증 로고'> R-R-VPI-US-TG1AM03 </p>
+							</li>
+						<li>
+								<strong class="spec-title">동일모델의 출시년월</strong>
+								<p class="spec-desc">2026년 4월</p>
+							</li>
+						<li>
+								<strong class="spec-title">A/S 책임자와 전화번호</strong>
+								<p class="spec-desc">삼성전자서비스센터/1588-3366</p>
+							</li>
+						<li>
+								<strong class="spec-title">품질보증기준</strong>
+								<p class="spec-desc">결함·하자등에따른소비자피해에대해서는소비자분쟁해결기준(소비자기본법제16조)에따라보상가능</p>
+							</li>
+						</ol>
+				</dd>
+			</dl>
+		</div>
+	<div class="layer-pop layer-normal layer-default specLayer active" name="specLayer" id="specLayer" tabindex="0" data-popup-layer="specLayer" data-focus="specLayer" aria-hidden="false" data-zindex="300" style="z-index: 300; display: none">
+		<div class="layer-header">
+			<h2></h2>
+		</div>
+		<div class="layer-content">
+			<p></p>
+		</div>
+		<button type="button" class="pop-close" data-focus-next="">팝업닫기</button>
+	</div>
+

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~wrong_customer:F01"
+ },
+ "prompt_tokens": 7180,
+ "output_tokens": 217,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "제안서 전반에 걸쳐 고객사명이 'G 쇼핑몰'이 아닌 'H 호텔'로 잘못 기재된 곳이 4곳 확인됩니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "H 호텔, 다섯 지표 중 셋이 업계보다 무겁습니다"
+     },
+     {
+      "sheet": 6,
+      "quote": "H 호텔 평가 기준 다섯 가지로 비교"
+     },
+     {
+      "sheet": 9,
+      "quote": "H 호텔"
+     }
+    ],
+    "improve": "제안서 내 모든 페이지의 고객사명을 'H 호텔'에서 'G 쇼핑몰'로 일괄 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

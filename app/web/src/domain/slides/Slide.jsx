@@ -3,8 +3,11 @@ import { layoutHtml } from '../../services/catalog.js';
 import { resolveImg } from '../../repositories/proposals.js';
 import { markUnits } from './evidence.js';
 import { bgUrl, loadBg } from '../../services/packs.js';
+import { applyProposalDesign } from './proposal-design.js';
 import { hydrateFill } from '../../services/fill.js';
 import { legacySrc } from '../templates/legacy_img.js';
+import { applySpatialBinding } from '../spatial/slide-binding.js';
+import { fitDescriptionText } from './description-fit.js';
 
 const ALLOWED_TAGS = new Set(['SPAN', 'B', 'STRONG', 'EM', 'I', 'BR', 'SUP', 'SUB', 'SMALL']);
 export function sanitizeInline(html) {
@@ -57,6 +60,7 @@ const BLANK = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAA
 /** Apply text/image overrides to a mounted slide root. */
 export function applyOverrides(root, ov, pageNo) {
   if (!root) return;
+  if (ov?.notes != null) root.querySelectorAll('[data-proposal-note="source"]').forEach(el => { el.textContent = String(ov.notes); });
   hydrateFill(root); // sample photos the layout carries in packs (img/fill/*.json)
   const t = (ov && ov.t) || {};
   for (const [i, v] of Object.entries(t)) {
@@ -74,11 +78,22 @@ export function applyOverrides(root, ov, pageNo) {
       : i.startsWith('s:') ? fixedBox(root, i.slice(2))
       : root.querySelector(`[data-img="${i}"]`);
     // a packed picture ("img/fill/<묶음>.json#k") goes in as data-fill — hydrateFill below loads it like the layout's own
+    if (v?.hidden && el) {
+      el.replaceChildren(); el.removeAttribute('src'); el.removeAttribute('data-fill');
+      if (el.tagName !== 'IMG') { el.textContent = v.name || '이미지 확인 필요'; el.style.fontSize = '14px'; }
+      continue;
+    }
     const packed = !!(v && PACKED.test(v.src || ''));
     const src = v && (packed ? (bgUrl(v.src) || BLANK) : resolveImg(v.src));
     if (!el || !src) continue;
-    const put = (im) => { im.setAttribute('src', src); if (packed) im.setAttribute('data-fill', v.src); else im.removeAttribute('data-fill'); };
-    if (el.tagName === 'IMG') { put(el); el.style.objectFit = 'cover'; continue; }
+    const identity = node => {
+      if (v.pid) node.setAttribute('data-pid', v.pid); else node.removeAttribute('data-pid');
+      if (v.products?.length) node.setAttribute('data-products', v.products.join(',')); else node.removeAttribute('data-products');
+      if (v.name && node.hasAttribute('data-img')) node.setAttribute('data-hint', v.name);
+    };
+    const put = (im) => { im.setAttribute('src', src); if (packed) im.setAttribute('data-fill', v.src); else im.removeAttribute('data-fill'); identity(im); if (v.name) im.alt = v.name; };
+    identity(el);
+    if (el.tagName === 'IMG') { put(el); el.style.objectFit = v.fit || 'cover'; continue; }
     // keep: swap only the picture inside the slot — the slot's padding · background · badge and the crop stay as the layout drew them
     const own = v.keep ? el.querySelector('img') : null;
     if (own) { put(own); if (v.name) own.alt = v.name; if (v.fit) own.style.objectFit = v.fit; if (v.pos) own.style.objectPosition = v.pos; continue; }
@@ -93,9 +108,10 @@ export function applyOverrides(root, ov, pageNo) {
   }
   if (Object.keys(im).length) hydrateFill(root); // packed pictures the overrides just placed
   // bg: { src } — a background photo behind the whole layout (the layout itself stays as it is).
+  // embedded: the layout editor already saved this background in its own HTML.
   // Light layouts only: a dark layout (full-bleed photo cover …) already is its own background.
   const bg = ov && ov.bg;
-  if (bg && bg.src && !darkRoot(root)) {
+  if (bg && bg.src && !bg.embedded && !darkRoot(root)) {
     // full-slide inner panels with a flat colour would hide it — let them through
     for (const e of root.querySelectorAll('div')) {
       const st = e.getAttribute('style') || '';
@@ -120,28 +136,61 @@ export function applyOverrides(root, ov, pageNo) {
       if (s !== n.nodeValue) n.nodeValue = s;
     }
   }
+  applySpatialBinding(root, ov?.spatial, ov?.t);
   if (pageNo != null) {
     root.querySelectorAll('[data-tb]').forEach((e) => {
       if (/^CONFIDENTIAL · \d+$/.test(e.textContent.trim())) e.textContent = 'CONFIDENTIAL · ' + pageNo;
       else if (e.hasAttribute('data-pgno') && /^\d+$/.test(e.textContent.trim())) e.textContent = String(pageNo); // bare page number (공유오피스 Lite 양식)
     });
   }
+  if (ov?.design || root.hasAttribute('data-proposal-authored')) applyProposalDesign(root, ov?.design || {});
+  fitDescriptionText(root);
 }
 
 /** Read text blocks (index + current text) from a layout with overrides applied. */
-export function readBlocks(f, ov) {
+export function readBlocks(f, ov, includeEmpty = false) {
   const host = document.createElement('div');
   host.innerHTML = layoutHtml(f);
   const root = host.firstElementChild;
   applyOverrides(root, ov);
-  return Array.from(root.querySelectorAll('[data-tb]')).map((e) => ({ i: Number(e.getAttribute('data-tb')), s: e.textContent.replace(/\s+/g, ' ').trim(), fs: parseFloat((e.getAttribute('style') || '').match(/font-size:\s*([\d.]+)px/)?.[1] || '0') })).filter((b) => b.s);
+  return Array.from(root.querySelectorAll('[data-tb]')).map((e) => ({ i: Number(e.getAttribute('data-tb')), s: e.textContent.replace(/\s+/g, ' ').trim(), fs: parseFloat((e.getAttribute('style') || '').match(/font-size:\s*([\d.]+)px/)?.[1] || '0') })).filter((b) => includeEmpty || b.s);
 }
-export function readImageSlots(f) {
+export function readImageSlots(f, ov) {
   const host = document.createElement('div');
   host.innerHTML = layoutHtml(f);
+  if (ov) applyOverrides(host.firstElementChild, ov);
+  const boxOf = el => {
+    let x = 0, y = 0;
+    for (let node = el; node && node !== host.firstElementChild; node = node.parentElement) {
+      x += parseFloat(node.style?.left) || 0; y += parseFloat(node.style?.top) || 0;
+    }
+    return { x, y, w: parseFloat(el.style?.width) || parseFloat(el.parentElement?.style?.width) || 0, h: parseFloat(el.style?.height) || 24 };
+  };
+  const itemText = el => {
+    let text = '';
+    for (let parent = el.parentElement; parent && parent !== host.firstElementChild; parent = parent.parentElement) {
+      const labels = [...parent.querySelectorAll('[data-tb]')];
+      if (labels.length > 16 || parent.querySelectorAll('[data-img]').length > 4) break;
+      if (labels.length) text = labels.map(label => label.textContent.trim()).filter(Boolean).join(' · ');
+    }
+    if (text) return text;
+    // Standard PPT imports often put the whole slide in one flat absolute layer.
+    // Use the clicked picture's row, not the slide title, other rows or footnotes.
+    const image = boxOf(el);
+    return [...host.querySelectorAll('[data-tb]')].map(label => ({ label, box: boxOf(label) }))
+      .filter(({ box }) => box.y >= image.y - 40 && box.y <= image.y + image.h + 40)
+      .sort((a, b) => {
+        const distance = box => Math.abs(box.y - image.y) + Math.max(0, image.x - box.x - box.w, box.x - image.x - image.w) * 0.3;
+        return distance(a.box) - distance(b.box);
+      }).slice(0, 16).map(({ label }) => label.textContent.trim()).filter(Boolean).join(' · ');
+  };
   return Array.from(host.querySelectorAll('[data-img]')).map((e) => ({
     i: Number(e.getAttribute('data-img')), kind: e.getAttribute('data-kind') || '', hint: e.getAttribute('data-hint') || e.getAttribute('alt') || (e.querySelector('span') ? e.querySelector('span').textContent : ''),
     pid: e.getAttribute('data-pid') || '',
+    src: (e.matches('img') ? e : e.querySelector('img'))?.getAttribute('data-fill') || (e.matches('img') ? e : e.querySelector('img'))?.getAttribute('src') || '',
+    name: (e.matches('img') ? e : e.querySelector('img'))?.getAttribute('alt') || '',
+    products: (e.getAttribute('data-products') || '').split(',').filter(Boolean),
+    itemText: itemText(e),
   }));
 }
 
@@ -149,7 +198,7 @@ export function readImageSlots(f) {
  * Renders one 1280×720 layout scaled to `width`.
  * editable: text blocks become editable in place; image slots become clickable / droppable.
  */
-export function Slide({ f, ov, width = 320, pageNo, editable = false, onText, onImage, onImageDrop, className = '', lazy = false, focusImg = null, selUnit = null, hiUnits = null, onSelect }) {
+export function Slide({ f, ov, width = 320, pageNo, editable = false, onText, onImage, onImageDrop, onSpatial, className = '', lazy = false, focusImg = null, selUnit = null, hiUnits = null, onSelect }) {
   const inner = useRef(null);
   const box = useRef(null);
   const [visible, setVisible] = useState(!lazy);
@@ -169,6 +218,7 @@ export function Slide({ f, ov, width = 320, pageNo, editable = false, onText, on
     if (editable) {
       el.querySelectorAll('[data-tb]').forEach((t) => { t.setAttribute('tabindex', '0'); t.setAttribute('title', '클릭해서 수정'); });
       el.querySelectorAll('[data-img]').forEach((t) => { t.setAttribute('tabindex', '0'); t.setAttribute('title', onSelect ? '클릭해서 다른 이미지로 바꾸기 · 파일을 끌어다 놓아도 돼요' : '클릭해서 이미지 넣기 · 파일을 끌어다 놓아도 돼요'); });
+      if(onSpatial)el.querySelectorAll('[data-spatial-slot],[data-kind="aerial"]').forEach(slot=>{slot.title='클릭해서 저장한 조감도 레이아웃 고르기';slot.setAttribute('data-spatial-picker','true');});
       if (onSelect) markUnits(el.firstElementChild);
     }
     if (focusImg != null) { const t = el.querySelector(`[data-img="${focusImg}"]`); if (t) t.classList.add('wm-focus'); }
@@ -185,6 +235,12 @@ export function Slide({ f, ov, width = 320, pageNo, editable = false, onText, on
   const onClick = (e) => {
     if (!editable) return;
     const img = e.target.closest('[data-img]');
+    if(img&&onSpatial&&img.matches('[data-spatial-slot],[data-kind="aerial"]')){
+      e.preventDefault();if(onSelect)onSelect('i'+img.getAttribute('data-img'));onSpatial(Number(img.getAttribute('data-img')),img);return;
+    }
+    if (img?.hasAttribute('data-spatial-slot') && ov?.spatial) {
+      e.preventDefault(); if (onSelect) onSelect('i' + img.getAttribute('data-img')); return;
+    }
     if (img && onImage) { e.preventDefault(); if (onSelect) onSelect('i' + img.getAttribute('data-img')); onImage(Number(img.getAttribute('data-img')), img); return; }
     const tb = e.target.closest('[data-tb]');
     if (onSelect) { const u = e.target.closest('[data-unit]'); onSelect(u ? u.getAttribute('data-unit') : null); }
@@ -211,6 +267,7 @@ export function Slide({ f, ov, width = 320, pageNo, editable = false, onText, on
   const onKey = (e) => {
     if (!editable || e.key !== 'Enter' || e.defaultPrevented) return;
     const img = e.target.closest && e.target.closest('[data-img]');
+    if(img&&onSpatial&&img.matches('[data-spatial-slot],[data-kind="aerial"]')){e.preventDefault();if(onSelect)onSelect('i'+img.getAttribute('data-img'));onSpatial(Number(img.getAttribute('data-img')),img);return;}
     if (img && onImage) { e.preventDefault(); if (onSelect) onSelect('i' + img.getAttribute('data-img')); onImage(Number(img.getAttribute('data-img')), img); return; }
     const tb = e.target.closest && e.target.closest('[data-tb]');
     if (tb && tb.contentEditable !== 'true') { e.preventDefault(); onClick({ target: tb, preventDefault() {} }); }

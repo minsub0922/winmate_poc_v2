@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~placeholders:F10"
+ },
+ "prompt_tokens": 2723,
+ "output_tokens": 222,
+ "data": {
+  "scores": [
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "마지막 장에서 실사, 워크숍, 맞춤 제안 및 파일럿 승인으로 이어지는 단계별 일정과 담당자, 그리고 결정권자가 명확히 제시되었습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "06 · 다음 단계 | 2주 안에 현장부터, 세 단계로"
+     },
+     {
+      "sheet": 10,
+      "quote": "11/02 – 11/13 · 삼성 · Y 그룹 실무 참석"
+     },
+     {
+      "sheet": 10,
+      "quote": "1월 8일 | CEO | 담당 | 김도윤 프로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,78 @@
+// Requirements attachments: compact chips + "!" details, automatic extraction, overwrite confirm.
+import { chromium } from 'playwright';
+import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+const here = path.dirname(new URL(import.meta.url).pathname);
+const root = path.resolve(here, '../dist'); const shots = path.resolve(here, 'qa'); fs.mkdirSync(shots, { recursive: true });
+const fx = process.env.FX || path.resolve(here, 'fixtures');
+const srv = http.createServer((q, r) => { const f = path.join(root, decodeURIComponent(q.url.split('?')[0]).replace(/^\/$/, '/preview.html')); if (!fs.existsSync(f)) { r.writeHead(404); return r.end(); } r.writeHead(200, { 'content-type': f.endsWith('.html') ? 'text/html; charset=utf-8' : f.endsWith('.js') ? 'text/javascript' : 'application/octet-stream' }); fs.createReadStream(f).pipe(r); }).listen(8812);
+const exe = '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
+const browser = await chromium.launch({ executablePath: fs.existsSync(exe) ? exe : undefined });
+const vw = +(process.env.VW || 1440);
+const page = await (await browser.newContext({ viewport: { width: vw, height: 900 } })).newPage();
+const errs = []; page.on('pageerror', (e) => errs.push(e.message));
+const shot = async (n) => { await page.waitForTimeout(250); await page.screenshot({ path: path.join(shots, 'files-' + (vw < 600 ? 'm-' : '') + n + '.png') }); console.log('shot', n); };
+const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); if (!c) process.exitCode = 1; };
+const form = () => page.evaluate(() => { const v = (id) => (document.getElementById(id) || {}).value; return Array.from(document.querySelectorAll('.rq-body input.input')).map((e) => e.value).filter(Boolean).join(' | '); });
+const store = (title) => page.evaluate((t) => { const all = JSON.parse(localStorage.getItem('winmate.v2.proposals') || '[]'); const p = all.find((x) => (x.title || '').includes(t) || (x.customer || '').includes(t)); return p && { customer: p.req.form.customer, project: p.req.form.project, keymen: p.req.form.keymen.map((k) => k.name + ':' + k.reqs.length), free: (p.req.free || []).map((s) => s.t || '@').join('').slice(0, 80), files: p.req.files.map((f) => f.name) }; }, title);
+
+await page.goto('http://localhost:8812/'); await page.waitForSelector('#root > *'); await page.waitForTimeout(600);
+// 1) seeded proposal with a file and existing input
+await page.click('.sb-item:has-text("신한은행 · 흑백")'); await page.waitForSelector('.fchips'); await page.waitForTimeout(400);
+const chip = await page.evaluate(() => { const c = document.querySelector('.fchip'); const r = c.getBoundingClientRect(); const box = c.parentElement.getBoundingClientRect(); return { text: c.innerText.trim(), w: Math.round(r.width), parentW: Math.round(box.width), fs: getComputedStyle(c.querySelector('.fchip-name')).fontSize, meta: !!document.querySelector('.rq-body .fmeta'), extractBtn: Array.from(document.querySelectorAll('.rq-body button')).some((b) => b.textContent.includes('요구사항 추출')) }; });
+ok(chip.w < chip.parentW * 0.75 && !chip.meta && !chip.extractBtn && chip.fs === '12.5px', 'chip shows only icon + name (+ small ! / ×), fits its text, no meta, no extract button: ' + JSON.stringify(chip));
+await shot('01-chips');
+const zone = await page.evaluate(() => { const z = document.querySelector('.req-drop'); return { h: Math.round(z.getBoundingClientRect().height), pickBtn: Array.from(document.querySelectorAll('.rq-body button')).some((b) => b.textContent.includes('파일 고르기')), heads: Array.from(document.querySelectorAll('.rq-body .req-sec-h')).map((e) => e.textContent) }; });
+ok(zone.h <= 50 && !zone.pickBtn && !zone.heads.length, 'compact zone, no 파일 고르기 button, no 첨부파일 / 직접 입력 headers: ' + JSON.stringify(zone));
+const [chooser] = await Promise.all([page.waitForEvent('filechooser', { timeout: 5000 }), page.click('.req-drop')]);
+ok(!!chooser && chooser.isMultiple(), 'clicking the zone opens the file picker (multiple)');
+const [chooser2] = await Promise.all([page.waitForEvent('filechooser', { timeout: 5000 }), page.focus('.req-drop').then(() => page.keyboard.press('Enter'))]);
+ok(!!chooser2, 'Enter on the zone opens the file picker too');
+await page.click('.fchip-info'); await page.waitForSelector('.finfo');
+ok((await page.textContent('.finfo .fmeta')).includes('KB'), '! opens the file details (size · text read)');
+await shot('02-info');
+await page.click('.fchip-info'); ok(await page.locator('.finfo').count() === 0, '! again closes the details');
+// 2) attach a text file while input already exists → overwrite question
+const domState = () => page.evaluate(() => ({ inputs: Array.from(document.querySelectorAll('.rq-body input.input, .rq-body textarea')).map((e) => e.value).join('|'), free: Array.from(document.querySelectorAll('.rq-body [contenteditable]')).map((e) => e.innerText).join('|') }));
+await page.click('.tab:has-text("입력 폼")'); await page.waitForTimeout(200);
+const before = await domState();
+await page.setInputFiles('.req-files input[type=file]', path.join(fx, 'hotel_rfp.txt'));
+await page.waitForSelector('.modal:has-text("덮어쓰시겠습니까?")', { timeout: 30000 });
+await shot('03-ask');
+await page.click('.modal .btn:has-text("그대로 두기")'); await page.waitForTimeout(400);
+const kept = await domState();
+ok(JSON.stringify(kept) === JSON.stringify(before) && await page.locator('.fchip').count() === 2, '그대로 두기 keeps the input, file still attached');
+await page.locator('.fchip:has-text("hotel_rfp.txt") .fchip-x').click(); await page.waitForTimeout(200);
+await page.setInputFiles('.req-files input[type=file]', path.join(fx, 'hotel_rfp.txt'));
+await page.waitForSelector('.modal:has-text("덮어쓰시겠습니까?")', { timeout: 30000 });
+await page.click('.modal .btn-primary:has-text("덮어쓰기")'); await page.waitForTimeout(500);
+const over = await store('흑백프린터') || await store('B 비즈니스');
+console.log('after overwrite', JSON.stringify(over));
+ok(over && over.free.startsWith('[첨부에서 읽음]') && over.keymen.length >= 1 && !over.keymen.some((k) => k.startsWith('총무')), '덮어쓰기 replaces form + free text with what was read');
+// 3) empty proposal → fills automatically, no question
+await page.click('.sb-new'); await page.waitForSelector('.req-drop'); await page.waitForTimeout(300);
+const buf = fs.readFileSync(path.join(fx, 'hotel_rfp.txt')).toString('base64');
+const dt = await page.evaluateHandle((b64) => { const dt = new DataTransfer(); const bin = atob(b64); const u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i); dt.items.add(new File([u8], 'hotel_rfp.txt', { type: 'text/plain' })); return dt; }, buf);
+await page.dispatchEvent('.req-drop', 'dragover', { dataTransfer: dt });
+await page.dispatchEvent('.req-drop', 'drop', { dataTransfer: dt });
+await page.waitForTimeout(1500);
+ok(await page.locator('.fchip:has-text("hotel_rfp.txt")').count() === 1, 'drag & drop onto the zone still attaches');
+ok(await page.locator('.modal:has-text("덮어쓰시겠습니까?")').count() === 0, 'no question when nothing was written yet');
+const auto = await page.evaluate(() => { const p = JSON.parse(localStorage.getItem('winmate.v2.proposals'))[0]; return { free: (p.req.free || []).map((s) => s.t).join(''), keymen: p.req.form.keymen.filter((k) => k.reqs.length).length, files: p.req.files.length }; });
+ok(auto.files === 1 && auto.free.includes('[첨부에서 읽음]') && auto.keymen >= 1, 'empty proposal is filled automatically: ' + JSON.stringify(auto));
+await shot('04-auto');
+// 4) a file that can't be read → no extraction; memo via ! → reads again (input exists now → asks)
+await page.setInputFiles('.req-files input[type=file]', path.join(fx, 'scan.pdf'));
+await page.waitForTimeout(1200);
+ok(await page.locator('.modal').count() === 0 || await page.locator('.modal:has-text("덮어쓰시겠습니까?")').count() === 1, 'pdf attached');
+if (await page.locator('.modal:has-text("덮어쓰시겠습니까?")').count()) await page.click('.modal .btn:has-text("그대로 두기")');
+await page.locator('.fchip:has-text("scan.pdf") .fchip-info').click(); await page.waitForSelector('.finfo');
+ok((await page.textContent('.finfo .fmeta')).includes('읽을 수 없는'), 'pdf details say the text could not be read');
+await page.fill('.finfo input', '로비 키오스크 3대와 회의실 화면 교체가 필요합니다'); await page.keyboard.press('Enter');
+await page.waitForSelector('.modal:has-text("덮어쓰시겠습니까?")', { timeout: 30000 });
+ok(true, 'writing a memo reads the files again (asks because input exists)');
+await page.click('.modal .btn:has-text("그대로 두기")');
+await shot('05-memo');
+const sw = await page.evaluate(() => document.documentElement.scrollWidth);
+ok(sw <= vw, 'no horizontal overflow (' + sw + ')');
+console.log('errs', errs); if (errs.length) process.exitCode = 1;
+await browser.close(); srv.close();

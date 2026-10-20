@@ -5,6 +5,7 @@ import { refInfo } from '../../services/catalog.js';
 import { toks, reqText, inferIndustry } from '../../services/search.js';
 import { PARTS, partText, effectiveType } from '../proposals/parts.js';
 import { webSourcesFor, WEB_KIND, hostOf } from '../../services/websources.js';
+import { imageProducts } from '../../services/images.js';
 
 export const FIXED_RE = /^(CONFIDENTIAL · \d+|고객사 로고|LOGO)$/;
 const NUM_RE = /^[\s[(]*[~+-]?[\d.,]+\s*[%배일분원억만천개대곳명실층년주hHkKmM°℃]*[\])]*\s*$|^\[[^\]]{1,10}\][%배일분원억만개대곳명]*$/;
@@ -260,7 +261,9 @@ export function productsInText(text) {
   const t = String(text || '');
   return KEYS.map(({ p, re }) => { const m = re.exec(t); return m ? { id: p.id, at: m.index } : null; }).filter(Boolean).sort((a, b) => a.at - b.at).map((x) => x.id);
 }
-const productOfImage = (src, pid) => {
+const productOfImage = (src, pid, details = {}) => {
+  const identified = imageProducts({ ...details, src, pid });
+  if (identified.length) return identified[0];
   const im = IMAGE_DB.find((z) => (src && z.src === src) || (pid && z.pid === pid));
   if (!im || !im.model) return null;
   const p = PRODUCTS.find((q) => normModel(q.model) === normModel(im.model));
@@ -272,7 +275,7 @@ const productOfImage = (src, pid) => {
  */
 export function unitProducts(texts, imgs) {
   const ids = productsInText(texts.map((b) => b.s).join(' \n '));
-  for (const im of imgs) { const id = productOfImage(im.src, im.pid); if (id && !ids.includes(id)) ids.push(id); }
+  for (const im of imgs) { const id = productOfImage(im.src, im.pid, im); if (id && !ids.includes(id)) ids.push(id); }
   return ids;
 }
 
@@ -325,7 +328,7 @@ export function planProductSwap(blocks, imgs, from, to) {
   const pics = imagesForProduct(to);
   const img = []; let missingImg = false;
   for (const im of imgs) {
-    if (productOfImage(im.src, im.pid) !== from) continue;
+    if (productOfImage(im.src, im.pid, im) !== from) continue;
     const cur = IMAGE_DB.find((z) => z.src === im.src || z.pid === im.pid);
     const pick = pics.find((z) => cur && z.group === cur.group) || pics.find((z) => z.group === 'cut') || pics[0];
     if (pick) img.push({ i: im.i, im: pick }); else missingImg = true;

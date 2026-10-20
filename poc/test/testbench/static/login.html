@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>로그인 · Winmate PoC 테스트 벤치</title>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<div class="login">
+  <form id="f" autocomplete="on">
+    <div>
+      <h1>Winmate PoC 테스트 벤치</h1>
+      <p>LLM(Gemini) 호출이 있어 로그인한 사람만 실행할 수 있습니다.</p>
+    </div>
+    <div class="field"><label for="u">아이디</label><input id="u" name="username" type="text" autocomplete="username" required autofocus></div>
+    <div class="field"><label for="p">비밀번호</label><input id="p" name="password" type="password" autocomplete="current-password" required></div>
+    <div class="err" id="err" role="alert"></div>
+    <button class="btn primary wide" type="submit">로그인</button>
+  </form>
+</div>
+<script>
+document.getElementById('f').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const err = document.getElementById('err');
+  err.textContent = '';
+  try {
+    const r = await fetch('/api/login', {method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({username: document.getElementById('u').value, password: document.getElementById('p').value})});
+    if (r.ok) { location.href = '/'; return; }
+    const d = await r.json().catch(() => ({}));
+    err.textContent = d.detail || '로그인하지 못했습니다';
+  } catch (x) { err.textContent = '서버에 연결하지 못했습니다'; }
+});
+</script>
+</body>
+</html>

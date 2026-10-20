@@ -1,0 +1,86 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs05~full:F06"
+ },
+ "prompt_tokens": 7366,
+ "output_tokens": 747,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "모든 장에서 동일한 지표가 일관되게 기술되어 있으며, 요약표와 본문 간의 수치적 모순이 발견되지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "최대 대기 시간 | 90분 → 60분"
+     },
+     {
+      "sheet": 7,
+      "quote": "쇼 종료 후 퇴장 소요 | 25분 → 15분"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR6",
+    "score": 2,
+    "anchor": "공간별 주요 제품은 명시되어 있으나, 설치에 필요한 브래킷, 플레이어, 라이선스 등 부속 구성 요소에 대한 구체적인 수량이나 목록이 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "수량은 실측 후 확정"
+     },
+     {
+      "sheet": 10,
+      "quote": "12면 권장 — 실측 후 확정"
+     }
+    ],
+    "improve": "공간별 제품 수량뿐만 아니라 필수 부속품(브래킷, 플레이어, 라이선스 등)의 수량과 사양을 포함한 상세 구성표를 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS8",
+    "score": 2,
+    "anchor": "표가 다수 포함되어 있으나, 일부 장에서는 표 형식이 아닌 텍스트 나열로 정보를 전달하여 가독성이 다소 떨어집니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "RFP 구역 계획 기준 — 구역마다 놓을 삼성 제품"
+     },
+     {
+      "sheet": 6,
+      "quote": "줄 서기부터 입장까지 네 장면"
+     }
+    ],
+    "improve": "텍스트로 나열된 공간별 구성 및 운영 시나리오를 표 형식으로 정리하여 가독성을 높여야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR4",
+    "score": 2,
+    "anchor": "밝기 단위(nit/니트)와 금액 단위(억 원/원)가 혼용되어 표기되어 일관성이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "21,800 | 억 원"
+     },
+     {
+      "sheet": 10,
+      "quote": "500 nit"
+     },
+     {
+      "sheet": 11,
+      "quote": "8,000 nit"
+     }
+    ],
+    "improve": "밝기 단위는 'nit'로, 금액 단위는 '억 원'으로 통일하여 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

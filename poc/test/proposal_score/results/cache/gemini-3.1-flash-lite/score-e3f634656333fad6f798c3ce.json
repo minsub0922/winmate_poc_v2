@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~number_conflict:F06"
+ },
+ "prompt_tokens": 5551,
+ "output_tokens": 275,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 2,
+    "anchor": "지점 수치가 180개(전체), 144개(일부 유형), 21개(시범)로 다르게 표기되나, 이는 맥락상 전체 매장, 대상 매장, 시범 매장으로 구분되어 실질적 모순은 아님.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "M 베이커리 180개 지점"
+     },
+     {
+      "sheet": 9,
+      "quote": "본사 한 곳이 144개 지점을"
+     },
+     {
+      "sheet": 12,
+      "quote": "21개 지점 설치부터"
+     }
+    ],
+    "improve": "지점 수치가 맥락에 따라 다름을 명확히 하기 위해, 각 장표에서 '전체 180개 중 대상 144개'와 같이 범위를 명시적으로 표기해야 함.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

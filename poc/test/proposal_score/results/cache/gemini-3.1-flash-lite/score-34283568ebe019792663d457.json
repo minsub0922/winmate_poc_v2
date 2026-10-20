@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~wrong_customer:F06"
+ },
+ "prompt_tokens": 6318,
+ "output_tokens": 215,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 2,
+    "anchor": "전체 세대 수(1,240세대 vs 486세대)는 단지 전체와 84A 타입으로 대상이 달라 충돌이 아니나, 옵션 상담 시간(12분 vs 25분)이 1장과 7장에서 서로 다르게 표기되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "12분 | 옵션 상담 시간"
+     },
+     {
+      "sheet": 7,
+      "quote": "옵션 상담 시간 | 25분 → 12분"
+     }
+    ],
+    "improve": "상담 시간 목표치를 12분으로 통일하여 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

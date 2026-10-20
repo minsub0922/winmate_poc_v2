@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~wrong_customer:F01"
+ },
+ "prompt_tokens": 7433,
+ "output_tokens": 391,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 1,
+    "anchor": "제안서 전반에 걸쳐 고객사명 'G 쇼핑몰'과 'H 호텔'이 혼용되어 나타나며, 특히 3, 6, 9, 12장에서 다른 고객사명이 명시되어 정보가 충돌합니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "H 호텔, 다섯 지표 중 셋이 업계보다 무겁습니다"
+     },
+     {
+      "sheet": 9,
+      "quote": "H 호텔"
+     }
+    ],
+    "improve": "제안서 전체에서 고객사명을 'G 쇼핑몰'로 통일하고, 사례로 인용한 기업 외에 다른 고객사명이 언급되지 않도록 수정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "다른 고객명인 'H 호텔'이 4곳에서 발견되었으며, 13장에는 실제 담당자 정보가 아닌 예시용 연락처가 그대로 남아 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "H 호텔"
+     },
+     {
+      "sheet": 13,
+      "quote": "010-1234-5678"
+     }
+    ],
+    "improve": "다른 고객사명을 삭제하고, 13장의 담당자 연락처를 실제 정보로 교체해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

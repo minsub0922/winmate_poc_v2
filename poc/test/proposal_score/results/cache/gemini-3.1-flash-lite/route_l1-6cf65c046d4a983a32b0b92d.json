@@ -1,0 +1,34 @@
+{
+ "stage": "route_l1",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~no_proof"
+ },
+ "prompt_tokens": 2527,
+ "output_tokens": 284,
+ "data": {
+  "communities": [
+   {
+    "id": "C1",
+    "relevance": 3,
+    "reason": "세대 수 불일치(486 vs 1240)와 출처 없는 수치 데이터는 신뢰도를 크게 저해하므로 즉각적인 수정이 필요합니다."
+   },
+   {
+    "id": "C2",
+    "relevance": 3,
+    "reason": "RFP 요구사항인 '옵션 계약률 제고'에 대한 구체적 전략이 본문에 부족하며, 실행 로드맵의 정합성을 재점검해야 합니다."
+   },
+   {
+    "id": "C3",
+    "relevance": 2,
+    "reason": "원가 관련 민감 정보가 노출되어 있어 전략적 타당성 검토와 함께 내부 보안 가이드라인 준수 여부를 확인해야 합니다."
+   },
+   {
+    "id": "C4",
+    "relevance": 2,
+    "reason": "가독성을 저해하는 과도한 텍스트 밀도와 작은 폰트 사이즈를 조정하여 결정권자에게 핵심 메시지가 명확히 전달되도록 개선해야 합니다."
+   }
+  ]
+ }
+}

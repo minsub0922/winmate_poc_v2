@@ -1,15 +1,11 @@
 // 고객 인물 초상 — 기본 6명(난이도 3단계 × 남/여) + 직접 만든 프로필(사진 30종 · 피부 · 머리색 · 안경 · 옷 조정).
-// 표정은 지금 만족도(무드)에 따라 바뀐다. 실제 인물 사진 대신 일러스트(SVG)로 그려, 어디서나 같은 얼굴로 보이고 초상권 걱정이 없다.
+// 표정은 만족도 3단계로 바뀌며, 설정에서는 무드·기본 표정을 쓴다. 실제 인물 사진 대신 일러스트(SVG)로 그린다.
 import React from 'react';
 import { PERSONAS } from '../domain/simulation/profile.js';
+import { resolveExpression } from '../domain/simulation/expression.js';
 
 const LV_BG = { 1: ['#e3f1e4', '#cfe6d2'], 2: ['#e4eaf8', '#d0daf2'], 3: ['#f7e3e0', '#efcfca'] };
-const moodFace = (mood, base) => {
-  if (mood === '만족' || mood === '호의') return 'happy';
-  if (mood === '의심' || mood === '불만') return 'stern';
-  if (mood === '중립') return base === 'stern' ? 'flat' : 'flat';
-  return base || 'flat';
-};
+const EXPRESSION_LABELS = { happy: '만족', flat: '중립', stern: '불만' };
 
 function Hair({ k, c, part }) {
   if (part === 'back') {
@@ -58,27 +54,40 @@ export function darken(hex, k = 0.12) {
   return '#' + [f(n >> 16), f((n >> 8) & 255), f(n & 255)].map((v) => v.toString(16).padStart(2, '0')).join('');
 }
 
-/** 인물 초상. who = PERSONAS 키('1M' …) 또는 페르소나 객체({ key, level, gender, age, look }), mood = 만족 · 호의 · 중립 · 의심 · 불만 */
-export function Portrait({ who, mood, size = 48, round = true, className = '', title }) {
+/** 인물 초상. who = PERSONAS 키 또는 페르소나 객체. 유한한 숫자 satisfaction 우선(≥60 만족 · ≥40 중립 · <40 불만), 없으면 mood · look.base 사용. */
+export function Portrait({ who, satisfaction, mood, size = 48, round = true, className = '', title }) {
   const p = typeof who === 'string' ? PERSONAS[who] : who;
   if (!p) return null;
   const L = p.look;
-  const face = moodFace(mood, L.base);
+  const face = resolveExpression(satisfaction, mood, L.base);
+  const accessibleTitle = title ? `${title} · ${EXPRESSION_LABELS[face]} 표정` : undefined;
   const [bg1, bg2] = LV_BG[p.level] || LV_BG[2];
   const skin = L.skin, shade = L.shade || darken(L.skin, 0.12), hair = L.hair, lip = p.gender === 'F' ? '#b4544d' : '#9b5a4b';
   const lapel = L.lapel || darken(L.suit, 0.14);
   const gid = 'pg' + String(p.key || 'x').replace(/[^\w-]/g, '') + '-' + (p.level || 2);
-  const brow = face === 'happy' ? ['M48.5 50.3Q52.5 48.4 56 50.2', 'M64 50.2Q67.5 48.4 71.5 50.3']
-    : face === 'stern' ? ['M48.3 49.6L56.2 52.4', 'M63.8 52.4L71.7 49.6'] : ['M48.5 51.4Q52.5 50 56 51.3', 'M64 51.3Q67.5 50 71.5 51.4'];
-  const mouth = face === 'happy' ? <path d="M54.2 68.6Q60 75.6 65.8 68.6Q60 70.6 54.2 68.6Z" fill="#fff" stroke={lip} strokeWidth="1.5" strokeLinejoin="round" />
-    : face === 'stern' ? <path d="M55 71.6Q60 68.8 65 71.6" stroke={lip} strokeWidth="1.7" fill="none" strokeLinecap="round" />
-      : <path d="M55.4 70.6Q60 71.8 64.6 70.6" stroke={lip} strokeWidth="1.7" fill="none" strokeLinecap="round" />;
-  const eyes = face === 'happy' && L.smileEyes
-    ? <><path d="M50.2 57.6Q52.6 55 55 57.6" stroke="#2a211d" strokeWidth="1.7" fill="none" strokeLinecap="round" /><path d="M65 57.6Q67.4 55 69.8 57.6" stroke="#2a211d" strokeWidth="1.7" fill="none" strokeLinecap="round" /></>
-    : <><ellipse cx="52.6" cy="57" rx="1.9" ry={face === 'stern' ? 1.7 : 2.2} fill="#2a211d" /><ellipse cx="67.4" cy="57" rx="1.9" ry={face === 'stern' ? 1.7 : 2.2} fill="#2a211d" /><circle cx="53.2" cy="56.3" r=".55" fill="#fff" /><circle cx="68" cy="56.3" r=".55" fill="#fff" /></>;
+  const brow = face === 'happy' ? ['M47.8 51Q52.5 47.2 56.6 50.3', 'M63.4 50.3Q67.5 47.2 72.2 51']
+    : face === 'stern' ? ['M47.8 49.6L56.6 52.4', 'M63.4 52.4L72.2 49.6'] : ['M47.8 50.7H56.6', 'M63.4 50.7H72.2'];
+  // Darken light hair colors so eyebrows stay legible, including silver-haired custom looks.
+  const browColor = darken(L.brow || hair, 0.3);
+  const mouthPath = face === 'happy' ? 'M52.8 68.2Q60 78 67.2 68.2Q60 71 52.8 68.2Z'
+    : face === 'stern' ? 'M53.2 73Q60 66.4 66.8 73' : 'M53.6 71H66.4';
+  const mouth = <g data-feature="mouth" strokeLinecap="round" strokeLinejoin="round">
+    {/* A skin-colored edge keeps the mouth visible over every beard and skin tone. */}
+    <path d={mouthPath} fill={face === 'happy' ? skin : 'none'} stroke={skin} strokeWidth="4.8" />
+    <path d={mouthPath} fill={face === 'happy' ? '#fff' : 'none'} stroke={lip} strokeWidth="2.1" />
+  </g>;
+  const eyes = <g data-feature="eyes">
+    {face === 'happy'
+      ? <g stroke="#2a211d" strokeWidth="2.2" fill="none" strokeLinecap="round"><path d="M49.4 58Q52.6 52.8 55.8 58" /><path d="M64.2 58Q67.4 52.8 70.6 58" /></g>
+      : <><ellipse cx="52.6" cy="57.6" rx="2.2" ry={face === 'stern' ? 1.3 : 2.5} fill="#2a211d" /><ellipse cx="67.4" cy="57.6" rx="2.2" ry={face === 'stern' ? 1.3 : 2.5} fill="#2a211d" />
+        {face === 'flat' && <><circle cx="53.2" cy="56.8" r=".65" fill="#fff" /><circle cx="68" cy="56.8" r=".65" fill="#fff" /></>}
+        {face === 'stern' && <g stroke="#2a211d" strokeWidth="1.7" fill="none" strokeLinecap="round"><path d="M49.4 55.8L55.8 57.1" /><path d="M64.2 57.1L70.6 55.8" /></g>}
+      </>}
+  </g>;
   return (
-    <svg className={'portrait ' + className} width={size} height={size} viewBox="18 16 84 84" role={title ? 'img' : undefined} aria-label={title} aria-hidden={title ? undefined : 'true'}
+    <svg className={'portrait ' + className} width={size} height={size} viewBox="18 16 84 84" data-expression={face} role={title ? 'img' : undefined} aria-label={accessibleTitle} aria-hidden={title ? undefined : 'true'}
       style={round ? { borderRadius: '50%' } : undefined}>
+      {title && <title>{accessibleTitle}</title>}
       <defs>
         <linearGradient id={gid} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor={bg1} /><stop offset="1" stopColor={bg2} /></linearGradient>
       </defs>
@@ -103,8 +112,9 @@ export function Portrait({ who, mood, size = 48, round = true, className = '', t
       {p.gender === 'F' && L.earring !== 'none' && <><circle cx="40.6" cy="63.4" r="1.5" fill={L.earring || '#d9b45a'} /><circle cx="79.4" cy="63.4" r="1.5" fill={L.earring || '#d9b45a'} /></>}
       <Hair k={L.hairStyle} c={hair} />
       {/* face */}
-      <path d={brow[0]} stroke={L.brow || hair} strokeWidth={L.thickBrow ? 2.4 : 1.8} fill="none" strokeLinecap="round" />
-      <path d={brow[1]} stroke={L.brow || hair} strokeWidth={L.thickBrow ? 2.4 : 1.8} fill="none" strokeLinecap="round" />
+      <g data-feature="eyebrows" stroke={browColor} strokeWidth={L.thickBrow ? 2.8 : 2.2} fill="none" strokeLinecap="round">
+        <path d={brow[0]} /><path d={brow[1]} />
+      </g>
       {eyes}
       {L.glasses === 'rect' && <g stroke="#2b2b2e" strokeWidth="1.3" fill="rgba(255,255,255,.12)"><rect x="47.2" y="53.2" width="10.6" height="7.6" rx="2.2" /><rect x="62.2" y="53.2" width="10.6" height="7.6" rx="2.2" /><path d="M57.8 56.4Q60 55.4 62.2 56.4M47.2 55.6L42.6 54.6M72.8 55.6L77.4 54.6" fill="none" /></g>}
       {L.glasses === 'round' && <g stroke="#8a6a3a" strokeWidth="1.1" fill="rgba(255,255,255,.1)"><circle cx="52.6" cy="57" r="4.7" /><circle cx="67.4" cy="57" r="4.7" /><path d="M57.3 56.4Q60 55.3 62.7 56.4" fill="none" /></g>}

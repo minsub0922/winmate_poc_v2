@@ -34,6 +34,19 @@ def resolve_mode(settings: Settings, function: str, body: dict) -> ModePlan:
     return ModePlan('real', True, require_provider(settings, function), '')
 
 
+def requirement_context(body: dict) -> str:
+    value = body.get('requirement_context')
+    if value is None:
+        return ''
+    import json
+    if not isinstance(value, dict) or not isinstance(value.get('source_key'), str) or not isinstance(value.get('sections'), dict):
+        raise BadRequest('요구사항 요약 맥락 형식이 올바르지 않습니다.')
+    text = json.dumps(value, ensure_ascii=False)
+    if len(text) > 40000:
+        raise BadRequest('요구사항 요약 맥락이 너무 큽니다.')
+    return '\n<<<요구사항 전략 요약 DATA · 원문이 우선, inference는 해석이고 question은 미확정>>>\n' + text + '\n<<<END 요약 DATA>>>'
+
+
 def as_bool(body: dict, key: str, default: bool) -> bool:
     v = body.get(key, default)
     if isinstance(v, bool):

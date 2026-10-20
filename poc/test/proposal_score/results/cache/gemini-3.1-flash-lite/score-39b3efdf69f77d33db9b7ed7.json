@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07:F11"
+ },
+ "prompt_tokens": 3080,
+ "output_tokens": 425,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 10장으로, 기준인 4장을 크게 초과하여 발표 자료로 읽기에 부적합합니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "B 호텔 투숙객의 하룻밤, 평가는 입실과 취침 순간에 갈립니다"
+     },
+     {
+      "sheet": 7,
+      "quote": "직원이 적은 B 호텔일수록, 객실 TV가 서비스 창구가 됩니다"
+     }
+    ],
+    "improve": "각 장의 핵심 메시지를 제외한 부연 설명을 과감히 삭제하고, 장당 어절 수를 77어절 이하로 대폭 줄여야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 65%가 10pt 미만이며, 9pt 미만 본문 칸이 7장에 달해 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "직원이 적은 B 호텔일수록, 객실 TV가 서비스 창구가 됩니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "체크인 피크부터 조용한 밤까지, 공간마다 다르게"
+     }
+    ],
+    "improve": "본문 텍스트의 기본 글자 크기를 12pt(16px) 이상으로 상향 조정하고, 텍스트 양을 줄여 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~no_proof:F08"
+ },
+ "prompt_tokens": 2685,
+ "output_tokens": 383,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "고객이 얻는 가치를 '원격 통합 관리', '장애 선제 대응', '단계적 도입'이라는 3가지 결과형 언어로 명확히 제시하고, 각 가치와 연결된 솔루션(원격 모니터링, 실사·워크숍 등)을 짝지어 설명함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "원격 통합 관리, 장애 선제 대응, 단계적 도입"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "DS7",
+    "score": 3,
+    "anchor": "전체 8개 장 중 7개 장의 제목이 결론을 담은 문장형이며, 5장의 제목 또한 가치 제안의 핵심을 요약하고 있어 제목만 읽어도 전체 제안의 흐름이 파악됨.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "260개 사업장 화면, 그룹 본사에서 한 번에 바꿉니다"
+     },
+     {
+      "sheet": 3,
+      "quote": "업계는 이미 움직였고, Y 그룹은 지금이 적기입니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "2주 안에 현장부터, 세 단계로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

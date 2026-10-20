@@ -1,0 +1,82 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs03~full:F07"
+ },
+ "prompt_tokens": 8552,
+ "output_tokens": 693,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "강의실 냉난방 전력 절감(15%) 및 도서관 운영 효율화(문의 감소 40% 등)에 대해 유사 대학 사례 및 2026년 학사 통계 등 산정 근거를 명시함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "강의실 냉난방 전력 15% 절감"
+     },
+     {
+      "sheet": 7,
+      "quote": "목표치는 유사 대학 사례 기준"
+     },
+     {
+      "sheet": 10,
+      "quote": "2026 2학기 운전 기록 기준"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "삼성의 통합 솔루션(b.IoT, Knox, MagicINFO)과 제품 라인업을 고객의 과제(수업 시작 지연, 냉난방 관리 등)와 연결하여 구체적인 사례와 함께 제시함.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "Flip Pro 전자칠판 + 무풍 4Way + 통합공조"
+     },
+     {
+      "sheet": 11,
+      "quote": "국민대학교, 서울교육대학교 사례"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR5",
+    "score": 3,
+    "anchor": "제안서 내에 '최초', '최고', '유일' 등 근거 없는 절대 표현이 없으며, 성과 보증 문장도 발견되지 않음.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR7",
+    "score": 2,
+    "anchor": "일부 장에 사진 출처 및 수치 근거가 명시되어 있으나, '이미지는 연출된 화면'이나 '사양은 변경될 수 있음'과 같은 표준 법적 고지 문구가 누락됨.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "수치는 삼성전자 추정"
+     },
+     {
+      "sheet": 7,
+      "quote": "목표치는 유사 대학 사례 기준"
+     }
+    ],
+    "improve": "각 장 하단에 '본 제안서의 이미지는 연출된 화면이며, 실제 사양은 변경될 수 있습니다'라는 법적 고지 문구를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

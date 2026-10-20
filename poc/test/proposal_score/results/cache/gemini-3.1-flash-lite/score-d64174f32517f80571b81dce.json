@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04:F06"
+ },
+ "prompt_tokens": 6230,
+ "output_tokens": 233,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 1,
+    "anchor": "1장에서는 전체 세대수를 1,240세대로 명시했으나, 8장과 9장에서는 84A 타입의 세대수를 486세대로 기재하여 전체 단지 규모에 대한 수치 일관성이 결여되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "R 건설 2지구 1,240세대"
+     },
+     {
+      "sheet": 8,
+      "quote": "84A 세대 · 방 3 · 486세대"
+     }
+    ],
+    "improve": "전체 단지 세대수와 타입별 세대수의 관계를 명확히 구분하여 표기하고, 모든 장에서 동일한 기준의 수치를 사용해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

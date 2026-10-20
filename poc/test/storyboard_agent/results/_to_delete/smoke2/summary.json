@@ -1,0 +1,76 @@
+{
+ "meta": {
+  "name": "smoke2",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "runs": 1,
+  "n_tasks": 4,
+  "elapsed_s": 5,
+  "calls": 8,
+  "cached": 0,
+  "failed": 0,
+  "in_tok": 40977,
+  "out_tok": 2817,
+  "errors": []
+ },
+ "summary": {
+  "cold": {
+   "agent_llm": {
+    "type_f1": 0.388,
+    "order_lcs": 0.354,
+    "group_cov": 1.0,
+    "len_diff": 1.5,
+    "fact_recall": 0.375,
+    "strategy_acc": 1.0,
+    "req_cov": 0.844,
+    "req_cov_w": 0.876,
+    "req_lex": 0.844,
+    "sel_cov": 0.0,
+    "stray": 0,
+    "unsup_num": 0,
+    "copy_rate": 0.189,
+    "foreign": 0,
+    "valid": 1.0,
+    "n_parts": 8.5,
+    "n": 2
+   }
+  },
+  "cont": {
+   "agent_llm": {
+    "type_f1": 0.444,
+    "order_lcs": 0.4,
+    "group_cov": 0.667,
+    "len_diff": 1,
+    "fact_recall": 0.222,
+    "strategy_acc": 0.0,
+    "req_cov": 1.0,
+    "req_cov_w": 1.0,
+    "req_lex": 1.0,
+    "sel_cov": 0.8,
+    "stray": 0,
+    "unsup_num": 0,
+    "copy_rate": 0.2,
+    "foreign": 0,
+    "valid": 1.0,
+    "keep_ok": 1.0,
+    "n_parts": 9,
+    "n": 1
+   }
+  },
+  "open": {
+   "agent_llm": {
+    "req_cov": 0.576,
+    "req_cov_w": 0.576,
+    "req_lex": 0.273,
+    "sel_cov": 0.0,
+    "stray": 0,
+    "unsup_num": 0,
+    "copy_rate": 0.119,
+    "foreign": 0,
+    "valid": 1.0,
+    "n_parts": 9,
+    "n": 1
+   }
+  }
+ }
+}

@@ -1,0 +1,40 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10:F01"
+ },
+ "prompt_tokens": 7389,
+ "output_tokens": 300,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "자동 점검에서 지적된 연락처 정보는 제안서 마무리 장에 기재된 정상적인 영업 담당자 정보이며, 템플릿 잔여물이나 자리표시 문구는 확인되지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "제안서 내에 원가, 마진, 내부 할인율, 사내 코드명, 다른 고객의 비공개 정보는 없으며, 담당자 연락처는 정상적인 비즈니스 정보입니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

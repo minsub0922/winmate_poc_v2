@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs14~full:F12"
+ },
+ "prompt_tokens": 9139,
+ "output_tokens": 497,
+ "data": {
+  "scores": [
+   {
+    "id": "WR2",
+    "score": 3,
+    "anchor": "전체적으로 맞춤법과 띄어쓰기가 정확하며 제목에도 오류가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "찍고 기록하고 보고까지 갤럭시 한 대로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR8",
+    "score": 1,
+    "anchor": "KPI, MES, WMS, API 등 고객이 이해해야 할 핵심 약어들이 처음 등장할 때 풀이 없이 사용되었습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "단계별 KPI"
+     },
+     {
+      "sheet": 3,
+      "quote": "MES에 늦게 반영"
+     },
+     {
+      "sheet": 7,
+      "quote": "기존 WMS · 납품 앱"
+     }
+    ],
+    "improve": "제안서 도입부나 별도의 용어 정의 페이지를 마련하여 KPI, MES, WMS 등 주요 약어를 풀어서 설명해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR9",
+    "score": 2,
+    "anchor": "개조식 종결과 경어체 문장이 혼용되어 있으나, 전체적인 톤은 고객 존중을 유지하고 있어 가독성에 큰 지장은 없습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "L 제조의 이익은 라인 · 사람 · 출하가 멈추지 않을 때 나옵니다"
+     },
+     {
+      "sheet": 6,
+      "quote": "갤럭시 카메라가 업무용 스캐너가 됩니다"
+     }
+    ],
+    "improve": "개조식 종결과 서술형 문장이 섞인 부분을 통일하여 일관된 문체를 유지해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

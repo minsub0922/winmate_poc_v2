@@ -1,0 +1,26 @@
+// quick look: My mode, upload, review, save, detail, editor (screenshots → $OUT)
+import { chromium } from 'playwright';
+import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+const here = path.dirname(new URL(import.meta.url).pathname); const root = path.resolve(here, '../../dist');
+const OUT = process.env.OUT || '/tmp/smoke'; fs.mkdirSync(OUT, { recursive: true });
+const PPTX = process.argv[2];
+const srv = http.createServer((q, r) => { const f = path.join(root, decodeURIComponent(q.url.split('?')[0]).replace(/^\/$/, '/preview.html')); if (!fs.existsSync(f)) { r.writeHead(404); return r.end(); } r.writeHead(200, { 'content-type': f.endsWith('.html') ? 'text/html; charset=utf-8' : f.endsWith('.png') ? 'image/png' : f.endsWith('.jpg') ? 'image/jpeg' : 'application/octet-stream' }); fs.createReadStream(f).pipe(r); }).listen(0);
+const exe = fs.readdirSync('/opt/pw-browsers').filter((d) => d.startsWith('chromium-')).map((d) => '/opt/pw-browsers/' + d + '/chrome-linux/chrome').find((f) => fs.existsSync(f));
+const browser = await chromium.launch({ executablePath: exe });
+const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } }); const page = await ctx.newPage();
+const errs = []; page.on('pageerror', (e) => errs.push('pageerror: ' + e.message)); page.on('console', (m) => { if (m.type() === 'error' && !/fonts|Failed to load resource/.test(m.text())) errs.push(m.text()); });
+await page.goto('http://localhost:' + srv.address().port + '/'); await page.waitForSelector('.sb-tpl', { state: 'attached', timeout: 60000 });
+await page.click('.sb-tpl'); await page.waitForSelector('.tl-card'); await page.mouse.move(900, 600); await page.waitForTimeout(600);
+await page.click('.tl-mybtn'); await page.waitForSelector('.my-drop');
+await page.screenshot({ path: OUT + '/1-my-empty.png' });
+await page.setInputFiles('input[data-my-file]', PPTX);
+await page.waitForSelector('.my-imp-card', { timeout: 120000 }); await page.waitForTimeout(1500);
+await page.screenshot({ path: OUT + '/2-review.png' });
+await page.click('.mfoot .btn-primary'); await page.waitForSelector('.modal', { state: 'detached' }); await page.waitForTimeout(800);
+await page.screenshot({ path: OUT + '/3-list.png' });
+await page.click('.tl-card >> nth=0'); await page.waitForSelector('.my-detail'); await page.waitForTimeout(800);
+await page.screenshot({ path: OUT + '/4-detail.png' });
+await page.click('.sv-panel ~ * .btn:has-text("고치기"), .mfoot .btn:has-text("고치기")'); await page.waitForSelector('.ed-box'); await page.waitForTimeout(800);
+await page.screenshot({ path: OUT + '/5-editor.png' });
+console.log(errs.join('\n') || 'no errors');
+await browser.close(); srv.close();

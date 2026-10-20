@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs02:F04"
+ },
+ "prompt_tokens": 6478,
+ "output_tokens": 394,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "고객사의 수익 구조와 연계하여 임대 마케팅, 회의실 가동률, 에너지 비용 등 주요 운영 과제를 수치 기반으로 구체화했습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "준공 후 넣으면 재공사비 12억 원"
+     },
+     {
+      "sheet": 4,
+      "quote": "회의실 가동률 70%, 연 에너지 비용 4.9억 원"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 2,
+    "anchor": "대부분의 공간에 최적화된 제품을 매칭했으나, 10장의 제품 구성 요약표에서 옥외 옥상 설비(실외기)와 실내형 제품(Flip Pro 등)이 혼재되어 표현되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "공간마다 다르고 관리는 하나입니다"
+     },
+     {
+      "sheet": 10,
+      "quote": "RF 옥상 설비 DVM S2 실외기 40대"
+     }
+    ],
+    "improve": "10장의 층별 구성표에서 옥외 설치 환경과 실내 설치 환경을 명확히 구분하여 제품 용도와 환경 적합성을 분리 기재해야 합니다.",
+    "confidence": "mid"
+   }
+  ]
+ }
+}

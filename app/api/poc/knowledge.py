@@ -1,8 +1,8 @@
 """Canonical app-side knowledge for the PoC agents.
 
 Source of truth is the snapshot written by ``app/scripts/export_agent_data.mjs`` into
-``app/data/runtime/kb`` (current app catalog/templates/scenarios; 835 layouts, 594 active, hidden
-industry covers, 1,068 products, 22 Best Scenarios, plus read-only copies of the PoC standard
+``app/data/runtime/kb`` (current app catalog/templates/scenarios; 856 layouts, 615 active, hidden
+industry covers and document-specific sheets, 1,068 products, 82 scenarios, plus read-only copies of the PoC standard
 scenarios and score criteria/rubrics/taxonomy).
 
 * ``CanonicalLayoutKB`` subclasses ``winmate_layout.kb.KB`` with an explicit ``__init__`` and overrides
@@ -12,7 +12,7 @@ scenarios and score criteria/rubrics/taxonomy).
   PoC Analyzer turns into its model/name regex and what ``recommend_products`` ranks) is the curated
   40 plus the products selected for the request — DB rows carry generic names such as "비즈니스TV"
   that would otherwise produce false product links.
-* ``CanonicalStoryKB`` subclasses ``sbagent.kb.KB`` the same way with all 22 current scenarios and all
+* ``CanonicalStoryKB`` subclasses ``sbagent.kb.KB`` the same way with all current scenarios and all
   1,068 products.
 """
 from __future__ import annotations
@@ -31,7 +31,7 @@ from . import imports
 from .imports import POC_TEST, RUNTIME_DIR
 
 KB_DIR = RUNTIME_DIR / 'kb'
-EXPECTED = {'layouts_total': 835, 'layouts_active': 594, 'products': 1068, 'curated_products': 40, 'scenarios': 22}
+EXPECTED = {'layouts_total': 856, 'layouts_active': 615, 'products': 1068, 'curated_products': 40, 'scenarios': 82}
 LAYOUT_KEYS = ('f', 'c', 'code', 'name', 'when', 'g', 'p', 'p2', 'ind', 'sol', 'pc', 'req', 'prods', 'sols', 'phs', 'ph', 'hl', 'txt', 'eb', 'foot', 'sample')
 PRODUCT_KEYS = ('id', 'name', 'model', 'cat', 'spec', 'spaces', 'ind', 'kw')
 POC_SCORE = {'criteria': POC_TEST / 'proposal_score' / 'criteria' / 'criteria.json',
@@ -40,9 +40,9 @@ POC_SCORE = {'criteria': POC_TEST / 'proposal_score' / 'criteria' / 'criteria.js
 POC_STANDARD = POC_TEST / 'layout_agent' / 'data' / 'standard_scenarios.json'
 NOTES = [
     'Layout Agent: P 는 제품 1,068개 전체(선택한 DB 제품 id 해석용), Analyzer 추천 · 모델명 탐지는 큐레이션 40개 + 요청에서 선택한 제품만 씁니다(DB 일반 제품명 오탐 방지).',
-    'Storyboard Agent: 22개 시나리오 · 제품 1,068개 전체를 씁니다.',
-    'RAG 검색: BM25 + TF-IDF(char n-gram) 결정론 검색으로 후보를 뽑고, 상위 20개를 Gemini 가 다시 정렬합니다(임베딩은 쓰지 않음).',
-    '숨김 업종 표지(L_IND_*)는 HTML · 레지스트리(hidden_layouts)에만 있고 추천 후보(kb.L / cards)에는 넣지 않습니다(PoC 의미 유지).',
+    'Storyboard Agent: 82개 시나리오(설명 기반 표준 20개 포함) · 제품 1,068개 전체를 씁니다.',
+    'RAG 검색: BM25 + TF-IDF(char n-gram) 결정론 검색으로 후보를 뽑고, 상위 20개를 AI가 다시 정렬합니다(임베딩은 쓰지 않음).',
+    '숨김 업종 표지(L_IND_*)와 문서 전용 장표는 HTML · 레지스트리(hidden_layouts)에만 있고 일반 추천 후보(kb.L / cards)에는 넣지 않습니다.',
 ]
 
 
@@ -426,6 +426,11 @@ def score_assets() -> Tuple[Any, Any, dict]:
             ps = imports.score()
             cs = ps.criteria.load_criteria(b.score_paths['criteria'])
             tax = ps.taxonomy.load_taxonomy(b.score_paths['taxonomy'])
+            from .review_schema import schema
+            expected = schema()
+            exported = _json(b.score_paths['criteria'])
+            if exported.get('version') != expected['version'] or set(cs.ids()) != {c['id'] for c in expected['criteria']} or {c['id'] for c in cs.cats} != {c['id'] for c in expected['cats']}:
+                raise KnowledgeError('검토 기준 KB가 현재 스키마와 다릅니다. node app/scripts/export_agent_data.mjs 를 실행하세요.')
             cat = b.catalog
             curated = set(cat['curated_product_ids'])
             base = {'products': [p for p in cat['products'] if p['id'] in curated], 'solutions': cat['solutions'],

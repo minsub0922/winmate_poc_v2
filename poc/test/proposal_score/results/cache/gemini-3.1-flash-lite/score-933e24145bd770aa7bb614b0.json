@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07:F11"
+ },
+ "prompt_tokens": 2772,
+ "output_tokens": 239,
+ "data": {
+  "scores": [
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "본문 최소 글자 크기가 12pt(16px) 미만인 장이 7장(2, 3, 6, 7, 8, 10, 11)으로 3장 이상 존재하며, 20자 넘는 본문 칸의 65%가 10pt 미만입니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "본문 최소 9.5px(7.1pt)"
+     },
+     {
+      "sheet": 8,
+      "quote": "본문 최소 9.5px(7.1pt)"
+     }
+    ],
+    "improve": "모든 본문 텍스트의 글자 크기를 12pt(16px) 이상으로 상향 조정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

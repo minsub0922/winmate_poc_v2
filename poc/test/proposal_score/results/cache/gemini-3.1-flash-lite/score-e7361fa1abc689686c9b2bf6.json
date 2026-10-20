@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs04:F04"
+ },
+ "prompt_tokens": 2930,
+ "output_tokens": 199,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "KCC스위첸과 그란츠 리버파크 사례를 통해 도입 구성(빌트인 냉장고, 스마트홈 등)과 실제 성과(청약 마감 등)를 명확히 제시함.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "KCC스위첸, 밀레니얼 입주자 취향 맞춤, 높은 경쟁률"
+     },
+     {
+      "sheet": 12,
+      "quote": "그란츠 리버파크, 하이엔드 단지의 프리미엄 스마트홈 차별화"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

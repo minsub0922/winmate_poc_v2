@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07:F01"
+ },
+ "prompt_tokens": 8545,
+ "output_tokens": 221,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 2,
+    "anchor": "고객사명은 모든 장에서 'B 호텔'로 일관되게 표기되었으나, 객실 수와 관련하여 10장에서는 '300실'로 명시된 반면 9장에서는 '302대'로 표기되는 등 수치 표현에 혼선이 있습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "객실 · 302대"
+     },
+     {
+      "sheet": 10,
+      "quote": "객실 300실"
+     }
+    ],
+    "improve": "제안서 전반에 걸쳐 객실 수와 같은 주요 규모 정보를 300실로 통일하여 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,69 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs20~full:F12"
+ },
+ "prompt_tokens": 8856,
+ "output_tokens": 538,
+ "data": {
+  "scores": [
+   {
+    "id": "WR2",
+    "score": 3,
+    "anchor": "전체적으로 맞춤법과 띄어쓰기가 정확하며, 제목에도 오류가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "지나가는 몇 초가 상품이 되는 랜드마크"
+     },
+     {
+      "sheet": 13,
+      "quote": "다음 6주, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR8",
+    "score": 1,
+    "anchor": "MARKET, KPI, XHB, CMS, IAB, SLA 등 고객이 생소할 수 있는 약어들이 본문에서 정의 없이 반복적으로 사용되었습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "01 · MARKET INTELLIGENCE"
+     },
+     {
+      "sheet": 9,
+      "quote": "MagicINFO — Q 미디어 서버에서 모든 매체를 송출합니다"
+     },
+     {
+      "sheet": 11,
+      "quote": "송출 가용률 % SLA"
+     }
+    ],
+    "improve": "제안서 내 사용된 모든 전문 약어(KPI, XHB, CMS, IAB, SLA 등)에 대해 최초 등장 시 괄호 등을 활용하여 풀이 설명을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR9",
+    "score": 3,
+    "anchor": "전체적으로 개조식 문체와 명사형 종결이 일관되게 유지되고 있으며, 고객을 존중하는 정중한 톤을 유지하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "Q 미디어의 랜드마크 외벽은 아침부터 심야까지 스스로 표정을 바꿉니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "다음 6주, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs21:F07"
+ },
+ "prompt_tokens": 12762,
+ "output_tokens": 374,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 1,
+    "anchor": "제안서 전반에 걸쳐 정량적인 기대효과(절감액, 시간 단축, 매출 증가율 등)가 제시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "고객의 운영 효율성 및 매출 증대와 관련하여 구체적인 수치와 그 산정 근거를 포함한 정량적 기대효과를 제시해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR5",
+    "score": 1,
+    "anchor": "제안서 내에 '최고', '세계 최초' 등 근거가 부족하거나 보증성으로 해석될 수 있는 절대 표현이 3곳 이상 확인됩니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "최고 수준의 시청 경험"
+     },
+     {
+      "sheet": 21,
+      "quote": "세계 최초로 선보인 시네마 LED"
+     },
+     {
+      "sheet": 33,
+      "quote": "최고의 전문가 집단"
+     }
+    ],
+    "improve": "절대 표현을 객관적인 수치나 인증 기관의 명칭으로 대체하고, 불가피하게 사용할 경우 구체적인 근거와 출처를 명확히 기재해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

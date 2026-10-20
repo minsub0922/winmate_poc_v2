@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11:F05"
+ },
+ "prompt_tokens": 7488,
+ "output_tokens": 236,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "제안서 내 대부분의 수치(장비 수량, 투입 인원, 복구 시간 등)에 대해 출처나 근거 기관 및 연도가 명시되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "12곳 · 단말 60대까지 관제"
+     },
+     {
+      "sheet": 10,
+      "quote": "총 투입 22명"
+     },
+     {
+      "sheet": 13,
+      "quote": "장애 4시간 내 복구"
+     }
+    ],
+    "improve": "모든 수치 데이터 옆에 [기관명, 연도] 또는 [고객사 내부 자료, 연도]와 같은 구체적인 출처를 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

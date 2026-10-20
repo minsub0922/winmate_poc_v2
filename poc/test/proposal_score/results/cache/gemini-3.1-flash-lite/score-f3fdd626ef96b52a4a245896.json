@@ -1,0 +1,39 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04:F02"
+ },
+ "prompt_tokens": 8040,
+ "output_tokens": 274,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 4가지 요구사항(분양 차별화, 옵션 계약률, 가전 민원, 시공 정합)에 대해 각각 대응하는 장(4, 6, 7, 11, 10)이 명확히 존재하며, 각 장에서 해법과 근거를 구체적으로 제시하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "모델하우스에서 ‘이 단지’로 기억될 네 가지"
+     },
+     {
+      "sheet": 6,
+      "quote": "옵션 계약률 50%"
+     },
+     {
+      "sheet": 11,
+      "quote": "40% 가전 민원 감소 목표"
+     },
+     {
+      "sheet": 10,
+      "quote": "84A 주방, 빌트인 가전 세 가지의 매립 치수"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

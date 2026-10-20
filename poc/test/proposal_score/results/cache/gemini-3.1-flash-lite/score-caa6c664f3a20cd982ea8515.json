@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~wrong_customer:F07"
+ },
+ "prompt_tokens": 4929,
+ "output_tokens": 248,
+ "data": {
+  "scores": [
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "삼성의 통합 솔루션(사이니지·공조), 원격 감시 SLA, 전국 서비스망, 유관 레퍼런스를 고객의 장애·AS 불만 및 운영 리스크 과제와 구체적으로 연결하여 제시함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "장애 자동 감지, 복구 시간 SLA, 24/7 연속 운영, 한 계약·한 창구"
+     },
+     {
+      "sheet": 11,
+      "quote": "6개 점 4시간 이내 현장 방문, 전담 엔지니어 직접 방문, 공조 포함"
+     },
+     {
+      "sheet": 12,
+      "quote": "쇼핑몰·유통·상업시설이 이미 같은 구성을 씁니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

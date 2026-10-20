@@ -1,0 +1,444 @@
+{
+ "id": "bs11",
+ "variant": "~placeholders",
+ "title": "공공기관 조달 입찰 · 평가 배점 대응",
+ "customer": "K 공단",
+ "n_sheets": 15,
+ "req": "경쟁 입찰 · 공급사 전환",
+ "strategy": "요구 대응형",
+ "ind": "공공 · 교통 인프라",
+ "route": {
+  "selected": [
+   "WR1"
+  ],
+  "mode": "forced",
+  "error": "",
+  "l1": [],
+  "l2": [],
+  "criteria": [],
+  "gates": {
+   "CU1": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU2": {
+    "applies": true,
+    "why": "비교할 고객 요구사항 8개"
+   },
+   "CU3": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU4": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU6": {
+    "applies": true,
+    "why": "업종: 공공 · 교통 인프라"
+   },
+   "MK1": {
+    "applies": true,
+    "why": "수치 113개"
+   },
+   "MK2": {
+    "applies": true,
+    "why": "연도 언급 2개"
+   },
+   "MK3": {
+    "applies": true,
+    "why": "수치 113개"
+   },
+   "MK4": {
+    "applies": true,
+    "why": "수치 113개"
+   },
+   "MK5": {
+    "applies": false,
+    "why": "경쟁 비교 내용이 없어요"
+   },
+   "MK6": {
+    "applies": false,
+    "why": "분석 장이 없어요"
+   },
+   "PR1": {
+    "applies": true,
+    "why": "제품 3종 언급"
+   },
+   "PR2": {
+    "applies": true,
+    "why": "제품 3종 언급"
+   },
+   "PR3": {
+    "applies": true,
+    "why": "제품 3종 언급"
+   },
+   "PR4": {
+    "applies": true,
+    "why": "솔루션: MagicINFO, Knox Suite, 케어 · 유지관리 서비스"
+   },
+   "PR5": {
+    "applies": true,
+    "why": "제품 3종 언급"
+   },
+   "PR6": {
+    "applies": true,
+    "why": "제품 3종 언급"
+   },
+   "PR7": {
+    "applies": true,
+    "why": "제품 3종 언급"
+   },
+   "VS1": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS2": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS3": {
+    "applies": true,
+    "why": "15장 흐름"
+   },
+   "VS4": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS6": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS7": {
+    "applies": true,
+    "why": "본 제안 분량"
+   },
+   "VS8": {
+    "applies": true,
+    "why": "본 제안 분량"
+   },
+   "VS9": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS10": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS1": {
+    "applies": true,
+    "why": "장마다 글자 상자 위치 · 크기를 쟀어요"
+   },
+   "DS2": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS3": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS4": {
+    "applies": true,
+    "why": "글자 크기 정보 있음"
+   },
+   "DS5": {
+    "applies": true,
+    "why": "폰트 2종"
+   },
+   "DS6": {
+    "applies": true,
+    "why": "장표형 문서"
+   },
+   "DS7": {
+    "applies": true,
+    "why": "장표형 문서"
+   },
+   "DS8": {
+    "applies": true,
+    "why": "차트 0 · 표 0 · 수치 113"
+   },
+   "DS9": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS10": {
+    "applies": false,
+    "why": "장표 화면(이미지)이 없어요 — 색 · 톤은 판단 불가"
+   },
+   "WR1": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR2": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR3": {
+    "applies": true,
+    "why": "브랜드 표기 MagicINFO, Knox"
+   },
+   "WR4": {
+    "applies": true,
+    "why": "수치 113개"
+   },
+   "WR5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR6": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR7": {
+    "applies": true,
+    "why": "사양 · 효과 수치 · 이미지 있음"
+   },
+   "WR8": {
+    "applies": true,
+    "why": "약어 RFP, SW, SFR, PER"
+   },
+   "WR9": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "SB1": {
+    "applies": true,
+    "why": "장표형 문서"
+   },
+   "SB2": {
+    "applies": true,
+    "why": "5장 이상 장표"
+   },
+   "SB3": {
+    "applies": false,
+    "why": "앱에서 만든 장 · PDF 는 노트 · 숨김 장 · 댓글 정보가 없어요"
+   },
+   "SB4": {
+    "applies": false,
+    "why": "파일 속성이 없어요"
+   },
+   "SB5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "SB6": {
+    "applies": true,
+    "why": "RFP 형식 요구 있음"
+   }
+  }
+ },
+ "scores": [
+  {
+   "id": "WR1",
+   "score": 1,
+   "anchor": "제안서 전반에 걸쳐 [00]과 같은 자리표시가 8곳 이상 발견되었으며, 특히 4장과 8장 등 핵심 평가 대응 페이지에 다수 포함되어 있습니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "[00] | 사업 이해 · 평가 배점"
+    },
+    {
+     "sheet": 4,
+     "quote": "[00] | 점"
+    },
+    {
+     "sheet": 10,
+     "quote": "투입 인원 | [00]명"
+    }
+   ],
+   "improve": "제안서 내 모든 자리표시([00], [00]명 등)를 실제 수치와 내용으로 수정하여 완성도를 높여야 합니다.",
+   "confidence": "high",
+   "community": "F01",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  }
+ ],
+ "aggregate": {
+  "total": 0.0,
+  "band": "미흡",
+  "verdict": "재작성 권장",
+  "rubric_mean": 1.0,
+  "categories": {
+   "WR": 0.0
+  },
+  "communities": {
+   "F01": 1.0,
+   "C1": 1.0
+  },
+  "n_all": 54,
+  "n_applicable": 49,
+  "n_selected": 1,
+  "n_scored": 1,
+  "weight_coverage": 0.032,
+  "dist": {
+   "1": 1,
+   "2": 0,
+   "3": 0
+  },
+  "low": [
+   "WR1"
+  ]
+ },
+ "grounded_mean": 0.0,
+ "fallbacks": 0,
+ "auto_checks": {
+  "CU5": [
+   "고객사명 “K 공단”이 나오는 장: 15/15장"
+  ],
+  "CU1": [
+   "고객사명 “K 공단” 표기: 15개 장"
+  ],
+  "MK4": [
+   "규모(매장 · 객실 · 병상 수)와 절감 · 향상 비율 표기에서 서로 다른 값을 찾지 못했어요"
+  ],
+  "MK2": [
+   "자료 기준 연도 표기 0곳 · 3년 이상 된 자료 연도 없음"
+  ],
+  "MK3": [
+   "수치 3개 이상인 장 12개 중 출처 · 기준 표기 없는 장: 2, 4, 6, 10, 12, 14"
+  ],
+  "WR1": [
+   "자리표시 · 템플릿 문구 9곳: 2장 “[00]”, 2장 “[00]”, 4장 “[00]”, 4장 “[00]”, 8장 “[00]”, 8장 “[00]”, 10장 “[00]명”, 10장 “[00]명”"
+  ],
+  "WR5": [
+   "절대 표현 0곳"
+  ],
+  "WR3": [
+   "공식 표기와 다른 브랜드명 0곳"
+  ],
+  "WR6": [
+   "내부 · 민감 정보 의심 표현 2곳: 15장 “프로 · B2B 영업팀 · 010-1234-5678 · b2b.proposal@”, 15장 “010-1234-5678 · b2b.proposal@samsung.com”"
+  ],
+  "WR7": [
+   "고지 · 전제 문구가 있는 장: 없음"
+  ],
+  "WR4": [
+   "단위 표기: 혼용 패턴을 찾지 못했어요"
+  ],
+  "WR8": [
+   "약어 14개 중 풀이가 보이지 않는 것: SFR, PER, SER, INF, MNT, CMS, PM, SI, PMO, TO"
+  ],
+  "PR2": [
+   "카탈로그 사양 — QM65C: 스마트 사이니지 QM65C · 65\" · 500nit · 4K UHD · 24/7 운영 / VM55B: 비디오월 VM55B · 55\" · 초슬림 베젤 · 다면 구성 / WM75B: 삼성 Flip Pro WM75B · 75\" · 4K · 최대 20명 동시 터치 · 무선 화면 공유 · 판서"
+  ],
+  "PR3": [
+   "카탈로그 권장 공간 — QM65C: 대기 공간, 로비, 라운지 / VM55B: 관제실, 상황실, 로비, 쇼룸 / WM75B: 회의실, 강의실, 교무실, 상담실"
+  ],
+  "PR1": [
+   "카탈로그에 있는 모델 3종 · 카탈로그에 없는 모델 표기 없음"
+  ],
+  "DS1": [
+   "글자 넘침 0곳 · 장표 밖 0곳 · 텍스트 겹침 0쌍",
+   "제목 위치가 다른 장과 다른 장: 15"
+  ],
+  "DS5": [
+   "제목 글자 크기 분포(px: 장 수) {30: 13} · 폰트: 앱 레이아웃 공통(Noto Sans KR · Manrope)"
+  ],
+  "DS7": [
+   "본문 장 13개 중 결론 · 메시지형 제목 12개 (92%) · 라벨형일 수 있는 제목: 14장 “평가위원 예상 질문 여섯 가지와 답”"
+  ],
+  "DS3": [
+   "장당 평균 146어절 · 최대 220어절 · 110어절 넘는 장: 2장(162), 3장(161), 4장(211), 5장(220), 7장(148), 8장(156), 9장(219), 10장(148), 11장(131), 12장(158)"
+  ],
+  "DS4": [
+   "본문(8자 넘는 칸, 푸터 제외) 최소 글자 크기가 12pt(16px) 미만인 장 15/15장 · 9pt(12px) 미만인 장 11장: 3장 11px(8.2pt), 4장 11px(8.2pt), 5장 11px(8.2pt), 9장 11px(8.2pt), 13장 11px(8.2pt), 15장 11px(8.2pt), 2장 11.5px(8.6pt), 6장 11.5px(8.6pt)",
+   "20자 넘는 본문 칸의 글자 크기 분포(px: 칸 수) {13: 19, 14: 17, 15: 16, 12: 13, 30: 10, 17: 2}"
+  ],
+  "DS6": [
+   "사진 · 이미지가 없는 본문 장 1/14장 (7) · 빈 이미지 칸 0개 · 사진 중심 레이아웃 13장"
+  ],
+  "DS9": [
+   "15장 · 발표 20분 → 장당 1.3분 · 중복 레이아웃 없음"
+  ],
+  "SB2": [
+   "쪽번호 · CONFIDENTIAL 푸터가 있는 장 14/15장 · 없는 장: 1"
+  ],
+  "SB1": [
+   "표지(1장): 고객사명 있음 · 날짜 있음 2026.10 · 제안사 표기 있음 · 목차 장: 2 · 마무리 장: 15"
+  ],
+  "SB5": [
+   "표지 날짜: 2026.10 · 덱 안의 연 · 월 표기: 2026.10, 2026.11"
+  ],
+  "VS3": [
+   "단계 → 파트 순서: 열기(2) → 맥락 · 사업 이해(1) → 근거 · 평가 대응(2) → 구성 · 기술과 보안(4) → 실행 · 사업관리(4) → 마무리 · 질의 대비(2)"
+  ],
+  "CU2": [
+   "요구 8개 중 핵심 낱말이 본문에 거의 없는 것 0개"
+  ]
+ },
+ "profile": {
+  "kind": "winmate",
+  "slides": true,
+  "units": 15,
+  "customer": "K 공단",
+  "ind": "PB",
+  "ind_name": "공공 · 교통 인프라",
+  "products": [
+   "QM65C",
+   "VM55B",
+   "WM75B"
+  ],
+  "unknown_models": [],
+  "older_models": [],
+  "solutions": [
+   "MagicINFO",
+   "Knox Suite",
+   "케어 · 유지관리 서비스"
+  ],
+  "figures": 113,
+  "years": 2,
+  "competitors": [],
+  "brand_terms": [
+   "MagicINFO",
+   "Knox"
+  ],
+  "abbrs": [
+   "RFP",
+   "SW",
+   "SFR",
+   "PER",
+   "SER",
+   "VPN",
+   "INF",
+   "MNT",
+   "CMS",
+   "PM",
+   "QA",
+   "SI",
+   "PMO",
+   "TO"
+  ],
+  "font_count": 2,
+  "fonts": [
+   "Noto Sans KR",
+   "Manrope"
+  ],
+  "pics": 63,
+  "charts": 0,
+  "tables": 0,
+  "market_units": 0,
+  "comp_units": 0,
+  "cost_units": 0,
+  "rfp_like": true,
+  "rfp_format": true,
+  "visual": false,
+  "meta_avail": false
+ },
+ "calls": 1,
+ "tokens": {
+  "prompt": 34902,
+  "output": 2660
+ },
+ "seconds": 0.0,
+ "_kind": "placeholders",
+ "_mode": "forced"
+}

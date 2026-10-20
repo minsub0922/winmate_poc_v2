@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~no_proof:F04"
+ },
+ "prompt_tokens": 1744,
+ "output_tokens": 233,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "한국IBM 사례를 제시했으나, Y 그룹과 동일하거나 유사한 업종이라는 근거가 부족하며, 성과 수치(7일→당일, -30%)가 해당 사례의 실제 결과인지 제안사의 일반적인 기대 효과인지 명확하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "한국IBM"
+     },
+     {
+      "sheet": 5,
+      "quote": "7일 → 당일"
+     },
+     {
+      "sheet": 5,
+      "quote": "−30%"
+     }
+    ],
+    "improve": "한국IBM 사례가 Y 그룹의 업종과 어떤 점에서 유사한지 설명하고, 제시된 수치가 해당 사례에서 실제로 달성된 성과임을 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

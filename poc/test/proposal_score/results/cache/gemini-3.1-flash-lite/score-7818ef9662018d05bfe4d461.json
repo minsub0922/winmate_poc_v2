@@ -1,0 +1,78 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs09~full:F04"
+ },
+ "prompt_tokens": 9008,
+ "output_tokens": 679,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "S 교통공사의 현장 조사 결과(장애 건수, 온도, 복구 시간 등)를 바탕으로 문제의 원인과 영향을 구체적인 수치로 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "연 장애 14건 · 함체 온도 58℃"
+     },
+     {
+      "sheet": 5,
+      "quote": "장애 인지 평균 90분 · 복구 평균 26시간"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "CU6",
+    "score": 3,
+    "anchor": "교통 인프라 업종의 특성인 24시간 운영, 피크 시간대 관제, 교통약자 동선 등을 정확히 반영하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "관제 24명 · 3교대, 역무 · 시설 180명"
+     },
+     {
+      "sheet": 7,
+      "quote": "07:30 출근 피크 · 노선 운행 맵과 혼잡 역 CCTV"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "각 공간(정류장, 출입구, 대합실, 상황실)의 환경적 요구사항(직사광, 방수, 24시간 운영 등)을 명시하고 이에 적합한 제품을 매핑했습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "한낮 직사광 · 3,000nit + 자동 밝기"
+     },
+     {
+      "sheet": 9,
+      "quote": "옥외형 사이니지 OH55A-S · 한낮에도 선명"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "도입 사례를 언급하고 있으나, 실제 고객사명과 해당 사례에서 도출된 구체적인 성과 수치가 명확히 분리되어 제시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "사진: samsung.com 도입사례(강남대로 미디어폴)"
+     }
+    ],
+    "improve": "사례 고객명과 함께 해당 사례에서 달성한 구체적인 성과 수치를 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

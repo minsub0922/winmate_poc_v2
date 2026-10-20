@@ -1,0 +1,69 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs13~full:F02"
+ },
+ "prompt_tokens": 9420,
+ "output_tokens": 572,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 요구사항(R1~R3)과 평가 기준(K1~K4)에 대해 3장(고객 이해), 5장(과제), 6~8장(솔루션), 10~11장(절감액/회수기간)에서 명시적으로 대응하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "전기료가 2년 새 21% 올랐습니다"
+     },
+     {
+      "sheet": 10,
+      "quote": "매장당 연 전력 비용, 네 군데에서 줄어듭니다"
+     },
+     {
+      "sheet": 11,
+      "quote": "22개월이면 투자비를 회수합니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "SB1",
+    "score": 2,
+    "anchor": "표지, 마무리, 연락처는 모두 포함되어 있으나, 제안서 내에 별도의 목차 페이지가 존재하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": ""
+     },
+     {
+      "sheet": 14,
+      "quote": "김도윤 프로 · 삼성전자 B2B 영업팀"
+     }
+    ],
+    "improve": "제안서의 전체 구성을 한눈에 파악할 수 있도록 목차 페이지를 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "SB2",
+    "score": 2,
+    "anchor": "모든 장에 CONFIDENTIAL 푸터는 일관되게 있으나, 1장 표지를 제외한 본문 장들에 쪽번호가 명시적으로 기재되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "CONFIDENTIAL · 2"
+     },
+     {
+      "sheet": 14,
+      "quote": "CONFIDENTIAL · 14"
+     }
+    ],
+    "improve": "각 장의 하단 푸터 영역에 명확한 쪽번호를 기재하여 문서의 일관성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

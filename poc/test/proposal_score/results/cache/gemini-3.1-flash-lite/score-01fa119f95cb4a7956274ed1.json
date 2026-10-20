@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs02:F04"
+ },
+ "prompt_tokens": 4245,
+ "output_tokens": 188,
+ "data": {
+  "scores": [
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "10장의 WM75B는 회의실(실내) 용도로 명시되었으며, 제안된 모든 제품이 각 공간의 환경(로비, 라운지, 회의실 등)에 적합하게 배치되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "공간마다 삼성이 놓는 제품 · 솔루션"
+     },
+     {
+      "sheet": 10,
+      "quote": "층마다 쓰임이 다르니, 제품도 층마다 다릅니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,82 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs12~full:F09"
+ },
+ "prompt_tokens": 8509,
+ "output_tokens": 626,
+ "data": {
+  "scores": [
+   {
+    "id": "PR1",
+    "score": 3,
+    "anchor": "제안된 모델(QM55C, XHB, IFR, JBL Professional)은 모두 현재 삼성전자 B2B 카탈로그 라인업에 포함된 현행 모델입니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "실외 LED XHB · 하만 JBL 프로 오디오 · MagicINFO"
+     },
+     {
+      "sheet": 4,
+      "quote": "IFR LED · QM55C 메뉴보드"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR2",
+    "score": 3,
+    "anchor": "제안서 내 표기된 제품 사양(밝기, 운영 시간 등)은 카탈로그 공식 사양과 일치하며, 장별로 동일하게 유지되고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "6,500 nit · 밝기 자동 조절"
+     },
+     {
+      "sheet": 7,
+      "quote": "XHB 빅보드 · 공통 사양 · 24/7"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR5",
+    "score": 3,
+    "anchor": "QM55C, XHB, IFR 등 제품명을 제안서 전반에 걸쳐 일관된 모델명으로 표기하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "실외 LED XHB · 하만 JBL 프로 오디오"
+     },
+     {
+      "sheet": 11,
+      "quote": "XHB · IFR · QM55C 전 기기"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR3",
+    "score": 3,
+    "anchor": "MagicINFO 등 브랜드 표기가 공식 가이드라인에 따라 대소문자 구분 및 띄어쓰기가 정확하게 적용되었습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "MagicINFO · 전 화면 편성"
+     },
+     {
+      "sheet": 11,
+      "quote": "컨트롤룸 · 마케팅팀 MagicINFO 교육"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

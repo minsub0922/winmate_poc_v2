@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07:F09"
+ },
+ "prompt_tokens": 8448,
+ "output_tokens": 179,
+ "data": {
+  "scores": [
+   {
+    "id": "PR5",
+    "score": 2,
+    "anchor": "WindFree 1Way와 무풍 1Way 카세트라는 표기가 혼용되어 사용되고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "무풍 1Way 카세트 | WindFree 1Way"
+     },
+     {
+      "sheet": 8,
+      "quote": "레퍼런스 · 무풍 시스템에어컨"
+     }
+    ],
+    "improve": "제품 표기를 '무풍 1Way 카세트'로 통일하여 일관성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

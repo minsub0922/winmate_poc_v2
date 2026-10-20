@@ -1,0 +1,43 @@
+{
+ "id": "C08_L2",
+ "case": "C08",
+ "industry": "RS",
+ "strategy": "value",
+ "req_type": "new",
+ "title": "아파트 분양 빌트인 · 스마트홈",
+ "level": "ambiguous",
+ "input": {
+  "title": "M 건설 분양 차별화",
+  "customer": "M 건설",
+  "free_text": "분양을 앞둔 아파트 단지에서 차별화 포인트로 가전과 스마트홈을 검토하고 있습니다. 어떤 구성이 좋을지 제안해 달라고 합니다.",
+  "id": "C08_L2"
+ },
+ "gold": {
+  "level": "ambiguous",
+  "industry": "RS",
+  "scenario_any": [
+   "bs04"
+  ],
+  "scenario_top3": [
+   "bs04"
+  ],
+  "must_parts": [
+   "value",
+   "products"
+  ],
+  "key_reqs": [
+   {
+    "kw": [
+     "차별화"
+    ],
+    "parts_any": [
+     "value",
+     "market",
+     "why"
+    ],
+    "priority": "should"
+   }
+  ],
+  "facts": []
+ }
+}

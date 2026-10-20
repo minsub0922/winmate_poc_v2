@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs05:F02"
+ },
+ "prompt_tokens": 8424,
+ "output_tokens": 256,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 2,
+    "anchor": "R1, R2, R3 및 K2, K3, K4에 대한 대응은 명확하나, K1(몰입감·화제성)에 대한 직접적인 언급과 그에 따른 구체적 전략 제시가 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "줄 서는 시간까지 파크의 체험이 됩니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "시즌마다 새로워지는 구역"
+     },
+     {
+      "sheet": 7,
+      "quote": "낮과 밤 두 무대가 됩니다"
+     }
+    ],
+    "improve": "K1(몰입감·화제성)을 달성하기 위한 구체적인 콘텐츠 전략이나 관람객의 화제성을 유도할 수 있는 차별화된 체험 요소를 명시적으로 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

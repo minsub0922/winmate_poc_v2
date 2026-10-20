@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~placeholders:F07"
+ },
+ "prompt_tokens": 5368,
+ "output_tokens": 401,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "180개 지점, 360대 화면을 기준으로 5년 총소유비용(TCO)을 산출하고, 설치형·구독형·렌탈 모델별 비용 구성 요소와 연도별 누적 비용을 구체적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "180개 지점 · 5년 · 5년 총소유비용"
+     },
+     {
+      "sheet": 11,
+      "quote": "5년 총비용 구성 · 억 원"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "고객의 보안 요구(사내 서버)와 운영 효율(클라우드)을 모두 충족하는 MagicINFO와 VXT 솔루션을 제시하고, 전국 서비스망을 통한 유지보수 및 5년 운영 계획을 구체적으로 연결함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "운영 서비스 · 전환부터 운영 이관까지 지원"
+     },
+     {
+      "sheet": 6,
+      "quote": "데이터는 M 베이커리 안에 머뭅니다"
+     },
+     {
+      "sheet": 7,
+      "quote": "지점에는 화면만, 나머지는 클라우드에"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,13 @@
+{
+  "passed": 0,
+  "total": 1,
+  "cases": [
+    {
+      "group": "Cloudflare",
+      "name": "existing histories reconnect even if Cloudflare rejects POST",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: observed: 연결 확인 필요\n공유 서버에 연결하지 못했어요.\n+ actual - expected\n\n+ undefined\n- '[redacted]'\n\n    at file:///Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/history-sharing-path.mjs:92:662\n    at async test (file:///Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/history-sharing-path.mjs:34:9)\n    at async file:///Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/history-sharing-path.mjs:92:3"
+    }
+  ],
+  "errors": []
+}

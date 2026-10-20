@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~strip_images:F11"
+ },
+ "prompt_tokens": 3302,
+ "output_tokens": 248,
+ "data": {
+  "scores": [
+   {
+    "id": "DS6",
+    "score": 1,
+    "anchor": "전체 16장 중 표지를 제외한 15장의 본문 장이 모두 사진이나 도식 없이 텍스트와 빈 이미지 칸으로만 구성되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "320개 매장 메뉴판을, 본사에서 한 번에 바꿉니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "A 커피 DT 매장의 일곱 공간, 손님 동선마다 삼성이 일합니다"
+     },
+     {
+      "sheet": 10,
+      "quote": "카운터부터 DT까지, 세 가지 제품으로"
+     }
+    ],
+    "improve": "제품 및 공간 시나리오를 설명하는 장에 실제 제품 사진과 매장 배치 도식을 삽입하여 시각적 이해도를 높여야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

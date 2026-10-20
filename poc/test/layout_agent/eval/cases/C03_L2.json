@@ -1,0 +1,56 @@
+{
+ "id": "C03_L2",
+ "case": "C03",
+ "industry": "HT",
+ "strategy": "pain",
+ "req_type": "renew",
+ "title": "비즈니스 호텔 객실 리뉴얼",
+ "level": "ambiguous",
+ "input": {
+  "title": "G 호텔 객실 리뉴얼",
+  "customer": "G 호텔",
+  "free_text": "객실 리뉴얼을 앞두고 TV와 에어컨 교체를 검토 중입니다. 투숙객 불만이 좀 있다고 하네요. 공사 일정이나 범위는 아직 정해지지 않았습니다.",
+  "id": "C03_L2"
+ },
+ "gold": {
+  "level": "ambiguous",
+  "industry": "HT",
+  "scenario_any": [
+   "bs07"
+  ],
+  "scenario_top3": [
+   "bs07"
+  ],
+  "must_parts": [
+   "challenge",
+   "products"
+  ],
+  "key_reqs": [
+   {
+    "kw": [
+     "불만"
+    ],
+    "parts_any": [
+     "challenge",
+     "customer",
+     "user",
+     "value"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "교체"
+    ],
+    "parts_any": [
+     "products",
+     "execution",
+     "bom",
+     "challenge"
+    ],
+    "priority": "should"
+   }
+  ],
+  "facts": []
+ }
+}

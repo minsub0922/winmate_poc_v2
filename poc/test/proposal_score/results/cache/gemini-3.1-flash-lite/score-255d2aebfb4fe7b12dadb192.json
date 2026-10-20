@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~wrong_customer:F01"
+ },
+ "prompt_tokens": 9150,
+ "output_tokens": 243,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "제안서 전반에 걸쳐 고객사명이 'A 커피'가 아닌 'H 호텔'로 잘못 기재된 곳이 5곳 이상 확인되며, 16장에는 연락처 자리표시가 남아 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "H 호텔 프랜차이즈"
+     },
+     {
+      "sheet": 15,
+      "quote": "H 호텔 프랜차이즈"
+     },
+     {
+      "sheet": 16,
+      "quote": "010-1234-5678"
+     }
+    ],
+    "improve": "제안서 내 모든 'H 호텔' 표기를 'A 커피'로 수정하고, 16장의 연락처 자리표시를 실제 담당자 정보로 변경해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

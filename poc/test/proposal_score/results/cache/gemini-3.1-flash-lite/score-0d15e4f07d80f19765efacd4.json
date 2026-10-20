@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs14:F09"
+ },
+ "prompt_tokens": 2372,
+ "output_tokens": 191,
+ "data": {
+  "scores": [
+   {
+    "id": "PR2",
+    "score": 3,
+    "anchor": "제안서 10장의 제품 사양(MIL-STD-810H, IP68, 배터리 교체 가능 등)이 공식 사양과 일치하며, 제안서 내에서 모델별 사양 표기가 일관되게 유지됨.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "MIL-STD-810H · IP68"
+     },
+     {
+      "sheet": 10,
+      "quote": "배터리 교체 | 가능 · 핫스왑"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,118 @@
+{
+ "id": "K06",
+ "case": "K06",
+ "industry": "FB",
+ "strategy": null,
+ "req_type": null,
+ "title": "버거 체인 주방 · 주문 리뉴얼",
+ "level": "complex",
+ "input": {
+  "title": "BB 버거 매장 리뉴얼",
+  "customer": "BB 버거",
+  "project": "직영 150개 매장 주문 · 주방 디스플레이 교체",
+  "target": "운영본부장",
+  "free_text": "직영 150개 매장의 주문 키오스크와 메뉴보드를 교체합니다. 영업 중단 없이 매장당 하룻밤 안에 교체해야 하고, 기존 POS 와 연동되어야 합니다. 3개 매장 시범 운영 후 6개월 안에 전 매장 확산이 목표입니다.",
+  "keymen": [
+   {
+    "name": "운영본부장",
+    "weight": 40,
+    "reqs": [
+     "피크 시간 주문 대기 30% 단축",
+     "전 매장 메뉴 동시 변경"
+    ]
+   },
+   {
+    "name": "IT팀장",
+    "weight": 35,
+    "reqs": [
+     "기존 POS 연동",
+     "키오스크 원격 장애 감지"
+    ]
+   },
+   {
+    "name": "구매팀장",
+    "weight": 25,
+    "reqs": [
+     "5년 총소유비용 비교",
+     "렌탈 옵션"
+    ]
+   }
+  ],
+  "products": [
+   "kiosk",
+   "qm55c"
+  ],
+  "solutions": [
+   "magicinfo"
+  ],
+  "id": "K06"
+ },
+ "gold": {
+  "strategy_any": [
+   "pain",
+   "land",
+   "roi",
+   "value"
+  ],
+  "must_parts": [
+   "requirements",
+   "execution",
+   "cost"
+  ],
+  "dims_any": [
+   "일정·실행·확산",
+   "비용·구매",
+   "시스템 연동"
+  ],
+  "conflicts_any": [
+   "시공 vs 영업 유지"
+  ],
+  "min_questions": 4,
+  "key_reqs": [
+   {
+    "kw": [
+     "POS"
+    ],
+    "parts_any": [
+     "execution",
+     "solution",
+     "requirements"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "30%"
+    ],
+    "parts_any": [
+     "effect",
+     "value",
+     "requirements"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "렌탈"
+    ],
+    "parts_any": [
+     "cost"
+    ],
+    "priority": "should"
+   }
+  ],
+  "facts": [
+   "150",
+   "30"
+  ],
+  "layouts_any": {
+   "execution": [
+    "L_IP_C",
+    "L_PL_A",
+    "L_IG_A"
+   ]
+  },
+  "level": "complex",
+  "industry": "FB"
+ }
+}

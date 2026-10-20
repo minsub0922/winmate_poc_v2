@@ -1,0 +1,112 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~full:F08"
+ },
+ "prompt_tokens": 6426,
+ "output_tokens": 943,
+ "data": {
+  "scores": [
+   {
+    "id": "MK6",
+    "score": 3,
+    "anchor": "분석 장(3, 4, 5)에서 도출된 문제점들이 이후 삼성의 해결책(6, 7, 10, 11)으로 직접 연결되어 제안 방향이 명확합니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "이번 제안이 직접 풉니다"
+     },
+     {
+      "sheet": 5,
+      "quote": "G 쇼핑몰 요구는 오른쪽 위 영역"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "장애율 감소, 복구 시간 단축, 5년 TCO 절감이라는 3가지 핵심 가치를 제시하고 각 가치별 솔루션을 매칭했습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "3.0% → 1.0% 사이니지 월 장애율"
+     },
+     {
+      "sheet": 2,
+      "quote": "38 → 8시간 평균 복구 시간"
+     },
+     {
+      "sheet": 2,
+      "quote": "5년 −12% 5년 총비용"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS3",
+    "score": 2,
+    "anchor": "전반적인 흐름은 논리적이나, 8장에서 경쟁사 분석을 다시 다루며 앞선 흐름이 일부 반복되는 구조를 보입니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "재계약 협상에서 나올 세 가지 말"
+     }
+    ],
+    "improve": "경쟁사 대응 논리를 별도 장으로 분리하지 않고, 앞선 비교 장(5, 6, 7)에 통합하여 흐름을 간결하게 만듭니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS9",
+    "score": 3,
+    "anchor": "표지, 요약, 결론 모두 '5년 동안 덜 멈추는 운영'을 핵심 메시지로 일관되게 유지하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "화면과 공조, 5년 동안 덜 멈추게"
+     },
+     {
+      "sheet": 2,
+      "quote": "가격이 아니라 5년 동안 덜 멈추는 쪽으로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "DS7",
+    "score": 3,
+    "anchor": "대부분의 장 제목이 결론을 담은 문장형으로 구성되어 제목만 읽어도 제안의 핵심 스토리가 파악됩니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "장애 · AS에서 차이는 분명합니다"
+     },
+     {
+      "sheet": 9,
+      "quote": "5년을 보면, 처음 가격의 순서가 바뀝니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "DS9",
+    "score": 3,
+    "anchor": "13장의 분량은 제안 범위와 발표 시간을 고려할 때 적절하며 중복되는 장표 없이 논리적으로 구성되었습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "12월 발주 전 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

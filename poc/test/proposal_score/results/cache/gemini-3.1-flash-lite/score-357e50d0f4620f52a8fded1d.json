@@ -1,0 +1,56 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs05:F11"
+ },
+ "prompt_tokens": 3292,
+ "output_tokens": 467,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 9장으로 4장 이상이며, 장당 평균 어절 수가 147어절로 매우 높아 발표 자료로 읽히지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "312어절"
+     },
+     {
+      "sheet": 5,
+      "quote": "259어절"
+     },
+     {
+      "sheet": 7,
+      "quote": "210어절"
+     }
+    ],
+    "improve": "각 장의 핵심 메시지를 중심으로 텍스트를 대폭 줄이고, 개조식 위주로 재구성하여 장당 77어절 이하로 조정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 57%가 10pt 미만이며, 9pt 미만 본문 칸이 포함된 장이 7장으로 3장 이상 존재합니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 5,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 7,
+      "quote": "본문 최소 10px(7.5pt)"
+     }
+    ],
+    "improve": "모든 본문 텍스트의 크기를 최소 12pt(16px) 이상으로 상향 조정하고, 작은 글자는 라벨이나 캡션 용도로만 제한해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

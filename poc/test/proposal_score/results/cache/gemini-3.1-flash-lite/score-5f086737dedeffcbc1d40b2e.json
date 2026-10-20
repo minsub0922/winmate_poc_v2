@@ -1,0 +1,61 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs03~full:F02"
+ },
+ "prompt_tokens": 8919,
+ "output_tokens": 531,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 2,
+    "anchor": "고객 요구사항 R1, R3, R4는 장 3, 6, 10에서 명확히 대응되나, R2(방학 시공)와 K4(예산 집행)에 대한 구체적인 대응 근거가 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "교수: 기기 연결 · 화면 띄우다 수업이 늦어짐"
+     },
+     {
+      "sheet": 10,
+      "quote": "건물마다 다른 운전 시간, 한 화면에서"
+     }
+    ],
+    "improve": "방학 내 시공 가능성과 예산의 회계연도 내 집행에 대한 구체적인 실행 방안과 근거를 명시적으로 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "SB1",
+    "score": 2,
+    "anchor": "표지와 마무리는 갖추었으나, 제안서 내에 목차 페이지가 별도로 존재하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "E 대학교 스마트 강의실 · 중앙도서관 구축 제안"
+     },
+     {
+      "sheet": 14,
+      "quote": "11월 안에 함께 정할 세 가지"
+     }
+    ],
+    "improve": "제안서 구성 내용을 한눈에 파악할 수 있는 목차 페이지를 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "SB2",
+    "score": 2,
+    "anchor": "모든 장에 푸터와 기밀 표기는 있으나, 1장 표지를 제외한 본문 장들에 쪽번호가 명시적으로 기재되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "CONFIDENTIAL · 2"
+     }
+    ],
+    "improve": "각 장의 하단 푸터 영역에 일관된 쪽번호를 기재해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

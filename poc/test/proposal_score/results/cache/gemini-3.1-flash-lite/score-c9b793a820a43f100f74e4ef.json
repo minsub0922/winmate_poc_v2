@@ -1,0 +1,61 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~full:F12"
+ },
+ "prompt_tokens": 8778,
+ "output_tokens": 488,
+ "data": {
+  "scores": [
+   {
+    "id": "WR2",
+    "score": 3,
+    "anchor": "전체적으로 맞춤법과 띄어쓰기가 정확하며 제목에도 오류가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "B 호텔 객실 TV · 공조 교체와 투숙 경험 개선 제안"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR8",
+    "score": 1,
+    "anchor": "KPI, GOP, OTA, OCC, ADR, PMS 등 호텔 운영 및 비즈니스 관련 약어를 설명 없이 사용하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "RevPAR 121,360원 · 직판 28% · 인건비 상승으로 GOP 압박"
+     },
+     {
+      "sheet": 3,
+      "quote": "월 12,400명 · PMS 예약 데이터(2026. 1–9월)"
+     }
+    ],
+    "improve": "고객이 생소할 수 있는 전문 약어(KPI, GOP, OTA, OCC, ADR, PMS 등)를 처음 등장할 때 괄호 등을 사용하여 풀어서 설명해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR9",
+    "score": 3,
+    "anchor": "전체적으로 개조식 문체를 일관되게 유지하고 있으며 고객을 존중하는 톤을 유지하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "직원이 적은 B 호텔일수록, 객실 TV가 서비스 창구가 됩니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "체크인 피크부터 조용한 밤까지, 공간마다 다르게"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

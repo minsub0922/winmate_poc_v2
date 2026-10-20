@@ -1,0 +1,710 @@
+{
+ "tc": "TC1",
+ "title": "[신한은행] 흑백프린터 도입 추진 (152대)",
+ "cond": "chunk_carry_gap@1500",
+ "form_recall": 0.967,
+ "form_items": 82,
+ "form_lines": 28,
+ "deck_content": 0.632,
+ "deck_content_given_form": 0.632,
+ "checklist_proc": 0.818,
+ "missed_content": [
+  "c11 BMT 기기 1주일 내 배치",
+  "c13 누적 100대 이상",
+  "c14 예정가격 이하 최저가",
+  "c15 동일가격 즉시 추첨",
+  "c16 설치비 포함 총액입찰",
+  "c26 제안 설명 미참석 시 제안포기",
+  "c30 부정당업자 제재"
+ ],
+ "missed_proc": [
+  "c18 13:00 마감",
+  "c25 1년 내 성실 이행 업체 보증금 면제"
+ ],
+ "level": "complex",
+ "industry": "FN",
+ "strategy": "rfp",
+ "answers": {
+  "strategy": "rfp",
+  "ending": "scope",
+  "keyman": "Tech운영부(기술/검증)",
+  "conflict_C1": "규격 충족 + TCO · 지원으로 총가치 강조",
+  "conflict_C4": "단계 납품(우선 지점 먼저)",
+  "gap_products": "자리표시로 두기",
+  "gap_llm1": "자리표시로 두기",
+  "gap_llm2": "자리표시로 두기",
+  "llm_Q01": "검증 완료",
+  "llm_Q02": "해당하지 않음",
+  "llm_Q03": "협의 필요",
+  "length": "20"
+ },
+ "questions": [
+  {
+   "id": "strategy",
+   "q": "어떤 전략 축으로 제안서를 세울까요?",
+   "default": "rfp",
+   "options": [
+    "rfp: 요구 대응형 — 평가표 순서대로 빠짐없이 대응해 점수를 확보한다",
+    "compete: 경쟁 우위형 — 비교 기준을 우리 쪽으로 옮기고, 열위는 정직하게 보완한다",
+    "land: 단계 확산형 — 검증된 결과에서 출발해 확산 단계 · 물량 · 운영 이관까지"
+   ]
+  },
+  {
+   "id": "ending",
+   "q": "이 제안서로 끌어낼 결정(결말)은 무엇인가요?",
+   "default": "scope",
+   "options": [
+    "scope: 범위 · 일정 확정",
+    "shortlist: 우선협상 선정",
+    "pilot: 파일럿 승인"
+   ]
+  },
+  {
+   "id": "keyman",
+   "q": "어느 키맨의 요구를 앞에 둘까요?",
+   "default": "Tech운영부(기술/검증)",
+   "options": [
+    "Tech운영부(기술/검증)",
+    "총무부(입찰/구매/계약)"
+   ]
+  },
+  {
+   "id": "conflict_C1",
+   "q": "[가격 vs 규격] 최저가로 결정되는데 규격 · 보안 필수 조건이 많다 — 규격은 '충족'으로 안전하게, 차별화는 TCO · 지원 체계로 — 어떻게 대응할까요?",
+   "default": "규격 충족 + TCO · 지원으로 총가치 강조",
+   "options": [
+    "규격 100% 충족 + 최저가 대응(원가 최소 구성)",
+    "규격 충족 + TCO · 지원으로 총가치 강조",
+    "대안 사양 제시(부분 충족 위험)"
+   ]
+  },
+  {
+   "id": "conflict_C4",
+   "q": "[물량 vs 일정] 152대 규모인데 짧은 기한 조건이 있다 — 물량 확보 · 설치 인력 계획을 먼저 보여 줘야 함 — 어떻게 대응할까요?",
+   "default": "단계 납품(우선 지점 먼저)",
+   "options": [
+    "재고 확보 + 지역별 동시 설치",
+    "단계 납품(우선 지점 먼저)",
+    "BMT · 샘플 먼저, 본 물량은 계약 후"
+   ]
+  },
+  {
+   "id": "gap_products",
+   "q": "제안할 제품을 확정해 주세요 (추천: 업종 기본 제품)",
+   "default": "자리표시로 두기",
+   "options": [
+    "값을 입력",
+    "자리표시로 두기"
+   ]
+  },
+  {
+   "id": "gap_llm1",
+   "q": "제안 제품의 구체적인 모델명 및 사양(R01 준수 여부 확인 필요)",
+   "default": "자리표시로 두기",
+   "options": [
+    "값을 입력",
+    "자리표시로 두기"
+   ]
+  },
+  {
+   "id": "gap_llm2",
+   "q": "입찰보증금의 정확한 보증기간(R08의 '3' 이후 단위 확인 필요)",
+   "default": "자리표시로 두기",
+   "options": [
+    "값을 입력",
+    "자리표시로 두기"
+   ]
+  },
+  {
+   "id": "llm_Q01",
+   "q": "제안 예정인 흑백프린터 모델이 당행의 보안 시스템(R01) 및 USB 스캔 금지(R02) 요구사항을 완벽히 충족하는지 검증되었습니까?",
+   "default": "검증 완료",
+   "options": [
+    "검증 완료",
+    "검증 중",
+    "미검증"
+   ]
+  },
+  {
+   "id": "llm_Q02",
+   "q": "최근 1년 이내 신한은행과 계약 성실 이행 실적이 있어 입찰보증금 면제 대상에 해당합니까?",
+   "default": "해당하지 않음",
+   "options": [
+    "해당함",
+    "해당하지 않음"
+   ]
+  },
+  {
+   "id": "llm_Q03",
+   "q": "152대 도입 시 1주일 내 배치(R04)를 위한 물류 및 설치 인력 확보 계획이 수립되어 있습니까?",
+   "default": "협의 필요",
+   "options": [
+    "확보 완료",
+    "협의 필요"
+   ]
+  },
+  {
+   "id": "length",
+   "q": "분량은 어느 정도로 할까요?",
+   "default": "20",
+   "options": [
+    "10: 요약(10장 내외)",
+    "15: 표준(15장 내외)",
+    "20: 상세 · 요구 대응(20장 이상)"
+   ]
+  }
+ ],
+ "conflicts": [
+  "가격 vs 규격",
+  "물량 vs 일정"
+ ],
+ "products": [
+  "qm55c",
+  "window",
+  "tabs11"
+ ],
+ "solutions": [],
+ "parts": [
+  "cover:신한은행 흑백프린터 도입",
+  "overview:사업 이해 및 추진 방향",
+  "requirements:키맨별 요구사항 분석",
+  "requirements:BMT 및 평가 대응 전략",
+  "requirements:입찰 요구사항 전수 대응",
+  "value:핵심 가치 및 협력 체계",
+  "products:공간별 최적화 제품",
+  "spec:기능 및 성능 규격 대응",
+  "execution:보안 및 규제 준수",
+  "case:금융권 납품 실적",
+  "why:삼성전자 제안의 강점",
+  "execution:일정 및 실행 계획",
+  "execution:운영 및 유지보수",
+  "execution:단계별 납품 계획",
+  "cost:비용 및 구매 전략",
+  "closing:결정 요청 및 마무리"
+ ],
+ "review": {
+  "req_total": 16,
+  "coverage": 1.0,
+  "issues": [
+   "[low] 편집할 수 없는(data-tb 없는) 다른 업종 샘플 문구가 남은 장표 2장 — 원본 레이아웃 보완 필요",
+   "[low] 입찰 절차 · 제출 조건 33개는 제출 체크리스트로 따로 확인(요구 대응표에 수록)"
+  ],
+  "checklist": 33
+ },
+ "stats": {
+  "n_slides": 16,
+  "placeholders": 84,
+  "slides_with_ph": 12,
+  "sample_text_kept": 330,
+  "img_slots": 1,
+  "img_filled": 1,
+  "photo_slides": 1,
+  "stray_slides": 1,
+  "slides": [
+   {
+    "no": 1,
+    "code": "C09",
+    "f": "L_C09",
+    "visual": [
+     "image",
+     "message",
+     "photo",
+     "table"
+    ],
+    "ph": 0,
+    "img_slots": 1,
+    "img_filled": 1,
+    "kept_sample": 1,
+    "stray": []
+   },
+   {
+    "no": 2,
+    "code": "OV-A",
+    "f": "L_OV_A",
+    "visual": [
+     "cards",
+     "flow",
+     "message"
+    ],
+    "ph": 1,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 21,
+    "stray": []
+   },
+   {
+    "no": 3,
+    "code": "RM-A",
+    "f": "L_RM_A",
+    "visual": [
+     "table"
+    ],
+    "ph": 2,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 2,
+    "stray": []
+   },
+   {
+    "no": 4,
+    "code": "RM-C",
+    "f": "L_RM_C",
+    "visual": [
+     "table"
+    ],
+    "ph": 2,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 33,
+    "stray": []
+   },
+   {
+    "no": 5,
+    "code": "RM-B",
+    "f": "L_RM_B",
+    "visual": [
+     "table"
+    ],
+    "ph": 2,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 17,
+    "stray": []
+   },
+   {
+    "no": 6,
+    "code": "VP-D",
+    "f": "L_VP_D",
+    "visual": [
+     "cards",
+     "photo"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 7,
+    "stray": []
+   },
+   {
+    "no": 7,
+    "code": "P3-B",
+    "f": "L_P3B",
+    "visual": [
+     "cards"
+    ],
+    "ph": 3,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 6,
+    "stray": []
+   },
+   {
+    "no": 8,
+    "code": "SC-B",
+    "f": "L_SC_B",
+    "visual": [
+     "comparison",
+     "table"
+    ],
+    "ph": 5,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 14,
+    "stray": []
+   },
+   {
+    "no": 9,
+    "code": "SE-A",
+    "f": "L_SE_A",
+    "visual": [
+     "table"
+    ],
+    "ph": 1,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 34,
+    "stray": [
+     "Knox Suite"
+    ]
+   },
+   {
+    "no": 10,
+    "code": "CL-C",
+    "f": "L_CL_C",
+    "visual": [
+     "cards",
+     "message"
+    ],
+    "ph": 15,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 7,
+    "stray": []
+   },
+   {
+    "no": 11,
+    "code": "CM-B",
+    "f": "L_CM_B",
+    "visual": [
+     "cards",
+     "comparison"
+    ],
+    "ph": 5,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 5,
+    "stray": []
+   },
+   {
+    "no": 12,
+    "code": "IP-C",
+    "f": "L_IP_C",
+    "visual": [
+     "cards",
+     "diagram",
+     "flow"
+    ],
+    "ph": 5,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 49,
+    "stray": []
+   },
+   {
+    "no": 13,
+    "code": "OG-A",
+    "f": "L_OG_A",
+    "visual": [
+     "cards",
+     "diagram"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 37,
+    "stray": []
+   },
+   {
+    "no": 14,
+    "code": "PL-A",
+    "f": "L_PL_A",
+    "visual": [
+     "cards",
+     "flow"
+    ],
+    "ph": 19,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 37,
+    "stray": []
+   },
+   {
+    "no": 15,
+    "code": "CO-B",
+    "f": "L_CO_B",
+    "visual": [
+     "cards"
+    ],
+    "ph": 24,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 42,
+    "stray": []
+   },
+   {
+    "no": 16,
+    "code": "C13",
+    "f": "L_C13",
+    "visual": [
+     "cards",
+     "flow",
+     "message"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 18,
+    "stray": []
+   }
+  ]
+ },
+ "time": {
+  "rfp_s": 46.7,
+  "layout_s": 27.3,
+  "rfp_calls": 12,
+  "layout_calls": 35,
+  "layout_fail": 0
+ },
+ "rows": [
+  {
+   "id": "c01",
+   "cat": "범위",
+   "desc": "수량 152대",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": true
+  },
+  {
+   "id": "c02",
+   "cat": "규격",
+   "desc": "20 PPM 이상",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c03",
+   "cat": "규격",
+   "desc": "양면 인쇄 필수",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c04",
+   "cat": "보안",
+   "desc": "USB 스캔 사용 불가",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c05",
+   "cat": "보안",
+   "desc": "출력물 보안 시스템 연동",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c06",
+   "cat": "보안",
+   "desc": "무선 접속 출력 제거",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c07",
+   "cat": "보안",
+   "desc": "IP 접속 웹 직접 출력 제거",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c08",
+   "cat": "인증",
+   "desc": "KC(전파) 인증",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c09",
+   "cat": "인증",
+   "desc": "WHQL 드라이버",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c10",
+   "cat": "선정",
+   "desc": "BMT 85% 이상 협상적격자",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c11",
+   "cat": "검증",
+   "desc": "BMT 기기 1주일 내 배치",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c12",
+   "cat": "자격",
+   "desc": "최근 5년 금융권 납품 실적",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": true
+  },
+  {
+   "id": "c13",
+   "cat": "자격",
+   "desc": "누적 100대 이상",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": true
+  },
+  {
+   "id": "c14",
+   "cat": "선정",
+   "desc": "예정가격 이하 최저가",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": true
+  },
+  {
+   "id": "c15",
+   "cat": "선정",
+   "desc": "동일가격 즉시 추첨",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": true
+  },
+  {
+   "id": "c16",
+   "cat": "범위",
+   "desc": "설치비 포함 총액입찰",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": true
+  },
+  {
+   "id": "c17",
+   "cat": "일정",
+   "desc": "참가의향서 6/12",
+   "proc": true,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c18",
+   "cat": "일정",
+   "desc": "13:00 마감",
+   "proc": true,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c19",
+   "cat": "제출",
+   "desc": "접수 메일 주소",
+   "proc": true,
+   "form": true,
+   "deck": false,
+   "checklist": true
+  },
+  {
+   "id": "c20",
+   "cat": "제출",
+   "desc": "제조사 공급 · 기술지원 확약서",
+   "proc": true,
+   "form": false,
+   "deck": false,
+   "checklist": true
+  },
+  {
+   "id": "c21",
+   "cat": "형식",
+   "desc": "PDF 1개 파일",
+   "proc": true,
+   "form": true,
+   "deck": false,
+   "checklist": true
+  },
+  {
+   "id": "c22",
+   "cat": "형식",
+   "desc": "실명번호 뒤 7자리 마스킹",
+   "proc": true,
+   "form": true,
+   "deck": false,
+   "checklist": true
+  },
+  {
+   "id": "c23",
+   "cat": "가격",
+   "desc": "입찰보증금 5%",
+   "proc": true,
+   "form": true,
+   "deck": false,
+   "checklist": true
+  },
+  {
+   "id": "c24",
+   "cat": "가격",
+   "desc": "보증기간 30일 이상",
+   "proc": true,
+   "form": true,
+   "deck": false,
+   "checklist": true
+  },
+  {
+   "id": "c25",
+   "cat": "가격",
+   "desc": "1년 내 성실 이행 업체 보증금 면제",
+   "proc": true,
+   "form": true,
+   "deck": false,
+   "checklist": false
+  },
+  {
+   "id": "c26",
+   "cat": "선정",
+   "desc": "제안 설명 미참석 시 제안포기",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": true
+  },
+  {
+   "id": "c27",
+   "cat": "범위",
+   "desc": "사업기간 12개월 내외",
+   "proc": false,
+   "form": true,
+   "deck": true,
+   "checklist": false
+  },
+  {
+   "id": "c28",
+   "cat": "청렴",
+   "desc": "청렴계약",
+   "proc": true,
+   "form": true,
+   "deck": false,
+   "checklist": true
+  },
+  {
+   "id": "c29",
+   "cat": "유의",
+   "desc": "공고 정보 목적 외 사용 · 제3자 공유 금지",
+   "proc": true,
+   "form": true,
+   "deck": true,
+   "checklist": true
+  },
+  {
+   "id": "c30",
+   "cat": "자격",
+   "desc": "부정당업자 제재",
+   "proc": false,
+   "form": true,
+   "deck": false,
+   "checklist": true
+  }
+ ]
+}

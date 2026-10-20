@@ -1,0 +1,1598 @@
+{
+ "id": "bs14",
+ "variant": "~full",
+ "title": "제조 · 물류 현장 모바일 업무 디지털화",
+ "customer": "L 제조",
+ "n_sheets": 15,
+ "req": "운영 효율 · 솔루션",
+ "strategy": "문제 해결형",
+ "ind": "제조 · 물류 · 현장",
+ "route": {
+  "selected": [
+   "CU1",
+   "CU2",
+   "CU3",
+   "CU4",
+   "CU5",
+   "CU6",
+   "MK1",
+   "MK2",
+   "MK3",
+   "MK4",
+   "PR1",
+   "PR2",
+   "PR3",
+   "PR4",
+   "PR5",
+   "PR6",
+   "PR7",
+   "VS1",
+   "VS2",
+   "VS3",
+   "VS4",
+   "VS5",
+   "VS6",
+   "VS7",
+   "VS8",
+   "VS9",
+   "VS10",
+   "DS1",
+   "DS2",
+   "DS3",
+   "DS4",
+   "DS5",
+   "DS6",
+   "DS7",
+   "DS8",
+   "DS9",
+   "WR1",
+   "WR2",
+   "WR3",
+   "WR4",
+   "WR5",
+   "WR6",
+   "WR7",
+   "WR8",
+   "WR9",
+   "SB1",
+   "SB2",
+   "SB5"
+  ],
+  "mode": "forced",
+  "error": "",
+  "l1": [],
+  "l2": [],
+  "criteria": [],
+  "seeds": {},
+  "local": {},
+  "rule_pass": [],
+  "risk": [],
+  "gates": {
+   "CU1": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU2": {
+    "applies": true,
+    "why": "비교할 고객 요구사항 7개"
+   },
+   "CU3": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU4": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU6": {
+    "applies": true,
+    "why": "업종: 제조 · 물류 · 현장"
+   },
+   "MK1": {
+    "applies": true,
+    "why": "수치 98개"
+   },
+   "MK2": {
+    "applies": true,
+    "why": "연도 언급 3개"
+   },
+   "MK3": {
+    "applies": true,
+    "why": "수치 98개"
+   },
+   "MK4": {
+    "applies": true,
+    "why": "수치 98개"
+   },
+   "MK5": {
+    "applies": false,
+    "why": "경쟁 비교 내용이 없어요"
+   },
+   "MK6": {
+    "applies": false,
+    "why": "분석 장이 없어요"
+   },
+   "PR1": {
+    "applies": true,
+    "why": "제품 3종 언급"
+   },
+   "PR2": {
+    "applies": true,
+    "why": "제품 3종 언급"
+   },
+   "PR3": {
+    "applies": true,
+    "why": "제품 3종 언급"
+   },
+   "PR4": {
+    "applies": true,
+    "why": "솔루션: Knox Suite, Knox Capture, Samsung DeX"
+   },
+   "PR5": {
+    "applies": true,
+    "why": "제품 3종 언급"
+   },
+   "PR6": {
+    "applies": true,
+    "why": "제품 3종 언급"
+   },
+   "PR7": {
+    "applies": true,
+    "why": "제품 3종 언급"
+   },
+   "VS1": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS2": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS3": {
+    "applies": true,
+    "why": "15장 흐름"
+   },
+   "VS4": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS6": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS7": {
+    "applies": true,
+    "why": "본 제안 분량"
+   },
+   "VS8": {
+    "applies": true,
+    "why": "본 제안 분량"
+   },
+   "VS9": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS10": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS1": {
+    "applies": true,
+    "why": "장마다 글자 상자 위치 · 크기를 쟀어요"
+   },
+   "DS2": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS3": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS4": {
+    "applies": true,
+    "why": "글자 크기 정보 있음"
+   },
+   "DS5": {
+    "applies": true,
+    "why": "폰트 2종"
+   },
+   "DS6": {
+    "applies": true,
+    "why": "장표형 문서"
+   },
+   "DS7": {
+    "applies": true,
+    "why": "장표형 문서"
+   },
+   "DS8": {
+    "applies": true,
+    "why": "차트 0 · 표 0 · 수치 98"
+   },
+   "DS9": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS10": {
+    "applies": false,
+    "why": "장표 화면(이미지)이 없어요 — 색 · 톤은 판단 불가"
+   },
+   "WR1": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR2": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR3": {
+    "applies": true,
+    "why": "브랜드 표기 Knox, Galaxy, Samsung DeX"
+   },
+   "WR4": {
+    "applies": true,
+    "why": "수치 98개"
+   },
+   "WR5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR6": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR7": {
+    "applies": true,
+    "why": "사양 · 효과 수치 · 이미지 있음"
+   },
+   "WR8": {
+    "applies": true,
+    "why": "약어 KPI, MES, WMS, MIL"
+   },
+   "WR9": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "SB1": {
+    "applies": true,
+    "why": "장표형 문서"
+   },
+   "SB2": {
+    "applies": true,
+    "why": "5장 이상 장표"
+   },
+   "SB3": {
+    "applies": false,
+    "why": "앱에서 만든 장 · PDF 는 노트 · 숨김 장 · 댓글 정보가 없어요"
+   },
+   "SB4": {
+    "applies": false,
+    "why": "파일 속성이 없어요"
+   },
+   "SB5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "SB6": {
+    "applies": false,
+    "why": "RFP 형식 요구가 연결되지 않았어요"
+   }
+  }
+ },
+ "scores": [
+  {
+   "id": "CU1",
+   "score": 3,
+   "anchor": "모든 장에서 고객사명을 'L 제조'로 일관되게 표기하였으며, 업종 및 규모 정보가 장마다 일치합니다.",
+   "evidence": [
+    {
+     "sheet": 1,
+     "quote": "L 제조"
+    },
+    {
+     "sheet": 2,
+     "quote": "L 제조의 이익은"
+    },
+    {
+     "sheet": 15,
+     "quote": "L 제조 현장 모바일"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F01",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "CU2",
+   "score": 3,
+   "anchor": "고객 요구사항 R1~R4에 대해 각각 6~8장, 8장, 4장, 11장에서 명시적으로 해법과 근거를 제시하고 있습니다.",
+   "evidence": [
+    {
+     "sheet": 6,
+     "quote": "전용 스캐너가 비싸고 자주 고장 나요"
+    },
+    {
+     "sheet": 8,
+     "quote": "교대조가 함께 쓰는 현장 단말, 로그인부터 분석까지"
+    },
+    {
+     "sheet": 4,
+     "quote": "라인 이상 하나가 MES에 오르기까지, 다섯 단계 45분"
+    },
+    {
+     "sheet": 11,
+     "quote": "현장에서 찍는 순간, 5초 안에 WMS · MES에 기록됩니다"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F02",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "CU3",
+   "score": 2,
+   "anchor": "경영 지표(비용 절감, 효율성)와 실무 지표가 13장에 제시되어 있으나, 결정권자(본부장)를 위한 별도의 요약 장이 존재하지 않습니다.",
+   "evidence": [
+    {
+     "sheet": 13,
+     "quote": "전 공장 확산 후, 네 지표가 이렇게 달라집니다"
+    },
+    {
+     "sheet": 15,
+     "quote": "파일럿 승인 · 착수 — 시범 단말 20대 대여"
+    }
+   ],
+   "improve": "제안서 초반에 본부장이 즉각적으로 판단할 수 있도록 성과와 리스크를 요약한 Executive Summary 장을 추가하십시오.",
+   "confidence": "high",
+   "community": "F03",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "CU4",
+   "score": 3,
+   "anchor": "L 제조 현장의 3교대 근무, 라인 이상 보고 프로세스, 자재 피킹 등 구체적인 현장 장면과 45분 소요 시간 등 수치를 기반으로 문제를 정의했습니다.",
+   "evidence": [
+    {
+     "sheet": 3,
+     "quote": "이상 · 위험 발생 | 라인 · 야드 · 09:40 | 결정적 순간"
+    },
+    {
+     "sheet": 4,
+     "quote": "라인 이상 하나가 MES에 오르기까지, 다섯 단계 45분"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F04",
+   "mode": "llm",
+   "grounded": 0.5,
+   "error": ""
+  },
+  {
+   "id": "CU5",
+   "score": 3,
+   "anchor": "고객사의 구체적인 운영 수치, 현장 여정, 파일럿 일정 등이 전 장에 걸쳐 상세히 반영되어 있어 범용 장표가 아닙니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "납품 매출 2,400억 원"
+    },
+    {
+     "sheet": 14,
+     "quote": "3라인 · 입고 도크 1에서 4주 검증"
+    },
+    {
+     "sheet": 15,
+     "quote": "11월 2일 첫 라인이 바뀝니다"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F01",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "CU6",
+   "score": 3,
+   "anchor": "제조 및 물류 현장의 3교대 운영, 입고 도크, 자재 랙, MES/WMS 연동 등 업종 고유의 운영 맥락을 정확히 반영하고 있습니다.",
+   "evidence": [
+    {
+     "sheet": 3,
+     "quote": "현장을 움직이는 사용자 그룹과 한 교대 근무의 여정"
+    },
+    {
+     "sheet": 7,
+     "quote": "입고 도크부터 고객사 납품까지, 갤럭시로 찍으면 바로 기록됩니다"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F04",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "MK1",
+   "score": 1,
+   "anchor": "제안서 내에 시장 규모, 성장률, 점유율에 대한 분석 장이 존재하지 않으며, 시장 수치에 대한 근거가 전혀 제시되지 않았습니다.",
+   "evidence": [
+    {
+     "sheet": 0,
+     "quote": ""
+    }
+   ],
+   "improve": "고객사의 업종과 관련된 시장 규모, 성장률, 점유율 데이터를 신뢰할 수 있는 출처와 함께 명시해야 합니다.",
+   "confidence": "high",
+   "community": "F05",
+   "mode": "llm",
+   "grounded": null,
+   "error": ""
+  },
+  {
+   "id": "MK2",
+   "score": 1,
+   "anchor": "제안서 내 인용된 수치들은 대부분 기준 연도가 명시되어 있지 않으며, 2026년이라는 표기 외에 객관적인 통계 자료의 기준 연도를 확인할 수 없습니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "KPI는 2026 상반기 현장 자료"
+    }
+   ],
+   "improve": "모든 인용 수치에 대해 정확한 조사 기관과 기준 연도를 명시하고, 최근 2년 이내의 자료를 사용해야 합니다.",
+   "confidence": "high",
+   "community": "F05",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "MK3",
+   "score": 1,
+   "anchor": "제안서 내의 주요 성과 수치 및 현장 측정값들에 대해 기관이나 출처가 전혀 표기되어 있지 않습니다.",
+   "evidence": [
+    {
+     "sheet": 4,
+     "quote": "소요 시간은 10월 현장 측정"
+    },
+    {
+     "sheet": 13,
+     "quote": "10월 샘플 측정 기준"
+    }
+   ],
+   "improve": "모든 수치와 인용 자료마다 출처(기관명, 연도)를 명확히 기재하고, 고객 내부 자료는 '고객 운영 자료(연도)'와 같이 표기해야 합니다.",
+   "confidence": "high",
+   "community": "F05",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "MK4",
+   "score": 2,
+   "anchor": "단말 수량(78대, 94대, 20대)은 각각 교대 공용, 전체, 파일럿용으로 대상이 달라 모순은 아니나, 13장의 단말 총비용 절감률(52%)과 14장의 목표(75% 등)가 지표 성격상 혼동을 줄 수 있습니다.",
+   "evidence": [
+    {
+     "sheet": 8,
+     "quote": "교대조 공용 단말 78대"
+    },
+    {
+     "sheet": 9,
+     "quote": "1공장 합계 94대"
+    },
+    {
+     "sheet": 15,
+     "quote": "시범 단말 20대 대여"
+    }
+   ],
+   "improve": "지표별 정의를 명확히 하고, 파일럿 목표와 전체 확산 목표의 수치 차이를 독자가 오해하지 않도록 주석을 보완해야 합니다.",
+   "confidence": "high",
+   "community": "F06",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "PR1",
+   "score": 3,
+   "anchor": "제안된 갤럭시 엑스커버7 프로, 갤럭시 탭 액티브5 프로, 갤럭시 워치8은 모두 현재 카탈로그 라인업에 부합하며 단종 모델 표기가 없습니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "삼성 · 엑스커버7 프로"
+    },
+    {
+     "sheet": 8,
+     "quote": "갤럭시 탭 액티브5 프로"
+    },
+    {
+     "sheet": 9,
+     "quote": "갤럭시 워치8"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F09",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "PR2",
+   "score": 3,
+   "anchor": "제안서 내 기재된 모델별 사양(IP68, MIL-STD-810H, 배터리 용량 등)이 카탈로그 사양과 일치하며 장별로 동일하게 표기되었습니다.",
+   "evidence": [
+    {
+     "sheet": 10,
+     "quote": "MIL-STD-810H · IP68"
+    },
+    {
+     "sheet": 10,
+     "quote": "10,100 mAh"
+    },
+    {
+     "sheet": 10,
+     "quote": "4,350 mAh"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F09",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "PR3",
+   "score": 3,
+   "anchor": "현장 환경(장갑 터치, 낙하, 24시간 운영)에 맞춰 러기드 단말(탭 액티브5 프로, 엑스커버7 프로)을 직무별로 적절히 배치했습니다.",
+   "evidence": [
+    {
+     "sheet": 8,
+     "quote": "교대조가 함께 쓰는 현장 단말, 로그인부터 분석까지"
+    },
+    {
+     "sheet": 10,
+     "quote": "현장 단말 두 종, 떨어뜨리고 젖어도 일합니다"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F04",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "PR4",
+   "score": 3,
+   "anchor": "Knox Suite와 Knox Capture를 활용해 기기 관리, 보안, 스캔 업무를 어떻게 수행하는지 운영 장면을 구체적으로 제시함.",
+   "evidence": [
+    {
+     "sheet": 8,
+     "quote": "Knox Suite로 내 계정 로그인 · 설정 자동"
+    },
+    {
+     "sheet": 11,
+     "quote": "Knox Suite · 현장 단말 94대"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F10",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "PR5",
+   "score": 3,
+   "anchor": "갤럭시 엑스커버7 프로와 갤럭시 탭 액티브5 프로 등 주요 제품명을 제안서 전반에 걸쳐 일관된 명칭으로 사용하고 있습니다.",
+   "evidence": [
+    {
+     "sheet": 6,
+     "quote": "엑스커버7 프로"
+    },
+    {
+     "sheet": 8,
+     "quote": "갤럭시 탭 액티브5 프로"
+    },
+    {
+     "sheet": 10,
+     "quote": "Galaxy Tab Active5 Pro"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F09",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "PR6",
+   "score": 2,
+   "anchor": "직무별 키트 구성과 수량은 명시되어 있으나, 9장의 합계(94대)와 10장의 모델별 수량 합계(40+54=94대)는 일치하지만, 액세서리(거치대 등)의 상세 수량이 누락되어 있습니다.",
+   "evidence": [
+    {
+     "sheet": 9,
+     "quote": "1공장 합계 94대"
+    },
+    {
+     "sheet": 10,
+     "quote": "Galaxy Tab Active5 Pro × 40, Galaxy XCover7 Pro × 54"
+    }
+   ],
+   "improve": "직무별 키트에 포함되는 액세서리(거치대, 핸드 스트랩 등)의 수량을 표에 추가하여 명확히 해야 합니다.",
+   "confidence": "high",
+   "community": "F06",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "PR7",
+   "score": 2,
+   "anchor": "거치대, 교육 등 고객 준비 사항은 언급되나, 전원·네트워크·시공·유지보수·보증에 대한 구체적인 도입 전제 조건이 명시되지 않음.",
+   "evidence": [
+    {
+     "sheet": 15,
+     "quote": "시범 단말 20대 대여"
+    }
+   ],
+   "improve": "설치 환경(Wi-Fi 등)과 유지보수 및 보증 범위를 명확히 기술해야 합니다.",
+   "confidence": "high",
+   "community": "F10",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "VS1",
+   "score": 3,
+   "anchor": "고객의 요구사항인 작업 시간 단축, 비용 절감, 보안 강화, 연동 효율을 4가지 핵심 가치로 명확히 제시하고 각 가치별 솔루션을 연결함.",
+   "evidence": [
+    {
+     "sheet": 13,
+     "quote": "전 공장 확산 후, 네 지표가 이렇게 달라집니다"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F08",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "VS2",
+   "score": 3,
+   "anchor": "도입 전후의 KPI 지표(처리 시간, 오류율, 비용 등)를 명확히 제시하고, 10월 현장 측정치와 삼성전자 추정치라는 산정 근거 및 전제를 각 장에 명시함.",
+   "evidence": [
+    {
+     "sheet": 13,
+     "quote": "예상치 · 10월 샘플 측정 기준 · 삼성전자 추정"
+    },
+    {
+     "sheet": 14,
+     "quote": "도입 전 값은 10/28 정밀 측정"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F07",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "VS3",
+   "score": 2,
+   "anchor": "전반적인 흐름은 논리적이나, 7장에서 이미 제시된 솔루션 시나리오가 8장과 9장에서 다시 세부 구성으로 나뉘며 흐름이 다소 반복됨.",
+   "evidence": [
+    {
+     "sheet": 7,
+     "quote": "입고 도크부터 고객사 납품까지"
+    },
+    {
+     "sheet": 8,
+     "quote": "교대조가 함께 쓰는 현장 단말"
+    }
+   ],
+   "improve": "솔루션 제안 파트에서 시나리오와 기기 구성을 통합하여 흐름의 중복을 제거해야 합니다.",
+   "confidence": "mid",
+   "community": "F08",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "VS4",
+   "score": 3,
+   "anchor": "Knox 보안, Knox Capture, 기기 라인업 등 삼성만의 통합 솔루션을 고객의 현장 과제(보안, 스캐너 고장, 교대 로그인)와 직접 연결하여 구체적으로 제시함.",
+   "evidence": [
+    {
+     "sheet": 6,
+     "quote": "Knox Suite에 포함된 스캔 솔루션"
+    },
+    {
+     "sheet": 8,
+     "quote": "칩 수준부터 내장된 Knox 보안으로 기기 속 데이터 보호"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F07",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "VS5",
+   "score": 2,
+   "anchor": "아이센스, 백광의약품 등 유사 업종의 도입 사례를 사진과 함께 언급했으나, 해당 사례에서 도출된 구체적인 성과 수치가 명시되지 않았습니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "공조 에너지비 · 수동 설정 — 아이센스 사례 참고"
+    },
+    {
+     "sheet": 11,
+     "quote": "거치대 태블릿으로 재고 · 입출고를 확인하는 현장 (백광의약품)"
+    }
+   ],
+   "improve": "인용한 사례 기업의 도입 전후 성과 수치를 구체적으로 제시하여 제안의 신뢰도를 높여야 합니다.",
+   "confidence": "high",
+   "community": "F04",
+   "mode": "llm",
+   "grounded": 0.5,
+   "error": ""
+  },
+  {
+   "id": "VS6",
+   "score": 3,
+   "anchor": "파일럿 일정, 단계, 역할 분담, 교육 계획이 구체적으로 정리되어 있음.",
+   "evidence": [
+    {
+     "sheet": 14,
+     "quote": "3라인 · 입고 도크 1에서 4주 검증합니다"
+    },
+    {
+     "sheet": 15,
+     "quote": "11/2 착수 · 착수 후 1주 운영 시작"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F10",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "VS7",
+   "score": 2,
+   "anchor": "대당 5년 TCO 비교를 통해 비용 구조를 제시했으나, 라이선스 비용이나 유지보수 등 숨은 비용에 대한 구체적인 산정 전제가 명확하지 않습니다.",
+   "evidence": [
+    {
+     "sheet": 13,
+     "quote": "단말 총비용 | 대당 · 5년 TCO | 310 | 만 원 | 150 | 만 원"
+    }
+   ],
+   "improve": "TCO 산정에 포함된 하드웨어, Knox 라이선스, 유지보수 비용의 세부 항목과 산정 전제를 명시하십시오.",
+   "confidence": "high",
+   "community": "F03",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  },
+  {
+   "id": "VS8",
+   "score": 1,
+   "anchor": "도입 시 발생할 수 있는 리스크와 대응 방안에 대한 내용이 없음.",
+   "evidence": [
+    {
+     "sheet": 0,
+     "quote": ""
+    }
+   ],
+   "improve": "공사 중 영업 영향, 시스템 호환성, 일정 지연 등 예상 리스크와 대응 방안을 추가해야 합니다.",
+   "confidence": "high",
+   "community": "F10",
+   "mode": "llm",
+   "grounded": null,
+   "error": ""
+  },
+  {
+   "id": "VS9",
+   "score": 2,
+   "anchor": "표지와 결론에서 '갤럭시 한 대'라는 핵심 메시지는 일관되나, 중간 장들에서 세부 지표 위주로 설명되어 핵심 메시지와의 연결성이 다소 약함.",
+   "evidence": [
+    {
+     "sheet": 1,
+     "quote": "찍고 기록하고 보고까지 갤럭시 한 대로"
+    },
+    {
+     "sheet": 15,
+     "quote": "승인해 주시면, 11월 2일 첫 라인이 바뀝니다"
+    }
+   ],
+   "improve": "중간 장들의 제목이나 소제목에 '갤럭시 한 대'라는 핵심 메시지를 반복적으로 배치하여 일관성을 강화해야 합니다.",
+   "confidence": "mid",
+   "community": "F08",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "VS10",
+   "score": 3,
+   "anchor": "마지막 장에 고객이 내릴 결정(파일럿 승인)과 다음 단계별 일정 및 담당자가 명확히 제시됨.",
+   "evidence": [
+    {
+     "sheet": 15,
+     "quote": "승인해 주시면, 11월 2일 첫 라인이 바뀝니다"
+    },
+    {
+     "sheet": 15,
+     "quote": "10/30 본부장 파일럿 승인 · 착수"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F10",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "DS1",
+   "score": 2,
+   "anchor": "11장에서 텍스트 겹침이 발생하고 13, 15장에서 제목 위치가 다른 장과 일관되지 않게 배치되었습니다.",
+   "evidence": [
+    {
+     "sheet": 11,
+     "quote": "겹침 1"
+    },
+    {
+     "sheet": 13,
+     "quote": "제목 30px@(556,66)"
+    },
+    {
+     "sheet": 15,
+     "quote": "제목 30px@(648,66)"
+    }
+   ],
+   "improve": "11장의 텍스트 겹침을 해소하고 모든 장의 제목 위치를 동일한 좌표로 통일해야 합니다.",
+   "confidence": "high",
+   "community": "F11",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  },
+  {
+   "id": "DS2",
+   "score": 2,
+   "anchor": "대부분 장은 요지가 명확하나, 2, 3, 6, 7, 8, 9장 등은 어절 수가 많아 메시지가 분산될 우려가 있습니다.",
+   "evidence": [
+    {
+     "sheet": 3,
+     "quote": "336어절"
+    },
+    {
+     "sheet": 7,
+     "quote": "237어절"
+    }
+   ],
+   "improve": "장당 어절 수를 줄이고 핵심 메시지를 강조하는 시각적 요소를 강화해야 합니다.",
+   "confidence": "mid",
+   "community": "F11",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  },
+  {
+   "id": "DS3",
+   "score": 1,
+   "anchor": "110어절을 넘는 장이 10장으로 기준치인 4장을 크게 초과하며, 장당 평균 어절 수도 167어절로 매우 높습니다.",
+   "evidence": [
+    {
+     "sheet": 3,
+     "quote": "336어절"
+    },
+    {
+     "sheet": 7,
+     "quote": "237어절"
+    }
+   ],
+   "improve": "각 장의 텍스트를 핵심 위주로 대폭 요약하여 장당 110어절 이하로 줄여야 합니다.",
+   "confidence": "high",
+   "community": "F11",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  },
+  {
+   "id": "DS4",
+   "score": 1,
+   "anchor": "20자 넘는 본문 칸의 64%가 10pt 미만이며, 9pt 미만 본문 칸이 6개 장에 존재하여 가독성이 낮습니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "본문 최소 11px(8.2pt)"
+    },
+    {
+     "sheet": 3,
+     "quote": "본문 최소 11px(8.2pt)"
+    }
+   ],
+   "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정해야 합니다.",
+   "confidence": "high",
+   "community": "F11",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  },
+  {
+   "id": "DS5",
+   "score": 3,
+   "anchor": "폰트는 Noto Sans KR과 Manrope 2종을 사용하며, 모든 장에서 제목 크기가 30px로 일정하게 유지됩니다.",
+   "evidence": [
+    {
+     "sheet": 1,
+     "quote": "폰트: 앱 레이아웃 공통(Noto Sans KR · Manrope)"
+    },
+    {
+     "sheet": 14,
+     "quote": "제목 30px@(64,66)"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F11",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  },
+  {
+   "id": "DS6",
+   "score": 3,
+   "anchor": "모든 장에 실제 현장 사진과 도식이 포함되어 있으며, 텍스트만으로 구성된 장이 없습니다.",
+   "evidence": [
+    {
+     "sheet": 1,
+     "quote": "사진 1"
+    },
+    {
+     "sheet": 9,
+     "quote": "사진 12"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F11",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  },
+  {
+   "id": "DS7",
+   "score": 3,
+   "anchor": "모든 장의 제목이 단순 라벨이 아닌, 해당 장의 핵심 결론을 담은 문장형으로 작성되어 제목만 읽어도 전체 스토리가 파악됨.",
+   "evidence": [
+    {
+     "sheet": 4,
+     "quote": "라인 이상 하나가 MES에 오르기까지, 다섯 단계 45분"
+    },
+    {
+     "sheet": 11,
+     "quote": "현장에서 찍는 순간, 5초 안에 WMS · MES에 기록됩니다"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F08",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "DS8",
+   "score": 1,
+   "anchor": "수치가 많은 장(2, 3, 4, 6, 9, 12 등)에서 표나 차트 형식을 사용하지 않고 텍스트로만 나열하여 가독성이 매우 떨어집니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "납품 매출 2,400억 원 · 재료비 62% · 인건비 16% · 영업이익 6.0%"
+    },
+    {
+     "sheet": 4,
+     "quote": "다섯 단계 45분"
+    }
+   ],
+   "improve": "텍스트로 나열된 수치와 프로세스 단계를 표나 차트(간트 차트, 프로세스 맵 등)로 시각화하여 가독성을 높여야 합니다.",
+   "confidence": "high",
+   "community": "F06",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "DS9",
+   "score": 3,
+   "anchor": "15장의 분량은 제안의 범위인 파일럿 승인 요청을 설명하기에 적절하며, 중복되는 장 없이 논리적으로 구성됨.",
+   "evidence": [
+    {
+     "sheet": 15,
+     "quote": "승인해 주시면, 11월 2일 첫 라인이 바뀝니다"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F08",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "WR1",
+   "score": 3,
+   "anchor": "템플릿 잔여물이나 자리표시 문구가 발견되지 않았으며, 연락처는 제안 담당자의 정보로 적절히 기재되었습니다.",
+   "evidence": [
+    {
+     "sheet": 15,
+     "quote": "김도윤 프로 · 삼성전자 B2B 영업팀"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F01",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "WR2",
+   "score": 3,
+   "anchor": "전체적으로 맞춤법과 띄어쓰기가 정확하며 제목에도 오류가 없습니다.",
+   "evidence": [
+    {
+     "sheet": 1,
+     "quote": "찍고 기록하고 보고까지 갤럭시 한 대로"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F12",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "WR3",
+   "score": 3,
+   "anchor": "Knox, Samsung DeX, Galaxy 등 브랜드 표기가 공식 가이드라인에 따라 대소문자 및 띄어쓰기가 정확하게 기재되었습니다.",
+   "evidence": [
+    {
+     "sheet": 6,
+     "quote": "Knox Capture"
+    },
+    {
+     "sheet": 8,
+     "quote": "Knox Suite"
+    },
+    {
+     "sheet": 9,
+     "quote": "Samsung DeX"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F09",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "WR4",
+   "score": 2,
+   "anchor": "금액 단위가 '억 원', '만 원', '원'으로 혼용되어 표기되어 있습니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "납품 매출 2,400억 원"
+    },
+    {
+     "sheet": 13,
+     "quote": "310만 원"
+    }
+   ],
+   "improve": "제안서 내 금액 단위를 '원' 또는 '백만 원' 등으로 통일하여 표기해야 합니다.",
+   "confidence": "high",
+   "community": "F06",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "WR5",
+   "score": 3,
+   "anchor": "제안서 내에 근거 없는 절대적 표현(최초, 최고, 유일 등)이 발견되지 않으며, 성과를 보증하는 문장 대신 예상치와 측정 기준을 명시함.",
+   "evidence": [
+    {
+     "sheet": 13,
+     "quote": "예상치 · 10월 샘플 측정 기준"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F07",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "WR6",
+   "score": 3,
+   "anchor": "원가, 마진, 내부 코드명 등 민감한 내부 정보가 포함되어 있지 않으며, 제안 담당자의 연락처 외 개인정보 노출도 없습니다.",
+   "evidence": [
+    {
+     "sheet": 15,
+     "quote": "김도윤 프로 · 삼성전자 B2B 영업팀"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F01",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "WR7",
+   "score": 3,
+   "anchor": "연출 이미지, 사양 변경 가능성, 효과 수치의 전제 조건(추정치, 예상치 등)을 각 장 하단에 명시하여 법적 고지 요건을 충족함.",
+   "evidence": [
+    {
+     "sheet": 6,
+     "quote": "스캐너 구매 없이 · 추정치"
+    },
+    {
+     "sheet": 13,
+     "quote": "예상치 · 10월 샘플 측정 기준"
+    },
+    {
+     "sheet": 15,
+     "quote": "사진: samsung.com"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F07",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "WR8",
+   "score": 1,
+   "anchor": "KPI, MES, WMS, API 등 고객이 이해해야 할 핵심 약어들이 처음 등장할 때 풀이 없이 사용되었습니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "단계별 KPI"
+    },
+    {
+     "sheet": 3,
+     "quote": "MES에 늦게 반영"
+    },
+    {
+     "sheet": 7,
+     "quote": "기존 WMS · 납품 앱"
+    }
+   ],
+   "improve": "제안서 도입부나 별도의 용어 정의 페이지를 마련하여 KPI, MES, WMS 등 주요 약어를 풀어서 설명해야 합니다.",
+   "confidence": "high",
+   "community": "F12",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "WR9",
+   "score": 2,
+   "anchor": "개조식 종결과 경어체 문장이 혼용되어 있으나, 전체적인 톤은 고객 존중을 유지하고 있어 가독성에 큰 지장은 없습니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "L 제조의 이익은 라인 · 사람 · 출하가 멈추지 않을 때 나옵니다"
+    },
+    {
+     "sheet": 6,
+     "quote": "갤럭시 카메라가 업무용 스캐너가 됩니다"
+    }
+   ],
+   "improve": "개조식 종결과 서술형 문장이 섞인 부분을 통일하여 일관된 문체를 유지해야 합니다.",
+   "confidence": "high",
+   "community": "F12",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "SB1",
+   "score": 2,
+   "anchor": "표지와 마무리는 충실히 구성되어 있으나, 제안서 내에 목차 페이지가 별도로 존재하지 않습니다.",
+   "evidence": [
+    {
+     "sheet": 1,
+     "quote": "표지 · 목차"
+    }
+   ],
+   "improve": "제안서 1장 내에 목차 내용을 구체적으로 명시하거나 별도의 목차 페이지를 추가해야 합니다.",
+   "confidence": "high",
+   "community": "F02",
+   "mode": "llm",
+   "grounded": 0.0,
+   "error": ""
+  },
+  {
+   "id": "SB2",
+   "score": 2,
+   "anchor": "모든 장에 푸터와 기밀 표기는 일관되게 있으나, 1장 표지 외에 본문 페이지에 쪽번호가 명시적으로 기재되어 있지 않습니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "CONFIDENTIAL · 2"
+    }
+   ],
+   "improve": "각 장의 푸터 영역에 페이지 번호를 명확하게 표기해야 합니다.",
+   "confidence": "high",
+   "community": "F02",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "SB5",
+   "score": 3,
+   "anchor": "표지의 제출일이 2026.10.20으로 최신이며, 본문 내 일정과 모순 없이 일치함.",
+   "evidence": [
+    {
+     "sheet": 1,
+     "quote": "2026. 10. 20"
+    },
+    {
+     "sheet": 15,
+     "quote": "11/2 착수"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F10",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  }
+ ],
+ "aggregate": {
+  "total": 69.9,
+  "band": "보완",
+  "verdict": "보완 필요",
+  "rubric_mean": 2.429,
+  "categories": {
+   "CU": 92.9,
+   "MK": 11.1,
+   "PR": 89.3,
+   "VS": 76.3,
+   "DS": 52.9,
+   "WR": 86.7,
+   "SB": 66.7
+  },
+  "communities": {
+   "F01": 3.0,
+   "F02": 2.33,
+   "F03": 2.0,
+   "F04": 2.75,
+   "F05": 1.0,
+   "F06": 1.75,
+   "F07": 3.0,
+   "F08": 2.6,
+   "F09": 3.0,
+   "F10": 2.5,
+   "F11": 2.0,
+   "F12": 2.0,
+   "C1": 2.47,
+   "C2": 2.44,
+   "C3": 2.31,
+   "C4": 2.27
+  },
+  "n_all": 54,
+  "n_applicable": 48,
+  "n_selected": 48,
+  "n_scored": 48,
+  "weight_coverage": 1.0,
+  "dist": {
+   "1": 8,
+   "2": 14,
+   "3": 26
+  },
+  "low": [
+   "MK1",
+   "MK2",
+   "MK3",
+   "DS3",
+   "DS4",
+   "VS8",
+   "DS8",
+   "WR8"
+  ]
+ },
+ "rule_pass": [],
+ "risk": [],
+ "grounded_mean": 0.804,
+ "fallbacks": 0,
+ "auto_checks": {
+  "CU5": [
+   "고객사명 “L 제조”이 나오는 장: 15/15장",
+   "앱 규칙 점검: 고객사명이 나오는 장 비율 107%"
+  ],
+  "CU1": [
+   "고객사명 “L 제조” 표기: 15개 장",
+   "앱 규칙 점검: 고객사명 “L 제조” 언급: 15개 장"
+  ],
+  "MK4": [
+   "같은 앞말 · 단위인데 크게 다른 값(다른 대상일 수 있음): “단말 N대” 20대(15장) · 78대(8장) · 94대(11장)"
+  ],
+  "MK2": [
+   "자료 기준 연도 표기 1곳 · 3년 이상 된 자료 연도 없음",
+   "앱 규칙 점검: 데이터 기준 연도: 2026"
+  ],
+  "MK3": [
+   "수치 3개 이상인 장 12개 중 출처 · 기준 표기 없는 장: 2, 3, 6, 8, 9, 10, 12, 13, 14, 15",
+   "앱 규칙 점검: 수치가 있는 장 8개 중 출처 표기 0개 · 출처가 없는 곳: 2장, 3장, 4장, 6장, 7장, 8장, 9장, 12장"
+  ],
+  "WR1": [
+   "자리표시 · 템플릿 문구 0곳",
+   "예시용(가짜) 연락처 — 제출 전 실제 값으로 바꿀 자리: 15장 “삼성전자 B2B 영업팀 · 010-1234-5678 · b2b.proposal@”",
+   "앱 규칙 점검: 자리표시 · 템플릿 문구를 찾지 못했어요"
+  ],
+  "WR5": [
+   "절대 표현 0곳",
+   "앱 규칙 점검: 근거 없는 절대 표현을 찾지 못했어요"
+  ],
+  "WR3": [
+   "공식 표기와 다른 브랜드명 0곳",
+   "앱 규칙 점검: 브랜드 표기는 공식 표기와 맞아요"
+  ],
+  "WR6": [
+   "내부 · 민감 정보 의심 표현 0곳",
+   "앱 규칙 점검: 내부 정보 노출 신호를 찾지 못했어요"
+  ],
+  "WR7": [
+   "고지 · 전제 문구가 있는 장: 6, 8, 13",
+   "앱 규칙 점검: 고지 문구: 6장 “추정치”, 13장 “예상치”"
+  ],
+  "WR4": [
+   "단위 표기: 혼용 패턴을 찾지 못했어요",
+   "앱 규칙 점검: 단위 표기 혼용 — 금액: 억 원 / 원 / 만 원"
+  ],
+  "WR8": [
+   "약어 10개 중 풀이가 보이지 않는 것: KPI, MIL, STD, API, JSON, CSV, TCO",
+   "앱 규칙 점검: 처음 쓸 때 풀이가 없는 약어: KPI, MES, WMS, MIL, STD, API, JSON, CSV"
+  ],
+  "PR2": [
+   "카탈로그 사양 — SM-X350: 갤럭시 탭 액티브5 프로 · IP68 · MIL-STD · 장갑 터치 · 교체형 배터리 / SM-G766: 갤럭시 엑스커버7 프로 · 러기드 · PTT 버튼 · 바코드 스캔(Knox Capture) / Galaxy Watch8: 갤럭시 워치 · 근무자 안전 알림 · 생체 신호 · Knox 관리",
+   "앱 규칙 점검: 모델 주변 사양 수치 3곳 대조"
+  ],
+  "PR3": [
+   "카탈로그 권장 공간 — SM-X350: 생산 라인, 물류 창고, 현장 / SM-G766: 물류 창고, 매장 후방, 현장 / Galaxy Watch8: 현장, 병동, 야외 작업장",
+   "앱 규칙 점검: 공간 · 용도와 맞지 않는 제품 배치 신호를 찾지 못했어요"
+  ],
+  "PR1": [
+   "카탈로그에 있는 모델 3종 · 카탈로그에 없는 모델 표기 없음",
+   "앱 규칙 점검: 카탈로그 현행 모델: SM-X350, SM-G766, Galaxy Watch8"
+  ],
+  "DS1": [
+   "글자 넘침 0곳 · 장표 밖 0곳 · 텍스트 겹침 1쌍: 11장 칸1↔3",
+   "제목 위치가 다른 장과 다른 장: 13, 15",
+   "앱 규칙 점검: 도형 정보가 없어 화면 이미지로만 판단해요"
+  ],
+  "DS5": [
+   "제목 글자 크기 분포(px: 장 수) {30: 14} · 폰트: 앱 레이아웃 공통(Noto Sans KR · Manrope)",
+   "앱 규칙 점검: 폰트 2종: Noto Sans KR, Manrope"
+  ],
+  "DS7": [
+   "본문 장 14개 중 결론 · 메시지형 제목 14개 (100%)",
+   "앱 규칙 점검: 라벨형 제목 0/13"
+  ],
+  "DS3": [
+   "장당 평균 167어절 · 최대 336어절 · 110어절 넘는 장: 2장(162), 3장(336), 4장(124), 5장(131), 6장(207), 7장(237), 8장(217), 9장(187), 10장(159), 11장(179)",
+   "앱 규칙 점검: 장당 평균 186어절 · 최대 359어절 · 110어절을 넘는 장: 2(183), 3(359), 4(139), 5(148), 6(219), 7(259), 8(234), 9(213)"
+  ],
+  "DS4": [
+   "20자 넘는 본문 칸 125개: 12pt(16px) 이상 19개(15%) · 10pt(13.3px) 미만 80개(64%) · 9pt(12px) 미만 본문 칸이 있는 장 6장 (2, 3, 8, 9, 11, 14)",
+   "20자 넘는 본문 칸의 글자 크기 분포(px: 칸 수) {12: 50, 13: 26, 15: 15, 30: 14, 14: 11, 10: 3}",
+   "앱 규칙 점검: 12pt 미만 글자가 있는 장 11개"
+  ],
+  "DS6": [
+   "사진 · 이미지가 없는 본문 장 0/14장 · 빈 이미지 칸 0개 · 사진 중심 레이아웃 11장",
+   "앱 규칙 점검: 그림 · 차트 · 표 없이 글만 있는 장 0개 (0%)"
+  ],
+  "DS9": [
+   "15장 · 발표 미정분 · 중복 레이아웃 없음",
+   "앱 규칙 점검: 15장"
+  ],
+  "SB2": [
+   "쪽번호 · CONFIDENTIAL 푸터가 있는 본문 장 14/14장 (표지 · 간지 제외)",
+   "앱 규칙 점검: 쪽번호가 있는 장 0/14 · 기밀 표기가 있어요"
+  ],
+  "SB1": [
+   "표지(1장): 고객사명 있음 · 날짜 있음 2026.10 · 제안사 표기 있음 · 목차 장: 없음 · 마무리 장: 15",
+   "앱 규칙 점검: 표지 있음 · 목차 없음 · 마무리 있음"
+  ],
+  "SB5": [
+   "표지 날짜: 2026.10 · 덱 안의 연 · 월 표기: 2026.10",
+   "앱 규칙 점검: 표지 날짜: 2026. 10. 20"
+  ],
+  "VS5": [
+   "도입 사례 전용 장 없음(사례 파트 0장) — 다른 장의 사례 언급 · 성과 수치로만 판단",
+   "앱 규칙 점검: 도입 사례 장이 없어요"
+  ],
+  "VS3": [
+   "단계 → 파트 순서: 열기(1) → 맥락 · 현장(2) → 문제 · 흐름과 원인(2) → 가치 · 기기 하나로(3) → 구성 · 키트와 연동(3) → 근거 · 전후(2) → 실행 · 파일럿(1) → 결정 요청(1)",
+   "앱 규칙 점검: 파트 흐름: 표지 · 목차 → 고객 과제 → 공간 시나리오 → · → 솔루션 제안 → 고객사 이해 → 솔루션 제안 → · → 공간별 제품 → · → 실행 계획 → 마무리 · 다음 단계 · 흐름이 앞 단계로 되돌아가는 곳: 7장"
+  ],
+  "CU2": [
+   "요구 7개 중 핵심 낱말이 본문에 거의 없는 것 1개: 교대조마다 단말 로그인이 엉켜요",
+   "앱 규칙 점검: 요구사항 4개 중 4개가 본문 표현과 맞닿아요"
+  ],
+  "CU3": [
+   "앱 규칙 점검: 결정권자용 요약(Executive Summary) 장이 없어요 · 결정권자 언급: 본부장"
+  ],
+  "CU4": [
+   "앱 규칙 점검: 고객 과제 · 고객사 이해 장이 있어요 · 과제를 수치와 함께 쓴 장: 2, 3, 4, 7"
+  ],
+  "CU6": [
+   "앱 규칙 점검: 제조 · 물류 · 현장 업종 용어 6개 사용: 제조, 공장, 물류, 현장, 생산, 라인"
+  ],
+  "MK1": [
+   "앱 규칙 점검: 시장 분석 장을 따로 찾지 못했어요 · 시장 장에 출처 표기가 보이지 않아요"
+  ],
+  "MK5": [
+   "앱 규칙 점검: 비교 기준 · 출처 표기가 보이지 않아요"
+  ],
+  "MK6": [
+   "앱 규칙 점검: 분석 뒤에 시사점 · 제안 방향을 정리한 장이 없어요"
+  ],
+  "PR4": [
+   "앱 규칙 점검: 언급된 솔루션: Knox Suite, Knox Capture, Samsung DeX · 운영 장면 표현 11회"
+  ],
+  "PR6": [
+   "앱 규칙 점검: 수량 표기 19곳 (6, 8, 9, 10, 11, 15장) · 총계 · 구성표가 있어요"
+  ],
+  "PR7": [
+   "앱 규칙 점검: 도입 조건 언급: 거치, 교육"
+  ],
+  "VS1": [
+   "앱 규칙 점검: 가치 제안을 정리한 장을 찾지 못했어요"
+  ],
+  "VS2": [
+   "앱 규칙 점검: 정량 효과(절감 · 단축 · 증가 수치)가 없어요"
+  ],
+  "VS4": [
+   "앱 규칙 점검: Why Samsung을 따로 다루는 장이 없어요 · 차별점 표현: Knox"
+  ],
+  "VS6": [
+   "앱 규칙 점검: 실행 계획 장이 있어요 · 실행 표현: 단계, 파일럿, 교육, 착수"
+  ],
+  "VS7": [
+   "앱 규칙 점검: 비용 관련 표현: 단가, TCO"
+  ],
+  "VS8": [
+   "앱 규칙 점검: 리스크 표현: 위험, 우려"
+  ],
+  "VS9": [
+   "앱 규칙 점검: 처음과 끝의 핵심어 겹침 12%"
+  ],
+  "VS10": [
+   "앱 규칙 점검: 마무리에 결정 요청 · 다음 단계가 있어요"
+  ],
+  "DS2": [
+   "앱 규칙 점검: 장당 평균 186어절 · 글이 많은 장: 2, 3, 4, 5, 6, 7, 8, 9"
+  ],
+  "DS8": [
+   "앱 규칙 점검: 차트 0 · 표 0 · 수치가 많은데 차트 · 표가 없는 장: 2, 3, 4, 6, 9, 12"
+  ],
+  "WR2": [
+   "앱 규칙 점검: 맞춤법은 AI가 문장을 읽고 판단해요"
+  ],
+  "WR9": [
+   "앱 규칙 점검: 경어체 문장 30개와 개조식 종결 14개가 섞여 있어요"
+  ],
+  "SB3": [
+   "앱 규칙 점검: 노트 · 숨김 장 · 댓글이 없어요"
+  ],
+  "SB6": [
+   "앱 규칙 점검: RFP 형식 요구는 AI가 대조해요"
+  ]
+ },
+ "profile": {
+  "kind": "winmate",
+  "slides": true,
+  "units": 15,
+  "customer": "L 제조",
+  "ind": "MF",
+  "ind_name": "제조 · 물류 · 현장",
+  "products": [
+   "SM-X350",
+   "SM-G766",
+   "Galaxy Watch8"
+  ],
+  "unknown_models": [],
+  "older_models": [],
+  "solutions": [
+   "Knox Suite",
+   "Knox Capture",
+   "Samsung DeX"
+  ],
+  "figures": 98,
+  "years": 3,
+  "competitors": [],
+  "brand_terms": [
+   "Knox",
+   "Galaxy",
+   "Samsung DeX"
+  ],
+  "abbrs": [
+   "KPI",
+   "MES",
+   "WMS",
+   "MIL",
+   "STD",
+   "ERP",
+   "API",
+   "JSON",
+   "CSV",
+   "TCO"
+  ],
+  "font_count": 2,
+  "fonts": [
+   "Noto Sans KR",
+   "Manrope"
+  ],
+  "pics": 62,
+  "charts": 0,
+  "tables": 0,
+  "market_units": 0,
+  "comp_units": 0,
+  "cost_units": 0,
+  "rfp_like": false,
+  "rfp_format": false,
+  "visual": false,
+  "meta_avail": false
+ },
+ "calls": 12,
+ "tokens": {
+  "prompt": 96846,
+  "output": 8312
+ },
+ "seconds": 0.2
+}

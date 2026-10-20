@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs15~full:F02"
+ },
+ "prompt_tokens": 8451,
+ "output_tokens": 575,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 2,
+    "anchor": "고객 요구사항 중 '폐기 손실 감소', '대응 시간', '수기 기록'은 명확히 대응하나, '설비 수명·에너지'와 '식품 안전 기록'에 대한 구체적인 해법과 근거가 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "과제 01 | 폐기 | 밤사이 멈춘 냉동고, 버리는 재고"
+     },
+     {
+      "sheet": 7,
+      "quote": "05 | 기록 | 온도 이력 · 조치 내역 위생 기록에 저장"
+     }
+    ],
+    "improve": "설비 수명 연장 및 에너지 절감 효과에 대한 구체적인 수치와 식품 안전 기록의 법적 준수 방안을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "SB1",
+    "score": 2,
+    "anchor": "표지와 마무리는 갖추었으나, 제안서 내에 목차 페이지가 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "G 마트 42개 점포 콜드체인 신선 관리 제안"
+     },
+     {
+      "sheet": 12,
+      "quote": "담당 | 김도윤 프로 · B2B 영업팀"
+     }
+    ],
+    "improve": "제안서 첫 부분에 전체 내용을 파악할 수 있는 목차 페이지를 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "SB2",
+    "score": 2,
+    "anchor": "푸터와 기밀 표기는 모든 장에 일관되게 있으나, 각 장의 하단에 쪽번호가 명시적으로 표기되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "CONFIDENTIAL · 2"
+     },
+     {
+      "sheet": 12,
+      "quote": "CONFIDENTIAL · 12"
+     }
+    ],
+    "improve": "각 장의 푸터 영역에 명확한 쪽번호를 기재하여 문서의 일관성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

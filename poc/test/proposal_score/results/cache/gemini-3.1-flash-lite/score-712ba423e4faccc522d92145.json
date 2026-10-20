@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~base:F02"
+ },
+ "prompt_tokens": 8110,
+ "output_tokens": 227,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 요구사항 7가지(R1~R3, K1~K4)에 대해 각 장에서 명시적으로 대응하고 있습니다. 특히 옵션 계약률 향상 요구는 1장, 6장, 7장에서 구체적인 목표 수치와 전략으로 제시되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "50% | 옵션 계약률 | 직전 단지 31% 대비"
+     },
+     {
+      "sheet": 6,
+      "quote": "옵션 계약률 | 50%"
+     },
+     {
+      "sheet": 7,
+      "quote": "옵션 계약 전환 | 50%"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

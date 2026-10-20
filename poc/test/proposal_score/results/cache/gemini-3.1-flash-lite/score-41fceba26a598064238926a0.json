@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs21:F05"
+ },
+ "prompt_tokens": 8919,
+ "output_tokens": 228,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "제안서 내 대부분의 수치와 인증 정보에 출처 기관과 연도가 명시되어 있지 않으며, 일부 시험 결과에는 '자사 실험' 등 모호한 표현만 존재함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "외국인 투숙 비중 46%"
+     },
+     {
+      "sheet": 8,
+      "quote": "0.15 m/s 이하"
+     },
+     {
+      "sheet": 17,
+      "quote": "99.9% 증식 억제"
+     }
+    ],
+    "improve": "모든 시장 수치, 인증 및 시험 결과 수치에 대해 조사 기관명과 발행 연도를 구체적으로 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

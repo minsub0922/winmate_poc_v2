@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~number_conflict:F09"
+ },
+ "prompt_tokens": 5613,
+ "output_tokens": 178,
+ "data": {
+  "scores": [
+   {
+    "id": "PR1",
+    "score": 3,
+    "anchor": "제안서에 명시된 QM55C, OH55A-S, KM24C, 360 카세트 모델은 모두 현재 삼성전자 B2B 라인업의 현행 모델입니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "QM55C, KM24C, OH55A-S"
+     },
+     {
+      "sheet": 6,
+      "quote": "360 카세트"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

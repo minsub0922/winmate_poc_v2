@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~placeholders:F01"
+ },
+ "prompt_tokens": 8437,
+ "output_tokens": 239,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "제안서 본문 내에 [00]과 같은 자리표시자가 8곳 이상 발견되었으며, 특히 6장의 핵심 수치 부분과 8장의 시간 표기 등 주요 내용에 다수 포함되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "월 | [00] | 건"
+     },
+     {
+      "sheet": 6,
+      "quote": "프로모션 이용 | [00]% ↑"
+     },
+     {
+      "sheet": 8,
+      "quote": "[00]:[00] | 조식"
+     }
+    ],
+    "improve": "제안서 전반에 걸쳐 남아 있는 [00] 및 자리표시자들을 실제 데이터나 구체적인 수치로 모두 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

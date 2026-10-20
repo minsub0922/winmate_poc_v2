@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs05:F09"
+ },
+ "prompt_tokens": 6163,
+ "output_tokens": 217,
+ "data": {
+  "scores": [
+   {
+    "id": "PR1",
+    "score": 2,
+    "anchor": "대부분 현행 모델(VM55B, KM24C, XHB, IFR)을 제안하고 있으나, 10장에서 언급된 'VM55B-U'는 카탈로그상의 명칭 'VM55B'와 세대 표기가 다소 모호하게 기재되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "VM55B-U"
+     },
+     {
+      "sheet": 4,
+      "quote": "VM55B"
+     }
+    ],
+    "improve": "제안서 전체에서 모델명을 카탈로그와 일치하는 'VM55B'로 통일하여 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

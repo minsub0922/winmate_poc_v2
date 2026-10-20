@@ -1,0 +1,112 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs13~full:F11"
+ },
+ "prompt_tokens": 5573,
+ "output_tokens": 928,
+ "data": {
+  "scores": [
+   {
+    "id": "DS1",
+    "score": 2,
+    "anchor": "제목 위치가 2장과 14장에서 다른 장과 다르게 배치되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "제목 30px@(72,88)"
+     },
+     {
+      "sheet": 14,
+      "quote": "제목 30px@(648,66)"
+     }
+    ],
+    "improve": "모든 장의 제목 위치를 동일한 좌표로 통일해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS2",
+    "score": 2,
+    "anchor": "대부분 장은 요지가 명확하나, 7장과 8장 등은 어절 수가 많아 메시지가 분산될 우려가 있습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "타석이 비면 꺼지고, 여러 매장은 한 화면에서 비교합니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "고객은 타석에서 조절하고, 빈 타석은 알아서 멈춥니다"
+     }
+    ],
+    "improve": "어절 수가 많은 장의 내용을 핵심 위주로 간결하게 줄여야 합니다.",
+    "confidence": "mid"
+   },
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 10장으로 기준인 4장을 크게 초과하여 발표 자료로 읽기에 밀도가 높습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "301어절"
+     },
+     {
+      "sheet": 13,
+      "quote": "224어절"
+     }
+    ],
+    "improve": "장당 어절 수를 110어절 이하로 대폭 줄이고 개조식 구성을 강화해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "10pt 미만 본문 칸이 6개 장에서 확인되며, 20자 넘는 본문 칸의 55%가 10pt 미만입니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 7,
+      "quote": "본문 최소 10px(7.5pt)"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS5",
+    "score": 3,
+    "anchor": "폰트 2종을 사용하고 있으며, 모든 장에서 제목 크기 체계가 일정합니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "폰트: 앱 레이아웃 공통(Noto Sans KR · Manrope)"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "DS6",
+    "score": 3,
+    "anchor": "모든 장에 내용과 부합하는 실제 사진과 도식이 포함되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "사진 8"
+     },
+     {
+      "sheet": 13,
+      "quote": "사진 4"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

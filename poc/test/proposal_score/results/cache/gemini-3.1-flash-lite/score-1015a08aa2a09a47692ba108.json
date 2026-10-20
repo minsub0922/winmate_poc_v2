@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~base:F05"
+ },
+ "prompt_tokens": 3511,
+ "output_tokens": 215,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 2,
+    "anchor": "주요 시장 수치와 성과 수치에 출처가 명시되어 있으나, 일부 수치는 '삼성전자 추정'이나 '고객사 자료'와 같이 다소 모호하게 표기되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "시장 수치는 삼성전자 추정(2026), 고객사 수치는 고객사 자료"
+     },
+     {
+      "sheet": 8,
+      "quote": "출처: 삼성전자 뉴스룸(2024)"
+     }
+    ],
+    "improve": "모든 수치에 대해 구체적인 조사 기관명과 연도를 명확히 기재하여 신뢰도를 높여야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

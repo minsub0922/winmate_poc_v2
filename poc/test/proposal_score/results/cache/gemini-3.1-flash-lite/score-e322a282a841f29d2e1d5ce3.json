@@ -1,0 +1,78 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs17~full:F07"
+ },
+ "prompt_tokens": 8617,
+ "output_tokens": 646,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "13장에서 투자 회수 기간과 누적 효과를 정량적으로 제시하고, 산정 근거인 시범점 측정값과 할인율 미적용 등의 가정을 명시함.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "3.2년 · 38개월이면 1차 투자비를 회수합니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "가정 | 1차 120곳 · 투자비 48.0억 · 효과 연평균 +13% · 할인율 미적용"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "Knox 보안, 전국 서비스망, 금융 도입 사례 등 삼성의 강점을 고객의 보안 및 운영 과제와 연결하여 구체적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "Knox 금융 보안 | 전국 직영 서비스망 | 은행 영업점 도입 사례"
+     },
+     {
+      "sheet": 8,
+      "quote": "Knox Suite 원격 잠금 · 초기화 | Knox 업무 프로필"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR5",
+    "score": 3,
+    "anchor": "근거 없는 절대 표현(최초, 최고, 유일 등)을 사용하지 않았으며, 모든 성과 수치는 시범점 측정 결과에 기반함.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "출처 · T 은행 영업기획부 시범점 측정(2026. 9) · 삼성전자 분석"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR7",
+    "score": 2,
+    "anchor": "13장에서 효과 수치의 전제 조건을 고지했으나, 연출 이미지에 대한 고지가 일부 장에서 누락됨.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "막대 높이는 예시"
+     },
+     {
+      "sheet": 14,
+      "quote": ""
+     }
+    ],
+    "improve": "모든 연출 이미지 하단에 '이미지는 연출된 화면입니다'라는 고지를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

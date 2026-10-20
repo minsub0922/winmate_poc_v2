@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~wrong_customer:F05"
+ },
+ "prompt_tokens": 6143,
+ "output_tokens": 252,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "수치 3개 이상인 장 8개 중 대부분이 출처를 명시하지 않았거나 '삼성전자 추정'과 같이 모호하게 표기되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "50% | 옵션 계약률 | 직전 단지 31% 대비"
+     },
+     {
+      "sheet": 5,
+      "quote": "84A 세대 여섯 공간과 분양 현장"
+     },
+     {
+      "sheet": 11,
+      "quote": "40% | 가전 민원 감소 목표"
+     }
+    ],
+    "improve": "모든 수치 데이터에 대해 조사 기관과 연도를 명확히 기재하고, 자체 자료는 '삼성전자 운영 자료(2026)'와 같이 구체적인 출처를 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs03:F10"
+ },
+ "prompt_tokens": 3647,
+ "output_tokens": 233,
+ "data": {
+  "scores": [
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "12장과 13장에서 방학 기간(6주)과 구역별 상세 일정, 14장에서 11월 내 결정할 단계별 범위와 역할 분담을 명시하였으며, 13장에서 대상별 교육 및 운영 이관 계획을 구체적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "학기를 멈추지 않고, 방학 6주에 끝냅니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "교수님이 첫 수업부터 쓰도록 가르칩니다"
+     },
+     {
+      "sheet": 14,
+      "quote": "11월 안에 함께 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08:F01"
+ },
+ "prompt_tokens": 8045,
+ "output_tokens": 215,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 1,
+    "anchor": "4장에서 야간 간호 인력이 30병상을 맡는다고 기술했으나, 6장 이후부터는 선도 병동을 60병상으로 명시하여 규모 정보가 서로 충돌합니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "야간 간호 인력 1명이 30병상을 맡고"
+     },
+     {
+      "sheet": 6,
+      "quote": "60병상 · 실내기 24대"
+     }
+    ],
+    "improve": "제안서 전반에 걸쳐 선도 병동의 규모(병상 수)를 60병상으로 통일하여 기술해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

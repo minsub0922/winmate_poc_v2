@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs05~full:F02"
+ },
+ "prompt_tokens": 9537,
+ "output_tokens": 532,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 2,
+    "anchor": "고객 요구사항 R1, R2, R3 및 K2, K3, K4에 대한 대응은 명확하나, K1(몰입감 · 화제성)에 대한 구체적인 전략적 언급이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "줄 서는 시간까지 파크의 체험이 됩니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "시즌마다 새로워지는 구역"
+     }
+    ],
+    "improve": "몰입감과 화제성을 높이기 위한 구체적인 콘텐츠 전략이나 차별화된 체험 요소를 명시적으로 보완해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "SB1",
+    "score": 2,
+    "anchor": "표지와 마무리는 충실히 구성되어 있으나, 제안서 내에 목차 페이지가 별도로 존재하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "P 테마파크 | B2B PROPOSAL"
+     },
+     {
+      "sheet": 15,
+      "quote": "12월 2차 리뷰까지 정할 세 가지"
+     }
+    ],
+    "improve": "제안서의 전체 구조를 한눈에 파악할 수 있도록 목차 페이지를 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "SB2",
+    "score": 2,
+    "anchor": "대부분의 장에 쪽번호와 기밀 표기가 있으나, 14장에는 쪽번호가 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "CONFIDENTIAL · 13"
+     },
+     {
+      "sheet": 14,
+      "quote": ""
+     }
+    ],
+    "improve": "모든 페이지에 일관된 쪽번호와 푸터 형식을 적용하여 문서의 완성도를 높여야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

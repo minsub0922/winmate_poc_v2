@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10:F07"
+ },
+ "prompt_tokens": 5066,
+ "output_tokens": 388,
+ "data": {
+  "scores": [
+   {
+    "id": "MK5",
+    "score": 3,
+    "anchor": "경쟁사 비교 시 공개 자료와 삼성전자 추정치를 명시하고, 비방 없이 운영 효율과 TCO 관점에서 객관적으로 비교하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "국내 상업용 디스플레이 · 공조 공급사 · 원 크기는 설치 규모 · 공개 자료 · 삼성전자 추정(2026)"
+     },
+     {
+      "sheet": 8,
+      "quote": "주장은 영업 현장 기준 예상 · 경쟁사 익명"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "통합 솔루션(사이니지+공조), 원격 감시 SLA, 전국 서비스망 등 삼성의 강점을 고객의 장애 및 운영 과제와 연결하여 구체적 수치와 사례로 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "장애 · AS에서 차이는 분명합니다"
+     },
+     {
+      "sheet": 11,
+      "quote": "6개 점 어디서나 같은 기준으로 복구합니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "쇼핑몰 · 유통 · 상업시설이 이미 같은 구성을 씁니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

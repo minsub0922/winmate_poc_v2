@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~number_conflict:F10"
+ },
+ "prompt_tokens": 5044,
+ "output_tokens": 236,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "SmartThings를 통해 입주민이 앱으로 가전을 제어하고, R 건설이 에너지 모니터링 및 홈케어 진단을 수행하는 운영 장면이 공간별로 구체적으로 제시됨.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "SmartThings · 빌트인 · 난방 · 도어락 (타사)을 계정 하나로"
+     },
+     {
+      "sheet": 5,
+      "quote": "에너지 모니터링 | 거실~주방 난방 사용량과 요금을 앱에서 확인"
+     },
+     {
+      "sheet": 5,
+      "quote": "홈케어 진단 | 기기 상태를 점검해 이상 징후를 먼저 알림"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

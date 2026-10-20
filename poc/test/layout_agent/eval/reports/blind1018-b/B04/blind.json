@@ -1,0 +1,279 @@
+{
+ "id": "B04",
+ "title": "요양병원 병실 냉방·환기 개선 (오타 섞인 면담록)",
+ "exp_level": "ambiguous",
+ "level": "complex",
+ "exp_industry": "MD",
+ "industry": "MD",
+ "exp_strategy": "pain",
+ "strategy": "value",
+ "scenario": "value",
+ "exp_products": [
+  "erv",
+  "wf4way"
+ ],
+ "products": [
+  "erv"
+ ],
+ "solutions": [],
+ "prod_recall": 0.5,
+ "prod_precision": 1.0,
+ "must_show": 1.0,
+ "must_show_miss": [],
+ "facts": null,
+ "facts_miss": [],
+ "must_not_hit": [],
+ "parts": [
+  "cover:늘봄요양병원 환경 개선 제안",
+  "overview:제안 핵심 요약",
+  "requirements:핵심 의사결정자 요구사항",
+  "requirements:요구사항 대응 전략",
+  "customer:늘봄요양병원 운영 맥락",
+  "insight:환경 개선 시사점",
+  "value:환자 중심 가치 제안",
+  "value:운영 효율화 대응",
+  "birdseye:병실 환경 개선 시안",
+  "products:공간별 맞춤 솔루션",
+  "case:요양·의료시설 성공 사례",
+  "execution:유지보수 및 감염 관리",
+  "cost:입원 경쟁력 확보 전략",
+  "closing:파일럿 도입 제안"
+ ],
+ "questions": [
+  "strategy",
+  "ending",
+  "keyman",
+  "conflict_C5",
+  "conflict_L1",
+  "conflict_L2",
+  "gap_quantities",
+  "gap_timeline",
+  "gap_llm1",
+  "llm_Q01",
+  "llm_Q02",
+  "llm_Q03",
+  "length"
+ ],
+ "conflicts": [
+  "키맨 관심사 분산",
+  "LLM 발견",
+  "LLM 발견"
+ ],
+ "issues": [
+  "[low] 파트 유형과 다른 장표(연관 장표로 대체): ['L_EF_C']",
+  "[low] 편집할 수 없는(data-tb 없는) 다른 업종 샘플 문구가 남은 장표 2장 — 원본 레이아웃 보완 필요"
+ ],
+ "stats": {
+  "n_slides": 14,
+  "text_slots": 574,
+  "placeholders": 53,
+  "slides_with_ph": 12,
+  "sample_text_kept": 198,
+  "img_slots": 7,
+  "img_filled": 7,
+  "photo_slides": 2,
+  "stray_slides": 0,
+  "slides": [
+   {
+    "no": 1,
+    "code": "C01",
+    "f": "L_C01",
+    "visual": [
+     "message",
+     "photo"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 1,
+    "stray": []
+   },
+   {
+    "no": 2,
+    "code": "ES-A",
+    "f": "L_ES_A",
+    "visual": [
+     "cards",
+     "message"
+    ],
+    "ph": 5,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 15,
+    "stray": []
+   },
+   {
+    "no": 3,
+    "code": "RM-A",
+    "f": "L_RM_A",
+    "visual": [
+     "table"
+    ],
+    "ph": 4,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 8,
+    "stray": []
+   },
+   {
+    "no": 4,
+    "code": "RM-B",
+    "f": "L_RM_B",
+    "visual": [
+     "table"
+    ],
+    "ph": 9,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 16,
+    "stray": []
+   },
+   {
+    "no": 5,
+    "code": "MI-MD-B",
+    "f": "L_MI_MD_B",
+    "visual": [
+     "cards",
+     "flow"
+    ],
+    "ph": 17,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 71,
+    "stray": []
+   },
+   {
+    "no": 6,
+    "code": "IM-B",
+    "f": "L_IM_B",
+    "visual": [
+     "cards",
+     "matrix",
+     "message"
+    ],
+    "ph": 2,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 3,
+    "stray": []
+   },
+   {
+    "no": 7,
+    "code": "VP-U",
+    "f": "L_VP_U_MD",
+    "visual": [
+     "cards",
+     "flow",
+     "image_heavy",
+     "qna"
+    ],
+    "ph": 5,
+    "img_slots": 3,
+    "img_filled": 3,
+    "kept_sample": 10,
+    "stray": []
+   },
+   {
+    "no": 8,
+    "code": "VP-H",
+    "f": "L_VP_H",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "matrix",
+     "photo"
+    ],
+    "ph": 0,
+    "img_slots": 4,
+    "img_filled": 4,
+    "kept_sample": 2,
+    "stray": []
+   },
+   {
+    "no": 9,
+    "code": "BV-C",
+    "f": "L_BV_C",
+    "visual": [
+     "cards",
+     "map",
+     "message"
+    ],
+    "ph": 2,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 1,
+    "stray": []
+   },
+   {
+    "no": 10,
+    "code": "P2-D",
+    "f": "L_P2D",
+    "visual": [],
+    "ph": 3,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 3,
+    "stray": []
+   },
+   {
+    "no": 11,
+    "code": "CL-B",
+    "f": "L_CS03",
+    "visual": [
+     "cards",
+     "message"
+    ],
+    "ph": 1,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 4,
+    "stray": []
+   },
+   {
+    "no": 12,
+    "code": "MT-B",
+    "f": "L_MT_B",
+    "visual": [
+     "cards"
+    ],
+    "ph": 2,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 35,
+    "stray": []
+   },
+   {
+    "no": 13,
+    "code": "EF-C",
+    "f": "L_EF_C",
+    "visual": [
+     "cards",
+     "kpi"
+    ],
+    "ph": 2,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 4,
+    "stray": []
+   },
+   {
+    "no": 14,
+    "code": "C13",
+    "f": "L_C13",
+    "visual": [
+     "cards",
+     "flow",
+     "message"
+    ],
+    "ph": 1,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 25,
+    "stray": []
+   }
+  ]
+ },
+ "sec": 23.8,
+ "llm_calls": 31,
+ "llm_fail": 0
+}

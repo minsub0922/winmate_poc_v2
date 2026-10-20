@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~placeholders:F05"
+ },
+ "prompt_tokens": 5118,
+ "output_tokens": 238,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "대부분의 수치에 출처가 명시되지 않았으며, 일부는 '[00]%'와 같이 자리표시가 남아 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "50% | 옵션 계약률 | 직전 단지 31% 대비"
+     },
+     {
+      "sheet": 7,
+      "quote": "에어드레서 옵션 선택률 | 30%"
+     },
+     {
+      "sheet": 8,
+      "quote": "세대당 [00]대 | × [00] 세대"
+     }
+    ],
+    "improve": "모든 시장 데이터와 성과 수치에 조사 기관과 연도를 명확히 기재하고, 자리표시를 실제 데이터로 교체해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

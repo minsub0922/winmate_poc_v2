@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11:F02"
+ },
+ "prompt_tokens": 8618,
+ "output_tokens": 342,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "제안서 5장에서 요구사항 28개 ID별 대응표를 제시하고, 4장에서 평가 배점과 요구사항을 1:1로 매칭하여 모든 요구사항에 명시적으로 대응함.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "요구사항 충족 · 20점 · 평가위원이 보는 것 | 요구 ID마다 대응했는가"
+     },
+     {
+      "sheet": 5,
+      "quote": "요구사항 28개, ID 단위로 빠짐없이 대응합니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "SB6",
+    "score": 3,
+    "anchor": "평가 배점표 순서대로 목차를 구성하고, RFP 요구사항을 빠짐없이 반영하여 제출 형식과 필수 항목을 모두 준수함.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "목차 — 평가표 순서 그대로"
+     },
+     {
+      "sheet": 15,
+      "quote": "평가표 순서대로 빠짐없이 대응했습니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

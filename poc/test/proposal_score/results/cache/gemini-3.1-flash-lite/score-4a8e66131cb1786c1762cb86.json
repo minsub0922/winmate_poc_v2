@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs17:F02"
+ },
+ "prompt_tokens": 7995,
+ "output_tokens": 264,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 요구사항인 파일럿 성과(R1, K1), 보안성 심의(R2, K2), 전국 확산(R3, K3) 및 연차별 효과(K4)에 대해 각각 4장, 8-9장, 10-11장, 13장에서 명시적으로 대응하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "T 은행 시범 10개점 — 6개월 성과"
+     },
+     {
+      "sheet": 8,
+      "quote": "보안 요건 10개 중 8개 충족, 2개는 사전 협의"
+     },
+     {
+      "sheet": 10,
+      "quote": "시범 10곳이 증명했고, 기준을 넘을 때만 넓힙니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

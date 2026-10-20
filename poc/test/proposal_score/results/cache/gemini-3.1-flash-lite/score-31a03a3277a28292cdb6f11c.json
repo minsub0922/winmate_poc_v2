@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~base:F06"
+ },
+ "prompt_tokens": 8928,
+ "output_tokens": 228,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "전체 매장 수(320개), 절감률(전력 12%), 수량(2,200대) 등 주요 지표가 모든 장에서 일관되게 기술되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "320개 매장"
+     },
+     {
+      "sheet": 6,
+      "quote": "매장 전력 12% ↓"
+     },
+     {
+      "sheet": 11,
+      "quote": "320개 매장 · 소형 600대 + 표준 1,120대 + DT 480대 = 2,200대"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

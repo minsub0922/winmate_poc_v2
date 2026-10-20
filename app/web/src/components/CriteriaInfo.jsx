@@ -2,14 +2,14 @@ import React from 'react';
 import * as jsxRuntime from 'react/jsx-runtime';
 import { Modal, Icon } from './common.jsx';
 import {
-  CRITERIA as CR,
-  CATS,
+  criteriaForReview,
   band as bandOf,
   verdictOf
 } from '../domain/review/criteria.js';
 
 // Recovered from the published patch; normal source component, never a build-time patch.
 export function CriteriaInfo({ r: report, onClose: onClose }) {
+  const { CRITERIA: CR, CATS, scoring } = criteriaForReview(report);
   let jsx = jsxRuntime.jsx,
     jsxs = jsxRuntime.jsxs,
     [category, setCategory] = (0, React.useState)(null),
@@ -108,11 +108,11 @@ export function CriteriaInfo({ r: report, onClose: onClose }) {
                       }),
                       jsx('p', {
                         children:
-                          '서버 AI가 이 제안서에 맞는 기준을 골라 장 번호와 짧은 인용을 근거로 1 · 2 · 3점을 매기고, 그 점수를 1점→0 · 2점→50 · 3점→100으로 바꿔 보여 줘요. AI가 답하지 못하면 점수를 만들지 않고 다시 시도하게 해요.'
+                          scoring?.level_points ? '현재 제안이 요청하는 결정 범위에서 4개 체크포인트를 평가해요. 0~4단계를 0·40·65·85·100점으로 환산한 평균이 항목 점수예요. 제안에 충분한 수준은 85점이며, 최종 점수에 일괄 가산하거나 평균을 강제로 맞추지 않아요.' : scoring ? '각 기준의 4개 체크포인트를 실제 장표 근거로 0~4단계로 평가해요. 합계를 16으로 나누고 100을 곱한 값이 항목 점수예요. 임의 감점이나 목표 점수 분포는 사용하지 않아요.' : '서버 AI가 이 제안서에 맞는 기준을 골라 장 번호와 짧은 인용을 근거로 1 · 2 · 3점을 매기고, 그 점수를 1점→0 · 2점→50 · 3점→100으로 바꿔 보여 줘요. AI가 답하지 못하면 점수를 만들지 않고 다시 시도하게 해요.'
                       }),
                       jsx('small', {
                         children:
-                          '1점(0) 보완 필요 · 2점(50) 보통 · 3점(100) 양호 — 영역 · 종합 점수는 이 값을 중요도로 가중 평균해요'
+                          scoring?.level_points ? '명시한 합리적 가정·계획도 제안 단계의 근거로 인정해요. 실사·PoC·계약 이후의 권고와 현재 결정에 꼭 필요한 보완을 구분해요.' : scoring ? '체크포인트 1단계 개선은 해당 항목 6.25점에 해당해요. 단순 언급·가정과 근거 충족·교차 검증을 구별해요.' : '1점(0) 보완 필요 · 2점(50) 보통 · 3점(100) 양호 — 영역 · 종합 점수는 이 값을 중요도로 가중 평균해요'
                       })
                     ]
                   })
@@ -204,6 +204,7 @@ export function CriteriaInfo({ r: report, onClose: onClose }) {
           })
         ]
       }),
+      scoring && <section className="wm-ci-sec rv-scoring-levels" aria-label="체크포인트 단계별 채점 기준"><h3 className="wm-ci-h">체크포인트 0~4단계</h3><ol>{scoring.levels.map(level => <li key={level.value}><b>{level.value} · {level.name}{level.points != null ? ` · ${level.points}점` : ''}</b><p>{level.desc}</p></li>)}</ol><p>{scoring.level_points ? '현재 고객 판단에 충분한 제안을 평가합니다. 명시한 가정·추정·실사 계획은 정상적인 제안 자료이며, 계약 완료·실측 결과를 일괄 요구하지 않습니다.' : '가상 자료·목표·추정은 검증된 실적과 구별합니다. 실제 확인하지 못한 화면·외부 자료는 확인했다고 가정하지 않습니다.'}</p></section>,
       jsxs('section', {
         className: 'wm-ci-sec',
         'aria-label': '등급',
@@ -410,6 +411,7 @@ export function CriteriaInfo({ r: report, onClose: onClose }) {
                                 children: [
                                   jsx('dt', { children: '확인할 점' }),
                                   jsx('dd', { children: x.check }),
+                                  x.checkpoints && <React.Fragment><dt>세부 체크포인트 4개</dt><dd><ol className="rv-checkpoint-definitions">{x.checkpoints.map(point => <li key={point.id}><b>{point.name}</b><p>{point.requirement}</p><small>{point.kind === 'fact' ? scoring?.level_points ? '제공된 고객 맥락·참고 자료와의 정합성을 보는 항목' : '원자료가 필요한 사실·실증 항목' : point.kind === 'plan' ? '주요 역할·일정·실행 방향의 충분성을 보는 항목' : point.kind === 'visual' ? '실제 화면·측정값으로 확인하는 항목' : '문서 내용과 논리를 확인하는 항목'}</small></li>)}</ol></dd></React.Fragment>,
                                   jsx('dt', { children: '중요도' }),
                                   jsx('dd', {
                                     children:

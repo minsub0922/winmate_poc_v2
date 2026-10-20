@@ -1,0 +1,39 @@
+{
+ "id": "C04_L1",
+ "case": "C04",
+ "industry": "FN",
+ "strategy": "rfp",
+ "req_type": "compete",
+ "title": "은행 업무용 모니터 입찰",
+ "level": "minimal",
+ "input": {
+  "title": "H 은행 제안",
+  "customer": "H 은행",
+  "industry": "FN",
+  "free_text": "은행 지점 모니터 교체 건",
+  "products": [
+   "smartmonitor"
+  ],
+  "id": "C04_L1"
+ },
+ "gold": {
+  "level": "minimal",
+  "industry": "FN",
+  "scenario_any": [
+   "STD-FN"
+  ],
+  "must_parts": [
+   "value",
+   "products",
+   "case",
+   "why"
+  ],
+  "layouts_any": {
+   "products": [
+    "L_P1B"
+   ]
+  },
+  "key_reqs": [],
+  "facts": []
+ }
+}

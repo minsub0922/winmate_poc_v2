@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~base:F03"
+ },
+ "prompt_tokens": 3012,
+ "output_tokens": 215,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "제안 요약 장에서 경영 지표(운영비 절감, 현장 출동 감소)와 실무 지표를 구분하여 제시하고, 마지막 장에서 결정권자가 승인해야 할 다음 단계와 일정을 명확히 정리함.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "기대 효과 | 7일 → 당일 | 콘텐츠 교체 | 연 −15% | 운영 · 유지보수비 | −30% | 현장 출동"
+     },
+     {
+      "sheet": 10,
+      "quote": "06 · 다음 단계 | 2주 안에 현장부터, 세 단계로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

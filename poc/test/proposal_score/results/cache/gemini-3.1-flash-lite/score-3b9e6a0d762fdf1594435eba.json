@@ -1,0 +1,70 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs13:F10"
+ },
+ "prompt_tokens": 6898,
+ "output_tokens": 597,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "SmartThings Pro와 SAC 제어 시스템을 통해 타석별 공조 제어, 멀티사이트 대시보드, 루틴 자동화 등 운영 장면을 구체적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "140개 매장의 공조와 전력을 한 화면에서 봅니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "고객은 타석에서 조절하고, 빈 타석은 알아서 멈춥니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR7",
+    "score": 2,
+    "anchor": "유지보수 및 구매 방식별 보증 범위는 명시했으나, 설치를 위한 전원·네트워크 환경 등 고객이 사전에 준비해야 할 기술적 전제 조건이 구체적으로 언급되지 않음.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "구독 · 렌탈이면 월 절감액 안에서 비용이 나옵니다"
+     }
+    ],
+    "improve": "설치 시 필요한 네트워크 환경(Wi-Fi 등) 및 분전반 계측을 위한 물리적 설치 환경 요건을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "파일럿 12주 일정, 선정 기준, 역할 분담, 측정 지표 및 확산 계획까지 구체적으로 정리됨.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "직영 3개 매장, 이렇게 골라 4주 실측합니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "마지막 장에서 파일럿 승인이라는 결정 사항과 11월 착수 일정, 담당자 연락처를 명확히 제시함.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "결정해 주시면, 11월에 첫 실측이 시작됩니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~no_proof:F02"
+ },
+ "prompt_tokens": 3956,
+ "output_tokens": 246,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 요구사항(R1~R3)과 평가 기준(K1~K3)에 대해 각 장에서 명시적으로 대응하고 있습니다. 특히 업계 현황(R2, K2)은 3장에서, 고객사 맞춤형 과제(K1)는 4장에서, 다음 단계(R3, K3)는 8장에서 구체적으로 다룹니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "동종 그룹 60%는 본사 통합 운영"
+     },
+     {
+      "sheet": 4,
+      "quote": "Y 그룹의 목표는 ‘그룹 운영 효율’"
+     },
+     {
+      "sheet": 8,
+      "quote": "2주 안에 현장부터, 세 단계로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

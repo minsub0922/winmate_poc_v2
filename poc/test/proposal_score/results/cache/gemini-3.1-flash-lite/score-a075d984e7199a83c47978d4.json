@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~strip_images:F11"
+ },
+ "prompt_tokens": 3814,
+ "output_tokens": 555,
+ "data": {
+  "scores": [
+   {
+    "id": "DS1",
+    "score": 1,
+    "anchor": "4장에서 글자 넘침이 발생하였고, 2, 12, 13, 16장의 제목 위치가 일관되지 않아 1점입니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "① 메뉴 · 가격 반영"
+     },
+     {
+      "sheet": 2,
+      "quote": "제목 30px@(72,88)"
+     }
+    ],
+    "improve": "제목 위치를 모든 장에서 동일하게 통일하고, 4장의 텍스트 넘침 문제를 해결해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 10장으로 기준(4장 이상)을 초과하며, 장당 평균 어절 수도 145어절로 매우 높습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "250어절"
+     },
+     {
+      "sheet": 14,
+      "quote": "232어절"
+     }
+    ],
+    "improve": "각 장의 텍스트를 핵심 위주로 대폭 줄여 장당 평균 어절 수를 77어절 이하로 낮춰야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 57%가 10pt 미만이며, 9pt 미만 본문 칸이 9장에 달해 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 9,
+      "quote": "본문 최소 10px(7.5pt)"
+     }
+    ],
+    "improve": "모든 본문 텍스트 크기를 12pt(16px) 이상으로 상향 조정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

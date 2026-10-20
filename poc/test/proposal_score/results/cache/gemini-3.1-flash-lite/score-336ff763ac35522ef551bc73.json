@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07:F04"
+ },
+ "prompt_tokens": 3532,
+ "output_tokens": 210,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "B 호텔의 체크인 대기 시간(12분), 객실 매출 비중(78%), 에어컨 노후화(2013년) 등 구체적인 수치와 현장 상황을 바탕으로 문제의 원인과 영향을 명확히 분석했습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "체크인 대기 12분, 13년 된 에어컨 소음"
+     },
+     {
+      "sheet": 4,
+      "quote": "15-16시 체크인 집중, 프런트 3명 앞 평균 12분 대기"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

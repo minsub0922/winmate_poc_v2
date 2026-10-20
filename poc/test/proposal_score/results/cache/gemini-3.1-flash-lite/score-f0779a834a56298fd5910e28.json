@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~placeholders:F05"
+ },
+ "prompt_tokens": 5555,
+ "output_tokens": 233,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "제안서 내 대부분의 수치(지점 수, 비용, 시간 등)에 출처가 명시되어 있지 않으며, 일부 장에서는 '[00]'과 같은 자리표시가 그대로 남아 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "61%가 수도권에 있습니다"
+     },
+     {
+      "sheet": 3,
+      "quote": "6일 걸립니다"
+     },
+     {
+      "sheet": 11,
+      "quote": "차이는 6%입니다"
+     }
+    ],
+    "improve": "모든 시장 데이터와 성과 수치에 신뢰할 수 있는 조사 기관과 연도를 명시하고, 자리표시자('[00]')를 실제 데이터로 교체해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

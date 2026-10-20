@@ -1,0 +1,78 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs05~full:F09"
+ },
+ "prompt_tokens": 9351,
+ "output_tokens": 636,
+ "data": {
+  "scores": [
+   {
+    "id": "PR1",
+    "score": 2,
+    "anchor": "제안서 내 VM55B-U라는 모델명이 사용되었으나, 카탈로그상 현행 모델은 VM55B로 확인되어 모델명 표기가 모호합니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "4 × 3 · 12면 · VM55B-U"
+     }
+    ],
+    "improve": "VM55B-U를 카탈로그에 명시된 현행 모델명인 VM55B로 통일해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "PR2",
+    "score": 3,
+    "anchor": "제안서에 기재된 제품 사양(VM55B, KM24C, XHB, IFR)이 카탈로그 사양과 일치하며 장별로 동일하게 표기되었습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "55\" · 베젤 3.5 mm · 24/7 · 500 nit"
+     },
+     {
+      "sheet": 11,
+      "quote": "IP66 방진 · 방수 · 24/7"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR5",
+    "score": 3,
+    "anchor": "VM55B, KM24C, XHB, IFR 등 모든 제품의 모델명 표기가 제안서 전반에 걸쳐 일관되게 사용되었습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "IFR LED · 비디오월 VM55B · JBL"
+     },
+     {
+      "sheet": 10,
+      "quote": "4 × 3 · 12면 · VM55B-U"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR3",
+    "score": 3,
+    "anchor": "MagicINFO 등 브랜드명이 공식 표기법에 따라 정확하게 기재되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "MagicINFO · 콘텐츠 제작 지원"
+     },
+     {
+      "sheet": 7,
+      "quote": "MagicINFO · 하만 JBL"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

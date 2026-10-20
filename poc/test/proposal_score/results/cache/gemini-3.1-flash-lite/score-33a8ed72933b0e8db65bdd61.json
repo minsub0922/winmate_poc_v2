@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs17:F06"
+ },
+ "prompt_tokens": 3908,
+ "output_tokens": 236,
+ "data": {
+  "scores": [
+   {
+    "id": "PR6",
+    "score": 2,
+    "anchor": "공간별 모델과 수량은 제시되어 있으나, 설치에 필요한 브래킷, 라이선스 등 구체적인 옵션 및 액세서리 수량 정보가 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "10 → 130 → 250곳 · 설치 팀 1팀 → 4팀 → 9팀"
+     },
+     {
+      "sheet": 11,
+      "quote": "확산 대상 240개 영업점, 절반인 120곳이 수도권에 있습니다"
+     }
+    ],
+    "improve": "공간별 설치 모델에 따른 브래킷, 라이선스 등 필수 액세서리 및 옵션 수량을 포함한 상세 구성표를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

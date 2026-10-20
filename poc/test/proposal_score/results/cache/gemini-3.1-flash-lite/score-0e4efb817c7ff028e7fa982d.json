@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~no_proof:F02"
+ },
+ "prompt_tokens": 7423,
+ "output_tokens": 259,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 4가지 요구사항(차별화, 옵션 계약률, 가전 민원, 시공 정합)과 4가지 평가 기준에 대해 각 장에서 명시적으로 해법을 제시하고 있습니다. 특히 옵션 계약률은 7장에서 구체적인 동선과 상담 시간 단축을 통해 해결책을 제시하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "모델하우스에서 ‘이 단지’로 기억될 네 가지"
+     },
+     {
+      "sheet": 7,
+      "quote": "옵션 계약 전환 50% · 옵션 상담 시간 25분 → 12분"
+     },
+     {
+      "sheet": 10,
+      "quote": "84A 주방, 빌트인 가전 세 가지의 매립 치수"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,120 @@
+{
+ "stage": "design",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.4,
+ "seed": 1,
+ "prompt_tokens": 4213,
+ "output_tokens": 1143,
+ "data": {
+  "strategy": "roi",
+  "strategy_why": "고객의 핵심 요구사항인 15% 전력 절감과 36개월 이내 투자 회수를 입증하여 제안의 타당성을 확보하기 위함입니다.",
+  "thesis": "SmartThings Pro 기반의 원격 제어와 노후 설비 교체로 냉난방 전력 15%를 절감하고, 36개월 내 투자 회수를 달성하겠습니다.",
+  "ending": "pilot",
+  "parts": [
+   {
+    "keep": "P1",
+    "type": "customer",
+    "name": "고객사 이해",
+    "goal": "",
+    "items": [],
+    "answers": [],
+    "ref": "",
+    "adapted": ""
+   },
+   {
+    "keep": "P2",
+    "type": "challenge",
+    "name": "지금 겪는 문제",
+    "goal": "",
+    "items": [],
+    "answers": [],
+    "ref": "",
+    "adapted": ""
+   },
+   {
+    "keep": "P3",
+    "type": "market",
+    "name": "전기요금 환경",
+    "goal": "",
+    "items": [],
+    "answers": [],
+    "ref": "",
+    "adapted": ""
+   },
+   {
+    "keep": "P4",
+    "type": "value",
+    "name": "Value Propositions",
+    "goal": "",
+    "items": [],
+    "answers": [],
+    "ref": "",
+    "adapted": ""
+   },
+   {
+    "keep": "",
+    "type": "solution",
+    "name": "원격 제어 솔루션",
+    "goal": "SmartThings Pro를 통한 전 지점 냉난방 통합 관리 체계 구축",
+    "items": [
+     "SmartThings Pro로 120개 지점 냉난방 원격 제어 및 에너지 관리",
+     "기존 삼성 시스템에어컨 74개 지점은 SAC 제어 시스템 연동",
+     "노후 설비 46개 지점은 WindFree 4Way 교체로 효율 극대화"
+    ],
+    "answers": [
+     "R1",
+     "R7",
+     "R8",
+     "R17"
+    ],
+    "ref": "REF1:가치",
+    "adapted": "스터디카페 무인 환경에 맞춰 본사/점주용 원격 관리 솔루션으로 구체화함"
+   },
+   {
+    "keep": "",
+    "type": "effect",
+    "name": "기대 효과 및 ROI",
+    "goal": "냉난방 전력 15% 절감 및 36개월 이내 투자 회수 입증",
+    "items": [
+     "냉난방 전력 15% 절감 실측 확인 및 지점별 에너지 리포트 제공",
+     "온도 민원 월 64건 감소로 고객 경험 개선 및 점주 야간 방문 해소",
+     "지점당 구축비 450만 원 내 구성으로 36개월 이내 투자 회수 달성"
+    ],
+    "answers": [
+     "R2",
+     "R3",
+     "R4",
+     "R5",
+     "R6",
+     "R9",
+     "R15",
+     "R16"
+    ],
+    "ref": "REF1:근거",
+    "adapted": "고객이 제시한 15% 절감 목표와 36개월 회수 기준을 KPI로 명시함"
+   },
+   {
+    "keep": "",
+    "type": "closing",
+    "name": "파일럿 제안",
+    "goal": "실측을 통한 검증 후 전 지점 확산 결정 유도",
+    "items": [
+     "파일럿 지점 선정 및 3개월간 냉난방 전력 절감 실측 진행",
+     "실측 결과 기반 전 지점 확산 로드맵 수립",
+     "본사 운영본부장 대상 파일럿 승인 요청"
+    ],
+    "answers": [
+     "R15"
+    ],
+    "ref": "REF1:결정",
+    "adapted": "전체 확산 전 파일럿을 통한 실측 검증 단계로 마무리 설정"
+   }
+  ],
+  "questions": [
+   "파일럿 진행을 위한 최적의 지점 3곳을 선정할 수 있을까요?",
+   "본사 지원금 50% 외에 추가적인 에너지 효율 개선 보조금 활용 계획이 있으신가요?",
+   "기존 타사 설비 교체 시 철거 및 폐기물 처리 기준이 별도로 있나요?",
+   "지점별 에너지 리포트 제공 시 점주님들이 선호하는 데이터 항목이 무엇인가요?"
+  ]
+ }
+}

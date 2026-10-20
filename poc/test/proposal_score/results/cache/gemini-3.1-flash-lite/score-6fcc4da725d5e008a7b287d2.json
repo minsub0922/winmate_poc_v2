@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~number_conflict:F04"
+ },
+ "prompt_tokens": 6118,
+ "output_tokens": 376,
+ "data": {
+  "scores": [
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "카운터, DT, 입구 등 각 공간의 환경적 특성(옥외 직사광, 24/7 운영 등)을 고려하여 QM55C, OH55A-S, KM24C 등 적합한 제품을 매칭하였습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "QM55C 55\" 500nit 4K UHD 24/7 운영"
+     },
+     {
+      "sheet": 10,
+      "quote": "OH55A-S 55\" 3,500nit IP56 드라이브스루"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "밀키프레소 사례를 통해 도입 구성(화면 공간, 본사 관리)과 성과(방문 없는 원격 관리)를 구체적으로 제시하였습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "밀키프레소 — 방문 없이 가맹점 화면 원격 관리"
+     },
+     {
+      "sheet": 13,
+      "quote": "매장을 직접 방문하지 않아도 원격으로 통합 관리"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

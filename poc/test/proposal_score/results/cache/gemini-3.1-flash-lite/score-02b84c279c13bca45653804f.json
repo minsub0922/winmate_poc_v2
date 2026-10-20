@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~number_conflict:F06"
+ },
+ "prompt_tokens": 4264,
+ "output_tokens": 225,
+ "data": {
+  "scores": [
+   {
+    "id": "PR6",
+    "score": 2,
+    "anchor": "공간별 모델과 수량은 명확히 제시되었으나, 설치에 필수적인 브래킷, 플레이어, 라이선스 등 부속 구성 요소에 대한 정보가 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "256개 매장을 세 가지 표준 패키지로"
+     },
+     {
+      "sheet": 15,
+      "quote": "매장당 소형 5 · 표준 7 · DT 플래그십 10대"
+     }
+    ],
+    "improve": "설치에 필요한 브래킷, 미디어 플레이어, MagicINFO 라이선스 등 부속 구성 요소의 수량과 사양을 포함하여 상세 내역을 보완해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

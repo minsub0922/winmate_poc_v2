@@ -1,0 +1,116 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~full:F11"
+ },
+ "prompt_tokens": 6017,
+ "output_tokens": 978,
+ "data": {
+  "scores": [
+   {
+    "id": "DS1",
+    "score": 2,
+    "anchor": "제목 위치가 2, 12, 13, 16장에서 다른 장과 다르게 배치되어 있으며, 4장에서 텍스트 넘침이 확인됩니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "① 메뉴 · 가격 반영"
+     },
+     {
+      "sheet": 12,
+      "quote": "메뉴 반영은 9일에서 당일로 줄어듭니다"
+     }
+    ],
+    "improve": "제목의 위치를 모든 장에서 동일하게 통일하고, 4장의 텍스트 넘침을 수정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS2",
+    "score": 2,
+    "anchor": "대부분의 장에서 핵심 요지가 드러나지만, 어절 수가 많아 시선이 흩어질 가능성이 있습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "A 커피 DT 매장의 일곱 공간"
+     },
+     {
+      "sheet": 14,
+      "quote": "시범 매장 10곳은 유형별로 이렇게 고릅니다"
+     }
+    ],
+    "improve": "장당 어절 수를 줄이고 핵심 메시지를 더욱 간결하게 강조해야 합니다.",
+    "confidence": "mid"
+   },
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 10개로 매우 많고, 장당 평균 어절 수가 145어절로 발표 자료로서 밀도가 너무 높습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "카페 시장은 이미 화면으로 갑니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "A 커피 DT 매장의 일곱 공간"
+     }
+    ],
+    "improve": "전반적인 텍스트 양을 대폭 줄이고 개조식 구성을 활용하여 밀도를 낮춰야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 57%가 10pt 미만이며, 9장이나 되는 많은 장에서 12pt 미만의 작은 글자가 사용되었습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": ""
+     },
+     {
+      "sheet": 8,
+      "quote": ""
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt 이상으로 상향 조정하여 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS5",
+    "score": 3,
+    "anchor": "폰트 2종을 일관되게 사용하고 있으며, 모든 장에서 제목 크기가 30px로 동일하게 유지됩니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "A 커피"
+     },
+     {
+      "sheet": 16,
+      "quote": "다음 2주, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "DS6",
+    "score": 3,
+    "anchor": "모든 장에 내용과 부합하는 실제 사진이 포함되어 있으며, 텍스트만으로 구성된 장이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "카운터부터 DT까지, 세 가지 제품으로"
+     },
+     {
+      "sheet": 13,
+      "quote": "밀키프레소 — 방문 없이 가맹점 화면 원격 관리"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

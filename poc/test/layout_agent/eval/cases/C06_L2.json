@@ -1,0 +1,44 @@
+{
+ "id": "C06_L2",
+ "case": "C06",
+ "industry": "MF",
+ "strategy": "pain",
+ "req_type": "ops",
+ "title": "물류센터 현장 모바일",
+ "level": "ambiguous",
+ "input": {
+  "title": "K 로지스 현장 디지털화",
+  "customer": "K 로지스",
+  "free_text": "물류센터 현장 업무가 비효율적이라 디지털화하고 싶다고 합니다. 기기 관리도 골칫거리라고 하네요.",
+  "id": "C06_L2"
+ },
+ "gold": {
+  "level": "ambiguous",
+  "industry": "MF",
+  "scenario_any": [
+   "bs14"
+  ],
+  "scenario_top3": [
+   "bs14"
+  ],
+  "must_parts": [
+   "challenge",
+   "solution"
+  ],
+  "key_reqs": [
+   {
+    "kw": [
+     "기기 관리"
+    ],
+    "parts_any": [
+     "solution",
+     "value",
+     "challenge",
+     "execution"
+    ],
+    "priority": "should"
+   }
+  ],
+  "facts": []
+ }
+}

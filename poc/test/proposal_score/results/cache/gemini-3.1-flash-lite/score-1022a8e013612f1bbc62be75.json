@@ -1,0 +1,61 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs04:F01"
+ },
+ "prompt_tokens": 8749,
+ "output_tokens": 468,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명을 'R 건설'로 일관되게 표기하였으며, 사례로 언급된 기관 외 다른 고객사명이나 템플릿 예시 명칭이 확인되지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "R 건설 2지구 1,240세대 빌트인 가전"
+     },
+     {
+      "sheet": 13,
+      "quote": "R 건설 2지구 1,240세대 빌트인"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "템플릿 잔여물이나 자리표시([00], OOO 등)가 문서 내 존재하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "B2B PROPOSAL"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 1,
+    "anchor": "9장에서 제안서의 핵심 구성 요소로 '원가'라는 표현을 직접적으로 사용하여 내부 수익성 관련 정보가 고객에게 노출되었습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "원가에 맞춰 고르세요"
+     },
+     {
+      "sheet": 9,
+      "quote": "세대당 원가 최소"
+     }
+    ],
+    "improve": "고객사 제안서에서 '원가'와 같은 내부 비용 관련 용어를 '옵션 구성' 또는 '예산 범위'와 같은 고객 친화적인 표현으로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

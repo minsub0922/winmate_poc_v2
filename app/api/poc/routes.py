@@ -24,6 +24,7 @@ from __future__ import annotations
 import asyncio
 import json
 import time
+import threading
 from typing import Any, AsyncIterator, Iterator
 
 from fastapi import APIRouter, Body, Query, Request
@@ -36,10 +37,59 @@ from .jobs import BadRequest, Conflict, ModelFailure, NotFound, Unavailable
 from .provider import redact
 from .service import capabilities, initialize
 from .settings import get_settings
+from .. import telemetry
 
 router = APIRouter()
 __all__ = ['router', 'initialize', 'capabilities']
 SSE_HEADERS = {'Cache-Control': 'no-cache', 'X-Accel-Buffering': 'no', 'Connection': 'keep-alive'}
+_SKILL_TASKS = set()
+
+
+@router.post('/api/simulation/skills/run')
+async def run_simulation_skill(request: Request, body: Any = Body(...)):
+    from .adapters import simulation_skills
+    from .strict import require_provider
+    validated = _guard(lambda: (simulation_skills.validate(body), require_provider(get_settings(), 'simulation')))
+    if isinstance(validated, JSONResponse):
+        return validated
+    payload, _provider = validated
+    loop = asyncio.get_running_loop()
+    queue = asyncio.Queue()
+    cancelled = threading.Event()
+    def emit(event):
+        if not loop.is_closed():
+            try: loop.call_soon_threadsafe(queue.put_nowait, event)
+            except RuntimeError: pass
+    def work():
+        try:
+            result = simulation_skills.run(payload, get_settings(), products=request.app.state.products,
+                cancel=cancelled.is_set, on_progress=lambda message: emit({'type':'progress','message':message}), on_event=emit)
+            if not cancelled.is_set(): emit({'type':'result','mode':'real','data':result})
+        except ModelFailure as exc:
+            telemetry.emit('application.error',status='error',feature='simulation',stage='simulation.skills',code=exc.code,message=str(exc),stack=telemetry.stack(exc))
+            emit({'type':'error',**exc.public()})
+        except Unavailable as exc:
+            telemetry.emit('application.error',status='error',feature='simulation',stage='simulation.skills',code=exc.code,message=str(exc),stack=telemetry.stack(exc))
+            emit({'type':'error','code':exc.code,'message':str(exc)})
+        except Exception as exc:
+            telemetry.emit('application.error',status='error',feature='simulation',stage='simulation.skills',code=getattr(exc,'code','upstream_error'),message=str(exc),stack=telemetry.stack(exc))
+            emit({'type':'error','code':getattr(exc,'code','upstream_error'),'message':redact(str(exc))[:500]})
+    task = asyncio.create_task(asyncio.to_thread(work))
+    _SKILL_TASKS.add(task)
+    task.add_done_callback(_SKILL_TASKS.discard)
+    async def events():
+        try:
+            while True:
+                if await request.is_disconnected(): break
+                try: event = await asyncio.wait_for(queue.get(), timeout=1)
+                except asyncio.TimeoutError:
+                    yield b': waiting\n\n'
+                    continue
+                yield _sse(event)
+                if event['type'] in ('result','error'): break
+        finally:
+            cancelled.set()
+    return StreamingResponse(events(), media_type='text/event-stream', headers=SSE_HEADERS)
 
 
 def _error(status: int, code: str, message: str, **extra: Any) -> JSONResponse:

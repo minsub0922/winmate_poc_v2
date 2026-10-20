@@ -1,0 +1,42 @@
+{
+ "stage": "repair",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.4,
+ "seed": 0,
+ "prompt_tokens": 3866,
+ "output_tokens": 297,
+ "data": {
+  "strategy": "space",
+  "thesis": "K 리조트 객실 TV와 로비 키오스크를 삼성 스마트 솔루션으로 교체하여, 영업 중단 없는 비수기 리뉴얼과 투숙객 만족도 향상을 동시에 달성하겠습니다.",
+  "parts": [
+   {
+    "keep": "P1"
+   },
+   {
+    "keep": "P2"
+   },
+   {
+    "keep": "P3"
+   },
+   {
+    "keep": "P4"
+   },
+   {
+    "type": "scenario"
+   },
+   {
+    "type": "execution"
+   },
+   {
+    "type": "closing"
+   }
+  ],
+  "ending": "contract",
+  "questions": [
+   "비수기 기간 내 영업 중단 없는 객실 TV 교체 일정 준수 방안",
+   "PMS 연동을 통한 투숙객 개인정보 자동 삭제 및 보안 강화 계획",
+   "LYNK Cloud 도입을 통한 객실 안내 디지털화 및 업무 효율화 방안"
+  ],
+  "strategy_why": "공간별 최적화된 하드웨어와 솔루션을 매칭하여 고객의 운영 효율과 투숙객 경험을 동시에 개선하는 전략입니다."
+ }
+}

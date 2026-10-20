@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11~base:F04"
+ },
+ "prompt_tokens": 1708,
+ "output_tokens": 130,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 1,
+    "anchor": "제안서 내에 도입 사례에 대한 언급이 전혀 확인되지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "유사 공공기관이나 교통 인프라 분야의 성공적인 도입 사례를 성과 수치와 함께 구체적으로 제시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,112 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11~full:F11"
+ },
+ "prompt_tokens": 5443,
+ "output_tokens": 1002,
+ "data": {
+  "scores": [
+   {
+    "id": "DS1",
+    "score": 2,
+    "anchor": "15장의 제목 위치가 다른 장들과 달리 우측 상단(648, 66)에 배치되어 일관성이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "제목 10px@(64,64)"
+     },
+     {
+      "sheet": 15,
+      "quote": "제목 30px@(648,66)"
+     }
+    ],
+    "improve": "모든 장의 제목 위치를 동일한 좌표로 통일해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS2",
+    "score": 2,
+    "anchor": "대부분 장은 요지가 명확하나, 2, 3, 4, 5, 7, 8, 9, 10장은 어절 수가 많아 메시지가 분산될 우려가 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "요구사항 28개, ID 단위로 빠짐없이 대응합니다"
+     },
+     {
+      "sheet": 9,
+      "quote": "공단 보안 요건 열 가지, 대응 기능과 근거"
+     }
+    ],
+    "improve": "어절 수가 많은 장의 내용을 핵심 위주로 요약하여 시각적 강조를 명확히 해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 10개로 기준인 4개를 크게 초과하여 발표 자료로서의 밀도가 매우 높습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "220어절"
+     },
+     {
+      "sheet": 9,
+      "quote": "219어절"
+     }
+    ],
+    "improve": "장당 어절 수를 110어절 이하로 줄이고 개조식 표현을 강화해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 40%가 10pt 미만이며, 9pt 미만 본문 칸이 2장(2, 7)에 존재합니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "본문 최소 11.5px(8.6pt)"
+     },
+     {
+      "sheet": 7,
+      "quote": "본문 최소 11.5px(8.6pt)"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS5",
+    "score": 3,
+    "anchor": "Noto Sans KR과 Manrope 2종의 폰트를 사용하며, 모든 장에서 제목과 본문의 크기 체계가 일관됩니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": "폰트: 앱 레이아웃 공통(Noto Sans KR · Manrope)"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "DS6",
+    "score": 3,
+    "anchor": "텍스트만 있는 장이 7%로 기준(10%) 이하이며, 제품 및 공간 관련 장에 실제 사진이 적절히 배치되었습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": "사진 중심 레이아웃 13장"
+     },
+     {
+      "sheet": 8,
+      "quote": "제안 품목 다섯 가지, 발주 요건 증빙을 갖췄습니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19:F10"
+ },
+ "prompt_tokens": 2134,
+ "output_tokens": 195,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "5장에서 원격 통합 관리 및 실시간 확인 기능을 명시하고, 9장에서 실사부터 파일럿까지의 운영 프로세스를 구체적으로 제시하여 하드웨어와 솔루션의 연계 운영 장면을 명확히 보여줍니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "원격 통합 관리 | 한 번의 승인으로 6개 사업 배포"
+     },
+     {
+      "sheet": 9,
+      "quote": "현장 실사 | 대표 사업장 3곳의 화면 · 운영 현황을 보고"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

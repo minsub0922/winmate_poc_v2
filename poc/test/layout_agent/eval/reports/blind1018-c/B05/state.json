@@ -1,0 +1,4328 @@
+{
+ "input": {
+  "id": "p_test",
+  "title": "한결로지스 이천센터 field device 교체",
+  "customer": "한결로지스(주)",
+  "industry": null,
+  "free_text": "한결로지스 이천센터 field device 교체 건입니다.\n현재 쓰는 legacy PDA가 Windows CE 기반이라 EOS 되서 vendor support 끊김. 현장에서 drop 파손 많고 battery 오래 못감, 바코드 scan 속도도 불만 많음.\nIT팀은 MDM으로 central 관리 되야 한다는 입장이고, WMS 앱은 웹 기반이라 Android로 넘어가도 문제 없을거라고 함.\n지게차 기사분들은 화면 큰거 원함 (거치형).\n일단 이천센터 pilot 먼저 해보고 결과 좋으면 다른 센터들도 roll-out 검토한다고.",
+  "project": "이천 물류센터 현장 업무 단말 교체 pilot",
+  "target": "물류운영본부장",
+  "keymen": [
+   {
+    "name": "물류운영팀 (이천센터장)",
+    "weight": 50.0,
+    "reqs": [
+     "떨어뜨려도 안 깨지는 단말",
+     "장갑 끼고도 터치·스캔 가능",
+     "교대 근무 동안 배터리 유지"
+    ]
+   },
+   {
+    "name": "IT팀",
+    "weight": 50.0,
+    "reqs": [
+     "MDM으로 중앙 관리",
+     "기존 웹 WMS 그대로 사용",
+     "분실 시 원격 잠금"
+    ]
+   }
+  ],
+  "note": "XCover7 Pro + Knox Capture면 전용 스캐너 없이 카메라 스캔 가능. 지게차 거치는 Tab Active5 Pro. pilot 단말 무상 대여 되는지 내부 확인 필요. roll-out 때 Knox Suite 라이선스로 upsell",
+  "files": [],
+  "products": [
+   "xcover7",
+   "tabactive5"
+  ],
+  "solutions": [],
+  "cases": [],
+  "minutes": null,
+  "max_slides": null
+ },
+ "analysis": {
+  "industry": "MF",
+  "industry_name": "제조 · 물류 · 현장",
+  "industry_source": "inferred",
+  "industry_conf": 1.0,
+  "req_type": "renew",
+  "req_type_scores": {
+   "new": 0.0,
+   "renew": 0.429,
+   "compete": 0.0,
+   "ops": 0.571,
+   "scale": 0.0,
+   "brief": 0.0
+  },
+  "strategy": "value",
+  "strategy_scores": {
+   "value": 0.0,
+   "pain": 0.75,
+   "space": 0.0,
+   "roi": 0.25,
+   "rfp": 0.0,
+   "compete": 0.0,
+   "land": 0.0
+  },
+  "strategy_hits": 4,
+  "requirements": [
+   {
+    "id": "R01",
+    "text": "떨어뜨려도 안 깨지는 단말",
+    "source": "keyman:물류운영팀 (이천센터장)",
+    "keyman": "물류운영팀 (이천센터장)",
+    "weight": 50.0,
+    "tag": null,
+    "category": "규격·성능",
+    "dimension": "기능·성능 규격",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "requirements",
+     "spec",
+     "solution",
+     "products"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 3.0,
+    "rank": 1
+   },
+   {
+    "id": "R02",
+    "text": "장갑 끼고도 터치·스캔 가능",
+    "source": "keyman:물류운영팀 (이천센터장)",
+    "keyman": "물류운영팀 (이천센터장)",
+    "weight": 50.0,
+    "tag": null,
+    "category": "규격·성능",
+    "dimension": "기능·성능 규격",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "spec",
+     "products",
+     "requirements",
+     "user"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 3.0,
+    "rank": 2
+   },
+   {
+    "id": "R03",
+    "text": "교대 근무 동안 배터리 유지",
+    "source": "keyman:물류운영팀 (이천센터장)",
+    "keyman": "물류운영팀 (이천센터장)",
+    "weight": 50.0,
+    "tag": null,
+    "category": "규격·성능",
+    "dimension": "기능·성능 규격",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "spec",
+     "products",
+     "requirements",
+     "solution"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 3.0,
+    "rank": 3
+   },
+   {
+    "id": "R04",
+    "text": "MDM으로 중앙 관리",
+    "source": "keyman:IT팀",
+    "keyman": "IT팀",
+    "weight": 50.0,
+    "tag": null,
+    "category": "운영·관리",
+    "dimension": "운영·유지보수",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "solution",
+     "execution",
+     "requirements"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 3.0,
+    "rank": 4
+   },
+   {
+    "id": "R05",
+    "text": "기존 웹 WMS 그대로 사용",
+    "source": "keyman:IT팀",
+    "keyman": "IT팀",
+    "weight": 50.0,
+    "tag": null,
+    "category": "시스템 연동",
+    "dimension": "시스템 연동",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "requirements",
+     "solution",
+     "execution"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 3.0,
+    "rank": 5
+   },
+   {
+    "id": "R06",
+    "text": "분실 시 원격 잠금",
+    "source": "keyman:IT팀",
+    "keyman": "IT팀",
+    "weight": 50.0,
+    "tag": null,
+    "category": "보안",
+    "dimension": "보안·인증·규제",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "execution",
+     "spec",
+     "requirements",
+     "solution"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 3.0,
+    "rank": 6
+   },
+   {
+    "id": "R07",
+    "text": "한결로지스 이천센터 field device 교체 건입니다.",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "기타",
+    "dimension": "기타",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "value",
+     "overview"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 2.0,
+    "rank": 7
+   },
+   {
+    "id": "R09",
+    "text": "현장에서 drop 파손 많고 battery 오래 못감, 바코드 scan 속도도 불만 많음.",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "사용자 경험",
+    "dimension": "사용자 경험·성과",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "challenge",
+     "scenario",
+     "value",
+     "user",
+     "requirements"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 2.0,
+    "rank": 8
+   },
+   {
+    "id": "R10",
+    "text": "WMS 앱은 웹 기반이라 Android로 넘어가도 문제 없을거라고 함.",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "시스템 연동",
+    "dimension": "시스템 연동",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "requirements",
+     "solution",
+     "execution"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 2.0,
+    "rank": 9
+   },
+   {
+    "id": "R11",
+    "text": "지게차 기사분들은 화면 큰거 원함 (거치형).",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "규격·성능",
+    "dimension": "기능·성능 규격",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "requirements",
+     "products",
+     "spec"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 2.0,
+    "rank": 10
+   },
+   {
+    "id": "R12",
+    "text": "일단 이천센터 pilot 먼저 해보고 결과 좋으면 다른 센터들도 roll-out 검토한다고.",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "확산·단계",
+    "dimension": "일정·실행·확산",
+    "priority": "could",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "execution",
+     "bom"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 1.0,
+    "rank": 14
+   },
+   {
+    "id": "R13",
+    "text": "XCover7 Pro + Knox Capture면 전용 스캐너 없이 카메라 스캔 가능.",
+    "source": "note",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "규격·성능",
+    "dimension": "기능·성능 규격",
+    "priority": "should",
+    "customer": false,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "solution",
+     "spec",
+     "products"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 1.4,
+    "rank": 13
+   },
+   {
+    "id": "R14",
+    "text": "현재 쓰는 legacy PDA가 Windows CE 기반이라 EOS",
+    "source": "llm",
+    "keyman": null,
+    "weight": 0,
+    "tag": null,
+    "category": "기타",
+    "dimension": "기타",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "challenge",
+     "requirements"
+    ],
+    "procedural": false,
+    "llm_added": true,
+    "score": 2.0,
+    "rank": 11
+   },
+   {
+    "id": "R15",
+    "text": "지게차 거치는 Tab Active5 Pro",
+    "source": "llm",
+    "keyman": null,
+    "weight": 0,
+    "tag": null,
+    "category": "규격·성능",
+    "dimension": "기능·성능 규격",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "products",
+     "solution"
+    ],
+    "procedural": false,
+    "llm_added": true,
+    "score": 2.0,
+    "rank": 12
+   },
+   {
+    "id": "R15",
+    "text": "pilot 단말 무상 대여 되는지 내부 확인 필요.",
+    "source": "note",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "자격·제출",
+    "dimension": "평가·선정·자격",
+    "priority": "could",
+    "customer": false,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "cost",
+     "closing",
+     "why",
+     "case"
+    ],
+    "procedural": false,
+    "llm_label": true,
+    "score": 0.7,
+    "rank": 16
+   },
+   {
+    "id": "R16",
+    "text": "roll-out 때 Knox Suite 라이선스로 upsell",
+    "source": "llm",
+    "keyman": null,
+    "weight": 0,
+    "tag": null,
+    "category": "예산·비용",
+    "dimension": "비용·구매",
+    "priority": "could",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "cost",
+     "execution"
+    ],
+    "procedural": false,
+    "llm_added": true,
+    "score": 1.0,
+    "rank": 15
+   }
+  ],
+  "context_lines": [
+   "현재 쓰는 legacy PDA가 Windows CE 기반이라 EOS 되서 vendor support 끊김.",
+   "지게차 거치는 Tab Active5 Pro.",
+   "roll-out 때 Knox Suite 라이선스로 upsell"
+  ],
+  "facts": [],
+  "spaces": [
+   "현장"
+  ],
+  "goals": [
+   "현장 업무 단말 교체 pilot",
+   "결과 좋으면 다른 센터들도 roll-out 검토",
+   "Knox Suite 라이선스로 upsell"
+  ],
+  "products": [
+   "xcover7",
+   "tabactive5"
+  ],
+  "solutions": [
+   "knoxsuite",
+   "knoxcapture"
+  ],
+  "cases": [],
+  "keymen": [
+   {
+    "name": "물류운영팀 (이천센터장)",
+    "weight": 50.0,
+    "reqs": [
+     "떨어뜨려도 안 깨지는 단말",
+     "장갑 끼고도 터치·스캔 가능",
+     "교대 근무 동안 배터리 유지"
+    ]
+   },
+   {
+    "name": "IT팀",
+    "weight": 50.0,
+    "reqs": [
+     "MDM으로 중앙 관리",
+     "기존 웹 WMS 그대로 사용",
+     "분실 시 원격 잠금"
+    ]
+   }
+  ],
+  "signals": {
+   "n_statements": 16,
+   "n_req": 13,
+   "n_keymen": 2,
+   "n_must": 0,
+   "n_numbers": 0,
+   "eval_hits": 0,
+   "file_chars": 0,
+   "plain_chars": 384,
+   "n_categories": 7,
+   "n_goal": 3,
+   "n_goal_sent": 3,
+   "has_products": true,
+   "has_solutions": true
+  },
+  "context_level": "complex",
+  "level_reason": "물류 현장의 하드웨어 내구성 요구와 IT팀의 관리·보안 요구, 지게차 기사들의 사용성 요구가 복합적으로 얽혀 있으며 Pilot 후 확산 계획이 포함됨. (LLM 판정)",
+  "level_label": "③ 요구사항 복잡 → 분해 · 기준별 정리 · 사용자 인터랙션",
+  "summary": "한결로지스 이천 물류센터의 노후화된 Windows CE 기반 PDA를 Android 기반 단말로 교체하는 Pilot 프로젝트입니다. 현장의 내구성 및 사용성 개선 요구와 IT팀의 중앙 관리 및 보안 요구를 충족하는 솔루션을 제안하며, 향후 전사 확산 및 라이선스 확대를 목표로 합니다.",
+  "llm": true,
+  "dimensions": {
+   "기능·성능 규격": 6,
+   "운영·유지보수": 1,
+   "시스템 연동": 2,
+   "보안·인증·규제": 1,
+   "기타": 2,
+   "사용자 경험·성과": 1,
+   "일정·실행·확산": 1,
+   "평가·선정·자격": 1,
+   "비용·구매": 1
+  }
+ },
+ "ctx": {
+  "industry": "MF",
+  "industry_name": "제조 · 물류 · 현장",
+  "customer": "한결로지스(주)",
+  "project": "이천 물류센터 현장 업무 단말 교체 pilot",
+  "target": "물류운영본부장",
+  "products": [
+   "xcover7",
+   "tabactive5"
+  ],
+  "solutions": [
+   "knoxsuite",
+   "knoxcapture"
+  ],
+  "cases": [
+   "150",
+   "29",
+   "3454"
+  ],
+  "spaces": [
+   "현장"
+  ],
+  "recommended": {
+   "products": [],
+   "solutions": [],
+   "cases": [
+    {
+     "id": "150",
+     "score": 5.8,
+     "why": "같은 업종",
+     "cust": "아시아나항공/아시아나IDT –갤럭시 탭 액티브"
+    },
+    {
+     "id": "29",
+     "score": 5.2,
+     "why": "같은 업종",
+     "cust": "성남운수"
+    },
+    {
+     "id": "3454",
+     "score": 4.6,
+     "why": "같은 업종",
+     "cust": "제주입니다 애플망고&감귤 농장"
+    }
+   ]
+  }
+ },
+ "route": "decompose",
+ "scenario_match": {
+  "kind": "strategy",
+  "chosen": "pain",
+  "candidates": [
+   {
+    "strategy": "pain",
+    "label": "문제 해결형",
+    "desc": "고객이 겪는 문제와 그 비용에서 출발해 해법 · 전후로 닫는다",
+    "score": 1.061,
+    "best_ref": "bs14",
+    "best_title": "제조 · 물류 현장 모바일 업무 디지털화"
+   },
+   {
+    "strategy": "value",
+    "label": "가치 선도형",
+    "desc": "가치 기둥을 먼저 세우고 제품 · 효과로 받친다",
+    "score": 0.046,
+    "best_ref": "bs16",
+    "best_title": "다점포 사이니지 통합 운영 · 설치형 vs 구독형 선택"
+   },
+   {
+    "strategy": "roi",
+    "label": "투자 회수형",
+    "desc": "비용 구조 → 절감 → 회수 기간 → 작은 실측으로 결정을 쉽게",
+    "score": 0.25,
+    "best_ref": "bs13",
+    "best_title": "다점포 무인 매장 에너지 절감 · 공조 자동화"
+   }
+  ]
+ },
+ "decomposition": {
+  "groups": [
+   {
+    "dimension": "기능·성능 규격",
+    "req_ids": [
+     "R01",
+     "R02",
+     "R03",
+     "R11",
+     "R15",
+     "R13"
+    ],
+    "n": 6,
+    "must": 0,
+    "score": 14.4,
+    "summary": "떨어뜨려도 안 깨지는 단말 / 장갑 끼고도 터치·스캔 가능 / 교대 근무 동안 배터리 유지",
+    "answer_part": "spec",
+    "answer_layouts": [
+     "L_SC_B",
+     "L_SPEC3",
+     "L_SE_B"
+    ],
+    "stage": "build",
+    "keymen": [
+     "물류운영팀 (이천센터장)"
+    ]
+   },
+   {
+    "dimension": "시스템 연동",
+    "req_ids": [
+     "R05",
+     "R10"
+    ],
+    "n": 2,
+    "must": 0,
+    "score": 5.0,
+    "summary": "기존 웹 WMS 그대로 사용 / WMS 앱은 웹 기반이라 Android로 넘어가도 문제 없을거라고 함.",
+    "answer_part": "execution",
+    "answer_layouts": [
+     "L_IG_A",
+     "L_IG_B"
+    ],
+    "stage": "build",
+    "keymen": [
+     "IT팀"
+    ]
+   },
+   {
+    "dimension": "기타",
+    "req_ids": [
+     "R07",
+     "R14"
+    ],
+    "n": 2,
+    "must": 0,
+    "score": 4.0,
+    "summary": "한결로지스 이천센터 field device 교체 건입니다. / 현재 쓰는 legacy PDA가 Windows CE 기반이라 EOS",
+    "answer_part": "value",
+    "answer_layouts": [],
+    "stage": "value",
+    "keymen": []
+   },
+   {
+    "dimension": "보안·인증·규제",
+    "req_ids": [
+     "R06"
+    ],
+    "n": 1,
+    "must": 0,
+    "score": 3.0,
+    "summary": "분실 시 원격 잠금",
+    "answer_part": "execution",
+    "answer_layouts": [
+     "L_SE_A",
+     "L_SE_B",
+     "L_SE_C"
+    ],
+    "stage": "build",
+    "keymen": [
+     "IT팀"
+    ]
+   },
+   {
+    "dimension": "운영·유지보수",
+    "req_ids": [
+     "R04"
+    ],
+    "n": 1,
+    "must": 0,
+    "score": 3.0,
+    "summary": "MDM으로 중앙 관리",
+    "answer_part": "execution",
+    "answer_layouts": [
+     "L_MT_B",
+     "L_SV_B",
+     "L_TO_A"
+    ],
+    "stage": "plan",
+    "keymen": [
+     "IT팀"
+    ]
+   },
+   {
+    "dimension": "사용자 경험·성과",
+    "req_ids": [
+     "R09"
+    ],
+    "n": 1,
+    "must": 0,
+    "score": 2.0,
+    "summary": "현장에서 drop 파손 많고 battery 오래 못감, 바코드 scan",
+    "answer_part": "effect",
+    "answer_layouts": [
+     "L_EF_A",
+     "L_EF_C"
+    ],
+    "stage": "proof",
+    "keymen": []
+   },
+   {
+    "dimension": "일정·실행·확산",
+    "req_ids": [
+     "R12"
+    ],
+    "n": 1,
+    "must": 0,
+    "score": 1.0,
+    "summary": "일단 이천센터 pilot 먼저 해보고 결과 좋으면 다른 센터들도",
+    "answer_part": "execution",
+    "answer_layouts": [
+     "L_SV_A",
+     "L_PL_A",
+     "L_IP_C"
+    ],
+    "stage": "plan",
+    "keymen": []
+   },
+   {
+    "dimension": "비용·구매",
+    "req_ids": [
+     "R16"
+    ],
+    "n": 1,
+    "must": 0,
+    "score": 1.0,
+    "summary": "roll-out 때 Knox Suite 라이선스로 upsell",
+    "answer_part": "cost",
+    "answer_layouts": [
+     "L_CO_B",
+     "L_CO_A",
+     "L_EF_B"
+    ],
+    "stage": "plan",
+    "keymen": []
+   },
+   {
+    "dimension": "평가·선정·자격",
+    "req_ids": [
+     "R15"
+    ],
+    "n": 1,
+    "must": 0,
+    "score": 0.7,
+    "summary": "pilot 단말 무상 대여 되는지 내부 확인 필요.",
+    "answer_part": "requirements",
+    "answer_layouts": [
+     "L_RM_C",
+     "L_RM_B",
+     "L_CL_C"
+    ],
+    "stage": "context",
+    "keymen": []
+   }
+  ],
+  "eval": null,
+  "conflicts": [
+   {
+    "id": "C5",
+    "kind": "키맨 관심사 분산",
+    "reqs": [],
+    "note": "IT팀과 물류운영팀 (이천센터장)가 보는 기준이 겹치지 않는다 — 이해관계자별 가치 장표(VP-D · RM-A)로 둘 다 답해야 함",
+    "options": [
+     "IT팀 우선",
+     "물류운영팀 (이천센터장) 우선",
+     "이해관계자별로 나눠 답함"
+    ],
+    "default": 2
+   },
+   {
+    "id": "L1",
+    "kind": "LLM 발견",
+    "reqs": [
+     "R01",
+     "R11",
+     "R15"
+    ],
+    "note": "R01(내구성 중심)과 R11/R15(지게차 거치형 대화면 요구) 간의 단말기 표준화 범위 충돌",
+    "options": [
+     "우선 대응",
+     "보완 설명",
+     "범위 밖으로 명시"
+    ]
+   },
+   {
+    "id": "L2",
+    "kind": "LLM 발견",
+    "reqs": [
+     "R04",
+     "R06",
+     "R12"
+    ],
+    "note": "R04/R06(IT팀의 중앙 관리 요구)과 R12(Pilot 단계의 운영 효율성 간극)",
+    "options": [
+     "우선 대응",
+     "보완 설명",
+     "범위 밖으로 명시"
+    ]
+   }
+  ],
+  "gaps": [
+   {
+    "field": "quantities",
+    "label": "수량 · 범위",
+    "why": "대상 수량(대수 · 매장 수 · 실 수)이 없습니다",
+    "question": "수량 · 범위 정보를 알려 주실 수 있나요? (대상 수량(대수 · 매장 수 · 실 수)이 없습니다)"
+   },
+   {
+    "field": "timeline",
+    "label": "일정",
+    "why": "도입 · 오픈 일정이 없습니다",
+    "question": "일정 정보를 알려 주실 수 있나요? (도입 · 오픈 일정이 없습니다)"
+   },
+   {
+    "field": "budget",
+    "label": "예산 · 구매 방식",
+    "why": "예산이나 구매 방식(일시 · 렌탈 · 구독)이 없습니다",
+    "question": "예산 · 구매 방식 정보를 알려 주실 수 있나요? (예산이나 구매 방식(일시 · 렌탈 · 구독)이 없습니다)"
+   },
+   {
+    "field": "spaces",
+    "label": "대상 공간",
+    "why": "제품이 놓일 공간 정보가 없습니다",
+    "question": "대상 공간 정보를 알려 주실 수 있나요? (제품이 놓일 공간 정보가 없습니다)"
+   },
+   {
+    "field": "llm1",
+    "label": "이천센터 내 지게차용 단말과 일반 작",
+    "why": "이천센터 내 지게차용 단말과 일반 작업자용 단말의 정확한 수량 및 비율",
+    "question": "이천센터 내 지게차용 단말과 일반 작업자용 단말의 정확한 수량 및 비율"
+   },
+   {
+    "field": "llm2",
+    "label": "Pilot 운영 기간 및 Roll-o",
+    "why": "Pilot 운영 기간 및 Roll-out을 위한 구체적인 성공 지표(KPI)",
+    "question": "Pilot 운영 기간 및 Roll-out을 위한 구체적인 성공 지표(KPI)"
+   },
+   {
+    "field": "llm3",
+    "label": "기존 Windows CE 기반 WMS",
+    "why": "기존 Windows CE 기반 WMS의 Android 전환 시 발생하는 기술적 마이그레이션 비용 및 예산 확보 여부",
+    "question": "기존 Windows CE 기반 WMS의 Android 전환 시 발생하는 기술적 마이그레이션 비용 및 예산 확보 여부"
+   },
+   {
+    "field": "llm4",
+    "label": "지게차 거치대 및 충전 인프라 설치를",
+    "why": "지게차 거치대 및 충전 인프라 설치를 위한 현장 공간 환경 정보",
+    "question": "지게차 거치대 및 충전 인프라 설치를 위한 현장 공간 환경 정보"
+   }
+  ],
+  "strategy_options": [
+   {
+    "strategy": "pain",
+    "label": "문제 해결형",
+    "desc": "고객이 겪는 문제와 그 비용에서 출발해 해법 · 전후로 닫는다",
+    "score": 1.061,
+    "best_ref": "bs14",
+    "best_title": "제조 · 물류 현장 모바일 업무 디지털화"
+   },
+   {
+    "strategy": "value",
+    "label": "가치 선도형",
+    "desc": "가치 기둥을 먼저 세우고 제품 · 효과로 받친다",
+    "score": 0.046,
+    "best_ref": "bs16",
+    "best_title": "다점포 사이니지 통합 운영 · 설치형 vs 구독형 선택"
+   },
+   {
+    "strategy": "roi",
+    "label": "투자 회수형",
+    "desc": "비용 구조 → 절감 → 회수 기간 → 작은 실측으로 결정을 쉽게",
+    "score": 0.25,
+    "best_ref": "bs13",
+    "best_title": "다점포 무인 매장 에너지 절감 · 공조 자동화"
+   }
+  ],
+  "questions": [
+   {
+    "id": "strategy",
+    "question": "어떤 전략 축으로 제안서를 세울까요?",
+    "options": [
+     "pain: 문제 해결형 — 고객이 겪는 문제와 그 비용에서 출발해 해법 · 전후로 닫는다",
+     "value: 가치 선도형 — 가치 기둥을 먼저 세우고 제품 · 효과로 받친다",
+     "roi: 투자 회수형 — 비용 구조 → 절감 → 회수 기간 → 작은 실측으로 결정을 쉽게"
+    ],
+    "default": "pain",
+    "affects": [
+     "storyboard 흐름",
+     "레이아웃 선택"
+    ]
+   },
+   {
+    "id": "ending",
+    "question": "이 제안서로 끌어낼 결정(결말)은 무엇인가요?",
+    "options": [
+     "pilot: 파일럿 승인",
+     "shortlist: 우선협상 선정",
+     "scope: 범위 · 일정 확정"
+    ],
+    "default": "pilot",
+    "affects": [
+     "마무리 장표",
+     "실행 계획 깊이"
+    ]
+   },
+   {
+    "id": "keyman",
+    "question": "어느 키맨의 요구를 앞에 둘까요?",
+    "options": [
+     "물류운영팀 (이천센터장)",
+     "IT팀"
+    ],
+    "default": "물류운영팀 (이천센터장)",
+    "affects": [
+     "파트 우선순위"
+    ]
+   },
+   {
+    "id": "conflict_C5",
+    "question": "[키맨 관심사 분산] IT팀과 물류운영팀 (이천센터장)가 보는 기준이 겹치지 않는다 — 이해관계자별 가치 장표(VP-D · RM-A)로 둘 다 답해야 함 — 어떻게 대응할까요?",
+    "options": [
+     "IT팀 우선",
+     "물류운영팀 (이천센터장) 우선",
+     "이해관계자별로 나눠 답함"
+    ],
+    "default": "이해관계자별로 나눠 답함",
+    "affects": [
+     "대응 장표",
+     "메시지"
+    ]
+   },
+   {
+    "id": "conflict_L1",
+    "question": "[LLM 발견] R01(내구성 중심)과 R11/R15(지게차 거치형 대화면 요구) 간의 단말기 표준화 범위 충돌 — 어떻게 대응할까요?",
+    "options": [
+     "우선 대응",
+     "보완 설명",
+     "범위 밖으로 명시"
+    ],
+    "default": "우선 대응",
+    "affects": [
+     "대응 장표",
+     "메시지"
+    ]
+   },
+   {
+    "id": "conflict_L2",
+    "question": "[LLM 발견] R04/R06(IT팀의 중앙 관리 요구)과 R12(Pilot 단계의 운영 효율성 간극) — 어떻게 대응할까요?",
+    "options": [
+     "우선 대응",
+     "보완 설명",
+     "범위 밖으로 명시"
+    ],
+    "default": "우선 대응",
+    "affects": [
+     "대응 장표",
+     "메시지"
+    ]
+   },
+   {
+    "id": "gap_quantities",
+    "question": "수량 · 범위 정보를 알려 주실 수 있나요? (대상 수량(대수 · 매장 수 · 실 수)이 없습니다)",
+    "options": [
+     "값을 입력",
+     "자리표시로 두기"
+    ],
+    "default": "자리표시로 두기",
+    "affects": [
+     "채우기(값 입력)"
+    ]
+   },
+   {
+    "id": "gap_timeline",
+    "question": "일정 정보를 알려 주실 수 있나요? (도입 · 오픈 일정이 없습니다)",
+    "options": [
+     "값을 입력",
+     "자리표시로 두기"
+    ],
+    "default": "자리표시로 두기",
+    "affects": [
+     "채우기(값 입력)"
+    ]
+   },
+   {
+    "id": "gap_budget",
+    "question": "예산 · 구매 방식 정보를 알려 주실 수 있나요? (예산이나 구매 방식(일시 · 렌탈 · 구독)이 없습니다)",
+    "options": [
+     "값을 입력",
+     "자리표시로 두기"
+    ],
+    "default": "자리표시로 두기",
+    "affects": [
+     "채우기(값 입력)"
+    ]
+   },
+   {
+    "id": "llm_Q01",
+    "question": "이천센터 내 지게차 작업자와 일반 현장 작업자의 비율은 어떻게 됩니까?",
+    "options": [
+     "지게차 30% : 일반 70%",
+     "지게차 50% : 일반 50%",
+     "기타"
+    ],
+    "default": "지게차 30% : 일반 70%",
+    "affects": [
+     "단말기 모델 선정 및 수량 산정"
+    ]
+   },
+   {
+    "id": "llm_Q02",
+    "question": "Pilot 진행 시 무상 대여 단말의 수량과 기간은 어느 정도로 예상하십니까?",
+    "options": [
+     "10대 미만 / 1개월",
+     "10~30대 / 3개월",
+     "30대 이상 / 3개월 이상"
+    ],
+    "default": "10~30대 / 3개월",
+    "affects": [
+     "영업 비용 및 리소스 투입 계획"
+    ]
+   },
+   {
+    "id": "llm_Q03",
+    "question": "기존 Windows CE 기반 WMS의 Android 전환 시 IT팀에서 우려하는 기술적 리스크가 있습니까?",
+    "options": [
+     "없음(웹 기반으로 문제없음)",
+     "일부 UI/UX 수정 필요",
+     "전면적인 앱 재개발 필요"
+    ],
+    "default": "없음(웹 기반으로 문제없음)",
+    "affects": [
+     "시스템 연동 전략 및 제안 범위"
+    ]
+   },
+   {
+    "id": "length",
+    "question": "분량은 어느 정도로 할까요?",
+    "options": [
+     "10: 요약(10장 내외)",
+     "15: 표준(15장 내외)",
+     "20: 상세 · 요구 대응(20장 이상)"
+    ],
+    "default": "20",
+    "affects": [
+     "장수 · 우선순위 컷"
+    ]
+   }
+  ],
+  "llm": true
+ },
+ "choice": {
+  "strategy": "pain",
+  "ending": "pilot",
+  "budget": 20,
+  "keyman": "물류운영팀 (이천센터장)",
+  "conflicts": {
+   "C5": {
+    "answer": "이해관계자별로 나눠 답함",
+    "option": 2,
+    "kind": "키맨 관심사 분산",
+    "reqs": [],
+    "custom": false
+   },
+   "L1": {
+    "answer": "우선 대응",
+    "option": 0,
+    "kind": "LLM 발견",
+    "reqs": [
+     "R01",
+     "R11",
+     "R15"
+    ],
+    "custom": false
+   },
+   "L2": {
+    "answer": "우선 대응",
+    "option": 0,
+    "kind": "LLM 발견",
+    "reqs": [
+     "R04",
+     "R06",
+     "R12"
+    ],
+    "custom": false
+   }
+  },
+  "gaps": {
+   "quantities": "",
+   "timeline": "",
+   "budget": ""
+  },
+  "notes": [
+   {
+    "id": "llm_Q01",
+    "question": "이천센터 내 지게차 작업자와 일반 현장 작업자의 비율은 어떻게 됩니까?",
+    "answer": "지게차 30% : 일반 70%",
+    "default": "지게차 30% : 일반 70%"
+   },
+   {
+    "id": "llm_Q02",
+    "question": "Pilot 진행 시 무상 대여 단말의 수량과 기간은 어느 정도로 예상하십니까?",
+    "answer": "10~30대 / 3개월",
+    "default": "10~30대 / 3개월"
+   },
+   {
+    "id": "llm_Q03",
+    "question": "기존 Windows CE 기반 WMS의 Android 전환 시 IT팀에서 우려하는 기술적 리스크가 있습니까?",
+    "answer": "없음(웹 기반으로 문제없음)",
+    "default": "없음(웹 기반으로 문제없음)"
+   }
+  ],
+  "raw": {
+   "strategy": "pain",
+   "ending": "pilot",
+   "keyman": "물류운영팀 (이천센터장)",
+   "conflict_C5": "이해관계자별로 나눠 답함",
+   "conflict_L1": "우선 대응",
+   "conflict_L2": "우선 대응",
+   "gap_quantities": "자리표시로 두기",
+   "gap_timeline": "자리표시로 두기",
+   "gap_budget": "자리표시로 두기",
+   "llm_Q01": "지게차 30% : 일반 70%",
+   "llm_Q02": "10~30대 / 3개월",
+   "llm_Q03": "없음(웹 기반으로 문제없음)",
+   "length": "20"
+  }
+ },
+ "parts": [
+  {
+   "type": "cover",
+   "name": "제안서 표지",
+   "items": [
+    "한결로지스(주) 이천 물류센터 현장 업무 단말 교체 Pilot 제안"
+   ],
+   "stage": "open",
+   "goal": "",
+   "seed_layouts": [
+    {
+     "f": "L_C01",
+     "role": "표지"
+    }
+   ],
+   "core": true,
+   "source": "strategy",
+   "req_ids": [],
+   "pin": true,
+   "req_load": 0.0,
+   "priority": 0.28,
+   "priority_reason": "핵심 파트",
+   "priority_rank": 11,
+   "related": [],
+   "id": "S01",
+   "slides": 1
+  },
+  {
+   "type": "overview",
+   "name": "제안 요약",
+   "items": [
+    "물류 현장 최적화 단말 도입을 통한 운영 효율 극대화",
+    "삼성 Knox 기반의 안정적인 통합 관리 환경 구축",
+    "Pilot 성공을 통한 전사 확산 기반 마련"
+   ],
+   "stage": "open",
+   "goal": "",
+   "seed_layouts": [
+    {
+     "f": "L_ES_A",
+     "role": "결정권자용 한 장 요약"
+    }
+   ],
+   "core": true,
+   "source": "strategy",
+   "req_ids": [],
+   "pin": true,
+   "req_load": 0.0,
+   "priority": 0.4,
+   "priority_reason": "핵심 파트",
+   "priority_rank": 9,
+   "related": [
+    "requirements"
+   ],
+   "id": "S02",
+   "slides": 1
+  },
+  {
+   "type": "requirements",
+   "name": "핵심 요구사항",
+   "items": [
+    "떨어뜨려도 안 깨지는 단말",
+    "기존 웹 WMS 그대로 사용",
+    "물류 현장 특화 내구성 및 파손 방지 단말 도입",
+    "기존 웹 기반 WMS 시스템의 완벽한 호환성 확보",
+    "현장 운영팀과 IT팀의 요구사항 동시 충족"
+   ],
+   "stage": "context",
+   "goal": "",
+   "seed_layouts": [
+    {
+     "f": "L_RM_A",
+     "role": "키맨별 요구와 대응 방향"
+    }
+   ],
+   "core": true,
+   "source": "strategy",
+   "req_ids": [
+    "R01",
+    "R05"
+   ],
+   "pin": true,
+   "req_load": 6.9,
+   "priority": 0.931,
+   "priority_reason": "요구 2개 연결 · 핵심 파트",
+   "priority_rank": 2,
+   "related": [
+    "overview",
+    "customer"
+   ],
+   "id": "S03",
+   "slides": 1
+  },
+  {
+   "type": "requirements",
+   "name": "요구사항 대응",
+   "items": [
+    "WMS 앱은 웹 기반이라 Android로 넘어가도 문제 없을거라고 함",
+    "지게차 기사분들은 화면 큰거 원함 (거치형)",
+    "Android 환경에서도 웹 WMS의 안정적 구동 보장",
+    "지게차 기사용 대화면 거치형 단말 솔루션 제공"
+   ],
+   "stage": "context",
+   "goal": "",
+   "seed_layouts": [
+    {
+     "f": "L_RM_B",
+     "role": "요구 전수 대응표"
+    }
+   ],
+   "core": true,
+   "source": "strategy",
+   "req_ids": [
+    "R10",
+    "R11"
+   ],
+   "pin": false,
+   "req_load": 4.0,
+   "priority": 0.708,
+   "priority_reason": "요구 2개 연결 · 핵심 파트",
+   "priority_rank": 3,
+   "related": [
+    "overview",
+    "customer"
+   ],
+   "id": "S04",
+   "slides": 1
+  },
+  {
+   "type": "customer",
+   "name": "현장 가치 제고",
+   "items": [
+    "단말 중단 없는 물류 라인 가동으로 수익성 확보",
+    "현장 작업자의 업무 연속성 보장"
+   ],
+   "stage": "context",
+   "goal": "어디서 멈추는가",
+   "seed_layouts": [
+    {
+     "f": "L_MI_MF_B",
+     "role": "라인 · 사람 · 출하가 멈추지 않을 때의 이익",
+     "orig": "L_MI_MF_B"
+    }
+   ],
+   "core": false,
+   "source": "strategy:pain<-bs14",
+   "req_ids": [],
+   "req_load": 0.0,
+   "priority": 0.16,
+   "priority_reason": "선택 파트",
+   "priority_rank": 14,
+   "related": [
+    "user",
+    "challenge"
+   ],
+   "id": "S05",
+   "slides": 1
+  },
+  {
+   "type": "user",
+   "name": "사용자 경험",
+   "items": [
+    "현장 이슈 발생 시 즉각 대응 가능한 단말 환경",
+    "사용자 중심의 직관적인 업무 환경 구현"
+   ],
+   "stage": "context",
+   "goal": "어디서 멈추는가",
+   "seed_layouts": [
+    {
+     "f": "L_MI_MF_C",
+     "role": "이상이 생긴 순간에 판가름 나는 현장의 하루",
+     "orig": "L_MI_MF_C"
+    }
+   ],
+   "core": false,
+   "source": "strategy:pain<-bs14",
+   "req_ids": [],
+   "req_load": 0.0,
+   "priority": 0.16,
+   "priority_reason": "선택 파트",
+   "priority_rank": 15,
+   "related": [
+    "customer"
+   ],
+   "id": "S06",
+   "slides": 1
+  },
+  {
+   "type": "customer",
+   "name": "운영 흐름 분석",
+   "items": [
+    "물류 운영 프로세스 내 병목 구간 파악",
+    "현장 단말 운영의 효율적 개선 방향 제시"
+   ],
+   "stage": "problem",
+   "goal": "끊기는 지점",
+   "seed_layouts": [
+    {
+     "f": "L_CB_C",
+     "role": "운영 흐름 속 문제",
+     "orig": "L_CB_C"
+    }
+   ],
+   "core": false,
+   "source": "strategy:pain<-bs14",
+   "req_ids": [],
+   "req_load": 0.0,
+   "priority": 0.16,
+   "priority_reason": "선택 파트",
+   "priority_rank": 16,
+   "related": [
+    "user",
+    "challenge"
+   ],
+   "id": "S07",
+   "slides": 1
+  },
+  {
+   "type": "challenge",
+   "name": "현장 과제 해결",
+   "items": [
+    "현장에서 drop 파손 많고 battery 오래 못감, 바코드 scan 속도도",
+    "현재 쓰는 legacy PDA가 Windows CE 기반이라 EOS",
+    "잦은 파손과 배터리 성능 저하 문제 해결",
+    "바코드 스캔 속도 개선으로 작업 효율 증대",
+    "EOS 된 Windows CE 기반 단말의 현대화"
+   ],
+   "stage": "problem",
+   "goal": "끊기는 지점",
+   "seed_layouts": [
+    {
+     "f": "L_CH_C",
+     "role": "문제 → 근본 원인",
+     "orig": "L_CH_C"
+    }
+   ],
+   "core": true,
+   "source": "strategy:pain<-bs14",
+   "req_ids": [
+    "R09",
+    "R14"
+   ],
+   "req_load": 4.0,
+   "priority": 0.708,
+   "priority_reason": "요구 2개 연결 · 핵심 파트",
+   "priority_rank": 4,
+   "related": [
+    "customer",
+    "value"
+   ],
+   "id": "S08",
+   "slides": 1
+  },
+  {
+   "type": "value",
+   "name": "이해관계자 가치",
+   "items": [
+    "한결로지스 이천센터 field device 교체 건입니다",
+    "이천 물류센터 현장 단말 교체 최적화",
+    "운영팀의 생산성 향상 및 IT팀의 관리 편의성 증대"
+   ],
+   "stage": "value",
+   "goal": "키맨 관심사 분산",
+   "direction": "이해관계자별로 나눠 답함",
+   "seed_layouts": [
+    {
+     "f": "L_VP_D",
+     "role": "키맨 관심사 분산 — 이해관계자별 가치"
+    }
+   ],
+   "core": true,
+   "source": "conflict:C5",
+   "req_ids": [
+    "R07"
+   ],
+   "req_load": 2.0,
+   "priority": 0.554,
+   "priority_reason": "요구 1개 연결 · 핵심 파트",
+   "priority_rank": 6,
+   "related": [
+    "challenge",
+    "solution"
+   ],
+   "id": "S09",
+   "slides": 1
+  },
+  {
+   "type": "solution",
+   "name": "운영 및 유지보수",
+   "items": [
+    "MDM으로 중앙 관리",
+    "XCover7 Pro + Knox Capture면 전용 스캐너 없이 카메라 스캔",
+    "MDM을 통한 단말 중앙 집중식 통합 관리",
+    "Knox Capture로 전용 스캐너 없이 카메라 스캔 구현"
+   ],
+   "stage": "value",
+   "goal": "운영·유지보수 요구 1개(필수 0)",
+   "seed_layouts": [],
+   "core": false,
+   "source": "dimension:운영·유지보수",
+   "req_ids": [
+    "R04",
+    "R13"
+   ],
+   "req_load": 4.4,
+   "priority": 0.498,
+   "priority_reason": "요구 2개 연결 · 선택 파트",
+   "priority_rank": 8,
+   "related": [
+    "value"
+   ],
+   "id": "S10",
+   "slides": 1
+  },
+  {
+   "type": "products",
+   "name": "공간별 제품",
+   "items": [
+    "현장 휴대용: SM-G766 (XCover7 Pro)",
+    "현장 거치용: SM-X350 (Tab Active5)"
+   ],
+   "stage": "build",
+   "goal": "",
+   "seed_layouts": [
+    {
+     "f": "L_P_Q",
+     "role": "공간별 제품 · 설치 방식"
+    }
+   ],
+   "core": true,
+   "source": "rule:products-required",
+   "req_ids": [],
+   "pin": false,
+   "req_load": 0.0,
+   "priority": 0.4,
+   "priority_reason": "핵심 파트",
+   "priority_rank": 10,
+   "related": [
+    "spec"
+   ],
+   "id": "S11",
+   "slides": 1
+  },
+  {
+   "type": "spec",
+   "name": "성능 및 규격",
+   "items": [
+    "장갑 끼고도 터치·스캔 가능",
+    "교대 근무 동안 배터리 유지",
+    "장갑 착용 상태에서도 터치 및 스캔 가능",
+    "장시간 교대 근무를 지원하는 배터리 성능"
+   ],
+   "stage": "build",
+   "goal": "기능·성능 규격 요구 6개(필수 0)",
+   "seed_layouts": [
+    {
+     "f": "L_SC_B",
+     "role": "기능·성능 규격 요구 대응"
+    }
+   ],
+   "core": true,
+   "source": "dimension:기능·성능 규격",
+   "req_ids": [
+    "R02",
+    "R03"
+   ],
+   "req_load": 7.8,
+   "priority": 1.0,
+   "priority_reason": "요구 2개 연결 · 핵심 파트",
+   "priority_rank": 1,
+   "related": [
+    "products"
+   ],
+   "id": "S12",
+   "slides": 1
+  },
+  {
+   "type": "execution",
+   "name": "보안 대응",
+   "items": [
+    "분실 시 원격 잠금",
+    "단말 분실 시 원격 잠금 및 데이터 보호"
+   ],
+   "stage": "build",
+   "goal": "보안·인증·규제 요구 1개(필수 0)",
+   "seed_layouts": [
+    {
+     "f": "L_SE_A",
+     "role": "보안·인증·규제 요구 대응"
+    }
+   ],
+   "core": true,
+   "source": "dimension:보안·인증·규제",
+   "req_ids": [
+    "R06"
+   ],
+   "req_load": 3.0,
+   "priority": 0.631,
+   "priority_reason": "요구 1개 연결 · 핵심 파트",
+   "priority_rank": 5,
+   "related": [
+    "cost",
+    "closing"
+   ],
+   "id": "S13",
+   "slides": 1
+  },
+  {
+   "type": "case",
+   "name": "유관 사례",
+   "items": [
+    "아시아나항공 등 물류·현장 도입 성공 사례 공유"
+   ],
+   "stage": "proof",
+   "goal": "",
+   "seed_layouts": [
+    {
+     "f": "L_CS03",
+     "role": "유관 사례"
+    }
+   ],
+   "core": false,
+   "source": "strategy",
+   "req_ids": [],
+   "pin": false,
+   "req_load": 0.0,
+   "priority": 0.16,
+   "priority_reason": "선택 파트",
+   "priority_rank": 17,
+   "related": [],
+   "id": "S14",
+   "slides": 1
+  },
+  {
+   "type": "execution",
+   "name": "실행 및 확산",
+   "items": [
+    "일단 이천센터 pilot 먼저 해보고 결과 좋으면 다른 센터들도 roll-out",
+    "이천센터 Pilot 우선 실시 후 결과 기반 전사 확산"
+   ],
+   "stage": "plan",
+   "goal": "일정·실행·확산 요구 1개(필수 0)",
+   "seed_layouts": [
+    {
+     "f": "L_SV_A",
+     "role": "일정·실행·확산 요구 대응"
+    }
+   ],
+   "core": false,
+   "source": "dimension:일정·실행·확산",
+   "req_ids": [
+    "R12"
+   ],
+   "req_load": 1.0,
+   "priority": 0.237,
+   "priority_reason": "요구 1개 연결 · 선택 파트",
+   "priority_rank": 13,
+   "related": [
+    "cost",
+    "closing"
+   ],
+   "id": "S15",
+   "slides": 1
+  },
+  {
+   "type": "cost",
+   "name": "비용 및 구매",
+   "items": [
+    "roll-out 때 Knox Suite 라이선스로 upsell",
+    "pilot 단말 무상 대여 되는지 내부 확인 필요",
+    "Pilot 단말 무상 대여 여부 내부 확인",
+    "확산 시 Knox Suite 라이선스 도입을 통한 가치 제고"
+   ],
+   "stage": "plan",
+   "goal": "비용·구매 요구 1개(필수 0)",
+   "seed_layouts": [
+    {
+     "f": "L_CO_B",
+     "role": "비용·구매 요구 대응"
+    }
+   ],
+   "core": true,
+   "source": "dimension:비용·구매",
+   "req_ids": [
+    "R15",
+    "R16"
+   ],
+   "req_load": 1.7,
+   "priority": 0.531,
+   "priority_reason": "요구 2개 연결 · 핵심 파트",
+   "priority_rank": 7,
+   "related": [
+    "execution"
+   ],
+   "id": "S16",
+   "slides": 1
+  },
+  {
+   "type": "closing",
+   "name": "결정 요청",
+   "items": [
+    "이천 물류센터 현장 단말 교체 Pilot 승인 요청"
+   ],
+   "stage": "close",
+   "goal": "",
+   "seed_layouts": [
+    {
+     "f": "L_C13",
+     "role": "결정 요청 · 다음 단계"
+    }
+   ],
+   "core": true,
+   "source": "strategy",
+   "req_ids": [],
+   "pin": true,
+   "req_load": 0.0,
+   "priority": 0.28,
+   "priority_reason": "핵심 파트",
+   "priority_rank": 12,
+   "related": [
+    "execution"
+   ],
+   "id": "S17",
+   "slides": 1
+  }
+ ],
+ "links": {
+  "links": {
+   "R01": [
+    2
+   ],
+   "R02": [
+    11
+   ],
+   "R03": [
+    11
+   ],
+   "R04": [
+    9
+   ],
+   "R05": [
+    2
+   ],
+   "R06": [
+    12
+   ],
+   "R07": [
+    8
+   ],
+   "R09": [
+    7
+   ],
+   "R10": [
+    3
+   ],
+   "R11": [
+    3
+   ],
+   "R12": [
+    14
+   ],
+   "R13": [
+    9
+   ],
+   "R14": [
+    7
+   ],
+   "R15": [
+    15
+   ],
+   "R16": [
+    15
+   ]
+  },
+  "uncovered": []
+ },
+ "slides": [
+  {
+   "no": 1,
+   "part_id": "S01",
+   "part_type": "cover",
+   "part_name": "제안서 표지",
+   "f": "L_C03",
+   "code": "C03",
+   "name": "표지 C · 타이포 중심",
+   "score": 17.508,
+   "why": [
+    "LLM · 물류 현장의 복잡한 맥락을 고려하여, 메시지 전달력을 극대화할 수 있는 타이포 중심의 C03이 가장 적합합니다.",
+    "파트 유형 일치 · 표지 · 목차",
+    "전략 적합 · 문제 해결형"
+   ],
+   "fit": {
+    "relevance": 0.878,
+    "part": true
+   },
+   "role": "표지",
+   "seed": "L_C01",
+   "alternates": [
+    {
+     "f": "L_C01",
+     "code": "C01",
+     "name": "표지 A · 이미지 분할",
+     "score": 17.008
+    },
+    {
+     "f": "L_C08",
+     "code": "C08",
+     "name": "표지 D · 이미지 3컷 콜라주",
+     "score": 16.508
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 2,
+   "part_id": "S02",
+   "part_type": "overview",
+   "part_name": "제안 요약",
+   "f": "L_ES_A",
+   "code": "ES-A",
+   "name": "제안 요약 4단",
+   "score": 17.633,
+   "why": [
+    "LLM · 결정권자용 한 장 요약에 최적화된 4단 구성으로, 제안의 핵심 가치와 솔루션을 명확하게 전달하기에 가장 적합합니다.",
+    "파트 유형 일치 · 제안 개요",
+    "시나리오가 이 자리에 둔 장표"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 0.67,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "결정권자용 한 장 요약",
+   "seed": "L_ES_A",
+   "alternates": [
+    {
+     "f": "L_IM_B",
+     "code": "IM-B",
+     "name": "4분면 요약 + 결론",
+     "score": 17.133
+    },
+    {
+     "f": "L_OV_C",
+     "code": "OV-C",
+     "name": "전제 조건 · 확인 요청",
+     "score": 16.633
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 3,
+   "part_id": "S03",
+   "part_type": "requirements",
+   "part_name": "핵심 요구사항",
+   "f": "L_RM_A",
+   "code": "RM-A",
+   "name": "고객 요구 이해",
+   "score": 15.654,
+   "why": [
+    "LLM · 키맨별 요구사항을 명확히 구분하고, 제조·물류 현장의 복합적 요구를 대응 전략과 함께 구조화하기에 가장 적합합니다.",
+    "파트 유형 일치 · 고객 요구 이해",
+    "시나리오가 이 자리에 둔 장표",
+    "편집 불가 문구 · 다른 업종"
+   ],
+   "fit": {
+    "relevance": 0.855,
+    "part": true,
+    "static_foreign": true,
+    "readiness": 0.67,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "키맨별 요구와 대응 방향",
+   "seed": "L_RM_A",
+   "alternates": [
+    {
+     "f": "L_RM_B",
+     "code": "RM-B",
+     "name": "요구사항 대응표",
+     "score": 15.154
+    },
+    {
+     "f": "L_MI_MF_B",
+     "code": "MI-MF-B",
+     "name": "제조 · 물류 · 현장 · 고객 비즈니스 · 운영 과제",
+     "score": 14.654
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 4,
+   "part_id": "S04",
+   "part_type": "requirements",
+   "part_name": "요구사항 대응",
+   "f": "L_RM_B",
+   "code": "RM-B",
+   "name": "요구사항 대응표",
+   "score": 18.833,
+   "why": [
+    "LLM · 물류 현장의 구체적 요구사항을 ID별로 분류하고 대응 방안을 명확히 제시하기에 가장 적합한 표 형식의 레이아웃입니다.",
+    "파트 유형 일치 · 고객 요구 이해",
+    "시나리오가 이 자리에 둔 장표"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 0.67,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "요구 전수 대응표",
+   "seed": "L_RM_B",
+   "alternates": [
+    {
+     "f": "L_SC_B",
+     "code": "SC-B",
+     "name": "요구사항 대응표",
+     "score": 18.333
+    },
+    {
+     "f": "L_RM_A",
+     "code": "RM-A",
+     "name": "고객 요구 이해",
+     "score": 17.833
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 5,
+   "part_id": "S05",
+   "part_type": "customer",
+   "part_name": "현장 가치 제고",
+   "f": "L_MI_MF_B",
+   "code": "MI-MF-B",
+   "name": "제조 · 물류 · 현장 · 고객 비즈니스 · 운영 과제",
+   "score": 20.933,
+   "why": [
+    "LLM · 제조·물류 현장의 운영 과제와 연속성 확보라는 목적에 가장 최적화된 레이아웃입니다.",
+    "파트 유형 일치 · 고객사 이해",
+    "시나리오가 이 자리에 둔 장표",
+    "업종 전용 · 제조 · 물류 · 현장"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 0.67,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "라인 · 사람 · 출하가 멈추지 않을 때의 이익",
+   "seed": "L_MI_MF_B",
+   "alternates": [
+    {
+     "f": "L_CB_C",
+     "code": "CB-C",
+     "name": "운영 흐름 속 문제",
+     "score": 20.433
+    },
+    {
+     "f": "L_CB_B",
+     "code": "CB-B",
+     "name": "전략 목표 → 과제 트리",
+     "score": 19.933
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 6,
+   "part_id": "S06",
+   "part_type": "user",
+   "part_name": "사용자 경험",
+   "f": "L_US_B",
+   "code": "US-B",
+   "name": "고객 여정 맵",
+   "score": 20.5,
+   "why": [
+    "파트 유형 일치 · 사용자 · 이해관계자",
+    "전략 적합 · 문제 해결형"
+   ],
+   "fit": {
+    "relevance": 0.285,
+    "part": true,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "이상이 생긴 순간에 판가름 나는 현장의 하루",
+   "seed": "L_MI_MF_C",
+   "alternates": [
+    {
+     "f": "L_MI_MF_C",
+     "code": "MI-MF-C",
+     "name": "제조 · 물류 · 현장 · 사용자 · 이해관계자 여정",
+     "score": 21.0
+    },
+    {
+     "f": "L_US_C",
+     "code": "US-C",
+     "name": "사용자 구성 + 니즈",
+     "score": 20.0
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 7,
+   "part_id": "S07",
+   "part_type": "customer",
+   "part_name": "운영 흐름 분석",
+   "f": "L_CB_C",
+   "code": "CB-C",
+   "name": "운영 흐름 속 문제",
+   "score": 16.8,
+   "why": [
+    "파트 유형 일치 · 고객사 이해",
+    "시나리오가 이 자리에 둔 장표",
+    "전략 적합 · 문제 해결형"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 0.5,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "운영 흐름 속 문제",
+   "seed": "L_CB_C",
+   "alternates": [
+    {
+     "f": "L_MI_MF_B",
+     "code": "MI-MF-B",
+     "name": "제조 · 물류 · 현장 · 고객 비즈니스 · 운영 과제",
+     "score": 17.3
+    },
+    {
+     "f": "L_CB_B",
+     "code": "CB-B",
+     "name": "전략 목표 → 과제 트리",
+     "score": 16.3
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 8,
+   "part_id": "S08",
+   "part_type": "challenge",
+   "part_name": "현장 과제 해결",
+   "f": "L_CH_C",
+   "code": "CH-C",
+   "name": "문제 → 근본 원인",
+   "score": 18.7,
+   "why": [
+    "LLM · 현장 과제의 근본 원인(EOS 단말)과 구체적 페인 포인트를 논리적으로 연결하기에 가장 적합한 구조입니다.",
+    "파트 유형 일치 · 고객 과제",
+    "시나리오가 이 자리에 둔 장표",
+    "전략 적합 · 문제 해결형"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 0.5,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "문제 → 근본 원인",
+   "seed": "L_CH_C",
+   "alternates": [
+    {
+     "f": "L_MI_MF_B",
+     "code": "MI-MF-B",
+     "name": "제조 · 물류 · 현장 · 고객 비즈니스 · 운영 과제",
+     "score": 18.2
+    },
+    {
+     "f": "L_CH_A",
+     "code": "CH-A",
+     "name": "과제 3 + 영향",
+     "score": 17.7
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 9,
+   "part_id": "S09",
+   "part_type": "value",
+   "part_name": "이해관계자 가치",
+   "f": "L_VP_D",
+   "code": "VP-D",
+   "name": "이해관계자별 가치",
+   "score": 17.4,
+   "why": [
+    "LLM · 운영팀과 IT팀 등 이해관계자별로 상이한 가치를 명확히 구분하여 제시하기에 가장 적합한 레이아웃입니다.",
+    "파트 유형 일치 · Value Propositions",
+    "시나리오가 이 자리에 둔 장표"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 0.8,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "키맨 관심사 분산 — 이해관계자별 가치",
+   "seed": "L_VP_D",
+   "alternates": [
+    {
+     "f": "L_VP_H",
+     "code": "VP-H",
+     "name": "이해관계자 × 만나는 화면",
+     "score": 16.9
+    },
+    {
+     "f": "L_VP_E",
+     "code": "VP-E",
+     "name": "과제 → 제품 → 가치",
+     "score": 16.4
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 10,
+   "part_id": "S10",
+   "part_type": "solution",
+   "part_name": "운영 및 유지보수",
+   "f": "L_KCP_S_LG",
+   "code": "KCP-S-LG",
+   "name": "Knox Capture 공간 시나리오 · 물류센터 · 택배",
+   "score": 19.834,
+   "why": [
+    "LLM · 물류 현장 특화 시나리오와 Knox Capture의 효율성을 강조하기에 가장 적합하며, MDM 관리 요소까지 포괄 가능합니다.",
+    "파트 유형 일치 · 솔루션 제안",
+    "업종 전용 · 제조 · 물류 · 현장",
+    "연결 솔루션 · Knox Capture"
+   ],
+   "fit": {
+    "relevance": 0.45,
+    "part": true,
+    "readiness": 0.67,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "",
+   "seed": null,
+   "alternates": [
+    {
+     "f": "L_KCP_I",
+     "code": "KCP-I",
+     "name": "Knox Capture 소개",
+     "score": 19.334
+    },
+    {
+     "f": "L_KNX_S_FD",
+     "code": "KNX-S-FD",
+     "name": "Knox Suite 공간 시나리오 · 제조 현장",
+     "score": 18.834
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 11,
+   "part_id": "S11",
+   "part_type": "products",
+   "part_name": "공간별 제품",
+   "f": "L_P2B",
+   "code": "P2-B",
+   "name": "공간 · 설치 중심",
+   "score": 18.09,
+   "why": [
+    "LLM · 물류 현장의 공간별 제품 설치 방식에 최적화된 레이아웃으로, 두 제품의 특징을 명확히 구분하여 전달하기에 가장 적합합니다.",
+    "파트 유형 일치 · 공간별 제품",
+    "제품 2개 구성"
+   ],
+   "fit": {
+    "relevance": 0.698,
+    "part": true,
+    "pc_diff": 0,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "공간별 제품 · 설치 방식",
+   "seed": "L_P_Q",
+   "alternates": [
+    {
+     "f": "L_P2A",
+     "code": "P2-A",
+     "name": "이미지 중심 (나란히)",
+     "score": 17.59
+    },
+    {
+     "f": "L_P2D",
+     "code": "P2-D",
+     "name": "주력 + 보조 (8:4)",
+     "score": 17.09
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 12,
+   "part_id": "S12",
+   "part_type": "spec",
+   "part_name": "성능 및 규격",
+   "f": "L_SD_E",
+   "code": "SD-E",
+   "name": "모바일 · 현장 단말 사양",
+   "score": 17.208,
+   "why": [
+    "LLM · 현장 물류 환경의 특수성(장갑 터치, 배터리)을 강조하기에 카드형 레이아웃이 시각적 전달력과 직관성 측면에서 가장 적합합니다.",
+    "파트 유형 일치 · 제품 스펙",
+    "전략 적합 · 문제 해결형",
+    "요구 표현 일치 · \"배터리\""
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 0.67,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "기능·성능 규격 요구 대응",
+   "seed": "L_SC_B",
+   "alternates": [
+    {
+     "f": "L_SC_B",
+     "code": "SC-B",
+     "name": "요구사항 대응표",
+     "score": 16.708
+    },
+    {
+     "f": "L_SPEC1",
+     "code": "SD-A",
+     "name": "그룹별 상세 사양",
+     "score": 16.208
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 13,
+   "part_id": "S13",
+   "part_type": "execution",
+   "part_name": "보안 대응",
+   "f": "L_SE_A",
+   "code": "SE-A",
+   "name": "보안 요건 대응표",
+   "score": 16.733,
+   "why": [
+    "LLM · 보안 요건 대응이 핵심이므로 규제 준수 및 대응 체계를 명확히 보여주는 표 형식의 L_SE_A가 가장 적합합니다.",
+    "파트 유형 일치 · 실행 계획",
+    "시나리오가 이 자리에 둔 장표",
+    "편집 불가 문구 · 다른 업종"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "static_foreign": true,
+    "readiness": 0.67,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "보안·인증·규제 요구 대응",
+   "seed": "L_SE_A",
+   "alternates": [
+    {
+     "f": "L_SE_C",
+     "code": "SE-C",
+     "name": "개인정보 처리 흐름",
+     "score": 16.233
+    },
+    {
+     "f": "L_MT_B",
+     "code": "MT-B",
+     "name": "케어 플랜 등급",
+     "score": 15.733
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 14,
+   "part_id": "S14",
+   "part_type": "case",
+   "part_name": "유관 사례",
+   "f": "L_CS01",
+   "code": "CD-A",
+   "name": "과제 · 해결 · 성과",
+   "score": 14.916,
+   "why": [
+    "LLM · 물류·현장 업종의 복잡한 맥락을 고려하여, 과제와 해결책 및 성과를 논리적으로 전달하는 스토리텔링형 레이아웃이 가장 적합합니다.",
+    "파트 유형 일치 · 유관 사례",
+    "전략 적합 · 문제 해결형"
+   ],
+   "fit": {
+    "relevance": 0.875,
+    "part": true,
+    "readiness": 0.67,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "유관 사례",
+   "seed": "L_CS03",
+   "alternates": [
+    {
+     "f": "L_CD_C",
+     "code": "CD-C",
+     "name": "성과 수치 + 코멘트",
+     "score": 14.416
+    },
+    {
+     "f": "L_CD_D",
+     "code": "CD-D",
+     "name": "사례 포토 에세이 · 원문 링크",
+     "score": 13.916
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 15,
+   "part_id": "S15",
+   "part_type": "execution",
+   "part_name": "실행 및 확산",
+   "f": "L_PL_B",
+   "code": "PL-B",
+   "name": "파일럿 설계",
+   "score": 15.185,
+   "why": [
+    "LLM · 파일럿 우선 실시 후 전사 확산이라는 고객 요구사항을 단계별로 시각화하기에 가장 적합한 레이아웃입니다.",
+    "파트 유형 일치 · 실행 계획",
+    "전략 적합 · 문제 해결형"
+   ],
+   "fit": {
+    "relevance": 0.854,
+    "part": true,
+    "readiness": 0.5,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "일정·실행·확산 요구 대응",
+   "seed": "L_SV_A",
+   "alternates": [
+    {
+     "f": "L_MT_B",
+     "code": "MT-B",
+     "name": "케어 플랜 등급",
+     "score": 14.685
+    },
+    {
+     "f": "L_IP_C",
+     "code": "IP-C",
+     "name": "무중단 · 야간 시공 일정",
+     "score": 14.185
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 16,
+   "part_id": "S16",
+   "part_type": "cost",
+   "part_name": "비용 및 구매",
+   "f": "L_CO_A",
+   "code": "CO-A",
+   "name": "구매 방식 비교",
+   "score": 17.4,
+   "why": [
+    "LLM · 구매 방식(무상 대여 vs 라이선스) 비교가 핵심이며, 제조 현장 특성을 고려해 Knox Suite 가치를 시각화하기 적합함.",
+    "파트 유형 일치 · 비용 · 구매"
+   ],
+   "fit": {
+    "relevance": 0.745,
+    "part": true,
+    "readiness": 0.5,
+    "missing": [
+     "kpis"
+    ]
+   },
+   "role": "비용·구매 요구 대응",
+   "seed": "L_CO_B",
+   "alternates": [
+    {
+     "f": "L_KNX_S_FD",
+     "code": "KNX-S-FD",
+     "name": "Knox Suite 공간 시나리오 · 제조 현장",
+     "score": 16.9
+    },
+    {
+     "f": "L_EF_C",
+     "code": "EF-C",
+     "name": "정량 + 정성 효과",
+     "score": 16.4
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 17,
+   "part_id": "S17",
+   "part_type": "closing",
+   "part_name": "결정 요청",
+   "f": "L_C13",
+   "code": "C13",
+   "name": "마무리 C · 다음 단계",
+   "score": 18.867,
+   "why": [
+    "LLM · 파일럿 승인 요청이라는 목적에 가장 부합하며, 다음 단계와 결정 사항을 명확히 제시할 수 있는 최적의 레이아웃입니다.",
+    "파트 유형 일치 · 마무리 · 다음 단계",
+    "시나리오가 이 자리에 둔 장표",
+    "전략 적합 · 문제 해결형"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 0.33,
+    "missing": [
+     "contacts",
+     "kpis"
+    ]
+   },
+   "role": "결정 요청 · 다음 단계",
+   "seed": "L_C13",
+   "alternates": [
+    {
+     "f": "L_C07",
+     "code": "C07",
+     "name": "마무리 · 연락처",
+     "score": 18.367
+    },
+    {
+     "f": "L_C12",
+     "code": "C12",
+     "name": "마무리 B · 도입 후 모습 (생성 시안)",
+     "score": 17.867
+    }
+   ],
+   "llm": true
+  }
+ ],
+ "review": {
+  "req_total": 15,
+  "req_covered": 15,
+  "req_coverage": 1.0,
+  "must_uncovered": [],
+  "uncovered": [],
+  "checklist": [],
+  "spec_mismatch": [],
+  "flow_score": 0.875,
+  "n_slides": 17,
+  "industry_violations": [],
+  "solution_violations": [],
+  "duplicates": [],
+  "part_mismatch": [],
+  "fill": {
+   "slots": 936,
+   "changed": 452,
+   "placeholders_left": 122,
+   "unsupported_reverted": 0,
+   "sample_leak": 0,
+   "foreign_terms": 0,
+   "static_foreign_slides": 2
+  },
+  "issues": [
+   {
+    "sev": "low",
+    "msg": "편집할 수 없는(data-tb 없는) 다른 업종 샘플 문구가 남은 장표 2장 — 원본 레이아웃 보완 필요"
+   }
+  ]
+ },
+ "fills": [
+  {
+   "no": 1,
+   "f": "L_C03",
+   "code": "C03",
+   "part_id": "S01",
+   "texts": {
+    "0": "B2B PROPOSAL · 한결로지스(주)",
+    "1": "이천 물류센터 현장 업무 단말 교체 pilot",
+    "2": "한결로지스(주) 이천 물류센터 현장 업무 단말 교체 Pilot 제안",
+    "4": "한결로지스(주) · 이천 물류센터 현장 업무"
+   },
+   "sources": {
+    "0": "llm",
+    "1": "context",
+    "2": "llm",
+    "4": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 4,
+    "changed": 4,
+    "coverage": 1.0,
+    "placeholders_left": 0,
+    "overflow_fixed": [
+     4
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 0,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 2,
+   "f": "L_ES_A",
+   "code": "ES-A",
+   "part_id": "S02",
+   "texts": {
+    "0": "02 · 제안 개요",
+    "1": "한결로지스 이천 물류센터 현장 업무 단말 교체 pilot — 제안",
+    "2": "한 장으로 보는 이번 제안 · 과제 → 제안 → 효과 → 왜 삼성",
+    "3": "01",
+    "4": "현장 과제",
+    "5": "[00]",
+    "6": "현황",
+    "7": "전사 확산 기반 마련",
+    "8": "수기 관리 및 장비 노후화",
+    "9": "물류 현장 업무 효율 저하",
+    "10": "입고 검수 지연 발생",
+    "11": "02",
+    "12": "이번 제안",
+    "13": "엑스커버7",
+    "14": "러기드",
+    "15": "SM-G766",
+    "16": "탭 액티브5",
+    "17": "태블릿",
+    "18": "SM-X350",
+    "19": "Knox Suite",
+    "20": "통합 보안 관리",
+    "21": "범위",
+    "22": "Knox Capture 스캔 도입",
+    "23": "기간",
+    "24": "계약 후 [00]주",
+    "25": "03",
+    "26": "기대 효과",
+    "27": "물류 현장",
+    "28": "[0]분 단축",
+    "29": "삼성 Knox",
+    "30": "운영비 −[00]%",
+    "31": "Pilot",
+    "32": "오류 −[00]%",
+    "33": "04",
+    "34": "왜 삼성",
+    "35": "물류 특화 러기드 기기",
+    "36": "근거 · 제품 사양 p.[00]",
+    "37": "Knox 기반 업무 최적화",
+    "38": "근거 · 도입 사례 p.[00]",
+    "39": "전국 직영 서비스망",
+    "40": "근거 · 서비스 체계 p.[00]",
+    "41": "KEY MESSAGE",
+    "42": "물류 현장 최적화 단말 도입",
+    "43": "결정 요청",
+    "44": "Pilot 진행 승인",
+    "46": "한결로지스(주) · 이천 물류센터 현장 업무 단말 교체"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "item",
+    "28": "llm",
+    "29": "item",
+    "30": "llm",
+    "31": "item",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "35": "llm",
+    "36": "llm",
+    "37": "llm",
+    "38": "llm",
+    "39": "llm",
+    "40": "llm",
+    "41": "llm",
+    "42": "llm",
+    "43": "llm",
+    "44": "llm",
+    "46": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 46,
+    "changed": 29,
+    "coverage": 0.63,
+    "placeholders_left": 8,
+    "overflow_fixed": [
+     14
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 17,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 3,
+   "f": "L_RM_A",
+   "code": "RM-A",
+   "part_id": "S03",
+   "texts": {
+    "0": "03 · 고객 요구 이해",
+    "1": "한결로지스 현장 단말 도입을 위한 핵심 요구사항",
+    "2": "물류 현장 운영 효율화와 IT 관리 최적화 가중치 분석",
+    "3": "50%",
+    "4": "물류운영팀",
+    "5": "50%",
+    "6": "IT팀",
+    "7": "[0]%",
+    "8": "기타",
+    "9": "물",
+    "10": "물류운영팀 (이천센터장",
+    "11": "관심사 · 규격",
+    "12": "가중치",
+    "13": "50%",
+    "14": "요구사항 분석",
+    "15": "상",
+    "16": "“떨어뜨려도 안 깨지는 단말”",
+    "17": "“장갑 끼고도 터치·스캔 가능”",
+    "18": "“교대 근무 동안 배터리 유지”",
+    "19": "I",
+    "20": "IT팀",
+    "21": "관심사 · 운영 · 연동 · 보안",
+    "22": "가중치",
+    "23": "50%",
+    "24": "요구사항 분석",
+    "25": "상",
+    "26": "“MDM으로 중앙 관리”",
+    "27": "“기존 웹 WMS 그대로 사용”",
+    "28": "“분실 시 원격 잠금”",
+    "29": "-",
+    "30": "기타",
+    "31": "기타 요구사항",
+    "32": "가중치",
+    "33": "[0]%",
+    "34": "요구사항 분석",
+    "35": "중",
+    "36": "현장 파손 방지",
+    "37": "WMS 호환성",
+    "38": "운영 효율화",
+    "39": "공통 요구",
+    "40": "[0]",
+    "41": "현장 내구성 및 시스템 연동",
+    "42": "러기드 단말 도입",
+    "43": "현",
+    "44": "IT",
+    "45": "구",
+    "46": "웹 WMS 호환",
+    "47": "현",
+    "48": "IT",
+    "49": "구",
+    "50": "조정 필요 사항",
+    "51": "[0]",
+    "52": "물류운영",
+    "53": "IT팀",
+    "54": "현장 편의성",
+    "55": "보안",
+    "56": "Knox 통합 관리 솔루션 적용",
+    "57": "03",
+    "59": "한결로지스(주) · 이천 물류센터 현장 업무 단말 교체 pilot"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "req",
+    "4": "req",
+    "5": "req",
+    "6": "req",
+    "7": "placeholder",
+    "8": "llm",
+    "9": "req",
+    "10": "req",
+    "11": "req",
+    "12": "llm",
+    "13": "req",
+    "14": "llm",
+    "15": "llm",
+    "16": "req",
+    "17": "req",
+    "18": "req",
+    "19": "req",
+    "20": "req",
+    "21": "req",
+    "22": "llm",
+    "23": "req",
+    "24": "llm",
+    "25": "llm",
+    "26": "req",
+    "27": "req",
+    "28": "req",
+    "29": "placeholder",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "placeholder",
+    "34": "llm",
+    "35": "llm",
+    "36": "llm",
+    "37": "llm",
+    "38": "llm",
+    "39": "llm",
+    "40": "placeholder",
+    "41": "llm",
+    "42": "llm",
+    "43": "llm",
+    "44": "llm",
+    "45": "llm",
+    "46": "llm",
+    "47": "llm",
+    "48": "llm",
+    "49": "llm",
+    "50": "llm",
+    "51": "placeholder",
+    "52": "req",
+    "53": "req",
+    "54": "llm",
+    "55": "llm",
+    "56": "llm",
+    "57": "llm",
+    "59": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 59,
+    "changed": 51,
+    "coverage": 0.864,
+    "placeholders_left": 4,
+    "overflow_fixed": [
+     4,
+     10
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 8,
+    "static_foreign": [
+     "본사 예약 배포 · 매장 작업 0",
+     "템플릿 잠금 · 지역 메뉴만 허용",
+     "창가 매장은 고휘도 모델"
+    ]
+   },
+   "llm": true
+  },
+  {
+   "no": 4,
+   "f": "L_RM_B",
+   "code": "RM-B",
+   "part_id": "S04",
+   "texts": {
+    "0": "04 · 고객 요구 이해",
+    "1": "요구사항 [00]개, 빠짐없이 대응합니다",
+    "2": "충족[16]",
+    "3": "부분[0]",
+    "4": "대안[0]",
+    "5": "1 / [0]",
+    "14": "R01",
+    "15": "규격",
+    "16": "떨어뜨려도 안 깨지는 단말",
+    "17": "권장",
+    "18": "[대응 방안]",
+    "19": "p.01",
+    "20": "R02",
+    "21": "규격",
+    "22": "장갑 끼고도 터치·스캔 가능",
+    "23": "권장",
+    "24": "장갑 터치 모드 지원",
+    "25": "p.01",
+    "26": "R03",
+    "27": "규격",
+    "28": "교대 근무 동안",
+    "29": "권장",
+    "30": "교체형 배터리 적용",
+    "31": "p.01",
+    "32": "R11",
+    "33": "규격",
+    "34": "지게차 기사분들은 화면 큰거 원함",
+    "35": "권장",
+    "36": "Tab Active5 거치 솔루션",
+    "37": "p.02",
+    "38": "—",
+    "39": "R13",
+    "40": "규격",
+    "41": "XCover7 Pro + Knox",
+    "42": "권장",
+    "43": "Knox 통합 관리",
+    "44": "p.02",
+    "45": "R15",
+    "46": "규격",
+    "47": "지게차 거치는 Tab",
+    "48": "권장",
+    "49": "전용 거치대 제공",
+    "50": "p.02",
+    "51": "R06",
+    "52": "보안",
+    "53": "분실 시 원격 잠금",
+    "54": "권장",
+    "55": "Knox 원격 제어",
+    "56": "p.03",
+    "57": "—",
+    "58": "R05",
+    "59": "연동",
+    "60": "기존 웹 WMS",
+    "61": "권장",
+    "62": "Android 웹 호환",
+    "63": "p.03",
+    "64": "R10",
+    "65": "연동",
+    "66": "WMS 앱은 웹",
+    "67": "권장",
+    "68": "웹 WMS 최적화 구동",
+    "69": "p.03",
+    "70": "R04",
+    "71": "운영",
+    "72": "MDM으로 중앙 관리",
+    "73": "권장",
+    "74": "Knox Suite 중앙 관리",
+    "75": "p.04",
+    "81": "1–10 / [00]다음 쪽에 이어집니다",
+    "83": "한결로지스(주) · 이천 물류센터 현장 업무 단말 교체 pilot"
+   },
+   "sources": {
+    "0": "context",
+    "1": "composed",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "placeholder",
+    "14": "req",
+    "15": "req",
+    "16": "req",
+    "17": "req",
+    "18": "placeholder",
+    "19": "llm",
+    "20": "req",
+    "21": "req",
+    "22": "req",
+    "23": "req",
+    "24": "llm",
+    "25": "llm",
+    "26": "req",
+    "27": "req",
+    "28": "req",
+    "29": "req",
+    "30": "llm",
+    "31": "llm",
+    "32": "req",
+    "33": "req",
+    "34": "req",
+    "35": "req",
+    "36": "llm",
+    "37": "llm",
+    "38": "placeholder",
+    "39": "req",
+    "40": "req",
+    "41": "req",
+    "42": "req",
+    "43": "llm",
+    "44": "llm",
+    "45": "req",
+    "46": "req",
+    "47": "req",
+    "48": "req",
+    "49": "llm",
+    "50": "llm",
+    "51": "req",
+    "52": "req",
+    "53": "req",
+    "54": "req",
+    "55": "llm",
+    "56": "llm",
+    "57": "placeholder",
+    "58": "req",
+    "59": "req",
+    "60": "req",
+    "61": "req",
+    "62": "llm",
+    "63": "llm",
+    "64": "req",
+    "65": "req",
+    "66": "req",
+    "67": "req",
+    "68": "llm",
+    "69": "llm",
+    "70": "req",
+    "71": "req",
+    "72": "req",
+    "73": "req",
+    "74": "llm",
+    "75": "llm",
+    "81": "req",
+    "83": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 83,
+    "changed": 67,
+    "coverage": 0.807,
+    "placeholders_left": 7,
+    "overflow_fixed": [
+     28,
+     34,
+     47,
+     60,
+     66
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 16,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 5,
+   "f": "L_MI_MF_B",
+   "code": "MI-MF-B",
+   "part_id": "S05",
+   "texts": {
+    "0": "05 · 고객사 이해",
+    "1": "한결로지스의 이익은 물류 현장 단말의 연속성에서 나옵니다",
+    "2": "입고에서 출하까지 물류 가치사슬의 운영 과제 — 파란 핀은 삼성이 해결할 수 있는 과제",
+    "3": "한결로지스 운영 구조",
+    "4": "한결로지스 손익 자료 기반",
+    "25": "한결로지스 내부 과제",
+    "97": "KPI 값은 한결로지스 데이터로 채움 · 핀 번호는 오른쪽 운영 과제와 같음",
+    "105": "통합공조 — 시스템에어컨 [제품] · DVM 칠러",
+    "111": "[내용]",
+    "135": "갤럭시 엑스커버7 · Knox Capture로 실시간 위치 추적 및 자산 관리",
+    "139": "구매 · 조달 영역 — 한결로지스 내부 과제",
+    "143": "한결로지스(주) · 이천 물류센터 현장 업무 단말"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "25": "customer",
+    "97": "customer",
+    "105": "catalog",
+    "111": "placeholder",
+    "135": "llm",
+    "139": "customer",
+    "143": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 143,
+    "changed": 12,
+    "coverage": 0.084,
+    "placeholders_left": 26,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 131,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 6,
+   "f": "L_US_B",
+   "code": "US-B",
+   "part_id": "S06",
+   "texts": {
+    "0": "06 · 사용자 · 이해관계자",
+    "1": "한결로지스 현장 작업자의 업무 흐름과 페인 포인트",
+    "4": "입고",
+    "8": "검수",
+    "10": "재고 관리",
+    "12": "출고",
+    "14": "작업자가 하는 일",
+    "15": "물류 입고 물량 확인 및 등록",
+    "16": "바코드 스캔을 통한 상품 검수",
+    "17": "현장 이슈 발생 시 즉각 대응 가능한 단말 환경",
+    "18": "사용자 중심의 직관적인 업무 환경 구현",
+    "19": "출고 물량 최종 확인 및 상차",
+    "34": "단말기",
+    "35": "엑스커버7",
+    "36": "탭 액티",
+    "37": "Knox Suite",
+    "40": "Knox Capture로 스캔 효율화",
+    "41": "러기드 단말로 현장 가동률 향상",
+    "43": "교체형 배터리로 연속 작업 지원",
+    "44": "보안 및 기기 관리 효율화",
+    "46": "직관적 UI로 업무 숙련도 단축",
+    "48": "한결로지스(주) · 이천 물류센터 현장 업무 단말 교체"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "4": "llm",
+    "8": "llm",
+    "10": "llm",
+    "12": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "34": "llm",
+    "35": "llm",
+    "36": "llm",
+    "37": "llm",
+    "40": "llm",
+    "41": "llm",
+    "43": "llm",
+    "44": "llm",
+    "46": "llm",
+    "48": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 48,
+    "changed": 22,
+    "coverage": 0.458,
+    "placeholders_left": 0,
+    "overflow_fixed": [
+     36
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 26,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 7,
+   "f": "L_CB_C",
+   "code": "CB-C",
+   "part_id": "S07",
+   "texts": {
+    "0": "07 · 고객사 이해",
+    "1": "한결로지스 물류 현장 운영 현황과 개선 과제",
+    "2": "물류 운영 프로세스 내 병목 구간 파악",
+    "3": "STEP 01",
+    "4": "입고 계획",
+    "5": "담당",
+    "6": "물류 관리팀",
+    "7": "소요",
+    "8": "[0]일",
+    "9": "STEP 02",
+    "10": "현장 검수",
+    "11": "담당",
+    "12": "현장 작업자",
+    "13": "소요",
+    "14": "[0]일",
+    "15": "STEP 03",
+    "16": "데이터 등록",
+    "17": "담당",
+    "18": "현장 관리자",
+    "19": "소요",
+    "20": "[0]일",
+    "21": "STEP 04",
+    "22": "단말 운영",
+    "23": "담당",
+    "24": "현장 단말 운영 효율화",
+    "25": "소요",
+    "26": "[0]일",
+    "27": "STEP 05",
+    "28": "재고 관리",
+    "29": "담당",
+    "30": "전산 시스템",
+    "31": "소요",
+    "32": "[0]일",
+    "33": "1",
+    "34": "전용 스캐너 의존도 높음",
+    "35": "입고·검수 시 전용 스캐너 부족 및 관리 불편",
+    "36": "[0]",
+    "37": "단말기 파손 위험",
+    "38": "열악한 현장 환경 내 기기 내구성 문제",
+    "39": "[0]",
+    "40": "업무 관리 복잡성",
+    "41": "기기 보안 및 통합 관리 체계 부재",
+    "42": "현장 운영 병목",
+    "43": "총 소요",
+    "44": "[00]",
+    "45": "일",
+    "46": "작업 시간",
+    "47": "[00]",
+    "48": "시간",
+    "49": "운영 비용(연)",
+    "50": "[0.0]",
+    "51": "억 원",
+    "53": "한결로지스(주) · 이천 물류센터 현장 업무 단말 교체"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "35": "llm",
+    "36": "llm",
+    "37": "llm",
+    "38": "llm",
+    "39": "llm",
+    "40": "llm",
+    "41": "llm",
+    "42": "llm",
+    "43": "llm",
+    "44": "llm",
+    "45": "llm",
+    "46": "llm",
+    "47": "llm",
+    "48": "llm",
+    "49": "llm",
+    "50": "llm",
+    "51": "llm",
+    "53": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 53,
+    "changed": 25,
+    "coverage": 0.472,
+    "placeholders_left": 10,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 28,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 8,
+   "f": "L_CH_C",
+   "code": "CH-C",
+   "part_id": "S08",
+   "texts": {
+    "0": "08 · 고객 과제",
+    "1": "한결로지스 물류 현장의 핵심 과제",
+    "2": "현장 단말 노후화에 따른 업무 효율 저하 및 운영 리스크 분석",
+    "3": "문제",
+    "4": "직접 원인",
+    "5": "근본 원인",
+    "6": "현장 운영 현황",
+    "7": "단말 파손 및 배터리 방전",
+    "8": "월",
+    "9": "[00]",
+    "10": "건",
+    "11": "왜?",
+    "12": "단말 노후화",
+    "13": "Windows CE 기반 단말 EOS로 인한 유지보수 불가",
+    "14": "내구성 및 배터리 성능 개선",
+    "15": "현장 단말의 물리적 내구성 한계 및 노후화",
+    "16": "작업 효율 저하",
+    "17": "바코드 스캔 속도 지연으로 인한 입출고 병목",
+    "18": "디지털 전환 과제",
+    "19": "업무 시스템 현대화",
+    "20": "레거시 시스템과 현장 단말 간의 연동성 부족",
+    "21": "스캔 효율 및 작업 개선",
+    "22": "EOS 단말 교체를 통한 업무 현대화 필요",
+    "23": "운영 연속성 확보",
+    "24": "현장 단말의 안정적 관리 체계 부재",
+    "25": "현장 단말 현대화로 근본 원인을 해결합니다",
+    "27": "한결로지스(주) · 이천 물류센터 현장 업무 단말 교체"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "27": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 27,
+    "changed": 20,
+    "coverage": 0.741,
+    "placeholders_left": 1,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 7,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 9,
+   "f": "L_VP_D",
+   "code": "VP-D",
+   "part_id": "S09",
+   "texts": {
+    "0": "09 · Value",
+    "1": "한결로지스 이천센터, 최적의 현장 업무 환경",
+    "2": "같은 도입",
+    "3": "SM-G766 · SM-X350",
+    "4": "물류운영팀 (이천센터장)",
+    "5": "관심사",
+    "6": "떨어뜨려도 안",
+    "7": "얻는 가치",
+    "8": "러기드 설계로 파손 걱정 없는 현장 업무 연속성 확보",
+    "9": "가동률",
+    "10": "[00]%",
+    "11": "IT팀",
+    "12": "관심사",
+    "13": "MDM으로 중앙 관리",
+    "14": "얻는 가치",
+    "15": "Knox Suite로 기기 통합 관리 및 보안 정책 일괄",
+    "16": "관리시간",
+    "17": "[00]%",
+    "18": "현장 작업자",
+    "19": "관심사",
+    "20": "스캔 업무 효율화",
+    "21": "얻는 가치",
+    "22": "Knox Capture로 전용 스캐너 없이 신속한",
+    "23": "작업속도",
+    "24": "[00]%",
+    "26": "한결로지스(주) · 이천 물류센터 현장 업무 단말 교체"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "context",
+    "3": "product",
+    "4": "keyman",
+    "5": "context",
+    "6": "req",
+    "7": "context",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "keyman",
+    "12": "context",
+    "13": "req",
+    "14": "context",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "context",
+    "20": "llm",
+    "21": "context",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "26": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 26,
+    "changed": 19,
+    "coverage": 0.731,
+    "placeholders_left": 3,
+    "overflow_fixed": [
+     15,
+     22
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 7,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 10,
+   "f": "L_KCP_S_LG",
+   "code": "KCP-S-LG",
+   "part_id": "S10",
+   "texts": {
+    "0": "10 · 솔루션 제안",
+    "1": "Knox Capture · 모바일 바코드 스캔",
+    "2": "입고 도크부터 고객 문 앞까지, 갤럭시로 찍으면 바로 기록됩니다",
+    "3": "한결로지스 · 박스 한 개가 지나는 순서 — 스캔 값은 키 입력으로 기존 WMS · 배송 앱에 들어갑니다",
+    "4": "순서 · 공간 (시간은 예시)",
+    "5": "업무",
+    "6": "스캔 대상 · 기기",
+    "7": "기존 앱 연동",
+    "8": "절감",
+    "9": "WMS",
+    "10": "배송 앱",
+    "11": "1",
+    "12": "이천 물류센터 입고 도크",
+    "13": "06:00",
+    "14": "MDM으로",
+    "15": "입고 박스 라벨을 찍어 입고 수량을 바로 등록합니다",
+    "16": "엑스커버7 프로",
+    "17": "스마트폰",
+    "18": "입고 등록",
+    "19": "[00]분",
+    "20": "2",
+    "21": "이천 물류센터 보관 랙",
+    "22": "13:00",
+    "23": "XCove",
+    "24": "랙을 돌며 찍어 재고 · 위치를 바로 확인합니다",
+    "25": "엑스커버7 프로",
+    "26": "스마트폰",
+    "27": "재고 · 위치",
+    "28": "[00]분",
+    "29": "3",
+    "30": "이천 물류센터 출고장",
+    "31": "18:00",
+    "32": "MDM을 통한",
+    "33": "출고 박스를 찍어 주문과 맞는지 확인하고 싣습니다",
+    "34": "엑스커버7 프로",
+    "35": "스마트폰",
+    "36": "출고 확인",
+    "37": "[00]분",
+    "38": "4",
+    "39": "고객 배송지 앞",
+    "40": "D+1 10:30",
+    "41": "Knox",
+    "42": "운송장을 찍어 배송 건을 열고 고객 서명을 받습니다",
+    "43": "탭 액티브5 프로",
+    "44": "태블릿 · S펜 서명",
+    "45": "배송 완료",
+    "46": "[00]분",
+    "47": "물류 현장의 고민 → Knox Capture",
+    "48": "“스캐너와 업무 폰을 따로 챙겨요”",
+    "49": "갤럭시 카메라가 업무용 스캐너로 — 기기 한 대",
+    "50": "“WMS · 배송 앱을 바꾸긴 부담돼요”",
+    "51": "스캔 값이 키 입력으로 기존 앱에 그대로 들어갑니다",
+    "52": "“센터 · 기사 기기 설정이 제각각이에요”",
+    "53": "관리자가 스캔 설정을 만들어 기기에 일괄 배포",
+    "54": "카탈로그 기준",
+    "55": "갤럭시 엑스커버7 프로",
+    "56": "“바코드 스캔을 통한 손쉬운 주문 확인, 실시간 재고 상황 및 제품 위치 파악”",
+    "57": "재고 · 위치 파악",
+    "58": "→",
+    "59": "2",
+    "60": "보관 랙",
+    "61": "주문 확인",
+    "62": "→",
+    "63": "3",
+    "64": "출고 · 상차",
+    "66": "한결로지스(주) · 이천 물류센터 현장 업무 단말"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "item",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "item",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "item",
+    "33": "llm",
+    "34": "llm",
+    "35": "llm",
+    "36": "llm",
+    "37": "llm",
+    "38": "llm",
+    "39": "llm",
+    "40": "llm",
+    "41": "item",
+    "42": "llm",
+    "43": "llm",
+    "44": "llm",
+    "45": "llm",
+    "46": "llm",
+    "47": "llm",
+    "48": "llm",
+    "49": "llm",
+    "50": "llm",
+    "51": "llm",
+    "52": "llm",
+    "53": "llm",
+    "54": "llm",
+    "55": "llm",
+    "56": "llm",
+    "57": "llm",
+    "58": "llm",
+    "59": "llm",
+    "60": "llm",
+    "61": "llm",
+    "62": "llm",
+    "63": "llm",
+    "64": "llm",
+    "66": "context"
+   },
+   "images": {
+    "0": {
+     "pid": null,
+     "label": "이미지 필요 · 입고 박스 라벨을 Knox C"
+    },
+    "1": {
+     "pid": null,
+     "label": "이미지 필요 · 갤럭시 엑스커버7 프로 전면"
+    },
+    "2": {
+     "pid": null,
+     "label": "이미지 필요 · 물류창고 선반 앞에서 스마트폰"
+    },
+    "3": {
+     "pid": null,
+     "label": "이미지 필요 · 갤럭시 엑스커버7 프로 전면"
+    },
+    "4": {
+     "pid": null,
+     "label": "이미지 필요 · 작업 장갑을 낀 손에 쥔 엑스"
+    },
+    "5": {
+     "pid": null,
+     "label": "이미지 필요 · 갤럭시 엑스커버7 프로 전면"
+    },
+    "6": {
+     "pid": null,
+     "label": "이미지 필요 · 택배 배송 현장에서 러기드 태"
+    },
+    "7": {
+     "pid": null,
+     "label": "이미지 필요 · 갤럭시 탭 액티브5 프로 앞뒷"
+    },
+    "8": {
+     "pid": null,
+     "label": "이미지 필요 · 갤럭시 엑스커버7 프로 앞뒷면"
+    }
+   },
+   "checks": {
+    "n_slots": 66,
+    "changed": 17,
+    "coverage": 0.258,
+    "placeholders_left": 4,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 49,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 11,
+   "f": "L_P2B",
+   "code": "P2-B",
+   "part_id": "S11",
+   "texts": {
+    "0": "[00] · 공간별 제품",
+    "1": "한결로지스 물류 현장 최적화 솔루션",
+    "2": "현장 휴대용 및 거치용 업무 단말",
+    "3": "01",
+    "4": "02",
+    "5": "01",
+    "6": "갤럭시 스마트폰",
+    "7": "갤럭시 엑스커버7 프로",
+    "8": "현장 거치 및 관리용",
+    "9": "×[0]",
+    "10": "러기드 · PTT 버튼 · 바코드",
+    "11": "02",
+    "12": "갤럭시 탭",
+    "13": "갤럭시 탭 액티브5 프로",
+    "14": "IP68 · MIL-STD · 장갑 터치",
+    "15": "×[0]",
+    "16": "생산 라인 · 물류 창고",
+    "18": "한결로지스(주) · 이천 물류센터 현장 업무 단말 교체"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "product",
+    "7": "product",
+    "8": "llm",
+    "9": "llm",
+    "10": "product",
+    "11": "llm",
+    "12": "product",
+    "13": "product",
+    "14": "product",
+    "15": "llm",
+    "16": "product",
+    "18": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 18,
+    "changed": 18,
+    "coverage": 1.0,
+    "placeholders_left": 3,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 0,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 12,
+   "f": "L_SD_E",
+   "code": "SD-E",
+   "part_id": "S12",
+   "texts": {
+    "0": "12 · 제품 스펙",
+    "1": "물류 현장 최적화 모바일 단말 사양",
+    "2": "태블릿·스마트폰 사양 및 현장 대응력 비교",
+    "3": "두 모델 공통",
+    "4": "구분",
+    "5": "갤럭시 탭 액티브5",
+    "6": "물류 관리",
+    "7": "태블릿",
+    "8": "갤럭시 엑스커버7",
+    "9": "현장 이동",
+    "10": "스마트폰",
+    "11": "내구성",
+    "12": "인증 등급",
+    "13": "MIL-STD-[000]H · IP68",
+    "14": "낙하 높이",
+    "16": "[0.0] m",
+    "17": "SM",
+    "18": "배터리",
+    "19": "[0,000] mAh",
+    "20": "[0,000] mAh",
+    "21": "SM-X350",
+    "22": "지원",
+    "23": "지원",
+    "24": "스캔",
+    "25": "Knox",
+    "26": "현장 기능",
+    "27": "터치",
+    "28": "장갑 · 물기 터치",
+    "29": "PTT 버튼",
+    "30": "1개",
+    "31": "1개",
+    "32": "보안 · 관리",
+    "33": "보안 플랫폼",
+    "34": "Knox Vault · Knox Suite",
+    "35": "업데이트",
+    "38": "액세서리",
+    "39": "현장 구성",
+    "40": "거치대 · 핸드 스트랩",
+    "41": "전용 케이스",
+    "42": "현장 조건 대응",
+    "43": "오염 환경 작업",
+    "44": "현장 기능",
+    "45": "장갑 · 물기 터치",
+    "46": "강력한 내구성",
+    "47": "내구성",
+    "49": "교대 근무 지원",
+    "50": "배터리",
+    "51": "교체형 배터리",
+    "52": "보안 관리",
+    "53": "보안 · 관리",
+    "54": "Knox 원격 제어",
+    "56": "한결로지스(주) · 이천 물류센터 현장 업무 단말 교체 pilot"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "16": "placeholder",
+    "17": "product",
+    "18": "llm",
+    "19": "placeholder",
+    "20": "placeholder",
+    "21": "product",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "35": "llm",
+    "38": "llm",
+    "39": "llm",
+    "40": "llm",
+    "41": "llm",
+    "42": "llm",
+    "43": "llm",
+    "44": "llm",
+    "45": "llm",
+    "46": "llm",
+    "47": "llm",
+    "49": "llm",
+    "50": "llm",
+    "51": "llm",
+    "52": "llm",
+    "53": "llm",
+    "54": "llm",
+    "56": "context"
+   },
+   "images": {
+    "0": {
+     "pid": null,
+     "label": "이미지 필요 · 제품 컷"
+    },
+    "1": {
+     "pid": null,
+     "label": "이미지 필요 · 제품 컷"
+    }
+   },
+   "checks": {
+    "n_slots": 56,
+    "changed": 33,
+    "coverage": 0.589,
+    "placeholders_left": 8,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 23,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 13,
+   "f": "L_SE_A",
+   "code": "SE-A",
+   "part_id": "S13",
+   "texts": {
+    "0": "13 · 실행 계획",
+    "1": "보안 요건 1개, 대응 기능과 근거",
+    "2": "요건 · 대응 기능 · 방식(기본 · 설정 · 연동) · 근거 문서",
+    "3": "충족",
+    "4": "확인",
+    "5": "#보안",
+    "6": "보안 요건",
+    "7": "출처",
+    "8": "대응 기능",
+    "9": "방식",
+    "10": "근거",
+    "11": "상태",
+    "12": "1",
+    "13": "분실 시 원격 잠금",
+    "14": "IT팀",
+    "15": "Knox 원격 잠금",
+    "16": "설정",
+    "17": "p.[00]",
+    "18": "충족",
+    "19": "2",
+    "20": "데이터 암호화",
+    "21": "IT팀",
+    "22": "Knox 암호화",
+    "23": "기본",
+    "24": "p.[00]",
+    "25": "충족",
+    "26": "3",
+    "27": "단말기 무결성 검증",
+    "28": "IT팀",
+    "29": "Knox Vault",
+    "30": "기본",
+    "31": "p.[00]",
+    "32": "충족",
+    "33": "4",
+    "34": "OS 보안 패치",
+    "35": "IT팀",
+    "36": "FOTA 관리",
+    "37": "설정",
+    "38": "p.[00]",
+    "39": "충족",
+    "40": "5",
+    "41": "카메라 기능 제어",
+    "42": "IT팀",
+    "43": "정책 설정",
+    "44": "설정",
+    "45": "p.[00]",
+    "46": "확인 필요",
+    "47": "6",
+    "48": "USB 포트 차단",
+    "49": "IT팀",
+    "50": "Knox 정책 제어",
+    "51": "설정",
+    "52": "p.[00]",
+    "53": "충족",
+    "54": "7",
+    "55": "Wi-Fi 보안",
+    "56": "IT팀",
+    "57": "네트워크 정책",
+    "58": "설정",
+    "59": "p.[00]",
+    "60": "충족",
+    "61": "8",
+    "62": "화면 캡처 방지",
+    "63": "IT팀",
+    "64": "Knox 정책 적용",
+    "65": "설정",
+    "66": "p.[00]",
+    "67": "충족",
+    "68": "9",
+    "69": "로그 기록",
+    "70": "IT팀",
+    "71": "감사 로그",
+    "72": "연동",
+    "73": "p.[00]",
+    "74": "확인 필요",
+    "75": "10",
+    "76": "앱 설치 제한",
+    "77": "IT팀",
+    "78": "화이트리스트",
+    "79": "설정",
+    "80": "p.[00]",
+    "81": "충족",
+    "82": "방식",
+    "83": "기본",
+    "84": "설정",
+    "85": "연동",
+    "86": "근거 = 제출 기술 문서 쪽수 · 확인 필요는 보안팀 협의",
+    "88": "한결로지스(주) · 이천 물류센터 현장 업무 단말 교체 pilot"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "req",
+    "13": "req",
+    "14": "req",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "35": "llm",
+    "36": "llm",
+    "37": "llm",
+    "38": "llm",
+    "39": "llm",
+    "40": "llm",
+    "41": "llm",
+    "42": "llm",
+    "43": "llm",
+    "44": "llm",
+    "45": "llm",
+    "46": "llm",
+    "47": "llm",
+    "48": "llm",
+    "49": "llm",
+    "50": "llm",
+    "51": "llm",
+    "52": "llm",
+    "53": "llm",
+    "54": "llm",
+    "55": "llm",
+    "56": "llm",
+    "57": "llm",
+    "58": "llm",
+    "59": "llm",
+    "60": "llm",
+    "61": "llm",
+    "62": "llm",
+    "63": "llm",
+    "64": "llm",
+    "65": "llm",
+    "66": "llm",
+    "67": "llm",
+    "68": "llm",
+    "69": "llm",
+    "70": "llm",
+    "71": "llm",
+    "72": "llm",
+    "73": "llm",
+    "74": "llm",
+    "75": "llm",
+    "76": "llm",
+    "77": "llm",
+    "78": "llm",
+    "79": "llm",
+    "80": "llm",
+    "81": "llm",
+    "82": "llm",
+    "83": "llm",
+    "84": "llm",
+    "85": "llm",
+    "86": "llm",
+    "88": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 88,
+    "changed": 42,
+    "coverage": 0.477,
+    "placeholders_left": 10,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 46,
+    "static_foreign": [
+     "은행 시스템과 연동 필요"
+    ]
+   },
+   "llm": true
+  },
+  {
+   "no": 14,
+   "f": "L_CS01",
+   "code": "CD-A",
+   "part_id": "S14",
+   "texts": {
+    "0": "[00] · 유관 사례",
+    "1": "물류 현장의 효율을 높인 성공 사례",
+    "2": "항공 물류 및 현장",
+    "3": "운송 및 관리 효율화",
+    "4": "과제",
+    "5": "종이 매뉴얼 관리의 번거로움과 비행 준비 시간의 과다 소요",
+    "6": "해결",
+    "7": "갤럭시 탭 액티브 도입으로 디지털 매뉴얼 전환 및 업무 간소화",
+    "8": "갤럭시 탭",
+    "9": "Knox Suite",
+    "10": "원격 관리",
+    "11": "성과",
+    "12": "4,000대",
+    "13": "아시아나항공/아시아나IDT",
+    "14": "[00]일→[0]분",
+    "15": "성남운수",
+    "16": "대폭 절감",
+    "17": "제주입니다 애플망고&감귤",
+    "18": "출처 · 삼성 B2B 사례 · 수치는 고객 공개 범위 내",
+    "20": "한결로지스(주) · 이천 물류센터 현장 업무 단말 교체"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "case",
+    "14": "placeholder",
+    "15": "case",
+    "16": "llm",
+    "17": "case",
+    "18": "llm",
+    "20": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 20,
+    "changed": 15,
+    "coverage": 0.75,
+    "placeholders_left": 2,
+    "overflow_fixed": [
+     8
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 5,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 15,
+   "f": "L_PL_B",
+   "code": "PL-B",
+   "part_id": "S15",
+   "texts": {
+    "0": "[00] · 실행 계획",
+    "1": "이천 물류센터 Pilot 및 전사 확산 계획",
+    "2": "일단 이천센터 pilot 먼저 해보고 결과 좋으면 다른 센터들도",
+    "3": "대상 센터",
+    "4": "구분",
+    "5": "Pilot",
+    "6": "이천",
+    "7": "확산 대상",
+    "8": "전 센터",
+    "9": "비고",
+    "10": "결과 기반",
+    "11": "네트워크",
+    "12": "사내 Wi-Fi",
+    "13": "보안 관리",
+    "14": "Knox 적용",
+    "15": "선정",
+    "16": "Pilot",
+    "17": "이천 센터",
+    "18": "선정",
+    "19": "확산",
+    "20": "전국 센터",
+    "21": "비교군",
+    "22": "기존",
+    "23": "현행 단말",
+    "24": "선정",
+    "25": "기기",
+    "26": "엑스커버7",
+    "27": "비교군",
+    "28": "기기",
+    "29": "탭 액티브5",
+    "30": "선정",
+    "31": "솔루션",
+    "32": "Knox Suite",
+    "33": "비교군",
+    "34": "기존 업무 방식",
+    "35": "이천 센터 Pilot 후 성과 분석 및 전사 확산",
+    "36": "기간 [00]주",
+    "46": "단말",
+    "47": "보안",
+    "48": "스캔",
+    "50": "[0]주",
+    "53": "[0]주",
+    "54": "[내용]",
+    "56": "[0]주",
+    "63": "업무 효율성",
+    "68": "장비 운영",
+    "69": "[내용]",
+    "73": "현장 만족도",
+    "74": "[0]점 척도",
+    "78": "업무 부담도",
+    "79": "[0]점 척도",
+    "83": "[내용]",
+    "85": "한결로지스(주) · 이천 물류센터 현장 업무 단말 교체 pilot"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "req",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "35": "llm",
+    "36": "placeholder",
+    "46": "llm",
+    "47": "llm",
+    "48": "llm",
+    "50": "placeholder",
+    "53": "placeholder",
+    "54": "placeholder",
+    "56": "placeholder",
+    "63": "llm",
+    "68": "llm",
+    "69": "placeholder",
+    "73": "llm",
+    "74": "placeholder",
+    "78": "llm",
+    "79": "placeholder",
+    "83": "placeholder",
+    "85": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 85,
+    "changed": 45,
+    "coverage": 0.529,
+    "placeholders_left": 18,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 40,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 16,
+   "f": "L_CO_A",
+   "code": "CO-A",
+   "part_id": "S16",
+   "texts": {
+    "0": "16 · 비용 · 구매",
+    "1": "물류 현장 단말 도입을 위한 구매 방식별 총소유비용 비교",
+    "2": "roll-out 때 Knox Suite 라이선스로 upsell",
+    "3": "일시 구매",
+    "4": "초기 일괄 매입",
+    "6": "높음",
+    "8": "—",
+    "10": "별도",
+    "12": "즉시",
+    "14": "재구매",
+    "16": "자산",
+    "18": "—",
+    "19": "적합한 상황",
+    "20": "현장 인프라 고정 시",
+    "21": "구독",
+    "22": "추천",
+    "23": "월 요금에 관리 포함",
+    "25": "낮음",
+    "27": "월 [00]만 원 · [00]개월",
+    "29": "포함",
+    "31": "만기 후 인수",
+    "33": "만기 시 교체",
+    "35": "비용 처리",
+    "37": "위약금 [00]%",
+    "38": "적합한 상황",
+    "39": "물류 거점 확장 시",
+    "40": "렌탈",
+    "41": "필요 기간만 사용",
+    "43": "없음",
+    "45": "월 [00]만 원",
+    "47": "포함",
+    "49": "반납",
+    "51": "계약 중 교체",
+    "53": "비용",
+    "55": "[0]개월 전 통보",
+    "56": "적합한 상황",
+    "57": "단기 프로젝트 시",
+    "58": "누적 비용 동일 시점 · 예시",
+    "59": "구독 대비 구매",
+    "60": "[00]",
+    "61": "개월째",
+    "62": "[00]개월",
+    "72": "한결로지스(주) · 이천 물류센터 현장 업무 단말 교체 pilot"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "req",
+    "3": "llm",
+    "4": "llm",
+    "6": "llm",
+    "8": "llm",
+    "10": "llm",
+    "12": "llm",
+    "14": "llm",
+    "16": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "25": "llm",
+    "27": "llm",
+    "29": "llm",
+    "31": "llm",
+    "33": "llm",
+    "35": "llm",
+    "37": "llm",
+    "38": "llm",
+    "39": "llm",
+    "40": "llm",
+    "41": "llm",
+    "43": "llm",
+    "45": "llm",
+    "47": "llm",
+    "49": "llm",
+    "51": "llm",
+    "53": "llm",
+    "55": "llm",
+    "56": "llm",
+    "57": "llm",
+    "58": "llm",
+    "59": "llm",
+    "60": "llm",
+    "61": "llm",
+    "62": "llm",
+    "72": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 72,
+    "changed": 20,
+    "coverage": 0.278,
+    "placeholders_left": 6,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 52,
+    "static_foreign": []
+   },
+   "llm": true
+  },
+  {
+   "no": 17,
+   "f": "L_C13",
+   "code": "C13",
+   "part_id": "S17",
+   "texts": {
+    "0": "NEXT STEPS",
+    "1": "결정 요청 및 향후 일정",
+    "2": "한결로지스(주) · 이천 물류센터 현장 업무 단말 교체",
+    "3": "1",
+    "4": "현장 실사",
+    "5": "대상",
+    "6": "물류센터 현장",
+    "7": "참석",
+    "8": "현장 관리자 및 실무진",
+    "9": "기간",
+    "10": "[00]/[00] – [00]/[00]",
+    "11": "실사 일정 확정",
+    "12": "확정",
+    "13": "[00]/[00]",
+    "14": "[0]",
+    "15": "시범 범위 확정",
+    "16": "범위",
+    "17": "단말 교체 및 솔루션 적용",
+    "18": "콘텐츠",
+    "19": "현장 운영팀",
+    "20": "회의",
+    "21": "[00]/[00]",
+    "22": "범위 및 일정 확정",
+    "23": "확정",
+    "24": "[00]/[00]",
+    "25": "[0]",
+    "26": "Pilot 승인 및 착수",
+    "27": "계약",
+    "28": "Pilot",
+    "29": "착수 목표",
+    "30": "[00]월",
+    "31": "첫 오픈",
+    "32": "착수 후 [0]주",
+    "33": "결정 · 의사결정권자",
+    "34": "승인",
+    "35": "[00]/[00]",
+    "36": "담당",
+    "37": "[이름] · [직급]",
+    "38": "이메일",
+    "39": "[email@company.com]",
+    "40": "전화",
+    "41": "[000-0000-0000]"
+   },
+   "sources": {
+    "0": "llm",
+    "1": "llm",
+    "2": "context",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "35": "llm",
+    "36": "llm",
+    "37": "llm",
+    "38": "llm",
+    "39": "llm",
+    "40": "llm",
+    "41": "llm"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 42,
+    "changed": 13,
+    "coverage": 0.31,
+    "placeholders_left": 12,
+    "overflow_fixed": [
+     28
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 29,
+    "static_foreign": []
+   },
+   "llm": true
+  }
+ ]
+}

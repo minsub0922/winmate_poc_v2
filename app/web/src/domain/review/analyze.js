@@ -3,7 +3,7 @@
 import { PRODUCTS, SOLUTIONS, CASES, IND, IND_KW, LAYOUTS } from '../../services/catalog.js';
 import { classifyPart, PARTS } from '../proposals/parts.js';
 import { toks } from '../../services/search.js';
-import { CRITERIA, CATS, CAT, CR } from './criteria.js';
+import { CRITERIA, CATS, CAT, CR, criteriaForReview } from './criteria.js';
 import { isFooter } from './parse.js';
 
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -620,18 +620,23 @@ function compressParts(parts) {
 }
 
 // ---------- scoring ----------
-export function aggregate(sel, results) {
-  const applied = sel.filter((s) => s.applied && results[s.id] && results[s.id].score != null && !results[s.id].na);
+export function aggregate(sel, results, rubric = criteriaForReview(null)) {
+  const { CR, CAT, CATS } = rubric;
+  const detailed = rubric.scoring?.id === 'checkpoints-4x4';
+  const round = n => detailed ? Math.round(n * 10) / 10 : Math.round(n);
+  const rawCats = {};
+  const applied = sel.filter((s) => CR[s.id] && s.applied && results[s.id] && results[s.id].score != null && !results[s.id].na);
   const cats = {};
   for (const c of CATS) {
     const list = applied.filter((s) => CR[s.id].cat === c.id);
     if (!list.length) { cats[c.id] = null; continue; }
     const tw = list.reduce((a, s) => a + CR[s.id].w, 0);
-    cats[c.id] = Math.round(list.reduce((a, s) => a + CR[s.id].w * results[s.id].score, 0) / tw);
+    rawCats[c.id] = list.reduce((a, s) => a + CR[s.id].w * results[s.id].score, 0) / tw;
+    cats[c.id] = round(rawCats[c.id]);
   }
   const used = CATS.filter((c) => cats[c.id] != null);
   const tw = used.reduce((a, c) => a + c.w, 0);
-  const overall = tw ? Math.round(used.reduce((a, c) => a + c.w * cats[c.id], 0) / tw) : 0;
+  const overall = tw ? round(used.reduce((a, c) => a + c.w * (detailed ? rawCats[c.id] : cats[c.id]), 0) / tw) : 0;
   const priorities = applied.map((s) => ({ id: s.id, impact: CR[s.id].w * CAT[CR[s.id].cat].w * (100 - results[s.id].score) })).filter((p) => results[p.id].score < 80).sort((a, b) => b.impact - a.impact).slice(0, 5).map((p) => p.id);
   return { overall, cats, priorities, nApplied: applied.length };
 }

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs21:F02"
+ },
+ "prompt_tokens": 12507,
+ "output_tokens": 246,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 요구사항 R1~R4와 평가 기준 K1~K4를 모두 충족합니다. 02장(응대/환경/서비스), 03장(공간별 제품), 04장(솔루션), 05장(도입사례)을 통해 각 요구에 대한 명시적인 해법을 제시하였습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "H 호텔 투숙객의 세 가지 니즈에 삼성 AI 기술로 답합니다"
+     },
+     {
+      "sheet": 11,
+      "quote": "H 호텔의 여섯 공간, 열 개 제품"
+     },
+     {
+      "sheet": 29,
+      "quote": "같은 구성을 먼저 도입한 호텔 · 리조트"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

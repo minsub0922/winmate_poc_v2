@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~number_conflict:F01"
+ },
+ "prompt_tokens": 9410,
+ "output_tokens": 388,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'A 커피'와 매장 수 '320개'가 일관되게 사용되었으며, 다른 고객사명이나 예시 고객명이 발견되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "A 커피 전국 320개 매장 디지털 메뉴보드 전환 제안"
+     },
+     {
+      "sheet": 2,
+      "quote": "320개 매장 메뉴판을, 본사에서 한 번에 바꿉니다"
+     },
+     {
+      "sheet": 15,
+      "quote": "한 번에 320곳이 아니라 — 10 → 100 → 320"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "16장의 연락처 정보가 실제 담당자 정보가 아닌 예시용 자리표시(010-1234-5678)로 작성되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 16,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "마지막 장의 연락처 정보를 실제 담당자의 연락처로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

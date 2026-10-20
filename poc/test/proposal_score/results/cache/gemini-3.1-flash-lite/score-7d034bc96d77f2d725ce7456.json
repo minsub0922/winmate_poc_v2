@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs04:F08"
+ },
+ "prompt_tokens": 2274,
+ "output_tokens": 230,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "고객 언어로 된 결과형 가치 4가지를 명확히 제시하고, 각 가치를 실현하는 제품 및 솔루션(SmartThings, EHS, Bespoke 등)을 짝지어 구성함.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "모델하우스에서 ‘이 단지’로 기억될 네 가지"
+     },
+     {
+      "sheet": 4,
+      "quote": "집 안 가전 · 난방을 앱 하나로 | SmartThings · 월패드 연동"
+     },
+     {
+      "sheet": 4,
+      "quote": "빌트인 가전 패키지 | Bespoke 빌트인 · 주방 3종"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

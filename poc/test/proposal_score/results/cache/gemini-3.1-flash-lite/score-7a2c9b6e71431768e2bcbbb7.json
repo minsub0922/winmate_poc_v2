@@ -1,0 +1,74 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs03~full:F01"
+ },
+ "prompt_tokens": 8922,
+ "output_tokens": 643,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'E 대학교'가 일관되게 사용되었으며, 사례로 언급된 타 대학 외에 다른 고객사명이나 템플릿 예시 고객명이 존재하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "E 대학교 스마트 강의실 · 중앙도서관 구축 제안"
+     },
+     {
+      "sheet": 14,
+      "quote": "E 대학교 스마트 강의실 · 도서관 구축"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "CU5",
+    "score": 3,
+    "anchor": "E 대학교의 학사 통계, 공간별 시나리오, 방학 시공 일정 등 고객 고유 정보가 전 장에 걸쳐 상세히 반영되어 있어 범용 장표가 아닙니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "구성원 14,200명 중 비중 · E 대학교 2026 학사 통계 기준"
+     },
+     {
+      "sheet": 12,
+      "quote": "겨울방학 12/21–1/29 · 반입 → 설치 → 시운전 → 정리"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "자리표시자나 템플릿 잔여 문구가 발견되지 않았으며, 제안 담당자의 연락처는 정상적인 비즈니스 정보로 판단됩니다.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "원가, 마진, 내부 할인율 등 민감한 내부 정보가 포함되어 있지 않으며, 제안사 담당자의 연락처 외에 제3자의 개인정보도 없습니다.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

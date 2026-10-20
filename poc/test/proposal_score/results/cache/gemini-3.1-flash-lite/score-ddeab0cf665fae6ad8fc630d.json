@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04:F01"
+ },
+ "prompt_tokens": 8474,
+ "output_tokens": 319,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "13장에 제안 담당자의 연락처가 예시용 번호(010-1234-5678)로 기재되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · 010-1234-5678"
+     }
+    ],
+    "improve": "제출 전 실제 담당자의 연락처로 수정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 1,
+    "anchor": "9장에 고객사에게 노출해서는 안 될 내부적인 '원가'라는 표현이 반복적으로 사용되었습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "원가에 맞춰 고르세요"
+     },
+     {
+      "sheet": 9,
+      "quote": "세대당 원가 최소"
+     }
+    ],
+    "improve": "고객사 제안서에서 '원가'라는 표현을 삭제하고 '옵션 구성' 또는 '예산 범위' 등의 용어로 변경해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

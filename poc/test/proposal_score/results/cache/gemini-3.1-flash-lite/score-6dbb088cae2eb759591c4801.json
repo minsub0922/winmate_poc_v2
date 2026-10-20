@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs18:F05"
+ },
+ "prompt_tokens": 8226,
+ "output_tokens": 255,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "대부분의 장에서 수치에 대한 구체적인 출처 기관과 연도가 명시되지 않았으며, 일부는 '삼성전자 추정(2026)'과 같이 모호하게 표기되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "85% | 보호자 앱 연결률"
+     },
+     {
+      "sheet": 4,
+      "quote": "85% | 앱 연결률"
+     },
+     {
+      "sheet": 11,
+      "quote": "1차 | 초도 | 직영점 | 500 | 곳"
+     }
+    ],
+    "improve": "모든 시장 수치 및 성과 지표에 대해 조사 기관과 연도를 명확히 기재하고, 고객 내부 자료는 '고객 운영 자료(연도)'와 같이 출처를 구체화해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

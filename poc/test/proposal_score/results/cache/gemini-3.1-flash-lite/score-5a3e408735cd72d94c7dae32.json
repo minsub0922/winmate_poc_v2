@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~strip_images:F03"
+ },
+ "prompt_tokens": 2828,
+ "output_tokens": 404,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "제안 개요(2장)에서 경영 지표인 TCO와 장애율을 요약하고, 마무리(13장)에서 결정권자가 승인할 3가지 단계와 일정을 명확히 정리함.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "03 | 기대 효과 | 5년 −12% | 5년 총비용"
+     },
+     {
+      "sheet": 13,
+      "quote": "12월 발주 전 정할 세 가지 | 01 | 1차 전환 범위 확정"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS7",
+    "score": 2,
+    "anchor": "5년 TCO 절감 효과를 제시했으나, 구체적인 비용 구조나 산정 전제, 숨은 비용(라이선스 등)에 대한 상세 설명이 부족함.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "5년 −12% | 5년 총비용 · 현 공급사 안 대비"
+     },
+     {
+      "sheet": 9,
+      "quote": "5년을 보면, 처음 가격의 순서가 바뀝니다"
+     }
+    ],
+    "improve": "TCO 산정 시 포함된 항목(장비, 유지보수, 라이선스 등)과 산정 전제를 명시하여 비용 구조의 투명성을 높여야 함.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07:F06"
+ },
+ "prompt_tokens": 8892,
+ "output_tokens": 364,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "전체 객실 수 300실, 교체 대상 616대 등 주요 지표가 모든 장에서 일관되게 기술되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "객실 300실은 한 실의 키트로"
+     },
+     {
+      "sheet": 10,
+      "quote": "합계 | 객실 기기 600 + 공용부 16 = 616대"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR6",
+    "score": 3,
+    "anchor": "객실 1실당 키트 구성과 공용부 수량을 구분하여 명시하였고, 라이선스 및 서버를 포함한 총계 616대가 정확히 산출되었습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "객실 1실 키트 | 스탠다드 · 트윈 · 스위트 공통"
+     },
+     {
+      "sheet": 10,
+      "quote": "합계 | 객실 기기 600 + 공용부 16 = 616대"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

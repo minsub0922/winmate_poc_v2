@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs17:F04"
+ },
+ "prompt_tokens": 2422,
+ "output_tokens": 217,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "4장에서 T 은행 시범점 성과를 제시했으나, 사진 캡션에 타 은행(KEB하나은행) 사례가 혼용되어 있어 실제 도입 사례의 고객명과 성과 수치의 일관성이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "T 은행 시범 10개점 — 6개월 성과"
+     },
+     {
+      "sheet": 4,
+      "quote": "창구에서 태블릿으로 상담하는 직원과 고객 (KEB하나은행)"
+     }
+    ],
+    "improve": "타 은행 사례 사진을 제외하고 T 은행 시범점의 실제 도입 구성과 성과 수치를 명확히 연결하여 제시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs18~full:F12"
+ },
+ "prompt_tokens": 9007,
+ "output_tokens": 473,
+ "data": {
+  "scores": [
+   {
+    "id": "WR2",
+    "score": 3,
+    "anchor": "전체적으로 맞춤법과 띄어쓰기가 정확하며, 제목에도 오류가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "U 통신사 갤럭시 키즈 에디션 공동 개발 제안"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR8",
+    "score": 1,
+    "anchor": "MARKET, KC, VALUE, PROPS 등 고객이 이해하기 어려운 약어와 사내 용어를 처음 사용할 때 풀이 없이 사용하였습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "01 · MARKET INTELLIGENCE"
+     },
+     {
+      "sheet": 3,
+      "quote": "+ KC S/W 리브랜딩"
+     },
+     {
+      "sheet": 4,
+      "quote": "02 · VALUE PROPS"
+     }
+    ],
+    "improve": "MARKET, KC, VALUE, PROPS 등 약어를 처음 사용할 때 전체 명칭을 병기하거나 설명을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR9",
+    "score": 3,
+    "anchor": "경어체와 개조식 문체가 제안서 전반에 걸쳐 일관되게 유지되고 있으며, 고객을 존중하는 톤을 유지하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "U 통신사의 대표 공간은 아이 손 안의 ‘첫 화면’입니다"
+     },
+     {
+      "sheet": 10,
+      "quote": "착수부터 어린이날 출시까지 24주"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08:F04"
+ },
+ "prompt_tokens": 5023,
+ "output_tokens": 358,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "W 요양병원의 야간 호출 응답 시간(6분), 다인실 CO2 농도(1,800ppm), 주말 면회 대기 시간(15분) 등 현장 인터뷰와 계측 기반의 구체적인 수치를 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "6분 야간 호출 응답, 1,800ppm 야간, 15분 주말 면회 대기"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "성심요양병원 등 유사 업종 사례를 사진과 함께 제시하고, 야간 호출 응답 시간 단축(6분→3분) 및 만족도 향상(76점→85점) 등 구체적인 성과 수치를 명시했습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "평균 6분 → 3분, 76점 → 85점"
+     },
+     {
+      "sheet": 4,
+      "quote": "간호 스테이션 앞 복도 (성심요양병원)"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

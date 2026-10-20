@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11:F04"
+ },
+ "prompt_tokens": 2998,
+ "output_tokens": 186,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 2,
+    "anchor": "고객의 문제를 다루는 장(3장)이 있으나, 문제의 원인과 영향에 대한 구체적인 수치적 분석이 부족하고 일부 일반적인 사업 목적 위주로 서술되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "K 공단이 이번 사업으로 이루려는 것"
+     }
+    ],
+    "improve": "고객이 현재 겪고 있는 관제 및 안내 시스템의 구체적인 장애 발생 빈도, 복구 시간, 운영 인력의 비효율성 등을 수치화하여 제시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,292 @@
+<script>
+		$('button.spec-title').on("click", function(e){
+			e.preventDefault();
+			$('div[name="specLayer"] > .layer-header > h2').text(this.innerText);
+			$('div[name="specLayer"] > .layer-content > p').text(this.value);
+
+			let newId = $(this).data('popup-target');
+			$('div[name="specLayer"]').attr('id', newId);
+			$('div[name="specLayer"] > .pop-close').attr('data-focus-next', newId);
+			$('div[name="specLayer"]').attr('data-popup-layer', newId);
+			$('div[name="specLayer"]').attr('data-focus', newId);
+		});
+	</script>
+	<h3 class="spec-itm-title" id="cstrt-nm" ></h3>
+	<div class="spec-table">
+		<dl>
+						<dt>기본 사양</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">구분</strong>
+													<p class="spec-desc">Bespoke AI 제트 Lite&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">디지털 인버터 모터</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">브러시 너비</strong>
+													<p class="spec-desc">250&nbsp;mm</p>
+												</li>
+								<li>
+										<strong class="spec-title">전원</strong>
+													<p class="spec-desc">버튼형&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">포인트 색상</strong>
+													<p class="spec-desc">산토리니 베이지&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">먼지용량</strong>
+													<p class="spec-desc">0.5&nbsp;ℓ</p>
+												</li>
+								<li>
+										<strong class="spec-title">거치대</strong>
+													<p class="spec-desc">청정스테이션 일체형&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>배터리</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">배터리 사양</strong>
+													<p class="spec-desc">리튬 이온&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">배터리 전압</strong>
+													<p class="spec-desc">25.2&nbsp;V</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>브러시</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">메인브러시</strong>
+													<p class="spec-desc">액티브 슬림 브러시&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>성능</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">청소시간</strong>
+													<p class="spec-desc">(기본 배터리 1개 기준) 핸디 : 일반 60 min / 강력 30 min / 초강력 10 min / 제트 1 min 브러시 : 일반 45 min / 강력 25 min / 초강력 14 min / 제트 10 min 물걸레 : 100&nbsp;min</p>
+												</li>
+								<li>
+										<strong class="spec-title">충전시간</strong>
+													<p class="spec-desc">210&nbsp;min</p>
+												</li>
+								<li>
+										<strong class="spec-title">흡입력</strong>
+													<p class="spec-desc">280W&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>외관</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">제품 크기(본체,WxHxD)</strong>
+													<p class="spec-desc">250x930x202&nbsp;mm</p>
+												</li>
+								<li>
+										<strong class="spec-title">순 중량(본체)</strong>
+													<p class="spec-desc">2.31&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>주요기능</dt>
+						<dd>
+							<ol>
+								<li>
+										<button type="button" class="spec-title" data-popup-target="specLayer61" value="청소 흡입 세기와 청소 가능 시간을 확인할 수 있고 점검이 필요한 경우 원인과 해결방법도 안내해줍니다. 청소기 충전시 배터리 충전상태도 표시해주니 참 편리해요" aria-haspopup="true">
+													LCD 디스플레이</button>
+												<p class="spec-desc">있음&nbsp;</p>
+											</li>
+								<li>
+										<button type="button" class="spec-title" data-popup-target="specLayer62" value="청소 모드 중 하나로 다양한 환경에 맞게 알아서 흡입력을 조절해 최적의 청소 모드를 자동으로 설정합니다. 마루, 카펫, 매트 감지는 물론, 브러시가 들릴경우 상황도 감지합니다." aria-haspopup="true">
+													AI 모드</button>
+												<p class="spec-desc">있음&nbsp;</p>
+											</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>앱 연결</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">SmartThings 모바일 앱 지원</strong>
+													<p class="spec-desc">지원&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>필터</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">모터 필터</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">배기 필터</strong>
+													<p class="spec-desc">고성능 필터&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>액세서리</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">액세서리 1</strong>
+													<p class="spec-desc">솔브러시&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">액세서리 2</strong>
+													<p class="spec-desc">틈새브러시&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>일체형 청정스테이션</dt>
+						<dd>
+							<ol>
+								<li>
+										<button type="button" class="spec-title" data-popup-target="specLayer101" value="청소 후 일체형 청정스테이션에 청소기를 거치하면 거치와 동시에 먼지통을 빠르게 비우고 배터리를 충전합니다. 먼지통을 다 비우면 먼지통 뚜껑이 자동으로 닫혀서 편리해요" aria-haspopup="true">
+													특징</button>
+												<p class="spec-desc">충전, 거치 및 제트 먼지통을 비워주는 장치&nbsp;</p>
+											</li>
+								<li>
+										<strong class="spec-title">색상</strong>
+													<p class="spec-desc">산토리니 베이지&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">제품 크기(본체,WxHxD)</strong>
+													<p class="spec-desc">300x755x300&nbsp;mm</p>
+												</li>
+								<li>
+										<strong class="spec-title">정격 전압</strong>
+													<p class="spec-desc">AC 220 V, 60 Hz&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">소비 전력</strong>
+													<p class="spec-desc">1200&nbsp;W</p>
+												</li>
+								<li>
+										<strong class="spec-title">먼지비움 시간</strong>
+													<p class="spec-desc">12~14&nbsp;초</p>
+												</li>
+								<li>
+										<strong class="spec-title">먼지봉투용량</strong>
+													<p class="spec-desc">1.2&nbsp;L</p>
+												</li>
+								<li>
+										<strong class="spec-title">먼지봉투개수</strong>
+													<p class="spec-desc">3&nbsp;개</p>
+												</li>
+								<li>
+										<strong class="spec-title">전기용품안전 인증번호</strong>
+													<p class="spec-desc">JU071421-24002&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">전기용품안전 인증기관</strong>
+													<p class="spec-desc">한국화학융합시험연구원(KTR)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">전자파적합성 등록번호</strong>
+													<p class="spec-desc">R-R-SEC-VS9700C_DS&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">전자파적합성 등록기관</strong>
+													<p class="spec-desc">국립전파연구원&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>인증정보</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">전자파적합성 등록번호</strong>
+													<p class="spec-desc">R-R-SEC-VS9500D&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">전자파적합성 등록기관</strong>
+													<p class="spec-desc">국립전파연구원&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+				<dt>상품 기본정보</dt>
+				<dd>
+					<ol>
+						<li>
+								<strong class="spec-title">제품명</strong>
+								<p class="spec-desc">Bespoke AI 제트 Lite</p>
+							</li>
+						<li>
+								<strong class="spec-title">제조자/수입자</strong>
+								<p class="spec-desc">뉴모텍(주)/삼성전자㈜</p>
+							</li>
+						<li>
+								<strong class="spec-title">제조국가</strong>
+								<p class="spec-desc">대한민국</p>
+							</li>
+						<li>
+								<strong class="spec-title">KC 인증 필 유무</strong>
+								<p class="spec-desc"><img src='//images.samsung.com/is/image/samsung/p5/sec/common/icon-kc.png?$ORIGIN_PNG$' alt='KC 인증 로고'>전기용품안전 인증번호 
+(일체형스테이션) JU071421-24002
+
+전자파적합성 등록번호
+(본체) R-R-SEC-VS9500D
+(본체 블루투스) R-R-WHS-ML60-001
+(일체형스테이션) R-R-SEC-VS9700C-DS
+(wifi 모듈) R-C-SEC-CCAR210R</p>
+							</li>
+						<li>
+								<strong class="spec-title">동일모델의 출시년월</strong>
+								<p class="spec-desc">2025년 1월</p>
+							</li>
+						<li>
+								<strong class="spec-title">A/S 책임자와 전화번호</strong>
+								<p class="spec-desc">삼성전자서비스센터 / 1588-3366</p>
+							</li>
+						<li>
+								<strong class="spec-title">품질보증기준</strong>
+								<p class="spec-desc">결함·하자 등에 따른 소비자피해에 대해서는 소비자분쟁해결기준(소비자기본법 제16조)에 따라 보상 가능</p>
+							</li>
+						</ol>
+				</dd>
+			</dl>
+		</div>
+	<div class="layer-pop layer-normal layer-default specLayer active" name="specLayer" id="specLayer" tabindex="0" data-popup-layer="specLayer" data-focus="specLayer" aria-hidden="false" data-zindex="300" style="z-index: 300; display: none">
+		<div class="layer-header">
+			<h2></h2>
+		</div>
+		<div class="layer-content">
+			<p></p>
+		</div>
+		<button type="button" class="pop-close" data-focus-next="">팝업닫기</button>
+	</div>
+

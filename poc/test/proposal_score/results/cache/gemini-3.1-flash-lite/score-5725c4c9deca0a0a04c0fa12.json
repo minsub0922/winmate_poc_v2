@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~number_conflict:F01"
+ },
+ "prompt_tokens": 9026,
+ "output_tokens": 203,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명을 'A 커피'로 일관되게 표기하였으며, 매장 수(320개)와 담당 조직(운영본부 등) 정보가 장마다 동일하게 유지됨.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "A 커피 전국 320개 매장"
+     },
+     {
+      "sheet": 2,
+      "quote": "320개 매장 메뉴판을"
+     },
+     {
+      "sheet": 16,
+      "quote": "A 커피 디지털 메뉴보드 전환"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

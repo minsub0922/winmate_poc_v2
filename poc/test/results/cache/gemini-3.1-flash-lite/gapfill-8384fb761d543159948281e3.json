@@ -1,0 +1,31 @@
+{
+ "stage": "gapfill",
+ "model": "gemini-3.1-flash-lite",
+ "meta": {
+  "lines": [
+   "(1) 제안업체 일반",
+   "(1) 무상 기간내 교체 기준",
+   "(2) 유지보수 및 서비스 센터 관리 방안",
+   "(3) 납품 및 설치 방안",
+   "* 제안 관련 준수사항:"
+  ],
+  "pid_hint": "P1",
+  "projects": [
+   {
+    "pid": "P1",
+    "name": "개인전산장비 단가계약",
+    "customer": "KB손해보험",
+    "start_line": 1,
+    "issuer": "KB손해보험 IT기획파트, 총무파트"
+   }
+  ],
+  "idx": 2
+ },
+ "prompt_tokens": 2115,
+ "output_tokens": 15,
+ "data": {
+  "items": [],
+  "carry": ""
+ },
+ "raw_text": "{\n  \"items\": [],\n  \"carry\": \"\"\n}"
+}

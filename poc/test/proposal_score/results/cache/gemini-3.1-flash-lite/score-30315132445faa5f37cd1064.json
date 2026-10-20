@@ -1,0 +1,82 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs13~full:F07"
+ },
+ "prompt_tokens": 8991,
+ "output_tokens": 627,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "절감액, 회수 기간, 전력 사용량 등 정량적 효과를 제시하고, 산정 근거와 전제 조건(가맹본부 자료, 삼성전자 추정 등)을 명확히 기재함.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "단가 200원/kWh · 가동 시간 가정은 실측으로 확정"
+     },
+     {
+      "sheet": 11,
+      "quote": "가맹본부 전력 자료 기준 · 수치는 예상치"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "상업용 공조 설계, 전국 직영 서비스망, 무인 매장 레퍼런스 등 삼성만의 강점을 고객의 운영 과제와 연결하여 구체적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "상업용 공조 설계 · 전국 직영 서비스망 · 무인 매장 레퍼런스"
+     },
+     {
+      "sheet": 6,
+      "quote": "140개 매장의 공조와 전력을 한 화면에서 봅니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR5",
+    "score": 3,
+    "anchor": "근거 없는 절대 표현이 없으며, 성과를 보증하는 문장 대신 예상치임을 명시함.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "수치는 예상치"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR7",
+    "score": 3,
+    "anchor": "연출 이미지, 사양 변경 가능성, 효과 수치의 전제 조건 고지가 각 장에 적절히 포함됨.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "수치는 파일럿 실측으로 확정"
+     },
+     {
+      "sheet": 11,
+      "quote": "수치는 예상치"
+     },
+     {
+      "sheet": 14,
+      "quote": "참고 연출"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~no_proof:F07"
+ },
+ "prompt_tokens": 3395,
+ "output_tokens": 340,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "메뉴 반영 시간, 가격 오류 건수, 매장 전력 사용량 등 구체적인 KPI 전후 수치를 제시하고, A 커피 운영 자료(2026)를 산정 근거로 명시함.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "목표치 · A 커피 운영 자료(2026) 기준"
+     },
+     {
+      "sheet": 12,
+      "quote": "메뉴 반영은 9일에서 당일로 줄어듭니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "MagicINFO 통합 관리 솔루션과 SmartThings Pro를 통한 에너지 관리 등 삼성만의 강점을 고객의 운영 과제와 연결하여 구체적 사례와 함께 제시함.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "본사 서버 일괄 관리 · 카페 원격 관리 사례"
+     },
+     {
+      "sheet": 6,
+      "quote": "MagicINFO · QM55C · SmartThings Pro"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

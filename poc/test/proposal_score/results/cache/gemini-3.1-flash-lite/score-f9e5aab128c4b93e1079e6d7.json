@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~placeholders:F08"
+ },
+ "prompt_tokens": 2160,
+ "output_tokens": 218,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "분양 포인트 4가지를 고객 언어(결과형)로 명확히 제시하고, 각 가치를 구현하는 제품 및 솔루션(SmartThings, EHS, Bespoke, 입주민 케어)을 1:1로 연결하여 구성했습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "모델하우스에서 ‘이 단지’로 기억될 네 가지"
+     },
+     {
+      "sheet": 4,
+      "quote": "집 안 가전 · 난방을 앱 하나로"
+     },
+     {
+      "sheet": 4,
+      "quote": "가구처럼 맞춰진 주방"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

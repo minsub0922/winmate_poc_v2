@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08:F02"
+ },
+ "prompt_tokens": 7913,
+ "output_tokens": 242,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 4가지 요구사항(R1~R4)과 4가지 평가 기준(K1~K4)에 대해 5장에서 질문과 제품을 매칭하고, 6~10장에서 구체적인 공간별 솔루션과 기대 효과를 명시적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "W 요양병원 병동에서 들은 질문 셋, 이렇게 답합니다"
+     },
+     {
+      "sheet": 6,
+      "quote": "W 요양병원의 일곱 공간은 하나의 관리 화면으로 이어집니다"
+     },
+     {
+      "sheet": 10,
+      "quote": "병실은 사무실과 조건이 다릅니다 — 다섯 조건, 다섯 대응"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

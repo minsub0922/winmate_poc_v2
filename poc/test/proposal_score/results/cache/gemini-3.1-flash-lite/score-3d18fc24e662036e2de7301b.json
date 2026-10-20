@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs05:F09"
+ },
+ "prompt_tokens": 8685,
+ "output_tokens": 344,
+ "data": {
+  "scores": [
+   {
+    "id": "PR1",
+    "score": 3,
+    "anchor": "제안서 내 VM55B-U는 VM55B 라인업의 세부 모델명으로 카탈로그 상 현행 모델이며, 그 외 모델들도 모두 현행 제품으로 확인됩니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "VM55B-U"
+     },
+     {
+      "sheet": 11,
+      "quote": "XHB"
+     },
+     {
+      "sheet": 6,
+      "quote": "KM24C"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR5",
+    "score": 3,
+    "anchor": "비디오월 제품을 'VM55B'로 일관되게 표기하고 있으며, 문맥상 수식어인 '비디오월'을 붙인 경우에도 모델명은 동일하게 유지하여 혼동이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "VM55B-U"
+     },
+     {
+      "sheet": 5,
+      "quote": "비디오월 VM55B"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

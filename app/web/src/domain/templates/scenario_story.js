@@ -2,6 +2,8 @@
 // 파트 이름은 scenarios.js flow 의 단계 이름과 같다(단계 하나 = 버블 하나, 버블마다 레이아웃 2장 이상).
 // 표지만 든 단계는 숨은 표지 파트(버블 없음). 여기에 없는 시나리오는 scenario_storyboard.js 가 flow 에서 만들어 쓴다.
 // 생성: build/sb/apply.mjs (계획: build/sb/plan.mjs)
+import VERTICAL from './vertical_scenarios.json' with { type: 'json' };
+import DESCRIPTION from './description_standard_scenarios.json' with { type: 'json' };
 export const STORY = {
  "bs21": {
   "keymen": [
@@ -1731,3 +1733,5 @@ export const STORY = {
   }
  }
 };
+Object.assign(STORY, VERTICAL.story);
+Object.assign(STORY, DESCRIPTION.story);

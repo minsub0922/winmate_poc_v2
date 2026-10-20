@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs21:F10"
+ },
+ "prompt_tokens": 10767,
+ "output_tokens": 224,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "LYNK Cloud를 통해 객실 TV 312대의 원격 관리, 데이터 분석, 양방향 서비스 제공 등 운영 주체와 관리 방식이 구체적인 장면으로 제시되었습니다.",
+    "evidence": [
+     {
+      "sheet": 26,
+      "quote": "LYNK Cloud 관리 화면에서 객실 TV의 전원 · 볼륨 · 입력을 일괄 제어"
+     },
+     {
+      "sheet": 25,
+      "quote": "TV 시청, 앱 사용, 호텔 서비스 등 고객 사용 데이터 기반으로 고객 맞춤 콘텐츠 제공"
+     },
+     {
+      "sheet": 27,
+      "quote": "객실 TV로 시설 예약 · 룸서비스 주문"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

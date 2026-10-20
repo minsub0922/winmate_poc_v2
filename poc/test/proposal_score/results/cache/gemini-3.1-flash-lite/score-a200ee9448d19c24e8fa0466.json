@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs20:F10"
+ },
+ "prompt_tokens": 4158,
+ "output_tokens": 181,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO 솔루션을 통해 외벽 LED와 미디어폴의 편성, 장애 관리, 송출 리포트 생성 과정을 관제실 운영 시나리오와 연결하여 구체적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "Q 미디어의 하루, 관제실은 화면이 꺼지기 전에 먼저 움직입니다"
+     },
+     {
+      "sheet": 9,
+      "quote": "MagicINFO — Q 미디어 서버에서 모든 매체를 송출합니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

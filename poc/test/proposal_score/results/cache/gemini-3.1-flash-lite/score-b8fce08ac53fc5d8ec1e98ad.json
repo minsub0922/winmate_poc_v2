@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~base:F06"
+ },
+ "prompt_tokens": 8873,
+ "output_tokens": 256,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 2,
+    "anchor": "전체 매장 수(320개)와 파일럿 매장 수(10곳) 등 주요 지표는 일관되나, 11장과 15장에서 제시된 총 기기 수량(2,200대 vs 2,120대)에 차이가 있습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "320개 매장 · 소형 600대 + 표준 1,120대 + DT 480대 = 2,200대"
+     },
+     {
+      "sheet": 15,
+      "quote": "320곳 · 2,120대"
+     }
+    ],
+    "improve": "매장 유형별 기기 구성 합계와 최종 총 수량을 2,120대로 통일하여 기재해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

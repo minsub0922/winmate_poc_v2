@@ -1,0 +1,56 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~wrong_customer:F01"
+ },
+ "prompt_tokens": 5071,
+ "output_tokens": 445,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 1,
+    "anchor": "고객사명은 Y 그룹으로 통일되어 있으나, 3장, 6장, 9장에서 'H 호텔'이라는 다른 고객사명이 혼용되어 사용되고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "H 호텔은 지금이 적기입니다"
+     },
+     {
+      "sheet": 6,
+      "quote": "도입 후 H 호텔"
+     },
+     {
+      "sheet": 9,
+      "quote": "파일럿 결과까지 16주, 네 단계로 갑니다"
+     }
+    ],
+    "improve": "제안서 전반에 걸쳐 혼용된 'H 호텔'이라는 명칭을 모두 'Y 그룹'으로 수정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "3장, 6장, 9장에 다른 고객명인 'H 호텔'이 3곳 이상 반복적으로 노출되어 있으며, 10장에는 실제 연락처가 아닌 예시용 연락처가 남아 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "H 호텔은 지금이 적기입니다"
+     },
+     {
+      "sheet": 6,
+      "quote": "도입 후 H 호텔"
+     },
+     {
+      "sheet": 10,
+      "quote": "010-1234-5678"
+     }
+    ],
+    "improve": "다른 고객명인 'H 호텔'을 모두 삭제하고, 10장의 연락처를 실제 담당자의 정보로 교체해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

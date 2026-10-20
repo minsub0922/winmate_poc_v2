@@ -1,0 +1,132 @@
+{
+ "id": "C08_L3",
+ "case": "C08",
+ "industry": "RS",
+ "strategy": "value",
+ "req_type": "new",
+ "title": "아파트 분양 빌트인 · 스마트홈",
+ "level": "complex",
+ "input": {
+  "title": "M 건설 · 1,200세대 단지 가전 · 스마트홈 사양",
+  "customer": "M 건설",
+  "project": "OO 1,200세대 단지 빌트인 · 스마트홈",
+  "target": "분양마케팅팀장",
+  "free_text": "1,200세대 단지(59 · 74 · 84 · 101㎡ 4개 타입) 분양을 앞두고 빌트인 가전과 스마트홈 사양을 정합니다. 모델하우스는 내년 4월 오픈 예정입니다. 기본 사양과 유상 옵션을 나눠야 하고, 세대당 공사비 단가 한도가 있습니다.",
+  "keymen": [
+   {
+    "name": "분양마케팅팀장",
+    "weight": 40,
+    "reqs": [
+     "모델하우스에서 보여 줄 차별화 포인트",
+     "타입별 옵션 패키지 구성"
+    ]
+   },
+   {
+    "name": "설계팀장",
+    "weight": 35,
+    "reqs": [
+     "빌트인 매립 치수 확정",
+     "월패드 · 스마트홈 연동",
+     "시스템에어컨 · 환기 사양"
+    ]
+   },
+   {
+    "name": "구매팀장",
+    "weight": 25,
+    "reqs": [
+     "세대당 공사비 단가 한도 준수",
+     "입주 후 AS 체계"
+    ]
+   }
+  ],
+  "products": [
+   "bi_induction",
+   "bi_dish",
+   "bi_fridge",
+   "ehs",
+   "erv"
+  ],
+  "solutions": [
+   "smartthings"
+  ],
+  "id": "C08_L3"
+ },
+ "gold": {
+  "level": "complex",
+  "industry": "RS",
+  "strategy_any": [
+   "value",
+   "space",
+   "roi"
+  ],
+  "must_parts": [
+   "requirements",
+   "products",
+   "cost"
+  ],
+  "dims_any": [
+   "비용·구매",
+   "기능·성능 규격",
+   "범위·수량·공간"
+  ],
+  "conflicts_any": [],
+  "min_questions": 4,
+  "key_reqs": [
+   {
+    "kw": [
+     "옵션"
+    ],
+    "parts_any": [
+     "value",
+     "products",
+     "bom",
+     "requirements"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "매립"
+    ],
+    "parts_any": [
+     "spec",
+     "products",
+     "requirements"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "월패드"
+    ],
+    "parts_any": [
+     "execution",
+     "solution",
+     "requirements"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "단가"
+    ],
+    "parts_any": [
+     "cost",
+     "requirements"
+    ],
+    "priority": "must"
+   }
+  ],
+  "facts": [
+   "1,200",
+   "4"
+  ],
+  "layouts_any": {
+   "products": [
+    "L_RV_B",
+    "L_P_R",
+    "L_SD_F"
+   ]
+  }
+ }
+}

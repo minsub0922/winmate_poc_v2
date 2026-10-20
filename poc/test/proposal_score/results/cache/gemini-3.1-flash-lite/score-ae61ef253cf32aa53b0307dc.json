@@ -1,0 +1,40 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs09~full:F03"
+ },
+ "prompt_tokens": 3212,
+ "output_tokens": 322,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 2,
+    "anchor": "결정권자가 판단할 시범 구간 승인 및 실측 일정이 13장에 정리되어 있으나, 경영 지표(비용, 리스크 등)와 실무 지표가 명확히 구분된 요약 장이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "1단계 교체 대상 확정과 시범 구간 설치 승인"
+     }
+    ],
+    "improve": "제안서 초반에 결정권자가 즉각적으로 판단할 수 있도록 경영 성과와 리스크를 요약한 Executive Summary 장을 추가하십시오.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS7",
+    "score": 1,
+    "anchor": "구매 방식, 총소유비용(TCO), 투자 회수 기간 등 비용 구조에 관한 정보가 제안서 내에 전혀 언급되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "조달 구매 방식에 따른 비용 구조와 유지보수 비용을 포함한 총소유비용(TCO) 분석 내용을 추가하십시오.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

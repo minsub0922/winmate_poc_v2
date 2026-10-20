@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~base:F01"
+ },
+ "prompt_tokens": 5104,
+ "output_tokens": 342,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명을 'Y 그룹'으로 일관되게 표기하였으며, 사업장 수(260개)와 조직 정보 등 고객 관련 정보가 전 장에 걸쳐 동일하게 유지되었습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "Y 그룹"
+     },
+     {
+      "sheet": 2,
+      "quote": "260개 사업장"
+     },
+     {
+      "sheet": 4,
+      "quote": "Y 그룹의 목표는 ‘그룹 운영 효율’"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "10장에 제안 담당자의 연락처가 예시용 값(010-1234-5678)으로 남아 있어 템플릿 잔여물로 판단됩니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "010-1234-5678"
+     }
+    ],
+    "improve": "제출 전 실제 담당자의 연락처와 이메일 주소로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

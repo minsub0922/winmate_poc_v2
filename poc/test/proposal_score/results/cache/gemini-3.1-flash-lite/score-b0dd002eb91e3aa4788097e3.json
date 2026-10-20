@@ -1,0 +1,108 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs14~full:F10"
+ },
+ "prompt_tokens": 7355,
+ "output_tokens": 888,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "Knox Suite와 Knox Capture를 활용해 기기 관리, 보안, 스캔 업무를 어떻게 수행하는지 운영 장면을 구체적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "Knox Suite로 내 계정 로그인 · 설정 자동"
+     },
+     {
+      "sheet": 11,
+      "quote": "Knox Suite · 현장 단말 94대"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR7",
+    "score": 2,
+    "anchor": "거치대, 교육 등 고객 준비 사항은 언급되나, 전원·네트워크·시공·유지보수·보증에 대한 구체적인 도입 전제 조건이 명시되지 않음.",
+    "evidence": [
+     {
+      "sheet": 15,
+      "quote": "시범 단말 20대 대여"
+     }
+    ],
+    "improve": "설치 환경(Wi-Fi 등)과 유지보수 및 보증 범위를 명확히 기술해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "파일럿 일정, 단계, 역할 분담, 교육 계획이 구체적으로 정리되어 있음.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "3라인 · 입고 도크 1에서 4주 검증합니다"
+     },
+     {
+      "sheet": 15,
+      "quote": "11/2 착수 · 착수 후 1주 운영 시작"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 1,
+    "anchor": "도입 시 발생할 수 있는 리스크와 대응 방안에 대한 내용이 없음.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "공사 중 영업 영향, 시스템 호환성, 일정 지연 등 예상 리스크와 대응 방안을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "마지막 장에 고객이 내릴 결정(파일럿 승인)과 다음 단계별 일정 및 담당자가 명확히 제시됨.",
+    "evidence": [
+     {
+      "sheet": 15,
+      "quote": "승인해 주시면, 11월 2일 첫 라인이 바뀝니다"
+     },
+     {
+      "sheet": 15,
+      "quote": "10/30 본부장 파일럿 승인 · 착수"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "SB5",
+    "score": 3,
+    "anchor": "표지의 제출일이 2026.10.20으로 최신이며, 본문 내 일정과 모순 없이 일치함.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "2026. 10. 20"
+     },
+     {
+      "sheet": 15,
+      "quote": "11/2 착수"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

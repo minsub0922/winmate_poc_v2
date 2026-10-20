@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07:F03"
+ },
+ "prompt_tokens": 2968,
+ "output_tokens": 257,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 2,
+    "anchor": "경영 지표(리뷰 평점, 대기 시간, 전력 절감)가 12장에 제시되어 있으나, 결정권자가 한눈에 볼 수 있는 요약 장(Executive Summary)이 별도로 존재하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "정량 효과 | 8.6 | 리뷰 평점 목표"
+     },
+     {
+      "sheet": 12,
+      "quote": "5분 | 체크인 평균 대기"
+     },
+     {
+      "sheet": 12,
+      "quote": "25% | 객실당 냉난방 전력 절감"
+     }
+    ],
+    "improve": "제안서 초반에 경영 지표와 핵심 성과를 요약한 Executive Summary 장을 추가하여 결정권자가 의사결정에 필요한 정보를 빠르게 파악하도록 구성해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs03:F02"
+ },
+ "prompt_tokens": 7930,
+ "output_tokens": 275,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 2,
+    "anchor": "R1, R3, R4는 [3], [6], [10]장에서 명확히 다루나, R2(방학 시공 가능성)와 K2, K4(예산 집행)에 대한 구체적 대응이나 근거가 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "교수: 기기 연결 · 화면 띄우다 수업이 늦어짐"
+     },
+     {
+      "sheet": 10,
+      "quote": "건물별로 냉난방 시간이 제각각이에요"
+     },
+     {
+      "sheet": 12,
+      "quote": "학기를 멈추지 않고, 방학 6주에 끝냅니다"
+     }
+    ],
+    "improve": "방학 내 시공을 보장하는 구체적 자재 확보 계획과 예산 회계연도 내 집행을 위한 상세 일정표를 보강해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

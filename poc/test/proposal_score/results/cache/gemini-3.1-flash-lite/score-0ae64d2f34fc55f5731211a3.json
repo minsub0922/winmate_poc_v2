@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~placeholders:F01"
+ },
+ "prompt_tokens": 7243,
+ "output_tokens": 257,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "제안서 전반에 걸쳐 [00]과 같은 자리표시가 8곳 이상 발견되며, 특히 2장의 핵심 제목과 4장의 핵심 수치 부분에 남아 있어 1점 기준에 해당합니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "가격이 아니라 [00]년 동안 덜 멈추는 쪽으로"
+     },
+     {
+      "sheet": 4,
+      "quote": "꺼진 채 평균 [00]시간"
+     },
+     {
+      "sheet": 7,
+      "quote": "콘텐츠 1건 배포 시간 · 건당 · [00] · 분"
+     }
+    ],
+    "improve": "제안서 내 모든 [00] 자리표시를 실제 수치로 기입하고, 예시용 연락처를 실제 담당자 정보로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

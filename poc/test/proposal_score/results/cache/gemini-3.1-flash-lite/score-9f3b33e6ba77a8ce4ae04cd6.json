@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~base:F06"
+ },
+ "prompt_tokens": 6668,
+ "output_tokens": 255,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "제안서 내 모든 장에서 6개 점, 354면(사이니지·비디오월), 390대(교체 합계) 등 주요 수치가 일관되게 유지되고 있습니다. 12장의 비디오월 수치 차이는 서로 다른 도입 사례(BMW 25대, 캐딜락 42대)를 인용한 것으로 모순이 아닙니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "사이니지 · 비디오월 354면"
+     },
+     {
+      "sheet": 10,
+      "quote": "교체 합계 390대"
+     },
+     {
+      "sheet": 12,
+      "quote": "BMW 스타필드 시티 위례 · 비디오월 25대"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

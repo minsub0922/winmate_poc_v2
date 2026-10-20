@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07:F01"
+ },
+ "prompt_tokens": 8950,
+ "output_tokens": 337,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명을 'B 호텔'로 일관되게 표기하였으며, 객실 수(300실)와 담당 조직 등 고객 정보가 장마다 동일하게 기술되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "B 호텔 객실 TV · 공조 교체와 투숙 경험 개선 제안"
+     },
+     {
+      "sheet": 10,
+      "quote": "객실 300실은 한 실의 키트로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "본문과 제목에는 템플릿 잔여물이 없으나, 13장의 담당자 연락처가 예시용 번호로 기재되어 있어 수정이 필요합니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "13장의 담당자 연락처를 실제 담당자의 정보로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

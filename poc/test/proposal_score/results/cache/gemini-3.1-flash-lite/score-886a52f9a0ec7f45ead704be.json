@@ -1,0 +1,40 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~full:F03"
+ },
+ "prompt_tokens": 3990,
+ "output_tokens": 360,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 2,
+    "anchor": "경영 지표(리뷰 평점, 대기 시간, 전력 절감)가 12장에 제시되어 있으나, 결정권자가 한눈에 볼 수 있는 요약 장이 별도로 존재하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "정량 효과 | 8.6 | 리뷰 평점 목표 · 현재 8.1 | 5분 | 체크인 평균 대기 · 현재 12분 | 25% | 객실당 냉난방 전력 절감"
+     }
+    ],
+    "improve": "제안서 초반에 경영진이 의사결정을 내릴 수 있도록 성과와 리스크를 요약한 Executive Summary 장을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS7",
+    "score": 1,
+    "anchor": "비용 구조, 총소유비용(TCO), 투자 회수 기간 등 비용과 관련된 정보가 제안서 내에 전혀 언급되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "도입에 따른 총소유비용(TCO) 분석과 투자 회수 기간, 유지보수 비용 등을 포함한 비용 계획을 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

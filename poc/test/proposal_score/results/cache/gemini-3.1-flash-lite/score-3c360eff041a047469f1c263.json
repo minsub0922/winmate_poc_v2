@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~base:F06"
+ },
+ "prompt_tokens": 3599,
+ "output_tokens": 243,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "제안서 내 모든 장에서 260개 사업장, 7일에서 당일로의 변화, 30% 비용 절감, 16주 로드맵 등 주요 수치가 일관되게 기술되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "260개 사업장 화면, 그룹 본사에서 한 번에 바꿉니다"
+     },
+     {
+      "sheet": 5,
+      "quote": "7일 → 당일 | 원격 통합 관리 | -30% | 장애 선제 대응 | 16주 | 단계적 도입"
+     },
+     {
+      "sheet": 9,
+      "quote": "실사부터 파일럿 결과까지 16주, 네 단계로 갑니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

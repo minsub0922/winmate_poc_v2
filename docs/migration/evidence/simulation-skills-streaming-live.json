@@ -1,0 +1,444 @@
+{
+  "verifiedAt": "2026-10-20T06:21:50.550536+00:00",
+  "catalogSha256": "396cf865a54fcaead950fab3855a15fc0476b0c3b0803dab44ee7c8b5e16a9f3",
+  "skills": [
+    {
+      "id": "competitor-analysis",
+      "web": "required"
+    },
+    {
+      "id": "product-fit",
+      "web": "required"
+    },
+    {
+      "id": "solution-design",
+      "web": "required"
+    },
+    {
+      "id": "case-evidence",
+      "web": "required"
+    },
+    {
+      "id": "roi-tco",
+      "web": "required"
+    },
+    {
+      "id": "objection-response",
+      "web": "required"
+    },
+    {
+      "id": "pilot-plan",
+      "web": "required"
+    },
+    {
+      "id": "decision-brief",
+      "web": "required"
+    }
+  ],
+  "liveChecks": [
+    {
+      "skill": "competitor-analysis",
+      "file": "app/tests/output/simulation-skills/competitor-analysis-live.json",
+      "sha256": "445fea2ecccee803d83030dee253e19dac8a1c44067b1841fce83457dfaa4019",
+      "sourceCount": 10,
+      "webQueries": [
+        "remote content management system for retail chain menu boards",
+        "Samsung VXT CMS features for digital signage menu board",
+        "Samsung QM55C specifications",
+        "LG 55UH5N-M specifications",
+        "digital signage 24/7 operation reliability and lifespan comparison"
+      ],
+      "replyCount": 3,
+      "streamChunks": 61,
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 4,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 27097,
+          "output": 4519
+        },
+        "steps": {
+          "simulation:skill:plan": 1,
+          "simulation:skill:web": 1,
+          "simulation:skill:analysis": 1,
+          "simulation:skill:answer": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null
+      }
+    },
+    {
+      "skill": "product-fit",
+      "file": "app/tests/output/simulation-skills/product-fit-live.json",
+      "sha256": "4714e1edcbc2df9a17a46a070eb4a34f7e4d8e09e1c52c7d9144ad91ae6a15cd",
+      "sourceCount": 10,
+      "webQueries": [
+        "삼성 디지털 사이니지 프랜차이즈 카페 도입 사례 운영 효율화",
+        "삼성 스마트 사이니지 55형 메뉴보드 사양 24시간 운영 내구성",
+        "삼성 VXT 클라우드 기반 매장 메뉴보드 원격 통합 관리 솔루션",
+        "삼성 디지털 사이니지 파일럿 테스트 구축 가이드 운영 고려사항"
+      ],
+      "replyCount": 3,
+      "streamChunks": 56,
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 5,
+        "calls_failed": 0,
+        "calls_rejected": 1,
+        "cached": 0,
+        "tokens": {
+          "prompt": 82424,
+          "output": 6275
+        },
+        "steps": {
+          "simulation:skill:plan": 1,
+          "simulation:skill:web": 1,
+          "simulation:skill:analysis": 1,
+          "simulation:skill:answer": 2
+        },
+        "fallbacks": [],
+        "errors": {
+          "invalid_output": 1
+        },
+        "issues": [
+          {
+            "step": "simulation:skill:answer",
+            "code": "invalid_output",
+            "message": "경쟁 비교에는 실제 웹 출처가 필요합니다."
+          }
+        ],
+        "reason": null
+      }
+    },
+    {
+      "skill": "solution-design",
+      "file": "app/tests/output/simulation-skills/solution-design-live.json",
+      "sha256": "441ae6cd1e5cb53bb77b0cb8060769971ec15d2fb115dee2636e5b0f64c52c76",
+      "sourceCount": 7,
+      "webQueries": [
+        "Samsung digital signage pilot project implementation guide retail",
+        "Samsung VXT cloud-based digital signage content management system retail chains",
+        "Samsung 55 inch digital signage for cafe menu board 24/7 operation",
+        "Samsung digital signage remote menu board management software franchise cafes"
+      ],
+      "replyCount": 3,
+      "streamChunks": 41,
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 5,
+        "calls_failed": 0,
+        "calls_rejected": 1,
+        "cached": 0,
+        "tokens": {
+          "prompt": 78888,
+          "output": 5037
+        },
+        "steps": {
+          "simulation:skill:plan": 1,
+          "simulation:skill:web": 1,
+          "simulation:skill:analysis": 1,
+          "simulation:skill:answer": 2
+        },
+        "fallbacks": [],
+        "errors": {
+          "invalid_output": 1
+        },
+        "issues": [
+          {
+            "step": "simulation:skill:answer",
+            "code": "invalid_output",
+            "message": "추천 ref는 실제 검색된 제품·솔루션·사례 중에서 선택하세요."
+          }
+        ],
+        "reason": null
+      }
+    },
+    {
+      "skill": "case-evidence",
+      "file": "app/tests/output/simulation-skills/case-evidence-live.json",
+      "sha256": "7e341e0331a786cb9955e09447466978ffa4fd5e36ab51977fd90557f06e3f22",
+      "sourceCount": 10,
+      "webQueries": [
+        "삼성 상업용 디스플레이 55인치 24시간 내구성 사양",
+        "삼성 VXT 디지털 사이니지 중앙 집중식 원격 관리",
+        "삼성 디지털 사이니지 프랜차이즈 매장 구축 프로세스",
+        "삼성전자 B2B 디지털 사이니지 카페 메뉴보드 솔루션 사례"
+      ],
+      "replyCount": 3,
+      "streamChunks": 29,
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 5,
+        "calls_failed": 0,
+        "calls_rejected": 1,
+        "cached": 0,
+        "tokens": {
+          "prompt": 64930,
+          "output": 4893
+        },
+        "steps": {
+          "simulation:skill:plan": 1,
+          "simulation:skill:web": 1,
+          "simulation:skill:analysis": 1,
+          "simulation:skill:answer": 2
+        },
+        "fallbacks": [],
+        "errors": {
+          "invalid_output": 1
+        },
+        "issues": [
+          {
+            "step": "simulation:skill:answer",
+            "code": "invalid_output",
+            "message": "추천 ref는 실제 검색된 제품·솔루션·사례 중에서 선택하세요."
+          }
+        ],
+        "reason": null
+      }
+    },
+    {
+      "skill": "roi-tco",
+      "file": "app/tests/output/simulation-skills/roi-tco-live.json",
+      "sha256": "4a7c676005f591626c5d4e361e73709fee235caeb1d516f0dd68a5f142b7c254",
+      "sourceCount": 9,
+      "webQueries": [
+        "Samsung Smart Signage 55 inch 24/7 operation specifications",
+        "삼성 스마트 사이니지 55형 24시간 운영 모델 사양",
+        "삼성전자 B2B 사이니지 24시간 운영 가이드"
+      ],
+      "replyCount": 3,
+      "streamChunks": 26,
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 5,
+        "calls_failed": 0,
+        "calls_rejected": 1,
+        "cached": 0,
+        "tokens": {
+          "prompt": 59424,
+          "output": 4209
+        },
+        "steps": {
+          "simulation:skill:plan": 1,
+          "simulation:skill:web": 2,
+          "simulation:skill:analysis": 1,
+          "simulation:skill:answer": 1
+        },
+        "fallbacks": [],
+        "errors": {
+          "invalid_output": 1
+        },
+        "issues": [
+          {
+            "step": "simulation:skill:web",
+            "code": "invalid_output",
+            "message": "실제 검색 출처 없음"
+          }
+        ],
+        "reason": null
+      }
+    },
+    {
+      "skill": "objection-response",
+      "file": "app/tests/output/simulation-skills/objection-response-live.json",
+      "sha256": "c7ec8b8b3abb5bf03ffb608565883ddcab0db1c3d6a7e9c8641bd867d959e579",
+      "sourceCount": 6,
+      "webQueries": [
+        "Samsung VXT cloud-based digital signage content management system retail",
+        "Samsung remote menu board management software franchise cafes",
+        "Samsung 55 inch digital signage for cafe menu board specifications",
+        "Samsung digital signage pilot project implementation guide retail"
+      ],
+      "replyCount": 3,
+      "streamChunks": 49,
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 4,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 25185,
+          "output": 4079
+        },
+        "steps": {
+          "simulation:skill:plan": 1,
+          "simulation:skill:web": 1,
+          "simulation:skill:analysis": 1,
+          "simulation:skill:answer": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null
+      }
+    },
+    {
+      "skill": "pilot-plan",
+      "file": "app/tests/output/simulation-skills/pilot-plan-live.json",
+      "sha256": "e89d9b2460792dff31d1dda06371969943981d1b7fdce3d7f3b55326b93e8b31",
+      "sourceCount": 11,
+      "webQueries": [
+        "디지털 사이니지 PoC 파일럿 검증 항목 성공 지표",
+        "삼성전자 B2B 디지털 사이니지 프랜차이즈 카페 메뉴보드 솔루션 사례",
+        "삼성 55인치 상업용 디스플레이 24시간 운영 내구성 사양",
+        "삼성 디지털 사이니지 원격 배포 시스템 구축 가이드"
+      ],
+      "replyCount": 3,
+      "streamChunks": 61,
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 4,
+        "calls_failed": 0,
+        "calls_rejected": 0,
+        "cached": 0,
+        "tokens": {
+          "prompt": 52058,
+          "output": 4537
+        },
+        "steps": {
+          "simulation:skill:plan": 1,
+          "simulation:skill:web": 1,
+          "simulation:skill:analysis": 1,
+          "simulation:skill:answer": 1
+        },
+        "fallbacks": [],
+        "errors": {},
+        "issues": [],
+        "reason": null
+      }
+    },
+    {
+      "skill": "decision-brief",
+      "file": "app/tests/output/simulation-skills/decision-brief-live.json",
+      "sha256": "7082f39fb841f88bcaedde386e59f4a5ffe6bcdf01ebe52d591fd074b92bfb10",
+      "sourceCount": 11,
+      "webQueries": [
+        "삼성 디지털 사이니지 카페 도입 성공 사례 운영 효율성",
+        "삼성 스마트 사이니지 55형 카운터 메뉴보드 사양 특징",
+        "삼성 MagicINFO 프랜차이즈 카페 메뉴 관리 솔루션 기능",
+        "삼성 디지털 사이니지 24시간 운영 내구성 가이드"
+      ],
+      "replyCount": 3,
+      "streamChunks": 30,
+      "llm": {
+        "requested": "real",
+        "effective": "llm",
+        "strict": true,
+        "models_used": [
+          "gemini-3.1-flash-lite"
+        ],
+        "provider": "gemini",
+        "model": "gemini-3.1-flash-lite",
+        "llm_used": true,
+        "calls_ok": 5,
+        "calls_failed": 0,
+        "calls_rejected": 1,
+        "cached": 0,
+        "tokens": {
+          "prompt": 80541,
+          "output": 4974
+        },
+        "steps": {
+          "simulation:skill:plan": 1,
+          "simulation:skill:web": 1,
+          "simulation:skill:analysis": 1,
+          "simulation:skill:answer": 2
+        },
+        "fallbacks": [],
+        "errors": {
+          "invalid_output": 1
+        },
+        "issues": [
+          {
+            "step": "simulation:skill:answer",
+            "code": "invalid_output",
+            "message": "추천 ref는 실제 검색된 제품·솔루션·사례 중에서 선택하세요."
+          }
+        ],
+        "reason": null
+      }
+    }
+  ],
+  "browserReport": "app/tests/output/simulation-skills-ui/report.json",
+  "tests": {
+    "apiRegression": 226,
+    "apiSubtests": 74,
+    "skillAndProvider": 51,
+    "simulationUI": 9,
+    "skillUI": 7,
+    "simulationEngine": 19,
+    "personas": 7
+  },
+  "deployment": {
+    "port": 8788,
+    "health": true,
+    "knowledgeAvailable": true,
+    "staleInputs": [],
+    "builtAsset": "app/web/dist/assets/App-B3IOB8JW.js",
+    "assetSha256": "a85a0b039df7a746440d479e917bd187d32acd2e146dd021f8520b5d2755906f",
+    "authProtection": 401,
+    "staticRoot": "app/web/dist"
+  }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07:F02"
+ },
+ "prompt_tokens": 8376,
+ "output_tokens": 248,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 요구사항 4가지(체크인 대기, 무중단 영업, 에어컨 소음, 운영 인력 절감)에 대해 각각 대응하는 장(4, 5, 8, 9, 11장)이 명확히 존재하며, 각 장에서 해당 요구를 명시하고 해법을 제시함.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "체크인 대기 · 에어컨 소음 · 객실 안 정보 부족"
+     },
+     {
+      "sheet": 8,
+      "quote": "체크인 대기가 길다는 리뷰가 많아요"
+     },
+     {
+      "sheet": 11,
+      "quote": "객실 판매는 층마다 하룻밤만 멈춥니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

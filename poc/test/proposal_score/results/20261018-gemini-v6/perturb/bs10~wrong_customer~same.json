@@ -1,0 +1,703 @@
+{
+ "id": "bs10",
+ "variant": "~wrong_customer",
+ "title": "경쟁사 장비 교체 · 공급사 전환 제안",
+ "customer": "G 쇼핑몰",
+ "n_sheets": 13,
+ "req": "경쟁 입찰 · 공급사 전환",
+ "strategy": "경쟁 우위형",
+ "ind": "",
+ "route": {
+  "selected": [
+   "CU2",
+   "CU3",
+   "MK3",
+   "PR4",
+   "VS4",
+   "VS6",
+   "VS8",
+   "DS3",
+   "DS4",
+   "DS7",
+   "WR1"
+  ],
+  "mode": "forced",
+  "error": "",
+  "l1": [],
+  "l2": [],
+  "criteria": [],
+  "seeds": {},
+  "local": {},
+  "rule_pass": [],
+  "risk": [],
+  "gates": {
+   "CU1": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU2": {
+    "applies": true,
+    "why": "비교할 고객 요구사항 7개"
+   },
+   "CU3": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU4": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "CU6": {
+    "applies": false,
+    "why": "업종을 특정하지 못했어요"
+   },
+   "MK1": {
+    "applies": true,
+    "why": "시장 관련 3장"
+   },
+   "MK2": {
+    "applies": true,
+    "why": "연도 언급 12개"
+   },
+   "MK3": {
+    "applies": true,
+    "why": "수치 112개"
+   },
+   "MK4": {
+    "applies": true,
+    "why": "수치 112개"
+   },
+   "MK5": {
+    "applies": true,
+    "why": "경쟁 비교: 3장"
+   },
+   "MK6": {
+    "applies": true,
+    "why": "시장 · 분석 장 있음"
+   },
+   "PR1": {
+    "applies": true,
+    "why": "제품 4종 언급"
+   },
+   "PR2": {
+    "applies": true,
+    "why": "제품 4종 언급"
+   },
+   "PR3": {
+    "applies": true,
+    "why": "제품 4종 언급"
+   },
+   "PR4": {
+    "applies": true,
+    "why": "솔루션: MagicINFO"
+   },
+   "PR5": {
+    "applies": true,
+    "why": "제품 4종 언급"
+   },
+   "PR6": {
+    "applies": true,
+    "why": "제품 4종 언급"
+   },
+   "PR7": {
+    "applies": true,
+    "why": "제품 4종 언급"
+   },
+   "VS1": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS2": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS3": {
+    "applies": true,
+    "why": "13장 흐름"
+   },
+   "VS4": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS6": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS7": {
+    "applies": true,
+    "why": "본 제안 분량"
+   },
+   "VS8": {
+    "applies": true,
+    "why": "본 제안 분량"
+   },
+   "VS9": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "VS10": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS1": {
+    "applies": true,
+    "why": "장마다 글자 상자 위치 · 크기를 쟀어요"
+   },
+   "DS2": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS3": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS4": {
+    "applies": true,
+    "why": "글자 크기 정보 있음"
+   },
+   "DS5": {
+    "applies": true,
+    "why": "폰트 2종"
+   },
+   "DS6": {
+    "applies": true,
+    "why": "장표형 문서"
+   },
+   "DS7": {
+    "applies": true,
+    "why": "장표형 문서"
+   },
+   "DS8": {
+    "applies": true,
+    "why": "차트 0 · 표 0 · 수치 112"
+   },
+   "DS9": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "DS10": {
+    "applies": false,
+    "why": "장표 화면(이미지)이 없어요 — 색 · 톤은 판단 불가"
+   },
+   "WR1": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR2": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR3": {
+    "applies": true,
+    "why": "브랜드 표기 MagicINFO"
+   },
+   "WR4": {
+    "applies": true,
+    "why": "수치 112개"
+   },
+   "WR5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR6": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "WR7": {
+    "applies": true,
+    "why": "사양 · 효과 수치 · 이미지 있음"
+   },
+   "WR8": {
+    "applies": true,
+    "why": "약어 TCO, DVM, SLA, KEY"
+   },
+   "WR9": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "SB1": {
+    "applies": true,
+    "why": "장표형 문서"
+   },
+   "SB2": {
+    "applies": true,
+    "why": "5장 이상 장표"
+   },
+   "SB3": {
+    "applies": false,
+    "why": "앱에서 만든 장 · PDF 는 노트 · 숨김 장 · 댓글 정보가 없어요"
+   },
+   "SB4": {
+    "applies": false,
+    "why": "파일 속성이 없어요"
+   },
+   "SB5": {
+    "applies": true,
+    "why": "모든 제안서"
+   },
+   "SB6": {
+    "applies": false,
+    "why": "RFP 형식 요구가 연결되지 않았어요"
+   }
+  }
+ },
+ "scores": [
+  {
+   "id": "CU2",
+   "score": 3,
+   "anchor": "고객의 요구사항 7가지(R1~R3, K1~K4)에 대해 각 장에서 명시적으로 대응하고 있습니다. 자동 점검에서 지적된 AS 지연은 4장과 11장에서, 기존 자산 활용은 7장과 10장에서 구체적인 해법을 제시하고 있습니다.",
+   "evidence": [
+    {
+     "sheet": 4,
+     "quote": "AS 대기 1.5일"
+    },
+    {
+     "sheet": 7,
+     "quote": "기존 장비 보상"
+    },
+    {
+     "sheet": 10,
+     "quote": "철거 · 보상 매입 포함"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F02",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "CU3",
+   "score": 3,
+   "anchor": "제안 개요(2장)에서 경영 지표인 TCO와 장애율 개선 효과를 요약하고, 마무리(13장)에서 결정권자가 승인해야 할 3가지 사항을 명확히 구분하여 정리함.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "5년 −12% 5년 총비용 · 현 공급사 안 대비"
+    },
+    {
+     "sheet": 13,
+     "quote": "12월 발주 전 정할 세 가지"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F03",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "MK3",
+   "score": 1,
+   "anchor": "대부분의 장에서 수치에 대한 구체적인 출처 기관과 연도가 명시되지 않았으며, 일부는 '삼성전자 추정'과 같이 모호하게 표기되어 있습니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "월 장애율 3.0% · 사이니지 300대"
+    },
+    {
+     "sheet": 4,
+     "quote": "꺼진 채 평균 38시간 · 월 11건"
+    },
+    {
+     "sheet": 5,
+     "quote": "원 크기는 설치 규모 · 공개 자료"
+    }
+   ],
+   "improve": "모든 수치와 성과 지표에 대해 조사 기관과 연도를 명확히 기재하고, 고객 내부 자료는 '고객사 시설팀 자료(2026)'와 같이 구체적으로 표기해야 합니다.",
+   "confidence": "high",
+   "community": "F05",
+   "mode": "llm",
+   "grounded": 0.667,
+   "error": ""
+  },
+  {
+   "id": "PR4",
+   "score": 3,
+   "anchor": "MagicINFO 솔루션을 통해 장애 자동 감지, 원격 재부팅, 콘텐츠 배포 등 운영 관리 역할을 구체적으로 명시하고 서비스 현장 사진과 함께 운영 장면을 제시함.",
+   "evidence": [
+    {
+     "sheet": 10,
+     "quote": "MagicINFO 설치형 | 꺼진 화면 즉시 알림 · 일괄 배포"
+    },
+    {
+     "sheet": 11,
+     "quote": "MagicINFO 원격 진단 · 재부팅 · 콘텐츠 복구"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F10",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "VS4",
+   "score": 3,
+   "anchor": "삼성의 통합 솔루션(사이니지·공조), 원격 감시 SLA, 전국 서비스망, 유관 레퍼런스를 고객의 장애·AS 불만 및 운영 리스크 과제와 구체적으로 연결하여 제시함.",
+   "evidence": [
+    {
+     "sheet": 6,
+     "quote": "장애 자동 감지, 복구 시간 SLA, 24/7 연속 운영, 한 계약·한 창구"
+    },
+    {
+     "sheet": 11,
+     "quote": "6개 점 4시간 이내 현장 방문, 전담 엔지니어 직접 방문, 공조 포함"
+    },
+    {
+     "sheet": 12,
+     "quote": "쇼핑몰·유통·상업시설이 이미 같은 구성을 씁니다"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F07",
+   "mode": "llm",
+   "grounded": 0.333,
+   "error": ""
+  },
+  {
+   "id": "VS6",
+   "score": 3,
+   "anchor": "1차 전환 범위, 병행 운영, 교육, 보상 단가 확정 등 12월 발주까지의 구체적인 일정과 단계별 추진 계획을 명시함.",
+   "evidence": [
+    {
+     "sheet": 13,
+     "quote": "12월 발주 전 정할 세 가지"
+    },
+    {
+     "sheet": 13,
+     "quote": "1차 전환 범위 확정 — 대전점 · 청주점"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F10",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "VS8",
+   "score": 3,
+   "anchor": "고객이 우려하는 운영팀 숙련도 문제와 초기 비용 부담 리스크를 먼저 짚고, 병행 운영 및 교육, 보상 매입 등 구체적인 대응 방안을 제시함.",
+   "evidence": [
+    {
+     "sheet": 7,
+     "quote": "두 가지는 현 공급사가 앞섭니다 — 이렇게 메웁니다"
+    },
+    {
+     "sheet": 7,
+     "quote": "점별 2주 병행 운영 · 운영자 교육 3회"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F10",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "DS3",
+   "score": 1,
+   "anchor": "110어절을 초과하는 장이 10개로, 4장 이상이라는 1점 기준을 충족합니다.",
+   "evidence": [
+    {
+     "sheet": 3,
+     "quote": "H 호텔, 다섯 지표 중 셋이 업계보다 무겁습니다"
+    },
+    {
+     "sheet": 8,
+     "quote": "재계약 협상에서 나올 세 가지 말, 사실과 증거로 답합니다"
+    }
+   ],
+   "improve": "각 장의 핵심 메시지를 중심으로 텍스트를 대폭 줄이고 개조식 구성을 강화해야 합니다.",
+   "confidence": "high",
+   "community": "F11",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "DS4",
+   "score": 1,
+   "anchor": "20자 넘는 본문 칸의 52%가 10pt 미만이며, 9pt 미만 본문 칸이 있는 장이 3장 이상 확인됩니다.",
+   "evidence": [
+    {
+     "sheet": 5,
+     "quote": "공급사는 '가격형'과 '운영 책임형'으로 나뉩니다"
+    },
+    {
+     "sheet": 7,
+     "quote": "두 가지는 현 공급사가 앞섭니다 — 이렇게 메웁니다"
+    },
+    {
+     "sheet": 13,
+     "quote": "12월 발주 전 정할 세 가지"
+    }
+   ],
+   "improve": "본문 텍스트의 기본 글자 크기를 12pt(16px) 이상으로 상향 조정해야 합니다.",
+   "confidence": "high",
+   "community": "F11",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "DS7",
+   "score": 3,
+   "anchor": "본문 장 제목 13개 중 12개가 결론을 담은 문장형이며, 제목만 순서대로 읽어도 제안의 핵심 논리와 흐름이 명확하게 파악됩니다.",
+   "evidence": [
+    {
+     "sheet": 2,
+     "quote": "가격이 아니라 5년 동안 덜 멈추는 쪽으로"
+    },
+    {
+     "sheet": 5,
+     "quote": "공급사는 '가격형'과 '운영 책임형'으로 나뉩니다"
+    },
+    {
+     "sheet": 9,
+     "quote": "5년을 보면, 처음 가격의 순서가 바뀝니다"
+    }
+   ],
+   "improve": "",
+   "confidence": "high",
+   "community": "F08",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  },
+  {
+   "id": "WR1",
+   "score": 1,
+   "anchor": "제안서 전반에 걸쳐 고객사명이 'G 쇼핑몰'이 아닌 'H 호텔'로 잘못 기재된 곳이 4곳 확인됩니다.",
+   "evidence": [
+    {
+     "sheet": 3,
+     "quote": "H 호텔, 다섯 지표 중 셋이 업계보다 무겁습니다"
+    },
+    {
+     "sheet": 6,
+     "quote": "H 호텔 평가 기준 다섯 가지로 비교"
+    },
+    {
+     "sheet": 9,
+     "quote": "H 호텔"
+    }
+   ],
+   "improve": "제안서 내 모든 페이지의 고객사명을 'H 호텔'에서 'G 쇼핑몰'로 일괄 수정해야 합니다.",
+   "confidence": "high",
+   "community": "F01",
+   "mode": "llm",
+   "grounded": 1.0,
+   "error": ""
+  }
+ ],
+ "aggregate": {
+  "total": 64.2,
+  "band": "보완",
+  "verdict": "보완 필요",
+  "rubric_mean": 2.217,
+  "categories": {
+   "CU": 100.0,
+   "MK": 0.0,
+   "PR": 100.0,
+   "VS": 100.0,
+   "DS": 33.3,
+   "WR": 0.0
+  },
+  "communities": {
+   "F01": 1.0,
+   "F02": 3.0,
+   "F03": 3.0,
+   "F05": 1.0,
+   "F07": 3.0,
+   "F08": 3.0,
+   "F10": 3.0,
+   "F11": 1.0,
+   "C1": 1.0,
+   "C2": 3.0,
+   "C3": 2.33,
+   "C4": 1.67
+  },
+  "n_all": 54,
+  "n_applicable": 49,
+  "n_selected": 11,
+  "n_scored": 11,
+  "weight_coverage": 0.253,
+  "dist": {
+   "1": 4,
+   "2": 0,
+   "3": 7
+  },
+  "low": [
+   "WR1",
+   "MK3",
+   "DS3",
+   "DS4"
+  ]
+ },
+ "rule_pass": [],
+ "risk": [],
+ "grounded_mean": 0.909,
+ "fallbacks": 0,
+ "auto_checks": {
+  "CU5": [
+   "고객사명 “G 쇼핑몰”이 나오는 장: 9/13장"
+  ],
+  "CU1": [
+   "고객사명 “G 쇼핑몰” 표기: 9개 장",
+   "다른 시나리오 고객명이 들어 있음: 3장 “H 호텔”, 6장 “H 호텔”, 9장 “H 호텔”, 12장 “H 호텔”"
+  ],
+  "WR1": [
+   "이전 · 다른 고객명: 3장 “H 호텔”, 6장 “H 호텔”, 9장 “H 호텔”, 12장 “H 호텔”",
+   "자리표시 · 템플릿 문구 0곳",
+   "예시용(가짜) 연락처 — 제출 전 실제 값으로 바꿀 자리: 13장 “프로 · B2B 영업팀 · 010-1234-5678 · b2b.proposal@”"
+  ],
+  "MK4": [
+   "같은 앞말 · 단위인데 크게 다른 값(다른 대상일 수 있음): “비디오월 N대” 25대(12장) · 42대(12장)"
+  ],
+  "MK2": [
+   "자료 기준 연도 표기 6곳 · 3년 이상 된 자료 연도 없음"
+  ],
+  "MK3": [
+   "수치 3개 이상인 장 11개 중 출처 · 기준 표기 없는 장: 2, 4, 5, 12, 13"
+  ],
+  "WR5": [
+   "절대 표현 0곳"
+  ],
+  "WR3": [
+   "공식 표기와 다른 브랜드명 0곳"
+  ],
+  "WR6": [
+   "내부 · 민감 정보 의심 표현 0곳"
+  ],
+  "WR7": [
+   "고지 · 전제 문구가 있는 장: 3, 5, 7, 8, 9"
+  ],
+  "WR4": [
+   "단위 표기: 혼용 패턴을 찾지 못했어요"
+  ],
+  "WR8": [
+   "약어 8개 중 풀이가 보이지 않는 것: DVM, KEY, SW, SM, BMW"
+  ],
+  "PR2": [
+   "카탈로그 사양 — QM55C: 스마트 사이니지 QM55C · 55\" · 500nit · 4K UHD · 24/7 운영 / VM55B: 비디오월 VM55B · 55\" · 초슬림 베젤 · 다면 구성 / 360 Cassette: 360 카세트 · 원형 360° 기류 · 인테리어 조화 / DVM S2: DVM S2 시스템에어컨 · 실외기 1대에 실내기 다수 · 고효율 · 개별 제어"
+  ],
+  "PR3": [
+   "카탈로그 권장 공간 — QM55C: 카운터, 메뉴보드, 로비, 대기 공간, 매장 / VM55B: 관제실, 상황실, 로비, 쇼룸 / 360 Cassette: 매장, 카페, 쇼룸, 라운지 / DVM S2: 오피스 층, 학교, 병원"
+  ],
+  "PR1": [
+   "카탈로그에 있는 모델 4종 · 카탈로그에 없는 모델 표기 없음"
+  ],
+  "DS1": [
+   "글자 넘침 0곳 · 장표 밖 0곳 · 텍스트 겹침 0쌍",
+   "제목 위치가 다른 장과 다른 장: 2, 13"
+  ],
+  "DS5": [
+   "제목 글자 크기 분포(px: 장 수) {30: 12} · 폰트: 앱 레이아웃 공통(Noto Sans KR · Manrope)"
+  ],
+  "DS7": [
+   "본문 장 12개 중 결론 · 메시지형 제목 11개 (92%) · 라벨형일 수 있는 제목: 13장 “12월 발주 전 정할 세 가지”"
+  ],
+  "DS3": [
+   "장당 평균 123어절 · 최대 171어절 · 110어절 넘는 장: 3장(120), 4장(133), 5장(147), 6장(112), 7장(161), 8장(171), 9장(140), 10장(143), 11장(116), 13장(119)"
+  ],
+  "DS4": [
+   "20자 넘는 본문 칸 66개: 12pt(16px) 이상 15개(23%) · 10pt(13.3px) 미만 34개(52%) · 9pt(12px) 미만 본문 칸이 있는 장 3장 (5, 7, 13)",
+   "20자 넘는 본문 칸의 글자 크기 분포(px: 칸 수) {12: 18, 13: 13, 15: 12, 30: 10, 14: 5, 11: 3}"
+  ],
+  "DS6": [
+   "사진 · 이미지가 없는 본문 장 0/12장 · 빈 이미지 칸 0개 · 사진 중심 레이아웃 13장"
+  ],
+  "DS9": [
+   "13장 · 발표 미정분 · 중복 레이아웃 없음"
+  ],
+  "SB2": [
+   "쪽번호 · CONFIDENTIAL 푸터가 있는 본문 장 12/12장 (표지 · 간지 제외)"
+  ],
+  "SB1": [
+   "표지(1장): 고객사명 있음 · 날짜 있음 2026.10 · 제안사 표기 있음 · 목차 장: 없음 · 마무리 장: 13"
+  ],
+  "SB5": [
+   "표지 날짜: 2026.10 · 덱 안의 연 · 월 표기: 2026.01, 2026.09, 2026.10"
+  ],
+  "VS3": [
+   "단계 → 파트 순서: 열기(2) → 맥락 · 지금 위치(1) → 문제 · 원인(1) → 근거 · 비교와 반론(4) → 구성 · TCO와 전환(2) → 실행 · 지원 체계(2) → 결정 요청(1)"
+  ],
+  "CU2": [
+   "요구 7개 중 핵심 낱말이 본문에 거의 없는 것 2개: 지금 업체 AS가 너무 늦어요 / 기존 자산 활용"
+  ]
+ },
+ "profile": {
+  "kind": "winmate",
+  "slides": true,
+  "units": 13,
+  "customer": "G 쇼핑몰",
+  "ind": null,
+  "ind_name": "",
+  "products": [
+   "QM55C",
+   "VM55B",
+   "360 Cassette",
+   "DVM S2"
+  ],
+  "unknown_models": [],
+  "older_models": [],
+  "solutions": [
+   "MagicINFO"
+  ],
+  "figures": 112,
+  "years": 12,
+  "competitors": [],
+  "brand_terms": [
+   "MagicINFO"
+  ],
+  "abbrs": [
+   "TCO",
+   "DVM",
+   "SLA",
+   "KEY",
+   "CMS",
+   "SW",
+   "SM",
+   "BMW"
+  ],
+  "font_count": 2,
+  "fonts": [
+   "Noto Sans KR",
+   "Manrope"
+  ],
+  "pics": 44,
+  "charts": 0,
+  "tables": 0,
+  "market_units": 3,
+  "comp_units": 3,
+  "cost_units": 0,
+  "rfp_like": true,
+  "rfp_format": false,
+  "visual": false,
+  "meta_avail": false
+ },
+ "calls": 8,
+ "tokens": {
+  "prompt": 93431,
+  "output": 6874
+ },
+ "seconds": 0.1,
+ "_kind": "wrong_customer",
+ "_mode": "same"
+}

@@ -1,0 +1,56 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~base:F11"
+ },
+ "prompt_tokens": 2603,
+ "output_tokens": 465,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 초과하는 장이 5장(2, 3, 4, 7, 10장)으로 4장 이상 존재하여 발표 자료로 읽기에 부적합합니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "116어절"
+     },
+     {
+      "sheet": 4,
+      "quote": "134어절"
+     },
+     {
+      "sheet": 7,
+      "quote": "123어절"
+     }
+    ],
+    "improve": "각 장의 핵심 메시지를 제외한 부연 설명을 과감히 삭제하여 장당 어절 수를 77어절 이하로 줄여야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 36%가 10pt 미만이며, 9pt 미만 본문 칸이 포함된 장이 존재하여 가독성이 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "본문 최소 11.5px(8.6pt)"
+     },
+     {
+      "sheet": 2,
+      "quote": "본문 최소 11px(8.2pt)"
+     },
+     {
+      "sheet": 10,
+      "quote": "본문 최소 11px(8.2pt)"
+     }
+    ],
+    "improve": "본문 텍스트의 최소 글자 크기를 12pt(16px) 이상으로 상향 조정하고, 불필요한 텍스트 양을 줄여 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

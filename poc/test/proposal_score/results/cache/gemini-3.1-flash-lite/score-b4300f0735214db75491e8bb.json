@@ -1,0 +1,120 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs14~full:F11"
+ },
+ "prompt_tokens": 5672,
+ "output_tokens": 1035,
+ "data": {
+  "scores": [
+   {
+    "id": "DS1",
+    "score": 2,
+    "anchor": "11장에서 텍스트 겹침이 발생하고 13, 15장에서 제목 위치가 다른 장과 일관되지 않게 배치되었습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "겹침 1"
+     },
+     {
+      "sheet": 13,
+      "quote": "제목 30px@(556,66)"
+     },
+     {
+      "sheet": 15,
+      "quote": "제목 30px@(648,66)"
+     }
+    ],
+    "improve": "11장의 텍스트 겹침을 해소하고 모든 장의 제목 위치를 동일한 좌표로 통일해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS2",
+    "score": 2,
+    "anchor": "대부분 장은 요지가 명확하나, 2, 3, 6, 7, 8, 9장 등은 어절 수가 많아 메시지가 분산될 우려가 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "336어절"
+     },
+     {
+      "sheet": 7,
+      "quote": "237어절"
+     }
+    ],
+    "improve": "장당 어절 수를 줄이고 핵심 메시지를 강조하는 시각적 요소를 강화해야 합니다.",
+    "confidence": "mid"
+   },
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 10장으로 기준치인 4장을 크게 초과하며, 장당 평균 어절 수도 167어절로 매우 높습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "336어절"
+     },
+     {
+      "sheet": 7,
+      "quote": "237어절"
+     }
+    ],
+    "improve": "각 장의 텍스트를 핵심 위주로 대폭 요약하여 장당 110어절 이하로 줄여야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 64%가 10pt 미만이며, 9pt 미만 본문 칸이 6개 장에 존재하여 가독성이 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "본문 최소 11px(8.2pt)"
+     },
+     {
+      "sheet": 3,
+      "quote": "본문 최소 11px(8.2pt)"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS5",
+    "score": 3,
+    "anchor": "폰트는 Noto Sans KR과 Manrope 2종을 사용하며, 모든 장에서 제목 크기가 30px로 일정하게 유지됩니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "폰트: 앱 레이아웃 공통(Noto Sans KR · Manrope)"
+     },
+     {
+      "sheet": 14,
+      "quote": "제목 30px@(64,66)"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "DS6",
+    "score": 3,
+    "anchor": "모든 장에 실제 현장 사진과 도식이 포함되어 있으며, 텍스트만으로 구성된 장이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "사진 1"
+     },
+     {
+      "sheet": 9,
+      "quote": "사진 12"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

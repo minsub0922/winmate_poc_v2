@@ -1,0 +1,145 @@
+{
+ "id": "C03_L3",
+ "case": "C03",
+ "industry": "HT",
+ "strategy": "pain",
+ "req_type": "renew",
+ "title": "비즈니스 호텔 객실 리뉴얼",
+ "level": "complex",
+ "input": {
+  "title": "G 호텔 · 객실 · 공용부 리뉴얼",
+  "customer": "G 비즈니스 호텔",
+  "project": "객실 · 공용부 리뉴얼",
+  "target": "총지배인",
+  "free_text": "객실 300실 TV · 냉방 교체와 로비 · 연회장 사이니지 신설. 리뉴얼 공사 중에도 영업은 멈출 수 없어 층별 야간 공사로 진행해야 합니다. 3개 공급사 견적을 비교할 예정입니다.",
+  "keymen": [
+   {
+    "name": "총지배인",
+    "weight": 50,
+    "reqs": [
+     "체크인 대기 시간 줄이기",
+     "리뉴얼 공사 중에도 영업 유지",
+     "투숙객 리뷰 평점 개선"
+    ]
+   },
+   {
+    "name": "객실팀장",
+    "weight": 30,
+    "reqs": [
+     "객실 TV에서 호텔 안내 · 미러링 제공",
+     "냉방 소음 민원 해소",
+     "객실 컨디션 원격 확인"
+    ]
+   },
+   {
+    "name": "시설팀장",
+    "weight": 20,
+    "reqs": [
+     "객실 공조 에너지 절감",
+     "장비 장애 시 4시간 내 출동"
+    ]
+   }
+  ],
+  "files": [
+   {
+    "name": "RFP_G호텔_객실리뉴얼.pdf",
+    "text": "",
+    "memo": "객실 300실 · 연회장 3 · 로비 1 · 피트니스 1"
+   }
+  ],
+  "products": [
+   "hoteltv",
+   "wf1way",
+   "qm55c"
+  ],
+  "solutions": [
+   "lynk"
+  ],
+  "id": "C03_L3"
+ },
+ "gold": {
+  "level": "complex",
+  "industry": "HT",
+  "strategy_any": [
+   "pain",
+   "space",
+   "compete",
+   "value"
+  ],
+  "must_parts": [
+   "requirements",
+   "products",
+   "execution"
+  ],
+  "dims_any": [
+   "사용자 경험·성과",
+   "일정·실행·확산",
+   "운영·유지보수"
+  ],
+  "conflicts_any": [
+   "시공 vs 영업 유지"
+  ],
+  "min_questions": 4,
+  "key_reqs": [
+   {
+    "kw": [
+     "체크인"
+    ],
+    "parts_any": [
+     "scenario",
+     "value",
+     "effect",
+     "user",
+     "requirements"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "영업",
+     "유지"
+    ],
+    "parts_any": [
+     "execution",
+     "requirements"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "소음"
+    ],
+    "parts_any": [
+     "value",
+     "products",
+     "challenge",
+     "effect",
+     "requirements"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "4시간"
+    ],
+    "parts_any": [
+     "execution",
+     "why",
+     "requirements"
+    ],
+    "priority": "should"
+   }
+  ],
+  "facts": [
+   "300"
+  ],
+  "layouts_any": {
+   "execution": [
+    "L_IP_C"
+   ],
+   "requirements": [
+    "L_RM_A"
+   ]
+  }
+ }
+}

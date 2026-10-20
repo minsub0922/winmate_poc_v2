@@ -1,0 +1,330 @@
+{
+ "id": "B08",
+ "title": "프로야구 홈구장 전광판·관람환경 리뉴얼 (경쟁사 선제안 상황)",
+ "exp_level": "complex",
+ "level": "complex",
+ "exp_industry": "VN",
+ "industry": "AD",
+ "exp_strategy": "compete",
+ "strategy": "rfp",
+ "scenario": "rfp",
+ "exp_products": [
+  "kiosk",
+  "led_outdoor",
+  "qm55c"
+ ],
+ "products": [
+  "kiosk",
+  "led_outdoor"
+ ],
+ "solutions": [
+  "care",
+  "content"
+ ],
+ "prod_recall": 0.667,
+ "prod_precision": 1.0,
+ "must_show": 1.0,
+ "must_show_miss": [],
+ "facts": 1.0,
+ "facts_miss": [],
+ "must_not_hit": [],
+ "parts": [
+  "cover:한빛파크 디지털 혁신",
+  "overview:사업 이해 및 범위",
+  "requirements:핵심 이해관계자 니즈",
+  "requirements:평가 항목 대응 전략",
+  "requirements:요구사항 대응 체계",
+  "value:가치 제안 및 기대효과",
+  "solution:운영 및 유지보수",
+  "products:공간별 최적 제품",
+  "bom:통합 구축 범위",
+  "spec:내구성 및 구조 안전",
+  "execution:기술 지원 및 교육",
+  "effect:관람 환경 개선",
+  "case:성공적인 구축 사례",
+  "why:차별화된 경쟁력",
+  "execution:안정적인 공사 일정",
+  "cost:비용 효율성 및 TCO",
+  "closing:성공적인 파트너십"
+ ],
+ "questions": [
+  "strategy",
+  "ending",
+  "keyman",
+  "conflict_C5",
+  "conflict_L1",
+  "conflict_L2",
+  "gap_llm1",
+  "gap_llm2",
+  "gap_llm3",
+  "llm_Q01",
+  "llm_Q02",
+  "llm_Q03",
+  "length"
+ ],
+ "conflicts": [
+  "키맨 관심사 분산",
+  "LLM 발견",
+  "LLM 발견",
+  "LLM 발견"
+ ],
+ "issues": [
+  "[low] 편집할 수 없는(data-tb 없는) 다른 업종 샘플 문구가 남은 장표 1장 — 원본 레이아웃 보완 필요",
+  "[low] 입찰 절차 · 제출 조건 3개는 제출 체크리스트로 따로 확인(요구 대응표에 수록)"
+ ],
+ "stats": {
+  "n_slides": 17,
+  "text_slots": 940,
+  "placeholders": 54,
+  "slides_with_ph": 12,
+  "sample_text_kept": 325,
+  "img_slots": 7,
+  "img_filled": 7,
+  "photo_slides": 2,
+  "stray_slides": 0,
+  "slides": [
+   {
+    "no": 1,
+    "code": "C08",
+    "f": "L_C08",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "message",
+     "photo"
+    ],
+    "ph": 0,
+    "img_slots": 3,
+    "img_filled": 3,
+    "kept_sample": 6,
+    "stray": []
+   },
+   {
+    "no": 2,
+    "code": "OV-A",
+    "f": "L_OV_A",
+    "visual": [
+     "cards",
+     "flow",
+     "message"
+    ],
+    "ph": 5,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 30,
+    "stray": []
+   },
+   {
+    "no": 3,
+    "code": "RM-A",
+    "f": "L_RM_A",
+    "visual": [
+     "table"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 7,
+    "stray": []
+   },
+   {
+    "no": 4,
+    "code": "RM-C",
+    "f": "L_RM_C",
+    "visual": [
+     "table"
+    ],
+    "ph": 2,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 30,
+    "stray": []
+   },
+   {
+    "no": 5,
+    "code": "RM-B",
+    "f": "L_RM_B",
+    "visual": [
+     "table"
+    ],
+    "ph": 3,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 15,
+    "stray": []
+   },
+   {
+    "no": 6,
+    "code": "VP-D",
+    "f": "L_VP_D",
+    "visual": [
+     "cards",
+     "photo"
+    ],
+    "ph": 1,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 7,
+    "stray": []
+   },
+   {
+    "no": 7,
+    "code": "SA-C",
+    "f": "L_SA_C",
+    "visual": [
+     "cards",
+     "diagram"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 21,
+    "stray": []
+   },
+   {
+    "no": 8,
+    "code": "P2-B",
+    "f": "L_P2B",
+    "visual": [
+     "cards"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 0,
+    "stray": []
+   },
+   {
+    "no": 9,
+    "code": "BM-C",
+    "f": "L_BM_C",
+    "visual": [
+     "cards"
+    ],
+    "ph": 2,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 17,
+    "stray": []
+   },
+   {
+    "no": 10,
+    "code": "SC-B",
+    "f": "L_SC_B",
+    "visual": [
+     "comparison",
+     "table"
+    ],
+    "ph": 1,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 13,
+    "stray": []
+   },
+   {
+    "no": 11,
+    "code": "IG-A",
+    "f": "L_IG_A",
+    "visual": [
+     "diagram",
+     "matrix",
+     "table"
+    ],
+    "ph": 3,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 23,
+    "stray": []
+   },
+   {
+    "no": 12,
+    "code": "EF-C",
+    "f": "L_EF_C",
+    "visual": [
+     "cards",
+     "kpi"
+    ],
+    "ph": 2,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 3,
+    "stray": []
+   },
+   {
+    "no": 13,
+    "code": "CD-D",
+    "f": "L_CD_D",
+    "visual": [
+     "cards",
+     "image_heavy",
+     "photo"
+    ],
+    "ph": 1,
+    "img_slots": 4,
+    "img_filled": 4,
+    "kept_sample": 11,
+    "stray": []
+   },
+   {
+    "no": 14,
+    "code": "CM-B",
+    "f": "L_CM_B",
+    "visual": [
+     "cards",
+     "comparison"
+    ],
+    "ph": 8,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 12,
+    "stray": []
+   },
+   {
+    "no": 15,
+    "code": "IP-C",
+    "f": "L_IP_C",
+    "visual": [
+     "cards",
+     "diagram",
+     "flow"
+    ],
+    "ph": 3,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 50,
+    "stray": []
+   },
+   {
+    "no": 16,
+    "code": "CO-B",
+    "f": "L_CO_B",
+    "visual": [
+     "cards"
+    ],
+    "ph": 23,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 56,
+    "stray": []
+   },
+   {
+    "no": 17,
+    "code": "C13",
+    "f": "L_C13",
+    "visual": [
+     "cards",
+     "flow",
+     "message"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 24,
+    "stray": []
+   }
+  ]
+ },
+ "sec": 31.7,
+ "llm_calls": 37,
+ "llm_fail": 0
+}

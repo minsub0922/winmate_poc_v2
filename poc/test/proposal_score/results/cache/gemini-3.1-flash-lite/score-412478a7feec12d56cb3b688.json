@@ -1,0 +1,56 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~wrong_customer:F11"
+ },
+ "prompt_tokens": 3454,
+ "output_tokens": 417,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 초과하는 장이 10장으로, 4장 이상이라는 1점 기준을 충족합니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "250어절"
+     },
+     {
+      "sheet": 14,
+      "quote": "232어절"
+     },
+     {
+      "sheet": 3,
+      "quote": "224어절"
+     }
+    ],
+    "improve": "장당 어절 수를 77어절 이하로 줄이고, 문단형 서술을 개조식으로 간결하게 재구성해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "9pt(12px) 미만 본문 칸이 9장에 존재하여 1점 기준에 해당합니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 8,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 9,
+      "quote": "본문 최소 10px(7.5pt)"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정하여 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

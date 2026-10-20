@@ -1,0 +1,6828 @@
+{
+ "input": {
+  "id": "p_test",
+  "title": "한빛레이더스 홈구장 전광판 리뉴얼",
+  "customer": "(주)한빛레이더스 프로야구단",
+  "industry": null,
+  "free_text": "[메모] 한빛레이더스 홈구장(한빛파크) 전광판 교체 건 진행상황\n- 구단 마케팅팀장 통화(10/16): L사가 9월에 먼저 제안+데모까지 했고 가격도 꽤 낮게 들어왔다고 함. 근데 내부에서는 '우리 구장에 맞는 그림'은 아직 못 봤다는 분위기. 우리한테도 11월 첫주까지 제안 달라고\n- 현재 메인 전광판 2011년 설치, 밝기 떨어지고 모듈 불량 계속 생김. 낮 경기때 잘 안보인다는 팬 민원 많음\n- 2027 시즌 개막(3/27) 전에 무조건 끝나야 함. 비시즌(11월~2월)에만 공사 가능\n- 구장은 시 소유, 시설관리공단이 관리. 구조 안전·유지관리는 공단이 깐깐하게 봄\n- 좌석 22,000석. 컨코스 TV 120대(대부분 구형 가정용 TV)도 같이 교체 희망, 매점 18곳에 키오스크 36대 도입 검토\n- 총 사업비 시 보조금 포함 대략 110억 수준으로 들음 (확정 아님)\n- 구단 내부 요구사항 문서 받음 → 첨부",
+  "project": "한빛파크 메인 전광판·리본보드·컨코스·매점 리뉴얼",
+  "target": "구단 대표이사",
+  "keymen": [
+   {
+    "name": "구단 마케팅팀장",
+    "weight": 35.0,
+    "reqs": [
+     "리본보드 신설로 광고 구좌 확대",
+     "리플레이·응원 연출로 팬 경험 강화"
+    ]
+   },
+   {
+    "name": "시설관리공단 시설부장",
+    "weight": 35.0,
+    "reqs": [
+     "기존 철골 구조물 하중 안전",
+     "방수·방진 등 옥외 내구성",
+     "10년 이상 장기 유지보수 비용 제시"
+    ]
+   },
+   {
+    "name": "구단 운영팀 (F&B)",
+    "weight": 15.0,
+    "reqs": [
+     "이닝 교대 시 매점 대기줄 해소",
+     "구단 앱 주문·결제 연동"
+    ]
+   },
+   {
+    "name": "구단 대표이사",
+    "weight": 15.0,
+    "reqs": [
+     "2027 시즌 개막 전 완료",
+     "경쟁 제안 대비 확실한 차별점"
+    ]
+   }
+  ],
+  "note": "L사는 가격으로 들어온 듯 → 근데 비교표에서 가격 비중 15%밖에 안됨. 주간 시인성, 경기 중 장애 대응, 10년 TCO로 차별화. 실외 LED + 컨코스 사이니지 + 키오스크 한번에 묶어서 통합 운영 강조. 공단 시설부장 설득용 구조 안전 자료 꼭 넣기. 제안서에 경쟁사 실명 언급은 하지 말 것",
+  "files": [
+   {
+    "name": "한빛파크_전광판교체_요구사항_v2.txt",
+    "text": "한빛파크 전광판 교체 및 관람환경 개선 요구사항 (v2, 구단·공단 내부 검토용)\n\n0. 배경\n - 2026 시즌 팬 만족도 설문에서 '전광판 잘 안 보임'이 불만 항목 1위 (특히 주말 낮 경기)\n - 현 전광판 운영 PC·컨트롤러 노후로 경기 중 화면 멈춤 2회 발생 (2026 시즌)\n - 스폰서 측에서 광고 노출 면적·횟수 확대 요청 지속, 재계약 시 노출 데이터 요구\n\n1. 메인 전광판\n - 현 전광판: 2011년 설치, 약 32m × 10m, 휘도 저하 및 모듈 불량 다수\n - 신규: 기존 철골 구조물 재활용 원칙, 크기는 동일 또는 확대 검토(구조 검토 결과에 따름)\n - 주간 경기 시인성 확보(고휘도), 우천·태풍 대비 방수·방진 등급 명시\n - 경기 중 리플레이, 타자 기록, 스폰서 광고 동시 표출 (화면 분할 운영)\n\n2. 리본보드 (1루~3루 내야 상단)\n - 신규 설치, 광고 구좌 확대 목적\n - 메인 전광판과 연동한 응원 연출 (홈런·득점 시 일제 연출)\n\n3. 컨코스·실내 공간\n - 컨코스 TV 120대 교체: 경기 중계 + 매점 메뉴/이벤트 안내\n - 원격으로 전체 화면 콘텐츠 일괄 변경 (경기 상황과 연동되면 더 좋음)\n - 우천 취소·지연 시 안내 문구 긴급 송출 기능, 비경기일 대관 행사용 화면 운영 가능 여부\n\n4. 매점·F&B\n - 매점 18곳, 키오스크 36대 도입 검토\n - 이닝 교대 시간 대기줄 해소, 구단 앱 주문·결제 연동\n\n5. 운영·유지보수\n - 경기일 현장 기술인력 상주 여부\n - 장애 발생 시 경기 중 복구 방안 (예비 모듈, 이중화)\n - 10년 이상 장기 운영 기준 유지보수 비용 제시\n\n6. 업체 비교 검토 항목 (구단·공단 합동)\n | 항목 | 비중 |\n |---|---|\n | 화질·주간 시인성 | 25% |\n | 구조 안전·내구성 | 20% |\n | 광고·연출 운영 편의 | 20% |\n | 유지보수·장애 대응 | 20% |\n | 가격 | 15% |\n - 국내 프로스포츠 구장 구축 레퍼런스 제출\n - 개막(2027.3.27) 전 완료 가능한 공정표 제출\n - 비시즌 공사 중 구장 내 타 행사(11월 팬페스타) 일정과 충돌 없을 것\n\n7. 콘텐츠·운영 인력\n - 현재 전광판 콘텐츠는 외주 제작사 1곳이 담당, 구단 내 운영 인력 2명 (경기일 송출 담당)\n - 신규 시스템 도입 시 운영 인력 교육 및 시즌 초 현장 지원 요청\n - 광고 송출 이력(노출 시간·횟수) 리포트 자동 추출 가능 여부\n\n8. 제출 요청\n - 제안서(구단 대표이사 보고용, 30쪽 내외) + 개략 견적\n - 구조 검토 의견서 (공단 제출용, 별도)\n - 10년 유지보수 비용 산출 근거\n\n9. 향후 일정 (안)\n - 11월 첫째 주: 업체별 제안서 접수\n - 11월 둘째 주: 구단·공단 합동 PT (업체당 30분), 현장 실사 동행\n - 11월 말: 우선협상 대상 선정 → 시 보조금 집행 협의\n - 12월 초: 계약 및 착공, 2027년 3월 중순 시험 운영 (시범경기 기간 활용)\n※ 일정은 시 예산 집행 절차에 따라 변동 가능",
+    "memo": ""
+   }
+  ],
+  "products": [
+   "led_outdoor",
+   "kiosk"
+  ],
+  "solutions": [],
+  "cases": [],
+  "minutes": null,
+  "max_slides": null
+ },
+ "analysis": {
+  "industry": "AD",
+  "industry_name": "옥외 · 미디어 광고",
+  "industry_source": "inferred",
+  "industry_conf": 0.74,
+  "req_type": "renew",
+  "req_type_scores": {
+   "new": 0.152,
+   "renew": 0.242,
+   "compete": 0.091,
+   "ops": 0.515,
+   "scale": 0.0,
+   "brief": 0.0
+  },
+  "strategy": "value",
+  "strategy_scores": {
+   "value": 0.036,
+   "pain": 0.286,
+   "space": 0.107,
+   "roi": 0.179,
+   "rfp": 0.107,
+   "compete": 0.25,
+   "land": 0.036
+  },
+  "strategy_hits": 28,
+  "requirements": [
+   {
+    "id": "R01",
+    "text": "리본보드 신설로 광고 구좌 확대",
+    "source": "keyman:구단 마케팅팀장",
+    "keyman": "구단 마케팅팀장",
+    "weight": 35.0,
+    "tag": null,
+    "category": "기타",
+    "dimension": "기타",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "value",
+     "solution",
+     "scenario"
+    ],
+    "procedural": false,
+    "internal": false,
+    "llm_label": true,
+    "score": 2.7,
+    "rank": 2
+   },
+   {
+    "id": "R02",
+    "text": "리플레이·응원 연출로 팬 경험 강화",
+    "source": "keyman:구단 마케팅팀장",
+    "keyman": "구단 마케팅팀장",
+    "weight": 35.0,
+    "tag": null,
+    "category": "사용자 경험",
+    "dimension": "사용자 경험·성과",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "scenario",
+     "value",
+     "user",
+     "solution"
+    ],
+    "procedural": false,
+    "internal": false,
+    "llm_label": true,
+    "score": 2.7,
+    "rank": 3
+   },
+   {
+    "id": "R03",
+    "text": "기존 철골 구조물 하중 안전",
+    "source": "keyman:시설관리공단 시설부장",
+    "keyman": "시설관리공단 시설부장",
+    "weight": 35.0,
+    "tag": null,
+    "category": "규격·성능",
+    "dimension": "기능·성능 규격",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "spec",
+     "products",
+     "solution"
+    ],
+    "procedural": false,
+    "internal": false,
+    "llm_label": true,
+    "score": 2.7,
+    "rank": 4
+   },
+   {
+    "id": "R04",
+    "text": "방수·방진 등 옥외 내구성",
+    "source": "keyman:시설관리공단 시설부장",
+    "keyman": "시설관리공단 시설부장",
+    "weight": 35.0,
+    "tag": null,
+    "category": "규격·성능",
+    "dimension": "기능·성능 규격",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "spec",
+     "products",
+     "solution"
+    ],
+    "procedural": false,
+    "internal": false,
+    "llm_label": true,
+    "score": 2.7,
+    "rank": 5
+   },
+   {
+    "id": "R05",
+    "text": "10년 이상 장기 유지보수 비용 제시",
+    "source": "keyman:시설관리공단 시설부장",
+    "keyman": "시설관리공단 시설부장",
+    "weight": 35.0,
+    "tag": null,
+    "category": "예산·비용",
+    "dimension": "비용·구매",
+    "priority": "must",
+    "customer": true,
+    "measurable": true,
+    "numbers": [
+     "10년"
+    ],
+    "products": [],
+    "parts": [
+     "cost",
+     "effect",
+     "why"
+    ],
+    "procedural": false,
+    "internal": false,
+    "llm_label": true,
+    "score": 4.35,
+    "rank": 1
+   },
+   {
+    "id": "R06",
+    "text": "이닝 교대 시 매점 대기줄 해소",
+    "source": "keyman:구단 운영팀 (F&B)",
+    "keyman": "구단 운영팀 (F&B)",
+    "weight": 15.0,
+    "tag": null,
+    "category": "사용자 경험",
+    "dimension": "사용자 경험·성과",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "scenario",
+     "value",
+     "user",
+     "solution"
+    ],
+    "procedural": false,
+    "internal": false,
+    "llm_label": true,
+    "score": 2.3,
+    "rank": 7
+   },
+   {
+    "id": "R07",
+    "text": "구단 앱 주문·결제 연동",
+    "source": "keyman:구단 운영팀 (F&B)",
+    "keyman": "구단 운영팀 (F&B)",
+    "weight": 15.0,
+    "tag": null,
+    "category": "시스템 연동",
+    "dimension": "시스템 연동",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "solution",
+     "scenario",
+     "execution"
+    ],
+    "procedural": false,
+    "internal": false,
+    "llm_label": true,
+    "score": 2.3,
+    "rank": 8
+   },
+   {
+    "id": "R08",
+    "text": "2027 시즌 개막 전 완료",
+    "source": "keyman:구단 대표이사",
+    "keyman": "구단 대표이사",
+    "weight": 15.0,
+    "tag": null,
+    "category": "일정",
+    "dimension": "일정·실행·확산",
+    "priority": "should",
+    "customer": true,
+    "measurable": true,
+    "numbers": [
+     "2027"
+    ],
+    "products": [],
+    "parts": [
+     "execution",
+     "closing"
+    ],
+    "procedural": false,
+    "internal": false,
+    "llm_label": true,
+    "score": 2.6,
+    "rank": 6
+   },
+   {
+    "id": "R09",
+    "text": "경쟁 제안 대비 확실한 차별점",
+    "source": "keyman:구단 대표이사",
+    "keyman": "구단 대표이사",
+    "weight": 15.0,
+    "tag": null,
+    "category": "경쟁",
+    "dimension": "경쟁·차별화",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "why",
+     "competition",
+     "value"
+    ],
+    "procedural": false,
+    "internal": false,
+    "llm_label": true,
+    "score": 2.3,
+    "rank": 9
+   },
+   {
+    "id": "R10",
+    "text": "한빛레이더스 홈구장(한빛파크) 전광판 교체 건 진행상황",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": "메모",
+    "category": "기타",
+    "dimension": "기타",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "value"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.0,
+    "rank": 22
+   },
+   {
+    "id": "R14",
+    "text": "현재 메인 전광판 2011년 설치, 밝기 떨어지고 모듈 불량 계속 생김.",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "규격·성능",
+    "dimension": "기능·성능 규격",
+    "priority": "should",
+    "customer": true,
+    "measurable": true,
+    "numbers": [
+     "2011년"
+    ],
+    "products": [],
+    "parts": [
+     "spec",
+     "products"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.3,
+    "rank": 10
+   },
+   {
+    "id": "R17",
+    "text": "비시즌(11월~2월)에만 공사 가능",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "일정",
+    "dimension": "일정·실행·확산",
+    "priority": "should",
+    "customer": true,
+    "measurable": true,
+    "numbers": [
+     "11"
+    ],
+    "products": [],
+    "parts": [
+     "execution",
+     "closing"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.3,
+    "rank": 11
+   },
+   {
+    "id": "R18",
+    "text": "구장은 시 소유, 시설관리공단이 관리.",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "운영·관리",
+    "dimension": "운영·유지보수",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "solution",
+     "execution"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.0,
+    "rank": 23
+   },
+   {
+    "id": "R19",
+    "text": "구조 안전·유지관리는 공단이 깐깐하게 봄",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "규격·성능",
+    "dimension": "기능·성능 규격",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "spec",
+     "products"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.0,
+    "rank": 24
+   },
+   {
+    "id": "R20",
+    "text": "좌석 22,000석.",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "기타",
+    "dimension": "기타",
+    "priority": "should",
+    "customer": true,
+    "measurable": true,
+    "numbers": [
+     "22,000석"
+    ],
+    "products": [],
+    "parts": [
+     "value"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.3,
+    "rank": 12
+   },
+   {
+    "id": "R21",
+    "text": "컨코스 TV 120대(대부분 구형 가정용 TV)도 같이 교체 희망, 매점 18곳에 키오스크 36대 도입 검토",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "범위·수량",
+    "dimension": "범위·수량·공간",
+    "priority": "could",
+    "customer": true,
+    "measurable": true,
+    "numbers": [
+     "120대",
+     "18곳",
+     "36대"
+    ],
+    "products": [],
+    "parts": [
+     "bom",
+     "overview"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 1.3,
+    "rank": 38
+   },
+   {
+    "id": "R22",
+    "text": "총 사업비 시 보조금 포함 대략 110억 수준으로 들음 (확정 아님)",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "기타",
+    "dimension": "기타",
+    "priority": "should",
+    "customer": true,
+    "measurable": true,
+    "numbers": [
+     "110억"
+    ],
+    "products": [],
+    "parts": [
+     "value"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.3,
+    "rank": 13
+   },
+   {
+    "id": "R23",
+    "text": "구단 내부 요구사항 문서 받음 → 첨부",
+    "source": "free",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "기타",
+    "dimension": "기타",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "value"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.0,
+    "rank": 25
+   },
+   {
+    "id": "R24",
+    "text": "한빛파크 전광판 교체 및 관람환경 개선 요구사항 (v2, 구단·공단 내부 검토용)",
+    "source": "file:한빛파크_전광판교체_요구사항_v2.txt",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "성과·KPI",
+    "dimension": "사용자 경험·성과",
+    "priority": "could",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "effect",
+     "value"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 1.0,
+    "rank": 40
+   },
+   {
+    "id": "R25",
+    "text": "2026 시즌 팬 만족도 설문에서 '전광판 잘 안 보임'이 불만 항목 1위 (특히 주말 낮 경기)",
+    "source": "file:한빛파크_전광판교체_요구사항_v2.txt",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "사용자 경험",
+    "dimension": "사용자 경험·성과",
+    "priority": "should",
+    "customer": true,
+    "measurable": true,
+    "numbers": [
+     "2026"
+    ],
+    "products": [],
+    "parts": [
+     "challenge",
+     "scenario",
+     "value",
+     "user"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.3,
+    "rank": 14
+   },
+   {
+    "id": "R26",
+    "text": "현 전광판 운영 PC·컨트롤러 노후로 경기 중 화면 멈춤 2회 발생 (2026 시즌)",
+    "source": "file:한빛파크_전광판교체_요구사항_v2.txt",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "운영·관리",
+    "dimension": "운영·유지보수",
+    "priority": "should",
+    "customer": true,
+    "measurable": true,
+    "numbers": [
+     "2026"
+    ],
+    "products": [],
+    "parts": [
+     "solution",
+     "execution"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.3,
+    "rank": 15
+   },
+   {
+    "id": "R27",
+    "text": "스폰서 측에서 광고 노출 면적·횟수 확대 요청 지속, 재계약 시 노출 데이터 요구",
+    "source": "file:한빛파크_전광판교체_요구사항_v2.txt",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "경쟁",
+    "dimension": "경쟁·차별화",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "why",
+     "competition"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.0,
+    "rank": 26
+   },
+   {
+    "id": "R28",
+    "text": "현 전광판: 2011년 설치, 약 32m × 10m, 휘도 저하 및 모듈 불량 다수",
+    "source": "file:한빛파크_전광판교체_요구사항_v2.txt",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "규격·성능",
+    "dimension": "기능·성능 규격",
+    "priority": "should",
+    "customer": true,
+    "measurable": true,
+    "numbers": [
+     "2011년",
+     "32",
+     "10"
+    ],
+    "products": [],
+    "parts": [
+     "spec",
+     "products"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.3,
+    "rank": 16
+   },
+   {
+    "id": "R29",
+    "text": "신규: 기존 철골 구조물 재활용 원칙, 크기는 동일 또는 확대 검토(구조 검토 결과에 따름)",
+    "source": "file:한빛파크_전광판교체_요구사항_v2.txt",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "기타",
+    "dimension": "기타",
+    "priority": "could",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "value"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 1.0,
+    "rank": 41
+   },
+   {
+    "id": "R30",
+    "text": "주간 경기 시인성 확보(고휘도), 우천·태풍 대비 방수·방진 등급 명시",
+    "source": "file:한빛파크_전광판교체_요구사항_v2.txt",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "규격·성능",
+    "dimension": "기능·성능 규격",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "spec",
+     "products"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.0,
+    "rank": 27
+   },
+   {
+    "id": "R31",
+    "text": "경기 중 리플레이, 타자 기록, 스폰서 광고 동시 표출 (화면 분할 운영)",
+    "source": "file:한빛파크_전광판교체_요구사항_v2.txt",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "운영·관리",
+    "dimension": "운영·유지보수",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "solution",
+     "execution"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.0,
+    "rank": 28
+   },
+   {
+    "id": "R32",
+    "text": "신규 설치, 광고 구좌 확대 목적",
+    "source": "file:한빛파크_전광판교체_요구사항_v2.txt",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "공간·설치",
+    "dimension": "범위·수량·공간",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "dss",
+     "scenario",
+     "products"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.0,
+    "rank": 29
+   },
+   {
+    "id": "R33",
+    "text": "메인 전광판과 연동한 응원 연출 (홈런·득점 시 일제 연출)",
+    "source": "file:한빛파크_전광판교체_요구사항_v2.txt",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "예산·비용",
+    "dimension": "비용·구매",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "cost",
+     "effect"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.0,
+    "rank": 30
+   },
+   {
+    "id": "R34",
+    "text": "원격으로 전체 화면 콘텐츠 일괄 변경 (경기 상황과 연동되면 더 좋음)",
+    "source": "file:한빛파크_전광판교체_요구사항_v2.txt",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "운영·관리",
+    "dimension": "운영·유지보수",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "solution",
+     "execution"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.0,
+    "rank": 31
+   },
+   {
+    "id": "R35",
+    "text": "우천 취소·지연 시 안내 문구 긴급 송출 기능, 비경기일 대관 행사용 화면 운영 가능 여부",
+    "source": "file:한빛파크_전광판교체_요구사항_v2.txt",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "사용자 경험",
+    "dimension": "사용자 경험·성과",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "challenge",
+     "scenario",
+     "value",
+     "user"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.0,
+    "rank": 32
+   },
+   {
+    "id": "R36",
+    "text": "업체 비교 검토 항목 (구단·공단 합동)",
+    "source": "file:한빛파크_전광판교체_요구사항_v2.txt",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "경쟁",
+    "dimension": "경쟁·차별화",
+    "priority": "could",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "why",
+     "competition"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 1.0,
+    "rank": 42
+   },
+   {
+    "id": "R37",
+    "text": "광고·연출 운영 편의 | 20%",
+    "source": "file:한빛파크_전광판교체_요구사항_v2.txt",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "사용자 경험",
+    "dimension": "사용자 경험·성과",
+    "priority": "should",
+    "customer": true,
+    "measurable": true,
+    "numbers": [
+     "20%"
+    ],
+    "products": [],
+    "parts": [
+     "scenario",
+     "value",
+     "user"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.3,
+    "rank": 17
+   },
+   {
+    "id": "R38",
+    "text": "유지보수·장애 대응 | 20%",
+    "source": "file:한빛파크_전광판교체_요구사항_v2.txt",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "교육·지원",
+    "dimension": "운영·유지보수",
+    "priority": "should",
+    "customer": true,
+    "measurable": true,
+    "numbers": [
+     "20%"
+    ],
+    "products": [],
+    "parts": [
+     "execution",
+     "why"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.3,
+    "rank": 18
+   },
+   {
+    "id": "R39",
+    "text": "국내 프로스포츠 구장 구축 레퍼런스 제출",
+    "source": "file:한빛파크_전광판교체_요구사항_v2.txt",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "자격·제출",
+    "dimension": "평가·선정·자격",
+    "priority": "could",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "requirements"
+    ],
+    "procedural": true,
+    "internal": false,
+    "score": 1.0,
+    "rank": 43
+   },
+   {
+    "id": "R40",
+    "text": "개막(2027.3.27) 전 완료 가능한 공정표 제출",
+    "source": "file:한빛파크_전광판교체_요구사항_v2.txt",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "자격·제출",
+    "dimension": "평가·선정·자격",
+    "priority": "could",
+    "customer": true,
+    "measurable": true,
+    "numbers": [
+     "2027.3"
+    ],
+    "products": [],
+    "parts": [
+     "requirements"
+    ],
+    "procedural": true,
+    "internal": false,
+    "score": 1.3,
+    "rank": 39
+   },
+   {
+    "id": "R41",
+    "text": "현재 전광판 콘텐츠는 외주 제작사 1곳이 담당, 구단 내 운영 인력 2명 (경기일 송출 담당)",
+    "source": "file:한빛파크_전광판교체_요구사항_v2.txt",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "운영·관리",
+    "dimension": "운영·유지보수",
+    "priority": "should",
+    "customer": true,
+    "measurable": true,
+    "numbers": [
+     "1곳",
+     "2명"
+    ],
+    "products": [],
+    "parts": [
+     "solution",
+     "execution"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.3,
+    "rank": 19
+   },
+   {
+    "id": "R42",
+    "text": "신규 시스템 도입 시 운영 인력 교육 및 시즌 초 현장 지원 요청",
+    "source": "file:한빛파크_전광판교체_요구사항_v2.txt",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "운영·관리",
+    "dimension": "운영·유지보수",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "solution",
+     "execution"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.0,
+    "rank": 33
+   },
+   {
+    "id": "R43",
+    "text": "광고 송출 이력(노출 시간·횟수) 리포트 자동 추출 가능 여부",
+    "source": "file:한빛파크_전광판교체_요구사항_v2.txt",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "규격·성능",
+    "dimension": "기능·성능 규격",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "spec",
+     "products"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.0,
+    "rank": 34
+   },
+   {
+    "id": "R44",
+    "text": "구조 검토 의견서 (공단 제출용, 별도)",
+    "source": "file:한빛파크_전광판교체_요구사항_v2.txt",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "자격·제출",
+    "dimension": "평가·선정·자격",
+    "priority": "could",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "requirements"
+    ],
+    "procedural": true,
+    "internal": false,
+    "score": 1.0,
+    "rank": 44
+   },
+   {
+    "id": "R45",
+    "text": "12월 초: 계약 및 착공, 2027년 3월 중순 시험 운영 (시범경기 기간 활용)",
+    "source": "file:한빛파크_전광판교체_요구사항_v2.txt",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "일정",
+    "dimension": "일정·실행·확산",
+    "priority": "should",
+    "customer": true,
+    "measurable": true,
+    "numbers": [
+     "12",
+     "2027년"
+    ],
+    "products": [],
+    "parts": [
+     "execution",
+     "closing"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.3,
+    "rank": 20
+   },
+   {
+    "id": "R46",
+    "text": "일정은 시 예산 집행 절차에 따라 변동 가능",
+    "source": "file:한빛파크_전광판교체_요구사항_v2.txt",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "예산·비용",
+    "dimension": "비용·구매",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "cost",
+     "effect"
+    ],
+    "procedural": false,
+    "internal": false,
+    "score": 2.0,
+    "rank": 35
+   },
+   {
+    "id": "R47",
+    "text": "L사는 가격으로 들어온 듯 → 근데 비교표에서 가격 비중 15%밖에 안됨.",
+    "source": "note",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "예산·비용",
+    "dimension": "비용·구매",
+    "priority": "could",
+    "customer": false,
+    "measurable": true,
+    "numbers": [
+     "15%"
+    ],
+    "products": [],
+    "parts": [
+     "cost",
+     "effect"
+    ],
+    "procedural": false,
+    "internal": true,
+    "score": 0.91,
+    "rank": 45
+   },
+   {
+    "id": "R48",
+    "text": "주간 시인성, 경기 중 장애 대응, 10년 TCO로 차별화.",
+    "source": "note",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "예산·비용",
+    "dimension": "비용·구매",
+    "priority": "could",
+    "customer": false,
+    "measurable": true,
+    "numbers": [
+     "10년"
+    ],
+    "products": [],
+    "parts": [
+     "cost",
+     "effect"
+    ],
+    "procedural": false,
+    "internal": true,
+    "score": 0.91,
+    "rank": 46
+   },
+   {
+    "id": "R49",
+    "text": "실외 LED + 컨코스 사이니지 + 키오스크 한번에 묶어서 통합 운영 강조.",
+    "source": "note",
+    "keyman": null,
+    "weight": 0.0,
+    "tag": null,
+    "category": "운영·관리",
+    "dimension": "운영·유지보수",
+    "priority": "could",
+    "customer": false,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "solution",
+     "execution"
+    ],
+    "procedural": false,
+    "internal": true,
+    "score": 0.7,
+    "rank": 47
+   },
+   {
+    "id": "R50",
+    "text": "비시즌 공사 중 구장 내 타 행사(11월 팬페스타) 일정과 충돌 없을 것",
+    "source": "llm",
+    "keyman": null,
+    "weight": 0,
+    "tag": null,
+    "category": "일정",
+    "dimension": "일정·실행·확산",
+    "priority": "should",
+    "customer": true,
+    "measurable": true,
+    "numbers": [
+     "11"
+    ],
+    "products": [],
+    "parts": [
+     "execution"
+    ],
+    "procedural": false,
+    "llm_added": true,
+    "internal": false,
+    "score": 2.3,
+    "rank": 21
+   },
+   {
+    "id": "R51",
+    "text": "경기일 현장 기술인력 상주 여부",
+    "source": "llm",
+    "keyman": null,
+    "weight": 0,
+    "tag": null,
+    "category": "운영·관리",
+    "dimension": "운영·유지보수",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "solution",
+     "execution"
+    ],
+    "procedural": false,
+    "llm_added": true,
+    "internal": false,
+    "score": 2.0,
+    "rank": 36
+   },
+   {
+    "id": "R52",
+    "text": "장애 발생 시 경기 중 복구 방안 (예비 모듈, 이중화)",
+    "source": "llm",
+    "keyman": null,
+    "weight": 0,
+    "tag": null,
+    "category": "운영·관리",
+    "dimension": "운영·유지보수",
+    "priority": "should",
+    "customer": true,
+    "measurable": false,
+    "numbers": [],
+    "products": [],
+    "parts": [
+     "solution",
+     "why"
+    ],
+    "procedural": false,
+    "llm_added": true,
+    "internal": false,
+    "score": 2.0,
+    "rank": 37
+   }
+  ],
+  "context_lines": [
+   "구단 마케팅팀장 통화(10/16): L사가 9월에 먼저 제안+데모까지 했고 가격도 꽤 낮게 들어왔다고 함.",
+   "근데 내부에서는 '우리 구장에 맞는 그림'은 아직 못 봤다는 분위기.",
+   "우리한테도 11월 첫주까지 제안 달라고",
+   "낮 경기때 잘 안보인다는 팬 민원 많음",
+   "2027 시즌 개막(3/27) 전에 무조건 끝나야 함.",
+   "공단 시설부장 설득용 구조 안전 자료 꼭 넣기.",
+   "제안서에 경쟁사 실명 언급은 하지 말 것"
+  ],
+  "facts": [
+   {
+    "text": "10",
+    "value": "10",
+    "unit": "",
+    "label": "구단 마케팅팀장 통화",
+    "sentence": "구단 마케팅팀장 통화(10/16): L사가 9월에 먼저 제안+데모까지 했고 가격도 꽤 낮게 들어왔다고 함.",
+    "kind": "value"
+   },
+   {
+    "text": "16",
+    "value": "16",
+    "unit": "",
+    "label": "마케팅팀장 통화 10",
+    "sentence": "구단 마케팅팀장 통화(10/16): L사가 9월에 먼저 제안+데모까지 했고 가격도 꽤 낮게 들어왔다고 함.",
+    "kind": "value"
+   },
+   {
+    "text": "11",
+    "value": "11",
+    "unit": "",
+    "label": "우리한테",
+    "sentence": "우리한테도 11월 첫주까지 제안 달라고",
+    "kind": "value"
+   },
+   {
+    "text": "2011년",
+    "value": "2011",
+    "unit": "년",
+    "label": "현재 메인 전광판",
+    "sentence": "현재 메인 전광판 2011년 설치, 밝기 떨어지고 모듈 불량 계속 생김.",
+    "kind": "value"
+   },
+   {
+    "text": "2027",
+    "value": "2027",
+    "unit": "",
+    "label": "",
+    "sentence": "2027 시즌 개막(3/27) 전에 무조건 끝나야 함.",
+    "kind": "year"
+   },
+   {
+    "text": "27",
+    "value": "27",
+    "unit": "",
+    "label": "2027 시즌 개막",
+    "sentence": "2027 시즌 개막(3/27) 전에 무조건 끝나야 함.",
+    "kind": "value"
+   },
+   {
+    "text": "11",
+    "value": "11",
+    "unit": "",
+    "label": "비시즌",
+    "sentence": "비시즌(11월~2월)에만 공사 가능",
+    "kind": "value"
+   },
+   {
+    "text": "22,000석",
+    "value": "22000",
+    "unit": "석",
+    "label": "좌석",
+    "sentence": "좌석 22,000석.",
+    "kind": "value"
+   },
+   {
+    "text": "120대",
+    "value": "120",
+    "unit": "대",
+    "label": "컨코스 TV",
+    "sentence": "컨코스 TV 120대(대부분 구형 가정용 TV)도 같이 교체 희망, 매점 18곳에 키오스크 36대 도입 검토",
+    "kind": "value"
+   },
+   {
+    "text": "18곳",
+    "value": "18",
+    "unit": "곳",
+    "label": "교체 희망 매점",
+    "sentence": "컨코스 TV 120대(대부분 구형 가정용 TV)도 같이 교체 희망, 매점 18곳에 키오스크 36대 도입 검토",
+    "kind": "value"
+   },
+   {
+    "text": "36대",
+    "value": "36",
+    "unit": "대",
+    "label": "매점 18곳 키오스크",
+    "sentence": "컨코스 TV 120대(대부분 구형 가정용 TV)도 같이 교체 희망, 매점 18곳에 키오스크 36대 도입 검토",
+    "kind": "value"
+   },
+   {
+    "text": "110억",
+    "value": "110",
+    "unit": "억",
+    "label": "보조금 포함 대략",
+    "sentence": "총 사업비 시 보조금 포함 대략 110억 수준으로 들음 (확정 아님)",
+    "kind": "value"
+   },
+   {
+    "text": "15%",
+    "value": "15",
+    "unit": "%",
+    "label": "비교표 가격 비중",
+    "sentence": "L사는 가격으로 들어온 듯 → 근데 비교표에서 가격 비중 15%밖에 안됨.",
+    "kind": "value"
+   },
+   {
+    "text": "10년",
+    "value": "10",
+    "unit": "년",
+    "label": "경기 장애 대응",
+    "sentence": "주간 시인성, 경기 중 장애 대응, 10년 TCO로 차별화.",
+    "kind": "value"
+   },
+   {
+    "text": "10년",
+    "value": "10",
+    "unit": "년",
+    "label": "",
+    "sentence": "10년 이상 장기 유지보수 비용 제시",
+    "kind": "value"
+   },
+   {
+    "text": "2027",
+    "value": "2027",
+    "unit": "",
+    "label": "",
+    "sentence": "2027 시즌 개막 전 완료",
+    "kind": "year"
+   },
+   {
+    "text": "2026",
+    "value": "2026",
+    "unit": "",
+    "label": "",
+    "sentence": "2026 시즌 팬 만족도 설문에서 '전광판 잘 안 보임'이 불만 항목 1위 (특히 주말 낮 경기)",
+    "kind": "year"
+   },
+   {
+    "text": "2026",
+    "value": "2026",
+    "unit": "",
+    "label": "멈춤 2회 발생",
+    "sentence": "현 전광판 운영 PC·컨트롤러 노후로 경기 중 화면 멈춤 2회 발생 (2026 시즌)",
+    "kind": "year"
+   },
+   {
+    "text": "2011년",
+    "value": "2011",
+    "unit": "년",
+    "label": "전광판",
+    "sentence": "현 전광판: 2011년 설치, 약 32m × 10m, 휘도 저하 및 모듈 불량 다수",
+    "kind": "value"
+   },
+   {
+    "text": "32",
+    "value": "32",
+    "unit": "",
+    "label": "전광판 2011년 설치",
+    "sentence": "현 전광판: 2011년 설치, 약 32m × 10m, 휘도 저하 및 모듈 불량 다수",
+    "kind": "value"
+   },
+   {
+    "text": "10",
+    "value": "10",
+    "unit": "",
+    "label": "2011년 설치 32m",
+    "sentence": "현 전광판: 2011년 설치, 약 32m × 10m, 휘도 저하 및 모듈 불량 다수",
+    "kind": "value"
+   },
+   {
+    "text": "120대",
+    "value": "120",
+    "unit": "대",
+    "label": "컨코스 TV",
+    "sentence": "컨코스 TV 120대 교체: 경기 중계 + 매점 메뉴/이벤트 안내",
+    "kind": "value"
+   },
+   {
+    "text": "18곳",
+    "value": "18",
+    "unit": "곳",
+    "label": "매점",
+    "sentence": "매점 18곳, 키오스크 36대 도입 검토",
+    "kind": "value"
+   },
+   {
+    "text": "36대",
+    "value": "36",
+    "unit": "대",
+    "label": "매점 18곳 키오스크",
+    "sentence": "매점 18곳, 키오스크 36대 도입 검토",
+    "kind": "value"
+   },
+   {
+    "text": "10년",
+    "value": "10",
+    "unit": "년",
+    "label": "",
+    "sentence": "10년 이상 장기 운영 기준 유지보수 비용 제시",
+    "kind": "value"
+   },
+   {
+    "text": "25%",
+    "value": "25",
+    "unit": "%",
+    "label": "화질 주간 시인성",
+    "sentence": "| 화질·주간 시인성 | 25% |",
+    "kind": "value"
+   },
+   {
+    "text": "20%",
+    "value": "20",
+    "unit": "%",
+    "label": "구조 안전 내구성",
+    "sentence": "| 구조 안전·내구성 | 20% |",
+    "kind": "value"
+   },
+   {
+    "text": "20%",
+    "value": "20",
+    "unit": "%",
+    "label": "광고 연출 운영",
+    "sentence": "| 광고·연출 운영 편의 | 20% |",
+    "kind": "value"
+   },
+   {
+    "text": "20%",
+    "value": "20",
+    "unit": "%",
+    "label": "유지보수 장애 대응",
+    "sentence": "| 유지보수·장애 대응 | 20% |",
+    "kind": "value"
+   },
+   {
+    "text": "15%",
+    "value": "15",
+    "unit": "%",
+    "label": "가격",
+    "sentence": "| 가격 | 15% |",
+    "kind": "value"
+   },
+   {
+    "text": "2027.3",
+    "value": "2027.3",
+    "unit": "",
+    "label": "개막",
+    "sentence": "개막(2027.3.27) 전 완료 가능한 공정표 제출",
+    "kind": "value"
+   },
+   {
+    "text": "11",
+    "value": "11",
+    "unit": "",
+    "label": "공사 구장 행사",
+    "sentence": "비시즌 공사 중 구장 내 타 행사(11월 팬페스타) 일정과 충돌 없을 것",
+    "kind": "value"
+   },
+   {
+    "text": "1곳",
+    "value": "1",
+    "unit": "곳",
+    "label": "콘텐츠 외주 제작사",
+    "sentence": "현재 전광판 콘텐츠는 외주 제작사 1곳이 담당, 구단 내 운영 인력 2명 (경기일 송출 담당)",
+    "kind": "value"
+   },
+   {
+    "text": "2명",
+    "value": "2",
+    "unit": "명",
+    "label": "구단 운영 인력",
+    "sentence": "현재 전광판 콘텐츠는 외주 제작사 1곳이 담당, 구단 내 운영 인력 2명 (경기일 송출 담당)",
+    "kind": "value"
+   },
+   {
+    "text": "30",
+    "value": "30",
+    "unit": "",
+    "label": "구단 대표이사 보고용",
+    "sentence": "제안서(구단 대표이사 보고용, 30쪽 내외) + 개략 견적",
+    "kind": "value"
+   },
+   {
+    "text": "10년",
+    "value": "10",
+    "unit": "년",
+    "label": "",
+    "sentence": "10년 유지보수 비용 산출 근거",
+    "kind": "value"
+   },
+   {
+    "text": "11",
+    "value": "11",
+    "unit": "",
+    "label": "",
+    "sentence": "11월 첫째 주: 업체별 제안서 접수",
+    "kind": "value"
+   },
+   {
+    "text": "11",
+    "value": "11",
+    "unit": "",
+    "label": "",
+    "sentence": "11월 둘째 주: 구단·공단 합동 PT (업체당 30분), 현장 실사 동행",
+    "kind": "value"
+   },
+   {
+    "text": "30분",
+    "value": "30",
+    "unit": "분",
+    "label": "합동 PT 업체당",
+    "sentence": "11월 둘째 주: 구단·공단 합동 PT (업체당 30분), 현장 실사 동행",
+    "kind": "value"
+   },
+   {
+    "text": "11",
+    "value": "11",
+    "unit": "",
+    "label": "",
+    "sentence": "11월 말: 우선협상 대상 선정 → 시 보조금 집행 협의",
+    "kind": "value"
+   },
+   {
+    "text": "12",
+    "value": "12",
+    "unit": "",
+    "label": "",
+    "sentence": "12월 초: 계약 및 착공, 2027년 3월 중순 시험 운영 (시범경기 기간 활용)",
+    "kind": "value"
+   },
+   {
+    "text": "2027년",
+    "value": "2027",
+    "unit": "년",
+    "label": "12월 계약 착공",
+    "sentence": "12월 초: 계약 및 착공, 2027년 3월 중순 시험 운영 (시범경기 기간 활용)",
+    "kind": "value"
+   }
+  ],
+  "spaces": [
+   "재활",
+   "현장"
+  ],
+  "goals": [
+   "리플레이·응원 연출로 팬 경험 강화",
+   "이닝 교대 시 매점 대기줄 해소",
+   "경쟁 제안 대비 확실한 차별점",
+   "주간 경기 시인성 확보",
+   "광고·연출 운영 편의",
+   "유지보수·장애 대응",
+   "구단 앱 주문·결제 연동",
+   "기존 철골 구조물 하중 안전"
+  ],
+  "products": [
+   "led_outdoor",
+   "kiosk"
+  ],
+  "solutions": [
+   "care",
+   "content"
+  ],
+  "cases": [],
+  "keymen": [
+   {
+    "name": "구단 마케팅팀장",
+    "weight": 35.0,
+    "reqs": [
+     "리본보드 신설로 광고 구좌 확대",
+     "리플레이·응원 연출로 팬 경험 강화"
+    ]
+   },
+   {
+    "name": "시설관리공단 시설부장",
+    "weight": 35.0,
+    "reqs": [
+     "기존 철골 구조물 하중 안전",
+     "방수·방진 등 옥외 내구성",
+     "10년 이상 장기 유지보수 비용 제시"
+    ]
+   },
+   {
+    "name": "구단 운영팀 (F&B)",
+    "weight": 15.0,
+    "reqs": [
+     "이닝 교대 시 매점 대기줄 해소",
+     "구단 앱 주문·결제 연동"
+    ]
+   },
+   {
+    "name": "구단 대표이사",
+    "weight": 15.0,
+    "reqs": [
+     "2027 시즌 개막 전 완료",
+     "경쟁 제안 대비 확실한 차별점"
+    ]
+   }
+  ],
+  "signals": {
+   "n_statements": 51,
+   "n_req": 44,
+   "n_keymen": 4,
+   "n_must": 1,
+   "n_numbers": 24,
+   "eval_hits": 0,
+   "file_chars": 1507,
+   "plain_chars": 1522,
+   "n_categories": 12,
+   "n_goal": 9,
+   "n_goal_sent": 9,
+   "has_products": true,
+   "has_solutions": true
+  },
+  "context_level": "complex",
+  "level_reason": "구단과 시설관리공단이라는 서로 다른 이해관계자의 요구가 혼재되어 있으며, 기술적 성능, 운영 편의성, 장기 유지보수 비용 등 다각적인 평가 기준이 존재함. (LLM 판정)",
+  "level_label": "③ 요구사항 복잡 → 분해 · 기준별 정리 · 사용자 인터랙션",
+  "summary": "한빛파크의 노후화된 전광판 및 컨코스 시설을 리뉴얼하여 팬 경험을 개선하고 광고 수익을 극대화하고자 함. 구단과 시설관리공단의 요구사항을 반영하여 고휘도 디스플레이, 구조 안전성, 통합 운영 솔루션을 제안하며, 2027 시즌 개막 전 완공을 목표로 함.",
+  "llm": true,
+  "competitor_signal": 5,
+  "internal_grams": [
+   "016l사가9월에먼저제안데",
+   "027시즌개막327전에무조",
+   "1016l사가9월에먼저제안",
+   "16l사가9월에먼저제안데모",
+   "2027시즌개막327전에무",
+   "27시즌개막327전에무조건",
+   "6l사가9월에먼저제안데모까",
+   "7시즌개막327전에무조건끝",
+   "9월에먼저제안데모까지했고가",
+   "d컨코스사이니지키오스크한번",
+   "ed컨코스사이니지키오스크한",
+   "led컨코스사이니지키오스크",
+   "l사가9월에먼저제안데모까지",
+   "l사는가격으로들어온듯근데비",
+   "가9월에먼저제안데모까지했고",
+   "가격으로들어온듯근데비교표에",
+   "간시인성경기중장애대응10년",
+   "개막327전에무조건끝나야함",
+   "격으로들어온듯근데비교표에서",
+   "경기때잘안보인다는팬민원많음",
+   "경기중장애대응10년tco로",
+   "공단시설부장설득용구조안전자",
+   "교표에서가격비중15밖에안됨",
+   "구단마케팅팀장통화1016l",
+   "근데비교표에서가격비중15밖",
+   "기중장애대응10년tco로차",
+   "까지했고가격도꽤낮게들어왔다",
+   "낮경기때잘안보인다는팬민원많",
+   "는가격으로들어온듯근데비교표",
+   "니지키오스크한번에묶어서통합",
+   "단마케팅팀장통화1016l사",
+   "단시설부장설득용구조안전자료",
+   "데모까지했고가격도꽤낮게들어",
+   "데비교표에서가격비중15밖에",
+   "들어온듯근데비교표에서가격비",
+   "듯근데비교표에서가격비중15",
+   "로들어온듯근데비교표에서가격",
+   "리한테도11월첫주까지제안달",
+   "마케팅팀장통화1016l사가",
+   "먼저제안데모까지했고가격도꽤",
+   "모까지했고가격도꽤낮게들어왔",
+   "부장설득용구조안전자료꼭넣기",
+   "비교표에서가격비중15밖에안",
+   "사가9월에먼저제안데모까지했",
+   "사는가격으로들어온듯근데비교",
+   "사이니지키오스크한번에묶어서",
+   "서에경쟁사실명언급은하지말것",
+   "설부장설득용구조안전자료꼭넣",
+   "성경기중장애대응10년tco",
+   "스사이니지키오스크한번에묶어",
+   "스크한번에묶어서통합운영강조",
+   "시설부장설득용구조안전자료꼭",
+   "시인성경기중장애대응10년t",
+   "시즌개막327전에무조건끝나",
+   "실외led컨코스사이니지키오",
+   "안데모까지했고가격도꽤낮게들",
+   "안서에경쟁사실명언급은하지말",
+   "어온듯근데비교표에서가격비중",
+   "에먼저제안데모까지했고가격도",
+   "오스크한번에묶어서통합운영강",
+   "온듯근데비교표에서가격비중1",
+   "외led컨코스사이니지키오스",
+   "우리한테도11월첫주까지제안",
+   "월에먼저제안데모까지했고가격",
+   "으로들어온듯근데비교표에서가",
+   "이니지키오스크한번에묶어서통",
+   "인성경기중장애대응10년tc",
+   "장애대응10년tco로차별화",
+   "장통화1016l사가9월에먼",
+   "저제안데모까지했고가격도꽤낮",
+   "제안데모까지했고가격도꽤낮게",
+   "제안서에경쟁사실명언급은하지",
+   "주간시인성경기중장애대응10",
+   "중장애대응10년tco로차별",
+   "즌개막327전에무조건끝나야",
+   "지키오스크한번에묶어서통합운",
+   "지했고가격도꽤낮게들어왔다고",
+   "컨코스사이니지키오스크한번에",
+   "케팅팀장통화1016l사가9",
+   "코스사이니지키오스크한번에묶",
+   "키오스크한번에묶어서통합운영",
+   "테도11월첫주까지제안달라고",
+   "통화1016l사가9월에먼저",
+   "팀장통화1016l사가9월에",
+   "팅팀장통화1016l사가9월",
+   "한테도11월첫주까지제안달라",
+   "했고가격도꽤낮게들어왔다고함",
+   "화1016l사가9월에먼저제"
+  ],
+  "contact_names": [],
+  "requested_items": [],
+  "dimensions": {
+   "기타": 6,
+   "사용자 경험·성과": 6,
+   "기능·성능 규격": 7,
+   "비용·구매": 5,
+   "시스템 연동": 1,
+   "일정·실행·확산": 4,
+   "경쟁·차별화": 3,
+   "운영·유지보수": 10,
+   "범위·수량·공간": 2,
+   "평가·선정·자격": 3
+  }
+ },
+ "ctx": {
+  "industry": "AD",
+  "industry_name": "옥외 · 미디어 광고",
+  "customer": "(주)한빛레이더스 프로야구단",
+  "project": "한빛파크 메인 전광판·리본보드·컨코스·매점 리뉴얼",
+  "target": "구단 대표이사",
+  "products": [
+   "led_outdoor",
+   "kiosk"
+  ],
+  "solutions": [
+   "care",
+   "content"
+  ],
+  "cases": [
+   "3333",
+   "132",
+   "32"
+  ],
+  "spaces": [
+   "재활",
+   "현장"
+  ],
+  "recommended": {
+   "products": [],
+   "solutions": [],
+   "cases": [
+    {
+     "id": "3333",
+     "score": 7.75,
+     "why": "같은 업종",
+     "cust": "신세계백화점 본점 더 리저브"
+    },
+    {
+     "id": "132",
+     "score": 7.5,
+     "why": "같은 업종",
+     "cust": "현대백화점면세점 무역센터점– 삼성 스마트 LED 사이니지"
+    },
+    {
+     "id": "32",
+     "score": 6.4,
+     "why": "같은 업종",
+     "cust": "강남대로 미디어폴"
+    }
+   ]
+  },
+  "missing_items": []
+ },
+ "route": "decompose",
+ "scenario_match": {
+  "kind": "strategy",
+  "chosen": "compete",
+  "candidates": [
+   {
+    "strategy": "compete",
+    "label": "경쟁 우위형",
+    "desc": "비교 기준을 우리 쪽으로 옮기고, 열위는 정직하게 보완한다",
+    "score": 1.607,
+    "best_ref": "bs10",
+    "best_title": "경쟁사 장비 교체 · 공급사 전환 제안"
+   },
+   {
+    "strategy": "roi",
+    "label": "투자 회수형",
+    "desc": "비용 구조 → 절감 → 회수 기간 → 작은 실측으로 결정을 쉽게",
+    "score": 0.479,
+    "best_ref": "bs20",
+    "best_title": "옥외 미디어 사업자 · 랜드마크 매체 사업성 제안"
+   },
+   {
+    "strategy": "value",
+    "label": "가치 선도형",
+    "desc": "가치 기둥을 먼저 세우고 제품 · 효과로 받친다",
+    "score": 0.0,
+    "best_ref": "bs16",
+    "best_title": ""
+   }
+  ]
+ },
+ "decomposition": {
+  "groups": [
+   {
+    "dimension": "운영·유지보수",
+    "req_ids": [
+     "R26",
+     "R38",
+     "R41",
+     "R18",
+     "R31",
+     "R34",
+     "R42",
+     "R51",
+     "R52",
+     "R49"
+    ],
+    "n": 10,
+    "must": 0,
+    "score": 19.6,
+    "summary": "현 전광판 운영 PC·컨트롤러 노후로 경기 중 화면 멈춤 2회 발생 / 유지보수·장애 대응 | 20% / 현재 전광판 콘텐츠는 외주 제작사 1곳이 담당, 구단 내 운영 인력",
+    "answer_part": "execution",
+    "answer_layouts": [
+     "L_MT_B",
+     "L_SV_B",
+     "L_TO_A"
+    ],
+    "stage": "plan",
+    "keymen": []
+   },
+   {
+    "dimension": "기능·성능 규격",
+    "req_ids": [
+     "R03",
+     "R04",
+     "R14",
+     "R28",
+     "R19",
+     "R30",
+     "R43"
+    ],
+    "n": 7,
+    "must": 0,
+    "score": 16.0,
+    "summary": "기존 철골 구조물 하중 안전 / 방수·방진 등 옥외 내구성 / 현재 메인 전광판 2011년 설치, 밝기 떨어지고 모듈 불량 계속 생김.",
+    "answer_part": "spec",
+    "answer_layouts": [
+     "L_SC_B",
+     "L_SPEC3",
+     "L_SE_B"
+    ],
+    "stage": "build",
+    "keymen": [
+     "시설관리공단 시설부장"
+    ]
+   },
+   {
+    "dimension": "사용자 경험·성과",
+    "req_ids": [
+     "R02",
+     "R06",
+     "R25",
+     "R37",
+     "R35",
+     "R24"
+    ],
+    "n": 6,
+    "must": 0,
+    "score": 12.6,
+    "summary": "리플레이·응원 연출로 팬 경험 강화 / 이닝 교대 시 매점 대기줄 해소 / 2026 시즌 팬 만족도 설문에서 '전광판 잘 안 보임'이 불만 항목",
+    "answer_part": "effect",
+    "answer_layouts": [
+     "L_EF_A",
+     "L_EF_C"
+    ],
+    "stage": "proof",
+    "keymen": [
+     "구단 마케팅팀장",
+     "구단 운영팀 (F&B)"
+    ]
+   },
+   {
+    "dimension": "기타",
+    "req_ids": [
+     "R01",
+     "R20",
+     "R22",
+     "R10",
+     "R23",
+     "R29"
+    ],
+    "n": 6,
+    "must": 0,
+    "score": 12.3,
+    "summary": "리본보드 신설로 광고 구좌 확대 / 좌석 22,000석. / 총 사업비 시 보조금 포함 대략 110억 수준으로 들음 (확정 아님)",
+    "answer_part": "value",
+    "answer_layouts": [],
+    "stage": "value",
+    "keymen": [
+     "구단 마케팅팀장"
+    ]
+   },
+   {
+    "dimension": "비용·구매",
+    "req_ids": [
+     "R05",
+     "R33",
+     "R46",
+     "R47",
+     "R48"
+    ],
+    "n": 5,
+    "must": 1,
+    "score": 10.17,
+    "summary": "10년 이상 장기 유지보수 비용 제시 / 메인 전광판과 연동한 응원 연출 (홈런·득점 시 일제 연출) / 일정은 시 예산 집행 절차에 따라 변동 가능",
+    "answer_part": "cost",
+    "answer_layouts": [
+     "L_CO_B",
+     "L_CO_A",
+     "L_EF_B"
+    ],
+    "stage": "plan",
+    "keymen": [
+     "시설관리공단 시설부장"
+    ]
+   },
+   {
+    "dimension": "일정·실행·확산",
+    "req_ids": [
+     "R08",
+     "R17",
+     "R45",
+     "R50"
+    ],
+    "n": 4,
+    "must": 0,
+    "score": 9.5,
+    "summary": "2027 시즌 개막 전 완료 / 비시즌(11월~2월)에만 공사 가능 / 12월 초: 계약 및 착공, 2027년 3월 중순 시험 운영 (시범경기",
+    "answer_part": "execution",
+    "answer_layouts": [
+     "L_SV_A",
+     "L_PL_A",
+     "L_IP_C"
+    ],
+    "stage": "plan",
+    "keymen": [
+     "구단 대표이사"
+    ]
+   },
+   {
+    "dimension": "경쟁·차별화",
+    "req_ids": [
+     "R09",
+     "R27",
+     "R36"
+    ],
+    "n": 3,
+    "must": 0,
+    "score": 5.3,
+    "summary": "경쟁 제안 대비 확실한 차별점 / 스폰서 측에서 광고 노출 면적·횟수 확대 요청 지속, 재계약 시 노출 / 업체 비교 검토 항목 (구단·공단 합동)",
+    "answer_part": "why",
+    "answer_layouts": [
+     "L_CM_B",
+     "L_CM_E",
+     "L_ST_E"
+    ],
+    "stage": "proof",
+    "keymen": [
+     "구단 대표이사"
+    ]
+   },
+   {
+    "dimension": "범위·수량·공간",
+    "req_ids": [
+     "R32",
+     "R21"
+    ],
+    "n": 2,
+    "must": 0,
+    "score": 3.3,
+    "summary": "신규 설치, 광고 구좌 확대 목적 / 컨코스 TV 120대(대부분 구형 가정용 TV)도 같이 교체 희망",
+    "answer_part": "bom",
+    "answer_layouts": [
+     "L_BM_A",
+     "L_OV_B",
+     "L_BM_E"
+    ],
+    "stage": "build",
+    "keymen": []
+   },
+   {
+    "dimension": "평가·선정·자격",
+    "req_ids": [
+     "R40",
+     "R39",
+     "R44"
+    ],
+    "n": 3,
+    "must": 0,
+    "score": 3.3,
+    "summary": "개막(2027.3.27) 전 완료 가능한 공정표 제출 / 국내 프로스포츠 구장 구축 레퍼런스 제출 / 구조 검토 의견서 (공단 제출용, 별도)",
+    "answer_part": "requirements",
+    "answer_layouts": [
+     "L_RM_C",
+     "L_RM_B",
+     "L_CL_C"
+    ],
+    "stage": "context",
+    "keymen": []
+   },
+   {
+    "dimension": "시스템 연동",
+    "req_ids": [
+     "R07"
+    ],
+    "n": 1,
+    "must": 0,
+    "score": 2.3,
+    "summary": "구단 앱 주문·결제 연동",
+    "answer_part": "execution",
+    "answer_layouts": [
+     "L_IG_A",
+     "L_IG_B"
+    ],
+    "stage": "build",
+    "keymen": [
+     "구단 운영팀 (F&B)"
+    ]
+   }
+  ],
+  "eval": {
+   "items": [
+    [
+     "화질·주간 시인성",
+     "25"
+    ],
+    [
+     "구조 안전·내구성",
+     "20"
+    ],
+    [
+     "광고·연출 운영 편의",
+     "20"
+    ],
+    [
+     "유지보수·장애 대응",
+     "20"
+    ],
+    [
+     "가격",
+     "15"
+    ]
+   ],
+   "signals": [
+    "제안 발표 평가"
+   ],
+   "type": "평가표 기반 선정"
+  },
+  "conflicts": [
+   {
+    "id": "C5",
+    "kind": "키맨 관심사 분산",
+    "reqs": [],
+    "note": "구단 마케팅팀장과 시설관리공단 시설부장이 보는 기준이 겹치지 않는다 — 이해관계자별 가치 장표(VP-D · RM-A)로 둘 다 답해야 함",
+    "options": [
+     "구단 마케팅팀장 우선",
+     "시설관리공단 시설부장 우선",
+     "이해관계자별로 나눠 답함"
+    ],
+    "default": 2
+   },
+   {
+    "id": "L1",
+    "kind": "LLM 발견",
+    "reqs": [
+     "R03",
+     "R29"
+    ],
+    "note": "R03(기존 철골 구조물 하중 안전) vs R29(크기 확대 검토): 구조 안전을 중시하는 공단 요구와 광고 확대를 위한 크기 확대 요구 간의 물리적 충돌 가능성",
+    "options": [
+     "우선 대응",
+     "보완 설명",
+     "범위 밖으로 명시"
+    ]
+   },
+   {
+    "id": "L2",
+    "kind": "LLM 발견",
+    "reqs": [
+     "R08",
+     "R45",
+     "R50"
+    ],
+    "note": "R08/R45(2027 시즌 개막 전 완료) vs R50(11월 팬페스타 일정): 비시즌 공사 기간 내 구장 내 타 행사 일정과의 작업 공간 및 시간 확보 충돌",
+    "options": [
+     "우선 대응",
+     "보완 설명",
+     "범위 밖으로 명시"
+    ]
+   }
+  ],
+  "gaps": [
+   {
+    "field": "llm1",
+    "label": "R21(컨코스 TV 및 키오스크)의 ",
+    "why": "R21(컨코스 TV 및 키오스크)의 예산 포함 여부: 110억 예산 내에 메인 전광판 외 부대시설 교체 비용이 포함되는지 불명확함",
+    "question": "R21(컨코스 TV 및 키오스크)의 예산 포함 여부: 110억 예산 내에 메인 전광판 외 부대시설 교체 비용이 포함되는지 불명확함"
+   },
+   {
+    "field": "llm2",
+    "label": "R29(기존 철골 구조물 재활용 원칙",
+    "why": "R29(기존 철골 구조물 재활용 원칙): 구조물 노후도에 대한 정밀 진단 결과가 부재하여 재활용 가능 여부 판단 불가",
+    "question": "R29(기존 철골 구조물 재활용 원칙): 구조물 노후도에 대한 정밀 진단 결과가 부재하여 재활용 가능 여부 판단 불가"
+   },
+   {
+    "field": "llm3",
+    "label": "R46(시 예산 집행 절차): 예산 ",
+    "why": "R46(시 예산 집행 절차): 예산 집행 시기에 따른 착공 지연 리스크에 대한 구체적인 비상 계획 부재",
+    "question": "R46(시 예산 집행 절차): 예산 집행 시기에 따른 착공 지연 리스크에 대한 구체적인 비상 계획 부재"
+   }
+  ],
+  "strategy_options": [
+   {
+    "strategy": "compete",
+    "label": "경쟁 우위형",
+    "desc": "비교 기준을 우리 쪽으로 옮기고, 열위는 정직하게 보완한다",
+    "score": 1.607,
+    "best_ref": "bs10",
+    "best_title": "경쟁사 장비 교체 · 공급사 전환 제안"
+   },
+   {
+    "strategy": "roi",
+    "label": "투자 회수형",
+    "desc": "비용 구조 → 절감 → 회수 기간 → 작은 실측으로 결정을 쉽게",
+    "score": 0.479,
+    "best_ref": "bs20",
+    "best_title": "옥외 미디어 사업자 · 랜드마크 매체 사업성 제안"
+   },
+   {
+    "strategy": "value",
+    "label": "가치 선도형",
+    "desc": "가치 기둥을 먼저 세우고 제품 · 효과로 받친다",
+    "score": 0.0,
+    "best_ref": "bs16",
+    "best_title": ""
+   }
+  ],
+  "questions": [
+   {
+    "id": "strategy",
+    "question": "어떤 전략 축으로 제안서를 세울까요?",
+    "options": [
+     "compete: 경쟁 우위형 — 비교 기준을 우리 쪽으로 옮기고, 열위는 정직하게 보완한다",
+     "roi: 투자 회수형 — 비용 구조 → 절감 → 회수 기간 → 작은 실측으로 결정을 쉽게",
+     "value: 가치 선도형 — 가치 기둥을 먼저 세우고 제품 · 효과로 받친다"
+    ],
+    "default": "compete",
+    "affects": [
+     "storyboard 흐름",
+     "레이아웃 선택"
+    ]
+   },
+   {
+    "id": "ending",
+    "question": "이 제안서로 끌어낼 결정(결말)은 무엇인가요?",
+    "options": [
+     "pilot: 파일럿 승인",
+     "shortlist: 우선협상 선정",
+     "scope: 범위 · 일정 확정"
+    ],
+    "default": "pilot",
+    "affects": [
+     "마무리 장표",
+     "실행 계획 깊이"
+    ]
+   },
+   {
+    "id": "keyman",
+    "question": "어느 키맨의 요구를 앞에 둘까요?",
+    "options": [
+     "구단 마케팅팀장",
+     "시설관리공단 시설부장",
+     "구단 운영팀 (F&B)",
+     "구단 대표이사"
+    ],
+    "default": "구단 마케팅팀장",
+    "affects": [
+     "파트 우선순위"
+    ]
+   },
+   {
+    "id": "conflict_C5",
+    "question": "[키맨 관심사 분산] 구단 마케팅팀장과 시설관리공단 시설부장이 보는 기준이 겹치지 않는다 — 이해관계자별 가치 장표(VP-D · RM-A)로 둘 다 답해야 함 — 어떻게 대응할까요?",
+    "options": [
+     "구단 마케팅팀장 우선",
+     "시설관리공단 시설부장 우선",
+     "이해관계자별로 나눠 답함"
+    ],
+    "default": "이해관계자별로 나눠 답함",
+    "affects": [
+     "대응 장표",
+     "메시지"
+    ]
+   },
+   {
+    "id": "conflict_L1",
+    "question": "[LLM 발견] R03(기존 철골 구조물 하중 안전) vs R29(크기 확대 검토): 구조 안전을 중시하는 공단 요구와 광고 확대를 위한 크기 확대 요구 간의 물리적 충돌 가능성 — 어떻게 대응할까요?",
+    "options": [
+     "우선 대응",
+     "보완 설명",
+     "범위 밖으로 명시"
+    ],
+    "default": "우선 대응",
+    "affects": [
+     "대응 장표",
+     "메시지"
+    ]
+   },
+   {
+    "id": "conflict_L2",
+    "question": "[LLM 발견] R08/R45(2027 시즌 개막 전 완료) vs R50(11월 팬페스타 일정): 비시즌 공사 기간 내 구장 내 타 행사 일정과의 작업 공간 및 시간 확보 충돌 — 어떻게 대응할까요?",
+    "options": [
+     "우선 대응",
+     "보완 설명",
+     "범위 밖으로 명시"
+    ],
+    "default": "우선 대응",
+    "affects": [
+     "대응 장표",
+     "메시지"
+    ]
+   },
+   {
+    "id": "gap_llm1",
+    "question": "R21(컨코스 TV 및 키오스크)의 예산 포함 여부: 110억 예산 내에 메인 전광판 외 부대시설 교체 비용이 포함되는지 불명확함",
+    "options": [
+     "값을 입력",
+     "자리표시로 두기"
+    ],
+    "default": "자리표시로 두기",
+    "affects": [
+     "채우기(값 입력)"
+    ]
+   },
+   {
+    "id": "gap_llm2",
+    "question": "R29(기존 철골 구조물 재활용 원칙): 구조물 노후도에 대한 정밀 진단 결과가 부재하여 재활용 가능 여부 판단 불가",
+    "options": [
+     "값을 입력",
+     "자리표시로 두기"
+    ],
+    "default": "자리표시로 두기",
+    "affects": [
+     "채우기(값 입력)"
+    ]
+   },
+   {
+    "id": "gap_llm3",
+    "question": "R46(시 예산 집행 절차): 예산 집행 시기에 따른 착공 지연 리스크에 대한 구체적인 비상 계획 부재",
+    "options": [
+     "값을 입력",
+     "자리표시로 두기"
+    ],
+    "default": "자리표시로 두기",
+    "affects": [
+     "채우기(값 입력)"
+    ]
+   },
+   {
+    "id": "llm_Q01",
+    "question": "110억 예산 범위 내에 메인 전광판 외 컨코스 TV 120대와 키오스크 36대 교체 비용이 포함되어 있습니까?",
+    "options": [
+     "포함됨",
+     "별도 예산",
+     "미정"
+    ],
+    "default": "미정",
+    "affects": [
+     "roi",
+     "value"
+    ]
+   },
+   {
+    "id": "llm_Q02",
+    "question": "기존 철골 구조물에 대한 구조 안전 진단 보고서가 확보되었습니까?",
+    "options": [
+     "확보됨",
+     "진행 중",
+     "없음"
+    ],
+    "default": "없음",
+    "affects": [
+     "pain",
+     "space"
+    ]
+   },
+   {
+    "id": "llm_Q03",
+    "question": "11월 팬페스타 기간 중 공사 중단이 필요한 구체적인 일정이 확정되었습니까?",
+    "options": [
+     "확정됨",
+     "협의 중",
+     "미정"
+    ],
+    "default": "협의 중",
+    "affects": [
+     "land"
+    ]
+   },
+   {
+    "id": "length",
+    "question": "분량은 어느 정도로 할까요?",
+    "options": [
+     "10: 요약(10장 내외)",
+     "15: 표준(15장 내외)",
+     "20: 상세 · 요구 대응(20장 이상)"
+    ],
+    "default": "20",
+    "affects": [
+     "장수 · 우선순위 컷"
+    ]
+   }
+  ],
+  "llm": true
+ },
+ "choice": {
+  "strategy": "compete",
+  "ending": "pilot",
+  "budget": 20,
+  "keyman": "구단 마케팅팀장",
+  "conflicts": {
+   "C5": {
+    "answer": "이해관계자별로 나눠 답함",
+    "option": 2,
+    "kind": "키맨 관심사 분산",
+    "reqs": [],
+    "custom": false
+   },
+   "L1": {
+    "answer": "우선 대응",
+    "option": 0,
+    "kind": "LLM 발견",
+    "reqs": [
+     "R03",
+     "R29"
+    ],
+    "custom": false
+   },
+   "L2": {
+    "answer": "우선 대응",
+    "option": 0,
+    "kind": "LLM 발견",
+    "reqs": [
+     "R08",
+     "R45",
+     "R50"
+    ],
+    "custom": false
+   }
+  },
+  "gaps": {
+   "llm1": "",
+   "llm2": "",
+   "llm3": ""
+  },
+  "notes": [
+   {
+    "id": "llm_Q01",
+    "question": "110억 예산 범위 내에 메인 전광판 외 컨코스 TV 120대와 키오스크 36대 교체 비용이 포함되어 있습니까?",
+    "answer": "미정",
+    "default": "미정"
+   },
+   {
+    "id": "llm_Q02",
+    "question": "기존 철골 구조물에 대한 구조 안전 진단 보고서가 확보되었습니까?",
+    "answer": "없음",
+    "default": "없음"
+   },
+   {
+    "id": "llm_Q03",
+    "question": "11월 팬페스타 기간 중 공사 중단이 필요한 구체적인 일정이 확정되었습니까?",
+    "answer": "협의 중",
+    "default": "협의 중"
+   }
+  ],
+  "raw": {
+   "strategy": "compete",
+   "ending": "pilot",
+   "keyman": "구단 마케팅팀장",
+   "conflict_C5": "이해관계자별로 나눠 답함",
+   "conflict_L1": "우선 대응",
+   "conflict_L2": "우선 대응",
+   "gap_llm1": "자리표시로 두기",
+   "gap_llm2": "자리표시로 두기",
+   "gap_llm3": "자리표시로 두기",
+   "llm_Q01": "미정",
+   "llm_Q02": "없음",
+   "llm_Q03": "협의 중",
+   "length": "20"
+  }
+ },
+ "parts": [
+  {
+   "type": "cover",
+   "name": "한빛파크 리뉴얼 제안",
+   "items": [
+    "한빛레이더스 홈구장 전광판 및 시설 리뉴얼 제안서"
+   ],
+   "stage": "open",
+   "goal": "",
+   "seed_layouts": [
+    {
+     "f": "L_C03",
+     "role": "표지"
+    }
+   ],
+   "core": true,
+   "source": "strategy",
+   "req_ids": [],
+   "pin": true,
+   "req_load": 0.0,
+   "priority": 0.28,
+   "priority_reason": "핵심 파트",
+   "priority_rank": 15,
+   "related": [],
+   "id": "S01",
+   "slides": 1
+  },
+  {
+   "type": "overview",
+   "name": "사업 범위 및 목적",
+   "items": [
+    "메인 전광판 및 리본보드 교체로 경기 연출 극대화",
+    "컨코스 TV 120대 교체 및 매점 키오스크 36대 도입",
+    "2027 시즌 개막 전 최적의 관람 환경 조성"
+   ],
+   "stage": "open",
+   "goal": "",
+   "seed_layouts": [
+    {
+     "f": "L_OV_A",
+     "role": "RFP 사업 이해 — 배경 · 목적 · 범위 · 일정"
+    }
+   ],
+   "core": true,
+   "source": "strategy",
+   "req_ids": [],
+   "pin": true,
+   "req_load": 0.0,
+   "priority": 0.4,
+   "priority_reason": "핵심 파트",
+   "priority_rank": 12,
+   "related": [
+    "requirements"
+   ],
+   "id": "S02",
+   "slides": 1
+  },
+  {
+   "type": "requirements",
+   "name": "이해관계자별 니즈",
+   "items": [
+    "마케팅팀: 광고 구좌 확대 및 데이터 확보",
+    "시설공단: 구조 안전성 및 유지관리 효율",
+    "운영팀: F&B 대기 시간 단축 및 운영 편의",
+    "경영진: 팬 만족도 제고 및 구장 가치 향상"
+   ],
+   "stage": "context",
+   "goal": "",
+   "seed_layouts": [
+    {
+     "f": "L_RM_A",
+     "role": "키맨별 요구와 대응 방향"
+    }
+   ],
+   "core": true,
+   "source": "strategy",
+   "req_ids": [],
+   "pin": true,
+   "req_load": 0.0,
+   "priority": 0.4,
+   "priority_reason": "핵심 파트",
+   "priority_rank": 13,
+   "related": [
+    "overview",
+    "customer"
+   ],
+   "id": "S03",
+   "slides": 1
+  },
+  {
+   "type": "requirements",
+   "name": "핵심 평가 항목 대응",
+   "items": [
+    "주간 시인성 확보 및 고화질 연출 구현",
+    "구조 안전성 검토 및 내구성 강화",
+    "운영 편의성 중심의 통합 제어 시스템",
+    "장애 대응 체계 및 유지보수 계획"
+   ],
+   "stage": "context",
+   "goal": "",
+   "seed_layouts": [
+    {
+     "f": "L_RM_C",
+     "role": "평가 항목 · 배점별 대응"
+    }
+   ],
+   "core": true,
+   "source": "strategy",
+   "req_ids": [],
+   "pin": true,
+   "req_load": 0.0,
+   "priority": 0.4,
+   "priority_reason": "핵심 파트",
+   "priority_rank": 14,
+   "related": [
+    "overview",
+    "customer"
+   ],
+   "id": "S04",
+   "slides": 1
+  },
+  {
+   "type": "requirements",
+   "name": "요구사항 준수 계획",
+   "items": [
+    "개막(2027.3.27) 전 완료 가능한 공정표 제출",
+    "국내 프로스포츠 구장 구축 레퍼런스 제출",
+    "구조 검토 의견서 (공단 제출용, 별도)",
+    "2027년 3월 27일 개막 전 완벽한 공정 관리",
+    "국내 프로스포츠 구장 구축 실적 증빙"
+   ],
+   "stage": "context",
+   "goal": "",
+   "seed_layouts": [
+    {
+     "f": "L_RM_B",
+     "role": "요구 전수 대응표"
+    }
+   ],
+   "core": true,
+   "source": "strategy",
+   "req_ids": [
+    "R39",
+    "R40",
+    "R44"
+   ],
+   "pin": false,
+   "req_load": 0.66,
+   "priority": 0.419,
+   "priority_reason": "요구 3개 연결 · 핵심 파트",
+   "priority_rank": 11,
+   "related": [
+    "overview",
+    "customer"
+   ],
+   "id": "S05",
+   "slides": 1
+  },
+  {
+   "type": "customer",
+   "name": "고객사 현황 및 과제",
+   "items": [
+    "노후화된 시설로 인한 팬 만족도 저하",
+    "운영 효율화를 위한 통합 관리 체계 필요",
+    "경영 목표 달성을 위한 인프라 고도화"
+   ],
+   "stage": "context",
+   "goal": "고객 지표를 업계와",
+   "seed_layouts": [
+    {
+     "f": "L_PH_CB_F",
+     "role": "KPI 벤치마크 — 장애율 · 대응 시간 · 운영비",
+     "orig": "L_PH_CB_F"
+    }
+   ],
+   "core": false,
+   "source": "strategy:compete<-bs10",
+   "req_ids": [],
+   "req_load": 0.0,
+   "priority": 0.16,
+   "priority_reason": "선택 파트",
+   "priority_rank": 18,
+   "related": [
+    "challenge"
+   ],
+   "id": "S06",
+   "slides": 1
+  },
+  {
+   "type": "challenge",
+   "name": "주요 문제 해결 방안",
+   "items": [
+    "2026 시즌 팬 만족도 설문에서 '전광판 잘 안 보임'이 불만 항목 1위 (특히",
+    "우천 취소·지연 시 안내 문구 긴급 송출 기능, 비경기일 대관 행사용 화면 운영",
+    "주간 시인성 개선으로 팬 만족도 1위 달성",
+    "우천 시 긴급 안내 및 대관 행사 운영 최적화"
+   ],
+   "stage": "problem",
+   "goal": "왜 자꾸 멈추는가",
+   "seed_layouts": [
+    {
+     "f": "L_PH_CH_C",
+     "role": "장애 · AS 문제 → 근본 원인",
+     "orig": "L_PH_CH_C"
+    }
+   ],
+   "core": true,
+   "source": "strategy:compete<-bs10",
+   "req_ids": [
+    "R25",
+    "R35"
+   ],
+   "req_load": 4.3,
+   "priority": 0.522,
+   "priority_reason": "요구 2개 연결 · 핵심 파트",
+   "priority_rank": 7,
+   "related": [
+    "customer",
+    "value"
+   ],
+   "id": "S07",
+   "slides": 1
+  },
+  {
+   "type": "value",
+   "name": "이해관계자 가치 창출",
+   "items": [
+    "리본보드 신설로 광고 구좌 확대",
+    "리플레이·응원 연출로 팬 경험 강화",
+    "이닝 교대 시 매점 대기줄 해소",
+    "좌석 22,000석",
+    "리본보드 신설을 통한 광고 수익 극대화"
+   ],
+   "stage": "value",
+   "goal": "키맨 관심사 분산",
+   "direction": "이해관계자별로 나눠 답함",
+   "seed_layouts": [
+    {
+     "f": "L_VP_D",
+     "role": "키맨 관심사 분산 — 이해관계자별 가치"
+    }
+   ],
+   "core": true,
+   "source": "conflict:C5",
+   "req_ids": [
+    "R01",
+    "R02",
+    "R06",
+    "R10",
+    "R20",
+    "R22",
+    "R23",
+    "R29",
+    "R37"
+   ],
+   "req_load": 21.22,
+   "priority": 1.0,
+   "priority_reason": "요구 9개 연결 · 핵심 파트",
+   "priority_rank": 1,
+   "related": [
+    "effect",
+    "challenge",
+    "solution"
+   ],
+   "id": "S08",
+   "slides": 1
+  },
+  {
+   "type": "solution",
+   "name": "운영 및 유지보수",
+   "items": [
+    "구단 앱 주문·결제 연동",
+    "현 전광판 운영 PC·컨트롤러 노후로 경기 중 화면 멈춤 2회 발생 (2026",
+    "현재 전광판 콘텐츠는 외주 제작사 1곳이 담당, 구단 내 운영 인력 2명 (경기일",
+    "구장은 시 소유, 시설관리공단이 관리",
+    "구단 앱과 연동된 스마트 주문 결제 시스템"
+   ],
+   "stage": "value",
+   "goal": "운영·유지보수 요구 10개(필수 0)",
+   "seed_layouts": [],
+   "core": true,
+   "source": "dimension:운영·유지보수",
+   "req_ids": [
+    "R07",
+    "R18",
+    "R26",
+    "R31",
+    "R34",
+    "R41",
+    "R42",
+    "R49",
+    "R51",
+    "R52"
+   ],
+   "req_load": 19.6,
+   "priority": 0.954,
+   "priority_reason": "요구 10개 연결 · 핵심 파트",
+   "priority_rank": 2,
+   "related": [
+    "value"
+   ],
+   "id": "S09",
+   "slides": 1
+  },
+  {
+   "type": "products",
+   "name": "공간별 최적 제품",
+   "items": [
+    "신규 설치, 광고 구좌 확대 목적",
+    "외벽 고휘도 XHB 전광판으로 광고 가치 제고",
+    "입구 KM24C 사이니지로 정보 전달력 강화"
+   ],
+   "stage": "build",
+   "goal": "",
+   "seed_layouts": [
+    {
+     "f": "L_P_L",
+     "role": "공간별 제품 · 설치 방식"
+    }
+   ],
+   "core": true,
+   "source": "rule:products-required",
+   "req_ids": [
+    "R32"
+   ],
+   "pin": false,
+   "req_load": 2.0,
+   "priority": 0.457,
+   "priority_reason": "요구 1개 연결 · 핵심 파트",
+   "priority_rank": 8,
+   "related": [
+    "spec",
+    "bom"
+   ],
+   "id": "S10",
+   "slides": 1
+  },
+  {
+   "type": "bom",
+   "name": "범위 및 수량 대응",
+   "items": [
+    "컨코스 TV 120대(대부분 구형 가정용 TV)도 같이 교체 희망, 매점 18곳에",
+    "컨코스 노후 TV 120대 전면 교체",
+    "매점 18곳 키오스크 36대 도입으로 대기 시간 단축"
+   ],
+   "stage": "build",
+   "goal": "범위·수량·공간 요구 2개(필수 0)",
+   "seed_layouts": [
+    {
+     "f": "L_BM_A",
+     "role": "범위·수량·공간 요구 대응"
+    }
+   ],
+   "core": true,
+   "source": "dimension:범위·수량·공간",
+   "req_ids": [
+    "R21"
+   ],
+   "req_load": 1.3,
+   "priority": 0.437,
+   "priority_reason": "요구 1개 연결 · 핵심 파트",
+   "priority_rank": 9,
+   "related": [
+    "products",
+    "cost"
+   ],
+   "id": "S11",
+   "slides": 1
+  },
+  {
+   "type": "spec",
+   "name": "기능 및 성능 규격",
+   "items": [
+    "기존 철골 구조물 하중 안전",
+    "방수·방진 등 옥외 내구성",
+    "현재 메인 전광판 2011년 설치, 밝기 떨어지고 모듈 불량 계속 생김",
+    "현 전광판: 2011년 설치, 약 32m × 10m, 휘도 저하 및 모듈 불량 다수",
+    "기존 구조물 하중을 고려한 안전 설계"
+   ],
+   "stage": "build",
+   "goal": "기능·성능 규격 요구 7개(필수 0)",
+   "seed_layouts": [
+    {
+     "f": "L_SC_B",
+     "role": "기능·성능 규격 요구 대응"
+    }
+   ],
+   "core": true,
+   "source": "dimension:기능·성능 규격",
+   "req_ids": [
+    "R03",
+    "R04",
+    "R14",
+    "R19",
+    "R28",
+    "R30",
+    "R43"
+   ],
+   "req_load": 16.0,
+   "priority": 0.852,
+   "priority_reason": "요구 7개 연결 · 핵심 파트",
+   "priority_rank": 3,
+   "related": [
+    "products",
+    "bom"
+   ],
+   "id": "S12",
+   "slides": 1
+  },
+  {
+   "type": "execution",
+   "name": "시스템 연동 및 대응",
+   "items": [
+    "유지보수·장애 대응 | 20%",
+    "장애 발생 최소화를 위한 통합 모니터링",
+    "신속한 유지보수 체계로 운영 안정성 확보"
+   ],
+   "stage": "build",
+   "goal": "시스템 연동 요구 1개(필수 0)",
+   "seed_layouts": [
+    {
+     "f": "L_IG_A",
+     "role": "시스템 연동 요구 대응"
+    }
+   ],
+   "core": false,
+   "source": "dimension:시스템 연동",
+   "req_ids": [
+    "R38"
+   ],
+   "req_load": 2.3,
+   "priority": 0.225,
+   "priority_reason": "요구 1개 연결 · 선택 파트",
+   "priority_rank": 17,
+   "related": [
+    "cost",
+    "closing"
+   ],
+   "id": "S13",
+   "slides": 1
+  },
+  {
+   "type": "effect",
+   "name": "사용자 경험 개선",
+   "items": [
+    "한빛파크 전광판 교체 및 관람환경 개선 요구사항 (v2, 구단·공단 내부 검토용)",
+    "한빛파크 관람 환경 혁신을 통한 팬 만족도 제고",
+    "구단 및 공단 내부 검토용 최적화 솔루션"
+   ],
+   "stage": "proof",
+   "goal": "사용자 경험·성과 요구 6개(필수 0)",
+   "seed_layouts": [
+    {
+     "f": "L_EF_A",
+     "role": "사용자 경험·성과 요구 대응"
+    }
+   ],
+   "core": true,
+   "source": "dimension:사용자 경험·성과",
+   "req_ids": [
+    "R24"
+   ],
+   "req_load": 1.0,
+   "priority": 0.428,
+   "priority_reason": "요구 1개 연결 · 핵심 파트",
+   "priority_rank": 10,
+   "related": [
+    "value",
+    "cost"
+   ],
+   "id": "S14",
+   "slides": 1
+  },
+  {
+   "type": "case",
+   "name": "유관 구축 사례",
+   "items": [
+    "백화점 및 대형 미디어폴 구축 레퍼런스",
+    "삼성 스마트 LED 사이니지 성공 사례 공유"
+   ],
+   "stage": "proof",
+   "goal": "",
+   "seed_layouts": [
+    {
+     "f": "L_CS03",
+     "role": "유관 사례"
+    }
+   ],
+   "core": false,
+   "source": "strategy",
+   "req_ids": [],
+   "pin": false,
+   "req_load": 0.0,
+   "priority": 0.16,
+   "priority_reason": "선택 파트",
+   "priority_rank": 19,
+   "related": [
+    "why"
+   ],
+   "id": "S15",
+   "slides": 1
+  },
+  {
+   "type": "why",
+   "name": "경쟁 우위 전략",
+   "items": [
+    "경쟁 제안 대비 확실한 차별점",
+    "스폰서 측에서 광고 노출 면적·횟수 확대 요청 지속, 재계약 시 노출 데이터 요구",
+    "업체 비교 검토 항목 (구단·공단 합동)",
+    "광고 노출 데이터 분석을 통한 스폰서 만족도 제고",
+    "업체 비교 검토 항목에서 압도적인 기술력 입증"
+   ],
+   "stage": "proof",
+   "goal": "경쟁·차별화 요구 3개(필수 0)",
+   "seed_layouts": [
+    {
+     "f": "L_CM_B",
+     "role": "경쟁·차별화 요구 대응"
+    }
+   ],
+   "core": true,
+   "source": "dimension:경쟁·차별화",
+   "req_ids": [
+    "R09",
+    "R27",
+    "R36"
+   ],
+   "req_load": 5.3,
+   "priority": 0.55,
+   "priority_reason": "요구 3개 연결 · 핵심 파트",
+   "priority_rank": 6,
+   "related": [
+    "case"
+   ],
+   "id": "S16",
+   "slides": 1
+  },
+  {
+   "type": "execution",
+   "name": "일정 및 실행 계획",
+   "items": [
+    "2027 시즌 개막 전 완료",
+    "비시즌(11월~2월)에만 공사 가능",
+    "12월 초: 계약 및 착공, 2027년 3월 중순 시험 운영 (시범경기 기간 활용)",
+    "비시즌 공사 중 구장 내 타 행사(11월 팬페스타) 일정과 충돌 없을 것",
+    "비시즌 기간 공사로 구장 행사 일정 간섭 최소화"
+   ],
+   "stage": "plan",
+   "goal": "일정·실행·확산 요구 4개(필수 0)",
+   "seed_layouts": [
+    {
+     "f": "L_PL_A",
+     "role": "일정·실행·확산 요구 대응"
+    }
+   ],
+   "core": true,
+   "source": "dimension:일정·실행·확산",
+   "req_ids": [
+    "R08",
+    "R17",
+    "R45",
+    "R50"
+   ],
+   "req_load": 9.5,
+   "priority": 0.669,
+   "priority_reason": "요구 4개 연결 · 핵심 파트",
+   "priority_rank": 5,
+   "related": [
+    "cost",
+    "closing"
+   ],
+   "id": "S17",
+   "slides": 1
+  },
+  {
+   "type": "cost",
+   "name": "비용 및 구매 전략",
+   "items": [
+    "10년 이상 장기 유지보수 비용 제시",
+    "메인 전광판과 연동한 응원 연출 (홈런·득점 시 일제 연출)",
+    "일정은 시 예산 집행 절차에 따라 변동 가능",
+    "L사는 가격으로 들어온 듯 → 근데 비교표에서 가격 비중 15%밖에 안됨",
+    "10년 장기 유지보수 비용 최적화 제시"
+   ],
+   "stage": "plan",
+   "goal": "비용·구매 요구 5개(필수 1)",
+   "seed_layouts": [
+    {
+     "f": "L_CO_B",
+     "role": "비용·구매 요구 대응"
+    }
+   ],
+   "core": true,
+   "source": "dimension:비용·구매",
+   "req_ids": [
+    "R05",
+    "R33",
+    "R46",
+    "R47",
+    "R48"
+   ],
+   "req_load": 10.17,
+   "priority": 0.688,
+   "priority_reason": "요구 5개 연결(필수 1) · 핵심 파트",
+   "priority_rank": 4,
+   "related": [
+    "execution",
+    "effect"
+   ],
+   "id": "S18",
+   "slides": 1
+  },
+  {
+   "type": "closing",
+   "name": "결정 요청",
+   "items": [
+    "한빛파크 리뉴얼을 위한 파일럿 승인 요청"
+   ],
+   "stage": "close",
+   "goal": "",
+   "seed_layouts": [
+    {
+     "f": "L_C13",
+     "role": "결정 요청 · 다음 단계"
+    }
+   ],
+   "core": true,
+   "source": "strategy",
+   "req_ids": [],
+   "pin": true,
+   "req_load": 0.0,
+   "priority": 0.28,
+   "priority_reason": "핵심 파트",
+   "priority_rank": 16,
+   "related": [
+    "execution"
+   ],
+   "id": "S19",
+   "slides": 1
+  }
+ ],
+ "links": {
+  "links": {
+   "R01": [
+    7
+   ],
+   "R02": [
+    7
+   ],
+   "R03": [
+    11
+   ],
+   "R04": [
+    11
+   ],
+   "R05": [
+    17
+   ],
+   "R06": [
+    7
+   ],
+   "R07": [
+    8
+   ],
+   "R08": [
+    16
+   ],
+   "R09": [
+    15
+   ],
+   "R10": [
+    7
+   ],
+   "R14": [
+    11
+   ],
+   "R17": [
+    16
+   ],
+   "R18": [
+    8
+   ],
+   "R19": [
+    11
+   ],
+   "R20": [
+    7
+   ],
+   "R21": [
+    10
+   ],
+   "R22": [
+    7
+   ],
+   "R23": [
+    7
+   ],
+   "R24": [
+    13
+   ],
+   "R25": [
+    6
+   ],
+   "R26": [
+    8
+   ],
+   "R27": [
+    15
+   ],
+   "R28": [
+    11
+   ],
+   "R29": [
+    7
+   ],
+   "R30": [
+    11
+   ],
+   "R31": [
+    8
+   ],
+   "R32": [
+    9
+   ],
+   "R33": [
+    17
+   ],
+   "R34": [
+    8
+   ],
+   "R35": [
+    6
+   ],
+   "R36": [
+    15
+   ],
+   "R37": [
+    7
+   ],
+   "R38": [
+    12
+   ],
+   "R39": [
+    4
+   ],
+   "R40": [
+    4
+   ],
+   "R41": [
+    8
+   ],
+   "R42": [
+    8
+   ],
+   "R43": [
+    11
+   ],
+   "R44": [
+    4
+   ],
+   "R45": [
+    16
+   ],
+   "R46": [
+    17
+   ],
+   "R47": [
+    17
+   ],
+   "R48": [
+    17
+   ],
+   "R49": [
+    8
+   ],
+   "R50": [
+    16
+   ],
+   "R51": [
+    8
+   ],
+   "R52": [
+    8
+   ]
+  },
+  "uncovered": []
+ },
+ "slides": [
+  {
+   "no": 1,
+   "part_id": "S01",
+   "part_type": "cover",
+   "part_name": "한빛파크 리뉴얼 제안",
+   "f": "L_C03",
+   "code": "C03",
+   "name": "표지 C · 타이포 중심",
+   "score": 14.975,
+   "why": [
+    "LLM · 표지로서 타이포 중심의 깔끔한 구성이 제안서의 신뢰도를 높임",
+    "파트 유형 일치 · 표지 · 목차",
+    "시나리오가 이 자리에 둔 장표"
+   ],
+   "fit": {
+    "relevance": 0.819,
+    "part": true
+   },
+   "role": "표지",
+   "seed": "L_C03",
+   "alternates": [
+    {
+     "f": "L_C02",
+     "code": "C02",
+     "name": "표지 B · 풀블리드 이미지",
+     "score": 14.475
+    },
+    {
+     "f": "L_C09",
+     "code": "C09",
+     "name": "표지 E · 제품 누끼 히어로",
+     "score": 13.975
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 2,
+   "part_id": "S02",
+   "part_type": "overview",
+   "part_name": "사업 범위 및 목적",
+   "f": "L_PH_OV_A",
+   "code": "PH-OV-A",
+   "name": "사업 이해 · 현장 사진",
+   "score": 17.769,
+   "why": [
+    "LLM · 현장 사진을 활용해 사업 범위와 목적을 직관적으로 전달",
+    "파트 유형 일치 · 제안 개요",
+    "시나리오가 이 자리에 둔 장표"
+   ],
+   "fit": {
+    "relevance": 0.967,
+    "part": true,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "RFP 사업 이해 — 배경 · 목적 · 범위 · 일정",
+   "seed": "L_PH_OV_A",
+   "alternates": [
+    {
+     "f": "L_PH_ES_A",
+     "code": "PH-ES-A",
+     "name": "제안 요약 · 히어로 사진",
+     "score": 17.269
+    },
+    {
+     "f": "L_PH_OV_D",
+     "code": "PH-OV-D",
+     "name": "한 장 요약 · 풀블리드 현장 + 숫자 넷",
+     "score": 16.769
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 3,
+   "part_id": "S03",
+   "part_type": "requirements",
+   "part_name": "이해관계자별 니즈",
+   "f": "L_PH_RQ_C",
+   "code": "PH-RQ-C",
+   "name": "키맨별 요구 · 인물 사진 4",
+   "score": 14.545,
+   "why": [
+    "LLM · 이해관계자별 니즈를 인물 사진과 함께 매칭하여 설득력 강화",
+    "파트 유형 일치 · 고객 요구 이해"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "키맨별 요구와 대응 방향",
+   "seed": "L_PH_US_A",
+   "alternates": [
+    {
+     "f": "L_RM_B",
+     "code": "RM-B",
+     "name": "요구사항 대응표",
+     "score": 14.045
+    },
+    {
+     "f": "L_PH_RQ_G",
+     "code": "PH-RQ-G",
+     "name": "필수 · 선택 · 가점 · 사진 카드 띠",
+     "score": 13.545
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 4,
+   "part_id": "S04",
+   "part_type": "requirements",
+   "part_name": "핵심 평가 항목 대응",
+   "f": "L_RM_C",
+   "code": "RM-C",
+   "name": "평가 항목 · 배점 대응",
+   "score": 18.384,
+   "why": [
+    "LLM · 평가 항목과 배점이 명확하므로 표 형식을 통해 대응력 입증",
+    "파트 유형 일치 · 고객 요구 이해",
+    "시나리오가 이 자리에 둔 장표"
+   ],
+   "fit": {
+    "relevance": 0.996,
+    "part": true,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "평가 항목 · 배점별 대응",
+   "seed": "L_RM_C",
+   "alternates": [
+    {
+     "f": "L_RM_B",
+     "code": "RM-B",
+     "name": "요구사항 대응표",
+     "score": 17.884
+    },
+    {
+     "f": "L_PH_RQ_B",
+     "code": "PH-RQ-B",
+     "name": "평가 항목 · 배점 비례 사진 타일",
+     "score": 17.384
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 5,
+   "part_id": "S05",
+   "part_type": "requirements",
+   "part_name": "요구사항 준수 계획",
+   "f": "L_RM_B",
+   "code": "RM-B",
+   "name": "요구사항 대응표",
+   "score": 18.765,
+   "why": [
+    "LLM · 요구사항 전수 대응을 위해 표 형식이 가장 적합함",
+    "파트 유형 일치 · 고객 요구 이해",
+    "시나리오가 이 자리에 둔 장표"
+   ],
+   "fit": {
+    "relevance": 0.966,
+    "part": true,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "요구 전수 대응표",
+   "seed": "L_RM_B",
+   "alternates": [
+    {
+     "f": "L_RM_C",
+     "code": "RM-C",
+     "name": "평가 항목 · 배점 대응",
+     "score": 18.265
+    },
+    {
+     "f": "L_PH_RQ_G",
+     "code": "PH-RQ-G",
+     "name": "필수 · 선택 · 가점 · 사진 카드 띠",
+     "score": 17.765
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 6,
+   "part_id": "S05",
+   "part_type": "requirements",
+   "part_name": "요구사항 준수 계획",
+   "f": "L_RM_B",
+   "code": "RM-B",
+   "name": "요구사항 대응표",
+   "score": 18.765,
+   "why": [
+    "LLM · 요구사항 전수 대응을 위해 표 형식이 가장 적합함",
+    "파트 유형 일치 · 고객 요구 이해",
+    "시나리오가 이 자리에 둔 장표",
+    "대응표 2쪽 — 11번째 행부터"
+   ],
+   "fit": {
+    "relevance": 0.966,
+    "part": true,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "요구 전수 대응표",
+   "seed": "L_RM_B",
+   "alternates": [],
+   "llm": true,
+   "pg": 1
+  },
+  {
+   "no": 7,
+   "part_id": "S05",
+   "part_type": "requirements",
+   "part_name": "요구사항 준수 계획",
+   "f": "L_RM_B",
+   "code": "RM-B",
+   "name": "요구사항 대응표",
+   "score": 18.765,
+   "why": [
+    "LLM · 요구사항 전수 대응을 위해 표 형식이 가장 적합함",
+    "파트 유형 일치 · 고객 요구 이해",
+    "시나리오가 이 자리에 둔 장표",
+    "대응표 3쪽 — 21번째 행부터"
+   ],
+   "fit": {
+    "relevance": 0.966,
+    "part": true,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "요구 전수 대응표",
+   "seed": "L_RM_B",
+   "alternates": [],
+   "llm": true,
+   "pg": 2
+  },
+  {
+   "no": 8,
+   "part_id": "S06",
+   "part_type": "customer",
+   "part_name": "고객사 현황 및 과제",
+   "f": "L_PH_CB_F",
+   "code": "PH-CB-F",
+   "name": "KPI 벤치마크 · 지표마다 현장 사진",
+   "score": 20.1,
+   "why": [
+    "LLM · KPI 지표와 현장 사진을 결합하여 고객사 과제를 명확히 진단",
+    "파트 유형 일치 · 고객사 이해",
+    "시나리오가 이 자리에 둔 장표",
+    "전략 적합 · 경쟁 우위형"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "KPI 벤치마크 — 장애율 · 대응 시간 · 운영비",
+   "seed": "L_PH_CB_F",
+   "alternates": [
+    {
+     "f": "L_PH_MI_AD_B",
+     "code": "PH-MI-AD-B",
+     "name": "옥외 · 미디어 광고 · 고객 비즈니스 · 운영 과제 · 사진",
+     "score": 19.6
+    },
+    {
+     "f": "L_PH_MI_AD_C",
+     "code": "PH-MI-AD-C",
+     "name": "옥외 · 미디어 광고 · 고객 여정 · 사진",
+     "score": 19.1
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 9,
+   "part_id": "S07",
+   "part_type": "challenge",
+   "part_name": "주요 문제 해결 방안",
+   "f": "L_PH_CH_C",
+   "code": "PH-CH-C",
+   "name": "문제 → 근본 원인 · 현장 사진",
+   "score": 20.85,
+   "why": [
+    "LLM · 문제의 근본 원인을 현장 사진과 함께 시각화하여 해결 방안 제시",
+    "파트 유형 일치 · 고객 과제",
+    "시나리오가 이 자리에 둔 장표",
+    "전략 적합 · 경쟁 우위형"
+   ],
+   "fit": {
+    "relevance": 1.0,
+    "part": true,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "장애 · AS 문제 → 근본 원인",
+   "seed": "L_PH_CH_C",
+   "alternates": [
+    {
+     "f": "L_PH_CH_A",
+     "code": "PH-CH-A",
+     "name": "과제 3 · 현장 사진",
+     "score": 20.35
+    },
+    {
+     "f": "L_PH_CH_D",
+     "code": "PH-CH-D",
+     "name": "매달 새는 돈 · 매장 사진 + 손실 막대",
+     "score": 19.85
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 10,
+   "part_id": "S08",
+   "part_type": "value",
+   "part_name": "이해관계자 가치 창출",
+   "f": "L_PH_VP_D",
+   "code": "PH-VP-D",
+   "name": "이해관계자별 가치 · 사진",
+   "score": 17.653,
+   "why": [
+    "LLM · 이해관계자별 가치를 현장 사진과 함께 나누어 전달",
+    "파트 유형 일치 · Value Propositions",
+    "시나리오가 이 자리에 둔 장표",
+    "사진 중심 · 35%"
+   ],
+   "fit": {
+    "relevance": 0.738,
+    "part": true,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "키맨 관심사 분산 — 이해관계자별 가치",
+   "seed": "L_PH_VP_D",
+   "alternates": [
+    {
+     "f": "L_VP_F2",
+     "code": "VP-F",
+     "name": "가치 기둥 × 제품 · 2개",
+     "score": 17.153
+    },
+    {
+     "f": "L_VP_H",
+     "code": "VP-H",
+     "name": "이해관계자 × 만나는 화면",
+     "score": 16.653
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 11,
+   "part_id": "S09",
+   "part_type": "solution",
+   "part_name": "운영 및 유지보수",
+   "f": "L_PH_SO_J",
+   "code": "PH-SO-J",
+   "name": "본사 → 매장 배포 · 담당자 · 화면 · 손님 사진",
+   "score": 14.482,
+   "why": [
+    "LLM · 운영 프로세스를 사람과 화면 사진으로 구성하여 이해도 제고",
+    "파트 유형 일치 · 솔루션 제안",
+    "사진 중심 · 34%",
+    "요구 표현 일치 · \"화면\""
+   ],
+   "fit": {
+    "relevance": 0.471,
+    "part": true,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "",
+   "seed": null,
+   "alternates": [
+    {
+     "f": "L_PH_SO_V",
+     "code": "PH-SO-V",
+     "name": "예외 상황 시나리오 · 인물 사진 4 + 걸린 시간",
+     "score": 13.982
+    },
+    {
+     "f": "L_PH_SO_L",
+     "code": "PH-SO-L",
+     "name": "손님 셀프 동선 5단계 · 사진 + 화면 칩",
+     "score": 13.482
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 12,
+   "part_id": "S10",
+   "part_type": "products",
+   "part_name": "공간별 최적 제품",
+   "f": "L_PH_P_L",
+   "code": "PH-P-L",
+   "name": "비디오월 · 실사 + 구성",
+   "score": 20.595,
+   "why": [
+    "LLM · 전광판 설치는 실제 비디오월 사진과 구성 정보가 필수적임",
+    "파트 유형 일치 · 공간별 제품",
+    "시나리오가 이 자리에 둔 장표",
+    "업종 표준 장표"
+   ],
+   "fit": {
+    "relevance": 0.524,
+    "part": true,
+    "pc_diff": 1,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "공간별 제품 · 설치 방식",
+   "seed": "L_PH_P_L",
+   "alternates": [
+    {
+     "f": "L_P2B",
+     "code": "P2-B",
+     "name": "공간 · 설치 중심",
+     "score": 20.095
+    },
+    {
+     "f": "L_PH_P_K",
+     "code": "PH-P-K",
+     "name": "공간 조건 → 대응 · 사진 위 번호",
+     "score": 19.595
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 13,
+   "part_id": "S11",
+   "part_type": "bom",
+   "part_name": "범위 및 수량 대응",
+   "f": "L_PH_BM_A",
+   "code": "PH-BM-A",
+   "name": "구성표 · 제품 · 공간 사진",
+   "score": 16.645,
+   "why": [
+    "LLM · 공간별 물량을 제품 컷과 사진으로 매칭하여 한눈에 확인",
+    "파트 유형 일치 · 구성 · 수량",
+    "시나리오가 이 자리에 둔 장표"
+   ],
+   "fit": {
+    "relevance": 0.736,
+    "part": true,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "범위·수량·공간 요구 대응",
+   "seed": "L_PH_BM_A",
+   "alternates": [
+    {
+     "f": "L_PH_BM_D",
+     "code": "PH-BM-D",
+     "name": "단계별 도입 물량 · 단계 사진 + 제품 컷",
+     "score": 16.145
+    },
+    {
+     "f": "L_BM_E",
+     "code": "BM-E",
+     "name": "지역별 물량",
+     "score": 15.645
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 14,
+   "part_id": "S12",
+   "part_type": "spec",
+   "part_name": "기능 및 성능 규격",
+   "f": "L_SC_B",
+   "code": "SC-B",
+   "name": "요구사항 대응표",
+   "score": 17.926,
+   "why": [
+    "LLM · 성능 규격 요구사항에 대한 충족 여부를 표로 증명",
+    "파트 유형 일치 · 제품 스펙",
+    "시나리오가 이 자리에 둔 장표"
+   ],
+   "fit": {
+    "relevance": 0.857,
+    "part": true,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "기능·성능 규격 요구 대응",
+   "seed": "L_SC_B",
+   "alternates": [
+    {
+     "f": "L_SD_E",
+     "code": "SD-E",
+     "name": "모바일 · 현장 단말 사양",
+     "score": 17.426
+    },
+    {
+     "f": "L_SE_B",
+     "code": "SE-B",
+     "name": "인증 · 규격 현황",
+     "score": 16.926
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 15,
+   "part_id": "S12",
+   "part_type": "spec",
+   "part_name": "기능 및 성능 규격",
+   "f": "L_SC_B",
+   "code": "SC-B",
+   "name": "요구사항 대응표",
+   "score": 17.926,
+   "why": [
+    "LLM · 성능 규격 요구사항에 대한 충족 여부를 표로 증명",
+    "파트 유형 일치 · 제품 스펙",
+    "시나리오가 이 자리에 둔 장표",
+    "대응표 2쪽 — 7번째 행부터"
+   ],
+   "fit": {
+    "relevance": 0.857,
+    "part": true,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "기능·성능 규격 요구 대응",
+   "seed": "L_SC_B",
+   "alternates": [],
+   "llm": true,
+   "pg": 1
+  },
+  {
+   "no": 16,
+   "part_id": "S13",
+   "part_type": "execution",
+   "part_name": "시스템 연동 및 대응",
+   "f": "L_IG_A",
+   "code": "IG-A",
+   "name": "시스템 연동 매트릭스",
+   "score": 17.65,
+   "why": [
+    "LLM · 시스템 연동 요구사항을 매트릭스로 체계적으로 정리",
+    "파트 유형 일치 · 실행 계획",
+    "시나리오가 이 자리에 둔 장표"
+   ],
+   "fit": {
+    "relevance": 0.788,
+    "part": true,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "시스템 연동 요구 대응",
+   "seed": "L_IG_A",
+   "alternates": [
+    {
+     "f": "L_IP_A",
+     "code": "IP-A",
+     "name": "현장 조건 체크리스트",
+     "score": 17.15
+    },
+    {
+     "f": "L_MT_B",
+     "code": "MT-B",
+     "name": "케어 플랜 등급",
+     "score": 16.65
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 17,
+   "part_id": "S14",
+   "part_type": "effect",
+   "part_name": "사용자 경험 개선",
+   "f": "L_PH_EF_A",
+   "code": "PH-EF-A",
+   "name": "KPI 전 → 후 · 도입 후 사진",
+   "score": 17.981,
+   "why": [
+    "LLM · 도입 전후 비교를 통해 사용자 경험 개선 효과를 극대화",
+    "파트 유형 일치 · 기대 효과",
+    "시나리오가 이 자리에 둔 장표",
+    "사진 중심 · 39%"
+   ],
+   "fit": {
+    "relevance": 0.745,
+    "part": true,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "사용자 경험·성과 요구 대응",
+   "seed": "L_PH_EF_A",
+   "alternates": [
+    {
+     "f": "L_PH_EF_B",
+     "code": "PH-EF-B",
+     "name": "투자 회수 · 도입 후 사진 + 누적 차트",
+     "score": 17.481
+    },
+    {
+     "f": "L_PH_EF_C",
+     "code": "PH-EF-C",
+     "name": "정량 + 정성 · 현장 사진",
+     "score": 16.981
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 18,
+   "part_id": "S15",
+   "part_type": "case",
+   "part_name": "유관 구축 사례",
+   "f": "L_CS03",
+   "code": "CL-B",
+   "name": "3건 요약",
+   "score": 17.584,
+   "why": [
+    "LLM · 유관 사례를 요약하여 신뢰도를 확보",
+    "파트 유형 일치 · 유관 사례",
+    "시나리오가 이 자리에 둔 장표",
+    "전략 적합 · 경쟁 우위형"
+   ],
+   "fit": {
+    "relevance": 0.583,
+    "part": true,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "유관 사례",
+   "seed": "L_CS03",
+   "alternates": [
+    {
+     "f": "L_CL_D",
+     "code": "CL-D",
+     "name": "사례 사진 카드 6",
+     "score": 17.084
+    },
+    {
+     "f": "L_PH_CL_C",
+     "code": "PH-CL-C",
+     "name": "레퍼런스 포토 월",
+     "score": 16.584
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 19,
+   "part_id": "S16",
+   "part_type": "why",
+   "part_name": "경쟁 우위 전략",
+   "f": "L_PH_SV_B",
+   "code": "PH-SV-B",
+   "name": "서비스 · 엔지니어 사진 + SLA",
+   "score": 19.463,
+   "why": [
+    "파트 유형 일치 · Why Samsung",
+    "업종 표준 장표",
+    "사진 중심 · 37%",
+    "전략 적합 · 경쟁 우위형"
+   ],
+   "fit": {
+    "relevance": 0.476,
+    "part": true,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "경쟁·차별화 요구 대응",
+   "seed": "L_PH_CM_A",
+   "alternates": [
+    {
+     "f": "L_PH_CM_A",
+     "code": "PH-CM-A",
+     "name": "비교 · 기준마다 현장 사진",
+     "score": 19.963
+    },
+    {
+     "f": "L_PH_CP_W",
+     "code": "PH-CP-W",
+     "name": "열위 → 보완 · 보완 장면 사진",
+     "score": 18.963
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 20,
+   "part_id": "S17",
+   "part_type": "execution",
+   "part_name": "일정 및 실행 계획",
+   "f": "L_PH_MT_A",
+   "code": "PH-MT-A",
+   "name": "유지보수 점검 캘린더 · 설비 사진",
+   "score": 16.594,
+   "why": [
+    "파트 유형 일치 · 실행 계획",
+    "요구 표현 일치 · \"시즌\""
+   ],
+   "fit": {
+    "relevance": 0.89,
+    "part": true,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "일정·실행·확산 요구 대응",
+   "seed": "L_PH_PL_A",
+   "alternates": [
+    {
+     "f": "L_PH_PL_A",
+     "code": "PH-PL-A",
+     "name": "파일럿 → 확산 · 사진 3단",
+     "score": 17.094
+    },
+    {
+     "f": "L_IP_A",
+     "code": "IP-A",
+     "name": "현장 조건 체크리스트",
+     "score": 16.094
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 21,
+   "part_id": "S18",
+   "part_type": "cost",
+   "part_name": "비용 및 구매 전략",
+   "f": "L_CO_B",
+   "code": "CO-B",
+   "name": "총소유비용 5년",
+   "score": 18.912,
+   "why": [
+    "LLM · 장기 유지보수 비용을 포함한 총소유비용을 명확히 제시",
+    "파트 유형 일치 · 비용 · 구매",
+    "시나리오가 이 자리에 둔 장표",
+    "요구 표현 일치 · \"가격\""
+   ],
+   "fit": {
+    "relevance": 0.978,
+    "part": true,
+    "readiness": 1.0,
+    "missing": []
+   },
+   "role": "비용·구매 요구 대응",
+   "seed": "L_CO_B",
+   "alternates": [
+    {
+     "f": "L_CO_A",
+     "code": "CO-A",
+     "name": "구매 방식 비교",
+     "score": 18.412
+    },
+    {
+     "f": "L_PH_CO_B",
+     "code": "PH-CO-B",
+     "name": "총소유비용 5년 · 제품 컷 + 누적 막대",
+     "score": 17.912
+    }
+   ],
+   "llm": true
+  },
+  {
+   "no": 22,
+   "part_id": "S19",
+   "part_type": "closing",
+   "part_name": "결정 요청",
+   "f": "L_C12",
+   "code": "C12",
+   "name": "마무리 B · 도입 후 모습 (생성 시안)",
+   "score": 20.033,
+   "why": [
+    "파트 유형 일치 · 마무리 · 다음 단계",
+    "사진 중심 · 59%"
+   ],
+   "fit": {
+    "relevance": 0.357,
+    "part": true,
+    "readiness": 0.67,
+    "missing": [
+     "contacts"
+    ]
+   },
+   "role": "결정 요청 · 다음 단계",
+   "seed": "L_PH_C13",
+   "alternates": [
+    {
+     "f": "L_PH_C13",
+     "code": "PH-C13",
+     "name": "마무리 · 다음 단계 + 사진",
+     "score": 20.533
+    },
+    {
+     "f": "L_C07",
+     "code": "C07",
+     "name": "마무리 · 연락처",
+     "score": 19.533
+    }
+   ],
+   "llm": true
+  }
+ ],
+ "review": {
+  "req_total": 44,
+  "req_covered": 44,
+  "req_coverage": 1.0,
+  "must_uncovered": [],
+  "uncovered": [],
+  "checklist": [
+   {
+    "id": "R39",
+    "text": "국내 프로스포츠 구장 구축 레퍼런스 제출",
+    "in_deck": true
+   },
+   {
+    "id": "R40",
+    "text": "개막(2027.3.27) 전 완료 가능한 공정표 제출",
+    "in_deck": true
+   },
+   {
+    "id": "R44",
+    "text": "구조 검토 의견서 (공단 제출용, 별도)",
+    "in_deck": true
+   }
+  ],
+  "spec_mismatch": [],
+  "flow_score": 0.833,
+  "n_slides": 22,
+  "industry_violations": [],
+  "solution_violations": [],
+  "duplicates": [],
+  "part_mismatch": [],
+  "fill": {
+   "slots": 1014,
+   "changed": 623,
+   "placeholders_left": 279,
+   "unsupported_reverted": 0,
+   "sample_leak": 0,
+   "foreign_terms": 0,
+   "static_foreign_slides": 0
+  },
+  "issues": [
+   {
+    "sev": "low",
+    "msg": "입찰 절차 · 제출 조건 3개는 제출 체크리스트로 따로 확인(요구 대응표에 수록)"
+   }
+  ]
+ },
+ "fills": [
+  {
+   "no": 1,
+   "f": "L_C03",
+   "code": "C03",
+   "part_id": "S01",
+   "pg": 0,
+   "texts": {
+    "0": "B2B 제안서 · (주)한빛레이더스 프로야구단",
+    "1": "한빛파크 메인 전광판·리본보드·컨코스·매점 리뉴얼",
+    "2": "한빛파크 전광판 및 시설 리뉴얼 제안서",
+    "4": "(주)한빛레이더스 프로야구단 · 한빛파크 메인"
+   },
+   "sources": {
+    "0": "llm",
+    "1": "context",
+    "2": "llm",
+    "4": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 4,
+    "changed": 4,
+    "coverage": 1.0,
+    "placeholders_left": 0,
+    "overflow_fixed": [
+     4
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 0,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": true
+  },
+  {
+   "no": 2,
+   "f": "L_PH_OV_A",
+   "code": "PH-OV-A",
+   "part_id": "S02",
+   "pg": 0,
+   "texts": {
+    "0": "02 · 제안 개요",
+    "1": "(주)한빛레이더스 프로야구단 한빛파크 리뉴얼",
+    "2": "RFP 요구사항 분석 및 제안사 수행 전략 · RFP p.[00]",
+    "3": "한빛파크",
+    "4": "메인 전광판 및 리본보드 교체로 경기 연출 극대화",
+    "5": "추진 배경",
+    "6": "[항목]",
+    "7": "RFP p.[00]",
+    "8": "컨코스 TV 120대 및 매점 키오스크 36대",
+    "9": "RFP p.[00]",
+    "10": "관람객 편의 및 정보 전달 강화",
+    "11": "해석",
+    "12": "사업 목적",
+    "13": "1",
+    "14": "2027 시즌 개막 전 구축",
+    "15": "RFP p.[00]",
+    "16": "2",
+    "17": "최적의 관람 환경 조성",
+    "18": "RFP p.[00]",
+    "19": "3",
+    "20": "장애 대응 10년 체계",
+    "21": "RFP p.[00]",
+    "22": "사업 범위",
+    "23": "[내용]",
+    "24": "전광판",
+    "25": "LED",
+    "26": "메인 전광판 및 리본보드",
+    "27": "[00]면",
+    "28": "p.[00]",
+    "29": "매점",
+    "30": "키오스크",
+    "31": "매점 18곳 키오스크 36대",
+    "32": "[00]곳",
+    "33": "p.[00]",
+    "34": "컨코스",
+    "35": "단말",
+    "36": "컨코스 TV 120대 교체",
+    "37": "[00]대",
+    "38": "p.[00]",
+    "39": "SW",
+    "40": "통합",
+    "41": "장비 상태 · 콘텐츠 원격 관리",
+    "42": "1식",
+    "43": "p.[00]",
+    "44": "운영",
+    "45": "유지보수",
+    "46": "하자 보수 · 정기 점검",
+    "47": "[0]년",
+    "48": "p.[00]",
+    "49": "사업 기간",
+    "50": "계약일부터 · 총 [00]개월",
+    "51": "착수",
+    "52": "[00]월",
+    "53": "설계",
+    "54": "[0]개월",
+    "55": "구축",
+    "56": "[0]개월",
+    "57": "시범 운영",
+    "58": "[0]개월",
+    "59": "검수 · 이관",
+    "61": "(주)한빛레이더스 프로야구단 · 한빛파크 메인 전광판·리본보드·컨코스·매점 리뉴얼"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "placeholder",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "placeholder",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "35": "llm",
+    "36": "llm",
+    "37": "llm",
+    "38": "llm",
+    "39": "llm",
+    "40": "llm",
+    "41": "llm",
+    "42": "llm",
+    "43": "llm",
+    "44": "llm",
+    "45": "llm",
+    "46": "llm",
+    "47": "llm",
+    "48": "llm",
+    "49": "llm",
+    "50": "llm",
+    "51": "llm",
+    "52": "llm",
+    "53": "llm",
+    "54": "llm",
+    "55": "llm",
+    "56": "llm",
+    "57": "llm",
+    "58": "llm",
+    "59": "llm",
+    "61": "context"
+   },
+   "images": {
+    "0": {
+     "pid": "ph.ad-subway",
+     "file": "img/ph/ad-subway.jpg",
+     "packed": false,
+     "label": "지하철역 기둥 사이니지 (신분당선 강남역)",
+     "fit": "cover"
+    },
+    "1": {
+     "pid": "ph.ad-building-led",
+     "file": "img/ph/ad-building-led.jpg",
+     "packed": false,
+     "label": "건물 외벽 LED (코엑스 SM타운)",
+     "fit": "cover"
+    },
+    "2": {
+     "pid": "r4.ad-media-pole",
+     "file": "img/fill/r4-adof.json#0",
+     "packed": true,
+     "label": "거리 미디어폴 야경 (강남대로 미디어폴)",
+     "fit": "cover"
+    },
+    "3": {
+     "pid": "ph.ad-street-night",
+     "file": "img/ph/ad-street-night.jpg",
+     "packed": false,
+     "label": "강남대로 미디어폴 야경",
+     "fit": "cover"
+    },
+    "4": {
+     "pid": "r4.ad-coex-led",
+     "file": "img/fill/r4-adof.json#1",
+     "packed": true,
+     "label": "건물 외벽 대형 LED (코엑스 SM타운)",
+     "fit": "cover"
+    }
+   },
+   "checks": {
+    "n_slots": 61,
+    "changed": 32,
+    "coverage": 0.525,
+    "placeholders_left": 22,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 29,
+    "static_foreign": [],
+    "guarded": {
+     "pages": 11
+    }
+   },
+   "llm": true
+  },
+  {
+   "no": 3,
+   "f": "L_PH_RQ_C",
+   "code": "PH-RQ-C",
+   "part_id": "S03",
+   "pg": 0,
+   "texts": {
+    "0": "03 · 고객 요구 이해",
+    "1": "(주)한빛레이더스 프로야구단의 요구를 이렇게 이해했습니다",
+    "2": "키맨별 관심사 · 걱정과 우리의 답 · 인터뷰 [0]회 · 제안 설명회 질의 기반",
+    "3": "키맨",
+    "4": "점 = 결정 영향력",
+    "5": "관심사",
+    "6": "걱정",
+    "7": "우리 답",
+    "8": "최종 결정",
+    "9": "키맨",
+    "10": "35%",
+    "11": "광고 수익 극대화",
+    "12": "리본보드 신설로 광고 구좌 확대 /",
+    "13": "“리본보드 신설로 광고 구좌 확대”",
+    "14": "광고 구좌 확보",
+    "15": "수익성",
+    "16": "구단 마케",
+    "17": "●●●●",
+    "18": "35%",
+    "19": "안전한 시설 관리",
+    "20": "“10년 이상 장기 유지보수 비용 제시”",
+    "21": "10년 이상 장기 유지보수 비용 제시 /",
+    "22": "구조 안전성",
+    "23": "유지보수",
+    "24": "시설관리공단",
+    "25": "●●●●",
+    "26": "15%",
+    "27": "운영 효율성 제고",
+    "28": "이닝 교대 시 매점 대기줄 해소 / 구단 앱 주문",
+    "29": "“이닝 교대 시 매점 대기줄 해소”",
+    "30": "대기 시간 단축",
+    "31": "운영 편의",
+    "32": "구단 운영팀",
+    "33": "●●●",
+    "34": "●●",
+    "35": "총비용 및 납기 확정",
+    "36": "계약 후 조건 변경 방지",
+    "37": "총비용 고정 · 납기 [00]주 보장",
+    "38": "가격 조건 p.[00]",
+    "40": "(주)한빛레이더스 프로야구단 · 한빛파크 메인 전광판·리본보드·컨코스·매점 리뉴얼"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "keyman",
+    "11": "llm",
+    "12": "keyman",
+    "13": "keyman",
+    "14": "llm",
+    "15": "llm",
+    "16": "keyman",
+    "17": "llm",
+    "18": "keyman",
+    "19": "llm",
+    "20": "keyman",
+    "21": "keyman",
+    "22": "llm",
+    "23": "llm",
+    "24": "keyman",
+    "25": "llm",
+    "26": "keyman",
+    "27": "llm",
+    "28": "keyman",
+    "29": "keyman",
+    "30": "llm",
+    "31": "llm",
+    "32": "keyman",
+    "33": "llm",
+    "34": "llm",
+    "35": "llm",
+    "36": "llm",
+    "37": "llm",
+    "38": "llm",
+    "40": "context"
+   },
+   "images": {
+    "0": {
+     "pid": "ph.ad-subway",
+     "file": "img/ph/ad-subway.jpg",
+     "packed": false,
+     "label": "지하철역 기둥 사이니지 (신분당선 강남역)",
+     "fit": "cover"
+    },
+    "1": {
+     "pid": "ph.ad-building-led",
+     "file": "img/ph/ad-building-led.jpg",
+     "packed": false,
+     "label": "건물 외벽 LED (코엑스 SM타운)",
+     "fit": "cover"
+    },
+    "2": {
+     "pid": "r4.ad-media-pole",
+     "file": "img/fill/r4-adof.json#0",
+     "packed": true,
+     "label": "거리 미디어폴 야경 (강남대로 미디어폴)",
+     "fit": "cover"
+    },
+    "3": {
+     "pid": "ph.ad-street-night",
+     "file": "img/ph/ad-street-night.jpg",
+     "packed": false,
+     "label": "강남대로 미디어폴 야경",
+     "fit": "cover"
+    }
+   },
+   "checks": {
+    "n_slots": 40,
+    "changed": 29,
+    "coverage": 0.725,
+    "placeholders_left": 3,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 11,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": true
+  },
+  {
+   "no": 4,
+   "f": "L_RM_C",
+   "code": "RM-C",
+   "part_id": "S04",
+   "pg": 0,
+   "texts": {
+    "0": "04 · 고객 요구 이해",
+    "1": "평가 항목과 항목별 대응 근거",
+    "2": "화질·주간 시인성 25점 · 구조 안전·내구성 20점 · 광고",
+    "7": "배점 비중 [000]",
+    "14": "25",
+    "16": "20",
+    "18": "20",
+    "20": "20",
+    "22": "15",
+    "24": "[0]",
+    "26": "[0]",
+    "29": "[00]",
+    "31": "15",
+    "32": "화질·주간",
+    "33": "25",
+    "34": "[평가 관점]",
+    "35": "[우리의 근거]",
+    "36": "p.[00]",
+    "37": "[점검]",
+    "38": "구조 안전",
+    "39": "20",
+    "40": "[평가 관점]",
+    "41": "[우리의 근거]",
+    "42": "p.[00]",
+    "43": "[점검]",
+    "44": "광고·연출 운영",
+    "45": "20",
+    "46": "[평가 관점]",
+    "47": "[우리의 근거]",
+    "48": "p.[00]",
+    "49": "[점검]",
+    "50": "유지보수·장애 대응",
+    "51": "20",
+    "52": "[평가 관점]",
+    "53": "[우리의 근거]",
+    "54": "p.[00]",
+    "55": "[점검]",
+    "56": "가격",
+    "57": "15",
+    "58": "[평가 관점]",
+    "59": "[우리의 근거]",
+    "60": "p.[00]",
+    "61": "[점검]",
+    "62": "[평가 항목]",
+    "63": "[0]",
+    "64": "[평가 관점]",
+    "65": "[우리의 근거]",
+    "67": "[확인]",
+    "68": "[내용]",
+    "76": "(주)한빛레이더스 프로야구단 · 한빛파크 메인 전광판·리본보드·컨코스·매점 리뉴얼"
+   },
+   "sources": {
+    "0": "context",
+    "1": "composed",
+    "2": "req",
+    "7": "placeholder",
+    "14": "req",
+    "16": "req",
+    "18": "req",
+    "20": "req",
+    "22": "req",
+    "24": "placeholder",
+    "26": "placeholder",
+    "29": "req",
+    "31": "req",
+    "32": "req",
+    "33": "req",
+    "34": "placeholder",
+    "35": "placeholder",
+    "36": "placeholder",
+    "37": "placeholder",
+    "38": "req",
+    "39": "req",
+    "40": "placeholder",
+    "41": "placeholder",
+    "42": "placeholder",
+    "43": "placeholder",
+    "44": "req",
+    "45": "req",
+    "46": "placeholder",
+    "47": "placeholder",
+    "48": "placeholder",
+    "49": "placeholder",
+    "50": "req",
+    "51": "req",
+    "52": "placeholder",
+    "53": "placeholder",
+    "54": "placeholder",
+    "55": "placeholder",
+    "56": "req",
+    "57": "req",
+    "58": "placeholder",
+    "59": "placeholder",
+    "60": "placeholder",
+    "61": "placeholder",
+    "62": "placeholder",
+    "63": "placeholder",
+    "64": "placeholder",
+    "65": "placeholder",
+    "67": "placeholder",
+    "68": "placeholder",
+    "76": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 76,
+    "changed": 43,
+    "coverage": 0.566,
+    "placeholders_left": 31,
+    "overflow_fixed": [
+     32,
+     38,
+     44,
+     2
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 33,
+    "static_foreign": [],
+    "guarded": {
+     "status": [
+      67
+     ]
+    }
+   },
+   "llm": false
+  },
+  {
+   "no": 5,
+   "f": "L_RM_B",
+   "code": "RM-B",
+   "part_id": "S05",
+   "pg": 0,
+   "texts": {
+    "0": "05 · 고객 요구 이해",
+    "1": "요구사항 41개 — 항목별 대응 방안",
+    "2": "충족[00]",
+    "3": "부분[0]",
+    "4": "대안[0]",
+    "5": "1 / 5",
+    "14": "R03",
+    "15": "규격",
+    "16": "기존 철골 구조물 하중 안전",
+    "17": "권장",
+    "18": "[대응 방안]",
+    "20": "R04",
+    "21": "규격",
+    "22": "방수·방진 등 옥외 내구성",
+    "23": "권장",
+    "24": "[대응 방안]",
+    "26": "R14",
+    "27": "규격",
+    "28": "현재 메인 전광판",
+    "29": "권장",
+    "30": "[대응 방안]",
+    "32": "R19",
+    "33": "규격",
+    "34": "구조 안전·유지관리는 공단이",
+    "35": "권장",
+    "36": "[대응 방안]",
+    "38": "—",
+    "39": "R28",
+    "40": "규격",
+    "41": "현 전광판: 2011년 설치",
+    "42": "권장",
+    "43": "[대응 방안]",
+    "45": "R30",
+    "46": "규격",
+    "47": "주간 경기 시인성 확보(고휘도",
+    "48": "권장",
+    "49": "[대응 방안]",
+    "51": "R43",
+    "52": "규격",
+    "53": "광고 송출 이력(노출",
+    "54": "권장",
+    "55": "[대응 방안]",
+    "57": "—",
+    "58": "R07",
+    "59": "연동",
+    "60": "구단 앱 주문·결제",
+    "61": "권장",
+    "62": "[대응 방안]",
+    "64": "R18",
+    "65": "운영",
+    "66": "구장은 시 소유",
+    "67": "권장",
+    "68": "[대응 방안]",
+    "70": "R26",
+    "71": "운영",
+    "72": "현 전광판 운영 PC·컨트롤러",
+    "73": "권장",
+    "74": "[대응 방안]",
+    "81": "1–10 / 41 · 다음 쪽에 이어집니다",
+    "83": "(주)한빛레이더스 프로야구단 · 한빛파크 메인 전광판·리본보드·컨코스·매점 리뉴얼"
+   },
+   "sources": {
+    "0": "context",
+    "1": "composed",
+    "2": "placeholder",
+    "3": "placeholder",
+    "4": "placeholder",
+    "5": "req",
+    "14": "req",
+    "15": "req",
+    "16": "req",
+    "17": "req",
+    "18": "placeholder",
+    "20": "req",
+    "21": "req",
+    "22": "req",
+    "23": "req",
+    "24": "placeholder",
+    "26": "req",
+    "27": "req",
+    "28": "req",
+    "29": "req",
+    "30": "placeholder",
+    "32": "req",
+    "33": "req",
+    "34": "req",
+    "35": "req",
+    "36": "placeholder",
+    "38": "placeholder",
+    "39": "req",
+    "40": "req",
+    "41": "req",
+    "42": "req",
+    "43": "placeholder",
+    "45": "req",
+    "46": "req",
+    "47": "req",
+    "48": "req",
+    "49": "placeholder",
+    "51": "req",
+    "52": "req",
+    "53": "req",
+    "54": "req",
+    "55": "placeholder",
+    "57": "placeholder",
+    "58": "req",
+    "59": "req",
+    "60": "req",
+    "61": "req",
+    "62": "placeholder",
+    "64": "req",
+    "65": "req",
+    "66": "req",
+    "67": "req",
+    "68": "placeholder",
+    "70": "req",
+    "71": "req",
+    "72": "req",
+    "73": "req",
+    "74": "placeholder",
+    "81": "req",
+    "83": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 83,
+    "changed": 57,
+    "coverage": 0.687,
+    "placeholders_left": 23,
+    "overflow_fixed": [
+     28,
+     34,
+     41,
+     47,
+     53,
+     60,
+     66,
+     72
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 26,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": false
+  },
+  {
+   "no": 6,
+   "f": "L_RM_B",
+   "code": "RM-B",
+   "part_id": "S05",
+   "pg": 1,
+   "texts": {
+    "0": "05 · 고객 요구 이해",
+    "1": "요구사항 41개 — 항목별 대응 방안",
+    "2": "충족[00]",
+    "3": "부분[0]",
+    "4": "대안[0]",
+    "5": "2 / 5",
+    "14": "R31",
+    "15": "운영",
+    "16": "경기 중 리플레이, 타자",
+    "17": "권장",
+    "18": "[대응 방안]",
+    "20": "R34",
+    "21": "운영",
+    "22": "원격으로 전체 화면 콘텐츠 일괄 변경",
+    "23": "권장",
+    "24": "[대응 방안]",
+    "26": "R41",
+    "27": "운영",
+    "28": "현재 전광판 콘텐츠는",
+    "29": "권장",
+    "30": "[대응 방안]",
+    "32": "R42",
+    "33": "운영",
+    "34": "신규 시스템 도입 시 운영 인력",
+    "35": "권장",
+    "36": "[대응 방안]",
+    "38": "—",
+    "39": "R51",
+    "40": "운영",
+    "41": "경기일 현장 기술인력 상주 여부",
+    "42": "권장",
+    "43": "[대응 방안]",
+    "45": "R52",
+    "46": "운영",
+    "47": "장애 발생 시 경기 중 복구",
+    "48": "권장",
+    "49": "[대응 방안]",
+    "51": "R38",
+    "52": "지원",
+    "53": "유지보수·장애 대응",
+    "54": "권장",
+    "55": "[대응 방안]",
+    "57": "—",
+    "58": "R21",
+    "59": "범위",
+    "60": "컨코스 TV 120대",
+    "61": "권장",
+    "62": "[대응 방안]",
+    "64": "R32",
+    "65": "공간",
+    "66": "신규 설치, 광고",
+    "67": "권장",
+    "68": "[대응 방안]",
+    "70": "R08",
+    "71": "일정",
+    "72": "2027 시즌 개막 전 완료",
+    "73": "권장",
+    "74": "[대응 방안]",
+    "81": "11–20 / 41 · 다음 쪽에 이어집니다",
+    "83": "(주)한빛레이더스 프로야구단 · 한빛파크 메인 전광판·리본보드·컨코스·매점 리뉴얼"
+   },
+   "sources": {
+    "0": "context",
+    "1": "composed",
+    "2": "placeholder",
+    "3": "placeholder",
+    "4": "placeholder",
+    "5": "req",
+    "14": "req",
+    "15": "req",
+    "16": "req",
+    "17": "req",
+    "18": "placeholder",
+    "20": "req",
+    "21": "req",
+    "22": "req",
+    "23": "req",
+    "24": "placeholder",
+    "26": "req",
+    "27": "req",
+    "28": "req",
+    "29": "req",
+    "30": "placeholder",
+    "32": "req",
+    "33": "req",
+    "34": "req",
+    "35": "req",
+    "36": "placeholder",
+    "38": "placeholder",
+    "39": "req",
+    "40": "req",
+    "41": "req",
+    "42": "req",
+    "43": "placeholder",
+    "45": "req",
+    "46": "req",
+    "47": "req",
+    "48": "req",
+    "49": "placeholder",
+    "51": "req",
+    "52": "req",
+    "53": "req",
+    "54": "req",
+    "55": "placeholder",
+    "57": "placeholder",
+    "58": "req",
+    "59": "req",
+    "60": "req",
+    "61": "req",
+    "62": "placeholder",
+    "64": "req",
+    "65": "req",
+    "66": "req",
+    "67": "req",
+    "68": "placeholder",
+    "70": "req",
+    "71": "req",
+    "72": "req",
+    "73": "req",
+    "74": "placeholder",
+    "81": "req",
+    "83": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 83,
+    "changed": 57,
+    "coverage": 0.687,
+    "placeholders_left": 23,
+    "overflow_fixed": [
+     16,
+     22,
+     28,
+     34,
+     47,
+     53,
+     60,
+     66
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 26,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": false
+  },
+  {
+   "no": 7,
+   "f": "L_RM_B",
+   "code": "RM-B",
+   "part_id": "S05",
+   "pg": 2,
+   "texts": {
+    "0": "05 · 고객 요구 이해",
+    "1": "요구사항 41개 — 항목별 대응 방안",
+    "2": "충족[00]",
+    "3": "부분[0]",
+    "4": "대안[0]",
+    "5": "3 / 5",
+    "14": "R17",
+    "15": "일정",
+    "16": "비시즌(11월~2월)에만",
+    "17": "권장",
+    "18": "[대응 방안]",
+    "20": "R45",
+    "21": "일정",
+    "22": "12월 초: 계약 착공, 2027년",
+    "23": "권장",
+    "24": "[대응 방안]",
+    "26": "R50",
+    "27": "일정",
+    "28": "비시즌 공사 중 구장",
+    "29": "권장",
+    "30": "[대응 방안]",
+    "32": "R05",
+    "33": "비용",
+    "34": "10년 이상 장기 유지보수 비용",
+    "35": "필수",
+    "36": "[대응 방안]",
+    "38": "—",
+    "39": "R33",
+    "40": "비용",
+    "41": "메인 전광판과 연동한 응원 연출",
+    "42": "권장",
+    "43": "[대응 방안]",
+    "45": "R46",
+    "46": "비용",
+    "47": "일정은 시 예산 집행 절차에",
+    "48": "권장",
+    "49": "[대응 방안]",
+    "51": "R24",
+    "52": "성과",
+    "53": "한빛파크 전광판 교체",
+    "54": "권장",
+    "55": "[대응 방안]",
+    "57": "—",
+    "58": "R02",
+    "59": "경험",
+    "60": "리플레이·응원 연출로",
+    "61": "권장",
+    "62": "[대응 방안]",
+    "64": "R06",
+    "65": "경험",
+    "66": "이닝 교대 시 매점",
+    "67": "권장",
+    "68": "[대응 방안]",
+    "70": "R25",
+    "71": "경험",
+    "72": "2026 시즌 팬 만족도",
+    "73": "권장",
+    "74": "[대응 방안]",
+    "81": "[00]–30 / 41 · 다음 쪽에 이어집니다",
+    "83": "(주)한빛레이더스 프로야구단 · 한빛파크 메인 전광판·리본보드·컨코스·매점 리뉴얼"
+   },
+   "sources": {
+    "0": "context",
+    "1": "composed",
+    "2": "placeholder",
+    "3": "placeholder",
+    "4": "placeholder",
+    "5": "req",
+    "14": "req",
+    "15": "req",
+    "16": "req",
+    "17": "req",
+    "18": "placeholder",
+    "20": "req",
+    "21": "req",
+    "22": "req",
+    "23": "req",
+    "24": "placeholder",
+    "26": "req",
+    "27": "req",
+    "28": "req",
+    "29": "req",
+    "30": "placeholder",
+    "32": "req",
+    "33": "req",
+    "34": "req",
+    "35": "req",
+    "36": "placeholder",
+    "38": "placeholder",
+    "39": "req",
+    "40": "req",
+    "41": "req",
+    "42": "req",
+    "43": "placeholder",
+    "45": "req",
+    "46": "req",
+    "47": "req",
+    "48": "req",
+    "49": "placeholder",
+    "51": "req",
+    "52": "req",
+    "53": "req",
+    "54": "req",
+    "55": "placeholder",
+    "57": "placeholder",
+    "58": "req",
+    "59": "req",
+    "60": "req",
+    "61": "req",
+    "62": "placeholder",
+    "64": "req",
+    "65": "req",
+    "66": "req",
+    "67": "req",
+    "68": "placeholder",
+    "70": "req",
+    "71": "req",
+    "72": "req",
+    "73": "req",
+    "74": "placeholder",
+    "81": "req",
+    "83": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 83,
+    "changed": 56,
+    "coverage": 0.675,
+    "placeholders_left": 24,
+    "overflow_fixed": [
+     16,
+     22,
+     28,
+     34,
+     41,
+     47,
+     53,
+     60,
+     66,
+     72
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 27,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": false
+  },
+  {
+   "no": 8,
+   "f": "L_PH_CB_F",
+   "code": "PH-CB-F",
+   "part_id": "S06",
+   "pg": 0,
+   "texts": {
+    "0": "06 · 고객사 이해",
+    "1": "(주)한빛레이더스 프로야구단의 운영 현황과 과제",
+    "2": "[내용]",
+    "3": "업계 대비",
+    "4": "3",
+    "5": "업계보다 높음",
+    "6": "1",
+    "7": "비슷",
+    "8": "1",
+    "9": "양호",
+    "10": "전광판 노후도",
+    "11": "단위 · 년",
+    "12": "[00]",
+    "13": "업계보다 +[00]%",
+    "14": "→ 고휘도 LED 교체",
+    "15": "컨코스 TV 대수",
+    "16": "단위 · 대",
+    "17": "[00]",
+    "18": "업계보다 +[00]%",
+    "19": "→ 통합 관리 체계",
+    "20": "매점 키오스크",
+    "21": "단위 · 대",
+    "22": "[00]",
+    "23": "업계보다 +[00]%",
+    "24": "→ 결제 연동 고도화",
+    "25": "팬 만족도",
+    "26": "단위 · 점",
+    "27": "[00]",
+    "28": "업계와 비슷",
+    "29": "시설 노후화 대응",
+    "30": "좌석 점유율",
+    "31": "높을수록 좋음",
+    "32": "[00]",
+    "33": "업계보다 좋음",
+    "34": "→ 유지",
+    "36": "(주)한빛레이더스 프로야구단 · 한빛파크 메인 전광판·리본보드·컨코스·매점 리뉴얼"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "placeholder",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "36": "context"
+   },
+   "images": {
+    "0": {
+     "pid": "ph.ad-street-night",
+     "file": "img/ph/ad-street-night.jpg",
+     "packed": false,
+     "label": "강남대로 미디어폴 야경",
+     "fit": "cover"
+    },
+    "1": {
+     "pid": "r4.ad-media-pole",
+     "file": "img/fill/r4-adof.json#0",
+     "packed": true,
+     "label": "거리 미디어폴 야경 (강남대로 미디어폴)",
+     "fit": "cover"
+    },
+    "2": {
+     "pid": "ph.ad-subway",
+     "file": "img/ph/ad-subway.jpg",
+     "packed": false,
+     "label": "지하철역 기둥 사이니지 (신분당선 강남역)",
+     "fit": "cover"
+    },
+    "3": {
+     "pid": "r4.ad-coex-led",
+     "file": "img/fill/r4-adof.json#1",
+     "packed": true,
+     "label": "건물 외벽 대형 LED (코엑스 SM타운)",
+     "fit": "cover"
+    },
+    "4": {
+     "pid": "ph.ad-building-led",
+     "file": "img/ph/ad-building-led.jpg",
+     "packed": false,
+     "label": "건물 외벽 LED (코엑스 SM타운)",
+     "fit": "cover"
+    },
+    "5": {
+     "pid": null,
+     "blank": true,
+     "label": "이미지 필요 · 병상 가동률 관련 현장 사진"
+    }
+   },
+   "checks": {
+    "n_slots": 36,
+    "changed": 19,
+    "coverage": 0.528,
+    "placeholders_left": 9,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 17,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": true
+  },
+  {
+   "no": 9,
+   "f": "L_PH_CH_C",
+   "code": "PH-CH-C",
+   "part_id": "S07",
+   "pg": 0,
+   "texts": {
+    "0": "07 · 고객 과제",
+    "1": "(주)한빛레이더스 프로야구단이 풀어야 할 과제",
+    "2": "눈에 보이는 문제에서 두 단계 아래 원인까지 · 현장 점검 · 인터뷰 기준",
+    "3": "눈에 보이는 현상",
+    "4": "2026 시즌 팬 만족도 설문에서 '전광판",
+    "5": "불만",
+    "7": "건",
+    "8": "직접 원인",
+    "9": "근본 원인",
+    "10": "1",
+    "11": "전광판 시인성 저하",
+    "12": "주말 낮 경기 시 전광판 내용 식별 어려움",
+    "13": "왜?",
+    "14": "2011년 설치된 노후 전광판",
+    "15": "고휘도 대응 불가 및 하드웨어 노후화",
+    "16": "실외 LED XHB 도입",
+    "17": "2",
+    "18": "긴급 안내 지연",
+    "19": "우천 취소·지연 시 안내 문구 송출 지연",
+    "20": "왜?",
+    "21": "수동 운영 시스템",
+    "22": "긴급 상황 시 즉각적인 화면 전환 불가",
+    "23": "운영 정책 과제",
+    "24": "3",
+    "25": "매점 운영 효율 저하",
+    "26": "[내용]",
+    "27": "왜?",
+    "28": "키오스크 미도입",
+    "29": "매점 18곳 키오스크 36대 설치 필요",
+    "30": "삼성 키오스크 도입",
+    "32": "(주)한빛레이더스 프로야구단 · 한빛파크 메인 전광판·리본보드·컨코스·매점 리뉴얼"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "placeholder",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "32": "context"
+   },
+   "images": {
+    "0": {
+     "pid": "r4.ad-coex-led",
+     "file": "img/fill/r4-adof.json#1",
+     "packed": true,
+     "label": "건물 외벽 대형 LED (코엑스 SM타운)",
+     "fit": "cover"
+    }
+   },
+   "checks": {
+    "n_slots": 32,
+    "changed": 19,
+    "coverage": 0.594,
+    "placeholders_left": 2,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 13,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": true
+  },
+  {
+   "no": 10,
+   "f": "L_PH_VP_D",
+   "code": "PH-VP-D",
+   "part_id": "S08",
+   "pg": 0,
+   "texts": {
+    "0": "08 · Value",
+    "1": "한빛레이더스 프로야구단이 얻는 네 가지 가치",
+    "2": "이해관계자별 가치 — 각 담당자의 업무 및 팬 경험 공간",
+    "3": "35%",
+    "4": "구단 마케팅팀장",
+    "5": "“리본보드 신설로 광고 구좌 확대”",
+    "6": "20%",
+    "7": "광고 수익 극대화",
+    "8": "35%",
+    "9": "시설관리공단",
+    "10": "“10년 이상 장기 유지보수 비용 제시”",
+    "11": "[00]년",
+    "12": "경기 장애 대응",
+    "13": "15%",
+    "14": "구단 운",
+    "15": "“이닝 교대 시 매점 대기줄 해소”",
+    "16": "15%",
+    "17": "팬 편의성 향상",
+    "18": "15%",
+    "19": "구단 대표이사",
+    "20": "“2027 시즌 개막 전 완료”",
+    "21": "[00]곳",
+    "22": "매점 키오스크",
+    "24": "(주)한빛레이더스 프로야구단 · 한빛파크 메인 전광판·리본보드·컨코스·매점 리뉴얼"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "keyman",
+    "4": "keyman",
+    "5": "keyman",
+    "6": "fact",
+    "7": "llm",
+    "8": "keyman",
+    "9": "keyman",
+    "10": "keyman",
+    "11": "llm",
+    "12": "llm",
+    "13": "keyman",
+    "14": "keyman",
+    "15": "keyman",
+    "16": "keyman",
+    "17": "llm",
+    "18": "keyman",
+    "19": "keyman",
+    "20": "keyman",
+    "21": "llm",
+    "22": "llm",
+    "24": "context"
+   },
+   "images": {
+    "0": {
+     "pid": "ph.ad-waterfall-led",
+     "file": "img/ph/ad-waterfall-led.jpg",
+     "packed": false,
+     "label": "공항 · 몰 대형 LED 연출 (samsung.com)",
+     "fit": "cover"
+    },
+    "1": {
+     "pid": null,
+     "blank": true,
+     "label": "이미지 필요 · 입주사 직원의 자리 · 장면"
+    },
+    "2": {
+     "pid": null,
+     "blank": true,
+     "label": "이미지 필요 · 방문객의 자리 · 장면"
+    },
+    "3": {
+     "pid": null,
+     "blank": true,
+     "label": "이미지 필요 · 시설 관리팀의 자리 · 장면"
+    }
+   },
+   "checks": {
+    "n_slots": 24,
+    "changed": 24,
+    "coverage": 1.0,
+    "placeholders_left": 2,
+    "overflow_fixed": [
+     22
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 0,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": true
+  },
+  {
+   "no": 11,
+   "f": "L_PH_SO_J",
+   "code": "PH-SO-J",
+   "part_id": "S09",
+   "pg": 0,
+   "texts": {
+    "0": "09 · 솔루션 제안",
+    "1": "통합 운영 및 유지보수 솔루션",
+    "2": "전광판부터 매점 키오스크까지, 삼성 사이니지 통합 관리로 경기 운영 효율화",
+    "3": "1",
+    "4": "구단 운영팀",
+    "5": "09:00",
+    "6": "2",
+    "7": "CMS 콘텐츠 일괄 배포",
+    "8": "09:15",
+    "9": "3",
+    "10": "앱 주문·결제 연동",
+    "11": "10:00",
+    "12": "09:00 · 구단 사무실",
+    "13": "노후 장비 교체로 경기 중 멈춤 방지",
+    "14": "템플릿 기반 편집",
+    "15": "시설관리공단 협업 최적화",
+    "16": "스마트 주문 결제 연동",
+    "17": "매점 키오스크",
+    "18": "컨코스 TV",
+    "19": "메인 전광판",
+    "20": "운영 인력 2명이 콘텐츠 일괄 관리",
+    "21": "[내용]",
+    "22": "경기 상황별 실시간 송출",
+    "23": "[내용]",
+    "24": "관람객은 즉시 경기 정보 확인",
+    "25": "구단 앱과 연동된 매점 결제 시스템 구축",
+    "26": "전체 운영 소요 시간",
+    "27": "[00]",
+    "28": "분",
+    "29": "편집 [00]분",
+    "30": "승인 · 예약 [00]분",
+    "31": "전송 · 재생 대기 [00]분",
+    "32": "확인",
+    "33": "외주 의존도 낮추고 자체 운영 역량 강화",
+    "34": "화면 분할로 리플레이·기록·광고 동시 표출",
+    "36": "(주)한빛레이더스 프로야구단 · 한빛파크 메인 전광판·리본보드·컨코스·매점 리뉴얼"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "placeholder",
+    "22": "llm",
+    "23": "placeholder",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "36": "context"
+   },
+   "images": {
+    "0": {
+     "pid": "r4.ad-coex-led",
+     "file": "img/fill/r4-adof.json#1",
+     "packed": true,
+     "label": "건물 외벽 대형 LED (코엑스 SM타운)",
+     "fit": "cover"
+    },
+    "1": {
+     "pid": null,
+     "blank": true,
+     "label": "이미지 필요 · 솔루션 화면"
+    },
+    "4": {
+     "pid": "ph.ad-street-night",
+     "file": "img/ph/ad-street-night.jpg",
+     "packed": false,
+     "label": "강남대로 미디어폴 야경",
+     "fit": "cover"
+    }
+   },
+   "checks": {
+    "n_slots": 36,
+    "changed": 31,
+    "coverage": 0.861,
+    "placeholders_left": 6,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 5,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": true
+  },
+  {
+   "no": 12,
+   "f": "L_PH_P_L",
+   "code": "PH-P-L",
+   "part_id": "S10",
+   "pg": 0,
+   "texts": {
+    "0": "10 · 공간별 제품",
+    "2": "04 · 공간별 제품 — 컨코스",
+    "3": "재활 · 현장 — 공간별 제품",
+    "4": "(주)한빛레이더스 한빛파크 비디오월 및 키오스크 구성",
+    "5": "XHB",
+    "6": "XHB",
+    "7": "키오스크",
+    "8": "삼성 키오스크 KM24C",
+    "9": "서비스",
+    "10": "케어 · 유지관리 및 콘텐츠 제작 지원",
+    "11": "목적",
+    "12": "신규 설치 및 광고 구좌 확대",
+    "13": "수량",
+    "14": "컨코스 TV 120대 및 매점 키오스크 36대",
+    "15": "참고 · 롯데월드타워 서울스카이 — 사이니지 36대 비디오월 · 베젤 [00]mm",
+    "17": "(주)한빛레이더스 프로야구단 · 한빛파크 메인 전광판·리본보드"
+   },
+   "sources": {
+    "0": "context",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "product",
+    "6": "product",
+    "7": "product",
+    "8": "product",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "placeholder",
+    "17": "context"
+   },
+   "images": {
+    "0": {
+     "pid": "ph.ad-dept-led",
+     "file": "img/ph/ad-dept-led.jpg",
+     "packed": false,
+     "label": "건물 모서리 LED (현대백화점면세점 무역센터점)",
+     "fit": "cover"
+    },
+    "1": {
+     "pid": "ph.ad-building-led2",
+     "file": "img/ph/ad-building-led2.jpg",
+     "packed": false,
+     "label": "건물 외벽 LED (코엑스 SM타운)",
+     "fit": "cover"
+    }
+   },
+   "checks": {
+    "n_slots": 17,
+    "changed": 16,
+    "coverage": 0.941,
+    "placeholders_left": 1,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 1,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": true
+  },
+  {
+   "no": 13,
+   "f": "L_PH_BM_A",
+   "code": "PH-BM-A",
+   "part_id": "S11",
+   "pg": 0,
+   "texts": {
+    "0": "11 · 구성 · 수량",
+    "1": "(주)한빛레이더스 프로야구단 도입 구성과 수량",
+    "2": "컨코스 TV 120대 교체 및 매점 18곳 키오스크 도입",
+    "3": "LED 사이니지",
+    "4": "XHB",
+    "5": "[3]",
+    "6": "전광판",
+    "7": "메인·리본보드",
+    "8": "실외 LED 사이니지",
+    "9": "키오스크",
+    "10": "KM24C",
+    "11": "36",
+    "12": "매점",
+    "13": "매점 키오스크",
+    "14": "삼성 키오스크 KM24C",
+    "15": "컨코스",
+    "16": "스마트 TV",
+    "17": "[0]",
+    "18": "대",
+    "19": "컨코스 TV",
+    "20": "노후 TV 전면 교체",
+    "21": "기타",
+    "22": "솔루션",
+    "23": "[0]",
+    "24": "식",
+    "25": "운영 지원",
+    "26": "콘텐츠 제작 지원",
+    "27": "기타",
+    "28": "유지관리",
+    "29": "[0]",
+    "30": "식",
+    "31": "케어",
+    "32": "정기 점검 및 A/S",
+    "33": "합계",
+    "34": "[항목]",
+    "35": "설치 · 배선 · 콘텐츠 초기 세팅 포함 여부는 견적서에서 확정",
+    "37": "(주)한빛레이더스 프로야구단 · 한빛파크 메인 전광판·리본보드·컨코스·매점 리뉴얼"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "product",
+    "4": "product",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "product",
+    "9": "product",
+    "10": "product",
+    "11": "fact",
+    "12": "llm",
+    "13": "llm",
+    "14": "product",
+    "15": "llm",
+    "16": "llm",
+    "17": "placeholder",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "placeholder",
+    "35": "llm",
+    "37": "context"
+   },
+   "images": {
+    "0": {
+     "pid": "ph.ad-street-night",
+     "file": "img/ph/ad-street-night.jpg",
+     "packed": false,
+     "label": "강남대로 미디어폴 야경",
+     "fit": "cover"
+    },
+    "1": {
+     "pid": "cut.xhb",
+     "file": "img/bs/p-xhb.png",
+     "packed": false,
+     "label": "실외 LED 사이니지 캐비닛",
+     "fit": "contain"
+    },
+    "2": {
+     "pid": "r4.ad-coex-led",
+     "file": "img/fill/r4-adof.json#1",
+     "packed": true,
+     "label": "건물 외벽 대형 LED (코엑스 SM타운)",
+     "fit": "cover"
+    },
+    "4": {
+     "pid": "ph.ad-subway",
+     "file": "img/ph/ad-subway.jpg",
+     "packed": false,
+     "label": "지하철역 기둥 사이니지 (신분당선 강남역)",
+     "fit": "cover"
+    },
+    "5": {
+     "pid": "km24c.front",
+     "file": "img/km24c-front.png",
+     "packed": false,
+     "label": "삼성 키오스크 24형 · 정면",
+     "fit": "contain"
+    },
+    "6": {
+     "pid": "r4.ad-media-pole",
+     "file": "img/fill/r4-adof.json#0",
+     "packed": true,
+     "label": "거리 미디어폴 야경 (강남대로 미디어폴)",
+     "fit": "cover"
+    },
+    "7": {
+     "pid": null,
+     "blank": true,
+     "label": "이미지 필요 · 제품 컷 · XHB"
+    },
+    "8": {
+     "pid": "ph.ad-building-led",
+     "file": "img/ph/ad-building-led.jpg",
+     "packed": false,
+     "label": "건물 외벽 LED (코엑스 SM타운)",
+     "fit": "cover"
+    },
+    "9": {
+     "pid": null,
+     "blank": true,
+     "label": "이미지 필요 · 제품 컷 · XHB"
+    }
+   },
+   "checks": {
+    "n_slots": 37,
+    "changed": 32,
+    "coverage": 0.865,
+    "placeholders_left": 5,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 5,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": true
+  },
+  {
+   "no": 14,
+   "f": "L_SC_B",
+   "code": "SC-B",
+   "part_id": "S12",
+   "pg": 0,
+   "texts": {
+    "0": "12 · 제품 스펙",
+    "1": "요구 규격 7개 — 제안 제품 사양 대조",
+    "2": "[내용]",
+    "8": "R1",
+    "9": "기존 철골",
+    "10": "[기준]",
+    "11": "XHB",
+    "12": "[제품 사양]",
+    "13": "[충족]",
+    "14": "[근거 p.]",
+    "15": "R2",
+    "16": "방수·방진 등",
+    "17": "[기준]",
+    "18": "KM24C",
+    "19": "[제품 사양]",
+    "20": "[충족]",
+    "21": "[근거 p.]",
+    "22": "R3",
+    "23": "현재 메인 전광판",
+    "24": "2011년",
+    "25": "XHB",
+    "26": "[제품 사양]",
+    "27": "[충족]",
+    "28": "[근거 p.]",
+    "29": "R4",
+    "30": "현 전광판:",
+    "31": "2011년",
+    "32": "KM24C",
+    "33": "[제품 사양]",
+    "34": "[충족]",
+    "35": "[근거 p.]",
+    "36": "R5",
+    "37": "구조 안전",
+    "38": "[기준]",
+    "39": "XHB",
+    "40": "[제품 사양]",
+    "41": "[충족]",
+    "42": "[근거 p.]",
+    "43": "R6",
+    "44": "주간 경기",
+    "45": "[기준]",
+    "46": "KM24C",
+    "47": "[제품 사양]",
+    "48": "[충족]",
+    "49": "[근거 p.]",
+    "51": "[0] / 7",
+    "52": "[충족 현황]",
+    "53": "[내용]",
+    "55": "(주)한빛레이더스 프로야구단 · 한빛파크 메인 전광판"
+   },
+   "sources": {
+    "0": "context",
+    "1": "composed",
+    "2": "placeholder",
+    "8": "req",
+    "9": "req",
+    "10": "placeholder",
+    "11": "req",
+    "12": "placeholder",
+    "13": "placeholder",
+    "14": "placeholder",
+    "15": "req",
+    "16": "req",
+    "17": "placeholder",
+    "18": "req",
+    "19": "placeholder",
+    "20": "placeholder",
+    "21": "placeholder",
+    "22": "req",
+    "23": "req",
+    "24": "req",
+    "25": "req",
+    "26": "placeholder",
+    "27": "placeholder",
+    "28": "placeholder",
+    "29": "req",
+    "30": "req",
+    "31": "req",
+    "32": "req",
+    "33": "placeholder",
+    "34": "placeholder",
+    "35": "placeholder",
+    "36": "req",
+    "37": "req",
+    "38": "placeholder",
+    "39": "req",
+    "40": "placeholder",
+    "41": "placeholder",
+    "42": "placeholder",
+    "43": "req",
+    "44": "req",
+    "45": "placeholder",
+    "46": "req",
+    "47": "placeholder",
+    "48": "placeholder",
+    "49": "placeholder",
+    "51": "placeholder",
+    "52": "placeholder",
+    "53": "placeholder",
+    "55": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 55,
+    "changed": 43,
+    "coverage": 0.782,
+    "placeholders_left": 26,
+    "overflow_fixed": [
+     9,
+     16,
+     23,
+     30,
+     37,
+     44
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 12,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": false
+  },
+  {
+   "no": 15,
+   "f": "L_SC_B",
+   "code": "SC-B",
+   "part_id": "S12",
+   "pg": 1,
+   "texts": {
+    "0": "12 · 제품 스펙",
+    "1": "요구 규격 7개 — 제안 제품 사양 대조",
+    "2": "[내용]",
+    "8": "R7",
+    "9": "광고 송출",
+    "10": "[기준]",
+    "11": "XHB",
+    "12": "[제품 사양]",
+    "13": "[충족]",
+    "14": "[근거 p.]",
+    "16": "[항목]",
+    "17": "[항목]",
+    "18": "[항목]",
+    "19": "[항목]",
+    "20": "[항목]",
+    "21": "[내용]",
+    "23": "[항목]",
+    "24": "[항목]",
+    "25": "[항목]",
+    "26": "[항목]",
+    "27": "[항목]",
+    "28": "[내용]",
+    "30": "[항목]",
+    "31": "[항목]",
+    "32": "[항목]",
+    "33": "[항목]",
+    "34": "[항목]",
+    "35": "[내용]",
+    "37": "[항목]",
+    "38": "[항목]",
+    "39": "[항목]",
+    "40": "[항목]",
+    "41": "[항목]",
+    "42": "[내용]",
+    "44": "[항목]",
+    "45": "[항목]",
+    "46": "[항목]",
+    "47": "[항목]",
+    "48": "[항목]",
+    "49": "[내용]",
+    "51": "[0] / 7",
+    "52": "[충족 현황]",
+    "53": "[내용]",
+    "55": "(주)한빛레이더스 프로야구단 · 한빛파크 메인 전광판"
+   },
+   "sources": {
+    "0": "context",
+    "1": "composed",
+    "2": "placeholder",
+    "8": "req",
+    "9": "req",
+    "10": "placeholder",
+    "11": "req",
+    "12": "placeholder",
+    "13": "placeholder",
+    "14": "placeholder",
+    "16": "placeholder",
+    "17": "placeholder",
+    "18": "placeholder",
+    "19": "placeholder",
+    "20": "placeholder",
+    "21": "placeholder",
+    "23": "placeholder",
+    "24": "placeholder",
+    "25": "placeholder",
+    "26": "placeholder",
+    "27": "placeholder",
+    "28": "placeholder",
+    "30": "placeholder",
+    "31": "placeholder",
+    "32": "placeholder",
+    "33": "placeholder",
+    "34": "placeholder",
+    "35": "placeholder",
+    "37": "placeholder",
+    "38": "placeholder",
+    "39": "placeholder",
+    "40": "placeholder",
+    "41": "placeholder",
+    "42": "placeholder",
+    "44": "placeholder",
+    "45": "placeholder",
+    "46": "placeholder",
+    "47": "placeholder",
+    "48": "placeholder",
+    "49": "placeholder",
+    "51": "placeholder",
+    "52": "placeholder",
+    "53": "placeholder",
+    "55": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 55,
+    "changed": 44,
+    "coverage": 0.8,
+    "placeholders_left": 38,
+    "overflow_fixed": [
+     9
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 11,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": false
+  },
+  {
+   "no": 16,
+   "f": "L_IG_A",
+   "code": "IG-A",
+   "part_id": "S13",
+   "pg": 0,
+   "texts": {
+    "0": "[00] · 실행 계획",
+    "1": "시스템 연동 및 대응 — 운영 안정성 확보",
+    "2": "유지보수·장애 대응 | 20%",
+    "3": "구단 시스템",
+    "4": "× 삼성 솔루션",
+    "5": "매점 POS",
+    "6": "키오스크",
+    "7": "전광판 운영",
+    "8": "콘텐츠 송출",
+    "9": "시설 관리",
+    "10": "[내용]",
+    "11": "보안 및 인증",
+    "12": "데이터 보안",
+    "13": "운영 지원",
+    "14": "원격 유지보수",
+    "15": "POS",
+    "16": "F&B",
+    "17": "API",
+    "18": "메뉴·가격·품절",
+    "19": "연동",
+    "20": "인터페이스 모듈",
+    "21": "실시간 데이터 송수신",
+    "22": "POS",
+    "23": "F&B",
+    "24": "API",
+    "25": "메뉴",
+    "26": "가격",
+    "27": "품절",
+    "28": "BMS",
+    "29": "구단 설비",
+    "30": "인터페이스 모듈",
+    "31": "[제품]",
+    "32": "조명 상태",
+    "33": "확인 필요",
+    "34": "전력 계량",
+    "35": "예약 · CRM",
+    "36": "고객 관리",
+    "37": "파일 연계",
+    "38": "웰컴 메시지",
+    "39": "언어",
+    "40": "SSO",
+    "41": "사내 인증",
+    "42": "확인 필요",
+    "43": "관리자 로그인",
+    "44": "API",
+    "45": "직원 계정",
+    "46": "권한",
+    "47": "연동 전제 조건",
+    "48": "구단 시스템 API 제공 여부",
+    "49": "확인 필요",
+    "50": "방화벽 포트 개방",
+    "51": "[00]개 · IT팀 승인",
+    "52": "연동 개발 주체",
+    "53": "SI 파트너 · 범위 [확정 필요]",
+    "54": "시험 환경(스테이징) 제공",
+    "55": "운영 전 [0]주 · 구단 제공",
+    "56": "연동 방식 · 건수",
+    "57": "API",
+    "58": "표준 API · 실시간 호출",
+    "59": "3",
+    "60": "인터페이스 모듈",
+    "61": "게이트웨이 변환",
+    "62": "2",
+    "63": "파일 연계",
+    "64": "정해진 시각에 교환",
+    "65": "1",
+    "66": "확인 필요",
+    "67": "벤더 협의 후 확정",
+    "68": "2",
+    "70": "(주)한빛레이더스 프로야구단 · 한빛파크 메인 전광판·리본보드·컨코스·매점 리뉴얼"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "req",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "placeholder",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "placeholder",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "35": "llm",
+    "36": "llm",
+    "37": "llm",
+    "38": "llm",
+    "39": "llm",
+    "40": "llm",
+    "41": "llm",
+    "42": "llm",
+    "43": "llm",
+    "44": "llm",
+    "45": "llm",
+    "46": "llm",
+    "47": "llm",
+    "48": "llm",
+    "49": "llm",
+    "50": "llm",
+    "51": "llm",
+    "52": "llm",
+    "53": "llm",
+    "54": "llm",
+    "55": "llm",
+    "56": "llm",
+    "57": "llm",
+    "58": "llm",
+    "59": "llm",
+    "60": "llm",
+    "61": "llm",
+    "62": "llm",
+    "63": "llm",
+    "64": "llm",
+    "65": "llm",
+    "66": "llm",
+    "67": "llm",
+    "68": "llm",
+    "70": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 70,
+    "changed": 30,
+    "coverage": 0.429,
+    "placeholders_left": 6,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 40,
+    "static_foreign": [],
+    "guarded": {
+     "category": [
+      31
+     ]
+    }
+   },
+   "llm": true
+  },
+  {
+   "no": 17,
+   "f": "L_PH_EF_A",
+   "code": "PH-EF-A",
+   "part_id": "S14",
+   "pg": 0,
+   "texts": {
+    "0": "[00] · 기대 효과",
+    "1": "한빛파크 전광판 교체 및 관람환경 개선",
+    "2": "02 · 기대 효과",
+    "3": "도입 후 달라지는 관람 환경 지표",
+    "4": "예상치 · 유사 사례 기준 — 출처: 신세계백화점 본점",
+    "5": "지표",
+    "6": "지금",
+    "7": "도입 후",
+    "8": "구단 및 공단 내부",
+    "9": "전광판 노후 장애",
+    "10": "[0]",
+    "11": "일",
+    "12": "[00]",
+    "13": "분",
+    "14": "▼ [00]%",
+    "15": "매점 주문 오류",
+    "16": "매점 결제 건수",
+    "17": "[00]",
+    "18": "건",
+    "19": "[0]",
+    "20": "건",
+    "21": "▼ [00]%",
+    "22": "[항목]",
+    "23": "피크 시간 평균",
+    "24": "[0.0]",
+    "25": "분",
+    "26": "[0.0]",
+    "27": "분",
+    "28": "▼ [00]%",
+    "29": "전력 소비량",
+    "30": "전광판 운영",
+    "31": "[000]",
+    "32": "kWh",
+    "33": "[000]",
+    "34": "kWh",
+    "35": "▼ [00]%",
+    "37": "(주)한빛레이더스 프로야구단 · 한빛파크 메인 전광판·리본보드·컨코스·매점 리뉴얼"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "placeholder",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "35": "llm",
+    "37": "context"
+   },
+   "images": {
+    "0": {
+     "pid": "ph.ad-dept-led",
+     "file": "img/ph/ad-dept-led.jpg",
+     "packed": false,
+     "label": "건물 모서리 LED (현대백화점면세점 무역센터점)",
+     "fit": "cover"
+    }
+   },
+   "checks": {
+    "n_slots": 37,
+    "changed": 12,
+    "coverage": 0.324,
+    "placeholders_left": 14,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 25,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": true
+  },
+  {
+   "no": 18,
+   "f": "L_CS03",
+   "code": "CL-B",
+   "part_id": "S15",
+   "pg": 0,
+   "texts": {
+    "0": "15 · 유관 사례",
+    "1": "다양한 공간에서 검증된 구축",
+    "3": "신세계백화점 본점 더",
+    "4": "외벽 2면 총 1285㎡ 설치",
+    "5": "차원이 다른 몰입감의 색다른 사이니지 → 삼성 스마트 LED",
+    "6": "사이니지",
+    "7": "[00]%",
+    "8": "[성과 지표]",
+    "10": "현대백화점면세점",
+    "11": "[내용]",
+    "12": "관광객 시선을 사로잡는 랜드마크 → 실외용 프리미엄 LED",
+    "13": "사이니지",
+    "14": "[00]%",
+    "15": "[성과 지표]",
+    "17": "강남대로 미디어폴",
+    "18": "공공 · 미디어폴 18대",
+    "19": "노후 미디어폴 리뉴얼로 랜드마크 조성 → 실외용 스마트",
+    "20": "사이니지",
+    "21": "[00]%",
+    "22": "[성과 지표]",
+    "24": "(주)한빛레이더스 프로야구단 · 한빛파크 메인 전광판"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "3": "case",
+    "4": "case",
+    "5": "case",
+    "6": "case",
+    "7": "placeholder",
+    "8": "placeholder",
+    "10": "case",
+    "11": "placeholder",
+    "12": "case",
+    "13": "case",
+    "14": "placeholder",
+    "15": "placeholder",
+    "17": "case",
+    "18": "case",
+    "19": "case",
+    "20": "case",
+    "21": "placeholder",
+    "22": "placeholder",
+    "24": "context"
+   },
+   "images": {
+    "0": {
+     "pid": null,
+     "blank": true,
+     "label": "이미지 필요 · 사례 사진"
+    },
+    "1": {
+     "pid": null,
+     "blank": true,
+     "label": "이미지 필요 · 사례 사진"
+    },
+    "2": {
+     "pid": null,
+     "blank": true,
+     "label": "이미지 필요 · 사례 사진"
+    }
+   },
+   "checks": {
+    "n_slots": 21,
+    "changed": 18,
+    "coverage": 0.857,
+    "placeholders_left": 7,
+    "overflow_fixed": [
+     1
+    ],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 3,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": true
+  },
+  {
+   "no": 19,
+   "f": "L_PH_SV_B",
+   "code": "PH-SV-B",
+   "part_id": "S16",
+   "pg": 0,
+   "texts": {
+    "0": "16 · Why Samsung",
+    "1": "한빛파크를 위한 삼성의 밀착 서비스",
+    "2": "전국 서비스망과 장애 대응 기준(SLA) — 실제 현장 점검 사진",
+    "3": "[000]곳",
+    "4": "서비스 거점",
+    "5": "[000]명",
+    "6": "전담 엔지니어",
+    "7": "1",
+    "8": "장애 접수",
+    "9": "경쟁 제안 대비 확실한",
+    "10": "[내용]",
+    "11": "2",
+    "12": "원격 조치",
+    "13": "스폰서 측에서 광고",
+    "14": "[내용]",
+    "15": "3",
+    "16": "현장 방문",
+    "17": "업체 비교 검토 항목",
+    "18": "전담 엔지니어의 신속한 현장 출동 및 정밀 점검",
+    "19": "4",
+    "20": "부품 교체",
+    "21": "광고 노출 데이터",
+    "22": "보증 기간 내 무상 · 거점별 주요 부품 재고",
+    "23": "5",
+    "24": "정기 점검",
+    "25": "업체 비교",
+    "26": "시즌 전후 정기 점검 및 클리닝 서비스",
+    "27": "정기 점검 · 세척",
+    "28": "[제품]",
+    "29": "원격 진단 화면",
+    "30": "SLA는 계약 조건에 따라 확정 · 도서 지역은 별도 협의",
+    "32": "(주)한빛레이더스 프로야구단 · 한빛파크 메인 전광판·리본보드·컨코스·매점 리뉴얼"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "item",
+    "10": "placeholder",
+    "11": "llm",
+    "12": "llm",
+    "13": "item",
+    "14": "placeholder",
+    "15": "llm",
+    "16": "llm",
+    "17": "item",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "item",
+    "22": "llm",
+    "23": "llm",
+    "24": "llm",
+    "25": "item",
+    "26": "llm",
+    "27": "llm",
+    "28": "placeholder",
+    "29": "llm",
+    "30": "llm",
+    "32": "context"
+   },
+   "images": {
+    "1": {
+     "pid": "ph.ad-waterfall-led",
+     "file": "img/ph/ad-waterfall-led.jpg",
+     "packed": false,
+     "label": "공항 · 몰 대형 LED 연출 (samsung.com)",
+     "fit": "cover"
+    },
+    "2": {
+     "pid": null,
+     "blank": true,
+     "label": "이미지 필요 · 원격 모니터링 사진"
+    },
+    "3": {
+     "pid": null,
+     "blank": true,
+     "label": "이미지 필요 · 원격 진단 화면 사진"
+    }
+   },
+   "checks": {
+    "n_slots": 32,
+    "changed": 14,
+    "coverage": 0.438,
+    "placeholders_left": 5,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 18,
+    "static_foreign": [],
+    "guarded": {
+     "category": [
+      28
+     ]
+    }
+   },
+   "llm": true
+  },
+  {
+   "no": 20,
+   "f": "L_PH_MT_A",
+   "code": "PH-MT-A",
+   "part_id": "S17",
+   "pg": 0,
+   "texts": {
+    "0": "[00] · 실행 계획",
+    "1": "전광판 및 키오스크 유지관리 일정",
+    "2": "[내용]",
+    "3": "시즌",
+    "4": "시즌",
+    "5": "시즌",
+    "6": "설비 · 수량",
+    "7": "1월",
+    "8": "2월",
+    "9": "3월",
+    "10": "4월",
+    "11": "5월",
+    "12": "6월",
+    "13": "7월",
+    "14": "8월",
+    "15": "9월",
+    "16": "10월",
+    "17": "11월",
+    "18": "12월",
+    "19": "컨코스 TV",
+    "20": "[내용]",
+    "21": "★",
+    "22": "★",
+    "23": "매점 키오스크",
+    "24": "[항목]",
+    "25": "★",
+    "26": "★",
+    "27": "2027 시즌 개막 전 완료",
+    "28": "시범경기 시험 운영",
+    "29": "비시즌 공사",
+    "30": "11월~2월 집중 공사",
+    "31": "메인 전광판",
+    "32": "XHB 시리즈 · 외벽",
+    "33": "정기 점검",
+    "34": "외관 세척",
+    "35": "★ 시즌 전 집중 점검",
+    "36": "원격 진단 · 상시",
+    "37": "개막 한 달 전",
+    "38": "11월 · 2월 집중 점검",
+    "39": "✓",
+    "40": "작동 확인",
+    "41": "전 대수 운전 확인",
+    "42": "✓",
+    "43": "모듈",
+    "44": "픽셀 불량 점검",
+    "45": "✓",
+    "46": "전원",
+    "47": "전원부 이상 확인",
+    "48": "✓",
+    "49": "콘텐츠",
+    "50": "최신 템플릿 적용",
+    "51": "통합 유지관리",
+    "52": "리포트",
+    "53": "매월 [0]일",
+    "54": "설비별 조치 이력",
+    "56": "(주)한빛레이더스 프로야구단 · 한빛파크 메인 전광판·리본보드·컨코스·매점 리뉴얼"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "placeholder",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "placeholder",
+    "21": "llm",
+    "22": "llm",
+    "23": "llm",
+    "24": "placeholder",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "35": "llm",
+    "36": "llm",
+    "37": "llm",
+    "38": "llm",
+    "39": "llm",
+    "40": "llm",
+    "41": "llm",
+    "42": "llm",
+    "43": "llm",
+    "44": "llm",
+    "45": "llm",
+    "46": "llm",
+    "47": "llm",
+    "48": "llm",
+    "49": "llm",
+    "50": "llm",
+    "51": "llm",
+    "52": "llm",
+    "53": "llm",
+    "54": "llm",
+    "56": "context"
+   },
+   "images": {
+    "0": {
+     "pid": "r4.ad-coex-led",
+     "file": "img/fill/r4-adof.json#1",
+     "packed": true,
+     "label": "건물 외벽 대형 LED (코엑스 SM타운)",
+     "fit": "cover"
+    },
+    "1": {
+     "pid": "ph.ad-building-led",
+     "file": "img/ph/ad-building-led.jpg",
+     "packed": false,
+     "label": "건물 외벽 LED (코엑스 SM타운)",
+     "fit": "cover"
+    },
+    "2": {
+     "pid": "ph.ad-street-night",
+     "file": "img/ph/ad-street-night.jpg",
+     "packed": false,
+     "label": "강남대로 미디어폴 야경",
+     "fit": "cover"
+    },
+    "3": {
+     "pid": "r4.ad-media-pole",
+     "file": "img/fill/r4-adof.json#0",
+     "packed": true,
+     "label": "거리 미디어폴 야경 (강남대로 미디어폴)",
+     "fit": "cover"
+    },
+    "4": {
+     "pid": "ph.ad-subway",
+     "file": "img/ph/ad-subway.jpg",
+     "packed": false,
+     "label": "지하철역 기둥 사이니지 (신분당선 강남역)",
+     "fit": "cover"
+    }
+   },
+   "checks": {
+    "n_slots": 56,
+    "changed": 29,
+    "coverage": 0.518,
+    "placeholders_left": 5,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 27,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": true
+  },
+  {
+   "no": 21,
+   "f": "L_CO_B",
+   "code": "CO-B",
+   "part_id": "S18",
+   "pg": 0,
+   "texts": {
+    "0": "18 · 비용 · 구매",
+    "1": "구매 방식과 총소유비용을 함께 봅니다",
+    "2": "10년 이상 장기 유지보수 비용 제시 · 메인 전광판과 연동한 응원 연출 (홈런·득점 시 일제 연출)",
+    "3": "[항목]",
+    "4": "[0.0]",
+    "5": "억",
+    "6": "삼성 안",
+    "7": "처음 가격 [0.0]억",
+    "8": "[0.0]",
+    "9": "억",
+    "10": "경쟁사 C 안",
+    "11": "처음 가격 [0.0]억",
+    "12": "[0.0]",
+    "13": "억",
+    "14": "경쟁사 A 안",
+    "15": "처음 가격 [0.0]억",
+    "16": "구간 · 삼성 / 경쟁",
+    "17": "교체 · 폐기",
+    "18": "노후 화면 교체",
+    "19": "유지보수",
+    "20": "출장 · 부품",
+    "21": "전기",
+    "22": "[항목]",
+    "23": "라이선스 · 구독",
+    "24": "CMS · 서버",
+    "25": "설치",
+    "26": "시공 · 배선",
+    "27": "초기 구매",
+    "28": "화면 · 플레이어",
+    "29": "연도별 누적",
+    "30": "단위 · 억 원",
+    "31": "연차",
+    "32": "삼성",
+    "33": "경쟁사 C",
+    "34": "경쟁사 A",
+    "36": "[0.0]",
+    "37": "[0.0]",
+    "38": "[0.0]",
+    "40": "[0.0]",
+    "41": "[0.0]",
+    "42": "[0.0]",
+    "44": "[0.0]",
+    "45": "[0.0]",
+    "46": "[0.0]",
+    "48": "[0.0]",
+    "49": "[0.0]",
+    "50": "[0.0]",
+    "52": "[0.0]",
+    "53": "[0.0]",
+    "54": "[0.0]",
+    "56": "−15%",
+    "57": "경쟁 안 대비",
+    "58": "경쟁사 C 안 대비 −[00]%",
+    "59": "경쟁사 A 안 대비 −[00]%",
+    "61": "(주)한빛레이더스 프로야구단 · 한빛파크 메인 전광판·리본보드·컨코스·매점 리뉴얼"
+   },
+   "sources": {
+    "0": "context",
+    "1": "llm",
+    "2": "req",
+    "3": "placeholder",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "llm",
+    "12": "llm",
+    "13": "llm",
+    "14": "llm",
+    "15": "llm",
+    "16": "llm",
+    "17": "llm",
+    "18": "llm",
+    "19": "llm",
+    "20": "llm",
+    "21": "llm",
+    "22": "placeholder",
+    "23": "llm",
+    "24": "llm",
+    "25": "llm",
+    "26": "llm",
+    "27": "llm",
+    "28": "llm",
+    "29": "llm",
+    "30": "llm",
+    "31": "llm",
+    "32": "llm",
+    "33": "llm",
+    "34": "llm",
+    "36": "llm",
+    "37": "llm",
+    "38": "llm",
+    "40": "llm",
+    "41": "llm",
+    "42": "llm",
+    "44": "llm",
+    "45": "llm",
+    "46": "llm",
+    "48": "llm",
+    "49": "llm",
+    "50": "llm",
+    "52": "llm",
+    "53": "llm",
+    "54": "llm",
+    "56": "fact",
+    "57": "llm",
+    "58": "llm",
+    "59": "llm",
+    "61": "context"
+   },
+   "images": {},
+   "checks": {
+    "n_slots": 61,
+    "changed": 7,
+    "coverage": 0.115,
+    "placeholders_left": 25,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 54,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": true
+  },
+  {
+   "no": 22,
+   "f": "L_C12",
+   "code": "C12",
+   "part_id": "S19",
+   "pg": 0,
+   "texts": {
+    "0": "도입 후 모습 · 생성 시안",
+    "1": "한빛파크 리뉴얼을 위한 파일럿 승인 요청",
+    "2": "함께 만들 모습",
+    "3": "2027 시즌 개막을 위한 한빛파크 디지털 전환",
+    "4": "실외 LED 사이니지 및 키오스크 도입을 통한 관람 환경 개선",
+    "5": "담당자",
+    "6": "이름",
+    "7": "삼성전자 담당자",
+    "8": "부서",
+    "9": "B2B 영업팀",
+    "10": "이메일",
+    "11": "[항목]",
+    "12": "전화",
+    "15": "(주)한빛레이더스 프로야구단 · 한빛파크 메인 전광판·리본보드·컨코스·매점 리뉴얼"
+   },
+   "sources": {
+    "0": "llm",
+    "1": "llm",
+    "2": "llm",
+    "3": "llm",
+    "4": "llm",
+    "5": "llm",
+    "6": "llm",
+    "7": "llm",
+    "8": "llm",
+    "9": "llm",
+    "10": "llm",
+    "11": "placeholder",
+    "12": "llm",
+    "15": "context"
+   },
+   "images": {
+    "0": {
+     "pid": "ph.ad-building-led2",
+     "file": "img/ph/ad-building-led2.jpg",
+     "packed": false,
+     "label": "건물 외벽 LED (코엑스 SM타운)",
+     "fit": "cover"
+    }
+   },
+   "checks": {
+    "n_slots": 15,
+    "changed": 7,
+    "coverage": 0.467,
+    "placeholders_left": 2,
+    "overflow_fixed": [],
+    "unsupported_numbers": [],
+    "sample_leak": [],
+    "foreign_terms": [],
+    "sample_text_kept": 8,
+    "static_foreign": [],
+    "guarded": {}
+   },
+   "llm": true
+  }
+ ]
+}

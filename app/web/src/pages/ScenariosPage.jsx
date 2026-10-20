@@ -1,5 +1,10 @@
+import { requireLogin } from '../api/session.js';
 import React, { useState, useEffect, useMemo } from 'react';
-import { loadUi, saveUi, createProposal, update, uid } from '../repositories/proposals.js';
+import { useCatalogSearch } from '../hooks/useCatalogSearch.js';
+import { searchScenarioKeywords, AI_SEARCH_TOP } from '../services/catalog-search.js';
+import { CatalogSearchBar, CatalogSearchStatus } from '../components/catalog-search.jsx';
+
+import { loadUi, saveUi, createProposal, update, uid, segPlain } from '../repositories/proposals.js';
 import { Icon, Modal, toast } from '../components/common.jsx';
 import { PARTS, REQ_LABEL } from '../domain/proposals/parts.js';
 import { L, IND, P, S, C, IND_KW, INDUSTRIES, SOLUTIONS, PRODUCTS } from '../services/catalog.js';
@@ -14,15 +19,16 @@ import { BubblePopup } from '../components/bubblepop.jsx';
 import { partIcon } from '../components/parteditor.jsx';
 import { reqSig } from '../components/ctxconfirm.jsx';
 import { flatSlides } from '../components/viewer.jsx';
-import { TagChip, TagCard, tagMeta } from '../components/tagcard.jsx';
+import { TagChip, TagCard, tagMeta, tagHoverProps } from '../components/tagcard.jsx';
+import { useDetailPeek } from '../components/reference-detail.jsx';
 import { Thumb } from '../components/Thumbs.jsx';
 import { usePickPeek } from '../components/pickpeek.jsx';
 import { FilterBar, FilterPopup, FStep, FChip, FAll, FProducts, idList, SCENARIO_UNIT } from '../components/filterpop.jsx';
 
 /* =========================================================
    Best Scenario — its own page (sidebar): a list, one scenario per row,
-   grouped by 요구사항 타입 (indented under each group). A row = big title +
-   summary, a '상세 보기' button (the scenario's Storyboard, read-only — ScenarioStoryboard; 활용하기 copies it into the history) and the
+   grouped by 요구사항 타입 (indented under each group). A row = big title,
+   a '상세 보기' button (the scenario's Storyboard, read-only — ScenarioStoryboard; 활용하기 copies it into the history) and the
    deck's first sheets (s.preview, 3 — each opens that sheet's detail popup).
    Search + filters work like the PPT 레이아웃 템플릿 page — the same big search box, a '필터' button under it with the
    active filters as chips to its right, and one filter popup (filterpop.jsx): 요구사항 → 전략 → 업종 → 솔루션 → 제품 → 결말.
@@ -48,6 +54,7 @@ async function downloadScenario(s) {
 /** 활용하기 — 이 시나리오의 Storyboard(고객 요구사항 · 제품 · 솔루션 매칭 · 파트 · 채운 레이아웃)를 그대로 내 제안서로 만들어
  *  히스토리(사이드바 제안서 목록) 맨 위에 넣고 연다. 원본 Best Scenario는 그대로 — 고치고 넣는 것은 이 복사본에서만. */
 export function activateScenario(s, go) {
+  if (!requireLogin()) return;
   const sb = storyboardOf(s, { pid: () => uid('s'), kid: () => uid('k'), lid: () => uid('l') });
   const id = createProposal();
   update(id, (d) => { Object.assign(d, sb); d.reqSaved = reqSig(d); });
@@ -60,7 +67,7 @@ function UseConfirm({ s, onCancel, onConfirm }) {
   const parts = p.parts.filter((x) => !x.deck); const nL = p.parts.reduce((a, x) => a + x.layouts.length, 0);
   return (
     <Modal size="narrow" title="이 Best Scenario를 활용할까요?" onClose={onCancel}
-      footer={<><span className="sp" /><button className="btn" onClick={onCancel}>취소</button><button className="btn btn-primary" data-autofocus onClick={onConfirm}><Icon name="check" size={15} stroke={2.6} />활용하기</button></>}>
+      footer={<><span className="sp" /><button className="btn" onClick={onCancel}>취소</button><button className="btn btn-primary" data-autofocus onClick={onConfirm} data-login-required><Icon name="check" size={15} stroke={2.6} />활용하기</button></>}>
       <div className="bsu">
         <p className="bsu-t"><b>{s.title}</b></p>
         <p className="bsu-d">이 구성 그대로 <b>내 제안서 히스토리</b>에 추가하고 바로 열어요. 추가한 제안서에서는 요구사항 · 매칭 · 파트를 고치고 레이아웃을 넣거나 바꿀 수 있어요. 원본 Best Scenario는 바뀌지 않아요.</p>
@@ -79,71 +86,8 @@ function useBusy() {
   return [busy, run];
 }
 
-/* ---------- search: 20 scenarios → weighted field match (+ Hangul bigram fallback) ---------- */
-const PARTICLE = /(에서|으로|까지|은|는|이|가|을|를|의|에|도|로|와|과|만)$/;
-function qWords(q) {
-  return [...new Set(String(q || '').toLowerCase().split(/[\s,·.!?'"“”‘’()/]+/)
-    .map((w) => (/^[가-힣]{3,}$/.test(w) ? w.replace(PARTICLE, '') : w))
-    .filter((w) => w.length >= 2 || /\d/.test(w)))];
-}
-const bigr = (w) => { const o = []; for (let i = 0; i < w.length - 1; i++) o.push(w.slice(i, i + 2)); return o; };
-const names = (ids, M, f) => (ids || []).map((id) => M[id] && f(M[id])).filter(Boolean);
-function docOf(s) {
-  const fl = slidesOfScenario(s); const st = STRATEGIES[s.strategy];
-  const F = [
-    ['제목', [s.title], 6], ['요약', [s.short], 4],
-    ['업종', [indName(s.ind), ...((s.ind && IND_KW[s.ind]) || [])], 4],
-    ['요구사항', [REQ_TYPES[s.req].label], 3], ['전략', [st.label, st.desc], 3], ['결말', [ENDINGS[s.ending], s.ask], 3],
-    ['솔루션', names(s.solutions, S, (x) => x.name + ' · ' + x.cat), 4],
-    ['제품', names(s.products, P, (x) => x.name + ' · ' + x.cat), 4],
-    ['유관 사례', names(s.cases, C, (x) => x.cust + ' · ' + x.title), 2],
-    ['상황', [s.situation], 2], ['고객의 말', s.signals, 2], ['핵심 주장', [s.thesis], 2],
-    ['논리 전개', s.logic, 1.5], ['차별화', s.diff, 1.5], ['핵심 메시지', s.messages, 1.5], ['언제 쓰나', [s.fit], 2],
-    ['결정권자', [s.audience.lead, ...s.audience.others], 1.5], ['평가 기준', s.criteria, 1.5], ['성공 지표', s.kpis, 1.5],
-    ['준비 자료', s.prep, 1], ['예상 반론', s.objections.flat(), 1], ['다음 할 일', s.next, 1],
-    ['흐름', [...s.flow.map((g) => g.name + ' — ' + g.goal), ...fl.map((x) => (L[x.f] ? L[x.f].name + ' — ' : '') + x.role)], 1],
-  ];
-  return F.map(([k, items, w]) => { const it = (items || []).filter(Boolean).map(String); return { k, items: it, w, lc: it.join(' \n ').toLowerCase() }; });
-}
-let DOCS = null; // built on the first search so the page opens fast
-const docs = () => DOCS || (DOCS = Object.fromEntries(SCENARIOS.map((s) => [s.id, docOf(s)])));
-function cut(item, w) {
-  const i = w ? item.toLowerCase().indexOf(w) : -1;
-  if (i < 0) return { pre: item.length > 72 ? item.slice(0, 72) + '…' : item, mid: '', post: '' };
-  const whole = item.length <= 90; // short items (a solution name, one criterion) stay whole
-  const a = whole ? 0 : Math.max(0, i - 26); const b = whole ? item.length : Math.min(item.length, i + w.length + 46);
-  return { pre: (a > 0 ? '…' : '') + item.slice(a, i), mid: item.slice(i, i + w.length), post: item.slice(i + w.length, b) + (b < item.length ? '…' : '') };
-}
-/** → null (no query) | [{ s, score, hit, why, snip }] best first */
-export function searchScenarios(q) {
-  const ws = qWords(q); if (!ws.length) return null;
-  const D = docs(); const out = [];
-  for (const s of SCENARIOS) {
-    let score = 0; let hit = 0; let snip = null; const why = [];
-    for (const w of ws) {
-      let best = null; let nf = 0;
-      for (const f of D[s.id]) {
-        let m = f.lc.includes(w) ? 1 : 0;
-        if (!m && /^[가-힣]{3,}$/.test(w)) { const b = bigr(w); if (b.filter((x) => f.lc.includes(x)).length / b.length >= 0.75) m = 0.6; }
-        if (!m) continue;
-        nf++;
-        if (!best || f.w * m > best.v) best = { f, v: f.w * m };
-      }
-      if (!best) continue;
-      hit++; score += best.v + Math.min(3, nf - 1) * 0.3;
-      if (!why.includes(best.f.k)) why.push(best.f.k);
-      if (!snip && best.f.k !== '제목' && best.f.k !== '요약') { // title · summary are already on the card
-        const item = best.f.k === '업종' ? best.f.items[0] : (best.f.items.find((t) => t.toLowerCase().includes(w)) || best.f.items[0]);
-        snip = { k: best.f.k, ...cut(item, w) };
-      }
-    }
-    if (hit) out.push({ s, score, hit, why, snip });
-  }
-  // every word somewhere → keep only those (AND); otherwise the closest ones
-  const top = Math.max(0, ...out.map((r) => r.hit));
-  const min = top === ws.length ? top : Math.max(1, top - 1);
-  return out.filter((r) => r.hit >= min).sort((a, b) => b.hit - a.hit || b.score - a.score);
-}
+// Both catalogs use the original Best Scenario keyword search contract.
+export const searchScenarios = searchScenarioKeywords;
 
 /* ---------- filters: one popup (요구사항 · 전략 · 업종 · 솔루션 · 제품 · 결말), shared UI with the template page ---------- */
 const BS_FKEYS = ['req', 'strat', 'ind', 'sol', 'prod', 'end'];
@@ -193,6 +137,7 @@ function activeBs(f) {
 /** One popup, read top to bottom: 요구사항 → 전략 → 업종 → 솔루션 → 제품 → 결말 (the template page's popup, same pieces).
  *  Every choice shows how many scenarios stay with the other choices kept; nothing applies until "N개 보기". */
 function ScenarioFilter({ f, base, onApply, onClose }) {
+  const peek = useDetailPeek(null);
   const [d, setD] = useState(() => ({ ...BS_NO_FILTER, ...Object.fromEntries(BS_FKEYS.map((k) => [k, f[k]])) }));
   const put = (patch) => setD((x) => ({ ...x, ...patch }));
   const n = base.filter((s) => passS(s, d)).length;
@@ -207,7 +152,7 @@ function ScenarioFilter({ f, base, onApply, onClose }) {
 
   const chip = (key, val, label, cnt, extra = {}) => {
     const sel = d[key] === val;
-    return <FChip key={key + ':' + val} on={sel} n={cnt} cls={extra.cls} pre={extra.pre} title={extra.title} onClick={() => put({ [key]: sel ? '' : val })}>{label}</FChip>;
+    return <FChip key={key + ':' + val} on={sel} n={cnt} cls={extra.cls} pre={extra.pre} title={extra.title} peek={key === 'sol' ? peek : null} r={key === 'sol' ? 'solution:' + val : null} onClick={() => put({ [key]: sel ? '' : val })}>{label}</FChip>;
   };
   const all = (key, cnt) => <FAll on={!d[key]} n={cnt} onClick={() => put({ [key]: '' })} />;
   const solCats = [...new Set(USED_SOL.filter((x) => solN[x.id] || d.sol === x.id).map((x) => x.cat))];
@@ -243,7 +188,7 @@ function ScenarioFilter({ f, base, onApply, onClose }) {
         ))}
       </FStep>
       <FStep no={5} title="제품" hint="고른 제품 중 하나라도 들어간 시나리오">
-        <FProducts ids={idList(d.prod)} counts={prodN} used={USED_PROD} unit={SCENARIO_UNIT} onChange={(ids) => put({ prod: ids.join(',') })} />
+        <FProducts ids={idList(d.prod)} counts={prodN} used={USED_PROD} unit={SCENARIO_UNIT} peek={peek} onChange={(ids) => put({ prod: ids.join(',') })} />
       </FStep>
       <FStep no={6} title="결말" hint="제안이 무엇으로 끝나는지">
         <div className="tlf-chips">
@@ -251,13 +196,14 @@ function ScenarioFilter({ f, base, onApply, onClose }) {
           {USED_END.map((k) => chip('end', k, ENDINGS[k], endN[k]))}
         </div>
       </FStep>
+      {peek.node}
     </FilterPopup>
   );
 }
 
 /* ---------- scenario row (page list, one per line) ---------- */
 const TAGS_M = 3;
-function ScenarioRow({ s, onOpen, onSheet, hit, mark = {}, showReq, hc }) {
+function ScenarioRow({ s, onOpen, onSheet, mark = {}, showReq, hc, peek, aiWhy }) {
   const req = REQ_TYPES[s.req];
   const sols = s.solutions.filter((id) => S[id]);
   const shownSol = mark.sol && sols.includes(mark.sol) ? [mark.sol, ...sols.filter((id) => id !== mark.sol)] : sols;
@@ -278,21 +224,20 @@ function ScenarioRow({ s, onOpen, onSheet, hit, mark = {}, showReq, hc }) {
             {showReq && <span className={'bsl-req h-' + req.hue + (mark.req === s.req ? ' on' : '')}><i />{req.label}</span>}
           </span>
           <h3 className="bsl-t">{s.title}</h3>
-          <p className="bsl-d">{s.short}</p>
-          {hit && hit.snip ? <span className="tl-snip bsl-snip"><span className="k">{hit.snip.k}</span>{hit.snip.pre}{hit.snip.mid ? <mark>{hit.snip.mid}</mark> : null}{hit.snip.post}</span> : null}
+          {aiWhy && <p className="catalog-ai-reason">{aiWhy}</p>}
         </div>
-        <button className="bsl-more" onClick={() => { hc.hide(); onOpen(s.id); }} aria-label={s.title + ' 상세 보기'}>상세 보기<Icon name="chev" size={16} stroke={2.4} /></button>
+        <button className="bsl-more" onClick={() => { hc.hide(); peek.hide(); onOpen(s.id); }} aria-label={s.title + ' 상세 보기'}>상세 보기<Icon name="chev" size={16} stroke={2.4} /></button>
       </div>
       {tags.length > 0 && (
         <div className="bsl-tags">
-          {tags.map((t, i) => <span key={t.r} className={'bsl-tag' + (t.sol ? ' sol' : '') + (t.on ? ' on' : '') + (i >= TAGS_M ? ' xm' : '')} title={t.name + ' · ' + t.cat}><Thumb r={t.r} mini />{t.name}</span>)}
+          {tags.map((t, i) => <span key={t.r} className={'bsl-tag' + (t.sol ? ' sol' : '') + (t.on ? ' on' : '') + (i >= TAGS_M ? ' xm' : '')} role="button" tabIndex={0} {...tagHoverProps(peek, t.r)} {...peek.detailProps(t.r)}><Thumb r={t.r} mini />{t.name}</span>)}
           {moreProd > 0 ? <span className="bsl-tag more d-only">+{moreProd}</span> : null}
           {tags.length + moreProd > TAGS_M ? <span className="bsl-tag more m-only">+{tags.length + moreProd - TAGS_M}</span> : null}
         </div>
       )}
       <div className="bsl-sheets">
         {sheets.map((x) => (
-          <button key={x.k} type="button" className="bsl-sheet" onClick={() => { hc.hide(); onSheet(s.id, x.k); }}
+          <button key={x.k} type="button" className="bsl-sheet" onClick={() => { hc.hide(); peek.hide(); onSheet(s.id, x.k); }}
             aria-label={x.page + '번째 장 ' + (L[x.f] ? L[x.f].name : '') + ' 크게 보기'} {...peekProps(hc, s, x, x.k)}>
             <FitSlide f={x.f} ov={ovOf(s.id, x.k, x.f)} lazy />
             <FavButton f={x.f} ov={ovOf(s.id, x.k, x.f)} from={'Best Scenario · ' + s.title} />
@@ -317,19 +262,24 @@ export function ScenarioPage({ go }) {
   const [sheet, setSheet] = useState(null); // { id, k } — a sheet clicked on a row
   const [fpop, setFpop] = useState(false);
   const hc = usePickPeek();
+  const peek = useDetailPeek(null);
   useEffect(() => { const u = loadUi(); saveUi({ ...u, bs: f }); }, [f]);
   const set = (patch) => setF((x) => ({ ...x, ...patch }));
 
-  const q = f.q.trim();
-  const hits = useMemo(() => searchScenarios(q), [q]);
-  const hitOf = useMemo(() => (hits ? Object.fromEntries(hits.map((r) => [r.s.id, r])) : {}), [hits]);
-  const base = hits ? hits.map((r) => r.s) : SCENARIOS;
+  const search = useCatalogSearch('scenarios', f.q, { filters: activeBs(f).map(x => x.label), allowedIds: SCENARIOS.filter(s => passS(s, f)).map(s => s.id) });
+  const q = search.query;
+  const hits = search.hits;
+  const hitOf = useMemo(() => Object.fromEntries((hits || []).map(r => [r.id, r])), [hits]);
+  const base = q ? (hits || []).map(r => r.item) : SCENARIOS;
   const list = base.filter((s) => passS(s, f));
   const active = activeBs(f);
 
   // browsing stays grouped by 요구사항 타입; a search shows one list by relevance
-  const sections = q ? [{ k: '_hits', items: list }]
-    : REQ_ORDER.map((k) => ({ k, label: REQ_TYPES[k].label, desc: REQ_TYPES[k].desc, hue: REQ_TYPES[k].hue, items: list.filter((s) => s.req === k) })).filter((g) => g.items.length);
+  const sections = q && search.aiEnabled ? [
+    { k: '_ai_top', label: 'AI 추천 Top ' + Math.min(AI_SEARCH_TOP, list.length), items: list.slice(0, AI_SEARCH_TOP) },
+    { k: '_ai_rest', label: '나머지 검색 결과', items: list.slice(AI_SEARCH_TOP) },
+  ].filter(g => g.items.length) : q ? [{ k: '_hits', items: list }]
+    : REQ_ORDER.map((k) => ({ k, label: REQ_TYPES[k].label, hue: REQ_TYPES[k].hue, items: list.filter((s) => s.req === k) })).filter((g) => g.items.length);
 
 
   return (
@@ -339,53 +289,48 @@ export function ScenarioPage({ go }) {
           <div className="tl-title">
             <span className="eyebrow">WINMATE · 제안 시나리오</span>
             <h1>Best Scenario</h1>
-            <p>요구사항 유형별로 전략부터 결말까지 미리 짜 둔 제안서 구성이에요. 골라서 바로 시작하세요.</p>
           </div>
         </header>
 
         <div className="tl-tools tl-tools-f">
           <div className="tl-row">
-            <form className="tl-search" role="search" onSubmit={(e) => e.preventDefault()}>
-              <Icon name="search" size={19} />
-              <label className="sr" htmlFor="bs-q">시나리오 검색</label>
-              <input id="bs-q" className="input" value={f.q} placeholder="고객 상황 · 제품 · 솔루션으로 찾아 보세요 · 예) 메뉴보드 파일럿, 호텔 객실 TV"
-                onChange={(e) => set({ q: e.target.value })} onKeyDown={(e) => { if (e.key === 'Escape' && f.q) { e.stopPropagation(); set({ q: '' }); } }} />
-              {f.q && <button type="button" className="btn btn-ghost btn-sm btn-icon" aria-label="검색어 지우기" onClick={() => set({ q: '' })}><Icon name="x" size={14} /></button>}
-            </form>
+            <CatalogSearchBar id="bs-q" label="시나리오 검색" value={f.q} onChange={q => set({ q })} search={search}
+              placeholder="고객 상황 · 제품 · 솔루션으로 찾아 보세요 · 예) 메뉴보드 파일럿, 호텔 객실 TV" />
           </div>
-          <FilterBar active={active} onOpen={() => { hc.hide(); setFpop(true); }} onRemove={(a) => set(a.clear)} onClearAll={() => set(BS_NO_FILTER)} />
+          <FilterBar active={active} onOpen={() => { hc.hide(); peek.hide(); setFpop(true); }} onRemove={(a) => set(a.clear)} onClearAll={() => set(BS_NO_FILTER)} />
         </div>
 
-        {q && list.length > 0 && <div className="tl-sum"><span className="muted">“{q}”<span className="faint"> · 관련도순</span></span></div>}
-        {q && !list.length && (
+        {!search.busy && !search.error && q && list.length > 0 && <div className="tl-sum"><span className="muted">“{q}”<span className="faint"> · {search.aiEnabled ? 'AI 추천 먼저' : '관련도순'}</span></span></div>}
+        <CatalogSearchStatus search={search} />
+        {!search.busy && !search.error && q && !list.length && (
           <div className="tl-empty">
             <b>“{q}”와 맞는 시나리오가 없어요</b>
             <span>{active.length ? '필터를 풀거나 ' : ''}다른 표현으로 적어 보세요.</span>
-            <div className="chips" style={{ justifyContent: 'center' }}>{BS_QUICK.map((t) => <button key={t} className="qchip" onClick={() => set({ q: t })}>{t}</button>)}</div>
+            <div className="chips" style={{ justifyContent: 'center' }}>{BS_QUICK.map((t) => <button key={t} className="qchip" onClick={() => { set({ q: t }); if (search.aiEnabled) search.submit(t); }}>{t}</button>)}</div>
           </div>
         )}
         {!q && !list.length && (
           <div className="tl-empty"><b>조건에 맞는 시나리오가 없어요</b><span>필터를 하나씩 풀어 보세요.</span><button className="btn btn-sm" onClick={() => set(BS_NO_FILTER)}>필터 모두 지우기</button></div>
         )}
 
-        <div className="bsp-groups">
-          {sections.map((g) => (
+        <div className="bsp-groups" aria-busy={search.busy}>
+          {!search.busy && !search.error && sections.map((g) => (
             <section key={g.k} className={'bsp-group' + (g.hue ? ' h-' + g.hue : '')} aria-label={g.label || '검색 결과'}>
               {g.k !== '_hits' && (
                 <div className="bsp-gh">
-                  <i className="dot" /><h2>{g.label}</h2>
-                  <p>{g.desc}</p>
+                  {g.k === '_ai_top' ? <Icon name="sparkle" size={15} /> : <i className="dot" />}<h2>{g.label}</h2>
                 </div>
               )}
-              <div className={'bsp-list' + (g.k === '_hits' ? ' flat' : '')}>{g.items.map((s) => <ScenarioRow key={s.id} s={s} onOpen={setOpen} onSheet={(id, k) => setSheet({ id, k })} hit={hitOf[s.id]} mark={f} showReq={g.k === '_hits'} hc={hc} />)}</div>
+              <div className={'bsp-list' + (g.k === '_hits' ? ' flat' : '')}>{g.items.map((s) => <ScenarioRow key={s.id} s={s} onOpen={setOpen} onSheet={(id, k) => setSheet({ id, k })} mark={f} showReq={!!q} hc={hc} peek={peek} aiWhy={hitOf[s.id]?.aiWhy} />)}</div>
             </section>
           ))}
         </div>
       </div>
       {hc.node}
+      {peek.node}
       {open && SC[open] && <ScenarioStoryboard key={'sb-' + open} s={SC[open]} go={go} onClose={() => setOpen(null)} />}
       {sheet && SC[sheet.id] && <SheetDetail key={'sheet-' + sheet.id} s={SC[sheet.id]} index={sheet.k} onNav={(k) => setSheet({ id: sheet.id, k })} onClose={() => setSheet(null)} />}
-      {fpop && <ScenarioFilter f={f} base={base} onApply={(x) => { set(x); setFpop(false); }} onClose={() => setFpop(false)} />}
+      {fpop && <ScenarioFilter f={f} base={search.busy || search.error ? SCENARIOS : base} onApply={(x) => { set(x); setFpop(false); }} onClose={() => setFpop(false)} />}
     </div>
   );
 }
@@ -394,7 +339,7 @@ export function ScenarioPage({ go }) {
    The same bubbles as a proposal's Storyboard screen (storyboard.jsx StoryCanvas readOnly): 고객 요구사항 → 제품 · 솔루션 매칭 → 파트,
    every part with its layouts already filled. Bubbles open view-only popups beside them, a layout card opens that sheet big
    (prev / next through the deck). Nothing can be edited or inserted here — 활용하기 copies it into the history as my proposal. */
-function ScenarioStoryboard({ s, go, onClose }) {
+export function ScenarioStoryboard({ s, go, onClose }) {
   const p = useMemo(() => scenarioStoryboard(s.id), [s.id]);
   const slides = useMemo(() => slidesOfScenario(s), [s.id]);
   const pages = useMemo(() => Object.fromEntries(flatSlides(p).map((z) => [z.x.uid, z.n])), [p]);
@@ -454,11 +399,11 @@ function ScenarioStoryboard({ s, go, onClose }) {
 
 const RO_NOTE = <span className="bp-note"><Icon name="eye" size={13} />보기 전용 · 활용하기를 누르면 내 제안서로 고칠 수 있어요</span>;
 /** 고객 요구사항 — view only (the same content a proposal's requirements popup holds: 자유형식 · 입력 폼 키맨별 요구 · 메모) */
-function ReqView({ s, p, onClose }) {
-  const f = p.req.form; const plain = (segs) => segs.map((x) => x.t || '').join('');
+export function ReqView({ s, p, onClose }) {
+  const f = p.req.form; const plain = (segs) => segPlain(segs, ref => tagMeta(ref)?.label || ref);
   return (
     <BubblePopup cls="rq" extra="ro" anchor=".start-node .node" icon={<Icon name="clip" size={17} />} title="고객 요구사항" onClose={onClose}
-      sub={<span className="bp-sub"><b>{p.customer || '고객사 미정'}</b><span>{indName(s.ind)}</span></span>}
+      sub={<span className="bp-sub"><b>{p.customer || '고객사 미정'}</b><span>{p.indName || indName(p.ind)}</span></span>}
       footer={<>{RO_NOTE}<span className="sp" /><button className="btn btn-sm" onClick={onClose}>닫기</button></>}>
       <section className="rov">
         <div className="rov-grid">
@@ -469,8 +414,8 @@ function ReqView({ s, p, onClose }) {
       </section>
       <section className="rov">
         <h4>고객 상황</h4>
-        <p className="rov-free">{s.situation}</p>
-        <div className="rov-sig">{s.signals.map((t, i) => <span key={i}>{t}</span>)}</div>
+        <p className="rov-free">{s ? s.situation : plain(p.req.free)}</p>
+        {s && <div className="rov-sig">{s.signals.map((t, i) => <span key={i}>{t}</span>)}</div>}
       </section>
       <section className="rov">
         <h4>키맨별 요구사항</h4>
@@ -484,28 +429,31 @@ function ReqView({ s, p, onClose }) {
         </div>
       </section>
       {f.note && <section className="rov"><h4>제작자 메모</h4><p className="rov-free">{f.note}</p></section>}
+      {!s && p.req.files.length > 0 && <section className="rov"><h4>첨부자료</h4>{p.req.files.map(file => <div key={file.id}><b>{file.name}</b><p className="rov-free">{file.memo || file.text}</p></div>)}</section>}
     </BubblePopup>
   );
 }
 /** 제품 · 솔루션 매칭 — view only */
-function MatchView({ s, p, onClose }) {
+export function MatchView({ s, p, onClose }) {
+  const peek = useDetailPeek(p);
   const groups = [['products', 'product', '제품'], ['solutions', 'solution', '솔루션'], ['cases', 'case', '유관 사례']];
   return (
     <BubblePopup cls="mt" extra="ro" anchor=".match-node .node" icon={<Icon name="link" size={17} />} title="제품 · 솔루션 매칭" onClose={onClose}
-      sub={<span className="bp-sub"><span>{indName(s.ind)}</span></span>}
+      sub={<span className="bp-sub"><span>{p.indName || indName(p.ind)}</span></span>}
       footer={<>{RO_NOTE}<span className="sp" /><button className="btn btn-sm" onClick={onClose}>닫기</button></>}>
       {groups.map(([k, t, label]) => (
         <section key={k} className="rov">
           <h4><Icon name={t} size={14} />{label}<span className="num">{p.ctx[k].length}</span></h4>
-          {p.ctx[k].length ? <div className="rov-tags">{p.ctx[k].map((id) => <TagCard key={id} r={t + ':' + id} />)}</div>
+          {p.ctx[k].length ? <div className="rov-tags">{p.ctx[k].map((id) => <TagCard key={id} r={t + ':' + id} peek={t === 'case' ? undefined : peek} />)}</div>
             : <p className="muted rov-none">{t === 'case' ? '고객이 정해지면 업종 · 관심사에 맞춰 채워요' : '연결된 항목이 없어요'}</p>}
         </section>
       ))}
+      {peek.node}
     </BubblePopup>
   );
 }
 /** 파트 — view only: what the part says (내용) and its layouts */
-function PartView({ p, part, pages, onClose, onSheet }) {
+export function PartView({ p, part, pages, onClose, onSheet }) {
   const t = PARTS[part.type] || PARTS.free;
   return (
     <BubblePopup cls="sbp" extra="ro" anchor={'.col[data-pid="' + part.id + '"] .node'} icon={<Icon name={partIcon(part)} size={17} />} title={part.name} onClose={onClose}
@@ -537,13 +485,14 @@ function PartView({ p, part, pages, onClose, onSheet }) {
    Scenario detail popup
    ========================================================= */
 /** linked 제품 · 솔루션 · 사례 — thumbnail + name + one line of metadata */
-function Chips({ ids, type, label }) {
+function Chips({ ids, type, label, peek }) {
   const list = (ids || []).filter((id) => tagMeta(type + ':' + id));
   if (!list.length) return null;
-  return <div className="bsd-chips"><span className="lbl">{label}</span><div className="tagchips">{list.map((id) => <TagChip key={id} r={type + ':' + id} />)}</div></div>;
+  return <div className="bsd-chips"><span className="lbl">{label}</span><div className="tagchips">{list.map((id) => <TagChip key={id} r={type + ':' + id} peek={peek} />)}</div></div>;
 }
 
 export function ScenarioDetail({ s, go, onClose, onSwitch }) {
+  const references = useDetailPeek(useMemo(() => scenarioStoryboard(s.id), [s.id]));
   const slides = useMemo(() => slidesOfScenario(s), [s.id]);
   const layouts = slides.map((x) => L[x.f]);
   const [peek, setPeek] = useState(null);
@@ -644,9 +593,9 @@ export function ScenarioDetail({ s, go, onClose, onSwitch }) {
             <div className="bsd-sub"><span className="lbl">레이아웃이 요구하는 정보</span><div className="tagrow">{needs.map((r) => <span key={r} className="tag rq">{REQ_LABEL[r] || r}</span>)}</div></div>
           </section>
           <section className="bsd-card"><h3><span className="k">연결</span>제품 · 솔루션 · 사례</h3>
-            <Chips ids={s.products} type="product" label="제품" />
-            <Chips ids={s.solutions} type="solution" label="솔루션" />
-            <Chips ids={s.cases} type="case" label="유관 사례" />
+            <Chips ids={s.products} type="product" label="제품" peek={references} />
+            <Chips ids={s.solutions} type="solution" label="솔루션" peek={references} />
+            <Chips ids={s.cases} type="case" label="유관 사례" peek={references} />
             {!s.products.length && !s.solutions.length && <p className="muted" style={{ fontSize: "var(--text-12-5px)", margin: "var(--space-0px)" }}>고객이 정해지면 업종 · 관심사에 맞춰 채워요.</p>}
           </section>
           <section className="bsd-card"><h3><span className="k">지표</span>성공 지표</h3><ul className="bsd-dots">{s.kpis.map((t, i) => <li key={i}>{t}</li>)}</ul></section>
@@ -660,6 +609,7 @@ export function ScenarioDetail({ s, go, onClose, onSwitch }) {
       {hc.node}
       {peek != null && <TemplateDetail list={layouts} ovs={slides.map((x, k) => ovOf(s.id, k, x.f))} index={peek} onNav={setPeek} onClose={() => setPeek(null)} favFrom={'Best Scenario · ' + s.title} notes={slides.map((x) => x.stage.name + ' · ' + x.role)} noteLabel="이 시나리오에서의 역할" />}
       {ask && <UseConfirm s={s} onCancel={() => setAsk(false)} onConfirm={() => { setAsk(false); onClose(); activateScenario(s, go); }} />}
+      {references.node}
     </Modal>
   );
 }

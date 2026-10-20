@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs14~full:F03"
+ },
+ "prompt_tokens": 4374,
+ "output_tokens": 400,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 2,
+    "anchor": "경영 지표(비용 절감, 효율성)와 실무 지표가 13장에 제시되어 있으나, 결정권자(본부장)를 위한 별도의 요약 장이 존재하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "전 공장 확산 후, 네 지표가 이렇게 달라집니다"
+     },
+     {
+      "sheet": 15,
+      "quote": "파일럿 승인 · 착수 — 시범 단말 20대 대여"
+     }
+    ],
+    "improve": "제안서 초반에 본부장이 즉각적으로 판단할 수 있도록 성과와 리스크를 요약한 Executive Summary 장을 추가하십시오.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS7",
+    "score": 2,
+    "anchor": "대당 5년 TCO 비교를 통해 비용 구조를 제시했으나, 라이선스 비용이나 유지보수 등 숨은 비용에 대한 구체적인 산정 전제가 명확하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "단말 총비용 | 대당 · 5년 TCO | 310 | 만 원 | 150 | 만 원"
+     }
+    ],
+    "improve": "TCO 산정에 포함된 하드웨어, Knox 라이선스, 유지보수 비용의 세부 항목과 산정 전제를 명시하십시오.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

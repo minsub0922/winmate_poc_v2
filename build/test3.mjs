@@ -1,0 +1,33 @@
+import { chromium } from 'playwright';
+import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path';
+const here = path.dirname(new URL(import.meta.url).pathname);
+const root = path.resolve(here, '../dist'); const shots = path.resolve(here, 'qa');
+const srv = http.createServer((q, r) => { const f = path.join(root, decodeURIComponent(q.url.split('?')[0]).replace(/^\/$/, '/preview.html')); if (!fs.existsSync(f)) { r.writeHead(404); return r.end(); } r.writeHead(200, { 'content-type': f.endsWith('.html') ? 'text/html; charset=utf-8' : 'application/octet-stream' }); fs.createReadStream(f).pipe(r); }).listen(8768);
+const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+const page = await (await browser.newContext({ viewport: { width: 1440, height: 900 } })).newPage();
+const errs = []; page.on('pageerror', (e) => errs.push(e.message));
+await page.goto('http://localhost:8768/'); await page.waitForSelector('.home');
+await page.click('.sb-item:has-text("A 커피")'); await page.waitForSelector('.canvas'); await page.waitForTimeout(1000);
+const codes = async () => page.$$eval('.lcard .code', (els) => els.map((e) => e.textContent));
+console.log('before', await codes());
+await page.dragAndDrop('.lcard:has-text("MS-A")', '.lcard:has-text("MI-FB-A")', { targetPosition: { x: 40, y: 10 } });
+await page.waitForTimeout(400);
+console.log('after reorder in part', await codes());
+await page.dragAndDrop('.lcard:has-text("CB-B")', '.lcard:has-text("VP-F")', { targetPosition: { x: 40, y: 10 } });
+await page.waitForTimeout(400);
+console.log('after cross-part', await codes());
+// part editor suggest
+await page.click('.node-name:has-text("고객사 이해")');
+await page.click('.modal button:has-text("내용 제안")'); await page.waitForTimeout(800);
+console.log('items', await page.$$eval('.pe-item input', (els) => els.map((e) => e.value)));
+await page.keyboard.press('Escape');
+// mobile
+await page.setViewportSize({ width: 400, height: 860 }); await page.waitForTimeout(600);
+await page.screenshot({ path: path.join(shots, 'm-01-story.png') });
+await page.click('.lcard >> nth=0'); await page.waitForSelector('.detail'); await page.waitForTimeout(700);
+await page.screenshot({ path: path.join(shots, 'm-02-detail.png') });
+const sw = await page.evaluate(() => document.documentElement.scrollWidth); console.log('sw', sw);
+await page.keyboard.press('Escape'); await page.waitForTimeout(300);
+await page.click('.top-right button:has-text("레이아웃")'); await page.waitForTimeout(800);
+await page.screenshot({ path: path.join(shots, 'm-03-viewer.png') });
+console.log('errs', errs); await browser.close(); srv.close();

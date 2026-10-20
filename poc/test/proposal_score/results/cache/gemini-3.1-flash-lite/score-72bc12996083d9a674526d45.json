@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~no_proof:F10"
+ },
+ "prompt_tokens": 3227,
+ "output_tokens": 498,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO 솔루션을 통해 장애 자동 알림 및 원격 재부팅 기능을 제시하고, 운영팀이 대시보드를 통해 실시간으로 관리하는 장면을 구체적으로 보여줍니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "MagicINFO 설치형 | 꺼진 화면 즉시 알림 · 일괄 배포"
+     },
+     {
+      "sheet": 8,
+      "quote": "MagicINFO 웹 콘솔 대시보드"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "12월 발주 전까지의 단계별 일정, 현장 확인, 보상 매입, 운영자 교육 및 병행 운영 계획이 구체적으로 명시되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "12월 발주 전 정할 세 가지"
+     },
+     {
+      "sheet": 9,
+      "quote": "점별 2주 병행 운영 · 운영자 교육 3회"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 3,
+    "anchor": "고객이 우려하는 전환 리스크인 병행 운영과 교육 문제를 명확히 인지하고, 야간 시공 및 보상 매입을 포함한 구체적인 대응 방안을 제시합니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "철거 · 보상 매입 포함 · 야간 시공"
+     },
+     {
+      "sheet": 9,
+      "quote": "점별 2주 병행 운영 · 운영자 교육 3회"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs05:F05"
+ },
+ "prompt_tokens": 6636,
+ "output_tokens": 221,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "대부분의 장에서 수치에 대한 출처가 명시되지 않았으며, 2장 외에는 구체적인 조사 기관과 연도가 표기된 수치를 찾기 어렵습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "출처 삼성전자 추정(2026)"
+     },
+     {
+      "sheet": 3,
+      "quote": "2025 방문객 조사"
+     },
+     {
+      "sheet": 6,
+      "quote": "목표치"
+     }
+    ],
+    "improve": "모든 시장 데이터와 성과 목표 수치 옆에 [기관명, 연도] 형식으로 출처를 명확히 기재해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

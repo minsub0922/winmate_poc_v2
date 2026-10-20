@@ -1,0 +1,77 @@
+{
+ "meta": {
+  "run_id": "20261012-gemini-tc5-1500",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "keys": {
+   "GEMINI_API_KEY": true,
+   "GEMINI_MODEL": true,
+   "TAVILY_API_KEY": true
+  },
+  "conds": [
+   "chunk_nocarry",
+   "chunk_carry"
+  ],
+  "max_chars": [
+   1500
+  ],
+  "tcs": [
+   "TC5"
+  ],
+  "rescored": "2026-10-12 11:31"
+ },
+ "rows": [
+  {
+   "tc": "TC5",
+   "cond": "chunk_nocarry",
+   "max_chars": 1500,
+   "recall": 0.955,
+   "recall_with_summary": 0.962,
+   "projects": "4/4",
+   "misattributed": 0,
+   "chunks": 23,
+   "items": 321,
+   "lines": 321,
+   "grounded": 0.997,
+   "unsupported_nums": 2,
+   "near_dups": 1,
+   "calls": 28,
+   "tokens": 83145,
+   "ms": 159,
+   "missed": [
+    "c14 예정가격 이하 최저가",
+    "c20 제조사 공급 · 기술지원 확약서",
+    "c27 시력보호기능 인증공문",
+    "c02 모니터 연 500대",
+    "c03 노트북 연 360대",
+    "c23 설치비 단가 포함 금지 · 별도 계약"
+   ],
+   "errors": []
+  },
+  {
+   "tc": "TC5",
+   "cond": "chunk_carry",
+   "max_chars": 1500,
+   "recall": 0.97,
+   "recall_with_summary": 0.971,
+   "projects": "4/4",
+   "misattributed": 0,
+   "chunks": 23,
+   "items": 328,
+   "lines": 328,
+   "grounded": 0.997,
+   "unsupported_nums": 3,
+   "near_dups": 3,
+   "calls": 28,
+   "tokens": 113771,
+   "ms": 160,
+   "missed": [
+    "c20 제조사 공급 · 기술지원 확약서",
+    "c27 시력보호기능 인증공문",
+    "c02 모니터 연 500대",
+    "c03 노트북 연 360대"
+   ],
+   "errors": []
+  }
+ ]
+}

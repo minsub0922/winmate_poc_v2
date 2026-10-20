@@ -1,0 +1,116 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs21~full:F11"
+ },
+ "prompt_tokens": 9528,
+ "output_tokens": 1061,
+ "data": {
+  "scores": [
+   {
+    "id": "DS1",
+    "score": 2,
+    "anchor": "대부분의 장은 정렬이 일정하나, 24장과 37장의 제목 위치가 다른 장들과 달라 일관성이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 24,
+      "quote": "LYNK Cloud"
+     },
+     {
+      "sheet": 37,
+      "quote": "마무리"
+     }
+    ],
+    "improve": "모든 장의 제목 위치를 동일한 좌표로 통일하여 레이아웃 일관성을 확보해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS2",
+    "score": 2,
+    "anchor": "대부분의 장은 헤드라인이 명확하나, 110어절을 초과하는 장들이 많아 한눈에 핵심을 파악하기 어렵습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "H 호텔 312개 객실이 손님에 맞춰 온도와 공기를 스스로 맞춥니다"
+     },
+     {
+      "sheet": 17,
+      "quote": "객실 — Infinite AI 공기청정기"
+     }
+    ],
+    "improve": "장당 메시지를 하나로 압축하고 텍스트 양을 줄여 시각적 집중도를 높여야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 초과하는 장이 10장으로 기준인 4장을 크게 상회하며, 장당 평균 어절 수도 108어절로 매우 높습니다.",
+    "evidence": [
+     {
+      "sheet": 18,
+      "quote": "객실 — Bespoke 에어드레서"
+     },
+     {
+      "sheet": 17,
+      "quote": "객실 — Infinite AI 공기청정기"
+     }
+    ],
+    "improve": "개조식 문장을 간결하게 다듬고 불필요한 설명을 삭제하여 장당 어절 수를 77어절 이하로 줄여야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 이상 본문 칸의 49%가 10pt 미만이며, 9pt 미만의 작은 글자가 포함된 장이 16장으로 기준을 크게 초과합니다.",
+    "evidence": [
+     {
+      "sheet": 18,
+      "quote": "본문 최소 7.4px(5.6pt)"
+     },
+     {
+      "sheet": 17,
+      "quote": "본문 최소 7.6px(5.7pt)"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt 이상으로 상향 조정하여 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS5",
+    "score": 2,
+    "anchor": "폰트 종류는 2종으로 적절하나, 제목 글자 크기가 10px, 30px, 56px로 혼용되어 체계가 일관되지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "제목 10px"
+     },
+     {
+      "sheet": 24,
+      "quote": "제목 56px"
+     }
+    ],
+    "improve": "제목 글자 크기를 표준화하여 모든 장에서 동일한 크기 체계를 적용해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS6",
+    "score": 3,
+    "anchor": "텍스트만 있는 장이 3%로 매우 낮고, 대부분의 장에 실제 제품 사진과 도식이 포함되어 시각적 전달력이 우수합니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "H 호텔의 여섯 공간, 열 개 제품"
+     },
+     {
+      "sheet": 22,
+      "quote": "H 호텔 AI 스테이 Map"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

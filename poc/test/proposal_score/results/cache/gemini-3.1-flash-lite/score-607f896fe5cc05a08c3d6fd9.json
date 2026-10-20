@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs20:F08"
+ },
+ "prompt_tokens": 2657,
+ "output_tokens": 226,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "고객의 핵심 요구사항인 매출(구좌 판매), 투자 회수, 송출 안정성을 각각의 솔루션(MagicINFO, 사업성 분석)과 연결하여 3가지 가치로 명확히 제시하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "기준 39개월, 보수로도 64개월에 회수합니다"
+     },
+     {
+      "sheet": 11,
+      "quote": "보수로 잡아도 5.4년, 수익은 범위로 말씀드립니다"
+     },
+     {
+      "sheet": 9,
+      "quote": "MagicINFO — Q 미디어 서버에서 모든 매체를 송출합니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

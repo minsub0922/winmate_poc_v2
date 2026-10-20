@@ -1,0 +1,98 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs14~full:F09"
+ },
+ "prompt_tokens": 9553,
+ "output_tokens": 715,
+ "data": {
+  "scores": [
+   {
+    "id": "PR1",
+    "score": 3,
+    "anchor": "제안된 갤럭시 엑스커버7 프로, 갤럭시 탭 액티브5 프로, 갤럭시 워치8은 모두 현재 카탈로그 라인업에 부합하며 단종 모델 표기가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "삼성 · 엑스커버7 프로"
+     },
+     {
+      "sheet": 8,
+      "quote": "갤럭시 탭 액티브5 프로"
+     },
+     {
+      "sheet": 9,
+      "quote": "갤럭시 워치8"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR2",
+    "score": 3,
+    "anchor": "제안서 내 기재된 모델별 사양(IP68, MIL-STD-810H, 배터리 용량 등)이 카탈로그 사양과 일치하며 장별로 동일하게 표기되었습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "MIL-STD-810H · IP68"
+     },
+     {
+      "sheet": 10,
+      "quote": "10,100 mAh"
+     },
+     {
+      "sheet": 10,
+      "quote": "4,350 mAh"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR5",
+    "score": 3,
+    "anchor": "갤럭시 엑스커버7 프로와 갤럭시 탭 액티브5 프로 등 주요 제품명을 제안서 전반에 걸쳐 일관된 명칭으로 사용하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "엑스커버7 프로"
+     },
+     {
+      "sheet": 8,
+      "quote": "갤럭시 탭 액티브5 프로"
+     },
+     {
+      "sheet": 10,
+      "quote": "Galaxy Tab Active5 Pro"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR3",
+    "score": 3,
+    "anchor": "Knox, Samsung DeX, Galaxy 등 브랜드 표기가 공식 가이드라인에 따라 대소문자 및 띄어쓰기가 정확하게 기재되었습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "Knox Capture"
+     },
+     {
+      "sheet": 8,
+      "quote": "Knox Suite"
+     },
+     {
+      "sheet": 9,
+      "quote": "Samsung DeX"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

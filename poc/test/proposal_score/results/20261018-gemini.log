@@ -1,0 +1,267 @@
+10:53:18 [main] bs21 total=50.9 rubric=1.9 sel=9/48 calls=7 0.1s 
+10:53:18 [main] bs02 total=64.9 rubric=2.4 sel=8/49 calls=8 0.1s 
+10:53:18 [main] bs03 total=62.6 rubric=2.5 sel=8/49 calls=9 0.1s 
+10:53:18 [main] bs01 total=74.4 rubric=2.44 sel=10/49 calls=10 0.1s 
+10:53:18 [main] bs05 total=58.0 rubric=2.2 sel=8/49 calls=7 0.1s 
+10:53:18 [main] bs04 total=51.9 rubric=2.1 sel=8/49 calls=9 0.1s 
+10:53:18 [main] bs06 total=58.8 rubric=2.034 sel=11/49 calls=10 0.1s 
+10:53:18 [main] bs07 total=63.3 rubric=2.407 sel=12/48 calls=11 0.1s 
+10:53:18 [main] bs09 total=59.4 rubric=2.381 sel=8/48 calls=7 0.1s 
+10:53:18 [main] bs08 total=68.7 rubric=2.423 sel=11/49 calls=10 0.1s 
+10:53:18 [main] bs10 total=71.1 rubric=2.481 sel=11/49 calls=10 0.1s 
+10:53:18 [main] bs11 total=95.8 rubric=2.792 sel=10/49 calls=8 0.1s 
+10:53:18 [main] bs12 total=69.3 rubric=2.414 sel=12/49 calls=11 0.1s 
+10:53:18 [main] bs13 total=67.6 rubric=2.391 sel=9/48 calls=9 0.1s 
+10:53:18 [main] bs14 total=83.9 rubric=2.581 sel=12/48 calls=10 0.1s 
+10:53:18 [main] bs15 total=52.3 rubric=2.125 sel=10/48 calls=10 0.1s 
+10:53:18 [main] bs16 total=51.6 rubric=2.032 sel=13/47 calls=10 0.1s 
+10:53:18 [main] bs17 total=83.5 rubric=2.731 sel=11/48 calls=10 0.1s 
+10:53:18 [main] bs18 total=57.1 rubric=2.276 sel=11/50 calls=8 0.1s 
+10:53:18 [main] bs19 total=70.2 rubric=2.467 sel=12/41 calls=9 0.1s 
+10:53:18 [main] bs20 total=50.9 rubric=2.286 sel=12/49 calls=11 0.0s 
+10:53:18 [stability] bs03 total=55.9 rubric=2.348 sel=9/49 calls=8 0.1s 
+10:53:18 [stability] bs21 total=47.0 rubric=1.917 sel=11/48 calls=8 0.1s 
+10:53:18 [stability] bs01 total=73.4 rubric=2.44 sel=10/49 calls=10 0.1s 
+10:53:18 [stability] bs02 total=70.2 rubric=2.6 sel=12/49 calls=10 0.1s 
+    · score      bs05:F01 2226ms in 8787 / out 300
+    · score      bs04:F01 2282ms in 8749 / out 468
+    · score      bs05:F02 1610ms in 8424 / out 205
+    · score      bs04:F02 2249ms in 8040 / out 287
+    · score      bs05:F04 2219ms in 8458 / out 542
+    · score      bs04:F04 1617ms in 2790 / out 229
+    · score      bs05:F05 1572ms in 6636 / out 239
+    · score      bs04:F07 2004ms in 2409 / out 216
+    · score      bs05:F09 1439ms in 6163 / out 217
+    · score      bs04:F09 1526ms in 5067 / out 219
+    · score      bs05:F10 1859ms in 5761 / out 330
+10:53:29 [stability] bs05 total=69.0 rubric=2.542 sel=10/49 calls=8 11.0s 
+    · score      bs04:F11 2674ms in 4333 / out 688
+10:53:31 [stability] bs04 total=63.3 rubric=2.154 sel=10/49 calls=8 12.4s 
+    · route_l1   bs01~base 1946ms in 2527 / out 312
+    · route_l1   bs01~wrong_customer 2239ms in 2572 / out 310
+    · score      bs01~base:F01 2899ms in 9297 / out 328
+    · score      bs01~wrong_customer:F01 3551ms in 9390 / out 500
+10:53:35 [perturb] bs01 wrong_customer   forced total=0.0 sel=2 
+    · score      bs01~base:F04 1431ms in 2797 / out 205
+    · route_l1   bs01~placeholders 1684ms in 2568 / out 305
+    · score      bs01~base:F06 1753ms in 8766 / out 200
+    · route_l2   bs01~base 5234ms in 6913 / out 1480
+    · route_l2   bs01~wrong_customer 4956ms in 6952 / out 1449
+    · score      bs01~base:F07 1845ms in 2914 / out 236
+    · score      bs01~base:F01 1885ms in 9596 / out 416
+    · route_l2   bs01~placeholders 4118ms in 6991 / out 1327
+    · score      bs01~base:F11 1644ms in 3961 / out 200
+10:53:41 [perturb] bs01 base             forced total=93.4 sel=6 
+    · score      bs01~wrong_customer:F01 2637ms in 9689 / out 522
+    · score      bs01~base:F02 1756ms in 8969 / out 257
+    · score      bs01~placeholders:F01 2056ms in 9013 / out 222
+10:53:43 [perturb] bs01 placeholders     forced total=0.0 sel=1 
+    · score      bs01~placeholders:F01 2353ms in 9617 / out 498
+    · score      bs01~wrong_customer:F02 2376ms in 8969 / out 278
+    · score      bs01~base:F04 1682ms in 3540 / out 240
+    · route_l1   bs01~no_proof 2002ms in 2477 / out 303
+    · score      bs01~placeholders:F02 2233ms in 8951 / out 253
+    · score      bs01~wrong_customer:F04 1905ms in 3540 / out 248
+    · score      bs01~base:F05 2441ms in 8780 / out 288
+    · score      bs01~placeholders:F05 1870ms in 8769 / out 258
+    · score      bs01~wrong_customer:F05 2258ms in 8780 / out 248
+    · score      bs01~placeholders:F08 1432ms in 2900 / out 197
+    · score      bs01~wrong_customer:F07 1432ms in 3149 / out 242
+    · route_l2   bs01~no_proof 4430ms in 6067 / out 1402
+    · score      bs01~wrong_customer:F11 1753ms in 3423 / out 431
+10:53:51 [perturb] bs01 wrong_customer   routed total=54.9 sel=9 
+    · score      bs01~no_proof:F01 2076ms in 9113 / out 318
+    · score      bs01~no_proof:F03 1511ms in 3441 / out 219
+    · score      bs01~no_proof:F04 1951ms in 6768 / out 383
+    · score      bs01~no_proof:F05 1840ms in 8734 / out 248
+    · score      bs01~no_proof:F06 1739ms in 8720 / out 326
+    · score      bs01~no_proof:F07 1916ms in 3395 / out 340
+    · score      bs01~no_proof:F08 1682ms in 2851 / out 199
+    · score      bs01~no_proof:F09 1396ms in 4968 / out 265
+    · score      bs01~no_proof:F11 2183ms in 3319 / out 408
+10:54:05 [perturb] bs01 no_proof         routed total=76.1 sel=13 
+    · route_l1   bs01~number_conflict 1813ms in 2578 / out 327
+    · route_l2   bs01~number_conflict 4825ms in 6981 / out 1505
+    · score      bs01~number_conflict:F01 2180ms in 9596 / out 409
+    · score      bs01~number_conflict:F02 1637ms in 8969 / out 285
+    · score      bs01~number_conflict:F03 1449ms in 3487 / out 189
+    · score      bs01~number_conflict:F04 1368ms in 3540 / out 196
+    · score      bs01~number_conflict:F06 1573ms in 8783 / out 214
+    · score      bs01~number_conflict:F07 1432ms in 3149 / out 188
+    · score      bs01~number_conflict:F08 1497ms in 2897 / out 241
+    · score      bs01~number_conflict:F09 1317ms in 5613 / out 178
+    · score      bs01~number_conflict:F10 1781ms in 6179 / out 384
+    · score      bs01~number_conflict:F11 2009ms in 3423 / out 444
+10:54:28 [perturb] bs01 number_conflict  routed total=76.1 sel=14 
+10:54:28 [perturb] bs01 number_conflict  forced total=50.0 sel=1 
+    · route_l1   bs01~strip_images 1824ms in 2748 / out 316
+    · route_l2   bs01~strip_images 4781ms in 7196 / out 1441
+    · score      bs01~strip_images:F01 1743ms in 8867 / out 292
+    · score      bs01~strip_images:F02 1513ms in 8545 / out 271
+    · score      bs01~strip_images:F03 1507ms in 3499 / out 218
+    · score      bs01~strip_images:F04 1922ms in 6260 / out 405
+    · score      bs01~strip_images:F05 1619ms in 8144 / out 236
+    · score      bs01~strip_images:F06 1587ms in 8130 / out 214
+    · score      bs01~strip_images:F07 1282ms in 3143 / out 186
+    · score      bs01~strip_images:F10 1522ms in 3399 / out 244
+    · score      bs01~strip_images:F11 2591ms in 4106 / out 693
+10:54:50 [perturb] bs01 strip_images     routed total=73.4 sel=13 
+    · score      bs01~strip_images:F11 1509ms in 3302 / out 248
+10:54:52 [perturb] bs01 strip_images     forced total=0.0 sel=1 
+    · score      bs01~base:F07 69954ms in 3149 / out 193
+    · route_l2   bs07~base 4509ms in 6713 / out 1417
+    · score      bs01~base:F08 1314ms in 2897 / out 200
+    · score      bs07~base:F01 2123ms in 8992 / out 562
+    · score      bs01~placeholders:F11 70472ms in 3692 / out 587
+10:54:59 [perturb] bs01 placeholders     routed total=59.8 sel=9 
+    · score      bs01~base:F11 1854ms in 3423 / out 384
+10:54:59 [perturb] bs01 base             routed total=70.4 sel=10 
+    · score      bs01~no_proof:F04 69488ms in 2479 / out 184
+    · score      bs07~base:F02 1608ms in 8353 / out 264
+    · score      bs07~base:F01 2286ms in 8693 / out 314
+    · route_l1   bs07~wrong_customer 2354ms in 2386 / out 285
+    · score      bs01~no_proof:F07 1564ms in 2596 / out 197
+10:55:02 [perturb] bs01 no_proof         forced total=100.0 sel=2 
+    · score      bs07~base:F04 2217ms in 5315 / out 405
+    · score      bs07~base:F04 1678ms in 2391 / out 223
+    · score      bs07~wrong_customer:F01 2335ms in 8769 / out 386
+10:55:04 [perturb] bs07 wrong_customer   forced total=0.0 sel=2 
+    · score      bs07~base:F06 1810ms in 8381 / out 199
+    · score      bs07~base:F06 2265ms in 8579 / out 364
+    · route_l1   bs07~placeholders 1762ms in 2405 / out 300
+    · score      bs07~base:F07 1552ms in 3798 / out 259
+    · route_l2   bs07~wrong_customer 4719ms in 6726 / out 1447
+    · score      bs07~base:F11 1596ms in 3330 / out 211
+10:55:08 [perturb] bs07 base             forced total=87.2 sel=6 
+    · score      bs07~wrong_customer:F01 2862ms in 9068 / out 521
+    · score      bs07~placeholders:F01 1626ms in 8437 / out 239
+10:55:09 [perturb] bs07 placeholders     forced total=0.0 sel=1 
+    · route_l2   bs07~placeholders 4417ms in 5582 / out 1303
+    · score      bs07~wrong_customer:F02 1465ms in 2164 / out 199
+    · score      bs07~no_proof:F07 1848ms in 2410 / out 238
+    · score      bs07~wrong_customer:F03 1653ms in 2921 / out 213
+    · score      bs07~placeholders:F01 2265ms in 9041 / out 521
+    · score      bs07~no_proof:F08 1400ms in 2430 / out 197
+    · score      bs07~wrong_customer:F04 1622ms in 3482 / out 252
+    · score      bs07~placeholders:F02 1749ms in 8354 / out 243
+    · score      bs07~no_proof:F10 2281ms in 5065 / out 396
+    · score      bs07~wrong_customer:F06 1636ms in 8381 / out 213
+    · score      bs07~placeholders:F03 1528ms in 2921 / out 199
+    · score      bs07~no_proof:F11 1697ms in 2997 / out 369
+10:55:17 [perturb] bs07 no_proof         routed total=83.2 sel=14 
+10:55:17 [perturb] bs07 no_proof         forced total=75.0 sel=2 
+    · score      bs07~wrong_customer:F07 1476ms in 2410 / out 262
+    · score      bs07~placeholders:F04 2046ms in 5326 / out 397
+    · score      bs07~wrong_customer:F09 1692ms in 3362 / out 219
+    · score      bs07~number_conflict:F01 2712ms in 8992 / out 414
+    · score      bs07~placeholders:F06 1635ms in 8386 / out 181
+    · score      bs07~wrong_customer:F10 1431ms in 4492 / out 198
+    · score      bs07~number_conflict:F02 1410ms in 8353 / out 241
+    · score      bs07~placeholders:F07 2084ms in 2410 / out 216
+    · score      bs07~wrong_customer:F11 2127ms in 2997 / out 375
+10:55:22 [perturb] bs07 wrong_customer   routed total=69.3 sel=12 
+    · score      bs07~number_conflict:F06 2403ms in 8579 / out 474
+    · score      bs07~placeholders:F10 1869ms in 5076 / out 411
+10:55:23 [perturb] bs07 placeholders     routed total=89.5 sel=11 
+    · score      bs07~number_conflict:F06 1677ms in 8381 / out 232
+10:55:24 [perturb] bs07 number_conflict  forced total=100.0 sel=1 
+    · score      bs07~base:F07 20251ms in 2410 / out 238
+10:55:25 [perturb] bs07 base             routed total=83.2 sel=14 
+    · score      bs07~number_conflict:F10 1850ms in 5065 / out 408
+10:55:25 [perturb] bs07 number_conflict  routed total=78.9 sel=14 
+    · route_l1   bs07~strip_images 1998ms in 2560 / out 305
+    · score      bs07~strip_images:F11 1874ms in 2834 / out 238
+10:55:26 [perturb] bs07 strip_images     forced total=0.0 sel=1 
+    · route_l1   bs11~base 1655ms in 2392 / out 294
+    · score      bs11~base:F01 2414ms in 8692 / out 311
+    · route_l1   bs11~wrong_customer 2464ms in 2436 / out 319
+    · score      bs11~base:F04 1441ms in 1708 / out 130
+    · score      bs11~base:F07 1498ms in 2020 / out 232
+    · route_l2   bs07~strip_images 5195ms in 6978 / out 1426
+    · score      bs11~base:F11 1297ms in 3492 / out 186
+10:55:32 [perturb] bs11 base             forced total=80.9 sel=6 
+    · route_l2   bs11~base 5248ms in 6748 / out 1430
+    · score      bs07~strip_images:F01 2190ms in 8343 / out 304
+    · route_l2   bs11~wrong_customer 4755ms in 5584 / out 1338
+    · score      bs11~wrong_customer:F01 2062ms in 8771 / out 334
+10:55:34 [perturb] bs11 wrong_customer   forced total=0.0 sel=2 
+    · score      bs11~base:F01 2089ms in 8720 / out 310
+    · score      bs07~strip_images:F02 1874ms in 7975 / out 248
+    · score      bs11~wrong_customer:F01 2367ms in 9070 / out 483
+    · route_l1   bs11~placeholders 1793ms in 2425 / out 294
+    · score      bs07~strip_images:F03 1567ms in 2910 / out 200
+    · score      bs11~base:F02 2354ms in 8481 / out 348
+    · score      bs11~wrong_customer:F02 1821ms in 8467 / out 351
+    · score      bs07~strip_images:F04 1571ms in 3400 / out 243
+    · score      bs11~base:F04 1996ms in 2957 / out 220
+    · score      bs11~wrong_customer:F05 1850ms in 7420 / out 262
+    · score      bs07~strip_images:F06 1536ms in 7945 / out 243
+    · score      bs11~base:F05 1581ms in 7428 / out 261
+    · score      bs11~wrong_customer:F09 1429ms in 2776 / out 267
+    · route_l2   bs11~placeholders 4887ms in 6814 / out 1404
+    · score      bs07~strip_images:F07 1743ms in 2409 / out 252
+    · score      bs11~base:F07 1529ms in 2231 / out 171
+    · score      bs11~wrong_customer:F10 1700ms in 4684 / out 250
+10:55:42 [perturb] bs11 wrong_customer   routed total=56.5 sel=8 
+    · score      bs11~placeholders:F01 2446ms in 8733 / out 384
+    · score      bs07~strip_images:F09 1870ms in 5008 / out 219
+    · score      bs11~base:F08 2087ms in 2251 / out 200
+    · score      bs11~placeholders:F01 2095ms in 8434 / out 234
+10:55:44 [perturb] bs11 placeholders     forced total=0.0 sel=1 
+    · score      bs11~placeholders:F02 1699ms in 8496 / out 344
+    · score      bs07~strip_images:F10 1867ms in 4369 / out 224
+    · score      bs11~base:F09 1936ms in 2777 / out 224
+    · score      bs11~no_proof:F09 1784ms in 2777 / out 224
+    · score      bs11~placeholders:F05 1996ms in 7443 / out 217
+    · score      bs11~base:F10 2061ms in 4695 / out 229
+    · score      bs11~no_proof:F10 2066ms in 4695 / out 229
+    · score      bs07~strip_images:F11 3318ms in 3905 / out 729
+10:55:48 [perturb] bs07 strip_images     routed total=67.9 sel=13 
+10:55:48 [perturb] bs11 no_proof         forced total=50.0 sel=2 
+    · score      bs11~placeholders:F08 1860ms in 2247 / out 205
+    · score      bs11~base:F11 1940ms in 3205 / out 422
+10:55:49 [perturb] bs11 base             routed total=68.1 sel=13 
+    · score      bs11~no_proof:F11 1957ms in 3205 / out 422
+10:55:50 [perturb] bs11 no_proof         routed total=68.1 sel=13 
+    · score      bs11~number_conflict:F01 2160ms in 8720 / out 353
+    · score      bs11~number_conflict:F06 1471ms in 7417 / out 182
+10:55:51 [perturb] bs11 number_conflict  forced total=100.0 sel=1 
+    · score      bs11~placeholders:F11 2628ms in 3205 / out 454
+10:55:51 [perturb] bs11 placeholders     routed total=58.5 sel=8 
+    · route_l1   bs11~strip_images 1901ms in 2562 / out 321
+    · score      bs11~strip_images:F11 1549ms in 3037 / out 236
+10:55:53 [perturb] bs11 strip_images     forced total=0.0 sel=1 
+    · score      bs11~number_conflict:F02 2202ms in 8481 / out 353
+    · score      bs16~base:F01 1893ms in 7524 / out 350
+    · score      bs11~number_conflict:F05 2162ms in 7428 / out 282
+    · score      bs16~base:F04 1090ms in 1625 / out 133
+    · route_l2   bs16~base 4820ms in 5726 / out 1333
+    · score      bs11~number_conflict:F10 1718ms in 4695 / out 257
+10:55:56 [perturb] bs11 number_conflict  routed total=65.8 sel=13 
+    · route_l2   bs11~strip_images 4657ms in 6977 / out 1388
+    · score      bs16~base:F06 1257ms in 5535 / out 174
+    · score      bs16~base:F01 2119ms in 7823 / out 445
+    · route_l1   bs16~wrong_customer 1689ms in 2255 / out 299
+    · score      bs11~strip_images:F01 1999ms in 8193 / out 314
+    · score      bs16~base:F07 2483ms in 4208 / out 225
+    · score      bs16~base:F03 1403ms in 3227 / out 209
+    · score      bs11~strip_images:F02 2390ms in 7989 / out 360
+    · score      bs16~base:F11 1849ms in 3377 / out 201
+10:56:01 [perturb] bs16 base             forced total=80.9 sel=6 
+    · score      bs16~base:F04 2012ms in 2559 / out 234
+    · score      bs11~strip_images:F05 1556ms in 6946 / out 236
+    · route_l2   bs16~wrong_customer 5004ms in 6519 / out 1420
+    · score      bs16~wrong_customer:F01 2428ms in 7556 / out 414
+10:56:04 [perturb] bs16 wrong_customer   forced total=0.0 sel=2 
+    · score      bs16~base:F05 2268ms in 5532 / out 261
+    · score      bs11~strip_images:F08 1515ms in 2279 / out 218
+    · score      bs16~wrong_customer:F01 1969ms in 7547 / out 408
+    · route_l1   bs16~placeholders 1854ms in 2295 / out 310
+    · score      bs16~base:F07 1733ms in 2616 / out 208
+    · score      bs11~strip_images:F09 2092ms in 2810 / out 227
+    · score      bs16~wrong_customer:F02 1709ms in 7136 / out 265
+    · score      bs16~base:F08 2130ms in 1664 / out 221
+    · score      bs16~base:F09 1131ms in 1812 / out 144
+    · score      bs16~wrong_customer:F03 1976ms in 3221 / out 221
+    · score      bs11~strip_images:F11 2686ms in 3839 / out 575
+10:56:09 [perturb] bs11 strip_images     routed total=68.5 sel=10 

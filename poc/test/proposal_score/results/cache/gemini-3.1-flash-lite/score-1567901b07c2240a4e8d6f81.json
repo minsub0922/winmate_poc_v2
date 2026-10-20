@@ -1,0 +1,78 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07~full:F04"
+ },
+ "prompt_tokens": 9327,
+ "output_tokens": 707,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "B 호텔의 체크인 대기 시간(12분), 객실 매출 비중(78%), 에어컨 소음 민원 등 현장 데이터를 기반으로 문제와 원인을 구체적으로 분석했습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "체크인 대기 12분 · 15–16시 집중"
+     },
+     {
+      "sheet": 4,
+      "quote": "15–16시 체크인 집중, 프런트 3명 앞 평균 12분 대기"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "CU6",
+    "score": 3,
+    "anchor": "호텔 운영의 핵심인 체크인 피크 시간, 객실 정비, 투숙객 동선 및 PMS 연동 등 호텔 업종의 운영 맥락을 정확히 반영했습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "체크인 줄 평균 12분, 리무진 · 조식 질문을 반복"
+     },
+     {
+      "sheet": 7,
+      "quote": "PMS의 투숙객 이름이 LYNK Cloud를 거쳐 객실 TV에 반영"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "객실(HG55BU, 무풍 1Way), 로비(KM24C), 연회장(QM55C) 등 각 공간의 특성과 용도에 최적화된 제품을 배치했습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "객실 TV HG55BU + LYNK Cloud"
+     },
+     {
+      "sheet": 8,
+      "quote": "1F 로비 · 체크인 피크 · 중앙공조 AHU"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "모나 용평 사례를 언급하며 도입 구성과 성과를 제시했으나, B 호텔과 규모 및 업종 특성이 유사한 구체적인 비즈니스 호텔 사례의 성과 수치가 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "모나 용평 · 리조트 · 60세대 · 침실 무풍 시스템에어컨"
+     }
+    ],
+    "improve": "비즈니스 호텔 환경에서 동일한 솔루션을 도입하여 실제 운영 효율을 개선한 구체적인 사례와 성과 수치를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

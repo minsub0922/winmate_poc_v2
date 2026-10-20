@@ -1,0 +1,40 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs20:F01"
+ },
+ "prompt_tokens": 8885,
+ "output_tokens": 292,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "13장에 제안 담당자의 연락처가 예시용 번호(010-1234-5678)로 기재되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "제출 전 실제 담당자의 연락처로 수정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "10장의 '할인율 미적용'은 사업성 분석을 위한 가정 조건일 뿐 내부 원가나 마진 정보가 아니며, 13장의 연락처는 정상적인 업무 연락처입니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "수수료 차감 후 · 할인율 미적용"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,78 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs09~full:F01"
+ },
+ "prompt_tokens": 9051,
+ "output_tokens": 629,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "고객사명 'S 교통공사'와 업종, 규모, 담당 조직이 모든 장에서 일관되게 기술되었으며, 다른 고객사명이나 예시 고객명이 발견되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "S 교통공사 안내 사이니지 · 상황실 교체 제안"
+     },
+     {
+      "sheet": 2,
+      "quote": "S 교통공사의 과제는 구축 이후 24시간 운영에 몰려 있습니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "CU5",
+    "score": 3,
+    "anchor": "현장 실측 데이터, 구체적인 운영 과제, 교체 수량 및 시범 구간 일정 등 고객 고유 정보가 전 장에 걸쳐 상세히 반영되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "장애 현장 여섯 곳을 직접 보고 왔습니다"
+     },
+     {
+      "sheet": 9,
+      "quote": "네 가지 교체, 640대"
+     },
+     {
+      "sheet": 11,
+      "quote": "시범 구간을 여섯 밤에 바꿉니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "템플릿 잔여물이나 자리표시 문구가 없으며, 제출용 연락처는 정상적인 영업 담당자 정보로 확인됩니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 2,
+    "anchor": "10장에서 내부 검토용 메모인 '확인 필요'가 다수 노출되어 있으나, 이는 민감한 기밀 정보는 아닙니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "확인 필요"
+     }
+    ],
+    "improve": "내부 검토용 메모인 '확인 필요' 문구를 삭제하고 최종 확정된 상태로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

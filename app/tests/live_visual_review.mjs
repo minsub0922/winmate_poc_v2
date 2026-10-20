@@ -14,7 +14,7 @@ try{
      for(const para of unit.text.split('\n')){let line='';for(const ch of para){if(x.measureText(line+ch).width>1160){x.fillText(line,50,y);y+=42;line='';}line+=ch;}if(line){x.fillText(line,50,y);y+=42;}}
      images.push({sheet:unit.n,data_url:canvas.toDataURL('image/png')});
     }
-    const criteria=[['CU1','DS4','DS7'],['CU4','DS1','DS6'],['PR3','DS4','WR5'],['VS6','DS4','DS7'],['MK3','DS4','WR1']][index%5];
+    const criteria=[['CU1','DQ3','DQ2'],['CU4','DQ1','DQ2'],['PR3','DQ3','MK5'],['VS6','DQ3','DQ2'],['MK4','DQ3','DQ7']][index%5];
     const snap=await postJson('/api/jobs',{kind:'review',doc:c.review_doc,images,criteria,context:{title:c.proposal.title,customer:c.company},budget:4,min_k:4});
     for(let n=0;n<600;n++){const job=await requestJson('/api/jobs/'+snap.id);if(job.status==='error')throw Error(JSON.stringify(job.error));if(job.status==='done')return{job,criteria};await new Promise(r=>setTimeout(r,250));}throw Error('visual review timeout');
    },{c,index:offset+index});

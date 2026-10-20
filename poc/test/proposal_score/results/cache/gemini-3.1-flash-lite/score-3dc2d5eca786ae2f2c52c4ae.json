@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~wrong_customer:F07"
+ },
+ "prompt_tokens": 2885,
+ "output_tokens": 232,
+ "data": {
+  "scores": [
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "삼성의 통합 솔루션(SmartThings, EHS 히트펌프, 빌트인 가전)과 2년 무상 점검 서비스망을 고객의 분양 차별화 및 입주 후 민원 감소 과제와 연결하여 구체적 사례와 수치로 제시함.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "집 안 가전 · 난방을 앱 하나로"
+     },
+     {
+      "sheet": 11,
+      "quote": "입주 후 무상 점검 | 40% | 가전 민원 감소 목표"
+     },
+     {
+      "sheet": 12,
+      "quote": "같은 고민을 먼저 푼 두 단지"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

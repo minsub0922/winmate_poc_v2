@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~placeholders:F01"
+ },
+ "prompt_tokens": 4867,
+ "output_tokens": 229,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "제안서 본문 내 핵심 수치와 문장에 [00]과 같은 자리표시가 6곳 이상 반복적으로 노출되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "[00]일 | 콘텐츠 교체 1회 소요"
+     },
+     {
+      "sheet": 3,
+      "quote": "[00]개 사업장 화면을 그룹 본사"
+     },
+     {
+      "sheet": 5,
+      "quote": "[00]일 → 당일 | 원격 통합 관리"
+     }
+    ],
+    "improve": "모든 자리표시([00])를 실제 수치로 수정하고, 연락처 등 예시 정보를 실제 담당자 정보로 교체해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~wrong_customer:F05"
+ },
+ "prompt_tokens": 6236,
+ "output_tokens": 280,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "제안서 내 대부분의 수치(성과 목표, 시장 데이터 등)에 구체적인 조사 기관과 연도가 명시되어 있지 않으며, 일부는 '삼성전자 추정'과 같이 모호하게 표기되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "50% | 옵션 계약률 | 직전 단지 31% 대비"
+     },
+     {
+      "sheet": 2,
+      "quote": "2026E 분양 물량 | 23 | 만 세대"
+     },
+     {
+      "sheet": 7,
+      "quote": "옵션 계약 전환 | 50% | 관람 → 상담 대기 | 20분 → 5분"
+     }
+    ],
+    "improve": "모든 시장 데이터 및 성과 목표 수치 옆에 구체적인 조사 기관(예: 국토교통부, 한국부동산원 등)과 연도를 명확히 기재해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

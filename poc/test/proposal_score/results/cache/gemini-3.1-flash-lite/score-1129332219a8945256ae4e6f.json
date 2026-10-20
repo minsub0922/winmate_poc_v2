@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08:F03"
+ },
+ "prompt_tokens": 3401,
+ "output_tokens": 189,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "경영진(병원장, 행정부원장)의 관심사인 설비 안정성, 운영비, 장애 감소율을 9장에서 요약하고, 13장에서 결정할 사항을 일정별로 명확히 정리함.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "병원장 · 행정부원장 | 관심사 · 운영비 · 설비 안정"
+     },
+     {
+      "sheet": 13,
+      "quote": "다음 4주, 선도 병동부터 정합니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

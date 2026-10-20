@@ -1,0 +1,135 @@
+{
+ "id": "C07_L3",
+ "case": "C07",
+ "industry": "RT",
+ "strategy": "compete",
+ "req_type": "compete",
+ "title": "백화점 사이니지 공급사 전환",
+ "level": "complex",
+ "input": {
+  "title": "L 백화점 · 사이니지 공급사 전환",
+  "customer": "L 백화점",
+  "project": "전 점포 디지털 사이니지 교체",
+  "target": "영업전략본부장",
+  "free_text": "현재 타사 사이니지 450면을 쓰고 있고 재계약 대신 공급사 전환을 검토합니다. 평가 항목은 화질 · 밝기 30점, CMS 20점, 유지보수 20점, 가격(3년 TCO) 30점이며 평가위원회 PT 가 있습니다. 영업 중에는 교체할 수 없어 폐점 후 야간에만 시공 가능합니다.",
+  "keymen": [
+   {
+    "name": "영업전략본부장",
+    "weight": 40,
+    "reqs": [
+     "점포 브랜드 경험 강화",
+     "3년 총소유비용 비교"
+    ]
+   },
+   {
+    "name": "VMD팀장",
+    "weight": 30,
+    "reqs": [
+     "기존 콘텐츠를 그대로 옮겨 쓰기",
+     "쇼윈도 밝기 · 화질 개선",
+     "시즌 콘텐츠 일괄 교체"
+    ]
+   },
+   {
+    "name": "시설팀장",
+    "weight": 30,
+    "reqs": [
+     "폐점 후 야간 교체 시공",
+     "장애 시 익일 복구",
+     "본사 CMS 로 전 점포 통합 관리"
+    ]
+   }
+  ],
+  "products": [
+   "qm55c",
+   "window",
+   "led_indoor"
+  ],
+  "solutions": [
+   "magicinfo"
+  ],
+  "id": "C07_L3"
+ },
+ "gold": {
+  "level": "complex",
+  "industry": "RT",
+  "strategy_any": [
+   "compete",
+   "rfp"
+  ],
+  "must_parts": [
+   "requirements",
+   "why"
+  ],
+  "dims_any": [
+   "경쟁·차별화",
+   "비용·구매",
+   "평가·선정·자격"
+  ],
+  "conflicts_any": [
+   "시공 vs 영업 유지"
+  ],
+  "min_questions": 4,
+  "eval_expected": true,
+  "key_reqs": [
+   {
+    "kw": [
+     "TCO"
+    ],
+    "parts_any": [
+     "cost",
+     "effect",
+     "requirements"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "콘텐츠"
+    ],
+    "parts_any": [
+     "solution",
+     "execution",
+     "requirements"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "야간"
+    ],
+    "parts_any": [
+     "execution",
+     "requirements"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "CMS"
+    ],
+    "parts_any": [
+     "solution",
+     "execution",
+     "requirements"
+    ],
+    "priority": "should"
+   }
+  ],
+  "facts": [
+   "450",
+   "30"
+  ],
+  "layouts_any": {
+   "requirements": [
+    "L_RM_C"
+   ],
+   "why": [
+    "L_CM_B",
+    "L_CM_E",
+    "L_ST_E",
+    "L_WS01"
+   ]
+  }
+ }
+}

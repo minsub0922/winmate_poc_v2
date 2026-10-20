@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08:F08"
+ },
+ "prompt_tokens": 2989,
+ "output_tokens": 282,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "5장에서 고객의 질문(간호부, 감염관리실, 원무팀)에 대응하는 제품과 핵심 가치를 3가지로 명확히 연결하여 제시하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "Q1 | 간호부 | “간호사가 부족해 호출 대응이 늦어요” | 답하는 제품 · 솔루션 | 갤럭시 탭 액티브5 프로 + b.IoT"
+     },
+     {
+      "sheet": 5,
+      "quote": "Q2 | 감염관리실 | “공기질 · 감염 관리가 중요해요” | 답하는 제품 · 솔루션 | ERV + 비스포크 AI 공기청정기"
+     },
+     {
+      "sheet": 5,
+      "quote": "Q3 | 원무팀 | “면회객 안내가 혼잡해요” | 답하는 제품 · 솔루션 | QM43C + MagicINFO"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

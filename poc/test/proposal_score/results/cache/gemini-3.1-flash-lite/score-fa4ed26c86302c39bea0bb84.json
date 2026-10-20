@@ -1,0 +1,39 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs13:F02"
+ },
+ "prompt_tokens": 8373,
+ "output_tokens": 279,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 요구사항 4가지(전기료 상승, 빈 타석 공조, 점주 부재, 가맹 확산)에 대해 각각 대응하는 장(5장, 6~9장, 10~11장, 13장)이 명확히 존재하며, 각 장에서 요구사항을 언급하고 구체적인 해법과 근거를 제시함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "전기료가 2년 새 21% 올랐습니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "빈 타석은 알아서 멈춥니다"
+     },
+     {
+      "sheet": 9,
+      "quote": "점주는 앱으로 확인만 합니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "확산 기준 · 월 전력 −15% 이상"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

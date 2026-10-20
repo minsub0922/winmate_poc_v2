@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~placeholders:F01"
+ },
+ "prompt_tokens": 8145,
+ "output_tokens": 254,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "제안서 전반에 걸쳐 [00]과 같은 자리표시가 8곳 이상 발견되며, 특히 6장과 7장의 핵심 수치 부분에 다수 포함되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "2026E 분양 물량 | [00] | 만 세대"
+     },
+     {
+      "sheet": 6,
+      "quote": "청약 경쟁률 목표 | [00] 대 [00]"
+     },
+     {
+      "sheet": 7,
+      "quote": "스마트홈 시연 참여 | [00]%"
+     }
+    ],
+    "improve": "모든 자리표시([00])를 실제 제안 수치로 기입하고, 예시용 연락처 및 이메일 주소를 실제 담당자 정보로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

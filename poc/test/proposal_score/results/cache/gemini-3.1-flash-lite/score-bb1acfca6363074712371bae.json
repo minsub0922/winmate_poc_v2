@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04:F04"
+ },
+ "prompt_tokens": 2837,
+ "output_tokens": 148,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "주거 분양 업종인 KCC스위첸과 그란츠 리버파크 사례를 제시하며, 도입 구성과 청약 마감 및 경쟁률 등의 성과를 구체적으로 기술하였습니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "KCC스위첸, 높은 경쟁률, 그란츠 리버파크"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

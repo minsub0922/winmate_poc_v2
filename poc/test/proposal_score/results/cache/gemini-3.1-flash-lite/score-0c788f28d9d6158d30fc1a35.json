@@ -1,0 +1,56 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~strip_images:F10"
+ },
+ "prompt_tokens": 3824,
+ "output_tokens": 420,
+ "data": {
+  "scores": [
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "1차 전환 범위(대전점, 청주점)와 8주간의 상세 일정, 운영자 교육 및 병행 운영 계획, 유지보수 SLA가 구체적으로 명시되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "1차 전환 범위 확정 — 대전점 · 청주점"
+     },
+     {
+      "sheet": 13,
+      "quote": "착수 후 8주 1차 전환"
+     },
+     {
+      "sheet": 7,
+      "quote": "점별 2주 병행 운영 · 운영자 교육 3회"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 3,
+    "anchor": "고객이 우려하는 운영팀 숙련도(교육)와 초기 비용(보상 매입) 리스크를 명확히 짚고, 병행 운영 및 분할 납부 등 구체적인 대응 방안을 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "운영팀 숙련도 · 새 CMS · 화면 학습 필요"
+     },
+     {
+      "sheet": 7,
+      "quote": "점별 2주 병행 운영 · 운영자 교육 3회"
+     },
+     {
+      "sheet": 7,
+      "quote": "처음 가격 · 신규 구매 vs 재계약 인하가"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

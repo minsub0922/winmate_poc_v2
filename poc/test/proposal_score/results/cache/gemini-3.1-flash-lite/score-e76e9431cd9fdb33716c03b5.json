@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs15:F07"
+ },
+ "prompt_tokens": 2163,
+ "output_tokens": 199,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "점포당 연간 비용 절감액을 폐기 손실, 전력, 기록, 수리비 항목별로 구체화하였으며, G 마트 2025 자료 기준 및 삼성전자 추정이라는 산정 전제를 명시함.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "점포당 연 손실 · 운영비 (만 원) | 20,800만 원"
+     },
+     {
+      "sheet": 9,
+      "quote": "G 마트 2025 자료 기준 삼성전자 추정"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

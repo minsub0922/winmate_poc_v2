@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~full:F04"
+ },
+ "prompt_tokens": 3282,
+ "output_tokens": 536,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "M 베이커리의 180개 지점 현황과 신제품 화면 배포 시 발생하는 6일의 소요 시간, 1.2억 원의 배포 비용 등 구체적인 수치와 문제 원인을 명확히 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "M 베이커리 180개 지점, 61%가 수도권에 있습니다"
+     },
+     {
+      "sheet": 3,
+      "quote": "신제품 화면 하나가 지점에 닿기까지 6일 걸립니다"
+     },
+     {
+      "sheet": 3,
+      "quote": "1.2억 | 배포비 · 연"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "매장 내 카운터(QM55C)와 쇼윈도(OM55B) 등 각 공간의 특성에 적합한 제품을 명시하여 제안했습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "가두 표준형 중심 · 카운터 QM55C 2면"
+     },
+     {
+      "sheet": 2,
+      "quote": "카페형 | 36곳 | 좌석 30석 이상 · 쇼윈도 OM55B 2단계"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 1,
+    "anchor": "제안서 내에 M 베이커리 외에 다른 기업의 도입 사례나 그에 따른 성과 수치가 전혀 제시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "유사 업종의 사이니지 통합 운영 도입 사례를 구체적인 성과 수치와 함께 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

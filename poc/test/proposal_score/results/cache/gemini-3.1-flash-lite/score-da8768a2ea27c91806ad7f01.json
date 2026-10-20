@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs04:F11"
+ },
+ "prompt_tokens": 3944,
+ "output_tokens": 383,
+ "data": {
+  "scores": [
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "모든 장의 본문 글자 크기가 12pt(16px) 미만이며, 9pt(12px) 미만인 본문 칸이 4개 장에 존재하여 가독성이 매우 낮음.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "본문 최소 10.5px"
+     },
+     {
+      "sheet": 3,
+      "quote": "본문 최소 11px"
+     },
+     {
+      "sheet": 5,
+      "quote": "본문 최소 10.5px"
+     }
+    ],
+    "improve": "제안서 전반의 본문 글자 크기를 12pt(16px) 이상으로 상향 조정하여 가독성을 확보해야 함.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS6",
+    "score": 2,
+    "anchor": "대부분 장에 시각 자료가 적절히 배치되었으나, 제품 스펙을 다루는 10장에 이미지가 전혀 없어 시각적 설명이 부족함.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "사진 0"
+     }
+    ],
+    "improve": "제품 스펙 및 매립 치수 등 기술적 내용을 다루는 10장에 도면이나 도식 자료를 추가해야 함.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

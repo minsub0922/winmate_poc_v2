@@ -1,0 +1,56 @@
+{
+ "id": "C02_L2",
+ "case": "C02",
+ "industry": "OF",
+ "strategy": "space",
+ "req_type": "new",
+ "title": "신축 AI Ready 오피스",
+ "level": "ambiguous",
+ "input": {
+  "title": "F 자산운용 신축 오피스",
+  "customer": "F 자산운용",
+  "free_text": "신축 업무시설이라 입주사들이 좋아할 만한 스마트한 오피스를 만들고 싶다고 합니다. 에너지도 아끼고 싶고요. 설계 단계라 구체적인 건 아직 미정입니다.",
+  "id": "C02_L2"
+ },
+ "gold": {
+  "level": "ambiguous",
+  "industry": "OF",
+  "scenario_any": [
+   "bs02"
+  ],
+  "scenario_top3": [
+   "bs02"
+  ],
+  "must_parts": [
+   "value",
+   "scenario"
+  ],
+  "key_reqs": [
+   {
+    "kw": [
+     "에너지"
+    ],
+    "parts_any": [
+     "effect",
+     "value",
+     "solution",
+     "scenario"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "입주사"
+    ],
+    "parts_any": [
+     "value",
+     "user",
+     "scenario",
+     "customer"
+    ],
+    "priority": "should"
+   }
+  ],
+  "facts": []
+ }
+}

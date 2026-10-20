@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~number_conflict:F04"
+ },
+ "prompt_tokens": 2535,
+ "output_tokens": 188,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 2,
+    "anchor": "유관 사례를 제시했으나, 각 사례별로 구체적인 성과 수치가 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "01 | 외식 | 국내 버거 프랜차이즈 | 메뉴보드 · 옥외 사이니지 · 창가 사이니지 | 당일 교체 | 전 매장 메뉴 · 가격 변경"
+     }
+    ],
+    "improve": "각 사례별로 도입 전후의 구체적인 성과 수치(예: 운영 시간 단축률, 비용 절감액 등)를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

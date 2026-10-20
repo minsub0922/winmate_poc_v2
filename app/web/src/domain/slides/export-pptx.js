@@ -1,10 +1,13 @@
 import { fetchResource } from '../../api/client.js';
 import PptxGenJS from 'pptxgenjs';
+import JSZip from 'jszip';
+import { addNativePlan } from '../spatial/slide-binding.js';
 import { layoutHtml, L } from '../../services/catalog.js';
 import { applyOverrides } from './Slide.jsx';
 import { loadBg } from '../../services/packs.js';
 import { fillReady } from '../../services/fill.js';
 import { PARTS } from '../proposals/parts.js';
+import { renderBackgroundCanvas, readBackgroundEffects } from '../../services/background-effects.js';
 
 const PX = 1 / 96; // 1280px = 13.333in (LAYOUT_WIDE)
 function parseColor(c) {
@@ -39,14 +42,27 @@ async function toDataUrl(src) {
 }
 // one deck uses one background — fetch it once
 const BG_CACHE = new Map();
-async function bgDataUrl(src) {
-  if (!BG_CACHE.has(src)) BG_CACHE.set(src, toDataUrl(src));
-  const d = await BG_CACHE.get(src);
-  if (!d) BG_CACHE.delete(src); // try again next time
+async function bgDataUrl(src, color = '#ffffff', effects) {
+  const key = JSON.stringify([src, color, effects]);
+  if (!BG_CACHE.has(key)) BG_CACHE.set(key, (async () => {
+    // PowerPoint stretches a native background image. Crop to the slide's 16:9
+    // aspect and apply the same photo-only effects as the editor preview.
+    try {
+      const canvas = await renderBackgroundCanvas(src, effects, { color });
+      return canvas.toDataURL('image/jpeg', .94);
+    } catch (error) { if (effects) throw error; return toDataUrl(src); }
+  })());
+  const d = await BG_CACHE.get(key);
+  if (!d) BG_CACHE.delete(key); // try again next time
   return d;
 }
 async function svgToPng(svg, w, h, untransformed = false, viewBox = null) {
   const clone = svg.cloneNode(true);
+  // A slide SVG is absolutely positioned on the HTML canvas. Those offsets
+  // must not survive inside its standalone image: they can move the entire
+  // drawing outside the raster viewport and produce a transparent PNG.
+  for (const key of ['position','left','top','right','bottom','margin']) clone.style.removeProperty(key);
+  clone.style.width = w + 'px'; clone.style.height = h + 'px';
   if (untransformed) clone.style.transform = ''; // a rotated / flipped drawing goes in upright; the slide rotates it
   if (viewBox) clone.setAttribute('viewBox', viewBox.join(' ')); // a line drawn past its box (arrowheads · thick strokes) — the whole drawing
   clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
@@ -92,7 +108,8 @@ async function addSlide(pptx, root, opts) {
   const s = pptx.addSlide();
   // ov.bg → the slide's own background picture (Format › Background), so it can't be moved by accident
   const bgSrc = root.getAttribute('data-bg');
-  const bgData = bgSrc ? await bgDataUrl(bgSrc) : null;
+  const effects = root.hasAttribute('data-bg-effects') ? readBackgroundEffects(root) : undefined;
+  const bgData = bgSrc ? await bgDataUrl(bgSrc, getComputedStyle(root).backgroundColor, effects) : null;
   if (bgData) s.background = { data: bgData, path: /png/i.test(bgData.slice(0, 30)) ? 'bg.png' : 'bg.jpg' };
   else s.background = { color: 'FFFFFF' };
   const R = root.getBoundingClientRect();
@@ -119,6 +136,7 @@ async function addSlide(pptx, root, opts) {
   };
   const tbox = (r, t) => { const cx = r.left + r.width / 2 - R.left, cy = r.top + r.height / 2 - R.top; return { x: (cx - t.w0 / 2) * PX, y: (cy - t.h0 / 2) * PX, w: Math.max(0.01, t.w0 * PX), h: Math.max(0.01, t.h0 * PX), rotate: t.a || undefined, flipH: t.fh || undefined }; };
   for (const el of els) {
+    if (el.closest('[data-desc-table]') && !el.hasAttribute('data-desc-table')) continue;
     if (el.closest('svg') && el.tagName.toLowerCase() !== 'svg') continue;
     const cs = getComputedStyle(el);
     if (cs.display === 'none' || cs.visibility === 'hidden' || parseFloat(cs.opacity) === 0) continue;
@@ -126,6 +144,40 @@ async function addSlide(pptx, root, opts) {
     if (r.right < R.left || r.left > R.right || r.bottom < R.top || r.top > R.bottom) continue;
     const b = box(r);
     const tag = el.tagName.toLowerCase();
+    if (el.hasAttribute('data-desc-table')) {
+      const def=JSON.parse(el.getAttribute('data-desc-table'));
+      const rows=def.rows.map(()=>[]);
+      for(const cell of el.querySelectorAll('[data-desc-row]')){
+        const css=getComputedStyle(cell),col=parseColor(css.color);
+        rows[Number(cell.dataset.descRow)].push({text:cell.innerText,options:{
+          colspan:Number(cell.dataset.descColspan)||1,rowspan:Number(cell.dataset.descRowspan)||1,
+          fontFace:fontFace(css,opts.font,keep),fontSize:parseFloat(css.fontSize)*.75,bold:Number(css.fontWeight)>=600,
+          color:col?.hex||'121417',align:css.textAlign==='center'?'center':css.textAlign==='right'?'right':'left',valign:'mid',margin:0,
+          fill:parseColor(css.backgroundColor)?.hex||'FFFFFF',border:{type:'solid',color:parseColor(css.borderTopColor)?.hex||'E2E5EA',pt:.5},
+        }});
+      }
+      const columnScale=r.width/def.cols.reduce((a,v)=>a+v,0),rowScale=r.height/def.rows.reduce((a,v)=>a+v,0);
+      s.addTable(rows,{...b,colW:def.cols.map(v=>v*columnScale*PX),rowH:def.rows.map(v=>v*rowScale*PX),margin:0,autoPage:false,verbose:false,
+        fontFace:opts.font,fontSize:12,color:'121417',border:{type:'solid',color:'D6E3FE',pt:.5}});
+      continue;
+    }
+    if(el.hasAttribute('data-desc-native-shape')){
+      const kind=el.getAttribute('data-desc-native-shape'),fill=parseColor(cs.backgroundColor),line=parseColor(cs.borderTopColor),bw=parseFloat(cs.borderTopWidth)||0;
+      const shape=kind==='ellipse'?pptx.ShapeType.ellipse:kind==='roundRect'?pptx.ShapeType.roundRect:pptx.ShapeType.rect;
+      const options={...b,fill:fill?{color:fill.hex,transparency:tr(fill.a)}:{type:'none'},line:bw&&line?{color:line.hex,width:bw*.75,transparency:tr(line.a)}:{type:'none'}};
+      if(kind==='roundRect')options.rectRadius=parseFloat(cs.borderTopLeftRadius)*PX;
+      if(fill||bw)s.addShape(shape,options);
+      continue;
+    }
+    if (el.hasAttribute('data-spatial-connector')) {
+      const c = JSON.parse(el.getAttribute('data-spatial-connector'));
+      s.addShape(pptx.ShapeType.line, { x: Math.min(c.x1,c.x2)*PX, y: Math.min(c.y1,c.y2)*PX, w: Math.abs(c.x2-c.x1)*PX, h: Math.abs(c.y2-c.y1)*PX,
+        flipV: c.y2<c.y1, line:{color:'446F96',width:1.1}, objectName:'spatial-connector:'+c.roomId });
+      continue;
+    }
+    if (el.hasAttribute('data-spatial-plan') && root.__spatialBinding) {
+      addNativePlan(s,root.__spatialBinding,{x:r.left-R.left,y:r.top-R.top,w:r.width,h:r.height},pptx.ShapeType);continue;
+    }
     if (tag === 'svg') {
       if (r.width < 1 || r.height < 1) continue;
       const t = turn(el);
@@ -260,12 +312,19 @@ export async function exportPptx(slides, { title = 'Winmate 제안서', font = '
       await Promise.all(Array.from(root.querySelectorAll('img')).map((im) => (im.complete ? 1 : new Promise((r) => { im.onload = im.onerror = r; }))));
       const s = await addSlide(pptx, root, { font });
       const meta = L[sl.f];
-      s.addNotes(`${sl.part ? '[' + sl.part + '] ' : ''}${meta ? meta.name : ''}${meta && meta.when ? ' — ' + meta.when : ''}`);
+      const sourceNotes = [...root.querySelectorAll('[data-proposal-note]')].map(el => el.textContent.trim()).filter(Boolean);
+      s.addNotes(`${sl.part ? '[' + sl.part + '] ' : ''}${meta ? meta.name : ''}${meta && meta.when ? ' — ' + meta.when : ''}${sourceNotes.length ? '\n\n[제품 사양 · 지원 조건 원문]\n' + sourceNotes.join('\n\n') : ''}`);
       onProgress && onProgress(i + 1, slides.length);
       await new Promise((r) => setTimeout(r, 0));
     }
     const blob = await pptx.write({ outputType: 'blob' });
-    return blob;
+    const spatial = slides.map((sl,i)=>sl.ov?.spatial ? {slide:i+1,...sl.ov.spatial} : null).filter(Boolean);
+    if (!spatial.length) return blob;
+    const zip = await JSZip.loadAsync(await blob.arrayBuffer());
+    zip.file('ppt/embeddings/winmate-spatial.json',JSON.stringify({version:1,scenes:spatial}));
+    const types = await zip.file('[Content_Types].xml').async('string');
+    zip.file('[Content_Types].xml',types.replace('</Types>','<Default Extension="json" ContentType="application/json"/></Types>'));
+    return zip.generateAsync({type:'blob',mimeType:'application/vnd.openxmlformats-officedocument.presentationml.presentation',compression:'DEFLATE'});
   } finally { host.remove(); }
 }
 export { PARTS };

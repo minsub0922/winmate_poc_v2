@@ -1,0 +1,70 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs20~full:F09"
+ },
+ "prompt_tokens": 9539,
+ "output_tokens": 640,
+ "data": {
+  "scores": [
+   {
+    "id": "PR1",
+    "score": 3,
+    "anchor": "제안된 모델(OH55A-S, IAB 146\", XHB)은 모두 현재 카탈로그 라인업에 포함되어 있으며, 이전 세대나 단종 표기가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "XHB · 실외 LED · 외벽 | OH55A-S · 옥외형 · 미디어폴 | The Wall · IAB 146\" · 관제실"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR2",
+    "score": 2,
+    "anchor": "6장에서 OH55A-S의 밝기를 3,000nit로 표기했으나, 카탈로그 사양은 3,500nit(최대 4,000nit)로 차이가 있습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "옥외형 사이니지 OH55A-S · 양면 · 폴당 2대 | 한낮 밝기 | 3,000nit"
+     }
+    ],
+    "improve": "6장의 OH55A-S 밝기 수치를 카탈로그 공식 사양인 3,500nit로 수정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "PR5",
+    "score": 3,
+    "anchor": "제안서 전반에서 제품명과 모델명을 일관되게 사용하고 있으며, 혼용 사례가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "XHB · 실외 LED · 외벽 | OH55A-S · 옥외형 · 미디어폴 | The Wall · IAB 146\""
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR3",
+    "score": 3,
+    "anchor": "MagicINFO, The Wall 등 브랜드명과 삼성전자 표기가 공식 가이드라인에 따라 일관되게 작성되었습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "MagicINFO — Q 미디어 서버에서 모든 매체를 송출합니다"
+     },
+     {
+      "sheet": 1,
+      "quote": "삼성전자 한국총괄 B2B 영업팀"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

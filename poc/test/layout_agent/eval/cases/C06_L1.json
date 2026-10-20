@@ -1,0 +1,41 @@
+{
+ "id": "C06_L1",
+ "case": "C06",
+ "industry": "MF",
+ "strategy": "pain",
+ "req_type": "ops",
+ "title": "물류센터 현장 모바일",
+ "level": "minimal",
+ "input": {
+  "title": "K 로지스 제안",
+  "customer": "K 로지스",
+  "industry": "MF",
+  "free_text": "물류센터 현장 단말. 갤럭시 XCover7, 탭 액티브5",
+  "products": [
+   "xcover7",
+   "tabactive5"
+  ],
+  "id": "C06_L1"
+ },
+ "gold": {
+  "level": "minimal",
+  "industry": "MF",
+  "scenario_any": [
+   "STD-MF"
+  ],
+  "must_parts": [
+   "value",
+   "products",
+   "case",
+   "why"
+  ],
+  "layouts_any": {
+   "products": [
+    "L_P_Q",
+    "L_P2B"
+   ]
+  },
+  "key_reqs": [],
+  "facts": []
+ }
+}

@@ -1,0 +1,61 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs06~full:F12"
+ },
+ "prompt_tokens": 9073,
+ "output_tokens": 490,
+ "data": {
+  "scores": [
+   {
+    "id": "WR2",
+    "score": 3,
+    "anchor": "전체적으로 맞춤법과 띄어쓰기가 정확하며, 제목에도 오류가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "D 리테일 성수 플래그십 리뉴얼 · 브랜드 경험 제안"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR8",
+    "score": 1,
+    "anchor": "VMD, IFR, CMS 등 고객이 생소할 수 있는 전문 용어와 약어에 대한 풀이가 전혀 제공되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "Samsung VXT · LED · 비디오월 · 윈도 · 이페이퍼 통합 편성"
+     },
+     {
+      "sheet": 6,
+      "quote": "VMD팀 모바일 · VXT 원격 모니터링"
+     }
+    ],
+    "improve": "고객이 이해하기 어려운 VMD, IFR, CMS 등의 약어를 처음 등장하는 장에서 풀어서 설명해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR9",
+    "score": 2,
+    "anchor": "전반적으로 개조식 문체를 사용하여 가독성을 높였으나, 일부 장에서 경어체 문장과 개조식 종결이 혼용되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "매장은 ‘경험하는 곳’으로"
+     },
+     {
+      "sheet": 3,
+      "quote": "D 리테일 고객의 마음은 체험에서 오르고, 대기에서 꺾입니다"
+     }
+    ],
+    "improve": "제안서 전체의 문체를 개조식으로 통일하여 일관성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

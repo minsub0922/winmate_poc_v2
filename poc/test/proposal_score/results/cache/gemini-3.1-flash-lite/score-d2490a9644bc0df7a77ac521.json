@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04:F10"
+ },
+ "prompt_tokens": 5733,
+ "output_tokens": 384,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "SmartThings를 통해 가전 제어, 에너지 모니터링, 홈케어 진단 등 운영 솔루션과 하드웨어가 연결된 구체적인 운영 장면을 제시함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "SmartThings · 빌트인 · 난방 · 도어락을 계정 하나로"
+     },
+     {
+      "sheet": 5,
+      "quote": "홈케어 진단 | 기기 상태를 점검해 이상 징후를 먼저 알림"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "13장에서 도면 검토, 옵션 확정, 모델하우스 설치 등 구체적인 일정과 담당 부서를 명시했으나, 교육 및 유지보수 계획이 누락됨.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "12월까지, 함께 정할 세 가지"
+     },
+     {
+      "sheet": 13,
+      "quote": "도면 · 치수 검토 | 옵션 패키지 확정 | 모델하우스 설치 일정 합의"
+     }
+    ],
+    "improve": "입주 후 유지보수 체계 및 운영 이관, 입주민 대상 교육 계획을 실행 일정에 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

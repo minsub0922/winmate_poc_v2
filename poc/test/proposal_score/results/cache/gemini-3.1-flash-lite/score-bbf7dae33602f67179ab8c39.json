@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs02:F02"
+ },
+ "prompt_tokens": 9508,
+ "output_tokens": 238,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 4가지 요구사항(R1~R4)에 대해 14장(설계 반영 일정), 3~5장(임차인 차별점), 13장(에너지 실측), 14~15장(유지보수 및 시공 R&R)에서 명시적으로 대응하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "도면 확정 3주 전 4자 회의로"
+     },
+     {
+      "sheet": 3,
+      "quote": "임차인 투어의 첫 장면"
+     },
+     {
+      "sheet": 13,
+      "quote": "20% 절감을 실측으로 증명"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

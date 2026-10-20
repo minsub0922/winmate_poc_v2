@@ -1,0 +1,78 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11~full:F06"
+ },
+ "prompt_tokens": 8762,
+ "output_tokens": 673,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "모든 장에서 동일한 대상(상황실 18면, 대합실 24대, 회의실 8대, 단말 60대)에 대해 일관된 수치를 사용하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "상황실 18면, 대합실 12곳 24대, 회의실 8대, 단말 60대"
+     },
+     {
+      "sheet": 6,
+      "quote": "VM55B 3x6 18면, QM65C 24대, WM75B 8대, 단말 60대"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR6",
+    "score": 3,
+    "anchor": "공간별 모델명, 수량, 설치 방식이 명확히 제시되어 있으며, 총계와 일치합니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "상황실 VM55B 3x6, 대합실 QM65C 24대, 회의실 WM75B 8대"
+     },
+     {
+      "sheet": 7,
+      "quote": "VM55B 3x6 구성, QM65C 24대, WM75B 8대"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "DS8",
+    "score": 3,
+    "anchor": "표의 단위와 수치가 명확하며, 가독성을 고려하여 분야별로 잘 정리되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "요구사항 28개, ID 단위로 빠짐없이 대응"
+     },
+     {
+      "sheet": 7,
+      "quote": "요구사항 항목별 제안 제품 사양 1:1 대응"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR4",
+    "score": 3,
+    "anchor": "인치(″), nit, 수량 등 모든 단위 표기가 제안서 전반에 걸쳐 일관되게 사용되었습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "밝기 400nit 이상, 55\"급, 75\"급"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

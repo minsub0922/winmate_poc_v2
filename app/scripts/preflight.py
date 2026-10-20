@@ -303,9 +303,9 @@ def run(deep: bool, require_auth: bool) -> Results:
     check_python(r)
     model = load_gemini_settings()
     if model.has_key:
-        r.ok('Gemini', model.model + ' · key source: ' + model.key_source + ' · strict real-only')
+        r.ok('LLM', model.provider + ' / ' + model.model + ' · key source: ' + model.key_source + ' · strict real-only')
     else:
-        r.fail('Gemini', 'GEMINI_API_KEY가 없어 실제 AI 기능을 시작할 수 없습니다.', 'app/.env 또는 poc/.env에 서버 전용 Gemini 키를 설정하세요.')
+        r.fail('LLM', 'AI 인증 키가 없어 실제 AI 기능을 시작할 수 없습니다.', 'app/.env에 WINMATE_LLM_API_KEY 또는 GEMINI_API_KEY를 설정하세요.')
     check_source_db(r, deep)
     check_reference(r, deep)
     check_app_data(r)

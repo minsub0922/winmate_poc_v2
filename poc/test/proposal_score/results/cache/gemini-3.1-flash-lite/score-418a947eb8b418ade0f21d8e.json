@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~number_conflict:F06"
+ },
+ "prompt_tokens": 3696,
+ "output_tokens": 249,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 1,
+    "anchor": "전체 사업장 수를 260개(2장)와 208개(3, 5장)로 혼용하고 있으며, 문맥상 동일한 전체 규모를 지칭함에도 수치가 일치하지 않아 모순이 발생합니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "260개 사업장 화면"
+     },
+     {
+      "sheet": 3,
+      "quote": "208개 사업장 화면"
+     },
+     {
+      "sheet": 5,
+      "quote": "208개 사업장의 화면"
+     }
+    ],
+    "improve": "전체 사업장 수에 대한 정의를 명확히 하고, 제안서 전반에 걸쳐 해당 수치를 260개 또는 208개 중 하나로 통일해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

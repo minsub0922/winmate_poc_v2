@@ -1,0 +1,45 @@
+{
+ "id": "C07_L1",
+ "case": "C07",
+ "industry": "RT",
+ "strategy": "compete",
+ "req_type": "compete",
+ "title": "백화점 사이니지 공급사 전환",
+ "level": "minimal",
+ "input": {
+  "title": "L 백화점 제안",
+  "customer": "L 백화점",
+  "industry": "RT",
+  "free_text": "백화점 플래그십 매장 사이니지",
+  "products": [
+   "qm55c",
+   "window",
+   "led_indoor"
+  ],
+  "id": "C07_L1"
+ },
+ "gold": {
+  "level": "minimal",
+  "industry": "RT",
+  "scenario_any": [
+   "STD-RT"
+  ],
+  "must_parts": [
+   "value",
+   "products",
+   "case",
+   "why"
+  ],
+  "layouts_any": {
+   "products": [
+    "L_P3B"
+   ],
+   "value": [
+    "L_VP_F",
+    "L_VP_UC_RT"
+   ]
+  },
+  "key_reqs": [],
+  "facts": []
+ }
+}

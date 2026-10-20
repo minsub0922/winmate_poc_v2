@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs09:F08"
+ },
+ "prompt_tokens": 1858,
+ "output_tokens": 157,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 1,
+    "anchor": "제안서 내에 고객이 얻는 가치를 2~4개의 결과형 문장으로 명확히 정리한 장이 존재하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "고객의 요구사항을 해결하여 얻게 되는 핵심 가치 2~4가지를 명확히 정의하고, 이를 구현하는 솔루션과 연결하는 장을 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

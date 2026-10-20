@@ -1,0 +1,133 @@
+{
+ "meta": {
+  "run_id": "live-test-chunk_carry",
+  "prompt_version": "v2",
+  "backend": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "keys": {
+   "GEMINI_API_KEY": true,
+   "GEMINI_MODEL": true,
+   "TAVILY_API_KEY": true
+  },
+  "conds": [
+   "chunk_carry"
+  ],
+  "max_chars": [
+   3000
+  ],
+  "tcs": [
+   "TC1",
+   "TC2",
+   "TC3",
+   "TC4",
+   "TC5"
+  ]
+ },
+ "rows": [
+  {
+   "tc": "TC1",
+   "cond": "chunk_carry",
+   "max_chars": 3000,
+   "recall": 0.867,
+   "recall_with_summary": 0.867,
+   "projects": "1/1",
+   "misattributed": 0,
+   "chunks": 3,
+   "items": 42,
+   "grounded": 0.976,
+   "unsupported_nums": 0,
+   "near_dups": 0,
+   "calls": 5,
+   "tokens": 16800,
+   "ms": 14468,
+   "missed": [
+    "c14 예정가격 이하 최저가",
+    "c15 동일가격 즉시 추첨",
+    "c22 실명번호 뒤 7자리 마스킹",
+    "c26 제안 설명 미참석 시 제안포기"
+   ],
+   "errors": []
+  },
+  {
+   "tc": "TC2",
+   "cond": "chunk_carry",
+   "max_chars": 3000,
+   "recall": 1.0,
+   "recall_with_summary": 1.0,
+   "projects": "1/1",
+   "misattributed": 0,
+   "chunks": 4,
+   "items": 92,
+   "grounded": 0.989,
+   "unsupported_nums": 0,
+   "near_dups": 0,
+   "calls": 6,
+   "tokens": 28158,
+   "ms": 25445,
+   "missed": [],
+   "errors": []
+  },
+  {
+   "tc": "TC3",
+   "cond": "chunk_carry",
+   "max_chars": 3000,
+   "recall": 0.967,
+   "recall_with_summary": 0.967,
+   "projects": "1/1",
+   "misattributed": 0,
+   "chunks": 3,
+   "items": 56,
+   "grounded": 1.0,
+   "unsupported_nums": 0,
+   "near_dups": 0,
+   "calls": 5,
+   "tokens": 18606,
+   "ms": 16162,
+   "missed": [
+    "c27 시력보호기능 인증공문"
+   ],
+   "errors": []
+  },
+  {
+   "tc": "TC4",
+   "cond": "chunk_carry",
+   "max_chars": 3000,
+   "recall": 0.95,
+   "recall_with_summary": 0.95,
+   "projects": "1/1",
+   "misattributed": 0,
+   "chunks": 4,
+   "items": 119,
+   "grounded": 0.992,
+   "unsupported_nums": 3,
+   "near_dups": 3,
+   "calls": 6,
+   "tokens": 30921,
+   "ms": 29448,
+   "missed": [
+    "c02 모니터 연 500대",
+    "c03 노트북 연 360대"
+   ],
+   "errors": []
+  },
+  {
+   "tc": "TC5",
+   "cond": "chunk_carry",
+   "max_chars": 3000,
+   "recall": 1.0,
+   "recall_with_summary": 1.0,
+   "projects": "4/4",
+   "misattributed": 0,
+   "chunks": 12,
+   "items": 316,
+   "grounded": 0.994,
+   "unsupported_nums": 3,
+   "near_dups": 2,
+   "calls": 17,
+   "tokens": 93259,
+   "ms": 83352,
+   "missed": [],
+   "errors": []
+  }
+ ]
+}

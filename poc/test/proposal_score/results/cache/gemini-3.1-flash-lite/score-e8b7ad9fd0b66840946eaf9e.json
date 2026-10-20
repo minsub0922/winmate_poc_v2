@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~wrong_customer:F09"
+ },
+ "prompt_tokens": 4208,
+ "output_tokens": 192,
+ "data": {
+  "scores": [
+   {
+    "id": "PR1",
+    "score": 3,
+    "anchor": "제안서에 명시된 QM55C, OM55B, KM24C, QB55C 모델은 모두 현재 삼성전자 사이니지 라인업의 현행 모델입니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "QM55C 메뉴보드"
+     },
+     {
+      "sheet": 4,
+      "quote": "OM55B 쇼윈도"
+     },
+     {
+      "sheet": 4,
+      "quote": "KM24C 키오스크"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,74 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs21~full:F01"
+ },
+ "prompt_tokens": 13406,
+ "output_tokens": 553,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 2,
+    "anchor": "고객사명은 일관되게 'H 호텔'로 표기되었으나, 객실 수 정보가 312실(11, 22장)과 3실(10장)로 다르게 표기되어 충돌이 발생합니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "객실 312실"
+     },
+     {
+      "sheet": 10,
+      "quote": "3"
+     }
+    ],
+    "improve": "모든 장표에서 객실 수 정보를 312실로 통일하여 기재해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "CU5",
+    "score": 3,
+    "anchor": "전체 37개 장 중 37개 장 모두에 'H 호텔'이라는 고객명이 명시되어 있으며, 호텔의 공간 구성과 객실 수(312실) 등 고유 정보가 반영되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "H 호텔"
+     },
+     {
+      "sheet": 11,
+      "quote": "H 호텔의 여섯 공간, 열 개 제품"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "제안서 내에 자리표시자나 템플릿 잔여물, 예시 고객명 등이 발견되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "원가, 마진, 내부 할인율 등 민감한 내부 정보나 제3자의 개인정보가 포함되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

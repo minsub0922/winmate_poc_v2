@@ -1,0 +1,57 @@
+{
+ "id": "C01_L2",
+ "case": "C01",
+ "industry": "FB",
+ "strategy": "value",
+ "req_type": "new",
+ "title": "카페 프랜차이즈 디지털 메뉴보드",
+ "level": "ambiguous",
+ "input": {
+  "title": "C 커피 매장 디지털 전환",
+  "customer": "C 커피",
+  "free_text": "C 커피가 매장 디지털 전환을 고민하고 있습니다. 매장 경험을 좀 더 세련되게 바꾸고 싶고, 본사 입장에서는 메뉴 운영이 편해졌으면 한다고 합니다. 아직 구체적인 범위는 정해지지 않았어요.",
+  "id": "C01_L2"
+ },
+ "gold": {
+  "level": "ambiguous",
+  "industry": "FB",
+  "scenario_any": [
+   "bs01",
+   "bs16"
+  ],
+  "scenario_top3": [
+   "bs01"
+  ],
+  "must_parts": [
+   "value",
+   "scenario",
+   "case"
+  ],
+  "key_reqs": [
+   {
+    "kw": [
+     "운영"
+    ],
+    "parts_any": [
+     "value",
+     "solution",
+     "effect",
+     "execution"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "경험"
+    ],
+    "parts_any": [
+     "value",
+     "scenario",
+     "user"
+    ],
+    "priority": "should"
+   }
+  ],
+  "facts": []
+ }
+}

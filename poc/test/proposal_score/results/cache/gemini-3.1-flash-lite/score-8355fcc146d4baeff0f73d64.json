@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs01:F04"
+ },
+ "prompt_tokens": 5149,
+ "output_tokens": 246,
+ "data": {
+  "scores": [
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "옥외용 OH55A-S와 실내용 QM55C, KM24C 등 제품별 사양과 설치 공간이 명확히 매칭되어 있으며, 각 환경 요구사항에 적합하게 제안되었습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "QM55C 55\" 500nit 4K UHD 24/7 운영"
+     },
+     {
+      "sheet": 10,
+      "quote": "OH55A-S 55\" 3,500nit IP56 드라이브스루"
+     },
+     {
+      "sheet": 10,
+      "quote": "KM24C 24\" 세로형 터치 결제 연동"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

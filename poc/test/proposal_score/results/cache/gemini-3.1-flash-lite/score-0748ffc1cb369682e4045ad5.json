@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs12~full:F03"
+ },
+ "prompt_tokens": 2848,
+ "output_tokens": 380,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 2,
+    "anchor": "결정권자가 신경 쓰는 매출 및 투자 회수 지표가 12장에 제시되어 있으나, 이를 종합한 경영진용 요약 장이 별도로 존재하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "광고 · 매점 수익으로 28개월 만에 회수합니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "개막 전 완공, 지금 정할 세 가지"
+     }
+    ],
+    "improve": "제안서 초반부에 경영진이 핵심 성과와 리스크를 한눈에 파악할 수 있는 요약 장(Executive Summary)을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS7",
+    "score": 3,
+    "anchor": "투자 회수 기간과 산정 근거(홈 경기 수, 광고 단가, 유지보수 비용 등)를 명확히 제시하여 고객이 비용 구조를 이해할 수 있게 했습니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "광고 · 매점 수익으로 28개월 만에 회수합니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "가정 | 홈 72경기 · 케어 연 1.2억"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

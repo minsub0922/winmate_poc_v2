@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs02:F01"
+ },
+ "prompt_tokens": 9608,
+ "output_tokens": 197,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명을 'C 빌딩'으로 일관되게 표기하였으며, 사례로 인용된 기관명(한국IBM, 팩토리얼 성수, 대구상공회의소 등) 외에 다른 고객사명이나 템플릿 예시 고객명이 발견되지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "C 빌딩 신축 · AI Ready 스마트 빌딩 설계 반영 제안"
+     },
+     {
+      "sheet": 16,
+      "quote": "C 빌딩 설계 반영 범위 확정"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

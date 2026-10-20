@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16:F04"
+ },
+ "prompt_tokens": 1814,
+ "output_tokens": 175,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 1,
+    "anchor": "제안서 내에 도입 사례를 다루는 장이 없으며, 본문 전체를 검토해도 타 업종이나 유사 사례에 대한 구체적인 성과 수치나 도입 구성이 제시되지 않았습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "유사한 규모의 프랜차이즈 업종에 사이니지 솔루션을 도입하여 운영 효율을 개선한 실제 사례와 구체적인 성과 수치를 포함한 장을 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

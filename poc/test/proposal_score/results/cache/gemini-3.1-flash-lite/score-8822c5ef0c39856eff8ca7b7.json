@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~strip_images:F06"
+ },
+ "prompt_tokens": 4052,
+ "output_tokens": 280,
+ "data": {
+  "scores": [
+   {
+    "id": "PR6",
+    "score": 2,
+    "anchor": "공간별 모델과 수량은 명확히 제시되어 있으나, 설치에 필수적인 브래킷, 플레이어, 라이선스 등 부가적인 옵션 및 액세서리에 대한 정보가 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "매장당 5대 | 소형 · 테이크아웃 120곳 · 15평 이하 | · | QM55C ×3 · KM24C ×1 · 360 카세트 ×1"
+     },
+     {
+      "sheet": 15,
+      "quote": "누적 도입 | 10곳 · 70대 → 100곳 · 660대 | → 320곳 · 2,120대"
+     }
+    ],
+    "improve": "설치에 필요한 브래킷, 미디어 플레이어, 소프트웨어 라이선스 등 필수 구성 요소를 포함한 상세 내역을 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

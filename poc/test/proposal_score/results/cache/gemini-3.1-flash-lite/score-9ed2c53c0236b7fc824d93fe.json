@@ -1,0 +1,56 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs21:F11"
+ },
+ "prompt_tokens": 5596,
+ "output_tokens": 488,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 초과하는 장이 10장으로, 1점 기준인 4장 이상을 크게 상회하여 가독성이 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 18,
+      "quote": "Bespoke 에어드레서 406어절"
+     },
+     {
+      "sheet": 17,
+      "quote": "Infinite AI 공기청정기 299어절"
+     },
+     {
+      "sheet": 8,
+      "quote": "H 호텔 312개 객실 239어절"
+     }
+    ],
+    "improve": "장당 어절 수를 77어절 이하로 줄이고, 문단형 텍스트를 개조식으로 간결하게 재구성해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "본문 최소 글자 크기가 12pt 미만인 장이 37장 중 37장이며, 9pt 미만인 장도 7장이나 되어 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 18,
+      "quote": "본문 최소 7.4px(5.6pt)"
+     },
+     {
+      "sheet": 17,
+      "quote": "본문 최소 7.6px(5.7pt)"
+     },
+     {
+      "sheet": 14,
+      "quote": "본문 최소 8.5px(6.4pt)"
+     }
+    ],
+    "improve": "모든 본문 텍스트의 크기를 12pt(16px) 이상으로 상향 조정하고, 작은 글자는 라벨이나 캡션 용도로만 제한해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

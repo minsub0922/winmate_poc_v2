@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~wrong_customer:F03"
+ },
+ "prompt_tokens": 3012,
+ "output_tokens": 182,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "제안 요약 장에서 비용 절감 및 운영 효율화 등 경영 지표를 명확히 제시하고, 마지막 장에서 결정권자가 승인해야 할 다음 단계와 일정을 한 장으로 정리함.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "연 −15% 운영 · 유지보수비 | −30% 현장 출동"
+     },
+     {
+      "sheet": 10,
+      "quote": "2주 안에 현장부터, 세 단계로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs01:F11"
+ },
+ "prompt_tokens": 3854,
+ "output_tokens": 565,
+ "data": {
+  "scores": [
+   {
+    "id": "DS1",
+    "score": 1,
+    "anchor": "글자 넘침 현상이 4장에서 확인되며, 제목 위치가 2, 12, 13, 16장에서 일관되지 않게 배치되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "① 메뉴 · 가격 반영"
+     },
+     {
+      "sheet": 2,
+      "quote": "제목 30px@(72,88)"
+     }
+    ],
+    "improve": "제목의 위치를 모든 장에서 동일한 좌표로 통일하고, 4장의 넘침 현상을 해결해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 10개로 매우 많으며, 장당 평균 어절 수 또한 145어절로 발표 자료로 읽기에는 밀도가 너무 높습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "250어절"
+     },
+     {
+      "sheet": 14,
+      "quote": "232어절"
+     }
+    ],
+    "improve": "각 장의 텍스트 양을 80어절 내외로 줄이고, 핵심 메시지 위주로 개조식 서술을 도입해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 이상 본문 칸의 57%가 10pt 미만이며, 9pt 미만의 작은 본문이 9개 장에서 확인되어 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 9,
+      "quote": "본문 최소 10px(7.5pt)"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정하여 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

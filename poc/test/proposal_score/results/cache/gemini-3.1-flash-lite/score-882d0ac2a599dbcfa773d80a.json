@@ -1,0 +1,69 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08~full:F05"
+ },
+ "prompt_tokens": 8100,
+ "output_tokens": 500,
+ "data": {
+  "scores": [
+   {
+    "id": "MK1",
+    "score": 3,
+    "anchor": "요양병원 시장 규모와 성장률, 전국 요양병원 수 등 제시된 수치들이 국내 시장을 기준으로 일관성 있게 작성되었습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "요양병원 시장 | 9.8 | 조 원 | 2026E"
+     },
+     {
+      "sheet": 2,
+      "quote": "전국 요양병원 (약) | 1,400 | 곳"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "MK2",
+    "score": 3,
+    "anchor": "모든 시장 수치와 전망치가 2026년 기준(미래 전망)으로 명확히 표기되어 최신성을 유지하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "출처 삼성전자 추정(2026)"
+     },
+     {
+      "sheet": 4,
+      "quote": "병동 계측(2026. 9)"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "대부분의 장에서 수치에 대한 구체적인 출처 기관과 연도가 명시되지 않고 '사진: samsung.com' 등으로만 표기되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": ""
+     },
+     {
+      "sheet": 4,
+      "quote": ""
+     },
+     {
+      "sheet": 6,
+      "quote": ""
+     }
+    ],
+    "improve": "모든 정량적 수치와 인용 데이터 옆에 조사 기관과 기준 연도를 명확히 기재해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

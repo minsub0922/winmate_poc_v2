@@ -1,0 +1,40 @@
+// Real context/segments/repository modules with isolated in-memory browser storage.
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import { build } from '../web/node_modules/esbuild/lib/main.js';
+import path from 'node:path';
+const read=n=>JSON.parse(fs.readFileSync(new URL('../data/'+n+'.json',import.meta.url)));
+const memory=new Map();globalThis.window=new EventTarget();
+globalThis.__skillTestBoot={catalog:read('catalog'),products:read('products_db'),images:read('images'),user:{username:'skill-unit',auth_enabled:false}};
+globalThis.__skillTestStorage={local:{getItem:k=>memory.get(k)??null,setItem:(k,v)=>memory.set(k,v),removeItem:k=>memory.delete(k)},open:()=>{throw Error('No IndexedDB in unit fixtures');}};
+const bundle=await build({stdin:{contents:`import {configureBootstrap} from './api/bootstrap.js';import {configureStorage} from './repositories/browser.js';configureBootstrap(globalThis.__skillTestBoot);configureStorage(globalThis.__skillTestStorage);export async function load(){return {skills:await import('./domain/simulation/skills.js'),repo:await import('./repositories/proposals.js'),engine:await import('./domain/simulation/engine.js'),client:await import('./api/client.js')};}`,resolveDir:path.resolve('app/web/src')},bundle:true,platform:'node',format:'esm',write:false,logLevel:'error'});
+const target=new URL('./output/simulation-skills-unit.mjs',import.meta.url);fs.mkdirSync(new URL('./output/',import.meta.url),{recursive:true});fs.writeFileSync(target,bundle.outputFiles[0].text);
+let loaded;try{loaded=await (await import(target.href)).load();}catch(error){console.error(error.stack);process.exit(1);}
+const {SIMULATION_SKILLS,skillRequest,skillDraftSegments,runSimulationSkill}=loaded.skills;
+const {createProposal,update}=loaded.repo;const {sharedSkillSources}=loaded.engine;const {setTransport}=loaded.client;
+delete globalThis.__skillTestBoot;delete globalThis.__skillTestStorage;
+const make=()=>({setup:{title:'카페 운영',pid:null,req:[{t:'10개 매장 파일럿'}],refs:{products:['qm55c'],solutions:['magicinfo'],cases:[]}},profile:{company:'A 커피',name:'김담당',role:'운영본부장',ind:'FB',interests:['원격 운영'],concerns:[{text:'HIDDEN_SECRET_SHOULD_NOT_LEAK',revealed:false},{text:'이미 공개한 네트워크 우려',revealed:true}]},cur:{stage:'value',satisfaction:42,scores:{CU2:50}},msgs:[{who:'cust',text:'지금 물어본 최신 질문'},{who:'me',segs:[{t:'파일럿을 제안합니다.'}]}],skillRuns:[{status:'done',result:{private:'UNSHARED_SKILL_RESULT'}}]});
+assert.equal(SIMULATION_SKILLS.length,8);assert.equal(new Set(SIMULATION_SKILLS.map(s=>s.id)).size,8);
+let sim=make(),before=structuredClone(sim),request=skillRequest(sim,'product-fit',[{t:'55형으로'},{ref:'product:qm55c'}]);
+assert.deepEqual(sim,before);assert(request.refs.includes('product:qm55c'));assert(JSON.stringify(request).includes('지금 물어본 최신 질문'));
+assert(JSON.stringify(request).includes('이미 공개한 네트워크 우려'));for(const hidden of ['HIDDEN_SECRET_SHOULD_NOT_LEAK','UNSHARED_SKILL_RESULT','satisfaction','scores'])assert(!JSON.stringify(request).includes(hidden));
+console.log('PASS current visible context only, explicit references, no hidden persona/evaluation leakage or mutation');
+const pid=createProposal();update(pid,p=>{p.title='최신 연결 제안';p.req.free=[{t:'새로운 연결 요구'}];p.parts=[{id:'part',name:'도입 범위',goal:'최신 목표',items:['파일럿 10곳'],layouts:[]}];});sim.setup.pid=pid;
+request=skillRequest(sim,'pilot-plan');assert.equal(request.context.proposal.title,'최신 연결 제안');
+update(pid,p=>{p.title='변경된 현재 제안';p.req.free=[{t:'변경 후 요구'}];});
+request=skillRequest(sim,'pilot-plan');assert.equal(request.context.proposal.title,'변경된 현재 제안');assert(request.context.proposal.requirements.includes('변경 후 요구'));
+console.log('PASS linked proposal is read live on each execution rather than from the old simulation snapshot');
+const result={data:{reply_draft:'QM55C와 MagicINFO로 메뉴를 배포합니다. QM55CE는 별도로 확인합니다.',recommendations:[{ref:'product:qm55c'},{ref:'solution:magicinfo'}]},sources:[{id:'product:qm55c',ref:'product:qm55c',title:'QM55C',summary:'55형 500nit'}]};
+const segments=skillDraftSegments(result);assert(segments.some(s=>s.ref==='product:qm55c'));assert(segments.some(s=>s.ref==='solution:magicinfo'));assert(segments.some(s=>s.t?.includes('QM55CE')));assert(!segments.some(s=>s.ref?.startsWith('skill:')));
+assert.deepEqual(sharedSkillSources(make()),[]);sim=make();sim.msgs[1].materials=result.sources;assert.equal(sharedSkillSources(sim).length,1);
+sim.msgs.push({who:'me',segs:[{t:'새 근거'}],materials:[{id:'web:1',title:'첫 자료',url:'https://example.test/one',summary:'자료 1'},{id:'web:1',title:'두 번째 자료',url:'https://example.test/two',summary:'자료 2'}]});assert.equal(sharedSkillSources(sim).length,3);
+assert.deepEqual(skillDraftSegments(result,'선택한 두 번째 답변: QM55C로 파일럿을 시작합니다.').filter(s=>s.ref),[{ref:'product:qm55c'}]);
+console.log('PASS prepared skill answers stay private until used and sent; product chips and separate web sources survive');
+let sent;setTransport(async(url,options)=>{sent={url,body:JSON.parse(options.body)};return new Response(JSON.stringify({mode:'real',data:{skill_id:'product-fit',data:{replies:[1,2,3].map(n=>({title:'답변 '+n,text:'실제 형식 검사 '+n,source_ids:['context']})),findings:[]},sources:[],research:{},llm:{effective:'llm'}}}),{headers:{'content-type':'application/json'}});});
+await runSimulationSkill(skillRequest(make(),'product-fit'));assert.equal(sent.url,'/api/simulation/skills/run');assert.equal(sent.body.skill_id,'product-fit');
+setTransport(async()=>new Response(JSON.stringify({mode:'real',data:{data:{reply_draft:'잘못된 결과'}}}),{headers:{'content-type':'application/json'}}));await assert.rejects(()=>runSimulationSkill(skillRequest(make(),'product-fit')));
+console.log('PASS dedicated skill transport rejects incomplete/non-model result envelopes');
+
+const streamed=[];const frames=[{type:'skill_event',stage:'analysis',status:'streaming',text:'실제 생성 중인 분석'},{type:'result',mode:'real',data:{skill_id:'product-fit',data:{replies:[1,2,3].map(n=>({title:'후보 '+n,text:'답변 '+n,source_ids:['context']})),findings:[]},sources:[],research:{},llm:{effective:'llm'}}}];
+setTransport(async()=>new Response(frames.map(e=>'data: '+JSON.stringify(e)+'\n\n').join(''),{headers:{'content-type':'text/event-stream'}}));await runSimulationSkill(skillRequest(make(),'product-fit'),{onEvent:e=>streamed.push(e)});assert.equal(streamed[0].text,'실제 생성 중인 분석');
+console.log('PASS actual structured stage events pass through the SSE client without becoming customer text');

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16:F06"
+ },
+ "prompt_tokens": 5824,
+ "output_tokens": 236,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "전체 매장 수(180개), 카페형 매장 수(36개), 화면 수(360대) 등 주요 지표가 장마다 일관되게 기술되었습니다. 12장의 21개 지점은 시범 운영 대상이라는 부분 집합으로 명확히 구분되어 충돌이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "M 베이커리 180개 지점"
+     },
+     {
+      "sheet": 4,
+      "quote": "카페형 36곳"
+     },
+     {
+      "sheet": 11,
+      "quote": "180개 지점 · QM55C 360대"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

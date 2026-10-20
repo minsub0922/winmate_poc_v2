@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs14:F06"
+ },
+ "prompt_tokens": 8006,
+ "output_tokens": 225,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4",
+    "score": 3,
+    "anchor": "이상 보고 소요 시간(45분에서 10분으로) 및 기록 오류율(2.4%에서 0.6%로) 등 주요 지표가 장 4, 12, 13, 14에서 일관되게 기술되었습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "다섯 단계 45분"
+     },
+     {
+      "sheet": 12,
+      "quote": "45분에서 2단계 10분으로"
+     },
+     {
+      "sheet": 13,
+      "quote": "기록 오류율 2.4%에서 0.6%로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

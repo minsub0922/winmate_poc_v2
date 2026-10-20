@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs21:F05"
+ },
+ "prompt_tokens": 8919,
+ "output_tokens": 275,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "제안서 내 대부분의 수치와 성과 지표에 출처(기관 및 연도)가 명시되어 있지 않으며, 일부는 '자사 실험치'와 같이 모호하게 표기되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "외국인 투숙 비중 46% · 객실 312실"
+     },
+     {
+      "sheet": 8,
+      "quote": "미국냉공조학회(ASHRAE) 기준"
+     },
+     {
+      "sheet": 36,
+      "quote": "글로벌 TV 시장 20년 연속 1위"
+     }
+    ],
+    "improve": "모든 시장 데이터, 기술 인증, 실험 수치 옆에 [기관명, 연도]를 명확히 기재하고, 고객사 내부 데이터는 'H 호텔 운영 자료(2024)'와 같이 출처를 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

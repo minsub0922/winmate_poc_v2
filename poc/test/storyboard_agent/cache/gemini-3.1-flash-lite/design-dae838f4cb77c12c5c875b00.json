@@ -1,0 +1,143 @@
+{
+ "stage": "design",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.4,
+ "seed": 0,
+ "prompt_tokens": 3556,
+ "output_tokens": 1319,
+ "data": {
+  "strategy": "pain",
+  "strategy_why": "전국 320개 매장의 메뉴판 교체 및 운영 효율화라는 명확한 페인 포인트(가격 불일치, 인력 소모, 운영 장애)를 해결하는 것이 우선순위입니다.",
+  "thesis": "본사 통합 운영 시스템과 스마트 매장 솔루션을 통해 320개 매장의 운영 효율을 극대화하고 에너지 비용을 절감합니다.",
+  "ending": "pilot",
+  "parts": [
+   {
+    "keep": "P1",
+    "type": "market",
+    "name": "시장 · 전략",
+    "goal": "",
+    "items": [],
+    "answers": [],
+    "ref": "",
+    "adapted": ""
+   },
+   {
+    "keep": "P2",
+    "type": "customer",
+    "name": "고객사 이해",
+    "goal": "",
+    "items": [],
+    "answers": [],
+    "ref": "",
+    "adapted": ""
+   },
+   {
+    "keep": "P3",
+    "type": "value",
+    "name": "Value Propositions",
+    "goal": "",
+    "items": [],
+    "answers": [],
+    "ref": "",
+    "adapted": ""
+   },
+   {
+    "keep": "P4",
+    "type": "products",
+    "name": "공간별 제품",
+    "goal": "",
+    "items": [],
+    "answers": [],
+    "ref": "",
+    "adapted": ""
+   },
+   {
+    "keep": "P5",
+    "type": "scenario",
+    "name": "공간 시나리오",
+    "goal": "",
+    "items": [],
+    "answers": [],
+    "ref": "",
+    "adapted": ""
+   },
+   {
+    "keep": "",
+    "type": "challenge",
+    "name": "운영 과제 해결",
+    "goal": "현재의 수동 메뉴판 운영으로 인한 비효율과 장애 대응의 어려움을 진단",
+    "items": [
+     "전국 320개 매장 가격 표기 불일치 및 인력 소모 문제",
+     "본사 원격 관리 부재로 인한 장애 대응 지연",
+     "매장 냉난방 전력 낭비 및 에너지 관리 필요성"
+    ],
+    "answers": [
+     "R2",
+     "R3",
+     "R7",
+     "R11"
+    ],
+    "ref": "REF2:문제",
+    "adapted": "외식 프랜차이즈 운영 환경에 맞춰 메뉴판 교체와 에너지 관리 이슈로 재구성"
+   },
+   {
+    "keep": "",
+    "type": "solution",
+    "name": "통합 운영 솔루션",
+    "goal": "MagicINFO와 SmartThings Pro를 통한 중앙 집중식 운영 체계 제시",
+    "items": [
+     "MagicINFO를 통한 전 매장 메뉴/가격 실시간 동기화",
+     "시간대별 메뉴 및 프로모션 자동 전환 스케줄링",
+     "SmartThings Pro를 활용한 매장 냉난방 원격 제어 및 전력 절감"
+    ],
+    "answers": [
+     "R1",
+     "R4",
+     "R6",
+     "R9"
+    ],
+    "ref": "REF1:가치",
+    "adapted": "운영 효율화와 에너지 절감을 위한 두 가지 핵심 솔루션으로 통합"
+   },
+   {
+    "keep": "",
+    "type": "case",
+    "name": "도입 성공 사례",
+    "goal": "유사 DT 매장 성공 사례를 통해 도입 확신 제공",
+    "items": [
+     "맥도날드 고양삼송DT점: 옥외 사이니지 도입으로 아날로그 메뉴판 제거",
+     "스타벅스 의왕청계DT점: 옥외형 사이니지(OH55A-S 사양)를 통한 집객 효과",
+     "커피빈 DT점: 시스템에어컨 360과 연계한 매장 환경 최적화"
+    ],
+    "answers": [
+     "R5",
+     "R10"
+    ],
+    "ref": "REF3:근거",
+    "adapted": "DT 매장 옥외 사이니지 및 시스템에어컨 성공 사례 위주로 선정"
+   },
+   {
+    "keep": "",
+    "type": "closing",
+    "name": "파일럿 제안",
+    "goal": "전국 확산 전 시범 매장 운영을 통한 검증 단계 제안",
+    "items": [
+     "플래그십 매장 1개소 대상 파일럿 구축 제안",
+     "운영 효율 및 전력 절감 KPI 사전 검증",
+     "전국 320개 매장 순차 전환 로드맵 협의"
+    ],
+    "answers": [
+     "R8"
+    ],
+    "ref": "REF2:결정",
+    "adapted": "전국 320개 매장 전환을 위한 파일럿 단계로 구체화"
+   }
+  ],
+  "questions": [
+   "전국 320개 매장의 리모델링 일정은 어떻게 되나요?",
+   "현재 매장별로 사용 중인 네트워크 환경은 통합되어 있나요?",
+   "에너지 절감 목표(KPI)를 구체적으로 설정하고 계신가요?",
+   "파일럿 매장으로 적합한 플래그십 매장을 추천해 드릴까요?"
+  ]
+ }
+}

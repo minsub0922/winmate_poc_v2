@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs04:F06"
+ },
+ "prompt_tokens": 6318,
+ "output_tokens": 253,
+ "data": {
+  "scores": [
+   {
+    "id": "MK4 수치 일관성",
+    "score": 3,
+    "anchor": "전체 세대 수는 1,240세대(전체 단지)와 486세대(84A타입)로 구분되어 있으며, 옵션 상담 시간(25분→12분) 및 가전 민원 감소(40%) 등 주요 지표가 모든 장에서 일관되게 기술되었습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "1,240세대 빌트인 가전 · 스마트홈 사양 제안"
+     },
+     {
+      "sheet": 8,
+      "quote": "84A 세대 · 방 3 · 486세대"
+     },
+     {
+      "sheet": 7,
+      "quote": "옵션 상담 시간 | 25분 → 12분"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

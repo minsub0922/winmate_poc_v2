@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs15~full:F12"
+ },
+ "prompt_tokens": 7870,
+ "output_tokens": 517,
+ "data": {
+  "scores": [
+   {
+    "id": "WR2",
+    "score": 3,
+    "anchor": "전체적으로 맞춤법과 띄어쓰기가 정확하며, 제목에 오류가 없습니다. 10장 '혹서기 · 명절 전에 먼저 점검합니다' 등 문장 부호 사용도 적절합니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "혹서기 · 명절 전에 먼저 점검합니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR8",
+    "score": 1,
+    "anchor": "MD, DVM, DX, HP 등 고객이 생소할 수 있는 약어와 사내 용어를 처음 사용할 때 풀이 없이 사용하였습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "본사 MD"
+     },
+     {
+      "sheet": 5,
+      "quote": "DVM S2"
+     },
+     {
+      "sheet": 6,
+      "quote": "AQ020~050"
+     }
+    ],
+    "improve": "고객이 이해하기 어려운 약어(MD, DVM, DX, HP 등)를 처음 언급할 때 괄호 등을 사용하여 풀이 내용을 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR9",
+    "score": 3,
+    "anchor": "전체적으로 개조식 문체와 명사형 종결을 일관되게 사용하고 있으며, 고객을 존중하는 정중한 톤을 유지하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "G 마트 매장, 장보는 길 지점마다 신선도와 가격을 챙깁니다"
+     },
+     {
+      "sheet": 7,
+      "quote": "새벽 3시 냉동고 온도가 오르면, 아침 전에 끝납니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

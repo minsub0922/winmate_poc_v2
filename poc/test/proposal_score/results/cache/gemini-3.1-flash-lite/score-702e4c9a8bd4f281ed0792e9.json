@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs12:F01"
+ },
+ "prompt_tokens": 7675,
+ "output_tokens": 167,
+ "data": {
+  "scores": [
+   {
+    "id": "WR6",
+    "score": 2,
+    "anchor": "12장에 '할인율 미적용'이라는 내부적인 산정 기준 표현이 포함되어 있습니다. 민감한 수치 정보는 아니나 내부용 표현으로 판단됩니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "할인율 미적용"
+     }
+    ],
+    "improve": "투자 회수 산정 근거에서 '할인율 미적용'과 같은 내부 산정 방식에 대한 언급을 삭제하거나 일반적인 용어로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

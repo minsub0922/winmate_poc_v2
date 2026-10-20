@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~base:F05"
+ },
+ "prompt_tokens": 6514,
+ "output_tokens": 281,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "대부분의 장에서 수치에 대한 구체적인 출처 기관과 연도가 명시되지 않았으며, 자동 점검 결과에서도 11개 장 중 5개 장이 출처 표기 미흡으로 확인되었습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "월 장애율 3.0% · 사이니지 300대"
+     },
+     {
+      "sheet": 4,
+      "quote": "월 11건 · 평균 38시간"
+     },
+     {
+      "sheet": 13,
+      "quote": "1차 118면 매입 · 8주 1차 전환"
+     }
+    ],
+    "improve": "모든 수치와 성과 지표 옆에 [삼성전자 추정(2026)], [G 쇼핑몰 운영팀(2026.09)]과 같이 구체적인 출처 기관과 연도를 일관되게 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

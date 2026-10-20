@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs05:F02"
+ },
+ "prompt_tokens": 9306,
+ "output_tokens": 362,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 2,
+    "anchor": "고객 요구사항 R1, R2, R3 및 K2, K3, K4에 대한 대응은 명확하나, K1(몰입감 · 화제성)에 대한 직접적인 언급과 구체적인 해법 제시가 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "줄 서는 시간까지 파크의 체험이 됩니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "시즌마다 새로워지는 구역"
+     }
+    ],
+    "improve": "몰입감과 화제성을 높이기 위한 구체적인 콘텐츠 전략이나 차별화된 시각적 연출 방안을 별도 장으로 구성하여 보완해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "SB2",
+    "score": 2,
+    "anchor": "대부분의 장에 쪽번호와 기밀 표기가 있으나, 14장에는 쪽번호와 푸터 정보가 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": ""
+     }
+    ],
+    "improve": "14장에도 다른 장과 동일한 형식의 쪽번호와 푸터(제안명, 기밀 표기)를 추가하여 일관성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

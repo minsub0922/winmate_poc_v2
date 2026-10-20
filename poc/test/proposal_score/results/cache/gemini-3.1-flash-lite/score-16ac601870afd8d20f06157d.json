@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~placeholders:F03"
+ },
+ "prompt_tokens": 3511,
+ "output_tokens": 389,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "2장(제안 요약)에서 경영 지표인 운영·유지보수비 절감(-15%)과 현장 출동 감소(-30%)를 명시하고, 10장에서 결정권자가 승인할 다음 단계(실사·워크숍·파일럿)를 명확히 정리함.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "연 -15% 운영 · 유지보수비 | -30% 현장 출동"
+     },
+     {
+      "sheet": 10,
+      "quote": "06 · 다음 단계 | 2주 안에 현장부터, 세 단계로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS7",
+    "score": 2,
+    "anchor": "운영·유지보수비 절감 효과와 현장 출동 감소 등 비용 절감 측면은 제시했으나, 구체적인 총소유비용(TCO)이나 투자 회수 기간에 대한 정보는 부족함.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "연 -15% 운영 · 유지보수비 | -30% 현장 출동"
+     }
+    ],
+    "improve": "도입 비용 대비 절감액을 바탕으로 한 구체적인 투자 회수 기간(ROI) 산정 근거를 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs07:F10"
+ },
+ "prompt_tokens": 5762,
+ "output_tokens": 379,
+ "data": {
+  "scores": [
+   {
+    "id": "PR7",
+    "score": 2,
+    "anchor": "시공 일정과 방식은 구체적으로 제시했으나, 전원 및 네트워크 환경 전제와 유지보수·보증 범위에 대한 명시적인 언급이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "객실 판매는 층마다 하룻밤만 멈춥니다"
+     }
+    ],
+    "improve": "설치에 필요한 전원 및 네트워크 환경 요건과 향후 유지보수 및 보증 범위를 명확히 기술해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 3,
+    "anchor": "공사 중 영업 유지(무중단 교체), 운영 인력 부족 문제, 호환성(PMS 연동) 등 고객의 핵심 리스크를 짚고 구체적인 대응 방안을 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "객실 판매는 층마다 하룻밤만 멈춥니다"
+     },
+     {
+      "sheet": 7,
+      "quote": "PMS의 투숙객 이름이 LYNK Cloud를 거쳐 객실 TV에 반영"
+     },
+     {
+      "sheet": 9,
+      "quote": "체크인 분산 · 대기 12분 → 5분"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

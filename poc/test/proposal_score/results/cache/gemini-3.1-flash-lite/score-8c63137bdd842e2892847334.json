@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16:F01"
+ },
+ "prompt_tokens": 7414,
+ "output_tokens": 244,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 2,
+    "anchor": "고객사명은 모든 장에서 'M 베이커리'로 일관되게 표기되었으나, 12장에서 시범 운영 대상을 '21개 지점'으로 명시한 것과 달리 다른 장들에서는 전체 규모인 '180개 지점'을 기준으로 설명하고 있어 규모 정보의 표현이 상이합니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "M 베이커리 180개 지점"
+     },
+     {
+      "sheet": 12,
+      "quote": "21개 지점 설치부터 검수까지"
+     }
+    ],
+    "improve": "시범 운영 대상인 21개 지점과 전체 180개 지점의 관계를 명확히 기술하여 규모 정보의 혼선을 방지해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

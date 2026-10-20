@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~wrong_customer:F07"
+ },
+ "prompt_tokens": 2610,
+ "output_tokens": 216,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "180개 지점, 360대 규모를 기준으로 5년 총소유비용(TCO)을 설치형, 구독형, 렌탈형으로 구분하여 산정 전제와 수치를 명확히 제시함.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "지점 180곳 · QM55C 360대 · 같은 구성 · 5년 기준"
+     },
+     {
+      "sheet": 11,
+      "quote": "세 가지 안의 5년 총비용 · 화면 · 설치 · 라이선스 · 서버 · 전기 · 유지보수 · 교체"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

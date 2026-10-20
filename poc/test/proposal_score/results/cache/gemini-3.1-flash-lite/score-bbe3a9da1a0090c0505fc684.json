@@ -1,0 +1,56 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs05:F11"
+ },
+ "prompt_tokens": 3292,
+ "output_tokens": 502,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 초과하는 장이 9장 존재하여 가독성을 저해하는 문단형 장표가 다수 확인됩니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "P 테마파크의 시장은 '보는 관람'에서 '몰입 체험'으로 이동 중입니다"
+     },
+     {
+      "sheet": 3,
+      "quote": "P 테마파크 관람객의 하루는 대기 줄과 첫 장면에서 갈립니다"
+     },
+     {
+      "sheet": 5,
+      "quote": "P 테마파크 일곱 구역, 기다림부터 무대까지 화면과 소리가 이어집니다"
+     }
+    ],
+    "improve": "전체 장표의 텍스트 양을 110어절 이하로 줄이고 핵심 위주의 개조식 서술로 변경해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 이상의 본문 칸 중 10pt(13.3px) 미만인 경우가 57%를 차지하며, 9pt(12px) 미만 본문 칸이 7장에 달해 가독성이 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 5,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 7,
+      "quote": "본문 최소 10px(7.5pt)"
+     }
+    ],
+    "improve": "본문 텍스트의 기본 크기를 최소 12pt(16px) 이상으로 상향 조정하여 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

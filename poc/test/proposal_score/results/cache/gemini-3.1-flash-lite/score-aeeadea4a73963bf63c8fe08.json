@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~full:F12"
+ },
+ "prompt_tokens": 7447,
+ "output_tokens": 533,
+ "data": {
+  "scores": [
+   {
+    "id": "WR2",
+    "score": 3,
+    "anchor": "전체 덱을 검토한 결과 오탈자나 띄어쓰기 오류가 발견되지 않았으며 제목 또한 정확합니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "G 쇼핑몰 사이니지 · 공조 공급사 전환 제안"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR8",
+    "score": 1,
+    "anchor": "TCO, DVM, SLA, CMS 등 고객이 생소할 수 있는 전문 용어와 약어들이 본문에서 정의 없이 반복적으로 사용되었습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "5년 총비용 · 현 공급사 안 대비"
+     },
+     {
+      "sheet": 4,
+      "quote": "SLA 없는 협력사 AS 구조"
+     },
+     {
+      "sheet": 11,
+      "quote": "서비스 거점 · 장애 대응 기준(SLA)"
+     }
+    ],
+    "improve": "제안서 도입부나 각 장의 하단에 TCO(총소유비용), SLA(서비스 수준 협약), CMS(콘텐츠 관리 시스템) 등 주요 약어에 대한 용어 정의를 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR9",
+    "score": 2,
+    "anchor": "대체로 개조식 종결을 유지하고 있으나, 일부 장에서 경어체 문장과 개조식 표현이 혼용되어 나타납니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "바꾸는 과정까지 삼성이 책임집니다"
+     },
+     {
+      "sheet": 5,
+      "quote": "비교 기준은 5년 총비용"
+     }
+    ],
+    "improve": "전체 제안서의 문체를 개조식 명사형 종결로 통일하여 일관성을 확보해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

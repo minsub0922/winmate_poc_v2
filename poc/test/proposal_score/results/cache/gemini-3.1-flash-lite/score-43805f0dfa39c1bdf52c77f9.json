@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs15:F03"
+ },
+ "prompt_tokens": 2614,
+ "output_tokens": 223,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 2,
+    "anchor": "9장에서 비용 절감 효과를 경영 지표로 제시하고 12장에서 결정 사항을 정리했으나, 결정권자(점포운영본부장)를 위한 별도의 요약 장(Executive Summary)이 존재하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 9,
+      "quote": "점포당 연 손실 · 운영비, 네 군데에서 줄어듭니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "1개 점포부터, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "제안서 초반부에 결정권자가 핵심 성과와 리스크를 한눈에 파악할 수 있는 요약 장(Executive Summary)을 추가하십시오.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

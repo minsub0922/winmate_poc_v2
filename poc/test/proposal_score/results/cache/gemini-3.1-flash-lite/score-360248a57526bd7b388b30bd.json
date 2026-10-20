@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16:F07"
+ },
+ "prompt_tokens": 2645,
+ "output_tokens": 217,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "5년 총소유비용(TCO)을 기준으로 설치형, 구독형, 렌탈 방식의 비용을 정량적으로 비교하고, 180개 지점 및 360대 기기라는 산정 전제와 구성 항목을 명확히 제시함.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "5년 총비용 구성 · 억 원 | 8.9억 | 설치형 안"
+     },
+     {
+      "sheet": 11,
+      "quote": "180개 지점 · 5년 | 지점당 2면, 360대가 5년 동안"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

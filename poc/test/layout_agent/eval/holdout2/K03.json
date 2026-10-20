@@ -1,0 +1,45 @@
+{
+ "id": "K03",
+ "case": "K03",
+ "industry": "TP",
+ "strategy": null,
+ "req_type": null,
+ "title": "전시관 체험 구역",
+ "level": "ambiguous",
+ "input": {
+  "title": "Y 과학관",
+  "customer": "Y 과학관",
+  "free_text": "과학관 상설 전시를 새로 꾸미려는데 아이들이 직접 만지고 체험하는 몰입형 공간이었으면 좋겠다고 합니다. 관람 동선도 다시 짜고 싶대요.",
+  "id": "K03"
+ },
+ "gold": {
+  "scenario_any": [
+   "bs05"
+  ],
+  "scenario_top3": [
+   "bs05"
+  ],
+  "must_parts": [
+   "value",
+   "scenario"
+  ],
+  "key_reqs": [
+   {
+    "kw": [
+     "체험"
+    ],
+    "parts_any": [
+     "value",
+     "scenario",
+     "user",
+     "dss",
+     "birdseye"
+    ],
+    "priority": "should"
+   }
+  ],
+  "facts": [],
+  "level": "ambiguous",
+  "industry": "TP"
+ }
+}

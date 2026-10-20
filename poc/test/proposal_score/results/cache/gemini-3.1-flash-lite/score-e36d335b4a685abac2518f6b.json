@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs03:F03"
+ },
+ "prompt_tokens": 2264,
+ "output_tokens": 190,
+ "data": {
+  "scores": [
+   {
+    "id": "CU3",
+    "score": 3,
+    "anchor": "14장에 결정권자가 판단할 성과, 예산, 일정 등 결정할 사항이 명확히 요약되어 있고 실무 지표와 구분되어 정리됨.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "11월 안에 함께 정할 세 가지"
+     },
+     {
+      "sheet": 14,
+      "quote": "1차년도 범위 확정"
+     },
+     {
+      "sheet": 14,
+      "quote": "방학 시공 일정 합의"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

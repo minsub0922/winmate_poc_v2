@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs06:F10"
+ },
+ "prompt_tokens": 3740,
+ "output_tokens": 227,
+ "data": {
+  "scores": [
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "12장에서 6일간의 야간 시공 일정과 구역별 설치 계획을 구체적으로 제시했으나, 운영 이관, 교육, 유지보수에 대한 구체적인 계획은 포함되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "영업을 멈추지 않고, 여섯 밤에 끝냅니다"
+     },
+     {
+      "sheet": 12,
+      "quote": "구역 × 밤(D1–D6) · 22:00–06:00"
+     }
+    ],
+    "improve": "시공 이후의 운영 이관 절차, 담당자 교육 계획, 그리고 사후 유지보수 체계에 대한 구체적인 내용을 추가해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

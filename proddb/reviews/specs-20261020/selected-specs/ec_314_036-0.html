@@ -1,0 +1,341 @@
+<script>
+		$('button.spec-title').on("click", function(e){
+			e.preventDefault();
+			$('div[name="specLayer"] > .layer-header > h2').text(this.innerText);
+			$('div[name="specLayer"] > .layer-content > p').text(this.value);
+
+			let newId = $(this).data('popup-target');
+			$('div[name="specLayer"]').attr('id', newId);
+			$('div[name="specLayer"] > .pop-close').attr('data-focus-next', newId);
+			$('div[name="specLayer"]').attr('data-popup-layer', newId);
+			$('div[name="specLayer"]').attr('data-focus', newId);
+		});
+	</script>
+	<h3 class="spec-itm-title" id="cstrt-nm" ></h3>
+	<div class="spec-table">
+		<dl>
+						<dt>일반</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">채널 수</strong>
+													<p class="spec-desc">2.0&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">스피커 수</strong>
+													<p class="spec-desc">6&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>스피커</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">센터 스피커</strong>
+													<p class="spec-desc">없음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Up-firing 스피커</strong>
+													<p class="spec-desc">없음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Side-firing 스피커</strong>
+													<p class="spec-desc">없음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">무선 리어 스피커 내장</strong>
+													<p class="spec-desc">없음&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>오디오</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">돌비</strong>
+													<p class="spec-desc">ATMOS Music,ATMOS,Dolby 5.1ch,Dolby Digital Plus&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">음성 강조 모드</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">야간 모드</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">공간 맞춤 사운드</strong>
+													<p class="spec-desc">공간 맞춤 사운드 프로(Spacefit Sound Pro)&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">액티브 보이스 (Active Voice Amplifier)</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">사운드 모드</strong>
+													<p class="spec-desc">Adaptive,Music,Standard&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">하이레스 오디오 디코딩</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">LPCM (PCM 지원여부)</strong>
+													<p class="spec-desc">2채널&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>비디오</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">4K 영상 출력</strong>
+													<p class="spec-desc">없음&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>연결</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">HDMI 출력</strong>
+													<p class="spec-desc">없음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">HDMI 입력</strong>
+													<p class="spec-desc">없음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">디지털 오디오(옵티컬) 입력</strong>
+													<p class="spec-desc">1&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">블루투스</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Wi-Fi</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">USB 음악 재생</strong>
+													<p class="spec-desc">없음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">원 리모컨</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">HDMI-CEC</strong>
+													<p class="spec-desc">없음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">블루투스 코덱</strong>
+													<p class="spec-desc">SBC&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">블루투스 Power On</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>기타 기능</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">SmartThings 앱</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Q 심포니</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">무선 Dolby ATMOS</strong>
+													<p class="spec-desc">지원&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">멀티 포지션 리어스피커</strong>
+													<p class="spec-desc">없음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">탭 사운드</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">구글 캐스트</strong>
+													<p class="spec-desc">지원&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Spotify Connect</strong>
+													<p class="spec-desc">지원&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">에어플레이</strong>
+													<p class="spec-desc">지원&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>음성 인식 기능</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">구글 호환</strong>
+													<p class="spec-desc">지원&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Alexa</strong>
+													<p class="spec-desc">없음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">빅스비</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>크기</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">본체 크기 (가로x높이x깊이)</strong>
+													<p class="spec-desc">353.0 x 364.8 x 143.4 mm&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">무선 리어 스피커 모듈 크기 (mm) (가로x높이x깊이)</strong>
+													<p class="spec-desc">없음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">리어 스피커 크기 (mm) (가로x높이x깊이)</strong>
+													<p class="spec-desc">없음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">포장박스 크기 (가로x높이x깊이)</strong>
+													<p class="spec-desc">573.0 x 87.0 x 408.0 mm&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>무게</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">본체 무게</strong>
+													<p class="spec-desc">4.6 kg&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">무선 리어 스피커 모듈 무게 (kg)</strong>
+													<p class="spec-desc">없음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">리어 스피커 모듈 무게 (kg)</strong>
+													<p class="spec-desc">없음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">포장박스 포함 무게</strong>
+													<p class="spec-desc">5.9 kg&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>소비전력</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">대기 상태(본체)</strong>
+													<p class="spec-desc">0.5 W&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">동작 상태(본체)</strong>
+													<p class="spec-desc">18 W&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">Free Voltage</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+						<dt>액세서리</dt>
+						<dd>
+							<ol>
+								<li>
+										<strong class="spec-title">리모컨</strong>
+													<p class="spec-desc">없음&nbsp;</p>
+												</li>
+								<li>
+										<strong class="spec-title">벽걸이 키트</strong>
+													<p class="spec-desc">있음&nbsp;</p>
+												</li>
+								</ol>
+						</dd>
+					</dl>
+				<dl>
+				<dt>상품 기본정보</dt>
+				<dd>
+					<ol>
+						<li>
+								<strong class="spec-title">제품명</strong>
+								<p class="spec-desc">앰프
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">제조자/수입자</strong>
+								<p class="spec-desc">삼성전자㈜
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">제조국가</strong>
+								<p class="spec-desc">베트남
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">KC 인증 필 유무</strong>
+								<p class="spec-desc"><img src='//images.samsung.com/is/image/samsung/p5/sec/common/icon-kc.png?$ORIGIN_PNG$' alt='KC 인증 로고'>R-R-SEC-HW-LS60D
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">동일모델의 출시년월</strong>
+								<p class="spec-desc">2024년 2월
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">A/S 책임자와 전화번호</strong>
+								<p class="spec-desc">삼성전자서비스센터/ 1588-3366
+</p>
+							</li>
+						<li>
+								<strong class="spec-title">품질보증기준</strong>
+								<p class="spec-desc">결함.하자 등에 따른 소비자피해에 대해서는 소비자분쟁해결기준(소비자기본법 제16조)에 따라 보상가능
+</p>
+							</li>
+						</ol>
+				</dd>
+			</dl>
+		</div>
+	<div class="layer-pop layer-normal layer-default specLayer active" name="specLayer" id="specLayer" tabindex="0" data-popup-layer="specLayer" data-focus="specLayer" aria-hidden="false" data-zindex="300" style="z-index: 300; display: none">
+		<div class="layer-header">
+			<h2></h2>
+		</div>
+		<div class="layer-content">
+			<p></p>
+		</div>
+		<button type="button" class="pop-close" data-focus-next="">팝업닫기</button>
+	</div>
+

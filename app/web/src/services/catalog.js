@@ -4,6 +4,9 @@ import { RETIRED_R4 } from '../domain/templates/retired.js';
 import { COVERS } from '../domain/templates/covers.js';
 import { PHOTO_META, PHOTO_HTML } from '../domain/templates/photo_layouts.js';
 import { STD_META, STD_HTML } from '../domain/templates/std_layouts.js';
+import { SPATIAL_META, SPATIAL_HTML } from '../domain/templates/spatial-layouts.js';
+import { VERTICAL_META, VERTICAL_HTML } from '../domain/templates/vertical_layouts.js';
+import { DESCRIPTION_META, DESCRIPTION_DECK_META, loadDescriptionHtml } from '../domain/templates/description_standards.js';
 
 // 사진 중심 버전이 내용을 빠짐없이 담아, 라이브러리에서 뺀 텍스트 레이아웃 (텍스트 f → 대체한 사진 중심 f).
 // 고르기 · 검색 · 추천 · 개수에서는 빠지고, 이미 만든 제안서 · Best Scenario · 히스토리 예시에 들어 있는 장은 그대로 그립니다.
@@ -15,10 +18,11 @@ export const RETIRED = {
   L_SD_G: 'L_PH_SD_G', L_QA_A: 'L_PH_QA_A', L_AIS_08: 'L_PH_AIS_08', L_AIS_25: 'L_PH_AIS_25', L_AIS_35: 'L_PH_AIS_35', // 9차 — Best Scenario 사진 중심 전환 때 새로 만든 사진 버전 (build/bs/newlayouts.mjs)
   L_P3A: 'L_PH_P3_A', L_P5A: 'L_PH_P5_A', L_P2C: 'L_PH_P2_C', L_P_O: 'L_PH_P_O', L_P_P: 'L_PH_P_P', L_P_N: 'L_PH_P_N',
 };
-export const ALL_LAYOUTS = [...CATALOG.layouts, ...PHOTO_META, ...STD_META]; // + 사진 중심 레이아웃 (photo_layouts.js) + 표준 제안서 (std_layouts.js)
+export const ALL_LAYOUTS = [...CATALOG.layouts, ...PHOTO_META, ...STD_META, ...SPATIAL_META, ...VERTICAL_META, ...DESCRIPTION_META];
 for (const l of ALL_LAYOUTS) if (RETIRED[l.f]) l.retired = RETIRED[l.f];
 export const LAYOUTS = ALL_LAYOUTS.filter((l) => !l.retired);
 export const L = Object.fromEntries(ALL_LAYOUTS.map((l) => [l.f, l]));
+for (const meta of DESCRIPTION_DECK_META) L[meta.f] = meta;
 // 업종별 기본 표지(covers.js L_IND_*)도 장으로 그릴 수 있게 — 목록 · 검색에는 넣지 않고 L에만 (예전 히스토리에 들어 있을 수 있음)
 for (const f of Object.keys(COVERS)) if (!L[f]) L[f] = { f, code: f.slice(2), name: '표지 · 업종 기본', when: '업종 사진 위에 제안서 제목 · 고객사 · 날짜', g: '', p: 'cover', p2: null, ind: f.slice(6) && f.slice(6) !== '_' ? f.slice(6) : null, sol: null, c: 'CM', req: [], ik: [], ih: [], phs: [], prods: [], sols: [] };
 
@@ -103,6 +107,7 @@ export const CANVAS = {
   PH: { name: 'PPT · 06 사진 중심 (Winmate에서 추가)', url: '' },
   ST: { name: 'PPT · 표준 제안서 · 호텔 AI 스테이', url: 'https://claude.ai/artifact/KGqEnieEMcvGwVsoArQ1sy' },
   ST_SOL: { name: 'PPT · 표준 제안서 · 공유오피스 Lite (명세 복원 · Winmate에서 추가)', url: '' }, // l.cv — 같은 ST 묶음 안에서 원본만 다른 양식
+  ST_DESC: { name: 'PPT · 업종별 표준 제안서 · Markdown 설명 기반 재구성', url: '' },
   MY: { name: 'My 템플릿 (이 브라우저에 저장)', url: '' },
 };
 
@@ -136,7 +141,7 @@ export async function loadLayoutHtml() {
   } else {
     throw new Error('이 브라우저는 압축 해제를 지원하지 않아요');
   }
-  HTML = Object.assign(JSON.parse(text), COVERS, PHOTO_HTML, STD_HTML); // + 업종별 기본 표지 (covers.js) + 사진 중심 레이아웃 (photo_layouts.js) + 표준 제안서 (std_layouts.js)
+  HTML = Object.assign(JSON.parse(text), COVERS, PHOTO_HTML, STD_HTML, SPATIAL_HTML, VERTICAL_HTML, await loadDescriptionHtml());
   return HTML;
 }
 // My 템플릿 (my/store.js) — the person's own layouts, kept in this browser: they join L (so a proposal, the detail popup,

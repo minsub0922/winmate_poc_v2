@@ -1,0 +1,82 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs08~full:F09"
+ },
+ "prompt_tokens": 8909,
+ "output_tokens": 667,
+ "data": {
+  "scores": [
+   {
+    "id": "PR1",
+    "score": 3,
+    "anchor": "제안된 모든 모델(QM43C, HG43BU, WindFree 4Way, ERV, 비스포크 AI 공기청정기, 갤럭시 탭 액티브5 프로)은 현재 삼성전자 B2B 카탈로그 라인업에 포함된 현행 모델입니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "QM43C, HG43BU, 갤럭시 탭 액티브5 프로"
+     },
+     {
+      "sheet": 6,
+      "quote": "무풍 4Way, ERV, 비스포크 AI 공기청정기"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR2",
+    "score": 3,
+    "anchor": "제안서에 명시된 제품 사양(QM43C 43인치, 갤럭시 탭 액티브5 프로 IP68 등)이 공식 카탈로그 사양과 모두 일치하며 장별로 일관되게 표기되었습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "QM43C, 갤럭시 탭 액티브5 프로"
+     },
+     {
+      "sheet": 10,
+      "quote": "IP68 · MIL-STD 태블릿"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR5",
+    "score": 2,
+    "anchor": "HG43BU 모델을 '호텔 TV 43\"'와 'HG43BU'로 혼용하여 표기하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "호텔 TV 43\" HG43BU"
+     },
+     {
+      "sheet": 7,
+      "quote": "HG43BU"
+     }
+    ],
+    "improve": "HG43BU 모델명을 모든 장에서 동일하게 표기하거나, 최초 언급 시 병기 후 하나로 통일해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR3",
+    "score": 3,
+    "anchor": "MagicINFO, SmartThings 등 브랜드명이 공식 표기법에 따라 정확하게 기재되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "MagicINFO"
+     },
+     {
+      "sheet": 5,
+      "quote": "b.IoT"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

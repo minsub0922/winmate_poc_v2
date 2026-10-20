@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~wrong_customer:F10"
+ },
+ "prompt_tokens": 5727,
+ "output_tokens": 362,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "MagicINFO와 SmartThings Pro를 활용해 본사에서 메뉴와 전력을 원격 관리하는 구체적인 운영 시나리오를 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "제작 · 승인 · 배포 · 적용 확인까지 한 화면에서"
+     },
+     {
+      "sheet": 8,
+      "quote": "본사 PC · MagicINFO Server | 전 매장을 한 화면에"
+     },
+     {
+      "sheet": 9,
+      "quote": "화면 내용은 본사가 원격으로 편성"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 1,
+    "anchor": "도입 과정에서 발생할 수 있는 공사 중 영업 중단, 기존 시스템과의 호환성, 일정 지연 등 구체적인 리스크와 그에 대한 대응 방안이 제안서에 포함되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "파일럿 도입 및 전국 확산 과정에서 발생할 수 있는 매장 영업 중단 최소화 방안, 기존 POS와의 호환성 확보, 설치 일정 지연 시 대응책 등을 구체적으로 기술해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

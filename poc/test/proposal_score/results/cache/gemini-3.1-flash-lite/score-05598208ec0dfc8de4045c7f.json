@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs02:F08"
+ },
+ "prompt_tokens": 2713,
+ "output_tokens": 215,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "이해관계자별로 얻는 결과형 가치(임대 경쟁력, 운영 효율 등)를 4가지로 명확히 제시하고, 각 가치를 실현하는 삼성의 솔루션(b.IoT, The Wall 등)을 1:1로 연결하여 설명함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "이해관계자별 가치 — The Wall · Flip Pro · DVM S2 · b.IoT 하나의 관제"
+     },
+     {
+      "sheet": 6,
+      "quote": "AI Ready 오피스를 실측 데이터로 증명합니다 — 임차인 유치의 근거"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,86 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs11~full:F02"
+ },
+ "prompt_tokens": 9618,
+ "output_tokens": 718,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객 요구사항 4가지(R1~R4)와 평가 기준 4가지(K1~K4)에 대해 각 장에서 명시적으로 대응하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "요구사항 충족 · 20점 | 평가위원이 보는 것 | 요구 ID마다 대응했는가"
+     },
+     {
+      "sheet": 5,
+      "quote": "요구사항 28개, ID 단위로 빠짐없이 대응합니다"
+     },
+     {
+      "sheet": 10,
+      "quote": "사업관리 · 15점 | 추진 체계 · 일정 · 책임"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "SB1",
+    "score": 2,
+    "anchor": "표지, 목차, 연락처는 모두 포함되어 있으나, 15장에 '다음 단계'는 명시되어 있으나 마무리 인사나 요약이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "K 공단 | 기술 제안서 | 삼성전자 B2B 영업팀 | 2026. 10"
+     },
+     {
+      "sheet": 15,
+      "quote": "담당 | 김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "15장에 제안의 핵심 가치를 요약하는 마무리 문구와 감사 인사를 추가해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "SB2",
+    "score": 2,
+    "anchor": "모든 장에 푸터와 기밀 표기가 있으나, 1장에는 쪽번호와 푸터가 누락되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": ""
+     },
+     {
+      "sheet": 2,
+      "quote": "CONFIDENTIAL · 2"
+     }
+    ],
+    "improve": "1장 표지에도 일관된 푸터와 쪽번호를 삽입해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "SB6",
+    "score": 3,
+    "anchor": "RFP의 평가 배점표 순서대로 목차를 구성하고 요구사항을 빠짐없이 대응하였습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "목차 — 평가표 순서 그대로"
+     },
+     {
+      "sheet": 4,
+      "quote": "배점 순서 그대로, 근거가 있는 쪽을 짚었습니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

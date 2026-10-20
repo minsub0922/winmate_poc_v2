@@ -1,0 +1,214 @@
+{
+ "id": "B02",
+ "title": "신축 호텔 객실 TV (정보 최소, 제품 지정)",
+ "exp_level": "minimal",
+ "level": "minimal",
+ "exp_industry": "HT",
+ "industry": "HT",
+ "exp_strategy": null,
+ "strategy": null,
+ "scenario": "STD-HT",
+ "exp_products": [
+  "hoteltv"
+ ],
+ "products": [
+  "hoteltv"
+ ],
+ "solutions": [],
+ "prod_recall": 1.0,
+ "prod_precision": 1.0,
+ "must_show": 1.0,
+ "must_show_miss": [],
+ "facts": null,
+ "facts_miss": [],
+ "must_not_hit": [
+  "메뉴보드"
+ ],
+ "parts": [
+  "cover:해운대 오션브릿지호텔 제안",
+  "market:호텔 트렌드와 고객 경험",
+  "value:HG55BU 핵심 가치",
+  "value:현장 맞춤형 솔루션",
+  "dss:객실 공간 최적화",
+  "products:객실용 HG55BU 제안",
+  "case:성공적인 호텔 도입 사례",
+  "why:삼성전자를 선택해야 하는 이유",
+  "why:안정적인 운영 지원 체계",
+  "closing:향후 추진 계획"
+ ],
+ "questions": [],
+ "conflicts": [],
+ "issues": [
+  "[low] 파트 유형과 다른 장표(연관 장표로 대체): ['L_SS_HT_B']",
+  "[low] 편집할 수 없는(data-tb 없는) 다른 업종 샘플 문구가 남은 장표 2장 — 원본 레이아웃 보완 필요"
+ ],
+ "stats": {
+  "n_slides": 10,
+  "text_slots": 341,
+  "placeholders": 42,
+  "slides_with_ph": 9,
+  "sample_text_kept": 140,
+  "img_slots": 16,
+  "img_filled": 16,
+  "photo_slides": 5,
+  "stray_slides": 1,
+  "slides": [
+   {
+    "no": 1,
+    "code": "C09",
+    "f": "L_C09",
+    "visual": [
+     "image",
+     "message",
+     "photo",
+     "table"
+    ],
+    "ph": 1,
+    "img_slots": 1,
+    "img_filled": 1,
+    "kept_sample": 3,
+    "stray": []
+   },
+   {
+    "no": 2,
+    "code": "MI-HT-A",
+    "f": "L_MI_HT_A",
+    "visual": [
+     "cards",
+     "flow",
+     "image_heavy"
+    ],
+    "ph": 6,
+    "img_slots": 4,
+    "img_filled": 4,
+    "kept_sample": 35,
+    "stray": []
+   },
+   {
+    "no": 3,
+    "code": "VP-G",
+    "f": "L_VP_G",
+    "visual": [
+     "image_heavy",
+     "message",
+     "photo",
+     "table"
+    ],
+    "ph": 2,
+    "img_slots": 4,
+    "img_filled": 4,
+    "kept_sample": 2,
+    "stray": [
+     "LYNK Cloud"
+    ]
+   },
+   {
+    "no": 4,
+    "code": "VP-U",
+    "f": "L_VP_U_HT",
+    "visual": [
+     "cards",
+     "flow",
+     "image_heavy",
+     "qna"
+    ],
+    "ph": 1,
+    "img_slots": 3,
+    "img_filled": 3,
+    "kept_sample": 15,
+    "stray": []
+   },
+   {
+    "no": 5,
+    "code": "SS-HT-B",
+    "f": "L_SS_HT_B",
+    "visual": [
+     "flow",
+     "image_heavy",
+     "map",
+     "table"
+    ],
+    "ph": 6,
+    "img_slots": 4,
+    "img_filled": 4,
+    "kept_sample": 23,
+    "stray": []
+   },
+   {
+    "no": 6,
+    "code": "P1-B",
+    "f": "L_P1B",
+    "visual": [
+     "cards",
+     "message",
+     "photo"
+    ],
+    "ph": 2,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 0,
+    "stray": []
+   },
+   {
+    "no": 7,
+    "code": "CL-B",
+    "f": "L_CS03",
+    "visual": [
+     "cards",
+     "message"
+    ],
+    "ph": 3,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 6,
+    "stray": []
+   },
+   {
+    "no": 8,
+    "code": "ST-A",
+    "f": "L_WS02",
+    "visual": [
+     "cards"
+    ],
+    "ph": 1,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 5,
+    "stray": []
+   },
+   {
+    "no": 9,
+    "code": "SV-A",
+    "f": "L_SV_A",
+    "visual": [
+     "cards",
+     "flow",
+     "map"
+    ],
+    "ph": 0,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 21,
+    "stray": []
+   },
+   {
+    "no": 10,
+    "code": "C13",
+    "f": "L_C13",
+    "visual": [
+     "cards",
+     "flow",
+     "message"
+    ],
+    "ph": 20,
+    "img_slots": 0,
+    "img_filled": 0,
+    "kept_sample": 30,
+    "stray": []
+   }
+  ]
+ },
+ "sec": 14.9,
+ "llm_calls": 22,
+ "llm_fail": 0
+}

@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs15:F01"
+ },
+ "prompt_tokens": 7694,
+ "output_tokens": 236,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 2,
+    "anchor": "고객사명은 모든 장에서 'G 마트'로 일관되게 표기되었으나, 점포 규모 정보가 12장에서 '1개 점포'로, 1·9·11장에서 '42개 점포'로 다르게 표현되어 혼선을 줄 수 있습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "G 마트 42개 점포 콜드체인 신선 관리 제안"
+     },
+     {
+      "sheet": 12,
+      "quote": "1개 점포부터, 함께 정할 세 가지"
+     }
+    ],
+    "improve": "파일럿 대상인 '1개 점포'와 전체 운영 규모인 '42개 점포'의 관계를 명확히 구분하여 기술해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

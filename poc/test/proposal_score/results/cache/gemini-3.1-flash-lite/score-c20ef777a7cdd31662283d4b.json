@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs04:F10"
+ },
+ "prompt_tokens": 2268,
+ "output_tokens": 208,
+ "data": {
+  "scores": [
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "13장에서 일정과 구체적인 추진 항목을 제시하고 있으나, 교육 및 유지보수, 운영 이관에 관한 구체적인 실행 계획이 포함되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "12월까지, 함께 정할 세 가지"
+     },
+     {
+      "sheet": 13,
+      "quote": "도면 · 치수 검토, 옵션 패키지 확정, 모델하우스 설치 일정 합의"
+     }
+    ],
+    "improve": "입주 후 유지보수 체계와 입주민 대상 서비스 교육 및 운영 이관 계획을 세부 단계로 포함해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

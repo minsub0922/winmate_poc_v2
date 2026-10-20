@@ -1,0 +1,128 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs05~full:F11"
+ },
+ "prompt_tokens": 5684,
+ "output_tokens": 1070,
+ "data": {
+  "scores": [
+   {
+    "id": "DS1",
+    "score": 2,
+    "anchor": "제목 위치가 4, 10, 14, 15장에서 다른 장과 다르게 배치되어 일관성이 부족합니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "제목 30px@(716,66)"
+     },
+     {
+      "sheet": 10,
+      "quote": "제목 30px@(748,66)"
+     },
+     {
+      "sheet": 14,
+      "quote": "제목 30px@(816,118)"
+     }
+    ],
+    "improve": "모든 장의 제목 위치를 동일한 좌표로 통일해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS2",
+    "score": 2,
+    "anchor": "대부분 장은 요지가 보이나, 장당 어절 수가 많아 시선이 흩어질 가능성이 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "312어절"
+     },
+     {
+      "sheet": 5,
+      "quote": "259어절"
+     }
+    ],
+    "improve": "장당 핵심 메시지를 한 줄로 명확히 하고, 강조 요소를 1~2곳으로 제한해야 합니다.",
+    "confidence": "mid"
+   },
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 9장으로 기준인 4장을 크게 초과하여 발표 자료로 읽기에 밀도가 너무 높습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "312어절"
+     },
+     {
+      "sheet": 5,
+      "quote": "259어절"
+     },
+     {
+      "sheet": 7,
+      "quote": "210어절"
+     }
+    ],
+    "improve": "장당 어절 수를 110어절 이하로 줄이고, 핵심 내용 위주로 요약해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "12pt 미만 본문 칸이 7장에 달하며, 10pt 미만 본문 칸이 전체의 57%를 차지하여 가독성이 매우 낮습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "본문 최소 10.5px(7.9pt)"
+     },
+     {
+      "sheet": 3,
+      "quote": "본문 최소 11px(8.2pt)"
+     },
+     {
+      "sheet": 7,
+      "quote": "본문 최소 10px(7.5pt)"
+     }
+    ],
+    "improve": "본문 글자 크기를 최소 12pt(16px) 이상으로 상향 조정해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS5",
+    "score": 3,
+    "anchor": "폰트 2종을 사용하고 모든 장에서 제목 크기가 30px로 일정하게 유지됩니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "폰트 2종: Noto Sans KR, Manrope"
+     },
+     {
+      "sheet": 15,
+      "quote": "제목 30px@(648,66)"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "DS6",
+    "score": 3,
+    "anchor": "모든 장에 내용과 부합하는 실제 사진이 포함되어 있으며 텍스트만 있는 장이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "에버랜드 신전무대 — 낮 정원에서 밤 공연까지"
+     },
+     {
+      "sheet": 10,
+      "quote": "대기 홀 벽면, 12면 비디오월로"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

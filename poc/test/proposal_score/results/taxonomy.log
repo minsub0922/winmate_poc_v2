@@ -1,0 +1,35 @@
+    · summary    F01 1585ms in 1088 / out 245
+    · summary    F02 2071ms in 739 / out 229
+    · summary    F03 1859ms in 584 / out 220
+    · summary    F04 1970ms in 841 / out 230
+    · summary    F05 2128ms in 681 / out 208
+    · summary    F06 2686ms in 780 / out 213
+    · summary    F07 1646ms in 952 / out 241
+    · summary    F08 1931ms in 1088 / out 238
+    · summary    F09 1845ms in 815 / out 205
+    · summary    F10 2108ms in 1030 / out 210
+    · summary    F11 1994ms in 1196 / out 225
+    · summary    F12 2187ms in 605 / out 245
+    · summary    C1 1765ms in 909 / out 207
+    · summary    C2 1860ms in 594 / out 199
+    · summary    C3 2168ms in 910 / out 234
+    · summary    C4 2106ms in 613 / out 211
+    · summary    R 1884ms in 876 / out 226
+{"criteria": 54, "edges": 286, "concepts": 56, "fine": 12, "coarse": 4, "modularity_fine": 0.4361, "modularity_coarse": 0.5046, "mixed_app_categories": 9} · 요약: gemini-3.1-flash-lite
+C1 제안서 품질 및 정합성
+   F01 제안서 정보 정합성 및 보안: CU1, CU5, WR1, WR6, SB3, SB4
+   F06 수치 및 데이터 정합성: MK4, PR6, DS8, WR4
+   F09 제품 및 브랜드 표기 정합성: PR1, PR2, PR5, WR3
+   F12 문서 표현 및 문체 정합성: WR2, WR8, WR9
+C2 제안서 이행 및 실행 체계
+   F02 제안서 형식 및 요구사항 준수: CU2, SB1, SB2, SB6
+   F10 실행 계획 및 운영 정합성: PR4, PR7, VS6, VS8, VS10, SB5
+C3 제안 논리 및 타당성 검증
+   F03 경영진 의사결정 및 비용 타당성: CU3, VS7
+   F04 고객 및 업종 적합성: CU4, CU6, PR3, VS5
+   F05 시장 데이터 신뢰성: MK1, MK2, MK3
+   F07 제안 논리 및 신뢰성 검증: MK5, VS2, VS4, WR5, WR7
+C4 제안서 완성도 및 전달력
+   F08 제안 논리 및 스토리 구성: MK6, VS1, VS3, VS9, DS7, DS9
+   F11 시각 디자인 및 가독성: DS1, DS2, DS3, DS4, DS5, DS6, DS10
+usage {'calls': 17, 'live_calls': 17, 'cached_calls': 0, 'errors': 0, 'prompt_tokens': 14301, 'output_tokens': 3786, 'live_ms': 33793, 'by_stage': {'summary': 17}}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs21:F05"
+ },
+ "prompt_tokens": 9012,
+ "output_tokens": 231,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "제안서 내 대부분의 시장 및 성과 수치가 기관과 연도 없이 표기되어 있으며, 일부 수치는 출처가 아예 누락되었습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "외국인 투숙 비중 46% · 객실 312실"
+     },
+     {
+      "sheet": 8,
+      "quote": "312개 객실"
+     },
+     {
+      "sheet": 11,
+      "quote": "객실 312실 · 공용부 다섯 곳 구성"
+     }
+    ],
+    "improve": "모든 시장 수치 및 성과 데이터 옆에 신뢰할 수 있는 조사 기관과 해당 연도를 명확히 표기해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

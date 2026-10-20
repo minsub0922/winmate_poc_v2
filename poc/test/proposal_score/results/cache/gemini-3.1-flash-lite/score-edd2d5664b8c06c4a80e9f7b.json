@@ -1,0 +1,100 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs15~full:F10"
+ },
+ "prompt_tokens": 7529,
+ "output_tokens": 909,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "하드웨어와 b.IoT Cloud 솔루션을 연결하여 점장이 모바일로 원격 제어하고 알람을 받는 운영 시나리오를 구체적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "b.IoT Cloud 모바일로 에어컨 원격 OFF, 쇼케이스 온도까지 함께 확인"
+     },
+     {
+      "sheet": 7,
+      "quote": "점장 휴대폰 · 본사 시설팀에 동시 알림"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR7",
+    "score": 3,
+    "anchor": "설치 환경(배관, 전원), 유지보수(정기 점검), 보증 조건(SLA)을 명확히 기술함.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "실외기 ~ 실내기 70m 최장 배관"
+     },
+     {
+      "sheet": 11,
+      "quote": "부품 교체 | 2영업일 이내 | 보증 기간 내 무상"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS6",
+    "score": 2,
+    "anchor": "파일럿 도입 일정과 단계는 명시했으나, 교육 및 운영 이관에 대한 구체적인 계획이 부족함.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "파일럿 범위 확정 — 쇼케이스 · 냉동고 16대 교체"
+     }
+    ],
+    "improve": "파일럿 종료 후 본 운영으로 이관하기 위한 매장 직원 대상 교육 프로그램과 운영 매뉴얼 배포 계획을 추가해야 함.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS8",
+    "score": 1,
+    "anchor": "공사 중 영업 중단이나 기존 설비와의 호환성 등 도입 시 발생할 수 있는 리스크와 대응 방안을 다루지 않음.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "매장 영업에 지장을 주지 않는 야간 공사 계획이나 기존 설비와의 호환성 확보 방안을 리스크 관리 섹션으로 추가해야 함.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "마지막 장에서 파일럿 승인이라는 결정 사항과 실사부터 착수까지의 구체적인 일정 및 담당자를 명시함.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "파일럿 승인 · 착수 — 교체 + 원격 감시 3개월"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "SB5",
+    "score": 2,
+    "anchor": "표지에 제출 날짜(2026.10)가 명시되어 있으나, 버전 표기가 누락됨.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "삼성전자 한국총괄 B2B 영업팀 · 2026. 10"
+     }
+    ],
+    "improve": "표지 또는 목차 하단에 제안서 버전(예: v1.0)을 추가하여 관리 체계를 명확히 해야 함.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

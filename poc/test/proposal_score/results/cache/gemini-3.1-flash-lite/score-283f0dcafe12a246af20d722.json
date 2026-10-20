@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs14:F07"
+ },
+ "prompt_tokens": 2390,
+ "output_tokens": 225,
+ "data": {
+  "scores": [
+   {
+    "id": "VS2",
+    "score": 3,
+    "anchor": "제안서 13장에서 입고 검수 시간, 오류율, 단말 TCO, 이상 보고 소요 시간 등 4가지 핵심 KPI의 전후 수치를 제시하고, 12장과 13장에서 '10월 샘플 측정 기준' 및 '삼성전자 추정'이라는 산정 근거와 전제를 명확히 밝히고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "예상치 · 10월 샘플 측정 기준 · 삼성전자 추정"
+     },
+     {
+      "sheet": 13,
+      "quote": "건당 처리 시간 | 90초 | 60초 | ▼ 33%"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

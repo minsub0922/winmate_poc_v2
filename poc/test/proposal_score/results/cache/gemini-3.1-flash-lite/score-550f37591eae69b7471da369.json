@@ -1,0 +1,74 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs18~full:F01"
+ },
+ "prompt_tokens": 9630,
+ "output_tokens": 576,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "고객사명 'U 통신사'와 관련 조직, 규모 정보가 모든 장에서 일관되게 사용되었으며, 다른 고객사명이나 예시 고객명이 존재하지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "U 통신사 갤럭시 키즈 에디션 공동 개발 제안"
+     },
+     {
+      "sheet": 13,
+      "quote": "U 통신사 갤럭시 키즈 에디션 공동 개발"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "CU5",
+    "score": 3,
+    "anchor": "어린이날 출시 일정, 24주 개발 계획, 2.6만 대 초도 물량 등 U 통신사 전용 단말 사업을 위한 구체적인 운영 수치와 공간 시나리오가 전 장에 반영되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "착수부터 어린이날 출시까지 24주"
+     },
+     {
+      "sheet": 11,
+      "quote": "초도 2.6만 대 배포"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 3,
+    "anchor": "템플릿 잔여물이나 자리표시 문구가 발견되지 않았으며, 연락처는 제안사 담당자의 정상적인 정보입니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR6",
+    "score": 3,
+    "anchor": "원가, 마진, 내부 할인율 등 민감한 내부 정보나 타 고객의 비공개 정보가 포함되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 0,
+      "quote": ""
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

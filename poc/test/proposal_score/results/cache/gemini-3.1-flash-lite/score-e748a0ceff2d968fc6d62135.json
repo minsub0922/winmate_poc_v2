@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10:F09"
+ },
+ "prompt_tokens": 7062,
+ "output_tokens": 206,
+ "data": {
+  "scores": [
+   {
+    "id": "PR5",
+    "score": 3,
+    "anchor": "제안서 전반에서 QM55C, VM55B, DVM S2를 마케팅명과 함께 명시한 후 일관되게 사용하고 있으며, 혼용으로 보기 어렵습니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "QM55C · VM55B · DVM S2"
+     },
+     {
+      "sheet": 9,
+      "quote": "QM55C · VM55B"
+     },
+     {
+      "sheet": 10,
+      "quote": "스마트 사이니지 QM55C"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

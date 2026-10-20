@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~strip_images:F08"
+ },
+ "prompt_tokens": 1736,
+ "output_tokens": 264,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 2,
+    "anchor": "가치가 2~4개로 요약되어 있으나, 4장부터 9장까지의 내용이 가치 중심의 결과보다는 솔루션의 범위와 기능적 운영 방식 설명에 치중되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "지점 화면 운영 여섯 가지 중, 이번에 세 가지부터"
+     },
+     {
+      "sheet": 5,
+      "quote": "화면부터 운영 서비스까지, 바뀌는 층은 CMS 하나입니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "신제품 하나를 올리면, 지점 세 곳 화면이 함께 바뀝니다"
+     }
+    ],
+    "improve": "솔루션의 기능적 특징을 나열하는 대신, 각 운영 모델이 고객의 운영 효율과 보안 요구사항을 어떻게 구체적으로 해결하는지 결과 중심의 가치로 재구성해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

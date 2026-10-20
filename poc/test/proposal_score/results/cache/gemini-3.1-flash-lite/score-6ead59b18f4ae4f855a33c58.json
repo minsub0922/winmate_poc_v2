@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs21:F11"
+ },
+ "prompt_tokens": 8253,
+ "output_tokens": 591,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 넘는 장이 10장으로 1점 정의인 4장 이상을 초과하며, 장당 평균 어절 수도 108어절로 매우 높습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "H 호텔 312개 객실이 손님에 맞춰 온도와 공기를 스스로 맞춥니다"
+     },
+     {
+      "sheet": 18,
+      "quote": "Bespoke 에어드레서"
+     }
+    ],
+    "improve": "각 장의 핵심 메시지를 제외한 부연 설명을 과감히 줄이고, 개조식 문장을 간결하게 다듬어 장당 어절 수를 77어절 이하로 낮춰야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 49%가 10pt 미만이며, 9pt 미만인 장이 12장으로 1점 정의인 3장 이상을 크게 초과합니다.",
+    "evidence": [
+     {
+      "sheet": 17,
+      "quote": "Infinite AI 공기청정기"
+     },
+     {
+      "sheet": 18,
+      "quote": "Bespoke 에어드레서"
+     }
+    ],
+    "improve": "본문 텍스트의 최소 글자 크기를 12pt(16px) 이상으로 상향 조정하고, 텍스트 양을 줄여 가독성을 확보해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS6",
+    "score": 3,
+    "anchor": "제품 및 공간 제안 장에 실제 사진이 적절히 배치되어 있으며, 텍스트만 있는 장은 36장(3%)으로 10% 이하 기준을 충족합니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "라운지 — 스마트 LED 사이니지 (The Wall)"
+     },
+     {
+      "sheet": 16,
+      "quote": "Infinite AI 무풍 시스템에어컨 1Way"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

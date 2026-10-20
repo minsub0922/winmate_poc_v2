@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~wrong_customer:F11"
+ },
+ "prompt_tokens": 2990,
+ "output_tokens": 422,
+ "data": {
+  "scores": [
+   {
+    "id": "DS3",
+    "score": 1,
+    "anchor": "110어절을 초과하는 장이 10개로, 4장 이상이라는 1점 기준을 충족합니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "H 호텔, 다섯 지표 중 셋이 업계보다 무겁습니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "재계약 협상에서 나올 세 가지 말, 사실과 증거로 답합니다"
+     }
+    ],
+    "improve": "각 장의 핵심 메시지를 중심으로 텍스트를 대폭 줄이고 개조식 구성을 강화해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "DS4",
+    "score": 1,
+    "anchor": "20자 넘는 본문 칸의 52%가 10pt 미만이며, 9pt 미만 본문 칸이 있는 장이 3장 이상 확인됩니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "공급사는 '가격형'과 '운영 책임형'으로 나뉩니다"
+     },
+     {
+      "sheet": 7,
+      "quote": "두 가지는 현 공급사가 앞섭니다 — 이렇게 메웁니다"
+     },
+     {
+      "sheet": 13,
+      "quote": "12월 발주 전 정할 세 가지"
+     }
+    ],
+    "improve": "본문 텍스트의 기본 글자 크기를 12pt(16px) 이상으로 상향 조정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

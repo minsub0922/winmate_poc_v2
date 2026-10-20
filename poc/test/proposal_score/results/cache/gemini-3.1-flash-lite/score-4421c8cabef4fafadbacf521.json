@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~wrong_customer:F10"
+ },
+ "prompt_tokens": 5747,
+ "output_tokens": 379,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "SmartThings를 통해 가전 제어, 에너지 모니터링, 홈케어 진단 등 운영 솔루션의 역할이 공간별로 명확히 제시되었으며, 입주민이 앱을 통해 관리하는 운영 장면이 구체적으로 묘사됨.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "SmartThings · 빌트인 · 난방 · 도어락을 계정 하나로"
+     },
+     {
+      "sheet": 5,
+      "quote": "홈케어 진단 | 기기 상태를 점검해 이상 징후를 먼저 알림"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS10",
+    "score": 3,
+    "anchor": "12월까지 확정해야 할 세 가지 결정 사항(도면 검토, 옵션 패키지, 모델하우스 일정)과 각 단계별 담당자 및 세부 일정이 명확히 제시됨.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "12월까지, 함께 정할 세 가지"
+     },
+     {
+      "sheet": 13,
+      "quote": "도면 · 치수 검토 | 옵션 패키지 확정 | 모델하우스 설치 일정 합의"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

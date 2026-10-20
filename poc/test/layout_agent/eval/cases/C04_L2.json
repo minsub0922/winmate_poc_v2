@@ -1,0 +1,59 @@
+{
+ "id": "C04_L2",
+ "case": "C04",
+ "industry": "FN",
+ "strategy": "rfp",
+ "req_type": "compete",
+ "title": "은행 업무용 모니터 입찰",
+ "level": "ambiguous",
+ "input": {
+  "title": "H 은행 영업점 디지털 창구",
+  "customer": "H 은행",
+  "free_text": "은행 영업점 창구를 좀 더 디지털하게 바꾸고 싶다는 요청이 있었습니다. 고객 대기 경험도 개선하고 싶다고 하는데, 어디서부터 시작할지는 정하지 못했다고 합니다.",
+  "id": "C04_L2"
+ },
+ "gold": {
+  "level": "ambiguous",
+  "industry": "FN",
+  "scenario_any": [
+   "bs17",
+   "bs16",
+   "bs19"
+  ],
+  "scenario_top3": [
+   "bs17"
+  ],
+  "must_parts": [
+   "value"
+  ],
+  "key_reqs": [
+   {
+    "kw": [
+     "대기"
+    ],
+    "parts_any": [
+     "scenario",
+     "value",
+     "user",
+     "challenge",
+     "effect"
+    ],
+    "priority": "should"
+   },
+   {
+    "kw": [
+     "창구"
+    ],
+    "parts_any": [
+     "scenario",
+     "value",
+     "dss",
+     "products",
+     "customer"
+    ],
+    "priority": "should"
+   }
+  ],
+  "facts": []
+ }
+}

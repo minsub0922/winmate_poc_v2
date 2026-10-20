@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~no_proof:F07"
+ },
+ "prompt_tokens": 3237,
+ "output_tokens": 341,
+ "data": {
+  "scores": [
+   {
+    "id": "MK5",
+    "score": 3,
+    "anchor": "경쟁사 비교 기준을 5년 총소유비용(TCO)으로 명확히 제시하고, 공개 자료 및 삼성전자 추정치를 근거로 사용하여 비방 없이 객관적으로 비교하였다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "비교 기준은 5년 총비용"
+     },
+     {
+      "sheet": 7,
+      "quote": "출처: 삼성전자 추정(2026)"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "삼성의 통합 솔루션(사이니지+공조+MagicINFO)과 원격 감시 SLA를 고객의 장애 및 운영 과제와 연결하여 구체적인 수치로 제시하였다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "354면과 공조를 한 창구에서, 덜 멈추게"
+     },
+     {
+      "sheet": 6,
+      "quote": "교육 후 1건 배포 10분"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

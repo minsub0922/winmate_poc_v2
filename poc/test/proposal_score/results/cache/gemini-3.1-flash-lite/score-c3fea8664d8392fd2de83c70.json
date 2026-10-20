@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~wrong_customer:F02"
+ },
+ "prompt_tokens": 7102,
+ "output_tokens": 226,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 요구사항 7가지(R1~R3, K1~K4)에 대해 각 장에서 명시적으로 대응하고 있습니다. 자동 점검에서 지적된 AS 지연은 4장과 11장에서, 기존 자산 활용은 7장과 10장에서 구체적인 해법을 제시하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "AS 대기 1.5일"
+     },
+     {
+      "sheet": 7,
+      "quote": "기존 장비 보상"
+     },
+     {
+      "sheet": 10,
+      "quote": "철거 · 보상 매입 포함"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

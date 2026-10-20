@@ -1,0 +1,44 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~base:F01"
+ },
+ "prompt_tokens": 8457,
+ "output_tokens": 351,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명을 'R 건설'로 일관되게 표기하였으며, 규모 정보(1,240세대)와 담당 조직(분양마케팅팀, 상품기획팀 등)이 장마다 동일하게 기술되었습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "R 건설 2지구 1,240세대 빌트인 가전"
+     },
+     {
+      "sheet": 13,
+      "quote": "R 건설 2지구 1,240세대 빌트인 · 스마트홈 사양"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "제안서 마지막 장에 담당자 연락처가 예시용(010-1234-5678)으로 남아 있어 템플릿 잔여물로 판단됩니다.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · 010-1234-5678"
+     }
+    ],
+    "improve": "제출 전 실제 담당자의 연락처로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

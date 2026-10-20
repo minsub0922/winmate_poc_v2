@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs03:F08"
+ },
+ "prompt_tokens": 1774,
+ "output_tokens": 208,
+ "data": {
+  "scores": [
+   {
+    "id": "VS1",
+    "score": 3,
+    "anchor": "강의실의 수업 전·중·후 맞춤 운영, 도서관의 경로 안내, 건물별 통합 냉난방 제어 등 3가지 핵심 가치가 제품과 연결되어 분명하게 제시됩니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "강의실은 수업 전 · 중 · 후를 스스로 맞춥니다"
+     },
+     {
+      "sheet": 7,
+      "quote": "도서관 안에서 헤매지 않습니다"
+     },
+     {
+      "sheet": 10,
+      "quote": "건물마다 다른 운전 시간, 한 화면에서"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

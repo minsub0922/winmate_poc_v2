@@ -1,0 +1,78 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs13~full:F09"
+ },
+ "prompt_tokens": 9070,
+ "output_tokens": 588,
+ "data": {
+  "scores": [
+   {
+    "id": "PR1",
+    "score": 3,
+    "anchor": "제안된 360 카세트와 DVM S2는 현재 삼성전자 상업용 공조 라인업의 현행 모델이며, 구형이나 단종 모델에 대한 언급이 없습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "360 카세트 · DVM S2"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR2",
+    "score": 3,
+    "anchor": "제안서 내 360 카세트와 DVM S2에 대한 사양 설명이 공식 카탈로그의 핵심 특징과 일치하며, 장별로 상충되는 수치나 사양 표기가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "360 카세트 · DVM S2"
+     },
+     {
+      "sheet": 8,
+      "quote": "타석마다 360 카세트"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR5",
+    "score": 3,
+    "anchor": "360 카세트, DVM S2, SmartThings Pro 등 주요 제품 및 솔루션 명칭이 제안서 전반에 걸쳐 일관되게 표기되었습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "360 카세트 · DVM S2"
+     },
+     {
+      "sheet": 6,
+      "quote": "SmartThings Pro"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR3",
+    "score": 3,
+    "anchor": "SmartThings Pro, b.IoT Cloud 등 브랜드명이 공식 표기법을 준수하고 있으며, 삼성전자 표기 또한 일관되게 사용되었습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "SmartThings Pro"
+     },
+     {
+      "sheet": 8,
+      "quote": "b.IoT Cloud"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~base:F04"
+ },
+ "prompt_tokens": 2937,
+ "output_tokens": 222,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "밀키프레소라는 유사 업종(F&B) 사례를 제시하며, 도입 구성(VXT 솔루션+스마트 사이니지)과 성과 수치(방문 0회, 원격 관리)를 명확히 기술함.",
+    "evidence": [
+     {
+      "sheet": 13,
+      "quote": "밀키프레소 — 방문 없이 가맹점 화면 원격 관리"
+     },
+     {
+      "sheet": 13,
+      "quote": "0회 화면 교체를 위한 매장 방문"
+     },
+     {
+      "sheet": 13,
+      "quote": "1개 전 가맹점을 관리하는 본사 화면"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs01:F01"
+ },
+ "prompt_tokens": 9126,
+ "output_tokens": 176,
+ "data": {
+  "scores": [
+   {
+    "id": "WR1",
+    "score": 2,
+    "anchor": "16장의 담당자 연락처와 이메일 주소에 예시용 데이터(010-1234-5678, b2b.proposal@samsung.com)가 기재되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 16,
+      "quote": "010-1234-5678 · b2b.proposal@samsung.com"
+     }
+    ],
+    "improve": "담당자의 실제 연락처와 이메일 주소로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

@@ -1,0 +1,56 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~placeholders:F01"
+ },
+ "prompt_tokens": 5172,
+ "output_tokens": 379,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 3,
+    "anchor": "모든 장에서 고객사명 'Y 그룹'이 일관되게 사용되었으며, 다른 고객사명이나 예시 고객명이 혼재되어 있지 않습니다.",
+    "evidence": [
+     {
+      "sheet": 1,
+      "quote": "Y 그룹"
+     },
+     {
+      "sheet": 4,
+      "quote": "Y 그룹의 목표는"
+     },
+     {
+      "sheet": 10,
+      "quote": "Y 그룹 사업장 디스플레이 통합"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "제안서 본문 내 핵심 수치와 문장에 [00]과 같은 자리표시자가 6곳 이상 포함되어 있어 1점으로 평가합니다.",
+    "evidence": [
+     {
+      "sheet": 2,
+      "quote": "[00]일"
+     },
+     {
+      "sheet": 3,
+      "quote": "[00]개 사업장 화면을"
+     },
+     {
+      "sheet": 5,
+      "quote": "[00]일 → 당일"
+     }
+    ],
+    "improve": "본문 내 모든 [00] 자리표시자를 실제 수치로 수정하고, 연락처 정보를 실제 담당자 정보로 기입해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

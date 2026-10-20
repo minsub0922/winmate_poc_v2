@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs14:F04"
+ },
+ "prompt_tokens": 5411,
+ "output_tokens": 384,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "L 제조 현장의 3교대 근무 여정을 따라 이상 보고 프로세스(5단계 45분)와 기록 오류(월 74건) 등 구체적인 현장 수치와 원인을 분석했습니다.",
+    "evidence": [
+     {
+      "sheet": 4,
+      "quote": "라인 이상 하나가 MES에 오르기까지, 다섯 단계 45분"
+     },
+     {
+      "sheet": 5,
+      "quote": "현장 기록 오류 · 누락 | 월 | 74 | 건"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "현장 작업자의 장갑 착용, 물기, 낙하 충격 등 작업 환경을 고려하여 러기드 등급(IP68, MIL-STD-810H) 단말을 직무별로 적절히 배치했습니다.",
+    "evidence": [
+     {
+      "sheet": 10,
+      "quote": "현장 조건 → 대응 | 기름 · 물기 있는 손 | 현장 기능 | 장갑 · 물기 터치"
+     },
+     {
+      "sheet": 10,
+      "quote": "바닥 낙하 · 충격 | 내구성 | MIL-STD-810H 시험 · IP68"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

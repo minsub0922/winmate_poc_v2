@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs21:F10"
+ },
+ "prompt_tokens": 10674,
+ "output_tokens": 182,
+ "data": {
+  "scores": [
+   {
+    "id": "PR4",
+    "score": 3,
+    "anchor": "LYNK Cloud를 통해 객실 TV 312대를 서버실에서 원격 관리하는 구체적인 운영 장면과 데이터 분석을 통한 마케팅 활용 방안을 명확히 제시함.",
+    "evidence": [
+     {
+      "sheet": 26,
+      "quote": "H 호텔 객실 TV 312대를 서버실 한 곳에서 관리합니다"
+     },
+     {
+      "sheet": 25,
+      "quote": "투숙 데이터를 맞춤 콘텐츠 · 프로모션으로 바꿉니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

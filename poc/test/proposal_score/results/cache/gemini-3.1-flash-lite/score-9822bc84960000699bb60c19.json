@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04~wrong_customer:F04"
+ },
+ "prompt_tokens": 2800,
+ "output_tokens": 187,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "주거 분양 업종인 KCC스위첸과 그란츠 리버파크 사례를 제시하며, 각각의 과제 해결책과 청약 마감 성과 및 스마트홈 적용 수치를 구체적으로 명시함.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "KCC스위첸, 높은 경쟁률, 2개 단지"
+     },
+     {
+      "sheet": 12,
+      "quote": "그란츠 리버파크, 스마트싱스 에너지 적용"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

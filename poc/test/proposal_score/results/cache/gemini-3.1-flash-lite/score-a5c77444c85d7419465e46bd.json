@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs05:F05"
+ },
+ "prompt_tokens": 6729,
+ "output_tokens": 236,
+ "data": {
+  "scores": [
+   {
+    "id": "MK3",
+    "score": 1,
+    "anchor": "시장 규모 및 성과 수치에 대한 출처가 대부분 명시되어 있지 않으며, 일부는 '삼성전자 추정'과 같이 모호하게 표기되어 있습니다.",
+    "evidence": [
+     {
+      "sheet": 5,
+      "quote": "RFP 구역 계획 기준"
+     },
+     {
+      "sheet": 6,
+      "quote": "대기 관련 문의 40% ↓"
+     },
+     {
+      "sheet": 7,
+      "quote": "퍼레이드 구간 혼잡 민원 35% ↓"
+     }
+    ],
+    "improve": "모든 시장 데이터와 성과 목표 수치에 대해 조사 기관과 연도를 명확히 기재하고, 자체 추정치인 경우 근거 자료를 구체적으로 명시해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

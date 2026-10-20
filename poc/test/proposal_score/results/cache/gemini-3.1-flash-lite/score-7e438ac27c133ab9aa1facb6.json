@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs04:F04"
+ },
+ "prompt_tokens": 2930,
+ "output_tokens": 213,
+ "data": {
+  "scores": [
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "주거 분양 업종인 KCC스위첸과 그란츠 리버파크의 도입 사례를 제시하며, 각각의 과제와 해결 방안, 그리고 청약 마감 성과를 구체적으로 기술하였습니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "KCC스위첸 · 과제 · 밀레니얼 입주자 취향 맞춤 · 청약 마감 · 높은 경쟁률"
+     },
+     {
+      "sheet": 12,
+      "quote": "그란츠 리버파크 · 과제 · 하이엔드 단지의 프리미엄 스마트홈 차별화"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

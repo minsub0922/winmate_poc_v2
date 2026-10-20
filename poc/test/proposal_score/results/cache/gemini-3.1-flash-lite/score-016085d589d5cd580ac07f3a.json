@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~placeholders:F10"
+ },
+ "prompt_tokens": 6222,
+ "output_tokens": 211,
+ "data": {
+  "scores": [
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "12장에서 전환부터 이관까지 3단계 일정과 기간, 삼성과 본사의 역할 분담, 교육 및 유지보수 계획을 구체적으로 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "전환 완료 → 안정화(공동 운영) → 이관"
+     },
+     {
+      "sheet": 12,
+      "quote": "담당 삼성 · 협력사, 담당 공동, 담당 M 베이커리"
+     },
+     {
+      "sheet": 12,
+      "quote": "본사 · 점장 교육 이수, 유지보수 계약 개시"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

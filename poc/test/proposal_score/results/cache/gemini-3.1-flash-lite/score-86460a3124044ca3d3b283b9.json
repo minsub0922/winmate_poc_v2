@@ -1,0 +1,48 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs02:F04"
+ },
+ "prompt_tokens": 5160,
+ "output_tokens": 380,
+ "data": {
+  "scores": [
+   {
+    "id": "PR3",
+    "score": 2,
+    "anchor": "공간별 제품 구성은 적절하나, 10장의 옥상 설비 구성에 실내용 제품인 Flip Pro(WM75B)가 포함된 것으로 표기되어 설치 환경 적합성이 불명확합니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "로비부터 업무층 · 기계실까지"
+     },
+     {
+      "sheet": 10,
+      "quote": "옥상 · 설비 | DVM S2 실외기 ×40 | 40"
+     }
+    ],
+    "improve": "옥상 등 실외 환경에 부적합한 제품이 포함되지 않도록 공간별 제품 리스트를 재검토하여 명시해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "KT 광화문빌딩 웨스트, 팩토리얼 성수 등 유사 업종 사례를 제시하고, 각 사례에서 얻은 성과 수치와 구성 내용을 구체적으로 기술하였습니다.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "KT 광화문빌딩 웨스트 사례 참고"
+     },
+     {
+      "sheet": 9,
+      "quote": "회의실 가동률 | 45% → 70%"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

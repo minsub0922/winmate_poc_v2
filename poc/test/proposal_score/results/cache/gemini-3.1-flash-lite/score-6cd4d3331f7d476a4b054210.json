@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs19~placeholders:F07"
+ },
+ "prompt_tokens": 2529,
+ "output_tokens": 238,
+ "data": {
+  "scores": [
+   {
+    "id": "VS4",
+    "score": 3,
+    "anchor": "삼성의 시장 점유율, 하드웨어와 솔루션 통합 제공, 전국 서비스망이라는 강점을 고객의 과제인 '운영 효율' 및 '장애 대응'과 연결하여 구체적인 수치와 함께 제시함.",
+    "evidence": [
+     {
+      "sheet": 8,
+      "quote": "15년 연속 점유율 1위부터 2주 내 실사 착수까지"
+     },
+     {
+      "sheet": 8,
+      "quote": "디스플레이 · 관리 솔루션 · 서비스를 한 회사가, 한 체계로 운영합니다"
+     },
+     {
+      "sheet": 8,
+      "quote": "전국 서비스망과 원격 모니터링으로 장애를 먼저 찾아 대응합니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

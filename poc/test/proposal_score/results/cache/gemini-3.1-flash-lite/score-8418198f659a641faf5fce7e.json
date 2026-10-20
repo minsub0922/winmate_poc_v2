@@ -1,0 +1,52 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs16~wrong_customer:F01"
+ },
+ "prompt_tokens": 7556,
+ "output_tokens": 414,
+ "data": {
+  "scores": [
+   {
+    "id": "CU1",
+    "score": 1,
+    "anchor": "제안서 전반에 걸쳐 고객사명 'M 베이커리'와 다른 'H 호텔'이라는 명칭이 4개 장에서 혼용되어 나타납니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "H 호텔 · 사이니지 통합 운영 제안"
+     },
+     {
+      "sheet": 6,
+      "quote": "데이터는 H 호텔 안에 머뭅니다"
+     },
+     {
+      "sheet": 9,
+      "quote": "H 호텔 본사 한 곳이 180개 지점을"
+     }
+    ],
+    "improve": "제안서 내 모든 장에서 고객사명을 'M 베이커리'로 통일해야 합니다.",
+    "confidence": "high"
+   },
+   {
+    "id": "WR1",
+    "score": 1,
+    "anchor": "다른 고객명인 'H 호텔'이 4곳에서 발견되었고, 13장에 담당자 연락처 정보가 템플릿 형식으로 남아 있습니다.",
+    "evidence": [
+     {
+      "sheet": 12,
+      "quote": "H 호텔 · 사이니지 통합 운영 제안"
+     },
+     {
+      "sheet": 13,
+      "quote": "김도윤 프로 · B2B 영업팀 · 010-1234-5678"
+     }
+    ],
+    "improve": "다른 고객명인 'H 호텔'을 모두 삭제하고, 담당자 연락처를 실제 정보로 수정해야 합니다.",
+    "confidence": "high"
+   }
+  ]
+ }
+}

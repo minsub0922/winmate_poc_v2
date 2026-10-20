@@ -1,0 +1,44 @@
+{
+ "id": "C07_L2",
+ "case": "C07",
+ "industry": "RT",
+ "strategy": "compete",
+ "req_type": "compete",
+ "title": "백화점 사이니지 공급사 전환",
+ "level": "ambiguous",
+ "input": {
+  "title": "L 백화점 사이니지 재계약",
+  "customer": "L 백화점",
+  "free_text": "백화점에서 지금 타사 사이니지를 쓰고 있는데, 재계약 시점이라 다른 공급사도 검토 중이라고 합니다.",
+  "id": "C07_L2"
+ },
+ "gold": {
+  "level": "ambiguous",
+  "industry": "RT",
+  "scenario_any": [
+   "bs10",
+   "bs06",
+   "bs16"
+  ],
+  "scenario_top3": [
+   "bs10"
+  ],
+  "must_parts": [
+   "why"
+  ],
+  "key_reqs": [
+   {
+    "kw": [
+     "타사"
+    ],
+    "parts_any": [
+     "why",
+     "competition",
+     "products"
+    ],
+    "priority": "should"
+   }
+  ],
+  "facts": []
+ }
+}

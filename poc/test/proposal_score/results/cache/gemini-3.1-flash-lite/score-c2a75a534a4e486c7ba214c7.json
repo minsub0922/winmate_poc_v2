@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs02:F04"
+ },
+ "prompt_tokens": 4245,
+ "output_tokens": 234,
+ "data": {
+  "scores": [
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "각 공간의 용도(로비, 회의실, 업무층, 라운지 등)에 적합한 제품(The Wall, Flip Pro, DVM S2 등)이 명확히 매칭되어 제안되었습니다. 자동 점검의 오탐(WM75B 옥외 사용)은 10장의 층별 구성표상 실내 회의실 용도로 명시되어 있어 문제가 없습니다.",
+    "evidence": [
+     {
+      "sheet": 7,
+      "quote": "공간마다 삼성이 놓는 제품 · 솔루션과 그 공간이 얻는 가치"
+     },
+     {
+      "sheet": 10,
+      "quote": "층마다 쓰임이 다르니, 제품도 층마다 다릅니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

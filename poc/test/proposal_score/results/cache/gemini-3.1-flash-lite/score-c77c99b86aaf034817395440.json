@@ -1,0 +1,31 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.7,
+ "meta": {
+  "tag": "bs01:F10"
+ },
+ "prompt_tokens": 3460,
+ "output_tokens": 205,
+ "data": {
+  "scores": [
+   {
+    "id": "VS6",
+    "score": 3,
+    "anchor": "10곳의 파일럿 매장 선정, 12주간의 단계별 일정(준비·운영·평가), 실사 및 교육 계획, 운영 방식 결정을 구체적으로 제시함.",
+    "evidence": [
+     {
+      "sheet": 14,
+      "quote": "유형별 선정 10곳 · 비교군 3곳 · 준비 2주 + 운영 8주 + 평가 2주"
+     },
+     {
+      "sheet": 16,
+      "quote": "시범 매장 10곳 · 실사 일정 확정 · 11/16 착수"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

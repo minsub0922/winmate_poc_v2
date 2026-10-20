@@ -1,0 +1,145 @@
+{
+  "cases": [
+    {
+      "group": "sample IDs",
+      "name": "all six samples register before visiting any board",
+      "passed": true,
+      "ms": 2593
+    },
+    {
+      "group": "sample IDs",
+      "name": "sample metadata and local IDs survive hydration",
+      "passed": true,
+      "ms": 1
+    },
+    {
+      "group": "sample IDs",
+      "name": "a second browser reuses the same IDs without duplicates",
+      "passed": true,
+      "ms": 1543
+    },
+    {
+      "group": "sample IDs",
+      "name": "new links are view-only for guests while owned by admin",
+      "passed": true,
+      "ms": 87
+    },
+    {
+      "group": "sample IDs",
+      "name": "server edits remain authoritative in a new browser",
+      "passed": true,
+      "ms": 2220
+    },
+    {
+      "group": "sample IDs",
+      "name": "missing owned token is reissued without losing local edits",
+      "passed": true,
+      "ms": 1200
+    },
+    {
+      "group": "sample IDs",
+      "name": "different server/local drafts are both preserved as a conflict",
+      "passed": true,
+      "ms": 1004
+    },
+    {
+      "group": "sample IDs",
+      "name": "temporary read failure retries without registering a duplicate",
+      "passed": true,
+      "ms": 2705
+    },
+    {
+      "group": "sample IDs",
+      "name": "failed first registration retries after connection recovery",
+      "passed": true,
+      "ms": 7394
+    },
+    {
+      "group": "sample IDs",
+      "name": "a missing foreign read-only link never grants ownership",
+      "passed": true,
+      "ms": 1003
+    },
+    {
+      "group": "sample IDs",
+      "name": "warming and opening coalesce registration; background concurrency is two",
+      "passed": true,
+      "ms": 1587
+    },
+    {
+      "group": "sample IDs",
+      "name": "deletion recovery preserves unsent edits and creates a replacement link",
+      "passed": true,
+      "ms": 6731
+    },
+    {
+      "group": "sample IDs",
+      "name": "ready links open immediately while a background refresh is slow",
+      "passed": true,
+      "ms": 1108
+    },
+    {
+      "group": "toolbar",
+      "name": "sample 1 has sharing and no reuse button",
+      "passed": true,
+      "ms": 993
+    },
+    {
+      "group": "toolbar",
+      "name": "sample 2 has sharing and no reuse button",
+      "passed": true,
+      "ms": 1662
+    },
+    {
+      "group": "toolbar",
+      "name": "sample 3 has sharing and no reuse button",
+      "passed": true,
+      "ms": 843
+    },
+    {
+      "group": "toolbar",
+      "name": "sample 4 has sharing and no reuse button",
+      "passed": true,
+      "ms": 1324
+    },
+    {
+      "group": "toolbar",
+      "name": "sample 5 has sharing and no reuse button",
+      "passed": true,
+      "ms": 2152
+    },
+    {
+      "group": "toolbar",
+      "name": "sample 6 has sharing and no reuse button",
+      "passed": true,
+      "ms": 2156
+    },
+    {
+      "group": "toolbar",
+      "name": "ordinary owned board has no reuse action",
+      "passed": true,
+      "ms": 944
+    },
+    {
+      "group": "toolbar",
+      "name": "guest read-only board shares the existing link without a copy action",
+      "passed": true,
+      "ms": 1018
+    },
+    {
+      "group": "toolbar",
+      "name": "editable guest has no reuse action",
+      "passed": true,
+      "ms": 1398
+    },
+    {
+      "group": "toolbar",
+      "name": "mobile owner has sharing and no reuse action",
+      "passed": true,
+      "ms": 2021
+    }
+  ],
+  "errors": [],
+  "passed": 23,
+  "total": 23
+}

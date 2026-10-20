@@ -1,0 +1,35 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs01~strip_images:F02"
+ },
+ "prompt_tokens": 8545,
+ "output_tokens": 271,
+ "data": {
+  "scores": [
+   {
+    "id": "CU2",
+    "score": 3,
+    "anchor": "고객의 4가지 요구사항(R1~R4)과 4가지 평가 기준(K1~K4)에 대해 각 장에서 명시적으로 대응하고 있습니다. 특히 전기료 관련 요구(R4)는 3장, 6장, 8장, 9장, 12장, 14장에서 SmartThings Pro와 에너지 리포트를 통한 절감 방안으로 구체적으로 답하고 있습니다.",
+    "evidence": [
+     {
+      "sheet": 3,
+      "quote": "좌석의 쾌적함과 매장 전기요금을 함께 관리해야"
+     },
+     {
+      "sheet": 6,
+      "quote": "매장별 전력 리포트가 따라옵니다. 매장 전력 12% ↓"
+     },
+     {
+      "sheet": 12,
+      "quote": "매장 전력 사용 ▼ 12%"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}

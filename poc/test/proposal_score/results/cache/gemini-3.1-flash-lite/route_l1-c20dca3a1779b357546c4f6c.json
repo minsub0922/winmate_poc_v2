@@ -1,0 +1,34 @@
+{
+ "stage": "route_l1",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs10~base"
+ },
+ "prompt_tokens": 2448,
+ "output_tokens": 313,
+ "data": {
+  "communities": [
+   {
+    "id": "C1",
+    "relevance": 2,
+    "reason": "수치 데이터의 출처 미표기(MK3)와 9pt 미만의 가독성 저하(DS4)는 전문적인 B2B 제안서로서의 신뢰도를 훼손할 수 있어 수정이 필요합니다."
+   },
+   {
+    "id": "C2",
+    "relevance": 3,
+    "reason": "고객의 핵심 우려사항인 'AS 지연'과 '전환 리스크'에 대한 구체적 대응책이 요구사항(CU2)에 충분히 반영되지 않아 실행 체계의 보완이 시급합니다."
+   },
+   {
+    "id": "C3",
+    "relevance": 3,
+    "reason": "가격 경쟁을 운영 효율과 TCO 관점으로 전환하려는 전략의 타당성을 입증하기 위해 데이터 근거(MK3)와 논리적 정합성을 강화해야 합니다."
+   },
+   {
+    "id": "C4",
+    "relevance": 1,
+    "reason": "전반적인 메시지 흐름은 전략적이나, 텍스트 밀도가 높아(DS3) 결정권자가 핵심 내용을 빠르게 파악하기 어렵게 구성되어 있습니다."
+   }
+  ]
+ }
+}

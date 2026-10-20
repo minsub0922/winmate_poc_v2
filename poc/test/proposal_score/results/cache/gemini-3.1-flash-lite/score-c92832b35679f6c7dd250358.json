@@ -1,0 +1,65 @@
+{
+ "stage": "score",
+ "model": "gemini-3.1-flash-lite",
+ "temperature": 0.0,
+ "meta": {
+  "tag": "bs21:F04"
+ },
+ "prompt_tokens": 12201,
+ "output_tokens": 502,
+ "data": {
+  "scores": [
+   {
+    "id": "CU4",
+    "score": 3,
+    "anchor": "외국인 투숙객 비중(46%)과 객실 수(312실)를 명시하고, 이를 바탕으로 한 통역 및 객실 관리의 구체적인 운영 효율화 방안을 제시했습니다.",
+    "evidence": [
+     {
+      "sheet": 6,
+      "quote": "외국인 투숙 비중 46% · 객실 312실"
+     },
+     {
+      "sheet": 26,
+      "quote": "H 호텔 객실 TV 312대를 서버실 한 곳에서 관리합니다"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "PR3",
+    "score": 3,
+    "anchor": "라운지, 리셉션, 객실 등 각 공간의 특성에 맞춰 The Wall, 갤럭시 S26, 호텔 TV 등 최적화된 제품을 명확히 배치했습니다.",
+    "evidence": [
+     {
+      "sheet": 11,
+      "quote": "H 호텔의 여섯 공간, 열 개 제품"
+     },
+     {
+      "sheet": 22,
+      "quote": "H 호텔 AI 스테이 Map"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   },
+   {
+    "id": "VS5",
+    "score": 3,
+    "anchor": "유사 업종인 인스파이어 리조트와 오크우드 프리미어의 구체적인 도입 구성과 성과를 제시하여 신뢰도를 확보했습니다.",
+    "evidence": [
+     {
+      "sheet": 29,
+      "quote": "인스파이어 엔터테인먼트 리조트"
+     },
+     {
+      "sheet": 30,
+      "quote": "오크우드 프리미어 코엑스 센터"
+     }
+    ],
+    "improve": "",
+    "confidence": "high"
+   }
+  ]
+ }
+}
