@@ -1,0 +1,128 @@
+{
+  "base": "https://merit-origins-cargo-technician.trycloudflare.com",
+  "smoke": true,
+  "cases": [
+    {
+      "scope": "catalog",
+      "width": 1920,
+      "passed": true,
+      "metric": {
+        "width": 1800,
+        "left": 92.5,
+        "right": 1892.5,
+        "maxWidth": "1800px",
+        "mainWidth": 1855,
+        "scrollWidth": 1800,
+        "clientWidth": 1800
+      },
+      "ms": 1237
+    },
+    {
+      "scope": "scenarios",
+      "width": 1920,
+      "passed": true,
+      "metric": {
+        "width": 1800,
+        "left": 92.5,
+        "right": 1892.5,
+        "maxWidth": "1800px",
+        "mainWidth": 1855,
+        "scrollWidth": 1800,
+        "clientWidth": 1800
+      },
+      "ms": 560
+    },
+    {
+      "scope": "my",
+      "width": 1920,
+      "passed": true,
+      "metric": {
+        "width": 1800,
+        "left": 92.5,
+        "right": 1892.5,
+        "maxWidth": "1800px",
+        "mainWidth": 1855,
+        "scrollWidth": 1800,
+        "clientWidth": 1800
+      },
+      "ms": 151
+    },
+    {
+      "scope": "favorites",
+      "width": 1920,
+      "passed": true,
+      "metric": {
+        "width": 1800,
+        "left": 92.5,
+        "right": 1892.5,
+        "maxWidth": "1800px",
+        "mainWidth": 1855,
+        "scrollWidth": 1800,
+        "clientWidth": 1800
+      },
+      "ms": 140
+    },
+    {
+      "scope": "catalog",
+      "width": 390,
+      "passed": true,
+      "metric": {
+        "width": 390,
+        "left": 0,
+        "right": 390,
+        "maxWidth": "1800px",
+        "mainWidth": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "ms": 1577
+    },
+    {
+      "scope": "scenarios",
+      "width": 390,
+      "passed": true,
+      "metric": {
+        "width": 390,
+        "left": 0,
+        "right": 390,
+        "maxWidth": "1800px",
+        "mainWidth": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "ms": 466
+    },
+    {
+      "scope": "my",
+      "width": 390,
+      "passed": true,
+      "metric": {
+        "width": 390,
+        "left": 0,
+        "right": 390,
+        "maxWidth": "1800px",
+        "mainWidth": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "ms": 333
+    },
+    {
+      "scope": "favorites",
+      "width": 390,
+      "passed": true,
+      "metric": {
+        "width": 390,
+        "left": 0,
+        "right": 390,
+        "maxWidth": "1800px",
+        "mainWidth": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "ms": 368
+    }
+  ],
+  "passed": 8,
+  "total": 8
+}

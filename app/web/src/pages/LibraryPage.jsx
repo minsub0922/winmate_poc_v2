@@ -1,12 +1,11 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { loadUi, saveUi } from '../repositories/proposals.js';
-import { Icon, Modal, toast, partHue } from '../components/common.jsx';
+import { Icon, toast, partHue } from '../components/common.jsx';
 import { PARTS, REQ_LABEL } from '../domain/proposals/parts.js';
 import { LAYOUTS, ALL_LAYOUTS, L, IND, INDUSTRIES, S, SOLUTIONS, P, isPhotoFirst } from '../services/catalog.js';
 import { useLayoutSearch } from '../hooks/useLayoutSearch.js';
 import { FitSlide, useWidth } from '../domain/slides/Slide.jsx';
-import { exportPptx } from '../domain/slides/export-pptx.js';
-import { DECKS, DECK, TemplateDetail, saveBlob, safeName, slidesOf } from '../components/tplkit.jsx';
+import { DECKS, DECK, TemplateDetail } from '../components/tplkit.jsx';
 import { Thumb } from '../components/Thumbs.jsx';
 import { usePickPeek } from '../components/pickpeek.jsx';
 import { FilterBar, FilterPopup as FilterFrame, FStep, FChip, FAll, FProducts, idList, LAYOUT_UNIT } from '../components/filterpop.jsx';
@@ -94,15 +93,12 @@ export function TemplateIcon({ size = 16 }) {
   );
 }
 
-const MAX_EXPORT = 120;
-
 /* =========================================================
    Page
    ========================================================= */
 export function LayoutLibrary({ go }) {
   const [f, setF] = useState(() => fromSaved(loadUi().lib || {}));
   const [open, setOpen] = useState(null); // index into `flat`
-  const [exp, setExp] = useState(false);
   const [fpop, setFpop] = useState(false);
   const [imp, setImp] = useState(null); // PPTX being imported into My
   const [edit, setEdit] = useState(null); // { f, ov } open in the editor
@@ -230,11 +226,6 @@ export function LayoutLibrary({ go }) {
         {remoteSearch.error && <p className="muted" role="alert" style={{margin: '0 0 8px'}}><Icon name="alert" size={13} />{remoteSearch.error} 코드 · 이름이 똑같은 레이아웃만 보여요. <button type="button" className="btn btn-ghost btn-sm" onClick={remoteSearch.retry}><Icon name="refresh" size={13} />다시 시도</button></p>}
         <div className="tl-sum">
           <span><b className="num">{list.length}</b>장{scopeName ? <span className="muted"> · {scopeName}</span> : null}{q && !f.my ? <span className="faint"> · 관련도순</span> : null}</span>
-          <span className="sp" />
-          {list.length > MAX_EXPORT && <span className="faint tl-cap">{MAX_EXPORT}장 이하로 좁히면 한 파일로 받을 수 있어요</span>}
-          <button className="btn btn-sm" disabled={!list.length || list.length > MAX_EXPORT} onClick={() => setExp(true)}>
-            <Icon name="download" size={14} />이 목록 PPTX로 받기
-          </button>
         </div>
         {f.my && (
           <div className="seg my-tabs" role="group" aria-label="My 보기">
@@ -307,7 +298,6 @@ export function LayoutLibrary({ go }) {
       {imp && <ImportDialog file={imp} onClose={() => setImp(null)} onSaved={(metas) => onSavedMy(metas, metas.length + '장을 My 템플릿으로 저장했어요')} />}
       {edit && <LayoutEditor f={edit.f} ov={edit.ov || null} onClose={() => setEdit(null)} onSaved={(m, kept) => onSavedMy([m], kept ? '‘' + m.name + '’을 고쳐 저장했어요' : '‘' + m.name + '’을 My 템플릿으로 저장했어요')} />}
       {fpop && <FilterPopup f={f} base={base} onApply={(x) => { set(x); setFpop(false); }} onClose={() => setFpop(false)} />}
-      {exp && <ExportList list={list} slides={favMode ? favShown.map((x) => ({ f: x.f, ov: x.ov || { t: {}, img: {} }, part: L[x.f] && PARTS[L[x.f].p] ? PARTS[L[x.f].p].label : '' })) : null} scope={scopeName} onClose={() => setExp(false)} />}
     </div>
   );
 }
@@ -420,42 +410,5 @@ function FilterPopup({ f, base, onApply, onClose }) {
         </div>
       </FStep>
     </FilterFrame>
-  );
-}
-
-/* =========================================================
-   Export the filtered list as one PPTX
-   ========================================================= */
-function ExportList({ list, slides = null, scope, onClose }) {
-  const [name, setName] = useState(safeName('Winmate 레이아웃 템플릿' + (scope ? ' · ' + scope.replace(/[“”]/g, '') : '')));
-  const [st, setSt] = useState(null); // {n,total} | {err}
-  const busy = st && st.total != null;
-  const run = async () => {
-    setSt({ n: 0, total: list.length });
-    try {
-      const blob = await exportPptx(slides || slidesOf(list), { title: name, onProgress: (n, total) => setSt({ n, total }) });
-      const r = await saveBlob(blob, safeName(name) + '.pptx');
-      if (r.ok) { toast(safeName(name) + '.pptx 저장했어요'); onClose(); } else setSt({ err: r.err });
-    } catch (e) { console.error(e); setSt({ err: '만드는 중 문제가 생겼어요: ' + (e && e.message ? e.message : e) }); }
-  };
-  return (
-    <Modal size="narrow" onClose={busy ? () => {} : onClose} title="이 목록 PPTX로 받기" sub="지금 보이는 레이아웃을 예시 문구 그대로 한 파일에 담아요. 글자는 텍스트 상자로 들어가 바로 고칠 수 있어요."
-      footer={<>
-        <span className="note num">{list.length}장 · 16:9</span>
-        <span className="sp" />
-        <button className="btn" disabled={busy} onClick={onClose}>닫기</button>
-        <button className="btn btn-primary" disabled={busy || !list.length} onClick={run}>{busy ? <span className="spin" /> : <Icon name="download" size={15} />}{busy ? '만드는 중…' : 'PPTX 만들기'}</button>
-      </>}>
-      <div className="field"><label htmlFor="tl-ex-name">파일 이름</label>
-        <div style={{ display: 'flex', alignItems: 'center', gap: "var(--space-6px)" }}><input id="tl-ex-name" className="input" value={name} onChange={(e) => setName(e.target.value)} /><span className="faint num">.pptx</span></div>
-      </div>
-      {busy && (
-        <div className="field" aria-live="polite">
-          <div className="progress"><i style={{ width: Math.round((st.n / Math.max(1, st.total)) * 100) + '%' }} /></div>
-          <span className="faint num" style={{ fontSize: "var(--text-12px)" }}>{st.n} / {st.total}장 변환</span>
-        </div>
-      )}
-      {st && st.err && <div className="hint" style={{ color: 'var(--warn)' }}><Icon name="alert" size={14} />{st.err}</div>}
-    </Modal>
   );
 }

@@ -10,6 +10,7 @@
   --sans: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
   --num: 'Manrope', 'Noto Sans KR', system-ui, sans-serif;
   --r-sm: 7px; --r: 10px; --r-lg: 14px; --sb-w: 288px; --sb-c: 65px; --sb-shadow: 12px 0 32px -10px rgba(18,20,23,.22);
+  --library-page-max-width: 1800px;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {

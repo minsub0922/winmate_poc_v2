@@ -588,7 +588,7 @@ h1, h2, h3 { text-wrap: balance; margin: 0; }
 .sb-count { margin-left: auto; font-size: var(--text-11px); font-weight: var(--weight-700); color: var(--faint); }
 .sb-tpl[aria-current="page"] .sb-count { color: var(--accent); }
 .tl { overflow-y: auto; height: var(--measure-100); }
-.tl-in { max-width: var(--measure-1320px); margin: 0 auto; padding: var(--space-32px) var(--space-32px) var(--space-72px); display: flex; flex-direction: column; gap: var(--space-14px); }
+.tl-in { max-width: var(--library-page-max-width); margin: 0 auto; padding: var(--space-32px) var(--space-32px) var(--space-72px); display: flex; flex-direction: column; gap: var(--space-14px); }
 .tl-title { display: flex; flex-direction: column; gap: var(--space-6px); max-width: var(--measure-760px); }
 .tl-title .eyebrow { font-family: var(--num); font-size: var(--text-12px); font-weight: var(--weight-800); letter-spacing: var(--measure-1em); color: var(--accent); }
 .tl-title h1 { font-size: clamp(var(--text-22px), var(--text-2-6vw), var(--text-28px)); font-weight: var(--weight-700); letter-spacing: var(--measure--02em); display: flex; align-items: baseline; gap: var(--space-10px); }
