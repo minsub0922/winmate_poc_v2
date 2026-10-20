@@ -1,0 +1,93 @@
+{
+  "base": "https://merit-origins-cargo-technician.trycloudflare.com",
+  "cases": [
+    {
+      "name": "taller full-width history button with readable guidance",
+      "passed": true,
+      "ms": 7148
+    },
+    {
+      "name": "selection is required before import",
+      "passed": true,
+      "ms": 3284
+    },
+    {
+      "name": "product shows model, category, specification, spaces and industries",
+      "passed": true,
+      "ms": 9052
+    },
+    {
+      "name": "solution shows full description and linked products",
+      "passed": true,
+      "ms": 4849
+    },
+    {
+      "name": "case shows customer, date, industry, content and source link",
+      "passed": true,
+      "ms": 3992
+    },
+    {
+      "name": "all three representative images load and have generous dimensions",
+      "passed": true,
+      "ms": 4518
+    },
+    {
+      "name": "preview and cancel never mutate current or source history",
+      "passed": true,
+      "ms": 8856
+    },
+    {
+      "name": "import retains exact context values and leaves source unchanged",
+      "passed": true,
+      "ms": 4758
+    },
+    {
+      "name": "search filters history candidates",
+      "passed": true,
+      "ms": 4565
+    },
+    {
+      "name": "empty categories have clear empty states",
+      "passed": true,
+      "ms": 3441
+    },
+    {
+      "name": "unknown DB entries remain visible with their IDs",
+      "passed": true,
+      "ms": 4630
+    },
+    {
+      "name": "long lists scroll independently while import remains visible",
+      "passed": true,
+      "ms": 3408
+    },
+    {
+      "name": "switching history resets preview scroll to the top",
+      "passed": true,
+      "ms": 4233
+    },
+    {
+      "name": "metadata and image layout fits 900px",
+      "passed": true,
+      "ms": 6050,
+      "retest": true,
+      "previous_attempt": {
+        "name": "metadata and image layout fits 900px",
+        "passed": false,
+        "error": "locator.scrollIntoViewIfNeeded: Element is not attached to the DOM\nCall log:\n\u001b[2m  - attempting scroll into view action\u001b[22m\n\u001b[2m    2 × waiting for element to be stable\u001b[22m\n\u001b[2m      - element is not stable\u001b[22m\n\u001b[2m    - retrying scroll into view action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\u001b[2m    - element is not stable\u001b[22m\n\u001b[2m  - retrying scroll into view action\u001b[22m\n\u001b[2m    - waiting 100ms\u001b[22m\n\u001b[2m    - waiting for element to be stable\u001b[22m\n\n    at test.width.width (/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/history-reuse.mjs:38:184)\n    at async test (/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/history-reuse.mjs:23:107)\n    at async file:///Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/history-reuse.mjs:38:31"
+      }
+    },
+    {
+      "name": "metadata and image layout fits 390px",
+      "passed": true,
+      "ms": 3501
+    },
+    {
+      "name": "keyboard can select a history and enable import",
+      "passed": true,
+      "ms": 5666
+    }
+  ],
+  "passed": 16,
+  "total": 16
+}

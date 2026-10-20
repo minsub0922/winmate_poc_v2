@@ -15,6 +15,7 @@ import { KIND, RefCard, metaOf, shortOf } from './refcard.jsx';
 import { useDetailPeek } from './peek.jsx';
 import { removeRef } from './requirements.jsx';
 import { ContextExplorer, totalOf, startFor, REC_MAX } from './ctxexplorer.jsx';
+import { HistoryReuse } from './history-reuse.jsx';
 
 // ---------- saved state ----------
 const hashStr = (s) => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0; return h.toString(36) + ':' + s.length; };
@@ -203,6 +204,7 @@ export function MatchPopup({ p, focus: focus0, onClose, onSaved }) {
         <span className="sp" />
         <button className="btn btn-primary" onClick={save}><Icon name="check" size={15} />저장</button>
       </>}>
+      <HistoryReuse p={p} kind="ctx" />
       <p className="bp-intro">업종과 연결된 제품 · 솔루션 · 유관사례가 Storyboard 추천 · 레이아웃 추천 · AI 채우기의 근거가 돼요. ‘+ 추가’는 전체 목록, ‘추천’은 추천 목록을 이 팝업 안에서 열어요.</p>
       <div className="cc-top">
         <IndustryCombo p={p} />

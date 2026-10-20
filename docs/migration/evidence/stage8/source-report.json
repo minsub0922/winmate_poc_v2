@@ -1,0 +1,87 @@
+{
+  "base": "http://127.0.0.1:5195",
+  "cases": [
+    {
+      "name": "taller full-width history button with readable guidance",
+      "passed": true,
+      "ms": 1323
+    },
+    {
+      "name": "selection is required before import",
+      "passed": true,
+      "ms": 1439
+    },
+    {
+      "name": "product shows model, category, specification, spaces and industries",
+      "passed": true,
+      "ms": 1483
+    },
+    {
+      "name": "solution shows full description and linked products",
+      "passed": true,
+      "ms": 1515
+    },
+    {
+      "name": "case shows customer, date, industry, content and source link",
+      "passed": true,
+      "ms": 1718
+    },
+    {
+      "name": "all three representative images load and have generous dimensions",
+      "passed": true,
+      "ms": 1709
+    },
+    {
+      "name": "preview and cancel never mutate current or source history",
+      "passed": true,
+      "ms": 1798
+    },
+    {
+      "name": "import retains exact context values and leaves source unchanged",
+      "passed": true,
+      "ms": 2007
+    },
+    {
+      "name": "search filters history candidates",
+      "passed": true,
+      "ms": 1421
+    },
+    {
+      "name": "empty categories have clear empty states",
+      "passed": true,
+      "ms": 1364
+    },
+    {
+      "name": "unknown DB entries remain visible with their IDs",
+      "passed": true,
+      "ms": 1012
+    },
+    {
+      "name": "long lists scroll independently while import remains visible",
+      "passed": true,
+      "ms": 1582
+    },
+    {
+      "name": "switching history resets preview scroll to the top",
+      "passed": true,
+      "ms": 1662
+    },
+    {
+      "name": "metadata and image layout fits 900px",
+      "passed": true,
+      "ms": 1839
+    },
+    {
+      "name": "metadata and image layout fits 390px",
+      "passed": true,
+      "ms": 1764
+    },
+    {
+      "name": "keyboard can select a history and enable import",
+      "passed": true,
+      "ms": 1774
+    }
+  ],
+  "passed": 16,
+  "total": 16
+}
