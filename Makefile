@@ -1,6 +1,8 @@
-.PHONY: up prepare test test-browser test-live smoke
+.PHONY: up prepare test test-browser test-live smoke tunnel
 up:
 	./start.sh
+tunnel:
+	bash app/scripts/cloudflare.sh
 prepare:
 	node app/scripts/export_agent_data.mjs
 	app/.venv/bin/python -B app/scripts/prepare_data.py

@@ -24,6 +24,14 @@ WINMATE_API_PORT=8788 ./start.sh
 
 필수 입력은 제공된 `poc/test/`, `proddb/winmate_products.sqlite`, `reference/live/`, `app/data/`다. 시작 명령이 패키지 설치, 웹 빌드, 읽기 전용 SQLite snapshot, 정본 Agent KB, 데이터 점검, 계정 준비를 수행한다. 없거나 손상된 입력은 경로와 함께 오류로 안내한다. health가 준비되기 전에 **실제 Gemini 연결 확인**도 수행하며 실패하면 기동하지 않는다.
 
+## Cloudflare 외부 접속
+
+`./start.sh`로 앱을 실행한 상태에서 별도 터미널에서 `make tunnel`을 실행하면 Cloudflare Quick Tunnel의 HTTPS 주소가 출력된다. `cloudflared`가 설치되어 있어야 하며, `WINMATE_API_PORT`는 앱과 동일하게 설정한다. 스크립트는 로그인 계정이 설정되어 있고 인증이 켜진 앱만 연결한다. 비밀번호와 Gemini 키는 터널 설정이나 URL에 넣지 않는다.
+
+이 방식은 이 컴퓨터에서 실행하는 단일 사용자 앱을 외부로 연결한다. 컴퓨터·앱·터널이 계속 실행되어야 하며, 터널을 새로 실행하면 주소가 달라진다. Cloudflare 계정·고정 도메인·항상 켜진 서버에 대한 상시 배포는 아직 구성하지 않았다. 브라우저 저장소는 주소별로 분리되므로 localhost의 기존 제안서는 `/migration.html`에서 백업하고 외부 주소의 같은 페이지에서 복원한다.
+
+배포 주소 검증: `app/.venv/bin/python -B app/scripts/smoke.py --base https://출력된주소.trycloudflare.com --prompt`. 로그인·쿠키·카탈로그·실제 Gemini 호출과 로그아웃을 검사한다. 자세한 배포 결과는 `docs/migration/05-cloudflare.md`에 기록한다.
+
 ## Gemini 설정
 
 설정 우선순위는 실행 환경 > app/.env > poc/.env. app/.env.example을 참고한다. 실제 키 값은 커밋하지 않는다.

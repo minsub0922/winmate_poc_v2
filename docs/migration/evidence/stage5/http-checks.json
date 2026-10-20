@@ -1,0 +1,71 @@
+{
+  "url": "https://merit-origins-cargo-technician.trycloudflare.com",
+  "checks": [
+    {
+      "name": "public health",
+      "passed": true,
+      "seconds": 1.0,
+      "detail": true
+    },
+    {
+      "name": "unauthenticated product API",
+      "passed": true,
+      "seconds": 0.293,
+      "detail": 401
+    },
+    {
+      "name": "same-origin HTTPS login",
+      "passed": true,
+      "seconds": 0.085,
+      "detail": "200; Secure cookie"
+    },
+    {
+      "name": "authenticated session",
+      "passed": true,
+      "seconds": 0.313,
+      "detail": true
+    },
+    {
+      "name": "product catalog",
+      "passed": true,
+      "seconds": 0.207,
+      "detail": 1068
+    },
+    {
+      "name": "bootstrap",
+      "passed": true,
+      "seconds": 0.782,
+      "detail": {
+        "username": "admin",
+        "auth_enabled": true
+      }
+    },
+    {
+      "name": "app HTML",
+      "passed": true,
+      "seconds": 0.429,
+      "detail": "text/html; charset=utf-8"
+    },
+    {
+      "name": "real Gemini JSON",
+      "passed": true,
+      "seconds": 0.825,
+      "detail": {
+        "model": "gemini-3.1-flash-lite",
+        "mode": "real"
+      }
+    },
+    {
+      "name": "real Gemini SSE",
+      "passed": true,
+      "seconds": 0.86,
+      "detail": {
+        "events": 2,
+        "data": {
+          "cloudflare_connected": true
+        },
+        "content_type": "text/event-stream; charset=utf-8"
+      }
+    }
+  ]
+}
