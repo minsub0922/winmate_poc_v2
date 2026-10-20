@@ -106,7 +106,7 @@ df -h . /tmp
 
 ## 3. 반드시 함께 옮길 파일
 
-재현 브랜치는 **`codex/ubuntu-reproduction-20261021`**이다. 원격 `main`은 공통 이력이 없는 별도 라이브러리 코드이므로 아래 4.0절에서 브랜치를 지정한다. 재현에 필요한 사용자 앱·공용 PoC·제품 원본 DB·정적 자산·검증 자료는 이 브랜치에 함께 포함한다. `app/`만 복사하지 않는다. Git 반입은 실제 checkout한 커밋을, 별도 파일 운반은 작업 트리 manifest를 재현 기준으로 기록한다.
+재현 기준 브랜치는 **`main`**이다. 현재 사용자 앱 구성을 그대로 유지해 재현 브랜치의 코드·데이터·정적 자산을 `main`에 통합했다. 재현에 필요한 사용자 앱·공용 PoC·제품 원본 DB·검증 자료도 함께 포함한다. `app/`만 복사하지 않는다. Git 반입은 실제 checkout한 커밋을, 별도 파일 운반은 작업 트리 manifest를 재현 기준으로 기록한다.
 
 수집 과정의 대형 PDF·중간 HTML·전후 DB 사본 등 하위 `.gitignore`가 제외하는 검토 캐시는 Git 반입에 포함하지 않는다. 앱이 읽는 원본 SQLite, 검토된 제품 상세, 정본 장표 입력, 이미지·폰트와 해당 출처·검토 대장은 포함한다. 캐시는 앱 실행·재빌드 입력과 구분한다.
 
@@ -156,7 +156,7 @@ test -f app/data/static/index.html
 GitHub 접속이 가능한 준비 머신에서 다음처럼 브랜치를 지정한다. 사내망에서 직접 접속할 수 없으면 이 사본으로 5절의 Ubuntu용 패키지를 준비하고 파일로 반입한다.
 
 ```bash
-git clone --single-branch --branch codex/ubuntu-reproduction-20261021 \
+git clone --single-branch --branch main \
   https://github.com/minsub0922/winmate_poc_v2.git winmate
 cd winmate
 git rev-parse HEAD

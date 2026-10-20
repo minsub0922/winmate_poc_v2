@@ -1,8 +1,8 @@
 # Ubuntu 재현 기준
 
-재현 브랜치: `codex/ubuntu-reproduction-20261021`.
+재현 기준 브랜치: `main`.
 
-`BOOTSTRAP.md`의 Git 확보·Ubuntu 준비·반입·실행·검증 절차를 따른다. 원격 `main`은 현재 사용자 앱과 공통 이력이 없는 별도 라이브러리 코드이므로 재현 브랜치를 명시한다. 실제로 checkout한 커밋을 인수 기록에 남긴다.
+`BOOTSTRAP.md`의 Git 확보·Ubuntu 준비·반입·실행·검증 절차를 따른다. 현재 사용자 앱 버전을 유지하면서 재현 브랜치의 코드·자료를 `main`에 통합했다. 실제로 checkout한 커밋을 인수 기록에 남긴다. `codex/ubuntu-reproduction-20261021`은 초기 재현 스냅샷의 이력으로 남아 있다.
 
 `environment-20261021/`에는 Mac에서 확인한 Node/npm/Python 버전과 설치된 Python 배포판의 버전 목록을 보관한다. 이 목록은 Ubuntu 준비 머신의 버전 제약 입력이며 Ubuntu용 wheel이나 실행 파일이 아니다. OS·CPU·glibc가 같은 Ubuntu에서 Node/Python 런타임·OS 패키지·npm 캐시·wheel·Chromium을 준비한다.
 
