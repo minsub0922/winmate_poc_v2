@@ -90,7 +90,11 @@ app/.venv/bin/python -B app/scripts/check_secrets.py
 
 ## 저장·한계
 
-기존 localStorage/IndexedDB 키와 데이터 형식을 유지한다. `/migration.html`에서 JSON/Blob을 백업·복원하며, 같은 ID는 갱신하고 다른 기존 기록은 유지한다. Claude origin의 개인 자료는 자동으로 복사하지 않는다. 과거 사용자 기록은 보존하되 새 예시 기록은 주입하지 않는다.
+기존 localStorage/IndexedDB 키와 데이터 형식을 유지한다. `/migration.html`에서 JSON/Blob을 백업·복원하며, 같은 ID는 갱신하고 다른 기존 기록은 유지한다. Claude origin의 개인 자료는 자동으로 복사하지 않는다.
+
+사용자 요청에 따라 `admin`에는 첫 접속 시 `[샘플]` 제안서 3개(카페 메뉴보드, 호텔 AI 스테이, 대학 강의실·도서관)를 넣는다. 기존 Best Scenario의 편집 가능한 복사본으로, AI 호출의 대체 응답이 아니다. 기존 기록과 샘플 수정 내용을 덮어쓰지 않고, 삭제한 샘플을 다시 만들지 않는다. 다른 계정에는 자동으로 넣지 않는다. 각 기기는 같은 초기 샘플을 받지만, 이후 편집·삭제는 기존 브라우저 저장소에 보관하며 기기 사이에 자동 동기화하지 않는다.
+
+외부 로그인·초기 로딩·샘플을 1500/900/390px와 장애 상황까지 검사하려면 `WINMATE_TEST_URL=https://배포주소 WINMATE_TEST_PASSWORD='현재 비밀번호' node app/tests/admin-history.mjs`를 실행한다. 검사는 격리된 브라우저를 쓰며 기존 사용자의 브라우저 자료를 수정하지 않는다. 결과는 `docs/migration/06-admin-history.md`에 기록했다.
 
 긴 작업은 화면 이동과 새로고침 후 계속 확인할 수 있다. 실패/취소한 작업의 원문 재시도는 서버 메모리에서 한 시간 보관한다. 성공하면 원문 closure를 해제한다. 서버가 재시작되거나 자료가 만료된 긴 첨부는 재업로드가 필요하며 2만 자 excerpt로 조용히 다시 실행하지 않는다.
 

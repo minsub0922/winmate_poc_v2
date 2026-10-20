@@ -8,6 +8,7 @@ import sys
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
+from starlette.middleware.gzip import GZipMiddleware
 
 from .products import ProductRepository
 from .auth import integrate_app
@@ -28,6 +29,7 @@ async def lifespan(app):
 
 
 app = FastAPI(title='Winmate v2',lifespan=lifespan)
+app.add_middleware(GZipMiddleware, minimum_size=1000, compresslevel=5)
 app.include_router(poc_router)
 integrate_app(app)
 
@@ -39,8 +41,13 @@ def health():
 
 
 @app.get('/api/bootstrap')
-def bootstrap():
-    return {'catalog':json.loads((DATA/'catalog.json').read_text()),'images':json.loads((DATA/'images.json').read_text()),'products':app.state.products.bootstrap(),'capabilities':poc_capabilities(),'user':{'username':app.state.auth.credentials().username if app.state.auth.config.enabled else None,'auth_enabled':app.state.auth.config.enabled}}
+def bootstrap(response: Response):
+    response.headers['Cache-Control'] = 'no-store'
+    username = app.state.auth.credentials().username if app.state.auth.config.enabled else None
+    user = {'username':username,'auth_enabled':app.state.auth.config.enabled}
+    if username == 'admin':
+        user['sample_history'] = {'version':1,'scenarios':['bs01','bs21','bs03']}
+    return {'catalog':json.loads((DATA/'catalog.json').read_text()),'images':json.loads((DATA/'images.json').read_text()),'products':app.state.products.bootstrap(),'capabilities':poc_capabilities(),'user':user}
 
 
 @app.get('/api/products')
@@ -98,7 +105,7 @@ def migration_export():
 @app.get('/')
 def index():
     if not (WEB/'index.html').exists(): raise HTTPException(503,'웹 빌드가 없습니다. app/web에서 npm run build를 실행하세요.')
-    return FileResponse(WEB/'index.html')
+    return FileResponse(WEB/'index.html', headers={'Cache-Control':'no-store'})
 
 
 if __name__ == '__main__':

@@ -1,0 +1,115 @@
+PYTHONDONTWRITEBYTECODE=1 app/.venv/bin/python -B -m pytest app/tests/test_stage1_api.py app/tests/test_strict_policy.py app/tests/test_provider_strict.py app/tests/test_job_retry.py app/tests/test_auth.py app/tests/test_delivery.py -q
+.......................................................... [ 46%]
+...................................................................                                      [100%]
+125 passed, 54 subtests passed in 6.56s
+node app/tests/transport.mjs
+[
+  {
+    "case": "HTTP JSON response",
+    "pass": true,
+    "ms": 10
+  },
+  {
+    "case": "SSE UTF8 byte boundaries",
+    "pass": true,
+    "ms": 2
+  },
+  {
+    "case": "SSE split CRLF boundaries",
+    "pass": true,
+    "ms": 0
+  },
+  {
+    "case": "multiple cumulative events",
+    "pass": true,
+    "ms": 0
+  },
+  {
+    "case": "keepalive comments",
+    "pass": true,
+    "ms": 0
+  },
+  {
+    "case": "multi-line data JSON",
+    "pass": true,
+    "ms": 0
+  },
+  {
+    "case": "HTTP typed error",
+    "pass": true,
+    "ms": 0
+  },
+  {
+    "case": "stream error is not success",
+    "pass": true,
+    "ms": 0
+  },
+  {
+    "case": "closed stream missing result",
+    "pass": true,
+    "ms": 0
+  },
+  {
+    "case": "malformed stream JSON",
+    "pass": true,
+    "ms": 0
+  },
+  {
+    "case": "aborted headers fetch",
+    "pass": true,
+    "ms": 0
+  },
+  {
+    "case": "aborted active stream",
+    "pass": true,
+    "ms": 0
+  }
+]
+node app/tests/sample-history.mjs
+PASS admin receives three samples
+PASS other account receives none
+PASS disabled authentication receives none
+PASS no policy receives none
+PASS existing records remain first and unchanged
+PASS same sample IDs retain edits
+PASS reload does not duplicate samples
+PASS deleted sample is not resurrected
+PASS old version marker accepts requested samples
+PASS duplicate policy entries are deduplicated
+PASS source scenario is never changed
+PASS samples are labeled and not falsely exported
+PASS failed persistence does not set completion marker
+PASS marker read failure preserves existing records
+14/14 sample-history cases passed
+app/.venv/bin/python -B app/tests/strict_contracts.py
+PoC settings: GEMINI_API_KEY 가 없습니다 — 모든 AI 기능이 503(no_api_key)으로 거절됩니다.
+job 51c7024803a74d74 (rfp) failed: app.api.poc.provider.ProviderError: upstream_unavailable: HTTP 503 key=[redacted] [redacted]
+job 6372bfc4fe66470e (rfp) failed: ValueError: boom
+PASS products/P01 count is 1068 across list, health and bootstrap
+PASS products/P02 order: 40 curated first in catalog order, stable positions, unique ids
+PASS products/P03 detail by id equals the list row (curated + database samples, encoded ids)
+PASS products/P04 search q matches model, lower-case model and Korean category text
+PASS products/P05 limit/offset windows tile the full list without gaps or duplicates
+PASS products/P06 search total reports the filtered count, not the catalog size
+PASS products/P07 offset without limit is honoured
+PASS products/P08 guards: invalid paging is 422, unknown ids/packs are 404, traversal is not 500
+PASS products/P09 LIKE wildcards in q are literal characters
+PASS products/P10 identity/spec fields are well-typed for every product
+PASS products/P11 thumbnail and gallery pack references resolve to images (10 distinct packs)
+PASS products/P12 ten products resolve their references across the four published detail packs
+PASS jobs/J01 queue: one worker runs jobs strictly one after another
+PASS jobs/J02 cancel while queued: function never runs, job ends cancelled
+PASS jobs/J03 cancel while running is cooperative and leaves a warning event
+PASS jobs/J04 waiting → validated resume → duplicate answer conflict → done
+PASS jobs/J05 cancel a waiting job: immediate, clears waiting, later answers conflict
+PASS jobs/J06 event cursor: since filter, next_seq, bounded buffer truncation
+PASS jobs/J07 waiting longer than the TTL is closed as expired on housekeeping
+PASS jobs/J08 failures become error state with stable code and redacted message
+PASS jobs/J09 retention evicts the oldest terminal jobs and never a waiting one
+PASS jobs/J10 HTTP error contract: malformed bodies 422, unknown jobs 404 everywhere
+PASS jobs/J11 HTTP cursor, SSE resume, answer conflict and terminal cancel on a server-owned job
+PASS jobs/J12 failing provider never yields a success payload from /api/llm (error contract)
+PASS jobs/J13 missing key: model endpoints answer a clear 503, never a rule/dummy success
+PASS jobs/J14 offline switch is rejected instead of running a substitute path
+products: 12/12 passed (minimum 10)
+jobs: 14/14 passed (minimum 10)

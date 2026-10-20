@@ -1,0 +1,67 @@
+{
+  "base": "https://merit-origins-cargo-technician.trycloudflare.com",
+  "cases": [
+    {
+      "name": "external form login and 3 samples at 1500px",
+      "passed": true,
+      "ms": 4846
+    },
+    {
+      "name": "external form login and 3 samples at 900px",
+      "passed": true,
+      "ms": 4362
+    },
+    {
+      "name": "external form login and 3 samples at 390px",
+      "passed": true,
+      "ms": 4187
+    },
+    {
+      "name": "all 3 sample storyboards open with actual layouts",
+      "passed": true,
+      "ms": 4726
+    },
+    {
+      "name": "sample editing persists after reload without duplication",
+      "passed": true,
+      "ms": 20777
+    },
+    {
+      "name": "existing proposal remains untouched during initial samples merge",
+      "passed": true,
+      "ms": 10241
+    },
+    {
+      "name": "deleted sample does not return on a later session",
+      "passed": true,
+      "ms": 7272
+    },
+    {
+      "name": "new independent device receives samples",
+      "passed": true,
+      "ms": 2173
+    },
+    {
+      "name": "slow application module always leaves a visible loading screen",
+      "passed": true,
+      "ms": 2613
+    },
+    {
+      "name": "blocked entry script shows retry instead of a white screen",
+      "passed": true,
+      "ms": 1301
+    },
+    {
+      "name": "bootstrap outage shows an actionable failure screen",
+      "passed": true,
+      "ms": 1285
+    },
+    {
+      "name": "render failure preserves history and shows a recovery screen",
+      "passed": true,
+      "ms": 2408
+    }
+  ],
+  "passed": 12,
+  "total": 12
+}

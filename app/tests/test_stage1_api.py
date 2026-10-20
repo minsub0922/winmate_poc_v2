@@ -57,6 +57,21 @@ class LocalContracts(unittest.TestCase):
                         self.assertEqual(response.status_code,200)
                         self.assertEqual(response.json()['user']['username'],username)
                         self.assertNotIn('hash',response.json()['user'])
+                        self.assertNotIn('sample_history',response.json()['user'])
+        finally:app.state.auth.reconfigure(previous)
+
+    def test_admin_sample_history_policy_and_private_bootstrap(self):
+        previous=app.state.auth.config
+        try:
+            with tempfile.TemporaryDirectory() as directory:
+                app.state.auth.reconfigure(replace(previous,enabled=True,auth_dir=Path(directory),iterations=1000))
+                app.state.auth.set_credentials('admin','synthetic-test-password-1234')
+                token,_=app.state.auth.issue_token()
+                response=self.client.get('/api/bootstrap',headers={'Cookie':f'winmate_session={token}'})
+                self.assertEqual(response.status_code,200)
+                self.assertEqual(response.headers['cache-control'],'no-store')
+                self.assertEqual(response.json()['user']['sample_history'],{'version':1,'scenarios':['bs01','bs21','bs03']})
+                self.assertEqual(self.client.get('/api/bootstrap').status_code,401)
         finally:app.state.auth.reconfigure(previous)
 
     def test_database_detail_packs_match_published_data(self):

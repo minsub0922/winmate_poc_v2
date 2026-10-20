@@ -3,6 +3,9 @@ import { useSyncExternalStore } from 'react';
 import { normalizeCovers } from '../services/catalog.js';
 import { bgUrl } from '../services/packs.js';
 import { legacySrc } from '../domain/templates/legacy_img.js';
+import { getBootstrap } from '../api/bootstrap.js';
+import { mergeSampleHistory } from './sample-history.js';
+import { scenarioStoryboard } from '../domain/templates/scenario_storyboard.js';
 
 const KEY = 'winmate.v2.proposals';
 const UKEY = 'winmate.v2.ui';
@@ -23,11 +26,21 @@ function emptyProposal() {
 }
 
 // ---------- persistence ----------
-// A new browser starts with no proposals — no example history is injected. Proposals already stored here (including
-// examples an earlier version added) are kept exactly as they are.
+// Only the explicitly configured admin account receives requested sample copies, once per browser.
+// The same storage key and proposal format preserve existing history and backups.
 function load() {
-  try { const raw = browserStorage.getItem(KEY); if (raw) { const v = JSON.parse(raw); if (Array.isArray(v)) return migrateCovers(v.filter((p) => p && p.id)); } } catch (e) {}
-  return [];
+  let list = [];
+  try {
+    const raw = browserStorage.getItem(KEY);
+    if (raw) {
+      const v = JSON.parse(raw);
+      if (!Array.isArray(v)) return [];
+      list = migrateCovers(v.filter((p) => p && p.id));
+    }
+  } catch (e) { return []; }
+  const user = getBootstrap().user;
+  const merged = mergeSampleHistory(list, user, browserStorage, scenarioStoryboard);
+  return merged;
 }
 // saved history: every 표지 (and any ‘표지’ part) moves into the hidden deck part — no 표지 bubble on any Storyboard, the 표지
 // stays as the first page of the PPT 레이아웃 panel (data.js normalizeCovers). Saved back once when something moved.
