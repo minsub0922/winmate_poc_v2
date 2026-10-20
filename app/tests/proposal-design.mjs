@@ -39,14 +39,14 @@ const edited={scenario:'bs_v_ai_apartment_1',parts:[{layouts:[{f:'L_PH_P_I',ov:{
 const expected=structuredClone(edited);assert.equal(migrateProposalDesign(edited),true);assert.equal(migrateProposalDesign(edited),false);
 assert.equal(edited.parts[0].layouts[0].ov.design,'winmate-2');delete edited.parts[0].layouts[0].ov.design;assert.deepEqual(edited,expected);
 assert.equal(migrateProposalDesign({...edited,scenario:'bs01'}),false);
-const decode=s=>s.replace(/<[^>]*>/g,' ').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&apos;|&#39;/g,"'").replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(+n)).replace(/\s/g,'');
+const decode=s=>s.replace(/<[^>]*>/g,' ').replace(/&(amp|lt|gt|quot|apos|#\d+|#x[\da-f]+);/gi,(_,key)=>({amp:'&',lt:'<',gt:'>',quot:'"',apos:"'"}[key]??String.fromCodePoint(key.startsWith('#x')?parseInt(key.slice(2),16):Number(key.slice(1))))).replace(/\s/g,'');
 let notes=0,tables=0;
 for(const s of now.scenarios){
  const zip=await JSZip.loadAsync(await fs.readFile(path.join(root,'output/description-standards/decks',s.id+'.pptx')));
  for(let k=0;k<now.fills[s.id].length;k++){
   const fill=now.fills[s.id][k],source=b[fill.f];
   const noteFile=zip.file(`ppt/notesSlides/notesSlide${k+1}.xml`);
-  if(fill.notes.trim()){assert.ok(decode(await noteFile.async('string')).includes(decode(fill.notes)),s.id+' '+(k+1)+' complete source preserved in notes');notes++;}
+  if(fill.notes.trim()){assert.ok(decode(await noteFile.async('string')).includes(fill.notes.replace(/\s/g,'')),s.id+' '+(k+1)+' complete source preserved in notes');notes++;}
   const table=[...source.matchAll(/<div\b[^>]*data-desc-table="[^>]*style="([^"]+)"/g)];
   if(table.length){const xml=await zip.file(`ppt/slides/slide${k+1}.xml`).async('string');const grids=[...xml.matchAll(/<a:tblGrid>([\s\S]*?)<\/a:tblGrid>/g)];assert.equal(grids.length,table.length);
    for(let j=0;j<table.length;j++){const width=Number(/(?:^|;)\s*width:\s*([\d.]+)px/.exec(table[j][1])[1]);const emu=[...grids[j][1].matchAll(/<a:gridCol w="(\d+)"/g)].reduce((n,m)=>n+Number(m[1]),0);assert.ok(Math.abs(emu/9525-width)<.2,'native table follows the redesigned column width');tables++;}

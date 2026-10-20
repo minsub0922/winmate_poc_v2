@@ -14,3 +14,17 @@ test('unrelated origins/ports and spoofed forwarding headers stay rejected', () 
     assert.equal(localProxyOrigin(r, api), null);
   }
 });
+test('same-origin Referer is normalized when Origin is absent', () => {
+  for(const ref of ['http://127.0.0.1:5219/spatial','http://localhost:5219/spatial?view=3d']){
+    assert.equal(localProxyOrigin(request(undefined,'127.0.0.1:5219',5219,{referer:ref,'sec-fetch-site':'same-origin'}),api),api);
+  }
+});
+test('Referer fallback never rescues an invalid Origin or a cross-site request', () => {
+  for(const extra of [
+    {referer:'http://evil.example:5219/spatial'},
+    {referer:'http://localhost:5173/spatial'},
+    {referer:'http://localhost:5219/spatial','sec-fetch-site':'cross-site'},
+    {referer:'http://localhost:5219/spatial','sec-fetch-site':'same-site'},
+  ])assert.equal(localProxyOrigin(request(undefined,'localhost:5219',5219,extra),api),null);
+  assert.equal(localProxyOrigin(request('null','localhost:5219',5219,{referer:'http://localhost:5219/spatial'}),api),null);
+});

@@ -94,8 +94,8 @@ export function composeReference(scene,c,plan,context){
   parts.push(fixed(context.name,754,514,420,50,16));
  }else if(plan.family==='contents'){
   parts.push(fixed('CONTENTS',64,39,1152,22,12,`color:${blue};font-weight:700`),text(plan.h,'제안 구성',64,72,1152,60,32,'font-weight:700',30));
-  const items=plan.contents.length?plan.contents:context.sections.map(()=>null).slice(0,6);
-  for(let k=0;k<Math.min(6,items.length);k++){const x=64+(k%3)*392,y=174+Math.floor(k/3)*234;const key=items[k];parts.push(image(plan.photos[k%Math.max(1,plan.photos.length)],x,y,368,126,'cover'),fixed(String(k+1).padStart(2,'0'),x,y+144,36,24,14,`color:${blue};font-weight:700`),text(key,value(key)||context.sections[k]||'제품·솔루션 구성',x+40,y+142,328,66,19,'font-weight:600',45));}
+  const items=plan.contents.length?plan.contents:[null,null,null];
+  for(let k=0;k<Math.min(6,items.length);k++){const x=64+(k%3)*392,y=174+Math.floor(k/3)*234,ph=items.length<=3?278:126;const key=items[k];parts.push(image(plan.photos[k%Math.max(1,plan.photos.length)],x,y,368,ph,'cover'),fixed(String(k+1).padStart(2,'0'),x,y+ph+18,36,24,14,`color:${blue};font-weight:700`),text(key,value(key)||context.sections[k]||['공간별 제품 구성','고객 경험과 솔루션','구축·운영 지원'][k%3],x+40,y+ph+16,328,66,19,'font-weight:600',45));}
  }else if(plan.family==='invitation'){
   parts.push(image(null,64,164,630,440,'cover'),fixed('BUSINESS SOLUTION STUDIO',750,170,466,24,12,`color:${blue};font-weight:700`),text(null,'관심 있는 제품과 솔루션을 직접 경험해 보세요',750,216,466,148,33,'font-weight:700',80),text(null,'실제 공간에서 제품을 살펴보고, 필요한 기능과 연동 범위를 함께 확인합니다.',750,382,466,96,18,`color:${muted}`,130));
   ['관심 제품과 적용 공간 정리','체험할 기능과 솔루션 협의','영업 담당자와 방문 일정 확인'].forEach((v,k)=>parts.push(text(null,v,750,510+k*42,466,32,17,'',70)));
