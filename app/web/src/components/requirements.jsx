@@ -14,6 +14,7 @@ import { isReqSaved, reqSig, industryLabel } from './ctxconfirm.jsx';
 import { BubblePopup } from './bubblepop.jsx';
 import { TagStrip } from './tagcard.jsx';
 import { useDetailPeek } from './peek.jsx';
+import { HistoryReuse } from './history-reuse.jsx';
 
 const KIND = [['products', 'product', '제품', 2], ['solutions', 'solution', '솔루션', 1], ['cases', 'case', '유관사례', 1]];
 export function refsOf(p) { return [...p.ctx.products.map((x) => 'product:' + x), ...p.ctx.solutions.map((x) => 'solution:' + x), ...p.ctx.cases.map((x) => 'case:' + x)]; }
@@ -455,6 +456,7 @@ export function ReqPopup({ p, onClose, onSaved }) {
         <span className="sp" />
         <button className="btn btn-primary" onClick={save}><Icon name="check" size={15} />저장</button>
       </>}>
+      <HistoryReuse p={p} kind="req" />
       <p className="bp-intro">자료가 있으면 먼저 첨부하고, 자유형식이나 입력 폼으로 채우거나 보완하세요. 입력한 내용은 모두 Storyboard의 맥락이 돼요.</p>
       <section className="req-sec" aria-label="첨부파일">
         <FilesTab p={p} />

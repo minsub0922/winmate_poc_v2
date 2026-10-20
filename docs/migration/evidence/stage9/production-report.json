@@ -1,0 +1,76 @@
+{
+  "base": "https://merit-origins-cargo-technician.trycloudflare.com",
+  "smoke": true,
+  "cases": [
+    {
+      "group": "requirements",
+      "name": "button matches the 60px context-import button",
+      "passed": true,
+      "ms": 5198
+    },
+    {
+      "group": "requirements",
+      "name": "structured preview shows all requirement sections",
+      "passed": true,
+      "ms": 7530
+    },
+    {
+      "group": "requirements",
+      "name": "import copies exact content with fresh attachment and keyman IDs",
+      "passed": true,
+      "ms": 5105
+    },
+    {
+      "group": "requirements",
+      "name": "preview fits 390px",
+      "passed": true,
+      "ms": 3773
+    },
+    {
+      "group": "hover",
+      "name": "pointer opens details without selecting or importing",
+      "passed": true,
+      "ms": 4212
+    },
+    {
+      "group": "hover",
+      "name": "hovering another history preserves selected import target",
+      "passed": true,
+      "ms": 6285
+    },
+    {
+      "group": "hover",
+      "name": "pointer can enter and scroll a long detail card",
+      "passed": true,
+      "ms": 5058
+    },
+    {
+      "group": "hover",
+      "name": "click selects the row and closes transient hover",
+      "passed": true,
+      "ms": 4718
+    },
+    {
+      "group": "hover",
+      "name": "Escape dismisses hover and leaves parent dialog open",
+      "passed": true,
+      "ms": 5407
+    },
+    {
+      "group": "hover",
+      "name": "context history hover retains image and metadata support",
+      "passed": true,
+      "ms": 3777
+    }
+  ],
+  "groups": {
+    "requirements": {
+      "total": 4,
+      "passed": 4
+    },
+    "hover": {
+      "total": 6,
+      "passed": 6
+    }
+  }
+}

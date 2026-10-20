@@ -1,0 +1,178 @@
+{
+  "base": "http://127.0.0.1:5194",
+  "smoke": false,
+  "cases": [
+    {
+      "group": "requirements",
+      "name": "button matches the 60px context-import button",
+      "passed": true,
+      "ms": 1518
+    },
+    {
+      "group": "requirements",
+      "name": "structured preview shows all requirement sections",
+      "passed": true,
+      "ms": 1717
+    },
+    {
+      "group": "requirements",
+      "name": "keymen, weights and every requirement are visible",
+      "passed": true,
+      "ms": 1593
+    },
+    {
+      "group": "requirements",
+      "name": "mention tags use human-readable catalog labels",
+      "passed": true,
+      "ms": 1712
+    },
+    {
+      "group": "requirements",
+      "name": "attachment name, size and memo appear",
+      "passed": true,
+      "ms": 1582
+    },
+    {
+      "group": "requirements",
+      "name": "long source text is not truncated",
+      "passed": true,
+      "ms": 1772
+    },
+    {
+      "group": "requirements",
+      "name": "selection alone keeps current requirements unchanged",
+      "passed": true,
+      "ms": 1762
+    },
+    {
+      "group": "requirements",
+      "name": "cancel keeps source and target unchanged",
+      "passed": true,
+      "ms": 1755
+    },
+    {
+      "group": "requirements",
+      "name": "import copies exact content with fresh attachment and keyman IDs",
+      "passed": true,
+      "ms": 1923
+    },
+    {
+      "group": "requirements",
+      "name": "empty sections have explicit empty states",
+      "passed": true,
+      "ms": 1645
+    },
+    {
+      "group": "requirements",
+      "name": "preview fits 900px",
+      "passed": true,
+      "ms": 1696
+    },
+    {
+      "group": "requirements",
+      "name": "preview fits 390px",
+      "passed": true,
+      "ms": 1688
+    },
+    {
+      "group": "hover",
+      "name": "pointer opens details without selecting or importing",
+      "passed": true,
+      "ms": 2014
+    },
+    {
+      "group": "hover",
+      "name": "hover includes keymen, creator notes and attachments",
+      "passed": true,
+      "ms": 1904
+    },
+    {
+      "group": "hover",
+      "name": "hovering another history preserves selected import target",
+      "passed": true,
+      "ms": 2007
+    },
+    {
+      "group": "hover",
+      "name": "pointer can enter and scroll a long detail card",
+      "passed": true,
+      "ms": 2031
+    },
+    {
+      "group": "hover",
+      "name": "leaving row and detail closes the card",
+      "passed": true,
+      "ms": 2232
+    },
+    {
+      "group": "hover",
+      "name": "switching hovered rows updates the detail",
+      "passed": true,
+      "ms": 2344
+    },
+    {
+      "group": "hover",
+      "name": "click selects the row and closes transient hover",
+      "passed": true,
+      "ms": 2018
+    },
+    {
+      "group": "hover",
+      "name": "Escape dismisses hover and leaves parent dialog open",
+      "passed": true,
+      "ms": 1944
+    },
+    {
+      "group": "hover",
+      "name": "keyboard close restores focus without reopening hover",
+      "passed": true,
+      "ms": 2332
+    },
+    {
+      "group": "hover",
+      "name": "search clears transient hover",
+      "passed": true,
+      "ms": 1952
+    },
+    {
+      "group": "hover",
+      "name": "history list scrolling closes an anchored card",
+      "passed": true,
+      "ms": 2015
+    },
+    {
+      "group": "hover",
+      "name": "keyboard focus also exposes detail",
+      "passed": true,
+      "ms": 2115
+    },
+    {
+      "group": "hover",
+      "name": "touch tap selects without a hover-only layer",
+      "passed": true,
+      "ms": 1917
+    },
+    {
+      "group": "hover",
+      "name": "context history hover retains image and metadata support",
+      "passed": true,
+      "ms": 1839
+    },
+    {
+      "group": "hover",
+      "name": "viewport resize closes a stale-positioned detail card",
+      "passed": true,
+      "ms": 1938
+    }
+  ],
+  "groups": {
+    "requirements": {
+      "total": 12,
+      "passed": 12
+    },
+    "hover": {
+      "total": 15,
+      "passed": 15
+    }
+  }
+}
