@@ -137,6 +137,12 @@ export function applyOverrides(root, ov, pageNo) {
     }
   }
   applySpatialBinding(root, ov?.spatial, ov?.t);
+  if (root.hasAttribute('data-reference-standard') && ov?.notes == null && Object.keys(ov?.t || {}).length) {
+    // Older saved copies keep all edited fragments in their presenter notes,
+    // including fragments no longer prominent in the editorial composition.
+    const note = root.querySelector('[data-proposal-note="source"]');
+    if (note) note.textContent = [...root.querySelectorAll('[data-tb]')].map(el => el.textContent.trim()).filter(Boolean).join('\n');
+  }
   if (pageNo != null) {
     root.querySelectorAll('[data-tb]').forEach((e) => {
       if (/^CONFIDENTIAL · \d+$/.test(e.textContent.trim())) e.textContent = 'CONFIDENTIAL · ' + pageNo;

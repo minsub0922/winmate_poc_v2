@@ -139,9 +139,9 @@ for(const source of sources){
   if(fresh){
    htmls[f]=c.html;
    const p=rolePart(scene),title=scene.role==='표지'?'표지 · '+source.name:scene.role==='브랜드 엔딩'?'마무리 · SAMSUNG':scene.title;
-   metas.push({f,c:'ST',cv:'ST_DESC',code:'DSTD-'+signature.slice(0,8).toUpperCase(),name:title,when:`${source.name} · ${scene.role} · 정보 구성과 편집 칸을 유지하며 Winmate 스타일로 제안할 때`,g:'표준 제안서 · 설명 기반 재구성',p,p2:null,ind:scene.ind,sol:null,
+   metas.push({f,c:'ST',cv:'ST_DESC',code:'DSTD-'+signature.slice(0,8).toUpperCase(),name:title,when:`${source.name} · ${scene.role} · 정보 구성과 편집 칸을 유지하며 Winmate 스타일로 제안할 때`,g:'표준 제안서 · 업종별',p,p2:null,ind:scene.ind,sol:null,
     pc:c.mapping.filter(x=>x.img!=null&&c.images[x.img]?.fit==='contain'&&!c.images[x.img]?.logo).length,req:[...new Set(['project',...(c.nI?['images']:[]),...(scene.products.length?['products']:[]),...(scene.solutions.length?['solutions']:[])])],prods:scene.products,sols:scene.solutions,
-    ph:0,phs:[],hl:scene.title,txt:scene.sourceText.join(' '),eb:source.name,foot:'명세 기반 재구성 · 사진은 등록 자료로 대체',sample:source.name,nT:c.nT,nI:c.nI,ik:c.nI?[...new Set(Object.values(c.images).map(im=>im.fit==='contain'?'cut':'space'))]:[],ih:c.nI?['명세의 이미지 칸 · 등록 사진/제품군 참고 컷']:[],sub:'설명 기반 구성 · Winmate 디자인',pf:Math.round(c.pf*10000)/10000,
+    ph:0,phs:[],hl:scene.title,txt:scene.sourceText.join(' '),eb:source.name,foot:'명세 기반 재구성 · 사진은 등록 자료로 대체',sample:source.name,nT:c.nT,nI:c.nI,ik:c.nI?[...new Set(Object.values(c.images).map(im=>im.fit==='contain'?'cut':'space'))]:[],ih:c.nI?['명세의 이미지 칸 · 등록 사진/제품군 참고 컷']:[],sub:'공간 사진과 핵심 설명 중심',pf:Math.round(c.pf*10000)/10000,
     reconstruction:true,design:'reference-3',reference:c.reference,sourceSpec:source.key,sourcePage:scene.number});
   }
   fills.push({f,t:c.texts,img:c.images,notes:scene.sourceText.join('\n'),design:'reference-3'});slides.push({f,role:scene.title});

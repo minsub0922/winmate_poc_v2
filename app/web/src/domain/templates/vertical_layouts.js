@@ -9,7 +9,7 @@ const footer = (customerSlot, sourceSlot, pageSlot) => text(customerSlot,'가상
 const defs = [
   {
     f:'L_PH_VX_COVER_A',name:'표지 · 공간 사진 + 하단 메시지',p:'cover',nT:7,nI:1,pf:.63,
-    when:'공간 사진을 전면에 놓고 짧은 고객별 메시지로 제안을 시작할 때',
+    when:'상단 공간 사진과 하단 메시지로 제안을 시작할 때',
     html:root(image(0,0,0,1280,454,'img/ph/of-meeting.jpg','고객 업종의 대표 공간 참고사진') +
       `<div style="${box(0,454,1280,4)}background:#1428a0"></div>` +
       text(0,'SPACE & BUSINESS',64,486,1152,24,13,'color:#1428a0;letter-spacing:.06em;font-weight:700') +
@@ -21,8 +21,8 @@ const defs = [
       text(6,'삼성 B2B 제품 · 솔루션',900,658,316,24,12,'text-align:right;color:#596170')),
   },
   {
-    f:'L_PH_VX_COVER_B',name:'표지 · 상단 메시지 + 넓은 현장 사진',p:'cover',nT:7,nI:1,pf:.575,
-    when:'현장 사진과 흰 메시지 영역을 비대칭으로 나눠 운영 개선 제안을 시작할 때',
+    f:'L_PH_VX_COVER_B',name:'표지 · 상단 메시지 + 넓은 현장 사진',p:'cover',nT:7,nI:1,pf:.625,
+    when:'상단의 짧은 메시지와 넓은 현장 사진으로 운영 개선 제안을 시작할 때',
     html:root(image(0,0,270,1280,450,'img/ph/of-control-room.jpg','고객 업종의 운영 현장 참고사진') +
       text(0,'OPERATIONS / NEXT',64,34,1152,26,13,'color:#1428a0;letter-spacing:.06em;font-weight:700') +
       text(1,'매일의 운영을 더 단순하게',64,70,1152,98,40,'font-weight:700;line-height:1.2') +

@@ -80,13 +80,16 @@ try{
     const cat=await import('/src/services/catalog.js'),{applyOverrides}=await import('/src/domain/slides/Slide.jsx'),{fillReady}=await import('/src/services/fill.js'),{fitDescriptionText}=await import('/src/domain/slides/description-fit.js');
     const h=document.querySelector('#description-render');h.innerHTML=cat.layoutHtml(f.f);const r=h.firstElementChild;applyOverrides(r,f,k+1);await fillReady(r);
     await Promise.all([...r.querySelectorAll('img')].map(im=>im.complete?null:new Promise(resolve=>{im.onload=im.onerror=resolve;setTimeout(resolve,5000);})));await document.fonts.ready;fitDescriptionText(r);
-    const clipping=[],small=[],visible=[];
+    const clipping=[],small=[],visible=[],textBoxes=[];
     for(const el of r.querySelectorAll('[data-tb]')){
      if(getComputedStyle(el).visibility==='hidden'||!el.textContent.trim())continue;
      if(el.scrollWidth>el.clientWidth+2||el.scrollHeight>el.clientHeight+2)clipping.push({i:el.dataset.tb,text:el.textContent,w:el.clientWidth,sw:el.scrollWidth,h:el.clientHeight,sh:el.scrollHeight});
      const size=parseFloat(getComputedStyle(el).fontSize);if(size<6)small.push({i:el.dataset.tb,size,text:el.textContent});visible.push(el.textContent);
+     const range=document.createRange();range.selectNodeContents(el);const b=range.getBoundingClientRect();textBoxes.push({i:el.dataset.tb,x:b.x,y:b.y,w:b.width,h:b.height,text:el.textContent});
     }
-    return {f:f.f,clipping,small,broken:[...r.querySelectorAll('img')].filter(im=>!im.complete||!im.naturalWidth).map(im=>im.alt),allText:r.textContent,visibleText:visible};
+    const overlaps=[];
+    for(let i=0;i<textBoxes.length;i++)for(let j=i+1;j<textBoxes.length;j++){const a=textBoxes[i],b=textBoxes[j],w=Math.min(a.x+a.w,b.x+b.w)-Math.max(a.x,b.x),h=Math.min(a.y+a.h,b.y+b.h)-Math.max(a.y,b.y);if(w>10&&h>4&&w*h>Math.min(a.w*a.h,b.w*b.h)*.15)overlaps.push({a:a.i,b:b.i,textA:a.text,textB:b.text});}
+    return {f:f.f,clipping,small,overlaps,broken:[...r.querySelectorAll('img')].filter(im=>!im.complete||!im.naturalWidth).map(im=>im.alt),allText:r.textContent,visibleText:visible};
    },{f:deck[k],k});
    rows.push({id:s.id,page:k+1,...result});
    const png=await page.screenshot({clip:{x:0,y:0,width:1280,height:720}});await fs.writeFile(path.join(out,'slides',s.id+'-'+String(k+1).padStart(3,'0')+'.png'),png);thumbs.push(await sharp(png).resize(320,180).png().toBuffer());
@@ -130,7 +133,7 @@ try{
  if(studioBaseline&&!exports.length)exports.push(...studioBaseline.exports);
  const report={dataSha256:createHash('sha256').update(JSON.stringify(data)).digest('hex'),renderSha256,htmlSha256,graphicsSha256,contracts,errors,rows,exports,missingSourceText:content,
   ...(studioBaseline?{verificationHistory:{baseline:studioBaseline.dataSha256,unchangedPages:studioBaseline.rows.length-studioBaseline.studioChanges.length,refreshedPages:studioBaseline.studioChanges.length,scope:'Invitation and TOC refresh; every other fill and layout HTML compared byte-for-byte'}}:{}),
-  counts:{decks:selected.length,pages:rows.length,broken:rows.filter(r=>r.broken.length).length,clipping:rows.filter(r=>r.clipping.length).length,smallText:rows.filter(r=>r.small.length).length}};
+  counts:{decks:selected.length,pages:rows.length,broken:rows.filter(r=>r.broken.length).length,clipping:rows.filter(r=>r.clipping.length).length,overlaps:rows.filter(r=>r.overlaps?.length).length,smallText:rows.filter(r=>r.small.length).length}};
  if(process.env.DESCRIPTION_UI_ONLY){
   await page.evaluate(()=>{document.querySelector('#description-render').remove();document.querySelector('.app').style.display='';});
   await page.locator('.sb-bs').click();await page.locator('.bsl').first().waitFor();assert.equal(await page.locator('.bsl').count(),82);
@@ -155,6 +158,6 @@ try{
  }
  const reportName=process.env.DESCRIPTION_UI_ONLY?'ui-verification.json':process.env.DESCRIPTION_ONLY?'verification-'+process.env.DESCRIPTION_ONLY+'.json':'verification.json';
  await fs.writeFile(path.join(out,reportName),JSON.stringify(report,null,2));console.log('REPORT',JSON.stringify(report.counts),'missing text',content.length);
- assert.deepEqual(contracts.bad,[]);assert.deepEqual(errors,[]);assert.equal(report.counts.broken,0);assert.equal(report.counts.clipping,0);assert.deepEqual(content,[]);
+ assert.deepEqual(contracts.bad,[]);assert.deepEqual(errors,[]);assert.equal(report.counts.broken,0);assert.equal(report.counts.clipping,0);assert.equal(report.counts.overlaps,0);assert.deepEqual(content,[]);
  for(const x of exports){assert.equal(x.slides,data.fills[x.id].length);assert.equal(x.restored,x.slides);assert.deepEqual(x.warnings,[]);assert.ok(x.texts>0&&x.pics>0);}
 }finally{if(browser)await browser.close();await server.close();}

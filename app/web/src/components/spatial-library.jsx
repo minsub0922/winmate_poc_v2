@@ -34,7 +34,7 @@ export function SpatialHistoryCard({item,library,onOpen,onDelete}){
   const [view,setView]=useState('2d'),[visible,setVisible]=useState(false),[archived,setArchived]=useState(null),[rendered,setRendered]=useState(null),[thumbnailFailed,setThumbnailFailed]=useState(false),[error,setError]=useState(''),[attempt,setAttempt]=useState(0);
   const card=useRef(null),resolved=frozen?(archived?.sourceHash===revision?archived:null):library;
   // Stored example thumbnails are 3D renders. A missing thumbnail is rendered again in 3D.
-  const image3d=!thumbnailFailed&&item.thumbnail||rendered;
+  const image3d=!frozen&&!thumbnailFailed&&item.thumbnail||rendered;
   useEffect(()=>{
     if(typeof IntersectionObserver==='undefined'){setVisible(true);return;}
     const observer=new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting)){setVisible(true);observer.disconnect();}},{rootMargin:'120px'});

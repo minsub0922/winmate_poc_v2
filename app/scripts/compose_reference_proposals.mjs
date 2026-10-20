@@ -1,12 +1,14 @@
 // Editorial compositions based on the existing AI Stay and shared-office decks.
 // Source object fragments are evidence, not a finished visual composition.
 import {legacySrc} from '../web/src/domain/templates/legacy_img.js';
+import {readFileSync} from 'node:fs';
+const EDITORIAL_COPY=JSON.parse(readFileSync(new URL('./proposal_editorial_copy.json',import.meta.url),'utf8'));
 const esc=s=>String(s??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 const clean=s=>String(s??'').replace(/<br\s*\/?\s*>/gi,'\n').replace(/<[^>]*>/g,'').replace(/&amp;/g,'&').replace(/&nbsp;/g,' ').replace(/\s+/g,' ').trim();
 function excerpt(value,max=125){
- const s=clean(value).replace(/[ㅣ|]/g,' · ');if(s.length<=max)return s;
+ const s=clean(value).replace(/[ㅣ|]/g,' · ');if(EDITORIAL_COPY[s])return EDITORIAL_COPY[s];if(s.length<=max)return s;
  const parts=s.match(/[^.!?。]+[.!?。]?/g)||[s];let out='';for(const part of parts){if((out+part).length>max)break;out+=part;}if(out.length>max*.4)return out.trim();
- const end=Math.max(s.lastIndexOf(' ',max),s.lastIndexOf(' · ',max),s.lastIndexOf(',',max));return s.slice(0,end>max*.6?end:max).replace(/[ ,·]+$/,'')+'…';
+ const end=Math.max(s.lastIndexOf(' ',max),s.lastIndexOf(' · ',max),s.lastIndexOf(',',max));const candidate=s.slice(0,end>max*.6?end:max).replace(/[ ,·]+$/,'')+'…';return EDITORIAL_COPY[candidate]||candidate;
 }
 const css=(x,y,w,h,more='')=>`position:absolute;left:${x}px;top:${y}px;width:${w}px;height:${h}px;box-sizing:border-box;${more}`;
 const useful=s=>s.length>1&&!/^(?:\d{1,3}|CONFIDENTIAL.*|SAMSUNG|Contents|CONTENTS|KEY MESSAGE|SAMSUNG OFFERING|Device|Solution|Service|고객사 로고|제안사 로고|삭제|IN|OUT)$/i.test(s)&&!/^\*|^※|^□|^https?:/.test(s);
@@ -21,7 +23,7 @@ export function referencePlan(scene,c){
  for(const n of [...sourceImages].sort((a,b)=>b.box[2]*b.box[3]-a.box[2]*a.box[3])){
   const im=c.images[n.i];if(!im||im.generated||im.logo||n.box[2]*n.box[3]<3000||seen.has(im.src))continue;seen.add(im.src);(im.fit==='contain'?cuts:photos).push(n.i);
  }
- const distinct=[];for(const n of [...body].filter(n=>n.value.length<=70&&n.box[2]>80).sort((a,b)=>(b.style?.size||0)-(a.style?.size||0)||a.box[1]-b.box[1]))if(!distinct.some(v=>v.value===n.value))distinct.push(n);
+ const distinct=[];for(const n of [...body].filter(n=>n.value.length<=42&&n.box[2]>80&&((n.style?.size||0)>=18||n.value.length<=24)&&!/(?:합니다|드립니다|됩니다|있습니다)[.!]?$/.test(n.value)).sort((a,b)=>(b.style?.size||0)-(a.style?.size||0)||a.box[1]-b.box[1]))if(!distinct.some(v=>v.value===n.value))distinct.push(n);
  const headings=distinct.slice(0,6).sort((a,b)=>a.box[1]-b.box[1]||a.box[0]-b.box[0]);
  const taken=new Set(headings.map(n=>n.i));
  const features=headings.map(n=>{
@@ -53,8 +55,8 @@ export function composeReference(scene,c,plan,context){
  const value=i=>{const v=originalTexts[i];return clean(typeof v==='object'?v?.html:v);};
  const cutProduct=images[plan.cuts[0]]?.products?.[0]||scene.products[0];
  const productName=context.productNames?.[cutProduct]||'';
- let title=excerpt(value(plan.h)||scene.title,74);const subtitle=excerpt(value(plan.s),148);
- if(plan.family==='feature'&&title.length<20&&productName&&/침실|거실|주방|업무 공간|라운지|드레스룸|세탁실|교실|병실|로비/.test(title))title=excerpt(title+' · '+productName,74);
+ let title=excerpt(value(plan.h)||scene.title,54);const subtitle=excerpt(value(plan.s),82);
+ if(plan.family==='feature'&&title.length<20&&productName&&/침실|거실|주방|업무 공간|라운지|드레스룸|세탁실|교실|병실|로비/.test(title))title=excerpt(title+' · '+productName,54);
  function text(index,content,x,y,w,h,size=18,more='',max=150){
   const i=index!=null&&!usedT.has(index)?index:nextT++;usedT.add(i);const str=excerpt(content,max);texts[i]=str;
   mapping.push({tb:i,sourceId:index==null?'editorial':c.mapping.find(m=>m.tb===index)?.sourceId,box:[x,y,w,h],text:str});
@@ -69,7 +71,7 @@ export function composeReference(scene,c,plan,context){
   mapping.push({img:i,sourceId:c.mapping.find(m=>m.img===index)?.sourceId||'editorial-photo',box:[x,y,w,h],replacement:im.src});
   return `<div data-img="${i}" data-slot="Photo" data-kind="${mode==='contain'?'cut':'space'}" data-hint="${esc(im.name)}" style="${css(x,y,w,h)}overflow:hidden;border-radius:8px;background:${im.logo?'transparent':'#fff'}"><img ${packed?`data-fill="${esc(src)}"`:''} src="${esc(packed?'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7':src)}" alt="${esc(im.name)}" style="width:100%;height:100%;display:block;object-fit:${mode}"></div>`;
  }
- function head(label=context.name){return fixed(label,64,32,1152,22,12,`color:${blue};font-weight:600`)+text(plan.h,title,64,64,1152,76,32,'font-weight:700',74)+(subtitle?text(plan.s,subtitle,64,123,1152,45,15,`color:${muted}`,148):'');}
+ function head(label=context.name){return fixed(label,64,32,1152,22,12,`color:${blue};font-weight:600`)+text(plan.h,title,64,64,1152,76,32,'font-weight:700',54)+(subtitle?text(plan.s,subtitle,64,147,1152,28,14,`color:${muted}`,82):'');}
  function feature(k){const f=plan.features[k];return {h:f?.h,d:f?.d?.[0],heading:f?value(f.h):'',detail:f?.d?.map(value).join(' · ')||''};}
  function card(k,x,y,w,h,photo=true){
   const f=feature(k),picture=plan.photos[k]??plan.cuts[k];let html='';let top=y;
@@ -133,12 +135,12 @@ export function composeReference(scene,c,plan,context){
   const f=feature(0);parts.push(text(f.h,f.heading||title,832,459,384,62,21,'font-weight:600',32));if(f.detail)parts.push(text(f.d,f.detail,832,534,384,84,16,`color:${muted}`,86));
  }else{
   parts.push(head());const main=plan.photos[0]??plan.cuts[0];parts.push(image(main,64,184,660,434,plan.photos.length?'cover':'contain'));
-  const f0=feature(0),f1=feature(1),lead=!f0.detail&&f1.heading?f1:f0;
+  const f0=feature(0),f1=feature(1),lead=f1.heading?f1:f0,detail=lead.detail||f0.detail;
   parts.push(fixed('KEY MESSAGE',762,184,454,24,11,`color:${blue};font-weight:700`),text(lead.h,lead.heading||title,762,216,454,80,23,'font-weight:600',42));
-  if(f0.detail)parts.push(text(f0.d,f0.detail,762,304,454,108,17,`color:${muted}`,110));
-  else for(let k=0;k<3;k++){const f=feature(k+2);if(f.heading)parts.push(text(f.h,'· '+f.heading,762,308+k*36,454,32,17,`color:${muted}`,52));}
-  if(plan.cuts[0]!=null&&plan.cuts[0]!==main){parts.push(panel(762,435,454,182,'#fff'),image(plan.cuts[0],778,451,145,145,'contain'),text(null,productName||f0.heading||value(plan.h),943,461,250,92,18,'font-weight:600',66),fixed('제품군 참고 이미지',943,577,250,22,11));}
-  else {parts.push(`<div style="${css(762,445,454,1)}background:${line}"></div>`,text(f1.h,f1.heading||'적용 제품·솔루션',762,466,454,62,21,'font-weight:600',64));if(f1.detail)parts.push(text(f1.d,f1.detail,762,538,454,80,16,`color:${muted}`,110));}
+  if(detail)parts.push(text(lead.d??f0.d,detail,762,298,454,82,16,`color:${muted}`,94));
+  else for(let k=0;k<2;k++){const f=feature(k+2);if(f.heading)parts.push(text(f.h,'· '+f.heading,762,298+k*42,454,40,16,`color:${muted}`,40));}
+  if(plan.cuts[0]!=null&&plan.cuts[0]!==main){const second=feature(2);parts.push(panel(762,399,454,219,'#fff'),image(plan.cuts[0],778,419,145,156,'contain'),text(null,productName||f0.heading||value(plan.h),943,418,250,72,17,'font-weight:600',32));if(second.heading)parts.push(text(second.h,second.heading,943,500,250,48,16,'font-weight:600',24));if(second.detail)parts.push(text(second.d,second.detail,943,550,250,60,14,`color:${muted}`,32));}
+  else {const next=feature(2).heading?feature(2):f0;parts.push(`<div style="${css(762,445,454,1)}background:${line}"></div>`,text(next.h,next.heading||'적용 제품·솔루션',762,466,454,62,21,'font-weight:600',40));if(next.detail)parts.push(text(next.d,next.detail,762,538,454,80,16,`color:${muted}`,92));}
  }
  if(!['cover','closing','divider'].includes(plan.family))parts.push(`<div style="${css(64,664,1152,1)}background:${line}"></div>`,fixed(context.name+' · 삼성 B2B 제품·솔루션',64,680,1050,20,10),fixed(String(scene.number),1120,680,96,20,10,'text-align:right'));
  // Keep legacy slot identities available for stored copies. Omitted fragments

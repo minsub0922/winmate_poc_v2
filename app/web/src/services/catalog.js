@@ -107,7 +107,7 @@ export const CANVAS = {
   PH: { name: 'PPT · 06 사진 중심 (Winmate에서 추가)', url: '' },
   ST: { name: 'PPT · 표준 제안서 · 호텔 AI 스테이', url: 'https://claude.ai/artifact/KGqEnieEMcvGwVsoArQ1sy' },
   ST_SOL: { name: 'PPT · 표준 제안서 · 공유오피스 Lite (명세 복원 · Winmate에서 추가)', url: '' }, // l.cv — 같은 ST 묶음 안에서 원본만 다른 양식
-  ST_DESC: { name: 'PPT · 업종별 표준 제안서 · Markdown 설명 기반 재구성', url: '' },
+  ST_DESC: { name: 'PPT · 업종별 표준 제안서', url: '' },
   MY: { name: 'My 템플릿 (이 브라우저에 저장)', url: '' },
 };
 

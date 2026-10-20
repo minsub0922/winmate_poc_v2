@@ -63,6 +63,8 @@ const INPUTS = {
   descriptionLoader: path.join(SRC, 'domain', 'templates', 'description_standards.js'),
   descriptionFit: path.join(SRC, 'domain', 'slides', 'description-fit.js'),
   proposalDesign: path.join(SRC, 'domain', 'slides', 'proposal-design.js'),
+  referenceComposer: path.join(ROOT, 'app', 'scripts', 'compose_reference_proposals.mjs'),
+  editorialCopy: path.join(ROOT, 'app', 'scripts', 'proposal_editorial_copy.json'),
   descriptionHtml: path.join(DATA, 'description-standard-html.json.gz'),
   descriptionGraphics: path.join(WEB, 'public', 'assets', 'description-standards', 'graphics', 'manifest.json'),
   scenarioFills: path.join(SRC, 'domain', 'templates', 'scenario_fills.js'),
