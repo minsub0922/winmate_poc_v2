@@ -1,0 +1,19 @@
+.canvas-wrap:not(.ro) .lcard .layout-remove {
+  position: absolute; z-index: 5; top: var(--measure-10px); right: var(--measure-10px);
+  display: grid; place-items: center; width: var(--measure-30px); height: var(--measure-30px);
+  padding: 0; border: var(--stroke-1px) solid var(--line-2); border-radius: var(--radius-50);
+  background: var(--surface); color: var(--muted); box-shadow: var(--shadow);
+  cursor: pointer; opacity: 0; pointer-events: none; transform: scale(.9);
+  transition: opacity var(--measure-12s), transform var(--measure-12s), color var(--measure-12s);
+}
+.canvas-wrap:not(.ro) .lcard:is(:hover, :focus-within) .layout-remove { opacity: 1; pointer-events: auto; transform: none; }
+.canvas-wrap:not(.ro) .lcard .layout-remove:hover { color: var(--danger); background: var(--danger-soft); }
+.canvas-wrap:not(.ro) .lcard .layout-remove:focus-visible { outline: var(--stroke-2px) solid var(--accent); outline-offset: var(--measure-2px); }
+.canvas-wrap:not(.ro) .lcard .fav-btn { right: var(--measure-46px); }
+.canvas-wrap:not(.ro) .lcard:is(:hover, :focus-within) .pg { opacity: 0; }
+.layout-removal-confirm strong { overflow-wrap: anywhere; }
+.layout-removal-confirm p { color: var(--muted); margin-bottom: 0; }
+@media (hover: none) {
+  .canvas-wrap:not(.ro) .lcard .layout-remove { opacity: 1; pointer-events: auto; transform: none; }
+  .canvas-wrap:not(.ro) .lcard .pg { opacity: 0; }
+}

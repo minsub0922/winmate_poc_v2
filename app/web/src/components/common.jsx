@@ -71,7 +71,7 @@ export function Toasts() {
 
 // ---------- modal ----------
 const MODAL_STACK = [];
-export function Modal({ title, sub, onClose, children, footer, size = '', labelledBy, bodyClass = 'mbody', bodyStyle }) {
+export function Modal({ title, sub, onClose, children, footer, size = '', labelledBy, bodyClass = 'mbody', bodyStyle, role = 'dialog', describedBy, onKeyDown }) {
   const ref = useRef(null);
   const closeRef = useRef(onClose);
   closeRef.current = onClose;
@@ -90,7 +90,7 @@ export function Modal({ title, sub, onClose, children, footer, size = '', labell
   }, []);
   return createPortal(
     <div className="mback" onMouseDown={(e) => { if (e.target === e.currentTarget) closeRef.current && closeRef.current(); }}>
-      <div ref={ref} tabIndex={-1} className={'modal ' + size} role="dialog" aria-modal="true" aria-label={typeof title === 'string' ? title : undefined}>
+      <div ref={ref} tabIndex={-1} className={'modal ' + size} role={role} aria-modal="true" aria-label={typeof title === 'string' ? title : undefined} aria-describedby={describedBy} onKeyDown={onKeyDown}>
         {title != null && (
           <div className="mhead">
             <div style={{ minWidth: 0 }}><h2>{title}</h2>{sub && <p>{sub}</p>}</div>

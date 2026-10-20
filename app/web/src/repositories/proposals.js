@@ -68,6 +68,19 @@ export function createProposal() {
   return p.id;
 }
 export function deleteProposal(id) { state = { proposals: state.proposals.filter((p) => p.id !== id) }; persist(); emit(); }
+/** Remove one selected instance, preserving its part and other copies of the same template. */
+export function removeLayout(id, layoutUid) {
+  const proposal = getProposal(id);
+  if (!proposal?.parts.some(part => part.layouts.some(layout => layout.uid === layoutUid))) return false;
+  let removed = false;
+  update(id, draft => {
+    for (const part of draft.parts) {
+      const index = part.layouts.findIndex(layout => layout.uid === layoutUid);
+      if (index >= 0) { part.layouts.splice(index, 1); removed = true; break; }
+    }
+  });
+  return removed;
+}
 /** Best 제안서 열기 — 원본은 그대로 두고 복사본을 내 제안서로 만든다 */
 export function cloneProposal(src) {
   const t = structuredClone(src);

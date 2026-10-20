@@ -15,6 +15,7 @@ import { FavButton } from './fav.jsx';
 import { startCompose, applyComposePending, discardComposePending, retryProposalJob } from '../services/poc-workflows.js';
 import { isTerminal, hideJob } from '../repositories/jobs.js';
 import { AgentJobControl, useOwnerJobs, useAdopt } from './AgentJobControl.jsx';
+import { useLayoutRemoval } from './layout-removal.jsx';
 
 export const ctxOf = (p) => ({ ind: p.ind || inferIndustry(reqText(p)), products: p.ctx.products, solutions: p.ctx.solutions, cases: p.ctx.cases });
 const FLOW = ['market', 'customer', 'user', 'competition', 'insight', 'challenge', 'value', 'effect', 'dss', 'products', 'scenario', 'birdseye', 'solution', 'case', 'why', 'spec', 'bom', 'execution', 'cost', 'closing', 'appendix', 'overview', 'requirements']; // no 'cover' — 표지 is not a Storyboard part
@@ -216,6 +217,7 @@ export function StoryCanvas({ p, open, stage = 'story', pop = null, onReq, onMat
   const [drop, setDrop] = useState(null); // {pid, before}
   const hc = useHoverCard();
   const ai = useAiCompose(p);
+  const removal = useLayoutRemoval(p.id);
   const canvasRef = useRef(null);
   // keep the newest bubble and the shimmer trail in view: bring the first shimmer bubble to a bit past the middle
   // (on a narrow canvas, wherever it fits whole)
@@ -294,16 +296,20 @@ export function StoryCanvas({ p, open, stage = 'story', pop = null, onReq, onMat
                     return (
                       <React.Fragment key={x.uid}>
                         {drop && drop.pid === s.id && drop.before === x.uid && <div className="dropline" />}
-                        <div className={'lcard st-' + (readOnly ? 'view' : x.status) + (drag === x.uid ? ' dragging' : '')} draggable={!readOnly}
+                        <div className={'lcard st-' + (readOnly ? 'view' : x.status) + (drag === x.uid ? ' dragging' : '')} draggable={!readOnly} data-layout-uid={x.uid}
                           onDragStart={(e) => { if (readOnly) return; setDrag(x.uid); e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', x.uid); hc.hide(); }}
                           onDragEnd={() => { setDrag(null); setDrop(null); }}
                           onDragOver={(e) => { if (!drag) return; e.preventDefault(); e.stopPropagation(); const r = e.currentTarget.getBoundingClientRect(); const before = e.clientY < r.top + r.height / 2 ? x.uid : (vis[vis.indexOf(x) + 1] || {}).uid || null; setDrop({ pid: s.id, before }); }}
                           onDrop={(e) => { e.preventDefault(); e.stopPropagation(); doDrop(s.id, drop && drop.pid === s.id ? drop.before : x.uid); }}
                           onClick={() => open({ type: 'detail', partId: s.id, uid: x.uid })}
                           onMouseEnter={(e) => !drag && hc.show(l, e.currentTarget)} onMouseLeave={hc.hide}
-                          role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') open({ type: 'detail', partId: s.id, uid: x.uid }); }} aria-label={l.name + ' 열기'}>
+                          role="button" tabIndex={0} onKeyDown={(e) => { if (e.target === e.currentTarget && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); open({ type: 'detail', partId: s.id, uid: x.uid }); } }} aria-label={l.name + ' 열기'}>
                           <Slide f={x.f} ov={x.ov} width={322} lazy pageNo={pageOf(x.uid)} />
                           <FavButton f={x.f} ov={x.ov} from={(readOnly ? 'Best Scenario · ' : '제안서 · ') + (p.title || '')} />
+                          {!readOnly && <button type="button" className="layout-remove" draggable={false} aria-label={l.name + ' 선택 해제'} title="레이아웃 선택 해제"
+                            onPointerDown={(e) => e.stopPropagation()} onMouseDown={(e) => { e.preventDefault(); e.stopPropagation(); }}
+                            onDragStart={(e) => { e.preventDefault(); e.stopPropagation(); }} onMouseEnter={hc.hide} onFocus={hc.hide}
+                            onKeyDown={(e) => e.stopPropagation()} onClick={(e) => { e.preventDefault(); e.stopPropagation(); e.currentTarget.focus({ preventScroll:true }); hc.hide(); removal.request(x.uid); }}><Icon name="x" size={15} /></button>}
                           {!readOnly && <span className="grip" title="끌어서 순서 바꾸기"><Icon name="grip" size={14} stroke={3} /></span>}
                           <span className="pg">{pageOf(x.uid)}</span>
                           <div className="lcard-meta"><span className="nm">{l.name}</span>{!readOnly && <StatusBadge s={x.status} />}</div>
@@ -356,6 +362,7 @@ export function StoryCanvas({ p, open, stage = 'story', pop = null, onReq, onMat
         <button className="btn btn-ghost btn-sm btn-icon" onClick={() => setZoom(1)} aria-label="100%로 되돌리기" title="100%로 되돌리기"><Icon name="fit" size={14} /></button>
       </div>
       {hc.node}
+      {removal.confirmation}
       {!readOnly && <AgentDock p={p} reqOpen={reqOpen} onReq={onReq} />}
       {children}
     </div>

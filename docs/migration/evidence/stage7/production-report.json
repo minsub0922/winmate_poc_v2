@@ -1,0 +1,168 @@
+{
+  "base": "https://merit-origins-cargo-technician.trycloudflare.com",
+  "cases": [
+    {
+      "group": "detail",
+      "name": "selection is unchanged until confirmation",
+      "passed": true,
+      "ms": 4438
+    },
+    {
+      "group": "detail",
+      "name": "cancel leaves layout and detail popup intact",
+      "passed": true,
+      "ms": 4436
+    },
+    {
+      "group": "detail",
+      "name": "Escape cancels only confirmation",
+      "passed": true,
+      "ms": 4310
+    },
+    {
+      "group": "detail",
+      "name": "confirmation close X cancels",
+      "passed": true,
+      "ms": 3365
+    },
+    {
+      "group": "detail",
+      "name": "backdrop cancels without closing detail",
+      "passed": true,
+      "ms": 3202
+    },
+    {
+      "group": "detail",
+      "name": "confirm removes exact instance and closes detail",
+      "passed": true,
+      "ms": 4817
+    },
+    {
+      "group": "detail",
+      "name": "last layout removal preserves its part",
+      "passed": true,
+      "ms": 3764
+    },
+    {
+      "group": "detail",
+      "name": "same-template second copy is independently removable",
+      "passed": true,
+      "ms": 3347
+    },
+    {
+      "group": "detail",
+      "name": "confirmed removal survives reload",
+      "passed": true,
+      "ms": 6510
+    },
+    {
+      "group": "detail",
+      "name": "default focused action is safe cancellation",
+      "passed": true,
+      "ms": 4147
+    },
+    {
+      "group": "detail",
+      "name": "arrows do not navigate the underlying sheet",
+      "passed": true,
+      "ms": 5797
+    },
+    {
+      "group": "detail",
+      "name": "Tab wraps inside confirmation",
+      "passed": true,
+      "ms": 3251
+    },
+    {
+      "group": "card",
+      "name": "X is hidden until hover or focus",
+      "passed": true,
+      "ms": 2822
+    },
+    {
+      "group": "card",
+      "name": "hover reveals upper-right X without overlapping favorite",
+      "passed": true,
+      "ms": 4523
+    },
+    {
+      "group": "card",
+      "name": "X opens confirmation without opening detail",
+      "passed": true,
+      "ms": 5121
+    },
+    {
+      "group": "card",
+      "name": "cancel preserves exact proposal",
+      "passed": true,
+      "ms": 4855
+    },
+    {
+      "group": "card",
+      "name": "Escape preserves selected card",
+      "passed": true,
+      "ms": 3842,
+      "retest": true,
+      "previous_attempt": {
+        "group": "card",
+        "name": "Escape preserves selected card",
+        "passed": false,
+        "error": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.lcard[data-layout-uid=\"a1\"]') to be visible\u001b[22m\n\n    at setup (/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/layout-removal.mjs:18:185)\n    at async run (/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/layout-removal.mjs:29:29)\n    at async file:///Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/layout-removal.mjs:50:2"
+      }
+    },
+    {
+      "group": "card",
+      "name": "confirm removes only clicked card",
+      "passed": true,
+      "ms": 4902
+    },
+    {
+      "group": "card",
+      "name": "keyboard Enter on X never opens detail",
+      "passed": true,
+      "ms": 4284
+    },
+    {
+      "group": "card",
+      "name": "keyboard focus reveals X",
+      "passed": true,
+      "ms": 3960
+    },
+    {
+      "group": "card",
+      "name": "touch device exposes and opens X",
+      "passed": true,
+      "ms": 4528
+    },
+    {
+      "group": "card",
+      "name": "removal is persistent after reload",
+      "passed": true,
+      "ms": 6869
+    },
+    {
+      "group": "card",
+      "name": "clicking normal card still opens detail",
+      "passed": true,
+      "ms": 4396
+    },
+    {
+      "group": "card",
+      "name": "Best Scenario read-only board has no removal control",
+      "passed": true,
+      "ms": 4932,
+      "retest": true,
+      "previous_attempt": null
+    }
+  ],
+  "groups": {
+    "detail": {
+      "total": 12,
+      "passed": 12
+    },
+    "card": {
+      "total": 12,
+      "passed": 12
+    }
+  }
+}

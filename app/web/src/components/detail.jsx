@@ -23,6 +23,7 @@ import { readUnits, unitState, STATE_LABEL, buildPool, toEvidence, evKey, attrib
 import { ContextExplorer, folderOf } from './ctxexplorer.jsx';
 import { webSourcesFor } from '../services/websources.js';
 import { FavButton } from './fav.jsx';
+import { useLayoutRemoval } from './layout-removal.jsx';
 
 const isPh = (s) => /\[[^\]]{1,24}\]/.test(s);
 const clip = (s, n) => { s = String(s || '').replace(/\s+/g, ' ').trim(); return s.length > n ? s.slice(0, n - 1) + '…' : s; };
@@ -665,7 +666,7 @@ function DetailBody({ p, part, x, l, onClose, open, pageNo }) {
   const fromPicked = (v) => { const im = v && v.pid && IMAGE_DB.find((z) => z.pid === v.pid); return im ? imgEv(im) : v ? { k: 'upload', title: v.name || '직접 올린 이미지', sub: '직접 올린 이미지 · 이 브라우저에 보관', by: 'user' } : null; };
   const uploadTo = async (i, file) => { const r = await fileToStoredImage(file); if (r) { setImg(i, { ...r, fit: 'cover' }, { k: 'upload', title: r.name || file.name, sub: '직접 올린 이미지 · 이 브라우저에 보관', by: 'user' }); toast('이미지를 넣었어요'); return true; } toast('이미지 파일만 넣을 수 있어요', 'warn'); return false; };
   const setStatus = (done) => mut((y) => { y.status = done ? 'done' : (Object.keys(y.ov.t).length || Object.keys(y.ov.img).length ? 'partial' : 'empty'); });
-  const remove = () => { update(p.id, (d) => { const s = d.parts.find((q) => q.id === part.id); if (s) s.layouts = s.layouts.filter((q) => q.uid !== x.uid); }); toast(l.name + ' 선택을 해제했어요'); onClose(); };
+  const removal = useLayoutRemoval(p.id, { onRemoved:onClose });
   const addEv = (k, e) => {
     const cur0 = x.ev && x.ev[k];
     if (cur0 && (cur0.src || []).some((z) => evKey(z) === evKey(e))) { toast('이미 연결된 근거예요'); return; }
@@ -706,7 +707,7 @@ function DetailBody({ p, part, x, l, onClose, open, pageNo }) {
   // Esc clears the selection before it closes the popup
   useEffect(() => {
     const key = (e) => {
-      if (e.key !== 'Escape' || pop || pick != null || swap || !sel || (e.target && e.target.isContentEditable)) return;
+      if (e.key !== 'Escape' || pop || pick != null || swap || !sel || (e.target && (e.target.isContentEditable || e.target.closest('[role="alertdialog"]')))) return;
       e.stopPropagation(); e.preventDefault(); setSel(null);
     };
     window.addEventListener('keydown', key, true);
@@ -741,7 +742,7 @@ function DetailBody({ p, part, x, l, onClose, open, pageNo }) {
           onOpenImg={() => { const el = document.querySelector(`.detail-left [data-img="${unit.imgs[0]}"]`); if (el) setPop({ i: unit.imgs[0], el }); }}
           onSwap={(id) => { setPop(null); setSwap({ key: unit.key, from: id }); }} />
         : <SheetPanel p={p} part={part} x={x} l={l} units={units} qs={fill.qs} setQs={fill.setQs} onFill={runFill} onHi={setHi} onSelect={setSel} onInsertImage={insertImage} />}
-      footerStart={<button className="btn btn-ghost btn-danger" onClick={remove}><Icon name="x" size={15} />선택 해제</button>}
+      footerStart={<button className="btn btn-ghost btn-danger" onClick={() => removal.request(x.uid)}><Icon name="x" size={15} />선택 해제</button>}
       actions={<>
         <FavButton f={x.f} ov={x.ov} from={'제안서 · ' + (p.title || '')} label />
         <label className={'done-toggle' + (x.status === 'done' ? ' on' : '')}>
@@ -750,6 +751,7 @@ function DetailBody({ p, part, x, l, onClose, open, pageNo }) {
         </label>
         <button className="btn btn-primary" onClick={onClose}>닫기</button>
       </>}>
+      {removal.confirmation}
       {pop && <ImgPop anchor={pop.el} slot={popSlot} current={x.ov.img && x.ov.img[pop.i]} models={models} onClose={() => setPop(null)}
         onPick={(im) => { setImg(pop.i, { src: im.src, name: im.desc, fit: im.group === 'cut' ? 'contain' : 'cover' }, imgEv(im)); toast('이미지를 바꿨어요'); setPop(null); }}
         onFile={async (f) => { const i = pop.i; setPop(null); await uploadTo(i, f); }}
