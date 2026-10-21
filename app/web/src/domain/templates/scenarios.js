@@ -3,6 +3,7 @@
 // and how the deck flows from opening to the ask (flow → ending). Slides reference layout files (`f`).
 import VERTICAL from './vertical_scenarios.json' with { type: 'json' };
 import DESCRIPTION from './description_standard_scenarios.json' with { type: 'json' };
+import SCENARIO_COVERS from './scenario_covers.json' with { type: 'json' };
 export const REQ_TYPES = {
   std: { label: '표준 제안서', desc: '업종별 공간·제품·솔루션·운영의 표준 구성을 함께 검토할 때', hue: 'slate' },
   new: { label: '신규 구축 · RFP', desc: '새 공간 · 첫 도입. 범위와 사양을 처음부터 함께 정해야 할 때', hue: 'blue' },
@@ -699,6 +700,11 @@ export const SCENARIOS = [
   },
 ];
 
+for (const s of SCENARIOS) {
+  const cover=SCENARIO_COVERS[s.id];if(!cover)continue;
+  s.flow[0].slides[0]={...s.flow[0].slides[0],f:cover.f,role:'표지 · 제안서와 프로젝트 소개'};
+  s.coverRevision='single-photo-cover-v1';
+}
 SCENARIOS.push(...VERTICAL.scenarios);
 SCENARIOS.push(...DESCRIPTION.scenarios);
 export const SC = Object.fromEntries(SCENARIOS.map((s) => [s.id, s]));

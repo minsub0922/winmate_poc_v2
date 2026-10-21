@@ -1,7 +1,7 @@
 import { requireLogin } from '../api/session.js';
 import { browserStorage, openDatabase } from './browser.js';
 import { useSyncExternalStore } from 'react';
-import { normalizeCovers } from '../services/catalog.js';
+import { normalizeCovers, isCoverSheet } from '../services/catalog.js';
 import { bgUrl } from '../services/packs.js';
 import { legacySrc } from '../domain/templates/legacy_img.js';
 import { getBootstrap } from '../api/bootstrap.js';
@@ -192,6 +192,7 @@ function syncBg(d) {
   const used = new Map(pool.map((x) => [x, 0]));
   for (const x of all) { const src = x.ov && x.ov.bg && x.ov.bg.src; if (src && used.has(src)) used.set(src, used.get(src) + 1); }
   for (const x of all) {
+    if(d.coverRevision&&isCoverSheet(x.f))continue;
     x.ov = x.ov || { t: {}, img: {} };
     if (x.ov.bg && x.ov.bg.src) continue;
     let pick = pool[0];

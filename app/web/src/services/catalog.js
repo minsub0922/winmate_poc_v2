@@ -6,6 +6,7 @@ import { PHOTO_META, PHOTO_HTML } from '../domain/templates/photo_layouts.js';
 import { STD_META, STD_HTML } from '../domain/templates/std_layouts.js';
 import { SPATIAL_META, SPATIAL_HTML } from '../domain/templates/spatial-layouts.js';
 import PROPOSAL_PHOTOS from '../domain/templates/proposal_photo_assets.json';
+import { repairLayoutHtml } from '../domain/templates/layout_repairs.js';
 
 // 사진 중심 버전이 내용을 빠짐없이 담아, 라이브러리에서 뺀 텍스트 레이아웃 (텍스트 f → 대체한 사진 중심 f).
 // 고르기 · 검색 · 추천 · 개수에서는 빠지고, 이미 만든 제안서 · Best Scenario · 히스토리 예시에 들어 있는 장은 그대로 그립니다.
@@ -18,6 +19,7 @@ export const RETIRED = {
   L_P3A: 'L_PH_P3_A', L_P5A: 'L_PH_P5_A', L_P2C: 'L_PH_P2_C', L_P_O: 'L_PH_P_O', L_P_P: 'L_PH_P_P', L_P_N: 'L_PH_P_N',
 };
 export const ALL_LAYOUTS = [...CATALOG.layouts, ...PHOTO_META, ...STD_META, ...SPATIAL_META];
+for(const layout of ALL_LAYOUTS){if(layout.f==='L_C01')layout.name='표지 A · 대표 이미지';if(layout.f==='L_C02')layout.name='표지 B · 와이드 이미지';}
 for (const l of ALL_LAYOUTS) if (RETIRED[l.f]) l.retired = RETIRED[l.f];
 export const LAYOUTS = ALL_LAYOUTS.filter((l) => !l.retired);
 export const L = Object.fromEntries(ALL_LAYOUTS.map((l) => [l.f, l]));
@@ -139,6 +141,7 @@ export async function loadLayoutHtml() {
     throw new Error('이 브라우저는 압축 해제를 지원하지 않아요');
   }
   HTML = Object.assign(JSON.parse(text), COVERS, PHOTO_HTML, STD_HTML, SPATIAL_HTML);
+  for (const f of Object.keys(HTML)) HTML[f] = repairLayoutHtml(f, HTML[f]);
   return HTML;
 }
 // My 템플릿 (my/store.js) — the person's own layouts, kept in this browser: they join L (so a proposal, the detail popup,

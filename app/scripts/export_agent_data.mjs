@@ -62,6 +62,14 @@ const INPUTS = {
   proposalContent: path.join(ROOT, 'app', 'scripts', 'proposal_content.py'),
   proposalVisuals: path.join(ROOT, 'app', 'scripts', 'proposal_visuals.py'),
   proposalPhotos: path.join(SRC, 'domain', 'templates', 'proposal_photo_assets.json'),
+  layoutRepairs: path.join(SRC, 'domain', 'templates', 'layout_repairs.js'),
+  proposalTypography: path.join(SRC, 'domain', 'templates', 'proposal_typography.js'),
+  proposalTypographyRoles: path.join(SRC, 'domain', 'templates', 'proposal_typography.json'),
+  scenarioCovers: path.join(SRC, 'domain', 'templates', 'scenario_covers.json'),
+  coverMigrations: path.join(SRC, 'domain', 'templates', 'cover_migrations.json'),
+  coverBriefs: path.join(DATA, 'proposal_cover_briefs.json'),
+  coverPhotos: path.join(DATA, 'proposal_cover_photos.json'),
+  coverBuilder: path.join(ROOT,'app/scripts/rebuild_proposal_covers.py'),
   verticalBriefs: path.join(ROOT, 'app', 'scripts', 'vertical_briefs.py'),
   priorRevisions: path.join(SRC, 'domain', 'templates', 'prior_proposal_revisions.json'),
   migrationData: path.join(SRC, 'domain', 'templates', 'removed_layout_migrations.json'),
@@ -131,9 +139,10 @@ import { PHOTO_META, PHOTO_HTML } from ${spec(INPUTS.photo)};
 import { STD_META, STD_HTML } from ${spec(INPUTS.std)};
 import { SPATIAL_META, SPATIAL_HTML } from ${spec(INPUTS.spatial)};
 import { RETIRED_R4 } from ${spec(INPUTS.retired)};
+import { repairLayoutHtml } from ${spec(INPUTS.layoutRepairs)};
 import * as parts from ${spec(INPUTS.parts)};
 import * as scenarios from ${spec(INPUTS.scenarios)};
-export { catalog, COVERS, PHOTO_META, PHOTO_HTML, STD_META, STD_HTML, SPATIAL_META, SPATIAL_HTML, RETIRED_R4, parts, scenarios };
+export { catalog, COVERS, PHOTO_META, PHOTO_HTML, STD_META, STD_HTML, SPATIAL_META, SPATIAL_HTML, RETIRED_R4, repairLayoutHtml, parts, scenarios };
 `;
 const primer = {
   name: 'wm-agent-primer',
@@ -173,6 +182,7 @@ const allSet = new Set(ALL.map((l) => l.f));
 const hidden = Object.fromEntries(Object.keys(L).filter((f) => !allSet.has(f)).map((f) => [f, L[f]]));
 const html = JSON.parse(zlib.gunzipSync(Buffer.from(fs.readFileSync(INPUTS.layouts, 'utf8').trim(), 'base64')).toString('utf8'));
 Object.assign(html, mod.COVERS, mod.PHOTO_HTML, mod.STD_HTML, mod.SPATIAL_HTML);
+for (const f of Object.keys(html)) html[f] = mod.repairLayoutHtml(f, html[f]);
 const partsOut = { PARTS: mod.parts.PARTS, NEXT: mod.parts.NEXT, RELATED: mod.parts.RELATED, REQ_LABEL: mod.parts.REQ_LABEL };
 const S = mod.scenarios;
 const scenariosOut = { REQ_TYPES: S.REQ_TYPES, REQ_ORDER: S.REQ_ORDER, STRATEGIES: S.STRATEGIES, ENDINGS: S.ENDINGS, STAGES: S.STAGES, SCENARIOS: S.SCENARIOS };

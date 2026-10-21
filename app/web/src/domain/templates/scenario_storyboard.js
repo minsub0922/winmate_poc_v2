@@ -11,7 +11,7 @@ import { PARTS } from '../proposals/parts.js';
 import { L, normalizeCovers } from '../../services/catalog.js';
 
 /** a slide's values in this scenario — scenarios with a background theme give every slide its own photo */
-export const ovOf = (id, k, f) => { const ov = fillOf(id, k, f); const bg = bgOfSlide(id, k); return bg ? { ...ov, bg } : ov; };
+export const ovOf = (id, k, f) => { const ov = fillOf(id, k, f); const bg = k===0&&SC[id]?.coverRevision?null:bgOfSlide(id, k); return bg ? { ...ov, bg } : ov; };
 
 /** a stage's part type — STORY first, else the type most of its layouts are made for */
 export function partTypeOf(stage, sid) {
@@ -67,6 +67,7 @@ export function storyboardOf(s, mk) {
     parts,
   };
   if (s.authoringRevision) p.authoringRevision = s.authoringRevision;
+  if (s.coverRevision) p.coverRevision = s.coverRevision;
   const bg = bgTheme(s.id); if (bg) p.bg = bg;
   normalizeCovers(p); // 표지 → the hidden deck part (no bubble), like every proposal
   return p;

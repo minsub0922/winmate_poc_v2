@@ -198,6 +198,8 @@ async function addSlide(pptx, root, opts) {
     }
     if (tag === 'img') {
       const d = await toDataUrl(el.currentSrc || el.getAttribute('src'));
+      const circle = el.closest('[data-layout-shape="circle"]'), circleBox = circle?.getBoundingClientRect();
+      const rounding = !!circleBox && Math.abs(circleBox.width-r.width)<1.5 && Math.abs(circleBox.height-r.height)<1.5 && Math.abs(r.width-r.height)<1.5;
       const t = d ? turn(el) : null;
       if (t) { const tb = tbox(r, t); s.addImage({ data: d, ...tb, sizing: { type: 'cover', w: tb.w, h: tb.h } }); continue; }
       if (d) {
@@ -206,7 +208,7 @@ async function addSlide(pptx, root, opts) {
         if (fit === 'contain') {
           const k = Math.min(r.width / nw, r.height / nh); const w = nw * k, h = nh * k;
           s.addImage({ data: d, x: b.x + (r.width - w) / 2 * PX, y: b.y + (r.height - h) / 2 * PX, w: w * PX, h: h * PX });
-        } else s.addImage({ data: d, ...b, sizing: { type: 'cover', w: b.w, h: b.h } });
+        } else s.addImage({ data: d, ...b, rounding, sizing: { type: 'cover', w: b.w, h: b.h } });
       }
       continue;
     }
@@ -214,7 +216,10 @@ async function addSlide(pptx, root, opts) {
     const bg = el === root && bgData ? null : parseColor(cs.backgroundColor);
     const bw = ['Top', 'Right', 'Bottom', 'Left'].map((k) => ({ w: parseFloat(cs['border' + k + 'Width']) || 0, st: cs['border' + k + 'Style'], c: parseColor(cs['border' + k + 'Color']) }));
     const uniform = bw.every((x) => x.w === bw[0].w && x.st === bw[0].st && (x.c && bw[0].c ? x.c.hex === bw[0].c.hex : x.c === bw[0].c)) && bw[0].w > 0 && bw[0].st !== 'none' && bw[0].c;
-    const rad = parseFloat(cs.borderTopLeftRadius) || 0;
+    const radius = cs.borderTopLeftRadius.trim().split(/\s+/);
+    const radiusPx = (value, axis) => (parseFloat(value) || 0) * (value?.endsWith('%') ? axis / 100 : 1);
+    const rx = radiusPx(radius[0], r.width), ry = radiusPx(radius[1] || radius[0], r.height);
+    const rad = Math.min(rx, ry);
     const rotated = cs.transform && cs.transform !== 'none';
     if (rotated && r.height > 0 && (el.offsetHeight <= 3)) {
       // rotated thin line (map connectors)
@@ -222,7 +227,7 @@ async function addSlide(pptx, root, opts) {
       const lc = bw[0].c || bg || { hex: '1428A0', a: 1 };
       s.addShape(pptx.ShapeType.line, { x: b.x, y: b.y, w: b.w, h: b.h, flipV: !down, line: { color: lc.hex, width: Math.max(0.75, (bw[0].w || el.offsetHeight || 1) * 0.75), dashType: bw[0].st === 'dashed' ? 'dash' : 'solid' } });
     } else if (bg || uniform) {
-      const isCircle = rad >= Math.min(r.width, r.height) / 2 - 0.5 && Math.abs(r.width - r.height) < 1.5;
+      const isCircle = rx >= r.width / 2 - 0.5 && ry >= r.height / 2 - 0.5 && Math.abs(r.width - r.height) < 1.5;
       const shape = isCircle ? pptx.ShapeType.ellipse : rad > 0.5 ? pptx.ShapeType.roundRect : pptx.ShapeType.rect;
       const tt = turn(el);
       const o = tt ? tbox(r, tt) : { ...b };

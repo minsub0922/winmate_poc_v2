@@ -2,6 +2,7 @@ import DATA from './removed_layout_migrations.json' with {type:'json'};
 import PRIOR from './prior_proposal_revisions.json' with {type:'json'};
 import {SC} from './scenarios.js';
 import {storyboardOf} from './scenario_storyboard.js';
+import {refreshProposalCover} from './refresh_proposal_cover.js';
 
 export const isRemovedLayout=f=>/^L_DSTD_|^L_PH_VX_/.test(f||'');
 const stable=v=>v&&typeof v==='object'?(Array.isArray(v)?'['+v.map(stable).join(',')+']':'{'+Object.keys(v).sort().map(k=>JSON.stringify(k)+':'+stable(v[k])).join(',')+'}'):JSON.stringify(v);
@@ -54,7 +55,7 @@ export function migrateRemovedLayoutItem(item){
 /** Replace obsolete generated decks, retaining edits and the original document. */
 export function migrateRemovedLayouts(proposal,mk){
  const old=(proposal.parts||[]).flatMap(p=>p.layouts||[]);
- if(!old.some(x=>isRemovedLayout(x.f)))return refreshPriorDefault(proposal,mk);
+ if(!old.some(x=>isRemovedLayout(x.f))){const refreshed=refreshPriorDefault(proposal,mk);return refreshProposalCover(proposal)||refreshed;}
  const baseline=DATA.scenarios[proposal.scenario],scenario=SC[proposal.scenario];
  const full=baseline&&scenario&&old.length===baseline.length&&old.every((x,i)=>x.f===baseline[i].f);
  proposal.removedLayoutArchive={version:1,parts:clone(proposal.parts)};
@@ -68,8 +69,8 @@ export function migrateRemovedLayouts(proposal,mk){
   if(!changed.length&&!images.length&&!noteChanged)continue;
   if(!isRemovedLayout(item.f)){const kept=clone(item);kept.uid=mk.lid('kept-'+i);personal.push(kept);continue;}
   if(desc.cover){
-   const cover=fresh.parts.flatMap(p=>p.layouts).find(x=>x.f==='L_C08'||x.f==='L_C01');
-   if(cover&&changed.some(x=>x.key===desc.title))cover.ov.t[cover.f==='L_C01'?'3':'2']=changed.find(x=>x.key===desc.title).text;
+   const cover=fresh.parts.flatMap(p=>p.layouts).find(x=>x.f==='L_C08'||x.f==='L_C01'||x.f==='L_C02');
+   if(cover&&changed.some(x=>x.key===desc.title))cover.ov.t[cover.f==='L_C08'?'2':'3']=changed.find(x=>x.key===desc.title).text;
    if(cover&&images.length)cover.ov.img['0']=picture(images[0][1]);
   }
   if(noteChanged){const summary=fresh.parts.flatMap(p=>p.layouts).find(x=>x.f==='L_PH_ES_A');if(summary)summary.ov.notes=(summary.ov.notes||'')+'\n\n[사용자 수정 노트]\n'+(ov.notes||'');}

@@ -9,7 +9,7 @@ from proposal_visuals import Pictures,media
 OUT=ROOT/'output/rebuild-existing'
 TARGET=ROOT/'app/web/src/domain/templates'
 OUT.mkdir(exist_ok=True,parents=True)
-REVISION='existing-layouts-v2'
+REVISION='existing-layouts-v3'
 
 SPACES={
  'ai_apartment':'세대 거실|주방|침실·자녀방|드레스룸·세탁실|단지 로비|커뮤니티 시설|관리사무소',
@@ -75,15 +75,6 @@ PROJECT_SOLUTIONS={
  'smart_retail':['vxt partnerapp','vxt magicinfo'],'smart_school':['knoxsuite dex','stpro care'],
  'smart_transportation':['magicinfo','knoxcapture knoxsuite'],'smart_university':['knoxsuite dex','biot care'],
 }
-COVER_HEADLINES={
- 'ai_apartment':'분양부터 입주까지, AI 아파트','ai_office':'일하기 편한 AI 오피스','ai_store':'모든 매장에 제때 닿는 신메뉴',
- 'entertainment':'상영 전후까지 즐거운 영화관','knowledge_industry_center':'체험으로 설명하는 지식산업센터','senior_town':'배우지 않아도 편안한 시니어타운',
- 'smart_academy':'상담부터 수업까지 이어지는 학원','smart_barracks':'교육과 행정을 잇는 스마트 병영','smart_factory':'다시 입력하지 않는 현장 기록',
- 'smart_finance':'대기는 짧게, 설명은 명확하게','smart_home':'생활 장면으로 만나는 스마트홈','smart_hospital':'접수부터 병실까지 쉬운 병원 안내',
- 'smart_hotel':'머무는 동안 편안한 스마트 호텔','smart_network':'사용 경험을 보여 주는 통신 매장','smart_office':'운영까지 준비된 스마트 빌딩',
- 'smart_public':'처음 와도 길을 찾는 민원청사','smart_retail':'입구부터 체험까지 이어지는 매장','smart_school':'수업 준비부터 협업까지, 미래교실',
- 'smart_transportation':'환승 순간에도 끊기지 않는 안내','smart_university':'교수와 학생이 함께 쓰는 캠퍼스',
-}
 
 class Slots(HTMLParser):
  def __init__(self):super().__init__();self.stack=[];self.text={};self.images={}
@@ -104,8 +95,9 @@ def registry():
 import {PHOTO_META,PHOTO_HTML} from './app/web/src/domain/templates/photo_layouts.js';
 import {STD_META,STD_HTML} from './app/web/src/domain/templates/std_layouts.js';
 import {SPATIAL_META,SPATIAL_HTML} from './app/web/src/domain/templates/spatial-layouts.js';
+import {repairLayoutHtml} from './app/web/src/domain/templates/layout_repairs.js';
 const cat=JSON.parse(fs.readFileSync('app/data/catalog.json'));const html=JSON.parse(zlib.gunzipSync(Buffer.from(fs.readFileSync('app/data/layouts.b64','utf8'),'base64')));
-process.stdout.write(JSON.stringify({metadata:[...cat.layouts,...PHOTO_META,...STD_META,...SPATIAL_META],html:{...html,...PHOTO_HTML,...STD_HTML,...SPATIAL_HTML}}));"""
+process.stdout.write(JSON.stringify({metadata:[...cat.layouts,...PHOTO_META,...STD_META,...SPATIAL_META],html:Object.fromEntries(Object.entries({...html,...PHOTO_HTML,...STD_HTML,...SPATIAL_HTML}).map(([f,h])=>[f,repairLayoutHtml(f,h)]))}));"""
  x=json.loads(subprocess.run(['node','--input-type=module','-e',code],cwd=ROOT,check=True,capture_output=True,text=True).stdout)
  layouts={}
  for meta in x['metadata']:
@@ -113,6 +105,7 @@ process.stdout.write(JSON.stringify({metadata:[...cat.layouts,...PHOTO_META,...S
  return layouts
 
 LAYOUTS=registry()
+COVER_PHOTOS=json.loads((ROOT/'app/data/proposal_cover_photos.json').read_text())
 def product_picture(pid):
  p=P[pid]
  if p.get('gal'):
@@ -245,6 +238,8 @@ class Deck:
    'dvms2':r'기계|시설|관리|관제','dvmchiller':r'기계|시설|관리|관제','erv':r'강의|교실|업무|공용'}
   return next((s for s in self.spaces if re.search(rules.get(p,r'$^'),s['name'])),next((s for s in self.spaces if p in s['products']),self.spaces[0]))
  def add(self,f,role,t,imgs,kind):
+  if not self.slides and self.old['id']in COVER_PHOTOS:
+   imgs=[copy.deepcopy(COVER_PHOTOS[self.old['id']])];self.pic.used[imgs[0]['src']]+=1
   schema=LAYOUTS[f];missing=set(schema['text'])-set(map(str,t));extra=set(map(str,t))-set(schema['text'])
   if missing or extra:raise ValueError(f+' text mapping missing '+str(missing)+' extra '+str(extra))
   t={str(k):unicodedata.normalize('NFC',v)if isinstance(v,str)else v for k,v in t.items()};blank=[k for k,v in t.items()if not str(v).strip()]
@@ -266,12 +261,11 @@ class Deck:
   if f=='L_PH_CB_A':t[int(foot)]='사진: 삼성전자 · 공식 공간 참고자료'
   return t
  def cover(self,variant):
-  p=self.products[0];s=self.spaces;v=self.v
-  t={0:self.logo,1:'SAMSUNG B2B PROPOSAL',2:self.name+'의 제품과 운영을 연결합니다'if self.std else v['title'],3:self.name+' · '+('공간별 제품·솔루션 표준 구성'if self.std else v['scope']),4:'공간별 제품 구성',5:'솔루션 운영 흐름',6:'단계별 도입·지원',7:'삼성 B2B 제안 구성',8:'표준 구성안'if self.std else'고객 상황 기반 예시',9:'SAMSUNG',10:'01',11:'02',12:'03',13:'01',14:'공간',15:s[0]['name']+' 적용 장면',16:'02',17:'운영',18:s[6]['name']+' 관리 흐름',19:'03',20:'제품',21:P[p]['name']}
-  self.add('L_C08','공간·제품·운영 제안',t,[self.pic.scene(s[0]['name']),self.pic.scene(s[6]['name']),product_picture(p)],'open')
+  t={1:'SAMSUNG',2:'BUSINESS PROPOSAL',3:self.name+'\n표준 제안서',4:'대표 공간의 제품·솔루션과 운영 구상',5:'삼성 B2B',6:'업종별 공간·운영 제안',7:'CONFIDENTIAL'}
+  self.add('L_C01','표지 · '+self.name,t,[self.pic.scene(self.spaces[0]['name'],wide=True)],'open')
  def experience_cover(self):
-  t={1:self.logo,2:'SAMSUNG B2B PROPOSAL',3:COVER_HEADLINES[self.b['key']],4:self.customer,5:'SAMSUNG',6:self.v['scope']}
-  self.add('L_C02','고객 경험을 보여 주는 대표 공간',t,[self.pic.scene(self.spaces[0]['name'],wide=True)],'open')
+  t={1:'SAMSUNG',2:'BUSINESS PROPOSAL',3:self.name+'\n도입 제안서',4:self.v['title'],5:'CONFIDENTIAL',6:self.customer}
+  self.add('L_C02','표지 · '+self.name,t,[self.pic.scene(self.spaces[0]['name'],wide=True)],'open')
  def scene_intro(self):
   sp=self.spaces;t={6:'01 · 고객의 공간',7:self.promise,8:'이번 제안의 출발점',9:self.v['scope']}
   for k in range(3):
@@ -372,9 +366,9 @@ class Deck:
   self.add('L_PH_SO_D',s['name']+' · 현장 사용자와 운영자의 역할',self.footer(t,'L_PH_SO_D'),[self.pic.scene(sp[0]['name']),product_picture(self.products[0]),self.pic.scene(sp[6]['name']),self.pic.solution(sid)],'build')
   self.slides[-1]['notes']=self.condition+'\n'+'\n'.join(e[4]for e in steps)
  def ops_cover(self):
-  t={1:self.logo,2:'SAMSUNG B2B PROPOSAL',3:self.v['title'],4:self.name+' · '+self.v['scope'],5:'삼성 B2B 제안 구성',6:'고객 상황 기반 예시',7:'SAMSUNG'}
+  t={1:'SAMSUNG',2:'BUSINESS PROPOSAL',3:self.name+'\n운영 개선 제안서',4:self.v['title'],5:self.customer,6:self.v['scope'],7:'CONFIDENTIAL'}
   query={'smart_factory':'공장 생산 현장','smart_finance':'은행 상담 태블릿','smart_hotel':'호텔 객실','smart_network':'통신 매장 상담','smart_transportation':'물류 배송 직원','smart_office':'오피스 회의실','ai_office':'오피스 회의실','smart_university':'캠퍼스 도서관','smart_public':'도서관','smart_school':'학교 교실','ai_apartment':'아파트 거실','smart_home':'아파트 거실'}.get(self.b['key'],self.spaces[0]['name'])
-  self.add('L_C01','고객의 운영 과제와 목표',t,[self.pic.scene(query,wide=True)],'open')
+  self.add('L_C01','표지 · '+self.name,t,[self.pic.scene(query,wide=True)],'open')
  def bundles(self):
   p=self.products;s=self.solutions;sp=self.spaces
   t={0:'04 · 구성안 비교',1:'필수 구성에서 운영 연동까지 단계 확장',2:'구성 범위를 비교하는 예시입니다. 설치·연동·라이선스와 견적은 현장 조건으로 확정합니다.',3:'필수형',4:'핵심 기능 중심',5:sp[0]['name']+' 핵심 기기',6:'·',7:P[p[0]]['name'],8:P[p[0]]['model'],9:'이용자',10:sp[0]['action'],11:'운영자',12:'설치 위치·사용 방법·담당자를 먼저 정리',13:'운영형',14:'기준 구성',15:'기기·솔루션 연결',16:'정보·설정·점검을 함께 관리',17:'·',18:P[p[1]]['name'],19:P[p[1]]['model'],20:'+',21:S[s[0]]['name'],22:S[s[0]]['cat'],23:'+',24:P[p[2]]['name'],25:sp[1]['name'],26:'이용자',27:sp[1]['action'],28:'운영자',29:'승인·설정 변경·운영 이력을 연결',30:'확장형',31:'공용부·지원 포함',32:'다른 공간과 운영 지원으로 확장',33:'·',34:P[p[3]]['name'],35:P[p[3]]['model'],36:'+',37:S[s[-1]]['name'],38:S[s[-1]]['cat'],39:'+',40:P[p[-1]]['name'],41:sp[5]['name'],42:'이용자',43:sp[5]['action'],44:'운영자',45:'교육·인수·점검 기준을 운영팀에 이관',46:'단계별 적용 범위 비교 · 최종 수량·금액은 현장 실사와 견적서에서 확정'}
@@ -454,7 +448,7 @@ class Deck:
   for k,(kind,role)in enumerate(self.stage):
    if not groups or groups[-1]['key']!=kind:groups.append({'key':kind,'name':{'open':'제안 개요','context':'고객 과제와 적용 공간','value':'기대 가치','space':'제품과 구성안','build':'솔루션·연동·운영','proof':'공식 사례와 적용 근거','plan':'검증·구축·운영 계획','close':'다음 단계'}[kind],'goal':role,'slides':[]})
    groups[-1]['slides'].append({'f':self.slides[k]['f'],'role':role})
-  scenario.update(flow=groups,products=self.products,solutions=self.solutions,cases=self.cases,minutes=45 if self.std else 30,authoringRevision=REVISION,sourceMode='existing-layouts',referenceScenario=REFERENCE[self.b['ind']],title=self.name+' 표준 제안서'if self.std else self.v['customer']+' — '+self.v['title'],short=self.promise,logic=[g['name']for g in groups],diff=['공간별 사용자 행동과 제품·솔루션을 함께 정리','시범·실측·인수 조건까지 완성한 구성','공식 사례의 사실과 고객별 검토 조건을 구분'])
+  scenario.update(flow=groups,products=self.products,solutions=self.solutions,cases=self.cases,minutes=45 if self.std else 30,authoringRevision=REVISION,coverRevision='single-photo-cover-v1',sourceMode='existing-layouts',referenceScenario=REFERENCE[self.b['ind']],title=self.name+' 표준 제안서'if self.std else self.v['customer']+' — '+self.v['title'],short=self.promise,logic=[g['name']for g in groups],diff=['공간별 사용자 행동과 제품·솔루션을 함께 정리','시범·실측·인수 조건까지 완성한 구성','공식 사례의 사실과 고객별 검토 조건을 구분'])
   scenario['tone']='현장 업무·운영 조건·역할을 구체적으로 설명하고 효과는 실측으로 확인'
   if self.std:scenario.update(std=True,req='std',situation=self.name+'의 공간·제품·솔루션을 기존 Best Scenario의 완성된 양식으로 구성한 표준 제안입니다. 반복 목차와 빈 장표는 통합하고 적용 범위·제품 사양·운영 흐름·공식 사례·인수 조건을 함께 제시합니다.',fit='업종별 공간·제품·운영을 함께 검토하는 첫 제안',avoid='확정 도면과 최종 견적만 필요한 발주 단계',objections=[['모델과 수량은 어떻게 정하나요?','설치 공간·전원·네트워크와 운영 조건을 확인한 뒤 지원 모델과 수량을 합의합니다.'],['현장별 차이는 어떻게 반영하나요?','공간별 목적·사용자·연동·권한·운영 지원 범위를 조정합니다.']])
   who=[scenario['audience']['lead'],*scenario['audience']['others']][:3];weights=[40,35,25]if len(who)==3 else[60,40]if len(who)==2 else[100]
