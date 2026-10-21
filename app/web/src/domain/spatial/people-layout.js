@@ -1,4 +1,5 @@
-import {peopleObjectError,peopleRenderGroups,partsBounds,peopleInScene,PEOPLE_LAYOUT_VERSION} from './people-placement-geometry.js';
+import {peopleObjectError,peopleRenderGroups,partsBounds,furnitureBounds,peopleInScene,PEOPLE_LAYOUT_VERSION} from './people-placement-geometry.js';
+import {faceRotation} from './natural-layout.js';
 
 const hash=s=>[...s].reduce((n,c)=>Math.imul(n^c.charCodeAt(0),16777619)>>>0,2166136261);
 const round=n=>Math.round(n*10000)/10000;
@@ -13,9 +14,20 @@ function candidates(library,role,pose,actions,seed){
  const all=sources(library).filter(s=>s.actor.roleId===role&&s.actor.pose===pose);
  return all.filter(s=>actions.includes(s.actor.action)).sort((a,b)=>actions.indexOf(a.actor.action)-actions.indexOf(b.actor.action)||hash(seed+a.source.id+a.actor.id)-hash(seed+b.source.id+b.actor.id));
 }
-function context(room,industry){
+function context(room,industry,allRooms=false){
  const name=room.name+' '+(room.purpose||'');
- if(room.kind==='utility'||/냉장|냉동|보관|실외기|열원|기계실|천장|겉옷|랜드마크 외벽|건물 외벽|거리 미디어폴/.test(name))return null;
+ if(allRooms){
+  if(room.spaceProfile==='laundry'||/세탁/.test(room.name))return 'laundry';
+  if(room.spaceProfile==='garment'||/겉옷|드레스룸/.test(room.name))return 'garment';
+  if(room.kind==='utility')return 'facility';
+  if(/냉장|냉동 보관/.test(room.name))return 'coldstore';
+  if(room.spaceProfile==='billboard'||/랜드마크 외벽|건물 외벽|거리 미디어폴/.test(room.name))return 'media';
+  if(room.spaceProfile==='selfservice')return 'selfservice';
+  if(room.spaceProfile==='entry')return 'entry';
+  if(room.spaceProfile==='field')return 'field';
+  if(room.kind==='outdoor'&&industry==='PB')return 'park';
+  if(room.kind==='outdoor'&&industry==='OE')return /등하교/.test(room.name)?'school-route':'sport-outdoor';
+ }else if(room.kind==='utility'||/냉장|냉동|보관|실외기|열원|기계실|천장|겉옷|랜드마크 외벽|건물 외벽|거리 미디어폴/.test(name))return null;
  if(room.kind==='medical')return /간호|스테이션/.test(name)?'nurse':/진료|상담/.test(name)?'clinic':'ward';
  if(room.kind==='classroom')return 'classroom';
  if(room.kind==='study')return /도서관/.test(name)?'library':/라운지|휴게/.test(name)?'study-lounge':'study';
@@ -66,7 +78,7 @@ function populateSeats(scene,room,type,library,assets){
  const usable=hosts.filter(o=>{
   const t=scene.objects.find(t=>t.id===o.facing?.targetId),ta=t&&assets[t.assetId];
   if(ta&&['counter','reception'].includes(ta.kind)&&ta.size[1]>1)return false; // High counters get standing staff.
-  if(['ward','nurse','warehouse','lab','kitchen','home-kitchen','fitness'].includes(type))return false;
+  if(['ward','nurse','warehouse','lab','kitchen','home-kitchen','fitness','facility','laundry','garment','coldstore','media','selfservice','field','park','school-route','sport-outdoor','entry'].includes(type))return false;
   if(type==='reception'&&assets[o.assetId].kind==='taskchair')return false;
   return true;
  });
@@ -117,16 +129,28 @@ function standAt(scene,room,host,role,actions,library,assets,{side='front',stage
  return false;
 }
 export function populateScenePeople(scene,library){
- if(library.peopleLayoutVersion!==PEOPLE_LAYOUT_VERSION)return scene;
+ if(![1,PEOPLE_LAYOUT_VERSION].includes(library.peopleLayoutVersion))return scene;
+ const allRooms=library.peopleLayoutVersion>=2;
  const assets=Object.fromEntries(library.assets.map(a=>[a.id,a]));
  // Population is idempotent; explicit compound vignettes retain their own actors.
  for(const room of scene.rooms){
   if(scene.objects.some(o=>o.roomId===room.id&&(o.people?.length||assets[o.assetId].assetGroup==='people')))continue;
-  const type=context(room,scene.industry);if(!type)continue;
+  const type=context(room,scene.industry,allRooms);if(!type)continue;
   populateSeats(scene,room,type,library,assets);
-  const hosts=scene.objects.filter(o=>o.roomId===room.id&&!assets[o.assetId].productId),find=kinds=>hosts.find(o=>kinds.includes(assets[o.assetId].kind)&&!o.people?.length);
+  const hosts=scene.objects.filter(o=>o.roomId===room.id&&!o.autoDressing&&!assets[o.assetId].productId),find=kinds=>hosts.find(o=>kinds.includes(assets[o.assetId].kind)&&!o.people?.length);
   const addStaff=(role,actions,kinds,options)=>{const host=find(kinds);return host&&standAt(scene,room,host,role,actions,library,assets,options);};
-  if(type==='classroom')addStaff('teacher',['present','read','point'],['stage'],{stage:true});
+  if(type==='facility')addStaff('technician',['service','inspect','present'],['bench','cabinet','rack'],{side:'visible-side'});
+  else if(type==='laundry')addStaff('laundry',['fold','inspect','push'],['bench','cabinet'],{side:'visible-side'});
+  else if(type==='garment')addStaff('coatkeeper',['hanger','inspect'],['bench','cabinet'],{side:'visible-side'});
+  else if(type==='coldstore')addStaff('coldstore',['inspect','carry'],['counter','cabinet','island'],{side:'visible-side'});
+  else if(type==='media')addStaff('electrician',['service','inspect','present'],['bench','cabinet'],{side:'visible-side'});
+  else if(type==='selfservice')addStaff('customer',['inspect','read'],['reception','counter'],{side:'side'});
+  else if(type==='entry')addStaff('customer',['inspect','read'],['bench','reception','cabinet'],{side:'side'});
+  else if(type==='park'){if(!addStaff('gardener',['water'],['plant'],{side:'visible-side'}))addStaff('gardener',['inspect'],['bench'],{side:'side'});}
+  else if(type==='school-route')addStaff('student',['read','inspect'],['bench'],{side:'side'});
+  else if(type==='sport-outdoor')addStaff('trainer',['inspect','present'],['bench'],{side:'side'});
+  else if(type==='field')addStaff(scene.industry==='MF'&&/物|물류|배송|차량/.test(room.name)?'courier':'inspector',['carry','inspect','present'],['bench','cabinet'],{side:'side'});
+  else if(type==='classroom')addStaff('teacher',['present','read','point'],['stage'],{stage:true});
   else if(type==='theatre')addStaff(['ED','OF','OE','FN'].includes(scene.industry)?'lecturer':'performer',['present','point'],['stage'],{stage:true});
   else if(type==='reception')addStaff(staffRole(scene.industry),['inspect','present','consult'],['reception','counter','desk']);
   else if(type==='kitchen')addStaff('chef',['inspect','serve','present'],['counter','island']);
@@ -150,7 +174,45 @@ export function populateScenePeople(scene,library){
   else if(type==='library')addStaff('librarian',['inspect'],['shelf'],{side:'visible-side'});
   else if(type==='outdoor'&&!scene.objects.some(o=>o.roomId===room.id&&o.people?.length))addStaff('guide',['present','inspect'],['bench'],{side:'side'});
  }
+ if(allRooms)for(const room of scene.rooms){
+  ensureRoomPeople(scene,room,library,assets);
+  const included=room.includedSpaces||[];
+  if(room.spaceProfile!=='laundry'&&included.some(s=>s.spaceProfile==='laundry'))ensureRoomPeople(scene,room,library,assets,'laundry');
+  if(room.spaceProfile==='ward'&&included.some(s=>s.spaceProfile==='nursing'))ensureRoomPeople(scene,room,library,assets,'nurse');
+  if(room.spaceProfile==='kitchen'&&included.some(s=>/냉장|냉동 보관/.test(s.name)))ensureRoomPeople(scene,room,library,assets,'coldstore');
+ }
  const people=peopleInScene(scene,assets);
- scene.peopleLayout={version:PEOPLE_LAYOUT_VERSION,people:people.length,occupiedRooms:new Set(people.map(p=>p.roomId)).size};
+ scene.peopleLayout={version:library.peopleLayoutVersion,people:people.length,occupiedRooms:new Set(people.map(p=>p.roomId)).size,...(allRooms?{coverage:'all-rooms'}:{})};
  return scene;
+}
+
+const fallbackRoles={facility:'technician',laundry:'laundry',garment:'coatkeeper',coldstore:'coldstore',media:'electrician',selfservice:'customer',entry:'customer',park:'gardener','school-route':'student','sport-outdoor':'trainer',field:'inspector',classroom:'teacher',clinic:'doctor',ward:'doctor',nurse:'nurse',warehouse:'worker',lab:'researcher',kitchen:'chef','home-kitchen':'customer',fitness:'trainer',library:'librarian',study:'student','study-lounge':'student',dorm:'student',office:'office','bank-office':'banker','clerk-office':'clerk','nurse-office':'nurse',meeting:'office',theatre:'performer',audience:'customer',retail:'retailer',outdoor:'guide',bedroom:'customer',lounge:'customer',dining:'customer'};
+function hasRoomPeople(scene,room,assets){return scene.objects.some(o=>o.roomId===room.id&&(o.people?.length||assets[o.assetId]?.assetGroup==='people'));}
+function ensureRoomPeople(scene,room,library,assets,requiredRole){
+ if(!requiredRole&&hasRoomPeople(scene,room,assets))return;
+ if(requiredRole&&peopleInScene(scene,assets).some(p=>p.roomId===room.id&&p.roleId===requiredRole))return;
+ const type=context(room,scene.industry,true),role=requiredRole||(type==='reception'?staffRole(scene.industry):fallbackRoles[type]);
+ if(!role)throw new Error(room.name+': 사람 연출의 직종을 찾을 수 없습니다.');
+ const pool=candidates(library,role,'stand',['inspect','read','service','present','fold','hanger','water','carry','rest'],scene.industry+room.id+'coverage');
+ const hosts=scene.objects.filter(o=>o.roomId===room.id&&!o.autoDressing&&!assets[o.assetId].productId&&assets[o.assetId].kind!=='rug').toSorted((a,b)=>(a.people?.length||0)-(b.people?.length||0));
+ for(const host of hosts)if(standAt(scene,room,host,role,['inspect','read','service','fold','hanger','present','water','carry'],library,assets,{side:'visible-side'}))return;
+ // Last resort searches real metre offsets around existing furniture. It never
+ // shrinks a person to fit or introduces a duplicate desk/bench as a workaround.
+ const positions=[];
+ for(let z=.65;z<room.depth-1.15;z+=.45)for(let x=.65;x<room.width-.45;x+=.45)positions.push({x:room.x+x,z:room.z+z});
+ for(const host of hosts){
+  const angle=host.rotation*Math.PI/180;
+  for(const point of positions.toSorted((a,b)=>Math.hypot(a.x-host.x,a.z-host.z)-Math.hypot(b.x-host.x,b.z-host.z))){
+   const dx=point.x-host.x,dz=point.z-host.z;if(Math.hypot(dx,dz)>2.3)continue;
+   const offset=[round(dx*Math.cos(angle)-dz*Math.sin(angle)),round(-host.elevation),round(dx*Math.sin(angle)+dz*Math.cos(angle))];
+   const rotation=(faceRotation(point,host)-host.rotation+360)%360;
+   for(const {source,actor}of pool){
+    const person={version:1,sourceAssetId:source.id,actorId:actor.id,mode:'stand',offset,rotation,scale:1};
+    const body=partsBounds(peopleRenderGroups({...host,people:[person]},scene,assets)[0].body,host),own=furnitureBounds(host,assets[host.assetId]);
+    if(body.min.every((v,i)=>v<own.max[i]+(i===1?-.012:.025)&&body.max[i]>own.min[i]-(i===1?-.012:.025)))continue;
+    if(addPerson(host,room,scene,assets,person))return;
+   }
+  }
+ }
+ throw new Error(room.name+': 직종에 맞는 사람이 설 수 있는 공간을 확보하지 못했습니다.');
 }

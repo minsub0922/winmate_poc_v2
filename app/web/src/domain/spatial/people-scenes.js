@@ -31,6 +31,8 @@ const cues={doctor:['흰 진료복','청진기','명찰'],nurse:['스크럽 유�
 const roleNames={doctor:'의사',nurse:'간호사',patient:'환자',teacher:'선생님',lecturer:'강연자',student:'학생',office:'사무직 직원',presenter:'발표자',barista:'바리스타',chef:'조리사',waiter:'서빙 직원',receptionist:'호텔 리셉션 직원',housekeeper:'객실 정비 직원',concierge:'호텔 컨시어지',retailer:'매장 직원',shopper:'쇼핑 고객',worker:'현장 작업자',inspector:'검사 담당자',courier:'물류 직원',banker:'금융 상담사',clerk:'민원 담당자',customer:'이용 고객',guide:'안내 직원',security:'안전 안내 직원',cleaner:'환경 정비 직원',trainer:'운동 지도자',performer:'공연 진행자',designer:'공간 디자이너',caregiver:'돌봄 담당자'};
 Object.assign(cues,{librarian:['도서관 업무 조끼','안경·목걸이 명찰','도서'],researcher:['흰 실험 가운','보호 안경·장갑','비전원 실험 도구'],pharmacist:['녹색 표식 가운','안경·약품 보관 선반'],dentist:['치과 스크럽','의료 마스크','진료 도구'],baker:['베이커 모자','포켓 앞치마','빵·반죽'],artist:['베레모','물감 앞치마','붓·팔레트'],gardener:['넓은 챙 작업 모자','작업 장갑','화분·수공구'],mechanic:['작업복','보호 안경·공구 벨트','수공구']});
 Object.assign(roleNames,{librarian:'사서',researcher:'연구원',pharmacist:'약사',dentist:'치과 의료진',baker:'제빵사',artist:'미술 강사',gardener:'정원 관리사',mechanic:'정비사'});
+Object.assign(roleNames,{technician:'공조·설비 점검 기사',electrician:'전기·미디어 설비 기사',laundry:'세탁 관리 직원',coatkeeper:'의류 보관 직원',coldstore:'저온 보관 담당자'});
+Object.assign(cues,{technician:['안전모','보호 안경·반사띠 작업복','공구 벨트·수공구'],electrician:['안전모','반사띠 작업복·장갑','설비 점검 기록'],laundry:['앞치마·작업 모자','리넨·세탁 정리 동작'],coatkeeper:['접객 앞치마·명찰','옷걸이·외투 정리'],coldstore:['두꺼운 누빔 재킷','작업 모자·장갑','보관 물품 점검']});
 function actor(role,options={}){
   const {pose='stand',action='rest',variant=0,scale=1,x=0,z=0,y=0,angle=0,tilt=0}=options;
   const appearance=peopleAppearance(role,options),{shirt,skin,pants,hair}=appearance;
@@ -64,6 +66,8 @@ function actor(role,options={}){
   else if(action==='water'){left=[[-.27,chest-.08,.1],[-.23,chest-.2,.14]];right=[[.32,chest-.03,.23],[.42,chest-.17,.46]];}
   else if(action==='stretch'){left=[[-.36,shoulder+.2,0],[-.26,shoulder+.45,0]];right=[[.36,shoulder+.2,0],[.26,shoulder+.45,0]];}
   else if(action==='inspect'){left=[[-.25,1.12,.15],[-.12,1.13,.32]];right=[[.3,1.18,.13],[.1,1.19,.36]];}
+  else if(action==='service'){left=[[-.25,1.12,.15],[-.12,1.13,.32]];right=[[.3,1.17,.22],[.25,1.05,.5]];}
+  else if(['fold','hanger'].includes(action)){left=[[-.28,1.1,.17],[-.18,1.03,.45]];right=[[.28,1.1,.17],[.18,1.03,.45]];}
   for(const [side,points]of [[-1,left],[1,right]]){
     const start=[side*.2,shoulder,0];out.push(segment(start,points[0],.048,shirt),segment(points[0],points[1],.037,['coat','jacket','coveralls'].includes(appearance.style)?shirt:skin),S(...points[1],.042,.045,.038,appearance.accessories.includes('gloves')?'#d8ded0':skin));
   }
@@ -85,6 +89,9 @@ function actor(role,options={}){
   if(action==='stir')out.push(segment(right[1],[.04,.98,.61],.008,'#a38a60'));
   if(action==='draw')out.push(segment(right[1],[.22,chest+.075,.55],.006,'#ba9b63'));
   if(action==='water')out.push(...props('wateringcan',{x:.42,y:chest-.29,z:.46}));
+  if(action==='service')out.push(segment([.25,1.05,.5],[.25,1.05,.69],.013,'#91a1a3'),B(.25,1.05,.705,.065,.025,.055,'#91a1a3'));
+  if(action==='fold')out.push(...props('linen',{y:.97,z:.45}));
+  if(action==='hanger')out.push(segment([-.18,1.03,.45],[0,1.16,.45],.008,'#b5976b'),segment([0,1.16,.45],[.18,1.03,.45],.008,'#b5976b'),segment([-.18,1.03,.45],[.18,1.03,.45],.008,'#b5976b'),B(0,.86,.46,.3,.32,.03,'#a6b4b7'));
   return transform(out.map(part=>({...part,component:'person',role})),{x,y,z,angle,tilt,scale});
 }
 function furniture(type,{x=0,z=0,y=0,angle=0,w,d,h,style='standard'}={}){
@@ -165,6 +172,8 @@ Object.assign(objectNames,{sofa:'라운지 소파',easel:'이젤과 그림',plat
 const industryWords={ED:'교육 학교 교실 강의실 도서관',MD:'의료 병원 병실 진료실 요양',OF:'오피스 사무실 회사 업무 회의실',FB:'카페 식당 외식 레스토랑',HT:'호텔 숙박 리조트 객실',FN:'금융 은행 상담',RT:'매장 리테일 판매 쇼룸',SV:'편의 매장 무인',MF:'제조 공장 물류 창고',PB:'공공 민원 교통',TP:'관광 전시 체험',VN:'공연장 영화관 경기장',RS:'주거 분양 주택',ID:'인테리어 가구',AD:'야외 광고 미디어',OE:'파트너 현장 교육'};
 const roleAliases={doctor:['의료진'],nurse:['의료진'],teacher:['교사','강사'],lecturer:['강사','발표자'],student:['수강생','학습자'],patient:['보호 대상'],office:['사무원','회사원'],presenter:['프레젠터'],retailer:['판매원','점원'],banker:['은행원'],clerk:['공무원','행정 직원'],housekeeper:['하우스키퍼'],worker:['기술자'],guide:['가이드','해설사'],caregiver:['요양보호사'],librarian:['도서관 사서'],researcher:['과학자','실험실'],pharmacist:['약국','조제'],dentist:['치과 의사','치과 위생사'],baker:['베이커리','제과'],artist:['화가','공방','미술 선생님'],gardener:['원예','정원사'],mechanic:['정비','기술자']};
 const actionWords={write:'필기 작성 기록',read:'읽기 독서 교재',raise:'손들기 질문',board:'판서 칠판 쓰기', 'board-low':'판서 칠판 쓰기',point:'가리키기 설명 발표','point-left':'가리키기 진열 설명',present:'발표 설명 강연',consult:'상담 설명',listen:'듣기 수업',inspect:'점검 기록 확인',carry:'운반 상자',serve:'서빙 트레이',push:'이동 카트',examine:'진찰 청진',eat:'식사 밥먹는 급식 숟가락 식당',chopsticks:'식사 밥먹는 젓가락',drink:'마시기 음료 커피 차 휴식',snack:'간식 샌드위치 먹기',menu:'메뉴 주문 읽기',stir:'섞기 조리 반죽',knead:'반죽 제빵 만들기',draw:'그리기 미술 그림',water:'물주기 정원 화분',stretch:'스트레칭 기지개 휴식','meal-tray':'급식 식사 트레이 운반'};
+Object.assign(roleAliases,{technician:['설비 기사','공조','냉난방','기계실','실외기'],electrician:['전기 기사','미디어폴','외벽','안전 점검'],laundry:['세탁실','리넨','세탁물'],coatkeeper:['겉옷','외투','의류 보관'],coldstore:['냉장','냉동','저온 창고']});
+Object.assign(actionWords,{service:'정비 수리 점검 수공구',fold:'세탁물 리넨 수건 접기',hanger:'옷걸이 외투 의류 정리'});
 const data=[];
 function define(id,name,category,industries,situation,variant,make){
  const actors=[],objects=[],parts=[];let previewAzimuth=35;
@@ -353,6 +362,27 @@ define('gardener-potting','정원 관리사 · 분갈이 작업',culture,'TP HT 
 define('gardener-watering','정원 관리사 · 화분 물주기',culture,'TP HT RS AD','정원 · 야외 테라스','넓은 챙 모자와 장갑의 관리사가 물뿌리개를 기울여 화분 관리',api=>{api.object('bench',{z:-.65});api.person('gardener',{action:'water',x:-.35});api.prop('plant',{x:.35,z:.65});api.prop('plant',{x:.65,z:.2,scale:.75});});
 define('trainer-restdrink','운동 지도자 · 벤치에서 수분 휴식',culture,'HT VN RS','피트니스 휴게 공간','헤어밴드·호루라기·손목시계의 지도자가 음료로 휴식',api=>{api.object('bench');api.person('trainer',{pose:'sit',action:'drink',variant:0});api.object('mat',{x:.9,z:.25});api.prop('dumbbell',{x:.4,y:.545});});
 define('outdoor-picnic','야외 이용객 2명 · 피크닉 식사',culture,'TP PB RS AD','공원 · 피크닉','샌드위치와 음료를 든 이용객이 목재 식탁에 마주 앉기',api=>{diningPair(api,['customer','customer'],['breakfast','salad'],['snack','drink']);api.prop('basket',{x:.95,z:.1});});
+
+// Compact maintenance and visitor vignettes for previously unoccupied spaces.
+for(const [id,name,role,action,sector,space]of [
+ ['hvac-checklist','설비 기사 · 기계실 점검 기록','technician','inspect','MF OF HT MD RS ID','기계실 · 공조 설비'],
+ ['hvac-service','설비 기사 · 공구를 든 정비','technician','service','MF OF HT MD RS ID','실외기실 · 열원 설비'],
+ ['hvac-explain','설비 기사 · 유지보수 작업 설명','technician','present','MF OF HT MD RS ID','시설 관리'],
+ ['media-inspection','전기 기사 · 미디어 설비 점검','electrician','inspect','AD RT PB VN TP','외벽 · 미디어폴 · 야외 화면'],
+ ['media-service','전기 기사 · 안전 구역에서 공구 점검','electrician','service','AD RT PB VN TP','전기 · 미디어 설비'],
+ ['media-briefing','전기 기사 · 작업 구역 설명','electrician','present','AD RT PB VN TP','안전 점검 안내'],
+ ['coldstore-record','저온 보관 담당자 · 보관 물품 기록','coldstore','inspect','FB HT MF SV','냉장 · 냉동 보관'],
+ ['coldstore-cart','저온 보관 담당자 · 상자 운반','coldstore','carry','FB HT MF SV','저온 물류 · 적재'],
+])define(id,name,industry,sector,space,'작업복과 보호구를 갖춘 점검·정비 연출',api=>{api.object('workbench',{x:-.65,z:.55,w:.8,d:.5,h:.85});api.person(role,{x:.25,action});api.prop('paper',{x:-.65,y:.856,z:.55});});
+for(const [id,name,action]of [['laundry-fold','세탁 관리 직원 · 수건 접기','fold'],['laundry-count','세탁 관리 직원 · 리넨 확인','inspect'],['laundry-delivery','세탁 관리 직원 · 정리 카트 운반','push']])define(id,name,hotel,'HT RS ID MD','세탁실 · 리넨 관리','작업 모자·앞치마와 리넨 카트',api=>{api.object('trolley',{x:action==='push'?0:.7,z:action==='push'?.67:.3});api.person('laundry',{action});api.prop('linen',{x:action==='push'?0:.7,y:.69,z:action==='push'?.67:.3});});
+for(const [id,name,action]of [['coat-hanger','의류 보관 직원 · 외투 정리','hanger'],['coat-record','의류 보관 직원 · 보관 내역 확인','inspect']])define(id,name,hotel,'FB HT RT ID RS','겉옷 케어 · 드레스룸','명찰·접객 앞치마와 옷걸이·정리 선반',api=>{api.object('shelf',{x:-.8,z:.4});api.person('coatkeeper',{x:.25,action});});
+define('selfservice-visitor','셀프 체크인 이용객 · 안내대 확인',publicWork,'SV TP VN PB','좌석 선택 · 셀프 체크인','직원이 아닌 이용객이 안내 자료를 확인',api=>{api.object('lectern',{z:.65,w:.6,h:1.0});api.person('customer',{action:'inspect'});api.prop('paper',{y:1.006,z:.65});});
+define('entry-resident','귀가한 입주민 · 현관 벤치와 소지품',retail,'RS ID','주거 현관 · 귀가','가방을 놓은 벤치 곁에서 소지품 정리',api=>{api.object('bench',{x:.7,z:.3});api.person('customer',{action:'inspect'});api.prop('totebag',{x:.65,y:.5,z:.3});});
+define('entry-delivery','방문 배송 직원 · 현관 전달',retail,'RS ID SV OE','현관 · 방문 배송','상자를 든 배송 직원과 소형 물품 정리대',api=>{api.object('table',{x:-.75,z:.45,w:.7,d:.45,h:.6});api.person('courier',{x:.15,action:'carry'});});
+define('student-route','등하교 학생 · 벤치와 책가방',education,'ED OE PB','등하교길 · 외부 활동','책가방을 곁에 놓고 안내문을 확인하는 학생',api=>{api.object('bench',{x:.7,z:.3});api.person('student',{action:'read'});api.prop('schoolbag',{x:.7,y:.5,z:.3});});
+define('park-maintenance','공원 관리사 · 수공구 정리',culture,'PB TP HT AD','공원 · 탐방로 관리','넓은 챙 모자·작업 장갑의 관리사와 정리 벤치',api=>{api.object('bench',{x:.7,z:.3});api.person('gardener',{action:'inspect'});api.prop('wateringcan',{x:.7,y:.5,z:.3});});
+define('site-safety-check','현장 안전 담당자 · 출입 구역 점검',publicWork,'MF PB VN TP AD','야외 작업장 · 재난 현장','안전모·반사 조끼와 수동 차단봉이 함께 있는 점검',api=>{api.object('barrier',{z:.7});api.person('inspector',{action:'inspect'});});
+define('waiting-visitor','방문객 · 안내 벤치에서 대기',publicWork,'PB TP VN OE RT','대합실 · 입장 대기','안내문을 읽는 방문객과 대기 벤치',api=>{api.object('bench');api.person('customer',{pose:'sit',action:'read'});});
 
 export const PEOPLE_SCENES=data;
 export const PEOPLE_RECIPES=Object.fromEntries(data.map(asset=>[asset.recipe,asset.parts]));

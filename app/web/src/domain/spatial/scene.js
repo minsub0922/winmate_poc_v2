@@ -4,6 +4,7 @@ import { detailSupportError,placeDetailAsset } from './detail-placement.js';
 import {roomGridColumns,templateDimensions} from './template-composition.js';
 import {populateScenePeople} from './people-layout.js';
 import {SPACE_EQUIPMENT_VERSION,equipmentSupports} from './space-equipment.js';
+import {spaceFurniturePlan,characterFurniture,essentialCharacterFurniture,dressSpace} from './space-dressing.js';
 import {peopleObjectError,objectBlocksPeople} from './people-placement-geometry.js';
 import { NATURAL_LAYOUT_VERSION, CLEARANCE, bindNaturalRelations, orientNaturalRelations, inspectNaturalLayout, reflowNaturalSeating, frontVector, faceRotation, facingTarget } from './natural-layout.js';
 export { inspectNaturalLayout, NATURAL_LAYOUT_VERSION } from './natural-layout.js';
@@ -62,9 +63,9 @@ const PLANS = {
 };
 function seatingPlan(room,capacity){
   if(['office','study','classroom'].includes(room.kind)){
-    const fitCols=Math.max(1,Math.floor((room.width-1.8)/1.85)+1),cols=room.layoutReference?Math.min(fitCols,Math.max(1,Math.floor((room.layoutReference.width-1.5)/1.85))):Math.max(1,Math.floor((room.width-1.5)/1.85)),rows=Math.ceil(capacity/cols),span=rows*CLEARANCE.workRowPitch;
+    const modern=room.layoutCompositionVersion>=3,fitCols=Math.max(1,Math.floor((room.width-1.8)/1.85)+1),cols=room.layoutReference?Math.min(fitCols,Math.max(1,Math.floor((room.layoutReference.width-1.5)/1.85))):modern?fitCols:Math.max(1,Math.floor((room.width-1.5)/1.85)),rows=Math.ceil(capacity/cols),span=rows*CLEARANCE.workRowPitch;
     if(span>room.depth-1.1)throw new Error(`${room.name}: ${capacity}석을 배치하기에는 공간이 작아요. 면적을 늘려 주세요.`);
-    const out=[],start=room.layoutReference?(room.width-((Math.min(cols,capacity)-1)*1.85+1.5))/2:.9;
+    const out=[],start=room.layoutReference||modern?(room.width-((Math.min(cols,capacity)-1)*1.85+1.5))/2:.9;
     for(let i=0;i<capacity;i++){const x=(start+(i%cols)*1.85+.75)/room.width,z=(.55+Math.floor(i/cols)*CLEARANCE.workRowPitch+.375)/room.depth;
       out.push(['desk',x,z],['taskchair',x,z+.785/room.depth,180]);}
     return [...out,['plant',.91,room.layoutReference?.83:.12],['plant',room.layoutReference?.12:.9,.83]];
@@ -80,8 +81,12 @@ function seatingPlan(room,capacity){
 }
 
 function furniturePlan(room,capacity){
+  if(room.layoutCompositionVersion>=4){const plan=spaceFurniturePlan(room,capacity);if(plan)return plan;}
   if(room.equipmentPolicyVersion===SPACE_EQUIPMENT_VERSION){
-    if(room.spaceProfile==='digitalclass'&&!capacity)return [['stage-teaching',.5,.14],...[.49,.67].flatMap((z,row)=>[.24,.5,.76].flatMap(x=>[['desk-student',x,z,row?0:180],['chair',x,z+(row?1:-1)*.755/room.depth,row?180:0]])),['shelf',.88,.15]];
+    if(room.spaceProfile==='digitalclass'&&!capacity){
+      const adjusted=room.layoutCompositionVersion>=3,last=adjusted?Math.min(room.depth*.67,room.depth-2.3):room.depth*.67,first=adjusted?Math.min(room.depth*.49,last-.95):room.depth*.49;
+      return [['stage-teaching',.5,.14],...[first,last].flatMap((z,row)=>[.24,.5,.76].flatMap(x=>[['desk-student',x,z/room.depth,row?0:180],['chair',x,(z+(row?1:-1)*.755)/room.depth,row?180:0]])),['shelf',.88,.15]];
+    }
     if(room.spaceProfile==='clinic')return [['table-exam',.3,.35],['taskchair',.3,.35-.82/room.depth],['medical-visitor',.3,.35+.82/room.depth,180],['hospitalbed',.73,.37],['cabinet-medical',.87,.8]];
     if(['production','laboratory'].includes(room.spaceProfile))return [...[[.24,.24],[.67,.24],[.24,.62],[.67,.62]].flatMap(([x,z])=>[['table-workbench',x,z],['industrial-chair',x,z+.85/room.depth,180]]),['cabinet',.87,.88]];
     if(room.spaceProfile==='kids')return [['mat-kids',.5,.52],['table-kids-round',.32,.35],['kids-chair',.32,.35+.75/room.depth,180],['kids-chair',.32,.35-.75/room.depth],['shelf-kids',.83,.17],['locker-children',.84,.74]];
@@ -160,8 +165,11 @@ export function createScene(config, library) {
   let specs=template.rooms;
   if(config.roomKeys?.length) { specs=specs.filter(r=>config.roomKeys.includes(r.key)||r.includedSpaces?.some(s=>config.roomKeys.includes(s.key))); if(!specs.length)throw new Error('선택한 공간이 템플릿에 없습니다.'); }
   const cols=template.compositionVersion?roomGridColumns(specs.length):specs.length===1?1:Math.min(3,specs.length),rows=Math.ceil(specs.length/cols),gap=1.8;
-  const baseSize=template.compositionVersion&&!template.custom&&config.roomKeys?.length?templateDimensions(specs.length):template;
-  const width=Number(config.width ?? baseSize.width ?? (cols*9))*scale,depth=Number(config.depth ?? baseSize.depth ?? (rows*7.6+(rows-1)*gap))*scale;
+  const baseSize=template.compositionVersion&&!template.custom&&config.roomKeys?.length?templateDimensions(specs.length,template.roomReference):template;
+  // Scale room interiors, retaining physical wall gaps and the 1.8 m corridor.
+  // Consequently a compact room has the same size in an overview or alone.
+  const fixedGaps=template.compositionVersion>=3&&!template.custom;
+  const width=Number(config.width ?? baseSize.width ?? (cols*9))*scale+(fixedGaps?(cols-1)*.22*(1-scale):0),depth=Number(config.depth ?? baseSize.depth ?? (rows*7.6+(rows-1)*gap))*scale+(fixedGaps?(rows-1)*gap*(1-scale):0);
   if(!Number.isFinite(width)||!Number.isFinite(depth)||width<4||depth<4||width>150||depth>150)throw new Error('가로·세로는 4~150m로 입력해 주세요.');
   const cellWidth=(width-(cols-1)*.22)/cols,cellDepth=(depth-(rows-1)*gap)/rows;
   if(!template.custom&&(cellWidth<4||cellDepth<4))throw new Error('선택한 공간 수에 비해 면적이 작습니다. 공간당 가로·세로 4m 이상이 필요해요.');
@@ -176,6 +184,7 @@ export function createScene(config, library) {
       x:round(template.custom?spec.geometry.x*scale:(index%cols)*(cellWidth+.22)),z:round(template.custom?spec.geometry.z*scale:Math.floor(index/cols)*(cellDepth+gap)),width:round(rw),depth:round(rd),height:3.1,
       ...(template.roomReference&&!template.custom&&config.width==null&&config.depth==null?{layoutReference:{width:template.roomReference.referenceWidth*scale,depth:template.roomReference.referenceDepth*scale}}:{}),...(spec.includedSpaces?{includedSpaces:structuredClone(spec.includedSpaces)}:{}),
       ...(spec.equipmentPolicyVersion?{equipmentPolicyVersion:spec.equipmentPolicyVersion,spaceProfile:spec.spaceProfile}:{}),
+      ...(template.compositionVersion>=3||spec.layoutCompositionVersion>=3?{layoutCompositionVersion:template.compositionVersion||spec.layoutCompositionVersion}:{}),
       floor:spec.floor||'1F',outdoor:spec.kind==='outdoor',sourceNumber:spec.sourceNumber||String(index+1)};
     const explicit=setting?.capacity??spec.capacity;
     const capacity=explicit??(['office','study'].includes(room.kind)?Math.min(12,Math.max(4,Math.floor((room.layoutReference?room.layoutReference.width*room.layoutReference.depth:rw*rd)/11))):room.kind==='meeting'?8:0);
@@ -190,6 +199,7 @@ export function createScene(config, library) {
       if(room.spaceProfile==='library')plan.push(['shelf-library',.88,.42,90]);
       if(room.spaceProfile==='ward'&&spec.includedSpaces?.some(s=>s.spaceProfile==='nursing'))plan.push(['desk-office',.84,.62],['office-mesh',.84,.62+.805/rd,180]);
     }
+    if(room.layoutCompositionVersion>=4)plan=plan.map(([kind,...position])=>[characterFurniture(kind,room),...position]);
     for(const [i,[kind,x,z,rotation=0]] of plan.entries()) {
       const o={id:`${room.id}-f${i}`,assetId:`furniture:${kind}`,roomId:room.id,x:round(room.x+rw*x),z:round(room.z+rd*z),elevation:0,rotation};
       const preferred=contextFurniture(kind,room,scene.industry,assets);
@@ -198,7 +208,7 @@ export function createScene(config, library) {
       if(kind==='rug'||canPlace(o,room,scene.objects,assets)){
         scene.objects.push(o);
         if(room.equipmentPolicyVersion===SPACE_EQUIPMENT_VERSION)bindNaturalRelations(scene,assets);
-      }
+      }else if(room.layoutCompositionVersion>=4&&essentialCharacterFurniture(kind))throw new Error(`${room.name}: ${assets[o.assetId].name}을 배치할 공간이 부족합니다.`);
     }
     if(explicit&&['office','study','classroom','meeting'].includes(room.kind)){
       const seats=scene.objects.filter(o=>o.roomId===room.id&&['chair','taskchair'].includes(assets[o.assetId].kind)).length;
@@ -234,6 +244,7 @@ export function createScene(config, library) {
       scene.objects.push(o);
     }else for(let i=existing;i<quantity;i++)placeProduct(scene,room,{...asset,productId:asset.productId||asset.kind},assets,scene.objects.length);
   }
+  for(const room of scene.rooms)if(room.layoutCompositionVersion>=4)dressSpace(scene,room,assets,canPlace);
   naturalPlacement(scene,assets);
   if(config.populatePeople!==false)populateScenePeople(scene,library);
   scene.layoutPolicy={version:NATURAL_LAYOUT_VERSION,frontAxis:'+Z',workRowPitch:CLEARANCE.workRowPitch,chairBackClearance:CLEARANCE.chairBack};
@@ -377,9 +388,10 @@ export function repairNaturalLayout(scene,library,{reflow=true}={}){
     for(const room of next.rooms.filter(r=>['office','study'].includes(r.kind))){
       if(!inspectNaturalLayout(next,library).issues.some(i=>i.roomId===room.id&&i.code==='chair-back-blocked'))continue;
       const candidate=structuredClone(next),desks=candidate.objects.filter(o=>o.roomId===room.id&&assets[o.assetId]?.kind==='desk').sort((a,b)=>a.z-b.z||a.x-b.x);
-      const cols=Math.max(1,Math.floor((room.width-1.5)/1.85));if(Math.ceil(desks.length/cols)*CLEARANCE.workRowPitch>room.depth-1.1)continue;
+      const modern=room.layoutCompositionVersion>=3,cols=Math.max(1,Math.floor((room.width-(modern?1.8:1.5))/1.85)+(modern?1:0));if(Math.ceil(desks.length/cols)*CLEARANCE.workRowPitch>room.depth-1.1)continue;
+      const start=modern?(room.width-((Math.min(cols,desks.length)-1)*1.85+1.5))/2+.75:1.65;
       for(const [index,desk] of desks.entries()){
-        const dx=round(room.x+1.65+(index%cols)*1.85-desk.x),dz=round(room.z+.925+Math.floor(index/cols)*CLEARANCE.workRowPitch-desk.z);
+        const dx=round(room.x+start+(index%cols)*1.85-desk.x),dz=round(room.z+.925+Math.floor(index/cols)*CLEARANCE.workRowPitch-desk.z);
         const group=new Set([desk.id]),queue=[desk.id];
         while(queue.length){const id=queue.shift();for(const o of candidate.objects)if(!group.has(o.id)&&(o.supportId===id||o.facing?.moveWithTarget&&o.facing.targetId===id)){group.add(o.id);queue.push(o.id);}}
         for(const o of candidate.objects.filter(o=>group.has(o.id))){o.x=round(o.x+dx);o.z=round(o.z+dz);}

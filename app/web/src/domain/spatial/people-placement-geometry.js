@@ -2,7 +2,9 @@ import {transformPeopleParts} from './people-scenes.js';
 
 // Version 1 occupants reference the frozen people recipe, and belong to existing
 // furniture. No second desk, chair or bed is introduced by automatic population.
-export const PEOPLE_LAYOUT_VERSION=1;
+// Population policy 2 fills every template room. Stored actor descriptors stay
+// at version 1, so frozen scenes keep exactly their original transforms.
+export const PEOPLE_LAYOUT_VERSION=2;
 const normalized=new WeakMap(),mealCache=new WeakMap();
 const mealTypes=new Set(['meal','ricebowl','lunchtray','pasta','salad','breakfast']);
 const rad=n=>n*Math.PI/180;

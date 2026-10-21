@@ -34,6 +34,7 @@ const profiles={
  garment:{kind:'utility',equipment:[item('airdresser','방문객 외투 관리')]},
  dining:{kind:'dining',equipment:[item('qm43c','메뉴·주문 안내'),item(STUDENT_TABLET,'테이블별 주문 단말','tables'),item('ac360','홀 냉난방')]},
  kitchen:{kind:'kitchen',equipment:[item('bi_fridge','식재료 냉장 보관'),item('bi_induction','조리'),item('bi_dish','식기 세척')]},
+ coldstore:{kind:'warehouse',equipment:[item('bi_fridge','식재료 냉장 보관')]},
  bedroom:{kind:'bedroom',equipment:[item('hoteltv','객실·침실의 휴식 화면'),cooling]},
  dorm:{kind:'bedroom',equipment:[item(STUDENT_TABLET,'생활관 학습 책상의 디지털 교재'),clean,cooling]},
  homebedroom:{kind:'bedroom',equipment:[item(WORK_MONITOR,'공부방 책상의 학습·업무 화면'),cooling]},
@@ -56,7 +57,7 @@ const profiles={
  entry:{kind:'reception',equipment:[]},
 };
 const assignments={
- FB:['dining','outdoorinfo','reception','kitchen','kitchen','garment','operations'],
+ FB:['dining','outdoorinfo','reception','kitchen','coldstore','garment','operations'],
  AD:['billboard','billboard','theatre','outdoorinfo','waiting','waiting','operations'],
  OF:['meeting','office','lounge','reception','theatre','mechanical','mechanical'],
  ED:['classroom','digitalclass','computerlab','administration','library','dorm','operations'],

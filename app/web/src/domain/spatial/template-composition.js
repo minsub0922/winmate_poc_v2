@@ -1,6 +1,6 @@
 // Presentation templates keep real object dimensions while reducing empty floor.
-export const TEMPLATE_COMPOSITION_VERSION=2;
-export const TEMPLATE_ROOM={width:8.98,depth:7.7,referenceWidth:10.5,referenceDepth:9};
+export const TEMPLATE_COMPOSITION_VERSION=4;
+export const TEMPLATE_ROOM={width:8,depth:6.8,referenceWidth:10.5,referenceDepth:9};
 export const DEFAULT_TEMPLATE_ROOMS=6;
 export function roomGridColumns(count){
  if(count<=3)return Math.max(1,count);
@@ -8,9 +8,9 @@ export function roomGridColumns(count){
  if(count%4===0&&count>6)return 4;
  return 3;
 }
-export function templateDimensions(count){
+export function templateDimensions(count,room=TEMPLATE_ROOM){
  const cols=roomGridColumns(count),rows=Math.ceil(count/cols);
- return {width:Number((cols*TEMPLATE_ROOM.width+(cols-1)*.22).toFixed(4)),depth:Number((rows*TEMPLATE_ROOM.depth+(rows-1)*1.8).toFixed(4))};
+ return {width:Number((cols*room.width+(cols-1)*.22).toFixed(4)),depth:Number((rows*room.depth+(rows-1)*1.8).toFixed(4))};
 }
 // Related functions share one overview tile; their original individual templates
 // and source/product references stay available when explicitly selected.

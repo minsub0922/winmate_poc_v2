@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {createScene,validateScene,inspectNaturalLayout} from '../web/src/domain/spatial/scene.js';
 import {createSceneFromForm,studioDocumentFromTemplate} from '../web/src/domain/spatial/studio-form.js';
+import {TEMPLATE_ROOM} from '../web/src/domain/spatial/template-composition.js';
 import {WORK_MONITOR,STUDENT_TABLET} from '../web/src/domain/spatial/space-equipment.js';
 const library=JSON.parse(fs.readFileSync(new URL('../data/spatial/library.json',import.meta.url))),scenes=JSON.parse(fs.readFileSync(new URL('../data/spatial/scenes.json',import.meta.url)));
 const assets=Object.fromEntries(library.assets.map(a=>[a.id,a])),coverage=[];
@@ -31,7 +32,7 @@ for(const template of library.templates){
 }
 for(const industry of library.industries){
  const template=library.templates.find(t=>t.id===industry.code.toLowerCase()+'-full-standard'),scene=scenes[template.id];assert.equal(scene.rooms.length,6);
- assert(scene.rooms.every(r=>r.width===8.98&&r.depth===7.7));
+ assert(scene.rooms.every(r=>r.width===TEMPLATE_ROOM.width&&r.depth===TEMPLATE_ROOM.depth));
  coverage.push({industry:industry.code,rooms:scene.rooms.map(r=>({name:r.name,profile:r.spaceProfile,size:[r.width,r.depth],products:scene.objects.filter(o=>o.roomId===r.id&&assets[o.assetId].productId).map(o=>({id:o.assetId,name:assets[o.assetId].name,reason:o.placementReason,support:o.supportId}))}))});
  const document=studioDocumentFromTemplate(template,library),regenerated=createSceneFromForm(document.form,library);
  assert.deepEqual(validateScene(regenerated,library).errors,[],industry.code+' structured form round trip');
@@ -41,6 +42,6 @@ for(const industry of library.industries){
 const frozen=JSON.parse(fs.readFileSync(new URL('../data/spatial/versions/cd6d88bb.json',import.meta.url)));
 assert(frozen.templates.find(t=>t.id==='fb-full-standard').roomReference.width===9.45,'previous revision remains immutable');
 for(const a of frozen.assets)assert.deepEqual(assets[a.id].size,a.size,a.id+' physical object size retained');
-const out=new URL('./output/spatial-purpose/',import.meta.url);fs.mkdirSync(out,{recursive:true});
-fs.writeFileSync(new URL('coverage.json',out),JSON.stringify({ok:true,sourceHash:library.sourceHash,templates:library.templates.length,standardSize:[8.98,7.7],coverage},null,2));
+const out=new URL('./output/'+(process.env.SPATIAL_PURPOSE_OUTPUT||'spatial-purpose')+'/',import.meta.url);fs.mkdirSync(out,{recursive:true});
+fs.writeFileSync(new URL('coverage.json',out),JSON.stringify({ok:true,sourceHash:library.sourceHash,templates:library.templates.length,standardSize:[TEMPLATE_ROOM.width,TEMPLATE_ROOM.depth],coverage},null,2));
 console.log(`PASS ${library.templates.length} purpose-based templates, workstation screens, school tablets, natural placement, frozen dimensions and 16 industry form round trips`);

@@ -5,6 +5,7 @@ import { FURNITURE_RECIPES } from './furniture-recipes.js';
 import { FURNITURE_VARIANTS,FURNITURE_RECIPES as FURNITURE_VARIANT_RECIPES,describeLegacyFurniture } from './furniture-catalog.js';
 import { DETAIL_ASSETS,DETAIL_RECIPES } from './detail-objects.js';
 import { PEOPLE_RECIPES } from './people-scenes.js';
+import {SPACE_ASSETS,SPACE_RECIPES} from './space-objects.js';
 export const GEOMETRY_VERSION = 6;
 const box = (x,y,z,w,h,d,color='body',extra={}) => ({shape:'box',position:[x,y,z],size:[w,h,d],material:color,...extra});
 const cyl = (x,y,z,r,h,color='metal',extra={}) => ({shape:'cylinder',position:[x,y,z],size:[r,h,r],material:color,...extra});
@@ -75,6 +76,7 @@ export const RECIPES = {
   ...FURNITURE_VARIANT_RECIPES,
   ...DETAIL_RECIPES,
   ...PEOPLE_RECIPES,
+  ...SPACE_RECIPES,
 };
 export const FURNITURE = [
   ['desk','업무 데스크',1.5,.74,.75],['table','회의 테이블',2.8,.75,1.1],['roundtable','카페 원형 테이블',.85,.73,.85],
@@ -88,7 +90,7 @@ export const FURNITURE = [
   ['coffeetable','소파 테이블',1.2,.42,.65],['locker','개인 락커',1.2,1.8,.5],['whiteboard','이동식 보드',1.6,1.8,.4],
   ['conference','대형 회의 테이블',4.4,.75,1.2],['wastebin','분리수거함',.3,.55,.3],['pendant','펜던트 조명',.5,.65,.5],
   ['displaystand','디스플레이 이동식 스탠드',.85,.9,.58],
-].map(([kind,name,w,h,d])=>describeLegacyFurniture({id:`furniture:${kind}`,kind,name,size:[w,h,d],frontAxis:[0,0,1],parts:RECIPES[kind],physical:true,license:'CC0-1.0',dimensionSource:'designed'})).concat(FURNITURE_VARIANTS,DETAIL_ASSETS);
+].map(([kind,name,w,h,d])=>describeLegacyFurniture({id:`furniture:${kind}`,kind,name,size:[w,h,d],frontAxis:[0,0,1],parts:RECIPES[kind],physical:true,license:'CC0-1.0',dimensionSource:'designed'})).concat(FURNITURE_VARIANTS,DETAIL_ASSETS,SPACE_ASSETS);
 
 export const STYLES = {
   warm: {name:'내추럴 우드',floor:'#e6dccb',wood:'#bb9069',fabric:'#b8c2b2',cushion:'#d8c8a8',wall:'#f5f1e8',accent:'#256d67'},

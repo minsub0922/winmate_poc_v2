@@ -69,7 +69,7 @@ export function createSceneFromForm(form,library,{documentId='draft'}={}){
   const packed=packStudioRooms(form.rooms);if(packed.width>150||packed.depth>150)throw new Error('전체 공간이 150m를 넘습니다. 공간 크기나 수를 줄여 주세요.');
   const template={id:'studio-'+documentId,name:form.title.trim()||library.industries.find(i=>i.code===form.industry).name+' 공간 제안',
     industry:form.industry,scope:form.rooms.length>1?'full':'single',variant:'standard',custom:true,style:form.style,width:packed.width,depth:packed.depth,
-    rooms:form.rooms.map((r,i)=>({key:r.id,name:r.name.trim(),kind:r.kind,purpose:r.customPurpose?.trim()||'',geometry:packed.rectangles[i],productIds:r.products.map(p=>p.productId),...(r.equipmentPolicyVersion?{spaceProfile:r.spaceProfile,equipmentPolicyVersion:r.equipmentPolicyVersion,...(r.includedSpaces?{includedSpaces:structuredClone(r.includedSpaces)}:{})}:{})})),
+    rooms:form.rooms.map((r,i)=>({key:r.id,name:r.name.trim(),kind:r.kind,purpose:r.customPurpose?.trim()||'',geometry:packed.rectangles[i],productIds:r.products.map(p=>p.productId),...(r.equipmentPolicyVersion?{spaceProfile:r.spaceProfile,equipmentPolicyVersion:r.equipmentPolicyVersion,...(r.layoutCompositionVersion?{layoutCompositionVersion:r.layoutCompositionVersion}:{}),...(r.includedSpaces?{includedSpaces:structuredClone(r.includedSpaces)}:{})}:{})})),
     source:{type:'studio-input',documentId,templateId:form.templateId||null}};
   let scene=createScene({templateId:template.id,style:form.style,variant:'standard',populatePeople:false,
     roomSettings:form.rooms.filter(r=>r.capacity!==''&&r.capacity!=null).map(r=>({roomId:r.id,capacity:Number(r.capacity)})),
@@ -89,7 +89,7 @@ export function studioFormFromScene(scene){
     rooms:scene.rooms.map(r=>{
       const quantities=new Map();for(const object of scene.objects.filter(o=>o.roomId===r.id&&o.assetId.startsWith('product:')))quantities.set(object.assetId.slice(8),(quantities.get(object.assetId.slice(8))||0)+1);
       const furniture=new Map();for(const object of scene.objects.filter(o=>o.roomId===r.id&&o.studioFurniture))furniture.set(object.assetId,(furniture.get(object.assetId)||0)+1);
-      return {id:r.id,name:r.name,kind:r.kind,kindEdited:true,...(r.equipmentPolicyVersion?{spaceProfile:r.spaceProfile,equipmentPolicyVersion:r.equipmentPolicyVersion,...(r.includedSpaces?{includedSpaces:structuredClone(r.includedSpaces)}:{})}:{}),...(r.customPurpose!=null?{customPurpose:r.customPurpose}:{}),width:r.width,depth:r.depth,capacity:r.capacity||'',products:[...quantities].map(([productId,quantity])=>({productId,quantity})),...(furniture.size?{furniture:[...furniture].map(([assetId,quantity])=>({assetId,quantity}))}:{})};
+      return {id:r.id,name:r.name,kind:r.kind,kindEdited:true,...(r.equipmentPolicyVersion?{spaceProfile:r.spaceProfile,equipmentPolicyVersion:r.equipmentPolicyVersion,...(r.layoutCompositionVersion?{layoutCompositionVersion:r.layoutCompositionVersion}:{}),...(r.includedSpaces?{includedSpaces:structuredClone(r.includedSpaces)}:{})}:{}),...(r.customPurpose!=null?{customPurpose:r.customPurpose}:{}),width:r.width,depth:r.depth,capacity:r.capacity||'',products:[...quantities].map(([productId,quantity])=>({productId,quantity})),...(furniture.size?{furniture:[...furniture].map(([assetId,quantity])=>({assetId,quantity}))}:{})};
     })};
 }
 export function studioDocumentFromTemplate(template,library){

@@ -6,7 +6,7 @@ import {spatialPartFootprint} from './part-plan.js';
 
 export function embedSpatial(scene,library,{view='2d',snapshot,roomIds}={}){
   const ids=new Set(scene.objects.flatMap(o=>[o.assetId,...(o.people||[]).flatMap(p=>[p.sourceAssetId,p.meal?.sourceAssetId].filter(Boolean))])),assets=library.assets.filter(a=>ids.has(a.id)),kinds=new Set(assets.map(a=>a.recipe||a.kind));
-  return {version:1,scene:structuredClone(scene),view,library:{version:library.version,geometryVersion:library.geometryVersion,peopleLayoutVersion:library.peopleLayoutVersion,sourceHash:library.sourceHash,assets,recipes:Object.fromEntries(Object.entries(library.recipes).filter(([k])=>kinds.has(k)))},
+  return {version:1,nativePlanVersion:scene.rooms.some(r=>r.layoutCompositionVersion>=4)?2:1,scene:structuredClone(scene),view,library:{version:library.version,geometryVersion:library.geometryVersion,peopleLayoutVersion:library.peopleLayoutVersion,sourceHash:library.sourceHash,assets,recipes:Object.fromEntries(Object.entries(library.recipes).filter(([k])=>kinds.has(k)))},
     ...(snapshot?{image:snapshot.image,anchors:snapshot.anchors,camera:snapshot.camera}:{}),roomIds:roomIds||scene.rooms.slice(0,6).map(r=>r.id)};
 }
 export function spatialSlideRows(binding){
@@ -58,7 +58,14 @@ export function addNativePlan(slide,binding,stage,shapeType){
   const scene=binding.scene,assets=Object.fromEntries(binding.library.assets.map(a=>[a.id,a])),anchors=planAnchors(scene),k=Math.min(stage.w/1280,stage.h/820),ox=stage.x+(stage.w-1280*k)/2,oy=stage.y+(stage.h-820*k)/2,scale=anchors.scale*k,px=1/96;
   const box=(x,z,w,d)=>({x:(ox+anchors.origin[0]*k+x*scale)*px,y:(oy+anchors.origin[1]*k+z*scale)*px,w:Math.max(.005,w*scale*px),h:Math.max(.005,d*scale*px)});
   const colors={warm:'E6DCCB',modern:'E4E8EA',premium:'D8D1C7',clinical:'E6EFEF',industrial:'BFC4C7'};
-  const style=STYLES[scene.style],materials={wood:style.wood,fabric:style.fabric,cushion:style.cushion,body:'#f7f8f7',black:'#2c3a41',metal:'#8a969b',silver:'#b6c0c3',screen:'#1c6a9e',screenOff:'#090c10',leaf:'#4c8061',grille:'#a4b1ad',linen:'#f6f1e5',stone:'#d4d2c6',rug:'#d2d8cd',pot:'#c6b89f',cardboard:'#bf9d75',glass:'#b8ced3',light:'#fcf9ec'};
+  const style=STYLES[scene.style],materials={wood:style.wood,fabric:style.fabric,cushion:style.cushion,body:'#f7f8f7',black:'#2c3a41',metal:'#8a969b',silver:'#b6c0c3',screen:'#1c6a9e',screenOff:'#090c10',paper:'#e8e5db',leaf:'#4c8061',grille:'#a4b1ad',linen:'#f6f1e5',stone:'#d4d2c6',rug:'#d2d8cd',pot:'#c6b89f',cardboard:'#bf9d75',glass:'#b8ced3',light:'#fcf9ec'};
+  const polygon=(part,asset,object,name,width=.2)=>{
+    const angle=(object.rotation||0)*Math.PI/180,points=spatialPartFootprint(part,asset).map(([x,z])=>[object.x+x*Math.cos(angle)-z*Math.sin(angle),object.z+x*Math.sin(angle)+z*Math.cos(angle)]);
+    if(points.length<3)return;
+    const x=Math.min(...points.map(p=>p[0])),z=Math.min(...points.map(p=>p[1])),w=Math.max(...points.map(p=>p[0]))-x,d=Math.max(...points.map(p=>p[1]))-z;
+    const color=part.material==='body'&&asset.appearance?.bodyColor?asset.appearance.bodyColor:materials[part.material]||part.material;
+    slide.addShape(shapeType.custGeom||'custGeom',{...box(x,z,w,d),points:[...points.map(p=>({x:(p[0]-x)*scale*px,y:(p[1]-z)*scale*px})),{close:true}],fill:{color:color.replace('#',''),...(object.mount==='ceiling'?{transparency:35}:{})},line:{color:'788B83',width},objectName:name});
+  };
   for(const room of scene.rooms){
     slide.addShape(shapeType.rect,{...box(room.x,room.z,room.width,room.depth),fill:{color:room.outdoor?'DCE4D2':colors[scene.style]},line:{color:'647877',width:1.5},objectName:'space:'+room.id});
     slide.addText(room.name,{...box(room.x+.16,room.z+.18,room.width-.32,.45),fontSize:8,fontFace:'Noto Sans KR',bold:true,color:'254B48',margin:0,objectName:'room-label:'+room.id});
@@ -66,19 +73,15 @@ export function addNativePlan(slide,binding,stage,shapeType){
   }
   for(const o of [...scene.objects].sort((a,b)=>a.elevation-b.elevation)){
     const asset=assets[o.assetId],[w,h,d]=asset.size;
-    slide.addShape(['plant','roundtable','cassette360'].includes(asset.kind)?shapeType.ellipse:shapeType.rect,{...box(o.x-w/2,o.z-d/2,w,d),rotate:o.rotation||0,fill:{color:asset.productId?'B9D6E8':asset.kind==='plant'?'568467':asset.kind==='rug'?'D2D8CD':'C3AC8F',transparency:o.mount==='ceiling'?35:0},line:{color:asset.productId?'306A8B':'7E877B',width:.5,dashType:o.mount==='ceiling'?'dash':undefined},objectName:o.id});
+    if(binding.nativePlanVersion!==2)slide.addShape(['plant','roundtable','cassette360'].includes(asset.kind)?shapeType.ellipse:shapeType.rect,{...box(o.x-w/2,o.z-d/2,w,d),rotate:o.rotation||0,fill:{color:asset.productId?'B9D6E8':asset.kind==='plant'?'568467':asset.kind==='rug'?'D2D8CD':'C3AC8F',transparency:o.mount==='ceiling'?35:0},line:{color:asset.productId?'306A8B':'7E877B',width:.5,dashType:o.mount==='ceiling'?'dash':undefined},objectName:o.id});
     const recipe=binding.library.recipes[asset.recipe||asset.kind]||asset.parts||[],angle=(o.rotation||0)*Math.PI/180;
     for(const [index,p] of [...recipe].sort((a,b)=>a.position[1]-b.position[1]).entries()){
+      if(binding.nativePlanVersion===2){polygon(p,asset,o,o.id+':part-'+index);continue;}
       const circular=p.shape==='sphere'||p.shape==='cylinder'&&!p.rotate;if(p.shape==='cylinder'&&!circular)continue;
       const x=p.position[0]*w,z=p.position[2]*d,cx=o.x+x*Math.cos(angle)-z*Math.sin(angle),cz=o.z+x*Math.sin(angle)+z*Math.cos(angle);
       const pw=p.size[0]*w*(circular?2:1),pd=Math.max(.012,p.size[2]*d*(circular?2:1)),color=(materials[p.material]||p.material).replace('#','');
       slide.addShape(circular?shapeType.ellipse:shapeType.rect,{...box(cx-pw/2,cz-pd/2,pw,pd),rotate:o.rotation||0,fill:{color},line:{color:'788B83',width:.2},objectName:o.id+':part-'+index});
     }
-    for(const occupant of peopleRenderGroups(o,scene,assets))for(const [index,p]of [...occupant.parts].sort((a,b)=>a.position[1]-b.position[1]).entries()){
-      const points=spatialPartFootprint(p,{size:[1,1,1]}).map(([x,z])=>[o.x+x*Math.cos(angle)-z*Math.sin(angle),o.z+x*Math.sin(angle)+z*Math.cos(angle)]);
-      if(points.length<3)continue;
-      const x=Math.min(...points.map(p=>p[0])),z=Math.min(...points.map(p=>p[1])),w=Math.max(...points.map(p=>p[0]))-x,d=Math.max(...points.map(p=>p[1]))-z;
-      slide.addShape(shapeType.custGeom||'custGeom',{...box(x,z,w,d),points:[...points.map(p=>({x:(p[0]-x)*scale*px,y:(p[1]-z)*scale*px})),{close:true}],fill:{color:(materials[p.material]||p.material).replace('#','')},line:{color:'788B83',width:.15},objectName:`${o.id}:occupant-${occupant.index}-${occupant.actor.roleId}:part-${index}`});
-    }
+    for(const occupant of peopleRenderGroups(o,scene,assets))for(const [index,p]of [...occupant.parts].sort((a,b)=>a.position[1]-b.position[1]).entries())polygon(p,{size:[1,1,1]},o,`${o.id}:occupant-${occupant.index}-${occupant.actor.roleId}:part-${index}`,.15);
   }
 }

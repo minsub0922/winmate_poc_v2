@@ -20,14 +20,15 @@ for(const template of library.templates){
  const again=structuredClone(scene);populateScenePeople(again,library);assert.deepEqual(again,scene,template.id+' idempotent');
  for(const room of scene.rooms){
   const roomPeople=people.filter(p=>p.roomId===room.id);if(roomPeople.length)occupied++;else empty++;
-  if(room.kind==='utility'||/冷蔵|냉장|냉동|보관|실외기|열원|기계실|천장|겉옷|랜드마크 외벽|건물 외벽|거리 미디어폴/.test(room.name))assert.equal(roomPeople.length,0,room.name+' remains unoccupied');
+  if(library.peopleLayoutVersion>=2)assert(roomPeople.length>0,template.id+' '+room.name+' must contain a suitable occupant');
+  else if(room.kind==='utility'||/冷蔵|냉장|냉동|보관|실외기|열원|기계실|천장|겉옷|랜드마크 외벽|건물 외벽|거리 미디어폴/.test(room.name))assert.equal(roomPeople.length,0,room.name+' legacy occupancy');
   for(const object of scene.objects.filter(o=>o.roomId===room.id&&o.people?.length))assert.equal(peopleObjectError(object,room,scene.objects,assets),null,template.id+' people clearance');
  }
  for(const p of people){assert(peopleSource(p,assets));assert(p.scale>=.7&&p.scale<=1.12);if(p.mode==='seat')assert.equal(peopleSource(p,assets).actor.pose,'sit');}
  assert.equal((planSvg(scene,library,{width:640,height:410}).match(/data-person-role=/g)||[]).length,people.length,template.id+' SVG includes each real occupant');
  total+=people.length;coverage.push({id:template.id,industry:template.industry,people:people.length});
 }
-assert(occupied>empty,'populate most suitable rooms');assert(empty>0,'do not force every room');
+assert(occupied>empty,'populate most suitable rooms');assert.equal(empty,0,'latest templates populate every room');
 for(const i of library.industries)assert(coverage.some(t=>t.industry===i.code&&t.people>0),i.name+' coverage');
 const education=scenes['ed-full-standard'],medical=scenes['md-full-standard'];
 for(const room of education.rooms.filter(r=>r.kind==='classroom')){const p=peopleInScene(education,assets).filter(p=>p.roomId===room.id);assert(p.some(p=>p.roleId==='teacher'));assert(p.filter(p=>p.roleId==='student').length>=2);}
@@ -41,11 +42,11 @@ const template=library.templates.find(t=>t.id==='ed-full-standard'),document=stu
 assert(peopleInScene(regenerated,assets).some(p=>p.roleId==='teacher'));assert(peopleInScene(regenerated,assets).some(p=>p.roleId==='student'));
 const old={...library};delete old.peopleLayoutVersion;assert.equal(peopleInScene(createScene({templateId:'ed-full-standard'},old),assets).length,0,'archived libraries retain their original unoccupied layout');
 const invalid=structuredClone(office);invalid.objects.find(o=>o.id===chair.id).people[0].offset[0]=100;assert(validateScene(invalid,library).errors.length,'out-of-room occupants rejected');
-const out=new URL('./output/spatial-people-layout/',import.meta.url);fs.mkdirSync(out,{recursive:true});
+const out=new URL('./output/'+(process.env.SPATIAL_PEOPLE_LAYOUT_OUTPUT||'spatial-people-layout')+'/',import.meta.url);fs.mkdirSync(out,{recursive:true});
 const require=createRequire(new URL('../web/package.json',import.meta.url)),Pptx=require('pptxgenjs'),Zip=require('jszip'),pptx=new Pptx();pptx.layout='LAYOUT_WIDE';
 const classroom=focusScene(education,education.rooms.find(r=>r.kind==='classroom').id),binding=embedSpatial(classroom,library);
 assert.equal((planSvg(binding.scene,binding.library).match(/data-person-role=/g)||[]).length,peopleInScene(classroom,assets).length,'portable binding retains frozen actor recipes');
 const slide=pptx.addSlide();addNativePlan(slide,binding,{x:64,y:160,w:820,h:490},pptx.ShapeType);const ppt=await pptx.write({outputType:'nodebuffer'});fs.writeFileSync(new URL('people-template-2d.pptx',out),ppt);
 const zip=await Zip.loadAsync(ppt),xml=await zip.file('ppt/slides/slide1.xml').async('string');assert(xml.includes('occupant-0-teacher'));assert(xml.includes('occupant-0-student'));assert((xml.match(/<a:custGeom>/g)||[]).length>100,'actual editable person polygons exported');
 fs.writeFileSync(new URL('layout-unit-report.json',out),JSON.stringify({ok:true,sourceHash:library.sourceHash,templates:coverage.length,populatedTemplates:coverage.filter(t=>t.people).length,people:total,occupiedRooms:occupied,emptyRooms:empty,nativePptPersonShapes:(xml.match(/<a:custGeom>/g)||[]).length,checkedAt:new Date().toISOString()},null,2));
-console.log(`PASS ${coverage.length} templates / ${total} people in ${occupied} rooms; ${empty} rooms intentionally empty, all industries, furniture/products preserved, body/door clearances, actual SVG, linked edits, regeneration and frozen revisions`);
+console.log(`PASS ${coverage.length} templates / ${total} people in ${occupied} rooms; ${empty} empty rooms, all industries, furniture/products preserved, body/door clearances, actual SVG, linked edits, regeneration and frozen revisions`);

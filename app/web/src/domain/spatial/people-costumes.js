@@ -2,6 +2,7 @@
 const colors={doctor:'#f4f6f0',nurse:'#47989b',patient:'#b9d6dd',teacher:'#987057',lecturer:'#536882',student:'#d6a849',office:'#617387',presenter:'#3b526b',barista:'#ab835b',chef:'#f8f5e9',waiter:'#f0ece1',receptionist:'#344c6d',housekeeper:'#729aa8',concierge:'#344c6d',retailer:'#5f856a',shopper:'#d7a265',worker:'#edb83c',inspector:'#dae063',courier:'#59828c',banker:'#334e72',clerk:'#536b80',customer:'#ac967d',guide:'#6e9c8a',security:'#3e536c',cleaner:'#619290',trainer:'#557f86',performer:'#48546a',designer:'#a77862',caregiver:'#ab9bba',librarian:'#856a88',researcher:'#eef1e9',pharmacist:'#eef5e8',dentist:'#d9e9e8',baker:'#f4e8d0',artist:'#bd8061',gardener:'#6f8960',mechanic:'#537387'};
 const skin=['#d8ad8d','#ad775b','#e2bea3','#86593f','#c08b69'];
 const hair=['#3a302b','#242c2d','#746052','#493e3b','#b9b6aa','#644f3f'];
+Object.assign(colors,{technician:'#487985',electrician:'#d3a54a',laundry:'#6d9ca1',coatkeeper:'#8b6e89',coldstore:'#637e99'});
 const label={glasses:'테 안경',goggles:'보호 안경',hardhat:'안전모',toque:'높은 조리 모자',bakerCap:'베이커 모자',cap:'챙 모자',nurseCap:'의료 캡',peakedCap:'제복 모자',bellCap:'벨 캡',beret:'베레모',sunhat:'넓은 챙 작업 모자',headband:'스포츠 헤어밴드',stethoscope:'청진기',mask:'의료 마스크',badge:'명찰',lanyard:'목걸이 명찰',scarf:'접객 스카프',bowtie:'나비넥타이',tie:'넥타이',toolbelt:'공구 벨트',gloves:'작업 장갑',whistle:'호루라기',watch:'손목시계',wristband:'환자 손목 띠',pencil:'귀에 꽂은 연필'};
 export function peopleAppearance(role,{variant=0,pose='stand',glasses,hairstyle}={}){
  const n=Math.abs(variant|0),accessories=[];
@@ -13,6 +14,9 @@ export function peopleAppearance(role,{variant=0,pose='stand',glasses,hairstyle}
  if(['barista','chef','baker','waiter','retailer','housekeeper','artist'].includes(role))style='apron';
  if(['worker','inspector','courier','guide','gardener'].includes(role))style='vest';
  if(['mechanic','cleaner'].includes(role))style='coveralls';
+ if(['technician','electrician'].includes(role)){style='coveralls';hat='hardhat';accessories.push('goggles','toolbelt','gloves','badge');}
+ if(['laundry','coatkeeper'].includes(role)){style='apron';hat=role==='laundry'?'cap':null;accessories.push('lanyard');}
+ if(role==='coldstore'){style='jacket';hat='cap';accessories.push('gloves','badge');}
  if(['customer','shopper','student'].includes(role)){shirt=['#d5a94f','#b87663','#6c9299','#927c9f','#9caa7c','#c6a17c'][n%6];style=['cardigan','hoodie','striped-shirt'][n%3];pants=['#455968','#645652','#4c6059'][n%3];}
  if(role==='patient'){style='gown';pants=shirt;accessories.push('wristband');}
  if(role==='doctor')accessories.push('stethoscope');
@@ -72,6 +76,8 @@ export function peopleCostumeParts(profile,{B,S,C,segment,head,chest,hip,right})
   for(const sx of [-1,1])cloth(B(sx*.125,chest,.128,.07,.43,.023,shirt),B(sx*.115,chest-.1,.147,.08,.09,.012,'#d9d1b2'));
   if(['worker','inspector','courier'].includes(role))for(const yy of [chest-.08,chest+.03])cloth(fine(0,yy,.157,.36,.028,.008,'#f3f0c5'));
  }
+ if(['technician','electrician'].includes(role))for(const yy of [chest-.08,chest+.03])cloth(fine(0,yy,.157,.36,.028,.008,'#f3f0c5'));
+ if(role==='coldstore')for(const yy of [-.14,-.04,.06,.16])cloth(fine(0,chest+yy,.151,.32,.012,.012,'#a7b8c6'));
  if(style==='gown')for(const yy of [-.13,-.03,.07,.17])cloth(B(0,chest+yy,.122,.33,.012,.009,'#739ca8'));
  if(acc.includes('glasses')||acc.includes('goggles')){
   const goggles=acc.includes('goggles'),m=goggles?'#a6ced0':'#394542',r=goggles?.008:.004;
