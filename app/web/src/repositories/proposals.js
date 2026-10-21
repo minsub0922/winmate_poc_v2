@@ -11,7 +11,7 @@ import { scenarioStoryboard } from '../domain/templates/scenario_storyboard.js';
 import { markLayoutChanges, retainHistoryLayouts } from '../domain/slides/context-policy.js';
 import { forgetHistory, historyRemoved, restoreHistory } from './history-preferences.js';
 import { historyPath, sharedIdentity } from '../services/shared-path.js';
-import { migrateProposalDesign } from '../domain/slides/proposal-design.js';
+import { migrateRemovedLayouts } from '../domain/templates/migrate_removed_layouts.js';
 
 const KEY = 'winmate.v2.proposals';
 const UKEY = 'winmate.v2.ui';
@@ -68,8 +68,8 @@ function load() {
 function migrateCovers(list) {
   let n = 0;
   for (const p of list) {
+    if (migrateRemovedLayouts(p, {pid:()=>uid('s'),kid:()=>uid('k'),lid:()=>uid('l')})) n++;
     if (normalizeCovers(p, true)) n++;
-    if (migrateProposalDesign(p)) n++;
     if (retainHistoryLayouts(p)) n++;
   }
   if (n) { try { browserStorage.setItem(KEY, JSON.stringify(list)); } catch (e) {} }
@@ -101,6 +101,8 @@ export function sharedProposal(snapshot, preferredId) {
     permission: snapshot.permission, revision: snapshot.revision,
   } };
   if (previous?.sample && snapshot.isOwner) proposal.sample = structuredClone(previous.sample);
+  let migratedId = 0;
+  migrateRemovedLayouts(proposal, {pid:()=>id+'-mp'+migratedId++,kid:()=>id+'-mk'+migratedId++,lid:()=>id+'-ml'+migratedId++});
   const history = !historyRemoved(id, snapshot.token) && (state.proposals.some(p => p.id === id) || snapshot.isOwner || snapshot.hasEdited);
   const adaptation = new Map((previous?.parts || []).flatMap(s => s.layouts.map(x => [x.uid, x.adaptation])));
   for (const part of proposal.parts) for (const layout of part.layouts) {

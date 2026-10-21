@@ -88,6 +88,18 @@ function add(id,name,kind,size,category,industries,spaces,description,parts,extr
     keywords:[...new Set(industries.split(' ').flatMap(code=>sectors[code]||[]))],frontAxis:[0,0,1],physical:true,powered:false,license:'CC0-1.0',dimensionSource:'designed',...extra});
 }
 const seat=(id,name,size,inds,spaces,desc,options={},extra={})=>add(id,name,options.base==='spider'?'taskchair':options.level>.6?'stool':'chair',size,'의자 · 좌석',inds,spaces,desc,chair(options),extra);
+add('stage-teaching','교실용 낮은 발표 단상','stage',[1.8,.12,.75],'공간 구획 · 비품','ED OE','교실|모둠실|학원','교사의 설명·발표를 위한 작은 비전동 단상',[box(0,.06,0,1.8,.12,.75,'wood')],{compositionSpace:'metres'});
+// Physical metre geometry keeps the 750 mm worktop separate from dividers.
+add('desk-office','서랍·가림판 업무 데스크','desk',[1.5,.75,.75],'책상 · 테이블','OF FN PB FB RT HT AD TP VN ID OE','업무 공간|본사|운영실|관제실','밝은 상판·측면 패널·가림판·서랍과 케이블 홀을 갖춘 비전동 사무 책상',[
+ box(0,.7325,0,1.5,.035,.75,'body'),box(-.7,.3575,0,.04,.715,.68,'metal'),box(.7,.3575,0,.04,.715,.68,'metal'),
+ box(0,.49,-.31,1.36,.38,.025,'body'),box(.48,.32,.025,.33,.58,.59,'body'),
+ ...[.17,.36,.55].flatMap(y=>[box(.48,y,.327,.31,.17,.018,'body'),box(.48,y,.341,.12,.012,.012,'metal')]),
+ cyl(-.5,.752,-.27,.024,.005,'black'),cyl(.5,.752,-.27,.024,.005,'black'),
+],{compositionSpace:'metres',supportSurfaceHeight:.755});
+add('desk-reading','칸막이 개인 열람 데스크','desk',[1.2,1.15,.7],'책상 · 테이블','ED PB SV','도서관|스터디룸|집중실','740 mm 상판 위로 올라오는 3면 칸막이와 독립 열람석',[
+ box(0,.7225,0,1.2,.035,.7,'wood'),box(-.55,.3525,0,.035,.705,.6,'body'),box(.55,.3525,0,.035,.705,.6,'body'),
+ box(0,.945,-.3375,1.2,.41,.025,'fabric'),box(-.5875,.945,0,.025,.41,.7,'fabric'),box(.5875,.945,0,.025,.41,.7,'fabric'),
+],{compositionSpace:'metres',supportSurfaceHeight:.74});
 // Distinct frames, backs, arms and bases, rather than model-number or colour variants.
 seat('office-mesh','메시 사무용 의자',[.62,1.05,.62],'OF FN','업무 공간|개인 좌석','통기형 등판·팔걸이·오발 캐스터 베이스의 업무 의자',{base:'spider',back:'mesh',arms:true});
 seat('executive-chair','임원 하이백 의자',[.7,1.22,.7],'OF FN','임원실|대표실|VIP 상담실','헤드레스트와 높은 쿠션 등판을 갖춘 업무 의자',{base:'spider',arms:true,head:true});

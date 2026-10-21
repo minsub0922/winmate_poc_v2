@@ -5,11 +5,12 @@ import { browserStorage } from './browser.js';
 // background) and the other is the empty layout: { id, f, ov | null, filled, name, from, at }.
 import { useSyncExternalStore } from 'react';
 import { L } from '../services/catalog.js';
+import { migrateRemovedLayoutItem, isRemovedLayout } from '../domain/templates/migrate_removed_layouts.js';
 
 const KEY = 'winmate.v2.favs';
 let LIST = load();
 const subs = new Set();
-function load() { try { const v = JSON.parse(browserStorage.getItem(KEY) || '[]'); return Array.isArray(v) ? v : []; } catch (e) { return []; } }
+function load() { try { const v = JSON.parse(browserStorage.getItem(KEY) || '[]'); if (!Array.isArray(v)) return []; if (!v.some(x => isRemovedLayout(x.f))) return v; const migrated = v.map(migrateRemovedLayoutItem); browserStorage.setItem(KEY, JSON.stringify(migrated)); return migrated; } catch (e) { return []; } }
 function save() { try { browserStorage.setItem(KEY, JSON.stringify(LIST)); } catch (e) {} for (const f of subs) f(); }
 export const useFavs = () => useSyncExternalStore((f) => { subs.add(f); return () => subs.delete(f); }, () => LIST);
 export const favList = () => LIST;

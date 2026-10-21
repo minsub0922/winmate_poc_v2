@@ -2,7 +2,7 @@
 // Canonical app-side knowledge snapshot for the PoC agents → app/data/runtime/kb (only).
 //
 //   node app/scripts/export_agent_data.mjs [--out app/data/runtime/kb] [--allow-count-drift]
-//        [--expect-total 856] [--expect-active 615] [--expect-products 1068] [--expect-scenarios 82]
+//        [--expect-total 837] [--expect-active 596] [--expect-products 1068] [--expect-scenarios 82]
 //
 // Sources (read-only):
 //   app/data/{catalog.json, images.json, products_db.json, layouts.b64}
@@ -35,7 +35,7 @@ const arg = (name, dflt) => { const i = argv.indexOf('--' + name); return i >= 0
 const flag = (name) => argv.includes('--' + name);
 const OUT = path.resolve(ROOT, arg('out', path.join(RUNTIME, 'kb')));
 const EXPECT = {
-  layouts_total: Number(arg('expect-total', 856)), layouts_active: Number(arg('expect-active', 615)),
+  layouts_total: Number(arg('expect-total', 837)), layouts_active: Number(arg('expect-active', 596)),
   products: Number(arg('expect-products', 1068)), curated_products: 40, scenarios: Number(arg('expect-scenarios', 82)),
 };
 const LAYOUT_KEYS = ['f', 'c', 'code', 'name', 'when', 'g', 'p', 'p2', 'ind', 'sol', 'pc', 'req', 'prods', 'sols', 'phs', 'ph', 'hl', 'txt', 'eb', 'foot', 'sample'];
@@ -56,17 +56,16 @@ const INPUTS = {
   covers: path.join(SRC, 'domain', 'templates', 'covers.js'), photo: path.join(SRC, 'domain', 'templates', 'photo_layouts.js'),
   std: path.join(SRC, 'domain', 'templates', 'std_layouts.js'), retired: path.join(SRC, 'domain', 'templates', 'retired.js'),
   spatial: path.join(SRC, 'domain', 'templates', 'spatial-layouts.js'),
-  verticalLayouts: path.join(SRC, 'domain', 'templates', 'vertical_layouts.js'),
   verticalScenarios: path.join(SRC, 'domain', 'templates', 'vertical_scenarios.json'),
-  descriptionMeta: path.join(SRC, 'domain', 'templates', 'description_standard_meta.json'),
+  proposalBriefs: path.join(DATA, 'vertical_proposal_briefs.json'),
+  proposalBuilder: path.join(ROOT, 'app', 'scripts', 'rebuild_vertical_proposals.py'),
+  proposalContent: path.join(ROOT, 'app', 'scripts', 'proposal_content.py'),
+  proposalVisuals: path.join(ROOT, 'app', 'scripts', 'proposal_visuals.py'),
+  proposalPhotos: path.join(SRC, 'domain', 'templates', 'proposal_photo_assets.json'),
+  verticalBriefs: path.join(ROOT, 'app', 'scripts', 'vertical_briefs.py'),
+  priorRevisions: path.join(SRC, 'domain', 'templates', 'prior_proposal_revisions.json'),
+  migrationData: path.join(SRC, 'domain', 'templates', 'removed_layout_migrations.json'),
   descriptionScenarios: path.join(SRC, 'domain', 'templates', 'description_standard_scenarios.json'),
-  descriptionLoader: path.join(SRC, 'domain', 'templates', 'description_standards.js'),
-  descriptionFit: path.join(SRC, 'domain', 'slides', 'description-fit.js'),
-  proposalDesign: path.join(SRC, 'domain', 'slides', 'proposal-design.js'),
-  referenceComposer: path.join(ROOT, 'app', 'scripts', 'compose_reference_proposals.mjs'),
-  editorialCopy: path.join(ROOT, 'app', 'scripts', 'proposal_editorial_copy.json'),
-  descriptionHtml: path.join(DATA, 'description-standard-html.json.gz'),
-  descriptionGraphics: path.join(WEB, 'public', 'assets', 'description-standards', 'graphics', 'manifest.json'),
   scenarioFills: path.join(SRC, 'domain', 'templates', 'scenario_fills.js'),
   scenarioStory: path.join(SRC, 'domain', 'templates', 'scenario_story.js'),
   scenarioBackgrounds: path.join(SRC, 'domain', 'templates', 'scenario_bg.json'),
@@ -131,11 +130,10 @@ import { COVERS } from ${spec(INPUTS.covers)};
 import { PHOTO_META, PHOTO_HTML } from ${spec(INPUTS.photo)};
 import { STD_META, STD_HTML } from ${spec(INPUTS.std)};
 import { SPATIAL_META, SPATIAL_HTML } from ${spec(INPUTS.spatial)};
-import { VERTICAL_META, VERTICAL_HTML } from ${spec(INPUTS.verticalLayouts)};
 import { RETIRED_R4 } from ${spec(INPUTS.retired)};
 import * as parts from ${spec(INPUTS.parts)};
 import * as scenarios from ${spec(INPUTS.scenarios)};
-export { catalog, COVERS, PHOTO_META, PHOTO_HTML, STD_META, STD_HTML, SPATIAL_META, SPATIAL_HTML, VERTICAL_META, VERTICAL_HTML, RETIRED_R4, parts, scenarios };
+export { catalog, COVERS, PHOTO_META, PHOTO_HTML, STD_META, STD_HTML, SPATIAL_META, SPATIAL_HTML, RETIRED_R4, parts, scenarios };
 `;
 const primer = {
   name: 'wm-agent-primer',
@@ -174,8 +172,7 @@ const ALL = C.ALL_LAYOUTS, ACTIVE = C.LAYOUTS, L = C.L, RETIRED = C.RETIRED, PRO
 const allSet = new Set(ALL.map((l) => l.f));
 const hidden = Object.fromEntries(Object.keys(L).filter((f) => !allSet.has(f)).map((f) => [f, L[f]]));
 const html = JSON.parse(zlib.gunzipSync(Buffer.from(fs.readFileSync(INPUTS.layouts, 'utf8').trim(), 'base64')).toString('utf8'));
-Object.assign(html, mod.COVERS, mod.PHOTO_HTML, mod.STD_HTML, mod.SPATIAL_HTML, mod.VERTICAL_HTML);
-Object.assign(html, JSON.parse(zlib.gunzipSync(fs.readFileSync(INPUTS.descriptionHtml)).toString('utf8')));
+Object.assign(html, mod.COVERS, mod.PHOTO_HTML, mod.STD_HTML, mod.SPATIAL_HTML);
 const partsOut = { PARTS: mod.parts.PARTS, NEXT: mod.parts.NEXT, RELATED: mod.parts.RELATED, REQ_LABEL: mod.parts.REQ_LABEL };
 const S = mod.scenarios;
 const scenariosOut = { REQ_TYPES: S.REQ_TYPES, REQ_ORDER: S.REQ_ORDER, STRATEGIES: S.STRATEGIES, ENDINGS: S.ENDINGS, STAGES: S.STAGES, SCENARIOS: S.SCENARIOS };
@@ -248,7 +245,10 @@ write('retired.json', json(RETIRED));
 write('layout_html.json.gz', zlib.gzipSync(Buffer.from(JSON.stringify(html)), { level: 9 }));
 write('parts.json', json(partsOut));
 write('best_scenarios.json', json(scenariosOut));
-write('images.json', fs.readFileSync(INPUTS.images));
+const scenarioPhotos = readJson(INPUTS.proposalPhotos);
+const exportedImages = readJson(INPUTS.images);
+for (const photo of scenarioPhotos) exportedImages.pids[photo.pid] = {file:photo.src,src:'case',model:photo.model,desc:photo.desc,w:photo.w,h:photo.h,page:photo.page,owner:photo.owner};
+write('images.json', Buffer.from(JSON.stringify(exportedImages)));
 write('standard_scenarios.json', fs.readFileSync(INPUTS.standard));
 write('score/criteria.json', json(criteria));
 write('score/rubrics.json', json(rubrics));

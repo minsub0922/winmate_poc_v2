@@ -18,9 +18,9 @@ for(const room of scene.rooms){const focused=focusScene(scene,room.id);assert.de
 const escaped={...scene,title:'<script>alert("x")</script>'};assert(!planSvg(escaped,library).includes('<script>'));
 assert.equal(new Set(library.assets.map(a=>a.id)).size,library.assets.length);
 assert(library.assets.every(a=>library.recipes[a.recipe||a.kind]||a.parts));
-for(const source of library.cases){const scene=scenes[source.id];for(const id of source.sourceProductIds){if(library.assets.find(a=>a.productId===id)?.physical)assert(scene.objects.some(o=>o.assetId==='product:'+id),source.id+' missing source product '+id);}}
+for(const source of library.cases){const scene=scenes[source.id];for(const id of source.sourceProductIds){if(library.assets.find(a=>a.productId===id)?.physical)assert(scene.objects.some(o=>o.assetId==='product:'+id)||source.omittedSourceProducts?.some(p=>p.productId===id&&p.reason),source.id+' source product must be placed or explain its purpose-based replacement '+id);}}
 const planned=createScene({templateId:'cowork-full-standard',width:40,depth:27,roomSettings:[{roomId:'cowork-work',capacity:30},{roomId:'cowork-meet',capacity:8}],placements:[{productId:'flip',roomId:'cowork-meet'}]},library);
-assert.equal(planned.objects.filter(o=>o.roomId==='cowork-work'&&o.assetId==='furniture:taskchair').length,30);
+assert.equal(planned.objects.filter(o=>o.roomId==='cowork-work'&&library.assets.find(a=>a.id===o.assetId)?.kind==='taskchair').length,30);
 assert.equal(planned.objects.filter(o=>o.roomId==='cowork-meet'&&o.assetId==='product:flip').length,1);
 console.log(`PASS ${library.templates.length} deterministic scenes, 16-industry scope/size coverage, geometry, SVG, anchors, focus, escaping, object references`);
 

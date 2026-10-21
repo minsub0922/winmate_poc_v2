@@ -18,5 +18,5 @@ export function fillOf(id, k, f) {
   const { f: _f, ...ov } = x;
   // A proposal copy must own its overrides; editing it cannot mutate the
   // scenario registry or another proposal created from the same scenario.
-  return structuredClone({ t: ov.t || {}, img: ov.img || {}, ...(ov.r ? { r: ov.r } : {}), ...(ov.notes != null ? { notes: ov.notes } : {}), ...(ov.design || id.startsWith('bs_v_') ? { design: ov.design || 'winmate-2' } : {}) });
+  return structuredClone({ t: ov.t || {}, img: ov.img || {}, ...(ov.r ? { r: ov.r } : {}), ...(ov.notes != null ? { notes: ov.notes } : {}) });
 }

@@ -10,6 +10,7 @@ import { prepareSpatialAppearance } from './spatial_appearance.mjs';
 import { spatialRecipeTransform,spatialPartGeometry,spatialPartPosition } from '../web/src/domain/spatial/part-geometry.js';
 import { createScene, roomKind, inferProducts, fingerprint, sceneHash } from '../web/src/domain/spatial/scene.js';
 import {TEMPLATE_COMPOSITION_VERSION,TEMPLATE_ROOM,templateDimensions,sixRoomOverview,evenRoomSubset} from '../web/src/domain/spatial/template-composition.js';
+import {equipSpace,SPACE_EQUIPMENT_VERSION} from '../web/src/domain/spatial/space-equipment.js';
 import { buildSpatialTemplateCatalog } from '../web/src/domain/spatial/template-catalog.js';
 import { PHOTO_META } from '../web/src/domain/templates/photo_layouts.js';
 import { STD_META } from '../web/src/domain/templates/std_layouts.js';
@@ -43,8 +44,8 @@ const industries=catalog.industries.map(i=>({code:i.code,name:i.name}));
 for(const ind of industries){
   const source=sources.find(s=>s.code===ind.code);
   if(!source)throw new Error('Missing source '+ind.code);
-  const rooms=source.rooms.map(r=>({...r,kind:roomKind(r.name),productIds:inferProducts(r.productsText,products.assets)}));
-  // This matches the five spatial callouts of the shared-office standard proposal.
+  const rooms=source.rooms.map(r=>equipSpace({...r,kind:roomKind(r.name),productIds:inferProducts(r.productsText,products.assets)},ind.code));
+  // Keep every original space traceable within the six-room overview.
   const definitions=[{key:ind.code.toLowerCase()+'-full',name:ind.name+' · 전체 맵',scope:'full',rooms:sixRoomOverview(rooms,ind.code)},
     ...rooms.map(r=>({key:r.key,name:r.name,scope:'single',rooms:[r]}))];
   for(const def of definitions)for(const variant of ['compact','standard','spacious']){
@@ -59,7 +60,7 @@ const officeRooms=[
   {key:'cowork-cafe',name:'라운지 / 카페',kind:'lounge',productIds:['purifier','airdresser','qm55c'],purpose:'휴식 · 입주사 교류'},
   {key:'cowork-project',name:'프로젝트 룸',kind:'meeting',capacity:4,productIds:['flip','book','wf1way'],purpose:'프로젝트 협업 · 팀 작업'},
   {key:'cowork-admin',name:'관리자 공간',kind:'office',productIds:['smartmonitor','tabs11','dvms2'],purpose:'기기·지점 운영 관리'},
-];
+].map(r=>equipSpace(r,'OF'));
 for(const variant of ['compact','standard','spacious'])for(const rooms of [officeRooms,...officeRooms.map(r=>[r])])templates.push({
   id:`cowork-${rooms.length>1?'full':rooms[0].key}-${variant}`,name:rooms.length>1?'공유오피스 · 공간별 맞춤 제안':rooms[0].name,industry:'OF',scope:rooms.length>1?'full':'single',variant,rooms,
   ...templateDimensions(rooms.length),compositionVersion:TEMPLATE_COMPOSITION_VERSION,roomReference:TEMPLATE_ROOM,style:'modern',source:{layoutId:'L_SOL_03',scenarioId:'bs22',type:'reference-reconstruction',note:'공유오피스 Lite 공간 지도와 공간별 제품 장표 기반 · 개념 재구성'},
@@ -84,30 +85,17 @@ for(const meta of metas.filter(m=>['scenario','products','dss','specs'].includes
   const count=[['두 공간',2],['세 공간',3],['네 공간',4],['여섯 공간',6],['공간 3개',3]].find(([text])=>meta.name.includes(text))?.[1];
   const full=!!count||/공간 맵|공간 지도|전체 구성|전 층|일곱 공간|여섯 공간|층별|여러 공간|한 세대|세대 패키지/.test(meta.name);
   const base=full?templates.find(t=>t.industry===industry&&t.variant==='standard'&&t.scope==='full'):chosen;
-  const productIds=[...new Set([...(meta.prods||[]),...base.rooms.flatMap(r=>r.productIds)])];
   const exact=/^L_SOL_/.test(meta.f)?officeRooms.find(r=>text.includes(r.name)||r.name.split(' / ').some(w=>w.length>2&&text.includes(w))):null;
-  const rooms=exact?[{...exact,productIds:[...new Set([...exact.productIds,...(meta.prods||[])])]}]:evenRoomSubset(base.rooms,count||base.rooms.length).map((r,i)=>({...r,productIds:full?[...r.productIds]:[...new Set([...r.productIds,...productIds])]}));
-  for(const id of meta.prods||[])if(!rooms.some(r=>r.productIds.includes(id))){
-    const asset=products.assets.find(a=>a.productId===id),best=[...rooms].sort((a,b)=>{
-      const score=r=>(asset?.spaces||[]).filter(s=>r.name.includes(s)||s.includes(r.name)).length;
-      return score(b)-score(a);
-    })[0];best.productIds.push(id);
-  }
+  const rooms=exact?[structuredClone(exact)]:evenRoomSubset(base.rooms,count||base.rooms.length);
   const template={...base,id:'case-'+meta.f,name:meta.name,scope:rooms.length>1?'full':'single',variant:'standard',rooms,
     ...templateDimensions(rooms.length),source:{layoutId:meta.f,type:'reference-reconstruction',industryInferred:!meta.ind,note:'기존 공간·제품 장표의 명칭·제품 ID 기반 재구성 · 원본 사진과 동일한 실측 배치는 아님'}};
-  templates.push(template);cases.push({id:template.id,layoutId:meta.f,name:meta.name,industry,scope:template.scope,productIds,sourceProductIds:meta.prods||[],roomKeys:rooms.map(r=>r.key)});
+  templates.push(template);cases.push({id:template.id,layoutId:meta.f,name:meta.name,industry,scope:template.scope,productIds:rooms.flatMap(r=>r.productIds),sourceProductIds:meta.prods||[],omittedSourceProducts:(meta.prods||[]).filter(id=>!rooms.some(r=>r.productIds.includes(id))).map(productId=>({productId,reason:'공간 용도별 필수 기기 구성으로 재선정 · 원본 장표의 제품 참조는 보존'})),roomKeys:rooms.map(r=>r.key)});
 }
-const library={version:1,templateDefaults:{scope:'full',roomCount:6,compositionVersion:TEMPLATE_COMPOSITION_VERSION},geometryVersion:GEOMETRY_VERSION,peopleLayoutVersion:PEOPLE_LAYOUT_VERSION,license:'CC0-1.0',referenceImageLicense:'Manufacturer product imagery; original rights retained',renderer:'Three.js (MIT) · SVG',industries,recipes:RECIPES,assets,templates,cases};
+const library={version:1,templateDefaults:{scope:'full',roomCount:6,compositionVersion:TEMPLATE_COMPOSITION_VERSION},geometryVersion:GEOMETRY_VERSION,peopleLayoutVersion:PEOPLE_LAYOUT_VERSION,equipmentPolicyVersion:SPACE_EQUIPMENT_VERSION,license:'CC0-1.0',referenceImageLicense:'Manufacturer product imagery; original rights retained',renderer:'Three.js (MIT) · SVG',industries,recipes:RECIPES,assets,templates,cases};
 const scenes={},errors=[];
 for(const template of templates){
   try{scenes[template.id]=createScene({templateId:template.id},library);}
-  catch(error){
-    // Large source product lists need a larger room, with real object sizes preserved.
-    if(template.id.startsWith('case-')){
-      template.width=Math.max(template.width,18);template.depth=Math.max(template.depth,15);
-      try{scenes[template.id]=createScene({templateId:template.id},library);continue;}catch(e){errors.push({id:template.id,error:e.message});}
-    }else errors.push({id:template.id,error:error.message});
-  }
+  catch(error){errors.push({id:template.id,error:error.message});}
 }
 if(errors.length){console.error(JSON.stringify(errors.slice(0,25),null,2));throw new Error(`${errors.length} spatial scenes failed validation`);}
 library.templateCatalog=buildSpatialTemplateCatalog(library,scenes);
@@ -117,7 +105,7 @@ library.counts={industries:industries.length,products:products.assets.length,fur
   single:templates.filter(t=>t.scope==='single').length,full:templates.filter(t=>t.scope==='full').length,
   measured:products.assets.filter(a=>a.dimensionSource==='catalog-spec').length,logical:products.assets.filter(a=>!a.physical).length};
 library.sourceHash=fingerprint([products.catalogSha256,sources,metas.map(m=>[m.f,m.prods,m.name]),RECIPES,assets,templates,library.templateCatalog,
-  fs.readFileSync(path.join(root,'app/web/src/domain/spatial/scene.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/natural-layout.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/furniture-catalog.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/detail-objects.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/detail-placement.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/template-composition.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/people-layout.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/people-placement-geometry.js'),'utf8')]);
+  fs.readFileSync(path.join(root,'app/web/src/domain/spatial/scene.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/space-equipment.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/natural-layout.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/furniture-catalog.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/detail-objects.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/detail-placement.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/template-composition.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/people-layout.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/people-placement-geometry.js'),'utf8')]);
 for(const scene of Object.values(scenes)){scene.assetRevision=library.sourceHash;scene.contentHash=sceneHash(scene);}
 fs.writeFileSync(path.join(dir,'library.json'),JSON.stringify(library)+'\n');
 const versionDirectory=path.join(dir,'versions');fs.mkdirSync(versionDirectory,{recursive:true});

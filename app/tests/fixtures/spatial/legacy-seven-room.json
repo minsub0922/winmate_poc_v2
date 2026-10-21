@@ -1,0 +1,1489 @@
+{
+  "description": "Published seven-room scene from immutable library bfe05d70, retained to verify saved-scene compatibility.",
+  "scene": {
+    "version": 1,
+    "engine": "winmate-spatial-1",
+    "assetVersion": 1,
+    "assetRevision": "bfe05d70",
+    "title": "외식 · 카페 프랜차이즈 · 전체 맵",
+    "industry": "FB",
+    "templateId": "fb-full-standard",
+    "style": "warm",
+    "width": 31.94,
+    "depth": 30.6,
+    "height": 3.1,
+    "scope": "full",
+    "rooms": [
+      {
+        "id": "fb-hero",
+        "name": "홀 테이블",
+        "kind": "dining",
+        "purpose": "내 언어로 바로 주문, 연기 없이 오래",
+        "x": 0,
+        "z": 0,
+        "width": 10.5,
+        "depth": 9,
+        "height": 3.1,
+        "floor": "1F",
+        "outdoor": false,
+        "sourceNumber": "3",
+        "capacity": 0
+      },
+      {
+        "id": "fb-1",
+        "name": "매장 외부 · 대기",
+        "kind": "outdoor",
+        "purpose": "줄 대신 번호로, 메뉴는 미리",
+        "x": 10.72,
+        "z": 0,
+        "width": 10.5,
+        "depth": 9,
+        "height": 3.1,
+        "floor": "1F",
+        "outdoor": true,
+        "sourceNumber": "1",
+        "capacity": 0
+      },
+      {
+        "id": "fb-2",
+        "name": "입구 카운터 · 결제",
+        "kind": "reception",
+        "purpose": "단정한 카운터, 기다림 없는 결제",
+        "x": 21.44,
+        "z": 0,
+        "width": 10.5,
+        "depth": 9,
+        "height": 3.1,
+        "floor": "1F",
+        "outdoor": false,
+        "sourceNumber": "2",
+        "capacity": 0
+      },
+      {
+        "id": "fb-3",
+        "name": "주방",
+        "kind": "kitchen",
+        "purpose": "주문은 화면으로, 열기는 빠르게",
+        "x": 0,
+        "z": 10.8,
+        "width": 10.5,
+        "depth": 9,
+        "height": 3.1,
+        "floor": "1F",
+        "outdoor": false,
+        "sourceNumber": "4",
+        "capacity": 0
+      },
+      {
+        "id": "fb-4",
+        "name": "냉장 · 냉동 보관",
+        "kind": "kitchen",
+        "purpose": "온도 이탈을 마감 전에 알림",
+        "x": 10.72,
+        "z": 10.8,
+        "width": 10.5,
+        "depth": 9,
+        "height": 3.1,
+        "floor": "1F",
+        "outdoor": false,
+        "sourceNumber": "5",
+        "capacity": 0
+      },
+      {
+        "id": "fb-5",
+        "name": "겉옷 케어 존",
+        "kind": "utility",
+        "purpose": "고기 냄새 없이 가볍게 귀가",
+        "x": 21.44,
+        "z": 10.8,
+        "width": 10.5,
+        "depth": 9,
+        "height": 3.1,
+        "floor": "1F",
+        "outdoor": false,
+        "sourceNumber": "6",
+        "capacity": 0
+      },
+      {
+        "id": "fb-6",
+        "name": "본사 운영",
+        "kind": "office",
+        "purpose": "전 매장을 한 화면에",
+        "x": 0,
+        "z": 21.6,
+        "width": 10.5,
+        "depth": 9,
+        "height": 3.1,
+        "floor": "1F",
+        "outdoor": false,
+        "sourceNumber": "7",
+        "capacity": 8
+      }
+    ],
+    "objects": [
+      {
+        "id": "fb-hero-f0",
+        "assetId": "furniture:roundtable",
+        "roomId": "fb-hero",
+        "x": 2.73,
+        "z": 2.7,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-hero-f1",
+        "assetId": "furniture:cafe-bentwood",
+        "roomId": "fb-hero",
+        "x": 1.915,
+        "z": 2.7,
+        "elevation": 0,
+        "rotation": 270,
+        "facing": {
+          "activity": "dine",
+          "targetId": "fb-hero-f0",
+          "automatic": true,
+          "moveWithTarget": true
+        },
+        "people": [
+          {
+            "version": 1,
+            "sourceAssetId": "people:restaurant-couple",
+            "actorId": "actor-2",
+            "mode": "seat",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "rotation": 0,
+            "scale": 0.8913,
+            "targetId": "fb-hero-f0",
+            "meal": {
+              "sourceAssetId": "people:restaurant-couple",
+              "offset": [
+                -0.245,
+                0.736,
+                0
+              ],
+              "scale": 0.72
+            }
+          }
+        ]
+      },
+      {
+        "id": "fb-hero-f2",
+        "assetId": "furniture:cafe-bentwood",
+        "roomId": "fb-hero",
+        "x": 3.545,
+        "z": 2.7,
+        "elevation": 0,
+        "rotation": 90,
+        "facing": {
+          "activity": "dine",
+          "targetId": "fb-hero-f0",
+          "automatic": true,
+          "moveWithTarget": true
+        }
+      },
+      {
+        "id": "fb-hero-f3",
+        "assetId": "furniture:cafe-bentwood",
+        "roomId": "fb-hero",
+        "x": 2.73,
+        "z": 1.885,
+        "elevation": 0,
+        "rotation": 0,
+        "facing": {
+          "activity": "dine",
+          "targetId": "fb-hero-f0",
+          "automatic": true,
+          "moveWithTarget": true
+        }
+      },
+      {
+        "id": "fb-hero-f4",
+        "assetId": "furniture:cafe-bentwood",
+        "roomId": "fb-hero",
+        "x": 2.73,
+        "z": 3.515,
+        "elevation": 0,
+        "rotation": 180,
+        "facing": {
+          "activity": "dine",
+          "targetId": "fb-hero-f0",
+          "automatic": true,
+          "moveWithTarget": true
+        },
+        "people": [
+          {
+            "version": 1,
+            "sourceAssetId": "people:public-canteen",
+            "actorId": "actor-1",
+            "mode": "seat",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "rotation": 0,
+            "scale": 0.8913,
+            "targetId": "fb-hero-f0",
+            "meal": {
+              "sourceAssetId": "people:public-canteen",
+              "offset": [
+                0,
+                0.736,
+                0.245
+              ],
+              "scale": 0.72
+            }
+          }
+        ]
+      },
+      {
+        "id": "fb-hero-f5",
+        "assetId": "furniture:roundtable",
+        "roomId": "fb-hero",
+        "x": 7.35,
+        "z": 2.7,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-hero-f6",
+        "assetId": "furniture:cafe-bentwood",
+        "roomId": "fb-hero",
+        "x": 6.535,
+        "z": 2.7,
+        "elevation": 0,
+        "rotation": 270,
+        "facing": {
+          "activity": "dine",
+          "targetId": "fb-hero-f5",
+          "automatic": true,
+          "moveWithTarget": true
+        }
+      },
+      {
+        "id": "fb-hero-f7",
+        "assetId": "furniture:cafe-bentwood",
+        "roomId": "fb-hero",
+        "x": 8.165,
+        "z": 2.7,
+        "elevation": 0,
+        "rotation": 90,
+        "facing": {
+          "activity": "dine",
+          "targetId": "fb-hero-f5",
+          "automatic": true,
+          "moveWithTarget": true
+        }
+      },
+      {
+        "id": "fb-hero-f8",
+        "assetId": "furniture:cafe-bentwood",
+        "roomId": "fb-hero",
+        "x": 7.35,
+        "z": 1.885,
+        "elevation": 0,
+        "rotation": 0,
+        "facing": {
+          "activity": "dine",
+          "targetId": "fb-hero-f5",
+          "automatic": true,
+          "moveWithTarget": true
+        },
+        "people": [
+          {
+            "version": 1,
+            "sourceAssetId": "people:restaurant-family",
+            "actorId": "actor-2",
+            "mode": "seat",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "rotation": 0,
+            "scale": 0.8913,
+            "targetId": "fb-hero-f5"
+          }
+        ]
+      },
+      {
+        "id": "fb-hero-f9",
+        "assetId": "furniture:cafe-bentwood",
+        "roomId": "fb-hero",
+        "x": 7.35,
+        "z": 3.515,
+        "elevation": 0,
+        "rotation": 180,
+        "facing": {
+          "activity": "dine",
+          "targetId": "fb-hero-f5",
+          "automatic": true,
+          "moveWithTarget": true
+        },
+        "people": [
+          {
+            "version": 1,
+            "sourceAssetId": "people:diner-pasta",
+            "actorId": "actor-1",
+            "mode": "seat",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "rotation": 0,
+            "scale": 0.8913,
+            "targetId": "fb-hero-f5",
+            "meal": {
+              "sourceAssetId": "people:diner-pasta",
+              "offset": [
+                0,
+                0.736,
+                0.245
+              ],
+              "scale": 0.72
+            }
+          }
+        ]
+      },
+      {
+        "id": "fb-hero-f10",
+        "assetId": "furniture:roundtable",
+        "roomId": "fb-hero",
+        "x": 2.73,
+        "z": 6.3,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-hero-f11",
+        "assetId": "furniture:cafe-bentwood",
+        "roomId": "fb-hero",
+        "x": 1.915,
+        "z": 6.3,
+        "elevation": 0,
+        "rotation": 270,
+        "facing": {
+          "activity": "dine",
+          "targetId": "fb-hero-f10",
+          "automatic": true,
+          "moveWithTarget": true
+        }
+      },
+      {
+        "id": "fb-hero-f12",
+        "assetId": "furniture:cafe-bentwood",
+        "roomId": "fb-hero",
+        "x": 3.545,
+        "z": 6.3,
+        "elevation": 0,
+        "rotation": 90,
+        "facing": {
+          "activity": "dine",
+          "targetId": "fb-hero-f10",
+          "automatic": true,
+          "moveWithTarget": true
+        }
+      },
+      {
+        "id": "fb-hero-f13",
+        "assetId": "furniture:cafe-bentwood",
+        "roomId": "fb-hero",
+        "x": 2.73,
+        "z": 5.485,
+        "elevation": 0,
+        "rotation": 0,
+        "facing": {
+          "activity": "dine",
+          "targetId": "fb-hero-f10",
+          "automatic": true,
+          "moveWithTarget": true
+        },
+        "people": [
+          {
+            "version": 1,
+            "sourceAssetId": "people:hotel-roomtea",
+            "actorId": "actor-1",
+            "mode": "seat",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "rotation": 0,
+            "scale": 0.8913,
+            "targetId": "fb-hero-f10"
+          }
+        ]
+      },
+      {
+        "id": "fb-hero-f14",
+        "assetId": "furniture:cafe-bentwood",
+        "roomId": "fb-hero",
+        "x": 2.73,
+        "z": 7.115,
+        "elevation": 0,
+        "rotation": 180,
+        "facing": {
+          "activity": "dine",
+          "targetId": "fb-hero-f10",
+          "automatic": true,
+          "moveWithTarget": true
+        },
+        "people": [
+          {
+            "version": 1,
+            "sourceAssetId": "people:diner-chopsticks",
+            "actorId": "actor-1",
+            "mode": "seat",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "rotation": 0,
+            "scale": 0.8913,
+            "targetId": "fb-hero-f10",
+            "meal": {
+              "sourceAssetId": "people:diner-chopsticks",
+              "offset": [
+                0,
+                0.736,
+                0.245
+              ],
+              "scale": 0.72
+            }
+          }
+        ]
+      },
+      {
+        "id": "fb-hero-f15",
+        "assetId": "furniture:roundtable",
+        "roomId": "fb-hero",
+        "x": 7.35,
+        "z": 6.3,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-hero-f16",
+        "assetId": "furniture:cafe-bentwood",
+        "roomId": "fb-hero",
+        "x": 6.535,
+        "z": 6.3,
+        "elevation": 0,
+        "rotation": 270,
+        "facing": {
+          "activity": "dine",
+          "targetId": "fb-hero-f15",
+          "automatic": true,
+          "moveWithTarget": true
+        },
+        "people": [
+          {
+            "version": 1,
+            "sourceAssetId": "people:diner-pasta",
+            "actorId": "actor-1",
+            "mode": "seat",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "rotation": 0,
+            "scale": 0.8913,
+            "targetId": "fb-hero-f15",
+            "meal": {
+              "sourceAssetId": "people:diner-pasta",
+              "offset": [
+                -0.245,
+                0.736,
+                0
+              ],
+              "scale": 0.72
+            }
+          }
+        ]
+      },
+      {
+        "id": "fb-hero-f17",
+        "assetId": "furniture:cafe-bentwood",
+        "roomId": "fb-hero",
+        "x": 8.165,
+        "z": 6.3,
+        "elevation": 0,
+        "rotation": 90,
+        "facing": {
+          "activity": "dine",
+          "targetId": "fb-hero-f15",
+          "automatic": true,
+          "moveWithTarget": true
+        },
+        "people": [
+          {
+            "version": 1,
+            "sourceAssetId": "people:diner-rice",
+            "actorId": "actor-1",
+            "mode": "seat",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "rotation": 0,
+            "scale": 0.8913,
+            "targetId": "fb-hero-f15",
+            "meal": {
+              "sourceAssetId": "people:diner-rice",
+              "offset": [
+                0.245,
+                0.736,
+                0
+              ],
+              "scale": 0.72
+            }
+          }
+        ]
+      },
+      {
+        "id": "fb-hero-f18",
+        "assetId": "furniture:cafe-bentwood",
+        "roomId": "fb-hero",
+        "x": 7.35,
+        "z": 5.485,
+        "elevation": 0,
+        "rotation": 0,
+        "facing": {
+          "activity": "dine",
+          "targetId": "fb-hero-f15",
+          "automatic": true,
+          "moveWithTarget": true
+        }
+      },
+      {
+        "id": "fb-hero-f19",
+        "assetId": "furniture:cafe-bentwood",
+        "roomId": "fb-hero",
+        "x": 7.35,
+        "z": 7.115,
+        "elevation": 0,
+        "rotation": 180,
+        "facing": {
+          "activity": "dine",
+          "targetId": "fb-hero-f15",
+          "automatic": true,
+          "moveWithTarget": true
+        }
+      },
+      {
+        "id": "fb-hero-f20",
+        "assetId": "furniture:plant",
+        "roomId": "fb-hero",
+        "x": 9.24,
+        "z": 1.08,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-hero-f21",
+        "assetId": "furniture:plant",
+        "roomId": "fb-hero",
+        "x": 1.05,
+        "z": 7.92,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-hero-p0-tabs11-stand",
+        "assetId": "furniture:coffeetable",
+        "roomId": "fb-hero",
+        "x": 1.26,
+        "z": 1.44,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-hero-p0-tabs11",
+        "assetId": "product:tabs11",
+        "roomId": "fb-hero",
+        "rotation": 0,
+        "elevation": 0.445,
+        "x": 1.26,
+        "z": 1.44,
+        "mount": "surface",
+        "supportId": "fb-hero-p0-tabs11-stand"
+      },
+      {
+        "id": "fb-hero-p1-wf1way",
+        "assetId": "product:wf1way",
+        "roomId": "fb-hero",
+        "rotation": 0,
+        "elevation": 2.845,
+        "x": 5.25,
+        "z": 4.05,
+        "mount": "ceiling"
+      },
+      {
+        "id": "fb-hero-p2-purifier",
+        "assetId": "product:purifier",
+        "roomId": "fb-hero",
+        "rotation": 0,
+        "elevation": 0,
+        "x": 6.615,
+        "z": 1.44,
+        "mount": "floor"
+      },
+      {
+        "id": "fb-1-f0",
+        "assetId": "furniture:park-bench",
+        "roomId": "fb-1",
+        "x": 13.03,
+        "z": 2.7,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-1-f1",
+        "assetId": "furniture:park-bench",
+        "roomId": "fb-1",
+        "x": 18.07,
+        "z": 6.12,
+        "elevation": 0,
+        "rotation": 180,
+        "people": [
+          {
+            "version": 1,
+            "sourceAssetId": "people:hotel-loungepair",
+            "actorId": "actor-2",
+            "mode": "seat",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "rotation": 0,
+            "scale": 0.9091
+          }
+        ]
+      },
+      {
+        "id": "fb-1-f2",
+        "assetId": "furniture:plant",
+        "roomId": "fb-1",
+        "x": 11.98,
+        "z": 6.93,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-1-f3",
+        "assetId": "furniture:plant",
+        "roomId": "fb-1",
+        "x": 19.645,
+        "z": 1.35,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-1-f5",
+        "assetId": "furniture:bollard",
+        "roomId": "fb-1",
+        "x": 17.02,
+        "z": 7.92,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-1-p0-qm55c",
+        "assetId": "product:qm55c",
+        "roomId": "fb-1",
+        "rotation": 0,
+        "elevation": 1.2,
+        "x": 15.97,
+        "z": 0.1543,
+        "mount": "wall"
+      },
+      {
+        "id": "fb-1-p1-oh55a",
+        "assetId": "product:oh55a",
+        "roomId": "fb-1",
+        "rotation": 0,
+        "elevation": 1.2,
+        "x": 13.135,
+        "z": 0.1825,
+        "mount": "wall"
+      },
+      {
+        "id": "fb-1-p2-tabs11",
+        "assetId": "product:tabs11",
+        "roomId": "fb-1",
+        "rotation": 0,
+        "elevation": 0.875,
+        "x": 13.03,
+        "z": 2.7,
+        "supportId": "fb-1-f0",
+        "mount": "surface"
+      },
+      {
+        "id": "fb-2-f0",
+        "assetId": "furniture:reception",
+        "roomId": "fb-2",
+        "x": 26.9,
+        "z": 2.61,
+        "elevation": 0,
+        "rotation": 0,
+        "people": [
+          {
+            "version": 1,
+            "sourceAssetId": "people:barista-counter",
+            "actorId": "actor-1",
+            "mode": "stand",
+            "offset": [
+              -0.84,
+              0,
+              -0.78
+            ],
+            "rotation": 0,
+            "scale": 1
+          }
+        ]
+      },
+      {
+        "id": "fb-2-f1",
+        "assetId": "furniture:taskchair",
+        "roomId": "fb-2",
+        "x": 26.9,
+        "z": 1.8,
+        "elevation": 0,
+        "rotation": 0,
+        "facing": {
+          "activity": "work",
+          "targetId": "fb-2-f0",
+          "automatic": true,
+          "moveWithTarget": true
+        }
+      },
+      {
+        "id": "fb-2-f2",
+        "assetId": "furniture:sofa",
+        "roomId": "fb-2",
+        "x": 23.435,
+        "z": 6.12,
+        "elevation": 0,
+        "rotation": 270,
+        "facing": {
+          "activity": "conversation",
+          "targetId": "fb-2-f3",
+          "automatic": true,
+          "moveWithTarget": true
+        },
+        "people": [
+          {
+            "version": 1,
+            "sourceAssetId": "people:hotel-roomtea",
+            "actorId": "actor-1",
+            "mode": "seat",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "rotation": 0,
+            "scale": 0.936,
+            "targetId": "fb-2-f3"
+          }
+        ]
+      },
+      {
+        "id": "fb-2-f3",
+        "assetId": "furniture:coffeetable",
+        "roomId": "fb-2",
+        "x": 24.895,
+        "z": 6.12,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-2-f4",
+        "assetId": "furniture:plant",
+        "roomId": "fb-2",
+        "x": 22.7,
+        "z": 1.26,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-2-f5",
+        "assetId": "furniture:plant",
+        "roomId": "fb-2",
+        "x": 30.365,
+        "z": 7.11,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-2-p0-qm55c",
+        "assetId": "product:qm55c",
+        "roomId": "fb-2",
+        "rotation": 0,
+        "elevation": 1.2,
+        "x": 26.69,
+        "z": 0.1543,
+        "mount": "wall"
+      },
+      {
+        "id": "fb-2-p1-tabs11",
+        "assetId": "product:tabs11",
+        "roomId": "fb-2",
+        "rotation": 180,
+        "elevation": 1.125,
+        "x": 26.9,
+        "z": 2.61,
+        "supportId": "fb-2-f0",
+        "mount": "surface",
+        "facing": {
+          "activity": "screen",
+          "targetId": "fb-2-f1",
+          "automatic": true
+        }
+      },
+      {
+        "id": "fb-3-f0",
+        "assetId": "furniture:island",
+        "roomId": "fb-3",
+        "x": 5.355,
+        "z": 15.57,
+        "elevation": 0,
+        "rotation": 0,
+        "people": [
+          {
+            "version": 1,
+            "sourceAssetId": "people:chef-prep",
+            "actorId": "actor-1",
+            "mode": "stand",
+            "offset": [
+              0,
+              0,
+              -0.91
+            ],
+            "rotation": 0,
+            "scale": 1
+          }
+        ]
+      },
+      {
+        "id": "fb-3-f1",
+        "assetId": "furniture:counter",
+        "roomId": "fb-3",
+        "x": 5.04,
+        "z": 11.79,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-3-f2",
+        "assetId": "furniture:sink",
+        "roomId": "fb-3",
+        "x": 1.47,
+        "z": 14.04,
+        "elevation": 0,
+        "rotation": 270,
+        "facing": {
+          "activity": "access",
+          "targetId": "fb-3-f0",
+          "automatic": true
+        }
+      },
+      {
+        "id": "fb-3-f3",
+        "assetId": "furniture:bar-backrest",
+        "roomId": "fb-3",
+        "x": 4.755,
+        "z": 16.46,
+        "elevation": 0,
+        "rotation": 180,
+        "facing": {
+          "activity": "dine",
+          "targetId": "fb-3-f0",
+          "automatic": true,
+          "moveWithTarget": true
+        }
+      },
+      {
+        "id": "fb-3-f4",
+        "assetId": "furniture:bar-backrest",
+        "roomId": "fb-3",
+        "x": 5.955,
+        "z": 16.46,
+        "elevation": 0,
+        "rotation": 180,
+        "facing": {
+          "activity": "dine",
+          "targetId": "fb-3-f0",
+          "automatic": true,
+          "moveWithTarget": true
+        }
+      },
+      {
+        "id": "fb-3-f5",
+        "assetId": "furniture:plant",
+        "roomId": "fb-3",
+        "x": 9.24,
+        "z": 17.82,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-3-p0-smartmonitor",
+        "assetId": "product:smartmonitor",
+        "roomId": "fb-3",
+        "rotation": 0,
+        "elevation": 0.925,
+        "x": 5.355,
+        "z": 15.38,
+        "supportId": "fb-3-f0",
+        "mount": "surface"
+      },
+      {
+        "id": "fb-3-p1-tabs11",
+        "assetId": "product:tabs11",
+        "roomId": "fb-3",
+        "rotation": 0,
+        "elevation": 0.925,
+        "x": 5.355,
+        "z": 15.57,
+        "supportId": "fb-3-f0",
+        "mount": "surface"
+      },
+      {
+        "id": "fb-3-p2-wf1way",
+        "assetId": "product:wf1way",
+        "roomId": "fb-3",
+        "rotation": 0,
+        "elevation": 2.845,
+        "x": 5.25,
+        "z": 14.85,
+        "mount": "ceiling"
+      },
+      {
+        "id": "fb-4-f0",
+        "assetId": "furniture:island",
+        "roomId": "fb-4",
+        "x": 16.075,
+        "z": 15.57,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-4-f1",
+        "assetId": "furniture:counter",
+        "roomId": "fb-4",
+        "x": 15.76,
+        "z": 11.79,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-4-f2",
+        "assetId": "furniture:sink",
+        "roomId": "fb-4",
+        "x": 12.19,
+        "z": 14.04,
+        "elevation": 0,
+        "rotation": 270,
+        "facing": {
+          "activity": "access",
+          "targetId": "fb-4-f0",
+          "automatic": true
+        }
+      },
+      {
+        "id": "fb-4-f3",
+        "assetId": "furniture:bar-backrest",
+        "roomId": "fb-4",
+        "x": 15.475,
+        "z": 16.46,
+        "elevation": 0,
+        "rotation": 180,
+        "facing": {
+          "activity": "dine",
+          "targetId": "fb-4-f0",
+          "automatic": true,
+          "moveWithTarget": true
+        }
+      },
+      {
+        "id": "fb-4-f4",
+        "assetId": "furniture:bar-backrest",
+        "roomId": "fb-4",
+        "x": 16.675,
+        "z": 16.46,
+        "elevation": 0,
+        "rotation": 180,
+        "facing": {
+          "activity": "dine",
+          "targetId": "fb-4-f0",
+          "automatic": true,
+          "moveWithTarget": true
+        }
+      },
+      {
+        "id": "fb-4-f5",
+        "assetId": "furniture:plant",
+        "roomId": "fb-4",
+        "x": 19.96,
+        "z": 17.82,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-4-p0-smarttag",
+        "assetId": "product:smarttag",
+        "roomId": "fb-4",
+        "rotation": 0,
+        "elevation": 1.2,
+        "x": 15.97,
+        "z": 10.944,
+        "mount": "wall"
+      },
+      {
+        "id": "fb-4-p1-bi_fridge",
+        "assetId": "product:bi_fridge",
+        "roomId": "fb-4",
+        "rotation": 0,
+        "elevation": 0,
+        "x": 19.645,
+        "z": 12.24,
+        "mount": "floor"
+      },
+      {
+        "id": "fb-5-f0",
+        "assetId": "furniture:cabinet",
+        "roomId": "fb-5",
+        "x": 23.015,
+        "z": 12.42,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-5-f1",
+        "assetId": "furniture:cabinet",
+        "roomId": "fb-5",
+        "x": 26.06,
+        "z": 12.42,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-5-f2",
+        "assetId": "furniture:rack",
+        "roomId": "fb-5",
+        "x": 29.63,
+        "z": 15.3,
+        "elevation": 0,
+        "rotation": 90
+      },
+      {
+        "id": "fb-5-f3",
+        "assetId": "furniture:bench",
+        "roomId": "fb-5",
+        "x": 24.065,
+        "z": 16.92,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-5-p0-purifier",
+        "assetId": "product:purifier",
+        "roomId": "fb-5",
+        "rotation": 0,
+        "elevation": 0,
+        "x": 30.365,
+        "z": 12.24,
+        "mount": "floor"
+      },
+      {
+        "id": "fb-5-p1-airdresser",
+        "assetId": "product:airdresser",
+        "roomId": "fb-5",
+        "rotation": 0,
+        "elevation": 0,
+        "x": 28.055,
+        "z": 12.24,
+        "mount": "floor"
+      },
+      {
+        "id": "fb-6-f0",
+        "assetId": "furniture:desk",
+        "roomId": "fb-6",
+        "x": 1.65,
+        "z": 22.525,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-6-f1",
+        "assetId": "furniture:taskchair",
+        "roomId": "fb-6",
+        "x": 1.65,
+        "z": 23.31,
+        "elevation": 0,
+        "rotation": 180,
+        "facing": {
+          "activity": "work",
+          "targetId": "fb-6-f0",
+          "automatic": true,
+          "moveWithTarget": true
+        }
+      },
+      {
+        "id": "fb-6-f2",
+        "assetId": "furniture:desk",
+        "roomId": "fb-6",
+        "x": 3.5,
+        "z": 22.525,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-6-f3",
+        "assetId": "furniture:taskchair",
+        "roomId": "fb-6",
+        "x": 3.5,
+        "z": 23.31,
+        "elevation": 0,
+        "rotation": 180,
+        "facing": {
+          "activity": "work",
+          "targetId": "fb-6-f2",
+          "automatic": true,
+          "moveWithTarget": true
+        },
+        "people": [
+          {
+            "version": 1,
+            "sourceAssetId": "people:office-write",
+            "actorId": "actor-1",
+            "mode": "seat",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "rotation": 0,
+            "scale": 1.0268,
+            "targetId": "fb-6-f2"
+          }
+        ]
+      },
+      {
+        "id": "fb-6-f4",
+        "assetId": "furniture:desk",
+        "roomId": "fb-6",
+        "x": 5.35,
+        "z": 22.525,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-6-f5",
+        "assetId": "furniture:taskchair",
+        "roomId": "fb-6",
+        "x": 5.35,
+        "z": 23.31,
+        "elevation": 0,
+        "rotation": 180,
+        "facing": {
+          "activity": "work",
+          "targetId": "fb-6-f4",
+          "automatic": true,
+          "moveWithTarget": true
+        },
+        "people": [
+          {
+            "version": 1,
+            "sourceAssetId": "people:office-write",
+            "actorId": "actor-1",
+            "mode": "seat",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "rotation": 0,
+            "scale": 1.0268,
+            "targetId": "fb-6-f4"
+          }
+        ]
+      },
+      {
+        "id": "fb-6-f6",
+        "assetId": "furniture:desk",
+        "roomId": "fb-6",
+        "x": 7.2,
+        "z": 22.525,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-6-f7",
+        "assetId": "furniture:taskchair",
+        "roomId": "fb-6",
+        "x": 7.2,
+        "z": 23.31,
+        "elevation": 0,
+        "rotation": 180,
+        "facing": {
+          "activity": "work",
+          "targetId": "fb-6-f6",
+          "automatic": true,
+          "moveWithTarget": true
+        },
+        "people": [
+          {
+            "version": 1,
+            "sourceAssetId": "people:meeting-audience",
+            "actorId": "actor-1",
+            "mode": "seat",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "rotation": 0,
+            "scale": 1.0268,
+            "targetId": "fb-6-f6"
+          }
+        ]
+      },
+      {
+        "id": "fb-6-f8",
+        "assetId": "furniture:desk",
+        "roomId": "fb-6",
+        "x": 1.65,
+        "z": 24.775,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-6-f9",
+        "assetId": "furniture:taskchair",
+        "roomId": "fb-6",
+        "x": 1.65,
+        "z": 25.56,
+        "elevation": 0,
+        "rotation": 180,
+        "facing": {
+          "activity": "work",
+          "targetId": "fb-6-f8",
+          "automatic": true,
+          "moveWithTarget": true
+        }
+      },
+      {
+        "id": "fb-6-f10",
+        "assetId": "furniture:desk",
+        "roomId": "fb-6",
+        "x": 3.5,
+        "z": 24.775,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-6-f11",
+        "assetId": "furniture:taskchair",
+        "roomId": "fb-6",
+        "x": 3.5,
+        "z": 25.56,
+        "elevation": 0,
+        "rotation": 180,
+        "facing": {
+          "activity": "work",
+          "targetId": "fb-6-f10",
+          "automatic": true,
+          "moveWithTarget": true
+        },
+        "people": [
+          {
+            "version": 1,
+            "sourceAssetId": "people:office-write",
+            "actorId": "actor-1",
+            "mode": "seat",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "rotation": 0,
+            "scale": 1.0268,
+            "targetId": "fb-6-f10"
+          }
+        ]
+      },
+      {
+        "id": "fb-6-f12",
+        "assetId": "furniture:desk",
+        "roomId": "fb-6",
+        "x": 5.35,
+        "z": 24.775,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-6-f13",
+        "assetId": "furniture:taskchair",
+        "roomId": "fb-6",
+        "x": 5.35,
+        "z": 25.56,
+        "elevation": 0,
+        "rotation": 180,
+        "facing": {
+          "activity": "work",
+          "targetId": "fb-6-f12",
+          "automatic": true,
+          "moveWithTarget": true
+        },
+        "people": [
+          {
+            "version": 1,
+            "sourceAssetId": "people:meeting-audience",
+            "actorId": "actor-2",
+            "mode": "seat",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "rotation": 0,
+            "scale": 1.0268,
+            "targetId": "fb-6-f12"
+          }
+        ]
+      },
+      {
+        "id": "fb-6-f14",
+        "assetId": "furniture:desk",
+        "roomId": "fb-6",
+        "x": 7.2,
+        "z": 24.775,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-6-f15",
+        "assetId": "furniture:taskchair",
+        "roomId": "fb-6",
+        "x": 7.2,
+        "z": 25.56,
+        "elevation": 0,
+        "rotation": 180,
+        "facing": {
+          "activity": "work",
+          "targetId": "fb-6-f14",
+          "automatic": true,
+          "moveWithTarget": true
+        },
+        "people": [
+          {
+            "version": 1,
+            "sourceAssetId": "people:office-write",
+            "actorId": "actor-1",
+            "mode": "seat",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "rotation": 0,
+            "scale": 1.0268,
+            "targetId": "fb-6-f14"
+          }
+        ]
+      },
+      {
+        "id": "fb-6-f16",
+        "assetId": "furniture:plant",
+        "roomId": "fb-6",
+        "x": 9.555,
+        "z": 22.68,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-6-f17",
+        "assetId": "furniture:plant",
+        "roomId": "fb-6",
+        "x": 9.45,
+        "z": 29.07,
+        "elevation": 0,
+        "rotation": 0
+      },
+      {
+        "id": "fb-6-p0-smartmonitor",
+        "assetId": "product:smartmonitor",
+        "roomId": "fb-6",
+        "rotation": 0,
+        "elevation": 0.765,
+        "x": 1.65,
+        "z": 22.335,
+        "supportId": "fb-6-f0",
+        "mount": "surface",
+        "facing": {
+          "activity": "screen",
+          "targetId": "fb-6-f1",
+          "automatic": true
+        }
+      },
+      {
+        "id": "fb-6-p1-tabs11",
+        "assetId": "product:tabs11",
+        "roomId": "fb-6",
+        "rotation": 0,
+        "elevation": 0.765,
+        "x": 1.65,
+        "z": 22.525,
+        "supportId": "fb-6-f0",
+        "mount": "surface",
+        "facing": {
+          "activity": "screen",
+          "targetId": "fb-6-f1",
+          "automatic": true
+        }
+      }
+    ],
+    "source": {
+      "layoutId": "L_SS_FB_A",
+      "type": "reference-reconstruction",
+      "note": "원본 장표의 공간·제품 구성 기반 · 사진의 실측 좌표는 제공되지 않음"
+    },
+    "provenance": {
+      "kind": "template"
+    },
+    "notes": [
+      "개념 배치 · 실측 도면 아님",
+      "치수가 없는 제품은 카탈로그 유형에 따른 추정 형상"
+    ],
+    "camera": {
+      "azimuth": 40,
+      "elevation": 48,
+      "zoom": 1
+    },
+    "revision": 1,
+    "peopleLayout": {
+      "version": 1,
+      "people": 18,
+      "occupiedRooms": 5
+    },
+    "layoutPolicy": {
+      "version": 2,
+      "frontAxis": "+Z",
+      "workRowPitch": 2.25,
+      "chairBackClearance": 0.7
+    },
+    "contentHash": "d4f93016"
+  }
+}

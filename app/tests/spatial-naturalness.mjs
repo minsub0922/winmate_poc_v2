@@ -26,7 +26,7 @@ const result=repairNaturalLayout(broken,library);assert(result.report.corrected>
 assert.deepEqual(result.scene.rooms,scene.rooms,'room boundaries remain unchanged');
 assert.deepEqual(result.scene.objects.filter(o=>o.assetId.startsWith('product:')).map(o=>o.assetId).sort(),scene.objects.filter(o=>o.assetId.startsWith('product:')).map(o=>o.assetId).sort(),'Samsung identities preserved');
 const work=createScene({templateId:'cowork-cowork-work-standard',roomSettings:[{roomId:'cowork-work',capacity:1}]},library);
-const desk=work.objects.find(o=>o.assetId==='furniture:desk'),chair=work.objects.find(o=>o.facing?.targetId===desk.id&&o.facing.activity==='work');assert(chair);
+const desk=work.objects.find(o=>assets[o.assetId].kind==='desk'),chair=work.objects.find(o=>o.facing?.targetId===desk.id&&o.facing.activity==='work');assert(chair);
 const moved=moveObject(work,desk.id,{x:5.25,z:4.5},library),turned=moveObject(moved,desk.id,{rotation:90},library);
 const child=turned.objects.find(o=>o.id===chair.id),surface=turned.objects.find(o=>o.id===desk.id);assert(Math.abs(child.x-(surface.x-.785))<.001);assert.equal(child.rotation,270);
 assert.deepEqual(inspectNaturalLayout(turned,library).errors,[]);assert.deepEqual(validateScene(turned,library).errors,[]);
@@ -35,12 +35,12 @@ for(const screen of turned.objects.filter(o=>o.facing?.activity==='screen')){
 }
 const deliberate=moveObject(work,chair.id,{rotation:0},library);assert(inspectNaturalLayout(deliberate,library).errors.some(e=>e.objectId===chair.id));
 const crowded=createScene({templateId:'cowork-cowork-work-standard',roomSettings:[{roomId:'cowork-work',capacity:8}]},library);
-for(const surface of crowded.objects.filter(o=>o.assetId==='furniture:desk'&&o.z>2)){
+for(const surface of crowded.objects.filter(o=>assets[o.assetId].kind==='desk'&&o.z>2)){
   const linked=crowded.objects.filter(o=>o.id===surface.id||o.supportId===surface.id||o.facing?.moveWithTarget&&o.facing.targetId===surface.id);
   for(const o of linked)o.z-=.6;
 }
 delete crowded.layoutPolicy;
 assert(inspectNaturalLayout(crowded,library).warnings.some(i=>i.code==='chair-back-blocked'));
-const spaced=repairNaturalLayout(crowded,library);assert.deepEqual(spaced.report.after.issues,[],'legacy row reflow reserves chair approach aisles');assert.equal(spaced.scene.objects.filter(o=>o.assetId==='furniture:taskchair').length,8);
+const spaced=repairNaturalLayout(crowded,library);assert.deepEqual(spaced.report.after.issues,[],'legacy row reflow reserves chair approach aisles');assert.equal(spaced.scene.objects.filter(o=>assets[o.assetId].kind==='taskchair').length,8);
 for(const room of scene.rooms)assert.deepEqual(inspectNaturalLayout(focusScene(scene,room.id),library).errors,[]);
 console.log(`PASS ${Object.keys(scenes).length} maps / ${checked} facing-and-spacing relationships; reversed chairs/sofas detected and repaired; desks, chairs and screens move together`);

@@ -4,7 +4,7 @@
 import VERTICAL from './vertical_scenarios.json' with { type: 'json' };
 import DESCRIPTION from './description_standard_scenarios.json' with { type: 'json' };
 export const REQ_TYPES = {
-  std: { label: '표준 제안서', desc: '업종별 표준 구성. 원본 기준 양식과 Markdown 설명 기반 재구성 판본에서 출발할 때', hue: 'slate' },
+  std: { label: '표준 제안서', desc: '업종별 공간·제품·솔루션·운영의 표준 구성을 함께 검토할 때', hue: 'slate' },
   new: { label: '신규 구축 · RFP', desc: '새 공간 · 첫 도입. 범위와 사양을 처음부터 함께 정해야 할 때', hue: 'blue' },
   renew: { label: '교체 · 리뉴얼', desc: '쓰던 장비 · 공간을 바꿀 때. 영업 중단 최소화와 전후 비교가 핵심', hue: 'teal' },
   compete: { label: '경쟁 입찰 · 공급사 전환', desc: '다른 공급사와 나란히 평가받을 때. 비교 기준을 먼저 잡는 쪽이 이김', hue: 'amber' },

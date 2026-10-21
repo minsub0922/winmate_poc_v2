@@ -50,7 +50,7 @@ if (wanted.includes('catalog')) {
   if (!setupError) try { ({ page } = await fresh()); } catch (e) { setupError = e.message; }
   const inPage = (fn, arg) => page.evaluate(fn, arg);
 
-  cat.case('C01', 'collection sizes: 17 solutions · 218 cases · 82 scenarios · 615 active layouts · 1068 products', async (d) => {
+  cat.case('C01', 'collection sizes: 17 solutions · 218 cases · 82 scenarios · 596 active layouts · 1068 products', async (d) => {
     const r = await inPage(async () => {
       const c = await import('/src/services/catalog.js'); const s = await import('/src/domain/templates/scenarios.js');
       const b = (await import('/src/api/bootstrap.js')).getBootstrap();
@@ -59,7 +59,7 @@ if (wanted.includes('catalog')) {
         boot: { solutions: b.catalog.solutions.length, cases: b.catalog.cases.length, industries: b.catalog.industries.length } };
     });
     Object.assign(d, r);
-    eq(r.solutions, 17, 'solutions'); eq(r.cases, 218, 'cases'); eq(r.scenarios, 82, 'Best Scenarios'); eq(r.active, 615, 'active layouts'); eq(r.products, 1068, 'products');
+    eq(r.solutions, 17, 'solutions'); eq(r.cases, 218, 'cases'); eq(r.scenarios, 82, 'Best Scenarios'); eq(r.active, 596, 'active layouts'); eq(r.products, 1068, 'products');
     eq(r.boot.solutions, r.solutions, 'bootstrap solutions'); eq(r.boot.cases, r.cases, 'bootstrap cases'); eq(r.boot.industries, r.industries, 'bootstrap industries');
     ok(r.industries > 0 && r.all > r.active, 'industries present and retired layouts excluded from the active list');
   });
@@ -385,7 +385,7 @@ if (wanted.includes('pptx') || wanted.includes('pptx-negative')) {
       d.result = r;
       ok(!r.ok, 'malformed input was accepted as a deck');
       ok(r.message && r.message.length > 3, 'rejection carries a message');
-      eq(await page.evaluate(() => window.__strict.layoutCount()), 615, 'app catalog intact after the rejection');
+      eq(await page.evaluate(() => window.__strict.layoutCount()), 596, 'app catalog intact after the rejection');
     };
     neg.case('N01', 'plain text renamed .pptx is rejected', async (d) => expectRejected(Buffer.from('this is not a presentation, just text').toString('base64'), d));
     neg.case('N02', 'empty file is rejected', async (d) => expectRejected('', d));

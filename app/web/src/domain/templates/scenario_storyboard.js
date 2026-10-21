@@ -66,6 +66,7 @@ export function storyboardOf(s, mk) {
     ctx: { products: [...s.products], solutions: [...s.solutions], cases: [...s.cases] },
     parts,
   };
+  if (s.authoringRevision) p.authoringRevision = s.authoringRevision;
   const bg = bgTheme(s.id); if (bg) p.bg = bg;
   normalizeCovers(p); // 표지 → the hidden deck part (no bubble), like every proposal
   return p;

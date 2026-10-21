@@ -312,7 +312,7 @@ export async function exportPptx(slides, { title = 'Winmate 제안서', font = '
       await Promise.all(Array.from(root.querySelectorAll('img')).map((im) => (im.complete ? 1 : new Promise((r) => { im.onload = im.onerror = r; }))));
       const s = await addSlide(pptx, root, { font });
       const meta = L[sl.f];
-      const sourceNotes = [...root.querySelectorAll('[data-proposal-note]')].map(el => el.textContent.trim()).filter(Boolean);
+      const sourceNotes = sl.ov?.notes != null ? [String(sl.ov.notes)] : [...root.querySelectorAll('[data-proposal-note]')].map(el => el.textContent.trim()).filter(Boolean);
       s.addNotes(`${sl.part ? '[' + sl.part + '] ' : ''}${meta ? meta.name : ''}${meta && meta.when ? ' — ' + meta.when : ''}${sourceNotes.length ? '\n\n[제품 사양 · 지원 조건 원문]\n' + sourceNotes.join('\n\n') : ''}`);
       onProgress && onProgress(i + 1, slides.length);
       await new Promise((r) => setTimeout(r, 0));

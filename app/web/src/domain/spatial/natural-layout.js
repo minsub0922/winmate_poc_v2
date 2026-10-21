@@ -26,7 +26,7 @@ export function bindNaturalRelations(scene,assets,{refresh=false}={}){
     let target,activity,carry=false,alignment;
     if(seats.has(asset.kind)){
       if(room.kind==='theatre'){target=nearest(object,scene.objects,['stage'],assets);activity='presentation';alignment='parallel';}
-      else if(room.kind==='medical'){target=nearest(object,scene.objects,['hospitalbed','bed'],assets);activity='visit';}
+      else if(room.kind==='medical'){target=nearest(object,scene.objects,room.spaceProfile==='clinic'?['desk']:['hospitalbed','bed'],assets);activity=room.spaceProfile==='clinic'?'work':'visit';carry=room.spaceProfile==='clinic';}
       else if(asset.kind==='sofa'||room.kind==='lounge'&&asset.kind==='chair'||room.kind==='reception'&&asset.kind==='chair'){
         target=nearest(object,scene.objects,['coffeetable','roundtable'],assets);activity='conversation';carry=true;
       }else if(room.kind==='dining'){target=nearest(object,scene.objects,['roundtable','table'],assets);activity='dine';carry=true;}

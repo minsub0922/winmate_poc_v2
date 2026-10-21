@@ -6,6 +6,7 @@ import { getBootstrap } from '../api/bootstrap.js';
 import { sharedIdentity } from './shared-path.js';
 import { createShareHttp } from './share-http.js';
 import { browserStorage } from '../repositories/browser.js';
+import { isRemovedLayout, isPriorDefaultProposal } from '../domain/templates/migrate_removed_layouts.js';
 
 const sessions = new Map();
 const preparing = new Map();
@@ -16,7 +17,7 @@ const saveOutbox = () => { try { browserStorage.setItem(OUTBOX, JSON.stringify(o
 
 export function portableDocument(proposal) {
   const copy = JSON.parse(JSON.stringify(proposal, (key, value) => {
-    if (['_share', 'sample', 'adaptation'].includes(key)) return undefined;
+    if (['_share', 'sample', 'adaptation', 'removedLayoutArchive'].includes(key)) return undefined;
     if (typeof value === 'string' && value.startsWith('u:')) return resolveImg(value) || value;
     return value;
   }));
@@ -51,7 +52,8 @@ class SharedSession {
     registerSharedAssets(document);
     const current = this.id && getProposal(this.id);
     if (current && current._share?.id === snapshot.token && current._share?.endPath === '/s/' + snapshot.token
-      && current._share?.token === snapshot.token && JSON.stringify(portableDocument(current)) === JSON.stringify(document)
+      && current._share?.token === snapshot.token && (JSON.stringify(portableDocument(current)) === JSON.stringify(document)
+        || (!this.dirty() && current.authoringRevision && (isPriorDefaultProposal(document) || document.parts?.some(p => p.layouts?.some(x => isRemovedLayout(x.f))))))
       && current._share?.revision === snapshot.revision && current._share?.canEdit === snapshot.canEdit
       && current._share?.permission === snapshot.permission && current._share?.isOwner === snapshot.isOwner) {
       this.publish({ snapshot, proposalId: this.id }); return;

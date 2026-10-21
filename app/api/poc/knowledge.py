@@ -1,7 +1,7 @@
 """Canonical app-side knowledge for the PoC agents.
 
 Source of truth is the snapshot written by ``app/scripts/export_agent_data.mjs`` into
-``app/data/runtime/kb`` (current app catalog/templates/scenarios; 856 layouts, 615 active, hidden
+``app/data/runtime/kb`` (current app catalog/templates/scenarios; 837 layouts, 596 active, hidden
 industry covers and document-specific sheets, 1,068 products, 82 scenarios, plus read-only copies of the PoC standard
 scenarios and score criteria/rubrics/taxonomy).
 
@@ -31,7 +31,7 @@ from . import imports
 from .imports import POC_TEST, RUNTIME_DIR
 
 KB_DIR = RUNTIME_DIR / 'kb'
-EXPECTED = {'layouts_total': 856, 'layouts_active': 615, 'products': 1068, 'curated_products': 40, 'scenarios': 82}
+EXPECTED = {'layouts_total': 837, 'layouts_active': 596, 'products': 1068, 'curated_products': 40, 'scenarios': 82}
 LAYOUT_KEYS = ('f', 'c', 'code', 'name', 'when', 'g', 'p', 'p2', 'ind', 'sol', 'pc', 'req', 'prods', 'sols', 'phs', 'ph', 'hl', 'txt', 'eb', 'foot', 'sample')
 PRODUCT_KEYS = ('id', 'name', 'model', 'cat', 'spec', 'spaces', 'ind', 'kw')
 POC_SCORE = {'criteria': POC_TEST / 'proposal_score' / 'criteria' / 'criteria.json',
@@ -42,7 +42,7 @@ NOTES = [
     'Layout Agent: P 는 제품 1,068개 전체(선택한 DB 제품 id 해석용), Analyzer 추천 · 모델명 탐지는 큐레이션 40개 + 요청에서 선택한 제품만 씁니다(DB 일반 제품명 오탐 방지).',
     'Storyboard Agent: 82개 시나리오(설명 기반 표준 20개 포함) · 제품 1,068개 전체를 씁니다.',
     'RAG 검색: BM25 + TF-IDF(char n-gram) 결정론 검색으로 후보를 뽑고, 상위 20개를 AI가 다시 정렬합니다(임베딩은 쓰지 않음).',
-    '숨김 업종 표지(L_IND_*)와 문서 전용 장표는 HTML · 레지스트리(hidden_layouts)에만 있고 일반 추천 후보(kb.L / cards)에는 넣지 않습니다.',
+    '숨김 업종 표지(L_IND_*)는 HTML · 레지스트리(hidden_layouts)에만 있고 일반 추천 후보(kb.L / cards)에는 넣지 않습니다.',
 ]
 
 

@@ -3,6 +3,7 @@ import { contextFurniture } from './furniture-catalog.js';
 import { detailSupportError,placeDetailAsset } from './detail-placement.js';
 import {roomGridColumns,templateDimensions} from './template-composition.js';
 import {populateScenePeople} from './people-layout.js';
+import {SPACE_EQUIPMENT_VERSION,equipmentSupports} from './space-equipment.js';
 import {peopleObjectError,objectBlocksPeople} from './people-placement-geometry.js';
 import { NATURAL_LAYOUT_VERSION, CLEARANCE, bindNaturalRelations, orientNaturalRelations, inspectNaturalLayout, reflowNaturalSeating, frontVector, faceRotation, facingTarget } from './natural-layout.js';
 export { inspectNaturalLayout, NATURAL_LAYOUT_VERSION } from './natural-layout.js';
@@ -79,6 +80,13 @@ function seatingPlan(room,capacity){
 }
 
 function furniturePlan(room,capacity){
+  if(room.equipmentPolicyVersion===SPACE_EQUIPMENT_VERSION){
+    if(room.spaceProfile==='digitalclass'&&!capacity)return [['stage-teaching',.5,.14],...[.49,.67].flatMap((z,row)=>[.24,.5,.76].flatMap(x=>[['desk-student',x,z,row?0:180],['chair',x,z+(row?1:-1)*.755/room.depth,row?180:0]])),['shelf',.88,.15]];
+    if(room.spaceProfile==='clinic')return [['table-exam',.3,.35],['taskchair',.3,.35-.82/room.depth],['medical-visitor',.3,.35+.82/room.depth,180],['hospitalbed',.73,.37],['cabinet-medical',.87,.8]];
+    if(['production','laboratory'].includes(room.spaceProfile))return [...[[.24,.24],[.67,.24],[.24,.62],[.67,.62]].flatMap(([x,z])=>[['table-workbench',x,z],['industrial-chair',x,z+.85/room.depth,180]]),['cabinet',.87,.88]];
+    if(room.spaceProfile==='kids')return [['mat-kids',.5,.52],['table-kids-round',.32,.35],['kids-chair',.32,.35+.75/room.depth,180],['kids-chair',.32,.35-.75/room.depth],['shelf-kids',.83,.17],['locker-children',.84,.74]];
+    if(['mechanical','laundry','garment'].includes(room.spaceProfile))return [['cabinet',.13,.14],['bench',.2,.73]];
+  }
   if(capacity)return seatingPlan(room,capacity);
   const w=room.width,d=room.depth,at=(kind,x,z,rotation=0)=>[kind,x/w,z/d,rotation];
   if(room.kind==='lounge'){
@@ -131,7 +139,7 @@ const canPlace = (o,room,objects,assets,preserveAisle=true) => {
   // Preserve the chair's pull-out/approach aisle when adding cabinets, plants or products.
   if(preserveAisle&&b.y<.95&&assets[o.assetId]?.kind!=='rug')for(const chair of objects){
     if(chair.id===o.id||chair.roomId!==room.id||chair.elevation>.05)continue;
-    const kind=assets[chair.assetId]?.kind;if(kind!=='taskchair'&&!(kind==='chair'&&room.kind==='classroom'))continue;
+    const kind=assets[chair.assetId]?.kind;if(kind!=='taskchair'&&!(kind==='chair'&&(room.kind==='classroom'||chair.facing?.activity==='work')))continue;
     const cb=aabb(chair,assets),front=frontVector(chair,assets[chair.assetId]),back={x:-front.x,z:-front.z},length=CLEARANCE.chairBack;
     const zone=Math.abs(back.x)>.5?{x:back.x>0?cb.x+cb.w:cb.x-length,z:cb.z+.05,w:length,d:cb.d-.1,y:0,h:.9}
       :{x:cb.x+.05,z:back.z>0?cb.z+cb.d:cb.z-length,w:cb.w-.1,d:length,y:0,h:.9};
@@ -167,29 +175,48 @@ export function createScene(config, library) {
     const room={id:spec.key,name:spec.name,kind:spec.kind||roomKind(spec.name),purpose:spec.purpose||'',
       x:round(template.custom?spec.geometry.x*scale:(index%cols)*(cellWidth+.22)),z:round(template.custom?spec.geometry.z*scale:Math.floor(index/cols)*(cellDepth+gap)),width:round(rw),depth:round(rd),height:3.1,
       ...(template.roomReference&&!template.custom&&config.width==null&&config.depth==null?{layoutReference:{width:template.roomReference.referenceWidth*scale,depth:template.roomReference.referenceDepth*scale}}:{}),...(spec.includedSpaces?{includedSpaces:structuredClone(spec.includedSpaces)}:{}),
+      ...(spec.equipmentPolicyVersion?{equipmentPolicyVersion:spec.equipmentPolicyVersion,spaceProfile:spec.spaceProfile}:{}),
       floor:spec.floor||'1F',outdoor:spec.kind==='outdoor',sourceNumber:spec.sourceNumber||String(index+1)};
     const explicit=setting?.capacity??spec.capacity;
     const capacity=explicit??(['office','study'].includes(room.kind)?Math.min(12,Math.max(4,Math.floor((room.layoutReference?room.layoutReference.width*room.layoutReference.depth:rw*rd)/11))):room.kind==='meeting'?8:0);
     if(!Number.isInteger(capacity)||capacity<0||capacity>60)throw new Error('좌석 수는 공간별 1~60석으로 입력해 주세요.');
     room.capacity=capacity;
     scene.rooms.push(room);
-    const plan=furniturePlan(room,capacity);
+    let plan=furniturePlan(room,capacity);
+    if(room.equipmentPolicyVersion===SPACE_EQUIPMENT_VERSION){
+      const office=['office','study'].includes(room.kind),learning=['library','study','focus','homestudy'].includes(room.spaceProfile);
+      plan=plan.map(([kind,x,z,rotation=0])=>[kind==='desk'?(learning?'desk-reading':room.kind==='classroom'?'desk-student':office?'desk-office':kind):kind==='taskchair'&&office?(learning?'library-chair':'office-mesh'):kind==='shelf'&&learning?'shelf-library':kind==='stage'&&room.kind==='classroom'?'stage-teaching':kind,x,z,rotation]);
+      if(learning)plan.push(['shelf-library',.2,.9],['shelf-library',.8,.9]);
+      if(room.spaceProfile==='library')plan.push(['shelf-library',.88,.42,90]);
+      if(room.spaceProfile==='ward'&&spec.includedSpaces?.some(s=>s.spaceProfile==='nursing'))plan.push(['desk-office',.84,.62],['office-mesh',.84,.62+.805/rd,180]);
+    }
     for(const [i,[kind,x,z,rotation=0]] of plan.entries()) {
       const o={id:`${room.id}-f${i}`,assetId:`furniture:${kind}`,roomId:room.id,x:round(room.x+rw*x),z:round(room.z+rd*z),elevation:0,rotation};
       const preferred=contextFurniture(kind,room,scene.industry,assets);
       if(preferred!==o.assetId&&canPlace({...o,assetId:preferred},room,scene.objects,assets))o.assetId=preferred;
       // Rugs may sit under objects. Other furniture always obeys doors/bounds/collisions.
-      if(kind==='rug'||canPlace(o,room,scene.objects,assets))scene.objects.push(o);
+      if(kind==='rug'||canPlace(o,room,scene.objects,assets)){
+        scene.objects.push(o);
+        if(room.equipmentPolicyVersion===SPACE_EQUIPMENT_VERSION)bindNaturalRelations(scene,assets);
+      }
     }
     if(explicit&&['office','study','classroom','meeting'].includes(room.kind)){
       const seats=scene.objects.filter(o=>o.roomId===room.id&&['chair','taskchair'].includes(assets[o.assetId].kind)).length;
       if(seats<capacity)throw new Error(`${room.name}: 출입 동선 때문에 ${seats}석만 들어가요. 면적을 늘려 주세요.`);
     }
     naturalPlacement(scene,assets);
-    const ids=[...new Set(spec.productIds||[])];
-    for(const [i,pid] of ids.entries()) {
-      const asset=assets['product:'+pid];if(!asset?.physical)continue;
-      placeProduct(scene,room,asset,assets,i);
+    if(spec.equipmentPolicyVersion===SPACE_EQUIPMENT_VERSION&&spec.equipment){
+      for(const [i,equipment]of spec.equipment.entries()){
+        const asset=assets['product:'+equipment.productId];if(!asset?.physical)throw new Error('필수 제품을 찾을 수 없습니다: '+equipment.productId);
+        const supports=equipmentSupports(equipment.quantity,scene,room,assets);
+        for(let n=0;n<(supports?.length??equipment.quantity);n++)placeProduct(scene,room,asset,assets,i+n,{supportId:supports?.[n]?.id,reason:equipment.reason});
+      }
+    }else{
+      const ids=[...new Set(spec.productIds||[])];
+      for(const [i,pid] of ids.entries()) {
+        const asset=assets['product:'+pid];if(!asset?.physical)continue;
+        placeProduct(scene,room,asset,assets,i);
+      }
     }
   }
   for(const p of [...(config.placements||[]),...(config.furniture||[])]) {
@@ -215,10 +242,13 @@ export function createScene(config, library) {
   return scene;
 }
 
-function placeProduct(scene,room,asset,assets,index) {
+function placeProduct(scene,room,asset,assets,index,{supportId,reason}={}) {
   const [w,h,d]=asset.size;
+  if(!supportId&&room.equipmentPolicyVersion===SPACE_EQUIPMENT_VERSION&&['monitor','tablet'].includes(asset.kind)&&w<.8){
+    supportId=scene.objects.find(o=>o.roomId===room.id&&assets[o.assetId]?.kind==='desk'&&!scene.objects.some(p=>p.supportId===o.id&&p.assetId===asset.id))?.id;
+  }
   while(scene.objects.some(o=>o.id===`${room.id}-p${index}-${asset.productId}`||o.id===`${room.id}-p${index}-${asset.productId}-stand`))index++;
-  const base={id:`${room.id}-p${index}-${asset.productId}`,assetId:asset.id,roomId:room.id,rotation:0,elevation:0};
+  const base={id:`${room.id}-p${index}-${asset.productId}`,assetId:asset.id,roomId:room.id,rotation:0,elevation:0,...(reason?{placementReason:reason}:{})};
   const candidates=[];
   const ceiling=['cassette','cassette360','light'].includes(asset.kind);
   const wall=!asset.placementSurface&&['display','tablet','wallac','sensor'].includes(asset.kind)&&(asset.kind!=='tablet'||w>.7);
@@ -227,14 +257,19 @@ function placeProduct(scene,room,asset,assets,index) {
   }else if(wall){
     for(const f of [.5,.23,.76])candidates.push({...base,x:room.x+room.width*f,z:room.z+d/2+.14,elevation:Math.min(1.2,room.height-h-.15),mount:'wall'});
   }else if(asset.placementSurface==='surface'||asset.placementSurface!=='floor'&&['tablet','phone','laptop','monitor','sensor','induction','kiosk'].includes(asset.kind)){
-    for(const support of scene.objects.filter(o=>o.roomId===room.id&&['desk','counter','table','conference','island','reception','bench','cabinet','stage'].includes(assets[o.assetId]?.kind))){
+    for(const support of scene.objects.filter(o=>o.roomId===room.id&&(!supportId||o.id===supportId)&&['desk','counter','table','roundtable','conference','island','reception','bench','cabinet','stage'].includes(assets[o.assetId]?.kind))){
       const s=assets[support.assetId],worker=scene.objects.find(o=>o.facing?.targetId===support.id&&o.facing.activity==='work');
       const rotation=worker?faceRotation(support,worker,asset):support.rotation||0,direction=frontVector({rotation},asset);
       if(w<s.size[0]&&d<s.size[2]){
         const offset=asset.kind==='monitor'?-Math.min(.19,(s.size[2]-d)/2-.025):asset.kind==='laptop'?Math.min(.16,(s.size[2]-d)/2-.025):0;
-        candidates.push({...base,x:support.x+direction.x*offset,z:support.z+direction.z*offset,rotation,elevation:(support.elevation||0)+s.size[1]+.025,supportId:support.id,mount:'surface'});
+        candidates.push({...base,x:support.x+direction.x*offset,z:support.z+direction.z*offset,rotation,elevation:(support.elevation||0)+(s.supportSurfaceHeight??s.size[1])+.025,supportId:support.id,mount:'surface'});
       }
     }
+  }
+  if(supportId){
+    const chosen=candidates.find(o=>o.supportId===supportId&&canPlace(o,room,scene.objects,assets));
+    if(!chosen)throw new Error(`${room.name}: ${asset.name}을 해당 작업석에 놓을 수 없습니다.`);
+    chosen.x=round(chosen.x);chosen.z=round(chosen.z);chosen.elevation=round(chosen.elevation);scene.objects.push(chosen);return;
   }
   // Deterministic floor search keeps Samsung products clear of furniture and door swings.
   for(const fz of [.16,.4,.65,.82])for(const fx of [.85,.12,.63,.37,.5])candidates.push({...base,x:room.x+room.width*fx,z:room.z+room.depth*fz,mount:'floor'});

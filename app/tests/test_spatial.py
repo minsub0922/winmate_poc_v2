@@ -134,7 +134,8 @@ class SpatialTests(unittest.TestCase):
     def test_saved_asset_revision_survives_catalog_dimension_changes(self):
         frozen=copy.deepcopy(self.library.library);frozen['sourceHash']='deadbeef';self.library.revisions['deadbeef']=frozen
         scene=copy.deepcopy(self.library.examples[0]['scene']);scene['assetRevision']='deadbeef'
-        asset=next(a for a in self.library.library['assets'] if a['id']=='product:thewall');size=asset['size']
+        placed=next(o['assetId'] for o in scene['objects'] if o['assetId'].startswith('product:'))
+        asset=next(a for a in self.library.library['assets'] if a['id']==placed);size=asset['size']
         try:
             asset['size']=[100,100,100]
             self.library.validate(scene)

@@ -3,11 +3,9 @@ import { layoutHtml } from '../../services/catalog.js';
 import { resolveImg } from '../../repositories/proposals.js';
 import { markUnits } from './evidence.js';
 import { bgUrl, loadBg } from '../../services/packs.js';
-import { applyProposalDesign } from './proposal-design.js';
 import { hydrateFill } from '../../services/fill.js';
 import { legacySrc } from '../templates/legacy_img.js';
 import { applySpatialBinding } from '../spatial/slide-binding.js';
-import { fitDescriptionText } from './description-fit.js';
 
 const ALLOWED_TAGS = new Set(['SPAN', 'B', 'STRONG', 'EM', 'I', 'BR', 'SUP', 'SUB', 'SMALL']);
 export function sanitizeInline(html) {
@@ -137,20 +135,12 @@ export function applyOverrides(root, ov, pageNo) {
     }
   }
   applySpatialBinding(root, ov?.spatial, ov?.t);
-  if (root.hasAttribute('data-reference-standard') && ov?.notes == null && Object.keys(ov?.t || {}).length) {
-    // Older saved copies keep all edited fragments in their presenter notes,
-    // including fragments no longer prominent in the editorial composition.
-    const note = root.querySelector('[data-proposal-note="source"]');
-    if (note) note.textContent = [...root.querySelectorAll('[data-tb]')].map(el => el.textContent.trim()).filter(Boolean).join('\n');
-  }
   if (pageNo != null) {
     root.querySelectorAll('[data-tb]').forEach((e) => {
       if (/^CONFIDENTIAL · \d+$/.test(e.textContent.trim())) e.textContent = 'CONFIDENTIAL · ' + pageNo;
       else if (e.hasAttribute('data-pgno') && /^\d+$/.test(e.textContent.trim())) e.textContent = String(pageNo); // bare page number (공유오피스 Lite 양식)
     });
   }
-  if (ov?.design || root.hasAttribute('data-proposal-authored')) applyProposalDesign(root, ov?.design || {});
-  fitDescriptionText(root);
 }
 
 /** Read text blocks (index + current text) from a layout with overrides applied. */

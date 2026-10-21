@@ -76,7 +76,7 @@ function populateSeats(scene,room,type,library,assets){
  const pending=[...usable];
  while(pending.length&&added<max){
   pending.sort((a,b)=>(usedTargets.get(a.facing?.targetId)||0)-(usedTargets.get(b.facing?.targetId)||0)||hash(seed+a.id)-hash(seed+b.id));
-  const owner=pending.shift(),a=assets[owner.assetId],target=scene.objects.find(t=>t.id===owner.facing?.targetId),role=seatRole(type,scene.industry);
+  const owner=pending.shift(),a=assets[owner.assetId],target=scene.objects.find(t=>t.id===owner.facing?.targetId),role=type==='clinic'&&room.spaceProfile==='clinic'&&a.kind==='taskchair'?'doctor':seatRole(type,scene.industry);
   let actions=seatActions(type,added,owner,target,assets);
   if(target&&.79*Math.min(1.06,(a.supportSurfaceHeight||.47)/.495)+.035<assets[target.assetId].size[1]&&actions.includes('write'))actions=added%4===2?['raise','read','listen']:['read','listen','raise'];
   const pool=candidates(library,role,'sit',actions,seed+owner.id);
@@ -137,6 +137,7 @@ export function populateScenePeople(scene,library){
    if(room.width*room.depth>70)addStaff('inspector',['inspect','carry'],['rack'],{side:'visible-side'});
   }else if(type==='nurse')addStaff('nurse',['inspect','read'],['cabinet','hospitalbed'],{side:'side'});
   else if(type==='clinic'){
+   if(hosts.some(o=>o.people?.some(p=>assets[p.sourceAssetId].actors.find(a=>a.id===p.actorId)?.roleId==='doctor')))continue;
    const host=hosts.find(o=>o.people?.some(p=>assets[p.sourceAssetId].actors.find(a=>a.id===p.actorId)?.roleId==='patient'));
    if(host)standAt(scene,room,host,'doctor',['inspect','consult'],library,assets,{side:'side'});
   }else if(type==='ward'){
