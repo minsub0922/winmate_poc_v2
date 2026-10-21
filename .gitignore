@@ -1,8 +1,9 @@
 # 로컬 장표 작업물 (PPT 레이아웃 · as-is/to-be 등)
 ppt_layouts/
 
-# Isolated admin application and its local databases (not shipped to production)
-/admin/
+# Admin source and startup marker are versioned; generated/private state stays local
+/admin/runtime/
+/admin/web/dist/
 
 # Migration: credentials and local execution state
 **/.env

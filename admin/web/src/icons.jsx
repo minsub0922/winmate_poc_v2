@@ -1,0 +1,38 @@
+export function Icon({ name, size = 20, ...props }) {
+  const paths = {
+    chat: <><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l-3 3V11.5A8.5 8.5 0 0 1 9.5 3h3A8.5 8.5 0 0 1 21 11.5Z"/><path d="M6 10h10M6 14h7"/></>,
+    users: <><circle cx="9" cy="7" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3M16 4a3 3 0 0 1 0 6M18 14a5 5 0 0 1 3 4v3"/></>,
+    chart: <><path d="M3 3v18h18M7 15l4-5 4 2 6-7"/><path d="M17 5h4v4"/></>,
+    copy: <><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V3H3v13h5"/></>,
+    grid: <><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></>,
+    database: <><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v7c0 4 16 4 16 0V5M4 12v7c0 4 16 4 16 0v-7"/></>,
+    layers: <><path d="m12 3 10 6-10 6L2 9zM2 14l10 6 10-6M2 19l10 6 10-6" transform="translate(0 -1) scale(1 .92)"/></>,
+    clock: <><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></>,
+    settings: <><path d="m9 3-1 3-3 1 1 4-2 2 2 3 3-1 2 3 4-1 1-3 3-1-1-4 2-2-2-3-3 1-2-3z"/><circle cx="12" cy="10" r="3"/></>,
+    search: <><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></>,
+    plus: <path d="M12 5v14M5 12h14"/>, close: <path d="m6 6 12 12M6 18 18 6"/>,
+    arrow: <path d="M5 12h14m-5-5 5 5-5 5"/>, chevron: <path d="m9 5 7 7-7 7"/>, down: <path d="m6 9 6 6 6-6"/>,
+    refresh: <><path d="M20 8a8 8 0 0 0-14-3L3 8m0-5v5h5M4 16a8 8 0 0 0 14 3l3-3m0 5v-5h-5"/></>,
+    spark: <><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5zM20 2v4m-2-2h4"/></>,
+    globe: <><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></>,
+    book: <><path d="M12 5c-3-3-7-2-10-1v15c4-2 7-1 10 1 3-2 6-3 10-1V4c-4-1-7-1-10 1v15"/></>,
+    image: <><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m3 17 5-5 4 4 4-6 5 8"/></>,
+    file: <><path d="M14 2H5v20h14V7zM14 2v5h5M8 12h8M8 16h6"/></>,
+    upload: <><path d="M12 16V3m-5 5 5-5 5 5M4 16v5h16v-5"/></>,
+    check: <path d="m5 12 4 4L19 6"/>, shield: <><path d="m12 2 9 4v6c0 5-9 10-9 10S3 17 3 12V6z"/><path d="m8 12 3 3 5-6"/></>,
+    external: <><path d="M14 3h7v7M10 14 21 3M10 3H3v18h18v-7"/></>,
+    more: <><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></>,
+    download: <><path d="M12 3v13m-5-5 5 5 5-5M4 17v4h16v-4"/></>,
+    folder: <path d="M3 6V4h6l3 3h9v14H3z"/>,
+    box: <><path d="m12 2 10 5v10l-10 5-10-5V7zM2 7l10 5 10-5M12 12v10M7 4.5l10 5"/></>,
+    link: <><path d="m10 14 4-4M8 16l-2 2a4 4 0 0 1-6-6l5-5a4 4 0 0 1 6 0m2 0 2-2a4 4 0 1 1 6 6l-5 5a4 4 0 0 1-6 0" transform="translate(1 0)"/></>,
+    info: <><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v1"/></>,
+    alert: <><path d="m12 3 10 18H2zM12 9v5M12 17v1"/></>,
+    archive: <><path d="M4 8v13h16V8M2 3h20v5H2zM9 12h6"/></>,
+    play: <path d="m8 4 12 8-12 8z"/>, stop: <rect x="5" y="5" width="14" height="14" rx="2"/>,
+    heart: <path d="M2 12h5l3-8 4 16 3-8h5"/>,
+    logout: <><path d="M9 3H3v18h6M9 12h13m-5-5 5 5-5 5"/></>,
+  };
+  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>{paths[name] || paths.file}</svg>;
+}
+export const iconFor = kind => ({ product: 'box', catalog: 'book', image: 'image', layout: 'layers', scenario: 'layers', spatial: 'box', case: 'globe', solution: 'globe', pack: 'image', category: 'grid', industry: 'grid' }[kind] || 'file');

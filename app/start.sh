@@ -38,7 +38,7 @@ else
 fi
 app/.venv/bin/python -B app/scripts/preflight.py --require-auth
 winmate_asgi_app='app.api.main:app'
-# Local opt-in only: admin/ and its marker are ignored and absent from production.
+# The versioned admin marker enables /admin on the same server and port.
 if [[ -f admin/.enabled && -f admin/server.py && -f admin/prepare.sh ]]; then
   bash admin/prepare.sh
   winmate_asgi_app='admin.server:app'

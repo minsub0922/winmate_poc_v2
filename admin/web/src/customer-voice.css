@@ -1,0 +1,21 @@
+.voice-inbox-table,.voice-scroll-table { width:100%; border-collapse:collapse; text-align:left; font-size:13px; }
+.voice-inbox-table th,.voice-inbox-table td,.voice-scroll-table th,.voice-scroll-table td { padding:15px 18px; border-bottom:1px solid var(--line); vertical-align:top; }
+.voice-inbox-table th,.voice-scroll-table th { color:var(--muted); font-size:11px; background:var(--surface-soft); }
+.voice-inbox-table .is-new td { background:#f7f9ff; }
+.voice-inbox-table td:nth-child(3) { width:43%; min-width:240px; }
+.voice-inbox-table td small { display:block; margin-top:6px; color:var(--muted); font-size:11px; max-width:240px; overflow-wrap:anywhere; }
+.voice-inbox-message { display:block; border:0; padding:0; background:none; color:inherit; text-align:left; cursor:pointer; width:100%; }
+.voice-inbox-message strong { display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; font-size:13px; font-weight:600; line-height:1.7; white-space:pre-wrap; overflow-wrap:anywhere; }
+.voice-inbox-message:hover strong { color:var(--accent); }
+.voice-inbox-message small { color:var(--accent)!important; }
+.voice-status { display:inline-flex; padding:5px 9px; border-radius:7px; background:#edf1fc; color:#40588c; font-size:11px; white-space:nowrap; }
+.voice-status.new { color:#2854ba; background:#e9efff; font-weight:700; }
+.voice-status.closed { color:#34715b; background:#e9f6ee; }
+.voice-message { margin:20px 0 26px; padding:18px; border:1px solid var(--line); border-radius:10px; background:var(--surface-soft); white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.8; font-size:14px; }
+.voice-detail-status { display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap; }
+.voice-detail-status label { display:flex; align-items:center; gap:10px; font-size:13px; }
+.voice-detail-status .quiet { font-size:11px; overflow-wrap:anywhere; }
+.voice-scroll-table { margin:10px 0 22px; font-size:12px; }
+.voice-scroll-table td:first-child { max-width:440px; overflow-wrap:anywhere; }
+.voice-capture-note { color:#875e18; background:#fff8e9; border-radius:8px; padding:12px; font-size:12px; }
+@media(max-width:700px) { .voice-inbox-table { min-width:800px; } .voice-scroll-table { min-width:600px; } }
