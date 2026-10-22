@@ -9,11 +9,12 @@ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const require=createRequire(path.join(root,'app/web/package.json')),JSZip=require('jszip');
 const read=async p=>JSON.parse(await fs.readFile(path.join(root,p),'utf8'));
 const std=await read('app/web/src/domain/templates/description_standard_scenarios.json'),best=await read('app/web/src/domain/templates/vertical_scenarios.json');
+const account=await read('app/web/src/domain/templates/account_scenarios.json');
 const report={dataSha256:createHash('sha256').update(JSON.stringify({std,best})).digest('hex'),decks:0,slides:0,texts:0,missing:[],notesMissing:[]};
 const unescape=s=>s.replace(/&(?:amp|lt|gt|quot|apos|#\d+|#x[0-9a-f]+);/gi,v=>({'&amp;':'&','&lt;':'<','&gt;':'>','&quot;':'"','&apos;':"'"}[v]??String.fromCodePoint(v.startsWith('&#x')?parseInt(v.slice(3,-1),16):parseInt(v.slice(2,-1),10))));
 const norm=s=>String(s).normalize('NFC').replace(/\s/g,'');
 const runs=xml=>[...xml.matchAll(/<a:t(?:\s[^>]*)?>([\s\S]*?)<\/a:t>/g)].map(m=>unescape(m[1]));
-for(const [id,pages] of Object.entries({...std.fills,...best.fills})){
+for(const [id,pages] of Object.entries({...std.fills,...best.fills,...account.fills})){
  const zip=await JSZip.loadAsync(await fs.readFile(path.join(root,'output/rebuild-existing/decks',id+'.pptx')));
  report.decks++;
  for(let i=0;i<pages.length;i++){

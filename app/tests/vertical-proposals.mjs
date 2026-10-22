@@ -14,7 +14,8 @@ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),ou
 const require=createRequire(path.join(root,'app/web/package.json')),sharp=require('sharp'),JSZip=require('jszip');
 const read=async p=>JSON.parse(await fs.readFile(path.join(root,p),'utf8'));
 const std=await read('app/web/src/domain/templates/description_standard_scenarios.json'),best=await read('app/web/src/domain/templates/vertical_scenarios.json');
-const datasets={...std.fills,...best.fills},scenarios=[...std.scenarios,...best.scenarios];
+const account=await read('app/web/src/domain/templates/account_scenarios.json');
+const datasets={...std.fills,...best.fills,...account.fills},scenarios=[...std.scenarios,...best.scenarios,...account.scenarios];
 const sha=createHash('sha256').update(JSON.stringify({std,best})).digest('hex');
 const renderCodeSha256=await proposalRenderRevision(root);
 const bootstrap={catalog:await read('app/data/catalog.json'),images:await read('app/data/images.json'),products:await read('app/data/products_db.json'),user:{username:'proposal-content-test',auth_enabled:false},capabilities:null};
@@ -33,7 +34,7 @@ try{
  const contracts=await page.evaluate(async()=>{
   const cat=await import('/src/services/catalog.js'),{SCENARIOS,SC,STAGES}=await import('/src/domain/templates/scenarios.js'),{FILLS}=await import('/src/domain/templates/scenario_fills.js'),{STORY}=await import('/src/domain/templates/scenario_story.js'),{storyboardOf}=await import('/src/domain/templates/scenario_storyboard.js'),{setupFromScenario,buildProfile}=await import('/src/domain/simulation/profile.js');
   const owned=f=>/^L_DSTD_|^L_PH_VX_/.test(f),bad=[];if(Object.keys(cat.L).some(owned))bad.push('removed layouts in registry');
-  const authored=SCENARIOS.filter(s=>/^bs_std_|^bs_v_/.test(s.id));
+  const authored=SCENARIOS.filter(s=>/^bs_std_|^bs_v_|^bs_account_/.test(s.id));
   for(const s of authored){const flat=s.flow.flatMap(g=>g.slides),fills=FILLS[s.id];if(flat.length!==fills.length)bad.push(s.id+':length');
    for(const g of s.flow)if(!STAGES[g.key])bad.push(s.id+':stage '+g.key);
    for(let k=0;k<flat.length;k++){const f=fills[k];if(f.f!==flat[k].f||owned(f.f)||!cat.L[f.f]||cat.L[f.f].retired)bad.push(s.id+':layout '+k);const dom=document.createElement('div');dom.innerHTML=cat.layoutHtml(f.f);const ts=[...dom.querySelectorAll('[data-tb]:not([data-img])')].map(x=>x.dataset.tb),is=[...dom.querySelectorAll('[data-img]')].map(x=>x.dataset.img);if(ts.length!==new Set(ts).size||is.length!==new Set(is).size)bad.push(s.id+':duplicate slots '+k);if(ts.some(i=>!String(f.t[i]??'').trim())||ts.length!==Object.keys(f.t).length)bad.push(s.id+':empty/missing text '+k);if(is.some(i=>!f.img[i]?.src)||is.length!==Object.keys(f.img).length)bad.push(s.id+':empty/missing image '+k);}
@@ -49,7 +50,7 @@ try{
   const circle=document.createElement('div');circle.style.cssText='position:absolute;left:0;top:0;width:1280px;height:720px';circle.innerHTML='<div style="height:96px;display:flex"><span data-tb="0" style="width:34px;min-height:34px;border-radius:50%;background:#1428a0;color:white;display:flex;align-items:center;justify-content:center">01</span></div>';document.body.append(circle);typography.shapeDistortionDetected=window.__measureSlide(circle).distortedShapes.some(x=>x.kind==='circle');circle.remove();if(!typography.shapeDistortionDetected)bad.push('Circle stretching regression');
   document.querySelector('.app').style.display='none';const host=document.createElement('div');host.id='proposal-render';host.style.cssText='position:absolute;left:0;top:0;width:1280px;height:720px;background:white';document.body.appendChild(host);
   return {authored:authored.length,allScenarios:SCENARIOS.length,allLayouts:cat.ALL_LAYOUTS.length,activeLayouts:cat.LAYOUTS.length,removedLayouts:0,singlePhotoCovers:SCENARIOS.length,typography,bad};
- });console.log('CONTRACTS',JSON.stringify(contracts));assert.deepEqual(contracts.bad,[]);assert.equal(contracts.authored,60);assert.equal(contracts.allScenarios,82);
+ });console.log('CONTRACTS',JSON.stringify(contracts));assert.deepEqual(contracts.bad,[]);assert.equal(contracts.authored,63);assert.equal(contracts.allScenarios,85);
  await page.evaluate(async()=>{
   const resource=name=>performance.getEntriesByType('resource').map(x=>x.name).find(url=>new URL(url).pathname.endsWith('/'+name));
   const react=resource('react.js'),client=resource('react-dom_client.js');if(!react||!client)throw new Error('Use the app React module instances');
@@ -57,7 +58,7 @@ try{
   const renderer=createRoot(document.querySelector('#proposal-render'));
   window.__mountProposalSlide=async(f,ov,pageNo)=>{renderer.render(React.createElement(Slide,{f,ov,width:1280,pageNo}));await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));return document.querySelector('#proposal-render .slide-inner').firstElementChild;};
  });
- if(process.env.PROPOSAL_AUDIT_ALL){const original=await page.evaluate(async()=>{const {SCENARIOS,slidesOfScenario}=await import('/src/domain/templates/scenarios.js'),{ovOf}=await import('/src/domain/templates/scenario_storyboard.js');const scenarios=SCENARIOS.filter(s=>!/^bs_std_|^bs_v_/.test(s.id));return{scenarios,fills:Object.fromEntries(scenarios.map(s=>[s.id,slidesOfScenario(s).map((x,k)=>({f:x.f,...ovOf(s.id,k,x.f)}))]))};});scenarios.push(...original.scenarios);Object.assign(datasets,original.fills);}
+ if(process.env.PROPOSAL_AUDIT_ALL){const original=await page.evaluate(async()=>{const {SCENARIOS,slidesOfScenario}=await import('/src/domain/templates/scenarios.js'),{ovOf}=await import('/src/domain/templates/scenario_storyboard.js');const scenarios=SCENARIOS.filter(s=>!/^bs_std_|^bs_v_|^bs_account_/.test(s.id));return{scenarios,fills:Object.fromEntries(scenarios.map(s=>[s.id,slidesOfScenario(s).map((x,k)=>({f:x.f,...ovOf(s.id,k,x.f)}))]))};});scenarios.push(...original.scenarios);Object.assign(datasets,original.fills);}
  const selected=process.env.PROPOSAL_UI_ONLY?[]:process.env.PROPOSAL_ONLY?scenarios.filter(s=>s.id.includes(process.env.PROPOSAL_ONLY)):scenarios;
  if(!process.env.PROPOSAL_UI_ONLY)await page.evaluate(async()=>{const {fillReady}=await import('/src/services/fill.js');const r=await window.__mountProposalSlide('L_C08',{t:{2:'AI 아파트의 제품과 운영을 연결합니다'}},1);await fillReady(r);await Promise.all([...r.querySelectorAll('img')].map(im=>im.decode().catch(()=>{})));await document.fonts.ready;const title=r.querySelector('[data-tb="2"]');title.style.whiteSpace='nowrap';title.style.fontSize='46px';title.style.height='auto';const broken=window.__measureSlide(r);window.__geometryRegression={overflowDetected:broken.overflow.length>0,hiddenTitleDetected:broken.occluded.length>0};if(!window.__geometryRegression.overflowDetected||!window.__geometryRegression.hiddenTitleDetected)throw new Error('Original title/photo overlap must still be detected');});
  let rendered,refresh;
@@ -72,7 +73,7 @@ try{
    if(f==='L_C08'&&!window.__geometryRegression){const title=r.querySelector('[data-tb="2"]'),saved=title.style.cssText;title.style.whiteSpace='nowrap';title.style.fontSize='46px';title.style.height='auto';const broken=window.__measureSlide(r);window.__geometryRegression={overflowDetected:broken.overflow.length>0,hiddenTitleDetected:broken.occluded.length>0};title.style.cssText=saved;if(!window.__geometryRegression.overflowDetected||!window.__geometryRegression.hiddenTitleDetected)throw new Error('The checker must catch the original title/photo overlap');}
    const geometry=window.__measureSlide(r);
    const text=Object.values(ov.t).map(v=>typeof v==='object'?v.html:v).join(' '),body=!['cover','closing'].includes(L[f].p),letters=(text.match(/[가-힣a-zA-Z]/g)||[]).length;
-   return {f,...geometry,letters,thin:/^bs_std_|^bs_v_/.test(id)&&body&&letters<130,broken:[...r.querySelectorAll('img')].filter(im=>!im.complete||!im.naturalWidth).map(im=>im.alt),placeholders:/^bs_std_|^bs_v_/.test(id)&&!!text.match(/\[(?:00|N|모델명|고객사|제안 부서|담당자|이름)/)};
+   return {f,...geometry,letters,thin:/^bs_std_|^bs_v_|^bs_account_/.test(id)&&body&&letters<130,broken:[...r.querySelectorAll('img')].filter(im=>!im.complete||!im.naturalWidth).map(im=>im.alt),placeholders:/^bs_std_|^bs_v_|^bs_account_/.test(id)&&!!text.match(/\[(?:00|N|모델명|고객사|제안 부서|담당자|이름)/)};
   },{id:s.id,k});rows.push({id:s.id,page:k+1,...result});const png=await page.screenshot({path:path.join(out,'slides',s.id+'-'+String(k+1).padStart(3,'0')+'.png'),clip:{x:0,y:0,width:1280,height:720}});thumbs.push(await sharp(png).resize(320,180).toBuffer());
  }
  if(!rendered){await sharp({create:{width:1920,height:Math.ceil(thumbs.length/6)*180,channels:3,background:'#e2e5ea'}}).composite(thumbs.map((input,i)=>({input,left:i%6*320,top:Math.floor(i/6)*180}))).png().toFile(path.join(out,s.id+'-contact.png'));console.log('RENDERED',s.id,datasets[s.id].length);}
@@ -112,10 +113,10 @@ try{
    localStorage.setItem('winmate.v2.proposals',JSON.stringify([untouched]));return{defaultConsolidated:true,customTitlePreserved:true,editedTextPreserved:true,customPhotoPreserved:active.includes('사용자 선택 사진'),archivePreserved:!!edited.removedLayoutArchive,privateArchiveExcluded:true,partialProposal:true,favourite:true,operationsCover:true};
   },{old:legacy.fills,ops:legacy.ops});
   await page.reload();await page.locator('.app').waitFor();report.reopened=await page.evaluate(async()=>{const {getProposal,sharedProposal}=await import('/src/repositories/proposals.js');const p=getProposal('legacy-edited');if(!p||p.title!=='사용자가 정한 제안서 이름'||p.parts.some(s=>s.layouts.some(x=>/^L_DSTD_|^L_PH_VX_/.test(x.f))))throw new Error('persistent migration failed');const old={...structuredClone(p),parts:structuredClone(p.removedLayoutArchive.parts)};delete old.removedLayoutArchive;const shared=sharedProposal({token:'legacy-read-only-test',sourceId:'legacy',document:old,isOwner:false,canEdit:false,permission:'read',revision:1});if(shared.parts.some(s=>s.layouts.some(x=>/^L_DSTD_|^L_PH_VX_/.test(x.f))))throw new Error('legacy shared snapshot not viewable');return {title:p.title,archive:!!p.removedLayoutArchive,pages:p.parts.flatMap(x=>x.layouts).length,readOnlySharedView:true};});
-  await page.locator('.sb-bs').click();await page.locator('.bsl').first().waitFor();assert.equal(await page.locator('.bsl').count(),82);report.searches=[];
+  await page.locator('.sb-bs').click();await page.locator('.bsl').first().waitFor();assert.equal(await page.locator('.bsl').count(),85);report.searches=[];
   for(const s of scenarios){await page.getByRole('textbox',{name:'시나리오 검색',exact:true}).fill(s.title);await page.getByRole('article',{name:s.title,exact:true}).waitFor();report.searches.push(s.id);}
   report.previewGeometry=[];
-  const previews=await page.evaluate(async()=>{const {SC}=await import('/src/domain/templates/scenarios.js');return [['bs_std_ai_apartment',1],['bs_std_knowledge_industry_center',1],['bs_v_ai_apartment_1',1],['bs_v_ai_apartment_2',1],['bs22',3],['bs_std_ai_apartment',19],['bs11',14],['bs05',5],['bs01',10]].map(([id,page])=>({id,title:SC[id].title,page}));});
+  const previews=await page.evaluate(async()=>{const {SC}=await import('/src/domain/templates/scenarios.js');return [['bs_std_ai_apartment',1],['bs_std_knowledge_industry_center',1],['bs_v_ai_apartment_1',1],['bs_v_ai_apartment_2',1],['bs22',3],['bs_std_ai_apartment',19],['bs11',14],['bs05',5],['bs01',10],...['bs_account_inspire','bs_account_paulbassett','bs_account_episode'].flatMap(id=>[2,3,5].map(page=>[id,page]))].map(([id,page])=>({id,title:SC[id].title,page}));});
   for(const width of [1440,390]){
    await page.setViewportSize({width,height:1000});
    for(const item of previews){
@@ -135,5 +136,5 @@ try{
  }
  await fs.writeFile(path.join(out,process.env.PROPOSAL_UI_ONLY?'ui-verification.json':process.env.PROPOSAL_ONLY?'verification-'+process.env.PROPOSAL_ONLY+'.json':process.env.PROPOSAL_AUDIT_ALL?'layout-verification.json':'verification.json'),JSON.stringify(report,null,2));console.log('REPORT',JSON.stringify(report.counts));
  assert.deepEqual(errors,[]);for(const key of ['clipped','overflow','outside','occluded','overlaps','distortedShapes','broken','thin','placeholders'])assert.equal(report.counts[key],0,key);
- if(process.env.PROPOSAL_AUDIT_ALL&&!process.env.PROPOSAL_ONLY){const authoredRows=rows.filter(x=>/^bs_std_|^bs_v_/.test(x.id));const authored={...report,rows:authoredRows,exports:exports.filter(x=>/^bs_std_|^bs_v_/.test(x.id)),counts:{...report.counts,decks:60,pages:authoredRows.length},sourceAudit:'layout-verification.json'};await fs.writeFile(path.join(out,'verification.json'),JSON.stringify(authored,null,2));}
+ if(process.env.PROPOSAL_AUDIT_ALL&&!process.env.PROPOSAL_ONLY){const authoredRows=rows.filter(x=>/^bs_std_|^bs_v_|^bs_account_/.test(x.id));const authored={...report,rows:authoredRows,exports:exports.filter(x=>/^bs_std_|^bs_v_|^bs_account_/.test(x.id)),counts:{...report.counts,decks:63,pages:authoredRows.length},sourceAudit:'layout-verification.json'};await fs.writeFile(path.join(out,'verification.json'),JSON.stringify(authored,null,2));}
 }finally{if(browser)await browser.close();await server.close();}

@@ -7,10 +7,13 @@ export const FILLS = {"bs01":[{"t":{"0":"A 커피","2":{"html":"메뉴는 본사
 import VERTICAL from './vertical_scenarios.json' with { type: 'json' };
 import DESCRIPTION from './description_standard_scenarios.json' with { type: 'json' };
 import SCENARIO_COVERS from './scenario_covers.json' with { type: 'json' };
+import ACCOUNT from './account_scenarios.json' with {type:'json'};
 Object.assign(FILLS, VERTICAL.fills);
 Object.assign(FILL_CUSTOMER, VERTICAL.customers);
 Object.assign(FILLS, DESCRIPTION.fills);
 Object.assign(FILL_CUSTOMER, DESCRIPTION.customers);
+Object.assign(FILLS, ACCOUNT.fills);
+Object.assign(FILL_CUSTOMER, ACCOUNT.customers);
 for(const [id,cover]of Object.entries(SCENARIO_COVERS))if(FILLS[id])FILLS[id][0]=structuredClone(cover);
 const EMPTY = () => ({ t: {}, img: {} });
 /** k번째 장(0부터)의 채운 값 — 그 자리 레이아웃(f)이 바뀌었으면 빈 덮어쓰기 */

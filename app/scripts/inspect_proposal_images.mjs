@@ -7,7 +7,8 @@ import {createHash} from 'node:crypto';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),require=createRequire(path.join(root,'app/web/package.json')),sharp=require('sharp');
 const json=async p=>JSON.parse(await fs.readFile(path.join(root,p),'utf8'));
 const std=await json('app/web/src/domain/templates/description_standard_scenarios.json'),best=await json('app/web/src/domain/templates/vertical_scenarios.json');
-const datasets={...std.fills,...best.fills},packs=new Map(),sources=new Map(),missing=[],blank=[],decks=[];
+const account=await json('app/web/src/domain/templates/account_scenarios.json');
+const datasets={...std.fills,...best.fills,...account.fills},packs=new Map(),sources=new Map(),missing=[],blank=[],decks=[];
 for(const pages of Object.values(datasets))for(const page of pages)for(const im of Object.values(page.img))sources.set(im.src,im);
 const fingerprints={};
 for(const [src,im] of sources){
@@ -28,7 +29,7 @@ for(const [id,pages] of Object.entries(datasets)){
  }
  const ranked=[...counts.values()].sort((a,b)=>b.count-a.count);decks.push({id,pages:pages.length,images:total,unique:counts.size,uniqueRatio:counts.size/total,mostUsed:ranked.slice(0,5),samePage});
 }
-const addedPhotos=await json('app/web/src/domain/templates/proposal_photo_assets.json');
+const addedPhotos=[...await json('app/web/src/domain/templates/proposal_photo_assets.json'),...await json('app/web/src/domain/templates/account_photo_assets.json')];
 for(const photo of addedPhotos){const bytes=await fs.readFile(path.join(root,'app/web/public',photo.src));if(createHash('sha256').update(bytes).digest('hex')!==photo.sha256)throw new Error('Source image integrity: '+photo.pid);}
 const report={dataSha256:createHash('sha256').update(JSON.stringify({std,best})).digest('hex'),assets:sources.size,addedOfficialPhotos:addedPhotos.length,missing,blank,decks,fingerprints};
 const target=process.argv[2]||'output/rebuild-existing/image-verification.json';await fs.writeFile(path.join(root,target),JSON.stringify(report,null,2)+'\n');

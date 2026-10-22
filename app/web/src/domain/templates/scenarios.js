@@ -4,6 +4,7 @@
 import VERTICAL from './vertical_scenarios.json' with { type: 'json' };
 import DESCRIPTION from './description_standard_scenarios.json' with { type: 'json' };
 import SCENARIO_COVERS from './scenario_covers.json' with { type: 'json' };
+import ACCOUNT from './account_scenarios.json' with {type:'json'};
 export const REQ_TYPES = {
   std: { label: '표준 제안서', desc: '업종별 공간·제품·솔루션·운영의 표준 구성을 함께 검토할 때', hue: 'slate' },
   new: { label: '신규 구축 · RFP', desc: '새 공간 · 첫 도입. 범위와 사양을 처음부터 함께 정해야 할 때', hue: 'blue' },
@@ -707,12 +708,16 @@ for (const s of SCENARIOS) {
 }
 SCENARIOS.push(...VERTICAL.scenarios);
 SCENARIOS.push(...DESCRIPTION.scenarios);
+SCENARIOS.push(...ACCOUNT.scenarios);
 export const SC = Object.fromEntries(SCENARIOS.map((s) => [s.id, s]));
 
 // Shown first on the template page — three different requirement types and strategies.
-export const FEATURED = ['bs01', 'bs07', 'bs10'];
+export const FEATURED = [...ACCOUNT.scenarios.map(s=>s.id), 'bs01', 'bs07', 'bs10'].slice(0,3);
 // Four representative sheets per featured scenario: problem → answer → scene/proof → ask, in deck order.
 const REPS = {
+  bs_account_inspire:['L_PH_CB_P','L_PH_CB_M','L_AC_GOV_01','L_PH_SO_B'],
+  bs_account_paulbassett:['L_PH_CB_P','L_PH_CB_M','L_AC_GOV_01','L_PH_SO_B'],
+  bs_account_episode:['L_PH_CB_P','L_PH_CB_M','L_AC_GOV_01','L_PH_SO_B'],
   bs01: ['L_PH_CB_C', 'L_VP_F', 'L_PH_SS_FB_A', 'L_PH_PL_B'],
   bs07: ['L_PH_MI_HT_C', 'L_PH_CH_C', 'L_LYN_S_HT', 'L_PH_P_N'],
   bs10: ['L_PH_CB_F', 'L_PH_CM_A', 'L_PH_CP_W', 'L_PH_CP_C'],

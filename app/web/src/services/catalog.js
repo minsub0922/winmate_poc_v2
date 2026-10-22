@@ -5,7 +5,9 @@ import { COVERS } from '../domain/templates/covers.js';
 import { PHOTO_META, PHOTO_HTML } from '../domain/templates/photo_layouts.js';
 import { STD_META, STD_HTML } from '../domain/templates/std_layouts.js';
 import { SPATIAL_META, SPATIAL_HTML } from '../domain/templates/spatial-layouts.js';
+import { ACCOUNT_META, ACCOUNT_HTML } from '../domain/templates/account_layouts.js';
 import PROPOSAL_PHOTOS from '../domain/templates/proposal_photo_assets.json';
+import ACCOUNT_PHOTOS from '../domain/templates/account_photo_assets.json' with {type:'json'};
 import { repairLayoutHtml } from '../domain/templates/layout_repairs.js';
 
 // 사진 중심 버전이 내용을 빠짐없이 담아, 라이브러리에서 뺀 텍스트 레이아웃 (텍스트 f → 대체한 사진 중심 f).
@@ -18,7 +20,7 @@ export const RETIRED = {
   L_SD_G: 'L_PH_SD_G', L_QA_A: 'L_PH_QA_A', L_AIS_08: 'L_PH_AIS_08', L_AIS_25: 'L_PH_AIS_25', L_AIS_35: 'L_PH_AIS_35', // 9차 — Best Scenario 사진 중심 전환 때 새로 만든 사진 버전 (build/bs/newlayouts.mjs)
   L_P3A: 'L_PH_P3_A', L_P5A: 'L_PH_P5_A', L_P2C: 'L_PH_P2_C', L_P_O: 'L_PH_P_O', L_P_P: 'L_PH_P_P', L_P_N: 'L_PH_P_N',
 };
-export const ALL_LAYOUTS = [...CATALOG.layouts, ...PHOTO_META, ...STD_META, ...SPATIAL_META];
+export const ALL_LAYOUTS = [...CATALOG.layouts, ...PHOTO_META, ...STD_META, ...SPATIAL_META, ...ACCOUNT_META];
 for(const layout of ALL_LAYOUTS){if(layout.f==='L_C01')layout.name='표지 A · 대표 이미지';if(layout.f==='L_C02')layout.name='표지 B · 와이드 이미지';}
 for (const l of ALL_LAYOUTS) if (RETIRED[l.f]) l.retired = RETIRED[l.f];
 export const LAYOUTS = ALL_LAYOUTS.filter((l) => !l.retired);
@@ -114,7 +116,7 @@ export const CANVAS = {
 const KINDNAME = { cut: '제품 컷', case: '설치 사례', life: '공식 연출', ui: '솔루션 화면', gen: '생성 이미지' };
 export const IMAGE_DB = Object.entries(IMAGES.pids).map(([pid, v]) => ({
   pid, src: v.file, group: v.src, groupName: KINDNAME[v.src] || v.src, model: v.model, desc: v.desc, w: v.w, h: v.h,
-})).concat(PROPOSAL_PHOTOS.map(v => ({pid:v.pid,src:v.src,group:'case',groupName:KINDNAME.case,model:v.model,desc:v.desc,w:v.w,h:v.h,source:v.page})));
+})).concat([...PROPOSAL_PHOTOS,...ACCOUNT_PHOTOS].map(v => ({pid:v.pid,src:v.src,group:'case',groupName:KINDNAME.case,model:v.model,desc:v.desc,w:v.w,h:v.h,source:v.page})));
 
 export function refInfo(ref) {
   const [type, id] = String(ref).split(':');
@@ -140,7 +142,7 @@ export async function loadLayoutHtml() {
   } else {
     throw new Error('이 브라우저는 압축 해제를 지원하지 않아요');
   }
-  HTML = Object.assign(JSON.parse(text), COVERS, PHOTO_HTML, STD_HTML, SPATIAL_HTML);
+  HTML = Object.assign(JSON.parse(text), COVERS, PHOTO_HTML, STD_HTML, SPATIAL_HTML, ACCOUNT_HTML);
   for (const f of Object.keys(HTML)) HTML[f] = repairLayoutHtml(f, HTML[f]);
   return HTML;
 }

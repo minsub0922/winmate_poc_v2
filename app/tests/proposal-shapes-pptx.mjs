@@ -10,5 +10,5 @@ for(const scenario of SCENARIOS){const zip=await JSZip.loadAsync(await fs.readFi
  if(slide.f==='L_PH_CP_G')assert.ok(circles.some(c=>Math.abs(c.w-148)<.5&&Math.abs(c.h-148)<.5),'Percentage-radius frame must remain a native circle');
  if(slide.f==='L_PH_QA_A'){const proper=circles.filter(c=>Math.abs(c.w-28)<.5&&Math.abs(c.h-28)<.5);assert.equal(proper.length,12);report.questionAnswerCircles+=proper.length;}
  }}
-assert.equal(report.decks,82);assert.equal(report.slides,1305);assert.equal(report.nextStepCircles,180);assert.equal(report.questionAnswerCircles,12);assert.ok(report.circularPictures>=6);assert.deepEqual(report.distorted,[]);assert.deepEqual(report.missing,[]);
+assert.equal(report.decks,85);assert.equal(report.slides,1356);assert.equal(report.nextStepCircles,189);assert.equal(report.questionAnswerCircles,12);assert.ok(report.circularPictures>=6);assert.deepEqual(report.distorted,[]);assert.deepEqual(report.missing,[]);
 await fs.writeFile(out+'/pptx-shapes.json',JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));

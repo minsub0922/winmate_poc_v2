@@ -4,6 +4,7 @@
 // 생성: build/sb/apply.mjs (계획: build/sb/plan.mjs)
 import VERTICAL from './vertical_scenarios.json' with { type: 'json' };
 import DESCRIPTION from './description_standard_scenarios.json' with { type: 'json' };
+import ACCOUNT from './account_scenarios.json' with {type:'json'};
 export const STORY = {
  "bs21": {
   "keymen": [
@@ -1735,3 +1736,4 @@ export const STORY = {
 };
 Object.assign(STORY, VERTICAL.story);
 Object.assign(STORY, DESCRIPTION.story);
+Object.assign(STORY, ACCOUNT.story);

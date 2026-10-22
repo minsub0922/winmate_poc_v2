@@ -2,7 +2,7 @@
 // Canonical app-side knowledge snapshot for the PoC agents → app/data/runtime/kb (only).
 //
 //   node app/scripts/export_agent_data.mjs [--out app/data/runtime/kb] [--allow-count-drift]
-//        [--expect-total 837] [--expect-active 596] [--expect-products 1068] [--expect-scenarios 82]
+//        [--expect-total 838] [--expect-active 597] [--expect-products 1068] [--expect-scenarios 85]
 //
 // Sources (read-only):
 //   app/data/{catalog.json, images.json, products_db.json, layouts.b64}
@@ -35,8 +35,8 @@ const arg = (name, dflt) => { const i = argv.indexOf('--' + name); return i >= 0
 const flag = (name) => argv.includes('--' + name);
 const OUT = path.resolve(ROOT, arg('out', path.join(RUNTIME, 'kb')));
 const EXPECT = {
-  layouts_total: Number(arg('expect-total', 837)), layouts_active: Number(arg('expect-active', 596)),
-  products: Number(arg('expect-products', 1068)), curated_products: 40, scenarios: Number(arg('expect-scenarios', 82)),
+  layouts_total: Number(arg('expect-total', 838)), layouts_active: Number(arg('expect-active', 597)),
+  products: Number(arg('expect-products', 1068)), curated_products: 40, scenarios: Number(arg('expect-scenarios', 85)),
 };
 const LAYOUT_KEYS = ['f', 'c', 'code', 'name', 'when', 'g', 'p', 'p2', 'ind', 'sol', 'pc', 'req', 'prods', 'sols', 'phs', 'ph', 'hl', 'txt', 'eb', 'foot', 'sample'];
 const PRODUCT_KEYS = ['id', 'name', 'model', 'cat', 'spec', 'spaces', 'ind', 'kw'];
@@ -62,6 +62,12 @@ const INPUTS = {
   proposalContent: path.join(ROOT, 'app', 'scripts', 'proposal_content.py'),
   proposalVisuals: path.join(ROOT, 'app', 'scripts', 'proposal_visuals.py'),
   proposalPhotos: path.join(SRC, 'domain', 'templates', 'proposal_photo_assets.json'),
+  accountPhotos: path.join(SRC,'domain','templates','account_photo_assets.json'),
+  accountLayouts: path.join(SRC,'domain','templates','account_layouts.js'),
+  accountScenarios: path.join(SRC,'domain','templates','account_scenarios.json'),
+  accountSources: path.join(DATA,'account_case_sources.json'),
+  accountBriefs: path.join(DATA,'account_case_briefs.json'),
+  accountBuilder: path.join(ROOT,'app/scripts/rebuild_account_scenarios.py'),
   layoutRepairs: path.join(SRC, 'domain', 'templates', 'layout_repairs.js'),
   proposalTypography: path.join(SRC, 'domain', 'templates', 'proposal_typography.js'),
   proposalTypographyRoles: path.join(SRC, 'domain', 'templates', 'proposal_typography.json'),
@@ -138,11 +144,12 @@ import { COVERS } from ${spec(INPUTS.covers)};
 import { PHOTO_META, PHOTO_HTML } from ${spec(INPUTS.photo)};
 import { STD_META, STD_HTML } from ${spec(INPUTS.std)};
 import { SPATIAL_META, SPATIAL_HTML } from ${spec(INPUTS.spatial)};
+import { ACCOUNT_META, ACCOUNT_HTML } from ${spec(INPUTS.accountLayouts)};
 import { RETIRED_R4 } from ${spec(INPUTS.retired)};
 import { repairLayoutHtml } from ${spec(INPUTS.layoutRepairs)};
 import * as parts from ${spec(INPUTS.parts)};
 import * as scenarios from ${spec(INPUTS.scenarios)};
-export { catalog, COVERS, PHOTO_META, PHOTO_HTML, STD_META, STD_HTML, SPATIAL_META, SPATIAL_HTML, RETIRED_R4, repairLayoutHtml, parts, scenarios };
+export { catalog, COVERS, PHOTO_META, PHOTO_HTML, STD_META, STD_HTML, SPATIAL_META, SPATIAL_HTML, ACCOUNT_META, ACCOUNT_HTML, RETIRED_R4, repairLayoutHtml, parts, scenarios };
 `;
 const primer = {
   name: 'wm-agent-primer',
@@ -181,7 +188,7 @@ const ALL = C.ALL_LAYOUTS, ACTIVE = C.LAYOUTS, L = C.L, RETIRED = C.RETIRED, PRO
 const allSet = new Set(ALL.map((l) => l.f));
 const hidden = Object.fromEntries(Object.keys(L).filter((f) => !allSet.has(f)).map((f) => [f, L[f]]));
 const html = JSON.parse(zlib.gunzipSync(Buffer.from(fs.readFileSync(INPUTS.layouts, 'utf8').trim(), 'base64')).toString('utf8'));
-Object.assign(html, mod.COVERS, mod.PHOTO_HTML, mod.STD_HTML, mod.SPATIAL_HTML);
+Object.assign(html, mod.COVERS, mod.PHOTO_HTML, mod.STD_HTML, mod.SPATIAL_HTML, mod.ACCOUNT_HTML);
 for (const f of Object.keys(html)) html[f] = mod.repairLayoutHtml(f, html[f]);
 const partsOut = { PARTS: mod.parts.PARTS, NEXT: mod.parts.NEXT, RELATED: mod.parts.RELATED, REQ_LABEL: mod.parts.REQ_LABEL };
 const S = mod.scenarios;
@@ -255,7 +262,7 @@ write('retired.json', json(RETIRED));
 write('layout_html.json.gz', zlib.gzipSync(Buffer.from(JSON.stringify(html)), { level: 9 }));
 write('parts.json', json(partsOut));
 write('best_scenarios.json', json(scenariosOut));
-const scenarioPhotos = readJson(INPUTS.proposalPhotos);
+const scenarioPhotos = [...readJson(INPUTS.proposalPhotos),...readJson(INPUTS.accountPhotos)];
 const exportedImages = readJson(INPUTS.images);
 for (const photo of scenarioPhotos) exportedImages.pids[photo.pid] = {file:photo.src,src:'case',model:photo.model,desc:photo.desc,w:photo.w,h:photo.h,page:photo.page,owner:photo.owner};
 write('images.json', Buffer.from(JSON.stringify(exportedImages)));

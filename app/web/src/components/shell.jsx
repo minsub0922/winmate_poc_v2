@@ -7,7 +7,7 @@ import { classifyPart } from '../domain/proposals/parts.js';
 import { KIND } from './refcard.jsx';
 import { partIcon } from './parteditor.jsx';
 import { TemplateIcon } from '../pages/LibraryPage.jsx';
-import { SCENARIOS, SC } from '../domain/templates/scenarios.js';
+import { SCENARIOS, SC, FEATURED } from '../domain/templates/scenarios.js';
 import { scenarioStoryboard } from '../domain/templates/scenario_storyboard.js';
 import { ScenarioStoryboard } from '../pages/ScenariosPage.jsx';
 import { ReviewEntry } from '../pages/ReviewPage.jsx';
@@ -100,7 +100,7 @@ export function Sidebar({ route, go, onNew, open, setOpen }) {
 function firstLayout(p) { for (const s of p.parts) if (s.layouts.length) return s.layouts[0]; return null; }
 
 // Cover all requirement types and strategies across a range of industries.
-const HOME_SCENARIOS = ['bs21', 'bs22', 'bs01', 'bs03', 'bs06', 'bs08', 'bs11', 'bs12', 'bs13', 'bs14', 'bs17', 'bs19'].map((id) => SC[id]);
+const HOME_SCENARIOS = [...new Set([...FEATURED,'bs21','bs22','bs01','bs03','bs06','bs08','bs11','bs12','bs13','bs14','bs17','bs19'])].slice(0,12).map(id=>SC[id]).filter(Boolean);
 
 const HOME_METRICS = [
   { icon: 'panel', label: '준비된 PPT layout', key: 'layouts' },
