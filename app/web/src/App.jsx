@@ -19,6 +19,7 @@ import { getSim } from './repositories/simulations.js';
 import { loadMy } from './repositories/templates.js';
 import { historyId, historyPath, routePath, sharedIdentity, sharedToken, spatialId } from './services/shared-path.js';
 import { SpatialPage } from './pages/SpatialPage.jsx';
+import { BuildingPage } from './pages/BuildingPage.jsx';
 import { connectShared, prepareHistorySharing } from './services/sharing.js';
 import { SharedPage } from './pages/SharedPage.jsx';
 import { HistoryPage } from './pages/HistoryPage.jsx';
@@ -40,6 +41,7 @@ export default function App() {
     const u = loadUi();
     if (u.route?.name === 'library' && u.lib?.my && !u.myLibrary) return { name: u.lib.myTab === 'fav' ? 'favorites' : 'my' };
     if (u.route?.name === 'my' && u.myLibrary?.myTab === 'fav' && !u.favoritesLibrary) return { name: 'favorites' };
+    if (u.route && u.route.name === 'building') return u.route;
     if (u.route && u.route.name === 'review') return getReview(u.route.id) ? u.route : { name: 'reviews' };
     if (u.route && u.route.name === 'reviews') return u.route;
     if (u.route && u.route.name === 'spatial') return u.route;
@@ -108,6 +110,7 @@ export default function App() {
               : route.name === 'spatial' ? <SpatialPage id={route.id} go={go} />
               : route.name === 'review' ? <ReviewScreen key={route.id} id={route.id} go={go} />
               : route.name === 'reviews' ? <ReviewHistory go={go} />
+              : route.name === 'building' ? <BuildingPage go={go} id={route.id} />
               : route.name === 'sim' ? <SimPage go={go} id={route.id} />
               : <Home go={go} onNew={onNew} />}
       </main>

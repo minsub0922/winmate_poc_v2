@@ -12,6 +12,7 @@
     "build:spatial": "../.venv/bin/python -B ../scripts/build_spatial_products.py && node ../scripts/build_spatial_library.mjs",
     "build:spatial-previews": "node ../scripts/build_spatial_previews.mjs && node ../scripts/build_spatial_object_previews.mjs",
     "test:spatial": "node ../tests/spatial-scenes.mjs",
+    "test:building": "node ../tests/building-birdseye-ui.mjs",
     "test:spatial:catalog": "node ../tests/spatial-template-catalog.mjs && node ../tests/spatial-template-catalog-ui.mjs",
     "test:spatial:form": "node ../tests/spatial-studio-form.mjs",
     "test:spatial:history-preview-ui": "node ../tests/spatial-history-preview-ui.mjs",
