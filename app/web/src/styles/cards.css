@@ -104,23 +104,6 @@
 .match-node .node { background: var(--accent-soft); color: var(--accent); box-shadow: 0 0 0 var(--measure-6px) var(--bg), 0 0 0 var(--measure-7px) var(--accent-line); }
 .match-node .node .order { font-family: var(--num); }
 .match-card { width: var(--measure-100); border-radius: var(--radius-12px); background: var(--surface); border: var(--stroke-1px) solid var(--line); padding: var(--space-4px); display: flex; flex-direction: column; gap: var(--space-2px); }
-.mrow { width: var(--measure-100); display: flex; flex-direction: column; gap: var(--space-5px); padding: var(--space-8px) var(--space-9px-x); border: 0; border-radius: var(--radius-9px); background: none; text-align: left; color: var(--ink); }
-.mrow:hover, .mrow:focus-visible { background: var(--surface-2); }
-.mrow + .mrow { box-shadow: 0 var(--measure-1px-x) 0 var(--line); border-radius: 0 0 var(--radius-9px) var(--radius-9px); }
-.mrow + .mrow:hover { border-radius: var(--radius-9px); box-shadow: none; }
-.mk { display: flex; align-items: center; gap: var(--space-5px); font-size: var(--text-12-5px); font-weight: var(--weight-800); }
-.mk b { margin-left: auto; font-size: var(--text-13-5px); font-weight: var(--weight-800); color: var(--accent); }
-.mrow.product .mk svg { color: var(--h-teal); } .mrow.solution .mk svg { color: var(--accent); } .mrow.case .mk svg { color: var(--h-amber); }
-.mpics { display: grid; grid-template-columns: repeat(var(--mcols, 3), minmax(0, var(--measure-1fr))); gap: var(--space-5px); }
-.mpics.c2 { --mcols: 2; } .mpics.c1 { --mcols: 1; }
-/* products: square tiles · solutions / cases: 16:9 tiles */
-.mpics .thumb.mini.mpic { width: auto; height: auto; aspect-ratio: 1; border-radius: var(--radius-9px); box-shadow: none; border: var(--stroke-1px) solid var(--line); }
-.mpics.c2 .thumb.mini.mpic, .mpics.c1 .thumb.mini.mpic { aspect-ratio: 16 / 9; }
-.mpics .thumb.mini.mpic.cut img { padding: var(--space-3px-x); }
-.mnone { display: inline-flex; align-items: center; gap: var(--space-4px); font-size: var(--text-11-5px); font-weight: var(--weight-600); color: var(--faint); }
-.mrow:hover .mnone { color: var(--accent); }
-.match-foot { font-size: var(--text-11px); color: var(--faint); text-align: center; padding: var(--space-4px) 0 var(--space-3px-x); }
-.match-node:hover .match-foot { color: var(--accent); }
 .thumb.sm { width: var(--measure-48px); height: var(--measure-30px); aspect-ratio: auto; border-radius: var(--radius-6px); }
 .thumb.sm.cut img { padding: var(--space-2px) var(--space-4px); filter: none; }
 .thumb.sm.cut.white img { padding: var(--space-1px); }
@@ -173,23 +156,18 @@
 .bp-f { display: flex; align-items: center; gap: var(--space-8px); padding: var(--space-10px) var(--space-12px) var(--space-12px) var(--space-16px); border-top: var(--stroke-1px) solid var(--line); border-radius: 0 0 var(--radius-16px) var(--radius-16px); background: var(--surface); }
 .bp-f .sp { flex: 1; min-width: 0; }
 .bp-note { flex: 0 1 auto; min-width: 0; font-size: var(--text-12px); line-height: var(--leading-1-4); color: var(--muted); }
-/* 매칭 팝업 — 저장 모달의 업종 · 연결 카드 · 추가/추천 카드를 팝업 폭에 맞춤 */
+/* 매칭 팝업 — 업종 칸을 팝업 폭에 맞춤 (탭 · 탐색 배치는 match-space.css) */
 .mt-body { gap: var(--space-18px); background: var(--surface); }
 .mt-body .cc-top { grid-template-columns: minmax(0, var(--measure-1fr)); }
-.mt-body .cc-sec.flash .cc-h { animation: cc-flash var(--measure-1-4s) ease; border-radius: var(--radius-8px); }  /* 버블의 줄을 눌러 열면 그 종류 제목을 잠깐 표시 */
-@keyframes cc-flash { 0%, 45% { background: var(--accent-soft); box-shadow: 0 0 0 var(--measure-6px) var(--accent-soft); } 100% { background: transparent; box-shadow: 0 0 0 var(--measure-6px) transparent; } }
 @container (max-width: 620px) {
   .bp-body .form-grid { grid-template-columns: minmax(0, var(--measure-1fr)); }
   .bp-body .km { grid-template-columns: minmax(0, var(--measure-1fr)); }
   .bp-note { display: none; }
 }
-/* 매칭 팝업 안의 '+ 추가' · '추천' — 같은 팝업이 탐색 화면으로 바뀜(← 매칭으로). 모달 대신 이 팝업 틀 그대로. */
+/* 버블 팝업 머리의 ← 뒤로 · 팝업 안의 탐색 화면(매칭 팝업 탭 아래) — 모달 대신 이 팝업 틀 그대로 */
 .bp-h.has-back { padding-left: var(--space-8px); gap: var(--space-6px); }
 .bp-h.has-back .bp-ic { margin-right: var(--space-4px); }
 .bp-back { flex-shrink: 0; }
-.mt-ex.product .bp-ic { background: color-mix(in srgb, var(--h-teal) var(--measure-14), transparent); color: var(--h-teal); }
-.mt-ex.case .bp-ic { background: color-mix(in srgb, var(--h-amber) var(--measure-16), transparent); color: var(--h-amber); }
-.mt-ex .bp-sub > span { padding-left: 0; border-left: 0; }
 .bp-body.ex-pbody { padding: 0; gap: 0; overflow: hidden; background: var(--surface); }
 .ex-pbody .ex-bar { padding: var(--space-10px) var(--space-14px) var(--space-8px) var(--space-16px); }
 .ex-pbody .ex-crumb { padding: var(--space-6px) var(--space-14px) var(--space-6px) var(--space-16px); }
@@ -215,7 +193,7 @@
   .bp-f.ex-pf .ex-tray { flex-basis: var(--measure-100); order: -1; }
   .bp-f.ex-pf .ex-tray-n { margin-right: auto; }
 }
-/* 열린 동안: 버블에 강조 링, 아래 카드는 숨기고 버블만 (자리는 남겨 캔버스가 움직이지 않게) */
+/* 열린 동안: 버블에 강조 링, 고객 요구사항 카드는 숨기고 버블만 (자리는 남겨 캔버스가 움직이지 않게) */
 .start-node.on .node, .match-node.on .node { box-shadow: 0 0 0 var(--measure-6px) var(--bg), 0 0 0 var(--measure-9px) var(--accent); }
 .start-node.on .node-name, .match-node.on .node-name { color: var(--accent); }
-.start-node.on .start-card, .match-node.on .match-card { visibility: hidden; }
+.start-node.on .start-card { visibility: hidden; }  /* 매칭 카드는 열린 동안에도 보인다 — 팝업이 그 오른쪽에 떠서 추가 · 삭제를 바로 확인 */

@@ -1,5 +1,5 @@
-// Full-list explorer for 제품 · 솔루션 · 유관사례. Opened from the 제품 · 솔루션 매칭 popup (ctxconfirm.jsx) — there it is drawn in that
-// same bubble popup (frame) with a ← back to 매칭 — and from the layout detail (product swap) as a modal.
+// Full-list explorer for 제품 · 솔루션 · 유관사례. Opened inside the 제품 · 솔루션 매칭 popup (ctxconfirm.jsx, live: a click links
+// or unlinks right away — the 매칭 카드 beside the popup shows the result) and from the layout detail (product swap) as a modal.
 // Directory-explorer layout (web-app home common component): search → breadcrumb → folder tree | item list → selection tray.
 // The '추천' folder shows the recommendations as a grid of large image cards; other folders show rows.
 // Click an item to select it, then '연결' links every selected item at once.
@@ -11,7 +11,7 @@ import { PRODUCTS, SOLUTIONS, CASES, INDUSTRIES, IND, P, PRODUCT_DB } from '../s
 import { useDetailPeek } from './reference-detail.jsx';
 import { recommendContext } from '../services/search.js';
 import { Thumb } from './Thumbs.jsx';
-import { addRef } from './requirements.jsx';
+import { addRef, removeRef } from './requirements.jsx';
 
 const TYPE = { products: 'product', solutions: 'solution', cases: 'case' };
 const LABEL = { products: '제품', solutions: '솔루션', cases: '유관사례' };
@@ -87,6 +87,7 @@ function StateTag({ st, n, fu }) {
   if (st === 'fpick') return <span className="ex-st add"><span className="num">{n}</span>{u}</span>;
   if (st === 'fnone') return <span className="ex-st none">0{u}</span>;
   if (st === 'cur') return <span className="ex-st linked"><Icon name="check" size={12} stroke={2.8} />지금 제품</span>;
+  if (st === 'on') return <span className="ex-st sel live"><span className="ex-on"><Icon name="check" size={12} stroke={2.8} />연결됨</span><span className="ex-off"><Icon name="x" size={12} stroke={2.8} />해제</span></span>;
   if (st === 'swap') return <span className="ex-st add"><Icon name="swap" size={12} stroke={2.4} />바꾸기</span>;
   if (st === 'linked') return <span className="ex-st linked"><Icon name="check" size={12} stroke={2.8} />연결됨</span>;
   if (st === 'sel') return <span className="ex-st sel"><Icon name="check" size={12} stroke={2.8} />선택</span>;
@@ -95,14 +96,14 @@ function StateTag({ st, n, fu }) {
 function Row({ it, st, n, fu, onToggle, ind, peek }) {
   const x = it.x;
   const dis = st === 'linked' || st === 'cur' || st === 'fnone';
-  const on = st === 'sel' || st === 'fsel';
+  const on = st === 'sel' || st === 'fsel' || st === 'on';
   const common = { type: 'button', className: 'ex-row ' + it.kind + (on ? ' on' : '') + (dis ? ' dis' : ''), onClick: dis ? undefined : () => onToggle(it.ref), 'aria-pressed': on, 'aria-disabled': dis || undefined,
-    title: dis ? (st === 'cur' ? '지금 쓰고 있는 제품이에요' : st === 'fnone' ? '지금 고른 조건에서는 이 제품이 든 ' + (fu ? fu.noun : '레이아웃') + (fu && fu.noun === '시나리오' ? '가' : '이') + ' 없어요' : '이미 연결된 항목이에요') : undefined };
+    title: dis ? (st === 'cur' ? '지금 쓰고 있는 제품이에요' : st === 'fnone' ? '지금 고른 조건에서는 이 제품이 든 ' + (fu ? fu.noun : '레이아웃') + (fu && fu.noun === '시나리오' ? '가' : '이') + ' 없어요' : '이미 연결된 항목이에요') : st === 'on' ? '연결됨 · 다시 누르면 연결을 해제해요' : undefined };
   const fit = ind && it.ind.includes(ind);
   if (it.kind === 'products') {
     const hov = peek ? { onMouseEnter: (e) => peek.show(it.ref, e.currentTarget), onMouseLeave: peek.hide, onFocus: (e) => { if (e.currentTarget.matches(':focus-visible')) peek.show(it.ref, e.currentTarget, true); }, onBlur: peek.hide, onMouseDown: () => peek.hide() } : {};
     return (
-      <button {...common} {...hov} aria-label={it.name + (n != null && fu ? ' · ' + fu.noun + ' ' + n + fu.unit : '') + (dis ? (st === 'fnone' ? '' : ' · 연결됨') : on ? ' · 선택됨' : ' · 고르기')}>
+      <button {...common} {...hov} aria-label={it.name + (n != null && fu ? ' · ' + fu.noun + ' ' + n + fu.unit : '') + (dis ? (st === 'fnone' ? '' : ' · 연결됨') : st === 'on' ? ' · 연결됨 · 누르면 해제' : on ? ' · 선택됨' : ' · 고르기')}>
         <Thumb r={it.ref} />
         <span className="ex-nm"><b title={it.name}>{x.src === 'catalog' && <span className="ex-src" title={'e-카탈로그에만 나오는 제품 · samsung.com/business 목록에는 없음'}>카탈로그</span>}{it.name}</b><span className="num" title={(x.models || []).join(', ')}>{x.model}{x.nm > 1 ? ' 외 ' + (x.nm - 1) : ''} · {x.opt || x.cat || x.sc}</span></span>
         <span className="ex-c num">{x.spec}</span>
@@ -115,7 +116,7 @@ function Row({ it, st, n, fu, onToggle, ind, peek }) {
   if (it.kind === 'solutions') {
     const prods = (x.with || []).map((id) => P[id] && P[id].model).filter(Boolean);
     return (
-      <button {...common} aria-label={it.name + (dis ? ' · 연결됨' : st === 'sel' ? ' · 선택됨' : ' · 고르기')}>
+      <button {...common} aria-label={it.name + (dis ? ' · 연결됨' : st === 'on' ? ' · 연결됨 · 누르면 해제' : st === 'sel' ? ' · 선택됨' : ' · 고르기')}>
         <Thumb r={it.ref} />
         <span className="ex-nm"><b>{it.name}</b><span>{x.desc}</span></span>
         <span className="ex-c"><span className="ex-k">분류</span>{x.cat}</span>
@@ -127,7 +128,7 @@ function Row({ it, st, n, fu, onToggle, ind, peek }) {
   const res = (x.proof || [])[0] || (x.needs || [])[0] || '';
   return (
     <div className={common.className + ' ex-case'}>
-      <button type="button" className="ex-hit" onClick={common.onClick} aria-pressed={common['aria-pressed']} aria-disabled={common['aria-disabled']} title={common.title} aria-label={x.cust + (dis ? ' · 연결됨' : st === 'sel' ? ' · 선택됨' : ' · 고르기')} />
+      <button type="button" className="ex-hit" onClick={common.onClick} aria-pressed={common['aria-pressed']} aria-disabled={common['aria-disabled']} title={common.title} aria-label={x.cust + (dis ? ' · 연결됨' : st === 'on' ? ' · 연결됨 · 누르면 해제' : st === 'sel' ? ' · 선택됨' : ' · 고르기')} />
       <Thumb r={it.ref} />
       <span className="ex-nm">
         <span className="ex-ch"><span className="ex-tag">{x.ind && IND[x.ind] ? indShort(x.ind) : x.indRaw || '사례'}</span><b>{x.cust}</b><span className="num faint">{ym(x.date)}</span></span>
@@ -144,11 +145,13 @@ function Row({ it, st, n, fu, onToggle, ind, peek }) {
 }
 function RecTile({ rec, it, st, n, fu, onToggle }) {
   const dis = st === 'linked' || st === 'cur' || st === 'fnone';
+  const on = st === 'sel' || st === 'fsel' || st === 'on';
   const x = it && it.x;
   const meta = !x ? '' : it.kind === 'products' ? x.spec : it.kind === 'solutions' ? x.desc : [x.ind && IND[x.ind] ? indShort(x.ind) : x.indRaw, ym(x.date)].filter(Boolean).join(' · ');
   return (
-    <button type="button" className={'ex-tile ' + (it ? it.kind : '') + (st === 'sel' || st === 'fsel' ? ' on' : '') + (dis ? ' dis' : '')} onClick={dis ? undefined : () => onToggle(rec.ref)} aria-pressed={st === 'sel' || st === 'fsel'} aria-disabled={dis || undefined}
-      aria-label={rec.label + ' · ' + rec.why + (dis ? (st === 'fnone' ? '' : ' · 연결됨') : st === 'sel' || st === 'fsel' ? ' · 선택됨' : ' · 고르기')}>
+    <button type="button" className={'ex-tile ' + (it ? it.kind : '') + (on ? ' on' : '') + (dis ? ' dis' : '')} onClick={dis ? undefined : () => onToggle(rec.ref)} aria-pressed={on} aria-disabled={dis || undefined}
+      title={st === 'on' ? '연결됨 · 다시 누르면 연결을 해제해요' : undefined}
+      aria-label={rec.label + ' · ' + rec.why + (dis ? (st === 'fnone' ? '' : ' · 연결됨') : st === 'on' ? ' · 연결됨 · 누르면 해제' : on ? ' · 선택됨' : ' · 고르기')}>
       <span className="ex-tm"><Thumb r={rec.ref} /><StateTag st={st} n={n} fu={fu} /></span>
       <span className="ex-tb">
         <b title={rec.label}>{rec.label}</b>
@@ -170,7 +173,8 @@ const HEAD = {
  *  filter: { selected: [ref], counts: { ref: n }, only: [ref], onApply([ref]), noun?, unit? } — no proposal: choose items to filter layouts by
  *    (only = items that appear in any layout; counts = layouts left per item with the other filters kept;
  *     noun · unit = what is counted — '레이아웃' · '장' by default, 샘플 버티컬 시나리오 passes '시나리오' · '개') */
-export function ContextExplorer({ p, kind, start = 'all', ind, onClose, pick = null, filter = null, frame = null, closeLabel = '닫기' }) {
+// live: (매칭 팝업) a click links the item to the proposal at once, a click on a linked item unlinks it — no selection tray
+export function ContextExplorer({ p, kind, start = 'all', ind, onClose, pick = null, filter = null, frame = null, closeLabel = '닫기', live = false }) {
   const t = TYPE[kind], label = LABEL[kind];
   const [q, setQ] = useState('');
   const [fit, setFit] = useState(false);
@@ -194,9 +198,12 @@ export function ContextExplorer({ p, kind, start = 'all', ind, onClose, pick = n
     : recommendContext(p, ind, kind, REC_MAX)), [p, ind, kind, all]);
   useEffect(() => { if (listRef.current) listRef.current.scrollTop = 0; }, [cur, q, fit]);
 
-  const toggle = (r) => setSel((s) => { if (pick) return s.has(r) ? new Set() : new Set([r]); const n = new Set(s); if (n.has(r)) n.delete(r); else n.add(r); return n; });
+  const toggle = (r) => {
+    if (live) { if (linked.has(r)) removeRef(p.id, r); else addRef(p.id, r); return; }
+    setSel((s) => { if (pick) return s.has(r) ? new Set() : new Set([r]); const n = new Set(s); if (n.has(r)) n.delete(r); else n.add(r); return n; });
+  };
   const stOf = (r) => (filter ? (sel.has(r) ? 'fsel' : cnt(r) ? 'fpick' : 'fnone')
-    : pick ? (r === pick.current ? 'cur' : sel.has(r) ? 'sel' : 'swap') : linked.has(r) ? 'linked' : sel.has(r) ? 'sel' : 'add');
+    : pick ? (r === pick.current ? 'cur' : sel.has(r) ? 'sel' : 'swap') : live ? (linked.has(r) ? 'on' : 'add') : linked.has(r) ? 'linked' : sel.has(r) ? 'sel' : 'add');
   const go = (key) => {
     setQ('');
     if (key.startsWith('f:')) setOpen((o) => { const n = new Set(o); if (cur === key && n.has(key)) n.delete(key); else n.add(key); return n; });

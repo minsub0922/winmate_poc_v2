@@ -1,22 +1,26 @@
-// Popover beside a Storyboard bubble (고객 요구사항 · 제품 · 솔루션 매칭).
+// Popover beside a Storyboard bubble (고객 요구사항 · 제품 · 솔루션 매칭 · 공간 구성).
 // Rendered as a child of .canvas-wrap and placed against it: to the right of the anchor bubble, with an arrow at the
 // bubble's centre, following it when the canvas scrolls or zooms; on a narrow canvas (PPT 레이아웃 panel open, mobile)
 // it becomes a sheet over the canvas. cls names the popup for its own parts: `${cls}-pop`, `${cls}-body`, `${cls}-f`, `${cls}-x`.
+// beside: also clear this element (the 매칭 카드 under the bubble stays visible while its popups are open — you watch
+// what you add or remove there). When the canvas has too little room to its right, the canvas scrolls once to make room
+// (StoryCanvas gives the board trailing space while such a popup is open: .canvas-wrap.side-pop).
 import React, { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import { Icon } from './common.jsx';
 
 const POP_W = 760, POP_MIN = 480, POP_GAP = 18, POP_EDGE = 12;
 
-function placeBeside(el, anchor) {
+function placeBeside(el, anchor, beside) {
   const wrap = el && el.parentElement; if (!wrap) return null;
   const a = wrap.querySelector(anchor);
   const W = wrap.getBoundingClientRect();
   if (!a || W.width < 640) return { sheet: true };
   const B = a.getBoundingClientRect();
-  // clear the bubble and its name (the name can be wider than the circle)
+  // clear the bubble and its name (the name can be wider than the circle) — and the card beside it when asked
   const lab = a.closest('.start-node, .match-node');
   const nm = lab && lab.querySelector('.node-name');
-  const bubbleRight = Math.max(B.right, nm ? nm.getBoundingClientRect().right : 0) - W.left;
+  const side = beside && wrap.querySelector(beside);
+  const bubbleRight = Math.max(B.right, nm ? nm.getBoundingClientRect().right : 0, side ? side.getBoundingClientRect().right : 0) - W.left;
   let left = Math.max(POP_EDGE, bubbleRight + POP_GAP);
   let width = Math.min(POP_W, W.width - left - POP_EDGE);
   if (width < POP_MIN) { width = Math.min(POP_MIN, W.width - POP_EDGE * 2); left = Math.max(POP_EDGE, W.width - POP_EDGE - width); }
@@ -29,21 +33,35 @@ function placeBeside(el, anchor) {
 
 // back: { label, onClick } — a ← button before the icon (a view opened from inside the popup, e.g. 추가 · 추천 탐색)
 // fill: take the full height beside the bubble (lists that scroll inside) · onEsc: what Esc does (default: close)
-export function BubblePopup({ cls, extra = '', anchor, icon, title, sub, status, closeLabel, onClose, onEsc, back, fill = false, footer, footerClass = '', bodyClass = '', bodyRef, children }) {
+export function BubblePopup({ cls, extra = '', anchor, beside, icon, title, sub, status, closeLabel, onClose, onEsc, back, fill = false, footer, footerClass = '', bodyClass = '', bodyRef, children }) {
   const ref = useRef(null);
   const [pos, setPos] = useState(null);
   useLayoutEffect(() => {
     const el = ref.current; if (!el) return undefined;
     const wrap = el.parentElement; const canvas = wrap && wrap.querySelector('.canvas');
     let raf = 0;
-    const place = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => setPos(placeBeside(el, anchor))); };
-    setPos(placeBeside(el, anchor));
+    const place = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => setPos(placeBeside(el, anchor, beside))); };
+    setPos(placeBeside(el, anchor, beside));
     const ro = new ResizeObserver(place); ro.observe(wrap);
     const board = canvas && canvas.querySelector('.board'); if (board) ro.observe(board);
+    const side = beside && wrap.querySelector(beside); if (side) ro.observe(side);
     canvas && canvas.addEventListener('scroll', place, { passive: true });
     window.addEventListener('resize', place);
     return () => { cancelAnimationFrame(raf); ro.disconnect(); canvas && canvas.removeEventListener('scroll', place); window.removeEventListener('resize', place); };
-  }, [anchor]);
+  }, [anchor, beside]);
+  // beside a card: when the popup would be squeezed (or pushed over the card), scroll the canvas once so the card sits
+  // further left and the popup gets its width — the board has trailing room while the popup is open (.side-pop)
+  useLayoutEffect(() => {
+    const el = ref.current; const wrap = el && el.parentElement;
+    const canvas = wrap && wrap.querySelector('.canvas'); const side = beside && wrap && wrap.querySelector(beside);
+    if (!canvas || !side) return;
+    const W = wrap.getBoundingClientRect(); if (W.width < 640) return;
+    const S = side.getBoundingClientRect();
+    const want = Math.min(POP_W, Math.max(POP_MIN, W.width * 0.6));
+    const free = W.right - POP_EDGE - (S.right + POP_GAP);
+    const dx = Math.min(want - free, S.left - W.left - 24);
+    if (free < want && dx > 0) canvas.scrollBy({ left: dx, behavior: 'smooth' });
+  }, [beside]);
   // take focus when it opens (or switches view) so Esc and Tab work from inside it
   // (once placed — it is hidden until then and could not take focus)
   const placed = !!pos;

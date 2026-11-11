@@ -5,6 +5,8 @@ import { L, isCoverSheet } from '../services/catalog.js';
 import { ReqPopup } from '../components/requirements.jsx';
 import { StoryCanvas } from '../components/storyboard.jsx';
 import { MatchPopup } from '../components/ctxconfirm.jsx';
+import { SpacePlanPopup } from '../components/space-plan.jsx';
+import { startBirdseye } from '../services/space-plan.js';
 import { PartEditor } from '../components/parteditor.jsx';
 import { LayoutPicker, LayoutDetail } from '../components/layouts.jsx';
 import { Viewer, ExportModal, flatSlides } from '../components/viewer.jsx';
@@ -32,7 +34,7 @@ export function ProposalScreen({ p, go }) {
   const close = () => setModal(null);
   // one screen: Storyboard, built up in steps (store.js stageOf). A new proposal shows only the 고객 요구사항 bubble with its
   // popup open; 저장 there adds the 제품 · 솔루션 매칭 bubble and opens its popup; 저장 there starts the parts.
-  // One bubble popup at a time: pop = { t: 'req' } | { t: 'match', k, n } (k = kind to bring into view).
+  // One bubble popup at a time: pop = { t: 'req' } | { t: 'match', k, n } (k = kind to bring into view) | { t: 'space' } (공간 구성).
   const stage = stageOf(p);
   const story = stage === 'story';
   const [pop, setPop] = useState(() => (stage === 'req' ? { t: 'req' } : stage === 'match' ? { t: 'match' } : null));
@@ -41,6 +43,9 @@ export function ProposalScreen({ p, go }) {
   const nDone = slides.filter((z) => layoutIsComplete(p, z.x)).length;
   const onReq = () => setPop((v) => (v && v.t === 'req' ? null : { t: 'req' }));
   const onMatch = (k) => setPop((v) => (v && v.t === 'match' && !k ? null : { t: 'match', k, n: Date.now() }));
+  const onSpace = () => setPop((v) => (v && v.t === 'space' ? null : { t: 'space' }));
+  // 조감도 만들기를 고르면 팝업을 모두 닫고, '공간 구성' 버튼이 '조감도 생성 중'을 보여 준다
+  const onBirdseye = () => { setPop(null); setModal(null); void startBirdseye(p.id); };
   // PPT 레이아웃 opens on the 표지 (page 1 — the Storyboard does not show it); the 표지 note on the Storyboard opens that sheet
   const openViewer = (u) => { const c = slides.find((z) => isCoverSheet(z.x.f)); if (u || c) setCur(u || c.x.uid); setViewer(true); };
   const partsStarted = () => { setPop(null); setTimeout(() => { const e = document.querySelector('.end-node .end-plus'); e && e.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' }); }, 60); };
@@ -67,9 +72,10 @@ export function ProposalScreen({ p, go }) {
           </div>
       </header>
       <div className="story">
-        <StoryCanvas p={p} open={open} stage={stage} pop={pop} onReq={onReq} onMatch={onMatch} readOnly={readOnly} activePart={readOnly && part ? part.id : null} viewerOpen={viewer} onOpenViewer={openViewer} pageOf={pageOf}>
+        <StoryCanvas p={p} open={open} stage={stage} pop={pop} onReq={onReq} onMatch={onMatch} onSpace={onSpace} onOpenSpatial={(id) => go({ name: 'spatial', id })} readOnly={readOnly} activePart={readOnly && part ? part.id : null} viewerOpen={viewer} onOpenViewer={openViewer} pageOf={pageOf}>
           {pop && pop.t === 'req' && (readOnly ? <ReqView p={p} onClose={() => setPop(null)} /> : <ReqPopup p={p} onClose={() => setPop(null)} onSaved={() => setPop({ t: 'match' })} />)}
           {pop && pop.t === 'match' && (readOnly ? <MatchView p={p} onClose={() => setPop(null)} /> : <MatchPopup p={p} focus={pop.k ? { k: pop.k, n: pop.n } : null} onClose={() => setPop(null)} onSaved={(started) => (started ? partsStarted() : setPop(null))} />)}
+          {pop && pop.t === 'space' && !readOnly && <SpacePlanPopup p={p} onClose={() => setPop(null)} onBirdseye={onBirdseye} />}
           {readOnly && modal?.type === 'part' && part && <PartView p={p} part={part} pages={pages} onClose={close} onSheet={uid => { const s = p.parts.find(s => s.layouts.some(x => x.uid === uid)); open({ type: 'detail', partId: s.id, uid }); }} />}
         </StoryCanvas>
         {story && viewer && <Viewer p={p} readOnly={readOnly} cur={cur} setCur={setCur} onClose={() => setViewer(false)} onEdit={(partId, uid) => open({ type: 'detail', partId, uid })} onExport={() => open({ type: 'export' })} />}

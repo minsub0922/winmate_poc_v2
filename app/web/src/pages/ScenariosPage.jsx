@@ -499,7 +499,7 @@ export function MatchView({ s, p, onClose }) {
   const peek = useDetailPeek(p);
   const groups = [['products', 'product', '제품'], ['solutions', 'solution', '솔루션'], ['cases', 'case', '유관 사례']];
   return (
-    <BubblePopup cls="mt" extra="ro" anchor=".match-node .node" icon={<Icon name="link" size={17} />} title="제품 · 솔루션 매칭" onClose={onClose}
+    <BubblePopup cls="mt" extra="ro" anchor=".match-node .node" beside=".match-node .match-card" icon={<Icon name="link" size={17} />} title="제품 · 솔루션 매칭" onClose={onClose}
       sub={<span className="bp-sub"><span>{p.indName || indName(p.ind)}</span></span>}
       footer={<>{RO_NOTE}<span className="sp" /><button className="btn btn-sm" onClick={onClose}>닫기</button></>}>
       {groups.map(([k, t, label]) => (

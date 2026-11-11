@@ -7,11 +7,8 @@ import { IND, L, LAYOUTS, refInfo, isCoverSheet, isCoverOnlyPart, storyParts } f
 import { reqText, inferIndustry } from '../services/search.js';
 import { Slide } from '../domain/slides/Slide.jsx';
 import { refsOf } from './requirements.jsx';
-import { KIND, shortOf } from './refcard.jsx';
 import { partIcon } from './parteditor.jsx';
-import { Thumb } from './Thumbs.jsx';
 import { LayoutPicker, LayoutDetail } from './layouts.jsx';
-import { tagMeta } from './tagcard.jsx';
 import { FavButton } from './fav.jsx';
 import { LayoutCompleteButton } from './layout-complete.jsx';
 import { startCompose, applyComposePending, discardComposePending, retryProposalJob, startScenarioLayouts, emptyParts } from '../services/poc-workflows.js';
@@ -22,6 +19,7 @@ import { ContextSlide } from './context-slide.jsx';
 import { contextPending } from '../domain/slides/context-policy.js';
 import { layoutIsComplete } from '../services/layout-context.js';
 import { RequirementSummaryCard } from './requirement-summary.jsx';
+import { MatchArea } from './match-area.jsx';
 
 export const ctxOf = (p) => ({ ind: p.ind || inferIndustry(reqText(p)), products: p.ctx.products, solutions: p.ctx.solutions, cases: p.ctx.cases });
 const FLOW = ['market', 'customer', 'user', 'competition', 'insight', 'challenge', 'value', 'effect', 'dss', 'products', 'scenario', 'birdseye', 'solution', 'case', 'why', 'spec', 'bom', 'execution', 'cost', 'closing', 'appendix', 'overview', 'requirements']; // no 'cover' — 표지 is not a Storyboard part
@@ -174,59 +172,15 @@ function CandCard({ p, afterIndex, onPick, onCustom, title, sub }) {
   );
 }
 
-/** 고객 요구사항 다음 버블 — 연결된 제품 · 솔루션 · 유관사례. 누르면 버블 오른쪽에 매칭 팝업(ctxconfirm.jsx MatchPopup · 보기 · 추가 · 삭제). */
-// bubble: images only, one row each — products 4 columns, solutions 2, cases 1 (same tile height, widths follow the column count)
-const MATCH_COLS = { products: 3, solutions: 2, cases: 1 };
-/** one tile in the bubble — image + name + one line of metadata, always visible */
-function MatchPic({ r, more }) {
-  const m = tagMeta(r); if (!m) return null;
-  const sub = m.type === 'product' ? (P_SPEC(m) || m.kind) : m.type === 'solution' ? m.kind : m.line;
-  return (
-    <span className={'mpc ' + m.type} title={m.name + ' · ' + m.line}>
-      <span className="mpc-m"><Thumb r={r} mini className="mpic" />{more > 0 && <span className="mpc-more num">+{more}</span>}</span>
-      <span className="mcap"><b>{m.short}</b><span className={m.type === 'product' ? 'num' : ''}>{sub}</span>{m.type === 'case' && m.facts[1] && m.facts[1][0] === '성과' ? <em>{m.facts[1][1]}</em> : null}</span>
-    </span>
-  );
-}
-const P_SPEC = (m) => { const f = m.facts.find(([k]) => k === '사양'); return f ? f[1].split(' · ').slice(0, 2).join(' · ') : ''; };
-function MatchNode({ p, isOpen, onOpen, readOnly = false }) {
-  const total = KIND.reduce((a, [k]) => a + p.ctx[k].length, 0);
-  const go = (k) => onOpen(k || null);
-  return (
-    <div className={'match-node' + (isOpen ? ' on' : '')}>
-      <div className="node-top">
-        <button className="node" onClick={() => go()} aria-expanded={isOpen} aria-controls="mt-pop" aria-label={'제품 · 솔루션 매칭 ' + (isOpen ? '닫기' : '열기') + ' · 연결 ' + total + '개'}>
-          <Icon name="link" size={28} />
-          <span className="order">{total}</span>
-        </button>
-      </div>
-      <button className="node-name" onClick={() => go()} aria-expanded={isOpen} aria-controls="mt-pop">제품 · 솔루션 매칭</button>
-      <div className="match-card">
-        {KIND.map(([k, t, label]) => {
-          const refs = p.ctx[k].map((id) => t + ':' + id);
-          const cols = MATCH_COLS[k]; const shown = refs.slice(0, cols);
-          return (
-            <button key={k} className={'mrow ' + t} data-ctx={k} onClick={() => go(k)} aria-label={label + ' ' + refs.length + '개 · ' + shown.map(shortOf).join(', ') + (readOnly ? ' · 보기' : ' · 보기 · 추가 · 삭제')}>
-              <span className="mk"><Icon name={t} size={13} />{label}<b className="num">{refs.length}</b></span>
-              {!refs.length ? (
-                readOnly ? <span className="mnone">없음</span> : <span className="mnone"><Icon name="plus" size={12} stroke={2.4} />추가</span>
-              ) : (
-                <span className={'mpics c' + cols}>{shown.map((r, i) => <MatchPic key={r} r={r} more={i === shown.length - 1 && refs.length > cols ? refs.length - cols : 0} />)}</span>
-              )}
-            </button>
-          );
-        })}
-        <span className="match-foot">{readOnly ? '눌러서 보기' : '눌러서 보기 · 추가 · 삭제'}</span>
-      </div>
-    </div>
-  );
-}
+// 고객 요구사항 다음 버블 — 제품 · 솔루션 매칭 + 매칭 카드 + '공간 구성' (match-area.jsx MatchArea)
 
 // stage: 'req' → 고객 요구사항 버블만 · 'match' → + 제품 · 솔루션 매칭 버블 · 'story' → + 파트(store.js stageOf)
 // readOnly: 샘플 버티컬 시나리오 상세 보기(scenarios.jsx ScenarioStoryboard) — 같은 버블 · 레이아웃 카드를 보기만 한다. 파트 넣기(+) · 끌어서 옮기기 ·
 // PPT 레이아웃 추가 · AI로 나머지 구성 · 다음 파트가 없고, 버블 · 카드를 누르면 open 이 보기 전용 팝업을 띄운다. activePart = 팝업이 열린 파트 id.
-export function StoryCanvas({ p, open, stage = 'story', pop = null, onReq, onMatch, viewerOpen, onOpenViewer, pageOf, readOnly = false, activePart = null, children }) {
+// onSpace: '공간 구성' 팝업 열기 · 닫기 · onOpenSpatial(historyId): 만든 공간 조감도 열기
+export function StoryCanvas({ p, open, stage = 'story', pop = null, onReq, onMatch, onSpace, onOpenSpatial, viewerOpen, onOpenViewer, pageOf, readOnly = false, activePart = null, children }) {
   const reqOpen = !!pop && pop.t === 'req';
+  const sidePop = !!pop && (pop.t === 'match' || pop.t === 'space'); // popups beside the 매칭 카드 — the board gets room to their right
   const story = stage === 'story';
   const [zoom, setZoom] = useState(1);
   const [drag, setDrag] = useState(null);
@@ -268,7 +222,7 @@ export function StoryCanvas({ p, open, stage = 'story', pop = null, onReq, onMat
   const nParts = storyParts(p).length; // bubbles on the board (a 표지-only part has none)
   let order = 0;
   return (
-    <div className={'canvas-wrap' + (readOnly ? ' ro' : '')}>
+    <div className={'canvas-wrap' + (readOnly ? ' ro' : '') + (sidePop ? ' side-pop' : '')}>
     <div className="canvas" ref={canvasRef}>
       <div className="board" style={{ zoom }}>
         {/* trigger node: requirements — 누르면 버블 오른쪽에 고객 요구사항 팝업(requirements.jsx ReqPopup).
@@ -284,7 +238,7 @@ export function StoryCanvas({ p, open, stage = 'story', pop = null, onReq, onMat
         </div>
         {stage !== 'req' && <>
         <div className="conn" />
-        <MatchNode p={p} isOpen={!!pop && pop.t === 'match'} onOpen={onMatch} readOnly={readOnly} />
+        <MatchArea p={p} isOpen={!!pop && pop.t === 'match'} onOpen={onMatch} readOnly={readOnly} spaceOpen={!!pop && pop.t === 'space'} onSpace={onSpace} onOpenSpatial={onOpenSpatial} />
         </>}
         {story && p.parts.map((s, i) => {
           // 표지 is not on the Storyboard: it lives in the hidden deck part (data.js normalizeCovers) — no bubble, no card;

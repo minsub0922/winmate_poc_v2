@@ -464,12 +464,19 @@ export function useDetailPeek(p, { delay = 260, maxHeight, maxWidth = 600 } = {}
   const tShow = useRef(null), tHide = useRef(null), over = useRef(false), open = useRef(false), box = useRef(null);
   open.current = !!pk;
   const clear = () => { clearTimeout(tShow.current); clearTimeout(tHide.current); };
-  const show = useCallback((r, el, x, { preview } = {}) => {
+  // beside: an element whose right edge the card starts from (x fixed there) while its top follows the hovered item —
+  // e.g. the Storyboard 매칭 카드: every item's detail opens in the same column to the right of the card.
+  const show = useCallback((r, el, x, { preview, beside } = {}) => {
     clear();
     // Closing a portal can synthesize both focus and mouseenter on its trigger.
     if (restoredFocus.current?.anchor === el && Date.now() < restoredFocus.current.until) return;
     if (detailOpen.current) return;
-    const go = () => { if (el && el.isConnected) setPk({ r, rect: el.getBoundingClientRect(), preview }); };
+    const go = () => {
+      if (!el || !el.isConnected) return;
+      const own = el.getBoundingClientRect(), side = beside && beside.isConnected ? beside.getBoundingClientRect() : null;
+      const rect = side ? { left: side.left, right: side.right, width: side.width, top: own.top, bottom: own.bottom, height: own.height } : own;
+      setPk({ r, rect, preview, beside: !!side });
+    };
     const d = x === true ? 0 : typeof x === 'number' ? x : open.current ? 140 : delay;
     if (d <= 0) go(); else tShow.current = setTimeout(go, d);
   }, [delay]);
@@ -508,13 +515,13 @@ export function useDetailPeek(p, { delay = 260, maxHeight, maxWidth = 600 } = {}
     return () => { window.removeEventListener('scroll', onScroll, true); window.removeEventListener('resize', onResize); document.removeEventListener('keydown', onKey, true); };
   }, [!!pk]);
   const node = <>
-    {pk && createPortal(<DetailFloat r={pk.r} rect={pk.rect} p={p} preview={pk.preview} boxRef={box} onEnter={enter} onLeave={leave} heightLimit={maxHeight} widthLimit={maxWidth} />, document.body)}
+    {pk && createPortal(<DetailFloat r={pk.r} rect={pk.rect} p={p} preview={pk.preview} beside={pk.beside} boxRef={box} onEnter={enter} onLeave={leave} heightLimit={maxHeight} widthLimit={maxWidth} />, document.body)}
     {detail && <ReferenceDetailDialog r={detail.r} p={p} preview={detail.preview} onClose={closeDetail}>{detail.children}</ReferenceDetailDialog>}
   </>;
   return { pk, show, hide, open: openDetail, close: closeDetail, detailProps, node };
 }
 
-function DetailFloat({ r, rect, p, preview, boxRef, onEnter, onLeave, heightLimit, widthLimit = 600 }) {
+function DetailFloat({ r, rect, p, preview, beside = false, boxRef, onEnter, onLeave, heightLimit, widthLimit = 600 }) {
   const heightCap = Math.min(HOVER_HEIGHT[String(r).split(':')[0]] || 520, heightLimit || Infinity);
   const [pos, setPos] = useState({ left: -9999, top: -9999, width: 600, maxHeight: Math.min(heightCap, window.innerHeight - 24) });
   useLayoutEffect(() => {
@@ -524,7 +531,9 @@ function DetailFloat({ r, rect, p, preview, boxRef, onEnter, onLeave, heightLimi
     const limit = Math.min(heightCap, vh - 24);
     const h = Math.min(Math.ceil(boxRef.current?.getBoundingClientRect().height || 480), limit);
     let left, top, maxHeight = limit;
-    if (rect.right + gap + W <= vw - 12) { left = rect.right + gap; top = rect.top - 8; }
+    // beside: same column for every item (right of the card), starting at the item's top — only the height moves
+    if (beside && rect.right + gap + W <= vw - 12) { left = rect.right + gap; top = rect.top; }
+    else if (rect.right + gap + W <= vw - 12) { left = rect.right + gap; top = rect.top - 8; }
     else if (rect.left - gap - W >= 12) { left = rect.left - gap - W; top = rect.top - 8; }
     else {
       // no room beside the anchor (wide rows · narrow screens): above or below it, never over it — the pointer must still reach the anchor
@@ -542,7 +551,7 @@ function DetailFloat({ r, rect, p, preview, boxRef, onEnter, onLeave, heightLimi
     const observer = new ResizeObserver(place);
     if (boxRef.current) observer.observe(boxRef.current);
     return () => observer.disconnect();
-  }, [r, rect.left, rect.top, heightCap, widthLimit]);
+  }, [r, rect.left, rect.top, heightCap, widthLimit, beside]);
   return (
     <div ref={boxRef} className={'dpk' + (pos.width < 560 ? ' narrow' : '') + (pos.maxHeight ? ' lim' : '')} style={pos} onMouseEnter={onEnter} onMouseLeave={onLeave}>
       <DetailCard key={r} r={r} p={p} preview={preview} />
