@@ -30,12 +30,19 @@ for(const template of library.templates){
  }
  assert.equal((planSvg(scene,library,{width:640,height:410}).match(/data-person-role=/g)||[]).length,people.length,'2D includes actual actors');
 }
-for(const industry of library.industries){
+// Best-scenario overviews keep six rooms; taxonomy-only groups are checked through their vertical zone maps below.
+for(const industry of library.industries.filter(i=>library.templates.some(t=>t.id===i.code.toLowerCase()+'-full-standard'))){
  const template=library.templates.find(t=>t.id===industry.code.toLowerCase()+'-full-standard'),scene=scenes[template.id];assert.equal(scene.rooms.length,6);
  const document=studioDocumentFromTemplate(template,library),rebuilt=createSceneFromForm(document.form,library);assert.deepEqual(validateScene(rebuilt,library).errors,[]);assert.deepEqual(inspectNaturalLayout(rebuilt,library).issues,[]);
  assert(rebuilt.rooms.every(r=>rebuilt.objects.some(o=>o.roomId===r.id&&o.people?.length)),'regeneration keeps every room occupied');
  coverage.push({industry:industry.code,rooms:scene.rooms.map(r=>({id:r.id,name:r.name,size:[r.width,r.depth],people:peopleInScene(scene,assets).filter(p=>p.roomId===r.id).map(p=>({role:p.role,roleId:p.roleId,source:p.sourceAssetId,scale:p.scale}))}))});
  for(const room of scene.rooms)assert.deepEqual(validateScene(focusScene(scene,room.id),library).errors,[],'room focus keeps the same physical transforms');
+}
+for(const template of library.templates.filter(t=>t.vertical&&t.scope==='full'&&t.variant==='standard')){
+ const scene=scenes[template.id],document=studioDocumentFromTemplate(template,library),rebuilt=createSceneFromForm(document.form,library);
+ assert.deepEqual(validateScene(rebuilt,library).errors,[],template.id);assert.deepEqual(inspectNaturalLayout(rebuilt,library).issues,[],template.id);
+ assert(rebuilt.rooms.every(r=>rebuilt.objects.some(o=>o.roomId===r.id&&o.people?.length)),template.id+' regeneration keeps every vertical room occupied');
+ for(const room of scene.rooms)assert.deepEqual(validateScene(focusScene(scene,room.id),library).errors,[],template.id+' room focus');
 }
 for(const a of before.assets){assert.deepEqual(assets[a.id].size,a.size,a.id+' original physical size');if(a.assetGroup==='people')assert.deepEqual(assets[a.id].parts,a.parts,a.id+' frozen actor recipe');}
 const oldScenes=JSON.parse(fs.readFileSync(new URL('./fixtures/spatial/composition-v2-scenes.json',import.meta.url)));

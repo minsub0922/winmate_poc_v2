@@ -12,15 +12,32 @@ import { createScene, roomKind, inferProducts, fingerprint, sceneHash } from '..
 import {TEMPLATE_COMPOSITION_VERSION,TEMPLATE_ROOM,templateDimensions,sixRoomOverview,evenRoomSubset} from '../web/src/domain/spatial/template-composition.js';
 import {equipSpace,SPACE_EQUIPMENT_VERSION} from '../web/src/domain/spatial/space-equipment.js';
 import { buildSpatialTemplateCatalog } from '../web/src/domain/spatial/template-catalog.js';
+import { buildVerticalTemplates } from './spatial_verticals.mjs';
 import { PHOTO_META } from '../web/src/domain/templates/photo_layouts.js';
 import { STD_META } from '../web/src/domain/templates/std_layouts.js';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),dir=path.join(root,'app/data/spatial');
 const read=name=>JSON.parse(fs.readFileSync(path.join(dir,name),'utf8'));
 const catalog=JSON.parse(fs.readFileSync(path.join(root,'app/data/catalog.json'),'utf8'));
-const products=read('product-objects.json'),sources=read('industry-sources.json');
+const products=read('product-objects.json'),sources=read('industry-sources.json'),verticalLayouts=read('vertical-layouts.json');
+const taxonomy=JSON.parse(fs.readFileSync(path.join(root,'app/data/vertical_space_product.json'),'utf8')),verticalSolutions=JSON.parse(fs.readFileSync(path.join(root,'app/data/vertical_space_solution.json'),'utf8'));
 const appearance=await prepareSpatialAppearance(products.assets,root);
 const assets=[...products.assets.map(a=>({...a,frontAxis:[0,0,1]})),...FURNITURE,...PEOPLE_SCENES];
+// Trigonometric recipes (rug fringes, people poses) can differ in the last floating-point bit
+// between CPU/V8 builds. Values that match the published library within 1e-9 keep the published
+// numbers, so frozen geometry, asset fingerprints and thumbnails do not drift across machines.
+const previousLibrary=fs.existsSync(path.join(dir,'library.json'))?JSON.parse(fs.readFileSync(path.join(dir,'library.json'),'utf8')):null;
+const steady=(fresh,old)=>{
+  if(typeof fresh==='number'&&typeof old==='number')return Math.abs(fresh-old)<=1e-9*Math.max(1,Math.abs(old))?old:fresh;
+  if(Array.isArray(fresh)&&Array.isArray(old)&&fresh.length===old.length)return fresh.map((v,i)=>steady(v,old[i]));
+  if(fresh&&old&&typeof fresh==='object'&&typeof old==='object'&&!Array.isArray(fresh)&&!Array.isArray(old)){const keys=Object.keys(fresh);return keys.length===Object.keys(old).length&&keys.every(k=>k in old)?Object.fromEntries(keys.map(k=>[k,steady(fresh[k],old[k])])):fresh;}
+  return fresh;
+};
+if(previousLibrary){
+  for(const [key,parts] of Object.entries(RECIPES))if(previousLibrary.recipes?.[key])RECIPES[key]=steady(parts,previousLibrary.recipes[key]);
+  const prior=new Map(previousLibrary.assets.map(a=>[a.id,a]));
+  for(const asset of assets){const old=prior.get(asset.id);if(old?.parts&&asset.parts)asset.parts=steady(asset.parts,old.parts);}
+}
 const transforms=new Map();
 for(const asset of assets){
   const key=asset.recipe||asset.kind,parts=RECIPES[key]||asset.parts;
@@ -92,6 +109,11 @@ for(const meta of metas.filter(m=>['scenario','products','dss','specs'].includes
   templates.push(template);cases.push({id:template.id,layoutId:meta.f,name:meta.name,industry,scope:template.scope,productIds:rooms.flatMap(r=>r.productIds),sourceProductIds:meta.prods||[],omittedSourceProducts:(meta.prods||[]).filter(id=>!rooms.some(r=>r.productIds.includes(id))).map(productId=>({productId,reason:'공간 용도별 필수 기기 구성으로 재선정 · 원본 장표의 제품 참조는 보존'})),roomKeys:rooms.map(r=>r.key)});
 }
 const library={version:1,templateDefaults:{scope:'full',roomCount:6,compositionVersion:TEMPLATE_COMPOSITION_VERSION},geometryVersion:GEOMETRY_VERSION,peopleLayoutVersion:PEOPLE_LAYOUT_VERSION,equipmentPolicyVersion:SPACE_EQUIPMENT_VERSION,license:'CC0-1.0',referenceImageLicense:'Manufacturer product imagery; original rights retained',renderer:'Three.js (MIT) · SVG',industries,recipes:RECIPES,assets,templates,cases};
+// Taxonomy verticals (업종 → 버티컬 → 공간 → 제품군) follow the best-scenario and case templates,
+// so the existing template IDs, case choices and default overview order stay unchanged.
+const vertical=buildVerticalTemplates({taxonomy,solutions:verticalSolutions,layouts:verticalLayouts,library,styleFor});
+industries.push(...vertical.industries);templates.push(...vertical.templates);
+library.verticals=vertical.verticals;library.productCategories=vertical.productCategories;
 const scenes={},errors=[];
 for(const template of templates){
   try{scenes[template.id]=createScene({templateId:template.id},library);}
@@ -103,9 +125,10 @@ library.counts={industries:industries.length,products:products.assets.length,fur
   distinctTemplates:library.templateCatalog.length,
   people:PEOPLE_SCENES.length,peopleCategories:PEOPLE_CATEGORIES,
   single:templates.filter(t=>t.scope==='single').length,full:templates.filter(t=>t.scope==='full').length,
+  verticals:vertical.verticals.length,verticalSpaces:vertical.verticals.reduce((n,v)=>n+v.spaces.length,0),verticalTemplates:vertical.templates.length,
   measured:products.assets.filter(a=>a.dimensionSource==='catalog-spec').length,logical:products.assets.filter(a=>!a.physical).length};
-library.sourceHash=fingerprint([products.catalogSha256,sources,metas.map(m=>[m.f,m.prods,m.name]),RECIPES,assets,templates,library.templateCatalog,
-  fs.readFileSync(path.join(root,'app/web/src/domain/spatial/scene.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/space-dressing.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/slide-binding.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/space-equipment.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/natural-layout.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/furniture-catalog.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/detail-objects.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/detail-placement.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/template-composition.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/people-layout.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/people-placement-geometry.js'),'utf8')]);
+library.sourceHash=fingerprint([products.catalogSha256,sources,verticalLayouts,library.verticals,metas.map(m=>[m.f,m.prods,m.name]),RECIPES,assets,templates,library.templateCatalog,
+  fs.readFileSync(path.join(root,'app/web/src/domain/spatial/scene.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/space-dressing.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/slide-binding.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/space-equipment.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/natural-layout.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/furniture-catalog.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/detail-objects.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/detail-placement.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/template-composition.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/people-layout.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/people-placement-geometry.js'),'utf8'),fs.readFileSync(path.join(root,'app/scripts/spatial_verticals.mjs'),'utf8')]);
 for(const scene of Object.values(scenes)){scene.assetRevision=library.sourceHash;scene.contentHash=sceneHash(scene);}
 fs.writeFileSync(path.join(dir,'library.json'),JSON.stringify(library)+'\n');
 const versionDirectory=path.join(dir,'versions');fs.mkdirSync(versionDirectory,{recursive:true});

@@ -384,6 +384,17 @@ define('park-maintenance','공원 관리사 · 수공구 정리',culture,'PB TP 
 define('site-safety-check','현장 안전 담당자 · 출입 구역 점검',publicWork,'MF PB VN TP AD','야외 작업장 · 재난 현장','안전모·반사 조끼와 수동 차단봉이 함께 있는 점검',api=>{api.object('barrier',{z:.7});api.person('inspector',{action:'inspect'});});
 define('waiting-visitor','방문객 · 안내 벤치에서 대기',publicWork,'PB TP VN OE RT','대합실 · 입장 대기','안내문을 읽는 방문객과 대기 벤치',api=>{api.object('bench');api.person('customer',{pose:'sit',action:'read'});});
 
+// Taxonomy groups added with the vertical maps reuse the vignettes of their spaces (tags only).
+const GROUP_PEOPLE={
+  SF:['스포츠 피트니스 헬스장 골프','trainer-mat trainer-student fitness-dumbbell trainer-restdrink hotel-front laundry-fold'],
+  RG:['종교 예배당 교회 성당 사찰 교육관','lecturer-lectern stage-presenter meeting-audience cafeteria-line public-waiting'],
+  MB:['방송 스튜디오 미디어 부조정실 분장실','stage-presenter performer-musicstand media-briefing office-review coat-hanger'],
+  MI:['군 부대 생활관 지휘통제 행정','office-write office-review security-barrier facility-maintenance public-canteen fitness-dumbbell'],
+};
+for(const [code,[words,ids]] of Object.entries(GROUP_PEOPLE))for(const id of ids.split(' ')){
+  const scene=data.find(a=>a.id==='people:'+id);if(!scene)throw new Error('Unknown people vignette for '+code+': '+id);
+  scene.industries=[...scene.industries,code];scene.keywords=[...new Set([...scene.keywords,...words.split(' ')])];
+}
 export const PEOPLE_SCENES=data;
 export const PEOPLE_RECIPES=Object.fromEntries(data.map(asset=>[asset.recipe,asset.parts]));
 export const PEOPLE_CATEGORIES=[...new Set(data.map(asset=>asset.category))];

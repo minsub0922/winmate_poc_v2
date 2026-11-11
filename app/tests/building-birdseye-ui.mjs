@@ -1,12 +1,16 @@
 // 건물 조감도(라이브 아티팩트 Version 136과 같은 동작) — 실행 중인 앱(WINMATE_TEST_URL, 기본 8788)에서 검사한다.
 // 사이드바 → 목록(예시 2개) → 캠퍼스 복합관 → 외관 보기에서 외벽 클릭 = 외벽 고르기 팝업(층 카드 없음) ·
 // 외벽 바꾸기(시점 그대로 · 저장) · 같은 업종 일괄 · Esc · 층 이름 = 층 카드(외벽 칸 없음) · 띠 외벽 버튼(키보드) ·
-// 빈 곳 클릭 닫힘 · 펼쳐 보기 클릭 = 층 보기 · HTML 추출 · 건물 템플릿 먼저 → 빈 층 → 공간 채우기 · 층 추가(모양 유지) · 모바일 시트.
+// 빈 곳 클릭 닫힘 · 펼쳐 보기 클릭 = 층 보기 · HTML 추출 · 건물 템플릿 먼저 → 빈 층 → 공간 채우기 · 층 추가(모양 유지) ·
+// 버티컬 건물 템플릿 = 채운 층으로 열림 · 모바일 시트.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { chromium } from '../web/node_modules/playwright/index.mjs';
 import { origin, output as outRoot, showSidebar } from './helpers.mjs';
+import { VERTICAL_PRESETS } from '../web/src/building/presets-verticals.js';
+const PRESET_COUNT = 54 + VERTICAL_PRESETS.length; // 샘플 버티컬 시나리오 건물 54 + 버티컬 건물(버티컬마다 하나)
+const VERTICAL_LAYOUTS = JSON.parse(fs.readFileSync(new URL('../data/spatial/vertical-layouts.json', import.meta.url), 'utf8'));
 
 const output = path.join(outRoot, 'building-birdseye'); fs.mkdirSync(output, { recursive: true });
 const checks = [], errors = [], pass = (s) => { checks.push(s); console.log('PASS ' + s); };
@@ -114,7 +118,7 @@ try {
   });
   await page.locator('.bd-back').click(); await page.locator('.bd-launch').click(); await page.locator('.bd-pick-modal').waitFor();
   assert.equal(await page.locator('.bd-pick-modal .bd-tabs').count(), 0);
-  assert.equal(await page.locator('.bd-pick-modal .bd-pre').count(), 54);
+  assert.equal(await page.locator('.bd-pick-modal .bd-pre').count(), PRESET_COUNT);
   assert.equal(await page.locator('.bd-pick-modal .bd-tpl-meta', { hasText: /\d+층/ }).count(), 0);
   await page.locator('.bd-pre', { hasText: '블루 글라스 오피스' }).click(); await page.locator('.mfoot .btn-primary').click();
   await page.locator('.bd-workspace').waitFor(); await page.waitForFunction(() => !document.querySelector('.bd-render-state'), null, { timeout: LONG }); await page.waitForTimeout(3000);
@@ -169,6 +173,20 @@ try {
   assert.equal((await latest()).floors[4].name, '스타벅스 리저브');
   await page.screenshot({ path: output + '/sign-renamed.png' });
   pass('floor signs follow the inserted space (none on empty floors) and clicking a sign renames the floor');
+
+  // 버티컬 건물 템플릿 — 고르면 그 버티컬의 공간 조합 층으로 채운 채로 열린다(새 업종 SF 외벽 · 층 이름 = 버티컬 층 이름)
+  const vp = VERTICAL_PRESETS.find((p) => p.vertical === 'sf_fitness'), vl = VERTICAL_LAYOUTS.verticals.find((v) => v.id === vp.vertical);
+  await page.locator('.bd-back').click(); await page.locator('.bd-launch').click(); await page.locator('.bd-pick-modal').waitFor();
+  await page.locator('.bd-pick-modal .bd-pre').filter({ has: page.getByText(vp.title, { exact: true }) }).click(); await page.locator('.mfoot .btn-primary').click();
+  await page.locator('.bd-workspace').waitFor(); await page.waitForFunction(() => !document.querySelector('.bd-render-state'), null, { timeout: LONG }); await page.waitForTimeout(3000);
+  bld = await latest();
+  assert.equal(bld.template, vp.id);
+  assert.deepEqual(bld.floors.map((f) => f.tpl), vp.floors.map((f) => f.tpl));
+  assert(bld.floors.every((f) => f.shell.ind === 'SF'));
+  const floorNames = Object.fromEntries(vl.building.floors.map((f) => [f.key, f.name]));
+  assert.deepEqual((await page.locator('.bd-floor-pick').allInnerTexts()).map((t) => t.replace(/\s+/g, ' ')), vl.building.stack.map((k, i) => `${i + 1}F ${floorNames[k]}`));
+  await page.screenshot({ path: output + '/vertical-template.png' });
+  pass('a vertical building template opens with every floor filled by its spaces (new SF facade, floor names)');
   await context.close();
 
   const mobile = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });

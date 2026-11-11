@@ -1,0 +1,3101 @@
+{
+ "version": 1,
+ "taxonomy": "app/data/vertical_space_product.json",
+ "solutions": "app/data/vertical_space_solution.json",
+ "note": "버티컬 맵(공간 조감도)과 건물 층(건물 조감도)의 공간 구성. 공간 id·제품군은 taxonomy 파일을 따른다. profiles = 공간 용도(space-equipment.js의 spaceProfile), capacity = 좌석 수 지정.",
+ "groups": {
+  "SF": {
+   "name": "스포츠 · 피트니스",
+   "style": "modern"
+  },
+  "RG": {
+   "name": "종교 시설",
+   "style": "premium"
+  },
+  "MB": {
+   "name": "방송 · 미디어 스튜디오",
+   "style": "modern"
+  },
+  "MI": {
+   "name": "군 기관",
+   "style": "industrial"
+  }
+ },
+ "verticals": [
+  {
+   "id": "fb_qsr",
+   "label": "QSR 프랜차이즈",
+   "sign": "QSR 매장",
+   "size": "standard",
+   "spaces": {
+    "fb_qsr_s1": {
+     "profile": "retail"
+    },
+    "fb_qsr_s2": {
+     "profile": "reception"
+    },
+    "fb_qsr_s3": {
+     "profile": "dining"
+    },
+    "fb_qsr_s4": {
+     "profile": "kitchen"
+    },
+    "fb_qsr_s5": {
+     "profile": "consultation"
+    },
+    "fb_qsr_s6": {
+     "profile": "kitchen"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "fb_qsr_s1",
+      "fb_qsr_s2",
+      "fb_qsr_s3",
+      "fb_qsr_s4",
+      "fb_qsr_s5",
+      "fb_qsr_s6"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 0,
+    "floors": [
+     {
+      "key": "store",
+      "name": "매장층",
+      "rooms": [
+       "fb_qsr_s1",
+       "fb_qsr_s2",
+       "fb_qsr_s3",
+       "fb_qsr_s4"
+      ]
+     },
+     {
+      "key": "hq",
+      "name": "본사 교육 · 운영층",
+      "rooms": [
+       "fb_qsr_s5",
+       "fb_qsr_s6"
+      ]
+     }
+    ],
+    "stack": [
+     "store",
+     "hq"
+    ]
+   }
+  },
+  {
+   "id": "fb_cafe",
+   "label": "카페 · 베이커리",
+   "sign": "베이커리 카페",
+   "size": "standard",
+   "spaces": {
+    "fb_cafe_s1": {
+     "profile": "reception"
+    },
+    "fb_cafe_s2": {
+     "profile": "retail"
+    },
+    "fb_cafe_s3": {
+     "profile": "dining"
+    },
+    "fb_cafe_s4": {
+     "profile": "kitchen"
+    },
+    "fb_cafe_s5": {
+     "profile": "selfservice"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "fb_cafe_s1",
+      "fb_cafe_s2",
+      "fb_cafe_s3",
+      "fb_cafe_s4",
+      "fb_cafe_s5"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 2,
+    "floors": [
+     {
+      "key": "store",
+      "name": "매장층",
+      "rooms": [
+       "fb_cafe_s1",
+       "fb_cafe_s2",
+       "fb_cafe_s3",
+       "fb_cafe_s5"
+      ]
+     },
+     {
+      "key": "bake",
+      "name": "제조실 · 2층 좌석",
+      "rooms": [
+       "fb_cafe_s4",
+       "fb_cafe_s3"
+      ]
+     }
+    ],
+    "stack": [
+     "store",
+     "bake"
+    ]
+   }
+  },
+  {
+   "id": "fb_rest",
+   "label": "레스토랑 · 식당",
+   "sign": "레스토랑",
+   "size": "compact",
+   "spaces": {
+    "fb_rest_s1": {
+     "profile": "dining"
+    },
+    "fb_rest_s2": {
+     "profile": "reception"
+    },
+    "fb_rest_s3": {
+     "profile": "kitchen"
+    },
+    "fb_rest_s4": {
+     "profile": "dining"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "fb_rest_s1",
+      "fb_rest_s2",
+      "fb_rest_s3",
+      "fb_rest_s4"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 1,
+    "floors": [
+     {
+      "key": "hall",
+      "name": "홀 · 주방층",
+      "rooms": [
+       "fb_rest_s1",
+       "fb_rest_s2",
+       "fb_rest_s3",
+       "fb_rest_s4"
+      ]
+     },
+     {
+      "key": "private",
+      "name": "2층 홀 · 프라이빗 룸",
+      "rooms": [
+       "fb_rest_s4",
+       "fb_rest_s1"
+      ]
+     }
+    ],
+    "stack": [
+     "hall",
+     "private"
+    ]
+   }
+  },
+  {
+   "id": "rt_mall",
+   "label": "백화점 · 복합몰",
+   "sign": "백화점",
+   "size": "spacious",
+   "spaces": {
+    "rt_mall_s1": {
+     "profile": "billboard"
+    },
+    "rt_mall_s2": {
+     "profile": "immersive"
+    },
+    "rt_mall_s3": {
+     "profile": "retail"
+    },
+    "rt_mall_s4": {
+     "profile": "reception"
+    },
+    "rt_mall_s5": {
+     "profile": "dining"
+    },
+    "rt_mall_s6": {
+     "profile": "lounge"
+    },
+    "rt_mall_s7": {
+     "profile": "operations"
+    },
+    "rt_mall_s8": {
+     "profile": "mechanical"
+    }
+   },
+   "zones": [
+    {
+     "key": "store",
+     "name": "매장 · 고객 동선",
+     "spaces": [
+      "rt_mall_s1",
+      "rt_mall_s2",
+      "rt_mall_s3",
+      "rt_mall_s4"
+     ]
+    },
+    {
+     "key": "ops",
+     "name": "F&B · VIP · 운영",
+     "spaces": [
+      "rt_mall_s5",
+      "rt_mall_s6",
+      "rt_mall_s7",
+      "rt_mall_s8"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 2,
+    "floors": [
+     {
+      "key": "ground",
+      "name": "1층 파사드 · 아트리움",
+      "rooms": [
+       "rt_mall_s1",
+       "rt_mall_s2",
+       "rt_mall_s4",
+       "rt_mall_s3"
+      ]
+     },
+     {
+      "key": "shop",
+      "name": "매장층",
+      "rooms": [
+       "rt_mall_s3",
+       "rt_mall_s3",
+       "rt_mall_s6",
+       "rt_mall_s3"
+      ]
+     },
+     {
+      "key": "food",
+      "name": "F&B층",
+      "rooms": [
+       "rt_mall_s5",
+       "rt_mall_s5"
+      ]
+     },
+     {
+      "key": "ops",
+      "name": "방재 · 설비층",
+      "rooms": [
+       "rt_mall_s7",
+       "rt_mall_s8"
+      ]
+     }
+    ],
+    "stack": [
+     "ground",
+     "shop",
+     "shop",
+     "food",
+     "ops"
+    ]
+   }
+  },
+  {
+   "id": "rt_hyper",
+   "label": "대형마트 · SSM",
+   "sign": "대형마트",
+   "size": "spacious",
+   "spaces": {
+    "rt_hyper_s1": {
+     "profile": "retail"
+    },
+    "rt_hyper_s2": {
+     "profile": "coldstore"
+    },
+    "rt_hyper_s3": {
+     "profile": "retail"
+    },
+    "rt_hyper_s4": {
+     "profile": "selfservice"
+    },
+    "rt_hyper_s5": {
+     "profile": "retail"
+    },
+    "rt_hyper_s6": {
+     "profile": "warehouse"
+    },
+    "rt_hyper_s7": {
+     "profile": "mechanical"
+    }
+   },
+   "zones": [
+    {
+     "key": "sales",
+     "name": "매장",
+     "spaces": [
+      "rt_hyper_s1",
+      "rt_hyper_s2",
+      "rt_hyper_s3",
+      "rt_hyper_s4",
+      "rt_hyper_s5"
+     ]
+    },
+    {
+     "key": "back",
+     "name": "후방 · 설비",
+     "spaces": [
+      "rt_hyper_s6",
+      "rt_hyper_s7"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 1,
+    "floors": [
+     {
+      "key": "sales",
+      "name": "매장층",
+      "rooms": [
+       "rt_hyper_s1",
+       "rt_hyper_s2",
+       "rt_hyper_s3",
+       "rt_hyper_s4",
+       "rt_hyper_s5",
+       "rt_hyper_s3"
+      ]
+     },
+     {
+      "key": "back",
+      "name": "후방 · 설비층",
+      "rooms": [
+       "rt_hyper_s6",
+       "rt_hyper_s7"
+      ]
+     }
+    ],
+    "stack": [
+     "sales",
+     "back"
+    ]
+   }
+  },
+  {
+   "id": "rt_flag",
+   "label": "플래그십 · 쇼룸",
+   "sign": "플래그십 스토어",
+   "size": "standard",
+   "spaces": {
+    "rt_flag_s1": {
+     "profile": "retail"
+    },
+    "rt_flag_s2": {
+     "profile": "immersive"
+    },
+    "rt_flag_s3": {
+     "profile": "retail"
+    },
+    "rt_flag_s4": {
+     "profile": "lounge"
+    },
+    "rt_flag_s5": {
+     "profile": "garment"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "rt_flag_s1",
+      "rt_flag_s2",
+      "rt_flag_s3",
+      "rt_flag_s4",
+      "rt_flag_s5"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 0,
+    "floors": [
+     {
+      "key": "main",
+      "name": "쇼윈도 · 체험층",
+      "rooms": [
+       "rt_flag_s1",
+       "rt_flag_s2",
+       "rt_flag_s3",
+       "rt_flag_s4"
+      ]
+     },
+     {
+      "key": "vip",
+      "name": "진열 · VIP층",
+      "rooms": [
+       "rt_flag_s3",
+       "rt_flag_s5"
+      ]
+     }
+    ],
+    "stack": [
+     "main",
+     "vip"
+    ]
+   }
+  },
+  {
+   "id": "rt_small",
+   "label": "편의점 · 약국",
+   "sign": "편의점 · 약국",
+   "size": "compact",
+   "spaces": {
+    "rt_small_s1": {
+     "profile": "reception"
+    },
+    "rt_small_s2": {
+     "profile": "coldstore"
+    },
+    "rt_small_s3": {
+     "profile": "retail"
+    },
+    "rt_small_s4": {
+     "profile": "outdoorinfo"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "rt_small_s1",
+      "rt_small_s2",
+      "rt_small_s3",
+      "rt_small_s4"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 1,
+    "floors": [
+     {
+      "key": "store",
+      "name": "매장",
+      "rooms": [
+       "rt_small_s4",
+       "rt_small_s1",
+       "rt_small_s3",
+       "rt_small_s2"
+      ]
+     }
+    ],
+    "stack": [
+     "store"
+    ]
+   }
+  },
+  {
+   "id": "sv_unmanned",
+   "label": "스터디카페 · PC방",
+   "sign": "스터디카페 · PC방",
+   "size": "compact",
+   "spaces": {
+    "sv_un_s1": {
+     "profile": "selfservice"
+    },
+    "sv_un_s2": {
+     "profile": "study"
+    },
+    "sv_un_s3": {
+     "profile": "meeting"
+    },
+    "sv_un_s4": {
+     "profile": "lounge"
+    },
+    "sv_un_s5": {
+     "profile": "computerlab"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "sv_un_s1",
+      "sv_un_s2",
+      "sv_un_s3",
+      "sv_un_s4",
+      "sv_un_s5"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 2,
+    "floors": [
+     {
+      "key": "study",
+      "name": "스터디카페층",
+      "rooms": [
+       "sv_un_s1",
+       "sv_un_s2",
+       "sv_un_s3",
+       "sv_un_s4"
+      ]
+     },
+     {
+      "key": "pc",
+      "name": "PC방층",
+      "rooms": [
+       "sv_un_s5",
+       "sv_un_s5"
+      ]
+     }
+    ],
+    "stack": [
+     "study",
+     "pc"
+    ]
+   }
+  },
+  {
+   "id": "sv_screen",
+   "label": "스크린골프 · 실내스포츠",
+   "sign": "스크린골프",
+   "size": "compact",
+   "spaces": {
+    "sv_sc_s1": {
+     "profile": "lounge"
+    },
+    "sv_sc_s2": {
+     "profile": "reception"
+    },
+    "sv_sc_s3": {
+     "profile": "garment"
+    },
+    "sv_sc_s4": {
+     "profile": "dining"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "sv_sc_s1",
+      "sv_sc_s2",
+      "sv_sc_s3",
+      "sv_sc_s4"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 1,
+    "floors": [
+     {
+      "key": "front",
+      "name": "카운터 · 라운지층",
+      "rooms": [
+       "sv_sc_s2",
+       "sv_sc_s1",
+       "sv_sc_s4",
+       "sv_sc_s3"
+      ]
+     },
+     {
+      "key": "play",
+      "name": "플레이룸층",
+      "rooms": [
+       "sv_sc_s1",
+       "sv_sc_s1",
+       "sv_sc_s1",
+       "sv_sc_s3"
+      ]
+     }
+    ],
+    "stack": [
+     "front",
+     "play"
+    ]
+   }
+  },
+  {
+   "id": "sv_laundry",
+   "label": "코인빨래방",
+   "sign": "코인 세탁",
+   "size": "compact",
+   "spaces": {
+    "sv_la_s1": {
+     "profile": "laundry"
+    },
+    "sv_la_s2": {
+     "profile": "waiting"
+    },
+    "sv_la_s3": {
+     "profile": "selfservice"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "sv_la_s1",
+      "sv_la_s2",
+      "sv_la_s3"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 0,
+    "floors": [
+     {
+      "key": "store",
+      "name": "매장",
+      "rooms": [
+       "sv_la_s1",
+       "sv_la_s2",
+       "sv_la_s3"
+      ]
+     }
+    ],
+    "stack": [
+     "store"
+    ]
+   }
+  },
+  {
+   "id": "sv_beauty",
+   "label": "뷰티 · 미용실",
+   "sign": "뷰티 살롱",
+   "size": "compact",
+   "spaces": {
+    "sv_be_s1": {
+     "profile": "clinic"
+    },
+    "sv_be_s2": {
+     "profile": "reception"
+    },
+    "sv_be_s3": {
+     "profile": "laundry"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "sv_be_s1",
+      "sv_be_s2",
+      "sv_be_s3"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 0,
+    "floors": [
+     {
+      "key": "salon",
+      "name": "살롱",
+      "rooms": [
+       "sv_be_s2",
+       "sv_be_s1",
+       "sv_be_s3"
+      ]
+     }
+    ],
+    "stack": [
+     "salon"
+    ]
+   }
+  },
+  {
+   "id": "ht_large",
+   "label": "대형 호텔 · IR",
+   "sign": "그랜드 호텔",
+   "size": "spacious",
+   "spaces": {
+    "ht_l_s1": {
+     "profile": "reception"
+    },
+    "ht_l_s2": {
+     "profile": "bedroom"
+    },
+    "ht_l_s3": {
+     "profile": "living"
+    },
+    "ht_l_s4": {
+     "profile": "theatre"
+    },
+    "ht_l_s5": {
+     "profile": "dining"
+    },
+    "ht_l_s6": {
+     "profile": "kitchen"
+    },
+    "ht_l_s7": {
+     "profile": "fitness"
+    },
+    "ht_l_s8": {
+     "profile": "laundry"
+    },
+    "ht_l_s9": {
+     "profile": "mechanical"
+    },
+    "ht_l_s10": {
+     "profile": "office"
+    }
+   },
+   "zones": [
+    {
+     "key": "lobby",
+     "name": "로비 · 연회 · 다이닝",
+     "spaces": [
+      "ht_l_s1",
+      "ht_l_s4",
+      "ht_l_s5",
+      "ht_l_s6"
+     ]
+    },
+    {
+     "key": "rooms",
+     "name": "객실 · 스위트",
+     "spaces": [
+      "ht_l_s2",
+      "ht_l_s3"
+     ]
+    },
+    {
+     "key": "ops",
+     "name": "웰니스 · 운영",
+     "spaces": [
+      "ht_l_s7",
+      "ht_l_s8",
+      "ht_l_s9",
+      "ht_l_s10"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 2,
+    "floors": [
+     {
+      "key": "lobby",
+      "name": "로비 · 연회 · 다이닝",
+      "rooms": [
+       "ht_l_s1",
+       "ht_l_s4",
+       "ht_l_s5",
+       "ht_l_s6"
+      ]
+     },
+     {
+      "key": "ops",
+      "name": "웰니스 · 운영층",
+      "rooms": [
+       "ht_l_s7",
+       "ht_l_s8",
+       "ht_l_s9",
+       "ht_l_s10"
+      ]
+     },
+     {
+      "key": "rooms",
+      "name": "객실층",
+      "rooms": [
+       "ht_l_s2",
+       "ht_l_s2",
+       "ht_l_s2",
+       "ht_l_s3"
+      ]
+     }
+    ],
+    "stack": [
+     "lobby",
+     "ops",
+     "rooms",
+     "rooms",
+     "rooms",
+     "rooms"
+    ]
+   }
+  },
+  {
+   "id": "ht_mid",
+   "label": "비즈니스 호텔",
+   "sign": "비즈니스 호텔",
+   "size": "standard",
+   "spaces": {
+    "ht_m_s1": {
+     "profile": "reception"
+    },
+    "ht_m_s2": {
+     "profile": "bedroom"
+    },
+    "ht_m_s3": {
+     "profile": "dining"
+    },
+    "ht_m_s4": {
+     "profile": "laundry"
+    },
+    "ht_m_s5": {
+     "profile": "consultation"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "ht_m_s1",
+      "ht_m_s2",
+      "ht_m_s3",
+      "ht_m_s4",
+      "ht_m_s5"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 0,
+    "floors": [
+     {
+      "key": "lobby",
+      "name": "로비 · 조식 · 운영",
+      "rooms": [
+       "ht_m_s1",
+       "ht_m_s3",
+       "ht_m_s4",
+       "ht_m_s5"
+      ]
+     },
+     {
+      "key": "rooms",
+      "name": "객실층",
+      "rooms": [
+       "ht_m_s2",
+       "ht_m_s2",
+       "ht_m_s2",
+       "ht_m_s2"
+      ]
+     }
+    ],
+    "stack": [
+     "lobby",
+     "rooms",
+     "rooms",
+     "rooms"
+    ]
+   }
+  },
+  {
+   "id": "ht_stay",
+   "label": "레지던스 · 스테이",
+   "sign": "레지던스",
+   "size": "standard",
+   "spaces": {
+    "ht_st_s1": {
+     "profile": "living"
+    },
+    "ht_st_s2": {
+     "profile": "kitchen"
+    },
+    "ht_st_s3": {
+     "profile": "bedroom"
+    },
+    "ht_st_s4": {
+     "profile": "laundry"
+    },
+    "ht_st_s5": {
+     "profile": "selfservice"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "ht_st_s1",
+      "ht_st_s2",
+      "ht_st_s3",
+      "ht_st_s4",
+      "ht_st_s5"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 1,
+    "floors": [
+     {
+      "key": "entry",
+      "name": "체크인 · 유닛층",
+      "rooms": [
+       "ht_st_s5",
+       "ht_st_s1",
+       "ht_st_s2",
+       "ht_st_s3",
+       "ht_st_s4"
+      ]
+     },
+     {
+      "key": "unit",
+      "name": "객실 유닛층",
+      "rooms": [
+       "ht_st_s1",
+       "ht_st_s2",
+       "ht_st_s3",
+       "ht_st_s4"
+      ]
+     }
+    ],
+    "stack": [
+     "entry",
+     "unit",
+     "unit"
+    ]
+   }
+  },
+  {
+   "id": "tp_park",
+   "label": "테마파크 · 관광지",
+   "sign": "테마파크",
+   "size": "spacious",
+   "spaces": {
+    "tp_pk_s1": {
+     "profile": "outdoorinfo"
+    },
+    "tp_pk_s2": {
+     "profile": "waiting"
+    },
+    "tp_pk_s3": {
+     "profile": "immersive"
+    },
+    "tp_pk_s4": {
+     "profile": "retail"
+    },
+    "tp_pk_s5": {
+     "profile": "operations"
+    },
+    "tp_pk_s6": {
+     "profile": "field"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "tp_pk_s1",
+      "tp_pk_s2",
+      "tp_pk_s3",
+      "tp_pk_s4",
+      "tp_pk_s5",
+      "tp_pk_s6"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 1,
+    "floors": [
+     {
+      "key": "gate",
+      "name": "게이트 · 대기 · 상점",
+      "rooms": [
+       "tp_pk_s1",
+       "tp_pk_s2",
+       "tp_pk_s4",
+       "tp_pk_s6"
+      ]
+     },
+     {
+      "key": "show",
+      "name": "쇼 · 상황실층",
+      "rooms": [
+       "tp_pk_s3",
+       "tp_pk_s5"
+      ]
+     }
+    ],
+    "stack": [
+     "gate",
+     "show"
+    ]
+   }
+  },
+  {
+   "id": "tp_museum",
+   "label": "전시관 · 박물관",
+   "sign": "뮤지엄",
+   "size": "standard",
+   "spaces": {
+    "tp_mu_s1": {
+     "profile": "immersive"
+    },
+    "tp_mu_s2": {
+     "profile": "reception"
+    },
+    "tp_mu_s3": {
+     "profile": "warehouse"
+    },
+    "tp_mu_s4": {
+     "profile": "reception"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "tp_mu_s1",
+      "tp_mu_s2",
+      "tp_mu_s3",
+      "tp_mu_s4"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 2,
+    "floors": [
+     {
+      "key": "lobby",
+      "name": "로비 · 전시 · 수장고",
+      "rooms": [
+       "tp_mu_s2",
+       "tp_mu_s4",
+       "tp_mu_s1",
+       "tp_mu_s3"
+      ]
+     },
+     {
+      "key": "gallery",
+      "name": "전시층",
+      "rooms": [
+       "tp_mu_s1",
+       "tp_mu_s1"
+      ]
+     }
+    ],
+    "stack": [
+     "lobby",
+     "gallery"
+    ]
+   }
+  },
+  {
+   "id": "vn_stadium",
+   "label": "경기장 · 아레나",
+   "sign": "스포츠 아레나",
+   "size": "spacious",
+   "spaces": {
+    "vn_st_s1": {
+     "profile": "billboard"
+    },
+    "vn_st_s2": {
+     "profile": "retail"
+    },
+    "vn_st_s3": {
+     "profile": "lounge"
+    },
+    "vn_st_s4": {
+     "profile": "garment"
+    },
+    "vn_st_s5": {
+     "profile": "office"
+    },
+    "vn_st_s6": {
+     "profile": "operations"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "vn_st_s1",
+      "vn_st_s2",
+      "vn_st_s3",
+      "vn_st_s4",
+      "vn_st_s5",
+      "vn_st_s6"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 1,
+    "floors": [
+     {
+      "key": "ground",
+      "name": "그라운드 · 콘코스",
+      "rooms": [
+       "vn_st_s1",
+       "vn_st_s2",
+       "vn_st_s2",
+       "vn_st_s4"
+      ]
+     },
+     {
+      "key": "box",
+      "name": "스카이박스 · 미디어 · 관제",
+      "rooms": [
+       "vn_st_s3",
+       "vn_st_s3",
+       "vn_st_s5",
+       "vn_st_s6"
+      ]
+     }
+    ],
+    "stack": [
+     "ground",
+     "box"
+    ]
+   }
+  },
+  {
+   "id": "vn_cinema",
+   "label": "영화관 · 공연장",
+   "sign": "시네마",
+   "size": "standard",
+   "spaces": {
+    "vn_ci_s1": {
+     "profile": "reception"
+    },
+    "vn_ci_s2": {
+     "profile": "immersive"
+    },
+    "vn_ci_s3": {
+     "profile": "lounge"
+    },
+    "vn_ci_s4": {
+     "profile": "retail"
+    },
+    "vn_ci_s5": {
+     "profile": "mechanical"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "vn_ci_s1",
+      "vn_ci_s2",
+      "vn_ci_s3",
+      "vn_ci_s4",
+      "vn_ci_s5"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 2,
+    "floors": [
+     {
+      "key": "lobby",
+      "name": "로비 · 매점 · 라운지",
+      "rooms": [
+       "vn_ci_s1",
+       "vn_ci_s4",
+       "vn_ci_s3",
+       "vn_ci_s5"
+      ]
+     },
+     {
+      "key": "screen",
+      "name": "상영관층",
+      "rooms": [
+       "vn_ci_s2",
+       "vn_ci_s2"
+      ]
+     }
+    ],
+    "stack": [
+     "lobby",
+     "screen",
+     "screen"
+    ]
+   }
+  },
+  {
+   "id": "sf_fitness",
+   "label": "피트니스 · 스포츠센터",
+   "sign": "피트니스 클럽",
+   "size": "standard",
+   "spaces": {
+    "sf_fi_s1": {
+     "profile": "fitness"
+    },
+    "sf_fi_s2": {
+     "profile": "garment"
+    },
+    "sf_fi_s3": {
+     "profile": "reception"
+    },
+    "sf_fi_s4": {
+     "profile": "laundry"
+    },
+    "sf_fi_s5": {
+     "profile": "mechanical"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "sf_fi_s1",
+      "sf_fi_s2",
+      "sf_fi_s3",
+      "sf_fi_s4",
+      "sf_fi_s5"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 0,
+    "floors": [
+     {
+      "key": "front",
+      "name": "리셉션 · 락커 · 지원",
+      "rooms": [
+       "sf_fi_s3",
+       "sf_fi_s2",
+       "sf_fi_s4",
+       "sf_fi_s5"
+      ]
+     },
+     {
+      "key": "gym",
+      "name": "운동층",
+      "rooms": [
+       "sf_fi_s1",
+       "sf_fi_s1"
+      ]
+     }
+    ],
+    "stack": [
+     "front",
+     "gym",
+     "gym"
+    ]
+   }
+  },
+  {
+   "id": "ad_ooh",
+   "label": "옥외 · 미디어 광고",
+   "sign": "미디어 센터",
+   "size": "standard",
+   "spaces": {
+    "ad_oo_s1": {
+     "profile": "billboard"
+    },
+    "ad_oo_s2": {
+     "profile": "outdoorinfo"
+    },
+    "ad_oo_s3": {
+     "profile": "waiting"
+    },
+    "ad_oo_s4": {
+     "profile": "operations"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "ad_oo_s1",
+      "ad_oo_s2",
+      "ad_oo_s3",
+      "ad_oo_s4"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 0,
+    "floors": [
+     {
+      "key": "street",
+      "name": "매체 · 거리층",
+      "rooms": [
+       "ad_oo_s1",
+       "ad_oo_s2",
+       "ad_oo_s3",
+       "ad_oo_s4"
+      ]
+     },
+     {
+      "key": "control",
+      "name": "관제 · 실내 매체층",
+      "rooms": [
+       "ad_oo_s4",
+       "ad_oo_s3"
+      ]
+     }
+    ],
+    "stack": [
+     "street",
+     "control"
+    ]
+   }
+  },
+  {
+   "id": "of_hq",
+   "label": "대기업 사옥",
+   "sign": "그룹 본사",
+   "size": "spacious",
+   "spaces": {
+    "of_hq_s1": {
+     "profile": "reception"
+    },
+    "of_hq_s2": {
+     "profile": "office",
+     "capacity": 1
+    },
+    "of_hq_s3": {
+     "profile": "meeting",
+     "capacity": 12
+    },
+    "of_hq_s4": {
+     "profile": "meeting",
+     "capacity": 4
+    },
+    "of_hq_s5": {
+     "profile": "office"
+    },
+    "of_hq_s6": {
+     "profile": "lounge"
+    },
+    "of_hq_s7": {
+     "profile": "dining"
+    },
+    "of_hq_s8": {
+     "profile": "theatre"
+    },
+    "of_hq_s9": {
+     "profile": "operations"
+    },
+    "of_hq_s10": {
+     "profile": "mechanical"
+    }
+   },
+   "zones": [
+    {
+     "key": "lobby",
+     "name": "로비 · 강당 · 구내식당",
+     "spaces": [
+      "of_hq_s1",
+      "of_hq_s8",
+      "of_hq_s7"
+     ]
+    },
+    {
+     "key": "work",
+     "name": "업무층",
+     "spaces": [
+      "of_hq_s5",
+      "of_hq_s4",
+      "of_hq_s6"
+     ]
+    },
+    {
+     "key": "exec",
+     "name": "임원층",
+     "spaces": [
+      "of_hq_s2",
+      "of_hq_s3"
+     ]
+    },
+    {
+     "key": "plant",
+     "name": "방재 · 설비",
+     "spaces": [
+      "of_hq_s9",
+      "of_hq_s10"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 3,
+    "floors": [
+     {
+      "key": "lobby",
+      "name": "로비 · 강당 · 식당",
+      "rooms": [
+       "of_hq_s1",
+       "of_hq_s8",
+       "of_hq_s7",
+       "of_hq_s6"
+      ]
+     },
+     {
+      "key": "work",
+      "name": "업무층",
+      "rooms": [
+       "of_hq_s5",
+       "of_hq_s5",
+       "of_hq_s4",
+       "of_hq_s6"
+      ]
+     },
+     {
+      "key": "exec",
+      "name": "임원층",
+      "rooms": [
+       "of_hq_s2",
+       "of_hq_s3"
+      ]
+     },
+     {
+      "key": "plant",
+      "name": "방재 · 설비층",
+      "rooms": [
+       "of_hq_s9",
+       "of_hq_s10"
+      ]
+     }
+    ],
+    "stack": [
+     "lobby",
+     "work",
+     "work",
+     "work",
+     "work",
+     "exec",
+     "plant"
+    ]
+   }
+  },
+  {
+   "id": "of_sme",
+   "label": "중소기업 오피스",
+   "sign": "오피스",
+   "size": "standard",
+   "spaces": {
+    "of_sm_s1": {
+     "profile": "reception"
+    },
+    "of_sm_s2": {
+     "profile": "office"
+    },
+    "of_sm_s3": {
+     "profile": "meeting"
+    },
+    "of_sm_s4": {
+     "profile": "dining"
+    },
+    "of_sm_s5": {
+     "profile": "consultation"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "of_sm_s1",
+      "of_sm_s2",
+      "of_sm_s3",
+      "of_sm_s4",
+      "of_sm_s5"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 2,
+    "floors": [
+     {
+      "key": "main",
+      "name": "리셉션 · 업무층",
+      "rooms": [
+       "of_sm_s1",
+       "of_sm_s2",
+       "of_sm_s3",
+       "of_sm_s5"
+      ]
+     },
+     {
+      "key": "work",
+      "name": "업무층",
+      "rooms": [
+       "of_sm_s2",
+       "of_sm_s2",
+       "of_sm_s3",
+       "of_sm_s4"
+      ]
+     }
+    ],
+    "stack": [
+     "main",
+     "work",
+     "work"
+    ]
+   }
+  },
+  {
+   "id": "of_cowork",
+   "label": "공유오피스",
+   "sign": "공유오피스",
+   "size": "standard",
+   "spaces": {
+    "of_cw_s1": {
+     "profile": "lounge"
+    },
+    "of_cw_s2": {
+     "profile": "office",
+     "capacity": 4
+    },
+    "of_cw_s3": {
+     "profile": "meeting"
+    },
+    "of_cw_s4": {
+     "profile": "dining"
+    },
+    "of_cw_s5": {
+     "profile": "reception"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "of_cw_s1",
+      "of_cw_s2",
+      "of_cw_s3",
+      "of_cw_s4",
+      "of_cw_s5"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 1,
+    "floors": [
+     {
+      "key": "lobby",
+      "name": "라운지 · 출입층",
+      "rooms": [
+       "of_cw_s5",
+       "of_cw_s1",
+       "of_cw_s4",
+       "of_cw_s3"
+      ]
+     },
+     {
+      "key": "office",
+      "name": "오피스층",
+      "rooms": [
+       "of_cw_s2",
+       "of_cw_s2",
+       "of_cw_s2",
+       "of_cw_s3"
+      ]
+     }
+    ],
+    "stack": [
+     "lobby",
+     "office",
+     "office",
+     "office"
+    ]
+   }
+  },
+  {
+   "id": "rs_apt",
+   "label": "아파트",
+   "sign": "아파트",
+   "size": "standard",
+   "spaces": {
+    "rs_ap_s1": {
+     "profile": "living"
+    },
+    "rs_ap_s2": {
+     "profile": "kitchen"
+    },
+    "rs_ap_s3": {
+     "profile": "homebedroom"
+    },
+    "rs_ap_s4": {
+     "profile": "laundry"
+    },
+    "rs_ap_s5": {
+     "profile": "mechanical"
+    },
+    "rs_ap_s6": {
+     "profile": "lounge"
+    },
+    "rs_ap_s7": {
+     "profile": "waiting"
+    },
+    "rs_ap_s8": {
+     "profile": "retail"
+    },
+    "rs_ap_s9": {
+     "profile": "administration",
+     "capacity": 4
+    }
+   },
+   "zones": [
+    {
+     "key": "unit",
+     "name": "세대 (전용 공간)",
+     "spaces": [
+      "rs_ap_s1",
+      "rs_ap_s2",
+      "rs_ap_s3",
+      "rs_ap_s4",
+      "rs_ap_s5"
+     ]
+    },
+    {
+     "key": "community",
+     "name": "커뮤니티 · 운영",
+     "spaces": [
+      "rs_ap_s6",
+      "rs_ap_s7",
+      "rs_ap_s8",
+      "rs_ap_s9"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 0,
+    "floors": [
+     {
+      "key": "community",
+      "name": "커뮤니티 · 운영층",
+      "rooms": [
+       "rs_ap_s7",
+       "rs_ap_s6",
+       "rs_ap_s8",
+       "rs_ap_s9"
+      ]
+     },
+     {
+      "key": "unit",
+      "name": "세대층",
+      "rooms": [
+       "rs_ap_s1",
+       "rs_ap_s2",
+       "rs_ap_s3",
+       "rs_ap_s4",
+       "rs_ap_s5",
+       "rs_ap_s3"
+      ]
+     }
+    ],
+    "stack": [
+     "community",
+     "unit",
+     "unit",
+     "unit",
+     "unit",
+     "unit"
+    ]
+   }
+  },
+  {
+   "id": "rs_officetel",
+   "label": "오피스텔",
+   "sign": "오피스텔",
+   "size": "compact",
+   "spaces": {
+    "rs_of_s1": {
+     "profile": "bedroom"
+    },
+    "rs_of_s2": {
+     "profile": "kitchen"
+    },
+    "rs_of_s3": {
+     "profile": "laundry"
+    },
+    "rs_of_s4": {
+     "profile": "laundry"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "rs_of_s1",
+      "rs_of_s2",
+      "rs_of_s3",
+      "rs_of_s4"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 2,
+    "floors": [
+     {
+      "key": "ground",
+      "name": "공용 라운지 · 유닛",
+      "rooms": [
+       "rs_of_s4",
+       "rs_of_s1",
+       "rs_of_s2",
+       "rs_of_s3"
+      ]
+     },
+     {
+      "key": "unit",
+      "name": "세대층",
+      "rooms": [
+       "rs_of_s1",
+       "rs_of_s2",
+       "rs_of_s3",
+       "rs_of_s1"
+      ]
+     }
+    ],
+    "stack": [
+     "ground",
+     "unit",
+     "unit",
+     "unit",
+     "unit"
+    ]
+   }
+  },
+  {
+   "id": "rs_senior",
+   "label": "시니어 레지던스",
+   "sign": "시니어 레지던스",
+   "size": "standard",
+   "spaces": {
+    "rs_se_s1": {
+     "profile": "bedroom"
+    },
+    "rs_se_s2": {
+     "profile": "dining"
+    },
+    "rs_se_s3": {
+     "profile": "theatre"
+    },
+    "rs_se_s4": {
+     "profile": "nursing"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "rs_se_s1",
+      "rs_se_s2",
+      "rs_se_s3",
+      "rs_se_s4"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 1,
+    "floors": [
+     {
+      "key": "common",
+      "name": "식당 · 커뮤니티 · 케어",
+      "rooms": [
+       "rs_se_s2",
+       "rs_se_s3",
+       "rs_se_s4",
+       "rs_se_s1"
+      ]
+     },
+     {
+      "key": "unit",
+      "name": "세대층",
+      "rooms": [
+       "rs_se_s1",
+       "rs_se_s1",
+       "rs_se_s1",
+       "rs_se_s4"
+      ]
+     }
+    ],
+    "stack": [
+     "common",
+     "unit",
+     "unit",
+     "unit"
+    ]
+   }
+  },
+  {
+   "id": "id_partner",
+   "label": "인테리어 · 빌트인 파트너",
+   "sign": "디자인 쇼룸",
+   "size": "standard",
+   "spaces": {
+    "id_pa_s1": {
+     "profile": "kitchen"
+    },
+    "id_pa_s2": {
+     "profile": "living"
+    },
+    "id_pa_s3": {
+     "profile": "consultation"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "id_pa_s1",
+      "id_pa_s2",
+      "id_pa_s3"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 0,
+    "floors": [
+     {
+      "key": "showroom",
+      "name": "쇼룸층",
+      "rooms": [
+       "id_pa_s1",
+       "id_pa_s2",
+       "id_pa_s3"
+      ]
+     },
+     {
+      "key": "upper",
+      "name": "2층 쇼룸",
+      "rooms": [
+       "id_pa_s1",
+       "id_pa_s2"
+      ]
+     }
+    ],
+    "stack": [
+     "showroom",
+     "upper"
+    ]
+   }
+  },
+  {
+   "id": "ed_univ",
+   "label": "대학 캠퍼스",
+   "sign": "캠퍼스",
+   "size": "spacious",
+   "spaces": {
+    "ed_un_s1": {
+     "profile": "classroom"
+    },
+    "ed_un_s2": {
+     "profile": "theatre"
+    },
+    "ed_un_s3": {
+     "profile": "library"
+    },
+    "ed_un_s4": {
+     "profile": "lounge"
+    },
+    "ed_un_s5": {
+     "profile": "laboratory"
+    },
+    "ed_un_s6": {
+     "profile": "administration",
+     "capacity": 4
+    },
+    "ed_un_s7": {
+     "profile": "dorm"
+    },
+    "ed_un_s8": {
+     "profile": "dining"
+    },
+    "ed_un_s9": {
+     "profile": "outdoorinfo"
+    }
+   },
+   "zones": [
+    {
+     "key": "lecture",
+     "name": "강의 · 행정",
+     "spaces": [
+      "ed_un_s1",
+      "ed_un_s2",
+      "ed_un_s6"
+     ]
+    },
+    {
+     "key": "study",
+     "name": "학습 · 연구",
+     "spaces": [
+      "ed_un_s3",
+      "ed_un_s4",
+      "ed_un_s5"
+     ]
+    },
+    {
+     "key": "life",
+     "name": "생활 · 광장",
+     "spaces": [
+      "ed_un_s7",
+      "ed_un_s8",
+      "ed_un_s9"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 0,
+    "floors": [
+     {
+      "key": "plaza",
+      "name": "광장 · 식당 · 강당",
+      "rooms": [
+       "ed_un_s9",
+       "ed_un_s8",
+       "ed_un_s2",
+       "ed_un_s4"
+      ]
+     },
+     {
+      "key": "lecture",
+      "name": "강의 · 행정층",
+      "rooms": [
+       "ed_un_s1",
+       "ed_un_s1",
+       "ed_un_s1",
+       "ed_un_s6"
+      ]
+     },
+     {
+      "key": "research",
+      "name": "도서관 · 연구층",
+      "rooms": [
+       "ed_un_s3",
+       "ed_un_s3",
+       "ed_un_s5",
+       "ed_un_s5"
+      ]
+     },
+     {
+      "key": "dorm",
+      "name": "기숙사층",
+      "rooms": [
+       "ed_un_s7",
+       "ed_un_s7",
+       "ed_un_s7",
+       "ed_un_s7"
+      ]
+     }
+    ],
+    "stack": [
+     "plaza",
+     "lecture",
+     "lecture",
+     "research",
+     "dorm",
+     "dorm"
+    ]
+   }
+  },
+  {
+   "id": "ed_k12",
+   "label": "초·중·고",
+   "sign": "학교",
+   "size": "standard",
+   "spaces": {
+    "ed_k_s1": {
+     "profile": "classroom"
+    },
+    "ed_k_s2": {
+     "profile": "administration",
+     "capacity": 4
+    },
+    "ed_k_s3": {
+     "profile": "theatre"
+    },
+    "ed_k_s4": {
+     "profile": "dining"
+    },
+    "ed_k_s5": {
+     "profile": "computerlab"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "ed_k_s1",
+      "ed_k_s2",
+      "ed_k_s3",
+      "ed_k_s4",
+      "ed_k_s5"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 1,
+    "floors": [
+     {
+      "key": "main",
+      "name": "강당 · 급식 · 교무",
+      "rooms": [
+       "ed_k_s3",
+       "ed_k_s4",
+       "ed_k_s2",
+       "ed_k_s5"
+      ]
+     },
+     {
+      "key": "class",
+      "name": "교실층",
+      "rooms": [
+       "ed_k_s1",
+       "ed_k_s1",
+       "ed_k_s1",
+       "ed_k_s1"
+      ]
+     }
+    ],
+    "stack": [
+     "main",
+     "class",
+     "class",
+     "class"
+    ]
+   }
+  },
+  {
+   "id": "ed_academy",
+   "label": "학원 · 교육센터",
+   "sign": "아카데미",
+   "size": "compact",
+   "spaces": {
+    "ed_ac_s1": {
+     "profile": "classroom"
+    },
+    "ed_ac_s2": {
+     "profile": "study"
+    },
+    "ed_ac_s3": {
+     "profile": "administration",
+     "capacity": 4
+    },
+    "ed_ac_s4": {
+     "profile": "reception"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "ed_ac_s1",
+      "ed_ac_s2",
+      "ed_ac_s3",
+      "ed_ac_s4"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 2,
+    "floors": [
+     {
+      "key": "front",
+      "name": "상담 · 교무 · 강의",
+      "rooms": [
+       "ed_ac_s4",
+       "ed_ac_s3",
+       "ed_ac_s2",
+       "ed_ac_s1"
+      ]
+     },
+     {
+      "key": "class",
+      "name": "강의층",
+      "rooms": [
+       "ed_ac_s1",
+       "ed_ac_s1",
+       "ed_ac_s1",
+       "ed_ac_s2"
+      ]
+     }
+    ],
+    "stack": [
+     "front",
+     "class",
+     "class"
+    ]
+   }
+  },
+  {
+   "id": "pb_agency",
+   "label": "공공기관 · 청사",
+   "sign": "행정센터",
+   "size": "standard",
+   "spaces": {
+    "pb_ag_s1": {
+     "profile": "reception"
+    },
+    "pb_ag_s2": {
+     "profile": "office"
+    },
+    "pb_ag_s3": {
+     "profile": "meeting"
+    },
+    "pb_ag_s4": {
+     "profile": "operations"
+    },
+    "pb_ag_s5": {
+     "profile": "theatre"
+    },
+    "pb_ag_s6": {
+     "profile": "dining"
+    },
+    "pb_ag_s7": {
+     "profile": "mechanical"
+    }
+   },
+   "zones": [
+    {
+     "key": "service",
+     "name": "민원 · 사무",
+     "spaces": [
+      "pb_ag_s1",
+      "pb_ag_s2",
+      "pb_ag_s3",
+      "pb_ag_s6"
+     ]
+    },
+    {
+     "key": "control",
+     "name": "상황 · 강당 · 설비",
+     "spaces": [
+      "pb_ag_s4",
+      "pb_ag_s5",
+      "pb_ag_s7"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 1,
+    "floors": [
+     {
+      "key": "civic",
+      "name": "민원 · 강당 · 식당",
+      "rooms": [
+       "pb_ag_s1",
+       "pb_ag_s5",
+       "pb_ag_s6",
+       "pb_ag_s3"
+      ]
+     },
+     {
+      "key": "office",
+      "name": "사무층",
+      "rooms": [
+       "pb_ag_s2",
+       "pb_ag_s2",
+       "pb_ag_s2",
+       "pb_ag_s3"
+      ]
+     },
+     {
+      "key": "control",
+      "name": "상황실 · 설비층",
+      "rooms": [
+       "pb_ag_s4",
+       "pb_ag_s7"
+      ]
+     }
+    ],
+    "stack": [
+     "civic",
+     "office",
+     "office",
+     "office",
+     "control"
+    ]
+   }
+  },
+  {
+   "id": "pb_transport",
+   "label": "교통 인프라",
+   "sign": "교통 환승센터",
+   "size": "spacious",
+   "spaces": {
+    "pb_tr_s1": {
+     "profile": "waiting"
+    },
+    "pb_tr_s2": {
+     "profile": "selfservice"
+    },
+    "pb_tr_s3": {
+     "profile": "operations"
+    },
+    "pb_tr_s4": {
+     "profile": "consultation"
+    },
+    "pb_tr_s5": {
+     "profile": "field"
+    },
+    "pb_tr_s6": {
+     "profile": "retail"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "pb_tr_s1",
+      "pb_tr_s2",
+      "pb_tr_s3",
+      "pb_tr_s4",
+      "pb_tr_s5",
+      "pb_tr_s6"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 2,
+    "floors": [
+     {
+      "key": "concourse",
+      "name": "대합실 · 승강장층",
+      "rooms": [
+       "pb_tr_s1",
+       "pb_tr_s2",
+       "pb_tr_s6",
+       "pb_tr_s1",
+       "pb_tr_s4",
+       "pb_tr_s5"
+      ]
+     },
+     {
+      "key": "control",
+      "name": "종합관제층",
+      "rooms": [
+       "pb_tr_s3",
+       "pb_tr_s4"
+      ]
+     }
+    ],
+    "stack": [
+     "concourse",
+     "control"
+    ]
+   }
+  },
+  {
+   "id": "mi_military",
+   "label": "군 부대",
+   "sign": "부대 본부",
+   "size": "standard",
+   "spaces": {
+    "mi_s1": {
+     "profile": "dorm"
+    },
+    "mi_s2": {
+     "profile": "operations"
+    },
+    "mi_s3": {
+     "profile": "administration",
+     "capacity": 4
+    },
+    "mi_s4": {
+     "profile": "fitness"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "mi_s1",
+      "mi_s2",
+      "mi_s3",
+      "mi_s4"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 0,
+    "floors": [
+     {
+      "key": "hq",
+      "name": "지휘 · 행정 · 체력단련",
+      "rooms": [
+       "mi_s2",
+       "mi_s3",
+       "mi_s4",
+       "mi_s1"
+      ]
+     },
+     {
+      "key": "barracks",
+      "name": "생활관층",
+      "rooms": [
+       "mi_s1",
+       "mi_s1",
+       "mi_s1",
+       "mi_s1"
+      ]
+     }
+    ],
+    "stack": [
+     "hq",
+     "barracks",
+     "barracks"
+    ]
+   }
+  },
+  {
+   "id": "md_tertiary",
+   "label": "상급종합병원",
+   "sign": "종합병원",
+   "size": "spacious",
+   "spaces": {
+    "md_te_s1": {
+     "profile": "reception"
+    },
+    "md_te_s2": {
+     "profile": "waiting"
+    },
+    "md_te_s3": {
+     "profile": "clinic"
+    },
+    "md_te_s4": {
+     "profile": "clinic"
+    },
+    "md_te_s5": {
+     "profile": "ward"
+    },
+    "md_te_s6": {
+     "profile": "nursing"
+    },
+    "md_te_s7": {
+     "profile": "theatre"
+    },
+    "md_te_s8": {
+     "profile": "office"
+    },
+    "md_te_s9": {
+     "profile": "dining"
+    },
+    "md_te_s10": {
+     "profile": "mechanical"
+    }
+   },
+   "zones": [
+    {
+     "key": "outpatient",
+     "name": "외래 · 진료",
+     "spaces": [
+      "md_te_s1",
+      "md_te_s2",
+      "md_te_s3"
+     ]
+    },
+    {
+     "key": "surgery",
+     "name": "수술 · 연구",
+     "spaces": [
+      "md_te_s4",
+      "md_te_s7",
+      "md_te_s8"
+     ]
+    },
+    {
+     "key": "ward",
+     "name": "병동",
+     "spaces": [
+      "md_te_s5",
+      "md_te_s6"
+     ]
+    },
+    {
+     "key": "support",
+     "name": "지원 · 설비",
+     "spaces": [
+      "md_te_s9",
+      "md_te_s10"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 0,
+    "floors": [
+     {
+      "key": "outpatient",
+      "name": "외래 진료층",
+      "rooms": [
+       "md_te_s1",
+       "md_te_s2",
+       "md_te_s3",
+       "md_te_s3"
+      ]
+     },
+     {
+      "key": "surgery",
+      "name": "수술 · 연구층",
+      "rooms": [
+       "md_te_s4",
+       "md_te_s4",
+       "md_te_s7",
+       "md_te_s8"
+      ]
+     },
+     {
+      "key": "ward",
+      "name": "병동층",
+      "rooms": [
+       "md_te_s5",
+       "md_te_s5",
+       "md_te_s6",
+       "md_te_s5"
+      ]
+     },
+     {
+      "key": "support",
+      "name": "식당 · 설비층",
+      "rooms": [
+       "md_te_s9",
+       "md_te_s10"
+      ]
+     }
+    ],
+    "stack": [
+     "outpatient",
+     "surgery",
+     "ward",
+     "ward",
+     "ward",
+     "ward",
+     "support"
+    ]
+   }
+  },
+  {
+   "id": "md_hospital",
+   "label": "중소병원",
+   "sign": "전문병원",
+   "size": "standard",
+   "spaces": {
+    "md_ho_s1": {
+     "profile": "reception"
+    },
+    "md_ho_s2": {
+     "profile": "clinic"
+    },
+    "md_ho_s3": {
+     "profile": "ward"
+    },
+    "md_ho_s4": {
+     "profile": "fitness"
+    },
+    "md_ho_s5": {
+     "profile": "nursing"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "md_ho_s1",
+      "md_ho_s2",
+      "md_ho_s3",
+      "md_ho_s4",
+      "md_ho_s5"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 2,
+    "floors": [
+     {
+      "key": "outpatient",
+      "name": "외래 · 재활층",
+      "rooms": [
+       "md_ho_s1",
+       "md_ho_s2",
+       "md_ho_s2",
+       "md_ho_s4"
+      ]
+     },
+     {
+      "key": "ward",
+      "name": "병동층",
+      "rooms": [
+       "md_ho_s3",
+       "md_ho_s3",
+       "md_ho_s5",
+       "md_ho_s3"
+      ]
+     }
+    ],
+    "stack": [
+     "outpatient",
+     "ward",
+     "ward",
+     "ward"
+    ]
+   }
+  },
+  {
+   "id": "md_clinic",
+   "label": "의원 · 클리닉",
+   "sign": "메디컬 클리닉",
+   "size": "compact",
+   "spaces": {
+    "md_cl_s1": {
+     "profile": "waiting"
+    },
+    "md_cl_s2": {
+     "profile": "clinic"
+    },
+    "md_cl_s3": {
+     "profile": "ward"
+    },
+    "md_cl_s4": {
+     "profile": "reception"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "md_cl_s1",
+      "md_cl_s2",
+      "md_cl_s3",
+      "md_cl_s4"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 2,
+    "floors": [
+     {
+      "key": "clinic",
+      "name": "의원",
+      "rooms": [
+       "md_cl_s4",
+       "md_cl_s1",
+       "md_cl_s2",
+       "md_cl_s3"
+      ]
+     }
+    ],
+    "stack": [
+     "clinic"
+    ]
+   }
+  },
+  {
+   "id": "md_ltc",
+   "label": "요양병원 · 요양시설",
+   "sign": "요양 · 케어센터",
+   "size": "standard",
+   "spaces": {
+    "md_lt_s1": {
+     "profile": "ward"
+    },
+    "md_lt_s2": {
+     "profile": "nursing"
+    },
+    "md_lt_s3": {
+     "profile": "dining"
+    },
+    "md_lt_s4": {
+     "profile": "laundry"
+    },
+    "md_lt_s5": {
+     "profile": "kitchen"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "md_lt_s1",
+      "md_lt_s2",
+      "md_lt_s3",
+      "md_lt_s4",
+      "md_lt_s5"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 1,
+    "floors": [
+     {
+      "key": "common",
+      "name": "식당 · 주방 · 세탁",
+      "rooms": [
+       "md_lt_s3",
+       "md_lt_s5",
+       "md_lt_s4",
+       "md_lt_s2"
+      ]
+     },
+     {
+      "key": "ward",
+      "name": "생활실층",
+      "rooms": [
+       "md_lt_s1",
+       "md_lt_s1",
+       "md_lt_s2",
+       "md_lt_s1"
+      ]
+     }
+    ],
+    "stack": [
+     "common",
+     "ward",
+     "ward",
+     "ward"
+    ]
+   }
+  },
+  {
+   "id": "mf_factory",
+   "label": "제조 공장",
+   "sign": "스마트 팩토리",
+   "size": "spacious",
+   "spaces": {
+    "mf_fa_s1": {
+     "profile": "production"
+    },
+    "mf_fa_s2": {
+     "profile": "operations"
+    },
+    "mf_fa_s3": {
+     "profile": "office"
+    },
+    "mf_fa_s4": {
+     "profile": "dining"
+    },
+    "mf_fa_s5": {
+     "profile": "meeting"
+    },
+    "mf_fa_s6": {
+     "profile": "production"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "mf_fa_s1",
+      "mf_fa_s2",
+      "mf_fa_s3",
+      "mf_fa_s4",
+      "mf_fa_s5",
+      "mf_fa_s6"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 0,
+    "floors": [
+     {
+      "key": "line",
+      "name": "생산층",
+      "rooms": [
+       "mf_fa_s1",
+       "mf_fa_s1",
+       "mf_fa_s6",
+       "mf_fa_s2"
+      ]
+     },
+     {
+      "key": "office",
+      "name": "사무 · 지원층",
+      "rooms": [
+       "mf_fa_s3",
+       "mf_fa_s4",
+       "mf_fa_s5",
+       "mf_fa_s2"
+      ]
+     }
+    ],
+    "stack": [
+     "line",
+     "office"
+    ]
+   }
+  },
+  {
+   "id": "mf_logistics",
+   "label": "물류센터 · 콜드체인",
+   "sign": "물류센터",
+   "size": "spacious",
+   "spaces": {
+    "mf_lo_s1": {
+     "profile": "warehouse"
+    },
+    "mf_lo_s2": {
+     "profile": "warehouse"
+    },
+    "mf_lo_s3": {
+     "profile": "operations"
+    },
+    "mf_lo_s4": {
+     "profile": "consultation"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "mf_lo_s1",
+      "mf_lo_s2",
+      "mf_lo_s3",
+      "mf_lo_s4"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 2,
+    "floors": [
+     {
+      "key": "dock",
+      "name": "저온 · 피킹층",
+      "rooms": [
+       "mf_lo_s1",
+       "mf_lo_s2",
+       "mf_lo_s2",
+       "mf_lo_s1"
+      ]
+     },
+     {
+      "key": "control",
+      "name": "관제 · 사무층",
+      "rooms": [
+       "mf_lo_s3",
+       "mf_lo_s4"
+      ]
+     }
+    ],
+    "stack": [
+     "dock",
+     "control"
+    ]
+   }
+  },
+  {
+   "id": "fn_bank",
+   "label": "은행 영업점",
+   "sign": "은행",
+   "size": "standard",
+   "spaces": {
+    "fn_ba_s1": {
+     "profile": "waiting"
+    },
+    "fn_ba_s2": {
+     "profile": "bank"
+    },
+    "fn_ba_s3": {
+     "profile": "consultation"
+    },
+    "fn_ba_s4": {
+     "profile": "selfservice"
+    },
+    "fn_ba_s5": {
+     "profile": "administration",
+     "capacity": 4
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "fn_ba_s1",
+      "fn_ba_s2",
+      "fn_ba_s3",
+      "fn_ba_s4",
+      "fn_ba_s5"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 0,
+    "floors": [
+     {
+      "key": "branch",
+      "name": "영업점",
+      "rooms": [
+       "fn_ba_s1",
+       "fn_ba_s2",
+       "fn_ba_s4",
+       "fn_ba_s3"
+      ]
+     },
+     {
+      "key": "back",
+      "name": "지점 사무 · 상담",
+      "rooms": [
+       "fn_ba_s5",
+       "fn_ba_s3"
+      ]
+     }
+    ],
+    "stack": [
+     "branch",
+     "back"
+    ]
+   }
+  },
+  {
+   "id": "fn_hq",
+   "label": "금융 본점",
+   "sign": "금융센터",
+   "size": "spacious",
+   "spaces": {
+    "fn_hq_s1": {
+     "profile": "operations"
+    },
+    "fn_hq_s2": {
+     "profile": "office"
+    },
+    "fn_hq_s3": {
+     "profile": "reception"
+    },
+    "fn_hq_s4": {
+     "profile": "meeting"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "fn_hq_s1",
+      "fn_hq_s2",
+      "fn_hq_s3",
+      "fn_hq_s4"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 2,
+    "floors": [
+     {
+      "key": "lobby",
+      "name": "본점 로비층",
+      "rooms": [
+       "fn_hq_s3",
+       "fn_hq_s4",
+       "fn_hq_s1",
+       "fn_hq_s2"
+      ]
+     },
+     {
+      "key": "dealing",
+      "name": "딜링룸층",
+      "rooms": [
+       "fn_hq_s1",
+       "fn_hq_s1",
+       "fn_hq_s1",
+       "fn_hq_s1"
+      ]
+     },
+     {
+      "key": "call",
+      "name": "콜센터층",
+      "rooms": [
+       "fn_hq_s2",
+       "fn_hq_s2",
+       "fn_hq_s2",
+       "fn_hq_s4"
+      ]
+     }
+    ],
+    "stack": [
+     "lobby",
+     "dealing",
+     "dealing",
+     "call",
+     "call"
+    ]
+   }
+  },
+  {
+   "id": "oe_telco",
+   "label": "통신사 매장",
+   "sign": "모바일 스토어",
+   "size": "standard",
+   "spaces": {
+    "oe_te_s1": {
+     "profile": "retail"
+    },
+    "oe_te_s2": {
+     "profile": "waiting"
+    },
+    "oe_te_s3": {
+     "profile": "reception"
+    },
+    "oe_te_s4": {
+     "profile": "mechanical"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "oe_te_s1",
+      "oe_te_s2",
+      "oe_te_s3",
+      "oe_te_s4"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 0,
+    "floors": [
+     {
+      "key": "store",
+      "name": "매장층",
+      "rooms": [
+       "oe_te_s2",
+       "oe_te_s1",
+       "oe_te_s1",
+       "oe_te_s3"
+      ]
+     },
+     {
+      "key": "plant",
+      "name": "통신 장비층",
+      "rooms": [
+       "oe_te_s4",
+       "oe_te_s4"
+      ]
+     }
+    ],
+    "stack": [
+     "store",
+     "plant"
+    ]
+   }
+  },
+  {
+   "id": "rg_church",
+   "label": "종교시설",
+   "size": "standard",
+   "spaces": {
+    "rg_s1": {
+     "profile": "theatre"
+    },
+    "rg_s2": {
+     "profile": "meeting"
+    },
+    "rg_s3": {
+     "profile": "dining"
+    },
+    "rg_s4": {
+     "profile": "office",
+     "capacity": 2
+    },
+    "rg_s5": {
+     "profile": "mechanical"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "rg_s1",
+      "rg_s2",
+      "rg_s3",
+      "rg_s4",
+      "rg_s5"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 0,
+    "floors": [
+     {
+      "key": "support",
+      "name": "교육 · 친교 · 방송층",
+      "rooms": [
+       "rg_s3",
+       "rg_s2",
+       "rg_s4",
+       "rg_s5"
+      ]
+     },
+     {
+      "key": "hall",
+      "name": "예배당 · 법당층",
+      "rooms": [
+       "rg_s1",
+       "rg_s1"
+      ]
+     }
+    ],
+    "stack": [
+     "support",
+     "hall"
+    ]
+   }
+  },
+  {
+   "id": "mb_studio",
+   "label": "방송 · 미디어 스튜디오",
+   "sign": "방송 스튜디오",
+   "size": "standard",
+   "spaces": {
+    "mb_s1": {
+     "profile": "immersive"
+    },
+    "mb_s2": {
+     "profile": "operations"
+    },
+    "mb_s3": {
+     "profile": "garment"
+    }
+   },
+   "zones": [
+    {
+     "key": "full",
+     "name": "전체 맵",
+     "spaces": [
+      "mb_s1",
+      "mb_s2",
+      "mb_s3"
+     ]
+    }
+   ],
+   "building": {
+    "fv": 0,
+    "floors": [
+     {
+      "key": "studio",
+      "name": "스튜디오층",
+      "rooms": [
+       "mb_s1",
+       "mb_s2",
+       "mb_s3"
+      ]
+     }
+    ],
+    "stack": [
+     "studio",
+     "studio"
+    ]
+   }
+  }
+ ]
+}

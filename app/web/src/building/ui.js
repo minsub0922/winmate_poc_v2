@@ -9,7 +9,7 @@ import { h, icon, SVG } from './dom.js';
 import { exportDoc } from './viewer.js';
 
 const MAX_FLOORS = 30; // 한 건물에 쌓을 수 있는 층 수
-const CACHE_V = 'r5';  // 고르기 창 썸네일 그림 판 — 외관 · 데이터가 바뀌면 올린다(IndexedDB 썸네일 캐시 키). r4: 템플릿은 빈 층으로 · r5: 빈 층은 간판 없음
+const CACHE_V = 'r6';  // 고르기 창 썸네일 그림 판 — 외관 · 데이터가 바뀌면 올린다(IndexedDB 썸네일 캐시 키). r4: 템플릿은 빈 층으로 · r5: 빈 층은 간판 없음 · r6: 버티컬 층 94 · 새 업종 외벽(SF · RG · MB · MI)
 
 // ---------- 작은 도구 ----------
 const fmt = (n) => Math.round(n).toLocaleString('ko-KR');
@@ -444,13 +444,13 @@ function listView(ctx) {
 }
 
 // 시작 — 건물 템플릿 하나를 고르면 그 모양(층마다 크기 · 외벽) 그대로, 층마다 공간은 비운 채로 스튜디오를 연다.
-// 표준 건물 조감도는 층마다 공간 · 층 이름까지 채운 채로 연다
+// 표준 건물 조감도(p.std)는 층마다 공간 · 층 이름까지, 버티컬 건물 템플릿(p.vertical)은 그 버티컬의 공간 조합 층으로 채운 채로 연다.
 function start(ctx) {
   openPicker({ mode: 'start', onDone: async ({ preset: p }) => {
     const now = Date.now();
     const floors = p.std
       ? p.floors.map((f) => { const t = tplOf(f.tpl); return { key: uid('f'), tpl: f.tpl, fv: f.fv, name: f.name, shell: { ind: p.ind, w: t.w, d: t.d } }; })
-      : presetShells(p).map((x) => ({ key: uid('f'), tpl: null, fv: x.fv, shell: { ind: x.ind, w: x.w, d: x.d } }));
+      : presetShells(p).map((x, i) => ({ key: uid('f'), tpl: p.vertical ? p.floors[i].tpl : null, fv: x.fv, shell: { ind: x.ind, w: x.w, d: x.d } }));
     const b = { id: uid('bld'), title: p.title, industries: indsOf(floors), template: p.id, floors };
     Object.assign(b, { view: { mode: 'exterior' }, camera: null, createdAt: now, contentAt: now, updatedAt: now });
     await store.put(b, { touch: false });

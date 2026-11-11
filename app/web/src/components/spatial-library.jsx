@@ -4,6 +4,7 @@ import { Icon } from './common.jsx';
 import { createScene } from '../domain/spatial/scene.js';
 import { planSvg,svgData } from '../domain/spatial/plan-svg.js';
 import { spatialAssetLabel,spatialObjectThumbnail } from '../domain/spatial/catalog.js';
+import { verticalTitle } from '../domain/spatial/template-catalog.js';
 import { loadSpatialLibrary,spatialPreviewImage } from '../services/spatial.js';
 
 export function SpatialSceneThumb({scene,library,thumbnail,view='2d'}){
@@ -94,22 +95,24 @@ export function SpatialMapCard({template,library,onOpen,openLabel='스튜디오�
       <div className="sp-map-view-switch" aria-label={template.name+' 미리보기'}>{['2d','3d'].map(mode=><button key={mode} aria-label={mode.toUpperCase()+' 보기'} aria-pressed={view===mode} disabled={disabled} onClick={()=>setView(mode)}>{mode.toUpperCase()}</button>)}</div>
       <button className="btn btn-primary btn-sm sp-map-open" disabled={loading||disabled} onClick={()=>onOpen(template,view)}>{openLabel}<Icon name="arrowR" size={15}/></button>
     </div>
-    <div className="sp-map-caption"><small>{library.industries.find(i=>i.code===template.industry)?.name} · {template.scope==='full'?'전체 맵':'개별 공간'}</small><h3>{template.name}</h3><p>{scene.rooms.length}개 공간 · 제품 {scene.objects.filter(o=>o.assetId.startsWith('product:')).length}개</p>{productNames.length>0&&<p className="sp-template-products" title={productNames.join(' · ')}>{productNames.slice(0,3).join(' · ')}{productNames.length>3?' 외 '+(productNames.length-3)+'종':''}</p>}</div>
+    <div className="sp-map-caption"><small>{[library.industries.find(i=>i.code===template.industry)?.name,template.vertical&&verticalTitle(library.verticals?.find(v=>v.id===template.vertical)),template.scope==='full'?'전체 맵':'개별 공간'].filter(Boolean).join(' · ')}</small><h3>{template.name}</h3><p>{scene.rooms.length}개 공간 · 제품 {scene.objects.filter(o=>o.assetId.startsWith('product:')).length}개</p>{productNames.length>0&&<p className="sp-template-products" title={productNames.join(' · ')}>{productNames.slice(0,3).join(' · ')}{productNames.length>3?' 외 '+(productNames.length-3)+'종':''}</p>}</div>
   </article>;
 }
 
+// One page holds every industry's representative map (20 industries) before second entries.
+const GALLERY_PAGE=24;
 export function SpatialTemplateGallery({templates,library,onOpen,defaultView='2d'}){
-  const [count,setCount]=useState(18),sentinel=useRef(null),gallery=useRef(null),more=count<templates.length;
+  const [count,setCount]=useState(GALLERY_PAGE),sentinel=useRef(null),gallery=useRef(null),more=count<templates.length;
   useLayoutEffect(()=>{const body=gallery.current?.closest('.mbody');if(body)body.scrollTop=0;},[]);
   useEffect(()=>{
     const target=sentinel.current;if(!more||!target)return;
     const root=target.closest('.mbody');
     if(typeof IntersectionObserver==='undefined'){
-      const load=()=>{if(target.getBoundingClientRect().top<root.getBoundingClientRect().bottom+320)setCount(value=>Math.min(value+18,templates.length));};
+      const load=()=>{if(target.getBoundingClientRect().top<root.getBoundingClientRect().bottom+320)setCount(value=>Math.min(value+GALLERY_PAGE,templates.length));};
       root.addEventListener('scroll',load);load();return()=>root.removeEventListener('scroll',load);
     }
     const observer=new IntersectionObserver(entries=>{
-      if(entries.some(entry=>entry.isIntersecting)){observer.disconnect();setCount(value=>Math.min(value+18,templates.length));}
+      if(entries.some(entry=>entry.isIntersecting)){observer.disconnect();setCount(value=>Math.min(value+GALLERY_PAGE,templates.length));}
     },{root,rootMargin:'320px 0px',threshold:0});
     observer.observe(target);return()=>observer.disconnect();
   },[count,more,templates.length]);

@@ -30,7 +30,8 @@ for(const template of library.templates){
   for(const o of products)assert(o.placementReason,template.id+' product has a purpose');
  }
 }
-for(const industry of library.industries){
+// Best-scenario industries keep their six-room overview; taxonomy-only groups are covered by their vertical maps.
+for(const industry of library.industries.filter(i=>library.templates.some(t=>t.id===i.code.toLowerCase()+'-full-standard'))){
  const template=library.templates.find(t=>t.id===industry.code.toLowerCase()+'-full-standard'),scene=scenes[template.id];assert.equal(scene.rooms.length,6);
  assert(scene.rooms.every(r=>r.width===TEMPLATE_ROOM.width&&r.depth===TEMPLATE_ROOM.depth));
  coverage.push({industry:industry.code,rooms:scene.rooms.map(r=>({name:r.name,profile:r.spaceProfile,size:[r.width,r.depth],products:scene.objects.filter(o=>o.roomId===r.id&&assets[o.assetId].productId).map(o=>({id:o.assetId,name:assets[o.assetId].name,reason:o.placementReason,support:o.supportId}))}))});
@@ -44,4 +45,9 @@ assert(frozen.templates.find(t=>t.id==='fb-full-standard').roomReference.width==
 for(const a of frozen.assets)assert.deepEqual(assets[a.id].size,a.size,a.id+' physical object size retained');
 const out=new URL('./output/'+(process.env.SPATIAL_PURPOSE_OUTPUT||'spatial-purpose')+'/',import.meta.url);fs.mkdirSync(out,{recursive:true});
 fs.writeFileSync(new URL('coverage.json',out),JSON.stringify({ok:true,sourceHash:library.sourceHash,templates:library.templates.length,standardSize:[TEMPLATE_ROOM.width,TEMPLATE_ROOM.depth],coverage},null,2));
-console.log(`PASS ${library.templates.length} purpose-based templates, workstation screens, school tablets, natural placement, frozen dimensions and 16 industry form round trips`);
+for(const template of library.templates.filter(t=>t.vertical&&t.scope==='full'&&t.variant==='standard')){
+ const scene=scenes[template.id],document=studioDocumentFromTemplate(template,library),regenerated=createSceneFromForm(document.form,library);
+ assert.deepEqual(validateScene(regenerated,library).errors,[],template.id+' vertical form round trip');
+ for(const room of scene.rooms)assert.deepEqual(regenerated.objects.filter(o=>o.roomId===room.id&&assets[o.assetId].productId).map(o=>o.assetId).sort(),scene.objects.filter(o=>o.roomId===room.id&&assets[o.assetId].productId).map(o=>o.assetId).sort(),template.id+' vertical product quantities survive regeneration');
+}
+console.log(`PASS ${library.templates.length} purpose-based templates, workstation screens, school tablets, natural placement, frozen dimensions, ${coverage.length} industry and ${library.verticals.reduce((n,v)=>n+v.zones.length,0)} vertical-zone form round trips`);

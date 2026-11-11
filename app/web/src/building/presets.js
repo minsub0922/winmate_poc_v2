@@ -1,11 +1,13 @@
 // 건물 템플릿 — 업종마다 외벽 변형 하나에 건물 하나씩(외벽 × 공간 조합 · 층 수 · 셋백을 미리 맞춘 건물) + 복합 건물
+// + 버티컬 건물 템플릿(presets-verticals.js, 버티컬마다 하나 — 규모에 맞춘 층 크기 · 층 수)
+import { VERTICAL_PRESETS } from './presets-verticals.js';
 // floors: 아래층부터. 문자열이면 그 템플릿의 외벽 번호 = 이 템플릿의 fv, [id, fv]면 따로 지정(다른 업종 층)
 const T = (ind, fv, title, floors, id = `${ind.toLowerCase()}-${fv}`) => ({
   id, ind, fv, title,
   floors: floors.map((x) => (Array.isArray(x) ? { tpl: x[0], fv: x[1] } : { tpl: x, fv })),
 });
 
-export const PRESETS = [
+const SCENARIO_PRESETS = [
   T('FB', 0, '테라스 카페 하우스', ['fb-full-standard', 'fb-five']),
   T('FB', 1, '우드 비스트로 빌딩', ['fb-full-spacious', 'fb-front4-sp', 'fb-front4']),
   T('FB', 2, '브릭 베이커리 하우스', ['fb-full-compact', 'fb-mid4-c', 'fb-pair-x4']),
@@ -78,4 +80,5 @@ export const PRESETS = [
   T('MX', 0, '호텔 · 리테일 복합', [['rt-full-standard', 0], ['fb-full-standard', 1], ['ht-mix-x6', 2], ['ht-five', 2], ['ht-five', 2]], 'mx-hotel'),
   T('MX', 1, '오피스 · 컨퍼런스 타워', ['mx-lobby', ['of-full-standard', 3], ['of-mix-x6', 3], ['of-five', 3], ['mx-control', 1]], 'mx-office'),
 ];
+export const PRESETS = [...SCENARIO_PRESETS, ...VERTICAL_PRESETS];
 export const presetOf = (id) => PRESETS.find((p) => p.id === id) || null;

@@ -288,6 +288,7 @@
 .sp-map-render-state{display:flex;gap:10px;align-items:center;justify-content:center;position:absolute;inset:0;font-size:11px;color:var(--muted);padding:20px;text-align:center}
 .sp-maps-modal .sp-filterbar{position:sticky;top:-20px;z-index:2;padding:10px 0;background:var(--surface);margin-bottom:12px;flex-wrap:wrap}
 .sp-maps-modal .sp-filterbar select{flex:1;max-width:180px}
+.sp-maps-modal .sp-filterbar select[aria-label="템플릿 버티컬"]{max-width:250px}
 .sp-maps-modal .sp-filterbar input{min-width:190px}
 .sp-maps-modal .sp-map-grid{gap:14px}
 /* A half-screen object tray keeps the scene visible behind the library. */

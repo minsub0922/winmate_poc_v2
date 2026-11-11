@@ -32,4 +32,4 @@ for(const [industry,kind,expected] of [['OF','meeting','meeting-sled'],['FB','di
   const template=library.templates.find(t=>t.industry===industry&&t.scope==='single'&&t.variant==='standard'&&t.rooms[0].kind===kind);
   assert(template,industry+' template');const scene=createScene({templateId:template.id},library);assert(scene.objects.some(o=>o.assetId==='furniture:'+expected),industry+' contextual seating');
 }
-console.log(`PASS ${FURNITURE_VARIANTS.length} new furnishings / ${visible.length} visible furnishings; 7 categories, 16 industries, distinct structures, all placements and SVGs, Samsung exclusion, contextual selection and thumbnails`);
+console.log(`PASS ${FURNITURE_VARIANTS.length} new furnishings / ${visible.length} visible furnishings; 7 categories, ${library.industries.length} industries, distinct structures, all placements and SVGs, Samsung exclusion, contextual selection and thumbnails`);

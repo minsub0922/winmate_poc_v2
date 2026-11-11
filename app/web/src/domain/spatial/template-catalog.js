@@ -41,19 +41,42 @@ export function buildSpatialTemplateCatalog(library,scenes){
   return catalog;
 }
 
-export function spatialTemplateCatalog(library,{industry='all',scope=library?.templateDefaults?.scope||'all',variant='all',query=''}={}){
+// Vertical display name with its size segment, unless the label already says it
+// (군 부대 · 군 부대, 대형 호텔 · IR · 대형, 대형마트 · SSM · 대형마트 / SSM → label only).
+export function verticalTitle(vertical){
+  if(!vertical)return '';
+  const flat=value=>String(value||'').replace(/[\s·/,()]+/g,'');
+  return vertical.sizeSegment&&!flat(vertical.label).includes(flat(vertical.sizeSegment))?`${vertical.label} (${vertical.sizeSegment})`:vertical.label;
+}
+
+// vertical: 'all' · 'best' (best-scenario and case templates) · a taxonomy vertical ID.
+export function spatialTemplateCatalog(library,{industry='all',scope=library?.templateDefaults?.scope||'all',variant='all',query='',vertical='all'}={}){
   if(!library)return [];
   const byId=new Map(library.templates.map(template=>[template.id,template]));
   const search=query.trim().toLowerCase();
+  const verticalText=template=>{const v=template.vertical&&library.verticals?.find(item=>item.id===template.vertical);return v?[v.name,v.label,v.sizeSegment]:[];};
+  if(vertical!=='all'&&vertical!=='best'){
+    // A chosen vertical lists each of its zone and space maps, including product
+    // configurations that another vertical shares in the de-duplicated browse index.
+    return library.templates.filter(template=>template.vertical===vertical&&(variant==='all'?template.variant==='standard':template.variant===variant)&&(industry==='all'||template.industry===industry)&&(scope==='all'||template.scope===scope)).flatMap(template=>{
+      const industryName=library.industries.find(item=>item.code===template.industry)?.name||'';
+      if(search&&![industryName,template.name,template.id,...verticalText(template),...template.rooms.map(r=>r.name)].join(' ').toLowerCase().includes(search))return [];
+      const base=variantBase(template.id),variants=Object.fromEntries(['compact','standard','spacious'].filter(v=>byId.has(base+'-'+v)).map(v=>[v,base+'-'+v]));
+      return [{...template,catalog:{id:template.id,variants,aliases:[template.id]}}];
+    });
+  }
   // Older archived libraries retain their original IDs; only canonical standard
   // templates are listed when no generated browse catalog is available.
   const catalog=library.templateCatalog||library.templates.filter(template=>template.variant==='standard'&&!template.id.startsWith('case-')).map(template=>({id:template.id,variants:{standard:template.id},aliases:[template.id]}));
-  return catalog.flatMap(entry=>{
+  // The browse index hides placements identical to another card; a search still finds those vertical spaces.
+  const listed=new Set(catalog.flatMap(entry=>entry.aliases));
+  const hidden=search&&vertical!=='best'?library.templates.filter(t=>t.vertical&&!listed.has(t.id)&&(variant==='all'?t.variant==='standard':t.variant===variant)&&(industry==='all'||t.industry===industry)&&(scope==='all'||t.scope===scope)).map(t=>({id:t.id,variants:{[t.variant]:t.id},aliases:[t.id]})):[];
+  return [...catalog,...hidden].flatMap(entry=>{
     const template=byId.get(variant==='all'?entry.id:entry.variants[variant]);
-    if(!template||industry!=='all'&&template.industry!==industry||scope!=='all'&&template.scope!==scope)return [];
+    if(!template||industry!=='all'&&template.industry!==industry||scope!=='all'&&template.scope!==scope||vertical==='best'&&template.vertical)return [];
     const aliases=entry.aliases.map(id=>byId.get(id)).filter(Boolean);
     const industryName=library.industries.find(item=>item.code===template.industry)?.name||'';
-    if(search&&![industryName,...aliases.flatMap(item=>[item.name,item.id,item.source?.layoutId||'',...item.rooms.flatMap(r=>[r.name,...(r.includedSpaces||[]).map(s=>s.name)])])].join(' ').toLowerCase().includes(search))return [];
+    if(search&&![industryName,...aliases.flatMap(item=>[item.name,item.id,item.source?.layoutId||'',...verticalText(item),...item.rooms.flatMap(r=>[r.name,...(r.includedSpaces||[]).map(s=>s.name)])])].join(' ').toLowerCase().includes(search))return [];
     return [{...template,catalog:entry}];
   });
 }

@@ -56,6 +56,8 @@ const profiles={
  living:{kind:'lounge',equipment:[item('hoteltv','거실의 시청·휴식 화면'),cooling]},
  entry:{kind:'reception',equipment:[]},
 };
+// Purpose kinds and default capacities, shared with the vertical-taxonomy templates.
+export const SPACE_PROFILES=Object.fromEntries(Object.entries(profiles).map(([key,p])=>[key,{kind:p.kind,...(p.capacity?{capacity:p.capacity}:{})}]));
 const assignments={
  FB:['dining','outdoorinfo','reception','kitchen','coldstore','garment','operations'],
  AD:['billboard','billboard','theatre','outdoorinfo','waiting','waiting','operations'],

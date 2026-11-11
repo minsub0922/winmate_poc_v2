@@ -102,6 +102,27 @@ export const FACADES = {
     V('glow', '블루 글로우 쇼룸', 'store', '디바이스 쇼룸', { accent: '#1c48b8', frame: '#1c2433', wall: '#f5f6f8', pier: '#1c2433', glass: '#b7cad8', bay: 4.4, pierW: 0.16, mull: 0, glow: '#4d8dff', signStyle: 'box', signFg: '#1c48b8', parapet: '#f5f6f8' }),
     V('pop', '컬러 피어 팝업', 'store', '에디션 팝업', { accent: '#2f55ad', frame: '#2b3440', wall: '#f7f5f0', glass: '#b3c8d6', piers: ['#2f55ad', '#ffc83d', '#ff7a59', '#45b7a6'], pierW: 0.55, parapet: '#f7f5f0' }),
   ],
+  // 2026-11 버티컬 분류에서 새로 생긴 업종 — 스포츠 · 종교 · 방송 · 군
+  SF: [
+    V('club', '피트니스 클럽', 'store', '피트니스 클럽', { accent: '#d1492e', frame: '#1e2226', wall: '#2b3035', glass: '#8fa9b4', glow: '#ff6a3d', canopy: '#1e2226', signFg: '#ff7a52', parapet: '#2b3035' }),
+    V('sports', '스포츠 센터', 'curtain', '스포츠 센터', { accent: '#1f7a4d', frame: '#cfd6d3', glass: '#7fa7a0', spandrel: '#2e5f4c', spH: 0.8, slat: { c: '#e3e8e5', gap: 0.4, d: 0.28 }, ledBand: 'sports', parapet: '#d5dbd8' }),
+    V('clubhouse', '골프 클럽하우스', 'punched', '클럽하우스', { accent: '#2f5b45', wall: '#ebe4d6', frame: '#5a4a3a', glass: '#8fb0ae', bay: 3.2, win: [2.2, 0.25, 2.75], balcony: 'SN', balconyCap: '#8a6a4b', panel: ['#a5774b', '#8f663f'], panelW: 0.6, signStyle: 'letters', signFg: '#2f5b45', parapet: '#ebe4d6' }),
+  ],
+  RG: [
+    V('chapel', '모던 예배당', 'fin', '예배당', { accent: '#6b4f8a', fin: '#f0ece4', frame: '#5d5650', glass: '#93a9b5', bay: 2.0, finW: 0.32, finD: 0.5, beamD: 0.5, topH: 0.9, transomV: 1.4, signStyle: 'letters', signFg: '#4b3a63', parapet: '#f0ece4' }),
+    V('cathedral', '석조 성당', 'punched', '성당', { accent: '#7a2f2f', wall: '#d9cdb6', frame: '#4a3f36', glass: '#6d8798', bay: 2.6, win: [0.8, 0.4, 2.7], pair: true, gap: 0.36, pilaster: '#e8dfcd', cornice: '#c9b896', hood: '#c9b896', sill: '#c9b896', signBg: '#4a3f36', signFg: '#ead9b0', parapet: '#c9b896' }),
+    V('temple', '사찰 회관', 'punched', '법당 · 교육관', { accent: '#8a3b2a', wall: '#efe7d6', frame: '#6b3a2a', glass: '#8aa3a2', bay: 3.0, win: [1.6, 0.5, 2.6], panel: ['#a8452f', '#2f5f52'], panelW: 0.4, rail: '#6b3a2a', sill: '#d8c7a6', signStyle: 'box', signFg: '#8a3b2a', parapet: '#6b3a2a' }),
+  ],
+  MB: [
+    V('studio', '미디어 스튜디오', 'media', '방송 스튜디오', { accent: '#c2362f', frame: '#1d2125', glass: '#5d7280', spandrel: '#24292e', wrap: true, parapet: '#2a2f34' }),
+    V('blackbox', '블랙 박스 스튜디오', 'industrial', '스튜디오', { accent: '#e04c3b', wall: '#2f3439', rib: '#3a4046', glass: '#7c8f99', frame: '#23272b', stripe: '#e04c3b', dock: 2, parapet: '#2f3439' }),
+    V('broadcast', '방송 센터', 'curtain', '방송 센터', { accent: '#2048a8', frame: '#e1e6ea', glass: '#7e9fc0', spandrel: '#2c3e63', vfin: { c: '#f1f3f5', d: 0.3, w: 0.07 }, ledBand: 'promo', parapet: '#e1e6ea' }),
+  ],
+  MI: [
+    V('hq', '부대 본부', 'fin', '부대 본부', { accent: '#3f5a3a', fin: '#d7d4c4', frame: '#4a5245', glass: '#8a9f98', bay: 2.6, finW: 0.46, finD: 0.32, beamD: 0.32, topH: 0.64, transomV: 1.2, portico: true, canopyColor: '#d7d4c4', signStyle: 'letters', signFg: '#2f4430', parapet: '#d7d4c4' }),
+    V('barracks', '생활관', 'punched', '생활관', { accent: '#4b5d3f', wall: '#e6e3d8', frame: '#5f6b55', glass: '#86a0a0', bay: 2.8, win: [1.5, 0.75, 2.7], sill: '#cfcabb', parapet: '#e6e3d8' }),
+    V('command', '지휘통제센터', 'industrial', '지휘통제센터', { accent: '#556b2f', wall: '#4d5a46', rib: '#46523f', glass: '#86998f', frame: '#38412f', precast: true, stripe: '#9aa86b', parapet: '#4d5a46' }),
+  ],
   MX: [
     V('tenant', '근린 상가', 'store', '근린생활 시설', { accent: '#3c3f42', frame: '#3c3f42', wall: '#ebe7df', glass: '#aac3c8', bay: 3.4, tenants: true, awning: 'tenant', parapet: '#ebe7df' }),
     V('glass', '복합 글라스', 'curtain', '복합 빌딩', { accent: '#3e5a6b', frame: '#e5e8e7', glass: '#8eb0bf', glass2: '#a9c6c4', spandrel: '#d6dad9', module: 1.6, parapet: '#e5e8e7' }),

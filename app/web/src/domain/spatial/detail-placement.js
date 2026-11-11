@@ -1,4 +1,4 @@
-const round=n=>Math.round(n*10000)/10000;
+const round=n=>Math.round(n*10000)/10000+0;
 const surfaceKind=asset=>asset.supportSurface||asset.kind;
 export function detailSurfaceHeight(asset,support,supportAsset){
   const fraction=asset.placement.surfaceHeights?.[surfaceKind(supportAsset)]??1;

@@ -2,7 +2,8 @@ import {peopleObjectError,peopleRenderGroups,partsBounds,furnitureBounds,peopleI
 import {faceRotation} from './natural-layout.js';
 
 const hash=s=>[...s].reduce((n,c)=>Math.imul(n^c.charCodeAt(0),16777619)>>>0,2166136261);
-const round=n=>Math.round(n*10000)/10000;
+// +0 stores a signed zero as 0, so a regenerated scene equals its saved JSON.
+const round=n=>Math.round(n*10000)/10000+0;
 const seats=new Set(['chair','taskchair','sofa','bench','stool']);
 const tables=new Set(['desk','table','roundtable','coffeetable','conference','reception','counter','island']);
 const sourcesCache=new WeakMap();

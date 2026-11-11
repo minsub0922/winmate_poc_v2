@@ -10,7 +10,7 @@ import { NATURAL_LAYOUT_VERSION, CLEARANCE, bindNaturalRelations, orientNaturalR
 export { inspectNaturalLayout, NATURAL_LAYOUT_VERSION } from './natural-layout.js';
 
 export const SCENE_VERSION = 1;
-export const round = n => Math.round(n*10000)/10000;
+export const round = n => Math.round(n*10000)/10000+0; // +0: no signed zero in saved scenes
 export function fingerprint(value) {
   const canonical = v => Array.isArray(v) ? v.map(canonical) : v && typeof v==='object'
     ? Object.fromEntries(Object.keys(v).sort().map(k=>[k,canonical(v[k])])) : v;
@@ -253,32 +253,51 @@ export function createScene(config, library) {
   return scene;
 }
 
-function placeProduct(scene,room,asset,assets,index,{supportId,reason}={}) {
+// Countertop, desktop and carried products sit on furniture. Large accessories
+// such as solar modules or brackets keep their floor placement.
+const SURFACE_KINDS=new Set(['tablet','phone','laptop','monitor','sensor','induction','kiosk','watch','earbuds','headset','water','oven','desktop']);
+const surfaceKind=asset=>SURFACE_KINDS.has(asset.kind)||asset.kind==='accessory'&&Math.max(...asset.size)<=.4;
+const SIDE_SLOT_KINDS=new Set(['tablet','phone','watch','earbuds','headset','accessory','water','oven','kiosk']);
+function placeProduct(scene,room,asset,assets,index,{supportId,reason,autoSupport=true}={}) {
   const [w,h,d]=asset.size;
-  if(!supportId&&room.equipmentPolicyVersion===SPACE_EQUIPMENT_VERSION&&['monitor','tablet'].includes(asset.kind)&&w<.8){
-    supportId=scene.objects.find(o=>o.roomId===room.id&&assets[o.assetId]?.kind==='desk'&&!scene.objects.some(p=>p.supportId===o.id&&p.assetId===asset.id))?.id;
+  const auto=!supportId&&autoSupport&&room.equipmentPolicyVersion===SPACE_EQUIPMENT_VERSION&&['monitor','tablet'].includes(asset.kind)&&w<.8;
+  if(auto){
+    // Prefer an empty desk; otherwise the first desk without the same device.
+    const desks=scene.objects.filter(o=>o.roomId===room.id&&assets[o.assetId]?.kind==='desk');
+    supportId=(desks.find(o=>!scene.objects.some(p=>p.supportId===o.id&&assets[p.assetId]?.productId))||desks.find(o=>!scene.objects.some(p=>p.supportId===o.id&&p.assetId===asset.id)))?.id;
   }
   while(scene.objects.some(o=>o.id===`${room.id}-p${index}-${asset.productId}`||o.id===`${room.id}-p${index}-${asset.productId}-stand`))index++;
   const base={id:`${room.id}-p${index}-${asset.productId}`,assetId:asset.id,roomId:room.id,rotation:0,elevation:0,...(reason?{placementReason:reason}:{})};
   const candidates=[];
   const ceiling=['cassette','cassette360','light'].includes(asset.kind);
-  const wall=!asset.placementSurface&&['display','tablet','wallac','sensor'].includes(asset.kind)&&(asset.kind!=='tablet'||w>.7);
+  const wall=!asset.placementSurface&&['display','tablet','wallac','sensor','hood'].includes(asset.kind)&&(asset.kind!=='tablet'||w>.7);
   if(ceiling) {
     for(const fx of [.5,.24,.76])for(const fz of [.45,.7,.2])candidates.push({...base,x:room.x+room.width*fx,z:room.z+room.depth*fz,elevation:room.height-h-.12,mount:'ceiling'});
   }else if(wall){
-    for(const f of [.5,.23,.76])candidates.push({...base,x:room.x+room.width*f,z:room.z+d/2+.14,elevation:Math.min(1.2,room.height-h-.15),mount:'wall'});
-  }else if(asset.placementSurface==='surface'||asset.placementSurface!=='floor'&&['tablet','phone','laptop','monitor','sensor','induction','kiosk'].includes(asset.kind)){
+    // A range hood hangs above the cooking counter; screens and controls sit at eye level.
+    for(const f of [.5,.23,.76])candidates.push({...base,x:room.x+room.width*f,z:room.z+d/2+.14,elevation:Math.min(asset.kind==='hood'?1.75:1.2,room.height-h-.15),mount:'wall'});
+  }else if(asset.placementSurface==='surface'||asset.placementSurface!=='floor'&&surfaceKind(asset)){
     for(const support of scene.objects.filter(o=>o.roomId===room.id&&(!supportId||o.id===supportId)&&['desk','counter','table','roundtable','conference','island','reception','bench','cabinet','stage'].includes(assets[o.assetId]?.kind))){
       const s=assets[support.assetId],worker=scene.objects.find(o=>o.facing?.targetId===support.id&&o.facing.activity==='work');
       const rotation=worker?faceRotation(support,worker,asset):support.rotation||0,direction=frontVector({rotation},asset);
       if(w<s.size[0]&&d<s.size[2]){
         const offset=asset.kind==='monitor'?-Math.min(.19,(s.size[2]-d)/2-.025):asset.kind==='laptop'?Math.min(.16,(s.size[2]-d)/2-.025):0;
-        candidates.push({...base,x:support.x+direction.x*offset,z:support.z+direction.z*offset,rotation,elevation:(support.elevation||0)+(s.supportSurfaceHeight??s.size[1])+.025,supportId:support.id,mount:'surface'});
+        // A desktop body stands at the side of the work surface, clear of the screen and keyboard.
+        const side=asset.kind==='desktop'?Math.max(0,(s.size[0]-w)/2-.03):0;
+        candidates.push({...base,x:support.x+direction.x*offset+direction.z*side,z:support.z+direction.z*offset-direction.x*side,rotation,elevation:(support.elevation||0)+(s.supportSurfaceHeight??s.size[1])+.025,supportId:support.id,mount:'surface'});
       }
+    }
+    // Small devices may share a wide top beside another product, only after every free centre.
+    if(SIDE_SLOT_KINDS.has(asset.kind))for(const centre of candidates.filter(c=>c.mount==='surface')){
+      const s=assets[scene.objects.find(o=>o.id===centre.supportId).assetId],direction=frontVector({rotation:centre.rotation},asset),lateral=(s.size[0]-w)/2-.04;
+      if(lateral<Math.max(.15,w*.6))continue;
+      for(const sign of [-1,1])candidates.push({...centre,x:centre.x+direction.z*lateral*sign,z:centre.z-direction.x*lateral*sign});
     }
   }
   if(supportId){
     const chosen=candidates.find(o=>o.supportId===supportId&&canPlace(o,room,scene.objects,assets));
+    // An automatically chosen desk that is already occupied falls back to the general search.
+    if(!chosen&&auto)return placeProduct(scene,room,asset,assets,index,{reason,autoSupport:false});
     if(!chosen)throw new Error(`${room.name}: ${asset.name}을 해당 작업석에 놓을 수 없습니다.`);
     chosen.x=round(chosen.x);chosen.z=round(chosen.z);chosen.elevation=round(chosen.elevation);scene.objects.push(chosen);return;
   }
@@ -294,7 +313,7 @@ function placeProduct(scene,room,asset,assets,index,{supportId,reason}={}) {
       if(canPlace(candidate,room,scene.objects,assets)){chosen=candidate;candidates.push(candidate);}
     }
   }
-  if(chosen?.mount==='floor'&&asset.placementSurface!=='floor'&&(asset.placementSurface==='surface'||['tablet','phone','laptop','monitor','induction','kiosk'].includes(asset.kind))){
+  if(chosen?.mount==='floor'&&asset.placementSurface!=='floor'&&(asset.placementSurface==='surface'||surfaceKind(asset)&&asset.kind!=='sensor')){
     const supportAsset=assets[w>.7&&asset.kind==='tablet'?'furniture:displaystand':'furniture:coffeetable'];
     const pair=candidates.filter(o=>o.mount==='floor').map(c=>{
       const support={id:base.id+'-stand',assetId:supportAsset.id,roomId:room.id,x:c.x,z:c.z,elevation:0,rotation:0};

@@ -1,10 +1,12 @@
-// 공간 조감도 데이터 — 로컬 Winmate(localhost:8788)의 공간 조감도 라이브러리(733e40b9)를 같은 조립 엔진(winmate-spatial-1)으로
-// 배치한 결과를 구워 넣은 것: 업종 16개 × 12가지 공간 조합 + 코워킹 4 + 복합 · 근린생활 10 = 206개 (굽는 법: 프로젝트 claude/building-birdseye.md 「데이터」)
+// 공간 조감도 데이터 — 로컬 Winmate의 공간 조감도 라이브러리를 같은 조립 엔진(winmate-spatial-1)으로 배치한 결과를 구워 넣은 것.
+// 샘플 버티컬 시나리오 층 206개(업종 16개 × 12가지 공간 조합 + 코워킹 4 + 복합 · 근린생활 10) + 버티컬 층 94개(버티컬 44개의 공간 조합, lay 'vt').
+// 굽는 법: node app/scripts/build_building_bake.mjs (라이브러리 · app/data/spatial/vertical-layouts.json → bake.b64 · presets-verticals.js)
 // 페이지에는 gzip + base64로 들어 있다(<script id="wm-bld-data" data-enc="gzip-base64">) — ready()가 풀어 둔 뒤 data()로 쓴다.
 // tpl.rooms : [id, 이름, 종류, x, z, 가로, 세로, 실외, 목적]
 // tpl.objs  : [자산 번호, x, z, 높이, 회전(도), 공간 번호, 천장 설치]
 // tpl.ppl   : [x, 바닥 y, z, 키, 폭, 상의, 하의, 피부, 머리, 앉음]
-// tpl.lay   : 공간 조합 — full 전체 · x6 확장 6 · five 5 · f4 핵심 4 · b4 지원 4 · m4 혼합 4 · p4 확장 4 · bar 일자형 3 · mx 복합층 · std 표준 건물 조감도 층(bake-standard.js)
+// tpl.lay   : 공간 조합 — full 전체 · x6 확장 6 · five 5 · f4 핵심 4 · b4 지원 4 · m4 혼합 4 · p4 확장 4 · bar 일자형 3 · mx 복합층 · vt 버티컬 층 · std 표준 건물 조감도 층(bake-standard.js)
+// tpl.vt · vl : 버티컬 id · 이름(버티컬 층만), tpl.sign : 외벽 간판 글자(있으면)
 
 import { STANDARD_BAKE } from './bake-standard.js';
 
@@ -58,8 +60,10 @@ function prep(raw) {
     return {
       ...t,
       indName: ind[t.ind] || t.ind,
-      // 층 이름표 — 업종 이름(복합층은 층 이름)
-      short: t.ind === 'MX' ? t.name : ind[t.ind] || t.name,
+      // 버티컬 층(vt)은 버티컬 이름을 붙여 고르기 창에서 구분한다
+      name: t.vt ? `${t.vl} · ${t.name}` : t.name,
+      // 층 이름표 — 업종 이름(복합층 · 버티컬 층은 층 이름)
+      short: t.vt ? t.name : t.ind === 'MX' ? t.name : ind[t.ind] || t.name,
       area,
       sizeText: `${Math.round(t.w)}×${Math.round(t.d)}m`,
       sizeClass: area < 200 ? 'S' : area < 420 ? 'M' : 'L',

@@ -1,8 +1,9 @@
-// 표준 건물 조감도 — 건물 스튜디오 시작 창의 「표준 건물 조감도」 묶음(건물 템플릿 54와 따로) · 고르면 층마다 공간 · 층 이름이 채워진 채로 열림.
+// 표준 건물 조감도 — 건물 스튜디오 시작 창의 「표준 건물 조감도」 묶음(건물 템플릿 — 샘플 버티컬 시나리오 54 · 버티컬 44 — 과 따로) · 고르면 층마다 공간 · 층 이름이 채워진 채로 열림.
 // 앱 서버 없이 Vite + /api/bootstrap 대역으로 검사한다: node app/tests/building-standard-ui.mjs
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import zlib from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 import { chromium } from '../web/node_modules/playwright/index.mjs';
 import { createServer } from '../web/node_modules/vite/dist/node/index.js';
@@ -13,6 +14,9 @@ const read = (n) => JSON.parse(fs.readFileSync(path.join(root, 'app/data', n + '
 const boot = { catalog: read('catalog'), products: read('products_db'), images: read('images'), capabilities: null, user: { username: 'building-standard-test', auth_enabled: false } };
 const LONG = 240000, checks = [], errors = [], pass = (s) => { checks.push(s); console.log('PASS ' + s); };
 const { STD_PRESETS } = await import(path.join(root, 'app/web/src/building/presets-standard.js'));
+const { PRESETS } = await import(path.join(root, 'app/web/src/building/presets.js'));
+// 기본 데이터(bake.b64) 층 수 — 샘플 버티컬 시나리오 206 + 버티컬 94
+const BASE_FLOORS = JSON.parse(zlib.gunzipSync(Buffer.from(fs.readFileSync(path.join(root, 'app/web/src/building/bake.b64'), 'utf8').trim(), 'base64')).toString()).tpl.length;
 
 const server = await createServer({ root: path.join(root, 'app/web'), configFile: path.join(root, 'app/web/vite.config.js'), logLevel: 'error', server: { host: '127.0.0.1', port: 0, strictPort: false, hmr: false } });
 let browser;
@@ -35,10 +39,10 @@ try {
   const head = page.locator('.bd-pick-modal .bd-std-group .bd-group-head');
   assert.equal((await head.innerText()).trim(), '표준 건물 조감도');
   assert.equal(await page.locator('.bd-pick-modal .bd-std').count(), STD_PRESETS.length);
-  assert.equal(await page.locator('.bd-pick-modal .bd-pre').count(), 54);
+  assert.equal(await page.locator('.bd-pick-modal .bd-pre').count(), PRESETS.length);
   const first = await page.locator('.bd-pick-modal .bd-group').first().getAttribute('aria-label');
   assert.equal(first, '표준 건물 조감도');
-  pass(`start dialog lists ${STD_PRESETS.length} standard buildings above the 54 building templates`);
+  pass(`start dialog lists ${STD_PRESETS.length} standard buildings above the ${PRESETS.length} building templates`);
 
   await page.locator('.bd-pick-modal .bd-chip', { hasText: '호텔' }).click();
   assert.equal(await page.locator('.bd-pick-modal .bd-std:not([hidden])').count(), STD_PRESETS.filter((p) => p.ind === 'HT').length);
@@ -69,8 +73,8 @@ try {
     const D = window.__wmBldMod_.data(), std = D.tpl.filter((t) => t.lay === 'std'); // the same module instance the page mounted
     return { floors: std.length, base: D.tpl.length - std.length, ids: std.flatMap((t) => t.rooms.map((r) => r[0])) };
   });
-  assert.equal(rooms.base, 206); assert.equal(rooms.floors, 26); assert.equal(new Set(rooms.ids).size, rooms.ids.length);
-  pass('standard floors are appended after the 206 base floors and no space repeats');
+  assert.equal(rooms.base, BASE_FLOORS); assert.equal(rooms.floors, 26); assert.equal(new Set(rooms.ids).size, rooms.ids.length);
+  pass(`standard floors are appended after the ${BASE_FLOORS} base floors and no space repeats`);
   assert.deepEqual(errors, []);
   console.log(`${checks.length}/${checks.length} building-standard checks passed`);
 } finally { await browser?.close(); await server.close(); }

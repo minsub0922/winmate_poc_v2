@@ -235,6 +235,18 @@ const fixtures=[
 ];
 for(const [id,name,kind,size,inds,spaces,desc,parts] of fixtures)add(id,name,kind,size,'공간 구획 · 비품',inds,spaces,desc,parts);
 
+// Taxonomy groups added with the vertical maps (sport · religion · broadcasting · military)
+// reuse the furniture of their spaces. Only catalogue tags change; shapes and IDs do not.
+const GROUP_FURNITURE={
+  SF:[['스포츠','피트니스','헬스장','골프'],'gym-bench locker-changing desk-reception-small queue-post sofa-modular'],
+  RG:[['종교','예배당','교회','성당','사찰'],'auditorium-chair lectern-wood folding-event table-training-fold training-stack table-dining-four'],
+  MB:[['방송','스튜디오','미디어','부조정실'],'auditorium-chair lectern-wood desk-office office-mesh partition-acoustic rail-clothes stand-coat sofa-modular'],
+  MI:[['군','부대','생활관','지휘통제'],'bed-bunk bed-single locker-office desk-office office-mesh cabinet-files table-dining-four training-stack gym-bench'],
+};
+for(const [code,[words,ids]] of Object.entries(GROUP_FURNITURE))for(const id of ids.split(' ')){
+  const variant=variants.find(v=>v.id==='furniture:'+id);if(!variant)throw new Error('Unknown furniture for '+code+': '+id);
+  variant.industries=[...variant.industries,code];variant.keywords=[...new Set([...variant.keywords,...words])];
+}
 export const FURNITURE_VARIANTS=variants;
 export const FURNITURE_RECIPES=Object.fromEntries(variants.map(a=>[a.recipe,a.parts]));
 export const FURNITURE_CATEGORIES=['의자 · 좌석','벤치 · 연결 좌석','소파 · 라운지','책상 · 테이블','수납 · 진열 · 운반','침대 · 휴식 가구','공간 구획 · 비품'];

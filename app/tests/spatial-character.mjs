@@ -28,7 +28,12 @@ for(const template of library.templates){
  const scene=createScene({templateId:template.id},library);assert.deepEqual(scene,scenes[template.id],template.id+' deterministic');assert.deepEqual(validateScene(scene,library).errors,[],template.id);assert.deepEqual(inspectNaturalLayout(scene,library).issues,[],template.id+' clearance');checkCharacter(scene);rooms+=scene.rooms.length;
  for(const object of scene.objects.filter(o=>o.autoDressing))assert.equal(detailSupportError(object,scene,assets),null,'dressing is supported at the true surface height');
 }
-for(const industry of library.industries){
+// Best-scenario overviews per industry, then every taxonomy vertical zone map (form → regenerated scene).
+for(const template of library.templates.filter(t=>t.vertical&&t.scope==='full'&&t.variant==='standard')){
+ const rebuilt=createSceneFromForm(studioDocumentFromTemplate(template,library).form,library);
+ assert.deepEqual(validateScene(rebuilt,library).errors,[],template.id);assert.deepEqual(inspectNaturalLayout(rebuilt,library).issues,[],template.id);checkCharacter(rebuilt);
+}
+for(const industry of library.industries.filter(i=>library.templates.some(t=>t.id===i.code.toLowerCase()+'-full-standard'))){
  const template=library.templates.find(t=>t.id===industry.code.toLowerCase()+'-full-standard'),scene=scenes[template.id],document=studioDocumentFromTemplate(template,library),rebuilt=createSceneFromForm(document.form,library);
  assert.deepEqual(validateScene(rebuilt,library).errors,[]);assert.deepEqual(inspectNaturalLayout(rebuilt,library).issues,[]);checkCharacter(rebuilt);
  coverage.push({industry:industry.code,rooms:scene.rooms.map(r=>({id:r.id,name:r.name,size:[r.width,r.depth],objects:scene.objects.filter(o=>o.roomId===r.id&&(o.autoDressing||o.assetId.startsWith('furniture:'))).map(o=>({id:o.assetId,name:assets[o.assetId].name,supportId:o.supportId}))}))});

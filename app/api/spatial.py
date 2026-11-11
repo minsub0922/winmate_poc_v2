@@ -440,7 +440,8 @@ def build_router():
         if not isinstance(prompt,str) or not 3<=len(prompt.strip())<=6000:raise HTTPException(422,'공간 요구사항을 3~6,000자로 입력해 주세요.')
         lib=request.app.state.spatial_library
         if industry not in {i['code'] for i in lib.library['industries']}:raise HTTPException(422,'등록된 업종을 선택해 주세요.')
-        choices=[t for t in lib.library['templates'] if t['industry']==industry and t['variant']=='standard' and not t['id'].startswith('case-')]
+        # Vertical-taxonomy maps join as full zone maps only (their single spaces are the zone rooms).
+        choices=[t for t in lib.library['templates'] if t['industry']==industry and t['variant']=='standard' and not t['id'].startswith('case-') and (not t.get('vertical') or t['scope']=='full')]
         candidates=[a for a in lib.library['assets'] if a.get('productId') and a['physical']]
         terms=prompt.lower().split()
         def relevance(a):
@@ -462,7 +463,7 @@ def build_router():
             result=provider.generate_json(stage='spatial:plan',system='당신은 공간·가구·삼성 제품 배치 설계자입니다. 입력 요구를 등록된 재사용 공간 템플릿과 오브젝트로 계획하세요. 이미지나 코드를 생성하지 않습니다. 전체/개별 범위와 공간 스타일, 업무 동선, 제품 설치 위치를 고려하세요. 등록된 ID만 사용하세요. 기본 제품·가구는 유지되므로 placements와 furniture에는 필요한 항목만 넣으세요. 사람 연출은 사람과 가구·도구가 묶인 한 오브젝트이며 quantity는 묶음 개수입니다. quantity는 기본을 포함한 목표 총수량입니다. 기본 1개와 동일한 항목을 중복 추가하지 않습니다. 좌석 수 요구는 roomSettings.capacity로 지정하며 office/study/classroom 1~60석, meeting 2~14석을 지원합니다. 좌석이 많으면 전체 면적을 충분히 확대하세요. 격자는 최대3열, 행수=ceil(선택공간수/3), 복도1.8m입니다. 업무석은 가로1.85m*세로2.25m(의자 뒤 동선 포함), 여백1.5m가 필요합니다. 30석 업무실을 포함한 전체5개공간이면 가로40m 세로27m 이상 권장. placements의 x,z는 공간 내부 미터 좌표이며 정확히 요청된 위치에만 사용하고 그 외에는 생략해 자동 충돌검사를 받으세요. elevation은 바닥에서 제품 하단 높이입니다. roomKeys는 사용할 템플릿 공간 키만 선택하세요. 전체 구성은 원래 공간 수를 유지하세요. 실측 자료가 없으므로 개념 설계임을 설명하세요. 최대 가로/세로150m. 유효한 JSON만 반환하세요.',
                 user=json.dumps({'request':prompt,'industry':industry,'selectedTemplate':body.get('templateId'),'placementPolicy':'사용자가 숫자 좌표를 직접 제시하지 않았다면 placementMode=auto로 정하고 x,z,elevation,rotation을 생략하세요. exact는 사용자가 직접 지정한 미터 좌표에만 사용하며 quantity=1입니다. 기본 제품과 같은 항목의 quantity=1은 추가 배치가 아니라 현행 유지입니다.',
                   'geometryFeedback':str(body.get('feedback',''))[:1000],'previousPlan':body.get('previousPlan') if isinstance(body.get('previousPlan'),dict) and len(json.dumps(body['previousPlan']))<20000 else None,
-                  'templates':[{'id':t['id'],'name':t['name'],'width':t['width'],'depth':t['depth'],'rooms':t['rooms']} for t in choices],'products':products,'furniture':furniture},ensure_ascii=False),schema=schema,max_output_tokens=4096,max_attempts=2,cache_allowed=False)
+                  'templates':[{'id':t['id'],'name':t['name'],'width':t['width'],'depth':t['depth'],'rooms':[{k:r[k] for k in ('key','name','kind','spaceProfile','productsText','productIds') if k in r} for r in t['rooms']] if t.get('vertical') else t['rooms']} for t in choices],'products':products,'furniture':furniture},ensure_ascii=False),schema=schema,max_output_tokens=4096,max_attempts=2,cache_allowed=False)
         except ProviderError as exc:raise HTTPException(502,exc.message or '공간 설계를 생성하지 못했습니다. 다시 시도해 주세요.') from exc
         out=result.data
         if not isinstance(out,dict) or out.get('templateId') not in {t['id'] for t in choices} or out.get('style') not in STYLES:raise HTTPException(502,'LLM이 유효하지 않은 공간 템플릿을 반환했습니다.')
