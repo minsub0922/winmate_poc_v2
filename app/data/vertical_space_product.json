@@ -1,0 +1,460 @@
+{
+  "meta": {
+    "title": "Samsung Korea B2B Vertical-Space-Product Taxonomy",
+    "version": "2026-11-11",
+    "base_url": "https://www.samsung.com/sec/business",
+    "url_note": "category url은 base_url 기준 상대경로. verified=false는 제품 상세 페이지 경로에서 추정한 slug로 목록 페이지 직접 확인 필요. url=null은 slug 미확인.",
+    "update_note": "2026-11-11 솔루션 매칭 작업에서 SOL 그룹 11개 url을 사이트 푸터 링크와 상세 페이지로 확인해 채움(안전관리 솔루션은 메뉴에 url 없음). 공간별 솔루션 기능 매칭은 같은 폴더의 vertical_space_solution.json(같은 vertical·space id).",
+    "product_rule": "products 배열에는 product_taxonomy.categories.id만 사용. 'g_' 접두는 한국 사이트에 분류가 없는 글로벌 전용(kr_site=false). 's_' 접두는 하드웨어가 아닌 솔루션.",
+    "size_rule": "의료(30/100병상)는 의료법, 대규모점포(3,000㎡)는 유통산업발전법 기준. 그 외 규모 기준은 영업 실무용 제안값.",
+    "exclusions": "화장실, 계단, 복도, 주차장 등 제품 배치 의미가 낮은 공간 제외",
+    "official_industries": ["공공>공공기관", "공공>군기관", "제조", "금융", "교육>학교", "교육>학원", "건설>홈", "건설>오피스텔", "건설>오피스", "건설>중소형 오피스", "유통/요식>유통", "유통/요식>요식", "운송", "의료>병원", "의료>중소형 의원", "호텔", "통신"],
+    "groups": {
+      "FB": "외식·카페 프랜차이즈", "RT": "리테일·브랜드 플래그십", "SV": "생활 편의·무인 매장", "HT": "호텔·리조트", "TP": "테마파크·관광·전시", "VN": "공연장·경기장·영화관", "AD": "옥외·미디어 광고", "OF": "오피스·업무 빌딩", "RS": "주거 분양·주택", "ID": "인테리어·가구·빌트인 파트너", "ED": "교육·캠퍼스", "PB": "공공·교통 인프라", "MD": "의료·요양·케어", "MF": "제조·물류·현장", "FN": "금융", "OE": "파트너 전용 단말·에디션",
+      "SF": "스포츠·피트니스(신규)", "RG": "종교시설(신규)", "MB": "방송·미디어 스튜디오(신규)", "MI": "군기관(신규, 공식 업종 '군기관')"
+    },
+    "sources": [
+      "https://www.samsung.com/sec/business/smart-signage/",
+      "https://www.samsung.com/sec/business/smart-signage/all-smart-signage/",
+      "https://www.samsung.com/sec/business/led-signage/",
+      "https://www.samsung.com/sec/business/system-air-conditioners/",
+      "https://www.samsung.com/sec/business/refrigerator/all-refrigerator/",
+      "https://www.samsung.com/sec/business/washing-machines/",
+      "https://www.samsung.com/sec/business/airdresser/",
+      "https://www.samsung.com/sec/business/hotel-tvs/all-hotel-tvs/",
+      "https://www.samsung.com/sec/business/hospital/",
+      "https://www.samsung.com/sec/business/hospitality/",
+      "https://www.samsung.com/sec/business/restaurant-business/",
+      "https://www.samsung.com/sec/business/transportation/",
+      "https://www.samsung.com/sec/business/education/",
+      "https://www.samsung.com/sec/business/academy/",
+      "https://www.samsung.com/sec/business/construction/",
+      "https://www.samsung.com/sec/business/officetel/",
+      "https://www.samsung.com/sec/business/office/",
+      "https://www.samsung.com/sec/business/small-medium-office/",
+      "https://www.samsung.com/sec/business/manufacture/",
+      "https://www.samsung.com/sec/business/government/",
+      "https://www.samsung.com/sec/business/built-in-appliances/",
+      "https://www.samsung.com/sec/business/b-iot-solutions/b-iot-solution/"
+    ]
+  },
+  "product_taxonomy": [
+    {"id": "SAC", "name": "시스템에어컨", "url": "/system-air-conditioners/", "kr_site": true, "categories": [
+      {"id": "sac_l_in", "name": "대형건물용 실내기", "url": "/dvms-indoor/", "verified": true},
+      {"id": "sac_l_out", "name": "대형건물용 실외기", "url": "/dvms-outdoor/", "verified": true},
+      {"id": "sac_sm", "name": "중소건물용 실내외기", "url": "/cooling-single/", "verified": true},
+      {"id": "sac_res", "name": "주거용 실내외기", "url": "/cooling-for-residential/", "verified": true},
+      {"id": "sac_ehs", "name": "바닥난방/급탕 솔루션 (EHS 히트펌프 보일러)", "url": "/heat-pump-boilers/", "verified": false},
+      {"id": "sac_vent", "name": "환기 솔루션 (전열교환기·시스템 청정환기)", "url": "/ventilations/", "verified": true},
+      {"id": "sac_ctr", "name": "중앙공조 (DVM 칠러)", "url": "/central-air-conditionings/", "verified": true},
+      {"id": "sac_cold", "name": "콜드체인 시스템", "url": "/Cold_Chain_System/all-Cold_Chain_System/", "verified": true}
+    ]},
+    {"id": "KIT", "name": "주방가전", "url": null, "kr_site": true, "categories": [
+      {"id": "ref_home", "name": "냉장고 > 가정용 냉장고 (Infinite Line·Bespoke·Bespoke AI·일반 냉장고)", "url": "/refrigerator/all-refrigerator/", "verified": true},
+      {"id": "ref_comm", "name": "냉장고 > 업소용 냉장고/냉동고", "url": "/business-refrigerator/", "verified": true},
+      {"id": "ref_bi", "name": "냉장고 > 빌트인 냉장고 (가구 부착형 포함)", "url": "/built-in-appliances/", "verified": true},
+      {"id": "kimchi", "name": "김치냉장고", "url": "/kimchi-refrigerators/all-kimchi-refrigerators/", "verified": true},
+      {"id": "dish", "name": "식기세척기", "url": "/dish-washer/all-dish-washer/", "verified": true},
+      {"id": "range", "name": "전기레인지 (인덕션)", "url": null, "verified": false},
+      {"id": "mw", "name": "전자레인지 (상업용 전자레인지)", "url": "/commercial-microwave/all-commercial-microwave/", "verified": true},
+      {"id": "oven", "name": "오븐/큐커", "url": "/qooker/", "verified": false},
+      {"id": "water", "name": "정수기", "url": "/water-purifier/", "verified": false},
+      {"id": "hood", "name": "후드", "url": "/hood/all-hood/", "verified": true},
+      {"id": "kit_acc", "name": "주방가전 액세서리", "url": null, "verified": false}
+    ]},
+    {"id": "LIV", "name": "리빙가전", "url": null, "kr_site": true, "categories": [
+      {"id": "wash", "name": "세탁기 (가정용)", "url": "/washing-machines/all-washing-machines/", "verified": true},
+      {"id": "dry", "name": "건조기 (가정용)", "url": "/dryers/", "verified": false},
+      {"id": "laundry_b2b", "name": "상업용 세탁기/건조기 (B2B 세탁기/건조기·코인형)", "url": "/washing-machines/", "verified": true},
+      {"id": "airdresser", "name": "에어드레서", "url": "/airdresser/all-airdresser/", "verified": true},
+      {"id": "shoe", "name": "슈드레서", "url": null, "verified": false},
+      {"id": "ac", "name": "에어컨 (스탠드·벽걸이)", "url": "/air-conditioners/", "verified": false},
+      {"id": "air", "name": "공기청정기/제습기", "url": "/air-cleaners/", "verified": true},
+      {"id": "vac", "name": "청소기", "url": null, "verified": false},
+      {"id": "light", "name": "LED조명", "url": "/lamp/", "verified": false}
+    ]},
+    {"id": "SIG", "name": "사이니지", "url": "/smart-signage/", "kr_site": true, "categories": [
+      {"id": "lcd_std", "name": "스마트 LCD 사이니지 > 단독형", "url": "/smart-signage/all-smart-signage/", "verified": true},
+      {"id": "btv", "name": "스마트 LCD 사이니지 > 비즈니스TV", "url": "/smart-signage/all-smart-signage/", "verified": true},
+      {"id": "vwall", "name": "스마트 LCD 사이니지 > 비디오월", "url": "/smart-signage/all-smart-signage/", "verified": true},
+      {"id": "lcd_out", "name": "스마트 LCD 사이니지 > 실외용", "url": "/smart-signage/all-smart-signage/", "verified": true},
+      {"id": "lcd_win", "name": "스마트 LCD 사이니지 > 실외용(창문형)", "url": "/smart-signage/all-smart-signage/", "verified": true},
+      {"id": "iwb", "name": "스마트 LCD 사이니지 > 전자칠판 (Flip Pro·WAF)", "url": "/smart-signage/all-smart-signage/", "verified": true},
+      {"id": "epaper", "name": "스마트 LCD 사이니지 > E Paper", "url": "/smart-signage/all-smart-signage/", "verified": true},
+      {"id": "spatial", "name": "스마트 LCD 사이니지 > 스페이셜 사이니지", "url": "/smart-signage/all-smart-signage/", "verified": true},
+      {"id": "led_in", "name": "스마트 LED 사이니지 > 실내용 LED (The Wall·IEA)", "url": "/led-signage/", "verified": true},
+      {"id": "led_out", "name": "스마트 LED 사이니지 > 실외용 LED", "url": "/led-signage/", "verified": true}
+    ]},
+    {"id": "TVA", "name": "TV/음향", "url": null, "kr_site": true, "categories": [
+      {"id": "htv", "name": "호텔TV", "url": "/hotel-tvs/all-hotel-tvs/", "verified": true},
+      {"id": "tv", "name": "TV (The Frame·무빙스타일 포함)", "url": null, "verified": false},
+      {"id": "harman", "name": "하만 프로 오디오", "url": null, "verified": false}
+    ]},
+    {"id": "MOB", "name": "모바일", "url": null, "kr_site": true, "categories": [
+      {"id": "phone", "name": "스마트폰", "url": "/smartphones/all-smartphones/", "verified": true},
+      {"id": "tab", "name": "태블릿", "url": "/tablets/all-tablets/", "verified": true},
+      {"id": "watch", "name": "워치", "url": "/watches/all-watches/", "verified": true},
+      {"id": "buds", "name": "버즈", "url": null, "verified": false},
+      {"id": "ring", "name": "링", "url": null, "verified": false},
+      {"id": "xr", "name": "XR", "url": null, "verified": false},
+      {"id": "mob_acc", "name": "모바일 액세서리", "url": "/mobile-accessories/all-mobile-accessories/", "verified": true}
+    ]},
+    {"id": "ITP", "name": "IT/프린터", "url": null, "kr_site": true, "categories": [
+      {"id": "dmfp", "name": "디지털 복합기", "url": "/digital-multifunction-printers/all-digital-multifunction-printers/", "verified": true},
+      {"id": "mfp", "name": "일반 프린터/복합기", "url": "/general-multifunction-printers/all-general-multifunction-printers/", "verified": true},
+      {"id": "supply", "name": "소모품", "url": null, "verified": false},
+      {"id": "nb", "name": "노트북", "url": "/notebook/all-notebook/", "verified": true},
+      {"id": "cb", "name": "크롬북", "url": "/chromebooks/all-chromebooks/", "verified": true},
+      {"id": "desk", "name": "올인원PC/데스크탑", "url": "/desktop/all-desktop/", "verified": true},
+      {"id": "mon", "name": "모니터", "url": "/monitors/all-monitors/", "verified": true}
+    ]},
+    {"id": "SOL", "name": "솔루션 (하드웨어 아님)", "url": null, "kr_site": true, "categories": [
+      {"id": "s_stp", "name": "스마트싱스 프로페셔널 솔루션", "url": "/smartthingspro/", "verified": true},
+      {"id": "s_biot", "name": "b.IoT", "url": "/b-iot-solutions/b-iot-solution/", "verified": true},
+      {"id": "s_dms", "name": "DMS 2.5", "url": "/sac-solution/sac-solution-aim-d01an/AIM-D01AN/", "verified": true},
+      {"id": "s_touch", "name": "터치 중앙 제어기", "url": "/sac-solution/sac-solution-acm-a300bn/ACM-A300BN/", "verified": true},
+      {"id": "s_wifi", "name": "Wi-Fi KIT", "url": "/sac-solution/sac-solution-aim-h04n/AIM-H04N/", "verified": true},
+      {"id": "s_vxt", "name": "VXT CMS", "url": "/display-solution/display-solution-etc30-vxtcms/ETC30-VXTCMS/", "verified": true},
+      {"id": "s_magic", "name": "MagicINFO", "url": "/display-solution/display-solution-bwmip70pa/BW-MIP70PA/", "verified": true},
+      {"id": "s_lynk", "name": "링크 클라우드 솔루션 (LYNK Cloud)", "url": "/tv-vd-solution/tv-solition-bw-hdlt11a/BW-HDLT11A/", "verified": true},
+      {"id": "s_knox", "name": "Knox 솔루션", "url": "/mobile-solution/mobile-knoxsolution/MI-KX-OSK-SBC/", "verified": true},
+      {"id": "s_health", "name": "삼성헬스 솔루션", "url": "/mobile-solution/samsunghealth-mi101shss/MI-101SHSS/", "verified": true},
+      {"id": "s_safety", "name": "안전관리 솔루션", "url": null, "verified": false},
+      {"id": "s_class", "name": "갤럭시 클래스룸", "url": "/mobile-solution/Knox-Classroom", "verified": true},
+      {"id": "s_counthru", "name": "통합출력관리 CounThru", "url": "/printing-solution/printing-solution-etc30-mps/ETC30-MPS/", "verified": true},
+      {"id": "s_secuthru", "name": "인증, 출력보안 SecuThru", "url": "/printing-solution/printing-solution-etc30-pss/ETC30-PSS/", "verified": true}
+    ]},
+    {"id": "GLB", "name": "글로벌 전용·외부 링크 (한국 B2B 제품 메뉴에 분류 없음)", "url": "https://www.samsung.com/business/", "kr_site": false, "categories": [
+      {"id": "g_kiosk", "name": "Kiosk (한국은 도입사례·뉴스에만 존재)", "url": null, "verified": false},
+      {"id": "g_cinema", "name": "Cinema LED (Onyx, 한국은 소개 영상만)", "url": null, "verified": false},
+      {"id": "g_storage", "name": "Memory & Storage (한국은 반도체 사이트로 외부 링크)", "url": null, "verified": false},
+      {"id": "g_network", "name": "Networks (한국은 글로벌 사이트로 외부 링크)", "url": null, "verified": false},
+      {"id": "g_medical", "name": "Medical Devices (한국은 samsunghealthcare.com/kr 외부 링크)", "url": null, "verified": false},
+      {"id": "g_rugged", "name": "Rugged Devices (한국은 스마트폰/태블릿에 포함)", "url": null, "verified": false}
+    ]}
+  ],
+  "verticals": [
+    {"id": "fb_qsr", "name": "외식 프랜차이즈 (QSR·패스트푸드·다점포 본사)", "group": "FB", "size_segment": "다점포 프랜차이즈", "size_criteria": "가맹·직영 50개 매장 이상, 매장 100~300㎡ (bs01)", "spaces": [
+      {"id": "fb_qsr_s1", "name": "매장 입구·쇼윈도", "products": ["lcd_win", "lcd_out", "led_out", "g_kiosk"], "evidence": ["https://www.samsung.com/sec/business/smart-signage/om-d-series/LH55OMNDSGBXKR/"]},
+      {"id": "fb_qsr_s2", "name": "주문 카운터·디지털 메뉴보드", "products": ["lcd_std", "vwall", "btv", "tab", "g_kiosk", "s_magic", "s_vxt"], "evidence": ["https://www.samsung.com/sec/business/restaurant-business/", "https://www.samsung.com/sec/business/insights/case-study/reference-Kiosk/"]},
+      {"id": "fb_qsr_s3", "name": "객석(식음 공간)", "products": ["sac_sm", "ac", "air", "btv", "harman", "light", "s_stp"], "evidence": ["https://www.samsung.com/sec/business/restaurant-business/"]},
+      {"id": "fb_qsr_s4", "name": "주방(BOH)", "products": ["ref_comm", "mw", "dish", "water", "hood", "sac_vent", "sac_sm"], "evidence": []},
+      {"id": "fb_qsr_s5", "name": "점주 사무·관리 공간", "products": ["nb", "mfp", "phone", "tab", "s_stp"], "evidence": ["https://www.samsung.com/sec/business/restaurant-business/"]},
+      {"id": "fb_qsr_s6", "name": "본사 교육장·R&D 테스트키친", "products": ["iwb", "vwall", "nb", "mon", "ref_comm", "oven", "range", "mw"], "evidence": []}
+    ]},
+    {"id": "fb_cafe", "name": "카페·베이커리 프랜차이즈 (AI 스토어 포함)", "group": "FB", "size_segment": "프랜차이즈 매장", "size_criteria": "매장 50~200㎡, 다점포 또는 직영 (bs16, bs23)", "spaces": [
+      {"id": "fb_cafe_s1", "name": "카운터·메뉴보드", "products": ["lcd_std", "btv", "tab", "g_kiosk", "epaper"], "evidence": ["https://www.samsung.com/sec/business/insights/case-study/reference-Kiosk/"]},
+      {"id": "fb_cafe_s2", "name": "쇼케이스·진열대", "products": ["ref_comm", "sac_cold", "epaper", "lcd_std"], "evidence": []},
+      {"id": "fb_cafe_s3", "name": "좌석 홀", "products": ["sac_sm", "ac", "air", "harman", "btv", "light", "s_stp"], "evidence": ["https://www.samsung.com/sec/business/restaurant-business/"]},
+      {"id": "fb_cafe_s4", "name": "베이킹 주방·제조실", "products": ["oven", "ref_comm", "mw", "dish", "water", "hood", "sac_vent"], "evidence": []},
+      {"id": "fb_cafe_s5", "name": "무인 운영 존", "products": ["g_kiosk", "s_stp", "lcd_std", "air", "light", "phone"], "evidence": ["https://www.samsung.com/sec/business/insights/case-study/reference-Kiosk/"]}
+    ]},
+    {"id": "fb_rest", "name": "단독 레스토랑·중소 식당", "group": "FB", "size_segment": "소형 독립 매장", "size_criteria": "1~3개 매장, 객석 100석 미만", "spaces": [
+      {"id": "fb_rest_s1", "name": "홀", "products": ["sac_sm", "ac", "air", "btv", "tv", "harman", "light"], "evidence": ["https://www.samsung.com/sec/business/restaurant-business/"]},
+      {"id": "fb_rest_s2", "name": "주문·계산대", "products": ["tab", "g_kiosk", "btv"], "evidence": []},
+      {"id": "fb_rest_s3", "name": "주방", "products": ["ref_comm", "kimchi", "mw", "dish", "water", "hood", "range"], "evidence": []},
+      {"id": "fb_rest_s4", "name": "프라이빗 룸", "products": ["tv", "sac_sm", "air"], "evidence": []}
+    ]},
+    {"id": "rt_mall", "name": "백화점·복합쇼핑몰·면세점", "group": "RT", "size_segment": "대규모점포", "size_criteria": "매장면적 3,000㎡ 이상 (유통산업발전법 대규모점포) (bs10)", "spaces": [
+      {"id": "rt_mall_s1", "name": "건물 외벽·파사드", "products": ["led_out", "lcd_out"], "evidence": ["https://www.samsung.com/sec/business/smart-signage/"]},
+      {"id": "rt_mall_s2", "name": "아트리움·중앙 광장", "products": ["led_in", "vwall", "spatial", "harman"], "evidence": ["https://www.samsung.com/sec/business/led-signage/"]},
+      {"id": "rt_mall_s3", "name": "입점 매장", "products": ["lcd_std", "vwall", "spatial", "epaper", "tab", "btv"], "evidence": ["https://www.samsung.com/sec/business/transportation/"]},
+      {"id": "rt_mall_s4", "name": "안내 데스크·길찾기", "products": ["lcd_std", "g_kiosk", "tab"], "evidence": []},
+      {"id": "rt_mall_s5", "name": "푸드코트·F&B 존", "products": ["lcd_std", "btv", "ref_comm", "dish", "sac_l_in"], "evidence": []},
+      {"id": "rt_mall_s6", "name": "VIP 라운지", "products": ["tv", "airdresser", "air", "harman", "ref_home", "water"], "evidence": []},
+      {"id": "rt_mall_s7", "name": "방재·통합관제실", "products": ["vwall", "mon", "desk", "s_biot"], "evidence": []},
+      {"id": "rt_mall_s8", "name": "기계실·옥상(공조)", "products": ["sac_l_out", "sac_ctr", "sac_vent", "s_dms"], "evidence": []}
+    ]},
+    {"id": "rt_hyper", "name": "대형마트·SSM", "group": "RT", "size_segment": "대형마트 / SSM", "size_criteria": "대형마트 3,000㎡ 이상, SSM 165~3,000㎡ (bs15)", "spaces": [
+      {"id": "rt_hyper_s1", "name": "입구·프로모션 존", "products": ["led_in", "vwall", "lcd_std"], "evidence": []},
+      {"id": "rt_hyper_s2", "name": "신선식품·냉장 진열", "products": ["sac_cold", "epaper", "lcd_std"], "evidence": []},
+      {"id": "rt_hyper_s3", "name": "진열 통로·엔드캡", "products": ["lcd_std", "epaper", "btv"], "evidence": []},
+      {"id": "rt_hyper_s4", "name": "계산대·셀프계산", "products": ["g_kiosk", "tab", "mon"], "evidence": []},
+      {"id": "rt_hyper_s5", "name": "가전 판매·체험 코너", "products": ["tv", "ref_home", "wash", "airdresser", "phone", "tab"], "evidence": []},
+      {"id": "rt_hyper_s6", "name": "후방 창고·작업장", "products": ["sac_cold", "ref_comm", "phone", "tab", "g_rugged"], "evidence": []},
+      {"id": "rt_hyper_s7", "name": "매장 공조(기계실)", "products": ["sac_l_in", "sac_l_out", "sac_ctr"], "evidence": []}
+    ]},
+    {"id": "rt_flag", "name": "브랜드 플래그십·쇼룸·자동차 전시장", "group": "RT", "size_segment": "체험형 단일 매장", "size_criteria": "단일 매장 300㎡ 이상, 브랜드 체험 목적 (bs06)", "spaces": [
+      {"id": "rt_flag_s1", "name": "쇼윈도·파사드", "products": ["lcd_win", "led_out", "spatial"], "evidence": []},
+      {"id": "rt_flag_s2", "name": "메인 체험존", "products": ["led_in", "spatial", "vwall", "harman", "xr"], "evidence": ["https://www.samsung.com/sec/business/led-signage/IEA-Series/LH020IEACLS/KR/"]},
+      {"id": "rt_flag_s3", "name": "제품 진열 존", "products": ["lcd_std", "epaper", "tab"], "evidence": []},
+      {"id": "rt_flag_s4", "name": "상담·고객 라운지", "products": ["tv", "tab", "airdresser", "water", "ref_home", "sac_sm"], "evidence": []},
+      {"id": "rt_flag_s5", "name": "피팅룸·VIP 룸", "products": ["lcd_std", "airdresser", "shoe", "air"], "evidence": ["https://www.samsung.com/sec/business/retail"]}
+    ]},
+    {"id": "rt_small", "name": "편의점·약국·소형 매장", "group": "RT", "size_segment": "소형 매장", "size_criteria": "매장 300㎡ 미만, 1인~소수 운영", "spaces": [
+      {"id": "rt_small_s1", "name": "카운터·결제", "products": ["g_kiosk", "tab", "btv"], "evidence": ["https://www.samsung.com/sec/business/insights/news/news-20210217/"]},
+      {"id": "rt_small_s2", "name": "진열·냉장 쇼케이스", "products": ["sac_cold", "ref_comm", "epaper"], "evidence": []},
+      {"id": "rt_small_s3", "name": "매장 홀", "products": ["sac_sm", "ac", "btv", "light", "s_stp"], "evidence": []},
+      {"id": "rt_small_s4", "name": "창문 홍보면", "products": ["lcd_win"], "evidence": []}
+    ]},
+    {"id": "sv_unmanned", "name": "스터디카페·PC방·무인매장", "group": "SV", "size_segment": "무인·소수 운영", "size_criteria": "좌석 50~150석", "spaces": [
+      {"id": "sv_un_s1", "name": "출입·결제 존", "products": ["g_kiosk", "lcd_std", "btv"], "evidence": []},
+      {"id": "sv_un_s2", "name": "열람실·좌석 존", "products": ["sac_sm", "air", "light", "s_stp"], "evidence": []},
+      {"id": "sv_un_s3", "name": "스터디룸·세미나룸", "products": ["iwb", "btv", "sac_sm"], "evidence": []},
+      {"id": "sv_un_s4", "name": "휴게·스낵 존", "products": ["ref_comm", "mw", "water", "ref_home"], "evidence": []},
+      {"id": "sv_un_s5", "name": "PC 좌석(PC방)", "products": ["mon", "desk", "buds", "sac_sm"], "evidence": []}
+    ]},
+    {"id": "sv_screen", "name": "스크린골프·실내 스포츠", "group": "SV", "size_segment": "룸형 매장", "size_criteria": "타석·룸 5~20개 (bs13)", "spaces": [
+      {"id": "sv_sc_s1", "name": "플레이 룸", "products": ["tv", "btv", "lcd_std", "sac_sm", "air", "harman"], "evidence": []},
+      {"id": "sv_sc_s2", "name": "카운터·대기 라운지", "products": ["btv", "g_kiosk", "tab", "water", "ref_comm"], "evidence": []},
+      {"id": "sv_sc_s3", "name": "라커·파우더룸", "products": ["airdresser", "shoe"], "evidence": ["https://www.samsung.com/sec/business/airdresser/"]},
+      {"id": "sv_sc_s4", "name": "펍·F&B 바", "products": ["ref_comm", "mw", "dish", "btv"], "evidence": []}
+    ]},
+    {"id": "sv_laundry", "name": "코인빨래방·세탁 전문점", "group": "SV", "size_segment": "무인 세탁", "size_criteria": "세탁·건조기 6~20대", "spaces": [
+      {"id": "sv_la_s1", "name": "세탁·건조 존", "products": ["laundry_b2b", "airdresser", "shoe", "sac_sm"], "evidence": ["https://www.samsung.com/sec/business/washing-machines/"]},
+      {"id": "sv_la_s2", "name": "대기 공간", "products": ["btv", "air", "g_kiosk"], "evidence": []},
+      {"id": "sv_la_s3", "name": "무인 결제·관리", "products": ["s_stp", "g_kiosk", "tab"], "evidence": []}
+    ]},
+    {"id": "sv_beauty", "name": "뷰티·미용실·피부관리실", "group": "SV", "size_segment": "소형 매장 (건조기 설치 불가 업소)", "size_criteria": "시술석 5~20석", "spaces": [
+      {"id": "sv_be_s1", "name": "시술 공간", "products": ["sac_sm", "air", "btv", "tab", "light"], "evidence": []},
+      {"id": "sv_be_s2", "name": "리셉션·대기", "products": ["btv", "lcd_std", "tab", "water"], "evidence": []},
+      {"id": "sv_be_s3", "name": "세탁실 (세탁기만, 건조기 설치 불가)", "products": ["wash"], "evidence": ["https://www.samsung.com/sec/business/dryers/dryer-dv20cb8890bg-d2c/DV20CB8890BV/"]}
+    ]},
+    {"id": "ht_large", "name": "대형 호텔·리조트·복합리조트(IR)", "group": "HT", "size_segment": "대형", "size_criteria": "객실 300실 이상 (bs07)", "spaces": [
+      {"id": "ht_l_s1", "name": "로비·프런트", "products": ["led_in", "vwall", "spatial", "lcd_std", "tab", "harman"], "evidence": ["https://www.samsung.com/sec/business/insights/case-study/inspire_entertainment_resort/"]},
+      {"id": "ht_l_s2", "name": "객실", "products": ["htv", "sac_l_in", "air", "airdresser", "ref_home", "light", "tab", "s_lynk", "s_stp"], "evidence": ["https://www.samsung.com/sec/business/hospitality/", "https://www.samsung.com/sec/business/insights/case-study/inspire_entertainment_resort/"]},
+      {"id": "ht_l_s3", "name": "스위트·이그제큐티브 라운지", "products": ["tv", "htv", "airdresser", "shoe", "water", "ref_home"], "evidence": []},
+      {"id": "ht_l_s4", "name": "연회장·컨벤션", "products": ["led_in", "vwall", "lcd_std", "harman", "epaper"], "evidence": []},
+      {"id": "ht_l_s5", "name": "레스토랑·바", "products": ["lcd_std", "harman", "sac_l_in"], "evidence": []},
+      {"id": "ht_l_s6", "name": "주방(BOH)", "products": ["ref_comm", "sac_cold", "mw", "dish"], "evidence": []},
+      {"id": "ht_l_s7", "name": "피트니스·스파·락커", "products": ["htv", "airdresser", "shoe", "air"], "evidence": ["https://www.samsung.com/sec/business/airdresser/", "https://www.samsung.com/sec/business/hotel-tvs/hoteltv-hu8000f/HG65U800FNFXKR/"]},
+      {"id": "ht_l_s8", "name": "리넨·세탁실·하우스키핑", "products": ["laundry_b2b", "vac"], "evidence": []},
+      {"id": "ht_l_s9", "name": "기계실·FMS 관제", "products": ["sac_l_out", "sac_ctr", "sac_vent", "s_biot", "s_dms", "vwall"], "evidence": ["https://www.samsung.com/sec/business/hospitality/"]},
+      {"id": "ht_l_s10", "name": "백오피스", "products": ["nb", "mon", "dmfp", "phone"], "evidence": []}
+    ]},
+    {"id": "ht_mid", "name": "중소형·비즈니스 호텔", "group": "HT", "size_segment": "중소형", "size_criteria": "객실 300실 미만", "spaces": [
+      {"id": "ht_m_s1", "name": "로비", "products": ["tv", "lcd_std", "btv"], "evidence": ["https://www.samsung.com/sec/business/insights/case-study/reference-IBC-hotel/"]},
+      {"id": "ht_m_s2", "name": "객실", "products": ["htv", "sac_sm", "air", "airdresser", "ref_home", "light"], "evidence": ["https://www.samsung.com/sec/business/insights/case-study/reference-IBC-hotel/"]},
+      {"id": "ht_m_s3", "name": "조식당", "products": ["lcd_std", "ref_comm", "mw", "dish"], "evidence": []},
+      {"id": "ht_m_s4", "name": "투숙객 세탁실", "products": ["laundry_b2b"], "evidence": []},
+      {"id": "ht_m_s5", "name": "백오피스", "products": ["nb", "mfp", "s_dms", "s_touch"], "evidence": []}
+    ]},
+    {"id": "ht_stay", "name": "레지던스·생활형숙박·풀빌라·AI 스테이", "group": "HT", "size_segment": "레지던스형", "size_criteria": "취사 가능 객실 20~300실 (bs21)", "spaces": [
+      {"id": "ht_st_s1", "name": "객실 거실", "products": ["tv", "htv", "sac_res", "air", "light", "s_stp"], "evidence": []},
+      {"id": "ht_st_s2", "name": "객실 주방", "products": ["ref_bi", "range", "oven", "dish", "hood", "water", "kimchi"], "evidence": ["https://www.samsung.com/sec/business/insights/case-study/mona_yongpyong/"]},
+      {"id": "ht_st_s3", "name": "침실", "products": ["sac_res", "airdresser"], "evidence": ["https://www.samsung.com/sec/business/insights/case-study/mona_yongpyong/"]},
+      {"id": "ht_st_s4", "name": "세탁 공간", "products": ["wash", "dry"], "evidence": []},
+      {"id": "ht_st_s5", "name": "무인 체크인", "products": ["g_kiosk", "tab", "lcd_std"], "evidence": []}
+    ]},
+    {"id": "tp_park", "name": "테마파크·관광지", "group": "TP", "size_segment": "대형 관광시설", "size_criteria": "연 방문객 100만 명 이상 (bs05)", "spaces": [
+      {"id": "tp_pk_s1", "name": "매표소·게이트", "products": ["lcd_out", "led_out", "g_kiosk"], "evidence": []},
+      {"id": "tp_pk_s2", "name": "어트랙션 대기열", "products": ["led_in", "vwall", "lcd_out", "harman", "xr"], "evidence": []},
+      {"id": "tp_pk_s3", "name": "실내 쇼·공연장", "products": ["led_in", "harman"], "evidence": ["https://www.samsung.com/sec/business/led-signage/"]},
+      {"id": "tp_pk_s4", "name": "F&B·기념품숍", "products": ["lcd_std", "btv", "ref_comm", "g_kiosk"], "evidence": []},
+      {"id": "tp_pk_s5", "name": "종합상황실", "products": ["vwall", "mon", "desk"], "evidence": []},
+      {"id": "tp_pk_s6", "name": "현장 운영 스태프", "products": ["phone", "tab", "watch", "s_knox"], "evidence": []}
+    ]},
+    {"id": "tp_museum", "name": "전시관·박물관·미술관·갤러리", "group": "TP", "size_segment": "전시시설", "size_criteria": "전시면적 500㎡ 이상 기관 / 소형 갤러리", "spaces": [
+      {"id": "tp_mu_s1", "name": "전시실", "products": ["led_in", "vwall", "spatial", "lcd_std", "epaper", "harman", "xr"], "evidence": ["https://www.samsung.com/sec/business/smart-signage/"]},
+      {"id": "tp_mu_s2", "name": "로비·안내", "products": ["lcd_std", "g_kiosk", "tab"], "evidence": []},
+      {"id": "tp_mu_s3", "name": "수장고(항온항습)", "products": ["sac_l_in", "air"], "evidence": []},
+      {"id": "tp_mu_s4", "name": "도슨트·관람 디바이스", "products": ["tab", "buds", "phone"], "evidence": []}
+    ]},
+    {"id": "vn_stadium", "name": "경기장·아레나", "group": "VN", "size_segment": "대형 경기장", "size_criteria": "관람석 1만 석 이상 (bs12)", "spaces": [
+      {"id": "vn_st_s1", "name": "메인 전광판·리본보드", "products": ["led_out", "led_in"], "evidence": ["https://www.samsung.com/sec/business/led-signage/"]},
+      {"id": "vn_st_s2", "name": "콘코스·매점", "products": ["lcd_std", "vwall", "ref_comm", "g_kiosk"], "evidence": []},
+      {"id": "vn_st_s3", "name": "스카이박스·VIP석", "products": ["tv", "ref_home", "airdresser", "sac_sm"], "evidence": []},
+      {"id": "vn_st_s4", "name": "선수 라커룸", "products": ["tv", "airdresser", "shoe", "laundry_b2b"], "evidence": []},
+      {"id": "vn_st_s5", "name": "미디어센터·기자실", "products": ["mon", "nb", "dmfp", "vwall"], "evidence": []},
+      {"id": "vn_st_s6", "name": "경기 운영 관제실", "products": ["vwall", "mon"], "evidence": []}
+    ]},
+    {"id": "vn_cinema", "name": "영화관·공연장", "group": "VN", "size_segment": "멀티플렉스·공연장", "size_criteria": "스크린 5관 이상 / 객석 500석 이상", "spaces": [
+      {"id": "vn_ci_s1", "name": "로비·매표", "products": ["led_in", "lcd_std", "vwall", "g_kiosk"], "evidence": ["https://www.samsung.com/sec/business/led-signage/"]},
+      {"id": "vn_ci_s2", "name": "상영관·공연홀", "products": ["g_cinema", "led_in", "harman"], "evidence": ["https://www.samsung.com/sec/business/smart-signage/"]},
+      {"id": "vn_ci_s3", "name": "프리미엄관 라운지(스카이박스)", "products": ["airdresser", "shoe", "ref_home", "tv"], "evidence": ["https://www.samsung.com/sec/business/insights/case-study/reference-CGV-Bespoke/"]},
+      {"id": "vn_ci_s4", "name": "매점", "products": ["lcd_std", "btv", "ref_comm"], "evidence": []},
+      {"id": "vn_ci_s5", "name": "공조 기계실", "products": ["sac_l_in", "sac_l_out"], "evidence": []}
+    ]},
+    {"id": "sf_fitness", "name": "스포츠센터·피트니스·골프클럽하우스", "group": "SF", "size_segment": "회원제 시설", "size_criteria": "연면적 1,000㎡ 이상 대형 / 미만 소형 PT숍", "spaces": [
+      {"id": "sf_fi_s1", "name": "운동 공간(GX·웨이트)", "products": ["htv", "tv", "harman", "sac_l_in", "air"], "evidence": ["https://www.samsung.com/sec/business/hotel-tvs/hoteltv-hu8000f/HG65U800FNFXKR/"]},
+      {"id": "sf_fi_s2", "name": "락커룸·파우더룸", "products": ["airdresser", "shoe", "air"], "evidence": ["https://www.samsung.com/sec/business/airdresser/"]},
+      {"id": "sf_fi_s3", "name": "리셉션·라운지", "products": ["lcd_std", "btv", "tab", "water", "led_in"], "evidence": ["https://www.samsung.com/sec/business/led-signage/"]},
+      {"id": "sf_fi_s4", "name": "수건·세탁실", "products": ["laundry_b2b"], "evidence": []},
+      {"id": "sf_fi_s5", "name": "기계실(냉난방·온수)", "products": ["sac_ctr", "sac_ehs", "s_biot"], "evidence": ["https://www.samsung.com/sec/business/insights/case-study/reference-wellperion-solution/"]}
+    ]},
+    {"id": "ad_ooh", "name": "옥외·미디어 광고 사업자", "group": "AD", "size_segment": "매체사", "size_criteria": "대형 전광판 운영사 / 스트리트 퍼니처 매체사 (bs20)", "spaces": [
+      {"id": "ad_oo_s1", "name": "건물 외벽 대형 전광판", "products": ["led_out"], "evidence": ["https://images.samsung.com/is/content/samsung/p5/sec/business/insights/catalog-download/2020/GB-20200122-01.pdf"]},
+      {"id": "ad_oo_s2", "name": "버스정류장·스트리트 퍼니처", "products": ["lcd_out"], "evidence": []},
+      {"id": "ad_oo_s3", "name": "실내 미디어(역사·쇼핑몰)", "products": ["vwall", "lcd_std", "led_in"], "evidence": []},
+      {"id": "ad_oo_s4", "name": "매체 관제센터", "products": ["vwall", "mon", "desk", "s_magic", "s_vxt"], "evidence": []}
+    ]},
+    {"id": "of_hq", "name": "대기업 사옥·그룹 본사·신축 스마트 빌딩", "group": "OF", "size_segment": "대형", "size_criteria": "연면적 10,000㎡ 이상 또는 임직원 300명 이상 (bs02, bs19, bs24)", "spaces": [
+      {"id": "of_hq_s1", "name": "로비", "products": ["led_in", "vwall", "spatial", "lcd_std", "harman"], "evidence": ["https://www.samsung.com/sec/business/led-signage/"]},
+      {"id": "of_hq_s2", "name": "임원실", "products": ["tv", "mon", "nb", "airdresser", "sac_l_in", "air"], "evidence": []},
+      {"id": "of_hq_s3", "name": "대회의실·이사회실", "products": ["led_in", "iwb", "vwall", "harman"], "evidence": []},
+      {"id": "of_hq_s4", "name": "소회의실·포커스룸", "products": ["iwb", "btv", "mon", "epaper"], "evidence": ["https://www.samsung.com/sec/business/insights/case-study/etners_ai_office/"]},
+      {"id": "of_hq_s5", "name": "업무 공간", "products": ["mon", "nb", "desk", "phone", "tab", "dmfp", "sac_l_in", "light", "s_stp", "s_counthru", "s_secuthru"], "evidence": ["https://www.samsung.com/sec/business/office/"]},
+      {"id": "of_hq_s6", "name": "직원 라운지·탕비실", "products": ["ref_home", "water", "mw", "tv", "air"], "evidence": ["https://www.samsung.com/sec/business/insights/case-study/etners_ai_office/"]},
+      {"id": "of_hq_s7", "name": "구내식당", "products": ["ref_comm", "sac_cold", "dish", "mw", "lcd_std", "epaper"], "evidence": []},
+      {"id": "of_hq_s8", "name": "강당·교육장", "products": ["led_in", "iwb", "harman", "xr"], "evidence": []},
+      {"id": "of_hq_s9", "name": "통합관제·방재실", "products": ["vwall", "mon", "s_biot"], "evidence": ["https://www.samsung.com/sec/business/b-iot-solutions/b-iot-solution/"]},
+      {"id": "of_hq_s10", "name": "기계실·옥상", "products": ["sac_l_out", "sac_ctr", "sac_vent", "s_dms"], "evidence": ["https://www.samsung.com/sec/business/system-air-conditioners/"]}
+    ]},
+    {"id": "of_sme", "name": "중소기업 오피스", "group": "OF", "size_segment": "중소형", "size_criteria": "임직원 300명 미만, 연면적 10,000㎡ 미만", "spaces": [
+      {"id": "of_sm_s1", "name": "리셉션", "products": ["btv", "lcd_std", "tv"], "evidence": ["https://www.samsung.com/sec/business/small-medium-office/"]},
+      {"id": "of_sm_s2", "name": "업무 공간", "products": ["mon", "nb", "phone", "mfp", "sac_sm", "air", "light"], "evidence": ["https://www.samsung.com/sec/business/small-medium-office/"]},
+      {"id": "of_sm_s3", "name": "회의실", "products": ["iwb", "btv"], "evidence": []},
+      {"id": "of_sm_s4", "name": "탕비실", "products": ["ref_home", "water", "mw"], "evidence": []},
+      {"id": "of_sm_s5", "name": "대표실", "products": ["tv", "airdresser", "air"], "evidence": []}
+    ]},
+    {"id": "of_cowork", "name": "공유오피스", "group": "OF", "size_segment": "공유형", "size_criteria": "지점당 좌석 200석 이상 대형 / 미만 소형 (bs22)", "spaces": [
+      {"id": "of_cw_s1", "name": "라운지", "products": ["tv", "btv", "lcd_std", "water", "ref_home", "harman"], "evidence": []},
+      {"id": "of_cw_s2", "name": "프라이빗 오피스", "products": ["mon", "sac_sm", "air", "s_stp"], "evidence": []},
+      {"id": "of_cw_s3", "name": "미팅룸", "products": ["iwb", "btv", "epaper"], "evidence": []},
+      {"id": "of_cw_s4", "name": "팬트리", "products": ["ref_home", "water", "mw", "dish"], "evidence": []},
+      {"id": "of_cw_s5", "name": "출입·예약 데스크", "products": ["g_kiosk", "tab", "epaper"], "evidence": []}
+    ]},
+    {"id": "rs_apt", "name": "아파트(신축 분양·AI 아파트)", "group": "RS", "size_segment": "대단지 / 중소단지", "size_criteria": "대단지 1,000세대 이상, 중소단지 1,000세대 미만 (bs04, bs25)", "spaces": [
+      {"id": "rs_ap_s1", "name": "세대 거실", "products": ["sac_res", "tv", "air", "sac_vent", "light", "s_stp", "s_wifi"], "evidence": ["https://www.samsung.com/sec/business/construction/"]},
+      {"id": "rs_ap_s2", "name": "세대 주방", "products": ["ref_bi", "kimchi", "dish", "range", "oven", "hood", "water"], "evidence": ["https://www.samsung.com/sec/business/built-in-appliances/"]},
+      {"id": "rs_ap_s3", "name": "침실·드레스룸", "products": ["sac_res", "airdresser", "shoe", "air"], "evidence": ["https://www.samsung.com/sec/business/construction/"]},
+      {"id": "rs_ap_s4", "name": "다용도실", "products": ["wash", "dry"], "evidence": []},
+      {"id": "rs_ap_s5", "name": "세대 난방·급탕", "products": ["sac_ehs"], "evidence": []},
+      {"id": "rs_ap_s6", "name": "커뮤니티(라운지·피트니스·독서실)", "products": ["lcd_std", "tv", "sac_l_in", "airdresser", "laundry_b2b"], "evidence": []},
+      {"id": "rs_ap_s7", "name": "로비·엘리베이터 홀", "products": ["lcd_std", "vwall", "epaper"], "evidence": ["https://www.samsung.com/sec/business/construction/"]},
+      {"id": "rs_ap_s8", "name": "모델하우스·분양홍보관", "products": ["led_in", "vwall", "tab", "ref_bi", "sac_res"], "evidence": ["https://www.samsung.com/sec/business/construction/"]},
+      {"id": "rs_ap_s9", "name": "관리사무소", "products": ["nb", "mfp", "mon", "s_dms"], "evidence": []}
+    ]},
+    {"id": "rs_officetel", "name": "오피스텔·도시형생활주택·임대주택", "group": "RS", "size_segment": "소형 주거", "size_criteria": "전용 60㎡ 이하 중심", "spaces": [
+      {"id": "rs_of_s1", "name": "원룸·스튜디오", "products": ["ref_home", "ref_bi", "sac_res", "tv", "air"], "evidence": ["https://www.samsung.com/sec/business/officetel/", "https://www.samsung.com/sec/business/insights/case-study/reference-dialogue-174/"]},
+      {"id": "rs_of_s2", "name": "키친", "products": ["range", "mw", "hood", "dish"], "evidence": ["https://www.samsung.com/sec/business/built-in-appliances/"]},
+      {"id": "rs_of_s3", "name": "세탁 공간", "products": ["wash", "dry"], "evidence": []},
+      {"id": "rs_of_s4", "name": "공용 라운지·세탁실", "products": ["lcd_std", "laundry_b2b"], "evidence": []}
+    ]},
+    {"id": "rs_senior", "name": "시니어 레지던스·실버타운", "group": "RS", "size_segment": "노인복지주택", "size_criteria": "세대 100세대 이상 대형 / 미만 소형", "spaces": [
+      {"id": "rs_se_s1", "name": "세대", "products": ["sac_res", "tv", "ref_home", "air", "s_stp", "watch", "s_health"], "evidence": ["https://www.samsung.com/sec/business/construction/"]},
+      {"id": "rs_se_s2", "name": "공용 식당", "products": ["ref_comm", "dish"], "evidence": []},
+      {"id": "rs_se_s3", "name": "커뮤니티 홀", "products": ["lcd_std", "harman", "tv"], "evidence": []},
+      {"id": "rs_se_s4", "name": "케어 스테이션", "products": ["tab", "mon", "phone"], "evidence": []}
+    ]},
+    {"id": "id_partner", "name": "인테리어·가구·빌트인 파트너", "group": "ID", "size_segment": "B2B2C 파트너", "size_criteria": "가구·주방 브랜드 / 인테리어 시공사", "spaces": [
+      {"id": "id_pa_s1", "name": "쇼룸 키친", "products": ["ref_bi", "kimchi", "dish", "range", "oven", "hood", "water", "kit_acc"], "evidence": ["https://www.samsung.com/sec/business/built-in-appliances/"]},
+      {"id": "id_pa_s2", "name": "쇼룸 리빙·드레스룸", "products": ["tv", "sac_res", "air", "airdresser", "shoe"], "evidence": []},
+      {"id": "id_pa_s3", "name": "상담 데스크", "products": ["tab", "mon", "nb"], "evidence": []}
+    ]},
+    {"id": "ed_univ", "name": "대학 캠퍼스", "group": "ED", "size_segment": "대학", "size_criteria": "재학생 1만 명 이상 대형 / 미만 중소 (bs03)", "spaces": [
+      {"id": "ed_un_s1", "name": "강의실", "products": ["iwb", "led_in", "sac_l_in", "sac_vent", "air", "mon"], "evidence": ["https://www.samsung.com/sec/business/education/", "https://www.samsung.com/sec/business/smart-signage/"]},
+      {"id": "ed_un_s2", "name": "대형 강당", "products": ["led_in", "harman", "vwall"], "evidence": ["https://www.samsung.com/sec/business/led-signage/"]},
+      {"id": "ed_un_s3", "name": "도서관·열람실", "products": ["lcd_std", "epaper", "desk", "mon", "air", "nb"], "evidence": []},
+      {"id": "ed_un_s4", "name": "학생 라운지", "products": ["lcd_std", "btv", "tv"], "evidence": []},
+      {"id": "ed_un_s5", "name": "연구실·실험실", "products": ["mon", "nb", "desk", "dmfp"], "evidence": []},
+      {"id": "ed_un_s6", "name": "행정실", "products": ["nb", "mon", "dmfp"], "evidence": []},
+      {"id": "ed_un_s7", "name": "기숙사", "products": ["htv", "tv", "sac_res", "ref_home", "laundry_b2b", "airdresser"], "evidence": []},
+      {"id": "ed_un_s8", "name": "학생식당", "products": ["ref_comm", "dish", "lcd_std", "epaper"], "evidence": []},
+      {"id": "ed_un_s9", "name": "캠퍼스 광장·외부", "products": ["led_out", "lcd_out"], "evidence": []}
+    ]},
+    {"id": "ed_k12", "name": "초·중·고", "group": "ED", "size_segment": "학교", "size_criteria": "학급 수 24학급 이상 대형 / 미만 소형", "spaces": [
+      {"id": "ed_k_s1", "name": "교실", "products": ["iwb", "tab", "cb", "sac_sm", "air", "sac_vent", "s_class"], "evidence": ["https://www.samsung.com/sec/business/education/"]},
+      {"id": "ed_k_s2", "name": "교무실", "products": ["nb", "mon", "dmfp"], "evidence": ["https://www.samsung.com/sec/business/education/"]},
+      {"id": "ed_k_s3", "name": "강당·체육관", "products": ["led_in", "harman", "sac_l_in"], "evidence": []},
+      {"id": "ed_k_s4", "name": "급식실", "products": ["ref_comm", "dish"], "evidence": []},
+      {"id": "ed_k_s5", "name": "컴퓨터실·미래교실", "products": ["nb", "cb", "tab", "mon", "xr", "epaper"], "evidence": ["https://www.samsung.com/sec/business/education/"]}
+    ]},
+    {"id": "ed_academy", "name": "학원·교육센터", "group": "ED", "size_segment": "학원", "size_criteria": "강의실 10실 이상 대형 / 미만 소형", "spaces": [
+      {"id": "ed_ac_s1", "name": "강의실", "products": ["iwb", "sac_sm", "air", "tab"], "evidence": ["https://www.samsung.com/sec/business/academy/"]},
+      {"id": "ed_ac_s2", "name": "자습실", "products": ["sac_sm", "air", "light"], "evidence": []},
+      {"id": "ed_ac_s3", "name": "교무실", "products": ["nb", "dmfp", "mon"], "evidence": ["https://www.samsung.com/sec/business/academy/"]},
+      {"id": "ed_ac_s4", "name": "상담실·로비", "products": ["btv", "tab"], "evidence": []}
+    ]},
+    {"id": "pb_agency", "name": "공공기관·지자체 청사·공단", "group": "PB", "size_segment": "공공 청사", "size_criteria": "중앙·광역 청사 / 기초 지자체·공단 지사 (bs11, RFP 기반)", "spaces": [
+      {"id": "pb_ag_s1", "name": "민원실", "products": ["lcd_std", "g_kiosk", "btv", "mon"], "evidence": ["https://www.samsung.com/sec/business/government/"]},
+      {"id": "pb_ag_s2", "name": "사무실", "products": ["mon", "desk", "nb", "dmfp", "sac_l_in", "s_counthru", "s_secuthru"], "evidence": []},
+      {"id": "pb_ag_s3", "name": "회의실", "products": ["iwb", "vwall"], "evidence": []},
+      {"id": "pb_ag_s4", "name": "상황실", "products": ["vwall", "mon"], "evidence": []},
+      {"id": "pb_ag_s5", "name": "대강당", "products": ["led_in", "harman"], "evidence": []},
+      {"id": "pb_ag_s6", "name": "구내식당", "products": ["ref_comm", "dish"], "evidence": []},
+      {"id": "pb_ag_s7", "name": "기계실", "products": ["sac_l_out", "sac_ctr", "s_biot"], "evidence": []}
+    ]},
+    {"id": "pb_transport", "name": "교통 인프라(지하철·철도·공항·터미널)", "group": "PB", "size_segment": "교통 운영기관", "size_criteria": "역사·터미널 수 / 일 이용객 수 (bs09)", "spaces": [
+      {"id": "pb_tr_s1", "name": "대합실·승강장", "products": ["lcd_std", "vwall", "lcd_out", "led_in"], "evidence": ["https://www.samsung.com/sec/business/smart-signage/"]},
+      {"id": "pb_tr_s2", "name": "매표·발권", "products": ["g_kiosk", "lcd_std"], "evidence": []},
+      {"id": "pb_tr_s3", "name": "종합관제센터", "products": ["vwall", "mon", "desk"], "evidence": ["https://www.samsung.com/sec/business/smart-signage/videowall-vmc-e-series/LH55VMCEBGBXKR/"]},
+      {"id": "pb_tr_s4", "name": "역무실", "products": ["nb", "phone", "tab"], "evidence": []},
+      {"id": "pb_tr_s5", "name": "현장 유지보수", "products": ["phone", "tab", "watch", "g_rugged", "s_knox"], "evidence": []},
+      {"id": "pb_tr_s6", "name": "역사 내 상업시설", "products": ["lcd_std", "ref_comm"], "evidence": []}
+    ]},
+    {"id": "mi_military", "name": "군기관", "group": "MI", "size_segment": "군 부대", "size_criteria": "부대 규모(대대·연대·사단) / 생활관 수", "spaces": [
+      {"id": "mi_s1", "name": "생활관", "products": ["tv", "sac_sm", "air", "wash", "dry", "ref_home"], "evidence": []},
+      {"id": "mi_s2", "name": "지휘통제실", "products": ["vwall", "mon"], "evidence": []},
+      {"id": "mi_s3", "name": "행정실", "products": ["nb", "mon", "dmfp"], "evidence": []},
+      {"id": "mi_s4", "name": "체력단련장·식당", "products": ["tv", "ref_comm", "dish"], "evidence": []}
+    ]},
+    {"id": "md_tertiary", "name": "상급종합·종합병원", "group": "MD", "size_segment": "대형", "size_criteria": "종합병원 100병상 이상(의료법), 상급종합은 보건복지부 지정", "spaces": [
+      {"id": "md_te_s1", "name": "외래 로비·원무", "products": ["led_in", "vwall", "lcd_std", "g_kiosk"], "evidence": ["https://www.samsung.com/sec/business/hospital/"]},
+      {"id": "md_te_s2", "name": "진료 대기실", "products": ["lcd_std", "btv"], "evidence": ["https://www.samsung.com/sec/business/hospital/"]},
+      {"id": "md_te_s3", "name": "진료실", "products": ["mon", "desk", "g_medical"], "evidence": ["https://www.samsung.com/sec/business/hospital/"]},
+      {"id": "md_te_s4", "name": "수술실", "products": ["mon", "vwall"], "evidence": ["https://www.samsung.com/sec/business/hospital/"]},
+      {"id": "md_te_s5", "name": "입원 병동", "products": ["htv", "tab", "sac_l_in", "air"], "evidence": ["https://www.samsung.com/sec/business/insights/case-study/reference-dongtanhallym/"]},
+      {"id": "md_te_s6", "name": "간호 스테이션", "products": ["tab", "phone", "nb", "mon"], "evidence": ["https://www.samsung.com/sec/business/insights/case-study/reference-dongtanhallym/"]},
+      {"id": "md_te_s7", "name": "세미나실·강당", "products": ["iwb", "vwall", "harman"], "evidence": ["https://www.samsung.com/sec/business/hospital/"]},
+      {"id": "md_te_s8", "name": "의국·연구실", "products": ["mon", "nb", "dmfp"], "evidence": []},
+      {"id": "md_te_s9", "name": "직원 식당·카페", "products": ["ref_comm", "dish"], "evidence": []},
+      {"id": "md_te_s10", "name": "기계실", "products": ["sac_l_out", "sac_ctr", "sac_vent", "s_biot"], "evidence": ["https://www.samsung.com/sec/business/hospital/"]}
+    ]},
+    {"id": "md_hospital", "name": "중소 병원(전문병원 포함)", "group": "MD", "size_segment": "중소형", "size_criteria": "30~99병상 (의료법 '병원')", "spaces": [
+      {"id": "md_ho_s1", "name": "로비·원무", "products": ["lcd_std", "btv", "g_kiosk", "tab"], "evidence": ["https://www.samsung.com/sec/business/insights/case-study/reference-the-dreamhospital/"]},
+      {"id": "md_ho_s2", "name": "진료실", "products": ["mon", "g_medical"], "evidence": ["https://www.samsung.com/sec/business/insights/case-study/reference-the-dreamhospital/"]},
+      {"id": "md_ho_s3", "name": "입원실", "products": ["htv", "sac_sm", "sac_l_in", "air"], "evidence": ["https://www.samsung.com/sec/business/insights/case-study/reference-the-dreamhospital/"]},
+      {"id": "md_ho_s4", "name": "재활·물리치료실", "products": ["tv", "sac_sm", "air"], "evidence": []},
+      {"id": "md_ho_s5", "name": "간호 스테이션", "products": ["tab", "mon", "phone"], "evidence": []}
+    ]},
+    {"id": "md_clinic", "name": "의원·클리닉", "group": "MD", "size_segment": "소형", "size_criteria": "30병상 미만 (의료법 '의원')", "spaces": [
+      {"id": "md_cl_s1", "name": "대기실", "products": ["btv", "lcd_std", "air", "sac_sm"], "evidence": ["https://www.samsung.com/sec/business/hospital/"]},
+      {"id": "md_cl_s2", "name": "진료실·상담실", "products": ["mon", "tab", "air", "g_medical"], "evidence": []},
+      {"id": "md_cl_s3", "name": "처치실·VIP 케어룸", "products": ["tv", "air", "s_stp"], "evidence": ["https://www.samsung.com/sec/business/insights/case-study/reference_smarthome_solution/"]},
+      {"id": "md_cl_s4", "name": "접수 데스크", "products": ["mon", "desk", "mfp"], "evidence": []}
+    ]},
+    {"id": "md_ltc", "name": "요양병원·요양시설", "group": "MD", "size_segment": "요양", "size_criteria": "요양병원 30병상 이상(의료법) / 노인요양시설 입소정원 10명 이상, 1명당 연면적 23.6㎡ 이상(노인복지법 시행규칙 별표 4) / 노인요양공동생활가정 입소정원 5~9명 (bs08)", "spaces": [
+      {"id": "md_lt_s1", "name": "병실·생활실", "products": ["htv", "tv", "sac_sm", "air", "light", "s_stp"], "evidence": []},
+      {"id": "md_lt_s2", "name": "간호·요양 스테이션", "products": ["tab", "phone", "watch", "mon"], "evidence": []},
+      {"id": "md_lt_s3", "name": "프로그램실·식당 홀", "products": ["lcd_std", "tv", "harman"], "evidence": []},
+      {"id": "md_lt_s4", "name": "세탁실 (세탁기만, 건조기 설치 불가 업소 확인 필요)", "products": ["wash"], "evidence": ["https://www.samsung.com/sec/business/dryers/dryer-dv20cb8890bg-d2c/DV20CB8890BV/"]},
+      {"id": "md_lt_s5", "name": "급식 주방", "products": ["ref_comm", "dish"], "evidence": []}
+    ]},
+    {"id": "mf_factory", "name": "제조 공장·생산 현장", "group": "MF", "size_segment": "제조 사업장", "size_criteria": "상시 근로자 300명 이상 대형 / 미만 중소 (bs14)", "spaces": [
+      {"id": "mf_fa_s1", "name": "생산라인", "products": ["lcd_std", "vwall", "tab", "phone", "watch", "g_rugged", "s_knox", "s_safety"], "evidence": ["https://www.samsung.com/sec/business/manufacture/"]},
+      {"id": "mf_fa_s2", "name": "중앙통제실(MES)", "products": ["vwall", "mon", "desk"], "evidence": []},
+      {"id": "mf_fa_s3", "name": "사무동", "products": ["mon", "nb", "dmfp", "sac_l_in"], "evidence": ["https://www.samsung.com/sec/business/manufacture/"]},
+      {"id": "mf_fa_s4", "name": "구내식당·기숙사", "products": ["ref_comm", "dish", "tv", "wash"], "evidence": []},
+      {"id": "mf_fa_s5", "name": "교육장", "products": ["iwb", "xr"], "evidence": []},
+      {"id": "mf_fa_s6", "name": "클린룸·항온항습", "products": ["sac_ctr", "sac_vent"], "evidence": []}
+    ]},
+    {"id": "mf_logistics", "name": "물류센터·콜드체인 창고", "group": "MF", "size_segment": "물류", "size_criteria": "연면적 33,000㎡ 이상 대형 / 미만 중소", "spaces": [
+      {"id": "mf_lo_s1", "name": "저온 창고", "products": ["sac_cold"], "evidence": []},
+      {"id": "mf_lo_s2", "name": "피킹·출고", "products": ["tab", "phone", "mob_acc", "g_rugged", "s_knox"], "evidence": []},
+      {"id": "mf_lo_s3", "name": "관제실", "products": ["vwall", "mon"], "evidence": []},
+      {"id": "mf_lo_s4", "name": "사무", "products": ["nb", "mfp"], "evidence": []}
+    ]},
+    {"id": "fn_bank", "name": "은행 영업점", "group": "FN", "size_segment": "지점", "size_criteria": "거점 대형점 / 일반 지점 / 무인점포 (bs17)", "spaces": [
+      {"id": "fn_ba_s1", "name": "객장·대기 공간", "products": ["lcd_std", "vwall", "btv", "g_kiosk", "lcd_win"], "evidence": []},
+      {"id": "fn_ba_s2", "name": "창구", "products": ["mon", "tab", "desk"], "evidence": []},
+      {"id": "fn_ba_s3", "name": "VIP·PB 상담실", "products": ["tv", "tab", "air", "water"], "evidence": []},
+      {"id": "fn_ba_s4", "name": "무인점포·ATM 존", "products": ["lcd_std", "g_kiosk"], "evidence": []},
+      {"id": "fn_ba_s5", "name": "지점 사무", "products": ["mon", "dmfp", "s_secuthru"], "evidence": []}
+    ]},
+    {"id": "fn_hq", "name": "금융 본점·트레이딩룸·콜센터", "group": "FN", "size_segment": "본점", "size_criteria": "본점 사옥 / 콜센터 좌석 300석 이상", "spaces": [
+      {"id": "fn_hq_s1", "name": "딜링룸", "products": ["mon", "vwall", "led_in"], "evidence": []},
+      {"id": "fn_hq_s2", "name": "콜센터", "products": ["mon", "desk", "buds"], "evidence": []},
+      {"id": "fn_hq_s3", "name": "본점 로비", "products": ["led_in", "vwall"], "evidence": []},
+      {"id": "fn_hq_s4", "name": "회의실", "products": ["iwb", "btv"], "evidence": []}
+    ]},
+    {"id": "oe_telco", "name": "통신사 유통 매장·전용 단말", "group": "OE", "size_segment": "통신", "size_criteria": "직영 플래그십 / 대리점 (bs18)", "spaces": [
+      {"id": "oe_te_s1", "name": "매장 체험 존", "products": ["phone", "tab", "watch", "buds", "ring", "xr", "mob_acc"], "evidence": []},
+      {"id": "oe_te_s2", "name": "매장 사이니지", "products": ["lcd_win", "lcd_std", "vwall", "epaper"], "evidence": []},
+      {"id": "oe_te_s3", "name": "상담 카운터", "products": ["tab", "mon"], "evidence": []},
+      {"id": "oe_te_s4", "name": "통신 국사·장비실", "products": ["sac_l_in", "sac_ctr"], "evidence": []}
+    ]},
+    {"id": "rg_church", "name": "종교시설", "group": "RG", "size_segment": "종교시설", "size_criteria": "예배당 좌석 500석 이상 대형 / 미만 중소", "spaces": [
+      {"id": "rg_s1", "name": "예배당·법당", "products": ["led_in", "harman", "sac_l_in", "sac_ctr"], "evidence": ["https://www.samsung.com/sec/business/insights/case-study/susaek_church/"]},
+      {"id": "rg_s2", "name": "교육관", "products": ["iwb", "btv"], "evidence": []},
+      {"id": "rg_s3", "name": "친교실·식당", "products": ["ref_comm", "dish", "water"], "evidence": []},
+      {"id": "rg_s4", "name": "방송실", "products": ["mon", "vwall"], "evidence": []},
+      {"id": "rg_s5", "name": "기계실", "products": ["sac_ctr", "s_dms"], "evidence": ["https://www.samsung.com/sec/business/insights/case-study/susaek_church/"]}
+    ]},
+    {"id": "mb_studio", "name": "방송·미디어 스튜디오", "group": "MB", "size_segment": "방송사·프로덕션", "size_criteria": "스튜디오 수", "spaces": [
+      {"id": "mb_s1", "name": "스튜디오(On-Air)", "products": ["led_in"], "evidence": ["https://www.samsung.com/sec/business/led-signage/the-wall-iwamws/LH008IWAMWS/XU/"]},
+      {"id": "mb_s2", "name": "부조정실", "products": ["vwall", "mon"], "evidence": []},
+      {"id": "mb_s3", "name": "분장실·대기실", "products": ["airdresser", "tv"], "evidence": []}
+    ]}
+  ]
+}
