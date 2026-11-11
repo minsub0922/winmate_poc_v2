@@ -4,19 +4,36 @@
 // tpl.rooms : [id, 이름, 종류, x, z, 가로, 세로, 실외, 목적]
 // tpl.objs  : [자산 번호, x, z, 높이, 회전(도), 공간 번호, 천장 설치]
 // tpl.ppl   : [x, 바닥 y, z, 키, 폭, 상의, 하의, 피부, 머리, 앉음]
-// tpl.lay   : 공간 조합 — full 전체 · x6 확장 6 · five 5 · f4 핵심 4 · b4 지원 4 · m4 혼합 4 · p4 확장 4 · bar 일자형 3 · mx 복합층
+// tpl.lay   : 공간 조합 — full 전체 · x6 확장 6 · five 5 · f4 핵심 4 · b4 지원 4 · m4 혼합 4 · p4 확장 4 · bar 일자형 3 · mx 복합층 · std 표준 건물 조감도 층(bake-standard.js)
+
+import { STANDARD_BAKE } from './bake-standard.js';
 
 let D = null, P = null;
 
-async function load() {
-  const el = document.getElementById('wm-bld-data');
-  if (!el) throw new Error('공간 조감도 데이터를 찾지 못했어요.');
-  const txt = el.textContent.trim();
-  if (el.getAttribute('data-enc') !== 'gzip-base64') return JSON.parse(txt);
+async function unzip(txt) {
   if (typeof DecompressionStream === 'undefined') throw new Error('이 브라우저는 내장 데이터를 풀 수 없어요. 최신 Chrome · Edge · Safari · Firefox에서 열어 주세요.');
   const bin = Uint8Array.from(atob(txt), (c) => c.charCodeAt(0));
   const stream = new Blob([bin]).stream().pipeThrough(new DecompressionStream('gzip'));
   return JSON.parse(await new Response(stream).text());
+}
+async function load() {
+  const el = document.getElementById('wm-bld-data');
+  if (!el) throw new Error('공간 조감도 데이터를 찾지 못했어요.');
+  const txt = el.textContent.trim();
+  return el.getAttribute('data-enc') !== 'gzip-base64' ? JSON.parse(txt) : unzip(txt);
+}
+// 표준 건물 조감도 층(bake-standard.js) — 기본 데이터 뒤에 붙인다. 같은 자산은 기본 표의 것을 쓰고 새 자산만 이어 번호를 매기며,
+// 레시피도 없는 것만 더한다. 이미 들어 있는 층(같은 id)은 건너뛰어 HTML 추출 파일처럼 이미 합친 데이터에도 안전하다
+function withStandard(raw, std) {
+  const at = new Map(raw.assets.map((a, i) => [a.id, i]));
+  const map = std.assets.map((a) => {
+    if (!at.has(a.id)) { at.set(a.id, raw.assets.length); raw.assets.push(a); }
+    return at.get(a.id);
+  });
+  for (const [k, r] of Object.entries(std.recipes)) if (!raw.recipes[k]) raw.recipes[k] = r;
+  const have = new Set(raw.tpl.map((t) => t.id));
+  for (const t of std.tpl) if (!have.has(t.id)) raw.tpl.push({ ...t, objs: t.objs.map((o) => [map[o[0]], ...o.slice(1)]) });
+  return raw;
 }
 
 function prep(raw) {
@@ -74,7 +91,7 @@ function prep(raw) {
 // 한 번만 풀어 둔다
 export function ready() {
   if (D) return Promise.resolve(D);
-  return (P ||= load().then((raw) => (D = prep(raw))).catch((e) => { P = null; throw e; }));
+  return (P ||= Promise.all([load(), unzip(STANDARD_BAKE)]).then(([raw, std]) => (D = prep(withStandard(raw, std)))).catch((e) => { P = null; throw e; }));
 }
 export function data() {
   if (!D) throw new Error('공간 조감도 데이터를 아직 읽지 않았어요.');

@@ -3,7 +3,7 @@
 // Directory-explorer layout (web-app home common component): search → breadcrumb → folder tree | item list → selection tray.
 // The '추천' folder shows the recommendations as a grid of large image cards; other folders show rows.
 // Click an item to select it, then '연결' links every selected item at once.
-// filter mode (PPT 레이아웃 템플릿 · Best Scenario 필터, filterpop.jsx): no proposal — pick products to filter by; each row shows how many
+// filter mode (PPT 레이아웃 템플릿 · 샘플 버티컬 시나리오 필터, filterpop.jsx): no proposal — pick products to filter by; each row shows how many
 // layouts (or scenarios — filter.noun / filter.unit) it is in.
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Icon, Modal, toast } from './common.jsx';
@@ -169,7 +169,7 @@ const HEAD = {
  *  pick: { current: 'product:qm55c', onPick(ref) } — pick one item to replace `current` (layout detail) instead of linking many
  *  filter: { selected: [ref], counts: { ref: n }, only: [ref], onApply([ref]), noun?, unit? } — no proposal: choose items to filter layouts by
  *    (only = items that appear in any layout; counts = layouts left per item with the other filters kept;
- *     noun · unit = what is counted — '레이아웃' · '장' by default, Best Scenario passes '시나리오' · '개') */
+ *     noun · unit = what is counted — '레이아웃' · '장' by default, 샘플 버티컬 시나리오 passes '시나리오' · '개') */
 export function ContextExplorer({ p, kind, start = 'all', ind, onClose, pick = null, filter = null, frame = null, closeLabel = '닫기' }) {
   const t = TYPE[kind], label = LABEL[kind];
   const [q, setQ] = useState('');

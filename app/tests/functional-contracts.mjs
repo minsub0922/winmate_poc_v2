@@ -59,7 +59,7 @@ if (wanted.includes('catalog')) {
         boot: { solutions: b.catalog.solutions.length, cases: b.catalog.cases.length, industries: b.catalog.industries.length } };
     });
     Object.assign(d, r);
-    eq(r.solutions, 17, 'solutions'); eq(r.cases, 218, 'cases'); eq(r.scenarios, 82, 'Best Scenarios'); eq(r.active, 596, 'active layouts'); eq(r.products, 1068, 'products');
+    eq(r.solutions, 17, 'solutions'); eq(r.cases, 218, 'cases'); eq(r.scenarios, 82, '샘플 버티컬 시나리오'); eq(r.active, 596, 'active layouts'); eq(r.products, 1068, 'products');
     eq(r.boot.solutions, r.solutions, 'bootstrap solutions'); eq(r.boot.cases, r.cases, 'bootstrap cases'); eq(r.boot.industries, r.industries, 'bootstrap industries');
     ok(r.industries > 0 && r.all > r.active, 'industries present and retired layouts excluded from the active list');
   });
@@ -145,7 +145,7 @@ if (wanted.includes('catalog')) {
     eq(r.badCounts, [], 'industries with a malformed case count');
   });
 
-  cat.case('C06', 'Best Scenarios: requirement type, strategy, ending, industry and stage keys are known values', async (d) => {
+  cat.case('C06', '샘플 버티컬 시나리오: requirement type, strategy, ending, industry and stage keys are known values', async (d) => {
     const r = await inPage(async () => {
       const c = await import('/src/services/catalog.js'); const s = await import('/src/domain/templates/scenarios.js');
       return s.SCENARIOS.map((x) => {
@@ -163,7 +163,7 @@ if (wanted.includes('catalog')) {
     eq(r.filter((x) => x.problems.length), [], 'scenario enum problems');
   });
 
-  cat.case('C07', 'Best Scenarios: every slide layout, product, solution and case reference resolves', async (d) => {
+  cat.case('C07', '샘플 버티컬 시나리오: every slide layout, product, solution and case reference resolves', async (d) => {
     const r = await inPage(async () => {
       const c = await import('/src/services/catalog.js'); const s = await import('/src/domain/templates/scenarios.js');
       const out = []; let slides = 0;

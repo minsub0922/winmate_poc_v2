@@ -1,4 +1,4 @@
-// Best Scenario 21개를 앱 코드로 그려서 평가용 JSON으로 내보낸다.
+// 샘플 버티컬 시나리오 21개를 앱 코드로 그려서 평가용 JSON으로 내보낸다.
 //   node poc/test/proposal_score/tools/export_best_scenarios.mjs [--out poc/test/proposal_score/data/best_scenarios.json]
 // 필요: winmatev2 루트의 node_modules (esbuild · react · react-dom · playwright) — `npm install` 한 번.
 // Chromium 은 PLAYWRIGHT_BROWSERS_PATH 또는 playwright 기본 위치에서 찾고, CHROMIUM_PATH 로 직접 지정할 수도 있다.

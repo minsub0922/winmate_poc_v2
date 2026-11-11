@@ -1,4 +1,4 @@
-/** Ten distinct real-data UI selections per explorer, plus ten Best Scenario detail views. */
+/** Ten distinct real-data UI selections per explorer, plus ten 샘플 버티컬 시나리오 detail views. */
 import {launch,startVite,isolatedContext,openApp,suite,ok,eq,outDir} from './fixtures/strict/harness.mjs';
 const browser=await launch();const vite=await startVite();const context=await isolatedContext(browser,vite.url);const page=await openApp(context,vite.url);let bad=false;
 try{

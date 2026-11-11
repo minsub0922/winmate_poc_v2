@@ -31,7 +31,7 @@ function stripGroups(list) {
 }
 
 /** Right-docked viewer: one big slide + thumbnails grouped by part (표지 first).
- *  readOnly: Best Scenario 상세 보기의 ‘전체 PPT 보기’ — 같은 패널을 보기만(완료 수 · 상태 배지 · PPTX 내보내기 없음, 큰 장을 누르면 onEdit = 크게 보기, Esc로 닫힘). */
+ *  readOnly: 샘플 버티컬 시나리오 상세 보기의 ‘전체 PPT 보기’ — 같은 패널을 보기만(완료 수 · 상태 배지 · PPTX 내보내기 없음, 큰 장을 누르면 onEdit = 크게 보기, Esc로 닫힘). */
 export function Viewer({ p, cur, setCur, onClose, onEdit, onExport, readOnly = false }) {
   const list = flatSlides(p);
   const i = Math.max(0, list.findIndex((z) => z.x.uid === cur));
@@ -90,7 +90,7 @@ export function Viewer({ p, cur, setCur, onClose, onEdit, onExport, readOnly = f
             <span className="pt">{isCov ? '표지' : it.s.name}</span>
             <span className="nm">{l.name}</span>
             {!readOnly && !layoutIsComplete(p, it.x) && <span className={'stbadge ' + it.x.status}>{contextPending(it.x) ? '고객 맥락 검토 중' : it.x.status === 'partial' ? '작성 중' : '빈 레이아웃'}</span>}
-            {readOnly && <FavButton f={it.x.f} ov={it.x.ov} from={'Best Scenario · ' + (p.title || '')} label />}
+            {readOnly && <FavButton f={it.x.f} ov={it.x.ov} from={'샘플 버티컬 시나리오 · ' + (p.title || '')} label />}
           </div>
           <div className={'vslide' + (!readOnly && layoutIsComplete(p, it.x) ? ' st-done' : '')} role="button" tabIndex={0} onClick={() => onEdit(it.s.id, it.x.uid)}
             onKeyDown={(e) => { if (e.target === e.currentTarget && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); onEdit(it.s.id, it.x.uid); } }}

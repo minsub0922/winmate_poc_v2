@@ -40,8 +40,8 @@ app/data + app/web/src/domain/templates + services/catalog.js
 
 ## 현황과 알려진 함정
 
-- 현재 앱: 전체 레이아웃 835, 활성 594, 제품 1,068(큐레이션 40 포함), 솔루션 17, 사례 218, Best Scenario 22. 사진 메타/HTML 334쌍, 표준 메타/HTML 55쌍이다.
-- 현재 표준 시나리오는 `bs21`(AI 스테이 37장), `bs22`(공유오피스 Lite 15장)이다. 루트 `build/v25/README.md`의 bs23~25는 제작 이력이며 현재 앱에 등록됐다는 뜻이 아니다.
+- 현재 앱: 전체 레이아웃 897, 활성 656, 제품 1,068(큐레이션 40 포함), 솔루션 17, 사례 218, 샘플 버티컬 시나리오 107(고객별 bs01~bs20 · 버티컬 bs_v_* 40 · 어카운트 3 · 업종별 표준 제안서 44). 사진 메타/HTML 334쌍, 예전 표준 메타/HTML(L_AIS_* · L_SOL_*) 55쌍, 업종별 표준 레이아웃(L_VS_*, `vertical_std_layouts.js`) 59쌍이다.
+- 현재 표준 제안서는 업종별 표준 제안서 44종(`bs_std_<버티컬 id>` — `app/data/vertical_space_product.json`의 버티컬마다 하나, 목차 6장 고정, `standard_vertical_scenarios.json`, 생성기 `app/scripts/vertical_standard/`)이다. 예전 표준 `bs21`(AI 스테이) · `bs22`(공유오피스 Lite)와 이전 업종 표준 20종(`description_standard_scenarios.json`)은 2026-11-11에 지웠고, 그 레이아웃(L_AIS_* · L_SOL_*)은 저장본 호환을 위해 남겨 두었다. 루트 `build/v25/README.md`의 bs23~25는 제작 이력이며 현재 앱에 등록됐다는 뜻이 아니다.
 - `app/scripts/prepare_data.py`에 1,068행 assert, `app/scripts/export_agent_data.mjs`에 기대 건수, `app/api/poc/knowledge.py`에 EXPECTED, API `limit` 상한과 여러 테스트에 고정 건수가 있다. 내용 변경으로 건수가 바뀌면 실제 새 인벤토리로 정당화해 관련 계약을 함께 갱신한다. `--allow-count-drift`만으로 최종 검증을 통과시킨 것으로 보고하지 않는다.
 - `export_agent_data.mjs --out`은 `app/data/runtime/` 하위만 허용한다. 시험 KB도 그 아래 별도 디렉터리를 쓴다. 기대 건수 옵션은 스크립트 본문을 확인한다.
 - KB manifest의 입력 목록에 모든 시나리오 fills/story/bg 의존성이 포함됐다고 가정하지 않는다. 콘텐츠 파일과 묶음 주소는 별도로 검증한다.
@@ -52,7 +52,7 @@ app/data + app/web/src/domain/templates + services/catalog.js
 
 - 제품 `id`, 사이트 `goodsId`·`pf_<goodsId>`, 모델 SKU, e-카탈로그 `Dir/page`·추출 ID, 앱 `ec_*`는 서로 다른 키다. 같은 숫자나 이름만으로 합치지 않는다.
 - `P/S/C/IND`에 없는 참조는 오류다. 사례 ID는 문자열로 정규화한다. 큐레이션 ID는 템플릿·시나리오의 장기 참조이므로 신모델의 ID로 재사용하지 않는다.
-- `ALL_LAYOUTS = catalog.layouts + PHOTO_META + STD_META`; `LAYOUTS`는 retired 제외; `L`에는 숨긴 업종 표지도 있다. `layoutHtml()`은 base gzip/base64 HTML + COVERS + PHOTO_HTML + STD_HTML을 쓴다.
+- `ALL_LAYOUTS = catalog.layouts + PHOTO_META + STD_META + VSTD_META + SPATIAL_META + ACCOUNT_META`; `LAYOUTS`는 retired 제외; `L`에는 숨긴 업종 표지도 있다. `layoutHtml()`은 base gzip/base64 HTML + COVERS + PHOTO_HTML + STD_HTML + VSTD_HTML + SPATIAL_HTML + ACCOUNT_HTML을 쓴다.
 - retired는 선택·추천에서 제외하는 방식이다. 기존 문서가 참조하는 HTML을 물리 삭제하는 방식이 아니다. 신규 등록은 메타와 HTML 양쪽에 필요하다.
 - `f`, `data-tb`, `data-img`, `data-sp`, `data-pid`, `img/*.json#k`는 사용자 overrides·찜·My 템플릿·PPTX가 참조할 수 있다. 주소/키의 의미를 바꾸면 저장 자료와의 이관이 필요하다.
 - `app/web/src/repositories/`의 제안서·찜·템플릿·시뮬레이션·페르소나·백업과 `sample-history.js`를 영향 확인에 포함한다. 사용자 브라우저 자료는 일반 `rg`로 전부 찾을 수 없다. 내보내기/백업을 이용한 이관 또는 과거 참조 보존을 설계한다.

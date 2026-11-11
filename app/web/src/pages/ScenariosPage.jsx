@@ -26,7 +26,7 @@ import { usePickPeek } from '../components/pickpeek.jsx';
 import { FilterBar, FilterPopup, FStep, FChip, FAll, FProducts, idList, SCENARIO_UNIT } from '../components/filterpop.jsx';
 
 /* =========================================================
-   Best Scenario — its own page (sidebar): a list, one scenario per row,
+   샘플 버티컬 시나리오 — its own page (sidebar): a list, one scenario per row,
    grouped by 요구사항 타입 (indented under each group). A row = big title,
    a '상세 보기' button (the scenario's Storyboard, read-only — ScenarioStoryboard; 활용하기 copies it into the history) and the
    deck's first sheets (s.preview, 3 — each opens that sheet's detail popup).
@@ -52,7 +52,7 @@ async function downloadScenario(s) {
   if (r.ok) toast(s.title + ' PPTX를 저장했어요'); else toast(r.err, 'warn');
 }
 /** 활용하기 — 이 시나리오의 Storyboard(고객 요구사항 · 제품 · 솔루션 매칭 · 파트 · 채운 레이아웃)를 그대로 내 제안서로 만들어
- *  히스토리(사이드바 제안서 목록) 맨 위에 넣고 연다. 원본 Best Scenario는 그대로 — 고치고 넣는 것은 이 복사본에서만. */
+ *  히스토리(사이드바 제안서 목록) 맨 위에 넣고 연다. 원본 샘플 버티컬 시나리오는 그대로 — 고치고 넣는 것은 이 복사본에서만. */
 export function activateScenario(s, go) {
   if (!requireLogin()) return;
   const sb = storyboardOf(s, { pid: () => uid('s'), kid: () => uid('k'), lid: () => uid('l') });
@@ -66,11 +66,11 @@ function UseConfirm({ s, onCancel, onConfirm }) {
   const p = scenarioStoryboard(s.id);
   const parts = p.parts.filter((x) => !x.deck); const nL = p.parts.reduce((a, x) => a + x.layouts.length, 0);
   return (
-    <Modal size="narrow" title="이 Best Scenario를 활용할까요?" onClose={onCancel}
+    <Modal size="narrow" title="이 샘플 버티컬 시나리오를 활용할까요?" onClose={onCancel}
       footer={<><span className="sp" /><button className="btn" onClick={onCancel}>취소</button><button className="btn btn-primary" data-autofocus onClick={onConfirm} data-login-required><Icon name="check" size={15} stroke={2.6} />활용하기</button></>}>
       <div className="bsu">
         <p className="bsu-t"><b>{s.title}</b></p>
-        <p className="bsu-d">이 구성 그대로 <b>내 제안서 히스토리</b>에 추가하고 바로 열어요. 추가한 제안서에서는 요구사항 · 매칭 · 파트를 고치고 레이아웃을 넣거나 바꿀 수 있어요. 원본 Best Scenario는 바뀌지 않아요.</p>
+        <p className="bsu-d">이 구성 그대로 <b>내 제안서 히스토리</b>에 추가하고 바로 열어요. 추가한 제안서에서는 요구사항 · 매칭 · 파트를 고치고 레이아웃을 넣거나 바꿀 수 있어요. 원본 샘플 버티컬 시나리오는 바뀌지 않아요.</p>
         <ul className="bsu-list">
           <li><Icon name="clip" size={14} />고객 요구사항 · 키맨 {p.req.form.keymen.length}명</li>
           <li><Icon name="link" size={14} />제품 {p.ctx.products.length} · 솔루션 {p.ctx.solutions.length} · 유관사례 {p.ctx.cases.length}</li>
@@ -86,7 +86,7 @@ function useBusy() {
   return [busy, run];
 }
 
-// Both catalogs use the original Best Scenario keyword search contract.
+// Both catalogs use the original 샘플 버티컬 시나리오 keyword search contract.
 export const searchScenarios = searchScenarioKeywords;
 
 /* ---------- filters: one popup (요구사항 · 전략 · 업종 · 솔루션 · 제품 · 결말), shared UI with the template page ---------- */
@@ -240,7 +240,7 @@ function ScenarioRow({ s, onOpen, onSheet, mark = {}, showReq, hc, peek, aiWhy }
           <button key={x.k} type="button" className="bsl-sheet" onClick={() => { hc.hide(); peek.hide(); onSheet(s.id, x.k); }}
             aria-label={x.page + '번째 장 ' + (L[x.f] ? L[x.f].name : '') + ' 크게 보기'} {...peekProps(hc, s, x, x.k)}>
             <FitSlide f={x.f} ov={ovOf(s.id, x.k, x.f)} lazy />
-            <FavButton f={x.f} ov={ovOf(s.id, x.k, x.f)} from={'Best Scenario · ' + s.title} />
+            <FavButton f={x.f} ov={ovOf(s.id, x.k, x.f)} from={'샘플 버티컬 시나리오 · ' + s.title} />
           </button>
         ))}
       </div>
@@ -248,19 +248,77 @@ function ScenarioRow({ s, onOpen, onSheet, mark = {}, showReq, hc, peek, aiWhy }
   );
 }
 
+/* ---------- 표준 제안서: one button on the page, the list in a popup ----------
+   Every 표준 제안서 follows the same six-chapter table of contents; only the industry's content, spaces, solutions and cases differ.
+   The page keeps them out of the long list — one card opens a popup grouped by industry (s.vs.group), and an item opens its Storyboard. */
+const stdGroupOf = (s) => (s.vs && s.vs.group) || s.ind || '_';
+const stdGroupName = (s) => (s.vs && s.vs.groupName) || indName(s.ind);
+function stdFacts(s) {
+  const n = slidesOfScenario(s).length;
+  return [s.vs && s.vs.spaces ? '공간 ' + s.vs.spaces : null, s.vs && s.vs.solutions ? '솔루션 ' + s.vs.solutions : null, n + '장'].filter(Boolean).join(' · ');
+}
+function StdGroupCard({ items, onOpen }) {
+  const covers = items.slice(0, 4);
+  return (
+    <button type="button" className="bsx-card" onClick={onOpen} aria-haspopup="dialog" aria-label={'표준 제안서 ' + items.length + '개 목록 열기'}>
+      <span className="bsx-card-ic" aria-hidden="true"><Icon name="layers" size={20} /></span>
+      <span className="bsx-card-t">
+        <b>표준 제안서<span className="num">{items.length}</span></b>
+        <span>모든 업종이 같은 6장 목차예요 · 업종마다 공간 · 제품 · 솔루션 · 도입사례만 달라요</span>
+      </span>
+      <span className="bsx-card-covers" aria-hidden="true">
+        {covers.map((s) => { const x = slidesOfScenario(s)[0]; return <span key={s.id} className="bsx-card-cover"><FitSlide f={x.f} ov={ovOf(s.id, 0, x.f)} lazy /></span>; })}
+      </span>
+      <span className="bsx-card-go">목록 보기<Icon name="chev" size={16} stroke={2.4} /></span>
+    </button>
+  );
+}
+function StdListPopup({ items, onOpen, onClose }) {
+  const [q, setQ] = useState('');
+  const k = q.trim().toLowerCase();
+  const hit = (s) => !k || [s.title, s.short, s.vs && s.vs.name, s.vs && s.vs.spaceNames, stdGroupName(s)].filter(Boolean).join(' ').toLowerCase().includes(k);
+  const shown = items.filter(hit);
+  const groups = [];
+  for (const s of shown) { const g = stdGroupOf(s); let e = groups.find((x) => x.k === g); if (!e) groups.push(e = { k: g, label: stdGroupName(s), items: [] }); e.items.push(s); }
+  return (
+    <Modal size="wide" title="표준 제안서" sub={'업종 ' + items.length + '개 · 01 Overview → 02 AI 업종 → 03 공간별 제안 → 04 솔루션 → 05 도입사례 → 06 Why Samsung'} onClose={onClose}
+      footer={<><span className="note">{shown.length === items.length ? items.length + '개' : shown.length + ' / ' + items.length + '개'}</span><span className="sp" /><button className="btn" onClick={onClose}>닫기</button></>}>
+      <div className="bsx">
+        <label className="bsx-q"><Icon name="search" size={15} /><input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="업종 · 공간 이름으로 찾기 · 예) 병원, 객실, 강의실" aria-label="표준 제안서 찾기" data-autofocus /></label>
+        {!shown.length && <p className="muted bsx-none">“{q}”와 맞는 업종이 없어요</p>}
+        {groups.map((g) => (
+          <section key={g.k} className="bsx-grp" aria-label={g.label}>
+            <h3>{g.label}<span className="num">{g.items.length}</span></h3>
+            <div className="bsx-grid">
+              {g.items.map((s) => { const x = slidesOfScenario(s)[0]; return (
+                <button key={s.id} type="button" className="bsx-item" onClick={() => onOpen(s.id)} aria-label={s.title + ' 상세 보기'}>
+                  <span className="bsx-thumb"><FitSlide f={x.f} ov={ovOf(s.id, 0, x.f)} lazy /></span>
+                  <span className="bsx-meta"><b>{s.title}</b><span className="bsx-sub">{s.vs && s.vs.size ? s.vs.size : s.short}</span><span className="bsx-facts">{stdFacts(s)}</span></span>
+                  <Icon name="chev" size={16} stroke={2.4} className="bsx-go" />
+                </button>
+              ); })}
+            </div>
+          </section>
+        ))}
+      </div>
+    </Modal>
+  );
+}
+
 /** one sheet of a scenario, big — the same detail popup as in the scenario's layout list (prev / next through the whole deck) */
 function SheetDetail({ s, index, onNav, onClose }) {
   const slides = useMemo(() => slidesOfScenario(s), [s.id]);
-  return <TemplateDetail list={slides.map((x) => L[x.f])} ovs={slides.map((x, k) => ovOf(s.id, k, x.f))} index={index} onNav={onNav} onClose={onClose} favFrom={'Best Scenario · ' + s.title}
+  return <TemplateDetail list={slides.map((x) => L[x.f])} ovs={slides.map((x, k) => ovOf(s.id, k, x.f))} index={index} onNav={onNav} onClose={onClose} favFrom={'샘플 버티컬 시나리오 · ' + s.title}
     notes={slides.map((x) => x.stage.name + ' · ' + x.role)} noteLabel="이 시나리오에서의 역할" />;
 }
 
-/* ---------- Best Scenario page: search · filters · grouped scenarios ---------- */
+/* ---------- 샘플 버티컬 시나리오 page: search · filters · grouped scenarios ---------- */
 export function ScenarioPage({ go }) {
   const [f, setF] = useState(loadBs);
   const [open, setOpen] = useState(null);
   const [sheet, setSheet] = useState(null); // { id, k } — a sheet clicked on a row
   const [fpop, setFpop] = useState(false);
+  const [stdPop, setStdPop] = useState(false); // 표준 제안서 list popup
   const hc = usePickPeek();
   const peek = useDetailPeek(null);
   useEffect(() => { const u = loadUi(); saveUi({ ...u, bs: f }); }, [f]);
@@ -288,7 +346,7 @@ export function ScenarioPage({ go }) {
         <header className="tl-head">
           <div className="tl-title">
             <span className="eyebrow">WINMATE · 제안 시나리오</span>
-            <h1>Best Scenario</h1>
+            <h1>샘플 버티컬 시나리오</h1>
           </div>
         </header>
 
@@ -321,13 +379,16 @@ export function ScenarioPage({ go }) {
                   {g.k === '_ai_top' ? <Icon name="sparkle" size={15} /> : <i className="dot" />}<h2>{g.label}</h2>
                 </div>
               )}
-              <div className={'bsp-list' + (g.k === '_hits' ? ' flat' : '')}>{g.items.map((s) => <ScenarioRow key={s.id} s={s} onOpen={setOpen} onSheet={(id, k) => setSheet({ id, k })} mark={f} showReq={!!q} hc={hc} peek={peek} aiWhy={hitOf[s.id]?.aiWhy} />)}</div>
+              {g.k === 'std'
+                ? <div className="bsp-list"><StdGroupCard items={g.items} onOpen={() => { hc.hide(); peek.hide(); setStdPop(true); }} /></div>
+                : <div className={'bsp-list' + (g.k === '_hits' ? ' flat' : '')}>{g.items.map((s) => <ScenarioRow key={s.id} s={s} onOpen={setOpen} onSheet={(id, k) => setSheet({ id, k })} mark={f} showReq={!!q} hc={hc} peek={peek} aiWhy={hitOf[s.id]?.aiWhy} />)}</div>}
             </section>
           ))}
         </div>
       </div>
       {hc.node}
       {peek.node}
+      {stdPop && <StdListPopup items={(sections.find((g) => g.k === 'std') || { items: list.filter((s) => s.req === 'std') }).items} onOpen={setOpen} onClose={() => setStdPop(false)} />}
       {open && SC[open] && <ScenarioStoryboard key={'sb-' + open} s={SC[open]} go={go} onClose={() => setOpen(null)} />}
       {sheet && SC[sheet.id] && <SheetDetail key={'sheet-' + sheet.id} s={SC[sheet.id]} index={sheet.k} onNav={(k) => setSheet({ id: sheet.id, k })} onClose={() => setSheet(null)} />}
       {fpop && <ScenarioFilter f={f} base={search.busy || search.error ? SCENARIOS : base} onApply={(x) => { set(x); setFpop(false); }} onClose={() => setFpop(false)} />}
@@ -471,7 +532,7 @@ export function PartView({ p, part, pages, onClose, onSheet }) {
             <button key={x.uid} type="button" className="rov-lay" onClick={() => onSheet(x.uid)} aria-label={(pages[x.uid] || '') + '쪽 ' + (L[x.f] ? L[x.f].name : '') + ' 크게 보기'}>
               <span className="pg num">{pages[x.uid]}</span>
               <FitSlide f={x.f} ov={x.ov} pageNo={pages[x.uid]} lazy />
-              <FavButton f={x.f} ov={x.ov} from={'Best Scenario · ' + (p.title || '')} />
+              <FavButton f={x.f} ov={x.ov} from={'샘플 버티컬 시나리오 · ' + (p.title || '')} />
               <span className="nm">{L[x.f] ? L[x.f].name : x.f}</span>
             </button>
           ))}
@@ -572,7 +633,7 @@ export function ScenarioDetail({ s, go, onClose, onSwitch }) {
                   return (
                     <button key={x.f} className="bsd-slide" onClick={() => { hc.hide(); setPeek(i); }} aria-label={(i + 1) + '번째 장 ' + l.name + ' 크게 보기'} {...peekProps(hc, s, { ...x, stageName: g.name }, i)}>
                       <span className="pg num">{i + 1}</span>
-                      <div className="tl-thumb"><FitSlide f={x.f} ov={ovOf(s.id, i, x.f)} pageNo={i + 1} lazy /><FavButton f={x.f} ov={ovOf(s.id, i, x.f)} from={'Best Scenario · ' + s.title} /></div>
+                      <div className="tl-thumb"><FitSlide f={x.f} ov={ovOf(s.id, i, x.f)} pageNo={i + 1} lazy /><FavButton f={x.f} ov={ovOf(s.id, i, x.f)} from={'샘플 버티컬 시나리오 · ' + s.title} /></div>
                       <span className="nm">{l.name}</span>
                       <span className="role">{x.role}</span>
                     </button>
@@ -607,7 +668,7 @@ export function ScenarioDetail({ s, go, onClose, onSwitch }) {
         </div>
       </div>
       {hc.node}
-      {peek != null && <TemplateDetail list={layouts} ovs={slides.map((x, k) => ovOf(s.id, k, x.f))} index={peek} onNav={setPeek} onClose={() => setPeek(null)} favFrom={'Best Scenario · ' + s.title} notes={slides.map((x) => x.stage.name + ' · ' + x.role)} noteLabel="이 시나리오에서의 역할" />}
+      {peek != null && <TemplateDetail list={layouts} ovs={slides.map((x, k) => ovOf(s.id, k, x.f))} index={peek} onNav={setPeek} onClose={() => setPeek(null)} favFrom={'샘플 버티컬 시나리오 · ' + s.title} notes={slides.map((x) => x.stage.name + ' · ' + x.role)} noteLabel="이 시나리오에서의 역할" />}
       {ask && <UseConfirm s={s} onCancel={() => setAsk(false)} onConfirm={() => { setAsk(false); onClose(); activateScenario(s, go); }} />}
       {references.node}
     </Modal>

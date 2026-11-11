@@ -72,7 +72,7 @@ def bootstrap_payload(request: Request):
         user.update({'role':identity.get('role','member') if identity else 'guest','tracking_enabled':True,
                      'storage_legacy_owner':auth.accounts.legacy_username})
     if username == 'admin':
-        user['sample_history'] = {'version':1,'scenarios':['bs01','bs21','bs03']}
+        user['sample_history'] = {'version':1,'scenarios':['bs01','bs_std_ht_large','bs03']}
     return {'catalog':json.loads((DATA/'catalog.json').read_text()),'images':json.loads((DATA/'images.json').read_text()),'products':request.app.state.products.bootstrap(),'capabilities':poc_capabilities(),'user':user}
 
 

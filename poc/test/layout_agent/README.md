@@ -1,7 +1,7 @@
 # Winmate v2 · Layout Agent (PoC)
 
 고객 요구사항 → **① 요구사항 분석 → ② layout 설계(RAG · 우선순위) → ③ layout 별 실제 값 입력** 을 LangGraph 로 잇는 테스트 프로젝트.
-winmatev2 본 앱의 storyboard 파트 24종 · 레이아웃 446개 · Best Scenario 20개 · 제품/솔루션/사례 카탈로그를 그대로 쓰고,
+winmatev2 본 앱의 storyboard 파트 24종 · 레이아웃 446개 · 샘플 버티컬 시나리오 20개 · 제품/솔루션/사례 카탈로그를 그대로 쓰고,
 결과는 앱 제안서 모델(`parts[].layouts[].ov.t`)과 같은 모양의 JSON 으로 내보낸다.
 
 ## 빠른 시작 (Mac)
@@ -37,7 +37,7 @@ ingest → analyze ─┬─ minimal   → match_standard ───────�
 |---|---|---|
 | analyze | 원자 요구 추출(키맨 · 자유형식 · 첨부 원문 · 제작자 의견), 18개 분류 → 10개 기준, must/should/could, 수치 사실, 업종 · 요구 타입 · 전략 단서, **맥락 3분기 판정** | `analysis.py` |
 | match_standard | 업종 → `STD-업종` 표준 제안서. 고른 제품 수 · 솔루션 · 사례 수로 장표 규칙을 해석 | `scenarios.py` |
-| match_best | 20개 Best Scenario 점수(업종 · 요구 타입 · 전략 · 제품/솔루션 겹침 · 상황 유사도) → 상위 3 → 고객 업종 · 솔루션 · 제품 수로 장표 치환 | `scenarios.py` |
+| match_best | 20개 샘플 버티컬 시나리오 점수(업종 · 요구 타입 · 전략 · 제품/솔루션 겹침 · 상황 유사도) → 상위 3 → 고객 업종 · 솔루션 · 제품 수로 장표 치환 | `scenarios.py` |
 | decompose | 기준별 그룹 · 평가 구조(배점 · BMT · 최저가) · 충돌 · 빈 정보 · 전략 후보 3 · 질문 | `decompose.py` |
 | strategy_interview | `interrupt()` 로 멈추고 사용자 답을 받음 → 전략 · 결말 · 분량 · 앞에 둘 키맨 반영. **충돌 선택지마다 다른 대응 장표**(예: 가격 vs 규격 — 규격 100% 충족 → SC-B + 원가 최소 구성 BM-A / TCO 강조 → CO-B / 대안 사양 → SC-E). **빈 정보에 값을 답하면** 요구(I01…) · 수치 근거로 추가, LLM 질문 답도 요구로 기록 | `graph.py` · `strategy.py` |
 | plan | 요구 ↔ 파트 연결(추적성), 요구가 모두 다른 파트로 가 비어 버린 기준별 파트 제거, 연관 우선순위, 파트 내용(items)에 고객 요구 표현 반영, 장수 예산 컷 | `storyboard.py` |
@@ -70,8 +70,8 @@ ingest → analyze ─┬─ minimal   → match_standard ───────�
 | slots.texts | data-tb 칸마다 역할(eyebrow · headline · subhead · kpi · title · body · caption · tag · footer · fixed) · 글자 수 상한 · 자리표시 여부 |
 | slots.images · groups | 이미지 칸(종류 · 힌트), 반복 카드/행 구조 → **capacity**(몇 항목을 담는 장표인가) |
 | visual | kpi · table · comparison · map · flow · photo · diagram · matrix · cards · message · qna · image_heavy |
-| strategy_fit · req_type_fit · level_fit | 7개 전략 · 6개 요구 타입 · 3개 맥락 적합 — 코드 규칙 + Best Scenario 사용 이력 |
-| usage | Best Scenario 에서 맡은 역할 문장(“메뉴 교체 다섯 단계 속 병목 — 9일이 걸리는 이유”) |
+| strategy_fit · req_type_fit · level_fit | 7개 전략 · 6개 요구 타입 · 3개 맥락 적합 — 코드 규칙 + 샘플 버티컬 시나리오 사용 이력 |
+| usage | 샘플 버티컬 시나리오 에서 맡은 역할 문장(“메뉴 교체 다섯 단계 속 병목 — 9일이 걸리는 이유”) |
 | data_needs | 채우는 데 필요한 정보(필수 · 핵심) — 없으면 감점, Gemini 에도 `missing` 으로 전달 |
 | audience | exec · working · mixed |
 | static_text · static_ind | **data-tb 밖 편집 불가 문구**와 그 업종 — 다른 업종 고객에게 감점, 검토 리포트에 표시 |

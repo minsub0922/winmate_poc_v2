@@ -1,6 +1,6 @@
 // B2B 전략 시뮬레이션 — 최종 제안 대상자(고객) 프로필.
 // 난이도 3단계(호의적 · 첫 고객 · 까다로운 고객)마다 관계 · 인식 · 의사결정 · 경쟁 · 예산 · 말투와
-// 숨은 우려 개수가 다르고, 요구사항(Best Scenario 예시 · 내 제안서 · 직접 입력)에서 관심사와 우려를 가져온다.
+// 숨은 우려 개수가 다르고, 요구사항(샘플 버티컬 시나리오 예시 · 내 제안서 · 직접 입력)에서 관심사와 우려를 가져온다.
 import { IND, P, S, C } from '../../services/catalog.js';
 import { SCENARIOS, SC, REQ_TYPES } from '../templates/scenarios.js';
 import { FILL_CUSTOMER } from '../templates/scenario_fills.js';
@@ -33,7 +33,7 @@ export const LEVELS = [
 export const LV = Object.fromEntries(LEVELS.map((l) => [l.id, l]));
 export const METERS = [['trust', '신뢰도'], ['patience', '인내심'], ['price', '가격 민감도'], ['pressure', '경쟁 압박']];
 
-// 대화 흐름 단계 — Best Scenario의 STAGES와 이어진다(stageKeys).
+// 대화 흐름 단계 — 샘플 버티컬 시나리오의 STAGES와 이어진다(stageKeys).
 export const SIM_STAGES = [
   { k: 'open', label: '열기', keys: ['open'] },
   { k: 'needs', label: '니즈 확인', keys: ['context', 'problem'] },
@@ -80,7 +80,7 @@ function kwOf(text) {
   return out.slice(0, 10);
 }
 
-/** 예시 요구사항 = Best Scenario (상황 · 신호 · 평가 기준 · 이의 · 연결 제품). */
+/** 예시 요구사항 = 샘플 버티컬 시나리오 (상황 · 신호 · 평가 기준 · 이의 · 연결 제품). */
 export const PRESETS = SCENARIOS.map((s) => ({
   id: s.id, title: s.title, ind: s.ind, req: s.req, customer: FILL_CUSTOMER[s.id] || '고객사', role: s.audience.lead,
   hue: REQ_TYPES[s.req] ? REQ_TYPES[s.req].hue : 'slate',

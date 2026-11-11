@@ -183,7 +183,7 @@ export function cloneProposal(src) {
   for (const fn of changes) fn(t, null);
   return t.id;
 }
-/** 배경 테마(p.bg, Best Scenario에서 시작한 제안서) — 모든 장에 배경이 있고, 장마다 다른 사진.
+/** 배경 테마(p.bg, 샘플 버티컬 시나리오에서 시작한 제안서) — 모든 장에 배경이 있고, 장마다 다른 사진.
  *  배경이 없는 장(새로 넣은 장 · 배경이 지워진 장)에는 테마 사진 중 아직 안 쓴 것을, 다 쓰면 가장 덜 쓴 것을 깐다. */
 function syncBg(d) {
   const pool = d && d.bg ? (d.bg.pool || (d.bg.src ? [d.bg.src] : [])) : [];

@@ -35,7 +35,7 @@ try {
      if(guide.steps[i].ai)assert.equal(await page.locator('.guide-ai-explanation').count(),1);
      if(guide.id==='storyboard'&&i===0){
        assert.equal(await page.locator('.guide-reading h2').innerText(),'새 제안서 작성 시작하기');
-       assert(!(await page.locator('.guide-reading').innerText()).includes('Best Scenario'));
+       assert(!(await page.locator('.guide-reading').innerText()).includes('샘플 버티컬 시나리오'));
        const target=await page.locator('.guide-gif canvas').boundingBox();await page.mouse.click(target.x+target.width/2,target.y+target.height/2);
        assert.equal(await page.locator('.guide-dialog').count(),1);assert.equal(await page.locator('.mback').count(),0);
        for(let j=0;j<5;j++){await page.keyboard.press('Tab');assert.equal(await page.evaluate(()=>!!document.activeElement.closest('.guide-screen,canvas')),false);}

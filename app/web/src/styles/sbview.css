@@ -1,4 +1,4 @@
-/* Best Scenario 상세 보기 — 읽기 전용 Storyboard (scenarios.jsx ScenarioStoryboard · storyboard.jsx StoryCanvas readOnly)
+/* 샘플 버티컬 시나리오 상세 보기 — 읽기 전용 Storyboard (scenarios.jsx ScenarioStoryboard · storyboard.jsx StoryCanvas readOnly)
    + 활용하기 확인 (UseConfirm). build.mjs가 CSS 목록 맨 뒤에 이어 붙임. */
 .modal.sbv { width: min(var(--measure-1640px), var(--measure-100)); height: min(var(--measure-1000px), calc(var(--measure-100vh) - var(--measure-40px))); max-height: none; }
 .mbody.sbv-body { padding: 0; gap: 0; overflow: hidden; flex: 1; }

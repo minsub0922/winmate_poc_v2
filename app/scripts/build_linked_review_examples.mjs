@@ -10,7 +10,7 @@ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const version=5;
 const layoutRevision=1, tag=`v${version}-layouts${layoutRevision}`;
 const work=path.join(root,'app/tests/output/linked-review-examples/'+tag);fs.mkdirSync(work,{recursive:true});
-const sourceIds=['bs01','bs21','bs03'];
+const sourceIds=['bs01','bs_std_ht_large','bs03'];
 const read=n=>JSON.parse(fs.readFileSync(path.join(root,'app/data',n+'.json'),'utf8'));
 const boot={catalog:read('catalog'),products:read('products_db'),images:read('images'),capabilities:null,user:{username:'example-author',auth_enabled:false}};
 const vite=await createServer({root:path.join(root,'app/web'),configFile:path.join(root,'app/web/vite.config.js'),logLevel:'error',server:{host:'127.0.0.1',port:0,strictPort:false,hmr:false}});
@@ -41,7 +41,7 @@ try {
    const extra=improvements[sid];
    const sections=[['고객·판단',extra.goals],['당사 실행·운영',extra.delivery],['투자 판단용 가정',extra.finance],['근거·고지·검증 범위',[
     ['가상 고객·시장 자료','본문의 고객 인터뷰·시장 추정·고객 수치는 학습용 시나리오 가정입니다. 실제 조사·공식 통계·실증 실적으로 사용할 수 없습니다.'],
-    ['제품·사례 참고 자료','출처: 앱 제품 DB·Best Scenario 로컬본(2026.10.20). 본문 공식 자료·사례의 링크와 시점·사양은 실제 제출 전 재확인이 필요합니다.'],
+    ['제품·사례 참고 자료','출처: 앱 제품 DB·샘플 버티컬 시나리오 로컬본(2026.10.20). 본문 공식 자료·사례의 링크와 시점·사양은 실제 제출 전 재확인이 필요합니다.'],
     ['목표와 검증 방법','목표는 보장 실적이 아닙니다. '+extra.scope+'의 도입 전 기준선을 기록하고 4주 후 같은 범위·기간의 운영 로그와 비교합니다.'],
     ['공개·계약 조건','가상 고객 자료를 사용하며 개인정보·내부 원가를 포함하지 않습니다. 가격·일정·지원 범위는 설명용 가정이며 계약·현장 실사 후 확정합니다.']
    ]]];

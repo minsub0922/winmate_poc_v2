@@ -1,4 +1,4 @@
-// Requested example proposals are editable copies of curated Best Scenarios, never AI response fallbacks.
+// Requested example proposals are editable copies of curated 샘플 버티컬 시나리오, never AI response fallbacks.
 const KEY = 'winmate.v2.proposals';
 const MARKER = 'winmate.v2.seedv';
 

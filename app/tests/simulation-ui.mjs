@@ -82,7 +82,7 @@ try {
   await page.locator('.ssc').first().click(); await page.locator('.modal.sbv .story').waitFor();
   assert.equal(await page.locator('.modal.sbv').getByRole('button', { name: '전체 PPT 보기', exact: true }).count(), 1);
   await page.locator('.modal.sbv').getByRole('button', { name: '닫기', exact: true }).last().click();
-  checks.push('full-width thumbnail opens shared Best Scenario Storyboard');
+  checks.push('full-width thumbnail opens shared 샘플 버티컬 시나리오 Storyboard');
   for (const [score, expression] of [[39, 'stern'], [40, 'flat'], [60, 'happy']]) {
     await page.evaluate(async score => { const { patchSim } = await import('/src/repositories/simulations.js'); patchSim(window.__simTestId, x => { x.cur.satisfaction = score; x.cur.mood = '불만'; }); }, score);
     await page.waitForFunction(expression => ['.sim-head .portrait', '.sim-person .portrait'].every(q => document.querySelector(q)?.dataset.expression === expression), expression);

@@ -212,7 +212,7 @@ function MatchNode({ p, isOpen, onOpen, readOnly = false }) {
 }
 
 // stage: 'req' → 고객 요구사항 버블만 · 'match' → + 제품 · 솔루션 매칭 버블 · 'story' → + 파트(store.js stageOf)
-// readOnly: Best Scenario 상세 보기(scenarios.jsx ScenarioStoryboard) — 같은 버블 · 레이아웃 카드를 보기만 한다. 파트 넣기(+) · 끌어서 옮기기 ·
+// readOnly: 샘플 버티컬 시나리오 상세 보기(scenarios.jsx ScenarioStoryboard) — 같은 버블 · 레이아웃 카드를 보기만 한다. 파트 넣기(+) · 끌어서 옮기기 ·
 // PPT 레이아웃 추가 · AI로 나머지 구성 · 다음 파트가 없고, 버블 · 카드를 누르면 open 이 보기 전용 팝업을 띄운다. activePart = 팝업이 열린 파트 id.
 export function StoryCanvas({ p, open, stage = 'story', pop = null, onReq, onMatch, viewerOpen, onOpenViewer, pageOf, readOnly = false, activePart = null, children }) {
   const reqOpen = !!pop && pop.t === 'req';
@@ -311,7 +311,7 @@ export function StoryCanvas({ p, open, stage = 'story', pop = null, onReq, onMat
                           onMouseEnter={(e) => !drag && hc.show(l, e.currentTarget)} onMouseLeave={hc.hide}
                           role="button" tabIndex={0} onKeyDown={(e) => { if (e.target === e.currentTarget && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); open({ type: 'detail', partId: s.id, uid: x.uid }); } }} aria-label={l.name + ' 열기'}>
                           {readOnly ? <Slide f={x.f} ov={x.ov} width={STORY_SLIDE_WIDTH} lazy pageNo={pageOf(x.uid)} /> : <ContextSlide p={p} x={x} width={STORY_SLIDE_WIDTH} lazy pageNo={pageOf(x.uid)} />}
-                          <FavButton f={x.f} ov={x.ov} from={(readOnly ? 'Best Scenario · ' : '제안서 · ') + (p.title || '')} />
+                          <FavButton f={x.f} ov={x.ov} from={(readOnly ? '샘플 버티컬 시나리오 · ' : '제안서 · ') + (p.title || '')} />
                           {!readOnly && <LayoutCompleteButton p={p} x={x} onHover={hc.hide} />}
                           {!readOnly && <button type="button" className="layout-remove" draggable={false} aria-label={l.name + ' 선택 해제'} title="레이아웃 선택 해제"
                             onPointerDown={(e) => e.stopPropagation()} onMouseDown={(e) => { e.preventDefault(); e.stopPropagation(); }}

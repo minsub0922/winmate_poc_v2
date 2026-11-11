@@ -79,7 +79,7 @@ class LocalContracts(unittest.TestCase):
                 response=self.client.get('/api/bootstrap',headers={'Cookie':f'winmate_session={token}'})
                 self.assertEqual(response.status_code,200)
                 self.assertEqual(response.headers['cache-control'],'no-store')
-                self.assertEqual(response.json()['user']['sample_history'],{'version':1,'scenarios':['bs01','bs21','bs03']})
+                self.assertEqual(response.json()['user']['sample_history'],{'version':1,'scenarios':['bs01','bs_std_ht_large','bs03']})
                 guest=self.client.get('/api/bootstrap')
                 self.assertEqual(guest.status_code,200)
                 self.assertEqual(guest.headers['cache-control'],'no-store')

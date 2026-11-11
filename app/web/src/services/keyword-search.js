@@ -1,4 +1,4 @@
-// Shared keyword contract, extracted unchanged from Best Scenario's field-weighted search.
+// Shared keyword contract, extracted unchanged from 샘플 버티컬 시나리오's field-weighted search.
 const PARTICLE = /(에서|으로|까지|은|는|이|가|을|를|의|에|도|로|와|과|만)$/;
 export function queryWords(q) {
   return [...new Set(String(q || '').toLowerCase().split(/[\s,·.!?'"“”‘’()/]+/)

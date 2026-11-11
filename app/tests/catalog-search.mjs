@@ -31,7 +31,7 @@ function modelTransport({ queries = ['비용 투자 회수'], rank, calls = [] }
  return calls;
 }
 
-test('Best Scenario tokenization handles Korean particles, punctuation, Latin models and numbers', () => {
+test('샘플 버티컬 시나리오 tokenization handles Korean particles, punctuation, Latin models and numbers', () => {
  assert.deepEqual(queryWords('호텔에서, QM55C! 호텔에서 55'), ['호텔', 'qm55c', '55']);
  assert.equal(keywordSearch('', []), null);
 });
@@ -40,7 +40,7 @@ test('field weighting, AND matching and closest-word fallback are shared by both
  assert.deepEqual(keywordSearch('메뉴보드 원격', docs).map(x => x.id), ['title', 'body']);
  assert.deepEqual(keywordSearch('메뉴보드 원격 알수없는말', docs).map(x => x.id), ['title', 'body', 'partial']);
 });
-test('Hangul bigram fallback and matched excerpts retain Best Scenario behavior', () => {
+test('Hangul bigram fallback and matched excerpts retain 샘플 버티컬 시나리오 behavior', () => {
  const docs = [doc('x', [['솔루션', ['중앙통합관리'], 4]])];
  const result = keywordSearch('통합관리', docs);
  assert.equal(result[0].snip.mid, '통합관리'); assert.equal(result[0].why[0], '솔루션');
@@ -66,7 +66,7 @@ test('context expansion finds catalog content even without literal input-word ma
  modelTransport(); const out = await service.searchCatalogAI('layouts', '이사회에서돈걱정');
  assert(out.length > 10); assert(out[0].item.name.includes('비용'));
 });
-test('Best Scenario uses the same RAG/rerank and preserves its remaining scenarios', async () => {
+test('샘플 버티컬 시나리오 uses the same RAG/rerank and preserves its remaining scenarios', async () => {
  modelTransport(); const out = await service.searchCatalogAI('scenarios', '비용');
  assert.equal(out.length, 15); assert.equal(out.filter(x => x.ai).length, 10);
  assert(out.every(x => x.id.startsWith('scenario_')));

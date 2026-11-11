@@ -5,7 +5,7 @@ if(!password)throw Error('WINMATE_TEST_PASSWORD is required');
 const smoke=process.env.WINMATE_LIBRARY_SUITE==='smoke',widths=smoke?[1920,390]:[2560,1920,900,390];
 const folder='app/tests/output/library-width';fs.mkdirSync(folder,{recursive:true});
 const browser=await chromium.launch({headless:true});const rows=[];let context,page,errors;
-const pages=[['catalog','.sb-tpl','PPT 레이아웃 템플릿'],['scenarios','.sb-bs','Best Scenario'],['my','.sb-my','My 템플릿'],['favorites','.sb-fav','찜 목록']];
+const pages=[['catalog','.sb-tpl','PPT 레이아웃 템플릿'],['scenarios','.sb-bs','샘플 버티컬 시나리오'],['my','.sb-my','My 템플릿'],['favorites','.sb-fav','찜 목록']];
 async function navigate(selector,width){
  if(width<=760)await page.getByRole('button',{name:'메뉴 열기',exact:true}).click();else await page.locator('.sidebar').hover({position:{x:20,y:20}});
  await page.locator('.sidebar '+selector).click();await page.mouse.move(width-3,8);

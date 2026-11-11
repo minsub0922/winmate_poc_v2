@@ -1,4 +1,4 @@
-"""지식 베이스 — 파트 유형 · Best Scenario · 카탈로그(제품 · 솔루션 · 사례 · 업종).
+"""지식 베이스 — 파트 유형 · 샘플 버티컬 시나리오 · 카탈로그(제품 · 솔루션 · 사례 · 업종).
 
 원천은 data/*.json (scripts/export_source.mjs 로 winmatev2 앱 src 에서 만든 스냅샷).
 """
@@ -12,7 +12,7 @@ from pathlib import Path
 
 DATA = Path(__file__).resolve().parent.parent / "data"
 
-# 파트 유형 → 설득 단계 (Best Scenario STAGES 와 같은 키)
+# 파트 유형 → 설득 단계 (샘플 버티컬 시나리오 STAGES 와 같은 키)
 STAGE_OF = {
     "overview": "context", "requirements": "context", "market": "context", "customer": "context", "user": "context",
     "insight": "context", "competition": "proof", "challenge": "problem", "value": "value", "effect": "proof",

@@ -1,8 +1,8 @@
 // 시트(장표 한 장) 상세 팝업 — 모든 화면이 같은 틀 하나를 쓴다.
 //   왼쪽: 큰 장표 — 팝업 안에서 가로 · 세로 모두 맞춰 들어가는 가장 큰 크기(기본 16:9)
-//   오른쪽: 화면마다 다른 패널 (템플릿 · Best Scenario = 메타데이터 / Storyboard = 편집 · 근거 / 제안서 검토 = 짚은 문제)
+//   오른쪽: 화면마다 다른 패널 (템플릿 · 샘플 버티컬 시나리오 = 메타데이터 / Storyboard = 편집 · 근거 / 제안서 검토 = 짚은 문제)
 //   아래: 이전 · 다음(← → 키) + 화면마다 다른 버튼
-// 쓰는 곳: tplkit.jsx TemplateDetail(PPT 레이아웃 템플릿 · Best Scenario) · detail.jsx LayoutDetail(Storyboard) · review.jsx UnitModal(제안서 검토)
+// 쓰는 곳: tplkit.jsx TemplateDetail(PPT 레이아웃 템플릿 · 샘플 버티컬 시나리오) · detail.jsx LayoutDetail(Storyboard) · review.jsx UnitModal(제안서 검토)
 import React, { useRef, useState, useLayoutEffect, useEffect } from 'react';
 import { Icon, Modal } from './common.jsx';
 

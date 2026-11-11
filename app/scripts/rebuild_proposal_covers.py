@@ -31,7 +31,7 @@ def main():
  changed=0
  briefs={b['key']:b for b in BRIEFS}
  photos=json.loads((ROOT/'app/data/proposal_cover_photos.json').read_text())
- for file in ['description_standard_scenarios.json','vertical_scenarios.json']:
+ for file in ['vertical_scenarios.json']:  # 업종별 표준 제안서(standard_vertical_scenarios.json)는 표지까지 함께 만들어진다
   p=T/file;data=json.loads(p.read_text())
   for s in data['scenarios']:
    sid=s['id'];old=data['fills'][sid][0];migrations.setdefault(sid,prior(old));std=bool(s.get('std'));ops=sid.endswith('_2')

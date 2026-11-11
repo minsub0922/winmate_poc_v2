@@ -1,4 +1,4 @@
-# Best Scenario 구조·채움·표준제안서 계약
+# 샘플 버티컬 시나리오 구조·채움·표준제안서 계약
 
 ## 읽을 파일과 현재 등록 상태
 
@@ -8,7 +8,7 @@
 - `app/web/src/domain/simulation/profile.js`와 `score.js`: preset 생성과 비슷한 시나리오 추천.
 - 제작 이력: `build/sb/{plan,apply,check}.mjs`, `build/bs/{README,GUIDE}.md`, `build/sol/README.md`, `build/v25/README.md` 및 원본 source/명세.
 
-현재 앱은 22개 시나리오·STORY·fills를 갖는다. `bs21` 37장·`bs22` 15장이 표준이다. 이전 v25 생성기/README의 25개 덱 수를 현재 앱 상태로 착각하지 않는다. 과거 스크립트는 루트 src나 dist를 변경할 수 있으므로 app용 출력과 실제 import를 확인한다.
+현재 앱은 107개 시나리오·STORY·fills를 갖는다(고객별 bs01~bs20 · 버티컬 bs_v_* · 어카운트 bs_account_* · 업종별 표준 제안서 bs_std_* 44). 표준 제안서는 버티컬마다 하나(`bs_std_<버티컬 id>`)이고 목차 6장(Overview · AI 업종 · 공간별 제안 · 솔루션 · 도입사례 · Why Samsung)과 장 구성이 같으며 업종마다 내용 · 공간 수 · 솔루션 수만 다르다. 생성기는 `app/scripts/vertical_standard/`(README에 순서), 결과는 `standard_vertical_scenarios.json` · `vertical_std_layouts.js` · `public/assets/vertical-std/`. 예전 표준 `bs21`(37장) · `bs22`(15장)와 업종 표준 20종은 지웠다. 이전 v25 생성기/README의 25개 덱 수를 현재 앱 상태로 착각하지 않는다. 과거 스크립트는 루트 src나 dist를 변경할 수 있으므로 app용 출력과 실제 import를 확인한다.
 
 ## 두 모드
 
@@ -22,7 +22,7 @@
 | 제품/수치 갱신 | 판본과 원문을 기록. 신모델로 치환하려면 근거와 요청 범위 확인 | 현재 DB 사실과 가상 고객 조건으로 정합성 유지 |
 | 검증 | 원본→복원 장별 전체 대응표와 화면 비교 | 스토리 논리·고객 맞춤·최종 ask 달성 가능성 |
 
-`bs21`은 일부 장이 `L_PH_AIS_08/25/35`로 이미 사진 대체되어 있다. 원본 `L_AIS_01..37`이라는 이름만 믿어 현재 flow를 되돌리지 않는다. `bs22`는 L_SOL_01..15와 Lite 계열이다. 표준이라고 모두 37장 또는 Why Samsung 고정 끝맺음으로 만들지 않는다.
+업종별 표준 제안서를 고칠 때는 덱을 손으로 고치지 않고 생성기(내용 `content_*.txt` · 레이아웃 `layouts.py` · `sol_layouts.py` · `why_layouts.py`)를 고쳐 44종을 함께 다시 만든다. 예전 `bs21`의 L_AIS_* · `bs22`의 L_SOL_* 레이아웃은 저장본 호환용으로 남아 있을 뿐 현재 덱에는 쓰지 않는다. 표준이 아닌 시나리오를 표준 형식(37장 · Why Samsung 고정 끝맺음)으로 만들지 않는다.
 
 ## 시나리오 정의
 
@@ -87,7 +87,7 @@ STORY[id] = {
 
 1. 프런트 import가 실제 app의 새 모듈을 읽는지 확인한다. `SC`, `FEATURED`, `PREVIEW_N`, `previewOf` 등 파생 목록은 실제 현재 코드를 따른다. 과거 README의 '미리보기 3장'을 고정 요구로 삼지 않는다.
 2. 새로운 템플릿이 필요하면 메타·HTML·이미지·검색·내보내기 계약까지 추가한다. 단순히 시나리오를 만들기 위해 기존 템플릿을 삭제/retired 하지 않는다.
-3. scenario/fills/story/bg·사진 주소를 검증한 후 현재 앱의 기대 건수·Agent KB·관련 테스트를 함께 갱신한다. PoC `standard_scenarios.json`은 별도 규칙 자료다. 새 Best Scenario 등록과 그 파일 수정을 혼동하지 않는다.
+3. scenario/fills/story/bg·사진 주소를 검증한 후 현재 앱의 기대 건수·Agent KB·관련 테스트를 함께 갱신한다. PoC `standard_scenarios.json`은 별도 규칙 자료다. 새 샘플 버티컬 시나리오 등록과 그 파일 수정을 혼동하지 않는다.
 4. `PRESETS`는 SCENARIOS에서 생성되어 `s.audience.lead`, `s.criteria`, objections, ask, product/solution/case refs를 사용한다. 새 시나리오로 setup과 buildProfile이 생성되는지 확인한다.
 5. 기존 관리자 sample-history는 기존 시나리오 기반 편집본이다. 원본 갱신이 기존 저장 샘플/사용자 제안서를 덮어쓰거나 삭제한 샘플을 다시 넣지 않도록 유지한다.
 

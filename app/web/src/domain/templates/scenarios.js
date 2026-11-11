@@ -1,8 +1,8 @@
-// Best Scenario — whole-deck compositions built only from layouts in the catalog.
+// 샘플 버티컬 시나리오 — whole-deck compositions built only from layouts in the catalog.
 // Each scenario answers three questions: which requirement it fits (req), which strategy it argues with (strategy),
 // and how the deck flows from opening to the ask (flow → ending). Slides reference layout files (`f`).
 import VERTICAL from './vertical_scenarios.json' with { type: 'json' };
-import DESCRIPTION from './description_standard_scenarios.json' with { type: 'json' };
+import STANDARD from './standard_vertical_scenarios.json' with { type: 'json' };
 import SCENARIO_COVERS from './scenario_covers.json' with { type: 'json' };
 import ACCOUNT from './account_scenarios.json' with {type:'json'};
 export const REQ_TYPES = {
@@ -41,66 +41,6 @@ export const STAGES = {
 const st = (key, name, goal, slides) => ({ key, name, goal, slides: slides.map(([f, role]) => ({ f, role })) });
 
 export const SCENARIOS = [
-  /* ================= 표준 제안서 ================= */
-  {
-    id: 'bs21', req: 'std', ind: 'HT', strategy: 'value', ending: 'workshop', minutes: 40, std: true,
-    title: '호텔 · 리조트 AI 스테이 — 표준 제안서 37장',
-    short: '삼성 AI 비즈니스 → AI 스테이 세 가지 제안 → 공간별 제품 → LYNK Cloud → 도입사례 → Why Samsung, 2025 표준 양식 그대로',
-    situation: '호텔 · 리조트에 삼성 AI 제품 · 솔루션을 처음 소개하는 자리. 고객은 외국인 투숙객 응대, 객실 쾌적함, 적은 인력으로 하는 운영을 함께 고민한다. 특정 RFP가 아직 없어, 라운지부터 연회장까지 공간마다 무엇이 놓이는지 표준 구성으로 한 번에 보여 주고 실사 범위를 정해야 한다.',
-    signals: ['“외국인 투숙객 응대가 늘어서 프런트가 버거워요”', '“객실 공기 · 온도 민원이 계속 나와요”', '“객실 TV로 할 수 있는 게 더 많았으면 해요”', '“삼성 제품을 한 번에 보고 싶어요”'],
-    audience: { lead: '총지배인', others: ['객실팀장', '시설팀장', 'IT · 마케팅'] },
-    criteria: ['투숙 경험(응대 · 쾌적함 · 서비스)', '운영 인력 · 관리 효율', '공간별 적용 범위', '도입 사례 · 공급사 신뢰'],
-    thesis: '“머무는 곳마다 AI가 손님을 맞는다” — Device · Solution · Service로 짠 AI 스테이를 공간 순서대로 보여 주고, LYNK Cloud와 도입 사례로 운영까지 증명한다.',
-    logic: ['삼성 AI 비즈니스 — Device · Solution · Service', '고객 니즈 셋에 AI 기술로 답한다 — 글로벌 응대 · 맞춤 환경 · 맞춤 서비스', '라운지부터 연회장까지 여섯 공간 · 열 개 제품', 'LYNK Cloud로 운영은 가볍게, 투숙 경험은 깊게', '인스파이어 · 오크우드 도입 사례', '전문가 · 오퍼링 · 프로세스 · 브랜드로 끝까지 책임'],
-    diff: ['갤럭시 AI 통역 · 무풍 · 공기청정 · 호텔 TV를 한 흐름으로 묶은 AI 스테이', 'LYNK Cloud — 고객 분석 · 원격 통합 관리 · 양방향 서비스', '배송 · 설치 · 유지보수까지 하나의 공급사'],
-    tone: '표준 양식의 언어로 · 공간 장면과 공식 사진 중심',
-    messages: ['머무는 곳마다 AI가 손님을 맞습니다', '운영은 가볍게, 투숙 경험은 깊게', '같은 구성을 먼저 도입한 호텔이 있습니다'],
-    flow: [
-      st("open", "표지", "제안 전체를 먼저 보여 준다", [["L_AIS_01", "배경 사진형 표지 — AI 스테이"]]),
-      st("context", "목차 · 01 Overview", "여섯 장의 흐름과 삼성 AI 비즈니스가 호텔에 주는 가치", [["L_AIS_02", "여섯 장(章) 목차 · 사진 카드"], ["L_AIS_03", "간지 · 01 Overview"], ["L_AIS_04", "Device · Solution · Service 도식"]]),
-      st("value", "02 AI 스테이", "고객 니즈마다 AI 기술로 답한다", [["L_AIS_05", "간지 · 02 AI 스테이 (면책 주석)"], ["L_AIS_06", "니즈 · 기술 · 제안 매트릭스"], ["L_AIS_07", "AI 글로벌 응대 — 대면 통역 · 전화 통역"], ["L_PH_AIS_08", "AI 맞춤 환경 — 냉방 · 공기질 자동 조절"], ["L_AIS_09", "AI 맞춤 서비스 — 객실 TV · 분석 마케팅"]]),
-      st("space", "03 공간별 제안", "여섯 공간 · 열 개 제품", [["L_AIS_10", "간지 · 03 공간별 제안"], ["L_AIS_11", "공간별 시나리오 — 사진 지도 · 범례"], ["L_AIS_12", "라운지 — The Wall"], ["L_AIS_13", "라운지 — 360 카세트"], ["L_AIS_14", "리셉션 — 갤럭시 AI 통역"], ["L_AIS_15", "객실 — 호텔 TV"], ["L_AIS_16", "객실 — 무풍 1Way · AI+ 인증"], ["L_AIS_17", "객실 — 공기청정기 · 시험 주석"], ["L_AIS_18", "객실 — 에어드레서 · 시험 주석"], ["L_AIS_19", "레스토랑 — 비즈니스 TV"], ["L_AIS_20", "피트니스 — 무풍 4Way"], ["L_AIS_21", "연회장 — 시네마 LED · 활용 사진"], ["L_AIS_22", "AI 스테이 Map — 공간 × 제품"]]),
-      st("build", "04 스테이 솔루션", "LYNK Cloud로 운영을 바꾼다", [["L_AIS_23", "간지 · 04 스테이 솔루션"], ["L_AIS_24", "LYNK Cloud 소개 — 세 가지 가치"], ["L_PH_AIS_25", "고객 분석 마케팅 관리"], ["L_AIS_26", "TV 원격 통합 관리"], ["L_AIS_27", "편리한 양방향 서비스"]]),
-      st("proof", "05 도입사례", "같은 구성을 먼저 도입한 호텔", [["L_AIS_28", "간지 · 05 도입사례"], ["L_AIS_29", "인스파이어 엔터테인먼트 리조트"], ["L_AIS_30", "오크우드 프리미어 코엑스 센터"]]),
-      st("proof", "06 Why Samsung", "끝까지 책임지는 공급사, 브랜드로 닫는다", [["L_AIS_31", "간지 · 06 Why Samsung"], ["L_AIS_32", "Samsung Business — 4P"], ["L_AIS_33", "최고의 전문가 집단, One team synergy"], ["L_AIS_34", "통합 오퍼링 — Device · Solution · Service"], ["L_PH_AIS_35", "비즈니스 고객 맞춤 전문 프로세스"], ["L_AIS_36", "브랜드 가치 — 수치 · 수상"], ["L_AIS_37", "브랜드 워드마크 · 제안명으로 마감"]]),
-    ],
-    ask: '객실 · 공용부 실사 일정과 AI 스테이 적용 범위 워크숍 합의',
-    next: ['공간별 실사(라운지 · 객실 · 연회장)', '적용 제품 · 수량 초안', 'LYNK Cloud PMS 연동 사양 확인'],
-    prep: ['객실 수 · 타입', '공용부 목록(라운지 · 레스토랑 · 피트니스 · 연회장)', '현재 TV · 공조 모델', '외국인 투숙 비중'],
-    products: ['hoteltv', 'thewall', 'ac360', 'wf1way', 'wf4way', 'purifier', 'airdresser', 'led_indoor'], solutions: ['lynk', 'sac', 'stpro'], cases: ['3080', '2842'],
-    kpis: ['외국어 응대 시간', '객실 공기질 · 온도 민원 수', '객실 TV 서비스 이용률', '리뷰 평점(객실 · 서비스)'],
-    objections: [['제품이 너무 많아 한 번에 도입하기 어렵다', '공간별 제안 순서대로 우선 공간부터 — AI 스테이 Map으로 범위를 나눔'], ['AI 기능이 실제로 되는지 모르겠다', '도입사례 두 곳 · 갤럭시 AI 지원 모델 · 시험 성적 주석으로 근거 제시']],
-    fit: '삼성 B2B를 처음 소개하는 호텔 · 리조트, 표준 양식이 필요한 첫 제안', avoid: '교체 · 리뉴얼이 정해졌으면 BS-07처럼 전후 비교형으로',
-  },
-  {
-    id: 'bs22', req: 'std', ind: 'OF', strategy: 'space', ending: 'workshop', minutes: 20, std: true,
-    title: '공유오피스 · 코워킹 스페이스 — 표준 제안서 Lite 15장',
-    short: '세 가지 제안 → 공간 지도 → 업무 공간 · 미팅룸 → 공기질 · 라운지 · 카페 → b.IoT 원격 관리 → 패스트파이브 사례 → 제품 리스트, 공유오피스 Lite 양식 그대로',
-    situation: '공유오피스 운영사에 신규 지점 오픈(또는 기존 지점 리뉴얼)을 앞두고 삼성 제품 · 솔루션을 처음 소개하는 자리. 운영사는 입주사 유치 · 재계약률, 지점마다 다른 기기를 적은 인원으로 관리하는 문제를 함께 고민한다. 20분 안에 공간마다 무엇이 놓이는지 보여 주고, 지점 실사 범위를 정해야 한다.',
-    signals: ['“새 지점 오픈 전에 회의실 · 라운지 구성을 정해야 해요”', '“입주사들이 회의실 장비 · 공기질 얘기를 자주 해요”', '“지점이 늘수록 기기 관리가 손이 많이 가요”', '“출력 요금 정산이 번거로워요”'],
-    audience: { lead: '공간 운영 본부장', others: ['지점 운영팀장', '인테리어 · 공간 기획', '시설 · IT 관리'] },
-    criteria: ['입주사 업무 경험(회의 · 협업 · 출력)', '공용 공간 쾌적함 · 인테리어', '지점 기기 원격 관리', '같은 업계 도입 사례'],
-    thesis: '“유연한 업무 환경을 완성하는 새로운 패러다임” — 업무 공간 · 공용 공간 · 관리 편의 세 가지 제안을 공간 지도 위에 놓고, 같은 업계 사례로 바로 실사 범위를 정한다.',
-    logic: ['세 가지 제안 — 효율적인 업무 공간 · 쾌적한 공용 공간 · 관리 편의성', '공간 지도 — 입구 · 업무 공간 · 미팅룸 · 라운지 · 관리자 공간', '입구부터 미팅룸까지 일하는 장면 (사이니지 · Flip Pro · 갤럭시 북 · 무인 과금 프린팅)', '공기질 · 라운지 · 카페로 입주사 만족도', 'b.IoT Cloud로 전 지점 기기를 한 곳에서', '패스트파이브 두 지점 도입 사례 → 공간별 제품 리스트'],
-    diff: ['이동식 Flip Pro — 회의실 · 오픈 공간 어디서나 필기 · 화상 회의', '무인 과금 프린팅 — 카드 · 모바일 결제로 출력 정산 부담 해소', 'b.IoT Cloud — 지점별 기기 원격 관리 · 맞춤 대시보드', '비스포크 컬러 가전으로 지점마다 다른 라운지 · 카페 컨셉'],
-    tone: '표준 양식의 언어로 · 공간 사진과 제품 카드 중심',
-    messages: ['입주사가 매일 쓰는 공간마다 삼성이 놓입니다', '머물고 싶은 라운지가 재계약 이유가 됩니다', '전 지점 기기를 본사에서 한 번에'],
-    flow: [
-      st("open", "표지", "라운지 사진으로 연다", [["L_SOL_01", "라운지 사진 표지 — 공유오피스 솔루션 제안서"]]),
-      st("context", "세 가지 제안 · 공간 지도", "세 가지 제안을 다섯 공간 지도 위에 놓는다", [["L_SOL_02", "세 가지 제안 — 업무 공간 · 공용 공간 · 관리 편의"], ["L_SOL_03", "아이소메트릭 평면도 · 공간 라벨 5 · 가치 콜아웃 3"]]),
-      st("space", "01 효율적인 업무 공간", "입구부터 미팅룸까지 일하는 장면", [["L_SOL_04", "입구 / 로비 — 비디오월 · 단독형 사이니지 · Flip Pro"], ["L_SOL_05", "업무 공간 — 프라이빗 · 오픈형"], ["L_SOL_06", "무인 과금 프린팅 — 다양한 결제 방식"], ["L_SOL_07", "미팅룸 — Flip Pro 발표 · 화상 회의"]]),
-      st("value", "02 쾌적한 공용 공간", "공기질과 휴게 공간으로 입주사 만족도를 높인다", [["L_SOL_08", "업무 공간 공기질 — 무풍 · 제트 · 에어모니터 · 공기청정기"], ["L_SOL_09", "라운지 — 비스포크 가전 여섯 가지"], ["L_SOL_10", "카페 — 컬러 비스포크 냉장고"]]),
-      st("proof", "03 관리 편의성 · 04 레퍼런스", "b.IoT Cloud로 전 지점 기기를 한 곳에서, 같은 업계가 먼저 도입했다", [["L_SOL_11", "원격 관리 · 맞춤 대시보드 · 신속한 유지보수"], ["L_SOL_12", "패스트파이브 삼성 3호점 — Flip"], ["L_SOL_13", "패스트파이브 역삼 3호점 — 비스포크 냉장고"]]),
-      st("close", "05 제안 제품 리스트 · 마무리", "공간별 제품 범위를 확인하고 SAMSUNG으로 닫는다", [["L_SOL_14", "공간별 제안 제품 리스트"], ["L_SOL_15", "SAMSUNG 워드마크 마감"]]),
-    ],
-    ask: '신규 지점(또는 리뉴얼 지점) 공간 실사 일정과 공간별 제품 범위 워크숍 합의',
-    next: ['지점 도면 기준 공간별 실사(로비 · 업무 공간 · 미팅룸 · 라운지)', '공간별 제품 · 수량 초안', 'b.IoT Cloud 연동 기기 · 지점 목록 확인'],
-    prep: ['지점 수 · 오픈 일정', '지점 도면 · 좌석 수 · 회의실 수', '현재 회의실 장비 · 복합기 · 공조 모델', '라운지 · 카페 인테리어 컨셉'],
-    products: ['flip', 'book', 'qm55c', 'vm55b', 'wf4way', 'purifier', 'airdresser', 'bi_fridge', 'erv'], solutions: ['biot', 'unmanned', 'smartthings', 'magicinfo'], cases: ['155', '3310'],
-    kpis: ['회의실 가동률 · 예약 만족도', '입주사 재계약률', '공기질 · 냉난방 민원 수', '지점당 기기 관리 시간'],
-    objections: [['지점마다 공간이 달라 한 가지 구성으로는 어렵다', '공간 지도 기준으로 공간별 제품을 고르게 하고, 지점 실사로 수량을 맞춤'], ['기기가 늘면 관리가 더 힘들어진다', 'b.IoT Cloud 원격 관리 · 장애 알림으로 지점 방문 없이 점검'], ['공유오피스에 실제로 써 본 곳이 있나', '패스트파이브 삼성 3호점(Flip) · 역삼 3호점(비스포크 냉장고) 사례를 QR로 바로 확인']],
-    fit: '삼성 B2B를 처음 소개하는 공유오피스 · 코워킹 운영사, 짧은 표준 양식이 필요한 첫 제안', avoid: '여러 지점 동시 교체 · 입찰이면 비교형(경쟁 입찰) 시나리오로',
-  },
   /* ================= 신규 구축 · RFP ================= */
   {
     id: 'bs01', req: 'new', ind: 'FB', strategy: 'value', ending: 'pilot',
@@ -707,7 +647,7 @@ for (const s of SCENARIOS) {
   s.coverRevision='single-photo-cover-v1';
 }
 SCENARIOS.push(...VERTICAL.scenarios);
-SCENARIOS.push(...DESCRIPTION.scenarios);
+SCENARIOS.push(...STANDARD.scenarios);
 SCENARIOS.push(...ACCOUNT.scenarios);
 export const SC = Object.fromEntries(SCENARIOS.map((s) => [s.id, s]));
 
@@ -725,7 +665,7 @@ const REPS = {
 export const slidesOfScenario = (s) => s.flow.flatMap((g) => g.slides.map((x) => ({ ...x, stage: g })));
 export const minutesOf = (s) => s.minutes || Math.max(10, Math.round((slidesOfScenario(s).length * 1.5) / 5) * 5);
 
-// 목록 미리보기 메타데이터 — 첫 장부터 덱 순서대로 최대 PREVIEW_N장(3). Best Scenario 목록의 한 줄에 이 장들이 크게 보인다.
+// 목록 미리보기 메타데이터 — 첫 장부터 덱 순서대로 최대 PREVIEW_N장(3). 샘플 버티컬 시나리오 목록의 한 줄에 이 장들이 크게 보인다.
 // { f: 레이아웃, role: 이 장의 역할, k: 0부터 장 번호(채운 값 · 배경 사진 조회용), page: 1부터, stage: 단계 키, stageName: 단계 이름 }
 export const PREVIEW_N = 3;
 export const previewOf = (s, n = PREVIEW_N) => slidesOfScenario(s).slice(0, n)

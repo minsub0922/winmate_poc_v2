@@ -9,7 +9,7 @@
 - strategy_fit: 7개 전략(value · pain · space · roi · rfp · compete · land) 적합도
 - req_type_fit: 6개 요구 타입(new · renew · compete · ops · scale · brief) 적합도
 - level_fit   : 3개 요구사항 맥락(standard · best · complex) 에서 쓰임새
-- usage       : Best Scenario / 표준 시나리오에서 이 장표가 맡은 역할(role) 문장
+- usage       : 샘플 버티컬 시나리오 / 표준 시나리오에서 이 장표가 맡은 역할(role) 문장
 - data_needs  : 채우는 데 필요한 정보(필수 · 선택) — 정보가 없으면 자리표시로 남는다
 - embed_text  : 벡터 검색용 자연어 설명
 """
@@ -36,7 +36,7 @@ VISUAL_RULES: list[tuple[str, str]] = [
     ("qna", r"질문|Q&A|예상 질문|반론"),
 ]
 
-# 코드 접두어 → 전략 적합 (규칙) — Best Scenario 사용 이력으로 보강된다
+# 코드 접두어 → 전략 적합 (규칙) — 샘플 버티컬 시나리오 사용 이력으로 보강된다
 STRATEGY_RULES: dict[str, list[str]] = {
     "value": ["P1-A", "P2-A", "P3-A", "P4-A", "P5-A", "P1-D", "P2-D", "P3-D", "P4-D", "P5-D", "P1-A", "VP-J", "VP-P", "TR-", "MI-*-A", "VP-B", "VP-C", "VP-F", "VP-G", "VP-N", "VP-O", "VP-D", "VP-V", "VP-M", "VP-I", "VP-T", "VP-H", "ES-A", "EF-C", "EF-D", "ST-A", "ST-D"],
     "pain": ["MI-*-B", "MI-*-C", "US-", "VP-Q", "CH-", "VP-A", "VP-E", "VP-L", "VP-S", "VP-U", "IM-A", "EF-A", "P-N", "CB-", "CD-A", "CD-B"],

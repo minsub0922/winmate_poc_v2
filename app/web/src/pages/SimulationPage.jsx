@@ -3,7 +3,7 @@ import { requireLogin } from '../api/session.js';
 // B2B 전략 시뮬레이션 (BETA) — 특정 요구사항을 두고 최종 제안 대상자(고객)와 채팅으로 전략을 시험한다.
 //   설정: 요구사항(예시 · 내 제안서 · 직접 입력) + 난이도 3단계(호의적 · 첫 고객 · 까다로운 고객) + 고객사 프로필
 //   대화: 고객 대사 스트리밍, @로 제품 · 솔루션 · 유관사례 언급, 입력창 위 추천 답변 3개
-//   오른쪽: 고객 만족도 · 제안 품질('제안서 검토' 기준 대표 4개 · 마우스를 올리면 상세) · 참고할 Best Scenario
+//   오른쪽: 고객 만족도 · 제안 품질('제안서 검토' 기준 대표 4개 · 마우스를 올리면 상세) · 참고할 샘플 버티컬 시나리오
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { DeleteButton, Icon, MentionEditor, AddRefInput, Modal, toast, fmtWhen } from '../components/common.jsx';
@@ -266,7 +266,7 @@ function SimIntro({ gender }) {
   const gains = [
     ['고객 반응 미리 보기', '만족도 · 숨은 우려'],
     ['제안 품질 점수', '‘제안서 검토’ 기준 실시간 채점'],
-    ['다음 수와 참고 자료', '추천 답변 · 비슷한 Best Scenario'],
+    ['다음 수와 참고 자료', '추천 답변 · 비슷한 샘플 버티컬 시나리오'],
   ];
   return (
     <section className="ss-intro" aria-label="진행 과정">

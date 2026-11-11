@@ -49,7 +49,7 @@ export function personaLevelInfo(p, level) {
 /**
  * @param {string} pid  ps01 …
  * @param {1|2|3} level
- * @param {string} sid  매칭한 Best Scenario id (스토리라인 · 참고 사례)
+ * @param {string} sid  매칭한 샘플 버티컬 시나리오 id (스토리라인 · 참고 사례)
  * @param {{personaLevel?:boolean}} [opt] personaLevel=true 면 페르소나 고유 난이도 값을 profile.lv 로 실어 보낸다(엔진이 읽을 때만 효과)
  */
 export function buildSim(pid, level, sid, opt = {}) {

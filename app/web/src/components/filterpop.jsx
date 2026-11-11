@@ -6,7 +6,7 @@ import { ContextExplorer } from './ctxexplorer.jsx';
 import { tagHoverProps } from './tagcard.jsx';
 
 /* =========================================================
-   Shared filter UI — PPT 레이아웃 템플릿 · Best Scenario use the same pieces, so both pages look and behave alike:
+   Shared filter UI — PPT 레이아웃 템플릿 · 샘플 버티컬 시나리오 use the same pieces, so both pages look and behave alike:
    FilterBar   검색창 아래 '필터' 버튼 + 오른쪽에 적용한 필터 칩(× 로 하나씩 빼기 · 모두 지우기)
    FilterPopup 필터 팝업 하나 — 위에서 아래로 단계(FStep), 칩마다 남는 수, ‘N장 보기’ / ‘N개 보기’를 눌러야 적용
    FStep · FChip · FAll   단계 · 칩 · ‘전체’ 칩

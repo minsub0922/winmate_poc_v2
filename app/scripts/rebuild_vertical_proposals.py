@@ -450,7 +450,7 @@ class Deck:
    groups[-1]['slides'].append({'f':self.slides[k]['f'],'role':role})
   scenario.update(flow=groups,products=self.products,solutions=self.solutions,cases=self.cases,minutes=45 if self.std else 30,authoringRevision=REVISION,coverRevision='single-photo-cover-v1',sourceMode='existing-layouts',referenceScenario=REFERENCE[self.b['ind']],title=self.name+' 표준 제안서'if self.std else self.v['customer']+' — '+self.v['title'],short=self.promise,logic=[g['name']for g in groups],diff=['공간별 사용자 행동과 제품·솔루션을 함께 정리','시범·실측·인수 조건까지 완성한 구성','공식 사례의 사실과 고객별 검토 조건을 구분'])
   scenario['tone']='현장 업무·운영 조건·역할을 구체적으로 설명하고 효과는 실측으로 확인'
-  if self.std:scenario.update(std=True,req='std',situation=self.name+'의 공간·제품·솔루션을 기존 Best Scenario의 완성된 양식으로 구성한 표준 제안입니다. 반복 목차와 빈 장표는 통합하고 적용 범위·제품 사양·운영 흐름·공식 사례·인수 조건을 함께 제시합니다.',fit='업종별 공간·제품·운영을 함께 검토하는 첫 제안',avoid='확정 도면과 최종 견적만 필요한 발주 단계',objections=[['모델과 수량은 어떻게 정하나요?','설치 공간·전원·네트워크와 운영 조건을 확인한 뒤 지원 모델과 수량을 합의합니다.'],['현장별 차이는 어떻게 반영하나요?','공간별 목적·사용자·연동·권한·운영 지원 범위를 조정합니다.']])
+  if self.std:scenario.update(std=True,req='std',situation=self.name+'의 공간·제품·솔루션을 기존 샘플 버티컬 시나리오의 완성된 양식으로 구성한 표준 제안입니다. 반복 목차와 빈 장표는 통합하고 적용 범위·제품 사양·운영 흐름·공식 사례·인수 조건을 함께 제시합니다.',fit='업종별 공간·제품·운영을 함께 검토하는 첫 제안',avoid='확정 도면과 최종 견적만 필요한 발주 단계',objections=[['모델과 수량은 어떻게 정하나요?','설치 공간·전원·네트워크와 운영 조건을 확인한 뒤 지원 모델과 수량을 합의합니다.'],['현장별 차이는 어떻게 반영하나요?','공간별 목적·사용자·연동·권한·운영 지원 범위를 조정합니다.']])
   who=[scenario['audience']['lead'],*scenario['audience']['others']][:3];weights=[40,35,25]if len(who)==3 else[60,40]if len(who)==2 else[100]
   types={'open':'overview','context':'challenge','value':'value','space':'products','build':'solution','proof':'case','plan':'execution','close':'closing'}
   story={'keymen':[[name,weights[k],[scenario['criteria'][k%len(scenario['criteria'])]]]for k,name in enumerate(who)],'note':scenario['situation'],'parts':{g['name']:{'type':types[g['key']],'items':[x['role']for x in g['slides']]}for g in groups}}
@@ -460,8 +460,10 @@ def main():
  data=json.loads((ROOT/'app/data/vertical_proposal_briefs.json').read_text())
  previous={True:data['standards'],False:data['best']}
  outputs={k:{'scenarios':[],'fills':{},'story':{},'customers':{},'sources':previous[k]['sources']}for k in [True,False]}
+ # 표준 제안서(bs_std_*)는 2026-11부터 업종별 표준 제안서 standard_vertical_scenarios.json(목차 6장 고정 · 업종 44개)이 맡아
+ # 여기서는 고객별 샘플 버티컬 시나리오(bs_v_*)만 다시 만든다
  for b in BRIEFS:
-  for std in [True,False]:
+  for std in [False]:
    for variant in range(1 if std else 2):
     sid='bs_std_'+b['key']if std else'bs_v_'+b['key']+'_'+str(variant+1);old=next(s for s in previous[std]['scenarios']if s['id']==sid)
     deck=Deck(b,old,std,variant);s,f,st,c=deck.build(variant)
@@ -471,7 +473,7 @@ def main():
     s.pop('sourceNotes',None)
     outputs[std]['scenarios'].append(s);outputs[std]['fills'][sid]=f;outputs[std]['story'][sid]=st;outputs[std]['customers'][sid]=c
     print(sid,len(f),'slides',len(deck.products),'products',flush=True)
- for std,name in [(True,'description_standard_scenarios.json'),(False,'vertical_scenarios.json')]:
+ for std,name in [(False,'vertical_scenarios.json')]:
   (TARGET/name).write_text(json.dumps(outputs[std],ensure_ascii=False,separators=(',',':'))+'\n')
  summary={'standards':len(outputs[True]['scenarios']),'best':len(outputs[False]['scenarios']),'standardSlides':sum(map(len,outputs[True]['fills'].values())),'bestSlides':sum(map(len,outputs[False]['fills'].values())),'layouts':sorted({f['f']for d in outputs.values()for deck in d['fills'].values()for f in deck}),'referenceScenarios':REFERENCE,'revision':REVISION}
  (OUT/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n');print(json.dumps(summary,ensure_ascii=False))

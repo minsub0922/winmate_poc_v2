@@ -238,7 +238,7 @@ ROUTES.home = async (el) => {
     ['#/rfp/run', 'RFP → 요구사항 정리', '입찰 원문을 조각으로 나눠 읽고(맥락 이월) 사업별 Winmate 입력 폼을 만듭니다. 체크포인트 대조 · 근거 인용 · 원문에 없는 숫자를 확인합니다.'],
     ['#/layout/run', '레이아웃 추천 Agent', '요구 분석 → 맥락 판정(①②③) → 시나리오 · 분해 → 전략 질문 → storyboard → 레이아웃 설계 → 값 입력. 슬라이드를 바로 미리 봅니다.'],
     ['#/layout/search', '레이아웃 검색(RAG)', '메타데이터 + 하이브리드 검색으로 레이아웃 후보와 점수 근거를 봅니다.'],
-    ['#/sim/live', '제안 시뮬레이션 실성능 검증', '고객 페르소나 × Best Scenario 스토리라인으로 실제 LLM 멀티턴 미팅을 돌리고, 턴마다 만족도 · 제안 품질 · 숨은 우려 변화를 실시간으로 봅니다.'],
+    ['#/sim/live', '제안 시뮬레이션 실성능 검증', '고객 페르소나 × 샘플 버티컬 시나리오 스토리라인으로 실제 LLM 멀티턴 미팅을 돌리고, 턴마다 만족도 · 제안 품질 · 숨은 우려 변화를 실시간으로 봅니다.'],
     ['#/tests', '자동 테스트', '두 모듈의 단위 테스트를 돌리고 통과 · 실패를 봅니다.'],
   ];
   box.append(h('div', { class: 'suites' }, cards.map(([href, t, d]) => h('a', { href, class: 'panel', style: { textDecoration: 'none', color: 'inherit' } }, h('div', { class: 'pb' }, h('b', null, t), h('p', { class: 'muted small', style: { margin: '6px 0 0' } }, d))))));
@@ -1066,7 +1066,7 @@ ROUTES.tests = async (el) => {
 // ------------------------------------------------------------------ 제안 시뮬레이션 실성능 검증 (sim_eval)
 const SIM = { form: { set: 'sets/diverse10.json', modes: ['scenario'], weak: 3, suggest: 3, turns: 14, concurrency: 4, engine: 'current', judge: true, persona_level: false, only: '', tag: 'tb' } };
 const SIM_ST = { won: ['설득 성공', 'pass'], lost: ['미팅 종료', 'fail'], ended: ['결론 없음', 'warn'], error: ['오류', 'fail'], running: ['진행 중', 'blue'], judging: ['심사 중', 'turn'], paused: ['멈춤', ''], queued: ['대기', ''], done: ['완료', 'pass'] };
-const SIM_MODE = { scenario: 'Best Scenario 담당자', expert: '숙련 담당자', weak: '미숙(대조)', suggest: '추천 답변(대조)' };
+const SIM_MODE = { scenario: '샘플 버티컬 시나리오 담당자', expert: '숙련 담당자', weak: '미숙(대조)', suggest: '추천 답변(대조)' };
 const SIM_CRIT = ['CU2', 'CU3', 'CU4', 'PR3', 'PR4', 'PR6', 'VS1', 'VS2', 'VS4', 'VS6', 'VS5', 'MK3', 'WR5'];
 const simChip = (s) => chip(...(SIM_ST[s] || [s || '-', '']));
 

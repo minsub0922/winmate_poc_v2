@@ -1,10 +1,10 @@
 // 표준 제안서 · 호텔 AI 스테이 37장 (L_AIS_01..37, 원본 장표 구분 ST) — 2025 AI 스테이 제안서 명세(유형 A-01~A-20)를
-// Winmate 레이아웃 방식(1280×720 · data-tb 텍스트 칸 · data-img 이미지 칸)으로 다시 만든 것. Best Scenario bs21 이 이 37장을 순서대로 씀.
+// Winmate 레이아웃 방식(1280×720 · data-tb 텍스트 칸 · data-img 이미지 칸)으로 다시 만든 것. 샘플 버티컬 시나리오 bs21 이 이 37장을 순서대로 씀.
 // 사진 · 제품 컷: samsung.com 공식 이미지 → img/fill/ais-a.json · ais-b.json (fillpack.js 가 그릴 때 받음), 앱에 있던 도입사례 사진 img/ph/* 는 경로 그대로. 출처: src/fill_sources.md 의 ‘표준 제안서’ 표.
 // 생성: Winmate 세션(2026-10-14, v2 템플릿 스타일 전면 개선) · 미리보기 https://claude.ai/artifact/KGqEnieEMcvGwVsoArQ1sy
 // 사진 버전(2026-10-17): L_PH_AIS_08 · 25 · 35 — 아이콘 · 도식 칸을 객실 · 현장 사진으로 (글 칸 번호는 원래 장과 같음, build/bs/newlayouts.mjs) · 원래 장은 data.js RETIRED
 // 표준 제안서 · 공유오피스 Lite 15장 (L_SOL_01..15, 원본 장표 구분 ST · 원본 표기 cv=ST_SOL) — ‘공유오피스 Lite 제안서 슬라이드별 레이아웃 재현 명세’(PDF 15쪽)의 좌표 · 글자 기준선을
-// 1280×720 으로 옮긴 것(×4/3). Best Scenario bs22 가 15장을 순서대로 씀. 사진 · 제품 컷 · QR: samsung.com/sec/business 공식 이미지 → img/fill/sol-a.json · sol-b.json
+// 1280×720 으로 옮긴 것(×4/3). 샘플 버티컬 시나리오 bs22 가 15장을 순서대로 씀. 사진 · 제품 컷 · QR: samsung.com/sec/business 공식 이미지 → img/fill/sol-a.json · sol-b.json
 // (렌더 사진에 박힌 설명 상자는 지우고 편집 가능한 카드로, 큐브 공기청정기 자리는 Infinite AI 컷 합성, P03 평면도는 새로 그림). 출처: src/fill_sources.md ‘공유오피스 Lite’ 표 · 생성 2026-10-19
 export const STD_META = [
 {

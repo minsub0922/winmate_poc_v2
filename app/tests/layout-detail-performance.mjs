@@ -26,7 +26,7 @@ const {layoutContextKey}=await import('/src/domain/slides/context-policy.js');
 const {readBlocks,readImageSlots}=await import('/src/domain/slides/Slide.jsx');
 const {retainHistoryLayouts}=await import('/src/domain/slides/context-policy.js');
 const mount=createRoot(document.getElementById('root'));
-window.samples=['bs01','bs21','bs03'].map(sid=>{const p=structuredClone(scenarioStoryboard(sid)); p.id='benchmark-'+sid; retainHistoryLayouts(p); return p;});
+window.samples=['bs01','bs_std_ht_large','bs03'].map(sid=>{const p=structuredClone(scenarioStoryboard(sid)); p.id='benchmark-'+sid; retainHistoryLayouts(p); return p;});
 window.renderDetail=(pi,partId,uid,stale=false)=>{const p=structuredClone(window.samples[pi]); const part=p.parts.find(s=>s.id===partId); const x=part.layouts.find(x=>x.uid===uid);
  if(stale)x.adaptation.appliedKey=layoutContextKey({...p,customer:'이전 고객'},part);
  mount.render(React.createElement(LayoutDetail,{p,partId,uid,pageNo:1,onClose:()=>mount.render(null)}));};
@@ -45,12 +45,12 @@ try{
  page=await context.newPage(); page.setDefaultTimeout(15000);page.on('pageerror',e=>errors.push(e.message));
  await page.goto('http://127.0.0.1:'+server.httpServer.address().port+'/__detail-benchmark');await page.waitForFunction(()=>window.ready);
  await page.evaluate(()=>document.fonts.ready);
- const cases=await page.evaluate(()=>window.detailCases);assert.equal(cases.length,70);
+ const cases=await page.evaluate(()=>window.detailCases);assert.equal(cases.length,76); // bs01 + 대형 호텔·리조트 표준 제안서(43장) + bs03
  const saved=await page.evaluate(()=>JSON.stringify(window.samples));
  const open=async(row,stale=false)=>{const start=performance.now();await page.evaluate(({row,stale})=>window.renderDetail(row.pi,row.partId,row.uid,stale),{row,stale});await page.locator('.modal.sheet .detail-left .slide').waitFor();await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));return performance.now()-start;};
  const close=async()=>{await page.locator('.modal.sheet').getByRole('button',{name:'닫기',exact:true}).last().click();await page.locator('.modal.sheet').waitFor({state:'detached'});};
  for(const row of cases){const ms=await open(row);assert.equal(await page.locator('.detail-right .fillcard,.detail-right .layout-context-refill').count(),0);rows.push({...row,ms:+ms.toFixed(1)});await close();}
- checks.push('70 real stored slides render with no obsolete element-fill section or unchanged-context refill button');
+ checks.push('76 real stored slides render with no obsolete element-fill section or unchanged-context refill button');
  const withImage=cases.filter(x=>x.images).sort((a,b)=>a.texts-b.texts)[0];await open(withImage);
  await page.locator('.detail-left [data-img]:visible').first().click();const popup=page.getByRole('dialog',{name:'대체 이미지 고르기',exact:true});await popup.waitFor();await popup.getByRole('button',{name:'닫기',exact:true}).click();
  await page.locator('.detail-right .unitcard').waitFor();assert.equal(await page.locator('.detail-right').getByRole('button',{name:/대체 이미지|자동으로 고르기|자동 채우기/}).count(),0);await page.screenshot({path:output+'/image-actions-removed.png'});await close();checks.push('image selection preserves source details without the removed footer actions');

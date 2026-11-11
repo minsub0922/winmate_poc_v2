@@ -74,7 +74,7 @@ export function Sidebar({ route, go, onNew, open, setOpen }) {
       <button className="sb-new" onClick={onNew}><Icon name="plus" size={16} stroke={2.4} />{tx('새 제안서 시작')}</button>
       <button className="sb-home" aria-current={route.name === 'home' ? 'page' : undefined} onClick={() => go({ name: 'home' })}><Icon name="home" />{tx('홈')}</button>
       <button className="sb-home sb-tpl" aria-current={route.name === 'library' ? 'page' : undefined} onClick={() => go({ name: 'library' })}><TemplateIcon />{tx('PPT 레이아웃 템플릿')}<span className="sb-count num sb-tx">{LAYOUTS.length}</span></button>
-      <button className="sb-home sb-bs" aria-current={route.name === 'scenarios' ? 'page' : undefined} onClick={() => go({ name: 'scenarios' })}><Icon name="route" />{tx('Best Scenario')}<span className="sb-count num sb-tx">{SCENARIOS.length}</span></button>
+      <button className="sb-home sb-bs" aria-current={route.name === 'scenarios' ? 'page' : undefined} onClick={() => go({ name: 'scenarios' })}><Icon name="route" />{tx('샘플 버티컬 시나리오')}<span className="sb-count num sb-tx">{SCENARIOS.length}</span></button>
       <button className="sb-home sb-bld" aria-label="건물 조감도" aria-current={route.name === 'building' ? 'page' : undefined} onClick={() => go({ name: 'building' })}><Icon name="building" />{tx('건물 조감도')}<span className="sb-bld-format sb-tx">3D</span><span className="sb-beta sb-tx">BETA</span></button>
       <button className="sb-home sb-spatial" aria-label="공간 조감도" aria-current={route.name === 'spatial' ? 'page' : undefined} onClick={() => go({ name: 'spatial' })}><Icon name="building" />{tx('공간 조감도')}<span className="sb-spatial-format sb-tx">2D · 3D</span><span className="sb-beta sb-tx">BETA</span></button>
       <button className="sb-home sb-rv" aria-current={route.name === 'reviews' || route.name === 'review' ? 'page' : undefined} onClick={() => go({ name: 'reviews' })}><Icon name="clipCheck" />{tx('제안서 검토')}<span className="sb-count num sb-tx">{nRev}</span></button>
@@ -101,7 +101,7 @@ export function Sidebar({ route, go, onNew, open, setOpen }) {
 function firstLayout(p) { for (const s of p.parts) if (s.layouts.length) return s.layouts[0]; return null; }
 
 // Cover all requirement types and strategies across a range of industries.
-const HOME_SCENARIOS = [...new Set([...FEATURED,'bs21','bs22','bs01','bs03','bs06','bs08','bs11','bs12','bs13','bs14','bs17','bs19'])].slice(0,12).map(id=>SC[id]).filter(Boolean);
+const HOME_SCENARIOS = [...new Set([...FEATURED,'bs_std_ht_large','bs_std_of_cowork','bs01','bs03','bs06','bs08','bs11','bs12','bs13','bs14','bs17','bs19'])].slice(0,12).map(id=>SC[id]).filter(Boolean);
 
 const HOME_METRICS = [
   { icon: 'panel', label: '준비된 PPT layout', key: 'layouts' },
@@ -198,8 +198,8 @@ export function Home({ go, onNew }) {
               <div className="hgrid">{list.map((p) => card(p))}</div>
             </section>
           ) : (
-            <section aria-label="Best Scenario">
-              <div className="sec-head"><h2 style={{ flexShrink: 0 }}>Best Scenario</h2><span className="faint" style={{ fontSize: "var(--text-12-5px)" }}>대표 시나리오 {HOME_SCENARIOS.length}개 · 클릭해 구성을 살펴보세요</span></div>
+            <section aria-label="샘플 버티컬 시나리오">
+              <div className="sec-head"><h2 style={{ flexShrink: 0 }}>샘플 버티컬 시나리오</h2><span className="faint" style={{ fontSize: "var(--text-12-5px)" }}>대표 시나리오 {HOME_SCENARIOS.length}개 · 클릭해 구성을 살펴보세요</span></div>
               <div className="hgrid">{HOME_SCENARIOS.map((s) => card(scenarioStoryboard(s.id), s))}</div>
             </section>
           );

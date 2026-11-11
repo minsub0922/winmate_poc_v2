@@ -206,11 +206,11 @@ ${(N.verdict || []).map((v) => `<p>${esc(v)}</p>`).join('')}
 <div class="tbl"><table><thead><tr><th>차수</th><th>바꾼 것</th><th class="n">심사 평균</th><th class="n">엔진 − 심사 (절대 차)</th><th class="n">결과 일치</th><th class="n">스토리라인 턴 / 최고 난이도</th><th class="n">추천 답변 대조 성공</th></tr></thead><tbody>${(N.iterations || []).map(iterRow).join('')}</tbody></table></div></section>
 
 <section aria-labelledby="h-how"><h2 id="h-how">어떻게 측정했나</h2>
-<ul class="plain"><li>고객 10명: 150명 페르소나에서 업종 · Best Scenario 가 겹치지 않고, 난이도 3 · 4 · 3명, 성별 5 · 5, 요구 유형이 고루 섞이도록 뽑았습니다(sets/diverse10.json).</li>
-<li>스토리라인: 고객마다 업종 · 요구 유형 · 전략 · 제품이 가장 잘 맞는 Best Scenario 를 붙이고, 영업 LLM 이 그 단계(오프닝 → 니즈 → 제안 → 근거 → 이의 → 클로징)를 따라 말합니다.</li>
+<ul class="plain"><li>고객 10명: 150명 페르소나에서 업종 · 샘플 버티컬 시나리오 가 겹치지 않고, 난이도 3 · 4 · 3명, 성별 5 · 5, 요구 유형이 고루 섞이도록 뽑았습니다(sets/diverse10.json).</li>
+<li>스토리라인: 고객마다 업종 · 요구 유형 · 전략 · 제품이 가장 잘 맞는 샘플 버티컬 시나리오 를 붙이고, 영업 LLM 이 그 단계(오프닝 → 니즈 → 제안 → 근거 → 이의 → 클로징)를 따라 말합니다.</li>
 <li>고객 · 평가: 앱의 src/sim 을 그대로 묶어(engine/winmate_sim.mjs) 앱과 같은 프롬프트 · 같은 판정 코드로 돌렸습니다. 매 턴 만족도 · 13개 기준 점수 · 드러난/해소된 우려를 기록합니다.</li>
 <li>점검: 턴마다 자동 점검, 세션이 끝나면 다른 모델이 대화 전체를 읽고 독립 심사(7항목 1~5점 + 13기준 0~100 + 기대 결과).</li></ul>
-<div class="tbl"><table><thead><tr><th class="n">id</th><th>고객사 · 담당자</th><th>업종</th><th>난이도</th><th>요구</th><th>Best Scenario 스토리라인</th></tr></thead><tbody>${personaRows}</tbody></table></div>
+<div class="tbl"><table><thead><tr><th class="n">id</th><th>고객사 · 담당자</th><th>업종</th><th>난이도</th><th>요구</th><th>샘플 버티컬 시나리오 스토리라인</th></tr></thead><tbody>${personaRows}</tbody></table></div>
 <pre class="cmd">cd poc/test/sim_eval
 node run.mjs --tag mytest --modes scenario,expert          # 26세션 · 실시간 기록은 runs/&lt;id&gt;/sessions/*.jsonl
 node run.mjs --resume mytest-YYYYMMDD-HHMM                  # 끊긴 실행 이어서

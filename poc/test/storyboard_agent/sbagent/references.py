@@ -1,4 +1,4 @@
-"""③ 레퍼런스 — Best Scenario 검색 · 다양성 선택 · 패턴 카드(골격 · 다른 점 · 쓰지 말 표현)."""
+"""③ 레퍼런스 — 샘플 버티컬 시나리오 검색 · 다양성 선택 · 패턴 카드(골격 · 다른 점 · 쓰지 말 표현)."""
 from __future__ import annotations
 
 import re

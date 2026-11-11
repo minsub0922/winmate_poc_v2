@@ -4,15 +4,14 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { transformSync } from '../web/node_modules/esbuild/lib/main.js';
 import { createServer } from '../web/node_modules/vite/dist/node/index.js';
 import { chromium } from '../web/node_modules/playwright/index.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
-const load=p=>{const m={exports:{}};new Function('module','exports',transformSync(fs.readFileSync(path.join(root,p),'utf8'),{format:'cjs'}).code)(m,m.exports);return m.exports;};
 const read=n=>JSON.parse(fs.readFileSync(path.join(root,'app/data',n+'.json'),'utf8'));
 const boot={catalog:read('catalog'),products:read('products_db'),images:read('images'),capabilities:null,user:{username:'galaxy-history-test',auth_enabled:false}};
-const scenario=load('app/web/src/domain/templates/scenarios.js').SCENARIOS.find(s=>s.id==='bs21');
-const fill=load('app/web/src/domain/templates/scenario_fills.js').FILLS.bs21.find(x=>x.f==='L_AIS_07');
+// The Hotel AI Stay deck (bs21) left the sample list; its L_AIS_07 page and scenario context are frozen in a fixture.
+const history=JSON.parse(fs.readFileSync(path.join(root,'app/tests/fixtures/hotel_ai_stay_history.json'),'utf8'));
+const scenario=history.scenario,fill=history.fill;
 const {f,...ov}=fill;
 const document={id:'galaxy-hotel-history',title:scenario.title,customer:'H 호텔',ind:'HT',createdAt:1,updatedAt:1,stage:'story',reqTab:'form',
  req:{free:[{t:scenario.situation}],form:{customer:'H 호텔',project:'AI 스테이',keymen:[],note:''},files:[]},

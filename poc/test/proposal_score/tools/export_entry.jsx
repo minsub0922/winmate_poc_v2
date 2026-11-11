@@ -1,4 +1,4 @@
-// Best Scenario → 평가용 제안서 JSON (브라우저에서 실행).
+// 샘플 버티컬 시나리오 → 평가용 제안서 JSON (브라우저에서 실행).
 // 앱의 레이아웃 HTML · 채운 값(fillOf) · applyOverrides 를 그대로 써서 장을 실제로 그린 뒤,
 // 장마다 텍스트 칸(글자 크기 · 위치 · 넘침) · 이미지 칸(채움 여부) · 고정 문구를 읽어 온다.
 // 앱의 검토 프로필(buildProfile) · 적용 판단(selectCriteria) · 규칙 신호(ruleSignals)도 함께 계산해 증거로 넘긴다.

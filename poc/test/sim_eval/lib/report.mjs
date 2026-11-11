@@ -17,7 +17,7 @@ export function buildReport(dir) {
   fs.writeFileSync(path.join(dir, 'report.md'), md);
   try { fs.writeFileSync(path.join(dir, 'report.html'), renderHtml(S, dir)); } catch (e) { console.error('report.html 실패:', e.message); }
   const m = S.modes.scenario || {};
-  const headline = `세션 ${S.totals.done}/${S.totals.sessions} · AI 응답 ${v(S.totals.aiRate, '%')} · Best Scenario 담당자 설득 ${v(m.won)}/${v(m.n)} · 품질 ${v(m.quality)} · 판별(담당자−미숙) 품질 ${S.totals.discrimination ? S.totals.discrimination.quality : '-'}`;
+  const headline = `세션 ${S.totals.done}/${S.totals.sessions} · AI 응답 ${v(S.totals.aiRate, '%')} · 샘플 버티컬 시나리오 담당자 설득 ${v(m.won)}/${v(m.n)} · 품질 ${v(m.quality)} · 판별(담당자−미숙) 품질 ${S.totals.discrimination ? S.totals.discrimination.quality : '-'}`;
   return { S, headline };
 }
 
@@ -33,15 +33,15 @@ function renderMd(S) {
   L.push(`| 세션 · 턴 | ${t.done}/${t.sessions}개 · 고객 턴 ${t.turns}번 |`);
   L.push(`| AI 응답 성공(규칙 대체 · 평가 깨짐 없음) | ${v(t.aiRate, '%')} |`);
   L.push(`| 고객 턴 평균 응답 · 대사 길이 | ${(t.avgCustMs / 1000).toFixed(1)}초 · ${t.avgReplyChars}자 |`);
-  L.push(`| 판별력 — Best Scenario 담당자 − 미숙한 담당자 | ${t.discrimination ? `품질 ${t.discrimination.quality > 0 ? '+' : ''}${t.discrimination.quality} · 만족도 ${t.discrimination.satisfaction > 0 ? '+' : ''}${t.discrimination.satisfaction} (심사 기준 품질 차 ${t.discrimination.judgeQuality})` : '-'} |`);
+  L.push(`| 판별력 — 샘플 버티컬 시나리오 담당자 − 미숙한 담당자 | ${t.discrimination ? `품질 ${t.discrimination.quality > 0 ? '+' : ''}${t.discrimination.quality} · 만족도 ${t.discrimination.satisfaction > 0 ? '+' : ''}${t.discrimination.satisfaction} (심사 기준 품질 차 ${t.discrimination.judgeQuality})` : '-'} |`);
   L.push(`| 엔진 최종 점수 vs 독립 심사 점수 | 평균 절대 차 ${v(t.calibMae)} · 치우침 ${t.calibBias > 0 ? '+' : ''}${v(t.calibBias)} (엔진이 높으면 +) |`);
   L.push(`| 결과 판정 일치(엔진 vs 심사) | ${v(t.outcomeAgree, '%')} |`);
   L.push(`| 대화 단계 일치(영업 의도 vs 엔진) | ${v(t.stageAgree, '%')} |`);
   L.push(`| AI 점수 vs 규칙 점수 차(턴 평균) | ${v(t.ruleGap)} |`, '');
   L.push('## 담당자 유형별', '');
   L.push('| 유형 | 세션 | 성공 | 실패 | 결론 없음 | 최종 만족도 | 최종 품질(엔진) | 품질(심사) | 평균 턴 |', '|---|---|---|---|---|---|---|---|---|');
-  for (const [k, m] of Object.entries(S.modes)) L.push(`| ${{ scenario: 'Best Scenario 담당자', expert: '숙련 담당자(스토리라인 + 구체 답변)', weak: '미숙한 담당자(대조)', suggest: '추천 답변 그대로(대조)' }[k] || k} | ${m.n} | ${m.won} | ${m.lost} | ${m.ended} | ${v(m.satisfaction)} | ${v(m.quality)} | ${v(m.judgeQuality)} | ${v(m.turns)} |`);
-  L.push('', '## 난이도별 (Best Scenario 담당자)', '');
+  for (const [k, m] of Object.entries(S.modes)) L.push(`| ${{ scenario: '샘플 버티컬 시나리오 담당자', expert: '숙련 담당자(스토리라인 + 구체 답변)', weak: '미숙한 담당자(대조)', suggest: '추천 답변 그대로(대조)' }[k] || k} | ${m.n} | ${m.won} | ${m.lost} | ${m.ended} | ${v(m.satisfaction)} | ${v(m.quality)} | ${v(m.judgeQuality)} | ${v(m.turns)} |`);
+  L.push('', '## 난이도별 (샘플 버티컬 시나리오 담당자)', '');
   L.push('| 난이도 | 세션 | 성공 | 최종 만족도 | 최종 품질 | 평균 턴 |', '|---|---|---|---|---|---|');
   for (const lv of [1, 2, 3]) { const m = S.levels[lv]; if (m && m.n) L.push(`| ${E.LV[lv].name} | ${m.n} | ${m.won} | ${v(m.satisfaction)} | ${v(m.quality)} | ${v(m.turns)} |`); }
   L.push('', '## 세션', '');

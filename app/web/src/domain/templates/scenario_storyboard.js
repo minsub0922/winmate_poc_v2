@@ -1,4 +1,4 @@
-// Best Scenario · Storyboard — 시나리오 하나를 제안서(Storyboard)와 같은 모양으로 만든다.
+// 샘플 버티컬 시나리오 · Storyboard — 시나리오 하나를 제안서(Storyboard)와 같은 모양으로 만든다.
 // 상세 보기의 읽기 전용 Storyboard 버블(scenarios.jsx ScenarioStoryboard)과 ‘활용하기’로 만드는 내 제안서가 같은 값을 쓴다.
 //   고객 요구사항 버블 = req(자유형식 · 입력 폼: 키맨별 요구) · 제품 · 솔루션 매칭 버블 = ctx · 파트 버블 = flow 의 단계(단계 하나 = 버블 하나)
 //   레이아웃 = 단계의 장 + 채운 값(scenario_fills.js) + 배경 테마(scenario_bg.js). 표지만 든 단계는 숨은 표지 파트(data.js normalizeCovers).
@@ -55,7 +55,7 @@ export function storyboardOf(s, mk) {
   const p = {
     title: s.title, customer: FILL_CUSTOMER[s.id] || '', ind: s.ind || null, stage: 'story', reqTab: 'form', scenario: s.id,
     req: {
-      free: t(s.situation + '\n\n[Best Scenario · ' + s.title + '] 전략: ' + strat.label + ' — ' + s.thesis + '\n결말: ' + s.ask),
+      free: t(s.situation + '\n\n[샘플 버티컬 시나리오 · ' + s.title + '] 전략: ' + strat.label + ' — ' + s.thesis + '\n결말: ' + s.ask),
       form: {
         project: s.title, customer: FILL_CUSTOMER[s.id] || '', target: s.audience.lead,
         keymen: keymenOf(s).map((m, i) => ({ id: id.kid(i), name: m.name, weight: m.weight, reqs: m.reqs.map(t) })),

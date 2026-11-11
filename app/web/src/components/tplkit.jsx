@@ -8,7 +8,7 @@ import { exportPptx } from '../domain/slides/export-pptx.js';
 import { FavButton } from './fav.jsx';
 import { useDetailPeek } from './reference-detail.jsx';
 
-/* Shared pieces for the layout template library and Best Scenario: source decks, file saving, big preview. */
+/* Shared pieces for the layout template library and 샘플 버티컬 시나리오: source decks, file saving, big preview. */
 
 // 구분 2 — the source decks the layouts came from.
 export const DECKS = [
@@ -35,11 +35,11 @@ export const slidesOf = (list) => list.map((l) => ({ f: l.f, ov: { t: {}, img: {
 
 /* =========================================================
    Detail — the shared sheet popup (sheetview.jsx) with a read-only panel: role · example title · metadata
-   (PPT 레이아웃 템플릿 · Best Scenario). PPTX of this one sheet.
+   (PPT 레이아웃 템플릿 · 샘플 버티컬 시나리오). PPTX of this one sheet.
    ========================================================= */
 export function TemplateDetail({ list, index, onNav, onClose, notes = null, noteLabel = '이 장의 역할', ovs = null, onEdit = null, favFrom = 'PPT 레이아웃 템플릿' }) {
   const l = list[index];
-  const ov = ovs ? ovs[index] : null; // filled sample values (Best Scenario)
+  const ov = ovs ? ovs[index] : null; // filled sample values (샘플 버티컬 시나리오)
   const [busy, setBusy] = useState(false);
   const peek = useDetailPeek();
   useEffect(() => { peek.hide(); }, [l.f, index, peek.hide]);

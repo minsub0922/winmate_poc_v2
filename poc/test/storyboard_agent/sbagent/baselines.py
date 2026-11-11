@@ -136,7 +136,7 @@ def llm_app(pr: dict, kbx: KB, backend: Backend, *, raw_refs: bool = False, temp
     if raw_refs:
         b = build_brief(pr, kbx)
         refs = retrieve(b, judge(b, kbx), kbx, k=3)
-        extra = "\n참고할 Best Scenario(비슷한 상황에서 잘 된 제안서 구성) — 참고해서 설계하세요:\n" + fence("\n\n".join(raw_reference(i + 1, r) for i, r in enumerate(refs)))
+        extra = "\n참고할 샘플 버티컬 시나리오(비슷한 상황에서 잘 된 제안서 구성) — 참고해서 설계하세요:\n" + fence("\n\n".join(raw_reference(i + 1, r) for i, r in enumerate(refs)))
     prompt = app_prompt(pr, kbx, extra)
     try:
         data = backend.complete("app_rawref" if raw_refs else "app_noref", "", prompt, temperature=temperature, seed=seed, max_tokens=6144)

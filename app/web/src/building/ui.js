@@ -4,6 +4,7 @@ import { store, uid } from './store.js';
 import { Stage, thumbnail } from './render.js';
 import { variantsOf, kitOf, swatchOf, signOfInd } from './facade.js';
 import { PRESETS } from './presets.js';
+import { STD_PRESETS } from './presets-standard.js';
 import { h, icon, SVG } from './dom.js';
 import { exportDoc } from './viewer.js';
 
@@ -158,6 +159,8 @@ function cachedThumb(key, make) {
 }
 const tplThumb = (id) => cachedThumb('tpl:' + id, () => thumbnail({ floors: [id], single: true, w: 520, h: 334, type: 'image/webp', quality: 0.9, wanted: wantPick }));
 const presetThumb = (p) => cachedThumb('pre:' + p.id, () => thumbnail({ floors: presetShells(p), title: p.title, w: 640, h: 410, type: 'image/webp', quality: 0.9, wanted: wantPick }));
+// 표준 건물은 층마다 공간이 든 건물 그대로(층 이름 = 간판)
+const stdThumb = (p) => cachedThumb('std:' + p.id, () => thumbnail({ floors: p.floors.map((f) => ({ tpl: f.tpl, fv: f.fv, name: f.name })), title: p.title, w: 640, h: 410, type: 'image/webp', quality: 0.9, wanted: wantPick }));
 let pruned = false;
 // 이미 받은 그림(promise) 또는 보일 때 부를 함수(get + io)
 function lazyImg(src, alt, io) {
@@ -219,6 +222,23 @@ function openPicker({ mode = 'start', onDone, base = 0, shell = null, ind = null
 
   const panel = h('div', { class: 'bd-groups' });
   const cards = new Map(), groups = new Map();
+  // 표준 건물 조감도 — 건물 템플릿(빈 층)과 따로 맨 위에. 층마다 그 업종의 공간이 모두 한 번씩 들어 있는 건물
+  const stds = pre ? STD_PRESETS.filter((p) => p.floors.every((f) => tplOf(f.tpl))) : [];
+  let stdSec = null;
+  if (stds.length) {
+    const grid = h('div', { class: 'bd-tpl-grid bd-pre-grid' });
+    stdSec = h('section', { class: 'bd-group bd-std-group', 'aria-label': '표준 건물 조감도' }, h('h4', { class: 'bd-group-head', text: '표준 건물 조감도' }), grid);
+    for (const p of stds) {
+      const rooms = p.floors.reduce((n, f) => n + tplOf(f.tpl).rooms.length, 0);
+      const card = h('button', { class: 'bd-tpl bd-std', type: 'button', 'aria-pressed': 'false', title: p.floors.map((f, i) => `${i + 1}F ${f.name}`).join(' · '), onclick: () => { selPre = selPre === p.id ? null : p.id; refresh(); } },
+        lazyImg(() => stdThumb(p), p.title + ' 3D 건물', io),
+        h('span', { class: 'bd-tpl-check', 'aria-hidden': 'true' }, icon('check', 13, 3)),
+        h('span', { class: 'bd-tpl-copy' }, h('b', { text: p.title }), h('span', { class: 'bd-tpl-meta', text: `${rooms}개 공간 · ${kitOf(p.ind, p.fv).label}` })));
+      cards.set(p.id, { card, p, inds: [p.ind], code: p.ind, std: true });
+      grid.append(card);
+    }
+    panel.append(stdSec);
+  }
   for (const code of codes) {
     const grid = h('div', { class: 'bd-tpl-grid' + (pre ? ' bd-pre-grid' : '') });
     const sec = h('section', { class: 'bd-group', 'aria-label': D.indName[code] || code }, h('h4', { class: 'bd-group-head', text: D.indName[code] || code }), grid);
@@ -279,16 +299,18 @@ function openPicker({ mode = 'start', onDone, base = 0, shell = null, ind = null
   }
   function refresh() {
     const per = new Set(), visIds = [];
+    let stdOn = false;
     for (const [id, c] of cards) {
       const on = (!selInd.size || selInd.has(c.code) || (c.inds && c.inds.some((x) => selInd.has(x)))) && (pre || !filt.rooms || c.t.rooms.length === filt.rooms);
       c.card.hidden = !on;
-      if (on) { visIds.push(id); per.add(c.code); }
+      if (on) { visIds.push(id); if (c.std) stdOn = true; else per.add(c.code); }
       if (pre) { c.card.setAttribute('aria-pressed', String(selPre === id)); continue; }
       const k = selTpl.indexOf(id);
       c.card.setAttribute('aria-pressed', String(k >= 0));
       c.badge.textContent = k >= 0 && mode === 'add' ? base + k + 1 + 'F' : '';
     }
     for (const [code, sec] of groups) sec.hidden = !per.has(code);
+    if (stdSec) stdSec.hidden = !stdOn;
     list.classList.toggle('is-empty', !visIds.length);
     let text;
     if (pre) {
@@ -364,7 +386,7 @@ function listView(ctx) {
     h('span', { class: 'bd-launch-icon' }, towerIcon()),
     h('span', { class: 'bd-launch-copy' },
       h('strong', { text: '건물 스튜디오' }),
-      h('small', { text: `건물 템플릿을 고르고 층마다 공간을 채워요 · 건물 템플릿 ${PRESETS.length}가지 · 공간 조감도 ${D.tpl.length}가지 · 업종마다 외벽 3가지 이상` })),
+      h('small', { text: `건물 템플릿을 고르고 층마다 공간을 채워요 · 표준 건물 ${STD_PRESETS.length}가지 · 건물 템플릿 ${PRESETS.length}가지 · 공간 조감도 ${D.tpl.length}가지 · 업종마다 외벽 3가지 이상` })),
     h('span', { class: 'bd-launch-go', 'aria-hidden': 'true' }, icon('arrowR', 20, 2.2)));
   const el = h('div', { class: 'bd-page-in' },
     h('div', { class: 'bd-topbar' },
@@ -421,11 +443,14 @@ function listView(ctx) {
   return { el, destroy() { alive = false; off(); urls.forEach((u) => URL.revokeObjectURL(u)); } };
 }
 
-// 시작 — 건물 템플릿 하나를 고르면 그 모양(층마다 크기 · 외벽) 그대로, 층마다 공간은 비운 채로 스튜디오를 연다
+// 시작 — 건물 템플릿 하나를 고르면 그 모양(층마다 크기 · 외벽) 그대로, 층마다 공간은 비운 채로 스튜디오를 연다.
+// 표준 건물 조감도는 층마다 공간 · 층 이름까지 채운 채로 연다
 function start(ctx) {
   openPicker({ mode: 'start', onDone: async ({ preset: p }) => {
     const now = Date.now();
-    const floors = presetShells(p).map((x) => ({ key: uid('f'), tpl: null, fv: x.fv, shell: { ind: x.ind, w: x.w, d: x.d } }));
+    const floors = p.std
+      ? p.floors.map((f) => { const t = tplOf(f.tpl); return { key: uid('f'), tpl: f.tpl, fv: f.fv, name: f.name, shell: { ind: p.ind, w: t.w, d: t.d } }; })
+      : presetShells(p).map((x) => ({ key: uid('f'), tpl: null, fv: x.fv, shell: { ind: x.ind, w: x.w, d: x.d } }));
     const b = { id: uid('bld'), title: p.title, industries: indsOf(floors), template: p.id, floors };
     Object.assign(b, { view: { mode: 'exterior' }, camera: null, createdAt: now, contentAt: now, updatedAt: now });
     await store.put(b, { touch: false });

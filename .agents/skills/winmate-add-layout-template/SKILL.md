@@ -1,6 +1,6 @@
 ---
 name: winmate-add-layout-template
-description: 요구사항에 맞는 재사용 가능한 PPT 레이아웃을 Winmate 라이브러리에 추가할 때 사용한다. 기존 장표 디자인, 1280×720 편집 슬롯, 메타데이터·검색·AI 채우기·PPTX 내보내기 계약을 함께 유지한다. 완성 제안서 구성은 Best Scenario 스킬로 다룬다.
+description: 요구사항에 맞는 재사용 가능한 PPT 레이아웃을 Winmate 라이브러리에 추가할 때 사용한다. 기존 장표 디자인, 1280×720 편집 슬롯, 메타데이터·검색·AI 채우기·PPTX 내보내기 계약을 함께 유지한다. 완성 제안서 구성은 샘플 버티컬 시나리오 스킬로 다룬다.
 ---
 
 # Winmate PPT 레이아웃 추가

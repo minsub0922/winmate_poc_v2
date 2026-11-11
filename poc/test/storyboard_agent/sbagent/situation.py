@@ -25,7 +25,7 @@ STRATEGY_CUES = {
     "compete": r"경쟁|타사|비교|공급사 전환|우위|공급사|재계약",
     "land": r"파일럿|확산|단계 도입|단계 확산|시범|전사|롤아웃|순차|전 지점|넓히|확대",
 }
-# 요구 유형 → 전략 사전값 (Best Scenario 21개의 요구 유형별 전략 분포와 같은 방향)
+# 요구 유형 → 전략 사전값 (샘플 버티컬 시나리오 21개의 요구 유형별 전략 분포와 같은 방향)
 REQTYPE_PRIOR = {
     "new": {"value": 1.0, "space": 1.0}, "renew": {"pain": 1.0, "space": 0.5}, "compete": {"rfp": 1.0, "compete": 1.0},
     "ops": {"roi": 1.0, "pain": 1.0, "value": 0.3}, "scale": {"land": 1.5}, "brief": {"value": 1.0, "roi": 0.6}, "std": {"value": 1.0},
@@ -120,7 +120,7 @@ def _ending(strategy: str, reqtype: str, txt: str) -> str:
 
 
 def reference_votes(refs: list) -> dict:
-    """비슷한 Best Scenario(전략을 보지 않고 찾은 상위 3개)의 전략을 사전값으로 — 1위 2.0 · 2위 1.2 · 3위 0.6, 점수 비율로 줄임."""
+    """비슷한 샘플 버티컬 시나리오(전략을 보지 않고 찾은 상위 3개)의 전략을 사전값으로 — 1위 2.0 · 2위 1.2 · 3위 0.6, 점수 비율로 줄임."""
     votes: dict = {}
     if not refs:
         return votes

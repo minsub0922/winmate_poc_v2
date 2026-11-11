@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { mergeSampleHistory } from '../web/src/repositories/sample-history.js';
-const user = { username:'admin', auth_enabled:true, sample_history:{version:1,scenarios:['bs01','bs21','bs03']} };
+const user = { username:'admin', auth_enabled:true, sample_history:{version:1,scenarios:['bs01','bs_std_ht_large','bs03']} };
 const source = id => ({id, title:id, parts:[{layouts:[{f:'L_C01',ov:{t:{1:'original'}}}]}], exportedAt:123});
 const storage = () => { const map=new Map();return {map,getItem:k=>map.get(k)??null,setItem:(k,v)=>map.set(k,v)}; };
 const tests = [

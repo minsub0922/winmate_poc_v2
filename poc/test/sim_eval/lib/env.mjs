@@ -24,7 +24,7 @@ export const CFG = {
   apiKey: process.env.GEMINI_API_KEY || '',
   // 고객 · 심사(평가) — 앱 엔진이 한 번의 호출로 둘 다 한다. 앱의 'quick' 등급에 해당하는 빠른 모델.
   customerModel: process.env.SIM_CUSTOMER_MODEL || process.env.GEMINI_MODEL || 'gemini-3.1-flash-lite',
-  // 영업 담당자 역할 에이전트 (Best Scenario 스토리라인을 따라 말한다)
+  // 영업 담당자 역할 에이전트 (샘플 버티컬 시나리오 스토리라인을 따라 말한다)
   sellerModel: process.env.SIM_SELLER_MODEL || 'gemini-3.5-flash',
   // 세션이 끝난 뒤 대화 전체를 읽고 엔진의 평가를 검증하는 독립 심사
   judgeModel: process.env.SIM_JUDGE_MODEL || 'gemini-3.1-pro-preview',

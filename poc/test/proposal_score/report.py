@@ -33,7 +33,7 @@ def build_report(run_dir: Path, meta: dict) -> str:
     A(f"- 모델: `{meta.get('model')}` · 백엔드 {meta.get('backend')} · 온도 {meta.get('temperature')} · 기준 예산 {meta.get('budget')}개(최소 {meta.get('min_k')})")
     u = meta.get('usage', {})
     A(f"- 호출 {u.get('calls')}회(실호출 {u.get('live_calls')} · 기록 재사용 {u.get('cached_calls')} · 오류 {u.get('errors')}) · 입력 {u.get('prompt_tokens', 0):,} · 출력 {u.get('output_tokens', 0):,} 토큰 · 단계별 {u.get('by_stage')}")
-    A(f"- 대상: Best Scenario {len(main)}개 · {sum(r['n_sheets'] for r in main)}장 (앱 레이아웃 · 채운 값으로 실제 렌더링해 추출)\n")
+    A(f"- 대상: 샘플 버티컬 시나리오 {len(main)}개 · {sum(r['n_sheets'] for r in main)}장 (앱 레이아웃 · 채운 값으로 실제 렌더링해 추출)\n")
 
     # ---- taxonomy
     st = tax['stats']

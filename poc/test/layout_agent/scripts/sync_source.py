@@ -6,7 +6,7 @@
 - data/layouts.b64         : 레이아웃 HTML (gzip+base64) → layout_html.json 으로 풀어서 저장
 - data/images.json         : 이미지 DB
 - src/parts.js             : Storyboard 파트 24종 · NEXT · RELATED · REQ_LABEL  (node 로 import → JSON)
-- src/scenarios.js         : Best Scenario 20개 · REQ_TYPES · STRATEGIES · ENDINGS · STAGES
+- src/scenarios.js         : 샘플 버티컬 시나리오 20개 · REQ_TYPES · STRATEGIES · ENDINGS · STAGES
 
 사용: python scripts/sync_source.py [--root ../..]
 node 가 없으면 parts/scenarios 는 기존 JSON 을 그대로 둔다(커밋된 JSON 사용).
@@ -121,7 +121,7 @@ def main() -> None:
     if js:
         (OUT / "parts.json").write_text(json.dumps(js["parts"], ensure_ascii=False, indent=1), encoding="utf-8")
         (OUT / "best_scenarios.json").write_text(json.dumps(js["scenarios"], ensure_ascii=False, indent=1), encoding="utf-8")
-        print(f"[sync] parts={len(js['parts']['PARTS'])} best scenarios={len(js['scenarios']['SCENARIOS'])}")
+        print(f"[sync] parts={len(js['parts']['PARTS'])} 샘플 버티컬 시나리오={len(js['scenarios']['SCENARIOS'])}")
 
 
 if __name__ == "__main__":

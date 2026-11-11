@@ -1,6 +1,6 @@
-// 150개(50명 × 난이도 3) 중 서로 다른 10개를 고르고, 각자에게 맞는 Best Scenario 를 스토리라인으로 붙인다.
+// 150개(50명 × 난이도 3) 중 서로 다른 10개를 고르고, 각자에게 맞는 샘플 버티컬 시나리오 를 스토리라인으로 붙인다.
 //   node select.mjs [--n 10] [--out sets/diverse10.json]
-// 다양성 기준: 업종 10개 모두 다름 · Best Scenario 모두 다름 · 난이도 3/4/3 · 성별 5:5 근처 · 요구 유형(신규 · 교체 · 운영 · 확산 · 경쟁) 고루
+// 다양성 기준: 업종 10개 모두 다름 · 샘플 버티컬 시나리오 모두 다름 · 난이도 3/4/3 · 성별 5:5 근처 · 요구 유형(신규 · 교체 · 운영 · 확산 · 경쟁) 고루
 import fs from 'node:fs';
 import path from 'node:path';
 import { ROOT } from './lib/env.mjs';
@@ -12,7 +12,7 @@ const N = Number(args.n || 10);
 const MIN_MATCH = Number(args.min || 6.5); // 스토리라인이 고객 상황과 충분히 맞을 때만 (업종 + 유형 또는 업종 + 제품 수준)
 const OUT = path.resolve(ROOT, args.out || 'sets/diverse10.json');
 
-/** 페르소나 ↔ Best Scenario 맞춤 점수 (근거 포함) */
+/** 페르소나 ↔ 샘플 버티컬 시나리오 맞춤 점수 (근거 포함) */
 export function matchScore(p, s) {
   const why = []; let sc = 0;
   if (s.std) sc -= 1.5; // 표준 제안서(37장)는 스토리라인이 아니라 양식 — 뒤로
@@ -78,7 +78,7 @@ function select() {
 
 if (process.argv[1] && process.argv[1].endsWith('select.mjs')) {
   const items = select();
-  const set = { name: path.basename(OUT, '.json'), created: new Date().toISOString(), rule: '업종 · Best Scenario 중복 없음 · 난이도 3/4/3 · 성별 균형 · 요구 유형 고루', items };
+  const set = { name: path.basename(OUT, '.json'), created: new Date().toISOString(), rule: '업종 · 샘플 버티컬 시나리오 중복 없음 · 난이도 3/4/3 · 성별 균형 · 요구 유형 고루', items };
   fs.mkdirSync(path.dirname(OUT), { recursive: true });
   fs.writeFileSync(OUT, JSON.stringify(set, null, 1));
   console.table(items.map((x) => ({ pid: x.pid, L: x.level, ind: x.ind, type: x.reqType, g: x.gender, scenario: x.scenario.slice(0, 30), st: x.strategy, match: x.match })));

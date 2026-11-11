@@ -1,6 +1,6 @@
 // 제안 시뮬레이션 실성능 검증 — 실제 LLM 으로 멀티턴 미팅을 돌리고 턴마다 평가 점수 변화를 기록한다.
 //
-//   node run.mjs                                   # sets/diverse10.json × Best Scenario 담당자 + 대조군(미숙 3 · 추천답변 3)
+//   node run.mjs                                   # sets/diverse10.json × 샘플 버티컬 시나리오 담당자 + 대조군(미숙 3 · 추천답변 3)
 //   node run.mjs --only ps01,ps12 --controls none  # 일부만
 //   node run.mjs --resume <run-id>                 # 끊긴 실행을 이어서 (턴 단위로 저장돼 있음)
 //   node run.mjs --offline                         # LLM 없이 규칙 엔진 + 앱 추천 답변으로 (배선 점검용)

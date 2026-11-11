@@ -2,12 +2,12 @@
 // Canonical app-side knowledge snapshot for the PoC agents → app/data/runtime/kb (only).
 //
 //   node app/scripts/export_agent_data.mjs [--out app/data/runtime/kb] [--allow-count-drift]
-//        [--expect-total 838] [--expect-active 597] [--expect-products 1068] [--expect-scenarios 85]
+//        [--expect-total 897] [--expect-active 656] [--expect-products 1068] [--expect-scenarios 107]
 //
 // Sources (read-only):
 //   app/data/{catalog.json, images.json, products_db.json, layouts.b64}
 //   app/web/src/services/catalog.js   (ALL_LAYOUTS · LAYOUTS · L incl. hidden industry covers · RETIRED · PRODUCTS · P)
-//   app/web/src/domain/templates/{covers,photo_layouts,std_layouts,retired,scenarios}.js · domain/proposals/parts.js
+//   app/web/src/domain/templates/{covers,photo_layouts,std_layouts,vertical_std_layouts,retired,scenarios}.js · domain/proposals/parts.js
 //   poc/test/layout_agent/data/standard_scenarios.json (copied, never modified)
 //   app/web/src/domain/review/schema.json (current review rubric, score definitions, routing responsibilities)
 //
@@ -35,8 +35,8 @@ const arg = (name, dflt) => { const i = argv.indexOf('--' + name); return i >= 0
 const flag = (name) => argv.includes('--' + name);
 const OUT = path.resolve(ROOT, arg('out', path.join(RUNTIME, 'kb')));
 const EXPECT = {
-  layouts_total: Number(arg('expect-total', 838)), layouts_active: Number(arg('expect-active', 597)),
-  products: Number(arg('expect-products', 1068)), curated_products: 40, scenarios: Number(arg('expect-scenarios', 85)),
+  layouts_total: Number(arg('expect-total', 897)), layouts_active: Number(arg('expect-active', 656)),
+  products: Number(arg('expect-products', 1068)), curated_products: 40, scenarios: Number(arg('expect-scenarios', 107)),
 };
 const LAYOUT_KEYS = ['f', 'c', 'code', 'name', 'when', 'g', 'p', 'p2', 'ind', 'sol', 'pc', 'req', 'prods', 'sols', 'phs', 'ph', 'hl', 'txt', 'eb', 'foot', 'sample'];
 const PRODUCT_KEYS = ['id', 'name', 'model', 'cat', 'spec', 'spaces', 'ind', 'kw'];
@@ -79,7 +79,8 @@ const INPUTS = {
   verticalBriefs: path.join(ROOT, 'app', 'scripts', 'vertical_briefs.py'),
   priorRevisions: path.join(SRC, 'domain', 'templates', 'prior_proposal_revisions.json'),
   migrationData: path.join(SRC, 'domain', 'templates', 'removed_layout_migrations.json'),
-  descriptionScenarios: path.join(SRC, 'domain', 'templates', 'description_standard_scenarios.json'),
+  standardScenarios: path.join(SRC, 'domain', 'templates', 'standard_vertical_scenarios.json'),
+  standardLayouts: path.join(SRC, 'domain', 'templates', 'vertical_std_layouts.js'),
   scenarioFills: path.join(SRC, 'domain', 'templates', 'scenario_fills.js'),
   scenarioStory: path.join(SRC, 'domain', 'templates', 'scenario_story.js'),
   scenarioBackgrounds: path.join(SRC, 'domain', 'templates', 'scenario_bg.json'),
@@ -143,13 +144,14 @@ import * as catalog from ${spec(INPUTS.catalogJs)};
 import { COVERS } from ${spec(INPUTS.covers)};
 import { PHOTO_META, PHOTO_HTML } from ${spec(INPUTS.photo)};
 import { STD_META, STD_HTML } from ${spec(INPUTS.std)};
+import { VSTD_META, VSTD_HTML } from ${spec(INPUTS.standardLayouts)};
 import { SPATIAL_META, SPATIAL_HTML } from ${spec(INPUTS.spatial)};
 import { ACCOUNT_META, ACCOUNT_HTML } from ${spec(INPUTS.accountLayouts)};
 import { RETIRED_R4 } from ${spec(INPUTS.retired)};
 import { repairLayoutHtml } from ${spec(INPUTS.layoutRepairs)};
 import * as parts from ${spec(INPUTS.parts)};
 import * as scenarios from ${spec(INPUTS.scenarios)};
-export { catalog, COVERS, PHOTO_META, PHOTO_HTML, STD_META, STD_HTML, SPATIAL_META, SPATIAL_HTML, ACCOUNT_META, ACCOUNT_HTML, RETIRED_R4, repairLayoutHtml, parts, scenarios };
+export { catalog, COVERS, PHOTO_META, PHOTO_HTML, STD_META, STD_HTML, VSTD_META, VSTD_HTML, SPATIAL_META, SPATIAL_HTML, ACCOUNT_META, ACCOUNT_HTML, RETIRED_R4, repairLayoutHtml, parts, scenarios };
 `;
 const primer = {
   name: 'wm-agent-primer',
@@ -188,7 +190,7 @@ const ALL = C.ALL_LAYOUTS, ACTIVE = C.LAYOUTS, L = C.L, RETIRED = C.RETIRED, PRO
 const allSet = new Set(ALL.map((l) => l.f));
 const hidden = Object.fromEntries(Object.keys(L).filter((f) => !allSet.has(f)).map((f) => [f, L[f]]));
 const html = JSON.parse(zlib.gunzipSync(Buffer.from(fs.readFileSync(INPUTS.layouts, 'utf8').trim(), 'base64')).toString('utf8'));
-Object.assign(html, mod.COVERS, mod.PHOTO_HTML, mod.STD_HTML, mod.SPATIAL_HTML, mod.ACCOUNT_HTML);
+Object.assign(html, mod.COVERS, mod.PHOTO_HTML, mod.STD_HTML, mod.VSTD_HTML, mod.SPATIAL_HTML, mod.ACCOUNT_HTML);
 for (const f of Object.keys(html)) html[f] = mod.repairLayoutHtml(f, html[f]);
 const partsOut = { PARTS: mod.parts.PARTS, NEXT: mod.parts.NEXT, RELATED: mod.parts.RELATED, REQ_LABEL: mod.parts.REQ_LABEL };
 const S = mod.scenarios;
@@ -275,7 +277,7 @@ const manifest = {
   version: 1, review_criteria: { version: criteria.version, categories: criteria.cats.length, criteria: criteria.criteria.length }, generated_at: new Date().toISOString(), generator: 'app/scripts/export_agent_data.mjs', node: process.version, esbuild: esbuild.version,
   counts, expected: EXPECT, warnings, inputs, outputs,
   notes: [
-    'layouts = catalog.json + PHOTO_META + STD_META (services/catalog.js ALL_LAYOUTS), retired from services/catalog.js RETIRED',
+    'layouts = catalog.json + PHOTO_META + STD_META + VSTD_META (services/catalog.js ALL_LAYOUTS), retired from services/catalog.js RETIRED',
     'hidden_layouts = services/catalog.js L entries outside ALL_LAYOUTS (industry covers L_IND_*)',
     'products = services/catalog.js PRODUCTS (curated 40 merged with products_db curated fields + products_db rows)',
     'standard_scenarios copied verbatim from poc/test; score criteria, rubrics and curated routing taxonomy derived from app/web/src/domain/review/schema.json',

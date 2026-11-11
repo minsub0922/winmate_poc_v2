@@ -215,7 +215,7 @@
 .bd-tpl-copy{display:flex;flex-direction:column;gap:2px;padding:10px 12px 12px}
 .bd-tpl-copy b{font-size:12.5px;line-height:1.45}
 .bd-tpl-meta{font-size:11px;color:var(--muted)}
-.bd-pre .bd-thumb{aspect-ratio:640/410}
+.bd-pre .bd-thumb,.bd-std .bd-thumb{aspect-ratio:640/410}
 .bd-boot{display:flex;align-items:center;justify-content:center;gap:12px;min-height:60vh;padding:30px;font-size:13px;color:var(--muted);text-align:center}
 .bd-boot.is-error{flex-direction:column;gap:6px;line-height:1.7}
 .bd-boot.is-error b{color:var(--ink);font-size:14px}

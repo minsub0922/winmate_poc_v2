@@ -1,4 +1,4 @@
-// winmatev2 앱 src → storyboard_agent/data/*.json 스냅샷 (파트 유형 · Best Scenario · 카탈로그 요약 · 히스토리 샘플)
+// winmatev2 앱 src → storyboard_agent/data/*.json 스냅샷 (파트 유형 · 샘플 버티컬 시나리오 · 카탈로그 요약 · 히스토리 샘플)
 //
 //   cd <winmatev2>                       # package.json 이 있는 앱 폴더 (npm install 로 esbuild · react 가 있어야 함)
 //   npx esbuild poc/test/storyboard_agent/scripts/export_source.mjs --bundle --platform=node --format=esm \

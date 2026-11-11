@@ -409,7 +409,7 @@ h1, h2, h3 { text-wrap: balance; margin: 0; }
 
 /* detail / fill */
 /* ---------- sheet detail popup (sheetview.jsx) — one frame for every page: big sheet left, the page's panel right ----------
-   PPT 레이아웃 템플릿 · Best Scenario (.tl-detail) · Storyboard 편집 (.detail) · 제안서 검토 (.rv-um). The sheet takes the
+   PPT 레이아웃 템플릿 · 샘플 버티컬 시나리오 (.tl-detail) · Storyboard 편집 (.detail) · 제안서 검토 (.rv-um). The sheet takes the
    largest 16:9 that fits the stage both ways; the popup is as big as the window allows. */
 .modal.sheet { width: min(var(--measure-1640px), var(--measure-100)); height: min(var(--measure-1000px), calc(var(--measure-100vh) - var(--measure-40px))); max-height: none; }
 .sv { display: grid; grid-template-columns: minmax(0, var(--measure-1fr)) var(--measure-380px); flex: 1; min-height: 0; overflow: hidden; }
@@ -719,9 +719,9 @@ h1, h2, h3 { text-wrap: balance; margin: 0; }
   .tl-name b { font-size: var(--text-13px); }
 }
 
-/* ---------- Best Scenario (board + detail) ---------- */
+/* ---------- 샘플 버티컬 시나리오 (board + detail) ---------- */
 .bsr-p { display: flex; flex-direction: column; gap: var(--space-12px); }
-/* Best Scenario page */
+/* 샘플 버티컬 시나리오 page */
 .bsp-bar { display: flex; align-items: center; gap: var(--space-10px); flex-wrap: wrap; }
 /* a list — one scenario per row; rows sit indented under their 요구사항 group (guide line in the group colour) */
 .bsp-groups { display: flex; flex-direction: column; gap: var(--space-36px); }
@@ -734,7 +734,7 @@ h1, h2, h3 { text-wrap: balance; margin: 0; }
 .bsp-gh .num, .tl-grp-h .num { font-size: var(--text-12-5px); font-weight: var(--weight-800); color: var(--hc); background: var(--hb); border-radius: var(--radius-999px); padding: var(--space-1px) var(--space-9px-x); align-self: center; }
 .tl-grp-h p { margin: 0; font-size: var(--text-13px); color: var(--muted); flex-basis: var(--measure-100); padding-left: var(--space-22px); }
 .bsp-list { display: flex; flex-direction: column; gap: var(--space-14px); }
-/* indented under the group heading — guide line in the group colour (Best Scenario · PPT 레이아웃 템플릿) */
+/* indented under the group heading — guide line in the group colour (샘플 버티컬 시나리오 · PPT 레이아웃 템플릿) */
 .bsp-list, .tl-grp-in { margin-left: var(--space-5px); padding-left: var(--space-26px); border-left: var(--stroke-2px) solid color-mix(in srgb, var(--hc) var(--stroke-40), transparent); }
 .bsp-list.flat, .tl-grp-in.flat { margin-left: 0; padding-left: 0; border-left: 0; }
 .bsl { display: flex; flex-direction: column; gap: var(--space-14px); width: var(--measure-100); min-width: 0; color: var(--ink); background: var(--surface); border: var(--stroke-1px) solid var(--line); border-radius: var(--radius-14px); padding: var(--space-20px) var(--space-22px) var(--space-22px); }
@@ -786,6 +786,48 @@ h1, h2, h3 { text-wrap: balance; margin: 0; }
   .bsl-tag { height: var(--measure-26px); font-size: var(--text-11-5px); max-width: var(--measure-100); }
   .bsl-tag.xm, .bsl-tag.d-only { display: none; }
   .bsl-tag.m-only { display: inline-flex; }
+}
+/* 표준 제안서 — one card on the page (ScenariosPage StdGroupCard), the list in a popup (StdListPopup) */
+.bsx-card { display: grid; grid-template-columns: auto minmax(0, var(--measure-1fr)) auto auto; align-items: center; gap: var(--space-16px) var(--space-20px); width: var(--measure-100); min-width: 0; text-align: left; color: var(--ink); background: var(--surface); border: var(--stroke-1px) solid var(--line); border-radius: var(--radius-14px); padding: var(--space-18px) var(--space-22px); cursor: pointer; transition: box-shadow .15s, border-color .15s, transform .15s; }
+.bsx-card:hover { border-color: var(--accent-line); box-shadow: var(--shadow); transform: translateY(var(--measure-1px-x)); }
+.bsx-card:focus-visible { outline: var(--stroke-2px) solid var(--accent); outline-offset: var(--stroke-2px); }
+.bsx-card-ic { display: inline-flex; align-items: center; justify-content: center; width: var(--measure-44px); height: var(--measure-44px); border-radius: var(--radius-12px); background: var(--hb, var(--accent-soft)); color: var(--hc, var(--accent)); }
+.bsx-card-t { display: flex; flex-direction: column; gap: var(--space-4px); min-width: 0; }
+.bsx-card-t b { display: inline-flex; align-items: center; gap: var(--space-8px); font-size: var(--text-20px); font-weight: var(--weight-800); letter-spacing: var(--measure--01em); }
+.bsx-card-t b .num { font-size: var(--text-12-5px); font-weight: var(--weight-800); color: var(--hc, var(--accent)); background: var(--hb, var(--accent-soft)); border-radius: var(--radius-999px); padding: var(--space-1px) var(--space-9px-x); }
+.bsx-card-t > span { font-size: var(--text-13px); color: var(--muted); line-height: var(--leading-1-5); }
+.bsx-card-covers { display: flex; gap: var(--space-6px); }
+.bsx-card-cover { display: block; width: var(--measure-104px); border-radius: var(--radius-6px); overflow: hidden; box-shadow: 0 0 0 var(--measure-1px) var(--line); background: var(--surface-3); }
+.bsx-card-cover .slide { display: block; }
+.bsx-card-go { display: inline-flex; align-items: center; gap: var(--space-4px); height: var(--measure-40px); padding: 0 var(--space-14px) 0 var(--space-18px); border-radius: var(--radius-10px); background: var(--accent-soft); color: var(--accent); font-size: var(--text-13-5px); font-weight: var(--weight-800); white-space: nowrap; }
+.bsx-card:hover .bsx-card-go { background: var(--accent); color: var(--on-accent); }
+.bsx { display: flex; flex-direction: column; gap: var(--space-20px); }
+.bsx-q { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; gap: var(--space-8px); height: var(--measure-44px); padding: 0 var(--space-14px); border: var(--stroke-1px) solid var(--line-2); border-radius: var(--radius-10px); background: var(--surface); color: var(--muted); }
+.bsx-q:focus-within { border-color: var(--accent); box-shadow: 0 0 0 var(--measure-3px) var(--accent-soft); }
+.bsx-q input { flex: 1; min-width: 0; height: var(--measure-100); border: 0; outline: 0; background: transparent; color: var(--ink); font: inherit; font-size: var(--text-14px); }
+.bsx-none { margin: 0; font-size: var(--text-13px); }
+.bsx-grp { display: flex; flex-direction: column; gap: var(--space-10px); }
+.bsx-grp h3 { display: flex; align-items: center; gap: var(--space-8px); margin: 0; font-size: var(--text-14px); font-weight: var(--weight-800); color: var(--ink-2); }
+.bsx-grp h3 .num { font-size: var(--text-11-5px); color: var(--muted); background: var(--surface-3); border-radius: var(--radius-999px); padding: var(--space-1px) var(--space-8px); }
+.bsx-grid { display: grid; grid-template-columns: repeat(2, minmax(0, var(--measure-1fr))); gap: var(--space-10px); }
+.bsx-item { display: grid; grid-template-columns: var(--measure-148px) minmax(0, var(--measure-1fr)) auto; align-items: center; gap: var(--space-14px); min-width: 0; padding: var(--space-10px) var(--space-14px) var(--space-10px) var(--space-10px); text-align: left; color: var(--ink); background: var(--surface); border: var(--stroke-1px) solid var(--line); border-radius: var(--radius-12px); cursor: pointer; transition: border-color .15s, box-shadow .15s; }
+.bsx-item:hover { border-color: var(--accent-line); box-shadow: var(--shadow); }
+.bsx-item:focus-visible { outline: var(--stroke-2px) solid var(--accent); outline-offset: var(--stroke-2px); }
+.bsx-thumb { display: block; border-radius: var(--radius-6px); overflow: hidden; box-shadow: 0 0 0 var(--measure-1px) var(--line); background: var(--surface-3); }
+.bsx-thumb .slide { display: block; }
+.bsx-meta { display: flex; flex-direction: column; gap: var(--space-3px); min-width: 0; }
+.bsx-meta b { font-size: var(--text-15px); font-weight: var(--weight-800); line-height: var(--leading-1-35); }
+.bsx-sub { font-size: var(--text-12-5px); color: var(--muted); line-height: var(--leading-1-45); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bsx-facts { font-size: var(--text-12px); font-weight: var(--weight-700); color: var(--accent); }
+.bsx-go { color: var(--faint); }
+.bsx-item:hover .bsx-go { color: var(--accent); }
+@media (max-width: 1100px) { .bsx-card-covers { display: none; } }
+@media (max-width: 760px) {
+  .bsx-card { grid-template-columns: auto minmax(0, var(--measure-1fr)); padding: var(--space-14px); gap: var(--space-12px); }
+  .bsx-card-go { grid-column: 1 / -1; justify-content: center; }
+  .bsx-card-t b { font-size: var(--text-17px); }
+  .bsx-grid { grid-template-columns: minmax(0, var(--measure-1fr)); }
+  .bsx-item { grid-template-columns: var(--measure-104px) minmax(0, var(--measure-1fr)) auto; }
 }
 .bsc-chip.on { background: var(--accent-soft); color: var(--accent); box-shadow: inset 0 0 0 var(--measure-1-5px) var(--accent); }
 /* search + '필터' button + chips + filter popup: the same as the template page (filterpop.jsx) */

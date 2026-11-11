@@ -3,7 +3,7 @@
   python3 -m proposal_score taxonomy [--backend gemini|rules]           평가 기준 그래프 → 커뮤니티 → 압축 요약 (taxonomy/taxonomy.json)
   python3 -m proposal_score score bs01 [bs07 …] [--backend gemini]      제안서 몇 건 평가 → 화면 요약
   python3 -m proposal_score best [--backend gemini] [--stability 6] [--perturb bs01,bs07,bs11] [--full all]
-                                                                        Best Scenario 전체 + (선택) 안정성 재실행 · 교란 대조군 → results/<run_id>/
+                                                                        샘플 버티컬 시나리오 전체 + (선택) 안정성 재실행 · 교란 대조군 → results/<run_id>/
   python3 -m proposal_score report <run_id>                             저장된 결과로 REPORT.md 다시 만들기
 공통: --model · --budget 12 · --min-k 10 · --temperature 0 · --rpm 30 · --workers 3 · --run <run_id>
 """

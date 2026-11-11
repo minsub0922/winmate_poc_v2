@@ -61,7 +61,7 @@ python3 -m proposal_score taxonomy                            # 계층 · 요약
 - 라우팅: 관련도 · 우선순위 · 예산, 위험 기준이 예산이 차도 남음, 위생 기준 규칙 통과, 맥락 seed, LLM 실패 시 규칙 대체.
 - 채점 · 집계: 응답 파싱 · 근거 대조 · 집계 계산, 21개 전부 오프라인 end-to-end.
 
-## 결과 — Best Scenario 21개 (`results/20261018-gemini-v6/REPORT.md`)
+## 결과 — 샘플 버티컬 시나리오 21개 (`results/20261018-gemini-v6/REPORT.md`)
 
 `gemini-3.1-flash-lite`, 온도 0. 덱 1개당 호출 약 10회(라우팅 2 + 채점 7~9), 입력 약 5.6만 · 출력 약 4천 토큰. 실호출로는 덱당 40~60초가 걸린다(분당 45회 제한, 4개 병렬). 실험 전체(본 실행 · 안정성 · 교란 68건 · 전체 기준 대조군)는 958회 호출이다(기록 재사용 포함). 오류는 0건.
 
@@ -113,7 +113,7 @@ VS4 는 전용 장을 지워도 차별점이 다른 장에 섞여 있어 떨어�
 2. **재현율.** 규칙으로 위험이 보이는 기준은 98% 고르지만, 규칙 신호가 없는 문제(WR8 · SB5 · DS8 · MK1)는 놓친다. 이 기준들에 위험 신호를 더하고 예산을 12 → 16 으로 늘리는 쪽을 검토한다.
 3. **비용 절감은 작다.** 채점을 세부 커뮤니티 단위로 묶어 부르므로 기준 수를 줄여도 호출은 0.81배다. 라우팅의 가치는 비용보다 "이 거래에서 무엇을 먼저 볼지"에 있다.
 4. **정답 라벨이 없다.** 지금 검증은 교란 · 안정성 · 내부 일치뿐이다. 사람이 매긴 점수 소량(예: 덱 5개 × 54개 기준)으로 루브릭과 DS3/DS4 기준값을 보정해야 한다. 배포용(leave-behind)과 발표용 덱은 밀도 기준이 다를 수 있다.
-5. 입력은 앱이 그린 Best Scenario 다. 업로드 PPT 는 도형 · 글자 크기 추출기를 붙이면 같은 파이프라인을 쓸 수 있다(gate 가 `geometry` · `font_sizes` 를 본다).
+5. 입력은 앱이 그린 샘플 버티컬 시나리오 다. 업로드 PPT 는 도형 · 글자 크기 추출기를 붙이면 같은 파이프라인을 쓸 수 있다(gate 가 `geometry` · `font_sizes` 를 본다).
 
 ## 실행 기록
 
@@ -133,11 +133,11 @@ VS4 는 전용 장을 지워도 차별점이 다른 장에 섞여 있어 떨어�
 | `config.py` · `llm.py` | 경로 · `.env`, Gemini REST(JSON 스키마) · replay · rules 백엔드, 응답 기록 |
 | `criteria.py` · `criteria/` | criteria.js 파싱, 루브릭 · gate · scope · 개념 → `criteria.json` |
 | `taxonomy.py` · `taxonomy/` | 기준 그래프 · Louvain · 커뮤니티 요약 |
-| `proposal.py` · `data/` | Best Scenario 입력(장 · 텍스트 상자 · 이미지 칸) |
+| `proposal.py` · `data/` | 샘플 버티컬 시나리오 입력(장 · 텍스트 상자 · 이미지 칸) |
 | `checks.py` | 프로필(gate용) · 자동 점검 · 규칙 점수 · 칸 단위 사양 대조 |
 | `brief.py` | 덱 요약 · 요구사항 · 장 요약표 · 범위별 증거 블록 |
 | `router.py` | local seeds · L1/L2 · 확정 |
 | `scorer.py` | 커뮤니티별 채점 · 근거 대조 |
 | `pipeline.py` | evaluate · 집계 · 교란 |
 | `run.py` · `report.py` · `__main__.py` | 배치 실행(본 · 안정성 · 교란 · 전체 대조군) · REPORT.md · CLI |
-| `tools/` | Best Scenario 내보내기(esbuild + Playwright) · criteria 동기화 |
+| `tools/` | 샘플 버티컬 시나리오 내보내기(esbuild + Playwright) · criteria 동기화 |

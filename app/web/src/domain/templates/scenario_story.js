@@ -1,100 +1,11 @@
-// Best Scenario · Storyboard — 시나리오마다 고객 요구사항(키맨별 요구) · 파트(= Storyboard 버블)의 유형과 내용.
+// 샘플 버티컬 시나리오 · Storyboard — 시나리오마다 고객 요구사항(키맨별 요구) · 파트(= Storyboard 버블)의 유형과 내용.
 // 파트 이름은 scenarios.js flow 의 단계 이름과 같다(단계 하나 = 버블 하나, 버블마다 레이아웃 2장 이상).
 // 표지만 든 단계는 숨은 표지 파트(버블 없음). 여기에 없는 시나리오는 scenario_storyboard.js 가 flow 에서 만들어 쓴다.
 // 생성: build/sb/apply.mjs (계획: build/sb/plan.mjs)
 import VERTICAL from './vertical_scenarios.json' with { type: 'json' };
-import DESCRIPTION from './description_standard_scenarios.json' with { type: 'json' };
+import STANDARD from './standard_vertical_scenarios.json' with { type: 'json' };
 import ACCOUNT from './account_scenarios.json' with {type:'json'};
 export const STORY = {
- "bs21": {
-  "keymen": [
-   [
-    "총지배인",
-    40,
-    [
-     "외국인 투숙객 응대 부담 줄이기",
-     "공간마다 무엇이 놓이는지 한 번에 보기"
-    ]
-   ],
-   [
-    "객실팀장",
-    25,
-    [
-     "객실 공기 · 온도 민원 줄이기",
-     "객실 TV로 하는 서비스 늘리기"
-    ]
-   ],
-   [
-    "시설팀장",
-    20,
-    [
-     "적은 인력으로 객실 설비 관리",
-     "공조 · TV 원격 관리"
-    ]
-   ],
-   [
-    "IT · 마케팅",
-    15,
-    [
-     "투숙 데이터로 맞춤 프로모션",
-     "PMS 연동"
-    ]
-   ]
-  ],
-  "note": "특정 RFP 없음 — 표준 구성으로 공간별 적용 범위를 보여 주고 실사 범위를 정하는 첫 제안.",
-  "parts": {
-   "목차 · 01 Overview": {
-    "type": "overview",
-    "items": [
-     "여섯 장(章) 목차",
-     "간지 · 01 Overview",
-     "Device · Solution · Service로 짠 호텔 AI"
-    ]
-   },
-   "02 AI 스테이": {
-    "type": "value",
-    "items": [
-     "투숙객 니즈 셋 × 삼성 AI 기술",
-     "AI 글로벌 응대 — 대면 · 전화 통역",
-     "AI 맞춤 환경 — 냉방 · 공기질 자동 조절",
-     "AI 맞춤 서비스 — 객실 TV · 의류 케어"
-    ]
-   },
-   "03 공간별 제안": {
-    "type": "products",
-    "items": [
-     "공간별 시나리오 — 사진 지도",
-     "라운지 · 리셉션 · 객실 · 레스토랑 · 피트니스 · 연회장",
-     "AI 스테이 Map"
-    ]
-   },
-   "04 스테이 솔루션": {
-    "type": "solution",
-    "items": [
-     "LYNK Cloud 세 가지 가치",
-     "고객 분석 마케팅",
-     "객실 TV 312대 원격 통합 관리",
-     "양방향 서비스 — 예약 · 주문 · 안내"
-    ]
-   },
-   "05 도입사례": {
-    "type": "case",
-    "items": [
-     "인스파이어 엔터테인먼트 리조트",
-     "오크우드 프리미어 코엑스 센터"
-    ]
-   },
-   "06 Why Samsung": {
-    "type": "why",
-    "items": [
-     "Samsung Business 4P",
-     "전문가 조직 · 통합 오퍼링",
-     "배송 · 설치 · 유지보수 · 서비스",
-     "브랜드 가치 · SAMSUNG 마감"
-    ]
-   }
-  }
- },
  "bs01": {
   "keymen": [
    [
@@ -1654,86 +1565,8 @@ export const STORY = {
     ]
    }
   }
- },
- "bs22": {
-  "keymen": [
-   [
-    "공간 운영 본부장",
-    40,
-    [
-     "입주사 유치 · 재계약률 높이기",
-     "새 지점 공간마다 무엇이 놓이는지 한 번에 보기"
-    ]
-   ],
-   [
-    "지점 운영팀장",
-    25,
-    [
-     "회의실 장비 · 출력 정산 부담 줄이기",
-     "공기질 · 냉난방 민원 줄이기"
-    ]
-   ],
-   [
-    "인테리어 · 공간 기획",
-    20,
-    [
-     "라운지 · 카페 컨셉에 맞는 컬러 가전",
-     "로비 · 미팅룸 화면 구성"
-    ]
-   ],
-   [
-    "시설 · IT 관리",
-    15,
-    [
-     "지점이 늘어도 기기는 본사에서 원격 관리",
-     "장애 알림 · 신속한 유지보수"
-    ]
-   ]
-  ],
-  "note": "특정 RFP 없음 — 공유오피스 Lite 표준 양식(15장)으로 공간별 적용 범위를 보여 주고 지점 실사 범위를 정하는 첫 제안.",
-  "parts": {
-   "세 가지 제안 · 공간 지도": {
-    "type": "overview",
-    "items": [
-     "효율적인 업무 공간 · 쾌적한 공용 공간 · 관리 편의성",
-     "공간 지도 — 입구 · 업무 공간 · 미팅룸 · 라운지 · 관리자 공간"
-    ]
-   },
-   "01 효율적인 업무 공간": {
-    "type": "products",
-    "items": [
-     "입구 · 로비 — 비디오월 · 단독형 사이니지 · Flip Pro",
-     "업무 공간 — 프라이빗 · 오픈형",
-     "무인 과금 프린팅 — 카드 · 모바일 결제",
-     "미팅룸 — Flip Pro 발표 · 화상 회의"
-    ]
-   },
-   "02 쾌적한 공용 공간": {
-    "type": "products",
-    "items": [
-     "업무 공간 공기질 — 무풍 · 제트 · 에어모니터 · 공기청정기",
-     "라운지 — 비스포크 가전 여섯 가지",
-     "카페 — 컬러 비스포크 냉장고"
-    ]
-   },
-   "03 관리 편의성 · 04 레퍼런스": {
-    "type": "solution",
-    "items": [
-     "b.IoT Cloud — 원격 관리 · 맞춤 대시보드 · 신속한 유지보수",
-     "패스트파이브 삼성 3호점 — Flip",
-     "패스트파이브 역삼 3호점 — 비스포크 냉장고"
-    ]
-   },
-   "05 제안 제품 리스트 · 마무리": {
-    "type": "closing",
-    "items": [
-     "공간별 제안 제품 리스트",
-     "SAMSUNG 워드마크 마감"
-    ]
-   }
-  }
  }
 };
 Object.assign(STORY, VERTICAL.story);
-Object.assign(STORY, DESCRIPTION.story);
+Object.assign(STORY, STANDARD.story);
 Object.assign(STORY, ACCOUNT.story);

@@ -1,5 +1,5 @@
 // Layout hover detail (big slide on top, full metadata below) placed beside the hovered card, never over it —
-// used by the layout picker, the PPT 레이아웃 템플릿 page and Best Scenario (sheets with filled values: extra.ov · extra.scene).
+// used by the layout picker, the PPT 레이아웃 템플릿 page and 샘플 버티컬 시나리오 (sheets with filled values: extra.ov · extra.scene).
 import React, { useState, useRef, useEffect, useLayoutEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { Icon, partHue } from './common.jsx';
@@ -34,7 +34,7 @@ export const shownWhy = (why) => (why || []).filter((w) => w !== '사진 중심'
 export function usePickPeek() {
   const [pk, setPk] = useState(null);
   const t = useRef(null);
-  const seq = useRef(0); // a new card per hover — the same layout can sit on several cards (Best Scenario)
+  const seq = useRef(0); // a new card per hover — the same layout can sit on several cards (샘플 버티컬 시나리오)
   const show = useCallback((l, el, extra) => {
     clearTimeout(t.current);
     if (window.matchMedia && window.matchMedia('(hover: none)').matches) return; // touch: a tap selects, no preview
@@ -72,7 +72,7 @@ function PickPeek({ l, r, extra }) {
   const prods = (l.prods || []).filter((id) => P[id]);
   const sols = (l.sols || []).filter((id) => S[id]);
   const why = [...(extra.aiWhy ? [extra.aiWhy] : []), ...shownWhy(extra.why)];
-  const ov = extra.ov || null; const sc = extra.scene || null; // a filled Best Scenario sheet: show its values, not the template's sample text
+  const ov = extra.ov || null; const sc = extra.scene || null; // a filled 샘플 버티컬 시나리오 sheet: show its values, not the template's sample text
   return createPortal(
     <div ref={ref} className={'pk-peek' + (layout === 'wide' ? ' wide' : '') + (cut ? ' cut' : '')}
       data-placement={placement.side} style={{ left, top, width: W, height, '--peek-meta-width': metadataWidth ? metadataWidth + 'px' : undefined }} role="tooltip">

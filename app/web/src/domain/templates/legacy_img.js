@@ -1,5 +1,5 @@
-// 9차(2026-10-17) Best Scenario 사진 중심 전환 뒤 더는 쓰지 않는 img/bs 사진 — 아티팩트 파일 수 한도 때문에 개별 파일 대신 묶음 하나(img/fill/r9-legacy.json)로.
-// 예전에 Best Scenario 로 시작해 저장된 제안서가 옛 경로를 갖고 있어도 그대로 보이게, 그리는 곳(slide.jsx · store.js resolveImg)이 이 표로 묶음 주소로 바꾼다. build/bs/legacy.py 가 만듦.
+// 9차(2026-10-17) 샘플 버티컬 시나리오 사진 중심 전환 뒤 더는 쓰지 않는 img/bs 사진 — 아티팩트 파일 수 한도 때문에 개별 파일 대신 묶음 하나(img/fill/r9-legacy.json)로.
+// 예전에 샘플 버티컬 시나리오 로 시작해 저장된 제안서가 옛 경로를 갖고 있어도 그대로 보이게, 그리는 곳(slide.jsx · store.js resolveImg)이 이 표로 묶음 주소로 바꾼다. build/bs/legacy.py 가 만듦.
 export const LEGACY_IMG = {
 "img/bs/bs01-11-t22.jpg": "img/fill/r9-legacy.json#0",
 "img/bs/bs01-11-t39.jpg": "img/fill/r9-legacy.json#1",

@@ -27,7 +27,7 @@ import { PART_GROUPS, GROUP_OF, GROUP_OF_G, PART_ORDER, NO_FILTER, pass, activeF
    (파트 유형 → 업종 → 솔루션 → 제품 → 이미지 칸 → 필요한 정보 → 원본 장표);
    제품은 디렉토리 탐색기 팝업(ctxexplorer filter 모드 · 폴더 · 검색)에서 여러 개 — 그중 하나라도 든 레이아웃;
    what's on shows as removable chips under the search box.
-   The bar · popup · steps · chips are the shared filter UI (filterpop.jsx) — Best Scenario uses the same.
+   The bar · popup · steps · chips are the shared filter UI (filterpop.jsx) — 샘플 버티컬 시나리오 uses the same.
    My is a separate sidebar page: own templates, PPTX upload, file groups and favourites;
    a library layout's detail opens '수정하기' (layout editor → a new My template).
    ========================================================= */
@@ -194,7 +194,7 @@ export function TemplateLibrary({ go, personal = false, favorites = false, saved
           <span><b className="num">{list.length}</b>장{scopeName ? <span className="muted"> · {scopeName}</span> : null}{q && !f.my ? <span className="faint"> · {search.aiEnabled ? 'AI 추천 먼저' : '관련도순'}</span> : null}</span>
         </div>
         {favMode && !favAll.length && (
-          <div className="tl-empty my-fav-empty"><b>아직 찜한 레이아웃이 없어요</b><span>레이아웃 카드 · 상세, Best Scenario 장표, 제안서의 장 어디서든 ♡를 누르면 여기에 모여요. 값이 채워진 장은 그 값 그대로, 빈 레이아웃은 따로 모아요.</span></div>
+          <div className="tl-empty my-fav-empty"><b>아직 찜한 레이아웃이 없어요</b><span>레이아웃 카드 · 상세, 샘플 버티컬 시나리오 장표, 제안서의 장 어디서든 ♡를 누르면 여기에 모여요. 값이 채워진 장은 그 값 그대로, 빈 레이아웃은 따로 모아요.</span></div>
         )}
         {!search.busy && !search.error && favMode && !list.length && favAll.length > 0 && (
           <div className="tl-empty"><b>조건에 맞는 찜이 없어요</b><span>검색어나 필터를 풀어 보세요.</span><button className="btn btn-sm" onClick={() => set({ ...NO_FILTER, q: '' })}>검색 · 필터 지우기</button></div>

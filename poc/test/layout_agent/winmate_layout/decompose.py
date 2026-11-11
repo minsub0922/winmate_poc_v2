@@ -195,7 +195,7 @@ def strategy_options(kb: KB, analysis: dict, ev: dict | None, ind: str | None, r
 
 
 def best_ref(kb: KB, strategy: str, ind: str | None, req_type: str, ref_scores: dict | None = None) -> str | None:
-    """전략이 같은 Best Scenario 중 고객 상황에 가장 가까운 것 — match_best 점수(업종 · 요구 타입 · 유사도)를 그대로 쓴다."""
+    """전략이 같은 샘플 버티컬 시나리오 중 고객 상황에 가장 가까운 것 — match_best 점수(업종 · 요구 타입 · 유사도)를 그대로 쓴다."""
     best, bs = None, -1e9
     for s in kb.best_scenarios:
         if s["strategy"] != strategy:

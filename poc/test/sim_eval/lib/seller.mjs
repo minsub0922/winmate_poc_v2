@@ -1,13 +1,13 @@
 // 영업 담당자 역할 에이전트 — 앱에서 사람이 입력하는 자리를 대신한다.
-//   scenario : Best Scenario 스토리라인(흐름 · 핵심 메시지 · 이의 대응 · 결정 요청)을 따라 말하는 숙련 담당자 (본 실험)
+//   scenario : 샘플 버티컬 시나리오 스토리라인(흐름 · 핵심 메시지 · 이의 대응 · 결정 요청)을 따라 말하는 숙련 담당자 (본 실험)
 //   weak     : 일반론 · 과장 · 우려 회피 · 이른 계약 요청을 하는 미숙한 담당자 (대조군 — 평가가 나쁜 제안을 가려내는지)
 //   suggest  : 앱이 매 턴 내놓는 '추천 답변' 첫 번째를 그대로 보내는 담당자 (대조군 — 추천 답변 기능만으로 설득되는지)
 // 담당자가 보는 정보는 앱 화면에 보이는 것과 같다: 요구사항 · 중요하게 보는 것 · 성공 조건 · 드러난 우려 · 만족도 · 제안 품질.
 import * as E from '../engine/index.mjs';
 
 export const MODES = {
-  scenario: 'Best Scenario 스토리라인을 따르는 담당자',
-  expert: 'Best Scenario 스토리라인 + 그 자리에서 구체적으로 답하는 숙련 담당자',
+  scenario: '샘플 버티컬 시나리오 스토리라인을 따르는 담당자',
+  expert: '샘플 버티컬 시나리오 스토리라인 + 그 자리에서 구체적으로 답하는 숙련 담당자',
   weak: '미숙한 담당자(대조군)',
   suggest: '앱 추천 답변을 그대로 쓰는 담당자(대조군)',
 };
@@ -25,10 +25,10 @@ export function materials(sim) {
 }
 
 function storyline(s) {
-  if (!s) return '(연결된 Best Scenario 없음 — 일반적인 제안 흐름: 열기 → 니즈 확인 → 가치 → 근거 → 실행 → 결정 요청)';
+  if (!s) return '(연결된 샘플 버티컬 시나리오 없음 — 일반적인 제안 흐름: 열기 → 니즈 확인 → 가치 → 근거 → 실행 → 결정 요청)';
   const st = E.STRATEGIES[s.strategy];
   return [
-    `Best Scenario ${s.id} — ${s.title}`,
+    `샘플 버티컬 시나리오 ${s.id} — ${s.title}`,
     `전략: ${st ? st.label + ' — ' + st.desc : s.strategy}`,
     `핵심 주장: ${s.thesis}`,
     `논리 흐름: ${(s.logic || []).join(' → ')}`,

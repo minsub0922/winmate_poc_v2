@@ -1,7 +1,7 @@
 # Storyboard 설계 에이전트 (poc/test/storyboard_agent)
 
 요구사항 · 제품/솔루션 선택 결과 · 업종 · (있으면) 이전 storyboard 로 제안서 **storyboard 전체**를 설계한다.
-Best Scenario 21개를 레퍼런스로 쓰되 골격만 빌리고(패턴 카드), 내용은 고객 입력에서만 가져온다. 설계: [DESIGN.md](DESIGN.md) · 실험 결과: [REPORT.md](REPORT.md)
+샘플 버티컬 시나리오 21개를 레퍼런스로 쓰되 골격만 빌리고(패턴 카드), 내용은 고객 입력에서만 가져온다. 설계: [DESIGN.md](DESIGN.md) · 실험 결과: [REPORT.md](REPORT.md)
 
 표준 라이브러리만 쓴다(Python 3.9+, `pip install` 없음). LLM 은 Gemini REST — 키는 `poc/.env` 의 `GEMINI_API_KEY` · `GEMINI_MODEL` 을 그대로 읽는다.
 
@@ -35,12 +35,12 @@ python3 eval/judge_score.py --scores judge/ --keys <키 폴더> --tags a,b --out
 sbagent/
   brief.py       ① 요구 원장 — 키맨 요구 · 자유형식 · 제작자 의견 · 첨부 · 선택 결과
   situation.py   ② 상황 판정 — 요구 유형 · 맥락 수준 · 전략 후보 3 · 결말 · 분량
-  references.py  ③ Best Scenario 검색 · 다양성 선택 · 패턴 카드(골격 · 다른 점 · 쓰지 말 표현)
+  references.py  ③ 샘플 버티컬 시나리오 검색 · 다양성 선택 · 패턴 카드(골격 · 다른 점 · 쓰지 말 표현)
   planner.py     ④ LLM 설계 프롬프트 · 스키마 / 규칙 설계(오프라인 대체)
   validate.py    ⑤ 검증 · ⑥ 규칙 수리 (이전 파트 보존 · 요구 미반영 · 선택 밖 이름 · 근거 없는 수치 · 다른 업종 표현 · 마무리)
   agent.py       ①~⑥ 연결 · 앱 파트 모양으로 변환(to_app_parts)
   baselines.py   비교 조건 — 앱 규칙(fallbackStoryboard) · 앱 AI 방식 · 레퍼런스 원문 LLM · 레퍼런스 복제
   llm.py         Gemini · replay 백엔드(캐시 · 재시도 · 반복 폭주 감지)
 eval/            과제 만들기 · 지표 · 실행 · 신뢰구간(stats.py) · 독립 심사 묶음/집계(judge_pack.py · judge_score.py)
-data/            앱 src 스냅샷(파트 유형 · Best Scenario · 카탈로그 요약 · 히스토리 샘플) — scripts/export_source.mjs 로 갱신
+data/            앱 src 스냅샷(파트 유형 · 샘플 버티컬 시나리오 · 카탈로그 요약 · 히스토리 샘플) — scripts/export_source.mjs 로 갱신
 ```

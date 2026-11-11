@@ -60,7 +60,7 @@ def local_documents(products=None):
             if kind=='case':title=item.get('cust','')+' · '+item.get('sub',item.get('title',''))
             docs.append({'id':ref,'ref':ref,'type':kind,'title':title[:200],'url':clean_url(item.get('url')),'facts':fields})
     for s in bundle.scenarios.get('SCENARIOS',[]):
-        docs.append({'id':'scenario:'+s['id'],'type':'scenario','title':'[구성 예시] '+s['title'],'facts':{'reference_type':'Best Scenario 가상 고객 예시 제안서. 실제 도입 실적이 아닙니다.', **{k:s[k] for k in ('title','situation','thesis','signals','products','solutions','cases','logic','ask') if k in s}}})
+        docs.append({'id':'scenario:'+s['id'],'type':'scenario','title':'[구성 예시] '+s['title'],'facts':{'reference_type':'샘플 버티컬 시나리오 가상 고객 예시 제안서. 실제 도입 실적이 아닙니다.', **{k:s[k] for k in ('title','situation','thesis','signals','products','solutions','cases','logic','ask') if k in s}}})
     return docs
 
 

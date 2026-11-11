@@ -1,4 +1,4 @@
-"""배치 실행 — Best Scenario 전체 · 안정성 재실행 · 교란 대조군. 결과는 results/<run_id>/ 에 쌓인다."""
+"""배치 실행 — 샘플 버티컬 시나리오 전체 · 안정성 재실행 · 교란 대조군. 결과는 results/<run_id>/ 에 쌓인다."""
 from __future__ import annotations
 
 import json
