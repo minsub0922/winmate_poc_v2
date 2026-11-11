@@ -30,7 +30,7 @@ from .provider import redact
 
 log = logging.getLogger('winmate.poc.jobs')
 TERMINAL = ('done', 'error', 'cancelled')
-KINDS = ('rfp', 'requirements', 'layout', 'storyboard', 'review')
+KINDS = ('rfp', 'requirements', 'layout', 'storyboard', 'review', 'compose')
 
 
 class JobCancelled(Exception):

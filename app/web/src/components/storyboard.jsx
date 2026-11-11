@@ -14,7 +14,7 @@ import { LayoutPicker, LayoutDetail } from './layouts.jsx';
 import { tagMeta } from './tagcard.jsx';
 import { FavButton } from './fav.jsx';
 import { LayoutCompleteButton } from './layout-complete.jsx';
-import { startCompose, applyComposePending, discardComposePending, retryProposalJob } from '../services/poc-workflows.js';
+import { startCompose, applyComposePending, discardComposePending, retryProposalJob, startScenarioLayouts, emptyParts } from '../services/poc-workflows.js';
 import { isTerminal, hideJob } from '../repositories/jobs.js';
 import { AgentJobControl, useOwnerJobs, useAdopt } from './AgentJobControl.jsx';
 import { useLayoutRemoval } from './layout-removal.jsx';
@@ -58,7 +58,7 @@ const STORY_SLIDE_WIDTH = 321; // 336px column, minus card padding and borders.
 function useAiCompose(p) {
   const [submitting, setSubmitting] = useState(false);
   const [err, setErr] = useState('');
-  const jobs = useOwnerJobs('proposal', p.id, 'compose');
+  const jobs = useOwnerJobs('proposal', p.id).filter((r) => ['compose', 'scenario-parts', 'scenario-layouts'].includes(r.purpose));
   const jobBusy = jobs.some((r) => !isTerminal(r.status));
   useEffect(() => { setErr(''); }, [p.id]);
   const start = () => {
@@ -71,12 +71,23 @@ function useAiCompose(p) {
       setErr(msg); toast(msg + ' · 다시 시도할 수 있어요', 'warn');
     }, (e) => { setSubmitting(false); console.error(e); setErr('서버 작업을 시작하지 못했어요.'); toast('서버 작업을 시작하지 못했어요 · 다시 시도할 수 있어요', 'warn'); });
   };
-  return { busy: false, n: 0, fresh: null, start, stop: () => {}, jobBusy: jobBusy || submitting, submitting, err };
+  // 장표 자동 완성 — 레이아웃이 빈 파트마다 출처 샘플 버티컬 시나리오 모듈의 장표를 옮기고 문구 · 사진을 채운다
+  const complete = () => {
+    if (submitting || jobBusy) return;
+    setSubmitting(true); setErr('');
+    startScenarioLayouts(p).then((r) => {
+      setSubmitting(false);
+      if (r.mode === 'job') { toast('서버에서 장표를 구성하고 있어요 · 다른 화면으로 가도 계속돼요'); return; }
+      const msg = r.error || '서버 작업을 시작하지 못했어요.';
+      setErr(msg); toast(msg + ' · 다시 시도할 수 있어요', 'warn');
+    }, (e) => { setSubmitting(false); console.error(e); setErr('서버 작업을 시작하지 못했어요.'); });
+  };
+  return { busy: false, n: 0, fresh: null, start, complete, stop: () => {}, jobBusy: jobBusy || submitting, submitting, err };
 }
 
 /** Starts following a job recorded in the proposal that this browser does not follow yet (cleared storage, other tab). */
 function AdoptJob({ id, purpose, pid, kind }) {
-  useAdopt(id, { purpose, owner: { type: 'proposal', id: pid }, title: purpose === 'rfp' ? 'RFP 요구사항 정리' : kind === 'storyboard' ? 'Storyboard 이어서 구성' : 'Layout Agent · 제안서 구성', meta: { kind } });
+  useAdopt(id, { purpose, owner: { type: 'proposal', id: pid }, title: purpose === 'rfp' ? 'RFP 요구사항 정리' : purpose === 'scenario-parts' ? '샘플 버티컬 시나리오 파트 추천' : purpose === 'scenario-layouts' ? '샘플 버티컬 시나리오 장표 완성' : kind === 'storyboard' ? 'Storyboard 이어서 구성' : 'Layout Agent · 제안서 구성', meta: { kind } });
   return null;
 }
 const SHOW_DONE_MS = 10 * 60e3; // a finished job card stays a while (with its real mode) unless closed
@@ -102,7 +113,7 @@ function AgentDock({ p, reqOpen, onReq }) {
       {rfpCard&&<FeedbackPopup message="첨부에서 읽은 요구사항 확인" kind="info" content={rfpAsk}/>}
       {shown.map((r) => (
         <AgentJobControl key={r.id} id={r.id} compact onClose={() => hideJob(r.id)}
-          onRetry={['rfp', 'compose'].includes(r.purpose) ? async () => { const out = await retryProposalJob(r); if (out.ok) { hideJob(r.id); toast('다시 시작했어요'); } else toast(out.message, 'warn'); } : undefined}>
+          onRetry={['rfp', 'compose', 'scenario-parts', 'scenario-layouts'].includes(r.purpose) ? async () => { const out = await retryProposalJob(r); if (out.ok) { hideJob(r.id); toast('다시 시작했어요'); } else toast(out.message, 'warn'); } : undefined}>
           {r.purpose === 'compose' && r.outcome === 'pending' && (
             <div className="ajc-pend">
               <span>작업하는 동안 Storyboard가 바뀌어 결과(파트 {(r.result && r.result.parts ? r.result.parts.length : 0)}개)를 자동으로 넣지 않았어요.</span>
@@ -353,6 +364,7 @@ export function StoryCanvas({ p, open, stage = 'story', pop = null, onReq, onMat
               <div className="node-top"><button className="end-plus pulse" aria-label="다음 파트 추가" onClick={(e) => { e.stopPropagation(); addPart(null); }}><Icon name="plus" size={30} stroke={2} /></button></div>
               <span className="node-name" style={{ color: 'var(--accent)' }}>다음 파트</span>
               <span className="story-empty-hint">{nLay ? '레이아웃 ' + nLay + '장 · 끌어서 순서를 바꿀 수 있어요' : '각 파트에 PPT 레이아웃을 추가해 보세요'}</span>
+              {!ai.jobBusy && emptyParts(p).length > 0 && <button className="btn btn-primary btn-sm end-ai" onClick={ai.complete} title="레이아웃이 빈 파트마다 샘플 버티컬 시나리오 장표를 옮기고 문구 · 사진을 채워요"><Icon name="sparkle" size={13} />{'장표 자동 완성 · 파트 ' + emptyParts(p).length + '개'}</button>}
               {ai.jobBusy ? <button className="btn btn-ghost btn-sm end-ai" disabled><span className="spin" />{ai.submitting ? '서버에 요청하는 중' : '서버에서 구성하는 중'}</button>
                 : <button className="btn btn-ghost btn-sm end-ai" onClick={ai.start}><Icon name={ai.err ? 'refresh' : 'sparkle'} size={13} />{ai.err ? 'AI로 나머지 구성 다시 시도' : 'AI로 나머지 구성'}</button>}
               <FeedbackPopup message={!ai.jobBusy?ai.err:""}/>

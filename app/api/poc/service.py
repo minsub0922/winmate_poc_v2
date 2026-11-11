@@ -13,6 +13,7 @@ from .adapters import rfp as rfp_adapter
 from .adapters import requirements as requirements_adapter
 from .adapters import search as search_adapter
 from .adapters import storyboard as storyboard_adapter
+from .adapters import compose as compose_adapter
 from .adapters.common import Prepared
 from .jobs import KINDS, BadRequest, Conflict, Job, JobManager
 from .provider import get_provider, provider_usage, ProviderError
@@ -21,7 +22,8 @@ from .strict import FAILURES, STRICT_POLICY
 
 log = logging.getLogger('winmate.poc')
 JOBS = JobManager()
-_ADAPTERS = {'rfp': rfp_adapter, 'requirements': requirements_adapter, 'layout': layout_adapter, 'storyboard': storyboard_adapter, 'review': review_adapter}
+_ADAPTERS = {'rfp': rfp_adapter, 'requirements': requirements_adapter, 'layout': layout_adapter, 'storyboard': storyboard_adapter, 'review': review_adapter,
+             'compose': compose_adapter}
 _NEEDS_KB = ('layout', 'search', 'rerank', 'review', 'storyboard')
 _IMPORT_OF = {'rfp': 'rfp', 'layout': 'layout', 'search': 'layout', 'rerank': 'layout', 'review': 'review', 'storyboard': 'storyboard'}
 _STATE: Dict[str, Any] = {'initialized': False, 'warm': 'idle', 'warm_error': None, 'import_errors': {}}
