@@ -12,6 +12,7 @@ import { markLayoutChanges, retainHistoryLayouts } from '../domain/slides/contex
 import { forgetHistory, historyRemoved, restoreHistory } from './history-preferences.js';
 import { historyPath, sharedIdentity } from '../services/shared-path.js';
 import { migrateRemovedLayouts } from '../domain/templates/migrate_removed_layouts.js';
+import { fillSpacePhotos } from '../domain/templates/migrate_space_sheet.js';
 
 const KEY = 'winmate.v2.proposals';
 const UKEY = 'winmate.v2.ui';
@@ -69,6 +70,7 @@ function migrateCovers(list) {
   let n = 0;
   for (const p of list) {
     if (migrateRemovedLayouts(p, {pid:()=>uid('s'),kid:()=>uid('k'),lid:()=>uid('l')})) n++;
+    if (fillSpacePhotos(p)) n++; // 공간별 제안 장의 새 공간 사진 칸(사진 1)
     if (normalizeCovers(p, true)) n++;
     if (retainHistoryLayouts(p)) n++;
   }
@@ -103,6 +105,7 @@ export function sharedProposal(snapshot, preferredId) {
   if (previous?.sample && snapshot.isOwner) proposal.sample = structuredClone(previous.sample);
   let migratedId = 0;
   migrateRemovedLayouts(proposal, {pid:()=>id+'-mp'+migratedId++,kid:()=>id+'-mk'+migratedId++,lid:()=>id+'-ml'+migratedId++});
+  fillSpacePhotos(proposal);
   const history = !historyRemoved(id, snapshot.token) && (state.proposals.some(p => p.id === id) || snapshot.isOwner || snapshot.hasEdited);
   const adaptation = new Map((previous?.parts || []).flatMap(s => s.layouts.map(x => [x.uid, x.adaptation])));
   for (const part of proposal.parts) for (const layout of part.layouts) {

@@ -75,6 +75,8 @@ f c code name when g p p2 ind sol pc req prods sols phs ph hl txt eb foot sample
 | `eb/hl/sub/foot/sample/txt` | 실제 예시 내용·검색 텍스트·출처와 일치. `when`에는 어떤 자료/목적으로 고르는지 설명. |
 | `pv/pf` | 의미가 같은 텍스트 twin만 연결. `pf`는 실제 이미지 면적 측정값. 임의 점수로 사진 우선 판정을 조작하지 않는다. |
 
+텍스트 칸의 샘플 글은 칸 설명이자 AI 글 길이의 기준이다 — 레이아웃 에이전트(`winmate_layout/slots.py`)가 샘플 글자 수 × 1.35를 그 칸의 최대 글자 수로, 글자 크기 · 굵기 · 길이로 역할(제목 · 설명)을 잡는다. AI가 쓰는 칸에 '항목' · '특징 설명' 같은 두세 글자 자리 글을 두면 4~7자밖에 못 쓰고 자리표시([항목] · [내용])로 남기 쉽다. 실제로 들어갈 내용 길이만큼 무엇을 쓰는 칸인지 적는다(예: L_VS_SPACE key message 칸 '이 공간에서 대표 제품이 하는 일 — 누가 무엇을 하고 무엇이 나아지는지 한두 문장으로').
+
 PHOTO_META에 추가했다면 PHOTO_HTML에도 있어야 한다. STD나 base에도 같은 `f`를 중복 등록해 합성 순서로 덮어쓰지 않는다. retired 처리가 요청되면 원본 렌더 데이터를 남기고 대체본의 활성 여부와 모든 참조를 확인한다.
 
 등록 위치는 제작 전에 확정한다. 사진 중심 추가는 PHOTO_META/PHOTO_HTML, 지정 표준 덱 재현은 STD_META/STD_HTML이 기본이다. 사진 없는 일반 템플릿이 base 계열을 따라야 한다면 `app/data/catalog.json.layouts`와 gzip/base64의 HTML map을 함께 추가하되 기존 map·다른 catalog 섹션을 보존한다. 업종 기본 표지 COVERS는 숨김 표지용이므로 일반 라이브러리 항목의 등록 위치로 쓰지 않는다. 동시 DB/콘텐츠 작업의 최신 변경을 다시 읽어 필요한 키만 병합하고 전체 파일의 오래된 사본을 덮어쓰지 않는다.

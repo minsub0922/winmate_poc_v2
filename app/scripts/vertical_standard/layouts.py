@@ -284,22 +284,42 @@ def core(k):
 
 
 # ------------------------------------------------------------------ 03 공간별 제품 시트
+SPACE_BOX = {'photo': (64, 136, 544, 512), 'right': (640, 576), 'card_y': 312, 'bottom': 648}
+
+
 def space_sheet():
+    """왼쪽 공간 사진 | 오른쪽 위에서 아래로 — 대표 제품 이름 → key message → 제품 특징 영역(왼쪽 제품 컷 + 오른쪽 특징 2).
+    칸 번호는 예전 장 그대로(저장된 제안서 · 목차 템플릿 제품 제안서가 번호로 읽는다): 글 2 = key message(예전 머리 부제와 같은 문장),
+    3 = '대표 제품', 4 = 제품 이름, 5~8 = 특징 2개(제목 · 설명), 사진 0 = 제품 컷. 공간 사진은 새 사진 칸 1.
+    샘플 글은 칸 설명이자 AI가 쓸 글 길이의 기준(에이전트는 샘플 길이로 글자 수를 잡는다) — 실제 내용 길이에 맞춰 둔다."""
     b = B('L_VS_SPACE')
-    header(b, '03 · 공간별 제안 · 01', '공간 이름', '이 공간에서 삼성 제품이 하는 일', sub_lines=2)
-    b.box(64, 172, 6, 36, f'background: {BLUE}; border-radius: 3px;')
-    b.text('label', 84, 168, 300, '대표 제품', f'font-weight: 700; letter-spacing: .04em; color: {BLUE}; white-space: nowrap;', h=19, label=True)
-    b.text('subheading', 84, 186, 1132, '제품 이름', f'font-weight: 800; color: {INK}; white-space: nowrap;', h=30, key='prod')
-    b.img(64, 232, 560, 412, 'cut', '대표 제품 컷', radius=16, bg=SURF, fit='contain', pad=36, key='img')
+    px, py, pw, ph = SPACE_BOX['photo']
+    rx, rw = SPACE_BOX['right']
+    cy, bot = SPACE_BOX['card_y'], SPACE_BOX['bottom']
+    b.text('label', 64, 44, 1000, '03 · 공간별 제안 · 01', f'font-weight: 700; letter-spacing: 0.06em; color: {BLUE}; white-space: nowrap;', h=19, key='eb')
+    b.text('title', 64, 64, 1152, '공간 이름', f'font-weight: 700; letter-spacing: -0.02em; color: {INK}; white-space: nowrap;', h=40, key='title')
+    # key message — 이 공간에서 대표 제품이 하는 일 한두 문장(최대 세 줄). 왼쪽 파란 선은 글 높이만큼(border-left)
+    b.text('heading', rx, 210, rw, '이 공간에서 대표 제품이 하는 일 — 누가 무엇을 하고 무엇이 나아지는지 한두 문장으로', f'font-weight: 700; color: {INK}; border-left: 4px solid {BLUE}; padding-left: 16px; box-sizing: border-box;', h=52, key='msg')
+    b.text('label', rx, py, 300, '대표 제품', f'font-weight: 700; letter-spacing: .04em; color: {BLUE}; white-space: nowrap;', h=19, label=True)
+    b.text('subheading', rx, py + 22, rw, '제품 이름', f'font-weight: 800; color: {INK}; white-space: nowrap;', h=30, key='prod')
+    # 제품 특징 영역 — 왼쪽 제품 컷, 오른쪽 특징 2(번호 · 제목 한 줄 · 설명 세 줄까지)
+    b.box(rx, cy, rw, bot - cy, f'background: {SURF}; border-radius: 16px;')
+    iw = 208
+    b.img(rx + 20, cy + 20, iw, bot - cy - 40, 'cut', '대표 제품 컷', radius=12, bg='#ffffff', fit='contain', pad=18, key='img')
+    fx = rx + 20 + iw + 24
+    fw = rx + rw - 20 - fx
     for r in range(2):
-        y = 232 + 212 * r
-        b.box(656, y, 560, 200, f'border: 1px solid {LINE}; border-radius: 16px; background: #ffffff;')
-        b.circle(684, y + 28, 36, str(r + 1), fs=16)
-        b.text('subheading', 736, y + 30, 456, '특징', f'font-weight: 800; color: {INK};', h=60, key=f'f{r}t')
-        b.text('body', 684, y + 102, 508, '특징 설명', f'color: {INK2};', h=75, key=f'f{r}d')
+        y = cy + 36 + 152 * r
+        if r: b.box(fx, y - 22, fw, 1, f'background: {LINE};')
+        b.circle(fx, y, 28, str(r + 1), fs=14)
+        b.text('heading', fx + 38, y + 1, fw - 38, '제품 특징 한 줄 제목', f'font-weight: 800; color: {INK}; white-space: nowrap;', h=26, key=f'f{r}t')
+        b.text('dense', fx, y + 38, fw, '이 특징이 공간 운영과 이용자에게 주는 효과를 한두 줄로 설명', f'color: {INK2};', h=67, key=f'f{r}d')
+    b.img(px, py, pw, ph, 'space', '공간 사진', radius=16, bg=SURF, key='space')
     footer(b)
-    add(b, meta('L_VS_SPACE', 'VS-SPACE', '공간별 대표 제품 · 왼쪽 제품 컷 + 오른쪽 특징 2 (제품명은 위)', '03 공간별 제안 — 공간마다 한 장, 그 공간의 대표 제품과 두 가지 특징', 'products', 'scenario', G.format('03 공간별 제안'),
-                '03 · 공간별 제안', '공간 이름', '', ['spaces', 'products', 'images']))
+    add(b, meta('L_VS_SPACE', 'VS-SPACE', '공간별 대표 제품 · 왼쪽 공간 사진 + 오른쪽 제품 이름 · key message · 제품 컷과 특징 2',
+                '03 공간별 제안 — 공간마다 한 장: 공간 사진 옆에 그 공간의 대표 제품 이름, 한두 문장 key message, 제품 컷과 두 가지 특징',
+                'products', 'scenario', G.format('03 공간별 제안'), '03 · 공간별 제안', '공간 이름', '', ['spaces', 'products', 'images'],
+                ik=['cut', 'space'], ih=['대표 제품 컷', '공간 사진']))
 
 
 # ------------------------------------------------------------------ 03 조감도 (space / building)
@@ -396,7 +416,7 @@ def write_module(path):
     htmls = {m['f']: h for m, h in OUT}
     head = ('// 표준 제안서 · 업종 공통 레이아웃 (L_VS_*) — vertical_space_product.json 44개 업종의 표준 제안서가 함께 쓰는 장표.\n'
             '// 목차 6장 고정(01 Overview · 02 AI 업종 · 03 공간별 제안 · 04 솔루션 · 05 도입사례 · 06 Why Samsung), 업종마다 내용 · 공간 수 · 솔루션만 다름.\n'
-            '// 호텔 AI 스테이(L_AIS_*)를 기준으로 개선: 니즈 열 사진 제거 · 제안별 색 테두리 · 하단 각주 없음 · 상세 장은 가운데 제품/솔루션 이미지만 · 공간별 장 = 왼쪽 제품 컷 + 오른쪽 특징 2.\n'
+            '// 호텔 AI 스테이(L_AIS_*)를 기준으로 개선: 니즈 열 사진 제거 · 제안별 색 테두리 · 하단 각주 없음 · 상세 장은 가운데 제품/솔루션 이미지만 · 공간별 장 = 왼쪽 공간 사진 + 오른쪽 제품 이름 · key message · 제품 컷과 특징 2.\n'
             '// 04 솔루션은 솔루션마다 다른 레이아웃(L_VS_SOL_*, 23종 — 업종이 달라도 같은 솔루션은 같은 레이아웃), 06 Why Samsung(L_VS_WHY_*)은 모든 업종 같은 내용.\n'
             '// 글자 크기는 PROPOSAL_TYPE 역할(data-type-role)을 미리 넣어 둠(data-proposal-typography="2"). 생성: app/scripts/vertical_standard/gen_layouts.py\n')
     with open(path, 'w', encoding='utf-8') as fh:

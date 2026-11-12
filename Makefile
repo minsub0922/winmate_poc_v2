@@ -16,6 +16,7 @@ test:
 	node app/tests/sample-reviews.mjs
 	node app/tests/review-criteria.mjs
 	node app/tests/simulation-skills.mjs
+	node app/tests/space-sheet-migration.mjs
 	app/.venv/bin/python -B app/tests/strict_contracts.py
 test-browser:
 	node app/tests/functional-contracts.mjs

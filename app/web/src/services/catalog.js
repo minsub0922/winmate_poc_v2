@@ -202,3 +202,5 @@ const EXTRA_HTML = {};
 export function registerLayout(meta, html) { L[meta.f] = meta; EXTRA_HTML[meta.f] = html; }
 export function unregisterLayout(f) { if (EXTRA_HTML[f] != null) { delete EXTRA_HTML[f]; delete L[f]; } }
 export function layoutHtml(f) { return (HTML && (HTML[f] || HTML[CANON_OF[f]]) && repaired(f)) || EXTRA_HTML[f] || ''; }
+// 고치기 전 원본 장 — 검사용(채운 값의 칸 번호가 원본 장의 칸인지: 바닥글 · 각주 · 작은 캡션 칸은 그릴 때 빠져도 값은 남아 있다)
+export function layoutSourceHtml(f) { return (HTML && HTML[f]) || EXTRA_HTML[f] || ''; }
