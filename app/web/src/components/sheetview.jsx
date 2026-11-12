@@ -6,8 +6,9 @@
 import React, { useRef, useState, useLayoutEffect, useEffect } from 'react';
 import { Icon, Modal } from './common.jsx';
 
-/** the biggest width that fits the stage box at this aspect (w / h). With no fixed height (phones: stacked) it is the box width. */
-function useFitWidth(ref, aspect) {
+/** the biggest width that fits the stage box at this aspect (w / h). With no fixed height (phones: stacked) it is the box width.
+ *  목차 템플릿 상세의 큰 장도 이 계산을 같이 쓴다. */
+export function useFitWidth(ref, aspect) {
   const [w, setW] = useState(0);
   useLayoutEffect(() => {
     const el = ref.current; if (!el) return undefined;

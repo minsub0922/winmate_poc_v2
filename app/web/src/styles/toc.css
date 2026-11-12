@@ -1,4 +1,4 @@
-/* 목차 템플릿 — 템플릿 카드 목록 · 목차 버블 흐름 · 상세 팝업 (업종별 시나리오 · 기존 샘플) */
+/* 목차 템플릿 — 템플릿 카드 목록 · 목차 버블 흐름 · 상세 팝업 (업종 드롭다운 · 장 썸네일 세로 목록 + 큰 장) */
 .tocp-list { display: flex; flex-direction: column; gap: var(--space-16px); }
 
 /* 목차 버블 흐름 — Storyboard 목차 버블(.col · .node · .node-name · .conn)을 그대로 쓰고, 칸 폭만 좁힌다 */
@@ -8,7 +8,11 @@
 .tocf span.node, .tocf span.node-name { cursor: inherit; }
 .tocf span.node:hover { transform: none; }
 .tocf-c { font-size: var(--text-12px); font-weight: var(--weight-700); color: var(--muted); }
-.tocd-flow .tocf { --bg: var(--surface-2); justify-content: center; }
+/* 지금 보는 목차 — Storyboard 보기 전용 버블과 같은 강조(두꺼운 고리 · 이름 색) */
+.tocf .col.on .node { box-shadow: 0 0 0 var(--measure-6px) var(--bg), 0 0 0 var(--measure-10px) var(--hc); }
+.tocf .col.on .node-name { color: var(--hc); }
+.tocf .col.on .tocf-c { color: var(--hc); }
+.tocd-flow .tocf { --bg: var(--surface-2); justify-content: safe center; flex-wrap: nowrap; overflow-x: auto; padding: var(--space-12px) var(--space-4px) var(--space-6px); scrollbar-width: thin; }
 
 /* 템플릿 카드 */
 .tocc { position: relative; display: flex; flex-direction: column; gap: var(--space-14px); padding: var(--space-20px) var(--space-22px) var(--space-18px); border: var(--stroke-1px) solid var(--line); border-radius: var(--radius-16px); background: var(--surface); }
@@ -28,48 +32,75 @@
 .tocc-sheet { border-radius: var(--radius-8px); overflow: hidden; border: var(--stroke-1px) solid var(--line); background: var(--surface-2); }
 .tocc-sheet.sk { aspect-ratio: 16 / 9; }
 
-/* 상세 팝업 */
+/* 상세 팝업 — 헤더 드롭다운(업종) · 목차 흐름 · 왼쪽 장 썸네일 세로 목록(목차 버블로 묶음) + 오른쪽 큰 장 */
 .modal.tocd { width: min(var(--measure-1640px), var(--measure-100)); height: min(var(--measure-1000px), calc(var(--measure-100vh) - var(--measure-40px))); max-height: none; }
-.tocd-body { display: flex; flex-direction: column; gap: var(--space-14px); min-height: 0; overflow: hidden; }
+.tocd-body { flex: 1; display: flex; flex-direction: column; gap: var(--space-12px); min-height: 0; overflow: hidden; padding-top: var(--space-14px); padding-bottom: var(--space-14px); }
 .tocd-t { display: inline-flex; align-items: center; gap: var(--space-10px); flex-wrap: wrap; }
-.tocd-flow { padding: var(--space-12px) var(--space-14px); border-radius: var(--radius-12px); background: var(--surface-2); }
-.tocd-tabs { display: flex; gap: var(--space-6px); border-bottom: var(--stroke-1px) solid var(--line); }
-.tocd-tabs button { border: 0; background: none; padding: var(--space-8px) var(--space-12px); font-size: var(--text-13-5px); font-weight: var(--weight-700); color: var(--muted); border-bottom: var(--stroke-2px) solid transparent; margin-bottom: calc(var(--stroke-1px) * -1); cursor: pointer; }
-.tocd-tabs button.on { color: var(--accent); border-bottom-color: var(--accent); }
-.tocd-tabs b { font-family: var(--num); margin-left: var(--space-4px); }
-.tocd-main { display: grid; grid-template-columns: var(--measure-260px, 260px) minmax(0, var(--measure-1fr)); gap: var(--space-16px); min-height: 0; flex: 1; }
-.tocd-inds { overflow-y: auto; display: flex; flex-direction: column; gap: var(--space-12px); padding-right: var(--space-6px); }
-.tocd-ig { display: flex; flex-direction: column; gap: var(--space-4px); }
-.tocd-ign { font-size: var(--text-11-5px); font-weight: var(--weight-800); color: var(--faint); letter-spacing: var(--measure-04em); padding: 0 var(--space-8px); }
-.tocd-iv { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-1px); text-align: left; border: var(--stroke-1px) solid transparent; background: none; border-radius: var(--radius-10px); padding: var(--space-6px) var(--space-10px); cursor: pointer; color: var(--ink); }
-.tocd-iv:hover { background: var(--surface-2); }
-.tocd-iv.on { background: var(--accent-soft); border-color: var(--accent-line); }
-.tocd-iv .nm { font-size: var(--text-13px); font-weight: var(--weight-700); }
-.tocd-iv .cu { font-size: var(--text-11-5px); color: var(--muted); }
-.tocd-deck { overflow-y: auto; display: flex; flex-direction: column; gap: var(--space-20px); padding-right: var(--space-6px); min-width: 0; }
-.tocd-dh h3 { margin: 0; font-size: var(--text-17px); font-weight: var(--weight-800); }
-.tocd-dh p { margin: var(--space-4px) 0 0; font-size: var(--text-13px); color: var(--muted); }
-.tocd-sec { display: flex; flex-direction: column; gap: var(--space-10px); }
-.tocd-sh { display: flex; align-items: center; gap: var(--space-10px); font-size: var(--text-12px); }
-.tocd-sn { display: inline-flex; align-items: center; gap: var(--space-6px); height: var(--measure-28px); padding: 0 var(--space-12px) 0 var(--space-4px); border-radius: var(--radius-999px); background: var(--hb); color: var(--hc); font-size: var(--text-13px); font-weight: var(--weight-800); }
-.tocd-sn b { width: var(--measure-20px); height: var(--measure-20px); border-radius: var(--radius-50); background: var(--hc); color: var(--surface); display: grid; place-items: center; }
-.tocd-sn .num { font-weight: var(--weight-800); }
-.tocd-sn.deck { background: var(--surface-2); color: var(--muted); padding-left: var(--space-12px); }
-.tocd-grid { display: grid; grid-template-columns: repeat(4, minmax(0, var(--measure-1fr))); gap: var(--space-10px); }
-.tocd-sheet { position: relative; display: flex; flex-direction: column; gap: var(--space-5px); text-align: left; border: var(--stroke-1px) solid var(--line); border-radius: var(--radius-10px); background: var(--surface); padding: var(--space-6px); color: var(--ink); min-width: 0; cursor: pointer; }
-.tocd-sheet:hover { border-color: var(--accent); box-shadow: var(--shadow); }
-.tocd-sheet .pg { position: absolute; top: var(--measure-10px); left: var(--measure-10px); z-index: 2; min-width: var(--measure-20px); height: var(--measure-20px); padding: 0 var(--space-5px); border-radius: var(--radius-6px); background: var(--ink); color: var(--surface); font-size: var(--text-11px); font-weight: var(--weight-800); display: grid; place-items: center; }
-.tocd-sheet .rl { font-size: var(--text-12px); font-weight: var(--weight-700); padding: 0 var(--space-2px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.tocd-rel { overflow-y: auto; display: flex; flex-direction: column; gap: var(--space-12px); min-height: 0; flex: 1; }
-.tocd-ri { display: grid; grid-template-columns: minmax(0, var(--measure-1fr)) minmax(0, 2fr); gap: var(--space-14px); align-items: center; text-align: left; border: var(--stroke-1px) solid var(--line); border-radius: var(--radius-12px); background: var(--surface); padding: var(--space-12px); cursor: pointer; color: var(--ink); }
-.tocd-ri:hover { border-color: var(--accent); box-shadow: var(--shadow); }
-.tocd-rh h4 { margin: 0 0 var(--space-6px); font-size: var(--text-14px); font-weight: var(--weight-800); }
-.tocd-rh .faint { font-size: var(--text-12px); line-height: var(--leading-1-55); }
-.tocd-rs { display: grid; grid-template-columns: repeat(3, minmax(0, var(--measure-1fr))); gap: var(--space-8px); }
-.tocd-rsl { border-radius: var(--radius-6px); overflow: hidden; border: var(--stroke-1px) solid var(--line); }
+.tocd-flow { flex-shrink: 0; padding: 0 var(--space-10px) var(--space-4px); border-radius: var(--radius-12px); background: var(--surface-2); }
+
+/* 업종 드롭다운 (헤더 오른쪽) */
+.tocm { position: relative; }
+.tocm-btn { display: inline-flex; align-items: center; gap: var(--space-10px); height: var(--measure-46px, 46px); max-width: min(440px, 46vw); padding: 0 var(--space-12px) 0 var(--space-14px); border: var(--stroke-1px) solid var(--line-2); border-radius: var(--radius-10px); background: var(--surface); color: var(--ink); text-align: left; cursor: pointer; }
+.tocm-btn:hover, .tocm-btn[aria-expanded="true"] { border-color: var(--accent); }
+.tocm-btn:focus-visible { outline: var(--stroke-2px) solid var(--accent); outline-offset: var(--space-2px); }
+.tocm-btn .lbl { flex-shrink: 0; font-size: var(--text-11-5px); font-weight: var(--weight-800); color: var(--muted); padding-right: var(--space-10px); border-right: var(--stroke-1px) solid var(--line); line-height: 1.9; }
+.tocm-btn .tx { display: flex; flex-direction: column; min-width: 0; line-height: 1.3; }
+.tocm-btn .nm { font-size: var(--text-14px); font-weight: var(--weight-800); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tocm-btn .cu { font-size: var(--text-11-5px); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tocm-btn > svg { flex-shrink: 0; color: var(--muted); }
+.tocm-pop { position: absolute; right: 0; top: calc(100% + 6px); z-index: 30; width: min(440px, 80vw); max-height: min(600px, 64vh); display: flex; flex-direction: column; border: var(--stroke-1px) solid var(--line-2); border-radius: var(--radius-12px); background: var(--surface); box-shadow: var(--shadow-lg); overflow: hidden; }
+.tocm-q { flex-shrink: 0; display: flex; align-items: center; gap: var(--space-8px); height: var(--measure-46px, 46px); padding: 0 var(--space-14px); border-bottom: var(--stroke-1px) solid var(--line); color: var(--faint); }
+.tocm-q input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; font: inherit; font-size: var(--text-13-5px); color: var(--ink); }
+.tocm-list { overflow-y: auto; padding: var(--space-4px) var(--space-6px) var(--space-8px); display: flex; flex-direction: column; }
+.tocm-gh { padding: var(--space-10px) var(--space-10px) var(--space-4px); font-size: var(--text-11-5px); font-weight: var(--weight-800); color: var(--faint); }
+.tocm-o { display: grid; grid-template-columns: minmax(0, var(--measure-1fr)) auto; align-items: center; column-gap: var(--space-10px); width: var(--measure-100); padding: var(--space-7px) var(--space-10px); border: 0; border-radius: var(--radius-8px); background: none; text-align: left; color: var(--ink); cursor: pointer; }
+.tocm-o .nm { grid-column: 1; font-size: var(--text-13-5px); font-weight: var(--weight-700); }
+.tocm-o .cu { grid-column: 1; font-size: var(--text-12px); color: var(--muted); }
+.tocm-o .ck { grid-column: 2; grid-row: 1 / span 2; color: var(--accent); }
+.tocm-o.act { background: var(--surface-2); }
+.tocm-o[aria-selected="true"] { background: var(--accent-soft); }
+.tocm-o[aria-selected="true"] .nm { color: var(--accent); }
+.tocm-empty { margin: 0; padding: var(--space-18px) var(--space-12px); font-size: var(--text-13px); color: var(--muted); }
+
+/* 장 보기 — 왼쪽 썸네일 세로 목록(목차마다 버블 머리) + 오른쪽 큰 장 (제안서 PPT 패널의 썸네일 · 큰 장 · 넘기기를 그대로) */
+.tocv { flex: 1; min-height: 0; display: grid; grid-template-columns: var(--measure-236px, 236px) minmax(0, var(--measure-1fr)); gap: var(--space-14px); }
+.tocv-rail { min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: var(--space-14px); padding: var(--space-4px) var(--space-8px) var(--space-14px) var(--space-2px); --bg: var(--surface); scrollbar-width: thin; }
+.tocv-wait { margin: 0; padding: var(--space-8px); font-size: var(--text-13px); }
+.tocv-g { display: flex; flex-direction: column; gap: var(--space-8px); }
+.tocv-gh { display: flex; align-items: center; gap: var(--space-8px); padding: var(--space-6px) var(--space-2px) 0 var(--space-6px); }
+.tocv-gh .node-top { width: auto; flex-shrink: 0; }
+.tocv-gh .node { width: 32px; height: 32px; box-shadow: 0 0 0 3px var(--bg), 0 0 0 4.5px var(--hc); }
+.tocv-gh .node:hover { transform: none; }
+.tocv-gh .node svg { width: 16px; height: 16px; }
+.tocv-gh .node .order { top: -8px; right: -10px; width: 18px; height: 18px; font-size: 10px; border-width: var(--stroke-1px); }
+.tocv-gh .node-name { flex: 1; min-width: 0; padding: 0 0 0 var(--space-6px); font-size: var(--text-13-5px); text-align: left; line-height: 1.3; cursor: default; }
+.tocv-gh .node-name:hover { color: var(--ink); }
+.tocv-gl { flex: 1; font-size: var(--text-12-5px); font-weight: var(--weight-800); color: var(--muted); }
+.tocv-gc { flex-shrink: 0; font-size: var(--text-11-5px); font-weight: var(--weight-700); color: var(--muted); }
+.tocv-ths { display: flex; flex-direction: column; gap: var(--space-8px); padding-left: var(--space-6px); }
+.tocv-th { display: block; width: fit-content; cursor: pointer; }
+.tocv-th:hover .slide { box-shadow: var(--shadow); }
+.tocv-th:focus-visible { outline: var(--stroke-2px) solid var(--accent); outline-offset: var(--space-2px); }
+.tocv-stage { min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: var(--space-10px); padding: var(--space-14px) var(--space-18px) var(--space-12px); border-radius: var(--radius-12px); background: var(--surface-2); }
+.tocv-info { flex-shrink: 0; flex-wrap: nowrap; min-height: var(--measure-32px, 32px); }
+.tocv-info .pt { flex-shrink: 0; }
+.tocv-info .nm { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tocv-info .sp { flex: 1; }
+.tocv-fit { flex: 1; min-height: 0; min-width: 0; display: flex; align-items: center; justify-content: center; }
+.tocv-fit .vslide .slide { box-shadow: var(--shadow); border-radius: var(--radius-6px); border: var(--stroke-1px) solid var(--line); }
+.tocv-nav { flex-shrink: 0; justify-content: center; }
+.tocv-pg { min-width: var(--measure-84px, 84px); text-align: center; font-size: var(--text-12-5px); font-weight: var(--weight-700); }
+.tocv-keys { font-size: var(--text-12px); }
 @media (max-width: 1100px) {
-  .tocc-sheets, .tocd-grid { grid-template-columns: repeat(2, minmax(0, var(--measure-1fr))); }
-  .tocd-main { grid-template-columns: minmax(0, var(--measure-1fr)); }
-  .tocd-inds { max-height: var(--measure-200px, 200px); }
-  .tocd-ri { grid-template-columns: minmax(0, var(--measure-1fr)); }
+  .tocc-sheets { grid-template-columns: repeat(2, minmax(0, var(--measure-1fr))); }
+  .tocd-body { overflow-y: auto; }
+  .tocv { flex: none; grid-template-columns: minmax(0, var(--measure-1fr)); grid-template-rows: auto auto; }
+  .tocv-stage { min-height: auto; }
+  .tocv-fit { flex: none; }
+  .tocv-rail { order: 2; flex-direction: row; overflow-x: auto; overflow-y: hidden; padding: var(--space-2px) var(--space-2px) var(--space-8px); }
+  .tocv-g { flex-direction: row; align-items: flex-start; flex-shrink: 0; }
+  .tocv-gh { flex-direction: column; width: var(--measure-84px, 84px); padding: var(--space-6px) 0 0; text-align: center; }
+  .tocv-gh .node-name { padding: 0; text-align: center; }
+  .tocv-ths { flex-direction: row; padding-left: 0; }
+  .tocm-btn { max-width: 52vw; }
 }
