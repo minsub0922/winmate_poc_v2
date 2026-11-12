@@ -283,8 +283,7 @@ uiCase('U09', 'review: uploading a real PPTX parses its slide and stores the doc
 
 uiCase('U10', 'My templates: uploading a PPTX imports one page, saves it with its pictures, survives reload', async (page, d) => {
   const file = await deckFile(page, 'strict-u10.pptx', 'WMSTRICT-U10 My 제목');
-  await nav(page, '.sb-tpl');
-  await page.getByRole('button', { name: 'My', exact: true }).click();
+  await nav(page, '.sb-my'); // My 템플릿 is its own sidebar page
   await page.locator('input[data-my-file]').setInputFiles(file);
   await page.locator('.my-imp-card').first().waitFor({ timeout: 90000 });
   eq(await page.locator('.my-imp-card').count(), 1, 'one imported page offered');

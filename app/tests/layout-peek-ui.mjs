@@ -31,7 +31,7 @@ try {
       html: '<div style="position:relative;width:1280px;height:720px;background:#eef3ff"><h1 data-tb="0" style="position:absolute;left:100px;top:100px;font-size:48px">저장된 장표 ' + (i + 1) + '</h1></div>' }));
     await saveTemplates(items);
     for (const item of items) toggleFav(item.meta.f, { t: { 0: '찜에 저장한 실제 내용' }, img: {} }, '미리보기 검증');
-    saveUi({ ...loadUi(), route: { name: 'library' } });
+    saveUi({ ...loadUi(), route: { name: 'library', scope: 'sh' } }); // 템플릿 라이브러리 · 시트
   });
   await page.reload(); await page.locator('[data-library-scope="catalog"]').waitFor();
   const navigate = async selector => {
@@ -60,8 +60,9 @@ try {
   await inspect('favorites-middle', page.locator('.fav-card').nth(1));
   await page.locator('.fav-card').nth(1).hover(); await page.locator('.pk-peek').waitFor(); assert((await page.locator('.pk-peek .pp-slide').innerText()).includes('찜에 저장한 실제 내용'));
   await page.mouse.move(1, 1); await page.locator('.pk-peek').waitFor({ state: 'detached' });
-  await navigate('.sb-bs'); await page.locator('#bs-q').fill('메뉴보드'); await page.locator('.bsl-sheet').first().waitFor(); await inspect('best-scenario-middle', page.locator('.bsl').first().locator('.bsl-sheet').nth(1));
-  await navigate('.sb-tpl');
+  // 템플릿 라이브러리 · 전체: a search shows scenarios first, then a few sheets — those sheets peek the same way
+  await navigate('.sb-tpl'); await page.locator('#tl-q').fill('메뉴보드'); await page.locator('.hub-sec .tl-card').first().waitFor(); await inspect('library-all-search-middle', page.locator('.hub-sec .tl-grid .tl-card').nth(1));
+  await page.locator('#tl-q').fill(''); await page.locator('.hub-scope button', { hasText: '시트' }).click(); await page.locator('.tl-grid .tl-card').first().waitFor();
   for (const width of [1100, 820]) {
     await page.setViewportSize({ width, height: width === 820 ? 620 : 740 }); await inspect('catalog-' + width, page.locator('.tl-grid .tl-card').nth(1), false);
   }

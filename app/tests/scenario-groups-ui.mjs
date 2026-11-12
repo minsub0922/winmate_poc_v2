@@ -37,7 +37,7 @@ try {
   const count = (k, ind) => data.all.filter(s => s.req === k && (!ind || s.ind === ind)).length;
   const toPage = async (bs) => {
     await page.evaluate(async bs => { const { loadUi, saveUi } = await import('/src/repositories/proposals.js'); saveUi({ ...loadUi(), route: { name: 'scenarios' }, bs }); }, bs || {});
-    await page.reload(); await page.locator('#bs-q').waitFor(); await page.mouse.move(page.viewportSize().width - 3, 2);
+    await page.reload(); await page.locator('#tl-q').waitFor(); await page.mouse.move(page.viewportSize().width - 3, 2);
   };
   const cards = () => page.locator('.bsg-card');
   const listDialog = () => page.getByRole('dialog').last();
@@ -55,7 +55,7 @@ try {
   }
   assert.equal(new Set(shown.map(c => c.icon)).size, shown.length, 'every type has a different symbol');
   assert.equal(shown.reduce((a, c) => a + Number(c.n), 0), data.all.length);
-  assert.equal(await page.locator('.bsl').count(), 0);
+  assert.equal(await page.locator('.bsk').count(), 0);
   pass('before a search: ' + shown.length + ' type cards (symbol · name · sample count · description), ' + data.all.length + ' samples, no rows');
 
   const firstRow = await cards().evaluateAll(cs => { const top = cs[0].getBoundingClientRect().top; return cs.filter(c => Math.abs(c.getBoundingClientRect().top - top) < 2).length; });
@@ -102,12 +102,18 @@ try {
   assert.equal(await listDialog().locator('.bsx-item').count(), filtered[0][1]); await page.keyboard.press('Escape');
   pass('업종 filter (호텔): ' + filtered.map(x => x.join(' ')).join(' · '));
 
-  // 6. a search shows rows instead of cards; clearing it brings the cards back
+  // 6. a search shows scenario cards (two per line, no 상세 보기 button — the card opens the Storyboard) instead of the type cards;
+  //    clearing it brings the type cards back
   await toPage({}); await cards().first().waitFor();
-  await page.locator('#bs-q').fill('메뉴보드'); await page.locator('.bsl').first().waitFor();
-  assert.equal(await cards().count(), 0); assert.ok(await page.locator('.bsl .bsl-sheet').count() > 0);
-  await page.locator('#bs-q').fill(''); await cards().first().waitFor(); assert.equal(await page.locator('.bsl').count(), 0);
-  pass('a search shows rows; clearing it shows the type cards again');
+  await page.locator('#tl-q').fill('메뉴보드'); await page.locator('.bsk').first().waitFor();
+  assert.equal(await cards().count(), 0);
+  const hits = await page.locator('.bsk').evaluateAll(cs => ({ n: cs.length, lefts: new Set(cs.map(c => Math.round(c.getBoundingClientRect().left))).size, text: cs.map(c => c.innerText).join(' ') }));
+  assert.ok(hits.n > 1); assert.equal(hits.lefts, 2); assert.ok(!hits.text.includes('상세 보기'));
+  const first = page.locator('.bsk').first(); const title = await first.getAttribute('aria-label');
+  await first.click({ position: { x: 24, y: 24 } }); await page.locator('.modal.sbv').waitFor();
+  assert.ok((await page.locator('.modal.sbv').innerText()).includes(title)); await page.keyboard.press('Escape'); await page.locator('.modal.sbv').waitFor({ state: 'detached' });
+  await page.locator('#tl-q').fill(''); await cards().first().waitFor(); assert.equal(await page.locator('.bsk').count(), 0);
+  pass('a search shows scenario cards two per line and a card opens its Storyboard; clearing it shows the type cards again');
 
   // 7. phone — one card per line, nothing wider than the screen; dark theme keeps the type colours
   await page.setViewportSize({ width: 390, height: 844 }); await page.waitForTimeout(300);

@@ -5,7 +5,8 @@ if(!password)throw Error('WINMATE_TEST_PASSWORD is required');
 const smoke=process.env.WINMATE_LIBRARY_SUITE==='smoke',widths=smoke?[1920,390]:[2560,1920,900,390];
 const folder='app/tests/output/library-width';fs.mkdirSync(folder,{recursive:true});
 const browser=await chromium.launch({headless:true});const rows=[];let context,page,errors;
-const pages=[['catalog','.sb-tpl','PPT 레이아웃 템플릿'],['scenarios','.sb-bs','샘플 버티컬 시나리오'],['my','.sb-my','My 템플릿'],['favorites','.sb-fav','찜 목록']];
+// 템플릿 라이브러리 is one sidebar page; its 시트 and 시나리오 views are picked with the buttons under the search box
+const pages=[['catalog','.sb-tpl','템플릿 라이브러리','시트'],['scenarios','.sb-tpl','템플릿 라이브러리','시나리오'],['my','.sb-my','My 템플릿'],['favorites','.sb-fav','찜 목록']];
 async function navigate(selector,width){
  if(width<=760)await page.getByRole('button',{name:'메뉴 열기',exact:true}).click();else await page.locator('.sidebar').hover({position:{x:20,y:20}});
  await page.locator('.sidebar '+selector).click();await page.mouse.move(width-3,8);
@@ -18,8 +19,9 @@ try{
   await context.route(u=>u.origin===new URL(base).origin&&['/api/llm','/api/jobs','/api/layouts/search'].includes(u.pathname),route=>route.request().method()==='GET'?route.continue():route.fulfill({status:503,contentType:'application/json',body:'{"code":"test_model_blocked"}'}));
   await context.route(u=>u.origin===new URL(base).origin&&u.pathname.startsWith('/api/storyboards'),route=>route.fulfill({status:404,contentType:'application/json',body:'{"detail":"isolated browser: sharing is outside this layout test"}'}));
   page=await context.newPage();page.setDefaultTimeout(25000);page.on('pageerror',e=>errors.push(String(e)));await page.goto(base+'/');await page.locator('.app').waitFor({timeout:60000});await page.locator('.boot').waitFor({state:'detached',timeout:60000});
-  for(const [scope,selector,title] of pages){const start=Date.now();try{
+  for(const [scope,selector,title,view] of pages){const start=Date.now();try{
    await navigate(selector,width);await page.getByRole('heading',{name:title,exact:true}).waitFor();
+   if(view){await page.locator('.hub-scope button',{hasText:view}).click();await page.locator('.hub-scope button[aria-pressed="true"]',{hasText:view}).waitFor();}
    const metric=await page.locator('.tl-in').evaluate(el=>{const r=el.getBoundingClientRect();const main=document.querySelector('.main').getBoundingClientRect();return{width:r.width,left:r.left,right:r.right,maxWidth:getComputedStyle(el).maxWidth,mainWidth:main.width,scrollWidth:el.scrollWidth,clientWidth:el.clientWidth};});
    assert.equal(metric.maxWidth,'1800px');if(width>=1920){assert(metric.width>1320);assert(Math.abs(metric.width-1800)<=2);}
    assert(metric.left>=-1&&metric.right<=width+1);assert(metric.scrollWidth<=metric.clientWidth+1);

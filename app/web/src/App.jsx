@@ -7,10 +7,9 @@ import { loadLayoutHtml } from './services/catalog.js';
 import { Sidebar } from './components/shell.jsx';
 import Home from './pages/HomePage.jsx';
 import { ProposalScreen } from './pages/ProposalPage.jsx';
-import { LayoutLibrary } from './pages/LibraryPage.jsx';
+import { TemplateHub } from './pages/TemplateHubPage.jsx';
 import { MyTemplatesPage } from './pages/MyTemplatesPage.jsx';
 import { FavoritesPage } from './pages/FavoritesPage.jsx';
-import { ScenarioPage } from './pages/ScenariosPage.jsx';
 import { TocTemplatesPage } from './pages/TocTemplatesPage.jsx';
 import { Toasts, Icon } from './components/common.jsx';
 import { ReviewScreen, ReviewHistory } from './pages/ReviewPage.jsx';
@@ -104,10 +103,9 @@ export default function App() {
             : route.name === 'shared' ? <SharedPage key={route.token} token={route.token} go={go} />
               : route.name === 'proposal' && p ? <ProposalScreen key={p.id + ':' + proposalStart} p={p} go={go} />
               : route.name === 'proposal' ? <HistoryPage key={route.id} id={route.id} go={go} />
-              : route.name === 'library' ? <LayoutLibrary key="library" go={go} />
+              : route.name === 'library' || route.name === 'scenarios' ? <TemplateHub key="library" go={go} route={route} />
               : route.name === 'my' ? <MyTemplatesPage key="my" go={go} saved={route.saved} />
               : route.name === 'favorites' ? <FavoritesPage key="favorites" go={go} />
-              : route.name === 'scenarios' ? <ScenarioPage go={go} />
               : route.name === 'toc' ? <TocTemplatesPage go={go} />
               : route.name === 'spatial' ? <SpatialPage id={route.id} go={go} />
               : route.name === 'review' ? <ReviewScreen key={route.id} id={route.id} go={go} />

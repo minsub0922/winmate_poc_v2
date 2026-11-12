@@ -104,7 +104,9 @@ try {
   assert.equal((await inbox()).total, 2);
   pass('failed send keeps the message and retry persists exactly one feedback record');
 
-  await page.getByRole('button', { name: /^PPT 레이아웃 템플릿/ }).click();
+  // 템플릿 라이브러리 → 시트 (the PPT layouts)
+  await page.getByRole('button', { name: /^템플릿 라이브러리/ }).click(); await page.mouse.move(page.viewportSize().width - 3, 2); await page.waitForTimeout(400);
+  await page.locator('.hub-scope button', { hasText: '시트' }).click();
   await page.locator('.tl-card').first().click(); await page.getByRole('button', { name: '수정하기', exact: true }).click();
   const editor = page.locator('.modal').filter({ has: page.locator('.myed') }); await editor.waitFor();
   const title = editor.locator('.ed-host [data-tb]').first(); await title.dblclick();

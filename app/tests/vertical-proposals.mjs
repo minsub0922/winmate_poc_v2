@@ -113,14 +113,17 @@ try{
    localStorage.setItem('winmate.v2.proposals',JSON.stringify([untouched]));return{removedDeckPagesMigrated:true,customTitlePreserved:true,editedTextPreserved:true,customPhotoPreserved:active.includes('사용자 선택 사진'),archivePreserved:!!edited.removedLayoutArchive,privateArchiveExcluded:true,partialProposal:true,favourite:true,operationsCover:true};
   },{old:legacy.fills,ops:legacy.ops});
   await page.reload();await page.locator('.app').waitFor();report.reopened=await page.evaluate(async()=>{const {getProposal,sharedProposal}=await import('/src/repositories/proposals.js');const p=getProposal('legacy-edited');if(!p||p.title!=='사용자가 정한 제안서 이름'||p.parts.some(s=>s.layouts.some(x=>/^L_DSTD_|^L_PH_VX_/.test(x.f))))throw new Error('persistent migration failed');const old={...structuredClone(p),parts:structuredClone(p.removedLayoutArchive.parts)};delete old.removedLayoutArchive;const shared=sharedProposal({token:'legacy-read-only-test',sourceId:'legacy',document:old,isOwner:false,canEdit:false,permission:'read',revision:1});if(shared.parts.some(s=>s.layouts.some(x=>/^L_DSTD_|^L_PH_VX_/.test(x.f))))throw new Error('legacy shared snapshot not viewable');return {title:p.title,archive:!!p.removedLayoutArchive,pages:p.parts.flatMap(x=>x.layouts).length,readOnlySharedView:true};});
-  await page.locator('.sb-bs').click();await page.locator('.bsg-card').first().waitFor();assert.equal(await page.locator('.bsl').count(),0);assert.deepEqual(await page.locator('.bsg-card').evaluateAll(cs=>cs.map(c=>c.dataset.req)),['std','new','renew','compete','ops','scale','brief']);assert.equal(await page.locator('.bsg-card[data-req="std"] .bsg-n b').innerText(),String(std.scenarios.length));report.searches=[];
-  for(const s of scenarios){await page.getByRole('textbox',{name:'시나리오 검색',exact:true}).fill(s.title);await page.getByRole('article',{name:s.title,exact:true}).waitFor();report.searches.push(s.id);}
+  // 템플릿 라이브러리 → 시나리오: before a search one card per 요구사항 타입, a search shows scenario cards (no sheet rows)
+  await page.locator('.sb-tpl').click();await page.mouse.move(page.viewportSize().width-3,2);await page.waitForTimeout(400);await page.locator('.hub-scope button',{hasText:'시나리오'}).click();await page.locator('.bsg-card').first().waitFor();assert.equal(await page.locator('.bsk').count(),0);assert.deepEqual(await page.locator('.bsg-card').evaluateAll(cs=>cs.map(c=>c.dataset.req)),['std','new','renew','compete','ops','scale','brief']);assert.equal(await page.locator('.bsg-card[data-req="std"] .bsg-n b').innerText(),String(std.scenarios.length));report.searches=[];
+  for(const s of scenarios){await page.getByRole('textbox',{name:'템플릿 검색',exact:true}).fill(s.title);await page.getByRole('article',{name:s.title,exact:true}).waitFor();report.searches.push(s.id);}
   report.previewGeometry=[];
   const previews=await page.evaluate(async()=>{const {SC}=await import('/src/domain/templates/scenarios.js');return [['bs_std_rs_apt',1],['bs_std_of_hq',1],['bs_v_ai_apartment_1',1],['bs_v_ai_apartment_2',1],['bs_std_of_cowork',3],['bs_std_ht_large',11],['bs11',14],['bs05',5],['bs01',10],...['bs_account_inspire','bs_account_paulbassett','bs_account_episode'].flatMap(id=>[2,3,5].map(page=>[id,page]))].map(([id,page])=>({id,title:SC[id].title,page}));});
   for(const width of [1440,390]){
    await page.setViewportSize({width,height:1000});
    for(const item of previews){
-    await page.getByRole('textbox',{name:'시나리오 검색',exact:true}).fill(item.title);const card=page.getByRole('article',{name:item.title,exact:true});await card.locator('.bsl-sheet').first().click();
+    // a card opens the scenario's Storyboard; '전체 PPT 보기' opens its first sheet big (prev / next through the deck)
+    await page.getByRole('textbox',{name:'템플릿 검색',exact:true}).fill(item.title);const card=page.getByRole('article',{name:item.title,exact:true});await card.getByRole('button',{name:item.title+' 상세 보기',exact:true}).click({position:{x:24,y:24}});
+    const storyboard=page.locator('.modal.sbv');await storyboard.waitFor();await storyboard.getByRole('button',{name:'전체 PPT 보기',exact:true}).click();
     for(let k=1;k<item.page;k++)await page.locator('.modal.sheet').getByRole('button',{name:'다음 장',exact:true}).click();
     const sheet=page.locator('.modal.sheet .sv-fit .slide-inner > div').first();await sheet.waitFor();
     await page.evaluate(async()=>{await Promise.all(document.getAnimations().filter(a=>a.playState==='running'&&a.effect?.getTiming().iterations!==Infinity).map(a=>a.finished.catch(()=>{})));await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));});
@@ -128,7 +131,7 @@ try{
     for(const key of ['clipped','overflow','overlaps','outside','occluded','distortedShapes'])assert.deepEqual(geometry[key],[],item.id+' preview '+width+' '+key);
     report.previewGeometry.push({id:item.id,width,page:item.page,clear:true});
     if(item.id==='bs_std_rs_apt')await page.screenshot({path:path.join(out,'ai-apartment-preview-'+width+'.png'),animations:'disabled'});
-    await page.keyboard.press('Escape');await page.locator('.modal.sheet').waitFor({state:'hidden'});
+    await page.keyboard.press('Escape');await page.locator('.modal.sheet').waitFor({state:'hidden'});await page.keyboard.press('Escape');await storyboard.waitFor({state:'hidden'});
    }
   }
   await page.setViewportSize({width:1440,height:1000});

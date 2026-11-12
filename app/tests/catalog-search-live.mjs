@@ -18,9 +18,10 @@ try {
  for (const name of ['library', 'scenarios']) {
   await page.evaluate(async name => {
    const { saveUi, loadUi } = await import('/src/repositories/proposals.js');
-   saveUi({ ...loadUi(), route: { name }, [name === 'library' ? 'lib' : 'bs']: { q: '' } }); await new Promise(r => setTimeout(r, 350));
+   // 템플릿 라이브러리: 시트 view (route library · scope sh) and 시나리오 view (route scenarios) share one search box
+   saveUi({ ...loadUi(), route: name === 'library' ? { name, scope: 'sh' } : { name }, lib: { q: '' }, bs: { q: '' } }); await new Promise(r => setTimeout(r, 350));
   }, name);
-  await page.reload(); const input = page.locator(name === 'library' ? '#tl-q' : '#bs-q'); await input.waitFor();
+  await page.reload(); const input = page.locator('#tl-q'); await input.waitFor();
   await page.mouse.move(1496, 2); await page.waitForTimeout(350);
   const toggle = page.getByRole('button', { name: 'AI 검색', exact: true });
   assert.equal(await toggle.getAttribute('aria-pressed'), 'false'); await toggle.click();
@@ -32,13 +33,13 @@ try {
   await page.waitForFunction(() => !document.querySelector('.feedback-popup.progress'), null, { timeout: 120000 });
   const error = page.locator('.feedback-popup.error'); if (await error.count()) throw Error(await error.innerText());
   const top = page.getByRole('region', { name: 'AI 추천 Top 10', exact: true }); await top.waitFor();
-  const card = name === 'library' ? '.tl-card' : '.bsl';
+  const card = name === 'library' ? '.tl-card' : '.bsk';
   assert.equal(await top.locator(card).count(), 10);
   const rest = page.getByRole('region', { name: '나머지 검색 결과', exact: true }); assert(await rest.locator(card).count() > 0);
   if (name === 'library') assert.equal(await top.locator('.tl-grid').evaluate(el => getComputedStyle(el).gridTemplateColumns.split(' ').length), 3);
   await page.mouse.move(1496, 2); await page.screenshot({ path: output + '/' + name + '-live.png' });
   rows.push({ name, top: 10, remaining: await rest.locator(card).count(), modelCalls: requests.length - before,
-   first: await top.locator(name === 'library' ? '.tl-name b' : '.bsl-t').first().innerText() });
+   first: await top.locator(name === 'library' ? '.tl-name b' : '.bsk-t').first().innerText() });
   console.log('PASS', rows.at(-1));
   const after = requests.length;
   await input.fill('고친 검색 문장은 아직 보내지 않았습니다'); await page.waitForTimeout(350);

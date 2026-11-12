@@ -138,10 +138,10 @@
 }
 
 /* 찜 — heart on any layout card (top-right), shown on hover / focus and always once it is on */
-.tl-thumb, .bsl-sheet, .rov-lay, .lcard, .pcard, .bsd-slide .tl-thumb { position: relative; }
+.tl-thumb, .rov-lay, .lcard, .pcard, .bsd-slide .tl-thumb { position: relative; }
 .fav-btn { position: absolute; z-index: 4; top: var(--measure-6px); right: var(--measure-6px); width: var(--measure-30px); height: var(--measure-30px); border-radius: var(--radius-50); display: grid; place-items: center; cursor: pointer;
   color: var(--color-5b6372); background: var(--color-255-255-255-94); box-shadow: 0 var(--measure-1px) var(--measure-4px) var(--color-18-20-23-22); opacity: 0; transform: scale(.9); transition: opacity var(--measure-12s), transform var(--measure-12s), color var(--measure-12s); }
-:is(.tl-card, .bsl-sheet, .rov-lay, .lcard, .pcard, .bsd-slide):is(:hover, :focus-within) .fav-btn, .fav-btn.on, .fav-btn:focus-visible { opacity: 1; transform: none; }
+:is(.tl-card, .rov-lay, .lcard, .pcard, .bsd-slide):is(:hover, :focus-within) .fav-btn, .fav-btn.on, .fav-btn:focus-visible { opacity: 1; transform: none; }
 .fav-btn:hover { color: var(--color-e0245e); }
 .fav-btn.on { color: var(--color-e0245e); }
 .lcard .fav-btn { top: var(--measure-10px); right: var(--measure-10px); }

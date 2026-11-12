@@ -72,8 +72,8 @@ export function Sidebar({ route, go, onNew, open, setOpen }) {
         <span className="sb-logo">W</span><span className="sb-word">winmate</span><span className="sb-ver">v2</span>
       </button>
       <button className="sb-new" onClick={onNew}><Icon name="plus" size={16} stroke={2.4} />{tx('새 제안서 시작')}</button>
-      <button className="sb-home sb-tpl" aria-current={route.name === 'library' ? 'page' : undefined} onClick={() => go({ name: 'library' })}><TemplateIcon />{tx('PPT 레이아웃 템플릿')}<span className="sb-count num sb-tx">{LAYOUTS.length}</span></button>
-      <button className="sb-home sb-bs" aria-current={route.name === 'scenarios' ? 'page' : undefined} onClick={() => go({ name: 'scenarios' })}><Icon name="route" />{tx('샘플 버티컬 시나리오')}<span className="sb-count num sb-tx">{SCENARIOS.length}</span></button>
+      {/* 템플릿 라이브러리 — 샘플 버티컬 시나리오 + PPT 레이아웃 시트 in one page (TemplateHubPage) */}
+      <button className="sb-home sb-tpl" aria-current={route.name === 'library' || route.name === 'scenarios' ? 'page' : undefined} onClick={() => go({ name: 'library' })}><TemplateIcon />{tx('템플릿 라이브러리')}<span className="sb-count num sb-tx">{SCENARIOS.length + LAYOUTS.length}</span></button>
       <button className="sb-home sb-bld" aria-label="건물 조감도" aria-current={route.name === 'building' ? 'page' : undefined} onClick={() => go({ name: 'building' })}><Icon name="building" />{tx('건물 조감도')}<span className="sb-bld-format sb-tx">3D</span><span className="sb-beta sb-tx">BETA</span></button>
       <button className="sb-home sb-spatial" aria-label="공간 조감도" aria-current={route.name === 'spatial' ? 'page' : undefined} onClick={() => go({ name: 'spatial' })}><Icon name="building" />{tx('공간 조감도')}<span className="sb-spatial-format sb-tx">2D · 3D</span><span className="sb-beta sb-tx">BETA</span></button>
       {/* 견적서 · 제안서 검토 — one row split left / right. 견적서 has no screen yet, so it only says so. */}

@@ -11,7 +11,10 @@ const req=async page=>{await sampleProposal(page);await page.getByRole('button',
 const match=async page=>{await sampleProposal(page);await page.locator('.match-node .node').click();};
 const detail=async page=>{await sampleProposal(page);await page.getByRole('button',{name:'제품 3 · 컷 + 설치 장면 열기',exact:true}).click();};
 const report=async page=>{await nav(page,'.sb-rv');await page.getByRole('button',{name:'F 오토파츠 아산공장 · 관제실 · 공조 교체 (경쟁 입찰) 평가 열기',exact:true}).click();};
-const best=async page=>{await nav(page,'.sb-bs');await page.getByRole('button',{name:'호텔 · 리조트 AI 스테이 — 표준 제안서 37장 상세 보기',exact:true}).click();};
+// 템플릿 라이브러리: its 시나리오 / 시트 views are picked with the buttons under the search box
+const view=async(page,name)=>{await page.locator('.hub-scope button',{hasText:name}).click();await page.locator('.hub-scope button[aria-pressed="true"]',{hasText:name}).waitFor();};
+const scenarios=async page=>{await nav(page,'.sb-tpl');await view(page,'시나리오');};
+const best=async page=>{await scenarios(page);await page.locator('.bsg-card[data-req="std"]').click();await page.getByRole('button',{name:'호텔 · 리조트 AI 스테이 — 표준 제안서 37장 상세 보기',exact:true}).click();};
 
 const cases=[
   ['home',async()=>{}],
@@ -30,7 +33,7 @@ const cases=[
   ['library',async page=>nav(page,'.sb-tpl')],
   ['library-filter',async page=>{await nav(page,'.sb-tpl');await page.getByRole('button',{name:/^필터/}).click();}],
   ['my-empty',async page=>{await nav(page,'.sb-my');}],
-  ['best',async page=>nav(page,'.sb-bs'),{media:true}],
+  ['best',scenarios,{media:true}],
   ['best-detail',best,{media:true}],
   ['best-sheet',async page=>{await best(page);await page.getByRole('button',{name:'목차 · 사진 카드 6 열기',exact:true}).click();}],
   ['reviews',async page=>nav(page,'.sb-rv')],
@@ -41,7 +44,7 @@ const cases=[
   ['simulation-demo',async page=>{await nav(page,'.sb-sim');await page.getByRole('button',{name:'이준호 · A 커피 시뮬레이션 열기',exact:true}).last().click();},{media:true}],
   ['my-import',async page=>{await nav(page,'.sb-my');await page.locator('input[data-my-file]').setInputFiles(path.join(root,'build/fixtures/my_sample.pptx'));await page.locator('.my-imp-card').first().waitFor({timeout:60000});}],
   ['my-editor',async page=>{await nav(page,'.sb-my');await page.locator('input[data-my-file]').setInputFiles(path.join(root,'build/fixtures/my_sample.pptx'));await page.locator('.my-imp-card').first().waitFor({timeout:60000});await page.getByRole('button',{name:'4장 My에 저장',exact:true}).click();await page.getByRole('dialog').waitFor({state:'detached'});await page.locator('.my-grp .tl-card').first().click();await page.getByRole('button',{name:'수정하기',exact:true}).click();await page.locator('.ed-box').waitFor();}],
-  ['template-editor',async page=>{await nav(page,'.sb-tpl');await page.locator('.tl-card').first().click();await page.getByRole('button',{name:'수정하기',exact:true}).click();await page.locator('.ed-box').waitFor();}],
+  ['template-editor',async page=>{await nav(page,'.sb-tpl');await view(page,'시트');await page.locator('.tl-card').first().click();await page.getByRole('button',{name:'수정하기',exact:true}).click();await page.locator('.ed-box').waitFor();}],
   ['export-settings',async page=>{await sampleProposal(page);await page.getByRole('button',{name:/^PPT 레이아웃 \d+장/}).click();await page.getByRole('button',{name:'PPTX 내보내기',exact:true}).click();}],
   ['simulation-profile',async page=>{await nav(page,'.sb-sim');await page.getByRole('button',{name:'이준호 프로필 자세히 보기',exact:true}).click();}],
   ['simulation-personas',async page=>{await nav(page,'.sb-sim');await page.getByRole('region',{name:'만날 고객',exact:true}).getByRole('button',{name:'바꾸기',exact:true}).click();}],

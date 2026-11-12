@@ -28,6 +28,8 @@ import { PART_GROUPS, GROUP_OF, GROUP_OF_G, PART_ORDER, NO_FILTER, pass, activeF
    제품은 디렉토리 탐색기 팝업(ctxexplorer filter 모드 · 폴더 · 검색)에서 여러 개 — 그중 하나라도 든 레이아웃;
    what's on shows as removable chips under the search box.
    The bar · popup · steps · chips are the shared filter UI (filterpop.jsx) — 샘플 버티컬 시나리오 uses the same.
+   The catalog itself is the 시트 half of the 템플릿 라이브러리 (TemplateHubPage — one search box for 시나리오 · 시트),
+   which embeds this list (embed) and keeps the search box, filters and their state.
    My is a separate sidebar page: own templates, PPTX upload, file groups and favourites;
    a library layout's detail opens '수정하기' (layout editor → a new My template).
    ========================================================= */
@@ -55,23 +57,24 @@ export function TemplateIcon({ size = 16 }) {
   );
 }
 
-/* =========================================================
-   Page
-   ========================================================= */
-export function LayoutLibrary({ go }) {
-  return <TemplateLibrary go={go} />;
-}
+/** saved catalog state (search · filters) — the 템플릿 라이브러리 keeps it under the same key as before */
+export const loadLib = () => ({ ...fromSaved(loadUi().lib || {}), my: false, myTab: 'tpl' });
 
-/** Shared library UI; each page fixes its scope and owns its search/filter state. */
-export function TemplateLibrary({ go, personal = false, favorites = false, saved = [] }) {
+/** Shared library UI; each page fixes its scope and owns its search/filter state.
+ *  embed = { f, setF, search, limit } — the 템플릿 라이브러리 (TemplateHubPage) owns the search box, the filters and their state
+ *  and shows only the sheets here: no header, search box, count line or filter popup; limit = just the first N hits, one flat list. */
+export function TemplateLibrary({ go, personal = false, favorites = false, saved = [], embed = null }) {
   const storageKey = favorites ? 'favoritesLibrary' : personal ? 'myLibrary' : 'lib';
-  const [f, setF] = useState(() => {
+  const [own, setOwn] = useState(() => {
+    if (embed) return null;
     const ui = loadUi();
     const legacy = ui.myLibrary || (ui.lib?.my ? ui.lib : {});
     const previous = favorites ? ui.favoritesLibrary || (legacy.myTab === 'fav' ? legacy : {})
       : personal ? legacy.myTab === 'fav' ? {} : legacy : ui.lib || {};
     return { ...fromSaved(previous), my: personal || favorites, myTab: favorites ? 'fav' : 'tpl' };
   });
+  const f = embed ? embed.f : own;
+  const setF = embed ? embed.setF : setOwn;
   const [open, setOpen] = useState(null); // index into `flat`
   const [fpop, setFpop] = useState(false);
   const [imp, setImp] = useState(null); // PPTX being imported into My
@@ -84,7 +87,7 @@ export function TemplateLibrary({ go, personal = false, favorites = false, saved
   const hc = usePickPeek();
   const gridRef = useRef(null);
   const gw = useWidth(gridRef, 1000);
-  useEffect(() => { saveUi({ ...loadUi(), [storageKey]: f }); }, [f, storageKey]);
+  useEffect(() => { if (!embed) saveUi({ ...loadUi(), [storageKey]: f }); }, [f, storageKey]);
   const savedKey = JSON.stringify(Array.isArray(saved) ? saved : []);
   useEffect(() => {
     const ids = JSON.parse(savedKey);
@@ -98,11 +101,12 @@ export function TemplateLibrary({ go, personal = false, favorites = false, saved
   const searchItems = f.my ? favMode ? favAll.map(x => ({ ...L[x.f], searchId: x.id,
     searchExtra: [x.name, x.from, ...Object.values(x.ov?.t || {})].filter(Boolean).join(' '),
   })) : myAll : undefined;
-  const search = useCatalogSearch('layouts', f.q, {
+  const ownSearch = useCatalogSearch('layouts', embed ? '' : f.q, embed ? {} : {
     filters: activeFilters(f).map(x => x.label),
     allowedIds: (searchItems || LAYOUTS).filter(l => pass(l, f)).map(l => l.searchId || l.f),
     scope: favMode ? 'favorites' : f.my ? 'My' : 'library',
   }, searchItems);
+  const search = embed ? embed.search : ownSearch;
   const q = search.query;
   const hits = useMemo(() => (search.hits || []).map(r => ({ ...r, l: r.item })), [search.hits]);
   // My: the person's own templates — searched by name · text · file
@@ -120,6 +124,7 @@ export function TemplateLibrary({ go, personal = false, favorites = false, saved
   let sections;
   if (favMode) sections = [];
   else if (f.my && !(q && search.aiEnabled)) sections = myG.map((g) => ({ key: g.key, items: g.items }));
+  else if (q && embed && embed.limit) sections = [{ key: '_hits', items: list.slice(0, embed.limit) }];
   else if (q && search.aiEnabled) sections = [
     { key: '_ai_top', title: 'AI 추천 Top ' + Math.min(AI_SEARCH_TOP, list.length), items: list.slice(0, AI_SEARCH_TOP) },
     { key: '_ai_rest', title: '나머지 검색 결과', items: list.slice(AI_SEARCH_TOP) },
@@ -137,7 +142,7 @@ export function TemplateLibrary({ go, personal = false, favorites = false, saved
 
   const active = activeFilters(f);
   const scopeName = [favMode ? '찜' : personal ? 'My' : '', q && '“' + q + '”', ...active.map((a) => a.short)].filter(Boolean).join(' · ');
-  const browseLibrary = () => { hc.hide(); go({ name: 'library' }); };
+  const browseLibrary = () => { hc.hide(); go({ name: 'library', scope: 'sh' }); };
   const openEditor = (layout, ov = null) => { if (!requireLogin()) return; hc.hide(); setOpen(null); setFavOpen(null); setEdit({ f: layout.f, ov }); };
   const onSavedMy = (metas, msg, reveal = false) => {
     setImp(null); setEdit(null); setOpen(null); setFavOpen(null);
@@ -154,7 +159,7 @@ export function TemplateLibrary({ go, personal = false, favorites = false, saved
     return (
       <button key={l.f + (l.my ? ':' + l.my.up : '')} className={'tl-card' + (fresh && fresh.has(l.f) ? ' my-fresh' : '')} data-f={l.f} onClick={() => { hc.hide(); setOpen(i); }} aria-label={l.name + ' 크게 보기'}
         onMouseEnter={(e) => hc.show(l, e.currentTarget, { snip: snippetText(h?.snip), aiWhy: h?.aiWhy })} onMouseLeave={hc.hide} onFocus={(e) => hc.show(l, e.currentTarget, { snip: snippetText(h?.snip), aiWhy: h?.aiWhy })} onBlur={hc.hide}>
-        <div className="tl-thumb"><FitSlide f={l.f} lazy /><FavButton f={l.f} from={l.my ? 'My 템플릿' : 'PPT 레이아웃 템플릿'} /></div>
+        <div className="tl-thumb"><FitSlide f={l.f} lazy /><FavButton f={l.f} from={l.my ? 'My 템플릿' : '템플릿 라이브러리'} /></div>
         <div className="tl-info">
           <div className="tl-name"><b>{l.name}</b></div>
           <p className="tl-when">{l.my ? srcLabel(l) : l.when || l.g}</p>
@@ -171,27 +176,51 @@ export function TemplateLibrary({ go, personal = false, favorites = false, saved
     );
   };
 
+  const catalogEmpty = !f.my && !(embed && embed.limit) && (<>
+    {!search.busy && !search.error && q && !list.length && (
+      <div className="tl-empty">
+        <b>“{q}”와 맞는 레이아웃이 없어요</b>
+        <span>다른 표현으로 적거나 필터를 풀어 보세요.</span>
+        <div className="chips" style={{ justifyContent: 'center' }}>{QUICK.map((t) => <button key={t} className="qchip" onClick={() => { set({ q: t }); if (search.aiEnabled) search.submit(t); }}>{t}</button>)}</div>
+      </div>
+    )}
+    {!q && !list.length && (
+      <div className="tl-empty"><b>조건에 맞는 레이아웃이 없어요</b><span>필터를 하나씩 풀어 보세요.</span><button className="btn btn-sm" onClick={() => set(NO_FILTER)}>필터 모두 지우기</button></div>
+    )}
+  </>);
+  const editor = edit && <LayoutEditor f={edit.f} ov={edit.ov || null} onClose={() => setEdit(null)} onSaved={m => onSavedMy([m], 'My 템플릿에 저장했어요')} />;
+
+  if (embed) return (
+    <div className="tl-embed" ref={gridRef}>
+      {catalogEmpty}
+      {!search.busy && !search.error && <LayoutSections groups={shownGroups} card={card} cols={cols} />}
+      {hc.node}
+      {open != null && flat[open] && <TemplateDetail list={flat} index={open} onNav={setOpen} onClose={() => setOpen(null)} onEdit={openEditor} />}
+      {editor}
+    </div>
+  );
+
   return (
     <div className={'tl' + (personal ? ' my-library' : favorites ? ' favorites-library' : '')} id="tl-scroll" data-library-scope={favorites ? 'favorites' : personal ? 'my' : 'catalog'}>
       <div className="tl-in" ref={gridRef}>
         <header className="tl-head">
           <div className="tl-title">
-            <span className="eyebrow">WINMATE · {favorites ? '나의 찜 목록' : personal ? '나의 라이브러리' : '템플릿 라이브러리'}</span>
-            <h1>{favorites ? '찜 목록' : personal ? 'My 템플릿' : 'PPT 레이아웃 템플릿'}</h1>
+            <span className="eyebrow">WINMATE · {favorites ? '나의 찜 목록' : '나의 라이브러리'}</span>
+            <h1>{favorites ? '찜 목록' : 'My 템플릿'}</h1>
           </div>
         </header>
 
         <div className="tl-tools tl-tools-f">
           <div className="tl-row">
             <CatalogSearchBar id="tl-q" label="레이아웃 검색" value={f.q} onChange={q => set({ q })} search={search}
-              placeholder={favMode ? '찜한 레이아웃을 이름 · 글자 · 출처로 찾기' : personal ? '내 템플릿을 이름 · 글자 · 파일 이름으로 찾기' : '찾는 장면을 적어 보세요 · 예) 경쟁사와 비교하는 표, 매장 하루 동선'} />
+              placeholder={favMode ? '찜한 레이아웃을 이름 · 글자 · 출처로 찾기' : '내 템플릿을 이름 · 글자 · 파일 이름으로 찾기'} />
           </div>
           <FilterBar active={active} onOpen={() => { hc.hide(); setFpop(true); }} onRemove={(a) => set(a.clear)} onClearAll={() => set(NO_FILTER)} />
         </div>
 
         <CatalogSearchStatus search={search} />
         <div className="tl-sum">
-          <span><b className="num">{list.length}</b>장{scopeName ? <span className="muted"> · {scopeName}</span> : null}{q && !f.my ? <span className="faint"> · {search.aiEnabled ? 'AI 추천 먼저' : '관련도순'}</span> : null}</span>
+          <span><b className="num">{list.length}</b>장{scopeName ? <span className="muted"> · {scopeName}</span> : null}</span>
         </div>
         {favMode && !favAll.length && (
           <div className="tl-empty my-fav-empty"><b>아직 찜한 레이아웃이 없어요</b><span>레이아웃 카드 · 상세, 샘플 버티컬 시나리오 장표, 제안서의 장 어디서든 ♡를 누르면 여기에 모여요. 값이 채워진 장은 그 값 그대로, 빈 레이아웃은 따로 모아요.</span></div>
@@ -203,16 +232,7 @@ export function TemplateLibrary({ go, personal = false, favorites = false, saved
         {!search.busy && !search.error && f.my && !favMode && !list.length && myAll.length > 0 && (
           <div className="tl-empty"><b>조건에 맞는 My 템플릿이 없어요</b><span>검색어나 필터를 풀어 보세요.</span><button className="btn btn-sm" onClick={() => set({ ...NO_FILTER, q: '' })}>검색 · 필터 지우기</button></div>
         )}
-        {!search.busy && !search.error && q && !list.length && !f.my && (
-          <div className="tl-empty">
-            <b>“{q}”와 맞는 레이아웃이 없어요</b>
-            <span>다른 표현으로 적거나 필터를 풀어 보세요.</span>
-            <div className="chips" style={{ justifyContent: 'center' }}>{QUICK.map((t) => <button key={t} className="qchip" onClick={() => { set({ q: t }); if (search.aiEnabled) search.submit(t); }}>{t}</button>)}</div>
-          </div>
-        )}
-        {!q && !list.length && !f.my && (
-          <div className="tl-empty"><b>조건에 맞는 레이아웃이 없어요</b><span>필터를 하나씩 풀어 보세요.</span><button className="btn btn-sm" onClick={() => set(NO_FILTER)}>필터 모두 지우기</button></div>
-        )}
+        {catalogEmpty}
 
         {!search.busy && !search.error && (favMode ? <div>{q && search.aiEnabled ? <>
           <h3 className="catalog-ai-section">AI 추천 Top {Math.min(AI_SEARCH_TOP, favShown.length)}</h3>
@@ -229,7 +249,7 @@ export function TemplateLibrary({ go, personal = false, favorites = false, saved
         notes={favShown.map((x) => (x.filled ? '값이 채워진 장' : '빈 레이아웃') + (x.from ? ' · ' + x.from : ''))} noteLabel="찜" favFrom={(favShown[favOpen] || {}).from}
         onEdit={openEditor} />}
       {imp && <ImportDialog file={imp} onClose={() => setImp(null)} onSaved={(metas) => onSavedMy(metas, metas.length + '장을 My 템플릿으로 저장했어요', true)} />}
-      {edit && <LayoutEditor f={edit.f} ov={edit.ov || null} onClose={() => setEdit(null)} onSaved={m => onSavedMy([m], 'My 템플릿에 저장했어요')} />}
+      {editor}
       {fpop && <FilterPopup f={f} base={search.busy || search.error ? searchItems || LAYOUTS : base} onApply={(x) => { set(x); setFpop(false); }} onClose={() => setFpop(false)} />}
     </div>
   );

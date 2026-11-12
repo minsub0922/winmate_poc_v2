@@ -1,17 +1,15 @@
 import { requireLogin } from '../api/session.js';
-import React, { useState, useEffect, useMemo } from 'react';
-import { useCatalogSearch } from '../hooks/useCatalogSearch.js';
+import React, { useState, useMemo } from 'react';
 import { searchScenarioKeywords, AI_SEARCH_TOP } from '../services/catalog-search.js';
-import { CatalogSearchBar, CatalogSearchStatus } from '../components/catalog-search.jsx';
 
-import { loadUi, saveUi, createProposal, update, uid, segPlain } from '../repositories/proposals.js';
+import { loadUi, createProposal, update, uid, segPlain } from '../repositories/proposals.js';
 import { Icon, Modal, toast, confirmDelete } from '../components/common.jsx';
 import { PARTS, REQ_LABEL } from '../domain/proposals/parts.js';
 import { L, IND, P, S, C, IND_KW, INDUSTRIES, SOLUTIONS, PRODUCTS } from '../services/catalog.js';
 import { FitSlide } from '../domain/slides/Slide.jsx';
 import { exportPptx } from '../domain/slides/export-pptx.js';
 import { deprecatedInDeck, deprecatedLine } from '../domain/products/deprecation.js';
-import { SCENARIOS, SC, REQ_TYPES, REQ_ORDER, STRATEGIES, ENDINGS, STAGES, slidesOfScenario, previewOf } from '../domain/templates/scenarios.js';
+import { SCENARIOS, SC, REQ_TYPES, REQ_ORDER, STRATEGIES, ENDINGS, STAGES, slidesOfScenario } from '../domain/templates/scenarios.js';
 import { TemplateDetail, saveBlob, safeName } from '../components/tplkit.jsx';
 import { FavButton } from '../components/fav.jsx';
 import { ovOf, storyboardOf, scenarioStoryboard, slideOfUid } from '../domain/templates/scenario_storyboard.js';
@@ -24,28 +22,22 @@ import { TagChip, TagCard, tagMeta, tagHoverProps } from '../components/tagcard.
 import { useDetailPeek } from '../components/reference-detail.jsx';
 import { Thumb } from '../components/Thumbs.jsx';
 import { usePickPeek } from '../components/pickpeek.jsx';
-import { FilterBar, FilterPopup, FStep, FChip, FAll, FProducts, idList, SCENARIO_UNIT } from '../components/filterpop.jsx';
+import { FilterPopup, FStep, FChip, FAll, FProducts, idList, SCENARIO_UNIT } from '../components/filterpop.jsx';
 
 /* =========================================================
-   샘플 버티컬 시나리오 — its own page (sidebar).
-   Before a search: one card per 요구사항 타입 in a grid (GroupCard — symbol icon · name · sample count · description).
-   A card opens that type's samples in a popup (GroupListPopup — the 표준 제안서 list, generalised), an item opens its Storyboard.
-   A search shows one list of rows by relevance. A row = big title, a '상세 보기' button (the scenario's Storyboard, read-only —
-   ScenarioStoryboard; 활용하기 copies it into the history) and the deck's first sheets (s.preview, 3 — each opens that sheet's detail popup).
-   Search + filters work like the PPT 레이아웃 템플릿 page — the same big search box, a '필터' button under it with the
-   active filters as chips to its right, and one filter popup (filterpop.jsx): 요구사항 → 전략 → 업종 → 솔루션 → 제품 → 결말.
-   Filters also apply before a search: card counts follow them and a type with no sample left drops out.
+   샘플 버티컬 시나리오 — the scenario half of the 템플릿 라이브러리 (TemplateHubPage: one search box, 전체 · 시나리오 · 시트).
+   ScenarioView — before a search: one card per 요구사항 타입 in a grid (GroupCard — symbol icon · name · sample count · description);
+   a card opens that type's samples in a popup (GroupListPopup — the 표준 제안서 list, generalised), an item opens its Storyboard.
+   A search: the hits as cards, two per line (ScenarioCard — covers stacked like a deck · 요구사항 타입 · 업종 · 장 수 · title ·
+   one-line summary · solution / product tags). The whole card opens the scenario's Storyboard (read-only — ScenarioStoryboard;
+   활용하기 copies it into the history); a tag opens that product's / solution's detail.
+   Filters — one popup (filterpop.jsx): 요구사항 → 전략 → 업종 → 솔루션 → 제품 → 결말. They also apply before a search:
+   card counts follow them and a type with no sample left drops out.
    ========================================================= */
 const STRAT_ORDER = ['value', 'pain', 'space', 'roi', 'compete', 'rfp', 'land'];
 const indName = (code) => (code && IND[code] ? IND[code].name : '범용 · 업종 무관');
 const indShort = (code) => (code && IND[code] ? IND[code].name : '범용');
 
-
-/** hover detail for one sheet of a scenario — big filled preview + the layout's metadata + its role here */
-const peekProps = (hc, s, x, k) => {
-  const show = (e) => hc.show(L[x.f], e.currentTarget, { ov: ovOf(s.id, k, x.f), scene: { page: k + 1, stage: x.stageName || (x.stage && x.stage.name), role: x.role } });
-  return { onMouseEnter: show, onMouseLeave: hc.hide, onFocus: show, onBlur: hc.hide };
-};
 
 /* ---------- shared actions ---------- */
 async function downloadScenario(s) {
@@ -101,8 +93,8 @@ export const searchScenarios = searchScenarioKeywords;
 /* ---------- filters: one popup (요구사항 · 전략 · 업종 · 솔루션 · 제품 · 결말), shared UI with the template page ---------- */
 const BS_FKEYS = ['req', 'strat', 'ind', 'sol', 'prod', 'end'];
 const BS_DEFAULT = { q: '', req: '', strat: '', ind: '', sol: '', prod: '', end: '' };
-const BS_NO_FILTER = Object.fromEntries(BS_FKEYS.map((k) => [k, '']));
-function loadBs() {
+export const BS_NO_FILTER = Object.fromEntries(BS_FKEYS.map((k) => [k, '']));
+export function loadBs() {
   const u = loadUi().bs || {}; const f = { ...BS_DEFAULT };
   for (const k of Object.keys(BS_DEFAULT)) if (typeof u[k] === 'string') f[k] = u[k];
   // older saves kept a tab + grouping instead of these two filters
@@ -114,11 +106,11 @@ function loadBs() {
   f.prod = idList(f.prod).join(','); // one product (older select) or several, comma-joined
   return f;
 }
-const BS_QUICK = ['메뉴보드', '에너지 절감', '경쟁 입찰', '파일럿', '호텔 객실', '조달 평가'];
-const USED_SOL = SOLUTIONS.filter((x) => SCENARIOS.some((s) => s.solutions.includes(x.id)));
-const USED_PROD = PRODUCTS.filter((x) => SCENARIOS.some((s) => s.products.includes(x.id))).map((x) => x.id);
+export const BS_QUICK = ['메뉴보드', '에너지 절감', '경쟁 입찰', '파일럿', '호텔 객실', '조달 평가'];
+export const USED_SOL = SOLUTIONS.filter((x) => SCENARIOS.some((s) => s.solutions.includes(x.id)));
+export const USED_PROD = PRODUCTS.filter((x) => SCENARIOS.some((s) => s.products.includes(x.id))).map((x) => x.id);
 const USED_END = Object.keys(ENDINGS).filter((k) => SCENARIOS.some((s) => s.ending === k));
-function passS(s, f, skip) {
+export function passS(s, f, skip) {
   if (skip !== 'req' && f.req && s.req !== f.req) return false;
   if (skip !== 'strat' && f.strat && s.strategy !== f.strat) return false;
   if (skip !== 'ind' && f.ind) {
@@ -131,7 +123,7 @@ function passS(s, f, skip) {
 }
 const tally = (list, keys) => { const m = {}; for (const s of list) for (const k of [].concat(keys(s))) if (k != null) m[k] = (m[k] || 0) + 1; return m; };
 /** active filters as chips: { k, head, value, label, clear } — same shape as the template page */
-function activeBs(f) {
+export function activeBs(f) {
   const out = [];
   const add = (k, head, value, clear) => out.push({ k, head, value, label: head + ' ' + value, clear });
   if (f.req && REQ_TYPES[f.req]) add('req', '요구사항', REQ_TYPES[f.req].label, { req: '' });
@@ -145,7 +137,7 @@ function activeBs(f) {
 
 /** One popup, read top to bottom: 요구사항 → 전략 → 업종 → 솔루션 → 제품 → 결말 (the template page's popup, same pieces).
  *  Every choice shows how many scenarios stay with the other choices kept; nothing applies until "N개 보기". */
-function ScenarioFilter({ f, base, onApply, onClose }) {
+export function ScenarioFilter({ f, base, onApply, onClose }) {
   const peek = useDetailPeek(null);
   const [d, setD] = useState(() => ({ ...BS_NO_FILTER, ...Object.fromEntries(BS_FKEYS.map((k) => [k, f[k]])) }));
   const put = (patch) => setD((x) => ({ ...x, ...patch }));
@@ -210,48 +202,50 @@ function ScenarioFilter({ f, base, onApply, onClose }) {
   );
 }
 
-/* ---------- scenario row (page list, one per line) ---------- */
-const TAGS_M = 3;
-function ScenarioRow({ s, onOpen, onSheet, mark = {}, showReq, hc, peek, aiWhy }) {
+/* ---------- a search hit: one scenario as a card, two per line ----------
+   The cover with the next two sheets stacked behind it (a deck), then 요구사항 타입 · 업종 · 장 수, the title, the one-line summary
+   and its solutions · products. The whole card opens the Storyboard (an invisible button laid over the card, so the card reads as
+   one target); the tags sit above that button — each opens its own detail. Up to four tags — two solutions and two products when
+   there are both (a kind with fewer leaves its room to the other), '+N' for the rest; filtered solution / products lead their kind. */
+const TAGS_N = 4;
+function ScenarioCard({ s, mark = {}, peek, aiWhy, onOpen }) {
   const req = REQ_TYPES[s.req];
+  const slides = slidesOfScenario(s);
+  const cover = slides[0];
   const sols = s.solutions.filter((id) => S[id]);
   const shownSol = mark.sol && sols.includes(mark.sol) ? [mark.sol, ...sols.filter((id) => id !== mark.sol)] : sols;
   const prods = s.products.filter((id) => P[id]);
-  const markProd = idList(mark.prod); // filtered products lead their kind
+  const markProd = idList(mark.prod);
   const shownProd = [...prods.filter((id) => markProd.includes(id)), ...prods.filter((id) => !markProd.includes(id))];
-  // solutions first, then up to 5 products — a filtered one leads its kind (phones show the first TAGS_M + "+N")
-  const tags = [...shownSol.map((id) => ({ r: 'solution:' + id, name: S[id].name, cat: S[id].cat, sol: true, on: mark.sol === id })),
-    ...shownProd.slice(0, 5).map((id) => ({ r: 'product:' + id, name: P[id].name, cat: P[id].cat, on: markProd.includes(id) }))];
-  const moreProd = Math.max(0, shownProd.length - 5);
-  const sheets = s.preview || previewOf(s);
+  const nSol = Math.min(shownSol.length, Math.max(TAGS_N / 2, TAGS_N - shownProd.length));
+  const nProd = Math.min(shownProd.length, TAGS_N - nSol);
+  const tags = [...shownSol.slice(0, nSol).map((id) => ({ r: 'solution:' + id, name: S[id].name, sol: true, on: mark.sol === id })),
+    ...shownProd.slice(0, nProd).map((id) => ({ r: 'product:' + id, name: P[id].name, on: markProd.includes(id) }))];
+  const moreTags = shownSol.length + shownProd.length - tags.length;
+  const indOn = mark.ind && (mark.ind === s.ind || (mark.ind === '_gen' && !s.ind) || (mark.ind === '_ind' && s.ind));
   return (
-    <article className="bsl" aria-label={s.title}>
-      <div className="bsl-top">
-        <div className="bsl-head">
-          <span className="bsl-eb">
-            <span className={'bsl-ind' + (mark.ind && (mark.ind === s.ind || (mark.ind === '_gen' && !s.ind) || (mark.ind === '_ind' && s.ind)) ? ' on' : '')}>{indName(s.ind)}</span>
-            {showReq && <span className={'bsl-req h-' + req.hue + (mark.req === s.req ? ' on' : '')}><i />{req.label}</span>}
-          </span>
-          <h3 className="bsl-t">{s.title}</h3>
-          {aiWhy && <p className="catalog-ai-reason">{aiWhy}</p>}
-        </div>
-        <button className="bsl-more" onClick={() => { hc.hide(); peek.hide(); onOpen(s.id); }} aria-label={s.title + ' 상세 보기'}>상세 보기<Icon name="chev" size={16} stroke={2.4} /></button>
-      </div>
-      {tags.length > 0 && (
-        <div className="bsl-tags">
-          {tags.map((t, i) => <span key={t.r} className={'bsl-tag' + (t.sol ? ' sol' : '') + (t.on ? ' on' : '') + (i >= TAGS_M ? ' xm' : '')} role="button" tabIndex={0} {...tagHoverProps(peek, t.r)} {...peek.detailProps(t.r)}><Thumb r={t.r} mini />{t.name}</span>)}
-          {moreProd > 0 ? <span className="bsl-tag more d-only">+{moreProd}</span> : null}
-          {tags.length + moreProd > TAGS_M ? <span className="bsl-tag more m-only">+{tags.length + moreProd - TAGS_M}</span> : null}
-        </div>
-      )}
-      <div className="bsl-sheets">
-        {sheets.map((x) => (
-          <button key={x.k} type="button" className="bsl-sheet" onClick={() => { hc.hide(); peek.hide(); onSheet(s.id, x.k); }}
-            aria-label={x.page + '번째 장 ' + (L[x.f] ? L[x.f].name : '') + ' 크게 보기'} {...peekProps(hc, s, x, x.k)}>
-            <FitSlide f={x.f} ov={ovOf(s.id, x.k, x.f)} lazy />
-            <FavButton f={x.f} ov={ovOf(s.id, x.k, x.f)} from={'샘플 버티컬 시나리오 · ' + s.title} />
-          </button>
-        ))}
+    <article className={'bsk h-' + req.hue} aria-label={s.title}>
+      <button type="button" className="bsk-hit" onClick={() => { peek.hide(); onOpen(s.id); }} aria-label={s.title + ' 상세 보기'} />
+      <span className="bsk-deck" aria-hidden="true">
+        {slides.length > 2 && <i className="bsk-edge e2" />}
+        {slides.length > 1 && <i className="bsk-edge e1" />}
+        {cover && <span className="bsk-cover"><FitSlide f={cover.f} ov={ovOf(s.id, 0, cover.f)} lazy /></span>}
+      </span>
+      <div className="bsk-body">
+        <span className="bsk-eb">
+          <span className={'bsk-req' + (mark.req === s.req ? ' on' : '')}><i />{req.label}</span>
+          <span className={'bsk-ind' + (indOn ? ' on' : '')}>{indName(s.ind)}</span>
+          <span className="bsk-n"><b className="num">{slides.length}</b>장</span>
+        </span>
+        <h3 className="bsk-t">{s.title}</h3>
+        {s.short ? <p className="bsk-d">{s.short}</p> : null}
+        {aiWhy && <p className="catalog-ai-reason">{aiWhy}</p>}
+        {tags.length > 0 && (
+          <div className="bsk-tags">
+            {tags.map((t) => <span key={t.r} className={'bsk-tag' + (t.sol ? ' sol' : '') + (t.on ? ' on' : '')} role="button" tabIndex={0} {...tagHoverProps(peek, t.r)} {...peek.detailProps(t.r)}><Thumb r={t.r} mini />{t.name}</span>)}
+            {moreTags > 0 ? <span className="bsk-tag more">+{moreTags}</span> : null}
+          </div>
+        )}
       </div>
     </article>
   );
@@ -336,93 +330,47 @@ function SheetDetail({ s, index, onNav, onClose }) {
     notes={slides.map((x) => x.stage.name + ' · ' + x.role)} noteLabel="이 시나리오에서의 역할" />;
 }
 
-/* ---------- 샘플 버티컬 시나리오 page: search · filters · type cards (before a search) or rows (a search) ---------- */
-export function ScenarioPage({ go }) {
-  const [f, setF] = useState(loadBs);
+/* ---------- the scenario half of the 템플릿 라이브러리 ----------
+   list = the scenarios left after the search and the filters (TemplateHubPage owns the search box, the filters and their state).
+   No query: one card per 요구사항 타입 (empty types drop out), each opening its sample list. A query: the hits as cards, two per
+   line — AI 추천 Top N first when AI search is on; limit = only the first N hits (전체 범위 shows a few, then '모두 보기'). */
+export function ScenarioView({ go, list, query, ai = false, hitOf = {}, mark = {}, limit = 0 }) {
   const [open, setOpen] = useState(null);
-  const [sheet, setSheet] = useState(null); // { id, k } — a sheet clicked on a row
-  const [fpop, setFpop] = useState(false);
   const [grp, setGrp] = useState(null); // the 요구사항 타입 whose sample list popup is open
-  const hc = usePickPeek();
   const peek = useDetailPeek(null);
-  useEffect(() => { const u = loadUi(); saveUi({ ...u, bs: f }); }, [f]);
-  const set = (patch) => setF((x) => ({ ...x, ...patch }));
-
-  const search = useCatalogSearch('scenarios', f.q, { filters: activeBs(f).map(x => x.label), allowedIds: SCENARIOS.filter(s => passS(s, f)).map(s => s.id) });
-  const q = search.query;
-  const hits = search.hits;
-  const hitOf = useMemo(() => Object.fromEntries((hits || []).map(r => [r.id, r])), [hits]);
-  const base = q ? (hits || []).map(r => r.item) : SCENARIOS;
-  const list = base.filter((s) => passS(s, f));
-  const active = activeBs(f);
-
-  // before a search: one card per 요구사항 타입 (empty types drop out); a search shows one list of rows by relevance
-  const cards = q ? [] : REQ_ORDER.map((k) => ({ k, n: list.filter((s) => s.req === k).length })).filter((g) => g.n);
-  const sections = !q ? [] : search.aiEnabled ? [
-    { k: '_ai_top', label: 'AI 추천 Top ' + Math.min(AI_SEARCH_TOP, list.length), items: list.slice(0, AI_SEARCH_TOP) },
-    { k: '_ai_rest', label: '나머지 검색 결과', items: list.slice(AI_SEARCH_TOP) },
-  ].filter(g => g.items.length) : [{ k: '_hits', items: list }];
-  const openGroup = (k) => { hc.hide(); peek.hide(); setGrp(k); };
-
-
-  return (
-    <div className="tl bsp">
-      <div className="tl-in">
-        <header className="tl-head">
-          <div className="tl-title">
-            <span className="eyebrow">WINMATE · 제안 시나리오</span>
-            <h1>샘플 버티컬 시나리오</h1>
-          </div>
-        </header>
-
-        <div className="tl-tools tl-tools-f">
-          <div className="tl-row">
-            <CatalogSearchBar id="bs-q" label="시나리오 검색" value={f.q} onChange={q => set({ q })} search={search}
-              placeholder="고객 상황 · 제품 · 솔루션으로 찾아 보세요 · 예) 메뉴보드 파일럿, 호텔 객실 TV" />
-          </div>
-          <FilterBar active={active} onOpen={() => { hc.hide(); peek.hide(); setFpop(true); }} onRemove={(a) => set(a.clear)} onClearAll={() => set(BS_NO_FILTER)} />
-        </div>
-
-        {!search.busy && !search.error && q && list.length > 0 && <div className="tl-sum"><span className="muted">“{q}”<span className="faint"> · {search.aiEnabled ? 'AI 추천 먼저' : '관련도순'}</span></span></div>}
-        <CatalogSearchStatus search={search} />
-        {!search.busy && !search.error && q && !list.length && (
-          <div className="tl-empty">
-            <b>“{q}”와 맞는 시나리오가 없어요</b>
-            <span>{active.length ? '필터를 풀거나 ' : ''}다른 표현으로 적어 보세요.</span>
-            <div className="chips" style={{ justifyContent: 'center' }}>{BS_QUICK.map((t) => <button key={t} className="qchip" onClick={() => { set({ q: t }); if (search.aiEnabled) search.submit(t); }}>{t}</button>)}</div>
-          </div>
-        )}
-        {!q && !list.length && (
-          <div className="tl-empty"><b>조건에 맞는 시나리오가 없어요</b><span>필터를 하나씩 풀어 보세요.</span><button className="btn btn-sm" onClick={() => set(BS_NO_FILTER)}>필터 모두 지우기</button></div>
-        )}
-
-        {cards.length > 0 && (
-          <div className="bsg-grid" role="group" aria-label="요구사항 타입별 샘플">
-            {cards.map((g) => <GroupCard key={g.k} k={g.k} n={g.n} onOpen={() => openGroup(g.k)} />)}
-          </div>
-        )}
-        {q && (
-          <div className="bsp-groups" aria-busy={search.busy}>
-            {!search.busy && !search.error && sections.map((g) => (
-              <section key={g.k} className="bsp-group" aria-label={g.label || '검색 결과'}>
-                {g.k !== '_hits' && (
-                  <div className="bsp-gh">
-                    {g.k === '_ai_top' ? <Icon name="sparkle" size={15} /> : <i className="dot" />}<h2>{g.label}</h2>
-                  </div>
-                )}
-                <div className={'bsp-list' + (g.k === '_hits' ? ' flat' : '')}>{g.items.map((s) => <ScenarioRow key={s.id} s={s} onOpen={setOpen} onSheet={(id, k) => setSheet({ id, k })} mark={f} showReq hc={hc} peek={peek} aiWhy={hitOf[s.id]?.aiWhy} />)}</div>
-              </section>
-            ))}
-          </div>
-        )}
+  const card = (s) => <ScenarioCard key={s.id} s={s} mark={mark} peek={peek} aiWhy={hitOf[s.id]?.aiWhy} onOpen={setOpen} />;
+  let body = null;
+  if (!query) {
+    const cards = REQ_ORDER.map((k) => ({ k, n: list.filter((s) => s.req === k).length })).filter((g) => g.n);
+    if (cards.length) body = (
+      <div className="bsg-grid" role="group" aria-label="요구사항 타입별 샘플">
+        {cards.map((g) => <GroupCard key={g.k} k={g.k} n={g.n} onOpen={() => { peek.hide(); setGrp(g.k); }} />)}
       </div>
-      {hc.node}
+    );
+  } else if (limit) body = <div className="bsk-grid">{list.slice(0, limit).map(card)}</div>;
+  else {
+    const sections = ai ? [
+      { k: '_ai_top', label: 'AI 추천 Top ' + Math.min(AI_SEARCH_TOP, list.length), items: list.slice(0, AI_SEARCH_TOP) },
+      { k: '_ai_rest', label: '나머지 검색 결과', items: list.slice(AI_SEARCH_TOP) },
+    ].filter((g) => g.items.length) : [{ k: '_hits', items: list }];
+    body = (
+      <div className="bsp-groups">
+        {sections.map((g) => (
+          <section key={g.k} className="bsp-group" aria-label={g.label || '검색 결과'}>
+            {g.label && <div className="bsp-gh">{g.k === '_ai_top' ? <Icon name="sparkle" size={15} /> : <i className="dot" />}<h2>{g.label}</h2></div>}
+            <div className="bsk-grid">{g.items.map(card)}</div>
+          </section>
+        ))}
+      </div>
+    );
+  }
+  return (
+    <>
+      {body}
       {peek.node}
       {grp && REQ_TYPES[grp] && <GroupListPopup key={'grp-' + grp} k={grp} items={list.filter((s) => s.req === grp)} onOpen={setOpen} onClose={() => setGrp(null)} />}
       {open && SC[open] && <ScenarioStoryboard key={'sb-' + open} s={SC[open]} go={go} onClose={() => setOpen(null)} />}
-      {sheet && SC[sheet.id] && <SheetDetail key={'sheet-' + sheet.id} s={SC[sheet.id]} index={sheet.k} onNav={(k) => setSheet({ id: sheet.id, k })} onClose={() => setSheet(null)} />}
-      {fpop && <ScenarioFilter f={f} base={search.busy || search.error ? SCENARIOS : base} onApply={(x) => { set(x); setFpop(false); }} onClose={() => setFpop(false)} />}
-    </div>
+    </>
   );
 }
 

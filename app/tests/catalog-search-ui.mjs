@@ -33,17 +33,19 @@ try {
  let oldRemote = 0; page.on('request', r => { if (r.url().includes('/api/layouts/search')) oldRemote++; });
  await page.goto(vite.url); await page.locator('.home').waitFor();
  const open = async name => {
-  await page.evaluate(async name => { const { saveUi, loadUi } = await import('/src/repositories/proposals.js'); saveUi({ ...loadUi(), route: { name } }); await new Promise(r => setTimeout(r, 350)); }, name);
-  await page.reload(); await page.locator(name === 'library' ? '#tl-q' : '#bs-q').waitFor();
+  // one 템플릿 라이브러리 page: 시트 (layouts) and 시나리오 (the former 'scenarios' route) are its two views
+  await page.evaluate(async name => { const { saveUi, loadUi } = await import('/src/repositories/proposals.js'); saveUi({ ...loadUi(), route: name === 'library' ? { name, scope: 'sh' } : { name } }); await new Promise(r => setTimeout(r, 350)); }, name);
+  await page.reload(); await page.locator('#tl-q').waitFor();
+  await page.locator('.hub-scope [aria-pressed="true"]', { hasText: name === 'library' ? '시트' : '시나리오' }).waitFor();
   await page.mouse.move(page.viewportSize().width - 4, 2); await sleep(300);
  };
  for (const name of ['library', 'scenarios']) {
   hold = true; await open(name);
-  const input = page.locator(name === 'library' ? '#tl-q' : '#bs-q');
+  const input = page.locator('#tl-q');
   const toggle = page.getByRole('button', { name: 'AI 검색', exact: true });
   assert.equal(await toggle.getAttribute('aria-pressed'), 'false');
   const placeholder = await input.getAttribute('placeholder');
-  const tooltip = page.locator('#' + (name === 'library' ? 'tl-q' : 'bs-q') + '-ai-description');
+  const tooltip = page.locator('#tl-q-ai-description');
   assert.equal(await tooltip.isVisible(), false);
   assert.equal(await page.locator('.catalog-search-input > svg').count(), 0);
   await toggle.hover(); await tooltip.waitFor({ state: 'visible' });
@@ -53,7 +55,7 @@ try {
   await page.locator('.catalog-search').screenshot({ path: path.join(output, name + '-search-off.png') });
   const before = requests.length;
   await input.fill(name === 'library' ? '도입 효과' : '메뉴보드');
-  await page.waitForFunction(name => document.querySelectorAll(name === 'library' ? '.tl-card' : '.bsl').length > 0, name);
+  await page.waitForFunction(name => document.querySelectorAll(name === 'library' ? '.tl-card' : '.bsk').length > 0, name);
   await input.press('Enter'); await sleep(400); assert.equal(requests.length, before); assert.equal(oldRemote, 0);
   checks.push(name + ': instant keyword search and Enter make zero model calls');
   await toggle.click();
@@ -72,7 +74,7 @@ try {
   checks.push(name + ': prominent AI toggle sits inside search box, explains on hover, no icon or extra hint');
   if (name === 'library') await page.getByRole('button', { name: '검색 보내기', exact: true }).click(); else await input.press('Enter');
   await page.locator('.feedback-popup.progress').waitFor();
-  assert.equal(await page.locator(name === 'library' ? '.tl-card' : '.bsl').count(), 0);
+  assert.equal(await page.locator(name === 'library' ? '.tl-card' : '.bsk').count(), 0);
   assert.equal(requests.length, before + 1);
   await input.fill('수정한 다른 고객 상황'); await sleep(300); assert.equal(requests.length, before + 1);
   assert.equal(await page.locator('.catalog-search-hint').count(), 0);
@@ -89,7 +91,7 @@ try {
   await input.fill(name === 'library' ? '도입 효과' : '메뉴보드');
   hold = false; gates.splice(0).forEach(resolve => resolve()); await sleep(300);
   assert.equal(await page.locator('.catalog-search-status').count(), 0);
-  assert(await page.locator(name === 'library' ? '.tl-card' : '.bsl').count() > 0);
+  assert(await page.locator(name === 'library' ? '.tl-card' : '.bsk').count() > 0);
   checks.push(name + ': switching AI off cancels old results and resumes keyword search');
   await page.setViewportSize({ width: 390, height: 844 }); await sleep(400);
   await toggle.click();

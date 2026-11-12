@@ -54,7 +54,9 @@ try {
   page.setDefaultTimeout(15000);
   await page.goto(base);
   await page.locator('.app[data-app-ready="true"]').waitFor();
-  await page.getByRole('button', { name: /^PPT 레이아웃 템플릿/ }).click();
+  // 템플릿 라이브러리 → 시트 (the PPT layouts)
+  await page.getByRole('button', { name: /^템플릿 라이브러리/ }).click(); await page.mouse.move(page.viewportSize().width - 3, 2); await page.waitForTimeout(400);
+  await page.locator('.hub-scope button', { hasText: '시트' }).click();
   await page.locator('.tl-card').first().click();
   const editor = () => page.locator('.modal').filter({ has: page.locator('.myed') });
   const confirm = () => page.getByRole('dialog', { name: '변경 내용을 저장할까요?', exact: true });
@@ -197,7 +199,7 @@ try {
   await editor().waitFor({ state: 'detached' });
   const savedContent = await page.evaluate(async () => { const repo = await import('/src/repositories/templates.js'); return repo.myList().map(x => repo.rawHtml(x.f)); });
   assert(savedContent.some(html => html.includes('저장 검증')));
-  await page.getByRole('heading', { name: 'PPT 레이아웃 템플릿', exact: true }).waitFor();
+  await page.getByRole('heading', { name: '템플릿 라이브러리', exact: true }).waitFor();
   assert.equal(await page.locator('[data-library-scope="my"]').count(), 0);
   assert.equal(await page.getByRole('dialog').count(), 0);
   await page.getByText('My 템플릿에 저장했어요', { exact: false }).first().waitFor();

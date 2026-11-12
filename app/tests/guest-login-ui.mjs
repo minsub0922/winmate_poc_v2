@@ -48,7 +48,7 @@ try {
   }
   pass('repeated creation attempts change one form to a centered modal and preserve inputs without creating records');
   const browse=async selector=>{await page.locator('.sidebar').hover();await page.locator(selector).click();await page.mouse.move(1450,2);await page.waitForTimeout(250);assert.equal(await page.getByRole('dialog').count(),0);};
-  await browse('.sb-tpl');await page.locator('.tl-card').first().waitFor();assert.equal(await surface.count(),0);
+  await browse('.sb-tpl');await page.locator('.hub-scope button',{hasText:'시트'}).click();await page.locator('.tl-card').first().waitFor();assert.equal(await surface.count(),0);
   await page.locator('.tl-card').first().click();await page.locator('.mback').waitFor();
   // The favorite is a write even though it uses local browser storage.
   await page.locator('.mback .fav-btn').last().click();await page.getByRole('dialog',{name:'로그인하고 이어서 시작하세요'}).waitFor();

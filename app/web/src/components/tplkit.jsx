@@ -38,7 +38,7 @@ export const slidesOf = (list) => list.map((l) => ({ f: l.f, ov: { t: {}, img: {
    Detail — the shared sheet popup (sheetview.jsx) with a read-only panel: role · example title · metadata
    (PPT 레이아웃 템플릿 · 샘플 버티컬 시나리오). PPTX of this one sheet.
    ========================================================= */
-export function TemplateDetail({ list, index, onNav, onClose, notes = null, noteLabel = '이 장의 역할', ovs = null, onEdit = null, favFrom = 'PPT 레이아웃 템플릿' }) {
+export function TemplateDetail({ list, index, onNav, onClose, notes = null, noteLabel = '이 장의 역할', ovs = null, onEdit = null, favFrom = '템플릿 라이브러리' }) {
   const l = list[index];
   const ov = ovs ? ovs[index] : null; // filled sample values (샘플 버티컬 시나리오)
   const [busy, setBusy] = useState(false);

@@ -25,7 +25,7 @@ try{
  await context.route('**/img/**',route=>{const rel=decodeURIComponent(new URL(route.request().url()).pathname).slice(1),file=[path.join(root,rel),path.join(root,'reference/live',rel),path.join(root,'app/data/static',rel)].find(file=>fs.existsSync(file));return file?route.fulfill({path:file}):route.abort();});
  await context.addInitScript(()=>{if(!localStorage.getItem('winmate.v2.ui'))localStorage.setItem('winmate.v2.ui',JSON.stringify({route:{name:'scenarios'}}));});
  page=await context.newPage();page.setDefaultTimeout(20000);page.on('pageerror',error=>errors.push(error.message));
- await page.goto('http://127.0.0.1:'+server.httpServer.address().port);await page.locator('#bs-q').waitFor({timeout:60000});
+ await page.goto('http://127.0.0.1:'+server.httpServer.address().port);await page.locator('#tl-q').waitFor({timeout:60000});
  const scenario=await page.evaluate(async()=>{const {SC}=await import('/src/domain/templates/scenarios.js');return {title:SC.bs01.title};});
  const dialog=()=>page.locator('.modal.reference-detail');
  const hoverCheck=async(target,label)=>{
@@ -44,9 +44,9 @@ try{
   await page.waitForTimeout(320);assert.equal(await page.locator('.dpk').count(),0);
   pass(label+' opens the common 720px scrolling popup and restores focus without reopening hover');
  };
- await page.locator('#bs-q').fill(scenario.title);const row=page.getByRole('article',{name:scenario.title,exact:true});
+ await page.locator('#tl-q').fill(scenario.title);const row=page.getByRole('article',{name:scenario.title,exact:true});
  const tag=row.locator('[data-reference-detail="product:qm55c"]');await hoverCheck(tag,'Scenario list');await popupCheck(tag,'Scenario list');
- await row.getByRole('button',{name:scenario.title+' 상세 보기',exact:true}).click();await page.locator('.modal.sbv').waitFor();
+ await row.getByRole('button',{name:scenario.title+' 상세 보기',exact:true}).click({position:{x:24,y:24}});await page.locator('.modal.sbv').waitFor();
  await page.locator('.modal.sbv .match-node .node').click();const match=page.locator('.modal.sbv .mt-pop');await match.waitFor();
  const matched=match.locator('[data-reference-detail="product:qm55c"]');await hoverCheck(matched,'Scenario Storyboard');await popupCheck(matched,'Scenario Storyboard');
  assert.equal(await page.locator('.modal.sbv').count(),1);assert.equal(await match.count(),1);await page.keyboard.press('Escape');await page.locator('.modal.sbv .mfoot').getByRole('button',{name:'닫기',exact:true}).click();

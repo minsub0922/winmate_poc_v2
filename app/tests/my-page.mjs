@@ -39,7 +39,7 @@ try {
   saveUi({ ...loadUi(), route: { name: 'library' }, lib: { q: '', my: false } });
   return { ids: rows.map(r => r.meta.f), favourite: favourite.f };
  });
- await page.reload(); await page.getByRole('heading', { name: 'PPT 레이아웃 템플릿', exact: true }).waitFor();
+ await page.reload(); await page.getByRole('heading', { name: '템플릿 라이브러리', exact: true }).waitFor();
  const navigate = async selector => {
   if (page.viewportSize().width <= 760) await page.getByRole('button', { name: '메뉴 열기', exact: true }).click();
   else { await page.locator('.sidebar').hover({ position: { x: 20, y: 20 } }); await sleep(300); }
@@ -62,11 +62,11 @@ try {
  pass('dedicated My page contains templates and upload controls with no nested favourites tab');
  await page.locator('#tl-q').fill('제안 준비');
  assert.equal(await page.locator('.tl-card').count(), 1);
- await navigate('.sb-tpl'); await page.getByRole('heading', { name: 'PPT 레이아웃 템플릿', exact: true }).waitFor();
+ await navigate('.sb-tpl'); await page.getByRole('heading', { name: '템플릿 라이브러리', exact: true }).waitFor();
  assert.equal(await page.locator('#tl-q').inputValue(), '도입 효과');
  await page.goBack(); await page.getByRole('heading', { name: 'My 템플릿', exact: true }).waitFor();
  assert.equal(await page.locator('#tl-q').inputValue(), '제안 준비');
- await page.goForward(); await page.getByRole('heading', { name: 'PPT 레이아웃 템플릿', exact: true }).waitFor();
+ await page.goForward(); await page.getByRole('heading', { name: '템플릿 라이브러리', exact: true }).waitFor();
  assert.equal(await page.locator('#tl-q').inputValue(), '도입 효과');
  pass('catalog and My retain independent search state through browser Back and Forward');
  await navigate('.sb-my'); await page.reload(); await page.locator('[data-library-scope="my"]').waitFor();
@@ -103,7 +103,7 @@ try {
  await page.getByRole('button', { name: '수정하기', exact: true }).click();
  await page.locator('.modal.sheet').getByRole('button', { name: '저장', exact: true }).click();
  await page.locator('.modal.sheet').waitFor({ state: 'detached' });
- await page.getByRole('heading', { name: 'PPT 레이아웃 템플릿', exact: true }).waitFor();
+ await page.getByRole('heading', { name: '템플릿 라이브러리', exact: true }).waitFor();
  assert.equal(await page.getByRole('dialog').count(), 0);
  await navigate('.sb-my');
  assert.equal(await page.locator('#tl-q').inputValue(), '제안 준비');

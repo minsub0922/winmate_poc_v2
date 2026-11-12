@@ -5,6 +5,8 @@ import { GUIDES } from '../../domain/guides/catalog.js';
 import '../../styles/guides.css';
 import { setGuideSurface, useGuideSurface } from '../../services/guide-navigation.js';
 import { sessionSnapshot } from '../../api/session.js';
+// 시나리오 · 시트 guides both belong to the one 템플릿 라이브러리 page (route 'scenarios' = its 시나리오 view)
+const LIBRARY=['library','scenarios'];
 const loadDialog=()=>import('./GuideDialog.jsx');
 const GuideDialog=lazy(loadDialog);
 
@@ -52,7 +54,7 @@ function GuideMenu({ anchor, route, onSelect, onClose }) {
   },[onClose]);
   return createPortal(<section ref={ref} id="winmate-guide-menu" className="guide-menu" role="dialog" aria-label="기능별 가이드 선택" style={position}>
     <header><div><span>WINMATE GUIDE</span><h2>어떤 기능이 궁금하세요?</h2></div><button className="btn btn-ghost btn-icon" aria-label="가이드 목록 닫기" onClick={()=>onClose(true)}><Icon name="x" size={17}/></button></header>
-    <nav aria-label="기능별 가이드">{GUIDES.map(guide=><button type="button" key={guide.id} data-topic={guide.id} onClick={()=>onSelect(guide.id)}><span className="guide-topic-icon"><Icon name={guide.icon} size={19}/></span><span><b>{guide.title}{guide.route===route.name&&<em>현재 화면</em>}</b><small>{guide.description}</small></span><span className="guide-topic-count">{guide.steps.length}<small>단계</small></span><Icon name="chev" size={15}/></button>)}</nav>
+    <nav aria-label="기능별 가이드">{GUIDES.map(guide=><button type="button" key={guide.id} data-topic={guide.id} onClick={()=>onSelect(guide.id)}><span className="guide-topic-icon"><Icon name={guide.icon} size={19}/></span><span><b>{guide.title}{(guide.route===route.name||(LIBRARY.includes(guide.route)&&LIBRARY.includes(route.name)))&&<em>현재 화면</em>}</b><small>{guide.description}</small></span><span className="guide-topic-count">{guide.steps.length}<small>단계</small></span><Icon name="chev" size={15}/></button>)}</nav>
   </section>,document.body);
 }
 export function GuideButton({ route, onOpen }) {

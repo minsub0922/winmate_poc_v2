@@ -8,7 +8,8 @@ export async function recordGuideStep(session,guide,step,index,capture){
  const {page,seed,reset,base}=session;
  let point={x:660,y:390},phase=0;
  const shot=async(label)=>{await page.waitForTimeout(240);await capture(phase++,point,label);};
- const click=async locator=>{await locator.scrollIntoViewIfNeeded();const b=await locator.boundingBox();if(b)point={x:b.x+b.width/2,y:b.y+b.height/2};await locator.click();};
+ // position: where to press inside the element (a scenario card's own button covers the card; its tags sit above it)
+ const click=async(locator,position)=>{await locator.scrollIntoViewIfNeeded();const b=await locator.boundingBox();if(b)point=position?{x:b.x+position.x,y:b.y+position.y}:{x:b.x+b.width/2,y:b.y+b.height/2};await locator.click(position?{position}:undefined);};
  const fill=async(locator,value)=>{await locator.scrollIntoViewIfNeeded();const b=await locator.boundingBox();if(b)point={x:b.x+Math.min(110,b.width/2),y:b.y+Math.min(25,b.height/2)};await locator.fill(value);};
  const draft=(stage='req',filled=true,linked=false)=>{const p=clone(seed.blank);p.stage=stage;if(filled){p.title='전국 매장 메뉴보드 전환 제안';p.customer='A 커피';p.ind='FB';p.req.free=[{t:requirement}];p.req.form.project=p.title;p.req.form.customer=p.customer;}if(linked)p.ctx=clone(seed.complete.ctx);return p;};
  const proposal=async(p)=>{await reset({name:'proposal',id:p.id},{draft:p});await page.locator('#pr-title').waitFor();};
@@ -18,15 +19,16 @@ export async function recordGuideStep(session,guide,step,index,capture){
  const openMatch=async()=>{await proposal(draft('match',true,true));await match().waitFor();};
  const picker=async()=>{const p=draft('story',true,true);p.parts=[{id:'guide-part',type:'value',name:'운영 가치',items:['본사 일괄 운영','시간대별 메뉴 전환','원격 장애 확인'],form:'list',text:'',done:true,layouts:[]}];await proposal(p);await click(page.getByRole('button',{name:'PPT 레이아웃 추가',exact:true}));await page.locator('#pk-q').waitFor();};
  const detail=async()=>{await completed();await click(page.locator('.lcard').first());await page.locator('.detail-left').waitFor();};
- const library=async(name='library')=>{await reset({name});await page.locator('#tl-q').waitFor();};
- const scenario=async()=>{await reset({name:'scenarios'});await page.locator('#bs-q').waitFor();};
+ // 템플릿 라이브러리: the 시트 view (layouts) and the 시나리오 view (route 'scenarios') of one page
+ const library=async(name='library')=>{await reset(name==='library'?{name,scope:'sh'}:{name});await page.locator('#tl-q').waitFor();};
+ const scenario=async()=>{await reset({name:'scenarios'});await page.locator('#tl-q').waitFor();};
  const summary=async()=>{
   const p=draft('story',true,true);
   await proposal(p);
   await page.evaluate(async id=>{const repo=await import('/src/repositories/proposals.js'),d=await import('/src/domain/proposals/requirement-summary.js'),p=repo.getProposal(id),key=d.requirementSourceKey(p),sources=d.requirementSources(p),source=sources.find(s=>s.id==='free'),point={text:source.text,kind:'fact',refs:[{source_id:'free',quote:source.text}]};repo.update(id,p=>{p.requirementSummary={sourceKey:key,status:'ready',result:{source_key:key,sources,coverage:{complete:true},llm:{effective:'llm',model:'guide-input-example'},summary:{overview:point,...Object.fromEntries(d.SUMMARY_SECTIONS.map(([k])=>[k,['goals','requirements'].includes(k)?[point]:[]]))}}};},{touch:false});},p.id);
  };
  if(guide.id==='scenarios'&&['form','board','sheet','editor'].includes(step.view)){
-  await scenario();await fill(page.locator('#bs-q'),'메뉴보드');await click(page.getByRole('button',{name:seed.complete.title+' 상세 보기',exact:true}));await page.locator('.modal.sbv').waitFor();await shot('scenario-storyboard');
+  await scenario();await fill(page.locator('#tl-q'),'메뉴보드');await click(page.getByRole('button',{name:seed.complete.title+' 상세 보기',exact:true}),{x:40,y:40});await page.locator('.modal.sbv').waitFor();await shot('scenario-storyboard');
   if(step.view==='form'){await click(page.locator('.modal.sbv .start-node .node'));await page.getByRole('dialog',{name:'고객 요구사항',exact:true}).waitFor();await shot('scenario-requirements');await page.locator('.rq-body').evaluate(el=>el.scrollTop=el.scrollHeight);await shot('scenario-keymen');}
   else if(step.view==='sheet'){await click(page.locator('.modal.sbv .lcard').first());await page.locator('.modal.sheet').waitFor();await shot('scenario-filled-slide');await click(page.getByRole('button',{name:'다음 장',exact:true}));await shot('scenario-next-slide');}
   else if(step.view==='editor'){await click(page.locator('.modal.sbv').getByRole('button',{name:'활용하기',exact:true}));await page.getByRole('dialog',{name:'이 샘플 버티컬 시나리오를 활용할까요?',exact:true}).waitFor();await shot('scenario-copy-confirmation');await click(page.getByRole('dialog',{name:'이 샘플 버티컬 시나리오를 활용할까요?',exact:true}).getByRole('button',{name:'활용하기',exact:true}));await page.locator('main.main .story .lcard').first().waitFor();await shot('scenario-editable-copy');}
@@ -86,7 +88,7 @@ export async function recordGuideStep(session,guide,step,index,capture){
   else if(guide.id==='library'||guide.id==='scenarios'||guide.id==='my'){await click(page.getByRole('button',{name:'다음 장',exact:true}));await shot('next-layout');await page.locator('.sv-panel').evaluate(el=>el.scrollTop=el.scrollHeight);await shot('layout-metadata');}
   else{const target=page.locator('.detail-left [data-tb],.sv-fit [data-tb]').first();await click(target);await shot('slide-text-context');await page.getByRole('button',{name:/원문|근거|참고/}).first().hover().catch(()=>{});await shot('slide-evidence');}
  }else if(step.view==='scenarios'){
-  await scenario();await shot('scenarios');await fill(page.locator('#bs-q'),'메뉴보드');await shot('scenario-search');await click(page.locator('.bsl').first().getByRole('button',{name:/상세 보기$/}));await page.locator('.modal.sbv').waitFor();await shot('scenario-storyboard');
+  await scenario();await shot('scenarios');await fill(page.locator('#tl-q'),'메뉴보드');await shot('scenario-search');await click(page.locator('.bsk').first().getByRole('button',{name:/상세 보기$/}),{x:40,y:40});await page.locator('.modal.sbv').waitFor();await shot('scenario-storyboard');
  }else if(step.view==='share'||step.view==='export'){
   await completed();await shot('storyboard');
   if(step.view==='share'){await click(page.locator('.storyboard-share-control button'));await page.getByRole('dialog',{name:'Storyboard 공유',exact:true}).waitFor();await shot('sharing-dialog');await page.getByRole('combobox',{name:'링크 접근 권한',exact:true}).selectOption('edit');await shot('sharing-permission');}
