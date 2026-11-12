@@ -1,4 +1,4 @@
-import { ALL_LAYOUTS, PRODUCTS, SOLUTIONS, CASES, IND, IND_KW, P, S, C } from './catalog.js';
+import { ALL_LAYOUTS, PRODUCTS, SOLUTIONS, CASES, IND, IND_KW, P, S, C, libraryOf } from './catalog.js';
 import { PARTS, RELATED, classifyPart, partText, effectiveType } from '../domain/proposals/parts.js';
 
 // ---------- tokenizer: latin words + Hangul bigrams ----------
@@ -102,10 +102,12 @@ export function searchLayouts(query, ctx = {}, opts = {}) {
   });
   const byF = Object.fromEntries(res.map((r) => [r.l.f, r]));
   for (const r of res) {
-    const rep = r.l.retired && byF[r.l.retired];
+    // 뺀 장 → 사진 버전, 내용 후보(업종판) → 그 레이아웃 대표 장
+    const t = r.l.retired ? libraryOf(r.l.retired) : r.l.variantOf;
+    const rep = t && byF[t];
     if (rep && r.score > rep.score) { rep.score = r.score; rep.why = [...new Set([...r.why.filter((w) => w !== '사진 중심'), ...rep.why])]; if (!rep.snip) rep.snip = r.snip; }
   }
-  return res.filter((r) => !r.l.retired && r.score > 0.4).sort((a, b) => b.score - a.score).slice(0, opts.limit || 30);
+  return res.filter((r) => !r.l.retired && !r.l.variantOf && r.score > 0.4).sort((a, b) => b.score - a.score).slice(0, opts.limit || 30);
 }
 
 /** Recommend up to 20 layouts for a storyboard part. */
@@ -156,7 +158,13 @@ export function recommendLayouts(part, ctx = {}, limit = 20) {
     const best = r.l.pv.map((f) => byF[f]).filter(Boolean).sort((a, b) => base(b) - base(a))[0];
     if (best && base(best) + 0.3 > r.score) { r.score = base(best) + 0.3; if (!r.why.includes('사진 중심')) r.why.push('사진 중심'); if (!best.l.retired) r.why.unshift('‘' + best.l.name + '’의 사진 버전'); }
   }
-  return out.filter((r) => !r.l.retired && !used.has(r.l.f)).sort((a, b) => b.score - a.score).slice(0, limit);
+  // 내용 후보(업종판)가 잘 맞으면 그 레이아웃 대표 장이 점수를 물려받는다 — 넣을 때 그 업종 후보로 들어간다 (layouts.jsx)
+  for (const r of out) {
+    const rep = r.l.variantOf && byF[r.l.variantOf];
+    if (rep && r.score > rep.score) { rep.score = r.score; rep.why = [...new Set([...r.why, ...rep.why])]; }
+  }
+  const usedLib = new Set([...used].map(libraryOf));
+  return out.filter((r) => !r.l.retired && !r.l.variantOf && !usedLib.has(r.l.f)).sort((a, b) => b.score - a.score).slice(0, limit);
 }
 
 // ---------- mention / context search ----------

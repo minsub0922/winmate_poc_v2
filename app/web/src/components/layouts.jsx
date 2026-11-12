@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { update, uid } from '../repositories/proposals.js';
 import { confirmDelete, Icon, Modal, toast, partHue } from './common.jsx';
 import { PARTS, classifyPart } from '../domain/proposals/parts.js';
-import { L, LAYOUTS, IND, isCoverSheet } from '../services/catalog.js';
+import { L, LAYOUTS, IND, isCoverSheet, libraryOf, variantFor } from '../services/catalog.js';
 import { recommendLayouts, reqText, inferIndustry } from '../services/search.js';
 import { useCatalogSearch } from '../hooks/useCatalogSearch.js';
 import { AI_SEARCH_TOP } from '../services/catalog-search.js';
@@ -119,12 +119,13 @@ export function LayoutPicker({ p, partId, mode = 'rec', onClose }) {
   // 표지 sheets live in the hidden deck part (data.js normalizeCovers) — count and deselect them there
   const deck = p.parts.find((s) => s.deck);
   const deckCovers = deck ? deck.layouts.filter((x) => isCoverSheet(x.f)) : [];
-  const counts = {}; for (const x of [...part.layouts, ...deckCovers]) counts[x.f] = (counts[x.f] || 0) + 1;
+  const counts = {}; for (const x of [...part.layouts, ...deckCovers]) { const k = libraryOf(x.f); counts[k] = (counts[k] || 0) + 1; } // 업종 후보 장은 그 레이아웃으로 센다
   // Cards toggle: press to select (adds to this part), press again to deselect (removes the latest untouched copy).
   const add = async (l) => {
     hc.hide();
     if (!counts[l.f]) {
-      update(p.id, (d) => { const s = d.parts.find((x) => x.id === partId); if (s) s.layouts.push({ uid: uid('l'), f: l.f, status: 'empty', ov: { t: {}, img: {} } }); });
+      // 업종 후보가 있는 레이아웃은 이 제안서 업종의 후보로 넣는다 (catalog.js variantFor)
+      update(p.id, (d) => { const s = d.parts.find((x) => x.id === partId); if (s) s.layouts.push({ uid: uid('l'), f: variantFor(l.f, ctx.ind), status: 'empty', ov: { t: {}, img: {} } }); });
       if (isCoverSheet(l.f)) toast('표지는 Storyboard에 두지 않고 PPT 레이아웃 패널의 첫 장으로 보여 드려요');
       return;
     }
@@ -134,7 +135,7 @@ export function LayoutPicker({ p, partId, mode = 'rec', onClose }) {
     let target = null;
     for (let k = pool.length - 1; k >= 0; k--) {
       const x = pool[k];
-      if (x.f === l.f && (!x.adaptation && (x.status || 'empty') === 'empty' && !Object.keys((x.ov && x.ov.t) || {}).length && !Object.keys((x.ov && x.ov.img) || {}).length || ['queued', 'running', 'error'].includes(x.adaptation?.phase))) { target = x.uid; break; }
+      if (libraryOf(x.f) === l.f && (!x.adaptation && (x.status || 'empty') === 'empty' && !Object.keys((x.ov && x.ov.t) || {}).length && !Object.keys((x.ov && x.ov.img) || {}).length || ['queued', 'running', 'error'].includes(x.adaptation?.phase))) { target = x.uid; break; }
     }
     if (!target) { toast('‘' + l.name + '’은 내용을 채운 레이아웃이라 여기서는 빼지 않았어요. ' + (isCoverSheet(l.f) ? 'PPT 레이아웃 패널에서 열어 빼 주세요' : 'Storyboard에서 빼 주세요'), 'warn'); return; }
     if(!await confirmDelete({title:'레이아웃 선택을 해제할까요?',message:l.name+' 장표를 이 제안서에서 삭제합니다.'}))return;

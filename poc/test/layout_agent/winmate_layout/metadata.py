@@ -248,12 +248,14 @@ def build_cards(kb: KB) -> list[dict]:
             "strategy_fit": sorted(strat), "req_type_fit": sorted(rtype), "level_fit": sorted(level),
             "usage": u, "data_needs": data_needs, "sample_products": prods, "sample_solutions": sols,
             "slots": {
-                "texts": [{"i": t["i"], "role": t["role"], "s": t["s"], "max": t["max"], "fs": t["fs"], "fw": t["fw"], "ph": t["ph_in"]} for t in texts],
-                "images": [{"i": im["i"], "kind": im["kind"], "slot": im["slot"], "hint": im["hint"], "pid": im["pid"] or baked.get(im["i"], {}).get("pid", ""),
+                "texts": [{"i": t["i"], "role": t["role"], "s": t["s"], "max": t["max"], "fs": t["fs"], "fw": t["fw"], "ph": t["ph_in"], "fix": t.get("fix", "")} for t in texts],
+                "images": [{"i": im["i"], "kind": im["kind"], "slot": im["slot"], "hint": im["hint"], "pid": im["pid"] or baked.get(im["i"], {}).get("pid", ""), "fix": im.get("fix", ""),
                             "w": im["w"], "h": im["h"], "baked": baked.get(im["i"])} for im in images],
                 "groups": groups,
             },
             "embed_text": embed, "static_text": (stx := static_texts(kb.html.get(f, "")))[:12], "static_ind": _static_ind(kb, stx),
             "retired": l.get("retired"), "pf": l.get("pf") if l.get("pf") is not None else photo_fraction(images), "pv": l.get("pv") or [],
+            # 같은 레이아웃 · 다른 내용 (앱 layout_variants.json) — 업종 후보 장은 대표 장(variant_of)과 한 레이아웃
+            "variant_of": l.get("variantOf"), "vkey": l.get("vkey"),
         })
     return cards

@@ -708,6 +708,44 @@ h1, h2, h3 { text-wrap: balance; margin: 0; }
 .tl-dt .code { color: var(--accent); font-size: var(--text-14px); font-weight: var(--weight-800); }
 .tl-ex { border: var(--stroke-1px) solid var(--line); border-radius: var(--radius-10px); padding: var(--space-10px) var(--space-12px); display: flex; flex-direction: column; gap: var(--space-4px); background: var(--surface-2); }
 .tl-ex p { margin: 0; font-size: var(--text-14px); font-weight: var(--weight-600); line-height: var(--leading-1-5); }
+/* 칸 구분 (layout_slot_modes.js) — 고정 · 목차 번호 · 제품 · 솔루션 · 사례 · AI 작성 */
+.tl-fix { gap: var(--space-6px); }
+.fix-legend { display: flex; flex-wrap: wrap; gap: var(--space-6px); }
+.fix-chip { display: inline-flex; align-items: center; gap: var(--space-4px); font-size: var(--text-12px); padding: 2px 8px; border-radius: 999px; background: var(--surface, #fff); border: var(--stroke-1px) solid var(--line); }
+.fix-chip i { width: 8px; height: 8px; border-radius: 2px; background: var(--fix-c); }
+.fix-chip b { font-weight: var(--weight-700); }
+.fix-fixed { --fix-c: #6b7280; } .fix-section { --fix-c: #1d4ed8; } .fix-product { --fix-c: #0f766e; }
+.fix-solution { --fix-c: #6d28d9; } .fix-case { --fix-c: #b45309; } .fix-ai { --fix-c: #16a34a; } .fix-pick { --fix-c: #be185d; }
+.fix-toggle { display: inline-flex; align-items: center; gap: var(--space-6px); font-size: var(--text-12px); cursor: pointer; }
+.slide-fix [data-fix], .slide-fix [data-tb]:not([data-fix]), .slide-fix [data-img]:not([data-fix]) { outline: calc(2px / var(--k, 1)) solid var(--fix-c); outline-offset: calc(1px / var(--k, 1)); }
+.slide-fix [data-fix="fixed"] { --fix-c: #6b7280; background-color: rgba(107, 114, 128, .12); }
+.slide-fix [data-fix="section"] { --fix-c: #1d4ed8; background-color: rgba(29, 78, 216, .10); }
+.slide-fix [data-fix="product"] { --fix-c: #0f766e; background-color: rgba(15, 118, 110, .12); }
+.slide-fix [data-fix="solution"] { --fix-c: #6d28d9; background-color: rgba(109, 40, 217, .10); }
+.slide-fix [data-fix="case"] { --fix-c: #b45309; background-color: rgba(180, 83, 9, .10); }
+.slide-fix [data-tb]:not([data-fix]), .slide-fix [data-img]:not([data-fix]) { --fix-c: #16a34a; outline-style: dashed; }
+.slide-fix [data-fix="pick"] { --fix-c: #be185d; background-color: rgba(190, 24, 93, .10); }
+/* 칸 목록 — 고정 대상 · 변경 대상 (tplkit.jsx SlotModePanel) */
+.fix-list summary { cursor: pointer; font-size: var(--text-12px); color: var(--ink-2, #4b5563); }
+.fix-list summary b { font-weight: var(--weight-700); }
+.fix-list ul { list-style: none; margin: var(--space-4px) 0 var(--space-6px); padding: 0; display: grid; gap: var(--space-4px); max-height: 260px; overflow: auto; }
+.fix-list li { display: flex; align-items: baseline; gap: var(--space-6px); font-size: var(--text-12px); min-width: 0; }
+.fix-list li .fix-chip { flex-shrink: 0; padding: 0 6px; }
+.fix-list .fix-s { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fix-list .fix-v { flex-shrink: 0; margin-left: auto; font: inherit; font-size: var(--text-11px); color: #be185d; background: none; border: var(--stroke-1px) solid rgba(190, 24, 93, .35); border-radius: 999px; padding: 0 7px; cursor: pointer; }
+.fix-list .fix-v[aria-expanded="true"] { background: rgba(190, 24, 93, .08); }
+.fix-list li.fix-cands { display: block; padding: var(--space-4px) 0 var(--space-6px) var(--space-8px); }
+.fix-list li.fix-cands ul { max-height: none; margin: 0; gap: 2px; border-left: 2px solid rgba(190, 24, 93, .35); padding-left: var(--space-8px); }
+.fix-list li.fix-cands li { display: grid; grid-template-columns: 4.5em 1fr; gap: var(--space-6px); }
+.fix-list li.fix-cands b { font-weight: var(--weight-700); color: var(--ink-2); }
+.fix-h { display: block; margin-top: var(--space-6px); font-size: var(--text-12px); font-weight: var(--weight-700); }
+/* 같은 레이아웃 · 다른 내용 — 내용 후보 고르기 (tplkit.jsx VariantPanel) */
+.tl-var { gap: var(--space-6px); }
+.tl-var .lbl b { font-weight: var(--weight-700); }
+.var-chips { display: flex; flex-wrap: wrap; gap: var(--space-4px); }
+.var-chip { font: inherit; font-size: var(--text-12px); padding: 3px 10px; border-radius: 999px; border: var(--stroke-1px) solid var(--line); background: var(--surface, #fff); color: inherit; cursor: pointer; }
+.var-chip:hover { border-color: var(--accent); }
+.var-chip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
 @media (max-width: 760px) {
   .tl-in { padding: var(--space-20px) var(--space-16px) var(--space-56px); }
   .tl-tools { position: static; margin: 0; padding: 0 0 var(--space-10px); }

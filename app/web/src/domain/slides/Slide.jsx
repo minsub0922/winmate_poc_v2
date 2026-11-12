@@ -135,10 +135,15 @@ export function applyOverrides(root, ov, pageNo) {
     }
   }
   applySpatialBinding(root, ov?.spatial, ov?.t);
+  // 쪽 번호 — 기본 레이아웃은 하단 바닥글을 지우고 쪽 번호만 [data-pgno]로 남깁니다(layout_cleanup.js).
+  // 저장된 칸 값(ov.t)이 무엇이든 [data-pgno]에는 숫자만 들어갑니다. 사용자가 만든 My 템플릿의 'CONFIDENTIAL · N' 칸은 그대로 둡니다.
+  root.querySelectorAll('[data-pgno]').forEach((e) => {
+    const n = pageNo != null ? String(pageNo) : (/\d+/.exec(e.textContent) || [e.textContent.trim()])[0];
+    if (e.textContent !== n) e.textContent = n;
+  });
   if (pageNo != null) {
     root.querySelectorAll('[data-tb]').forEach((e) => {
       if (/^CONFIDENTIAL · \d+$/.test(e.textContent.trim())) e.textContent = 'CONFIDENTIAL · ' + pageNo;
-      else if (e.hasAttribute('data-pgno') && /^\d+$/.test(e.textContent.trim())) e.textContent = String(pageNo); // bare page number (공유오피스 Lite 양식)
     });
   }
 }
@@ -149,7 +154,8 @@ export function readBlocks(f, ov, includeEmpty = false) {
   host.innerHTML = layoutHtml(f);
   const root = host.firstElementChild;
   applyOverrides(root, ov);
-  return Array.from(root.querySelectorAll('[data-tb]')).map((e) => ({ i: Number(e.getAttribute('data-tb')), s: e.textContent.replace(/\s+/g, ' ').trim(), fs: parseFloat((e.getAttribute('style') || '').match(/font-size:\s*([\d.]+)px/)?.[1] || '0') })).filter((b) => includeEmpty || b.s);
+  // fix: the slot's mode from layout_slot_modes.js — fixed · section (never rewritten) · product · solution · case (swapped from data only)
+  return Array.from(root.querySelectorAll('[data-tb]')).map((e) => ({ i: Number(e.getAttribute('data-tb')), s: e.textContent.replace(/\s+/g, ' ').trim(), fs: parseFloat((e.getAttribute('style') || '').match(/font-size:\s*([\d.]+)px/)?.[1] || '0'), fix: e.getAttribute('data-fix') || '' })).filter((b) => includeEmpty || b.s);
 }
 export function readImageSlots(f, ov) {
   const host = document.createElement('div');
@@ -187,6 +193,7 @@ export function readImageSlots(f, ov) {
     name: (e.matches('img') ? e : e.querySelector('img'))?.getAttribute('alt') || '',
     products: (e.getAttribute('data-products') || '').split(',').filter(Boolean),
     itemText: itemText(e),
+    fix: e.getAttribute('data-fix') || '',
   }));
 }
 

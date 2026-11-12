@@ -20,7 +20,7 @@ export function CardMeta({ l }) {
     <div className="pc-meta">
       <div className="pc-tags">
         {pt && <span className={'tag pt ' + partHue(l.p)}>{pt.label}</span>}
-        <span className="tag">{l.ind && IND[l.ind] ? indShort(l.ind) + ' 맞춤' : '범용'}</span>
+        <span className="tag">{l.inds ? '업종 후보 ' + l.inds.length : l.ind && IND[l.ind] ? indShort(l.ind) + ' 맞춤' : '범용'}</span>
         {l.sol && S[l.sol] && <span className="tag">{S[l.sol].name} 전용</span>}
       </div>
     </div>
@@ -82,7 +82,7 @@ function PickPeek({ l, r, extra }) {
           {sc && <span className="pp-rank num">{sc.page}장{sc.stage ? ' · ' + sc.stage : ''}</span>}
           {pt && <span className={'tag pt ' + partHue(l.p)}>{pt.label}</span>}
           {l.p2 && PARTS[l.p2] && <span className="tag">{PARTS[l.p2].label}</span>}
-          <span className="tag">{l.ind && IND[l.ind] ? IND[l.ind].name + ' 맞춤' : '범용 · 모든 업종'}</span>
+          <span className="tag">{l.inds ? '업종 후보 ' + l.inds.length + ' · ' + l.inds.slice(0, 3).map(indShort).join(' · ') + (l.inds.length > 3 ? ' …' : '') : l.ind && IND[l.ind] ? IND[l.ind].name + ' 맞춤' : '범용 · 모든 업종'}</span>
           {l.sol && S[l.sol] && <span className="tag">{S[l.sol].name} 전용</span>}
         </div>
         <b className="pp-name">{l.name}</b>

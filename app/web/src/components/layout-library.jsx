@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Icon, partHue } from './common.jsx';
 import { PARTS, REQ_LABEL } from '../domain/proposals/parts.js';
-import { LAYOUTS, IND, INDUSTRIES, S, SOLUTIONS, P, isPhotoFirst } from '../services/catalog.js';
+import { LAYOUTS, IND, INDUSTRIES, S, SOLUTIONS, P, isPhotoFirst, indsOf } from '../services/catalog.js';
 import { DECKS, DECK } from './tplkit.jsx';
 import { Thumb } from './Thumbs.jsx';
 import { FilterPopup as FilterFrame, FStep, FChip, FAll, FProducts, idList, LAYOUT_UNIT } from './filterpop.jsx';
@@ -34,7 +34,8 @@ export function pass(l, f, skip) {
   if (skip !== 'deck' && f.deck && l.c !== f.deck) return false;
   if (skip !== 'prod' && f.prod) { const ids = prodIds(f.prod); if (ids.length && !(l.prods || []).some((id) => ids.includes(id))) return false; }
   if (skip !== 'ind' && f.ind) {
-    if (f.ind === '_gen') { if (l.ind) return false; } else if (f.ind === '_ind') { if (!l.ind) return false; } else if (l.ind !== f.ind) return false;
+    const inds = indsOf(l); // 합친 레이아웃은 후보 업종 모두
+    if (f.ind === '_gen') { if (inds.length) return false; } else if (f.ind === '_ind') { if (!inds.length) return false; } else if (!inds.includes(f.ind)) return false;
   }
   if (skip !== 'sol' && f.sol) {
     if (f.sol === '_none') { if (l.sol) return false; } else if (l.sol !== f.sol && !(l.sols || []).includes(f.sol)) return false;
@@ -78,8 +79,8 @@ export function LayoutFilterPopup({ f, base, onApply, onClose }) {
   const partN = countBy(partPool, (l) => l.p);
   const grpN = countBy(partPool, (l) => GROUP_OF[l.p]);
   const indPool = pool('ind');
-  const indN = countBy(indPool, (l) => l.ind || '_gen');
-  const indAll = indPool.filter((l) => l.ind).length;
+  const indN = {}; for (const l of indPool) { const xs = indsOf(l); for (const k of xs.length ? xs : ['_gen']) indN[k] = (indN[k] || 0) + 1; }
+  const indAll = indPool.filter((l) => indsOf(l).length).length;
   const solPool = pool('sol');
   const solN = {}; for (const l of solPool) { new Set([l.sol, ...(l.sols || [])].filter(Boolean)).forEach((id) => { solN[id] = (solN[id] || 0) + 1; }); if (!l.sol) solN._none = (solN._none || 0) + 1; }
   const imgPool = pool('img');

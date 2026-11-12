@@ -19,7 +19,8 @@ def collect_counts(products, data: Path) -> dict:
     layouts = json.loads((kb / 'catalog.json').read_text())['layouts']
     retired = json.loads((kb / 'retired.json').read_text())
     catalog = json.loads((data / 'catalog.json').read_text())
-    active = [layout for layout in layouts if not layout.get('retired') and layout['f'] not in retired]
+    # 같은 레이아웃의 내용 후보(variantOf · 업종판)는 대표 장 하나로 센다 — 앱 라이브러리(LAYOUTS)와 같은 수
+    active = [layout for layout in layouts if not layout.get('retired') and layout['f'] not in retired and not layout.get('variantOf')]
     counts = {
         'layouts': len(active),
         'industry_layouts': sum(bool(layout.get('ind')) for layout in active),

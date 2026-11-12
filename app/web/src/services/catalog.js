@@ -1,6 +1,7 @@
 import { getBootstrap } from '../api/bootstrap.js';
 const { catalog: CATALOG, images: IMAGES, products: PDB } = getBootstrap();
 import { RETIRED_R4 } from '../domain/templates/retired.js';
+import { RETIRED_EXTRA } from '../domain/templates/retired_extra.js';
 import { COVERS } from '../domain/templates/covers.js';
 import { PHOTO_META, PHOTO_HTML } from '../domain/templates/photo_layouts.js';
 import { STD_META, STD_HTML } from '../domain/templates/std_layouts.js';
@@ -8,25 +9,53 @@ import { VSTD_META, VSTD_HTML } from '../domain/templates/vertical_std_layouts.j
 import { TOC_META, TOC_HTML } from '../domain/templates/toc_layouts.js';
 import { SPATIAL_META, SPATIAL_HTML } from '../domain/templates/spatial-layouts.js';
 import { ACCOUNT_META, ACCOUNT_HTML } from '../domain/templates/account_layouts.js';
-import PROPOSAL_PHOTOS from '../domain/templates/proposal_photo_assets.json';
+import PROPOSAL_PHOTOS from '../domain/templates/proposal_photo_assets.json' with {type:'json'};
 import ACCOUNT_PHOTOS from '../domain/templates/account_photo_assets.json' with {type:'json'};
-import { repairLayoutHtml } from '../domain/templates/layout_repairs.js';
+import { repairLayoutHtml, repairLayoutUnmarked } from '../domain/templates/layout_repairs.js';
+import { slotModes, markSlotModes } from '../domain/templates/layout_slot_modes.js';
+import VARIANT_DATA from '../domain/templates/layout_variants.json' with {type:'json'};
+import { fillHoles } from '../domain/templates/layout_variants.js';
 
 // 사진 중심 버전이 내용을 빠짐없이 담아, 라이브러리에서 뺀 텍스트 레이아웃 (텍스트 f → 대체한 사진 중심 f).
 // 고르기 · 검색 · 추천 · 개수에서는 빠지고, 이미 만든 제안서 · 샘플 버티컬 시나리오 · 히스토리 예시에 들어 있는 장은 그대로 그립니다.
 // 검색 · 추천 점수는 계속 매겨, 이 장과 잘 맞는 내용이면 대체한 사진 버전이 그 점수를 물려받습니다 (search.js).
-export const RETIRED = {
-  ...RETIRED_R4,
-  L_CB_B: 'L_PH_CB_B', L_CB_D: 'L_PH_CB_D', L_CB_F: 'L_PH_CB_F', L_MI05: 'L_PH_US_A',
-  L_VP03: 'L_PH_VP_B', L_EF_A: 'L_PH_EF_A',
-  L_SD_G: 'L_PH_SD_G', L_QA_A: 'L_PH_QA_A', L_AIS_08: 'L_PH_AIS_08', L_AIS_25: 'L_PH_AIS_25', L_AIS_35: 'L_PH_AIS_35', // 9차 — 샘플 버티컬 시나리오 사진 중심 전환 때 새로 만든 사진 버전 (build/bs/newlayouts.mjs)
-  L_P3A: 'L_PH_P3_A', L_P5A: 'L_PH_P5_A', L_P2C: 'L_PH_P2_C', L_P_O: 'L_PH_P_O', L_P_P: 'L_PH_P_P', L_P_N: 'L_PH_P_N',
-};
+export const RETIRED = { ...RETIRED_R4, ...RETIRED_EXTRA }; // retired_extra.js — 4차 생성분 밖에서 더한 것
 export const ALL_LAYOUTS = [...CATALOG.layouts, ...PHOTO_META, ...STD_META, ...VSTD_META, ...SPATIAL_META, ...ACCOUNT_META, ...TOC_META];
 for(const layout of ALL_LAYOUTS){if(layout.f==='L_C01')layout.name='표지 A · 대표 이미지';if(layout.f==='L_C02')layout.name='표지 B · 와이드 이미지';}
 for (const l of ALL_LAYOUTS) if (RETIRED[l.f]) l.retired = RETIRED[l.f];
-export const LAYOUTS = ALL_LAYOUTS.filter((l) => !l.retired);
+// 칸 구분 요약 — 'fixed' 전부 고정 · 'data' 고정 + 데이터 교체만 · 'mostly' AI 칸 적음 · 'ai' AI 작성 위주 (layout_slot_modes.js)
+for (const l of ALL_LAYOUTS) { const m = slotModes(l.f); if (m) l.fx = m.lock; }
+// 같은 레이아웃 · 다른 내용 (layout_variants.json · app/scripts/layout_variants.mjs) — 구조가 같고 내용만 다른 장은 대표 장 하나만 라이브러리에 둔다.
+// 나머지 장은 그 레이아웃의 내용 후보(주로 업종판): 고르기 · 검색 · 개수에서 빠지고(l.variantOf), 대표 장의 틀에 자기 내용을 끼워 그린다.
+// 이미 만든 제안서 · 시나리오에 들어 있는 후보 장 id는 그대로 쓰인다. 대표 장: l.variants(후보 목록) · l.inds(후보 업종) · 묶음 이름.
+export const VARIANTS = VARIANT_DATA.groups;
+export const CANON_OF = {}; // 후보 장 f → 대표 장 f (대표 장 자신도)
+for (const [c, g] of Object.entries(VARIANTS)) for (const [f] of g.members) CANON_OF[f] = c;
+{
+  const byF = Object.fromEntries(ALL_LAYOUTS.map((l) => [l.f, l]));
+  for (const [c, g] of Object.entries(VARIANTS)) {
+    for (const [f, key, label] of g.members) { const l = byF[f]; if (!l) continue; l.vkey = key; l.vlabel = label; if (f !== c) l.variantOf = c; }
+    const lc = byF[c];
+    if (!lc) continue;
+    lc.variants = g.members.map(([f, key, label]) => ({ f, key, label }));
+    if (g.by === 'ind') lc.inds = g.members.map(([, k]) => k).filter((k) => k !== '_');
+    if (g.name) { lc.ownName = lc.name; lc.name = g.name; }
+    if (g.when) { lc.ownWhen = lc.when; lc.when = g.when; }
+  }
+}
+export const LAYOUTS = ALL_LAYOUTS.filter((l) => !l.retired && !l.variantOf);
 export const L = Object.fromEntries(ALL_LAYOUTS.map((l) => [l.f, l]));
+/** the library layout a sheet belongs to — itself, or the representative of its content candidates */
+export const libraryOf = (f) => CANON_OF[f] || f;
+/** a layout's candidate for an industry (or the given sheet when there is none) — what goes into a deck for that industry */
+export function variantFor(f, ind) {
+  const g = VARIANTS[CANON_OF[f]];
+  if (!g || !ind) return f;
+  const m = g.members.find(([, k]) => k === ind);
+  return m ? m[0] : f;
+}
+/** industries a layout serves — its own, or every candidate's of a merged layout */
+export const indsOf = (l) => (l && (l.inds || (l.ind ? [l.ind] : []))) || [];
 // 업종별 기본 표지(covers.js L_IND_*)도 장으로 그릴 수 있게 — 목록 · 검색에는 넣지 않고 L에만 (예전 히스토리에 들어 있을 수 있음)
 for (const f of Object.keys(COVERS)) if (!L[f]) L[f] = { f, code: f.slice(2), name: '표지 · 업종 기본', when: '업종 사진 위에 제안서 제목 · 고객사 · 날짜', g: '', p: 'cover', p2: null, ind: f.slice(6) && f.slice(6) !== '_' ? f.slice(6) : null, sol: null, c: 'CM', req: [], ik: [], ih: [], phs: [], prods: [], sols: [] };
 
@@ -146,13 +175,30 @@ export async function loadLayoutHtml() {
   } else {
     throw new Error('이 브라우저는 압축 해제를 지원하지 않아요');
   }
+  // 후보 장의 내용 조각 — 대표 장의 틀에 끼워 그린다 (layout_variants.js fillHoles)
+  PIECES = (await import('../domain/templates/layout_variant_pieces.json')).default.pieces; // (브라우저 전용 — Vite가 JSON을 모듈로 바꿔 준다)
   HTML = Object.assign(JSON.parse(text), COVERS, PHOTO_HTML, STD_HTML, VSTD_HTML, SPATIAL_HTML, ACCOUNT_HTML, TOC_HTML);
-  for (const f of Object.keys(HTML)) HTML[f] = repairLayoutHtml(f, HTML[f]);
   return HTML;
+}
+let PIECES = null;
+// 기본 레이아웃 HTML은 처음 그릴 때 한 번 고친다(layout_repairs.js — 칸 크기 · 글자 역할 · 바닥글 · 각주 정리) — 앱 시작 때 950장을 한꺼번에 고치지 않게
+const REPAIRED = new Map(), UNMARKED = new Map();
+function repaired(f) {
+  let h = REPAIRED.get(f);
+  if (h == null) {
+    const c = CANON_OF[f];
+    if (c && c !== f && PIECES && PIECES[f] && HTML[c]) {
+      let u = UNMARKED.get(c);
+      if (u == null) { u = repairLayoutUnmarked(c, HTML[c]); UNMARKED.set(c, u); }
+      h = markSlotModes(f, fillHoles(u, PIECES[f])); // 후보 = 대표 장의 틀 + 이 장의 내용
+    } else h = repairLayoutHtml(f, HTML[f]);
+    REPAIRED.set(f, h);
+  }
+  return h;
 }
 // My 템플릿 (my/store.js) — the person's own layouts, kept in this browser: they join L (so a proposal, the detail popup,
 // PPTX export … draw them like any layout) but not ALL_LAYOUTS / LAYOUTS (the library lists them under My only).
 const EXTRA_HTML = {};
 export function registerLayout(meta, html) { L[meta.f] = meta; EXTRA_HTML[meta.f] = html; }
 export function unregisterLayout(f) { if (EXTRA_HTML[f] != null) { delete EXTRA_HTML[f]; delete L[f]; } }
-export function layoutHtml(f) { return (HTML && HTML[f]) || EXTRA_HTML[f] || ''; }
+export function layoutHtml(f) { return (HTML && (HTML[f] || HTML[CANON_OF[f]]) && repaired(f)) || EXTRA_HTML[f] || ''; }

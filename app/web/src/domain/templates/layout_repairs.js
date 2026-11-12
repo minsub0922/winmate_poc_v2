@@ -1,6 +1,9 @@
 // Correct existing built-in layout bounds without changing the frozen reference
 // pack or registering extra templates. All views and exports use the same HTML.
 import {applyProposalTypography} from './proposal_typography.js';
+import {cleanupLayoutHtml} from './layout_cleanup.js';
+import {markSlotModes} from './layout_slot_modes.js';
+import {redesignLayoutHtml} from './layout_redesign.js';
 const rules = {
   L_C08: {
     2: { 'white-space': 'pre-line', 'word-break': 'keep-all', 'overflow-wrap': 'anywhere', 'font-size': '36px', 'line-height': '1.3', height: '112px' },
@@ -46,7 +49,18 @@ function styles(original, updates) {
   return [...properties].map(([name, value]) => name + ': ' + value).join('; ');
 }
 
+/** every built-in layout passes here before it is drawn, exported or sent to the Agent KB */
 export function repairLayoutHtml(f, html) {
+  return html ? markSlotModes(f, repairLayoutUnmarked(f, html)) : html;
+}
+
+/** the repaired layout before its slots are marked 고정 · 교체 · AI (layout_variants.js cuts candidates from this) */
+export function repairLayoutUnmarked(f, html) {
+  return html ? redesignLayoutHtml(f, cleanupLayoutHtml(f, repairLayoutBase(f, html))) : html;
+}
+
+/** the older bounds · typography repairs alone (without the 2026-11 cleanup) */
+export function repairLayoutBase(f, html) {
   const spaceCaption = /^L_PH_SS_[A-Z]+_B$/.test(f),rule=rules[f] || (spaceCaption ? spaceCaptionRules : null);
   if (!html) return html;
   if (/data-proposal-typography="\d+"/.test(html)) return applyProposalTypography(f,html);
