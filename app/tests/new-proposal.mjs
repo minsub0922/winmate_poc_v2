@@ -41,7 +41,7 @@ try {
   pass('home and repeated sidebar creation reuse the same blank history entry');
 
   await page.locator('.sidebar').hover({ position: { x: 20, y: 20 } });
-  await page.locator('.sb-home').first().click(); await page.locator('.home').waitFor();
+  await page.locator('.sb-brand').click(); await page.locator('.home').waitFor();
   await page.locator('.home-actions .start').click(); await page.locator('#free-ed').waitFor();
   assert.equal((await snapshot()).route.id, first.route.id);
   await page.waitForFunction(() => JSON.parse(localStorage.getItem('winmate.v2.proposals') || '[]').length === 1);

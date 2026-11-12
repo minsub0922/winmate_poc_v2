@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useStore, stageOf } from '../repositories/proposals.js';
-import { Icon, fmtWhen, partHue } from './common.jsx';
+import { Icon, fmtWhen, partHue, toast } from './common.jsx';
 import { IND, LAYOUTS, CASES, PRODUCTS, SOLUTIONS, storyParts } from '../services/catalog.js';
 import { Slide, FitSlide } from '../domain/slides/Slide.jsx';
 import { classifyPart } from '../domain/proposals/parts.js';
@@ -10,7 +10,6 @@ import { TemplateIcon } from '../pages/LibraryPage.jsx';
 import { SCENARIOS, SC, FEATURED } from '../domain/templates/scenarios.js';
 import { scenarioStoryboard } from '../domain/templates/scenario_storyboard.js';
 import { ScenarioStoryboard } from '../pages/ScenariosPage.jsx';
-import { TOC_TEMPLATES } from '../domain/templates/toc_templates.js';
 import { ReviewEntry } from '../pages/ReviewPage.jsx';
 import { useReviews } from '../repositories/reviews.js';
 import { useMy } from '../repositories/templates.js';
@@ -73,13 +72,19 @@ export function Sidebar({ route, go, onNew, open, setOpen }) {
         <span className="sb-logo">W</span><span className="sb-word">winmate</span><span className="sb-ver">v2</span>
       </button>
       <button className="sb-new" onClick={onNew}><Icon name="plus" size={16} stroke={2.4} />{tx('새 제안서 시작')}</button>
-      <button className="sb-home" aria-current={route.name === 'home' ? 'page' : undefined} onClick={() => go({ name: 'home' })}><Icon name="home" />{tx('홈')}</button>
       <button className="sb-home sb-tpl" aria-current={route.name === 'library' ? 'page' : undefined} onClick={() => go({ name: 'library' })}><TemplateIcon />{tx('PPT 레이아웃 템플릿')}<span className="sb-count num sb-tx">{LAYOUTS.length}</span></button>
       <button className="sb-home sb-bs" aria-current={route.name === 'scenarios' ? 'page' : undefined} onClick={() => go({ name: 'scenarios' })}><Icon name="route" />{tx('샘플 버티컬 시나리오')}<span className="sb-count num sb-tx">{SCENARIOS.length}</span></button>
-      <button className="sb-home sb-toc" aria-current={route.name === 'toc' ? 'page' : undefined} onClick={() => go({ name: 'toc' })}><Icon name="list" />{tx('목차 템플릿')}<span className="sb-count num sb-tx">{TOC_TEMPLATES.length}</span></button>
       <button className="sb-home sb-bld" aria-label="건물 조감도" aria-current={route.name === 'building' ? 'page' : undefined} onClick={() => go({ name: 'building' })}><Icon name="building" />{tx('건물 조감도')}<span className="sb-bld-format sb-tx">3D</span><span className="sb-beta sb-tx">BETA</span></button>
       <button className="sb-home sb-spatial" aria-label="공간 조감도" aria-current={route.name === 'spatial' ? 'page' : undefined} onClick={() => go({ name: 'spatial' })}><Icon name="building" />{tx('공간 조감도')}<span className="sb-spatial-format sb-tx">2D · 3D</span><span className="sb-beta sb-tx">BETA</span></button>
-      <button className="sb-home sb-rv" aria-current={route.name === 'reviews' || route.name === 'review' ? 'page' : undefined} onClick={() => go({ name: 'reviews' })}><Icon name="clipCheck" />{tx('제안서 검토')}<span className="sb-count num sb-tx">{nRev}</span></button>
+      {/* 견적서 · 제안서 검토 — one row split left / right. 견적서 has no screen yet, so it only says so. */}
+      <div className="sb-pair" role="group" aria-label="견적서 · 제안서 검토">
+        <button type="button" className="sb-pair-button sb-quote" aria-disabled="true" aria-label="견적서 (준비 중)" title="견적서 — 준비 중" onClick={() => toast('견적서는 준비 중이에요.')}>
+          <Icon name="receipt" /><span className="sb-pair-label">견적서</span><span className="sb-soon">준비 중</span>
+        </button>
+        <button type="button" className="sb-pair-button sb-rv" aria-label="제안서 검토" aria-current={route.name === 'reviews' || route.name === 'review' ? 'page' : undefined} onClick={() => go({ name: 'reviews' })}>
+          <Icon name="clipCheck" /><span className="sb-pair-label">제안서 검토</span><span className="sb-count num">{nRev}</span>
+        </button>
+      </div>
       <button className="sb-home sb-sim" aria-current={route.name === 'sim' ? 'page' : undefined} onClick={() => go({ name: 'sim' })}><SimIcon name="chat" />{tx('B2B 전략 시뮬레이션')}<span className="sb-beta sb-tx">BETA</span></button>
       <div className="sb-div" aria-hidden="true" />
       <div className={'sb-hist' + (route.name === 'proposal' ? ' is-on' : '')}><Icon name="history" />{tx('제안서 히스토리')}<span className="sb-count num sb-tx">{list.length}</span></div>

@@ -977,6 +977,25 @@ h1, h2, h3 { text-wrap: balance; margin: 0; }
   .sidebar:not(:hover):not(:has(:focus-visible)):not(:has(.sb-history-row.menu-open)) .sb-personal-count { display: none; }
 }
 
+/* 견적서 · 제안서 검토 share one menu row, split left / right like the personal row above the profile. */
+.sb-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; box-sizing: border-box; flex-shrink: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
+.sb-pair-button { display: flex; align-items: center; justify-content: center; gap: 6px; min-width: 0; height: 38px; padding: 0 8px; border: 0; background: transparent; color: var(--ink); font-size: 12.5px; font-weight: 700; white-space: nowrap; cursor: pointer; }
+.sb-pair-button + .sb-pair-button { border-left: 1px solid var(--line); }
+.sb-pair-button:is(:hover, [aria-current="page"]) { background: var(--accent-soft); color: var(--accent); }
+.sb-pair-button:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
+.sb-pair-button > svg { flex-shrink: 0; }
+.sb-pair-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.sb-pair-button .sb-count { margin-left: 0; flex-shrink: 0; }
+.sb-pair-button[aria-current="page"] .sb-count { color: var(--accent); }
+.sb-pair-button[aria-disabled="true"] { color: var(--muted); cursor: default; }
+.sb-pair-button[aria-disabled="true"]:hover { background: var(--surface-3); color: var(--muted); }
+.sb-soon { flex-shrink: 0; padding: 1px 5px; border-radius: 5px; background: var(--surface-3); color: var(--faint); font-size: 9.5px; font-weight: 800; }
+.sb-pair-button[aria-disabled="true"]:hover .sb-soon { background: var(--surface); }
+@media (min-width: 761px) {
+  .sidebar:not(:hover):not(:has(:focus-visible)):not(:has(.sb-history-row.menu-open)) .sb-pair-button { padding: 0; gap: 0; }
+  .sidebar:not(:hover):not(:has(:focus-visible)):not(:has(.sb-history-row.menu-open)) :is(.sb-pair-label, .sb-pair .sb-count, .sb-soon) { display: none; }
+}
+
 /* Storyboard layout library and favorites anchored to its header button. */
 .pk-title { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .pk-title .tag { font-size: var(--text-12-5px); }
