@@ -31,6 +31,10 @@ export const TOCS = {
   rfp: { name: '요구사항 대응', type: 'requirements', goal: '평가 항목마다 대응과 근거를 붙인다', sub: '평가 항목마다 대응과 근거를 붙입니다' },
   spec: { name: '제품 사양', type: 'spec', goal: '핵심 제품을 사양으로 나란히 비교한다', sub: '핵심 제품을 사양으로 나란히 비교합니다' },
   bom: { name: '구성 · 수량', type: 'bom', goal: '공간마다 놓일 제품과 수량을 한 표로', sub: '공간마다 놓일 제품과 수량을 한 표로 봅니다' },
+  vp: { name: 'Value Props', type: 'value', goal: '제품과 함께 쓰는 솔루션이 주는 가치 셋을 먼저 보여 준다', sub: '제품과 솔루션이 함께 만드는 세 가지 가치' },
+  vpd: { name: 'Value Prop 상세', type: 'products', goal: '가치마다 제품 · 솔루션이 쓰이는 장면과 기능을 보여 준다', sub: '가치마다 제품 · 솔루션이 쓰이는 장면' },
+  pcase: { name: '유관사례', type: 'case', goal: '같은 제품 · 제품군을 먼저 도입한 고객 사례로 믿음을 더한다' },
+  pspec: { name: 'Spec', type: 'spec', goal: '제품의 핵심 숫자와 사양을 한 장으로', sub: '핵심 숫자와 사양을 한 장으로' },
 };
 const VX_STD = ['bs_v_ai_apartment_1', 'bs_v_ai_office_1', 'bs_v_ai_store_1', 'bs_v_entertainment_1', 'bs_v_knowledge_industry_center_1', 'bs_v_senior_town_1', 'bs_v_smart_academy_1', 'bs_v_smart_barracks_1', 'bs_v_smart_factory_1', 'bs_v_smart_finance_1', 'bs_v_smart_home_1', 'bs_v_smart_hospital_1', 'bs_v_smart_hotel_1', 'bs_v_smart_network_1', 'bs_v_smart_office_1', 'bs_v_smart_public_1', 'bs_v_smart_retail_1', 'bs_v_smart_school_1', 'bs_v_smart_transportation_1', 'bs_v_smart_university_1'];
 const VX_PAIN = VX_STD.map((x) => x.replace(/_1$/, '_2'));
@@ -62,6 +66,9 @@ export const TOC_TEMPLATES = [
   { id: 'compete', name: '경쟁 비교형 제안서', badge: '기존 샘플에서 추출', deck: '경쟁 비교 제안', hue: 'amber', req: 'compete', strategy: 'compete', ending: 'shortlist',
     desc: '같은 기준으로 공급사를 비교하고 사양 · 비용으로 선택을 굳히는 양식', tocs: ['summary', 'ua', 'needs', 'spec', 'cost', 'case', 'why'], ua: ['matrix', 'map'],
     sub: '같은 기준으로 비교한 선택', related: ['bs10', 'bs12'] },
+  { id: 'prod', name: '제품 제안서', badge: '제품 1 + 관련 솔루션', deck: '제품 제안', hue: 'blue', req: 'new', strategy: 'value', ending: 'pilot',
+    desc: '제품 하나와 함께 쓰는 솔루션으로 가치 셋 · 가치별 상세 · 유관사례 · Spec을 보여 주는 양식', tocs: ['vp', 'vpd', 'pcase', 'pspec'],
+    sub: '제품 하나로 시작하는 변화', related: [] },
   { id: 'rfp', name: '요구사항 대응형 제안서', badge: '기존 샘플에서 추출', deck: '요구사항 대응 제안', hue: 'blue', req: 'new', strategy: 'rfp', ending: 'shortlist',
     desc: '평가 항목 순서대로 대응 · 사양 · 수량 · 일정을 빠짐없이 답하는 양식', tocs: ['ua', 'rfp', 'spec', 'bom', 'plan', 'case', 'why'], ua: ['prof', 'key'],
     sub: '요구사항마다 빠짐없이 답합니다', related: ['bs11'] },
@@ -266,7 +273,56 @@ B.bom = (V, G, T, c) => {
   for (let i = V.bom.rows.length; i < n; i++) { s.t('rn' + i, ''); for (let j = 0; j < 5; j++) s.t(`q${i}_${j}`, ''); }
   return [s];
 };
+/* 제품 제안서 — 대표 제품 하나(V.pp) + 함께 쓰는 솔루션. Value Props 3: 제품 + 솔루션이 셋이면 하나씩, 적으면 제품에서 여럿, 많으면 둘로 추림(build/toc/product.py) */
+const VPN = (P) => P.vps.map((x) => (x.k === 'p' ? P.nm : x.nm));
+B.vp = (V, G, T, c) => {
+  const P = V.pp;
+  const s = sheet('L_TOC_VP3', 'Value Props · 제품 · 솔루션 가치 3', '세 가지 가치').t('eb', c.eb()).t('title', `${P.nm}${josa(P.nm, '이', '가')} 주는 세 가지 가치`);
+  P.vps.forEach((x, i) => s.t('src' + i, (x.k === 'p' ? '제품 · ' : '솔루션 · ') + VPN(P)[i]).t('no' + i, pad(i + 1)).t('tt' + i, x.t).t('ln' + i, x.l)
+    .img('img' + i, x.img || P.cut, x.k === 'p' ? 'cut' : 'space'));
+  return [s];
+};
+B.vpd = (V, G, T, c, D) => {
+  const P = V.pp; const out = []; const spaces = D.st.space.items.filter((x) => x.f === 'L_VS_SPACE');
+  let firstP = true;
+  P.vps.forEach((x, i) => {
+    const row = `${pad(i + 1)} ${x.t}`; const eb = c.eb(pad(i + 1));
+    if (x.k === 'p') {
+      if (firstP) P.rep.forEach((si) => spaces[si] && out.push({ std: spaces[si], eb, role: `${x.t} — ${V.sp[si] ? V.sp[si].n : '공간'}`, row }));
+      else {
+        out.push(sheet('L_TOC_PFEAT', `${x.t} — 제품 사진 + 가치 한 줄`, row).t('eb', eb).t('title', x.t).t('no', pad(i + 1)).t('kick', 'Value Prop')
+          .t('ln', x.l).t('src', '제품 · ' + P.nm).img('img', P.gal[i] || P.gal[0] || P.cut, 'cut'));
+      }
+      firstP = false;
+      return;
+    }
+    const it = D.st.sol && D.st.sol.items.find((y) => y.f === x.f);
+    if (it) out.push({ std: it, eb, role: `${x.nm} — 기능 · 적용 공간 · 대표 장면`, row });
+    if (x.sp.length) {
+      const m = Math.min(3, x.sp.length);
+      const s = sheet(`L_TOC_JOURNEY${m}S`, `${x.nm} — ${P.nm}${josa(P.nm, '과', '와')} 함께 쓰는 장면`, row).t('eb', eb).t('title', x.l);
+      x.sp.slice(0, m).forEach((si, k) => s.t('st' + k, V.sp[si].n).t('st' + k + 'n', String(si + 1)).t('sc' + k, x.scenes[k]).img('ph' + k, V.sp[si].ph));
+      s.t('sn0', x.nm).t('sa0', x.t);
+      const on = new Set(x.on); const pick = [...x.on];
+      for (const f of x.all) { if (pick.length >= 10) break; if (!on.has(f)) pick.push(f); }
+      const order = new Map(x.all.map((f, k) => [f, k]));
+      pick.sort((a, b) => (order.get(a) ?? 99) - (order.get(b) ?? 99));
+      for (let k = 0; k < 10; k++) s.img(`fi0_${k}`, pick[k] ? ICO(pick[k], on.has(pick[k])) : null, 'icon');
+      out.push(s);
+    }
+  });
+  return out;
+};
+B.pcase = (V) => V.pp.cases.map((x) => ({ raw: x.o, role: '유관사례 · ' + x.cust, row: x.row || x.cust }));
+B.pspec = (V, G, T, c) => {
+  const P = V.pp;
+  const s = sheet('L_TOC_PSPEC', 'Spec · 핵심 숫자 3 + 사양 8', '핵심 사양').t('eb', c.eb()).t('title', `${P.nm}, 핵심 사양`).t('nm', P.nm).t('md', P.model || '').img('img', P.cut, 'cut');
+  for (let i = 0; i < 3; i++) { const k = P.keys[i]; s.t('kv' + i, k ? k[0] : '').t('kl' + i, k ? k[1] : ''); }
+  for (let j = 0; j < 8; j++) { const r = P.specs[j]; s.t('sl' + j, r ? r[0] : '').t('sv' + j, r ? r[1] : ''); }
+  return [s];
+};
 const divSub = (key, V, T, D) => {
+  if (key === 'pcase') { const n = V.pp.cmatch ? V.pp.nm : V.pp.cfam || '같은 제품군'; return `${n}${josa(n, '을', '를')} 먼저 도입한 고객`; }
   if (key === 'ua') { const g = [...new Set((T.ua || ['prof']).map((k) => UA_GROUP[k]))]; const w = g.join(' · '); return `${w}${ro(w)} 먼저 이해합니다`; }
   if (key === 'tech') return `${V.tech.length}개 솔루션, 키워드 셋으로 보는 ${D.ai}`;
   if (key === 'value') return `${V.sp.length}개 공간을 잇는 이용자 여정 ${V.jr.length}가지`;
@@ -279,8 +335,10 @@ function ctxOf(key, no, D) {
   return { key, no, name, eb: (sub) => `${pad(no)} · ${TOCS[key].eb || name}${sub ? ' · ' + sub : ''}` };
 }
 /** 덱 한 벌: 표지 · 목차(숨은 목차) + 목차마다 [간지, 장 …] — 쪽 번호를 매긴 뒤 간지 행 · 표준 장 번호를 맞춘다 */
+const CASE_SLOT = { eb: 0, foot: 12, page: 13 }; // L_VS_CASE
+const deckName = (T, V, D) => (T.id === 'prod' ? `${V.pp.nm} ${T.deck}서` : `${D.ai} ${T.deck}서`);
 function composeDeck(T, V, G, D) {
-  const total = T.tocs.length; const foot = `${D.cust} · ${D.ai} ${T.deck}서`;
+  const total = T.tocs.length; const foot = `${D.cust} · ${deckName(T, V, D)}`;
   const plan = T.tocs.map((key, i) => {
     const c = ctxOf(key, i + 1, D);
     if (TOCS[key].std && D.st[TOCS[key].std]) return { c, std: D.st[TOCS[key].std].items.filter((x) => x.f !== 'L_VS_TOC') };
@@ -305,13 +363,21 @@ function composeDeck(T, V, G, D) {
     const rows = [];
     for (const s of sheets) { const last = rows[rows.length - 1]; if (last && last.label === s.row) last.to = s.pg; else rows.push({ label: s.row, from: s.pg, to: s.pg }); }
     while (rows.length > 6) { const b = rows.pop(); rows[rows.length - 1].to = b.to; }
-    const pref = c.key === 'value' && V.jr[0] ? [V.sp[V.jr[0].sp[0]].ph] : c.key === 'ua' ? [V.cover] : [];
+    const P = V.pp; const sp = (i) => (V.sp[i] ? V.sp[i].ph : null);
+    const pref = c.key === 'value' && V.jr[0] ? [sp(V.jr[0].sp[0])] : c.key === 'ua' ? [V.cover]
+      : c.key === 'vp' ? [sp(P.rep[0]), sp(P.where[0])] : c.key === 'vpd' ? P.where.slice(1).map(sp)
+        : c.key === 'pcase' && P.cases[0] ? [P.cases[0].o.img[0] && P.cases[0].o.img[0].src] : c.key === 'pspec' ? P.where.map(sp) : [];
     const photo = pickPhoto(pref);
     const items = [divider({ no: c.no, total, title: c.name, sub: divSub(c.key, V, T, D), rows, photo, page: divPage })];
     for (const s of sheets) {
       if (s.std) {
         const o = retag(s.std.o, { no: c.no, total, off: 0, foot0: D.foot, foot, page: s.pg, rename: s.rename });
         if (s.patch) Object.assign(o.t, s.patch);
+        if (s.eb) o.t[0] = s.eb;
+        items.push({ o, role: s.role });
+      } else if (s.raw) {
+        const o = structuredClone(s.raw);
+        o.t = { ...o.t, [CASE_SLOT.eb]: c.eb(), [CASE_SLOT.foot]: foot, [CASE_SLOT.page]: 'CONFIDENTIAL · ' + s.pg };
         items.push({ o, role: s.role });
       } else {
         s.t('foot', foot).t('conf', 'CONFIDENTIAL · ' + s.pg);
@@ -322,7 +388,8 @@ function composeDeck(T, V, G, D) {
   });
   // 표지 · 목차 — 표지는 표준 제안서 표지(확장형은 그대로, 나머지는 양식 이름 · 한 줄만 바꿈)
   const cover = structuredClone(D.cover.o);
-  if (!T.keepCover) cover.t = { ...cover.t, 3: `${D.cust}\n${T.deck}서`, 4: T.sub };
+  const coverSub = T.id === 'prod' ? [...new Set(VPN(V.pp))].join(' · ') : T.sub;
+  if (!T.keepCover) cover.t = { ...cover.t, 3: `${D.cust}\n${T.deck}서`, 4: coverSub };
   const idx = sheet('L_TOC_INDEX' + Math.min(8, Math.max(4, total)), '목차 · 목차 ' + total + '개');
   stages.forEach((st, i) => {
     const key = st.c.key; const img = TOCS[key].std ? D.tocImg(key) || st.photo : st.photo;
@@ -346,7 +413,8 @@ export function ensureTocScenario(tid, vid) {
   const flow = []; const fills = []; const parts = {};
   const push = (key, name, goal, list, extra) => { flow.push({ key, name, goal, slides: list.map((x) => ({ f: x.o.f, role: x.role })), ...extra }); list.forEach((x) => fills.push(x.o)); };
   push('open', '표지', '제안 전체를 먼저 보여 준다', deck, { deck: true });
-  const STAGE_KEY = { overview: 'context', ua: 'context', summary: 'context', needs: 'value', tech: 'value', space: 'space', value: 'space', sol: 'build', bom: 'build', spec: 'build', rfp: 'value', effect: 'proof', cost: 'plan', pilot: 'plan', plan: 'plan', case: 'proof', why: 'close' };
+  const STAGE_KEY = { overview: 'context', ua: 'context', summary: 'context', needs: 'value', tech: 'value', space: 'space', value: 'space', sol: 'build', bom: 'build', spec: 'build', rfp: 'value', effect: 'proof', cost: 'plan', pilot: 'plan', plan: 'plan', case: 'proof', why: 'close',
+    vp: 'value', vpd: 'value', pcase: 'proof', pspec: 'build' };
   stages.forEach(({ c, items }) => {
     const name = `${pad(c.no)} ${c.name}`;
     push(STAGE_KEY[c.key] || 'value', name, TOCS[c.key].goal, items);
@@ -354,11 +422,14 @@ export function ensureTocScenario(tid, vid) {
   });
   const s0 = D.s; const names = stages.map((x) => x.c.name);
   const needs = D.needs.map((n) => n.v);
+  const P = V.pp; const prod = tid === 'prod'; const vpt = P.vps.map((x) => x.t);
   const s = {
     ...s0, id, std: false, toc: tid, tocV: vid, req: T.req, strategy: T.strategy, ending: T.ending,
-    title: `${D.cust} · ${D.ai} ${T.deck}서`, short: names.join(' → '),
-    situation: `${D.cust}에 ${T.name} 양식으로 제안하는 자리입니다. ${V.pains.map((p) => p[0]).join(' · ')}을(를) 함께 짚고, ${names.slice(1, -1).join(' · ')} 순서로 답합니다.`,
-    thesis: `${needs.join(' · ')} — ${T.sub}`, logic: names, tone: '한 줄 메시지 · 사진과 아이콘 중심', messages: [T.sub, needs.join(' · '), ...(s0.messages || []).slice(2)],
+    title: `${D.cust} · ${deckName(T, V, D)}`, short: names.join(' → '),
+    situation: prod ? `${D.cust}에 ${P.nm}${josa(P.nm, '과', '와')} 함께 쓰는 솔루션을 제안하는 자리입니다. 가치 셋을 먼저 보여 주고 가치마다 장면 · 사례 · 사양으로 뒷받침합니다.`
+      : `${D.cust}에 ${T.name} 양식으로 제안하는 자리입니다. ${V.pains.map((p) => p[0]).join(' · ')}을(를) 함께 짚고, ${names.slice(1, -1).join(' · ')} 순서로 답합니다.`,
+    thesis: prod ? `${vpt.join(' · ')} — ${[...new Set(VPN(P))].join(' · ')}` : `${needs.join(' · ')} — ${T.sub}`, logic: names, tone: '한 줄 메시지 · 사진과 아이콘 중심',
+    messages: prod ? [vpt.join(' · '), P.nm] : [T.sub, needs.join(' · '), ...(s0.messages || []).slice(2)],
     flow, ask: G.ask || s0.ask, kpis: G.kp[1].map((x) => x[0]), fit: T.desc, avoid: s0.avoid || '',
     minutes: Math.max(10, Math.round((fills.length * 1.2) / 5) * 5),
   };
@@ -371,7 +442,7 @@ export function ensureTocScenario(tid, vid) {
 /** 업종 목록 (콘텐츠 순서) — [{ id, nm, g, gn, cust, ai, short, cover, nSp }] */
 export function tocVerticals() {
   const C = CONTENT; if (!C) return [];
-  return C.order.map((id) => { const v = C.v[id]; const D = stdDeck(id); return { id, nm: vName(v), full: v.nm, g: v.g, gn: v.gn, cust: D ? D.cust : vName(v), ai: D ? D.ai : '', short: D ? D.short : '', cover: v.cover, seg: v.seg, nSp: v.sp.length }; });
+  return C.order.map((id) => { const v = C.v[id]; const D = stdDeck(id); return { id, nm: vName(v), full: v.nm, g: v.g, gn: v.gn, cust: D ? D.cust : vName(v), ai: D ? D.ai : '', short: D ? D.short : '', cover: v.cover, seg: v.seg, nSp: v.sp.length, prod: v.pp ? v.pp.nm : '' }; });
 }
 /** 당사의 이해 장 모음 — 한 업종의 고객사 분석 · 트렌드 · 경쟁 비교 장 전부 (데이터 타입별로 미리 만든 장) */
 export function tocUaSheets(vid) {

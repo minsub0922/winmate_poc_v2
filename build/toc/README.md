@@ -9,14 +9,16 @@
 
 | 결과물 | 만드는 스크립트 | 입력 |
 | --- | --- | --- |
-| `app/web/src/domain/templates/toc_layouts.js` — 장 36개(TOC_META · TOC_HTML · TOC_SLOTS) | `python3 build/toc/gen_module.py` | `layouts.py`(장 디자인) · `base.py`(+ `build/v25/std.py`) |
+| `app/web/src/domain/templates/toc_layouts.js` — 장 39개(TOC_META · TOC_HTML · TOC_SLOTS) | `python3 build/toc/gen_module.py` | `layouts.py`(장 디자인) · `base.py`(+ `build/v25/std.py`) |
 | `app/web/src/domain/templates/toc_content.json` — 업종 44개 내용 | `python3 build/toc/build_content.py` | `app/data/vertical_space_product.json` · `vertical_space_solution.json` + 아래 문구 |
+| 위 JSON의 `pp` — 업종별 제품 제안서(대표 제품 · 관련 솔루션 · Value Prop 3 · 유관사례 2 · Spec) | `build/toc/product.py` (`build_content.py`가 부름) | 업종 표준 제안서 시나리오 · 채움, 제품 상세(USP · 기능 · 사양) · 제품 DB, 공식 도입사례 · 사례 사진 |
 | `app/web/public/assets/toc/icons/<기능 id>.on/off.png` · `ui-*.png` | `cd build/toc/icons && npm i && node make_icons.mjs && node make_ui_icons.mjs` | `feature_icons.json`(기능 id → Lucide 아이콘, ISC) |
 
 ## 장 (L_TOC_*)
 - 목차 사진 카드 4–8 · 핵심 기술(솔루션 1–4 × 키워드 3) · 공간별 가치 제안 여정(공간 1–3 × 솔루션 1–2, 이 장에서 쓰는 기능만 색)
 - 당사의 이해 — 고객사 분석(현황 지표 · 과제) · 업종 트렌드(연도별 추이 · 구성비 · 핵심 지표 · 키워드) · 경쟁사 비교(기준표 · 포지셔닝). 숫자는 `[00]` — 제안 때 채움
 - 제안 요약 · 기대 효과(KPI) · 비용 · 구매(TCO) · 파일럿 · 확산 · 실행 계획 · 요구사항 대응 · 제품 사양 · 구성 · 수량(공간 3–8)
+- 제품 제안서 — Value Props(가치 3 카드: 사진 · 출처 칩 · 번호 · 제목 · 한 줄) · Value Prop 상세(제품 사진 + 가치 한 줄) · Spec(핵심 숫자 3 + 사양 8)
 - 목차를 여는 간지는 표준 제안서 간지(L_VS_DIV_R1–6) — 이 장에서 다루는 것 줄 수만큼
 
 ## 문구 (사람이 쓴 것)
@@ -29,4 +31,10 @@
 - 같은 목차 이름이면 어느 템플릿에서든 같은 장. 표준 제안서와 같은 이름이면 표준 제안서 장 그대로(공간별 가치 제안의 조감도도 표준 조감도 장).
 - 새 장에는 부제 · 각주 · 작은 설명 글을 넣지 않는다. 제목 한 줄 + 사진 · 아이콘 · 숫자.
 - 개수가 바뀌는 칸만 변형을 둔다(목차 4–8 · 솔루션 1–4 · 여정 1–3 공간 × 솔루션 1–2 · 수량표 3–8).
+- 제품 제안서: 업종 표준 제안서의 대표 제품 하나(업종마다 먼저 고르는 분류 `PREF`, 사양 8줄 이상) + 그 제품과 같은 공간에서 쓰는 표준 솔루션.
+  - Value Prop 3 — 제품 + 솔루션이 셋이면 하나씩, 솔루션이 하나면 제품 가치 둘, 없으면 제품 가치 셋, 셋보다 많으면 솔루션을 둘로 추림. 솔루션 이름이 든 제품 가치는 쓰지 않는다. 제목은 간지 한 줄(290px)에 들어가는 길이.
+  - 가치마다 상세 장 하나 이상 — 첫 제품 가치는 표준 공간 장(그 제품이 놓인 공간), 다음 제품 가치는 제품 사진 + 한 줄, 솔루션 가치는 표준 솔루션 장 + (제품과 함께 쓰는 공간이 있으면) 그 장면(쓰는 기능만 켬). 간지 줄 하나 = 가치 하나.
+  - 유관사례 2 — 같은 제품군 공식 사례(사진 4장 이상), 이 제품 · 같은 업종 · 이 업종 표준 사례 순. 간지 한 줄은 두 사례 모두 이 제품을 쓸 때만 제품 이름, 아니면 제품군(`CASE_FAM`).
+  - Spec — 사양 8 + 숫자 3. 괄호 단위는 값으로(`배터리 용량 (mAh)` 390 → 390 mAh), 최소/정격/최대는 정격(최대), 같은 이름 · 포장 · 대기 전력 · 설치 배관/배선 · 모델 코드 · 있음/없음 · 단위 없는 숫자는 뺀다.
+- 화면: 목차 흐름은 Storyboard 목차 버블(`components/part-bubble.jsx`)을 그대로 쓴다 — 유형 아이콘 원 · 순서 · 이름 · 점선. 템플릿 카드에 왼쪽 색 띠를 두지 않는다.
 - 조립: `app/web/src/domain/templates/toc_templates.js` — `ensureTocScenario(템플릿, 업종)`이 시나리오를 시나리오 레지스트리(SC · FILLS · STORY)에 올린다(표준 제안서는 `bs_std_<업종>` 그대로). 검사: `node --test app/tests/toc-templates.mjs`.

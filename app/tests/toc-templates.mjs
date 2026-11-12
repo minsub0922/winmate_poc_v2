@@ -2,6 +2,7 @@
 // 표준 제안서와 이름이 같은 목차는 그 업종 표준 제안서의 장을 그대로 옮겨 쓰고(장 번호 · 쪽만 바뀜),
 // 표준에 없는 목차는 L_TOC_* 장 + 같은 간지(L_VS_DIV_R*). 덱은 표지 + 목차(숨은 목차)로 연다.
 // 같은 목차 이름이면 어느 템플릿에서든 같은 장, 공간별 가치 제안은 그 장면에서 쓰는 기능만 켠다, 쪽 번호 · 간지 쪽 · 눈썹 번호가 맞다.
+// 제품 제안서: 제품 하나 + 관련 솔루션으로 Value Prop 3 → 가치마다 상세 장(하나 이상) → 유관사례 → Spec.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
@@ -24,12 +25,14 @@ const isDiv = (f) => /^L_VS_DIV_R\d$/.test(f);
 const FAMILY = {
   당사의이해: /^L_TOC_(UAPROF|UAPAIN|TRLINE|TRSHARE|TRSTAT|TRKEY|CPMATRIX|CPMAP)$/, tech: /^L_TOC_TECH[1-4]$/, value: /^L_(VS_BIRD_[SB]\d+|TOC_JOURNEY[123]S?)$/,
   summary: /^L_TOC_SUMMARY$/, effect: /^L_TOC_KPI$/, cost: /^L_TOC_TCO$/, pilot: /^L_TOC_PILOT$/, plan: /^L_TOC_ROADMAP$/, rfp: /^L_TOC_RFP$/, spec: /^L_TOC_SPEC$/, bom: /^L_TOC_BOM[3-8]$/,
+  vp: /^L_TOC_VP3$/, vpd: /^L_(VS_SPACE|VS_SOL_[A-Z]+|TOC_PFEAT|TOC_JOURNEY[123]S)$/, pcase: /^L_VS_CASE$/, pspec: /^L_TOC_PSPEC$/,
 };
 FAMILY.ua = FAMILY['당사의이해'];
 const composed = () => M.TOC_TEMPLATES.filter((t) => t.id !== 'std');
 
-test('nine templates · 표준 제안서는 업종 표준 제안서 44종 그대로', () => {
-  assert.equal(M.TOC_TEMPLATES.length, 9);
+test('ten templates · 표준 제안서는 업종 표준 제안서 44종 그대로', () => {
+  assert.equal(M.TOC_TEMPLATES.length, 10);
+  assert.deepEqual(M.TPL.prod.tocs, ['vp', 'vpd', 'pcase', 'pspec']);
   assert.deepEqual(M.TPL.std.tocs, ['overview', 'needs', 'space', 'sol', 'case', 'why']);
   for (const id of ['stdx', 'spacex']) {
     assert.equal(M.TPL[id].tocs[0], 'ua', id + ' replaces Overview with 당사의 이해');
@@ -86,7 +89,7 @@ test('every template × industry composes: 표지 · 목차 → 목차마다 간
       });
     }
   }
-  assert.equal(n, 8 * 44);
+  assert.equal(n, 9 * 44);
 });
 
 test('같은 이름의 목차는 그 업종 표준 제안서의 장 그대로 · 나머지는 정해진 장', () => {
@@ -137,5 +140,47 @@ test('같은 목차 이름은 어느 템플릿에서든 같은 장', () => {
         else seen[name] = fams;
       });
     }
+  }
+});
+
+test('제품 제안서: 제품 + 솔루션 → Value Prop 3, 가치마다 상세 장, 유관사례 2, Spec 8줄', () => {
+  const C = M.tocContent();
+  for (const v of M.tocVerticals()) {
+    const P = C.v[v.id].pp; const D = M.stdDeck(v.id);
+    const s = M.ensureTocScenario('prod', v.id); const fills = M.FILLS[s.id];
+    const [gVp, gVpd, gCase, gSpec] = s.flow.slice(1);
+    // 가치 셋 — 첫째는 제품, 솔루션이 둘 이상이면 둘로 추리고, 적으면 제품에서 여럿
+    assert.equal(P.vps.length, 3, v.id);
+    assert.equal(P.vps[0].k, 'p', v.id + ' leads with the product');
+    const ns = P.vps.filter((x) => x.k === 's').length;
+    assert.equal(ns, Math.min(2, P.sols.length), v.id + ' solution count');
+    assert.ok(P.vps.slice(1).every((x, i, a) => x.k === 'p' ? a.slice(0, i).every((y) => y.k === 'p') : true), v.id + ' products before solutions');
+    for (const x of P.vps.filter((y) => y.k === 's')) assert.ok(D.s.flow.some((g) => g.slides.some((it) => it.f === x.f)), `${v.id} ${x.sid} is in the standard deck`);
+    assert.equal(new Set(P.vps.map((x) => x.t)).size, 3, v.id + ' distinct value props');
+    // Value Props 장의 세 카드 = 가치 셋, 상세 간지의 줄 = 가치 셋 (가치마다 장 하나 이상)
+    const k0 = 2 + gVp.slides.length; const div = fills[k0];
+    assert.equal(div.f, 'L_VS_DIV_R3', v.id + ' one divider row per value prop');
+    let next = k0 + 2;
+    for (let r = 0; r < 3; r++) {
+      const [a, b = a] = String(div.t[7 + 3 * r]).split('–').map(Number);
+      assert.equal(a, next, `${v.id} value prop ${r + 1} starts right after the previous one`);
+      assert.ok(b >= a, v.id); next = b + 1;
+    }
+    assert.equal(next - 1, k0 + gVpd.slides.length, v.id + ' value prop pages cover the chapter');
+    assert.ok(gVpd.slides.length - 1 >= 3, v.id);
+    // 솔루션 가치는 표준 솔루션 장 + 제품과 함께 쓰는 공간이 있으면 그 장면(기능 켬)
+    for (const x of P.vps.filter((y) => y.k === 's')) {
+      const i = gVpd.slides.findIndex((y) => y.f === x.f);
+      assert.ok(i > 0, `${v.id} ${x.sid} standard solution sheet`);
+      const scene = !!gVpd.slides[i + 1] && /^L_TOC_JOURNEY[123]S$/.test(gVpd.slides[i + 1].f);
+      assert.equal(scene, x.sp.length > 0, `${v.id} ${x.sid} scene only where it works with the product`);
+      if (scene) assert.ok(Object.values(fills[k0 + i + 1].img).some((im) => im.src.endsWith('.on.png')), `${v.id} ${x.sid} lit features`);
+    }
+    // 유관사례 2 · Spec
+    assert.deepEqual(gCase.slides.slice(1).map((x) => x.f), ['L_VS_CASE', 'L_VS_CASE'], v.id);
+    assert.deepEqual(gSpec.slides.slice(1).map((x) => x.f), ['L_TOC_PSPEC'], v.id);
+    assert.equal(P.specs.length, 8, v.id + ' 8 spec rows'); assert.equal(P.keys.length, 3, v.id + ' 3 key numbers');
+    assert.equal(new Set(P.specs.map((x) => x[0])).size, 8, v.id + ' spec labels are distinct');
+    for (const [lb, val] of P.specs) assert.ok(lb && val && !/^(있음|없음|-)$/.test(val), `${v.id} ${lb}: ${val}`);
   }
 });

@@ -7,7 +7,7 @@ import { IND, L, LAYOUTS, refInfo, isCoverSheet, isCoverOnlyPart, storyParts } f
 import { reqText, inferIndustry } from '../services/search.js';
 import { Slide } from '../domain/slides/Slide.jsx';
 import { refsOf } from './requirements.jsx';
-import { partIcon } from './parteditor.jsx';
+import { PartBubble } from './part-bubble.jsx';
 import { LayoutPicker, LayoutDetail } from './layouts.jsx';
 import { FavButton } from './fav.jsx';
 import { LayoutCompleteButton } from './layout-complete.jsx';
@@ -254,13 +254,7 @@ export function StoryCanvas({ p, open, stage = 'story', pop = null, onReq, onMat
               <div className={'conn' + (isNew ? ' conn-new' : '')}>{!readOnly && <button className="conn-plus" aria-label={no + '번째 자리에 목차 넣기'} title="여기에 새 목차 넣기" onClick={(e) => { e.stopPropagation(); addPart(null, i); }}><Icon name="plus" size={14} stroke={2.4} /></button>}
               </div>
               <div className={'col ' + hue + (isNew ? ' col-new' : '') + (activePart === s.id ? ' on' : '')} data-pid={s.id}>
-                <div className="node-top">
-                  <button className={'node ' + (s.done ? 'done' : 'draft')} onClick={() => open({ type: 'part', partId: s.id })} aria-label={s.name + (readOnly ? ' 목차 보기' : ' 목차 편집')} aria-expanded={readOnly ? activePart === s.id : undefined}>
-                    <Icon name={partIcon(s)} size={28} />
-                    <span className="order">{no}</span>
-                  </button>
-                </div>
-                <button className="node-name" onClick={() => open({ type: 'part', partId: s.id })}>{s.name || '이름 없는 목차'}</button>
+                <PartBubble part={s} no={no} onClick={() => open({ type: 'part', partId: s.id })} label={s.name + (readOnly ? ' 목차 보기' : ' 목차 편집')} expanded={readOnly ? activePart === s.id : undefined} />
                 <div className="laystack" onDragOver={(e) => { if (drag) { e.preventDefault(); if (!drop || drop.pid !== s.id) setDrop({ pid: s.id, before: null }); } }} onDrop={(e) => { e.preventDefault(); doDrop(s.id, drop && drop.pid === s.id ? drop.before : null); }}>
                   {vis.map((x) => {
                     const l = L[x.f];

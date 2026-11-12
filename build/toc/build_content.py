@@ -5,6 +5,7 @@ import json, re, sys, os, collections
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 from content_common import FAM, SKIP_CAT, SOL, GRP
 from content_groups import G, LINEUP
+from product import build_pp
 VV = {}
 for m in ('content_v1', 'content_v2', 'content_v3', 'content_v4', 'content_v5'):
     VV.update(__import__(m).V)
@@ -153,8 +154,16 @@ def build_vertical(v):
     rows = sorted(rows, key=lambda s: -sum(p[3] in bom_cols for p in s['prods']))[:8]
     rows = [s for s in spaces if s in rows]
     bom = dict(cols=[[FAM[c][0], FAM[c][1]] for c in bom_cols], rows=[[s['n'], ['[0]' if any(p[3] == c for p in s['prods']) else '—' for c in bom_cols]] for s in rows])
+    ind = {'SF': 'SV', 'MI': 'PB', 'RG': 'VN', 'MB': 'AD'}.get(g, g)
+    pp = build_pp(vid, v['spaces'], sv['spaces'], ind)
+    for x in pp['vps']:
+        if x.get('scenes'): x['scenes'] = [scene(t, 84) for t in x['scenes']]
+        if x['k'] == 's':  # 여정 장 기능 줄: 켜진 기능(이 공간에서 쓰는 것) + 이 업종에서 쓰는 나머지 기능(꺼짐)
+            x['on'] = [f for f in x['on'] if has_icon(f)]
+            x['all'] = [f for f in used_feats.get(x['sid'], []) if has_icon(f)]
     return dict(id=vid, nm=v['name'], g=g, gn=G[g]['nm'], seg=v['size_segment'], cover=needs[0]['ph'] or spaces[0]['ph'],
-                sp=[dict(n=s['n'], ph=s['ph']) for s in spaces], pains=pains, jr=jrs, tech=tech, spec=spec, bom=bom)
+                sp=[dict(n=s['n'], ph=s['ph']) for s in spaces], pains=pains, jr=jrs, tech=tech, spec=spec, bom=bom,
+                pp=pp)
 
 def main():
     out = dict(v={}, g={})

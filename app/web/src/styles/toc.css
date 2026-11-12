@@ -1,18 +1,18 @@
 /* 목차 템플릿 — 템플릿 카드 목록 · 목차 버블 흐름 · 상세 팝업 (업종별 시나리오 · 기존 샘플) */
 .tocp-list { display: flex; flex-direction: column; gap: var(--space-16px); }
 
-/* 목차 버블 흐름 — 목차 하나가 버블 하나 (Storyboard 버블과 같은 유형 색) */
-.tocf { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8px) var(--space-6px); }
-.tocf-b { display: inline-flex; align-items: center; gap: var(--space-6px); }
-.tocf-b .n { width: var(--measure-24px); height: var(--measure-24px); border-radius: var(--radius-50); background: var(--hc); color: var(--surface); display: grid; place-items: center; font-family: var(--num); font-size: var(--text-11px); font-weight: var(--weight-800); flex-shrink: 0; }
-.tocf-b .nm { display: inline-flex; align-items: center; height: var(--measure-34px); padding: 0 var(--space-14px); border-radius: var(--radius-999px); background: var(--hb); color: var(--hc); font-size: var(--text-13-5px); font-weight: var(--weight-800); white-space: nowrap; }
-.tocf-b .c { font-family: var(--num); font-size: var(--text-11-5px); font-weight: var(--weight-700); color: var(--muted); }
-.tocf-b .arr { color: var(--faint); margin: 0 var(--space-2px); }
-.tocf.compact .tocf-b .nm { height: var(--measure-28px); padding: 0 var(--space-10px); font-size: var(--text-12-5px); }
+/* 목차 버블 흐름 — Storyboard 목차 버블(.col · .node · .node-name · .conn)을 그대로 쓰고, 칸 폭만 좁힌다 */
+.tocf { list-style: none; margin: 0; padding: var(--space-6px) 0 0; display: flex; align-items: flex-start; flex-wrap: wrap; row-gap: var(--space-16px); --bg: var(--surface); }
+.tocf .col { width: var(--measure-136px); }
+.tocf .conn { width: var(--measure-24px); }
+.tocf span.node, .tocf span.node-name { cursor: inherit; }
+.tocf span.node:hover { transform: none; }
+.tocf-c { font-size: var(--text-12px); font-weight: var(--weight-700); color: var(--muted); }
+.tocd-flow .tocf { --bg: var(--surface-2); justify-content: center; }
 
 /* 템플릿 카드 */
-.tocc { position: relative; display: flex; flex-direction: column; gap: var(--space-12px); padding: var(--space-20px) var(--space-22px) var(--space-18px); border: var(--stroke-1px) solid var(--line); border-radius: var(--radius-16px); background: var(--surface); box-shadow: inset var(--space-4px) 0 0 var(--hc); }
-.tocc:hover { border-color: var(--accent-line); box-shadow: inset var(--space-4px) 0 0 var(--hc), var(--shadow); }
+.tocc { position: relative; display: flex; flex-direction: column; gap: var(--space-14px); padding: var(--space-20px) var(--space-22px) var(--space-18px); border: var(--stroke-1px) solid var(--line); border-radius: var(--radius-16px); background: var(--surface); }
+.tocc:hover { border-color: var(--accent-line); box-shadow: var(--shadow); }
 .tocc-hit { position: absolute; inset: 0; z-index: 1; border: 0; background: none; border-radius: inherit; cursor: pointer; }
 .tocc-hit:focus-visible { outline: var(--stroke-2px) solid var(--accent); outline-offset: var(--space-2px); }
 .tocc-top { display: flex; align-items: center; gap: var(--space-12px); }
@@ -52,7 +52,8 @@
 .tocd-sec { display: flex; flex-direction: column; gap: var(--space-10px); }
 .tocd-sh { display: flex; align-items: center; gap: var(--space-10px); font-size: var(--text-12px); }
 .tocd-sn { display: inline-flex; align-items: center; gap: var(--space-6px); height: var(--measure-28px); padding: 0 var(--space-12px) 0 var(--space-4px); border-radius: var(--radius-999px); background: var(--hb); color: var(--hc); font-size: var(--text-13px); font-weight: var(--weight-800); }
-.tocd-sn b { width: var(--measure-20px); height: var(--measure-20px); border-radius: var(--radius-50); background: var(--hc); color: var(--surface); display: grid; place-items: center; font-size: var(--text-10-5px); }
+.tocd-sn b { width: var(--measure-20px); height: var(--measure-20px); border-radius: var(--radius-50); background: var(--hc); color: var(--surface); display: grid; place-items: center; }
+.tocd-sn .num { font-weight: var(--weight-800); }
 .tocd-sn.deck { background: var(--surface-2); color: var(--muted); padding-left: var(--space-12px); }
 .tocd-grid { display: grid; grid-template-columns: repeat(4, minmax(0, var(--measure-1fr))); gap: var(--space-10px); }
 .tocd-sheet { position: relative; display: flex; flex-direction: column; gap: var(--space-5px); text-align: left; border: var(--stroke-1px) solid var(--line); border-radius: var(--radius-10px); background: var(--surface); padding: var(--space-6px); color: var(--ink); min-width: 0; cursor: pointer; }

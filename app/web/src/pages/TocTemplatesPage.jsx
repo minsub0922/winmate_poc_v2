@@ -1,5 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { Icon, Modal, toast } from '../components/common.jsx';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Icon, Modal, toast, partHue } from '../components/common.jsx';
+import { PartBubble } from '../components/part-bubble.jsx';
+import { partIcon } from '../components/parteditor.jsx';
 import { FitSlide } from '../domain/slides/Slide.jsx';
 import { exportPptx } from '../domain/slides/export-pptx.js';
 import { TemplateDetail, saveBlob, safeName } from '../components/tplkit.jsx';
@@ -19,20 +21,23 @@ import '../styles/toc.css';
    ========================================================= */
 const DEMO_V = 'fb_qsr';
 const hueOf = (key) => (PARTS[TOCS[key].type] || PARTS.free).hue;
+const tocPart = (key, short) => ({ type: TOCS[key].type, name: tocName(key, short), done: true });
 const isDeck = (g) => !!g.deck || g.key === 'open'; // 표지(+ 목차) — 버블 없는 앞장
 const isDiv = (f) => /^L_VS_DIV_R\d$/.test(f);
 const stageLabel = (name) => name.replace(/^(목차 · )?\d{2}\s+/, '');
 
-function Flow({ t, short, counts, compact }) {
+/** 목차 흐름 — Storyboard 목차 버블(PartBubble) 그대로: 유형 아이콘 원 + 순서 + 이름, 점선으로 잇는다 */
+function Flow({ t, short, counts, onPick }) {
   return (
-    <ol className={'tocf' + (compact ? ' compact' : '')} aria-label={t.name + ' 목차 흐름'}>
+    <ol className="tocf" aria-label={t.name + ' 목차 흐름'}>
       {t.tocs.map((k, i) => (
-        <li key={k} className={'tocf-b h-' + hueOf(k)}>
-          <span className="n">{String(i + 1).padStart(2, '0')}</span>
-          <span className="nm">{tocName(k, short)}</span>
-          {counts && counts[i] != null && <span className="c">{counts[i]}장</span>}
-          {i < t.tocs.length - 1 && <Icon name="chev" size={14} stroke={2.4} className="arr" />}
-        </li>
+        <React.Fragment key={k}>
+          {i > 0 && <li className="conn" aria-hidden="true" />}
+          <li className={'col ' + partHue(TOCS[k].type)}>
+            <PartBubble part={tocPart(k, short)} no={i + 1} onClick={onPick ? () => onPick(i) : undefined} label={onPick ? tocName(k, short) + ' 장 보기' : undefined} />
+            {counts && counts[i] != null && <span className="tocf-c num">{counts[i]}장</span>}
+          </li>
+        </React.Fragment>
       ))}
     </ol>
   );
@@ -111,6 +116,8 @@ function TocDetail({ t, ready, go, onClose }) {
   const [sb, setSb] = useState(null); // scenario id for the Storyboard view
   const [big, setBig] = useState(null); // { list, ovs, notes, index }
   const [busy, setBusy] = useState(false);
+  const deckRef = useRef(null);
+  const pick = (i) => { const el = deckRef.current && deckRef.current.querySelector(`[data-toc="${i}"]`); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
   const verts = ready ? tocVerticals() : [];
   const groups = useMemo(() => { const g = []; for (const v of verts) { const last = g[g.length - 1]; if (last && last.g === v.g) last.items.push(v); else g.push({ g: v.g, gn: v.gn, items: [v] }); } return g; }, [verts.length]);
   const s = ready ? ensureTocScenario(t.id, vid) : null;
@@ -134,7 +141,7 @@ function TocDetail({ t, ready, go, onClose }) {
         <button className="btn" disabled={!s || busy} onClick={run}>{busy ? <span className="spin" /> : <Icon name="download" size={15} />}{busy ? '만드는 중…' : 'PPTX로 받기'}</button>
         <button className="btn btn-primary" disabled={!s} onClick={() => { onClose(); activateScenario(s, go); }} data-login-required><Icon name="plus" size={15} stroke={2.4} />활용하기</button>
       </>}>
-      <div className="tocd-flow"><Flow t={t} short={v ? v.short : null} counts={counts} /></div>
+      <div className="tocd-flow"><Flow t={t} short={v ? v.short : null} counts={counts} onPick={tab === 'ind' ? pick : undefined} /></div>
       <div className="tocd-tabs" role="tablist">
         <button role="tab" aria-selected={tab === 'ind'} className={tab === 'ind' ? 'on' : ''} onClick={() => setTab('ind')}>{t.id === 'std' ? '업종별 표준 제안서' : '업종별 시나리오'} <b className="num">{verts.length || 44}</b></button>
         {rel.length > 0 && <button role="tab" aria-selected={tab === 'rel'} className={tab === 'rel' ? 'on' : ''} onClick={() => setTab('rel')}>기존 샘플 <b className="num">{rel.length}</b></button>}
@@ -148,18 +155,21 @@ function TocDetail({ t, ready, go, onClose }) {
                 <span className="tocd-ign">{g.gn}</span>
                 {g.items.map((x) => (
                   <button key={x.id} type="button" className={'tocd-iv' + (x.id === vid ? ' on' : '')} aria-pressed={x.id === vid} onClick={() => setVid(x.id)}>
-                    <span className="nm">{x.nm}</span><span className="cu">{x.ai} · 공간 {x.nSp}</span>
+                    <span className="nm">{x.nm}</span><span className="cu">{t.id === 'prod' ? x.prod : x.ai + ' · 공간 ' + x.nSp}</span>
                   </button>
                 ))}
               </div>
             ))}
           </nav>
-          <div className="tocd-deck" key={vid}>
+          <div className="tocd-deck" key={vid} ref={deckRef}>
             {s && <div className="tocd-dh"><h3>{s.title}</h3><p>{s.thesis}</p></div>}
             {byToc.map((g, gi) => (
-              <section key={g.name + gi} className={'tocd-sec' + (g.deck ? ' deck' : '')}>
+              <section key={g.name + gi} className={'tocd-sec' + (g.deck ? ' deck' : '')} data-toc={g.deck ? undefined : body.indexOf(g)}>
                 <div className="tocd-sh">
-                  {g.deck ? <span className="tocd-sn deck">{g.items.length > 1 ? '표지 · 목차' : '표지'}</span> : <span className={'tocd-sn h-' + hueOf(t.tocs[body.indexOf(g)] || 'overview')}><b className="num">{String(body.indexOf(g) + 1).padStart(2, '0')}</b>{stageLabel(g.name)}</span>}
+                  {g.deck ? <span className="tocd-sn deck">{g.items.length > 1 ? '표지 · 목차' : '표지'}</span> : (() => {
+                    const k = t.tocs[body.indexOf(g)] || 'overview';
+                    return <span className={'tocd-sn h-' + hueOf(k)}><b><Icon name={partIcon(tocPart(k))} size={13} /></b><span className="num">{String(body.indexOf(g) + 1).padStart(2, '0')}</span>{stageLabel(g.name)}</span>;
+                  })()}
                   <span className="faint">{g.items.length}장</span>
                 </div>
                 <div className="tocd-grid">

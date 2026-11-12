@@ -432,6 +432,57 @@ def pilot():
     s.foot2(FOOT, 7)
     return reg(s, '파일럿 · 확산 3단계 계단', '파일럿에서 전체 확산까지 범위와 성공 기준을 계단으로 보여 줄 때', 'execution', 'effect', ['timeline', 'kpis'])
 
+# ------------------------------------------------------------------ 제품 제안서: Value Props 3 · 제품 가치 상세 · Spec
+VPS = [('제품 · 스마트 사이니지 QMC', CUT['sig'], 'cut', '24시간 선명한 4K', '500nit 4K UHD 화면을 24시간 안정적으로 운영합니다.'),
+       ('솔루션 · VXT CMS', 'img/media/g0.json#35', 'space', '클라우드 콘텐츠 운영', '매장 화면 콘텐츠를 클라우드로 운영합니다'),
+       ('솔루션 · MagicINFO', 'img/media/g0.json#4', 'space', '데이터 연동 콘텐츠', '데이터와 연동한 화면을 안전하게 운영합니다')]
+def value_props():
+    s = T('L_TOC_VP3'); s.head2('01 · Value Props', '스마트 사이니지 QMC가 외식 프랜차이즈에 주는 세 가지 가치')
+    W = 368
+    for i, (src, pic, kind, tt, ln) in enumerate(VPS):
+        x = 64 + i * (W + 24)
+        s.box(x, 128, W, 520, bg='#ffffff', r=18, border=f'1px solid {LINE}')
+        s.pic(x + 1, 129, W - 2, 230, pic, '가치를 만드는 제품 컷 · 솔루션 화면', kind='space', r=17, name=f'img{i}', bg=SURF)
+        s.chip(x + 24, 380, src, name=f'src{i}', size=13, h=30, pad=12, maxw=W - 48)
+        s.t(x + 24, 432, 80, f'{i+1:02d}', 34, 800, BLUE, 1.0, name=f'no{i}', extra=f'font-family: {NUMF}')
+        s.t(x + 24, 478, W - 48, tt, 25, 800, INK, 1.3, name=f'tt{i}', clamp=2)
+        s.t(x + 24, 554, W - 48, ln, 17, 600, INK2, 1.5, name=f'ln{i}', clamp=3)
+    s.foot2(FOOT, 3)
+    return reg(s, 'Value Props · 가치 3 (제품 · 솔루션)', '제품 하나와 함께 쓰는 솔루션이 주는 가치 세 가지를 카드로 보여 줄 때', 'value', 'products', ['products', 'solutions', 'images'])
+
+def product_value():
+    s = T('L_TOC_PFEAT'); s.head2('02 · Value Prop 상세 · 02', '천장과 하나 되는 디자인')
+    s.pic(64, 128, 700, 520, CUT['sig'], '제품 사진 (정면 · 측면)', kind='cut', r=18, name='img', bg=SURF, pad=28)
+    s.box(796, 128, 420, 520, bg=TINT, r=18)
+    s.t(828, 160, 120, '02', 56, 800, BLUE, 1.0, name='no', extra=f'font-family: {NUMF}')
+    s.t(828, 236, 360, 'Value Prop', 15, 800, BLUE, 1.2, name='kick', nowrap=True, extra='letter-spacing: 0.06em')
+    s.t(828, 290, 360, 'Ceiling-Fit 디자인과 은은한 엣지 라이팅으로 공간의 분위기를 해치지 않습니다.', 24, 700, INK, 1.5, name='ln', clamp=6)
+    s.chip(828, 584, '제품 · Infinite Line 무풍 시스템에어컨', name='src', bg='#ffffff', size=14, h=36, pad=14, maxw=356)
+    s.foot2(FOOT, 6)
+    return reg(s, 'Value Prop 상세 · 제품 사진 + 가치 한 줄', '제품이 주는 가치 하나를 큰 제품 사진과 한 문장으로 보여 줄 때', 'products', 'value', ['products', 'images'])
+
+def product_spec():
+    s = T('L_TOC_PSPEC'); s.head2('04 · Spec', '스마트 사이니지 QMC, 핵심 사양')
+    s.pic(64, 128, 440, 420, CUT['sig'], '제품 컷', kind='cut', r=18, name='img', bg=SURF, pad=24)
+    s.t(64, 568, 440, '스마트 사이니지 QMC', 26, 800, INK, 1.3, name='nm', nowrap=True)
+    s.t(64, 610, 440, 'LH55QMCEBGCXKR', 16, 700, GRAY, 1.3, name='md', nowrap=True, extra=f'font-family: {NUMF}')
+    keys = [('3,840 x 2,160', '해상도'), ('500 nit', '밝기'), ('24/7', '제품 사용 시간')]
+    for i, (vl, lb) in enumerate(keys):
+        x = 536 + i * 232
+        s.box(x, 128, 216, 124, bg=SURF, r=16)
+        s.t(x + 22, 148, 188, vl, 26, 800, BLUE, 1.4, name=f'kv{i}', nowrap=True, extra=f'font-family: {NUMF}')
+        s.t(x + 22, 204, 180, lb, 15, 700, GRAY, 1.3, name=f'kl{i}', nowrap=True)
+    rows = [('대각선 사이즈', '138.7 cm'), ('해상도', '3,840 x 2,160'), ('밝기', '500 nit'), ('명암비', '4,000:1'), ('제품 사용 시간', '24/7'),
+            ('베젤 두께', '11.5 mm'), ('운영체제', 'Tizen 7.0'), ('플래시메모리', '16 GB')]
+    for j, (lb, vl) in enumerate(rows):
+        y = 282 + j * 46
+        s.hline(536, y - 8, 680)
+        s.t(536, y + 2, 220, lb, 15, 800, MUTE, 1.3, name=f'sl{j}', nowrap=True)
+        s.t(772, y, 444, vl, 18, 700, INK, 1.35, name=f'sv{j}', nowrap=True)
+    s.hline(536, 282 + 8 * 46 - 8, 680)
+    s.foot2(FOOT, 9)
+    return reg(s, 'Spec · 제품 하나 (숫자 3 + 사양 8)', '제품 하나의 핵심 숫자와 사양을 한 장으로 보여 줄 때', 'spec', 'products', ['products', 'images'])
+
 def build():
     for n in range(4, 9): index(n)
     for n in (1, 2, 3, 4): tech(n)
@@ -441,6 +492,7 @@ def build():
     rfp(); spec(); tco(); roadmap()
     for n in range(3, 9): bom(n)
     summary(); kpi(); pilot()
+    value_props(); product_value(); product_spec()
     return META, HTML, SLOTS
 
 if __name__ == '__main__':
