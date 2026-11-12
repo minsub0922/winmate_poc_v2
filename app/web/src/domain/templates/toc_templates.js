@@ -40,7 +40,7 @@ const VX_STD = ['bs_v_ai_apartment_1', 'bs_v_ai_office_1', 'bs_v_ai_store_1', 'b
 const VX_PAIN = VX_STD.map((x) => x.replace(/_1$/, '_2'));
 
 /* ---------------- 템플릿 ---------------- */
-// ua: 당사의 이해에 고르는 장 — 고객사 분석(prof · pain) · 업종 트렌드(line · share · stat · key) · 경쟁 비교(matrix · map)
+// ua: 당사의 이해에 고르는 장 — 고객사 분석(prof · pain) · 업종 트렌드(line · share · stat · key) · 경쟁 비교(matrix 점수표 · win 차별점 3 · map 포지셔닝)
 export const TOC_TEMPLATES = [
   { id: 'std', name: '표준 제안서', badge: '대표 · 업종별 표준 제안서', deck: '표준 제안', hue: 'slate', req: 'std', strategy: 'value', ending: 'workshop',
     desc: '고객 니즈별 AI 제안 · 공간별 대표 제품 · 솔루션을 표준 순서로 보여 주는 기본 양식', tocs: ['overview', 'needs', 'space', 'sol', 'case', 'why'],
@@ -64,7 +64,7 @@ export const TOC_TEMPLATES = [
     desc: '현황 숫자 → 핵심 기술 → 기대 효과 → 비용 · 파일럿으로 결정을 쉽게 하는 양식', tocs: ['summary', 'ua', 'tech', 'effect', 'cost', 'pilot', 'why'], ua: ['prof', 'stat'],
     sub: '숫자로 확인하는 도입 효과', related: ['bs01', 'bs13', 'bs16', 'bs17', 'bs19', 'bs20'] },
   { id: 'compete', name: '경쟁 비교형 제안서', badge: '기존 샘플에서 추출', deck: '경쟁 비교 제안', hue: 'amber', req: 'compete', strategy: 'compete', ending: 'shortlist',
-    desc: '같은 기준으로 공급사를 비교하고 사양 · 비용으로 선택을 굳히는 양식', tocs: ['summary', 'ua', 'needs', 'spec', 'cost', 'case', 'why'], ua: ['matrix', 'map'],
+    desc: '같은 기준으로 공급사를 비교하고 사양 · 비용으로 선택을 굳히는 양식', tocs: ['summary', 'ua', 'needs', 'spec', 'cost', 'case', 'why'], ua: ['matrix', 'win', 'map'],
     sub: '같은 기준으로 비교한 선택', related: ['bs10', 'bs12'] },
   { id: 'prod', name: '제품 제안서', badge: '제품 1 + 관련 솔루션', deck: '제품 제안', hue: 'blue', req: 'new', strategy: 'value', ending: 'pilot',
     desc: '제품 하나와 함께 쓰는 솔루션으로 가치 셋 · 가치별 상세 · 유관사례 · Spec을 보여 주는 양식', tocs: ['vp', 'vpd', 'pcase', 'pspec'],
@@ -215,13 +215,38 @@ const UA = {
     items.forEach(([lb, un], i) => s.t('lb' + i, lb).t('vl' + i, '[00]').t('un' + i, un).img('ph' + i, V.sp[(i + 1) % V.sp.length].ph)); return s; },
   key: (V, G, c) => { const [title, items] = G.tk; const s = sheet('L_TOC_TRKEY', '업종 트렌드 · 키워드 3').t('eb', c.eb('업종 트렌드')).t('title', title);
     items.forEach(([kw, ln], i) => s.t('kw' + i, kw).t('kl' + i, ln).img('ph' + i, V.sp[(i + 2) % V.sp.length].ph)); return s; },
-  matrix: (V, G, c) => { const [title, rows] = G.cm; const s = sheet('L_TOC_CPMATRIX', '경쟁사 비교 · 기준 5').t('eb', c.eb('경쟁사 비교')).t('title', title);
-    rows.forEach(([cr, sv], r) => s.t('cr' + r, cr).t('s' + r, sv)); return s; },
-  map: (V, G, c) => { const [title, ax, ay, pos] = G.cp; const s = sheet('L_TOC_CPMAP', '경쟁사 비교 · 포지셔닝').t('eb', c.eb('경쟁사 비교')).t('title', title).t('ax', ax).t('ay', ay);
-    pos.forEach((x, k) => s.t('st' + k, x)); return s; },
+  // 경쟁사 비교 — 경쟁사는 익명(유형만), 점수(●○ 5점)와 경쟁사 메모는 예시 값(build/toc/content_compete.py) · 삼성 칸은 이 업종 대표 제품 · 솔루션
+  matrix: (V, G, c) => { const cs = G.cs; const P = V.pp;
+    const s = sheet('L_TOC_CPSCORE', '경쟁사 비교 · 기준별 점수').t('eb', c.eb('경쟁사 비교')).t('title', G.cm[0]).img('pc', P.cut, 'cut').t('hsp', P.nm).t('hat', cs.a).t('hbt', cs.b);
+    cs.rows.forEach(([cr, ic, sv, [x, y, z], na, nb], r) => s.img('ci' + r, CPI(ic), 'icon').t('cr' + r, cr).t(`s${r}d`, DOTS(x)).t('s' + r, sv)
+      .t(`a${r}d`, DOTS(y)).t('a' + r, na).t(`b${r}d`, DOTS(z)).t('b' + r, nb));
+    return s.t('st', cpTotal(cs.rows, 0)).t('at', cpTotal(cs.rows, 1)).t('bt', cpTotal(cs.rows, 2)); },
+  win: (V, G, c, D) => { const cs = G.cs; const P = V.pp; const k = specKey(P);
+    const s = sheet('L_TOC_CPWIN', '경쟁사 비교 · 차별점 3').t('eb', c.eb('경쟁사 비교')).t('title', `${D.cust}${josa(D.cust, '이', '가')} 삼성을 고르는 세 가지 이유`);
+    const items = [[String(V.nsol), '개 솔루션 · 한 공급사', cs.win[0], spPhotos(V, 1, [V.cover])[0], 'space', [5, 3, 2]],
+      [String(V.sp.length), '개 공간 · 한 번에 제안', cs.win[1], V.cover, 'space', [5, 3, 2]],
+      [k ? k.v : '', k ? k.u : '', k ? `${P.nm} ${k.lb}` : P.nm, P.cut, 'cut', [5, 4, 3]]];
+    items.forEach(([v, u, tt, ph, kind, dots], i) => { s.t('v' + i, v).t('u' + i, u).t('tt' + i, tt).img('ph' + i, ph, kind);
+      ['삼성', '경쟁사 A', '경쟁사 B'].forEach((nm, j) => s.t(`n${i}_${j}`, nm).t(`d${i}_${j}`, DOTS(dots[j]))); });
+    return s; },
+  map: (V, G, c) => { const [title, ax, ay, pos] = G.cp; const P = V.pp;
+    const s = sheet('L_TOC_CPPOS', '경쟁사 비교 · 포지셔닝').t('eb', c.eb('경쟁사 비교')).t('title', title).t('ax', ax).t('ay', ay).img('pc', P.cut, 'cut');
+    const ph = spPhotos(V, 3, [V.cover, spPhotos(V, 1, [V.cover])[0]]);
+    pos.forEach((x, k) => s.t('st' + k, x).img('ph' + k, ph[k])); return s; },
 };
-export const UA_KINDS = { prof: '고객사 분석 · 현황 지표', pain: '고객사 분석 · 과제', line: '업종 트렌드 · 연도별 추이', share: '업종 트렌드 · 구성비', stat: '업종 트렌드 · 핵심 지표', key: '업종 트렌드 · 키워드', matrix: '경쟁사 비교 · 기준표', map: '경쟁사 비교 · 포지셔닝' };
-const UA_GROUP = { prof: '고객사 분석', pain: '고객사 분석', line: '업종 트렌드', share: '업종 트렌드', stat: '업종 트렌드', key: '업종 트렌드', matrix: '경쟁사 비교', map: '경쟁사 비교' };
+const CPI = (k) => `/assets/toc/icons/cp-${k}.png`;
+/** 업종 공간 사진 n장 — 서로 다르고, 가능하면 avoid에 없는 것부터 (모자라면 겹쳐도 채움) */
+const spPhotos = (V, n, avoid = []) => { const all = [...new Set(V.sp.map((x) => x.ph).filter(Boolean))]; const out = all.filter((x) => !avoid.includes(x));
+  for (const x of all) if (out.length < n && !out.includes(x)) out.push(x); while (out.length < n) out.push(all[out.length % all.length] || V.cover); return out.slice(0, n); };
+const DOTS = (n) => '●'.repeat(n) + '○'.repeat(5 - n);
+const cpTotal = (rows, i) => String(Math.round((rows.reduce((a, r) => a + r[3][i], 0) / (5 * rows.length)) * 100));
+/** 대표 제품의 짧은 핵심 숫자 하나 — '500 nit' → { v: '500', u: 'nit' } (해상도처럼 긴 값은 건너뜀) */
+function specKey(P) {
+  for (const [v, lb] of P.keys || []) { if (/[x×]/.test(v)) continue; const m = /^([\d.,/:]+)\s*(.*)$/.exec(v); if (m && m[1].length <= 6) return { v: m[1], u: m[2], lb }; }
+  const k = (P.keys || [])[0]; return k ? { v: k[0], u: '', lb: k[1] } : null;
+}
+export const UA_KINDS = { prof: '고객사 분석 · 현황 지표', pain: '고객사 분석 · 과제', line: '업종 트렌드 · 연도별 추이', share: '업종 트렌드 · 구성비', stat: '업종 트렌드 · 핵심 지표', key: '업종 트렌드 · 키워드', matrix: '경쟁사 비교 · 기준별 점수', win: '경쟁사 비교 · 차별점 3', map: '경쟁사 비교 · 포지셔닝' };
+const UA_GROUP = { prof: '고객사 분석', pain: '고객사 분석', line: '업종 트렌드', share: '업종 트렌드', stat: '업종 트렌드', key: '업종 트렌드', matrix: '경쟁사 비교', win: '경쟁사 비교', map: '경쟁사 비교' };
 B.ua = (V, G, T, c, D) => (T.ua || ['prof']).map((k) => { const s = UA[k](V, G, c, D); s.role = UA_KINDS[k]; s.row = UA_GROUP[k]; return s; });
 B.summary = (V, G, T, c, D) => {
   const s = sheet('L_TOC_SUMMARY', '과제 → 제안 → 효과 → 결정 요청', '과제 · 제안 · 효과 · 결정 요청').t('eb', c.eb()).t('title', '과제 · 제안 · 효과 · 결정 요청을 한 장으로');
@@ -334,6 +359,8 @@ function ctxOf(key, no, D) {
   const name = tocName(key, D.short);
   return { key, no, name, eb: (sub) => `${pad(no)} · ${TOCS[key].eb || name}${sub ? ' · ' + sub : ''}` };
 }
+/** 역할 이름 속 장 번호를 이 덱의 번호로 — '간지 · 05 도입사례' → '간지 · 04 도입사례' */
+const renum = (role, no) => String(role || '').replace(/(^|· |— )\d{2}(?= )/, (m, p) => p + pad(no));
 /** 덱 한 벌: 표지 · 목차(숨은 목차) + 목차마다 [간지, 장 …] — 쪽 번호를 매긴 뒤 간지 행 · 표준 장 번호를 맞춘다 */
 const CASE_SLOT = { eb: 0, foot: 12, page: 13 }; // L_VS_CASE
 const deckName = (T, V, D) => (T.id === 'prod' ? `${V.pp.nm} ${T.deck}서` : `${D.ai} ${T.deck}서`);
@@ -354,7 +381,7 @@ function composeDeck(T, V, G, D) {
     const { c } = p;
     if (p.std) {
       const d = p.std.find((x) => isDiv(x.f)); const off = page - (d ? d.pg : p.std[0].pg);
-      const items = p.std.map((x, j) => ({ o: retag(x.o, { no: c.no, total, off, foot0: D.foot, foot, page: page + j }), role: x.role }));
+      const items = p.std.map((x, j) => ({ o: retag(x.o, { no: c.no, total, off, foot0: D.foot, foot, page: page + j }), role: renum(x.role, c.no) }));
       page += items.length;
       return { c, items, photo: D.divImg(TOCS[c.key].std) };
     }

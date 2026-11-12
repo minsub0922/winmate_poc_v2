@@ -23,7 +23,7 @@ const pad = (n) => String(n).padStart(2, '0');
 const isDiv = (f) => /^L_VS_DIV_R\d$/.test(f);
 // 표준에 없는 목차 — 간지 다음 장들의 레이아웃
 const FAMILY = {
-  당사의이해: /^L_TOC_(UAPROF|UAPAIN|TRLINE|TRSHARE|TRSTAT|TRKEY|CPMATRIX|CPMAP)$/, tech: /^L_TOC_TECH[1-4]$/, value: /^L_(VS_BIRD_[SB]\d+|TOC_JOURNEY[123]S?)$/,
+  당사의이해: /^L_TOC_(UAPROF|UAPAIN|TRLINE|TRSHARE|TRSTAT|TRKEY|CPSCORE|CPWIN|CPPOS)$/, tech: /^L_TOC_TECH[1-4]$/, value: /^L_(VS_BIRD_[SB]\d+|TOC_JOURNEY[123]S?)$/,
   summary: /^L_TOC_SUMMARY$/, effect: /^L_TOC_KPI$/, cost: /^L_TOC_TCO$/, pilot: /^L_TOC_PILOT$/, plan: /^L_TOC_ROADMAP$/, rfp: /^L_TOC_RFP$/, spec: /^L_TOC_SPEC$/, bom: /^L_TOC_BOM[3-8]$/,
   vp: /^L_TOC_VP3$/, vpd: /^L_(VS_SPACE|VS_SOL_[A-Z]+|TOC_PFEAT|TOC_JOURNEY[123]S)$/, pcase: /^L_VS_CASE$/, pspec: /^L_TOC_PSPEC$/,
 };
@@ -182,5 +182,31 @@ test('제품 제안서: 제품 + 솔루션 → Value Prop 3, 가치마다 상세
     assert.equal(P.specs.length, 8, v.id + ' 8 spec rows'); assert.equal(P.keys.length, 3, v.id + ' 3 key numbers');
     assert.equal(new Set(P.specs.map((x) => x[0])).size, 8, v.id + ' spec labels are distinct');
     for (const [lb, val] of P.specs) assert.ok(lb && val && !/^(있음|없음|-)$/.test(val), `${v.id} ${lb}: ${val}`);
+  }
+});
+
+test('경쟁사 비교 장: 새 장 3종(점수표 · 차별점 · 포지셔닝) · 예시가 다 차고 점수 합이 맞다 · 표준 장 역할 번호도 새 번호', () => {
+  const G = M.tocContent().g;
+  for (const v of M.tocVerticals()) {
+    const s = M.ensureTocScenario('compete', v.id); const fills = M.FILLS[s.id];
+    const ua = s.flow.find((g) => g.name.endsWith('당사의 이해'));
+    assert.deepEqual(ua.slides.slice(1).map((x) => x.f), ['L_TOC_CPSCORE', 'L_TOC_CPWIN', 'L_TOC_CPPOS'], v.id);
+    const k0 = M.slidesOfScenario(s).findIndex((x) => x.f === 'L_TOC_CPSCORE');
+    const [score, win, pos] = [fills[k0], fills[k0 + 1], fills[k0 + 2]];
+    const S = M.TOC_SLOTS.L_TOC_CPSCORE.t; const cs = G[M.tocContent().v[v.id].g].cs;
+    assert.equal(cs.rows.length, 5, v.id);
+    const total = (i) => String(Math.round(cs.rows.reduce((a, r) => a + r[3][i], 0) / 25 * 100));
+    assert.equal(score.t[S.st], total(0)); assert.equal(score.t[S.at], total(1)); assert.equal(score.t[S.bt], total(2));
+    assert.ok(+score.t[S.st] > +score.t[S.at] && +score.t[S.st] > +score.t[S.bt], v.id + ' 삼성 점수가 가장 높다');
+    for (const [name, i] of Object.entries(S)) if (!['logo', 'foot', 'conf', 'hc', 'tl', 'stu', 'atu', 'btu', 'hs', 'ha', 'hb'].includes(name)) assert.ok(score.t[i], `${v.id} score ${name}`);
+    const W = M.TOC_SLOTS.L_TOC_CPWIN.t;
+    for (let i = 0; i < 3; i++) assert.ok(win.t[W['v' + i]] && win.t[W['tt' + i]], `${v.id} win ${i}`);
+    assert.equal(Object.keys(win.img).length, 3); assert.equal(Object.keys(pos.img).length, 4);
+    for (const im of [...Object.values(score.img), ...Object.values(win.img), ...Object.values(pos.img)]) assert.ok(im.src && im.src !== '/assets/toc/icons/blank.png', v.id);
+  }
+  for (const t of M.TOC_TEMPLATES) for (const v of M.tocVerticals().slice(0, 6)) {
+    const s = M.ensureTocScenario(t.id, v.id);
+    for (const g of s.flow) { const m = /^(\d{2}) /.exec(g.name); if (!m) continue;
+      for (const x of g.slides) { const r = /(?:^|· |— )(\d{2}) /.exec(x.role); if (r) assert.equal(r[1], m[1], `${s.id} ${g.name} · ${x.role}`); } }
   }
 });

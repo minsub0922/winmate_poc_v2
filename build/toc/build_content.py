@@ -5,7 +5,8 @@ import json, re, sys, os, collections
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 from content_common import FAM, SKIP_CAT, SOL, GRP
 from content_groups import G, LINEUP
-from product import build_pp
+from product import build_pp, std_sheets, F_SOL
+from content_compete import CMP
 VV = {}
 for m in ('content_v1', 'content_v2', 'content_v3', 'content_v4', 'content_v5'):
     VV.update(__import__(m).V)
@@ -163,14 +164,14 @@ def build_vertical(v):
             x['all'] = [f for f in used_feats.get(x['sid'], []) if has_icon(f)]
     return dict(id=vid, nm=v['name'], g=g, gn=G[g]['nm'], seg=v['size_segment'], cover=needs[0]['ph'] or spaces[0]['ph'],
                 sp=[dict(n=s['n'], ph=s['ph']) for s in spaces], pains=pains, jr=jrs, tech=tech, spec=spec, bom=bom,
-                pp=pp)
+                pp=pp, nsol=len({F_SOL[f] for _, f, _, _ in std_sheets(vid) if f in F_SOL}))
 
 def main():
     out = dict(v={}, g={})
     for v in PROD['verticals']:
         out['v'][v['id']] = build_vertical(v)
     for k, x in G.items():
-        out['g'][k] = x
+        out['g'][k] = dict(x, cs=CMP[k])  # cs: 경쟁사 비교 예시(점수표 · 차별점)
     out['order'] = [v['id'] for v in PROD['verticals']]
     json.dump(out, open(OUT, 'w'), ensure_ascii=False, separators=(',', ':'))
     print('verticals', len(out['v']), 'bytes', os.path.getsize(OUT))

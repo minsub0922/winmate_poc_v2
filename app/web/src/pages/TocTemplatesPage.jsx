@@ -15,7 +15,7 @@ import '../styles/toc.css';
 
 /* =========================================================
    목차 템플릿 — 목차(= Storyboard 버블) 흐름이 정해진 제안서 양식.
-   목록: 템플릿 카드가 세로로 · 카드마다 목차 버블 흐름 + 대표 장 4장.
+   목록: 템플릿 카드가 세로로 · 카드마다 큰 이름 + 목차마다 한 칸(작은 목차 버블 + 그 목차의 대표 장, 흐름 순서 그대로).
    카드를 누르면 상세 팝업 — 헤더의 드롭다운으로 업종(44, 이 양식이 다루는 기존 샘플 포함)을 고르면 그 덱을
    목차 버블 흐름 + 왼쪽 장 썸네일 세로 목록(목차마다 버블로 묶음) + 오른쪽 큰 장으로 본다 · Storyboard · PPTX · 활용하기.
    ========================================================= */
@@ -26,17 +26,17 @@ const stageLabel = (name) => name.replace(/^(목차 · )?\d{2}\s+/, '');
 const pad = (n) => String(n).padStart(2, '0');
 const tplParts = (t, short) => t.tocs.map((k) => ({ type: TOCS[k].type, name: tocName(k, short) }));
 
-/** 목차 흐름 — Storyboard 목차 버블(PartBubble) 그대로: 유형 아이콘 원 + 순서 + 이름, 점선으로 잇는다.
+/** 목차 흐름 — Storyboard 목차 버블(PartBubble)을 작게: 유형 아이콘 원 + 순서 + 이름, 점선으로 잇는다.
  *  parts: [{ type, name, n? }] · on: 지금 보는 목차(0부터) · onPick(i): 그 목차의 첫 장으로 */
 function Flow({ parts, label, on = -1, onPick }) {
   return (
-    <ol className="tocf" aria-label={label}>
+    <ol className="tocmf" aria-label={label}>
       {parts.map((x, i) => (
         <React.Fragment key={i}>
-          {i > 0 && <li className="conn" aria-hidden="true" />}
-          <li className={'col ' + partHue(x.type) + (i === on ? ' on' : '')} aria-current={i === on ? 'step' : undefined}>
+          {i > 0 && <li className="tocmf-conn" aria-hidden="true" />}
+          <li className={'tocmf-i pb-mini ' + partHue(x.type) + (i === on ? ' on' : '')} aria-current={i === on ? 'step' : undefined}>
             <PartBubble part={{ type: x.type, name: x.name, done: true }} no={i + 1} onClick={onPick ? () => onPick(i) : undefined} label={onPick ? x.name + ' 장 보기' : undefined} />
-            {x.n != null && <span className="tocf-c num">{x.n}장</span>}
+            {x.n != null && <span className="tocmf-c num">{x.n}장</span>}
           </li>
         </React.Fragment>
       ))}
@@ -51,14 +51,24 @@ async function downloadDeck(s) {
   if (r.ok) toast(s.title + ' PPTX를 저장했어요'); else toast(r.err, 'warn');
 }
 
-/** 카드 미리보기 — 대표 업종 시나리오의 목차마다 간지 다음 첫 장 (최대 4장) */
-function CardSheets({ t, ready }) {
+/** 카드 본문 — 목차마다 한 칸: 작은 목차 버블 + 그 목차의 대표 장(대표 업종 시나리오에서 간지 다음 첫 장). 칸 순서 = 목차 흐름 = 덱 순서 */
+function TocColumns({ t, ready }) {
   const s = ready ? ensureTocScenario(t.id, DEMO_V) : null;
-  if (!s) return <div className="tocc-sheets is-wait">{[0, 1, 2, 3].map((i) => <div key={i} className="tocc-sheet sk" />)}</div>;
-  const slides = slidesOfScenario(s);
-  const picks = []; const seen = new Set();
-  slides.forEach((x, k) => { if (isDeck(x.stage) || isDiv(x.f) || x.f === 'L_VS_TOC' || seen.has(x.stage.name) || picks.length >= 4) return; seen.add(x.stage.name); picks.push({ ...x, k }); });
-  return <div className="tocc-sheets">{picks.map((x) => <div key={x.k} className="tocc-sheet"><FitSlide f={x.f} ov={ovOf(s.id, x.k, x.f)} lazy /></div>)}</div>;
+  const picks = useMemo(() => {
+    if (!s) return [];
+    const slides = slidesOfScenario(s);
+    return s.flow.filter((g) => !isDeck(g)).map((g) => { const k = slides.findIndex((x) => x.stage === g && !isDiv(x.f) && x.f !== 'L_VS_TOC'); return k >= 0 ? { f: slides[k].f, k } : null; });
+  }, [s && s.id]);
+  return (
+    <ol className="tocc-cols" aria-label={t.name + ' 목차와 대표 장'}>
+      {tplParts(t).map((x, i) => (
+        <li key={i} className={'tocc-col ' + partHue(x.type)}>
+          <div className="tocc-colh pb-mini"><PartBubble part={{ type: x.type, name: x.name, done: true }} no={i + 1} /></div>
+          <div className={'tocc-sheet' + (picks[i] ? '' : ' sk')}>{picks[i] && <FitSlide f={picks[i].f} ov={ovOf(s.id, picks[i].k, picks[i].f)} lazy />}</div>
+        </li>
+      ))}
+    </ol>
+  );
 }
 
 function TocCard({ t, i, ready, onOpen }) {
@@ -68,20 +78,19 @@ function TocCard({ t, i, ready, onOpen }) {
       <button type="button" className="tocc-hit" onClick={() => onOpen(t.id)} aria-label={t.name + ' 상세 보기'} />
       <div className="tocc-top">
         <span className="tocc-no num">{pad(i + 1)}</span>
-        <div className="tocc-h">
-          <h3>{t.name}</h3>
-          <span className="tocc-badge">{t.badge}</span>
-        </div>
+        <h3 className="tocc-nm">{t.name}</h3>
+        <span className="tocc-badge">{t.badge}</span>
         <span className="tocc-more">업종별 시나리오 보기<Icon name="chev" size={16} stroke={2.4} /></span>
       </div>
-      <p className="tocc-d">{t.desc}</p>
-      <Flow parts={tplParts(t)} label={t.name + ' 목차 흐름'} />
-      <div className="tocc-meta">
-        <span><b className="num">44</b> {t.id === 'std' ? '업종 표준 제안서' : '업종 시나리오'}</span>
-        <span><b className="num">{t.tocs.length}</b> 목차</span>
-        {nRel > 0 && <span>기존 샘플 <b className="num">{nRel}</b></span>}
+      <div className="tocc-sub">
+        <p className="tocc-d">{t.desc}</p>
+        <div className="tocc-meta">
+          <span><b className="num">44</b> {t.id === 'std' ? '업종 표준 제안서' : '업종 시나리오'}</span>
+          <span><b className="num">{t.tocs.length}</b> 목차</span>
+          {nRel > 0 && <span>기존 샘플 <b className="num">{nRel}</b></span>}
+        </div>
       </div>
-      <CardSheets t={t} ready={ready} />
+      <TocColumns t={t} ready={ready} />
     </article>
   );
 }
@@ -293,7 +302,7 @@ function TocDetail({ t, ready, go, onClose }) {
           {!s && <p className="faint tocv-wait">장을 불러오는 중…</p>}
           {groups.map((g, gn) => (
             <section key={(g.ua ? 'ua' : g.stage.name) + gn} className={'tocv-g' + (g.deck ? ' deck' : '') + (g.ua ? ' ua' : '')}>
-              <div className={'tocv-gh ' + (g.deck ? 'h-slate' : partHue(g.type))}>
+              <div className={'tocv-gh ' + (g.deck ? 'h-slate' : 'pb-mini ' + partHue(g.type))}>
                 {g.deck ? <span className="tocv-gl">{g.label}</span> : <PartBubble part={{ type: g.type, name: g.label, done: true }} no={g.ua ? t.tocs.indexOf('ua') + 1 : g.no} />}
                 <span className="tocv-gc num">{g.items.length}장</span>
               </div>

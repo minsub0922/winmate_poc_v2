@@ -9,14 +9,15 @@
 
 | 결과물 | 만드는 스크립트 | 입력 |
 | --- | --- | --- |
-| `app/web/src/domain/templates/toc_layouts.js` — 장 39개(TOC_META · TOC_HTML · TOC_SLOTS) | `python3 build/toc/gen_module.py` | `layouts.py`(장 디자인) · `base.py`(+ `build/v25/std.py`) |
+| `app/web/src/domain/templates/toc_layouts.js` — 장 42개(TOC_META · TOC_HTML · TOC_SLOTS, 은퇴 2개 포함) | `python3 build/toc/gen_module.py` | `layouts.py`(장 디자인) · `base.py`(+ `build/v25/std.py`) |
 | `app/web/src/domain/templates/toc_content.json` — 업종 44개 내용 | `python3 build/toc/build_content.py` | `app/data/vertical_space_product.json` · `vertical_space_solution.json` + 아래 문구 |
 | 위 JSON의 `pp` — 업종별 제품 제안서(대표 제품 · 관련 솔루션 · Value Prop 3 · 유관사례 2 · Spec) | `build/toc/product.py` (`build_content.py`가 부름) | 업종 표준 제안서 시나리오 · 채움, 제품 상세(USP · 기능 · 사양) · 제품 DB, 공식 도입사례 · 사례 사진 |
-| `app/web/public/assets/toc/icons/<기능 id>.on/off.png` · `ui-*.png` | `cd build/toc/icons && npm i && node make_icons.mjs && node make_ui_icons.mjs` | `feature_icons.json`(기능 id → Lucide 아이콘, ISC) |
+| `app/web/public/assets/toc/icons/<기능 id>.on/off.png` · `ui-*.png` · `cp-*.png` | `cd build/toc/icons && npm i && node make_icons.mjs && node make_ui_icons.mjs && node make_cp_icons.mjs` | `feature_icons.json`(기능 id → Lucide 아이콘, ISC) · 경쟁사 비교 기준 아이콘 35개(`make_cp_icons.mjs`) |
 
 ## 장 (L_TOC_*)
 - 목차 사진 카드 4–8 · 핵심 기술(솔루션 1–4 × 키워드 3) · 공간별 가치 제안 여정(공간 1–3 × 솔루션 1–2, 이 장에서 쓰는 기능만 색)
-- 당사의 이해 — 고객사 분석(현황 지표 · 과제) · 업종 트렌드(연도별 추이 · 구성비 · 핵심 지표 · 키워드) · 경쟁사 비교(기준표 · 포지셔닝). 숫자는 `[00]` — 제안 때 채움
+- 당사의 이해 — 고객사 분석(현황 지표 · 과제) · 업종 트렌드(연도별 추이 · 구성비 · 핵심 지표 · 키워드) · 경쟁사 비교. 숫자는 `[00]` — 제안 때 채움
+- 경쟁사 비교(새 장 3, `content_compete.py`): 기준별 점수표(`CPSCORE` — 기준 5 × 삼성 · 경쟁사 A · B, ●○ 5점 + 근거 한 줄 + 종합 점수) · 차별점 3(`CPWIN` — 사진 + 숫자 + 비교 점: 솔루션 수 · 공간 수 · 대표 제품 사양) · 포지셔닝 맵(`CPPOS` — 두 축 위 삼성(제품 컷) · 경쟁사 A · B · 현재 방식 + 앞서는 이유 3 사진). 경쟁사는 익명(유형만), 점수 · 메모는 업종 그룹별 예시 — 제안 때 조사로 바꿈. 예전 `CPMATRIX` · `CPMAP`은 은퇴(이미 만든 제안서에서만 그려짐)
 - 제안 요약 · 기대 효과(KPI) · 비용 · 구매(TCO) · 파일럿 · 확산 · 실행 계획 · 요구사항 대응 · 제품 사양 · 구성 · 수량(공간 3–8)
 - 제품 제안서 — Value Props(가치 3 카드: 사진 · 출처 칩 · 번호 · 제목 · 한 줄) · Value Prop 상세(제품 사진 + 가치 한 줄) · Spec(핵심 숫자 3 + 사양 8)
 - 목차를 여는 간지는 표준 제안서 간지(L_VS_DIV_R1–6) — 이 장에서 다루는 것 줄 수만큼
@@ -36,6 +37,7 @@
   - 가치마다 상세 장 하나 이상 — 첫 제품 가치는 표준 공간 장(그 제품이 놓인 공간), 다음 제품 가치는 제품 사진 + 한 줄, 솔루션 가치는 표준 솔루션 장 + (제품과 함께 쓰는 공간이 있으면) 그 장면(쓰는 기능만 켬). 간지 줄 하나 = 가치 하나.
   - 유관사례 2 — 같은 제품군 공식 사례(사진 4장 이상), 이 제품 · 같은 업종 · 이 업종 표준 사례 순. 간지 한 줄은 두 사례 모두 이 제품을 쓸 때만 제품 이름, 아니면 제품군(`CASE_FAM`).
   - Spec — 사양 8 + 숫자 3. 괄호 단위는 값으로(`배터리 용량 (mAh)` 390 → 390 mAh), 최소/정격/최대는 정격(최대), 같은 이름 · 포장 · 대기 전력 · 설치 배관/배선 · 모델 코드 · 있음/없음 · 단위 없는 숫자는 뺀다.
-- 화면: 목차 흐름은 Storyboard 목차 버블(`components/part-bubble.jsx`)을 그대로 쓴다 — 유형 아이콘 원 · 순서 · 이름 · 점선. 템플릿 카드에 왼쪽 색 띠를 두지 않는다.
-- 상세 팝업: 헤더 오른쪽 드롭다운으로 업종(그룹별 44, 찾기 · ↑↓ · Enter · Esc)과 이 양식이 다루는 기존 샘플을 고른다. 그 아래 목차 버블 흐름(지금 보는 목차 강조, 누르면 그 목차 첫 장) → 왼쪽 장 썸네일 세로 목록(목차마다 작은 버블 머리) + 오른쪽 큰 장(← → 로 넘기기, 누르면 크게 보기). 업종을 바꿔도 같은 목차 자리에 머문다.
+- 화면: 목차는 Storyboard 목차 버블(`components/part-bubble.jsx`)을 쓴다 — 유형 아이콘 원 · 순서 · 이름 · 점선. 목록 · 팝업에서는 작은 버블(`.pb-mini`)로 비중을 줄이고 템플릿 이름을 크게. 카드 = 목차마다 한 칸(작은 버블 + 그 목차의 대표 장, 칸 순서 = 목차 흐름 = 덱 순서). 템플릿 카드에 왼쪽 색 띠를 두지 않는다.
+- 상세 팝업: 헤더 오른쪽 드롭다운으로 업종(그룹별 44, 찾기 · ↑↓ · Enter · Esc)과 이 양식이 다루는 기존 샘플을 고른다. 그 아래 작은 목차 버블 흐름 한 줄(지금 보는 목차는 유형 색 바탕, 누르면 그 목차 첫 장) → 왼쪽 장 썸네일 세로 목록(목차마다 작은 버블 머리) + 오른쪽 큰 장(← → 로 넘기기, 누르면 크게 보기). 업종을 바꿔도 같은 목차 자리에 머문다.
+- 표준 장을 옮겨 쓸 때 장 번호(눈썹 · 간지 · 역할 이름의 'NN')는 이 덱의 목차 번호로 바꾼다.
 - 조립: `app/web/src/domain/templates/toc_templates.js` — `ensureTocScenario(템플릿, 업종)`이 시나리오를 시나리오 레지스트리(SC · FILLS · STORY)에 올린다(표준 제안서는 `bs_std_<업종>` 그대로). 검사: `node --test app/tests/toc-templates.mjs`.

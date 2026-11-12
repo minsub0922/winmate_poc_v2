@@ -1,42 +1,55 @@
 /* 목차 템플릿 — 템플릿 카드 목록 · 목차 버블 흐름 · 상세 팝업 (업종 드롭다운 · 장 썸네일 세로 목록 + 큰 장) */
 .tocp-list { display: flex; flex-direction: column; gap: var(--space-16px); }
 
-/* 목차 버블 흐름 — Storyboard 목차 버블(.col · .node · .node-name · .conn)을 그대로 쓰고, 칸 폭만 좁힌다 */
-.tocf { list-style: none; margin: 0; padding: var(--space-6px) 0 0; display: flex; align-items: flex-start; flex-wrap: wrap; row-gap: var(--space-16px); --bg: var(--surface); }
-.tocf .col { width: var(--measure-136px); }
-.tocf .conn { width: var(--measure-24px); }
-.tocf span.node, .tocf span.node-name { cursor: inherit; }
-.tocf span.node:hover { transform: none; }
-.tocf-c { font-size: var(--text-12px); font-weight: var(--weight-700); color: var(--muted); }
-/* 지금 보는 목차 — Storyboard 보기 전용 버블과 같은 강조(두꺼운 고리 · 이름 색) */
-.tocf .col.on .node { box-shadow: 0 0 0 var(--measure-6px) var(--bg), 0 0 0 var(--measure-10px) var(--hc); }
-.tocf .col.on .node-name { color: var(--hc); }
-.tocf .col.on .tocf-c { color: var(--hc); }
-.tocd-flow .tocf { --bg: var(--surface-2); justify-content: safe center; flex-wrap: nowrap; overflow-x: auto; padding: var(--space-12px) var(--space-4px) var(--space-6px); scrollbar-width: thin; }
+/* 작은 목차 버블 — Storyboard 목차 버블(PartBubble: .node-top · .node · .order · .node-name)을 그대로 쓰되 원을 작게, 이름은 원 오른쪽 */
+.pb-mini { --bg: var(--surface); }
+.pb-mini .node-top { width: auto; flex-shrink: 0; }
+.pb-mini .node { width: 34px; height: 34px; box-shadow: 0 0 0 3px var(--bg), 0 0 0 4.5px var(--hc); }
+.pb-mini .node:hover { transform: none; }
+.pb-mini .node svg { width: 17px; height: 17px; }
+.pb-mini .node .order { top: -8px; right: -10px; width: 18px; height: 18px; font-size: 10px; border-width: var(--stroke-1px); }
+.pb-mini .node-name { min-width: 0; padding: 0 0 0 var(--space-8px); font-size: var(--text-14px); text-align: left; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pb-mini span.node, .pb-mini span.node-name { cursor: inherit; }
+.pb-mini span.node-name:hover { color: var(--ink); }
 
-/* 템플릿 카드 */
-.tocc { position: relative; display: flex; flex-direction: column; gap: var(--space-14px); padding: var(--space-20px) var(--space-22px) var(--space-18px); border: var(--stroke-1px) solid var(--line); border-radius: var(--radius-16px); background: var(--surface); }
+/* 템플릿 카드 — 이름을 크게, 목차는 작은 버블 칸 + 그 목차의 대표 장 */
+.tocc { position: relative; display: flex; flex-direction: column; gap: var(--space-14px); padding: var(--space-22px) var(--space-24px) var(--space-20px); border: var(--stroke-1px) solid var(--line); border-radius: var(--radius-16px); background: var(--surface); }
 .tocc:hover { border-color: var(--accent-line); box-shadow: var(--shadow); }
 .tocc-hit { position: absolute; inset: 0; z-index: 1; border: 0; background: none; border-radius: inherit; cursor: pointer; }
 .tocc-hit:focus-visible { outline: var(--stroke-2px) solid var(--accent); outline-offset: var(--space-2px); }
-.tocc-top { display: flex; align-items: center; gap: var(--space-12px); }
-.tocc-no { font-size: var(--text-20px); font-weight: var(--weight-800); color: var(--hc); }
-.tocc-h { display: flex; align-items: center; gap: var(--space-10px); flex-wrap: wrap; flex: 1; min-width: 0; }
-.tocc-h h3 { margin: 0; font-size: var(--text-19px); font-weight: var(--weight-800); letter-spacing: var(--measure--01em); }
-.tocc-badge, .tocd-badge { display: inline-flex; align-items: center; height: var(--measure-24px); padding: 0 var(--space-10px); border-radius: var(--radius-999px); background: var(--hb); color: var(--hc); font-size: var(--text-12px); font-weight: var(--weight-800); }
-.tocc-more { display: inline-flex; align-items: center; gap: var(--space-4px); font-size: var(--text-13px); font-weight: var(--weight-800); color: var(--accent); white-space: nowrap; }
-.tocc-d { margin: 0; font-size: var(--text-13-5px); color: var(--muted); }
+.tocc-top { display: flex; align-items: center; gap: var(--space-12px); min-width: 0; }
+.tocc-no { flex-shrink: 0; display: inline-grid; place-items: center; min-width: 40px; height: 32px; padding: 0 var(--space-8px); border-radius: var(--radius-8px); background: var(--hb); color: var(--hc); font-size: var(--text-15px); font-weight: var(--weight-800); }
+.tocc-nm { margin: 0; min-width: 0; font-size: 28px; font-weight: var(--weight-800); line-height: 1.25; letter-spacing: -0.02em; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tocc-badge, .tocd-badge { flex-shrink: 0; display: inline-flex; align-items: center; height: var(--measure-26px, 26px); padding: 0 var(--space-10px); border-radius: var(--radius-999px); background: var(--hb); color: var(--hc); font-size: var(--text-12-5px); font-weight: var(--weight-800); white-space: nowrap; }
+.tocc-more { margin-left: auto; flex-shrink: 0; display: inline-flex; align-items: center; gap: var(--space-4px); font-size: var(--text-13-5px); font-weight: var(--weight-800); color: var(--accent); white-space: nowrap; }
+.tocc-sub { display: flex; align-items: baseline; gap: var(--space-8px) var(--space-24px); flex-wrap: wrap; }
+.tocc-d { margin: 0; font-size: var(--text-14px); color: var(--ink-2, var(--muted)); }
 .tocc-meta { display: flex; gap: var(--space-16px); flex-wrap: wrap; font-size: var(--text-12-5px); color: var(--muted); }
 .tocc-meta b { color: var(--ink); font-weight: var(--weight-800); }
-.tocc-sheets { display: grid; grid-template-columns: repeat(4, minmax(0, var(--measure-1fr))); gap: var(--space-10px); }
+.tocc-cols { list-style: none; margin: var(--space-4px) 0 0; padding: var(--space-8px) 0 var(--space-2px); display: flex; gap: var(--space-14px); overflow-x: auto; scrollbar-width: thin; }
+.tocc-col { flex: 1 1 0; min-width: 136px; max-width: 300px; display: flex; flex-direction: column; gap: var(--space-10px); }
+.tocc-colh { display: flex; align-items: center; min-width: 0; height: 38px; padding-left: var(--space-4px); }
+.tocc-colh .node-name { flex: 0 1 auto; }
+.tocc-col:not(:last-child) .tocc-colh::after { content: ''; flex: 1 0 12px; margin: 0 calc(var(--space-14px) * -1) 0 var(--space-10px); border-top: var(--stroke-2px) dotted var(--line-2); }
 .tocc-sheet { border-radius: var(--radius-8px); overflow: hidden; border: var(--stroke-1px) solid var(--line); background: var(--surface-2); }
 .tocc-sheet.sk { aspect-ratio: 16 / 9; }
+
+/* 팝업 목차 흐름 — 작은 버블 한 줄, 지금 보는 목차는 유형 색 바탕 */
+.tocmf { list-style: none; margin: 0; padding: var(--space-10px) var(--space-6px); display: flex; align-items: center; justify-content: safe center; overflow-x: auto; scrollbar-width: thin; --bg: var(--surface-2); }
+.tocmf-i { flex-shrink: 0; display: flex; align-items: center; padding: var(--space-6px) var(--space-14px) var(--space-6px) var(--space-8px); border-radius: var(--radius-999px); --bg: var(--surface-2); }
+.tocmf-i.on { background: var(--hb); --bg: var(--hb); }
+.tocmf-i.on .node { box-shadow: 0 0 0 3px var(--bg), 0 0 0 6px var(--hc); }
+.tocmf-i.on .node-name { color: var(--hc); }
+.tocmf-i button.node-name:hover { color: var(--hc); }
+.tocmf-c { margin-left: var(--space-8px); font-size: var(--text-12px); font-weight: var(--weight-700); color: var(--muted); white-space: nowrap; }
+.tocmf-i.on .tocmf-c { color: var(--hc); }
+.tocmf-conn { flex: 0 0 28px; border-top: var(--stroke-2px) dotted var(--line-2); }
 
 /* 상세 팝업 — 헤더 드롭다운(업종) · 목차 흐름 · 왼쪽 장 썸네일 세로 목록(목차 버블로 묶음) + 오른쪽 큰 장 */
 .modal.tocd { width: min(var(--measure-1640px), var(--measure-100)); height: min(var(--measure-1000px), calc(var(--measure-100vh) - var(--measure-40px))); max-height: none; }
 .tocd-body { flex: 1; display: flex; flex-direction: column; gap: var(--space-12px); min-height: 0; overflow: hidden; padding-top: var(--space-14px); padding-bottom: var(--space-14px); }
-.tocd-t { display: inline-flex; align-items: center; gap: var(--space-10px); flex-wrap: wrap; }
-.tocd-flow { flex-shrink: 0; padding: 0 var(--space-10px) var(--space-4px); border-radius: var(--radius-12px); background: var(--surface-2); }
+.tocd-t { display: inline-flex; align-items: center; gap: var(--space-10px); flex-wrap: wrap; font-size: 22px; font-weight: var(--weight-800); letter-spacing: -0.01em; }
+.tocd-flow { flex-shrink: 0; padding: 0 var(--space-6px); border-radius: var(--radius-12px); background: var(--surface-2); }
 
 /* 업종 드롭다운 (헤더 오른쪽) */
 .tocm { position: relative; }
@@ -68,13 +81,7 @@
 .tocv-wait { margin: 0; padding: var(--space-8px); font-size: var(--text-13px); }
 .tocv-g { display: flex; flex-direction: column; gap: var(--space-8px); }
 .tocv-gh { display: flex; align-items: center; gap: var(--space-8px); padding: var(--space-6px) var(--space-2px) 0 var(--space-6px); }
-.tocv-gh .node-top { width: auto; flex-shrink: 0; }
-.tocv-gh .node { width: 32px; height: 32px; box-shadow: 0 0 0 3px var(--bg), 0 0 0 4.5px var(--hc); }
-.tocv-gh .node:hover { transform: none; }
-.tocv-gh .node svg { width: 16px; height: 16px; }
-.tocv-gh .node .order { top: -8px; right: -10px; width: 18px; height: 18px; font-size: 10px; border-width: var(--stroke-1px); }
-.tocv-gh .node-name { flex: 1; min-width: 0; padding: 0 0 0 var(--space-6px); font-size: var(--text-13-5px); text-align: left; line-height: 1.3; cursor: default; }
-.tocv-gh .node-name:hover { color: var(--ink); }
+.tocv-gh .node-name { flex: 1; font-size: var(--text-13-5px); }
 .tocv-gl { flex: 1; font-size: var(--text-12-5px); font-weight: var(--weight-800); color: var(--muted); }
 .tocv-gc { flex-shrink: 0; font-size: var(--text-11-5px); font-weight: var(--weight-700); color: var(--muted); }
 .tocv-ths { display: flex; flex-direction: column; gap: var(--space-8px); padding-left: var(--space-6px); }
@@ -92,7 +99,6 @@
 .tocv-pg { min-width: var(--measure-84px, 84px); text-align: center; font-size: var(--text-12-5px); font-weight: var(--weight-700); }
 .tocv-keys { font-size: var(--text-12px); }
 @media (max-width: 1100px) {
-  .tocc-sheets { grid-template-columns: repeat(2, minmax(0, var(--measure-1fr))); }
   .tocd-body { overflow-y: auto; }
   .tocv { flex: none; grid-template-columns: minmax(0, var(--measure-1fr)); grid-template-rows: auto auto; }
   .tocv-stage { min-height: auto; }

@@ -255,7 +255,7 @@ def cp_matrix():
         s.t(816, y + 26, 192, '[평가]', 17, 700, MUTE, 1.3, name=f'a{r_}', nowrap=True)
         s.t(1024, y + 26, 192, '[평가]', 17, 700, MUTE, 1.3, name=f'b{r_}', nowrap=True)
     s.foot2(FOOT, 7)
-    return reg(s, '경쟁사 비교 · 기준 5 × 공급사 3', '공급사를 같은 기준 다섯 개로 나란히 비교할 때 (경쟁사 값은 조사로 채움)', 'competition', 'why', ['competitors'])
+    return reg(s, '경쟁사 비교 · 기준 5 × 공급사 3', '공급사를 같은 기준 다섯 개로 나란히 비교할 때 (경쟁사 값은 조사로 채움)', 'competition', 'why', ['competitors'], extra={'retired': 'L_TOC_CPSCORE'})
 
 def cp_map():
     s = T('L_TOC_CPMAP'); s.head2('01 · 당사의 이해 · 경쟁사 비교', '통합 관리와 확장성, 두 축에서 삼성의 위치')
@@ -275,7 +275,102 @@ def cp_map():
         s.ico(814, y, 'check', size=48, r=14, bg='#ffffff')
         s.t(878, y + 4, 316, st, 20, 800, INK, 1.45, name=f'st{k}', clamp=3)
     s.foot2(FOOT, 7)
-    return reg(s, '경쟁사 비교 · 포지셔닝 맵', '두 축으로 공급사 포지셔닝을 보여 줄 때 (경쟁사 위치는 조사로 채움)', 'competition', 'why', ['competitors'])
+    return reg(s, '경쟁사 비교 · 포지셔닝 맵', '두 축으로 공급사 포지셔닝을 보여 줄 때 (경쟁사 위치는 조사로 채움)', 'competition', 'why', ['competitors'], extra={'retired': 'L_TOC_CPPOS'})
+
+# ------------------------------------------------------------------ 경쟁사 비교 (새 장 3) — 점수표 · 차별점 3 · 포지셔닝
+# 경쟁사는 익명(경쟁사 A · B · 현재 방식). 평가는 5점 점(●○) — 예시 값, 제안 때 조사로 바꿈. 삼성 칸은 근거 한 줄(제품 · 솔루션 공식 정보).
+CPI = lambda k: f'/assets/toc/icons/cp-{k}.png'
+DOTS = lambda n: '●' * n + '○' * (5 - n)
+CP_ROWS = [('원격 통합 관리', 'layers', '화면 · 공조 한 계정', (5, 3, 2), '기기별 앱 따로', '매장 단위 관리'),
+           ('메뉴 · 콘텐츠 운영', 'content', '템플릿 · 원격 편성', (5, 4, 3), '템플릿 적음', 'USB 수동 교체'),
+           ('주문 · 결제 연동', 'pay', '키오스크 · POS 연동', (4, 3, 4), '연동 별도 개발', '자사 POS만'),
+           ('에너지 · 쾌적', 'energy', 'AI 절약 · 리포트', (5, 2, 2), '공조 미지원', '공조 미지원'),
+           ('설치 · A/S', 'service', '전국망 · 영업 외 설치', (5, 3, 3), '대리점 중심', '지역 한정')]
+CP_SCORE = lambda col: str(round(sum(r[3][col] for r in CP_ROWS) / (5 * len(CP_ROWS)) * 100))
+GRAYDOT = '#a3aab6'
+
+def cp_score():
+    s = T('L_TOC_CPSCORE'); s.head2('01 · 당사의 이해 · 경쟁사 비교', '같은 기준으로 비교하면, 차이는 운영에서 납니다')
+    s.box(536, 128, 232, 524, bg=TINT, r=16)                      # 삼성 열 — 머리부터 종합 점수까지 한 띠
+    s.box(536, 128, 232, 96, bg=BLUE, r=16)
+    s.pic(550, 142, 68, 68, CUT['sig'], '삼성 제안 대표 제품 컷', kind='cut', r=14, name='pc', bg='#ffffff', pad=6)
+    s.t(632, 138, 124, '삼성', 24, 800, '#ffffff', 1.3, name='hs', nowrap=True)
+    s.t(632, 172, 126, '스마트 사이니지 QMC', 13, 600, 'rgba(255,255,255,0.88)', 1.3, name='hsp', clamp=2)
+    for k, (x, nm, tp, ic) in enumerate([(784, '경쟁사 A', '글로벌 디스플레이', 'cube'), (1008, '경쟁사 B', '국내 POS · 사이니지', 'store')]):
+        s.box(x, 128, 208, 96, bg=SURF, r=16)
+        s.ico(x + 16, 152, ic, size=48, r=14, bg='#ffffff', color=GRAY)
+        s.t(x + 76, 144, 120, nm, 20, 800, INK2, 1.3, name=('ha', 'hb')[k], nowrap=True)
+        s.t(x + 76, 178, 120, tp, 13.5, 600, MUTE, 1.35, name=('hat', 'hbt')[k], nowrap=True)
+    s.t(64, 192, 300, '비교 기준', 14, 800, MUTE, 1.2, name='hc', nowrap=True, extra='letter-spacing: 0.06em')
+    for r, (cr, ic, sv, (a, b, c), na, nb) in enumerate(CP_ROWS):
+        y = 236 + r * 72
+        if r:
+            s.hline(64, y - 4, 456); s.hline(784, y - 4, 432)
+        s.box(64, y + 11, 44, 44, bg=TINT, r=12)
+        s.pic(73, y + 20, 26, 26, CPI(ic), '기준 아이콘', kind='icon', r=0, name=f'ci{r}')
+        s.t(124, y + 20, 392, cr, 19, 800, INK, 1.3, name=f'cr{r}', nowrap=True)
+        s.t(556, y + 8, 196, DOTS(a), 15, 700, BLUE, 1.3, name=f's{r}d', nowrap=True, extra='letter-spacing: 0.12em')
+        s.t(556, y + 35, 200, sv, 14.5, 700, BLUE, 1.35, name=f's{r}', nowrap=True)
+        for x, n, note, nm in ((804, b, na, 'a'), (1028, c, nb, 'b')):
+            s.t(x, y + 8, 180, DOTS(n), 15, 700, GRAYDOT, 1.3, name=f'{nm}{r}d', nowrap=True, extra='letter-spacing: 0.12em')
+            s.t(x, y + 35, 180, note, 14.5, 600, GRAY, 1.35, name=f'{nm}{r}', nowrap=True)
+    s.hline(64, 596, 456); s.hline(784, 596, 432)
+    s.t(64, 616, 300, '종합 점수', 19, 800, INK, 1.3, name='tl', nowrap=True)
+    numunit(s, 556, 606, 196, CP_SCORE(0), '점', size=36, usize=16, vname='st', uname='stu')
+    numunit(s, 804, 606, 180, CP_SCORE(1), '점', size=36, usize=16, color=GRAY, ucolor=MUTE, vname='at', uname='atu')
+    numunit(s, 1028, 606, 180, CP_SCORE(2), '점', size=36, usize=16, color=GRAY, ucolor=MUTE, vname='bt', uname='btu')
+    s.foot2(FOOT, 7)
+    return reg(s, '경쟁사 비교 · 기준별 점수표 (기준 5 × 공급사 3)', '고객이 보는 기준 다섯 가지로 삼성과 경쟁사 둘을 점수로 나란히 비교할 때', 'competition', 'why', ['competitors', 'products'])
+
+CP_WIN = [('5', '개 솔루션 · 한 공급사', '메뉴판 · 공조 · 주문 단말을 한 공급사에서', P['counter'], 'space', (5, 3, 2)),
+          ('6', '개 공간 · 한 번에 제안', '주방부터 홀까지 매장 전체를 한 번에', P['store'], 'space', (5, 3, 2)),
+          ('500', 'nit', '스마트 사이니지 QMC 밝기', CUT['sig'], 'cut', (5, 4, 3))]
+
+def cp_win():
+    s = T('L_TOC_CPWIN'); s.head2('01 · 당사의 이해 · 경쟁사 비교', '외식 프랜차이즈가 삼성을 고르는 세 가지 이유')
+    W = 352
+    for i, (v, u, tt, ph, kind, (a, b, c)) in enumerate(CP_WIN):
+        x = 64 + i * 400
+        s.pic(x, 128, W, 196, ph, '이 차별점이 보이는 장면 사진' if kind == 'space' else '근거 제품 컷', kind=kind, r=16, name=f'ph{i}',
+              bg=SURF if kind == 'cut' else None, pad=14 if kind == 'cut' else 0)
+        numunit(s, x, 346, W, v, u, size=52, usize=19, vname=f'v{i}', uname=f'u{i}')
+        s.t(x, 414, W, tt, 21, 800, INK, 1.4, name=f'tt{i}', clamp=2)
+        s.box(x, 494, W, 158, bg=SURF, r=14)
+        for k, (nm, n, col, dc) in enumerate((('삼성', a, BLUE, BLUE), ('경쟁사 A', b, INK2, GRAYDOT), ('경쟁사 B', c, INK2, GRAYDOT))):
+            y = 516 + k * 44
+            s.t(x + 22, y, 150, nm, 16, 800, col, 1.3, name=f'n{i}_{k}', nowrap=True)
+            s.t(x + 172, y - 1, W - 194, DOTS(n), 17, 700, dc, 1.3, name=f'd{i}_{k}', nowrap=True, align='right', extra='letter-spacing: 0.14em')
+    s.foot2(FOOT, 7)
+    return reg(s, '경쟁사 비교 · 차별점 3 (사진 + 숫자 + 비교 점)', '경쟁사와 다른 점 세 가지를 사진 · 숫자와 점수 점으로 보여 줄 때', 'competition', 'why', ['competitors', 'images'])
+
+def cp_pos():
+    s = T('L_TOC_CPPOS'); s.head2('01 · 당사의 이해 · 경쟁사 비교', '통합 관리와 확장성, 두 축에서 삼성의 위치')
+    s.box(64, 128, 712, 524, bg='#ffffff', r=18, border=f'1px solid {LINE}')
+    s.box(420, 152, 332, 232, bg=TINT, r=12)                        # 앞서는 자리 (오른쪽 위)
+    s.raw(f'<div style="position: absolute; left: 420px; top: 152px; width: 0; height: 464px; border-left: 2px dashed {DASH}"></div>')
+    s.raw(f'<div style="position: absolute; left: 88px; top: 384px; width: 664px; height: 0; border-top: 2px dashed {DASH}"></div>')
+    s.t(100, 160, 300, '↑ 다점포 확장성', 15, 800, GRAY, 1.2, name='ay', nowrap=True)
+    s.t(436, 622, 316, '통합 관리 범위 →', 15, 800, GRAY, 1.2, name='ax', nowrap=True, align='right')
+    # 현재 방식 → 삼성 (점선 화살표)
+    s.raw(f'<svg style="position: absolute; left: 0; top: 0; overflow: visible" width="1" height="1"><defs><marker id="cpar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="{BLUE}"></path></marker></defs>'
+          f'<path d="M232 500 C 320 430, 470 330, 566 266" fill="none" stroke="{BLUE}" stroke-width="2.4" stroke-dasharray="7 7" marker-end="url(#cpar)"></path></svg>')
+    s.raw(f'<div style="position: absolute; left: 580px; top: 180px; width: 120px; height: 120px; border-radius: 50%; background: #ffffff; box-shadow: 0 0 0 5px {BLUE}, 0 10px 26px rgba(20,40,160,0.22)"></div>')
+    s.pic(598, 198, 84, 84, CUT['sig'], '삼성 제안 대표 제품 컷', kind='cut', r=0, name='pc', bg='#ffffff')
+    s.chip(598, 318, '삼성', name='pn0', bg=BLUE, color='#ffffff', size=16, h=34, pad=18)
+    for (x, y, nm, slot, lt, dashed) in ((176, 232, '경쟁사 A', 'pn1', 'A', False), (548, 452, '경쟁사 B', 'pn2', 'B', False), (176, 480, '현재 방식', 'pn3', '', True)):
+        bd = f'border: 2px dashed {GRAY}; background: #ffffff' if dashed else 'background: #c3c9d3'
+        s.raw(f'<div style="position: absolute; left: {x}px; top: {y}px; width: 60px; height: 60px; box-sizing: border-box; border-radius: 50%; {bd}"></div>')
+        if lt: s.t(x, y + 14, 60, lt, 22, 800, '#ffffff', 1.3, name=slot + 'l', align='center', extra=f'font-family: {NUMF}')
+        s.chip(x - 6, y + 70, nm, name=slot, bg='#eef0f3', color=INK2, size=14, h=30, pad=12)
+    s.box(800, 128, 416, 524, bg=SURF, r=18)
+    s.t(828, 152, 360, '삼성이 앞서는 이유', 15, 800, BLUE, 1.2, name='rh', nowrap=True, extra='letter-spacing: 0.04em')
+    for k, (st, ph) in enumerate((('메뉴판 · 공조 · 주문 단말을 한 플랫폼으로', P['counter']), ('POS · 배달 앱 등 파트너 연동', P['store']), ('전국 서비스망으로 새 매장도 빠르게', P['hall']))):
+        y = 192 + k * 152
+        s.pic(828, y, 140, 112, ph, '이유가 보이는 장면 사진', r=12, name=f'ph{k}')
+        s.num2(838, y + 10, k + 1, d=28, size=13)
+        s.t(988, y + 16, 204, st, 19, 800, INK, 1.45, name=f'st{k}', clamp=3)
+    s.foot2(FOOT, 7)
+    return reg(s, '경쟁사 비교 · 포지셔닝 맵 (두 축 + 이유 3)', '두 축 위에 삼성 · 경쟁사 · 현재 방식의 자리를 그리고, 앞서는 이유 셋을 사진으로 보여 줄 때', 'competition', 'why', ['competitors', 'images'])
 
 # ------------------------------------------------------------------ 파생 목차: 요구사항 · 사양 · 비용 · 일정 · 수량 · 요약 · 효과 · 파일럿
 def rfp():
@@ -493,6 +588,7 @@ def build():
     for n in range(3, 9): bom(n)
     summary(); kpi(); pilot()
     value_props(); product_value(); product_spec()
+    cp_score(); cp_win(); cp_pos()
     return META, HTML, SLOTS
 
 if __name__ == '__main__':
