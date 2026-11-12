@@ -5,14 +5,15 @@ import VERTICAL from './vertical_scenarios.json' with { type: 'json' };
 import STANDARD from './standard_vertical_scenarios.json' with { type: 'json' };
 import SCENARIO_COVERS from './scenario_covers.json' with { type: 'json' };
 import ACCOUNT from './account_scenarios.json' with {type:'json'};
+// icon = 샘플 버티컬 시나리오 목록(검색 전) 카드의 상징 아이콘 — common.jsx Icon 이름
 export const REQ_TYPES = {
-  std: { label: '표준 제안서', desc: '업종별 공간·제품·솔루션·운영의 표준 구성을 함께 검토할 때', hue: 'slate' },
-  new: { label: '신규 구축 · RFP', desc: '새 공간 · 첫 도입. 범위와 사양을 처음부터 함께 정해야 할 때', hue: 'blue' },
-  renew: { label: '교체 · 리뉴얼', desc: '쓰던 장비 · 공간을 바꿀 때. 영업 중단 최소화와 전후 비교가 핵심', hue: 'teal' },
-  compete: { label: '경쟁 입찰 · 공급사 전환', desc: '다른 공급사와 나란히 평가받을 때. 비교 기준을 먼저 잡는 쪽이 이김', hue: 'amber' },
-  ops: { label: '운영 효율 · 솔루션', desc: '기기보다 운영 방식(원격 관리 · 에너지 · 현장 단말)을 바꿀 때. 숫자로 증명', hue: 'violet' },
-  scale: { label: '파일럿 · 확산 · 공동 개발', desc: '검증한 것을 넓히거나 파트너와 함께 만들 때. 성공 기준과 단계가 핵심', hue: 'green' },
-  brief: { label: '첫 미팅 · 경영진 · 투자 심의', desc: '짧은 시간, 결정권자 앞. 한 줄 메시지와 다음 단계 합의가 목표', hue: 'slate' },
+  std: { label: '표준 제안서', desc: '업종별 공간·제품·솔루션·운영의 표준 구성을 함께 검토할 때', hue: 'slate', icon: 'stack' },
+  new: { label: '신규 구축 · RFP', desc: '새 공간 · 첫 도입. 범위와 사양을 처음부터 함께 정해야 할 때', hue: 'blue', icon: 'buildPlus' },
+  renew: { label: '교체 · 리뉴얼', desc: '쓰던 장비 · 공간을 바꿀 때. 영업 중단 최소화와 전후 비교가 핵심', hue: 'teal', icon: 'renew' },
+  compete: { label: '경쟁 입찰 · 공급사 전환', desc: '다른 공급사와 나란히 평가받을 때. 비교 기준을 먼저 잡는 쪽이 이김', hue: 'amber', icon: 'medal' },
+  ops: { label: '운영 효율 · 솔루션', desc: '기기보다 운영 방식(원격 관리 · 에너지 · 현장 단말)을 바꿀 때. 숫자로 증명', hue: 'violet', icon: 'gauge' },
+  scale: { label: '파일럿 · 확산 · 공동 개발', desc: '검증한 것을 넓히거나 파트너와 함께 만들 때. 성공 기준과 단계가 핵심', hue: 'green', icon: 'rocket' },
+  brief: { label: '첫 미팅 · 경영진 · 투자 심의', desc: '짧은 시간, 결정권자 앞. 한 줄 메시지와 다음 단계 합의가 목표', hue: 'slate', icon: 'easel' },
 };
 export const REQ_ORDER = ['std', 'new', 'renew', 'compete', 'ops', 'scale', 'brief'];
 

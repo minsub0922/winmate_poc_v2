@@ -60,7 +60,7 @@ try {
   await inspect('favorites-middle', page.locator('.fav-card').nth(1));
   await page.locator('.fav-card').nth(1).hover(); await page.locator('.pk-peek').waitFor(); assert((await page.locator('.pk-peek .pp-slide').innerText()).includes('찜에 저장한 실제 내용'));
   await page.mouse.move(1, 1); await page.locator('.pk-peek').waitFor({ state: 'detached' });
-  await navigate('.sb-bs'); await page.locator('.bsl-sheet').first().waitFor(); await inspect('best-scenario-middle', page.locator('.bsl').first().locator('.bsl-sheet').nth(1));
+  await navigate('.sb-bs'); await page.locator('#bs-q').fill('메뉴보드'); await page.locator('.bsl-sheet').first().waitFor(); await inspect('best-scenario-middle', page.locator('.bsl').first().locator('.bsl-sheet').nth(1));
   await navigate('.sb-tpl');
   for (const width of [1100, 820]) {
     await page.setViewportSize({ width, height: width === 820 ? 620 : 740 }); await inspect('catalog-' + width, page.locator('.tl-grid .tl-card').nth(1), false);

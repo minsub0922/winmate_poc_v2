@@ -22,14 +22,15 @@ try{
   });
   const report=await tests.run();if(!report.meetsMinimum)bad=true;
  }
- const scenarios=await page.evaluate(async()=>{const {SCENARIOS}=await import('/src/domain/templates/scenarios.js');return SCENARIOS.slice(0,10).map(s=>({id:s.id,title:s.title}));});
+ const scenarios=await page.evaluate(async()=>{const {SCENARIOS}=await import('/src/domain/templates/scenarios.js');return SCENARIOS.slice(0,10).map(s=>({id:s.id,title:s.title,req:s.req}));});
  const tests=suite('best-scenario','app/tests/explorers.mjs');
  // Use the actual page navigation rather than mounting the detail in isolation.
  await page.evaluate(async()=>{const p=await import('/src/repositories/proposals.js');p.saveUi({...p.loadUi(),route:{name:'scenarios'}});});await page.reload();await page.waitForSelector('.app');
  for(const [index,input]of scenarios.entries())tests.case(String(index+1).padStart(2,'0'),input.title,async d=>{
-  await page.getByRole('button',{name:input.title+' 상세 보기',exact:true}).click();
-  const dialog=page.getByRole('dialog').last();await dialog.waitFor();ok((await dialog.innerText()).includes(input.title),'scenario title shown');ok(await dialog.locator('.node').count()>0,'real storyboard shown');
-  await dialog.getByRole('button',{name:'닫기',exact:true}).first().click();d.id=input.id;
+  await page.locator('.bsg-card[data-req="'+input.req+'"]').click();const list=page.getByRole('dialog').last();await list.waitFor();
+  await list.getByRole('button',{name:input.title+' 상세 보기',exact:true}).click();
+  const dialog=page.locator('.modal.sbv');await dialog.waitFor();ok((await dialog.innerText()).includes(input.title),'scenario title shown');ok(await dialog.locator('.node').count()>0,'real storyboard shown');
+  await dialog.getByRole('button',{name:'닫기',exact:true}).first().click();await dialog.waitFor({state:'detached'});await list.getByRole('button',{name:'닫기',exact:true}).first().click();d.id=input.id;
  });
  const report=await tests.run();if(!report.meetsMinimum)bad=true;
 }finally{await context.close();await browser.close();await vite.close();}

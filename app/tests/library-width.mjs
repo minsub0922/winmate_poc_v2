@@ -30,7 +30,7 @@ try{
     await page.waitForFunction(()=>document.querySelector('.tl-card .fav-btn')?.getAttribute('aria-pressed')==='true');
     if(width===1920){await card.click();await page.locator('.modal.sheet').waitFor();assert(await page.getByRole('button',{name:'PPTX로 받기',exact:true}).count()>0);await page.locator('.modal.sheet').getByRole('button',{name:'닫기',exact:true}).last().click();}
    }
-   if(scope==='scenarios'&&width===1920){await page.locator('.bsl-more').first().click();await page.locator('.modal.sbv').waitFor();assert(await page.locator('.modal.sbv').getByRole('button',{name:'PPTX로 받기',exact:true}).count()>0);await page.locator('.modal.sbv').getByRole('button',{name:'닫기',exact:true}).last().click();}
+   if(scope==='scenarios'&&width===1920){await page.locator('.bsg-card[data-req="new"]').click();await page.locator('.bsx-item').first().click();await page.locator('.modal.sbv').waitFor();assert(await page.locator('.modal.sbv').getByRole('button',{name:'PPTX로 받기',exact:true}).count()>0);await page.locator('.modal.sbv').getByRole('button',{name:'닫기',exact:true}).last().click();await page.locator('.modal.sbv').waitFor({state:'detached'});await page.getByRole('dialog').last().getByRole('button',{name:'닫기',exact:true}).first().click();}
    if(scope==='favorites')assert(await page.locator('.fav-card').count()>0);
    assert.deepEqual(errors,[]);if(width===1920||width===390)await page.screenshot({path:folder+`/${scope}-${width}.png`});
    rows.push({scope,width,passed:true,metric,ms:Date.now()-start});console.log('PASS',scope,width,Math.round(metric.width)+'px');

@@ -26,12 +26,14 @@ import { usePickPeek } from '../components/pickpeek.jsx';
 import { FilterBar, FilterPopup, FStep, FChip, FAll, FProducts, idList, SCENARIO_UNIT } from '../components/filterpop.jsx';
 
 /* =========================================================
-   샘플 버티컬 시나리오 — its own page (sidebar): a list, one scenario per row,
-   grouped by 요구사항 타입 (indented under each group). A row = big title,
-   a '상세 보기' button (the scenario's Storyboard, read-only — ScenarioStoryboard; 활용하기 copies it into the history) and the
-   deck's first sheets (s.preview, 3 — each opens that sheet's detail popup).
+   샘플 버티컬 시나리오 — its own page (sidebar).
+   Before a search: one card per 요구사항 타입 in a grid (GroupCard — symbol icon · name · sample count · description).
+   A card opens that type's samples in a popup (GroupListPopup — the 표준 제안서 list, generalised), an item opens its Storyboard.
+   A search shows one list of rows by relevance. A row = big title, a '상세 보기' button (the scenario's Storyboard, read-only —
+   ScenarioStoryboard; 활용하기 copies it into the history) and the deck's first sheets (s.preview, 3 — each opens that sheet's detail popup).
    Search + filters work like the PPT 레이아웃 템플릿 page — the same big search box, a '필터' button under it with the
    active filters as chips to its right, and one filter popup (filterpop.jsx): 요구사항 → 전략 → 업종 → 솔루션 → 제품 → 결말.
+   Filters also apply before a search: card counts follow them and a type with no sample left drops out.
    ========================================================= */
 const STRAT_ORDER = ['value', 'pain', 'space', 'roi', 'compete', 'rfp', 'land'];
 const indName = (code) => (code && IND[code] ? IND[code].name : '범용 · 업종 무관');
@@ -248,56 +250,71 @@ function ScenarioRow({ s, onOpen, onSheet, mark = {}, showReq, hc, peek, aiWhy }
   );
 }
 
-/* ---------- 표준 제안서: one button on the page, the list in a popup ----------
-   Every 표준 제안서 follows the same six-chapter table of contents; only the industry's content, spaces, solutions and cases differ.
-   The page keeps them out of the long list — one card opens a popup grouped by industry (s.vs.group), and an item opens its Storyboard. */
-const stdGroupOf = (s) => (s.vs && s.vs.group) || s.ind || '_';
-const stdGroupName = (s) => (s.vs && s.vs.groupName) || indName(s.ind);
-function stdFacts(s) {
+/* ---------- before a search: one card per 요구사항 타입, its samples in a popup ----------
+   The card names the type and says how many samples it holds (after the filters) and when to use it, next to the type's symbol
+   (REQ_TYPES[k].icon). The popup is the same for every type: a find box and cover thumbnails; an item opens its Storyboard.
+   표준 제안서 (44 decks, one six-chapter table of contents, only the industry differs) is sectioned by industry; the other types
+   are one list in industry order with the industry above each title. */
+const indGroupOf = (s) => (s.vs && s.vs.group) || s.ind || '_';
+const indGroupName = (s) => (s.vs && s.vs.groupName) || indName(s.ind);
+const IND_RANK = Object.fromEntries(INDUSTRIES.map((x, i) => [x.code, i]));
+function itemFacts(s) {
   const n = slidesOfScenario(s).length;
-  return [s.vs && s.vs.spaces ? '공간 ' + s.vs.spaces : null, s.vs && s.vs.solutions ? '솔루션 ' + s.vs.solutions : null, n + '장'].filter(Boolean).join(' · ');
+  if (s.req === 'std') return [s.vs && s.vs.spaces ? '공간 ' + s.vs.spaces : null, s.vs && s.vs.solutions ? '솔루션 ' + s.vs.solutions : null, n + '장'].filter(Boolean).join(' · ');
+  return [STRATEGIES[s.strategy] && STRATEGIES[s.strategy].label, ENDINGS[s.ending], n + '장'].filter(Boolean).join(' · ');
 }
-function StdGroupCard({ items, onOpen }) {
-  const covers = items.slice(0, 4);
+/** words a popup's find box looks through — 표준 제안서: industry · spaces; the rest also strategy · solutions · products */
+function itemWords(s) {
+  const w = [s.title, s.short, indGroupName(s), s.vs && s.vs.name, s.vs && s.vs.spaceNames];
+  if (s.req !== 'std') w.push(STRATEGIES[s.strategy] && STRATEGIES[s.strategy].label, ...s.solutions.map((id) => S[id] && S[id].name), ...s.products.map((id) => P[id] && P[id].name + ' ' + P[id].model));
+  return w.filter(Boolean).join(' ').toLowerCase();
+}
+function GroupCard({ k, n, onOpen }) {
+  const t = REQ_TYPES[k];
   return (
-    <button type="button" className="bsx-card" onClick={onOpen} aria-haspopup="dialog" aria-label={'표준 제안서 ' + items.length + '개 목록 열기'}>
-      <span className="bsx-card-ic" aria-hidden="true"><Icon name="layers" size={20} /></span>
-      <span className="bsx-card-t">
-        <b>표준 제안서<span className="num">{items.length}</span></b>
-        <span>모든 업종이 같은 6장 목차예요 · 업종마다 공간 · 제품 · 솔루션 · 도입사례만 달라요</span>
-      </span>
-      <span className="bsx-card-covers" aria-hidden="true">
-        {covers.map((s) => { const x = slidesOfScenario(s)[0]; return <span key={s.id} className="bsx-card-cover"><FitSlide f={x.f} ov={ovOf(s.id, 0, x.f)} lazy /></span>; })}
-      </span>
-      <span className="bsx-card-go">목록 보기<Icon name="chev" size={16} stroke={2.4} /></span>
+    <button type="button" className={'bsg-card h-' + t.hue} onClick={onOpen} aria-haspopup="dialog" aria-label={t.label + ' 샘플 ' + n + '개 목록 열기'} aria-describedby={'bsg-d-' + k} data-req={k}>
+      <span className="bsg-ic" aria-hidden="true"><Icon name={t.icon} size={26} stroke={1.8} /></span>
+      <span className="bsg-n" aria-hidden="true">샘플<b className="num">{n}</b></span>
+      <b className="bsg-t">{t.label}</b>
+      <span className="bsg-d" id={'bsg-d-' + k}>{t.desc}</span>
     </button>
   );
 }
-function StdListPopup({ items, onOpen, onClose }) {
-  const [q, setQ] = useState('');
-  const k = q.trim().toLowerCase();
-  const hit = (s) => !k || [s.title, s.short, s.vs && s.vs.name, s.vs && s.vs.spaceNames, stdGroupName(s)].filter(Boolean).join(' ').toLowerCase().includes(k);
-  const shown = items.filter(hit);
-  const groups = [];
-  for (const s of shown) { const g = stdGroupOf(s); let e = groups.find((x) => x.k === g); if (!e) groups.push(e = { k: g, label: stdGroupName(s), items: [] }); e.items.push(s); }
+function GroupItem({ s, eyebrow, onOpen }) {
+  const x = slidesOfScenario(s)[0];
   return (
-    <Modal size="wide" title="표준 제안서" sub={'업종 ' + items.length + '개 · 01 Overview → 02 AI 업종 → 03 공간별 제안 → 04 솔루션 → 05 도입사례 → 06 Why Samsung'} onClose={onClose}
+    <button type="button" className="bsx-item" onClick={() => onOpen(s.id)} aria-label={s.title + ' 상세 보기'}>
+      <span className="bsx-thumb"><FitSlide f={x.f} ov={ovOf(s.id, 0, x.f)} lazy /></span>
+      <span className="bsx-meta">
+        {eyebrow && <span className="bsx-eb">{eyebrow}</span>}
+        <b>{s.title}</b>
+        <span className="bsx-sub">{s.vs && s.vs.size ? s.vs.size : s.short}</span>
+        <span className="bsx-facts">{itemFacts(s)}</span>
+      </span>
+      <Icon name="chev" size={16} stroke={2.4} className="bsx-go" />
+    </button>
+  );
+}
+function GroupListPopup({ k, items, onOpen, onClose }) {
+  const t = REQ_TYPES[k]; const std = k === 'std';
+  const [q, setQ] = useState('');
+  const kw = q.trim().toLowerCase();
+  const shown = kw ? items.filter((s) => itemWords(s).includes(kw)) : items;
+  let groups;
+  if (std) { // sections in the decks' own vertical order
+    groups = [];
+    for (const s of shown) { const g = indGroupOf(s); let e = groups.find((x) => x.k === g); if (!e) groups.push(e = { k: g, label: indGroupName(s), items: [] }); e.items.push(s); }
+  } else groups = [{ k: '_all', items: [...shown].sort((a, b) => (IND_RANK[a.ind] ?? 99) - (IND_RANK[b.ind] ?? 99)) }]; // stable: authored order within an industry
+  return (
+    <Modal size="wide" title={t.label} sub={std ? '업종 ' + items.length + '개 · 01 Overview → 02 AI 업종 → 03 공간별 제안 → 04 솔루션 → 05 도입사례 → 06 Why Samsung' : t.desc} onClose={onClose}
       footer={<><span className="note">{shown.length === items.length ? items.length + '개' : shown.length + ' / ' + items.length + '개'}</span><span className="sp" /><button className="btn" onClick={onClose}>닫기</button></>}>
       <div className="bsx">
-        <label className="bsx-q"><Icon name="search" size={15} /><input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="업종 · 공간 이름으로 찾기 · 예) 병원, 객실, 강의실" aria-label="표준 제안서 찾기" data-autofocus /></label>
-        {!shown.length && <p className="muted bsx-none">“{q}”와 맞는 업종이 없어요</p>}
-        {groups.map((g) => (
-          <section key={g.k} className="bsx-grp" aria-label={g.label}>
-            <h3>{g.label}<span className="num">{g.items.length}</span></h3>
-            <div className="bsx-grid">
-              {g.items.map((s) => { const x = slidesOfScenario(s)[0]; return (
-                <button key={s.id} type="button" className="bsx-item" onClick={() => onOpen(s.id)} aria-label={s.title + ' 상세 보기'}>
-                  <span className="bsx-thumb"><FitSlide f={x.f} ov={ovOf(s.id, 0, x.f)} lazy /></span>
-                  <span className="bsx-meta"><b>{s.title}</b><span className="bsx-sub">{s.vs && s.vs.size ? s.vs.size : s.short}</span><span className="bsx-facts">{stdFacts(s)}</span></span>
-                  <Icon name="chev" size={16} stroke={2.4} className="bsx-go" />
-                </button>
-              ); })}
-            </div>
+        <label className="bsx-q"><Icon name="search" size={15} /><input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={std ? '업종 · 공간 이름으로 찾기 · 예) 병원, 객실, 강의실' : '제목 · 업종 · 제품 · 솔루션으로 찾기'} aria-label={t.label + ' 찾기'} data-autofocus /></label>
+        {!shown.length && <p className="muted bsx-none">“{q}”와 맞는 {std ? '업종이' : '샘플이'} 없어요</p>}
+        {shown.length > 0 && groups.map((g) => (
+          <section key={g.k} className="bsx-grp" aria-label={g.label || t.label}>
+            {g.label && <h3>{g.label}<span className="num">{g.items.length}</span></h3>}
+            <div className="bsx-grid">{g.items.map((s) => <GroupItem key={s.id} s={s} eyebrow={std ? null : indName(s.ind)} onOpen={onOpen} />)}</div>
           </section>
         ))}
       </div>
@@ -312,13 +329,13 @@ function SheetDetail({ s, index, onNav, onClose }) {
     notes={slides.map((x) => x.stage.name + ' · ' + x.role)} noteLabel="이 시나리오에서의 역할" />;
 }
 
-/* ---------- 샘플 버티컬 시나리오 page: search · filters · grouped scenarios ---------- */
+/* ---------- 샘플 버티컬 시나리오 page: search · filters · type cards (before a search) or rows (a search) ---------- */
 export function ScenarioPage({ go }) {
   const [f, setF] = useState(loadBs);
   const [open, setOpen] = useState(null);
   const [sheet, setSheet] = useState(null); // { id, k } — a sheet clicked on a row
   const [fpop, setFpop] = useState(false);
-  const [stdPop, setStdPop] = useState(false); // 표준 제안서 list popup
+  const [grp, setGrp] = useState(null); // the 요구사항 타입 whose sample list popup is open
   const hc = usePickPeek();
   const peek = useDetailPeek(null);
   useEffect(() => { const u = loadUi(); saveUi({ ...u, bs: f }); }, [f]);
@@ -332,12 +349,13 @@ export function ScenarioPage({ go }) {
   const list = base.filter((s) => passS(s, f));
   const active = activeBs(f);
 
-  // browsing stays grouped by 요구사항 타입; a search shows one list by relevance
-  const sections = q && search.aiEnabled ? [
+  // before a search: one card per 요구사항 타입 (empty types drop out); a search shows one list of rows by relevance
+  const cards = q ? [] : REQ_ORDER.map((k) => ({ k, n: list.filter((s) => s.req === k).length })).filter((g) => g.n);
+  const sections = !q ? [] : search.aiEnabled ? [
     { k: '_ai_top', label: 'AI 추천 Top ' + Math.min(AI_SEARCH_TOP, list.length), items: list.slice(0, AI_SEARCH_TOP) },
     { k: '_ai_rest', label: '나머지 검색 결과', items: list.slice(AI_SEARCH_TOP) },
-  ].filter(g => g.items.length) : q ? [{ k: '_hits', items: list }]
-    : REQ_ORDER.map((k) => ({ k, label: REQ_TYPES[k].label, hue: REQ_TYPES[k].hue, items: list.filter((s) => s.req === k) })).filter((g) => g.items.length);
+  ].filter(g => g.items.length) : [{ k: '_hits', items: list }];
+  const openGroup = (k) => { hc.hide(); peek.hide(); setGrp(k); };
 
 
   return (
@@ -371,24 +389,29 @@ export function ScenarioPage({ go }) {
           <div className="tl-empty"><b>조건에 맞는 시나리오가 없어요</b><span>필터를 하나씩 풀어 보세요.</span><button className="btn btn-sm" onClick={() => set(BS_NO_FILTER)}>필터 모두 지우기</button></div>
         )}
 
-        <div className="bsp-groups" aria-busy={search.busy}>
-          {!search.busy && !search.error && sections.map((g) => (
-            <section key={g.k} className={'bsp-group' + (g.hue ? ' h-' + g.hue : '')} aria-label={g.label || '검색 결과'}>
-              {g.k !== '_hits' && (
-                <div className="bsp-gh">
-                  {g.k === '_ai_top' ? <Icon name="sparkle" size={15} /> : <i className="dot" />}<h2>{g.label}</h2>
-                </div>
-              )}
-              {g.k === 'std'
-                ? <div className="bsp-list"><StdGroupCard items={g.items} onOpen={() => { hc.hide(); peek.hide(); setStdPop(true); }} /></div>
-                : <div className={'bsp-list' + (g.k === '_hits' ? ' flat' : '')}>{g.items.map((s) => <ScenarioRow key={s.id} s={s} onOpen={setOpen} onSheet={(id, k) => setSheet({ id, k })} mark={f} showReq={!!q} hc={hc} peek={peek} aiWhy={hitOf[s.id]?.aiWhy} />)}</div>}
-            </section>
-          ))}
-        </div>
+        {cards.length > 0 && (
+          <div className="bsg-grid" role="group" aria-label="요구사항 타입별 샘플">
+            {cards.map((g) => <GroupCard key={g.k} k={g.k} n={g.n} onOpen={() => openGroup(g.k)} />)}
+          </div>
+        )}
+        {q && (
+          <div className="bsp-groups" aria-busy={search.busy}>
+            {!search.busy && !search.error && sections.map((g) => (
+              <section key={g.k} className="bsp-group" aria-label={g.label || '검색 결과'}>
+                {g.k !== '_hits' && (
+                  <div className="bsp-gh">
+                    {g.k === '_ai_top' ? <Icon name="sparkle" size={15} /> : <i className="dot" />}<h2>{g.label}</h2>
+                  </div>
+                )}
+                <div className={'bsp-list' + (g.k === '_hits' ? ' flat' : '')}>{g.items.map((s) => <ScenarioRow key={s.id} s={s} onOpen={setOpen} onSheet={(id, k) => setSheet({ id, k })} mark={f} showReq hc={hc} peek={peek} aiWhy={hitOf[s.id]?.aiWhy} />)}</div>
+              </section>
+            ))}
+          </div>
+        )}
       </div>
       {hc.node}
       {peek.node}
-      {stdPop && <StdListPopup items={(sections.find((g) => g.k === 'std') || { items: list.filter((s) => s.req === 'std') }).items} onOpen={setOpen} onClose={() => setStdPop(false)} />}
+      {grp && REQ_TYPES[grp] && <GroupListPopup key={'grp-' + grp} k={grp} items={list.filter((s) => s.req === grp)} onOpen={setOpen} onClose={() => setGrp(null)} />}
       {open && SC[open] && <ScenarioStoryboard key={'sb-' + open} s={SC[open]} go={go} onClose={() => setOpen(null)} />}
       {sheet && SC[sheet.id] && <SheetDetail key={'sheet-' + sheet.id} s={SC[sheet.id]} index={sheet.k} onNav={(k) => setSheet({ id: sheet.id, k })} onClose={() => setSheet(null)} />}
       {fpop && <ScenarioFilter f={f} base={search.busy || search.error ? SCENARIOS : base} onApply={(x) => { set(x); setFpop(false); }} onClose={() => setFpop(false)} />}

@@ -44,7 +44,7 @@ try{
   await page.waitForTimeout(320);assert.equal(await page.locator('.dpk').count(),0);
   pass(label+' opens the common 720px scrolling popup and restores focus without reopening hover');
  };
- const row=page.getByRole('article',{name:scenario.title,exact:true});
+ await page.locator('#bs-q').fill(scenario.title);const row=page.getByRole('article',{name:scenario.title,exact:true});
  const tag=row.locator('[data-reference-detail="product:qm55c"]');await hoverCheck(tag,'Scenario list');await popupCheck(tag,'Scenario list');
  await row.getByRole('button',{name:scenario.title+' 상세 보기',exact:true}).click();await page.locator('.modal.sbv').waitFor();
  await page.locator('.modal.sbv .match-node .node').click();const match=page.locator('.modal.sbv .mt-pop');await match.waitFor();

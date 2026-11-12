@@ -787,20 +787,25 @@ h1, h2, h3 { text-wrap: balance; margin: 0; }
   .bsl-tag.xm, .bsl-tag.d-only { display: none; }
   .bsl-tag.m-only { display: inline-flex; }
 }
-/* 표준 제안서 — one card on the page (ScenariosPage StdGroupCard), the list in a popup (StdListPopup) */
-.bsx-card { display: grid; grid-template-columns: auto minmax(0, var(--measure-1fr)) auto auto; align-items: center; gap: var(--space-16px) var(--space-20px); width: var(--measure-100); min-width: 0; text-align: left; color: var(--ink); background: var(--surface); border: var(--stroke-1px) solid var(--line); border-radius: var(--radius-14px); padding: var(--space-18px) var(--space-22px); cursor: pointer; transition: box-shadow .15s, border-color .15s, transform .15s; }
-.bsx-card:hover { border-color: var(--accent-line); box-shadow: var(--shadow); transform: translateY(var(--measure-1px-x)); }
-.bsx-card:focus-visible { outline: var(--stroke-2px) solid var(--accent); outline-offset: var(--stroke-2px); }
-.bsx-card-ic { display: inline-flex; align-items: center; justify-content: center; width: var(--measure-44px); height: var(--measure-44px); border-radius: var(--radius-12px); background: var(--hb, var(--accent-soft)); color: var(--hc, var(--accent)); }
-.bsx-card-t { display: flex; flex-direction: column; gap: var(--space-4px); min-width: 0; }
-.bsx-card-t b { display: inline-flex; align-items: center; gap: var(--space-8px); font-size: var(--text-20px); font-weight: var(--weight-800); letter-spacing: var(--measure--01em); }
-.bsx-card-t b .num { font-size: var(--text-12-5px); font-weight: var(--weight-800); color: var(--hc, var(--accent)); background: var(--hb, var(--accent-soft)); border-radius: var(--radius-999px); padding: var(--space-1px) var(--space-9px-x); }
-.bsx-card-t > span { font-size: var(--text-13px); color: var(--muted); line-height: var(--leading-1-5); }
-.bsx-card-covers { display: flex; gap: var(--space-6px); }
-.bsx-card-cover { display: block; width: var(--measure-104px); border-radius: var(--radius-6px); overflow: hidden; box-shadow: 0 0 0 var(--measure-1px) var(--line); background: var(--surface-3); }
-.bsx-card-cover .slide { display: block; }
-.bsx-card-go { display: inline-flex; align-items: center; gap: var(--space-4px); height: var(--measure-40px); padding: 0 var(--space-14px) 0 var(--space-18px); border-radius: var(--radius-10px); background: var(--accent-soft); color: var(--accent); font-size: var(--text-13-5px); font-weight: var(--weight-800); white-space: nowrap; }
-.bsx-card:hover .bsx-card-go { background: var(--accent); color: var(--on-accent); }
+/* before a search — one card per 요구사항 타입 (ScenariosPage GroupCard): symbol · sample count · name · description, at most 4 per line */
+.bsg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(max(var(--measure-260px), calc((var(--measure-100) - 3 * var(--space-16px)) / 4)), var(--measure-1fr))); gap: var(--space-16px); }
+.bsg-card { display: grid; grid-template-columns: auto minmax(0, var(--measure-1fr)); grid-template-areas: "ic n" "t t" "d d"; align-content: start; align-items: start; gap: var(--space-6px) var(--space-12px); min-width: 0; padding: var(--space-20px) var(--space-22px) var(--space-22px); text-align: left; font: inherit; color: var(--ink); background: var(--surface); border: var(--stroke-1px) solid var(--line); border-radius: var(--radius-14px); cursor: pointer;
+  transition: border-color var(--measure-15s) ease, box-shadow var(--measure-15s) ease, transform var(--measure-15s) ease; }
+.bsg-card:hover { border-color: var(--accent-line); box-shadow: var(--shadow); transform: translateY(var(--measure-1px-x)); }
+.bsg-card:focus-visible { outline: var(--stroke-2px) solid var(--accent); outline-offset: var(--stroke-2px); }
+.bsg-ic { grid-area: ic; display: inline-flex; align-items: center; justify-content: center; width: var(--measure-52px); height: var(--measure-52px); margin-bottom: var(--space-14px); border-radius: var(--radius-14px); background: var(--hb); color: var(--hc); }
+.bsg-n { grid-area: n; justify-self: end; display: inline-flex; align-items: baseline; gap: var(--space-5px); font-size: var(--text-12-5px); font-weight: var(--weight-700); color: var(--muted); white-space: nowrap; }
+.bsg-n b { font-size: var(--text-22px); font-weight: var(--weight-800); color: var(--ink); letter-spacing: var(--measure--01em); }
+.bsg-t { grid-area: t; font-size: var(--text-18px); font-weight: var(--weight-800); line-height: var(--leading-1-35); letter-spacing: var(--measure--01em); word-break: keep-all; }
+.bsg-d { grid-area: d; font-size: var(--text-13px); color: var(--muted); line-height: var(--leading-1-55); word-break: keep-all; }
+@media (max-width: 760px) {
+  .bsg-grid { grid-template-columns: minmax(0, var(--measure-1fr)); gap: var(--space-10px); }
+  .bsg-card { grid-template-columns: auto minmax(0, var(--measure-1fr)) auto; grid-template-areas: "ic t n" "ic d d"; gap: var(--space-4px) var(--space-14px); padding: var(--space-14px) var(--space-16px); }
+  .bsg-ic { width: var(--measure-44px); height: var(--measure-44px); margin: 0; border-radius: var(--radius-12px); }
+  .bsg-t { font-size: var(--text-16px); }
+  .bsg-n b { font-size: var(--text-17px); }
+}
+/* a type's samples — the popup from its card (GroupListPopup): find box + cover thumbnails, by industry when there are many */
 .bsx { display: flex; flex-direction: column; gap: var(--space-20px); }
 .bsx-q { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; gap: var(--space-8px); height: var(--measure-44px); padding: 0 var(--space-14px); border: var(--stroke-1px) solid var(--line-2); border-radius: var(--radius-10px); background: var(--surface); color: var(--muted); }
 .bsx-q:focus-within { border-color: var(--accent); box-shadow: 0 0 0 var(--measure-3px) var(--accent-soft); }
@@ -816,18 +821,16 @@ h1, h2, h3 { text-wrap: balance; margin: 0; }
 .bsx-thumb { display: block; border-radius: var(--radius-6px); overflow: hidden; box-shadow: 0 0 0 var(--measure-1px) var(--line); background: var(--surface-3); }
 .bsx-thumb .slide { display: block; }
 .bsx-meta { display: flex; flex-direction: column; gap: var(--space-3px); min-width: 0; }
-.bsx-meta b { font-size: var(--text-15px); font-weight: var(--weight-800); line-height: var(--leading-1-35); }
+.bsx-eb { font-size: var(--text-12px); font-weight: var(--weight-700); color: var(--muted); }
+.bsx-meta b { font-size: var(--text-15px); font-weight: var(--weight-800); line-height: var(--leading-1-35); word-break: keep-all; }
 .bsx-sub { font-size: var(--text-12-5px); color: var(--muted); line-height: var(--leading-1-45); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.bsx-facts { font-size: var(--text-12px); font-weight: var(--weight-700); color: var(--accent); }
+.bsx-facts { font-size: var(--text-12px); font-weight: var(--weight-700); color: var(--accent); word-break: keep-all; }
 .bsx-go { color: var(--faint); }
 .bsx-item:hover .bsx-go { color: var(--accent); }
-@media (max-width: 1100px) { .bsx-card-covers { display: none; } }
 @media (max-width: 760px) {
-  .bsx-card { grid-template-columns: auto minmax(0, var(--measure-1fr)); padding: var(--space-14px); gap: var(--space-12px); }
-  .bsx-card-go { grid-column: 1 / -1; justify-content: center; }
-  .bsx-card-t b { font-size: var(--text-17px); }
   .bsx-grid { grid-template-columns: minmax(0, var(--measure-1fr)); }
-  .bsx-item { grid-template-columns: var(--measure-104px) minmax(0, var(--measure-1fr)) auto; }
+  .bsx-item { grid-template-columns: var(--measure-92px) minmax(0, var(--measure-1fr)); gap: var(--space-12px); padding: var(--space-10px); }
+  .bsx-go { display: none; } /* the whole item is the tap target; the text keeps the width */
 }
 .bsc-chip.on { background: var(--accent-soft); color: var(--accent); box-shadow: inset 0 0 0 var(--measure-1-5px) var(--accent); }
 /* search + '필터' button + chips + filter popup: the same as the template page (filterpop.jsx) */
