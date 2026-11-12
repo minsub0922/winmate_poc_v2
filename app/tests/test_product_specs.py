@@ -21,7 +21,7 @@ class ProductSpecificationTest(unittest.TestCase):
         cls.db.close()
 
     def test_all_existing_products_have_correct_pack_and_source_identity(self):
-        self.assertEqual(len(self.products), 1068)
+        self.assertEqual(len(self.products), json.loads((DATA / 'products_db.json').read_text())['specReview']['total'])
         self.assertEqual(set(self.products), set(self.details))
         for key, product in self.products.items():
             pack, detail = self.details[key]
@@ -65,8 +65,10 @@ class ProductSpecificationTest(unittest.TestCase):
 
     def test_overlay_database_and_ledger_agree(self):
         reviewed = {key: json.loads(payload) for key, payload in self.db.execute('SELECT id,detail_json FROM product_spec_review')}
-        ledger = json.loads((ROOT / 'proddb/reviews/specs-20261020/product-review.json').read_text())
-        self.assertEqual(len(ledger), 1068)
+        review = json.loads((DATA / 'products_db.json').read_text())['specReview']  # 가장 최근 사양 검토(DSS DB 업데이트 run 포함)
+        ledger = json.loads((ROOT / review['ledger']).read_text())
+        self.assertEqual(len(ledger), review['total'])
+        self.assertEqual(len(ledger), len(self.products))
         for item in ledger:
             self.assertEqual(item['after'], len(self.details[item['id']][1]['specs']), item['id'])
             self.assertEqual(reviewed[item['id']]['specs'], self.details[item['id']][1]['specs'])

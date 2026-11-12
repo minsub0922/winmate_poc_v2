@@ -5,11 +5,12 @@ import { searchScenarioKeywords, AI_SEARCH_TOP } from '../services/catalog-searc
 import { CatalogSearchBar, CatalogSearchStatus } from '../components/catalog-search.jsx';
 
 import { loadUi, saveUi, createProposal, update, uid, segPlain } from '../repositories/proposals.js';
-import { Icon, Modal, toast } from '../components/common.jsx';
+import { Icon, Modal, toast, confirmDelete } from '../components/common.jsx';
 import { PARTS, REQ_LABEL } from '../domain/proposals/parts.js';
 import { L, IND, P, S, C, IND_KW, INDUSTRIES, SOLUTIONS, PRODUCTS } from '../services/catalog.js';
 import { FitSlide } from '../domain/slides/Slide.jsx';
 import { exportPptx } from '../domain/slides/export-pptx.js';
+import { deprecatedInDeck, deprecatedLine } from '../domain/products/deprecation.js';
 import { SCENARIOS, SC, REQ_TYPES, REQ_ORDER, STRATEGIES, ENDINGS, STAGES, slidesOfScenario, previewOf } from '../domain/templates/scenarios.js';
 import { TemplateDetail, saveBlob, safeName } from '../components/tplkit.jsx';
 import { FavButton } from '../components/fav.jsx';
@@ -49,7 +50,13 @@ const peekProps = (hc, s, x, k) => {
 /* ---------- shared actions ---------- */
 async function downloadScenario(s) {
   const slides = slidesOfScenario(s);
-  const blob = await exportPptx(slides.map((x, k) => ({ f: x.f, ov: ovOf(s.id, k, x.f), part: x.stage.name })), { title: s.title });
+  const deck = slides.map((x, k) => ({ f: x.f, ov: ovOf(s.id, k, x.f), part: x.stage.name }));
+  // 샘플 시나리오는 그대로 두고, 판매 종료 제품(DSS DB 업데이트에서 확정)이 들어 있으면 받기 전에 한 번 더 확인
+  const deprecated = deprecatedInDeck({ ctx: { products: s.products } }, deck.map((x, k) => ({ x, n: k + 1 })));
+  if (deprecated.length && !(await confirmDelete({ title: '판매 종료된 제품이 들어 있어요', confirmLabel: '이대로 받기',
+    message: '이 시나리오에는 더 이상 판매하지 않는 제품이 있어요. 그대로 받거나, 활용하기로 내 제안서를 만든 뒤 제품을 바꿔 주세요.',
+    items: deprecated.map(deprecatedLine) }))) return;
+  const blob = await exportPptx(deck, { title: s.title });
   const r = await saveBlob(blob, safeName('Winmate ' + s.title) + '.pptx');
   if (r.ok) toast(s.title + ' PPTX를 저장했어요'); else toast(r.err, 'warn');
 }

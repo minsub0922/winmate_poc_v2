@@ -8,7 +8,7 @@ import { VSTD_META, VSTD_HTML } from '../domain/templates/vertical_std_layouts.j
 import { TOC_META, TOC_HTML } from '../domain/templates/toc_layouts.js';
 import { SPATIAL_META, SPATIAL_HTML } from '../domain/templates/spatial-layouts.js';
 import { ACCOUNT_META, ACCOUNT_HTML } from '../domain/templates/account_layouts.js';
-import PROPOSAL_PHOTOS from '../domain/templates/proposal_photo_assets.json';
+import PROPOSAL_PHOTOS from '../domain/templates/proposal_photo_assets.json' with {type:'json'};
 import ACCOUNT_PHOTOS from '../domain/templates/account_photo_assets.json' with {type:'json'};
 import { repairLayoutHtml } from '../domain/templates/layout_repairs.js';
 
@@ -93,6 +93,10 @@ export const IND = Object.fromEntries(INDUSTRIES.map((i) => [i.code, i]));
 // 모든 제품에 탐색기 분류(fam 제품군 · sc 사이트 분류)가 붙는다. cur = 큐레이션 항목.
 for (const p of CATALOG.products) Object.assign(p, PDB.curated[p.id] || {}, { cur: true });
 export const PRODUCTS = [...CATALOG.products, ...PDB.products];
+// 판매 종료 제품(p.deprecated — DSS DB 업데이트가 공식 소스 재검토로 확정)은 기존 제안서 · 샘플 시나리오를 그리려고 P · PRODUCTS에 남기고,
+// 새로 고르는 목록(탐색기 · @태그 · 추천 · 교체)은 ACTIVE_PRODUCTS만 쓴다. 내보내기 확인은 domain/products/deprecation.js.
+// 같은 제품의 사이트 행이 생겨 대체된 카탈로그 행(p.supersededBy)도 id 는 유지하되 새 선택 목록에서는 뺀다(판매 종료 아님).
+export const ACTIVE_PRODUCTS = PRODUCTS.filter((p) => !p.deprecated && !p.supersededBy);
 export const PRODUCT_DB = { generated: PDB.generated, source: PDB.source, counts: PDB.counts, famOrder: PDB.famOrder, catOrder: PDB.catOrder };
 export const SOLUTIONS = CATALOG.solutions;
 export const CASES = CATALOG.cases;

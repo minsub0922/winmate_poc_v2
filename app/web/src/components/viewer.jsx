@@ -1,11 +1,12 @@
 import { getDownloads as runtimeDownloads } from '../platform/runtime.js';
-import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useRef, useEffect, useLayoutEffect, useMemo } from 'react';
 import { update, loadUi, saveUi } from '../repositories/proposals.js';
 import { Icon, Modal, toast, partHue } from './common.jsx';
 import { PARTS, classifyPart } from '../domain/proposals/parts.js';
 import { L, deckOrder, isCoverSheet } from '../services/catalog.js';
 import { Slide, FitSlide } from '../domain/slides/Slide.jsx';
 import { exportPptx } from '../domain/slides/export-pptx.js';
+import { deprecatedInDeck, deprecatedLine } from '../domain/products/deprecation.js';
 import { FavButton } from './fav.jsx';
 import { LayoutCompleteButton } from './layout-complete.jsx';
 import { ContextSlide } from './context-slide.jsx';
@@ -148,8 +149,12 @@ export function ExportModal({ p, onClose }) {
   const chosen = scope === 'done' ? list.filter((z) => layoutIsComplete(p, z.x)) : list;
   const nEmpty = chosen.filter((z) => z.x.status === 'empty').length;
   const blocked = chosen.some(({ x }) => contextPending(x) || x.adaptation?.phase === 'error' || inspectLayoutContext(p, x).some(issue => /선택하지 않은 제품|다른 이미지/.test(issue)));
+  // 판매 종료 제품(DSS DB 업데이트에서 확정)이 덱이나 연결 제품에 있으면 한 번 더 확인받는다 — 기존 제안서는 그대로 두고 내보낼 때만 묻는다.
+  const deprecated = useMemo(() => deprecatedInDeck(p, chosen), [p, scope]); // eslint-disable-line react-hooks/exhaustive-deps
+  const [depOk, setDepOk] = useState(false);
+  const needDepOk = deprecated.length > 0 && !depOk;
   const run = async () => {
-    if (blocked) return;
+    if (blocked || needDepOk) return;
     setSt({ n: 0, total: chosen.length });
     try {
       const blob = await exportPptx(chosen.map((z) => ({ f: z.x.f, ov: z.x.ov, part: z.s.name })), { title: p.title, font, onProgress: (n, total) => setSt({ n, total }) });
@@ -181,9 +186,17 @@ export function ExportModal({ p, onClose }) {
         <span className="sp" />
         <button className="btn" disabled={busy} onClick={onClose}>닫기</button>
         {st && st.blob && st.err ? <button className="btn btn-primary" onClick={() => save(st.blob)}><Icon name="download" size={15} />다시 저장</button>
-          : <button className="btn btn-primary" disabled={!chosen.length || busy || blocked} onClick={run}>{busy ? <span className="spin" /> : <Icon name="download" size={15} />}{busy ? '만드는 중…' : 'PPTX 만들기'}</button>}
+          : <button className="btn btn-primary" disabled={!chosen.length || busy || blocked || needDepOk} onClick={run}>{busy ? <span className="spin" /> : <Icon name="download" size={15} />}{busy ? '만드는 중…' : 'PPTX 만들기'}</button>}
       </>}>
       {blocked && <p className="hint" role="status">현재 고객 맥락에 맞는지 확인 중이거나 실패한 장이 있어요. 채우기를 마친 뒤 내보낼 수 있어요.</p>}
+      {deprecated.length > 0 && (
+        <div className="field ex-deprecated" role="group" aria-label="판매 종료 제품 확인">
+          <span className="lbl"><Icon name="alert" size={14} />판매 종료된 제품이 {deprecated.length}개 들어 있어요</span>
+          <ul className="ex-dep-list">{deprecated.map((d) => <li key={d.p.id}>{deprecatedLine(d)}</li>)}</ul>
+          <span className="hint">samsung.com/business · e-카탈로그에서 더 이상 판매하지 않는 제품이에요. 대체 제품으로 바꾸려면 닫고 해당 장에서 제품을 바꿔 주세요.</span>
+          <label className="radio"><input type="checkbox" checked={depOk} onChange={(e) => setDepOk(e.target.checked)} />확인했어요 — 이대로 내보내기</label>
+        </div>
+      )}
       <div className="field"><label htmlFor="ex-name">파일 이름</label>
         <div style={{ display: 'flex', alignItems: 'center', gap: "var(--space-6px)" }}><input id="ex-name" className="input" value={name} onChange={(e) => setName(e.target.value)} /><span className="faint num">.pptx</span></div>
       </div>

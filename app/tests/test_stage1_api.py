@@ -40,7 +40,7 @@ class LocalContracts(unittest.TestCase):
         self.assertEqual(boot['products'],products)
         expected=[dict(p,**products['curated'].get(p['id'],{}),cur=True)for p in catalog['products']]+products['products']
         response=self.client.get('/api/products').json()
-        self.assertEqual(len(response['items']),1068)
+        self.assertEqual(len(response['items']),1084)
         self.assertEqual(response['items'],expected)
 
     def test_daily_catalog_metrics_endpoint(self):

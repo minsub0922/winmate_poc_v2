@@ -108,7 +108,7 @@ def dimensions(p, detail, kind):
         label, value = ' '.join(map(str, row[:2])), str(row[2])
         if re.search(r'포장|박스|팔레트|pallet|화면|대각|VESA|베사|타공|무게|중량|간격|드라이버|Gross', label, re.I):
             continue
-        if not re.search(r'크기|치수|가로.*높이|W.*H.*D|Dimension|SIZE|외관', label, re.I):
+        if not re.search(r'크기|치수|외형지수|가로.*높이|W.*H.*D|Dimension|SIZE|외관', label, re.I):  # 외형지수: 콜드체인 카탈로그 원문 표기
             continue
         # Keep the first explicitly listed configuration, and retain the full row
         # as evidence. A range must never be combined into an invented dimension.
@@ -121,7 +121,7 @@ def dimensions(p, detail, kind):
             continue
         # Normalize all manufacturers' width/depth/height orderings to x/y/z.
         flat = re.sub(r'\s', '', label).lower()
-        if re.search(r'가로.*세로.*높이|길이.*폭.*높이|w[x×*]d[x×*]h', flat):
+        if re.search(r'가로.*세로.*높이|길이.*폭.*높이|w[x×*]d[x×*]h|l[x×*]w[x×*]h', flat):  # L × W × H(콜드체인 표) = 길이 · 폭 · 높이
             n = [n[0], n[2], n[1]]
         elif re.search(r'h[x×*]w[x×*]d|높이.*(?:가로|폭).*깊이', flat):
             n = [n[1], n[0], n[2]]
@@ -314,6 +314,12 @@ def main():
         evidence=overrides.get(a['productId'],{})
         if 'imageEvidence' in evidence:a['imageEvidence']=evidence['imageEvidence']
         configure_display(a,details.get(a['productId'],{}),dimensions,products)
+        # 판매 종료 제품(DSS DB 업데이트) — 기존 공간 장면은 그대로 그리도록 형상은 남기고, 새로 고르는 목록에서만 뺀다.
+        source=next(p for p in products if p['id']==a['productId'])
+        if source.get('deprecated'):
+            a['catalogVisible']=False;a['deprecated']=source['deprecated']
+        elif source.get('supersededBy'):
+            a['catalogVisible']=False;a['supersededBy']=source['supersededBy']
     result = dict(version=1, catalogSha256=hashlib.sha256((DATA/'products_db.json').read_bytes()).hexdigest(), assets=assets)
     target = DATA / 'spatial/product-objects.json'
     target.write_text(json.dumps(result, ensure_ascii=False, separators=(',',':'))+'\n')

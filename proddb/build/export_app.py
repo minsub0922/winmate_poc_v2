@@ -298,7 +298,8 @@ def cat_label(cat):
     return ' › '.join(seg[-2:]) if len(seg) > 1 else (seg[0] if seg else '')
 nmodel = lambda m: re.sub(r'[^A-Z0-9]', '', m.upper())
 nname2 = lambda t: re.sub(r'[^0-9a-z가-힣+]', '', re.sub(r'\(.*?\)|삼성|samsung|데이코|dacor', '', (t or '').lower()))
-PARTNERS = ['센도리', '부성', '아르네코리아', '아르네 코리아', '세원센추리', '이너지테크놀러지스', '알트엠', '한화큐셀', '한솔테크닉스', '현대에너지솔루션', 'Growatt']
+PARTNERS = ['센도리', '부성', '아르네코리아', '아르네 코리아', '상상기술', '세원센추리', '이너지테크놀러지스', '알트엠', '한화큐셀', '한솔테크닉스', '현대에너지솔루션', 'Growatt']
+src_dir = lambda c: (re.match(r'ec(\d+)_', c['id']) or [None, c['dir']])[1]
 groups = []  # 같은 제품이 여러 권에 나오면 한 행으로 — 다른 권끼리만, 모델코드 집합이 거의 같고(자카드 0.5 이상) 이름도 서로 들어 있을 때
 skipped = collections.Counter()
 for cp in cprod:
@@ -319,7 +320,9 @@ for cp in cprod:
     nk = nname2(cp['name'])
     def same(g):
         a = g['items'][0]
-        if any(c['dir'] == cp['dir'] for c in g['items']): return False
+        # 같은 권에서 뽑은 항목끼리는 다른 제품이다. 권은 추출 id(ec<Dir>_<순번>)의 Dir 로 본다 —
+        # 정기 호 교체 · 권 삭제로 근거(dir)만 옮긴 항목도 예전 묶음을 그대로 유지한다(DSS DB 업데이트).
+        if any(src_dir(c) == src_dir(cp) for c in g['items']): return False
         if a['family_group'] != cp['family_group']: return False
         names = bool(nk and g['nk'] and (nk in g['nk'] or g['nk'] in nk))
         if keys and g['keys']:
@@ -350,6 +353,9 @@ for g in groups:
                    'ecat': [{'dir': x['dir'], 't': x['t'], 'p': p, 'm': (mcs or [''])[0], 's': ''} for x in srcs for p in x['pages'][:4]][:8], 'ecatN': sum(len(x['pages']) for x in srcs),
                    'cats': [cp['category']], 'desc': '', 'note': '; '.join(dict.fromkeys(c['note'] for c in its if c['note']))[:300], 'catalog': True, **({'brand': brand} if brand else {})}
 print('catalog rows', len(groups), 'skipped', dict(skipped))
+if os.environ.get('GROUPS_OUT'):  # 카탈로그 묶음(앱 행 하나 = 같은 제품의 여러 권 항목) 기록 — DSS 업데이트가 행 id 연속성을 대조할 때 쓴다
+    json.dump([{'pid': 'ec_' + sorted(g['items'], key=lambda c: ((c['note'] or '').startswith('2024'), -len(json.loads(c['specs_json']))))[0]['id'][2:], 'items': [c['id'] for c in g['items']]} for g in groups]
+              + [{'site': True, 'items': [cp['id']], 'fams': cpf.get(cp['id'], [cp['family_id']])} for cp in cprod if cp['family_id']], open(os.environ['GROUPS_OUT'], 'w'), ensure_ascii=False, indent=0)
 
 # 정렬: 제품군 → 사이트 목록 순서 → 카드 순서
 SLUG_ORDER = ['smart-signage', 'led-signage', 'hotel-tvs', 'tvs', 'monitors', 'display-solution', 'tv-vd-solution',

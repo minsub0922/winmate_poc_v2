@@ -7,7 +7,7 @@
 // layouts (or scenarios — filter.noun / filter.unit) it is in.
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Icon, Modal, toast } from './common.jsx';
-import { PRODUCTS, SOLUTIONS, CASES, INDUSTRIES, IND, P, PRODUCT_DB } from '../services/catalog.js';
+import { ACTIVE_PRODUCTS, SOLUTIONS, CASES, INDUSTRIES, IND, P, PRODUCT_DB } from '../services/catalog.js';
 import { useDetailPeek } from './reference-detail.jsx';
 import { recommendContext } from '../services/search.js';
 import { Thumb } from './Thumbs.jsx';
@@ -41,7 +41,7 @@ function itemsOf(kind) {
   if (CACHE[kind]) return CACHE[kind];
   let list;
   if (kind === 'products') {
-    list = PRODUCTS.map((x) => ({ kind, ref: 'product:' + x.id, id: x.id, name: x.name, code: x.model, f: x.fam || ETC, c: x.sc || x.cat, ind: x.ind, x,
+    list = ACTIVE_PRODUCTS.map((x) => ({ kind, ref: 'product:' + x.id, // 판매 종료 제품은 새로 고르지 않게 뺌 id: x.id, name: x.name, code: x.model, f: x.fam || ETC, c: x.sc || x.cat, ind: x.ind, x,
       hay: [x.name, x.model, x.cat, x.sc, x.spec, x.opt, ...x.kw, ...x.spaces, ...(x.models || [])].join(' ').toLowerCase() }));
     list.sort((a, b) => catRank(kind, a.c) - catRank(kind, b.c) || srcRank(a.x) - srcRank(b.x));
   } else if (kind === 'solutions') {

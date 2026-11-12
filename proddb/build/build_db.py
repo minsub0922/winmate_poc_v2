@@ -212,10 +212,12 @@ from photos_db import write_photos
 write_photos(db)
 from imglib_db import write_imglib  # 제품 이미지 라이브러리(imglib/index.json) → lib_image · lib_image_product · lib_image_fts
 write_imglib(db)
+from dss_db import write_dss  # DSS 확인 시점 원장(dss/ledger.json) → dss_item · dss_check · dss_run (winmate-update-dss-db)
+write_dss(db)
 # ── 요약 ──
-for t in ['category', 'product_family', 'product_model', 'product_tag', 'spec_value', 'feature_block', 'feature_item', 'image_asset', 'catalog_doc', 'catalog_page', 'catalog_mention', 'catalog_product', 'catalog_product_family', 'product_photo']:
+for t in ['category', 'product_family', 'product_model', 'product_tag', 'spec_value', 'feature_block', 'feature_item', 'image_asset', 'catalog_doc', 'catalog_page', 'catalog_mention', 'catalog_product', 'catalog_product_family', 'product_photo', 'dss_item']:
     n = x(f'SELECT COUNT(*) FROM {t}').fetchone()[0]
-    x('INSERT INTO meta VALUES (?,?)', ('count.' + t, str(n)))
+    x('INSERT OR REPLACE INTO meta VALUES (?,?)', ('count.' + t, str(n)))
     print(f'{t:18s} {n}')
 x('INSERT INTO meta VALUES (?,?)', ('catalog_spec_corrections', str(n_corr)))
 print('catalog spec corrections', n_corr)

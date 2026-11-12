@@ -5,7 +5,7 @@
   printf '%s\n' "$PW" | python app/scripts/smoke.py --password-stdin
 
 Checks: public health/status/catalog/app shell, private API 401, cross-origin POST 403,
-login (cookie flags), capabilities, 1,068 products, a product detail, the app root, logout revocation.
+login (cookie flags), capabilities, 1,084 products, a product detail, the app root, logout revocation.
 With WINMATE_AUTH=off on the server the login checks are skipped. The password and session cookie are kept
 in process memory only and never printed. Exit status 0 = all passed, 1 = a check failed, 2 = usage error.
 
@@ -25,7 +25,7 @@ from typing import Dict, List, Optional, Tuple
 from urllib.parse import quote, urlsplit
 
 COOKIE = 'winmate_session'
-EXPECTED_PRODUCTS = 1068
+EXPECTED_PRODUCTS = 1084
 
 
 class _NoRedirect(urllib.request.HTTPRedirectHandler):

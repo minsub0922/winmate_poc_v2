@@ -2,6 +2,8 @@
   "meta": {
     "title": "Samsung Korea B2B Vertical-Space-Product Taxonomy",
     "version": "2026-11-11",
+    "checkedAt": "2026-11-12T14:45:05+09:00",
+    "checkedRun": "dss-20261112-1445",
     "base_url": "https://www.samsung.com/sec/business",
     "url_note": "category url은 base_url 기준 상대경로. verified=false는 제품 상세 페이지 경로에서 추정한 slug로 목록 페이지 직접 확인 필요. url=null은 slug 미확인.",
     "update_note": "2026-11-11 솔루션 매칭 작업에서 SOL 그룹 11개 url을 사이트 푸터 링크와 상세 페이지로 확인해 채움(안전관리 솔루션은 메뉴에 url 없음). 공간별 솔루션 기능 매칭은 같은 폴더의 vertical_space_solution.json(같은 vertical·space id).",
@@ -40,38 +42,38 @@
   },
   "product_taxonomy": [
     {"id": "SAC", "name": "시스템에어컨", "url": "/system-air-conditioners/", "kr_site": true, "categories": [
-      {"id": "sac_l_in", "name": "대형건물용 실내기", "url": "/dvms-indoor/", "verified": true},
-      {"id": "sac_l_out", "name": "대형건물용 실외기", "url": "/dvms-outdoor/", "verified": true},
-      {"id": "sac_sm", "name": "중소건물용 실내외기", "url": "/cooling-single/", "verified": true},
-      {"id": "sac_res", "name": "주거용 실내외기", "url": "/cooling-for-residential/", "verified": true},
-      {"id": "sac_ehs", "name": "바닥난방/급탕 솔루션 (EHS 히트펌프 보일러)", "url": "/heat-pump-boilers/", "verified": false},
-      {"id": "sac_vent", "name": "환기 솔루션 (전열교환기·시스템 청정환기)", "url": "/ventilations/", "verified": true},
-      {"id": "sac_ctr", "name": "중앙공조 (DVM 칠러)", "url": "/central-air-conditionings/", "verified": true},
+      {"id": "sac_l_in", "name": "대형건물용 실내기", "url": "/dvms/all-dvms/?dvms-indoor", "verified": true},
+      {"id": "sac_l_out", "name": "대형건물용 실외기", "url": "/dvms/all-dvms/?dvms-outdoor", "verified": true},
+      {"id": "sac_sm", "name": "중소건물용 실내외기", "url": "/cooling-single/all-cooling-single/", "verified": true},
+      {"id": "sac_res", "name": "주거용 실내외기", "url": "/cooling-for-residential/all-cooling-for-residential/", "verified": true},
+      {"id": "sac_ehs", "name": "바닥난방/급탕 솔루션 (EHS 히트펌프 보일러)", "url": "/heat-pump-boilers/all-heat-pump-boilers/", "verified": true},
+      {"id": "sac_vent", "name": "환기 솔루션 (전열교환기·시스템 청정환기)", "url": "/ventilations/all-ventilations/", "verified": true},
+      {"id": "sac_ctr", "name": "중앙공조 (DVM 칠러)", "url": "/central-air-conditionings/all-central-air-conditionings/", "verified": true},
       {"id": "sac_cold", "name": "콜드체인 시스템", "url": "/Cold_Chain_System/all-Cold_Chain_System/", "verified": true}
     ]},
     {"id": "KIT", "name": "주방가전", "url": null, "kr_site": true, "categories": [
       {"id": "ref_home", "name": "냉장고 > 가정용 냉장고 (Infinite Line·Bespoke·Bespoke AI·일반 냉장고)", "url": "/refrigerator/all-refrigerator/", "verified": true},
-      {"id": "ref_comm", "name": "냉장고 > 업소용 냉장고/냉동고", "url": "/business-refrigerator/", "verified": true},
+      {"id": "ref_comm", "name": "냉장고 > 업소용 냉장고/냉동고", "url": "/refrigerator/all-refrigerator/?business-refrigerator", "verified": true},
       {"id": "ref_bi", "name": "냉장고 > 빌트인 냉장고 (가구 부착형 포함)", "url": "/built-in-appliances/", "verified": true},
       {"id": "kimchi", "name": "김치냉장고", "url": "/kimchi-refrigerators/all-kimchi-refrigerators/", "verified": true},
       {"id": "dish", "name": "식기세척기", "url": "/dish-washer/all-dish-washer/", "verified": true},
       {"id": "range", "name": "전기레인지 (인덕션)", "url": null, "verified": false},
       {"id": "mw", "name": "전자레인지 (상업용 전자레인지)", "url": "/commercial-microwave/all-commercial-microwave/", "verified": true},
-      {"id": "oven", "name": "오븐/큐커", "url": "/qooker/", "verified": false},
-      {"id": "water", "name": "정수기", "url": "/water-purifier/", "verified": false},
+      {"id": "oven", "name": "오븐/큐커", "url": "/qooker/all-qooker/", "verified": true},
+      {"id": "water", "name": "정수기", "url": "/water-purifier/all-water-purifier/", "verified": true},
       {"id": "hood", "name": "후드", "url": "/hood/all-hood/", "verified": true},
       {"id": "kit_acc", "name": "주방가전 액세서리", "url": null, "verified": false}
     ]},
     {"id": "LIV", "name": "리빙가전", "url": null, "kr_site": true, "categories": [
       {"id": "wash", "name": "세탁기 (가정용)", "url": "/washing-machines/all-washing-machines/", "verified": true},
-      {"id": "dry", "name": "건조기 (가정용)", "url": "/dryers/", "verified": false},
+      {"id": "dry", "name": "건조기 (가정용)", "url": "/dryers/all-dryers/", "verified": true},
       {"id": "laundry_b2b", "name": "상업용 세탁기/건조기 (B2B 세탁기/건조기·코인형)", "url": "/washing-machines/", "verified": true},
       {"id": "airdresser", "name": "에어드레서", "url": "/airdresser/all-airdresser/", "verified": true},
       {"id": "shoe", "name": "슈드레서", "url": null, "verified": false},
-      {"id": "ac", "name": "에어컨 (스탠드·벽걸이)", "url": "/air-conditioners/", "verified": false},
-      {"id": "air", "name": "공기청정기/제습기", "url": "/air-cleaners/", "verified": true},
+      {"id": "ac", "name": "에어컨 (스탠드·벽걸이)", "url": "/air-conditioners/all-air-conditioners/", "verified": true},
+      {"id": "air", "name": "공기청정기/제습기", "url": "/air-cleaners/all-air-cleaners/", "verified": true},
       {"id": "vac", "name": "청소기", "url": null, "verified": false},
-      {"id": "light", "name": "LED조명", "url": "/lamp/", "verified": false}
+      {"id": "light", "name": "LED조명", "url": "/led-lights/all-led-lights/", "verified": true}
     ]},
     {"id": "SIG", "name": "사이니지", "url": "/smart-signage/", "kr_site": true, "categories": [
       {"id": "lcd_std", "name": "스마트 LCD 사이니지 > 단독형", "url": "/smart-signage/all-smart-signage/", "verified": true},

@@ -1,0 +1,581 @@
+{
+ "run": "dss-20261112-1445",
+ "checkedAt": "2026-11-12T14:45:05+09:00",
+ "gate": {
+  "removedSiteRows": 18,
+  "siteRows": 602,
+  "share": 0.03,
+  "note": "모니터 11건이 한 분류(monitors)에 몰려 이상 신호 게이트 대상 — 목록 수집이 완전(총수=받은 수)하고 상품 페이지가 실제로 비었으며 같은 분류에 신모델(에센셜 모니터 G3 3종 · 뷰피니티 S70H/S80H/S80UH)이 있어 실제 라인업 교체로 판정"
+ },
+ "items": [
+  {
+   "id": "sg_g000180284",
+   "name": "Bespoke 슬림 150 W",
+   "models": [
+    "VS15A680AFN"
+   ],
+   "verdict": "deprecated",
+   "reason": "samsung.com/sec/business 목록에서 빠지고 상품 페이지가 빈 페이지(제목만 'Samsung Business 대한민국')로 열림, 현재 B2B e-카탈로그 69권에도 없음 — 일반 소비자몰(samsung.com/sec)에는 남아 있음",
+   "pdp": {
+    "url": "https://www.samsung.com/sec/business/washing-machines/vs15a680aeg/VS15A680AFN/",
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/washing-machines/vs15a680aeg/VS15A680AFN/",
+    "title": "Samsung Business 대한민국",
+    "saleEnd": false,
+    "soldOut": false
+   },
+   "businessSearch": "samsung.com 검색 API — /sec/business/ 결과 없음",
+   "consumerSearch": {
+    "VS15A680AFN": [
+     "/sec/vacuum-cleaners/vs15a680afw-d2c/VS15A680AFN/"
+    ]
+   },
+   "ecat": null,
+   "replacedBy": "sg_g000184020",
+   "replacementReason": "같은 세부 분류(무선 청소기) — e-카탈로그 343에 판매 중인 제트 핏"
+  },
+  {
+   "id": "sg_g000181589",
+   "name": "제트 150 W",
+   "models": [
+    "VS15A6031N5"
+   ],
+   "verdict": "deprecated",
+   "reason": "samsung.com/sec/business 목록에서 빠지고 상품 페이지가 빈 페이지(제목만 'Samsung Business 대한민국')로 열림, 현재 B2B e-카탈로그 69권에도 없음 — 일반 소비자몰(samsung.com/sec)에는 남아 있음",
+   "pdp": {
+    "url": "https://www.samsung.com/sec/business/vacuum-cleaners/vs15a6031n5/VS15A6031N5/",
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/vacuum-cleaners/vs15a6031n5/VS15A6031N5/",
+    "title": "Samsung Business 대한민국",
+    "saleEnd": false,
+    "soldOut": false
+   },
+   "businessSearch": "samsung.com 검색 API — /sec/business/ 결과 없음",
+   "consumerSearch": {
+    "VS15A6031N5": [
+     "/sec/vacuum-cleaners/jet-vs15a6031n5-d2c/VS15A6031N5/"
+    ]
+   },
+   "ecat": null,
+   "replacedBy": "sg_g000184020",
+   "replacementReason": "같은 시리즈(제트) — e-카탈로그 343에 판매 중인 제트 핏"
+  },
+  {
+   "id": "sg_g000183171",
+   "name": "뷰피니티 S7 S70D 4K 블랙 (LS27D706)",
+   "models": [
+    "LS27D706EAKXKR",
+    "LS32D706EAKXKR"
+   ],
+   "verdict": "deprecated",
+   "reason": "samsung.com/sec/business 목록에서 빠지고 상품 페이지가 빈 페이지(제목만 'Samsung Business 대한민국')로 열림, 현재 B2B e-카탈로그 69권에도 없음 — 일반 소비자몰(samsung.com/sec)에는 남아 있음",
+   "pdp": {
+    "url": "https://www.samsung.com/sec/business/monitors/high-resolution-ls27d706eakxkr-d2c/LS27D706EAKXKR/",
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/monitors/high-resolution-ls27d706eakxkr-d2c/LS27D706EAKXKR/",
+    "title": "Samsung Business 대한민국",
+    "saleEnd": false,
+    "soldOut": false
+   },
+   "businessSearch": "samsung.com 검색 API — /sec/business/ 결과 없음",
+   "consumerSearch": {
+    "LS27D706EAKXKR": [
+     "/sec/monitors/high-resolution-ls27d706eakxkr-d2c/LS27D706EAKXKR/"
+    ],
+    "LS32D706EAKXKR": [
+     "/sec/monitors/high-resolution-ls32d706eakxkr-d2c/LS32D706EAKXKR/"
+    ]
+   },
+   "ecat": null,
+   "replacedBy": "sg_g000184177",
+   "replacementReason": "같은 시리즈 후속(뷰피니티 S7 S70D → S70H, 27형 4K)"
+  },
+  {
+   "id": "sg_g000183172",
+   "name": "고해상도 뷰피니티 S8(S80D)  블랙 (68.4 cm)",
+   "models": [
+    "LS27D800EAKXKR",
+    "LS32D806EAKXKR"
+   ],
+   "verdict": "deprecated",
+   "reason": "samsung.com/sec/business 목록에서 빠지고 상품 페이지가 빈 페이지(제목만 'Samsung Business 대한민국')로 열림, 현재 B2B e-카탈로그 69권에도 없음 — 일반 소비자몰(samsung.com/sec)에는 남아 있음",
+   "pdp": {
+    "url": "https://www.samsung.com/sec/business/monitors/high-resolution-ls27d800eakxkr-d2c/LS27D800EAKXKR/",
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/monitors/high-resolution-ls27d800eakxkr-d2c/LS27D800EAKXKR/",
+    "title": "Samsung Business 대한민국",
+    "saleEnd": false,
+    "soldOut": false
+   },
+   "businessSearch": "samsung.com 검색 API — /sec/business/ 결과 없음",
+   "consumerSearch": {
+    "LS27D800EAKXKR": [
+     "/sec/monitors/high-resolution-ls27d800eakxkr-d2c/LS27D800EAKXKR/"
+    ],
+    "LS32D806EAKXKR": [
+     "/sec/monitors/high-resolution-ls32d806eakxkr-d2c/LS32D806EAKXKR/"
+    ]
+   },
+   "ecat": null,
+   "replacedBy": "sg_g000184164",
+   "replacementReason": "같은 시리즈 후속(뷰피니티 S8 S80D → S80H, 27형 4K)"
+  },
+  {
+   "id": "sg_g000183437",
+   "name": "에센셜모니터 S30GD (54.6cm)",
+   "models": [
+    "LS22D302GAKXKR",
+    "LS24D304GAKXKR",
+    "LS27D304GAKXKR"
+   ],
+   "verdict": "deprecated",
+   "reason": "samsung.com/sec/business 목록에서 빠지고 상품 페이지가 빈 페이지(제목만 'Samsung Business 대한민국')로 열림, 현재 B2B e-카탈로그 69권에도 없음",
+   "pdp": {
+    "url": "https://www.samsung.com/sec/business/monitors/lsd302gakxkr-b2b/LS22D302GAKXKR/",
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/monitors/lsd302gakxkr-b2b/LS22D302GAKXKR/",
+    "title": "Samsung Business 대한민국",
+    "saleEnd": false,
+    "soldOut": false
+   },
+   "businessSearch": "samsung.com 검색 API — /sec/business/ 결과 없음",
+   "consumerSearch": {
+    "LS22D302GAKXKR": [],
+    "LS24D304GAKXKR": [],
+    "LS27D304GAKXKR": []
+   },
+   "ecat": null,
+   "replacedBy": "sg_g000183438",
+   "replacementReason": "같은 시리즈(에센셜모니터 S30GD) 판매 중인 60.4cm"
+  },
+  {
+   "id": "sg_g000183445",
+   "name": "에센셜모니터 S40GD (54.6cm)",
+   "models": [
+    "LS22D404GAKXKR",
+    "LS24D404GAKXKR",
+    "LS27D404GAKXKR"
+   ],
+   "verdict": "deprecated",
+   "reason": "samsung.com/sec/business 목록에서 빠지고 상품 페이지가 빈 페이지(제목만 'Samsung Business 대한민국')로 열림, 현재 B2B e-카탈로그 69권에도 없음 — 일반 소비자몰(samsung.com/sec)에는 남아 있음",
+   "pdp": {
+    "url": "https://www.samsung.com/sec/business/monitors/lsd404gakxkr-b2b/LS22D404GAKXKR/",
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/monitors/lsd404gakxkr-b2b/LS22D404GAKXKR/",
+    "title": "Samsung Business 대한민국",
+    "saleEnd": false,
+    "soldOut": false
+   },
+   "businessSearch": "samsung.com 검색 API — /sec/business/ 결과 없음",
+   "consumerSearch": {
+    "LS22D404GAKXKR": [],
+    "LS24D404GAKXKR": [
+     "/sec/monitors/ls24d404gakxkr-d2c/LS24D404GAKXKR/"
+    ],
+    "LS27D404GAKXKR": []
+   },
+   "ecat": null,
+   "replacedBy": "sg_g000183440",
+   "replacementReason": "같은 시리즈(에센셜모니터 S40GD 54.6cm) 판매 중인 다른 상품 카드"
+  },
+  {
+   "id": "sg_g000183448",
+   "name": "에센셜모니터 S40GD (60.4cm)",
+   "models": [
+    "LS24D408GAKXKR",
+    "LS27D408GAKXKR"
+   ],
+   "verdict": "deprecated",
+   "reason": "samsung.com/sec/business 목록에서 빠지고 상품 페이지가 빈 페이지(제목만 'Samsung Business 대한민국')로 열림, 현재 B2B e-카탈로그 69권에도 없음",
+   "pdp": {
+    "url": "https://www.samsung.com/sec/business/monitors/lsd408gakxkr-b2b/LS24D408GAKXKR/",
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/monitors/lsd408gakxkr-b2b/LS24D408GAKXKR/",
+    "title": "Samsung Business 대한민국",
+    "saleEnd": false,
+    "soldOut": false
+   },
+   "businessSearch": "samsung.com 검색 API — /sec/business/ 결과 없음",
+   "consumerSearch": {
+    "LS24D408GAKXKR": [],
+    "LS27D408GAKXKR": []
+   },
+   "ecat": null,
+   "replacedBy": "sg_g000183440",
+   "replacementReason": "같은 시리즈(에센셜모니터 S40GD) 판매 중인 54.6cm"
+  },
+  {
+   "id": "sg_g000183523",
+   "name": "고해상도 뷰피니티 S80D (92.7cm)",
+   "models": [
+    "LS37D800EAKXKR"
+   ],
+   "verdict": "deprecated",
+   "reason": "samsung.com/sec/business 목록에서 빠지고 상품 페이지가 빈 페이지(제목만 'Samsung Business 대한민국')로 열림, 현재 B2B e-카탈로그 69권에도 없음",
+   "pdp": {
+    "url": "https://www.samsung.com/sec/business/monitors/ls32d800eakxkr-b2b/LS37D800EAKXKR/",
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/monitors/ls32d800eakxkr-b2b/LS37D800EAKXKR/",
+    "title": "Samsung Business 대한민국",
+    "saleEnd": false,
+    "soldOut": false
+   },
+   "businessSearch": "samsung.com 검색 API — /sec/business/ 결과 없음",
+   "consumerSearch": {
+    "LS37D800EAKXKR": []
+   },
+   "ecat": null,
+   "replacedBy": "sg_g000184165",
+   "replacementReason": "같은 시리즈 후속(뷰피니티 S8 S80D 37형 → S80H 32형, 37형 후속 없음)"
+  },
+  {
+   "id": "sg_g000183524",
+   "name": "고해상도 뷰피니티 S80D (92.7cm)",
+   "models": [
+    "LS37D802EAKXKR"
+   ],
+   "verdict": "deprecated",
+   "reason": "samsung.com/sec/business 목록에서 빠지고 상품 페이지가 빈 페이지(제목만 'Samsung Business 대한민국')로 열림, 현재 B2B e-카탈로그 69권에도 없음 — 일반 소비자몰(samsung.com/sec)에는 남아 있음",
+   "pdp": {
+    "url": "https://www.samsung.com/sec/business/monitors/ls32d802eakxkr-b2b/LS37D802EAKXKR/",
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/monitors/ls32d802eakxkr-b2b/LS37D802EAKXKR/",
+    "title": "Samsung Business 대한민국",
+    "saleEnd": false,
+    "soldOut": false
+   },
+   "businessSearch": "samsung.com 검색 API — /sec/business/ 결과 없음",
+   "consumerSearch": {
+    "LS37D802EAKXKR": [
+     "/sec/monitors/high-resolution-ls37d802eakxkr-d2c/LS37D802EAKXKR/"
+    ]
+   },
+   "ecat": null,
+   "replacedBy": "sg_g000184165",
+   "replacementReason": "같은 시리즈 후속(뷰피니티 S8 S80D 37형 → S80H 32형, 37형 후속 없음)"
+  },
+  {
+   "id": "sg_g000183525",
+   "name": "뷰피니티 S8 S80UD 4K USB-C (LS27D800U)",
+   "models": [
+    "LS27D800UAKXKR"
+   ],
+   "verdict": "deprecated",
+   "reason": "samsung.com/sec/business 목록에서 빠지고 상품 페이지가 빈 페이지(제목만 'Samsung Business 대한민국')로 열림, 현재 B2B e-카탈로그 69권에도 없음 — 일반 소비자몰(samsung.com/sec)에는 남아 있음",
+   "pdp": {
+    "url": "https://www.samsung.com/sec/business/monitors/high-resolution-ls32d804uakxkr-d2c/LS27D800UAKXKR/",
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/monitors/high-resolution-ls32d804uakxkr-d2c/LS27D800UAKXKR/",
+    "title": "Samsung Business 대한민국",
+    "saleEnd": false,
+    "soldOut": false
+   },
+   "businessSearch": "samsung.com 검색 API — /sec/business/ 결과 없음",
+   "consumerSearch": {
+    "LS27D800UAKXKR": [
+     "/sec/monitors/high-resolution-ls27d800uakxkr-d2c/LS27D800UAKXKR/"
+    ]
+   },
+   "ecat": null,
+   "replacedBy": "sg_g000184172",
+   "replacementReason": "같은 시리즈 후속(뷰피니티 S8 S80UD → S80UH, 27형 4K USB-C)"
+  },
+  {
+   "id": "sg_g000183526",
+   "name": "뷰피니티 S8 S80UD 4K USB-C (LS32D804U)",
+   "models": [
+    "LS32D804UAKXKR"
+   ],
+   "verdict": "deprecated",
+   "reason": "samsung.com/sec/business 목록에서 빠지고 상품 페이지가 빈 페이지(제목만 'Samsung Business 대한민국')로 열림, 현재 B2B e-카탈로그 69권에도 없음 — 일반 소비자몰(samsung.com/sec)에는 남아 있음",
+   "pdp": {
+    "url": "https://www.samsung.com/sec/business/monitors/high-resolution-ls32d804uakxkr-d2c/LS32D804UAKXKR/",
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/monitors/high-resolution-ls32d804uakxkr-d2c/LS32D804UAKXKR/",
+    "title": "Samsung Business 대한민국",
+    "saleEnd": false,
+    "soldOut": false
+   },
+   "businessSearch": "samsung.com 검색 API — /sec/business/ 결과 없음",
+   "consumerSearch": {
+    "LS32D804UAKXKR": [
+     "/sec/monitors/high-resolution-ls32d804uakxkr-d2c/LS32D804UAKXKR/"
+    ]
+   },
+   "ecat": null,
+   "replacedBy": "sg_g000184161",
+   "replacementReason": "같은 시리즈 후속(뷰피니티 S8 S80UD → S80UH, 32형 4K USB-C)"
+  },
+  {
+   "id": "sg_g000183550",
+   "name": "Bespoke AI 무풍 클래식 62.6㎡",
+   "models": [
+    "AF70F19D24EN"
+   ],
+   "verdict": "deprecated",
+   "reason": "samsung.com/sec/business 목록에서 빠지고 상품 페이지가 빈 페이지(제목만 'Samsung Business 대한민국')로 열림, 현재 B2B e-카탈로그 69권에도 없음",
+   "pdp": {
+    "url": "https://www.samsung.com/sec/business/air-conditioners/floor-standing-af70f19d24en-d2c/AF70F19D24EN/",
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/air-conditioners/floor-standing-af70f19d24en-d2c/AF70F19D24EN/",
+    "title": "Samsung Business 대한민국",
+    "saleEnd": false,
+    "soldOut": false
+   },
+   "businessSearch": "samsung.com 검색 API — /sec/business/ 결과 없음",
+   "consumerSearch": {
+    "AF70F19D24EN": []
+   },
+   "ecat": null,
+   "replacedBy": "sg_g000183560",
+   "replacementReason": "같은 시리즈(Bespoke AI 무풍 클래식 62.6㎡, 냉방 7.70 kW · 3등급) 판매 중인 다른 상품 카드"
+  },
+  {
+   "id": "sg_g000183675",
+   "name": "고해상도 뷰피니티 S7(S70D)  블랙 (92.7cm)",
+   "models": [
+    "LS37D702EAKXKR"
+   ],
+   "verdict": "deprecated",
+   "reason": "samsung.com/sec/business 목록에서 빠지고 상품 페이지가 빈 페이지(제목만 'Samsung Business 대한민국')로 열림, 현재 B2B e-카탈로그 69권에도 없음 — 일반 소비자몰(samsung.com/sec)에는 남아 있음",
+   "pdp": {
+    "url": "https://www.samsung.com/sec/business/monitors/high-resolution-ls37d702eakxkr-d2c/LS37D702EAKXKR/",
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/monitors/high-resolution-ls37d702eakxkr-d2c/LS37D702EAKXKR/",
+    "title": "Samsung Business 대한민국",
+    "saleEnd": false,
+    "soldOut": false
+   },
+   "businessSearch": "samsung.com 검색 API — /sec/business/ 결과 없음",
+   "consumerSearch": {
+    "LS37D702EAKXKR": [
+     "/sec/monitors/high-resolution-ls37d702eakxkr-d2c/LS37D702EAKXKR/"
+    ]
+   },
+   "ecat": null,
+   "replacedBy": "sg_g000184173",
+   "replacementReason": "같은 시리즈 후속(뷰피니티 S7 S70D 37형 → S70H 32형, 37형 후속 없음)"
+  },
+  {
+   "id": "sg_g000183961",
+   "name": "IPS 100Hz 에센셜 모니터 (LS24F432)",
+   "models": [
+    "LS24F432UAKXKR"
+   ],
+   "verdict": "deprecated",
+   "reason": "samsung.com/sec/business 목록에서 빠지고 상품 페이지가 빈 페이지(제목만 'Samsung Business 대한민국')로 열림, 현재 B2B e-카탈로그 69권에도 없음 — 일반 소비자몰(samsung.com/sec)에는 남아 있음",
+   "pdp": {
+    "url": "https://www.samsung.com/sec/business/monitors/ls24f432uakxkr-d2c/LS24F432UAKXKR/",
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/monitors/ls24f432uakxkr-d2c/LS24F432UAKXKR/",
+    "title": "Samsung Business 대한민국",
+    "saleEnd": false,
+    "soldOut": false
+   },
+   "businessSearch": "samsung.com 검색 API — /sec/business/ 결과 없음",
+   "consumerSearch": {
+    "LS24F432UAKXKR": [
+     "/sec/monitors/ls24f432uakxkr-d2c/LS24F432UAKXKR/"
+    ]
+   },
+   "ecat": null,
+   "replacedBy": "sg_g000184305",
+   "replacementReason": "같은 세부 분류(에센셜 모니터 IPS FHD) 후속 라인 G3 G31H"
+  },
+  {
+   "id": "sg_g000184016",
+   "name": "제트 핏 물걸레 브러시 패키지",
+   "models": [
+    "VS70H18GVG",
+    "VS70H18GVK"
+   ],
+   "verdict": "still_listed",
+   "reason": "samsung.com/sec/business 목록·상품 페이지에서 빠졌지만 B2B e-카탈로그 Dir 343(제트 핏)에 판매 중",
+   "pdp": {
+    "url": "https://www.samsung.com/sec/business/vacuum-cleaners/jet-vs70h18gvg-d2c/VS70H18GVK/",
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/vacuum-cleaners/jet-vs70h18gvg-d2c/VS70H18GVK/",
+    "title": "Samsung Business 대한민국",
+    "saleEnd": false,
+    "soldOut": false
+   },
+   "businessSearch": "samsung.com 검색 API — /sec/business/ 결과 없음",
+   "consumerSearch": {
+    "VS70H18GVG": [
+     "/sec/vacuum-cleaners/jet-vs70h18gvg-d2c/VS70H18GVG/"
+    ],
+    "VS70H18GVK": [
+     "/sec/vacuum-cleaners/jet-vs70h18gvg-d2c/VS70H18GVK/"
+    ]
+   },
+   "ecat": {
+    "VS70H18GVG": [
+     [
+      "343",
+      12
+     ]
+    ],
+    "VS70H18GVK": [
+     [
+      "343",
+      12
+     ]
+    ]
+   },
+   "replacedBy": null,
+   "replacementReason": null
+  },
+  {
+   "id": "sg_g000184018",
+   "name": "제트 핏 침구 브러시 패키지",
+   "models": [
+    "VS70H18GXG",
+    "VS70H18GXK"
+   ],
+   "verdict": "still_listed",
+   "reason": "samsung.com/sec/business 목록·상품 페이지에서 빠졌지만 B2B e-카탈로그 Dir 343(제트 핏)에 판매 중",
+   "pdp": {
+    "url": "https://www.samsung.com/sec/business/vacuum-cleaners/jet-vs70h18gxg-d2c/VS70H18GXK/",
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/vacuum-cleaners/jet-vs70h18gxg-d2c/VS70H18GXK/",
+    "title": "Samsung Business 대한민국",
+    "saleEnd": false,
+    "soldOut": false
+   },
+   "businessSearch": "samsung.com 검색 API — /sec/business/ 결과 없음",
+   "consumerSearch": {
+    "VS70H18GXG": [
+     "/sec/vacuum-cleaners/jet-vs70h18gxg-d2c/VS70H18GXG/"
+    ],
+    "VS70H18GXK": [
+     "/sec/vacuum-cleaners/jet-vs70h18gxg-d2c/VS70H18GXK/"
+    ]
+   },
+   "ecat": {
+    "VS70H18GXG": [
+     [
+      "343",
+      13
+     ]
+    ],
+    "VS70H18GXK": [
+     [
+      "343",
+      13
+     ]
+    ]
+   },
+   "replacedBy": null,
+   "replacementReason": null
+  },
+  {
+   "id": "sg_g000184020",
+   "name": "제트 핏",
+   "models": [
+    "VS70H18GZG",
+    "VS70H18GZK"
+   ],
+   "verdict": "still_listed",
+   "reason": "samsung.com/sec/business 목록·상품 페이지에서 빠졌지만 B2B e-카탈로그 Dir 343(제트 핏)에 판매 중",
+   "pdp": {
+    "url": "https://www.samsung.com/sec/business/vacuum-cleaners/jet-vs70h18gzg-d2c/VS70H18GZK/",
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/vacuum-cleaners/jet-vs70h18gzg-d2c/VS70H18GZK/",
+    "title": "Samsung Business 대한민국",
+    "saleEnd": false,
+    "soldOut": false
+   },
+   "businessSearch": "samsung.com 검색 API — /sec/business/ 결과 없음",
+   "consumerSearch": {
+    "VS70H18GZG": [
+     "/sec/vacuum-cleaners/jet-vs70h18gzg-d2c/VS70H18GZG/"
+    ],
+    "VS70H18GZK": [
+     "/sec/vacuum-cleaners/jet-vs70h18gzg-d2c/VS70H18GZK/"
+    ]
+   },
+   "ecat": {
+    "VS70H18GZG": [
+     [
+      "343",
+      14
+     ]
+    ],
+    "VS70H18GZK": [
+     [
+      "343",
+      14
+     ]
+    ]
+   },
+   "replacedBy": null,
+   "replacementReason": null
+  },
+  {
+   "id": "sg_g000184110",
+   "name": "Bespoke AI 무풍콤보 갤러리 프로 62.6㎡",
+   "models": [
+    "AF90H19D24SN"
+   ],
+   "verdict": "deprecated",
+   "reason": "samsung.com/sec/business 목록에서 빠지고 상품 페이지가 빈 페이지(제목만 'Samsung Business 대한민국')로 열림, 현재 B2B e-카탈로그 69권에도 없음",
+   "pdp": {
+    "url": "https://www.samsung.com/sec/business/air-conditioners/floor-standing-af90h19d24sn-d2c/AF90H19D24SN/",
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/air-conditioners/floor-standing-af90h19d24sn-d2c/AF90H19D24SN/",
+    "title": "Samsung Business 대한민국",
+    "saleEnd": false,
+    "soldOut": false
+   },
+   "businessSearch": "samsung.com 검색 API — /sec/business/ 결과 없음",
+   "consumerSearch": {
+    "AF90H19D24SN": []
+   },
+   "ecat": null,
+   "replacedBy": "sg_g000184107",
+   "replacementReason": "같은 시리즈(Bespoke AI 무풍콤보 갤러리 프로 62.6㎡) 판매 중인 다른 상품 카드"
+  },
+  {
+   "id": "ec_203_003",
+   "name": "DVM HOME 무풍 벽걸이",
+   "models": [
+    "AM023ANADBH1",
+    "AM032ANADBH1",
+    "AM040ANADBH1",
+    "AM052ANADBH1",
+    "AM060ANADBH1",
+    "AM072ANADBH1",
+    "AM083ANADBH1"
+   ],
+   "verdict": "deprecated",
+   "reason": "Dir 203 삭제 후 현재 B2B e-카탈로그 69권·사이트 어디에도 모델코드가 없음",
+   "pdp": null,
+   "businessSearch": null,
+   "consumerSearch": {
+    "AM023ANADBH1": [],
+    "AM032ANADBH1": [],
+    "AM040ANADBH1": []
+   },
+   "ecat": null,
+   "replacedBy": "ec_203_004",
+   "replacementReason": "같은 시리즈(DVM HOME) 판매 중인 실내기 — 360"
+  },
+  {
+   "id": "ec_203_010",
+   "name": "드레인 펌프",
+   "models": [
+    "FlowIta+"
+   ],
+   "verdict": "deprecated",
+   "reason": "Dir 203 삭제 후 현재 B2B e-카탈로그 69권·사이트 어디에도 모델코드가 없음",
+   "pdp": null,
+   "businessSearch": null,
+   "consumerSearch": {
+    "FlowIta+": []
+   },
+   "ecat": null,
+   "replacedBy": "ec_297_086",
+   "replacementReason": "같은 세부 분류(시스템에어컨 · 액세서리)의 Drain Pump(ADP-E075SEK3D)"
+  }
+ ]
+}

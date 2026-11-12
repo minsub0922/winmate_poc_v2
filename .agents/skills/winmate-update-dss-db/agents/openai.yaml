@@ -1,4 +1,4 @@
 interface:
   display_name: "DSS DB 업데이트"
-  short_description: "DSS별 확인 시점 표식과 판매 종료 재검토·삭제·PPT 레이아웃 대체를 포함한 DB 갱신"
-  default_prompt: "$winmate-update-dss-db로 samsung.com/business와 e-카탈로그의 기존 소스를 전부 다시 확인해 DSS DB를 갱신하고, DSS별 확인 시점을 표식한 뒤 이전 표식 항목을 재검토·삭제하고 관련 PPT 레이아웃을 같은 제품군 제품으로 바꿔줘."
+  short_description: "원천 소스와 현재 DB의 차이 갱신 · DSS별 확인 시점 표식 · 판매 종료 표시와 연관 자료(레이아웃 · 3D 오브젝트 · KB) 갱신"
+  default_prompt: "$winmate-update-dss-db로 samsung.com/business와 e-카탈로그의 기존 소스를 전부 다시 받아 현재 DB와의 차이를 갱신하고, DSS별 확인 시점을 표식하고, 판매 종료 제품은 지우지 말고 표시한 뒤 바뀐 제품 · 솔루션의 레이아웃 · 3D 오브젝트 등 연관 자료를 갱신해줘. 기존 제안서 · 샘플 시나리오 · 히스토리는 바꾸지 마."

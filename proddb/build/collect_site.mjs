@@ -1,15 +1,34 @@
 // Fresh port of winmate-kb v1 collect/01,02,05,06,07 — same-origin fetches inside headless Chromium on samsung.com/sec/business.
 import { chromium } from 'playwright';
 import fs from 'node:fs';
-const OUT = new URL('../raw', import.meta.url).pathname; // proddb/raw
+// OUT_DIR: staging output (DSS update runs write here, never into the active proddb/raw). SITE_LISTS: list pages to read.
+const OUT = process.env.OUT_DIR || new URL('../raw', import.meta.url).pathname; // default proddb/raw
+const LISTS = process.env.SITE_LISTS || new URL('../raw/site_lists.txt', import.meta.url).pathname;
+fs.mkdirSync(OUT, { recursive: true });
 const log = (...a) => { const s = new Date().toISOString().slice(11, 19) + ' ' + a.join(' '); console.log(s); fs.appendFileSync(OUT + '/collect.log', s + '\n'); };
-const site = fs.readFileSync(OUT + '/site_lists.txt', 'utf8').split('\n').filter(Boolean).map((l) => l.replace('/sec/business/', '').replace(/\/$/, ''));
+const site = fs.readFileSync(LISTS, 'utf8').split('\n').filter(Boolean).map((l) => l.replace('/sec/business/', '').replace(/\/$/, ''));
+// PREV_RAW: the previous wkb_products.json. Some list pages stop exposing dispClsfNo in their HTML while the list API
+// still serves the same category — fall back to the previous run's number instead of silently dropping the category.
+const PREV = (() => { try { return JSON.parse(fs.readFileSync(process.env.PREV_RAW || new URL('../raw/wkb_products.json', import.meta.url).pathname, 'utf8')); } catch { return null; } })();
+const PREV_NO = Object.fromEntries(((PREV && PREV.cats) || []).map((c) => [c.p, c.no]));
+const PREV_TITLE = Object.fromEntries(((PREV && PREV.cats) || []).map((c) => [c.p, c.title]));
 const EXTRA = [['chromebooks/all-chromebooks', '10002700', 'Chromebook'], ['display-solution/all-display-solution', '100002762', '사이니지 솔루션'], ['harman/all-harman', '10001500', '하만 프로 오디오'], ['mobile-solution/all-mobile-solution', '100002767', '모바일 솔루션'], ['printing-solution/all-printing-solution', '100002689', '프린팅 솔루션'], ['sac-solution/all-sac-solution', '100002745', '시스템에어컨 솔루션'], ['tv-vd-solution/all-tv-vd-solution', '100002764', 'TV/음향 솔루션'], ['xr/all-xr', '100002875', '갤럭시 XR']];
 const b = await chromium.launch({ ...(process.env.CHROME ? { executablePath: process.env.CHROME } : {}), args: ['--no-sandbox'], ...(process.env.HTTPS_PROXY ? { proxy: { server: process.env.HTTPS_PROXY } } : {}) });
 const pg = await b.newPage();
 await pg.goto('https://www.samsung.com/sec/business/', { waitUntil: 'domcontentloaded', timeout: 90000 });
 await pg.evaluate(() => {
-  window.LIST = (no, f = '', rows = 400) => `/sec/business/cxhr/pf/goodsList?searchFilter=${encodeURIComponent(f)}&dispClsfNo=${no}&sortType=10&page=1&rows=${rows}&ehcacheYn=Y&soldOutExceptYn=N&pfFasterUseYn=N&secApp=false&secIos=false&aiscCtgYn=N&tcPlantCode=`;
+  window.LIST = (no, f = '', rows = 400, page = 1) => `/sec/business/cxhr/pf/goodsList?searchFilter=${encodeURIComponent(f)}&dispClsfNo=${no}&sortType=10&page=${page}&rows=${rows}&ehcacheYn=Y&soldOutExceptYn=N&pfFasterUseYn=N&secApp=false&secIos=false&aiscCtgYn=N&tcPlantCode=`;
+  // every page up to the list total (a single page=1, rows=400 call silently truncated larger lists)
+  window.allPages = async (no, f = '') => {
+    const first = await fetch(LIST(no, f)).then((r) => { if (!r.ok) throw new Error('goodsList HTTP ' + r.status); return r.json(); });
+    const products = [...(first.products || [])];
+    for (let page = 2; products.length < (first.count || 0) && page <= 20; page++) {
+      const k = await fetch(LIST(no, f, 400, page)).then((r) => { if (!r.ok) throw new Error('goodsList HTTP ' + r.status); return r.json(); });
+      if (!(k.products || []).length) break;
+      products.push(...k.products);
+    }
+    return { ...first, products };
+  };
   window.KEEP = ['goodsId', 'goodsNm', 'mdlCode', 'mdlNm', 'grpPath', 'goodsDetailUrl', 'dispClsfNo', 'dlgtDispClsfEnNm', 'compDispClsfEnNm', 'compDispClsfNo', 'uspDescList', 'goodsOptStr', 'saleStatCd', 'sysRegDtm', 'goodsTpCd', 'intgrSpecYn', 'flagStr', 'goodsFlagName', 'itdcMsg1', 'bspkGoodsYn', 'salePrice'];
   window.catPage = async (p) => {
     const h = await fetch('/sec/business/' + p + '/').then((r) => (r.ok ? r.text() : ''));
@@ -22,7 +41,7 @@ await pg.evaluate(() => {
     return { no: m && m[1], title: t.split('|')[0].trim(), meta, tabs };
   };
   window.list = async (c) => {
-    const j = await fetch(LIST(c.no)).then((r) => r.json());
+    const j = await allPages(c.no);
     const products = [], variants = [];
     for (const p of j.products || []) {
       const o = { catPath: c.p, catNo: c.no, catTitle: c.title };
@@ -33,9 +52,9 @@ await pg.evaluate(() => {
     }
     return { count: j.count, filters: j.filters || [], products, variants };
   };
-  window.filterMembers = async (no, f) => { const k = await fetch(LIST(no, f)).then((r) => r.json()); return (k.products || []).map((x) => x.goodsId); };
+  window.filterMembers = async (no, f) => { const k = await allPages(no, f); return (k.products || []).map((x) => x.goodsId); };
   window.spec = async (gid, tp) => {
-    const html = await fetch('/sec/business/xhr/goods/getGoodsSpecList', { method: 'POST', body: new URLSearchParams({ goodsId: gid, goodsTpCd: tp }), headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'X-Requested-With': 'XMLHttpRequest' } }).then((r) => r.text());
+    const html = await fetch('/sec/business/xhr/goods/getGoodsSpecList', { method: 'POST', body: new URLSearchParams({ goodsId: gid, goodsTpCd: tp }), headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'X-Requested-With': 'XMLHttpRequest' } }).then((r) => { if (!r.ok) throw new Error('spec HTTP ' + r.status); return r.text(); });
     const d = new DOMParser().parseFromString(html, 'text/html'); const rows = [];
     for (const dl of d.querySelectorAll('dl')) { let g = null; for (const ch of dl.children) { if (ch.tagName === 'DT') g = ch.textContent.trim(); else if (ch.tagName === 'DD') { for (const li of ch.querySelectorAll('li')) { const t = li.querySelector('.spec-title'); const v = li.querySelector('.spec-desc'); if (t) rows.push([g, t.textContent.replace(/\s+/g, ' ').trim(), v ? v.textContent.replace(/ /g, ' ').replace(/\s+/g, ' ').trim() : null]); } } } }
     return rows;
@@ -96,9 +115,11 @@ for (const p of paths) {
   try {
     const r = await pg.evaluate((p) => catPage(p), p);
     const ex = EXTRA.find((e) => e[0] === p);
-    const no = r.no || (ex && ex[1]);
+    const no = r.no || (ex && ex[1]) || PREV_NO[p];
     if (!no) { errors.push({ stage: 'cat', p, e: 'no dispClsfNo' }); log('cat skip', p); continue; }
-    const c = { p, no, title: r.title || (ex && ex[2]) || p, extra: !site.includes(p) };
+    const fromPrev = !r.no && !ex && !!PREV_NO[p];
+    const c = { p, no, title: (fromPrev && PREV_TITLE[p]) || r.title || (ex && ex[2]) || p, extra: !site.includes(p), ...(fromPrev ? { noFrom: 'previous' } : {}) };
+    if (c.noFrom) log('cat fallback (previous dispClsfNo)', p, no);
     W.cats.push(c); FM.meta[no] = r.meta; FM.tabs[no] = r.tabs;
   } catch (e) { errors.push({ stage: 'cat', p, e: String(e) }); }
   await sleep(150);
@@ -108,7 +129,8 @@ log('cats', W.cats.length);
 for (const c of W.cats) {
   try {
     const j = await pg.evaluate((c) => list(c), c);
-    c.allFilters = j.filters; c.filters = j.filters; c.listCount = j.count; c.count = j.count;
+    c.allFilters = j.filters; c.filters = j.filters; c.listCount = j.count; c.count = j.count; c.received = j.products.length;
+    if (j.products.length !== j.count) errors.push({ stage: 'list-count', c: c.no, p: c.p, expected: j.count, received: j.products.length });
     FM.members[c.no] = j.products.map((x) => x.goodsId);
     for (const o of j.products) { if (W.products[o.goodsId]) { (W.products[o.goodsId].alsoIn = W.products[o.goodsId].alsoIn || []).push(c.p); continue; } W.products[o.goodsId] = o; W.cardOrder.push(o.goodsId); }
     for (const v of j.variants) if (!W.variants[v.goodsId]) W.variants[v.goodsId] = v;

@@ -1,4 +1,4 @@
-import { ALL_LAYOUTS, PRODUCTS, SOLUTIONS, CASES, IND, IND_KW, P, S, C } from './catalog.js';
+import { ALL_LAYOUTS, ACTIVE_PRODUCTS, SOLUTIONS, CASES, IND, IND_KW, P, S, C } from './catalog.js';
 import { PARTS, RELATED, classifyPart, partText, effectiveType } from '../domain/proposals/parts.js';
 
 // ---------- tokenizer: latin words + Hangul bigrams ----------
@@ -161,7 +161,7 @@ export function recommendLayouts(part, ctx = {}, limit = 20) {
 
 // ---------- mention / context search ----------
 const MENTION_DOCS = [
-  ...PRODUCTS.map((p) => ({ ref: 'product:' + p.id, type: 'product', label: p.name, sub: p.model + ' · ' + p.cat, hay: (p.name + ' ' + p.model + ' ' + p.cat + ' ' + p.kw.join(' ') + ' ' + p.spaces.join(' ')).toLowerCase(), key: (p.model + ' ' + p.name).toLowerCase() })),
+  ...ACTIVE_PRODUCTS.map((p) => ({ ref: 'product:' + p.id, type: 'product', label: p.name, sub: p.model + ' · ' + p.cat, hay: (p.name + ' ' + p.model + ' ' + p.cat + ' ' + p.kw.join(' ') + ' ' + p.spaces.join(' ')).toLowerCase(), key: (p.model + ' ' + p.name).toLowerCase() })),
   ...SOLUTIONS.map((s) => ({ ref: 'solution:' + s.id, type: 'solution', label: s.name, sub: s.cat, hay: (s.name + ' ' + s.cat + ' ' + s.kw.join(' ') + ' ' + s.desc).toLowerCase(), key: s.name.toLowerCase() })),
   ...CASES.map((c) => ({ ref: 'case:' + c.id, type: 'case', label: c.cust, sub: (c.sub || c.title).slice(0, 60), date: c.date, hay: (c.title + ' ' + c.indRaw + ' ' + (c.ind && IND[c.ind] ? IND[c.ind].name : '') + ' ' + c.prod.join(' ') + ' ' + c.sol.join(' ') + ' ' + c.offer.join(' ') + ' ' + c.space.join(' ')).toLowerCase(), key: c.cust.toLowerCase() })),
 ];
@@ -226,7 +226,7 @@ export function recommendContext(pr, ind, kind, limit = 6) {
   if (kind === 'products') {
     // 큐레이션 40개는 업종 · 키워드를 사람이 붙였고, 제품 DB(사이트 · 카탈로그 600여 개)의 업종 · 공간은 원문에서 뽑은 색인이라
     // 업종만 맞는 것으로는 추천하지 않고(가중 1.0), 같은 분류에서는 4개까지만 — 노트북 수십 개가 추천을 채우지 않게.
-    const all = PRODUCTS.filter((p) => !linked.has(p.id)).map((p) => {
+    const all = ACTIVE_PRODUCTS.filter((p) => !linked.has(p.id)).map((p) => { // 판매 종료 제품은 추천하지 않음
       let s = p.cur ? 0.4 : 0; const why = [];
       if (ind && p.ind.includes(ind)) { s += p.cur ? 2.5 : 1.0; why.push(IND[ind].name + (p.cur ? '에서 많이 씀' : ' 업종 페이지 · 사례')); }
       for (const w of [p.model, ...(p.models || []), ...p.kw]) if (w && w.length >= 2 && tl.includes(w.toLowerCase())) { s += 3; why.push('"' + w + '" 언급'); break; }

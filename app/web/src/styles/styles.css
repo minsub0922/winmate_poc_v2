@@ -530,6 +530,11 @@ h1, h2, h3 { text-wrap: balance; margin: 0; }
 .opt-row { display: flex; gap: var(--space-8px); flex-wrap: wrap; }
 .radio { display: inline-flex; align-items: center; gap: var(--space-8px); padding: var(--space-8px) var(--space-12px); border: var(--stroke-1px) solid var(--line-2); border-radius: var(--radius-9px); font-size: var(--text-13px); cursor: pointer; }
 .radio:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); font-weight: var(--weight-600); }
+/* PPTX 내보내기 — 판매 종료 제품 확인 */
+.ex-deprecated { border: var(--stroke-1px) solid var(--warn); background: var(--warn-soft); border-radius: var(--radius-8px); padding: var(--space-12px); gap: var(--space-6px); }
+.ex-deprecated .lbl { color: var(--warn); display: inline-flex; align-items: center; gap: var(--space-6px); }
+.ex-dep-list { margin: 0; padding-left: var(--space-18px); font-size: var(--text-12px); line-height: var(--leading-1-45); }
+.ex-deprecated .radio { align-self: flex-start; background: var(--surface); }
 
 /* picker extras */
 .pc-added { margin-left: auto; flex-shrink: 0; display: inline-flex; align-items: center; gap: var(--space-3px-x); font-size: var(--text-10-5px); font-weight: var(--weight-700); color: var(--ok); background: var(--ok-soft); border-radius: var(--radius-5px); padding: 0 var(--space-6px); height: var(--measure-18px); }

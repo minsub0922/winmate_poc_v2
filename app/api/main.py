@@ -90,7 +90,7 @@ def shared_bootstrap(token: str, response: Response, request: Request):
 
 
 @app.get('/api/products')
-def products(q: str = '', offset: int = Query(0,ge=0), limit: int | None = Query(None,ge=1,le=1068)):
+def products(q: str = '', offset: int = Query(0,ge=0), limit: int | None = Query(None,ge=1,le=1084)):
     return {'items':app.state.products.list(q,offset,limit),'total':app.state.products.count(q)}
 
 

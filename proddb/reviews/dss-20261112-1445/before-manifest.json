@@ -1,0 +1,1053 @@
+{
+ "run_id": "dss-20261112-1445",
+ "run_at": "2026-11-12T14:45:05+09:00",
+ "base_commit": "04e5bc15a431039d4038b20af0f1269835e0e8f6",
+ "restore": "git checkout 04e5bc15a431039d4038b20af0f1269835e0e8f6 -- <path>",
+ "files": [
+  {
+   "path": "proddb/winmate_products.sqlite",
+   "sha256": "671eb179277ae4f69ef743986a575f30eef476e207e13ba331f034d1185ce0fc",
+   "bytes": 40861696
+  },
+  {
+   "path": "proddb/raw/collect.log",
+   "sha256": "0164151d6238f014599bb70d755896f6d75c611f7aee8c215e81be956ee04193",
+   "bytes": 3628
+  },
+  {
+   "path": "proddb/raw/collect_errors.json",
+   "sha256": "b4499a89a2b2f275adc15812c109f58582036fca7c4db2e18559204f9f5cf2fa",
+   "bytes": 261
+  },
+  {
+   "path": "proddb/raw/site_lists.txt",
+   "sha256": "7f9b889f60d9ea2bde300a341f2d3bd12987f871c7093b68eb5a22ca07d07bf9",
+   "bytes": 2146
+  },
+  {
+   "path": "proddb/raw/v1_wkb_pages_v2.json",
+   "sha256": "8f813b413ef0409c1b84f7ab122568aa6fc1f2e30422f8631dbabafb8ed03416",
+   "bytes": 3017189
+  },
+  {
+   "path": "proddb/raw/wkb_features.json",
+   "sha256": "3dd0b236054b03b4a5ebf7fe9d507dcd1af44c41b132987cae25f28fb8b19b88",
+   "bytes": 18742915
+  },
+  {
+   "path": "proddb/raw/wkb_filter_meta.json",
+   "sha256": "ecaee70a6586126219cd40b9118d57e7d8406b7ad26aeb0cf812c0ff1c14d0f5",
+   "bytes": 121981
+  },
+  {
+   "path": "proddb/raw/wkb_products.json",
+   "sha256": "97f05b47e4dca20afbbe984b466e0fb9db3114b93b58a6fe53b03062ffe30946",
+   "bytes": 1431161
+  },
+  {
+   "path": "proddb/raw/wkb_specs.json",
+   "sha256": "06c9947174afc91edacf1ffe2834b9036dbcc9ed4bd368c141448eb23f738e9a",
+   "bytes": 2910076
+  },
+  {
+   "path": "proddb/ecat/catalogs.json",
+   "sha256": "09e546dfd9ddb0d9c25b0403871af2ffd2efd392f1a7a033f646b64b9293755d",
+   "bytes": 5371
+  },
+  {
+   "path": "proddb/ecat/corrections.json",
+   "sha256": "b25826667d75a04408f569638b75b920b831976d39f3e7ec08f92954987178b8",
+   "bytes": 20155
+  },
+  {
+   "path": "proddb/ecat/photos.json",
+   "sha256": "2bc3d07a31b1fb9172f3dde072d3e243c81c284ef3821d2da1aeea5a36704a19",
+   "bytes": 156873
+  },
+  {
+   "path": "proddb/ecat/extract/a297_1.json",
+   "sha256": "2feabceb019a03d0633af11a46d43b7ceb7a2b3f905076ca53f8735e13765bb8",
+   "bytes": 63955
+  },
+  {
+   "path": "proddb/ecat/extract/a297_2.json",
+   "sha256": "5aabcd47e8268fef24f1bde42fbfd4187e4794e9eb4b0adffdb6830278578a2e",
+   "bytes": 36736
+  },
+  {
+   "path": "proddb/ecat/extract/a297_3.json",
+   "sha256": "cd2da15272199fed07b652b6b0afffbe7b182aef2fb66019cc29e622459db405",
+   "bytes": 63137
+  },
+  {
+   "path": "proddb/ecat/extract/a360.json",
+   "sha256": "4401cf517885ce095ee72f3e6b22d2676bf65438713d61ecb99a04ba93e7487c",
+   "bytes": 192992
+  },
+  {
+   "path": "proddb/ecat/extract/a_appliance_hvac_leaflet.json",
+   "sha256": "5652f735102df9968ccfe729a2590d9b56225678dae4e55dc8b2f953fb115ba5",
+   "bytes": 96718
+  },
+  {
+   "path": "proddb/ecat/extract/a_display.json",
+   "sha256": "507a36aab8ab8003d21d7d760fe13bf8e963e6baa01b47683cd1c33321a2e6a7",
+   "bytes": 22188
+  },
+  {
+   "path": "proddb/ecat/extract/a_led93.json",
+   "sha256": "bde50af8315abf4cdf76c2f82cb5ac47c2e95376ab72dc70012cf0a97e399b77",
+   "bytes": 40390
+  },
+  {
+   "path": "proddb/ecat/extract/a_light_dacor_harman.json",
+   "sha256": "98065c9f47608ccce40ba5d2d18b3662fb5c667dad394e13e51cf99dbde4602d",
+   "bytes": 113267
+  },
+  {
+   "path": "proddb/ecat/extract/a_mobile_pc_print.json",
+   "sha256": "d661d1f624876a238ea148b2603a176290b1007176421784d19dc1023f6ba23d",
+   "bytes": 47460
+  },
+  {
+   "path": "proddb/ecat/text/131.json",
+   "sha256": "39f09533951b2144e81ec0c8397200635debb1014e9998184870551f39cc04f5",
+   "bytes": 52023
+  },
+  {
+   "path": "proddb/ecat/text/137.json",
+   "sha256": "573a6b22a64abb45f7c2e530b6c04447d0778276bbc1d4090768975059531bef",
+   "bytes": 7880
+  },
+  {
+   "path": "proddb/ecat/text/138.json",
+   "sha256": "8fc8024bf9710bf7113c45c33604168f1def486fa5a0a2ef48b42465e8462b51",
+   "bytes": 9244
+  },
+  {
+   "path": "proddb/ecat/text/161.json",
+   "sha256": "b2645ecd9cca12b641dca2b2934fd715156908ea06dcb6087c42c4eeb1f90097",
+   "bytes": 25399
+  },
+  {
+   "path": "proddb/ecat/text/168.json",
+   "sha256": "30895e197cb1b2e952b27449dfec5f9c26843bf096a8fe5e2eccc7cd9b8fc6a8",
+   "bytes": 3745
+  },
+  {
+   "path": "proddb/ecat/text/169.json",
+   "sha256": "0e4e1ee07e5a0b33d3c3d2fde7c8c9953a5aa59c7d186d41652c2582b47515ea",
+   "bytes": 19659
+  },
+  {
+   "path": "proddb/ecat/text/197.json",
+   "sha256": "a49f7540a6b0635f37c811f7b1d03ad864d0c38f2d71ff96f42881863b37d4ff",
+   "bytes": 35016
+  },
+  {
+   "path": "proddb/ecat/text/200.json",
+   "sha256": "bec24628b21c94dd0730c598ea073a005f9e790d036039f63de7c8fc7a2863cf",
+   "bytes": 25550
+  },
+  {
+   "path": "proddb/ecat/text/201.json",
+   "sha256": "1f620aa57c3c5cdf350119e9115e3f4a6c01f957f77f68ab8a8e8684bbd4e4cf",
+   "bytes": 22501
+  },
+  {
+   "path": "proddb/ecat/text/202.json",
+   "sha256": "07ec93ad08e4e97cc8dc722d9ca1392a6ee009d766ad3707d1c381092e9f2aa0",
+   "bytes": 28739
+  },
+  {
+   "path": "proddb/ecat/text/203.json",
+   "sha256": "9e2fdd32140aa985012d9d6eeaf061e6b109c3dc242189e3092e30800e98f07c",
+   "bytes": 231925
+  },
+  {
+   "path": "proddb/ecat/text/215.json",
+   "sha256": "e06d286b98e037dc303fd9d3351f80411a360366d3bc4902b07c17302a297cd8",
+   "bytes": 26900
+  },
+  {
+   "path": "proddb/ecat/text/216.json",
+   "sha256": "7f2fced40ee69d055b2898c442cf3ee279ef5ec17aa4e8051ddb9b14420f81ec",
+   "bytes": 23392
+  },
+  {
+   "path": "proddb/ecat/text/221.json",
+   "sha256": "f8116e821df18a12b2f8edb0576b7dd6170603c85da96aabf988b45b704b0362",
+   "bytes": 29858
+  },
+  {
+   "path": "proddb/ecat/text/228.json",
+   "sha256": "b1fcea04dc6a58b1b408751ead1ecaad0a08df7b19d5b41eb0621a3857410393",
+   "bytes": 64857
+  },
+  {
+   "path": "proddb/ecat/text/229.json",
+   "sha256": "1318a4da98ec0f904a6516cbc4f9e0b74ac505078ae81aa61692188297649895",
+   "bytes": 24506
+  },
+  {
+   "path": "proddb/ecat/text/236.json",
+   "sha256": "968d70b8227220a973950af071d07b55edd11ddd3a1709f3c5d7f738ce51427f",
+   "bytes": 14383
+  },
+  {
+   "path": "proddb/ecat/text/243.json",
+   "sha256": "6ddc16da7959251b782226e593b72bf8530ae3d31a0ef8dd06761bb2e1028936",
+   "bytes": 13329
+  },
+  {
+   "path": "proddb/ecat/text/253.json",
+   "sha256": "922cc91028c14aea3351c5a54d80a215a9599299d5fda30a5825c3e44d37f1ce",
+   "bytes": 6523
+  },
+  {
+   "path": "proddb/ecat/text/254.json",
+   "sha256": "9779962f1d45ee61d5934dc43e261b5c74f500fc987e76e8cee2fc24bedf63a1",
+   "bytes": 6897
+  },
+  {
+   "path": "proddb/ecat/text/255.json",
+   "sha256": "a76db0d5b046972dcdf69b5703d2e72c62aa3d37e00be71f5161d96aefb97c6b",
+   "bytes": 22649
+  },
+  {
+   "path": "proddb/ecat/text/272.json",
+   "sha256": "32d5a7812329c43d3cfac06d09983963e3cd0635c877387d6a5d79585047f286",
+   "bytes": 12533
+  },
+  {
+   "path": "proddb/ecat/text/278.json",
+   "sha256": "3b5f0f16bf25a35f165039b76dd92202a7f2a8cf67853e46676c19f8cb2bc466",
+   "bytes": 3964
+  },
+  {
+   "path": "proddb/ecat/text/287.json",
+   "sha256": "e30980b2f0ec58e3325b938f40eb273d0897ba8792ff10367891ee8272642632",
+   "bytes": 19230
+  },
+  {
+   "path": "proddb/ecat/text/292.json",
+   "sha256": "ecba4662f5aca9176b62b87c4cbd02ac532b13fcbbef7ffd307debd8b0be584e",
+   "bytes": 9036
+  },
+  {
+   "path": "proddb/ecat/text/295.json",
+   "sha256": "f0e6b3cb84426548c4d90e5856c21092905e66a6d30131bcb57ce20c1cc7e039",
+   "bytes": 9545
+  },
+  {
+   "path": "proddb/ecat/text/297.json",
+   "sha256": "b596ca401747e34fb0899d0afe9357a00863ab9aa79ffceb811aa1cc354c1a1f",
+   "bytes": 899912
+  },
+  {
+   "path": "proddb/ecat/text/299.json",
+   "sha256": "dfaca5726b357c731fd62da8787ca67c6e7eea0607cb3faa6a3b81491ecb3632",
+   "bytes": 23330
+  },
+  {
+   "path": "proddb/ecat/text/300.json",
+   "sha256": "89ab136f71c221bcd9671a359a49de1dfd9127a4d91605020bdbe965009d4605",
+   "bytes": 12205
+  },
+  {
+   "path": "proddb/ecat/text/303.json",
+   "sha256": "ab9e3f6b921c010b81a14ac28b686f6a396530221dd3dea3d395421cf23db9a3",
+   "bytes": 15331
+  },
+  {
+   "path": "proddb/ecat/text/306.json",
+   "sha256": "bc941f073870050e2e283417dcd57419d3aefcbf027239ede0b090f9930b91ee",
+   "bytes": 4848
+  },
+  {
+   "path": "proddb/ecat/text/308.json",
+   "sha256": "07050a3250375ee880ae5256a09214be4d243a02e659786bea31c9a836f3f5e8",
+   "bytes": 14200
+  },
+  {
+   "path": "proddb/ecat/text/309.json",
+   "sha256": "76169ba5a7abd8671469b6a18ba36d1767559dffe8498687b6165a4539e15848",
+   "bytes": 10795
+  },
+  {
+   "path": "proddb/ecat/text/314.json",
+   "sha256": "8bfd1a1b99812118e58abf6127d54dbcf69ce46acb0ed91af242825b35561250",
+   "bytes": 52119
+  },
+  {
+   "path": "proddb/ecat/text/315.json",
+   "sha256": "84d82d1a6a1197b5971eda196be23df5c5a9eee5e8eab8e394df11112a1e5ff8",
+   "bytes": 9388
+  },
+  {
+   "path": "proddb/ecat/text/316.json",
+   "sha256": "113919eb47c1b488a86191256a5fef84a12f2fffa845a60a8cc4793d5e78d139",
+   "bytes": 10207
+  },
+  {
+   "path": "proddb/ecat/text/318.json",
+   "sha256": "47baa792c89b94a4bb3148822b2ac8bddece2562a339745898c042d08fe233f3",
+   "bytes": 9553
+  },
+  {
+   "path": "proddb/ecat/text/319.json",
+   "sha256": "0070c52598842ef97eee4fe97305b71ad964c8ab6ceab2d2f428cca3cf1aef8c",
+   "bytes": 9288
+  },
+  {
+   "path": "proddb/ecat/text/320.json",
+   "sha256": "52825a53c7771bbeef93eb05b8b4ec5c4ad38ba2abe7bb5cc57e3ae94cf02242",
+   "bytes": 9673
+  },
+  {
+   "path": "proddb/ecat/text/324.json",
+   "sha256": "59b6c4271908db70c67bd77ba3824b66ee6475d9d02c0e502e8eba852eb6749b",
+   "bytes": 6799
+  },
+  {
+   "path": "proddb/ecat/text/325.json",
+   "sha256": "26582fb21ca0204cac21c230f5e8fbcd0560d90c6bcb96a85d297a99dabbe86c",
+   "bytes": 8206
+  },
+  {
+   "path": "proddb/ecat/text/328.json",
+   "sha256": "e2512ceb44af156b18b08fb4bcac5f560c5b01e1cd91f90e1544950e703e54a8",
+   "bytes": 6906
+  },
+  {
+   "path": "proddb/ecat/text/329.json",
+   "sha256": "8ac493d0c9bd441425fba7631f9adc5eaca606f09c3d12181b4ca3ff65f97326",
+   "bytes": 2648
+  },
+  {
+   "path": "proddb/ecat/text/330.json",
+   "sha256": "88b869ac6d8e0f8191ed15413b35776ff758be50fd45b28dd9db3f5599d7c50a",
+   "bytes": 2690
+  },
+  {
+   "path": "proddb/ecat/text/331.json",
+   "sha256": "7abdbc6d6915170f6063394fa7c3a9a0484e60a5d828bc67a264665eaedc8a13",
+   "bytes": 6710
+  },
+  {
+   "path": "proddb/ecat/text/332.json",
+   "sha256": "1877365c74089d475a57ac85d6181a4dd44d5ba8e54223d155e4158fb34c441b",
+   "bytes": 2615
+  },
+  {
+   "path": "proddb/ecat/text/335.json",
+   "sha256": "065e3f84c0039c5a181db25640b6b15bb974e6b80ae2dd988380e781abfcc0de",
+   "bytes": 13565
+  },
+  {
+   "path": "proddb/ecat/text/337.json",
+   "sha256": "a8ecd5e6a786ef649dd0573d616b3648bf8014d8fdb06f8830c2ca05446bbd49",
+   "bytes": 6368
+  },
+  {
+   "path": "proddb/ecat/text/338.json",
+   "sha256": "5c7368f2355fd4a3b37718e6de0224a4023deca3b51d7bb3ddff08479cf4ca96",
+   "bytes": 13983
+  },
+  {
+   "path": "proddb/ecat/text/339.json",
+   "sha256": "907116ee3b19061468d409f5e5e40de99919b0e411f206004eea100d55b56fd2",
+   "bytes": 28775
+  },
+  {
+   "path": "proddb/ecat/text/340.json",
+   "sha256": "03753aee16bf6d14109f626700c068f68d8dc4a2113fe962e01120e69c2ac969",
+   "bytes": 5640
+  },
+  {
+   "path": "proddb/ecat/text/343.json",
+   "sha256": "9f00511fe4439b343cb8b2fc3f4f2cbc22208aece06d5d8c6806cd1e4984e640",
+   "bytes": 14305
+  },
+  {
+   "path": "proddb/ecat/text/344.json",
+   "sha256": "e5852dd5e7b255510befd2035d12fb4deb06224bbd29c4073b331639ea839d9c",
+   "bytes": 10690
+  },
+  {
+   "path": "proddb/ecat/text/345.json",
+   "sha256": "79503c47f8c9e1031f43ad9c5a570d01ab4a599ae894d3176f7ad3b200ddc346",
+   "bytes": 22880
+  },
+  {
+   "path": "proddb/ecat/text/346.json",
+   "sha256": "183613d11c24ac4277110311ba2954e0527f9b2d01735877c6427c646b970cdb",
+   "bytes": 3537
+  },
+  {
+   "path": "proddb/ecat/text/347.json",
+   "sha256": "974cffd90300d03ccfd0c5763459db782e56e04180804deb1806a5ed418620a8",
+   "bytes": 18890
+  },
+  {
+   "path": "proddb/ecat/text/348.json",
+   "sha256": "88db55e2c1522c9c1242f857abbaab4baedc50a3cf9f5364ab1e01c1d4df9758",
+   "bytes": 4914
+  },
+  {
+   "path": "proddb/ecat/text/350.json",
+   "sha256": "c30543a02f13a52c8712e83f6685005d21230b6c7d63d6362fb777f0d82da993",
+   "bytes": 9468
+  },
+  {
+   "path": "proddb/ecat/text/351.json",
+   "sha256": "53a207de603a32ab76512d6b46bd4fd88d0ef03b6c729c7995546a2db1f5d752",
+   "bytes": 9170
+  },
+  {
+   "path": "proddb/ecat/text/354.json",
+   "sha256": "5e754fe3f45d7a7b2f50f098863f95d08c28ff9a47cf0c57e6943fb50f424dee",
+   "bytes": 2578
+  },
+  {
+   "path": "proddb/ecat/text/355.json",
+   "sha256": "1390ca17895641e0fa741d422a01624b2626462b9e7987319003918a4ced08b3",
+   "bytes": 4310
+  },
+  {
+   "path": "proddb/ecat/text/356.json",
+   "sha256": "29a2eb85f2892f56b219633e3459f055bdca4e48a5ac5a701de2f9c211c722e1",
+   "bytes": 12828
+  },
+  {
+   "path": "proddb/ecat/text/357.json",
+   "sha256": "cd613a50220ea56a1b1cb4d4e3ca47c85bac5483dd3082f90663ec02eff48ac9",
+   "bytes": 20671
+  },
+  {
+   "path": "proddb/ecat/text/358.json",
+   "sha256": "96c48dcee692e12ae90762538bc0a7e448956a3d83f0f979f5de853115d148da",
+   "bytes": 14680
+  },
+  {
+   "path": "proddb/ecat/text/360.json",
+   "sha256": "69d71633c481cb64847f654f7ca8c86e8cd8b3cb9b06b38500479d4a87840027",
+   "bytes": 339343
+  },
+  {
+   "path": "proddb/ecat/text/361.json",
+   "sha256": "3487546c176a86865c13e4171a7cf399cb2d11c6b59ea9a5a8a252dd7b3d6027",
+   "bytes": 10098
+  },
+  {
+   "path": "proddb/ecat/text/362.json",
+   "sha256": "4b7679e434dfaf1de50103e2d19c993b721ecec32b2c4190f0eee39e8e12c5e3",
+   "bytes": 5641
+  },
+  {
+   "path": "proddb/ecat/text/93.json",
+   "sha256": "add6b813b7faa6bc710b6acb486d6229232ab33fadd080a2ec979eb65af4cfa5",
+   "bytes": 39212
+  },
+  {
+   "path": "proddb/imglib/index.json",
+   "sha256": "846254c4d76a81f48818c811e6d53e201da574015b5859901e2e3b8b1d92d7a5",
+   "bytes": 3892745
+  },
+  {
+   "path": "app/data/catalog.json",
+   "sha256": "39e1874c4b63e1f3fc0ce2e651d35f57e0a5e754f22a07682985723f32be4636",
+   "bytes": 1155037
+  },
+  {
+   "path": "app/data/products_db.json",
+   "sha256": "ae632f14ab9c90ecfd0f0f8a8078c76f35fb7739dbef380410ad6d75f85a13ea",
+   "bytes": 838497
+  },
+  {
+   "path": "app/data/images.json",
+   "sha256": "31b686b13b058a93d3dcb491a47533e01698318ba552420564a7e08945fb06ca",
+   "bytes": 95006
+  },
+  {
+   "path": "app/data/media.json",
+   "sha256": "b2921cfd6490343ab471dbdf23f59fffabd6917f79bd05cc5885a7e29fa791a3",
+   "bytes": 323736
+  },
+  {
+   "path": "app/data/vertical_space_product.json",
+   "sha256": "ffa6cb6c674ab8fff3e42af5aedafe14c545dad0195ca19cc5f8840be9090839",
+   "bytes": 56424
+  },
+  {
+   "path": "app/data/vertical_space_solution.json",
+   "sha256": "590e11ba6af442914d550672aa74aa7492dce12ef24c9703db1b3ab0748785c4",
+   "bytes": 298476
+  },
+  {
+   "path": "app/data/product-details/d00.json",
+   "sha256": "b19adc97f249baff9d6d55b4c6f9eff4e07d99bb606400ff3d56ccfacf3afbe9",
+   "bytes": 3076928
+  },
+  {
+   "path": "app/data/product-details/d01.json",
+   "sha256": "9b6fc2050a64b9a52bee9b13b1e3c3e0a06a911741afcd5a880d7be0d987f588",
+   "bytes": 1279401
+  },
+  {
+   "path": "app/data/product-details/d02.json",
+   "sha256": "b83b5ff2c92fe85e1c5593b12a6a8515e28288046ea778246d586c01de396ced",
+   "bytes": 1932103
+  },
+  {
+   "path": "app/data/product-details/d03.json",
+   "sha256": "c9e864ee3422addf5482a08655018d971fcb5b0a44d5725a43bf9b1e0de7c240",
+   "bytes": 848705
+  },
+  {
+   "path": "app/data/spatial/NOTICE.md",
+   "sha256": "dd869d7629be87e2d73f4feae03100b44ac6c6dbbc47baea29babcd4cb5ff4c3",
+   "bytes": 546
+  },
+  {
+   "path": "app/data/spatial/examples.json",
+   "sha256": "84a29f4d1d7f0772e3c53fdb1f36af28ee1f9af7cb1cfa08266582fb3082a252",
+   "bytes": 160083
+  },
+  {
+   "path": "app/data/spatial/industry-sources.json",
+   "sha256": "949868c31dd9a8a3d93bb56f9373f443a4ab64dec24626651ba65eac1710c8f9",
+   "bytes": 41785
+  },
+  {
+   "path": "app/data/spatial/library.json",
+   "sha256": "7333bd2efbba03951f3f11a32e2618444c1ad75c90bb321de8ccd5da65baa30e",
+   "bytes": 10119624
+  },
+  {
+   "path": "app/data/spatial/previews.json",
+   "sha256": "7fead2f33983170748c20ec27f629f8623647330bd2a9c197d5e2dfa1c1c7f95",
+   "bytes": 1101
+  },
+  {
+   "path": "app/data/spatial/product-evidence.json",
+   "sha256": "802fef4359c4e8c867ba6cc0c1e919766676fe1674910094dbd7a9549ed21745",
+   "bytes": 9229
+  },
+  {
+   "path": "app/data/spatial/product-objects.json",
+   "sha256": "bf6e6ecb6ee34f57cc99571bad94a1654862964727f57fbd124950962e608c03",
+   "bytes": 1618320
+  },
+  {
+   "path": "app/data/spatial/scenes.json",
+   "sha256": "c3ef4134d05110b6f80566377c344b7eb4109aee750216859792cec351f44bcc",
+   "bytes": 11014599
+  },
+  {
+   "path": "app/data/spatial/vertical-layouts.json",
+   "sha256": "50f80cca2d866aeffe5bd889108aeb6cd58b01abde4017fbfec9db5697835393",
+   "bytes": 49971
+  },
+  {
+   "path": "app/data/spatial/source-images/smartmonitor-m8-front.png",
+   "sha256": "e6e968557650f55bd782ffa1055b0a65a6dc0362884c8c73ae85b12b2d43d325",
+   "bytes": 552284
+  },
+  {
+   "path": "app/data/spatial/source-images/smartmonitor-m8-rear.png",
+   "sha256": "9a6265b7c1d2aefe68f9db26d25fdb0cfd51dc03be705e5bc1b8f8a1315ec550",
+   "bytes": 1121419
+  },
+  {
+   "path": "app/data/spatial/versions/03f47082.json",
+   "sha256": "2345fec0a11c7a3636db9c3e99e0b384faaa58eb4ebbe225e196155b1147924e",
+   "bytes": 8375262
+  },
+  {
+   "path": "app/data/spatial/versions/1006804f.json",
+   "sha256": "0df08b5bf633c90f72b1c2391ba29adf3deee344efa95699e7b781dc6d89ff64",
+   "bytes": 3455112
+  },
+  {
+   "path": "app/data/spatial/versions/186f1a66.json",
+   "sha256": "424d53bbfbfe87a80158e3cfdda5f9a658c6d8bd29dfacd1d7ad2662c52d86ba",
+   "bytes": 7317145
+  },
+  {
+   "path": "app/data/spatial/versions/1b266a2f.json",
+   "sha256": "647ec56ee5531a000ddffb91deadd964cd3ff887b9eb90291df0ef175b3eb6ed",
+   "bytes": 7377073
+  },
+  {
+   "path": "app/data/spatial/versions/2b08ed97.json",
+   "sha256": "f52d9d5f094ce92246be34f8b98bc5febb9fab55950c52b8fbcac3eb454c97d6",
+   "bytes": 8458005
+  },
+  {
+   "path": "app/data/spatial/versions/2bda172a.json",
+   "sha256": "b6e379d2386bce37e08038f0b476f0e47b3e801ac15ec766564274b33780756a",
+   "bytes": 3455911
+  },
+  {
+   "path": "app/data/spatial/versions/2e28e010.json",
+   "sha256": "89029bbd550aff42b1f7b6f3642cacc927b9425390b3ae8e51a7c206b660f70d",
+   "bytes": 3278023
+  },
+  {
+   "path": "app/data/spatial/versions/38552eb6.json",
+   "sha256": "3159c8b88c660098360e2ede799ee03339fd0ad26d2e4d5dd5e6e309fbd95ca8",
+   "bytes": 4997498
+  },
+  {
+   "path": "app/data/spatial/versions/3994f4b5.json",
+   "sha256": "d62f2e79f5ea019adc93b35fc25bacbd52aac8093a8caffb9a7b7f7c1185ecfe",
+   "bytes": 7386847
+  },
+  {
+   "path": "app/data/spatial/versions/3d1fa809.json",
+   "sha256": "a37da85606acf626e06383ff7d2d98f97bdb8752b5f06f46b2021158c32e5d79",
+   "bytes": 8375262
+  },
+  {
+   "path": "app/data/spatial/versions/410dd9bc.json",
+   "sha256": "2a9248c91ef7808aaf19eb2397c725cf1f536a68c6ab63b71540d25b2d48125a",
+   "bytes": 3278019
+  },
+  {
+   "path": "app/data/spatial/versions/42b6500b.json",
+   "sha256": "02a8d7f36eb55219183ef5430279de74b768ee1ec4a8888389ac810f40280182",
+   "bytes": 7386847
+  },
+  {
+   "path": "app/data/spatial/versions/43b4c430.json",
+   "sha256": "43823d68b316a70f3465b65508687d6d30e261fd76db005002ad554c78ae6969",
+   "bytes": 4708454
+  },
+  {
+   "path": "app/data/spatial/versions/44b2858d.json",
+   "sha256": "92a17cf2c824e7dafa0f576628857578859517e7829bdfba0722bcdfd1a3c48c",
+   "bytes": 4695371
+  },
+  {
+   "path": "app/data/spatial/versions/44e885c9.json",
+   "sha256": "3e3577301b272fddf6ccf01af73f4b0b57fd509c0869a4bf2448b6d7369bd3f6",
+   "bytes": 3278019
+  },
+  {
+   "path": "app/data/spatial/versions/45b151ab.json",
+   "sha256": "d94521a35acffca9f1c0db0e28990439463cb10a065a128115e78c12d81d0e6e",
+   "bytes": 7496976
+  },
+  {
+   "path": "app/data/spatial/versions/462eeab6.json",
+   "sha256": "5358d15b54221fbd7165c7966ec0a48579bacc8844fa95a6c2d509b5c0b4d065",
+   "bytes": 4942464
+  },
+  {
+   "path": "app/data/spatial/versions/49d6467d.json",
+   "sha256": "96dda98ce003cd370c880458688b2c293b3a31d43755f5334f5268db3476d4d4",
+   "bytes": 7372223
+  },
+  {
+   "path": "app/data/spatial/versions/57660fd7.json",
+   "sha256": "03bf0033748050535df20f062e7c8b5f2f949e371c5e74c55c2bfe6d3363054d",
+   "bytes": 4929806
+  },
+  {
+   "path": "app/data/spatial/versions/59f972a7.json",
+   "sha256": "d131c6feba6160cd40f6e5ead94b20cb1cfdc1e42dbcded67e654fdf5fabc676",
+   "bytes": 3455112
+  },
+  {
+   "path": "app/data/spatial/versions/5b1e4814.json",
+   "sha256": "a1619c3ece135657967c812c298d4dc878f37483f6bb04d024a9b0e318547fc4",
+   "bytes": 3036907
+  },
+  {
+   "path": "app/data/spatial/versions/5b6acd48.json",
+   "sha256": "f49a34f35bcffea8780cf8eb7572dc28bad4aa95fdc330b8a4da1d5d89f67278",
+   "bytes": 8375198
+  },
+  {
+   "path": "app/data/spatial/versions/5c935920.json",
+   "sha256": "570c6cc05cd153d831e45b40c432ec3f3508fb7842b383cc5edb6a1119b5c917",
+   "bytes": 7386847
+  },
+  {
+   "path": "app/data/spatial/versions/5cc3da05.json",
+   "sha256": "feea7a82ef9cd5fd10e51357ddcdcc4019680e903c182e881284b1497575e104",
+   "bytes": 3032854
+  },
+  {
+   "path": "app/data/spatial/versions/5e473f93.json",
+   "sha256": "ce1f11c921f8c193d60f585cc01ae0c233e9d26a2c77abc56cbb4978362a1c22",
+   "bytes": 4944474
+  },
+  {
+   "path": "app/data/spatial/versions/606a15f7.json",
+   "sha256": "3bb504bdcdf4e6fa821a312ae03c78f9c40509ebaa11ae14336079f3ac038ddd",
+   "bytes": 2980720
+  },
+  {
+   "path": "app/data/spatial/versions/62e27c9d.json",
+   "sha256": "70e2acdc87309019e672be8e3b2990d447da8a2c3ad60f0e048d4afc905a5f28",
+   "bytes": 4925079
+  },
+  {
+   "path": "app/data/spatial/versions/6607ea83.json",
+   "sha256": "62edec1bf0876a9e918eaae2872882d6cc20314d4d03dbf13deb23091f3ca4c7",
+   "bytes": 7377073
+  },
+  {
+   "path": "app/data/spatial/versions/71295edb.json",
+   "sha256": "acf668f9a989d87326a1b5a3d3723b5a3c88f3804978014d6efd09ce4116c728",
+   "bytes": 7386847
+  },
+  {
+   "path": "app/data/spatial/versions/713a6e9c.json",
+   "sha256": "3bcb5ef12a351a4febc1a95d7b0d1821205b8f55a7aa9b7ef7b52a6e10d11163",
+   "bytes": 4997606
+  },
+  {
+   "path": "app/data/spatial/versions/733e40b9.json",
+   "sha256": "2e5febe327e1acea1b5f77d6af7f266421307484de5cf9118f361ff11f870e17",
+   "bytes": 8459056
+  },
+  {
+   "path": "app/data/spatial/versions/75dfdd96.json",
+   "sha256": "43dc75817df3fbc8e9b98d61e567c8aef94ad4d62fc7ee1578b0fba603634a83",
+   "bytes": 7953027
+  },
+  {
+   "path": "app/data/spatial/versions/78459613.json",
+   "sha256": "8ea8a12e845c52b045b784ec8a9b6c0bec75f97e2b4395c0beecafb291b3cb4c",
+   "bytes": 7406989
+  },
+  {
+   "path": "app/data/spatial/versions/89960d42.json",
+   "sha256": "d47840bf4fad0718f178f4c4adeec0fbb73170e199d29bddbe97ab7119917814",
+   "bytes": 7953957
+  },
+  {
+   "path": "app/data/spatial/versions/8d4379e0.json",
+   "sha256": "a0fcfe2b14eb98fe8defab610afaf7e857e293bc8316707d4793709b0655fa43",
+   "bytes": 1309592
+  },
+  {
+   "path": "app/data/spatial/versions/963126f8.json",
+   "sha256": "4dc027ff79eb8219b84cada232feac3d744413ccc79a4b5197cc1173a91e6c57",
+   "bytes": 2696223
+  },
+  {
+   "path": "app/data/spatial/versions/9be67815.json",
+   "sha256": "7980062454c09c7e29874e9b52a875dde21e1d9d9df86fea5d502b75333163a2",
+   "bytes": 8457708
+  },
+  {
+   "path": "app/data/spatial/versions/9c9e18a9.json",
+   "sha256": "e667a0ea48f8cada7244d3d55dae01f98ac7ec14340df1453e4b200ffdefd5d0",
+   "bytes": 1309592
+  },
+  {
+   "path": "app/data/spatial/versions/9eede7f1.json",
+   "sha256": "dbd0f856c0382211bfa0f8894db8f5e7791e52c3c52697874ec826e631884e97",
+   "bytes": 2697241
+  },
+  {
+   "path": "app/data/spatial/versions/a1adc9e7.json",
+   "sha256": "f050ddfb3cf0ce070f4a8bd0c52087d486208df40e3be4ffd596df271abb4683",
+   "bytes": 2578668
+  },
+  {
+   "path": "app/data/spatial/versions/ad4a96b8.json",
+   "sha256": "2aa312c9a627992d86683600f849f20c56cdd0591cb4200e711ebd0ba94d4ba9",
+   "bytes": 7953027
+  },
+  {
+   "path": "app/data/spatial/versions/ad8867ca.json",
+   "sha256": "7333bd2efbba03951f3f11a32e2618444c1ad75c90bb321de8ccd5da65baa30e",
+   "bytes": 10119624
+  },
+  {
+   "path": "app/data/spatial/versions/b52e3543.json",
+   "sha256": "c694da80a0768c9838aa312a25baafa460b4e33c3333ce271200ba88017d3b66",
+   "bytes": 3277984
+  },
+  {
+   "path": "app/data/spatial/versions/bbea8d9c.json",
+   "sha256": "afd848a472b155864322bb6160ffdb0d878fbebdec4a00efe7a563d9891456c8",
+   "bytes": 7953027
+  },
+  {
+   "path": "app/data/spatial/versions/bdb2b610.json",
+   "sha256": "f1a0c7378ecac3179d790d9cce42de04bfb0db501595aa6b9bbe37b30fc98491",
+   "bytes": 1309592
+  },
+  {
+   "path": "app/data/spatial/versions/be1c3100.json",
+   "sha256": "00c6f3dff48c09796f26f1a0597c9038849e86779cb63ccdad0df903cfd55f4d",
+   "bytes": 3456342
+  },
+  {
+   "path": "app/data/spatial/versions/bf2bdb09.json",
+   "sha256": "558aa2d9a4a29915d0517921f62770090de5007fa5c3474237d98c292171f84e",
+   "bytes": 3452958
+  },
+  {
+   "path": "app/data/spatial/versions/bfe05d70.json",
+   "sha256": "e9308cdc539ae11df8cea4cb1fad102c4abb84c157517977e0ab46f0ead25647",
+   "bytes": 7406989
+  },
+  {
+   "path": "app/data/spatial/versions/c6432b78.json",
+   "sha256": "314a1ce83eece6833b571e2f9fd3e76f24cfe6a8599da094c088cfc346f267eb",
+   "bytes": 1331572
+  },
+  {
+   "path": "app/data/spatial/versions/c840f419.json",
+   "sha256": "26dcc304f8e57fa71d96cf9750650972908ad6136f1551adba5808fbcfea9ad8",
+   "bytes": 1309592
+  },
+  {
+   "path": "app/data/spatial/versions/cb43c25d.json",
+   "sha256": "f93631d723ba032ce000b405ef53ba33f271e602fa18e0a44a7783da46a88ddc",
+   "bytes": 7377079
+  },
+  {
+   "path": "app/data/spatial/versions/cd6d88bb.json",
+   "sha256": "7c317de212548d7b0578d8753d444a7806f5ff504363191de7fba9eaddee04b9",
+   "bytes": 7496976
+  },
+  {
+   "path": "app/data/spatial/versions/cdeecfd4.json",
+   "sha256": "c69f0bed616843bce82f388865cc8b4aa20f33f381380bef87ae1368827a4f49",
+   "bytes": 8457708
+  },
+  {
+   "path": "app/data/spatial/versions/d3bdaff5.json",
+   "sha256": "0ec0a8d6522bcd242508cfb03b9b63bbbd81fd2efcf0b3bd3b0136aba48b1e31",
+   "bytes": 4814769
+  },
+  {
+   "path": "app/data/spatial/versions/d67042a5.json",
+   "sha256": "597e8d3f815c4dcaf2f6b16f077c2288abe196df6fe2833a7a07aa48650f8d65",
+   "bytes": 3455024
+  },
+  {
+   "path": "app/data/spatial/versions/db721357.json",
+   "sha256": "d14a626468ba5e57eb846af4a34649b02fd630bba681435d26acf3667e14069c",
+   "bytes": 1331572
+  },
+  {
+   "path": "app/data/spatial/versions/e7418f44.json",
+   "sha256": "26a3bf17177d19b57a576c3239100049fc947e8743441865d96c99d8eec14065",
+   "bytes": 4708526
+  },
+  {
+   "path": "app/data/spatial/versions/e849d18b.json",
+   "sha256": "bbcd966f29d775843adfb37a35576346732666b5ff0c8e9d4b7eeffa1f7a27bb",
+   "bytes": 4928424
+  },
+  {
+   "path": "app/data/spatial/versions/e93c9da3.json",
+   "sha256": "81679def03d8ddb64936cf1abb28261ee508828d1d621c6dbaf59a8396142641",
+   "bytes": 4997496
+  },
+  {
+   "path": "app/data/spatial/versions/f0050adb.json",
+   "sha256": "68fdffe7c229e82d299a5d169d0d74abfaede8e954239e2a5cd194a4721d36e8",
+   "bytes": 7317627
+  },
+  {
+   "path": "app/data/spatial/versions/f8f64c07.json",
+   "sha256": "2ded564499af00f89d4ee8189c09c4fe246dc3d2f4d2ca109533e82568258ed7",
+   "bytes": 8375198
+  },
+  {
+   "path": "app/data/spatial/versions/f92bb436.json",
+   "sha256": "647b4d07aa5ad5ce89e6e4005bcb87dfb04c2b8f9c6db601a14278af19f7939d",
+   "bytes": 8375198
+  },
+  {
+   "path": "app/data/spatial/versions/f9ad3a86.json",
+   "sha256": "75bd87f5374020722abb6fa0670a4a476dc7e7d8c9ff30e4256a3c5528f7b69a",
+   "bytes": 8375198
+  },
+  {
+   "path": "app/data/spatial/versions/fca1b5d4.json",
+   "sha256": "6169f6a480747edc9afdc57e00659d0f41486faf95fb6b72ab4cfc7460fb5e41",
+   "bytes": 7496976
+  },
+  {
+   "path": "app/data/layouts.b64",
+   "sha256": "3efc74ce7074488f6125a73cbde571e269f96396c106b54d2c030b0b7c2f025d",
+   "bytes": 1089537
+  },
+  {
+   "path": "app/web/src/domain/templates/account_layouts.js",
+   "sha256": "efb1deeb11c57e76e569046f26fb50a0ef338ea8c481d426a31fe4d6a0097d58",
+   "bytes": 4736
+  },
+  {
+   "path": "app/web/src/domain/templates/account_photo_assets.json",
+   "sha256": "d737f48fdda9cb1e30bf1cebbd22776db497ffabf6c67b050d4ada9b4dc4e081",
+   "bytes": 13650
+  },
+  {
+   "path": "app/web/src/domain/templates/account_scenarios.json",
+   "sha256": "ee1b00b19b19a67fdc2a928be87e52235fb3f19bedfb9202b7e5839f47e619d5",
+   "bytes": 226030
+  },
+  {
+   "path": "app/web/src/domain/templates/backgrounds.json",
+   "sha256": "7d31b8d101c4ae3d46f061a7fc2c48d94ce64cd1edd8737bd0bc1606bc472ff3",
+   "bytes": 46771
+  },
+  {
+   "path": "app/web/src/domain/templates/cover_migrations.json",
+   "sha256": "7025913f833c741aaf9db418d8799da91b4e684461730c51dd226ec37986ddb6",
+   "bytes": 29783
+  },
+  {
+   "path": "app/web/src/domain/templates/covers.js",
+   "sha256": "3c3ace394d1a3d2499d215a657a3dc922ca18a831587ac85eef9094fe0366198",
+   "bytes": 48944
+  },
+  {
+   "path": "app/web/src/domain/templates/layout-repeats.js",
+   "sha256": "22bc40e1178749901a4f6f8611c85d42cd8f3aede0302e072932f5e6ffe7f88f",
+   "bytes": 2795
+  },
+  {
+   "path": "app/web/src/domain/templates/layout_repairs.js",
+   "sha256": "2eb53088157e7644b941eb177e436789f537a09a605021ef1c108a1e7382cb4e",
+   "bytes": 4088
+  },
+  {
+   "path": "app/web/src/domain/templates/legacy_img.js",
+   "sha256": "98860b7d8e072d9055604f77dcb2cd888e98b3f84298ed13b5f68eaa9660b0c0",
+   "bytes": 3013
+  },
+  {
+   "path": "app/web/src/domain/templates/migrate_removed_layouts.js",
+   "sha256": "5beb37a988b630cf6a52d6f395e2ddb409f4fc3bc4c67c6d98ab1a261f52cfa8",
+   "bytes": 7792
+  },
+  {
+   "path": "app/web/src/domain/templates/photo_layouts.js",
+   "sha256": "9c7486ab09839e39bf5fabe47bc3c7196400c78713f9bccf5df24e9104e4c49a",
+   "bytes": 6281503
+  },
+  {
+   "path": "app/web/src/domain/templates/prior_proposal_revisions.json",
+   "sha256": "f61f41173ea5353301f42e04eeb965e440d49a6ffac9ac6ec321daece65b4380",
+   "bytes": 49502
+  },
+  {
+   "path": "app/web/src/domain/templates/proposal_photo_assets.json",
+   "sha256": "2a7a265235b2dca0cc0dedeaf7f126ea2d3a42e4829ba0cbf3f0288ad631b266",
+   "bytes": 5911
+  },
+  {
+   "path": "app/web/src/domain/templates/proposal_typography.js",
+   "sha256": "3f68bab4ea7fcbc26fd21b3420ba8f01c02f64eb81e229d2f3db696699431bd9",
+   "bytes": 10334
+  },
+  {
+   "path": "app/web/src/domain/templates/proposal_typography.json",
+   "sha256": "a4935f6856daf7c8be721fb8757f3476966897f983348ca5a5a6238d06fc3a41",
+   "bytes": 45067
+  },
+  {
+   "path": "app/web/src/domain/templates/refresh_proposal_cover.js",
+   "sha256": "5c94b9e69c5d3e08e55f62f8a12fd95fd05c219b560e8280b5c899e912bb0507",
+   "bytes": 2885
+  },
+  {
+   "path": "app/web/src/domain/templates/removed_layout_migrations.json",
+   "sha256": "e1d22090d7dde0fd391ab1b5720547ed28a979a1ed05b1767c99bd62a9fc1f4f",
+   "bytes": 597733
+  },
+  {
+   "path": "app/web/src/domain/templates/retired.js",
+   "sha256": "d00737014b846eff40a79bb0a89712fdf4a33bf906528c46569f0f7bc6fcd055",
+   "bytes": 6262
+  },
+  {
+   "path": "app/web/src/domain/templates/scenario_bg.js",
+   "sha256": "a1a4092931870de7c5e01bfc6c202cba98fa3f9f0fc684088f55f91bf8779e32",
+   "bytes": 1812
+  },
+  {
+   "path": "app/web/src/domain/templates/scenario_bg.json",
+   "sha256": "14cbfebb21542c47e4eb089e15f47029c29e8290467538d9c90c8938bef65a1c",
+   "bytes": 3775
+  },
+  {
+   "path": "app/web/src/domain/templates/scenario_covers.json",
+   "sha256": "ba0c7ce28237e20c69568a92f0918833be9db15d6a101d3e86cbed234f28e260",
+   "bytes": 7724
+  },
+  {
+   "path": "app/web/src/domain/templates/scenario_fills.js",
+   "sha256": "ece24188082740e0145a490afb36df45ee788f83cb57ac36ce4aa20a2ea9faa9",
+   "bytes": 473856
+  },
+  {
+   "path": "app/web/src/domain/templates/scenario_story.js",
+   "sha256": "8d62c15ef6de7843af1612b2f9fe3519888e4db2beb10db5f900165ecd2f9728",
+   "bytes": 38585
+  },
+  {
+   "path": "app/web/src/domain/templates/scenario_storyboard.js",
+   "sha256": "82807743c63d9dd3c9f3f661678e00197de616836c3591fb81669eaaeed2c8da",
+   "bytes": 5272
+  },
+  {
+   "path": "app/web/src/domain/templates/scenarios.js",
+   "sha256": "8ed412bf185a6e41a32e8798e3d2bee8bec12c99b2290233a37a0b73035c1044",
+   "bytes": 92843
+  },
+  {
+   "path": "app/web/src/domain/templates/spatial-layouts.js",
+   "sha256": "f3f9692e9c72a1ce9355f42d885554149a9d6e780a35786e9fbad281f3086798",
+   "bytes": 3135
+  },
+  {
+   "path": "app/web/src/domain/templates/standard_vertical_scenarios.json",
+   "sha256": "e4a069e4d0e85c7b130254fe150f07b45de75ec638c219bc137f2e6e7ddcdcfe",
+   "bytes": 1973134
+  },
+  {
+   "path": "app/web/src/domain/templates/std_layouts.js",
+   "sha256": "367aa1c0ceccdcc0b196b884b54ab0678939141893be3abf00b95570e969f4e5",
+   "bytes": 636003
+  },
+  {
+   "path": "app/web/src/domain/templates/toc_content.json",
+   "sha256": "7211ba16291c1a98b5bf66a81e5ccb7e7f95422f13a7dd52dd8f962d30e235d7",
+   "bytes": 495310
+  },
+  {
+   "path": "app/web/src/domain/templates/toc_layouts.js",
+   "sha256": "77050f106f8ae55bed7b0b0b02fb981197732c56cb010f731ccfa1095ddef93c",
+   "bytes": 497488
+  },
+  {
+   "path": "app/web/src/domain/templates/toc_templates.js",
+   "sha256": "b26d5bdf0838ea04b761d4e922742f6294ae43caea769b71f08ef579ce9c083f",
+   "bytes": 37235
+  },
+  {
+   "path": "app/web/src/domain/templates/vertical_scenarios.json",
+   "sha256": "d6d84be2ab08f59d26f3b4b30440f50d6613ccb394b912acd387c40df50cce53",
+   "bytes": 1280092
+  },
+  {
+   "path": "app/web/src/domain/templates/vertical_std_layouts.js",
+   "sha256": "6d60e3ebe80d1a45cdb9025e58a92ce00d495cbdd222393582ba06284f684593",
+   "bytes": 762555
+  }
+ ]
+}

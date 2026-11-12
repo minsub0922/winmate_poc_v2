@@ -32,7 +32,7 @@ sys.dont_write_bytecode = True
 OUT = ROOT / 'app/tests/output/strict'
 MIN_CASES = 10
 FAKE_KEY = 'AIzaSySTRICTFAKEKEY00000000000000000000'
-TOTAL_PRODUCTS = 1068
+TOTAL_PRODUCTS = 1084
 CURATED = 40
 
 
@@ -168,7 +168,7 @@ def pack_ref(ref: str) -> tuple[str, int]:
 
 
 # ================================================================ group 1 · products
-@case('products', 'P01', 'count is 1068 across list, health and bootstrap')
+@case('products', 'P01', 'count is 1084 across list, health and bootstrap')
 def p01(ctx, d):
     items = ctx.all_products
     body = ctx.client.get('/api/products').json()

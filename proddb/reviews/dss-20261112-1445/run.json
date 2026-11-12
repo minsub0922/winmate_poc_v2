@@ -1,0 +1,52 @@
+{
+  "run_id": "dss-20261112-1445",
+  "run_at": "2026-11-12T14:45:05+09:00",
+  "about": "apply_run.py 입력 — 같은 제품이 다른 id 로 다시 생긴 행(alias), 같은 제품을 대신하는 사이트 행(superseded), 새 행의 상세 pack 번호",
+  "alias": {
+    "ec_343_001": "sg_g000184016",
+    "ec_343_002": "sg_g000184018",
+    "ec_343_003": "sg_g000184020"
+  },
+  "alias_why": {
+    "ec_343_001": "사이트 카드 G000184016 이 목록에서 빠져 e-카탈로그 343 항목이 카탈로그 전용 행으로 다시 생김 — 같은 제품이라 기존 sg 행 유지",
+    "ec_343_002": "G000184018 와 같은 제품",
+    "ec_343_003": "G000184020 와 같은 제품"
+  },
+  "superseded": {
+    "ec_360_114": [
+      "sg_g000184305",
+      "sg_g000184308"
+    ]
+  },
+  "superseded_why": {
+    "ec_360_114": "'비즈니스(광시야각) 모니터'(LS24/27HG314 · LS24/27HG324) — 이번에 사이트에 올라온 에센셜 모니터 G3 G31H · G32H 와 모델코드가 같음. 카탈로그 행은 id 를 유지하되 선택 목록에서는 사이트 행을 쓴다"
+  },
+  "new_pack": 3,
+  "taxonomy_url_moves": {
+    "sac_l_in": "/dvms/all-dvms/?dvms-indoor",
+    "sac_l_out": "/dvms/all-dvms/?dvms-outdoor",
+    "sac_sm": "/cooling-single/all-cooling-single/",
+    "sac_res": "/cooling-for-residential/all-cooling-for-residential/",
+    "sac_ehs": "/heat-pump-boilers/all-heat-pump-boilers/",
+    "sac_vent": "/ventilations/all-ventilations/",
+    "sac_ctr": "/central-air-conditionings/all-central-air-conditionings/",
+    "ref_comm": "/refrigerator/all-refrigerator/?business-refrigerator",
+    "oven": "/qooker/all-qooker/",
+    "water": "/water-purifier/all-water-purifier/",
+    "dry": "/dryers/all-dryers/",
+    "ac": "/air-conditioners/all-air-conditioners/",
+    "air": "/air-cleaners/all-air-cleaners/",
+    "light": "/led-lights/all-led-lights/"
+  },
+  "taxonomy_url_moves_why": "예전 분류 URL(/air-cleaners/ 등)은 404. 이번 사이트 수집(collect_site.mjs)이 실제로 상품을 받은 목록 주소(site_lists.txt)와 그 목록의 공식 필터(wkb_filter_meta.json: dvms-indoor · dvms-outdoor · business-refrigerator)로 바꾼다.",
+  "sol_url_moves": {
+    "https://www.samsungknox.com/en/solutions/it-solutions/knox-suite": "https://www.samsungknox.com/solutions/knox-suite",
+    "https://www.samsungknox.com/ko/solutions/it-solutions/knox-suite": "https://www.samsungknox.com/solutions/knox-suite"
+  },
+  "sol_url_moves_why": "samsungknox.com 의 Knox Suite 보조 페이지가 404 — 웹 검색으로 확인한 현재 주소(www.samsungknox.com/solutions/knox-suite, Essentials/Base Plan 소개). 사이트가 봇 확인(202)을 돌려 직접 수집은 못 함. 1차 근거는 samsung.com/sec/business 모바일 Knox 솔루션 페이지(200).",
+  "solution_recheck": {
+    "https://samsung.aiibook.net/b2b/catImage/356/[PC] 갤럭시 북6 EE 제품가이드.pdf": 200
+  },
+  "solution_recheck_why": "fetch_solutions.py(urllib)가 공백 · 대괄호가 든 URL 을 못 열어 status 0 — 퍼센트 인코딩해 curl 로 다시 열어 200(application/pdf, 2.4MB) 확인",
+  "finished_at": "2026-11-12T16:20:00+09:00"
+}

@@ -13,7 +13,7 @@ def test_reviewed_model_change_invalidates_projection_and_updates_runtime_ledger
     with tempfile.TemporaryDirectory() as tmp:
         root=Path(tmp);data=root/'app/data';source=root/'proddb/winmate_products.sqlite'
         (data/'static/img/prod').mkdir(parents=True);(data/'product-details').mkdir();source.parent.mkdir()
-        products=[{'id':f'p{i}','name':f'Product {i}','model':f'M{i}','d':0} for i in range(1068)]
+        products=[{'id':f'p{i}','name':f'Product {i}','model':f'M{i}','d':0} for i in range(1084)]
         (data/'catalog.json').write_text(json.dumps({'products':products[:40]}))
         (data/'products_db.json').write_text(json.dumps({'curated':{},'products':products[40:]}))
         (data/'layouts.b64').write_text('fixture');(data/'static/index.html').write_text('fixture')

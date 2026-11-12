@@ -1,0 +1,4426 @@
+{
+ "run": "dss-20261112-1445",
+ "run_at": "2026-11-12T14:45:05+09:00",
+ "summary": {
+  "complete": 140,
+  "failed": 18,
+  "partial": 1,
+  "moved": 1,
+  "changed": 1,
+  "same": 65,
+  "new": 2,
+  "gone": 2
+ },
+ "sources": [
+  {
+   "id": "site:list:Cold_Chain_System/all-Cold_Chain_System",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/Cold_Chain_System/all-Cold_Chain_System/",
+   "prev": {
+    "count": 2,
+    "no": "100002328"
+   },
+   "cur": {
+    "expected": 2,
+    "received": 2,
+    "no": "100002328"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:ac-clean/all-ac-clean",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/ac-clean/all-ac-clean/",
+   "prev": {
+    "count": 1,
+    "no": "10002900"
+   },
+   "cur": {
+    "expected": 1,
+    "received": 1,
+    "no": "10002900"
+   },
+   "status": "complete",
+   "note": "분류 페이지가 dispClsfNo 를 더 내놓지 않아 지난 번호로 목록 API 를 부름(같은 상품 반환)"
+  },
+  {
+   "id": "site:list:accessories/all-accessories",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/accessories/all-accessories/",
+   "prev": {
+    "count": 1,
+    "no": "100002646"
+   },
+   "cur": {
+    "expected": 1,
+    "received": 1,
+    "no": "100002646"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:air-cleaners/all-air-cleaners",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/air-cleaners/all-air-cleaners/",
+   "prev": {
+    "count": 6,
+    "no": "10002300"
+   },
+   "cur": {
+    "expected": 6,
+    "received": 6,
+    "no": "10002300"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:air-conditioners-care-service/all-air-conditioners-care-service",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/air-conditioners-care-service/all-air-conditioners-care-service/",
+   "prev": {
+    "count": 2,
+    "no": "100002275"
+   },
+   "cur": {
+    "expected": 2,
+    "received": 2,
+    "no": "100002275"
+   },
+   "status": "complete",
+   "note": "분류 페이지가 dispClsfNo 를 더 내놓지 않아 지난 번호로 목록 API 를 부름(같은 상품 반환)"
+  },
+  {
+   "id": "site:list:air-conditioners/all-air-conditioners",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/air-conditioners/all-air-conditioners/",
+   "prev": {
+    "count": 46,
+    "no": "100002312"
+   },
+   "cur": {
+    "expected": 44,
+    "received": 44,
+    "no": "100002312"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:airdresser/all-airdresser",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/airdresser/all-airdresser/",
+   "prev": {
+    "count": 5,
+    "no": "10002200"
+   },
+   "cur": {
+    "expected": 5,
+    "received": 5,
+    "no": "10002200"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:buds/all-buds",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/buds/all-buds/",
+   "prev": {
+    "count": 3,
+    "no": "100002859"
+   },
+   "cur": {
+    "expected": 3,
+    "received": 3,
+    "no": "100002859"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:central-air-conditionings/all-central-air-conditionings",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/central-air-conditionings/all-central-air-conditionings/",
+   "prev": {
+    "count": 8,
+    "no": "10001000"
+   },
+   "cur": {
+    "expected": 8,
+    "received": 8,
+    "no": "10001000"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:chromebooks/all-chromebooks",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/chromebooks/all-chromebooks/",
+   "prev": {
+    "count": 2,
+    "no": "10002700"
+   },
+   "cur": {
+    "expected": 2,
+    "received": 2,
+    "no": "10002700"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:cooling-for-residential/all-cooling-for-residential",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/cooling-for-residential/all-cooling-for-residential/",
+   "prev": {
+    "count": 23,
+    "no": "10000700"
+   },
+   "cur": {
+    "expected": 23,
+    "received": 23,
+    "no": "10000700"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:cooling-single/all-cooling-single",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/cooling-single/all-cooling-single/",
+   "prev": {
+    "count": 23,
+    "no": "10000600"
+   },
+   "cur": {
+    "expected": 23,
+    "received": 23,
+    "no": "10000600"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:desktop/all-desktop",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/desktop/all-desktop/",
+   "prev": {
+    "count": 36,
+    "no": "10001900"
+   },
+   "cur": {
+    "expected": 36,
+    "received": 36,
+    "no": "10001900"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:digital-multifunction-printers/all-digital-multifunction-printers",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/digital-multifunction-printers/all-digital-multifunction-printers/",
+   "prev": {
+    "count": 12,
+    "no": "10001600"
+   },
+   "cur": {
+    "expected": 12,
+    "received": 12,
+    "no": "10001600"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:dish-washer/all-dish-washer",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/dish-washer/all-dish-washer/",
+   "prev": {
+    "count": 14,
+    "no": "100002624"
+   },
+   "cur": {
+    "expected": 14,
+    "received": 14,
+    "no": "100002624"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:dryers/all-dryers",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/dryers/all-dryers/",
+   "prev": {
+    "count": 10,
+    "no": "10002500"
+   },
+   "cur": {
+    "expected": 10,
+    "received": 10,
+    "no": "10002500"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:dvms/all-dvms",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/dvms/all-dvms/",
+   "prev": {
+    "count": 10,
+    "no": "100002389"
+   },
+   "cur": {
+    "expected": 10,
+    "received": 10,
+    "no": "100002389"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:electric-range/all-electric-range",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/electric-range/all-electric-range/",
+   "prev": {
+    "count": 6,
+    "no": "100002629"
+   },
+   "cur": {
+    "expected": 6,
+    "received": 6,
+    "no": "100002629"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:general-multifunction-printers/all-general-multifunction-printers",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/general-multifunction-printers/all-general-multifunction-printers/",
+   "prev": {
+    "count": 48,
+    "no": "10001700"
+   },
+   "cur": {
+    "expected": 48,
+    "received": 48,
+    "no": "10001700"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:heat-pump-boilers/all-heat-pump-boilers",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/heat-pump-boilers/all-heat-pump-boilers/",
+   "prev": {
+    "count": 2,
+    "no": "10000800"
+   },
+   "cur": {
+    "expected": 2,
+    "received": 2,
+    "no": "10000800"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:hood/all-hood",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/hood/all-hood/",
+   "prev": {
+    "count": 1,
+    "no": "100002276"
+   },
+   "cur": {
+    "expected": 1,
+    "received": 1,
+    "no": "100002276"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:hotel-tvs/all-hotel-tvs",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/hotel-tvs/all-hotel-tvs/",
+   "prev": {
+    "count": 3,
+    "no": "10001300"
+   },
+   "cur": {
+    "expected": 3,
+    "received": 3,
+    "no": "10001300"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:kimchi-refrigerators/all-kimchi-refrigerators",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/kimchi-refrigerators/all-kimchi-refrigerators/",
+   "prev": {
+    "count": 16,
+    "no": "100002196"
+   },
+   "cur": {
+    "expected": 16,
+    "received": 16,
+    "no": "100002196"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:led-lights/all-led-lights",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/led-lights/all-led-lights/",
+   "prev": {
+    "count": 14,
+    "no": "100002650"
+   },
+   "cur": {
+    "expected": 14,
+    "received": 14,
+    "no": "100002650"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:led-signage/all-led-signage",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/led-signage/all-led-signage/",
+   "prev": {
+    "count": 4,
+    "no": "10001200"
+   },
+   "cur": {
+    "expected": 4,
+    "received": 4,
+    "no": "10001200"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:micro-wave-ovens/all-micro-wave-ovens",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/micro-wave-ovens/all-micro-wave-ovens/",
+   "prev": {
+    "count": 1,
+    "no": "100002634"
+   },
+   "cur": {
+    "expected": 1,
+    "received": 1,
+    "no": "100002634"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:mobile-accessories/all-mobile-accessories",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/mobile-accessories/all-mobile-accessories/",
+   "prev": {
+    "count": 1,
+    "no": "100002026"
+   },
+   "cur": {
+    "expected": 1,
+    "received": 1,
+    "no": "100002026"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:monitors/all-monitors",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/monitors/all-monitors/",
+   "prev": {
+    "count": 47,
+    "no": "10002000"
+   },
+   "cur": {
+    "expected": 39,
+    "received": 39,
+    "no": "10002000"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:multifunction-printers-supplies/all-multifunction-printers-supplies",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/multifunction-printers-supplies/all-multifunction-printers-supplies/",
+   "prev": {
+    "count": 15,
+    "no": "100001751"
+   },
+   "cur": {
+    "expected": 15,
+    "received": 15,
+    "no": "100001751"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:notebook/all-notebook",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/notebook/all-notebook/",
+   "prev": {
+    "count": 71,
+    "no": "10001800"
+   },
+   "cur": {
+    "expected": 71,
+    "received": 71,
+    "no": "10001800"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:qooker/all-qooker",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/qooker/all-qooker/",
+   "prev": {
+    "count": 5,
+    "no": "100002186"
+   },
+   "cur": {
+    "expected": 5,
+    "received": 5,
+    "no": "100002186"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:refrigerator/all-refrigerator",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/refrigerator/all-refrigerator/",
+   "prev": {
+    "count": 45,
+    "no": "100002092"
+   },
+   "cur": {
+    "expected": 45,
+    "received": 45,
+    "no": "100002092"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:rings/all-rings",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/rings/all-rings/",
+   "prev": {
+    "count": 0,
+    "no": "100002857"
+   },
+   "cur": {
+    "expected": 0,
+    "received": 0,
+    "no": "100002857"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:shoedresser/all-shoedresser",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/shoedresser/all-shoedresser/",
+   "prev": {
+    "count": 0,
+    "no": "100002163"
+   },
+   "cur": {
+    "expected": 0,
+    "received": 0,
+    "no": "100002163"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:smart-signage/all-smart-signage",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/smart-signage/all-smart-signage/",
+   "prev": {
+    "count": 37,
+    "no": "10001100"
+   },
+   "cur": {
+    "expected": 37,
+    "received": 37,
+    "no": "10001100"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:smartphones/all-smartphones",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/smartphones/all-smartphones/",
+   "prev": {
+    "count": 8,
+    "no": "10000100"
+   },
+   "cur": {
+    "expected": 8,
+    "received": 8,
+    "no": "10000100"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:soho/all-soho",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/soho/all-soho/",
+   "prev": {
+    "count": 0,
+    "no": "100002121"
+   },
+   "cur": {
+    "expected": 0,
+    "received": 0,
+    "no": "100002121"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:tablets/all-tablets",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/tablets/all-tablets/",
+   "prev": {
+    "count": 22,
+    "no": "10000200"
+   },
+   "cur": {
+    "expected": 22,
+    "received": 22,
+    "no": "10000200"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:tvs/all-tvs",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/tvs/all-tvs/",
+   "prev": {
+    "count": 14,
+    "no": "10001400"
+   },
+   "cur": {
+    "expected": 14,
+    "received": 14,
+    "no": "10001400"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:vacuum-cleaners/all-vacuum-cleaners",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/vacuum-cleaners/all-vacuum-cleaners/",
+   "prev": {
+    "count": 11,
+    "no": "10002600"
+   },
+   "cur": {
+    "expected": 6,
+    "received": 6,
+    "no": "10002600"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:ventilations/all-ventilations",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/ventilations/all-ventilations/",
+   "prev": {
+    "count": 3,
+    "no": "10000900"
+   },
+   "cur": {
+    "expected": 3,
+    "received": 3,
+    "no": "10000900"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:washing-machines/all-washing-machines",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/washing-machines/all-washing-machines/",
+   "prev": {
+    "count": 12,
+    "no": "10002400"
+   },
+   "cur": {
+    "expected": 12,
+    "received": 12,
+    "no": "10002400"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:watches/all-watches",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/watches/all-watches/",
+   "prev": {
+    "count": 3,
+    "no": "100002850"
+   },
+   "cur": {
+    "expected": 3,
+    "received": 3,
+    "no": "100002850"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:water-purifier/all-water-purifier",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/water-purifier/all-water-purifier/",
+   "prev": {
+    "count": 12,
+    "no": "100002637"
+   },
+   "cur": {
+    "expected": 12,
+    "received": 12,
+    "no": "100002637"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:xr/all-xr",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/xr/all-xr/",
+   "prev": {
+    "count": 1,
+    "no": "100002875"
+   },
+   "cur": {
+    "expected": 1,
+    "received": 1,
+    "no": "100002875"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:display-solution/all-display-solution",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/display-solution/all-display-solution/",
+   "prev": {
+    "count": 2,
+    "no": "100002762"
+   },
+   "cur": {
+    "expected": 2,
+    "received": 2,
+    "no": "100002762"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:harman/all-harman",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/harman/all-harman/",
+   "prev": {
+    "count": 0,
+    "no": "10001500"
+   },
+   "cur": {
+    "expected": 0,
+    "received": 0,
+    "no": "10001500"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:mobile-solution/all-mobile-solution",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/mobile-solution/all-mobile-solution/",
+   "prev": {
+    "count": 4,
+    "no": "100002767"
+   },
+   "cur": {
+    "expected": 4,
+    "received": 4,
+    "no": "100002767"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:printing-solution/all-printing-solution",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/printing-solution/all-printing-solution/",
+   "prev": {
+    "count": 2,
+    "no": "100002689"
+   },
+   "cur": {
+    "expected": 2,
+    "received": 2,
+    "no": "100002689"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:sac-solution/all-sac-solution",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/sac-solution/all-sac-solution/",
+   "prev": {
+    "count": 4,
+    "no": "100002745"
+   },
+   "cur": {
+    "expected": 4,
+    "received": 4,
+    "no": "100002745"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:tv-vd-solution/all-tv-vd-solution",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/tv-vd-solution/all-tv-vd-solution/",
+   "prev": {
+    "count": 1,
+    "no": "100002764"
+   },
+   "cur": {
+    "expected": 1,
+    "received": 1,
+    "no": "100002764"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "site:list:printing-solutions/all-printing-solutions",
+   "channel": "samsung.com/sec/business",
+   "kind": "goodsList",
+   "url": "https://www.samsung.com/sec/business/printing-solutions/all-printing-solutions/",
+   "status": "failed",
+   "error": "no dispClsfNo",
+   "note": "지난 수집(2026-10-18)도 같은 오류 — 이 분류에만 근거가 있던 DSS 없음"
+  },
+  {
+   "id": "site:spec-api",
+   "channel": "samsung.com/sec/business",
+   "kind": "getGoodsSpecList",
+   "cur": {
+    "expected": 1551,
+    "received": 1125
+   },
+   "status": "complete",
+   "note": "상품 카드 + 옵션 상품(variants)별 사양"
+  },
+  {
+   "id": "site:pdp",
+   "channel": "samsung.com/sec/business",
+   "kind": "PDP 특장점 · USP · 이미지",
+   "cur": {
+    "expected": 597,
+    "received": 596
+   },
+   "status": "partial",
+   "error": [
+    "G000181220 HTTP 500"
+   ],
+   "note": "G000181220 상품 페이지는 지난 수집도 HTTP 500 — 이 상품은 목록 · 사양 API 로 확인"
+  },
+  {
+   "id": "ecat:364",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "364",
+   "title": "비즈니스 종합",
+   "docTitle": "비즈니스 종합 26년 11-12월호",
+   "prev": {
+    "dir": "360",
+    "pages": 108
+   },
+   "cur": {
+    "expected": 112,
+    "received": 112,
+    "noTextPages": []
+   },
+   "status": "moved",
+   "changedPages": "99쪽",
+   "addedPages": [
+    109,
+    110,
+    111,
+    112
+   ],
+   "note": ""
+  },
+  {
+   "id": "ecat:355",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "355",
+   "title": "EHS 히트펌프 보일러 리플릿",
+   "docTitle": "EHS 히트펌프 보일러 리플릿",
+   "prev": {
+    "dir": "355",
+    "pages": 2
+   },
+   "cur": {
+    "expected": 2,
+    "received": 2,
+    "noTextPages": []
+   },
+   "status": "changed",
+   "changedPages": [
+    1,
+    2
+   ],
+   "addedPages": [],
+   "note": ""
+  },
+  {
+   "id": "ecat:314",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "314",
+   "title": "인테리어 컬렉션 카탈로그",
+   "docTitle": "인테리어 컬렉션 카탈로그",
+   "prev": {
+    "dir": "314",
+    "pages": 60
+   },
+   "cur": {
+    "expected": 60,
+    "received": 59,
+    "noTextPages": [
+     2
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:297",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "297",
+   "title": "삼성 시스템에어컨 종합카달로그",
+   "docTitle": "삼성 시스템에어컨 종합카달로그",
+   "prev": {
+    "dir": "297",
+    "pages": 532
+   },
+   "cur": {
+    "expected": 532,
+    "received": 517,
+    "noTextPages": [
+     2,
+     63,
+     89,
+     106,
+     181,
+     260,
+     315,
+     362,
+     383,
+     396,
+     404,
+     477,
+     508,
+     517,
+     522
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:218",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "218",
+   "title": "삼성 콜드체인 시스템",
+   "docTitle": "삼성전자",
+   "prev": {
+    "dir": null,
+    "pages": null
+   },
+   "cur": {
+    "expected": 20,
+    "received": 20,
+    "noTextPages": []
+   },
+   "status": "new",
+   "changedPages": null,
+   "addedPages": null,
+   "note": ""
+  },
+  {
+   "id": "ecat:161",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "161",
+   "title": "삼성 통합공조 솔루션",
+   "docTitle": "삼성 통합공조 솔루션",
+   "prev": {
+    "dir": "161",
+    "pages": 16
+   },
+   "cur": {
+    "expected": 16,
+    "received": 16,
+    "noTextPages": []
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": ""
+  },
+  {
+   "id": "ecat:138",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "138",
+   "title": "MX9",
+   "docTitle": "MX9",
+   "prev": {
+    "dir": "138",
+    "pages": 4
+   },
+   "cur": {
+    "expected": 4,
+    "received": 4,
+    "noTextPages": []
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": ""
+  },
+  {
+   "id": "ecat:137",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "137",
+   "title": "MX6",
+   "docTitle": "MX6",
+   "prev": {
+    "dir": "137",
+    "pages": 4
+   },
+   "cur": {
+    "expected": 4,
+    "received": 4,
+    "noTextPages": []
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": ""
+  },
+  {
+   "id": "ecat:131",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "131",
+   "title": "데이코 카탈로그",
+   "docTitle": "dacor",
+   "prev": {
+    "dir": "131",
+    "pages": 88
+   },
+   "cur": {
+    "expected": 88,
+    "received": 79,
+    "noTextPages": [
+     1,
+     2,
+     5,
+     6,
+     56,
+     61,
+     62,
+     84,
+     87
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:93",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "93",
+   "title": "B2B LED조명",
+   "docTitle": "삼성 LED 조명",
+   "prev": {
+    "dir": "93",
+    "pages": 42
+   },
+   "cur": {
+    "expected": 42,
+    "received": 41,
+    "noTextPages": [
+     42
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:361",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "361",
+   "title": "📢[쇼프로]  갤럭시탭 S FE 시리즈",
+   "docTitle": "[쇼프로] 갤럭시탭 S FE 시리즈",
+   "prev": {
+    "dir": "361",
+    "pages": 8
+   },
+   "cur": {
+    "expected": 8,
+    "received": 7,
+    "noTextPages": [
+     8
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:309",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "309",
+   "title": "갤럭시Z 플립8",
+   "docTitle": "갤럭시Z 플립8",
+   "prev": {
+    "dir": "309",
+    "pages": 16
+   },
+   "cur": {
+    "expected": 16,
+    "received": 14,
+    "noTextPages": [
+     1,
+     16
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:308",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "308",
+   "title": "갤럭시Z 폴드8",
+   "docTitle": "갤럭시Z 폴드8",
+   "prev": {
+    "dir": "308",
+    "pages": 17
+   },
+   "cur": {
+    "expected": 17,
+    "received": 15,
+    "noTextPages": [
+     1,
+     17
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:357",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "357",
+   "title": "갤럭시 워치 울트라2",
+   "docTitle": "갤럭시 워치 울트라2",
+   "prev": {
+    "dir": "357",
+    "pages": 22
+   },
+   "cur": {
+    "expected": 22,
+    "received": 20,
+    "noTextPages": [
+     1,
+     22
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:358",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "358",
+   "title": "갤럭시 워치9",
+   "docTitle": "갤럭시 워치9",
+   "prev": {
+    "dir": "358",
+    "pages": 21
+   },
+   "cur": {
+    "expected": 21,
+    "received": 19,
+    "noTextPages": [
+     1,
+     21
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:354",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "354",
+   "title": "📢[쇼프로] 스마트싱스 프로 안전관리 솔루션",
+   "docTitle": "[쇼프로] 스마트싱스 프로 안전관리 솔루션",
+   "prev": {
+    "dir": "354",
+    "pages": 9
+   },
+   "cur": {
+    "expected": 9,
+    "received": 7,
+    "noTextPages": [
+     2,
+     9
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:338",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "338",
+   "title": "갤럭시 S26",
+   "docTitle": "갤럭시 S26",
+   "prev": {
+    "dir": "338",
+    "pages": 15
+   },
+   "cur": {
+    "expected": 15,
+    "received": 14,
+    "noTextPages": [
+     1
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:331",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "331",
+   "title": "갤럭시 탭 A11",
+   "docTitle": "갤럭시 탭 A11",
+   "prev": {
+    "dir": "331",
+    "pages": 9
+   },
+   "cur": {
+    "expected": 9,
+    "received": 7,
+    "noTextPages": [
+     1,
+     9
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:328",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "328",
+   "title": "📢[쇼프로] 갤럭시 액티브 탭5 프로",
+   "docTitle": "갤럭시 액티브 탭5 프로",
+   "prev": {
+    "dir": "328",
+    "pages": 7
+   },
+   "cur": {
+    "expected": 7,
+    "received": 7,
+    "noTextPages": []
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": ""
+  },
+  {
+   "id": "ecat:324",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "324",
+   "title": "📢[쇼프로] 갤럭시 XR",
+   "docTitle": "갤럭시 XR",
+   "prev": {
+    "dir": "324",
+    "pages": 7
+   },
+   "cur": {
+    "expected": 7,
+    "received": 7,
+    "noTextPages": []
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": ""
+  },
+  {
+   "id": "ecat:316",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "316",
+   "title": "갤럭시 탭 S11",
+   "docTitle": "갤럭시 탭 S11",
+   "prev": {
+    "dir": "316",
+    "pages": 14
+   },
+   "cur": {
+    "expected": 14,
+    "received": 12,
+    "noTextPages": [
+     1,
+     14
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:303",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "303",
+   "title": "갤럭시 탭 엑티브5 프로 5G",
+   "docTitle": "갤럭시 탭 엑티브5 프로 5G",
+   "prev": {
+    "dir": "303",
+    "pages": 22
+   },
+   "cur": {
+    "expected": 22,
+    "received": 20,
+    "noTextPages": [
+     1,
+     22
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:300",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "300",
+   "title": "갤럭시 엑스커버7 프로",
+   "docTitle": "Galaxy XCover7 Pro",
+   "prev": {
+    "dir": "300",
+    "pages": 15
+   },
+   "cur": {
+    "expected": 15,
+    "received": 13,
+    "noTextPages": [
+     1,
+     15
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:348",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "348",
+   "title": "📢[쇼프로] 스페이셜 사이니지",
+   "docTitle": "스페이셜 사이니지",
+   "prev": {
+    "dir": "348",
+    "pages": 8
+   },
+   "cur": {
+    "expected": 8,
+    "received": 7,
+    "noTextPages": [
+     8
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:344",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "344",
+   "title": "Flip (WMFX 시리즈)",
+   "docTitle": "Flip (WMFX 시리즈)",
+   "prev": {
+    "dir": "344",
+    "pages": 24
+   },
+   "cur": {
+    "expected": 24,
+    "received": 22,
+    "noTextPages": [
+     1,
+     24
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:337",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "337",
+   "title": "삼성 스페이셜 사이니지",
+   "docTitle": "삼성 스페이셜 사이니지",
+   "prev": {
+    "dir": "337",
+    "pages": 12
+   },
+   "cur": {
+    "expected": 12,
+    "received": 10,
+    "noTextPages": [
+     1,
+     12
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:306",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "306",
+   "title": "삼성 컬러 E-Paper (EMDX)",
+   "docTitle": "삼성 컬러 E-Paper",
+   "prev": {
+    "dir": "306",
+    "pages": 12
+   },
+   "cur": {
+    "expected": 12,
+    "received": 10,
+    "noTextPages": [
+     1,
+     12
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:325",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "325",
+   "title": "📢[쇼프로] 더 무빙스타일",
+   "docTitle": "더 무빙스타일",
+   "prev": {
+    "dir": "325",
+    "pages": 7
+   },
+   "cur": {
+    "expected": 7,
+    "received": 7,
+    "noTextPages": []
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": ""
+  },
+  {
+   "id": "ecat:320",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "320",
+   "title": "HU8000F 시리즈",
+   "docTitle": "HU8000F 시리즈",
+   "prev": {
+    "dir": "320",
+    "pages": 17
+   },
+   "cur": {
+    "expected": 17,
+    "received": 16,
+    "noTextPages": [
+     1
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:319",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "319",
+   "title": "HU7000F 시리즈",
+   "docTitle": "HU7000F 시리즈",
+   "prev": {
+    "dir": "319",
+    "pages": 17
+   },
+   "cur": {
+    "expected": 17,
+    "received": 16,
+    "noTextPages": [
+     1
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:318",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "318",
+   "title": "더 무빙스타일",
+   "docTitle": "The Movingstyle",
+   "prev": {
+    "dir": "318",
+    "pages": 13
+   },
+   "cur": {
+    "expected": 13,
+    "received": 12,
+    "noTextPages": [
+     1
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:315",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "315",
+   "title": "QHFX 시리즈",
+   "docTitle": "QHFX 시리즈",
+   "prev": {
+    "dir": "315",
+    "pages": 19
+   },
+   "cur": {
+    "expected": 19,
+    "received": 17,
+    "noTextPages": [
+     1,
+     19
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:295",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "295",
+   "title": "안드로이드 전자칠판 (WAF)",
+   "docTitle": "안드로이드 전자칠판 WAF",
+   "prev": {
+    "dir": "295",
+    "pages": 16
+   },
+   "cur": {
+    "expected": 16,
+    "received": 14,
+    "noTextPages": [
+     1,
+     16
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:272",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "272",
+   "title": "비디오월 스마트 사이니지",
+   "docTitle": "비디오월 스마트 사이니지",
+   "prev": {
+    "dir": "272",
+    "pages": 18
+   },
+   "cur": {
+    "expected": 18,
+    "received": 18,
+    "noTextPages": []
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": ""
+  },
+  {
+   "id": "ecat:236",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "236",
+   "title": "삼성 VXT 솔루션",
+   "docTitle": "삼성 VXT 솔루션",
+   "prev": {
+    "dir": "236",
+    "pages": 20
+   },
+   "cur": {
+    "expected": 20,
+    "received": 18,
+    "noTextPages": [
+     1,
+     20
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:228",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "228",
+   "title": "HARMAN Professional",
+   "docTitle": "HARMAN Professional",
+   "prev": {
+    "dir": "228",
+    "pages": 70
+   },
+   "cur": {
+    "expected": 70,
+    "received": 68,
+    "noTextPages": [
+     1,
+     70
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:229",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "229",
+   "title": "HARMAN Luxury",
+   "docTitle": "HARMAN Luxury",
+   "prev": {
+    "dir": "229",
+    "pages": 32
+   },
+   "cur": {
+    "expected": 32,
+    "received": 30,
+    "noTextPages": [
+     1,
+     32
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:168",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "168",
+   "title": "더월 올인원",
+   "docTitle": "The Wall All-In-One",
+   "prev": {
+    "dir": "168",
+    "pages": 9
+   },
+   "cur": {
+    "expected": 9,
+    "received": 9,
+    "noTextPages": []
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": ""
+  },
+  {
+   "id": "ecat:169",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "169",
+   "title": "Flip Pro",
+   "docTitle": "Samsung Flip Pro",
+   "prev": {
+    "dir": "169",
+    "pages": 34
+   },
+   "cur": {
+    "expected": 34,
+    "received": 33,
+    "noTextPages": [
+     1
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:365",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "365",
+   "title": "에센셜 모니터",
+   "docTitle": "에센셜 모니터",
+   "prev": {
+    "dir": null,
+    "pages": null
+   },
+   "cur": {
+    "expected": 15,
+    "received": 14,
+    "noTextPages": [
+     15
+    ]
+   },
+   "status": "new",
+   "changedPages": null,
+   "addedPages": null,
+   "note": ""
+  },
+  {
+   "id": "ecat:362",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "362",
+   "title": "📢[쇼프로] 갤럭시 북6 엔터프라이즈 에디션",
+   "docTitle": "📢[쇼프로] 갤럭시 북6 엔터프라이즈 에디션",
+   "prev": {
+    "dir": "362",
+    "pages": 7
+   },
+   "cur": {
+    "expected": 7,
+    "received": 7,
+    "noTextPages": []
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": ""
+  },
+  {
+   "id": "ecat:356",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "356",
+   "title": "갤럭시 북6 Enterprise Edition",
+   "docTitle": "갤럭시 북6 Enterprise Edition",
+   "prev": {
+    "dir": "356",
+    "pages": 16
+   },
+   "cur": {
+    "expected": 16,
+    "received": 14,
+    "noTextPages": [
+     1,
+     16
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:350",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "350",
+   "title": "흑백 레이저 프린터",
+   "docTitle": "흑백 레이저 프린터",
+   "prev": {
+    "dir": "350",
+    "pages": 10
+   },
+   "cur": {
+    "expected": 10,
+    "received": 9,
+    "noTextPages": [
+     1
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:351",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "351",
+   "title": "흑백 레이저 복합기",
+   "docTitle": "흑백 레이저 복합기",
+   "prev": {
+    "dir": "351",
+    "pages": 11
+   },
+   "cur": {
+    "expected": 11,
+    "received": 10,
+    "noTextPages": [
+     1
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:345",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "345",
+   "title": "갤럭시 북6",
+   "docTitle": "갤럭시 북6",
+   "prev": {
+    "dir": "345",
+    "pages": 20
+   },
+   "cur": {
+    "expected": 20,
+    "received": 18,
+    "noTextPages": [
+     1,
+     20
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:299",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "299",
+   "title": "뷰피니티 모니터",
+   "docTitle": "뷰피니티 모니터",
+   "prev": {
+    "dir": "299",
+    "pages": 42
+   },
+   "cur": {
+    "expected": 42,
+    "received": 38,
+    "noTextPages": [
+     1,
+     18,
+     30,
+     42
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:253",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "253",
+   "title": "컬러 레이저 프린터",
+   "docTitle": "컬러 레이저 프린터",
+   "prev": {
+    "dir": "253",
+    "pages": 11
+   },
+   "cur": {
+    "expected": 11,
+    "received": 10,
+    "noTextPages": [
+     1
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:254",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "254",
+   "title": "컬러 레이저 복합기",
+   "docTitle": "컬러 레이저 복합기",
+   "prev": {
+    "dir": "254",
+    "pages": 10
+   },
+   "cur": {
+    "expected": 10,
+    "received": 9,
+    "noTextPages": [
+     1
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:243",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "243",
+   "title": "삼성 올인원 Pro",
+   "docTitle": "삼성 올인원 Pro",
+   "prev": {
+    "dir": "243",
+    "pages": 12
+   },
+   "cur": {
+    "expected": 12,
+    "received": 10,
+    "noTextPages": [
+     1,
+     12
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:347",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "347",
+   "title": "Infinite Line 후드일체형 인덕션",
+   "docTitle": "Infinite Line 후드일체형 인덕션",
+   "prev": {
+    "dir": "347",
+    "pages": 19
+   },
+   "cur": {
+    "expected": 19,
+    "received": 17,
+    "noTextPages": [
+     1,
+     19
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:346",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "346",
+   "title": "📢[쇼프로]삼성케어플러스",
+   "docTitle": "삼성케어플러스",
+   "prev": {
+    "dir": "346",
+    "pages": 7
+   },
+   "cur": {
+    "expected": 7,
+    "received": 5,
+    "noTextPages": [
+     2,
+     7
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:340",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "340",
+   "title": "📢[쇼프로]EHS 히트펌프 보일러",
+   "docTitle": "📢[쇼프로]EHS 히트펌프 보일러",
+   "prev": {
+    "dir": "340",
+    "pages": 9
+   },
+   "cur": {
+    "expected": 9,
+    "received": 8,
+    "noTextPages": [
+     9
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:343",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "343",
+   "title": "제트 핏",
+   "docTitle": "제트 핏",
+   "prev": {
+    "dir": "343",
+    "pages": 15
+   },
+   "cur": {
+    "expected": 15,
+    "received": 13,
+    "noTextPages": [
+     1,
+     15
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:339",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "339",
+   "title": "Bespoke AI 스팀 울트라",
+   "docTitle": "Bespoke AI 스팀 울트라",
+   "prev": {
+    "dir": "339",
+    "pages": 28
+   },
+   "cur": {
+    "expected": 28,
+    "received": 26,
+    "noTextPages": [
+     1,
+     28
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:335",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "335",
+   "title": "Bespoke 빌트인 정수기",
+   "docTitle": "Bespoke 빌트인 정수기",
+   "prev": {
+    "dir": "335",
+    "pages": 13
+   },
+   "cur": {
+    "expected": 13,
+    "received": 11,
+    "noTextPages": [
+     1,
+     13
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:332",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "332",
+   "title": "📢[쇼프로] 삼성 빌트인 식기세척기",
+   "docTitle": "삼성 빌트인 식기세척기",
+   "prev": {
+    "dir": "332",
+    "pages": 5
+   },
+   "cur": {
+    "expected": 5,
+    "received": 5,
+    "noTextPages": []
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": ""
+  },
+  {
+   "id": "ecat:330",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "330",
+   "title": "📢[쇼프로] 삼성 빌트인 냉장고",
+   "docTitle": "삼성 빌트인 냉장고",
+   "prev": {
+    "dir": "330",
+    "pages": 5
+   },
+   "cur": {
+    "expected": 5,
+    "received": 5,
+    "noTextPages": []
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": ""
+  },
+  {
+   "id": "ecat:329",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "329",
+   "title": "📢[쇼프로] 삼성 시스템에어컨",
+   "docTitle": "삼성 시스템에어컨",
+   "prev": {
+    "dir": "329",
+    "pages": 6
+   },
+   "cur": {
+    "expected": 6,
+    "received": 6,
+    "noTextPages": []
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": ""
+  },
+  {
+   "id": "ecat:292",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "292",
+   "title": "Bespoke AI 에어 콤보",
+   "docTitle": "Bespoke AI 에어 콤보",
+   "prev": {
+    "dir": "292",
+    "pages": 12
+   },
+   "cur": {
+    "expected": 12,
+    "received": 10,
+    "noTextPages": [
+     1,
+     12
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:278",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "278",
+   "title": "인테리어핏 판넬",
+   "docTitle": "인테리어핏 판넬",
+   "prev": {
+    "dir": "278",
+    "pages": 9
+   },
+   "cur": {
+    "expected": 9,
+    "received": 7,
+    "noTextPages": [
+     1,
+     9
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:287",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "287",
+   "title": "Infinite Line 무풍 시스템에어컨",
+   "docTitle": "Infinite Line 무풍 시스템에어컨",
+   "prev": {
+    "dir": "287",
+    "pages": 19
+   },
+   "cur": {
+    "expected": 19,
+    "received": 17,
+    "noTextPages": [
+     1,
+     2
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:197",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "197",
+   "title": "AI 오피스",
+   "docTitle": "AI 오피스",
+   "prev": {
+    "dir": "197",
+    "pages": 18
+   },
+   "cur": {
+    "expected": 18,
+    "received": 17,
+    "noTextPages": [
+     18
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:202",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "202",
+   "title": "AI 아파트",
+   "docTitle": "AI 아파트",
+   "prev": {
+    "dir": "202",
+    "pages": 15
+   },
+   "cur": {
+    "expected": 15,
+    "received": 14,
+    "noTextPages": [
+     15
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:215",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "215",
+   "title": "AI 주택",
+   "docTitle": "AI 주택",
+   "prev": {
+    "dir": "215",
+    "pages": 14
+   },
+   "cur": {
+    "expected": 14,
+    "received": 13,
+    "noTextPages": [
+     14
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:221",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "221",
+   "title": "AI 비즈니스 호텔",
+   "docTitle": "AI 비즈니스 호텔",
+   "prev": {
+    "dir": "221",
+    "pages": 17
+   },
+   "cur": {
+    "expected": 17,
+    "received": 16,
+    "noTextPages": [
+     17
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:201",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "201",
+   "title": "AI 카페",
+   "docTitle": "AI 카페",
+   "prev": {
+    "dir": "201",
+    "pages": 15
+   },
+   "cur": {
+    "expected": 15,
+    "received": 14,
+    "noTextPages": [
+     15
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:200",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "200",
+   "title": "AI 매장",
+   "docTitle": "AI 매장",
+   "prev": {
+    "dir": "200",
+    "pages": 16
+   },
+   "cur": {
+    "expected": 16,
+    "received": 15,
+    "noTextPages": [
+     16
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:255",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "255",
+   "title": "AI 스크린 골프장",
+   "docTitle": "AI 스크린 골프장",
+   "prev": {
+    "dir": "255",
+    "pages": 13
+   },
+   "cur": {
+    "expected": 13,
+    "received": 12,
+    "noTextPages": [
+     13
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:216",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "216",
+   "title": "AI 학원",
+   "docTitle": "AI 학원",
+   "prev": {
+    "dir": "216",
+    "pages": 13
+   },
+   "cur": {
+    "expected": 13,
+    "received": 12,
+    "noTextPages": [
+     13
+    ]
+   },
+   "status": "same",
+   "changedPages": [],
+   "addedPages": [],
+   "note": "텍스트가 없는 쪽(이미지 전용)은 지난 수집과 같음"
+  },
+  {
+   "id": "ecat:360",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "360",
+   "title": "비즈니스 종합 26년 9-10월호",
+   "status": "gone",
+   "note": "정기 호 교체 — 최신 호 Dir 364(11-12월호)만 현재 근거. 추출 id(ec360_*)는 유지하고 근거를 364 쪽으로 옮김"
+  },
+  {
+   "id": "ecat:203",
+   "channel": "samsung.aiibook.net/b2b",
+   "kind": "e-catalog",
+   "dir": "203",
+   "title": "삼성 시스템에어컨 DVM Home 일반용(2026년 7-8월호)",
+   "status": "gone",
+   "note": "목록에서 빠지고 Dir 직접 접근도 'Dir does not exist'"
+  },
+  {
+   "id": "page:29696ffc8f",
+   "channel": "external",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://biz.newdaily.co.kr/site/data/html/2026/07/06/2026070600039.amp.html",
+   "refs": [
+    "vss:s_safety"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://biz.newdaily.co.kr/site/data/html/2026/07/06/2026070600039.amp.html",
+    "title": "삼성전자, 갤럭시 워치로 폭염 대응 … '열 스트레스 관리' 고도화 | AMP | 뉴데일리 경제",
+    "sha256": "a8454b742e1b74e88dbe8cb2f8ebf96f58b38766cd608c55be59530c75239222"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:2ad2f96bea",
+   "channel": "external",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://news.jkn.co.kr/post/854841",
+   "refs": [
+    "vss:s_safety"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://news.jkn.co.kr/post/854841",
+    "title": "삼성전자, 갤럭시 워치 기반 B2B 솔루션 출시 : 기업·산업 : 재경일보",
+    "sha256": "596977c86d0c5cd5eb0f5b37959f94f40a7e98b79812f785e9cc89698f5f1fe7"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:3e7ef77ecc",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://news.samsung.com/kr/삼성전자-교사-500명-노하우-반영한-교육-솔루션",
+   "refs": [
+    "vss:s_class"
+   ],
+   "cur": {
+    "status": 0,
+    "final": "https://news.samsung.com/kr/삼성전자-교사-500명-노하우-반영한-교육-솔루션",
+    "title": "",
+    "sha256": ""
+   },
+   "status": "failed",
+   "note": "urllib 이 비 ASCII URL 을 못 엶 — 같은 솔루션의 다른 공식 출처로 확인"
+  },
+  {
+   "id": "page:ad3d8a67f2",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://news.samsung.com/us/samsung-new-vxt-release-introduces-enhanced-content-screen-management-tools",
+   "refs": [
+    "vss:s_vxt"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://news.samsung.com/us/samsung-new-vxt-release-introduces-enhanced-content-screen-management-tools/",
+    "title": "Samsung’s New VXT Release Introduces Enhanced Content and Screen Management Tools",
+    "sha256": "9bfb32cc023839c4e99ff7e70459b63a022208c7bf838ac7ce9d4c9aa3cd3a2b"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:77bed3cc8d",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://org-sec-b2b.samsung.com/sec/business/insights/case-study/appnote_handly",
+   "refs": [
+    "vss-url:s_meeting",
+    "vss:s_meeting"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://org-sec-b2b.samsung.com/sec/business/insights/case-study/appnote_handly/",
+    "title": "고객 도입사례 | Samsung Business 대한민국",
+    "sha256": "5f0a545f9dad0de137f1d961afb7d36f363ce591e7c598db56f1b6cd6104b99f"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:0c634255ee",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://samsung.aiibook.net/b2b/catImage/356/[PC] 갤럭시 북6 EE 제품가이드.pdf",
+   "refs": [
+    "vss:s_bookee"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://samsung.aiibook.net/b2b/catImage/356/[PC] 갤럭시 북6 EE 제품가이드.pdf",
+    "title": "",
+    "sha256": ""
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:eba5c964f5",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://samsung.aiibook.net/b2b_app/access/ecatalogt.php?Dir=218&start=4&um=t",
+   "refs": [
+    "vss:s_biot"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://samsung.aiibook.net/b2b_app/access/ecatalogt.php?Dir=218&start=4&um=t",
+    "title": "삼성전자",
+    "sha256": "8e0fc90f6ae5904c486c58f2aba94c45c475660a1ac9aabddcb45d4ab1ac54c2"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:06b8b1beda",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://vxt.samsung.com/",
+   "refs": [
+    "sol_urls:vxt|site"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://vxt.samsung.com/",
+    "title": "Digital Signage Cloud Software | FREE Trial - Samsung VXT",
+    "sha256": "f5def4d41cd8e89db7b8a43f9e04b9bc1dc76d164dd40be4142e31fa9323dc57"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:d9b8ed84ca",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://vxt.samsung.com/uk/features",
+   "refs": [
+    "vss:s_vxt"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://vxt.samsung.com/uk/features",
+    "title": "Features of the Best Digital Signage Software | Samsung VXT",
+    "sha256": "170a9583066cb30c15e20ab7b18a92a1341627d8b89054f37cda9d8808f900b9"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:c500fb031b",
+   "channel": "external",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.inthenews.co.kr/news/article.html?no=77608",
+   "refs": [
+    "vss:s_safety"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.inthenews.co.kr/news/article.html?no=77608",
+    "title": "삼성전자, 갤럭시 워치 기반 B2B ‘스마트싱스 프로 안전 관리 솔루션’ 출시",
+    "sha256": "ebc26fd56a0fd50d1affc62a121d039ce5675251fb3872cd57d1b2b347d2a990"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:801fa9e5ff",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/in/business/mobile-solutions/samsung-dex/",
+   "refs": [
+    "sol_urls:dex|in"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/in/business/mobile-solutions/samsung-dex/",
+    "title": "Samsung DeX for Business | Samsung Business India",
+    "sha256": "5fcaefb6f6aa7f8c8f6d8041774403df2a4378f6ee8ab358392510ce82e42e1f"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:801e770c75",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/apps/samsung-dex/",
+   "refs": [
+    "sol_urls:dex|kr"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/apps/samsung-dex/",
+    "title": "삼성 덱스 | 앱 & 서비스 | Samsung 대한민국",
+    "sha256": "2e21b98ed3dd3fc20a66356534f48cc3b14b29c90826be6dc3215cdc9e62de57"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:7910119ea1",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/",
+   "refs": [
+    "vss-url:s_bookee",
+    "vss:s_bookee"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/",
+    "title": "Samsung Business 대한민국",
+    "sha256": "6011c4d9e0dcbe32736bae87f9175c4d189314d41e50531b89bfe7489fc720d6"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:88194e54d4",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/Cold_Chain_System/all-Cold_Chain_System/",
+   "refs": [
+    "sol_urls:coldchain|kr",
+    "tax:sac_cold"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/Cold_Chain_System/all-Cold_Chain_System/",
+    "title": "콜드체인 시스템 | Samsung Business 대한민국",
+    "sha256": "3788dfed578ef41eaaf942cfbc51f8286a74ba7de63ebc9152930922f1522c22"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:729eca02b7",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/ac-clean/all-ac-clean/",
+   "refs": [
+    "sol_urls:care|clean",
+    "vss:svc_sac"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/ac-clean/all-ac-clean/",
+    "title": "Samsung Business 대한민국",
+    "sha256": "ceadf2967d68f5e666d1ef4232d4e0a06607fb40d51db1662b86c0f8e9b95c28"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:0262e067bb",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/academy/",
+   "refs": [
+    "vsp-meta"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/academy/",
+    "title": "학원 | 업종별 제안 | Samsung Business 대한민국",
+    "sha256": "03c453ef67d4816bcdba83d74b58a43c389117d6b26298df8899a5eef909e3bd"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:10a28d5be5",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/air-cleaners/",
+   "refs": [
+    "tax:air"
+   ],
+   "cur": {
+    "status": 404,
+    "final": "https://www.samsung.com/sec/business/air-cleaners/",
+    "title": "",
+    "sha256": ""
+   },
+   "status": "failed",
+   "note": "분류 URL 은 site_lists 목록 주소로 교체"
+  },
+  {
+   "id": "page:aca88f534c",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/air-conditioners-care-service/all-air-conditioners-care-service/",
+   "refs": [
+    "sol_urls:care|ac",
+    "vss:svc_sac"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/air-conditioners-care-service/all-air-conditioners-care-service/",
+    "title": "Samsung Business 대한민국",
+    "sha256": "ceadf2967d68f5e666d1ef4232d4e0a06607fb40d51db1662b86c0f8e9b95c28"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:33ac07e6f9",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/air-conditioners/",
+   "refs": [
+    "tax:ac"
+   ],
+   "cur": {
+    "status": 404,
+    "final": "https://www.samsung.com/sec/business/air-conditioners/",
+    "title": "",
+    "sha256": ""
+   },
+   "status": "failed",
+   "note": "분류 URL 은 site_lists 목록 주소로 교체"
+  },
+  {
+   "id": "page:f2ac578a9d",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/airdresser/",
+   "refs": [
+    "vsp-meta"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/airdresser/",
+    "title": "에어드레서 | Samsung Business 대한민국",
+    "sha256": "cb3853eb12480184e549679ac50164a538bf64583f1ba7b45083501be917f627"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:fb4ad7519b",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/airdresser/all-airdresser/",
+   "refs": [
+    "tax:airdresser"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/airdresser/all-airdresser/",
+    "title": "에어드레서 | Samsung Business 대한민국",
+    "sha256": "336dea34fb574e479f6c58ee6661509e216eeddf689b039cb20c4d4e31518ba2"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:71ad427c04",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/b-iot-solutions/b-iot-cloud/",
+   "refs": [
+    "sol_urls:biot|cloud"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/b-iot-solutions/b-iot-cloud/",
+    "title": "b.IoT 클라우드ㅣIoT 솔루션ㅣSamsung Business 대한민국",
+    "sha256": "8691c82e6ff7311d1b343422447dceacb27843cb827e8563dcbe7870a6a1b9d0"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:dcaba9898e",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/b-iot-solutions/b-iot-solution/",
+   "refs": [
+    "tax:s_biot",
+    "vsp-meta",
+    "vss-url:s_biot",
+    "vss:s_biot"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/b-iot-solutions/b-iot-solution/",
+    "title": "b.IoT 솔루션ㅣIoT 솔루션ㅣSamsung Business 대한민국",
+    "sha256": "c793d808e2a68b45eb599af96a0c34d34d41568975efc6d4062c4dfc4a4be697"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:aebaf1d70c",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/built-in-appliances/",
+   "refs": [
+    "tax:ref_bi",
+    "vsp-meta"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/built-in-appliances/",
+    "title": "빌트인 가전 | Samsung Business 대한민국",
+    "sha256": "dd7c7e7b9fa37cd7e9649ae6f9201000ef8fb430bab155a5a0aa56b35b610264"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:857ac846cd",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/business-refrigerator/",
+   "refs": [
+    "tax:ref_comm"
+   ],
+   "cur": {
+    "status": 404,
+    "final": "https://www.samsung.com/sec/business/business-refrigerator/",
+    "title": "",
+    "sha256": ""
+   },
+   "status": "failed",
+   "note": "분류 URL 은 site_lists 목록 주소로 교체"
+  },
+  {
+   "id": "page:1c552351e8",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/central-air-conditionings/",
+   "refs": [
+    "tax:sac_ctr"
+   ],
+   "cur": {
+    "status": 404,
+    "final": "https://www.samsung.com/sec/business/central-air-conditionings/",
+    "title": "",
+    "sha256": ""
+   },
+   "status": "failed",
+   "note": "분류 URL 은 site_lists 목록 주소로 교체"
+  },
+  {
+   "id": "page:1c497491bb",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/central-air-conditionings/all-central-air-conditionings/",
+   "refs": [
+    "sol_urls:hvac|central"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/central-air-conditionings/all-central-air-conditionings/",
+    "title": "중앙공조 | Samsung Business 대한민국",
+    "sha256": "ec338a1bd55d3861cd3aac67b420dde4dc6c422879134dbf37ff45f25057efc3"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:99a4f81300",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/chromebooks/all-chromebooks/",
+   "refs": [
+    "tax:cb"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/chromebooks/all-chromebooks/",
+    "title": "Chromebook | Samsung Business 대한민국",
+    "sha256": "dee2dcf97ce926f38781e75643250e644275c11368fcb7561d732ac302b4913e"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:1786b5dfd7",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/commercial-microwave/all-commercial-microwave/",
+   "refs": [
+    "tax:mw"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/commercial-microwave/all-commercial-microwave/",
+    "title": "상업용 전자레인지ㅣ Samsung Business 대한민국",
+    "sha256": "745feef4e3d286995c16666d65407c18701ae31bb360ee21ad1642b56c9b7ba9"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:aa38095577",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/construction/",
+   "refs": [
+    "sol_urls:x|construction",
+    "vsp-meta",
+    "vss-url:s_sthome",
+    "vss:s_sthome"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/construction/",
+    "title": "건설 | 업종별 제안 | Samsung Business 대한민국",
+    "sha256": "1fe10a74ecbea6e73443ad04b118ae13e81e47c3a72ebbbbe14af62ee9a313d6"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:348db382d7",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/cooling-for-residential/",
+   "refs": [
+    "tax:sac_res"
+   ],
+   "cur": {
+    "status": 404,
+    "final": "https://www.samsung.com/sec/business/cooling-for-residential/",
+    "title": "",
+    "sha256": ""
+   },
+   "status": "failed",
+   "note": "분류 URL 은 site_lists 목록 주소로 교체"
+  },
+  {
+   "id": "page:a6cf06ff78",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/cooling-single/",
+   "refs": [
+    "tax:sac_sm"
+   ],
+   "cur": {
+    "status": 404,
+    "final": "https://www.samsung.com/sec/business/cooling-single/",
+    "title": "",
+    "sha256": ""
+   },
+   "status": "failed",
+   "note": "분류 URL 은 site_lists 목록 주소로 교체"
+  },
+  {
+   "id": "page:9e3ad369f0",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/desktop/all-desktop/",
+   "refs": [
+    "tax:desk"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/desktop/all-desktop/",
+    "title": "올인원PC/데스크탑 | Samsung Business 대한민국",
+    "sha256": "bdfeb0567df42f23beb74bb975331e03b2ed76955c84e1465ee56e6656296e48"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:856182008d",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/digital-multifunction-printers/all-digital-multifunction-printers/",
+   "refs": [
+    "tax:dmfp"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/digital-multifunction-printers/all-digital-multifunction-printers/",
+    "title": "디지털복합기 | Samsung Business 대한민국",
+    "sha256": "112a00b50330804b6960959c2279fe25caf2f710bfb32ac132cd1d7edb6e7420"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:c12d4b0351",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/dish-washer/all-dish-washer/",
+   "refs": [
+    "tax:dish"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/dish-washer/all-dish-washer/",
+    "title": "식기세척기 | Samsung Business 대한민국",
+    "sha256": "de4da61ea3f7188c280eefb142d85d89055aded5e3ff582edde658c61dd780e0"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:0af80266fe",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/display-solution/display-solution-bwmip70pa/BW-MIP70PA/",
+   "refs": [
+    "sol_urls:magicinfo|kr",
+    "tax:s_magic",
+    "vss-url:s_magic",
+    "vss:s_magic"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/display-solution/display-solution-bwmip70pa/BW-MIP70PA/",
+    "title": "MagicINFO™ | 사이니지 솔루션ㅣSamsung Business 대한민국",
+    "sha256": "cb2f6e91cce59d73ef1cfdaf0498fc090e94e4edf832e42b6fe10c48aa9a3985"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:fcbef66f05",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/display-solution/display-solution-etc30-vxtcms/ETC30-VXTCMS/",
+   "refs": [
+    "sol_urls:vxt|kr",
+    "tax:s_vxt",
+    "vss-url:s_vxt",
+    "vss:s_vxt"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/display-solution/display-solution-etc30-vxtcms/ETC30-VXTCMS/",
+    "title": "VXT CMS | 사이니지 솔루션ㅣSamsung Business 대한민국",
+    "sha256": "605afac4e2b3f88b34ac6fe456f5e7d37f941617c49a4011821f4e7130beb8e9"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:0491d5671f",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/dryers/",
+   "refs": [
+    "tax:dry"
+   ],
+   "cur": {
+    "status": 404,
+    "final": "https://www.samsung.com/sec/business/dryers/",
+    "title": "",
+    "sha256": ""
+   },
+   "status": "failed",
+   "note": "분류 URL 은 site_lists 목록 주소로 교체"
+  },
+  {
+   "id": "page:455de62f33",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/dvms-indoor/",
+   "refs": [
+    "tax:sac_l_in"
+   ],
+   "cur": {
+    "status": 404,
+    "final": "https://www.samsung.com/sec/business/dvms-indoor/",
+    "title": "",
+    "sha256": ""
+   },
+   "status": "failed",
+   "note": "분류 URL 은 site_lists 목록 주소로 교체"
+  },
+  {
+   "id": "page:9e926c83c3",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/dvms-outdoor/",
+   "refs": [
+    "tax:sac_l_out"
+   ],
+   "cur": {
+    "status": 404,
+    "final": "https://www.samsung.com/sec/business/dvms-outdoor/",
+    "title": "",
+    "sha256": ""
+   },
+   "status": "failed",
+   "note": "분류 URL 은 site_lists 목록 주소로 교체"
+  },
+  {
+   "id": "page:ff8c013547",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/education/",
+   "refs": [
+    "sol_urls:x|education",
+    "vsp-meta"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/education/",
+    "title": "교육 | 업종별 제안 | Samsung Business 대한민국",
+    "sha256": "da4613a4c48565394ea09b3eb3f79812dd487f78f506b6e69455aea2bbc5d020"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:66827f2263",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/finance/",
+   "refs": [
+    "sol_urls:x|finance"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/finance/",
+    "title": "금융 | 업종별 제안 | Samsung Business 대한민국",
+    "sha256": "4a4f48a0ac5d9f8e73430eee1e74b0f972db4e265f522d18da67aa58ecc894b8"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:2f71a33ad6",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/general-multifunction-printers/all-general-multifunction-printers/",
+   "refs": [
+    "tax:mfp"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/general-multifunction-printers/all-general-multifunction-printers/",
+    "title": "일반 프린터/복합기 | Samsung Business 대한민국",
+    "sha256": "83561d0d33b212b5f9eb4a3c9939b6f3ef841eb42d45022b871b31b294074ed3"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:a6cb05cc40",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/government/",
+   "refs": [
+    "sol_urls:x|government",
+    "vsp-meta"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/government/",
+    "title": "공공 | 업종별 제안 | Samsung Business 대한민국",
+    "sha256": "1c5d6d1972e14ad9946c48ba4fa27deb257aafaf86863975e4f56afd6b6e1264"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:752f62beea",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/heat-pump-boilers/",
+   "refs": [
+    "tax:sac_ehs"
+   ],
+   "cur": {
+    "status": 404,
+    "final": "https://www.samsung.com/sec/business/heat-pump-boilers/",
+    "title": "",
+    "sha256": ""
+   },
+   "status": "failed",
+   "note": "분류 URL 은 site_lists 목록 주소로 교체"
+  },
+  {
+   "id": "page:901c560a4c",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/hood/all-hood/",
+   "refs": [
+    "tax:hood"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/hood/all-hood/",
+    "title": "후드 | Samsung Business 대한민국",
+    "sha256": "2814cb601336a04172329f690ef458fbb5fc9af1b29cfa5840a6636650bb263d"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:7124a32523",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/hospital/",
+   "refs": [
+    "sol_urls:x|hospital",
+    "vsp-meta",
+    "vss-url:s_hospital",
+    "vss:s_hospital"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/hospital/",
+    "title": "병원 | 업종별 제안 | Samsung Business 대한민국",
+    "sha256": "5336c635af8a3772d5c5eda282b78383fa5a4cf74e6b69764d896361c1696d13"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:3aeb83ee41",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/hospitality/",
+   "refs": [
+    "sol_urls:lynk|hospitality",
+    "vsp-meta",
+    "vss:s_biot",
+    "vss:s_lynk"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/hospitality/",
+    "title": "호텔 | 업종별 제안 | Samsung Business 대한민국",
+    "sha256": "450ecb3268f17782a0555aa5c042bfdb6a945c7d1845e79b199c5289c2adbe14"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:0859c02b4b",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/hotel-tvs/all-hotel-tvs/",
+   "refs": [
+    "tax:htv",
+    "vsp-meta"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/hotel-tvs/all-hotel-tvs/",
+    "title": "호텔TV | Samsung Business 대한민국",
+    "sha256": "4806c7189557f92e2adb549c529f03336f6d01ddb71b895ec7735f82598e377c"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:d52dc3cfda",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/insights/case-study/reference-smarthome",
+   "refs": [
+    "vss:s_wifi"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/insights/case-study/reference-smarthome/",
+    "title": "고객 도입사례 | Samsung Business 대한민국",
+    "sha256": "bcb510690dad4a63c679015f4194da774ede54e0064fb39c51c05f90f81f2622"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:58af97a685",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/kimchi-refrigerators/all-kimchi-refrigerators/",
+   "refs": [
+    "tax:kimchi"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/kimchi-refrigerators/all-kimchi-refrigerators/",
+    "title": "김치냉장고 | Samsung Business 대한민국",
+    "sha256": "4fae7dcdf685f3e5c2c96f5e0d2e97a3aead6ffa8f0da1420d4aa47f44b3423a"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:8802020a9e",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/lamp/",
+   "refs": [
+    "tax:light"
+   ],
+   "cur": {
+    "status": 404,
+    "final": "https://www.samsung.com/sec/business/lamp/",
+    "title": "",
+    "sha256": ""
+   },
+   "status": "failed",
+   "note": "분류 URL 은 site_lists 목록 주소로 교체"
+  },
+  {
+   "id": "page:b598edaf60",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/led-signage/",
+   "refs": [
+    "tax:led_in",
+    "tax:led_out",
+    "vsp-meta"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/led-signage/",
+    "title": "스마트 LED 사이니지｜Samsung Business 대한민국",
+    "sha256": "aa17504a0879fefa3cc80e43dd92b6894df1b1fc6263c4dec4e4fe3b9ab62e3c"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:a380b69ce8",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/manufacture/",
+   "refs": [
+    "sol_urls:x|manufacture",
+    "vsp-meta",
+    "vss-url:s_field",
+    "vss:s_field"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/manufacture/",
+    "title": "제조 | 업종별 제안 | Samsung Business 대한민국",
+    "sha256": "ab0cc6c195bc50ec58191a68c5014ffbeb94165f5f7f46ada5251ed870c938c0"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:f0f4092efd",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/mobile-accessories/all-mobile-accessories/",
+   "refs": [
+    "tax:mob_acc"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/mobile-accessories/all-mobile-accessories/",
+    "title": "모바일 액세서리 | Samsung Business 대한민국",
+    "sha256": "288481d2a8a17763e88ced6cbedb630894d53e08492e5763c484c9185679df50"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:1468c3af57",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/mobile-solution/Knox-Classroom",
+   "refs": [
+    "tax:s_class",
+    "vss-url:s_class",
+    "vss:s_class"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/mobile-solution/Knox-Classroom/",
+    "title": "갤럭시 클래스룸 | Knox Classroom | Samsung Business 대한민국",
+    "sha256": "4a4fd3f033f0cac76ae1e822dd26d707c5f0e34e00f4582f5c41a441c698871b"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:3072f74c12",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/mobile-solution/mobile-knoxsolution/MI-KX-OSK-SBC/",
+   "refs": [
+    "sol_urls:knoxsuite|kr",
+    "tax:s_knox",
+    "vss-url:s_knox",
+    "vss:s_knox"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/mobile-solution/mobile-knoxsolution/MI-KX-OSK-SBC/",
+    "title": "Samsung Knox | 모바일 솔루션ㅣSamsung Business 대한민국",
+    "sha256": "b299e94854c442f12ed1a2d91bcb46a574f8a5994ebaa8e37ddeb3b0d5b49fc3"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:2af1966f91",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/mobile-solution/samsunghealth-mi101shss/MI-101SHSS/",
+   "refs": [
+    "tax:s_health",
+    "vss-url:s_health",
+    "vss:s_health"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/mobile-solution/samsunghealth-mi101shss/MI-101SHSS/",
+    "title": "Samsung Health | 모바일 솔루션ㅣSamsung Business 대한민국",
+    "sha256": "8098bf4772961f3f22929561109074a7f9a294cb90b26868df38e5969c5dbca9"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:5751aabea8",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/mobile/",
+   "refs": [
+    "sol_urls:x|mobile",
+    "vss:s_knox",
+    "vss:svc_mobile"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/mobile/",
+    "title": "모바일 | Samsung Business 대한민국",
+    "sha256": "4885339cd41c5c2e9ae3d97d33215f7d9800578dceb4791621c923930c39336e"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:33cdfa274a",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/monitors/all-monitors/",
+   "refs": [
+    "tax:mon"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/monitors/all-monitors/",
+    "title": "모니터 | Samsung Business 대한민국",
+    "sha256": "37ad09222022ce08f355d1c74e0dccb3a58ca5875a292820352f41e2008d2e0e"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:07dc7080d8",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/notebook/all-notebook/",
+   "refs": [
+    "tax:nb"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/notebook/all-notebook/",
+    "title": "노트북 | Samsung Business 대한민국",
+    "sha256": "fcbcb998bd20501bd9c99743ac7fe878adb9be831bbb166b3c61c6c32b8f18bc"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:e970451e78",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/office/",
+   "refs": [
+    "vsp-meta",
+    "vss-url:s_dex",
+    "vss:s_biot",
+    "vss:s_dex"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/office/",
+    "title": "오피스 | 업종별 제안 | Samsung Business 대한민국",
+    "sha256": "23ef77a686a0dc2b946a50b0db5c62979fb177ec47b7df90dfcd9980809b40da"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:7c2d4d1d1f",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/officetel/",
+   "refs": [
+    "vsp-meta"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/officetel/",
+    "title": "오피스텔 | 업종별 제안 | Samsung Business 대한민국",
+    "sha256": "1bdcd9e052f73ab168dd73c54a3aeb19ee4de96e56c11acba7b507d9db7eb5e0"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:59fda9d232",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/printing-solution/printing-solution-etc30-mps/ETC30-MPS/",
+   "refs": [
+    "sol_urls:unmanned|counthru",
+    "tax:s_counthru",
+    "vss-url:s_counthru",
+    "vss:s_counthru"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/printing-solution/printing-solution-etc30-mps/ETC30-MPS/",
+    "title": "통합출력관리 MPS | 프린팅 솔루션ㅣSamsung Business 대한민국",
+    "sha256": "4a82748c2d750f8d645890d7808980412a8b3d5f925ef92454cfe6c30695b576"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:db65c433c2",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/printing-solution/printing-solution-etc30-pss/ETC30-PSS/",
+   "refs": [
+    "sol_urls:unmanned|secuthru",
+    "tax:s_secuthru",
+    "vss-url:s_secuthru",
+    "vss:s_secuthru"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/printing-solution/printing-solution-etc30-pss/ETC30-PSS/",
+    "title": "인증, 출력보안 (PSS) | 프린팅 솔루션ㅣSamsung Business 대한민국",
+    "sha256": "f0e4318c108d73730eeb44be30d80bf10aab5e90f48886ee4f218977a3434c00"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:de7adda9fd",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/printing-solutions/all-printing-solutions/",
+   "refs": [
+    "sol_urls:x|printsol"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/printing-solutions/all-printing-solutions/",
+    "title": "프린팅 솔루션ㅣ비즈니스 솔루션ㅣSamsung Business 대한민국",
+    "sha256": "4904e3e64e2d17480cd8c661695fc2234feb9a89e1bc83262f9de468c863aa22"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:c5b3571769",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/qooker/",
+   "refs": [
+    "tax:oven"
+   ],
+   "cur": {
+    "status": 404,
+    "final": "https://www.samsung.com/sec/business/qooker/",
+    "title": "",
+    "sha256": ""
+   },
+   "status": "failed",
+   "note": "분류 URL 은 site_lists 목록 주소로 교체"
+  },
+  {
+   "id": "page:c6484d2b33",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/refrigerator/all-refrigerator/",
+   "refs": [
+    "tax:ref_home",
+    "vsp-meta"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/refrigerator/all-refrigerator/",
+    "title": "냉장고 | Samsung Business 대한민국",
+    "sha256": "94a910062e9b8ffd8a2e38e7d5b93d1bfaa5d9a3f62e3762dd408b1ef611db7f"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:2edc026134",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/restaurant-business/",
+   "refs": [
+    "sol_urls:x|restaurant",
+    "vsp-meta",
+    "vss-url:s_pos",
+    "vss:s_pos"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/restaurant-business/",
+    "title": "요식 | 업종별 제안 | Samsung Business 대한민국",
+    "sha256": "bff8119800224bf98384c132f94f61d7b57d06d403ab43eaa576f3d2835426a2"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:5c4451e0e5",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/sac-solution/sac-solution-acm-a300bn/ACM-A300BN/",
+   "refs": [
+    "sol_urls:sac|touch",
+    "tax:s_touch",
+    "vss-url:s_touch",
+    "vss:s_touch"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/sac-solution/sac-solution-acm-a300bn/ACM-A300BN/",
+    "title": "터치중앙제어기 2.0 | 시스템에어컨 솔루션ㅣSamsung Business 대한민국",
+    "sha256": "b30a09bb6887f049688c8503490a60fdb552dba7efbf840c2e806650108e8de3"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:42704f696e",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/sac-solution/sac-solution-aim-d01an/AIM-D01AN/",
+   "refs": [
+    "sol_urls:sac|dms",
+    "tax:s_dms",
+    "vss-url:s_dms",
+    "vss:s_dms"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/sac-solution/sac-solution-aim-d01an/AIM-D01AN/",
+    "title": "통합관리시스템 DMS 2.5 | 시스템에어컨 솔루션ㅣSamsung Business 대한민국",
+    "sha256": "12ad40f12b9ac872ed10838ca90517fce57c69feff37fb0563b70f4aba768f87"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:1b637d7814",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/sac-solution/sac-solution-aim-h04n/AIM-H04N/",
+   "refs": [
+    "sol_urls:sac|wifi",
+    "tax:s_wifi",
+    "vss-url:s_wifi",
+    "vss:s_wifi"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/sac-solution/sac-solution-aim-h04n/AIM-H04N/",
+    "title": "Wi-Fi Kit | 시스템에어컨 솔루션ㅣSamsung Business 대한민국",
+    "sha256": "4a1231d45c79fea33c4a1729bcc33b3679da6f4933f28bc64eed389b05ac2e67"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:6e25b81df0",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/sac-solution/sac-solution-ast-bl1a/AST-BL1A/",
+   "refs": [
+    "sol_urls:biot|kr",
+    "vss:s_biot"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/sac-solution/sac-solution-ast-bl1a/AST-BL1A/",
+    "title": "빌딩통합솔루션 b.IoTㅣ시스템에어컨 솔루션ㅣSamsung Business 대한민국",
+    "sha256": "e3a721d5b3e3ad3b17b98ee89b568fd5aac34ad7f5e2910fbef67543f4fb9d6a"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:567c6d9739",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/samsung-care-plus-for-business/",
+   "refs": [
+    "sol_urls:care|mobile",
+    "vss-url:svc_mobile",
+    "vss:svc_mobile"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/samsung-care-plus-for-business/",
+    "title": "모바일 보증연장 서비스ㅣSamsung Business",
+    "sha256": "b43d345728c504273c9f0195e2ad04a8a641789d453c86147a3a7da312c9daf9"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:00ca1e3fe3",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/small-medium-office/",
+   "refs": [
+    "vsp-meta"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/small-medium-office/",
+    "title": "중소형 오피스 | 업종별 제안 | Samsung Business 대한민국",
+    "sha256": "cd9f821bb488e17a8cbc8a01a236a976ad07c7a7b2221b544e08998435df547c"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:63aef387e1",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/smart-signage/",
+   "refs": [
+    "sol_urls:x|signage",
+    "tax-group:SIG",
+    "vsp-meta"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/smart-signage/",
+    "title": "스마트 사이니지 | Samsung Business 대한민국",
+    "sha256": "08bd04a372b1cc92b210c2d4bcfc4250bb858f66df6f0a4cb12fc39cead10185"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:304308b9a0",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/smart-signage/all-smart-signage/",
+   "refs": [
+    "tax:btv",
+    "tax:epaper",
+    "tax:iwb",
+    "tax:lcd_out",
+    "tax:lcd_std",
+    "tax:lcd_win",
+    "tax:spatial",
+    "tax:vwall",
+    "vsp-meta"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/smart-signage/all-smart-signage/",
+    "title": "스마트 LCD 사이니지 | Samsung Business 대한민국",
+    "sha256": "fd8f2c75a288a4a981fa2c3f25a2b4c2ea5dc821e528c2569c28f1a7d7689588"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:d78e63ef64",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/smartphones/all-smartphones/",
+   "refs": [
+    "tax:phone"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/smartphones/all-smartphones/",
+    "title": "스마트폰 | Samsung Business 대한민국",
+    "sha256": "01f3505eeb149990503b70dd1d199839a21c7ac2b7c6b185a472a057b04e9b2e"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:37eb2ddad0",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/smartthingspro/",
+   "refs": [
+    "sol_urls:stpro|kr",
+    "tax:s_stp",
+    "vss-url:s_safety",
+    "vss-url:s_stp",
+    "vss:s_safety",
+    "vss:s_stp"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/smartthingspro/",
+    "title": "스마트싱스 프로페셔널 솔루션",
+    "sha256": "62f5b74e2f7828f07e49595b45c4969d4456ea69e50861704ca9f7b025eb3ccf"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:0688f214f5",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/system-air-conditioners/",
+   "refs": [
+    "sol_urls:hvac|sac",
+    "tax-group:SAC",
+    "vsp-meta"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/system-air-conditioners/",
+    "title": "시스템에어컨 | Samsung Business 대한민국",
+    "sha256": "0fd68ff4eb396f33611d916f06135e3f4ceaca63fa900d1587589e6ddb615bcb"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:4550560335",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/system-air-samsungcareplus/",
+   "refs": [
+    "vss-url:svc_sac",
+    "vss:svc_sac"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/system-air-samsungcareplus/",
+    "title": "삼성케어플러스 | Samsung Business 대한민국",
+    "sha256": "afd2828a43fe4ef67bd4af003eb41417c4e3acb4a63812735d6d6b931e4acfb1"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:8837169074",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/tablets/all-tablets/",
+   "refs": [
+    "tax:tab"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/tablets/all-tablets/",
+    "title": "갤럭시 탭 | Samsung Business 대한민국",
+    "sha256": "8e7f2ed249e483b347ea905c9219763be4334b5dc6c31952bd2b6e0e19d12617"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:a2e96f683a",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/telecommunication/",
+   "refs": [
+    "sol_urls:x|telecom"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/telecommunication/",
+    "title": "통신 | 업종별 제안 | Samsung Business 대한민국",
+    "sha256": "2a37d71f411a49452bde02e82d24d54638f3f9677c80e98889398b2d3dd278fe"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:84a20a3809",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/transport/",
+   "refs": [
+    "sol_urls:x|transport"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/transport/",
+    "title": "운송 | 업종별 제안 | Samsung Business 대한민국",
+    "sha256": "f14ef9b3423677fab2f866f34a601f5680896186bb6560e742b5f2dc89bd0d14"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:f4837c06a2",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/transportation/",
+   "refs": [
+    "vsp-meta"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/transportation/",
+    "title": "유통 | 업종별 제안 | Samsung Business 대한민국",
+    "sha256": "d62957f41113f4f4636249287320b90016bf6f42011dfc4c16457684dd061555"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:c6abcfeb53",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/tv-vd-solution/tv-solition-bw-hdlt11a/BW-HDLT11A/",
+   "refs": [
+    "sol_urls:lynk|kr",
+    "tax:s_lynk",
+    "vss-url:s_lynk",
+    "vss:s_lynk"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/tv-vd-solution/tv-solition-bw-hdlt11a/BW-HDLT11A/",
+    "title": "링크 클라우드ㅣTV/음향 솔루션ㅣSamsung Business 대한민국",
+    "sha256": "74312f50ec9946310ddbf91baeb185f7331a2a7462697812525125d9b2eb5ae4"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:fcb5271018",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/ventilations/",
+   "refs": [
+    "tax:sac_vent"
+   ],
+   "cur": {
+    "status": 404,
+    "final": "https://www.samsung.com/sec/business/ventilations/",
+    "title": "",
+    "sha256": ""
+   },
+   "status": "failed",
+   "note": "분류 URL 은 site_lists 목록 주소로 교체"
+  },
+  {
+   "id": "page:4bb95b0b24",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/washing-machines/",
+   "refs": [
+    "tax:laundry_b2b",
+    "vsp-meta"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/washing-machines/",
+    "title": "B2B 세탁기/건조기 | Samsung Business 대한민국",
+    "sha256": "702d6d294b0ffb543d2dac7b33e6c917796f69365d729e7379211e47b190b4fc"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:33f46fbfed",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/washing-machines/all-washing-machines/",
+   "refs": [
+    "tax:wash"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/washing-machines/all-washing-machines/",
+    "title": "세탁기 | Samsung Business 대한민국",
+    "sha256": "849abf2589c04ea7e4f6c8cfb1e1d01eb964b873733a62b0ff8b003f88542147"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:aea13eff4c",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/watches/all-watches/",
+   "refs": [
+    "tax:watch"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/business/watches/all-watches/",
+    "title": "갤럭시 워치 | Samsung Business 대한민국",
+    "sha256": "833eb95d7b0cd9f973ed248e74c3ac14f64eb9068dd23bc88c163151fc04b7f4"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:cb5a1cdcda",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/business/water-purifier/",
+   "refs": [
+    "tax:water"
+   ],
+   "cur": {
+    "status": 404,
+    "final": "https://www.samsung.com/sec/business/water-purifier/",
+    "title": "",
+    "sha256": ""
+   },
+   "status": "failed",
+   "note": "분류 URL 은 site_lists 목록 주소로 교체"
+  },
+  {
+   "id": "page:f9716176a3",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/businesshttps://www.samsung.com/business/",
+   "refs": [
+    "tax-group:GLB"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/businesshttps://www.samsung.com/business/",
+    "title": "Samsung 대한민국",
+    "sha256": "dda7ce9aff5210f45bd8b2e254a719d56b9da72d2737756b8c7defa3fb1ac6da"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:0edd120ac3",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/smartthings/",
+   "refs": [
+    "sol_urls:smartthings|kr"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/smartthings/",
+    "title": "삼성 스마트싱스로 완성한 AI 홈 | Samsung 대한민국",
+    "sha256": "aca3b1e352ddef0d4284db3979fb14e154e90d8f626ab5d745ffe15652857640"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:c45f1d0ce8",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/sec/smartthings/app/",
+   "refs": [
+    "sol_urls:smartthings|app"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/sec/smartthings/app/",
+    "title": "편리한 일상의 시작, 이렇게 쉬운 SmartThings로! | Samsung 대한민국",
+    "sha256": "6fae281975871a24c5405e5dfe5b7d603ac119c65db38709c794b626360761da"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:fc3588055d",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/uk/business/display-solutions/lynk-cloud/",
+   "refs": [
+    "sol_urls:lynk|uk"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/uk/business/display-solutions/lynk-cloud/",
+    "title": "LYNK Cloud | Hospitality Management Solution | Samsung Business UK",
+    "sha256": "0e46f6faaaa37b9f3cc298411883051dc8ca259496dfdd71132f9a3d4f4eef6a"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:f0bbbe1c9c",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/us/business/displays/magicinfo/",
+   "refs": [
+    "sol_urls:magicinfo|global"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/us/business/displays/",
+    "title": "Digital Signage Commercial Displays | Samsung Business US",
+    "sha256": "62acc51fd10da77975e4e3f25dafd16c977215f3dee894c85f81ac60f3ac8ea7"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:40419ea7e3",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/us/business/displays/vxt/",
+   "refs": [
+    "sol_urls:vxt|us"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/us/business/displays/",
+    "title": "Digital Signage Commercial Displays | Samsung Business US",
+    "sha256": "62acc51fd10da77975e4e3f25dafd16c977215f3dee894c85f81ac60f3ac8ea7"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:b7e9b151bd",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/us/business/smartthings-pro/",
+   "refs": [
+    "sol_urls:stpro|us"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/us/business/",
+    "title": "Samsung Business US | Business Solutions, Services and Technology from Samsung",
+    "sha256": "6213523f84da7510a5c4cf7d47c776a8d079ebc2917f6505717c0811bb6477bb"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:6831e23255",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/us/business/solutions/digital-signage-solutions/vxt-cms",
+   "refs": [
+    "vss:s_vxt"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/us/business/display-solutions/samsung-vxt/",
+    "title": "Samsung VXT - Digital Signage Solution | Samsung Business US",
+    "sha256": "e2289d0c5dec974d3a9d854b5fb73df53fe589d6594d3ed5941fabb2d7fc5ef9"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:08fc9f021d",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsung.com/us/business/solutions/samsung-dex/",
+   "refs": [
+    "sol_urls:dex|us"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsung.com/us/business/solutions/samsung-dex/",
+    "title": "Samsung DeX Mobile Desktop | DeX Cables & Adapters | Samsung Business | Samsung Business US",
+    "sha256": "98757e75fe192361e574cfd1fde06c3f07764aa7f3f413f1cbcf4f0cf07a001e"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:e9bcff5aef",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsungknox.com/about-knox",
+   "refs": [
+    "vss:s_knox"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsungknox.com/ko/about-knox",
+    "title": "Knox 정보",
+    "sha256": "1d7962d6e0d5d26bc8811fd6c7e9c5e9fdea6d03eb0dedc1a77cc26b4d9046cc"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:745e5d62b3",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsungknox.com/en/solutions/it-solutions/knox-suite",
+   "refs": [
+    "sol_urls:knoxsuite|knoxen"
+   ],
+   "cur": {
+    "status": 404,
+    "final": "https://www.samsungknox.com/en/solutions/it-solutions/knox-suite",
+    "title": "",
+    "sha256": ""
+   },
+   "status": "failed",
+   "note": "Knox Suite 주소 이동 — 새 주소로 교체"
+  },
+  {
+   "id": "page:718bb9ab10",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsungknox.com/ko/solutions/it-solutions/knox-capture",
+   "refs": [
+    "sol_urls:knoxcapture|knox"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsungknox.com/ko/solutions/it-solutions/knox-capture",
+    "title": "Knox Capture | 삼성 Knox",
+    "sha256": "e0b9b9b245be04eff0eb45b96c1e24169573bd74539909f635e625d9ed55601c"
+   },
+   "status": "complete",
+   "note": ""
+  },
+  {
+   "id": "page:364ab17807",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsungknox.com/ko/solutions/it-solutions/knox-suite",
+   "refs": [
+    "sol_urls:knoxsuite|knox"
+   ],
+   "cur": {
+    "status": 404,
+    "final": "https://www.samsungknox.com/ko/solutions/it-solutions/knox-suite",
+    "title": "",
+    "sha256": ""
+   },
+   "status": "failed",
+   "note": "Knox Suite 주소 이동 — 새 주소로 교체"
+  },
+  {
+   "id": "page:297860429f",
+   "channel": "official",
+   "kind": "solution · 분류 · 근거 페이지",
+   "url": "https://www.samsungknox.com/ko/solutions/it-solutions/samsung_e-fota",
+   "refs": [
+    "vss:s_knox"
+   ],
+   "cur": {
+    "status": 200,
+    "final": "https://www.samsungknox.com/ko/solutions/it-solutions/samsung_e-fota",
+    "title": "Knox E-FOTA | 삼성 Knox",
+    "sha256": "2e78d5138b3083e0dfa866d4a9fa361c8effa8c6571fcc98d24566e6493a7651"
+   },
+   "status": "complete",
+   "note": ""
+  }
+ ]
+}

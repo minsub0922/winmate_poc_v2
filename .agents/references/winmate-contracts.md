@@ -40,9 +40,9 @@ app/data + app/web/src/domain/templates + services/catalog.js
 
 ## 현황과 알려진 함정
 
-- 현재 앱: 전체 레이아웃 897, 활성 656, 제품 1,068(큐레이션 40 포함), 솔루션 17, 사례 218, 샘플 버티컬 시나리오 107(고객별 bs01~bs20 · 버티컬 bs_v_* 40 · 어카운트 3 · 업종별 표준 제안서 44). 사진 메타/HTML 334쌍, 예전 표준 메타/HTML(L_AIS_* · L_SOL_*) 55쌍, 업종별 표준 레이아웃(L_VS_*, `vertical_std_layouts.js`) 59쌍이다.
+- 현재 앱(2026-11-12 DSS 업데이트 dss-20261112-1445 이후): 전체 레이아웃 939, 활성 696(목차 템플릿 L_TOC_* 포함), 제품 1,084(큐레이션 40 포함 · 판매 종료 표시 17 · 대체 표시 1 — 행은 남긴다), 솔루션 17, 사례 218, 샘플 버티컬 시나리오 107(고객별 bs01~bs20 · 버티컬 bs_v_* 40 · 어카운트 3 · 업종별 표준 제안서 44). 사진 메타/HTML 334쌍, 예전 표준 메타/HTML(L_AIS_* · L_SOL_*) 55쌍, 업종별 표준 레이아웃(L_VS_*, `vertical_std_layouts.js`) 59쌍이다.
 - 현재 표준 제안서는 업종별 표준 제안서 44종(`bs_std_<버티컬 id>` — `app/data/vertical_space_product.json`의 버티컬마다 하나, 목차 6장 고정, `standard_vertical_scenarios.json`, 생성기 `app/scripts/vertical_standard/`)이다. 예전 표준 `bs21`(AI 스테이) · `bs22`(공유오피스 Lite)와 이전 업종 표준 20종(`description_standard_scenarios.json`)은 2026-11-11에 지웠고, 그 레이아웃(L_AIS_* · L_SOL_*)은 저장본 호환을 위해 남겨 두었다. 루트 `build/v25/README.md`의 bs23~25는 제작 이력이며 현재 앱에 등록됐다는 뜻이 아니다.
-- `app/scripts/prepare_data.py`에 1,068행 assert, `app/scripts/export_agent_data.mjs`에 기대 건수, `app/api/poc/knowledge.py`에 EXPECTED, API `limit` 상한과 여러 테스트에 고정 건수가 있다. 내용 변경으로 건수가 바뀌면 실제 새 인벤토리로 정당화해 관련 계약을 함께 갱신한다. `--allow-count-drift`만으로 최종 검증을 통과시킨 것으로 보고하지 않는다.
+- `app/scripts/prepare_data.py`에 1,084행 assert, `app/scripts/export_agent_data.mjs`에 기대 건수, `app/api/poc/knowledge.py`에 EXPECTED, API `limit` 상한과 여러 테스트에 고정 건수가 있다. 내용 변경으로 건수가 바뀌면 실제 새 인벤토리로 정당화해 관련 계약을 함께 갱신한다. `--allow-count-drift`만으로 최종 검증을 통과시킨 것으로 보고하지 않는다.
 - `export_agent_data.mjs --out`은 `app/data/runtime/` 하위만 허용한다. 시험 KB도 그 아래 별도 디렉터리를 쓴다. 기대 건수 옵션은 스크립트 본문을 확인한다.
 - KB manifest의 입력 목록에 모든 시나리오 fills/story/bg 의존성이 포함됐다고 가정하지 않는다. 콘텐츠 파일과 묶음 주소는 별도로 검증한다.
 - 정적 자산 갱신이 필요하면 동결 링크를 직접 쓰지 않는다. 기존 제공 경로를 유지하는 app 전용 static snapshot을 기본으로 한다. 기준본을 staging의 실제 디렉터리로 복사한 뒤 새 자산을 반영·검증하고, `app/data/static` 링크를 그 app 소유 snapshot으로 바꾸거나 실제 디렉터리로 교체한다. 기존 API/prepare_data가 새 경로를 읽는지 확인하고 preflight에는 기준본 검증과 활성 앱 자산 검증을 분리한다. overlay를 택한다면 우선순위·동일 주소 처리·상세 pack 중복 키 정책과 서버/prepare_data 읽기 경로를 구현하는 것이 자산 반영의 선행 조건이다. 어느 경로도 준비되지 않았으면 기존 제공 자산만 재사용할 수 있으며 새 자산을 반영했다고 보고하지 않는다. 기준본 manifest는 다시 쓰지 않는다.

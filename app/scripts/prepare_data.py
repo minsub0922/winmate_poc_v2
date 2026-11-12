@@ -1,6 +1,6 @@
 """Prepare a read-only API snapshot and its materialized artifact UI projection.
 
-The 1,068 display rows include editorial labels, search indexes and frozen pack addresses
+The 1,084 display rows include editorial labels, search indexes and frozen pack addresses
 that are not raw product_family columns. Preserve those fields explicitly; validate source
 entities against the real database. The API reads the resulting SQLite tables, not JSON.
 """
@@ -44,11 +44,13 @@ def prepare(force: bool = False) -> Path:
         catalog = json.loads((DATA / 'catalog.json').read_text())
         exported = json.loads((DATA / 'products_db.json').read_text())
         rows = [dict(p, **exported['curated'].get(p['id'], {}), cur=True) for p in catalog['products']] + exported['products']
-        assert len(rows) == 1068 and len({p['id'] for p in rows}) == 1068
+        assert len(rows) == 1084 and len({p['id'] for p in rows}) == 1084
         goods = {row[0] for row in db.execute('SELECT id FROM product_family')}
         # product_family.id and goods_id differ in some collected snapshots.
         goods.update(row[0] for row in db.execute('SELECT goods_id FROM product_family'))
-        absent = [p['id'] for p in rows if p.get('gid') and p['gid'] not in goods]
+        # 판매 종료 제품(DSS DB 업데이트가 확정, p.deprecated)과 사이트 목록에서만 빠진 제품(p.siteListed false — e-카탈로그 근거)은
+        # 기존 제안서를 그리려고 행을 남기지만 새 원문 DB의 상품 카드에는 없다.
+        absent = [p['id'] for p in rows if p.get('gid') and p['gid'] not in goods and not p.get('deprecated') and p.get('siteListed') is not False]
         if absent:
             raise ValueError('SQLite 원본에 없는 상품 참조: ' + ', '.join(absent[:8]))
         db.executescript('''
@@ -88,7 +90,7 @@ def prepare(force: bool = False) -> Path:
             ('products',dump(metadata)),
             ('source_sha256',dump(hashlib.file_digest(source.open('rb'),'sha256').hexdigest())),
             ('projection_inputs_sha256',dump(fingerprint)),
-            ('projection_contract',dump('reference/live artifact display schema; 40 curated + 1028 database rows')),
+            ('projection_contract',dump('reference/live artifact display schema; 40 curated + 1044 database rows')),
         ])
         db.commit()
     finally:
