@@ -41,7 +41,7 @@ export async function createRecordingSession(){
   });
   await context.route(url=>url.pathname==='/api/llm',route=>{
    const body=route.request().postDataJSON();
-   if(body.feature==='part'||body.prompt?.includes('한 파트에 들어갈 내용'))return route.fulfill({status:200,json:{mode:'real',data:{items:['본사 메뉴·가격을 매장에 일괄 배포','매장별 운영 조건과 네트워크 확인','파일럿의 검증 범위와 판단 기준 합의']}}});
+   if(body.feature==='part'||body.prompt?.includes('한 목차에 들어갈 내용'))return route.fulfill({status:200,json:{mode:'real',data:{items:['본사 메뉴·가격을 매장에 일괄 배포','매장별 운영 조건과 네트워크 확인','파일럿의 검증 범위와 판단 기준 합의']}}});
    // Record the real application's pending state for other live AI operations.
    return new Promise(()=>{});
   });

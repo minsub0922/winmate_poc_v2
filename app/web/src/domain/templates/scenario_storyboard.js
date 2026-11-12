@@ -1,8 +1,8 @@
 // 샘플 버티컬 시나리오 · Storyboard — 시나리오 하나를 제안서(Storyboard)와 같은 모양으로 만든다.
 // 상세 보기의 읽기 전용 Storyboard 버블(scenarios.jsx ScenarioStoryboard)과 ‘활용하기’로 만드는 내 제안서가 같은 값을 쓴다.
-//   고객 요구사항 버블 = req(자유형식 · 입력 폼: 키맨별 요구) · 제품 · 솔루션 매칭 버블 = ctx · 파트 버블 = flow 의 단계(단계 하나 = 버블 하나)
-//   레이아웃 = 단계의 장 + 채운 값(scenario_fills.js) + 배경 테마(scenario_bg.js). 표지만 든 단계는 숨은 표지 파트(data.js normalizeCovers).
-// 키맨 · 파트 유형 · 내용은 scenario_story.js(STORY). 거기에 없는 시나리오는 flow · audience · criteria 로 만든다.
+//   고객 요구사항 버블 = req(자유형식 · 입력 폼: 키맨별 요구) · 제품 · 솔루션 매칭 버블 = ctx · 목차 버블 = flow 의 단계(단계 하나 = 버블 하나)
+//   레이아웃 = 단계의 장 + 채운 값(scenario_fills.js) + 배경 테마(scenario_bg.js). 표지만 든 단계는 숨은 표지 목차(data.js normalizeCovers).
+// 키맨 · 목차 유형 · 내용은 scenario_story.js(STORY). 거기에 없는 시나리오는 flow · audience · criteria 로 만든다.
 import { SC, STRATEGIES } from './scenarios.js';
 import { fillOf, FILL_CUSTOMER } from './scenario_fills.js';
 import { bgOfSlide, bgTheme } from './scenario_bg.js';
@@ -46,6 +46,7 @@ export function storyboardOf(s, mk) {
   let k = 0;
   const parts = s.flow.map((g, i) => ({
     id: id.pid(i), type: partTypeOf(g, s.id), name: g.name, goal: g.goal, items: itemsOf(g, s.id), form: 'list', text: '', done: true,
+    ...(g.deck ? { deck: true, type: 'cover', name: '표지' } : {}), // 표지 + 목차 장 — 숨은 표지 목차(버블 없음)
     layouts: g.slides.map((x) => {
       const ov = ovOf(s.id, k, x.f); const n = Object.keys(ov.t).length + Object.keys(ov.img).length;
       return { uid: id.lid(k++), f: x.f, status: n ? 'done' : 'empty', ov };

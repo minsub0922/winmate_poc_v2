@@ -56,8 +56,8 @@ const IMG_LABEL = Object.fromEntries(IMG_OPTS);
 export function activeFilters(f) {
   const out = [];
   const add = (k, head, value, clear) => out.push({ k, head, value, short: value, label: head + ' ' + value, clear });
-  if (f.part && PARTS[f.part]) add('part', '파트', PARTS[f.part].label, { part: '', grp: '' });
-  else if (f.grp && GROUP_OF_G[f.grp]) add('grp', '파트', GROUP_OF_G[f.grp].label + ' 전체', { grp: '' });
+  if (f.part && PARTS[f.part]) add('part', '목차', PARTS[f.part].label, { part: '', grp: '' });
+  else if (f.grp && GROUP_OF_G[f.grp]) add('grp', '목차', GROUP_OF_G[f.grp].label + ' 전체', { grp: '' });
   if (f.ind) add('ind', '업종', f.ind === '_gen' ? '범용' : f.ind === '_ind' ? '업종 맞춤 전체' : (IND[f.ind] ? IND[f.ind].name : f.ind), { ind: '' });
   if (f.sol) add('sol', '솔루션', f.sol === '_none' ? '솔루션 전용 제외' : (S[f.sol] ? S[f.sol].name : f.sol), { sol: '' });
   if (f.prod) { const ids = prodIds(f.prod); if (ids.length) add('prod', '제품', P[ids[0]].model + (ids.length > 1 ? ' 외 ' + (ids.length - 1) : ''), { prod: '' }); }
@@ -67,7 +67,7 @@ export function activeFilters(f) {
   return out;
 }
 
-/** One popup, read top to bottom: 파트 유형 → 업종 → 솔루션 → 제품 → 이미지 칸 → 필요한 정보 → 원본 장표.
+/** One popup, read top to bottom: 목차 유형 → 업종 → 솔루션 → 제품 → 이미지 칸 → 필요한 정보 → 원본 장표.
  *  Every choice shows how many layouts stay with the other choices kept; nothing applies until "N장 보기". */
 export function LayoutFilterPopup({ f, base, onApply, onClose }) {
   const [d, setD] = useState(() => ({ ...NO_FILTER, ...Object.fromEntries(FKEYS.map((k) => [k, f[k]])) }));
@@ -99,7 +99,7 @@ export function LayoutFilterPopup({ f, base, onApply, onClose }) {
 
   return (
     <FilterFrame unit={LAYOUT_UNIT} n={n} canReset={on} onReset={() => setD({ ...NO_FILTER })} onApply={() => onApply(d)} onClose={onClose}>
-      <FStep no={1} title="파트 유형" hint="구분 이름을 누르면 그 구분 전체">
+      <FStep no={1} title="목차 유형" hint="구분 이름을 누르면 그 구분 전체">
         <div className="tlf-parts">
           <div className="tlf-prow">{all('part', partPool.length, { grp: '' })}</div>
           {PART_GROUPS.map((g) => (

@@ -44,7 +44,7 @@
 
 .end-ai { margin-top: var(--space-2px); color: var(--accent); }
 
-/* Storyboard 첫 파트 버블 — 다른 버블처럼 원 · 이름 · 카드 순서, 카드는 칼럼 폭 안에 */
+/* Storyboard 첫 목차 버블 — 다른 버블처럼 원 · 이름 · 카드 순서, 카드는 칼럼 폭 안에 */
 .end-node.first { width: var(--measure-336px); }
 .end-node.first .cand-card { width: var(--measure-100); padding: var(--space-10px); gap: var(--space-6px); border-radius: var(--radius-12px); box-shadow: none; }
 .end-node.first .cand-card h3 { padding: var(--space-2px) var(--space-2px) 0; }
@@ -243,8 +243,8 @@
   .req-saved { display: none; }
 }
 
-/* ---------- 파트 설명 — 파트를 고르는 모든 곳(첫 번째 파트 후보 · 파트 팝업 추천 · 이름 자동완성 · 전체 보기) ----------
-   ‘첫 파트로 많이 써요 · 레이아웃 N장’ 대신 그 파트가 무엇을 말하는지(PARTS[t].about)를 두 줄 남짓으로 보여 준다. */
+/* ---------- 목차 설명 — 목차를 고르는 모든 곳(첫 번째 목차 후보 · 목차 팝업 추천 · 이름 자동완성 · 전체 보기) ----------
+   ‘첫 목차로 많이 써요 · 레이아웃 N장’ 대신 그 목차가 무엇을 말하는지(PARTS[t].about)를 두 줄 남짓으로 보여 준다. */
 .end-node.first { width: var(--measure-360px); }
 .cand { align-items: start; }
 .cand .ci { margin-top: var(--space-1px); }
@@ -253,7 +253,7 @@
 .cand .cand-kw { flex-shrink: 0; font-style: normal; font-size: var(--text-10-5px); font-weight: var(--weight-700); line-height: var(--leading-16px); padding: 0 var(--space-6px); border-radius: var(--radius-4px); background: var(--hb); color: var(--hc); }
 .cand .cand-d { font-size: var(--text-11-5px); line-height: var(--leading-1-45); color: var(--muted); white-space: normal; word-break: keep-all; overflow-wrap: anywhere; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
 .cand:hover .cand-d { color: var(--ink-2); }
-/* 파트 팝업 · 추천 3 */
+/* 목차 팝업 · 추천 3 */
 .pe-rec { align-items: start; }
 .pe-rec .tx { display: flex; flex-direction: column; gap: var(--space-3px-x); }
 .pe-rec .tx > .pe-d { white-space: normal; word-break: keep-all; overflow-wrap: anywhere; line-height: var(--leading-1-45); display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
@@ -293,7 +293,7 @@
 .pe-sugs.pe-sugs-float { position: fixed; z-index: 85; box-sizing: border-box; }
 
 /* ---------- AI로 나머지 구성 — 팝업 없이 캔버스에서 바로 ----------
-   AI가 쓰는 동안 새 파트가 들어갈 자리(마지막 버블 뒤)에 shimmer 버블 3개가 서고, 파트가 하나 완성될 때마다 진짜 버블이
+   AI가 쓰는 동안 새 목차가 들어갈 자리(마지막 버블 뒤)에 shimmer 버블 3개가 서고, 목차가 하나 완성될 때마다 진짜 버블이
    그 자리에 바로 들어오며(col-new) shimmer 줄은 그 뒤로 밀려난다. 첫 shimmer 버블 아래에 진행 상태와 멈추기. */
 .ghost { --sh: var(--line); --sh-hi: var(--surface); }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .ghost { --sh-hi: var(--line-2); } }

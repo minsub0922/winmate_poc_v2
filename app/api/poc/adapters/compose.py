@@ -44,7 +44,7 @@ def _composer():
 
 def _parts(raw: Any) -> List[dict]:
     if not isinstance(raw, list) or not raw or len(raw) > 30:
-        raise BadRequest('parts 는 1~30개 파트 목록이어야 합니다.')
+        raise BadRequest('parts 는 1~30개 목차 목록이어야 합니다.')
     out = []
     for p in raw:
         if not isinstance(p, dict):
@@ -73,7 +73,7 @@ def prepare(body: dict, settings: Settings) -> Prepared:
         raise Unavailable(str(exc), exc.code) from None
     title = str(pr.get('title') or pr.get('customer') or '제안서')[:80]
     params = {'step': step, 'parts': len(parts or []), 'requested_mode': plan.requested}
-    label = '샘플 버티컬 시나리오 파트 추천' if step == 'parts' else '샘플 버티컬 시나리오 장표 완성'
+    label = '샘플 버티컬 시나리오 목차 추천' if step == 'parts' else '샘플 버티컬 시나리오 장표 완성'
     return Prepared('compose', f'{label} · {title}', params,
                     lambda job: run(job, copy.deepcopy(pr), step, parts, list(dict.fromkeys(used)), body.get('analysis'), str(body.get('thesis') or '')[:200], plan),
                     plan)
@@ -90,17 +90,17 @@ def run(job: Job, pr: dict, step: str, parts: Optional[List[dict]], used: List[s
     llm = llm_mod.AppProviderLLM(plan.provider, cancel=job.check_cancel, on_call=on_call)
     inp = context.from_app_proposal(pr)
     if step == 'parts':
-        job.log('시작 — 고객 상황 판정 → 샘플 버티컬 시나리오 후보 → 뼈대 선택 → 파트 이름')
+        job.log('시작 — 고객 상황 판정 → 샘플 버티컬 시나리오 후보 → 뼈대 선택 → 목차 이름')
         rec = pipeline.recommend(inp, llm)
         if not calls['n']:
-            raise failure('no_model_call', 'compose:parts', '파트 추천이 AI 결과가 아닙니다.')
+            raise failure('no_model_call', 'compose:parts', '목차 추천이 AI 결과가 아닙니다.')
         sl = rec['storyline']
-        job.log(f"완료 — 뼈대 {sl['base']} · 파트 {len([p for p in rec['parts'] if not p.get('deck')])}개")
+        job.log(f"완료 — 뼈대 {sl['base']} · 목차 {len([p for p in rec['parts'] if not p.get('deck')])}개")
         return jsonable({'step': 'parts', 'analysis': rec['analysis'], 'storyline': sl, 'thesis': rec['thesis'],
                          'parts': [{k: p.get(k) for k in ('type', 'name', 'items', 'src', 'deck')} for p in rec['parts']],
                          'llm': {'calls_ok': calls['n'], 'effective': 'llm', 'model': llm.model}})
     a = analysis if isinstance(analysis, dict) and analysis.get('industry') else None
-    job.log(f'시작 — 파트 {len(parts)}개의 레이아웃 구성 · 문구 · 사진')
+    job.log(f'시작 — 목차 {len(parts)}개의 레이아웃 구성 · 문구 · 사진')
     out = pipeline.complete(inp, parts, llm, analysis=a, thesis=thesis, used_layouts=used, workers=2)
     if not calls['n']:
         raise failure('no_model_call', 'compose:layouts', '장표 완성이 AI 결과가 아닙니다.')

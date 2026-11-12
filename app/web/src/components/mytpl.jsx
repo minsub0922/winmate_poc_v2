@@ -156,7 +156,7 @@ export function ImportDialog({ file, onClose, onSaved }) {
   const pct = st.total ? Math.round((st.n / st.total) * 100) : 0;
   return (
     <Modal size="xwide" onClose={busy ? () => {} : onClose} title={<span className="my-imp-t"><Icon name="upload" size={17} />PPTX에서 내 템플릿 만들기</span>}
-      sub={pages ? file.name + ' · ' + pages.length + '장' + (st.mode === 'layouts' ? ' (슬라이드가 없어 레이아웃을 장으로 가져왔어요)' : '') + (st.ratio && Math.abs(st.ratio - 16 / 9) > 0.02 ? ' · 16:9가 아닌 장표라 가운데에 맞췄어요' : '') + ' — 저장할 장을 고르고 이름 · 파트 유형을 정해 주세요.' : file.name}
+      sub={pages ? file.name + ' · ' + pages.length + '장' + (st.mode === 'layouts' ? ' (슬라이드가 없어 레이아웃을 장으로 가져왔어요)' : '') + (st.ratio && Math.abs(st.ratio - 16 / 9) > 0.02 ? ' · 16:9가 아닌 장표라 가운데에 맞췄어요' : '') + ' — 저장할 장을 고르고 이름 · 목차 유형을 정해 주세요.' : file.name}
       footer={<>
         {pages && <span className="note"><b className="num">{nOn}</b> / {pages.length}장 선택</span>}
         <span className="sp" />
@@ -195,7 +195,7 @@ export function ImportDialog({ file, onClose, onSaved }) {
                 </button>
                 <input className="input" value={p.meta.name} aria-label={(i + 1) + '쪽 이름'} onChange={(e) => set(i, { meta: { name: e.target.value } })} />
                 <div className="my-imp-row">
-                  <select className="input" value={p.meta.p} aria-label={(i + 1) + '쪽 파트 유형'} onChange={(e) => set(i, { meta: { p: e.target.value } })}>{PART_OPTS.map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select>
+                  <select className="input" value={p.meta.p} aria-label={(i + 1) + '쪽 목차 유형'} onChange={(e) => set(i, { meta: { p: e.target.value } })}>{PART_OPTS.map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select>
                   <span className="faint num" title="글 칸 · 이미지 칸">글 {p.meta.nT} · 이미지 {p.meta.nI}</span>
                 </div>
               </div>
@@ -246,7 +246,7 @@ export function MyDetail({ list, index, onNav, onClose, onEdit }) {
       panel={<>
         <div className="field"><label htmlFor="my-d-name">이름</label>
           <input id="my-d-name" className="input" value={name} onChange={(e) => setName(e.target.value)} onBlur={commitName} onKeyDown={(e) => { if (e.key === 'Enter') e.currentTarget.blur(); }} /></div>
-        <div className="field"><label htmlFor="my-d-part">파트 유형</label>
+        <div className="field"><label htmlFor="my-d-part">목차 유형</label>
           <select id="my-d-part" className="input" value={l.p || ''} onChange={(e) => void patchMeta({ p: e.target.value })}>{PART_OPTS.map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select></div>
         <dl className="meta-grid">
           <dt>출처</dt><dd>{l.my.kind === 'pptx' ? <>PPTX · {l.my.file}{l.my.page ? ' ' + l.my.page + '쪽' : ''}</> : srcLabel(l)}</dd>
@@ -254,7 +254,7 @@ export function MyDetail({ list, index, onNav, onClose, onEdit }) {
           <dt>만든 날</dt><dd className="num">{fmtDate(l.my.at)}{l.my.up && fmtDate(l.my.up) !== fmtDate(l.my.at) ? ' · 고친 날 ' + fmtDate(l.my.up) : ''}</dd>
           <dt>쓰는 곳</dt><dd>{used ? '제안서 ' + used + '곳' : '아직 없음'}</dd>
         </dl>
-        <p className="hint"><Icon name="info" size={14} /><span>제안서에서 쓰려면 Storyboard 파트의 ‘레이아웃 추가’ 팝업 맨 위 <b>My 템플릿</b>에서 고르면 돼요. {myAccountStorage() ? '로그인한 계정에 저장되어 다른 브라우저에서도 사용할 수 있어요.' : '이 브라우저에만 저장돼요.'}</span></p>
+        <p className="hint"><Icon name="info" size={14} /><span>제안서에서 쓰려면 Storyboard 목차의 ‘레이아웃 추가’ 팝업 맨 위 <b>My 템플릿</b>에서 고르면 돼요. {myAccountStorage() ? '로그인한 계정에 저장되어 다른 브라우저에서도 사용할 수 있어요.' : '이 브라우저에만 저장돼요.'}</span></p>
       </>}
       actions={<>
         <DeleteButton className="btn btn-ghost" confirmation={{title:'템플릿을 삭제할까요?',message:l.name+'을 삭제합니다.'+(used?' 현재 제안서 '+used+'곳에서 사용 중입니다.':'')}} onClick={remove}><Icon name="trash" size={14}/>지우기</DeleteButton>

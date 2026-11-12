@@ -68,7 +68,7 @@ def run(job: Job, pr: dict, mode: str, strategy: Any, temperature: float, seed: 
     job.ctx['tracker'] = tracker
     backend = make_story_backend(plan.provider, tracker, job, requirement_context=summary_context)
     kept = len([p for p in parts if not p.get('deck') and p.get('type') != 'cover'])
-    job.log(f"시작 — {mode} · 이전 파트 {kept}개 · AI 설계 + PoC 검증 (규칙 설계 대체 없음)")
+    job.log(f"시작 — {mode} · 이전 목차 {kept}개 · AI 설계 + PoC 검증 (규칙 설계 대체 없음)")
     job.check_cancel()
     out = S.agent.design(pr, backend=backend, options={'strategy': strategy, 'temperature': temperature, 'seed': seed, 'mode': mode}, kbx=kbx)
     job.check_cancel()
@@ -78,5 +78,5 @@ def run(job: Job, pr: dict, mode: str, strategy: Any, temperature: float, seed: 
         raise failure('no_model_call', 'storyboard:design', 'Storyboard 설계가 AI 결과가 아닙니다.')
     app_parts = S.agent.to_app_parts(out)
     llm = tracker.summary()
-    job.log(f"완료 — 새 파트 {len(app_parts)}개 · 남은 문제 {len(out.get('issues') or [])}개")
+    job.log(f"완료 — 새 목차 {len(app_parts)}개 · 남은 문제 {len(out.get('issues') or [])}개")
     return {'mode': mode, 'kept_parts': kept, 'storyboard': jsonable(out), 'app_parts': jsonable(app_parts), 'warnings': warnings, 'llm': llm}

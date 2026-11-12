@@ -42,7 +42,7 @@ export function BackgroundPicker({ context, current, onPick, onClose }) {
     })}</div>
   </section>;
   return <Modal size="wide" title="배경 사진 선택" onClose={close}
-    sub="현재 시트의 업종 · 문구 · 파트 유형에 맞는 사진을 먼저 추천해요."
+    sub="현재 시트의 업종 · 문구 · 목차 유형에 맞는 사진을 먼저 추천해요."
     footer={<><span className="note">{busy ? '사진을 적용하는 중…' : `배경 ${total}개 · ${BACKGROUND_INDUSTRIES.length}개 업종`}</span><span className="sp" /><button className="btn" disabled={busy} onClick={close}>닫기</button></>}>
     <div className="background-tools">
       <input className="input" aria-label="배경 사진 검색" placeholder="장면 검색 · 예) 호텔 로비, 강의실, 물류" value={query} disabled={busy} onChange={e => setQuery(e.target.value)} />

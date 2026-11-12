@@ -1,5 +1,5 @@
 // 시장 조사 · 근거 자료로 쓸 만한 웹 소스 (기관 대표 주소만 — 특정 보고서 주소는 넣지 않음).
-// ind: 업종 코드 목록('*' = 모든 업종), topics: 이 소스가 잘 맞는 파트 유형.
+// ind: 업종 코드 목록('*' = 모든 업종), topics: 이 소스가 잘 맞는 목차 유형.
 // what: 거기서 무엇을 찾으면 되는지. 앱은 이 목록을 '어디서 찾을지' 안내로만 쓰고, AI가 내용을 읽은 것처럼 인용하지 않음.
 export const WEB_KIND = { stat: '공식 통계', report: '시장 리포트', gov: '공공 · 협회', disclosure: '기업 공시', samsung: '삼성 자료' };
 
@@ -50,7 +50,7 @@ export const WEB_SOURCES = [
 const HOST = (u) => { try { return new URL(u).host.replace(/^www\./, ''); } catch (e) { return u; } };
 export const hostOf = HOST;
 
-/** 업종 · 파트 유형에 맞는 웹 소스 순위. */
+/** 업종 · 목차 유형에 맞는 웹 소스 순위. */
 export function webSourcesFor(ind, type, limit = 6) {
   return WEB_SOURCES.map((w) => {
     let s = 0;

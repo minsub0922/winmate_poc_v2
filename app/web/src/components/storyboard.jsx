@@ -69,7 +69,7 @@ function useAiCompose(p) {
       setErr(msg); toast(msg + ' · 다시 시도할 수 있어요', 'warn');
     }, (e) => { setSubmitting(false); console.error(e); setErr('서버 작업을 시작하지 못했어요.'); toast('서버 작업을 시작하지 못했어요 · 다시 시도할 수 있어요', 'warn'); });
   };
-  // 장표 자동 완성 — 레이아웃이 빈 파트마다 출처 샘플 버티컬 시나리오 모듈의 장표를 옮기고 문구 · 사진을 채운다
+  // 장표 자동 완성 — 레이아웃이 빈 목차마다 출처 샘플 버티컬 시나리오 모듈의 장표를 옮기고 문구 · 사진을 채운다
   const complete = () => {
     if (submitting || jobBusy) return;
     setSubmitting(true); setErr('');
@@ -85,7 +85,7 @@ function useAiCompose(p) {
 
 /** Starts following a job recorded in the proposal that this browser does not follow yet (cleared storage, other tab). */
 function AdoptJob({ id, purpose, pid, kind }) {
-  useAdopt(id, { purpose, owner: { type: 'proposal', id: pid }, title: purpose === 'rfp' ? 'RFP 요구사항 정리' : purpose === 'scenario-parts' ? '샘플 버티컬 시나리오 파트 추천' : purpose === 'scenario-layouts' ? '샘플 버티컬 시나리오 장표 완성' : kind === 'storyboard' ? 'Storyboard 이어서 구성' : 'Layout Agent · 제안서 구성', meta: { kind } });
+  useAdopt(id, { purpose, owner: { type: 'proposal', id: pid }, title: purpose === 'rfp' ? 'RFP 요구사항 정리' : purpose === 'scenario-parts' ? '샘플 버티컬 시나리오 목차 추천' : purpose === 'scenario-layouts' ? '샘플 버티컬 시나리오 장표 완성' : kind === 'storyboard' ? 'Storyboard 이어서 구성' : 'Layout Agent · 제안서 구성', meta: { kind } });
   return null;
 }
 const SHOW_DONE_MS = 10 * 60e3; // a finished job card stays a while (with its real mode) unless closed
@@ -114,10 +114,10 @@ function AgentDock({ p, reqOpen, onReq }) {
           onRetry={['rfp', 'compose', 'scenario-parts', 'scenario-layouts'].includes(r.purpose) ? async () => { const out = await retryProposalJob(r); if (out.ok) { hideJob(r.id); toast('다시 시작했어요'); } else toast(out.message, 'warn'); } : undefined}>
           {r.purpose === 'compose' && r.outcome === 'pending' && (
             <div className="ajc-pend">
-              <span>작업하는 동안 Storyboard가 바뀌어 결과(파트 {(r.result && r.result.parts ? r.result.parts.length : 0)}개)를 자동으로 넣지 않았어요.</span>
+              <span>작업하는 동안 Storyboard가 바뀌어 결과(목차 {(r.result && r.result.parts ? r.result.parts.length : 0)}개)를 자동으로 넣지 않았어요.</span>
               <div className="row">
                 <button type="button" className="btn btn-sm" onClick={() => discardComposePending(r.id)}>버리기</button>
-                <button type="button" className="btn btn-primary btn-sm" onClick={() => applyComposePending(r.id)}>지금 파트 뒤에 붙이기</button>
+                <button type="button" className="btn btn-primary btn-sm" onClick={() => applyComposePending(r.id)}>지금 목차 뒤에 붙이기</button>
               </div>
             </div>
           )}
@@ -138,7 +138,7 @@ function GhostParts({ n, onStop }) {
         <span className="ghost-bar ghost-name shimmer" />
         <span className="ghost-bar ghost-btn shimmer" />
         {i === 0 && (
-          <FeedbackPopup message={(n?n+"개 파트 추가 · ":"")+"다음 파트를 쓰는 중…"} kind="progress" actionLabel="작업 취소" onAction={onStop}/>
+          <FeedbackPopup message={(n?n+"개 목차 추가 · ":"")+"다음 목차를 쓰는 중…"} kind="progress" actionLabel="작업 취소" onAction={onStop}/>
         )}
       </div>
     </React.Fragment>
@@ -166,7 +166,7 @@ function CandCard({ p, afterIndex, onPick, onCustom, title, sub }) {
       ))}
       <button type="button" className="cand cand-direct" onClick={onCustom}>
         <span className="ci"><Icon name="edit" size={16} /></span>
-        <span className="cand-t"><b>직접 입력</b><span className="cand-d">목록에 없는 주제는 직접 이름을 붙여요. 적은 이름이 곧 파트 유형이 돼요</span></span>
+        <span className="cand-t"><b>직접 입력</b><span className="cand-d">목록에 없는 주제는 직접 이름을 붙여요. 적은 이름이 곧 목차 유형이 돼요</span></span>
       </button>
     </div>
   );
@@ -174,9 +174,9 @@ function CandCard({ p, afterIndex, onPick, onCustom, title, sub }) {
 
 // 고객 요구사항 다음 버블 — 제품 · 솔루션 매칭 + 매칭 카드 + '공간 구성' (match-area.jsx MatchArea)
 
-// stage: 'req' → 고객 요구사항 버블만 · 'match' → + 제품 · 솔루션 매칭 버블 · 'story' → + 파트(store.js stageOf)
-// readOnly: 샘플 버티컬 시나리오 상세 보기(scenarios.jsx ScenarioStoryboard) — 같은 버블 · 레이아웃 카드를 보기만 한다. 파트 넣기(+) · 끌어서 옮기기 ·
-// PPT 레이아웃 추가 · AI로 나머지 구성 · 다음 파트가 없고, 버블 · 카드를 누르면 open 이 보기 전용 팝업을 띄운다. activePart = 팝업이 열린 파트 id.
+// stage: 'req' → 고객 요구사항 버블만 · 'match' → + 제품 · 솔루션 매칭 버블 · 'story' → + 목차(store.js stageOf)
+// readOnly: 샘플 버티컬 시나리오 상세 보기(scenarios.jsx ScenarioStoryboard) — 같은 버블 · 레이아웃 카드를 보기만 한다. 목차 넣기(+) · 끌어서 옮기기 ·
+// PPT 레이아웃 추가 · AI로 나머지 구성 · 다음 목차가 없고, 버블 · 카드를 누르면 open 이 보기 전용 팝업을 띄운다. activePart = 팝업이 열린 목차 id.
 // onSpace: '공간 구성' 팝업 열기 · 닫기 · onOpenSpatial(historyId): 만든 공간 조감도 열기
 export function StoryCanvas({ p, open, stage = 'story', pop = null, onReq, onMatch, onSpace, onOpenSpatial, viewerOpen, onOpenViewer, pageOf, readOnly = false, activePart = null, children }) {
   const reqOpen = !!pop && pop.t === 'req';
@@ -251,16 +251,16 @@ export function StoryCanvas({ p, open, stage = 'story', pop = null, onReq, onMat
           const isNew = !!(ai.fresh && ai.fresh.has(s.id)); // just added by AI로 나머지 구성 — rises in where the shimmer was
           return (
             <React.Fragment key={s.id}>
-              <div className={'conn' + (isNew ? ' conn-new' : '')}>{!readOnly && <button className="conn-plus" aria-label={no + '번째 자리에 파트 넣기'} title="여기에 새 파트 넣기" onClick={(e) => { e.stopPropagation(); addPart(null, i); }}><Icon name="plus" size={14} stroke={2.4} /></button>}
+              <div className={'conn' + (isNew ? ' conn-new' : '')}>{!readOnly && <button className="conn-plus" aria-label={no + '번째 자리에 목차 넣기'} title="여기에 새 목차 넣기" onClick={(e) => { e.stopPropagation(); addPart(null, i); }}><Icon name="plus" size={14} stroke={2.4} /></button>}
               </div>
               <div className={'col ' + hue + (isNew ? ' col-new' : '') + (activePart === s.id ? ' on' : '')} data-pid={s.id}>
                 <div className="node-top">
-                  <button className={'node ' + (s.done ? 'done' : 'draft')} onClick={() => open({ type: 'part', partId: s.id })} aria-label={s.name + (readOnly ? ' 파트 보기' : ' 파트 편집')} aria-expanded={readOnly ? activePart === s.id : undefined}>
+                  <button className={'node ' + (s.done ? 'done' : 'draft')} onClick={() => open({ type: 'part', partId: s.id })} aria-label={s.name + (readOnly ? ' 목차 보기' : ' 목차 편집')} aria-expanded={readOnly ? activePart === s.id : undefined}>
                     <Icon name={partIcon(s)} size={28} />
                     <span className="order">{no}</span>
                   </button>
                 </div>
-                <button className="node-name" onClick={() => open({ type: 'part', partId: s.id })}>{s.name || '이름 없는 파트'}</button>
+                <button className="node-name" onClick={() => open({ type: 'part', partId: s.id })}>{s.name || '이름 없는 목차'}</button>
                 <div className="laystack" onDragOver={(e) => { if (drag) { e.preventDefault(); if (!drop || drop.pid !== s.id) setDrop({ pid: s.id, before: null }); } }} onDrop={(e) => { e.preventDefault(); doDrop(s.id, drop && drop.pid === s.id ? drop.before : null); }}>
                   {vis.map((x) => {
                     const l = L[x.f];
@@ -293,9 +293,9 @@ export function StoryCanvas({ p, open, stage = 'story', pop = null, onReq, onMat
                   {drag && <div className={'dropend' + (drop && drop.pid === s.id && drop.before === null ? ' over' : '')} onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); setDrop({ pid: s.id, before: null }); }} onDrop={(e) => { e.preventDefault(); e.stopPropagation(); doDrop(s.id, null); }} />}
                 </div>
                 {!readOnly && <div className="col-actions">
-                  <button className="btn btn-primary btn-sm" disabled={!s.done} onClick={() => open({ type: 'picker', partId: s.id, mode: 'rec' })} title={s.done ? '파트에 맞는 레이아웃 추천 보기' : '파트 내용을 작성 완료하면 추천을 받을 수 있어요'}><Icon name="plus" size={14} stroke={2.4} />PPT 레이아웃 추가</button>
+                  <button className="btn btn-primary btn-sm" disabled={!s.done} onClick={() => open({ type: 'picker', partId: s.id, mode: 'rec' })} title={s.done ? '목차에 맞는 레이아웃 추천 보기' : '목차 내용을 작성 완료하면 추천을 받을 수 있어요'}><Icon name="plus" size={14} stroke={2.4} />PPT 레이아웃 추가</button>
                 </div>}
-                {!readOnly && !s.done && <span className="lock-note">파트 내용을 <b>작성 완료</b>하면 추천을 받을 수 있어요</span>}
+                {!readOnly && !s.done && <span className="lock-note">목차 내용을 <b>작성 완료</b>하면 추천을 받을 수 있어요</span>}
               </div>
             </React.Fragment>
           );
@@ -306,19 +306,19 @@ export function StoryCanvas({ p, open, stage = 'story', pop = null, onReq, onMat
         <div className={'end-node' + (nParts ? '' : ' first')}>
           {nParts === 0 ? (
             <>
-              <div className="node-top"><button className="end-plus pulse" aria-label="첫 번째 파트 직접 만들기" onClick={(e) => { e.stopPropagation(); addPart(null); }}><Icon name="plus" size={30} stroke={2} /></button></div>
-              <span className="node-name" style={{ color: 'var(--accent)' }}>첫 번째 파트</span>
-              <CandCard p={p} afterIndex={-1} title="첫 번째 파트를 골라 주세요" sub="요구사항 맥락으로 고른 후보예요. 고르면 이름과 내용이 미리 채워져요." onPick={(t) => addPart(t)} onCustom={() => addPart(null)} />
+              <div className="node-top"><button className="end-plus pulse" aria-label="첫 번째 목차 직접 만들기" onClick={(e) => { e.stopPropagation(); addPart(null); }}><Icon name="plus" size={30} stroke={2} /></button></div>
+              <span className="node-name" style={{ color: 'var(--accent)' }}>첫 번째 목차</span>
+              <CandCard p={p} afterIndex={-1} title="첫 번째 목차를 골라 주세요" sub="요구사항 맥락으로 고른 후보예요. 고르면 이름과 내용이 미리 채워져요." onPick={(t) => addPart(t)} onCustom={() => addPart(null)} />
               {ai.jobBusy ? <button className="btn btn-ghost btn-sm end-ai" disabled><span className="spin" />{ai.submitting ? '서버에 요청하는 중' : '서버에서 구성하는 중'}</button>
                 : <button className="btn btn-ghost btn-sm end-ai" onClick={ai.start}><Icon name={ai.err ? 'refresh' : 'sparkle'} size={13} />{ai.err ? 'AI로 나머지 구성 다시 시도' : 'AI로 나머지 구성'}</button>}
               <FeedbackPopup message={!ai.jobBusy?ai.err:""}/>
             </>
           ) : (
             <>
-              <div className="node-top"><button className="end-plus pulse" aria-label="다음 파트 추가" onClick={(e) => { e.stopPropagation(); addPart(null); }}><Icon name="plus" size={30} stroke={2} /></button></div>
-              <span className="node-name" style={{ color: 'var(--accent)' }}>다음 파트</span>
-              <span className="story-empty-hint">{nLay ? '레이아웃 ' + nLay + '장 · 끌어서 순서를 바꿀 수 있어요' : '각 파트에 PPT 레이아웃을 추가해 보세요'}</span>
-              {!ai.jobBusy && emptyParts(p).length > 0 && <button className="btn btn-primary btn-sm end-ai" onClick={ai.complete} title="레이아웃이 빈 파트마다 샘플 버티컬 시나리오 장표를 옮기고 문구 · 사진을 채워요"><Icon name="sparkle" size={13} />{'장표 자동 완성 · 파트 ' + emptyParts(p).length + '개'}</button>}
+              <div className="node-top"><button className="end-plus pulse" aria-label="다음 목차 추가" onClick={(e) => { e.stopPropagation(); addPart(null); }}><Icon name="plus" size={30} stroke={2} /></button></div>
+              <span className="node-name" style={{ color: 'var(--accent)' }}>다음 목차</span>
+              <span className="story-empty-hint">{nLay ? '레이아웃 ' + nLay + '장 · 끌어서 순서를 바꿀 수 있어요' : '각 목차에 PPT 레이아웃을 추가해 보세요'}</span>
+              {!ai.jobBusy && emptyParts(p).length > 0 && <button className="btn btn-primary btn-sm end-ai" onClick={ai.complete} title="레이아웃이 빈 목차마다 샘플 버티컬 시나리오 장표를 옮기고 문구 · 사진을 채워요"><Icon name="sparkle" size={13} />{'장표 자동 완성 · 목차 ' + emptyParts(p).length + '개'}</button>}
               {ai.jobBusy ? <button className="btn btn-ghost btn-sm end-ai" disabled><span className="spin" />{ai.submitting ? '서버에 요청하는 중' : '서버에서 구성하는 중'}</button>
                 : <button className="btn btn-ghost btn-sm end-ai" onClick={ai.start}><Icon name={ai.err ? 'refresh' : 'sparkle'} size={13} />{ai.err ? 'AI로 나머지 구성 다시 시도' : 'AI로 나머지 구성'}</button>}
               <FeedbackPopup message={!ai.jobBusy?ai.err:""}/>

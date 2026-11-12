@@ -17,7 +17,7 @@ export function rankBackgrounds(images, { industry, text = '', part = '' } = {})
     const hits = vocabulary.filter(t => normalize(t).length > 1 && sheet.includes(normalize(t)));
     const overlap = words.filter(t => vocabulary.some(v => normalize(v).includes(normalize(t))));
     if (hits.length || overlap.length) { score += Math.min(45, hits.length * 6 + overlap.length * 2); reasons.push('시트 내용과 연관'); }
-    if (image.parts.includes(part)) { score += 12; reasons.push('파트 유형에 적합'); }
+    if (image.parts.includes(part)) { score += 12; reasons.push('목차 유형에 적합'); }
     if (image.w >= 1280) score += 3;
     if (image.w / image.h >= 1.5) score += 2;
     if (!industry && !image.industry) score += 8;

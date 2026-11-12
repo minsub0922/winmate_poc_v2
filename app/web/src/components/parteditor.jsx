@@ -121,7 +121,7 @@ export function PartEditor({ p, part, onClose, isNew }) {
   const recs = useMemo(() => candidates({ ...p, parts: p.parts.filter((x) => x.id !== part.id) }, idx - 1, 3), [p.parts.length, idx, p.ind]);
   const allGroups = useMemo(() => {
     const rt = recs.map((r) => r.type).filter((t) => PARTS[t]);
-    const gs = [[prev ? '‘' + (prev.name || '앞 파트') + '’ 다음에 이어지기 좋은 파트' : '요구사항 흐름에 맞는 첫 파트', rt]]
+    const gs = [[prev ? '‘' + (prev.name || '앞 목차') + '’ 다음에 이어지기 좋은 목차' : '요구사항 흐름에 맞는 첫 목차', rt]]
       .concat(PART_GROUPS.map(([g, ts]) => [g, ts.filter((t) => PARTS[t] && !rt.includes(t))]));
     return gs.filter(([, ts]) => ts.length).map(([g, ts]) => ({ g, opts: ts.map((t) => ({ text: PARTS[t].label, type: t, kind: 'label' })) }));
   }, [recs, prev && prev.name]);
@@ -189,37 +189,37 @@ export function PartEditor({ p, part, onClose, isNew }) {
     update(p.id, (d) => {
       const s = d.parts.find((x) => x.id === part.id); if (!s) return;
       const t = type || autoType || null;
-      s.name = name.trim() || (t && t !== 'free' ? PARTS[t].label : '새 파트');
+      s.name = name.trim() || (t && t !== 'free' ? PARTS[t].label : '새 목차');
       s.type = t; s.form = isFree ? 'free' : 'list'; s.text = isFree ? text.trim() : ''; s.items = items;
       s.done = items.length > 0;
     });
-    toast('파트를 완료했어요 · 이제 레이아웃을 추가할 수 있어요');
+    toast('목차를 완료했어요 · 이제 레이아웃을 추가할 수 있어요');
     onClose();
   };
   const ok = name.trim() && items.length > 0;
-  const nameNote = name.trim() && !picked ? '직접 입력 · 이 이름이 곧 파트 유형이에요' : '';
-  const ex = PARTS[curType] && PARTS[curType].items.length ? PARTS[curType].items : ['이 파트에서 말할 핵심 한 가지', '근거나 수치', '고객에게 주는 의미'];
+  const nameNote = name.trim() && !picked ? '직접 입력 · 이 이름이 곧 목차 유형이에요' : '';
+  const ex = PARTS[curType] && PARTS[curType].items.length ? PARTS[curType].items : ['이 목차에서 말할 핵심 한 가지', '근거나 수치', '고객에게 주는 의미'];
   let oi = -1;
 
   return (
-    <Modal onClose={onClose} title={isNew ? '새 파트' : '파트 편집'} sub="이름과 이 파트에서 말할 내용을 적어 주세요. 완료하면 맞는 PPT 레이아웃을 추천해 드려요."
+    <Modal onClose={onClose} title={isNew ? '새 목차' : '목차 편집'} sub="이름과 이 목차에서 말할 내용을 적어 주세요. 완료하면 맞는 PPT 레이아웃을 추천해 드려요."
       footer={<>
-        {!isNew && <DeleteButton className="btn btn-ghost btn-danger" onClick={() => { update(p.id, (d) => { d.parts = d.parts.filter((x) => x.id !== part.id); }); toast('파트를 지웠어요'); onClose(); }}><Icon name="trash" size={15} />파트 지우기</DeleteButton>}
+        {!isNew && <DeleteButton className="btn btn-ghost btn-danger" onClick={() => { update(p.id, (d) => { d.parts = d.parts.filter((x) => x.id !== part.id); }); toast('목차를 지웠어요'); onClose(); }}><Icon name="trash" size={15} />목차 지우기</DeleteButton>}
         <span className="sp" />
         <button className="btn btn-primary" disabled={!ok} onClick={save}><Icon name="check" size={15} />작성 완료</button>
       </>}>
       <div className="field">
-        <label htmlFor="pe-name">파트 이름</label>
+        <label htmlFor="pe-name">목차 이름</label>
         <div className="pe-name">
           <span className={'pe-bubble ' + (bubble ? partHue(bubble) : 'empty')} aria-hidden="true"><Icon name={bubble ? PARTS[bubble].icon : PARTS.free.icon} size={22} /></span>
           <div className="pe-name-box" ref={boxRef}>
             <input id="pe-name" data-autofocus={isNew ? '' : undefined} className="input" autoComplete="off" role="combobox" aria-expanded={opts.length > 0} aria-controls="pe-sugs" aria-autocomplete="list"
               aria-activedescendant={sug.i >= 0 && opts[sug.i] ? 'pe-o-' + sug.i : undefined}
-              style={{ fontWeight: "var(--weight-700)", fontSize: "var(--text-15px)" }} value={name} placeholder="눌러서 기존 파트를 고르거나 직접 입력 · 예) 왜 지금 바꿔야 하나"
+              style={{ fontWeight: "var(--weight-700)", fontSize: "var(--text-15px)" }} value={name} placeholder="눌러서 기존 목차를 고르거나 직접 입력 · 예) 왜 지금 바꿔야 하나"
               onChange={(e) => { setName(e.target.value); setType(labelType(e.target.value)); setSug({ open: true, i: -1 }); }}
               onClick={openList} onBlur={() => setTimeout(() => setSug({ open: false, i: -1 }), 120)} onKeyDown={onNameKey} />
             {listOpen && pos && createPortal(
-              <div className={'pe-sugs pe-sugs-float' + (typing ? '' : ' all')} id="pe-sugs" role="listbox" aria-label={typing ? '파트 이름 추천' : '기존 파트 전체'} style={{ ...pos, right: 'auto' }} onMouseDown={(e) => e.preventDefault()}>
+              <div className={'pe-sugs pe-sugs-float' + (typing ? '' : ' all')} id="pe-sugs" role="listbox" aria-label={typing ? '목차 이름 추천' : '기존 목차 전체'} style={{ ...pos, right: 'auto' }} onMouseDown={(e) => e.preventDefault()}>
                 {groups.map((g) => (
                   <React.Fragment key={g.g || 'q'}>
                     {g.g && <div className="pe-sg" role="presentation">{g.g}</div>}
@@ -230,7 +230,7 @@ export function PartEditor({ p, part, onClose, isNew }) {
                         <button key={s.text + i} id={'pe-o-' + i} data-i={i} type="button" role="option" aria-selected={i === sug.i} className={'pe-sug ' + partHue(s.type)} onClick={() => pickSug(s)} onMouseEnter={() => setSug((x) => ({ ...x, i }))}>
                           <span className="si"><Icon name={PARTS[s.type].icon} size={13} /></span>
                           <span className="sx"><b>{typing ? <Hl text={s.text} q={name} /> : s.text}</b>{showD && <span className="sd">{PARTS[s.type].about}</span>}</span>
-                          {typing && <span className="st">{s.kind === 'label' ? '기존 파트' : PARTS[s.type].label}</span>}
+                          {typing && <span className="st">{s.kind === 'label' ? '기존 목차' : PARTS[s.type].label}</span>}
                         </button>
                       );
                     })}
@@ -247,7 +247,7 @@ export function PartEditor({ p, part, onClose, isNew }) {
         <div className="pe-text-box">
           <textarea id="pe-text" className="textarea pe-text" value={text} onChange={(e) => setText(e.target.value)}
             placeholder={'한 줄에 하나씩 적어 주세요. 메모나 문장을 그대로 붙여 넣어도 돼요.\n\n예)\n' + ex.join('\n')} />
-          <button type="button" className="btn btn-soft btn-sm pe-ai" onClick={suggest} disabled={busy} aria-busy={busy} title="이 파트에 넣을 내용을 AI가 제안해요">
+          <button type="button" className="btn btn-soft btn-sm pe-ai" onClick={suggest} disabled={busy} aria-busy={busy} title="이 목차에 넣을 내용을 AI가 제안해요">
             {busy ? <span className="spin" /> : <Icon name="sparkle" size={14} />}{busy ? '제안 중…' : 'AI 제안'}
           </button>
         </div>
@@ -256,7 +256,7 @@ export function PartEditor({ p, part, onClose, isNew }) {
 
       {prop && (
         <Modal size="narrow" onClose={() => setProp(null)} title="AI 제안"
-          sub={(name.trim() ? '‘' + name.trim() + '’에' : '이 파트에') + ' 넣을 내용이에요. 승인하면 지금 내용 뒤에 이어 붙여요.'}
+          sub={(name.trim() ? '‘' + name.trim() + '’에' : '이 목차에') + ' 넣을 내용이에요. 승인하면 지금 내용 뒤에 이어 붙여요.'}
           footer={<>
             <span className="sp" />
             <button className="btn" onClick={() => setProp(null)}>닫기</button>

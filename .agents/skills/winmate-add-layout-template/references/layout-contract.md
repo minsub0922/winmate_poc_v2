@@ -6,7 +6,7 @@
 |---|---|---|
 | 메타와 HTML 등록 | `services/catalog.js`, `domain/templates/{photo_layouts,std_layouts,covers,retired}.js`, `app/data/catalog.json`, `layouts.b64` | `build/photo/make_module.py`, `build/meta.mjs` |
 | 디자인 | 실제 인접한 활성 HTML, `domain/slides/Slide.jsx` | `build/photo/gen_base.py`, `gen_ind.py`, `gen_r5.py`, 해당 `gen_l*.py`; 표준은 `build/sol/lib.py`, `build/v25/std.py` |
-| 파트·필수 입력 | `domain/proposals/parts.js`, `services/search.js`, `components/detail.jsx` | `make_module.py`의 BASEREQ |
+| 목차·필수 입력 | `domain/proposals/parts.js`, `services/search.js`, `components/detail.jsx` | `make_module.py`의 BASEREQ |
 | 사진·출처 | `services/{images,fill,packs}.js`, `app/data/images.json`, 앱 static | `build/photo/ph_images.json`, `src/{photo,fill}_sources.md` |
 | 편집·PPTX | `domain/slides/Slide.jsx`, `export-pptx.js`, `import/pptx2html.js`, `components/mytpl.jsx` | `build/test-photo.mjs`, `build/test-std*.mjs` |
 | AI가 읽는 구조 | `app/scripts/export_agent_data.mjs`, `app/api/poc/knowledge.py` | `poc/test/layout_agent/winmate_layout/{slots,metadata,render}.py`는 읽기 전용 참고 |

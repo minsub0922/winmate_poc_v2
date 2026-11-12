@@ -123,7 +123,7 @@ export function storyboardPayload(p) {
  */
 export async function startCompose(p) {
   try { p = await withRequirementSummary(p); } catch (error) { return { mode: 'error', error: error.message }; }
-  if (!storyParts(p).length) return startScenarioParts(p); // 빈 Storyboard → 샘플 버티컬 시나리오 기반 파트 추천
+  if (!storyParts(p).length) return startScenarioParts(p); // 빈 Storyboard → 샘플 버티컬 시나리오 기반 목차 추천
   const kind = composeKind(p);
   const plan = await planForFresh(kind);
   if (!plan.job) return { mode: 'error', plan, error: plan.note };
@@ -198,7 +198,7 @@ function applyLayout(rec) {
     n = parts.length; m = parts.reduce((s, x) => s + x.layouts.length, 0);
     a.jobs[rec.id] = { ...(a.jobs[rec.id] || { purpose: 'compose', kind: 'layout' }), status: 'done', applied: true, appliedAt: Date.now(), final: true, parts: n, layouts: m };
   });
-  if (n) toast(`Layout Agent가 파트 ${n}개 · 장표 ${m}장을 넣었어요 · ${modeText(rec)}`);
+  if (n) toast(`Layout Agent가 목차 ${n}개 · 장표 ${m}장을 넣었어요 · ${modeText(rec)}`);
   return { outcome: 'applied', note: `${n} parts · ${m} layouts` };
 }
 function applyStory(rec) {
@@ -213,8 +213,8 @@ function applyStory(rec) {
     n = parts.length;
     a.jobs[rec.id] = { ...(a.jobs[rec.id] || { purpose: 'compose', kind: 'storyboard' }), status: 'done', applied: true, appliedAt: Date.now(), final: true, parts: n };
   });
-  if (n) toast(`Storyboard에 파트 ${n}개를 이어 넣었어요 · ${modeText(rec)}`);
-  else toast('더 이어 갈 파트를 찾지 못했어요', 'warn');
+  if (n) toast(`Storyboard에 목차 ${n}개를 이어 넣었어요 · ${modeText(rec)}`);
+  else toast('더 이어 갈 목차를 찾지 못했어요', 'warn');
   return { outcome: n ? 'applied' : 'empty' };
 }
 /** A Layout Agent result held back because the Storyboard changed while it ran — append it now, or drop it. */
@@ -222,7 +222,7 @@ export function applyComposePending(jobId) {
   const rec = getJobRecord(jobId);
   if (!rec || rec.outcome !== 'pending' || !getProposal(rec.owner.id)) return;
   const out = applyLayout(rec) || { outcome: 'empty' };
-  if (out.outcome === 'empty') toast('넣을 파트가 없었어요', 'warn');
+  if (out.outcome === 'empty') toast('넣을 목차가 없었어요', 'warn');
   setOutcome(jobId, out.outcome, out.note || '');
 }
 export function discardComposePending(jobId) {
@@ -269,7 +269,7 @@ registerJobHandler('compose', {
       return applyStory(rec);
     }
     markJob(pid, rec.id, { status: 'done', final: true });
-    toast('서버 결과에 넣을 파트가 없었어요 · 요구사항을 보강한 뒤 다시 시도해 보세요', 'warn');
+    toast('서버 결과에 넣을 목차가 없었어요 · 요구사항을 보강한 뒤 다시 시도해 보세요', 'warn');
     return { outcome: 'empty', note: 'empty_result' };
   },
   async onFail(rec) {
@@ -284,17 +284,17 @@ registerJobHandler('compose', {
 });
 
 
-// ---------------------------------------------------------------- 샘플 버티컬 시나리오 composer: 파트 추천 → (사람이 고름) → 장표 완성
-// 파트 추천은 샘플 버티컬 시나리오 하나를 뼈대로 고르고(필요하면 다른 시나리오 파트 1~2개를 빌림) 이 고객에 맞게 이름 · 내용을 다시 쓴다.
-// 각 파트는 출처 모듈(agent.src)을 기억한다 — '장표 완성'이 그 모듈의 장표를 이 고객에 맞게 옮기고(업종 · 솔루션 · 제품 수 · 중복 조정)
-// 문구 · 사진을 채운다. 사람이 새로 만든 파트(출처 없음)는 서버가 가장 가까운 모듈을 골라 쓴다.
+// ---------------------------------------------------------------- 샘플 버티컬 시나리오 composer: 목차 추천 → (사람이 고름) → 장표 완성
+// 목차 추천은 샘플 버티컬 시나리오 하나를 뼈대로 고르고(필요하면 다른 시나리오 목차 1~2개를 빌림) 이 고객에 맞게 이름 · 내용을 다시 쓴다.
+// 각 목차는 출처 모듈(agent.src)을 기억한다 — '장표 완성'이 그 모듈의 장표를 이 고객에 맞게 옮기고(업종 · 솔루션 · 제품 수 · 중복 조정)
+// 문구 · 사진을 채운다. 사람이 새로 만든 목차(출처 없음)는 서버가 가장 가까운 모듈을 골라 쓴다.
 const composerOf = (d) => { d.agent = d.agent && typeof d.agent === 'object' ? d.agent : {}; d.agent.composer = { ...(d.agent.composer || {}) }; return d.agent.composer; };
 export async function startScenarioParts(p) {
   const plan = await planForFresh('storyboard');
   if (!plan.job) return { mode: 'error', plan, error: plan.note };
   try {
     const snap = await submitPocJob({ kind: 'compose', step: 'parts', proposal: storyboardPayload(p) });
-    trackJob(snap, { purpose: 'scenario-parts', owner: { type: 'proposal', id: p.id }, title: '샘플 버티컬 시나리오 파트 추천', meta: { baseIds: storyParts(p).map((s) => s.id) } });
+    trackJob(snap, { purpose: 'scenario-parts', owner: { type: 'proposal', id: p.id }, title: '샘플 버티컬 시나리오 목차 추천', meta: { baseIds: storyParts(p).map((s) => s.id) } });
     update(p.id, (d) => { agentOf(d).jobs[snap.id] = { purpose: 'scenario-parts', at: Date.now() }; }, { touch: false });
     return { mode: 'job', id: snap.id, plan };
   } catch (e) { return { mode: 'error', plan, error: requestErrorText(e) }; }
@@ -303,7 +303,7 @@ export async function startScenarioParts(p) {
 export const emptyParts = (p) => storyParts(p).filter((s) => !(s.layouts || []).length);
 export async function startScenarioLayouts(p) {
   const todo = emptyParts(p);
-  if (!todo.length) return { mode: 'error', error: '레이아웃이 비어 있는 파트가 없어요.' };
+  if (!todo.length) return { mode: 'error', error: '레이아웃이 비어 있는 목차가 없어요.' };
   const plan = await planForFresh('storyboard');
   if (!plan.job) return { mode: 'error', plan, error: plan.note };
   const c = (p.agent && p.agent.composer) || {};
@@ -323,7 +323,7 @@ registerJobHandler('scenario-parts', {
   async onDone(rec) {
     const pid = rec.owner && rec.owner.id; const p = getProposal(pid);
     if (!p) return 'orphan';
-    if (modelFailed(rec.llm)) { markJob(pid, rec.id, { status: 'error', final: true }); toast('파트 추천 — ' + MODEL_FAILED_TEXT, 'warn'); return { outcome: 'failed', note: MODEL_FAILED_TEXT }; }
+    if (modelFailed(rec.llm)) { markJob(pid, rec.id, { status: 'error', final: true }); toast('목차 추천 — ' + MODEL_FAILED_TEXT, 'warn'); return { outcome: 'failed', note: MODEL_FAILED_TEXT }; }
     const t = rec.result || {};
     const cover = (t.parts || []).find((x) => x.deck);
     const seen = new Set(p.parts.map((s) => (s.name || '').trim()).filter(Boolean));
@@ -337,17 +337,17 @@ registerJobHandler('scenario-parts', {
       Object.assign(composerOf(d), { analysis: t.analysis, thesis: t.thesis, base: t.base, reason: t.reason, coverSrc: cover ? cover.src : null, jobId: rec.id });
       a.jobs[rec.id] = { ...(a.jobs[rec.id] || { purpose: 'scenario-parts' }), status: 'done', applied: true, appliedAt: Date.now(), final: true, parts: n };
     });
-    if (n) toast(`샘플 버티컬 시나리오로 파트 ${n}개를 추천했어요 · 고치거나 지운 뒤 ‘장표 자동 완성’을 누르세요 · ${modeText(rec)}`);
-    else toast('추천할 파트를 찾지 못했어요', 'warn');
+    if (n) toast(`샘플 버티컬 시나리오로 목차 ${n}개를 추천했어요 · 고치거나 지운 뒤 ‘장표 자동 완성’을 누르세요 · ${modeText(rec)}`);
+    else toast('추천할 목차를 찾지 못했어요', 'warn');
     return { outcome: n ? 'applied' : 'empty' };
   },
   async onFail(rec) {
     const pid = rec.owner && rec.owner.id;
     if (!getProposal(pid)) return 'orphan';
     markJob(pid, rec.id, { status: rec.status, final: true });
-    if (rec.status === 'cancelled') { toast('파트 추천을 멈췄어요'); return 'cancelled'; }
+    if (rec.status === 'cancelled') { toast('목차 추천을 멈췄어요'); return 'cancelled'; }
     const why = (rec.error && rec.error.message) || '서버 작업이 실패했어요.';
-    toast('파트 추천이 실패했어요 · ' + why + ' 다시 시도할 수 있어요', 'warn');
+    toast('목차 추천이 실패했어요 · ' + why + ' 다시 시도할 수 있어요', 'warn');
     return { outcome: 'failed', note: why };
   },
 });

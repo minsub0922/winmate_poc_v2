@@ -1,5 +1,5 @@
 // Storyboard part taxonomy — every layout's metadata `p` points to one of these keys.
-// about: what the part is for, shown wherever a part is picked (첫 번째 파트 후보 · 파트 팝업 추천 · 이름 자동완성 · 전체 보기);
+// about: what the part is for, shown wherever a part is picked (첫 번째 목차 후보 · 목차 팝업 추천 · 이름 자동완성 · 전체 보기);
 // desc: short keyword line used by search / AI prompts.
 export const PARTS = {
   overview: { label: '제안 개요', hue: 'blue', icon: 'clip', about: '결정권자가 한 장으로 제안 전체를 보도록 핵심 메시지 · 범위 · 효과를 요약해요', desc: '결정권자가 먼저 보는 요약 · 범위 · 전제', items: ['제안 핵심 한 줄', '도입 범위와 전제 조건', '기대 효과 요약'] },
@@ -29,7 +29,7 @@ export const PARTS = {
   free: { label: '자유 주제', hue: 'slate', icon: 'edit', about: '정해진 유형에 없는 주제를 직접 이름 붙여 만들어요 · 이름과 내용으로 레이아웃을 찾아요', desc: '정해진 유형 없이 직접 정한 주제 (위 유형에 맞지 않을 때)', items: [], free: true },
 };
 
-// What usually comes next — drives the "다음 파트" candidates.
+// What usually comes next — drives the "다음 목차" candidates.
 export const NEXT = {
   _start: ['market', 'customer', 'value', 'competition', 'overview', 'requirements'],
   overview: ['requirements', 'market', 'customer', 'value'],

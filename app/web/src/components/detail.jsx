@@ -56,14 +56,14 @@ function buildQuestions(p, part, l) {
     customer: [p.customer || f.customer, '요구사항'],
     project: [f.project || p.title, '요구사항'],
     industry: [ind && IND[ind] ? IND[ind].name : '', '요구사항'],
-    spaces: ['scenario', 'birdseye', 'dss', 'products'].includes(t) && part.items.length ? [fromPart, '파트 내용'] : [[...new Set(prods.flatMap((x) => x.spaces))].slice(0, 5).join(', '), '연결된 제품'],
+    spaces: ['scenario', 'birdseye', 'dss', 'products'].includes(t) && part.items.length ? [fromPart, '목차 내용'] : [[...new Set(prods.flatMap((x) => x.spaces))].slice(0, 5).join(', '), '연결된 제품'],
     products: [prods.slice(0, l.pc || 6).map((x) => x.id), '연결된 제품'],
     solutions: [p.ctx.solutions.map((id) => S[id] && S[id].name).filter(Boolean).join(', '), '연결된 솔루션'],
     cases: [p.ctx.cases.map((id) => C[id] && C[id].cust + ' — ' + (C[id].sub || C[id].title).slice(0, 40)).filter(Boolean).join(' / '), '유관사례'],
     kpis: [pick(/\d+\s*(%|배|분|일|시간|억|만|원|곳|개|실|대)/), '요구사항에서'],
     challenges: [keyReqs.slice(0, 4).join(' / ') || pick(/문제|불편|어려|부담|불일치|대기/), '키맨 요구사항'],
-    values: [t === 'value' || t === 'effect' ? fromPart : keyReqs.slice(0, 3).join(' / '), t === 'value' || t === 'effect' ? '파트 내용' : '키맨 요구사항'],
-    users: [t === 'user' ? fromPart : '', '파트 내용'],
+    values: [t === 'value' || t === 'effect' ? fromPart : keyReqs.slice(0, 3).join(' / '), t === 'value' || t === 'effect' ? '목차 내용' : '키맨 요구사항'],
+    users: [t === 'user' ? fromPart : '', '목차 내용'],
     competitors: [pick(/경쟁|타사|LG|비교/), '요구사항에서'],
     timeline: [pick(/단계|파일럿|일정|개월|주차|오픈|착공|준공/), '요구사항에서'],
     keymen: [(f.keymen || []).filter((k) => k.name).map((k) => k.name + ' ' + k.weight + '%').join(', '), '입력 폼'],
@@ -129,7 +129,7 @@ function InfoCheck({ p, l, qs, setQs }) {
    Evidence row (web link · file · catalog · requirement)
    ========================================================= */
 const EV_ICON = { web: 'link', file: 'file', case: 'case', product: 'product', solution: 'solution', req: 'clip', part: 'list', image: 'image', upload: 'upload' };
-const evKindLabel = (e) => ({ web: '웹', file: String(e.ftype || '파일').toUpperCase(), case: '사례', product: '제품', solution: '솔루션', req: '요구사항', part: '파트', image: '이미지', upload: '업로드' }[e.k] || '자료');
+const evKindLabel = (e) => ({ web: '웹', file: String(e.ftype || '파일').toUpperCase(), case: '사례', product: '제품', solution: '솔루션', req: '요구사항', part: '목차', image: '이미지', upload: '업로드' }[e.k] || '자료');
 
 function EvRow({ e, onRemove, onAdd, addLabel = '근거로' }) {
   const cat = ['product', 'solution', 'case'].includes(e.k) && e.ref && tagMeta(e.k + ':' + e.ref);
@@ -385,8 +385,8 @@ function useFill({ p, part, x, l, mut, units }) {
         const v = q.k === 'products' ? q.v.map((id) => P[id] && `${P[id].name} ${P[id].model} (${P[id].spec})`).filter(Boolean).join(', ') : q.v;
         if (v) answers[q.label] = v;
       }
-      answers['이 파트에서 말할 내용'] = partText(part).replace(/\n+/g, ' / ');
-      answers['파트 이름'] = part.name;
+      answers['이 목차에서 말할 내용'] = partText(part).replace(/\n+/g, ' / ');
+      answers['목차 이름'] = part.name;
       r = await aiFill(l, blocks, p, answers, {
         signal: ctl.current.signal, onText: (e) => setSt((s) => (s.step === 'run' ? { ...s, got: e.text.length } : s)), sources: pool,
         focus: key ? `${target[0].kind.name} 한 묶음 — 칸 ${blocks.map((b) => b.i).join(', ')}` : '아직 채우지 않은 칸만',
@@ -684,7 +684,7 @@ function DetailBody({ p, part, x, l, onClose, open, pageNo }) {
     </button>
     <div id="layout-context-details" className="layout-context-details" role="tooltip">
       <b>이전 채움 이후 고객 맥락이 바뀌었어요</b>
-      <p>현재 요구사항과 선택한 제품·솔루션, 파트 내용을 기준으로 모든 글과 이미지를 다시 검토해요.</p>
+      <p>현재 요구사항과 선택한 제품·솔루션, 목차 내용을 기준으로 모든 글과 이미지를 다시 검토해요.</p>
       {[...new Set([...(x.adaptation?.missing || []), ...contextIssues, ...(x.adaptation?.error ? [x.adaptation.error] : [])])].map(issue => <p key={issue}>{issue}</p>)}
     </div>
   </div>;

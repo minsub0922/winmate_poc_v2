@@ -64,8 +64,8 @@ node app/scripts/export_agent_data.mjs        # → app/data/runtime/kb/* (manif
 
 1. **RFP 파일 추출은 브라우저 몫**: 서버는 텍스트만 받습니다. PoC 분할기는 마크다운 제목 · 표에 맞춰져 있어 PDF 평문은 길이 기준으로만 잘립니다. HWP 미지원. Tavily `enrich` 미지원(422).
 2. **Layout Agent**: copilot(deepagents)은 이번 범위 밖(`AppLayoutLLM.chat_model` 은 provider 의 LangChain 모델을 돌려줄 준비만 됨). 그래프 체크포인트는 메모리(`InMemorySaver`) — 재시작하면 waiting 작업을 이어 갈 수 없습니다. 레이아웃 노드는 병렬이라 한 노드가 실패하면 그 시점에 작업 전체가 error 로 끝납니다(이미 끝난 병렬 노드의 호출은 `llm.calls_ok` 에 남음). 후보 밖 f 를 고른 LLM 선택은 PoC 검증대로 무시됩니다(규칙 대체가 아니라 후보 검증).
-3. **review(doc.units)**: 업로드 문서는 앱 렌더링 측정값이 없습니다 — 넘침 · 빈 이미지 칸 · 단계 정보가 없고 파트는 제목으로 추정(`parts.js` NAME_RULES 이식). PDF/DOCX/TXT 는 위치가 근사(읽기 순서)라 `conversion.unreliable_criteria` 에 표시합니다. 앱 덱을 정확히 평가하려면 `tools/export_entry.jsx:readSheet` 같은 DOM 측정기를 웹에 옮겨 `proposal.sheets` 로 보내야 합니다. 평가 기준은 PoC `criteria.json`/`taxonomy.json`(앱 `criteria.js` 와 다를 수 있음).
-4. **Storyboard**: PoC `design()` 은 `options.mode` 를 쓰지 않음 → `redesign` 은 어댑터가 덱 외 파트를 비워서 구현. 결과는 스트리밍이 아니라 한 번에 돌아옵니다(현재 `aiStoryboard` 의 점진 표시와 다름).
+3. **review(doc.units)**: 업로드 문서는 앱 렌더링 측정값이 없습니다 — 넘침 · 빈 이미지 칸 · 단계 정보가 없고 목차는 제목으로 추정(`parts.js` NAME_RULES 이식). PDF/DOCX/TXT 는 위치가 근사(읽기 순서)라 `conversion.unreliable_criteria` 에 표시합니다. 앱 덱을 정확히 평가하려면 `tools/export_entry.jsx:readSheet` 같은 DOM 측정기를 웹에 옮겨 `proposal.sheets` 로 보내야 합니다. 평가 기준은 PoC `criteria.json`/`taxonomy.json`(앱 `criteria.js` 와 다를 수 있음).
+4. **Storyboard**: PoC `design()` 은 `options.mode` 를 쓰지 않음 → `redesign` 은 어댑터가 덱 외 목차를 비워서 구현. 결과는 스트리밍이 아니라 한 번에 돌아옵니다(현재 `aiStoryboard` 의 점진 표시와 다름).
 5. **시뮬레이션**: 대화형 고객 턴은 앱 엔진이 `/api/llm` 으로 처리합니다. `sim_eval`(Node 배치)은 노출하지 않습니다 — Gemini 주소가 하드코딩돼 이 provider 로 묶을 수 없음.
 6. **원본 의심 버그(그대로)**: `review.spec_mismatches` 가 DB 사양 "43형" 표기를 못 잡음 · `llm._extract_json` 이 JSON 뒤 텍스트에 약함 · `rfp_pipeline.GeminiBackend` 캐시 키에 온도/스키마 없음(이 서버는 그 백엔드를 쓰지 않음) · testbench `answer` 경쟁 조건(이 서버는 잠금으로 막음) · `sim._spawn` SIGINT 종료 코드 처리 · `export_entry.jsx`/`sync_source.py` 가 옛 루트 `src/` 를 참조.
 7. **자동 제품 탐지 범위**: Layout 추천을 40개 큐레이션 + 선택한 DB 제품으로 제한합니다. 일반 DB 제품명 오탐을 줄이기 위한 기준이며 전체 자동 추천으로 확대하려면 별도 평가가 필요합니다(capabilities.notes 에 공개).
@@ -80,4 +80,4 @@ node app/scripts/export_agent_data.mjs        # → app/data/runtime/kb/* (manif
 
 테스트 · 실제 호출 검증은 부모 작업이 담당합니다(기능별 실제 Gemini 10건 이상). `provider.set_provider_override(fake)` 로 provider 를 바꾸거나 `initialize(require_provider=False)` 로 시작 검사를 끌 수 있습니다. 네트워크 없는 단위 테스트는 더 이상 규칙 결과를 기대할 수 없습니다 — 가짜 provider 응답이나 503/422/ModelFailure 경로를 검증하세요.
 
-13. `max_slides`는 원본 PoC의 장수 목표입니다. 필수 요구 연결 파트·표지·마무리가 우선해 목표를 초과할 수 있습니다. 어댑터는 결과를 자르지 않고 warnings와 진행 로그에 실제 장수를 알립니다.
+13. `max_slides`는 원본 PoC의 장수 목표입니다. 필수 요구 연결 목차·표지·마무리가 우선해 목표를 초과할 수 있습니다. 어댑터는 결과를 자르지 않고 warnings와 진행 로그에 실제 장수를 알립니다.

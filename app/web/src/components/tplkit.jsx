@@ -20,6 +20,7 @@ export const DECKS = [
   { k: 'CM', label: '공통 · 솔루션', full: '표지 · 실행 · 솔루션 전용 · 이미지 중심' },
   { k: 'PH', label: '06 사진 중심', full: '텍스트 위주 장표를 사진으로 채운 버전 (samsung.com 사진)' },
   { k: 'ST', label: '표준 제안서', full: '업종별 표준 제안서 · 원본 기준 양식과 Markdown 설명 기반 재구성 판본' },
+  { k: 'TC', label: '목차 템플릿', full: '목차 템플릿 시나리오가 쓰는 장 · 같은 목차는 같은 장' },
 ];
 export const DECK = Object.fromEntries(DECKS.map((d) => [d.k, d]));
 
@@ -69,7 +70,7 @@ export function TemplateDetail({ list, index, onNav, onClose, notes = null, note
         {notes && notes[index] ? <div className="tl-ex tl-role"><span className="lbl">{noteLabel}</span><p>{notes[index]}</p></div> : null}
         {l.hl && !ov && <div className="tl-ex"><span className="lbl">예시 제목</span><p>{l.hl}</p>{l.sample ? <span className="faint" style={{ fontSize: "var(--text-12px)" }}>예시 고객 · {l.sample}</span> : null}</div>}
         <LayoutMeta l={l} peek={peek} />
-        <p className="hint"><Icon name="info" size={14} /><span>제안서에서 쓰려면 Storyboard 파트의 ‘레이아웃 추가’ → 검색에서 “{l.name}”로 찾으면 돼요.</span></p>
+        <p className="hint"><Icon name="info" size={14} /><span>제안서에서 쓰려면 Storyboard 목차의 ‘레이아웃 추가’ → 검색에서 “{l.name}”로 찾으면 돼요.</span></p>
       </>}
       actions={<>
         <button className="btn" onClick={close}>닫기</button>

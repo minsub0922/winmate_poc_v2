@@ -11,6 +11,7 @@ import { LayoutLibrary } from './pages/LibraryPage.jsx';
 import { MyTemplatesPage } from './pages/MyTemplatesPage.jsx';
 import { FavoritesPage } from './pages/FavoritesPage.jsx';
 import { ScenarioPage } from './pages/ScenariosPage.jsx';
+import { TocTemplatesPage } from './pages/TocTemplatesPage.jsx';
 import { Toasts, Icon } from './components/common.jsx';
 import { ReviewScreen, ReviewHistory } from './pages/ReviewPage.jsx';
 import { getReview } from './repositories/reviews.js';
@@ -46,7 +47,7 @@ export default function App() {
     if (u.route && u.route.name === 'reviews') return u.route;
     if (u.route && u.route.name === 'spatial') return u.route;
     if (u.route && u.route.name === 'sim') return u.route.id && !getSim(u.route.id) ? { name: 'sim' } : u.route;
-    return u.route && ((u.route.name === 'proposal' && getProposal(u.route.id)) || u.route.name === 'library' || u.route.name === 'my' || u.route.name === 'favorites' || u.route.name === 'scenarios') ? u.route : { name: 'home' };
+    return u.route && ((u.route.name === 'proposal' && getProposal(u.route.id)) || u.route.name === 'library' || u.route.name === 'my' || u.route.name === 'favorites' || u.route.name === 'scenarios' || u.route.name === 'toc') ? u.route : { name: 'home' };
   });
   useEffect(() => {
     Promise.all([loadLayoutHtml(), loadImages(), loadMy()]).then(() => {
@@ -107,6 +108,7 @@ export default function App() {
               : route.name === 'my' ? <MyTemplatesPage key="my" go={go} saved={route.saved} />
               : route.name === 'favorites' ? <FavoritesPage key="favorites" go={go} />
               : route.name === 'scenarios' ? <ScenarioPage go={go} />
+              : route.name === 'toc' ? <TocTemplatesPage go={go} />
               : route.name === 'spatial' ? <SpatialPage id={route.id} go={go} />
               : route.name === 'review' ? <ReviewScreen key={route.id} id={route.id} go={go} />
               : route.name === 'reviews' ? <ReviewHistory go={go} />

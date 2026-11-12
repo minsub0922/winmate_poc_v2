@@ -153,7 +153,7 @@ export function buildPool(pr, part) {
   const out = [];
   const add = (o) => { o.sid = 'S' + (out.length + 1); o.sub = o.sub || clip(o.body, 120); out.push(o); };
   const f = pr.req.form || {};
-  if (part && partText(part).trim()) add({ k: 'part', title: '파트 내용 · ' + (part.name || '이름 없는 파트'), body: partText(part).replace(/\n+/g, ' / ') });
+  if (part && partText(part).trim()) add({ k: 'part', title: '목차 내용 · ' + (part.name || '이름 없는 목차'), body: partText(part).replace(/\n+/g, ' / ') });
   if (f.customer || pr.customer) add({ k: 'req', title: '고객 요구사항 · 고객 · 사업', body: [f.customer || pr.customer, f.project, f.target && '결정권자 ' + f.target].filter(Boolean).join(' · ') });
   for (const k of f.keymen || []) {
     for (const r of k.reqs || []) { const t = plain(r).trim(); if (t) add({ k: 'req', title: (k.name || '키맨') + ' 요구', body: t }); }

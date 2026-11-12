@@ -30,7 +30,7 @@ def validate_document(value):
     if not isinstance(value, dict) or not isinstance(value.get('title'), str):
         raise HTTPException(422, '올바른 Storyboard가 아닙니다.')
     if not isinstance(value.get('req'), dict) or not isinstance(value.get('ctx'), dict) or not isinstance(value.get('parts'), list):
-        raise HTTPException(422, '요구사항 · 제품 선택 · 파트가 필요합니다.')
+        raise HTTPException(422, '요구사항 · 제품 선택 · 목차가 필요합니다.')
     req = value['req']
     if not isinstance(req.get('free'), list) or not isinstance(req.get('files'), list) or not isinstance(req.get('form'), dict) or not isinstance(req['form'].get('keymen'), list):
         raise HTTPException(422, '고객 요구사항 형식이 올바르지 않습니다.')
@@ -38,7 +38,7 @@ def validate_document(value):
         raise HTTPException(422, '제품 선택 형식이 올바르지 않습니다.')
     for part in value['parts']:
         if not isinstance(part, dict) or not isinstance(part.get('id'), str) or not isinstance(part.get('layouts'), list):
-            raise HTTPException(422, '파트 형식이 올바르지 않습니다.')
+            raise HTTPException(422, '목차 형식이 올바르지 않습니다.')
         if any(not isinstance(x, dict) or not isinstance(x.get('uid'), str) or not isinstance(x.get('f'), str) for x in part['layouts']):
             raise HTTPException(422, '레이아웃 형식이 올바르지 않습니다.')
     return {k: v for k, v in value.items() if k not in LOCAL_FIELDS}

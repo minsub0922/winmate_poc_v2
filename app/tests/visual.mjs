@@ -23,7 +23,7 @@ const cases=[
   ['solutions',async page=>{await match(page);await page.locator('#mt-tab-solutions').click();},{media:true}],
   ['cases',async page=>{await match(page);await page.locator('#mt-tab-cases').click();}],
   ['storyboard',sampleProposal],
-  ['part-editor',async page=>{await sampleProposal(page);await page.getByRole('button',{name:'시장 · 전략 파트 편집',exact:true}).click();}],
+  ['part-editor',async page=>{await sampleProposal(page);await page.getByRole('button',{name:'시장 · 전략 목차 편집',exact:true}).click();}],
   ['layout-picker',async page=>{await sampleProposal(page);await page.getByRole('button',{name:'PPT 레이아웃 추가',exact:true}).first().click();await page.locator('.pk-grid').first().waitFor();}],
   ['layout-detail',detail],
   ['product-swap',async page=>{await detail(page);await page.getByRole('dialog').getByText('QM55C',{exact:true}).click();await page.getByRole('button',{name:'스마트 사이니지 QM55C — 다른 제품으로 바꾸기',exact:true}).click();}],

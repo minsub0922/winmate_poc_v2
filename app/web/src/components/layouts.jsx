@@ -159,7 +159,7 @@ export function LayoutPicker({ p, partId, mode = 'rec', onClose }) {
     desc: g.parts.filter(k => PARTS[k]).map(k => PARTS[k].label).join(' · '),
     sections: g.parts.map(k => ({ key: k, part: k, items: list.filter(l => l.p === k) })).filter(s => s.items.length),
   })).filter(g => g.sections.length);
-  const ptLabel = type && PARTS[type] ? PARTS[type].label : '파트';
+  const ptLabel = type && PARTS[type] ? PARTS[type].label : '목차';
   // My: this part's type first; a search keeps the ones whose name · text match
   const myShown = (() => {
     if (!my.length) return [];
@@ -207,7 +207,7 @@ export function LayoutPicker({ p, partId, mode = 'rec', onClose }) {
         찜 목록 <span className="num">{favs.length}</span>
       </button>}
       footer={<>
-        <span className="note">이 파트에 레이아웃 <b className="num">{part.layouts.length}</b>장 선택됨 · 고르지 않고 넘어가도 돼요</span>
+        <span className="note">이 목차에 레이아웃 <b className="num">{part.layouts.length}</b>장 선택됨 · 고르지 않고 넘어가도 돼요</span>
         <span className="sp" />
         <button className={part.layouts.length ? 'btn btn-primary' : 'btn'} onClick={onClose}>{part.layouts.length ? '완료' : '건너뛰기'}</button>
       </>}>
@@ -220,7 +220,7 @@ export function LayoutPicker({ p, partId, mode = 'rec', onClose }) {
       {!ran && <section className="pk-rec" aria-labelledby="pk-rec-h">
         <div className="pk-sec-h"><h3 id="pk-rec-h"><Icon name="sparkle" size={15} />추천 <span className="num">{rec.length}</span></h3></div>
         {rec.length ? <div className="pk-grid pk-3">{rec.map((r, i) => card({ l: r.l, why: r.why, rank: i + 1 }))}</div>
-          : <div className="pk-empty">파트 이름이나 내용을 채우면 추천이 더 정확해져요.</div>}
+          : <div className="pk-empty">목차 이름이나 내용을 채우면 추천이 더 정확해져요.</div>}
       </section>}
       <section className="pk-all" aria-labelledby="pk-all-h">
         <div className="pk-sec-h"><h3 id="pk-all-h">{ran ? '검색 결과' : '전체 레이아웃'} <span className="num faint">{list.length}</span></h3>

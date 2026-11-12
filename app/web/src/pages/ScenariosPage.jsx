@@ -51,7 +51,7 @@ async function downloadScenario(s) {
   const r = await saveBlob(blob, safeName('Winmate ' + s.title) + '.pptx');
   if (r.ok) toast(s.title + ' PPTX를 저장했어요'); else toast(r.err, 'warn');
 }
-/** 활용하기 — 이 시나리오의 Storyboard(고객 요구사항 · 제품 · 솔루션 매칭 · 파트 · 채운 레이아웃)를 그대로 내 제안서로 만들어
+/** 활용하기 — 이 시나리오의 Storyboard(고객 요구사항 · 제품 · 솔루션 매칭 · 목차 · 채운 레이아웃)를 그대로 내 제안서로 만들어
  *  히스토리(사이드바 제안서 목록) 맨 위에 넣고 연다. 원본 샘플 버티컬 시나리오는 그대로 — 고치고 넣는 것은 이 복사본에서만. */
 export function activateScenario(s, go) {
   if (!requireLogin()) return;
@@ -70,11 +70,11 @@ function UseConfirm({ s, onCancel, onConfirm }) {
       footer={<><span className="sp" /><button className="btn" onClick={onCancel}>취소</button><button className="btn btn-primary" data-autofocus onClick={onConfirm} data-login-required><Icon name="check" size={15} stroke={2.6} />활용하기</button></>}>
       <div className="bsu">
         <p className="bsu-t"><b>{s.title}</b></p>
-        <p className="bsu-d">이 구성 그대로 <b>내 제안서 히스토리</b>에 추가하고 바로 열어요. 추가한 제안서에서는 요구사항 · 매칭 · 파트를 고치고 레이아웃을 넣거나 바꿀 수 있어요. 원본 샘플 버티컬 시나리오는 바뀌지 않아요.</p>
+        <p className="bsu-d">이 구성 그대로 <b>내 제안서 히스토리</b>에 추가하고 바로 열어요. 추가한 제안서에서는 요구사항 · 매칭 · 목차를 고치고 레이아웃을 넣거나 바꿀 수 있어요. 원본 샘플 버티컬 시나리오는 바뀌지 않아요.</p>
         <ul className="bsu-list">
           <li><Icon name="clip" size={14} />고객 요구사항 · 키맨 {p.req.form.keymen.length}명</li>
           <li><Icon name="link" size={14} />제품 {p.ctx.products.length} · 솔루션 {p.ctx.solutions.length} · 유관사례 {p.ctx.cases.length}</li>
-          <li><Icon name="route" size={14} />Storyboard 파트 {parts.length}개 · 레이아웃 {nL}장 (값 채움)</li>
+          <li><Icon name="route" size={14} />Storyboard 목차 {parts.length}개 · 레이아웃 {nL}장 (값 채움)</li>
         </ul>
       </div>
     </Modal>
@@ -397,7 +397,7 @@ export function ScenarioPage({ go }) {
 }
 
 /* ---------- 상세 보기: the scenario's Storyboard, read-only ----------
-   The same bubbles as a proposal's Storyboard screen (storyboard.jsx StoryCanvas readOnly): 고객 요구사항 → 제품 · 솔루션 매칭 → 파트,
+   The same bubbles as a proposal's Storyboard screen (storyboard.jsx StoryCanvas readOnly): 고객 요구사항 → 제품 · 솔루션 매칭 → 목차,
    every part with its layouts already filled. Bubbles open view-only popups beside them, a layout card opens that sheet big
    (prev / next through the deck). Nothing can be edited or inserted here — 활용하기 copies it into the history as my proposal. */
 export function ScenarioStoryboard({ s, go, onClose }) {
@@ -430,7 +430,7 @@ export function ScenarioStoryboard({ s, go, onClose }) {
       sub={indShort(s.ind) + ' · ' + s.short}
       footer={<>
         <button className="btn" onClick={() => setSheet(0)}><Icon name="layers" size={15} />전체 PPT 보기</button>
-        <span className="note sbv-note">파트 {parts.length}개 · 레이아웃 {nL}장</span>
+        <span className="note sbv-note">목차 {parts.length}개 · 레이아웃 {nL}장</span>
         <span className="sp" />
         <button className="btn" onClick={onClose}>닫기</button>
         <button className="btn" disabled={busy} onClick={() => run(() => downloadScenario(s))}>{busy ? <span className="spin" /> : <Icon name="download" size={15} />}{busy ? '만드는 중…' : 'PPTX로 받기'}</button>
@@ -513,7 +513,7 @@ export function MatchView({ s, p, onClose }) {
     </BubblePopup>
   );
 }
-/** 파트 — view only: what the part says (내용) and its layouts */
+/** 목차 — view only: what the part says (내용) and its layouts */
 export function PartView({ p, part, pages, onClose, onSheet }) {
   const t = PARTS[part.type] || PARTS.free;
   return (

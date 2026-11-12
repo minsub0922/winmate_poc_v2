@@ -91,7 +91,7 @@ export function searchLayouts(query, ctx = {}, opts = {}) {
   const res = DOCS.map((d) => {
     let s = bm25(qt, d);
     const why = [];
-    if (want && d.l.p === want) { s += 2.2; why.push('파트 유형 · ' + PARTS[want].label); }
+    if (want && d.l.p === want) { s += 2.2; why.push('목차 유형 · ' + PARTS[want].label); }
     if (ctx.ind && d.l.ind === ctx.ind) { s += 1.2; why.push('업종 일치'); }
     if (ctx.ind && d.l.ind && d.l.ind !== ctx.ind) s -= 1.2;
     if (d.l.sol && ctx.solutions && ctx.solutions.includes(d.l.sol)) { s += 1; why.push(S[d.l.sol].name); }
@@ -123,9 +123,9 @@ export function recommendLayouts(part, ctx = {}, limit = 20) {
   const nProd = Math.max(0, Math.min(5, (ctx.products || []).length));
   const out = raw.map(({ d, b }) => {
     const l = d.l; let s = (b / maxB) * (type ? 4 : 7); const why = [];
-    if (type && l.p === type) { s += 6; why.push('파트 유형 일치'); }
-    else if (type && l.p2 === type) { s += 4; why.push('파트 유형 연관'); }
-    else if (type && (RELATED[type] || []).includes(l.p)) { s += 1.2; why.push('연관 파트 · ' + PARTS[l.p].label); }
+    if (type && l.p === type) { s += 6; why.push('목차 유형 일치'); }
+    else if (type && l.p2 === type) { s += 4; why.push('목차 유형 연관'); }
+    else if (type && (RELATED[type] || []).includes(l.p)) { s += 1.2; why.push('연관 목차 · ' + PARTS[l.p].label); }
     else if (hint && (l.p === hint || l.p2 === hint)) { s += 2.5; why.push('내용으로 추론 · ' + PARTS[hint].label); }
     if (ctx.ind) {
       if (l.ind === ctx.ind) { s += 3; why.push('업종 맞춤 · ' + IND[ctx.ind].name); }

@@ -2,7 +2,7 @@
 // requirements are saved and when the bubble or a section of the card is clicked: industry (pick or type your own), then
 // tabs 솔루션 · 유관사례 · 제품 over the directory explorer (ctxexplorer.jsx, live) — recommendations first, search and
 // folders; a click links or unlinks at once and the card on the left shows it. Linked items are not listed here again.
-// 저장 closes it; at the matching stage it also starts the parts (첫 번째 파트 appears).
+// 저장 closes it; at the matching stage it also starts the parts (첫 번째 목차 appears).
 import React, { useState, useEffect, useMemo } from 'react';
 import { update } from '../repositories/proposals.js';
 import { DeleteButton, Icon, toast } from './common.jsx';
@@ -99,9 +99,9 @@ export function MatchPopup({ p, focus, onClose, onSaved }) {
   // 추천이 있으면 추천부터, 없으면 전체 목록(사례는 업종 폴더)
   const start = useMemo(() => (recommendContext(p, ind, kind, 1).length ? 'rec' : startFor(kind, ind)), [kind, ind]);
   const save = () => {
-    // 매칭 단계 → 저장하면 파트가 시작됨(첫 번째 파트 버블 · 후보)
+    // 매칭 단계 → 저장하면 목차가 시작됨(첫 번째 목차 버블 · 후보)
     update(p.id, (d) => { d.stage = 'story'; });
-    toast(atMatch ? '저장했어요 · 이제 첫 번째 파트를 골라 주세요' : '제품 · 솔루션 매칭을 저장했어요');
+    toast(atMatch ? '저장했어요 · 이제 첫 번째 목차를 골라 주세요' : '제품 · 솔루션 매칭을 저장했어요');
     onSaved(atMatch);
   };
   return (
@@ -109,7 +109,7 @@ export function MatchPopup({ p, focus, onClose, onSaved }) {
       bodyClass="mt-live"
       sub={<span className="bp-sub num">{TABS.map(([k, , l]) => <span key={k}>{l} <b>{p.ctx[k].length}</b></span>)}</span>}
       footer={<>
-        <span className="bp-note">{atMatch ? '저장하면 파트 구성을 시작해요' : '누르는 즉시 왼쪽 매칭 카드에 반영돼요 · 다시 누르면 해제'}</span>
+        <span className="bp-note">{atMatch ? '저장하면 목차 구성을 시작해요' : '누르는 즉시 왼쪽 매칭 카드에 반영돼요 · 다시 누르면 해제'}</span>
         <span className="sp" />
         <button className="btn btn-primary" onClick={save}><Icon name="check" size={15} />저장</button>
       </>}>

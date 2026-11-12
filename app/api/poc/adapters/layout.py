@@ -223,7 +223,7 @@ def serialize(job: Job, st: dict, partial: bool) -> dict:
     })
     target = job.params.get('max_slides')
     if target and len(slides) > target:
-        out['warnings'].append(f'장수 목표 {target}장보다 많은 {len(slides)}장입니다. 원본 PoC는 표지·마무리·필수 요구 파트를 유지하므로 장수 목표를 초과할 수 있습니다.')
+        out['warnings'].append(f'장수 목표 {target}장보다 많은 {len(slides)}장입니다. 원본 PoC는 표지·마무리·필수 요구 목차를 유지하므로 장수 목표를 초과할 수 있습니다.')
     return out
 
 

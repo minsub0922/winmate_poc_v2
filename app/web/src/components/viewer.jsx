@@ -108,7 +108,7 @@ export function Viewer({ p, cur, setCur, onClose, onEdit, onExport, readOnly = f
           </div>
         </div>
       ) : (
-        <div className="vempty"><div><Icon name="layers" size={30} /><p style={{ margin: '8px 0 0' }}>아직 넣은 레이아웃이 없어요.<br />파트를 완료하고 <b>PPT 레이아웃 추가</b>를 눌러 보세요.</p></div></div>
+        <div className="vempty"><div><Icon name="layers" size={30} /><p style={{ margin: '8px 0 0' }}>아직 넣은 레이아웃이 없어요.<br />목차를 완료하고 <b>PPT 레이아웃 추가</b>를 눌러 보세요.</p></div></div>
       )}
       {list.length > 0 && (
         <div className="vstrip" ref={strip} aria-label="썸네일">

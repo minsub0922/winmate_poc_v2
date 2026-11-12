@@ -14,7 +14,7 @@ def unique_assemble(assemble, kb, parts, ranked, excluded=()):
         row = by.get(key, {})
         candidates[key] = sorted((c for c in row.get('candidates', []) if c['f'] not in blocked), key=lambda c: -c['score'])
         if not candidates[key]:
-            raise invalid_output('layout:unique', '기존 장표와 겹치지 않는 레이아웃 후보가 없습니다. 파트의 내용이나 범위를 조정해 다시 구성하세요.')
+            raise invalid_output('layout:unique', '기존 장표와 겹치지 않는 레이아웃 후보가 없습니다. 목차의 내용이나 범위를 조정해 다시 구성하세요.')
     owners, selected = {}, {}
 
     def assign(key, visited):

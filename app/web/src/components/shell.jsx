@@ -10,6 +10,7 @@ import { TemplateIcon } from '../pages/LibraryPage.jsx';
 import { SCENARIOS, SC, FEATURED } from '../domain/templates/scenarios.js';
 import { scenarioStoryboard } from '../domain/templates/scenario_storyboard.js';
 import { ScenarioStoryboard } from '../pages/ScenariosPage.jsx';
+import { TOC_TEMPLATES } from '../domain/templates/toc_templates.js';
 import { ReviewEntry } from '../pages/ReviewPage.jsx';
 import { useReviews } from '../repositories/reviews.js';
 import { useMy } from '../repositories/templates.js';
@@ -28,7 +29,7 @@ export function StepDots({ p }) {
   if (stageOf(p) !== 'req') {
     const low = KIND.some(([k, , , min]) => p.ctx[k].length < min);
     nodes.push({ c: 'n-match' + (low ? ' is-low' : ''), i: 'link', n: '제품 · 솔루션 매칭' });
-    for (const s of storyParts(p)) { const t = s.type || classifyPart(s.name); nodes.push({ c: 'n-part ' + partHue(t) + (s.done ? ' is-done' : ' is-draft'), i: partIcon(s), n: s.name || '이름 없는 파트' }); }
+    for (const s of storyParts(p)) { const t = s.type || classifyPart(s.name); nodes.push({ c: 'n-part ' + partHue(t) + (s.done ? ' is-done' : ' is-draft'), i: partIcon(s), n: s.name || '이름 없는 목차' }); }
   }
   const label = nodes.map((x) => x.n).join(' → ');
   return (
@@ -75,6 +76,7 @@ export function Sidebar({ route, go, onNew, open, setOpen }) {
       <button className="sb-home" aria-current={route.name === 'home' ? 'page' : undefined} onClick={() => go({ name: 'home' })}><Icon name="home" />{tx('홈')}</button>
       <button className="sb-home sb-tpl" aria-current={route.name === 'library' ? 'page' : undefined} onClick={() => go({ name: 'library' })}><TemplateIcon />{tx('PPT 레이아웃 템플릿')}<span className="sb-count num sb-tx">{LAYOUTS.length}</span></button>
       <button className="sb-home sb-bs" aria-current={route.name === 'scenarios' ? 'page' : undefined} onClick={() => go({ name: 'scenarios' })}><Icon name="route" />{tx('샘플 버티컬 시나리오')}<span className="sb-count num sb-tx">{SCENARIOS.length}</span></button>
+      <button className="sb-home sb-toc" aria-current={route.name === 'toc' ? 'page' : undefined} onClick={() => go({ name: 'toc' })}><Icon name="list" />{tx('목차 템플릿')}<span className="sb-count num sb-tx">{TOC_TEMPLATES.length}</span></button>
       <button className="sb-home sb-bld" aria-label="건물 조감도" aria-current={route.name === 'building' ? 'page' : undefined} onClick={() => go({ name: 'building' })}><Icon name="building" />{tx('건물 조감도')}<span className="sb-bld-format sb-tx">3D</span><span className="sb-beta sb-tx">BETA</span></button>
       <button className="sb-home sb-spatial" aria-label="공간 조감도" aria-current={route.name === 'spatial' ? 'page' : undefined} onClick={() => go({ name: 'spatial' })}><Icon name="building" />{tx('공간 조감도')}<span className="sb-spatial-format sb-tx">2D · 3D</span><span className="sb-beta sb-tx">BETA</span></button>
       <button className="sb-home sb-rv" aria-current={route.name === 'reviews' || route.name === 'review' ? 'page' : undefined} onClick={() => go({ name: 'reviews' })}><Icon name="clipCheck" />{tx('제안서 검토')}<span className="sb-count num sb-tx">{nRev}</span></button>

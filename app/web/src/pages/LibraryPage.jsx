@@ -20,11 +20,11 @@ import { PART_GROUPS, GROUP_OF, GROUP_OF_G, PART_ORDER, NO_FILTER, pass, activeF
 
 /* =========================================================
    PPT layout template library — every layout grouped by part type
-   (구분 → 파트 유형), search, one filter popup, preview.
+   (구분 → 목차 유형), search, one filter popup, preview.
    Every layout is shown at once (no "더보기"); sections sit indented
    under their 구분, hover a card for its detail.
    Filters live in one popup that reads top to bottom
-   (파트 유형 → 업종 → 솔루션 → 제품 → 이미지 칸 → 필요한 정보 → 원본 장표);
+   (목차 유형 → 업종 → 솔루션 → 제품 → 이미지 칸 → 필요한 정보 → 원본 장표);
    제품은 디렉토리 탐색기 팝업(ctxexplorer filter 모드 · 폴더 · 검색)에서 여러 개 — 그중 하나라도 든 레이아웃;
    what's on shows as removable chips under the search box.
    The bar · popup · steps · chips are the shared filter UI (filterpop.jsx) — 샘플 버티컬 시나리오 uses the same.

@@ -222,7 +222,7 @@ export function update(id, fn, { touch = true } = {}) { if (!requireLogin()) ret
   return true;
 }
 
-/** Storyboard stage — 'req': 고객 요구사항 버블만 · 'match': 요구사항 저장 → 제품 · 솔루션 매칭 버블 · 'story': 매칭 저장 → 파트 */
+/** Storyboard stage — 'req': 고객 요구사항 버블만 · 'match': 요구사항 저장 → 제품 · 솔루션 매칭 버블 · 'story': 매칭 저장 → 목차 */
 export function stageOf(p) { return p.parts.length || p.stage === 'story' ? 'story' : p.stage === 'match' ? 'match' : 'req'; }
 export function proposalStep(p) {
   if (p.exportedAt) return { n: 4, label: '내보내기 완료' };

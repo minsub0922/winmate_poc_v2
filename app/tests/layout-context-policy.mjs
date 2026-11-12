@@ -45,7 +45,7 @@ test('editing layout contents alone does not expose the current-context refill b
 
 test('part edits count as context changes and reverting to the applied context clears the difference', () => {
   const original = fixture(), p = structuredClone(original);
-  p.parts[0].items = ['새로운 파트 내용']; markLayoutChanges(p, original);
+  p.parts[0].items = ['새로운 목차 내용']; markLayoutChanges(p, original);
   assert.equal(changed(p), true);
   const intermediate = structuredClone(p);
   p.parts[0].items = []; markLayoutChanges(p, intermediate);

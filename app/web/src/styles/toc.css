@@ -1,0 +1,74 @@
+/* 목차 템플릿 — 템플릿 카드 목록 · 목차 버블 흐름 · 상세 팝업 (업종별 시나리오 · 기존 샘플) */
+.tocp-list { display: flex; flex-direction: column; gap: var(--space-16px); }
+
+/* 목차 버블 흐름 — 목차 하나가 버블 하나 (Storyboard 버블과 같은 유형 색) */
+.tocf { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8px) var(--space-6px); }
+.tocf-b { display: inline-flex; align-items: center; gap: var(--space-6px); }
+.tocf-b .n { width: var(--measure-24px); height: var(--measure-24px); border-radius: var(--radius-50); background: var(--hc); color: var(--surface); display: grid; place-items: center; font-family: var(--num); font-size: var(--text-11px); font-weight: var(--weight-800); flex-shrink: 0; }
+.tocf-b .nm { display: inline-flex; align-items: center; height: var(--measure-34px); padding: 0 var(--space-14px); border-radius: var(--radius-999px); background: var(--hb); color: var(--hc); font-size: var(--text-13-5px); font-weight: var(--weight-800); white-space: nowrap; }
+.tocf-b .c { font-family: var(--num); font-size: var(--text-11-5px); font-weight: var(--weight-700); color: var(--muted); }
+.tocf-b .arr { color: var(--faint); margin: 0 var(--space-2px); }
+.tocf.compact .tocf-b .nm { height: var(--measure-28px); padding: 0 var(--space-10px); font-size: var(--text-12-5px); }
+
+/* 템플릿 카드 */
+.tocc { position: relative; display: flex; flex-direction: column; gap: var(--space-12px); padding: var(--space-20px) var(--space-22px) var(--space-18px); border: var(--stroke-1px) solid var(--line); border-radius: var(--radius-16px); background: var(--surface); box-shadow: inset var(--space-4px) 0 0 var(--hc); }
+.tocc:hover { border-color: var(--accent-line); box-shadow: inset var(--space-4px) 0 0 var(--hc), var(--shadow); }
+.tocc-hit { position: absolute; inset: 0; z-index: 1; border: 0; background: none; border-radius: inherit; cursor: pointer; }
+.tocc-hit:focus-visible { outline: var(--stroke-2px) solid var(--accent); outline-offset: var(--space-2px); }
+.tocc-top { display: flex; align-items: center; gap: var(--space-12px); }
+.tocc-no { font-size: var(--text-20px); font-weight: var(--weight-800); color: var(--hc); }
+.tocc-h { display: flex; align-items: center; gap: var(--space-10px); flex-wrap: wrap; flex: 1; min-width: 0; }
+.tocc-h h3 { margin: 0; font-size: var(--text-19px); font-weight: var(--weight-800); letter-spacing: var(--measure--01em); }
+.tocc-badge, .tocd-badge { display: inline-flex; align-items: center; height: var(--measure-24px); padding: 0 var(--space-10px); border-radius: var(--radius-999px); background: var(--hb); color: var(--hc); font-size: var(--text-12px); font-weight: var(--weight-800); }
+.tocc-more { display: inline-flex; align-items: center; gap: var(--space-4px); font-size: var(--text-13px); font-weight: var(--weight-800); color: var(--accent); white-space: nowrap; }
+.tocc-d { margin: 0; font-size: var(--text-13-5px); color: var(--muted); }
+.tocc-meta { display: flex; gap: var(--space-16px); flex-wrap: wrap; font-size: var(--text-12-5px); color: var(--muted); }
+.tocc-meta b { color: var(--ink); font-weight: var(--weight-800); }
+.tocc-sheets { display: grid; grid-template-columns: repeat(4, minmax(0, var(--measure-1fr))); gap: var(--space-10px); }
+.tocc-sheet { border-radius: var(--radius-8px); overflow: hidden; border: var(--stroke-1px) solid var(--line); background: var(--surface-2); }
+.tocc-sheet.sk { aspect-ratio: 16 / 9; }
+
+/* 상세 팝업 */
+.modal.tocd { width: min(var(--measure-1640px), var(--measure-100)); height: min(var(--measure-1000px), calc(var(--measure-100vh) - var(--measure-40px))); max-height: none; }
+.tocd-body { display: flex; flex-direction: column; gap: var(--space-14px); min-height: 0; overflow: hidden; }
+.tocd-t { display: inline-flex; align-items: center; gap: var(--space-10px); flex-wrap: wrap; }
+.tocd-flow { padding: var(--space-12px) var(--space-14px); border-radius: var(--radius-12px); background: var(--surface-2); }
+.tocd-tabs { display: flex; gap: var(--space-6px); border-bottom: var(--stroke-1px) solid var(--line); }
+.tocd-tabs button { border: 0; background: none; padding: var(--space-8px) var(--space-12px); font-size: var(--text-13-5px); font-weight: var(--weight-700); color: var(--muted); border-bottom: var(--stroke-2px) solid transparent; margin-bottom: calc(var(--stroke-1px) * -1); cursor: pointer; }
+.tocd-tabs button.on { color: var(--accent); border-bottom-color: var(--accent); }
+.tocd-tabs b { font-family: var(--num); margin-left: var(--space-4px); }
+.tocd-main { display: grid; grid-template-columns: var(--measure-260px, 260px) minmax(0, var(--measure-1fr)); gap: var(--space-16px); min-height: 0; flex: 1; }
+.tocd-inds { overflow-y: auto; display: flex; flex-direction: column; gap: var(--space-12px); padding-right: var(--space-6px); }
+.tocd-ig { display: flex; flex-direction: column; gap: var(--space-4px); }
+.tocd-ign { font-size: var(--text-11-5px); font-weight: var(--weight-800); color: var(--faint); letter-spacing: var(--measure-04em); padding: 0 var(--space-8px); }
+.tocd-iv { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-1px); text-align: left; border: var(--stroke-1px) solid transparent; background: none; border-radius: var(--radius-10px); padding: var(--space-6px) var(--space-10px); cursor: pointer; color: var(--ink); }
+.tocd-iv:hover { background: var(--surface-2); }
+.tocd-iv.on { background: var(--accent-soft); border-color: var(--accent-line); }
+.tocd-iv .nm { font-size: var(--text-13px); font-weight: var(--weight-700); }
+.tocd-iv .cu { font-size: var(--text-11-5px); color: var(--muted); }
+.tocd-deck { overflow-y: auto; display: flex; flex-direction: column; gap: var(--space-20px); padding-right: var(--space-6px); min-width: 0; }
+.tocd-dh h3 { margin: 0; font-size: var(--text-17px); font-weight: var(--weight-800); }
+.tocd-dh p { margin: var(--space-4px) 0 0; font-size: var(--text-13px); color: var(--muted); }
+.tocd-sec { display: flex; flex-direction: column; gap: var(--space-10px); }
+.tocd-sh { display: flex; align-items: center; gap: var(--space-10px); font-size: var(--text-12px); }
+.tocd-sn { display: inline-flex; align-items: center; gap: var(--space-6px); height: var(--measure-28px); padding: 0 var(--space-12px) 0 var(--space-4px); border-radius: var(--radius-999px); background: var(--hb); color: var(--hc); font-size: var(--text-13px); font-weight: var(--weight-800); }
+.tocd-sn b { width: var(--measure-20px); height: var(--measure-20px); border-radius: var(--radius-50); background: var(--hc); color: var(--surface); display: grid; place-items: center; font-size: var(--text-10-5px); }
+.tocd-sn.deck { background: var(--surface-2); color: var(--muted); padding-left: var(--space-12px); }
+.tocd-grid { display: grid; grid-template-columns: repeat(4, minmax(0, var(--measure-1fr))); gap: var(--space-10px); }
+.tocd-sheet { position: relative; display: flex; flex-direction: column; gap: var(--space-5px); text-align: left; border: var(--stroke-1px) solid var(--line); border-radius: var(--radius-10px); background: var(--surface); padding: var(--space-6px); color: var(--ink); min-width: 0; cursor: pointer; }
+.tocd-sheet:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+.tocd-sheet .pg { position: absolute; top: var(--measure-10px); left: var(--measure-10px); z-index: 2; min-width: var(--measure-20px); height: var(--measure-20px); padding: 0 var(--space-5px); border-radius: var(--radius-6px); background: var(--ink); color: var(--surface); font-size: var(--text-11px); font-weight: var(--weight-800); display: grid; place-items: center; }
+.tocd-sheet .rl { font-size: var(--text-12px); font-weight: var(--weight-700); padding: 0 var(--space-2px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tocd-rel { overflow-y: auto; display: flex; flex-direction: column; gap: var(--space-12px); min-height: 0; flex: 1; }
+.tocd-ri { display: grid; grid-template-columns: minmax(0, var(--measure-1fr)) minmax(0, 2fr); gap: var(--space-14px); align-items: center; text-align: left; border: var(--stroke-1px) solid var(--line); border-radius: var(--radius-12px); background: var(--surface); padding: var(--space-12px); cursor: pointer; color: var(--ink); }
+.tocd-ri:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+.tocd-rh h4 { margin: 0 0 var(--space-6px); font-size: var(--text-14px); font-weight: var(--weight-800); }
+.tocd-rh .faint { font-size: var(--text-12px); line-height: var(--leading-1-55); }
+.tocd-rs { display: grid; grid-template-columns: repeat(3, minmax(0, var(--measure-1fr))); gap: var(--space-8px); }
+.tocd-rsl { border-radius: var(--radius-6px); overflow: hidden; border: var(--stroke-1px) solid var(--line); }
+@media (max-width: 1100px) {
+  .tocc-sheets, .tocd-grid { grid-template-columns: repeat(2, minmax(0, var(--measure-1fr))); }
+  .tocd-main { grid-template-columns: minmax(0, var(--measure-1fr)); }
+  .tocd-inds { max-height: var(--measure-200px, 200px); }
+  .tocd-ri { grid-template-columns: minmax(0, var(--measure-1fr)); }
+}

@@ -19,7 +19,7 @@ const text=i=>({uid:i,f,status:i==='plain'?'done':'partial',ov:{t:{0:'보관 원
  ...(i==='failed-added'?{ov:{t:{},img:{}},ev:{},adaptation:{version:2,origin:'added',phase:'error',error:'실제 신규 레이아웃 채우기 실패',request:'added',queuedAt:1}}:{})});
 const history={id:'history-fixture',title:'기존 히스토리',customer:'보관 고객',createdAt:1,updatedAt:1,ind:null,stage:'story',reqTab:'form',
  req:{free:[{t:'저장된 기록을 유지합니다.'}],form:{project:'보관 프로젝트',customer:'보관 고객',keymen:[],note:''},files:[]},ctx:{products:['qm55c'],solutions:[],cases:[]},
- parts:[{id:'history-part',type:'overview',name:'보관된 파트',items:['저장된 내용'],done:true,layouts:['plain','failed','pending','current-error','obsolete-image','obsolete-shared','failed-added'].map(text)}]};
+ parts:[{id:'history-part',type:'overview',name:'보관된 목차',items:['저장된 내용'],done:true,layouts:['plain','failed','pending','current-error','obsolete-image','obsolete-shared','failed-added'].map(text)}]};
 const out=path.join(root,'app/tests/output/layout-history');fs.mkdirSync(out,{recursive:true});
 const server=await createServer({root:path.join(root,'app/web'),configFile:path.join(root,'app/web/vite.config.js'),logLevel:'error',server:{host:'127.0.0.1',port:0,strictPort:false,hmr:false}});
 const results=[],calls=[],errors=[];let page,browser,mode='batch-failure';

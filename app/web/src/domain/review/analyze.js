@@ -436,7 +436,7 @@ export function ruleSignals(doc, x) {
     let inv = 0; let maxS = -1; const where = [];
     for (const z of seq) { const s = STAGE[z.p]; if (s <= maxS - 2 && z.p !== 'cover') { inv++; where.push(z.i + 1); } maxS = Math.max(maxS, s); }
     const cls = seq.length / Math.max(1, n);
-    out.VS3 = R(cls < 0.35 ? 64 : 90 - inv * 9, [cls < 0.35 ? '장 제목으로 파트를 구분하기 어려워 흐름 판단이 제한적이에요' : `파트 흐름: ${compressParts(x.parts)}`, inv ? `흐름이 앞 단계로 되돌아가는 곳: ${where.slice(0, 6).join(', ')}장` : ''], where);
+    out.VS3 = R(cls < 0.35 ? 64 : 90 - inv * 9, [cls < 0.35 ? '장 제목으로 목차를 구분하기 어려워 흐름 판단이 제한적이에요' : `목차 흐름: ${compressParts(x.parts)}`, inv ? `흐름이 앞 단계로 되돌아가는 곳: ${where.slice(0, 6).join(', ')}장` : ''], where);
   }
   { // VS4
     const why = unitHits(doc, /Why Samsung|왜 삼성|삼성의 강점|삼성만의|차별(?:점|화)|서비스망|전국 \d+|글로벌 (?:1위|No)|점유율 1위|통합 솔루션|Knox/gi, 'all');
