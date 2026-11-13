@@ -9,7 +9,7 @@ from app.api.poc.routes import router as poc_router, initialize as poc_initializ
 
 app.include_router(poc_router)
 # lifespan 안에서
-poc_initialize()                      # 설정 · Gemini provider 확인(없으면 PocStartupError) · import 점검 · KB 검증 · 카드/인덱스 백그라운드 준비
+poc_initialize()                      # 설정 · provider 확인(없거나 연결 실패면 경고만 — 서버는 시작, AI 요청만 503) · import 점검 · KB 검증 · 카드/인덱스 백그라운드 준비
 # /api/bootstrap 이나 /api/health 에 poc_capabilities() 를 넣을지는 통합하는 쪽에서 결정
 ```
 
@@ -26,7 +26,7 @@ node app/scripts/export_agent_data.mjs        # → app/data/runtime/kb/* (manif
 | 키 | 값 | 설명 |
 |---|---|---|
 | `WINMATE_MODE` · `WINMATE_<FUNC>_MODE` | (무시) | 예전 설정. `real` 이 아닌 값은 따르지 않고 `settings.legacy_ignored` · `warnings` 와 시작 로그에 표시 |
-| `GEMINI_API_KEY` | **필수** | 없으면 `initialize()` 가 `PocStartupError`, 모든 AI 요청은 503 `no_api_key` |
+| `GEMINI_API_KEY` | AI 기능에 필요 | 없어도 서버는 시작(`connection.verified=false`), 모든 AI 요청은 503 `no_api_key` |
 | `GEMINI_MODEL` · `GEMINI_QUICK_MODEL` · `GEMINI_BASE_URL` | | 서버 전용. 응답 · 로그 · 예외 문자열에 넣지 않음. 검색 rerank 는 quick 모델 |
 | `WINMATE_GEMINI_TIMEOUT` · `WINMATE_GEMINI_RPM` | 120 · 30 | |
 | `WINMATE_LLM_CACHE` · `WINMATE_KB_CACHE` | `off`(기본) | 켜면 `app/data/runtime/{llm-cache,kb/layout_cards.*.jsonl}` |

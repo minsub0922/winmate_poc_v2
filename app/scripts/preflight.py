@@ -306,9 +306,10 @@ def run(deep: bool, require_auth: bool) -> Results:
         r.ok('LLM', model.provider + ' / ' + model.model + ' · key source: ' + model.key_source + ' · strict real-only')
     else:
         key_name = 'GEMINI_API_KEY' if model.provider == 'gemini' else 'INTERNAL_LLM_API_KEY' if model.provider == 'internal' else 'WINMATE_LLM_API_KEY'
-        r.fail('LLM', 'AI 인증 키가 없어 실제 AI 기능을 시작할 수 없습니다.', f'app/.env에서 WINMATE_LLM_PROVIDER={model.provider}의 {key_name}를 설정하세요.')
+        # AI 설정이 없어도 서버는 시작한다 — AI 기능만 쓸 수 없다고 알린다
+        r.warn('LLM', 'AI 인증 키가 없어 AI 기능은 쓸 수 없습니다(서버는 시작합니다).', f'app/.env에서 WINMATE_LLM_PROVIDER={model.provider}의 {key_name}를 설정하세요.')
     if model.provider != 'gemini' and (not model.base_url or not model.model):
-        r.fail('LLM endpoint/model', '선택한 모델의 API 주소 또는 모델 ID가 없습니다.', 'LLM 호출 자료를 확인해 선택한 제공자의 API 주소와 모델 ID를 설정하세요.')
+        r.warn('LLM endpoint/model', '선택한 모델의 API 주소 또는 모델 ID가 없어 AI 기능은 쓸 수 없습니다(서버는 시작합니다).', 'LLM 호출 자료를 확인해 선택한 제공자의 API 주소와 모델 ID를 설정하세요.')
     check_source_db(r, deep)
     check_reference(r, deep)
     check_app_data(r)

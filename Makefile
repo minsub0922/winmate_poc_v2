@@ -1,6 +1,10 @@
-.PHONY: up prepare test test-browser test-live smoke tunnel
+.PHONY: up restart stop prepare test test-browser test-live smoke tunnel
 up:
 	./start.sh
+restart:
+	bash app/scripts/restart.sh
+stop:
+	bash app/scripts/restart.sh --stop
 tunnel:
 	bash app/scripts/cloudflare.sh
 prepare:

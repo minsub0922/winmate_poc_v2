@@ -7,6 +7,8 @@
 # 또는 make up
 ```
 
+터미널과 분리해 백그라운드로 (다시) 띄우려면 `make restart`(떠 있는 서버를 끄고 `./start.sh`를 백그라운드로 실행, 로그 `app/data/runtime/server.log`), 끄려면 `make stop`.
+
 설치·재현·LLM 선택은 [BOOTSTRAP.md](BOOTSTRAP.md)를 따른다. 기본 LLM은 사내 모델이며, 환경변수로 Gemini를 선택할 수 있다. 인증·데이터 갱신·모듈의 상세 설명은 [app/README.md](app/README.md)에 있다.
 
 ```sh

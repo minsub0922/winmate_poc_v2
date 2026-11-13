@@ -8,10 +8,11 @@ they are real algorithms, not fallbacks.
 
 ## Startup
 
-- `initialize(warm=True, require_provider=True)` raises `PocStartupError(code='no_api_key')` when
-  `get_provider()` returns no provider. `main.py` lifespan calls it with defaults → the server fails to start
-  without a key (start-script preflight). Tests can install a provider with
-  `provider.set_provider_override(fake)` or call `initialize(require_provider=False)`.
+- `initialize(warm=True, require_provider=True)` never stops the server. With no provider (no key) or a failed
+  startup connection probe it records `capabilities()['connection'] = {verified: False, code, message, checked_at}`,
+  logs a warning and continues; every AI request then answers 503 `no_api_key` (or fails per call) while all
+  non-AI screens work. The start-script preflight reports missing LLM settings as WARN, not FAIL.
+  `require_provider=False` skips the connection probe (tests); tests can also use `provider.set_provider_override(fake)`.
 - Legacy `WINMATE_MODE` / `WINMATE_<FUNC>_MODE` values other than `real` are **ignored** and listed in
   `settings.legacy_ignored` + `settings.warnings` (also logged at startup).
 

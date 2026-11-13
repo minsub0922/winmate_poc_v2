@@ -22,7 +22,7 @@ WINMATE_API_PORT=8788 ./start.sh
 
 로그인 후 사이드바 프로필을 누르면 오른쪽 팝업에 계정 정보와 로그아웃 버튼만 표시된다. 바깥 클릭·Esc·프로필 재클릭으로 닫는다. `/account.html`은 직접 접근용 기존 경로로 유지한다. 기본 바인딩은 127.0.0.1, 세션은 HttpOnly/SameSite=Strict 쿠키·12시간이다. API 키는 서버만 읽으며 프런트·Git에 포함하지 않는다. 앱 변경은 `app/`에서 수행한다. `poc/`, `proddb/`와 `reference/`는 공용 AI 모듈·수집 원본·참고 자료로 보존한다. 루트 `src/`에는 자료 추출·평가 도구가 사용하는 모듈과 출처 자료만 남아 있으며 구버전 루트 `dist/`는 제거했다.
 
-필수 입력은 제공된 `poc/test/`, `proddb/winmate_products.sqlite`, `reference/live/`, `app/data/`다. 시작 명령이 패키지 설치, 웹 빌드, 읽기 전용 SQLite snapshot, 정본 Agent KB, 데이터 점검, 계정 준비를 수행한다. 없거나 손상된 입력은 경로와 함께 오류로 안내한다. health가 준비되기 전에 **선택한 실제 LLM의 연결 확인**도 수행하며 실패하면 기동하지 않는다.
+필수 입력은 제공된 `poc/test/`, `proddb/winmate_products.sqlite`, `reference/live/`, `app/data/`다. 시작 명령이 패키지 설치, 웹 빌드, 읽기 전용 SQLite snapshot, 정본 Agent KB, 데이터 점검, 계정 준비를 수행한다. 없거나 손상된 입력은 경로와 함께 오류로 안내한다. health가 준비되기 전에 **선택한 실제 LLM의 연결 확인**도 수행한다. LLM 키·주소가 없거나 연결 확인이 실패해도 서버는 시작하며, 사전 검사는 경고로 알리고 `/api/health`의 `gemini`(연결 상태)에 `verified:false`와 이유를 표시한다. 이때 AI 기능만 오류로 안내되고 나머지 화면은 그대로 쓸 수 있다. 현재 이 컴퓨터는 `app/.env`의 `WINMATE_LLM_PROVIDER=gemini`로 Gemini를 쓴다.
 
 ## 사용 가이드
 

@@ -41,26 +41,34 @@ class PocStartupError(RuntimeError):
 def initialize(warm: bool = True, require_provider: bool = True) -> dict:
     """Call from the app lifespan. Reads settings (runtime only), checks the provider, imports and the KB snapshot.
 
-    Strict: with ``require_provider=True`` (default) a missing Gemini provider raises :class:`PocStartupError`
-    so the server fails at startup instead of serving AI endpoints that can only answer 503. Legacy dummy
-    settings are logged as ignored. ``warm=True`` builds layout cards + the TF-IDF index in the background.
+    The server always starts: a missing provider or a failed connection probe is recorded in
+    ``capabilities()['connection']`` (``verified: False`` + code/message) and logged, and AI endpoints answer
+    503/502 as before while every non-AI screen keeps working. ``require_provider=True`` (default) runs the
+    startup connection probe; tests pass ``False`` to skip it. Legacy dummy settings are logged as ignored.
+    ``warm=True`` builds layout cards + the TF-IDF index in the background.
     """
     settings = get_settings()
     for warning in settings.warnings:
         log.warning('PoC settings: %s', warning)
     provider, reason = get_provider(settings)
-    if provider is None and require_provider:
-        raise PocStartupError(FAILURES.get(reason, FAILURES['no_api_key'])[2] + ' (strict real-only runtime — 서버를 시작하지 않습니다)',
-                              reason or 'no_api_key')
     _STATE['connection']=None
-    if require_provider:
+    now=lambda: datetime.now(timezone.utc).isoformat()
+    if provider is None:
+        # AI 설정이 없어도 서버는 시작한다 — AI 요청만 503(no_api_key 등)으로 답한다
+        message=FAILURES.get(reason, FAILURES['no_api_key'])[2]
+        _STATE['connection']={'verified':False,'code':reason or 'no_api_key','message':message,'checked_at':now()}
+        log.warning('AI 제공자를 쓸 수 없어 AI 기능 없이 시작합니다: %s', message)
+    elif require_provider:
         try:
             probe=provider.generate_json(stage='startup:connection',user='Return JSON with connected true.',schema={'type':'OBJECT','properties':{'connected':{'type':'BOOLEAN'}},'required':['connected']},max_output_tokens=1024,max_attempts=2,cache_allowed=False)
             if not isinstance(probe.data,dict) or probe.data.get('connected') is not True:
                 raise PocStartupError('AI 연결 확인 응답 형식이 올바르지 않습니다.','invalid_output')
-            _STATE['connection']={'verified':True,'model':probe.model,'ms':probe.ms,'checked_at':datetime.now(timezone.utc).isoformat()}
-        except ProviderError as exc:
-            raise PocStartupError('AI 실제 연결 확인 실패: '+exc.code+' — 서버 키·모델·네트워크를 확인하세요.',exc.code) from None
+            _STATE['connection']={'verified':True,'model':probe.model,'ms':probe.ms,'checked_at':now()}
+        except (ProviderError, PocStartupError) as exc:
+            code=getattr(exc,'code','invalid_output')
+            message=str(exc) if isinstance(exc,PocStartupError) else 'AI 실제 연결 확인 실패: '+code+' — 서버 키·모델·네트워크를 확인하세요.'
+            _STATE['connection']={'verified':False,'code':code,'message':message,'checked_at':now()}
+            log.warning('AI 연결 확인에 실패했지만 서버는 시작합니다: %s', message)
     imports.ensure_paths()
     errors: Dict[str, str] = {}
     for name, loader in (('rfp', imports.rfp), ('layout', imports.layout), ('storyboard', imports.story), ('review', imports.score)):
