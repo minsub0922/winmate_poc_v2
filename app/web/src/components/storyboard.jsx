@@ -3,7 +3,8 @@ import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { update, uid, segPlain } from '../repositories/proposals.js';
 import { Icon, RefChip, toast, partHue, useHoverCard } from './common.jsx';
 import { PARTS, NEXT, classifyPart, splitFree, partText, effectiveType } from '../domain/proposals/parts.js';
-import { IND, L, LAYOUTS, refInfo, isCoverSheet, isCoverOnlyPart, storyParts, indsOf } from '../services/catalog.js';
+import { IND, L, LAYOUTS, refInfo, isCoverSheet, isCoverOnlyPart, storyParts, indsOf, SUBSCRIPTION_DB } from '../services/catalog.js';
+import { subscriptionNeed } from '../domain/proposals/addons.js';
 import { reqText, inferIndustry } from '../services/search.js';
 import { Slide } from '../domain/slides/Slide.jsx';
 import { refsOf } from './requirements.jsx';
@@ -22,7 +23,7 @@ import { RequirementSummaryCard } from './requirement-summary.jsx';
 import { MatchArea } from './match-area.jsx';
 
 export const ctxOf = (p) => ({ ind: p.ind || inferIndustry(reqText(p)), products: p.ctx.products, solutions: p.ctx.solutions, cases: p.ctx.cases });
-const FLOW = ['market', 'customer', 'user', 'competition', 'insight', 'challenge', 'value', 'effect', 'dss', 'products', 'scenario', 'birdseye', 'solution', 'case', 'why', 'spec', 'bom', 'execution', 'cost', 'closing', 'appendix', 'overview', 'requirements']; // no 'cover' — 표지 is not a Storyboard part
+const FLOW = ['market', 'customer', 'user', 'competition', 'insight', 'challenge', 'value', 'effect', 'dss', 'products', 'scenario', 'birdseye', 'solution', 'case', 'why', 'spec', 'bom', 'execution', 'cost', 'subscription', 'closing', 'appendix', 'overview', 'requirements']; // no 'cover' — 표지 is not a Storyboard part
 const KW = { competition: /경쟁|타사|비교/, market: /시장|트렌드/, cost: /비용|예산|가격|TCO/i, execution: /일정|설치|공사|유지보수|교육|파일럿|단계/, effect: /절감|%|효과|ROI/i, scenario: /동선|공간|체험|시나리오/, solution: /관제|플랫폼|연동|원격|CMS/i, case: /사례|레퍼런스/, why: /신뢰|안정|지원|A\/S/ };
 
 export function candidates(p, afterIndex, n = 5) {
@@ -38,8 +39,10 @@ export function candidates(p, afterIndex, n = 5) {
     let s = 0;
     const ni = nexts.indexOf(t);
     if (ni >= 0) s += 10 - ni * 1.4;
-    const kw = !!(KW[t] && KW[t].test(text));
-    if (kw) s += 2.2;
+    // 구독: 구독 레지스트리 규칙으로 판정(서버 목차 추천 · 이어 구성과 같은 규칙) — 요구가 분명하면 흐름 자리와 관계없이 앞에
+    const need = t === 'subscription' && subscriptionNeed(text, SUBSCRIPTION_DB.addon).need;
+    const kw = need || !!(KW[t] && KW[t].test(text));
+    if (kw) s += need ? 6 : 2.2;
     if (used.has(t)) s -= 6;
     if (ind && LAYOUTS.some((l) => l.p === t && indsOf(l).includes(ind))) s += 1;
     return { type: t, s, kw, why: kw ? ['요구사항에 관련 언급'] : [] };

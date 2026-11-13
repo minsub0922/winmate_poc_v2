@@ -5,6 +5,7 @@ import VERTICAL from './vertical_scenarios.json' with { type: 'json' };
 import STANDARD from './standard_vertical_scenarios.json' with { type: 'json' };
 import SCENARIO_COVERS from './scenario_covers.json' with { type: 'json' };
 import ACCOUNT from './account_scenarios.json' with {type:'json'};
+import SUBSCRIPTION from './subscription_scenarios.json' with { type: 'json' }; // 구독 도입 — build/subs/compose.mjs samples
 // icon = 샘플 버티컬 시나리오 목록(검색 전) 카드의 상징 아이콘 — common.jsx Icon 이름
 export const REQ_TYPES = {
   std: { label: '표준 제안서', desc: '업종별 공간·제품·솔루션·운영의 표준 구성을 함께 검토할 때', hue: 'slate', icon: 'stack' },
@@ -12,10 +13,11 @@ export const REQ_TYPES = {
   renew: { label: '교체 · 리뉴얼', desc: '쓰던 장비 · 공간을 바꿀 때. 영업 중단 최소화와 전후 비교가 핵심', hue: 'teal', icon: 'renew' },
   compete: { label: '경쟁 입찰 · 공급사 전환', desc: '다른 공급사와 나란히 평가받을 때. 비교 기준을 먼저 잡는 쪽이 이김', hue: 'amber', icon: 'medal' },
   ops: { label: '운영 효율 · 솔루션', desc: '기기보다 운영 방식(원격 관리 · 에너지 · 현장 단말)을 바꿀 때. 숫자로 증명', hue: 'violet', icon: 'gauge' },
+  subs: { label: '구독 도입', desc: '초기 비용 부담 없이 B2B 삼성 AI 구독으로 들일 때. 업종 패키지 · 케어 · 납부 방법이 핵심', hue: 'green', icon: 'p-subs' },
   scale: { label: '파일럿 · 확산 · 공동 개발', desc: '검증한 것을 넓히거나 파트너와 함께 만들 때. 성공 기준과 단계가 핵심', hue: 'green', icon: 'rocket' },
   brief: { label: '첫 미팅 · 경영진 · 투자 심의', desc: '짧은 시간, 결정권자 앞. 한 줄 메시지와 다음 단계 합의가 목표', hue: 'slate', icon: 'easel' },
 };
-export const REQ_ORDER = ['std', 'new', 'renew', 'compete', 'ops', 'scale', 'brief'];
+export const REQ_ORDER = ['std', 'new', 'renew', 'compete', 'ops', 'subs', 'scale', 'brief'];
 
 export const STRATEGIES = {
   value: { label: '가치 선도형', desc: '가치 기둥을 먼저 세우고 제품 · 효과로 받친다' },
@@ -650,6 +652,7 @@ for (const s of SCENARIOS) {
 SCENARIOS.push(...VERTICAL.scenarios);
 SCENARIOS.push(...STANDARD.scenarios);
 SCENARIOS.push(...ACCOUNT.scenarios);
+SCENARIOS.push(...SUBSCRIPTION.scenarios);
 export const SC = Object.fromEntries(SCENARIOS.map((s) => [s.id, s]));
 
 // Shown first on the template page — three different requirement types and strategies.

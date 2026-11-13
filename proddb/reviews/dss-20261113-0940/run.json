@@ -1,0 +1,14 @@
+{
+  "run_id": "dss-20261113-0940",
+  "run_at": "2026-11-13T09:40:17+09:00",
+  "scope": [
+    "subscriptions"
+  ],
+  "about": "구독(subscription)만 확인한 run — proddb/build/subs/ledger_run.py 입력. 제품 · 솔루션 · 서비스 소스는 이번 run 에서 다시 받지 않았다(지난 run dss-20261112-1445 표식 유지).",
+  "trigger": "samsung.com/sec/business 홈 GNB 에 'B2B 삼성 AI 구독' 메뉴 · 페스티벌 페이지가 새로 생김 — 구독을 DSS 의 네 번째 종류(subscription)로 추가",
+  "sources_file": "proddb/subs/sources.json",
+  "facts_file": "proddb/subs/facts.json",
+  "inferred_file": "proddb/subs/inferred.json",
+  "kind_rule_change": "proddb/build/dss/subs_ledger.py kind_of — '세척'만 보고 식기세척기를 서비스로 읽던 규칙을 고침((?<!식기)세척(?!기)), '솔루션 · 서비스' 분류는 이름에 케어 · 세척 · 보증 · 유지보수가 없으면 솔루션",
+  "finished_at": "2026-11-13T10:15:00+09:00"
+}

@@ -23,6 +23,7 @@ export const PARTS = {
   spec: { label: '제품 스펙', hue: 'teal', icon: 'p-ruler', about: '제안 제품의 사양 비교와 치수 · 인증 정보를 정리해 기술 검토를 도와요', desc: '사양 비교 · 상세 사양 · 인증', items: ['제품별 사양 비교', '설치 · 치수 정보'] },
   execution: { label: '실행 계획', hue: 'green', icon: 'calendar', about: '추진 체계 · 설치 일정 · 파일럿과 확산 · 교육과 유지보수로 실행 계획을 보여 줘요', desc: '추진 체계 · 일정 · 파일럿 · 교육 · 유지보수', items: ['추진 체계', '설치 일정', '파일럿과 확산', '유지보수'] },
   cost: { label: '비용 · 구매', hue: 'green', icon: 'coin', about: '구매 방식을 비교하고 5년 총소유비용을 정리해 예산 판단을 도와요', desc: '구매 방식 · 총소유비용', items: ['구매 방식 비교', '5년 총소유비용'] },
+  subscription: { label: '구독 도입', hue: 'green', icon: 'p-subs', about: '일시불 대신 B2B 삼성 AI 구독으로 도입할 때의 가치 · 업종 패키지 · 케어 · 조건 · 결제를 보여 줘 초기 비용 부담 없이 도입하는 길을 열어요', desc: '구독 가치 · 업종 패키지 · 케어(블루패스) · 조건 · 결제', items: ['구독 가치와 일시불 비교', '업종 구독 패키지', '케어 · B2B 블루패스', '조건 · 결제 방법'] },
   cover: { label: '표지 · 목차', hue: 'slate', icon: 'p-cover', about: '제안서의 첫인상인 표지와 전체 흐름을 보여 주는 목차 · 섹션 간지예요', desc: '표지 · 목차 · 섹션 간지', items: ['표지', '목차'] },
   closing: { label: '마무리 · 다음 단계', hue: 'slate', icon: 'flag', about: '제안을 다시 정리하고 다음 할 일 · 결정 요청 · 연락처로 다음 행동을 이끌어요', desc: '다음 단계 · 결정 요청 · 연락처', items: ['다음 2주 할 일', '결정 요청', '담당자 연락처'] },
   appendix: { label: '부록', hue: 'slate', icon: 'p-clip', about: '예상 질문과 답 · 수치 출처 · 용어처럼 본문 밖 참고 자료를 모아요', desc: '예상 질문 · 출처 · 용어', items: ['예상 질문', '출처', '용어'] },
@@ -40,11 +41,11 @@ export const NEXT = {
   competition: ['insight', 'why', 'value'],
   insight: ['value', 'challenge', 'dss'],
   challenge: ['value', 'solution', 'effect'],
-  value: ['dss', 'products', 'scenario', 'effect', 'solution'],
-  effect: ['dss', 'case', 'why', 'cost'],
+  value: ['dss', 'products', 'scenario', 'effect', 'solution', 'subscription'],
+  effect: ['dss', 'case', 'why', 'cost', 'subscription'],
   dss: ['products', 'scenario', 'bom', 'birdseye'],
-  products: ['scenario', 'spec', 'bom', 'why'],
-  bom: ['cost', 'execution', 'spec'],
+  products: ['scenario', 'spec', 'bom', 'why', 'subscription'],
+  bom: ['cost', 'subscription', 'execution', 'spec'],
   scenario: ['why', 'case', 'solution', 'birdseye'],
   birdseye: ['scenario', 'products', 'why'],
   solution: ['scenario', 'case', 'why'],
@@ -52,7 +53,8 @@ export const NEXT = {
   why: ['execution', 'cost', 'closing', 'case'],
   spec: ['bom', 'cost', 'why'],
   execution: ['cost', 'closing', 'appendix'],
-  cost: ['closing', 'execution', 'appendix'],
+  cost: ['closing', 'execution', 'subscription', 'appendix'],
+  subscription: ['execution', 'case', 'why', 'closing'],
   cover: ['overview', 'market', 'customer'],
   closing: ['appendix'],
   appendix: [],
@@ -64,12 +66,13 @@ export const RELATED = {
   insight: ['market', 'value'], challenge: ['customer', 'value'], value: ['effect', 'challenge', 'solution'], effect: ['value', 'cost'],
   dss: ['products', 'bom', 'scenario'], products: ['dss', 'spec', 'bom'], bom: ['products', 'cost'], scenario: ['dss', 'birdseye', 'solution'],
   birdseye: ['scenario', 'dss'], solution: ['scenario', 'value'], case: ['why'], why: ['competition', 'case'], spec: ['products', 'bom'],
-  execution: ['cost', 'closing'], cost: ['execution', 'effect'], overview: ['requirements', 'insight'], requirements: ['overview', 'customer'],
+  execution: ['cost', 'closing'], cost: ['execution', 'effect', 'subscription'], subscription: ['cost', 'execution', 'value', 'products'], overview: ['requirements', 'insight'], requirements: ['overview', 'customer'],
   cover: [], closing: ['execution'], appendix: [], free: [],
 };
 
 // Keyword → part type, used to classify a typed part name.
 const NAME_RULES = [
+  ['subscription', /구독|렌탈|분할 납부|블루패스/], // 'B2B 삼성 AI 구독'이 '삼성'(why)보다 먼저
   ['competition', /경쟁/], ['why', /why|삼성|강점|지원 체계/i], ['market', /시장|트렌드|\bmi\b|market/i], ['customer', /고객사|비즈니스|운영 과제|사업 현황/],
   ['user', /사용자|이해관계자|여정|페르소나|손님/], ['insight', /시사점|제안 방향|인사이트/], ['challenge', /과제|문제|페인|pain|이슈/i],
   ['effect', /효과|roi|kpi|회수|절감/i], ['value', /가치|value|vp|키 ?메시지|key message/i], ['dss', /dss|공간 맵|공간별 제품 매칭|매칭/i],

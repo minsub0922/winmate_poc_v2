@@ -3,6 +3,7 @@
 import sys, math
 sys.path.insert(0, __import__('os').path.dirname(__import__('os').path.abspath(__file__)))
 from base import *
+from typed import TT  # 글자 역할을 구운 장(목차 사진 카드)
 
 FOOT = '외식 프랜차이즈 · AI 퀵서비스 공간 가치 제안서'
 P = {  # sample pictures for the library preview (외식 프랜차이즈)
@@ -39,7 +40,7 @@ def round_arrow(s, x, y, d=36):
 
 # ------------------------------------------------------------------ 목차 (contents)
 def index(n):
-    s = T(f'L_TOC_INDEX{n}'); s.head2('CONTENTS', '목차')
+    s = TT(f'L_TOC_INDEX{n}'); s.head2('CONTENTS', '목차')  # 샘플 시나리오(구독 도입)도 쓰는 장 — 글자 역할을 구움(typed.py)
     names = ['Overview', '퀵서비스 핵심 기술', '공간별 가치 제안', '도입사례', 'Why Samsung', '실행 계획', '구성 · 수량', '기대 효과'][:n]
     pics = [P['store'], P['counter'], P['hall'], P['kitchen'], P['office'], P['edu'], P['store'], P['hall']]
     rows = [n] if n <= 4 else [math.ceil(n / 2), n - math.ceil(n / 2)]

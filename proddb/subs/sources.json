@@ -1,0 +1,9 @@
+{
+ "about": "구독(subscription) DSS 원천 소스 — DSS DB 업데이트 skill 이 run 마다 전부 다시 받는다(proddb/build/subs/collect.py). site = samsung.com/sec/business(표식 근거), news = 삼성전자 뉴스룸(공식 보조 출처: 블루패스 · 케어 옵션 설명). 외부 기사는 근거가 아니다.",
+ "sources": [
+  {"id": "site:b2b-ai-subs", "kind": "site", "role": "program", "url": "https://www.samsung.com/sec/business/b2b-ai-subs/", "title": "B2B 삼성 AI 구독", "note": "비즈니스 사이트 대분류(제품 메뉴와 같은 단계) — 고민 · 가치 · 일시불 비교 · 구독 품목 · 케어 4단계 · 업종 가치 · FAQ"},
+  {"id": "site:b2b-ai-subs-festival", "kind": "site", "role": "promotion", "url": "https://www.samsung.com/sec/business/event/b2b-ai-subs-festival/", "title": "B2B 삼성 AI 구독 페스티벌", "note": "기획전 — 런칭 혜택(기간 한정) · 사업장별 구독 패키지 4 · FAQ. 혜택 · 패키지 내용은 이미지에만 있다"},
+  {"id": "news:20260928", "kind": "news", "role": "program", "url": "https://news.samsung.com/kr/삼성전자-삼성-ai-구독-새단장-신혼·시니어·기업", "title": "삼성전자, ‘삼성 AI 구독’ 새단장… 신혼·시니어·기업까지 맞춤 케어 서비스 강화", "note": "보도자료 — B2B 삼성 AI 구독 출시 · B2B 블루패스 4 서비스 · 최대 6년 무상 AS · 관리 옵션"},
+  {"id": "news:20261027", "kind": "news", "role": "care", "url": "https://news.samsung.com/kr/삼성-ai-구독①-구매-이후까지-책임진다배송·설치", "title": "[삼성 AI 구독①] 구매 이후까지 책임진다…배송·설치·서비스 ‘삼박자’로 완성한 맞춤형 케어", "note": "기획기사 — 관리 옵션 4(무상수리 · 셀프케어 · 방문케어 · 방문케어 라이트) · B2B 블루패스 활용 예"}
+ ]
+}

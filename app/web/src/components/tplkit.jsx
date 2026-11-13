@@ -23,6 +23,7 @@ export const DECKS = [
   { k: 'PH', label: '06 사진 중심', full: '텍스트 위주 장표를 사진으로 채운 버전 (samsung.com 사진)' },
   { k: 'ST', label: '표준 제안서', full: '업종별 표준 제안서 · 원본 기준 양식과 Markdown 설명 기반 재구성 판본' },
   { k: 'TC', label: '목차 템플릿', full: '목차 템플릿 시나리오가 쓰는 장 · 같은 목차는 같은 장' },
+  { k: 'SU', label: 'B2B 삼성 AI 구독', full: '구독 도입 목차 장 · 구독 가치 · 업종 패키지 · 케어 · 조건 · 결제 (samsung.com B2B 삼성 AI 구독 원문 기반)' },
 ];
 export const DECK = Object.fromEntries(DECKS.map((d) => [d.k, d]));
 

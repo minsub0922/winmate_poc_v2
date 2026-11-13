@@ -30,6 +30,7 @@ const { PHOTO_META, PHOTO_HTML } = await imp('photo_layouts.js');
 const { STD_META, STD_HTML } = await imp('std_layouts.js');
 const { VSTD_META, VSTD_HTML } = await imp('vertical_std_layouts.js');
 const { TOC_META, TOC_HTML } = await imp('toc_layouts.js');
+const { SUBS_META, SUBS_HTML } = await imp('subs_layouts.js');
 const { SPATIAL_META, SPATIAL_HTML } = await imp('spatial-layouts.js');
 const { ACCOUNT_META, ACCOUNT_HTML } = await imp('account_layouts.js');
 const { COVERS } = await imp('covers.js');
@@ -40,8 +41,8 @@ const { layoutHoles, fillHoles, diffPieces, slotContents } = await imp('layout_v
 
 const catalog = readJson(path.join(DATA, 'catalog.json'));
 const base = JSON.parse(zlib.gunzipSync(Buffer.from(fs.readFileSync(path.join(DATA, 'layouts.b64'), 'utf8').trim(), 'base64')).toString('utf8'));
-const RAW = Object.assign({}, base, COVERS, PHOTO_HTML, STD_HTML, VSTD_HTML, SPATIAL_HTML, ACCOUNT_HTML, TOC_HTML);
-const ALL = [...catalog.layouts, ...PHOTO_META, ...STD_META, ...VSTD_META, ...SPATIAL_META, ...ACCOUNT_META, ...TOC_META];
+const RAW = Object.assign({}, base, COVERS, PHOTO_HTML, STD_HTML, VSTD_HTML, SPATIAL_HTML, ACCOUNT_HTML, TOC_HTML, SUBS_HTML);
+const ALL = [...catalog.layouts, ...PHOTO_META, ...STD_META, ...VSTD_META, ...SPATIAL_META, ...ACCOUNT_META, ...TOC_META, ...SUBS_META];
 const META = Object.fromEntries(ALL.map((l) => [l.f, l]));
 const ORDER = new Map(ALL.map((l, i) => [l.f, i]));
 const RETIRED = { ...RETIRED_R4, ...RETIRED_EXTRA };

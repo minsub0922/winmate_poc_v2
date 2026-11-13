@@ -16,6 +16,7 @@
 //
 // 판단 근거 (위에서부터)
 //   1. 장 단위 규칙: Why Samsung · 마감 장 = 전부 고정, 간지 = 목차 번호, 도입사례 = 사례 교체 …
+//      구독 장(L_SUB_*) = 칸 이름(SUBS_SLOTS)으로 — 구독 레지스트리 원문 · 패키지 · 조건 · 납부 방법은 고정, 제목 · 현장 고민 · 예산 금액은 AI
 //   2. 샘플 시나리오(표준 제안서 44종 · 버티컬 · 어카운트 · 고객별)에서 실제로 채운 값 — 여러 업종 덱에서 늘 같은 값이면 고정,
 //      제품 · 사례 이름이면 교체, 업종마다 다르면 AI
 //   3. 같은 구조의 업종 변형(L_PH_MI_xx_B 등 16업종)끼리 글이 같은 칸 = 구조 라벨 → 고정
@@ -37,6 +38,7 @@ const { PHOTO_META, PHOTO_HTML } = await imp('photo_layouts.js');
 const { STD_META, STD_HTML } = await imp('std_layouts.js');
 const { VSTD_META, VSTD_HTML } = await imp('vertical_std_layouts.js');
 const { TOC_META, TOC_HTML, TOC_SLOTS } = await imp('toc_layouts.js');
+const { SUBS_META, SUBS_HTML, SUBS_SLOTS } = await imp('subs_layouts.js');
 const { SPATIAL_META, SPATIAL_HTML } = await imp('spatial-layouts.js');
 const { ACCOUNT_META, ACCOUNT_HTML } = await imp('account_layouts.js');
 const { COVERS } = await imp('covers.js');
@@ -50,8 +52,8 @@ const catalog = readJson(path.join(DATA, 'catalog.json'));
 const pdb = readJson(path.join(DATA, 'products_db.json'));
 const vsol = readJson(path.join(DATA, 'vertical_space_solution.json'));
 const base = JSON.parse(zlib.gunzipSync(Buffer.from(fs.readFileSync(path.join(DATA, 'layouts.b64'), 'utf8').trim(), 'base64')).toString('utf8'));
-const RAW = Object.assign({}, base, COVERS, PHOTO_HTML, STD_HTML, VSTD_HTML, SPATIAL_HTML, ACCOUNT_HTML, TOC_HTML);
-const META = Object.fromEntries([...catalog.layouts, ...PHOTO_META, ...STD_META, ...VSTD_META, ...SPATIAL_META, ...ACCOUNT_META, ...TOC_META].map((l) => [l.f, l]));
+const RAW = Object.assign({}, base, COVERS, PHOTO_HTML, STD_HTML, VSTD_HTML, SPATIAL_HTML, ACCOUNT_HTML, TOC_HTML, SUBS_HTML);
+const META = Object.fromEntries([...catalog.layouts, ...PHOTO_META, ...STD_META, ...VSTD_META, ...SPATIAL_META, ...ACCOUNT_META, ...TOC_META, ...SUBS_META].map((l) => [l.f, l]));
 
 // ---------------------------------------------------------------- dictionaries
 const MODELS = new Set(), PNAMES = new Set();
@@ -92,6 +94,8 @@ for (const fills of fillSets) for (const [sid, slides] of Object.entries(fills |
   if (!Array.isArray(slides)) continue;
   for (const x of slides) {
     if (!x || !x.f) continue;
+    // 구독 샘플(bs_sub_*)은 같은 업종의 표준 제안서 장을 그대로 다시 쓴다 — 그 장들의 근거로 두 번 세지 않는다(구독 장은 칸 이름으로 정함)
+    if (sid.startsWith('bs_sub_') && !x.f.startsWith('L_SUB_')) continue;
     const s = STATS[x.f] = STATS[x.f] || { decks: new Set(), t: {}, img: {}, rows: [] };
     s.decks.add(sid);
     const row = {};
@@ -159,7 +163,8 @@ const famSame = (f, i, s) => {
 };
 // labels used on many different layouts (like the PoC agent's label_freq)
 const LABEL_FREQ = new Map();
-for (const f of Object.keys(SLOTS)) for (const x of new Set(SLOTS[f].t.map((x) => x.s).filter((s) => s && s.length <= 10))) LABEL_FREQ.set(x, (LABEL_FREQ.get(x) || 0) + 1);
+// 구독 장(L_SUB_*)은 칸 이름으로 정하므로 빼고 센다 — 구독 품목 이름(전자칠판 · 정수기 …)이 다른 장의 라벨 빈도를 올리지 않게
+for (const f of Object.keys(SLOTS)) if (!SUBS_SLOTS[f]) for (const x of new Set(SLOTS[f].t.map((x) => x.s).filter((s) => s && s.length <= 10))) LABEL_FREQ.set(x, (LABEL_FREQ.get(x) || 0) + 1);
 
 // ---------------------------------------------------------------- classify
 const isEyebrow = (x, k) => x.fs <= 15 && ((x.y <= 60 && ((k === 0 && (x.ls || /^\d{1,2}\s*[·.]/.test(x.s) || x.s === x.s.toUpperCase() || x.role === 'label')) || (k === 1 && /^\d{1,2}\s*[·.]/.test(x.s))))
@@ -210,6 +215,9 @@ function classify(f) {
   const caseSheet = p === 'case' && !/^L_PH_SO_/.test(f);
   const tocSlots = TOC_SLOTS && TOC_SLOTS[f] ? Object.fromEntries(Object.entries(TOC_SLOTS[f].t || {}).map(([k, v]) => [v, k])) : null;
   const tocImgs = TOC_SLOTS && TOC_SLOTS[f] ? Object.fromEntries(Object.entries(TOC_SLOTS[f].img || {}).map(([k, v]) => [v, k])) : null;
+  // 구독 장(build/subs) — 내용이 구독 레지스트리(app/data/subscriptions.json)의 원문이라 칸 이름으로 정한다
+  const subSlots = SUBS_SLOTS && SUBS_SLOTS[f] ? Object.fromEntries(Object.entries(SUBS_SLOTS[f].t || {}).map(([k, v]) => [v, k])) : null;
+  const subImgs = SUBS_SLOTS && SUBS_SLOTS[f] ? Object.fromEntries(Object.entries(SUBS_SLOTS[f].img || {}).map(([k, v]) => [v, k])) : null;
   const productPart = /^(products|spec|bom|dss)$/.test(p || '');
   const valsOf = (i) => (st && st.t[i] ? [...st.t[i].keys()].filter(Boolean) : []);
   const varying = (i) => nDecks >= 4 && valsOf(i).length > 1;
@@ -240,7 +248,11 @@ function classify(f) {
     const headline = x.fs >= 26 && k <= 3;
     const vary = varying(x.i), distinct = valsOf(x.i).length;
     let mode = null, decided = false;
-    if (tocSlots && tocSlots[x.i]) {
+    if (subSlots && subSlots[x.i]) {
+      // 눈썹 = 목차 번호 · 제목 · 현장 고민(PAIN) · 예산 금액(BUDGET [00]) = AI · 나머지(가치 · 품목 · 패키지 · 케어 · 조건 · 납부 · 혜택 · 절차 · FAQ) = 고정
+      const n = subSlots[x.i]; decided = true;
+      mode = n === 'eb' ? 'section' : (n === 'title' || (/_PAIN$/.test(f) && /^p[tle]\d$/.test(n)) || (/_BUDGET$/.test(f) && /^[ab]v\d$/.test(n))) ? null : 'fixed';
+    } else if (tocSlots && tocSlots[x.i]) {
       const n = tocSlots[x.i]; decided = true;
       if (n === 'eb' || /^n[om]\d$/.test(n) || /^st\dn$/.test(n)) mode = 'section';
       else if (/^(nm|in|kw|kl|sn)\d/.test(n) && /TECH|JOURNEY/.test(f)) mode = 'solution';
@@ -310,7 +322,10 @@ function classify(f) {
     const cut = x.kind === 'cut' || /^cut\.|^(qm55c|km24c|oh55a|ac360)\b/.test(x.pid) || /img\/fill\/cut\.json|img\/prod\/|(^|\/)p-[\w-]+\.png|-front\.png|-persp\.png/.test(x.src) || /제품 (컷|사진|정면|이미지)/.test(x.hint);
     const ui = x.kind === 'ui' || /^ui\./.test(x.pid) || /img\/fill\/ui\.json/.test(x.src) || (/(화면|UI|대시보드|콘솔|앱)/.test(x.hint) && !/화면을 보는/.test(x.hint));
     let mode = null;
-    if (tocImgs && tocImgs[x.i]) {
+    if (subImgs && subImgs[x.i]) {
+      // 구독 품목 · 패키지 제품 컷 · 케어 단계 · 혜택 품목 사진 = 고정, 대표 · 장면 사진은 AI가 고른다
+      mode = /^(p\d|p\d_\d|pk\d)$/.test(subImgs[x.i]) || /_(ITEMS|PROMO|CARE4)$/.test(f) ? 'fixed' : null;
+    } else if (tocImgs && tocImgs[x.i]) {
       const n = tocImgs[x.i];
       if (/^(ki|fi)\d/.test(n)) mode = 'solution';
       else if (/^ci\d/.test(n)) mode = 'product';

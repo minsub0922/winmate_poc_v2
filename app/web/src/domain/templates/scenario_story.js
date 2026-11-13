@@ -5,6 +5,7 @@
 import VERTICAL from './vertical_scenarios.json' with { type: 'json' };
 import STANDARD from './standard_vertical_scenarios.json' with { type: 'json' };
 import ACCOUNT from './account_scenarios.json' with {type:'json'};
+import SUBSCRIPTION from './subscription_scenarios.json' with { type: 'json' };
 export const STORY = {
  "bs01": {
   "keymen": [
@@ -1570,3 +1571,4 @@ export const STORY = {
 Object.assign(STORY, VERTICAL.story);
 Object.assign(STORY, STANDARD.story);
 Object.assign(STORY, ACCOUNT.story);
+Object.assign(STORY, SUBSCRIPTION.story);

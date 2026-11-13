@@ -15,6 +15,8 @@ APP = os.path.abspath(os.path.join(HERE, '..', '..', 'app'))
 PROD = json.load(open(APP + '/data/vertical_space_product.json'))
 SOLJ = json.load(open(APP + '/data/vertical_space_solution.json'))
 SPACE_PHOTOS = json.load(open(os.path.join(HERE, 'space_photos.json')))  # 공간 id → 사진 (앱 사진 묶음 · 사례 사진에서 고름)
+SUBS = json.load(open(APP + '/data/subscriptions.json'))  # 구독 레지스트리(B2B 삼성 AI 구독) — 업종별 구독 패키지 · 결제안
+SUBI = {x['id']: x for x in SUBS['items']}; SUBC = {c['id']: c for c in SUBS['categories']}
 OUT = APP + '/web/src/domain/templates/toc_content.json'
 
 FEAT = {}; GROUPS = {}; SOLCAT = {}
@@ -164,7 +166,34 @@ def build_vertical(v):
             x['all'] = [f for f in used_feats.get(x['sid'], []) if has_icon(f)]
     return dict(id=vid, nm=v['name'], g=g, gn=G[g]['nm'], seg=v['size_segment'], cover=needs[0]['ph'] or spaces[0]['ph'],
                 sp=[dict(n=s['n'], ph=s['ph']) for s in spaces], pains=pains, jr=jrs, tech=tech, spec=spec, bom=bom,
-                pp=pp, nsol=len({F_SOL[f] for _, f, _, _ in std_sheets(vid) if f in F_SOL}))
+                pp=pp, nsol=len({F_SOL[f] for _, f, _, _ in std_sheets(vid) if f in F_SOL}), sub=sub_of(v, spaces))
+
+# ---------- 구독 — 업종마다 구독 패키지(공식 패키지 · 비슷한 업종 · 업종 공간 기준 추천) ----------
+PAY_ORDER = {'PB': ['sub_pay_annual', 'sub_pay_monthly', 'sub_pay_prepay'], 'ED': ['sub_pay_annual', 'sub_pay_monthly', 'sub_pay_prepay'],
+             'MI': ['sub_pay_annual', 'sub_pay_monthly', 'sub_pay_prepay'], 'FN': ['sub_pay_hq', 'sub_pay_monthly', 'sub_pay_stage'],
+             'FB': ['sub_pay_hq', 'sub_pay_monthly', 'sub_pay_stage'], 'RT': ['sub_pay_hq', 'sub_pay_monthly', 'sub_pay_stage'],
+             'OE': ['sub_pay_hq', 'sub_pay_monthly', 'sub_pay_stage'], 'SV': ['sub_pay_hq', 'sub_pay_monthly', 'sub_pay_stage'],
+             'OF': ['sub_pay_monthly', 'sub_pay_hq', 'sub_pay_prepay']}
+def sub_of(v, spaces):
+    sv = SUBS['verticals'][v['id']]; si = sv['space']; sp = spaces[si] if si < len(spaces) else spaces[0]
+    pk = SUBI.get(sv['pkg']) if sv['pkg'] else None
+    if pk and sv['match'] == 'direct':
+        head = dict(name=pk['name'], title=pk['title'], line=pk['line'], place=pk['place'], ph=pk['photo'])
+        items = [[it['label'], it['img'], it.get('model') or it.get('note') or ''] for it in pk['items']]
+    elif pk:  # 비슷한 업종 · 가전 품목이 적은 업종(사무 · 관리 공간) — 공식 패키지 품목 + 이 업종 공간 사진
+        head = dict(name=pk['name'], title=pk['title'], line=pk['line'], place=sp['n'], ph=sp['ph'] or pk['photo'])
+        items = [[it['label'], it['img'], it.get('model') or it.get('note') or ''] for it in pk['items']]
+    else:  # 업종 공간 기준 추천 구성 — 구독 가능 품목만
+        items = [[SUBC[c]['label'], (SUBC[c]['rep'] or {}).get('img'), (SUBC[c]['rep'] or {}).get('model') or ''] for c in sv['cats']]
+        head = dict(name='추천 구독 구성', title=f"{sp['n']}부터, 업종 공간에 맞춘 구독 품목 {len(items)}가지", line='업종 공간에 들어가는 구독 가능 품목으로 고른 구성 — 패키지 · 모델은 구독 문의로 확인', place=sp['n'], ph=sp['ph'])
+    return dict(pkg=sv['pkg'], match=sv['match'], **head, items=items[:4], pay=PAY_ORDER.get(v['group'], ['sub_pay_monthly', 'sub_pay_prepay', 'sub_pay_stage']))
+
+def subs_common():
+    pick = lambda x: {k: x.get(k) for k in ('id', 'name', 'short', 'basis', 'icon', 'summary', 'points', 'confirm', 'fit')}
+    promo = next((x for x in SUBS['items'] if x['type'] == 'promotion'), None)
+    return dict(run=SUBS['run'], pay={x['id']: pick(x) for x in SUBS['items'] if x['type'] == 'payment'},
+                promo=dict(id=promo['id'], active=promo.get('state') == 'active' and promo.get('status') == 'active', validTo=promo['validTo']) if promo else None,
+                addon=SUBS.get('addon'))  # 요구사항에 따라 다른 목차 구성에 더하는 '구독 솔루션 제안' 규칙(신호 · 목차 틀 · 자리)
 
 def main():
     out = dict(v={}, g={})
@@ -173,6 +202,7 @@ def main():
     for k, x in G.items():
         out['g'][k] = dict(x, cs=CMP[k])  # cs: 경쟁사 비교 예시(점수표 · 차별점)
     out['order'] = [v['id'] for v in PROD['verticals']]
+    out['subs'] = subs_common()
     json.dump(out, open(OUT, 'w'), ensure_ascii=False, separators=(',', ':'))
     print('verticals', len(out['v']), 'bytes', os.path.getsize(OUT))
     return out

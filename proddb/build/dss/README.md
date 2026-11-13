@@ -18,5 +18,19 @@
 | 11 | `python3 proddb/build/dss/promote.py $R $V` | proddb(raw · ecat · 원장) · app/data 반영, 원본 SQLite 재빌드(+ 사진 · 이미지 라이브러리 · 원장 · 검토 사양 표) |
 | 12 | `prepare_data.py --force` → `build_spatial_products.py` → `build_spatial_library.mjs` → `build_spatial_object_previews.mjs` → `export_agent_data.mjs` → 빌드 · 테스트 | runtime projection · 3D 오브젝트 · 썸네일(없는 것만) · 에이전트 KB |
 
+### 구독(subscription) — `proddb/build/subs/` (전체 run 의 3 · 10 단계에 함께, 구독만 볼 때는 이 표만)
+
+| 순서 | 명령 | 하는 일 |
+|---|---|---|
+| S1 | `python3 proddb/build/subs/collect.py $R/subs/raw` | `proddb/subs/sources.json`(구독 메인 · 혜택 이벤트 · 뉴스룸 기사) 본문 텍스트 · 해시 · 콘텐츠 이미지 sha256, 홈 GNB 의 새 구독 링크 발견, 패키지 모델 검색 API → `inventory.json` |
+| S2 | `python3 proddb/build/subs/assets.py $R/subs/raw` | `proddb/subs/assets.json` 대로 패키지 · 케어 · 가치 사진 가공(자르기 · 덧칠 · 원본 PNG 컷) → `app/web/public/assets/subs/*.webp` |
+| S3 | `python3 proddb/build/subs/build.py $R/subs/raw <RUN_ID> <RUN_AT> --raw-out proddb/raw/subs` | `facts.json`(원문 사실 — 대조 문장 `text` · 화면 문구 `show`) · `mapping.json` · `inferred.json`(결제 추론안) → `app/data/subscriptions.json`. 원문 문장 · 이미지 해시 대조 실패 → `issues` + `needs-review`, 혜택 기간 지남 → `expired` |
+| S4 | 전체 run: `ledger.py`(같은 규칙 `subs_ledger.py`) · 구독만: `python3 proddb/build/subs/ledger_run.py $V` | 원장 `subscription:<id>` + run 기록(`scope: ["subscriptions"]`, 종류 판정 규칙이 바뀐 행 `reclassified`) |
+| S5 | `python3 proddb/build/subs_db.py` · `python3 proddb/build/dss_db.py` (`build_db.py` 가 빌드 끝에 둘 다 부름) | SQLite `subscription` · `subscription_item` · `subscription_message` · `subscription_category` · `subscription_vertical`, `dss_item` · `dss_run.scope_json` |
+| S6 | `python3 build/subs/gen_module.py` → `python3 build/toc/build_content.py` → `node build/subs/compose.mjs check --render <목록>` → `python3 build/subs/render_check.py <목록> <out>` → `node build/subs/compose.mjs samples` → `node app/scripts/export_agent_data.mjs` | 구독 장 L_SUB_* 21(글자 역할을 구운 `build/toc/typed.py`) · 목차 내용(v.sub · subs) · 구독 목차 조립 88덱 렌더 확인 · 구독 샘플 시나리오 5 · 에이전트 KB |
+| S7 | `node app/tests/subscriptions.mjs` · `node app/tests/toc-templates.mjs` · `PROPOSAL_ONLY=bs_sub_ node app/tests/vertical-proposals.mjs` | 레지스트리 · 원장 · SQLite · 장 · 파트 · 목차 · 샘플 계약, 샘플 렌더(clipped 0) |
+
+결제 방법은 원문에 있는 것만 official(월 구독료). 원문에 없는 B2B 결제안은 `proddb/subs/inferred.json` 에 basis inferred 로 두고 장에는 '협의안' 칩 + 확인할 것으로만 쓴다(금액 · 할인율은 `[00]`).
+
 `$V/run.json` 이 run 의 설정이다: `run_id` · `run_at`, 같은 제품이 다른 id 로 다시 생긴 행(`alias`), 같은 제품의 사이트 행으로 대체된 행(`superseded`),
 새 행의 상세 pack 번호(`new_pack`), 분류 URL 이동(`taxonomy_url_moves`), 솔루션 URL 이동(`sol_url_moves`).

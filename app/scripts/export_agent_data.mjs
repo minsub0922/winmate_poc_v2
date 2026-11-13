@@ -2,10 +2,10 @@
 // Canonical app-side knowledge snapshot for the PoC agents → app/data/runtime/kb (only).
 //
 //   node app/scripts/export_agent_data.mjs [--out app/data/runtime/kb] [--allow-count-drift]
-//        [--expect-total 939] [--expect-active 648] [--expect-products 1084] [--expect-scenarios 107]
+//        [--expect-total 960] [--expect-active 669] [--expect-products 1084] [--expect-scenarios 116]
 //
 // Sources (read-only):
-//   app/data/{catalog.json, images.json, products_db.json, layouts.b64}
+//   app/data/{catalog.json, images.json, products_db.json, layouts.b64, subscriptions.json(구독 DSS 레지스트리)}
 //   app/web/src/services/catalog.js   (ALL_LAYOUTS · LAYOUTS · L incl. hidden industry covers · RETIRED · PRODUCTS · P)
 //   app/web/src/domain/templates/{covers,photo_layouts,std_layouts,vertical_std_layouts,retired,scenarios}.js · domain/proposals/parts.js
 //   poc/test/layout_agent/data/standard_scenarios.json (copied, never modified)
@@ -35,8 +35,8 @@ const arg = (name, dflt) => { const i = argv.indexOf('--' + name); return i >= 0
 const flag = (name) => argv.includes('--' + name);
 const OUT = path.resolve(ROOT, arg('out', path.join(RUNTIME, 'kb')));
 const EXPECT = {
-  layouts_total: Number(arg('expect-total', 939)), layouts_active: Number(arg('expect-active', 648)), // 648 = 활성 696 - 같은 레이아웃 묶음의 업종 후보 48 (layout_variants.json)
-  products: Number(arg('expect-products', 1084)), curated_products: 40, scenarios: Number(arg('expect-scenarios', 107)),
+  layouts_total: Number(arg('expect-total', 960)), layouts_active: Number(arg('expect-active', 669)), // 669 = 활성 717(구독 장 21 포함) - 같은 레이아웃 묶음의 업종 후보 48 (layout_variants.json)
+  products: Number(arg('expect-products', 1084)), curated_products: 40, scenarios: Number(arg('expect-scenarios', 116)),
 };
 const LAYOUT_KEYS = ['f', 'c', 'code', 'name', 'when', 'g', 'p', 'p2', 'ind', 'sol', 'pc', 'req', 'prods', 'sols', 'phs', 'ph', 'hl', 'txt', 'eb', 'foot', 'sample'];
 const PRODUCT_KEYS = ['id', 'name', 'model', 'cat', 'spec', 'spaces', 'ind', 'kw'];
@@ -50,7 +50,7 @@ if (OUT !== path.join(RUNTIME, 'kb') && !OUT.startsWith(RUNTIME + path.sep)) die
 
 const INPUTS = {
   catalog: path.join(DATA, 'catalog.json'), images: path.join(DATA, 'images.json'), products: path.join(DATA, 'products_db.json'),
-  media: path.join(DATA, 'media.json'),
+  media: path.join(DATA, 'media.json'), subscriptions: path.join(DATA, 'subscriptions.json'),
   layouts: path.join(DATA, 'layouts.b64'),
   catalogJs: path.join(SRC, 'services', 'catalog.js'), bootstrapJs: path.join(SRC, 'api', 'bootstrap.js'), clientJs: path.join(SRC, 'api', 'client.js'),
   covers: path.join(SRC, 'domain', 'templates', 'covers.js'), photo: path.join(SRC, 'domain', 'templates', 'photo_layouts.js'),
@@ -64,6 +64,7 @@ const INPUTS = {
   layoutVariantGroups: path.join(SRC, 'domain', 'templates', 'layout_variants.json'),
   layoutVariantPieces: path.join(SRC, 'domain', 'templates', 'layout_variant_pieces.json'),
   retiredExtra: path.join(SRC, 'domain', 'templates', 'retired_extra.js'),
+  subsLayouts: path.join(SRC, 'domain', 'templates', 'subs_layouts.js'), subsScenarios: path.join(SRC, 'domain', 'templates', 'subscription_scenarios.json'),
   verticalScenarios: path.join(SRC, 'domain', 'templates', 'vertical_scenarios.json'),
   proposalBriefs: path.join(DATA, 'vertical_proposal_briefs.json'),
   proposalBuilder: path.join(ROOT, 'app', 'scripts', 'rebuild_vertical_proposals.py'),
@@ -104,7 +105,8 @@ let esbuild;
 try { esbuild = createRequire(path.join(WEB, 'package.json'))('esbuild'); } catch (e) { die('app/web 에 esbuild 가 없습니다 — npm --prefix app/web ci'); }
 
 const readJson = (p) => { try { return JSON.parse(fs.readFileSync(p, 'utf8')); } catch (e) { die(`JSON 을 읽지 못했습니다: ${rel(p)} (${e.message})`); } };
-const bootstrap = { catalog: readJson(INPUTS.catalog), images: readJson(INPUTS.images), products: readJson(INPUTS.products) };
+const bootstrap = { catalog: readJson(INPUTS.catalog), images: readJson(INPUTS.images), products: readJson(INPUTS.products), subscriptions: readJson(INPUTS.subscriptions) };
+if (!Array.isArray(bootstrap.subscriptions.items)) die('subscriptions.json 형식이 다릅니다(items)');
 if (!Array.isArray(bootstrap.products.products) || typeof bootstrap.products.curated !== 'object') die('products_db.json 형식이 다릅니다(products · curated)');
 for (const k of ['layouts', 'products', 'industries', 'solutions', 'cases', 'indKw']) if (!(k in bootstrap.catalog)) die(`catalog.json 에 ${k} 가 없습니다`);
 const curatedIds = bootstrap.catalog.products.map((p) => p.id);
@@ -156,6 +158,7 @@ import { VSTD_META, VSTD_HTML } from ${spec(INPUTS.standardLayouts)};
 import { SPATIAL_META, SPATIAL_HTML } from ${spec(INPUTS.spatial)};
 import { ACCOUNT_META, ACCOUNT_HTML } from ${spec(INPUTS.accountLayouts)};
 import { TOC_META, TOC_HTML } from ${spec(INPUTS.toc)};
+import { SUBS_META, SUBS_HTML } from ${spec(INPUTS.subsLayouts)};
 import { RETIRED_R4 } from ${spec(INPUTS.retired)};
 import { repairLayoutHtml, repairLayoutUnmarked } from ${spec(INPUTS.layoutRepairs)};
 import { markSlotModes } from ${spec(INPUTS.layoutSlotModes)};
@@ -163,7 +166,7 @@ import { fillHoles } from ${spec(INPUTS.layoutVariants)};
 import { parseLayout, textOf } from ${spec(INPUTS.layoutCleanup)};
 import * as parts from ${spec(INPUTS.parts)};
 import * as scenarios from ${spec(INPUTS.scenarios)};
-export { catalog, COVERS, PHOTO_META, PHOTO_HTML, STD_META, STD_HTML, VSTD_META, VSTD_HTML, SPATIAL_META, SPATIAL_HTML, ACCOUNT_META, ACCOUNT_HTML, TOC_META, TOC_HTML, RETIRED_R4, repairLayoutHtml, repairLayoutUnmarked, markSlotModes, fillHoles, parseLayout, textOf, parts, scenarios };
+export { catalog, COVERS, PHOTO_META, PHOTO_HTML, STD_META, STD_HTML, VSTD_META, VSTD_HTML, SPATIAL_META, SPATIAL_HTML, ACCOUNT_META, ACCOUNT_HTML, TOC_META, TOC_HTML, SUBS_META, SUBS_HTML, RETIRED_R4, repairLayoutHtml, repairLayoutUnmarked, markSlotModes, fillHoles, parseLayout, textOf, parts, scenarios };
 `;
 const primer = {
   name: 'wm-agent-primer',
@@ -202,7 +205,7 @@ const ALL = C.ALL_LAYOUTS, ACTIVE = C.LAYOUTS, L = C.L, RETIRED = C.RETIRED, PRO
 const allSet = new Set(ALL.map((l) => l.f));
 const hidden = Object.fromEntries(Object.keys(L).filter((f) => !allSet.has(f)).map((f) => [f, L[f]]));
 const raw = JSON.parse(zlib.gunzipSync(Buffer.from(fs.readFileSync(INPUTS.layouts, 'utf8').trim(), 'base64')).toString('utf8'));
-Object.assign(raw, mod.COVERS, mod.PHOTO_HTML, mod.STD_HTML, mod.VSTD_HTML, mod.SPATIAL_HTML, mod.ACCOUNT_HTML, mod.TOC_HTML);
+Object.assign(raw, mod.COVERS, mod.PHOTO_HTML, mod.STD_HTML, mod.VSTD_HTML, mod.SPATIAL_HTML, mod.ACCOUNT_HTML, mod.TOC_HTML, mod.SUBS_HTML);
 const html = { ...raw };
 // 같은 레이아웃 묶음의 후보 장은 앱처럼 대표 장의 틀 + 자기 내용으로 그린다 (services/catalog.js repaired · layout_variants.json)
 const PIECES = readJson(INPUTS.layoutVariantPieces).pieces, CANON_OF = C.CANON_OF;
@@ -250,6 +253,7 @@ const counts = {
   products: PRODUCTS.length, product_map: Object.keys(P).length, curated_products: curatedIds.length, scenarios: S.SCENARIOS.length,
   retired: Object.keys(RETIRED).length, industries: bootstrap.catalog.industries.length, solutions: bootstrap.catalog.solutions.length, cases: bootstrap.catalog.cases.length,
   variant_groups: Object.keys(C.VARIANTS).length, variant_candidates: Object.keys(C.CANON_OF).length - Object.keys(C.VARIANTS).length,
+  subscriptions: bootstrap.subscriptions.items.length,
 };
 for (const [k, v] of Object.entries(EXPECT)) if (counts[k] !== v) (flag('allow-count-drift') ? warnings : errors).push(`${k}: ${counts[k]} (기대 ${v})`);
 if (counts.product_map !== counts.products) errors.push(`제품 id 중복: P ${counts.product_map} / 목록 ${counts.products}`);
@@ -292,6 +296,8 @@ const reviewedSpecs = readReviewedSpecs();
 write('catalog.json', json({
   layouts: ALL, industries: bootstrap.catalog.industries, products: PRODUCTS.map(p => reviewedSpecs[p.id] ? { ...p, ...reviewedSpecs[p.id] } : p), solutions: bootstrap.catalog.solutions,
   cases: bootstrap.catalog.cases, indKw: bootstrap.catalog.indKw, curated_product_ids: curatedIds,
+  // 구독(subscription) — DSS 네 번째 종류. basis 'inferred' 결제안은 협의안(원문 아님), status 'expired' 혜택은 새 제안에 쓰지 않는다.
+  subscriptions: bootstrap.subscriptions,
 }));
 write('hidden_layouts.json', json(hidden));
 write('retired.json', json(RETIRED));
@@ -313,7 +319,8 @@ const manifest = {
   version: 1, review_criteria: { version: criteria.version, categories: criteria.cats.length, criteria: criteria.criteria.length }, generated_at: new Date().toISOString(), generator: 'app/scripts/export_agent_data.mjs', node: process.version, esbuild: esbuild.version,
   counts, expected: EXPECT, warnings, inputs, outputs,
   notes: [
-    'layouts = catalog.json + PHOTO_META + STD_META + VSTD_META (services/catalog.js ALL_LAYOUTS), retired from services/catalog.js RETIRED',
+    'layouts = catalog.json + PHOTO_META + STD_META + VSTD_META + … + TOC_META + SUBS_META (services/catalog.js ALL_LAYOUTS), retired from services/catalog.js RETIRED',
+    'subscriptions = app/data/subscriptions.json (B2B 삼성 AI 구독 레지스트리, catalog.json 의 subscriptions 키)',
     'hidden_layouts = services/catalog.js L entries outside ALL_LAYOUTS (industry covers L_IND_*)',
     'layout_variants = layouts that are the same layout with different content: one representative + content candidates (l.variantOf · l.variants); candidates stay drawable by id, html rebuilt from the representative',
     'sheet_slots = per sheet id: fixed (고정 대상: 칸 → 글) · change (변경 대상: 칸 → [모드, 글]) · img modes · group/key of a merged layout',

@@ -14,6 +14,12 @@ v1 `winmate-kb`(winmate_poc 저장소)의 제품 계층과 같은 방식(사이�
 - DSS(제품 · 솔루션 · 서비스)별 확인 시점의 정본은 `dss/ledger.json`(SQLite `dss_item` · `dss_check` · `dss_run`, `build/dss_db.py`). 검토 기록은 `reviews/dss-20261112-1445/`, 도구는 `build/dss/`(README).
 - 아래 건수는 2026-10-18 수집 기준이다. 현재 DB 건수는 `meta` 표의 `count.*`를 본다.
 
+## 구독(subscription) — dss-20261113-0940 (2026-11-13)
+- samsung.com/sec/business 에 생긴 **B2B 삼성 AI 구독**을 DSS 의 네 번째 종류로 싣는다(제품 · 솔루션 · 서비스와 따로). 정본 입력 `subs/`(sources · facts · mapping · inferred · assets), 원문 스냅샷 `raw/subs/`, 빌더 `build/subs/`, 앱 레지스트리 `../app/data/subscriptions.json`.
+- 항목 16 = 구독 프로그램 1 · 구독 케어(B2B 블루패스) 1 · 관리 옵션 4 · 사업장별 패키지 4 · 기간 한정 혜택 1(~2026-11-30) · 결제 5(공식 월 구독료 1 + **B2B 추론 협의안 4** — 원문에 없어 `inferred`, 표식 대상 아님).
+- SQLite: `subscription`(항목 · basis · status · 확인 시점 · 기간 · 원문 전체) · `subscription_item`(패키지 품목 → 제품 DB 행, exact · series · category) · `subscription_message`(key message) · `subscription_category`(구독 품목 분류 → 제품 DB 행) · `subscription_vertical`(업종 44 → 구독 구성). `build/subs_db.py`(build_db.py 가 빌드 끝에 싣는다).
+- 원장 `dss/ledger.json` 의 `subscription:<id>`, 구독만 본 run 기록(`scope`). 같은 run 에서 종류 판정 규칙을 고쳐 식기세척기 17행 · SmartThings Professional 1행을 서비스 → 제품 · 솔루션으로 바로잡았다(`reviews/dss-20261113-0940/`).
+
 ## 무엇이 들어 있나
 
 | 표 | 건수 | 내용 |

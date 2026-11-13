@@ -12,7 +12,7 @@ from __future__ import annotations
 import copy
 from typing import Any, List
 
-from .. import imports, knowledge
+from .. import imports, knowledge, subscription_addon
 from ..backends import ModeTracker, make_story_backend
 from ..jobs import BadRequest, Job, Unavailable
 from ..settings import Settings
@@ -77,6 +77,13 @@ def run(job: Job, pr: dict, mode: str, strategy: Any, temperature: float, seed: 
     if not out.get('llm') or 'storyboard:design' not in tracker.steps:
         raise failure('no_model_call', 'storyboard:design', 'Storyboard 설계가 AI 결과가 아닙니다.')
     app_parts = S.agent.to_app_parts(out)
+    # 고객 요구에 구독 요구가 있는데 보드 · 새 목차 어디에도 구독 목차가 없으면 '구독 솔루션 제안'만 더한다(앱 목차 모양)
+    board = [p for p in parts if not p.get('deck')]
+    app_parts, added = subscription_addon.add(app_parts, board, pr, extra_text=summary_context)
+    if added:
+        app_parts[added['at']].update(done=False, layouts=[])
+        job.log(f"요구사항의 구독 요구({added['why']})로 '구독 솔루션 제안' 목차를 더함")
     llm = tracker.summary()
     job.log(f"완료 — 새 목차 {len(app_parts)}개 · 남은 문제 {len(out.get('issues') or [])}개")
-    return {'mode': mode, 'kept_parts': kept, 'storyboard': jsonable(out), 'app_parts': jsonable(app_parts), 'warnings': warnings, 'llm': llm}
+    return {'mode': mode, 'kept_parts': kept, 'storyboard': jsonable(out), 'app_parts': jsonable(app_parts), 'warnings': warnings, 'llm': llm,
+            'addons': [dict(added, id='sub')] if added else []}

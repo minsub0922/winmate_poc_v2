@@ -33,7 +33,7 @@ FOOTER_Y = 660
 MAX_UNITS = 120
 # app/web/src/domain/proposals/parts.js NAME_RULES (classifyPart) — ported verbatim for part inference
 NAME_RULES = [
-    ('competition', r'경쟁'), ('why', r'(?i)why|삼성|강점|지원 체계'), ('market', r'(?i)시장|트렌드|\bmi\b|market'), ('customer', r'고객사|비즈니스|운영 과제|사업 현황'),
+    ('subscription', r'구독|렌탈|분할 납부|블루패스'), ('competition', r'경쟁'), ('why', r'(?i)why|삼성|강점|지원 체계'), ('market', r'(?i)시장|트렌드|\bmi\b|market'), ('customer', r'고객사|비즈니스|운영 과제|사업 현황'),
     ('user', r'사용자|이해관계자|여정|페르소나|손님'), ('insight', r'시사점|제안 방향|인사이트'), ('challenge', r'(?i)과제|문제|페인|pain|이슈'),
     ('effect', r'(?i)효과|roi|kpi|회수|절감'), ('value', r'(?i)가치|value|vp|키 ?메시지|key message'), ('dss', r'(?i)dss|공간 맵|공간별 제품 매칭|매칭'),
     ('bom', r'(?i)수량|구성표|물량|bom'), ('products', r'제품|라인업|공간별 제품'), ('scenario', r'시나리오|동선|하루|장면'),

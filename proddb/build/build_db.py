@@ -214,8 +214,10 @@ from imglib_db import write_imglib  # 제품 이미지 라이브러리(imglib/in
 write_imglib(db)
 from dss_db import write_dss  # DSS 확인 시점 원장(dss/ledger.json) → dss_item · dss_check · dss_run (winmate-update-dss-db)
 write_dss(db)
+from subs_db import write_subs  # 구독(subscription) 레지스트리(app/data/subscriptions.json) → subscription · subscription_item · _message · _category · _vertical
+write_subs(db)
 # ── 요약 ──
-for t in ['category', 'product_family', 'product_model', 'product_tag', 'spec_value', 'feature_block', 'feature_item', 'image_asset', 'catalog_doc', 'catalog_page', 'catalog_mention', 'catalog_product', 'catalog_product_family', 'product_photo', 'dss_item']:
+for t in ['category', 'product_family', 'product_model', 'product_tag', 'spec_value', 'feature_block', 'feature_item', 'image_asset', 'catalog_doc', 'catalog_page', 'catalog_mention', 'catalog_product', 'catalog_product_family', 'product_photo', 'dss_item', 'subscription']:
     n = x(f'SELECT COUNT(*) FROM {t}').fetchone()[0]
     x('INSERT OR REPLACE INTO meta VALUES (?,?)', ('count.' + t, str(n)))
     print(f'{t:18s} {n}')

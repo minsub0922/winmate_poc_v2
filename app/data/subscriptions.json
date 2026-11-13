@@ -1,0 +1,2950 @@
+{
+ "version": 1,
+ "about": "B2B 삼성 AI 구독 레지스트리 — DSS 의 구독(subscription) 종류. 원문 사실(basis official) · 추론 결제안(basis inferred, 장표에는 협의안으로) · 기간 한정 혜택(validTo 지나면 expired). proddb/build/subs/build.py 가 만들고 DSS DB 업데이트 skill 이 run 마다 갱신한다 — 손으로 고치지 말고 proddb/subs/*.json 을 고친다.",
+ "generated": "2026-11-13T09:40:17+09:00",
+ "run": "dss-20261113-0940",
+ "types": {
+  "program": "구독 프로그램",
+  "care": "구독 케어(블루패스)",
+  "care-option": "관리 옵션",
+  "package": "사업장별 구독 패키지",
+  "promotion": "구독 혜택(기간 한정)",
+  "payment": "결제 · 납부"
+ },
+ "sources": [
+  {
+   "id": "site:b2b-ai-subs",
+   "kind": "site",
+   "role": "program",
+   "url": "https://www.samsung.com/sec/business/b2b-ai-subs/",
+   "title": "B2B 삼성 AI 구독 | Samsung Business 대한민국",
+   "status": "complete",
+   "textHash": "sha256:947bc915f4d9bb47f53c209f1dabd3c7225ebe42695f1ca8efe2eb896afb257c",
+   "checkedAt": "2026-11-13T09:40:17+09:00"
+  },
+  {
+   "id": "site:b2b-ai-subs-festival",
+   "kind": "site",
+   "role": "promotion",
+   "url": "https://www.samsung.com/sec/business/event/b2b-ai-subs-festival/",
+   "title": "B2B 삼성 AI 구독 페스티벌",
+   "status": "complete",
+   "textHash": "sha256:523d60295d800c11fa3e53516857107838968cc4406803acbf9368f2df87fb30",
+   "checkedAt": "2026-11-13T09:40:17+09:00"
+  },
+  {
+   "id": "news:20260928",
+   "kind": "news",
+   "role": "program",
+   "url": "https://news.samsung.com/kr/삼성전자-삼성-ai-구독-새단장-신혼·시니어·기업",
+   "title": "삼성전자, ‘삼성 AI 구독’ 새단장… 신혼·시니어·기업까지 맞춤 케어 서비스 강화 – 삼성전자 뉴스룸",
+   "status": "complete",
+   "textHash": "sha256:eb7c4751162e91689124fea5c9388ed5958cad247ba5fcc3497fd9ecf09e8a47",
+   "checkedAt": "2026-11-13T09:40:17+09:00"
+  },
+  {
+   "id": "news:20261027",
+   "kind": "news",
+   "role": "care",
+   "url": "https://news.samsung.com/kr/삼성-ai-구독①-구매-이후까지-책임진다배송·설치",
+   "title": "[삼성 AI 구독①] 구매 이후까지 책임진다…배송·설치·서비스 ‘삼박자’로 완성한 맞춤형 케어 – 삼성전자 뉴스룸",
+   "status": "complete",
+   "textHash": "sha256:d0f78db575d66ffb51667e185b9ceccda9695f677eb7c9b53d60253607970131",
+   "checkedAt": "2026-11-13T09:40:17+09:00"
+  }
+ ],
+ "items": [
+  {
+   "id": "sub_b2b_ai",
+   "type": "program",
+   "parent": null,
+   "name": "B2B 삼성 AI 구독",
+   "brand": "삼성 AI 구독",
+   "badge": "구독에 블루패스를 더하다",
+   "tagline": "기업 운영 환경에 맞춘 전문 케어",
+   "url": "https://www.samsung.com/sec/business/b2b-ai-subs/",
+   "menu": "비즈니스 사이트 대분류 「B2B 삼성 AI 구독」(시스템에어컨 · 주방가전 · 리빙가전 · 사이니지 · TV/음향 · 모바일 · IT/프린터와 같은 단계)",
+   "launch": {
+    "date": "2026-09-28",
+    "text": "‘AI 구독클럽’을 ‘삼성 AI 구독’으로 새단장하며 기업 고객 대상 ‘B2B 삼성 AI 구독’ 신규 출시",
+    "src": "news:20260928"
+   },
+   "target": "공공기관과 호텔·의료·금융 등 기업 고객",
+   "eligibility": "B2B 구독 고객은 정부, 지자체 및 공공기관과 일정 신용등급 이상의 법인에 한정됩니다.",
+   "inquiry": {
+    "label": "B2B 삼성 AI 구독 문의하기",
+    "url": "https://www.samsung.com/sec/business/support/contactus/sales-enquiries/",
+    "phone": "1588-3366",
+    "phoneLabel": "제품/서비스/구독문의",
+    "src": "site:b2b-ai-subs"
+   },
+   "headline": "부담되는 고액의 초기 비용, 세월이 지날수록 손이가는 시설 관리까지! 기업 현장의 맞춘 전문 케어로 해결해드립니다.",
+   "investLine": "새로운 사업장 오픈에 필요한 목돈이 부담되셨죠? 이제 B2B 삼성 AI 구독을 통해 초기 비용 부담은 낮추고, 전문 케어까지 받아보실 수 있어요!",
+   "pains": [
+    {
+     "title": "예산 · 초기 투자 부담",
+     "line": "줄어든 예산 대비 구매비용은 계속 상승하여",
+     "emph": "초기 투자 부담 증가",
+     "icon": "coin"
+    },
+    {
+     "title": "반복되는 A/S 접수",
+     "line": "공용 세탁기 등 사용량이 많은 시설의",
+     "emph": "A/S 지연은 큰 문제",
+     "icon": "wrench"
+    },
+    {
+     "title": "피크 시즌 고장 민원",
+     "line": "성수기 및 입·퇴실이 몰리는 시기에",
+     "emph": "고장 민원이 집중",
+     "icon": "alert"
+    },
+    {
+     "title": "세척 · 필터 관리",
+     "line": "여름철 악취 예방과 환절기 공기질관리 등",
+     "emph": "정기적인 유지관리 필요",
+     "icon": "wind"
+    }
+   ],
+   "values": [
+    {
+     "title": "초기 비용 부담은 낮추고!",
+     "head": "초기 투자비 및 A/S비용 절감",
+     "line": "초기 부담이 큰 구매 대신, 월 분할 납부로 초기비용확보 및 무상 A/S로 비용 절감!",
+     "icon": "coin"
+    },
+    {
+     "title": "시설 관리는 편해지고!",
+     "head": "체계적인 관리 시스템",
+     "line": "전문 엔지니어의 주기적인 관리로 시설 관리자의 업무 효율화 & 제품 고장 빈도 감소!",
+     "icon": "wrench"
+    },
+    {
+     "title": "고객 만족도는 올라가고!",
+     "head": "쾌적한 방문 경험 선사",
+     "line": "위생적인 사업장 유지는 기본, 최신 제품으로 쾌적한 방문 경험 제공 & 고객 재방문 유도!",
+     "icon": "users"
+    }
+   ],
+   "compare": {
+    "left": "기존 일시불 구매",
+    "right": "B2B 삼성 AI 구독",
+    "mid": "합리적인 선택!",
+    "rows": [
+     [
+      "초기 목돈 투자 부담",
+      "예측 가능한 예산 / 초기 구매비 저렴"
+     ],
+     [
+      "제품 고장시 별도 비용 발생",
+      "무상 AS"
+     ],
+     [
+      "시설담당자 AS 민원 집중",
+      "삼성전자 구독 콜센터로 빠른 접수"
+     ],
+     [
+      "직접 세척 및 소모품교체",
+      "전문 엔지니어에게 받는 정기 케어"
+     ],
+     [
+      "세척/케어 비용 별도",
+      "구독상품에 세척/케어 비용 포함"
+     ]
+    ],
+    "note": "무상수리 서비스의 경우 제품별로 제공되는 서비스 내역이 다를 수 있으며, 상황에 따라 서비스가 제한될 수 있습니다.",
+    "src": "site:b2b-ai-subs",
+    "from": "image+alt",
+    "img": "compare"
+   },
+   "items": {
+    "head": "다양한 최신 AI 가전도 부담 없이 B2B 삼성 AI 구독으로!",
+    "line": "다양한 기업별 환경에 맞춰 삼성의 다양한 제품을 선택하여 구독하실 수 있습니다.",
+    "list": [
+     "냉장고 / 김치냉장고",
+     "세탁기 / 건조기",
+     "에어컨",
+     "공기청정기",
+     "정수기",
+     "TV / 전자칠판",
+     "에어드레서 / 식기세척기",
+     "외 다양한 품목"
+    ],
+    "kv": [
+     "냉장고",
+     "정수기",
+     "모니터",
+     "TV",
+     "에어컨",
+     "공기청정기",
+     "세탁기",
+     "갤럭시 북",
+     "전자칠판"
+    ],
+    "restricted": {
+     "text": "휴대폰이나 시스템에어컨 등 일부 제품은 B2B 구독으로 구매가 제한되어 있습니다.",
+     "cats": [
+      "휴대폰",
+      "시스템에어컨"
+     ]
+    },
+    "src": "site:b2b-ai-subs",
+    "from": "image+alt",
+    "img": "items"
+   },
+   "care": {
+    "head": "삼성의 전문 엔지니어가 정기적 & 체계적으로 확실하게 점검하고 관리합니다.",
+    "line": "제품 특성에 맞춘 제품 점검 (필터 및 세탁조 관리, 열교환기 세척 등)과 전문 케어로 시설 관리의 부담을 낮춰보세요!",
+    "steps": [
+     {
+      "n": 1,
+      "title": "성능 점검",
+      "line": "스마트진단 · 냉매/누수 점검"
+     },
+     {
+      "n": 2,
+      "title": "필터 · 소모품 관리",
+      "line": "필터 클리닝 · 배수필터 관리"
+     },
+     {
+      "n": 3,
+      "title": "내 · 외부 클리닝",
+      "line": "UV 살균 · 도어패킹 클리닝"
+     },
+     {
+      "n": 4,
+      "title": "전문 세척",
+      "line": "열교환기 · 세탁조 분해 세척"
+     }
+    ],
+    "notes": [
+     "구독 제품 및 가입한 케어서비스 조건에 따라 제공되는 서비스의 종류와 점검 주기는 달라질 수 있습니다.",
+     "제품 점검과 세척 서비스는 방문케어를 선택한 경우에 제공되며 무상수리만 선택하신 경우는 제공되지 않습니다."
+    ],
+    "src": "site:b2b-ai-subs",
+    "from": "image+alt",
+    "img": "care",
+    "notesSrc": "site:b2b-ai-subs-festival",
+    "notesImg": "promo"
+   },
+   "industries": [
+    {
+     "key": "dorm",
+     "place": "대학교",
+     "title": "기숙사 · 연수원 생활환경 개선",
+     "line": "학생 만족도 향상과 고장 민원 감소로 이어지는 쾌적한 기숙 환경",
+     "img": "value1"
+    },
+    {
+     "key": "hospital",
+     "place": "병원",
+     "title": "대기공간 · 병실 쾌적성 향상",
+     "line": "환자·보호자가 체감하는 위생 신뢰도와 대기공간 만족도 제고",
+     "img": "value1"
+    },
+    {
+     "key": "hotel",
+     "place": "호텔/리조트",
+     "title": "호텔/리조트 객실 환경 개선",
+     "line": "객실 내 엔터테인먼트와 쾌적한 위생 관리로 투숙객에게 최적의 경험 제공",
+     "img": "value2"
+    },
+    {
+     "key": "office",
+     "place": "오피스",
+     "title": "사무공간 위생 및 복지 향상",
+     "line": "임직원이 만족하는 최적의 공기/정수 등 사무공간 환경 가전 위생 관리",
+     "img": "value2"
+    }
+   ],
+   "industriesHead": "B2B 삼성 AI 구독은 고객의 사업장에 맞는 특별한 가치를 제공합니다.",
+   "terms": {
+    "period": {
+     "text": "가전/TV는 3~6년까지 1년 단위로 구독이 가능합니다",
+     "min": 3,
+     "max": 6,
+     "step": 1,
+     "unit": "년",
+     "src": "site:b2b-ai-subs",
+     "show": "가전 · TV 3~6년, 1년 단위 (품목에 따라 다름)"
+    },
+    "careCycle": {
+     "text": "6개월, 12개월, 36개월로 선택하실 수 있으며 품목별로 상이할 수 있습니다",
+     "options": [
+      6,
+      12,
+      36
+     ],
+     "unit": "개월",
+     "src": "site:b2b-ai-subs",
+     "show": "방문케어 주기 6 · 12 · 36개월 중 선택 (품목별로 다름)"
+    },
+    "conditions": {
+     "text": "고객의 신용도 및 구매하고자 하는 품목에 따라 구매 조건이 상이할 수 있으므로",
+     "src": "site:b2b-ai-subs",
+     "show": "구매 조건은 고객 신용도 · 품목에 따라 다름 — 구독 문의로 확인"
+    },
+    "quantity": {
+     "text": "고객의 신용도 및 구매하고자 하는 품목에 따라 조건이 상이할 수 있으므로",
+     "src": "site:b2b-ai-subs",
+     "show": "한 번에 구독할 수 있는 수량도 신용도 · 품목에 따라 다름"
+    },
+    "termination": {
+     "text": "중간에 구독을 해지할 수 있으며 이 경우 위약금 및 제품 회수비 등이 발생할 수 있습니다",
+     "src": "site:b2b-ai-subs",
+     "show": "중도 해지 가능 — 위약금 · 제품 회수비가 생길 수 있음"
+    },
+    "freeAs": {
+     "text": "제품을 대량으로 도입할 때 드는 초기 비용 부담을 낮추고 최대 6년 무상 AS를 비롯한 체계적인 서비스를 이용할 수 있다.",
+     "years": 6,
+     "src": "news:20260928",
+     "show": "최대 6년 무상 AS"
+    },
+    "restricted": {
+     "text": "휴대폰이나 시스템에어컨 등 일부 제품은 B2B 구독으로 구매가 제한되어 있습니다",
+     "src": "site:b2b-ai-subs",
+     "show": "휴대폰 · 시스템에어컨 등 일부 제품은 구독 제한"
+    }
+   },
+   "faq": [
+    {
+     "q": "B2B 구독상품을 구매하기 위한 조건이 있나요?",
+     "a": "고객의 신용도 및 구매하고자 하는 품목에 따라 구매 조건이 상이할 수 있으므로 자세한 내용은 \"B2B 삼성 AI 구독 문의하기\"를 통해 문의 부탁드립니다."
+    },
+    {
+     "q": "삼성전자의 모든 제품을 B2B 구독으로 구매할 수 있나요?",
+     "a": "휴대폰이나 시스템에어컨 등 일부 제품은 B2B 구독으로 구매가 제한되어 있습니다."
+    },
+    {
+     "q": "한 번에 몇 대까지 구매할 수 있나요?",
+     "a": "고객의 신용도 및 구매하고자 하는 품목에 따라 조건이 상이할 수 있으므로 자세한 내용은 \"B2B 삼성 AI 구독 문의하기\"를 통해 문의 부탁드립니다."
+    },
+    {
+     "q": "최대 몇 년 동안 구독할 수 있나요?",
+     "a": "가전/TV는 3~6년까지 1년 단위로 구독이 가능합니다. 품목에 따라 상이할 수 있습니다."
+    },
+    {
+     "q": "구독 방문케어 주기는 어떻게 되나요?",
+     "a": "6개월, 12개월, 36개월로 선택하실 수 있으며 품목별로 상이할 수 있습니다."
+    },
+    {
+     "q": "B2B구독상품을 사용하다가 중간에 해지할 수 있나요?",
+     "a": "중간에 구독을 해지할 수 있으며 이 경우 위약금 및 제품 회수비 등이 발생할 수 있습니다."
+    }
+   ],
+   "paymentOfficial": [
+    {
+     "id": "monthly",
+     "text": "초기 부담이 큰 구매 대신, 월 분할 납부로 초기비용확보",
+     "src": "site:b2b-ai-subs",
+     "from": "image+alt",
+     "img": "why"
+    },
+    {
+     "id": "budget",
+     "text": "예측 가능한 예산 / 초기 구매비 저렴",
+     "src": "site:b2b-ai-subs",
+     "from": "image+alt",
+     "img": "compare"
+    }
+   ],
+   "basis": "official",
+   "keyMessages": [
+    {
+     "text": "기업 운영 환경에 맞춘 전문 케어, B2B 삼성 AI 구독",
+     "src": "site:b2b-ai-subs",
+     "basis": "official"
+    },
+    {
+     "text": "구독에 블루패스를 더하다",
+     "src": "site:b2b-ai-subs",
+     "basis": "official"
+    },
+    {
+     "text": "초기 비용 부담은 낮추고, 시설 관리는 편해지고, 고객 만족도는 올라갑니다",
+     "src": "site:b2b-ai-subs",
+     "basis": "official"
+    },
+    {
+     "text": "목돈이 드는 일시불 구매 대신 월 분할 납부로 초기 비용을 확보하고, 무상 A/S로 비용을 줄입니다",
+     "src": "site:b2b-ai-subs",
+     "basis": "official"
+    },
+    {
+     "text": "삼성의 전문 엔지니어가 정기적 · 체계적으로 점검하고 관리합니다",
+     "src": "site:b2b-ai-subs",
+     "basis": "official"
+    },
+    {
+     "text": "최대 6년 무상 AS와 체계적인 정기 관리 서비스",
+     "src": "news:20260928",
+     "basis": "official"
+    },
+    {
+     "text": "다양한 최신 AI 가전도 부담 없이 B2B 삼성 AI 구독으로",
+     "src": "site:b2b-ai-subs",
+     "basis": "official"
+    }
+   ],
+   "evidence": [
+    {
+     "source": "site:b2b-ai-subs",
+     "kind": "text",
+     "url": "https://www.samsung.com/sec/business/b2b-ai-subs/",
+     "textHash": "sha256:947bc915f4d9bb47f53c209f1dabd3c7225ebe42695f1ca8efe2eb896afb257c"
+    },
+    {
+     "source": "site:b2b-ai-subs-festival",
+     "kind": "text",
+     "url": "https://www.samsung.com/sec/business/event/b2b-ai-subs-festival/",
+     "textHash": "sha256:523d60295d800c11fa3e53516857107838968cc4406803acbf9368f2df87fb30"
+    },
+    {
+     "source": "news:20260928",
+     "kind": "text",
+     "url": "https://news.samsung.com/kr/삼성전자-삼성-ai-구독-새단장-신혼·시니어·기업",
+     "textHash": "sha256:eb7c4751162e91689124fea5c9388ed5958cad247ba5fcc3497fd9ecf09e8a47"
+    },
+    {
+     "source": "site:b2b-ai-subs",
+     "kind": "image",
+     "url": "https://images.samsung.com/kdp/cms_contents/110361/4f7e3f34-7afb-4829-95b4-e40b960457cb.jpg?$ORIGIN_JPG$",
+     "sha256": "46fa42726802cdce1fab7eda896ab525a954bb224a185131abf9d45ba5bb098b"
+    },
+    {
+     "source": "site:b2b-ai-subs",
+     "kind": "image",
+     "url": "https://images.samsung.com/kdp/cms_contents/110248/111a0eea-7a5c-4d8b-9e4a-f9250cd4c7cd.jpg?$FB_TYPE_A_JPG$",
+     "sha256": "00557d4345e57d1a9bdb9ae48af60054f0eccdfc5586adf706a40d26b2985200"
+    },
+    {
+     "source": "site:b2b-ai-subs",
+     "kind": "image",
+     "url": "https://images.samsung.com/kdp/cms_contents/110248/a031a70b-58ae-4f70-bd0c-db216bb139be.jpg?$FB_TYPE_A_JPG$",
+     "sha256": "38c0c30e5a633cef5a44d47a7f8e561e259b216f8a4e658c2ad880dc2d469d80"
+    },
+    {
+     "source": "site:b2b-ai-subs",
+     "kind": "image",
+     "url": "https://images.samsung.com/kdp/cms_contents/110361/65a0d5e1-a74f-47c2-a1b0-3b03b2722a29.jpg?$FB_TYPE_A_JPG$",
+     "sha256": "0dc281f6599ff743cb404dc5dc168876a123b0e883481e846567ca4518b1bbc1"
+    },
+    {
+     "source": "site:b2b-ai-subs",
+     "kind": "image",
+     "url": "https://images.samsung.com/kdp/cms_contents/110248/953cb0a3-a8a3-4e4d-a2f6-ee756080505e.jpg?$FB_TYPE_A_JPG$",
+     "sha256": "914d1d835b80629940d8ce49192b8f8b04fb42d8b9b6cc82aa58d3cb1323ac60"
+    },
+    {
+     "source": "site:b2b-ai-subs",
+     "kind": "image",
+     "url": "https://images.samsung.com/kdp/cms_contents/110361/d67b8ced-3f63-4236-9a3f-b3def736668c.jpg?$FB_TYPE_A_JPG$",
+     "sha256": "322aebb9bbac036fd0cdb45352d5a7dcf593928c6bfdceb7dabd3944a11bb85c"
+    },
+    {
+     "source": "site:b2b-ai-subs-festival",
+     "kind": "image",
+     "url": "https://images.samsung.com/kdp/cms_contents/110414/a4cc7a38-0ca5-446d-84af-f0a3edf5f525.jpg?$ORIGIN_JPG$",
+     "sha256": "f27245dc99bf195fcbb745461e514902c201ab2e87b6606c713cc34ea7777419"
+    }
+   ],
+   "children": [
+    "sub_bluepass_b2b",
+    "sub_care_repair",
+    "sub_care_visit",
+    "sub_care_lite",
+    "sub_care_self",
+    "sub_pkg_public",
+    "sub_pkg_stay",
+    "sub_pkg_medical",
+    "sub_pkg_office",
+    "sub_promo_launch_2026",
+    "sub_pay_monthly",
+    "sub_pay_prepay",
+    "sub_pay_annual",
+    "sub_pay_hq",
+    "sub_pay_stage"
+   ],
+   "status": "active",
+   "checkedAt": "2026-11-13T09:40:17+09:00",
+   "checkedRun": "dss-20261113-0940",
+   "firstSeen": "2026-11-13T09:40:17+09:00"
+  },
+  {
+   "id": "sub_bluepass_b2b",
+   "type": "care",
+   "parent": "sub_b2b_ai",
+   "name": "B2B 블루패스",
+   "line": "삼성전자서비스와 삼성전자로지텍의 B2B 전문 엔지니어가 기업별 운영 환경에 맞춰 제품 관리를 지원하는 서비스",
+   "services": [
+    {
+     "id": "timecare",
+     "name": "시간맞춤 집중케어",
+     "line": "기업 고객이 원하는 시간이나 기간에 맞춰 제품을 관리해주는 서비스",
+     "example": "전국에 지점이 분포된 은행 — 영업이 종료된 늦은 오후 시간대를 지정해 여러 지점의 제품을 한꺼번에 관리",
+     "icon": "clock"
+    },
+    {
+     "id": "urgent48",
+     "name": "48시간 긴급 출동",
+     "line": "AS 접수 후 영업일 기준 48시간 이내에 방문하는 서비스",
+     "example": "위생 관리가 중요한 병원 · 의료시설 — 안정적인 업무 환경을 상시 유지하고 제품 관리 부담을 줄임",
+     "icon": "bolt"
+    },
+    {
+     "id": "engineer",
+     "name": "엔지니어 담당제",
+     "line": "사업장별 담당 엔지니어를 배정해 안정적인 관리를 제공",
+     "example": "",
+     "icon": "users"
+    },
+    {
+     "id": "onemore",
+     "name": "하나 더 서비스",
+     "line": "방문 케어 시 삼성전자 제품 1종을 추가로 무상점검",
+     "example": "",
+     "icon": "check"
+    }
+   ],
+   "basis": "official",
+   "keyMessages": [
+    {
+     "text": "삼성전자서비스와 삼성전자로지텍의 B2B 전문 엔지니어가 기업별 운영 환경에 맞춰 제품 관리를 지원하는 서비스",
+     "src": "news:20260928",
+     "basis": "official"
+    },
+    {
+     "text": "시간맞춤 집중케어 — 기업 고객이 원하는 시간이나 기간에 맞춰 제품을 관리해주는 서비스",
+     "src": "news:20260928",
+     "basis": "official"
+    },
+    {
+     "text": "48시간 긴급 출동 — AS 접수 후 영업일 기준 48시간 이내에 방문하는 서비스",
+     "src": "news:20260928",
+     "basis": "official"
+    },
+    {
+     "text": "엔지니어 담당제 — 사업장별 담당 엔지니어를 배정해 안정적인 관리를 제공",
+     "src": "news:20260928",
+     "basis": "official"
+    },
+    {
+     "text": "하나 더 서비스 — 방문 케어 시 삼성전자 제품 1종을 추가로 무상점검",
+     "src": "news:20260928",
+     "basis": "official"
+    }
+   ],
+   "evidence": [
+    {
+     "source": "news:20260928",
+     "kind": "text",
+     "url": "https://news.samsung.com/kr/삼성전자-삼성-ai-구독-새단장-신혼·시니어·기업",
+     "textHash": "sha256:eb7c4751162e91689124fea5c9388ed5958cad247ba5fcc3497fd9ecf09e8a47"
+    },
+    {
+     "source": "news:20261027",
+     "kind": "text",
+     "url": "https://news.samsung.com/kr/삼성-ai-구독①-구매-이후까지-책임진다배송·설치",
+     "textHash": "sha256:d0f78db575d66ffb51667e185b9ceccda9695f677eb7c9b53d60253607970131"
+    }
+   ],
+   "status": "active",
+   "checkedAt": "2026-11-13T09:40:17+09:00",
+   "checkedRun": "dss-20261113-0940",
+   "firstSeen": "2026-11-13T09:40:17+09:00"
+  },
+  {
+   "id": "sub_care_repair",
+   "type": "care-option",
+   "parent": "sub_b2b_ai",
+   "name": "무상수리 서비스",
+   "scope": "b2b",
+   "b2b": "confirmed",
+   "line": "구독 기간 무상 A/S — 제품 점검 · 세척은 포함되지 않음",
+   "points": [
+    "무상 AS",
+    "점검 · 세척 없음"
+   ],
+   "basis": "official",
+   "keyMessages": [
+    {
+     "text": "구독 기간 무상 A/S — 제품 점검 · 세척은 포함되지 않음",
+     "src": "site:b2b-ai-subs-festival",
+     "basis": "official"
+    }
+   ],
+   "evidence": [
+    {
+     "source": "site:b2b-ai-subs-festival",
+     "kind": "image",
+     "url": "https://images.samsung.com/kdp/cms_contents/110414/a4cc7a38-0ca5-446d-84af-f0a3edf5f525.jpg?$ORIGIN_JPG$",
+     "sha256": "f27245dc99bf195fcbb745461e514902c201ab2e87b6606c713cc34ea7777419"
+    }
+   ],
+   "status": "active",
+   "checkedAt": "2026-11-13T09:40:17+09:00",
+   "checkedRun": "dss-20261113-0940",
+   "firstSeen": "2026-11-13T09:40:17+09:00"
+  },
+  {
+   "id": "sub_care_visit",
+   "type": "care-option",
+   "parent": "sub_b2b_ai",
+   "name": "방문케어",
+   "scope": "b2b",
+   "b2b": "confirmed",
+   "line": "전문 엔지니어가 주기적으로 방문해 성능 점검 · 필터 · 클리닝 · 전문 세척",
+   "points": [
+    "무상 AS",
+    "정기 방문 점검 · 세척",
+    "주기 6 · 12 · 36개월(품목별)"
+   ],
+   "basis": "official",
+   "keyMessages": [
+    {
+     "text": "전문 엔지니어가 주기적으로 방문해 성능 점검 · 필터 · 클리닝 · 전문 세척",
+     "src": "site:b2b-ai-subs",
+     "basis": "official"
+    }
+   ],
+   "evidence": [
+    {
+     "source": "site:b2b-ai-subs",
+     "kind": "text",
+     "url": "https://www.samsung.com/sec/business/b2b-ai-subs/",
+     "textHash": "sha256:947bc915f4d9bb47f53c209f1dabd3c7225ebe42695f1ca8efe2eb896afb257c"
+    }
+   ],
+   "status": "active",
+   "checkedAt": "2026-11-13T09:40:17+09:00",
+   "checkedRun": "dss-20261113-0940",
+   "firstSeen": "2026-11-13T09:40:17+09:00"
+  },
+  {
+   "id": "sub_care_lite",
+   "type": "care-option",
+   "parent": "sub_b2b_ai",
+   "name": "방문케어 라이트",
+   "scope": "samsung-ai-subs",
+   "b2b": "unconfirmed",
+   "line": "엔지니어 방문 · 특화 서비스 횟수를 조절해 구독료 부담을 낮춘 요금제(간단한 소모품은 직접 교체)",
+   "points": [
+    "정수기 · 공기청정기 · 로봇청소기 · 에어드레서 · 식기세척기는 11월 중 도입 예정"
+   ],
+   "basis": "official",
+   "keyMessages": [
+    {
+     "text": "엔지니어 방문 · 특화 서비스 횟수를 조절해 구독료 부담을 낮춘 요금제(간단한 소모품은 직접 교체)",
+     "src": "news:20260928",
+     "basis": "official"
+    }
+   ],
+   "evidence": [
+    {
+     "source": "news:20260928",
+     "kind": "text",
+     "url": "https://news.samsung.com/kr/삼성전자-삼성-ai-구독-새단장-신혼·시니어·기업",
+     "textHash": "sha256:eb7c4751162e91689124fea5c9388ed5958cad247ba5fcc3497fd9ecf09e8a47"
+    }
+   ],
+   "status": "active",
+   "checkedAt": "2026-11-13T09:40:17+09:00",
+   "checkedRun": "dss-20261113-0940",
+   "firstSeen": "2026-11-13T09:40:17+09:00"
+  },
+  {
+   "id": "sub_care_self",
+   "type": "care-option",
+   "parent": "sub_b2b_ai",
+   "name": "셀프케어",
+   "scope": "samsung-ai-subs",
+   "b2b": "unconfirmed",
+   "line": "고객이 직접 관리하는 옵션(삼성 AI 구독 관리 옵션 4종 중 하나)",
+   "points": [],
+   "basis": "official",
+   "keyMessages": [
+    {
+     "text": "고객이 직접 관리하는 옵션(삼성 AI 구독 관리 옵션 4종 중 하나)",
+     "src": "news:20261027",
+     "basis": "official"
+    }
+   ],
+   "evidence": [
+    {
+     "source": "news:20261027",
+     "kind": "text",
+     "url": "https://news.samsung.com/kr/삼성-ai-구독①-구매-이후까지-책임진다배송·설치",
+     "textHash": "sha256:d0f78db575d66ffb51667e185b9ceccda9695f677eb7c9b53d60253607970131"
+    }
+   ],
+   "status": "active",
+   "checkedAt": "2026-11-13T09:40:17+09:00",
+   "checkedRun": "dss-20261113-0940",
+   "firstSeen": "2026-11-13T09:40:17+09:00"
+  },
+  {
+   "id": "sub_pkg_public",
+   "type": "package",
+   "parent": "sub_b2b_ai",
+   "name": "공공 패키지",
+   "place": "대학교",
+   "title": "기숙사 · 연수원 생활환경 개선",
+   "line": "학생 만족도 향상과 고장 민원 감소로 이어지는 쾌적한 기숙 환경",
+   "photo": "/assets/subs/pkg-public.webp",
+   "items": [
+    {
+     "label": "세탁/건조기",
+     "cat": "washdry",
+     "model": "WH90F2522GBHY",
+     "name": "Bespoke AI 원바디 25/22kg (177.8mm LCD)",
+     "url": "https://www.samsung.com/sec/washing-machines/onebody-wh90f2522gbhy-d2c/WH90F2522GBHY/",
+     "img": "/assets/subs/p-WH90F2522GBHY.webp",
+     "product": "sg_g000182285",
+     "productName": "Bespoke AI 원바디",
+     "match": "category",
+     "note": ""
+    },
+    {
+     "label": "냉장고",
+     "cat": "ref",
+     "model": "RS70F84N2Y",
+     "name": "Bespoke 양문형 냉장고 852L (메탈쿨링커버)",
+     "url": "https://www.samsung.com/sec/refrigerators/side-by-side-rs70f84n2y-d2c/RS70F84N2Y/",
+     "img": "/assets/subs/p-RS70F84N2Y.webp",
+     "product": "sg_g000183345",
+     "productName": "Bespoke 양문형 냉장고 852L",
+     "match": "category",
+     "note": ""
+    },
+    {
+     "label": "벽걸이 에어컨",
+     "cat": "ac",
+     "model": "AR60F11D11WT",
+     "name": "AI 무풍콤보 벽걸이 34.1㎡ (리모컨 포함)",
+     "url": "https://www.samsung.com/sec/air-conditioners/package-ar60f11d11wt-d2c/AR60F11D11WT/",
+     "img": "/assets/subs/p-AR60F11D11WT.webp",
+     "product": "sg_g000183536",
+     "productName": "AI 무풍콤보 벽걸이 34.1㎡",
+     "match": "series",
+     "note": ""
+    },
+    {
+     "label": "TV",
+     "cat": "tv",
+     "model": null,
+     "name": null,
+     "url": null,
+     "img": "img/prod/g00.json#135",
+     "product": "sg_g000183774",
+     "productName": "2025 Crystal UHD UF8050 (108cm)",
+     "match": "category",
+     "note": "Crystal UHD"
+    }
+   ],
+   "verticals": {
+    "direct": [
+     "ed_univ"
+    ],
+    "similar": [
+     "mi_military",
+     "pb_agency",
+     "mf_factory",
+     "rs_officetel",
+     "rs_senior"
+    ],
+    "why": "대학교 기숙사 · 연수원 — 생활관 · 연수 · 기숙사 · 임대주택처럼 여럿이 함께 쓰는 생활 공간"
+   },
+   "basis": "official",
+   "keyMessages": [
+    {
+     "text": "기숙사 · 연수원 생활환경 개선 — 학생 만족도 향상과 고장 민원 감소로 이어지는 쾌적한 기숙 환경",
+     "src": "site:b2b-ai-subs-festival",
+     "basis": "official"
+    },
+    {
+     "text": "공공 패키지: 세탁/건조기 · 냉장고 · 벽걸이 에어컨 · TV",
+     "src": "site:b2b-ai-subs-festival",
+     "basis": "official"
+    }
+   ],
+   "evidence": [
+    {
+     "source": "site:b2b-ai-subs-festival",
+     "kind": "image",
+     "url": "https://images.samsung.com/kdp/cms_contents/110358/43c09529-3ba0-4087-a158-f0de16621db5.jpg?$ORIGIN_JPG$",
+     "sha256": "697e7a6304f0a0a0cea2802bdd3ad6b2be69ebd65b5fb51eacd3121b06fde271"
+    }
+   ],
+   "status": "active",
+   "checkedAt": "2026-11-13T09:40:17+09:00",
+   "checkedRun": "dss-20261113-0940",
+   "firstSeen": "2026-11-13T09:40:17+09:00"
+  },
+  {
+   "id": "sub_pkg_stay",
+   "type": "package",
+   "parent": "sub_b2b_ai",
+   "name": "숙박 패키지",
+   "place": "호텔/리조트",
+   "title": "호텔/리조트 객실 환경 개선",
+   "line": "객실 내 엔터테인먼트와 쾌적한 위생 관리로 투숙객에게 최적의 경험 제공",
+   "photo": "/assets/subs/pkg-stay.webp",
+   "items": [
+    {
+     "label": "호텔TV",
+     "cat": "htv",
+     "model": null,
+     "name": null,
+     "url": null,
+     "img": "img/prod/g00.json#105",
+     "product": "sg_g000183984",
+     "productName": "호텔 TV HU7000F 시리즈",
+     "match": "category",
+     "note": "Crystal UHD"
+    },
+    {
+     "label": "벽걸이 에어컨",
+     "cat": "ac",
+     "model": "AR60F11D11WT",
+     "name": "AI 무풍콤보 벽걸이 34.1㎡ (리모컨 포함)",
+     "url": "https://www.samsung.com/sec/air-conditioners/package-ar60f11d11wt-d2c/AR60F11D11WT/",
+     "img": "/assets/subs/p-AR60F11D11WT.webp",
+     "product": "sg_g000183536",
+     "productName": "AI 무풍콤보 벽걸이 34.1㎡",
+     "match": "series",
+     "note": ""
+    },
+    {
+     "label": "공기청정기",
+     "cat": "air",
+     "model": "AP90H03163UGD",
+     "name": "Infinite AI 공기청정기 (33㎡, S 필터)",
+     "url": "https://www.samsung.com/sec/air-cleaner/air-purifier-ap90h03163gd-d2c/AP90H03163UGD/",
+     "img": "/assets/subs/p-AP90H03163UGD.webp",
+     "product": "sg_g000184126",
+     "productName": "Infinite AI 공기청정기 (33㎡, S 필터)",
+     "match": "exact",
+     "note": ""
+    },
+    {
+     "label": "냉장고",
+     "cat": "ref",
+     "model": "RS70F84N2Y",
+     "name": "Bespoke 양문형 냉장고 852L (메탈쿨링커버)",
+     "url": "https://www.samsung.com/sec/refrigerators/side-by-side-rs70f84n2y-d2c/RS70F84N2Y/",
+     "img": "/assets/subs/p-RS70F84N2Y.webp",
+     "product": "sg_g000183345",
+     "productName": "Bespoke 양문형 냉장고 852L",
+     "match": "category",
+     "note": ""
+    }
+   ],
+   "verticals": {
+    "direct": [
+     "ht_large",
+     "ht_mid",
+     "ht_stay"
+    ],
+    "similar": [],
+    "why": "호텔 · 리조트 객실"
+   },
+   "basis": "official",
+   "keyMessages": [
+    {
+     "text": "호텔/리조트 객실 환경 개선 — 객실 내 엔터테인먼트와 쾌적한 위생 관리로 투숙객에게 최적의 경험 제공",
+     "src": "site:b2b-ai-subs-festival",
+     "basis": "official"
+    },
+    {
+     "text": "숙박 패키지: 호텔TV · 벽걸이 에어컨 · 공기청정기 · 냉장고",
+     "src": "site:b2b-ai-subs-festival",
+     "basis": "official"
+    }
+   ],
+   "evidence": [
+    {
+     "source": "site:b2b-ai-subs-festival",
+     "kind": "image",
+     "url": "https://images.samsung.com/kdp/cms_contents/110358/83f3e221-60d1-4f18-9783-a5db795305ee.jpg?$ORIGIN_JPG$",
+     "sha256": "c5788e4ee19f0811a56533ba5e74d21fff71ba3e83d9e1debed6060e6df8197a"
+    }
+   ],
+   "status": "active",
+   "checkedAt": "2026-11-13T09:40:17+09:00",
+   "checkedRun": "dss-20261113-0940",
+   "firstSeen": "2026-11-13T09:40:17+09:00"
+  },
+  {
+   "id": "sub_pkg_medical",
+   "type": "package",
+   "parent": "sub_b2b_ai",
+   "name": "의료 패키지",
+   "place": "병원",
+   "title": "대기공간 · 병실 쾌적성 향상",
+   "line": "환자·보호자가 체감하는 위생 신뢰도와 대기공간 만족도 제고",
+   "photo": "/assets/subs/pkg-medical.webp",
+   "items": [
+    {
+     "label": "TV",
+     "cat": "tv",
+     "model": null,
+     "name": null,
+     "url": null,
+     "img": "img/prod/g00.json#135",
+     "product": "sg_g000183774",
+     "productName": "2025 Crystal UHD UF8050 (108cm)",
+     "match": "category",
+     "note": "Crystal UHD"
+    },
+    {
+     "label": "벽걸이 에어컨",
+     "cat": "ac",
+     "model": "AR60F11D11WT",
+     "name": "AI 무풍콤보 벽걸이 34.1㎡ (리모컨 포함)",
+     "url": "https://www.samsung.com/sec/air-conditioners/package-ar60f11d11wt-d2c/AR60F11D11WT/",
+     "img": "/assets/subs/p-AR60F11D11WT.webp",
+     "product": "sg_g000183536",
+     "productName": "AI 무풍콤보 벽걸이 34.1㎡",
+     "match": "series",
+     "note": ""
+    },
+    {
+     "label": "공기청정기",
+     "cat": "air",
+     "model": "AP90H03163UGD",
+     "name": "Infinite AI 공기청정기 (33㎡, S 필터)",
+     "url": "https://www.samsung.com/sec/air-cleaner/air-purifier-ap90h03163gd-d2c/AP90H03163UGD/",
+     "img": "/assets/subs/p-AP90H03163UGD.webp",
+     "product": "sg_g000184126",
+     "productName": "Infinite AI 공기청정기 (33㎡, S 필터)",
+     "match": "exact",
+     "note": ""
+    },
+    {
+     "label": "정수기",
+     "cat": "water",
+     "model": "RWP70F15ANB",
+     "name": "Bespoke AI 정수기 (냉/온/정수)",
+     "url": "https://www.samsung.com/sec/water-purifier/water-purifier-rwp70f15anb-d2c/RWP70F15ANB/",
+     "img": "/assets/subs/p-RWP70F15ANB.webp",
+     "product": "sg_g000184129",
+     "productName": "Bespoke AI 정수기 (냉/온/정수)",
+     "match": "exact",
+     "note": ""
+    }
+   ],
+   "verticals": {
+    "direct": [
+     "md_tertiary",
+     "md_hospital",
+     "md_clinic",
+     "md_ltc"
+    ],
+    "similar": [],
+    "why": "병원 대기공간 · 병실"
+   },
+   "basis": "official",
+   "keyMessages": [
+    {
+     "text": "대기공간 · 병실 쾌적성 향상 — 환자·보호자가 체감하는 위생 신뢰도와 대기공간 만족도 제고",
+     "src": "site:b2b-ai-subs-festival",
+     "basis": "official"
+    },
+    {
+     "text": "의료 패키지: TV · 벽걸이 에어컨 · 공기청정기 · 정수기",
+     "src": "site:b2b-ai-subs-festival",
+     "basis": "official"
+    }
+   ],
+   "evidence": [
+    {
+     "source": "site:b2b-ai-subs-festival",
+     "kind": "image",
+     "url": "https://images.samsung.com/kdp/cms_contents/110358/2bcfbddd-f1b0-402c-8e63-dcb47ee74d9e.jpg?$ORIGIN_JPG$",
+     "sha256": "77b958fe330d7e6aaac4d133b639ceef1c57c85486a3ded0f7b1f6546e32863f"
+    }
+   ],
+   "status": "active",
+   "checkedAt": "2026-11-13T09:40:17+09:00",
+   "checkedRun": "dss-20261113-0940",
+   "firstSeen": "2026-11-13T09:40:17+09:00"
+  },
+  {
+   "id": "sub_pkg_office",
+   "type": "package",
+   "parent": "sub_b2b_ai",
+   "name": "오피스 패키지",
+   "place": "오피스",
+   "title": "사무공간 위생 및 복지 향상",
+   "line": "임직원이 만족하는 최적의 공기/정수 등 사무공간 환경 가전 위생 관리",
+   "photo": "/assets/subs/pkg-office.webp",
+   "items": [
+    {
+     "label": "에어드레서",
+     "cat": "airdresser",
+     "model": null,
+     "name": null,
+     "url": null,
+     "img": "img/prod/g07.json#38",
+     "product": "sg_g000182163",
+     "productName": "Bespoke AI 에어드레서",
+     "match": "category",
+     "note": ""
+    },
+    {
+     "label": "모니터",
+     "cat": "mon",
+     "model": null,
+     "name": null,
+     "url": null,
+     "img": "img/prod/g01.json#52",
+     "product": "sg_g000184172",
+     "productName": "뷰피니티 S8 S80UH 4K USB-C (LS27H802U)",
+     "match": "category",
+     "note": "ViewFinity S8"
+    },
+    {
+     "label": "공기청정기",
+     "cat": "air",
+     "model": "AP90H03163UGD",
+     "name": "Infinite AI 공기청정기 (33㎡, S 필터)",
+     "url": "https://www.samsung.com/sec/air-cleaner/air-purifier-ap90h03163gd-d2c/AP90H03163UGD/",
+     "img": "/assets/subs/p-AP90H03163UGD.webp",
+     "product": "sg_g000184126",
+     "productName": "Infinite AI 공기청정기 (33㎡, S 필터)",
+     "match": "exact",
+     "note": ""
+    },
+    {
+     "label": "전자칠판",
+     "cat": "iwb",
+     "model": null,
+     "name": null,
+     "url": null,
+     "img": "img/prod/g00.json#6",
+     "product": "sg_g000184098",
+     "productName": "Flip Pro 전자칠판",
+     "match": "category",
+     "note": ""
+    }
+   ],
+   "verticals": {
+    "direct": [
+     "of_hq",
+     "of_sme",
+     "of_cowork"
+    ],
+    "similar": [
+     "fn_hq",
+     "fn_bank",
+     "ed_academy",
+     "sv_unmanned"
+    ],
+    "why": "사무공간 — 금융(보도자료 대상 업종) · 학원 · 무인매장 사무 공간"
+   },
+   "basis": "official",
+   "keyMessages": [
+    {
+     "text": "사무공간 위생 및 복지 향상 — 임직원이 만족하는 최적의 공기/정수 등 사무공간 환경 가전 위생 관리",
+     "src": "site:b2b-ai-subs-festival",
+     "basis": "official"
+    },
+    {
+     "text": "오피스 패키지: 에어드레서 · 모니터 · 공기청정기 · 전자칠판",
+     "src": "site:b2b-ai-subs-festival",
+     "basis": "official"
+    }
+   ],
+   "evidence": [
+    {
+     "source": "site:b2b-ai-subs-festival",
+     "kind": "image",
+     "url": "https://images.samsung.com/kdp/cms_contents/110356/4195326f-328d-4f58-9681-faefb0db4f9b.jpg?$ORIGIN_JPG$",
+     "sha256": "3f893acdc2e78b6d857d9a8ab65821429d2f8d1302f51184af7bc6546e7a97a6"
+    }
+   ],
+   "status": "active",
+   "checkedAt": "2026-11-13T09:40:17+09:00",
+   "checkedRun": "dss-20261113-0940",
+   "firstSeen": "2026-11-13T09:40:17+09:00"
+  },
+  {
+   "id": "sub_promo_launch_2026",
+   "type": "promotion",
+   "parent": "sub_b2b_ai",
+   "name": "B2B 삼성 AI 구독 페스티벌 — 런칭 기념 특별 혜택",
+   "validFrom": "2026-09-28",
+   "validTo": "2026-11-30",
+   "extended": true,
+   "headline": "구독으로 초기 비용 부담은 낮추고, 런칭 기간 특별 혜택까지 받아보세요!",
+   "note": "※ '26년 11월까지 혜택 제공 · 프로모션 기간 연장",
+   "target": "행사 기간 내 B2B구독 계약 체결한 고객사",
+   "benefits": [
+    {
+     "id": "b1",
+     "title": "B2B 구독 혜택",
+     "value": "최대 20%",
+     "unit": "할인",
+     "items": [
+      "냉장고",
+      "세탁기",
+      "건조기",
+      "에어컨",
+      "공기청정기",
+      "에어드레서",
+      "정수기",
+      "TV"
+     ]
+    },
+    {
+     "id": "b2",
+     "title": "추천 모델 구독 시",
+     "value": "5%",
+     "unit": "총 구독료 추가 할인",
+     "items": [
+      "냉장고",
+      "세탁기",
+      "건조기",
+      "에어컨",
+      "공기청정기",
+      "정수기"
+     ],
+     "note": "하단 추천 모델 참고, 상세 모델은 문의"
+    },
+    {
+     "id": "b3",
+     "title": "동일 장소 · 동일 품목 10대 이상 구독 시",
+     "value": "5%",
+     "unit": "총 구독료 추가 할인",
+     "items": [
+      "냉장고",
+      "세탁기",
+      "건조기",
+      "에어컨",
+      "공기청정기",
+      "정수기"
+     ]
+    }
+   ],
+   "summary": "행사 기간 내 B2B 삼성 AI구독 상품을 계약하시면 최대 20%할인 혜택과 추천 모델 선택시 5~10% 추가할인을 제공받으실 수 있습니다.",
+   "notes": [
+    "품목과 모델에 따라 할인율이 상이할 수 있습니다.",
+    "B2B 구독 고객은 정부, 지자체 및 공공기관과 일정 신용등급 이상의 법인에 한정됩니다."
+   ],
+   "basis": "official",
+   "keyMessages": [
+    {
+     "text": "행사 기간 내 B2B 삼성 AI구독 상품을 계약하시면 최대 20%할인 혜택과 추천 모델 선택시 5~10% 추가할인을 제공받으실 수 있습니다.",
+     "src": "site:b2b-ai-subs-festival",
+     "basis": "official"
+    },
+    {
+     "text": "2026.09.28 ~ 2026.11.30 계약 고객 대상",
+     "src": "site:b2b-ai-subs-festival",
+     "basis": "official"
+    }
+   ],
+   "evidence": [
+    {
+     "source": "site:b2b-ai-subs-festival",
+     "kind": "image",
+     "url": "https://images.samsung.com/kdp/cms_contents/110414/a4cc7a38-0ca5-446d-84af-f0a3edf5f525.jpg?$ORIGIN_JPG$",
+     "sha256": "f27245dc99bf195fcbb745461e514902c201ab2e87b6606c713cc34ea7777419"
+    },
+    {
+     "source": "site:b2b-ai-subs-festival",
+     "kind": "image",
+     "url": "https://images.samsung.com/kdp/cms_contents/110414/077d56e0-814a-460e-b2f8-5ee95fdbd0e4.jpg?$ORIGIN_JPG$",
+     "sha256": "5dfd48d6722a55daa11062e2ea928ec75aa3e49f60e7d09f6886311e3b7c3fbc"
+    }
+   ],
+   "status": "active",
+   "checkedAt": "2026-11-13T09:40:17+09:00",
+   "checkedRun": "dss-20261113-0940",
+   "firstSeen": "2026-11-13T09:40:17+09:00",
+   "state": "active"
+  },
+  {
+   "id": "sub_pay_monthly",
+   "type": "payment",
+   "parent": "sub_b2b_ai",
+   "name": "월 구독료 (월 분할 납부)",
+   "short": "월 분할 납부",
+   "icon": "calendar",
+   "basis": "official",
+   "summary": "목돈 일시 구매 대신 계약 기간 동안 매월 나눠 내는 기본 방식 — 예측 가능한 예산",
+   "fit": "초기 투자 예산이 부족하거나 사업장을 새로 여는 고객",
+   "points": [
+    "초기 목돈 없이 도입",
+    "계약 기간(3~6년) 동안 같은 금액",
+    "무상 AS · 케어 비용이 구독료에 포함"
+   ],
+   "confirm": [
+    "청구일 · 결제 수단(자동이체 · 카드)",
+    "세금계산서 발행 단위"
+   ],
+   "reference": "",
+   "detailInferred": [
+    "법인 계좌 자동이체 · 월별 세금계산서 청구"
+   ],
+   "evidenceRefs": [
+    "site:b2b-ai-subs#values",
+    "site:b2b-ai-subs#compare"
+   ],
+   "keyMessages": [
+    {
+     "text": "목돈 일시 구매 대신 계약 기간 동안 매월 나눠 내는 기본 방식 — 예측 가능한 예산",
+     "src": "site:b2b-ai-subs",
+     "basis": "official"
+    }
+   ],
+   "evidence": [
+    {
+     "source": "site:b2b-ai-subs",
+     "kind": "image",
+     "url": "https://images.samsung.com/kdp/cms_contents/110248/111a0eea-7a5c-4d8b-9e4a-f9250cd4c7cd.jpg?$FB_TYPE_A_JPG$",
+     "sha256": "00557d4345e57d1a9bdb9ae48af60054f0eccdfc5586adf706a40d26b2985200"
+    },
+    {
+     "source": "site:b2b-ai-subs",
+     "kind": "image",
+     "url": "https://images.samsung.com/kdp/cms_contents/110248/a031a70b-58ae-4f70-bd0c-db216bb139be.jpg?$FB_TYPE_A_JPG$",
+     "sha256": "38c0c30e5a633cef5a44d47a7f8e561e259b216f8a4e658c2ad880dc2d469d80"
+    }
+   ],
+   "status": "active",
+   "checkedAt": "2026-11-13T09:40:17+09:00",
+   "checkedRun": "dss-20261113-0940",
+   "firstSeen": "2026-11-13T09:40:17+09:00"
+  },
+  {
+   "id": "sub_pay_prepay",
+   "type": "payment",
+   "parent": "sub_b2b_ai",
+   "name": "선납 + 월 납부",
+   "short": "선납 혼합",
+   "icon": "coin",
+   "basis": "inferred",
+   "summary": "예산이 확보된 해에 일부를 먼저 내고 나머지를 월로 나눠 월 부담을 낮추는 안",
+   "fit": "올해 예산 잔액이 있고 다음 해부터 운영비를 줄이고 싶은 고객",
+   "points": [
+    "올해 예산으로 일부 선납",
+    "남은 기간 월 구독료 감소",
+    "선납 비율은 협의"
+   ],
+   "confirm": [
+    "B2B 선납 가능 여부 · 비율",
+    "선납 할인 적용 여부"
+   ],
+   "reference": "삼성 AI 구독(개인)은 선납 최대 50% · 40% 또는 50% 선납 시 총 구독료 5% 추가 할인 — B2B 적용 여부 확인 필요",
+   "detailInferred": [],
+   "evidenceRefs": [
+    "news:20260928#prepay"
+   ],
+   "keyMessages": [
+    {
+     "text": "예산이 확보된 해에 일부를 먼저 내고 나머지를 월로 나눠 월 부담을 낮추는 안",
+     "src": "news:20260928",
+     "basis": "inferred"
+    }
+   ],
+   "evidence": [],
+   "status": "inferred",
+   "checkedAt": null,
+   "checkedRun": null,
+   "firstSeen": "2026-11-13T09:40:17+09:00",
+   "inferredAt": "2026-11-13T09:40:00+09:00"
+  },
+  {
+   "id": "sub_pay_annual",
+   "type": "payment",
+   "parent": "sub_b2b_ai",
+   "name": "연 단위 납부 · 다년 계약",
+   "short": "연 단위 납부",
+   "icon": "doc",
+   "basis": "inferred",
+   "summary": "회계연도 예산 집행 주기에 맞춰 1년 단위로 청구받고, 계약 기간 전체를 다년으로 묶는 안",
+   "fit": "정부 · 공공기관 · 학교처럼 연 예산으로 집행하는 고객",
+   "points": [
+    "예산 집행 주기에 맞춘 청구",
+    "3~6년 계약을 1년 단위로",
+    "해마다 같은 예산 항목"
+   ],
+   "confirm": [
+    "연 · 분기 청구 가능 여부",
+    "다년 계약 · 연차별 예산 배정 방식",
+    "공공 조달 계약 방식"
+   ],
+   "reference": "",
+   "detailInferred": [],
+   "evidenceRefs": [
+    "site:b2b-ai-subs#terms.period",
+    "site:b2b-ai-subs-festival#eligibility"
+   ],
+   "keyMessages": [
+    {
+     "text": "회계연도 예산 집행 주기에 맞춰 1년 단위로 청구받고, 계약 기간 전체를 다년으로 묶는 안",
+     "src": "site:b2b-ai-subs",
+     "basis": "inferred"
+    }
+   ],
+   "evidence": [],
+   "status": "inferred",
+   "checkedAt": null,
+   "checkedRun": null,
+   "firstSeen": "2026-11-13T09:40:17+09:00",
+   "inferredAt": "2026-11-13T09:40:00+09:00"
+  },
+  {
+   "id": "sub_pay_hq",
+   "type": "payment",
+   "parent": "sub_b2b_ai",
+   "name": "본사 일괄 계약 · 사업장별 청구",
+   "short": "본사 일괄 계약",
+   "icon": "building",
+   "basis": "inferred",
+   "summary": "본사가 한 번에 계약하고 지점 · 사업장 · 부서별로 나눠 청구받는 안",
+   "fit": "은행 · 프랜차이즈 · 병원 그룹처럼 사업장이 여럿인 고객",
+   "points": [
+    "계약 · 조건은 본사 한 번",
+    "사업장별 비용 배분",
+    "여러 지점 한꺼번에 케어"
+   ],
+   "confirm": [
+    "사업장별 분할 청구 가능 여부",
+    "사업장 추가 · 이전 시 처리"
+   ],
+   "reference": "",
+   "detailInferred": [],
+   "evidenceRefs": [
+    "news:20260928#bluepass.timecare"
+   ],
+   "keyMessages": [
+    {
+     "text": "본사가 한 번에 계약하고 지점 · 사업장 · 부서별로 나눠 청구받는 안",
+     "src": "news:20260928",
+     "basis": "inferred"
+    }
+   ],
+   "evidence": [],
+   "status": "inferred",
+   "checkedAt": null,
+   "checkedRun": null,
+   "firstSeen": "2026-11-13T09:40:17+09:00",
+   "inferredAt": "2026-11-13T09:40:00+09:00"
+  },
+  {
+   "id": "sub_pay_stage",
+   "type": "payment",
+   "parent": "sub_b2b_ai",
+   "name": "단계 도입 · 추가 구독",
+   "short": "단계 도입",
+   "icon": "trend",
+   "basis": "inferred",
+   "summary": "한 사업장에서 먼저 구독해 보고, 같은 조건으로 다른 사업장 · 품목을 더하는 안",
+   "fit": "파일럿으로 효과를 확인한 뒤 넓히려는 고객",
+   "points": [
+    "작게 시작해 확인",
+    "같은 조건으로 확산",
+    "추가분 만기 정렬은 협의"
+   ],
+   "confirm": [
+    "추가 구독 시 조건 · 만기 정렬",
+    "동일 장소 · 동일 품목 수량 할인(기간 한정 혜택) 적용"
+   ],
+   "reference": "",
+   "detailInferred": [],
+   "evidenceRefs": [
+    "site:b2b-ai-subs-festival#promotions.b3"
+   ],
+   "keyMessages": [
+    {
+     "text": "한 사업장에서 먼저 구독해 보고, 같은 조건으로 다른 사업장 · 품목을 더하는 안",
+     "src": "site:b2b-ai-subs-festival",
+     "basis": "inferred"
+    }
+   ],
+   "evidence": [],
+   "status": "inferred",
+   "checkedAt": null,
+   "checkedRun": null,
+   "firstSeen": "2026-11-13T09:40:17+09:00",
+   "inferredAt": "2026-11-13T09:40:00+09:00"
+  }
+ ],
+ "paymentNotes": [
+  "구매 조건 · 수량: 고객의 신용도 및 품목에 따라 상이(원문 FAQ)",
+  "중도 해지: 가능하나 위약금 · 제품 회수비 발생 가능(원문 FAQ)",
+  "만기 후 처리(재구독 · 반납 · 소유권)는 B2B 원문에 없음 — 계약 시 확인",
+  "회계 처리(비용 · 자산)는 계약 구조와 고객 회계 기준에 따름 — 고객 재무 확인"
+ ],
+ "consumerRef": {
+  "about": "삼성 AI 구독(개인 고객) 기준 사실 — B2B 적용 여부는 원문에 없다. 결제 협의안을 추론할 때 참고로만 쓴다(장표에는 'B2B 적용 확인 필요'로만).",
+  "prepay": {
+   "text": "선납 비율을 기존 최대 30%에서 최대 50%로 확대 · 40% 또는 50% 선납 시 총 구독료의 5%를 추가 할인",
+   "src": "news:20260928"
+  },
+  "careOptions": {
+   "text": "기존 무상수리 서비스 · 셀프케어 · 방문케어(프리미엄)에 방문케어 라이트를 추가해 총 4가지 관리 옵션",
+   "src": "news:20261027"
+  }
+ },
+ "categories": [
+  {
+   "id": "ref",
+   "label": "냉장고",
+   "status": "official",
+   "tax": [
+    "ref_home"
+   ],
+   "sc": [
+    "냉장고"
+   ],
+   "note": "",
+   "count": 40,
+   "products": [
+    "sg_g000183669",
+    "sg_g000183662",
+    "sg_g000183664",
+    "sg_g000183638",
+    "sg_g000183642",
+    "sg_g000183646",
+    "sg_g000183652",
+    "sg_g000183635",
+    "sg_g000183624",
+    "sg_g000183629",
+    "sg_g000183631",
+    "sg_g000183632",
+    "sg_g000183655",
+    "sg_g000183659",
+    "sg_g000183656",
+    "sg_g000183349",
+    "sg_g000183355",
+    "sg_g000183345",
+    "sg_g000183347",
+    "sg_g000183348",
+    "sg_g000183350",
+    "sg_g000183351",
+    "sg_g000183352",
+    "sg_g000183354",
+    "sg_g000183397",
+    "sg_g000181263",
+    "sg_g000181046",
+    "sg_g000182355",
+    "sg_g000182354",
+    "sg_g000181927",
+    "sg_g000181928",
+    "sg_g000184155",
+    "ec_360_036",
+    "ec_360_051",
+    "ec_314_001",
+    "ec_314_004",
+    "ec_314_005",
+    "ec_215_010",
+    "ec_131_001",
+    "ec_131_002"
+   ],
+   "rep": {
+    "img": "/assets/subs/p-RS70F84N2Y.webp",
+    "name": "Bespoke 양문형 냉장고 852L (메탈쿨링커버)",
+    "model": "RS70F84N2Y",
+    "product": "sg_g000183345",
+    "match": "category"
+   }
+  },
+  {
+   "id": "kimchi",
+   "label": "김치냉장고",
+   "status": "official",
+   "tax": [
+    "kimchi"
+   ],
+   "sc": [
+    "김치냉장고"
+   ],
+   "note": "",
+   "count": 17,
+   "products": [
+    "sg_g000183394",
+    "sg_g000183393",
+    "sg_g000183382",
+    "sg_g000183395",
+    "sg_g000183386",
+    "sg_g000183387",
+    "sg_g000183383",
+    "sg_g000183388",
+    "sg_g000183391",
+    "sg_g000183392",
+    "sg_g000183384",
+    "sg_g000183385",
+    "sg_g000183389",
+    "sg_g500141915",
+    "sg_g000183396",
+    "ec_314_003",
+    "ec_131_004"
+   ],
+   "rep": {
+    "img": "img/prod/g06.json#53",
+    "name": "Bespoke 김치플러스 3도어 키친핏 313L",
+    "model": "RQ33DB7411W6",
+    "product": "sg_g000183393",
+    "match": "category"
+   }
+  },
+  {
+   "id": "washdry",
+   "label": "세탁/건조기",
+   "status": "official",
+   "tax": [
+    "wash",
+    "dry"
+   ],
+   "sc": [
+    "세탁기",
+    "건조기"
+   ],
+   "note": "",
+   "count": 17,
+   "products": [
+    "sg_g000183942",
+    "sg_g000183943",
+    "sg_g000183944",
+    "sg_g000183794",
+    "sg_g000183711",
+    "sg_g000183710",
+    "sg_g000183795",
+    "ec_314_012",
+    "sg_g000183941",
+    "sg_g000183792",
+    "sg_g000183708",
+    "sg_g000183709",
+    "sg_g000182352",
+    "sg_g000182285",
+    "sg_g000182125",
+    "sg_g000182131",
+    "sg_g000180484"
+   ],
+   "rep": {
+    "img": "/assets/subs/p-WH90F2522GBHY.webp",
+    "name": "Bespoke AI 원바디 25/22kg (177.8mm LCD)",
+    "model": "WH90F2522GBHY",
+    "product": "sg_g000182285",
+    "match": "category"
+   }
+  },
+  {
+   "id": "wash",
+   "label": "세탁기",
+   "status": "official",
+   "tax": [
+    "wash"
+   ],
+   "sc": [
+    "세탁기"
+   ],
+   "note": "",
+   "count": 8,
+   "products": [
+    "sg_g000183942",
+    "sg_g000183943",
+    "sg_g000183944",
+    "sg_g000183794",
+    "sg_g000183711",
+    "sg_g000183710",
+    "sg_g000183795",
+    "ec_314_012"
+   ],
+   "rep": {
+    "img": "/assets/subs/p-WH90F2522GBHY.webp",
+    "name": "Bespoke AI 원바디 25/22kg (177.8mm LCD)",
+    "model": "WH90F2522GBHY",
+    "product": "sg_g000182285",
+    "match": "category"
+   }
+  },
+  {
+   "id": "dry",
+   "label": "건조기",
+   "status": "official",
+   "tax": [
+    "dry"
+   ],
+   "sc": [
+    "건조기"
+   ],
+   "note": "",
+   "count": 9,
+   "products": [
+    "sg_g000183941",
+    "sg_g000183792",
+    "sg_g000183708",
+    "sg_g000183709",
+    "sg_g000182352",
+    "sg_g000182285",
+    "sg_g000182125",
+    "sg_g000182131",
+    "sg_g000180484"
+   ],
+   "rep": {
+    "img": "img/prod/g07.json#8",
+    "name": "AI 건조기 21kg",
+    "model": "DV21DG8600BV",
+    "product": "sg_g000183792",
+    "match": "category"
+   }
+  },
+  {
+   "id": "ac",
+   "label": "에어컨",
+   "status": "official",
+   "tax": [
+    "ac"
+   ],
+   "sc": [
+    "에어컨"
+   ],
+   "note": "스탠드 · 벽걸이 — 시스템에어컨은 제한",
+   "count": 46,
+   "products": [
+    "sg_g000184119",
+    "sg_g000184116",
+    "sg_g000184108",
+    "sg_g000184106",
+    "sg_g000184102",
+    "sg_g000184115",
+    "sg_g000184113",
+    "sg_g000184107",
+    "sg_g000184109",
+    "sg_g000184104",
+    "sg_g000183564",
+    "sg_g000183562",
+    "sg_g000183563",
+    "sg_g000183561",
+    "sg_g000183560",
+    "sg_g000183558",
+    "sg_g000183557",
+    "sg_g000183610",
+    "sg_g000183611",
+    "sg_g000183612",
+    "sg_g000183606",
+    "sg_g000183607",
+    "sg_g000183608",
+    "sg_g000183555",
+    "sg_g000183549",
+    "sg_g000183539",
+    "sg_g000183540",
+    "sg_g000183598",
+    "sg_g000183599",
+    "sg_g000183541",
+    "sg_g000183542",
+    "sg_g000183596",
+    "sg_g000183597",
+    "sg_g000183543",
+    "sg_g000183535",
+    "sg_g000183544",
+    "sg_g000183536",
+    "sg_g000183600",
+    "sg_g000183537",
+    "sg_g000183538",
+    "sg_g000183601",
+    "sg_g000183534",
+    "sg_g000182982",
+    "sg_g000182254",
+    "ec_297_602",
+    "ec_297_605"
+   ],
+   "rep": {
+    "img": "/assets/subs/p-AR60F11D11WT.webp",
+    "name": "AI 무풍콤보 벽걸이 34.1㎡ (리모컨 포함)",
+    "model": "AR60F11D11WT",
+    "product": "sg_g000183536",
+    "match": "series"
+   }
+  },
+  {
+   "id": "air",
+   "label": "공기청정기",
+   "status": "official",
+   "tax": [
+    "air"
+   ],
+   "sc": [
+    "공기청정기"
+   ],
+   "note": "",
+   "count": 8,
+   "products": [
+    "purifier",
+    "sg_g000184126",
+    "sg_g000184122",
+    "sg_g000184124",
+    "sg_g000184120",
+    "sg_g000183749",
+    "sg_g000184257",
+    "ec_360_064"
+   ],
+   "rep": {
+    "img": "/assets/subs/p-AP90H03163UGD.webp",
+    "name": "Infinite AI 공기청정기 (33㎡, S 필터)",
+    "model": "AP90H03163UGD",
+    "product": "sg_g000184126",
+    "match": "exact"
+   }
+  },
+  {
+   "id": "water",
+   "label": "정수기",
+   "status": "official",
+   "tax": [
+    "water"
+   ],
+   "sc": [
+    "정수기"
+   ],
+   "note": "",
+   "count": 15,
+   "products": [
+    "sg_g000184134",
+    "sg_g000184135",
+    "sg_g000184136",
+    "sg_g000184129",
+    "sg_g000184130",
+    "sg_g000184128",
+    "sg_g000184132",
+    "sg_g000184133",
+    "sg_g000184131",
+    "sg_g000184138",
+    "sg_g000184139",
+    "sg_g000184137",
+    "ec_314_026",
+    "ec_335_002",
+    "ec_221_015"
+   ],
+   "rep": {
+    "img": "/assets/subs/p-RWP70F15ANB.webp",
+    "name": "Bespoke AI 정수기 (냉/온/정수)",
+    "model": "RWP70F15ANB",
+    "product": "sg_g000184129",
+    "match": "exact"
+   }
+  },
+  {
+   "id": "tv",
+   "label": "TV",
+   "status": "official",
+   "tax": [
+    "tv"
+   ],
+   "sc": [
+    "TV"
+   ],
+   "note": "",
+   "count": 23,
+   "products": [
+    "sg_g000183962",
+    "sg_g000183940",
+    "sg_g000183847",
+    "sg_g000183782",
+    "sg_g000183783",
+    "sg_g000183781",
+    "sg_g000183780",
+    "sg_g000183774",
+    "sg_g000183768",
+    "sg_g000183762",
+    "sg_g000183752",
+    "sg_g000183839",
+    "sg_g000183756",
+    "sg_g000183306",
+    "ec_360_099",
+    "ec_360_101",
+    "ec_360_102",
+    "ec_360_103",
+    "ec_360_104",
+    "ec_360_105",
+    "ec_314_033",
+    "ec_202_005",
+    "ec_215_007"
+   ],
+   "rep": {
+    "img": "img/prod/g00.json#135",
+    "name": "2025 Crystal UHD UF8050 (108cm)",
+    "model": "KU43UF8050FXKR",
+    "product": "sg_g000183774",
+    "match": "category"
+   }
+  },
+  {
+   "id": "htv",
+   "label": "호텔TV",
+   "status": "official",
+   "tax": [
+    "htv"
+   ],
+   "sc": [
+    "호텔TV"
+   ],
+   "note": "숙박 패키지 품목",
+   "count": 6,
+   "products": [
+    "hoteltv",
+    "hoteltv43",
+    "sg_g000183984",
+    "sg_g000183978",
+    "sg_g000182826",
+    "ec_221_008"
+   ],
+   "rep": {
+    "img": "img/prod/g00.json#105",
+    "name": "호텔 TV HU7000F 시리즈",
+    "model": "HG43U700FNFXKR",
+    "product": "sg_g000183984",
+    "match": "category"
+   }
+  },
+  {
+   "id": "iwb",
+   "label": "전자칠판",
+   "status": "official",
+   "tax": [
+    "iwb"
+   ],
+   "sc": [
+    "스마트 LCD 사이니지"
+   ],
+   "note": "",
+   "count": 10,
+   "products": [
+    "flip",
+    "sg_g000184098",
+    "sg_g000183964",
+    "sg_g000183834",
+    "sg_g000183835",
+    "sg_g000183836",
+    "sg_g000183837",
+    "sg_g000183838",
+    "sg_g000183619",
+    "ec_197_012"
+   ],
+   "rep": {
+    "img": "img/prod/g00.json#6",
+    "name": "Flip Pro 전자칠판",
+    "model": "LH55WMFWBGCXKR",
+    "product": "sg_g000184098",
+    "match": "category"
+   }
+  },
+  {
+   "id": "airdresser",
+   "label": "에어드레서",
+   "status": "official",
+   "tax": [
+    "airdresser"
+   ],
+   "sc": [
+    "에어드레서"
+   ],
+   "note": "",
+   "count": 7,
+   "products": [
+    "airdresser",
+    "sg_g000182178",
+    "sg_g000182163",
+    "sg_g000182161",
+    "sg_g000182151",
+    "sg_g000182165",
+    "ec_360_059"
+   ],
+   "rep": {
+    "img": "img/prod/g07.json#38",
+    "name": "Bespoke AI 에어드레서",
+    "model": "DF18CB8700CR",
+    "product": "sg_g000182163",
+    "match": "category"
+   }
+  },
+  {
+   "id": "dish",
+   "label": "식기세척기",
+   "status": "official",
+   "tax": [
+    "dish"
+   ],
+   "sc": [
+    "식기세척기"
+   ],
+   "note": "",
+   "count": 17,
+   "products": [
+    "bi_dish",
+    "sg_g000184176",
+    "sg_g000184154",
+    "sg_g000183533",
+    "sg_g000183585",
+    "sg_g000183589",
+    "sg_g000183592",
+    "sg_g000183593",
+    "sg_g000183590",
+    "sg_g000183591",
+    "sg_g000183594",
+    "sg_g000183595",
+    "sg_g000183584",
+    "sg_g000183587",
+    "sg_g000183588",
+    "ec_131_010",
+    "ec_332_001"
+   ],
+   "rep": {
+    "img": "img/prod/g06.json#83",
+    "name": "Bespoke AI 식기세척기 빌트인 14인용",
+    "model": "DW80H73L1UE",
+    "product": "sg_g000184176",
+    "match": "category"
+   }
+  },
+  {
+   "id": "mon",
+   "label": "모니터",
+   "status": "official",
+   "tax": [
+    "mon"
+   ],
+   "sc": [
+    "모니터"
+   ],
+   "note": "구독 메인 이미지 · 오피스 패키지(ViewFinity S8)",
+   "count": 43,
+   "products": [
+    "smartmonitor",
+    "sg_g000184305",
+    "sg_g000184308",
+    "sg_g000184309",
+    "sg_g000184177",
+    "sg_g000184178",
+    "sg_g000183976",
+    "sg_g000183977",
+    "sg_g000183974",
+    "sg_g000183975",
+    "sg_g000183960",
+    "sg_g000183957",
+    "sg_g000183955",
+    "sg_g000183956",
+    "sg_g000183973",
+    "sg_g000183950",
+    "sg_g000183949",
+    "sg_g000183951",
+    "sg_g000183952",
+    "sg_g000183953",
+    "sg_g000183954",
+    "sg_g000183674",
+    "sg_g000183530",
+    "sg_g000183531",
+    "sg_g000183527",
+    "sg_g000183528",
+    "sg_g000183529",
+    "sg_g000183947",
+    "sg_g000183451",
+    "sg_g000183440",
+    "sg_g000183438",
+    "sg_g000183170",
+    "sg_g000184172",
+    "sg_g000184173",
+    "sg_g000184174",
+    "sg_g000184163",
+    "sg_g000184161",
+    "sg_g000184162",
+    "sg_g000184164",
+    "sg_g000184165",
+    "ec_360_110",
+    "ec_360_112",
+    "ec_360_113"
+   ],
+   "rep": {
+    "img": "img/prod/g01.json#52",
+    "name": "뷰피니티 S8 S80UH 4K USB-C (LS27H802U)",
+    "model": "LS27H802UAKXKR",
+    "product": "sg_g000184172",
+    "match": "category"
+   }
+  },
+  {
+   "id": "nb",
+   "label": "갤럭시 북",
+   "status": "official",
+   "tax": [
+    "nb"
+   ],
+   "sc": [
+    "노트북"
+   ],
+   "note": "구독 메인 이미지에 있는 품목",
+   "count": 75,
+   "products": [
+    "book",
+    "sg_g000184216",
+    "sg_g000184217",
+    "sg_g000184215",
+    "sg_g000184096",
+    "sg_g000184097",
+    "sg_g000184094",
+    "sg_g000184095",
+    "sg_g000184092",
+    "sg_g000184093",
+    "sg_g000184090",
+    "sg_g000184091",
+    "sg_g000184080",
+    "sg_g000184081",
+    "sg_g000184088",
+    "sg_g000184089",
+    "sg_g000184086",
+    "sg_g000184087",
+    "sg_g000184084",
+    "sg_g000184085",
+    "sg_g000184082",
+    "sg_g000184083",
+    "sg_g000184007",
+    "sg_g000183991",
+    "sg_g000183993",
+    "sg_g000183992",
+    "sg_g000183994",
+    "sg_g000183996",
+    "sg_g000183995",
+    "sg_g000183923",
+    "sg_g000183864",
+    "sg_g000183865",
+    "sg_g000183867",
+    "sg_g000183869",
+    "sg_g000183866",
+    "sg_g000183868",
+    "sg_g000183870",
+    "sg_g000183872",
+    "sg_g000183871",
+    "sg_g000183873",
+    "sg_g000183787",
+    "sg_g000183784",
+    "sg_g000183785",
+    "sg_g000183786",
+    "sg_g000183788",
+    "sg_g000183791",
+    "sg_g000183789",
+    "sg_g000183790",
+    "sg_g000183485",
+    "sg_g000183486",
+    "sg_g000183487",
+    "sg_g000183488",
+    "sg_g000183489",
+    "sg_g000183490",
+    "sg_g000183491",
+    "sg_g000183492",
+    "sg_g000183493",
+    "sg_g000183494",
+    "sg_g000183478",
+    "sg_g000183479",
+    "sg_g000183480",
+    "sg_g000183481",
+    "sg_g000183482",
+    "sg_g000183483",
+    "sg_g000183484",
+    "sg_g000183210",
+    "sg_g000183211",
+    "sg_g000183212",
+    "sg_g000183181",
+    "sg_g000183102",
+    "sg_g000183093",
+    "sg_g000183092",
+    "ec_362_001",
+    "ec_356_001",
+    "ec_345_002"
+   ],
+   "rep": {
+    "img": "img/prod/g03.json#47",
+    "name": "갤럭시 북6 프로 (35.6cm) Core™ Ultra 5 / 1 TB NVMe SSD, Copilot+ PC",
+    "model": "NT941XJG-KR511",
+    "product": "sg_g000184096",
+    "match": "category"
+   }
+  },
+  {
+   "id": "phone",
+   "label": "휴대폰",
+   "status": "restricted",
+   "tax": [
+    "phone"
+   ],
+   "sc": [
+    "스마트폰"
+   ],
+   "note": "",
+   "count": 12,
+   "products": [
+    "xcover7",
+    "galaxyA",
+    "sg_g000184198",
+    "sg_g000184192",
+    "sg_g000184183",
+    "sg_g000184056",
+    "sg_g000184048",
+    "sg_g000184040",
+    "sg_g000183700",
+    "ec_360_136",
+    "ec_360_137",
+    "ec_300_002"
+   ],
+   "rep": null
+  },
+  {
+   "id": "sac",
+   "label": "시스템에어컨",
+   "status": "restricted",
+   "tax": [
+    "sac_l_in",
+    "sac_l_out",
+    "sac_sm",
+    "sac_res",
+    "sac_ctr",
+    "sac_cold"
+   ],
+   "sc": [
+    "시스템에어컨",
+    "대형건물용",
+    "중소건물용 실내외기",
+    "주거용 실내외기",
+    "중앙공조",
+    "콜드체인 시스템",
+    "시스템에어컨 · 멀티실내기",
+    "시스템에어컨 · 제어기",
+    "시스템에어컨 · 액세서리",
+    "시스템에어컨 · 상업용 에어컨",
+    "시스템에어컨 · 중대형",
+    "상업용 히트펌프"
+   ],
+   "note": "",
+   "count": 189,
+   "products": [
+    "wf1way",
+    "wf4way",
+    "ac360",
+    "dvms2",
+    "dvmchiller",
+    "sg_g000180647",
+    "sg_g000180586",
+    "sg_g000180495",
+    "sg_g000180023",
+    "sg_g000180030",
+    "sg_g500155490",
+    "sg_g500130299",
+    "sg_g500135091",
+    "sg_g500124803",
+    "ec_297_017",
+    "ec_297_018",
+    "ec_297_019",
+    "sg_g000182770",
+    "sg_g000182748",
+    "sg_g000181694",
+    "sg_g000181667",
+    "sg_g000181681",
+    "sg_g000181682",
+    "sg_g000181654",
+    "sg_g000181660",
+    "sg_g000181648",
+    "sg_g000181638",
+    "sg_g000181644",
+    "sg_g000181611",
+    "sg_g000181622",
+    "sg_g000181629",
+    "sg_g000181609",
+    "sg_g000181608",
+    "sg_g000181220",
+    "sg_g000181210",
+    "sg_g000179087",
+    "sg_g000179091",
+    "sg_g500154504",
+    "sg_g500124070",
+    "ec_297_322",
+    "ec_203_011",
+    "ec_203_016",
+    "ec_203_018",
+    "ec_203_030",
+    "sg_g000183602",
+    "sg_g000183603",
+    "sg_g000183106",
+    "sg_g000183113",
+    "sg_g000183111",
+    "sg_g000182305",
+    "sg_g000182312",
+    "sg_g000183151",
+    "sg_g000182475",
+    "sg_g000182483",
+    "sg_g000182478",
+    "sg_g000182486",
+    "sg_g000182480",
+    "sg_g000182489",
+    "sg_g000181247",
+    "sg_g000183613",
+    "sg_g000182394",
+    "sg_g000180529",
+    "sg_g000179203",
+    "sg_g500147336",
+    "sg_g500123060",
+    "sg_g500130897",
+    "sg_g000181178",
+    "ec_203_004",
+    "ec_287_003",
+    "sg_g000182543",
+    "sg_g000182530",
+    "sg_g000182533",
+    "sg_g000182535",
+    "sg_g000182547",
+    "sg_g000182551",
+    "sg_g000182564",
+    "ec_297_619",
+    "ec_297_620",
+    "ec_297_621",
+    "ec_297_627",
+    "ec_297_628",
+    "ec_297_629",
+    "ec_297_630",
+    "ec_297_631",
+    "ec_297_632",
+    "ec_297_633",
+    "ec_297_634",
+    "ec_297_635",
+    "ec_297_636",
+    "ec_297_637",
+    "ec_297_638",
+    "ec_297_639",
+    "ec_161_001",
+    "ec_161_002",
+    "ec_161_003",
+    "ec_161_004",
+    "ec_161_005",
+    "ec_161_006",
+    "ec_161_007",
+    "ec_161_008",
+    "sg_g000182050",
+    "sg_g000182053",
+    "ec_218_001",
+    "ec_218_002",
+    "ec_218_003",
+    "ec_218_004",
+    "ec_218_005",
+    "ec_218_006",
+    "ec_218_007",
+    "ec_218_008",
+    "ec_218_009",
+    "ec_218_010",
+    "ec_218_011",
+    "ec_218_012",
+    "ec_218_013",
+    "ec_297_641",
+    "ec_297_642",
+    "ec_297_643",
+    "ec_297_644",
+    "ec_297_645",
+    "ec_297_646",
+    "ec_297_647",
+    "ec_297_648",
+    "ec_297_067",
+    "ec_297_068",
+    "ec_297_070",
+    "ec_297_071",
+    "ec_297_073",
+    "ec_297_074",
+    "ec_297_075",
+    "ec_297_076",
+    "ec_297_077",
+    "ec_297_078",
+    "ec_297_079",
+    "ec_297_080",
+    "ec_297_081",
+    "ec_297_082",
+    "ec_297_083",
+    "ec_297_084",
+    "ec_297_085",
+    "ec_297_086",
+    "ec_297_087",
+    "ec_360_010",
+    "ec_203_022",
+    "ec_203_024",
+    "ec_203_025",
+    "ec_203_026",
+    "ec_203_027",
+    "ec_297_045",
+    "ec_297_046",
+    "ec_297_047",
+    "ec_297_048",
+    "ec_297_052",
+    "ec_297_053",
+    "ec_297_055",
+    "ec_297_056",
+    "ec_297_057",
+    "ec_297_058",
+    "ec_297_059",
+    "ec_297_060",
+    "ec_297_061",
+    "ec_297_062",
+    "ec_297_063",
+    "ec_297_064",
+    "ec_297_065",
+    "ec_297_066",
+    "ec_297_031",
+    "ec_297_032",
+    "ec_297_033",
+    "ec_297_034",
+    "ec_297_036",
+    "ec_297_037",
+    "ec_297_038",
+    "ec_297_303",
+    "ec_297_305",
+    "ec_297_308",
+    "ec_297_309",
+    "ec_297_310",
+    "ec_297_652",
+    "ec_297_653",
+    "ec_297_654",
+    "ec_297_655",
+    "ec_297_656",
+    "ec_297_657",
+    "ec_297_658",
+    "ec_297_659",
+    "ec_314_029",
+    "ec_360_013",
+    "ec_203_034"
+   ],
+   "rep": null
+  }
+ ],
+ "verticals": {
+  "fb_qsr": {
+   "name": "외식 프랜차이즈 (QSR·패스트푸드·다점포 본사)",
+   "pkg": null,
+   "match": "derived",
+   "cats": [
+    "ac",
+    "air",
+    "water",
+    "iwb"
+   ],
+   "space": 2,
+   "spaceName": "객석(식음 공간)"
+  },
+  "fb_cafe": {
+   "name": "카페·베이커리 프랜차이즈 (AI 스토어 포함)",
+   "pkg": null,
+   "match": "derived",
+   "cats": [
+    "air",
+    "ac",
+    "water",
+    "dish"
+   ],
+   "space": 2,
+   "spaceName": "좌석 홀"
+  },
+  "fb_rest": {
+   "name": "단독 레스토랑·중소 식당",
+   "pkg": null,
+   "match": "derived",
+   "cats": [
+    "air",
+    "tv",
+    "kimchi",
+    "ac"
+   ],
+   "space": 0,
+   "spaceName": "홀"
+  },
+  "rt_mall": {
+   "name": "백화점·복합쇼핑몰·면세점",
+   "pkg": null,
+   "match": "derived",
+   "cats": [
+    "ref",
+    "air",
+    "water",
+    "tv"
+   ],
+   "space": 5,
+   "spaceName": "VIP 라운지"
+  },
+  "rt_hyper": {
+   "name": "대형마트·SSM",
+   "pkg": null,
+   "match": "derived",
+   "cats": [
+    "ref",
+    "wash",
+    "tv",
+    "airdresser"
+   ],
+   "space": 4,
+   "spaceName": "가전 판매·체험 코너"
+  },
+  "rt_flag": {
+   "name": "브랜드 플래그십·쇼룸·자동차 전시장",
+   "pkg": null,
+   "match": "derived",
+   "cats": [
+    "airdresser",
+    "ref",
+    "air",
+    "water"
+   ],
+   "space": 3,
+   "spaceName": "상담·고객 라운지"
+  },
+  "rt_small": {
+   "name": "편의점·약국·소형 매장",
+   "pkg": "sub_pkg_office",
+   "match": "fallback",
+   "cats": [
+    "ac"
+   ],
+   "space": 2,
+   "spaceName": "매장 홀"
+  },
+  "sv_unmanned": {
+   "name": "스터디카페·PC방·무인매장",
+   "pkg": "sub_pkg_office",
+   "match": "similar",
+   "cats": [
+    "ref",
+    "air",
+    "water",
+    "iwb"
+   ],
+   "space": 3,
+   "spaceName": "휴게·스낵 존"
+  },
+  "sv_screen": {
+   "name": "스크린골프·실내 스포츠",
+   "pkg": null,
+   "match": "derived",
+   "cats": [
+    "air",
+    "water",
+    "tv",
+    "airdresser"
+   ],
+   "space": 0,
+   "spaceName": "플레이 룸"
+  },
+  "sv_laundry": {
+   "name": "코인빨래방·세탁 전문점",
+   "pkg": "sub_pkg_office",
+   "match": "fallback",
+   "cats": [
+    "air",
+    "airdresser"
+   ],
+   "space": 2,
+   "spaceName": "무인 결제·관리"
+  },
+  "sv_beauty": {
+   "name": "뷰티·미용실·피부관리실",
+   "pkg": null,
+   "match": "derived",
+   "cats": [
+    "wash",
+    "air",
+    "water"
+   ],
+   "space": 0,
+   "spaceName": "시술 공간"
+  },
+  "ht_large": {
+   "name": "대형 호텔·리조트·복합리조트(IR)",
+   "pkg": "sub_pkg_stay",
+   "match": "direct",
+   "cats": [
+    "htv",
+    "airdresser",
+    "ref",
+    "air"
+   ],
+   "space": 1,
+   "spaceName": "객실"
+  },
+  "ht_mid": {
+   "name": "중소형·비즈니스 호텔",
+   "pkg": "sub_pkg_stay",
+   "match": "direct",
+   "cats": [
+    "ref",
+    "air",
+    "tv",
+    "htv"
+   ],
+   "space": 1,
+   "spaceName": "객실"
+  },
+  "ht_stay": {
+   "name": "레지던스·생활형숙박·풀빌라·AI 스테이",
+   "pkg": "sub_pkg_stay",
+   "match": "direct",
+   "cats": [
+    "kimchi",
+    "washdry",
+    "air",
+    "water"
+   ],
+   "space": 1,
+   "spaceName": "객실 주방"
+  },
+  "tp_park": {
+   "name": "테마파크·관광지",
+   "pkg": "sub_pkg_office",
+   "match": "fallback",
+   "cats": [
+    "mon"
+   ],
+   "space": 4,
+   "spaceName": "종합상황실"
+  },
+  "tp_museum": {
+   "name": "전시관·박물관·미술관·갤러리",
+   "pkg": "sub_pkg_office",
+   "match": "fallback",
+   "cats": [
+    "air"
+   ],
+   "space": 1,
+   "spaceName": "로비·안내"
+  },
+  "vn_stadium": {
+   "name": "경기장·아레나",
+   "pkg": null,
+   "match": "derived",
+   "cats": [
+    "tv",
+    "airdresser",
+    "ref",
+    "mon"
+   ],
+   "space": 2,
+   "spaceName": "스카이박스·VIP석"
+  },
+  "vn_cinema": {
+   "name": "영화관·공연장",
+   "pkg": null,
+   "match": "derived",
+   "cats": [
+    "ref",
+    "tv",
+    "airdresser"
+   ],
+   "space": 2,
+   "spaceName": "프리미엄관 라운지(스카이박스)"
+  },
+  "sf_fitness": {
+   "name": "스포츠센터·피트니스·골프클럽하우스",
+   "pkg": null,
+   "match": "derived",
+   "cats": [
+    "air",
+    "water",
+    "tv",
+    "htv"
+   ],
+   "space": 0,
+   "spaceName": "운동 공간(GX·웨이트)"
+  },
+  "ad_ooh": {
+   "name": "옥외·미디어 광고 사업자",
+   "pkg": "sub_pkg_office",
+   "match": "fallback",
+   "cats": [
+    "mon"
+   ],
+   "space": 3,
+   "spaceName": "매체 관제센터"
+  },
+  "of_hq": {
+   "name": "대기업 사옥·그룹 본사·신축 스마트 빌딩",
+   "pkg": "sub_pkg_office",
+   "match": "direct",
+   "cats": [
+    "iwb",
+    "air",
+    "tv",
+    "ref"
+   ],
+   "space": 5,
+   "spaceName": "직원 라운지·탕비실"
+  },
+  "of_sme": {
+   "name": "중소기업 오피스",
+   "pkg": "sub_pkg_office",
+   "match": "direct",
+   "cats": [
+    "air",
+    "tv",
+    "ref",
+    "water"
+   ],
+   "space": 3,
+   "spaceName": "탕비실"
+  },
+  "of_cowork": {
+   "name": "공유오피스",
+   "pkg": "sub_pkg_office",
+   "match": "direct",
+   "cats": [
+    "ref",
+    "water",
+    "air",
+    "tv"
+   ],
+   "space": 0,
+   "spaceName": "라운지"
+  },
+  "rs_apt": {
+   "name": "아파트(신축 분양·AI 아파트)",
+   "pkg": null,
+   "match": "derived",
+   "cats": [
+    "air",
+    "tv",
+    "airdresser",
+    "kimchi"
+   ],
+   "space": 0,
+   "spaceName": "세대 거실"
+  },
+  "rs_officetel": {
+   "name": "오피스텔·도시형생활주택·임대주택",
+   "pkg": "sub_pkg_public",
+   "match": "similar",
+   "cats": [
+    "ref",
+    "washdry",
+    "air",
+    "tv"
+   ],
+   "space": 0,
+   "spaceName": "원룸·스튜디오"
+  },
+  "rs_senior": {
+   "name": "시니어 레지던스·실버타운",
+   "pkg": "sub_pkg_public",
+   "match": "similar",
+   "cats": [
+    "tv",
+    "ref",
+    "air",
+    "dish"
+   ],
+   "space": 0,
+   "spaceName": "세대"
+  },
+  "id_partner": {
+   "name": "인테리어·가구·빌트인 파트너",
+   "pkg": null,
+   "match": "derived",
+   "cats": [
+    "kimchi",
+    "air",
+    "water",
+    "tv"
+   ],
+   "space": 0,
+   "spaceName": "쇼룸 키친"
+  },
+  "ed_univ": {
+   "name": "대학 캠퍼스",
+   "pkg": "sub_pkg_public",
+   "match": "direct",
+   "cats": [
+    "air",
+    "tv",
+    "ref",
+    "htv"
+   ],
+   "space": 6,
+   "spaceName": "기숙사"
+  },
+  "ed_k12": {
+   "name": "초·중·고",
+   "pkg": null,
+   "match": "derived",
+   "cats": [
+    "air",
+    "iwb",
+    "dish",
+    "mon"
+   ],
+   "space": 0,
+   "spaceName": "교실"
+  },
+  "ed_academy": {
+   "name": "학원·교육센터",
+   "pkg": "sub_pkg_office",
+   "match": "similar",
+   "cats": [
+    "air",
+    "iwb",
+    "mon",
+    "nb"
+   ],
+   "space": 0,
+   "spaceName": "강의실"
+  },
+  "pb_agency": {
+   "name": "공공기관·지자체 청사·공단",
+   "pkg": "sub_pkg_public",
+   "match": "similar",
+   "cats": [
+    "iwb",
+    "dish",
+    "mon",
+    "nb"
+   ],
+   "space": 1,
+   "spaceName": "사무실"
+  },
+  "pb_transport": {
+   "name": "교통 인프라(지하철·철도·공항·터미널)",
+   "pkg": "sub_pkg_office",
+   "match": "fallback",
+   "cats": [
+    "mon",
+    "nb"
+   ],
+   "space": 2,
+   "spaceName": "종합관제센터"
+  },
+  "mi_military": {
+   "name": "군기관",
+   "pkg": "sub_pkg_public",
+   "match": "similar",
+   "cats": [
+    "tv",
+    "ref",
+    "washdry",
+    "air"
+   ],
+   "space": 0,
+   "spaceName": "생활관"
+  },
+  "md_tertiary": {
+   "name": "상급종합·종합병원",
+   "pkg": "sub_pkg_medical",
+   "match": "direct",
+   "cats": [
+    "air",
+    "htv",
+    "iwb",
+    "dish"
+   ],
+   "space": 4,
+   "spaceName": "입원 병동"
+  },
+  "md_hospital": {
+   "name": "중소 병원(전문병원 포함)",
+   "pkg": "sub_pkg_medical",
+   "match": "direct",
+   "cats": [
+    "air",
+    "tv",
+    "htv",
+    "mon"
+   ],
+   "space": 2,
+   "spaceName": "입원실"
+  },
+  "md_clinic": {
+   "name": "의원·클리닉",
+   "pkg": "sub_pkg_medical",
+   "match": "direct",
+   "cats": [
+    "air",
+    "tv",
+    "mon"
+   ],
+   "space": 1,
+   "spaceName": "진료실·상담실"
+  },
+  "md_ltc": {
+   "name": "요양병원·요양시설",
+   "pkg": "sub_pkg_medical",
+   "match": "direct",
+   "cats": [
+    "tv",
+    "wash",
+    "air",
+    "htv"
+   ],
+   "space": 0,
+   "spaceName": "병실·생활실"
+  },
+  "mf_factory": {
+   "name": "제조 공장·생산 현장",
+   "pkg": "sub_pkg_public",
+   "match": "similar",
+   "cats": [
+    "wash",
+    "tv",
+    "iwb",
+    "dish"
+   ],
+   "space": 3,
+   "spaceName": "구내식당·기숙사"
+  },
+  "mf_logistics": {
+   "name": "물류센터·콜드체인 창고",
+   "pkg": "sub_pkg_office",
+   "match": "fallback",
+   "cats": [
+    "mon",
+    "nb"
+   ],
+   "space": 2,
+   "spaceName": "관제실"
+  },
+  "fn_bank": {
+   "name": "은행 영업점",
+   "pkg": "sub_pkg_office",
+   "match": "similar",
+   "cats": [
+    "air",
+    "water",
+    "tv",
+    "mon"
+   ],
+   "space": 2,
+   "spaceName": "VIP·PB 상담실"
+  },
+  "fn_hq": {
+   "name": "금융 본점·트레이딩룸·콜센터",
+   "pkg": "sub_pkg_office",
+   "match": "similar",
+   "cats": [
+    "iwb",
+    "mon"
+   ],
+   "space": 0,
+   "spaceName": "딜링룸"
+  },
+  "oe_telco": {
+   "name": "통신사 유통 매장·전용 단말",
+   "pkg": "sub_pkg_office",
+   "match": "fallback",
+   "cats": [
+    "mon"
+   ],
+   "space": 2,
+   "spaceName": "상담 카운터"
+  },
+  "rg_church": {
+   "name": "종교시설",
+   "pkg": null,
+   "match": "derived",
+   "cats": [
+    "water",
+    "iwb",
+    "dish",
+    "mon"
+   ],
+   "space": 2,
+   "spaceName": "친교실·식당"
+  },
+  "mb_studio": {
+   "name": "방송·미디어 스튜디오",
+   "pkg": "sub_pkg_office",
+   "match": "fallback",
+   "cats": [
+    "tv",
+    "airdresser",
+    "mon"
+   ],
+   "space": 2,
+   "spaceName": "분장실·대기실"
+  }
+ },
+ "addon": {
+  "about": "요구사항에 따라 다른 목차 구성(목차 템플릿 · AI 목차 추천 · Storyboard 이어 구성)에 더하는 '구독 솔루션 제안' 목차의 규칙. 원문 사실이 아니라 제안 구성 규칙이다 — 신호는 고객 요구 문장(자유 입력 · 키맨 요구 · 메모 · 첨부)에서 찾는다. JS(app/web/src/domain/proposals/addons.js)와 서버(app/api/poc/subscription_addon.py)가 같은 규칙을 쓴다.",
+  "id": "sub",
+  "toc": "subsol",
+  "part": {
+   "type": "subscription",
+   "name": "구독 솔루션 제안",
+   "items": [
+    "구독 가치 — 초기 비용은 낮추고, 관리는 삼성이",
+    "업종 구독 패키지 · 구독 품목",
+    "B2B 블루패스 케어 · 납부 방법(월 구독료 + 협의안)"
+   ]
+  },
+  "rule": "strong 하나 이상 또는 weak 둘 이상이면 넣는다. negative 가 있으면 넣지 않는다. 이미 구독(subscription) 목차가 있으면 넣지 않는다.",
+  "strong": [
+   "(?<!OTT)(?<!OTT )(?<!콘텐츠)(?<!콘텐츠 )(?<!넷플릭스 )(?<!유튜브 )구독(?!자)",
+   "렌[탈털]",
+   "(?<![가-힣])리스(?=$|[\\s,.·)/]|로|를|나|와|가|도)",
+   "(운용|금융|시설) ?리스",
+   "월 ?(납부|분할|납입|사용료|이용료|구독료|정액|요금제)",
+   "분할 ?(납부|납입|결제)",
+   "할부",
+   "\\bOPEX\\b",
+   "운영 ?비(용)?(로|으로) ?(전환|처리|집행)",
+   "as[ -]?a[ -]?service",
+   "서비스형 ?(가전|디바이스|장비)"
+  ],
+  "weak": [
+   "초기 ?(비용|투자|투자비|구매 ?비용|도입 ?비용|부담)",
+   "목돈",
+   "일시불",
+   "예산(이|은)? ?(부족|제약|한정|빠듯|적)",
+   "\\bCAPEX\\b",
+   "(유지 ?보수|시설 ?관리|관리|A/?S) ?(부담|비용 ?부담)",
+   "관리 ?인력",
+   "무상 ?(A/?S|수리)",
+   "정기 ?(점검|관리|방문|케어|세척)",
+   "(고장|수리) ?(걱정|부담|민원|대응)",
+   "(교체|도입) ?비용 ?(부담|절감)"
+  ],
+  "negative": [
+   "구독(은|는|이|을)? ?(제외|불가|없이|원하지|하지 ?않)",
+   "렌[탈털](은|는|이|을)? ?(제외|불가|원하지|하지 ?않)",
+   "리스 ?(제외|불가)",
+   "일시불(로)? ?(만|구매만|구매 ?원칙)"
+  ],
+  "place": {
+   "after": [
+    "cost"
+   ],
+   "before": [
+    "execution",
+    "case",
+    "why",
+    "closing",
+    "appendix"
+   ]
+  },
+  "label": {
+   "strong": "구독 요구",
+   "weak": "비용 · 관리 부담"
+  }
+ },
+ "counts": {
+  "items": 16,
+  "byType": {
+   "program": 1,
+   "care": 1,
+   "care-option": 4,
+   "package": 4,
+   "promotion": 1,
+   "payment": 5
+  },
+  "byStatus": {
+   "active": 12,
+   "inferred": 4
+  },
+  "eligibleProducts": 324,
+  "restrictedProducts": 201,
+  "verticals": {
+   "direct": 11,
+   "similar": 9,
+   "derived": 15,
+   "fallback": 9
+  }
+ },
+ "issues": []
+}

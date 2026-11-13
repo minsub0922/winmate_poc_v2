@@ -1,5 +1,5 @@
 import { getBootstrap } from '../api/bootstrap.js';
-const { catalog: CATALOG, images: IMAGES, products: PDB } = getBootstrap();
+const { catalog: CATALOG, images: IMAGES, products: PDB, subscriptions: SUBS_DB } = getBootstrap();
 import { RETIRED_R4 } from '../domain/templates/retired.js';
 import { RETIRED_EXTRA } from '../domain/templates/retired_extra.js';
 import { COVERS } from '../domain/templates/covers.js';
@@ -7,6 +7,7 @@ import { PHOTO_META, PHOTO_HTML } from '../domain/templates/photo_layouts.js';
 import { STD_META, STD_HTML } from '../domain/templates/std_layouts.js';
 import { VSTD_META, VSTD_HTML } from '../domain/templates/vertical_std_layouts.js';
 import { TOC_META, TOC_HTML } from '../domain/templates/toc_layouts.js';
+import { SUBS_META, SUBS_HTML } from '../domain/templates/subs_layouts.js';
 import { SPATIAL_META, SPATIAL_HTML } from '../domain/templates/spatial-layouts.js';
 import { ACCOUNT_META, ACCOUNT_HTML } from '../domain/templates/account_layouts.js';
 import PROPOSAL_PHOTOS from '../domain/templates/proposal_photo_assets.json' with {type:'json'};
@@ -20,7 +21,7 @@ import { fillHoles } from '../domain/templates/layout_variants.js';
 // 고르기 · 검색 · 추천 · 개수에서는 빠지고, 이미 만든 제안서 · 샘플 버티컬 시나리오 · 히스토리 예시에 들어 있는 장은 그대로 그립니다.
 // 검색 · 추천 점수는 계속 매겨, 이 장과 잘 맞는 내용이면 대체한 사진 버전이 그 점수를 물려받습니다 (search.js).
 export const RETIRED = { ...RETIRED_R4, ...RETIRED_EXTRA }; // retired_extra.js — 4차 생성분 밖에서 더한 것
-export const ALL_LAYOUTS = [...CATALOG.layouts, ...PHOTO_META, ...STD_META, ...VSTD_META, ...SPATIAL_META, ...ACCOUNT_META, ...TOC_META];
+export const ALL_LAYOUTS = [...CATALOG.layouts, ...PHOTO_META, ...STD_META, ...VSTD_META, ...SPATIAL_META, ...ACCOUNT_META, ...TOC_META, ...SUBS_META];
 for(const layout of ALL_LAYOUTS){if(layout.f==='L_C01')layout.name='표지 A · 대표 이미지';if(layout.f==='L_C02')layout.name='표지 B · 와이드 이미지';}
 for (const l of ALL_LAYOUTS) if (RETIRED[l.f]) l.retired = RETIRED[l.f];
 // 칸 구분 요약 — 'fixed' 전부 고정 · 'data' 고정 + 데이터 교체만 · 'mostly' AI 칸 적음 · 'ai' AI 작성 위주 (layout_slot_modes.js)
@@ -128,6 +129,14 @@ export const PRODUCTS = [...CATALOG.products, ...PDB.products];
 export const ACTIVE_PRODUCTS = PRODUCTS.filter((p) => !p.deprecated && !p.supersededBy);
 export const PRODUCT_DB = { generated: PDB.generated, source: PDB.source, counts: PDB.counts, famOrder: PDB.famOrder, catOrder: PDB.catOrder };
 export const SOLUTIONS = CATALOG.solutions;
+// 구독(subscription) — DSS 의 네 번째 종류(제품 · 솔루션 · 서비스와 따로). app/data/subscriptions.json(B2B 삼성 AI 구독 레지스트리)을 /api/bootstrap 이 함께 보낸다.
+// 항목 유형: program · care · care-option · package · promotion · payment. basis 'inferred'(추론 결제안)는 '협의안'으로만, status 'expired'(끝난 혜택)는 새로 고르는 곳에서 뺀다.
+export const SUBSCRIPTION_DB = SUBS_DB || { items: [], categories: [], verticals: {}, types: {} };
+export const SUBSCRIPTIONS_ALL = SUBSCRIPTION_DB.items || [];
+export const SUBSCRIPTIONS = SUBSCRIPTIONS_ALL.filter((x) => x.status !== 'expired');
+export const SUB = Object.fromEntries(SUBSCRIPTIONS_ALL.map((x) => [x.id, x]));
+/** 업종(버티컬 id) → 구독 구성 { pkg, match: direct | similar | derived | fallback, cats, space } */
+export const subscriptionFor = (vid) => (SUBSCRIPTION_DB.verticals || {})[vid] || null;
 export const CASES = CATALOG.cases;
 export const IND_KW = CATALOG.indKw;
 export const P = Object.fromEntries(PRODUCTS.map((p) => [p.id, p]));
@@ -146,6 +155,7 @@ export const CANVAS = {
   ST_SOL: { name: 'PPT · 표준 제안서 · 공유오피스 Lite (명세 복원 · Winmate에서 추가)', url: '' }, // l.cv — 같은 ST 묶음 안에서 원본만 다른 양식
   ST_VS: { name: 'PPT · 표준 제안서 · 업종 공통 (44개 업종 · Winmate에서 추가)', url: '' },
   TC: { name: 'PPT · 목차 템플릿 시트 (Winmate에서 추가)', url: '' },
+  SU: { name: 'PPT · B2B 삼성 AI 구독 시트 (Winmate에서 추가 · samsung.com 원문 기반)', url: '' },
   MY: { name: 'My 템플릿 (이 브라우저에 저장)', url: '' },
 };
 
@@ -160,9 +170,10 @@ export function refInfo(ref) {
   if (type === 'product') { const p = P[id]; return p && { type, id, label: p.name, sub: p.model + ' · ' + p.cat, short: p.model }; }
   if (type === 'solution') { const s = S[id]; return s && { type, id, label: s.name, sub: s.cat, short: s.name }; }
   if (type === 'case') { const c = C[id]; return c && { type, id, label: c.cust, sub: (c.sub || c.title).slice(0, 48), short: c.cust }; }
+  if (type === 'subscription') { const x = SUB[id]; return x && { type, id, label: x.name, sub: [(SUBSCRIPTION_DB.types || {})[x.type] || '구독', x.basis === 'inferred' ? '협의안' : ''].filter(Boolean).join(' · '), short: x.short || x.name }; }
   return null;
 }
-export const TYPE_LABEL = { product: '제품', solution: '솔루션', case: '유관사례' };
+export const TYPE_LABEL = { product: '제품', solution: '솔루션', case: '유관사례', subscription: '구독' };
 
 // ---- layout HTML bodies (gzip+base64 inline) ----
 let HTML = null;
@@ -181,7 +192,7 @@ export async function loadLayoutHtml() {
   }
   // 후보 장의 내용 조각 — 대표 장의 틀에 끼워 그린다 (layout_variants.js fillHoles)
   PIECES = (await import('../domain/templates/layout_variant_pieces.json')).default.pieces; // (브라우저 전용 — Vite가 JSON을 모듈로 바꿔 준다)
-  HTML = Object.assign(JSON.parse(text), COVERS, PHOTO_HTML, STD_HTML, VSTD_HTML, SPATIAL_HTML, ACCOUNT_HTML, TOC_HTML);
+  HTML = Object.assign(JSON.parse(text), COVERS, PHOTO_HTML, STD_HTML, VSTD_HTML, SPATIAL_HTML, ACCOUNT_HTML, TOC_HTML, SUBS_HTML);
   return HTML;
 }
 let PIECES = null;

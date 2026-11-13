@@ -82,12 +82,12 @@ function unitHits(doc, re, field = 'text') {
 const unitsOf = (hits) => uniq(hits.map((h) => h.u)).sort((a, b) => a - b);
 
 // ---------- part classification ----------
-const STAGE = { cover: 0, overview: 0, requirements: 0, market: 1, customer: 1, user: 1, competition: 1, insight: 1, challenge: 1, value: 2, effect: 2, dss: 3, products: 3, scenario: 3, birdseye: 3, solution: 3, spec: 3, bom: 3, case: 4, why: 4, execution: 5, cost: 5, closing: 6, appendix: 7 };
+const STAGE = { cover: 0, overview: 0, requirements: 0, market: 1, customer: 1, user: 1, competition: 1, insight: 1, challenge: 1, value: 2, effect: 2, dss: 3, products: 3, scenario: 3, birdseye: 3, solution: 3, spec: 3, bom: 3, case: 4, why: 4, execution: 5, cost: 5, subscription: 5, closing: 6, appendix: 7 };
 const TEXT_RULES = [
   ['cover', /제안서|Proposal|귀중|귀하/i], ['overview', /요약|Executive Summary|한눈에/i], ['market', /시장 규모|성장률|CAGR|시장 전망|점유율|트렌드/i], ['competition', /경쟁사|경쟁 비교|비교표/],
   ['challenge', /문제점|Pain|과제|어려움|불편/i], ['value', /가치|Value Proposition|핵심 메시지/i], ['effect', /기대\s?효과|ROI|절감 효과|투자 회수/i],
   ['products', /라인업|제품 소개|모델|사양/], ['scenario', /시나리오|동선|고객 여정/], ['solution', /솔루션|구성도|아키텍처/], ['case', /도입 사례|구축 사례|레퍼런스|Reference/i],
-  ['why', /Why Samsung|왜 삼성|삼성의 강점/i], ['execution', /추진 일정|로드맵|일정|단계별|파일럿|유지보수|추진 체계/], ['cost', /비용|TCO|견적|구매 방식|리스|렌탈/i],
+  ['why', /Why Samsung|왜 삼성|삼성의 강점/i], ['subscription', /구독|분할 납부|블루패스/], ['execution', /추진 일정|로드맵|일정|단계별|파일럿|유지보수|추진 체계/], ['cost', /비용|TCO|견적|구매 방식|리스|렌탈/i],
   ['closing', /감사합니다|Thank you|Q\s?&\s?A|문의|연락처|Next Step|다음 단계/i], ['appendix', /부록|Appendix/i],
 ];
 function classifyUnit(u, i, n) {

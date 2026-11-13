@@ -1,0 +1,415 @@
+{
+ "about": "구독 사실(facts.json)을 Winmate 데이터에 잇는 표 — 구독 품목 → 제품군 분류(vertical_space_product.json product_taxonomy) · 제품 DB 사이트 분류(sc), 공식 패키지 → 업종(버티컬) 44. 원문 사실이 아니라 연결 규칙이다(status: official = 원문에 이름이 나온 품목, restricted = 원문이 제한 품목으로 든 것, unknown = 원문에 없음 → 문의).",
+ "categories": [
+  {
+   "id": "ref",
+   "label": "냉장고",
+   "status": "official",
+   "tax": [
+    "ref_home"
+   ],
+   "sc": [
+    "냉장고"
+   ],
+   "excludeName": "업소용|빌트인|냉동고",
+   "rep": {
+    "model": "RS70F84N2Y",
+    "product": "sg_g000183345"
+   },
+   "tier": 0
+  },
+  {
+   "id": "kimchi",
+   "label": "김치냉장고",
+   "status": "official",
+   "tax": [
+    "kimchi"
+   ],
+   "sc": [
+    "김치냉장고"
+   ],
+   "excludeName": "빌트인",
+   "rep": {
+    "product": "sg_g000183393"
+   },
+   "tier": 0
+  },
+  {
+   "id": "washdry",
+   "label": "세탁/건조기",
+   "status": "official",
+   "tax": [
+    "wash",
+    "dry"
+   ],
+   "sc": [
+    "세탁기",
+    "건조기"
+   ],
+   "excludeName": "상업용|코인",
+   "rep": {
+    "model": "WH90F2522GBHY",
+    "product": "sg_g000182285"
+   },
+   "tier": 0
+  },
+  {
+   "id": "wash",
+   "label": "세탁기",
+   "status": "official",
+   "tax": [
+    "wash"
+   ],
+   "sc": [
+    "세탁기"
+   ],
+   "excludeName": "상업용|코인",
+   "rep": {
+    "model": "WH90F2522GBHY",
+    "product": "sg_g000182285"
+   },
+   "tier": 0
+  },
+  {
+   "id": "dry",
+   "label": "건조기",
+   "status": "official",
+   "tax": [
+    "dry"
+   ],
+   "sc": [
+    "건조기"
+   ],
+   "excludeName": "상업용|코인",
+   "rep": {
+    "product": "sg_g000183792"
+   },
+   "tier": 0
+  },
+  {
+   "id": "ac",
+   "label": "에어컨",
+   "status": "official",
+   "tax": [
+    "ac"
+   ],
+   "sc": [
+    "에어컨"
+   ],
+   "excludeName": "",
+   "rep": {
+    "model": "AR60F11D11WT"
+   },
+   "note": "스탠드 · 벽걸이 — 시스템에어컨은 제한",
+   "tier": 0
+  },
+  {
+   "id": "air",
+   "label": "공기청정기",
+   "status": "official",
+   "tax": [
+    "air"
+   ],
+   "sc": [
+    "공기청정기"
+   ],
+   "excludeName": "",
+   "rep": {
+    "model": "AP90H03163UGD"
+   },
+   "tier": 0
+  },
+  {
+   "id": "water",
+   "label": "정수기",
+   "status": "official",
+   "tax": [
+    "water"
+   ],
+   "sc": [
+    "정수기"
+   ],
+   "excludeName": "",
+   "rep": {
+    "model": "RWP70F15ANB"
+   },
+   "tier": 0
+  },
+  {
+   "id": "tv",
+   "label": "TV",
+   "status": "official",
+   "tax": [
+    "tv"
+   ],
+   "sc": [
+    "TV"
+   ],
+   "excludeName": "",
+   "rep": {
+    "product": "sg_g000183774"
+   },
+   "tier": 0
+  },
+  {
+   "id": "htv",
+   "label": "호텔TV",
+   "status": "official",
+   "tax": [
+    "htv"
+   ],
+   "sc": [
+    "호텔TV"
+   ],
+   "excludeName": "",
+   "rep": {
+    "product": "sg_g000183984"
+   },
+   "note": "숙박 패키지 품목",
+   "tier": 0
+  },
+  {
+   "id": "iwb",
+   "label": "전자칠판",
+   "status": "official",
+   "tax": [
+    "iwb"
+   ],
+   "sc": [
+    "스마트 LCD 사이니지"
+   ],
+   "includeName": "전자칠판|Flip",
+   "excludeName": "",
+   "rep": {
+    "product": "sg_g000184098"
+   },
+   "tier": 0
+  },
+  {
+   "id": "airdresser",
+   "label": "에어드레서",
+   "status": "official",
+   "tax": [
+    "airdresser"
+   ],
+   "sc": [
+    "에어드레서"
+   ],
+   "excludeName": "",
+   "rep": {
+    "product": "sg_g000182163"
+   },
+   "tier": 0
+  },
+  {
+   "id": "dish",
+   "label": "식기세척기",
+   "status": "official",
+   "tax": [
+    "dish"
+   ],
+   "sc": [
+    "식기세척기"
+   ],
+   "excludeName": "",
+   "rep": {
+    "product": "sg_g000184176"
+   },
+   "tier": 0
+  },
+  {
+   "id": "mon",
+   "label": "모니터",
+   "status": "official",
+   "tax": [
+    "mon"
+   ],
+   "sc": [
+    "모니터"
+   ],
+   "excludeName": "",
+   "rep": {
+    "product": "sg_g000184172"
+   },
+   "note": "구독 메인 이미지 · 오피스 패키지(ViewFinity S8)",
+   "tier": 1
+  },
+  {
+   "id": "nb",
+   "label": "갤럭시 북",
+   "status": "official",
+   "tax": [
+    "nb"
+   ],
+   "sc": [
+    "노트북"
+   ],
+   "includeName": "갤럭시 북",
+   "excludeName": "",
+   "rep": {
+    "product": "sg_g000184096"
+   },
+   "note": "구독 메인 이미지에 있는 품목",
+   "tier": 1
+  },
+  {
+   "id": "phone",
+   "label": "휴대폰",
+   "status": "restricted",
+   "tax": [
+    "phone"
+   ],
+   "sc": [
+    "스마트폰"
+   ],
+   "excludeName": "",
+   "tier": null
+  },
+  {
+   "id": "sac",
+   "label": "시스템에어컨",
+   "status": "restricted",
+   "tax": [
+    "sac_l_in",
+    "sac_l_out",
+    "sac_sm",
+    "sac_res",
+    "sac_ctr",
+    "sac_cold"
+   ],
+   "sc": [
+    "시스템에어컨",
+    "대형건물용",
+    "중소건물용 실내외기",
+    "주거용 실내외기",
+    "중앙공조",
+    "콜드체인 시스템",
+    "시스템에어컨 · 멀티실내기",
+    "시스템에어컨 · 제어기",
+    "시스템에어컨 · 액세서리",
+    "시스템에어컨 · 상업용 에어컨",
+    "시스템에어컨 · 중대형",
+    "상업용 히트펌프"
+   ],
+   "excludeName": "",
+   "tier": null
+  }
+ ],
+ "packageVerticals": {
+  "sub_pkg_public": {
+   "direct": [
+    "ed_univ"
+   ],
+   "similar": [
+    "mi_military",
+    "pb_agency",
+    "mf_factory",
+    "rs_officetel",
+    "rs_senior"
+   ],
+   "why": "대학교 기숙사 · 연수원 — 생활관 · 연수 · 기숙사 · 임대주택처럼 여럿이 함께 쓰는 생활 공간"
+  },
+  "sub_pkg_stay": {
+   "direct": [
+    "ht_large",
+    "ht_mid",
+    "ht_stay"
+   ],
+   "similar": [],
+   "why": "호텔 · 리조트 객실"
+  },
+  "sub_pkg_medical": {
+   "direct": [
+    "md_tertiary",
+    "md_hospital",
+    "md_clinic",
+    "md_ltc"
+   ],
+   "similar": [],
+   "why": "병원 대기공간 · 병실"
+  },
+  "sub_pkg_office": {
+   "direct": [
+    "of_hq",
+    "of_sme",
+    "of_cowork"
+   ],
+   "similar": [
+    "fn_hq",
+    "fn_bank",
+    "ed_academy",
+    "sv_unmanned"
+   ],
+   "why": "사무공간 — 금융(보도자료 대상 업종) · 학원 · 무인매장 사무 공간"
+  }
+ },
+ "derived": {
+  "rule": "공식 패키지가 없는 업종은 그 업종 공간에 들어가는 제품군 중 구독 가능(official) 품목을 공간 수가 많은 순으로 4개까지 — 가전(구독 페이지 품목 목록 tier 0)을 먼저, 메인 이미지에만 있는 모니터 · 갤럭시 북(tier 1)은 남는 자리에. '추천 구성(업종 공간 기준)'으로 표시. 가전 품목이 2개 이하면 사무 · 관리 공간 기준 오피스 패키지(fallback). 시스템에어컨 · 휴대폰(제한)과 원문에 없는 품목은 넣지 않는다.",
+  "max": 4,
+  "minCore": 3,
+  "fallback": "sub_pkg_office"
+ },
+ "addon": {
+  "about": "요구사항에 따라 다른 목차 구성(목차 템플릿 · AI 목차 추천 · Storyboard 이어 구성)에 더하는 '구독 솔루션 제안' 목차의 규칙. 원문 사실이 아니라 제안 구성 규칙이다 — 신호는 고객 요구 문장(자유 입력 · 키맨 요구 · 메모 · 첨부)에서 찾는다. JS(app/web/src/domain/proposals/addons.js)와 서버(app/api/poc/subscription_addon.py)가 같은 규칙을 쓴다.",
+  "id": "sub",
+  "toc": "subsol",
+  "part": {
+   "type": "subscription",
+   "name": "구독 솔루션 제안",
+   "items": [
+    "구독 가치 — 초기 비용은 낮추고, 관리는 삼성이",
+    "업종 구독 패키지 · 구독 품목",
+    "B2B 블루패스 케어 · 납부 방법(월 구독료 + 협의안)"
+   ]
+  },
+  "rule": "strong 하나 이상 또는 weak 둘 이상이면 넣는다. negative 가 있으면 넣지 않는다. 이미 구독(subscription) 목차가 있으면 넣지 않는다.",
+  "strong": [
+   "(?<!OTT)(?<!OTT )(?<!콘텐츠)(?<!콘텐츠 )(?<!넷플릭스 )(?<!유튜브 )구독(?!자)",
+   "렌[탈털]",
+   "(?<![가-힣])리스(?=$|[\\s,.·)/]|로|를|나|와|가|도)",
+   "(운용|금융|시설) ?리스",
+   "월 ?(납부|분할|납입|사용료|이용료|구독료|정액|요금제)",
+   "분할 ?(납부|납입|결제)",
+   "할부",
+   "\\bOPEX\\b",
+   "운영 ?비(용)?(로|으로) ?(전환|처리|집행)",
+   "as[ -]?a[ -]?service",
+   "서비스형 ?(가전|디바이스|장비)"
+  ],
+  "weak": [
+   "초기 ?(비용|투자|투자비|구매 ?비용|도입 ?비용|부담)",
+   "목돈",
+   "일시불",
+   "예산(이|은)? ?(부족|제약|한정|빠듯|적)",
+   "\\bCAPEX\\b",
+   "(유지 ?보수|시설 ?관리|관리|A/?S) ?(부담|비용 ?부담)",
+   "관리 ?인력",
+   "무상 ?(A/?S|수리)",
+   "정기 ?(점검|관리|방문|케어|세척)",
+   "(고장|수리) ?(걱정|부담|민원|대응)",
+   "(교체|도입) ?비용 ?(부담|절감)"
+  ],
+  "negative": [
+   "구독(은|는|이|을)? ?(제외|불가|없이|원하지|하지 ?않)",
+   "렌[탈털](은|는|이|을)? ?(제외|불가|원하지|하지 ?않)",
+   "리스 ?(제외|불가)",
+   "일시불(로)? ?(만|구매만|구매 ?원칙)"
+  ],
+  "place": {
+   "after": [
+    "cost"
+   ],
+   "before": [
+    "execution",
+    "case",
+    "why",
+    "closing",
+    "appendix"
+   ]
+  },
+  "label": {
+   "strong": "구독 요구",
+   "weak": "비용 · 관리 부담"
+  }
+ }
+}

@@ -13,7 +13,7 @@ export const PART_GROUPS = [
   { k: 'value', label: '과제 · 가치', hue: 'violet', parts: ['challenge', 'value', 'effect'] },
   { k: 'space', label: '공간 · 제품', hue: 'teal', parts: ['dss', 'products', 'bom', 'scenario', 'birdseye', 'spec'] },
   { k: 'proof', label: '솔루션 · 근거', hue: 'amber', parts: ['solution', 'case', 'why'] },
-  { k: 'exec', label: '실행 · 비용', hue: 'green', parts: ['execution', 'cost'] },
+  { k: 'exec', label: '실행 · 비용 · 구독', hue: 'green', parts: ['execution', 'cost', 'subscription'] },
   { k: 'frame', label: '표지 · 마무리', hue: 'slate', parts: ['cover', 'closing', 'appendix'] },
 ];
 export const GROUP_OF = {}; PART_GROUPS.forEach((g) => g.parts.forEach((p) => { GROUP_OF[p] = g.k; }));

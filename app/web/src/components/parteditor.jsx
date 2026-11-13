@@ -20,7 +20,7 @@ export const PART_GROUPS = [
   ['과제 · 가치', ['challenge', 'value', 'effect']],
   ['공간 · 제품', ['dss', 'products', 'scenario', 'birdseye', 'spec', 'bom']],
   ['솔루션 · 근거', ['solution', 'case', 'why']],
-  ['실행 · 비용', ['execution', 'cost']],
+  ['실행 · 비용 · 구독', ['execution', 'cost', 'subscription']],
   ['구성', ['closing', 'appendix']], // no 'cover' — 표지 lives only in the PPT 레이아웃 panel
 ];
 

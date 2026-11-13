@@ -26,12 +26,17 @@ const FAMILY = {
   당사의이해: /^L_TOC_(UAPROF|UAPAIN|TRLINE|TRSHARE|TRSTAT|TRKEY|CPSCORE|CPWIN|CPPOS)$/, tech: /^L_TOC_TECH[1-4]$/, value: /^L_(VS_BIRD_[SB]\d+|TOC_JOURNEY[123]S?)$/,
   summary: /^L_TOC_SUMMARY$/, effect: /^L_TOC_KPI$/, cost: /^L_TOC_TCO$/, pilot: /^L_TOC_PILOT$/, plan: /^L_TOC_ROADMAP$/, rfp: /^L_TOC_RFP$/, spec: /^L_TOC_SPEC$/, bom: /^L_TOC_BOM[3-8]$/,
   vp: /^L_TOC_VP3$/, vpd: /^L_(VS_SPACE|VS_SOL_[A-Z]+|TOC_PFEAT|TOC_JOURNEY[123]S)$/, pcase: /^L_VS_CASE$/, pspec: /^L_TOC_PSPEC$/,
+  // 구독(B2B 삼성 AI 구독) 목차 — L_SUB_*(subs_layouts.js)
+  subs: /^L_SUB_(PAIN|VALUE3|COMPARE)$/, subpkg: /^L_SUB_(PKG[34]|ITEMS)$/, subcare: /^L_SUB_(CARE4|BLUEPASS|CAREOPT)$/, subterm: /^L_SUB_(TERMS|PAY3|PROMO|FLOW)$/, subone: /^L_SUB_ONE$/,
+  subsol: /^L_SUB_(VALUE3|PKG[34]|PAY3|PROMO)$/, // 요구사항에 따라 더하는 '구독 솔루션 제안'
 };
 FAMILY.ua = FAMILY['당사의이해'];
 const composed = () => M.TOC_TEMPLATES.filter((t) => t.id !== 'std');
 
-test('ten templates · 표준 제안서는 업종 표준 제안서 44종 그대로', () => {
-  assert.equal(M.TOC_TEMPLATES.length, 10);
+test('fourteen templates · 표준 제안서는 업종 표준 제안서 44종 그대로', () => {
+  assert.equal(M.TOC_TEMPLATES.length, 14);
+  assert.deepEqual(M.TPL.stdsub.tocs, ['overview', 'needs', 'space', 'sol', 'subsol', 'case', 'why'], '표준 + 구독 솔루션: 도입사례 앞');
+  assert.deepEqual(M.TPL.roisub.tocs, ['summary', 'ua', 'tech', 'effect', 'cost', 'subsol', 'pilot', 'why'], '투자 효과형 + 구독 솔루션: 비용 · 구매 다음');
   assert.deepEqual(M.TPL.prod.tocs, ['vp', 'vpd', 'pcase', 'pspec']);
   assert.deepEqual(M.TPL.std.tocs, ['overview', 'needs', 'space', 'sol', 'case', 'why']);
   for (const id of ['stdx', 'spacex']) {
@@ -89,7 +94,7 @@ test('every template × industry composes: 표지 · 목차 → 목차마다 간
       });
     }
   }
-  assert.equal(n, 9 * 44);
+  assert.equal(n, 13 * 44);
 });
 
 test('같은 이름의 목차는 그 업종 표준 제안서의 장 그대로 · 나머지는 정해진 장', () => {
@@ -208,5 +213,23 @@ test('경쟁사 비교 장: 새 장 3종(점수표 · 차별점 · 포지셔닝)
     const s = M.ensureTocScenario(t.id, v.id);
     for (const g of s.flow) { const m = /^(\d{2}) /.exec(g.name); if (!m) continue;
       for (const x of g.slides) { const r = /(?:^|· |— )(\d{2}) /.exec(x.role); if (r) assert.equal(r[1], m[1], `${s.id} ${g.name} · ${x.role}`); } }
+  }
+});
+
+test('구독 제안서 · 구독 전환 제안서: 업종 구독 패키지 · 납부안 순서 · 기간 한정 혜택', () => {
+  const C = M.tocContent();
+  assert.deepEqual(M.TPL.subs.tocs, ['overview', 'subs', 'subpkg', 'space', 'subcare', 'subterm', 'case', 'why']);
+  assert.deepEqual(M.TPL.subsl.tocs, ['subone', 'subpkg', 'subterm', 'why']);
+  for (const v of M.tocVerticals()) {
+    const V = C.v[v.id]; assert.ok(V.sub && V.sub.items.length >= 3 && V.sub.items.length <= 4, v.id + ' 구독 패키지 품목 3–4');
+    for (const tid of ['subs', 'subsl']) {
+      const s = M.ensureTocScenario(tid, v.id); const fills = M.FILLS[s.id];
+      const pkg = fills.find((x) => /^L_SUB_PKG[34]$/.test(x.f)); assert.ok(pkg, s.id + ' 패키지 장');
+      assert.equal(pkg.f, 'L_SUB_PKG' + (V.sub.items.length >= 4 ? 4 : 3));
+      const pay = fills.find((x) => x.f === 'L_SUB_PAY3'); assert.ok(pay, s.id + ' 납부안 장');
+      assert.equal(pay.t[4], C.subs.pay[V.sub.pay[0]].name, s.id + ' 첫 납부안 = 업종 순서 첫째');
+      assert.equal(fills.some((x) => x.f === 'L_SUB_PROMO'), !!(C.subs.promo && C.subs.promo.active), s.id + ' 혜택 장은 혜택 기간에만');
+      for (const x of fills) if (x.f === 'L_SUB_PAY3') for (const i of [0, 1, 2]) assert.match(String(x.t[[3, 12, 21][i]]), /^(기본 방식|협의안)$/, s.id + ' 납부안 구분 칩');
+    }
   }
 });

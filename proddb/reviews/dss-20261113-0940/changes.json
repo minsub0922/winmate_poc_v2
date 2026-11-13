@@ -1,0 +1,263 @@
+{
+ "run": "dss-20261113-0940",
+ "run_at": "2026-11-13T09:40:17+09:00",
+ "about": "구독(subscription) 첫 적재 — 새 항목 · 추론 결제안 · 종류 재분류. 필드 원문은 app/data/subscriptions.json, 원문 근거는 proddb/raw/subs.",
+ "new": [
+  {
+   "key": "subscription:sub_b2b_ai",
+   "type": "program",
+   "name": "B2B 삼성 AI 구독",
+   "basis": "official",
+   "evidence": [
+    "site:b2b-ai-subs",
+    "site:b2b-ai-subs-festival",
+    "news:20260928",
+    "site:b2b-ai-subs",
+    "site:b2b-ai-subs",
+    "site:b2b-ai-subs",
+    "site:b2b-ai-subs",
+    "site:b2b-ai-subs",
+    "site:b2b-ai-subs",
+    "site:b2b-ai-subs-festival"
+   ]
+  },
+  {
+   "key": "subscription:sub_bluepass_b2b",
+   "type": "care",
+   "name": "B2B 블루패스",
+   "basis": "official",
+   "evidence": [
+    "news:20260928",
+    "news:20261027"
+   ]
+  },
+  {
+   "key": "subscription:sub_care_repair",
+   "type": "care-option",
+   "name": "무상수리 서비스",
+   "basis": "official",
+   "evidence": [
+    "site:b2b-ai-subs-festival"
+   ]
+  },
+  {
+   "key": "subscription:sub_care_visit",
+   "type": "care-option",
+   "name": "방문케어",
+   "basis": "official",
+   "evidence": [
+    "site:b2b-ai-subs"
+   ]
+  },
+  {
+   "key": "subscription:sub_care_lite",
+   "type": "care-option",
+   "name": "방문케어 라이트",
+   "basis": "official",
+   "evidence": [
+    "news:20260928"
+   ]
+  },
+  {
+   "key": "subscription:sub_care_self",
+   "type": "care-option",
+   "name": "셀프케어",
+   "basis": "official",
+   "evidence": [
+    "news:20261027"
+   ]
+  },
+  {
+   "key": "subscription:sub_pkg_public",
+   "type": "package",
+   "name": "공공 패키지",
+   "basis": "official",
+   "evidence": [
+    "site:b2b-ai-subs-festival"
+   ]
+  },
+  {
+   "key": "subscription:sub_pkg_stay",
+   "type": "package",
+   "name": "숙박 패키지",
+   "basis": "official",
+   "evidence": [
+    "site:b2b-ai-subs-festival"
+   ]
+  },
+  {
+   "key": "subscription:sub_pkg_medical",
+   "type": "package",
+   "name": "의료 패키지",
+   "basis": "official",
+   "evidence": [
+    "site:b2b-ai-subs-festival"
+   ]
+  },
+  {
+   "key": "subscription:sub_pkg_office",
+   "type": "package",
+   "name": "오피스 패키지",
+   "basis": "official",
+   "evidence": [
+    "site:b2b-ai-subs-festival"
+   ]
+  },
+  {
+   "key": "subscription:sub_promo_launch_2026",
+   "type": "promotion",
+   "name": "B2B 삼성 AI 구독 페스티벌 — 런칭 기념 특별 혜택",
+   "basis": "official",
+   "evidence": [
+    "site:b2b-ai-subs-festival",
+    "site:b2b-ai-subs-festival"
+   ]
+  },
+  {
+   "key": "subscription:sub_pay_monthly",
+   "type": "payment",
+   "name": "월 구독료 (월 분할 납부)",
+   "basis": "official",
+   "evidence": [
+    "site:b2b-ai-subs",
+    "site:b2b-ai-subs"
+   ]
+  }
+ ],
+ "inferred": [
+  {
+   "key": "subscription:sub_pay_prepay",
+   "type": "payment",
+   "name": "선납 + 월 납부",
+   "why": "B2B 원문에 결제 방법이 월 분할 납부 하나뿐 — B2B 구매 관행으로 추론한 협의안(확인할 것: B2B 선납 가능 여부 · 비율 · 선납 할인 적용 여부)"
+  },
+  {
+   "key": "subscription:sub_pay_annual",
+   "type": "payment",
+   "name": "연 단위 납부 · 다년 계약",
+   "why": "B2B 원문에 결제 방법이 월 분할 납부 하나뿐 — B2B 구매 관행으로 추론한 협의안(확인할 것: 연 · 분기 청구 가능 여부 · 다년 계약 · 연차별 예산 배정 방식 · 공공 조달 계약 방식)"
+  },
+  {
+   "key": "subscription:sub_pay_hq",
+   "type": "payment",
+   "name": "본사 일괄 계약 · 사업장별 청구",
+   "why": "B2B 원문에 결제 방법이 월 분할 납부 하나뿐 — B2B 구매 관행으로 추론한 협의안(확인할 것: 사업장별 분할 청구 가능 여부 · 사업장 추가 · 이전 시 처리)"
+  },
+  {
+   "key": "subscription:sub_pay_stage",
+   "type": "payment",
+   "name": "단계 도입 · 추가 구독",
+   "why": "B2B 원문에 결제 방법이 월 분할 납부 하나뿐 — B2B 구매 관행으로 추론한 협의안(확인할 것: 추가 구독 시 조건 · 만기 정렬 · 동일 장소 · 동일 품목 수량 할인(기간 한정 혜택) 적용)"
+  }
+ ],
+ "reclassified": [
+  {
+   "key": "product:bi_dish",
+   "name": "비스포크 AI 식기세척기",
+   "from": "service",
+   "to": "device"
+  },
+  {
+   "key": "product:ec_131_010",
+   "name": "데이코 식기세척기",
+   "from": "service",
+   "to": "device"
+  },
+  {
+   "key": "product:ec_332_001",
+   "name": "삼성 빌트인 식기세척기",
+   "from": "service",
+   "to": "device"
+  },
+  {
+   "key": "product:ec_360_080",
+   "name": "SmartThings Professional Solutions",
+   "from": "service",
+   "to": "solution"
+  },
+  {
+   "key": "product:sg_g000183533",
+   "name": "Bespoke AI 식기세척기 세미 빌트인 12인용",
+   "from": "service",
+   "to": "device"
+  },
+  {
+   "key": "product:sg_g000183584",
+   "name": "Bespoke AI 식기세척기 빌트인 12인용",
+   "from": "service",
+   "to": "device"
+  },
+  {
+   "key": "product:sg_g000183585",
+   "name": "Bespoke AI 식기세척기 프리스탠딩 14인용",
+   "from": "service",
+   "to": "device"
+  },
+  {
+   "key": "product:sg_g000183587",
+   "name": "Bespoke AI 식기세척기 빌트인 14인용 (열풍건조)",
+   "from": "service",
+   "to": "device"
+  },
+  {
+   "key": "product:sg_g000183588",
+   "name": "Bespoke AI 식기세척기 빌트인 14인용 (열풍건조)",
+   "from": "service",
+   "to": "device"
+  },
+  {
+   "key": "product:sg_g000183589",
+   "name": "Bespoke AI 식기세척기 빌트인 14인용 (열풍건조, 필터 내장형)",
+   "from": "service",
+   "to": "device"
+  },
+  {
+   "key": "product:sg_g000183590",
+   "name": "Bespoke AI 식기세척기 빌트인 14인용 (열풍건조)",
+   "from": "service",
+   "to": "device"
+  },
+  {
+   "key": "product:sg_g000183591",
+   "name": "Bespoke AI 식기세척기 빌트인 14인용 (열풍건조)",
+   "from": "service",
+   "to": "device"
+  },
+  {
+   "key": "product:sg_g000183592",
+   "name": "Bespoke AI 식기세척기 빌트인 14인용 (열풍건조, 필터 내장형)",
+   "from": "service",
+   "to": "device"
+  },
+  {
+   "key": "product:sg_g000183593",
+   "name": "Bespoke AI 식기세척기 빌트인 14인용 (열풍건조, 필터 내장형)",
+   "from": "service",
+   "to": "device"
+  },
+  {
+   "key": "product:sg_g000183594",
+   "name": "Infinite AI 식기세척기 트루빌트인 14인용 (열풍건조, 필터 내장형)",
+   "from": "service",
+   "to": "device"
+  },
+  {
+   "key": "product:sg_g000183595",
+   "name": "Infinite AI 식기세척기 빌트인 14인용 (열풍건조, 필터 내장형)",
+   "from": "service",
+   "to": "device"
+  },
+  {
+   "key": "product:sg_g000184154",
+   "name": "Bespoke AI 식기세척기 트루 빌트인 12인용",
+   "from": "service",
+   "to": "device"
+  },
+  {
+   "key": "product:sg_g000184176",
+   "name": "Bespoke AI 식기세척기 빌트인 14인용",
+   "from": "service",
+   "to": "device"
+  }
+ ]
+}

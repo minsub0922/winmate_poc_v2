@@ -1,0 +1,240 @@
+{
+ "about": "구독 장표 사진 — 공식 이미지(samsung.com/sec/business · 검색 API 제품 컷)에서 사진 부분만 잘라 app 소유 static(app/web/public/assets/subs/ → /assets/subs/)으로. 이미지 속 글자 라벨(pill)은 지운다(inpaint). 원본 해시가 바뀌면 skill 이 다시 만들고 눈으로 확인한다.",
+ "out": "app/web/public/assets/subs",
+ "items": [
+  {
+   "id": "pkg-public",
+   "img": "pkgPublic",
+   "crop": [
+    390,
+    191,
+    906,
+    637
+   ],
+   "erase": [],
+   "alt": "대학교 기숙사 — 전문 엔지니어가 세탁기를 점검하는 모습 (라벨 없는 쪽만)"
+  },
+  {
+   "id": "pkg-stay",
+   "img": "pkgStay",
+   "crop": [
+    190,
+    191,
+    906,
+    637
+   ],
+   "erase": [
+    {
+     "box": [
+      2,
+      2,
+      200,
+      66
+     ],
+     "copy": [
+      198,
+      0
+     ]
+    }
+   ],
+   "alt": "호텔 · 리조트 객실"
+  },
+  {
+   "id": "pkg-medical",
+   "img": "pkgMedical",
+   "crop": [
+    190,
+    191,
+    906,
+    637
+   ],
+   "erase": [
+    [
+     4,
+     3,
+     196,
+     62
+    ]
+   ],
+   "alt": "병원 대기공간 — TV와 공기청정기"
+  },
+  {
+   "id": "pkg-office",
+   "img": "pkgOffice",
+   "crop": [
+    390,
+    191,
+    906,
+    637
+   ],
+   "erase": [],
+   "alt": "오피스 회의실 (라벨 없는 쪽만)"
+  },
+  {
+   "id": "care-1",
+   "img": "care",
+   "crop": [
+    32,
+    8,
+    346,
+    256
+   ],
+   "erase": [],
+   "alt": "성능 점검 — 엔지니어가 세탁기를 진단하는 모습"
+  },
+  {
+   "id": "care-2",
+   "img": "care",
+   "crop": [
+    386,
+    8,
+    700,
+    256
+   ],
+   "erase": [],
+   "alt": "필터 · 소모품 관리 — 필터 클리닝"
+  },
+  {
+   "id": "care-3",
+   "img": "care",
+   "crop": [
+    740,
+    8,
+    1054,
+    256
+   ],
+   "erase": [],
+   "alt": "내 · 외부 클리닝 — UV 살균"
+  },
+  {
+   "id": "care-4",
+   "img": "care",
+   "crop": [
+    1094,
+    8,
+    1408,
+    256
+   ],
+   "erase": [],
+   "alt": "전문 세척 — 세탁조 분해 세척"
+  },
+  {
+   "id": "val-dorm",
+   "img": "value1Mo",
+   "crop": [
+    202,
+    8,
+    688,
+    392
+   ],
+   "erase": [],
+   "alt": "대학교 기숙사 — 전문 엔지니어가 세탁기를 점검하는 모습 (라벨 없는 쪽만)"
+  },
+  {
+   "id": "val-hospital",
+   "img": "value1Mo",
+   "crop": [
+    32,
+    668,
+    688,
+    1052
+   ],
+   "erase": [
+    [
+     10,
+     10,
+     168,
+     86
+    ]
+   ],
+   "alt": "병원 대기공간 — TV와 공기청정기"
+  },
+  {
+   "id": "val-hotel",
+   "img": "value2Mo",
+   "crop": [
+    32,
+    8,
+    688,
+    392
+   ],
+   "erase": [
+    {
+     "box": [
+      8,
+      8,
+      232,
+      92
+     ],
+     "copy": [
+      0,
+      96
+     ]
+    }
+   ],
+   "alt": "호텔 · 리조트 객실 — 벽걸이 TV"
+  },
+  {
+   "id": "val-office",
+   "img": "value2Mo",
+   "crop": [
+    32,
+    668,
+    688,
+    1052
+   ],
+   "erase": [
+    {
+     "box": [
+      8,
+      8,
+      172,
+      92
+     ],
+     "copy": [
+      180,
+      0
+     ]
+    }
+   ],
+   "alt": "오피스 회의실 — 공기청정기"
+  },
+  {
+   "id": "kv-grid",
+   "img": "kv",
+   "crop": [
+    748,
+    62,
+    1286,
+    580
+   ],
+   "erase": [],
+   "alt": "B2B 삼성 AI 구독 품목 — 냉장고 · 정수기 · 모니터 · TV · 에어컨 · 공기청정기 · 세탁기 · 갤럭시 북 · 전자칠판"
+  },
+  {
+   "id": "p-WH90F2522GBHY",
+   "model": "WH90F2522GBHY",
+   "alt": "Bespoke AI 원바디 25/22kg"
+  },
+  {
+   "id": "p-RS70F84N2Y",
+   "model": "RS70F84N2Y",
+   "alt": "Bespoke 양문형 냉장고 852L"
+  },
+  {
+   "id": "p-AR60F11D11WT",
+   "model": "AR60F11D11WT",
+   "alt": "AI 무풍콤보 벽걸이 34.1㎡"
+  },
+  {
+   "id": "p-AP90H03163UGD",
+   "model": "AP90H03163UGD",
+   "alt": "Infinite AI 공기청정기 33㎡"
+  },
+  {
+   "id": "p-RWP70F15ANB",
+   "model": "RWP70F15ANB",
+   "alt": "Bespoke AI 정수기"
+  }
+ ]
+}

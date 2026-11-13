@@ -73,7 +73,9 @@ def bootstrap_payload(request: Request):
                      'storage_legacy_owner':auth.accounts.legacy_username})
     if username == 'admin':
         user['sample_history'] = {'version':1,'scenarios':['bs01','bs_std_ht_large','bs03']}
-    return {'catalog':json.loads((DATA/'catalog.json').read_text()),'images':json.loads((DATA/'images.json').read_text()),'products':request.app.state.products.bootstrap(),'capabilities':poc_capabilities(),'user':user}
+    subscriptions = DATA/'subscriptions.json'  # 구독(subscription) DSS 레지스트리 — B2B 삼성 AI 구독(proddb/build/subs/build.py)
+    return {'catalog':json.loads((DATA/'catalog.json').read_text()),'images':json.loads((DATA/'images.json').read_text()),'products':request.app.state.products.bootstrap(),
+            'subscriptions':json.loads(subscriptions.read_text()) if subscriptions.is_file() else None,'capabilities':poc_capabilities(),'user':user}
 
 
 @app.get('/api/bootstrap')

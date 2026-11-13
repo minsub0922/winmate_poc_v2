@@ -29,10 +29,8 @@ for c in apply['changes']:
     if fields <= EVIDENCE_ONLY: moved.setdefault(c['id'], set()).update(fields)
     else: changed.setdefault(c['id'], []).append(c['kind'] + ':' + ','.join(sorted(fields - EVIDENCE_ONLY)))
 newids = {c['id'] for c in apply['changes'] if c['kind'] == 'new'}
-SERVICE = re.compile(r'서비스|케어|세척|보증|케어플랜|유지보수')
-def kind_of(p):
-    t = ' '.join(str(p.get(k) or '') for k in ('sc', 'cat'))
-    return 'service' if SERVICE.search(t) else 'solution' if '솔루션' in t else 'device'
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from subs_ledger import kind_of, subscription_items  # 종류 판정(식기세척기는 제품) · 구독(subscription) 항목 — 구독만 확인하는 run 과 같은 규칙
 FACT = ('name', 'model', 'models', 'opt', 'cat', 'sc', 'fam', 'url', 'spec', 'gid', 'cdir', 'cpage')
 fact_hash = lambda p: 'sha256:' + hashlib.sha256(json.dumps({k: p.get(k) for k in FACT}, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
 items = {}
@@ -83,6 +81,9 @@ for s in vss['solution_catalog']:
         'status': 'active' if stamped else 'unresolved', 'evidence': [{'source': 'official-page', 'url': u, 'run': RUN_ID} for u in r['ok']],
         'aliases': [sols.SOL[s['id']][3]] if s['id'] in sols.SOL and sols.SOL[s['id']][3] else [], 'replaced_by': None, 'deleted_at': None,
         'note': ('공식 출처 중 열리지 않은 URL: ' + ', '.join(r['notOk'])) if r['notOk'] else ''})
+# 구독(subscription) — app/data/subscriptions.json(proddb/build/subs/build.py 가 이번 run 원문으로 만든 레지스트리)
+SUBS_REG = os.path.join(ROOT, 'app/data/subscriptions.json')
+if os.path.exists(SUBS_REG): items.update(subscription_items(prev['items'], J(SUBS_REG), RUN_ID, RUN_AT))
 for k, v in prev['items'].items():  # 지난 원장에만 있는 항목은 지우지 않는다
     if k not in items: items[k] = v
 
@@ -96,7 +97,7 @@ run = {'run_id': RUN_ID, 'run_at': RUN_AT, 'finished_at': CFG.get('finished_at')
                   'deprecated': st['deprecated'], 'deleted': st['deleted'], 'by_kind': dict(Counter((v['kind'], v['status']) for v in items.values()).most_common()) and
                   {f'{a}:{b}': n for (a, b), n in Counter((v['kind'], v['status']) for v in items.values()).items()}}}
 runs = [r for r in prev['runs'] if r['run_id'] != RUN_ID] + [run]
-out = {'version': 1, 'about': '표식의 정본 — DSS(제품 · 솔루션 · 서비스)별 마지막 확인 시점. .agents/skills/winmate-update-dss-db 가 run 마다 갱신한다.', 'runs': runs, 'items': dict(sorted(items.items()))}
+out = {'version': 1, 'about': '표식의 정본 — DSS(제품 · 솔루션 · 서비스 · 구독)별 마지막 확인 시점. .agents/skills/winmate-update-dss-db 가 run 마다 갱신한다.', 'runs': runs, 'items': dict(sorted(items.items()))}
 os.makedirs(os.path.join(STAGE, 'proddb/dss'), exist_ok=True)
 json.dump(out, open(os.path.join(STAGE, 'proddb/dss/ledger.json'), 'w'), ensure_ascii=False, indent=0, separators=(',', ':'))
 print(json.dumps(run, ensure_ascii=False))
