@@ -8,12 +8,12 @@ export const AI_SEARCH_TOP = 10;
 const names = (ids, map, read) => (ids || []).map(id => map[id] && read(map[id])).filter(Boolean);
 const indName = id => IND[id]?.name || '범용 · 업종 무관';
 export function layoutDocument(l) {
-  const aliases = ALL_LAYOUTS.filter(x => x.retired === l.f);
+  const aliases = ALL_LAYOUTS.filter(x => x.retired === l.f || x.variantOf === l.f); // 뺀 장 · 내용 후보(업종판)도 이 레이아웃으로 찾게
   return { id: l.searchId || l.f, item: l, fields: searchFields([
     ['제목', [l.name], 6], ['요약', [l.when, l.g], 4],
     ['코드', [l.f, l.code, ...aliases.flatMap(x => [x.f, x.code, x.name])], 6],
     ['목차 유형', [PARTS[l.p]?.label, PARTS[l.p2]?.label], 3],
-    ['업종', [indName(l.ind), ...(IND_KW[l.ind] || []), ...(l.ik || []), ...(l.ih || [])], 4],
+    ['업종', [...(l.inds ? l.inds.flatMap(k => [indName(k), ...(IND_KW[k] || [])]) : [indName(l.ind), ...(IND_KW[l.ind] || [])]), ...(l.ik || []), ...(l.ih || [])], 4],
     ['솔루션', names([...new Set([l.sol, ...(l.sols || [])].filter(Boolean))], S, x => x.name + ' · ' + x.cat), 4],
     ['제품', names(l.prods, P, x => x.name + ' · ' + x.model + ' · ' + x.cat), 4],
     ['필요한 정보', (l.req || []).map(k => REQ_LABEL[k] || k), 2],

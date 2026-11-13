@@ -48,7 +48,7 @@ class _Parser(HTMLParser):
         if "data-img" in attrs:
             im = {
                 "i": int(attrs["data-img"]), "kind": attrs.get("data-kind", ""), "slot": attrs.get("data-slot", ""),
-                "hint": attrs.get("data-hint") or attrs.get("alt") or "", "pid": attrs.get("data-pid", ""),
+                "hint": attrs.get("data-hint") or attrs.get("alt") or "", "pid": attrs.get("data-pid", ""), "fix": attrs.get("data-fix") or "",
                 "w": _px(attrs.get("style", ""), "width"), "h": _px(attrs.get("style", ""), "height"), "_txt": [],
             }
             self.imgs.append(im)
@@ -56,7 +56,9 @@ class _Parser(HTMLParser):
                 self.img_open.append({"im": im, "depth": len(self.stack)})
         if "data-tb" in attrs:
             tb = {"i": int(attrs["data-tb"]), "fs": ctx["fs"], "fw": ctx["fw"], "ls": st["ls"], "color": st["color"],
-                  "order": self.order, "_txt": [], "depth": len(self.stack), "ph": attrs.get("data-ph")}
+                  "order": self.order, "_txt": [], "depth": len(self.stack), "ph": attrs.get("data-ph"),
+                  # 앱 layout_slot_modes.js 의 칸 구분 — fixed(고정) · section(목차 번호) · product/solution/case(데이터로만 교체)
+                  "fix": attrs.get("data-fix") or ""}
             self.order += 1
             self.tbs.append(tb)
             self.open_tb.append(tb)
@@ -129,7 +131,7 @@ def assign_roles(tbs: list[dict]) -> None:
     for k, b in enumerate(tbs):
         s, fs, fw = b["s"], b["fs"], b["fw"]
         tail = k >= n - 3
-        if FIXED_RE.match(s):
+        if FIXED_RE.match(s) or b.get("fix") in ("fixed", "pick"):  # pick: 업종 후보 값 — 이 장 그대로
             role = "fixed"
         elif k == 0 and fs and fs <= 15 and (b["ls"] or re.match(r"^\d{1,2}\s*·", s) or s.isupper()):
             role = "eyebrow"

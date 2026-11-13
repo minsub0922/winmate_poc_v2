@@ -2,7 +2,7 @@
 // Canonical app-side knowledge snapshot for the PoC agents → app/data/runtime/kb (only).
 //
 //   node app/scripts/export_agent_data.mjs [--out app/data/runtime/kb] [--allow-count-drift]
-//        [--expect-total 939] [--expect-active 696] [--expect-products 1084] [--expect-scenarios 107]
+//        [--expect-total 939] [--expect-active 648] [--expect-products 1084] [--expect-scenarios 107]
 //
 // Sources (read-only):
 //   app/data/{catalog.json, images.json, products_db.json, layouts.b64}
@@ -35,7 +35,7 @@ const arg = (name, dflt) => { const i = argv.indexOf('--' + name); return i >= 0
 const flag = (name) => argv.includes('--' + name);
 const OUT = path.resolve(ROOT, arg('out', path.join(RUNTIME, 'kb')));
 const EXPECT = {
-  layouts_total: Number(arg('expect-total', 939)), layouts_active: Number(arg('expect-active', 696)),
+  layouts_total: Number(arg('expect-total', 939)), layouts_active: Number(arg('expect-active', 648)), // 648 = 활성 696 - 같은 레이아웃 묶음의 업종 후보 48 (layout_variants.json)
   products: Number(arg('expect-products', 1084)), curated_products: 40, scenarios: Number(arg('expect-scenarios', 107)),
 };
 const LAYOUT_KEYS = ['f', 'c', 'code', 'name', 'when', 'g', 'p', 'p2', 'ind', 'sol', 'pc', 'req', 'prods', 'sols', 'phs', 'ph', 'hl', 'txt', 'eb', 'foot', 'sample'];
@@ -56,6 +56,14 @@ const INPUTS = {
   covers: path.join(SRC, 'domain', 'templates', 'covers.js'), photo: path.join(SRC, 'domain', 'templates', 'photo_layouts.js'),
   std: path.join(SRC, 'domain', 'templates', 'std_layouts.js'), retired: path.join(SRC, 'domain', 'templates', 'retired.js'),
   spatial: path.join(SRC, 'domain', 'templates', 'spatial-layouts.js'), toc: path.join(SRC, 'domain', 'templates', 'toc_layouts.js'),
+  layoutCleanup: path.join(SRC, 'domain', 'templates', 'layout_cleanup.js'),
+  layoutRedesign: path.join(SRC, 'domain', 'templates', 'layout_redesign.js'),
+  layoutSlotModes: path.join(SRC, 'domain', 'templates', 'layout_slot_modes.js'),
+  slotModes: path.join(SRC, 'domain', 'templates', 'slot_modes.json'),
+  layoutVariants: path.join(SRC, 'domain', 'templates', 'layout_variants.js'),
+  layoutVariantGroups: path.join(SRC, 'domain', 'templates', 'layout_variants.json'),
+  layoutVariantPieces: path.join(SRC, 'domain', 'templates', 'layout_variant_pieces.json'),
+  retiredExtra: path.join(SRC, 'domain', 'templates', 'retired_extra.js'),
   verticalScenarios: path.join(SRC, 'domain', 'templates', 'vertical_scenarios.json'),
   proposalBriefs: path.join(DATA, 'vertical_proposal_briefs.json'),
   proposalBuilder: path.join(ROOT, 'app', 'scripts', 'rebuild_vertical_proposals.py'),
@@ -149,10 +157,13 @@ import { SPATIAL_META, SPATIAL_HTML } from ${spec(INPUTS.spatial)};
 import { ACCOUNT_META, ACCOUNT_HTML } from ${spec(INPUTS.accountLayouts)};
 import { TOC_META, TOC_HTML } from ${spec(INPUTS.toc)};
 import { RETIRED_R4 } from ${spec(INPUTS.retired)};
-import { repairLayoutHtml } from ${spec(INPUTS.layoutRepairs)};
+import { repairLayoutHtml, repairLayoutUnmarked } from ${spec(INPUTS.layoutRepairs)};
+import { markSlotModes } from ${spec(INPUTS.layoutSlotModes)};
+import { fillHoles } from ${spec(INPUTS.layoutVariants)};
+import { parseLayout, textOf } from ${spec(INPUTS.layoutCleanup)};
 import * as parts from ${spec(INPUTS.parts)};
 import * as scenarios from ${spec(INPUTS.scenarios)};
-export { catalog, COVERS, PHOTO_META, PHOTO_HTML, STD_META, STD_HTML, VSTD_META, VSTD_HTML, SPATIAL_META, SPATIAL_HTML, ACCOUNT_META, ACCOUNT_HTML, TOC_META, TOC_HTML, RETIRED_R4, repairLayoutHtml, parts, scenarios };
+export { catalog, COVERS, PHOTO_META, PHOTO_HTML, STD_META, STD_HTML, VSTD_META, VSTD_HTML, SPATIAL_META, SPATIAL_HTML, ACCOUNT_META, ACCOUNT_HTML, TOC_META, TOC_HTML, RETIRED_R4, repairLayoutHtml, repairLayoutUnmarked, markSlotModes, fillHoles, parseLayout, textOf, parts, scenarios };
 `;
 const primer = {
   name: 'wm-agent-primer',
@@ -190,9 +201,30 @@ const C = mod.catalog;
 const ALL = C.ALL_LAYOUTS, ACTIVE = C.LAYOUTS, L = C.L, RETIRED = C.RETIRED, PRODUCTS = C.PRODUCTS, P = C.P;
 const allSet = new Set(ALL.map((l) => l.f));
 const hidden = Object.fromEntries(Object.keys(L).filter((f) => !allSet.has(f)).map((f) => [f, L[f]]));
-const html = JSON.parse(zlib.gunzipSync(Buffer.from(fs.readFileSync(INPUTS.layouts, 'utf8').trim(), 'base64')).toString('utf8'));
-Object.assign(html, mod.COVERS, mod.PHOTO_HTML, mod.STD_HTML, mod.VSTD_HTML, mod.SPATIAL_HTML, mod.ACCOUNT_HTML, mod.TOC_HTML);
-for (const f of Object.keys(html)) html[f] = mod.repairLayoutHtml(f, html[f]);
+const raw = JSON.parse(zlib.gunzipSync(Buffer.from(fs.readFileSync(INPUTS.layouts, 'utf8').trim(), 'base64')).toString('utf8'));
+Object.assign(raw, mod.COVERS, mod.PHOTO_HTML, mod.STD_HTML, mod.VSTD_HTML, mod.SPATIAL_HTML, mod.ACCOUNT_HTML, mod.TOC_HTML);
+const html = { ...raw };
+// 같은 레이아웃 묶음의 후보 장은 앱처럼 대표 장의 틀 + 자기 내용으로 그린다 (services/catalog.js repaired · layout_variants.json)
+const PIECES = readJson(INPUTS.layoutVariantPieces).pieces, CANON_OF = C.CANON_OF;
+const unmarked = {};
+for (const f of Object.keys(html)) {
+  const c = CANON_OF[f];
+  if (c && c !== f && PIECES[f] && html[c]) html[f] = mod.markSlotModes(f, mod.fillHoles(unmarked[c] || (unmarked[c] = mod.repairLayoutUnmarked(c, raw[c])), PIECES[f]));
+  else html[f] = mod.repairLayoutHtml(f, raw[f]);
+}
+// 장마다 고정 대상 · 변경 대상 (data-fix — layout_slot_modes.js): { lock, fixed: {칸: 글}, change: {칸: [모드, 글]}, img: {칸: 모드}, group, key }
+const sheetSlots = {};
+for (const [f, h] of Object.entries(html)) {
+  const { nodes } = mod.parseLayout(h);
+  const e = { lock: (L[f] && L[f].fx) || null, fixed: {}, change: {}, img: {} };
+  for (const n of nodes) {
+    const fix = / data-fix="([a-z]+)"/.exec(n.tag)?.[1] || 'ai';
+    if (n.tb != null && e.fixed[n.tb] == null && e.change[n.tb] == null) { const s = mod.textOf(h, n); if (!s) continue; if (fix === 'fixed' || fix === 'section') e.fixed[n.tb] = s; else e.change[n.tb] = [fix, s]; }
+    else if (n.img != null && e.img[n.img] == null) e.img[n.img] = fix;
+  }
+  if (CANON_OF[f]) { e.group = CANON_OF[f]; e.key = (C.VARIANTS[CANON_OF[f]].members.find(([x]) => x === f) || [])[1] || null; }
+  sheetSlots[f] = e;
+}
 const partsOut = { PARTS: mod.parts.PARTS, NEXT: mod.parts.NEXT, RELATED: mod.parts.RELATED, REQ_LABEL: mod.parts.REQ_LABEL };
 const S = mod.scenarios;
 const scenariosOut = { REQ_TYPES: S.REQ_TYPES, REQ_ORDER: S.REQ_ORDER, STRATEGIES: S.STRATEGIES, ENDINGS: S.ENDINGS, STAGES: S.STAGES, SCENARIOS: S.SCENARIOS };
@@ -217,6 +249,7 @@ const counts = {
   layouts_total: ALL.length, layouts_active: ACTIVE.length, hidden_layouts: Object.keys(hidden).length, html: Object.keys(html).length,
   products: PRODUCTS.length, product_map: Object.keys(P).length, curated_products: curatedIds.length, scenarios: S.SCENARIOS.length,
   retired: Object.keys(RETIRED).length, industries: bootstrap.catalog.industries.length, solutions: bootstrap.catalog.solutions.length, cases: bootstrap.catalog.cases.length,
+  variant_groups: Object.keys(C.VARIANTS).length, variant_candidates: Object.keys(C.CANON_OF).length - Object.keys(C.VARIANTS).length,
 };
 for (const [k, v] of Object.entries(EXPECT)) if (counts[k] !== v) (flag('allow-count-drift') ? warnings : errors).push(`${k}: ${counts[k]} (기대 ${v})`);
 if (counts.product_map !== counts.products) errors.push(`제품 id 중복: P ${counts.product_map} / 목록 ${counts.products}`);
@@ -263,6 +296,8 @@ write('catalog.json', json({
 write('hidden_layouts.json', json(hidden));
 write('retired.json', json(RETIRED));
 write('layout_html.json.gz', zlib.gzipSync(Buffer.from(JSON.stringify(html)), { level: 9 }));
+write('layout_variants.json', fs.readFileSync(INPUTS.layoutVariantGroups)); // 같은 레이아웃 · 다른 내용 — 대표 장 · 업종 후보 · 후보마다 바뀌는 칸
+write('sheet_slots.json', json(sheetSlots)); // 장 id → 고정 대상 · 변경 대상 (+ 같은 레이아웃 묶음 · 후보 키)
 write('parts.json', json(partsOut));
 write('best_scenarios.json', json(scenariosOut));
 const scenarioPhotos = [...readJson(INPUTS.proposalPhotos),...readJson(INPUTS.accountPhotos)];
@@ -280,6 +315,8 @@ const manifest = {
   notes: [
     'layouts = catalog.json + PHOTO_META + STD_META + VSTD_META (services/catalog.js ALL_LAYOUTS), retired from services/catalog.js RETIRED',
     'hidden_layouts = services/catalog.js L entries outside ALL_LAYOUTS (industry covers L_IND_*)',
+    'layout_variants = layouts that are the same layout with different content: one representative + content candidates (l.variantOf · l.variants); candidates stay drawable by id, html rebuilt from the representative',
+    'sheet_slots = per sheet id: fixed (고정 대상: 칸 → 글) · change (변경 대상: 칸 → [모드, 글]) · img modes · group/key of a merged layout',
     'products = services/catalog.js PRODUCTS (curated 40 merged with products_db curated fields + products_db rows)',
     'standard_scenarios copied verbatim from poc/test; score criteria, rubrics and curated routing taxonomy derived from app/web/src/domain/review/schema.json',
   ],

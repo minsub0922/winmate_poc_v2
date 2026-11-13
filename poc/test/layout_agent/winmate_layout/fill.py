@@ -704,6 +704,8 @@ class Filler:
     def llm_fill(self, card, part, analysis, ctx, src_text, fills, allowed) -> bool:
         kb = self.kb
         locked = {i for i, v in fills.items() if v.get("source") in self.PROTECTED | {"context"}}  # 고객 자료로 채운 칸(요구 · 수치 · 제품 · 사례 …)은 LLM 이 덮어쓰지 않는다
+        # 앱이 정한 데이터 칸(제품 · 솔루션 · 사례 · 목차 번호)은 카탈로그 교체 규칙으로만 바뀐다 — LLM 이 새로 쓰지 않는다
+        locked |= {t["i"] for t in card["slots"]["texts"] if t.get("fix") in ("product", "solution", "case", "section", "pick")}
         if part["type"] == "case":
             locked |= {i for g in card["slots"]["groups"] for i in g["slots"]}  # 사례 행은 카탈로그 사례로만 — LLM 이 사례 내용을 짓지 않는다
         slots = [{"i": t["i"], "role": ROLE_LABEL.get(t["role"], t["role"]), "s": fills.get(t["i"], {}).get("text", t["s"]), "max": t["max"], "locked": t["i"] in locked}
@@ -915,6 +917,8 @@ class Filler:
 
         for n_im, im in enumerate(card["slots"]["images"]):
             i = str(im["i"])
+            if im.get("fix") in ("fixed", "pick"):
+                continue  # 고정 사진(Why Samsung · 솔루션 화면 등) — 레이아웃 그대로
             b = im.get("baked")
             grp = kind_group(im["kind"])
             if not b:

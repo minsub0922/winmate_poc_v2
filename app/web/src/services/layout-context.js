@@ -3,7 +3,7 @@ import { withRequirementSummary } from './requirement-summary.js';
 import { getProposal, allProposals, onProposalChange, update } from '../repositories/proposals.js';
 import { L, P, S, layoutHtml } from './catalog.js';
 import { applyOverrides, readBlocks, readImageSlots } from '../domain/slides/Slide.jsx';
-import { readUnits, buildPool, toEvidence, FIXED_RE } from '../domain/slides/evidence.js';
+import { readUnits, buildPool, toEvidence, FIXED_RE, LOCKED_FIX } from '../domain/slides/evidence.js';
 import { LAYOUT_CONTEXT_VERSION, layoutContextKey, layoutContentKey, contextPending, queueLayout, retainHistoryLayouts } from '../domain/slides/context-policy.js';
 import { imagePool, loadImageLibrary } from './image-library.js';
 import { relatedImages, imageProducts } from './images.js';
@@ -83,10 +83,11 @@ export function retryLayoutContext(pid, layoutUid) {
 export async function personalizeLayout(p, part, x, { signal, onProgress } = {}) {
   p = await withRequirementSummary(p, { signal, debounce: true });
   p = taggedContext(p, x);
-  const slots = readImageSlots(x.f, x.ov);
+  const slots = readImageSlots(x.f, x.ov).filter(slot => !LOCKED_FIX.test(slot.fix || ''));
   const library = slots.length ? await loadImageLibrary() : [];
   const images = imagePool(sourceContext(p), library);
-  const blocks = readBlocks(x.f, x.ov, true).filter(b => !FIXED_RE.test(b.s));
+  // 고정 · 목차 번호 칸(layout_slot_modes.js)은 검토 대상이 아니다 — 제품 · 솔루션 · 사례 칸은 선택한 항목의 공식 정보로만 바꾼다
+  const blocks = readBlocks(x.f, x.ov, true).filter(b => !FIXED_RE.test(b.s) && !LOCKED_FIX.test(b.fix || ''));
   const candidates = slots.map(slot => {
     // Selection suggestions use current proposal products, never the template's representative product.
     const current = { ...slot, ...(x.ov?.img?.[slot.i] || {}) };
@@ -112,7 +113,7 @@ export async function personalizeLayout(p, part, x, { signal, onProgress } = {})
   const originals = plain.textContent;
   const fullInput = { today: new Date().toLocaleDateString('sv-SE'), layout: { name: L[x.f]?.name, purpose: L[x.f]?.when }, context: ctxSummary(p, 'fill'),
     part: { name: part.name, items: part.items, text: part.text }, sources,
-    blocks: blocks.map(b => ({ i: b.i, current: b.s, max: Math.max(12, Math.round(b.s.length * 1.5)), role: b.fs >= 26 ? '제목' : '' })),
+    blocks: blocks.map(b => ({ i: b.i, current: b.s, max: Math.max(12, Math.round(b.s.length * 1.5)), role: ({ product: '제품 정보 — 선택한 제품의 공식 이름 · 모델 · 사양으로만 교체', solution: '솔루션 정보 — 선택한 솔루션의 공식 이름 · 기능으로만 교체', case: '사례 정보 — 연결한 도입사례의 실제 내용으로만 교체' })[b.fix] || (b.fs >= 26 ? '제목' : '') })),
     images: candidates.map(s => ({ i: s.i, kind: s.kind, current: s.current.name || s.name, hint: s.hint,
       candidates: s.list.map((im, n) => ({ n, description: im.desc, products: im.products || [], solutions: im.solutions || [], cases: im.cases || [], model: im.model, kind: im.group, source: im.note })) })),
     fixedText: originals.slice(0, 16000) };

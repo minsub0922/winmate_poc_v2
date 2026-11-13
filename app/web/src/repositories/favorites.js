@@ -6,11 +6,20 @@ import { browserStorage } from './browser.js';
 import { useSyncExternalStore } from 'react';
 import { L } from '../services/catalog.js';
 import { migrateRemovedLayoutItem, isRemovedLayout } from '../domain/templates/migrate_removed_layouts.js';
+import { fillSpacePhoto } from '../domain/templates/migrate_space_sheet.js';
 
 const KEY = 'winmate.v2.favs';
 let LIST = load();
 const subs = new Set();
-function load() { try { const v = JSON.parse(browserStorage.getItem(KEY) || '[]'); if (!Array.isArray(v)) return []; if (!v.some(x => isRemovedLayout(x.f))) return v; const migrated = v.map(migrateRemovedLayoutItem); browserStorage.setItem(KEY, JSON.stringify(migrated)); return migrated; } catch (e) { return []; } }
+function load() {
+  try {
+    const v = JSON.parse(browserStorage.getItem(KEY) || '[]'); if (!Array.isArray(v)) return [];
+    const migrated = v.some(x => isRemovedLayout(x.f)) ? v.map(migrateRemovedLayoutItem) : v;
+    const photos = migrated.filter((x) => fillSpacePhoto(x)).length; // 공간별 제안 장의 새 공간 사진 칸(사진 1)
+    if (migrated !== v || photos) browserStorage.setItem(KEY, JSON.stringify(migrated));
+    return migrated;
+  } catch (e) { return []; }
+}
 function save() { try { browserStorage.setItem(KEY, JSON.stringify(LIST)); } catch (e) {} for (const f of subs) f(); }
 export const useFavs = () => useSyncExternalStore((f) => { subs.add(f); return () => subs.delete(f); }, () => LIST);
 export const favList = () => LIST;

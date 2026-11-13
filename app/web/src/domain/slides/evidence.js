@@ -8,6 +8,9 @@ import { webSourcesFor, WEB_KIND, hostOf } from '../../services/websources.js';
 import { imageProducts } from '../../services/images.js';
 
 export const FIXED_RE = /^(CONFIDENTIAL · \d+|고객사 로고|LOGO)$/;
+// slot modes (layout_slot_modes.js): fixed · section — never rewritten; product · solution · case — swapped from data only, not written freely
+export const LOCKED_FIX = /^(fixed|section|pick)$/; // pick: 업종 후보 값 — AI가 새로 쓰지 않음 (layout_variants.json)
+export const DATA_FIX = /^(product|solution|case)$/;
 const NUM_RE = /^[\s[(]*[~+-]?[\d.,]+\s*[%배일분원억만천개대곳명실층년주hHkKmM°℃]*[\])]*\s*$|^\[[^\]]{1,10}\][%배일분원억만개대곳명]*$/;
 
 /* ---------------- semantic units ---------------- */
@@ -47,11 +50,14 @@ export function markUnits(root) {
     const isImg = !tbs.length;
     const key = isImg ? 'i' + els[0].getAttribute('data-img') : 't' + tbs.join('-');
     const texts = tbEls.map((e) => e.textContent.replace(/\s+/g, ' ').trim());
-    const ft = tbs.filter((_, k) => texts[k] && !FIXED_RE.test(texts[k]));
+    const modes = tbEls.map((e) => e.getAttribute('data-fix') || '');
+    // ft: text slots a person or the AI may change (고정 · 목차 번호 칸은 빠짐) · ai: of those, the ones the AI writes freely (제품 · 솔루션 · 사례 칸은 교체만)
+    const ft = tbs.filter((_, k) => texts[k] && !FIXED_RE.test(texts[k]) && !LOCKED_FIX.test(modes[k]));
+    const ai = tbs.filter((_, k) => texts[k] && !FIXED_RE.test(texts[k]) && !modes[k]);
     const imgs = isImg ? [Number(els[0].getAttribute('data-img'))] : Array.from(box.querySelectorAll('[data-img]')).map((e) => Number(e.getAttribute('data-img')));
-    const fixed = !isImg && !ft.length;
+    const fixed = isImg ? LOCKED_FIX.test(els[0].getAttribute('data-fix') || '') : !ft.length;
     if (!fixed) box.setAttribute('data-unit', key); else box.removeAttribute('data-unit');
-    units.push({ key, tbs, ft, imgs, isImg, fixed, kind: unitKind(tbEls, texts, isImg, els[0]) });
+    units.push({ key, tbs, ft, ai, imgs, isImg, fixed, kind: unitKind(tbEls, texts, isImg, els[0]) });
   }
   return units;
 }

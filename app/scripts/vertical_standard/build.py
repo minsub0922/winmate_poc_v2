@@ -18,6 +18,9 @@ if os.path.exists(OUT + '/bld_floors.json'):
         for _r in _f['rooms']: BLD_FLOOR.setdefault(_f['vid'], {})[_r['space']] = _f['level']
 CAT = json.load(open(ROOT + '/app/data/catalog.json'))
 MEDIA = json.load(open(ROOT + '/app/data/media.json'))
+# 공간 장 왼쪽 사진: 공간 id → 사진 주소 — 목차 템플릿(공간별 가치 제안 여정)과 같은 표
+SPACE_PH = json.load(open(ROOT + '/build/toc/space_photos.json'))
+MEDIA_LABEL = {g[0]: g[2] for c in MEDIA['case'].values() for g in c.get('g', [])}
 CASE = {str(c['id']): c for c in CAT['cases']}
 SOLCAT = {s['id']: s for s in VS['solution_catalog']}
 VSOL = {v['id']: v for v in VS['verticals']}
@@ -131,6 +134,14 @@ def img(src, name, fit='cover', pos=None):
     d = {'src': src, 'fit': fit, 'name': name, 'keep': True}
     if pos: d['pos'] = pos
     return d
+
+
+def space_photo(sp):
+    """공간 장 왼쪽 공간 사진 — 이름은 사진 묶음의 설명(없으면 공간 이름)"""
+    src = SPACE_PH[sp['id']]
+    m = re.fullmatch(r'img/media/(g0|g1|t)\.json#(\d+)', src)
+    name = MEDIA_LABEL.get(('g0', 'g1', 't').index(m.group(1)) * 10000 + int(m.group(2))) if m else None
+    return img(src, name or f'{sp["name"]} 공간 사진')
 
 
 # ------------------------------------------------------------------ media helpers
@@ -296,10 +307,13 @@ def build_vertical(v):
     bird_f = f'L_VS_BIRD_{"B" if building else "S"}{N}'
 
     # ---------------- photos
+    # 공간 장 왼쪽 사진은 그 장에서만 — 표지 · 목차 · 간지 사진 후보에서 빼고, 도입사례 사진에서는 사진이 모자랄 때만 뒤에서 쓴다
+    space_srcs = {SPACE_PH[sp['id']] for sp in vp['spaces']}
     case_imgs = {}
     for cid in cases:
         ph = case_photos(cid)
-        land = sorted([p for p in ph if p['w'] >= p['h'] * 1.2], key=lambda p: -(p['w'] * p['h']) - (4e5 if re.search(r'전경|외관|공간|매장|로비|홀|실내|내부', p['name']) else 0))
+        ph = [p for p in ph if p['src'] not in space_srcs] + [p for p in ph if p['src'] in space_srcs]
+        land = sorted([p for p in ph if p['w'] >= p['h'] * 1.2], key=lambda p: (p['src'] in space_srcs, -(p['w'] * p['h']) - (4e5 if re.search(r'전경|외관|공간|매장|로비|홀|실내|내부', p['name']) else 0)))
         big = land[0] if land else ph[0]
         rest = [p for p in ph if p is not big]
         case_imgs[cid] = [big] + rest[:3]
@@ -318,7 +332,7 @@ def build_vertical(v):
         pool += [p for p in sorted(case_photos(cid), key=lambda p: -scene_score(p)) if p['src'] not in used_src and p['w'] >= p['h'] * 1.1 and scene_score(p) > 0]
     pool += ph_pool(group)
     pool.append({'src': f'img/cover/{ind}.jpg', 'name': f'{GROUPS.get(group, group)} 대표 사진', 'w': 1, 'h': 1, 'kind': 'cover'})
-    seen, photos = set(), []
+    seen, photos = set(space_srcs), []
     for p in pool:
         if p['src'] not in seen: seen.add(p['src']); photos.append(p)
     pick_i = [0]
@@ -386,8 +400,9 @@ def build_vertical(v):
             break
     case0 = case_imgs[cases[0]][0]
     p_ov, p_ai, p_sp, p_sol = photo(), photo(), photo(), photo()
-    case_extra = [p for p in case_photos(cases[1]) if p['src'] not in used_src]
-    p_case = img(case_extra[0]['src'], case_extra[0]['name']) if case_extra else img(case_imgs[cases[1]][1]['src'], case_imgs[cases[1]][1]['name'])
+    case_extra = [p for p in case_photos(cases[1]) if p['src'] not in used_src and p['src'] not in space_srcs]
+    fb = case_imgs[cases[1]][1]  # 사례 사진이 모자라면 사례 장의 둘째 사진 — 그게 공간 장 사진이면 일반 사진 후보에서
+    p_case = img(case_extra[0]['src'], case_extra[0]['name']) if case_extra else (photo() if fb['src'] in space_srcs else img(fb['src'], fb['name']))
 
     # ---------------- TOC
     props = [p['prop'] for p in v['P']]
@@ -523,9 +538,10 @@ def build_vertical(v):
         scenes.append(scene)
         name, feats = prod.P[c][1], scene_match.tailor(c, prod.P[c][3], ind, sp['name'])
         src = prod.image_of(c)
-        vals = {'eb': f'03 · 공간별 제안 · {i + 1:02d}', 'title': clip(sp['name'], 32, 1150), 'sub': scene, 'prod': clip(name, 24, 1132), **F(pg(f'sp{i}'))}
+        # 왼쪽 공간 사진 | 오른쪽 제품 이름 → key message(이 공간에서 제품이 하는 일) → 제품 컷 + 특징 2
+        vals = {'eb': f'03 · 공간별 제안 · {i + 1:02d}', 'title': clip(sp['name'], 32, 1150), 'msg': scene, 'prod': clip(name, 24, SCHEMA['L_VS_SPACE']['box']['prod'][0]), **F(pg(f'sp{i}'))}
         for r in range(2): vals[f'f{r}t'], vals[f'f{r}d'] = feats[r]
-        put(f'sp{i}', fill('L_VS_SPACE', vals, {'img': img(src, name, 'cover' if c in prod.PHOTO else 'contain')}))
+        put(f'sp{i}', fill('L_VS_SPACE', vals, {'img': img(src, name, 'cover' if c in prod.PHOTO else 'contain'), 'space': space_photo(sp)}))
     vals = {'eb': '03 · 공간별 제안', 'title': clip(f'{ai} Map', 32, 1150), 'sub': clip(f'{N}개 공간 × 삼성 제품 — 공간마다 놓이는 제품을 한눈에', 18, 1150), **F(pg('map'))}
     ims = {}
     box_w = SCHEMA[f'L_VS_MAP_{N}']['box']['s0p'][0]

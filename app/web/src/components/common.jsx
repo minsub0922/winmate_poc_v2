@@ -346,7 +346,7 @@ export function LayoutMeta({ l, compact = false, peek }) {
       <dt>목차 유형</dt><dd><span className={'tag pt ' + partHue(l.p)}>{pt ? pt.label : l.p}</span>{l.p2 && PARTS[l.p2] ? <span className="tag" style={{ marginLeft: "var(--space-4px)" }}>{PARTS[l.p2].label}</span> : null}</dd>
       <dt>언제 쓰나</dt><dd>{l.when || l.g}</dd>
       {!compact && <><dt>묶음</dt><dd>{l.g}</dd></>}
-      <dt>업종 · 솔루션</dt><dd>{l.ind && IND[l.ind] ? IND[l.ind].name : '범용'}{l.sol && S[l.sol] ? ' · ' + S[l.sol].name + ' 전용' : ''}</dd>
+      <dt>업종 · 솔루션</dt><dd>{l.inds ? '업종 후보 ' + l.inds.length + '곳 — ' + l.inds.map((k) => IND[k] ? IND[k].name : k).join(', ') : l.ind && IND[l.ind] ? IND[l.ind].name : '범용'}{l.sol && S[l.sol] ? ' · ' + S[l.sol].name + ' 전용' : ''}</dd>
       <dt>필요한 정보</dt><dd><div className="tagrow">{(l.req || []).map((r) => <span key={r} className="tag rq">{REQ_LABEL[r] || r}</span>)}</div></dd>
       {!compact && l.prods && l.prods.length ? <><dt>예시 제품</dt><dd><div className="tagchips">{l.prods.filter((id) => P[id]).map((id) => <TagChip key={id} r={'product:' + id} label={P[id].model} peek={peek} />)}</div></dd></> : null}
       {!compact && (() => { const cv = CANVAS[l.cv] || CANVAS[l.c]; return <><dt>원본</dt><dd>{cv && cv.url ? <a href={cv.url} target="_blank" rel="noopener" style={{ color: 'var(--accent)' }}>{cv.name}</a> : (cv ? cv.name : l.c)}</dd></>; })()}

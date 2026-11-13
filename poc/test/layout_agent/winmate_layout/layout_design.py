@@ -208,7 +208,14 @@ def rank_slide(kb: KB, index: LayoutIndex, part: dict, j: int, ctx: dict, analys
         s, why, fit = r
         rows.append({"f": f, "code": c["code"], "name": c["name"], "score": round(s, 3), "why": why[:4], "fit": fit})
     rows.sort(key=lambda x: -x["score"])
-    return {"part_id": part["id"], "slide": j, "role": role, "seed": seed, "query": q[:300], "candidates": rows[:top]}
+    # 같은 레이아웃의 업종 후보(variant_of)는 한 레이아웃 — 가장 잘 맞는 후보(대개 이 업종 것) 하나만 남긴다
+    seen, uniq = set(), []
+    for r in rows:
+        g = kb.cards[r["f"]].get("variant_of") or r["f"]
+        if g not in seen:
+            seen.add(g)
+            uniq.append(r)
+    return {"part_id": part["id"], "slide": j, "role": role, "seed": seed, "query": q[:300], "candidates": uniq[:top]}
 
 
 def llm_pick(kb: KB, llm: LLM, part: dict, ranked: dict, analysis: dict, ctx: dict) -> dict:

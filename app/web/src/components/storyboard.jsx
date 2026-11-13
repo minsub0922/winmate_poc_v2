@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { update, uid, segPlain } from '../repositories/proposals.js';
 import { Icon, RefChip, toast, partHue, useHoverCard } from './common.jsx';
 import { PARTS, NEXT, classifyPart, splitFree, partText, effectiveType } from '../domain/proposals/parts.js';
-import { IND, L, LAYOUTS, refInfo, isCoverSheet, isCoverOnlyPart, storyParts } from '../services/catalog.js';
+import { IND, L, LAYOUTS, refInfo, isCoverSheet, isCoverOnlyPart, storyParts, indsOf } from '../services/catalog.js';
 import { reqText, inferIndustry } from '../services/search.js';
 import { Slide } from '../domain/slides/Slide.jsx';
 import { refsOf } from './requirements.jsx';
@@ -41,7 +41,7 @@ export function candidates(p, afterIndex, n = 5) {
     const kw = !!(KW[t] && KW[t].test(text));
     if (kw) s += 2.2;
     if (used.has(t)) s -= 6;
-    if (ind && LAYOUTS.some((l) => l.p === t && l.ind === ind)) s += 1;
+    if (ind && LAYOUTS.some((l) => l.p === t && indsOf(l).includes(ind))) s += 1;
     return { type: t, s, kw, why: kw ? ['요구사항에 관련 언급'] : [] };
   }).sort((a, b) => b.s - a.s).slice(0, n);
 }
