@@ -1,11 +1,7 @@
 // 건물 조감도 모듈(src/building — 아티팩트와 같은 소스를 IIFE로 묶은 독립 모듈)과 앱 사이의 좁은 접점.
 //   · 모듈을 한 번 싣는다(BuildingPage · 통합 조감도 목록 · 시작 팝업이 함께 쓴다)
 //   · 통합 목록: 건물 히스토리 읽기 · 썸네일 · 삭제 · 변경 알림
-// 모듈의 IndexedDB는 계정 건물 기록의 캐시다(services/building-sync.js).
 import css from '../building/style.css?raw';
-import { buildingSync } from './building-sync.js';
-
-window.__wmBldStoreHook = buildingSync;
 
 let loading = null;
 export function ensureBuildingCss() {

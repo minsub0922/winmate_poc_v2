@@ -529,11 +529,7 @@ function ensureSpaces(b) {
 }
 
 // ---------- 스튜디오 ----------
-// 이 모듈은 앱과 따로 묶이는 IIFE라 세션 상태를 직접 읽지 않는다 — 앱이 mount(root, { requireDownload })로 넘긴다.
-// 게스트면 false를 돌려주고 로그인 창을 띄운다.
-let requireDownload = () => true;
 async function saveBlob(blob, filename) {
-  if (!requireDownload()) return { err: '로그인 후 파일을 받을 수 있어요.' };
   try {
     if (window.claude && window.claude.use) {
       const d = await window.claude.use('downloads');
@@ -589,7 +585,7 @@ function downloadMenu(items) {
   });
   async function pick(it) {
     close();
-    if (busy || !requireDownload()) return;
+    if (busy) return;
     busy = true;
     btn.disabled = true;
     btn.replaceChildren(h('span', { class: 'spin', 'aria-hidden': 'true' }));
@@ -1130,7 +1126,6 @@ export const app = {
 
 export function mount(root, opts) {
   const ctx = { go: opts.go, toast: opts.toast };
-  if (typeof opts.requireDownload === 'function') requireDownload = opts.requireDownload;
   root.classList.add('bd-page');
   let cur = null, curId, alive = true, booted = false, pending = null; // pending = { id } (목록이면 id 없음)
   root.replaceChildren(h('div', { class: 'bd-boot', role: 'status' }, h('span', { class: 'spin' }), '건물 조감도를 여는 중…'));

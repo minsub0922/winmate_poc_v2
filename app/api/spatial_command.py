@@ -359,7 +359,10 @@ def plan_with_decision(ctx: Context) -> Optional[dict]:
         return None
     from .poc.settings import get_settings
     from .poc.provider import ProviderError
-    from .llm import decision as dm
+    try:
+        from .llm import decision as dm
+    except ImportError:  # the Decision model module is optional — without it every command is read by the LLM
+        return None
     client = dm.get_decision(get_settings(), TASK)
     if client is None:
         return None

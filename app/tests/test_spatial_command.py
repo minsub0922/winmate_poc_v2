@@ -7,7 +7,10 @@ from unittest.mock import patch
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from app.api.spatial import SpatialLibrary,build_router
-from app.api.llm.decision import set_decision_override
+try:
+    from app.api.llm.decision import set_decision_override
+except ImportError:  # Decision 모델 모듈이 없는 구성 — LLM 경로만 검사한다
+    set_decision_override=None
 
 
 class SpatialCommandLlmTests(unittest.TestCase):
@@ -17,10 +20,10 @@ class SpatialCommandLlmTests(unittest.TestCase):
         cls.scene=copy.deepcopy(cls.library.scenes['cowork-full-standard'])
         cls.oid=cls.scene['objects'][0]['id'];cls.room=cls.scene['rooms'][0]['id'];cls.other=cls.scene['rooms'][1]['id']
     def setUp(self):
-        set_decision_override(None)  # these tests exercise the LLM branch only
+        if set_decision_override:set_decision_override(None)  # these tests exercise the LLM branch only
         self.captured={}
     def tearDown(self):
-        set_decision_override(clear=True)
+        if set_decision_override:set_decision_override(clear=True)
     def call(self,plan,**overrides):
         def generate(**kwargs):
             self.captured.update(kwargs)
@@ -29,6 +32,19 @@ class SpatialCommandLlmTests(unittest.TestCase):
             return self.client.post('/api/spatial/command',json={'prompt':'선택한 것을 조작해줘','scene':self.scene,**overrides})
     def ops(self,*operations):
         return {'explanation':'요청한 대로 바꿨어요','operations':list(operations)}
+
+    def test_without_the_decision_module_every_command_goes_to_the_llm(self):
+        # Decision 모델 모듈은 선택 사항이다 — 없는 구성에서도 태그된 명령이 LLM으로 해석된다
+        import sys,app.api.llm as package
+        missing=object();loaded=getattr(package,'decision',missing)
+        if loaded is not missing:delattr(package,'decision')
+        op={'type':'move','objectId':self.oid,'direction':'right'}
+        try:
+            with patch.dict(sys.modules,{'app.api.llm.decision':None}):
+                response=self.call(self.ops(op),prompt='@[소파] 오른쪽으로 옮겨',mentions=[{'kind':'object','id':self.oid,'label':'소파'}],roomId=self.room)
+        finally:
+            if loaded is not missing:setattr(package,'decision',loaded)
+        self.assertEqual(response.status_code,200,response.text);self.assertEqual(response.json()['source'],'llm');self.assertEqual(response.json()['plan']['operations'],[op])
 
     def test_user_examples_pass_through_as_operations(self):
         cases=[
@@ -199,6 +215,7 @@ class FakeDecision:
         return SimpleNamespace(answers=answers,model=self.model,ms=120,input_tokens=0,output_tokens=0,attempts=1)
 
 
+@unittest.skipUnless(set_decision_override,'Decision 모델 모듈(app/api/llm/decision.py)이 없는 구성')
 class SpatialCommandDecisionTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):

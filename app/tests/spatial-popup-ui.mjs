@@ -1,6 +1,10 @@
 // Storyboard 위 팝업으로 열린 스튜디오 — 매칭 카드의 3D 조감도를 누르면 팝업으로 뜨고, 명령 · 직접 조작이 같은 방식으로 동작한다.
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import {openApp,fakeCommands} from './fixtures/birdseye/harness.mjs';
+
+// 팝업은 Storyboard 쪽 기능(components/spatial-studio-popup.jsx)이다 — 그 기능이 없는 구성에서는 건너뛴다.
+if(!fs.existsSync(new URL('../web/src/components/spatial-studio-popup.jsx',import.meta.url))){console.log('SKIP spatial-popup-ui: Storyboard 팝업(spatial-studio-popup.jsx)이 없는 구성');process.exit(0);}
 
 const app=await openApp('spatial-popup'),{page,pass,output,base}=app;
 try{

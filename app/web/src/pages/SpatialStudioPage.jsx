@@ -25,8 +25,7 @@ const inputKey=(form,view)=>JSON.stringify([form,view]);
 const labels=true;
 
 
-// popup: { onClose } — 팝업으로 열렸을 때(Storyboard 매칭 카드의 3D 조감도 · components/spatial-studio-popup.jsx): '뒤로 가기' 대신 '닫기' — 저장 대기 중인 변경을 저장하고 닫는다
-export function SpatialPage({id,go,popup=null}){
+export function SpatialPage({id,go}){
   const assetLibraries=useRef(new Map());
   const account=getBootstrap().user?.username||'local-dev',backupPrefix='winmate.v2.spatial-document.'+account+'.';
   const [baseLibrary,setBaseLibrary]=useState(null),[library,setLibrary]=useState(null),[record,setRecord]=useState(null),[form,setForm]=useState(emptyStudioForm),[scene,setScene]=useState(null);
@@ -116,7 +115,7 @@ export function SpatialPage({id,go,popup=null}){
     if(result){savedInput.current=inputKey(inputs,view);setSceneDirty(false);void refreshHistory();}return result;
   };
   const savedScene=()=>{if(!scene)return null;const camera=!focus?viewer.current?.cameraState():null,title=form.title.trim()||scene.title;const next={...scene,...(camera?{camera}:{}),presentation:{...scene.presentation,focusRoomId:focus,...(scene.presentation?.layout?{layout:{...scene.presentation.layout,title}}:{})},title};next.contentHash=sceneHash(next);return next;};
-  const backToList=async()=>{clearTimeout(saveTimer.current);try{await queue.current;if(sceneDirty&&scene)await persistScene(savedScene());else await persistForm();if(popup)popup.onClose();else go({name:'spatial'});}catch(e){setError(e.message);}};
+  const backToList=async()=>{clearTimeout(saveTimer.current);try{await queue.current;if(sceneDirty&&scene)await persistScene(savedScene());else await persistForm();go({name:'spatial'});}catch(e){setError(e.message);}};
   if(library)assetLibraries.current.set(library.sourceHash,library);
   if(baseLibrary)assetLibraries.current.set(baseLibrary.sourceHash,baseLibrary);
   const commitScene=next=>{
@@ -235,7 +234,7 @@ export function SpatialPage({id,go,popup=null}){
   if(!id)return <BirdseyeHome go={go}/>;
   return <div className={'sp-page'+(id?' sp-studio-page':'')} ref={root}><div className="sp-page-in">
     <div className="sp-topbar"><header className={'tl-head sp-header'+(id?' sp-studio-header':'')}>
-      {id?<div className="sp-header-heading"><button type="button" className="sp-back-button" title={popup?"저장하고 조감도 스튜디오 닫기":"조감도 목록으로 돌아가기"} onClick={backToList} disabled={!!busy}><Icon name={popup?"x":"arrowL"} size={20}/><span>{popup?"닫기":"뒤로 가기"}</span></button><span className="sp-beta">BETA</span></div>:<div className="tl-title"><span className="eyebrow">WINMATE · 공간 제안</span><h1>공간 조감도<span className="sp-beta">BETA</span></h1><p>새 조감도를 만들거나 저장한 공간을 이어서 편집하세요.</p></div>}
+      {id?<div className="sp-header-heading"><button type="button" className="sp-back-button" title="조감도 목록으로 돌아가기" onClick={backToList} disabled={!!busy}><Icon name="arrowL" size={20}/><span>뒤로 가기</span></button><span className="sp-beta">BETA</span></div>:<div className="tl-title"><span className="eyebrow">WINMATE · 공간 제안</span><h1>공간 조감도<span className="sp-beta">BETA</span></h1><p>새 조감도를 만들거나 저장한 공간을 이어서 편집하세요.</p></div>}
       <div className="sp-header-actions"><button type="button" className="btn btn-primary sp-object-trigger" disabled={!library||!!busy} aria-haspopup="dialog" onClick={()=>setPanel('objects')}><Icon name="product" size={19}/><span>제품 · 가구 오브젝트</span></button></div>
     </header></div>
     {panel==='objects'&&baseLibrary&&<SpatialObjectDrawer library={baseLibrary} canSelect={canSelectObjects} rooms={form.rooms} roomId={placementRoomId} onRoomChange={setAddingRoom} onAdd={addSelectedAssets} busy={!!busy} onClose={()=>setPanel(null)}/>}
