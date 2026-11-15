@@ -229,3 +229,8 @@
 @media (max-width:800px){.bd-pick-top{padding:12px 16px;gap:10px}.bd-pick-body{padding:0 16px 14px}.bd-chips{flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px;scrollbar-width:thin}}
 @media (max-width:560px){.bd-tabs{flex:1 1 100%}.bd-tabs button{flex:1;padding:7px 6px;font-size:12px}.bd-pick-tools{flex:1 1 100%;margin-left:0}.bd-pick-tools .select{flex:1;min-width:0}
 .bd-page-in{padding:20px 14px 40px}.bd-grid{grid-template-columns:1fr}.bd-tpl-grid{gap:8px}.bd-launch-go{display:none}.bd-launch small{font-size:11px}.bd-view{min-height:360px}.bd-canvas-title{flex-direction:column;align-items:flex-start;gap:6px;padding:12px 14px}.bd-canvas-toolbar{padding:8px 10px}.bd-floor-strip{padding:9px 10px}.bd-tpl-copy{padding:8px 9px 10px}.bd-tpl-copy b{font-size:11.5px}.bd-floor-label{font-size:10.5px;padding:3px 8px 3px 4px}}
+
+/* 고르기 창 — 내 조감도(내가 만든 공간 조감도를 층으로) */
+.bd-my-group .bd-my-state{margin:4px 2px 12px;font-size:12px;color:var(--muted)}
+.bd-tpl.bd-my>img,.bd-tpl.bd-my>.bd-my-thumb{display:block;width:100%;aspect-ratio:520/334;object-fit:cover;background:var(--surface-2);border-radius:8px 8px 0 0}
+.bd-tpl.bd-my>.bd-my-thumb{display:grid;place-items:center;color:var(--muted)}

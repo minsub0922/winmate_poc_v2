@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {openIndustryTemplates} from './fixtures/birdseye/entry.mjs';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -22,12 +23,11 @@ try{
  const library=await(await context.request.get(base+'/api/spatial/library')).json(),assets=Object.fromEntries(library.assets.map(a=>[a.id,a]));
  await context.route(u=>['/api/llm','/api/jobs'].includes(u.pathname),route=>route.request().method()==='POST'?route.fulfill({status:503,json:{detail:'isolated people layout test'}}):route.continue());
  page=await context.newPage();page.setDefaultTimeout(30000);page.on('pageerror',e=>errors.push(e.message));
- await page.goto(base+'/spatial');await page.getByRole('button',{name:'업종별 템플릿 활용하기',exact:true}).click({timeout:120000});
- const modal=page.getByRole('dialog',{name:'업종 템플릿',exact:true});await modal.getByLabel('템플릿 업종',{exact:true}).selectOption('ED');await modal.getByLabel('템플릿 범위',{exact:true}).selectOption('full');await modal.getByLabel('공간 크기',{exact:true}).selectOption('standard');
+ await page.goto(base+'/spatial');const modal=await openIndustryTemplates(page);await modal.getByLabel('템플릿 업종',{exact:true}).selectOption('ED');await modal.getByLabel('템플릿 범위',{exact:true}).selectOption('full');await modal.getByLabel('공간 크기',{exact:true}).selectOption('standard');
  const card=modal.locator('.sp-template-card[data-template-id="ed-full-standard"]');await card.waitFor();const expected=createScene({templateId:'ed-full-standard'},library),expectedPeople=peopleInScene(expected,assets).length;assert(expectedPeople>20);
  const svg=decodeURIComponent((await card.locator('img').getAttribute('src')).split(',').slice(1).join(','));assert.equal((svg.match(/data-person-role=/g)||[]).length,expectedPeople);
- await card.getByRole('button',{name:'3D 보기',exact:true}).click();await page.waitForFunction(()=>document.querySelector('[data-template-id="ed-full-standard"] img')?.src.startsWith('data:image/png'),null,{timeout:120000});await card.locator('img').evaluate(i=>i.decode());await page.screenshot({path:out+'/template-3d.png'});pass('industry template previews include every attached teacher/student in matching actual 2D and 3D');
- await card.getByRole('button',{name:'활용하기',exact:true}).click();await page.getByRole('dialog',{name:'스튜디오로 이동할까요?',exact:true}).getByRole('button',{name:'스튜디오로 이동',exact:true}).click();await page.waitForURL(/\/spatial\/sp-/);await page.locator('.sp-view[data-ready=true]').waitFor({timeout:120000});
+ await card.getByRole('button',{name:'3D 보기',exact:true}).click();await page.waitForFunction(()=>document.querySelector('[data-template-id="ed-full-standard"] img')?.src.match(/^data:image\/png|\/preview\.webp\?/),null,{timeout:120000});await card.locator('img').evaluate(i=>i.decode());await page.screenshot({path:out+'/template-3d.png'});pass('industry template previews include every attached teacher/student in matching actual 2D and 3D');
+ await card.getByRole('button',{name:'활용하기',exact:true}).click();/* 시작 팝업에서 고르면 바로 스튜디오로 간다 */await page.waitForURL(/\/spatial\/sp-/);await page.locator('.sp-view[data-ready=true]').waitFor({timeout:120000});
  const id=page.url().split('/').at(-1),saved=await(await context.request.get(base+'/api/spatial/history/'+id)).json();assert.deepEqual(saved.scene.objects,expected.objects);assert.equal(peopleInScene(saved.scene,assets).length,expectedPeople);
  await page.getByRole('button',{name:'2D 평면도',exact:true}).click();await page.locator('.sp-plan-image svg').waitFor();assert.equal(await page.locator('.sp-plan-image [data-person-role]').count(),expectedPeople);await page.waitForTimeout(900);await page.reload();await page.locator('.sp-plan-image svg').waitFor({timeout:120000});assert.equal(await page.locator('.sp-plan-image [data-person-role]').count(),expectedPeople);pass('using a template saves exact people/furniture links and restores them after reload');
  for(const tid of ['fb-full-standard','md-full-standard','mf-full-standard']){

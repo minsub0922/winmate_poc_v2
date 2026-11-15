@@ -1,0 +1,69 @@
+/* 조감도 통합 · 명령형 스튜디오 — 새 화면 CSS (styles/spatial.css는 다른 세션과 겹쳐 최소로만 고친다) */
+
+/* @ 목록 — 묶음 머리말과 공간 항목 */
+.sp-mention-group{position:sticky;top:0;z-index:1;padding:6px 12px 4px;font-size:11px;font-weight:700;letter-spacing:.02em;color:var(--muted);background:var(--surface)}
+.sp-mention-menu [role=option]>.sp-mention-room-icon{display:grid;place-items:center;flex:0 0 42px;width:42px;height:38px;border-radius:5px;background:var(--surface-2);border:1px solid var(--line);color:var(--accent);font-size:17px;font-weight:700}
+.sp-mention-chip-room .sp-mention-chip-glyph{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:5px;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:700}
+
+/* 공간 스튜디오 — 왼쪽 입력 카드 없이 시뮬레이터만 */
+.sp-studio.sp-sim-studio{grid-template-columns:minmax(0,1fr)}
+.sp-blank-industry{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:13px;color:var(--ink)}
+.sp-blank-industry select{min-width:200px;height:36px;padding:0 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit}
+/* 선택한 오브젝트 말풍선 — 회전 · 복제 */
+.sp-object-tools{display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:8px 12px;border-top:1px solid var(--line);background:var(--surface);flex-shrink:0}
+.sp-object-tools .btn{font-size:10px;min-height:30px;gap:4px}
+.sp-object-tools small{margin-left:auto;font-size:10px;color:var(--muted)}
+
+/* 통합 목록 — 히스토리 카드의 종류 표시 */
+.be-entry{position:relative;min-width:0}
+.be-entry>.be-type{position:absolute;z-index:2;top:10px;right:10px;padding:3px 9px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.02em;color:var(--surface);background:var(--accent);box-shadow:0 1px 4px rgb(0 0 0/.18);pointer-events:none}
+.be-entry[data-type=building]>.be-type{background:var(--ink)}
+.be-building-card .sp-map-preview img{width:100%;height:100%;object-fit:cover;display:block}
+.be-launch .sp-studio-launch{margin-top:20px}
+
+/* 시작 팝업 */
+.modal.be-start-modal{width:min(760px,calc(100vw - 32px))}
+.modal.be-start-modal.wide{width:min(1180px,calc(100vw - 32px))}
+.be-start{display:flex;flex-direction:column;gap:22px}
+.be-start h3{display:flex;align-items:center;gap:8px;margin:0 0 10px;font-size:13px;font-weight:700;color:var(--ink)}
+.be-start h3 b{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--accent);color:var(--surface);font-size:11px}
+.be-choices{display:grid;gap:10px}
+.be-choices-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.be-choices-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.be-choice{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);text-align:left;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.be-choice:hover:not(:disabled){border-color:var(--accent)}
+.be-choice[aria-pressed=true]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft);background:var(--accent-soft)}
+.be-choice:disabled{opacity:.6;cursor:default}
+.be-choice-icon{display:grid;place-items:center;width:40px;height:40px;flex:none;border-radius:10px;background:var(--surface-2);color:var(--accent)}
+.be-choice-copy{display:flex;flex-direction:column;gap:5px;min-width:0}
+.be-choice-copy strong{display:flex;align-items:center;gap:7px;font-size:13px}
+.be-choice-copy em{font-style:normal;font-size:10px;font-weight:700;padding:2px 6px;border-radius:5px;background:var(--surface-2);color:var(--muted)}
+.be-choice-copy small{font-size:11px;line-height:1.55;color:var(--muted)}
+.be-start-note{margin:0 0 12px;font-size:11.5px;line-height:1.7;color:var(--muted)}
+.be-start-note strong{color:var(--ink)}
+.be-industries{display:flex;flex-wrap:wrap;gap:7px}
+.be-industries button{padding:7px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font-size:12px;cursor:pointer}
+.be-industries button[aria-pressed=true]{border-color:var(--accent);background:var(--accent);color:var(--surface)}
+.be-proposals{display:flex;flex-direction:column;gap:8px;max-height:320px;overflow:auto;overscroll-behavior:contain}
+.be-proposals button{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);text-align:left;cursor:pointer}
+.be-proposals button[aria-checked=true]{border-color:var(--accent);background:var(--accent-soft)}
+.be-proposal-main{display:flex;flex-direction:column;gap:3px;min-width:0}
+.be-proposal-main strong{font-size:13px}
+.be-proposal-main em{font-style:normal;font-size:11px;color:var(--muted)}
+.be-proposal-main small{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:420px}
+.be-proposal-meta{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none;font-size:10.5px;color:var(--muted)}
+.be-proposal-meta .is-on{color:var(--accent);font-weight:700}
+.be-start-empty{padding:26px;border:1px dashed var(--line);border-radius:10px;text-align:center;font-size:12px;color:var(--muted)}
+.be-start-error{padding:10px 12px;border-radius:9px;background:var(--danger-soft,#fdecec);color:var(--danger,#b42318);font-size:12px}
+.be-start-status{font-size:11.5px;color:var(--muted)}
+@media(max-width:700px){.be-choices-2,.be-choices-3{grid-template-columns:1fr}}
+
+/* Storyboard 조감도 장 — 조감도 히스토리에서 레이아웃 만들기 */
+.be-layout-source{display:flex;flex-direction:column}
+.be-layout-source-thumb{display:grid;place-items:center;aspect-ratio:520/334;background:var(--surface-2);border-bottom:1px solid var(--line);overflow:hidden}
+.be-layout-source-thumb img{width:100%;height:100%;object-fit:contain;display:block}
+.be-layout-source-caption{display:flex;flex-direction:column;gap:10px;padding:12px 14px}
+.be-layout-source-caption small{font-size:10.5px;color:var(--muted)}
+.be-layout-source-caption h3{margin:3px 0;font-size:13px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.be-layout-source-caption p{margin:0;font-size:11px;color:var(--muted)}
+.be-layout-source-caption .btn{align-self:flex-start}

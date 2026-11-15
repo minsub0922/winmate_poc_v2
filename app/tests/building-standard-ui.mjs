@@ -1,4 +1,4 @@
-// 표준 건물 조감도 — 건물 스튜디오 시작 창의 「표준 건물 조감도」 묶음(건물 템플릿 — 샘플 버티컬 시나리오 54 · 버티컬 44 — 과 따로) · 고르면 층마다 공간 · 층 이름이 채워진 채로 열림.
+// 표준 건물 조감도 — 조감도 스튜디오 시작 › 건물 조감도 › 건물 템플릿 창의 「표준 건물 조감도」 묶음(건물 템플릿 — 샘플 버티컬 시나리오 54 · 버티컬 44 — 과 따로) · 고르면 층마다 공간 · 층 이름이 채워진 채로 열림.
 // 앱 서버 없이 Vite + /api/bootstrap 대역으로 검사한다: node app/tests/building-standard-ui.mjs
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -25,7 +25,15 @@ try {
   browser = await chromium.launch({ headless: true, args: ['--enable-unsafe-swiftshader'] });
   const context = await browser.newContext({ viewport: { width: 1440, height: 960 } });
   await context.addInitScript(() => { if (!localStorage.getItem('winmate.v2.ui')) localStorage.setItem('winmate.v2.ui', JSON.stringify({ route: { name: 'building' } })); });
-  await context.route((u) => u.pathname.startsWith('/api/'), (r) => r.fulfill(new URL(r.request().url()).pathname === '/api/bootstrap' ? { json: boot } : { status: 503, json: { detail: 'offline test' } }));
+  // 건물은 통합 조감도 목록의 시작 팝업에서 시작한다 — 목록이 뜨도록 공간 라이브러리 · 빈 히스토리만 대역으로 준다(나머지 API는 없음)
+  const spatialLibrary = JSON.parse(fs.readFileSync(path.join(root, 'app/data/spatial/library.json'), 'utf8'));
+  await context.route((u) => u.pathname.startsWith('/api/'), (r) => {
+    const pathname = new URL(r.request().url()).pathname;
+    if (pathname === '/api/bootstrap') return r.fulfill({ json: boot });
+    if (pathname.startsWith('/api/spatial/library')) return r.fulfill({ json: spatialLibrary });
+    if (pathname === '/api/spatial/history') return r.fulfill({ json: { items: [], total: 0, page: 1, page_size: 8, total_pages: 0 } });
+    return r.fulfill({ status: 503, json: { detail: 'offline test' } });
+  });
   await context.route((u) => u.pathname.startsWith('/img/'), async (r) => {
     const file = path.join(root, 'app/data/static', decodeURIComponent(new URL(r.request().url()).pathname));
     try { await r.fulfill({ path: file }); } catch { await r.abort(); }
@@ -33,9 +41,10 @@ try {
   const page = await context.newPage(); page.setDefaultTimeout(LONG);
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('http://127.0.0.1:' + server.httpServer.address().port + '/');
-  await page.locator('.bd-launch').waitFor();
-
-  await page.locator('.bd-launch').click(); await page.locator('.bd-pick-modal').waitFor();
+  await page.getByRole('button', { name: /조감도 스튜디오 시작/ }).click();
+  const start = page.getByRole('dialog', { name: '조감도 스튜디오 시작', exact: true });
+  await start.getByRole('button', { name: /^건물 조감도/ }).click(); await start.getByRole('button', { name: /^건물 템플릿/ }).click();
+  await page.locator('.bd-pick-modal').waitFor();
   const head = page.locator('.bd-pick-modal .bd-std-group .bd-group-head');
   assert.equal((await head.innerText()).trim(), '표준 건물 조감도');
   assert.equal(await page.locator('.bd-pick-modal .bd-std').count(), STD_PRESETS.length);

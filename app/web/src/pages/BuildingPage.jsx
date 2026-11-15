@@ -5,38 +5,10 @@
 // src/building을 아티팩트와 같은 esbuild 설정으로 묶은 IIFE 원문). 「HTML 추출」은 #wm-bld-js 원문을 그대로 담는다.
 import React, { useEffect, useRef } from 'react';
 import { toast } from '../components/common.jsx';
-import css from '../building/style.css?raw';
+import { requireDownload } from '../api/session.js';
+import { ensureBuildingCss as ensureCss, loadBuildingModule as loadModule } from '../services/building-bridge.js';
 
-let loading = null;
-function ensureCss() {
-  if (document.getElementById('wm-bld-css')) return;
-  const style = document.createElement('style');
-  style.id = 'wm-bld-css';
-  style.textContent = css.trim();
-  document.head.append(style);
-}
-function loadModule() {
-  loading ||= Promise.all([import('virtual:wm-building'), import('../building/bake.b64?raw')]).then(([js, data]) => {
-    if (!document.getElementById('wm-bld-data')) {
-      const el = document.createElement('script');
-      el.id = 'wm-bld-data';
-      el.type = 'text/plain';
-      el.setAttribute('data-enc', 'gzip-base64');
-      el.textContent = data.default.trim();
-      document.body.append(el);
-    }
-    if (!window.__wmBldBoot) {
-      const el = document.createElement('script');
-      el.id = 'wm-bld-js';
-      el.textContent = 'window.__wmBldBoot=function(){' + js.default + ';return __wmBldMod};';
-      document.body.append(el);
-    }
-    return window.__wmBldMod_ || (window.__wmBldMod_ = window.__wmBldBoot());
-  });
-  loading.catch(() => { loading = null; });
-  return loading;
-}
-
+// 모듈 싣기 · 계정 동기화 훅은 services/building-bridge.js에 있다(통합 조감도 목록 · 시작 팝업과 함께 쓴다).
 function bootState(root) {
   const box = document.createElement('div');
   box.className = 'bd-boot';
@@ -50,13 +22,16 @@ function bootState(root) {
 export function BuildingPage({ go, id }) {
   const root = useRef(null), inst = useRef(null), latest = useRef({ go, id });
   latest.current = { go, id };
+  // 건물 목록은 통합 조감도 목록(경로 spatial)에 합쳐졌다 — id 없이 들어오면 그쪽으로 보낸다.
+  useEffect(() => { if (!id) go({ name: 'spatial' }); }, [id]);
   useEffect(() => {
+    if (!id) return undefined;
     let alive = true, view = null;
     ensureCss();
     if (!window.__wmBldMod_) bootState(root.current);
     loadModule().then((m) => {
       if (!alive) return;
-      view = m.mount(root.current, { go: latest.current.go, toast });
+      view = m.mount(root.current, { go: latest.current.go, toast, requireDownload });
       view.route(latest.current.id);
       inst.current = view;
     }).catch((error) => {

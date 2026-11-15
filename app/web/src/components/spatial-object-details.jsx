@@ -6,7 +6,7 @@ import {spatialAssetLabel,spatialDimensionsLabel} from '../domain/spatial/catalo
 import {P} from '../services/catalog.js';
 import {peopleSource} from '../domain/spatial/people-placement-geometry.js';
 
-export function SpatialObjectDetails({object,scene,library,onRemove,onMention,onClose,disabled=false}){
+export function SpatialObjectDetails({object,scene,library,onRemove,onRotate,onDuplicate,onMention,onClose,disabled=false}){
   const a=library.assets.find(a=>a.id===object.assetId),r=scene.rooms.find(r=>r.id===object.roomId);
   const placement=<div className="sp-inspector"><small>{r.name} · {object.mount==='ceiling'?'천장':object.mount==='wall'?'벽면':object.mount==='surface'?'가구 위':'바닥'} 설치</small>
     <div className="sp-dimension-tag">{spatialDimensionsLabel(a.size)} mm <span>{a.dimensionSource==='catalog-spec'?'확인 치수':'추정 · 설계 치수'}</span></div>
@@ -21,5 +21,11 @@ export function SpatialObjectDetails({object,scene,library,onRemove,onMention,on
   </div>;
   return <><div className="sp-object-popover-heading"><strong>{spatialAssetLabel(a)}</strong><button className="btn btn-ghost btn-icon" aria-label="오브젝트 상세 닫기" onClick={onClose}><Icon name="x" size={15}/></button></div>
     {a.productId&&P[a.productId]?<DetailCard r={'product:'+a.productId}>{placement}</DetailCard>:<div className="sp-furniture-detail"><SpatialObjectThumb asset={a}/>{placement}</div>}
+    {(onRotate||onDuplicate)&&<div className="sp-object-tools" role="group" aria-label="오브젝트 조작">
+      {onRotate&&<><button type="button" className="btn btn-sm" aria-label="왼쪽으로 15° 회전" title="왼쪽으로 15° 회전" disabled={disabled} onClick={()=>onRotate(object.id,-15)}>↺ 15°</button>
+        <button type="button" className="btn btn-sm" aria-label="오른쪽으로 15° 회전" title="오른쪽으로 15° 회전" disabled={disabled} onClick={()=>onRotate(object.id,15)}>↻ 15°</button>
+        <button type="button" className="btn btn-sm" aria-label="오른쪽으로 90° 회전" title="오른쪽으로 90° 회전 (R)" disabled={disabled} onClick={()=>onRotate(object.id,90)}>↻ 90°</button></>}
+      {onDuplicate&&<button type="button" className="btn btn-sm" aria-label="복제" title="같은 공간에 복제 (Ctrl/⌘+D)" disabled={disabled} onClick={()=>onDuplicate(object.id)}><Icon name="copy" size={13}/>복제</button>}
+      <small>화살표 키로 5cm씩 이동</small></div>}
     <div className="sp-object-popover-actions"><button className="btn btn-sm" disabled={disabled} onClick={()=>onMention(object.id)}>@ 프롬프트에 넣기</button><DeleteButton className="btn btn-ghost btn-sm" disabled={disabled} onClick={()=>onRemove(object.id)}><Icon name="trash" size={13}/>제거</DeleteButton></div></>;
 }

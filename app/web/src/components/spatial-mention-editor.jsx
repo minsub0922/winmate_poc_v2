@@ -19,17 +19,24 @@ export const SpatialMentionEditor=forwardRef(function SpatialMentionEditor({disa
     const token=range.cloneRange();token.setStart(node,at);queryRange.current=token;onQuery(query);
   };
   const insert=option=>{
-    if(disabled||!option?.asset)return;
+    if(disabled||!option)return;
     const range=queryRange.current||savedRange.current;
     const target=range&&root.current.contains(range.commonAncestorContainer)?range.cloneRange():endRange();
     const value=readSpatialPrompt(root.current),tokenLength=option.label.length+4;
     if(value.text.length-target.toString().length+tokenLength>6000)return;
     const chip=document.createElement('span');chip.className='sp-mention-chip';chip.contentEditable='false';chip.tabIndex=0;chip.setAttribute('role','group');chip.setAttribute('aria-label',option.label+' 상세 보기');
-    Object.assign(chip.dataset,{mentionKind:option.kind,mentionId:option.id,mentionLabel:option.label,assetId:option.asset.id});
-    if(option.asset.productId)chip.dataset.spatialProductPreview=option.asset.productId;
-    const image=document.createElement('img');image.src=spatialObjectThumbnail(option.asset);image.alt=spatialAssetLabel(option.asset)+' 오브젝트';image.draggable=false;
-    const name=document.createElement('span');name.className='sp-mention-chip-name';name.textContent=spatialAssetLabel(option.asset);
-    const location=document.createElement('small');location.textContent=option.kind==='object'?option.label.slice(spatialAssetLabel(option.asset).length+3):'새로 추가';name.appendChild(location);
+    Object.assign(chip.dataset,{mentionKind:option.kind,mentionId:option.id,mentionLabel:option.label});
+    const name=document.createElement('span');name.className='sp-mention-chip-name';const location=document.createElement('small');let image;
+    if(option.asset){
+      chip.dataset.assetId=option.asset.id;if(option.asset.productId)chip.dataset.spatialProductPreview=option.asset.productId;
+      image=document.createElement('img');image.src=spatialObjectThumbnail(option.asset);image.alt=spatialAssetLabel(option.asset)+' 오브젝트';image.draggable=false;
+      name.textContent=spatialAssetLabel(option.asset);location.textContent=option.kind==='object'?option.label.slice(spatialAssetLabel(option.asset).length+3):'새로 추가';
+    }else{
+      // 공간 태그 — 장면의 공간(room) · 새로 추가할 공간 종류(space)
+      chip.classList.add('sp-mention-chip-room');image=document.createElement('span');image.className='sp-mention-chip-glyph';image.setAttribute('aria-hidden','true');image.textContent=option.kind==='room'?'▦':'+';
+      name.textContent=option.label;location.textContent=option.kind==='room'?'공간':'새 공간';
+    }
+    name.appendChild(location);
     const remove=document.createElement('button');remove.type='button';remove.className='sp-mention-chip-remove';remove.setAttribute('aria-label',option.label+' 태그 삭제');remove.textContent='×';
     chip.append(image,name,remove);const space=document.createTextNode('\u00a0'),fragment=document.createDocumentFragment();fragment.append(chip,space);
     target.deleteContents();target.insertNode(fragment);const next=document.createRange();next.setStart(space,1);next.collapse(true);root.current.focus({preventScroll:true});place(next);closeQuery();emit();onInsert?.(option);
@@ -44,7 +51,7 @@ export const SpatialMentionEditor=forwardRef(function SpatialMentionEditor({disa
     if(chip){if(['Backspace','Delete'].includes(event.key)){event.preventDefault();removeChip(chip);return;}if((event.key==='Enter'||event.key===' ')&&!event.target.closest('button')){event.preventDefault();onOpen(optionOf(chip),chip);return;}}
     onKeyDown(event);
   };
-  return <div ref={root} className="sp-mention-editor" contentEditable={!disabled} suppressContentEditableWarning role="combobox" aria-label="조감도 편집 프롬프트" aria-multiline="true" aria-autocomplete="list" aria-expanded={expanded} aria-controls={expanded?'sp-mention-options':undefined} aria-activedescendant={activeId} aria-disabled={!!disabled} data-placeholder="@로 오브젝트를 선택하고 어떻게 바꿀지 입력하세요."
+  return <div ref={root} className="sp-mention-editor" contentEditable={!disabled} suppressContentEditableWarning role="combobox" aria-label="조감도 편집 프롬프트" aria-multiline="true" aria-autocomplete="list" aria-expanded={expanded} aria-controls={expanded?'sp-mention-options':undefined} aria-activedescendant={activeId} aria-disabled={!!disabled} data-placeholder="@로 공간 · 제품 · 오브젝트를 고르고 명령하세요. 예) @거실 에 @사람 2명 복사해"
     onInput={()=>{if(emit())detect();}} onKeyDown={keyDown} onKeyUp={event=>{if(!['Enter','Tab','Escape','ArrowDown','ArrowUp'].includes(event.key))detect();}} onMouseUp={remember}
     onCompositionStart={()=>{composing.current=true;closeQuery();}} onCompositionEnd={()=>{composing.current=false;emit();detect();}}
     onBlur={event=>{if(!event.currentTarget.contains(event.relatedTarget)&&!event.relatedTarget?.closest('.sp-mention-menu'))closeQuery();}}

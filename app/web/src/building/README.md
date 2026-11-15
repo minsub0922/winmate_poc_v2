@@ -1,4 +1,13 @@
-# 건물 조감도 (사이드바 「건물 조감도 · 3D · BETA」)
+# 건물 조감도 (사이드바 「조감도」의 건물 스튜디오 · 3D · BETA)
+
+> **2026-11-15** — 앱에서는 공간 조감도와 한 탭으로 합쳐졌다. 이 모듈의 자체 목록 화면(`listView`)은 앱 안에서 더 쓰지 않고(HTML 추출 · 아티팩트용으로 남음),
+> 목록 · 시작은 앱의 통합 조감도 목록(`components/birdseye-home.jsx`) · 시작 팝업(`components/birdseye-start.jsx`)이 맡는다. 접점은 `services/building-bridge.js`:
+> - 모듈이 내보내는 `app` — `list()` · `onChange(fn)` · `remove(id)` · `thumb(id)` · `create({ blank } | { title, floors:[{ name, pack }], vertical })` · `pickPreset()`
+> - 앱이 주는 `window.__wmBldSpaceHook = { list(), bake(id) }` — 층 고르기 창의 「내 조감도」 묶음(내 공간 조감도를 층으로)
+> - **내 공간을 층으로**: 앱이 공간 조감도 장면을 층 기록으로 바꾼 묶음(`domain/building/floor-bake.js`, 굽는 스크립트와 같은 규칙)을 `data.js`의 `registerFloors(pack)`가 데이터에 더한다.
+>   층 id는 `my:<조감도 id>:<시각>`, 묶음은 건물 기록의 `spaces`에 함께 저장된다(원본을 지우거나 고쳐도 건물은 그대로 · HTML 추출에도 들어감). 묶음이 없는 `my:` 층은 빈 층으로 열린다.
+> - **크기 제한 없음**: 어떤 공간이든 어떤 층에 넣을 수 있고 층 크기(`shell`)는 넣은 공간을 따른다. 「이 건물에 맞는 크기의 공간만」 필터는 없다.
+> - 스튜디오의 「뒤로 가기」는 통합 조감도 목록(`{ name: 'spatial' }`)으로 간다. 건물 스튜디오에는 명령 입력창이 없다.
 
 라이브 아티팩트 Winmate v2 **Version 138**의 건물 조감도 탭을 옮긴 모듈이다(건물 템플릿 먼저 → 빈 층 → 층마다 공간 채우기 · 모양 유지 층 추가 · 층 간판 = 넣은 공간, 간판을 누르면 층 이름 바꾸기). 공간 조감도(업종별 한 층 3D)를 층으로 쌓아 건물 외관 · 층 내부를 보는 화면으로, 서버 없이 브라우저에서만 동작한다.
 
@@ -32,7 +41,7 @@
 
 ## 고치기
 - 이 폴더의 소스를 고치면 개발 서버 · `npm run build` 모두 다시 묶는다. 아티팩트와 맞추려면 같은 소스를 프로젝트 문서 `claude/building-birdseye-src.txt`에도 반영한다.
-- 검사: 앱 실행 후 `node app/tests/building-birdseye-ui.mjs` (`npm --prefix app/web run test:building`) · `node app/tests/building-standard-ui.mjs`.
+- 검사: `npm --prefix app/web run test:building`(`building-floor-bake.mjs` · `building-compose-ui.mjs`). `building-birdseye-ui.mjs` · `building-standard-ui.mjs`는 예전 건물 목록으로 들어가는 테스트라 새 시작 팝업에 맞게 다시 써야 한다.
 
 ## 표준 건물 조감도 (2026-11-11)
 - 시작 창 맨 위 「표준 건물 조감도」 묶음(건물 템플릿 98 — 샘플 버티컬 시나리오 54 · 버티컬 44 — 과 따로). 고르면 층마다 공간 · 층 이름이 **채워진 채로** 스튜디오가 열린다(샘플 버티컬 시나리오 건물 템플릿은 예전처럼 빈 층, 버티컬 건물 템플릿은 버티컬 층으로 채움). 버티컬 건물 템플릿과 달리 공간이 겹치지 않는다(한 공간 = 한 칸).

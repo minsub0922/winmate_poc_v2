@@ -22,6 +22,7 @@ export function facingTarget(object,scene){
 export function bindNaturalRelations(scene,assets,{refresh=false}={}){
   for(const object of scene.objects){
     const asset=assets[object.assetId],room=scene.rooms.find(r=>r.id===object.roomId);if(!asset||!room)continue;
+    if(object.facing?.manual)continue; // 사용자가 직접 돌린 방향(domain/spatial/object-ops.js) — 다시 묶거나 돌리지 않는다
     if(!refresh&&object.facing?.targetId&&scene.objects.some(o=>o.id===object.facing.targetId&&o.roomId===object.roomId))continue;
     let target,activity,carry=false,alignment;
     if(seats.has(asset.kind)){

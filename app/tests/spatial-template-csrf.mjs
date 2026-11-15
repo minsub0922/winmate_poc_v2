@@ -1,5 +1,6 @@
 // Real auth and scene storage on isolated ports; no production account/history writes.
 import assert from 'node:assert/strict';
+import {openIndustryTemplates} from './fixtures/birdseye/entry.mjs';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -43,10 +44,10 @@ try{
     if(!['POST','PUT'].includes(route.request().method()))return route.continue();
     const changed={...route.request().headers(),referer:base+'/spatial','sec-fetch-site':'same-origin','x-wm-template-regression':'1'};delete changed.origin;await route.continue({headers:changed});
    });
-   const page=await context.newPage(),errors=[];page.setDefaultTimeout(30000);page.on('pageerror',e=>errors.push(e.message));await page.goto(base+'/spatial');await page.getByRole('button',{name:'업종별 템플릿 활용하기',exact:true}).click({timeout:120000});
-   const card=page.locator('.sp-template-card[data-template-id="fb-full-standard"]');await card.getByRole('button',{name:'활용하기',exact:true}).click();
+   const page=await context.newPage(),errors=[];page.setDefaultTimeout(30000);page.on('pageerror',e=>errors.push(e.message));await page.goto(base+'/spatial');await openIndustryTemplates(page);
+   const card=page.locator('.sp-template-card[data-template-id="fb-full-standard"]');
    const savedResponse=page.waitForResponse(r=>r.url().endsWith('/api/spatial/history')&&r.request().method()==='POST');
-   await page.getByRole('dialog',{name:'스튜디오로 이동할까요?',exact:true}).getByRole('button',{name:'스튜디오로 이동',exact:true}).click();
+   await card.getByRole('button',{name:/스튜디오에서 열기|활용하기/}).click();   // 시작 팝업에서 고르면 바로 스튜디오로 간다(따로 묻지 않는다)
    const saved=await savedResponse;assert.equal(saved.status(),201,await saved.text());await page.waitForURL(/\/spatial\/sp-/);await page.locator('.sp-plan-image svg').waitFor({timeout:120000});assert.equal(await page.locator('.sp-plan-image [data-room-id]').count(),6);
    assert(observed.some(r=>r.origin===undefined&&r.referer===base+'/spatial'),'actual browser request entered proxy without Origin');
    await page.reload();await page.locator('.sp-plan-image svg').waitFor({timeout:120000});assert.equal(await page.locator('.sp-plan-image [data-room-id]').count(),6);assert.deepEqual(errors,[]);await page.screenshot({path:path.join(out,'studio-open.png')});checks.push('Actual template confirmation opens and reloads its six-room studio after Origin is removed at the browser request boundary');

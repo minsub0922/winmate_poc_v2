@@ -18,13 +18,14 @@ try{
     page.on('console',msg=>{if(msg.type()==='error')console.log('CONSOLE '+msg.text());});
     let release;const gate=new Promise(resolve=>release=resolve);
     await page.route('**/api/spatial/library',async route=>{await gate;await route.fulfill({json:library});});
-    await page.route('**/api/spatial/history',route=>route.fulfill({json:{items:[]}}));
+    await page.route(url=>url.pathname==='/api/spatial/history',route=>route.fulfill({json:{items:[]}}));
+    await page.addInitScript(()=>{window.__wmBldMod_={app:{list:async()=>[],onChange:()=>()=>{},thumb:async()=>null,remove:async()=>{}}};});
     await page.addInitScript(()=>{window.headerSamples=[];function sample(){const header=document.querySelector('.sp-header');if(header){const r=header.getBoundingClientRect();window.headerSamples.push([r.x,r.y,r.width,r.height]);}requestAnimationFrame(sample);}requestAnimationFrame(sample);});
     await page.goto('http://127.0.0.1:5203/spatial');
     try{await page.locator('.sp-header').waitFor({timeout:45000});}catch(error){await page.screenshot({path:path.join(out,'failed-header.png')});console.log(await page.locator('body').innerText());throw error;}
     assert.equal(await page.getByRole('button',{name:'제품 · 가구 오브젝트'}).isDisabled(),true,'header exists before the library');
     await page.screenshot({path:path.join(out,`loading-${width}.png`)});await page.evaluate(()=>document.fonts.ready);release();
-    await page.locator('.sp-studio-launch').waitFor();await page.locator('.sp-home-maps .sp-map-card').first().waitFor();await page.waitForTimeout(500);
+    await page.locator('.sp-studio-launch').waitFor();await page.locator('.sp-history .sp-empty h3').waitFor();await page.waitForTimeout(500);
     const samples=await page.evaluate(()=>window.headerSamples),drift=samples[0].map((_,i)=>Math.max(...samples.map(s=>s[i]))-Math.min(...samples.map(s=>s[i])));
     report.headers.push({width,samples:samples.length,frames:samples,drift});assert(drift.every(v=>v<1),`header changed at ${width}: ${drift}`);
     await page.getByRole('button',{name:'제품 · 가구 오브젝트'}).click();await page.locator('.sp-object-card').first().waitFor();assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
@@ -36,7 +37,7 @@ try{
     const page=await context.newPage();await page.setViewportSize({width:1500,height:960});page.on('pageerror',e=>report.errors.push(e.message));
     await page.route('**/api/spatial/library',route=>route.fulfill({json:library}));
     let release;const gate=new Promise(resolve=>release=resolve);
-    await page.route('**/api/spatial/history',async route=>{if(scenario==='slow-history')await gate;await route.fulfill(scenario==='history-error'?{status:503,json:{detail:'히스토리 시험 오류'}}:{json:{items:[]}});});
+    await page.route(url=>url.pathname==='/api/spatial/history',async route=>{if(scenario==='slow-history')await gate;await route.fulfill(scenario==='history-error'?{status:503,json:{detail:'히스토리 시험 오류'}}:{json:{items:[]}});});
     await page.route('**/api/spatial/history/'+draft.id,async route=>{await gate;await route.fulfill({json:draft});});
     await page.addInitScript(()=>{window.headerSamples=[];function sample(){const el=document.querySelector('.sp-header');if(el){const r=el.getBoundingClientRect();window.headerSamples.push([r.x,r.y,r.width,r.height]);}requestAnimationFrame(sample);}requestAnimationFrame(sample);});
     const direct=scenario.includes('draft');await page.goto('http://127.0.0.1:5203/spatial'+(direct?'/'+draft.id:''));await page.locator('.sp-header').waitFor();
@@ -48,7 +49,7 @@ try{
     await page.waitForTimeout(200);const frames=await page.evaluate(()=>window.headerSamples),drift=frames[0].map((_,i)=>Math.max(...frames.map(f=>f[i]))-Math.min(...frames.map(f=>f[i])));
     report.headers.push({scenario,frames,samples:frames.length,drift});assert(drift.every(v=>v<1),scenario+' header drift '+drift);await page.close();
   }
-  const page=await context.newPage();await page.goto('http://127.0.0.1:5203/favicon.ico');
+  const page=await context.newPage();await page.goto('http://127.0.0.1:5203/fonts/fonts.css');   // 같은 출처의 스크립트 없는 문서(없는 주소는 시스템 Chrome에서 이동 오류가 난다)
   // Export the same textured model used in the editor, without opening or
   // mutating the user's saved documents.
   for(const id of ['qm55c','bi_dish','wf1way','ac360','sg_g000183669']){

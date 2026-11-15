@@ -4,9 +4,10 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createServer} from '../web/node_modules/vite/dist/node/index.js';
 import {chromium} from '../web/node_modules/playwright/index.mjs';
+import {openIndustryTemplates} from './fixtures/birdseye/entry.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const output=path.join(root,'app/tests/output/spatial');fs.mkdirSync(output,{recursive:true});
-process.env.WINMATE_API_PORT='8793';process.env.WINMATE_WEB_PORT='5193';
+process.env.WINMATE_API_PORT=process.env.SPATIAL_TEST_API_PORT||'8793';process.env.WINMATE_WEB_PORT='5193';
 const server=await createServer({root:path.join(root,'app/web'),configFile:path.join(root,'app/web/vite.config.js'),logLevel:'warn',server:{host:'127.0.0.1',port:5193,strictPort:true,hmr:false}});
 let browser;const errors=[];
 try{
@@ -15,15 +16,15 @@ try{
   const login=await context.request.post('http://127.0.0.1:5193/api/auth/login',{data:{username:'admin',password:'spatial-isolated-test-password'}});assert.equal(login.status(),200);
   const page=await context.newPage();page.setDefaultTimeout(30000);page.on('pageerror',e=>errors.push(e.message));
   await page.goto('http://127.0.0.1:5193/spatial');const home=page.locator('.sp-home-launches');await home.waitFor({timeout:120000});
-  assert.equal(await page.locator('.sp-home-maps').count(),0);
-  await home.locator('img').evaluate(img=>img.decode());
-  await page.screenshot({path:output+'/library-before-history.png'});console.log('PASS thumbnail entry replaces the home template section');
-  const open=()=>home.getByRole('button',{name:'업종별 템플릿 활용하기',exact:true}).click();
+  // 업종 템플릿은 목록의 버튼이 아니라 시작 팝업(공간 조감도 → 업종 템플릿) 안에 있다
+  assert.equal(await page.locator('.sp-home-maps').count(),0);assert.equal(await page.getByRole('button',{name:'업종별 템플릿 활용하기',exact:true}).count(),0);
+  await page.screenshot({path:output+'/library-before-history.png'});console.log('PASS the list has no template section or template button; templates open from the start dialog');
+  const open=()=>openIndustryTemplates(page);
   await open();const modal=page.locator('.sp-maps-modal'),defaults=modal.getByRole('group',{name:'기본 썸네일',exact:true});
   assert.equal(await defaults.getByRole('button',{name:'2D',exact:true}).getAttribute('aria-pressed'),'true');
   const allMode=mode=>page.waitForFunction(mode=>{const cards=[...document.querySelectorAll('.sp-maps-modal .sp-map-preview')];return cards.length>0&&cards.every(c=>c.dataset.view===mode);},mode);
   await defaults.getByRole('button',{name:'3D',exact:true}).click();await allMode('3d');
-  await page.waitForFunction(()=>document.querySelector('.sp-maps-modal .sp-template-card img')?.src.startsWith('data:image/png'),null,{timeout:120000});
+  await page.waitForFunction(()=>document.querySelector('.sp-maps-modal .sp-template-card img')?.src.match(/^data:image\/png|\/preview\.webp\?/),null,{timeout:120000});
   const first=modal.locator('.sp-template-card').first();await first.getByRole('button',{name:'2D 보기',exact:true}).click();assert.equal(await first.locator('.sp-map-preview').getAttribute('data-view'),'2d');
   assert.equal(await defaults.getByRole('button',{name:'3D',exact:true}).getAttribute('aria-pressed'),'true');
   await defaults.getByRole('button',{name:'2D',exact:true}).click();await allMode('2d');

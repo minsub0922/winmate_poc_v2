@@ -485,4 +485,5 @@ def build_router():
             if setting.get('roomId') not in keys or type(setting.get('capacity')) is not int or not 1<=setting['capacity']<=60:raise HTTPException(502,'LLM의 좌석 계획이 올바르지 않습니다.')
         out['title']=str(out.get('title') or chosen['name'])[:150]
         return {'plan':out,'model':result.model,'mode':'real','source':'llm'}
+    from .spatial_command import register_command;register_command(router,STYLES)  # POST /api/spatial/command — 명령 문장 → 조작 목록
     return router

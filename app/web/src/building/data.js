@@ -38,9 +38,8 @@ function withStandard(raw, std) {
   return raw;
 }
 
-function prep(raw) {
-  const ind = Object.fromEntries(raw.ind.map((i) => [i.code, i.name]));
-  const tpl = raw.tpl.map((t) => {
+// 층 기록 하나에 화면용 값(이름 · 크기 · 제품 수 …)을 붙인다
+function prepTpl(t, raw, ind) {
     const products = new Map();
     let productCount = 0;
     for (const o of t.objs) {
@@ -62,8 +61,8 @@ function prep(raw) {
       indName: ind[t.ind] || t.ind,
       // 버티컬 층(vt)은 버티컬 이름을 붙여 고르기 창에서 구분한다
       name: t.vt ? `${t.vl} · ${t.name}` : t.name,
-      // 층 이름표 — 업종 이름(복합층 · 버티컬 층은 층 이름)
-      short: t.vt ? t.name : t.ind === 'MX' ? t.name : ind[t.ind] || t.name,
+      // 층 이름표 — 업종 이름(복합층 · 버티컬 층 · 내 조감도 층은 층 이름)
+      short: t.vt || t.lay === 'my' ? t.name : t.ind === 'MX' ? t.name : ind[t.ind] || t.name,
       area,
       sizeText: `${Math.round(t.w)}×${Math.round(t.d)}m`,
       sizeClass: area < 200 ? 'S' : area < 420 ? 'M' : 'L',
@@ -72,7 +71,10 @@ function prep(raw) {
       products: [...products.entries()].sort((a, b) => b[1] - a[1]),
       roomProducts: roomProducts.map((m) => [...m.entries()].sort((a, b) => b[1] - a[1])),
     };
-  });
+}
+function prep(raw) {
+  const ind = Object.fromEntries(raw.ind.map((i) => [i.code, i.name]));
+  const tpl = raw.tpl.map((t) => prepTpl(t, raw, ind));
   const byInd = new Map();
   for (const t of tpl) {
     if (!byInd.has(t.ind)) byInd.set(t.ind, []);
@@ -102,4 +104,27 @@ export function data() {
   return D;
 }
 export const tplOf = (id) => (D && D.tplById[id]) || null;
+// 내 공간 조감도를 층으로 — 앱(app/web/src/domain/building/floor-bake.js)이 만든 묶음 { assets, recipes, tpl }을 데이터에 더한다.
+// 묶음의 자산은 지금 표에 있으면 그것을 쓰고 없는 것만 뒤에 붙인다(withStandard와 같은 방식). 같은 id의 층은 바꿔 끼운다.
+// 업종별 고르기 목록(byInd)에는 넣지 않는다 — 그 건물의 층으로만 쓰인다. 등록한 층 id 목록을 돌려준다.
+export function registerFloors(pack) {
+  if (!D || !pack || !pack.tpl || !Array.isArray(pack.assets)) return [];
+  const raw = D.raw;
+  const at = new Map(raw.assets.map((a, i) => [a.id, i]));
+  const map = pack.assets.map((a) => {
+    if (!at.has(a.id)) { at.set(a.id, raw.assets.length); raw.assets.push(a); }
+    return at.get(a.id);
+  });
+  for (const [k, r] of Object.entries(pack.recipes || {})) if (!raw.recipes[k]) raw.recipes[k] = r;
+  const ids = [];
+  for (const t of Array.isArray(pack.tpl) ? pack.tpl : [pack.tpl]) {
+    if (!t || typeof t.id !== 'string' || !Array.isArray(t.objs) || !Array.isArray(t.rooms) || t.objs.some((o) => map[o[0]] === undefined)) continue;
+    const record = { ...t, ind: D.indName[t.ind] ? t.ind : 'OF', objs: t.objs.map((o) => [map[o[0]], ...o.slice(1)]) };
+    const i = raw.tpl.findIndex((x) => x.id === record.id);
+    if (i >= 0) raw.tpl[i] = record; else raw.tpl.push(record);
+    D.tplById[record.id] = prepTpl(record, raw, D.indName);
+    ids.push(record.id);
+  }
+  return ids;
+}
 export const tplsOf = (ind) => (D && D.byInd.get(ind)) || [];

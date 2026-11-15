@@ -1,10 +1,17 @@
 # 공간 조감도 스튜디오
 
+> **2026-11-15 변경 — 이 문서의 아래 내용 가운데 일부는 지난 구조다.** 지금 구조는 `docs/superpowers/specs/2026-11-15-birdseye-unified-studio-design.md`와 `app/README.md`의 「조감도 (공간 · 건물 통합)」을 본다.
+> - 목록은 건물과 합쳐진 통합 「조감도」 목록이고, 스튜디오는 시작 팝업(종류 → 출발점)으로 연다.
+> - 스튜디오의 왼쪽 입력 폼(업종 · 공간 · 제품 수량 입력, 「조감도 만들기」)은 없다. 시뮬레이터 아래 입력창에서 @로 공간 · 제품 · 오브젝트를 태그해 명령한다(`POST /api/spatial/command`). 입력 폼 데이터(`form`)는 화면 없이 장면과 함께 저장된다.
+> - 「레이아웃 추출」과 Layout 히스토리는 없다. PPT 레이아웃은 Storyboard의 조감도 장에서 만든다.
+> - 아래에 나오는 `spatial-layout-ui.mjs` · `spatial-layout-my-ui.mjs`(스튜디오 「레이아웃 추출」 검사)는 지웠다. 레이아웃 만들기는 `app/tests/storyboard-birdseye-layout-ui.mjs`가 Storyboard에서 검사한다.
+> - 아래에서 「입력 폼」 · 「공간별 제품/수량 입력」 · 「업종별 템플릿 활용하기 버튼」 · 「스튜디오로 이동 확인 창」을 말하는 대목은 지난 동작이다. 장면 조립 · 자연스러운 배치 · 사람 연출 · 2D/3D · 오브젝트 서랍 · 내보내기는 그대로다.
+
 새 스튜디오는 `POST /api/spatial/drafts`로 빈 초안을 만든 뒤 `/spatial/{id}`에서 열린다. 진입 버튼은 목록 페이지에만 표시하며 편집 페이지에서는 제거한다. 시작할 때 업종·공간 목록은 비어 있고 캔버스에는 아무 장면도 생성하지 않는다. 업종 선택은 분류 입력이며, **업종 템플릿**은 이미 구성된 조감도와 공간·제품 입력을 함께 연다. 템플릿 카드와 같은 공간 경계·제품·가구 좌표를 즉시 2D/3D로 표시하고 저장한다.
 
 공간별로 이름·용도·제품·수량을 입력하고 선택적으로 실제 가로·세로·좌석 수를 지정한다. 생성기는 입력된 공간과 삼성 제품만 사용하고 추가 가구와 동선을 자동 구성한다. 입력 폼은 ID별로 계정에 자동 저장되며 빈 초안도 새로고침으로 복구된다. 기존 조감도에서 입력만 바꾼 경우에는 이전 렌더를 유지하고 재생성을 안내한다. 기존 히스토리·관리자 예시는 저장된 장면을 바로 표시하며 필요한 입력 폼은 장면 데이터에서 가져온다. 기존 장면이 있으면 공간·제품 수와 면적을 표시한다. 히스토리를 요청하는 동안에는 로딩 표시만 보여 주며 건수·빈 목록 안내는 성공 응답 후에 표시한다. 실패는 별도 오류·다시 불러오기로 안내하고, 늦게 도착한 이전 응답은 최신 목록을 덮어쓰지 않는다. 과거에 장면 없이 입력만 저장된 템플릿 히스토리는 연결된 기본 장면을 한 번 복원해 저장하고 준비 상태·미리보기를 갱신한다. 복원은 사용자별로 처리하며 입력 변경, 문서 ID·수정 버전·시간을 보존한다. 이미 저장된 장면과 `assetRevision`은 덮어쓰지 않는다.
 
-추가 검증은 `node app/tests/spatial-studio-form.mjs`와 `node app/tests/spatial-studio-flow-ui.mjs`이다. 후자는 `WINMATE_API_PORT=8977`, 별도 `WINMATE_AUTH_DIR`·`WINMATE_SPATIAL_DB`로 실행한 `app/tests/fixtures/spatial/server.py`를 사용한다. 브라우저에서는 ID 경로·빈 시작·공간별 제품/수량 입력·명시적 생성·입력 자동 저장·업종 템플릿·모바일·뒤로 가기를 검사한다.
+추가 검증은 `node app/tests/spatial-studio-form.mjs`이다(입력 폼 화면 테스트 `spatial-studio-flow-ui.mjs`는 화면과 함께 없어졌다 — 지금 화면은 `spatial-command-ui.mjs`). 후자는 `WINMATE_API_PORT=8977`, 별도 `WINMATE_AUTH_DIR`·`WINMATE_SPATIAL_DB`로 실행한 `app/tests/fixtures/spatial/server.py`를 사용한다. 브라우저에서는 ID 경로·빈 시작·공간별 제품/수량 입력·명시적 생성·입력 자동 저장·업종 템플릿·모바일·뒤로 가기를 검사한다.
 
 가구 배치는 앞 방향(`frontAxis`)과 사용 관계(`facing`)를 함께 저장한다. 의자는 연결된 책상·회의 테이블·무대·환자 침상을, 소파는 낮은 대화 테이블을, 모니터는 실제 착석 위치를 바라본다. 회전 양수 90°는 평면도의 +Z 앞 방향을 -X로 돌린다는 규칙을 SVG와 Three.js에서 공통으로 사용한다.
 
@@ -163,11 +170,11 @@ node app/tests/spatial-ui.mjs
 
 태깅은 편집 선택 상태를 설정하지 않으며 조감도 위 팝업을 열지 않는다. 직접 클릭해 연 오브젝트 상세에서 **@ 프롬프트에 넣기**를 누르면 버블을 넣고 상세 팝업을 닫는다. 하이라이트는 저장 장면·PNG/PPT 캡처·GLB에 포함하지 않는 임시 표시이고 3D 장면을 다시 만들지 않는다. 공용 가구는 설계 오브젝트 미리보기와 크기를 보여 준다. `node app/tests/spatial-mention-bubbles-ui.mjs`는 별도 8996 인증 fixture와 5296 Vite에서 버블·개체 ID·실제 3D 픽셀 변화·정상/실패 전송·삭제·공간 복원·모바일을 검사한다. 캡처는 `app/tests/output/spatial-mention-bubbles/`에 저장한다.
 
-`node app/tests/spatial-product-mentions.mjs`는 검색·중복·ID 보존·실제 생성 결과를 검사한다. 별도 8979 포트에 인증 fixture 서버를 실행한 뒤 `node app/tests/spatial-product-mentions-ui.mjs`로 키보드/마우스 추가, 이미지 로드·모델 일치, 공통 상세, 저장·복원, 편집 프롬프트와 모바일을 검사한다. 산출물은 `app/tests/output/spatial-product-mentions/`이다.
+`node app/tests/spatial-product-mentions.mjs`는 검색·중복·ID 보존·실제 생성 결과를 검사한다. (입력 폼의 제품 @ 입력 화면 테스트 `spatial-product-mentions-ui.mjs`는 화면과 함께 없어졌다.) 예전에는 별도 8979 포트에 인증 fixture 서버를 실행한 뒤 그 테스트로 키보드/마우스 추가, 이미지 로드·모델 일치, 공통 상세, 저장·복원, 편집 프롬프트와 모바일을 검사한다. 산출물은 `app/tests/output/spatial-product-mentions/`이다.
 
 공통 `confirmDelete` / `DeleteButton`은 공간·제품·가구·설명 영역·프롬프트 삭제와 다른 화면의 템플릿·편집 요소·배경·첨부·연결·평가·시뮬레이션 기록·프로필·찜 제거에 적용한다. 기존 제안서·조감도 히스토리 및 장표 삭제 확인은 유지한다. 취소·Escape·바깥 클릭은 삭제하지 않으며, 승인 전에는 데이터를 바꾸지 않는다.
 
-UI 검사는 별도 8992 포트 인증 서버에서 `node app/tests/spatial-room-input-ui.mjs`로 실행한다. 산출물은 `app/tests/output/spatial-room-input/`이다.
+(공간 입력 폼 화면 테스트 `spatial-room-input-ui.mjs`는 화면과 함께 없어졌다.) 산출물은 `app/tests/output/spatial-room-input/`이다.
 
 ## 이미지·스펙 정합성과 초기 로딩
 

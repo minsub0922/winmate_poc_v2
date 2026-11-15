@@ -1,5 +1,5 @@
-// 건물 조감도(라이브 아티팩트 Version 136과 같은 동작) — 실행 중인 앱(WINMATE_TEST_URL, 기본 8788)에서 검사한다.
-// 사이드바 → 목록(예시 2개) → 캠퍼스 복합관 → 외관 보기에서 외벽 클릭 = 외벽 고르기 팝업(층 카드 없음) ·
+// 건물 조감도(라이브 아티팩트 Version 136과 같은 동작) — 실행 중인 앱(WINMATE_TEST_URL, 기본 8788)에서 검사한다. 로그인이 필요한 서버면 WINMATE_TEST_PASSWORD(admin).
+// 사이드바 조감도 → 통합 목록의 건물 카드(예시) → 캠퍼스 복합관 → 외관 보기에서 외벽 클릭 = 외벽 고르기 팝업(층 카드 없음) ·
 // 외벽 바꾸기(시점 그대로 · 저장) · 같은 업종 일괄 · Esc · 층 이름 = 층 카드(외벽 칸 없음) · 띠 외벽 버튼(키보드) ·
 // 빈 곳 클릭 닫힘 · 펼쳐 보기 클릭 = 층 보기 · HTML 추출 · 건물 템플릿 먼저 → 빈 층 → 공간 채우기 · 층 추가(모양 유지) ·
 // 버티컬 건물 템플릿 = 채운 층으로 열림 · 모바일 시트.
@@ -39,12 +39,27 @@ const saved = (page) => page.evaluate(async () => {
 });
 const labels = (page) => page.evaluate(() => [...document.querySelectorAll('.bd-floor-label')].map((x) => { const r = x.getBoundingClientRect(); return Math.round(r.left) + ',' + Math.round(r.top); }).join(' '));
 
+// 건물 스튜디오에서 목록으로 돌아가 시작 팝업 › 건물 조감도 › 건물 템플릿 창을 연다(예전의 건물 목록 「시작」 버튼 자리)
+async function openPresets(page) {
+  await page.locator('.bd-back').click(); await page.getByRole('button', { name: /조감도 스튜디오 시작/ }).click();
+  const start = page.getByRole('dialog', { name: '조감도 스튜디오 시작', exact: true });
+  await start.getByRole('button', { name: /^건물 조감도/ }).click(); await start.getByRole('button', { name: /^건물 템플릿/ }).click();
+  await page.locator('.bd-pick-modal').waitFor();
+}
+const login = async (context) => { if (process.env.WINMATE_TEST_PASSWORD) assert.equal((await context.request.post(origin + '/api/auth/login', { data: { username: 'admin', password: process.env.WINMATE_TEST_PASSWORD } })).status(), 200); };
 async function openCampus(page, mobile = false) {
   await page.goto(origin + '/'); await page.waitForFunction(() => document.querySelector('.app')?.dataset.appReady === 'true', null, { timeout: LONG });
   await showSidebar(page);
-  await page.locator('.sidebar .sb-bld').click();
+  await page.locator('.sidebar .sb-spatial').click();
   if (!mobile) await page.mouse.move(page.viewportSize().width - 3, 2);
-  await page.locator('.bd-card', { hasText: '캠퍼스 복합관' }).locator('.bd-card-open').click({ timeout: LONG });
+  // 건물은 공간 조감도와 한 목록에 최근순으로 섞여 있다 — 예시 건물 카드가 나올 때까지 쪽을 넘긴다
+  const card = page.locator('.be-building-card[aria-label="캠퍼스 복합관"]');
+  for (let i = 0; i < 40; i++) {
+    await page.locator('.be-home .sp-history[aria-busy=false] .sp-map-card').first().waitFor({ timeout: LONG });
+    if (await card.count()) break;
+    await page.getByRole('button', { name: '다음 페이지', exact: true }).click(); await page.waitForTimeout(500);
+  }
+  await card.locator('.sp-history-open').click({ timeout: LONG });
   await page.locator('.bd-workspace').waitFor({ timeout: LONG });
   await page.waitForFunction(() => !document.querySelector('.bd-render-state'), null, { timeout: LONG });
   await page.waitForTimeout(4000);
@@ -52,13 +67,13 @@ async function openCampus(page, mobile = false) {
 
 const browser = await chromium.launch({ headless: true, ...(process.env.CHROME ? { executablePath: process.env.CHROME } : {}), args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
 try {
-  const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, acceptDownloads: true });
+  const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, acceptDownloads: true }); await login(context);
   const page = await context.newPage(); page.setDefaultTimeout(LONG);
   page.on('pageerror', (e) => errors.push(e.message));
   await openCampus(page);
-  assert.equal(await page.locator('.sidebar .sb-bld[aria-current=page]').count(), 1);
+  assert.equal(await page.locator('.sidebar .sb-spatial[aria-current=page]').count(), 1);
   assert.equal(await page.locator('#wm-bld-js').count(), 1);
-  pass('sidebar 건물 조감도 opens the history list and the campus example studio');
+  pass('sidebar 조감도 opens the unified history and its building card opens the campus example studio');
 
   const cv = await page.evaluate(() => { const r = document.querySelector('.bd-render-host canvas').getBoundingClientRect(); return { x: r.left, y: r.top, w: r.width, h: r.height }; });
   assert.equal(await cursorAt(page, cv.x + 30, cv.y + 30), '');
@@ -116,7 +131,7 @@ try {
     const all = await new Promise((r) => { const q = d.transaction('b').objectStore('b').getAll(); q.onsuccess = () => r(q.result); }); d.close();
     return all.sort((a, b) => b.updatedAt - a.updatedAt)[0];
   });
-  await page.locator('.bd-back').click(); await page.locator('.bd-launch').click(); await page.locator('.bd-pick-modal').waitFor();
+  await openPresets(page);
   assert.equal(await page.locator('.bd-pick-modal .bd-tabs').count(), 0);
   assert.equal(await page.locator('.bd-pick-modal .bd-pre').count(), PRESET_COUNT);
   assert.equal(await page.locator('.bd-pick-modal .bd-tpl-meta', { hasText: /\d+층/ }).count(), 0);
@@ -129,26 +144,36 @@ try {
   pass('start = building template only (no floor counts); studio opens with the template shape and empty floors');
 
   await page.locator('.bd-floor-pick', { hasText: '1F' }).click(); await page.locator('.bd-fc-fill').click(); await page.locator('.bd-pick-modal').waitFor();
-  assert.equal((await page.locator('.bd-pick-size').innerText()).trim(), '24×15m');
-  const sizes = new Set((await page.locator('.bd-pick-modal .bd-tpl:not([hidden]) .bd-tpl-meta').allInnerTexts()).map((t) => t.split(' · ').pop()));
-  assert.deepEqual([...sizes], ['24×15m']);
-  await page.locator('.bd-pick-modal .bd-tpl:not([hidden])').first().click(); await page.locator('.mfoot .btn-primary').click(); await page.waitForTimeout(2500);
+  // 층 크기 제한이 없다 — 어떤 크기의 공간이든 넣을 수 있고, 층이 그 공간의 크기를 따른다(다른 층은 그대로)
+  const sizeOf = (shell) => `${Math.round(shell.w)}×${Math.round(shell.d)}m`;
+  assert.equal(await page.locator('.bd-pick-size').count(), 0);
+  const sized = page.locator('.bd-pick-modal .bd-tpl:not([hidden])').filter({ has: page.locator('.bd-tpl-meta', { hasText: /\d+×\d+m$/ }) });
+  const sizes = new Set((await sized.locator('.bd-tpl-meta').allInnerTexts()).map((t) => t.split(' · ').pop()));
+  assert(sizes.size > 1 && sizes.has('24×15m'), 'spaces of every size are offered, not only this floor\'s');
+  const other = sized.filter({ hasNot: page.locator('.bd-tpl-meta', { hasText: '24×15m' }) }).first(), picked = (await other.locator('.bd-tpl-meta').innerText()).split(' · ').pop();
+  await other.click(); await page.locator('.mfoot .btn-primary').click(); await page.waitForTimeout(2500);
   assert.equal(await page.locator('.bd-fc-acts').count(), 1);
-  pass('empty floor offers only spaces that fit its footprint and fills the floor');
+  bld = await latest();
+  assert.equal(sizeOf(bld.floors[0].shell), picked); assert.notEqual(picked, '24×15m'); assert.equal(bld.floors[0].shell.ind, 'OF');
+  assert.deepEqual(bld.floors.slice(1).map((f) => sizeOf(f.shell)), ['24×15m', '24×15m', '24×15m']);
+  pass('an empty floor takes a space of any size: the floor follows that space, the facade and the other floors stay');
 
   await page.locator('.bd-strip-all').click(); await page.waitForTimeout(1200);
   await page.locator('.bd-floor-add').click(); await page.locator('.bd-pick-modal').waitFor();
   await page.locator('.bd-pick-modal .bd-chip', { hasText: '전체' }).click(); await page.locator('.bd-pick-modal .bd-chip', { hasText: '외식' }).click();
-  await page.locator('.bd-pick-modal .bd-tpl:not([hidden])').first().click(); await page.locator('.mfoot .btn-primary').click(); await page.waitForTimeout(2500);
+  // 「내 조감도」 묶음은 업종 필터와 상관없이 맨 위에 남는다 — 여기서는 외식 템플릿 공간을 고른다
+  await page.locator('.bd-pick-modal .bd-tpl:not(.bd-my):not([hidden])').first().click(); await page.locator('.mfoot .btn-primary').click(); await page.waitForTimeout(2500);
   await page.locator('.bd-floor-add').click(); await page.locator('.bd-pick-blank').click(); await page.waitForTimeout(2500);
   bld = await latest();
   assert.equal(bld.floors.length, 6);
-  const top = bld.floors[3].shell;
-  for (const f of bld.floors.slice(4)) { assert.deepEqual(f.shell, top); assert.equal(f.fv, bld.floors[3].fv); }
-  assert.equal(bld.floors[5].tpl, null);
+  // 더한 층은 맨 위층의 외벽(업종 · 무늬)을 잇고, 넣은 공간의 크기를 따른다. 빈 층은 그때의 맨 위층을 그대로 잇는다.
+  const top = bld.floors[3].shell, addedSize = await page.evaluate((id) => { const t = window.__wmBldMod_.data().tplById[id]; return { w: t.w, d: t.d }; }, bld.floors[4].tpl);
+  for (const f of bld.floors.slice(4)) { assert.equal(f.shell.ind, top.ind); assert.equal(f.fv, bld.floors[3].fv); }
+  assert.deepEqual({ w: bld.floors[4].shell.w, d: bld.floors[4].shell.d }, addedSize);
+  assert.deepEqual(bld.floors[5].shell, bld.floors[4].shell); assert.equal(bld.floors[5].tpl, null);
   await page.locator('.bd-strip-all').click(); await page.waitForTimeout(1500);
   await page.screenshot({ path: output + '/template-added.png' });
-  pass('added floors (another industry or empty) keep the top floor footprint and facade');
+  pass('added floors keep the top floor facade; a filled one takes its space\'s size, an empty one copies the floor below');
 
   // 층 간판 = 넣은 공간(외식 층은 외식 간판, 빈 층은 간판 없음) · 간판을 누르면 이름 바꾸기
   const signsOf = (i) => page.evaluate((i) => {
@@ -176,7 +201,7 @@ try {
 
   // 버티컬 건물 템플릿 — 고르면 그 버티컬의 공간 조합 층으로 채운 채로 열린다(새 업종 SF 외벽 · 층 이름 = 버티컬 층 이름)
   const vp = VERTICAL_PRESETS.find((p) => p.vertical === 'sf_fitness'), vl = VERTICAL_LAYOUTS.verticals.find((v) => v.id === vp.vertical);
-  await page.locator('.bd-back').click(); await page.locator('.bd-launch').click(); await page.locator('.bd-pick-modal').waitFor();
+  await openPresets(page);
   await page.locator('.bd-pick-modal .bd-pre').filter({ has: page.getByText(vp.title, { exact: true }) }).click(); await page.locator('.mfoot .btn-primary').click();
   await page.locator('.bd-workspace').waitFor(); await page.waitForFunction(() => !document.querySelector('.bd-render-state'), null, { timeout: LONG }); await page.waitForTimeout(3000);
   bld = await latest();
@@ -189,9 +214,11 @@ try {
   pass('a vertical building template opens with every floor filled by its spaces (new SF facade, floor names)');
   await context.close();
 
-  const mobile = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+  const mobile = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true }); await login(mobile);
   const m = await mobile.newPage(); m.setDefaultTimeout(LONG); m.on('pageerror', (e) => errors.push(e.message));
   await openCampus(m, true);
+  // 보기 방식은 건물에 저장된다 — 계정으로 이어지는 서버에서는 앞에서 남긴 「펼쳐 보기」로 열리므로 외관 보기로 돌린다
+  if (await m.locator('.bd-workspace button', { hasText: '외관 보기' }).getAttribute('aria-pressed') !== 'true') { await m.locator('.bd-workspace button', { hasText: '외관 보기' }).click(); await m.waitForTimeout(3000); }
   const b = await anchorOf(m, 2); let opened = false;
   for (const dx of [140, 170, 200, 230]) {
     const x = b.x + dx, y = b.y + 0.3 * dx;

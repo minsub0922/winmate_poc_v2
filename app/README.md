@@ -42,11 +42,26 @@ WINMATE_API_PORT=8788 ./start.sh
 
 검증: `app/.venv/bin/python -B -m pytest app/tests/test_guide_agent.py -q`, `node app/tests/guide-agent-live.mjs`. 후자는 임시 인증 서버와 실제 Gemini를 사용해 자동 이동·대화 연속성·동시 조작·닫기/취소/초기화·모바일·기존 로그인 정책·기록 제외를 검사하며 실제 API 사용량이 발생한다.
 
+## 조감도 (공간 · 건물 통합, 2026-11-15)
+
+사이드바 **조감도**(2D · 3D · BETA) 하나에 공간 조감도와 건물 조감도가 모여 있다. 설계는 `docs/superpowers/specs/2026-11-15-birdseye-unified-studio-design.md`.
+
+- **목록** `web/src/components/birdseye-home.jsx` — 「조감도 스튜디오 시작」 버튼 하나와 「조감도 히스토리」 한 구역(공간 · 건물을 최근 수정순으로 섞고 카드에 종류 표시, 한 쪽 8개 · `web/src/domain/birdseye/history.js`). 공간 조감도는 서버에서 그 쪽에 필요한 8개 묶음만 읽는다(건물이 있으면 건물 수만큼만 앞쪽을 더 읽음). 첫 읽기가 끝나기 전에는 카드를 그리지 않고, 스튜디오에 다녀와도 보던 쪽으로 돌아오며, 「다시 불러오기」는 실패한 그 쪽을 다시 청한다. 머리말의 「제품 · 가구 오브젝트」는 보기 전용 카탈로그다. 예전의 「업종별 템플릿 활용하기」 버튼과 Layout 히스토리는 없다(템플릿 갤러리와 기본 썸네일 2D · 3D 기억은 시작 팝업으로 옮겼다).
+- **시작 팝업** `web/src/components/birdseye-start.jsx` · `web/src/services/birdseye-start.js` — 종류(공간 · 건물) → 출발점(빈 화면 · 내 Storyboard · 템플릿). 「내 Storyboard에서」는 제안서의 공간 구성(없으면 요구사항 · 연결한 제품 · 솔루션으로 그 자리에서 추론)으로 조감도를 만들고 그 제안서의 조감도로 등록한다. 건물은 공간 하나를 한 층으로 쌓는다.
+- **공간 스튜디오** `web/src/pages/SpatialStudioPage.jsx` — 왼쪽 입력 카드 없이 시뮬레이터 + 명령 입력창. @로 공간 · 제품 · 오브젝트를 태그해 명령하면(`@거실 에 @사람 2명 복사해`, `@소파 오른쪽으로 옮겨`, `@세탁기 3개 추가해`) `POST /api/spatial/command`(`api/spatial_command.py`)가 조작 목록으로 바꾸고 `web/src/domain/spatial/command-apply.js`가 장면에 적용한다. 조작: add · copy · move(방향 · 다른 공간 · 좌표) · rotate · remove · style · room_add · room_remove · room_update. 방향은 화면 기준(가장 가까운 지도 축), 기본 거리 1m, 막히면 직전까지. 선택 말풍선의 회전 · 복제 버튼과 단축키(R · Ctrl/⌘+D · Delete · 화살표)로 직접 조작한다. Storyboard 위 팝업(`components/spatial-studio-popup.jsx`)에서도 같다.
+- **명령 해석** — LLM(`stage='spatial:command'`). Decision 키가 있으면 「요청 하나 + 대상이 @로 태그된 명령」은 Decision 모델(작업 `spatial.command`, 약 0.2초)이 유형 질문으로 처리하고, 나머지 · 확신도가 낮은 것은 LLM이 처리한다. `WINMATE_DECISION_TASKS`로 끌 수 있다.
+- **PPT 레이아웃** — 스튜디오의 「레이아웃 추출」은 없다. Storyboard의 조감도 장에서 「조감도 레이아웃 선택」 → 조감도 히스토리의 조감도를 고르면 편집 창(`components/spatial-layout-create.jsx`)이 열리고 저장하면 그 장에 적용된다.
+- **건물** — 명령 입력창은 없다. 층 고르기 창의 「내 조감도」에서 내가 만든 공간 조감도를, 템플릿 공간은 크기와 상관없이 층으로 넣는다(층 크기는 넣은 공간을 따름). 접점은 `web/src/services/building-bridge.js`, 장면 → 층 기록 변환은 `web/src/domain/building/floor-bake.js`.
+
+검증(격리 API `app/tests/fixtures/spatial/server.py`를 8961에 띄운 뒤): `npm --prefix app/web run test:spatial:command` · `test:spatial:ui` · `test:birdseye` · `test:building` · `test:spatial:storyboard`, `pytest app/tests/test_spatial_command.py`. 실제 모델 점검은 `node app/tests/spatial-command-live.mjs` · `spatial-command-live-ui.mjs`(파일 머리말 참고).
+
+예전 화면을 거치던 UI 테스트는 새 진입 경로로 옮겼다: 목록(`spatial-history-loading-ui` · `spatial-pagination-ui` · `spatial-history-preview-ui` · `spatial-fidelity-ui`, 모두 `SPATIAL_TEST_API_PORT`), 템플릿 갤러리(`spatial-library-ui`), 오브젝트 서랍(`spatial-object-drawer-ui`, `SPATIAL_DRAWER_API_PORT`), 편집기 · 말풍선(`spatial-editor-ui` · `spatial-mention-bubbles-ui`), 건물(`building-standard-ui`는 서버 없이, `building-birdseye-ui` · `account-data-e2e`는 `WINMATE_TEST_URL` + `WINMATE_TEST_PASSWORD`). `building-birdseye-ui`는 예시 건물을 고치므로 깨끗한 계정(새 `WINMATE_AUTH_DIR`)에서 돌린다. 스튜디오 「레이아웃 추출」을 거치던 `spatial-layout-ui` · `spatial-layout-my-ui`는 지웠고, 편집 · 닫기 확인 · 이어 고치기는 `storyboard-birdseye-layout-ui`가 본다(카메라 슬라이더 · SVG 내려받기 · PPTX 내보내기 UI 검사는 지금 없음). `spatial-ui` · `spatial-furniture-ui` · `spatial-naturalness-ui`는 이 변경 전부터 지난 화면(「공간맵 라이브러리」 · 「가구 배치」 · 브라우저 초안 키)을 기대해 통과하지 않는다.
+
 ## 건물 조감도
 
-사이드바 샘플 버티컬 시나리오 바로 아래 **건물 조감도**(3D · BETA)는 라이브 아티팩트 Version 136의 탭을 그대로 옮긴 화면이다. 시작은 건물 템플릿 54개 중 하나를 고르는 것뿐이다(층 수는 고르는 기준이 아님). 템플릿의 모양(층마다 바닥 크기 · 외벽) 그대로 층마다 공간이 빈 채로 스튜디오가 열리고, 층을 누르면 그 층 크기에 맞는 공간 조감도만 골라 채우거나 비운다. 층 추가는 맨 위층과 같은 크기 · 외벽으로 쌓아(다른 업종 공간이나 빈 층이어도) 건물 모양을 유지한다. 층마다 외벽 간판은 넣은 공간을 따르고(빈 층은 간판 없음), 간판이나 층 카드의 이름을 누르면 층 이름(간판 글자)을 바꾼다. 지붕의 건물 이름 간판을 누르면 건물 이름 입력칸으로 간다. 외관 보기에서 외벽을 누르면 외벽 고르기 팝업, 층 이름 · 층 띠를 누르면 층 내부와 층 카드(공간 · 공간 목록)가 열린다. 건물은 브라우저 IndexedDB `winmate-building`에만 저장하며 서버 API · 로그인을 쓰지 않는다. 이미지 저장(PNG)과 HTML 추출(단독 3D 보기 파일)을 제공한다.
+사이드바 「조감도」의 건물 스튜디오(3D · BETA)는 라이브 아티팩트 Version 136의 탭을 그대로 옮긴 화면이다. 시작은 건물 템플릿 54개 중 하나를 고르는 것뿐이다(층 수는 고르는 기준이 아님). 템플릿의 모양(층마다 바닥 크기 · 외벽) 그대로 층마다 공간이 빈 채로 스튜디오가 열리고, 층을 누르면 공간 조감도(템플릿 공간 · 내 조감도)를 크기와 상관없이 골라 채우거나 비운다 — 층 크기는 넣은 공간을 따른다. 층 추가는 맨 위층의 외벽을 잇고(다른 업종 공간이어도), 빈 층은 맨 위층 크기로 쌓는다. 층마다 외벽 간판은 넣은 공간을 따르고(빈 층은 간판 없음), 간판이나 층 카드의 이름을 누르면 층 이름(간판 글자)을 바꾼다. 지붕의 건물 이름 간판을 누르면 건물 이름 입력칸으로 간다. 외관 보기에서 외벽을 누르면 외벽 고르기 팝업, 층 이름 · 층 띠를 누르면 층 내부와 층 카드(공간 · 공간 목록)가 열린다. 로그인하면 건물은 계정 서버(컬렉션 `buildings`)에 저장되고 브라우저 IndexedDB `winmate-building`은 그 캐시다(`web/src/services/building-sync.js`, 모듈 쪽은 선택적 훅만). 비로그인이나 HTML 추출 파일에서는 예전처럼 브라우저에만 저장한다. 이미지 저장(PNG)과 HTML 추출(단독 3D 보기 파일)을 제공한다.
 
-모듈 소스는 `web/src/building/`(구조 · 아티팩트와 같게 묶는 방식은 그 폴더의 README), 화면 연결은 `web/src/pages/BuildingPage.jsx`와 `vite.config.js`의 `winmate-building` 플러그인이다. 검증: 앱 실행 후 `node app/tests/building-birdseye-ui.mjs`.
+모듈 소스는 `web/src/building/`(구조 · 아티팩트와 같게 묶는 방식은 그 폴더의 README), 화면 연결은 `web/src/pages/BuildingPage.jsx`와 `vite.config.js`의 `winmate-building` 플러그인이다. 검증: `node app/tests/building-floor-bake.mjs` · `node app/tests/building-compose-ui.mjs` · `node app/tests/building-standard-ui.mjs`(서버 없이), 깨끗한 계정의 앱에서 `node app/tests/building-birdseye-ui.mjs`.
 
 ## 비로그인 둘러보기와 로그인
 

@@ -1,6 +1,7 @@
 export const mentionToken=mention=>'@['+mention.label+']';
 export function mentionObjectIds(mention,scene,roomId){
-  if(!mention||!scene)return [];
+  if(!mention||!scene||mention.kind==='space')return [];
+  if(mention.kind==='room')return scene.objects.filter(o=>o.roomId===mention.id).map(o=>o.id);
   return scene.objects.filter(o=>mention.kind==='object'?o.id===mention.id:o.assetId===mention.id&&(!roomId||o.roomId===roomId)).map(o=>o.id);
 }
 

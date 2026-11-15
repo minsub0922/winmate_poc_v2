@@ -29,6 +29,8 @@ export async function loadSpatialHistory({page=1,pageSize=SPATIAL_HISTORY_PAGE_S
 export const getSpatialHistory=id=>requestJson('/api/spatial/history/'+encodeURIComponent(id));
 export const planSpatial=(body,signal)=>postJson('/api/spatial/plan',body,signal);
 export const editSpatial=(body,signal)=>postJson('/api/spatial/edit',body,signal);
+// 명령 문장 + @ 참조 → 조작 목록 (app/api/spatial_command.py). 적용은 domain/spatial/command-apply.js
+export const commandSpatial=(body,signal)=>postJson('/api/spatial/command',body,signal);
 export const describeSpatialTarget=(scene,targetId,signal)=>postJson('/api/spatial/layout-description',{scene,targetId},signal);
 export const saveSpatialHistory=(scene,view,record,extra={})=>record?requestJson('/api/spatial/history/'+encodeURIComponent(record.id),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({scene,view,revision:record.revision,...extra})}):postJson('/api/spatial/history',{scene,view,...extra});
 export const createSpatialDraft=(form,view='3d')=>postJson('/api/spatial/drafts',{form,view});
