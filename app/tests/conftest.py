@@ -12,6 +12,9 @@ import shutil
 
 os.environ.setdefault('WINMATE_SPATIAL_PREWARM', 'off')
 os.environ.setdefault('WINMATE_CACHE_BACKEND', 'memory')
+# In-house model classes (git-ignored app/api/llm/inhouse/*) installed on a company checkout must not change what these
+# tests exercise; tests of the in-house channel point WINMATE_INHOUSE_DIR at their own fixture classes.
+os.environ.setdefault('WINMATE_INHOUSE_DIR', str(Path(__file__).resolve().parent / 'fixtures' / 'no-inhouse'))
 
 if not os.environ.get('WINMATE_TEST_REDIS_SERVER') and not shutil.which('redis-server'):
     built = sorted(Path(__file__).resolve().parents[1].joinpath('data/runtime/redis-bin').glob('*/redis-server'))

@@ -36,7 +36,7 @@ function StateBadge({ p, names }) {
 
 // 한 줄 상태 — 설명 문장 없이 사실만(긴 내용은 hover)
 function StateLine({ p, names }) {
-  if (!p.registered) return <p className="pc-state" title={'.env: ' + p.missing.join(' · ')}><code>{p.missing.join(' · ')}</code></p>;
+  if (!p.registered) return <p className="pc-state" title={(p.missing_hint || '.env') + ': ' + p.missing.join(' · ')}><code>{p.missing.join(' · ')}</code></p>;
   const s = p.status, c = p.last_call;
   const calls = c ? `최근 실제 호출 ${when(c.at)} ${c.status === 'ok' ? '성공' : '실패'} · 24시간 ${number(c.calls_24h)}건 중 실패 ${number(c.errors_24h)}건` : '';
   if (!s) {
@@ -54,7 +54,8 @@ function History({ status }) {
 
 function ProviderCard({ p, view, last, busy, checking, onToggle, onPrimary, onCheck, onEdit, onExperiment }) {
   const tasks = p.tasks ? Object.entries(p.tasks).filter(([, on]) => on).map(([task]) => taskNames[task] || task) : [];
-  const locked = !p.registered ? `연결 정보 없음 — .env: ${p.missing.join(' · ')}` : last ? 'LLM은 하나는 켜져 있어야 합니다' : '';
+  const locked = !p.registered ? `연결 정보 없음 — ${p.missing_hint || '.env'}: ${p.missing.join(' · ')}` : last ? 'LLM은 하나는 켜져 있어야 합니다' : '';
+  const where = p.targets?.length ? p.targets.map(t => `${t.label} · ${t.model}${t.enabled ? '' : ' (꺼짐)'}`).join('\n') : (p.base_url || '주소 미설정');
   return <article className={'provider-card compact' + (p.active ? ' active' : '') + (p.primary ? ' primary' : '') + (p.registered ? '' : ' missing')} data-provider={p.id}>
     <header>
       <h3 title={p.name}>{p.name}</h3>
@@ -64,11 +65,12 @@ function ProviderCard({ p, view, last, busy, checking, onToggle, onPrimary, onCh
     </header>
     <div className="pc-meta">
       <Tag tone={p.scope === 'internal' ? 'blue' : 'neutral'}>{scopeNames[p.scope]}</Tag>
+      {p.impl && <span className="pc-impl" title={p.impl_file}>{p.impl}</span>}
       <StateBadge p={p} names={view.status_names}/>
       {p.active && !p.primary && <span className="pc-rank" title="대표가 응답하지 못하면 이 순서로 대신 답합니다">대체 {p.rank}</span>}
       {p.edit && <span className="edited-mark">주소 수정됨</span>}
     </div>
-    <code className="pc-model" title={p.base_url || '주소 미설정'}>{p.model || '모델 미설정'}</code>
+    <code className="pc-model" title={where}>{p.model || '모델 미설정'}</code>
     <StateLine p={p} names={view.status_names}/>
     <History status={p.status}/>
     {(p.checkable || p.editable || p.registered) && <footer>
@@ -168,7 +170,7 @@ function EditDialog({ p, names, done }) {
     footer={<><span className="quiet">{p.active ? '저장하면 재시작 없이 Winmate 전체에 바로 적용됩니다.' : '활성 상태가 아니므로 실험과 점검에만 쓰입니다.'}</span><div><Button icon="refresh" busy={busy === 'test'} disabled={!!busy || !base.trim()} onClick={test}>연결 테스트</Button><Button variant="primary" icon="link" busy={busy === 'save'} disabled={!!busy || !base.trim() || !model.trim()} onClick={save}>저장하고 재연결</Button></div></>}>
     <div className="form-stack provider-form">
       <label>서버 주소<input value={base} onChange={e => setBase(e.target.value)} placeholder={p.role === 'decision' ? 'http://127.0.0.1:8790/v1' : 'http://10.0.0.12:8000/v1'} spellCheck={false} autoComplete="off"/>
-        <small>https 주소, 또는 이 서버 · 사내망 주소의 http만 쓸 수 있습니다. {p.role === 'decision' ? '뒤에 /systemone이 붙습니다.' : '뒤에 /chat/completions가 붙습니다.'}</small></label>
+        <small>https 주소, 또는 이 서버 · 사내망 주소의 http만 쓸 수 있습니다. {p.impl ? '' : p.role === 'decision' ? '뒤에 /systemone이 붙습니다.' : '뒤에 /chat/completions가 붙습니다.'}</small></label>
       <label>모델 ID<input value={model} onChange={e => setModel(e.target.value)} placeholder={p.role === 'decision' ? 'clef-flash' : '서버에 올린 모델 이름'} spellCheck={false} autoComplete="off"/></label>
       {message && <div className="error-box" role="alert"><Icon name="alert"/><span>{message}</span></div>}
       <ProbeResult result={result} names={names} pick={setModel}/>

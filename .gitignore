@@ -38,6 +38,11 @@ docs/migration/evidence/bundle-change-hunks.json
 docs/migration/evidence/bundle-changes-compact.json
 docs/migration/evidence/live-page-assets.json
 
+# 사내망 전용 모델 연결 코드(GaussLLM · ClefDecision — 계약 app/api/llm/inhouse_contract.py): 사내 API 규격이 든 코드는
+# git 에 올리지 않는다. 이 폴더에서는 작성 안내(README.md)만 올라간다.
+/app/api/llm/inhouse/*
+!/app/api/llm/inhouse/README.md
+
 # Local application generated state
 app/data/runtime/
 # Ops stack (ops/): generated secrets live in the single root .env (covered above); snapshots and logs stay local

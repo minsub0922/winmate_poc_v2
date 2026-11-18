@@ -511,7 +511,9 @@ def test_api_requires_admin_and_round_trips(client, serving, second):
     assert c.get('/api/providers').status_code == 401
     c.cookies.set(auth.config.cookie_name, token)
     view = c.get('/api/providers').json()
-    assert {p['id'] for p in view['providers']} == {'llm.openrouter', 'llm.gemini', 'llm.internal', 'llm.openai', 'decision.main', 'decision.clef'}
+    assert {p['id'] for p in view['providers']} == {'llm.openrouter', 'llm.gemini', 'llm.internal', 'llm.openai', 'decision.main', 'decision.clef',
+                                                   'decision.inhouse'}  # the in-house class card (not installed here → not registered)
+    assert not next(p for p in view['providers'] if p['id'] == 'decision.inhouse')['registered']
     assert view['interval_s'] == 1800 and SECRET not in json.dumps(view)
     assert c.post('/api/providers/llm.internal/check').json()['status'] == 'ok'
     assert c.post('/api/providers/llm.openrouter/check').json()['status'] == 'ok'   # external: free calls (fake External)

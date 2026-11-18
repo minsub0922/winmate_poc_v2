@@ -83,7 +83,7 @@ WINMATE_API_PORT=8794 ./start.sh
 
 ## LLM 모듈과 전역 호출 큐
 
-`app/api/llm/`이 모델 호출·재시도·스트리밍·캐시·전역 큐를 관리한다. `poc/provider.py`는 기존 import와 singleton/test hook을 보존한다. 기존 `generate_json`, `generate_text`, `stream_text`, `structured`, `search_web`, `model_for` 호출 인자와 `GenerationResult`·`ProviderError` 형식은 유지한다. 스트림은 기존처럼 누적 문자열을 반환한다. `contracts.ModelProvider`가 애플리케이션 계약이며, `adapters.ModelAdapter`와 `ModelRequest`가 모델별 전송 경계다. 기본 `internal`은 `InternalAdapter`를 사용하고, `gemini`는 Gemini를 사용한다. `InternalAdapter`는 기존 Chat Completions 호환 전송을 기반으로 하며, `BOOTSTRAP.md`에 입력한 API 자료를 읽고 실제 규격에 맞춘다. 기존 `openai` 어댑터와 시작 전 `register_adapter(name, factory)` 등록도 유지한다. 어댑터는 HTTP 요청 생성·응답 변환만 담당하며 실제 전송은 공통 큐가 처리한다.
+`app/api/llm/`이 모델 호출·재시도·스트리밍·캐시·전역 큐를 관리한다. `poc/provider.py`는 기존 import와 singleton/test hook을 보존한다. 기존 `generate_json`, `generate_text`, `stream_text`, `structured`, `search_web`, `model_for` 호출 인자와 `GenerationResult`·`ProviderError` 형식은 유지한다. 스트림은 기존처럼 누적 문자열을 반환한다. `contracts.ModelProvider`가 애플리케이션 계약이며, `adapters.ModelAdapter`와 `ModelRequest`가 모델별 전송 경계다. `internal`은 git이 무시하는 `app/api/llm/inhouse/gauss.py`의 `GaussLLM`(계약 `inhouse_contract.py`, 연결 `inhouse_bridge.py`, 안내 `app/api/llm/inhouse/README.md`)이 있으면 그 클래스를, 없으면 Chat Completions 호환 `InternalAdapter`를 사용하고, `gemini`는 Gemini를 사용한다. 사내 API 규격은 추적 파일이 아니라 그 클래스 안에서 맞춘다(사내망은 push 불가). 같은 폴더의 `clef.py` · `ClefDecision`은 Decision 순서 칸 `inhouse`가 된다. 기존 `openai` 어댑터와 시작 전 `register_adapter(name, factory)` 등록도 유지한다. 어댑터는 HTTP 요청 생성·응답 변환만 담당하며 실제 전송은 공통 큐가 처리한다.
 
 모든 기능·기본/quick/vision 모델·시작 시 연결 확인·재시도를 합쳐 **임의의 연속 60초에 실제 전송 시도 최대 42회**다. 43번째 요청은 FIFO로 대기한다. 429/5xx/잘못된 JSON/스키마 보정 재시도도 각각 한도를 차감하며, 전송 후 실패한 호출의 한도는 돌려주지 않는다. 응답 캐시 적중은 전송하지 않으므로 한도를 사용하지 않는다. `chat_model()`도 큐를 통과하는 LangChain facade를 반환한다.
 
@@ -130,7 +130,7 @@ WINMATE_LLM_API_KEY=서버에서만-설정
 WINMATE_LLM_MODEL=internal-model
 ```
 
-사내 모델은 텍스트·JSON·이미지·SSE를 같은 입출력 형식으로 연결한다. 이미지 입력에는 비전 지원 모델이 필요하다. 기본 json_object 모드는 스키마를 프롬프트에 포함하고, 앱의 기존 검증도 그대로 수행한다. 실제 Google 검색 grounding은 Gemini 어댑터의 기능이며, 사내 어댑터가 이를 구현하지 않으면 `unsupported_capability` 오류를 반환한다. LangChain facade의 일반/비동기/스트리밍/구조화 출력도 같은 큐를 사용하며, 도구 호출은 현재 명시적 미지원 오류를 반환한다. 모델 기능 부족이나 실패를 만들어 낸 결과로 대체하지 않는다.
+사내 모델은 텍스트·JSON·이미지·SSE를 같은 입출력 형식으로 연결한다. 이미지 입력에는 비전 지원 모델이 필요하다. 기본 json_object 모드는 스키마를 프롬프트에 포함하고, 앱의 기존 검증도 그대로 수행한다. 실제 검색 grounding은 Gemini 어댑터와, `CAPABILITIES`에 `search`를 둔 사내 `GaussLLM`(사내 검색 결과를 같은 grounding 모양으로 돌려줌)의 기능이며, 그 밖의 연결은 `unsupported_capability` 오류를 반환한다. LangChain facade의 일반/비동기/스트리밍/구조화 출력도 같은 큐를 사용하며, 도구 호출은 현재 명시적 미지원 오류를 반환한다. 모델 기능 부족이나 실패를 만들어 낸 결과로 대체하지 않는다.
 
 Redis를 로컬에 실행하는 예:
 

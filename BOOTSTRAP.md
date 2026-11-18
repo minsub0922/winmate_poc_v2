@@ -14,9 +14,10 @@ LLM API 호출 자료의 절대경로:
 
 작업 요구사항:
 1. 위 절대경로의 문서·예제 코드·설정을 읽고 실제 LLM 호출 방법을 확인한다.
-2. 자료에 맞춰 app/api/llm/adapters.py의 InternalAdapter와 필요한 서버 설정을 구현한다.
-   모델 ID, 인증 키 두 개의 용도와 전달 방식, 요청·응답·스트림 형식은 자료를 따른다.
-   현재의 공통 호출 큐·재시도·취소·사용량 집계와 앱의 입출력 계약을 유지한다.
+2. 자료에 맞춰 git이 무시하는 app/api/llm/inhouse/gauss.py 에 class GaussLLM 을 만든다(필요하면 clef.py 의 class ClefDecision).
+   계약은 app/api/llm/inhouse_contract.py, 작성 안내는 app/api/llm/inhouse/README.md — git이 추적하는 파일은 고치지 않는다.
+   모델 ID, 인증 키 두 개의 용도와 전달 방식, 요청·응답·스트림 형식은 자료를 따르고 클래스 안에서 맞춘다.
+   공통 호출 큐·재시도·취소·사용량 집계와 앱의 입출력 계약은 git 쪽 코드가 그대로 맡는다.
 3. WINMATE_LLM_PROVIDER=internal이면 사내 LLM을, gemini이면 Gemini를 사용하게 한다.
    기본값은 openrouter(Qwen, qwen/qwen3.6-35b-a3b)이며, 선택한 연결이 실패해도 다른 제공자로 자동 전환하지 않는다.
    텍스트·JSON·이미지·SSE와 앱이 사용하는 검색 호출도 자료에 맞게 연결한다.
@@ -86,7 +87,7 @@ WINMATE_LLM_PROVIDER=internal
 ```
 
 - `openrouter`: 기본값(값이 없을 때도 이것). `OPENROUTER_API_KEY`와 `OPENROUTER_MODEL`(기본 Qwen, qwen/qwen3.6-35b-a3b)을 사용한다.
-- `internal`: 위 절대경로의 자료를 읽고 사내 API 연결과 `INTERNAL_LLM_*` 설정을 완성한다.
+- `internal`: 위 절대경로의 자료를 읽고 `app/api/llm/inhouse/gauss.py`(class `GaussLLM`, git 제외)와 `INTERNAL_LLM_*` 설정을 완성한다. 파일이 없으면 Chat Completions 호환 전송으로 연결한다.
 - `gemini`: 선택 시에만 Gemini 사용. `GEMINI_API_KEY`와 필요한 `GEMINI_*` 모델 설정을 사용한다(기본 경로에서는 호출하지 않음).
 
 여러 제공자의 설정은 같은 파일에 함께 둘 수 있다. 선택된 제공자의 전용 설정이 공통 `WINMATE_LLM_*` 호환 설정보다 우선한다. 동일 변수의 입력 우선순위는 실행 환경 → 루트 `.env`다. 실제 키는 서버 설정에만 둔다.
@@ -97,7 +98,7 @@ Gemini로 실행할 때만 환경변수 한 개로 선택을 바꾼다.
 WINMATE_LLM_PROVIDER=gemini ./start.sh
 ```
 
-현재 `InternalAdapter`는 기존 Chat Completions 호환 전송을 기반으로 한다. 실제 API 자료를 확인한 뒤 요청·응답·인증·이미지·스트림·검색 처리를 해당 규격에 맞춘다. 앱 화면이나 업무별 코드에 모델 호출을 나누어 넣지 않는다. 설정을 바꾼 뒤 서버를 재시작한다.
+사내 API 규격에 맞춘 코드는 git이 무시하는 `app/api/llm/inhouse/`에만 둔다(사내망에서는 push가 안 되므로 추적 파일을 고치면 `git pull`이 충돌한다). `gauss.py`의 `GaussLLM`이 요청·응답·인증·이미지·스트림·검색을, `clef.py`의 `ClefDecision`이 사내 Decision 서버(CLEF)를 맡고, 파일·클래스·필수 키가 모두 있으면 서버가 그 클래스를 쓴다. 확인은 `app/.venv/bin/python -m app.api.llm.inhouse_bridge check --live`, 안내는 `app/api/llm/inhouse/README.md`. 앱 화면이나 업무별 코드에 모델 호출을 나누어 넣지 않는다. 설정을 바꾼 뒤 서버를 재시작한다.
 
 선택: 루트 `.env`에 `TYPESAFE_API_KEY`(Decision 모델, TypeSafe Jev)를 넣으면 판단형 작업 5개(검색 재정렬 · 카탈로그 순위 · 평가 기준 라우팅 · 레이아웃 선택 · Best Scenario 선택)를 LLM 대신 Decision 모델로 처리한다. 입력 · 결과 형식은 같고, 키가 없으면 LLM으로 처리한다. 자세한 내용은 `docs/decision-model/REPORT.md`.
 

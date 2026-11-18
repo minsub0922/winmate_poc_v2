@@ -198,10 +198,11 @@ class OpenRouterAdapter(OpenAIAdapter):
 
 
 class InternalAdapter(OpenAIAdapter):
-    """Internal API boundary, initially using the existing chat-completions transport.
+    """Internal API boundary on the chat-completions transport — used when no in-house class is installed.
 
-    Adapt request/response/stream handling here after reading the user-supplied
-    API reference. The provider choice never falls back to Gemini.
+    An in-house API with its own wire format is NOT adapted here (tracked code): its code lives in the git-ignored
+    ``app/api/llm/inhouse/gauss.py`` (``class GaussLLM``, contract ``inhouse_contract.py``) and :func:`create_adapter`
+    picks it up when that file exists. The provider choice never falls back to Gemini.
     """
     name = 'internal'
 
@@ -221,4 +222,11 @@ def create_adapter(settings) -> ModelAdapter:
     except KeyError:
         from .provider import ProviderError
         raise ProviderError('bad_request', '등록되지 않은 AI 제공자입니다.') from None
+    if settings.provider == 'internal' and factory is InternalAdapter:
+        # The in-house class (git-ignored app/api/llm/inhouse/gauss.py) when its file exists; an adapter registered with
+        # register_adapter('internal', …) still wins.
+        from .inhouse_bridge import llm_adapter
+        inhouse = llm_adapter(settings)
+        if inhouse is not None:
+            return inhouse
     return factory(settings)

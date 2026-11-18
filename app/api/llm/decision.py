@@ -11,8 +11,10 @@ task asks the decision model, otherwise the same task asks the LLM. Both branche
 (see ``docs/decision-model/REPORT.md``); only the way the answer is obtained differs.
 
 Strict like the LLM provider: no key → no client (the caller takes the LLM branch); a failing request raises
-:class:`~app.api.llm.provider.ProviderError` — there is no rule-made fallback. With both slots on (``WINMATE_DECISION_ORDER``)
+:class:`~app.api.llm.provider.ProviderError` — there is no rule-made fallback. With several slots on (``WINMATE_DECISION_ORDER``)
 a slot that fails to answer hands the same questions to the next one, another real model. The key never leaves the server.
+The ``inhouse`` slot is the git-ignored in-house class (``app/api/llm/inhouse/clef.py``, :mod:`inhouse_bridge`), same questions
+and answers.
 """
 from __future__ import annotations
 
@@ -346,9 +348,18 @@ def get_decision(settings: Any, task: str) -> Optional[TypeSafeDecision]:
     global _CLIENT
     with _LOCK:
         if _CLIENT is None or _CLIENT._settings != settings or _CLIENT._key != settings.decision_key():
-            _CLIENT = TypeSafeDecision(settings)
-            _CLIENT.fallbacks = [TypeSafeDecision(slot_settings(settings, slot)) for slot, *_ in getattr(settings, 'decision_fallbacks', ())]
+            _CLIENT = slot_client(settings, getattr(settings, 'decision_primary', 'main'), primary=True)
+            _CLIENT.fallbacks = [slot_client(settings, slot) for slot, *_ in getattr(settings, 'decision_fallbacks', ())]
         return _CLIENT
+
+
+def slot_client(settings: Any, slot: str, primary: bool = False) -> Any:
+    """The client of one decision slot: ``inhouse`` = the in-house ClefDecision class (app/api/llm/inhouse_bridge.py),
+    main / clef = the System One HTTP client."""
+    if slot == 'inhouse':
+        from .inhouse_bridge import InhouseDecisionClient
+        return InhouseDecisionClient(settings)
+    return TypeSafeDecision(settings if primary else slot_settings(settings, slot))
 
 
 def slot_settings(settings: Any, slot: str) -> Any:

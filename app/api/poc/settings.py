@@ -36,10 +36,14 @@ WINMATE_LLM_PROVIDER picks the one the app uses and :func:`provider_settings` op
                                or on the private network (plain http is allowed only for loopback / private hosts)
   TYPESAFE_MODEL               decision model id (default jev-1.14.0 — pinned, thresholds are tuned to it; clef-* → Clef limits)
   WINMATE_DECISION             auto (default: decision model when the key is set) | off (always the LLM)
-  WINMATE_DECISION_ORDER       decision slots in order: main (TYPESAFE_*, default) and / or clef (the local Clef server);
-                               the first usable one answers, the rest are tried when it fails to answer
+  WINMATE_DECISION_ORDER       decision slots in order: main (TYPESAFE_*, default), clef (the local Clef server) and / or
+                               inhouse (the in-house ClefDecision class); the first usable one answers, the rest are tried
+                               when it fails to answer
   WINMATE_CLEF_BASE_URL        the clef slot's address (default http://127.0.0.1:8790/v1; no credential)
   WINMATE_CLEF_MODEL           the clef slot's model id (default clef-flash)
+  WINMATE_INHOUSE_DIR          folder of the git-ignored in-house classes (default app/api/llm/inhouse): gauss.py · class
+                               GaussLLM serves the internal profile, clef.py · class ClefDecision the inhouse decision slot,
+                               each once its file, class and REQUIRED_ENV keys are all present (contract: app/api/llm/inhouse_contract.py)
   WINMATE_DECISION_TASKS       optional comma list limiting which DECISION_TASKS use the decision model
   WINMATE_DECISION_TIMEOUT     seconds per decision request including retries (default 30)
 
@@ -82,7 +86,7 @@ DECISION_TASKS = ('search.rerank', 'catalog.rank', 'review.route', 'layout.pick'
                   'layout.cells', 'layout.verify', 'layout.pictures', 'layout.review', 'layout.final')
 DEFAULT_DECISION_MODEL = 'jev-1.14.0'
 DEFAULT_DECISION_BASE_URL = 'https://api.typesafe.ai/v1'
-DECISION_SLOTS = ('main', 'clef')
+DECISION_SLOTS = ('main', 'clef', 'inhouse')
 DEFAULT_CLEF_BASE_URL = 'http://127.0.0.1:8790/v1'
 DEFAULT_CLEF_MODEL = 'clef-flash'
 _NONE = ('none', 'off', '-')  # an explicit empty list (the admin layer cannot carry an empty value)
@@ -213,6 +217,11 @@ class Settings:
     decision_slots: Tuple[Tuple[str, str, str, bool], ...] = ()  # (slot, base, model, key configured) for main and clef
     decision_fallbacks: Tuple[Tuple[str, str, str], ...] = ()  # (slot, base, model) tried after the first usable slot
     _decision_slot_keys: Tuple[Tuple[str, str], ...] = field(default=(), repr=False, compare=False)
+    decision_primary: str = 'main'       # the slot that answers first (main | clef | inhouse)
+    # In-house classes (app/api/llm/inhouse_bridge.py): '' no file · 'ready' · 'missing' (required keys) · 'error' (load / contract)
+    inhouse_llm: str = ''
+    inhouse_decision: str = ''
+    inhouse_fingerprint: str = ''        # changes with their files / settings, so cached providers are rebuilt
 
     def decision_slot(self, slot: str) -> Tuple[str, str, str]:
         """(base, model, credential) of a decision slot — for the decision client only."""
@@ -256,7 +265,9 @@ class Settings:
                 'legacy_ignored': list(self.legacy_ignored), 'warnings': list(self.warnings), 'reasoning': self.reasoning or None,
                 'providers': [{'name': n, 'model': m, 'api_key_configured': k, 'selected': n == self.provider} for n, m, k in self.providers],
                 'fallbacks': [n for n, *_ in self.llm_fallbacks],
-                'decision': {'provider': 'clef-local' if self.decision_model.startswith('clef') else 'typesafe', 'model': self.decision_model, 'endpoint_host': urlsplit(self.decision_base_url).hostname,
+                'inhouse': {'llm': self.inhouse_llm or None, 'decision': self.inhouse_decision or None},
+                'decision': {'provider': 'inhouse' if self.decision_primary == 'inhouse' else 'clef-local' if self.decision_model.startswith('clef') else 'typesafe',
+                             'model': self.decision_model, 'endpoint_host': urlsplit(self.decision_base_url).hostname if self.decision_base_url else None,
                              'mode': self.decision_mode, 'api_key_configured': self.has_decision_key, 'timeout_s': self.decision_timeout,
                              'fallbacks': [x for x, *_ in self.decision_fallbacks],
                              'tasks': {t: ('decision' if self.decision_enabled(t) else 'llm') for t in DECISION_TASKS}}}
@@ -269,6 +280,7 @@ def load_settings(environ: Optional[Mapping[str, str]] = None, env_files: Option
                   provider: Optional[str] = None) -> Settings:
     """``provider`` opens a named LLM API profile instead of ``WINMATE_LLM_PROVIDER`` (see :func:`provider_settings`)."""
     admin = dict(_OVERRIDES) if environ is None else {}
+    explicit = environ is not None
     environ = os.environ if environ is None else environ
     if env_files is None:
         raw = environ.get('WINMATE_ENV_FILES')
@@ -315,20 +327,34 @@ def load_settings(environ: Optional[Mapping[str, str]] = None, env_files: Option
 
     chosen = profile(provider)
     key, key_source, model, quick, base = chosen['key'], chosen['source'], chosen['model'], chosen['quick'], chosen['base']
-    if not key:
+    # In-house classes (git-ignored app/api/llm/inhouse/*): with its file present the internal profile is the GaussLLM class
+    # and its readiness is the class's own (file · class · contract · REQUIRED_ENV), not this module's key/base checks.
+    inhouse_llm, inhouse_decision = _inhouse(environ if explicit else None, env_files)
+    internal_inhouse = inhouse_llm.present
+    if provider == 'internal' and internal_inhouse:
+        if not inhouse_llm.ready:
+            warnings.append(f'사내 LLM({inhouse_llm.cls})이 준비되지 않았습니다: ' + ' · '.join(inhouse_llm.problems))
+    elif not key:
         warnings.append(f'AI 인증 키({key_name(provider)})가 없습니다 — 모든 AI 기능이 503(no_api_key)으로 거절됩니다.')
     if base and not allowed_endpoint(base):
         warnings.append('AI 서버 주소는 https 주소(또는 로컬 · 사내망 주소의 http)만 허용해 기본 주소를 씁니다.')
         base = _DEFAULT_BASES.get(provider, '')
-    if provider != 'gemini' and (not base or not model):
+    if provider != 'gemini' and (not base or not model) and not (provider == 'internal' and internal_inhouse):
         warnings.append('선택한 모델의 API 주소와 모델 ID가 필요합니다. internal은 INTERNAL_LLM_BASE_URL · INTERNAL_LLM_MODEL을 설정하세요.')
+    if not explicit and env_files == DEFAULT_ENV_FILES:
+        legacy_files = [rel for rel in ('app/.env', 'poc/.env') if (ROOT / rel).is_file()]
+        if legacy_files:
+            warnings.append(' · '.join(legacy_files) + ' 는 더 이상 읽지 않습니다 — 값을 저장소 루트의 .env 로 옮기세요.')
+
+    def configured(name: str, p: dict) -> bool:
+        return inhouse_llm.ready if name == 'internal' and internal_inhouse else bool(p['key'])
     reasoning = ''
     if provider == 'openrouter':
         reasoning = get('OPENROUTER_REASONING')[0].lower() or 'off'
         if reasoning not in REASONING:
             warnings.append('OPENROUTER_REASONING은 off · on · low · medium · high 중 하나여야 해 off를 씁니다.')
             reasoning = 'off'
-    profiles = tuple((n, (p := profile(n))['model'], bool(p['key'])) for n in PROVIDERS)
+    profiles = tuple((n, (p := profile(n))['model'], configured(n, p)) for n in PROVIDERS)
 
     def number(key: str, default: int, lo: int, hi: int) -> int:
         value, _ = get(key)
@@ -373,11 +399,15 @@ def load_settings(environ: Optional[Mapping[str, str]] = None, env_files: Option
     if not re.fullmatch(r'[a-z0-9][a-z0-9.\-]{1,60}', clef_model):
         warnings.append('WINMATE_CLEF_MODEL 형식이 올바르지 않아 기본 모델을 씁니다.')
         clef_model = DEFAULT_CLEF_MODEL
-    slots = {'main': (decision_base, decision_model, get('TYPESAFE_API_KEY')[0]), 'clef': (clef_base, clef_model, 'local')}
+    slots = {'main': (decision_base, decision_model, get('TYPESAFE_API_KEY')[0]), 'clef': (clef_base, clef_model, 'local'),
+             # the in-house ClefDecision class: no address of its own (the class reaches its servers); usable once ready
+             'inhouse': ('', inhouse_decision.default_model, 'inhouse' if inhouse_decision.ready else '')}
     raw_order = get('WINMATE_DECISION_ORDER')[0].lower()
     order_items = [x.strip() for x in raw_order.split(',') if x.strip()] if raw_order not in _NONE else []
     if any(x not in DECISION_SLOTS for x in order_items):
-        warnings.append('WINMATE_DECISION_ORDER는 main · clef만 받습니다.')
+        warnings.append('WINMATE_DECISION_ORDER는 ' + ' · '.join(DECISION_SLOTS) + '만 받습니다.')
+    if 'inhouse' in order_items and inhouse_decision.present and not inhouse_decision.ready:
+        warnings.append(f'사내 Decision({inhouse_decision.cls})이 준비되지 않았습니다: ' + ' · '.join(inhouse_decision.problems))
     decision_order = tuple(dict.fromkeys(x for x in order_items if x in DECISION_SLOTS)) or ('main',)
     usable = [x for x in decision_order if slots[x][2]]
     first = usable[0] if usable else decision_order[0]
@@ -385,7 +415,7 @@ def load_settings(environ: Optional[Mapping[str, str]] = None, env_files: Option
     fallback_items = [x.strip() for x in raw_fallback.split(',') if x.strip()] if raw_fallback not in _NONE else []
     if any(x not in PROVIDERS for x in fallback_items):
         warnings.append('WINMATE_LLM_FALLBACK은 ' + ' · '.join(PROVIDERS) + '만 받습니다.')
-    llm_fallbacks = tuple((n, (p := profile(n))['base'], p['model'], p['quick'], p['vision'], bool(p['key']))
+    llm_fallbacks = tuple((n, (p := profile(n))['base'], p['model'], p['quick'], p['vision'], configured(n, p))
                           for n in dict.fromkeys(fallback_items) if n in PROVIDERS and n != provider)
     raw_tasks = [x.strip() for x in get('WINMATE_DECISION_TASKS')[0].split(',') if x.strip()]
     unknown_tasks = [x for x in raw_tasks if x not in DECISION_TASKS]
@@ -406,7 +436,33 @@ def load_settings(environ: Optional[Mapping[str, str]] = None, env_files: Option
                     _decision_key=slots[first][2], reasoning=reasoning, providers=profiles, llm_fallbacks=llm_fallbacks,
                     decision_order=decision_order, decision_slots=tuple((x, slots[x][0], slots[x][1], bool(slots[x][2])) for x in DECISION_SLOTS),
                     decision_fallbacks=tuple((x, slots[x][0], slots[x][1]) for x in usable[1:]),
-                    _decision_slot_keys=tuple((x, slots[x][2]) for x in DECISION_SLOTS))
+                    _decision_slot_keys=tuple((x, slots[x][2]) for x in DECISION_SLOTS), decision_primary=first,
+                    inhouse_llm=_inhouse_state(inhouse_llm), inhouse_decision=_inhouse_state(inhouse_decision),
+                    inhouse_fingerprint=f'{inhouse_llm.fingerprint}:{inhouse_decision.fingerprint}')
+
+
+class _Absent:
+    """In-house status when the bridge itself cannot be read (never breaks settings)."""
+    present = ready = False
+    cls = ''
+    default_model = fingerprint = ''
+    problems: list = []
+
+
+def _inhouse(environ: Optional[Mapping[str, str]], env_files: Iterable[str]):
+    """(llm status, decision status) of the git-ignored in-house classes (app/api/llm/inhouse_bridge.py)."""
+    try:
+        from ..llm import inhouse_bridge
+        files = tuple(env_files)
+        return inhouse_bridge.llm_status(environ, files), inhouse_bridge.decision_status(environ, files)
+    except Exception:  # noqa: BLE001 — a broken bridge must never stop the server
+        return _Absent(), _Absent()
+
+
+def _inhouse_state(status) -> str:
+    if not status.present:
+        return ''
+    return 'ready' if status.ready else 'missing' if getattr(status, 'missing', ()) and not getattr(status, 'error', '') else 'error'
 
 
 def provider_settings(name: str, environ: Optional[Mapping[str, str]] = None, env_files: Optional[Iterable[str]] = None) -> Settings:

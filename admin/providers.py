@@ -14,6 +14,9 @@
   values live in the admin store and sit above ``.env`` (``settings.set_overrides``); credentials are never edited,
   shown or stored here.
 * **Experiments**: one input, any registered provider (optionally another model id), one real call each.
+* **In-house classes** (git-ignored ``app/api/llm/inhouse/*``, ``app/api/llm/inhouse_bridge.py``): with ``gauss.py`` the
+  사내 LLM card is the ``GaussLLM`` class (its own probe / required keys); ``clef.py`` adds the ``CLEF (사내)`` decision card
+  (slot ``inhouse``, the ``ClefDecision`` class and its targets). Same on / off · 대표 · checks · experiments as the rest.
 """
 from __future__ import annotations
 
@@ -35,6 +38,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
 from app.api import runtime_env, telemetry
+from app.api.llm import inhouse_bridge
 from app.api.llm.decision import TypeSafeDecision, family
 from app.api.llm.provider import DEFAULT_BASE as GEMINI_BASE, GeminiProvider, LLMProvider, ProviderError, parse_json, redact
 from app.api.poc import settings as cfg
@@ -265,7 +269,7 @@ class Providers:
         def add(pid, role, name, base, model, *, key, missing, profile, note='', extra=None):
             rank = on[role].index(key) if key in on[role] else None  # 0 = 대표, 1… = fallback order
             host = urlsplit(base).hostname if base else None
-            scope = 'internal' if profile == 'internal' or cfg.private_host(host) else 'external'
+            scope = 'internal' if profile in ('internal', 'inhouse') or cfg.private_host(host) else 'external'
             registered = not missing
             editable = pid in ('llm.internal', 'llm.openai', 'decision.clef') or (pid == 'decision.main' and scope == 'internal')
             status = statuses.get(pid)
@@ -280,6 +284,7 @@ class Providers:
                         'status': status, 'edit': edit, 'note': note, 'switched': role in switch, **(extra or {})})
 
         names = list(cfg.PROVIDERS) + ([current.provider] if current.provider not in cfg.PROVIDERS else [])
+        inhouse_llm = inhouse_bridge.llm_status()
         for name in names:
             s = self._llm_settings(name, current)
             base = s.base_url or (GEMINI_BASE if name == 'gemini' else '')
@@ -287,11 +292,18 @@ class Providers:
             missing = [key for key, present in zip(keys, (s.has_key, bool(base), bool(s.model))) if not present]
             extra = {'quick_model': s.quick_model, 'vision_model': s.vision_model, 'key_source': s.key_source or None,
                      'timeout_s': s.timeout, 'reasoning': s.reasoning or None}
+            model = s.model
+            if name == 'internal' and inhouse_llm.present:
+                # the in-house GaussLLM class: its own readiness (file · class · contract · REQUIRED_ENV keys)
+                missing = inhouse_llm.problems
+                model = s.model or inhouse_llm.default_model
+                extra.update({'impl': inhouse_llm.cls, 'impl_file': inhouse_llm.file, 'capabilities': list(inhouse_llm.capabilities),
+                              'missing_hint': inhouse_llm.file})
             if saved.get('llm.' + name):
                 plain = cfg.load_settings(os.environ, provider=name)  # an explicit environ skips the admin layer
                 extra['env'] = {'base_url': plain.base_url, 'model': plain.model}
             out_name = LLM_NAMES.get(name, name)
-            add('llm.' + name, 'llm', out_name, base, s.model, key=name, missing=missing, profile=name, extra=extra)
+            add('llm.' + name, 'llm', out_name, base, model, key=name, missing=missing, profile=name, extra=extra)
 
         clef = self._clef()
         main_base, main_model, main_key = current.decision_slot('main')
@@ -314,6 +326,13 @@ class Providers:
                 note='같은 System One API를 쓰는 자체 서빙 Decision 모델입니다. 인증 없이 연결합니다.',
                 extra={'timeout_s': 120, **({'tasks': tasks} if primary == 'clef' else {}),
                        **({'env': {'base_url': defaults['base_url'], 'model': defaults['model']}} if clef['edited'] else {})})
+        inhouse = inhouse_bridge.decision_status()
+        first_target = next((t for t in inhouse.targets if t['enabled']), None)
+        add('decision.inhouse', 'decision', 'CLEF (사내)', '', first_target['model'] if first_target else inhouse.default_model,
+            key='inhouse', missing=inhouse.problems, profile='inhouse',
+            extra={'impl': inhouse.cls, 'impl_file': inhouse.file, 'targets': list(inhouse.targets), 'missing_hint': inhouse.file,
+                   'timeout_s': inhouse_bridge.InhouseDecisionClient(current).timeout if inhouse.ready else current.decision_timeout,
+                   **({'tasks': tasks} if primary == 'inhouse' else {})})
         if usage:
             calls = self._usage({m for e in out for m in (e['model'], e.get('quick_model'), e.get('vision_model')) if m})
             for entry in out:
@@ -464,8 +483,15 @@ class Providers:
         started = time.time()
         try:
             spend = entry['scope'] == 'internal'   # an external API is checked only with calls that cost nothing
-            result = (self._probe_llm(entry['profile'], key, base, model, spend) if entry['role'] == 'llm'
-                      else self._probe_decision(key, base, model, spend))
+            if entry.get('impl'):   # an in-house class (app/api/llm/inhouse/*): its own probe, else one minimal call
+                result = (inhouse_bridge.probe_llm(self._llm_settings('internal', current)) if entry['role'] == 'llm'
+                          else inhouse_bridge.probe_decision(current))
+            else:
+                result = (self._probe_llm(entry['profile'], key, base, model, spend) if entry['role'] == 'llm'
+                          else self._probe_decision(key, base, model, spend))
+        except ProviderError as exc:
+            result = {'status': 'degraded' if exc.code in ('invalid_output', 'bad_request', 'unsupported_capability') else 'down',
+                      'detail': exc.message or exc.code}
         except urllib.error.HTTPError as exc:
             exc.close()
             detail = ('인증 키가 거절되었습니다' if exc.code in (401, 403) else '주소 또는 모델을 찾지 못했습니다' if exc.code == 404 else '서버가 오류를 돌려줬습니다')
@@ -516,7 +542,8 @@ class Providers:
     @staticmethod
     def _model(entry: dict, value: str) -> str:
         model = (value or '').strip()
-        pattern = DECISION_MODEL if entry['role'] == 'decision' else LLM_MODEL
+        # System One model ids are lower-case; an in-house class names its own models (passed through as given)
+        pattern = DECISION_MODEL if entry['role'] == 'decision' and entry['profile'] != 'inhouse' else LLM_MODEL
         if not pattern.fullmatch(model):
             raise ProviderInputError('모델 ID 형식이 올바르지 않습니다.' + (' (소문자 · 숫자 · 점 · 하이픈)' if entry['role'] == 'decision' else ''))
         return model
@@ -657,7 +684,11 @@ class Providers:
             if state is None:
                 raise ProviderInputError('state가 비어 있습니다.')
             try:
-                result = TypeSafeDecision(self._decision_settings(pid, model=model)).ask(stage='admin:provider-test', state=state, questions=questions)
+                if entry['profile'] == 'inhouse':   # the in-house ClefDecision class (its first target, or the next one if it fails)
+                    result = inhouse_bridge.decision_client(cfg.get_settings()).answer(
+                        stage='admin:provider-test', state=state, questions=questions, model=None if model == entry['model'] else model)
+                else:
+                    result = TypeSafeDecision(self._decision_settings(pid, model=model)).ask(stage='admin:provider-test', state=state, questions=questions)
             except ProviderError as exc:
                 return failed(exc.code, exc.message, exc.status)
             except (ValueError, TypeError, AttributeError) as exc:

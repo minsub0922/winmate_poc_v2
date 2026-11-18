@@ -16,16 +16,28 @@ _PROVIDER: Optional[LLMProvider] = None
 _OVERRIDE: Dict[str, Any] = {}
 
 
+def _unusable(settings: Settings) -> str:
+    """'' when the profile can serve, else the reason. The internal profile with an in-house class (app/api/llm/inhouse/
+    gauss.py) is ready when the class says so (file · class · contract · its REQUIRED_ENV keys)."""
+    state = getattr(settings, 'inhouse_llm', '')
+    if settings.provider == 'internal' and state:
+        return '' if state == 'ready' else 'no_api_key' if state == 'missing' else 'provider_disabled'
+    if not settings.has_key:
+        return 'no_api_key'
+    if settings.provider != 'gemini' and (not settings.base_url or not settings.model):
+        return 'provider_disabled'
+    return ''
+
+
 def get_provider(settings: Settings) -> Tuple[Optional[Any], str]:
     """(provider, reason). ``provider`` is None when no credential is configured (no network then)."""
     global _PROVIDER
     if 'provider' in _OVERRIDE:
         p = _OVERRIDE['provider']
         return (p, '') if p is not None and getattr(p, 'available', False) else (None, _OVERRIDE.get('reason') or 'provider_disabled')
-    if not settings.has_key:
-        return None, 'no_api_key'
-    if settings.provider != 'gemini' and (not settings.base_url or not settings.model):
-        return None, 'provider_disabled'
+    reason = _unusable(settings)
+    if reason:
+        return None, reason
     with _LOCK:
         if _PROVIDER is None or _PROVIDER._key != settings.api_key() or _PROVIDER._settings != settings:
             _PROVIDER = GeminiProvider(settings) if settings.provider == 'gemini' else LLMProvider(settings)
@@ -39,10 +51,9 @@ _NAMED: Dict[str, LLMProvider] = {}
 
 def _named(name: str, settings: Settings) -> Tuple[Optional[Any], str]:
     """(provider, reason) for a named profile; the caller holds ``_LOCK``."""
-    if not settings.has_key:
-        return None, 'no_api_key'
-    if settings.provider != 'gemini' and (not settings.base_url or not settings.model):
-        return None, 'provider_disabled'
+    reason = _unusable(settings)
+    if reason:
+        return None, reason
     p = _NAMED.get(name)
     if p is None or p._key != settings.api_key() or p._settings != settings:
         p = _NAMED[name] = GeminiProvider(settings) if settings.provider == 'gemini' else LLMProvider(settings)

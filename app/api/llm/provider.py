@@ -61,6 +61,11 @@ class ProviderError(Exception):
         super().__init__(f'{code}: {self.message}' if self.message else code)
 
 
+class RetryableProviderError(ProviderError):
+    """A failure an adapter found inside a 2xx response that may pass on a later attempt (rate limit · busy · timeout ·
+    connection, e.g. an in-house gateway's error body). :meth:`LLMProvider._generate` retries it like a 429/5xx."""
+
+
 @dataclass
 class GenerationResult:
     data: Any
@@ -292,8 +297,10 @@ class _Deadline:
 
 # Failures where another configured API may still answer (settings ``WINMATE_LLM_FALLBACK``). A bad request, bad or
 # blocked output, a cut-off answer, a cancel or a wait in the shared queue is the same on every API → never retried there.
+# ``unsupported_capability``: this API cannot take the call at all (e.g. an in-house model without image input) — another
+# configured API may.
 FALLBACK_CODES = frozenset({'no_api_key', 'auth_failed', 'model_not_found', 'rate_limited', 'upstream_unavailable', 'network',
-                            'timeout', 'http_error', 'upstream_error', 'provider_disabled'})
+                            'timeout', 'http_error', 'upstream_error', 'provider_disabled', 'unsupported_capability'})
 
 
 def falls_back(exc: ProviderError) -> bool:
@@ -308,13 +315,15 @@ class LLMProvider:
         self.name = self.adapter.name
         self.queue = queue if queue is not None else create_queue(settings)
         self._key = settings.api_key()
-        self.model = settings.model
-        self.quick_model = settings.quick_model
-        self.vision_model = getattr(settings, 'vision_model', settings.model)
+        # An adapter may name its own model when the profile has none (an in-house API with one fixed model).
+        self.model = settings.model or getattr(self.adapter, 'default_model', '') or ''
+        self.quick_model = settings.quick_model or self.model
+        self.vision_model = getattr(settings, 'vision_model', settings.model) or self.model
         self.base = (settings.base_url or DEFAULT_BASE).rstrip('/')
         self.timeout = settings.timeout
         self.cache_dir: Optional[Path] = settings.cache_dir if settings.llm_cache else None
-        self._urlopen = urlopen or urllib.request.urlopen
+        # An adapter may bring its own transport (an in-house CA bundle, a proxy bypass); a test opener still wins.
+        self._urlopen = urlopen or getattr(self.adapter, 'urlopen', None) or urllib.request.urlopen
         self.concurrency = settings.concurrency
         self._slots = threading.BoundedSemaphore(self.concurrency)
         self._chat_lock = threading.Lock()
@@ -327,14 +336,21 @@ class LLMProvider:
 
     @property
     def available(self) -> bool:
+        ready = getattr(self.adapter, 'ready', None)  # an adapter that checks its own settings (in-house: class + required keys)
+        if ready is not None:
+            return bool(ready and self.model)
         return bool(self._key and self.model and (self.name == 'gemini' or self._settings.base_url))
 
     def model_for(self, tier: Optional[str]) -> str:
         name=(tier or '').lower()
         return self.vision_model if name == 'vision' else self.quick_model if name in ('quick', 'fast', 'small') else self.model
 
+    def _default_model(self, images: Optional[Sequence[Any]] = None) -> str:
+        """The model when a caller names none: images go to the vision model (the same model unless the profile sets one)."""
+        return self.vision_model if images else self.model
+
     def safe(self, text: Any) -> str:
-        return redact(text, (self._key,))
+        return redact(text, (self._key, *tuple(getattr(self.adapter, 'secrets', ()) or ())))
 
     def _tier(self, model: str) -> str:
         """The tier a caller meant by one of this API's model ids — a fallback API answers with its own model of that tier."""
@@ -374,6 +390,14 @@ class LLMProvider:
             raw = ''
         finally:
             exc.close()
+        reader = getattr(self.adapter, 'error_message', None)  # an adapter that knows its gateway's error body
+        if reader is not None:
+            try:
+                custom = reader(exc.code, raw)
+            except Exception:  # noqa: BLE001
+                custom = None
+            if custom:
+                return self.safe(custom)[:400]
         try:
             msg = json.loads(raw).get('error', {}).get('message', raw)
         except (ValueError, AttributeError):
@@ -425,7 +449,12 @@ class LLMProvider:
             raise ProviderError('no_api_key', 'AI 인증 키 또는 모델 연결이 서버에 설정되어 있지 않습니다.')
         req = self._request(model, body)
         with self._open(req, cancel, deadline) as resp:
-            return self.adapter.response(json.loads(resp.read().decode('utf-8')))
+            raw = resp.read()
+            status = getattr(getattr(resp, 'response', resp), 'status', 200)
+        reader = getattr(self.adapter, 'response_bytes', None)  # an adapter that reads its own body format (in-house)
+        if reader is not None:
+            return reader(raw, req, int(status or 200))
+        return self.adapter.response(json.loads(raw.decode('utf-8')))
 
     def _request(self, model, body, *, stream=False):
         try:
@@ -492,6 +521,16 @@ class LLMProvider:
                 body['systemInstruction'] = {'parts': [{'text': system}]}
             try:
                 res = self._post(model, body, cancel,deadline)
+            except RetryableProviderError as exc:
+                last = exc
+                if attempt >= max_attempts:
+                    break
+                try:
+                    self._sleep(min(20, 2 ** (attempt - 1), max(0, deadline.at - time.monotonic())), cancel)
+                except ProviderError as stop:
+                    last = stop
+                    break
+                continue
             except ProviderError as exc:
                 last = exc
                 break
@@ -588,7 +627,7 @@ class LLMProvider:
             gen['responseSchema'] = schema
         if seed is not None:
             gen['seed'] = int(seed)
-        return self._generate_or_fall_back(stage=stage, system=sys_text, contents=contents, gen=gen, model=model or self.model,
+        return self._generate_or_fall_back(stage=stage, system=sys_text, contents=contents, gen=gen, model=model or self._default_model(images),
                                            json_expected=True, cancel=cancel, max_attempts=max_attempts, cache_allowed=cache_allowed)
 
     def generate_text(self, *, stage: str, system: str = '', user: Optional[str] = None, turns: Optional[Sequence[Any]] = None,
@@ -598,7 +637,7 @@ class LLMProvider:
         gen: Dict[str, Any] = {'temperature': float(temperature), 'maxOutputTokens': int(max_output_tokens)}
         if json_mode:
             gen['responseMimeType'] = 'application/json'
-        return self._generate_or_fall_back(stage=stage, system=sys_text, contents=contents, gen=gen, model=model or self.model,
+        return self._generate_or_fall_back(stage=stage, system=sys_text, contents=contents, gen=gen, model=model or self._default_model(images),
                                            json_expected=False, cancel=cancel, max_attempts=max_attempts)
 
     @telemetry.streaming
@@ -608,6 +647,15 @@ class LLMProvider:
         """Yields the cumulative text after every streamed chunk. Retries only before the first chunk."""
         if not self.available:
             raise ProviderError('no_api_key', 'AI 인증 키가 서버에 설정되어 있지 않습니다.')
+        if getattr(self.adapter, 'streams', True) is False:
+            # An API without streaming (an in-house adapter that says so): one whole answer, yielded once. Retries and the
+            # fallback APIs are those of the non-streaming path.
+            common = dict(stage=stage, system=system, user=user, turns=turns, temperature=temperature, max_output_tokens=max_output_tokens,
+                          model=model, images=images, cancel=cancel, max_attempts=max_attempts)
+            result = (self.generate_json(schema=schema, cache_allowed=False, **common) if json_mode else self.generate_text(**common))
+            yield result.text
+            if on_result: on_result(result)
+            return
         sys_text, contents = self._contents(system, user, turns, images)
         gen: Dict[str, Any] = {'temperature': float(temperature), 'maxOutputTokens': int(max_output_tokens)}
         if json_mode:
@@ -617,12 +665,17 @@ class LLMProvider:
         body: Dict[str, Any] = {'contents': contents, 'generationConfig': gen}
         if sys_text:
             body['systemInstruction'] = {'parts': [{'text': sys_text}]}
-        model = model or self.model
-        req = self._request(model, body, stream=True)
+        model = model or self._default_model(images)
         deadline=_Deadline(self.timeout)
         resp = None
         last = ProviderError('upstream_error', '응답이 없습니다.')
+        try:
+            req = self._request(model, body, stream=True)
+        except ProviderError as exc:  # this API cannot take the call (e.g. images on a text-only model): a fallback may
+            req, last = None, exc
         for attempt in range(1, max(1, max_attempts) + 1):
+            if req is None:
+                break
             attempt_started=time.time()
             try:
                 resp = self._open(req, cancel,deadline)
@@ -665,6 +718,7 @@ class LLMProvider:
                         raise
             raise last
         acc, t0, usage = '', time.time(), {}
+        reader = getattr(self.adapter, 'stream_line', None)  # an adapter that reads its own stream framing (in-house)
         try:
             with resp:
                 for raw in resp:
@@ -672,12 +726,17 @@ class LLMProvider:
                     if cancel and cancel():
                         raise ProviderError('cancelled', '작업이 취소되었습니다.')
                     line = raw.decode('utf-8', 'replace').strip() if isinstance(raw, bytes) else str(raw).strip()
-                    if not line.startswith('data:'):
-                        continue
-                    try:
-                        chunk = self.adapter.stream_chunk(json.loads(line[5:].strip()))
-                    except ValueError:
-                        continue
+                    if reader is not None:
+                        chunk = reader(line) if line else None
+                        if chunk is None:
+                            continue
+                    else:
+                        if not line.startswith('data:'):
+                            continue
+                        try:
+                            chunk = self.adapter.stream_chunk(json.loads(line[5:].strip()))
+                        except ValueError:
+                            continue
                     usage = chunk.get('usageMetadata') or usage
                     if (chunk.get('promptFeedback') or {}).get('blockReason'):
                         raise ProviderError('blocked', f"blockReason={chunk['promptFeedback']['blockReason']}")
