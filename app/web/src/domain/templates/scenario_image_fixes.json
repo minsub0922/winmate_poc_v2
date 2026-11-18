@@ -1,6 +1,3634 @@
 {
  "about": "샘플 버티컬 시나리오 · 장을 보고 고른 사진. replace: 어느 덱에서든 쓰면 안 되는 제품 컷(꺼진 화면 · 뒷면 · 치수 도면 · 옆면 띠) → 같은 제품의 다른 공식 컷. fixes: 시나리오 → 장(0부터) → 이미지 칸 → { f 레이아웃, from 원래 주소(레이아웃 자체 사진이면 null), to 바꾼 값, why 이유 } — 그 자리의 글 · 제품 · 공간 · 고객사와 어긋난 사진, 같은 현장 사진이 없어 남은 반복을 시트를 보고 고른 사진으로 바꾼 것. scenario_fills.js 가 replace → fixes → 반복 바꾸기(scenario_image_swaps.json) 순서로 적용한다.",
- "fixes": {},
+ "fixes": {
+  "bs01": {
+   "6": {
+    "1": {
+     "f": "L_VP_F",
+     "from": "img/bs/bs01-6-1.jpg",
+     "to": {
+      "src": "img/media/g0.json#559",
+      "name": "카운터 위에 걸린 음료 메뉴 사이니지 · 밀키프레소",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 카운터 위 QM55C 3면 음료 메뉴보드 — 반복 사진과 다른 컷"
+    }
+   },
+   "7": {
+    "2": {
+     "f": "L_PH_SOL_S",
+     "from": "img/case-mcd-menuboard.jpg",
+     "to": {
+      "src": "img/bs/bs16-7-4.jpg",
+      "name": "카운터 상단 메뉴보드 2면(예시 사진)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 카페 카운터 상단 메뉴보드 2면 (버거 매장 아님)"
+    },
+    "3": {
+     "f": "L_PH_SOL_S",
+     "from": "img/case-mcd-dt.jpg",
+     "to": {
+      "src": "img/media/g0.json#355",
+      "name": "드라이브스루 실외 메뉴 사이니지와 주문대",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 다른 브랜드 간판 없는 DT 실외 메뉴보드와 주문대"
+    }
+   },
+   "10": {
+    "0": {
+     "f": "L_PH_P3_A",
+     "from": "img/fill/r9-bs01.json#4",
+     "to": {
+      "src": "img/media/g0.json#558",
+      "name": "카운터에서 일하는 직원과 메뉴 사이니지 · 밀키프레소",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 카운터 위 QM55C 메뉴보드 설치 장면 — 덱에서 처음 쓰는 컷"
+    }
+   },
+   "11": {
+    "2": {
+     "f": "L_PH_P_O",
+     "from": "img/fill/r9-bs01.json#6",
+     "to": {
+      "src": "img/media/g0.json#686",
+      "name": "차량 창가에서 주문하는 드라이브스루 고객 · 커피빈 학동역 DT점, 서초역 1번출구점",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 간판 없이 차량이 주문하는 DT 메뉴보드"
+    }
+   },
+   "1": {
+    "0": {
+     "f": "L_C10",
+     "from": "img/ph/fb-cafe-counter.jpg",
+     "to": {
+      "src": "img/media/g0.json#37",
+      "name": "카페 디지털 메뉴 앞 주문 고객과 직원",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 디지털 메뉴보드 아래 카페 주문 장면 — 제안 개요"
+    },
+    "1": {
+     "f": "L_C10",
+     "from": "img/fill/retail.json#11",
+     "to": {
+      "src": "img/media/g0.json#702",
+      "name": "파라솔과 화분이 있는 넓은 카페 홀 · 부산 영도 카페 ‘젬스톤’",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 손님이 많은 넓은 카페 홀 — 시장과 고객"
+    },
+    "2": {
+     "f": "L_C10",
+     "from": "img/ph/fb-pickup.jpg",
+     "to": {
+      "src": "img/media/g0.json#689",
+      "name": "픽업대 위 설치된 사이니지 화면 · 커피빈 학동역 DT점, 서초역 1번출구점",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 픽업대 위 사이니지가 있는 매장 장면"
+    },
+    "3": {
+     "f": "L_C10",
+     "from": "img/fill/r9-bs01.json#4",
+     "to": {
+      "src": "img/media/g0.json#671",
+      "name": "카페 벽면의 메뉴 안내 간판 · 노아스 로스팅 용인구성점",
+      "fit": "contain",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 매장에 걸린 디지털 메뉴보드 2면 — 구성·물량"
+    },
+    "4": {
+     "f": "L_C10",
+     "from": "img/ph/fb-counter-menu.jpg",
+     "to": {
+      "src": "img/media/g0.json#688",
+      "name": "카운터 위 벽면에 걸린 메뉴보드 · 커피빈 학동역 DT점, 서초역 1번출구점",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 카운터 위 디지털 메뉴보드 — 도입 후 매장"
+    }
+   },
+   "14": {
+    "3": {
+     "f": "L_PH_PL_B",
+     "from": "img/ph/fb-counter-gray.jpg",
+     "to": {
+      "src": "img/bs/bs16-8-1.jpg",
+      "name": "A · 인천 직영 카페형 카운터",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 주문 결제 화면만 있는 카페 카운터 — 비교군 매장"
+    }
+   }
+  },
+  "bs02": {
+   "7": {
+    "0": {
+     "f": "L_PH_SS_OF_A",
+     "from": "img/fill/r4-adof.json#3",
+     "to": {
+      "src": "img/media/g1.json#183",
+      "name": "플립 화면을 보며 회의하는 팀 · 패스트파이브",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 회의실에서 Flip으로 회의하는 팀 — 덱 첫 사용 컷"
+    },
+    "5": {
+     "f": "L_PH_SS_OF_A",
+     "from": "img/bs/bs02-7-4.jpg",
+     "to": {
+      "src": "img/media/g1.json#174",
+      "name": "통합 관제실의 운영 담당자 · 대구 삼성 창조 캠퍼스",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "KIND · 대형 관제 화면 앞 운영 담당자 — 관리실 장면 사진"
+    }
+   },
+   "12": {
+    "0": {
+     "f": "L_STP_S_OF",
+     "from": "img/bs/bs02-12-0.jpg",
+     "to": {
+      "src": "img/media/g1.json#218",
+      "name": "엘리베이터 홀 · 대구상공회의소",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 엘리베이터 홀 — 덱에서 처음 쓰는 로비 사진"
+    }
+   },
+   "1": {
+    "0": {
+     "f": "L_C10",
+     "from": "img/fill/office.json#19",
+     "to": {
+      "src": "img/media/g1.json#214",
+      "name": "벽면 화면이 설치된 회의실 테이블 · 한국IBM",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 벽면 화면이 있는 오피스 회의실 — 제안 개요"
+    },
+    "1": {
+     "f": "L_C10",
+     "from": "img/fill/r9-bs02.json#0",
+     "to": {
+      "src": "img/ph/of-kids-ac.jpg",
+      "name": "사무 공간 천장의 360 카세트 (레고 코리아)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 밝은 오피스 라운지 — 오피스 이용자"
+    },
+    "3": {
+     "f": "L_C10",
+     "from": "img/bs/bs02-12-0.jpg",
+     "to": {
+      "src": "img/media/g0.json#312",
+      "name": "360 천장형 에어컨이 있는 사무실",
+      "fit": "contain",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 천장 시스템에어컨이 있는 사무 층 — 층별 구성"
+    },
+    "4": {
+     "f": "L_C10",
+     "from": "img/ph/of-rooftop-odu.jpg",
+     "to": {
+      "src": "img/media/g0.json#319",
+      "name": "빌딩 옥상에 줄지어 설치된 DVM 칠러 모듈",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 옥상 DVM 실외기 — 에너지 효과 (반복 사진과 다른 컷)"
+    }
+   },
+   "6": {
+    "0": {
+     "f": "L_PH_VP_D",
+     "from": "img/fill/r9-bs02.json#1",
+     "to": {
+      "src": "img/media/g1.json#982",
+      "name": "유리 외벽의 곡선형 고층 빌딩 · 삼성 시스템에어컨 글로벌 레퍼런스",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 유리 외벽 고층 오피스 빌딩 — 건물 가치"
+    }
+   }
+  },
+  "bs03": {
+   "1": {
+    "0": {
+     "f": "L_PH_MI_ED_A",
+     "from": "img/fill/public.json#3",
+     "to": {
+      "src": "img/media/g0.json#437",
+      "name": "대형 화면 앞 모니터로 작업하는 학생 · 국민대학교",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 대형 화면 앞 대학 강의실 참여 수업 (초등 아님)"
+    }
+   },
+   "3": {
+    "1": {
+     "f": "L_PH_CH_B",
+     "from": "img/fill/r9-bs03.json#3",
+     "to": {
+      "src": "img/media/g0.json#436",
+      "name": "링 조명이 있는 빈 강의실 전경 · 국민대학교",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 다른 대학 표식 없는 현대식 강의실"
+    }
+   },
+   "7": {
+    "2": {
+     "f": "L_PH_BM_C",
+     "from": "img/ph/sv-studycafe.jpg",
+     "to": {
+      "src": "img/media/g0.json#492",
+      "name": "서가와 열람석이 있는 도서관 복층 공간 · [카드뉴스] 삼성 시스템에어컨 360",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 서가와 열람석이 있는 도서관 열람 공간"
+    }
+   },
+   "10": {
+    "0": {
+     "f": "L_PH_IP_C",
+     "from": "img/fill/r4-edpb.json#0",
+     "to": {
+      "src": "img/media/g0.json#506",
+      "name": "넓은 전산실에 줄지은 PC · 경기대학교",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 대학 PC 강의실 (초등 교실 아님)"
+    }
+   },
+   "14": {
+    "0": {
+     "f": "L_AIS_37",
+     "from": "img/fill/r9-bs03.json#10",
+     "to": {
+      "src": "img/media/g0.json#435",
+      "name": "강의실 정면 대형 화면과 학생들 · 국민대학교",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 엠블럼 없는 강의실 대형 화면과 학생들 (원본 해상도는 낮음)"
+    }
+   }
+  },
+  "bs04": {
+   "4": {
+    "4": {
+     "f": "L_PH_SS_RS_A",
+     "from": null,
+     "to": {
+      "src": "img/media/g1.json#416",
+      "name": "TV와 월패드가 있는 거실 · 래미안 용산",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "KIND · 월패드·TV가 있는 세대 거실 — 세대 전체 연동"
+    }
+   },
+   "3": {
+    "0": {
+     "f": "L_PH_RV_A",
+     "from": "img/fill/r9-bs04.json#1",
+     "to": {
+      "src": "img/media/g0.json#146",
+      "name": "에어컨 거실과 외출 모드 앱 화면",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 거실 에어컨과 앱 외출 모드 — 앱 하나로 제어"
+    }
+   }
+  },
+  "bs05": {
+   "0": {
+    "0": {
+     "f": "L_C02",
+     "from": "img/bs/bs05-1-t0.jpg",
+     "to": {
+      "src": "img/media/g1.json#715",
+      "name": "퇴장 동선 벽면 전체를 덮은 비디오월 · 롯데월드 타워 서울 스카이 전망대",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 벽면 전체 비디오월 몰입 체험 공간"
+    }
+   },
+   "12": {
+    "0": {
+     "f": "L_CD_D",
+     "from": "img/bs/bs05-13-0.jpg",
+     "to": {
+      "src": "img/media/g1.json#692",
+      "name": "튤립 정원 뒤 대형 LED 무대 스크린 · 에버랜드",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 에버랜드 포시즌스 가든 신전무대 LED — 사례 현장"
+    }
+   },
+   "5": {
+    "3": {
+     "f": "L_PH_SS_TP_A",
+     "from": null,
+     "to": {
+      "src": "img/media/g1.json#694",
+      "name": "노란 튤립밭과 무대 LED 디스플레이 · 에버랜드",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 튤립 정원 뒤 야외 무대 LED (반복 사진과 다른 컷)"
+    }
+   }
+  },
+  "bs06": {
+   "2": {
+    "3": {
+     "f": "L_PH_MI_RT_C",
+     "from": "img/fill/r8-people.json#23",
+     "to": {
+      "src": "img/media/g1.json#557",
+      "name": "아트리움 벽면 비디오월과 로비 통로 · 현대백화점 판교점",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "INDUSTRY · 백화점 매장 벽면 비디오월 — 자동차 전시장 아님"
+    }
+   },
+   "3": {
+    "4": {
+     "f": "L_IS_A",
+     "from": "img/bs/bs06-4-4.jpg",
+     "to": {
+      "src": "img/media/g1.json#504",
+      "name": "매장 안 휴게 좌석과 이용객 · 메가스토어 삼성대치",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "SPACE · 좌석에 손님이 앉은 매장 휴게·대기 라운지"
+    }
+   },
+   "6": {
+    "5": {
+     "f": "L_GN_C",
+     "from": "img/bs/bs06-7-5.jpg",
+     "to": {
+      "src": "img/media/g1.json#429",
+      "name": "카페 테이블 뒤 스탠드형 이페이퍼 사이니지 · 노노샵(NONO SHOP)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 테이블 옆 스탠드형 이페이퍼가 있는 대기 공간"
+    }
+   },
+   "12": {
+    "1": {
+     "f": "L_CL_D",
+     "from": "img/bs/bs06-11-1.jpg",
+     "to": {
+      "src": "img/media/g1.json#451",
+      "name": "의류 매대 옆 세로형 사이니지 · 룰루레몬 파르나스몰 스토어",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 룰루레몬 파르나스몰 매장의 세로형 사이니지 — 사례 현장"
+    }
+   }
+  },
+  "bs07": {
+   "4": {
+    "0": {
+     "f": "L_PH_VP_U",
+     "from": "img/ph/ht-room-desk.jpg",
+     "to": {
+      "src": "img/bs/bs19-7-1.jpg",
+      "name": "특급호텔 객실 TV 웰컴 화면 · 침대 쪽에서",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 호텔 안내 홈 화면이 뜬 객실 TV — 다른 호텔 이름 안 읽힘"
+    },
+    "2": {
+     "f": "L_PH_VP_U",
+     "from": "img/ph/ht-lobby-art.jpg",
+     "to": {
+      "src": "img/media/g0.json#961",
+      "name": "프런트 데스크가 있는 호텔 로비 · 크라운 파크 호텔 서울",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 직원이 있는 호텔 프런트 데스크"
+    }
+   },
+   "9": {
+    "4": {
+     "f": "L_PH_BM_C",
+     "from": "img/fill/hotel.json#2",
+     "to": {
+      "src": "img/media/g0.json#963",
+      "name": "로비 라운지 벽면의 대형 TV · 크라운 파크 호텔 서울",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "PRODUCT · 벽걸이 TV가 있는 호텔 로비 라운지"
+    }
+   },
+   "10": {
+    "3": {
+     "f": "L_PH_IP_C",
+     "from": "img/fill/hotel.json#4",
+     "to": {
+      "src": "img/media/g0.json#103",
+      "name": "시스템에어컨 갖춘 자동화 호텔 객실",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 벽걸이 TV가 있는 도시 전망 객실 — 덱 첫 사용"
+    },
+    "1": {
+     "f": "L_PH_IP_C",
+     "from": "img/fill/ais-b.json#2",
+     "to": {
+      "src": "img/media/g0.json#808",
+      "name": "객실 침대와 태블릿 제어 화면 삽입 · 인스파이어 엔터테인먼트 리조트",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 객실 침대와 제어 화면 — 덱 첫 사용 객실"
+    }
+   },
+   "3": {
+    "0": {
+     "f": "L_PH_CH_C",
+     "from": "img/ph/ht-room-gray.jpg",
+     "to": {
+      "src": "img/media/g0.json#924",
+      "name": "헤드보드와 조명이 있는 객실 침대 · 부티크 호텔 XYM",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 객실 침대 장면 — 세로 크롭에 맞음"
+    }
+   },
+   "8": {
+    "0": {
+     "f": "L_PH_P_N",
+     "from": "img/ph/ht-room-tv2.jpg",
+     "to": {
+      "src": "img/media/g0.json#236",
+      "name": "호텔 객실 벽걸이 TV의 맞춤 홈 메뉴",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 호텔 객실 TV의 맞춤 홈(웰컴) 화면"
+    }
+   }
+  },
+  "bs08": {
+   "5": {
+    "1": {
+     "f": "L_PH_SS_MD_A",
+     "from": "img/bs/bs08-6-0.jpg",
+     "to": {
+      "src": "img/media/g0.json#1142",
+      "name": "복도에서 태블릿을 쓰는 간호사 · 한림대학교동탄성심병원",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "KIND · 복도에서 태블릿을 쓰는 간호사 — 간호스테이션·복도"
+    }
+   }
+  },
+  "bs09": {
+   "3": {
+    "2": {
+     "f": "L_IS_A",
+     "from": "img/bs/bs09-4-2.jpg",
+     "to": {
+      "src": "img/media/g1.json#274",
+      "name": "광고와 안내가 나오는 사이니지 앞 이용객 · 서울교통공사",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 국내 지하철 대합실 노선 안내 화면 (해외 역 아님)"
+    },
+    "5": {
+     "f": "L_IS_A",
+     "from": "img/bs/bs09-4-5.jpg",
+     "to": {
+      "src": "img/media/g1.json#266",
+      "name": "비디오월 앞 책상에서 근무하는 관제 직원 · 인천대교 고속도로 교통서비스센터",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · CCTV 비디오월이 있는 관제센터 상황실"
+    }
+   },
+   "8": {
+    "1": {
+     "f": "L_PH_P_N",
+     "from": "img/bs/bs09-6-t4.jpg",
+     "to": {
+      "src": "img/fill/r9-bs20.json#7",
+      "name": "가로수 길 미디어폴과 정류장 (강남대로 미디어폴)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "PRODUCT · 한낮 햇빛 아래 거리 옥외 사이니지 — 도입 후"
+    },
+    "3": {
+     "f": "L_PH_P_N",
+     "from": "img/ph/pb-control.jpg",
+     "to": {
+      "src": "img/media/g1.json#265",
+      "name": "관제실 책상 앞 CCTV 영상 비디오월 · 인천대교 고속도로 교통서비스센터",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 경찰 현수막 없는 교통 관제 비디오월"
+    }
+   }
+  },
+  "bs10": {
+   "5": {
+    "0": {
+     "f": "L_PH_CP_G",
+     "from": "img/fill/r9-bs10.json#3",
+     "to": {
+      "src": "img/media/g0.json#826",
+      "name": "로비 천장 에어컨을 정비하는 엔지니어 · 호텔 스카이파크",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 천장 에어컨을 정비하는 엔지니어 — 운영 책임형 삼성 원에 맞음"
+    }
+   },
+   "9": {
+    "1": {
+     "f": "L_PH_CP_C",
+     "from": null,
+     "to": {
+      "src": "img/fill/r5-rival.json#2",
+      "name": "경쟁사 제품 자리 · 일반 형태 실루엣(옥외 사이니지) — 경쟁사 제품 사진(공개 자료)으로 교체",
+      "fit": "contain"
+     },
+     "why": "PRODUCT · 경쟁사 자리용 사이니지 일반 실루엣"
+    },
+    "2": {
+     "f": "L_PH_CP_C",
+     "from": "img/fill/r4-fbrt.json#21",
+     "to": {
+      "src": "img/media/g0.json#368",
+      "name": "건물 모서리를 감싼 곡면 LED 사이니지 · 신세계백화점 본점 더 리저브",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 백화점 외벽 LED 사이니지 설치 장면, 상호 안 보임"
+    }
+   },
+   "10": {
+    "3": {
+     "f": "L_PH_P_N",
+     "from": "img/ph/rt-ceiling-ac.jpg",
+     "to": {
+      "src": "img/fill/r9-bs15.json#6",
+      "name": "대형마트 천장의 360 카세트 실내기 (Carrefour Bierges)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 매장 천장에 달린 360 카세트 실내기"
+    }
+   },
+   "11": {
+    "0": {
+     "f": "L_PH_SV_B",
+     "from": null,
+     "to": {
+      "src": "img/media/g0.json#220",
+      "name": "천장 에어컨 점검하는 엔지니어",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "INDUSTRY · 천장 실내기 점검 엔지니어, 호텔 객실 단서 없음"
+    }
+   },
+   "12": {
+    "0": {
+     "f": "L_PH_CL_C",
+     "from": "img/fill/r4-fbrt.json#15",
+     "to": {
+      "src": "img/media/g1.json#477",
+      "name": "건물 외벽에 설치된 대형 LED 사이니지 · 더현대 서울",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 더현대 서울 외벽 LED 사이니지 현장"
+    }
+   },
+   "1": {
+    "3": {
+     "f": "L_C10",
+     "from": "img/fill/r4-fbrt.json#21",
+     "to": {
+      "src": "img/media/g0.json#319",
+      "name": "빌딩 옥상에 줄지어 설치된 DVM 칠러 모듈",
+      "fit": "contain",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 옥상 실외기 줄 — 기존 장비(공조) 교체 주제"
+    },
+    "4": {
+     "f": "L_C10",
+     "from": "img/fill/r4-fbrt.json#15",
+     "to": {
+      "src": "img/media/g1.json#476",
+      "name": "백화점 외벽 대형 LED 사이니지와 확대 컷 · 더현대 서울",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 더현대 서울 외벽 LED — 상업시설 도입 사례 장"
+    },
+    "5": {
+     "f": "L_C10",
+     "from": "img/ph/rt-mall-ac.jpg",
+     "to": {
+      "src": "img/fill/r9-bs03.json#0",
+      "name": "강의실 천장의 시스템에어컨 360 카세트 (국민대학교)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 삼성 360 카세트 근접 — 원래 의도와 같은 대표 제품, 장소 단서 없음"
+    }
+   },
+   "6": {
+    "3": {
+     "f": "L_PH_CM_A",
+     "from": "img/fill/retail.json#9",
+     "to": {
+      "src": "img/bs/bs07-8-4.jpg",
+      "name": "연회장 천장 FCU",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 상업 공간 천장 카세트 에어컨 — 공조 기준 장면"
+    }
+   }
+  },
+  "bs11": {
+   "2": {
+    "2": {
+     "f": "L_PH_OV_A",
+     "from": "img/fill/r9-bs11.json#0",
+     "to": {
+      "src": "img/bs/bs09-3-0.jpg",
+      "name": "대합실 안내 화면 앞 출근길 시민",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "INDUSTRY · 역 대합실 열차 운행 안내 화면과 이용객"
+    }
+   },
+   "5": {
+    "1": {
+     "f": "L_PH_SA_B",
+     "from": "img/ph/pb-traffic-wall.jpg",
+     "to": {
+      "src": "img/bs/bs09-7-0.jpg",
+      "name": "야간 상황실 관제석",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 타 기관 이름 없는 상황실 관제석"
+    }
+   }
+  },
+  "bs12": {
+   "2": {
+    "0": {
+     "f": "L_PH_MI_VN_B",
+     "from": "img/ph/vn-stadium-board.jpg",
+     "to": {
+      "src": "img/media/g1.json#52",
+      "name": "해 질 녘 야구장 전경과 관중석 · SSG 랜더스",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 해 질 녘 경기일 관중석과 그라운드, 큰 구단 표기 없음"
+    }
+   },
+   "3": {
+    "0": {
+     "f": "L_PH_SS_VN_A",
+     "from": "img/fill/r4-tpvn.json#7",
+     "to": {
+      "src": "img/media/g1.json#53",
+      "name": "야구장 관중석 전경 · SSG 랜더스",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 관중석 리본보드(갤럭시 광고) — 타 구단 로고 없음"
+    },
+    "2": {
+     "f": "L_PH_SS_VN_A",
+     "from": "img/ph/vn-stands.jpg",
+     "to": {
+      "src": "img/media/g1.json#875",
+      "name": "야구장 내부 전체 전경 · 인천SK행복드림구장",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 상단에서 본 관중석 전경, 간판은 작아 안 읽힘"
+    }
+   },
+   "11": {
+    "0": {
+     "f": "L_CD_D",
+     "from": "img/bs/bs12-10-0.jpg",
+     "to": {
+      "src": "img/fill/r4-tpvn.json#12",
+      "name": "야구장 관중석과 전광판 (대구 삼성라이온즈파크)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 라이온즈파크 파란 관람석·우중간 전광판 — 단 p3[2]가 같은 사진(크롭)이라 p3[2] 교체 필요"
+    }
+   }
+  },
+  "bs13": {
+   "3": {
+    "1": {
+     "f": "L_PH_MI_SV_B",
+     "from": "img/ph/sv-study-tab.jpg",
+     "to": {
+      "src": "img/media/g1.json#799",
+      "name": "스크린 골프 연습장 타석 · 웰페리온 스포츠센터",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 스크린골프 타석을 이용하는 손님 — 예약·이용 단계"
+    }
+   }
+  },
+  "bs15": {
+   "2": {
+    "0": {
+     "f": "L_PH_CH_A",
+     "from": "img/fill/retail.json#5",
+     "to": {
+      "src": "img/media/g0.json#726",
+      "name": "냉장 진열대에 놓인 초밥과 샐러드 · 스노우폭스(SNOWFOX)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 신선식품이 가득한 냉장 쇼케이스 — 폐기되는 신선 재고 맥락, 해결 제품 아님"
+    }
+   },
+   "3": {
+    "3": {
+     "f": "L_PH_SS_RT_D",
+     "from": null,
+     "to": {
+      "src": "img/media/g0.json#296",
+      "name": "마트 냉장 · 냉동 쇼케이스 통로",
+      "fit": "contain",
+      "pos": "50% 50%"
+     },
+     "why": "KIND · 마트 냉동 쇼케이스 통로 매장 사진"
+    }
+   },
+   "9": {
+    "0": {
+     "f": "L_PH_MT_A",
+     "from": "img/fill/r9-bs15.json#6",
+     "to": {
+      "src": "img/ph/rt-mall-ac.jpg",
+      "name": "면세점 천장의 360 카세트 (두타면세점)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 매장 천장 360 카세트 실내기, 표지와 다른 사진"
+    }
+   }
+  },
+  "bs16": {
+   "4": {
+    "2": {
+     "f": "L_PH_SA_C",
+     "from": "img/ph/svc-technician.jpg",
+     "to": {
+      "src": "img/bs/bs12-9-1.jpg",
+      "name": "상주 엔지니어 · 빅보드 모듈 교체",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 디스플레이 모듈 교체하는 엔지니어 — 사이니지 유지보수"
+    }
+   }
+  },
+  "bs17": {
+   "12": {
+    "0": {
+     "f": "L_PH_EF_B",
+     "from": "img/fill/r9-bs17.json#8",
+     "to": {
+      "src": "img/cover/FN.jpg",
+      "name": "금융 대표 사진",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 금융가 고층 빌딩 야경 — 투자 회수 장 금융 대표 사진, 타 은행 로고 없음"
+    }
+   },
+   "3": {
+    "0": {
+     "f": "L_PH_MI_FN_C",
+     "from": "img/ph/oe-phone-user.jpg",
+     "to": {
+      "src": "img/media/g0.json#357",
+      "name": "대기 순번 예약 태블릿을 누르는 고객",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 대기 순번 태블릿을 누르는 고객 — 영업점 고객"
+    }
+   },
+   "1": {
+    "5": {
+     "f": "L_C10",
+     "from": "img/fill/ais-a.json#6",
+     "to": {
+      "src": "img/fill/mobile.json#6",
+      "name": "휴대폰을 모니터에 연결한 DeX (samsung.com)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 갤럭시 폰과 삼성 모니터 DeX — 삼성 제품 장면"
+    }
+   }
+  },
+  "bs18": {
+   "3": {
+    "0": {
+     "f": "L_PH_VP_D",
+     "from": "img/fill/r9-bs18.json#2",
+     "to": {
+      "src": "img/media/g1.json#18",
+      "name": "캐릭터 키즈폰을 들고 매장 진열대를 보는 모습 · LG U+ 키즈폰",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 매장에서 키즈폰을 고르는 장면 — 아이 첫 폰 수요, 통신사 간판 없음"
+    }
+   },
+   "10": {
+    "5": {
+     "f": "L_PH_BM_D",
+     "from": "img/fill/r8-people.json#24",
+     "to": {
+      "src": "img/media/g1.json#104",
+      "name": "매장에서 스마트폰을 시연하는 직원 · LG유플러스",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 갤럭시 폰이 진열된 매장 — 직영점, 타 통신사 간판 안 보임"
+    }
+   }
+  },
+  "bs20": {
+   "5": {
+    "2": {
+     "f": "L_PH_SS_AD_E",
+     "from": null,
+     "to": {
+      "src": "img/fill/r9-bs09.json#6",
+      "name": "한낮 버스 차로 옆 옥외 사이니지",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 캠페인 광고가 송출 중인 거리 미디어폴 (광고주 행 · OH55A-S)"
+    }
+   },
+   "7": {
+    "3": {
+     "f": "L_PH_SS_AD_C",
+     "from": null,
+     "to": {
+      "src": "img/bs/bs05-14-0.jpg",
+      "name": "P 테마파크 새 구역 · 저녁 광장과 야간 쇼 무대 · 도입 후 시안",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 저녁 광장 행사 — 인파와 건물 외벽 조명이 한 장면에 보임"
+    }
+   },
+   "13": {
+    "0": {
+     "f": "L_AIS_37",
+     "from": "img/fill/r10-sb.json#2",
+     "to": {
+      "src": "img/media/g0.json#389",
+      "name": "건물 코너를 감싼 대형 LED 사이니지 · 코엑스 SM타운/K-POP 광장",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 타사 간판 없이 삼성 광고가 나오는 랜드마크 코너 외벽 LED"
+    }
+   }
+  },
+  "bs_v_ai_apartment_1": {
+   "2": {
+    "2": {
+     "f": "L_PH_CH_A",
+     "from": "img/media/g1.json#384",
+     "to": {
+      "src": "img/fill/r9-bs04.json#1",
+      "name": "거실에서 휴대폰으로 가전을 제어하는 입주민 (그란츠 리버파크)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 입주민이 거실에서 휴대폰으로 가전을 연결 · 조작하는 장면 (입주 지원)"
+    }
+   },
+   "4": {
+    "1": {
+     "f": "L_VS_CORE_1",
+     "from": "img/media/g0.json#161",
+     "to": {
+      "src": "img/media/g0.json#155",
+      "name": "스마트싱스 아파트 커스텀 앱 화면",
+      "fit": "contain",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 스마트싱스 아파트 커스텀 앱 화면 — 단지 서비스 예약 칸"
+    }
+   },
+   "5": {
+    "0": {
+     "f": "L_VS_CORE_2",
+     "from": "img/media/g0.json#139",
+     "to": {
+      "src": "img/media/g0.json#162",
+      "name": "에너지 미터와 스마트싱스 앱 사용량 그래프",
+      "fit": "contain",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 스마트싱스 앱 에너지 사용량 그래프 화면"
+    }
+   },
+   "0": {
+    "0": {
+     "f": "L_C02",
+     "from": "img/media/g1.json#312",
+     "to": {
+      "src": "img/media/g0.json#141",
+      "name": "거실 대형 TV의 3D 맵 뷰",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · TV에 3D 맵 뷰가 뜬 거실 — AI 아파트 표지에 맞고 p11과 다른 사진"
+    }
+   }
+  },
+  "bs_v_ai_apartment_2": {
+   "2": {
+    "1": {
+     "f": "L_PH_CH_B",
+     "from": "img/media/g1.json#342",
+     "to": {
+      "src": "img/fill/r9-bs04.json#10",
+      "name": "SmartThings로 난방 상태를 태블릿에서 원격 확인",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 태블릿으로 가전 상태를 원격 확인하는 장면 (바라는 모습)"
+    },
+    "0": {
+     "f": "L_PH_CH_B",
+     "from": "img/ph/rs-living.jpg",
+     "to": {
+      "src": "img/media/g1.json#887",
+      "name": "거실에서 시스템에어컨을 분해 세척하는 기사 두 명 · [삼성 시스템에어컨] 에어컨 세척 PLACE",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 거실에서 시스템에어컨을 방문 점검 · 세척하는 기사 — '지금 · 방문 점검' 칸"
+    }
+   },
+   "5": {
+    "0": {
+     "f": "L_VS_CORE_2",
+     "from": "img/media/g0.json#139",
+     "to": {
+      "src": "img/media/g0.json#162",
+      "name": "에너지 미터와 스마트싱스 앱 사용량 그래프",
+      "fit": "contain",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 스마트싱스 앱 에너지 사용량 그래프 화면"
+    }
+   }
+  },
+  "bs_v_ai_office_1": {
+   "6": {
+    "3": {
+     "f": "L_VS_MAP_6",
+     "from": "img/prod/g07.json#56",
+     "to": {
+      "src": "img/prod/g07.json#50",
+      "name": "Infinite AI 공기청정기 (33㎡, S 필터) · Infinite AI 공기청정기 (33㎡, S 필터) 에센셜 베이지 정면",
+      "fit": "contain"
+     },
+     "why": "KIND · 가로 띠 칸에서도 형태가 보이는 Infinite AI 공기청정기(33㎡) 정면 컷"
+    }
+   },
+   "7": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/ph/of-lounge-tv.jpg",
+     "to": {
+      "src": "img/media/g1.json#196",
+      "name": "천장에 에어컨이 달린 사무 공간 · 레고 코리아",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 책상 · 모니터가 있는 사무실 업무 공간, 타사 간판 없음"
+    }
+   }
+  },
+  "bs_v_ai_office_2": {
+   "6": {
+    "2": {
+     "f": "L_VS_MAP_5",
+     "from": "img/prod/g07.json#56",
+     "to": {
+      "src": "img/prod/g07.json#51",
+      "name": "Infinite AI 공기청정기 (33㎡, S 필터) · Infinite AI 공기청정기 (33㎡, S 필터) 에센셜 베이지 좋음 청정라이팅이 보이는 오른쪽 측면",
+      "fit": "contain"
+     },
+     "why": "KIND · 비스듬히 본 Infinite AI 공기청정기(33㎡) 컷, 띠 칸에서 알아보기 쉬움"
+    }
+   },
+   "7": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/ph/of-office-ac.jpg",
+     "to": {
+      "src": "img/fill/office.json#21",
+      "name": "천장형 시스템에어컨과 모니터가 있는 업무공간 (samsung.com)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "SPACE · 천장 시스템에어컨 아래 모니터 책상이 놓인 업무층 사무 공간"
+    }
+   }
+  },
+  "bs_v_ai_store_1": {
+   "2": {
+    "2": {
+     "f": "L_PH_CH_A",
+     "from": "img/media/g0.json#687",
+     "to": {
+      "src": "img/media/g0.json#666",
+      "name": "천장 에어컨이 있는 카페 내부 전경 · 노아스 로스팅 용인구성점",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 천장 에어컨과 벽 화면이 보이는 카페 홀, 타 브랜드 간판 없음"
+    }
+   },
+   "6": {
+    "4": {
+     "f": "L_VS_MAP_5",
+     "from": "img/prod/g07.json#56",
+     "to": {
+      "src": "img/prod/g07.json#51",
+      "name": "Infinite AI 공기청정기 (33㎡, S 필터) · Infinite AI 공기청정기 (33㎡, S 필터) 에센셜 베이지 좋음 청정라이팅이 보이는 오른쪽 측면",
+      "fit": "contain"
+     },
+     "why": "KIND · 비스듬히 본 Infinite AI 공기청정기(33㎡) 컷, 띠 칸에서 알아보기 쉬움"
+    }
+   },
+   "11": {
+    "2": {
+     "f": "L_PH_SOL_S",
+     "from": "img/media/g0.json#695",
+     "to": {
+      "src": "img/ph/fb-mobile-order.jpg",
+      "name": "모바일 주문과 매장 메뉴 사이니지 (samsung.com)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 휴대폰과 매장 메뉴 사이니지로 원격 수정을 보여 주는 카페 장면"
+    }
+   }
+  },
+  "bs_v_ai_store_2": {
+   "6": {
+    "3": {
+     "f": "L_VS_MAP_5",
+     "from": "img/prod/g07.json#56",
+     "to": {
+      "src": "img/prod/g07.json#50",
+      "name": "Infinite AI 공기청정기 (33㎡, S 필터) · Infinite AI 공기청정기 (33㎡, S 필터) 에센셜 베이지 정면",
+      "fit": "contain"
+     },
+     "why": "KIND · 가로 띠 칸에서 형태가 보이는 Infinite AI 공기청정기(33㎡) 정면 컷"
+    }
+   },
+   "11": {
+    "1": {
+     "f": "L_PH_SF_B",
+     "from": "img/media/g0.json#20",
+     "to": {
+      "src": "img/ui-cms.jpg",
+      "name": "메뉴 템플릿 편집 화면",
+      "fit": "contain",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 업종별 템플릿 목록과 메뉴 편집 화면이 보이는 VXT 템플릿 편집 화면"
+    }
+   }
+  },
+  "bs_v_entertainment_1": {
+   "9": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/ph/vn-auditorium.jpg",
+     "to": {
+      "src": "img/bs/bs12-9-2.jpg",
+      "name": "롯데시네마 광음LED · 오닉스 상영관",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "SPACE · 대형 스크린 · 객석 · 천장이 보이는 영화 상영관, 간판 없음"
+    }
+   }
+  },
+  "bs_v_entertainment_2": {
+   "2": {
+    "0": {
+     "f": "L_PH_CH_B",
+     "from": "img/media/g1.json#761",
+     "to": {
+      "src": "img/media/g1.json#914",
+      "name": "공연장 객석에서 본 무대 LED 스크린 · [리포트] EBS 스페이스 공감",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "INDUSTRY · 객석에서 본 공연장 무대 LED, 공연장 업종에 맞고 간판 없음"
+    }
+   }
+  },
+  "bs_v_knowledge_industry_center_1": {
+   "5": {
+    "1": {
+     "f": "L_VS_CORE_2",
+     "from": "img/media/g0.json#159",
+     "to": {
+      "src": "img/media/g0.json#164",
+      "name": "사무실 조명 출퇴근 자동화 루틴 앱 화면",
+      "fit": "contain",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 앱 하나로 사무 공간 조명 · 설비를 묶어 제어하는 루틴 화면"
+    }
+   },
+   "8": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/ph/of-kids-ac.jpg",
+     "to": {
+      "src": "img/fill/r9-bs02.json#2",
+      "name": "오픈 천장 업무 공간 · 360 카세트 (팩토리얼 성수)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 오픈 천장 업무 공간에 360 카세트가 또렷이 보임"
+    }
+   }
+  },
+  "bs_v_knowledge_industry_center_2": {
+   "6": {
+    "2": {
+     "f": "L_VS_MAP_5",
+     "from": "img/prod/g07.json#56",
+     "to": {
+      "src": "img/prod/g07.json#51",
+      "name": "Infinite AI 공기청정기 (33㎡, S 필터) · Infinite AI 공기청정기 (33㎡, S 필터) 에센셜 베이지 좋음 청정라이팅이 보이는 오른쪽 측면",
+      "fit": "contain"
+     },
+     "why": "KIND · 33㎡ Infinite AI 공기청정기 비스듬한 컷이라 납작한 칸에서도 형태가 보임"
+    }
+   },
+   "12": {
+    "1": {
+     "f": "L_VS_CASE",
+     "from": "img/media/g1.json#174",
+     "to": {
+      "src": "img/media/g1.json#177",
+      "name": "복도 천장의 에어컨과 사무 공간 · 대구 삼성 창조 캠퍼스",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 대구 삼성 창조 캠퍼스 업무 공간 복도와 천장 360 카세트"
+    }
+   }
+  },
+  "bs_v_senior_town_1": {
+   "2": {
+    "0": {
+     "f": "L_PH_CH_A",
+     "from": "img/media/g0.json#1126",
+     "to": {
+      "src": "img/fill/r9-bs08.json#5",
+      "name": "1인 병실과 천장 360 카세트 (성심요양병원)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "INDUSTRY · 침대 · 의자와 천장 냉난방기가 있는 1인 거주실"
+    },
+    "1": {
+     "f": "L_PH_CH_A",
+     "from": "img/media/g0.json#1159",
+     "to": {
+      "src": "img/media/g0.json#1101",
+      "name": "간호사실 앞 복도와 천장 에어컨 · 성심요양병원",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "SPACE · 요양시설 직원 데스크(간호 스테이션)로 관리실을 대신함"
+    }
+   },
+   "6": {
+    "7": {
+     "f": "L_VS_MAP_8",
+     "from": "img/prod/g07.json#159",
+     "to": {
+      "src": "img/lib/p00.json#35",
+      "name": "비디오월 VM55B · 비디오월 Ultra 베젤 3.5 mm 시리즈 왼쪽 45도",
+      "fit": "contain"
+     },
+     "why": "KIND · VM55B를 45도에서 찍은 컷이라 기기 형태가 보임"
+    }
+   }
+  },
+  "bs_v_senior_town_2": {
+   "0": {
+    "0": {
+     "f": "L_C01",
+     "from": "img/media/g0.json#1091",
+     "to": {
+      "src": "img/media/g0.json#1083",
+      "name": "천장형 시스템에어컨이 설치된 요양시설 라운지 · KB 골든라이프케어 은평 빌리지",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 간판이 보이지 않는 요양시설 공용 라운지"
+    }
+   },
+   "6": {
+    "1": {
+     "f": "L_VS_MAP_5",
+     "from": "img/prod/g07.json#56",
+     "to": {
+      "src": "img/prod/g07.json#50",
+      "name": "Infinite AI 공기청정기 (33㎡, S 필터) · Infinite AI 공기청정기 (33㎡, S 필터) 에센셜 베이지 정면",
+      "fit": "contain"
+     },
+     "why": "KIND · 33㎡ Infinite AI 공기청정기 정면이라 납작한 칸에서도 형태가 보임"
+    }
+   },
+   "9": {
+    "0": {
+     "f": "L_VS_SPACE",
+     "from": "img/prod/g07.json#159",
+     "to": {
+      "src": "img/lib/p00.json#34",
+      "name": "비디오월 VM55B · 비디오월 Ultra 베젤 3.5 mm 시리즈 왼쪽 70도",
+      "fit": "contain"
+     },
+     "why": "KIND · VM55B를 70도에서 찍은 컷이라 패널 두께가 보임"
+    }
+   }
+  },
+  "bs_v_smart_academy_1": {
+   "5": {
+    "0": {
+     "f": "L_VS_CORE_2",
+     "from": "img/media/g0.json#3",
+     "to": {
+      "src": "img/media/g0.json#525",
+      "name": "홍보영상 사이니지 화면 · 청주대학교 중앙도서관",
+      "fit": "contain",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 홍보영상 사이니지 화면 — 입구 홍보 디스플레이 (청주대 로고는 작음)"
+    }
+   },
+   "12": {
+    "1": {
+     "f": "L_VS_CASE",
+     "from": "img/media/g0.json#433",
+     "to": {
+      "src": "img/media/g0.json#436",
+      "name": "링 조명이 있는 빈 강의실 전경 · 국민대학교",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 국민대 대형 강의실(모니터 책상 · 링 조명) — 같은 현장 다른 사진"
+    }
+   }
+  },
+  "bs_v_smart_academy_2": {
+   "4": {
+    "0": {
+     "f": "L_VS_CORE_1",
+     "from": "img/media/g0.json#3",
+     "to": {
+      "src": "img/media/g0.json#525",
+      "name": "홍보영상 사이니지 화면 · 청주대학교 중앙도서관",
+      "fit": "contain",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 홍보영상 사이니지 화면 — 입구 홍보 디스플레이"
+    }
+   },
+   "9": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/media/g0.json#490",
+     "to": {
+      "src": "img/fill/public.json#0",
+      "name": "학원 입구 · 인포데스크 · 천장 시스템에어컨 (samsung.com)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "SPACE · 인포데스크와 천장 360 카세트가 함께 보이는 학원 로비"
+    }
+   },
+   "11": {
+    "2": {
+     "f": "L_PH_SF_B",
+     "from": "img/ph/ed-library-wall.jpg",
+     "to": {
+      "src": "img/media/g0.json#534",
+      "name": "휴게 공간 벽걸이 디스플레이 · 청주대학교 중앙도서관",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 콘텐츠를 재생 중인 벽걸이 디스플레이 (p11과 다른 사진)"
+    }
+   }
+  },
+  "bs_v_smart_barracks_1": {
+   "3": {
+    "0": {
+     "f": "L_VS_NEEDS",
+     "from": "img/prod/g07.json#159",
+     "to": {
+      "src": "img/lib/p00.json#34",
+      "name": "비디오월 VM55B · 비디오월 Ultra 베젤 3.5 mm 시리즈 왼쪽 70도",
+      "fit": "contain"
+     },
+     "why": "KIND · 비디오월 VM55B 측면 제품 컷 — 화면만이 아닌 기기로 보임"
+    }
+   },
+   "6": {
+    "2": {
+     "f": "L_VS_MAP_5",
+     "from": "img/prod/g07.json#159",
+     "to": {
+      "src": "img/lib/p00.json#35",
+      "name": "비디오월 VM55B · 비디오월 Ultra 베젤 3.5 mm 시리즈 왼쪽 45도",
+      "fit": "contain"
+     },
+     "why": "KIND · 비디오월 VM55B 45도 제품 컷"
+    }
+   },
+   "11": {
+    "1": {
+     "f": "L_PH_SOL_S",
+     "from": "img/media/g1.json#280",
+     "to": {
+      "src": "img/ph/ed-charging.jpg",
+      "name": "태블릿 충전 보관함 관리 (한국방송통신대학교)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "INDUSTRY · 공용 태블릿 충전 보관함 — 공용 단말 일괄 설정 장면"
+    }
+   }
+  },
+  "bs_v_smart_barracks_2": {
+   "3": {
+    "0": {
+     "f": "L_VS_NEEDS",
+     "from": "img/prod/g07.json#159",
+     "to": {
+      "src": "img/lib/p00.json#34",
+      "name": "비디오월 VM55B · 비디오월 Ultra 베젤 3.5 mm 시리즈 왼쪽 70도",
+      "fit": "contain"
+     },
+     "why": "KIND · VM55B 측면 컷 — 패널 형태가 보여 디스플레이로 읽힘"
+    }
+   },
+   "6": {
+    "1": {
+     "f": "L_VS_MAP_5",
+     "from": "img/prod/g07.json#56",
+     "to": {
+      "src": "img/prod/g07.json#50",
+      "name": "Infinite AI 공기청정기 (33㎡, S 필터) · Infinite AI 공기청정기 (33㎡, S 필터) 에센셜 베이지 정면",
+      "fit": "contain"
+     },
+     "why": "KIND · 납작한 33㎡ 공기청정기 정면 컷 — 작은 칸에서도 식별됨"
+    }
+   }
+  },
+  "bs_v_smart_factory_1": {
+   "2": {
+    "2": {
+     "f": "L_PH_CH_A",
+     "from": "img/media/g1.json#166",
+     "to": {
+      "src": "img/bs/bs14-8-0.jpg",
+      "name": "3라인 설비 앞 · 공용 태블릿",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 설비 앞에서 공용 태블릿을 쓰는 방진복 작업자"
+    }
+   },
+   "7": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/media/g0.json#482",
+     "to": {
+      "src": "img/fill/mobile.json#8",
+      "name": "공장에서 러기드 태블릿을 쓰는 작업자 (samsung.com)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "SPACE · 공장 생산라인에서 러기드 태블릿을 쓰는 작업자"
+    }
+   },
+   "8": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/media/g0.json#1188",
+     "to": {
+      "src": "img/bs/bs14-7-0.jpg",
+      "name": "입고 도크 · 박스 라벨 스캔",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 물류 도크에서 박스 라벨을 스캔하는 작업자"
+    }
+   },
+   "14": {
+    "0": {
+     "f": "L_VS_END",
+     "from": "img/media/g1.json#142",
+     "to": {
+      "src": "img/fill/mobile.json#4",
+      "name": "공장 현장의 DeX 모니터와 태블릿 (samsung.com)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 공장 현장에서 태블릿·모니터를 쓰는 장면, 타사명 없음"
+    }
+   }
+  },
+  "bs_v_smart_finance_1": {
+   "0": {
+    "0": {
+     "f": "L_C02",
+     "from": "img/ph/fn-branch.jpg",
+     "to": {
+      "src": "img/bs/bs17-5-0.jpg",
+      "name": "시범점 창구 · 거치대 탭에 S펜으로 전자서식 작성",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · S펜으로 태블릿 전자서식 작성 — 타행 브랜드 없음"
+    }
+   },
+   "6": {
+    "4": {
+     "f": "L_VS_MAP_6",
+     "from": "img/prod/g07.json#56",
+     "to": {
+      "src": "img/prod/g07.json#50",
+      "name": "Infinite AI 공기청정기 (33㎡, S 필터) · Infinite AI 공기청정기 (33㎡, S 필터) 에센셜 베이지 정면",
+      "fit": "contain"
+     },
+     "why": "KIND · 납작한 33㎡ 공기청정기 정면 컷 — 작은 칸에서도 식별됨"
+    }
+   },
+   "7": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/media/g0.json#778",
+     "to": {
+      "src": "img/fill/r9-bs17.json#2",
+      "name": "모니터 · 태블릿으로 고객과 상품을 검토하는 금융 상담",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 모니터·태블릿으로 상담하고 고객이 태블릿에 서명하는 창구"
+    }
+   },
+   "8": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/media/g0.json#767",
+     "to": {
+      "src": "img/media/g0.json#768",
+      "name": "로비 벽면에 설치된 디스플레이와 화분 · NH농협은행",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 지점 로비 벽면 디스플레이 (타행 로고 안 보임)"
+    }
+   },
+   "10": {
+    "0": {
+     "f": "L_PH_VP_C",
+     "from": "img/ph/of-video-wall.jpg",
+     "to": {
+      "src": "img/bs/bs17-1-t0.jpg",
+      "name": "T 은행 영업점 창구 · 태블릿 전자서식 상담",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "SOLUTION · 창구에서 태블릿 서식을 쓰는 고객 — 금융 보안 단말 장면"
+    }
+   },
+   "11": {
+    "1": {
+     "f": "L_PH_SOL_S",
+     "from": "img/media/g1.json#144",
+     "to": {
+      "src": "img/media/g0.json#240",
+      "name": "태블릿 Knox Configure 대시보드와 기기들",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · Knox Configure 대시보드와 여러 단말"
+    }
+   }
+  },
+  "bs_v_smart_finance_2": {
+   "10": {
+    "0": {
+     "f": "L_PH_VP_C",
+     "from": "img/ph/of-video-wall.jpg",
+     "to": {
+      "src": "img/bs/bs17-5-0.jpg",
+      "name": "시범점 창구 · 거치대 탭에 S펜으로 전자서식 작성",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "SOLUTION · S펜으로 태블릿에 서명 — 보안 단말 장면"
+    }
+   },
+   "7": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/media/g1.json#166",
+     "to": {
+      "src": "img/bs/bs17-6-0.jpg",
+      "name": "방문 상담 · 직원이 탭 화면으로 상품 설명",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "SPACE · 직원이 탭으로 상품을 설명하는 방문 상담"
+    }
+   },
+   "11": {
+    "2": {
+     "f": "L_PH_SF_B",
+     "from": "img/media/g1.json#195",
+     "to": {
+      "src": "img/media/g0.json#240",
+      "name": "태블릿 Knox Configure 대시보드와 기기들",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · Knox Configure 대시보드와 여러 단말"
+    }
+   }
+  },
+  "bs_v_smart_home_1": {
+   "2": {
+    "0": {
+     "f": "L_PH_CH_A",
+     "from": "img/media/g1.json#319",
+     "to": {
+      "src": "img/fill/r9-bs04.json#1",
+      "name": "거실에서 휴대폰으로 가전을 제어하는 입주민 (그란츠 리버파크)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 앱으로 가전을 제어하는 세대 장면 — 타 단지 간판 없음"
+    }
+   },
+   "3": {
+    "1": {
+     "f": "L_VS_NEEDS",
+     "from": "img/media/g0.json#153",
+     "to": {
+      "src": "img/media/g0.json#155",
+      "name": "스마트싱스 아파트 커스텀 앱 화면",
+      "fit": "contain",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 스마트싱스 아파트 앱 화면"
+    }
+   },
+   "6": {
+    "6": {
+     "f": "L_VS_MAP_7",
+     "from": "img/prod/g07.json#159",
+     "to": {
+      "src": "img/lib/p00.json#35",
+      "name": "비디오월 VM55B · 비디오월 Ultra 베젤 3.5 mm 시리즈 왼쪽 45도",
+      "fit": "contain"
+     },
+     "why": "KIND · VM55B 45도 컷 — 디스플레이 형태가 보임"
+    }
+   }
+  },
+  "bs_v_smart_home_2": {
+   "3": {
+    "1": {
+     "f": "L_VS_NEEDS",
+     "from": "img/media/g0.json#153",
+     "to": {
+      "src": "img/media/g0.json#155",
+      "name": "스마트싱스 아파트 커스텀 앱 화면",
+      "fit": "contain",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 스마트싱스 아파트 앱 화면"
+    }
+   }
+  },
+  "bs_v_smart_school_1": {
+   "14": {
+    "0": {
+     "f": "L_VS_END",
+     "from": "img/media/g0.json#442",
+     "to": {
+      "src": "img/fill/r4-edpb.json#5",
+      "name": "대형 디스플레이 수업 (삼성전자 CSR 스마트스쿨)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 스마트스쿨 교실에서 태블릿 수업하는 학생들 — 타 학교명 없음"
+    }
+   }
+  },
+  "bs_v_smart_hotel_2": {
+   "7": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/media/g0.json#962",
+     "to": {
+      "src": "img/media/g0.json#972",
+      "name": "소파와 탁자가 있는 객실 벽걸이 TV · 크라운 파크 호텔 서울",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 벽걸이 호텔 TV가 잘 보이는 객실"
+    }
+   }
+  },
+  "bs_v_smart_network_1": {
+   "9": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/ph/rt-shoppers.jpg",
+     "to": {
+      "src": "img/fill/mobile.json#17",
+      "name": "모바일 매장 카운터 (samsung.com)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "SPACE · 태블릿이 놓인 모바일 매장 상담 카운터"
+    }
+   },
+   "14": {
+    "0": {
+     "f": "L_VS_END",
+     "from": "img/media/g1.json#497",
+     "to": {
+      "src": "img/media/g1.json#504",
+      "name": "매장 안 휴게 좌석과 이용객 · 메가스토어 삼성대치",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 같은 매장의 다른 실내(상담·휴게 좌석) 사진"
+    }
+   },
+   "2": {
+    "2": {
+     "f": "L_PH_CH_A",
+     "from": "img/media/g1.json#490",
+     "to": {
+      "src": "img/fill/r8-people.json#5",
+      "name": "통신 매장 직원과 세로형 사이니지 (SKT)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 프로모션 사이니지 옆 통신 매장 직원 — 덱 안 다른 사진"
+    }
+   }
+  },
+  "bs_v_smart_hospital_2": {
+   "7": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/media/g0.json#1133",
+     "to": {
+      "src": "img/fill/r9-bs08.json#4",
+      "name": "요양 거주실 · 천장 무풍 1Way",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "SPACE · 병상과 천장 무풍 1Way가 보이는 입원실"
+    }
+   }
+  },
+  "bs_v_smart_hotel_1": {
+   "8": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/ph/ht-lobby-art.jpg",
+     "to": {
+      "src": "img/bs/bs02-1-t0.jpg",
+      "name": "C 빌딩 로비 · The Wall 미디어월 조감 이미지",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 로비 벽면 대형 LED(The Wall)"
+    }
+   },
+   "11": {
+    "0": {
+     "f": "L_PH_SOL_S",
+     "from": "img/media/g0.json#963",
+     "to": {
+      "src": "img/bs/bs19-7-1.jpg",
+      "name": "특급호텔 객실 TV 웰컴 화면 · 침대 쪽에서",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 객실 TV 웰컴 화면"
+    }
+   }
+  },
+  "bs_v_smart_network_2": {
+   "8": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/ph/rt-shoppers.jpg",
+     "to": {
+      "src": "img/fill/mobile.json#17",
+      "name": "모바일 매장 카운터 (samsung.com)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "SPACE · 태블릿이 놓인 모바일 매장 상담 카운터"
+    }
+   },
+   "9": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/ph/rt-ceiling-ac.jpg",
+     "to": {
+      "src": "img/fill/r9-bs10.json#9",
+      "name": "쇼핑 통로 천장의 360 카세트와 쇼핑객 (두타면세점)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 매장 천장 360 카세트와 쇼핑객"
+    }
+   },
+   "2": {
+    "0": {
+     "f": "L_PH_CH_B",
+     "from": "img/media/g1.json#498",
+     "to": {
+      "src": "img/media/g1.json#504",
+      "name": "매장 안 휴게 좌석과 이용객 · 메가스토어 삼성대치",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 같은 매장의 다른 실내 사진 — 표지와 다른 컷"
+    }
+   },
+   "11": {
+    "2": {
+     "f": "L_PH_SF_B",
+     "from": "/assets/proposal-photos/skt-4.jpg",
+     "to": {
+      "src": "img/fill/r8-people.json#5",
+      "name": "통신 매장 직원과 세로형 사이니지 (SKT)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 프로모션 사이니지 옆 통신 매장 직원 — 덱 안 다른 사진"
+    }
+   }
+  },
+  "bs_v_smart_retail_2": {
+   "9": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/ph/rt-ceiling-ac.jpg",
+     "to": {
+      "src": "img/fill/r9-bs10.json#9",
+      "name": "쇼핑 통로 천장의 360 카세트와 쇼핑객 (두타면세점)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 매장 천장 360 카세트와 쇼핑객"
+    }
+   }
+  },
+  "bs_v_smart_office_1": {
+   "8": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/ph/of-office-ac.jpg",
+     "to": {
+      "src": "img/media/g0.json#311",
+      "name": "사무실 천장형 4Way 에어컨 가동",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "SPACE · 사무 공간 천장의 4Way 카세트"
+    }
+   },
+   "11": {
+    "2": {
+     "f": "L_PH_SOL_S",
+     "from": "img/media/g1.json#153",
+     "to": {
+      "src": "img/fill/office.json#12",
+      "name": "천장 시스템에어컨이 있는 오피스 로비 · 라운지 (samsung.com)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 빈 사무 공간 천장 에어컨 — 출근 전 예냉·예열"
+    },
+    "3": {
+     "f": "L_PH_SOL_S",
+     "from": "img/media/g1.json#186",
+     "to": {
+      "src": "img/media/g1.json#143",
+      "name": "사무실 천장 에어컨 아래 스마트폰을 든 직원 · 이트너스",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 천장 에어컨 아래 폰으로 알림을 확인하는 담당자"
+    }
+   }
+  },
+  "bs_v_smart_office_2": {
+   "7": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/ph/of-kids-ac.jpg",
+     "to": {
+      "src": "img/fill/r9-bs02.json#2",
+      "name": "오픈 천장 업무 공간 · 360 카세트 (팩토리얼 성수)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 업무 공간 천장의 원형 360 카세트가 보이는 사무실"
+    }
+   }
+  },
+  "bs_v_smart_public_2": {
+   "10": {
+    "0": {
+     "f": "L_PH_VP_C",
+     "from": "img/ph/pb-traffic-room.jpg",
+     "to": {
+      "src": "img/media/g0.json#1200",
+      "name": "옥상에 설치된 실외기 군 · 아이센스 송도2공장",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "SOLUTION · b.IoT로 통합 관리할 건물 옥상 공조 설비(실외기 군)"
+    }
+   },
+   "5": {
+    "0": {
+     "f": "L_VS_CORE_2",
+     "from": "img/prod/g07.json#159",
+     "to": {
+      "src": "img/lib/p00.json#45",
+      "name": "비디오월 Extreme 베젤 1.74mm 시리즈 · 공항 터미널 천장 아래 출발 정보와 안내를 띄운 대형 비디오월",
+      "fit": "contain"
+     },
+     "why": "KIND · 정보 화면을 띄운 비디오월 제품 사진 (베젤·화면이 또렷함)"
+    }
+   },
+   "11": {
+    "0": {
+     "f": "L_PH_SF_B",
+     "from": "img/ph/pb-control.jpg",
+     "to": {
+      "src": "img/ph/of-desk-control.jpg",
+      "name": "PC로 냉난방을 관리하는 담당자 (대구상공회의소)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 관리실에서 PC로 냉난방을 관리하는 담당자"
+    },
+    "3": {
+     "f": "L_PH_SF_B",
+     "from": "img/media/g1.json#262",
+     "to": {
+      "src": "img/bs/bs09-4-5.jpg",
+      "name": "종합관제센터 상황실 · 46\" 비디오월 18면",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 전력 계통판이 있는 관제실 (전력 설비 관리)"
+    }
+   }
+  },
+  "bs_v_smart_school_2": {
+   "7": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/ph/ed-ac-clean.jpg",
+     "to": {
+      "src": "img/media/g0.json#422",
+      "name": "천장 에어컨과 스크린이 있는 교육장 · 삼성전자 모듈러 교육시설",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 천장 4Way 시스템에어컨이 보이는 교실"
+    }
+   },
+   "8": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/media/g0.json#462",
+     "to": {
+      "src": "img/media/g0.json#420",
+      "name": "공기청정기가 놓인 강의실 · 서울교육대학교 AI 미래교실",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 교실 한쪽에 놓인 타워형 공기청정기"
+    }
+   }
+  },
+  "bs_v_smart_transportation_1": {
+   "9": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "/assets/proposal-photos/finavia-4.jpg",
+     "to": {
+      "src": "img/fill/public.json#15",
+      "name": "역사 노선도 디스플레이 (samsung.com)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "SPACE · 역 승강장에 설치된 노선 안내 사이니지"
+    }
+   },
+   "11": {
+    "3": {
+     "f": "L_PH_SOL_S",
+     "from": "img/media/g1.json#786",
+     "to": {
+      "src": "img/bs/bs09-3-2.jpg",
+      "name": "비디오월 앞에서 긴급 상황을 보는 관제 요원",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "INDUSTRY · 심야 운영실에서 여러 화면 상태를 지켜보는 관제 요원"
+    }
+   }
+  },
+  "bs_v_smart_transportation_2": {
+   "0": {
+    "0": {
+     "f": "L_C01",
+     "from": "img/media/g1.json#43",
+     "to": {
+      "src": "img/fill/r9-bs11.json#4",
+      "name": "현장 차량의 러기드 업무 단말",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "INDUSTRY · 배송 차량에 거치된 러기드 태블릿과 배송 경로 화면"
+    }
+   },
+   "7": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/media/g1.json#39",
+     "to": {
+      "src": "img/fill/r9-bs11.json#3",
+      "name": "현장 요원의 러기드 업무 단말",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "SPACE · 배송 차량에서 스캐너 달린 러기드 태블릿을 쓰는 기사"
+    }
+   },
+   "11": {
+    "2": {
+     "f": "L_PH_SF_B",
+     "from": "img/media/g0.json#1188",
+     "to": {
+      "src": "img/bs/bs09-7-0.jpg",
+      "name": "야간 상황실 관제석",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 운영실에서 여러 모니터로 화면을 관리하는 관제석"
+    }
+   }
+  },
+  "bs_v_smart_university_2": {
+   "7": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/ph/ed-ac-clean.jpg",
+     "to": {
+      "src": "img/media/g0.json#422",
+      "name": "천장 에어컨과 스크린이 있는 교육장 · 삼성전자 모듈러 교육시설",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 천장 4Way 시스템에어컨이 보이는 강의실"
+    }
+   }
+  },
+  "bs_sub_std_ht_mid": {
+   "1": {
+    "3": {
+     "f": "L_TOC_INDEX7",
+     "from": "img/media/g0.json#35",
+     "to": {
+      "src": "img/media/g0.json#966",
+      "name": "리모컨으로 호텔 TV를 조작하는 손 · 크라운 파크 호텔 서울",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "KIND · 리모컨으로 호텔 TV 솔루션을 쓰는 객실 장면"
+    },
+    "5": {
+     "f": "L_TOC_INDEX7",
+     "from": "img/media/g0.json#882",
+     "to": {
+      "src": "img/fill/ais-b.json#7",
+      "name": "호텔 연회장(학회 세팅) 정면의 대형 The Wall LED 스크린",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 호텔 연회장에 설치된 The Wall 도입 현장"
+    },
+    "6": {
+     "f": "L_TOC_INDEX7",
+     "from": "img/fill/ais-a.json#6",
+     "to": {
+      "src": "img/media/g0.json#103",
+      "name": "시스템에어컨 갖춘 자동화 호텔 객실",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 삼성 시스템에어컨·TV를 갖춘 호텔 객실 (통합 오퍼링)"
+    }
+   }
+  },
+  "bs_sub_std_of_sme": {
+   "18": {
+    "0": {
+     "f": "L_VS_SOL_STP",
+     "from": "img/media/g0.json#101",
+     "to": {
+      "src": "img/ph/of-video-wall.jpg",
+      "name": "업무 공간 대시보드 비디오월 (한국IBM)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 사무실 대시보드 비디오월로 통합 관리하는 장면"
+    }
+   },
+   "0": {
+    "0": {
+     "f": "L_C01",
+     "from": "img/media/g1.json#153",
+     "to": {
+      "src": "img/media/g1.json#210",
+      "name": "휴게 공간 테이블에 앉은 직원들 · 한국IBM",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 브랜드 없는 사무실 라운지에서 일하는 직원들"
+    }
+   },
+   "6": {
+    "1": {
+     "f": "L_VS_CORE_1",
+     "from": "img/media/g0.json#266",
+     "to": {
+      "src": "img/media/g1.json#184",
+      "name": "스마트폰 화면을 대형 화면에 미러링 · 패스트파이브",
+      "fit": "contain",
+      "pos": "50% 50%"
+     },
+     "why": "PRODUCT · 휴대폰 화면을 대형 화면에 연결하는 장면"
+    }
+   },
+   "1": {
+    "0": {
+     "f": "L_TOC_INDEX7",
+     "from": "img/media/g1.json#150",
+     "to": {
+      "src": "img/bs/bs02-12-0.jpg",
+      "name": "로비 · 출근 루틴 · 프리쿨링",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 브랜드 없는 오피스 로비·리셉션"
+    },
+    "1": {
+     "f": "L_TOC_INDEX7",
+     "from": "img/media/g1.json#151",
+     "to": {
+      "src": "img/fill/sol-b.json#17",
+      "name": "대형 디스플레이가 걸린 회의실",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 대형 디스플레이가 걸린 스마트 회의실"
+    },
+    "3": {
+     "f": "L_TOC_INDEX7",
+     "from": "img/media/g0.json#101",
+     "to": {
+      "src": "img/media/g1.json#174",
+      "name": "통합 관제실의 운영 담당자 · 대구 삼성 창조 캠퍼스",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 관제 화면으로 기기를 운영하는 장면 (솔루션 장)"
+    },
+    "4": {
+     "f": "L_TOC_INDEX7",
+     "from": "img/media/g1.json#143",
+     "to": {
+      "src": "img/fill/sol-b.json#4",
+      "name": "비스포크 냉장고 · 정수기 · 세로 TV · 에어드레서 · 슈드레서가 있는 사내 라운지 (렌더)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 냉장고·정수기 등 구독 가전이 놓인 사내 라운지"
+    },
+    "5": {
+     "f": "L_TOC_INDEX7",
+     "from": "img/media/g1.json#152",
+     "to": {
+      "src": "img/media/g1.json#225",
+      "name": "긴 회의 테이블이 놓인 회의실 · 대구상공회의소",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 실제 도입 현장인 오피스 대회의실 (브랜드 없음)"
+    },
+    "6": {
+     "f": "L_TOC_INDEX7",
+     "from": "img/fill/ais-a.json#6",
+     "to": {
+      "src": "img/fill/office.json#3",
+      "name": "옥상에 모듈로 설치한 DVM 칠러 (samsung.com)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 삼성 DVM 실외기 설비 (Why Samsung 장)"
+    }
+   },
+   "12": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/media/g1.json#143",
+     "to": {
+      "src": "img/fill/office.json#21",
+      "name": "천장형 시스템에어컨과 모니터가 있는 업무공간 (samsung.com)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 모니터 책상과 천장 에어컨이 있는 업무 공간"
+    }
+   },
+   "26": {
+    "2": {
+     "f": "L_SUB_VALUE3",
+     "from": "img/media/g1.json#143",
+     "to": {
+      "src": "img/fill/r9-bs02.json#0",
+      "name": "AI 오피스 라운지 (팩토리얼 성수)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 밝고 쾌적한 오피스 라운지"
+    }
+   }
+  },
+  "bs_sub_std_pb_agency": {
+   "18": {
+    "4": {
+     "f": "L_VS_MAP_7",
+     "from": "img/prod/g00.json#93",
+     "to": {
+      "src": "img/prod/t00.json#31",
+      "name": "실내용 The Wall IWC · 대표 컷",
+      "fit": "contain"
+     },
+     "why": "KIND · 화면이 켜진 The Wall IWC 정면 제품 컷"
+    }
+   },
+   "0": {
+    "0": {
+     "f": "L_C01",
+     "from": "img/media/g1.json#254",
+     "to": {
+      "src": "img/fill/public.json#5",
+      "name": "창가 복도 (samsung.com)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 브랜드 없는 현대식 청사 건물 창가 복도"
+    }
+   },
+   "8": {
+    "0": {
+     "f": "L_VS_CORE_3",
+     "from": "img/media/g0.json#179",
+     "to": {
+      "src": "img/ui-stp-energy.jpg",
+      "name": "에너지 사용량 대시보드",
+      "fit": "contain",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 에너지 사용량 차트를 보여 주는 대시보드 화면"
+    }
+   },
+   "11": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/media/g1.json#797",
+     "to": {
+      "src": "img/fill/public.json#0",
+      "name": "학원 입구 · 인포데스크 · 천장 시스템에어컨 (samsung.com)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "SPACE · 사이니지가 걸린 안내 창구 (민원 안내 데스크)"
+    }
+   },
+   "19": {
+    "0": {
+     "f": "L_VS_DIV_R5",
+     "from": "img/media/g1.json#288",
+     "to": {
+      "src": "img/bs/bs09-7-0.jpg",
+      "name": "야간 상황실 관제석",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 브랜드 없는 상황실 관제석 장면 (청사 운영)"
+    }
+   },
+   "29": {
+    "0": {
+     "f": "L_VS_DIV_R4",
+     "from": "img/media/g1.json#797",
+     "to": {
+      "src": "img/fill/r4-edpb.json#13",
+      "name": "공공 도서관 열람 공간 (광교푸른숲도서관)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 천장 에어컨이 있는 공공 도서관 열람 공간 (간판 없음)"
+    }
+   }
+  },
+  "bs_sub_std_md_clinic": {
+   "6": {
+    "1": {
+     "f": "L_VS_CORE_1",
+     "from": "img/media/g0.json#35",
+     "to": {
+      "src": "img/media/g0.json#26",
+      "name": "노트북 템플릿 편집기 · 병원 안내",
+      "fit": "contain",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 노트북 템플릿 편집기로 병원 안내 콘텐츠를 만드는 화면"
+    }
+   },
+   "13": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/media/g0.json#1126",
+     "to": {
+      "src": "img/fill/r9-bs08.json#0",
+      "name": "병실 · 천장 시스템에어컨과 창가 침대",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "SPACE · 창가 침대와 천장 에어컨이 있는 1인 케어룸"
+    }
+   },
+   "14": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/media/g0.json#1150",
+     "to": {
+      "src": "img/ph/md-station.jpg",
+      "name": "간호 스테이션 앞 복도 (성심요양병원)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 병원명 없는 안내·접수 데스크"
+    }
+   },
+   "17": {
+    "0": {
+     "f": "L_VS_SOL_STP",
+     "from": "img/media/g0.json#102",
+     "to": {
+      "src": "img/media/g0.json#1103",
+      "name": "태블릿으로 에어컨 통합 관리 화면을 보는 모습 · 성심요양병원",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "SOLUTION · 병원 직원이 태블릿으로 냉난방 통합 관리 화면을 보는 장면"
+    }
+   },
+   "0": {
+    "0": {
+     "f": "L_C01",
+     "from": "img/media/g0.json#1124",
+     "to": {
+      "src": "img/bs/bs19-7-5.jpg",
+      "name": "병원 대기 홀 안내 사이니지 · 대기 좌석",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "INDUSTRY · 병원명 없는 의원 대기 홀(대기 좌석·안내 모니터)"
+    }
+   },
+   "1": {
+    "3": {
+     "f": "L_TOC_INDEX7",
+     "from": "img/media/g0.json#102",
+     "to": {
+      "src": "img/media/g0.json#1141",
+      "name": "동의서 화면에 S펜 서명하는 손 · 한림대학교동탄성심병원",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "KIND · 의원에서 태블릿 전자 동의서에 서명하는 현장 장면"
+    }
+   },
+   "11": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/media/g0.json#1153",
+     "to": {
+      "src": "img/media/g0.json#1155",
+      "name": "TV가 걸린 작은 휴게 공간 · 인천 더드림병원",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "SPACE · 벽걸이 TV에 건강 정보가 나오는 대기 공간"
+    }
+   },
+   "16": {
+    "0": {
+     "f": "L_VS_DIV_R3",
+     "from": "img/ph/md-care-room.jpg",
+     "to": {
+      "src": "img/media/g0.json#274",
+      "name": "병원 모니터에 폰 연결 X-ray 화면",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "INDUSTRY · 진료실 모니터에 X-ray를 띄워 보는 의원 진료 장면"
+    }
+   }
+  },
+  "bs_sub_ed_univ": {
+   "8": {
+    "0": {
+     "f": "L_VS_DIV_R2",
+     "from": "img/ph/fn-auditorium.jpg",
+     "to": {
+      "src": "img/fill/r9-bs03.json#9",
+      "name": "도서관 이용자 서비스 데스크 (연세대학교)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "INDUSTRY · 대학 도서관 이용자 서비스 데스크(캠퍼스 시설)"
+    }
+   },
+   "9": {
+    "0": {
+     "f": "L_SUB_PKG4",
+     "from": "/assets/subs/pkg-public.webp",
+     "to": {
+      "src": "img/media/g0.json#552",
+      "name": "담쟁이 덮인 캠퍼스 본관 건물과 정원 · 연세대학교",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 담쟁이 덮인 대학 캠퍼스 본관과 정원"
+    }
+   },
+   "16": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/media/g0.json#428",
+     "to": {
+      "src": "img/media/g0.json#492",
+      "name": "서가와 열람석이 있는 도서관 복층 공간 · [카드뉴스] 삼성 시스템에어컨 360",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "SPACE · 서가와 소파가 있는 라운지형 열람 공간"
+    }
+   },
+   "25": {
+    "0": {
+     "f": "L_SUB_BLUEPASS",
+     "from": "/assets/subs/val-dorm.webp",
+     "to": {
+      "src": "img/media/g0.json#444",
+      "name": "사다리 위에서 천장 에어컨을 정비하는 작업자 · 성균관대학교 글로벌센터",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 천장 에어컨을 정비하는 엔지니어"
+    }
+   },
+   "13": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/ph/ed-lecture-led.jpg",
+     "to": {
+      "src": "img/bs/bs19-7-3.jpg",
+      "name": "전자칠판 수업 강의실",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 전자칠판으로 수업하는 강의실"
+    }
+   },
+   "31": {
+    "0": {
+     "f": "L_SUB_FLOW",
+     "from": "img/ph/ed-lecture-led.jpg",
+     "to": {
+      "src": "img/media/g0.json#414",
+      "name": "강의실 전경과 스마트싱스 센서 확대 · 서울교육대학교 AI 미래교실",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 대학 강의실 전경(스마트 센서)"
+    }
+   },
+   "6": {
+    "2": {
+     "f": "L_SUB_VALUE3",
+     "from": "img/ph/ed-lecture-led.jpg",
+     "to": {
+      "src": "img/media/g1.json#283",
+      "name": "열람 공간 천장의 시스템에어컨 360 · 광교푸른숲도서관– 삼성 시스템에어컨 360",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 천장 에어컨이 있는 밝은 열람 공간"
+    }
+   },
+   "1": {
+    "1": {
+     "f": "L_TOC_INDEX8",
+     "from": "img/ph/ed-lecture-led.jpg",
+     "to": {
+      "src": "img/bs/bs03-10-5.jpg",
+      "name": "화면 앞에서 강의하는 교수",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 화면 앞에서 강의하는 교수"
+    },
+    "2": {
+     "f": "L_TOC_INDEX8",
+     "from": "img/ph/fn-auditorium.jpg",
+     "to": {
+      "src": "img/media/g0.json#480",
+      "name": "캠퍼스 은행나무길과 파란 구조물 · 서울대학교 관악캠퍼스 프린트누리",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 가을 캠퍼스 길(캠퍼스 장면)"
+    },
+    "7": {
+     "f": "L_TOC_INDEX8",
+     "from": "img/fill/ais-a.json#6",
+     "to": {
+      "src": "img/fill/office.json#6",
+      "name": "대구 삼성 창조 캠퍼스 전경 (samsung.com)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 대구 삼성 창조 캠퍼스 표지석(삼성 시설)"
+    }
+   },
+   "14": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/ph/fn-auditorium.jpg",
+     "to": {
+      "src": "img/bs/bs03-11-s0.jpg",
+      "name": "국민대학교 · 대형 강의실 스크린 수업",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 대형 화면이 있는 계단식 대강의실"
+    }
+   },
+   "15": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/ph/ed-library.jpg",
+     "to": {
+      "src": "img/media/g0.json#530",
+      "name": "열람실 내 도서 안내 키오스크 · 청주대학교 중앙도서관",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 도서관 열람실과 안내 사이니지 키오스크"
+    }
+   },
+   "5": {
+    "0": {
+     "f": "L_SUB_PAIN",
+     "from": "/assets/subs/pkg-public.webp",
+     "to": {
+      "src": "img/media/g0.json#476",
+      "name": "복합기 줄 앞 이용자와 관리 직원 · 서울대학교 관악캠퍼스 프린트누리",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 출력실 이용 학생과 관리 직원(사용 많은 공용 시설)"
+    }
+   },
+   "28": {
+    "0": {
+     "f": "L_SUB_TERMS",
+     "from": "/assets/subs/pkg-public.webp",
+     "to": {
+      "src": "img/media/g0.json#199",
+      "name": "BEMS가 적용된 대학 캠퍼스 본관",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 대학 캠퍼스 본관 외관"
+    }
+   },
+   "24": {
+    "0": {
+     "f": "L_SUB_CARE4",
+     "from": "/assets/subs/care-1.webp",
+     "to": {
+      "src": "img/media/g0.json#450",
+      "name": "천장 에어컨 내부를 살피는 작업자 · 성균관대학교 글로벌센터",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 천장 에어컨 내부를 점검하는 작업자"
+    }
+   }
+  },
+  "bs_sub_ht_large": {
+   "26": {
+    "0": {
+     "f": "L_SUB_BLUEPASS",
+     "from": "/assets/subs/val-dorm.webp",
+     "to": {
+      "src": "img/media/g0.json#824",
+      "name": "천장형 에어컨 팬을 점검하는 엔지니어 · 호텔 스카이파크",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 천장 에어컨을 점검하는 엔지니어"
+    }
+   },
+   "14": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/ph/ht-room-bed.jpg",
+     "to": {
+      "src": "img/bs/bs19-7-1.jpg",
+      "name": "특급호텔 객실 TV 웰컴 화면 · 침대 쪽에서",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 객실 TV에 웰컴 화면이 뜬 객실"
+    }
+   },
+   "6": {
+    "2": {
+     "f": "L_SUB_VALUE3",
+     "from": "img/ph/ht-room-bed.jpg",
+     "to": {
+      "src": "img/bs/bs07-8-0.jpg",
+      "name": "1F 로비 · 체크인 피크",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 밝은 호텔 1층 로비 라운지"
+    }
+   },
+   "1": {
+    "1": {
+     "f": "L_TOC_INDEX8",
+     "from": "img/ph/ht-room-bed.jpg",
+     "to": {
+      "src": "img/media/g0.json#890",
+      "name": "야경이 보이는 객실의 벽걸이 TV · 롯데 시그니엘 서울",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 야경이 보이는 객실과 벽걸이 TV"
+    },
+    "6": {
+     "f": "L_TOC_INDEX8",
+     "from": "img/media/g0.json#810",
+     "to": {
+      "src": "img/media/g0.json#878",
+      "name": "레스토랑 대기석 벽면의 소형 디스플레이 · 양재 엘타워",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 호텔 연회장 입구 디스플레이(도입 현장)"
+    }
+   },
+   "15": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/ph/ht-suite.jpg",
+     "to": {
+      "src": "img/media/g0.json#892",
+      "name": "스위트룸 응접실 벽면 TV · 롯데 시그니엘 서울",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 스위트룸 응접실과 벽면 TV"
+    }
+   },
+   "5": {
+    "0": {
+     "f": "L_SUB_PAIN",
+     "from": "/assets/subs/pkg-stay.webp",
+     "to": {
+      "src": "img/media/g0.json#951",
+      "name": "벽걸이 TV와 천장 에어컨이 있는 객실 · 페이토 호텔",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 천장 에어컨과 TV가 있는 객실(시설 관리)"
+    }
+   },
+   "29": {
+    "0": {
+     "f": "L_SUB_TERMS",
+     "from": "/assets/subs/pkg-stay.webp",
+     "to": {
+      "src": "img/fill/hotel.json#4",
+      "name": "호텔 객실 · 침대 옆 공기청정기와 TV (samsung.com)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 공기청정기·TV가 있는 호텔 객실"
+    }
+   },
+   "25": {
+    "0": {
+     "f": "L_SUB_CARE4",
+     "from": "/assets/subs/care-1.webp",
+     "to": {
+      "src": "img/fill/r8-people.json#14",
+      "name": "안전모를 쓴 엔지니어가 천장 실내기를 점검하는 장면 (호텔 스카이파크)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 천장 실내기를 계측 점검하는 엔지니어"
+    }
+   },
+   "33": {
+    "0": {
+     "f": "L_VS_DIV_R2",
+     "from": "img/media/g0.json#855",
+     "to": {
+      "src": "img/ph/ht-twin.jpg",
+      "name": "트윈 객실 (크라운 파크 호텔 서울)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · TV가 있는 호텔 트윈 객실(선명)"
+    }
+   }
+  },
+  "bs_sub_md_hospital": {
+   "0": {
+    "0": {
+     "f": "L_C01",
+     "from": "img/media/g0.json#1138",
+     "to": {
+      "src": "img/bs/bs19-7-5.jpg",
+      "name": "병원 대기 홀 안내 사이니지 · 대기 좌석",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 병원명 없는 선명한 병원 대기 홀"
+    }
+   },
+   "1": {
+    "1": {
+     "f": "L_TOC_INDEX8",
+     "from": "img/media/g0.json#1099",
+     "to": {
+      "src": "img/lib/p00.json#68",
+      "name": "컬러 이페이퍼 EM32DX · 병원 탈의실 복도 벽에 건 세로형 E-Paper 건강검진 안내 포스터",
+      "fit": "cover"
+     },
+     "why": "MISMATCH · 병원 탈의실 복도의 이페이퍼(병원 공간)"
+    },
+    "2": {
+     "f": "L_TOC_INDEX8",
+     "from": "img/media/g0.json#1121",
+     "to": {
+      "src": "img/media/g0.json#1163",
+      "name": "화분과 대기 의자가 있는 복도 · 인천 더드림병원",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "INDUSTRY · 병원 대기실과 TV·정수기(패키지 품목)"
+    },
+    "5": {
+     "f": "L_TOC_INDEX8",
+     "from": "img/ph/md-rehab-room.jpg",
+     "to": {
+      "src": "img/ph/md-consent.jpg",
+      "name": "전자 동의서 서명 (한림대학교동탄성심병원)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 태블릿 전자 동의서 서명(구독 조건·결제)"
+    },
+    "6": {
+     "f": "L_TOC_INDEX8",
+     "from": "img/media/g0.json#1139",
+     "to": {
+      "src": "img/media/g0.json#1160",
+      "name": "대기 의자와 원형 탁자가 있는 공간 · 인천 더드림병원",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 사례 병원(인천 더드림병원) 대기 공간"
+    }
+   },
+   "8": {
+    "0": {
+     "f": "L_VS_DIV_R2",
+     "from": "img/media/g0.json#1121",
+     "to": {
+      "src": "img/ph/md-ward.jpg",
+      "name": "요양병원 다인실 (성심요양병원)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "INDUSTRY · TV가 걸린 요양병원 다인실"
+    }
+   },
+   "16": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/ph/md-rehab-room.jpg",
+     "to": {
+      "src": "img/media/g0.json#1075",
+      "name": "천장형 에어컨이 설치된 재활 운동 공간 · 늘푸른복지센터",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 천장 에어컨이 있는 재활 운동 공간"
+    }
+   },
+   "5": {
+    "0": {
+     "f": "L_SUB_PAIN",
+     "from": "/assets/subs/pkg-medical.webp",
+     "to": {
+      "src": "img/fill/r9-bs08.json#0",
+      "name": "병실 · 천장 시스템에어컨과 창가 침대",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 천장 에어컨이 있는 병실(시설 관리)"
+    }
+   },
+   "24": {
+    "0": {
+     "f": "L_SUB_TERMS",
+     "from": "/assets/subs/pkg-medical.webp",
+     "to": {
+      "src": "img/media/g0.json#1128",
+      "name": "신생아실 아기 침대 앞 큐브 공기청정기 · 헤리티지 산후조리원",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 공기청정기를 쓰는 신생아실"
+    }
+   }
+  },
+  "bs_sub_of_hq": {
+   "14": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/media/g1.json#163",
+     "to": {
+      "src": "img/fill/sol-b.json#0",
+      "name": "천장 무풍 시스템에어컨 · 제트 · 에어모니터 · 공기청정기가 있는 사무실 (렌더)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "SPACE · 천장 무풍 에어컨이 있는 개인 사무실"
+    }
+   },
+   "16": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/ph/of-room-tab.jpg",
+     "to": {
+      "src": "img/fill/sol-a.json#7",
+      "name": "이동식 Flip으로 회의하는 소규모 프라이빗 오피스 (패스트파이브)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · Flip을 둔 소규모 회의실"
+    }
+   },
+   "18": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/media/g1.json#133",
+     "to": {
+      "src": "img/media/g1.json#179",
+      "name": "조명 인테리어 라운지의 천장형 에어컨 · 대구 삼성 창조 캠퍼스",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 조명 인테리어 직원 라운지"
+    }
+   },
+   "19": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/media/g0.json#514",
+     "to": {
+      "src": "img/media/g1.json#169",
+      "name": "천장형 에어컨이 설치된 레스토랑 · 대구 삼성 창조 캠퍼스",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "INDUSTRY · 사옥 캠퍼스 식당"
+    }
+   },
+   "17": {
+    "1": {
+     "f": "L_VS_SPACE",
+     "from": "img/ph/of-office-ac.jpg",
+     "to": {
+      "src": "img/fill/sol-a.json#8",
+      "name": "Flip · 디지털 복합기 · 노트북이 놓인 오픈형 오피스 (렌더)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 노트북·복합기가 놓인 업무 공간"
+    }
+   },
+   "6": {
+    "2": {
+     "f": "L_SUB_VALUE3",
+     "from": "img/ph/of-office-ac.jpg",
+     "to": {
+      "src": "img/media/g1.json#140",
+      "name": "로비 모서리 LED 미디어월 · 팩토리얼 성수",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 로비 LED 미디어월(방문 경험)"
+    }
+   },
+   "1": {
+    "1": {
+     "f": "L_TOC_INDEX8",
+     "from": "img/ph/of-office-ac.jpg",
+     "to": {
+      "src": "img/bs/bs02-12-0.jpg",
+      "name": "로비 · 출근 루틴 · 프리쿨링",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 밝은 사옥 로비"
+    },
+    "2": {
+     "f": "L_TOC_INDEX8",
+     "from": "img/media/g1.json#127",
+     "to": {
+      "src": "img/media/g1.json#186",
+      "name": "유리벽 너머로 보이는 회의 공간 · 패스트파이브",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · Samsung Flip 회의실(오피스 패키지)"
+    },
+    "6": {
+     "f": "L_TOC_INDEX8",
+     "from": "img/media/g1.json#132",
+     "to": {
+      "src": "img/bs/bs20-1-t0.jpg",
+      "name": "도심 교차로 코너 빌딩 · 야간 외벽 LED",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 외벽 LED를 단 도심 빌딩(LED 도입 현장)"
+    }
+   },
+   "32": {
+    "0": {
+     "f": "L_SUB_FLOW",
+     "from": "img/media/g1.json#127",
+     "to": {
+      "src": "img/media/g1.json#181",
+      "name": "공유오피스 회의 테이블 옆 플립 사이니지 발표 · 패스트파이브",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · Flip으로 회의하는 사무 공간"
+    }
+   },
+   "5": {
+    "0": {
+     "f": "L_SUB_PAIN",
+     "from": "/assets/subs/pkg-office.webp",
+     "to": {
+      "src": "img/ph/of-desk-control.jpg",
+      "name": "PC로 냉난방을 관리하는 담당자 (대구상공회의소)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · PC로 냉난방을 관리하는 담당자(시설 관리)"
+    }
+   },
+   "29": {
+    "0": {
+     "f": "L_SUB_TERMS",
+     "from": "/assets/subs/pkg-office.webp",
+     "to": {
+      "src": "img/media/g1.json#1037",
+      "name": "목재 패널 벽의 사무실 · 삼성 시스템에어컨 글로벌 레퍼런스",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 목재 벽 사무실"
+    }
+   },
+   "25": {
+    "0": {
+     "f": "L_SUB_CARE4",
+     "from": "/assets/subs/care-1.webp",
+     "to": {
+      "src": "img/fill/office.json#7",
+      "name": "천장 실내기를 점검하는 엔지니어 (samsung.com)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 천장 실내기를 점검하는 엔지니어"
+    }
+   },
+   "38": {
+    "1": {
+     "f": "L_VS_WHY_2",
+     "from": "img/ph/of-demo-zone.jpg",
+     "to": {
+      "src": "img/fill/office.json#9",
+      "name": "벽걸이 전자칠판으로 발표하는 회의 (samsung.com)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 전자칠판으로 발표하는 전문가"
+    }
+   }
+  },
+  "bs_sub_fn_bank": {
+   "0": {
+    "0": {
+     "f": "L_C01",
+     "from": "img/ph/fn-auditorium.jpg",
+     "to": {
+      "src": "img/bs/bs17-1-t0.jpg",
+      "name": "T 은행 영업점 창구 · 태블릿 전자서식 상담",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 은행 창구 태블릿 상담, 은행명 없음"
+    }
+   },
+   "3": {
+    "1": {
+     "f": "L_SUB_ONE",
+     "from": "/assets/subs/pkg-public.webp",
+     "to": {
+      "src": "img/media/g0.json#539",
+      "name": "열람 공간 옆 복합기 코너 · 연세대학교",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 대학 도서관 공간"
+    }
+   },
+   "15": {
+    "0": {
+     "f": "L_VS_WHY_3",
+     "from": "img/fill/ais-a.json#5",
+     "to": {
+      "src": "img/bs/bs17-5-0.jpg",
+      "name": "시범점 창구 · 거치대 탭에 S펜으로 전자서식 작성",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "INDUSTRY · 창구 거치대 탭과 S펜(디바이스)"
+    }
+   },
+   "1": {
+    "0": {
+     "f": "L_TOC_INDEX4",
+     "from": "img/ph/fn-tab-banker.jpg",
+     "to": {
+      "src": "img/fill/r9-bs17.json#6",
+      "name": "밝은 은행 영업점 로비 (samsung.com 금융)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 밝은 영업점 로비"
+    },
+    "1": {
+     "f": "L_TOC_INDEX4",
+     "from": "img/ph/fn-branch.jpg",
+     "to": {
+      "src": "img/fill/r9-bs17.json#2",
+      "name": "모니터 · 태블릿으로 고객과 상품을 검토하는 금융 상담",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 모니터·태블릿 금융 상담(PB 상담)"
+    }
+   },
+   "11": {
+    "0": {
+     "f": "L_SUB_FLOW",
+     "from": "img/ph/fn-branch.jpg",
+     "to": {
+      "src": "img/bs/bs17-6-0.jpg",
+      "name": "방문 상담 · 직원이 탭 화면으로 상품 설명",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 직원이 탭으로 상품 설명하는 상담"
+    }
+   },
+   "5": {
+    "0": {
+     "f": "L_SUB_PKG4",
+     "from": "img/ph/fn-tab-customer.jpg",
+     "to": {
+      "src": "img/bs/bs17-7-t31.jpg",
+      "name": "고객 사업장 방문 상담 · 탭 큰 화면 상품 설명",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 라운지에서 태블릿으로 상담하는 PB"
+    }
+   },
+   "8": {
+    "0": {
+     "f": "L_SUB_TERMS",
+     "from": "img/ph/fn-tab-customer.jpg",
+     "to": {
+      "src": "img/media/g0.json#768",
+      "name": "로비 벽면에 설치된 디스플레이와 화분 · NH농협은행",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 영업점 로비 벽면 디스플레이"
+    }
+   }
+  },
+  "bs_account_inspire": {
+   "7": {
+    "6": {
+     "f": "L_PH_SS_HT_A",
+     "from": "img/media/g0.json#235",
+     "to": {
+      "src": "img/media/g0.json#40",
+      "name": "VXT 템플릿 라이브러리 화면",
+      "fit": "contain",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 운영 검수·관리 화면 → VXT CMS 콘텐츠 관리 화면(LYNK 컷은 p12 호텔 TV·LYNK 칸에 씀)"
+    },
+    "1": {
+     "f": "L_PH_SS_HT_A",
+     "from": "img/media/g0.json#810",
+     "to": {
+      "src": "img/media/g0.json#11",
+      "name": "로비 사이니지와 매직인포 원격 배포",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 로비·스마트 사이니지 → 로비 사이니지와 매직인포 원격 배포"
+    },
+    "4": {
+     "f": "L_PH_SS_HT_A",
+     "from": "img/media/g0.json#804",
+     "to": {
+      "src": "img/fill/ais-a.json#1",
+      "name": "인스파이어 오로라 – 천장·벽면 초대형 스마트 LED 사이니지 몰입형 공간",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 오로라 칸 → 인스파이어 오로라 LED 공간(고객사 사진)"
+    },
+    "2": {
+     "f": "L_PH_SS_HT_A",
+     "from": "img/media/g0.json#807",
+     "to": {
+      "src": "img/media/g0.json#34",
+      "name": "VXT 콘텐츠 주간 스케줄 화면",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 행사 안내·지원 CMS·게시 스케줄 → VXT 콘텐츠 주간 스케줄 화면"
+    }
+   },
+   "10": {
+    "2": {
+     "f": "L_PH_SO_B",
+     "from": "img/media/g0.json#806",
+     "to": {
+      "src": "img/media/g0.json#234",
+      "name": "클라우드 속 호텔 객실 TV 웰컴 화면",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 객실 채널(객실 TV) → 호텔 객실 TV 웰컴 화면"
+    },
+    "0": {
+     "f": "L_PH_SO_B",
+     "from": "img/media/g0.json#805",
+     "to": {
+      "src": "img/prod/g08.json#21",
+      "name": "VXT 솔루션 · VXT 솔루션",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 연회·운영 행사 안내 원본 확정 → VXT 캔버스 콘텐츠 제작 화면"
+    }
+   },
+   "11": {
+    "1": {
+     "f": "L_PH_P_O",
+     "from": "img/media/g0.json#809",
+     "to": {
+      "src": "img/media/g0.json#81",
+      "name": "VXT 캔버스 편집 화면과 픽사베이 이미지 창",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 안내·승인 절차 표준·지원 CMS → VXT 캔버스 편집 화면"
+    },
+    "0": {
+     "f": "L_PH_P_O",
+     "from": "img/media/g0.json#808",
+     "to": {
+      "src": "img/prod/g08.json#22",
+      "name": "LYNK Cloud · LYNK Cloud",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 호텔 TV·LYNK 활용 → LYNK Cloud 객실 관리 화면"
+    }
+   },
+   "6": {
+    "2": {
+     "f": "L_PH_CB_C",
+     "from": "img/media/g0.json#804",
+     "to": {
+      "src": "img/media/g0.json#59",
+      "name": "VXT CMS 주간 스케줄 편성 화면",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 03 채널 편성·게시 범위와 시간 → VXT CMS 주간 스케줄 편성 화면"
+    },
+    "1": {
+     "f": "L_PH_CB_C",
+     "from": "img/media/g0.json#811",
+     "to": {
+      "src": "img/media/g0.json#16",
+      "name": "다양한 광고 콘텐츠 위 VXT 메인 UI",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 02 콘텐츠 승인 → VXT CMS 콘텐츠 관리 화면"
+    }
+   },
+   "3": {
+    "3": {
+     "f": "L_PH_CB_B",
+     "from": "img/media/g0.json#806",
+     "to": {
+      "src": "img/media/g0.json#5",
+      "name": "노트북 광고 편집 화면과 매장 사이니지",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 게시 결과·예외 대응 확인 → 노트북 편집 화면과 벽면 사이니지 게시"
+    },
+    "2": {
+     "f": "L_PH_CB_B",
+     "from": "img/media/g0.json#805",
+     "to": {
+      "src": "img/media/g0.json#72",
+      "name": "VXT 스크린별 콘텐츠 배포 설정 창",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 한 행사 정보가 여러 접점으로 → VXT 스크린별 콘텐츠 배포 창"
+    }
+   },
+   "2": {
+    "1": {
+     "f": "L_PH_CB_M",
+     "from": "img/media/g0.json#807",
+     "to": {
+      "src": "img/media/g0.json#9",
+      "name": "노트북에서 매장 사이니지로 콘텐츠 송출",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 예약·일정·안내 정보를 실제 접점에 반영 → 노트북에서 사이니지로 콘텐츠 송출"
+    }
+   }
+  },
+  "bs_account_paulbassett": {
+   "4": {
+    "0": {
+     "f": "L_TOC_UAPAIN",
+     "from": "img/media/g0.json#687",
+     "to": {
+      "src": "img/media/g0.json#56",
+      "name": "VXT Canvas 템플릿 편집 화면(카페 메뉴)",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 시즌 메뉴를 본사가 한 번에 변경 → VXT Canvas 카페 메뉴 편집 화면"
+    },
+    "2": {
+     "f": "L_TOC_UAPAIN",
+     "from": "img/media/g0.json#666",
+     "to": {
+      "src": "img/media/g0.json#153",
+      "name": "스마트싱스 연결 매장 기기 구성",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 매장 기기와 에너지 관리 → 스마트싱스 연결 매장 기기 구성"
+    }
+   },
+   "5": {
+    "1": {
+     "f": "L_PH_CH_B",
+     "from": "img/ph/fb-counter-menu.jpg",
+     "to": {
+      "src": "img/media/g0.json#55",
+      "name": "VXT 클라우드에서 지점 6곳 사이니지로 배포",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 바라는 모습(본사 제작·당일 배포) → VXT 클라우드에서 지점 6곳 배포"
+    }
+   },
+   "10": {
+    "0": {
+     "f": "L_PH_SOL_S",
+     "from": "img/media/g0.json#758",
+     "to": {
+      "src": "img/media/g0.json#81",
+      "name": "VXT 캔버스 편집 화면과 픽사베이 이미지 창",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 오픈 전 템플릿·이미지로 콘텐츠 제작 → VXT 캔버스와 이미지 창"
+    },
+    "1": {
+     "f": "L_PH_SOL_S",
+     "from": "img/media/g0.json#755",
+     "to": {
+      "src": "img/media/g0.json#34",
+      "name": "VXT 콘텐츠 주간 스케줄 화면",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 오전 스케줄 자동 배포 → VXT 주간 스케줄 화면"
+    },
+    "2": {
+     "f": "L_PH_SOL_S",
+     "from": "img/media/g0.json#724",
+     "to": {
+      "src": "img/media/g0.json#57",
+      "name": "VXT CMS 콘텐츠 목록·화면 게시 메뉴",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 피크 원격 수정 → VXT CMS 콘텐츠 목록·화면 게시 메뉴"
+    },
+    "3": {
+     "f": "L_PH_SOL_S",
+     "from": "img/ph/fb-pickup.jpg",
+     "to": {
+      "src": "img/media/g0.json#16",
+      "name": "다양한 광고 콘텐츠 위 VXT 메인 UI",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 마감 전 지점 운영 현황 확인 → VXT CMS 메인 화면"
+    }
+   },
+   "11": {
+    "0": {
+     "f": "L_VS_DIV_R5",
+     "from": "img/ph/fb-cafe-counter.jpg",
+     "to": {
+      "src": "/assets/account-cases/paul-brandSubVisual.webp",
+      "name": "폴 바셋 브랜드 소개의 커피 원두 이미지 · 엠즈씨드·폴 바셋",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 폴 바셋 간지 → 폴 바셋 브랜드 원두 사진(고객사 사진, 전면 확대라 다소 흐림)"
+    }
+   },
+   "13": {
+    "0": {
+     "f": "L_TOC_JOURNEY3",
+     "from": "img/media/g0.json#729",
+     "to": {
+      "src": "img/media/g0.json#42",
+      "name": "VXT Canvas 메뉴 위젯 편집 화면",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · VXT Canvas로 시즌 음료 메뉴판 제작 → VXT Canvas 메뉴 위젯 편집 화면"
+    },
+    "1": {
+     "f": "L_TOC_JOURNEY3",
+     "from": "img/media/g0.json#737",
+     "to": {
+      "src": "img/media/g0.json#60",
+      "name": "VXT CMS 화면 설정·보안 잠금 화면",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 진열대 E-Paper·보안 잠금 → VXT 보안 잠금 설정 화면"
+    },
+    "2": {
+     "f": "L_TOC_JOURNEY3",
+     "from": "img/media/g0.json#670",
+     "to": {
+      "src": "img/media/g0.json#160",
+      "name": "폰 에너지 절약 모드와 공기청정기",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "CUSTOMER · 공기청정기·AI 쾌적 제어 → 폰 에너지 절약 모드와 공기청정기(작은 홍보 말풍선 있음)"
+    }
+   }
+  },
+  "bs_account_episode": {
+   "9": {
+    "0": {
+     "f": "L_PH_SOL_S",
+     "from": "img/media/g0.json#159",
+     "to": {
+      "src": "img/media/g0.json#107",
+      "name": "스마트싱스 프로와 공조 제어기 연동 구성도",
+      "fit": "contain",
+      "pos": "50% 50%"
+     },
+     "why": "MISMATCH · 자산 대조(기기·지원 모델) → 스마트싱스 프로 연동 기기 구성도"
+    },
+    "3": {
+     "f": "L_PH_SOL_S",
+     "from": "/assets/account-cases/episode-ROOFTOP.webp",
+     "to": {
+      "src": "img/media/g0.json#219",
+      "name": "천장형 에어컨 세척·점검 키 비주얼",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 퇴거 인수·공실 상태 복귀 점검 → 천장형 에어컨 세척·점검 비주얼"
+    }
+   },
+   "7": {
+    "0": {
+     "f": "L_PH_SS_RS_A",
+     "from": "/assets/account-cases/episode-1-1-1.webp",
+     "to": {
+      "src": "img/media/g1.json#308",
+      "name": "침대에서 기지개 켜는 입주민 · 에피소드 용산 241",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 전용 세대·개인 생활 → 세대 침실의 입주민(고객사 사진)"
+    },
+    "4": {
+     "f": "L_PH_SS_RS_A",
+     "from": "/assets/account-cases/episode-CON-T-01.webp",
+     "to": {
+      "src": "/assets/account-cases/episode-5-1.webp",
+      "name": "에피소드의 방문 QR 이용 공식 서비스 이미지 · 에피소드 용산241",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · CON-T 로비·자체 앱·QR 서비스 → 에피소드 방문 QR 이용 사진"
+    },
+    "1": {
+     "f": "L_PH_SS_RS_A",
+     "from": "/assets/account-cases/episode-1-1-2.webp",
+     "to": {
+      "src": "/assets/account-cases/episode-5-2.webp",
+      "name": "에피소드의 원격 제어 공식 서비스 이미지 · 에피소드 용산241",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 세대 거실·연결·동작 → 거실에서 폰으로 원격 제어하는 입주민"
+    },
+    "2": {
+     "f": "L_PH_SS_RS_A",
+     "from": "/assets/account-cases/episode-1-1-3.webp",
+     "to": {
+      "src": "img/media/g1.json#310",
+      "name": "침대에서 쉬는 입주민 · 에피소드 용산 241",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 세대 침실·공조·센서 → 침실의 입주민과 협탁 기기"
+    },
+    "3": {
+     "f": "L_PH_SS_RS_A",
+     "from": "/assets/account-cases/episode-1-3-3.webp",
+     "to": {
+      "src": "img/media/g0.json#299",
+      "name": "모바일 HASS 설치 점검·진단 앱 화면",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 기기 목록과 상태·설치 모델 확인 → 설치 점검·진단 앱 화면"
+    }
+   },
+   "10": {
+    "4": {
+     "f": "L_PH_SO_B",
+     "from": "/assets/account-cases/episode-3-R.webp",
+     "to": {
+      "src": "img/media/g0.json#248",
+      "name": "갤럭시 북의 Knox Manage 화면",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 운영·IT 권한 해제 검수 → Knox Manage 기기 관리 화면"
+    }
+   },
+   "2": {
+    "2": {
+     "f": "L_PH_CB_M",
+     "from": "/assets/account-cases/episode-5-3.webp",
+     "to": {
+      "src": "img/media/g0.json#113",
+      "name": "단지 서비스 앱 화면 4종과 피트니스 공간",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 입주자 앱·공용 공간 이용 → 단지 서비스 앱 화면과 피트니스 공간"
+    }
+   },
+   "11": {
+    "0": {
+     "f": "L_PH_P_O",
+     "from": "/assets/account-cases/episode-5-3.webp",
+     "to": {
+      "src": "/assets/account-cases/episode-5-4.webp",
+      "name": "에피소드의 모바일 앱 이용 공식 이미지 · 에피소드 용산241",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 현재 앱·가전·계정 유지 → 에피소드 모바일 앱 사진"
+    }
+   },
+   "5": {
+    "0": {
+     "f": "L_PH_OV_E",
+     "from": "/assets/account-cases/episode-1-1-2.webp",
+     "to": {
+      "src": "img/media/g1.json#306",
+      "name": "책장과 원형 테이블이 있는 거실 · 에피소드 용산 241",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 공개 자료·기존 IoT 주거 → 에피소드 세대 거실(로봇청소기) 사진"
+    }
+   },
+   "3": {
+    "1": {
+     "f": "L_PH_CB_B",
+     "from": "/assets/account-cases/episode-1-1-3.webp",
+     "to": {
+      "src": "img/media/g0.json#175",
+      "name": "스마트싱스 아이콘으로 연결된 주택가 그림",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 기존 앱·IoT·공용 서비스 유지 → 스마트싱스로 연결된 주거 단지 그림"
+    },
+    "3": {
+     "f": "L_PH_CB_B",
+     "from": "/assets/account-cases/episode-1-3-3.webp",
+     "to": {
+      "src": "img/media/g0.json#254",
+      "name": "Knox 방패가 뜬 업무용 러기드 태블릿",
+      "fit": "cover",
+      "pos": "50% 50%"
+     },
+     "why": "REPEAT · 접근 권한 분리·운영/개인 데이터 구분 → Knox 보안 업무 태블릿"
+    }
+   }
+  }
+ },
  "replace": {
   "img/prod/g00.json#95": {
    "src": "img/prod/g00.json#94",
