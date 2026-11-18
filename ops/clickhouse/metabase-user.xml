@@ -1,0 +1,29 @@
+<!-- Metabase가 Langfuse 데이터를 조회하는 읽기 전용 ClickHouse 계정.
+     비밀번호는 컨테이너 환경변수 CLICKHOUSE_METABASE_PASSWORD(루트 .env)에서 읽는다.
+     readonly=2: 데이터 · 스키마 변경은 막고, Metabase 드라이버가 쿼리마다 바꾸는 설정은 허용.
+     Langfuse 데이터(default)와 드라이버가 확인하는 system.clusters만 읽을 수 있다. -->
+<clickhouse>
+    <profiles>
+        <metabase_readonly>
+            <readonly>2</readonly>
+            <max_execution_time>60</max_execution_time>
+            <max_memory_usage>1000000000</max_memory_usage>
+            <max_result_rows>1000000</max_result_rows>
+        </metabase_readonly>
+    </profiles>
+    <users>
+        <metabase>
+            <password from_env="CLICKHOUSE_METABASE_PASSWORD"/>
+            <networks>
+                <ip>::/0</ip>
+            </networks>
+            <profile>metabase_readonly</profile>
+            <quota>default</quota>
+            <access_management>0</access_management>
+            <grants>
+                <query>GRANT SELECT ON default.*</query>
+                <query>GRANT SELECT ON system.clusters</query>
+            </grants>
+        </metabase>
+    </users>
+</clickhouse>

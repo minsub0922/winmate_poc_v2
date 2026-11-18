@@ -1,0 +1,259 @@
+# Winmate 운영 모니터링 스택 — Langfuse(LLM trace) + Metabase(운영 대시보드)
+#
+#   bash ops/start.sh        # 또는 Finder에서 ops/start.command 더블클릭
+#
+# 호스트에 여는 포트는 두 개뿐이다(기본 127.0.0.1에만 바인딩, 루트 .env의 OPS_BIND로 변경).
+#   Langfuse  http://localhost:${LANGFUSE_PORT:-8810}
+#   Metabase  http://localhost:${METABASE_PORT:-8820}
+# ClickHouse · Postgres · Redis · MinIO는 내부 네트워크에만 있다(Winmate의 llm-redis 6379와 충돌하지 않게).
+# 구성 기준값(포트 · 버전 · 연결 설정)은 루트 .env.example의 「운영 모니터링」 구역(Git 포함). ops/start.sh가 이를 바탕으로
+# 루트 .env(Git 제외)를 채우고 비어 있는 비밀값은 무작위로 만든다. 아래 변수의 ':-' 뒤 기본값은 .env.example과 같다.
+name: winmate-ops
+
+x-langfuse-env: &langfuse-env
+  NEXTAUTH_URL: http://localhost:${LANGFUSE_PORT:-8810}
+  DATABASE_URL: postgresql://postgres:${LANGFUSE_POSTGRES_PASSWORD:?run ops/start.sh}@langfuse-postgres:5432/postgres
+  SALT: ${LANGFUSE_SALT:?run ops/start.sh}
+  ENCRYPTION_KEY: ${LANGFUSE_ENCRYPTION_KEY:?run ops/start.sh}
+  TELEMETRY_ENABLED: "false"
+  LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES: "false"
+  CLICKHOUSE_MIGRATION_URL: clickhouse://clickhouse:9000
+  CLICKHOUSE_URL: http://clickhouse:8123
+  CLICKHOUSE_USER: clickhouse
+  CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:?run ops/start.sh}
+  CLICKHOUSE_CLUSTER_ENABLED: "false"
+  LANGFUSE_S3_EVENT_UPLOAD_BUCKET: langfuse
+  LANGFUSE_S3_EVENT_UPLOAD_REGION: auto
+  LANGFUSE_S3_EVENT_UPLOAD_ACCESS_KEY_ID: minio
+  LANGFUSE_S3_EVENT_UPLOAD_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:?run ops/start.sh}
+  LANGFUSE_S3_EVENT_UPLOAD_ENDPOINT: http://minio:9000
+  LANGFUSE_S3_EVENT_UPLOAD_FORCE_PATH_STYLE: "true"
+  LANGFUSE_S3_EVENT_UPLOAD_PREFIX: events/
+  LANGFUSE_S3_MEDIA_UPLOAD_BUCKET: langfuse
+  LANGFUSE_S3_MEDIA_UPLOAD_REGION: auto
+  LANGFUSE_S3_MEDIA_UPLOAD_ACCESS_KEY_ID: minio
+  LANGFUSE_S3_MEDIA_UPLOAD_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:?run ops/start.sh}
+  LANGFUSE_S3_MEDIA_UPLOAD_ENDPOINT: http://minio:9000
+  LANGFUSE_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE: "true"
+  LANGFUSE_S3_MEDIA_UPLOAD_PREFIX: media/
+  LANGFUSE_S3_BATCH_EXPORT_ENABLED: "false"
+  REDIS_HOST: langfuse-redis
+  REDIS_PORT: "6379"
+  REDIS_AUTH: ${LANGFUSE_REDIS_PASSWORD:?run ops/start.sh}
+  TZ: UTC
+
+services:
+  langfuse-web:
+    image: docker.langfuse.com/langfuse/langfuse:${LANGFUSE_IMAGE_TAG:-4.79.0}
+    restart: unless-stopped
+    # restart: true — 의존 서비스가 다시 만들어지면(이미지 버전 변경 등) 함께 재시작해 끊긴 연결을 남기지 않는다
+    depends_on: &langfuse-deps
+      langfuse-postgres: {condition: service_healthy, restart: true}
+      minio: {condition: service_healthy, restart: true}
+      langfuse-redis: {condition: service_healthy, restart: true}
+      clickhouse: {condition: service_healthy, restart: true}
+    ports:
+      - ${OPS_BIND:-127.0.0.1}:${LANGFUSE_PORT:-8810}:3000
+    environment:
+      <<: *langfuse-env
+      NEXTAUTH_SECRET: ${LANGFUSE_NEXTAUTH_SECRET:?run ops/start.sh}
+      AUTH_DISABLE_SIGNUP: "true"
+      LANGFUSE_INIT_ORG_ID: winmate
+      LANGFUSE_INIT_ORG_NAME: Winmate
+      LANGFUSE_INIT_PROJECT_ID: ${LANGFUSE_PROJECT_ID:-winmate}
+      LANGFUSE_INIT_PROJECT_NAME: Winmate
+      LANGFUSE_INIT_PROJECT_PUBLIC_KEY: ${LANGFUSE_PUBLIC_KEY:?run ops/start.sh}
+      LANGFUSE_INIT_PROJECT_SECRET_KEY: ${LANGFUSE_SECRET_KEY:?run ops/start.sh}
+      LANGFUSE_INIT_USER_EMAIL: ${OPS_ADMIN_EMAIL:-admin@winmate.local}
+      LANGFUSE_INIT_USER_NAME: Winmate Admin
+      LANGFUSE_INIT_USER_PASSWORD: ${LANGFUSE_ADMIN_PASSWORD:?run ops/start.sh}
+    healthcheck:
+      # Next.js가 컨테이너 호스트명 주소에만 바인딩하므로 127.0.0.1이 아니라 $HOSTNAME으로 확인한다
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://$$HOSTNAME:3000/api/public/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+    deploy: {resources: {limits: {memory: 1536m}}}
+
+  langfuse-worker:
+    image: docker.langfuse.com/langfuse/langfuse-worker:${LANGFUSE_IMAGE_TAG:-4.79.0}
+    restart: unless-stopped
+    depends_on: *langfuse-deps
+    environment: *langfuse-env
+    deploy: {resources: {limits: {memory: 1536m}}}
+
+  clickhouse:
+    image: docker.io/clickhouse/clickhouse-server:${CLICKHOUSE_IMAGE_TAG:-26.3.62.3}
+    restart: unless-stopped
+    user: "101:101"
+    environment:
+      CLICKHOUSE_DB: default
+      CLICKHOUSE_USER: clickhouse
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:?run ops/start.sh}
+      # Metabase가 Langfuse 데이터를 읽는 전용 계정(읽기 전용) — clickhouse/metabase-user.xml
+      CLICKHOUSE_METABASE_PASSWORD: ${CLICKHOUSE_METABASE_PASSWORD:?run ops/start.sh}
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+      - clickhouse_logs:/var/log/clickhouse-server
+      - ./clickhouse/metabase-user.xml:/etc/clickhouse-server/users.d/metabase-user.xml:ro
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:8123/ping || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+    deploy: {resources: {limits: {memory: 2g}}}
+
+  minio:
+    image: ${MINIO_IMAGE:-cgr.dev/chainguard/minio@sha256:96b6cf3e14084d3427ec46de10c2873af61b945ad9272eec266cfc8df551cba5}
+    restart: unless-stopped
+    entrypoint: sh
+    command: -c 'mkdir -p /data/langfuse && minio server --address ":9000" --console-address ":9001" /data'
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:?run ops/start.sh}
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 2s
+      timeout: 5s
+      retries: 15
+      start_period: 2s
+    deploy: {resources: {limits: {memory: 512m}}}
+
+  langfuse-redis:
+    image: docker.io/redis:${REDIS_IMAGE_TAG:-7.4.12}
+    restart: unless-stopped
+    command: ["--requirepass", "${LANGFUSE_REDIS_PASSWORD:?run ops/start.sh}", "--maxmemory-policy", "noeviction"]
+    volumes:
+      - langfuse_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${LANGFUSE_REDIS_PASSWORD}", "--no-auth-warning", "ping"]
+      interval: 3s
+      timeout: 10s
+      retries: 10
+    deploy: {resources: {limits: {memory: 256m}}}
+
+  langfuse-postgres:
+    image: docker.io/postgres:${POSTGRES_IMAGE_TAG:-17.12}
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${LANGFUSE_POSTGRES_PASSWORD:?run ops/start.sh}
+      POSTGRES_DB: postgres
+      TZ: UTC
+      PGTZ: UTC
+    volumes:
+      - langfuse_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    deploy: {resources: {limits: {memory: 512m}}}
+
+  # Metabase 앱 DB(metabase)와 Winmate 운영 데이터 사본(winmate)을 담는 Postgres
+  analytics-db:
+    image: docker.io/postgres:${POSTGRES_IMAGE_TAG:-17.12}
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${ANALYTICS_POSTGRES_PASSWORD:?run ops/start.sh}
+      POSTGRES_DB: postgres
+      METABASE_DB_PASSWORD: ${METABASE_DB_PASSWORD:?run ops/start.sh}
+      ANALYTICS_LOADER_PASSWORD: ${ANALYTICS_LOADER_PASSWORD:?run ops/start.sh}
+      ANALYTICS_READER_PASSWORD: ${ANALYTICS_READER_PASSWORD:?run ops/start.sh}
+      TZ: Asia/Seoul
+    volumes:
+      - analytics_postgres_data:/var/lib/postgresql/data
+      - ./postgres/init.sh:/docker-entrypoint-initdb.d/10-winmate.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d winmate"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+    deploy: {resources: {limits: {memory: 512m}}}
+
+  # Winmate가 ops/data/snapshots에 남긴 운영 DB 사본(비밀번호 해시 제외)을 Postgres로 옮긴다
+  winmate-sync:
+    build:
+      context: ./sync
+      args:
+        PYTHON_IMAGE: ${PYTHON_IMAGE:-python:3.12.16-slim}
+    image: winmate-ops/sync:1
+    restart: unless-stopped
+    depends_on:
+      analytics-db: {condition: service_healthy, restart: true}
+    environment:
+      SYNC_DSN: postgresql://winmate_loader:${ANALYTICS_LOADER_PASSWORD}@analytics-db:5432/winmate
+      SYNC_READER_ROLE: metabase_ro
+      SYNC_INTERVAL: ${SYNC_INTERVAL:-60}
+      SNAPSHOT_DIR: /snapshots
+      LANGFUSE_PUBLIC_URL: http://localhost:${LANGFUSE_PORT:-8810}
+      LANGFUSE_PROJECT_ID: ${LANGFUSE_PROJECT_ID:-winmate}
+      TZ: Asia/Seoul
+    volumes:
+      - ./data/snapshots:/snapshots:ro
+    deploy: {resources: {limits: {memory: 512m}}}
+
+  metabase:
+    image: docker.io/metabase/metabase:${METABASE_IMAGE_TAG:-v0.65.4.3}
+    restart: unless-stopped
+    depends_on:
+      analytics-db: {condition: service_healthy, restart: true}
+    ports:
+      - ${OPS_BIND:-127.0.0.1}:${METABASE_PORT:-8820}:3000
+    environment:
+      MB_DB_TYPE: postgres
+      MB_DB_HOST: analytics-db
+      MB_DB_PORT: "5432"
+      MB_DB_DBNAME: metabase
+      MB_DB_USER: metabase_app
+      MB_DB_PASS: ${METABASE_DB_PASSWORD:?run ops/start.sh}
+      MB_SESSION_SECRET_KEY: ${METABASE_SESSION_SECRET:?run ops/start.sh}
+      MB_ENCRYPTION_SECRET_KEY: ${METABASE_ENCRYPTION_SECRET:?run ops/start.sh}
+      MB_LOAD_SAMPLE_CONTENT: "false"
+      MB_SITE_URL: http://localhost:${METABASE_PORT:-8820}
+      MB_SITE_LOCALE: ko
+      MB_ANON_TRACKING_ENABLED: "false"
+      MB_CHECK_FOR_UPDATES: "false"
+      MB_REPORT_TIMEZONE: Asia/Seoul
+      JAVA_TIMEZONE: Asia/Seoul
+      JAVA_OPTS: -Xmx1g
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:3000/api/health >/dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 40
+      start_period: 60s
+    # JVM 힙 1 GiB + 메타스페이스 · 네이티브 메모리 여유(힙과 같은 한도면 동기화 중 강제 종료됨)
+    deploy: {resources: {limits: {memory: 2560m}}}
+
+  # 처음 한 번: 관리자 계정 · 데이터 연결(Winmate 운영 데이터, Langfuse ClickHouse) · 기본 대시보드. 다시 실행해도 안전하다.
+  metabase-init:
+    image: winmate-ops/sync:1
+    pull_policy: never
+    restart: "no"
+    depends_on:
+      metabase: {condition: service_healthy}
+      winmate-sync: {condition: service_started}
+    command: ["python", "-u", "/init/init.py"]
+    environment:
+      MB_URL: http://metabase:3000
+      MB_ADMIN_EMAIL: ${OPS_ADMIN_EMAIL:-admin@winmate.local}
+      MB_ADMIN_PASSWORD: ${METABASE_ADMIN_PASSWORD:?run ops/start.sh}
+      ANALYTICS_READER_PASSWORD: ${ANALYTICS_READER_PASSWORD:?run ops/start.sh}
+      CLICKHOUSE_METABASE_PASSWORD: ${CLICKHOUSE_METABASE_PASSWORD:?run ops/start.sh}
+      LANGFUSE_PUBLIC_URL: http://localhost:${LANGFUSE_PORT:-8810}
+    volumes:
+      - ./metabase:/init:ro
+
+volumes:
+  langfuse_postgres_data:
+  langfuse_redis_data:
+  clickhouse_data:
+  clickhouse_logs:
+  minio_data:
+  analytics_postgres_data:

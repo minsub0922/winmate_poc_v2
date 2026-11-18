@@ -1,9 +1,10 @@
+# 포트 · 바인딩은 루트 .env.example(LLM_REDIS_BIND · LLM_REDIS_PORT)에서 읽는다 — make llm-redis 로 띄운다.
 services:
   llm-redis:
     image: redis:7.4.2-alpine
     command: [redis-server, --appendonly, 'yes', --appendfsync, always, --maxmemory-policy, noeviction]
     ports:
-      - '127.0.0.1:6379:6379'
+      - '${LLM_REDIS_BIND:?make llm-redis 로 실행하세요}:${LLM_REDIS_PORT:?make llm-redis 로 실행하세요}:6379'
     volumes:
       - llm-redis:/data
     restart: unless-stopped

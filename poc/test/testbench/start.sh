@@ -1,10 +1,10 @@
 #!/bin/bash
 # Winmate PoC 테스트 벤치 — 처음 한 번 가상환경을 만들고, 서버를 백그라운드로 띄운다(창을 닫아도 계속 실행).
-#   ./start.sh            → http://127.0.0.1:8787
-#   TESTBENCH_PORT=9000 ./start.sh
+#   ./start.sh            → http://127.0.0.1:<TESTBENCH_PORT>
+# 포트 · 바인딩(TESTBENCH_PORT · TESTBENCH_HOST): 셸 변수 > 루트 .env > 루트 .env.example
 cd "$(dirname "$0")" || exit 1
-PORT="${TESTBENCH_PORT:-8787}"
-export TESTBENCH_PORT="$PORT"
+. ../../../app/scripts/ports.sh && winmate_env TESTBENCH_PORT TESTBENCH_HOST || exit 1
+PORT="$TESTBENCH_PORT"
 URL="http://127.0.0.1:$PORT"
 
 if lsof -nP -iTCP:"$PORT" -sTCP:LISTEN >/dev/null 2>&1; then

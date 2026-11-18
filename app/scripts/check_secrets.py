@@ -6,7 +6,7 @@ import re,subprocess,sys
 ROOT=Path(__file__).resolve().parents[2]
 def main():
  secrets=[]
- for rel in ['poc/.env','app/.env']:
+ for rel in ['.env']:
   p=ROOT/rel
   if not p.exists():continue
   for line in p.read_text().splitlines():

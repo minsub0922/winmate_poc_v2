@@ -18,7 +18,7 @@ LLM API 호출 자료의 절대경로:
    모델 ID, 인증 키 두 개의 용도와 전달 방식, 요청·응답·스트림 형식은 자료를 따른다.
    현재의 공통 호출 큐·재시도·취소·사용량 집계와 앱의 입출력 계약을 유지한다.
 3. WINMATE_LLM_PROVIDER=internal이면 사내 LLM을, gemini이면 Gemini를 사용하게 한다.
-   기본값은 internal이며, 선택한 연결이 실패해도 다른 제공자로 자동 전환하지 않는다.
+   기본값은 openrouter(Qwen, qwen/qwen3.6-35b-a3b)이며, 선택한 연결이 실패해도 다른 제공자로 자동 전환하지 않는다.
    텍스트·JSON·이미지·SSE와 앱이 사용하는 검색 호출도 자료에 맞게 연결한다.
 4. 아래 절차로 의존성·데이터·공간 라이브러리·Agent KB·웹을 준비하고 사용자 앱을 실행한다.
    admin/ 관리 앱은 연결하거나 실행하지 않는다.
@@ -65,36 +65,41 @@ npm --prefix app/web ci --include=dev --no-audit --no-fund
 
 루트 `package.json`은 자료 제작 도구용이다. 웹앱 설치·빌드는 `app/web/package.json`과 그 lock 파일을 사용한다. `app/tests/requirements.txt`에는 서버 실행 의존성도 포함된다.
 
-브라우저 자동 검증까지 실행할 경우 Chromium과 Ubuntu 실행 라이브러리를 설치한다.
+3D 조감도 카드 미리보기를 서버가 렌더링하고(`app/scripts/spatial_render_worker.mjs`) 브라우저 자동 검증도 같은 Chromium을 쓰므로, Chromium과 Ubuntu 실행 라이브러리를 설치한다. 없으면 서버는 설치된 Chrome(`WINMATE_SPATIAL_RENDER_CHROME`)을 찾고, 그것도 없으면 브라우저가 예전처럼 직접 그린다.
 
 ```bash
 node app/web/node_modules/playwright/cli.js install --with-deps chromium
 ```
 
+이미지 캐시 Redis(최대 3gb · LRU)는 루트 `.env`의 `WINMATE_CACHE_*` 값으로 `bash app/scripts/cache_redis.sh up`(Docker 또는 `redis-server`, 둘 다 없으면 npm `redis-memory-server`로 `.env`의 `WINMATE_CACHE_REDIS_VERSION`을 한 번 빌드)이 띄운다. `./start.sh`도 `WINMATE_CACHE_BACKEND=redis`이면 함께 띄우며, 띄우지 못하면 메모리 캐시로 시작한다.
+
 ## 3. LLM 선택과 API 연결
 
 ```bash
-cp -n app/.env.example app/.env
+cp -n .env.example .env
 ```
 
-`app/.env`의 선택 값은 다음 두 가지다.
+설정 파일은 저장소 루트의 `.env` 하나뿐이다(앱 · `poc/test` 실험 도구 · `ops/` 운영 스택 공통). 사내 LLM으로 재현할 때는 선택 값을 다음처럼 바꾼다.
 
 ```dotenv
 WINMATE_LLM_PROVIDER=internal
 ```
 
-- `internal`: 기본값. 위 절대경로의 자료를 읽고 사내 API 연결과 `INTERNAL_LLM_*` 설정을 완성한다.
-- `gemini`: Gemini 사용. `GEMINI_API_KEY`와 필요한 `GEMINI_*` 모델 설정을 사용한다.
+- `openrouter`: 기본값(값이 없을 때도 이것). `OPENROUTER_API_KEY`와 `OPENROUTER_MODEL`(기본 Qwen, qwen/qwen3.6-35b-a3b)을 사용한다.
+- `internal`: 위 절대경로의 자료를 읽고 사내 API 연결과 `INTERNAL_LLM_*` 설정을 완성한다.
+- `gemini`: 선택 시에만 Gemini 사용. `GEMINI_API_KEY`와 필요한 `GEMINI_*` 모델 설정을 사용한다(기본 경로에서는 호출하지 않음).
 
-두 제공자의 설정은 같은 파일에 둘 수 있다. 선택된 제공자의 전용 설정이 공통 `WINMATE_LLM_*` 호환 설정보다 우선한다. 동일 변수의 입력 우선순위는 실행 환경 → `app/.env` → `poc/.env`다. 실제 키는 서버 설정에만 둔다.
+여러 제공자의 설정은 같은 파일에 함께 둘 수 있다. 선택된 제공자의 전용 설정이 공통 `WINMATE_LLM_*` 호환 설정보다 우선한다. 동일 변수의 입력 우선순위는 실행 환경 → 루트 `.env`다. 실제 키는 서버 설정에만 둔다.
 
-Gemini로 실행할 때는 환경변수 한 개로 선택을 바꿀 수 있다.
+Gemini로 실행할 때만 환경변수 한 개로 선택을 바꾼다.
 
 ```bash
 WINMATE_LLM_PROVIDER=gemini ./start.sh
 ```
 
 현재 `InternalAdapter`는 기존 Chat Completions 호환 전송을 기반으로 한다. 실제 API 자료를 확인한 뒤 요청·응답·인증·이미지·스트림·검색 처리를 해당 규격에 맞춘다. 앱 화면이나 업무별 코드에 모델 호출을 나누어 넣지 않는다. 설정을 바꾼 뒤 서버를 재시작한다.
+
+선택: 루트 `.env`에 `TYPESAFE_API_KEY`(Decision 모델, TypeSafe Jev)를 넣으면 판단형 작업 5개(검색 재정렬 · 카탈로그 순위 · 평가 기준 라우팅 · 레이아웃 선택 · Best Scenario 선택)를 LLM 대신 Decision 모델로 처리한다. 입력 · 결과 형식은 같고, 키가 없으면 LLM으로 처리한다. 자세한 내용은 `docs/decision-model/REPORT.md`.
 
 ## 4. 실행
 
@@ -115,7 +120,7 @@ app/.venv/bin/python -B -m uvicorn app.api.main:app \
   --host 127.0.0.1 --port 8788 --workers 1 --no-access-log
 ```
 
-종료는 Ctrl+C, 재시작은 같은 명령이다. 포트 변경은 `WINMATE_API_PORT=8790 ./start.sh`처럼 지정한다. 웹과 API는 같은 주소에서 제공한다.
+종료는 Ctrl+C, 재시작은 같은 명령이다. 포트 · 바인딩 기본값은 루트 `.env.example`의 「포트 · 바인딩」 구역에 있다. 바꾸려면 루트 `.env`에 `WINMATE_API_PORT=8794`를 넣거나 `WINMATE_API_PORT=8794 ./start.sh`처럼 한 번만 지정한다(셸 변수 > `.env` > `.env.example`). 웹과 API는 같은 주소에서 제공한다.
 
 ### 데이터와 웹을 수동으로 준비할 때
 
@@ -176,15 +181,15 @@ unset WINMATE_TEST_PASSWORD
 
 ## 7. 기존 작업 내용 이전
 
-새 설치에 Mac의 제안서·히스토리·찜·검토·시뮬레이션까지 옮기려면 원래 사용하던 브라우저의 `/migration.html`에서 JSON을 내보내고 새 앱의 같은 페이지에서 가져온다. 이미지와 첨부 문서도 포함된다.
+제안서·히스토리·찜·검토·시뮬레이션·고객 프로필·업로드 이미지·첨부 원문·건물 조감도는 이제 계정 서버(`app/data/runtime/account_data.sqlite`)가 원본이다. 예전 브라우저에만 있던 기록은 그 브라우저로 로그인하면 자동으로 계정에 올라가며(서버의 최신 수정·삭제는 덮지 않음), 다른 브라우저·기기는 같은 계정으로 로그인하면 바로 보인다. 새 서버로 옮길 때는 아래처럼 이 DB를 백업·복원한다. 브라우저만 있는 경우의 `/migration.html` JSON 내보내기·가져오기도 그대로 쓸 수 있다.
 
-서버에 저장한 공유본·My 템플릿·공간 기록과 기존 로그인을 유지하려면 앱을 종료한 상태에서 `app/data/runtime/`의 해당 DB·파일을 별도로 백업·복원한다. SQLite의 동반 WAL/SHM 파일과 실제 저장 경로도 함께 확인한다. 제품 snapshot·KB·호출 큐·응답 캐시는 새 환경에서 재생성한다.
+서버에 저장한 계정 기록(`account_data.sqlite`)·공유본·My 템플릿·공간 기록과 기존 로그인을 유지하려면 앱을 종료한 상태에서 `app/data/runtime/`의 해당 DB·파일을 별도로 백업·복원한다. SQLite의 동반 WAL/SHM 파일과 실제 저장 경로도 함께 확인한다. 제품 snapshot·KB·호출 큐·응답 캐시·조감도 미리보기(`spatial-previews/`)·이미지 캐시 Redis는 새 환경에서 재생성한다.
 
 ## 8. 문제 해결
 
 | 증상 | 확인할 항목 |
 |---|---|
-| LLM 설정이 없어 시작 실패 | 기본값 `internal`의 API 자료·설정을 적용했는지 확인. Gemini 사용 시 `WINMATE_LLM_PROVIDER=gemini` 명시 |
+| AI 요청이 503 `no_api_key` | 기본값 `openrouter`(Qwen)의 `OPENROUTER_API_KEY`가 루트 `.env`에 있는지 확인. 사내 LLM은 `internal`, Gemini는 `gemini`를 명시 |
 | 다른 모델로 호출됨 | 실행 환경의 provider와 해당 제공자의 전용 모델·키 설정 확인 |
 | 이미지·장표·PDF가 없음 | 전체 clone, `app/data/static` 링크, `img/lib`, public 자산과 웹 빌드 확인 |
 | 비전·SSE·검색 오류 | 제공한 API 자료와 `InternalAdapter`의 해당 호출 구현 대조 |

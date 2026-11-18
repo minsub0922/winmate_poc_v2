@@ -1,0 +1,27 @@
+# 이미지 캐시 전용 Redis (3D 조감도 미리보기 등). LLM 큐 Redis(compose.llm.yml: noeviction · AOF 영속)와 분리한다.
+# 값은 루트 .env의 WINMATE_CACHE_REDIS_* 가 정한다. 직접 실행하지 말고 스크립트를 쓴다(.env 해석 · 3gb 상한 적용):
+#   bash app/scripts/cache_redis.sh up | down | status
+# 캐시이므로 디스크에 저장하지 않는다(재시작하면 비어 있고, 서버가 app/data/runtime 파일에서 다시 채운다).
+services:
+  cache-redis:
+    image: redis:${WINMATE_CACHE_REDIS_VERSION:-7.4.2}-alpine
+    command:
+      - redis-server
+      - --maxmemory
+      - ${WINMATE_CACHE_REDIS_MAXMEMORY_BYTES:-3221225472}
+      - --maxmemory-policy
+      - ${WINMATE_CACHE_REDIS_POLICY:-allkeys-lru}
+      - --maxmemory-samples
+      - '10'
+      - --save
+      - ''
+      - --appendonly
+      - 'no'
+    ports:
+      - '127.0.0.1:${WINMATE_CACHE_REDIS_PORT:-6380}:6379'
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 5s
+      timeout: 2s
+      retries: 5

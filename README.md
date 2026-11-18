@@ -1,6 +1,6 @@
 # Winmate v2
 
-현재 웹앱은 `app/`의 React·FastAPI 앱이며, `http://127.0.0.1:8788`에서 실행한다.
+현재 웹앱은 `app/`의 React·FastAPI 앱이며, `http://127.0.0.1:8788`에서 실행한다. 모든 구성요소의 포트 · 바인딩 기본값은 루트 `.env.example`의 「포트 · 바인딩」 구역 한 곳에서 관리한다(바꿀 때는 루트 `.env`).
 
 ```sh
 ./start.sh
@@ -33,5 +33,6 @@ make test-browser  # 격리된 브라우저에서 현재 앱 검사
 | `reference/` | 고정 게시본·조사 사본·구버전 배포본에만 있던 이미지 |
 | `ppt_layouts/`, `output/`, `.codex-build/`, `.wm_tmp/`, `_to_delete/` | 장표·참고 자료·제작 및 전송 이력. 수집 원본과 혼재하므로 보존함 |
 | `docs/`, `.agents/` | 조사·검증 기록과 작업 지침 |
+| `ops/` | 운영 모니터링 스택 — Langfuse(`:8810`, AI 호출 trace)·Metabase(`:8820`, 운영 대시보드). `bash ops/start.sh`, 설명은 [ops/README.md](ops/README.md) |
 
 루트 `dist/`와 `build/build.mjs`는 제거했다. 현재 웹 빌드는 `app/web/dist/`이며 `app/start.sh`가 생성한다. 과거 아티팩트의 설명서는 [보관 문서](docs/reference/legacy-artifact-readme.md), 정리 범위와 검증 결과는 [정리 기록](docs/migration/07-code-cleanup.md)에 있다.

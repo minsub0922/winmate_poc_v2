@@ -4,10 +4,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { localProxyOrigin } from './dev-proxy.js';
+import { envPort } from './ports.js';
 import { build as esbuild } from 'esbuild';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const api = `http://127.0.0.1:${process.env.WINMATE_API_PORT || 8788}`;
+const api = `http://127.0.0.1:${envPort('WINMATE_API_PORT')}`;
 // 건물 조감도 모듈 — 라이브 아티팩트와 같은 esbuild 설정(IIFE · __wmBldMod · minify · es2020)으로 src/building을 묶은 원문.
 // BuildingPage가 <script id="wm-bld-js">로 넣어 실행하고, 「HTML 추출」이 이 원문을 그대로 담는다.
 function buildingModule() {
@@ -33,7 +34,7 @@ export default defineConfig({
     },
   }],
   server: {
-    port: Number(process.env.WINMATE_WEB_PORT || 5173),
+    port: envPort('WINMATE_WEB_PORT'),
     strictPort: true,
     proxy: Object.fromEntries(['/api', '/img', '/lib', '/tokens.css'].map(prefix => [prefix, { target: api, changeOrigin: true, configure(proxy) {
       proxy.on('proxyReq', (outgoing, incoming) => {

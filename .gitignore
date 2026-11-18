@@ -40,6 +40,8 @@ docs/migration/evidence/live-page-assets.json
 
 # Local application generated state
 app/data/runtime/
+# Ops stack (ops/): generated secrets live in the single root .env (covered above); snapshots and logs stay local
+/ops/data/
 app/web/dist/
 app/tests/output/
 app/tests/legacy-work/

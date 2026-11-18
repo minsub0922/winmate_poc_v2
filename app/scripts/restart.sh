@@ -7,7 +7,9 @@
 set -euo pipefail
 root="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$root"
-port="${WINMATE_API_PORT:-8788}"
+. app/scripts/ports.sh
+winmate_env WINMATE_API_PORT
+port="$WINMATE_API_PORT"
 log="app/data/runtime/server.log"
 mkdir -p app/data/runtime
 

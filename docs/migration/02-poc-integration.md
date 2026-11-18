@@ -14,7 +14,7 @@
 | 파트 작성·슬라이드 채우기·재정렬 | 기존 업무 prompt → /api/llm | Gemini JSON/SSE. 실패 시 기존 규칙 |
 | 대화형 시뮬레이션 | 기존 엔진 → /api/llm | 엔진 흐름 보존. Node sim_eval 배치는 별도이며 연결하지 않음 |
 
-환경 변수 `WINMATE_MODE=dummy|real`과 기능별 `WINMATE_{RFP,LAYOUT,STORYBOARD,SEARCH,REVIEW,PART,FILL,SIMULATION,LLM}_MODE`를 지원한다. 기본은 dummy다. 설정은 프로세스 환경 > `app/.env` > `poc/.env` 순서이며 provider만 비밀키에 접근한다. 결과의 `llm.effective`와 성공/실패 호출 수는 실제 성공을 바탕으로 기록한다. 키의 존재만으로 모델 사용 성공이라고 표시하지 않는다. 키가 없거나 호출이 실패하면 화면에서 대체 처리임을 알린다.
+환경 변수 `WINMATE_MODE=dummy|real`과 기능별 `WINMATE_{RFP,LAYOUT,STORYBOARD,SEARCH,REVIEW,PART,FILL,SIMULATION,LLM}_MODE`를 지원한다. 기본은 dummy다. 설정은 프로세스 환경 > 루트 `.env` 순서이며 provider만 비밀키에 접근한다. 결과의 `llm.effective`와 성공/실패 호출 수는 실제 성공을 바탕으로 기록한다. 키의 존재만으로 모델 사용 성공이라고 표시하지 않는다. 키가 없거나 호출이 실패하면 화면에서 대체 처리임을 알린다.
 
 ## 정본 데이터
 

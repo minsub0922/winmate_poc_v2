@@ -10,7 +10,7 @@
 | POST /api/auth/logout | 쿠키 삭제·현재 프로세스에서 세션 폐기 |
 | GET /account.html | 로그인한 브라우저의 로그아웃 화면 |
 
-health·login·favicon·fonts·공통 토큰 외에는 세션이 필요하다. 미인증 페이지는 303으로 로그인에, API는 401 JSON으로 응답한다. 계정 미설정은 503이다. 외부 Origin의 쓰기 요청은 403이며 `Origin: null`도 거절한다. 로그인 실패 5회/주소/10분, 전체 30회/10분을 제한한다. 비밀번호 확인은 이벤트 루프 밖에서 실행한다.
+health·login·favicon·fonts·공통 토큰 외에는 세션이 필요하다. 미인증 페이지는 303으로 로그인에, API는 401 JSON으로 응답한다. 계정 미설정은 503이다. 외부 Origin의 쓰기 요청은 403이며 `Origin: null`도 거절한다. 로그인 실패는 주소+아이디별로 10회면 30초, 15회면 5분 동안 막는다(마지막 실패부터, 10분 지난 실패는 잊음). 전체 30회/10분도 제한한다. admin 계정(아이디 `admin` 또는 역할 admin)은 막지 않고 실패도 세지 않는다. 비밀번호 확인은 이벤트 루프 밖에서 실행한다.
 
 `app/data/runtime/auth/`(또는 WINMATE_AUTH_DIR)에 credentials.json과 session.secret을 0600으로 저장한다. 폴더는 0700이다. 비밀번호는 PBKDF2-SHA256 600,000회 salt/hash만 저장하며 쿠키 서명은 HMAC-SHA256이다. 비밀번호를 바꾸면 generation이 바뀌어 기존 세션이 만료된다. 쿠키는 HTTPS에서 Secure도 붙는다.
 

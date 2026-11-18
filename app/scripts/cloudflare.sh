@@ -3,12 +3,11 @@ set -euo pipefail
 winmate_root="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$winmate_root"
 command -v cloudflared >/dev/null 2>&1 || { echo 'cloudflared가 필요합니다.' >&2; exit 1; }
-export WINMATE_API_PORT="${WINMATE_API_PORT:-8788}"
+. app/scripts/ports.sh
+winmate_env WINMATE_API_PORT
 app/.venv/bin/python -B - <<'PY'
 import json, os, urllib.request
 port = os.environ['WINMATE_API_PORT']
-if not port.isascii() or not port.isdigit() or not 1 <= int(port) <= 65535:
-    raise SystemExit('WINMATE_API_PORT는 1~65535 정수여야 합니다.')
 opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
 try:
     with opener.open(f'http://127.0.0.1:{port}/api/auth/status', timeout=5) as response:
