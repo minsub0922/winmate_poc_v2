@@ -40,7 +40,8 @@ class ProductRepository:
         with self.connect() as db:
             meta = json.loads(db.execute("SELECT payload FROM wm_ui_meta WHERE key='products'").fetchone()[0])
             meta.pop('source_database',None)
-            meta['products'] = [json.loads(row[0]) for row in db.execute('SELECT payload FROM wm_ui_product WHERE position >= 40 ORDER BY position')]
+            curated = db.execute("SELECT payload FROM wm_ui_meta WHERE key='curated_rows'").fetchone()  # curated products come first (prepare_data.py)
+            meta['products'] = [json.loads(row[0]) for row in db.execute('SELECT payload FROM wm_ui_product WHERE position >= ? ORDER BY position',(json.loads(curated[0]) if curated else 40,))]
             return meta
 
     def detail_pack(self, pack: int):

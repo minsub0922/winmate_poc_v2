@@ -1,11 +1,11 @@
 """Smoke test for a running Winmate server (standard library only).
 
-  WINMATE_SMOKE_PASSWORD=... python app/scripts/smoke.py              # http://127.0.0.1:$WINMATE_API_PORT (8788)
-  python app/scripts/smoke.py --base http://127.0.0.1:8788 --prompt   # ask for the password (hidden input)
+  WINMATE_SMOKE_PASSWORD=... python app/scripts/smoke.py              # http://127.0.0.1:$WINMATE_API_PORT (root .env / .env.example)
+  python app/scripts/smoke.py --base http://127.0.0.1:<port> --prompt   # ask for the password (hidden input)
   printf '%s\n' "$PW" | python app/scripts/smoke.py --password-stdin
 
 Checks: public health/status/catalog/app shell, private API 401, cross-origin POST 403,
-login (cookie flags), capabilities, 1,084 products, a product detail, the app root, logout revocation.
+login (cookie flags), capabilities, the product count (products_db.json counts.total), a product detail, the app root, logout revocation.
 With WINMATE_AUTH=off on the server the login checks are skipped. The password and session cookie are kept
 in process memory only and never printed. Exit status 0 = all passed, 1 = a check failed, 2 = usage error.
 
@@ -25,7 +25,17 @@ from typing import Dict, List, Optional, Tuple
 from urllib.parse import quote, urlsplit
 
 COOKIE = 'winmate_session'
-EXPECTED_PRODUCTS = 1084
+def _expected_products() -> int:
+    """The declared product total of this checkout (products_db.json counts.total — changed only by the DSS update / deletion tools)."""
+    import json
+    from pathlib import Path
+    override = os.environ.get('WINMATE_EXPECTED_PRODUCTS')
+    if override:
+        return int(override)
+    return int(json.loads((Path(__file__).resolve().parents[1] / 'data/products_db.json').read_text(encoding='utf-8'))['counts']['total'])
+
+
+EXPECTED_PRODUCTS = _expected_products()
 
 
 class _NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -178,8 +188,27 @@ def run(args: argparse.Namespace) -> int:
     return 1 if r.failed else 0
 
 
+def _api_port() -> str:
+    """WINMATE_API_PORT: environment > root .env > root .env.example (the only place that holds the default)."""
+    value = os.environ.get('WINMATE_API_PORT', '')
+    root = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')
+    for name in ('.env', '.env.example'):
+        if value:
+            break
+        try:
+            with open(os.path.join(root, name), encoding='utf-8') as handle:
+                for line in handle:
+                    if line.startswith('WINMATE_API_PORT='):
+                        value = line.split('=', 1)[1].strip()
+        except OSError:
+            pass
+    if not value:
+        raise SystemExit('WINMATE_API_PORT 값이 없습니다 — 루트 .env.example을 확인하세요.')
+    return value
+
+
 def main(argv: Optional[list] = None) -> int:
-    default = os.environ.get('WINMATE_SMOKE_URL') or f'http://127.0.0.1:{os.environ.get("WINMATE_API_PORT", "8788")}'
+    default = os.environ.get('WINMATE_SMOKE_URL') or f'http://127.0.0.1:{_api_port()}'
     p = argparse.ArgumentParser(description='Winmate smoke test (stdlib only; credentials are never printed)')
     p.add_argument('--base', default=default, help=f'server URL (default {default})')
     p.add_argument('--username', default=os.environ.get('WINMATE_SMOKE_USER', 'admin'))

@@ -116,3 +116,18 @@ def test_api_uses_session_owner_and_isolates_images_and_writes(tmp_path):
         assert image.content == base64.b64decode(PNG.split(',')[1])
         assert image.headers['cache-control'] == 'private, no-store'
         assert admin.get('/api/my-templates').headers['cache-control'] == 'no-store'
+
+
+def test_image_data_urls_with_mime_parameters_are_accepted():
+    """Browsers keep MIME parameters when a Blob from ``data:image/svg+xml;charset=utf-8,…`` is read back as a data URL
+    (the 2D 조감도 plan of a storyboard slot). The parameter must not make a valid picture "unsupported"."""
+    from app.api.my_templates import image_bytes
+    svg = '<svg xmlns="http://www.w3.org/2000/svg" width="2" height="2"><rect width="2" height="2"/></svg>'
+    encoded = base64.b64encode(svg.encode()).decode()
+    mime, data = image_bytes('data:image/svg+xml;charset=utf-8;base64,' + encoded)
+    assert mime == 'image/svg+xml' and data == svg.encode()
+    assert image_bytes(PNG)[0] == 'image/png'
+    for bad in ('data:text/html;charset=utf-8;base64,' + encoded, 'data:image/svg+xml;charset=utf-8,' + svg,
+                'data:image/png;x;base64,' + encoded):
+        with pytest.raises(ValueError):
+            image_bytes(bad)

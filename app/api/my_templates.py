@@ -44,7 +44,9 @@ class LayoutCheck(HTMLParser):
 def image_bytes(value):
     if not isinstance(value, str):
         raise ValueError('이미지 형식이 올바르지 않습니다.')
-    match = re.fullmatch(r'data:([^;,]+);base64,([A-Za-z0-9+/=\r\n]+)', value)
+    # MIME parameters (``;charset=utf-8``) are allowed: a browser keeps them when it reads back a Blob made from a
+    # ``data:image/svg+xml;charset=utf-8,…`` URL (the 2D 조감도 plan). Only the bare type decides what is accepted.
+    match = re.fullmatch(r'data:([^;,]+)(?:;[A-Za-z0-9!#$&^_.+-]+=[^;,]*)*;base64,([A-Za-z0-9+/=\r\n]+)', value)
     if not match or match[1] not in MIMES:
         raise ValueError('지원하지 않는 이미지 형식입니다.')
     try:

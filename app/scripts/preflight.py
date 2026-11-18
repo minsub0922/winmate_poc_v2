@@ -26,7 +26,7 @@ if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))
 
 try:
-    from app.api.poc.settings import load_settings as load_gemini_settings
+    from app.api.poc.settings import key_name as llm_key_name, load_settings as load_gemini_settings
     from app.api import auth as A  # noqa: E402  (no side effects at import)
 except ImportError as _exc:  # fastapi is imported by app.api.auth
     print(f'FAIL  python packages — {_exc}\n      → app/.venv/bin/python -m pip install -r app/api/requirements.txt\n\npreflight: FAILED')
@@ -305,9 +305,9 @@ def run(deep: bool, require_auth: bool) -> Results:
     if model.has_key:
         r.ok('LLM', model.provider + ' / ' + model.model + ' · key source: ' + model.key_source + ' · strict real-only')
     else:
-        key_name = 'GEMINI_API_KEY' if model.provider == 'gemini' else 'INTERNAL_LLM_API_KEY' if model.provider == 'internal' else 'WINMATE_LLM_API_KEY'
+        key_name = llm_key_name(model.provider)
         # AI 설정이 없어도 서버는 시작한다 — AI 기능만 쓸 수 없다고 알린다
-        r.warn('LLM', 'AI 인증 키가 없어 AI 기능은 쓸 수 없습니다(서버는 시작합니다).', f'app/.env에서 WINMATE_LLM_PROVIDER={model.provider}의 {key_name}를 설정하세요.')
+        r.warn('LLM', 'AI 인증 키가 없어 AI 기능은 쓸 수 없습니다(서버는 시작합니다).', f'루트 .env에서 WINMATE_LLM_PROVIDER={model.provider}의 {key_name}를 설정하세요.')
     if model.provider != 'gemini' and (not model.base_url or not model.model):
         r.warn('LLM endpoint/model', '선택한 모델의 API 주소 또는 모델 ID가 없어 AI 기능은 쓸 수 없습니다(서버는 시작합니다).', 'LLM 호출 자료를 확인해 선택한 제공자의 API 주소와 모델 ID를 설정하세요.')
     check_source_db(r, deep)

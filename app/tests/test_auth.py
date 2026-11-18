@@ -293,23 +293,73 @@ class SessionTests(AuthCase):
         self.assertEqual(self.get('/api/private', self.token()).status_code, 200)    # a new login still works
 
     def test_failed_logins_are_rate_limited(self):
-        self.configure()
-        for _ in range(5):
-            self.assertEqual(self.login(password='wrong password!!').status_code, 401)
-        blocked = self.login(password='wrong password!!')
+        self.auth.set_credentials('member', PASSWORD)
+        login = lambda password=PASSWORD: self.login(username='member', password=password)
+        wrong = 'wrong password!!'
+        for _ in range(9):
+            self.assertEqual(login(password=wrong).status_code, 401)
+        self.assertEqual(login(password=wrong).status_code, 401)                # 10th failure → 30 s block
+        blocked = login(password=wrong)
         self.assertEqual(blocked.status_code, 429)
         self.assertEqual(blocked.json()['code'], 'too_many_attempts')
-        self.assertTrue(0 < int(blocked.headers['retry-after']) <= 600)
-        self.assertEqual(self.login().status_code, 429)                               # even the right password waits
-        self.clock.t += 601
+        self.assertEqual(int(blocked.headers['retry-after']), 30)
+        self.assertEqual(login().status_code, 429)                               # even the right password waits
+        self.clock.t += 30
+        for _ in range(4):                                                            # 11th–14th: 30 s each
+            self.assertEqual(login(password=wrong).status_code, 401)
+            self.assertEqual(int(login(password=wrong).headers['retry-after']), 30)
+            self.clock.t += 30
+        self.assertEqual(login(password=wrong).status_code, 401)                # 15th failure → 5 min block
+        self.assertEqual(int(login().headers['retry-after']), 300)
+        self.clock.t += 299
+        self.assertEqual(login().status_code, 429)
+        self.clock.t += 1
+        self.assertEqual(login().status_code, 200)
+        for _ in range(9):
+            login(password=wrong)
+        self.assertEqual(login().status_code, 200)                               # success clears the address
+
+    def test_admin_account_is_never_blocked(self):
+        self.configure()
+        for _ in range(20):
+            self.assertEqual(self.login(password='wrong password!!').status_code, 401)
+        self.assertEqual(self.login(username='ADMIN', password='wrong password!!').status_code, 401)
         self.assertEqual(self.login().status_code, 200)
-        for _ in range(4):
-            self.login(password='wrong password!!')
-        self.assertEqual(self.login().status_code, 200)                               # success clears the address
+        self.assertEqual(self.auth.limiter.retry_after('testclient:admin'), 0)
+        self.assertEqual(self.auth.limiter.retry_after('fresh'), 0)                   # admin failures not counted globally
+
+    def test_admin_role_accounts_are_exempt(self):
+        class Accounts:
+            def role(self, username):
+                return {'boss': 'admin'}.get(username, 'member')
+        self.auth.accounts = Accounts()
+        self.assertTrue(self.auth.lockout_exempt('admin'))
+        self.assertTrue(self.auth.lockout_exempt('boss'))
+        self.assertFalse(self.auth.lockout_exempt('member'))
+        self.auth.accounts = None
+        self.assertFalse(self.auth.lockout_exempt('boss'))
+
+    def test_lockout_steps_and_window(self):
+        clock = Clock()
+        limiter = A.LoginRateLimiter(window=600, global_limit=100, clock=clock)
+        for _ in range(9):
+            limiter.failure('k')
+        self.assertEqual(limiter.retry_after('k'), 0)                                 # 9 failures: no block
+        limiter.failure('k')
+        self.assertEqual(limiter.retry_after('k'), 30)
+        clock.t += 10
+        self.assertEqual(limiter.retry_after('k'), 20)
+        for _ in range(5):
+            limiter.failure('k')
+        self.assertEqual(limiter.retry_after('k'), 300)
+        clock.t += 600                                                                # all failures forgotten
+        self.assertEqual(limiter.retry_after('k'), 0)
+        limiter.failure('k')
+        self.assertEqual(limiter.retry_after('k'), 0)
 
     def test_global_failure_limit_across_addresses(self):
         clock = Clock()
-        limiter = A.LoginRateLimiter(limit=5, window=600, global_limit=8, clock=clock)
+        limiter = A.LoginRateLimiter(window=600, global_limit=8, clock=clock)
         for key in ('127.0.0.1', '::1', '10.0.0.2', '10.0.0.3'):
             limiter.failure(key)
             limiter.failure(key)
@@ -460,7 +510,9 @@ class ManageAuthTests(unittest.TestCase):
     def run_cli(self, *argv, environ=None, tty=None, stdin=''):
         out, err = io.StringIO(), io.StringIO()
         with contextlib.redirect_stderr(err):
-            code = self.cli.main([*argv, '--auth-dir', str(self.dir), '--iterations', str(ITERATIONS)], environ=environ or {},
+            # WINMATE_ENV_FILES=none: never read the developer's root .env (WINMATE_ADMIN_PASSWORD) in tests.
+            code = self.cli.main([*argv, '--auth-dir', str(self.dir), '--iterations', str(ITERATIONS)],
+                                 environ={'WINMATE_ENV_FILES': 'none', **(environ or {})},
                                  stdin=io.StringIO(stdin), stdout=out, tty=tty or (lambda: None))
         return code, out.getvalue(), err.getvalue()
 
@@ -504,6 +556,26 @@ class ManageAuthTests(unittest.TestCase):
         self.assertEqual(code, 0, err)
         self.assertTrue(self.auth().verify_password('ops', 'third long password'))
 
+    def test_ensure_uses_default_admin_password_from_env_file(self):
+        env_file = Path(self._tmp.name) / 'root.env'
+        env_file.write_text('WINMATE_ADMIN_PASSWORD=short.pass1\n')       # 11 chars: allowed for the .env default
+        code, out, err = self.run_cli('--ensure', environ={'WINMATE_ENV_FILES': str(env_file)})
+        self.assertEqual(code, 0, err)
+        self.assertNotIn('short.pass1', out + err)
+        self.assertTrue(self.auth().verify_password('admin', 'short.pass1'))
+        # An existing account is never replaced by a later .env value.
+        env_file.write_text('WINMATE_ADMIN_PASSWORD=changed.pass2\n')
+        self.assertEqual(self.run_cli('--ensure', environ={'WINMATE_ENV_FILES': str(env_file)})[0], 0)
+        self.assertTrue(self.auth().verify_password('admin', 'short.pass1'))
+        self.assertFalse(self.auth().verify_password('admin', 'changed.pass2'))
+
+    def test_explicit_password_source_wins_over_env_default(self):
+        code, out, err = self.run_cli('--ensure', '--password-env', 'NEW_PW',
+                                      environ={'NEW_PW': PASSWORD, 'WINMATE_ADMIN_PASSWORD': 'short.pass1'})
+        self.assertEqual(code, 0, err)
+        self.assertTrue(self.auth().verify_password('admin', PASSWORD))
+        self.assertEqual(self.run_cli('--set', '--password-env', 'PW', environ={'PW': 'short.pass1'})[0], 2)   # --set keeps 12
+
     def test_rejections_and_status(self):
         self.assertEqual(self.run_cli('--set', '--password-env', 'PW', environ={'PW': 'short'})[0], 2)
         self.assertEqual(self.run_cli('--set')[0], 2)                         # no terminal to prompt on
@@ -535,3 +607,56 @@ class PreflightTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class DefaultAdminTests(unittest.TestCase):
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.dir = Path(self._tmp.name) / 'auth'
+        self.auth = A.Auth(A.AuthConfig(auth_dir=self.dir, iterations=ITERATIONS))
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    def env(self, password):
+        return {'WINMATE_ENV_FILES': 'none', 'WINMATE_ADMIN_PASSWORD': password}
+
+    def test_creates_admin_only_when_no_account_exists(self):
+        self.assertTrue(self.auth.ensure_default_admin(self.env('short.pass1')))
+        self.assertEqual(self.auth.credentials().username, 'admin')
+        self.assertTrue(self.auth.verify_password('admin', 'short.pass1'))
+        record = (self.dir / 'credentials.json').read_text()
+        self.assertNotIn('short.pass1', record)
+        self.assertFalse(self.auth.ensure_default_admin(self.env('other.pass22')))
+        self.assertEqual((self.dir / 'credentials.json').read_text(), record)
+
+    def test_existing_account_is_left_alone(self):
+        self.auth.set_credentials('ops', PASSWORD)
+        self.assertFalse(self.auth.ensure_default_admin(self.env('short.pass1')))
+        self.assertEqual(self.auth.credentials().username, 'ops')
+        self.assertTrue(self.auth.verify_password('ops', PASSWORD))
+
+    def test_unreadable_credentials_are_not_overwritten(self):
+        self.dir.mkdir(parents=True)
+        (self.dir / 'credentials.json').write_text('{broken')
+        self.assertFalse(self.auth.ensure_default_admin(self.env('short.pass1')))
+        self.assertEqual((self.dir / 'credentials.json').read_text(), '{broken')
+
+    def test_no_password_or_login_off_does_nothing(self):
+        self.assertFalse(self.auth.ensure_default_admin({'WINMATE_ENV_FILES': 'none'}))
+        self.assertFalse(self.auth.ensure_default_admin(self.env('')))
+        off = A.Auth(A.AuthConfig(enabled=False, auth_dir=self.dir, iterations=ITERATIONS))
+        self.assertFalse(off.ensure_default_admin(self.env('short.pass1')))
+        self.assertFalse((self.dir / 'credentials.json').exists())
+
+    def test_too_short_password_is_rejected_and_startup_hook_does_not_raise(self):
+        with self.assertRaises(ValueError):
+            self.auth.ensure_default_admin(self.env('short'))
+        self.assertFalse((self.dir / 'credentials.json').exists())
+        import os
+        from unittest import mock
+        with mock.patch.dict(os.environ, self.env('short')), self.assertLogs('winmate.auth', 'ERROR'):
+            self.assertFalse(A.bootstrap_default_admin(self.auth))
+        with mock.patch.dict(os.environ, self.env('short.pass1')):
+            self.assertTrue(A.bootstrap_default_admin(self.auth))
+        self.assertTrue(self.auth.verify_password('admin', 'short.pass1'))

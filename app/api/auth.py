@@ -14,6 +14,10 @@ Flags
   WINMATE_AUTH       on (default) | off — only the explicit value ``off`` disables login (tests only).
                      Any other value, including typos, keeps login enabled.
   WINMATE_AUTH_DIR   credential directory (relative paths are resolved from the repository root)
+  WINMATE_ADMIN_PASSWORD
+                     password of the default ``admin`` account (root ``.env`` or environment). When no login account
+                     exists yet, server startup and ``manage_auth.py --ensure`` create ``admin`` with it. An existing
+                     account is never changed.
 
 HTTP contract (see ``app/api/DEPLOY_NOTES.md``)
   POST /api/auth/login   {"username": str, "password": str} (application/json) → 200 {"ok": true, "expires_in": 43200}
@@ -47,6 +51,8 @@ from typing import Any, Callable, Deque, Dict, Mapping, Optional, Tuple
 from urllib.parse import quote, urlsplit
 from fastapi import Request
 
+from .inspect import current as _inspected
+
 ROOT = Path(__file__).resolve().parents[2]
 RUNTIME_DIR = ROOT / 'app' / 'data' / 'runtime'          # same as app/api/poc/imports.RUNTIME_DIR
 DEFAULT_AUTH_DIR = RUNTIME_DIR / 'auth'
@@ -61,7 +67,11 @@ COOKIE_NAME = 'winmate_session'
 MAX_USERNAME = 128
 MAX_PASSWORD = 1024
 MIN_PASSWORD = 12
+DEFAULT_ADMIN_USERNAME = 'admin'
+ADMIN_PASSWORD_ENV = 'WINMATE_ADMIN_PASSWORD'
+MIN_ADMIN_ENV_PASSWORD = 8             # floor for the operator-chosen default admin password in .env
 MAX_LOGIN_BODY = 8192
+LOCKOUT_STEPS = ((10, 30), (15, 300))  # 10 failures → 30 s block, 15 failures → 5 min block (from the last failure)
 SAFE_METHODS = frozenset({'GET', 'HEAD', 'OPTIONS'})
 LOOPBACK = frozenset({'127.0.0.1', 'localhost', '::1'})
 PUBLIC_PATHS = frozenset({'/login.html', '/api/auth/login', '/api/auth/logout', '/api/auth/status', '/api/health', '/favicon.ico', '/tokens.css'})
@@ -82,8 +92,8 @@ class AuthConfig:
     session_seconds: int = SESSION_SECONDS
     cookie_name: str = COOKIE_NAME
     iterations: int = DEFAULT_ITERATIONS
-    max_failures: int = 5              # per client address inside failure_window
-    failure_window: int = 600
+    lockout_steps: Tuple[Tuple[int, int], ...] = LOCKOUT_STEPS   # (failures, block seconds) per address+username
+    failure_window: int = 600          # failures older than this are forgotten
     global_failures: int = 30          # all addresses together (127.0.0.1 / ::1 / LAN alternate) inside failure_window
     public_paths: frozenset = PUBLIC_PATHS
     public_prefixes: Tuple[str, ...] = PUBLIC_PREFIXES
@@ -193,9 +203,9 @@ def hash_password(password: str, salt: bytes, iterations: int) -> bytes:
     return hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), salt, iterations)
 
 
-def validate_password(password: str) -> None:
-    if not isinstance(password, str) or len(password) < MIN_PASSWORD:
-        raise ValueError(f'비밀번호는 {MIN_PASSWORD}자 이상이어야 합니다.')
+def validate_password(password: str, min_length: int = MIN_PASSWORD) -> None:
+    if not isinstance(password, str) or len(password) < min_length:
+        raise ValueError(f'비밀번호는 {min_length}자 이상이어야 합니다.')
     if len(password) > MAX_PASSWORD:
         raise ValueError(f'비밀번호는 {MAX_PASSWORD}자 이하여야 합니다.')
     if password != password.strip():
@@ -211,16 +221,28 @@ def generate_password() -> str:
     return secrets.token_urlsafe(18)       # 24 characters, ~144 bits
 
 
+def default_admin_password(environ: Optional[Mapping[str, str]] = None) -> Optional[str]:
+    """``WINMATE_ADMIN_PASSWORD`` from the environment or the root ``.env`` (environment wins), else None."""
+    from .runtime_env import env_values
+    value = env_values(environ).get(ADMIN_PASSWORD_ENV) or ''
+    return value or None
+
+
 # ---------------------------------------------------------------- failure guard
 class LoginRateLimiter:
-    """Blocks an address after ``limit`` failures inside ``window`` seconds, and everyone after ``global_limit``.
+    """Blocks a key by ``steps`` — ``(failures, seconds)`` pairs: once a key has at least ``failures`` failures
+    inside ``window`` seconds, it waits ``seconds`` counted from its latest failure (the highest step reached
+    wins; with the defaults 10 failures → 30 s, 15 → 5 min). Everyone is blocked after ``global_limit``
+    failures inside ``window``.
 
     All local browsers share 127.0.0.1, so the per-address limit is effectively a global brute-force brake on
     loopback; the global limit also covers attackers alternating 127.0.0.1 / ::1 / other interfaces.
     """
 
-    def __init__(self, limit: int = 5, window: int = 600, global_limit: int = 30, clock: Callable[[], float] = time.time) -> None:
-        self.limit, self.window, self.global_limit, self.clock = limit, window, global_limit, clock
+    def __init__(self, steps: Tuple[Tuple[int, int], ...] = LOCKOUT_STEPS, window: int = 600, global_limit: int = 30,
+                 clock: Callable[[], float] = time.time) -> None:
+        self.steps = tuple(sorted((int(n), int(sec)) for n, sec in steps))
+        self.window, self.global_limit, self.clock = window, global_limit, clock
         self._fails: Dict[str, Deque[float]] = defaultdict(deque)
         self._all: Deque[float] = deque()
         self._lock = threading.Lock()
@@ -239,8 +261,10 @@ class LoginRateLimiter:
                 self._prune(q, now)
                 if not q:
                     self._fails.pop(key, None)
-                elif len(q) >= self.limit:
-                    waits.append(self.window - (now - q[-self.limit]))
+                else:
+                    block = max((sec for n, sec in self.steps if len(q) >= n), default=0)
+                    if block and now - q[-1] < block:
+                        waits.append(block - (now - q[-1]))
             self._prune(self._all, now)
             if len(self._all) >= self.global_limit:
                 waits.append(self.window - (now - self._all[-self.global_limit]))
@@ -310,7 +334,7 @@ class Auth:
     def __init__(self, config: Optional[AuthConfig] = None, clock: Callable[[], float] = time.time) -> None:
         self.config = config or config_from_env()
         self.clock = clock
-        self.limiter = LoginRateLimiter(self.config.max_failures, self.config.failure_window, self.config.global_failures, clock)
+        self.limiter = LoginRateLimiter(self.config.lockout_steps, self.config.failure_window, self.config.global_failures, clock)
         self._lock = threading.RLock()
         self._creds: Tuple[Optional[Tuple[int, int, int]], Optional[Credentials]] = (None, None)
         self._secret: Tuple[Optional[Tuple[int, int, int]], bytes] = (None, b'')
@@ -325,7 +349,7 @@ class Auth:
         failure guard and in-process revocations are reset."""
         with self._lock:
             previous, self.config = self.config, config
-            self.limiter = LoginRateLimiter(config.max_failures, config.failure_window, config.global_failures, self.clock)
+            self.limiter = LoginRateLimiter(config.lockout_steps, config.failure_window, config.global_failures, self.clock)
             self._creds, self._secret, self._revoked = (None, None), (None, b''), {}
             self.last_error = ''
         return previous
@@ -379,10 +403,11 @@ class Auth:
     def configured(self) -> bool:
         return self.credentials() is not None or bool(self.accounts and self.accounts.configured())
 
-    def set_credentials(self, username: str, password: str, iterations: Optional[int] = None) -> None:
+    def set_credentials(self, username: str, password: str, iterations: Optional[int] = None,
+                        min_length: int = MIN_PASSWORD) -> None:
         """Store a salted PBKDF2 hash (never the password). A new generation invalidates existing sessions."""
         validate_username(username)
-        validate_password(password)
+        validate_password(password, min_length)
         iterations = int(iterations or self.config.iterations)
         if iterations < MIN_ITERATIONS:
             raise ValueError(f'iterations must be >= {MIN_ITERATIONS}')
@@ -394,6 +419,24 @@ class Auth:
             write_private(self.config.credentials_path, (json.dumps(record, indent=1) + '\n').encode('utf-8'))
             self._creds = (None, None)
         self.secret()
+
+    def ensure_default_admin(self, environ: Optional[Mapping[str, str]] = None) -> bool:
+        """Create ``admin`` with ``WINMATE_ADMIN_PASSWORD`` when no login account exists. True when created.
+
+        Never touches an existing (or unreadable) credentials file, and does nothing when login is off or the
+        password is not set."""
+        if not self.config.enabled or self.configured() or self.config.credentials_path.exists():
+            return False
+        password = default_admin_password(environ)
+        if password is None:
+            log.warning('auth: no login account and %s is empty — set it in the root .env', ADMIN_PASSWORD_ENV)
+            return False
+        with self._lock:
+            if self.configured() or self.config.credentials_path.exists():
+                return False
+            self.set_credentials(DEFAULT_ADMIN_USERNAME, password, min_length=MIN_ADMIN_ENV_PASSWORD)
+        log.warning('auth: created the default %r account from %s', DEFAULT_ADMIN_USERNAME, ADMIN_PASSWORD_ENV)
+        return True
 
     def remove_credentials(self) -> bool:
         with self._lock:
@@ -411,6 +454,18 @@ class Auth:
             record['generation']=secrets.token_hex(8)
             write_private(self.config.credentials_path,(json.dumps(record,indent=1)+'\n').encode())
             self._creds=(None,None)
+
+    def lockout_exempt(self, username: str) -> bool:
+        """Admin accounts are never blocked by the login failure guard: the ``admin`` username, or an active
+        account whose role is ``admin``."""
+        if username.lower() == DEFAULT_ADMIN_USERNAME:
+            return True
+        if self.accounts is None:
+            return False
+        try:
+            return self.accounts.role(username) == 'admin'
+        except Exception:                  # account store unreadable → no exemption
+            return False
 
     def verify_password(self, username: str, password: str) -> bool:
         creds = self.credentials(username)
@@ -468,6 +523,8 @@ class Auth:
 
     def read_token(self, token: Optional[str]) -> Optional[Dict[str, Any]]:
         """Payload of a valid, unexpired, unrevoked session for the current credentials, else None."""
+        if (identity := _inspected()) is not None:  # 관리자 읽기 전용 열람 중인 요청 — app/api/inspect.py
+            return dict(identity)
         if not token or len(token) > 1024 or token.count('.') != 1:
             return None
         if not self.configured():             # avoids creating a session secret before any account exists
@@ -550,7 +607,7 @@ def _error(status: int, code: str, detail: str, headers: Optional[Dict[str, str]
 def _allows_browsing(method: str, path: str) -> bool:
     if method not in {'GET', 'HEAD'}:
         return False
-    return path in {'/', '/spatial', '/api/bootstrap', '/api/catalog/metrics', '/api/products', '/api/poc/capabilities'} or path.startswith((
+    return path in {'/', '/spatial', '/api/bootstrap', '/api/layout-library', '/api/catalog/metrics', '/api/products', '/api/poc/capabilities'} or path.startswith((
         '/assets/', '/img/', '/lib/', '/api/products/', '/api/product-packs/',
         '/api/spatial/library', '/api/spatial/templates/', '/spatial/', '/storyboard/',
     ))
@@ -664,12 +721,14 @@ def build_router(auth: Auth):
             known=auth.accounts.exists(username) if auth.accounts is not None else bool(legacy and legacy.username==username)
             emit('auth.login',status='error',code=code,metadata={'attempted_username':username if known else '[unknown]',
                  'identifier_fingerprint':hmac.new(auth.secret(),username.encode(),hashlib.sha256).hexdigest()[:16]})
-        wait = auth.limiter.retry_after(key)
+        exempt = auth.lockout_exempt(username)       # admin accounts: no block, failures not counted
+        wait = 0 if exempt else auth.limiter.retry_after(key)
         if wait:
             audit_attempt('too_many_attempts')
             return _error(429, 'too_many_attempts', f'로그인 실패가 많아 {wait}초 동안 막았습니다.', {'Retry-After': str(wait)})
         if not await run_in_threadpool(auth.verify_password, username, password):
-            auth.limiter.failure(key)
+            if not exempt:
+                auth.limiter.failure(key)
             audit_attempt('invalid_credentials')
             return _error(401, 'invalid_credentials', '아이디 또는 비밀번호가 맞지 않습니다.')
         auth.limiter.success(key)
@@ -695,6 +754,15 @@ def build_router(auth: Auth):
         return response
 
     return router
+
+
+def bootstrap_default_admin(auth: Auth) -> bool:
+    """Startup hook: ``auth.ensure_default_admin()`` that logs instead of raising (the server still starts)."""
+    try:
+        return auth.ensure_default_admin()
+    except (AuthError, OSError, ValueError) as exc:
+        log.error('auth: could not create the default admin account from %s: %s', ADMIN_PASSWORD_ENV, exc)
+        return False
 
 
 def integrate_app(app, auth: Optional[Auth] = None) -> Auth:

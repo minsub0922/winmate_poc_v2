@@ -1,7 +1,8 @@
 """Winmate login account — create, change, inspect. Only a salted PBKDF2 hash is stored.
 
   python app/scripts/manage_auth.py --ensure            # first run: create an account if none exists
-                                                        #   (random password shown once on the terminal)
+                                                        #   (admin / WINMATE_ADMIN_PASSWORD from the root .env;
+                                                        #    if that is empty, a random password shown once on the terminal)
   python app/scripts/manage_auth.py --set               # choose/change the password (asks twice, hidden input)
   python app/scripts/manage_auth.py --set --password-file /path/0600-file
   WINMATE_NEW_PASSWORD=... python app/scripts/manage_auth.py --set --password-env WINMATE_NEW_PASSWORD
@@ -152,11 +153,16 @@ def main(argv: Optional[list] = None, environ: Optional[Mapping[str, str]] = Non
                 return 0
             if config.credentials_path.exists():
                 raise UsageError(f'{config.credentials_path} 를 읽을 수 없습니다: {auth.last_error} — --set 으로 다시 만드세요.')
-            username = args.username or 'admin'
+            username = args.username or A.DEFAULT_ADMIN_USERNAME
             password = _password_from_sources(args, environ, stdin)
             if password is not None:
                 auth.set_credentials(username, password, args.iterations)
                 say(f'로그인 계정을 만들었습니다: {username}')
+                return 0
+            password = A.default_admin_password(environ)
+            if password is not None:
+                auth.set_credentials(username, password, args.iterations, min_length=A.MIN_ADMIN_ENV_PASSWORD)
+                say(f'로그인 계정을 만들었습니다: {username} (비밀번호: .env 의 {A.ADMIN_PASSWORD_ENV})')
                 return 0
             terminal = tty()
             if terminal is None:

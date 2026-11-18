@@ -18,6 +18,7 @@ from fastapi.responses import FileResponse
 from .auth import create_private
 
 ROOT = Path(__file__).resolve().parents[2]
+WEB_INDEX = Path(os.environ.get('WINMATE_WEB_DIST', ROOT / 'app/web/dist')).resolve() / 'index.html'  # same build as main.py serves
 ACTOR_COOKIE = 'winmate_collaborator'
 ACCESS_COOKIE = 'winmate_shared_access'
 TOKEN = re.compile(r'^[A-Za-z0-9_-]{32,64}$')
@@ -238,7 +239,7 @@ def build_router():
 
     @router.get('/storyboard/{source_id:path}')
     def history_page(source_id: str):
-        return FileResponse(ROOT / 'app/web/dist/index.html', headers={'Cache-Control': 'no-store'})
+        return FileResponse(WEB_INDEX, headers={'Cache-Control': 'no-store'})
 
     @router.post('/api/storyboards')
     async def create(request: Request, response: Response):
@@ -275,7 +276,7 @@ def build_router():
     def page(token: str, request: Request):
         if not request.app.state.storyboards.exists(token):
             raise HTTPException(404, '공유 Storyboard를 찾을 수 없습니다.')
-        response = FileResponse(ROOT / 'app/web/dist/index.html', headers={'Cache-Control': 'no-store'})
+        response = FileResponse(WEB_INDEX, headers={'Cache-Control': 'no-store'})
         share_cookie(request, response, token)
         actor_for(request, response)
         return response

@@ -11,6 +11,8 @@ import uuid
 _context = ContextVar('winmate_trace', default={})
 _sink = None
 _dropped = 0
+_capture = False
+_health_extras = {}
 
 
 def install(sink):
@@ -20,7 +22,29 @@ def install(sink):
 
 
 def enabled():
-    return _sink is not None
+    return _sink is not None and not _context.get().get('ephemeral')
+
+
+def capture_content(value):
+    """Let installed sinks receive raw model request/response under ``content`` (the ops bridge strips it for the
+    operations store). Returns the previous setting."""
+    global _capture
+    previous, _capture = _capture, bool(value)
+    return previous
+
+
+def content(request, response=None):
+    """Keyword arguments for :func:`emit` carrying the raw model request/response, only when a sink asked for it."""
+    if not _capture or not enabled():
+        return {}
+    return {'content': {'input': request, 'output': response}}
+
+
+def register_health(name, fn):
+    if fn is None:
+        _health_extras.pop(name, None)
+    else:
+        _health_extras[name] = fn
 
 
 def current():
@@ -38,7 +62,7 @@ def scope(**values):
 
 def emit(kind, **values):
     global _dropped
-    if _sink is None:
+    if not enabled():
         return
     try:
         context=current()
@@ -56,7 +80,13 @@ def emit(kind, **values):
 
 
 def health():
-    return {'enabled': enabled(), 'dropped': _dropped}
+    result = {'enabled': enabled(), 'dropped': _dropped}
+    for name, fn in list(_health_extras.items()):
+        try:
+            result[name] = fn()
+        except Exception:
+            result[name] = {'error': True}
+    return result
 
 
 def stack(exc):
@@ -104,12 +134,13 @@ def network(fn):
             failed = bool(blocked or finish in ('MAX_TOKENS', 'SAFETY', 'RECITATION', 'PROHIBITED_CONTENT', 'BLOCKLIST', 'SPII'))
             emit('llm.usage', span_id=span, parent_id=parent, started=started, ended=time.time(), model=model,
                  status='error' if failed else 'ok', code=blocked or (finish if failed else ''), usage=result.get('usageMetadata'),
-                 metadata={'finish_reason': finish, 'transport': 'json', 'input_characters': sum(len(str(p.get('text', ''))) for c in body.get('contents', []) for p in c.get('parts', []))})
+                 metadata={'finish_reason': finish, 'transport': 'json', 'input_characters': sum(len(str(p.get('text', ''))) for c in body.get('contents', []) for p in c.get('parts', []))},
+                 **content(body, result))
             return result
         except Exception as exc:
             emit('llm.usage', span_id=span, parent_id=parent, started=started, ended=time.time(), model=model,
                  status='error', code=getattr(exc, 'code', type(exc).__name__), message=str(exc), usage=None,
-                 metadata={'transport': 'json', 'usage_unknown': True})
+                 metadata={'transport': 'json', 'usage_unknown': True}, **content(body))
             raise
     return wrapped
 

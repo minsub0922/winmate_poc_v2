@@ -14,6 +14,7 @@ import time
 
 from fastapi import APIRouter, Body, HTTPException, Query, Request, Response
 from .spatial_people import validate_people
+from .building_templates import BuildingTemplates
 
 DATA = Path(__file__).resolve().parents[1] / 'data/spatial'
 STYLES = ('warm', 'modern', 'premium', 'clinical', 'industrial')
@@ -47,6 +48,11 @@ class SpatialLibrary:
         self.examples = json.loads((self.directory / 'examples.json').read_text())
         self.assets = {a['id']:a for a in self.library['assets']}
         self.templates = {t['id']:t for t in self.library['templates']}
+        standard = {}
+        for t in self.templates.values():
+            if t.get('variant') == 'standard':
+                standard.setdefault(((t.get('source') or {}).get('layoutId'), t.get('scope')), t['id'])
+        self.case_templates = {c['id']: standard.get((c.get('layoutId'), c.get('scope'))) for c in self.library.get('cases', [])}
         self.revisions = {self.library['sourceHash']:self.library}
 
     def revision(self,identifier):
@@ -63,14 +69,15 @@ class SpatialLibrary:
     def validate(self, scene):
         if not isinstance(scene, dict) or scene.get('version') != 1:
             raise ValueError('지원하지 않는 장면 버전입니다.')
-        assets={a['id']:a for a in self.revision(scene.get('assetRevision'))['assets']}
+        frozen=self.revision(scene.get('assetRevision'))
+        assets={a['id']:a for a in frozen['assets']}
         if len(json.dumps(scene, ensure_ascii=False)) > 2_000_000:
             raise ValueError('장면 데이터가 너무 큽니다.')
         def finite(x):
             return isinstance(x, (int, float)) and not isinstance(x, bool) and math.isfinite(x)
         if not all(finite(scene.get(k)) and 4 <= scene[k] <= 150 for k in ('width','depth')):
             raise ValueError('가로·세로는 4~150m로 입력해 주세요.')
-        if scene.get('industry') not in {i['code'] for i in self.library['industries']} or scene.get('style') not in STYLES:
+        if scene.get('industry') not in {i['code'] for i in frozen['industries']} or scene.get('style') not in STYLES:
             raise ValueError('업종·스타일 참조가 올바르지 않습니다.')
         if not isinstance(scene.get('title'),str) or not 1 <= len(scene['title']) <= 150:
             raise ValueError('제목은 1~150자여야 합니다.')
@@ -130,13 +137,15 @@ class SpatialLibrary:
         validate_people(scene,assets)
         return scene
 
-    def validate_form(self, value):
+    def validate_form(self, value, revision=None):
+        library=self.revision(revision)
+        assets=self.assets if library is self.library else {a['id']:a for a in library['assets']}
         if value is None:value={'version':1,'title':'','industry':'','style':'modern','templateId':None,'rooms':[]}
         if not isinstance(value,dict) or value.get('version')!=1:raise ValueError('지원하지 않는 공간 입력 형식입니다.')
         if len(json.dumps(value,ensure_ascii=False))>200_000:raise ValueError('공간 입력 데이터가 너무 큽니다.')
         if not isinstance(value.get('title',''),str) or len(value.get('title',''))>150:raise ValueError('조감도 이름은 150자 이내여야 합니다.')
         industry=value.get('industry','')
-        if industry and industry not in {i['code'] for i in self.library['industries']}:raise ValueError('등록된 업종을 선택해 주세요.')
+        if industry and industry not in {i['code'] for i in library['industries']}:raise ValueError('등록된 업종을 선택해 주세요.')
         if value.get('style','modern') not in STYLES:raise ValueError('공간 스타일이 올바르지 않습니다.')
         if value.get('templateId') is not None and not isinstance(value['templateId'],str):raise ValueError('공간 템플릿 참조가 올바르지 않습니다.')
         rooms=value.get('rooms',[])
@@ -158,7 +167,7 @@ class SpatialLibrary:
             product_ids=set()
             for product in products:
                 if not isinstance(product,dict):raise ValueError('공간별 제품 형식이 올바르지 않습니다.')
-                identifier=product.get('productId');asset=self.assets.get('product:'+str(identifier))
+                identifier=product.get('productId');asset=assets.get('product:'+str(identifier))
                 if not asset or not asset['physical'] or identifier in product_ids:raise ValueError('등록된 물리 제품을 선택해 주세요.')
                 product_ids.add(identifier);quantity=product.get('quantity')
                 if quantity in ('',None):continue
@@ -168,7 +177,7 @@ class SpatialLibrary:
             furniture_ids=set()
             for item in furniture:
                 if not isinstance(item,dict):raise ValueError('가구 입력 형식이 올바르지 않습니다.')
-                identifier=item.get('assetId');asset=self.assets.get(identifier) if isinstance(identifier,str) else None
+                identifier=item.get('assetId');asset=assets.get(identifier) if isinstance(identifier,str) else None
                 if not asset or not asset['physical'] or asset.get('productId') or identifier in furniture_ids:raise ValueError('등록된 공용 가구를 선택해 주세요.')
                 furniture_ids.add(identifier);quantity=item.get('quantity')
                 if quantity in ('',None):continue
@@ -187,10 +196,59 @@ class SpatialStore:
             if 'status' not in columns:db.execute("ALTER TABLE scenes ADD COLUMN status TEXT NOT NULL DEFAULT 'ready'")
             if 'scene_form_key' not in columns:db.execute('ALTER TABLE scenes ADD COLUMN scene_form_key TEXT')
             db.execute('CREATE INDEX IF NOT EXISTS scenes_history_page ON scenes(owner,deleted,updated_at DESC,id DESC)')
+            db.execute('''CREATE TABLE IF NOT EXISTS template_edits (
+                id TEXT NOT NULL, assets TEXT NOT NULL, revision INTEGER NOT NULL, title TEXT NOT NULL,
+                scene TEXT NOT NULL, PRIMARY KEY(id, assets))''')
+        self.buildings = BuildingTemplates(library.directory, self.connect)
         self.seed_admin()
 
     def connect(self):
         db=sqlite3.connect(self.filename,timeout=15);db.row_factory=sqlite3.Row;return db
+
+    def template_edits(self):
+        with self.connect() as db:
+            return {r['id']: dict(r) for r in db.execute('SELECT id,title,assets,revision FROM template_edits ORDER BY revision')}
+
+    def template(self, identifier):
+        scene = self.library.scenes.get(identifier)
+        if scene is None:
+            raise HTTPException(404, '공간 템플릿을 찾지 못했습니다.')
+        with self.connect() as db:
+            row = db.execute('SELECT scene,revision FROM template_edits WHERE id=? ORDER BY revision DESC LIMIT 1',
+                             (identifier,)).fetchone()
+        return {'id': identifier, 'scene': json.loads(row['scene']) if row else scene,
+                'revision': row['revision'] if row else 0, 'view': '3d'}
+
+    def save_template(self, identifier, body):
+        if body.get('confirmed') is not True:
+            raise HTTPException(422, '조감도 변경 사항을 확인한 뒤 저장해 주세요.')
+        original = self.library.scenes.get(identifier)
+        if original is None:
+            raise HTTPException(404, '공간 템플릿을 찾지 못했습니다.')
+        scene, rev = body.get('scene'), body.get('revision')
+        if type(rev) is not int or not isinstance(scene, dict):
+            raise HTTPException(422, '장면과 편집 버전을 확인해 주세요.')
+        assets = scene.get('assetRevision')
+        if not isinstance(assets, str) or not re.fullmatch(r'[a-f0-9]{8}', assets):
+            raise HTTPException(409, '오브젝트 버전이 바뀌었습니다. 조감도를 다시 열어 주세요.')
+        # Room operations can build a new scene. Keep the published template's stable identity.
+        scene = {**scene, 'templateId': identifier}
+        try:
+            self.library.validate(scene)
+            payload = json.dumps(scene, ensure_ascii=False, allow_nan=False)
+        except (ValueError, TypeError, KeyError) as exc:
+            raise HTTPException(422, str(exc)) from None
+        with self.connect() as db:
+            db.execute('BEGIN IMMEDIATE')
+            row = db.execute('SELECT revision,assets FROM template_edits WHERE id=? ORDER BY revision DESC LIMIT 1',
+                             (identifier,)).fetchone()
+            if rev != (row['revision'] if row else 0):
+                raise HTTPException(409, '다른 창에서 먼저 저장했습니다. 조감도를 다시 열어 주세요.')
+            if assets != original['assetRevision'] and (not row or row['assets'] != assets):
+                raise HTTPException(409, '오브젝트 버전이 바뀌었습니다. 조감도를 다시 열어 주세요.')
+            db.execute('INSERT OR REPLACE INTO template_edits(id,assets,revision,title,scene) VALUES(?,?,?,?,?)',
+                       (identifier, assets, rev + 1, scene['title'], payload))
+        return {'id': identifier, 'scene': scene, 'revision': rev + 1, 'view': '3d'}
 
     def seed_admin(self):
         now=int(time.time()*1000)
@@ -264,7 +322,7 @@ class SpatialStore:
     def save(self,owner,body,identifier=None):
         try:self.library.validate(body.get('scene'))
         except (ValueError,TypeError,KeyError) as exc:raise HTTPException(422,str(exc)) from exc
-        try:form=self.library.validate_form(body['form']) if 'form' in body else None
+        try:form=self.library.validate_form(body['form'],body['scene'].get('assetRevision')) if 'form' in body else None
         except ValueError as exc:raise HTTPException(422,str(exc)) from exc
         view=body.get('view','3d')
         if view not in ('2d','3d'):raise HTTPException(422,'보기 모드가 올바르지 않습니다.')
@@ -285,21 +343,23 @@ class SpatialStore:
         except ValueError as exc:raise HTTPException(422,str(exc)) from exc
         identifier='sp-'+secrets.token_hex(12);now=int(time.time()*1000);view=body.get('view','3d')
         if view not in ('2d','3d'):raise HTTPException(422,'보기 모드가 올바르지 않습니다.')
-        original=self.library.scenes.get(form.get('templateId'))
+        tid=form.get('templateId')
+        original=self.template(tid)['scene'] if tid in self.library.scenes else None
         scene=copy.deepcopy(original) if original is not None else None
         with self.connect() as db:
             db.execute("INSERT INTO scenes(owner,id,title,scene,view,revision,created_at,updated_at,form,status) VALUES (?,?,?,?,?,1,?,?,?,?)",(owner,identifier,form.get('title','').strip() or (scene or {}).get('title') or '새 조감도',json.dumps(scene,ensure_ascii=False,allow_nan=False),view,now,now,json.dumps(form,ensure_ascii=False),'ready' if scene else 'draft'))
         return self.get(owner,identifier)
 
     def save_form(self,owner,identifier,body):
-        try:form=self.library.validate_form(body.get('form'))
-        except ValueError as exc:raise HTTPException(422,str(exc)) from exc
         view=body.get('view','3d')
         if view not in ('2d','3d'):raise HTTPException(422,'보기 모드가 올바르지 않습니다.')
         with self.lock,self.connect() as db:
             row=db.execute('SELECT * FROM scenes WHERE owner=? AND id=? AND deleted=0',(owner,identifier)).fetchone()
             if not row:raise HTTPException(404,'조감도를 찾지 못했습니다.')
             if body.get('revision')!=row['revision']:raise HTTPException(409,'다른 화면에서 수정되었습니다. 조감도를 다시 열어 주세요.')
+            scene=json.loads(row['scene']) if row['scene'] else None
+            try:form=self.library.validate_form(body.get('form'),(scene or {}).get('assetRevision'))
+            except ValueError as exc:raise HTTPException(422,str(exc)) from exc
             baseline=body.get('sceneFormKey');baseline=row['scene_form_key'] or (baseline if isinstance(baseline,str) and re.fullmatch('[a-f0-9]{8}',baseline) else None)
             db.execute('UPDATE scenes SET title=?,form=?,scene_form_key=?,view=?,revision=revision+1,updated_at=? WHERE owner=? AND id=?',(form.get('title','').strip() or row['title'],json.dumps(form,ensure_ascii=False),baseline,view,int(time.time()*1000),owner,identifier))
         return self.get(owner,identifier)
@@ -333,10 +393,30 @@ def build_router():
         return result
 
     @router.get('/templates/{identifier}')
-    def template(identifier:str,request:Request):
-        scene=request.app.state.spatial_library.scenes.get(identifier)
+    def template(identifier:str,request:Request,response:Response,rev:str='',managed:bool=False):
+        library=request.app.state.spatial_library
+        if managed or not rev:
+            record=request.app.state.spatial_store.template(identifier)
+            if rev and rev not in (library.library['sourceHash'], record['scene']['assetRevision']):
+                raise HTTPException(404,'요청한 오브젝트 버전의 템플릿을 찾지 못했습니다.')
+            response.headers['Cache-Control']='no-store' if managed else 'private, max-age=60'
+            return record
+        if rev!=library.library['sourceHash']:
+            raise HTTPException(404,'현재 오브젝트 버전의 템플릿만 제공합니다.')
+        scene=library.scenes.get(identifier)
         if scene is None:raise HTTPException(404,'공간 템플릿을 찾지 못했습니다.')
+        response.headers['Cache-Control']='private, max-age=31536000, immutable' if rev else 'private, max-age=60'
         return {'scene':scene}
+
+    @router.get('/building-templates')
+    def building_edits(request:Request,response:Response):
+        response.headers['Cache-Control']='no-store'
+        return request.app.state.spatial_store.buildings.edits()
+
+    @router.get('/building-templates/{identifier}')
+    def building_template(identifier:str,request:Request,response:Response):
+        response.headers['Cache-Control']='no-store'
+        return request.app.state.spatial_store.buildings.get(identifier)
 
     @router.get('/history')
     def history(request:Request,response:Response,page:int=Query(1,ge=1),page_size:int=Query(12,ge=1,le=48)):
