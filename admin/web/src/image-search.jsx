@@ -20,6 +20,8 @@ const reasons = {
   llm_pick: 'AI가 선택한 후보', rank: '사용 가능한 다음 후보', 'rank(after reject)': 'AI 검토 후 선택한 다음 후보',
   part_unique: '파트에서 아직 쓰지 않은 사진', empty: '사용할 사진 없음', match: '적합', ok: '적합', mismatch: '불일치',
   'neutral_icon(unlinked solution)': '연결된 솔루션이 없어 기본 아이콘 유지',
+  item_exact: '이 공간의 제품이 든 사진', other_item: '다른 제품이 든 사진', other_item_kind: '이 공간에 없는 제품이 함께 보임',
+  unverified_item: '제품을 확인할 수 없는 사진',
   'template_original(pick rejected)': 'AI 검토 후 원본 유지', 'template_original(no better picture)': '더 적합한 후보가 없어 원본 유지',
   'template_original(model: no candidate fits)': '후보가 맞지 않아 원본 유지', 'template_original(same context)': '같은 맥락의 원본 유지',
   'template_original(fixed page)': '고정 시트의 원본 유지', 'solution_media(template)': '원본의 솔루션 이미지', 'case_photos(template)': '원본의 도입사례 사진',

@@ -105,13 +105,45 @@ try {
   assert.deepEqual(await spaces(), { sa: ['kiosk', 'qm55c'], sb: [], sc: ['oh55a'] });
   pass('a product placed in several spaces: only the dragged copy moves, and a space never holds it twice');
 
-  // 공간 구성 팝업이 열려 있으면 끌 수 없다
+  await page.evaluate(async (id) => (await import('/src/repositories/proposals.js')).update(id, (d) => { d.spacePlan.spaces[2].products.unshift('qm55c'); }), PID);
   await page.locator('#dss-space').click(); await page.locator('#spl-pop').waitFor();
   assert.equal(await card.locator('.dss-prod[draggable="true"]').count(), 0, 'no drag while the 공간 구성 popup is open');
-  await page.locator('#spl-pop .bp-x').click(); await page.locator('#spl-pop').waitFor({ state: 'hidden' });
+  const draftProd = (space, id) => page.locator('#spl-pop .spl-space[data-space="' + space + '"] .spl-card[data-ref="product:' + id + '"]');
+  const undo = () => page.locator('.top-status.root').getByRole('button', { name: '되돌리기', exact: true }).click();
+  await draftProd('sc', 'qm55c').waitFor();
+  const kitchenRemove = prod('sc', 'qm55c').getByRole('button', { name: /주방에서 배치 삭제/ });
+  await kitchenRemove.press('Enter');
+  await prod('sc', 'qm55c').waitFor({ state: 'detached' });
+  await draftProd('sc', 'qm55c').waitFor({ state: 'detached' });
+  assert.deepEqual(await spaces(), { sa: ['kiosk', 'qm55c'], sb: [], sc: ['oh55a'] });
+  assert.ok((await proposal()).ctx.products.includes('qm55c'));
+  await draftProd('sa', 'qm55c').waitFor();
+  await undo();
+  await draftProd('sc', 'qm55c').waitFor();
+  assert.deepEqual(await spaces(), { sa: ['kiosk', 'qm55c'], sb: [], sc: ['qm55c', 'oh55a'] });
+  await kitchenRemove.press('Enter');
+  await draftProd('sc', 'qm55c').waitFor({ state: 'detached' });
+  pass('removing a placement keeps the matching product and other space; undo restores the selected placement in both views');
+
+  await page.locator('#spl-pop .spl-save').click();
+  await page.getByRole('alertdialog').getByRole('button', { name: '저장만 하기', exact: true }).click();
+  await page.locator('#spl-pop').waitFor({ state: 'hidden' });
+  assert.deepEqual(await spaces(), { sa: ['kiosk', 'qm55c'], sb: [], sc: ['oh55a'] });
   assert.equal(await card.locator('.dss-prod[draggable="true"]').count(), 4);
   await shot('3-final');
   pass('dragging is off while the 공간 구성 popup is open');
+
+  await prod('sa', 'qm55c').hover();
+  await prod('sa', 'qm55c').locator('.dss-x').click();
+  await prod('sa', 'qm55c').waitFor({ state: 'detached' });
+  assert.ok(!(await proposal()).ctx.products.includes('qm55c'));
+  await undo();
+  await prod('sa', 'qm55c').waitFor();
+  await page.reload();
+  await prod('sa', 'qm55c').waitFor();
+  assert.deepEqual(await spaces(), { sa: ['kiosk', 'qm55c'], sb: [], sc: ['oh55a'] });
+  assert.ok((await proposal()).ctx.products.includes('qm55c'));
+  pass('deleting the last placement unlinks the product; undo restores its link and only that placement across reload');
 
   // 공간 구성이 없으면 끌 수 없다
   await page.evaluate(async (id) => (await import('/src/repositories/proposals.js')).update(id, (d) => { delete d.spacePlan; }), PID);

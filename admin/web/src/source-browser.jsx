@@ -9,6 +9,7 @@ import { useApp } from './context';
 import { LayoutFrame } from './layouts';
 import { AssetResources } from './resources';
 import { ImageSearch } from './image-search';
+import { DssKinds } from './dss-kinds';
 import './source-browser.css';
 
 const PAGE = 60;
@@ -114,10 +115,11 @@ export function SourceCard({ source: s }) {
       <div className="sb-source-head"><span className={'source-symbol ' + s.id}>{s.id === 'samsung' ? <strong>S</strong> : <Icon name={sourceIcon(s.id)} size={18}/>}</span><h3 title={s.name}>{s.name}</h3>{!s.enabled && <Badge status="archived">사용 중지</Badge>}</div>
       <p className="sb-source-desc" title={s.description}>{s.description}</p>
       <div className="sb-source-stats"><span><b>{number(s.asset_count)}</b>자원</span>{s.off_count > 0 && <span className="off"><b>{number(s.off_count)}</b>앱에서 끔</span>}</div>
+      {s.id === 'samsung' && <DssKinds/>}
       {s.review && <button type="button" className="sb-review-button" aria-label={s.name + ' 변경 내역'}
         onClick={e => { e.stopPropagation(); open({type:'source-changes',id:s.id}); }}>
         <strong>{s.review.pending ? '변경 ' + number(s.review.pending) + '건' : !s.checked_at ? '점검 전' : s.review.incomplete ? '확인 필요' : s.review.handled ? '변경 검토 완료' : '최신 확인'}</strong>
-        {s.checked_at && <small>{date(s.checked_at,true)} 점검</small>}<Icon name="chevron" size={14}/></button>}
+        {s.checked_at && <small>{date(s.checked_at,true)} 점검</small>}<span className="sb-review-open">변경 내역</span><Icon name="chevron" size={14}/></button>}
       <footer>{host ? <a className="sb-origin link" href={s.url} target="_blank" rel="noreferrer" onClick={stop} title={s.url}><Icon name="globe" size={12}/><span>{host}</span></a> : <span className="sb-origin">내부 라이브러리</span>}
         <span className="sb-source-date">{date(s.refreshed_at || s.imported_at)}</span></footer>
     </div>

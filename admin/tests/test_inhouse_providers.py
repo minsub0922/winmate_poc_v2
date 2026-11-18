@@ -13,6 +13,7 @@ from admin.store import Store
 from app.api.llm import decision
 from app.api.poc import provider as poc_provider
 from app.api.poc import settings as cfg
+from app.api.llm import inhouse_bridge
 from app.tests.fixtures.inhouse_fake import CLIENT, SEARCH_KEY, TOKEN, FakeInhouse, clef_config, install
 
 
@@ -93,3 +94,43 @@ def test_turn_on_make_primary_check_and_experiment(providers, fake):
     assert record['status'] == 'ok'  # the class's own probe (/health) still answers
     with pytest.raises(ProviderInputError):
         providers.check('decision.inhouse', base='http://127.0.0.1:1/v1')  # its servers live in the class's own settings
+
+
+def test_an_experiment_model_override_asks_only_the_first_target(providers, fake, tmp_path):
+    other = FakeInhouse('clef-other')
+    try:
+        fake.systemone_fail = 503
+        (tmp_path / 'admin' / 'clef_remote.json').write_text(json.dumps(clef_config(('a', fake, True, 15_000, 1), ('b', other, True, 15_000, 1))))
+        inhouse_bridge._INSTANCES.clear()
+        cfg.reload_settings()
+        question = {'q': {'type': 'noul', 'instructions': '가격에 민감하다.'}}
+        ran = providers.run('decision.inhouse', state='x', questions=question)
+        assert ran['ok'] and ran['model'] == 'clef-other'   # no override: target a fails, b answers
+        before = len(other.posts('/v1/systemone'))
+        ran = providers.run('decision.inhouse', model='clef-big', state='x', questions=question)
+        assert not ran['ok'] and len(other.posts('/v1/systemone')) == before   # override: only a, which serves that model
+    finally:
+        other.close()
+
+
+def test_select_one_enabled_inhouse_target(providers, fake, tmp_path):
+    other = FakeInhouse('clef-other')
+    try:
+        (tmp_path / 'admin' / 'clef_remote.json').write_text(json.dumps(clef_config(
+            ('a', fake, True, 15_000, 1), ('b', other, True, 700, 2), ('disabled', fake, False, 700, 1))))
+        providers.apply()
+        providers.activate('decision.inhouse', target='b')
+        providers.apply()
+        live = decision.get_decision(cfg.get_settings(), 'layout.pick')
+        assert [t['id'] for t in live.targets] == ['b'] and live.model == 'clef-other'
+        assert by_id(providers)['decision.inhouse']['selected_target'] == 'b'
+        with pytest.raises(ProviderInputError):
+            providers.activate('decision.inhouse', target='disabled')
+        other.systemone_fail = 503
+        with pytest.raises(Exception) as caught:
+            live.ask(stage='test:single', state='x', questions={'q': {'type': 'noul', 'instructions': 'y'}})
+        assert caught.value.code == 'upstream_error' and not fake.posts('/v1/systemone')
+        providers.activate('decision.inhouse', target='a')
+        assert decision.get_decision(cfg.get_settings(), 'layout.pick').model == 'clef-test'
+    finally:
+        other.close()

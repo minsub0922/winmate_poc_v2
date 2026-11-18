@@ -186,7 +186,7 @@ class TypeSafeDecision:
         self.base = settings.decision_base_url.rstrip('/')
         self.timeout = int(settings.decision_timeout)
         self._open = opener or urllib.request.urlopen
-        self.family = family(self.model)
+        self.family = 'clef' if getattr(settings, 'decision_primary', '').startswith('clef-') else family(self.model)
         self.limits = LIMITS[self.family]
         self.name = 'typesafe' if self.family == 'jev' else 'clef-local'
         self.fallbacks: List['TypeSafeDecision'] = []  # other decision slots, in order (settings WINMATE_DECISION_ORDER)
@@ -358,7 +358,7 @@ def slot_client(settings: Any, slot: str, primary: bool = False) -> Any:
     main / clef = the System One HTTP client."""
     if slot == 'inhouse':
         from .inhouse_bridge import InhouseDecisionClient
-        return InhouseDecisionClient(settings)
+        return InhouseDecisionClient(settings, service=True)
     return TypeSafeDecision(settings if primary else slot_settings(settings, slot))
 
 

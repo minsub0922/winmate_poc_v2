@@ -160,12 +160,19 @@ def allowed_endpoint(url: str) -> bool:
 # Admin-set values (the Provider tab: a changed in-house serving endpoint). Highest precedence at server runtime only —
 # an explicit ``environ`` (tests, tools) never sees them.
 _OVERRIDES: Dict[str, str] = {}
+# Slot → (base URL, model) of CLEF connections verified by the admin.
+_ADMIN_CLEFS: Dict[str, Tuple[str, str]] = {}
+_SINGLE_DECISION = False
 
 
-def set_overrides(values: Optional[Mapping[str, str]] = None) -> None:
+def set_overrides(values: Optional[Mapping[str, str]] = None, *, clefs: Optional[Mapping[str, Tuple[str, str]]] = None,
+                  single_decision: bool = False) -> None:
     """Replace the admin override layer (``None`` / empty clears it). Call :func:`reload_settings` afterwards."""
-    _OVERRIDES.clear()
-    _OVERRIDES.update({k: str(v) for k, v in (values or {}).items() if k in _KEYS and str(v).strip()})
+    global _OVERRIDES, _ADMIN_CLEFS, _SINGLE_DECISION
+    with _LOCK:
+        _OVERRIDES = {k: str(v) for k, v in (values or {}).items() if (k in _KEYS or k == 'WINMATE_INHOUSE_TARGET') and str(v).strip()}
+        _ADMIN_CLEFS = dict(clefs or {})
+        _SINGLE_DECISION = single_decision
 
 
 def overrides() -> Dict[str, str]:
@@ -205,6 +212,8 @@ class Settings:
     queue_namespace: str = 'winmate-llm'
     queue_timeout: int = 600
     schema_mode: str = 'json_object'
+    single_decision: bool = False
+    inhouse_target: str = ''
     decision_mode: str = 'auto'          # auto | off
     decision_model: str = DEFAULT_DECISION_MODEL
     decision_base_url: str = DEFAULT_DECISION_BASE_URL
@@ -267,7 +276,7 @@ class Settings:
                 'providers': [{'name': n, 'model': m, 'api_key_configured': k, 'selected': n == self.provider} for n, m, k in self.providers],
                 'fallbacks': [n for n, *_ in self.llm_fallbacks],
                 'inhouse': {'llm': self.inhouse_llm or None, 'decision': self.inhouse_decision or None},
-                'decision': {'provider': 'inhouse' if self.decision_primary == 'inhouse' else 'clef-local' if self.decision_model.startswith('clef') else 'typesafe',
+                'decision': {'provider': 'inhouse' if self.decision_primary == 'inhouse' else 'clef-local' if self.decision_primary.startswith('clef') or self.decision_model.startswith('clef') else 'typesafe',
                              'model': self.decision_model, 'endpoint_host': urlsplit(self.decision_base_url).hostname if self.decision_base_url else None,
                              'mode': self.decision_mode, 'api_key_configured': self.has_decision_key, 'timeout_s': self.decision_timeout,
                              'fallbacks': [x for x, *_ in self.decision_fallbacks],
@@ -406,15 +415,26 @@ def load_settings(environ: Optional[Mapping[str, str]] = None, env_files: Option
     slots = {'main': (decision_base, decision_model, get('TYPESAFE_API_KEY')[0]), 'clef': (clef_base, clef_model, 'local'),
              # the in-house ClefDecision class: no address of its own (the class reaches its servers); usable once ready
              'inhouse': ('', inhouse_decision.default_model, 'inhouse' if inhouse_decision.ready else '')}
+    single_decision = not explicit and _SINGLE_DECISION
+    if not explicit:
+        slots.update({slot: (base, model, 'local') for slot, (base, model) in _ADMIN_CLEFS.items()})
+    inhouse_target = admin.get('WINMATE_INHOUSE_TARGET', '')
+    if inhouse_target:
+        target = next((t for t in getattr(inhouse_decision, 'targets', ())
+                       if t['enabled'] and t['id'] == inhouse_target), None)
+        slots['inhouse'] = ('', target['model'] if target else '', 'inhouse' if target and inhouse_decision.ready else '')
     raw_order = get('WINMATE_DECISION_ORDER')[0].lower()
     order_items = [x.strip() for x in raw_order.split(',') if x.strip()] if raw_order not in _NONE else []
-    if any(x not in DECISION_SLOTS for x in order_items):
+    if any(x not in slots for x in order_items):
         warnings.append('WINMATE_DECISION_ORDER는 ' + ' · '.join(DECISION_SLOTS) + '만 받습니다.')
     if 'inhouse' in order_items and inhouse_decision.present and not inhouse_decision.ready:
         warnings.append(f'사내 Decision({inhouse_decision.cls})이 준비되지 않았습니다: ' + ' · '.join(inhouse_decision.problems))
-    decision_order = tuple(dict.fromkeys(x for x in order_items if x in DECISION_SLOTS)) or ('main',)
+    decision_order = tuple(dict.fromkeys(x for x in order_items if x in slots)) or ('main',)
     usable = [x for x in decision_order if slots[x][2]]
     first = usable[0] if usable else decision_order[0]
+    if single_decision:
+        decision_order = (first,)
+        usable = usable[:1]
     raw_fallback = get('WINMATE_LLM_FALLBACK')[0].lower()
     fallback_items = [x.strip() for x in raw_fallback.split(',') if x.strip()] if raw_fallback not in _NONE else []
     if any(x not in PROVIDERS for x in fallback_items):
@@ -435,12 +455,12 @@ def load_settings(environ: Optional[Mapping[str, str]] = None, env_files: Option
                     key_source=key_source if key else '', warnings=tuple(warnings), legacy_ignored=tuple(legacy), _api_key=key,
                     provider=provider, queue_backend=queue_backend, queue_db=Path(get('WINMATE_LLM_QUEUE_DB')[0] or RUNTIME_DIR / 'llm-queue.sqlite').expanduser().resolve(),
                     queue_redis_url=redis_url, queue_namespace=namespace, queue_timeout=number('WINMATE_LLM_QUEUE_TIMEOUT', 600, 1, 86400),
-                    schema_mode=schema_mode, decision_mode=decision_mode, decision_model=slots[first][1], decision_base_url=slots[first][0],
+                    schema_mode=schema_mode, single_decision=single_decision, inhouse_target=inhouse_target, decision_mode=decision_mode, decision_model=slots[first][1], decision_base_url=slots[first][0],
                     decision_timeout=number('WINMATE_DECISION_TIMEOUT', 30, 3, 300), decision_tasks=decision_tasks,
                     _decision_key=slots[first][2], reasoning=reasoning, providers=profiles, llm_fallbacks=llm_fallbacks,
-                    decision_order=decision_order, decision_slots=tuple((x, slots[x][0], slots[x][1], bool(slots[x][2])) for x in DECISION_SLOTS),
+                    decision_order=decision_order, decision_slots=tuple((x, slots[x][0], slots[x][1], bool(slots[x][2])) for x in slots),
                     decision_fallbacks=tuple((x, slots[x][0], slots[x][1]) for x in usable[1:]),
-                    _decision_slot_keys=tuple((x, slots[x][2]) for x in DECISION_SLOTS), decision_primary=first,
+                    _decision_slot_keys=tuple((x, slots[x][2]) for x in slots), decision_primary=first,
                     inhouse_llm=_inhouse_state(inhouse_llm), inhouse_decision=_inhouse_state(inhouse_decision),
                     inhouse_fingerprint=f'{inhouse_llm.fingerprint}:{inhouse_decision.fingerprint}')
 

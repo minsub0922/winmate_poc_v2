@@ -132,20 +132,39 @@ const readReviewedSpecs = () => {
   }
   return result;
 };
-if (flag('products-only')) {
+const selectionFile = arg('source-selection', '');
+if (flag('products-only') || selectionFile) {
+  const selected = selectionFile ? readJson(selectionFile) : null;
   const catalogFile = path.join(OUT, 'catalog.json'), manifestFile = path.join(OUT, 'manifest.json');
   if (!fs.existsSync(catalogFile) || !fs.existsSync(manifestFile)) die('--products-only 는 검증된 기존 KB 스냅샷이 필요합니다.');
   const snapshot = readJson(catalogFile), manifest = readJson(manifestFile);
   if (manifest.outputs?.['catalog.json']?.sha256 !== sha256(fs.readFileSync(catalogFile))) die('기존 KB catalog.json 해시가 맞지 않습니다.');
   const products = [...bootstrap.catalog.products.map(p => ({ ...p, ...bootstrap.products.curated[p.id], cur: true })), ...bootstrap.products.products];
   const previousIds = new Set(snapshot.products.map(p => p.id));
-  if (products.length !== EXPECT.products || new Set(products.map(p => p.id)).size !== products.length || products.some(p => !previousIds.has(p.id)) || previousIds.size !== products.length) die('--products-only 는 제품 추가·삭제를 허용하지 않습니다.');
+  const currentIds = new Set(products.map(p => p.id));
+  if (products.length !== EXPECT.products || currentIds.size !== products.length) die('제품 기준 건수 또는 ID가 다릅니다.');
+  if (!selected && (products.some(p => !previousIds.has(p.id)) || previousIds.size !== products.length)) die('--products-only 는 제품 추가·삭제를 허용하지 않습니다.');
   const specs = readReviewedSpecs();
-  if (Object.keys(specs).some(id => !previousIds.has(id))) die('검토 사양에 알 수 없는 제품이 있습니다.');
-  snapshot.products = products.map(p => specs[p.id] ? { ...p, ...specs[p.id] } : p);
+  if (Object.keys(specs).some(id => !currentIds.has(id))) die('검토 사양에 알 수 없는 제품이 있습니다.');
+  const reviewed = products.map(p => specs[p.id] ? { ...p, ...specs[p.id] } : p);
+  if (selected) {
+    for (const [key, rows] of Object.entries({ products:reviewed, solutions:bootstrap.catalog.solutions, cases:bootstrap.catalog.cases })) {
+      const records = new Map(rows.map(row => [String(row.id),row]));
+      const positions = new Map(snapshot[key].map((row,index) => [String(row.id),index]));
+      for (const id of selected[key]) {
+        if (!records.has(id)) die('선택한 원본 항목을 찾을 수 없습니다: ' + id);
+        if (positions.has(id)) snapshot[key][positions.get(id)] = records.get(id);
+        else snapshot[key].push(records.get(id));
+      }
+    }
+    if (snapshot.products.length !== EXPECT.products || snapshot.products.some(p => !currentIds.has(p.id))) die('선택 범위 밖에서 제품 목록이 변경되었습니다.');
+    for (const url of selected.pages) (snapshot.sourcePages ??= {})[url] = bootstrap.catalog.sourcePages[url];
+    Object.assign(manifest.counts, {products: snapshot.products.length, product_map: snapshot.products.length, cases: snapshot.cases.length, solutions: snapshot.solutions.length});
+    manifest.expected.products = EXPECT.products;
+  } else snapshot.products = reviewed;
   const content = Buffer.from(JSON.stringify(snapshot));
   manifest.outputs['catalog.json'] = { size: content.length, sha256: sha256(content) };
-  for (const [key, file] of Object.entries(INPUTS)) if (key === 'products' || key.startsWith('specs_')) {
+  for (const [key, file] of Object.entries(INPUTS)) if (selected ? selected.inputs.includes(rel(file)) : key === 'products' || key.startsWith('specs_')) {
     const input = fs.readFileSync(file); manifest.inputs[rel(file)] = { size: input.length, sha256: sha256(input) };
   }
   manifest.products_generated_at = new Date().toISOString();
@@ -216,6 +235,9 @@ try {
 // ---------------------------------------------------------------- canonical data
 const C = mod.catalog;
 const ALL = C.ALL_LAYOUTS, ACTIVE = C.LAYOUTS, L = C.L, RETIRED = C.RETIRED, PRODUCTS = C.PRODUCTS, P = C.P;
+// 제품 DB 에서 솔루션 · 서비스 · 구독으로 판정된 행(dssKind — proddb/build/dss/classify.py)은 솔루션 카탈로그 모양으로도 싣는다 — 제안서가
+// 그 행을 솔루션 · 서비스로 고르면(ctx.solutions) composer 가 솔루션으로 받는다(services/catalog.js ROW_SOLUTIONS_ALL)
+const ROW_SOLUTIONS = C.ROW_SOLUTIONS_ALL || [];
 const allSet = new Set(ALL.map((l) => l.f));
 const hidden = Object.fromEntries(Object.keys(L).filter((f) => !allSet.has(f)).map((f) => [f, L[f]]));
 const raw = JSON.parse(zlib.gunzipSync(Buffer.from(fs.readFileSync(INPUTS.layouts, 'utf8').trim(), 'base64')).toString('utf8'));
@@ -308,8 +330,9 @@ const write = (name, data) => {
 const json = (v) => Buffer.from(JSON.stringify(v));
 const reviewedSpecs = readReviewedSpecs();
 write('catalog.json', json({
-  layouts: ALL, industries: bootstrap.catalog.industries, products: PRODUCTS.map(p => reviewedSpecs[p.id] ? { ...p, ...reviewedSpecs[p.id] } : p), solutions: bootstrap.catalog.solutions,
+  layouts: ALL, industries: bootstrap.catalog.industries, products: PRODUCTS.map(p => reviewedSpecs[p.id] ? { ...p, ...reviewedSpecs[p.id] } : p), solutions: [...bootstrap.catalog.solutions, ...ROW_SOLUTIONS],
   cases: bootstrap.catalog.cases, indKw: bootstrap.catalog.indKw, curated_product_ids: curatedIds,
+  ...(bootstrap.catalog.sourcePages && { sourcePages: bootstrap.catalog.sourcePages }),
   // 구독(subscription) — DSS 네 번째 종류. basis 'inferred' 결제안은 협의안(원문 아님), status 'expired' 혜택은 새 제안에 쓰지 않는다.
   subscriptions: bootstrap.subscriptions,
 }));

@@ -30,7 +30,7 @@ try {
   // 전부 보인다: 켠 것 먼저, 작은 카드(한 줄에 여러 개), 등록 팝업 없음
   assert.deepEqual((await shown('llm'))[0], 'llm.openrouter');
   assert.equal((await shown('llm')).length, 4);
-  assert.deepEqual(await shown('decision'), ['decision.main', 'decision.clef']);
+  assert.deepEqual(await shown('decision'), ['decision.main', 'decision.clef', 'decision.inhouse']);
   assert.equal(await page.getByRole('button', { name: /등록된 Provider/ }).count(), 0);
   const [a, b] = [await card('llm.openrouter').boundingBox(), await card((await shown('llm'))[1]).boundingBox()];
   assert.ok(Math.abs(a.y - b.y) < 1 && a.width < 360, 'compact cards sit side by side: ' + a.width);
@@ -50,23 +50,43 @@ try {
   assert.deepEqual(await on('llm'), ['llm.gemini', 'llm.openrouter']);
   assert.deepEqual((await shown('llm')).slice(0, 2), ['llm.gemini', 'llm.openrouter']);
 
-  // Decision: Clef 켜고 대표로, TypeSafe 끄기, 모두 끄기
+  const confirmSwitch = () => page.getByRole('dialog').getByRole('button', { name: '전환', exact: true }).click();
   await card('decision.clef').getByRole('switch').click();
-  await card('decision.clef').locator('.pc-rank').waitFor();
-  await card('decision.clef').getByRole('button', { name: '대표로' }).click();
+  await page.getByRole('dialog').getByRole('button', { name: '취소' }).click();
+  assert.deepEqual(await on('decision'), ['decision.main']);
+  await card('decision.clef').getByRole('switch').click();
+  await confirmSwitch();
   await card('decision.clef').locator('.pc-primary').waitFor();
-  assert.deepEqual(await on('decision'), ['decision.clef', 'decision.main']);
-  await page.screenshot({ path: path.join(out, '1-two-on.png') });
-  await card('decision.main').getByRole('switch').click();
-  await page.waitForFunction(() => document.querySelector('.provider-card[data-provider="decision.main"] [role=switch]')?.getAttribute('aria-checked') === 'false');
+  assert.deepEqual(await on('decision'), ['decision.clef']);
   await card('decision.clef').getByRole('switch').click();
+  await confirmSwitch();
   await page.getByText('모두 꺼짐 · LLM이 판단').waitFor();
   assert.deepEqual(await on('decision'), []);
+
+  if (process.env.WINMATE_CLEF_TEST_ENDPOINT) {
+    await page.getByRole('button', { name: 'CLEF 추가' }).click();
+    const dialog = page.getByRole('dialog');
+    await dialog.getByLabel('Endpoint', { exact: true }).fill(process.env.WINMATE_CLEF_TEST_ENDPOINT);
+    await dialog.getByRole('button', { name: '샘플 확인 후 연결' }).click();
+    const added = page.locator('.provider-card[data-provider^="decision.clef-"]');
+    await added.waitFor();
+    assert.equal(await added.getByRole('switch').getAttribute('aria-checked'), 'false');
+    await added.getByRole('switch').click();
+    await confirmSwitch();
+    await added.locator('.pc-primary').waitFor();
+    assert.deepEqual(await on('decision'), [await added.getAttribute('data-provider')]);
+    await page.getByRole('button', { name: 'CLEF 추가' }).click();
+    await dialog.getByLabel('연결 방식').selectOption('training');
+    await dialog.getByRole('button', { name: 'Training job 시작' }).click();
+    await dialog.getByRole('alert').filter({ hasText: '연동이 구성되지 않았습니다' }).waitFor();
+    await dialog.getByRole('button', { name: '닫기' }).click();
+  }
 
   // 대표 끄기 → 다음이 대표, 원래대로 돌리기
   await card('llm.gemini').getByRole('switch').click();
   await card('llm.openrouter').locator('.pc-primary').waitFor();
   await card('decision.main').getByRole('switch').click();
+  await confirmSwitch();
   await card('decision.main').locator('.pc-primary').waitFor();
   assert.deepEqual([await on('llm'), await on('decision')], [['llm.openrouter'], ['decision.main']]);
   await page.screenshot({ path: path.join(out, '2-back.png') });

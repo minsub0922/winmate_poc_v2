@@ -10,6 +10,7 @@ import SCENARIO_COVERS from './scenario_covers.json' with { type: 'json' };
 import ACCOUNT from './account_scenarios.json' with {type:'json'};
 import SUBSCRIPTION from './subscription_scenarios.json' with { type: 'json' };
 import IMAGE_SWAPS from './scenario_image_swaps.json' with { type: 'json' };
+import IMAGE_FIXES from './scenario_image_fixes.json' with { type: 'json' };
 Object.assign(FILLS, VERTICAL.fills);
 Object.assign(FILL_CUSTOMER, VERTICAL.customers);
 Object.assign(FILLS, STANDARD.fills);
@@ -19,6 +20,32 @@ Object.assign(FILL_CUSTOMER, ACCOUNT.customers);
 Object.assign(FILLS, SUBSCRIPTION.fills);
 Object.assign(FILL_CUSTOMER, SUBSCRIPTION.customers);
 for(const [id,cover]of Object.entries(SCENARIO_COVERS))if(FILLS[id])FILLS[id][0]=structuredClone(cover);
+// 장을 보고 고른 사진 (scenario_image_fixes.json) — 글 · 제품 · 공간 · 고객사와 어긋난 사진, 같은 현장 사진이 없어 남은 반복을
+// 맞는 사진으로 바꾼 것. 아래 반복 바꾸기(swaps)보다 먼저 — dedupe 스크립트는 이 값이 들어간 덱을 보고 반복을 센다.
+// 장의 레이아웃(f)과 원래 주소(from, 레이아웃 자체 사진이면 null)가 그대로일 때만 바꾼다.
+const swapIn = (table) => {
+  for (const [id, pages] of Object.entries(table || {})) {
+    for (const [k, slots] of Object.entries(pages)) {
+      const page = FILLS[id] && FILLS[id][k];
+      if (!page) continue;
+      for (const [slot, x] of Object.entries(slots)) {
+        const now = page.img && page.img[slot];
+        if (x.f !== page.f || (now ? now.src : null) !== x.from) continue;
+        page.img = { ...(page.img || {}), [slot]: { ...(now || { keep: true }), ...x.to } };
+      }
+    }
+  }
+};
+// 어느 덱에서든 그 자리에 두면 안 되는 제품 컷(꺼진 화면 · 뒷면 · 치수 도면 · 옆면 띠)은 같은 제품의 다른 공식 컷으로 (replace: 원래 주소 → 바꾼 값).
+// 고른 사진 · 반복 바꾸기 전에 한 번(그 둘이 바뀐 값을 보도록), 반복 바꾸기 뒤에 한 번 더(예전 swaps 가 그 컷을 가리켜도 남지 않게).
+const replaceBad = () => {
+  for (const pages of Object.values(FILLS)) for (const page of pages || []) for (const [slot, im] of Object.entries((page && page.img) || {})) {
+    const to = im && IMAGE_FIXES.replace && IMAGE_FIXES.replace[im.src];
+    if (to) page.img[slot] = { ...im, ...to };
+  }
+};
+replaceBad();
+swapIn(IMAGE_FIXES.fixes);
 // 같은 그림이 한 시나리오 안에서 두 번 나오지 않게 바꾼 이미지 (scenario_image_swaps.json — app/scripts/dedupe_scenario_images.mjs가 만든다).
 // 장의 레이아웃(f)과 원래 주소(from)가 그대로일 때만 바꾼다 — 시나리오를 다시 만들어 장이 달라지면 그 줄은 건너뛰고, 스크립트를 다시 돌려 맞춘다.
 for (const [id, pages] of Object.entries(IMAGE_SWAPS.swaps || {})) {
@@ -32,6 +59,7 @@ for (const [id, pages] of Object.entries(IMAGE_SWAPS.swaps || {})) {
     }
   }
 }
+replaceBad();
 const EMPTY = () => ({ t: {}, img: {} });
 /** k번째 장(0부터)의 채운 값 — 그 자리 레이아웃(f)이 바뀌었으면 빈 덮어쓰기 */
 export function fillOf(id, k, f) {

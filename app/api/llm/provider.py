@@ -671,8 +671,10 @@ class LLMProvider:
         last = ProviderError('upstream_error', '응답이 없습니다.')
         try:
             req = self._request(model, body, stream=True)
-        except ProviderError as exc:  # this API cannot take the call (e.g. images on a text-only model): a fallback may
-            req, last = None, exc
+        except ProviderError as exc:
+            if not (self.fallbacks and falls_back(exc)):
+                raise  # as before: a request that cannot be built is not a failed call
+            req, last = None, exc  # this API cannot take the call (e.g. images on a text-only model): a fallback may
         for attempt in range(1, max(1, max_attempts) + 1):
             if req is None:
                 break

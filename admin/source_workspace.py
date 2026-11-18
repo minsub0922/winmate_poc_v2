@@ -146,3 +146,6 @@ def recover(root, directory, store):
                 else:
                     replace_from(journal.parent / 'before' / entry['path'], dst)
         shutil.rmtree(journal.parent)
+    # The publication lock is held. A stage without a journal has never replaced a live file.
+    for stage in directory.glob('*/stage'):
+        shutil.rmtree(stage.parent)

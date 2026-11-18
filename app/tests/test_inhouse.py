@@ -18,7 +18,7 @@ from app.api.poc import provider as poc_provider
 from app.api.poc import settings as cfg
 from app.tests.fixtures.inhouse_fake import CLIENT, SEARCH_KEY, TOKEN, FakeInhouse, clef_config, install
 
-PNG = ('iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAEklEQVR4nGP8z8DAwMDAxMDAAAANHQEDasKb6QAAAABJRU5ErkJggg==')
+PNG = 'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAFklEQVR42mO4IydHEmIY1TCqYfhqAACaMxgQdrf9VwAAAABJRU5ErkJggg=='
 QUESTIONS = {'pick': decision.choice('가장 중요한 것은?', {'price': '초기 비용', 'performance': '성능'}),
              'fit': decision.score('관련도', ['없음', '약함', '적합', '매우 적합']),
              'sensitive': decision.noul('고객은 가격에 민감하다.')}
@@ -268,3 +268,38 @@ def test_probes_and_the_check_command(env, fake, capsys):
     out = capsys.readouterr().out
     assert 'FAIL' not in out and 'PASS  generate_text' in out and 'PASS  answer(a)' in out and 'PASS  search_web' in out
     assert TOKEN not in out and CLIENT not in out
+
+
+def test_a_stream_that_cannot_be_built_fails_as_before_without_a_fallback(env, tmp_path):
+    env.setenv('WINMATE_INHOUSE_DIR', str(install(tmp_path / 'nobuild', patch={'gauss.py': [
+        ('    def build(self, call):\n', "    def build(self, call):\n        if call.stream:\n            raise InhouseError('bad_request', '스트림 요청 형식 오류')\n")]})))
+    p = provider()
+    with pytest.raises(ProviderError) as caught:
+        list(p.stream_text(stage='test:inhouse', user='x'))
+    assert caught.value.code == 'bad_request' and p.ledger.view()['failed'] == 0  # not counted as a failed call (as before)
+
+
+def test_a_model_id_is_required_to_be_ready(env, tmp_path):
+    env.setenv('WINMATE_INHOUSE_DIR', str(install(tmp_path / 'nomodel', patch={'gauss.py': [
+        ("REQUIRED_ENV = ('INTERNAL_LLM_API_KEY', 'INTERNAL_LLM_CLIENT_KEY', 'INTERNAL_LLM_BASE_URL', 'INTERNAL_LLM_MODEL')",
+         "REQUIRED_ENV = ('INTERNAL_LLM_API_KEY', 'INTERNAL_LLM_CLIENT_KEY', 'INTERNAL_LLM_BASE_URL')")]})))
+    env.delenv('INTERNAL_LLM_MODEL')
+    status = inhouse_bridge.llm_status()
+    assert not status.ready and status.missing == ('INTERNAL_LLM_MODEL',)
+    assert poc_provider.get_provider(cfg.reload_settings()) == (None, 'no_api_key')
+
+
+def test_the_check_image_is_a_real_png():
+    import base64
+    import struct
+    import zlib
+    data, pos, chunks = base64.b64decode(inhouse_bridge._PNG), 8, {}
+    assert data[:8] == b'\x89PNG\r\n\x1a\n'
+    while pos < len(data):
+        n = struct.unpack('>I', data[pos:pos + 4])[0]
+        kind, body = data[pos + 4:pos + 8], data[pos + 8:pos + 8 + n]
+        assert struct.unpack('>I', data[pos + 8 + n:pos + 12 + n])[0] == zlib.crc32(kind + body) & 0xffffffff
+        chunks[kind] = chunks.get(kind, b'') + body
+        pos += 12 + n
+    width, height = struct.unpack('>II', chunks[b'IHDR'][:8])
+    assert (width, height) == (16, 16) and len(zlib.decompress(chunks[b'IDAT'])) == height * (1 + 3 * width)

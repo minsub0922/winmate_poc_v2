@@ -109,9 +109,11 @@ tdir = os.path.join(ECAT, 'text')
 docs = {}
 for fn in sorted(os.listdir(tdir)) if os.path.isdir(tdir) else []:
     d = json.load(open(os.path.join(tdir, fn))); docs[d['dir']] = d
-    x('INSERT INTO catalog_doc VALUES (?,?,?,?,?,?,?)', (d['dir'], d['title'], d.get('docTitle'), d.get('group'), d.get('tab'), d['pages'], f"https://samsung.aiibook.net/b2b/ecatalog5.php?Dir={d['dir']}"))
+    namespace, _, number = str(d['dir']).rpartition(':')
+    viewer = d.get('url') or f"https://samsung.aiibook.net/{namespace or 'b2b'}/ecatalog5.php?Dir={number}"
+    x('INSERT INTO catalog_doc VALUES (?,?,?,?,?,?,?)', (d['dir'], d['title'], d.get('docTitle'), d.get('group'), d.get('tab'), d['pages'], viewer))
     for pg, t in d['text'].items():
-        x('INSERT INTO catalog_page VALUES (?,?,?,?)', (d['dir'], int(pg), t, f"https://samsung.aiibook.net/b2b/catImage/{d['dir']}/{int(pg):03d}.jpg"))
+        x('INSERT INTO catalog_page VALUES (?,?,?,?)', (d['dir'], int(pg), t, f"https://samsung.aiibook.net/{namespace or 'b2b'}/catImage/{number}/{int(pg):03d}.jpg"))
 # 모델코드 언급: 사이트 모델코드(정확) + 마케팅 모델명(접두) 를 카탈로그 쪽 텍스트에서 찾는다
 models = {r[0]: r[1] for r in x('SELECT model_code, family_id FROM product_model')}
 norm = lambda s: re.sub(r'[^A-Z0-9]', '', s.upper())

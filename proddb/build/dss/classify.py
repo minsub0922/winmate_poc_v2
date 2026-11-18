@@ -59,7 +59,8 @@ SYSTEM = (
     "이름 · 분류 · 설명으로 판단합니다. 두 종류에 걸치면 고객이 값을 내는 중심을 고르고 conf 는 low.\n"
     'JSON만: {"items":[{"id":"항목 id","kind":"device|solution|service|subscription","conf":"high|low","why":"판단 근거 15자 이내"}]} '
     "— 받은 항목 전부.")
-ONE = "한 항목만 자세히 봅니다. 설명을 끝까지 읽고 고릅니다."
+ONE = ("한 항목만 자세히 봅니다. 설명을 끝까지 읽고 고릅니다. 설명이 기능(AI · 원격 관리 · 솔루션)을 강조해도 그 항목이 화면 · 기기 · 부품 · 자재 "
+       "자체를 파는 것이면 device. 소프트웨어 · 사람이 해 주는 일 · 정기 요금만 다른 종류.")
 SAME = ("삼성전자 B2B 솔루션 항목마다, 아래 앱 솔루션 목록에서 같은 것을 고릅니다. 같은 것 = 같은 소프트웨어 · 플랫폼의 판매 단위"
         "(에디션 · 버전 · 표기만 다른 것 포함). 다른 제품이거나 확실하지 않으면 none.\n앱 솔루션: {catalog}\n"
         'JSON만: {{"items":[{{"id":"항목 id","same":"앱 솔루션 id 또는 none"}}]}}')
@@ -134,7 +135,7 @@ def rule_kind(row: dict) -> str:
 class Asker:
     """LLM 에 묶음으로 묻고 답을 검사한다 — 빠진 항목은 한 번 더, 그래도 없으면 None"""
 
-    def __init__(self, profile: str | None):
+    def __init__(self, profile: str | None, pace: float = 0.0, tpm: int = 0):
         from app.api.poc.provider import get_provider, get_provider_for
         from app.api.poc.settings import get_settings
         if profile:
@@ -146,12 +147,26 @@ class Asker:
         self.model = getattr(self.p, 'model', '') or ''
         self.calls = 0
         self.tokens = [0, 0]
+        import threading
+        self.pace, self.tpm, self._gate, self._last, self._need = float(pace or 0), int(tpm or 0), threading.Lock(), 0.0, 0.0
+
+    def _wait(self, chars: int = 0):
+        """호출 사이 간격 — 최소 --pace 초, --tpm(분당 토큰 예산)이면 지난 호출의 크기만큼(한글 약 1.5자 = 1토큰 + 답 300) — 무료 등급 분당 한도(429)를 넘지 않게"""
+        if self.pace <= 0 and self.tpm <= 0:
+            return
+        with self._gate:
+            delay = self._last + max(self.pace, self._need) - time.time()
+            if delay > 0:
+                time.sleep(delay)
+            self._last = time.time()
+            self._need = ((chars / 1.5 + 300) / self.tpm * 60) if self.tpm > 0 else 0.0
 
     def ask_same(self, batch: list, sols: list) -> dict:
         """솔루션 행마다 앱 솔루션 카탈로그의 같은 것(id) 또는 None"""
         ids = [x['id'] for x in sols]
-        schema = {'type': 'OBJECT', 'properties': {'items': {'type': 'ARRAY', 'items': {'type': 'OBJECT', 'properties': {
-            'id': {'type': 'STRING'}, 'same': {'type': 'STRING', 'enum': ids + ['none']}}, 'required': ['id', 'same']}}}, 'required': ['items']}
+        def schema(n):
+            return {'type': 'OBJECT', 'properties': {'items': {'type': 'ARRAY', 'minItems': n, 'maxItems': n, 'items': {'type': 'OBJECT', 'properties': {
+                'id': {'type': 'STRING'}, 'same': {'type': 'STRING', 'enum': ids + ['none']}}, 'required': ['id', 'same']}}}, 'required': ['items']}
         system = SAME.format(catalog='; '.join(f"{x['id']}={uncode(x['name'])}({x.get('cat') or ''})" for x in sols))
         want = {it['id'] for it in batch}
         got: dict = {}
@@ -160,8 +175,9 @@ class Asker:
             if not left:
                 break
             try:
+                self._wait(len(system) + len(json.dumps(left, ensure_ascii=False)))
                 r = self.p.generate_json(stage='dss_kind_same', system=system, user=json.dumps(
-                    [{k: it[k] for k in ('id', 'name', 'cat', 'text') if it.get(k)} for it in left], ensure_ascii=False), schema=schema,
+                    [{k: it[k] for k in ('id', 'name', 'cat', 'text') if it.get(k)} for it in left], ensure_ascii=False), schema=schema(len(left)),
                     temperature=0.0, max_output_tokens=1024)
             except Exception as exc:  # noqa: BLE001
                 print('  호출 실패:', type(exc).__name__, str(exc)[:160], file=sys.stderr)
@@ -185,8 +201,11 @@ class Asker:
             if attempt:
                 user = json.dumps([{k: it[k] for k in ('id', 'name', 'cat', 'text') if it.get(k)} for it in left], ensure_ascii=False)
             try:
-                r = self.p.generate_json(stage='dss_kind', system=SYSTEM + ('\n' + ONE if one else ''), user=user, schema=SCHEMA,
-                                         temperature=0.0, max_output_tokens=2048)
+                self._wait(len(SYSTEM) + len(user))
+                n = len(json.loads(user))   # (답의 항목 수를 묶음 크기로 못박는다 — 빼먹지 않게: 10개 중 3개만 답하던 모델)
+                schema = {**SCHEMA, 'properties': {**SCHEMA['properties'], 'items': {**SCHEMA['properties']['items'], 'minItems': n, 'maxItems': n}}}
+                r = self.p.generate_json(stage='dss_kind', system=SYSTEM + ('\n' + ONE if one else ''), user=user, schema=schema,
+                                         temperature=0.3 if attempt else 0.0, max_output_tokens=2048)   # (다시 물을 때는 반복 폭주를 피해 조금 풀어서)
             except Exception as exc:  # noqa: BLE001 — a failed call leaves its items unjudged (kept as they were)
                 print('  호출 실패:', type(exc).__name__, str(exc)[:160], file=sys.stderr)
                 continue
@@ -199,7 +218,8 @@ class Asker:
         return got
 
 
-def classify(items: dict, prev: dict, overrides: dict, asker: Asker | None, run: str, details: dict, force: bool = False, sols: list = ()) -> tuple:
+def classify(items: dict, prev: dict, overrides: dict, asker: Asker | None, run: str, details: dict, force: bool = False, sols: list = (),
+             workers: int = WORKERS, save=None, recheck_low: bool = False) -> tuple:
     """(decisions, review) — 지난 판정 재사용 · 묶음 판정 · 다시 보기 · 사람 판정"""
     at = now()
     out, todo = {}, []
@@ -207,7 +227,8 @@ def classify(items: dict, prev: dict, overrides: dict, asker: Asker | None, run:
         h = basis_hash(it)
         old = prev.get(pid) or {}
         rk = rule_kind(it['_row'])
-        if not force and old.get('hash') == h and old.get('by') in ('llm', 'manual') and old.get('kind') in KINDS:
+        if not force and old.get('hash') == h and old.get('by') in ('llm', 'manual') and old.get('kind') in KINDS \
+                and not (recheck_low and old.get('by') == 'llm' and old.get('conf') == 'low'):
             out[pid] = {**old, 'rule': rk}
         else:
             todo.append(it)
@@ -217,16 +238,19 @@ def classify(items: dict, prev: dict, overrides: dict, asker: Asker | None, run:
     if todo and asker is not None:
         batches = [todo[k:k + BATCH] for k in range(0, len(todo), BATCH)]
         print(f'LLM 판정: 항목 {len(todo)} · 묶음 {len(batches)} · 모델 {asker.model}', file=sys.stderr)
-        with cf.ThreadPoolExecutor(WORKERS) as ex:
-            for got in ex.map(asker.ask, batches):
+        with cf.ThreadPoolExecutor(workers) as ex:
+            for n, got in enumerate(ex.map(asker.ask, batches), 1):
                 for pid, g in got.items():
                     out[pid] = {**g, 'by': 'llm', 'rule': out[pid]['rule'], 'hash': out[pid]['hash'], 'model': asker.model, 'at': at, 'run': run}
+                if save and n % 5 == 0:   # (중간 저장 — 끊겨도 받은 판정은 남는다; 다음 실행이 이어서 묻는다)
+                    save(out)
+                    print(f'  {n}/{len(batches)}', file=sys.stderr)
         # 다시 보기: 확신이 낮거나 지난 규칙과 다른 것 — 한 항목씩, 설명을 더 길게
         again = [items[pid] for pid in (it['id'] for it in todo) if out[pid]['by'] == 'llm' and (out[pid]['conf'] == 'low' or out[pid]['kind'] != out[pid]['rule'])]
         if again:
             long = {it['id']: {**it, 'text': describe(details.get(it['id']) or {}, 360) or it['text']} for it in again}
             print(f'다시 보기: {len(again)}', file=sys.stderr)
-            with cf.ThreadPoolExecutor(WORKERS) as ex:
+            with cf.ThreadPoolExecutor(workers) as ex:
                 for it, got in zip(again, ex.map(lambda x: asker.ask([long[x['id']]], one=True), again)):
                     g = got.get(it['id'])
                     first = out[it['id']]
@@ -250,7 +274,7 @@ def classify(items: dict, prev: dict, overrides: dict, asker: Asker | None, run:
     if ask_same and asker is not None and sols:
         print(f'같은 것 찾기: 솔루션 {len(ask_same)}', file=sys.stderr)
         batches = [ask_same[k:k + BATCH] for k in range(0, len(ask_same), BATCH)]
-        with cf.ThreadPoolExecutor(WORKERS) as ex:
+        with cf.ThreadPoolExecutor(workers) as ex:
             for got in ex.map(lambda b: asker.ask_same(b, list(sols)), batches):
                 for pid, same in got.items():
                     out[pid]['same'], out[pid]['same_hash'] = same, sh
@@ -332,7 +356,11 @@ def main(argv=None) -> int:
     ap.add_argument('--profile', default=os.environ.get('WINMATE_DSS_KIND_PROFILE') or None)
     ap.add_argument('--run', default=None)
     ap.add_argument('--force', action='store_true', help='지난 판정을 쓰지 않고 다시 묻는다')
+    ap.add_argument('--workers', type=int, default=WORKERS, help='동시에 보내는 호출 수')
+    ap.add_argument('--pace', type=float, default=0.0, help='호출 사이 최소 간격(초) — 무료 등급 분당 한도')
+    ap.add_argument('--tpm', type=int, default=0, help='분당 토큰 예산 — 호출 크기만큼 기다린다(예: 무료 등급 9000)')
     ap.add_argument('--no-llm', action='store_true', help='모델을 부르지 않는다(지난 판정 · 사람 판정 · 규칙만)')
+    ap.add_argument('--recheck-low', action='store_true', help='확신이 낮았던 LLM 판정도 다시 묻는다')
     ap.add_argument('--apply-rows', action='store_true', help='--db 의 행에 dssKind 를 쓴다')
     ap.add_argument('--apply', action='store_true', help='--apply-rows + 원장 종류 + SQLite(dss_db.py) — 활성 데이터에서만')
     a = ap.parse_args(argv)
@@ -350,9 +378,16 @@ def main(argv=None) -> int:
     details = load_details(Path(a.details))
     items = items_of(db, catalog, details)
     run = a.run or 'kinds-' + datetime.now(KST).strftime('%Y%m%d-%H%M')
-    asker = None if a.no_llm else Asker(a.profile)
+    asker = None if a.no_llm else Asker(a.profile, a.pace, a.tpm)
     t0 = time.time()
-    decisions, review = classify(items, prev, overrides, asker, run, details, force=a.force, sols=(catalog or {}).get('solutions') or [])
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    def save(partial):
+        body = {pid: d for pid, d in partial.items() if d.get('by') != 'rule'}
+        merged = {**{k: v for k, v in prev.items() if k not in partial}, **{k: v for k, v in prev.items() if k in partial and k not in body}, **body}
+        out_path.write_text(json.dumps({**prev_doc, 'items': dict(sorted(merged.items())), 'partial': True}, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
+    decisions, review = classify(items, prev, overrides, asker, run, details, force=a.force, sols=(catalog or {}).get('solutions') or [],
+                                 workers=max(1, a.workers), save=save, recheck_low=a.recheck_low)
     counts = {}
     for d in decisions.values():
         counts[d['kind']] = counts.get(d['kind'], 0) + 1

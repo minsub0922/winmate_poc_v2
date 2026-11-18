@@ -96,7 +96,8 @@ def directory(environ: Optional[Mapping[str, str]] = None) -> Path:
         if raw:
             break
     if not raw:
-        raw = str(_env_values(None, None).get(c.DIR_ENV) or '').strip()
+        from .. import runtime_env  # .env files as the given environment says (WINMATE_ENV_FILES=none → none)
+        raw = str(runtime_env.env_values(environ, None).get(c.DIR_ENV) or '').strip()
     path = Path(raw).expanduser() if raw else Path(c.DEFAULT_DIR)
     return (path if path.is_absolute() else ROOT / path).resolve()
 
@@ -268,6 +269,8 @@ def _resolve(kind: str, environ=None, files=None) -> Tuple[Any, Status]:
                             fingerprint=hashlib.sha1(repr((sig, error)).encode()).hexdigest()[:16])
     ctx = context(cls, environ, files)
     missing = tuple(k for k in cls.REQUIRED_ENV if not ctx.env.get(k))
+    if kind == 'llm' and not (ctx.env.get('INTERNAL_LLM_MODEL') or getattr(cls, 'DEFAULT_MODEL', '')) and 'INTERNAL_LLM_MODEL' not in missing:
+        missing += ('INTERNAL_LLM_MODEL',)  # every call names a model: the setting, or the class's DEFAULT_MODEL
     impl, error = _instance(kind, cls, ctx)
     caps = tuple(sorted(getattr(cls, 'CAPABILITIES', ()) or ())) if kind == 'llm' else ()
     targets: Tuple[dict, ...] = ()
@@ -291,6 +294,18 @@ def llm(environ=None, files=None) -> Tuple[Optional[c.InhouseLLM], Status]:
 
 def decision(environ=None, files=None) -> Tuple[Optional[c.InhouseDecision], Status]:
     return _resolve('decision', environ, files)
+
+
+def training_adapter() -> Optional[c.InhouseDecision]:
+    """Load the CLEF adapter even before it has a serving target."""
+    cls, _, _ = _load_class('decision', directory())
+    if cls is None:
+        return None
+    ctx = context(cls)
+    if any(not ctx.env.get(key) for key in cls.REQUIRED_ENV):
+        return None
+    impl, _ = _instance('decision', cls, ctx)
+    return impl
 
 
 def llm_status(environ=None, files=None) -> Status:
@@ -558,7 +573,7 @@ class InhouseDecisionClient:
     family = 'inhouse'
     base = ''
 
-    def __init__(self, settings: Any, impl: Optional[c.InhouseDecision] = None, status: Optional[Status] = None) -> None:
+    def __init__(self, settings: Any, impl: Optional[c.InhouseDecision] = None, status: Optional[Status] = None, *, service: bool = False) -> None:
         from .decision import LIMITS, Limits
         if status is None:
             impl, status = decision()
@@ -566,6 +581,9 @@ class InhouseDecisionClient:
         self.impl, self.status = impl, status
         self._key = 'inhouse' if impl is not None and status.ready else ''
         self.targets = [t for t in status.targets if t['enabled']] if self._key else []
+        if service and getattr(settings, 'single_decision', False):
+            selected = settings.inhouse_target
+            self.targets = [t for t in self.targets if not selected or t['id'] == selected][:1]
         self.model = self.targets[0]['model'] if self.targets else (status.default_model or '')
         self.timeout = max(int(getattr(settings, 'decision_timeout', 30) or 30), int(getattr(impl, 'TIMEOUT', 0) or 0))
         first = self.targets[0] if self.targets else None
@@ -697,7 +715,9 @@ def probe_decision(settings: Any, target: Optional[str] = None) -> dict:
     client = InhouseDecisionClient(settings)
     if not client.available:
         return {'status': 'down', 'detail': '사내 Decision 연결이 준비되지 않았습니다: ' + ' · '.join(client.status.problems)}
-    t = next((x for x in client.targets if target in (None, x['id'])), client.targets[0])
+    t = next((x for x in client.targets if target in (None, x['id'])), None)
+    if t is None:
+        return {'status': 'down', 'detail': '선택한 사내 CLEF 대상이 비활성 상태입니다.'}
     impl = client.impl
     secrets = impl.secrets()
     try:
@@ -714,7 +734,7 @@ def probe_decision(settings: Any, target: Optional[str] = None) -> dict:
 
 
 # ---------------------------------------------------------------- 확인 명령 (사내망 코드 에이전트용)
-_PNG = ('iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAEklEQVR4nGP8z8DAwMDAxMDAAAANHQEDasKb6QAAAABJRU5ErkJggg==')
+_PNG = 'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAFklEQVR42mO4IydHEmIY1TCqYfhqAACaMxgQdrf9VwAAAABJRU5ErkJggg=='  # 16×16 red, checked decodable
 
 
 def _line(ok: Optional[bool], title: str, detail: str = '') -> None:

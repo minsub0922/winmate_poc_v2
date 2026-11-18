@@ -35,7 +35,7 @@ CONFIG = lambda: J(P('proddb/dss/watch-config.json')) if os.path.exists(P('prodd
 STATE = P('proddb/dss/watch-state.json')  # 솔루션 페이지 본문 해시의 기준(전체 run 뒤 첫 점검에서 새로 잡는다)
 LINKS = {}  # --links 로 받은 관리자 리소스 링크
 sys.path.insert(0, HERE)
-from pagetext import hashes  # noqa: E402
+from pagetext import hashes, main_of, text_of  # noqa: E402
 
 
 def progress(pct, text):
@@ -101,6 +101,11 @@ def ecat_file(d, page, base=ECAT):
     return page, st, (email.utils.parsedate_to_datetime(lm) if lm else None), (hd.get('ETag') if st == 200 else None)
 
 
+def ecat_signature(files):
+    markers = [(page,status,modified.isoformat() if modified else None,tag) for page,status,modified,tag in sorted(files)]
+    return hashlib.sha256(json.dumps(markers).encode()).hexdigest()
+
+
 def check_ecat(out, step):
     extra = LINKS.get('ecat') or {}
     home = extra.get('listing') or ECAT  # 관리자가 목록 주소를 바꿨으면 그 주소
@@ -144,9 +149,9 @@ def check_ecat(out, step):
         viewers = dict(zip(dirs, ex.map(lambda d: ecat_viewer(dir_of(d), base_of(d)), dirs)))
     step(25, 'e-카탈로그 권별 쪽 수 · 뷰어 제목 확인')
     files = {}
-    jobs = [(d, p) for d in known if viewers[d]['exists'] for p in range(1, viewers[d]['pages'] + 1)]
+    jobs = [(d, p) for d in dirs if viewers[d]['exists'] for p in range(1, viewers[d]['pages'] + 1)]
     with cf.ThreadPoolExecutor(8) as ex:
-        for i, (d, r) in enumerate(zip((j[0] for j in jobs), ex.map(lambda j: ecat_file(j[0], j[1], base), jobs))):
+        for i, (d, r) in enumerate(zip((j[0] for j in jobs), ex.map(lambda j: ecat_file(dir_of(j[0]), j[1], base_of(j[0])), jobs))):
             files.setdefault(d, []).append(r)
             if i % 300 == 0:
                 step(25 + 70 * i / max(1, len(jobs)), f'e-카탈로그 쪽 파일 수정 시각 확인 {i}/{len(jobs)}')
@@ -154,7 +159,10 @@ def check_ecat(out, step):
         v, k, l, t = viewers[d], known.get(d), live.get(d), texts.get(d)
         by_link = bool(l) and l[0] == 'link'  # 목록이 아니라 관리자가 넣은 링크로 본 권
         name = (l or k)[3] if not by_link else (k[3] if k else l[1] or (v['docTitle'] if v['exists'] else '') or f'Dir {dir_of(d)}')
-        item = {'dir': d, 'title': name, 'url': linked[d]['url'] if d in linked else f'{base}access/ecatalog5.php?Dir={d}'}
+        item = {'dir': d, 'title': name, 'url': linked[d]['url'] if d in linked else f'{base}access/ecatalog5.php?Dir={d}',
+                'listed':bool(l), 'tab':(l or k)[0], 'group':(l or k)[1], 'docTitle':v.get('docTitle'), 'pages':v.get('pages')}
+        if files.get(d):
+            item['fileSignature'] = ecat_signature(files[d])
         if not k:
             if by_link and not v['exists']:
                 errors.append({**item, 'http': v['http'], 'error': v['error'] or '넣은 링크의 권이 열리지 않음'})
@@ -423,8 +431,12 @@ def check_solutions(out, step):
                 continue
             page2 = body2.decode('utf-8', 'ignore') if st2 == 200 else ''
             t2 = re.search(r'<title[^>]*>(.*?)</title>', page2, re.S)
-            x = {**x, 'status': st2, 'final': final2, 'title': html.unescape(t2.group(1)).strip() if t2 else '', 'textSha256': hashes(page2)[0] if page2 else '', 'mainSha256': hashes(page2)[1] if page2 else ''}
+            x = {**x, 'status': st2, 'final': final2, 'title': html.unescape(t2.group(1)).strip() if t2 else '', 'textSha256': hashes(page2)[0] if page2 else '', 'mainSha256': hashes(page2)[1] if page2 else '', 'mainText':text_of(main_of(page2)) if page2 else ''}
+            pages[u] = x
             item['title'] = x['title']
+        if k and k.get('status') not in (None,200) and x['status'] != k.get('status'):
+            changes.append({**item, 'status':'changed' if x['status'] == 200 else 'broken', 'why':[f"HTTP {k['status']} → {x['status']}"]})
+            continue
         if not ref or ref.get('status') != 200:
             # 지난 run 뒤에 등록된 주소(예: 교체한 분류 URL)이거나 그때도 실패해 다른 공식 출처로 확인한 주소
             if x['status'] == 200 or ref:
@@ -481,6 +493,8 @@ def check_solutions(out, step):
             b = base.get(c['url']) or {}
             state['solutions'][c['url']] = {'status': b.get('status'), 'final': b.get('final'), 'title': b.get('title'), 'hash': None}
         dirty = True
+    with open(pages_file, 'w', encoding='utf-8') as output:
+        json.dump(pages,output,ensure_ascii=False)
     if dirty:
         json.dump(state, open(STATE, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     by = collections.Counter(c['status'] for c in changes)

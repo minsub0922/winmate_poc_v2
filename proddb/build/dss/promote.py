@@ -31,6 +31,8 @@ for f in glob.glob(os.path.join(RUN_DIR, 'ecat-build/extract/*.json')):
     shutil.copy2(f, P('proddb/ecat/extract', os.path.basename(f)))
 os.makedirs(P('proddb/dss'), exist_ok=True)
 shutil.copy2(os.path.join(STAGE, 'proddb/dss/ledger.json'), P('proddb/dss/ledger.json'))
+if os.path.exists(os.path.join(STAGE, 'proddb/dss/kinds.json')):   # DSS 종류(9-1단계 classify.py — LLM 판정)
+    shutil.copy2(os.path.join(STAGE, 'proddb/dss/kinds.json'), P('proddb/dss/kinds.json'))
 
 # ── app/data ──
 shutil.copy2(os.path.join(STAGE, 'app/data/products_db.json'), P('app/data/products_db.json'))

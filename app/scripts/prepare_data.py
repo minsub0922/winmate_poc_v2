@@ -16,7 +16,8 @@ import sqlite3
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA = ROOT / 'app/data'
-DATABASE = DATA / 'runtime/winmate_products.sqlite'
+# (WINMATE_RUNTIME_PRODUCTS_DB: 격리 서버 · 시험이 실서버의 runtime DB 를 다시 쓰지 않게 — 기본은 그대로)
+DATABASE = Path(os.environ['WINMATE_RUNTIME_PRODUCTS_DB']) if os.environ.get('WINMATE_RUNTIME_PRODUCTS_DB') else DATA / 'runtime/winmate_products.sqlite'
 
 
 def prepare(force: bool = False) -> Path:

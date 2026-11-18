@@ -32,6 +32,12 @@ picks — and a slot whose picture another slot already holds gets another pictu
 A space photo must show *that* space: the space is judged in the vertical it belongs to (a 교통 대합실 in a 청사 deck is a
 교통 space), and a photo whose caption or vision facts name another kind of space (대합실 for 민원실, 관제 for 매표) is not a
 photo of it (``space_conflict``). The 표준 제안서 photo of a space is a ranking hint, not an answer — it passes the same rules.
+
+…and it shows exact items (사용자 지시 2026-11-18 — "세탁기여도 다른 세탁기면 에러", ``item_reject``): every picture carries the catalog
+items its source says it is a picture of (``images[src]['items']`` · ``shows`` — composer.items). A space photo shows no product, or
+one of that space's own items (the same catalog row, or the row of another catalog with the same model code) and no other kind of
+product; a photo of another item — or of a product nobody knows which — never stands for a space, whatever else fits. A chapter
+photo that is known to show an item the customer did not select is not used either.
 """
 from __future__ import annotations
 
@@ -41,6 +47,7 @@ import threading
 from typing import Dict, List, Optional, Sequence, Set
 
 from .fill import brand_ok, brand_tokens, clean_caption, plain, who
+from . import items as _items
 from . import library as _library
 from .library import ROOT
 from .textsim import BM25, tokens
@@ -98,14 +105,8 @@ def by_shape(srcs: Sequence[str], slot: dict) -> List[str]:
     """the same pictures, the ones that fit the frame's shape first (stable: equally fitting pictures keep their order)."""
     return sorted(srcs, key=lambda x: shape_cost(x, slot))
 
-FAMILY_WORDS = {
-    'display': ['사이니지', '메뉴보드', '디스플레이', '비디오월', '키오스크', '전자칠판', 'LED', 'TV', '스크린', '모니터', 'The Wall', '미디어월', '전광판',
-                '이페이퍼', '플립'],
-    'hvac': ['에어컨', '공조', '냉난방', '실외기', '실내기', '카세트', '무풍', '환기', '공기청정', '칠러', '히트펌프', '냉방', '난방', 'DVM'],
-    'appliance': ['냉장고', '세탁기', '건조기', '식기세척기', '인덕션', '오븐', '에어드레서', '정수기', '청소기', '쇼케이스'],
-    'mobile': ['태블릿', '갤럭시 탭', '스마트폰', '워치', '노트북', '갤럭시 북', '단말', 'POS', '휴대폰'],
-}
-FAM_OF = {'디스플레이': 'display', '공조 · 에어컨': 'hvac', '주방 · 리빙 가전': 'appliance', '모바일 · PC': 'mobile'}
+FAMILY_WORDS = _items.FAMILY_WORDS  # (one list: what a caption says is in view — composer.items)
+FAM_OF = _items.FAMILY_OF_FAM
 SOL_ICON = re.compile(r'/assets/toc/icons/((?:s|svc)_[a-z0-9]+)\.')
 BLANK_ICON = '/assets/toc/icons/blank.png'
 GENERIC_CAPTION = re.compile(r'(간지 사진|공간 사진|고객 공간 사진|^[^ ]{1,12} 사진)$')
@@ -541,6 +542,44 @@ def slot_verticals(slot: dict, ctx: dict) -> List[str]:
     return out
 
 
+def space_items(ctx: dict, slot: dict) -> List[str]:
+    """the items a space slot's photo may show: its space's products — a space without products, the customer's selected ones."""
+    sid = (slot.get('bind') or {}).get('space')
+    own = ((ctx.get('space_by_id') or {}).get(sid or '') or {}).get('products') or []
+    return list(own) or list(ctx.get('products') or [])
+
+
+def item_reject(src: str, slot: dict, ctx: dict) -> str:
+    """'' when the items in the photo may stand in the slot (사용자 지시 2026-11-18: a space photo shows exact items — another washer is
+    an error even though it is a washer; a space photo with no product in it is fine). Never relaxed.
+      space  no product in view · or one of the space's items (``space_items``) and no other kind of product beside it
+      scene  no item the customer did not select, when the photo is known to show one (a chapter photo with a product nobody can
+             name keeps the product-family rules — it is not a photo of the customer's space)"""
+    lib = load()
+    it = lib['images'].get(src) or {}
+    if it.get('cls') not in ('scene', 'kv'):
+        return ''
+    shows = it.get('shows') or 'unknown'
+    table = lib.get('item_keys') or {}
+    if slot.get('kind') == 'space':
+        if shows == 'none':
+            return ''
+        allowed = space_items(ctx, slot)
+        fams = {f for f in (product_family(p) for p in allowed) if f}
+        # what is in view as the space's equipment — a phone · tablet · laptop in somebody's hand is not, unless the space gets such devices
+        installed = set(it.get('item_fams') or []) - ({'mobile'} - fams)
+        if shows != 'item':
+            return 'unverified_item' if installed else ''  # a product is in view, and nothing says it is this space's
+        if not _items.same_items(it.get('items') or [], allowed, table):
+            return 'other_item'
+        if fams and installed - fams:
+            return 'other_item_kind'  # this space's item, and another kind of product the space does not have beside it
+        return ''
+    if slot.get('kind') == 'scene' and shows == 'item' and not _items.same_items(it.get('items') or [], ctx.get('products') or [], table):
+        return 'other_item'
+    return ''
+
+
 def rule_reject(src: str, slot: dict, ctx: dict, relax: bool = False) -> str:
     """'' when the picture may fill the slot, else the rule it breaks."""
     if src in ctx.get('off_pictures', ()):
@@ -558,6 +597,9 @@ def rule_reject(src: str, slot: dict, ctx: dict, relax: bool = False) -> str:
             return 'class'
         if slot.get('part_type') == 'case' and it.get('case') is not None and str(it['case']) in (ctx.get('cases') or []):
             return ''
+        wrong_item = item_reject(src, slot, ctx)  # never relaxed: a photo of another item is not this customer's item
+        if wrong_item:
+            return wrong_item
         ind = ctx.get('ind')
         place = it.get('place') or []
         prim = it.get('ind_primary') or []
@@ -638,7 +680,12 @@ def product_cut(pid: str, original=None, excluded=()) -> Optional[str]:
     # the product image library lists its product first (later ids are only names found in the caption)
     lib_cuts = [s for s in _by_product().get(pid, []) if s not in excluded and (IM[s].get('products') or [None])[0] == pid and not re.search(r'치수|도면|가로·세로', IM[s].get('desc') or '')]
     lib_cuts.sort(key=lambda s: 0 if '정면' in (IM[s].get('desc') or '') else 1)
-    return lib_cuts[0] if lib_cuts else None
+    if lib_cuts:
+        return lib_cuts[0]
+    # no cut at all: the product in its place from its own page (an exact-item photo) — what the frame showed before the library told
+    # the product image library's scenes from its cuts (360 카세트 has only an installation photo)
+    own_scene = [s for s in product_scenes(pid) if s not in excluded and (IM[s].get('items') or [None])[0] == pid and IM[s].get('group') == 'lib']
+    return own_scene[0] if own_scene else None
 
 
 def solution_media(sid: str, want: str, used: Set[str]) -> List[str]:
@@ -963,7 +1010,10 @@ def scene_candidates(slot: dict, ctx: dict, used: Set[str], k: int = 6, relax: b
             own_ind = own or not ind or ind in (it.get('place') or []) or ind in (it.get('ind_primary') or [])
             if own_ind and space_fit(src, sp)[0] == 0:
                 continue
-            if not own_ind and not stand_in(src, sp, ctx):
+            # (a photo from this space's own item's page — rule_reject let only those through — filed under no industry stands for the
+            #  space when it shows this kind of space: the product's page does not say whose business it is)
+            item_in_place = it.get('shows') == 'item' and not it.get('ind_primary') and space_fit(src, sp)[0] >= 1
+            if not own_ind and not stand_in(src, sp, ctx) and not item_in_place:
                 continue
         if (not relax and src != slot.get('osrc') and slot.get('w') and slot['w'] >= 480 and it.get('w') and it.get('h')
                 and max(slot['w'] / it['w'], (slot.get('h') or 0) / it['h']) > 3.0):
@@ -985,6 +1035,9 @@ def scene_candidates(slot: dict, ctx: dict, used: Set[str], k: int = 6, relax: b
         return []
     weights = ctx.get('image_weights') or {}
     caption_weight, place_weight, subject_weight = (weights.get(key, 1) for key in ('caption', 'place', 'subject'))
+    item_table = lib.get('item_keys') or {}
+    space_own = space_items(ctx, slot) if sp else []
+    bound = [slot['bind']['product']] if slot['bind'].get('product') else []
     raw = {src: bm.score(q, pos[src]) for src in pool}
     top = max(raw.values()) or 1.0
     out = []
@@ -1064,6 +1117,10 @@ def scene_candidates(slot: dict, ctx: dict, used: Set[str], k: int = 6, relax: b
         if subject_weight and it.get('case') is not None and str(it['case']) in (ctx.get('cases') or []) and slot.get('part_type') in ('case', 'why'):
             s += 2.5 * subject_weight  # the case chapter opens with a photo of a case the customer linked
             why.append('linked_case')
+        if subject_weight and sp and it.get('shows') == 'item' and _items.same_items(it.get('items') or [], space_own, item_table):
+            # the space with its own item in view — the very product this space gets (the sheet's own product most)
+            s += (3.0 if bound and _items.same_items(it.get('items') or [], bound, item_table) else 2.0) * subject_weight
+            why.append('item_exact')
         content = s
         vis = visible(src, slot, it)
         cost = shape_cost(src, slot, it)
@@ -1457,7 +1514,7 @@ def fill_part_images(ctx: dict, part: dict, slides: List[dict], llm, used: Regis
             # (the template's own photo of its space was one of the strict candidates when it shows this space)
             name = space_info(ctx, slot['bind'].get('space'))['name']
             hide(img, meta, slot['key'], base, 'no_space_photo', f'no unused photo shows the space {name}', slot['orig'])
-            part.setdefault('warnings', []).append(f'{name}: 이 공간을 보여 주는 사진이 사진 자료에 없어 공간 사진 칸을 비워 두었어요 — 공간 사진을 넣어 주세요.')
+            part.setdefault('warnings', []).append(f'{name}: 이 공간과 이 공간의 제품에 맞는 사진이 사진 자료에 없어 공간 사진 칸을 비워 두었어요 — 공간 사진을 넣어 주세요.')
         else:
             hide(img, meta, slot['key'], base, 'no_fitting_picture',
                  'no unused picture fits this slot' + (f' (template picture: {rule_reject(osrc, slot, ctx, relax=True) or "already shown"})' if osrc else ''),
@@ -1478,15 +1535,20 @@ def strict_part(part: dict, slides: List[dict]) -> bool:
 
 
 def product_scenes(pid: str) -> List[str]:
-    """photos that show the product in place (not its cut) — photos tagged with the product first come first."""
+    """photos that show the product in place (not its cut) — the photos whose source says they show this very item (``items`` —
+    a photo whose caption only names the kind of product may show another model: 사용자 지시 2026-11-18); the photos of the product's
+    own row first, then those of a row of another catalog with its model code."""
     if 'scn' not in _PIDX:
         out: Dict[str, List[tuple]] = {}
         for src, it in load()['images'].items():
-            if it.get('cls') == 'scene':
-                for n, p in enumerate(it.get('products') or []):
+            if it.get('cls') == 'scene' and it.get('shows') == 'item':
+                for n, p in enumerate(it.get('items') or []):
                     out.setdefault(p, []).append((n, src))
         _PIDX['scn'] = {p: [s for _, s in sorted(v)] for p, v in out.items()}
-    return _PIDX['scn'].get(pid, [])
+    table = load().get('item_keys') or {}
+    mine = set(table.get(pid) or ())
+    kin = [q for q, keys in table.items() if q != pid and mine & set(keys)]
+    return list(dict.fromkeys(_PIDX['scn'].get(pid, []) + [s for q in kin for s in _PIDX['scn'].get(q, [])]))
 
 
 def part_unique(ctx: dict, part: dict, slides: List[dict], used: Registry) -> None:

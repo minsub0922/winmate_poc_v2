@@ -27,9 +27,30 @@ class VpPartPictures(unittest.TestCase):
         os.environ['WM_COMPOSER_DATA'] = str(LIBRARY.parent)
         from app.api.poc.adapters import compose
         compose._auto()
-        from composer import auto, pictures
-        cls.auto, cls.pictures = auto, pictures
+        from composer import auto, library, pictures
+        cls.auto, cls.pictures, cls.library = auto, pictures, library
+        # the runtime library is the one the server built for the code it runs; an older build lacks what this code reads (the exact
+        # items of every picture — library VERSION 7): build one for this code, in memory (the runtime file stays the server's)
+        cls.saved = dict(library._CACHE)
+        try:
+            built = json.loads((LIBRARY.parent / 'library.meta.json').read_text(encoding='utf-8')).get('version') or 0
+        except (OSError, ValueError):
+            built = 0
+        if built < library.VERSION:
+            library._CACHE[str(library.OUT)] = library.build(write=False)
+            cls.clear()
         cls.IM = pictures.load()['images']
+
+    @classmethod
+    def clear(cls):
+        for cache in (cls.pictures._VX, cls.pictures._PIDX, cls.pictures._IDX, cls.pictures._DESC_TOK):
+            cache.clear()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.library._CACHE.clear()
+        cls.library._CACHE.update(cls.saved)
+        cls.clear()
 
     def fill(self, toc='needs'):
         P = self.pictures

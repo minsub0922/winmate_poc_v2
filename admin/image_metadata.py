@@ -17,10 +17,27 @@ def strings(value):
         yield str(value)
 
 
-def composer_fields(im, industries):
+# 사진 속 정확한 제품(사용자 지시 2026-11-18 — composer/items.py): 그 사진의 출처가 말하는 제품 · 제품 없음 · 제품 미확인
+ITEM_SHOWS = {'item': '정확한 제품', 'none': '제품 없음', 'unknown': '제품 미확인'}
+ITEM_HOW = {'lib_site_pdp': '제품 페이지', 'lib_site_card': '제품 카드', 'lib_ecat': 'e-카탈로그', 'lib_case': '도입사례', 'lib_app': '앱 이미지',
+            'app_model': '앱 이미지 DB 모델', 'gallery': '제품 갤러리', 'caption_model': '설명의 모델 코드', 'caption_name': '설명의 제품 이름',
+            'vision': '비전 대조'}
+
+
+def item_fields(im, products=None):
+    """'제품 노출' · '포함 제품' · '포함 제품 근거' — scene photos only (a product cut is its product's by definition)."""
+    if im.get('cls') not in ('scene', 'kv') or not im.get('shows'):
+        return []
+    names = products or {}
+    return [('제품 노출', ITEM_SHOWS.get(im['shows'], im['shows'])),
+            ('포함 제품', [f"{names.get(pid) or pid} ({pid})" for pid in im.get('items') or []]),
+            ('포함 제품 근거', ITEM_HOW.get(im.get('items_how'), im.get('items_how')) if im.get('items') else None)]
+
+
+def composer_fields(im, industries, products=None):
     vision = im.get('vf') or {}
     codes = list(dict.fromkeys([*(im.get('ind_primary') or []), *(im.get('inds') or {}), *(im.get('place') or [])]))
-    return {k: list(dict.fromkeys(strings(v))) for k, v in [
+    return {k: list(dict.fromkeys(strings(v))) for k, v in [*item_fields(im, products),
         ('사진 설명', im.get('desc')), ('검색 이름', im.get('names')), ('사진 역할', [im.get('kind'), im.get('cls')]),
         ('공간', im.get('spaces')), ('업종', [f'{industries.get(code, code)} ({code})' for code in codes]),
         ('연결 제품', im.get('products')), ('연결 솔루션', im.get('solutions')), ('도입사례', [im.get('cust'), im.get('case')]),

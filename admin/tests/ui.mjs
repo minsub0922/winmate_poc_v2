@@ -15,7 +15,7 @@ try {
   await page.getByRole('heading', { name: '로그인', exact: true }).waitFor();
   assert.equal(new URL(page.url()).searchParams.get('next'), '/admin/');
   await page.getByRole('textbox', { name: '아이디', exact: true }).fill('admin');
-  await page.getByLabel('비밀번호', { exact: true }).fill('Admin-local-test-2026!');
+  await page.getByLabel('비밀번호', { exact: true }).fill(process.env.WINMATE_ADMIN_TEST_PASSWORD || 'Admin-local-test-2026!');
   await page.getByRole('button', { name: '로그인', exact: true }).click();
   await page.getByRole('heading', { name: '관리 개요', exact: true }).waitFor();
   assert.equal(new URL(page.url()).origin, base);
@@ -26,25 +26,18 @@ try {
   await page.screenshot({ animations: 'disabled', path: path.join(directory, 'overview-desktop.png'), fullPage: true });
   assert.equal(await page.locator('body').evaluate(e => e.scrollWidth > innerWidth), false);
   results.push('Overview renders live inventory without horizontal overflow');
-  await page.getByRole('button', { name: '상세 보기', exact: true }).first().click();
-  await page.getByRole('dialog').waitFor();
-  await page.getByRole('button', { name: 'AI 판단 근거', exact: true }).click();
-  await page.getByText('아직 AI 점검 결과가 없습니다').waitFor();
+  await page.getByRole('button', { name: 'Samsung Business 변경 내역', exact: true }).click();
+  await page.getByRole('tab', { name: '검토할 변경' }).waitFor();
+  await page.getByRole('tab', { name: '처리 이력' }).click();
   await page.keyboard.press('Escape');
   assert.equal(await page.getByRole('dialog').count(), 0);
-  results.push('Source details and missing evidence display honestly; Escape closes dialog');
-  await page.getByRole('link', { name: '에셋 라이브러리', exact: true }).click();
-  await page.getByRole('combobox', { name: '에셋 유형' }).selectOption('product');
-  await page.getByRole('textbox', { name: '에셋 검색' }).fill('QMC');
-  await page.locator('.asset-name').first().waitFor();
-  await page.waitForTimeout(700);
-  await page.screenshot({ animations: 'disabled', path: path.join(directory, 'assets-desktop.png'), fullPage: true });
-  await page.locator('.asset-name').first().click();
-  await page.getByRole('dialog').waitFor();
-  await page.getByRole('button', { name: '출처 · 원문', exact: true }).click();
-  await page.getByText('SHA-256', { exact: true }).waitFor();
+  await page.getByRole('link', { name: '데이터 소스', exact: true }).click();
+  await page.getByRole('button', { name: 'Samsung Business 자원 보기', exact: true }).click();
+  await page.getByRole('textbox', { name: '자원 검색' }).fill('QMC');
+  await page.locator('.sb-card').first().waitFor();
+  await page.screenshot({ animations: 'disabled', path: path.join(directory, 'source-items-desktop.png') });
   await page.keyboard.press('Escape');
-  results.push('Asset filters, search and provenance dialog work');
+  results.push('Change reviews, history and searching a source work');
   await page.getByRole('link', { name: '시스템', exact: true }).click();
   await page.getByRole('button', { name: '원본 제품 DB', exact: false }).click();
   await page.getByRole('dialog').waitFor();
@@ -55,12 +48,10 @@ try {
   results.push('Real SQLite table explorer returns 25 product family rows');
   await page.getByRole('link', { name: '데이터 소스', exact: true }).click();
   await page.screenshot({ animations: 'disabled', path: path.join(directory, 'sources-desktop.png'), fullPage: true });
-  await page.locator('.source-card').filter({ has: page.getByRole('heading', { name: 'e-Catalog', exact: true }) }).getByRole('button', { name: '상세 보기', exact: true }).click();
-  await page.getByRole('dialog').getByRole('heading', { name: 'e-Catalog', exact: true }).waitFor();
-  if (await page.getByRole('heading', { name: '원본 변경 확인', exact: true }).count()) {
-    await page.screenshot({ animations: 'disabled', path: path.join(directory, 'source-discovery-dialog.png') });
-    results.push('Catalog discovery and revision information are accessible in the detail dialog');
-  }
+  await page.getByRole('button', { name: 'e-Catalog 변경 내역', exact: true }).click();
+  await page.getByRole('dialog').getByRole('heading', { name: 'e-Catalog 변경 내역', exact: true }).waitFor();
+  await page.screenshot({ animations: 'disabled', path: path.join(directory, 'source-discovery-dialog.png') });
+  results.push('Catalog change details are accessible');
   await page.keyboard.press('Escape');
   await page.getByRole('button', { name: '에셋 추가', exact: true }).click();
   await page.getByRole('dialog').waitFor();
@@ -80,8 +71,8 @@ try {
     results.push(`Responsive ${size.width}px layout has no document overflow`);
   }
   await page.getByRole('button', { name: '메뉴', exact: true }).click();
-  await page.getByRole('link', { name: '에셋 라이브러리', exact: true }).click();
-  await page.getByRole('textbox', { name: '에셋 검색', exact: true }).waitFor();
+  await page.getByRole('link', { name: '데이터 소스', exact: true }).click();
+  await page.getByRole('button', { name: '솔루션 & 도입사례 변경 내역', exact: true }).waitFor();
   await page.screenshot({ animations: 'disabled', path: path.join(directory, 'assets-mobile.png'), fullPage: true });
   results.push('Mobile navigation and asset controls work');
   const app = await context.request.get(base + '/');

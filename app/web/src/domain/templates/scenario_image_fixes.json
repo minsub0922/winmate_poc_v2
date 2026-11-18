@@ -1,0 +1,54 @@
+{
+ "about": "샘플 버티컬 시나리오 · 장을 보고 고른 사진. replace: 어느 덱에서든 쓰면 안 되는 제품 컷(꺼진 화면 · 뒷면 · 치수 도면 · 옆면 띠) → 같은 제품의 다른 공식 컷. fixes: 시나리오 → 장(0부터) → 이미지 칸 → { f 레이아웃, from 원래 주소(레이아웃 자체 사진이면 null), to 바꾼 값, why 이유 } — 그 자리의 글 · 제품 · 공간 · 고객사와 어긋난 사진, 같은 현장 사진이 없어 남은 반복을 시트를 보고 고른 사진으로 바꾼 것. scenario_fills.js 가 replace → fixes → 반복 바꾸기(scenario_image_swaps.json) 순서로 적용한다.",
+ "fixes": {},
+ "replace": {
+  "img/prod/g00.json#95": {
+   "src": "img/prod/g00.json#94",
+   "name": "실내용 The Wall IWC 시리즈 · 화면이 켜진 측면"
+  },
+  "img/prod/g00.json#76": {
+   "src": "img/prod/g00.json#75",
+   "name": "비디오월 Extreme 베젤 1.74mm 시리즈 · 정면"
+  },
+  "img/prod/g00.json#67": {
+   "src": "img/prod/g00.json#66",
+   "name": "비디오월 Razor 베젤 0.88mm 시리즈 · 정면"
+  },
+  "img/prod/g00.json#70": {
+   "src": "img/prod/g00.json#69",
+   "name": "비디오월 Extreme 베젤 1.74mm 시리즈 · 정면"
+  },
+  "img/prod/g07.json#160": {
+   "src": "img/prod/g07.json#159",
+   "name": "비디오월 VM55B · 정면"
+  },
+  "img/prod/g00.json#145": {
+   "src": "img/prod/g00.json#144",
+   "name": "QLED 4K TV · 정면"
+  },
+  "img/prod/g06.json#83": {
+   "src": "img/prod/g06.json#84",
+   "name": "Bespoke AI 식기세척기 · 15도"
+  },
+  "img/prod/g03.json#33": {
+   "src": "img/prod/g03.json#32",
+   "name": "갤럭시 XR · 정면"
+  },
+  "img/prod/g03.json#34": {
+   "src": "img/prod/g03.json#32",
+   "name": "갤럭시 XR · 정면"
+  },
+  "img/prod/g00.json#24": {
+   "src": "img/prod/g00.json#27",
+   "name": "컬러 이페이퍼 EM32DX · 정면"
+  },
+  "img/prod/g00.json#25": {
+   "src": "img/prod/g00.json#28",
+   "name": "컬러 이페이퍼 EM32DX · 45도"
+  },
+  "img/prod/g00.json#26": {
+   "src": "img/prod/g00.json#27",
+   "name": "컬러 이페이퍼 EM32DX · 정면"
+  }
+ }
+}

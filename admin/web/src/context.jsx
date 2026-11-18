@@ -7,6 +7,7 @@ export function useLoad(path,version=0) {
   const [retry,retrySet]=useState(0);
   useEffect(()=>{
     let alive=true;
+    if (!path) {set({data:null,error:null,loading:false});return;}
     set(s=>({...s,error:null,loading:true}));
     api(path).then(data=>alive&&set({data,error:null,loading:false})).catch(e=>alive&&set(s=>({...s,error:e.message,loading:false})));
     return ()=>{alive=false;};

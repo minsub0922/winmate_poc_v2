@@ -5,7 +5,7 @@
 //                 … 메뉴로 다른 공간에 복사한다. 공간은 ×로 빼거나(제품은 미배치로) '공간 추가'로 넣는다. 공간마다 테두리 색이 다르고, 넣고 빼도 남은 공간의 색은 그대로다.
 //   저장 → 구성을 저장하고 '3D 조감도를 만들까요?' — 만들면 팝업을 모두 닫고 조감도를 바로 만든다(ProposalPage onBirdseye). 아니면 저장만.
 // 단계는 이 탭에서 기억해 두어(services/space-plan.js drafts) 닫았다 열어도 이어진다. 저장된 구성이 있으면 3단계에서 연다.
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { Icon, toast } from './common.jsx';
 import { uid } from '../repositories/proposals.js';
 import { BubblePopup } from './bubblepop.jsx';
@@ -13,13 +13,11 @@ import { Thumb } from './Thumbs.jsx';
 import { useDetailPeek } from './reference-detail.jsx';
 import { P } from '../services/catalog.js';
 import { groupLabel, moveProduct, copyProduct, spacePool, spaceFit, withColors, addSpace, removeSpace, SPACE_COLORS, MIN_SPACES, MAX_SPACES } from '../domain/proposals/space-plan.js';
-import { loadSpaceData, inferVertical, inferCandidates, inferMapping, savePlan, spaceErrorText, getSpaceDraft, setSpaceDraft, setSpaceBusy, linkedDss, newSpace, birdseyeOf } from '../services/space-plan.js';
+import { loadSpaceData, inferVertical, inferCandidates, inferMapping, savePlan, spaceErrorText, getSpaceDraft, setSpaceDraft, subscribeSpaceDraft, setSpaceBusy, linkedDss, newSpace, birdseyeOf } from '../services/space-plan.js';
 
 const STEPS = [['industry', '업종 확인'], ['candidates', '공간 후보'], ['mapping', '제품 배치']];
 
 function initial(p) {
-  const draft = getSpaceDraft(p.id);
-  if (draft) return draft;
   const plan = p.spacePlan;
   if (plan && plan.vertical && Array.isArray(plan.spaces) && plan.spaces.length) {
     return { step: 'mapping', vertical: plan.vertical.id, guess: null, cands: null,
@@ -346,14 +344,16 @@ export function SpacePlanPopup({ p, onClose, onBirdseye }) {
   const pRef = useRef(p); pRef.current = p;
   const [idx, setIdx] = useState(null);
   const [loadErr, setLoadErr] = useState('');
-  const [st, setSt] = useState(() => initial(p));
+  const [initialDraft] = useState(() => initial(p));
+  const draft = useSyncExternalStore(subscribeSpaceDraft, () => getSpaceDraft(p.id));
   const [busy, setBusy] = useState('');
   const [err, setErr] = useState(null); // { kind, text }
-  const [ask, setAsk] = useState(false);
+  const [ask, setAsk] = useState(null); // saved placement shown behind the 3D confirmation
+  const st = ask || draft || initialDraft;
+  const setSt = (change) => setSpaceDraft(p.id, change(getSpaceDraft(p.id) || initialDraft));
   const ctrl = useRef(null);
   const peek = useDetailPeek(p);
-  const saved = useRef(false);
-  useEffect(() => { if (!saved.current) setSpaceDraft(p.id, st); }, [st]);
+  useEffect(() => { if (!getSpaceDraft(p.id)) setSpaceDraft(p.id, initialDraft); }, [p.id, initialDraft]);
   // 추론하는 동안 매칭 버블 테두리에 진행 표시(match-area.jsx .node.is-busy)
   useEffect(() => { setSpaceBusy(p.id, !!busy); return () => setSpaceBusy(p.id, false); }, [busy]);
   useEffect(() => {
@@ -362,7 +362,7 @@ export function SpacePlanPopup({ p, onClose, onBirdseye }) {
     return () => { alive = false; ctrl.current && ctrl.current.abort(); };
   }, []);
   // a saved vertical that the data no longer has → start over from 업종
-  useEffect(() => { if (idx && st.vertical && !idx.byId.has(st.vertical)) setSt({ step: 'industry', vertical: null, guess: null, cands: null, cand: null, spaces: null }); }, [idx]);
+  useEffect(() => { if (idx && st.vertical && !idx.byId.has(st.vertical)) setSt(() => ({ step: 'industry', vertical: null, guess: null, cands: null, cand: null, spaces: null })); }, [idx]);
   const run = async (kind, call, onOk) => {
     if (ctrl.current) ctrl.current.abort();
     const c = new AbortController(); ctrl.current = c;
@@ -414,8 +414,8 @@ export function SpacePlanPopup({ p, onClose, onBirdseye }) {
   // 저장 → 바로 저장하고 조감도를 만들지 묻는다
   const save = () => {
     if (!savePlan(p.id, { vertical, candidate: st.cand || {}, spaces: withColors(st.spaces) })) { toast('공간 구성을 저장하지 못했어요', 'warn'); return; }
-    saved.current = true; setSpaceDraft(p.id, null);
-    peek.hide(); setAsk(true);
+    setAsk(st); setSpaceDraft(p.id, null);
+    peek.hide();
   };
   const later = () => { toast('공간 구성을 저장했어요 · 매칭 카드의 제품이 공간별로 묶였어요'); onClose(); };
   const make = () => { onBirdseye(); };

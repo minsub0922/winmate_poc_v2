@@ -55,13 +55,15 @@ function History({ status }) {
 function ProviderCard({ p, view, last, busy, checking, onToggle, onPrimary, onCheck, onEdit, onExperiment }) {
   const tasks = p.tasks ? Object.entries(p.tasks).filter(([, on]) => on).map(([task]) => taskNames[task] || task) : [];
   const locked = !p.registered ? `연결 정보 없음 — ${p.missing_hint || '.env'}: ${p.missing.join(' · ')}` : last ? 'LLM은 하나는 켜져 있어야 합니다' : '';
+  const targetChoices = p.targets?.filter(t => t.enabled) || [];
+  const multipleTargets = targetChoices.length > 1;
   const where = p.targets?.length ? p.targets.map(t => `${t.label} · ${t.model}${t.enabled ? '' : ' (꺼짐)'}`).join('\n') : (p.base_url || '주소 미설정');
   return <article className={'provider-card compact' + (p.active ? ' active' : '') + (p.primary ? ' primary' : '') + (p.registered ? '' : ' missing')} data-provider={p.id}>
     <header>
       <h3 title={p.name}>{p.name}</h3>
-      {p.primary ? <span className="pc-primary" title={tasks.length ? '판단 작업: ' + tasks.join(' · ') : undefined}>대표</span>
+      {p.primary ? <span className="pc-primary" title={tasks.length ? '판단 작업: ' + tasks.join(' · ') : undefined}>{p.role === 'decision' ? '서비스 사용 중' : '대표'}</span>
         : p.active ? <button type="button" className="pc-make" disabled={busy} onClick={() => onPrimary(p)}>대표로</button> : null}
-      <span className="pc-toggle" title={locked || undefined}><Toggle checked={p.active} label={`${p.name} 사용`} disabled={busy || !!locked} onChange={on => onToggle(p, on)}/></span>
+      {!multipleTargets && <span className="pc-toggle" title={locked || undefined}><Toggle checked={p.active} label={`${p.name} 사용`} disabled={busy || !!locked} onChange={on => onToggle(p, on, targetChoices[0])}/></span>}
     </header>
     <div className="pc-meta">
       <Tag tone={p.scope === 'internal' ? 'blue' : 'neutral'}>{scopeNames[p.scope]}</Tag>
@@ -70,7 +72,11 @@ function ProviderCard({ p, view, last, busy, checking, onToggle, onPrimary, onCh
       {p.active && !p.primary && <span className="pc-rank" title="대표가 응답하지 못하면 이 순서로 대신 답합니다">대체 {p.rank}</span>}
       {p.edit && <span className="edited-mark">주소 수정됨</span>}
     </div>
-    <code className="pc-model" title={where}>{p.model || '모델 미설정'}</code>
+    <code className="pc-model" title={where}>{p.connection ? p.base_url : p.model || '모델 미설정'}</code>
+    {multipleTargets && <div className="provider-targets">{targetChoices.map(t => <div key={t.id}>
+      <span>{t.label} · {t.model}</span><Toggle checked={p.active && p.selected_target === t.id} label={`${t.label} 서비스 사용`}
+        disabled={busy || !!locked} onChange={on => onToggle(p, on, t)}/>
+    </div>)}</div>}
     <StateLine p={p} names={view.status_names}/>
     <History status={p.status}/>
     {(p.checkable || p.editable || p.registered) && <footer>
@@ -97,10 +103,10 @@ export function ProvidersPage() {
     finally { setChecking(''); }
   }, [notify, reload]);
   // 켜기 · 끄기 · 대표 — 재시작 없이 바로 적용(서버가 순서를 정한다: 대표 다음은 켠 순서대로 대체)
-  const change = useCallback(async (p, action, done) => {
+  const change = useCallback(async (p, action, done, body = {}) => {
     setBusy(p.id);
     try {
-      const r = await post(`/providers/${p.id}/${action}`, {});
+      const r = await post(`/providers/${p.id}/${action}`, body);
       reload();
       notify(r.check && r.check.status !== 'ok' ? `${done} — ${r.check.detail}` : done, r.check && r.check.status !== 'ok' ? 'error' : 'success');
     } catch (e) { notify(e.message, 'error'); }
@@ -116,12 +122,15 @@ export function ProvidersPage() {
   });
   return <>
     <section className="section-block">
-      <div className="section-heading"><div><h2>모델 연결</h2><p>켠 Provider 중 대표가 답하고, 대표가 응답하지 못하면 다음 순서가 대신 답합니다. 바꾸면 재시작 없이 바로 적용됩니다.</p></div></div>
+      <div className="section-heading"><div><h2>모델 연결</h2><p>LLM은 대표 모델부터 순서대로 호출합니다. Decision 모델은 선택한 하나를 사용합니다.</p></div></div>
       {groups.map(g => <div className="provider-group" key={g.role}>
-        <h3>{roleNames[g.role]}<span className="count-label">{g.on} / {g.list.length}</span>{g.role === 'decision' && !g.on && <small>모두 꺼짐 · LLM이 판단</small>}</h3>
+        <h3>{roleNames[g.role]}<span className="count-label">{g.on} / {g.list.length}</span>{g.role === 'decision' && !g.on && <small>모두 꺼짐 · LLM이 판단</small>}
+          {g.role === 'decision' && <Button icon="plus" onClick={() => open({ type: 'clef-add' })}>CLEF 추가</Button>}</h3>
         <div className="provider-grid compact">{g.list.map(p => <ProviderCard key={p.id} p={p} view={data} busy={!!busy} checking={checking === p.id}
           last={g.role === 'llm' && p.active && g.on === 1}
-          onToggle={(p, on) => change(p, on ? 'activate' : 'deactivate', `${p.name}: ${on ? '켰습니다' : '껐습니다'}`)}
+          onToggle={(p, on, target) => p.role === 'decision'
+            ? open({ type: 'decision-switch', provider: p, on, target, previous: g.list.find(item => item.active) })
+            : change(p, on ? 'activate' : 'deactivate', `${p.name}: ${on ? '켰습니다' : '껐습니다'}`)}
           onPrimary={p => change(p, 'primary', `${p.name}: 대표로 정했습니다`)}
           onCheck={check} onEdit={p => open({ type: 'provider-edit', id: p.id })} onExperiment={experiment}/>)}</div>
       </div>)}
@@ -130,8 +139,91 @@ export function ProvidersPage() {
         : '자동 점검 꺼짐'}</p></div>
     </section>
     <Lab ref={lab} data={data}/>
+    {modal?.type === 'clef-add' && <ClefDialog done={reload}/>}
+    {modal?.type === 'decision-switch' && <Modal title="서비스 Decision 모델 전환" close={close}
+      footer={<><Button onClick={close}>취소</Button><Button variant="primary" onClick={() => {
+        const { provider, on, target } = modal;
+        close();
+        change(provider, on ? 'activate' : 'deactivate', on ? '서비스 Decision 모델을 전환했습니다.' : 'LLM 판단으로 전환했습니다.', on && target ? { target: target.id } : {});
+      }}>전환</Button></>}>
+      <p>{modal.previous ? describeDecision(modal.previous) : 'LLM 판단'}에서 {modal.on ? describeDecision(modal.provider, modal.target) : 'LLM 판단'}으로 전환할까요?</p>
+    </Modal>}
     {modal?.type === 'provider-edit' && <EditDialog p={data.providers.find(p => p.id === modal.id)} names={data.status_names} done={reload}/>}
   </>;
+}
+
+function describeDecision(p, target = p.targets?.find(t => t.id === p.selected_target)) {
+  return [p.name, p.base_url, target?.label, target?.model].filter(Boolean).join(' · ');
+}
+
+const trainingKey = 'winmate.admin.clef-training';
+
+function ClefDialog({ done }) {
+  const { close, notify } = useApp();
+  const [job, setJob] = useState(() => sessionStorage.getItem(trainingKey) || '');
+  const [mode, setMode] = useState(job ? 'training' : 'direct');
+  const [endpoint, setEndpoint] = useState('');
+  const [model, setModel] = useState('clef-flash');
+  const [message, setMessage] = useState('');
+  const [saving, setSaving] = useState(false);
+  const busy = saving || !!job;
+  useEffect(() => {
+    if (!job) return;
+    let alive = true, timer;
+    async function poll() {
+      try {
+        const result = await api('/providers/clef/training/' + job);
+        if (!alive) return;
+        setModel(result.model);
+        if (result.status === 'running') {
+          timer = setTimeout(poll, 2000);
+          return;
+        }
+        sessionStorage.removeItem(trainingKey);
+        setJob('');
+        if (result.status === 'succeeded') {
+          done(); notify('CLEF를 연결했습니다.'); close();
+        } else setMessage(result.detail);
+      } catch (e) {
+        if (!alive) return;
+        setMessage(e.message);
+        if (e.status === 404) {
+          sessionStorage.removeItem(trainingKey);
+          setJob('');
+        } else timer = setTimeout(poll, 5000);
+      }
+    }
+    poll();
+    return () => { alive = false; clearTimeout(timer); };
+  }, [job, close, done, notify]);
+  const submit = async () => {
+    setSaving(true); setMessage('');
+    try {
+      if (mode === 'training') {
+        const task = await post('/providers/clef/training', { model });
+        sessionStorage.setItem(trainingKey, task.id);
+        setJob(task.id);
+      } else {
+        await post('/providers/clef', { base_url: endpoint, model });
+        done(); notify('CLEF를 연결했습니다.'); close();
+      }
+    } catch (e) { setMessage(e.message); }
+    finally { setSaving(false); }
+  };
+  return <Modal title="CLEF 추가" close={saving ? () => {} : close}
+    footer={<Button variant="primary" disabled={busy || !model.trim() || (mode === 'direct' && !endpoint.trim())}
+      busy={saving} onClick={submit}>{mode === 'direct' ? '샘플 확인 후 연결' : 'Training job 시작'}</Button>}>
+    <div className="form-stack provider-form">
+      <label>연결 방식<select value={mode} disabled={busy} onChange={e => { setMode(e.target.value); setMessage(''); }}>
+        <option value="direct">Endpoint 직접 입력</option><option value="training">Training job으로 endpoint 받기</option>
+      </select></label>
+      {mode === 'direct' && <label>Endpoint<input value={endpoint} disabled={busy} onChange={e => setEndpoint(e.target.value)}
+        placeholder="http://127.0.0.1:8790/v1" spellCheck={false}/></label>}
+      <label>모델 ID<input value={model} disabled={busy} onChange={e => setModel(e.target.value)} spellCheck={false}/></label>
+      {job && <p role="status">Training job의 endpoint를 기다리는 중입니다. 최대 30분이 걸릴 수 있습니다.</p>}
+      {message && <div className="error-box" role="alert">{message}</div>}
+    </div>
+  </Modal>;
 }
 
 function ProbeResult({ result, names, pick }) {

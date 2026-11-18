@@ -27,11 +27,13 @@ export function requirementSummaryStale(p) {
   return !!requirementSources(p).length && !requirementSummaryBusy(p) && (!result || result.source_key !== key || (p.requirementSummary?.status === 'error' && p.requirementSummary.sourceKey === key));
 }
 
+const pendingFor = (p, key) => p?.requirementSummary?.sourceKey === key && requirementSummaryBusy(p);
+
 registerJobHandler('requirements-summary', {
   trim: result => result,
   onDone(record) {
     const p = getProposal(record.owner.id), result = record.result;
-    if (!p || record.meta?.sourceKey !== requirementSourceKey(p)) return 'superseded';
+    if (!pendingFor(p, record.meta?.sourceKey) || p.requirementSummary.jobId !== record.id) return 'superseded';
     if (!result?.summary || result.source_key !== record.meta.sourceKey || result.llm?.effective !== 'llm') {
       update(p.id, d => { d.requirementSummary = { ...d.requirementSummary, sourceKey: record.meta.sourceKey, status: 'error', error: '검증된 AI 요약 결과를 받지 못했습니다. 다시 시도해 주세요.' }; }, { touch: false });
       return 'failed';
@@ -41,7 +43,7 @@ registerJobHandler('requirements-summary', {
   },
   onFail(record) {
     const p = getProposal(record.owner.id);
-    if (!p || record.meta?.sourceKey !== requirementSourceKey(p)) return 'superseded';
+    if (!pendingFor(p, record.meta?.sourceKey) || p.requirementSummary.jobId !== record.id) return 'superseded';
     update(p.id, d => { d.requirementSummary = { ...d.requirementSummary, status: 'error', error: record.error?.message || '요약 작업이 중단됐어요. 다시 시도해 주세요.' }; }, { touch: false });
     return 'failed';
   },
@@ -83,20 +85,22 @@ export async function ensureRequirementSummary(id, { force = false } = {}) {
       const plan = await planForFresh('requirements');
       if (!plan.job) throw new Error(plan.note);
       p = getProposal(id);
-      if (!p || requirementSourceKey(p) !== key) return null;
+      if (!pendingFor(p, key)) return p?.requirementSummary;
       const sources = visibleRequirementSources(p);
       // read into the free-form text (inlined) = already among the sources; only files nobody could read are missing
       const missing_sources = (p.req.files || []).filter(file => !file.inlined && !cachedAttachmentSource(file).trim() && (file.size || file.readError)).map(file => file.name);
       const snap = await submitPocJob({ kind: 'requirements', source_key: key, sources, missing_sources });
+      p = getProposal(id);
+      if (!pendingFor(p, key)) {
+        if (!isTerminal(snap.status)) void cancelJob(snap.id).catch(() => {});
+        return p?.requirementSummary;
+      }
+      if (!update(id, d => { d.requirementSummary.jobId = snap.id; }, { touch: false })) return null;
       trackJob(snap, { purpose: 'requirements-summary', owner: { type: 'proposal', id }, title: '고객 요구사항 · 제안 전략 요약', meta: { sourceKey: key } });
-      if (requirementSourceKey(getProposal(id)) === key) update(id, d => {
-        // A very fast job may already have been delivered by the handler.
-        if (d.requirementSummary?.status !== 'ready') d.requirementSummary = { ...d.requirementSummary, sourceKey: key, status: 'pending', jobId: snap.id };
-      }, { touch: false });
       return getProposal(id)?.requirementSummary;
     } catch (error) {
       const current = getProposal(id);
-      if (current && requirementSourceKey(current) === key) update(id, d => { d.requirementSummary = { ...d.requirementSummary, sourceKey: key, status: 'error', error: error.code ? requestErrorText(error) : error.message }; }, { touch: false });
+      if (pendingFor(current, key)) update(id, d => { d.requirementSummary = { ...d.requirementSummary, sourceKey: key, status: 'error', error: error.code ? requestErrorText(error) : error.message }; }, { touch: false });
       return getProposal(id)?.requirementSummary;
     }
   })().finally(() => waiting.delete(token));

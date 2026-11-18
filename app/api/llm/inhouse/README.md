@@ -62,6 +62,7 @@
 | 무엇 | 형식 |
 |---|---|
 | `targets() -> [DecisionTarget]` | 서버(모델) 목록 — `id` · `model` · `label` · `enabled` · `max_tokens`(요청 하나 추정 토큰 한도) · `parallel`(동시 요청 수). 켜진 것 중 앞의 것이 먼저 답한다 |
+| `async train(request: ClefTrainingRequest) -> ClefTrainingResponse` | 선택 구현. 관리자가 CLEF 추가에서 training job을 선택하면 `request.job_id`와 `request.model`을 받는다. 학습 및 서빙이 준비되면 `ClefTrainingResponse(endpoint=...)`를 반환한다. 관리자는 최대 30분을 기다린 뒤 받은 주소로 System One 샘플을 검증한다. |
 | `answer(call: DecisionCall) -> DecisionReply` | `call.target` 서버에 `{model, state, questions}` 를 보내고 `answers` · 토큰 수를 돌려준다. `call.timeout` 초 안에, `call.cancel()` 이면 멈춤 |
 | `probe(target) -> ProbeResult \| None` | (선택) 토큰 없는 점검(터널 → /health 등). None 이면 짧은 질문 하나로 점검 |
 | `QUESTION_TYPES` | choice · score · noul 모두 — 서버에 없는 유형은 클래스 안에서 바꿔 묻고 그 유형의 답 모양으로 돌려준다 |

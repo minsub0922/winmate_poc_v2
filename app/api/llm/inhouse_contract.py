@@ -249,6 +249,17 @@ class InhouseLLM:
 
 # ---------------------------------------------------------------- Decision (System One 형식)
 @dataclass(frozen=True)
+class ClefTrainingRequest:
+    job_id: str
+    model: str
+
+
+@dataclass(frozen=True)
+class ClefTrainingResponse:
+    endpoint: str
+
+
+@dataclass(frozen=True)
 class DecisionTarget:
     """Decision 서버(모델) 하나. 켜진(``enabled``) 것 중 앞의 것이 먼저 답하고, 답하지 못하면 다음 것이 답한다.
 
@@ -306,6 +317,10 @@ class InhouseDecision:
     def __init__(self, ctx: InhouseContext) -> None:
         self.ctx = ctx
         self.env = ctx.env
+
+    async def train(self, request: ClefTrainingRequest) -> ClefTrainingResponse:
+        """Optional training job. Await the System One endpoint for request.model (up to 30 minutes)."""
+        raise NotImplementedError
 
     def targets(self) -> List[DecisionTarget]:
         """쓸 수 있는 서버(모델) 목록, 앞의 것이 먼저. 설정 파일을 읽어도 된다(호출마다 불릴 수 있으니 가볍게)."""

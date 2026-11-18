@@ -486,7 +486,7 @@ const capSpaces = (list, max) => { if (list.length <= max) return list; const ke
  *   opts: { vertical:{id,name,group}, kindOf(name) → 조감도 공간 용도, now, complete }
  * @returns { products:[새로 연결한 id], solutions:[…], spaces:[새로 넣은 공간 이름], placed: 공간에 넣은 제품 수, removed: 뺀 예전 항목 수 }
  */
-export function applyExtract(d, result, { vertical, kindOf = () => 'lounge', now = Date.now(), complete = true } = {}) {
+export function applyExtract(d, result, { vertical, kindOf = () => 'lounge', now = Date.now(), complete = true, keepSpaces = false } = {}) {
   const before = d.matchExtract || {};
   const prev = new Set(before.refs || []);
   const replace = complete && prev.size > 0 && before.v !== EXTRACT_VERSION;
@@ -512,7 +512,7 @@ export function applyExtract(d, result, { vertical, kindOf = () => 'lounge', now
   const spaces = result.spaces.map((s) => ({ ...s, products: s.products.filter((id) => linked.has(id)) }));
   const make = (s) => ({ id: s.id, name: s.name, kind: kindOf(s.base || s.name), note: '', products: [...s.products] });
   const fromScratch = !validPlan(d.spacePlan) || (replace && d.spacePlan.auto);
-  if (spaces.length && linked.size) {
+  if (!keepSpaces && spaces.length && linked.size) {
     if (fromScratch) {
       if (vertical) {
         const chosen = capSpaces(spaces, MAX_SPACES);

@@ -8,7 +8,11 @@ SERVICE_STRONG = re.compile(r'케어|(?<!식기)세척(?!기)|보증|유지보�
 
 
 def kind_of(p):
-    """제품 DB 행(sc · cat · name)의 DSS 종류 — '솔루션 · 서비스'처럼 둘 다 적힌 분류는 이름이 케어 · 세척 · 보증이 아니면 솔루션."""
+    """제품 DB 행의 DSS 종류 — 수집한 뒤 LLM 이 판정한 dssKind(proddb/build/dss/classify.py · proddb/dss/kinds.json)가 있으면 그것.
+    없을 때만 분류 이름 규칙: '솔루션 · 서비스'처럼 둘 다 적힌 분류는 이름이 케어 · 세척 · 보증이 아니면 솔루션.
+    (규칙은 사이트 분류 이름만 본다 — '시스템에어컨 솔루션' 아래 기기를 솔루션으로, '모바일 솔루션' 아래 보증연장을 솔루션으로 읽는다)"""
+    if p.get('dssKind') in ('device', 'solution', 'service', 'subscription'):
+        return p['dssKind']
     t = ' '.join(str(p.get(k) or '') for k in ('sc', 'cat'))
     if '솔루션' in t and not SERVICE_STRONG.search(t + ' ' + str(p.get('name') or '')): return 'solution'
     if SERVICE.search(t): return 'service'

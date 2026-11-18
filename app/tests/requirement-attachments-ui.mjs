@@ -88,16 +88,18 @@ try {
   assert.equal(requests.length, 1, 'the first save starts the summary');
   console.log('PASS legacy form data becomes readable free-form text on open, is committed on 저장 and emptied from the form.');
 
-  // ---- 이전 불러오기 fills the draft, not the store
+  // ---- 이전 불러오기 applies immediately and reuses the structured sources
   await page.locator('.start-node .node').click(); await editor.waitFor();
   await popup.getByRole('button', { name: '이전 히스토리에서 불러오기' }).click();
   const reuse = page.getByRole('dialog', { name: '이전 고객 요구사항 재사용', exact: true });
   await reuse.locator('.reuse-item').filter({ hasText: '이전 제안' }).click(); await reuse.getByRole('button', { name: '이 내역 불러오기', exact: true }).click();
   await page.waitForFunction(() => document.querySelector('#free-ed')?.innerText.includes('호텔 객실 TV 300대 교체.'));
   assert((await editor.innerText()).includes('■ 총지배인 (가중치 100%)')); assert.equal(await popup.locator('.rq-customer').inputValue(), '이전 고객');
-  assert((await stored('legacy')).req.free.some(s => (s.t || '').includes('매장 메뉴를 원격으로')), 'the store keeps the saved requirements until 저장');
+  assert.deepEqual((await stored('legacy')).req, other.req, 'the stored requirements are applied without pressing 저장');
+  await page.waitForFunction(async () => !!(await import('/src/repositories/proposals.js')).getProposal('legacy').requirementSummary?.jobId);
+  assert.equal(requests.length, 2, 'the missing summary starts on import');
   await popup.getByRole('button', { name: '고객 요구사항 닫기', exact: true }).click(); await editor.waitFor({ state: 'detached' });
-  console.log('PASS 이전 불러오기 loads into the draft only.');
+  console.log('PASS 이전 불러오기 applies the requirements at once and starts the missing summary.');
 
   // ---- every main format: structure and tables survive
   await page.goto(base + '/'); await page.getByRole('button', { name: '새 제안서 시작', exact: true }).click(); await editor.waitFor();
@@ -122,7 +124,7 @@ try {
   assert.deepEqual(tables[5], sheet, 'XLS (Excel 97–2003) reads the same');
   assert.deepEqual(tables[7], [['항목', '담당', '기한'], ['현장 조사', '김팀장', '11/10'], ['견적 제출', '박과장', '11/17']], 'a Markdown table inside a TXT');
   assert.deepEqual(tables[8], [['매장', '수량'], ['강남점', '6']], 'CP949 CSV');
-  assert.equal(requests.length, 1); assert.equal((await page.evaluate(async () => (await import('/src/repositories/proposals.js')).getProposals()[0])).req.files.length, 0, 'attaching changes the draft only');
+  assert.equal(requests.length, 2); assert.equal((await page.evaluate(async () => (await import('/src/repositories/proposals.js')).getProposals()[0])).req.files.length, 0, 'attaching changes the draft only');
   await editor.locator('.me-table').first().scrollIntoViewIfNeeded(); await page.screenshot({ path: path.join(out, 'tables.png'), animations: 'disabled' });
   console.log('PASS PPTX · DOCX · XLSX · XLS · TXT · CSV are read into the free-form text with headings, lists and intact tables.');
 
@@ -154,7 +156,7 @@ try {
   const plain = await page.evaluate(async () => { const repo = await import('/src/repositories/proposals.js'); return { req: (await import('/src/services/search.js')).reqText(repo.getProposals()[0]), plain: repo.segPlain(repo.getProposals()[0].req.free) }; });
   for (const value of ['| 객실 | 300 | 43인치 이상 \\| 호텔 모드 | 45,000 |', '| 연회장 | 3 | LED 올인원<br>130인치급 | 18,000 |', '| R-02 | 매장별 품절 표시 | 필수 | POS 연동 \\| API 제공 |', '| 현장 조사 (수정) | 김팀장 | 11/10 |']) assert(plain.req.includes(value) && plain.plain.includes(value), 'text readers get the table rows: ' + value);
   const sent = requests.at(-1);
-  assert.equal(requests.length, 2); assert.deepEqual(sent.sources.map(s => s.id), ['free'], 'inlined attachments are part of the free-form source, not sent twice');
+  assert.equal(requests.length, 3); assert.deepEqual(sent.sources.map(s => s.id), ['free'], 'inlined attachments are part of the free-form source, not sent twice');
   assert(sent.sources[0].text.includes('| 메뉴보드 | 55인치 3연동 \\| 가로형 | 960 | 1,250,000,000 | 2026-11-30 | 15% |')); assert.deepEqual(sent.missing_sources, ['도면.hwp']);
   await page.locator('.start-node .node').click(); await editor.waitFor();
   assert.equal(await editor.locator('.me-table').count(), 8); assert.equal(await popup.locator('.fchip').count(), 6);

@@ -87,7 +87,8 @@ def main() -> None:
     images = {}
     for src in sorted(s for s in srcs if s and s in lib['images']):
         it = lib['images'][src]
-        images[src] = {**{k: it.get(k) for k in ('src', 'desc', 'kind', 'cls', 'group', 'products', 'solutions', 'case', 'cust', 'w', 'h', 'ind_primary', 'place', 'neutral')},
+        images[src] = {**{k: it.get(k) for k in ('src', 'desc', 'kind', 'cls', 'group', 'products', 'solutions', 'case', 'cust', 'w', 'h', 'ind_primary', 'place', 'neutral',
+                                                  'items', 'items_how', 'shows', 'item_fams')},
                        **({'vf': it['vf']} if it.get('vf') else {}),
                        'names': (it.get('names') or [])[:2], 'spaces': (it.get('spaces') or [])[:5], 'inds': it.get('inds') or {},
                        'scen': [x for x in it.get('scen') or [] if x.startswith('bs_std_fb')], 'usage': []}
@@ -98,6 +99,7 @@ def main() -> None:
     small = {
         'version': lib['version'], 'parts': lib['parts'], 'enums': lib['enums'], 'industries': lib['industries'], 'layouts': layouts, 'families': {},
         'scenarios': cards, 'modules': [], 'exemplars': exemplars, 'images': images,
+        'item_keys': {k: v for k, v in (lib.get('item_keys') or {}).items() if k in ctx['products'] or k in ('qm65c', 'kiosk')},
         'products': {k: v for k, v in lib['products'].items() if k in ctx['products']},
         'products_all': {k: v for k, v in lib['products_all'].items() if k in ctx['products'] or k in ('qm65c', 'kiosk')},
         'solutions': lib['solutions'], 'cases': {k: v for k, v in lib['cases'].items() if k in cases},

@@ -156,13 +156,15 @@ class Dss:
 
     def latest(self):
         """채널마다 가장 최근 점검 결과(채널을 골라 점검한 회차도 있으므로 채널별로 찾는다)."""
-        found, checks = {}, self.store.rows('SELECT id,at,trigger,path,result FROM dss_checks ORDER BY at DESC')
+        found = {}
+        checks = self.store.rows("""WITH latest AS (
+            SELECT c.id, ch.value AS channel, ROW_NUMBER() OVER (PARTITION BY ch.value ORDER BY c.at DESC,c.rowid DESC) AS n
+            FROM dss_checks c,json_each(c.channels) ch)
+            SELECT l.channel,c.id,c.at,c.trigger,c.path,json_extract(c.result,'$.channels.'||l.channel) AS result
+            FROM latest l JOIN dss_checks c ON c.id=l.id WHERE l.n=1""")
         for row in checks:
-            result = json.loads(row['result'])
-            for channel, value in (result.get('channels') or {}).items():
-                found.setdefault(channel, {**value, 'check_id': row['id'], 'check_at': row['at'], 'trigger': row['trigger'], 'path': row['path']})
-            if found.keys() >= CHANNELS.keys():
-                break
+            if row['result']:
+                found[row['channel']] = {**json.loads(row['result']), 'check_id':row['id'], 'check_at':row['at'], 'trigger':row['trigger'], 'path':row['path']}
         return found
 
     def attention(self):
@@ -179,9 +181,50 @@ class Dss:
         by = {}
         for item in items:
             by[item['status']] = by.get(item['status'], 0) + 1
+        kinds = {}
+        for item in items:
+            if item.get('status') != 'deleted' and not item.get('deleted_at'):
+                kinds[item.get('kind') or 'device'] = kinds.get(item.get('kind') or 'device', 0) + 1
         return {'runs': [{'run_id': r['run_id'], 'run_at': r['run_at'], 'scope': r.get('scope'), 'counts': {k: v for k, v in r.get('counts', {}).items() if k != 'by_kind'}} for r in data['runs'][-5:]],
                 'last_full_run': full[-1]['run_id'] if full else None, 'last_full_run_at': full[-1]['run_at'] if full else None, 'items': len(items), 'by_status': by,
-                'pending_deletions': sum(1 for i in items if i['status'] == 'deprecated' and not i.get('deleted_at')), 'deleted': sum(1 for i in items if i.get('deleted_at'))}
+                'pending_deletions': sum(1 for i in items if i['status'] == 'deprecated' and not i.get('deleted_at')), 'deleted': sum(1 for i in items if i.get('deleted_at')),
+                'by_kind': kinds, 'kinds': self.kind_meta()}
+
+    # ── DSS 종류(수집한 뒤 LLM 이 판정 — proddb/build/dss/classify.py · proddb/dss/kinds.json) ──
+    def kind_doc(self):
+        try:
+            return json.loads((ROOT / 'proddb/dss/kinds.json').read_text(encoding='utf-8'))
+        except (OSError, ValueError):
+            return None
+
+    def kind_meta(self):
+        doc = self.kind_doc()
+        if not doc:
+            return None
+        items = doc.get('items') or {}
+        return {'model': doc.get('model'), 'at': doc.get('updated_at'), 'run': doc.get('run'), 'items': len(items),
+                'review': sum(1 for x in items.values() if x.get('review') or x.get('by') == 'rule'),
+                'llm': sum(1 for x in items.values() if x.get('by') == 'llm'), 'manual': sum(1 for x in items.values() if x.get('by') == 'manual'),
+                'moved': sum(1 for x in items.values() if x.get('rule') and x.get('kind') != x.get('rule'))}
+
+    def kind_items(self, kind):
+        """원장의 그 종류 항목(지운 것 빼고) + 판정 기록(확신 · 근거 · 판정한 것 · 지난 규칙 · 다시 볼 것 · 같은 앱 솔루션)"""
+        try:
+            data = json.loads((ROOT / 'proddb/dss/ledger.json').read_text(encoding='utf-8'))
+        except (OSError, ValueError):
+            return []
+        decisions = (self.kind_doc() or {}).get('items') or {}
+        out = []
+        for key, item in data['items'].items():
+            if (item.get('kind') or 'device') != kind or item.get('status') == 'deleted' or item.get('deleted_at'):
+                continue
+            d = decisions.get(item.get('id')) if item.get('registry') in ('products_db.products', 'catalog.products') else None
+            out.append({'key': key, 'id': item.get('id'), 'name': item.get('name'), 'registry': item.get('registry'), 'status': item.get('status'),
+                        'family': (item.get('family') or {}).get('sc') or (item.get('family') or {}).get('cat'),
+                        **({'by': d.get('by'), 'conf': d.get('conf'), 'why': d.get('why'), 'rule': d.get('rule'), 'review': bool(d.get('review') or d.get('by') == 'rule'),
+                            **({'same': d['same']} if d.get('same') else {})} if d else {'by': 'registry'})})
+        out.sort(key=lambda x: (not x.get('review'), x.get('rule') == kind if x.get('rule') else True, x.get('registry') or '', x.get('name') or ''))
+        return out
 
     def overview(self):
         latest = self.latest()
@@ -453,6 +496,18 @@ def dss_router(get, actor):
     def overview():
         dss = get()
         return dss.overview()
+
+    @router.get('/kinds')
+    def kind_summary():
+        dss = get()
+        led = dss.ledger() or {}
+        return {'by_kind': led.get('by_kind') or {}, 'meta': led.get('kinds')}
+
+    @router.get('/kinds/{kind}')
+    def kinds(kind: str):
+        if kind not in ('device', 'solution', 'service', 'subscription'):
+            raise HTTPException(404, '없는 종류입니다.')
+        return {'kind': kind, 'items': get().kind_items(kind)}
 
     @router.post('/check')
     def check(body: CheckInput):

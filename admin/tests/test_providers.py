@@ -7,6 +7,7 @@ the external hosts (OpenRouter · Gemini · TypeSafe) answer from :class:`Extern
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+import asyncio
 import io
 import json
 import os
@@ -40,6 +41,7 @@ class Serving:
         self.fail = 0
         self.delay = 0.0
         self.has_models = True
+        self.invalid_answers = False
         self.requests = []
         self.closed = False
         outer = self
@@ -86,7 +88,7 @@ class Serving:
                             answers[qid] = {'type': 'choice', 'choice': first, 'confidence': 0.8, 'probabilities': {k: (0.8 if k == first else 0.1) for k in q['criteria']}}
                         else:
                             answers[qid] = {'type': 'score', 'score': 2.0, 'confidence': 0.7, 'probabilities': {'2': 1.0}}
-                    return self.reply(200, {'model': body['model'], 'answers': answers, 'usage': {'input_tokens': 42, 'output_tokens': 0}})
+                    return self.reply(200, {'model': body['model'], 'answers': {} if outer.invalid_answers else answers, 'usage': {'input_tokens': 42, 'output_tokens': 0}})
                 self.reply(404, {'error': {'message': 'not found'}})
 
         self.httpd = ThreadingHTTPServer(('127.0.0.1', 0), Handler)
@@ -374,15 +376,15 @@ def test_on_off_and_primary_without_restart(providers, env, serving):
     assert state('llm') == ['llm.gemini', 'llm.openrouter', 'llm.internal'] and cfg.get_settings().provider == 'gemini'
     providers.deactivate('llm.gemini')  # 대표 off → the next one takes over
     assert state('llm') == ['llm.openrouter', 'llm.internal'] and cfg.get_settings().provider == 'openrouter'
-    # decision: both slots on (TypeSafe 대표, Clef behind it), Clef 대표, none → tasks go to the LLM
+    # Decision toggles replace the single service selection.
     providers.activate('decision.clef')
     s = cfg.get_settings()
-    assert state('decision') == ['decision.main', 'decision.clef'] and s.decision_fallbacks == (('clef', serving.base, 'clef-flash'),)
-    assert 'tasks' in by_id(providers)['decision.main'] and 'tasks' not in by_id(providers)['decision.clef']
+    assert state('decision') == ['decision.clef'] and not s.decision_fallbacks
+    assert 'tasks' in by_id(providers)['decision.clef'] and 'tasks' not in by_id(providers)['decision.main']
     providers.make_primary('decision.clef')
     s = cfg.get_settings()
     assert s.decision_base_url == serving.base and s.decision_model == 'clef-flash' and s.decision_key() == 'local'
-    assert [x for x, *_ in s.decision_fallbacks] == ['main'] and s.decision_slot('main')[2] == 'apikey-external-secret-000000'
+    assert not s.decision_fallbacks and s.decision_slot('main')[2] == 'apikey-external-secret-000000'
     assert providers._decision_settings('decision.main').decision_base_url == 'https://api.typesafe.ai/v1'  # experiments still reach TypeSafe
     assert 'apikey-external-secret-000000' not in json.dumps(providers.view())
     providers.deactivate('decision.clef')
@@ -533,3 +535,76 @@ def test_api_requires_admin_and_round_trips(client, serving, second):
     assert c.post('/api/providers/decision.clef/activate').json()['provider']['primary'] is True
     assert c.post('/api/providers/decision.main/primary').json()['provider']['primary'] is True
     assert c.post('/api/providers/llm.openai/primary').status_code == 422
+
+
+def test_add_clef_validates_and_selects_one_endpoint(client, providers, serving, second):
+    from app.api.llm.decision import get_decision
+    c, auth, token = client
+    c.cookies.set(auth.config.cookie_name, token)
+    def add(server):
+        return c.post('/api/providers/clef', json={'base_url': server.base + '/systemone', 'model': 'clef-trained'})
+    first = add(serving).json()
+    assert first['registered'] and not first['active'] and first['status']['status'] == 'ok'
+    assert add(serving).json()['id'] == first['id']
+    second.invalid_answers = True
+    assert add(second).status_code == 422 and len(providers.clefs()) == 1
+    second.invalid_answers = False
+    other = add(second).json()
+    assert other['id'] != first['id']
+    assert cfg.get_settings().decision_primary == 'main'
+    providers.activate(first['id'])
+    second.invalid_answers = True
+    with pytest.raises(ProviderInputError):
+        providers.activate(other['id'])
+    assert cfg.get_settings().decision_base_url == serving.base
+    second.invalid_answers = False
+    providers.activate(other['id'])
+    cfg.set_overrides({})
+    Providers(providers.store, root=providers.root).apply()
+    live = get_decision(cfg.get_settings(), 'layout.pick')
+    assert live.base == second.base and not live.fallbacks and live.family == 'clef'
+    before = len(serving.requests)
+    answer = live.ask(stage='test:selected', state='x', questions={'q': {'type': 'noul', 'instructions': 'y'}})
+    assert answer.model == 'clef-trained' and len(serving.requests) == before
+    assert [p['id'] for p in providers.entries(False) if p['role'] == 'decision' and p['active']] == [other['id']]
+
+
+def test_async_training_endpoint_and_timeout(client, providers, second, monkeypatch):
+    from admin import providers as module
+    from app.api.llm.inhouse_contract import ClefTrainingResponse
+    c, auth, token = client
+    c.cookies.set(auth.config.cookie_name, token)
+    release = threading.Event()
+    async def train(request):
+        assert request.model == 'clef-trained' and request.job_id
+        while not release.is_set():
+            await asyncio.sleep(0.01)
+        return ClefTrainingResponse(endpoint=second.base)
+
+    def start():
+        r = c.post('/api/providers/clef/training', json={'model': 'clef-trained'})
+        assert r.status_code == 202
+        return '/api/providers/clef/training/' + r.json()['id']
+
+    def finished(url):
+        deadline = time.monotonic() + 4
+        while time.monotonic() < deadline:
+            result = c.get(url).json()
+            if result['status'] != 'running':
+                return result
+            time.sleep(0.01)
+        pytest.fail('training did not finish')
+
+    assert '연동' in finished(start())['detail']
+    monkeypatch.setattr(module.inhouse_bridge, 'training_adapter', lambda: SimpleNamespace(train=train))
+    url = start()
+    assert c.get(url).json()['status'] == 'running' and not providers.clefs()
+    release.set()
+    job = finished(url)
+    assert job['status'] == 'succeeded' and providers.entry(job['provider_id'])['status']['status'] == 'ok'
+    assert cfg.get_settings().decision_primary == 'main'
+    release.clear()
+    monkeypatch.setattr(module, 'TRAINING_TIMEOUT', 0.05)
+    result = finished(start())
+    assert result['status'] == 'failed' and '30분' in result['detail']
+    assert len(providers.clefs()) == 1

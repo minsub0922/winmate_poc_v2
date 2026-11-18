@@ -18,6 +18,7 @@ import re
 from typing import Dict, List, Optional, Sequence, Set
 
 from . import context as ctxm
+from . import items as _items
 from .library import load
 from .textsim import BM25, tokens
 
@@ -444,6 +445,15 @@ def candidates(slot: dict, inp: dict, a: dict, used: Set[str], held_out: Set[str
                 prim = it.get('ind_primary') or []
                 if ind not in place and ind not in prim:
                     continue  # the slot shows the customer's own place — only that industry's photos
+            # 사진 속 정확한 제품(사용자 지시 2026-11-18, composer.items — never relaxed): a photo known to show an item the customer did
+            # not select is not used; the customer's own place shows no product, or one of the customer's items, never one nobody can name
+            items = it.get('items') or []
+            if it.get('shows') == 'item' and not _items.same_items(items, inp['products'] or [], lib.get('item_keys') or {}):
+                continue
+            if slot.get('strict') and it.get('shows') == 'unknown':
+                mine = {_items.FAMILY_OF_FAM.get((lib.get('products_all', {}).get(p) or {}).get('fam') or '') for p in inp['products'] or []}
+                if set(it.get('item_fams') or []) - ({'mobile'} - mine):
+                    continue
         pool.append(src)
     if not pool:
         return []

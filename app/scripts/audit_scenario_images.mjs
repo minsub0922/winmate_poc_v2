@@ -139,6 +139,10 @@ export async function printsOf(keys, data, cacheFile) {
   return { prints, unread };
 }
 
+// 같은 그림 묶음(app/data/picture_ids.json — 자동 구성과 같은 기준, 잘라 낸 사진도 같은 사진) — 주소 → 묶음 이름
+export const SAME = new Map();
+try { for (const g of JSON.parse(fs.readFileSync(path.join(root, 'app/data/picture_ids.json'), 'utf8')).groups || []) for (const a of g) SAME.set(a, g[0]); } catch { /* no table: pixel comparison only */ }
+
 /** one deck's pictures drawn more than once: [[use, use, …], …] — use = { page, f, key, kind, slot, ovSlot, own, name, fit, x, y, w, h, area } */
 export function repeatsOf(deck, prints) {
   const uses = [];
@@ -146,7 +150,7 @@ export function repeatsOf(deck, prints) {
   const keys = [...new Set(uses.map((u) => u.key))]; const parent = Object.fromEntries(keys.map((k) => [k, k]));
   const tight = new Set(uses.filter((u) => u.fit === 'contain').map((u) => u.key));
   const find = (k) => { while (parent[k] !== k) { parent[k] = parent[parent[k]]; k = parent[k]; } return k; };
-  for (let i = 0; i < keys.length; i++) for (let j = i + 1; j < keys.length; j++) if (find(keys[i]) !== find(keys[j]) && samePicture(prints[keys[i]], prints[keys[j]], tight.has(keys[i]) || tight.has(keys[j]))) parent[find(keys[i])] = find(keys[j]);
+  for (let i = 0; i < keys.length; i++) for (let j = i + 1; j < keys.length; j++) if (find(keys[i]) !== find(keys[j]) && (samePicture(prints[keys[i]], prints[keys[j]], tight.has(keys[i]) || tight.has(keys[j])) || (SAME.has(keys[i]) && SAME.get(keys[i]) === SAME.get(keys[j])))) parent[find(keys[i])] = find(keys[j]);
   const groups = new Map();
   for (const u of uses) { const g = find(u.key); if (!groups.has(g)) groups.set(g, []); groups.get(g).push(u); }
   return [...groups.values()].filter((g) => g.length > 1);

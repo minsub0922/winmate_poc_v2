@@ -40,12 +40,12 @@ IMGS = {
     's_safety': {'img0': [129]},
     's_biot': {'img0': [179]},
     's_dms': {'img0': [333]},
-    's_touch': {'img0': [327]},
+    's_touch': {'img0': [329]},  # 제어기 3종 근접 — 327은 카페 좌석이 대부분이고 제어기는 가장자리에 반쯤 잘린다
     's_wifi': {'img0': [338]},
     's_sthome': {'img0': [113]},
     's_vxt': {'img0': [35], 'img1': [59], 'img2': [61]},
     's_magic': {'img0': [11]},
-    's_lynk': {'img0': [224]},
+    's_lynk': {'img0': [230]},  # 객실별 TV 원격 제어 화면 — 224(호텔 투숙객 배너)는 호텔 업종만
     's_knox': {'img0': [240]},
     's_health': {'img0': ['img/prod/g03.json#14']},
     's_class': {'img0': ['img/ph/ed-tab-exam.jpg']},
@@ -61,17 +61,21 @@ IMGS = {
     'svc_mobile': {'img0': [213]},
 }
 GROUP_IMGS = {
-    ('s_stp', 'HT'): {'img0': [109]}, ('s_stp', 'FB'): {'img0': [98]}, ('s_stp', 'RT'): {'img0': [97]}, ('s_stp', 'SV'): {'img0': [104]},
-    ('s_stp', 'OF'): {'img0': [101]}, ('s_stp', 'RS'): {'img0': [112]}, ('s_stp', 'MD'): {'img0': [102]}, ('s_stp', 'MF'): {'img0': [102]},
+    # SmartThings Pro: 업종 장면은 그 업종 사진일 때만(호텔 객실 · 매장 일러스트) — 드럭스토어 합성(98) · 마트 히트맵(97) · 레스토랑 합성(101) ·
+    # 소비자 거실 앱(112) · 근로자 안전 대시보드(102)는 다른 업종 · 다른 기능이라 나머지는 관리 대시보드(85)
+    ('s_stp', 'HT'): {'img0': [109]}, ('s_stp', 'SV'): {'img0': [104]},
     ('s_biot', 'ED'): {'img0': [199]}, ('s_biot', 'MF'): {'img0': [192]}, ('s_biot', 'RT'): {'img0': [192]},
     ('s_vxt', 'FB'): {'img0': [56], 'img1': [39], 'img2': [61]}, ('s_vxt', 'MD'): {'img0': [26], 'img1': [59], 'img2': [65]},
-    ('s_magic', 'FB'): {'img0': [4]}, ('s_magic', 'RT'): {'img0': [7]}, ('s_magic', 'ED'): {'img0': [13]}, ('s_magic', 'PB'): {'img0': [14]},
+    ('s_magic', 'FB'): {'img0': [4]}, ('s_magic', 'RT'): {'img0': [0]}, ('s_magic', 'ED'): {'img0': [13]},
     ('s_magic', 'MD'): {'img0': [15]}, ('s_magic', 'TP'): {'img0': [10]},
-    ('s_knox', 'MF'): {'img0': [243]}, ('s_knox', 'FN'): {'img0': [244]}, ('s_knox', 'PB'): {'img0': [244]},
-    ('s_field', 'PB'): {'img0': [255]},
+    ('s_knox', 'MF'): {'img0': [243]}, ('s_knox', 'FN'): {'img0': [253]}, ('s_knox', 'PB'): {'img0': [244]},
+    ('s_field', 'PB'): {'img0': [255]}, ('s_field', 'TP'): {'img0': [259]}, ('s_lynk', 'HT'): {'img0': [224]},
 }
+# 업종 묶음 안에서도 세부 업종마다 다른 장면 (교통 = 공항 운항정보 안내, 청사 · 군기관은 업종 묶음 기본)
+VERT_IMGS = {('s_magic', 'pb_transport'): {'img0': [14]}}
 # small thumbnail (for the needs/tech image) per solution — card thumbnails in img/media/t.json
-THUMB = {'s_stp': 20003, 's_safety': 20004, 's_biot': 20006, 's_dms': 20014, 's_touch': 20014, 's_wifi': 20014, 's_sthome': 20005,
+THUMB = {'s_stp': 110,  # 20003 은 농장(온실) 사진
+         's_safety': 20004, 's_biot': 20006, 's_dms': 20014, 's_touch': 20014, 's_wifi': 20014, 's_sthome': 20005,
          's_vxt': 20001, 's_magic': 20000, 's_lynk': 20008, 's_knox': 20009, 's_dex': 20011, 's_counthru': 20015, 's_secuthru': 20015,
          's_pos': 20016, 's_hospital': 20016, 's_field': 20010, 's_meeting': 20009, 'svc_sac': 20007, 'svc_mobile': 20007}
 

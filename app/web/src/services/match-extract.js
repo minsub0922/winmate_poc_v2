@@ -33,6 +33,13 @@ export const subscribeExtract = (fn) => { subs.add(fn); return () => subs.delete
 /** 이 제안서의 원문 매칭이 지금 돌고 있는가 */
 export const extractBusy = (pid) => running.has(pid);
 export const useExtractBusy = (pid) => useSyncExternalStore(subscribeExtract, () => extractBusy(pid));
+export function stopMatchExtract(pid) {
+  const entry = running.get(pid);
+  if (!entry) return;
+  running.delete(pid);
+  entry.ctrl.abort();
+  emit();
+}
 /**
  * 매칭 카드 아래에 보일 안내 — 실패했거나 중단된 원문 매칭(지금 요구사항 기준)과 그 이유. 없으면 null.
  * 카드가 이 글 옆에 '다시 시도'를 둔다. → { text }
@@ -81,11 +88,11 @@ async function askMentions(head, body, taxonomy, codes, signal) {
 
 // ---------- 실행 ----------
 const fail = (err) => Object.assign(new Error(aiErrorText(err)), { code: err });
-async function run(pid, key, signal) {
+async function run(pid, key, signal, keepSpaces) {
   let p = getProposal(pid);
   await hydrateAttachmentSources(p);
   p = getProposal(pid);
-  if (!p || requirementSourceKey(p) !== key) return null;
+  if (signal.aborted || !p || requirementSourceKey(p) !== key) return null;
   const { head, body } = extractText(requirementSources(p, cachedAttachmentSource, (ref) => '@' + (tagLabel(ref) || ref)));
   const taxonomy = await loadSpaceData();
   const index = catalog();
@@ -93,8 +100,8 @@ async function run(pid, key, signal) {
     const v = verticalId ? taxonomy.byId.get(verticalId) : null;
     let added = null;
     const ok = update(pid, (d) => {
-      if (requirementSourceKey(d) !== key) return;
-      added = applyExtract(d, result, { vertical: v ? { id: v.id, name: v.name, group: v.group } : null, kindOf: roomKind, complete });
+      if (signal.aborted || requirementSourceKey(d) !== key) return;
+      added = applyExtract(d, result, { vertical: v ? { id: v.id, name: v.name, group: v.group } : null, kindOf: roomKind, complete, keepSpaces });
     }, { touch: false });
     return ok ? added : null;
   };
@@ -137,7 +144,7 @@ async function run(pid, key, signal) {
  * 지금 저장된 요구사항으로 원문 매칭을 시작한다. 같은 요구사항으로 이미 끝냈으면 하지 않는다(force: 다시 시도).
  * 요구사항이 바뀌어 다시 부르면 앞선 실행은 멈추고 결과를 버린다.
  */
-export function ensureMatchExtract(pid, { force = false } = {}) {
+export function ensureMatchExtract(pid, { force = false, keepSpaces } = {}) {
   const p = getProposal(pid);
   if (!writable(p) || !requirementSources(p).some((s) => s.id !== 'customer' && s.id !== 'industry')) return Promise.resolve(null);
   const key = requirementSourceKey(p);
@@ -146,14 +153,15 @@ export function ensureMatchExtract(pid, { force = false } = {}) {
   if (cur) cur.ctrl.abort();
   const st = p.matchExtract;
   if (!force && st && st.sourceKey === key && st.status === 'done' && st.v === EXTRACT_VERSION) return Promise.resolve(st);
+  const preserveSpaces = keepSpaces ?? (st?.sourceKey === key && st.keepSpaces === true);
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort('timeout'), TIMEOUT);
   const mine = () => running.get(pid) && running.get(pid).ctrl === ctrl;
   const mark = (patch) => update(pid, (d) => { if (requirementSourceKey(d) === key) d.matchExtract = { ...(d.matchExtract || {}), sourceKey: key, at: Date.now(), error: undefined, ...patch }; }, { touch: false });
   const entry = { key, ctrl, promise: null };
   running.set(pid, entry); emit(); // 저장된 'pending'보다 먼저 — 그러지 않으면 잠깐 '중단'으로 읽힌다
-  if (!mark({ status: 'pending' })) { clearTimeout(timer); running.delete(pid); emit(); return Promise.resolve(null); }
-  entry.promise = run(pid, key, ctrl.signal).then((r) => {
+  if (!mark({ status: 'pending', keepSpaces: preserveSpaces || undefined })) { clearTimeout(timer); running.delete(pid); emit(); return Promise.resolve(null); }
+  entry.promise = run(pid, key, ctrl.signal, preserveSpaces).then((r) => {
     if (!mine()) return null;
     if (!r) { // 멈췄다: 시간 초과면 알리고, 요구사항이 바뀐 것이면 조용히 끝낸다
       if (ctrl.signal.reason === 'timeout') { mark({ status: 'error', error: '원문 매칭이 오래 걸려 멈췄어요.' }); notify('원문 매칭이 오래 걸려 멈췄어요 · 매칭 카드에서 다시 시도할 수 있어요', 'warn'); }

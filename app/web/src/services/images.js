@@ -3,6 +3,7 @@ import { P, S, C, IMAGE_DB } from './catalog.js';
 import { productImages, imageIndustry } from './image-library.js';
 import { productsNamedIn, deviceFamily, matchesDeviceFamily, knownImage } from './image-identity.js';
 import { pictureId } from './picture-identity.js';
+import { sceneItemIssue, spacePhotoIssue } from './picture-items.js';
 import { getBootstrap } from '../api/bootstrap.js';
 import { requestJson } from '../api/client.js';
 import { useEffect, useState } from 'react';
@@ -236,6 +237,10 @@ export function venueFit(im, target, ctx = {}) {
  * current picture may be kept, and checks the model's pick afterwards. */
 export function slotImageIssue(im, slot, ctx = {}, target = slotTarget(slot, ctx)) {
   if (!im || !im.src) return '사진 없음';
+  // 사진 속 정확한 제품(사용자 지시 2026-11-18, services/picture-items.js): 공간 사진 칸은 제품이 없거나 그 공간의 제품이 든 사진만 —
+  // 같은 종류의 다른 제품(다른 세탁기)이나 무엇인지 모르는 제품이 든 사진은 안 된다. ctx.spaceItems: 그 칸이 보여 주는 공간의 제품(없으면 제안서의 제품)
+  if (slot.kind === 'space') { const why = spacePhotoIssue(im.src, ctx.spaceItems?.length ? ctx.spaceItems : ctx.products || []); if (why) return why; }
+  else if (target.role === 'scene' && slot.fix !== 'case') { const why = sceneItemIssue(im.src, ctx.products || []); if (why) return why; }
   const ids = shownProducts(im, ctx.products), linked = ids.filter(id => (ctx.products || []).includes(id));
   if (ids.length && !linked.length) return '연결하지 않은 제품 사진';
   // A caption that names a product family the proposal has no product for ("주방가전") leaves the slot without a picture.

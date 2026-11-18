@@ -2,6 +2,7 @@
 from __future__ import annotations
 import hashlib
 import json
+from pathlib import Path
 import uuid
 
 from fastapi import HTTPException
@@ -20,7 +21,35 @@ def read_json(path, default):
     return json.loads(path.read_text(encoding='utf-8')) if path.is_file() else default
 
 
-def observe(origin, result, staging):
+def spec_differences(old, current, evidence, ids):
+    changes = []
+    for gid in dict.fromkeys(ids):
+        def fields(rows):
+            found = {}
+            for section, label, value in rows:
+                found.setdefault((section,label),[]).append(value)
+            return found
+        before, after = fields(old.get(gid,[])), fields(current.get(gid,[]))
+        model = (evidence.get('variants',{}).get(gid) or evidence['product']).get('mdlCode') or gid
+        for group, label in dict.fromkeys([*before,*after]):
+            k = (group,label)
+            if before.get(k) != after.get(k):
+                changes.append({'field':' · '.join([model,group,label]),'before':' / '.join(before.get(k,[])),
+                                'after':' / '.join(after.get(k,[]))})
+    return changes
+
+
+def product_version(data):
+    p = data['product']
+    images = lambda values: [(v.get('src') or '').split('?')[0] for v in values]
+    return [data.get('gid'), {k:p.get(k) for k in ('goodsNm','mdlCode','goodsDetailUrl','uspDescList','goodsTpCd','dlgtDispClsfEnNm')},
+            images(p.get('images') or [])[:3], data['specs'],
+            {k:[v.get(f) for f in ('mdlCode','optName','optValue','optValue2','soldOut')] for k,v in data['variants'].items()},
+            {k:[[f.get('h'),f.get('desc'),f.get('disc'),images(f.get('imgs') or [])] for f in v.get('feats',[])]
+             for k,v in data['features'].items()}]
+
+
+def observe(origin, result, staging, root=None):
     changes = result.get('changes') or []
     if not changes:
         return
@@ -28,12 +57,17 @@ def observe(origin, result, staging):
     products = read_json(raw / 'wkb_products.json', {}) if origin == 'site' and raw else {}
     specs = read_json(raw / 'wkb_specs.json', {}) if products else {}
     features = read_json(raw / 'wkb_features.json', {}) if products else {}
-    moves = {row['gid']: row['movedTo'] for row in read_json(raw.parent / 'site-diff.json', {}).get('removed', [])
+    failed_goods = {str(e['gid']) for e in read_json(raw / 'errors.json',[]) if e.get('gid')} if products else set()
+    diff = read_json(raw.parent / 'site-diff.json', {}) if products else {}
+    spec_ids = {v['gid']:v['diff']['specs'] for v in diff.get('changed',[]) if 'specs' in v['diff']}
+    old_specs = read_json(root / 'proddb/raw/wkb_specs.json',{}) if root and spec_ids else {}
+    moves = {row['gid']: row['movedTo'] for row in diff.get('removed', [])
              if row.get('movedTo')} if products else {}
     variants = {}
     for vid, v in (products.get('variants') or {}).items():
         variants.setdefault(v.get('parentGoodsId'), {})[vid] = v
     pages = read_json(staging / 'sol/pages.json', {}) if origin == 'solutions' and staging else {}
+    baseline = read_json(root / 'proddb/dss/watch-state.json',{}).get('solutions',{}) if root and pages else {}
     books = {str(b['dir']): b for b in result.get('books') or []}
     for change in changes:
         gid = change.get('gid')
@@ -49,26 +83,41 @@ def observe(origin, result, staging):
                 evidence = {'gid':target, 'product': card, 'variants': opts, 'specs': {i: specs[i] for i in {target, *opts} if i in specs},
                             'features': {i: features[i] for i in {target, *opts} if i in features},
                             'category':next((c for c in products['cats'] if c['no'] == card.get('catNo')), None)}
+                if failed_goods.intersection({target,*opts}):
+                    evidence['incomplete'] = True
         elif origin == 'ecat':
-            evidence = {**books.get(key, {}), **{k: change[k] for k in ('title','pages','tab','group','docTitle','fileModified','modifiedPages') if k in change}}
+            evidence = {**books.get(key, {}), **{k: change[k] for k in ('title','pages','tab','group','listed','docTitle','fileModified','modifiedPages','fileSignature') if k in change}}
             evidence.pop('fetchedAt', None)
         elif origin == 'solutions':
             page = pages.get(key) or {}
             evidence = {k: page[k] for k in ('status','final','mainSha256','title','refs','og') if k in page}
+            if page.get('mainText'):
+                evidence['text'] = page['mainText']
         elif origin == 'links':
             evidence = change.get('current') or {}
         details = {k: v for k, v in change.items() if k not in ('current', 'fetchedAt', 'checked_at', 'fingerprint')}
-        version = change.get('fingerprint') or fingerprint([details, evidence])
+        if origin == 'site' and evidence.get('product'):
+            version = fingerprint([details['status'],evidence['gid'] if details['status']=='moved' else product_version(evidence)])
+            if old_specs and gid in spec_ids:
+                details['comparison'] = spec_differences(old_specs,specs,evidence,spec_ids[gid])
+        elif origin == 'solutions' and evidence:
+            version = fingerprint([details['status'],{k:evidence.get(k) for k in ('status','final','mainSha256','title')}])
+            previous = baseline.get(key,{})
+            details['comparison'] = [{'field':label,'before':str(previous[before]),'after':str(evidence[after])}
+                for label,before,after in [('응답 상태','status','status'),('원본 주소','final','final'),('제목','title','title'),('본문 SHA-256','hash','mainSha256')]
+                if previous.get(before) and evidence.get(after) and previous[before] != evidence[after]]
+        else:
+            version = change.get('fingerprint') or fingerprint([details, evidence])
         yield key, version, details, evidence
 
 
 class SourceReviews:
-    def __init__(self, store):
-        self.store = store
+    def __init__(self, store, root=None):
+        self.store, self.root = store, Path(root) if root else None
         with store.db() as db:
             db.executescript("""
                 CREATE TABLE IF NOT EXISTS source_observations(
-                    source TEXT NOT NULL, origin TEXT NOT NULL, stamp TEXT NOT NULL,
+                    source TEXT NOT NULL, origin TEXT NOT NULL, stamp TEXT NOT NULL, observed_at TEXT,
                     PRIMARY KEY(source,origin));
                 CREATE TABLE IF NOT EXISTS source_changes(
                     id TEXT PRIMARY KEY, source TEXT NOT NULL, origin TEXT NOT NULL, ref TEXT NOT NULL,
@@ -79,6 +128,8 @@ class SourceReviews:
                 CREATE INDEX IF NOT EXISTS source_change_history ON source_changes(source,current,state,seen_at);
                 CREATE TABLE IF NOT EXISTS source_review_batches(id TEXT PRIMARY KEY, at TEXT NOT NULL);
             """)
+            if 'observed_at' not in {r['name'] for r in db.execute('PRAGMA table_info(source_observations)')}:
+                db.execute('ALTER TABLE source_observations ADD COLUMN observed_at TEXT')
 
     def record(self, sid, origin, result, staging=None):
         if not result or result.get('status') in ('failed', 'unchecked'):
@@ -86,21 +137,21 @@ class SourceReviews:
         at = result.get('checked_at') or result.get('check_at')
         if not at:
             return
-        stamp = result.get('check_id') or at
+        stamp = str(result.get('check_id') or at)
         args = (sid, origin)
         sql = 'SELECT stamp FROM source_observations WHERE source=? AND origin=?'
         if (self.store.one(sql, args) or {}).get('stamp') == stamp:
             return
-        rows = list(observe(origin, result, staging))
+        rows = list(observe(origin, result, staging, self.root))
         with self.store.db(immediate=True) as db:
-            prev = db.execute(sql, args).fetchone()
-            if prev and prev['stamp'] == stamp:
+            prev = db.execute('SELECT stamp,julianday(observed_at)>julianday(?) AS newer FROM source_observations WHERE source=? AND origin=?', (at,*args)).fetchone()
+            if prev and (prev['stamp'] == stamp or prev['newer']):
                 return
             active = {r['ref']: r for r in db.execute('SELECT id,ref,version FROM source_changes WHERE source=? AND origin=? AND current=1', args)}
             for key, version, item, evidence in rows:
                 old = active.pop(key, None)
                 if old and old['version'] == version:
-                    db.execute('UPDATE source_changes SET seen_at=? WHERE id=?', (at, old['id']))
+                    db.execute('UPDATE source_changes SET seen_at=?,version=?,item=?,evidence=? WHERE id=?', (at,version,dump(item),dump(evidence),old['id']))
                     continue
                 if old:
                     db.execute('UPDATE source_changes SET current=0 WHERE id=?', (old['id'],))
@@ -109,7 +160,7 @@ class SourceReviews:
                            (uuid.uuid4().hex, sid, origin, key, version, at, at, dump(item), dump(evidence)))
             if result.get('status') in ('same', 'changed'):
                 db.executemany('UPDATE source_changes SET current=0 WHERE id=?', [(r['id'],) for r in active.values()])
-            db.execute('INSERT OR REPLACE INTO source_observations VALUES (?,?,?)', (*args, stamp))
+            db.execute('INSERT OR REPLACE INTO source_observations(source,origin,stamp,observed_at) VALUES (?,?,?,?)', (*args,stamp,at))
 
     def counts(self):
         result = {}

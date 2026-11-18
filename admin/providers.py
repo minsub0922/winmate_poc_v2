@@ -1,8 +1,8 @@
 """Provider tab — every model connection the server knows (LLM profiles and decision models).
 
 * **Registry**: the LLM API profiles of ``app/api/poc/settings.py`` plus the decision slots (``TYPESAFE_*`` and the local
-  Clef server, ``clef-flash/``). *Active* is what the app uses now, per role in order: the first is 대표 (it answers),
-  the rest answer when it fails to (``WINMATE_LLM_FALLBACK`` / ``WINMATE_DECISION_ORDER``). ``.env`` picks it at start;
+  Clef server, ``clef-flash/``) and verified CLEF endpoints. Active LLMs form a fallback chain. The admin selects
+  a single decision model for service requests. ``.env`` picks the initial providers;
   the tab turns providers on / off and picks 대표 without a restart (at least one LLM; no decision model → the LLM
   decides). The choice lives in the admin store (``provider_active``) and reaches the app through the override layer.
 * **State**: every active provider is probed on a schedule — 08:00 to 22:00 (Asia/Seoul) at every :00 and :30
@@ -20,6 +20,7 @@
 """
 from __future__ import annotations
 
+import asyncio
 import dataclasses
 import json
 import os
@@ -29,6 +30,7 @@ import threading
 import time
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
+import uuid
 import urllib.error
 import urllib.request
 from typing import Any, Callable, Dict, List, Optional
@@ -39,6 +41,7 @@ from pydantic import BaseModel, Field
 
 from app.api import runtime_env, telemetry
 from app.api.llm import inhouse_bridge
+from app.api.llm.inhouse_contract import ClefTrainingRequest, ClefTrainingResponse
 from app.api.llm.decision import TypeSafeDecision, family
 from app.api.llm.provider import DEFAULT_BASE as GEMINI_BASE, GeminiProvider, LLMProvider, ProviderError, parse_json, redact
 from app.api.poc import settings as cfg
@@ -50,6 +53,7 @@ from .store import now
 DEFAULT_INTERVAL = 1800          # user 2026-11-18: active providers every 30 minutes …
 WINDOW = (8, 22)                 # … from 08:00 to 22:00 only (the 22:00 slot is the last)
 TZ = ZoneInfo('Asia/Seoul')
+TRAINING_TIMEOUT = 30 * 60
 PROBE_TIMEOUT = 8
 HISTORY = 24
 LLM_NAMES = {'openrouter': 'OpenRouter', 'gemini': 'Gemini', 'internal': '사내 LLM', 'openai': 'OpenAI 호환 API'}
@@ -105,6 +109,7 @@ def clean_endpoint(value: str, role: str) -> str:
         raise ProviderInputError('주소를 확인해 주세요. 예: http://10.0.0.12:8000/v1')
     try:
         parts = urlsplit(url)
+        _ = parts.port  # reject a nonnumeric or out-of-range port before contacting the server
     except ValueError:
         raise ProviderInputError('주소 형식이 올바르지 않습니다.') from None
     if parts.query or parts.fragment or parts.username or parts.password:
@@ -176,6 +181,8 @@ class Providers:
         self.stop = threading.Event()
         self.thread: Optional[threading.Thread] = None
         self._llm: Dict[str, Any] = {}
+        self.training_jobs: Dict[str, dict] = {}
+        self.training_tasks: set[asyncio.Task] = set()
 
     # ------------------------------------------------------------ endpoint edits (admin store → settings override layer)
     def saved(self) -> Dict[str, dict]:
@@ -204,13 +211,17 @@ class Providers:
         if isinstance(llm, list) and [n for n in llm if n in cfg.PROVIDERS]:
             out['llm'] = [n for n in dict.fromkeys(llm) if n in cfg.PROVIDERS]
         if isinstance(decision, list):
-            out['decision'] = [x for x in dict.fromkeys(decision) if x in cfg.DECISION_SLOTS]
+            slots = {*cfg.DECISION_SLOTS, *self.clefs()}
+            out['decision'] = [x for x in dict.fromkeys(decision) if x in slots]
         return out
 
     def _switch_env(self) -> Dict[str, str]:
         switch = self.switches()
         clef = self._clef()
         env = {'WINMATE_CLEF_BASE_URL': clef['base_url'], 'WINMATE_CLEF_MODEL': clef['model']}
+        saved = self.store.setting('provider_active', {})
+        if isinstance(saved, dict) and saved.get('inhouse_target'):
+            env['WINMATE_INHOUSE_TARGET'] = saved['inhouse_target']
         if 'llm' in switch:
             env['WINMATE_LLM_PROVIDER'] = switch['llm'][0]
             env['WINMATE_LLM_FALLBACK'] = ','.join(switch['llm'][1:]) or 'none'
@@ -224,8 +235,10 @@ class Providers:
     def apply(self) -> None:
         """Push the saved endpoint edits and activation above ``.env`` and rebuild the settings (the app picks a new
         provider up lazily)."""
-        cfg.set_overrides({**self._endpoint_env(), **self._switch_env()})
-        cfg.reload_settings()
+        with self.lock:
+            clefs = {slot: (item['base_url'], item['model']) for slot, item in self.clefs().items()}
+            cfg.set_overrides({**self._endpoint_env(), **self._switch_env()}, clefs=clefs, single_decision=True)
+            cfg.reload_settings()
 
     @staticmethod
     def on(settings) -> Dict[str, List[str]]:
@@ -246,12 +259,75 @@ class Providers:
         if pid == 'decision.clef':
             clef = self._clef()
             slot = (clef['base_url'], clef['model'], 'local')
+        elif pid.startswith('decision.clef-'):
+            slot = current.decision_slot(pid.split('.', 1)[1])
         else:
             slot = current.decision_slot('main')
-        out = dataclasses.replace(current, decision_base_url=base or slot[0], decision_model=model or slot[1], _decision_key=slot[2])
+        out = dataclasses.replace(current, decision_primary=pid.split('.', 1)[1], decision_base_url=base or slot[0], decision_model=model or slot[1], _decision_key=slot[2])
         if family(out.decision_model) == 'clef' and out.decision_timeout < 120:  # one request at a time on the local GPU
             out = dataclasses.replace(out, decision_timeout=120)
         return out
+
+    def clefs(self) -> Dict[str, dict]:
+        return self.store.setting('clef_connections', {})
+
+    def add_clef(self, endpoint: str, model: str, actor: str) -> dict:
+        base = clean_endpoint(endpoint, 'decision')
+        if not urlsplit(base).path and not endpoint.strip().rstrip('/').endswith('/systemone'):
+            base += '/v1'
+        entry = {'role': 'decision', 'profile': 'clef', 'connection': True, 'base_url': base,
+                 'model': self._model({'role': 'decision', 'profile': 'clef'}, model)}
+        check = self.probe(entry, verify_sample=True)
+        if check['status'] != 'ok':
+            raise ProviderInputError(check['detail'])
+        with self.lock:
+            connections = self.clefs()
+            slot = next((s for s, item in connections.items() if item['model'] == entry['model']
+                         and same_endpoint(item['base_url'], base)), None)
+            if slot is None:
+                slot = 'clef-' + uuid.uuid4().hex
+                connections[slot] = {'base_url': base, 'model': entry['model']}
+                self.store.set_setting('clef_connections', connections)
+        pid = 'decision.' + slot
+        self._record(pid, check, actor)
+        self.apply()
+        return self.entry(pid)
+
+    def start_training(self, model: str, actor: str) -> dict:
+        model = self._model({'role': 'decision', 'profile': 'clef'}, model)
+        job_id = uuid.uuid4().hex
+        job = {'id': job_id, 'model': model, 'status': 'running'}
+        # Job status belongs to this server process. Keep completed results for reconnecting browsers.
+        self.training_jobs = {key: row for key, row in self.training_jobs.items()
+                              if row.get('finished', time.time()) > time.time() - 86400}
+        self.training_jobs[job_id] = job
+
+        async def run():
+            try:
+                adapter = await asyncio.to_thread(inhouse_bridge.training_adapter)
+                if adapter is None:
+                    raise NotImplementedError
+                request = ClefTrainingRequest(job_id, model)
+                reply = await asyncio.wait_for(adapter.train(request), timeout=TRAINING_TIMEOUT)
+                if not isinstance(reply, ClefTrainingResponse) or not isinstance(reply.endpoint, str) or not reply.endpoint:
+                    raise ProviderInputError('Training job에서 endpoint를 받지 못했습니다.')
+                provider = await asyncio.to_thread(self.add_clef, reply.endpoint, model, actor)
+                job.update(status='succeeded', provider_id=provider['id'])
+            except NotImplementedError:
+                job.update(status='failed', detail='Training job 연동이 구성되지 않았습니다. Endpoint를 직접 입력해 주세요.')
+            except asyncio.TimeoutError:
+                job.update(status='failed', detail='30분 안에 training endpoint를 받지 못했습니다.')
+            except ProviderInputError as exc:
+                job.update(status='failed', detail=str(exc))
+            except Exception:
+                job.update(status='failed', detail='CLEF training job 처리 중 오류가 발생했습니다.')
+            finally:
+                job['finished'] = time.time()
+
+        task = asyncio.create_task(run())
+        self.training_tasks.add(task)
+        task.add_done_callback(self.training_tasks.discard)
+        return dict(job)
 
     def _clef(self) -> Dict[str, Any]:
         clef = clef_defaults(self.root)
@@ -319,18 +395,23 @@ class Providers:
         add('decision.main', 'decision', main_name, main_base, main_model, key='main',
             missing=[] if main_key else ['TYPESAFE_API_KEY'], profile=family(main_model),
             note='' if on['decision'] else '판단형 작업도 LLM이 처리합니다.', extra=extra)
-        if not main_is_clef:
+        if not main_is_clef or primary == 'clef':
             defaults = clef_defaults(self.root)
             add('decision.clef', 'decision', 'Clef (로컬 서빙)', clef['base_url'], clef['model'], key='clef',
                 missing=[] if clef['installed'] or clef['edited'] else ['clef-flash 설치 (bash clef-flash/install.sh)'], profile='clef',
                 note='같은 System One API를 쓰는 자체 서빙 Decision 모델입니다. 인증 없이 연결합니다.',
                 extra={'timeout_s': 120, **({'tasks': tasks} if primary == 'clef' else {}),
                        **({'env': {'base_url': defaults['base_url'], 'model': defaults['model']}} if clef['edited'] else {})})
+        for slot, item in self.clefs().items():
+            add('decision.' + slot, 'decision', 'CLEF · ' + item['model'], item['base_url'], item['model'],
+                key=slot, profile='clef', missing=[], extra={'connection': True})
         inhouse = inhouse_bridge.decision_status()
         first_target = next((t for t in inhouse.targets if t['enabled']), None)
-        add('decision.inhouse', 'decision', 'CLEF (사내)', '', first_target['model'] if first_target else inhouse.default_model,
+        selected = next((t for t in inhouse.targets if t['enabled'] and t['id'] == current.inhouse_target), first_target)
+        add('decision.inhouse', 'decision', 'CLEF (사내)', '', selected['model'] if selected else inhouse.default_model,
             key='inhouse', missing=inhouse.problems, profile='inhouse',
-            extra={'impl': inhouse.cls, 'impl_file': inhouse.file, 'targets': list(inhouse.targets), 'missing_hint': inhouse.file,
+            extra={'impl': inhouse.cls, 'impl_file': inhouse.file, 'targets': list(inhouse.targets),
+                   'selected_target': selected['id'] if selected else None, 'missing_hint': inhouse.file,
                    'timeout_s': inhouse_bridge.InhouseDecisionClient(current).timeout if inhouse.ready else current.decision_timeout,
                    **({'tasks': tasks} if primary == 'inhouse' else {})})
         if usage:
@@ -436,6 +517,21 @@ class Providers:
         return {'status': 'ok', 'detail': '키 · 모델을 확인했습니다' + (f' · 남은 크레딧 ${float(left):.2f}' if left is not None else '') + '.',
                 **({'credits': round(float(left), 2)} if left is not None else {})}
 
+    def _sample_clef(self, base: str, model: str) -> dict:
+        # The System One call checks both connectivity and the response used by the service.
+        questions = {'q': {'type': 'noul', 'instructions': '이 글은 한 단어다.'}}
+        body = {'model': model, 'state': {'text': 'ping'}, 'questions': questions, 'truncate': False}
+        request = urllib.request.Request(base + '/systemone', data=json.dumps(body).encode(),
+                                         headers={'Content-Type': 'application/json', 'Authorization': 'Bearer local'})
+        with self.open(request, timeout=20) as response:
+            data = json.loads(response.read(200_000))
+        value = TypeSafeDecision._validate(data, questions)['q']['noul']
+        if isinstance(value, bool) or not 0 <= value <= 1:
+            raise ProviderInputError('샘플 응답의 확률이 0~1 사이의 숫자여야 합니다.')
+        if data.get('model') and data['model'] != model:
+            raise ProviderInputError('샘플 응답의 모델 ID가 입력한 모델과 다릅니다.')
+        return {'status': 'ok', 'detail': '샘플 질문에 대한 CLEF 응답을 확인했습니다.'}
+
     def _probe_decision(self, key: str, base: str, model: str, spend: bool = True) -> dict:
         root = base[:-3].rstrip('/') if base.endswith('/v1') else base
         auth = {'authorization': 'Bearer ' + key}
@@ -471,24 +567,31 @@ class Providers:
             return {'status': 'degraded', 'detail': f'서버가 올린 모델은 「{served}」입니다(설정: {model}).', 'models': [str(served)]}
         return {'status': 'ok', 'detail': '서버 상태와 모델을 확인했습니다.', **({'models': [str(served)]} if served else {})}
 
-    def probe(self, entry: dict, base: Optional[str] = None, model: Optional[str] = None) -> dict:
+    def probe(self, entry: dict, base: Optional[str] = None, model: Optional[str] = None, *,
+              verify_sample: bool = False) -> dict:
         """One probe of ``entry`` (optionally against a candidate address / model that is not saved yet)."""
         base = (base or entry['base_url'] or '').rstrip('/')
         model = model or entry['model']
         current = cfg.get_settings()
-        if entry['role'] == 'llm':
+        if entry.get('connection'):
+            key = 'local'
+        elif entry['role'] == 'llm':
             key = self._llm_settings(entry['profile'], current).api_key()
         else:
             key = self._decision_settings(entry['id'], current).decision_key()
         started = time.time()
         try:
-            spend = entry['scope'] == 'internal'   # an external API is checked only with calls that cost nothing
-            if entry.get('impl'):   # an in-house class (app/api/llm/inhouse/*): its own probe, else one minimal call
+            if verify_sample and entry.get('connection'):
+                result = self._sample_clef(base, model)
+            elif entry.get('impl'):   # an in-house class (app/api/llm/inhouse/*): its own probe, else one minimal call
                 result = (inhouse_bridge.probe_llm(self._llm_settings('internal', current)) if entry['role'] == 'llm'
-                          else inhouse_bridge.probe_decision(current))
+                          else inhouse_bridge.probe_decision(current, entry.get('selected_target')))
             else:
+                spend = entry['scope'] == 'internal'
                 result = (self._probe_llm(entry['profile'], key, base, model, spend) if entry['role'] == 'llm'
                           else self._probe_decision(key, base, model, spend))
+        except (ProviderInputError, json.JSONDecodeError) as exc:
+            result = {'status': 'degraded', 'detail': str(exc) if isinstance(exc, ProviderInputError) else '샘플 응답이 JSON 형식이 아닙니다.'}
         except ProviderError as exc:
             result = {'status': 'degraded' if exc.code in ('invalid_output', 'bad_request', 'unsupported_capability') else 'down',
                       'detail': exc.message or exc.code}
@@ -583,10 +686,27 @@ class Providers:
     def _key(entry: dict) -> str:
         return entry['profile'] if entry['role'] == 'llm' else entry['id'].split('.', 1)[1]
 
-    def _set(self, role: str, names: List[str], pid: str, action: str, actor: str) -> dict:
+    def _set(self, role: str, names: List[str], pid: str, action: str, actor: str, target: Optional[str] = None) -> dict:
+        verified = None
+        if role == 'decision' and action != 'deactivate':
+            candidate = self._usable(pid)
+            if target is not None:
+                selected = next((t for t in candidate.get('targets', []) if t['id'] == target and t['enabled']), None)
+                if not selected:
+                    raise ProviderInputError('선택한 CLEF 대상이 비활성 상태입니다.')
+                candidate.update(selected_target=target, model=selected['model'])
+            verified = self.probe(candidate, verify_sample=True)
+            if verified['status'] != 'ok':
+                raise ProviderInputError(verified['detail'])
         before = self.on(cfg.get_settings())[role]
         with self.lock:
             stored = self.switches()
+            saved = self.store.setting('provider_active', {})
+            pinned = saved.get('inhouse_target') if isinstance(saved, dict) else None
+            if role == 'llm' and pinned:
+                stored['inhouse_target'] = pinned
+            elif names == ['inhouse'] and (target or pinned):
+                stored['inhouse_target'] = target or pinned
             if names == self.on(cfg.load_settings(os.environ))[role]:  # an explicit environ skips the admin layer: .env alone
                 stored.pop(role, None)
             else:
@@ -595,7 +715,9 @@ class Providers:
         self.apply()
         self.store.event('provider.' + action, pid, {'role': role, 'order': names, 'previous': before}, actor)
         entry = self.entry(pid)
-        check = self._record(pid, self.probe(entry), actor) if action != 'deactivate' and entry['checkable'] else None
+        check = self._record(pid, verified, actor) if verified else None
+        if not check and action != 'deactivate' and entry['checkable']:
+            check = self._record(pid, self.probe(entry), actor)
         return {'provider': entry, 'check': check}
 
     def _usable(self, pid: str) -> dict:
@@ -606,12 +728,14 @@ class Providers:
             raise ProviderInputError('이 LLM은 여기서 켤 수 없습니다. .env에서 설정합니다.')
         return entry
 
-    def activate(self, pid: str, actor: str = 'admin') -> dict:
+    def activate(self, pid: str, actor: str = 'admin', target: Optional[str] = None) -> dict:
         """Turn ``pid`` on: it joins its role after the ones already on (the first one on a role becomes 대표)."""
         entry = self._usable(pid)
         names = self.on(cfg.get_settings())[entry['role']]
-        if self._key(entry) in names:
+        if self._key(entry) in names and (target is None or target == entry.get('selected_target')):
             return {'provider': entry, 'check': None}
+        if entry['role'] == 'decision':
+            return self._set('decision', [self._key(entry)], pid, 'activate', actor, target)
         return self._set(entry['role'], names + [self._key(entry)], pid, 'activate', actor)
 
     def deactivate(self, pid: str, actor: str = 'admin') -> dict:
@@ -633,6 +757,8 @@ class Providers:
         key = self._key(entry)
         if names[:1] == [key]:
             return {'provider': entry, 'check': None}
+        if entry['role'] == 'decision':
+            return self._set('decision', [key], pid, 'primary', actor)
         return self._set(entry['role'], [key] + [n for n in names if n != key], pid, 'primary', actor)
 
     # ------------------------------------------------------------ experiments (one real call per target)
@@ -685,8 +811,12 @@ class Providers:
                 raise ProviderInputError('state가 비어 있습니다.')
             try:
                 if entry['profile'] == 'inhouse':   # the in-house ClefDecision class (its first target, or the next one if it fails)
+                    # a model id typed for the experiment is that of the first target: ask only it (no failover to servers
+                    # that may not serve that model)
+                    override = None if model == entry['model'] else model
+                    first = entry.get('selected_target')
                     result = inhouse_bridge.decision_client(cfg.get_settings()).answer(
-                        stage='admin:provider-test', state=state, questions=questions, model=None if model == entry['model'] else model)
+                        stage='admin:provider-test', state=state, questions=questions, model=override, target=first if override or cfg.get_settings().inhouse_target else None)
                 else:
                     result = TypeSafeDecision(self._decision_settings(pid, model=model)).ask(stage='admin:provider-test', state=state, questions=questions)
             except ProviderError as exc:
@@ -748,6 +878,14 @@ class Endpoint(BaseModel):
     model: str = Field(min_length=1, max_length=120)
 
 
+class Selection(BaseModel):
+    target: Optional[str] = Field(default=None, max_length=200)
+
+
+class ClefTrainingInput(BaseModel):
+    model: str = Field(default='clef-flash', min_length=1, max_length=61)
+
+
 class RunInput(BaseModel):
     target: str = Field(min_length=1, max_length=60)
     model: Optional[str] = Field(default=None, max_length=120)
@@ -776,6 +914,21 @@ def provider_router(get: Callable[[], Providers]) -> APIRouter:
     def listing():
         return get().view()
 
+    @router.post('/api/providers/clef', status_code=201)
+    def add_clef(body: Endpoint):
+        return guarded(lambda: get().add_clef(body.base_url, body.model, actor()))
+
+    @router.post('/api/providers/clef/training', status_code=202)
+    async def start_training(body: ClefTrainingInput):
+        return guarded(lambda: get().start_training(body.model, actor()))
+
+    @router.get('/api/providers/clef/training/{job_id}')
+    async def training_status(job_id: str):
+        job = get().training_jobs.get(job_id)
+        if job is None:
+            raise HTTPException(404, 'Training job을 찾을 수 없습니다. 다시 시작해 주세요.')
+        return dict(job)
+
     @router.post('/api/providers/run')
     def run(body: RunInput):
         if len(json.dumps([body.state, body.questions], ensure_ascii=False)) > 200_000:
@@ -793,8 +946,8 @@ def provider_router(get: Callable[[], Providers]) -> APIRouter:
         return guarded(lambda: get().connect(pid, body.base_url, body.model, actor()))
 
     @router.post('/api/providers/{pid}/activate')
-    def activate(pid: str):
-        return guarded(lambda: get().activate(pid, actor()))
+    def activate(pid: str, body: Optional[Selection] = None):
+        return guarded(lambda: get().activate(pid, actor(), body.target if body else None))
 
     @router.post('/api/providers/{pid}/deactivate')
     def deactivate(pid: str):

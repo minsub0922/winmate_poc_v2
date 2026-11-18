@@ -188,7 +188,7 @@ def check_cases(root, cancel, step=lambda text: None):
     complete = not errors and (total is None or len(live) == total)
     if not complete and not errors:
         errors.append({'title': '도입사례 목록', 'url': CASE_HOME, 'error': f'전체 {total}건 중 {len(live)}건만 읽음'})
-    known = {str(case['id']): case for case in read(root / 'app/data/catalog.json').get('cases', []) if case.get('id') is not None}
+    known = {str(case['id']): case for case in read(root / 'app/data/catalog.json').get('cases', []) if case.get('id') is not None and case.get('sourceListed') is not False}
     changes, same = [], 0
     for cid, row in live.items():
         old = known.get(cid)
@@ -201,6 +201,8 @@ def check_cases(root, cancel, step=lambda text: None):
             why.append(f"제목 {clean(old.get('title'))} → {row['title']}")
         if old.get('url') and row['url'] and not same_url(old['url'], row['url']):
             why.append(f"주소 이동 → {row['url']}")
+        if old.get('date') and row['date'] and old['date'] != row['date']:
+            why.append(f"등록일 {old['date']} → {row['date']}")
         if why:
             changes.append({**item, 'status': 'changed', 'why': why})
         else:
@@ -265,7 +267,7 @@ def verdict(parts):
 class Origins:
     def __init__(self, service, root=ROOT):
         self.service, self.store, self.root = service, service.store, Path(root)
-        self.reviews = SourceReviews(self.store)
+        self.reviews = SourceReviews(self.store, self.root)
         with self.store.db() as db:
             db.execute('''CREATE TABLE IF NOT EXISTS source_links(
                 id TEXT PRIMARY KEY, source_id TEXT NOT NULL, url TEXT NOT NULL, label TEXT DEFAULT '', created_at TEXT, actor TEXT,
@@ -307,6 +309,7 @@ class Origins:
             raise HTTPException(404, '링크를 찾지 못했습니다.')
         with self.store.db() as db:
             db.execute('DELETE FROM source_links WHERE id=?', (lid,))
+            db.execute("UPDATE source_changes SET current=0 WHERE source=? AND origin='links' AND ref=? AND current=1",(sid,lid))
         self.store.event('source.link.remove', sid, {'url': link['url']}, actor)
         self.apply(sid)
 
@@ -616,14 +619,14 @@ def origin_router(get, actor):
         origin = review_source(sid)
         decision = json.loads(origin.store.source(sid)['decision'])
         return {**origin.reviews.listing(sid, history, offset, limit), 'history': history, 'offset': offset, 'limit': limit,
-                'issues': [dict(id=p['id'], label=p['label'], summary=p['summary']) for p in decision.get('origins', [])
-                           if p['status'] in ('failed','partial','unchecked')]}
+                'checks': [{k:p.get(k) for k in ('id','label','status','summary','checked_at')} for p in decision.get('origins', [])],
+                'schedule':origin.service.dss.schedule()}
 
     @router.get('/{sid}/changes/job')
     def change_job(sid: str):
         origin = review_source(sid)
         job = origin.store.one("""SELECT id FROM jobs WHERE status IN ('queued','running') AND
-            ((source_id=? AND kind IN ('check','dss-review')) OR (kind='dss-check' AND EXISTS
+            ((source_id=? AND kind IN ('check','dss-review')) OR (kind='check' AND source_id IS NULL) OR (kind='dss-check' AND EXISTS
             (SELECT 1 FROM json_each(json_extract(result,'$.input.channels')) WHERE value=?))) ORDER BY created_at DESC LIMIT 1""",
             (sid, CHANNEL[sid]))
         return origin.store.job(job['id']) if job else {}

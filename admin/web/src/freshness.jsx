@@ -9,6 +9,7 @@ import './freshness.css';
 const TARGETS = [
   { id: 'samsung', name: 'samsung.com/business 제품', icon: 'globe', minutes: '약 10분', what: '모든 분류의 제품 목록 · 옵션 · 사양 · 특장점을 다시 받아 현재 DB 와 비교합니다. 신규 · 판매 종료 · 바뀐 제품을 모두 보고합니다.' },
   { id: 'catalogs', name: 'e-카탈로그', icon: 'book', minutes: '1분 이내', what: '카탈로그 권마다 파일이 DB 에 받은 것과 같은지 다른지 확인합니다.' },
+  { id: 'media', name: '솔루션 & 도입사례', icon: 'link', minutes: '약 7분', what: '솔루션 페이지의 본문과 주소, 도입사례 목록의 제목과 주소를 확인합니다.' },
 ];
 const active = status => ['queued', 'running'].includes(status);
 const safeHref = url => /^https:\/\//i.test(url || '') ? url : undefined;
@@ -60,7 +61,7 @@ export function FreshnessDialog() {
 }
 
 function SourceRun({ target, job, retry }) {
-  const { version, notify, refresh } = useApp();
+  const { version, notify, refresh, info, open } = useApp();
   const state = useLoad(job ? '/jobs/' + job : '/jobs?limit=1', version);
   const j = job ? state.data : null;
   const finished = !job || (j && !active(j.status));
@@ -68,7 +69,8 @@ function SourceRun({ target, job, retry }) {
   return <section className="fresh-source"><header><span className="fresh-option-icon"><Icon name={target.icon} size={19}/></span><h3>{target.name}</h3>{j && active(j.status) && <Badge status={j.status}/>}</header>
     {job && !j ? <Loading/> : j && active(j.status) ? <div className="fresh-progress"><div><strong>{j.stage}</strong><b>{j.progress}%</b></div><Progress value={j.progress}/><p>{target.minutes} 걸립니다.</p><button className="text-button" onClick={cancel} disabled={j.cancelled}>{j.cancelled ? '취소하는 중' : '이 점검 취소'}</button></div>
       : j && j.status !== 'succeeded' ? <div className="fresh-failed"><ErrorBox error={j.error || j.result?.errors?.[0]?.error || '점검을 끝내지 못했습니다.'}/><Button icon="refresh" onClick={retry}>다시 점검</Button></div>
-      : finished && <Report id={target.id} stamp={j?.finished_at}/>}
+      : finished && <>{target.id === 'media' ? <p>{info.sources.find(s => s.id === target.id)?.decision?.reason || '아직 점검 결과가 없습니다.'}</p> :
+        <Report id={target.id} stamp={j?.finished_at}/>}<button className="text-button" onClick={() => open({type:'source-changes',id:target.id})}>변경 내역 보기<Icon name="chevron" size={14}/></button></>}
   </section>;
 }
 

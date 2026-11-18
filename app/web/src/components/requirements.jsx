@@ -7,14 +7,17 @@ import { readRequirementDraft, keepRequirementDraft, discardRequirementDraft } f
 import { DeleteButton, Icon, MentionEditor, RefChip, AddRefInput, Modal, toast } from './common.jsx';
 import { INDUSTRIES, IND, P, refInfo, dssKindOf } from '../services/catalog.js';
 import { inferIndustry, recommendContext, reqText } from '../services/search.js';
-import { reqSig, industryLabel } from './ctxconfirm.jsx';
+import { reqSig, isReqSaved, industryLabel } from './ctxconfirm.jsx';
 import { BubblePopup } from './bubblepop.jsx';
 import { TagStrip } from './tagcard.jsx';
 import { useDetailPeek } from './reference-detail.jsx';
 import { HistoryReuse } from './history-reuse.jsx';
 import { ensureRequirementSummary } from '../services/requirement-summary.js';
-import { ensureMatchExtract } from '../services/match-extract.js';
-import { sourceDigest, savedRequirementSummary } from '../domain/proposals/requirement-summary.js';
+import { ensureMatchExtract, stopMatchExtract } from '../services/match-extract.js';
+import { copyHistorySpacePlan, setSpaceDraft } from '../services/space-plan.js';
+import { deleteSpatialHistory } from '../services/spatial.js';
+import { EXTRACT_VERSION } from '../domain/proposals/match-extract.js';
+import { sourceDigest, requirementSourceKey, savedRequirementSummary } from '../domain/proposals/requirement-summary.js';
 import { isTextSeg, segsText } from '../domain/proposals/table-seg.js';
 
 const KIND = [['products', 'product', '제품', 2], ['solutions', 'solution', '솔루션', 1], ['cases', 'case', '유관사례', 1]];
@@ -145,14 +148,14 @@ function foldReq(req) {
 function getDraft(p) {
   const kept = readRequirementDraft(p.id), base = reqSig(p);
   if (kept && kept.base === base) return kept;
-  const draft = { base, ...foldReq(p.req), files: structuredClone(p.req.files || []), customer: p.customer || (p.req.form && p.req.form.customer) || '', meta: null, reading: kept?.reading || 0 };
+  const draft = { base, ...foldReq(p.req), files: structuredClone(p.req.files || []), customer: p.customer || (p.req.form && p.req.form.customer) || '', reading: kept?.reading || 0 };
   keepRequirementDraft(p.id, draft);
   return draft;
 }
 function patchDraft(id, fn) {
   const draft = readRequirementDraft(id);
   if (!draft) return;
-  keepRequirementDraft(id, { ...draft, ...fn(draft) });
+  keepRequirementDraft(id, { ...draft, ...fn(draft), edited: true });
   notifyDraft(id);
 }
 function useDraft(p) {
@@ -163,6 +166,13 @@ function useDraft(p) {
 }
 /** Tags written in the requirements: @제품 · @솔루션 · @유관사례, and pasted links that matched a catalog item. */
 const taggedRefs = (segs) => [...new Set([...segRefs(segs), ...(segs || []).map((s) => s.link && s.link.ref).filter(Boolean)])].filter((r) => /^(product|solution|case):/.test(r));
+function linkRequirementTags(ctx, segs) {
+  for (const ref of taggedRefs(segs)) {
+    const [type, id] = ref.split(':');
+    const links = ctx[ctxKey(type)];
+    if (!links.includes(id)) links.push(id);
+  }
+}
 
 // ---------- attachments ----------
 const FKIND = { pdf: 'pdf', ppt: 'ppt', pptx: 'ppt', doc: 'doc', docx: 'doc', hwp: 'doc', hwpx: 'doc', xls: 'xls', xlsx: 'xls', xlsm: 'xls', csv: 'xls', tsv: 'xls', eml: 'mail', msg: 'mail' };
@@ -326,10 +336,17 @@ export function ReqPopup({ p, onClose, onSaved }) {
   const peek = useDetailPeek(p); // hover on a tag (본문 @태그 · 태그 카드) → big detail card
   const [draft, setDraft, reading] = useDraft(p);
   const close = () => { peek.hide(); onClose(); };
+  const commit = (write) => update(p.id, (d) => {
+    write(d);
+    if (d.agent?.rfpPending) d.agent = { ...d.agent, rfpPending: null };
+    d.reqSaved = reqSig(d);
+    if (!d.parts.length && d.stage !== 'story') d.stage = 'match';
+  });
   const save = () => {
     peek.hide();
     const d0 = getDraft(getProposal(p.id) || p);
-    const saved = update(p.id, (d) => {
+    const saved = commit((d) => {
+      if (!d0.edited && isReqSaved(d)) return;
       const form = d.req.form || {};
       d.req.free = tidySegs(d0.free); d.req.files = d0.files;
       if (d0.folded) { // the old form is now part of the text — empty it so nothing is read twice
@@ -337,12 +354,8 @@ export function ReqPopup({ p, onClose, onSaved }) {
         d.req.form = blankForm();
       }
       d.customer = d0.customer.trim(); // seeded from the saved value, so untouched = unchanged
-      if (d0.meta) { d.ind = d0.meta.ind; d.indName = d0.meta.indName; }
-      if (d.agent && d.agent.rfpPending) d.agent = { ...d.agent, rfpPending: null }; // 첨부 → 입력 폼 선택(이전 방식)의 남은 대기 건은 더 묻지 않음
       // 본문에 태그한 제품 · 솔루션 · 유관사례는 매칭에 자동으로 연결 (직접 연결한 것은 그대로)
-      for (const ref of taggedRefs(d0.free)) { const [t, id] = ref.split(':'); const k = t === 'product' ? 'products' : t === 'solution' ? 'solutions' : 'cases'; if (!d.ctx[k].includes(id)) d.ctx[k].push(id); }
-      // 요구사항 단계 → 저장하면 제품 · 솔루션 매칭 버블이 생김
-      d.reqSaved = reqSig(d); if (!d.parts.length && d.stage !== 'story') d.stage = 'match';
+      linkRequirementTags(d.ctx, d0.free);
     });
     if (!saved) return; // not signed in (the login prompt is up) — keep the popup and the draft
     discardRequirementDraft(p.id);
@@ -354,13 +367,43 @@ export function ReqPopup({ p, onClose, onSaved }) {
     toast('고객 요구사항을 저장했어요');
     onSaved();
   };
-  // 이전 불러오기: the chosen proposal's requirements replace the draft (its old form folded into the text); 저장 commits it
-  const load = (source) => setDraft(() => {
-    const ids = new Map();
-    const files = structuredClone(source.req.files || []).map((f) => { const id = uid('f'); ids.set(f.id, id); return { ...f, id }; });
-    return { free: foldReq(source.req).free.map((s) => (s.src ? { ...s, src: ids.get(s.src) || s.src } : s)), files, folded: true,
-      customer: source.customer || (source.req.form && source.req.form.customer) || '', meta: { ind: source.ind || null, indName: source.indName || null } };
-  });
+  const load = async (source) => {
+    const { plan, unavailable } = await copyHistorySpacePlan(source, p.id);
+    const result = savedRequirementSummary(source);
+    const previousMatch = source.matchExtract;
+    const reuseDss = ['products', 'solutions', 'subscriptions'].some((kind) => source.ctx?.[kind]?.length)
+      || (previousMatch?.status === 'done' && previousMatch.v === EXTRACT_VERSION && previousMatch.sourceKey === requirementSourceKey(source));
+    const saved = commit((d) => {
+      const previousKey = requirementSourceKey(d);
+      // File and keyman IDs identify the summary's evidence and the account's stored attachment text.
+      d.req = structuredClone({ free: [], files: [], form: blankForm(), ...source.req });
+      d.reqTab = source.reqTab || 'free';
+      d.customer = source.customer || source.req.form?.customer || '';
+      d.ind = source.ind || null;
+      d.indName = source.indName || null;
+      d.ctx = structuredClone({ products: [], solutions: [], cases: [], ...source.ctx });
+      if (!reuseDss) linkRequirementTags(d.ctx, foldReq(d.req).free);
+      const key = requirementSourceKey(d);
+      if (result) d.requirementSummary = { status: 'ready', sourceKey: result.source_key || key, result: structuredClone(result) };
+      else if (previousKey !== key || d.requirementSummary?.status !== 'pending') delete d.requirementSummary;
+      if (reuseDss) d.matchExtract = { v: EXTRACT_VERSION, sourceKey: key, status: 'done', at: Date.now(), refs: [...(previousMatch?.refs || [])] };
+      else delete d.matchExtract;
+      if (plan) d.spacePlan = plan; else delete d.spacePlan;
+    });
+    if (!saved) {
+      if (plan?.birdseye?.historyId) void deleteSpatialHistory(plan.birdseye.historyId).catch(() => {});
+      return false;
+    }
+    peek.hide();
+    discardRequirementDraft(p.id);
+    notifyDraft(p.id);
+    setSpaceDraft(p.id, null);
+    stopMatchExtract(p.id);
+    if (!result) void ensureRequirementSummary(p.id);
+    if (!reuseDss) void ensureMatchExtract(p.id, { keepSpaces: !!plan });
+    toast(unavailable ? '고객 요구사항을 불러왔어요. 저장된 조감도는 복사하지 못했어요.' : '이전 제안서의 고객 요구사항을 불러왔어요', unavailable ? 'warn' : '');
+    return true;
+  };
   const tags = segRefs(draft.free);
   const guess = industryLabel(p) ? null : inferIndustry(reqText(p));
   const industry = industryLabel(p) || (guess && IND[guess] ? IND[guess].name : '');
@@ -370,7 +413,7 @@ export function ReqPopup({ p, onClose, onSaved }) {
         <input className="rq-customer" aria-label="고객사" placeholder="고객사 입력" value={draft.customer} size={Math.max(8, draft.customer.length * 2)} autoComplete="off" onChange={(e) => { const v = e.target.value; setDraft(() => ({ customer: v })); }} />
         {industry && <span>{industry}</span>}
       </span>}
-      headerActions={<HistoryReuse p={p} kind="req" compact onApply={load} />}
+      headerActions={<HistoryReuse p={p} kind="req" compact onApply={load} disabled={reading} />}
       footer={<>
         <span className="sp" />
         <button className="btn btn-primary" onClick={save} disabled={reading}><Icon name="check" size={15} />저장</button>

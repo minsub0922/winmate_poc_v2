@@ -23,6 +23,7 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 from . import htmlslots
+from . import items as _items
 
 import os
 
@@ -33,6 +34,7 @@ KB = Path(os.environ.get('WM_COMPOSER_KB') or (ROOT / 'app' / 'data' / 'runtime'
 DATA = Path(os.environ.get('WM_COMPOSER_DATA') or (HERE / 'data'))
 OUT = DATA / 'library.json'
 PICTURE_IDS = ROOT / 'app' / 'data' / 'picture_ids.json'  # ← app/scripts/build_picture_ids.mjs
+IMAGE_ITEMS = HERE / 'image_items.json'  # ← scripts/identify_items.py (which catalog item a photo shows — the vision check)
 
 IND_CODES = ['FB', 'RT', 'SV', 'HT', 'TP', 'VN', 'AD', 'OF', 'RS', 'ID', 'ED', 'PB', 'MD', 'MF', 'FN', 'OE']
 # picture kind → coarse class used for slot compatibility
@@ -304,7 +306,7 @@ class ImageCatalog:
         it = self.items.get(src)
         if it is None:
             it = self.items[src] = {'src': src, 'desc': '', 'names': [], 'kind': '', 'inds': {}, 'products': [], 'solutions': [], 'case': None,
-                                    'cust': '', 'spaces': [], 'w': None, 'h': None, 'group': '', 'usage': [], 'scen': []}
+                                    'cust': '', 'spaces': [], 'w': None, 'h': None, 'group': '', 'usage': [], 'scen': [], 'items': []}
         for k, v in kw.items():
             if v in (None, '', [], {}):
                 continue
@@ -315,7 +317,7 @@ class ImageCatalog:
             elif k == 'inds':
                 for ind, w in v.items():
                     it['inds'][ind] = max(it['inds'].get(ind, 0), w)
-            elif k in ('products', 'solutions', 'spaces', 'scen'):
+            elif k in ('products', 'solutions', 'spaces', 'scen', 'items'):
                 for x in v:
                     if x and x not in it[k]:
                         it[k].append(x)
@@ -373,23 +375,27 @@ def build_images(cat: dict, layouts: Dict[str, dict], exemplars: dict, cards: li
         kind = {'cut': 'product', 'life': 'scene', 'case': 'scene', 'ui': 'screen', 'gen': 'scene'}.get(k, 'scene')
         prods = [model_pid[str(v.get('model') or '').upper()]] if str(v.get('model') or '').upper() in model_pid else []
         ic.add(v['file'], desc=v.get('desc') or '', names=[v.get('desc')], kind=kind, products=prods, w=v.get('w'), h=v.get('h'),
-               group=_group_of_src(v['file']))
+               group=_group_of_src(v['file']), items=prods, items_how='app_model')
     # 3) product galleries (samsung.com product cards)
     pdb = _load(ROOT / 'app' / 'data' / 'products_db.json')
     for pid, v in pdb['curated'].items():
         name = (P.get(pid) or {}).get('name') or pid
         for a, alt in zip(v.get('gal') or [], v.get('galAlt') or [''] * 9):
-            ic.add(a, desc=f'{name} · {alt}'.strip(' ·'), names=[f'{name} · {alt}'], kind='product', products=[pid], group='prod')
+            ic.add(a, desc=f'{name} · {alt}'.strip(' ·'), names=[f'{name} · {alt}'], kind='product', products=[pid], group='prod',
+                   items=[pid], items_how='gallery')
     # 3b) every catalog product's own pictures (thumbnail + gallery) — the DSS can link any of the ~1,000 products, and a
     #     product slot must show *that* product (the curated galleries above cover only the 40 scenario products)
     for p in cat['products']:
         alts = list(p.get('galAlt') or [])
+        kinds = list(p.get('galKind') or [])
         for j, a in enumerate(p.get('gal') or []):
             alt = alts[j] if j < len(alts) else ''
-            ic.add(a, desc=f"{p.get('name') or p['id']} · {alt}".strip(' ·'), names=[f"{p.get('name') or p['id']} · {alt}".strip(' ·')], kind='product',
-                   products=[p['id']], group='prod')
+            # (a gallery picture the catalog calls a scene shows the product in its place — a photo a space with it may show)
+            ic.add(a, desc=f"{p.get('name') or p['id']} · {alt}".strip(' ·'), names=[f"{p.get('name') or p['id']} · {alt}".strip(' ·')],
+                   kind='scene' if j < len(kinds) and kinds[j] == 'scene' else 'product', products=[p['id']], group='prod', items=[p['id']], items_how='gallery')
         if p.get('th'):
-            ic.add(p['th'], desc=f"{p.get('name') or p['id']} · 대표 컷", names=[p.get('name') or p['id']], kind='product', products=[p['id']], group='prod')
+            ic.add(p['th'], desc=f"{p.get('name') or p['id']} · 대표 컷", names=[p.get('name') or p['id']], kind='product', products=[p['id']], group='prod',
+                   items=[p['id']], items_how='gallery')
     # 4) proposal / account photo assets
     for fn in ('proposal_photo_assets.json', 'account_photo_assets.json'):
         p = ROOT / 'app' / 'web' / 'src' / 'domain' / 'templates' / fn
@@ -421,17 +427,27 @@ def build_images(cat: dict, layouts: Dict[str, dict], exemplars: dict, cards: li
             inds = _src_inds(src, cards)
             ic.add(src, names=[v.get('name')], kind=kind or None, products=v.get('products') or [], group=_group_of_src(src), inds=inds,
                    scen=[ex['sid']], usage={'sid': ex['sid'], 'k': ex['k'], 'f': ex['f'], 'slot': slot, 'ind': ind_of.get(ex['sid'])})
-    # 7) product image library (cuts · details · installs · screens) — only for curated products (the ones scenarios use)
+    # 7) product image library (img/lib/index.json ← proddb/build/pack_imglib.py) — every picture belongs to its products: the product's
+    #    own page · its e-카탈로그 page · a case study of it (``s``), so those products are the items it shows (composer.items).
+    #    Cuts · details · screens · figures only for the curated products (the ones scenarios use); a scene — the product in its place — for
+    #    every product the DSS can link: the photo a space with that very product may show (사용자 지시 2026-11-18: a space photo shows
+    #    exact items). (The index says scene · ui · diagram; this read install · screen · figure, which had filed every scene — and every
+    #    screen — as a product cut.)
     lib = ROOT / 'img' / 'lib' / 'index.json'
     if lib.exists():
         cur = {p['id'] for p in cat['products'] if p.get('cur')}
+        known = {p['id'] for p in cat['products']}
         for v in _load(lib)['images']:
-            prods = [p for p in (v.get('p') or []) if p in cur]
+            k = v.get('k')
+            scene = k in ('scene', 'install')
+            prods = [p for p in (v.get('p') or []) if p in (known if scene else cur)]
             if not prods:
                 continue
-            kind = {'cut': 'product', 'detail': 'product', 'install': 'scene', 'screen': 'screen', 'figure': 'diagram'}.get(v.get('k'), 'product')
+            kind = {'cut': 'product', 'detail': 'product', 'scene': 'scene', 'install': 'scene', 'ui': 'screen', 'screen': 'screen', 'diagram': 'diagram',
+                    'figure': 'diagram'}.get(k, 'product')
             desc = ' · '.join(x for x in [v.get('t'), v.get('d')] if x)
-            ic.add(v['a'], desc=desc, names=[desc], kind=kind, products=prods, spaces=v.get('sp') or [], w=v.get('w'), h=v.get('h'), group='lib')
+            ic.add(v['a'], desc=desc, names=[desc], kind=kind, products=prods, spaces=v.get('sp') or [], w=v.get('w'), h=v.get('h'), group='lib',
+                   items=prods, items_how='lib_' + (v.get('s') or 'own'))
     for src, it in ic.items.items():
         own = _src_inds(src, cards)
         for ind, w in own.items():
@@ -493,7 +509,7 @@ def _src_inds(src: str, cards: list) -> Dict[str, float]:
 
 
 # ---------------------------------------------------------------------------------------------------- build
-VERSION = 5  # 5: picture identity (images[src]['pic'] from app/data/picture_ids.json) · space profiles (spatial library)
+VERSION = 8  # 8: the vision check's items (image_items.json → images[src]['vi'], items_how 'vision') · 7: exact items of every picture (images[src] items · items_how · shows · item_fams — composer.items) · product image library scenes as scenes · 6: DSS kind of every product row (products_all dssKind · dssSame — proddb/build/dss/classify.py) · 5: picture identity (images[src]['pic'] from app/data/picture_ids.json) · space profiles (spatial library)
 # L_VS_SOL_<X> (표준 제안서 솔루션 장) → the app catalog solution it presents (None: 표준 구성에만 있는 솔루션 — 카탈로그 솔루션 없음)
 SOL_LAYOUT = {'L_VS_SOL_STP': 'stpro', 'L_VS_SOL_VXT': 'vxt', 'L_VS_SOL_MAGIC': 'magicinfo', 'L_VS_SOL_KNOX': 'knoxsuite', 'L_VS_SOL_BIOT': 'biot',
               'L_VS_SOL_LYNK': 'lynk', 'L_VS_SOL_DEX': 'dex', 'L_VS_SOL_DMS': 'sac', 'L_VS_SOL_TOUCH': 'sac', 'L_VS_SOL_WIFI': 'sac',
@@ -594,6 +610,8 @@ def ensure(max_age_vs_kb: bool = True) -> Path:
     kb_mtime = (KB / 'manifest.json').stat().st_mtime if (KB / 'manifest.json').exists() else 0
     if PICTURE_IDS.exists():  # a new picture table (new pictures in the packs) is a new library too
         kb_mtime = max(kb_mtime, PICTURE_IDS.stat().st_mtime)
+    if IMAGE_ITEMS.exists():  # …and so is a new vision check of the photos' items
+        kb_mtime = max(kb_mtime, IMAGE_ITEMS.stat().st_mtime)
     if OUT.exists() and (not max_age_vs_kb or OUT.stat().st_mtime >= kb_mtime) and _built_version() >= VERSION:
         return OUT
     if not (DATA / 'scenarios_full.json').exists() or (DATA / 'scenarios_full.json').stat().st_mtime < kb_mtime or _built_version() < VERSION:
@@ -628,6 +646,19 @@ def build(write: bool = True) -> dict:
         for src, f in (_load(facts_path).get('images') or {}).items():
             if src in images and isinstance(f, dict):
                 images[src]['vf'] = {k: f.get(k) for k in ('shows', 'place', 'brand', 'brand_prominent', 'products', 'kind', 'quality')}
+    # which catalog item a photo shows when no source names one — the vision check (scripts/identify_items.py): every main product in
+    # view matched among the catalog products of its kind and confirmed by two models; composer.items takes it as the photo's items
+    try:
+        vision = (_load(IMAGE_ITEMS).get('images') or {}) if IMAGE_ITEMS.exists() else {}
+    except (OSError, ValueError):
+        vision = {}  # (a file being written — the next build takes it; the photos stay as their sources say)
+    if vision:
+        for src, v in vision.items():
+            if src in images and isinstance(v, dict):
+                images[src]['vi'] = {'items': list(v.get('items') or []), 'complete': bool(v.get('complete')),
+                                     'seen': sorted({r.get('type') for r in v.get('seen') or [] if isinstance(r, dict) and r.get('type')})}
+    # what each picture shows of the catalog: the exact items its source says it is a picture of, else none / unknown (composer.items)
+    _items.annotate(images, cat['products'])
     # the same photo under several addresses (a case photo · its re-crop in a scenario pack · its greyed-out copy):
     # app/scripts/build_picture_ids.mjs groups them by their pixels; a deck shows each group once (composer.pictures.pic)
     for group in (_load(PICTURE_IDS).get('groups') or []) if PICTURE_IDS.exists() else []:
@@ -642,7 +673,7 @@ def build(write: bool = True) -> dict:
         'version': VERSION, 'parts': {'PARTS': PARTS, 'NEXT': parts.get('NEXT'), 'RELATED': parts.get('RELATED')},
         'enums': {k: scx[k] for k in ('REQ_TYPES', 'STRATEGIES', 'ENDINGS', 'STAGES')},
         'industries': cat['industries'], 'layouts': layouts, 'families': families, 'scenarios': cards, 'modules': modules,
-        'exemplars': exemplars, 'images': images,
+        'exemplars': exemplars, 'images': images, 'item_keys': _items.item_keys(cat['products']),
         'products': {p['id']: {k: p.get(k) for k in ('id', 'name', 'model', 'cat', 'spec', 'spaces', 'ind', 'kw', 'cur', 'fam', 'opt')}
                      for p in cat['products'] if p.get('cur')},
         'solutions': {s['id']: s for s in cat['solutions']},
@@ -650,6 +681,7 @@ def build(write: bool = True) -> dict:
                   for c in cat['cases']},
         # every catalog product the DSS can link (the 40 curated ones above stay the legacy 'products')
         'products_all': {p['id']: {**{k: p.get(k) for k in ('id', 'name', 'model', 'cat', 'spec', 'spaces', 'ind', 'kw', 'fam', 'sc', 'opt')},
+                                   'dssKind': p.get('dssKind') or 'device', **({'dssSame': p['dssSame']} if p.get('dssSame') else {}),
                                    'cur': bool(p.get('cur')), 'th': p.get('th') or None, 'gal': list(p.get('gal') or [])[:4],
                                    'specs': [f'{r[1]}: {r[2]}' for r in (p.get('specs') or []) if isinstance(r, (list, tuple)) and len(r) >= 3][:14]}
                          for p in cat['products']},

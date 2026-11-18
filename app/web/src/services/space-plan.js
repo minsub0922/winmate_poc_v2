@@ -14,7 +14,7 @@ import { notify } from './notifications.js';
 import { getBootstrap } from '../api/bootstrap.js';
 import { getProposal, update, uid, onProposalChange, putImage } from '../repositories/proposals.js';
 import { loadSpatialLibrary, saveSpatialHistory, getSpatialHistory, captureSpatial, computeSpatial } from './spatial.js';
-import { roomKind } from '../domain/spatial/scene.js';
+import { roomKind, sceneHash } from '../domain/spatial/scene.js';
 import { separateSites, siteRoomId } from '../domain/proposals/site-concepts.js';
 import { embedSpatial } from '../domain/spatial/slide-binding.js';
 import {
@@ -220,15 +220,65 @@ export function movePlanProduct(pid, productId, from, to, before = null) {
     if (next.every((s, i) => s === plan.spaces[i])) return;
     plan.spaces = next; plan.at = Date.now(); changed = true;
   });
-  const dr = drafts.get(pid);
-  if (changed && dr && Array.isArray(dr.spaces)) drafts.set(pid, { ...dr, spaces: placeProduct(dr.spaces, productId, from, to, before) });
+  if (ok && changed) changeDraftSpaces(pid, (spaces) => placeProduct(spaces, productId, from, to, before));
   return !!ok && changed;
+}
+
+/** Remove the chosen placement and unlink the product when it has no other placements. */
+export function removePlanProduct(pid, productId, spaceId) {
+  const remove = (spaces) => placeProduct(spaces, productId, spaceId, null);
+  const elsewhere = (spaces) => spaces.some((space) => space.id !== spaceId && space.products?.includes(productId));
+  let removed;
+  const ok = update(pid, (d) => {
+    const plan = d.spacePlan;
+    const products = plan?.spaces?.find((space) => space.id === spaceId)?.products;
+    const index = products?.indexOf(productId) ?? -1;
+    const linkIndex = d.ctx.products.indexOf(productId);
+    if (index < 0 || linkIndex < 0) return;
+    removed = { before: products[index + 1] ?? null, linkIndex };
+    plan.spaces = remove(plan.spaces);
+    plan.at = Date.now();
+    if (!elsewhere(plan.spaces) && !elsewhere(getSpaceDraft(pid)?.spaces || [])) {
+      d.ctx.products = d.ctx.products.filter((id) => id !== productId);
+    }
+  });
+  if (!ok || !removed) return null;
+  changeDraftSpaces(pid, remove);
+
+  const restore = (spaces) => placeProduct(spaces, productId, null, spaceId, removed.before);
+  return () => {
+    let restored = false;
+    const ok = update(pid, (d) => {
+      const plan = d.spacePlan;
+      const space = plan?.spaces?.find((item) => item.id === spaceId);
+      if (!space || space.products?.includes(productId)) return;
+      plan.spaces = restore(plan.spaces);
+      plan.at = Date.now();
+      if (!d.ctx.products.includes(productId)) d.ctx.products.splice(removed.linkIndex, 0, productId);
+      restored = true;
+    });
+    if (ok && restored) changeDraftSpaces(pid, (spaces) => {
+      const space = spaces.find((item) => item.id === spaceId);
+      return !space || space.products?.includes(productId) ? spaces : restore(spaces);
+    });
+  };
 }
 
 // ---------- 열어 둔 단계 (팝업을 닫았다 열어도 이어서) ----------
 const drafts = new Map();
+const draftListeners = new Set();
+export const subscribeSpaceDraft = (fn) => { draftListeners.add(fn); return () => draftListeners.delete(fn); };
 export const getSpaceDraft = (pid) => drafts.get(pid) || null;
-export const setSpaceDraft = (pid, v) => { if (v) drafts.set(pid, v); else drafts.delete(pid); };
+export const setSpaceDraft = (pid, draft) => {
+  if (draft === getSpaceDraft(pid)) return;
+  if (draft) drafts.set(pid, draft); else drafts.delete(pid);
+  for (const fn of draftListeners) fn();
+};
+function changeDraftSpaces(pid, change) {
+  const draft = getSpaceDraft(pid);
+  if (!draft?.spaces) return;
+  setSpaceDraft(pid, { ...draft, spaces: change(draft.spaces) });
+}
 
 // ---------- 4. 조감도 ----------
 const running = new Set(), inferring = new Set(), mapping = new Set(), subs = new Set();
@@ -291,6 +341,49 @@ async function renderBirdseye(scene, library, { preview = true } = {}) {
 }
 /** 방금 만든 조감도(이 탭) — historyId → { scene, library, full } : 레이아웃에 넣을 때 다시 그리지 않는다 */
 const rendered = new Map();
+/** Copy an editable scene to its own history record. Reuse the saved geometry and preview. */
+export async function copyHistorySpacePlan(source, pid) {
+  const plan = source.spacePlan?.spaces?.length ? structuredClone(source.spacePlan) : null;
+  const stored = source.spacePlan?.birdseye;
+  if (plan) delete plan.birdseye;
+  const ready = stored?.status === 'done' ? stored : null;
+  const layout = (source.parts || []).flatMap((part) => part.layouts || []).find((item) => {
+    const id = item.spatialHistoryId || item.birdseye;
+    return ready?.historyId ? id === ready.historyId && item.ov?.spatial?.scene
+      : id || (item.source?.type === 'spatial' && item.ov?.spatial?.scene);
+  });
+  const historyId = ready?.historyId || layout?.spatialHistoryId || layout?.birdseye;
+  let record;
+  if (historyId) record = await getSpatialHistory(historyId).catch(() => null);
+  const binding = layout?.ov?.spatial;
+  const original = record?.scene || binding?.scene;
+  if (!original) return { plan, unavailable: !!(ready || historyId) };
+
+  let next = plan;
+  if (!next) {
+    const index = await loadSpaceData().catch(() => null);
+    const v = index?.verticals.find((item) => item.group === (source.ind || original.industry));
+    const spaces = withColors(original.rooms.map((room) => ({ id: room.id, name: room.name, kind: roomKind(room.name), note: '',
+      products: [...new Set(original.objects.filter((object) => object.roomId === room.id && object.assetId.startsWith('product:')).map((object) => object.assetId.slice(8)))],
+    })));
+    next = { v: 1, vertical: v ? { id: v.id, name: v.name, group: v.group } : null, title: original.title, summary: '', spaces, at: Date.now() };
+  }
+
+  try {
+    const scene = { ...original, source: { ...original.source, documentId: 'sb-' + pid } };
+    scene.contentHash = sceneHash(scene);
+    const copied = await saveSpatialHistory(scene, record?.view || binding?.view || '3d', null, record?.form ? { form: record.form } : {});
+    next.birdseye = { status: 'done', at: Date.now(), by: me(), historyId: copied.id, title: scene.title, rooms: scene.rooms.length,
+      products: ready?.products ?? new Set(scene.objects.filter((object) => object.assetId.startsWith('product:')).map((object) => object.assetId)).size,
+      skipped: ready?.skipped || [], image: ready?.image || binding?.image || null,
+      sig: ready?.sig || planSig(next, source.ctx?.products || []),
+    };
+    return { plan: next, unavailable: false };
+  } catch (error) {
+    console.warn('이전 조감도를 복사하지 못했어요', error);
+    return { plan: next, unavailable: true };
+  }
+}
 // planSig tracks product assignments. An in-flight build must also match names, title and scope.
 const birdseyeInputKey = p => JSON.stringify([planSig(p.spacePlan,p.ctx.products),p.title,p.customer,p.ind,p.spacePlan?.title,p.spacePlan?.scope,p.spacePlan?.spaces?.map(s=>[s.id,s.name])]);
 /** 조감도 만들기 — 화면을 떠나도 이 탭에서 끝까지 진행하고, 결과(히스토리 id · 미리보기)를 구성에 남긴다. 끝나면 Storyboard의 조감도 레이아웃에 넣는다.
@@ -299,6 +392,7 @@ export async function startBirdseye(pid, { auto = false } = {}) {
   if (running.has(pid)) return;
   const p0 = getProposal(pid);
   if (!p0 || !p0.spacePlan) return;
+  if (auto && !birdseyeNeeded(p0, { me: me() })) return;
   const sourceInput = birdseyeInputKey(p0);
   const token = uid('be');
   running.add(pid); emit(); // before the stored 'running' — otherwise it would read as interrupted for a moment
@@ -411,7 +505,11 @@ export function mapBirdseyeLayouts(pid) {
   if (!be || !birdseyeSlots(p, be.historyId, layoutHtml).length) return Promise.resolve(0);
   mapping.add(pid); emit();
   const flight = fillSlots(pid).then((n) => { failed.delete(pid); return n; }, (e) => { failed.set(pid, { id: be.historyId, at: Date.now() }); console.warn('조감도를 레이아웃에 넣지 못했어요', e); return 0; })
-    .finally(() => { flights.delete(pid); mapping.delete(pid); emit(); });
+    .finally(() => {
+      flights.delete(pid); mapping.delete(pid); emit();
+      const latest = ready(getProposal(pid));
+      if (latest && latest.historyId !== be.historyId) void mapBirdseyeLayouts(pid);
+    });
   flights.set(pid, flight);
   return flight;
 }

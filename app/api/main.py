@@ -124,6 +124,14 @@ def image_search_policy(response: Response):
     return layout_flows.image_weights()
 
 
+@app.get('/api/picture-items')
+def picture_items_table(response: Response):
+    """what each scene photo shows of the catalog (exact items · none · unknown) — the browser's space-photo check uses the composer's table."""
+    from .poc import picture_items
+    response.headers['Cache-Control'] = 'private, max-age=300'
+    return picture_items.public()
+
+
 @app.get('/api/layout-library')
 def live_layout_library(response: Response):
     response.headers['Cache-Control'] = 'no-store'

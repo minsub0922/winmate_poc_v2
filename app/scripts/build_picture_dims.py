@@ -67,7 +67,7 @@ def _bundle(path: str):
 def read(src: str):
     """bytes of a library address: a file under the repo / app public dir, or entry n of a JSON bundle (``path.json#n``)."""
     path, _, n = src.partition('#')
-    for base in (ROOT, PUBLIC):
+    for base in (ROOT, PUBLIC, ROOT / 'reference' / 'live'):  # (product gallery packs live under reference/live — composer eval.render reads them there too)
         p = base / path.lstrip('/')
         if p.is_file():
             if n:

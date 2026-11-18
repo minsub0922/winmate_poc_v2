@@ -141,11 +141,12 @@ def overview(request:Request):
     review_counts = service.origins.reviews.counts()
     for source in store.rows('SELECT s.*,count(a.id) asset_count FROM sources s LEFT JOIN assets a ON a.source_id=s.id GROUP BY s.id ORDER BY s.rowid'):
         # 목록에는 판정 요약만 싣는다 — 원본별 대조 내역은 소스 상세(/api/sources/{id})에서 받는다
-        source['decision'] = {key: value for key, value in json.loads(source['decision']).items() if key not in ('origins', 'evidence_sources', 'evidence')}
+        decision = json.loads(source['decision'])
+        source['decision'] = {key: value for key, value in decision.items() if key not in ('origins', 'evidence_sources', 'evidence')}
         if source['id'] in ('samsung','catalogs','media'):
             counts = review_counts.get(source['id'], {})
             source['review'] = {'pending': counts.get('pending', 0), 'handled': counts.get('applied', 0) + counts.get('ignored', 0),
-                                'incomplete': source['status'] in ('uncertain','error','unchecked') or bool(source['decision'].get('counts', {}).get('unverified'))}
+                                'incomplete': source['status'] in ('uncertain','error','unchecked') or any(p['status'] in ('failed','partial','unchecked') for p in decision.get('origins',[]))}
         sources.append(source)
     # 소스별로 앱에서 끈 자원 수(데이터 소스 카드)
     off = list(resource_switches.load()['off'])
@@ -165,7 +166,8 @@ def overview(request:Request):
             'indexed_at': store.setting('indexed_at'), 'baseline_counts': store.setting('baseline_counts', {}),
             'diagnostics': store.setting('diagnostics'), 'automatic_checks': store.setting('automatic_checks', False),
             'ai': {'configured': settings.has_key, 'model': settings.model}, 'scope': 'local',
-            'attention': sum(s['status'] in ('refresh', 'uncertain', 'error', 'review', 'unchecked') and s['kind'] != 'local' and s['id'] != 'uploads' for s in sources),
+            'attention': sum(bool(s['review']['pending'] or s['review']['incomplete']) if 'review' in s else
+                             s['status'] in ('refresh','uncertain','error','review','unchecked') and s['kind'] != 'local' and s['id'] != 'uploads' for s in sources),
             'active_jobs': store.one("SELECT count(*) n FROM jobs WHERE status IN ('running','queued')")['n'],
             'review_assets': store.one("SELECT count(*) n FROM assets WHERE status IN ('needs_review','analysis_failed','pending')")['n'],
             'dss_attention': service.dss.attention()}
@@ -362,7 +364,7 @@ def job_action(body: Action):
     if body.kind == 'analyze' and not body.asset_id or body.kind == 'rollback' and not body.release_id:
         raise HTTPException(422, '작업 대상이 필요합니다.')
     if body.kind.startswith('dss-'):
-        raise HTTPException(422, '소스 점검 · 업데이트 화면에서 실행해 주세요.')  # 채널 · 삭제 확인을 거치는 전용 API 만 쓴다
+        raise HTTPException(422, '데이터 소스 카드의 변경 내역에서 실행해 주세요.')
     return service.submit(body.kind, body.source_id, extra, actor=telemetry.current().get('username') or 'admin')
 
 

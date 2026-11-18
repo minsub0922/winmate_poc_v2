@@ -22,6 +22,9 @@ MEDIA = json.load(open(ROOT + '/app/data/media.json'))
 SPACE_PH = json.load(open(ROOT + '/build/toc/space_photos.json'))
 MEDIA_LABEL = {g[0]: g[2] for c in MEDIA['case'].values() for g in c.get('g', [])}
 CASE = {str(c['id']): c for c in CAT['cases']}
+IND_CASES = {}
+for _c in CAT['cases']:
+    if _c.get('ind'): IND_CASES.setdefault(_c['ind'], []).append(str(_c['id']))
 SOLCAT = {s['id']: s for s in VS['solution_catalog']}
 VSOL = {v['id']: v for v in VS['verticals']}
 GROUPS = VP['meta']['groups']
@@ -40,12 +43,33 @@ CASES = {
     'of_hq': ['3716', '47'], 'of_sme': ['3226', '89'], 'of_cowork': ['3310', '155'], 'rs_apt': ['3125', '7'], 'rs_officetel': ['3349', '67'],
     'rs_senior': ['3656', '3683'], 'id_partner': ['3696', '2679'], 'ed_univ': ['3370', '34'], 'ed_k12': ['3967', '130'], 'ed_academy': ['153', '73'],
     'pb_agency': ['2349', '142'], 'pb_transport': ['156', '1958'], 'mi_military': ['2962', '152'], 'md_tertiary': ['76', '16'], 'md_hospital': ['77', '16'],
-    'md_clinic': ['2105', '162'], 'md_ltc': ['2538', '3683'], 'mf_factory': ['3035', '1451'], 'mf_logistics': ['3088', '9'], 'fn_bank': ['1892', '98'],
+    'md_clinic': ['2105', '16'], 'md_ltc': ['2538', '3683'], 'mf_factory': ['3035', '1451'], 'mf_logistics': ['3088', '9'], 'fn_bank': ['1892', '98'],
     'fn_hq': ['2129', '88'], 'oe_telco': ['158', '1801'], 'rg_church': ['2737', '97'], 'mb_studio': ['2366', '128'],
 }
 WHY_ROWS = [('Samsung Business', 'L_VS_WHY_1'), ('최고의 전문가 집단', 'L_VS_WHY_2'), ('통합 오퍼링', 'L_VS_WHY_3'), ('비즈니스 고객 맞춤 전문 프로세스', 'L_VS_WHY_4'), ('브랜드 가치', 'L_VS_WHY_5')]
-SAMSUNG_BLDG = ('img/fill/ais-a.json#6', '삼성전자 수원 디지털시티 사옥과 SAMSUNG 조형물')
 TECHNICIAN = ('img/ph/svc-technician.jpg', '시스템에어컨 점검 엔지니어')
+# 01 Overview 기기 계열의 대표 컷 — 계열 이름에 맞는 제품 먼저(모바일 = 탭 · 폰, 시스템에어컨 = 카세트 실내기; 버즈 · 콘덴싱유닛이 대표가 되지 않게)
+FAMILY_REP = {'MOB': ('tab', 'phone', 'g_rugged'), 'SAC': ('sac_sm', 'sac_l_in', 'sac_res')}
+TALL = {'airdresser', 'air', 'shoe', 'ref_home', 'ref_bi', 'ref_comm', 'kimchi', 'water', 'g_kiosk'}
+# Why Samsung 통합 오퍼링(Device · Solution · Service) — 호텔 덱에서 온 객실 · LYNK 화면 · 천장 사진 대신 어느 업종에나 맞는 사진 (모든 덱 같은 내용)
+WHY_IMG_FIX = {'L_VS_WHY_3': {'img0': ('img/fill/sol-b.json#4', '삼성 디스플레이 · 가전이 놓인 업무 공간 라운지'),
+                              'img1': ('img/media/g0.json#108', '여러 사업장을 한 화면에서 보는 관리 대시보드'),
+                              'img2': ('img/media/g0.json#824', '천장형 시스템에어컨을 점검하는 서비스 엔지니어')}}
+# 목차 06 Why Samsung 카드 — 사옥 사진(img/fill/ais-a.json#6)은 Why Samsung 첫 장이 쓰므로 삼성 매장 · 서비스 엔지니어 사진에서 고른다
+SAMSUNG_TOC = [('img/media/g1.json#447', '삼성 강남 건물 외관'), ('img/media/g1.json#508', '삼성 디지털프라자 매장 건물 외관'),
+               ('img/media/g0.json#823', '실외기를 노트북으로 점검하는 삼성 서비스 엔지니어')]
+# 04 솔루션 간지 · 목차 카드: 솔루션 화면 캡처 대신 그 솔루션이 일하는 현장 사진 — 사진 설명에 있으면 좋은 기기 말
+SOL_DEVICE_WORDS = {
+    's_stp': ('에어컨', '실내기', '태블릿', '조명'), 's_biot': ('관제', '에어컨', '실외기', '설비'), 's_dms': ('에어컨', '실내기'), 's_touch': ('에어컨', '실내기'),
+    's_wifi': ('에어컨', '실내기'), 'svc_sac': ('에어컨', '실내기', '점검'), 's_vxt': ('사이니지', '메뉴보드', '디스플레이', '화면'),
+    's_magic': ('사이니지', '디스플레이', '비디오월', '화면', 'LED'), 's_lynk': ('TV', '객실'), 's_knox': ('태블릿', '갤럭시', '스마트폰'),
+    's_pos': ('태블릿', '주문', '결제'), 's_field': ('태블릿', '스캔', '작업'), 's_class': ('태블릿', '교실', '수업'), 's_dex': ('모니터', '태블릿', '회의'),
+    's_hospital': ('사이니지', '태블릿', '안내'), 's_counthru': ('복합기', '프린터'), 's_secuthru': ('복합기', '프린터'), 's_meeting': ('회의실', '태블릿'),
+    's_health': ('워치',), 's_sthome': ('거실', 'TV', '월패드'), 's_safety': ('워치', '작업자'), 's_bookee': ('노트북', '갤럭시 북'), 'svc_mobile': ('스마트폰', '태블릿'),
+}
+# 솔루션 장이 쓰는 media 화면 번호 → 그 솔루션 공식 화면 묶음(목차 04 카드가 다른 화면을 고를 때)
+SOL_GALLERY = {g[0]: s['g'] for s in MEDIA['sol'].values() for g in s.get('g', [])}
+VXT_CODES = {35, 59, 61, 33, 66, 39}  # s_vxt 장의 그룹별 화면(gmap)
 
 
 # ------------------------------------------------------------------ text width (rough, for nowrap checks)
@@ -154,10 +178,132 @@ def case_photos(cid):
     return out
 
 
+def case_details(cid, strict=True):
+    """the same site's close-ups and on-site screens — 도입사례 장 사진이 모자랄 때 반복 대신 쓴다 (strict: 로고가 주인공인 컷은 빼고)"""
+    g = MEDIA['case'].get(cid, {}).get('g', [])
+    out = []
+    for code, kind, label, w, h, *_ in g:
+        if (kind == 'c' and w >= 250 and h >= 180) or (kind == 'u' and w >= 300 and h >= 170):
+            if not re.search(r'제품 컷|아이콘|워드마크', label) and not (strict and re.search(r'로고', label)):
+                out.append({'src': media(code), 'name': label, 'w': w, 'h': h, 'kind': kind})
+    return sorted(out, key=lambda p: (p['kind'] != 'c', -(p['w'] * p['h'])))
+
+
+PH_DESC = {v['file']: v['desc'] for v in json.load(open(ROOT + '/app/data/images.json'))['pids'].values() if v.get('desc')}
+# 같은 그림 묶음(주소가 달라도 같은 사진) — app/scripts/build_picture_ids.mjs
+SAME_PICTURE = {a: g[0] for g in json.load(open(ROOT + '/app/data/picture_ids.json'))['groups'] for a in g}
+
+
+def ident(src):
+    return SAME_PICTURE.get(src, src)
+
+
+# 사진마다 실제로 보이는 것(비전 판독 — 장소 종류 · 간판 · 사진인지 · 품질). composer 와 같은 기록(버전 관리됨).
+FACTS = json.load(open(ROOT + '/poc/test/scenario_composer/image_facts.json'))['images']
+DIMS = json.load(open(ROOT + '/app/data/picture_dims.json'))
+# 표지 · 간지 · 목차 사진을 고를 때 쓰는 세부 업종의 말 — 업종 이름 · 공간 이름 말고 사진 설명에 흔히 쓰이는 말(같은 업종 묶음의
+# 다른 세부 업종 사진을 가르는 데 쓴다: 영화관 덱에 야구장, 빨래방 덱에 PC방, 의원 덱에 동물병원이 들어가던 것)
+VENUE_WORDS = {
+    'fb_qsr': '패스트푸드 버거 드라이브스루 퀵서비스 주문 키오스크 메뉴보드', 'fb_cafe': '카페 베이커리 커피 빵 쇼케이스 메뉴보드', 'fb_rest': '레스토랑 식당 다이닝 테이블 주방',
+    'rt_mall': '백화점 쇼핑몰 면세점 아트리움', 'rt_hyper': '대형마트 마트 슈퍼 SSM 신선식품 계산대 진열대', 'rt_flag': '플래그십 쇼룸 전시장 브랜드 매장 체험존',
+    'rt_small': '편의점 약국 소형 매장 계산대 진열대', 'sv_unmanned': '스터디카페 PC방 무인매장 무인 열람실', 'sv_screen': '스크린골프 골프 타석 시뮬레이터 실내 스포츠',
+    'sv_laundry': '빨래방 코인세탁 세탁 건조기 세탁기', 'sv_beauty': '미용실 헤어 뷰티 살롱 피부관리 네일', 'ht_large': '호텔 리조트 객실 로비 연회장',
+    'ht_mid': '호텔 비즈니스호텔 객실 로비 조식', 'ht_stay': '레지던스 풀빌라 스테이 객실 거실 침실', 'tp_park': '테마파크 놀이공원 어트랙션 관광지 공연장',
+    'tp_museum': '박물관 미술관 전시관 갤러리 전시실 전시', 'vn_stadium': '경기장 야구장 축구장 아레나 관중석 전광판 스타디움', 'vn_cinema': '영화관 극장 상영관 공연장 공연홀 스크린 객석',
+    'sf_fitness': '피트니스 헬스 스포츠센터 체육관 운동 골프클럽', 'ad_ooh': '옥외 광고 전광판 외벽 미디어 파사드 버스정류장 사이니지', 'of_hq': '사옥 본사 오피스 사무실 회의실 로비',
+    'of_sme': '오피스 사무실 회의실 업무 공간', 'of_cowork': '공유오피스 오피스 라운지 미팅룸 코워킹', 'rs_apt': '아파트 세대 거실 주방 단지 모델하우스',
+    'rs_officetel': '오피스텔 원룸 스튜디오 세탁실 임대주택', 'rs_senior': '시니어 실버타운 요양 레지던스 어르신', 'id_partner': '인테리어 가구 빌트인 쇼룸 키친 주방 갤러리',
+    'ed_univ': '대학 대학교 캠퍼스 강의실 도서관 강당', 'ed_k12': '학교 초등학교 중학교 고등학교 교실 급식', 'ed_academy': '학원 교육센터 강의실 자습실',
+    'pb_agency': '청사 공공기관 민원실 시청 구청 공단 지자체', 'pb_transport': '지하철 철도 공항 터미널 역사 대합실 승강장 발권 교통', 'mi_military': '군부대 부대 생활관 장병 지휘통제 병영',
+    'md_tertiary': '종합병원 대학병원 병원 진료 병동 수술', 'md_hospital': '병원 진료 입원 병실 재활', 'md_clinic': '의원 클리닉 진료 대기실 접수',
+    'md_ltc': '요양병원 요양시설 요양 병실 어르신', 'mf_factory': '공장 생산라인 제조 생산 작업', 'mf_logistics': '물류 창고 물류센터 콜드체인 피킹 출고',
+    'fn_bank': '은행 영업점 창구 객장 지점 ATM', 'fn_hq': '금융 본점 딜링룸 콜센터 트레이딩', 'oe_telco': '통신사 통신 매장 휴대폰 개통 대리점',
+    'rg_church': '교회 예배당 성당 법당 종교', 'mb_studio': '방송 스튜디오 부조정실 촬영',
+}
+# 어느 업종 덱에도 쓰지 않는 사진 — 다른 업종이 분명한 장면
+NEVER = re.compile(r'동물병원|ANIMAL|반려|전통시장|과수원|비닐하우스|온실|농장|육묘')
+GENERIC = {'공간', '존', '홀', '룸', '코너', '내', '외부', '현장', '운영', '관리', '안내', '데스크', '카운터', '시설', '센터', '업무', '전용', '공용', '메인',
+           '프리미엄', '대형', '소형', '중앙', '종합', '통합', '고객', '직원', '포함', '전문', '중소', '복합', '신축', '그룹', '본사', '다점포', '사업자', '파트너',
+           '인프라', '기관', 'AI', '스마트', '확인', '필요', '설치', '불가', '업소', '세탁기만', '건조기', '스태프', '디바이스', '기계실', '옥상', '공조', '로비',
+           '라운지', '대기', '사무', '매장', '입구'}
+
+
+def venue_words(vp, v):
+    """(강한 말: 이 세부 업종이 분명한 말, 공간 말: 공간 이름의 말) — v(업종 문구)가 없으면 업종 이름과 VENUE_WORDS만"""
+    split = lambda s: [w for w in re.split(r'[·/()\s,]+', s or '') if len(w) >= 2 and w not in GENERIC]
+    strong = set(split(vp['name'])) | set(VENUE_WORDS.get(vp['id'], '').split())
+    if v: strong |= set(split(v['short'])) | set(split(v['place']))
+    space = ({w for sp in vp['spaces'] for w in split(sp['name'])} | set(SPACE_EXTRA.get(vp['id'], '').split())) - strong
+    return strong, space
+
+
+# 사진이 적은 세부 업종의 공간 말(약한 말) — 공간 이름에 없지만 그 공간 사진 설명에 쓰이는 말
+SPACE_EXTRA = {
+    'mi_military': '상황실 관제 통제실 체력단련 구내식당 행정 기숙사 비디오월', 'sv_beauty': '미러 디스플레이 거울 시술 대기', 'fn_hq': '상담원 헤드셋 증권 사옥 비디오월',
+    'mf_logistics': '창고 선반 바코드 스캔 택배 적재 저온 유닛쿨러', 'md_clinic': '진료 대기 접수 상담', 'md_ltc': '병실 간호 요양 재활 식당',
+    'rs_senior': '어르신 식당 커뮤니티 라운지 간호', 'rg_church': '예배 강단 객석 성가대 교육관', 'sv_unmanned': '열람 좌석 무인 키오스크',
+    'sf_fitness': '러닝머신 운동 헬스 락커 수영장', 'ed_academy': '강의 자습 학습 상담',
+}
+# 사진이 적은 세부 업종이 공간 말이 맞을 때 빌려 쓸 수 있는 다른 업종 (군부대의 행정실 · 상황실 = 오피스 · 공공 사진)
+ALSO_IND = {'mi_military': ('OF',), 'sv_beauty': ('RT',), 'fn_hq': ('OF',), 'fn_bank': ('OF',), 'mf_logistics': ('RT',), 'rg_church': ('ED',), 'rs_senior': ('MD',), 'md_ltc': ('RS',)}
+PH_IND = {pre: g for g, pre in PH.items() if g == g.upper() and g not in ('SF', 'RG', 'MB', 'MI')}
+SOURCE_DESC = {}
+for _md in ('src/fill_sources.md', 'src/photo_sources.md'):
+    for _line in open(ROOT + '/' + _md, encoding='utf-8'):
+        _m = re.match(r'\| `(img/[^`]+)` \| ([^|]+) \|', _line)
+        if _m: SOURCE_DESC.setdefault(_m.group(1), _m.group(2).strip())
+
+
+def facts_photos(skip):
+    """other official photos the vision pass has looked at (img/fill · img/bs …) — named by their source table, else by what they show"""
+    out = []
+    for src, f in FACTS.items():
+        if src in skip or not re.match(r'img/(fill|bs|ph|media)/', src) or src.startswith('img/fill/cut.json'): continue
+        out.append({'src': src, 'name': SOURCE_DESC.get(src) or f.get('shows') or '', 'kind': 'fact', 'ind': None})
+    return out
+
+
+def ph_all():
+    """every 업종 참고 사진(img/ph) with its industry from the file name prefix"""
+    out = []
+    for f in sorted(os.listdir(ROOT + '/app/data/static/img/ph')):
+        pre = f.split('-')[0]
+        out.append({'src': 'img/ph/' + f, 'name': PH_DESC.get('img/ph/' + f, f[:-4]), 'kind': 'ph', 'ind': PH_IND.get(pre)})
+    return out
+
+
+def photo_text(p):
+    f = FACTS.get(p['src']) or {}
+    return ' '.join([p.get('name') or '', f.get('shows') or '', p.get('cust') or ''])
+
+
+def photo_width(p):
+    d = DIMS.get(p['src'])
+    return d[0] if isinstance(d, list) and d else (p.get('w') or 0)
+
+
+def plain_photo(p):
+    """a photograph with nothing that belongs to someone else — no prominent non-Samsung sign, not a screen or product shot, usable"""
+    f = FACTS.get(p['src'])
+    if not f: return False
+    if f.get('kind') != 'photo' or f.get('place') == '제품·화면만' or f.get('quality') == 'low': return False
+    brand = (f.get('brand') or '').strip()
+    if f.get('brand_prominent') and brand and not re.search(r'samsung|삼성', brand, re.I): return False
+    return not NEVER.search(photo_text(p))
+
+
+def all_case_photos():
+    out = []
+    for c in CAT['cases']:
+        for p in case_photos(str(c['id'])):
+            out.append({**p, 'case': str(c['id']), 'cust': c['cust'], 'ind': c.get('ind')})
+    return out
+
+
 def ph_pool(group):
     pre = PH[group]
     files = sorted(os.listdir(ROOT + '/app/data/static/img/ph'))
-    return [{'src': 'img/ph/' + f, 'name': f[:-4], 'w': 1, 'h': 1, 'kind': 'ph'} for f in files if f.startswith(pre + '-')]
+    return [{'src': 'img/ph/' + f, 'name': PH_DESC.get('img/ph/' + f, f[:-4]), 'w': 1, 'h': 1, 'kind': 'ph'} for f in files if f.startswith(pre + '-')]
 
 
 # ------------------------------------------------------------------ slide fill builder
@@ -307,40 +453,111 @@ def build_vertical(v):
     bird_f = f'L_VS_BIRD_{"B" if building else "S"}{N}'
 
     # ---------------- photos
-    # 공간 장 왼쪽 사진은 그 장에서만 — 표지 · 목차 · 간지 사진 후보에서 빼고, 도입사례 사진에서는 사진이 모자랄 때만 뒤에서 쓴다
+    # 한 덱에서 같은 사진은 한 번만(주소가 달라도 같은 그림이면 같은 사진 — picture_ids.json). 제품 컷 · 솔루션 화면은 따로 센다.
+    # Why Samsung · 마감 · 06 간지 사진은 고정이라 먼저 자리를 잡고, 공간 장 왼쪽 사진은 그 장에서만 쓴다.
+    shown = set()
+    def show(src): shown.add(ident(src))
+    def unseen(src): return ident(src) not in shown
+    for f_, ims_ in WHY_IMG.items():
+        for src_, _ in {**ims_, **WHY_IMG_FIX.get(f_, {})}.values(): show(src_)
+    show(TECHNICIAN[0])
+    # 솔루션 장 화면 · 제품 자리에 들어가는 사진(사진형 제품)도 덱에 한 번 나온 그림 — 표지 · 목차 · 간지가 같은 그림을 다시 고르지 않게
+    for sid in order:
+        spec = dict(sols.IMGS.get(sid, {})); spec.update(sols.GROUP_IMGS.get((sid, group), {})); spec.update(sols.VERT_IMGS.get((sid, vid), {}))
+        for lst in spec.values():
+            for c in lst: show(media(c) if isinstance(c, int) else c)
+        if sid == 's_vxt':
+            for c in VXT_CODES: show(media(c))
+    for key in {s['key'] for p in v['P'] for s in p['subs']} | {p['tkey'] for p in v['P']} | set(feat):
+        if key in prod.P and key in prod.PHOTO: show(prod.image_of(key))
+    # 공간 장 왼쪽 사진(목차 템플릿과 같은 표 space_photos.json). 그 사진이 이 덱 도입사례 고객사의 현장 사진이면 도입사례 장에 두고,
+    # 공간 장에는 같은 업종 사진 중 그 공간 이름이 붙은 다른 사진을 쓴다(없으면 표 사진 그대로)
+    case_ids = {ident(p['src']) for cid in cases for p in case_photos(cid) + case_details(cid)}
+    alt_pool = ph_pool(group) + [p for cid in IND_CASES.get(ind, []) if cid not in cases for p in case_photos(cid) if p['w'] >= 480]
+    space_img = {}
+    for sp in vp['spaces']:
+        src_ = SPACE_PH[sp['id']]
+        if ident(src_) in case_ids or not unseen(src_):
+            words = [w for w in re.split(r'[·/()\s]+', sp['name']) if len(w) >= 2 and w not in ('공간', '구역', '존', '영역')]
+            words += [w[:-1] for w in words if len(w) >= 3 and w[-1] in '실장관소석']
+            alt = next((p for p in alt_pool if unseen(p['src']) and ident(p['src']) not in case_ids and any(w in p['name'] for w in words)), None)
+            if alt:
+                space_img[sp['id']] = img(alt['src'], alt['name'])
+                show(alt['src'])
+                continue
+        space_img[sp['id']] = space_photo(sp)
+        show(src_)
     space_srcs = {SPACE_PH[sp['id']] for sp in vp['spaces']}
+    # 도입사례 장: 그 고객사 현장 사진 4장 — 장면 사진이 모자라면 같은 현장의 근접 · 화면 사진으로 채우고(같은 사진 반복 없이),
+    # 그래도 모자랄 때만 공간 장에 쓴 그 사례 사진을 다시 쓴다
     case_imgs = {}
     for cid in cases:
-        ph = case_photos(cid)
-        ph = [p for p in ph if p['src'] not in space_srcs] + [p for p in ph if p['src'] in space_srcs]
-        land = sorted([p for p in ph if p['w'] >= p['h'] * 1.2], key=lambda p: (p['src'] in space_srcs, -(p['w'] * p['h']) - (4e5 if re.search(r'전경|외관|공간|매장|로비|홀|실내|내부', p['name']) else 0)))
-        big = land[0] if land else ph[0]
-        rest = [p for p in ph if p is not big]
-        case_imgs[cid] = [big] + rest[:3]
-        while len(case_imgs[cid]) < 4: case_imgs[cid].append(big)
+        ph = [p for p in case_photos(cid) if unseen(p['src'])]
+        land = sorted([p for p in ph if p['w'] >= p['h'] * 1.2], key=lambda p: -(p['w'] * p['h']) - (4e5 if re.search(r'전경|외관|공간|매장|로비|홀|실내|내부', p['name']) else 0))
+        big = land[0] if land else (ph[0] if ph else None)
+        chosen = ([big] if big else []) + [p for p in ph if p is not big]
+        chosen += [p for p in case_details(cid) if unseen(p['src'])]
+        chosen += [p for p in case_details(cid, strict=False) if unseen(p['src'])]  # 로고 벽이 보이는 근접 컷도 반복보다는 낫다
+        chosen += [p for p in case_photos(cid) if not unseen(p['src'])]
+        picked, ids = [], set()
+        for p in chosen:
+            if ident(p['src']) in ids: continue
+            ids.add(ident(p['src'])); picked.append(p)
+        case_imgs[cid] = picked[:4]
+        while len(case_imgs[cid]) < 4: case_imgs[cid].append(case_imgs[cid][0])
+        for p in case_imgs[cid]: show(p['src'])
     used_src = {p['src'] for c in case_imgs.values() for p in c}
-    GOOD = re.compile(r'매장|로비|외관|전경|공간|사무실|객실|라운지|홀|실내|내부|교실|강의|병원|병실|병동|공장|창고|경기장|극장|상영관|전시|단지|거실|주방|카페|식당|레스토랑|무대|스튜디오|예배당|센터|쇼룸|청사|역사|대합실|관제|사옥|캠퍼스|도서관|학교|매장 안|입구')
-    BAD = re.compile(r'클로즈업|제품 컷|로고|버튼|패널|리모컨|화면 근접|라벨|설명서|규격|치수|아이콘|확대')
-    def scene_score(p):
-        sc = p['w'] * p['h'] / 1e5
-        if GOOD.search(p['name']): sc += 6
-        if BAD.search(p['name']): sc -= 10
-        if p['kind'] == 'e': sc += 2
-        return sc
-    pool = []
-    for cid in cases:
-        pool += [p for p in sorted(case_photos(cid), key=lambda p: -scene_score(p)) if p['src'] not in used_src and p['w'] >= p['h'] * 1.1 and scene_score(p) > 0]
-    pool += ph_pool(group)
-    pool.append({'src': f'img/cover/{ind}.jpg', 'name': f'{GROUPS.get(group, group)} 대표 사진', 'w': 1, 'h': 1, 'kind': 'cover'})
-    seen, photos = set(space_srcs), []
-    for p in pool:
-        if p['src'] not in seen: seen.add(p['src']); photos.append(p)
-    pick_i = [0]
+    # ---------------- 표지 · 간지 · 목차 사진 — 이 세부 업종을 보여 주는 사진만:
+    # 사진 설명 · 비전 판독(FACTS)에 이 업종의 말이 있고, 같은 업종 묶음의 다른 세부 업종 말만 있는 사진은 빼고(영화관 덱의 야구장 · 빨래방 덱의 PC방),
+    # 다른 회사 간판이 크게 보이거나 화면 · 제품 컷 · 흐린 사진은 빼고, 덱에 이미 나온 사진은 빼고. 관련 말이 많은 사진 · 큰 사진 먼저.
+    strong, space_w = venue_words(vp, v)
+    sib = set()
+    for o in VP['verticals']:
+        if o['id'] != vid and IND.get(o['group'], o['group']) == ind:
+            sib |= venue_words(o, None)[0]
+    sib -= strong | space_w
+    def rel(p):
+        t = photo_text(p)
+        return 2 * sum(1 for w in strong if w in t) + sum(1 for w in space_w if w in t)
+    def venue_photo(p):
+        if not plain_photo(p): return False
+        t = photo_text(p)
+        if rel(p) == 0: return False
+        own = any(w in t for w in strong)
+        if not own and any(w in t for w in sib): return False   # another venue of the same industry
+        if (p.get('ind') or '') != ind and not own: return False  # another industry's photo only when it names this venue
+        return True
+    photos, ids = [], set()
+    known = ph_all() + all_case_photos()
+    for p in sorted([p for p in known + facts_photos({q['src'] for q in known}) if venue_photo(p)], key=lambda p: (-rel(p), -photo_width(p))):
+        if ident(p['src']) not in ids: ids.add(ident(p['src'])); photos.append(p)
 
-    def photo():
-        p = photos[pick_i[0] % len(photos)]
-        pick_i[0] += 1
-        return img(p['src'], p['name'])
+    # 이 세부 업종 사진이 모자랄 때(미용실 · 군부대 …): 이 덱 도입사례 고객사의 현장 사진(간판이 보여도) → 같은(또는 빌려 쓰는) 업종에서 공간 말이 맞는 사진
+    # → 업종 대표 사진 → 빌려 쓰는 업종의 간판 없는 사진
+    def usable_photo(p):
+        f = FACTS.get(p['src'])
+        return bool(f) and f.get('kind') == 'photo' and f.get('place') != '제품·화면만' and f.get('quality') != 'low' and not NEVER.search(photo_text(p))
+    tier2 = [p for cid in cases for p in case_photos(cid) if usable_photo(p)]
+    also = ALSO_IND.get(vid, ())
+    tier3 = sorted([p for p in known if plain_photo(p) and not any(w in photo_text(p) for w in sib)
+                    and ((p.get('ind') or '') == ind or (p.get('ind') or '') in also) and rel(p) > 0], key=lambda p: (-rel(p), -photo_width(p)))
+    tier4 = [{'src': f'img/cover/{ind}.jpg', 'name': f'{GROUPS.get(group, group)} 대표 사진', 'w': 1600}]
+    tier5 = sorted([p for p in known if (p.get('ind') or '') in also and plain_photo(p) and not any(w in photo_text(p) for w in sib)], key=lambda p: -photo_width(p))
+
+    def photo(min_w=360, prefer=()):
+        """the best photo of this venue the deck has not shown yet (prefer = words of the chapter the slot stands for)"""
+        for tier in (photos, tier2, tier3, tier4, tier5):
+            best = None
+            for p in tier:
+                if not unseen(p['src']) or (tier is not tier4 and photo_width(p) < min_w): continue
+                t = photo_text(p)
+                score = (sum(1 for w in prefer if w in t), rel(p), photo_width(p) >= 1000, photo_width(p))
+                if best is None or score > best[0]: best = (score, p)
+            if best:
+                show(best[1]['src'])
+                return img(best[1]['src'], best[1]['name'])
+        if min_w > 360: return photo(360, prefer)
+        raise ValueError(f'{vid}: 표지 · 목차 · 간지에 쓸 이 업종 사진이 모자랍니다')
 
     # ---------------- pages (computed after assembly; placeholders first)
     D = Deck(v)
@@ -350,7 +567,7 @@ def build_vertical(v):
         PAGE[name] = len(D.slides) + 1
 
     # cover
-    cover_p = photo()
+    cover_p = photo(600, sorted(strong))
     t3a = f'{short}\n{ai} 제안서'
     t3 = t3a if fits(t3a, 48, 505, -0.03) else f'{ai}\n표준 제안서'
     t4 = v['cover'] if t3 == t3a else f'{short} — {v["cover"]}'
@@ -392,17 +609,33 @@ def build_vertical(v):
 
     # ---------------- images used in several places
     bird_src = f'/assets/vertical-std/{vid}.webp'
-    sol_first_img = None
-    for sid in order:
-        if sid in sols.IMGS:
-            c = sols.GROUP_IMGS.get((sid, group), sols.IMGS[sid]).get('img0', sols.IMGS[sid]['img0'])[0]
-            sol_first_img = media(c) if isinstance(c, int) else c
-            break
-    case0 = case_imgs[cases[0]][0]
-    p_ov, p_ai, p_sp, p_sol = photo(), photo(), photo(), photo()
-    case_extra = [p for p in case_photos(cases[1]) if p['src'] not in used_src and p['src'] not in space_srcs]
-    fb = case_imgs[cases[1]][1]  # 사례 사진이 모자라면 사례 장의 둘째 사진 — 그게 공간 장 사진이면 일반 사진 후보에서
-    p_case = img(case_extra[0]['src'], case_extra[0]['name']) if case_extra else (photo() if fb['src'] in space_srcs else img(fb['src'], fb['name']))
+    # 간지 · 목차 카드: 장마다 그 장을 보여 주는 이 업종 사진 (덱에 이미 나온 사진은 빼고)
+    sol_words = sorted({w for sid in order[:2] for w in SOL_DEVICE_WORDS.get(sid, ())})
+    p_ov = photo(700)
+    p_ai = photo(700, [w for p in v['P'] for w in re.split(r'[·\s]+', p['prop']) if len(w) >= 2])
+    p_sp = photo(700, sorted(space_w))
+    p_sol = photo(700, sol_words)
+    # 05 간지 · 목차 05 카드: 이 덱 도입사례 고객사의 현장 사진(사례 장에 쓰지 않은 것) — 없으면 같은 업종 다른 삼성 도입사례의 현장 사진
+    def case_photo(min_w):
+        own = [p for cid in (cases[1], cases[0]) for p in case_photos(cid) + case_details(cid) if p['w'] >= min(min_w, 300) and p['w'] >= p['h'] * 1.1]
+        for p in own:
+            if unseen(p['src']):
+                show(p['src'])
+                return img(p['src'], f"{p['name']} · {CASE[next(c for c in cases if p in case_photos(c) + case_details(c))]['cust']}")
+        same = [p for p in photos if p.get('case') and p['case'] not in cases and unseen(p['src']) and photo_width(p) >= min_w]
+        if same:
+            show(same[0]['src'])
+            return img(same[0]['src'], f"{same[0]['name']} · {same[0]['cust']}")
+        return photo(min_w)
+    p_case = case_photo(600)
+
+    def toc_samsung():
+        """06 Why Samsung: 삼성 매장 · 서비스 엔지니어 사진(사옥 사진은 Why Samsung 첫 장이 쓴다)"""
+        for src, name in SAMSUNG_TOC:
+            if unseen(src):
+                show(src)
+                return img(src, name)
+        return photo()
 
     # ---------------- TOC
     props = [p['prop'] for p in v['P']]
@@ -419,7 +652,8 @@ def build_vertical(v):
     toc_s = [f'삼성 AI 비즈니스가 {place}에 주는 가치', f'{who}의 니즈마다 AI 기술로 답하는 세 가지 제안', f'{N}개 공간과 공간마다의 대표 제품',
              f'{K}개 솔루션으로 운영은 가볍게', '같은 업종의 삼성 공식 도입사례', '끝까지 책임지는 비즈니스 파트너']
     toc_p = ['p.' + rng('div1', 'dss'), 'p.' + rng('div2', 'core2'), 'p.' + rng('div3', 'map'), 'p.' + rng('div4', f'sol{K - 1}'), 'p.' + rng('div5', 'case1'), 'p.' + rng('div6', 'end')]
-    toc_img = [p_ov, p_ai, img(bird_src, f'{short} ' + ('표준 건물 조감도' if building else '공간 조감도')), img(sol_first_img or p_sol['src'], f'{SOL[order[0]][0]} 화면'), img(case0['src'], case0['name']), img(*SAMSUNG_BLDG)]
+    toc_img = [photo(), photo(360, [w for p in v['P'] for w in re.split(r'[·\s]+', p['prop']) if len(w) >= 2]), photo(360, sorted(space_w)),
+               photo(360, sol_words), case_photo(360), toc_samsung()]
     vals = {'eb': 'CONTENTS', 'title': '목차', 'sub': f'{short} · {ai} 표준 제안서 · 6개 장', **F(pg('toc'))}
     ims = {}
     for k in range(6):
@@ -458,7 +692,7 @@ def build_vertical(v):
         cnt = sum(1 for sp in vp['spaces'] if any(fn(c) for c in sp['products']))
         if not cnt: continue
         cats = collections.Counter(c for sp in vp['spaces'] for c in sp['products'] if fn(c) and c in prod.P)
-        rep = max(cats, key=lambda c: (cats[c], prod.PRI.get(c, 0))) if cats else None
+        rep = next((c for c in FAMILY_REP.get(fk, ()) if c in cats), None) or (max(cats, key=lambda c: (cats[c], prod.PRI.get(c, 0))) if cats else None)
         if rep: fscore.append((cnt, -fi, fname, rep))
     fscore.sort(reverse=True)
     devs = fscore[:5]
@@ -536,7 +770,7 @@ def build_vertical(v):
         # 왼쪽 공간 사진 | 오른쪽 제품 이름 → key message(이 공간에서 제품이 하는 일) → 제품 컷 + 특징 2
         vals = {'eb': f'03 · 공간별 제안 · {i + 1:02d}', 'title': clip(sp['name'], 32, 1150), 'msg': scene, 'prod': clip(name, 24, SCHEMA['L_VS_SPACE']['box']['prod'][0]), **F(pg(f'sp{i}'))}
         for r in range(2): vals[f'f{r}t'], vals[f'f{r}d'] = feats[r]
-        put(f'sp{i}', fill('L_VS_SPACE', vals, {'img': img(src, name, 'cover' if c in prod.PHOTO else 'contain'), 'space': space_photo(sp)}))
+        put(f'sp{i}', fill('L_VS_SPACE', vals, {'img': img(src, name, 'cover' if c in prod.PHOTO else 'contain'), 'space': space_img[sp['id']]}))
     vals = {'eb': '03 · 공간별 제안', 'title': clip(f'{ai} Map', 32, 1150), 'sub': clip(f'{N}개 공간 × 삼성 제품 — 공간마다 놓이는 제품을 한눈에', 18, 1150), **F(pg('map'))}
     ims = {}
     box_w = SCHEMA[f'L_VS_MAP_{N}']['box']['s0p'][0]
@@ -552,6 +786,9 @@ def build_vertical(v):
             dw = SCHEMA[f'L_VS_MAP_{N}']['box'][f's{k}d'][0]
             vals[f's{k}d'] = scenes[k] if width(scenes[k], 16) <= dw * 3.6 else clip(scenes[k], 16, dw * 3.6)
         c = feat[k]
+        # 지도 칸은 가로로 넓고 낮아서 키 큰 제품(에어드레서 · 공기청정기 · 냉장고) 컷은 가는 막대로만 보인다 — 그 공간의 다른 제품 컷으로
+        if c in TALL:
+            c = next((x for x in sp['products'] if x in prod.P and x not in TALL and not x.startswith('s_')), c)
         ims[f's{k}img'] = img(prod.image_of(c), prod.P[c][1], 'cover' if c in prod.PHOTO else 'contain')
     put('map', fill(f'L_VS_MAP_{N}', vals, ims))
 
@@ -568,7 +805,7 @@ def build_vertical(v):
         if sid == 's_health':
             data = [f for g in SOLCAT[sid]['groups'] if g['id'].endswith('.data') for f in g['features']]
             for i2, f2 in enumerate(data[:5]): vals[f'c{i2}'] = chip_name(f2)
-        spec = dict(sols.IMGS[sid]); spec.update(sols.GROUP_IMGS.get((sid, group), {}))
+        spec = dict(sols.IMGS[sid]); spec.update(sols.GROUP_IMGS.get((sid, group), {})); spec.update(sols.VERT_IMGS.get((sid, vid), {}))
         if sid == 's_vxt':
             gmap = {'create': 35, 'ops': 59, 'rm': 61, 'epaper': prod.image_of('epaper'), 'apps': 33, 'player': 66}
             chosen = [g for g in SOLCAT[sid]['groups'] if clean(g['name']) in [it[0] for it in items]]
@@ -606,7 +843,7 @@ def build_vertical(v):
 
     # ---------------- 06 why + end (identical content)
     for j, (nm, f) in enumerate(WHY_ROWS):
-        ims = {k: img(src, name) for k, (src, name) in WHY_IMG[f].items()}
+        ims = {k: img(src, name) for k, (src, name) in {**WHY_IMG[f], **WHY_IMG_FIX.get(f, {})}.items()}
         put(f'why{j}', fill(f, F(pg(f'why{j}')), ims))
     put('end', fill('L_VS_END', {'cust': '고객사 로고', 'foot': foot}, {k: img(src, name) for k, (src, name) in WHY_IMG['L_VS_END'].items()}))
 

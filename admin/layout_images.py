@@ -40,10 +40,11 @@ def _words(*values) -> set:
 def _library(path: str, stamp: int):
     data = json.loads(Path(path).read_text(encoding='utf-8'))
     names = {i['code']: i['name'] for i in data.get('industries') or []}
+    products = {pid: p.get('name') for pid, p in (data.get('products_all') or {}).items()}
     rows = {}
     for src, im in (data.get('images') or {}).items():
         inds = im.get('inds') or {}
-        fields = composer_fields({**im, 'src': src}, names)
+        fields = composer_fields({**im, 'src': src}, names, products)
         rows[src] = {**im, 'src': src, '_fields': fields, '_search': '\n'.join(v.casefold() for values in fields.values() for v in values),
                      '_dir': src.split('#')[0].rsplit('/', 1)[0], '_title': _words(im.get('desc'), ' '.join(im.get('names') or [])),
                      '_words': _words(im.get('desc'), ' '.join(im.get('names') or []), ' '.join(im.get('spaces') or []),

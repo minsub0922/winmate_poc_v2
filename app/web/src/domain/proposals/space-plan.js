@@ -330,13 +330,14 @@ export function moveProduct(spaces, pid, from, to) {
 export function placeProduct(spaces, pid, from, to, before = null) {
   if (from === to && before === pid) return spaces;
   return spaces.map((s) => {
-    let list = s.products;
-    if (s.id === from || s.id === to) list = list.filter((x) => x !== pid);
+    if (s.id !== from && s.id !== to) return s;
+    const products = s.products || [];
+    let list = products.filter((x) => x !== pid);
     if (s.id === to) {
       const at = before ? list.indexOf(before) : -1;
       list = at < 0 ? [...list, pid] : [...list.slice(0, at), pid, ...list.slice(at)];
     }
-    return list.length === s.products.length && list.every((x, i) => x === s.products[i]) ? s : { ...s, products: list };
+    return list.length === products.length && list.every((x, i) => x === products[i]) ? s : { ...s, products: list };
   });
 }
 /**

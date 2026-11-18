@@ -4,7 +4,7 @@
 //   버블에는 숫자를 두지 않는다. 이 버블의 일이 도는 동안(조감도 생성 · 공간 구성 추론 · 조감도를 레이아웃에 넣는 중) 테두리에 도는 고리(.node.is-busy).
 //   솔루션 · 유관사례: 입력창에서 @로 태그했을 때와 같은 @태그 칩(썸네일 + 이름) · 제품: 3열 이미지 + 이름. 개수 제한 없이 전부 보인다.
 //   항목에 마우스를 올리면 상세가 카드 오른쪽(추가 팝업이 뜨는 자리)에 뜨고, 세로 위치만 그 항목에 맞춘다. 누르면 상세 창, ×는 연결 해제(되돌리기).
-//   공간 구성을 저장하면 제품은 공간별 묶음(공간마다 다른 색 테두리)으로, 어느 공간에도 없는 제품은 '미배치'로 보인다.
+//   공간 구성을 저장하면 제품은 공간별 묶음(공간마다 다른 색 테두리)으로, 어느 공간에도 없는 제품은 '미배치'로 보인다. ×로 선택한 배치를 빼도 다른 공간에 남은 제품의 연결은 유지한다.
 //   묶음의 제품은 끌어다 놓아 다른 공간 · 미배치로 옮기거나 공간 안 순서를 바꾼다(사용자 지시 2026-11-17) — 놓는 즉시 저장(services/space-plan.js
 //   movePlanProduct). 제품 위에 놓으면 그 앞, 묶음 빈 곳에 놓으면 끝. 공간 구성 팝업이 열려 있거나 조감도를 만드는 동안은 끌 수 없다.
 //   '공간 구성'(선택 기능)은 제품이 1개 이상일 때 켜지고, 조감도를 만드는 동안 '조감도 생성 중'을 보여 준다.
@@ -18,7 +18,7 @@ import { useDetailPeek } from './reference-detail.jsx';
 import { addRef, removeRef } from './requirements.jsx';
 import { notify } from '../services/notifications.js';
 import { planGroups } from '../domain/proposals/space-plan.js';
-import { birdseyeOf, birdseyeBusy, matchBusy, subscribeBirdseye, startBirdseye, mapBirdseyeLayouts, movePlanProduct } from '../services/space-plan.js';
+import { birdseyeOf, birdseyeBusy, matchBusy, subscribeBirdseye, startBirdseye, mapBirdseyeLayouts, movePlanProduct, removePlanProduct } from '../services/space-plan.js';
 import { useExtractBusy, extractNotice, ensureMatchExtract } from '../services/match-extract.js';
 import { dssOf } from '../services/dss.js';
 import '../styles/match-space.css';
@@ -87,13 +87,14 @@ function TagItem({ r, peek, side, readOnly, onRemove, fresh }) {
 }
 
 /** 제품 — 이미지 + 이름 */
-function ProductItem({ r, peek, side, readOnly, onRemove, fresh, dnd }) {
+function ProductItem({ r, peek, side, readOnly, onRemove, fresh, dnd, spaceName }) {
   const m = tagMeta(r); if (!m) return null;
+  const removeLabel = spaceName ? spaceName + '에서 배치 삭제' : '연결 해제';
   return (
     <div className={'dss-prod' + (fresh ? ' fresh' : '') + (dnd ? ' movable' + (dnd.cls || '') : '')} data-ref={r} tabIndex={0} role="button" aria-label={m.name + ' · 상세 보기'} {...hoverOf(peek, r, side)} {...peek.detailProps(r)} {...(dnd ? dnd.props : {})}>
       <Thumb r={r} />
       <span className="dss-pname" title={m.name}>{m.name}</span>
-      {!readOnly && <button type="button" className="dss-x" onClick={(e) => { e.stopPropagation(); peek.hide(); onRemove(r, m.name); }} onKeyDown={(e) => e.stopPropagation()} onFocus={(e) => e.stopPropagation()} aria-label={m.name + ' 연결 해제'} title="연결 해제"><Icon name="x" size={10} stroke={3} /></button>}
+      {!readOnly && <button type="button" className="dss-x" onClick={(e) => { e.stopPropagation(); peek.hide(); onRemove(r, m.name); }} onKeyDown={(e) => e.stopPropagation()} onFocus={(e) => e.stopPropagation()} aria-label={m.name + ' ' + removeLabel} title={removeLabel}><Icon name="x" size={10} stroke={3} /></button>}
     </div>
   );
 }
@@ -148,7 +149,12 @@ export function MatchArea({ p, isOpen, onOpen, readOnly = false, spaceOpen = fal
   const beId = be && be.status === 'done' ? be.historyId : null;
   useEffect(() => { if (beId) void mapBirdseyeLayouts(p.id); }, [p.id, beId]);
   const go = (k) => onOpen(k || null);
-  const unlink = (r, name) => {
+  const unlink = (r, name, space) => {
+    if (space) {
+      const undo = removePlanProduct(p.id, r.slice(8), space.id);
+      if (undo) notify(space.name + '에서 ' + name + ' 배치를 삭제했어요', '', { actionLabel: '되돌리기', onAction: undo });
+      return;
+    }
     removeRef(p.id, r);
     notify(name + ' 연결을 해제했어요', '', { actionLabel: '되돌리기', onAction: () => addRef(p.id, r) });
   };
@@ -178,9 +184,9 @@ export function MatchArea({ p, isOpen, onOpen, readOnly = false, spaceOpen = fal
       onDrop: (e) => drop(e, from, id),
     },
   });
-  const item = (r, key = r, from) => {
-    const props = { r, peek, side, readOnly, onRemove: unlink, fresh: fresh.has(r) };
-    return r.startsWith('product:') ? <ProductItem key={key} {...props} dnd={from === undefined ? null : dndOf(r.slice(8), from)} /> : <TagItem key={key} {...props} />;
+  const item = (r, space) => {
+    const props = { r, peek, side, readOnly, onRemove: (ref, name) => unlink(ref, name, space), fresh: fresh.has(r) };
+    return r.startsWith('product:') ? <ProductItem key={r} {...props} spaceName={space?.name} dnd={space === undefined ? null : dndOf(r.slice(8), space?.id ?? null)} /> : <TagItem key={r} {...props} />;
   };
   const isOver = (to) => !!(drag && over && over.to === to);
   const nProd = dssOf(p).products.length;
@@ -213,14 +219,14 @@ export function MatchArea({ p, isOpen, onOpen, readOnly = false, spaceOpen = fal
                   {plan.groups.map((g) => (
                     <div key={g.id} className={'dss-grp spl-c' + g.color + (isOver(g.id) ? ' over' : '')} data-space={g.id} {...zone(g.id)}>
                       <div className="dss-grp-h"><i className="spl-dot" aria-hidden="true" /><span className="dss-grp-n">{g.name}</span><span className="num">{g.products.length}</span></div>
-                      {g.products.length ? <div className="dss-grid">{g.products.map((id) => item('product:' + id, g.id + ':' + id, g.id))}</div>
+                      {g.products.length ? <div className="dss-grid">{g.products.map((id) => item('product:' + id, g))}</div>
                         : <span className="dss-grp-none">{drag ? '여기에 놓기' : '배치한 제품이 없어요'}</span>}
                     </div>
                   ))}
                   {(plan.rest.length > 0 || (drag && drag.from !== null)) && (
                     <div className={'dss-grp rest' + (isOver(null) ? ' over' : '')} data-space="" {...zone(null)}>
                       <div className="dss-grp-h"><i className="spl-dot" aria-hidden="true" /><span className="dss-grp-n">미배치</span><span className="num">{plan.rest.length}</span></div>
-                      {plan.rest.length ? <div className="dss-grid">{plan.rest.map((id) => item('product:' + id, '-:' + id, null))}</div>
+                      {plan.rest.length ? <div className="dss-grid">{plan.rest.map((id) => item('product:' + id, null))}</div>
                         : <span className="dss-grp-none">여기에 놓기</span>}
                     </div>
                   )}

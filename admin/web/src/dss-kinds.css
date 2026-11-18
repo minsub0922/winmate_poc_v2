@@ -1,0 +1,16 @@
+/* 데이터 소스 카드 · DSS 종류 (dss-kinds.jsx) */
+.dk-strip{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.dk-chip{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 8px;border:0;border-radius:999px;background:#f1f4f7;color:#3d5262;font:inherit;font-size:11.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.dk-chip b{font-variant-numeric:tabular-nums}.dk-chip:hover{filter:brightness(.96)}
+.dk-chip.solution{background:#eef3ff;color:#2d3f8a}.dk-chip.service{background:#eaf7f1;color:#16614a}.dk-chip.subscription{background:#fbf3e6;color:#7a4f06}.dk-chip.review{background:#fff1d6;color:#8a5a00}
+.dk-tabs{display:flex;gap:6px;margin-bottom:10px}.dk-tabs button{height:30px;padding:0 12px;border:0;border-radius:8px;background:#f1f4f7;color:#3d5262;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer}
+.dk-tabs button.on{background:#1f3a66;color:#fff}
+.dk-search{width:100%;height:34px;border:1px solid #dde4e9;border-radius:8px;padding:0 11px;font:inherit;font-size:13px;margin-bottom:10px;box-sizing:border-box}
+.dk-list{display:grid;gap:4px;max-height:min(60vh,620px);overflow:auto}
+.dk-row{display:grid;grid-template-columns:minmax(0,1.4fr) auto minmax(0,1fr);gap:10px;align-items:center;padding:7px 10px;border-radius:8px;background:#f8fafb;font-size:12.5px;min-width:0}
+.dk-row.review{background:#fff7e8}
+.dk-name{display:flex;flex-direction:column;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600;color:#25384a}
+.dk-name small{font-weight:400;color:#7a8a96;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dk-tags{display:flex;gap:4px;white-space:nowrap}.dk-tag{font-size:11px;font-weight:600;border-radius:4px;padding:1px 6px;background:#eef1f4;color:#556675}
+.dk-tag.review{background:#ffe9c2;color:#8a5a00}.dk-tag.moved{background:#e7eaff;color:#3442b5}.dk-tag.same{background:#e3f5ee;color:#0f6b4f}
+.dk-why{color:#5c6d7a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}

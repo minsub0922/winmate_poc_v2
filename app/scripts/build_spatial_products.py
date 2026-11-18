@@ -320,6 +320,9 @@ def main():
             a['catalogVisible']=False;a['deprecated']=source['deprecated']
         elif source.get('supersededBy'):
             a['catalogVisible']=False;a['supersededBy']=source['supersededBy']
+        elif source.get('dssKind') not in (None,'device'):
+            # 솔루션 · 서비스 · 구독으로 판정된 행(proddb/build/dss/classify.py — 수집한 뒤 LLM) — 공간에 놓는 제품이 아니다
+            a['catalogVisible']=False;a['dssKind']=source['dssKind']
     result = dict(version=1, catalogSha256=hashlib.sha256((DATA/'products_db.json').read_bytes()).hexdigest(), assets=assets)
     target = DATA / 'spatial/product-objects.json'
     target.write_text(json.dumps(result, ensure_ascii=False, separators=(',',':'))+'\n')

@@ -544,6 +544,13 @@ def build_context(pr: dict, body: dict) -> dict:
     raw_ctx = pr.get('ctx') if isinstance(pr.get('ctx'), dict) else pr
     products = list(dict.fromkeys(str(x) for x in (raw_ctx.get('products') or []) if str(x) in PA))[:40]
     solutions = list(dict.fromkeys(str(x) for x in (raw_ctx.get('solutions') or []) if str(x) in S))[:20]
+    # 제품 DB 행의 DSS 종류(dssKind — 수집한 뒤 LLM 이 판정, proddb/build/dss/classify.py): 제품으로 골랐던 행이 솔루션 · 서비스 · 구독이면
+    # 제품 장에 놓지 않고 솔루션으로 받는다(앱 솔루션의 판매 단위인 행은 그 솔루션 — dssSame)
+    moved = [x for x in products if (PA[x].get('dssKind') or 'device') != 'device']
+    if moved:
+        products = [x for x in products if x not in moved]
+        as_sol = [PA[x]['dssSame'] if PA[x].get('dssSame') in S else x for x in moved]
+        solutions = list(dict.fromkeys(solutions + [x for x in as_sol if x in S]))[:20]
     cases = list(dict.fromkeys(str(x) for x in (raw_ctx.get('cases') or []) if str(x) in C))[:12]
     tpl = body.get('template') if isinstance(body.get('template'), dict) else {}
     sp = clean_space_plan(body.get('space_plan'))

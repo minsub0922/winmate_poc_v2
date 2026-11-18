@@ -32,7 +32,15 @@ class Service:
         self.thread = None
 
     def start(self):
+        from .source_workspace import publication_lock, recover
+        review_home = self.store.home / 'source-reviews'
+        with publication_lock(review_home):
+            recover(self.origins.root,review_home,self.store)
         with self.store.db() as db:
+            db.execute("""UPDATE jobs SET status='succeeded',finished_at=(SELECT at FROM source_review_batches WHERE id=jobs.id),
+                progress=100,error=NULL,result=json_object('applied',(SELECT count(*) FROM source_changes WHERE job=jobs.id AND state='applied'),
+                'ignored',(SELECT count(*) FROM source_changes WHERE job=jobs.id AND state='ignored'))
+                WHERE kind='dss-review' AND status IN ('queued','running','interrupted') AND id IN (SELECT id FROM source_review_batches)""")
             db.execute("UPDATE jobs SET status='interrupted',finished_at=?,error='서버가 재시작되었습니다. 다시 실행해 주세요.' WHERE status IN ('queued','running')", (now(),))
             db.execute("UPDATE dss_runs SET status='interrupted',finished_at=? WHERE status='running'", (now(),))
         if not self.store.setting('indexed_at'):
@@ -93,6 +101,8 @@ class Service:
             raise EngineError('소스를 찾지 못했습니다.')
         if source_id and not self.store.source(source_id)['enabled']:
             raise EngineError('사용 중지한 소스입니다. 소스 설정에서 다시 켜 주세요.')
+        if kind == 'refresh' and (not source_id or source_id in CHANNEL):
+            raise EngineError('공식 원본 변경은 데이터 소스 카드의 변경 내역에서 항목별로 선택해 주세요.')
         with self.lock:
             if kind == 'analyze':
                 existing = self.store.one("SELECT id FROM jobs WHERE kind='analyze' AND json_extract(result,'$.input.asset_id')=? AND status IN ('queued','running')", ((extra or {}).get('asset_id'),))
@@ -101,14 +111,20 @@ class Service:
             if dss:
                 # 점검 · 업데이트 · 삭제는 서로 겹치지 않게 한다. 같은 요청이 이미 진행 중이면 그 작업을 돌려준다.
                 # 진행 중인 제품 · e-카탈로그 최신성 점검도 센다 — 대조 도중에 DB 를 고치지 않게
-                active = self.store.rows("SELECT id,kind,result FROM jobs WHERE (kind LIKE 'dss-%' OR (kind='check' AND source_id IN ('" + "','".join(sorted(PARALLEL)) + "'))) AND status IN ('queued','running')")
-                same = [j for j in active if j['kind'] == kind and json.loads(j['result']).get('input', {}) == (extra or {})]
+                active = self.store.rows("""SELECT id,kind,result,source_id FROM jobs WHERE (kind LIKE 'dss-%' OR
+                    (kind='check' AND (source_id IS NULL OR source_id IN ('samsung','catalogs','media')))) AND status IN ('queued','running')""")
+                same = [j for j in active if j['kind'] == kind and j['source_id'] == source_id and json.loads(j['result']).get('input', {}) == (extra or {})]
                 if same:
                     return self.store.job(same[0]['id'])
                 if active:
                     raise EngineError('진행 중인 소스 점검 · 업데이트 작업이 끝난 뒤 실행해 주세요.')
             parallel = kind == 'check' and source_id in PARALLEL
-            if parallel and self.store.one("SELECT id FROM jobs WHERE kind IN ('dss-update','dss-delete','dss-review') AND status IN ('queued','running')"):
+            if parallel:
+                scheduled = self.store.one("""SELECT id FROM jobs WHERE status IN ('queued','running') AND ((kind='check' AND source_id IS NULL) OR
+                    (kind='dss-check' AND EXISTS (SELECT 1 FROM json_each(json_extract(result,'$.input.channels')) WHERE value=?)))""",(CHANNEL[source_id],))
+                if scheduled:
+                    return self.store.job(scheduled['id'])
+            if (parallel or (kind == 'check' and not source_id)) and self.store.one("SELECT id FROM jobs WHERE kind IN ('dss-update','dss-delete','dss-review') AND status IN ('queued','running')"):
                 raise EngineError('소스 업데이트 · 삭제 작업이 끝난 뒤 점검해 주세요. 진행 중에는 DB 가 바뀌고 있어 대조 결과가 정확하지 않습니다.')
             running = self.store.one("SELECT id FROM jobs WHERE kind=? AND COALESCE(source_id,'')=? AND status IN ('queued','running')", (kind, source_id or ''))
             if running and kind not in ('analyze', 'rollback') and not dss:

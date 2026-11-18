@@ -1,11 +1,13 @@
 """Fetch every solution / taxonomy / evidence URL used before (status, final URL, title, og image, text hash)."""
 import json, os, re, sys, hashlib, html, urllib.request, urllib.parse, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from pagetext import hashes
+from pagetext import hashes, main_of, text_of
 from concurrent.futures import ThreadPoolExecutor
 repo, out = sys.argv[1], sys.argv[2]
 J = lambda p: json.load(open(repo + '/' + p, encoding='utf-8'))
 urls = {}
+for u, page in (J('app/data/catalog.json').get('sourcePages') or {}).items():
+    urls.setdefault(u, set()).update(page.get('refs') or ['menu'])
 for x in J('build/media/data/sol_urls.json'): urls.setdefault(x['url'], set()).add('sol_urls:' + x['key'])
 vss = J('app/data/vertical_space_solution.json')
 for sc in vss['solution_catalog']:
@@ -34,7 +36,7 @@ def one(u):
     t = re.search(r'<title[^>]*>(.*?)</title>', h, re.S); og = re.search(r'<meta[^>]+property="og:image"[^>]+content="([^"]+)"', h)
     body = re.sub(r'<script.*?</script>|<style.*?</style>', ' ', h, flags=re.S); text = re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', body))).strip()
     return u, {'refs': sorted(urls[u]), 'status': st, 'final': fin, 'title': html.unescape(t.group(1)).strip() if t else '', 'og': og.group(1) if og else '',
-               'textSha256': hashlib.sha256(text.encode()).hexdigest() if st == 200 else '', 'mainSha256': hashes(h)[1] if st == 200 else '', 'textLen': len(text), 'fetchedAt': time.strftime('%Y-%m-%dT%H:%M:%S%z')}
+               'textSha256': hashlib.sha256(text.encode()).hexdigest() if st == 200 else '', 'mainSha256': hashes(h)[1] if st == 200 else '', 'mainText': text_of(main_of(h)) if st == 200 else '', 'textLen': len(text), 'fetchedAt': time.strftime('%Y-%m-%dT%H:%M:%S%z')}
 with ThreadPoolExecutor(4) as ex: res = dict(ex.map(one, sorted(urls)))
 json.dump(res, open(out, 'w'), ensure_ascii=False, indent=1)
 import collections; print('urls', len(res), collections.Counter(v['status'] for v in res.values()))

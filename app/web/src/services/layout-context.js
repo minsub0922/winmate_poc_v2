@@ -9,6 +9,7 @@ import { LAYOUT_CONTEXT_VERSION, layoutContextKey, layoutContentKey, contextPend
 import { briefDirection } from './layout-brief.js';
 import { imagePool, loadImageLibrary } from './image-library.js';
 import { imageProducts, loadImageWeights, showsUnlinkedProduct, slotCandidates, slotImageIssue, slotTarget, venuesIn, STATIC_KINDS, KIND_NAME } from './images.js';
+import { loadPictureItems, slotSpaceItems, spacePhotoIssue } from './picture-items.js';
 import { knownImage } from './image-identity.js';
 import { pictureId, samePicture } from './picture-identity.js';
 import { detectLayoutRepeats } from './layout-repeat.js';
@@ -86,6 +87,9 @@ export function inspectLayoutContext(p, x, images = []) {
     const current = { ...slot, ...(x.ov?.img?.[slot.i] || {}) };
     if (current.hidden) continue;
     if (showsUnlinkedProduct(current, p.ctx?.products || [], images)) issues.push('현재 선택한 제품과 다른 이미지: ' + (current.name || slot.i));
+    // 공간 사진 칸 — 그 공간의 제품이 든 사진이거나 제품이 없는 사진(services/picture-items.js)
+    const spaceIssue = slot.kind === 'space' && current.src ? spacePhotoIssue(current.src, slotSpaceItems(p, x, slot.i)) : '';
+    if (spaceIssue) issues.push(spaceIssue);
   }
   if (x.f === 'L_TOC_SPEC') {
     const cells = new Map([...host.querySelectorAll('[data-tb]')].map(el => [Number(el.dataset.tb), el.textContent.trim()]));
@@ -565,6 +569,7 @@ JSON: {"blocks":[{"i":0,"action":"keep 또는 replace","s":"실제 문구","src"
   if (open.length) {
     const contexts = readSlotContexts(x.f, ov);
     const template = new Map(slotsOfTemplate(x.f).map(slot => [slot.i, slot]));
+    await loadPictureItems(); // 사진마다 든 정확한 제품 — 공간 사진 칸 점검(services/picture-items.js)
     const ctx = { products: p.ctx.products || [], solutions: p.ctx.solutions || [], cases: (p.ctx.cases || []).map(String), ind: p.ind || '',
       venues: venuesIn([p.title, p.customer, reqText(p).slice(0, 1500)].join(' ')), used: deckImageUse(p, x), imageWeights: await loadImageWeights() };
     // pictures by identity (picture-identity.js): one photo once per proposal — a product's cut and a named solution's own screen excepted
@@ -585,16 +590,18 @@ JSON: {"blocks":[{"i":0,"action":"keep 또는 replace","s":"실제 문구","src"
       const current = src && !BLANK_IMAGE.test(src) ? { ...(known || {}), src, pid: known?.pid || raw.pid, desc: known?.desc || raw.name || slot.name, products: known?.products?.length ? known.products : raw.products || [], ...(known?.group ? {} : { fit: raw.fit }) } : null;
       const subject = { i: slot.i, kind: slot.kind, fix: slot.fix, near: context.near.join(' · '), title: contexts.title, wide: contexts.text, group: first?.group || (/^cut\./.test(template.get(slot.i)?.pid || '') ? 'cut' : ''), current,
         either: /솔루션/.test(slot.hint || ''), mixed: strict };
-      const target = slotTarget(subject, ctx);
+      // (a space frame is judged with the products of the space it shows — the server left the space on the sheet)
+      const sctx = slot.kind === 'space' ? { ...ctx, spaceItems: slotSpaceItems(p, x, slot.i) } : ctx;
+      const target = slotTarget(subject, sctx);
       // a picture another sheet of this proposal already shows cannot stay, and is not offered (a product cut · the named solution's screen may repeat) —
       // in 가치 제안 nothing another sheet of the part shows, nor a second cut of a product the part already shows as a cut
       const elsewhere = im => (!deckRepeatOk(target, im) && ctx.used.has(pictureId(im.src))) || (strict && partPics.has(pictureId(im.src)));
       const issue = current ? (elsewhere(current) ? (strict && partPics.has(pictureId(current.src)) ? '이 파트의 다른 장에 이미 쓴 사진' : '이 제안서의 다른 장에 이미 쓴 사진')
-        : cutOfShown(current) ? '이 파트에 이미 보여 준 제품 컷' : slotImageIssue(current, subject, ctx, target)) : '사진 없음';
+        : cutOfShown(current) ? '이 파트에 이미 보여 준 제품 컷' : slotImageIssue(current, subject, sctx, target)) : '사진 없음';
       // (가치 제안: the part's own pictures drop out after ranking, so rank more before cutting the list to eight)
-      const list = slotCandidates(images, subject, ctx, strict ? 40 : 8).filter(c => !samePicture(c.im.src, src) && !elsewhere(c.im) && !cutOfShown(c.im)).slice(0, 8);
+      const list = slotCandidates(images, subject, sctx, strict ? 40 : 8).filter(c => !samePicture(c.im.src, src) && !elsewhere(c.im) && !cutOfShown(c.im)).slice(0, 8);
       // tied: the picture already there shows a product · solution · case the caption names.
-      const tied = !!current && !issue && (slotCandidates([current], subject, ctx, 1)[0]?.entity || 0) >= 8;
+      const tied = !!current && !issue && (slotCandidates([current], subject, sctx, 1)[0]?.entity || 0) >= 8;
       return { slot, subject, target, current, issue, list, tied, via: context.via };
     });
     const must = r => [...namesOf(r.target.products, P, 'name'), ...namesOf(r.target.solutions, S, 'name'), ...namesOf(r.target.cases, C, 'cust')];
