@@ -43,10 +43,12 @@ app/.venv/bin/python -m pip install --no-index --find-links "$WM_BUNDLE/wheels" 
   -r app/tests/requirements.txt -r admin/requirements.txt
 app/.venv/bin/python -m pip check
 npm --prefix app/web ci --offline --include=dev --include=optional --ignore-scripts --no-audit --no-fund
-(cd app/web && node -e "require('esbuild').transformSync('let x=1'); require('rollup'); require('sharp')")
+(cd app/web && node -e "require('immer'); require('esbuild').transformSync('let x=1'); require('rollup'); require('sharp')")
 ```
 
-`ENOTCACHED`나 wheel 누락 오류가 나면 오류에 표시된 패키지와 버전을 사내 묶음에 보완한다.
+`immer@10.1.1`은 제안서·검토·시뮬레이션 기록을 편집할 때 변경한 부분만 복사하는 웹 필수 패키지다. 웹 의존성은 저장소 루트에서 `npm --prefix app/web ci`로 설치한다. `./start.sh`는 기존 `app/web/node_modules`에 누락된 패키지가 있으면 웹 lock 파일로 다시 설치한다.
+
+`ENOTCACHED`가 나오면 현재 커밋의 `app/web/package-lock.json`에 맞춰 사내 미러에서 배포용 npm 캐시를 채운다. 같은 캐시 경로·registry 설정으로 위 `npm ci --offline`을 다시 실행한다. Python wheel 누락은 오류에 나온 패키지와 버전을 wheelhouse에 보완한다.
 
 ## 2. Gauss·CLEF 어댑터와 루트 .env 설정
 

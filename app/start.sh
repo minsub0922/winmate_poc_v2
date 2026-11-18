@@ -22,7 +22,16 @@ if command -v uv >/dev/null 2>&1; then
 else
   app/.venv/bin/python -m pip install -r app/api/requirements.txt
 fi
-if [[ ! -d app/web/node_modules ]]; then npm --prefix app/web ci --no-audit --no-fund; fi
+if ! npm --prefix app/web ls --depth=0 --include=dev --include=optional >/dev/null 2>&1; then
+  npm_ci_args=(--include=dev --include=optional --no-audit --no-fund)
+  if app/.venv/bin/python -B -c 'from app.api.runtime_env import inhouse_mode; raise SystemExit(not inhouse_mode())'; then
+    npm_ci_args+=(--offline --ignore-scripts)
+  fi
+  if ! npm --prefix app/web ci "${npm_ci_args[@]}"; then
+    echo '웹 의존성을 설치하지 못했습니다. 사내망에서는 app/web/package-lock.json에 맞는 npm 캐시를 확인하세요 (BOOTSTRAP_261118.md).' >&2
+    exit 1
+  fi
+fi
 app/.venv/bin/python -B app/scripts/prepare_data.py
 app/.venv/bin/python -B app/scripts/build_spatial_products.py
 node app/scripts/build_spatial_library.mjs
