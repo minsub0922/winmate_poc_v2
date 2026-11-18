@@ -10,6 +10,7 @@ BOOTSTRAP_261118.md에 따라 사용자 앱과 관리자 콘솔을 재현하라.
 Gauss·CLEF 어댑터 또는 연동 자료 위치 = <사내 절대경로>
 
 사내 자료에 있는 실제 모델 ID·주소·인증 방식으로 두 어댑터를 연결하라.
+저장소 루트 .env.example을 기준으로 루트 .env 한 곳에 포트·모델 주소와 ID·인증값을 설정하라.
 공개 API 호출 없이 모델 두 개의 실제 응답과 앱 내 선택을 각각 확인하라.
 자료가 빠진 항목은 이름만 보고하고, 가능한 설치와 검증은 계속하라.
 완료 보고에는 실행 주소, 모델 ID, 점검 결과와 미검증 사유를 적어라.
@@ -47,14 +48,36 @@ npm --prefix app/web ci --offline --include=dev --include=optional --ignore-scri
 
 `ENOTCACHED`나 wheel 누락 오류가 나면 오류에 표시된 패키지와 버전을 사내 묶음에 보완한다.
 
-## 2. Gauss·CLEF 어댑터 배치
+## 2. Gauss·CLEF 어댑터와 루트 .env 설정
 
 - 사내 배포본의 `gauss.py`, `clef.py`를 `app/api/llm/inhouse/`에 배치한다. 상대 import 모듈이나 CLEF 대상 목록이 있으면 배포본에 지정된 경로에 함께 배치한다. 모델 서버나 승인된 터널에 접근할 수 있어야 한다.
 - 연동 자료로 구현하는 경우 `GaussLLM(InhouseLLM)`에 `build/parse`와 실제 지원하는 기능을 구현하고 `CAPABILITIES`에 선언한다. `ClefDecision(InhouseDecision)`에는 활성 `DecisionTarget`을 반환하는 `targets()`와 `choice`, `score`, `noul`을 처리하는 `answer()`를 구현한다. 두 어댑터 모두 필수 키 이름을 `REQUIRED_ENV`에 선언하고 `self.ctx.get(...)`으로 값을 읽는다. [연동 계약](app/api/llm/inhouse_contract.py) · [클래스 작성 예](app/api/llm/inhouse/README.md)
 
+`.env.example`과 같은 디렉터리에 `.env`를 만든다. 기존 파일이 있으면 그 값을 보존하면서 양식의 사내 기본값과 모델 주소·ID·포트를 반영한다. 앞서 별도 파일에 등록한 값도 루트 `.env`로 옮긴다.
+
+```bash
+if [ ! -e .env ]; then
+  (umask 077 && set -C && cat .env.example > .env)
+fi
+chmod 600 .env
+vi .env
+```
+
+| 루트 `.env` 항목 | 설정값 |
+|---|---|
+| 사내 모드 | `WINMATE_INHOUSE=on`. 사용자 웹의 외부 요청을 제한하고 관리자 공개 원천 예약 수집을 끈다. 변경 후 `./start.sh`로 다시 빌드한다. |
+| 모델 선택 | `WINMATE_LLM_PROVIDER=internal`, `WINMATE_LLM_FALLBACK=none`, `WINMATE_DECISION=auto`, `WINMATE_DECISION_ORDER=inhouse`. 공개 시장조사와 자동 Provider 점검은 양식의 `off`를 유지한다. |
+| Gauss | `INTERNAL_LLM_BASE_URL`, `INTERNAL_LLM_MODEL`에 실제 주소와 ID. 빠른·비전 모델이 다르면 `INTERNAL_LLM_QUICK_MODEL`·`INTERNAL_LLM_VISION_MODEL`도 지정한다. |
+| CLEF | 사내 어댑터가 `self.ctx.get(...)`으로 읽는 주소·모델 ID. 양식에는 `CLEF_BASE_URL`과 `CLEF_MODEL`이 있다. |
+| 인증 | 어댑터에서 요구하는 `INTERNAL_LLM_API_KEY`·`INTERNAL_LLM_CLIENT_KEY`, `CLEF_API_KEY`, 검색 인증값을 채운다. 신규 계정 저장소에는 `WINMATE_ADMIN_PASSWORD`를 설정한다. |
+| 포트와 바인딩 | 서버마다 다르면 `WINMATE_API_PORT`·`WINMATE_BIND_HOST` 등을 바꾼다. |
+
+모델 설정의 우선순위는 관리자 Provider 저장값 → 프로세스 환경 → 루트 `.env`다. 포트는 프로세스 환경 → 루트 `.env` → `.env.example` 기본값 순서다. 여러 서버에는 실제 주소·모델 ID·포트까지 채운 **비밀값 없는 양식**과 어댑터를 사내에서 공유한다. 각 서버의 루트 `.env`에 호스트별 인증값을 채운다.
+
 ## 3. 모델 선택과 실제 응답 확인
 
 ```bash
+test -f .env
 app/.venv/bin/python -B - <<'PY'
 from app.api.runtime_env import inhouse_mode
 from app.api.poc.settings import load_settings
@@ -75,7 +98,7 @@ app/.venv/bin/python -B -m app.api.llm.inhouse_bridge check --live
 
 ## 4. 앱 기동과 인수 확인
 
-아래 명령은 제품 데이터와 공간 라이브러리, Agent KB, 중복 이미지 판별 데이터, 사용자·관리자 웹과 로그인을 준비하고 서버를 포그라운드에서 실행한다.
+아래 명령은 제품 데이터와 공간 라이브러리, Agent KB, 중복 이미지 판별 데이터, 사용자·관리자 웹과 로그인을 준비하고 서버를 포그라운드에서 실행한다. 기존 계정·제안서를 옮기는 배포는 첫 기동 전에 복원한다. [데이터 이전 안내](DATA_MIGRATION_261118.md)
 
 ```bash
 ./start.sh

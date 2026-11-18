@@ -2,7 +2,7 @@
 set -euo pipefail
 winmate_root="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$winmate_root"
-# 포트 · 바인딩: 셸 변수 > .env > .env.inhouse > .env.example
+# 포트 · 바인딩: 셸 변수 > .env > .env.example
 . app/scripts/ports.sh
 winmate_env WINMATE_API_PORT WINMATE_BIND_HOST
 export PYTHONDONTWRITEBYTECODE=1

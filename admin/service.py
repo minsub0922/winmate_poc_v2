@@ -8,6 +8,8 @@ import threading
 import uuid
 from contextvars import copy_context
 
+from app.api.runtime_env import inhouse_mode
+
 from .config import ROOT
 from .engine import Cancelled, EngineError, analyze, extract, fetch
 from .inventory import diagnostics, index_repository, read, sync_composer_images, sync_spatial_assets
@@ -52,8 +54,8 @@ class Service:
             self.origins.sync()  # 일일 점검 등 이미 있는 대조 결과를 소스 상태에 맞춘다
         except Exception as exc:
             self.store.event('source.sync.error', detail={'error': self.safe_error(exc)}, actor='system')
-        # A clone-only intranet uses the versioned DSS snapshot. Neither scheduler may contact public sources.
-        if not (ROOT / '.env.inhouse').is_file():
+        # Intranet deployments use the versioned DSS snapshot.
+        if not inhouse_mode():
             self.thread = threading.Thread(target=self.schedule_loop, daemon=True)
             self.thread.start()
 

@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { localProxyOrigin } from './dev-proxy.js';
-import { envPort } from './ports.js';
+import { envPort, inhouseMode } from './ports.js';
 import { build as esbuild } from 'esbuild';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -30,7 +30,7 @@ export default defineConfig({
   plugins: [react(), buildingModule(), {
     name: 'winmate-inhouse',
     transformIndexHtml() {
-      if (fs.existsSync(path.join(here, '../../.env.inhouse'))) {
+      if (inhouseMode()) {
         // Keep pasted URLs, remote thumbnails and imported link previews on this side of the network.
         return [{ tag: 'meta', attrs: { 'http-equiv': 'Content-Security-Policy',
           content: "connect-src 'self' data: blob:; img-src 'self' data: blob:; media-src 'self' data: blob:; font-src 'self' data: blob:" }, injectTo: 'head-prepend' }];

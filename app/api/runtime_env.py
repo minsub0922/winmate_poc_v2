@@ -1,6 +1,6 @@
 """Server infrastructure settings from the single repository-root ``.env``.
 
-An installed intranet profile adds two layers below the root .env. Nothing is exported to child processes.
+Process environment values override the file. Nothing is exported to child processes.
 ``WINMATE_ENV_FILES`` replaces the file list, and ``none`` disables file reading.
 """
 from __future__ import annotations
@@ -12,6 +12,7 @@ from typing import Dict, Iterable, Mapping, Optional
 
 ROOT = Path(__file__).resolve().parents[2]
 RUNTIME = ROOT / 'app' / 'data' / 'runtime'
+DEFAULT_ENV_FILES = ('.env',)
 _LINE = re.compile(r'^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*?)\s*$')
 _SIZE = re.compile(r'^\s*(\d+(?:\.\d+)?)\s*(b|k|kb|m|mb|g|gb)?\s*$', re.I)
 _UNITS = {None: 1, 'b': 1, 'k': 1000, 'kb': 1024, 'm': 1000 ** 2, 'mb': 1024 ** 2, 'g': 1000 ** 3, 'gb': 1024 ** 3}
@@ -38,23 +39,13 @@ def _parse(path: Path) -> Dict[str, str]:
     return out
 
 
-def default_env_files() -> tuple[str, ...]:
-    """Highest priority first. Existing installations opt into the shared defaults by installing .env.inhouse."""
-    if (ROOT / '.env.inhouse').is_file():
-        return ('.env', '.env.inhouse', '.env.example')
-    return ('.env',)
-
-
 def env_values(environ: Optional[Mapping[str, str]] = None, files: Optional[Iterable[str]] = None) -> Dict[str, str]:
     """Environment wins. An explicit iterable of files is merged in the order supplied."""
     environ = os.environ if environ is None else environ
-    inherit_empty = False
     if files is None:
         raw = environ.get('WINMATE_ENV_FILES')
         if raw is None:
-            defaults = default_env_files()
-            files = reversed(defaults)
-            inherit_empty = '.env.inhouse' in defaults
+            files = DEFAULT_ENV_FILES
         elif raw.strip().lower() in ('', 'none', 'off'):
             files = ()
         else:
@@ -62,24 +53,20 @@ def env_values(environ: Optional[Mapping[str, str]] = None, files: Optional[Iter
     merged: Dict[str, str] = {}
     for name in files:
         path = Path(name)
-        layer = _parse(path if path.is_absolute() else ROOT / path)
-        if inherit_empty:
-            # Blank slots in a copied template must not hide a registered model address or ID.
-            layer = {k: v for k, v in layer.items() if v}
-        merged.update(layer)
+        merged.update(_parse(path if path.is_absolute() else ROOT / path))
     merged.update({k: v for k, v in environ.items() if isinstance(v, str)})
     return merged
 
 
 def port_value(key: str, environ: Optional[Mapping[str, str]] = None) -> str:
-    """Port / bind value: process environment > .env > .env.inhouse > .env.example.
+    """Port / bind value: process environment > .env > .env.example.
 
     The versioned ``.env.example`` is the only place that holds the defaults (section 「포트 · 바인딩」); the shell and
     Node counterparts are ``app/scripts/ports.sh`` and ``app/web/ports.js``.
     """
     environ = os.environ if environ is None else environ
     value = environ.get(key)
-    for name in ('.env', '.env.inhouse', '.env.example'):
+    for name in ('.env', '.env.example'):
         if value:
             break
         value = _parse(ROOT / name).get(key)
@@ -113,3 +100,7 @@ def flag(value: Optional[str], default: bool) -> bool:
     if text in ('0', 'off', 'false', 'no'):
         return False
     return default
+
+
+def inhouse_mode(environ: Optional[Mapping[str, str]] = None) -> bool:
+    return flag(env_values(environ).get('WINMATE_INHOUSE'), False)

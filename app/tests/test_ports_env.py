@@ -1,6 +1,7 @@
 """Ports and bind addresses: the root .env.example is the only place that holds the defaults."""
 import os
 import re
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -24,10 +25,10 @@ def _example():
     return runtime_env._parse(ROOT / '.env.example')
 
 
-def _shell(key, env=None):
+def _shell(key, env=None, root=ROOT):
     clean = {k: v for k, v in os.environ.items() if k not in KEYS}
     return subprocess.run(['/bin/bash', '-euo', 'pipefail', '-c', f'. app/scripts/ports.sh; winmate_env {key}; printf %s "${key}"'],
-                          cwd=ROOT, env={**clean, **(env or {})}, capture_output=True, text=True)
+                          cwd=root, env={**clean, **(env or {})}, capture_output=True, text=True)
 
 
 def test_env_example_holds_every_port_and_bind_default():
@@ -51,7 +52,7 @@ def test_no_port_default_is_hardcoded_outside_env_example():
 
 
 def test_loaders_agree_and_follow_environment_then_env_example():
-    if any(runtime_env._parse(ROOT / f).get(k) for f in ('.env', '.env.inhouse') for k in KEYS):
+    if any(runtime_env._parse(ROOT / '.env').get(k) for k in KEYS):
         pytest.skip('local settings override a port')
     example = _example()
     clean = {k: v for k, v in os.environ.items() if k not in KEYS}
@@ -66,16 +67,23 @@ def test_loaders_agree_and_follow_environment_then_env_example():
         runtime_env.port_value('WINMATE_API_PORT', {'WINMATE_API_PORT': 'abc'})
 
 
-def test_registered_profile_with_private_keys_only(tmp_path, monkeypatch):
+def test_registered_inhouse_settings_use_only_root_env(tmp_path, monkeypatch):
     from app.api.llm import inhouse_bridge, inhouse_contract
     from app.api.poc import settings
 
     monkeypatch.setattr(runtime_env, 'ROOT', tmp_path)
     monkeypatch.setattr(settings, 'ROOT', tmp_path)
     (tmp_path / '.env.example').write_text((ROOT / '.env.example').read_text())
-    (tmp_path / '.env.inhouse').write_text('INTERNAL_LLM_BASE_URL=http://gauss.internal\n'
-                                          'INTERNAL_LLM_MODEL=site-model\nCLEF_MODEL=site-clef\nWINMATE_API_PORT=9142\n')
-    (tmp_path / '.env').write_text('INTERNAL_LLM_API_KEY=fixture-key\n')
+    (tmp_path / '.env.inhouse').write_text('WINMATE_INHOUSE=on\nINTERNAL_LLM_MODEL=old-model\nWINMATE_API_PORT=9141\n')
+    assert not runtime_env.inhouse_mode({})
+    assert 'INTERNAL_LLM_MODEL' not in runtime_env.env_values({})
+    assert runtime_env.port_value('WINMATE_API_PORT', {}) == _example()['WINMATE_API_PORT']
+
+    (tmp_path / '.env').write_text(
+        'WINMATE_INHOUSE=on\nWINMATE_LLM_PROVIDER=internal\nWINMATE_LLM_FALLBACK=none\n'
+        'WINMATE_DECISION_ORDER=inhouse\nWINMATE_RESEARCH=off\nWINMATE_API_PORT=9142\n'
+        'INTERNAL_LLM_BASE_URL=http://gauss.internal\nINTERNAL_LLM_MODEL=site-model\n'
+        'INTERNAL_LLM_API_KEY=fixture-key\nCLEF_MODEL=site-clef\n')
     config = settings.load_settings({})
     assert (config.provider, config.model, config.api_key()) == ('internal', 'site-model', 'fixture-key')
     assert config.llm_fallbacks == () and config.decision_order == ('inhouse',)
@@ -83,3 +91,27 @@ def test_registered_profile_with_private_keys_only(tmp_path, monkeypatch):
     ctx = inhouse_bridge.context(inhouse_contract.InhouseLLM, {}, None)
     assert (ctx.get('INTERNAL_LLM_MODEL'), ctx.get('INTERNAL_LLM_API_KEY'), ctx.get('CLEF_MODEL')) == ('site-model', 'fixture-key', 'site-clef')
     assert runtime_env.env_values({})['WINMATE_RESEARCH'] == 'off'
+    assert runtime_env.inhouse_mode({})
+    assert not runtime_env.inhouse_mode({'WINMATE_INHOUSE': 'off'})
+
+
+@pytest.mark.skipif(not shutil.which('node'), reason='Node.js is needed to test the web settings')
+def test_web_and_shell_use_root_env(tmp_path):
+    for name in ('app/web/ports.js', 'app/scripts/ports.sh'):
+        target = tmp_path / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text((ROOT / name).read_text())
+    (tmp_path / 'app/web/package.json').write_text('{"type": "module"}')
+    (tmp_path / '.env.example').write_text('WINMATE_INHOUSE=on\nWINMATE_API_PORT=8788\n')
+    (tmp_path / '.env.inhouse').write_text('WINMATE_INHOUSE=on\nWINMATE_API_PORT=9141\n')
+    clean = {k: v for k, v in os.environ.items() if k not in {*KEYS, 'WINMATE_INHOUSE'}}
+    args = ['node', '--input-type=module', '-e',
+            "import {envPort, inhouseMode} from './app/web/ports.js'; console.log(envPort('WINMATE_API_PORT'), inhouseMode())"]
+    assert subprocess.check_output(args, cwd=tmp_path, env=clean, text=True).strip() == '8788 false'
+    assert _shell('WINMATE_API_PORT', root=tmp_path).stdout == '8788'
+
+    (tmp_path / '.env').write_text("export WINMATE_INHOUSE='on'\nWINMATE_API_PORT=9142\n")
+    assert subprocess.check_output(args, cwd=tmp_path, env=clean, text=True).strip() == '9142 true'
+    assert _shell('WINMATE_API_PORT', root=tmp_path).stdout == '9142'
+    clean['WINMATE_INHOUSE'] = 'off'
+    assert subprocess.check_output(args, cwd=tmp_path, env=clean, text=True).strip() == '9142 false'

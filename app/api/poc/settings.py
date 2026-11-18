@@ -1,9 +1,8 @@
 """Server-side settings for the PoC adapters.
 
 Values are read only when :func:`get_settings` is first called at server runtime (never at import).
-Precedence: process environment > .env. With .env.inhouse installed, that shared profile and
-.env.example supply the remaining values, in that order. Each file is parsed
-locally; nothing is copied into ``os.environ``. ``WINMATE_ENV_FILES`` overrides the file list for tests
+Precedence: process environment > root .env. The file is parsed locally;
+nothing is copied into ``os.environ``. ``WINMATE_ENV_FILES`` overrides the file list for tests
 (comma separated, relative to the repository root) and ``none`` disables file reading entirely.
 
 Strict real-only runtime: every function always runs against the shared model provider. There is no
@@ -298,7 +297,7 @@ def load_settings(environ: Optional[Mapping[str, str]] = None, env_files: Option
         if raw is not None:
             env_files = () if raw.strip().lower() in ('', 'none', 'off') else tuple(x.strip() for x in raw.split(',') if x.strip())
         else:
-            env_files = runtime_env.default_env_files()
+            env_files = runtime_env.DEFAULT_ENV_FILES
     else:
         env_files = explicit_files
     layers: list[tuple[str, Mapping[str, str]]] = ([('admin', admin)] if admin else []) + [('environ', environ)]
@@ -354,7 +353,7 @@ def load_settings(environ: Optional[Mapping[str, str]] = None, env_files: Option
         base = _DEFAULT_BASES.get(provider, '')
     if provider != 'gemini' and (not base or not model) and not (provider == 'internal' and internal_inhouse):
         warnings.append('선택한 모델의 API 주소와 모델 ID가 필요합니다. internal은 INTERNAL_LLM_BASE_URL · INTERNAL_LLM_MODEL을 설정하세요.')
-    if not explicit and env_files == runtime_env.default_env_files():
+    if not explicit and env_files == runtime_env.DEFAULT_ENV_FILES:
         legacy_files = [rel for rel in ('app/.env', 'poc/.env') if (ROOT / rel).is_file()]
         if legacy_files:
             warnings.append(' · '.join(legacy_files) + ' 는 더 이상 읽지 않습니다 — 값을 저장소 루트의 .env 로 옮기세요.')
