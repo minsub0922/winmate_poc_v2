@@ -1,7 +1,8 @@
 """Server-side settings for the PoC adapters.
 
 Values are read only when :func:`get_settings` is first called at server runtime (never at import).
-Precedence for every key: ``os.environ`` > ``.env`` (the single repository-root file). It is parsed
+Precedence: process environment > .env. With .env.inhouse installed, that shared profile and
+.env.example supply the remaining values, in that order. Each file is parsed
 locally; nothing is copied into ``os.environ``. ``WINMATE_ENV_FILES`` overrides the file list for tests
 (comma separated, relative to the repository root) and ``none`` disables file reading entirely.
 
@@ -63,6 +64,7 @@ from pathlib import Path
 from typing import Dict, Iterable, Mapping, Optional, Tuple
 from urllib.parse import urlsplit
 
+from .. import runtime_env
 from .imports import ROOT, RUNTIME_DIR
 
 FUNCTIONS = ('rfp', 'requirements', 'layout', 'search', 'rerank', 'review', 'storyboard', 'part', 'fill', 'simulation', 'llm')
@@ -78,7 +80,6 @@ _PREFIX = {'internal': 'INTERNAL_LLM_', 'openrouter': 'OPENROUTER_'}
 _DEFAULT_MODELS = {'gemini': DEFAULT_MODEL, 'openrouter': DEFAULT_OPENROUTER_MODEL}
 _DEFAULT_BASES = {'openrouter': DEFAULT_OPENROUTER_BASE_URL}
 REASONING = ('off', 'on', 'low', 'medium', 'high')
-DEFAULT_ENV_FILES = ('.env',)
 # Decision-shaped tasks that branch between the LLM and the decision model (same task input/output either way).
 # layout.cells · layout.verify · layout.pictures · layout.review: the decision-capable steps inside a layout's flow (app/api/poc/layout_decide.py)
 # layout.final: the last step of every flow — the ReAct final check's reading of the sheet (app/api/poc/layout_final.py)
@@ -282,12 +283,15 @@ def load_settings(environ: Optional[Mapping[str, str]] = None, env_files: Option
     admin = dict(_OVERRIDES) if environ is None else {}
     explicit = environ is not None
     environ = os.environ if environ is None else environ
-    if env_files is None:
+    explicit_files = tuple(env_files) if env_files is not None else None
+    if explicit_files is None:
         raw = environ.get('WINMATE_ENV_FILES')
         if raw is not None:
             env_files = () if raw.strip().lower() in ('', 'none', 'off') else tuple(x.strip() for x in raw.split(',') if x.strip())
         else:
-            env_files = DEFAULT_ENV_FILES
+            env_files = runtime_env.default_env_files()
+    else:
+        env_files = explicit_files
     layers: list[tuple[str, Mapping[str, str]]] = ([('admin', admin)] if admin else []) + [('environ', environ)]
     for rel in env_files:
         path = (ROOT / rel).resolve()
@@ -329,7 +333,7 @@ def load_settings(environ: Optional[Mapping[str, str]] = None, env_files: Option
     key, key_source, model, quick, base = chosen['key'], chosen['source'], chosen['model'], chosen['quick'], chosen['base']
     # In-house classes (git-ignored app/api/llm/inhouse/*): with its file present the internal profile is the GaussLLM class
     # and its readiness is the class's own (file · class · contract · REQUIRED_ENV), not this module's key/base checks.
-    inhouse_llm, inhouse_decision = _inhouse(environ if explicit else None, env_files)
+    inhouse_llm, inhouse_decision = _inhouse(environ if explicit else None, explicit_files)
     internal_inhouse = inhouse_llm.present
     if provider == 'internal' and internal_inhouse:
         if not inhouse_llm.ready:
@@ -341,7 +345,7 @@ def load_settings(environ: Optional[Mapping[str, str]] = None, env_files: Option
         base = _DEFAULT_BASES.get(provider, '')
     if provider != 'gemini' and (not base or not model) and not (provider == 'internal' and internal_inhouse):
         warnings.append('선택한 모델의 API 주소와 모델 ID가 필요합니다. internal은 INTERNAL_LLM_BASE_URL · INTERNAL_LLM_MODEL을 설정하세요.')
-    if not explicit and env_files == DEFAULT_ENV_FILES:
+    if not explicit and env_files == runtime_env.default_env_files():
         legacy_files = [rel for rel in ('app/.env', 'poc/.env') if (ROOT / rel).is_file()]
         if legacy_files:
             warnings.append(' · '.join(legacy_files) + ' 는 더 이상 읽지 않습니다 — 값을 저장소 루트의 .env 로 옮기세요.')
@@ -449,12 +453,11 @@ class _Absent:
     problems: list = []
 
 
-def _inhouse(environ: Optional[Mapping[str, str]], env_files: Iterable[str]):
+def _inhouse(environ: Optional[Mapping[str, str]], env_files: Optional[Tuple[str, ...]]):
     """(llm status, decision status) of the git-ignored in-house classes (app/api/llm/inhouse_bridge.py)."""
     try:
         from ..llm import inhouse_bridge
-        files = tuple(env_files)
-        return inhouse_bridge.llm_status(environ, files), inhouse_bridge.decision_status(environ, files)
+        return inhouse_bridge.llm_status(environ, env_files), inhouse_bridge.decision_status(environ, env_files)
     except Exception:  # noqa: BLE001 — a broken bridge must never stop the server
         return _Absent(), _Absent()
 

@@ -1,5 +1,5 @@
 // 포트 · 바인딩 값 읽기 — 기본값은 루트 .env.example 「포트 · 바인딩」 구역에만 있다(코드에 숫자를 두지 않는다).
-// 우선순위: 실행 환경(process.env) > 루트 .env > 루트 .env.example  (셸 쪽 짝: app/scripts/ports.sh)
+// 우선순위: 실행 환경 > .env > .env.inhouse > .env.example (셸 쪽 짝: app/scripts/ports.sh)
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -15,7 +15,7 @@ function fromFile(name, key) {
 }
 
 export function envValue(key) {
-  const value = process.env[key] || fromFile('.env', key) || fromFile('.env.example', key);
+  const value = process.env[key] || fromFile('.env', key) || fromFile('.env.inhouse', key) || fromFile('.env.example', key);
   if (!value) throw new Error(`${key} 값이 없습니다 — 루트 .env.example의 「포트 · 바인딩」 구역을 확인하세요.`);
   return value;
 }

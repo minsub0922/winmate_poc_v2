@@ -1,8 +1,7 @@
 """Server infrastructure settings from the single repository-root ``.env``.
 
-Precedence for every key is the same as the LLM settings (``app/api/poc/settings.py``): process environment > root
-``.env``. Nothing is copied into ``os.environ``. ``WINMATE_ENV_FILES`` overrides the file list (comma separated,
-relative to the repository root) and ``none`` disables file reading, exactly as in the LLM settings.
+An installed intranet profile adds two layers below the root .env. Nothing is exported to child processes.
+``WINMATE_ENV_FILES`` replaces the file list, and ``none`` disables file reading.
 """
 from __future__ import annotations
 
@@ -39,13 +38,23 @@ def _parse(path: Path) -> Dict[str, str]:
     return out
 
 
+def default_env_files() -> tuple[str, ...]:
+    """Highest priority first. Existing installations opt into the shared defaults by installing .env.inhouse."""
+    if (ROOT / '.env.inhouse').is_file():
+        return ('.env', '.env.inhouse', '.env.example')
+    return ('.env',)
+
+
 def env_values(environ: Optional[Mapping[str, str]] = None, files: Optional[Iterable[str]] = None) -> Dict[str, str]:
-    """Merged ``.env`` + environment values (environment wins)."""
+    """Environment wins. An explicit iterable of files is merged in the order supplied."""
     environ = os.environ if environ is None else environ
+    inherit_empty = False
     if files is None:
         raw = environ.get('WINMATE_ENV_FILES')
         if raw is None:
-            files = ('.env',)
+            defaults = default_env_files()
+            files = reversed(defaults)
+            inherit_empty = '.env.inhouse' in defaults
         elif raw.strip().lower() in ('', 'none', 'off'):
             files = ()
         else:
@@ -53,19 +62,27 @@ def env_values(environ: Optional[Mapping[str, str]] = None, files: Optional[Iter
     merged: Dict[str, str] = {}
     for name in files:
         path = Path(name)
-        merged.update(_parse(path if path.is_absolute() else ROOT / path))
+        layer = _parse(path if path.is_absolute() else ROOT / path)
+        if inherit_empty:
+            # Blank slots in a copied template must not hide a registered model address or ID.
+            layer = {k: v for k, v in layer.items() if v}
+        merged.update(layer)
     merged.update({k: v for k, v in environ.items() if isinstance(v, str)})
     return merged
 
 
 def port_value(key: str, environ: Optional[Mapping[str, str]] = None) -> str:
-    """Port / bind value: process environment > root ``.env`` > root ``.env.example``.
+    """Port / bind value: process environment > .env > .env.inhouse > .env.example.
 
     The versioned ``.env.example`` is the only place that holds the defaults (section 「포트 · 바인딩」); the shell and
     Node counterparts are ``app/scripts/ports.sh`` and ``app/web/ports.js``.
     """
     environ = os.environ if environ is None else environ
-    value = environ.get(key) or _parse(ROOT / '.env').get(key) or _parse(ROOT / '.env.example').get(key) or ''
+    value = environ.get(key)
+    for name in ('.env', '.env.inhouse', '.env.example'):
+        if value:
+            break
+        value = _parse(ROOT / name).get(key)
     if not value:
         raise RuntimeError(f'{key} 값이 없습니다 — 루트 .env.example의 「포트 · 바인딩」 구역을 확인하세요.')
     if key.endswith('_PORT') and not (value.isascii() and value.isdigit() and 1 <= int(value) <= 65535):

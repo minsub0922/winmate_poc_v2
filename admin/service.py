@@ -44,8 +44,10 @@ class Service:
             self.origins.sync()  # 일일 점검 등 이미 있는 대조 결과를 소스 상태에 맞춘다
         except Exception as exc:
             self.store.event('source.sync.error', detail={'error': self.safe_error(exc)}, actor='system')
-        self.thread = threading.Thread(target=self.schedule_loop, daemon=True)
-        self.thread.start()
+        # A clone-only intranet uses the versioned DSS snapshot. Neither scheduler may contact public sources.
+        if not (ROOT / '.env.inhouse').is_file():
+            self.thread = threading.Thread(target=self.schedule_loop, daemon=True)
+            self.thread.start()
 
     def close(self):
         self.stop.set()

@@ -28,6 +28,15 @@ function buildingModule() {
 }
 export default defineConfig({
   plugins: [react(), buildingModule(), {
+    name: 'winmate-inhouse',
+    transformIndexHtml() {
+      if (fs.existsSync(path.join(here, '../../.env.inhouse'))) {
+        // Keep pasted URLs, remote thumbnails and imported link previews on this side of the network.
+        return [{ tag: 'meta', attrs: { 'http-equiv': 'Content-Security-Policy',
+          content: "connect-src 'self' data: blob:; img-src 'self' data: blob:; media-src 'self' data: blob:; font-src 'self' data: blob:" }, injectTo: 'head-prepend' }];
+      }
+    },
+  }, {
     name: 'winmate-layout-data',
     transformIndexHtml(html) {
       return html.replace('<!-- layout-data -->', `<script id="wm-layouts" type="application/octet-stream">${fs.readFileSync(path.join(here, '../data/layouts.b64'), 'utf8').trim()}</script>`);

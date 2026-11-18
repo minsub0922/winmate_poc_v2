@@ -1,5 +1,7 @@
 # Winmate v2
 
+사내망에서 처음 설치하고 Gauss·CLEF를 등록할 때는 [사내망 재현 안내](BOOTSTRAP_261118.md)를 따른다. 기존 계정·제안서·활동 내역을 옮길 때 사용할 경로 입력용 프롬프트는 [데이터 이전 안내](DATA_MIGRATION_261118.md)에 있다.
+
 현재 웹앱은 `app/`의 React·FastAPI 앱이며, `http://127.0.0.1:8788`에서 실행한다. 모든 구성요소의 포트 · 바인딩 기본값은 루트 `.env.example`의 「포트 · 바인딩」 구역 한 곳에서 관리한다(바꿀 때는 루트 `.env`).
 
 ```sh
@@ -9,7 +11,7 @@
 
 터미널과 분리해 백그라운드로 (다시) 띄우려면 `make restart`(떠 있는 서버를 끄고 `./start.sh`를 백그라운드로 실행, 로그 `app/data/runtime/server.log`), 끄려면 `make stop`.
 
-설치·재현·LLM 선택은 [BOOTSTRAP.md](BOOTSTRAP.md)를 따른다. 기본 LLM은 사내 모델이며, 환경변수로 Gemini를 선택할 수 있다. 인증·데이터 갱신·모듈의 상세 설명은 [app/README.md](app/README.md)에 있다.
+기존 Ubuntu 설치 절차와 다른 LLM 프로필은 [BOOTSTRAP.md](BOOTSTRAP.md)에 기록되어 있다. 인증·데이터 갱신·모듈의 상세 설명은 [app/README.md](app/README.md)에 있다.
 
 ```sh
 make prepare       # 앱 DB snapshot과 Agent KB 준비

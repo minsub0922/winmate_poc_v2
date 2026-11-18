@@ -2,7 +2,7 @@
 set -euo pipefail
 winmate_root="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$winmate_root"
-# 포트 · 바인딩: 셸 변수 > 루트 .env > 루트 .env.example (기본값은 .env.example에만 있다)
+# 포트 · 바인딩: 셸 변수 > .env > .env.inhouse > .env.example
 . app/scripts/ports.sh
 winmate_env WINMATE_API_PORT WINMATE_BIND_HOST
 export PYTHONDONTWRITEBYTECODE=1
@@ -39,7 +39,7 @@ else
 fi
 app/.venv/bin/python -B app/scripts/preflight.py --require-auth
 # 이미지 캐시 Redis(.env의 WINMATE_CACHE_*). 띄우지 못해도 서버는 메모리 캐시로 시작하고, 나중에 띄우면 1분 안에 연결한다.
-if [[ "${WINMATE_CACHE_BACKEND:-$(grep -E '^WINMATE_CACHE_BACKEND=' .env 2>/dev/null | tail -1 | cut -d= -f2- || true)}" == redis ]]; then
+if app/.venv/bin/python -B -c "from app.api.image_cache import load_cache_config; raise SystemExit(load_cache_config().backend != 'redis')"; then
   bash app/scripts/cache_redis.sh up || echo '경고: 이미지 캐시 Redis를 띄우지 못해 메모리 캐시로 시작합니다.' >&2
 fi
 winmate_asgi_app='app.api.main:app'

@@ -51,8 +51,8 @@ def test_no_port_default_is_hardcoded_outside_env_example():
 
 
 def test_loaders_agree_and_follow_environment_then_env_example():
-    if (ROOT / '.env').exists() and any(k in runtime_env._parse(ROOT / '.env') for k in KEYS):
-        pytest.skip('local .env overrides a port')
+    if any(runtime_env._parse(ROOT / f).get(k) for f in ('.env', '.env.inhouse') for k in KEYS):
+        pytest.skip('local settings override a port')
     example = _example()
     clean = {k: v for k, v in os.environ.items() if k not in KEYS}
     for key in ('WINMATE_API_PORT', 'WINMATE_BIND_HOST', 'CLEF_PORT'):
@@ -64,3 +64,22 @@ def test_loaders_agree_and_follow_environment_then_env_example():
     assert _shell('WINMATE_API_PORT', {'WINMATE_API_PORT': '70000'}).returncode != 0
     with pytest.raises(RuntimeError):
         runtime_env.port_value('WINMATE_API_PORT', {'WINMATE_API_PORT': 'abc'})
+
+
+def test_registered_profile_with_private_keys_only(tmp_path, monkeypatch):
+    from app.api.llm import inhouse_bridge, inhouse_contract
+    from app.api.poc import settings
+
+    monkeypatch.setattr(runtime_env, 'ROOT', tmp_path)
+    monkeypatch.setattr(settings, 'ROOT', tmp_path)
+    (tmp_path / '.env.example').write_text((ROOT / '.env.example').read_text())
+    (tmp_path / '.env.inhouse').write_text('INTERNAL_LLM_BASE_URL=http://gauss.internal\n'
+                                          'INTERNAL_LLM_MODEL=site-model\nCLEF_MODEL=site-clef\nWINMATE_API_PORT=9142\n')
+    (tmp_path / '.env').write_text('INTERNAL_LLM_API_KEY=fixture-key\n')
+    config = settings.load_settings({})
+    assert (config.provider, config.model, config.api_key()) == ('internal', 'site-model', 'fixture-key')
+    assert config.llm_fallbacks == () and config.decision_order == ('inhouse',)
+    assert runtime_env.port_value('WINMATE_API_PORT', {}) == '9142'
+    ctx = inhouse_bridge.context(inhouse_contract.InhouseLLM, {}, None)
+    assert (ctx.get('INTERNAL_LLM_MODEL'), ctx.get('INTERNAL_LLM_API_KEY'), ctx.get('CLEF_MODEL')) == ('site-model', 'fixture-key', 'site-clef')
+    assert runtime_env.env_values({})['WINMATE_RESEARCH'] == 'off'
