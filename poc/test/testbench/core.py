@@ -167,9 +167,9 @@ JOBS = Jobs()
 
 
 def read_env_keys() -> dict[str, bool]:
-    """poc/.env 에 어떤 키가 있는지(값은 읽어도 밖으로 내보내지 않는다)."""
+    """루트 .env 에 어떤 키가 있는지(값은 읽어도 밖으로 내보내지 않는다)."""
     keys: dict[str, bool] = {}
-    for p in (POC_DIR / ".env.example", POC_DIR / ".env"):
+    for p in (POC_DIR.parent / ".env.example", POC_DIR.parent / ".env"):
         if p.exists():
             for line in p.read_text(encoding="utf-8").splitlines():
                 if "=" in line and not line.lstrip().startswith("#"):

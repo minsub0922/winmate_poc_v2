@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Author complete decks using only the pre-existing Winmate layout registry."""
+"""Shared layout registry and product pictures for customer proposal authoring.
+
+Customer proposals are built by rebuild_vertical_best.py from their authored JSON content.
+Published standard decks are built separately by vertical_standard.
+"""
 import copy,json,re,subprocess,unicodedata
 from html.parser import HTMLParser
 from vertical_briefs import BRIEFS
@@ -91,13 +95,15 @@ class Slots(HTMLParser):
   if self.stack and self.stack[-1]is not None:self.text[self.stack[-1]]=self.text.get(self.stack[-1],'')+text
 
 def registry():
+ # Author against the original slot addresses. The app removes footers/captions
+ # when rendering, without renumbering slots; existing authored values remain valid.
  code="""import fs from 'node:fs';import zlib from 'node:zlib';
 import {PHOTO_META,PHOTO_HTML} from './app/web/src/domain/templates/photo_layouts.js';
 import {STD_META,STD_HTML} from './app/web/src/domain/templates/std_layouts.js';
 import {SPATIAL_META,SPATIAL_HTML} from './app/web/src/domain/templates/spatial-layouts.js';
-import {repairLayoutHtml} from './app/web/src/domain/templates/layout_repairs.js';
+import {repairLayoutBase} from './app/web/src/domain/templates/layout_repairs.js';
 const cat=JSON.parse(fs.readFileSync('app/data/catalog.json'));const html=JSON.parse(zlib.gunzipSync(Buffer.from(fs.readFileSync('app/data/layouts.b64','utf8'),'base64')));
-process.stdout.write(JSON.stringify({metadata:[...cat.layouts,...PHOTO_META,...STD_META,...SPATIAL_META],html:Object.fromEntries(Object.entries({...html,...PHOTO_HTML,...STD_HTML,...SPATIAL_HTML}).map(([f,h])=>[f,repairLayoutHtml(f,h)]))}));"""
+process.stdout.write(JSON.stringify({metadata:[...cat.layouts,...PHOTO_META,...STD_META,...SPATIAL_META],html:Object.fromEntries(Object.entries({...html,...PHOTO_HTML,...STD_HTML,...SPATIAL_HTML}).map(([f,h])=>[f,repairLayoutBase(f,h)]))}));"""
  x=json.loads(subprocess.run(['node','--input-type=module','-e',code],cwd=ROOT,check=True,capture_output=True,text=True).stdout)
  layouts={}
  for meta in x['metadata']:
@@ -457,25 +463,12 @@ class Deck:
   return scenario,self.slides,story,self.customer
 
 def main():
- data=json.loads((ROOT/'app/data/vertical_proposal_briefs.json').read_text())
- previous={True:data['standards'],False:data['best']}
- outputs={k:{'scenarios':[],'fills':{},'story':{},'customers':{},'sources':previous[k]['sources']}for k in [True,False]}
- # 표준 제안서(bs_std_*)는 2026-11부터 업종별 표준 제안서 standard_vertical_scenarios.json(목차 6장 고정 · 업종 44개)이 맡아
- # 여기서는 고객별 샘플 버티컬 시나리오(bs_v_*)만 다시 만든다
- for b in BRIEFS:
-  for std in [False]:
-   for variant in range(1 if std else 2):
-    sid='bs_std_'+b['key']if std else'bs_v_'+b['key']+'_'+str(variant+1);old=next(s for s in previous[std]['scenarios']if s['id']==sid)
-    deck=Deck(b,old,std,variant);s,f,st,c=deck.build(variant)
-    if std:
-     for i,notes in enumerate(old.get('sourceNotes',[])):
-      if notes:f[i%len(f)]['notes']=f[i%len(f)].get('notes','')+'\n\n[기준 업종 자료 '+str(i+1)+'쪽]\n'+notes
-    s.pop('sourceNotes',None)
-    outputs[std]['scenarios'].append(s);outputs[std]['fills'][sid]=f;outputs[std]['story'][sid]=st;outputs[std]['customers'][sid]=c
-    print(sid,len(f),'slides',len(deck.products),'products',flush=True)
- for std,name in [(False,'vertical_scenarios.json')]:
-  (TARGET/name).write_text(json.dumps(outputs[std],ensure_ascii=False,separators=(',',':'))+'\n')
- summary={'standards':len(outputs[True]['scenarios']),'best':len(outputs[False]['scenarios']),'standardSlides':sum(map(len,outputs[True]['fills'].values())),'bestSlides':sum(map(len,outputs[False]['fills'].values())),'layouts':sorted({f['f']for d in outputs.values()for deck in d['fills'].values()for f in deck}),'referenceScenarios':REFERENCE,'revision':REVISION}
- (OUT/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n');print(json.dumps(summary,ensure_ascii=False))
+ # Standard decks are now owned by vertical_standard. Customer decks use the
+ # authored app/data/vertical_proposals/*.json content through the dedicated builder.
+ # Keep the legacy command useful without overwriting either with the old generator.
+ from rebuild_vertical_best import main as rebuild_customer_proposals
+ return rebuild_customer_proposals()
 
-if __name__=='__main__':main()
+if __name__=='__main__':
+ import sys
+ sys.exit(main())

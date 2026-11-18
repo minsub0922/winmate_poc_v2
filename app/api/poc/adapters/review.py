@@ -27,6 +27,7 @@ from ..provider import image_parts,ProviderError
 from ..strict import from_provider
 from ..strict import failure, invalid_output
 from .common import Prepared, as_float, as_int, jsonable, resolve_mode, str_list, requirement_context
+from ...llm import decision as dm
 
 W, H = 1280.0, 720.0
 FOOTER_Y = 660
@@ -102,7 +103,9 @@ def run(job: Job, scenario: dict, conversion: dict, budget: int, min_k: int, tem
     catalog = knowledge.score_catalog_for(p.all_text())
     tracker = ModeTracker('real', plan.provider)
     job.ctx['tracker'] = tracker
-    backend = make_score_backend(plan.provider, tracker, job, visual_images=visual_images, visual_pages=visual_pages, requirement_context=summary_context)
+    from ..settings import get_settings
+    backend = make_score_backend(plan.provider, tracker, job, visual_images=visual_images, visual_pages=visual_pages, requirement_context=summary_context,
+                                 decision=dm.get_decision(get_settings(), 'review.route'))
     ctx = ps.pipeline.Context(backend=backend, cs=cs, tax=tax, catalog=catalog, others=[], budget=budget, min_k=min_k, temperature=temperature)
     job.log(f"평가 시작 — {p.n}장 · AI 라우팅 · 채점 (규칙 대체 없음)")
     job.check_cancel()

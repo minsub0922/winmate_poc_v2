@@ -1,5 +1,5 @@
 """proposal_score 테스트 — poc/test 에서:  python3 -m unittest -v proposal_score.tests.test_proposal_score
-Gemini 라이브 테스트는 PS_LIVE=1 일 때만 (poc/.env 의 키 사용)."""
+Gemini 라이브 테스트는 PS_LIVE=1 일 때만 (루트 .env 의 키 사용)."""
 from __future__ import annotations
 
 import json

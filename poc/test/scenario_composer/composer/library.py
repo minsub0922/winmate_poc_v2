@@ -32,6 +32,7 @@ KB = Path(os.environ.get('WM_COMPOSER_KB') or (ROOT / 'app' / 'data' / 'runtime'
 # the app points this at app/data/runtime/composer (poc/ stays read-only there)
 DATA = Path(os.environ.get('WM_COMPOSER_DATA') or (HERE / 'data'))
 OUT = DATA / 'library.json'
+PICTURE_IDS = ROOT / 'app' / 'data' / 'picture_ids.json'  # ← app/scripts/build_picture_ids.mjs
 
 IND_CODES = ['FB', 'RT', 'SV', 'HT', 'TP', 'VN', 'AD', 'OF', 'RS', 'ID', 'ED', 'PB', 'MD', 'MF', 'FN', 'OE']
 # picture kind → coarse class used for slot compatibility
@@ -152,8 +153,29 @@ def spaces_in(text: str) -> List[str]:
 
 
 # ---------------------------------------------------------------------------------------------------- layouts
+def slot_modes() -> Dict[str, dict]:
+    """칸별 '고정 / 교체 / AI' 구분 (app/web/src/domain/templates/slot_modes.json) → {layout: {t: {칸: mode}, img: {칸: mode}, lock}}.
+    mode: fixed 고정 · product 제품 교체 · solution 솔루션 교체 · case 사례 교체 · section 목차 번호 · pick 후보 선택 (없으면 AI 작성)."""
+    p = ROOT / 'app' / 'web' / 'src' / 'domain' / 'templates' / 'slot_modes.json'
+    if not p.exists():
+        return {}
+    out: Dict[str, dict] = {}
+    for f, e in (_load(p).get('layouts') or {}).items():
+        v = {'t': {}, 'img': {}, 'lock': e.get('lock') or 'ai'}
+        for m, ids in e.items():
+            if isinstance(ids, list):
+                for i in ids:
+                    v['t'][str(i)] = m
+        for m, ids in (e.get('img') or {}).items():
+            for i in ids:
+                v['img'][str(i)] = m
+        out[f] = v
+    return out
+
+
 def build_layouts(cat: dict, html: dict) -> Dict[str, dict]:
     out = {}
+    modes = slot_modes()
     for l in cat['layouts']:
         f = l['f']
         slots = htmlslots.parse(html.get(f, ''))
@@ -164,6 +186,7 @@ def build_layouts(cat: dict, html: dict) -> Dict[str, dict]:
         meta['texts'] = slots['texts']
         meta['images'] = slots['images']
         meta['static'] = slots['static'][:40]
+        meta['modes'] = modes.get(f) or {'t': {}, 'img': {}, 'lock': 'ai'}
         out[f] = meta
     return out
 
@@ -357,6 +380,16 @@ def build_images(cat: dict, layouts: Dict[str, dict], exemplars: dict, cards: li
         name = (P.get(pid) or {}).get('name') or pid
         for a, alt in zip(v.get('gal') or [], v.get('galAlt') or [''] * 9):
             ic.add(a, desc=f'{name} · {alt}'.strip(' ·'), names=[f'{name} · {alt}'], kind='product', products=[pid], group='prod')
+    # 3b) every catalog product's own pictures (thumbnail + gallery) — the DSS can link any of the ~1,000 products, and a
+    #     product slot must show *that* product (the curated galleries above cover only the 40 scenario products)
+    for p in cat['products']:
+        alts = list(p.get('galAlt') or [])
+        for j, a in enumerate(p.get('gal') or []):
+            alt = alts[j] if j < len(alts) else ''
+            ic.add(a, desc=f"{p.get('name') or p['id']} · {alt}".strip(' ·'), names=[f"{p.get('name') or p['id']} · {alt}".strip(' ·')], kind='product',
+                   products=[p['id']], group='prod')
+        if p.get('th'):
+            ic.add(p['th'], desc=f"{p.get('name') or p['id']} · 대표 컷", names=[p.get('name') or p['id']], kind='product', products=[p['id']], group='prod')
     # 4) proposal / account photo assets
     for fn in ('proposal_photo_assets.json', 'account_photo_assets.json'):
         p = ROOT / 'app' / 'web' / 'src' / 'domain' / 'templates' / fn
@@ -460,6 +493,92 @@ def _src_inds(src: str, cards: list) -> Dict[str, float]:
 
 
 # ---------------------------------------------------------------------------------------------------- build
+VERSION = 5  # 5: picture identity (images[src]['pic'] from app/data/picture_ids.json) · space profiles (spatial library)
+# L_VS_SOL_<X> (표준 제안서 솔루션 장) → the app catalog solution it presents (None: 표준 구성에만 있는 솔루션 — 카탈로그 솔루션 없음)
+SOL_LAYOUT = {'L_VS_SOL_STP': 'stpro', 'L_VS_SOL_VXT': 'vxt', 'L_VS_SOL_MAGIC': 'magicinfo', 'L_VS_SOL_KNOX': 'knoxsuite', 'L_VS_SOL_BIOT': 'biot',
+              'L_VS_SOL_LYNK': 'lynk', 'L_VS_SOL_DEX': 'dex', 'L_VS_SOL_DMS': 'sac', 'L_VS_SOL_TOUCH': 'sac', 'L_VS_SOL_WIFI': 'sac',
+              'L_VS_SOL_SAFETY': 'safety', 'L_VS_SOL_STHOME': 'smartthings', 'L_VS_SOL_POS': 'partnerapp', 'L_VS_SOL_HOSPITAL': 'partnerapp',
+              'L_VS_SOL_FIELD': 'knoxcapture', 'L_VS_SOL_SVCSAC': 'care', 'L_VS_SOL_SVCMOBILE': 'care'}
+# 버티컬 자료의 솔루션 키(s_vxt …, 아이콘 파일 이름의 앞머리) → 앱 카탈로그 솔루션 id
+SOL_KEY = {'s_stp': 'stpro', 's_vxt': 'vxt', 's_magic': 'magicinfo', 's_knox': 'knoxsuite', 's_biot': 'biot', 's_lynk': 'lynk', 's_dex': 'dex', 's_dms': 'sac',
+           's_touch': 'sac', 's_wifi': 'sac', 's_safety': 'safety', 's_sthome': 'smartthings', 's_pos': 'partnerapp', 's_hospital': 'partnerapp',
+           's_field': 'knoxcapture', 'svc_sac': 'care', 'svc_mobile': 'care'}
+
+
+def build_sol_tech() -> Dict[str, dict]:
+    """핵심 기술 장의 솔루션 블록(이름 · 한 줄 · 키워드 3 + 그 키워드의 아이콘) — toc_content.json 의 업종별 tech 를 카탈로그 솔루션 id 로 묶는다.
+    {솔루션 id: {버티컬 id: {key, nm, intro, kw: [[아이콘 id, 키워드, 한 줄] ×3]}}}"""
+    tc_path = ROOT / 'app' / 'web' / 'src' / 'domain' / 'templates' / 'toc_content.json'
+    out: Dict[str, dict] = {}
+    if not tc_path.exists():
+        return out
+    for vid, v in (_load(tc_path).get('v') or {}).items():
+        for b in v.get('tech') or []:
+            sid = SOL_KEY.get(b.get('s'))
+            if sid and isinstance(b.get('kw'), list) and len(b['kw']) >= 3:
+                out.setdefault(sid, {})[vid] = {'key': b['s'], 'nm': b.get('nm') or '', 'intro': b.get('intro') or '', 'kw': [list(k)[:3] for k in b['kw'][:3]]}
+    return out
+
+
+# words that tell a sub-vertical apart inside one industry group (a 백화점 photo is not a 대형마트 scene)
+VERTICAL_KW = {
+    'fb_qsr': ['패스트푸드', '버거', '드라이브스루', '퀵서비스', '치킨', '피자', '도시락'], 'fb_cafe': ['카페', '커피', '베이커리', '디저트', '바리스타'],
+    'fb_rest': ['레스토랑', '식당', '다이닝', '한식', '뷔페'],
+    'rt_mall': ['백화점', '쇼핑몰', '면세점', '아울렛', '복합몰'], 'rt_hyper': ['마트', 'SSM', '슈퍼', '식품 매장', '신선식품', '계산대'],
+    'rt_flag': ['플래그십', '쇼룸', '전시장', '브랜드 스토어', '팝업'], 'rt_small': ['편의점', '약국', '소형 매장', '드럭스토어'],
+    'sv_unmanned': ['스터디카페', 'PC방', '무인'], 'sv_screen': ['스크린골프', '골프', '실내 스포츠'], 'sv_laundry': ['빨래방', '세탁'],
+    'sv_beauty': ['미용실', '뷰티', '피부관리', '헤어'],
+    'ht_large': ['리조트', '특급', '5성', '복합리조트', '연회장', '카지노'], 'ht_mid': ['비즈니스 호텔', '중소형 호텔'],
+    'ht_stay': ['레지던스', '풀빌라', '스테이', '펜션', '생활형숙박'],
+    'tp_park': ['테마파크', '놀이공원', '관광지', '사파리', '워터파크'], 'tp_museum': ['박물관', '미술관', '전시관', '갤러리', '아쿠아리움'],
+    'vn_stadium': ['경기장', '아레나', '야구장', '스타디움', '관중석'], 'vn_cinema': ['영화관', '상영관', '공연장', '시네마', '극장'],
+    'sf_fitness': ['피트니스', '스포츠센터', '클럽하우스', '헬스'], 'ad_ooh': ['옥외 광고', '전광판', '빌보드', '미디어 파사드'],
+    'of_hq': ['사옥', '본사', '스마트 빌딩', '그룹'], 'of_sme': ['중소기업', '소규모 사무실'], 'of_cowork': ['공유오피스', '코워킹'],
+    'rs_apt': ['아파트', '분양', '모델하우스', '단지'], 'rs_officetel': ['오피스텔', '임대주택', '도시형'], 'rs_senior': ['시니어', '실버타운'],
+    'id_partner': ['인테리어', '가구', '빌트인'],
+    'ed_univ': ['대학', '캠퍼스', '강의실', '기숙사'], 'ed_k12': ['초등', '중학', '고등', '교실', '학교'], 'ed_academy': ['학원', '교육센터', '어학원'],
+    'pb_agency': ['청사', '지자체', '공단', '민원', '공공기관', '시청', '구청'], 'pb_transport': ['지하철', '철도', '공항', '터미널', '승강장', '역사', '대합실', '지하철역', '역 출입구', '환승'],
+    'mi_military': ['군', '병영', '부대', '국방'],
+    'md_tertiary': ['종합병원', '상급종합', '대학병원'], 'md_hospital': ['전문병원', '중소 병원'], 'md_clinic': ['의원', '클리닉', '치과', '피부과'],
+    'md_ltc': ['요양', '요양병원', '요양원'],
+    'mf_factory': ['공장', '생산', '제조'], 'mf_logistics': ['물류', '창고', '콜드체인', '배송센터'],
+    'fn_bank': ['영업점', '지점', '창구', 'ATM'], 'fn_hq': ['트레이딩', '콜센터', '본점', '딜링'],
+    'oe_telco': ['통신사', '대리점', '키즈폰'], 'rg_church': ['교회', '성당', '사찰', '예배'], 'mb_studio': ['스튜디오', '방송', '조정실'],
+}
+# 버티컬 자료의 그룹 코드 → 앱 업종 코드(없는 그룹은 가장 가까운 업종)
+GROUP_IND = {'SF': 'SV', 'RG': 'PB', 'MB': 'VN', 'MI': 'PB'}
+
+
+def build_verticals(cards: list) -> Dict[str, dict]:
+    """버티컬(업종 세부) → 공간(이름 · 놓일 제품군 · 표준 제안서의 그 공간 사진) · 세부 업종을 가르는 낱말."""
+    out: Dict[str, dict] = {}
+    p = ROOT / 'app' / 'data' / 'vertical_space_product.json'
+    if not p.exists():
+        return out
+    d = _load(p)
+    tc_path = ROOT / 'app' / 'web' / 'src' / 'domain' / 'templates' / 'toc_content.json'
+    tc = (_load(tc_path).get('v') or {}) if tc_path.exists() else {}
+    std = {c['id']: c for c in cards if c.get('group') == 'std'}
+    # the kind of each space (reception · waiting · operations …) — the spatial library's profile, what a photo of it has to look like
+    sl_path = ROOT / 'app' / 'data' / 'spatial' / 'library.json'
+    profile = {sp['id']: sp.get('profile') or '' for vv in ((_load(sl_path).get('verticals') or []) if sl_path.exists() else [])
+               for sp in vv.get('spaces') or [] if isinstance(sp, dict) and sp.get('id')}
+    for v in d.get('verticals') or []:
+        vid = v['id']
+        photos = [x.get('ph') for x in (tc.get(vid) or {}).get('sp') or []]
+        spaces = []
+        for i, sp in enumerate(v.get('spaces') or []):
+            ph = photos[i] if i < len(photos) else None
+            spaces.append({'id': sp['id'], 'name': sp['name'], 'cats': sp.get('products') or [], 'profile': profile.get(sp['id'], ''),
+                           'ph': (ph[1:] if ph and ph.startswith('/img/') else ph) or None})
+        card = std.get('bs_std_' + vid) or {}
+        group = v.get('group')
+        out[vid] = {'id': vid, 'name': v.get('name') or '', 'group': group, 'ind': GROUP_IND.get(group, group), 'spaces': spaces,
+                    'kw': VERTICAL_KW.get(vid, []), 'cust': card.get('customer') or '', 'std': card.get('id') or None,
+                    'cover': (tc.get(vid) or {}).get('cover') or None}
+    return out
+
+
 def export_scenarios(out: Path = None) -> Path:
     """node scripts/export_library.mjs → data/scenarios_full.json (샘플 버티컬 시나리오 decks with their filled values)."""
     import subprocess
@@ -473,13 +592,23 @@ def export_scenarios(out: Path = None) -> Path:
 def ensure(max_age_vs_kb: bool = True) -> Path:
     """build the library when it is missing or older than the KB snapshot it was made from."""
     kb_mtime = (KB / 'manifest.json').stat().st_mtime if (KB / 'manifest.json').exists() else 0
-    if OUT.exists() and (not max_age_vs_kb or OUT.stat().st_mtime >= kb_mtime):
+    if PICTURE_IDS.exists():  # a new picture table (new pictures in the packs) is a new library too
+        kb_mtime = max(kb_mtime, PICTURE_IDS.stat().st_mtime)
+    if OUT.exists() and (not max_age_vs_kb or OUT.stat().st_mtime >= kb_mtime) and _built_version() >= VERSION:
         return OUT
-    if not (DATA / 'scenarios_full.json').exists() or (DATA / 'scenarios_full.json').stat().st_mtime < kb_mtime:
-        export_scenarios()
+    if not (DATA / 'scenarios_full.json').exists() or (DATA / 'scenarios_full.json').stat().st_mtime < kb_mtime or _built_version() < VERSION:
+        export_scenarios()  # (a library of an older version was built from an export without the newer fields)
     build()
     _CACHE.clear()
     return OUT
+
+
+def _built_version() -> int:
+    """version of the library on disk (a sidecar file, so the 15 MB library is not parsed just to check it)."""
+    try:
+        return int(json.loads((DATA / 'library.meta.json').read_text(encoding='utf-8')).get('version') or 0)
+    except (OSError, ValueError):
+        return 0
 
 
 def build(write: bool = True) -> dict:
@@ -492,12 +621,25 @@ def build(write: bool = True) -> dict:
     cards, modules, exemplars = build_scenarios(scx, layouts, PARTS)
     tagger = IndustryTagger(cat)
     images = build_images(cat, layouts, exemplars, cards, tagger)
+    # what a vision model saw in each scene photo (scripts/tag_images.py → image_facts.json, versioned next to this kit):
+    # the place, a visible brand sign, the product families in view, usable or not — captions alone do not say these
+    facts_path = HERE / 'image_facts.json'
+    if facts_path.exists():
+        for src, f in (_load(facts_path).get('images') or {}).items():
+            if src in images and isinstance(f, dict):
+                images[src]['vf'] = {k: f.get(k) for k in ('shows', 'place', 'brand', 'brand_prominent', 'products', 'kind', 'quality')}
+    # the same photo under several addresses (a case photo · its re-crop in a scenario pack · its greyed-out copy):
+    # app/scripts/build_picture_ids.mjs groups them by their pixels; a deck shows each group once (composer.pictures.pic)
+    for group in (_load(PICTURE_IDS).get('groups') or []) if PICTURE_IDS.exists() else []:
+        for src in group:
+            if src in images:
+                images[src]['pic'] = group[0]
     families = defaultdict(list)
     for f, l in layouts.items():
         if not l.get('retired'):
             families[l['fam']].append(f)
     lib = {
-        'version': 1, 'parts': {'PARTS': PARTS, 'NEXT': parts.get('NEXT'), 'RELATED': parts.get('RELATED')},
+        'version': VERSION, 'parts': {'PARTS': PARTS, 'NEXT': parts.get('NEXT'), 'RELATED': parts.get('RELATED')},
         'enums': {k: scx[k] for k in ('REQ_TYPES', 'STRATEGIES', 'ENDINGS', 'STAGES')},
         'industries': cat['industries'], 'layouts': layouts, 'families': families, 'scenarios': cards, 'modules': modules,
         'exemplars': exemplars, 'images': images,
@@ -506,12 +648,21 @@ def build(write: bool = True) -> dict:
         'solutions': {s['id']: s for s in cat['solutions']},
         'cases': {str(c['id']): {k: c.get(k) for k in ('id', 'cust', 'title', 'sub', 'ind', 'prod', 'sol', 'space', 'needs', 'offer', 'proof', 'quote', 'type', 'scale', 'url')}
                   for c in cat['cases']},
+        # every catalog product the DSS can link (the 40 curated ones above stay the legacy 'products')
+        'products_all': {p['id']: {**{k: p.get(k) for k in ('id', 'name', 'model', 'cat', 'spec', 'spaces', 'ind', 'kw', 'fam', 'sc', 'opt')},
+                                   'cur': bool(p.get('cur')), 'th': p.get('th') or None, 'gal': list(p.get('gal') or [])[:4],
+                                   'specs': [f'{r[1]}: {r[2]}' for r in (p.get('specs') or []) if isinstance(r, (list, tuple)) and len(r) >= 3][:14]}
+                         for p in cat['products']},
+        'verticals': build_verticals(cards),
+        'sol_layouts': {f: sid for f, sid in SOL_LAYOUT.items() if f in layouts},
+        'sol_keys': SOL_KEY, 'sol_tech': build_sol_tech(), 'toc_slots': scx.get('toc_slots') or {},
     }
     if write:
         OUT.parent.mkdir(parents=True, exist_ok=True)
         tmp = OUT.with_suffix('.tmp')
         tmp.write_text(json.dumps(lib, ensure_ascii=False), encoding='utf-8')
         tmp.replace(OUT)
+        (DATA / 'library.meta.json').write_text(json.dumps({'version': VERSION}), encoding='utf-8')
     return lib
 
 

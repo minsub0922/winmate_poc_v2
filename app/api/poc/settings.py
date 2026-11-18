@@ -1,8 +1,8 @@
 """Server-side settings for the PoC adapters.
 
 Values are read only when :func:`get_settings` is first called at server runtime (never at import).
-Precedence for every key: ``os.environ`` > ``app/.env`` > ``poc/.env``. ``.env`` files are parsed
-locally; nothing is copied into ``os.environ``. ``WINMATE_ENV_FILES`` overrides the file list
+Precedence for every key: ``os.environ`` > ``.env`` (the single repository-root file). It is parsed
+locally; nothing is copied into ``os.environ``. ``WINMATE_ENV_FILES`` overrides the file list for tests
 (comma separated, relative to the repository root) and ``none`` disables file reading entirely.
 
 Strict real-only runtime: every function always runs against the shared model provider. There is no
@@ -10,11 +10,18 @@ dummy mode and no per-function switch. ``Settings.mode`` / ``Settings.functions`
 shape (``'real'`` everywhere) for compatibility. Legacy ``WINMATE_MODE`` / ``WINMATE_<FUNC>_MODE`` values
 other than ``real`` are **not honored**: they are listed in ``legacy_ignored`` and reported as warnings.
 
-Keys
-  WINMATE_LLM_PROVIDER         internal (default) | gemini | registered adapter
+Keys — LLM API profiles. Several profiles can sit side by side in .env, each with its own key / models / endpoint;
+WINMATE_LLM_PROVIDER picks the one the app uses and :func:`provider_settings` opens any other one by name.
+  WINMATE_LLM_PROVIDER         openrouter (default) | gemini | internal | openai | registered adapter
+  WINMATE_LLM_FALLBACK         optional comma list of other profiles tried in order when the chosen one fails to answer
+                               (no response · timeout · auth / model / 5xx / 429) — never on a bad request or bad output
+  OPENROUTER_API_KEY           OpenRouter credential (server only)
+  OPENROUTER_MODEL             default qwen/qwen3.6-35b-a3b (text + image input); _QUICK_MODEL · _VISION_MODEL default to it
+  OPENROUTER_BASE_URL          default https://openrouter.ai/api/v1
+  OPENROUTER_REASONING         off (default) | on | low | medium | high — the model's thinking step
   INTERNAL_LLM_API_KEY         internal model credential (server only)
   INTERNAL_LLM_MODEL           internal model identifier
-  INTERNAL_LLM_BASE_URL        internal model endpoint
+  INTERNAL_LLM_BASE_URL        internal model endpoint (https, or plain http on a loopback / private-network host)
   GEMINI_API_KEY               Gemini credential when explicitly selected
   GEMINI_MODEL                 default model (gemini-3.1-flash-lite)
   GEMINI_QUICK_MODEL           model for model_tier=quick (default: GEMINI_MODEL)
@@ -23,13 +30,27 @@ Keys
   WINMATE_GEMINI_RPM           legacy alias, clamped to 1–42 (default 42)
   WINMATE_LLM_CACHE            on | off (default off) — response cache under app/data/runtime only
   WINMATE_KB_CACHE             on | off (default off) — layout card cache under app/data/runtime only
+  TYPESAFE_API_KEY             decision model (TypeSafe Jev) credential (server only)
+  TYPESAFE_BASE_URL            https endpoint (default https://api.typesafe.ai/v1; /systemone is appended), or a local
+                               Clef server on this host (http://127.0.0.1:8790/v1, clef-flash/ — no auth, any non-empty key)
+                               or on the private network (plain http is allowed only for loopback / private hosts)
+  TYPESAFE_MODEL               decision model id (default jev-1.14.0 — pinned, thresholds are tuned to it; clef-* → Clef limits)
+  WINMATE_DECISION             auto (default: decision model when the key is set) | off (always the LLM)
+  WINMATE_DECISION_ORDER       decision slots in order: main (TYPESAFE_*, default) and / or clef (the local Clef server);
+                               the first usable one answers, the rest are tried when it fails to answer
+  WINMATE_CLEF_BASE_URL        the clef slot's address (default http://127.0.0.1:8790/v1; no credential)
+  WINMATE_CLEF_MODEL           the clef slot's model id (default clef-flash)
+  WINMATE_DECISION_TASKS       optional comma list limiting which DECISION_TASKS use the decision model
+  WINMATE_DECISION_TIMEOUT     seconds per decision request including retries (default 30)
 
-Provider-specific INTERNAL_LLM_* / GEMINI_* settings take precedence over shared WINMATE_LLM_* aliases.
+Provider-specific INTERNAL_LLM_* / GEMINI_* settings take precedence over shared WINMATE_LLM_* aliases. OPENROUTER_* never
+falls back to the shared aliases (a key set for another gateway is never sent to OpenRouter).
 The queue is shared by every model/feature. RPM cannot exceed 42 or be disabled.
-See app/.env.example and app/README.md for SQLite/Redis and internal model setup.
+See .env.example (repository root) and app/README.md for SQLite/Redis and internal model setup.
 """
 from __future__ import annotations
 
+import ipaddress
 import os
 import re
 import threading
@@ -42,17 +63,41 @@ from .imports import ROOT, RUNTIME_DIR
 
 FUNCTIONS = ('rfp', 'requirements', 'layout', 'search', 'rerank', 'review', 'storyboard', 'part', 'fill', 'simulation', 'llm')
 MODES = ('real',)
-DEFAULT_PROVIDER = 'internal'
+DEFAULT_PROVIDER = 'openrouter'
 DEFAULT_MODEL = 'gemini-3.1-flash-lite'
 DEFAULT_VISION_MODEL = 'gemini-3.8-flash'
-DEFAULT_ENV_FILES = ('app/.env', 'poc/.env')
+DEFAULT_OPENROUTER_MODEL = 'qwen/qwen3.6-35b-a3b'
+DEFAULT_OPENROUTER_BASE_URL = 'https://openrouter.ai/api/v1'
+# LLM API profiles the settings know how to read (registered adapters use the shared WINMATE_LLM_* keys).
+PROVIDERS = ('openrouter', 'gemini', 'internal', 'openai')
+_PREFIX = {'internal': 'INTERNAL_LLM_', 'openrouter': 'OPENROUTER_'}
+_DEFAULT_MODELS = {'gemini': DEFAULT_MODEL, 'openrouter': DEFAULT_OPENROUTER_MODEL}
+_DEFAULT_BASES = {'openrouter': DEFAULT_OPENROUTER_BASE_URL}
+REASONING = ('off', 'on', 'low', 'medium', 'high')
+DEFAULT_ENV_FILES = ('.env',)
+# Decision-shaped tasks that branch between the LLM and the decision model (same task input/output either way).
+# layout.cells · layout.verify · layout.pictures · layout.review: the decision-capable steps inside a layout's flow (app/api/poc/layout_decide.py)
+# layout.final: the last step of every flow — the ReAct final check's reading of the sheet (app/api/poc/layout_final.py)
+DECISION_TASKS = ('search.rerank', 'catalog.rank', 'review.route', 'layout.pick', 'layout.best_pick', 'spatial.command',
+                  'layout.cells', 'layout.verify', 'layout.pictures', 'layout.review', 'layout.final')
+DEFAULT_DECISION_MODEL = 'jev-1.14.0'
+DEFAULT_DECISION_BASE_URL = 'https://api.typesafe.ai/v1'
+DECISION_SLOTS = ('main', 'clef')
+DEFAULT_CLEF_BASE_URL = 'http://127.0.0.1:8790/v1'
+DEFAULT_CLEF_MODEL = 'clef-flash'
+_NONE = ('none', 'off', '-')  # an explicit empty list (the admin layer cannot carry an empty value)
+LOOPBACK = ('127.0.0.1', 'localhost', '::1')  # a local decision server (Clef, clef_mlx.py serve) may use plain http
 _ENV_LINE = re.compile(r'^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*?)\s*$')
 _KEYS = ('WINMATE_MODE', *(f'WINMATE_{f.upper()}_MODE' for f in FUNCTIONS), 'GEMINI_API_KEY', 'GEMINI_MODEL', 'GEMINI_QUICK_MODEL',
          'GEMINI_VISION_MODEL', 'GEMINI_BASE_URL', 'WINMATE_GEMINI_TIMEOUT', 'WINMATE_GEMINI_RPM', 'WINMATE_GEMINI_CONCURRENCY', 'WINMATE_LLM_CACHE', 'WINMATE_KB_CACHE',
          'WINMATE_LLM_PROVIDER', 'WINMATE_LLM_API_KEY', 'WINMATE_LLM_MODEL', 'WINMATE_LLM_QUICK_MODEL', 'WINMATE_LLM_VISION_MODEL',
          'WINMATE_LLM_BASE_URL', 'WINMATE_LLM_TIMEOUT', 'WINMATE_LLM_RPM', 'WINMATE_LLM_CONCURRENCY', 'WINMATE_LLM_QUEUE_BACKEND',
          'WINMATE_LLM_QUEUE_DB', 'WINMATE_LLM_REDIS_URL', 'WINMATE_LLM_QUEUE_NAMESPACE', 'WINMATE_LLM_QUEUE_TIMEOUT', 'WINMATE_LLM_SCHEMA_MODE',
-         'INTERNAL_LLM_API_KEY', 'INTERNAL_LLM_MODEL', 'INTERNAL_LLM_QUICK_MODEL', 'INTERNAL_LLM_VISION_MODEL', 'INTERNAL_LLM_BASE_URL')
+         'INTERNAL_LLM_API_KEY', 'INTERNAL_LLM_MODEL', 'INTERNAL_LLM_QUICK_MODEL', 'INTERNAL_LLM_VISION_MODEL', 'INTERNAL_LLM_BASE_URL',
+         'OPENROUTER_API_KEY', 'OPENROUTER_MODEL', 'OPENROUTER_QUICK_MODEL', 'OPENROUTER_VISION_MODEL', 'OPENROUTER_BASE_URL',
+         'OPENROUTER_REASONING',
+         'TYPESAFE_API_KEY', 'TYPESAFE_BASE_URL', 'TYPESAFE_MODEL', 'WINMATE_DECISION', 'WINMATE_DECISION_TASKS', 'WINMATE_DECISION_TIMEOUT',
+         'WINMATE_LLM_FALLBACK', 'WINMATE_DECISION_ORDER', 'WINMATE_CLEF_BASE_URL', 'WINMATE_CLEF_MODEL')
 
 
 def parse_env_file(path: Path) -> Dict[str, str]:
@@ -75,6 +120,58 @@ def parse_env_file(path: Path) -> Dict[str, str]:
     return out
 
 
+# Hosts that count as this company's own network: plain http is allowed there (in-house / self-hosted serving).
+_INTERNAL_SUFFIXES = ('.local', '.internal', '.lan', '.intranet', '.corp', '.home.arpa')
+
+
+def private_host(host: Optional[str]) -> bool:
+    """Loopback, a private / link-local IP literal, a single-label intranet name, or an internal-only DNS suffix."""
+    host = (host or '').strip().strip('[]').lower().rstrip('.')
+    if not host:
+        return False
+    if host in LOOPBACK:
+        return True
+    try:
+        ip = ipaddress.ip_address(host)
+    except ValueError:
+        if not re.fullmatch(r'[a-z0-9]([a-z0-9\-.]{0,251}[a-z0-9])?', host) or re.fullmatch(r'[0-9.]+', host):
+            return False
+        return '.' not in host or host.endswith(_INTERNAL_SUFFIXES)
+    return ip.is_loopback or ip.is_private or ip.is_link_local
+
+
+def allowed_endpoint(url: str) -> bool:
+    """https anywhere; plain http only inside the company's own network (:func:`private_host`). No credentials in the URL."""
+    try:
+        parts = urlsplit(url or '')
+        host = parts.hostname
+    except ValueError:
+        return False
+    if not host or parts.username or parts.password:
+        return False
+    return parts.scheme == 'https' or (parts.scheme == 'http' and private_host(host))
+
+
+# Admin-set values (the Provider tab: a changed in-house serving endpoint). Highest precedence at server runtime only —
+# an explicit ``environ`` (tests, tools) never sees them.
+_OVERRIDES: Dict[str, str] = {}
+
+
+def set_overrides(values: Optional[Mapping[str, str]] = None) -> None:
+    """Replace the admin override layer (``None`` / empty clears it). Call :func:`reload_settings` afterwards."""
+    _OVERRIDES.clear()
+    _OVERRIDES.update({k: str(v) for k, v in (values or {}).items() if k in _KEYS and str(v).strip()})
+
+
+def overrides() -> Dict[str, str]:
+    return dict(_OVERRIDES)
+
+
+def key_name(provider: str) -> str:
+    """The .env key that holds the credential of an LLM API profile (for messages; never the value)."""
+    return {'gemini': 'GEMINI_API_KEY', 'internal': 'INTERNAL_LLM_API_KEY', 'openrouter': 'OPENROUTER_API_KEY'}.get(provider, 'WINMATE_LLM_API_KEY')
+
+
 def _flag(value: Optional[str]) -> bool:
     return str(value or '').strip().lower() in ('1', 'on', 'true', 'yes')
 
@@ -90,7 +187,7 @@ class Settings:
     rpm: int
     llm_cache: bool
     kb_cache: bool
-    key_source: str = ''                 # label only: environ | app/.env | poc/.env | ''
+    key_source: str = ''                 # label only: environ | .env | ''
     warnings: Tuple[str, ...] = ()
     legacy_ignored: Tuple[str, ...] = ()  # legacy mode keys that were set to something other than 'real' (ignored)
     vision_model: str = DEFAULT_VISION_MODEL
@@ -103,6 +200,36 @@ class Settings:
     queue_namespace: str = 'winmate-llm'
     queue_timeout: int = 600
     schema_mode: str = 'json_object'
+    decision_mode: str = 'auto'          # auto | off
+    decision_model: str = DEFAULT_DECISION_MODEL
+    decision_base_url: str = DEFAULT_DECISION_BASE_URL
+    decision_timeout: int = 30
+    decision_tasks: Tuple[str, ...] = DECISION_TASKS
+    _decision_key: str = field(default='', repr=False, compare=False)
+    reasoning: str = ''                  # OpenRouter thinking step: '' (model default) | off | on | low | medium | high
+    providers: Tuple[Tuple[str, str, bool], ...] = ()  # (profile, model, key configured) for every known LLM API profile
+    llm_fallbacks: Tuple[Tuple[str, str, str, str, str, bool], ...] = ()  # (profile, base, model, quick, vision, key configured)
+    decision_order: Tuple[str, ...] = ('main',)
+    decision_slots: Tuple[Tuple[str, str, str, bool], ...] = ()  # (slot, base, model, key configured) for main and clef
+    decision_fallbacks: Tuple[Tuple[str, str, str], ...] = ()  # (slot, base, model) tried after the first usable slot
+    _decision_slot_keys: Tuple[Tuple[str, str], ...] = field(default=(), repr=False, compare=False)
+
+    def decision_slot(self, slot: str) -> Tuple[str, str, str]:
+        """(base, model, credential) of a decision slot — for the decision client only."""
+        base, model = next(((b, m) for s, b, m, _ in self.decision_slots if s == slot), ('', ''))
+        return base, model, dict(self._decision_slot_keys).get(slot, '')
+
+    @property
+    def has_decision_key(self) -> bool:
+        return bool(self._decision_key)
+
+    def decision_key(self) -> str:
+        """The decision-model credential, for the decision client only. Never put this into responses or logs."""
+        return self._decision_key
+
+    def decision_enabled(self, task: str) -> bool:
+        """Does ``task`` take the decision-model branch? (key present, not switched off, task selected)."""
+        return self.has_decision_key and self.decision_mode != 'off' and task in self.decision_tasks
 
     @property
     def has_key(self) -> bool:
@@ -126,13 +253,22 @@ class Settings:
                 'quick_model': self.quick_model, 'vision_model': self.vision_model, 'endpoint_host': host, 'timeout_s': self.timeout, 'rpm': self.rpm, 'llm_cache': self.llm_cache,
                 'provider': self.provider, 'queue_backend': self.queue_backend, 'queue_timeout_s': self.queue_timeout, 'concurrency': self.concurrency,
                 'kb_cache': self.kb_cache, 'api_key_configured': self.has_key, 'api_key_source': self.key_source or None,
-                'legacy_ignored': list(self.legacy_ignored), 'warnings': list(self.warnings)}
+                'legacy_ignored': list(self.legacy_ignored), 'warnings': list(self.warnings), 'reasoning': self.reasoning or None,
+                'providers': [{'name': n, 'model': m, 'api_key_configured': k, 'selected': n == self.provider} for n, m, k in self.providers],
+                'fallbacks': [n for n, *_ in self.llm_fallbacks],
+                'decision': {'provider': 'clef-local' if self.decision_model.startswith('clef') else 'typesafe', 'model': self.decision_model, 'endpoint_host': urlsplit(self.decision_base_url).hostname,
+                             'mode': self.decision_mode, 'api_key_configured': self.has_decision_key, 'timeout_s': self.decision_timeout,
+                             'fallbacks': [x for x, *_ in self.decision_fallbacks],
+                             'tasks': {t: ('decision' if self.decision_enabled(t) else 'llm') for t in DECISION_TASKS}}}
 
     def __repr__(self) -> str:  # never include the credential
         return f'Settings(mode={self.mode!r}, functions={self.functions!r}, model={self.model!r}, api_key_configured={self.has_key})'
 
 
-def load_settings(environ: Optional[Mapping[str, str]] = None, env_files: Optional[Iterable[str]] = None) -> Settings:
+def load_settings(environ: Optional[Mapping[str, str]] = None, env_files: Optional[Iterable[str]] = None,
+                  provider: Optional[str] = None) -> Settings:
+    """``provider`` opens a named LLM API profile instead of ``WINMATE_LLM_PROVIDER`` (see :func:`provider_settings`)."""
+    admin = dict(_OVERRIDES) if environ is None else {}
     environ = os.environ if environ is None else environ
     if env_files is None:
         raw = environ.get('WINMATE_ENV_FILES')
@@ -140,7 +276,7 @@ def load_settings(environ: Optional[Mapping[str, str]] = None, env_files: Option
             env_files = () if raw.strip().lower() in ('', 'none', 'off') else tuple(x.strip() for x in raw.split(',') if x.strip())
         else:
             env_files = DEFAULT_ENV_FILES
-    layers: list[tuple[str, Mapping[str, str]]] = [('environ', environ)]
+    layers: list[tuple[str, Mapping[str, str]]] = ([('admin', admin)] if admin else []) + [('environ', environ)]
     for rel in env_files:
         path = (ROOT / rel).resolve()
         if path.is_file():
@@ -161,30 +297,38 @@ def load_settings(environ: Optional[Mapping[str, str]] = None, env_files: Option
             legacy.append(legacy_key)
             warnings.append(f'{legacy_key}={value.lower()[:20]!r} ({source}) 는 더 이상 지원하지 않아 무시합니다 — 서버는 항상 실제 AI로만 실행합니다.')
     functions = {name: 'real' for name in FUNCTIONS}
-    provider = get('WINMATE_LLM_PROVIDER')[0].lower() or DEFAULT_PROVIDER
+    provider = (provider or get('WINMATE_LLM_PROVIDER')[0]).lower() or DEFAULT_PROVIDER
 
-    def model_setting(generic: str, legacy: str = '') -> tuple[str, str]:
-        # Keep both provider profiles in one .env without sharing credentials/models.
-        if provider == 'gemini':
-            specific = legacy
-        elif provider == 'internal':
-            specific = generic.replace('WINMATE_LLM_', 'INTERNAL_LLM_', 1)
-        else:
-            specific = ''
-        value = get(specific) if specific else ('', '')
-        return value if value[0] else get(generic)
+    def profile(name: str) -> dict:
+        """One LLM API profile; profiles never share credentials, models or endpoints."""
+        def pick(generic: str, legacy: str = '') -> tuple[str, str]:
+            specific = legacy if name == 'gemini' else generic.replace('WINMATE_LLM_', _PREFIX[name], 1) if name in _PREFIX else ''
+            value = get(specific) if specific else ('', '')
+            if name == 'openrouter':
+                return value
+            return value if value[0] else get(generic)
+        key, source = pick('WINMATE_LLM_API_KEY', 'GEMINI_API_KEY')
+        model = pick('WINMATE_LLM_MODEL', 'GEMINI_MODEL')[0] or _DEFAULT_MODELS.get(name, '')
+        return {'key': key, 'source': source, 'model': model, 'quick': pick('WINMATE_LLM_QUICK_MODEL', 'GEMINI_QUICK_MODEL')[0] or model,
+                'vision': pick('WINMATE_LLM_VISION_MODEL', 'GEMINI_VISION_MODEL')[0] or (DEFAULT_VISION_MODEL if name == 'gemini' else model),
+                'base': pick('WINMATE_LLM_BASE_URL', 'GEMINI_BASE_URL')[0] or _DEFAULT_BASES.get(name, '')}
 
-    key, key_source = model_setting('WINMATE_LLM_API_KEY', 'GEMINI_API_KEY')
+    chosen = profile(provider)
+    key, key_source, model, quick, base = chosen['key'], chosen['source'], chosen['model'], chosen['quick'], chosen['base']
     if not key:
-        warnings.append('AI 인증 키가 없습니다 — 모든 AI 기능이 503(no_api_key)으로 거절됩니다.')
-    model = model_setting('WINMATE_LLM_MODEL', 'GEMINI_MODEL')[0] or (DEFAULT_MODEL if provider == 'gemini' else '')
-    quick = model_setting('WINMATE_LLM_QUICK_MODEL', 'GEMINI_QUICK_MODEL')[0] or model
-    base, _ = model_setting('WINMATE_LLM_BASE_URL', 'GEMINI_BASE_URL')
-    if base and not (base.startswith('https://') or base.startswith('http://127.0.0.1') or base.startswith('http://localhost')):
-        warnings.append('AI 서버 주소는 https 주소(또는 로컬 게이트웨이)만 허용해 기본 주소를 씁니다.')
-        base = ''
+        warnings.append(f'AI 인증 키({key_name(provider)})가 없습니다 — 모든 AI 기능이 503(no_api_key)으로 거절됩니다.')
+    if base and not allowed_endpoint(base):
+        warnings.append('AI 서버 주소는 https 주소(또는 로컬 · 사내망 주소의 http)만 허용해 기본 주소를 씁니다.')
+        base = _DEFAULT_BASES.get(provider, '')
     if provider != 'gemini' and (not base or not model):
         warnings.append('선택한 모델의 API 주소와 모델 ID가 필요합니다. internal은 INTERNAL_LLM_BASE_URL · INTERNAL_LLM_MODEL을 설정하세요.')
+    reasoning = ''
+    if provider == 'openrouter':
+        reasoning = get('OPENROUTER_REASONING')[0].lower() or 'off'
+        if reasoning not in REASONING:
+            warnings.append('OPENROUTER_REASONING은 off · on · low · medium · high 중 하나여야 해 off를 씁니다.')
+            reasoning = 'off'
+    profiles = tuple((n, (p := profile(n))['model'], bool(p['key'])) for n in PROVIDERS)
 
     def number(key: str, default: int, lo: int, hi: int) -> int:
         value, _ = get(key)
@@ -209,16 +353,65 @@ def load_settings(environ: Optional[Mapping[str, str]] = None, env_files: Option
     schema_mode = get('WINMATE_LLM_SCHEMA_MODE')[0] or 'json_object'
     if schema_mode not in ('json_object', 'json_schema'):
         raise ValueError('WINMATE_LLM_SCHEMA_MODE는 json_object 또는 json_schema여야 합니다.')
+    decision_mode = get('WINMATE_DECISION')[0].lower() or 'auto'
+    if decision_mode not in ('auto', 'off'):
+        warnings.append('WINMATE_DECISION은 auto 또는 off여야 해 auto를 씁니다.')
+        decision_mode = 'auto'
+    decision_base = (get('TYPESAFE_BASE_URL')[0] or DEFAULT_DECISION_BASE_URL).rstrip('/')
+    if not allowed_endpoint(decision_base):
+        warnings.append('Decision 모델 주소는 https 주소(또는 로컬 · 사내망 Clef 서버의 http)만 허용해 기본 주소를 씁니다.')
+        decision_base = DEFAULT_DECISION_BASE_URL
+    decision_model = get('TYPESAFE_MODEL')[0] or DEFAULT_DECISION_MODEL
+    if not re.fullmatch(r'[a-z0-9][a-z0-9.\-]{1,60}', decision_model):
+        warnings.append('TYPESAFE_MODEL 형식이 올바르지 않아 기본 모델을 씁니다.')
+        decision_model = DEFAULT_DECISION_MODEL
+    clef_base = (get('WINMATE_CLEF_BASE_URL')[0] or DEFAULT_CLEF_BASE_URL).rstrip('/')
+    if not allowed_endpoint(clef_base):
+        warnings.append('WINMATE_CLEF_BASE_URL은 https 주소(또는 로컬 · 사내망의 http)만 허용해 기본 주소를 씁니다.')
+        clef_base = DEFAULT_CLEF_BASE_URL
+    clef_model = get('WINMATE_CLEF_MODEL')[0] or DEFAULT_CLEF_MODEL
+    if not re.fullmatch(r'[a-z0-9][a-z0-9.\-]{1,60}', clef_model):
+        warnings.append('WINMATE_CLEF_MODEL 형식이 올바르지 않아 기본 모델을 씁니다.')
+        clef_model = DEFAULT_CLEF_MODEL
+    slots = {'main': (decision_base, decision_model, get('TYPESAFE_API_KEY')[0]), 'clef': (clef_base, clef_model, 'local')}
+    raw_order = get('WINMATE_DECISION_ORDER')[0].lower()
+    order_items = [x.strip() for x in raw_order.split(',') if x.strip()] if raw_order not in _NONE else []
+    if any(x not in DECISION_SLOTS for x in order_items):
+        warnings.append('WINMATE_DECISION_ORDER는 main · clef만 받습니다.')
+    decision_order = tuple(dict.fromkeys(x for x in order_items if x in DECISION_SLOTS)) or ('main',)
+    usable = [x for x in decision_order if slots[x][2]]
+    first = usable[0] if usable else decision_order[0]
+    raw_fallback = get('WINMATE_LLM_FALLBACK')[0].lower()
+    fallback_items = [x.strip() for x in raw_fallback.split(',') if x.strip()] if raw_fallback not in _NONE else []
+    if any(x not in PROVIDERS for x in fallback_items):
+        warnings.append('WINMATE_LLM_FALLBACK은 ' + ' · '.join(PROVIDERS) + '만 받습니다.')
+    llm_fallbacks = tuple((n, (p := profile(n))['base'], p['model'], p['quick'], p['vision'], bool(p['key']))
+                          for n in dict.fromkeys(fallback_items) if n in PROVIDERS and n != provider)
+    raw_tasks = [x.strip() for x in get('WINMATE_DECISION_TASKS')[0].split(',') if x.strip()]
+    unknown_tasks = [x for x in raw_tasks if x not in DECISION_TASKS]
+    if unknown_tasks:
+        warnings.append('WINMATE_DECISION_TASKS의 알 수 없는 작업을 무시합니다: ' + ', '.join(unknown_tasks[:5]))
+    decision_tasks = tuple(x for x in DECISION_TASKS if x in raw_tasks) if raw_tasks else DECISION_TASKS
     return Settings(mode='real', functions=functions, model=model, quick_model=quick, base_url=base.rstrip('/'),
                     timeout=compatible_number('WINMATE_LLM_TIMEOUT', 'WINMATE_GEMINI_TIMEOUT', 60, 5, 600),
                     rpm=compatible_number('WINMATE_LLM_RPM', 'WINMATE_GEMINI_RPM', 42, 1, 42),
                     concurrency=compatible_number('WINMATE_LLM_CONCURRENCY', 'WINMATE_GEMINI_CONCURRENCY', 4, 1, 16),
                     llm_cache=_flag(get('WINMATE_LLM_CACHE')[0]), kb_cache=_flag(get('WINMATE_KB_CACHE')[0]),
-                    vision_model=model_setting('WINMATE_LLM_VISION_MODEL', 'GEMINI_VISION_MODEL')[0] or (DEFAULT_VISION_MODEL if provider == 'gemini' else model),
+                    vision_model=chosen['vision'],
                     key_source=key_source if key else '', warnings=tuple(warnings), legacy_ignored=tuple(legacy), _api_key=key,
                     provider=provider, queue_backend=queue_backend, queue_db=Path(get('WINMATE_LLM_QUEUE_DB')[0] or RUNTIME_DIR / 'llm-queue.sqlite').expanduser().resolve(),
                     queue_redis_url=redis_url, queue_namespace=namespace, queue_timeout=number('WINMATE_LLM_QUEUE_TIMEOUT', 600, 1, 86400),
-                    schema_mode=schema_mode)
+                    schema_mode=schema_mode, decision_mode=decision_mode, decision_model=slots[first][1], decision_base_url=slots[first][0],
+                    decision_timeout=number('WINMATE_DECISION_TIMEOUT', 30, 3, 300), decision_tasks=decision_tasks,
+                    _decision_key=slots[first][2], reasoning=reasoning, providers=profiles, llm_fallbacks=llm_fallbacks,
+                    decision_order=decision_order, decision_slots=tuple((x, slots[x][0], slots[x][1], bool(slots[x][2])) for x in DECISION_SLOTS),
+                    decision_fallbacks=tuple((x, slots[x][0], slots[x][1]) for x in usable[1:]),
+                    _decision_slot_keys=tuple((x, slots[x][2]) for x in DECISION_SLOTS))
+
+
+def provider_settings(name: str, environ: Optional[Mapping[str, str]] = None, env_files: Optional[Iterable[str]] = None) -> Settings:
+    """Settings of a named LLM API profile (e.g. ``gemini`` next to the default ``openrouter``) from the same sources."""
+    return load_settings(environ, env_files, provider=name)
 
 
 _LOCK = threading.Lock()

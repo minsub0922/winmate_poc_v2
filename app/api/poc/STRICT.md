@@ -90,7 +90,7 @@ re-asked and recovered (or the one that failed the job).
   candidates follow in retrieval order, then the retrieval tail up to `k`. A whole-query exact layout
   `code`/`f` match is pinned first (`pinned:true`, why `코드 일치`). `score` is monotonic with the final order
   (reranked block above every retrieval score); `retrieval_score`, `rank`, `reranked`, `why` (`Gemini · …`
-  first) are added; `name`, `when`, `part`, … unchanged. Response: `{mode:'real', engine:'bm25+tfidf+gemini',
+  first) are added; `name`, `when`, `part`, … unchanged. Response: `{mode:'real', engine:'bm25+tfidf+llm',
   items, query, counts, rerank:{model, pool, ordered, pinned, retrieval_ms, rerank_ms, calls_ok,
   calls_rejected, tokens, cache:'miss'|'hit'|'coalesced'}, llm, unknown_ids, ms}`. No candidates → `items:[]`,
   no model call, `llm.effective:'none'`, `llm.reason:'no_candidates'`. Identical requests: in-process TTL

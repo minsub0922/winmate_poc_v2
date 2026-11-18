@@ -10,7 +10,7 @@ winmatev2 본 앱의 storyboard 파트 24종 · 레이아웃 446개 · 샘플 �
 cd poc/test/layout_agent
 uv venv --python 3.12 && source .venv/bin/activate      # deepagents 는 3.11+ (본 흐름은 3.10 도 됨)
 uv pip install -r requirements.txt
-# 키는 가까운 .env 를 읽는다 — 보통 poc/.env (GEMINI_API_KEY · GEMINI_MODEL). 키 값은 출력하지 않는다
+# 키는 저장소 루트의 .env 하나만 읽는다 (GEMINI_API_KEY · GEMINI_MODEL). 키 값은 출력하지 않는다
 
 python -m winmate_layout run --case eval/cases/C01_L1.json            # ① 요구 거의 없음 → 표준 제안서
 python -m winmate_layout run --case eval/cases/C03_L2.json            # ② 모호 → Best Practice

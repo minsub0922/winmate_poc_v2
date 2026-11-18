@@ -8,6 +8,12 @@
    enum in ``responseSchema``), each id once. Invalid output is re-asked once, then the request fails
    (HTTP 502 ``invalid_output``). Candidates the model did not list keep their retrieval order after the
    listed ones. An exact layout code / ``f`` match of the query is always pinned first.
+   **Decision branch** (task ``search.rerank``): when the decision model is configured (``TYPESAFE_API_KEY``),
+   the same pool is scored by the decision model instead — one ``score`` question (relevance 0–3) per candidate
+   in a single request. Candidates are ordered by expected relevance (0–3) plus the retrieval score scaled to 0–1
+   level (``dm.blend`` — the same retrieval score the LLM sees as ``rule``), those with expected
+   relevance below ``DECISION_KEEP`` are left out (at least one is kept), and ``why`` states relevance and confidence. The
+   result goes through the same ``validate_order`` and the same downstream assembly as the LLM answer.
 3. Identical requests are served from a bounded in-process TTL cache and concurrent identical requests are
    coalesced onto one model call. The cache key is a server-side hash (never sent to the client).
 
@@ -27,14 +33,21 @@ from .. import imports, knowledge
 from ..backends import ModeTracker
 from ..jobs import BadRequest, Unavailable
 from ..provider import ProviderError
+from ...llm import decision as dm
 from ..settings import Settings
 from ..strict import from_provider, invalid_output
 from .common import as_int, jsonable, resolve_mode, str_list
 
 LEVELS = ('minimal', 'ambiguous', 'complex')
-ENGINE = 'bm25+tfidf+gemini'
+ENGINE = 'bm25+tfidf+llm'   # the configured model (default OpenRouter Qwen) reranks the retrieval candidates
 RERANK_POOL = 20
 RERANK_ASKS = 2
+DECISION_KEEP = 1.5          # expected relevance (0–3) a candidate needs to be listed by the decision branch
+DECISION_PRIOR_WEIGHT = None  # None → dm.PRIOR_WEIGHT (retrieval-score weight in the blend; 0 = decision model only)
+RELEVANCE_LEVELS = ['맞지 않음: 요청한 내용 · 파트 · 맥락과 다른 장표',
+                    '조금 맞음: 주제는 겹치지만 요청의 핵심 용도와 다름',
+                    '맞음: 요청한 용도에 쓸 수 있는 장표',
+                    '매우 맞음: 요청의 핵심 용도와 맥락(파트 · 업종 · 전략 · 제품)에 바로 쓰는 장표']
 CACHE_TTL = 600.0
 CACHE_SIZE = 256
 COALESCE_WAIT = 300.0
@@ -147,14 +160,15 @@ def search(body: dict, settings: Settings) -> dict:
     if strategy and strategy not in base_kb.STRATEGIES:
         raise BadRequest('알 수 없는 strategy: ' + str(strategy)[:20])
     unknown = [p for p in products if p not in base_kb.P] + [s for s in solutions if s not in base_kb.S]
-    model = provider.model_for('quick')
-    key_src = {'q': q, 'part': part, 'industry': industry, 'strategy': strategy, 'level': level, 'k': k, 'products': sorted(set(products)),
+    decision = dm.get_decision(settings, 'search.rerank')
+    model = decision.model if decision is not None else provider.model_for('quick')
+    key_src = {'branch': 'decision' if decision is not None else 'llm', 'q': q, 'part': part, 'industry': industry, 'strategy': strategy, 'level': level, 'k': k, 'products': sorted(set(products)),
                'solutions': sorted(set(solutions)), 'provider': provider.name, 'endpoint': getattr(provider, 'base', ''),
                'model': model, 'kb': generated, 'pool': RERANK_POOL}
     key = hashlib.sha256(json.dumps(key_src, sort_keys=True, ensure_ascii=False).encode('utf-8')).hexdigest()
     t0 = time.time()
     out, cache_state = CACHE.get_or_compute(key, lambda: _run(provider, model, base_kb, index, q, part, industry, strategy, level, k,
-                                                               products, solutions))
+                                                               products, solutions, decision))
     out['unknown_ids'] = unknown
     out['rerank']['cache'] = cache_state
     out['llm']['cached_response'] = cache_state != 'miss'  # counts describe the Gemini call that produced this ranking
@@ -163,7 +177,7 @@ def search(body: dict, settings: Settings) -> dict:
 
 
 def _run(provider: Any, model: str, base_kb: Any, index: Any, q: str, part: str, industry: Optional[str], strategy: Optional[str], level: str,
-         k: int, products: List[str], solutions: List[str]) -> dict:
+         k: int, products: List[str], solutions: List[str], decision: Any = None) -> dict:
     L = imports.layout()
     kb = base_kb.with_products(products)
     p = {'id': 'S01', 'type': part or 'value', 'name': q, 'items': [], 'seed_layouts': [], 'req_ids': [], 'slides': 1}
@@ -182,7 +196,7 @@ def _run(provider: Any, model: str, base_kb: Any, index: Any, q: str, part: str,
     rerank_ms = 0
     if pool:
         t1 = time.time()
-        order = _rerank(provider, model, tracker, kb, q, part, industry, strategy, level, products, pool)
+        order = _rerank(provider, model, tracker, kb, q, part, industry, strategy, level, products, pool, decision)
         rerank_ms = int((time.time() - t1) * 1000)
     by_f = {c['f']: c for c in cands}
     reasons = dict(order)
@@ -212,7 +226,7 @@ def _run(provider: Any, model: str, base_kb: Any, index: Any, q: str, part: str,
     llm = tracker.summary()
     if not pool:
         llm.update(effective='none', reason='no_candidates')
-    return {'mode': 'real', 'engine': 'bm25+tfidf+'+provider.name, 'requested_mode': 'real', 'query': ranked.get('query'), 'items': jsonable(items),
+    return {'mode': 'real', 'engine': 'bm25+tfidf+' + (decision.name if decision is not None else provider.name), 'requested_mode': 'real', 'query': ranked.get('query'), 'items': jsonable(items),
             'counts': {'candidates': len(cands), 'reranked_pool': len(pool), 'model_ordered': len(order),
                        'layouts_active': sum(1 for c in kb.cards.values() if not c.get('retired'))},
             'rerank': {'model': model if pool else None, 'pool': len(pool), 'ordered': len(order), 'pinned': pinned, 'retrieval_ms': retrieval_ms,
@@ -242,13 +256,18 @@ def _cards(kb: Any, pool: List[dict]) -> List[dict]:
     return out
 
 
-def _prompt(kb: Any, q: str, part: str, industry: Optional[str], strategy: Optional[str], level: str, products: List[str], pool: List[dict]) -> str:
+def _request(kb: Any, q: str, part: str, industry: Optional[str], strategy: Optional[str], level: str, products: List[str]) -> Dict[str, str]:
+    """The search request both branches judge against (labels as shown to the model)."""
     part_meta = kb.PARTS.get(part) if part and isinstance(kb.PARTS, dict) else None
     part_label = part_meta.get('label', part) if isinstance(part_meta, dict) else part
     prods = [f"{kb.P[x].get('model', '')} {kb.P[x].get('name', '')}".strip() for x in products if x in kb.P][:6]
-    lines = [f'검색어: {q or "(없음 — 목차 기준)"}', f'목차: {part_label or "(지정 없음)"}', f'업종: {kb.ind_name(industry) if industry else "(지정 없음)"}',
-             f'전략: {strategy or "(지정 없음)"}', f'맥락 수준: {level}', f'선택 제품: {", ".join(prods) or "(없음)"}',
-             f'후보 {len(pool)}개 (JSON 한 줄씩):', '<<<DATA', *(json.dumps(c, ensure_ascii=False) for c in _cards(kb, pool)), 'DATA>>>']
+    return {'검색어': q or '(없음 — 목차 기준)', '목차': part_label or '(지정 없음)', '업종': kb.ind_name(industry) if industry else '(지정 없음)',
+            '전략': strategy or '(지정 없음)', '맥락 수준': level, '선택 제품': ', '.join(prods) or '(없음)'}
+
+
+def _prompt(kb: Any, q: str, part: str, industry: Optional[str], strategy: Optional[str], level: str, products: List[str], pool: List[dict]) -> str:
+    lines = [f'{k}: {v}' for k, v in _request(kb, q, part, industry, strategy, level, products).items()]
+    lines += [f'후보 {len(pool)}개 (JSON 한 줄씩):', '<<<DATA', *(json.dumps(c, ensure_ascii=False) for c in _cards(kb, pool)), 'DATA>>>']
     return '\n'.join(lines)
 
 
@@ -282,7 +301,39 @@ def validate_order(data: Any, whitelist: List[str]) -> Tuple[List[Tuple[str, str
 
 
 def _rerank(provider: Any, model: str, tracker: ModeTracker, kb: Any, q: str, part: str, industry: Optional[str], strategy: Optional[str],
-            level: str, products: List[str], pool: List[dict]) -> List[Tuple[str, str]]:
+            level: str, products: List[str], pool: List[dict], decision: Any = None) -> List[Tuple[str, str]]:
+    """Task ``search.rerank`` — in: request + candidate pool · out: ``[(f, why)]`` (validated by ``validate_order``)."""
+    if decision is not None:
+        return _rerank_decision(decision, tracker, kb, q, part, industry, strategy, level, products, pool)
+    return _rerank_llm(provider, model, tracker, kb, q, part, industry, strategy, level, products, pool)
+
+
+def _rerank_decision(decision: Any, tracker: ModeTracker, kb: Any, q: str, part: str, industry: Optional[str], strategy: Optional[str],
+                     level: str, products: List[str], pool: List[dict]) -> List[Tuple[str, str]]:
+    ids = [c['f'] for c in pool]
+    cards = _cards(kb, pool)
+    questions = {f'c{i}': dm.score({'task': '이 PPT 레이아웃 후보가 검색 요청(검색어 · 파트 · 업종 · 전략 · 제품)에 맞는 정도',
+                                    'candidate': card}, RELEVANCE_LEVELS) for i, card in enumerate(cards)}
+    state = {'search_request': _request(kb, q, part, industry, strategy, level, products),
+             'note': 'rule 은 검색 엔진 점수(참고용)입니다.'}
+    try:
+        answers = dm.BoundDecision(decision, tracker).ask('search:rerank', state, questions)
+    except ProviderError as exc:
+        raise from_provider('search:rerank', exc) from None
+    rel = [dm.expected_level(answers[f'c{i}']) for i in range(len(ids))]
+    rank = dm.blend(rel, [float(c['score']) for c in pool], DECISION_PRIOR_WEIGHT)
+    scored = sorted(((ids[i], rel[i], dm.confidence(answers[f'c{i}']), rank[i], i) for i in range(len(ids))), key=lambda x: (-x[3], x[4]))
+    keep = [x for x in scored if x[1] >= DECISION_KEEP] or scored[:1]
+    data = {'order': [{'f': f, 'why': f'관련도 {s:.1f}/3 · 확신 {c:.0%}'} for f, s, c, _, _ in keep]}
+    order, problem = validate_order(data, ids)
+    if not order:
+        tracker.record_rejected('search:rerank', problem)
+        raise invalid_output('search:rerank', problem)
+    return order
+
+
+def _rerank_llm(provider: Any, model: str, tracker: ModeTracker, kb: Any, q: str, part: str, industry: Optional[str], strategy: Optional[str],
+                level: str, products: List[str], pool: List[dict]) -> List[Tuple[str, str]]:
     ids = [c['f'] for c in pool]
     user = _prompt(kb, q, part, industry, strategy, level, products, pool)
     problem = ''

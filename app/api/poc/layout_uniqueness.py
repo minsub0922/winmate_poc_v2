@@ -8,7 +8,8 @@ from .strict import invalid_output
 def layout_group(kb, f):
     """A sheet's layout — the representative of its content candidates (app layout_variants.json), else itself."""
     card = (getattr(kb, 'cards', None) or {}).get(f) or {}
-    return card.get('variant_of') or f
+    layout = (getattr(kb, 'L', None) or {}).get(f) or {}
+    return layout.get('mergedInto') or card.get('variant_of') or f
 
 
 def unique_assemble(assemble, kb, parts, ranked, excluded=()):

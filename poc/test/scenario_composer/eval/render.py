@@ -16,7 +16,10 @@ import sys
 from pathlib import Path
 from typing import Dict, List
 
-from lxml import html as LH
+try:
+    from lxml import html as LH
+except ImportError:  # the page renderer needs lxml; resolve() · layout_html() (used by eval.tpl_judge) do not
+    LH = None
 
 HERE = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(HERE))
@@ -78,6 +81,11 @@ def render_slide(slide: dict, page: int = 0) -> str:
                 el.remove(ch)
             el.text = txt
     for k, v in (slide.get('img') or {}).items():
+        if isinstance(v, dict) and v.get('hidden'):  # a cleared slot (the app's {hidden: true}) shows no picture
+            for el in root.xpath(f'.//*[@data-img="{k}"]'):
+                for im in ([el] if el.tag == 'img' else el.xpath('.//img')):
+                    im.set('style', (im.get('style') or '') + ';visibility:hidden')
+            continue
         if not isinstance(v, dict) or not v.get('src'):
             continue
         sel = f'.//*[@data-tb="{k[1:]}"]' if re.fullmatch(r't\d+', k) else f'.//*[@data-img="{k}"]'

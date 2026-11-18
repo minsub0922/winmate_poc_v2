@@ -144,18 +144,8 @@ class Deck:
   t={0:'시범 대상 · 공개 공간 이미지',1:b['brand']+'의 검증 범위',2:'05 · 시범 합격 기준',3:'성과 수치 대신 통과 조건부터 합의합니다',4:'현재 성과는 미확정 · 아래 지표와 수량은 공동 검토할 제안 기준'}
   for j,items in enumerate(b['evaluation']):t.update({5+j*4:'0'+str(j+1),6+j*4:items[0],7+j*4:items[1],8+j*4:items[2]})
   self.add('L_PH_OV_H','현재 수치를 꾸미지 않고 시범 지표·측정·합격 조건을 명시',t,self.fresh(1),'proof')
-  t={0:'06 · 시범 실행 계획',1:'사업자·운영·IT의 산출물을 네 단계로 인수합니다',2:'8주 시범은 검토안 · 실제 일정·대상·비용은 사전 대조 후 확정',3:'1–2주',4:'3–6주',5:'7주',6:'8주'}
-  for j,items in enumerate(b['execution']):
-   start=7+j*7;t.update({start:'0'+str(j+1),start+1:items[0],start+2:items[1],start+3:'산출물',start+4:items[2],start+5:'담당',start+6:items[3]})
-  self.add('L_PH_IP_A','실사·지원 검토·운영 인수·확산 판단의 역할과 산출물',t,self.fresh(2)+self.screen(b['solutionScreens'][0],1)+[photo(gallery('sol','care')[8])],'plan')
-  t={0:'06 · 단계별 합의',1:'시범 결과와 실제 계약으로 다음 범위를 결정합니다',2:'범위·기간·합격 조건은 제안안 · 기존 성과·절감률·예산을 확인한 자료가 아님',18:b['pilot']}
-  for j,items in enumerate(b['phases']):t.update({3+j*5:items[0],4+j*5:items[1],5:'다음 단계의 합의 조건',6+j*5:items[2],7+j*5:items[3]})
-  t[10]='다음 단계의 합의 조건';t[15]='다음 단계의 합의 조건'
-  self.add('L_PH_PL_A','시범 수량·기간과 확산 의사결정의 합격 기준',t,self.fresh(3),'plan')
-  close=b['close'];t={0:'제안 대상 · 공식 공간',1:b['brand'],2:'07 · 다음 협의',3:'사업 주체와 시범 인수 범위를 합의합니다',4:'운영 역할·자산·지원 조건을 확인하고 다음 행동을 결정합니다',20:'협의 역할',21:' · '.join(b['audience'][:2])}
-  for j in range(3):t.update({5+j*5:'0'+str(j+1),6+j*5:close[j*3],7+j*5:close[j*3+1],8+j*5:['사전 협의','실사 합의','공동 판정'][j],9+j*5:close[j*3+2]})
-  self.add('L_PH_C13','구매 기업의 책임·자산·권한과 다음 검토 행동으로 종료',t,self.fresh(1),'close')
-  assert len(self.slides)==17,len(self.slides)
+  # 시범 실행 계획(L_PH_IP_A) · 단계별 합의(L_PH_PL_A) · 다음 협의(L_PH_C13) 장은 넣지 않는다 — 그 레이아웃은 라이브러리에서 삭제했다(removed_layouts.js).
+  assert len(self.slides)==14,len(self.slides)
   names={'open':('open','표지','실제 제안 대상과 검토 목적'), 'account':('context','제안 대상·사업 이해','운영 법인·사업 구조·기존 투자·구매 역할을 분석'), 'scope':('value','사업 과제·제안 범위','분석을 업무·검증 범위로 연결'),'site':('space','구역·기기 검토','기존 공간·설비와 조건부 후보 제품 대조'),'solution':('build','운영 솔루션·역할','승인·게시·검수·인수 기준을 구체화'),'proof':('proof','근거·성과 검증','공개 사실과 시범 평가 기준을 구분'),'plan':('plan','시범·확산 실행','산출물과 확산 판단을 단계별 합의'),'close':('close','다음 협의','검토 주체·지원 조건·다음 행동 확정')}
   flow=[];story={'keymen':[[role,[35,25,20,20][j],[[b['governance'][j][2],b['governance'][j][3]][q]for q in range(2)]]for j,role in enumerate(b['audience'])],'note':b['public']+'\n'+b['proposal'],'parts':{}}
   for slide,stage in zip(self.slides,self.stages):
@@ -171,10 +161,20 @@ class Deck:
   scenario=copy.deepcopy(BASE[b['base']]);scenario.pop('preview',None);scenario.update(id=b['id'],title=b['title'],short=b['promise'],ind=b['ind'],req='ops',strategy='pain',ending='pilot',situation=b['public']+' '+b['proposal'],signals=[b['public'],b['proposal'],'실제 조직·계약·예산·현재 성과는 공개자료로 확정하지 않음'],audience={'lead':b['audience'][0],'others':b['audience'][1:]},criteria=[x[0]for x in b['evaluation']]+['기존 자산·앱·계약 경계의 유지'],thesis=b['promise'],logic=[g['name']for g in flow if g['key']!='open'],diff=['제안 대상 업체·운영 법인·브랜드·자산의 사업 분석','발주·운영·이용자의 책임과 승인 산출물 구분','공개 사실·분석·시범 제안 기준을 분리'],tone='공개 근거와 협의 가설을 구분하고 사업자의 책임·인수 산출물로 설명',messages=b['promise'].split(' · '),flow=flow,ask=b['pilot']+'의 사전 검토·시범 조건 합의',next=[b['close'][0],b['close'][3],b['close'][6]],prep=['현재 계약·발주·운영 역할과 예산 승인 경계','실제 설치 모델·라이선스·연동·권한 목록','시범 기준선·검수·예외·원복 기록'],products=b['products'],solutions=b['solutions'],cases=b['cases'],kpis=[x[0]for x in b['evaluation']],objections=[['이미 갖춘 기기·앱이 있는데 무엇을 더 제안하나요?','기존 투자를 먼저 대조하고, 이번 범위는 승인·점검·인수의 운영 기준을 검증합니다.'],['이 내용이 회사의 실제 내부 계획이나 확정 성과인가요?','공개자료 기반 검토안입니다. 실제 조직·계약·예산·현재 지표는 협의하고 시범으로 검증합니다.']],fit='실제 운영 법인·사업장에 대한 첫 B2B 협의와 시범 설계',avoid='실사 없이 최종 견적·확정 성과·실제 내부 조직을 단정해야 하는 경우',minutes=35,authoringRevision=REVISION,coverRevision='single-photo-cover-v1',sourceMode='public-account-analysis',sourceSpec='account_'+k,referenceScenario=b['base'],research={'verifiedAt':DATE,'sources':b['sources'],'facts':EVIDENCE['accounts'][k]['facts'],'unverified':EVIDENCE['accounts'][k]['unverified'],'documents':[x for x in EVIDENCE['sources']if x['id']in b['sources']]})
   return scenario,self.slides,story
 
+def template_proposal(key):
+ """An account deck assembled from a 목차 템플릿 (공간 가치형 제안서 확장형 …): app/scripts/compose_account_proposal.mjs runs the app's
+ own template assembler with this account's content and added sheets (app/data/account_proposals/<name>.json)."""
+ out=json.loads(subprocess.check_output(['node','app/scripts/compose_account_proposal.mjs','app/data/account_proposals/'+ACCOUNT_PROPOSALS[key]],cwd=ROOT,text=True))
+ return out['scenario'],out['fills'],out['story'],out['customer']
+
+ACCOUNT_PROPOSALS={'paul':'paulbassett.json'}
+
 def main():
  result={'scenarios':[],'fills':{},'story':{},'customers':{},'sources':EVIDENCE['sources']}
  for key,b in BRIEFS.items():
   if key=='verifiedAt':continue
+  if key in ACCOUNT_PROPOSALS:
+   s,slides,story,customer=template_proposal(key);result['scenarios'].append(s);result['fills'][s['id']]=slides;result['story'][s['id']]=story;result['customers'][s['id']]=customer;print(s['id'],len(slides),'pages · 목차 템플릿',s['template']);continue
   d=Deck(key,b);s,slides,story=d.build();result['scenarios'].append(s);result['fills'][s['id']]=slides;result['story'][s['id']]=story;result['customers'][s['id']]=b['customer'];print(s['id'],len(slides),'pages',len(d.used),'images')
  (TARGET/'account_scenarios.json').write_text(json.dumps(result,ensure_ascii=False,separators=(',',':'))+'\n')
  (OUT/'authoring-summary.json').write_text(json.dumps({'scenarios':len(result['scenarios']),'slides':sum(map(len,result['fills'].values())),'newLayouts':['L_AC_GOV_01'],'existingLayoutTypes':sorted({p['f']for v in result['fills'].values()for p in v if p['f']!='L_AC_GOV_01'}),'revision':REVISION},ensure_ascii=False,indent=2)+'\n')

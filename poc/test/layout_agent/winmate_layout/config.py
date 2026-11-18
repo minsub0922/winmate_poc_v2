@@ -1,4 +1,4 @@
-"""환경 설정 — poc/.env (또는 test/.env) 에서 GEMINI_API_KEY · GEMINI_MODEL 을 읽는다."""
+"""환경 설정 — 저장소 루트의 단일 .env 에서 GEMINI_API_KEY · GEMINI_MODEL 을 읽는다."""
 from __future__ import annotations
 
 import os
@@ -18,9 +18,9 @@ def _app_root(start: Path) -> Path:
 
 
 APP_ROOT = _app_root(ROOT)
-for p in (ROOT / ".env", ROOT.parent / ".env", ROOT.parent.parent / ".env"):  # 가까운 .env 우선(보통 poc/.env)
-    if p.exists():
-        load_dotenv(p, override=False)
+ENV_FILE = APP_ROOT / ".env"  # 저장소 루트의 단일 .env (실행 환경 변수가 우선)
+if ENV_FILE.exists():
+    load_dotenv(ENV_FILE, override=False)
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.1-flash-lite")

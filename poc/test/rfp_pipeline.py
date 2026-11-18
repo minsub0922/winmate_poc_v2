@@ -29,6 +29,7 @@ from typing import Any, Dict, List, Optional
 
 HERE = Path(__file__).resolve().parent
 POC = HERE.parent
+ENV_FILE = POC.parent / '.env'   # 저장소 루트의 단일 .env
 
 CATS = ['배경', '범위', '규격', '보안', '인증', '구성', '검증', '선정', '자격', '일정', '제출', '형식',
         '가격', '계약', '납품', '설치', 'A/S', '유의', '무효', '청렴', '문의', '기타']
@@ -37,8 +38,8 @@ MODALITY = ['필수', '금지', '기준', '조건', '선택', '정보']
 
 # ---------------------------------------------------------------- env
 def load_env(path: Optional[Path] = None) -> Dict[str, str]:
-    """poc/.env 를 읽어 os.environ 보다 낮은 우선순위로 합친다(값은 출력하지 않음)."""
-    path = path or (POC / '.env')
+    """루트 .env 를 읽어 os.environ 보다 낮은 우선순위로 합친다(값은 출력하지 않음)."""
+    path = path or ENV_FILE
     env: Dict[str, str] = {}
     if path.exists():
         for line in path.read_text(encoding='utf-8').splitlines():
@@ -53,11 +54,7 @@ def load_env(path: Optional[Path] = None) -> Dict[str, str]:
 
 
 def available_keys(env: Dict[str, str]) -> Dict[str, bool]:
-    example = POC / '.env.example'
-    names = []
-    if example.exists():
-        names = [m.group(1) for m in re.finditer(r'^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=', example.read_text(encoding='utf-8'), re.M)]
-    return {k: bool(env.get(k)) for k in (names or ['GEMINI_API_KEY', 'GEMINI_MODEL', 'TAVILY_API_KEY'])}
+    return {k: bool(env.get(k)) for k in ('GEMINI_API_KEY', 'GEMINI_MODEL', 'TAVILY_API_KEY')}
 
 
 # ---------------------------------------------------------------- text utils
@@ -349,7 +346,7 @@ class GeminiBackend(Backend):
         super().__init__()
         self.base = (base_url or self.DEFAULT_BASE).rstrip('/')  # 사내 게이트웨이 등 다른 경로를 쓰려면 GEMINI_BASE_URL
         if not api_key:
-            raise BackendError('GEMINI_API_KEY 가 비어 있어요 (poc/.env)')
+            raise BackendError('GEMINI_API_KEY 가 비어 있어요 (루트 .env)')
         self.key, self.model, self.cache_dir = api_key, model, cache_dir
         self.temperature, self.timeout, self.use_schema = temperature, timeout, use_schema
         self.min_gap = 60.0 / rpm if rpm else 0.0
@@ -372,7 +369,7 @@ class GeminiBackend(Backend):
         lst = get(f'{self.base}/models?pageSize=200')
         names = [m['name'].split('/')[-1] for m in lst.get('models', []) if 'generateContent' in (m.get('supportedGenerationMethods') or [])]
         near = [n for n in names if 'flash' in n] or names
-        raise BackendError(f"모델 '{self.model}' 을 찾을 수 없어요. poc/.env 의 GEMINI_MODEL 을 다음 중 하나로: {', '.join(near[:12])}")
+        raise BackendError(f"모델 '{self.model}' 을 찾을 수 없어요. 루트 .env 의 GEMINI_MODEL 을 다음 중 하나로: {', '.join(near[:12])}")
 
     def _post(self, body: dict) -> dict:
         req = urllib.request.Request(f'{self.base}/models/{self.model}:generateContent', data=json.dumps(body).encode('utf-8'), method='POST',

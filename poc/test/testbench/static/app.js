@@ -346,7 +346,7 @@ ROUTES['rfp/run'] = async (el) => {
   }
   async function run() {
     if (RFP.mode === 'text' && RFP.text.trim().length < 50) { toast('원문을 50자 이상 넣으세요'); return; }
-    if (RFP.backend === 'gemini' && STATUS && !STATUS.keys.GEMINI_API_KEY) { toast('poc/.env 에 GEMINI_API_KEY 가 없습니다'); return; }
+    if (RFP.backend === 'gemini' && STATUS && !STATUS.keys.GEMINI_API_KEY) { toast('루트 .env 에 GEMINI_API_KEY 가 없습니다'); return; }
     try {
       const r = await api('/api/rfp/run', { body: { source: RFP.mode, tc_id: RFP.tc, text: RFP.text, condition: RFP.cond, max_chars: RFP.mc, backend: RFP.backend, enrich: RFP.enrich, save: RFP.save } });
       store.set('rfp.job', r.job);
@@ -659,7 +659,7 @@ ROUTES['layout/run'] = async (el) => {
     })),
     srcBox, h('hr', { class: 'sep' }),
     h('div', { class: 'field' }, h('span', { class: 'lbl' }, 'LLM'), seg([['offline', '규칙만(무료 · 결정론)'], ['gemini', 'Gemini']], LAY.llm, (v) => { LAY.llm = v; }),
-      !gem ? h('div', { class: 'hint' }, 'poc/.env 에 GEMINI_API_KEY 가 없어 Gemini 는 쓸 수 없습니다') : h('div', { class: 'hint' }, 'Gemini 는 TC 하나에 약 25초 · 30회 안팎 호출')),
+      !gem ? h('div', { class: 'hint' }, '루트 .env 에 GEMINI_API_KEY 가 없어 Gemini 는 쓸 수 없습니다') : h('div', { class: 'hint' }, 'Gemini 는 TC 하나에 약 25초 · 30회 안팎 호출')),
     h('label', { class: 'check' }, h('input', { type: 'checkbox', checked: LAY.interactive, onchange: (e) => { LAY.interactive = e.target.checked; } }), h('span', null, '③ 복잡이면 전략 질문에서 멈추고 직접 답하기', h('div', { class: 'tiny' }, '끄면 기본값으로 끝까지 진행합니다'))),
     field('최대 장수(선택)', h('input', { type: 'number', min: 4, max: 40, value: LAY.maxSlides, placeholder: '비우면 맥락에 따라', oninput: (e) => { LAY.maxSlides = e.target.value; } })),
     runBtn);

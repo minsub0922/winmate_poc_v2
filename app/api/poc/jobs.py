@@ -11,11 +11,16 @@
   resume; every other call raises :class:`Conflict` (HTTP 409).
 * A required Gemini step that fails raises :class:`ModelFailure`; the job ends in ``error`` with a typed,
   secret-safe ``{code, message, step, retryable}`` and the call counts so far — never a rule result.
-* Restart durability is not provided (in-memory).
+* Restart durability: with an archive (:meth:`JobManager.use_archive`, set by the app at startup) every job is
+  recorded on disk when it starts and again when it ends, so a browser that comes back later — after leaving the
+  app, reloading, or a server restart — finds the finished result by id instead of running the work again. A job
+  that was still running when the server stopped is recorded as interrupted (threads do not survive a restart).
 """
 from __future__ import annotations
 
+import json
 import logging
+import sqlite3
 import threading
 import time
 import traceback
@@ -24,6 +29,7 @@ from contextvars import copy_context
 from .. import telemetry
 from collections import deque
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any, Callable, Deque, Dict, List, Optional
 
 from .provider import redact
@@ -115,6 +121,7 @@ class Job:
         self._cond = threading.Condition(threading.Lock())
         self._events: Deque[dict] = deque(maxlen=max_events)
         self._seq = 0
+        self.archive: Optional['JobArchive'] = None
 
     # ------------------------------------------------------------ events
     def emit(self, type_: str, **data: Any) -> dict:
@@ -140,6 +147,8 @@ class Job:
                 'status':'error' if self.status=='error' else 'cancelled' if self.status=='cancelled' else 'ok' if self.status=='done' else 'running',
                 'code':(self.error or {}).get('code'),'message':(self.error or {}).get('message'),'stack':self.trace_stack,
                 'metadata':{'snapshot':self.snapshot(include_result=True)}})
+        if self.archive is not None and (self.terminal or self.status == 'queued'):
+            self.archive.save(self)
 
     def events_since(self, since: int) -> tuple[List[dict], int, int]:
         with self._cond:
@@ -202,11 +211,21 @@ class JobManager:
         self._lock = threading.Lock()
         self._sem = threading.Semaphore(max(1, workers))
         self.max_jobs, self.max_events, self.waiting_ttl = max_jobs, max_events, waiting_ttl
+        self.archive: Optional[JobArchive] = None
+
+    def use_archive(self, path: Path) -> None:
+        """Record jobs on disk (see the module notes). Called once by the app at startup."""
+        self.archive = JobArchive(path)
 
     # ------------------------------------------------------------ registry
     def get(self, job_id: str) -> Job:
         with self._lock:
             job = self._jobs.get(job_id)
+        if job is None and self.archive is not None:
+            job = self.archive.restore(job_id, self.max_events)
+            if job is not None:
+                with self._lock:
+                    job = self._jobs.setdefault(job_id, job)
         if job is None:
             raise NotFound(job_id)
         actor=telemetry.current()
@@ -248,6 +267,7 @@ class JobManager:
     def submit(self, kind: str, title: str, params: dict, fn: JobFn) -> Job:
         job = Job(kind, title, params, self.max_events)
         job.retry_fn = fn
+        job.archive = self.archive
         self._housekeep()
         with self._lock:
             while len(self._jobs)>=self.max_jobs:
@@ -342,6 +362,8 @@ class JobManager:
                     job._state()
                     if job.status == 'done':
                         job.emit('result', result=job.result)
+                        if job.archive is not None:
+                            job.archive.save(job)
             except JobCancelled:
                 with job.lock:
                     job.status, job.finished, job.busy = 'cancelled', time.time(), False
@@ -377,3 +399,75 @@ def _tracker_summary(job: Job, status: str) -> Optional[dict]:
         return tracker.summary(status=status) if tracker is not None else None
     except Exception:  # noqa: BLE001
         return None
+
+
+class JobArchive:
+    """Jobs on disk (SQLite): the last snapshot of each job, result included, without its input ``params``.
+
+    Written when a job is queued and when it ends; read back by id when the job is no longer in memory (evicted, or
+    the server restarted). Rows older than ``keep_days`` are dropped at startup. Jobs that were not finished when the
+    server stopped become ``error`` / ``interrupted`` at the next startup.
+    """
+
+    INTERRUPTED = {'code': 'interrupted', 'message': '서버가 다시 시작돼 작업이 멈췄어요. 다시 시도해 주세요.', 'retryable': True}
+
+    def __init__(self, path: Path, keep_days: float = 7) -> None:
+        self.path = Path(path)
+        self._lock = threading.Lock()
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        with self._db() as db:
+            db.execute('CREATE TABLE IF NOT EXISTS jobs (id TEXT PRIMARY KEY, owner TEXT, kind TEXT, status TEXT,'
+                       ' created REAL NOT NULL, updated REAL NOT NULL, data TEXT NOT NULL)')
+            db.execute('DELETE FROM jobs WHERE created < ?', (time.time() - keep_days * 86400,))
+            for job_id, data in db.execute("SELECT id, data FROM jobs WHERE status NOT IN ('done','error','cancelled')").fetchall():
+                snap = json.loads(data)
+                snap.update(status='error', error=self.INTERRUPTED, waiting=None, partial=None, finished=snap.get('finished') or time.time())
+                db.execute('UPDATE jobs SET status=?, updated=?, data=? WHERE id=?', ('error', time.time(), json.dumps(snap, ensure_ascii=False), job_id))
+
+    def _db(self):
+        db = sqlite3.connect(self.path, timeout=5)
+        db.execute('PRAGMA journal_mode=WAL')
+        return db
+
+    def save(self, job: Job) -> None:
+        try:
+            snap = job.snapshot(0, include_result=True)
+            snap['params'] = {}
+            snap['owner'] = job.owner
+            data = json.dumps(snap, ensure_ascii=False, default=str)
+            with self._lock, self._db() as db:
+                db.execute('INSERT INTO jobs (id, owner, kind, status, created, updated, data) VALUES (?,?,?,?,?,?,?)'
+                           ' ON CONFLICT(id) DO UPDATE SET status=excluded.status, updated=excluded.updated, data=excluded.data',
+                           (job.id, job.owner, job.kind, job.status, job.created, time.time(), data))
+        except Exception as exc:  # noqa: BLE001 — the job itself must not fail because the archive could not be written
+            log.warning('job %s: archive write failed: %s', job.id, type(exc).__name__)
+
+    def restore(self, job_id: str, max_events: int) -> Optional[Job]:
+        try:
+            with self._lock, self._db() as db:
+                row = db.execute('SELECT data FROM jobs WHERE id=?', (job_id,)).fetchone()
+        except Exception as exc:  # noqa: BLE001
+            log.warning('job %s: archive read failed: %s', job_id, type(exc).__name__)
+            return None
+        if not row:
+            return None
+        snap = json.loads(row[0])
+        if snap.get('status') not in TERMINAL:  # still running in another server process — that one answers for it
+            return None
+        job = Job(snap.get('kind') or '', snap.get('title') or '', {}, max_events)
+        job.id, job.owner = job_id, snap.get('owner')
+        job.status = snap['status']
+        job.error = snap.get('error')
+        job.created = snap.get('created') or job.created
+        job.started = snap.get('started') or 0.0
+        job.finished = snap.get('finished') or time.time()
+        job.result = snap.get('result') if job.status == 'done' else None
+        job.modes = snap.get('llm')
+        events = [e for e in (snap.get('events') or []) if isinstance(e, dict) and isinstance(e.get('seq'), int)]
+        for ev in events[-max_events:]:
+            job._events.append(ev)
+        job._seq = max([snap.get('next_seq') or 0] + [e['seq'] for e in events])
+        if job.status == 'error' and job.error == self.INTERRUPTED and not any(e.get('type') == 'state' and e.get('status') == 'error' for e in events):
+            job._seq += 1
+            job._events.append({'seq': job._seq, 'type': 'state', 't': 0, 'status': 'error', 'waiting': None, 'error': job.error})
+        return job

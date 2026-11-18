@@ -2,18 +2,21 @@
 
 Source of truth is the snapshot written by ``app/scripts/export_agent_data.mjs`` into
 ``app/data/runtime/kb`` (current app catalog/templates/scenarios; 838 layouts, 597 active, hidden
-industry covers and document-specific sheets, 1,084 products, 85 scenarios, plus read-only copies of the PoC standard
+industry covers and document-specific sheets, every product of the product DB, 85 scenarios, plus read-only copies of the PoC standard
 scenarios and score criteria/rubrics/taxonomy).
 
 * ``CanonicalLayoutKB`` subclasses ``winmate_layout.kb.KB`` with an explicit ``__init__`` and overrides
   the ``html`` / ``cards`` / ``standard_scenarios`` / ``std_rules`` cached properties. The PoC module
   globals ``SRC`` / ``DATA`` are never touched. Cards come from ``metadata.build_cards(kb)`` (pure).
-* ``P`` holds all 1,084 products so explicitly selected DB product ids resolve. ``products`` (what the
+* ``P`` holds all products so explicitly selected DB product ids resolve. ``products`` (what the
   PoC Analyzer turns into its model/name regex and what ``recommend_products`` ranks) is the curated
   40 plus the products selected for the request — DB rows carry generic names such as "비즈니스TV"
   that would otherwise produce false product links.
 * ``CanonicalStoryKB`` subclasses ``sbagent.kb.KB`` the same way with all current scenarios and all
-  1,084 products.
+  products.
+
+The expected product count is ``products_db.json`` ``counts.total`` — the one declared total, changed only by
+the DSS update / deletion tools (``proddb/build/dss``).
 """
 from __future__ import annotations
 
@@ -31,7 +34,14 @@ from . import imports
 from .imports import POC_TEST, RUNTIME_DIR
 
 KB_DIR = RUNTIME_DIR / 'kb'
-EXPECTED = {'layouts_total': 838, 'layouts_active': 597, 'products': 1084, 'curated_products': 40, 'scenarios': 85}
+def _declared_products() -> int:
+    try:
+        return int(json.loads((imports.ROOT / 'app' / 'data' / 'products_db.json').read_text(encoding='utf-8'))['counts']['total'])
+    except (OSError, ValueError, KeyError, TypeError):
+        return -1  # no declared total → the count check reports a mismatch instead of passing silently
+
+
+EXPECTED = {'layouts_total': 985, 'layouts_active': 357, 'products': _declared_products(), 'curated_products': 40, 'scenarios': 116}
 LAYOUT_KEYS = ('f', 'c', 'code', 'name', 'when', 'g', 'p', 'p2', 'ind', 'sol', 'pc', 'req', 'prods', 'sols', 'phs', 'ph', 'hl', 'txt', 'eb', 'foot', 'sample')
 PRODUCT_KEYS = ('id', 'name', 'model', 'cat', 'spec', 'spaces', 'ind', 'kw')
 POC_SCORE = {'criteria': POC_TEST / 'proposal_score' / 'criteria' / 'criteria.json',
@@ -39,8 +49,8 @@ POC_SCORE = {'criteria': POC_TEST / 'proposal_score' / 'criteria' / 'criteria.js
              'taxonomy': POC_TEST / 'proposal_score' / 'taxonomy' / 'taxonomy.json'}
 POC_STANDARD = POC_TEST / 'layout_agent' / 'data' / 'standard_scenarios.json'
 NOTES = [
-    'Layout Agent: P 는 제품 1,084개 전체(선택한 DB 제품 id 해석용), Analyzer 추천 · 모델명 탐지는 큐레이션 40개 + 요청에서 선택한 제품만 씁니다(DB 일반 제품명 오탐 방지).',
-    'Storyboard Agent: 85개 시나리오(설명 기반 표준 20개 · 기업 분석 3개 포함) · 제품 1,084개 전체를 씁니다.',
+    'Layout Agent: P 는 제품 전체(선택한 DB 제품 id 해석용), Analyzer 추천 · 모델명 탐지는 큐레이션 40개 + 요청에서 선택한 제품만 씁니다(DB 일반 제품명 오탐 방지).',
+    'Storyboard Agent: 85개 시나리오(설명 기반 표준 20개 · 기업 분석 3개 포함) · 제품 전체를 씁니다.',
     'RAG 검색: BM25 + TF-IDF(char n-gram) 결정론 검색으로 후보를 뽑고, 상위 20개를 AI가 다시 정렬합니다(임베딩은 쓰지 않음).',
     '숨김 업종 표지(L_IND_*)는 HTML · 레지스트리(hidden_layouts)에만 있고 일반 추천 후보(kb.L / cards)에는 넣지 않습니다.',
 ]
@@ -155,8 +165,11 @@ def verify_bundle(b: Bundle) -> dict:
     unused = [a for a in b.retired if a not in L]
     if unused:
         warnings.append('레지스트리에 없는 retired 원본(앱도 무시): ' + ', '.join(unused[:6]))
-    marked = {l['f'] for l in layouts if l.get('retired')}
-    if marked != {f for f in b.retired if f in L}:
+    archived = {l['f'] for l in layouts if l.get('removed')}
+    marked = {l['f'] for l in layouts if l.get('retired') and l['f'] not in archived}
+    # An archived alias and its old replacement still exist for saved documents;
+    # only aliases available for new selection need an active replacement mark.
+    if marked != {f for f in b.retired if f in L and f not in archived}:
         warnings.append('catalog.retired 표시와 retired.json 이 다름')
     products = cat['products']
     pids = [p.get('id') for p in products]
@@ -199,7 +212,7 @@ def verify_bundle(b: Bundle) -> dict:
                 errors.append('criteria 에 없는 taxonomy 기준: ' + ', '.join(sorted(in_fine - ids)[:8]))
         except (OSError, ValueError, KeyError, TypeError) as exc:
             errors.append(f'score 기준 파일 형식 오류: {type(exc).__name__}')
-    counts = {'layouts_total': len(layouts), 'layouts_active': sum(1 for l in layouts if not l.get('retired')),
+    counts = {'layouts_total': len(layouts), 'layouts_active': sum(1 for l in layouts if not l.get('retired') and not l.get('variantOf')),
               'hidden_layouts': len(b.hidden_layouts), 'html': len(b.html), 'products': len(products), 'curated_products': len(curated),
               'scenarios': len(b.scenarios.get('SCENARIOS', [])), 'industries': len(cat['industries']), 'solutions': len(cat['solutions']),
               'cases': len(cat['cases'])}
@@ -240,7 +253,9 @@ def _layout_kb_class() -> type:
             self.PARTS, self.NEXT, self.RELATED = parts['PARTS'], parts['NEXT'], parts['RELATED']
             sc = bundle.scenarios
             self.REQ_TYPES, self.STRATEGIES, self.ENDINGS, self.STAGES = sc['REQ_TYPES'], sc['STRATEGIES'], sc['ENDINGS'], sc['STAGES']
-            self.best_scenarios = sc['SCENARIOS']
+            from .. import resource_switches as switches
+            # 끈 자원(row['off'])은 후보 목록에서만 빠지고, id 로 찾는 표(BS · S · C · P)에는 남아 저장된 제안서를 계속 읽는다
+            self.best_scenarios = switches.live(sc['SCENARIOS'])
             self.images = bundle.images
             self.layouts = cat['layouts']
             self.L = {l['f']: l for l in self.layouts}
@@ -254,12 +269,12 @@ def _layout_kb_class() -> type:
             self.curated_products = [p for p in self.all_products if p['id'] in curated]
             self.selected_products: List[dict] = []
             self.products = list(self.curated_products)
-            self.solutions = cat['solutions']
-            self.S = {s['id']: s for s in self.solutions}
-            self.cases = cat['cases']
-            self.C = {str(x['id']): x for x in self.cases}
+            self.solutions = switches.live(cat['solutions'])
+            self.S = {s['id']: s for s in cat['solutions']}
+            self.cases = switches.live(cat['cases'])
+            self.C = {str(x['id']): x for x in cat['cases']}
             self.IND_KW = cat['indKw']
-            self.BS = {s['id']: s for s in self.best_scenarios}
+            self.BS = {s['id']: s for s in sc['SCENARIOS']}
             self.catalog = {'layouts': self.layouts, 'industries': self.industries, 'products': self.products,
                             'solutions': self.solutions, 'cases': self.cases, 'indKw': self.IND_KW}
 
@@ -326,6 +341,16 @@ def _layout_kb_class() -> type:
         def lookup_layout(self, f: str) -> Optional[dict]:
             return self.L.get(f) or self.hidden_layouts.get(f)
 
+        @cached_property
+        def photo_pool(self) -> dict:
+            """사진 갈아 끼우기 후보 — 관리자가 끈 사진은 뺀다(이미 장에 박힌 사진은 그대로 그린다)."""
+            from .. import resource_switches as switches
+            pool = base.photo_pool.func(self)
+            pids, addresses = switches.image_refs()
+            if not pids and not addresses:
+                return pool
+            return {k: [x for x in v if x.get('pid') not in pids and x.get('ref') not in addresses] for k, v in pool.items()}
+
     _CLASSES['layout'] = CanonicalLayoutKB
     return CanonicalLayoutKB
 
@@ -345,8 +370,10 @@ def _story_kb_class() -> type:
             sc = bundle.scenarios
             self.REQ_TYPES, self.STRATEGIES, self.ENDINGS, self.STAGES = sc['REQ_TYPES'], sc['STRATEGIES'], sc['ENDINGS'], sc['STAGES']
             cat = bundle.catalog
-            self.products = cat['products']
-            self.solutions = cat['solutions']
+            from .. import resource_switches as switches
+            # 끈 자원은 후보 목록에서만 빠지고 id 로 찾는 표(P · S · cases · SC)에는 남는다
+            self.products = switches.live(cat['products'])
+            self.solutions = switches.live(cat['solutions'])
             self.industries = {i['code']: i for i in cat['industries']}
             self.ind_kw = cat.get('indKw', {})
             layouts = {l['f']: l for l in cat['layouts']}
@@ -354,10 +381,11 @@ def _story_kb_class() -> type:
                 layouts.setdefault(f, meta)
             self.layouts = layouts
             self.cases = {str(c['id']): c for c in cat['cases']}
-            self.P = {p['id']: p for p in self.products}
-            self.S = {s['id']: s for s in self.solutions}
-            self.scenarios = [self._scenario(s) for s in sc['SCENARIOS']]
-            self.SC = {s['id']: s for s in self.scenarios}
+            self.P = {p['id']: p for p in cat['products']}
+            self.S = {s['id']: s for s in cat['solutions']}
+            scenarios = [self._scenario(s) for s in sc['SCENARIOS']]
+            self.SC = {s['id']: s for s in scenarios}
+            self.scenarios = [s for s, raw in zip(scenarios, sc['SCENARIOS']) if not raw.get('off')]
             self.product_names = {p['id']: sorted({p['model'], *re.findall(r'[A-Z]{1,4}\d{2}[A-Z0-9-]*', p['name'])}, key=lambda x: (-len(x), x))
                                   for p in self.products}
             self.solution_names = {s['id']: [s['name']] for s in self.solutions}
@@ -387,21 +415,30 @@ def _cards_cache_path(bundle: Bundle, enabled: bool) -> Optional[Path]:
         p = imports.LAYOUT_DIR / 'winmate_layout' / name
         if p.is_file():
             code += p.read_bytes()
-    key = hashlib.sha256((json.dumps(outs, sort_keys=True) + hashlib.sha256(code).hexdigest()).encode()).hexdigest()[:16]
+    off = ','.join(sorted(m['f'] for m in bundle.catalog.get('layouts', []) if m.get('off')))  # 끈 레이아웃이 바뀌면 카드도 다시
+    key = hashlib.sha256((json.dumps(outs, sort_keys=True) + str(bundle.manifest.get('layout_library_rev', 0)) + off + hashlib.sha256(code).hexdigest()).encode()).hexdigest()[:16]
     return bundle.dir / f'layout_cards.{key}.jsonl'
 
 
 def bundle(reload: bool = False) -> Bundle:
     with _LOCK:
-        if reload or 'bundle' not in _STATE:
+        from .. import layout_library as live
+        from .. import resource_switches as switches
+        manifest = KB_DIR / 'manifest.json'
+        revision = (str(live.path()), live.load()['rev'], manifest.stat().st_mtime_ns if manifest.is_file() else 0,
+                    str(switches.path()), switches.revision())
+        if reload or 'bundle' not in _STATE or _STATE.get('revision') != revision:
             _STATE.clear()
-            _STATE['bundle'] = load_bundle()
+            # 관리자 데이터 소스에서 끈 자원(제품 · 솔루션 · 사례 · 레이아웃 · 시나리오)은 후보 목록에서 빠진다
+            _STATE['bundle'] = switches.overlay_bundle(live.overlay_bundle(load_bundle()))
+            _STATE['revision'] = revision
         return _STATE['bundle']
 
 
 def layout_assets(kb_cache: bool = False) -> Tuple[Any, Any]:
     """(base CanonicalLayoutKB, LayoutIndex) — built once (cards ≈ seconds)."""
     with _LOCK:
+        bundle()  # live revision can invalidate the process-wide layout/index caches
         if 'layout' not in _STATE:
             b = bundle()
             cls = _layout_kb_class()
@@ -413,6 +450,7 @@ def layout_assets(kb_cache: bool = False) -> Tuple[Any, Any]:
 
 def story_kb() -> Any:
     with _LOCK:
+        bundle()
         if 'story' not in _STATE:
             _STATE['story'] = _story_kb_class()(bundle())
         return _STATE['story']
@@ -421,6 +459,7 @@ def story_kb() -> Any:
 def score_assets() -> Tuple[Any, Any, dict]:
     """(CriteriaSet, taxonomy, base catalog) with explicit paths (PoC default args are import-time bound)."""
     with _LOCK:
+        bundle()
         if 'score' not in _STATE:
             b = bundle()
             ps = imports.score()

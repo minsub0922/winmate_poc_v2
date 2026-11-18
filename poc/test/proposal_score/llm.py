@@ -114,7 +114,7 @@ class GeminiBackend(Backend):
                  timeout: int = 120, rpm: int = 30, base_url: str = '', verbose: bool = False, max_output: int = 8192) -> None:
         super().__init__()
         if not api_key:
-            raise BackendError('GEMINI_API_KEY 가 비어 있어요 (poc/.env)')
+            raise BackendError('GEMINI_API_KEY 가 비어 있어요 (루트 .env)')
         self.key, self.model = api_key, model
         self.base = (base_url or self.DEFAULT_BASE).rstrip('/')
         self.cache_dir = cache_dir or (config.CACHE_DIR / model)

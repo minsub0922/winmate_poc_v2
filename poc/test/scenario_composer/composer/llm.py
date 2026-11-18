@@ -180,7 +180,8 @@ class AppProviderLLM:
         self.cancel = cancel
         self.on_call = on_call
         self.model = getattr(provider, 'model', '')
-        self.usage = {'calls': 0, 'repairs': 0, 'by_stage': {}}
+        self.usage = {'calls': 0, 'repairs': 0, 'in_tokens': 0, 'out_tokens': 0, 'by_stage': {}}
+        self._lock = threading.Lock()  # parts are composed in parallel — the counters are shared
 
     available = True
 
@@ -192,14 +193,19 @@ class AppProviderLLM:
                 self.cancel()
             r = self.p.generate_json(stage=f'compose:{stage}', system=system, user=text, schema=schema, temperature=temperature,
                                      max_output_tokens=max_tokens, seed=seed)
-            self.usage['calls'] += 1
+            with self._lock:
+                self.usage['calls'] += 1
+                self.usage['in_tokens'] += int(getattr(r, 'prompt_tokens', 0) or 0)
+                self.usage['out_tokens'] += int(getattr(r, 'output_tokens', 0) or 0)
+                self.usage['by_stage'][stage] = self.usage['by_stage'].get(stage, 0) + 1
             if self.on_call:
                 self.on_call(stage)
             data = r.data
             problem = validate(data) if validate else True
             if problem is True or problem is None:
                 return data
-            self.usage['repairs'] += 1
+            with self._lock:
+                self.usage['repairs'] += 1
             text = prompt + '\n\n[이전 응답의 검증 오류]\n' + str(problem)[:1500] + '\n위 오류만 고친 JSON 전체를 다시 답하세요. 새 사실을 만들지 마세요.'
         err = LLMError('invalid_output', f'{stage}: {str(problem)[:300]}')
         err.last = data

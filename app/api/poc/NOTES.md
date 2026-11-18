@@ -26,11 +26,12 @@ node app/scripts/export_agent_data.mjs        # → app/data/runtime/kb/* (manif
 | 키 | 값 | 설명 |
 |---|---|---|
 | `WINMATE_MODE` · `WINMATE_<FUNC>_MODE` | (무시) | 예전 설정. `real` 이 아닌 값은 따르지 않고 `settings.legacy_ignored` · `warnings` 와 시작 로그에 표시 |
-| `GEMINI_API_KEY` | AI 기능에 필요 | 없어도 서버는 시작(`connection.verified=false`), 모든 AI 요청은 503 `no_api_key` |
+| `OPENROUTER_API_KEY` (기본 프로필, `WINMATE_LLM_PROVIDER`에 따라 `GEMINI_API_KEY` · `INTERNAL_LLM_API_KEY`) | AI 기능에 필요 | 없어도 서버는 시작(`connection.verified=false`), 모든 AI 요청은 503 `no_api_key` |
 | `GEMINI_MODEL` · `GEMINI_QUICK_MODEL` · `GEMINI_BASE_URL` | | 서버 전용. 응답 · 로그 · 예외 문자열에 넣지 않음. 검색 rerank 는 quick 모델 |
 | `WINMATE_GEMINI_TIMEOUT` · `WINMATE_GEMINI_RPM` | 120 · 30 | |
 | `WINMATE_LLM_CACHE` · `WINMATE_KB_CACHE` | `off`(기본) | 켜면 `app/data/runtime/{llm-cache,kb/layout_cards.*.jsonl}` |
-| `WINMATE_ENV_FILES` | `app/.env,poc/.env`(기본) · `none` | 읽을 .env 목록. 우선순위 os.environ > app/.env > poc/.env. `os.environ` 에 복사하지 않음 |
+| `TYPESAFE_API_KEY` · `TYPESAFE_MODEL` · `WINMATE_DECISION` | 키 있으면 · `jev-1.14.0` · `auto` | Decision 모델 분기(search.rerank · catalog.rank · review.route · layout.pick · layout.best_pick). `off`면 항상 LLM. `WINMATE_DECISION_TASKS`로 일부만 |
+| `WINMATE_ENV_FILES` | `.env`(기본, 저장소 루트) · `none` | 읽을 .env 목록(테스트용 재지정). 우선순위 os.environ > 루트 .env. `os.environ` 에 복사하지 않음 |
 
 - 요청의 `offline`(false 외) · `llm`(true 외) · `mode`(real 외, storyboard 의 continue/redesign 제외)는 422 `unsupported_option`.
 - Gemini 단계가 provider 재시도 후에도 실패하면 작업은 `status:'error'`, `error:{code, message, step, retryable, provider_code, detail}` 로 끝납니다. 동기 엔드포인트는 4xx/5xx(429 · 502 · 503 · 504 · 422). 규칙 결과로 성공 처리하지 않습니다.
@@ -47,7 +48,7 @@ node app/scripts/export_agent_data.mjs        # → app/data/runtime/kb/* (manif
 | `GET /api/jobs/{id}/events` | SSE. `event: text|state|result`, `id: seq`, `?since=N` 또는 `Last-Event-ID` 로 이어 받기 |
 | `POST /api/jobs/{id}/answer` | `{answers:{질문 id: 값}, use_defaults?:true}` — 질문 id 검증, 값은 문자열 · 숫자(2000자 이하). waiting 이 아니면 409 |
 | `POST /api/jobs/{id}/cancel` | 단계 사이에서 멈춤. queued · waiting 은 즉시 cancelled |
-| `POST /api/layouts/search` | `{q, part?, industry?, products?, solutions?, strategy?, k?, level?}` — BM25 + TF-IDF + PoC 메타 적합도로 후보를 뽑고 상위 20개를 Gemini 가 재정렬(`engine:'bm25+tfidf+gemini'`). 정확한 코드 일치는 맨 앞 고정. 같은 요청은 TTL 캐시 · 동시 요청 합치기 |
+| `POST /api/layouts/search` | `{q, part?, industry?, products?, solutions?, strategy?, k?, level?}` — BM25 + TF-IDF + PoC 메타 적합도로 후보를 뽑고 상위 20개를 설정된 모델(기본 OpenRouter Qwen)이 재정렬(`engine:'bm25+tfidf+llm'`). 정확한 코드 일치는 맨 앞 고정. 같은 요청은 TTL 캐시 · 동시 요청 합치기 |
 | `POST /api/llm` | `{feature, kind:'json'\|'text', prompt \| turns, model_tier?, images?, stream?, schema?}` — JSON 또는 SSE(`requestCompletion` 프로토콜: 누적 `{type:'text',text}` → `{type:'result',data\|text}` 또는 `{type:'error',code,message,retryable}`). `feature` 필수. `schema` 는 `responseSchema` 로 보내고 서버에서 결과를 검증. 키 없음 503, 시작 전 실패는 HTTP 오류 |
 
 작업은 서버 스레드가 소유하므로 탭을 옮겨도 계속됩니다. 메모리 보관(재시작하면 사라짐), 종료된 작업만 오래된 순으로 정리, 24시간 넘게 답을 기다린 작업은 `cancelled(expired)` 로 닫습니다.

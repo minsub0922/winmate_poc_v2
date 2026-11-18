@@ -76,7 +76,7 @@ def row_of(tc_id, cond, mc, out):
 def summary_md(meta: dict, rows: list) -> str:
     h = ['# RFP → 요구사항 실험 결과', '',
          f"- 실행: {meta['run_id']} · 백엔드 `{meta['backend']}` · 모델 `{meta.get('model', '-')}` · 프롬프트 {meta.get('prompt_version', '-')}",
-         f"- 사용 가능한 키(.env.example 기준): {', '.join(k + ('=있음' if v else '=없음') for k, v in meta['keys'].items())}",
+         f"- 사용 가능한 키(루트 .env): {', '.join(k + ('=있음' if v else '=없음') for k, v in meta['keys'].items())}",
          f"- 조건: single(문서 통째로 1회) · chunk_nocarry(조각 독립) · chunk_carry(전역 맥락 + 원장 + 이월 메모 + 미해결 참조) · chunk_carry_gap(+ 빠진 원문 줄만 다시 묻는 갭 채우기)",
          '- recall: 정답 체크포인트 중 입력 폼(키맨 요구사항 · 사업명 · 고객사)에 들어간 비율 · +요약: 자유형식 요약 · 제작자 의견까지 포함',
          '- grounded: 항목 근거 인용이 원문에서 확인되는 비율 · unsup#: 출력 숫자 중 원문에 없는 것 · misattr: 다른 사업으로 잘못 들어간 체크포인트(통합 문서)', '',

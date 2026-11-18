@@ -67,7 +67,7 @@ if (RESUME) {
     sessions: jobs.map((j, i) => ({ id: `${String(i + 1).padStart(2, '0')}-${j.item.pid}-L${j.item.level}-${j.mode}`, pid: j.item.pid, level: j.item.level, sid: j.item.sid, mode: j.mode, label: j.item.label, status: 'queued', turn: 0 })),
   };
 }
-if (!run.offline && !hasKey()) { console.error('GEMINI_API_KEY 가 없습니다 — poc/.env 에 넣거나 --offline 으로 실행하세요'); process.exit(1); }
+if (!run.offline && !hasKey()) { console.error('GEMINI_API_KEY 가 없습니다 — 루트 .env 에 넣거나 --offline 으로 실행하세요'); process.exit(1); }
 
 const calls = [];
 const onCall = (c) => { calls.push({ ...c, at: Date.now() }); };

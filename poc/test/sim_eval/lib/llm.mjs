@@ -1,5 +1,5 @@
 // Gemini REST 어댑터 — 재시도 · 시간 제한 · 토큰 집계 · 호출 기록.
-// 키는 poc/.env 의 GEMINI_API_KEY (env.mjs 가 읽음). 값은 로그 · 결과 파일에 남기지 않는다.
+// 키는 루트 .env 의 GEMINI_API_KEY (env.mjs 가 읽음). 값은 로그 · 결과 파일에 남기지 않는다.
 const BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -21,7 +21,7 @@ export class LLM {
    * @param {(rec:object)=>void} [o.onCall]
    */
   constructor({ apiKey, model, role = 'llm', temperature, thinking, maxOutputTokens, timeoutMs = 120000, onCall } = {}) {
-    if (!apiKey) throw new Error('GEMINI_API_KEY 가 없습니다 (poc/.env)');
+    if (!apiKey) throw new Error('GEMINI_API_KEY 가 없습니다 (루트 .env)');
     Object.assign(this, { apiKey, model, role, temperature, thinking, maxOutputTokens, timeoutMs, onCall });
     this.calls = 0; this.fails = 0; this.ms = 0; this.tokIn = 0; this.tokOut = 0; this.tokThink = 0;
   }

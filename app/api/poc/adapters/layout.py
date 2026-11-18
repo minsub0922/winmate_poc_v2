@@ -18,6 +18,7 @@ from ..settings import Settings
 from ..strict import failure
 from ..layout_uniqueness import build_graph
 from .common import Prepared, as_bool, as_int, jsonable, resolve_mode, requirement_context
+from ...llm import decision as dm
 
 LEVELS = ('minimal', 'ambiguous', 'complex')
 ANALYSIS_FIELDS = ('industry', 'industry_name', 'industry_source', 'industry_conf', 'req_type', 'strategy', 'context_level', 'level_label',
@@ -89,7 +90,8 @@ def start(job: Job, inp: dict, options: dict, include_html: bool, plan: Any, set
     kb = base_kb.with_products(wanted)
     tracker = ModeTracker('real', plan.provider)
     job.ctx['tracker'] = tracker
-    llm = make_layout_llm(plan.provider, tracker, job, requirement_context=options.get('requirement_context', ''))
+    decisions = {task: dm.get_decision(settings, task) for task in ('layout.pick', 'layout.best_pick')}
+    llm = make_layout_llm(plan.provider, tracker, job, requirement_context=options.get('requirement_context', ''), decisions=decisions)
     graph = build_graph(L, kb, llm, index, options.get('used_layouts', []))
     cfg = L.graph.run_config(f'wm-{job.id}', llm)
     job.ctx.update(graph=graph, cfg=cfg, llm=llm, kb=kb, tracker=tracker, warnings=warnings, include_html=include_html)

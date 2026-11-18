@@ -19,7 +19,7 @@
 
 ## 2. 무엇을 만들었나
 
-`poc/test/storyboard_agent/sbagent` — 표준 라이브러리만 쓰는 Python 패키지다. LLM 은 Gemini REST(`poc/.env`)를 쓴다.
+`poc/test/storyboard_agent/sbagent` — 표준 라이브러리만 쓰는 Python 패키지다. LLM 은 Gemini REST(루트 `.env`)를 쓴다.
 
 ```
 제안서 ─▶ ① 요구 원장 ─▶ ② 상황 판정 ─▶ ③ 레퍼런스 검색 · 패턴 카드 ─▶ ④ 설계(LLM | 규칙) ─▶ ⑤ 검증 ─▶ ⑥ 수리 ─▶ storyboard

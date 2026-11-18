@@ -105,6 +105,13 @@ class OpenAIAdapter:
         self.schema_mode = settings.schema_mode
 
     def request(self, value, *, stream=False):
+        return urllib.request.Request(self.base + '/chat/completions', data=json.dumps(self.body(value, stream=stream)).encode('utf-8'),
+                                      method='POST', headers=self.headers())
+
+    def headers(self):
+        return {'content-type': 'application/json', 'authorization': 'Bearer ' + self.key}
+
+    def body(self, value, *, stream=False):
         if value.web_search:
             from .provider import ProviderError
             raise ProviderError('unsupported_capability', '이 모델 연결은 실제 웹 검색을 지원하지 않습니다.')
@@ -133,8 +140,7 @@ class OpenAIAdapter:
                 else:
                     messages.insert(0, {'role': 'system', 'content': instruction})
         if stream: body['stream_options'] = {'include_usage': True}
-        return urllib.request.Request(self.base + '/chat/completions', data=json.dumps(body).encode('utf-8'),
-                                      method='POST', headers={'content-type': 'application/json', 'authorization': 'Bearer ' + self.key})
+        return body
 
     def _normalize(self, value, stream):
         if value.get('error'):
@@ -165,6 +171,32 @@ class OpenAIAdapter:
     def stream_chunk(self, value): return self._normalize(value, True)
 
 
+class OpenRouterAdapter(OpenAIAdapter):
+    """OpenRouter (one key, many vendors' models) on the chat-completions API, plus the model's thinking step.
+
+    ``reasoning`` (``OPENROUTER_REASONING``): ``off`` (default — structured JSON tasks, measured 2–3× faster with the
+    same JSON validity) · ``on`` · ``low`` / ``medium`` / ``high`` effort. Web grounding stays unsupported (explicit
+    ``unsupported_capability``), like every chat-completions gateway here.
+    """
+    name = 'openrouter'
+    REASONING = {'off': {'enabled': False}, 'on': {'enabled': True},
+                 'low': {'effort': 'low'}, 'medium': {'effort': 'medium'}, 'high': {'effort': 'high'}}
+
+    def __init__(self, settings):
+        super().__init__(settings)
+        self.base = (settings.base_url or 'https://openrouter.ai/api/v1').rstrip('/')
+        self.reasoning = getattr(settings, 'reasoning', '') or ''
+
+    def headers(self):
+        return {**super().headers(), 'x-title': 'Winmate'}
+
+    def body(self, value, *, stream=False):
+        body = super().body(value, stream=stream)
+        if self.reasoning in self.REASONING:
+            body['reasoning'] = dict(self.REASONING[self.reasoning])
+        return body
+
+
 class InternalAdapter(OpenAIAdapter):
     """Internal API boundary, initially using the existing chat-completions transport.
 
@@ -174,7 +206,8 @@ class InternalAdapter(OpenAIAdapter):
     name = 'internal'
 
 
-_FACTORIES: dict[str, Callable] = {'internal': InternalAdapter, 'gemini': GeminiAdapter, 'openai': OpenAIAdapter}
+_FACTORIES: dict[str, Callable] = {'internal': InternalAdapter, 'gemini': GeminiAdapter, 'openai': OpenAIAdapter,
+                                   'openrouter': OpenRouterAdapter}
 
 
 def register_adapter(name: str, factory: Callable) -> None:

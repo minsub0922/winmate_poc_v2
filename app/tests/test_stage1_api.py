@@ -40,7 +40,7 @@ class LocalContracts(unittest.TestCase):
         self.assertEqual(boot['products'],products)
         expected=[dict(p,**products['curated'].get(p['id'],{}),cur=True)for p in catalog['products']]+products['products']
         response=self.client.get('/api/products').json()
-        self.assertEqual(len(response['items']),1084)
+        self.assertEqual(len(response['items']),products['counts']['total'])
         self.assertEqual(response['items'],expected)
 
     def test_daily_catalog_metrics_endpoint(self):
@@ -94,6 +94,8 @@ class LocalContracts(unittest.TestCase):
         finally:app.state.auth.reconfigure(previous)
 
     def test_database_detail_packs_preserve_reference_and_apply_reviewed_specs(self):
+        # 확인받아 지운 제품(products_db.json removed)의 상세는 동결 pack 에 남아 있어도 내보내지 않는다(prepare_data.py)
+        removed={t['id'] for t in json.loads((ROOT/'app/data/products_db.json').read_text()).get('removed',[])}
         for path in sorted((ROOT/'reference/live/img/prod').glob('d[0-9][0-9].json')):
             with self.subTest(pack=path.stem):
                 original=path.read_bytes()
@@ -101,6 +103,7 @@ class LocalContracts(unittest.TestCase):
                 reviewed=ROOT/'app/data/product-details'/path.name
                 if reviewed.is_file():
                     expected.update(json.loads(reviewed.read_text())['items'])
+                expected={k:v for k,v in expected.items() if k not in removed}
                 response=self.client.get('/api/product-packs/'+str(int(path.stem[1:])))
                 self.assertEqual(response.status_code,200)
                 actual=response.json()['items']

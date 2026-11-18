@@ -16,12 +16,15 @@ from .adapters import storyboard as storyboard_adapter
 from .adapters import compose as compose_adapter
 from .adapters.common import Prepared
 from .jobs import KINDS, BadRequest, Conflict, Job, JobManager
+from .steps import StepStore
 from .provider import get_provider, provider_usage, ProviderError
 from .settings import FUNCTIONS, Settings, get_settings
 from .strict import FAILURES, STRICT_POLICY
 
 log = logging.getLogger('winmate.poc')
 JOBS = JobManager()
+# Model answers of resumable browser work (장 채우기) by step key — app/api/poc/steps.py
+STEPS = StepStore()
 _ADAPTERS = {'rfp': rfp_adapter, 'requirements': requirements_adapter, 'layout': layout_adapter, 'storyboard': storyboard_adapter, 'review': review_adapter,
              'compose': compose_adapter}
 _NEEDS_KB = ('layout', 'search', 'rerank', 'review', 'storyboard')
@@ -105,7 +108,7 @@ def capabilities() -> dict:
     settings = get_settings()
     provider, reason = get_provider(settings)
     kb = knowledge.status()
-    provider_name = getattr(provider, 'name', getattr(settings, 'provider', 'gemini'))
+    provider_name = getattr(provider, 'name', getattr(settings, 'provider', 'openrouter'))
     errs = _STATE.get('import_errors') or {}
     functions = {}
     for name in FUNCTIONS:
@@ -132,7 +135,7 @@ def capabilities() -> dict:
                      'quick_model': getattr(provider, 'quick_model', None) if provider is not None else settings.quick_model,
                      'usage': provider_usage()},
         'functions': functions, 'knowledge': kb, 'warm': _STATE['warm'], 'warm_error': _STATE['warm_error'],
-        'jobs': {'kinds': list(KINDS), 'recent': JOBS.recent(10), 'persistence': 'memory'},
+        'jobs': {'kinds': list(KINDS), 'recent': JOBS.recent(10), 'persistence': 'disk' if JOBS.archive is not None else 'memory'},
         'search_cache': search_adapter.CACHE.stats(),
         'notes': list(kb.get('notes') or knowledge.NOTES) + [
             '엄격한 실제 실행: 모든 AI 기능은 서버 AI로만 실행하며 규칙 대체 · 더미 · offline 요청이 없습니다.',

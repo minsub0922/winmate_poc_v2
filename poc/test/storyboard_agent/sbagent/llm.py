@@ -18,16 +18,16 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parent.parent
+ENV_FILE = ROOT.parents[2] / ".env"  # 저장소 루트의 단일 .env (ROOT = poc/test/storyboard_agent)
 
 
 def load_env() -> dict:
     env: dict = {}
-    for p in (ROOT / ".env", ROOT.parent / ".env", ROOT.parent.parent / ".env"):
-        if p.exists():
-            for line in p.read_text(encoding="utf-8").splitlines():
-                m = re.match(r"^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)\s*$", line)
-                if m and not line.lstrip().startswith("#") and m.group(1) not in env:
-                    env[m.group(1)] = m.group(2).strip().strip('"').strip("'")
+    if ENV_FILE.exists():
+        for line in ENV_FILE.read_text(encoding="utf-8").splitlines():
+            m = re.match(r"^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)\s*$", line)
+            if m and not line.lstrip().startswith("#"):
+                env[m.group(1)] = m.group(2).strip().strip('"').strip("'")
     for k in ("GEMINI_API_KEY", "GEMINI_MODEL", "GEMINI_BASE_URL"):
         if os.environ.get(k):
             env[k] = os.environ[k]
@@ -109,7 +109,7 @@ class GeminiBackend(Backend):
         env = env or load_env()
         self.key = env.get("GEMINI_API_KEY", "")
         if not self.key:
-            raise BackendError("GEMINI_API_KEY 가 비어 있어요 (poc/.env)")
+            raise BackendError("GEMINI_API_KEY 가 비어 있어요 (루트 .env)")
         self.model = env.get("GEMINI_MODEL", "gemini-3.1-flash-lite")
         self.base = (env.get("GEMINI_BASE_URL") or self.DEFAULT_BASE).rstrip("/")
         self.cache_dir = cache_dir / self.model

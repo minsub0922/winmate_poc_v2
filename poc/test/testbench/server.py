@@ -1,7 +1,7 @@
 """Winmate PoC 테스트 벤치 — poc/test 아래 모듈을 한 페이지에서 실행 · 검증한다.
 
   ./start.command            (macOS: Finder 에서 더블클릭) 또는  ./start.sh
-  → http://127.0.0.1:8787   (계정은 auth.json — 비밀번호는 해시로만 저장)
+  → http://127.0.0.1:<TESTBENCH_PORT>   (계정은 auth.json — 비밀번호는 해시로만 저장)
 """
 from __future__ import annotations
 
@@ -23,7 +23,22 @@ from adapters import selftest as ST  # noqa: E402
 from adapters import sim as SM  # noqa: E402
 from core import JOBS, LAYOUT_DIR, SESSION_COOKIE, SESSION_HOURS, TEST_DIR, LoginGuard, check_password, make_token, read_env_keys, read_token  # noqa: E402
 
-PORT = int(os.environ.get("TESTBENCH_PORT", "8787"))
+def _bind(key: str) -> str:
+    """포트 · 바인딩: 환경 변수 > 루트 .env > 루트 .env.example (기본값은 .env.example 에만 있다)."""
+    value = os.environ.get(key, "")
+    for name in (".env", ".env.example"):
+        path = HERE.parents[2] / name
+        if value or not path.exists():
+            continue
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if line.startswith(key + "="):
+                value = line.split("=", 1)[1].strip()
+    if not value:
+        raise SystemExit(f"{key} 값이 없습니다 — 루트 .env.example 을 확인하세요")
+    return value
+
+
+PORT = int(_bind("TESTBENCH_PORT"))
 app = FastAPI(title="Winmate PoC Testbench", docs_url=None, redoc_url=None, openapi_url=None)
 guard = LoginGuard()
 STATIC = HERE / "static"
@@ -370,6 +385,6 @@ app.mount("/files/sim-runs", StaticFiles(directory=SM.RUNS, html=True), name="si
 if __name__ == "__main__":
     import uvicorn
 
-    host = os.environ.get("TESTBENCH_HOST", "127.0.0.1")
+    host = _bind("TESTBENCH_HOST")
     print(f"Winmate PoC Testbench → http://{host}:{PORT}")
     uvicorn.run(app, host=host, port=PORT, log_level="warning")

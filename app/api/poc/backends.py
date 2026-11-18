@@ -117,6 +117,37 @@ def _provider_failed(tracker: ModeTracker, step: str, exc: ProviderError, job: O
     return from_provider(step, exc)
 
 
+class JobDecision:
+    """Decision-model client bound to one job — what the PoC task modules see as ``backend.decision`` / ``llm.decision``.
+
+    ``ask(stage, state, questions) -> answers``: honours job cancellation, records every answer in the job's
+    :class:`ModeTracker` like an LLM call (step ``prefix + stage``) and turns failures into the same typed model
+    failures as the LLM branch (no rule-made fallback).
+    """
+
+    def __init__(self, client: Any, tracker: ModeTracker, job: Optional[Job] = None, prefix: str = '') -> None:
+        self.client, self.tracker, self.job, self.prefix = client, tracker, job, prefix
+        self.name = getattr(client, 'name', 'decision')
+        self.model = getattr(client, 'model', 'decision')
+        self.calls: List[dict] = []
+
+    def ask(self, stage: str, state: Any, questions: Dict[str, dict]) -> Dict[str, dict]:
+        step = self.prefix + stage
+        if self.job is not None:
+            self.job.check_cancel()
+        try:
+            res = self.client.ask(stage=step, state=state, questions=questions, cancel=_cancel_check(self.job))
+        except ProviderError as exc:
+            raise _provider_failed(self.tracker, step, exc, self.job) from None
+        self.tracker.record_ok(res.as_generation(), step)
+        self.calls.append({'step': step, 'model': res.model, 'ms': res.ms, 'input_tokens': res.input_tokens, 'questions': len(questions)})
+        return res.answers
+
+
+def job_decision(client: Any, tracker: ModeTracker, job: Optional[Job] = None, prefix: str = '') -> Optional[JobDecision]:
+    return JobDecision(client, tracker, job, prefix) if client is not None else None
+
+
 # ---------------------------------------------------------------- RFP
 def make_rfp_backend(provider: Any, tracker: ModeTracker, job: Optional[Job] = None, on_call: Optional[Callable[[str, dict], None]] = None) -> Any:
     rp = imports.rfp()
@@ -192,7 +223,7 @@ def _route_problem(stage: str, data: Any) -> str:
     return ''
 
 
-def make_score_backend(provider: Any, tracker: ModeTracker, job: Optional[Job] = None, max_asks: int = 2, visual_images=None, visual_pages=None, requirement_context: str = '') -> Any:
+def make_score_backend(provider: Any, tracker: ModeTracker, job: Optional[Job] = None, max_asks: int = 2, visual_images=None, visual_pages=None, requirement_context: str = '', decision: Any = None) -> Any:
     ps = imports.score()
     llm = ps.llm
     _require(provider, 'review')
@@ -203,8 +234,10 @@ def make_score_backend(provider: Any, tracker: ModeTracker, job: Optional[Job] =
 
         def __init__(self) -> None:
             super().__init__()
-            self.model = getattr(provider, 'model', 'gemini')
+            self.model = getattr(provider, 'model', 'llm')
             self.visual_calls=0
+            # task review.route: set → the router asks the decision model for relevance/priority (steps review:route_l1/_l2)
+            self.decision = job_decision(decision, tracker, job, 'review:')
 
         def complete(self, stage, system, user, schema, meta=None, temperature=None):
             user = (user or '') + requirement_context
@@ -249,15 +282,17 @@ def make_score_backend(provider: Any, tracker: ModeTracker, job: Optional[Job] =
                 tracker.record_rejected(step, problem)
                 if detailed:
                     prior = json.dumps(res.data, ensure_ascii=False)
-                    user += '\n이전 응답 수정 필요: ' + problem + '\n정상 체크포인트의 판단은 유지하고 잘못된 인용·형식만 고치세요. 수정 대상 원응답:\n' + prior
-                    point_id = problem.split('의', 1)[0]
+                    # every fault of the answer is listed (detailed_review.response_problem): a level ↔ basis conflict is a judgment
+                    # to correct on that checkpoint, a citation a text to copy again — the others stay as they were.
+                    user += '\n이전 응답 수정 필요:\n' + problem + '\n정상 체크포인트의 판단은 유지하고, 위에 지적된 체크포인트만 지적된 내용대로 고치세요. 수정 대상 원응답:\n' + prior
+                    cited = {line.split('의 ', 1)[0] for line in problem.split('\n') if '의 인용이' in line or '의 장 번호' in line}
                     for row in res.data.get('scores', []) if isinstance(res.data, dict) else []:
                         if not isinstance(row, dict):
                             continue
                         for point in row.get('checks', []):
                             if not isinstance(point, dict):
                                 continue
-                            if point.get('id') == point_id:
+                            if point.get('id') in cited:
                                 for ev in point.get('evidence', []):
                                     if not isinstance(ev, dict) or type(ev.get('sheet')) is not int:
                                         continue
@@ -338,7 +373,9 @@ def _split(messages: List[tuple]) -> tuple[str, str]:
     return system, user
 
 
-def make_layout_llm(provider: Any, tracker: ModeTracker, job: Optional[Job] = None, temperature: float = 0.2, max_tokens: int = 8192, requirement_context: str = '') -> Any:
+def make_layout_llm(provider: Any, tracker: ModeTracker, job: Optional[Job] = None, temperature: float = 0.2, max_tokens: int = 8192, requirement_context: str = '',
+                    decisions: Optional[Dict[str, Any]] = None) -> Any:
+    """``decisions``: ``{'layout.pick': client, 'layout.best_pick': client}`` for the tasks that take the decision branch."""
     L = imports.layout()
     _require(provider, 'layout')
     from pydantic import ValidationError  # PoC dependency (winmate_layout.schemas)
@@ -350,6 +387,8 @@ def make_layout_llm(provider: Any, tracker: ModeTracker, job: Optional[Job] = No
             self.mode = provider.name
             self.model_name = provider.model
             self._chat = _ProviderChat(provider, self, tracker, job, max_tokens)
+            # tasks layout.pick / layout.best_pick: set → the PoC node asks the decision model (steps layout:layout_pick / layout:best_pick)
+            self.decisions = {task: job_decision(c, tracker, job, 'layout:') for task, c in (decisions or {}).items() if c is not None}
 
         @property
         def online(self):

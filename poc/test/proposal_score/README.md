@@ -46,7 +46,7 @@ python3 -m proposal_score taxonomy                            # 계층 · 요약
 ```
 
 - 공통 옵션: `--model` · `--budget 12` · `--min-k 10` · `--temperature 0` · `--rpm 30` · `--workers 3`.
-- 키는 `poc/.env` 의 `GEMINI_API_KEY` · `GEMINI_MODEL`(기본 `gemini-3.1-flash-lite`)를 읽는다. 키 값은 출력하지 않는다.
+- 키는 루트 `.env` 의 `GEMINI_API_KEY` · `GEMINI_MODEL`(기본 `gemini-3.1-flash-lite`)를 읽는다. 키 값은 출력하지 않는다.
 - 같은 프롬프트의 응답은 `results/cache/<모델>/` 에 저장된다. 실행이 중간에 끊겨도 같은 명령을 다시 돌리면 이어서 진행한다.
 - 입력 데이터 다시 만들기 (winmatev2 루트에서, `npm install` 후): `node poc/test/proposal_score/tools/export_best_scenarios.mjs`. 앱의 `applyOverrides` · `fillOf` · `bgOfSlide` 로 21개 시나리오(308장)를 headless Chromium 에 그려 `data/best_scenarios.json` 으로 낸다. `CHROMIUM_PATH` 로 브라우저를 지정할 수 있다.
 - 기준을 바꿨으면 `python3 -m proposal_score.tools.sync_criteria` 로 `criteria/criteria.json` 을 다시 만든다(테스트가 앱과의 일치를 확인).

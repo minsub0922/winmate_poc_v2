@@ -10,6 +10,7 @@ HERE = Path(__file__).resolve().parent            # poc/test/proposal_score
 TEST = HERE.parent                                # poc/test
 POC = TEST.parent                                 # poc
 APP_ROOT = POC.parent                             # winmatev2
+ENV_FILE = APP_ROOT / '.env'                      # 저장소 루트의 단일 .env
 
 CRITERIA_DIR = HERE / 'criteria'
 RUBRICS_PATH = CRITERIA_DIR / 'rubrics.json'
@@ -26,8 +27,8 @@ DEFAULT_MODEL = 'gemini-3.1-flash-lite'
 
 
 def load_env(path: Path | None = None) -> Dict[str, str]:
-    """poc/.env 를 읽어 os.environ 보다 낮은 우선순위로 합친다(값은 출력하지 않음)."""
-    path = path or (POC / '.env')
+    """루트 .env 를 읽어 os.environ 보다 낮은 우선순위로 합친다(값은 출력하지 않음)."""
+    path = path or ENV_FILE
     env: Dict[str, str] = {}
     if path.exists():
         for line in path.read_text(encoding='utf-8').splitlines():

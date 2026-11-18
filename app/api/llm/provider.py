@@ -290,6 +290,16 @@ class _Deadline:
         self.at = time.monotonic() + self.seconds
 
 
+# Failures where another configured API may still answer (settings ``WINMATE_LLM_FALLBACK``). A bad request, bad or
+# blocked output, a cut-off answer, a cancel or a wait in the shared queue is the same on every API → never retried there.
+FALLBACK_CODES = frozenset({'no_api_key', 'auth_failed', 'model_not_found', 'rate_limited', 'upstream_unavailable', 'network',
+                            'timeout', 'http_error', 'upstream_error', 'provider_disabled'})
+
+
+def falls_back(exc: ProviderError) -> bool:
+    return exc.code in FALLBACK_CODES and not (exc.code == 'timeout' and '대기' in exc.message)
+
+
 # ---------------------------------------------------------------- provider
 class LLMProvider:
     def __init__(self, settings: Settings, urlopen: Optional[Callable[..., Any]] = None, *, adapter=None, queue=None) -> None:
@@ -310,6 +320,7 @@ class LLMProvider:
         self._chat_lock = threading.Lock()
         self._chats: Dict[float, Any] = {}
         self.ledger = Ledger()
+        self.fallbacks: List['LLMProvider'] = []  # other configured APIs, in order (set by get_provider)
 
     def __repr__(self) -> str:
         return f'LLMProvider(provider={self.name!r}, model={self.model!r}, available={self.available})'
@@ -324,6 +335,25 @@ class LLMProvider:
 
     def safe(self, text: Any) -> str:
         return redact(text, (self._key,))
+
+    def _tier(self, model: str) -> str:
+        """The tier a caller meant by one of this API's model ids — a fallback API answers with its own model of that tier."""
+        return '' if model == self.model else 'quick' if model == self.quick_model else 'vision' if model == self.vision_model else ''
+
+    def _generate_or_fall_back(self, **kw) -> GenerationResult:
+        try:
+            return self._generate(**kw)
+        except ProviderError as exc:
+            if not self.fallbacks or not falls_back(exc) or kw.get('tools'):
+                raise
+            tier = self._tier(kw['model'])
+            for other in self.fallbacks:
+                try:
+                    return other._generate(**{**kw, 'model': other.model_for(tier)})
+                except ProviderError as again:
+                    if not falls_back(again):
+                        raise
+            raise exc
 
     # ------------------------------------------------------------ transport
     @staticmethod
@@ -438,7 +468,7 @@ class LLMProvider:
         payload = {'provider': self.name, 'endpoint': self.base, 'model': model, 'stage': stage, 'system': system, 'contents': contents, 'gen': gen}
         if tools:
             payload['tools'] = tools
-        cache_path = self._cache_path(payload) if cache_allowed else None
+        cache_path = self._cache_path(payload) if cache_allowed and not telemetry.current().get('ephemeral') else None
         rec = self._cache_get(cache_path)
         if rec is not None:
             result = GenerationResult(rec.get('data'), rec.get('text', ''), model, rec.get('prompt_tokens', 0), rec.get('output_tokens', 0), 0, True)
@@ -558,8 +588,8 @@ class LLMProvider:
             gen['responseSchema'] = schema
         if seed is not None:
             gen['seed'] = int(seed)
-        return self._generate(stage=stage, system=sys_text, contents=contents, gen=gen, model=model or self.model,
-                              json_expected=True, cancel=cancel, max_attempts=max_attempts, cache_allowed=cache_allowed)
+        return self._generate_or_fall_back(stage=stage, system=sys_text, contents=contents, gen=gen, model=model or self.model,
+                                           json_expected=True, cancel=cancel, max_attempts=max_attempts, cache_allowed=cache_allowed)
 
     def generate_text(self, *, stage: str, system: str = '', user: Optional[str] = None, turns: Optional[Sequence[Any]] = None,
                       temperature: float = 0.4, max_output_tokens: int = 8192, json_mode: bool = False, model: Optional[str] = None,
@@ -568,8 +598,8 @@ class LLMProvider:
         gen: Dict[str, Any] = {'temperature': float(temperature), 'maxOutputTokens': int(max_output_tokens)}
         if json_mode:
             gen['responseMimeType'] = 'application/json'
-        return self._generate(stage=stage, system=sys_text, contents=contents, gen=gen, model=model or self.model,
-                              json_expected=False, cancel=cancel, max_attempts=max_attempts)
+        return self._generate_or_fall_back(stage=stage, system=sys_text, contents=contents, gen=gen, model=model or self.model,
+                                           json_expected=False, cancel=cancel, max_attempts=max_attempts)
 
     @telemetry.streaming
     def stream_text(self, *, stage: str, system: str = '', user: Optional[str] = None, turns: Optional[Sequence[Any]] = None,
@@ -618,6 +648,21 @@ class LLMProvider:
                     self._sleep(min(10, 2 ** (attempt - 1),max(0,deadline.at-time.monotonic())), cancel)
         if resp is None:
             self.ledger.record(False, code=last.code)
+            if not self.fallbacks or not falls_back(last):
+                raise last
+            tier = self._tier(model)
+            for other in self.fallbacks:  # nothing reached the caller yet: another configured API may answer the same turn
+                started = False
+                try:
+                    for text in other.stream_text(stage=stage, system=system, user=user, turns=turns, temperature=temperature,
+                                                  max_output_tokens=max_output_tokens, json_mode=json_mode, model=other.model_for(tier),
+                                                  images=images, cancel=cancel, max_attempts=max_attempts, schema=schema, on_result=on_result):
+                        started = True
+                        yield text
+                    return
+                except ProviderError as again:
+                    if started or not falls_back(again):
+                        raise
             raise last
         acc, t0, usage = '', time.time(), {}
         try:
@@ -657,7 +702,7 @@ class LLMProvider:
             telemetry.emit('llm.usage',span_id=uuid.uuid4().hex[:16],parent_id=telemetry.current().get('span_id'),started=attempt_started,ended=time.time(),model=model,status='error',code='network',usage=usage or None,metadata={'transport':'stream'})
             self.ledger.record(False, code='network')
             raise ProviderError('network', f'스트림이 끊겼습니다: {type(exc).__name__}') from None
-        telemetry.emit('llm.usage',span_id=uuid.uuid4().hex[:16],parent_id=telemetry.current().get('span_id'),started=attempt_started,ended=time.time(),model=model,status='ok' if acc else 'error',code='' if acc else 'empty',usage=usage or None,metadata={'transport':'stream'})
+        telemetry.emit('llm.usage',span_id=uuid.uuid4().hex[:16],parent_id=telemetry.current().get('span_id'),started=attempt_started,ended=time.time(),model=model,status='ok' if acc else 'error',code='' if acc else 'empty',usage=usage or None,metadata={'transport':'stream'},**telemetry.content(body,{'text':acc}))
         if not acc:
             self.ledger.record(False, code='empty')
             raise ProviderError('empty', '빈 응답')

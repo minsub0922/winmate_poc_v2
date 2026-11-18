@@ -1,4 +1,4 @@
-// 설정 — poc/.env (가까운 .env 우선) 와 환경 변수. API 키 값은 밖으로 내보내지 않는다.
+// 설정 — 저장소 루트의 단일 .env 와 환경 변수(환경 변수 우선). API 키 값은 밖으로 내보내지 않는다.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -8,14 +8,13 @@ export const APP_ROOT = path.resolve(ROOT, '../../..');                         
 export const RUNS = process.env.SIM_RUNS ? path.resolve(process.env.SIM_RUNS) : path.join(ROOT, 'runs'); // SIM_RUNS 로 다른 기록 폴더를 볼 수 있다
 
 function loadEnv() {
-  for (const p of [path.join(ROOT, '.env'), path.join(ROOT, '..', '.env'), path.join(ROOT, '..', '..', '.env')]) {
-    if (!fs.existsSync(p)) continue;
-    for (const line of fs.readFileSync(p, 'utf8').split(/\r?\n/)) {
-      const m = line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)\s*$/);
-      if (!m || line.trim().startsWith('#')) continue;
-      const v = m[2].replace(/^['"]|['"]$/g, '');
-      if (process.env[m[1]] === undefined) process.env[m[1]] = v;
-    }
+  const p = path.join(APP_ROOT, '.env');
+  if (!fs.existsSync(p)) return;
+  for (const line of fs.readFileSync(p, 'utf8').split(/\r?\n/)) {
+    const m = line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)\s*$/);
+    if (!m || line.trim().startsWith('#')) continue;
+    const v = m[2].replace(/^['"]|['"]$/g, '');
+    if (process.env[m[1]] === undefined) process.env[m[1]] = v;
   }
 }
 loadEnv();

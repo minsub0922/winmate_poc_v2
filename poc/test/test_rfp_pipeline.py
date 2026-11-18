@@ -3,7 +3,7 @@
   python3 -m unittest -v test_rfp_pipeline            # 오프라인 테스트 전부 + (키 · 네트워크가 되면) Gemini 라이브 테스트
   RFP_LIVE=0 python3 -m unittest -v test_rfp_pipeline  # 라이브 테스트 건너뛰기
 
-라이브 테스트는 poc/.env 의 GEMINI_API_KEY 로 chunk_carry 조건을 TC1~TC5 에 돌리고 결과를 results/ 에 저장한다.
+라이브 테스트는 루트 .env 의 GEMINI_API_KEY 로 chunk_carry 조건을 TC1~TC5 에 돌리고 결과를 results/ 에 저장한다.
 """
 import json
 import os

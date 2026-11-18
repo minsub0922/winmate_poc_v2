@@ -2,7 +2,7 @@
 from __future__ import annotations
 import threading
 from typing import Any, Dict, Optional, Tuple
-from .settings import Settings
+from .settings import Settings, provider_settings
 from ..llm.provider import (
     LLMProvider, GeminiProvider, GenerationResult, ProviderError, Ledger,
     CancelCheck, DEFAULT_BASE, IMAGE_TYPES, redact, parse_json, degenerate,
@@ -29,7 +29,34 @@ def get_provider(settings: Settings) -> Tuple[Optional[Any], str]:
     with _LOCK:
         if _PROVIDER is None or _PROVIDER._key != settings.api_key() or _PROVIDER._settings != settings:
             _PROVIDER = GeminiProvider(settings) if settings.provider == 'gemini' else LLMProvider(settings)
+            # WINMATE_LLM_FALLBACK: the other configured APIs answer, in order, when this one fails to (llm/provider.py)
+            _PROVIDER.fallbacks = [p for p in (_named(name, provider_settings(name))[0] for name, *_ in settings.llm_fallbacks) if p is not None]
         return _PROVIDER, ''
+
+
+_NAMED: Dict[str, LLMProvider] = {}
+
+
+def _named(name: str, settings: Settings) -> Tuple[Optional[Any], str]:
+    """(provider, reason) for a named profile; the caller holds ``_LOCK``."""
+    if not settings.has_key:
+        return None, 'no_api_key'
+    if settings.provider != 'gemini' and (not settings.base_url or not settings.model):
+        return None, 'provider_disabled'
+    p = _NAMED.get(name)
+    if p is None or p._key != settings.api_key() or p._settings != settings:
+        p = _NAMED[name] = GeminiProvider(settings) if settings.provider == 'gemini' else LLMProvider(settings)
+    return p, ''
+
+
+def get_provider_for(name: str, settings: Optional[Settings] = None) -> Tuple[Optional[Any], str]:
+    """(provider, reason) for a named LLM API profile — another configured API used next to the default one.
+
+    ``settings`` defaults to :func:`provider_settings` ``(name)``. Every instance shares the same request queue limits.
+    """
+    settings = settings or provider_settings(name)
+    with _LOCK:
+        return _named(name, settings)
 
 
 def set_provider_override(provider: Any = None, reason: str = '', clear: bool = False) -> None:

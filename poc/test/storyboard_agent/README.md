@@ -3,7 +3,7 @@
 요구사항 · 제품/솔루션 선택 결과 · 업종 · (있으면) 이전 storyboard 로 제안서 **storyboard 전체**를 설계한다.
 샘플 버티컬 시나리오 21개를 레퍼런스로 쓰되 골격만 빌리고(패턴 카드), 내용은 고객 입력에서만 가져온다. 설계: [DESIGN.md](DESIGN.md) · 실험 결과: [REPORT.md](REPORT.md)
 
-표준 라이브러리만 쓴다(Python 3.9+, `pip install` 없음). LLM 은 Gemini REST — 키는 `poc/.env` 의 `GEMINI_API_KEY` · `GEMINI_MODEL` 을 그대로 읽는다.
+표준 라이브러리만 쓴다(Python 3.9+, `pip install` 없음). LLM 은 Gemini REST — 키는 루트 `.env` 의 `GEMINI_API_KEY` · `GEMINI_MODEL` 을 그대로 읽는다.
 
 ## 실행
 

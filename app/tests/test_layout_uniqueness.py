@@ -51,6 +51,11 @@ class LayoutUniquenessTests(unittest.TestCase):
         result = self.select([['used', 'fresh'], ['used', 'other']], ['used'])
         self.assertEqual({s['f'] for s in result}, {'fresh', 'other'})
 
+    def test_saved_merged_layout_reserves_its_surviving_structure(self):
+        kb = SimpleNamespace(cards={'kept': {}, 'fresh': {}}, L={'old': {'mergedInto': 'kept'}})
+        result = unique_assemble(assemble, kb, [{'id': 'p', 'slides': 1}], self.rows([['kept', 'fresh']]), ['old'])
+        self.assertEqual(result[0]['f'], 'fresh')
+
     def test_exhaustion_and_empty_slots_fail_without_silently_dropping_content(self):
         for choices in [[['a'], ['a']], [[]], [['used']]]:
             with self.subTest(choices=choices), self.assertRaises(ModelFailure):

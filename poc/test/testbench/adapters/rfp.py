@@ -51,7 +51,7 @@ def run(job: Job, params: dict | None = None) -> dict:
     env = rp.load_env()
     backend_name = p.get("backend", "gemini")
     if backend_name == "gemini" and not env.get("GEMINI_API_KEY"):
-        raise RuntimeError("poc/.env 에 GEMINI_API_KEY 가 없습니다 — rules 또는 replay 백엔드로 실행하세요")
+        raise RuntimeError("루트 .env 에 GEMINI_API_KEY 가 없습니다 — rules 또는 replay 백엔드로 실행하세요")
     backend = rx.make_backend(backend_name, env, RESULTS / "cache", int(p.get("rpm") or 30))
     if hasattr(backend, "verbose"):
         backend.verbose = False

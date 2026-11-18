@@ -91,7 +91,7 @@ def _build(job: Job, llm_mode: str):
     kb, index = _kb()
     llm = LLM(llm_mode)
     if llm_mode == "gemini" and not llm.online:
-        raise RuntimeError(f"Gemini 를 쓸 수 없습니다 — {llm.disabled_reason or 'poc/.env 확인'}")
+        raise RuntimeError(f"Gemini 를 쓸 수 없습니다 — {llm.disabled_reason or '루트 .env 확인'}")
     graph = build_graph(kb, llm, index)
     cfg = run_config(f"tb-{job.id}", llm)
     job.ctx.update(graph=graph, cfg=cfg, llm=llm, kb=kb, index=index)

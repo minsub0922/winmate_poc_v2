@@ -8,6 +8,9 @@ The parser keeps what the composer needs to adapt a slide without seeing it:
 - image slot: index, ``data-kind`` (space · cut · ui …), hint/label, box size, ``object-fit`` of the inner picture
   and the layout's own sample picture (``data-fill`` pack address + ``alt``) — the sample is a second exemplar
   of what the slot is for.
+- both: ``x`` · ``y`` — where the slot sits on the 1280 × 720 slide (inline ``left`` / ``top`` summed over the positioned
+  ancestors; None when the layout is not absolutely positioned). The picture stage uses it to find the caption that
+  is *next to* a picture instead of the one that merely comes before it in the markup.
 """
 from __future__ import annotations
 
@@ -16,7 +19,7 @@ from html.parser import HTMLParser
 from typing import Dict, List, Optional
 
 VOID = {'img', 'br', 'hr', 'input', 'meta', 'link', 'source', 'wbr', 'col', 'area', 'base', 'embed', 'param', 'track'}
-_PX = re.compile(r'(?:^|;)\s*(width|height|font-size)\s*:\s*([0-9.]+)px', re.I)
+_PX = re.compile(r'(?:^|;)\s*(width|height|font-size|left|top|min-height)\s*:\s*(-?[0-9.]+)px', re.I)
 _FIT = re.compile(r'object-fit\s*:\s*(contain|cover|fill|none|scale-down)', re.I)
 
 
@@ -54,14 +57,22 @@ class _Parser(HTMLParser):
         a = dict(attrs)
         st = a.get('style') or ''
         node = {'tag': tag}
+        geo = _style(st)
+        par = next((e for e in reversed(self.stack) if e.get('org') is not None), None)
+        base = par['org'] if par else None
+        if 'left' in geo or 'top' in geo:
+            org = ((base[0] if base else 0.0) + geo.get('left', 0.0), (base[1] if base else 0.0) + geo.get('top', 0.0))
+        else:
+            org = base
+        node['org'] = org
         if 'data-tb' in a and re.fullmatch(r'\d+', a['data-tb'] or ''):
             i = int(a['data-tb'])
             node['tb'] = i
             sz = _style(st)
             self.seq += 1
             self.texts.setdefault(i, {'i': i, 'o': self.seq, 'role': a.get('data-type-role') or '', 'text': [], 'font': sz.get('font-size'),
-                                      'w': sz.get('width'), 'h': sz.get('height'), 'shape': a.get('data-layout-shape') or '',
-                                      'img': 'data-img' in a})
+                                      'w': sz.get('width'), 'h': sz.get('height') or sz.get('min-height'), 'shape': a.get('data-layout-shape') or '',
+                                      'img': 'data-img' in a, 'x': org[0] if org else None, 'y': org[1] if org else None})
         if 'data-img' in a and re.fullmatch(r'\d+', a['data-img'] or ''):
             i = int(a['data-img'])
             node['img'] = i
@@ -69,7 +80,8 @@ class _Parser(HTMLParser):
             self.seq += 1
             self.images.setdefault(i, {'i': i, 'o': self.seq, 'kind': a.get('data-kind') or '', 'hint': a.get('data-hint') or a.get('data-label') or '',
                                        'w': sz.get('width'), 'h': sz.get('height'), 'fit': '', 'sample': '', 'alt': '',
-                                       'pid': a.get('data-pid') or '', 'tb': int(a['data-tb']) if re.fullmatch(r'\d+', a.get('data-tb') or '') else None})
+                                       'pid': a.get('data-pid') or '', 'tb': int(a['data-tb']) if re.fullmatch(r'\d+', a.get('data-tb') or '') else None,
+                                       'x': org[0] if org else None, 'y': org[1] if org else None})
             if tag == 'img':
                 self._img_inner(self.images[i], a)
         elif tag == 'img':

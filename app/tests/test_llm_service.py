@@ -152,15 +152,53 @@ def test_openai_refusal_truncation_and_unsupported_search_fail_explicitly(tmp_pa
     assert OpenAIAdapter(config('openai')).response({'choices': [{'message': {'refusal': 'refused'}}]})['candidates'][0]['finishReason'] == 'SAFETY'
 
 
-def test_default_internal_never_uses_legacy_gemini_credentials(monkeypatch):
+def test_default_openrouter_never_uses_other_profiles_credentials(monkeypatch):
     monkeypatch.setattr(legacy, '_OVERRIDE', {})
     settings = load_settings({'GEMINI_API_KEY': 'gemini-test-secret',
                               'GEMINI_MODEL': 'gemini-test-model',
-                              'GEMINI_BASE_URL': 'https://gemini.example/v1'}, [])
-    assert settings.provider == 'internal'
-    assert not settings.has_key
-    assert settings.model == settings.quick_model == settings.vision_model == settings.base_url == ''
+                              'GEMINI_BASE_URL': 'https://gemini.example/v1',
+                              'WINMATE_LLM_API_KEY': 'shared-test-secret',
+                              'WINMATE_LLM_BASE_URL': 'https://shared.example/v1'}, [])
+    assert settings.provider == 'openrouter' and not settings.has_key
+    assert settings.model == settings.quick_model == settings.vision_model == 'qwen/qwen3.6-35b-a3b'
+    assert settings.base_url == 'https://openrouter.ai/api/v1' and settings.reasoning == 'off'
     assert legacy.get_provider(settings) == (None, 'no_api_key')
+    assert any('OPENROUTER_API_KEY' in w for w in settings.warnings)
+
+
+def test_several_llm_api_profiles_side_by_side(tmp_path, monkeypatch):
+    from app.api.llm.adapters import OpenRouterAdapter, create_adapter
+    from app.api.llm.adapters import ModelRequest
+    from app.api.poc.settings import provider_settings
+    env = tmp_path / 'profiles.env'
+    env.write_text('OPENROUTER_API_KEY=or-test-secret\nOPENROUTER_REASONING=high\nGEMINI_API_KEY=gemini-test-secret\n'
+                   'GEMINI_MODEL=gemma-test\nINTERNAL_LLM_API_KEY=internal-test-secret\n')
+    default = load_settings({}, [str(env)])
+    assert default.provider == 'openrouter' and default.api_key() == 'or-test-secret' and default.reasoning == 'high'
+    assert {n: (m, k) for n, m, k in default.providers} == {'openrouter': ('qwen/qwen3.6-35b-a3b', True), 'gemini': ('gemma-test', True),
+                                                             'internal': ('', True), 'openai': ('', False)}
+    gemini = provider_settings('gemini', {}, [str(env)])
+    assert gemini.provider == 'gemini' and gemini.api_key() == 'gemini-test-secret' and gemini.model == 'gemma-test' and gemini.reasoning == ''
+    public = json.dumps(default.public())
+    assert all(x not in public + repr(default) for x in ('or-test-secret', 'gemini-test-secret', 'internal-test-secret'))
+    assert [p['name'] for p in default.public()['providers'] if p['selected']] == ['openrouter']
+    adapter = create_adapter(default)
+    assert isinstance(adapter, OpenRouterAdapter)
+    req = adapter.request(ModelRequest('qwen/qwen3.6-35b-a3b', 'sys', [{'role': 'user', 'content': [{'type': 'text', 'text': 'hi'}]}],
+                                       .2, 100, json_mode=True))
+    body = json.loads(req.data)
+    assert req.full_url == 'https://openrouter.ai/api/v1/chat/completions' and req.headers['Authorization'] == 'Bearer or-test-secret'
+    assert body['reasoning'] == {'effort': 'high'} and body['response_format'] == {'type': 'json_object'}
+    off = json.loads(create_adapter(load_settings({'OPENROUTER_API_KEY': 'k'}, [])).request(
+        ModelRequest('m', '', [{'role': 'user', 'content': [{'type': 'text', 'text': 'hi'}]}], .2, 10)).data)
+    assert off['reasoning'] == {'enabled': False}
+    with pytest.raises(ProviderError, match='unsupported_capability'):
+        adapter.request(ModelRequest('m', '', [], .2, 10, web_search=True))
+    monkeypatch.setattr(legacy, '_NAMED', {})
+    a, _ = legacy.get_provider_for('openrouter', default)
+    b, _ = legacy.get_provider_for('gemini', gemini)
+    assert a.name == 'openrouter' and b.name == 'gemini' and a is not b
+    assert legacy.get_provider_for('openai', provider_settings('openai', {}, [str(env)])) == (None, 'no_api_key')
 
 
 @pytest.mark.parametrize('vendor', ['internal', 'gemini'])

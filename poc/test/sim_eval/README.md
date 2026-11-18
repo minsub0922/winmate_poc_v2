@@ -10,7 +10,7 @@
 ## 준비
 
 - Node 18 이상. 설치할 패키지는 없습니다.
-- `poc/.env` 에 `GEMINI_API_KEY` (선택: `GEMINI_MODEL`, `SIM_CUSTOMER_MODEL`, `SIM_SELLER_MODEL`, `SIM_JUDGE_MODEL`). 키 값은 출력하지 않습니다.
+- 루트 `.env` 에 `GEMINI_API_KEY` (선택: `GEMINI_MODEL`, `SIM_CUSTOMER_MODEL`, `SIM_SELLER_MODEL`, `SIM_JUDGE_MODEL`). 키 값은 출력하지 않습니다.
 
 | 역할 | 기본 모델 | 하는 일 |
 |---|---|---|
