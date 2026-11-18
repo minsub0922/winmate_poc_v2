@@ -79,6 +79,8 @@ class Operations:
               CREATE TABLE IF NOT EXISTS operation_meta(key TEXT PRIMARY KEY,value TEXT);
             ''')
             db.execute("UPDATE spans SET status='error',code='process_restarted',message='서버 재시작으로 완료 여부를 확인할 수 없습니다.' WHERE status='running' AND ended IS NULL")
+            # 출력 includes reasoning (see receive); rows stored before that kept Gemini thoughts apart. Idempotent.
+            db.execute("UPDATE spans SET output_tokens=output_tokens+thought_tokens WHERE kind='llm.usage' AND thought_tokens>0 AND total_tokens=input_tokens+output_tokens+thought_tokens")
             db.execute("INSERT OR IGNORE INTO operation_meta VALUES ('started_at',?)", (str(time.time()),))
         self.lock = threading.RLock()
         self.path.chmod(0o600)
@@ -132,6 +134,12 @@ class Operations:
             'input_tokens': token('promptTokenCount'), 'output_tokens': token('candidatesTokenCount'),
             'thought_tokens': token('thoughtsTokenCount'), 'cached_tokens': token('cachedContentTokenCount'),
             'total_tokens': token('totalTokenCount'), 'usage_known': int(known), 'metadata': dump(event.get('metadata') or {})}
+        # 입력 · 출력: output = everything the model generated, reasoning included (billed as output). OpenAI-style APIs
+        # already count reasoning inside completion tokens; Gemini reports thoughts apart (total = prompt + candidates +
+        # thoughts) — fold them in only when the total proves it, so input + output = total for every provider.
+        inp,out,thought,total=(record[k] for k in ('input_tokens','output_tokens','thought_tokens','total_tokens'))
+        if thought and None not in (inp,out,total) and total==inp+out+thought:
+            record['output_tokens']=out+thought
         if known and record['total_tokens'] is None:
             # The API did not report its total; keep it unknown rather than guessing about overlapping counters.
             record['total_tokens'] = None
@@ -191,9 +199,19 @@ class Operations:
             raise ValueError('기간은 시작일 이후, 최대 2년으로 선택해 주세요.')
         return first.timestamp(),last.timestamp()
 
-    def where(self, start=None,end=None,username='',feature='',model='',kind='',status='',q=''):
+    # Raw request and screen traffic: kept for the failure log and the export, left out of the activity log.
+    TRAFFIC = ('http','screen.enter','screen.leave','llm.usage','llm.logical')
+    ADMINS = "SELECT username FROM users WHERE role='admin'"
+    AUTO_COMPOSE = "kind='job' AND feature='compose' AND json_extract(metadata,'$.snapshot.params.step')='auto'"
+
+    def where(self, start=None,end=None,username='',feature='',model='',kind='',status='',q='',include_admin=False,scope=''):
         first,last = self.period(start,end)
         conditions,args = ['started>=?','started<?'],[first,last]
+        if not include_admin and not username:
+            # Administrator accounts (current role) are left out unless asked for or picked by name.
+            conditions.append(f"username NOT IN ({self.ADMINS}) AND NOT (kind='auth.login' AND coalesce(json_extract(metadata,'$.attempted_username'),'') IN ({self.ADMINS}))")
+        if scope=='activity':
+            conditions.append('kind NOT IN ('+','.join('?' for _ in self.TRAFFIC)+')');args.extend(self.TRAFFIC)
         for key,value in [('username',username),('feature',feature),('model',model),('kind',kind),('status',status)]:
             if value:
                 if key=='username':
@@ -206,9 +224,30 @@ class Operations:
             args.extend([literal]*6)
         return ' AND '.join(conditions),args,first,last
 
-    def dashboard(self, **filters):
-        where,args,first,last=self.where(**filters)
-        aggregate="""COUNT(*) spans,COUNT(DISTINCT CASE WHEN username NOT IN ('system','anonymous','scheduler') THEN username END) active_users,
+    def proposals(self, first, last, username='', include_admin=False, bucket=None):
+        """Proposals users started (opened samples excluded) by their own createdAt, and those last exported in the period."""
+        owner,args='',[]
+        if username:owner,args=' AND username=?',[username]
+        elif not include_admin:owner=f' AND username NOT IN ({self.ADMINS})'
+        base="kind='proposal' AND json_extract(payload,'$.sample') IS NULL"+owner
+        exported="json_extract(payload,'$.exportedAt')/1000.0"
+        group=lambda column:((bucket(column)+' bucket,') if bucket else '',' GROUP BY bucket' if bucket else '')
+        head,tail=group('created_at')
+        made=self.rows(f"""SELECT {head}count(*) proposals,count(DISTINCT username) proposal_authors,
+          coalesce(SUM(CASE WHEN coalesce(json_array_length(payload,'$.parts'),0)>0 THEN 1 ELSE 0 END),0) proposals_built
+          FROM history WHERE {base} AND created_at>=? AND created_at<?{tail}""",[*args,first,last])
+        head,tail=group(exported)
+        sent=self.rows(f"SELECT {head}count(*) proposals_exported FROM history WHERE {base} AND {exported}>=? AND {exported}<?{tail}",[*args,first,last])
+        return made,sent
+
+    def dashboard(self, include_admin=False, **filters):
+        where,args,first,last=self.where(include_admin=include_admin,**filters)
+        auto=self.AUTO_COMPOSE
+        aggregate=f"""COUNT(*) spans,COUNT(DISTINCT CASE WHEN username NOT IN ('system','anonymous','scheduler') THEN username END) active_users,
+          SUM(CASE WHEN {auto} AND status='ok' THEN 1 ELSE 0 END) compose_ok,
+          SUM(CASE WHEN {auto} AND status='error' THEN 1 ELSE 0 END) compose_failed,
+          SUM(CASE WHEN {auto} AND status='ok' AND coalesce(json_array_length(metadata,'$.snapshot.result.failed'),0)>0 THEN 1 ELSE 0 END) compose_partial,
+          AVG(CASE WHEN {auto} AND status='ok' THEN duration_ms END) compose_avg_ms,
           SUM(CASE WHEN kind='http' THEN 1 ELSE 0 END) requests,
           SUM(CASE WHEN kind='screen.enter' THEN 1 ELSE 0 END) visits,
           SUM(CASE WHEN kind='action' THEN 1 ELSE 0 END) actions,
@@ -223,28 +262,46 @@ class Operations:
           AVG(CASE WHEN kind='http' THEN duration_ms END) avg_duration_ms"""
         summary=self.one('SELECT '+aggregate+' FROM spans WHERE '+where,args)
         hourly=(last-first)<=2*86400
-        bucket="strftime('%Y-%m-%dT%H:00:00',started,'unixepoch','+9 hours')" if hourly else "strftime('%Y-%m-%d',started,'unixepoch','+9 hours')"
-        series=self.rows('SELECT '+bucket+' bucket,'+aggregate+' FROM spans WHERE '+where+' GROUP BY bucket ORDER BY bucket',args)
+        fmt='%Y-%m-%dT%H:00:00' if hourly else '%Y-%m-%d'
+        bucket=lambda column:f"strftime('{fmt}',{column},'unixepoch','+9 hours')"
+        owner=dict(username=filters.get('username') or '',include_admin=include_admin)
+        made,sent=self.proposals(first,last,**owner)
+        summary.update(made[0]);summary.update(sent[0])
+        series=self.rows('SELECT '+bucket('started')+' bucket,'+aggregate+' FROM spans WHERE '+where+' GROUP BY bucket ORDER BY bucket',args)
         by_bucket={row['bucket']:row for row in series}
+        for rows in self.proposals(first,last,bucket=bucket,**owner):
+            for row in rows:by_bucket.setdefault(row['bucket'],{}).update(row)
         cursor=datetime.fromtimestamp(first,KST).replace(minute=0,second=0,microsecond=0)
         if not hourly:cursor=cursor.replace(hour=0)
         series=[]
         while cursor.timestamp()<last:
-            key=cursor.strftime('%Y-%m-%dT%H:00:00' if hourly else '%Y-%m-%d')
-            series.append(by_bucket.get(key,{'bucket':key,**{k:0 for k in summary}}))
+            key=cursor.strftime(fmt)
+            series.append({**{k:0 for k in summary},**by_bucket.get(key,{}),'bucket':key})
             cursor+=timedelta(hours=1) if hourly else timedelta(days=1)
         features=self.rows('SELECT feature,'+aggregate+' FROM spans WHERE '+where+' GROUP BY feature ORDER BY total_tokens DESC,requests DESC LIMIT 30',args)
         users=self.rows('SELECT username,'+aggregate+' FROM spans WHERE '+where+' GROUP BY username ORDER BY total_tokens DESC,requests DESC LIMIT 100',args)
-        pages=self.rows("SELECT username,page,count(*) visits,min(started) first_visit,max(started) last_visit FROM spans WHERE "+where+" AND kind='screen.enter' GROUP BY username,page ORDER BY visits DESC LIMIT 50",args)
-        options={'users':[r['username'] for r in self.rows("SELECT username FROM users UNION SELECT DISTINCT username FROM spans ORDER BY username")],
+        # 입력 · 출력 토큰 by feature · model · user (real model calls only).
+        usage="""count(*) calls,coalesce(SUM(input_tokens),0) input_tokens,coalesce(SUM(output_tokens),0) output_tokens,
+          coalesce(SUM(thought_tokens),0) thought_tokens,coalesce(SUM(cached_tokens),0) cached_tokens,
+          SUM(CASE WHEN usage_known=0 OR total_tokens IS NULL THEN 1 ELSE 0 END) unknown"""
+        tokens={by:self.rows(f"SELECT {column} name,{usage} FROM spans WHERE {where} AND kind='llm.usage' GROUP BY name ORDER BY coalesce(SUM(input_tokens),0)+coalesce(SUM(output_tokens),0) DESC,count(*) DESC LIMIT 50",args)
+                for by,column in (('feature',"coalesce(feature,'')"),('model',"coalesce(model,'')"),('username','username'))}
+        # Background AI work by kind (레이아웃 자동 구성 · 요구사항 요약 …): finished runs and how many succeeded.
+        jobs=self.rows("""SELECT feature||CASE WHEN feature='compose' THEN ':'||coalesce(json_extract(metadata,'$.snapshot.params.step'),'') ELSE '' END job,
+          max(json_extract(metadata,'$.snapshot.title')) title,SUM(status='ok') ok,SUM(status='error') failed,SUM(status='cancelled') cancelled,
+          SUM(status='running') running,AVG(CASE WHEN status='ok' THEN duration_ms END) avg_ms
+          FROM spans WHERE """+where+" AND kind='job' GROUP BY job ORDER BY SUM(status IN ('ok','error')) DESC,job LIMIT 30",args)
+        admins={r['username'] for r in self.rows(self.ADMINS)}
+        options={'users':[r['username'] for r in self.rows("SELECT username FROM users UNION SELECT DISTINCT username FROM spans ORDER BY username") if include_admin or r['username'] not in admins],
+                 'admins':sorted(admins),
                  'features':[r['feature'] for r in self.rows('SELECT DISTINCT feature FROM spans WHERE feature IS NOT NULL ORDER BY feature')],
                  'models':[r['model'] for r in self.rows("SELECT DISTINCT model FROM spans WHERE model IS NOT NULL AND model!='' ORDER BY model")]}
-        return {'summary':summary,'series':series,'features':features,'users':users,'pages':pages,'options':options,
+        return {'summary':summary,'series':series,'features':features,'users':users,'jobs':jobs,'tokens':tokens,'options':options,'include_admin':bool(include_admin),
                 'bucket':'hour' if hourly else 'day','first':first,'last':last,'timezone':'Asia/Seoul',
                 'collection_started_at':float(self.one("SELECT value FROM operation_meta WHERE key='started_at'")['value'])}
 
     def spans(self,offset=0,limit=30,**filters):
         where,args,_,_=self.where(**filters)
-        fields='id,trace_id,parent_id,username,kind,feature,stage,page,action,started,ended,duration_ms,status,http_status,method,path,code,message,model,job_id,input_tokens,output_tokens,thought_tokens,cached_tokens,total_tokens,usage_known'
+        fields="id,trace_id,parent_id,username,kind,feature,stage,page,action,started,ended,duration_ms,status,http_status,method,path,code,message,model,job_id,input_tokens,output_tokens,thought_tokens,cached_tokens,total_tokens,usage_known,CASE WHEN kind='job' THEN json_extract(metadata,'$.snapshot.title') END job_title"
         return {'items':self.rows('SELECT '+fields+' FROM spans WHERE '+where+' ORDER BY started DESC LIMIT ? OFFSET ?',[*args,limit,offset]),
                 'total':self.one('SELECT count(*) n FROM spans WHERE '+where,args)['n']}

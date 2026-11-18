@@ -347,3 +347,120 @@ def test_global_limit_still_blocks_password_spraying(state):
     ops,accounts,auth,_=state
     for i in range(auth.config.global_failures):auth.limiter.failure('127.0.0.1:unknown'+str(i))
     assert auth.limiter.retry_after('127.0.0.1:another-user')>0
+
+
+def _usage(total):
+    return {'promptTokenCount':total-5,'candidatesTokenCount':5,'totalTokenCount':total}
+
+
+def test_dashboard_counts_outcomes_and_leaves_admin_accounts_out_by_default(state):
+    ops,accounts,auth,_=state
+    at=time.time()
+    def job(user,status,step='auto',failed=0,feature='compose'):
+        result={'failed':[{'id':'p'}]*failed} if status=='ok' else None
+        ops.receive('job',{'username':user,'feature':feature,'started':at,'ended':at+30,'status':status,
+                           'metadata':{'snapshot':{'params':{'step':step,'parts':3},'result':result}}})
+    job('alice','ok');job('alice','ok',failed=1);job('alice','error');job('alice','cancelled');job('alice','ok',step='parts')
+    job('alice','error',step=None,feature='requirements');job('admin','ok')
+    ops.save_history('alice','proposal',[{'id':'a1','createdAt':at*1000,'parts':[{'id':'x'}],'exportedAt':at*1000},
+                                         {'id':'a2','createdAt':at*1000,'parts':[]},
+                                         {'id':'s1','createdAt':at*1000,'sample':{'source':'best-scenario'}}])
+    ops.save_history('admin','proposal',[{'id':'m1','createdAt':at*1000,'parts':[{'id':'x'}]}])
+    ops.receive('llm.usage',{'username':'admin','feature':'compose','started':at,'status':'ok','usage':_usage(50)})
+    ops.receive('llm.usage',{'username':'alice','feature':'compose','started':at,'status':'ok','usage':_usage(20)})
+    ops.receive('auth.login',{'username':'anonymous','started':at,'status':'error','metadata':{'attempted_username':'admin'}})
+    ops.receive('http',{'username':'alice','started':at,'status':'ok','path':'/api/x'})
+
+    member=ops.dashboard()
+    s=member['summary']
+    assert (s['proposals'],s['proposals_built'],s['proposals_exported'],s['proposal_authors'])==(2,1,1,1)
+    assert (s['compose_ok'],s['compose_failed'],s['compose_partial'],s['compose_avg_ms'])==(2,1,1,30000)
+    assert s['total_tokens']==20 and s['errors']==2 and s['active_users']==1
+    assert 'admin' not in member['options']['users'] and member['options']['admins']==['admin'] and member['include_admin'] is False
+    jobs={row['job']:row for row in member['jobs']}
+    assert (jobs['compose:auto']['ok'],jobs['compose:auto']['failed'],jobs['compose:auto']['cancelled'])==(2,1,1)
+    assert jobs['compose:parts']['ok']==1 and jobs['requirements']['failed']==1
+    assert sum(row['proposals'] for row in member['series'])==2 and sum(row['compose_ok'] for row in member['series'])==2
+
+    everyone=ops.dashboard(include_admin=True)['summary']
+    assert (everyone['proposals'],everyone['compose_ok'],everyone['total_tokens'],everyone['errors'])==(3,3,70,3)
+    assert 'admin' in ops.dashboard(include_admin=True)['options']['users']
+    picked=ops.dashboard(username='admin')['summary']  # an account picked by name is shown even when it is an administrator
+    assert (picked['proposals'],picked['compose_ok'],picked['total_tokens'])==(1,1,50)
+
+    assert all(row['username']!='admin' for row in ops.spans(0,50)['items'])
+    activity=ops.spans(0,50,scope='activity',include_admin=True)['items']
+    assert activity and not {row['kind'] for row in activity}&{'http','llm.usage','screen.enter'}
+    assert {row['job_title'] for row in activity if row['kind']=='job'}=={None} and all(row['job_title'] is None for row in activity if row['kind']!='job')
+    ops.receive('job',{'username':'alice','feature':'compose','started':at,'status':'ok','metadata':{'snapshot':{'title':'레이아웃 자동 구성 · A 커피'}}})
+    assert '레이아웃 자동 구성 · A 커피' in {row['job_title'] for row in ops.spans(0,50,kind='job')['items']}
+
+
+def test_tokens_split_into_input_and_output_the_same_way_for_every_provider(state):
+    ops,accounts,auth,_=state
+    at=time.time()
+    # Gemini reports thoughts apart and adds them to its total → 출력 includes them.
+    ops.receive('llm.usage',{'username':'alice','feature':'compose','model':'gemini-x','started':at,'status':'ok',
+        'usage':{'promptTokenCount':100,'candidatesTokenCount':20,'thoughtsTokenCount':30,'cachedContentTokenCount':40,'totalTokenCount':150}})
+    # OpenAI-style APIs already count reasoning inside the completion → kept as reported.
+    ops.receive('llm.usage',{'username':'alice','feature':'review','model':'qwen-x','started':at,'status':'ok',
+        'usage':{'promptTokenCount':200,'candidatesTokenCount':50,'thoughtsTokenCount':30,'totalTokenCount':250}})
+    ops.receive('llm.usage',{'username':'admin','feature':'compose','model':'gemini-x','started':at,'status':'ok','usage':_usage(1000)})
+    stored={r['model']:r for r in ops.rows("SELECT model,input_tokens,output_tokens,thought_tokens,total_tokens FROM spans WHERE username='alice'")}
+    assert (stored['gemini-x']['output_tokens'],stored['gemini-x']['thought_tokens'])==(50,30)
+    assert (stored['qwen-x']['output_tokens'],stored['qwen-x']['thought_tokens'])==(50,30)
+    assert all(r['input_tokens']+r['output_tokens']==r['total_tokens'] for r in stored.values())
+
+    result=ops.dashboard()
+    s=result['summary']
+    assert (s['input_tokens'],s['output_tokens'],s['thought_tokens'],s['cached_tokens'],s['llm_calls'])==(300,100,60,40,2)
+    assert sum(r['input_tokens'] for r in result['series'])==300 and sum(r['output_tokens'] for r in result['series'])==100
+    by=lambda result,group:{r['name']:(r['calls'],r['input_tokens'],r['output_tokens']) for r in result['tokens'][group]}
+    assert by(result,'feature')=={'compose':(1,100,50),'review':(1,200,50)} and result['tokens']['feature'][0]['name']=='review'
+    assert by(result,'model')=={'gemini-x':(1,100,50),'qwen-x':(1,200,50)}
+    assert by(result,'username')=={'alice':(2,300,100)}  # administrators out by default, like every other figure
+    assert by(ops.dashboard(include_admin=True),'username')=={'alice':(2,300,100),'admin':(1,995,5)}
+    assert by(ops.dashboard(username='alice',feature='compose'),'model')=={'gemini-x':(1,100,50)}
+
+    # Rows stored before the fold are corrected when the store opens — once.
+    with ops.db() as db:
+        db.execute("INSERT INTO spans(id,trace_id,username,kind,started,input_tokens,output_tokens,thought_tokens,total_tokens,usage_known) VALUES ('old','t','bob','llm.usage',?,10,2,3,15,1)",(at,))
+    Operations(ops.directory);Operations(ops.directory)
+    assert ops.one("SELECT output_tokens,thought_tokens FROM spans WHERE id='old'")==({'output_tokens':5,'thought_tokens':3})
+    assert ops.one("SELECT output_tokens FROM spans WHERE model='qwen-x'")['output_tokens']==50
+
+
+def test_tracing_routes_take_the_admin_switch_and_activity_scope(api_client):
+    c,ops,auth=api_client
+    c.post('/admin/api/users',json={'usernames':'carol','password':'Known-user-password!'}).raise_for_status()
+    ops.save_history('carol','proposal',[{'id':'c1','createdAt':time.time()*1000}])
+    ops.save_history('admin','proposal',[{'id':'m1','createdAt':time.time()*1000}])
+    default=c.get('/admin/api/tracing/dashboard').json()
+    assert default['summary']['proposals']==1 and 'admin' not in default['options']['users'] and 'carol' in default['options']['users']
+    assert c.get('/admin/api/tracing/dashboard?include_admin=true').json()['summary']['proposals']==2
+    assert all(row['username']!='admin' for row in c.get('/admin/api/tracing/spans?limit=100').json()['items'])
+    assert c.get('/admin/api/tracing/spans?include_admin=true&limit=100').json()['total']>0
+    activity=c.get('/admin/api/tracing/spans?scope=activity&include_admin=true&limit=100').json()['items']
+    assert {row['kind'] for row in activity}>={'auth.login'} and 'http' not in {row['kind'] for row in activity}
+    assert c.get('/admin/api/tracing/spans?scope=everything').status_code==422
+    exported=json.loads(c.get('/admin/api/tracing/export').text)['items']
+    assert exported and all(row['username']!='admin' for row in exported)
+    assert any(row['username']=='admin' for row in json.loads(c.get('/admin/api/tracing/export?include_admin=true').text)['items'])
+
+
+def test_composer_worker_threads_keep_the_requesting_account(state):
+    from concurrent.futures import ThreadPoolExecutor
+    from app.api.poc.adapters.compose import _InJobScope
+    ops,accounts,auth,_=state
+    class Provider:
+        model='model-fixture'
+        def generate_json(self,**kwargs):
+            telemetry.emit('llm.usage',stage=kwargs['stage'],status='ok',usage=_usage(9))
+            return kwargs['stage']
+    with telemetry.scope(username='alice',job_id='job-fixture',trace_id='trace-fixture-123'):
+        provider=_InJobScope(Provider())
+    with ThreadPoolExecutor(3) as pool:
+        assert sorted(pool.map(lambda i:provider.generate_json(stage=f'compose:s{i}'),range(6)))==[f'compose:s{i}' for i in range(6)]
+    rows=ops.rows("SELECT username,job_id,trace_id FROM spans WHERE kind='llm.usage'")
+    assert len(rows)==6 and all((r['username'],r['job_id'],r['trace_id'])==('alice','job-fixture','trace-fixture-123') for r in rows)
+    assert provider.model=='model-fixture' and not hasattr(provider,'model_for')

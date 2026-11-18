@@ -16,6 +16,68 @@ def read(path, default=None):
         return default if default is not None else {}
 
 
+def spatial_assets(library):
+    for section in ('assets', 'objects', 'products', 'furniture', 'templates', 'layouts', 'scenes', 'cases'):
+        values = library.get(section, [])
+        if isinstance(values, dict):
+            values = [dict(v, id=k) for k, v in values.items() if isinstance(v, dict)]
+        for item in values:
+            if isinstance(item, dict):
+                ref = section + '/' + (item.get('id') or digest(item)[:16])
+                yield {'id': 'spatial:' + ref, 'external_id': ref, 'source_id': 'spatial', 'kind': 'spatial',
+                       'title': item.get('name') or item.get('title') or ref, 'payload': item, 'content': dump(item),
+                       'path': 'app/data/spatial/library.json', 'url': ''}
+
+
+def building_assets(catalog):
+    for p in catalog.get('presets', []):
+        ref = 'buildings/' + p['id']
+        yield {'id': 'spatial:' + ref, 'external_id': ref, 'source_id': 'spatial', 'kind': 'spatial',
+               'title': p['title'], 'payload': p, 'content': dump(p), 'path': 'app/data/spatial/building-presets.json', 'url': ''}
+
+
+def sync_spatial_assets(store, root=ROOT):
+    if store.source('spatial').get('refreshed_at'):
+        return
+    library = read(root / 'app/data/spatial/library.json')
+    revision = library.get('sourceHash')
+    if revision and revision != store.setting('spatial_library_revision'):
+        store.upsert_assets(spatial_assets(library))
+        store.set_setting('spatial_library_revision', revision)
+    catalog = read(root / 'app/data/spatial/building-presets.json')
+    if catalog.get('version') and catalog['version'] != store.setting('building_library_revision'):
+        store.upsert_assets(building_assets(catalog))
+        store.set_setting('building_library_revision', catalog['version'])
+
+
+def sync_composer_images(store, root=ROOT):
+    source = root / 'app/data/runtime/composer/library.json'
+    compact = root / 'img/lib/index.json'
+    app_images = root / 'app/data/images.json'
+    if not source.is_file() or store.source('images').get('refreshed_at'):
+        return 0
+    stamp = digest([(p.stat().st_mtime_ns, p.stat().st_size) if p.is_file() else None
+                    for p in (source, compact, app_images, root / 'proddb/imglib/index.json')])
+    if store.setting('composer_image_revision') == stamp:
+        return 0
+    # A packed picture needs its own detail page unless its address already has an image record.
+    indexed = {r['external_id'] for r in store.rows("SELECT external_id FROM assets WHERE source_id='images' AND kind='image'")}
+    covered = {i['a'] for i in read(compact).get('images', []) if i.get('a') and i.get('i') in indexed}
+    covered.update(i['file'] for pid, i in read(app_images).get('pids', {}).items() if i.get('file') and 'app/' + pid in indexed)
+    images = []
+    for src, im in read(source).get('images', {}).items():
+        if src in covered:
+            continue
+        ref = 'composer/' + src
+        payload = {k: im[k] for k in ('desc', 'w', 'h') if im.get(k)}
+        images.append({'id': 'image:' + ref, 'external_id': ref, 'source_id': 'images', 'kind': 'image',
+                       'title': im.get('desc') or src, 'payload': {**payload, 'file': src},
+                       'content': im.get('desc') or src, 'path': src.split('#')[0]})
+    store.upsert_assets(images)
+    store.set_setting('composer_image_revision', stamp)
+    return len(images)
+
+
 def index_repository(store, root=ROOT, progress=lambda *a: None):
     data = root / 'app/data'
     kb = data / 'runtime/kb'
@@ -63,13 +125,9 @@ def index_repository(store, root=ROOT, progress=lambda *a: None):
     for p in img_index.get('images', []):
         add('images', 'image', p['id'], p.get('title', p.get('desc')), p, 'proddb/imglib/index.json', p.get('url', ''), img_index.get('generated'))
     spatial = read(data / 'spatial/library.json')
-    for section in ['assets', 'objects', 'products', 'furniture', 'templates', 'layouts', 'scenes', 'cases']:
-        values = spatial.get(section, [])
-        if isinstance(values, dict):
-            values = [dict(v, id=k) for k, v in values.items() if isinstance(v, dict)]
-        for p in values:
-            if isinstance(p, dict):
-                add('spatial', 'spatial', f"{section}/{p.get('id', digest(p)[:16])}", p.get('name', p.get('title')), p, 'app/data/spatial/library.json')
+    assets.extend(spatial_assets(spatial))
+    buildings = read(data / 'spatial/building-presets.json')
+    assets.extend(building_assets(buildings))
     skills = read(root / 'app/web/src/domain/simulation/skills.json')
     add('templates', 'configuration', 'simulation-skills', '시뮬레이션 스킬 · 평가 기준', skills, 'app/web/src/domain/simulation/skills.json')
     for section in ['score/schema.json', 'score/criteria.json']:
@@ -115,6 +173,11 @@ def index_repository(store, root=ROOT, progress=lambda *a: None):
                 'extension': file.suffix, 'timestamp_note': '파일 수정 시각이며 원본 수집 시각이 아닙니다.'}, rel, content=rel)
     protected = {r['id'] for r in store.rows('SELECT id FROM sources WHERE refreshed_at IS NOT NULL')}
     store.upsert_assets([a for a in assets if a['source_id'] not in protected])
+    composer_images = sync_composer_images(store, root)
+    if 'spatial' not in protected and spatial.get('sourceHash'):
+        store.set_setting('spatial_library_revision', spatial['sourceHash'])
+    if 'spatial' not in protected and buildings.get('version'):
+        store.set_setting('building_library_revision', buildings['version'])
     site = read(root / 'proddb/raw/wkb_products.json')
     dates = {'samsung': site.get('finishedAt', site.get('fetchedAt')), 'images': img_index.get('generated'),
              'templates': manifest.get('generated_at'), 'media': read(data / 'media.json').get('generated')}
@@ -126,7 +189,7 @@ def index_repository(store, root=ROOT, progress=lambda *a: None):
     store.set_setting('baseline_counts', manifest.get('counts', {}))
     store.set_setting('root', str(root))
     progress('로컬 자산 등록 완료', 95)
-    return {'assets': len(assets), 'products': len(products), 'indexed_at': now()}
+    return {'assets': len(assets) + composer_images, 'products': len(products), 'indexed_at': now()}
 
 
 def inspect_database(path):

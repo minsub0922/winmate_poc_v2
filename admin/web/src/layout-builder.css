@@ -1,0 +1,165 @@
+/* 「레이아웃 구성 관리」 → 구성 추가하기 · 새 파트 만들기 · 레이아웃 추가 (layout-builder.jsx) */
+.lb .h-slate,.lb.h-slate{--hc:#5c6b78;--hb:#eef2f5}.lb .h-blue{--hc:#3f6fa8;--hb:#eaf2fb}.lb .h-teal{--hc:#137e71;--hb:#e6f4f0}.lb .h-violet{--hc:#7359b0;--hb:#f1edfa}
+.lb .h-green{--hc:#4c8a52;--hb:#ecf6ec}.lb .h-amber{--hc:#a8782a;--hb:#fbf4e4}.lb .h-red{--hc:#b0524e;--hb:#fbeeed}
+.lb-add-btn{margin-left:auto;flex:none}
+.lb h4{font-size:11px;font-weight:700;color:#3d5866;margin:0;display:flex;align-items:center;gap:6px}
+.lb h4 small{font-weight:500;color:#8a97a3;font-size:10px}
+.lb-sec{display:flex;flex-direction:column;gap:9px}
+.lb-sec-h{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.lb-sec-h .button{margin:0}
+.lb-quiet{color:#93a0ab;font-size:10px}
+.lb-builder{display:flex;flex-direction:column;gap:20px}
+/* 구성 만들기가 가장 넓고, 새 파트 만들기 · 레이아웃 추가가 그보다 작다 */
+.modal.wide:has(.lb-builder){max-width:1000px}
+
+/* 버블 — 색 바탕 + 흰 아이콘(직접 만든 파트는 고른 색, 코드 파트는 유형 색) */
+.lb-node{position:relative;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--hc,#5c6b78);color:#fff;flex:none}
+.lb-node svg{width:15px;height:15px}
+.lb-node.add{background:#fff;color:#7d8e9b;border:1.5px dashed #c5d0d7}
+
+/* 이름 · 설명 */
+.lb-fields{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.7fr);gap:10px 12px}
+.lb-field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.lb-field.full{grid-column:1/-1}
+.lb-field>span{font-size:10px;font-weight:600;color:#6c7d89}
+.lb-field input{border:1px solid #dfe6e9;border-radius:7px;padding:8px 10px;font-size:12px;background:#fff;min-width:0;outline:none;transition:border-color .15s}
+.lb-field input:focus{border-color:var(--teal)}
+.lb-bad{color:#b0524e;font-size:10px}
+
+/* 구성 흐름 — 이 팝업의 주인공: 큰 파트 버블 · 이름은 아래 · 끌어서 순서 바꾸기 · 빼기는 버블에 마우스를 대면 오른쪽 위 */
+.lb-flow-sec h4{font-size:13px;color:#24394a}
+.lb-flow{list-style:none;margin:0;padding:22px 24px 18px;display:flex;flex-wrap:wrap;gap:18px 28px;border:1.5px dashed #cbdcd7;border-radius:14px;background:#f5faf8;min-height:142px;align-items:flex-start;overflow:hidden;transition:border-color .15s,background .15s}
+.lb-flow.dragging{border-color:var(--teal);background:#ecf7f3}
+.lb-fi{position:relative;display:flex;flex-direction:column;align-items:center;gap:9px;width:84px;cursor:grab;user-select:none;outline:none}
+.lb-fi.end{cursor:default}
+.lb-fi.moving{opacity:.35}
+.lb-fi+.lb-fi::before{content:'';position:absolute;left:-38px;top:31px;width:48px;border-top:2px dotted #b4c6cd}
+.lb-fi-b{position:relative;display:grid;place-items:center;width:64px;height:64px;z-index:1}
+.lb-fi .lb-node{width:64px;height:64px;box-shadow:0 8px 18px -8px #17364c80;transition:transform .15s,box-shadow .15s}
+.lb-fi .lb-node svg{width:28px;height:28px}
+.lb-fi:hover .lb-node{transform:translateY(-2px)}
+.lb-fi:focus-visible .lb-node{box-shadow:0 0 0 3px #fff,0 0 0 5px var(--teal)}
+.lb-fi-name{max-width:100%;font-size:12px;font-weight:700;color:#24394a;text-align:center;line-height:1.35;word-break:keep-all;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.lb-fi-x{position:absolute;top:-4px;right:-4px;display:grid;place-items:center;width:22px;height:22px;border:2px solid #fff;border-radius:50%;background:#33505e;color:#fff;padding:0;opacity:0;transform:scale(.6);transition:opacity .12s,transform .12s,background .12s;box-shadow:0 2px 6px #0e242340}
+.lb-fi:hover .lb-fi-x,.lb-fi:focus-within .lb-fi-x{opacity:1;transform:none}
+.lb-fi-x:hover{background:#b0524e}
+.lb-fi.drop-before::after,.lb-fi.drop-after::after{content:'';position:absolute;top:4px;height:56px;width:3px;border-radius:2px;background:var(--teal)}
+.lb-fi.drop-before::after{left:-16px}.lb-fi.drop-after::after{right:-16px}
+.lb-fi.ghost{cursor:default}
+.lb-fi.ghost .lb-node{border-width:2px;box-shadow:none}
+.lb-fi.ghost .lb-fi-name{color:#93a0ab;font-weight:600}
+.lb-chip-x{display:grid;place-items:center;width:18px;height:18px;border:0;border-radius:50%;background:#eef2f4;color:#7d8e9b;padding:0;flex:none}
+.lb-chip-x:hover{background:#fbeeed;color:#b0524e}
+.lb-chip-lock{display:inline-grid;place-items:center;color:#8fa0ab}
+
+/* 파트 목록 — 누르면 흐름에 바로 들어간다 */
+.lb-tiles{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:8px}
+.lb-tile{position:relative}
+.lb-tile-hit{width:100%;display:flex;align-items:center;gap:9px;padding:8px 10px;border:1px solid #e3e9ed;border-radius:10px;background:#fff;text-align:left;transition:border-color .15s,background .15s,box-shadow .15s;min-height:48px}
+.lb-tile-hit:hover:not(:disabled){border-color:var(--hc,#9fb0bb);box-shadow:0 3px 10px #17364c12}
+.lb-tile-hit[draggable=true]{cursor:grab}
+.lb-tile.on .lb-tile-hit{border-color:var(--teal);background:#f3faf8}
+.lb-tile-name{flex:1;min-width:0;font-size:11px;font-weight:600;color:#33505e;line-height:1.35;word-break:keep-all;overflow-wrap:anywhere}
+.lb-tile-state{color:#9aa8b3;flex:none}
+.lb-tile-on{display:grid;place-items:center;width:19px;height:19px;border-radius:50%;background:var(--teal);color:#fff;flex:none}
+.lb-tile.custom .lb-tile-hit{padding-right:54px}
+.lb-tile-act{position:absolute;right:7px;top:50%;transform:translateY(-50%);display:flex;gap:2px}
+.lb-tile-act button{display:grid;place-items:center;width:22px;height:22px;border:0;border-radius:6px;background:none;color:#8a9aa6;padding:0}
+.lb-tile-act button:hover:not(:disabled){background:#eef2f4;color:#33505e}
+.lb-tile.new .lb-tile-hit{border-style:dashed;color:#6f8290}
+
+/* 상태 표식(파트 수 · 막힌 까닭) */
+.lb-rules{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-width:0}
+.lb-rule{display:inline-flex;align-items:center;gap:4px;font-style:normal;font-size:10px;font-weight:600;padding:3px 8px;border-radius:999px;background:#f1f4f6;color:#7b8b97;white-space:nowrap}
+.lb-rule b{font-weight:800}
+.lb-rule.ok{background:#e9f5f1;color:var(--teal)}
+.lb-rule.bad{background:#fbeeed;color:#b0524e}
+
+/* 새 파트 만들기 */
+.lb-creator-overlay .lp-overlay-box{width:min(760px,100%);max-height:min(90vh,940px)}
+.lb-creator-h{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #edf1f3}
+.lb-creator-h .lb-node{width:40px;height:40px}.lb-creator-h .lb-node svg{width:20px;height:20px}
+.lb-creator-h>div{flex:1;min-width:0}
+.lb-creator-h h3{font-size:14px}
+.lb-creator-h p{font-size:10.5px;color:#8a97a3;line-height:1.6}
+.lb-creator-h .icon-button{display:inline-flex;width:30px;height:30px}
+.lb-creator{display:flex;flex-direction:column;gap:18px;padding:16px 20px 18px;overflow:auto;overscroll-behavior:contain;min-height:0}
+.lb-creator>.lb-field{max-width:360px}
+.lb-creator-f{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 20px;border-top:1px solid #edf1f3;background:#fbfcfc}
+.lb-creator-f .button{margin:0}
+.lb-palette{display:grid;grid-template-columns:repeat(18,minmax(0,1fr));gap:5px;max-width:720px}
+.lb-swatches{display:flex;flex-direction:column;gap:5px}
+.lb-swatch{display:grid;place-items:center;aspect-ratio:1;width:100%;max-width:34px;border:0;border-radius:50%;color:#fff;padding:0;box-shadow:inset 0 0 0 1px #0000001a;transition:transform .12s}
+.lb-swatch:hover{transform:scale(1.1)}
+.lb-swatch.on{box-shadow:0 0 0 2px #fff,0 0 0 4px #24394a}
+.lb-icon-search{flex:0 1 220px;min-width:140px;padding:5px 9px}
+.lb-icons{display:flex;flex-direction:column;gap:8px;max-height:236px;overflow:auto;padding:2px 4px 2px 0}
+.lb-icon-group h5{margin:0 0 5px;font-size:9.5px;font-weight:600;color:#93a0ab}
+.lb-icon-group>div{display:flex;flex-wrap:wrap;gap:5px}
+.lb-icon{display:grid;place-items:center;width:34px;height:34px;border:1px solid #e3e9ed;border-radius:9px;background:#fff;color:#4b6170;padding:0;transition:border-color .12s,background .12s,color .12s}
+.lb-icon:hover{border-color:var(--hc);color:var(--hc)}
+.lb-icon.on{background:var(--hc);border-color:var(--hc);color:#fff}
+.lb-sheets{list-style:none;margin:0;padding:12px;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;border:1.5px dashed #d5dee3;border-radius:11px;background:#fafcfc}
+.lb-sheet{position:relative;display:flex;flex-direction:column;gap:6px;padding:7px;border:1px solid #e1e8ec;border-radius:9px;background:#fff;cursor:grab;outline:none;min-width:0}
+.lb-sheet:focus-visible{border-color:var(--teal);box-shadow:0 0 0 3px #57b5a540}
+.lb-sheet.locked{cursor:default;background:#f5f8f9}
+.lb-sheet.moving{opacity:.4}
+.lb-sheet.drop-before::before{content:'';position:absolute;left:-8px;top:6px;bottom:6px;width:3px;border-radius:2px;background:var(--teal)}
+.lb-sheet-no{position:absolute;z-index:1;left:12px;top:12px;font-size:9px;font-weight:700;color:#fff;background:#24394acc;border-radius:4px;padding:1px 5px}
+.lb-sheet-t{display:flex;flex-direction:column;gap:1px;min-width:0}
+.lb-sheet-t b{font-size:10.5px;font-weight:600;color:#33505e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lb-sheet-t small{font-size:9px;color:#97a4ae}
+.lb-sheet.locked .lb-sheet-t{flex-direction:row;align-items:center;gap:5px}
+.lb-sheet .lb-chip-x{position:absolute;z-index:1;right:12px;top:12px;box-shadow:0 1px 3px #0002}
+.lb-sheet.add{padding:0;border-style:dashed;background:none;cursor:default}
+.lb-sheet.add button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:118px;border:0;background:none;color:#5f7684;font-size:10.5px;font-weight:600;border-radius:9px}
+.lb-sheet.add button:hover,.lb-sheet.add button[aria-expanded=true]{background:#f0f7f5;color:var(--teal)}
+
+/* 레이아웃 추가 — '추가' 버튼의 작은 팝업 */
+.lb-picker{position:fixed;z-index:320;display:flex;flex-direction:column;background:#fff;border:1px solid #dfe6e9;border-radius:13px;box-shadow:0 24px 70px #0e242355;overflow:hidden;min-height:260px;animation:fadein .12s ease}
+.lb-picker-h{display:flex;align-items:center;gap:10px;padding:12px 14px 8px}
+.lb-picker-h .search-field{max-width:none;flex:1;padding:7px 10px}
+.lb-picker-h .icon-button{display:inline-flex;width:28px;height:28px}
+.lb-picker-n{font-size:10.5px;color:#8a97a3;white-space:nowrap}.lb-picker-n b{color:#33505e;font-size:12px;margin-right:1px}
+.lb-picker-h .lb-rule{flex:none}
+.lb-clear{display:grid;place-items:center;border:0;background:#e8edf0;border-radius:50%;width:17px;height:17px;padding:0;color:#7d8e9b;flex:none}
+.lb-picker-f{display:flex;flex-direction:column;gap:7px;padding:2px 14px 10px;border-bottom:1px solid #edf1f3}
+.lb-chips{display:flex;flex-wrap:wrap;gap:5px}
+.lb-fchip{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;padding:4px 9px;border:1px solid #e1e8ec;border-radius:999px;background:#fff;color:#5d7181;transition:background .12s,border-color .12s}
+.lb-fchip i{font-style:normal;font-size:9px;font-weight:500;color:#9aa8b3}
+.lb-fchip:hover:not(:disabled){border-color:var(--hc,#9fb0bb)}
+.lb-fchip.on{background:var(--hb,#e9f5f1);border-color:var(--hc,var(--teal));color:var(--hc,var(--teal))}
+.lb-fchip.on i{color:inherit}
+.lb-chips.sub{padding-left:10px;border-left:2px solid #e8eef1}
+.lb-selects{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.lb-select select{font-size:10px;padding:4px 22px 4px 8px;border:1px solid #e1e8ec;border-radius:7px;background:#fff;color:#5d7181;max-width:180px}
+.lb-select.on select{border-color:var(--teal);color:var(--teal);background:#f3faf8;font-weight:600}
+.lb-reset{margin:0 0 0 4px;font-size:10px;gap:4px}
+.lb-picker-list{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding:12px 14px 16px}
+.lb-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.lb-card{position:relative;width:100%;display:flex;flex-direction:column;gap:6px;padding:6px;border:1px solid #e3e9ed;border-radius:9px;background:#fff;text-align:left;transition:border-color .12s,box-shadow .12s}
+.lb-card:hover,.lb-card:focus-visible{border-color:var(--teal);box-shadow:0 4px 14px #137e711c}
+.lb-card-t{display:flex;flex-direction:column;gap:1px;min-width:0;padding:0 2px}
+.lb-card-t b{font-size:10.5px;font-weight:600;color:#33505e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lb-card-t small{font-size:9px;color:#97a4ae;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lb-card.used{border-color:#9fd2c6;background:#f6fbf9}
+.lb-card-used{position:absolute;right:11px;top:11px;display:inline-flex;align-items:center;gap:3px;font-style:normal;font-size:9px;font-weight:700;padding:2px 7px;border-radius:999px;background:var(--teal);color:#fff;box-shadow:0 1px 4px #0e242333}
+/* 레이아웃 상세 — 마우스를 대면 카드 옆에 */
+.lb-hover{position:fixed;z-index:340;width:min(480px,calc(100vw - 16px));pointer-events:none;background:#fff;border:1px solid #dfe7ea;border-radius:12px;box-shadow:0 18px 50px #0e24233a;padding:12px 13px 13px;display:flex;flex-direction:column;gap:6px;animation:fadein .1s ease}
+.lb-hover-tags{display:flex;flex-wrap:wrap;gap:4px}
+.lb-tag{font-size:9.5px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--hb,#eef2f5);color:var(--hc,#5c6b78);white-space:nowrap}
+.lb-hover-name{font-size:12.5px;color:#24394a;line-height:1.4}
+.lb-hover-code{font-size:9.5px;color:#97a4ae;margin-top:-5px}
+.lb-hover-when{display:flex;gap:6px;align-items:flex-start;font-size:10.5px;color:#4b6170;line-height:1.55;background:#f5f8f9;border-radius:7px;padding:6px 8px}
+.lb-hover-when svg{margin-top:2px;color:#8a9aa6}
+.lb-hover dl{margin:2px 0 0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;font-size:10.5px}
+.lb-hover dt{color:#8a97a3;font-weight:600;white-space:nowrap}
+.lb-hover dd{margin:0;color:#33505e;line-height:1.5}
+.lb-none{font-size:11px;color:#93a0ab;padding:24px 4px;text-align:center}
+.lb-more{height:1px}
+
+/* 목록의 직접 만든 구성 표식 */
+.lp-tag.custom{background:#eef1fb;color:#4b5bb0}
+@media (max-width:760px){.lb-fields{grid-template-columns:1fr}.lb-palette{grid-template-columns:repeat(9,minmax(0,1fr))}}
+.lp-row-own{display:flex;gap:2px}
+.lp-row-own .button{margin:0}

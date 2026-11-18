@@ -31,6 +31,7 @@ export function Icon({ name, size = 20, ...props }) {
     archive: <><path d="M4 8v13h16V8M2 3h20v5H2zM9 12h6"/></>,
     play: <path d="m8 4 12 8-12 8z"/>, stop: <rect x="5" y="5" width="14" height="14" rx="2"/>,
     heart: <path d="M2 12h5l3-8 4 16 3-8h5"/>,
+    route: <><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><path d="M10 6.5h5a3 3 0 0 1 3 3V14M6.5 10v5a3 3 0 0 0 3 3H14"/></>,
     logout: <><path d="M9 3H3v18h6M9 12h13m-5-5 5 5-5 5"/></>,
   };
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>{paths[name] || paths.file}</svg>;

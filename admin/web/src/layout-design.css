@@ -1,0 +1,46 @@
+/* 레이아웃 상세 — 디자인 코드 Export · Upload · 비교(ld-) */
+.ld-tools { display: flex; align-items: center; gap: 6px; margin-right: auto; min-width: 0; }
+.ld-btn { display: flex; align-items: center; gap: 5px; height: 28px; padding: 0 10px; border: 0; border-radius: 7px; background: #fff; color: #3e5578; font: inherit; font-size: 11.5px; font-weight: 600; white-space: nowrap; cursor: pointer; box-shadow: 0 1px 2px #1f344f14; }
+.ld-btn:hover:not(:disabled) { background: #e4ebf6; color: #1f3a66; }
+.ld-mark { display: flex; align-items: center; gap: 4px; height: 24px; padding: 0 4px 0 9px; border-radius: 999px; background: #ede9fe; color: #5b21b6; font-size: 11px; font-weight: 600; white-space: nowrap; }
+.ld-mark button { display: grid; place-items: center; width: 18px; height: 18px; border: 0; border-radius: 50%; background: transparent; color: inherit; cursor: pointer; padding: 0; }
+.ld-mark button:hover:not(:disabled) { background: #ddd6fe; }
+
+/* 비교 팝업: 상세 팝업 상자 안쪽을 다 쓴다(components.jsx 겹친 팝업 규칙) */
+.modal:has(.ld-compare) { max-width: none; height: 100%; }
+.modal:has(.ld-compare) .modal-body { flex: 1; display: flex; flex-direction: column; }
+.ld-compare { display: flex; flex-direction: column; gap: 14px; flex: 1; min-height: 0; }
+.ld-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; min-width: 0; }
+.ld-seg { display: flex; padding: 3px; gap: 2px; border-radius: 9px; background: #eef2f7; }
+.ld-seg button { height: 26px; padding: 0 12px; border: 0; border-radius: 6px; background: transparent; color: #5d6b80; font: inherit; font-size: 11.5px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+.ld-seg button.on { background: #fff; color: #1d2c42; box-shadow: 0 1px 3px #1f344f24; }
+.ld-toggle { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; color: #5d6b80; white-space: nowrap; }
+.ld-fact { display: flex; align-items: center; gap: 5px; height: 24px; padding: 0 9px; border-radius: 999px; background: #f1f4f8; color: #4b5b72; font-size: 11px; white-space: nowrap; max-width: 420px; overflow: hidden; text-overflow: ellipsis; }
+.ld-fact.ok { background: #e7f6ef; color: #17714a; }
+.ld-fact.warn { background: #fff6e6; color: #8a5a12; }
+/* 비교 자리: 남은 높이까지 쓰고, 시트는 너비 · 높이 둘 다에 맞춘다(container query) */
+.ld-stage { flex: 1; min-height: 240px; container-type: size; }
+.ld-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; width: min(100cqw, (100cqh - 26px) * 32 / 9 + 16px); margin: 0 auto; }
+.ld-pair figure { margin: 0; display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+.ld-pair figcaption { font-size: 11.5px; font-weight: 700; color: #26364d; }
+.ld-pair figure:last-child figcaption { color: #5b21b6; }
+.ld-sheet { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 6px; background: #fff; box-shadow: 0 3px 14px #172d4924, 0 0 0 1px #e4e8ee; }
+.ld-sheet iframe { position: absolute; top: 0; left: 0; width: 1280px; height: 720px; border: 0; transform-origin: top left; pointer-events: none; }
+.ld-hit { position: absolute; inset: 0; }
+.ld-wipe-wrap { width: min(100cqw, (100cqh - 26px) * 16 / 9); margin: 0 auto; display: flex; flex-direction: column; gap: 7px; }
+.ld-wipe-caption { display: flex; justify-content: space-between; font-size: 11.5px; font-weight: 700; color: #26364d; }
+.ld-wipe-caption span:first-child { color: #5b21b6; }
+.ld-wipe { position: relative; width: 100%; }
+.ld-wipe-top { position: absolute; inset: 0; }
+.ld-wipe-top .ld-sheet { box-shadow: none; background: transparent; }
+.ld-handle { position: absolute; top: 0; bottom: 0; width: 24px; margin-left: -12px; cursor: ew-resize; touch-action: none; display: flex; justify-content: center; }
+.ld-handle i { width: 3px; height: 100%; background: #5b21b6; box-shadow: 0 0 0 1px #fff; }
+.ld-handle::after { content: ''; position: absolute; top: 50%; width: 22px; height: 22px; margin-top: -11px; border-radius: 50%; background: #5b21b6; box-shadow: 0 0 0 3px #fff, 0 2px 8px #0003; }
+.ld-handle:focus-visible::after { box-shadow: 0 0 0 3px #93c5fd; }
+.ld-hot { min-height: 16px; font-size: 11px; color: #5d6b80; font-family: ui-monospace, 'SF Mono', Menlo, monospace; }
+.ld-problems { display: flex; flex-direction: column; gap: 8px; padding: 14px 16px; border-radius: 10px; background: #fff1f3; color: #8f1f30; }
+.ld-problems strong { font-size: 13px; }
+.ld-problems ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; font-size: 12px; line-height: 1.6; }
+.ld-error { margin: 0; font-size: 11.5px; color: #b42335; background: #fff1f3; padding: 7px 10px; border-radius: 7px; }
+.ld-spacer { flex: 1; }
+@media (max-width: 860px) { .ld-stage { container-type: inline-size; } .ld-pair { grid-template-columns: 1fr; width: 100%; } .ld-wipe-wrap { width: 100%; } .ld-fact { max-width: 100%; } }

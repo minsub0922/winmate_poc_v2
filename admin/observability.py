@@ -120,7 +120,7 @@ def activity_router(operations):
     return router
 
 
-def admin_router(operations,auth):
+def admin_router(operations,auth,activity=None):
     router=APIRouter(prefix='/api')
 
     def directory():
@@ -132,14 +132,25 @@ def admin_router(operations,auth):
         return value['u'] if value else 'admin'
 
     @router.get('/users')
-    def users(q:str=Query('',max_length=150),active:bool|None=None,offset:int=Query(0,ge=0),limit:int=Query(30,ge=1,le=100)):
+    def users(q:str=Query('',max_length=150),active:bool|None=None,role:str='',segment:str='',sort:str='recent',offset:int=Query(0,ge=0),limit:int=Query(30,ge=1,le=100)):
+        directory()
+        if activity is not None:  # admin/activity.py: last activity, 30-day usage, work counts, segments and sort
+            return activity.directory(q,active,role,segment,sort,offset,limit)
         result=directory().list(q,active,offset,limit)
         for row in result['items']:
             username=row['username']
             row['history_count']=operations.one('SELECT count(*) n FROM history WHERE username=?',(username,))['n']
             row['visits']=operations.one("SELECT count(*) n FROM spans WHERE username=? AND kind='screen.enter'",(username,))['n']
+            row['proposals']=operations.one("SELECT count(*) n FROM history WHERE username=? AND kind='proposal' AND json_extract(payload,'$.sample') IS NULL",(username,))['n']
             row['total_tokens']=operations.one("SELECT coalesce(sum(total_tokens),0) n FROM spans WHERE username=? AND kind='llm.usage'",(username,))['n']
         return result
+
+    @router.get('/user-trend')
+    def user_trend(start:str|None=None,end:str|None=None,include_admin:bool=False):
+        """사용자 관리 머리: 전체 사용자 일자별 활동 (admin/activity.py)."""
+        if activity is None:raise HTTPException(404,'활동 집계를 사용할 수 없습니다.')
+        try:return activity.trend(start,end,include_admin)
+        except ValueError as exc:raise HTTPException(422,str(exc)) from None
 
     @router.post('/users')
     def add_users(body:AddUsers,request:Request):
@@ -167,20 +178,21 @@ def admin_router(operations,auth):
         row['history']=operations.rows('SELECT kind,count(*) count,sum(archived) archived FROM history WHERE username=? GROUP BY kind',(username,))
         return row
 
-    def filter_args(start,end,username,feature,model,kind='',status='',q=''):
-        return dict(start=start,end=end,username=username,feature=feature,model=model,kind=kind,status=status,q=q)
+    def filter_args(start,end,username,feature,model,kind='',status='',q='',include_admin=False,scope=''):
+        return dict(start=start,end=end,username=username,feature=feature,model=model,kind=kind,status=status,q=q,include_admin=include_admin,scope=scope)
 
+    # include_admin: administrator accounts are left out of every figure and log unless this is on (or one is picked by name).
     @router.get('/tracing/dashboard')
-    def dashboard(start:str|None=None,end:str|None=None,username:str='',feature:str='',model:str=''):
+    def dashboard(start:str|None=None,end:str|None=None,username:str='',feature:str='',model:str='',include_admin:bool=False):
         try:
-            result=operations.dashboard(start=start,end=end,username=username,feature=feature,model=model)
+            result=operations.dashboard(start=start,end=end,username=username,feature=feature,model=model,include_admin=include_admin)
             result['logging']=telemetry.health()
             return result
         except ValueError as exc:raise HTTPException(422,str(exc)) from None
 
     @router.get('/tracing/spans')
-    def spans(start:str|None=None,end:str|None=None,username:str='',feature:str='',model:str='',kind:str='',status:str='',q:str=Query('',max_length=200),offset:int=Query(0,ge=0),limit:int=Query(30,ge=1,le=100)):
-        try:return operations.spans(offset,limit,**filter_args(start,end,username,feature,model,kind,status,q))
+    def spans(start:str|None=None,end:str|None=None,username:str='',feature:str='',model:str='',kind:str='',status:str='',q:str=Query('',max_length=200),offset:int=Query(0,ge=0),limit:int=Query(30,ge=1,le=100),include_admin:bool=False,scope:str=Query('',pattern='^(|activity)$')):
+        try:return operations.spans(offset,limit,**filter_args(start,end,username,feature,model,kind,status,q,include_admin,scope))
         except ValueError as exc:raise HTTPException(422,str(exc)) from None
 
     @router.get('/tracing/trace/{trace_id}')
@@ -212,8 +224,8 @@ def admin_router(operations,auth):
         return row
 
     @router.get('/tracing/export')
-    def export(start:str|None=None,end:str|None=None,username:str='',feature:str='',model:str='',kind:str='',status:str=''):
-        try:where,args,_,_=operations.where(start,end,username,feature,model,kind,status)
+    def export(start:str|None=None,end:str|None=None,username:str='',feature:str='',model:str='',kind:str='',status:str='',include_admin:bool=False):
+        try:where,args,_,_=operations.where(start,end,username,feature,model,kind,status,include_admin=include_admin)
         except ValueError as exc:raise HTTPException(422,str(exc)) from None
         rows=operations.rows('SELECT * FROM spans WHERE '+where+' ORDER BY started LIMIT 50000',args)
         for row in rows:row['metadata']=json.loads(row['metadata'])
@@ -229,6 +241,9 @@ class RequestTracing:
     async def __call__(self,scope,receive,send):
         if scope['type']!='http':return await self.app(scope,receive,send)
         conn=HTTPConnection(scope);path=scope['path'];method=scope['method'];started=time.time()
+        # Experiments have no request, model, failure or tracing history. Auth and
+        # the admin guard still run normally inside this request-local scope.
+        ephemeral = bool(re.fullmatch(r'/admin/api/layout-library/[^/]+/experiments/(samples|run)', path))
         user=self.auth.read_token(conn.cookies.get(self.auth.config.cookie_name))
         username=user['u'] if user else 'anonymous'
         expected=conn.headers.get('x-winmate-user')
@@ -249,12 +264,15 @@ class RequestTracing:
             nonlocal status,size
             if message['type']=='http.response.start':
                 status=message['status']
+                if ephemeral:
+                    message['headers'] = [(k,v) for k,v in message.get('headers',[]) if k.lower() != b'cache-control'] + [(b'cache-control',b'no-store')]
                 message.setdefault('headers',[]).extend([(b'x-winmate-trace',trace_id.encode()),(b'x-winmate-request',span_id.encode())])
             elif message['type']=='http.response.body':
                 chunk=message.get('body',b'');size+=len(chunk)
                 if status>=400 and len(error_body)<20000:error_body.extend(chunk[:20000-len(error_body)])
             await send(message)
         with telemetry.scope(username=username,role=user.get('role','admin' if username=='admin' else 'member') if user else 'guest',
+                             ephemeral=ephemeral,
                              session_id=user.get('sid') if user else None,trace_id=trace_id,span_id=span_id,
                              parent_id=None,feature=feature,page=page,path=safe_path,method=method):
             if not routine:await run_in_threadpool(telemetry.emit,'http',started=started,status='running')

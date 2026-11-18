@@ -1,0 +1,19 @@
+/* 「전체 파트」 팝업 — 업종별 고정 시트 (overview-industry.jsx) */
+/* 흐름 표시 색 — 업종별 고정(짙은 파랑) */
+.lpx .k-industry,.lpx-kind.k-industry{--kc:#fff;--kb:#2a5f8f;--kl:#2a5f8f}
+.lpx-chip.k-industry.on{color:#2a5f8f;background:#e6eff7}
+.lpx-card[data-kind="industry"] .lpx-seq span{color:#2a5f8f}
+
+/* 파트 이름 오른쪽 — 업종 드롭다운 */
+.lpx-ind{display:inline-flex;align-items:center;gap:5px;border:1px solid #c9d8e5;border-radius:8px;background:#f5f9fc;padding:1px 3px 1px 9px;font-size:9.5px;font-weight:600;color:#6b8296;letter-spacing:0}
+.lpx-ind select{appearance:none;-webkit-appearance:none;border:0;background:transparent;padding:4px 22px 4px 0;font-size:11px;font-weight:700;color:#2a5f8f;outline:none;cursor:pointer;max-width:170px}
+/* 펼침 화살표 — 고를 수 있는 칸임을 보인다 */
+.lpx-ind::after{content:'';flex:none;width:5px;height:5px;margin:-3px 8px 0 -19px;border-right:1.6px solid #2a5f8f;border-bottom:1.6px solid #2a5f8f;transform:rotate(45deg);pointer-events:none}
+.lpx-ind:hover{border-color:#9fbbd3}
+.lpx-ind:focus-within{border-color:#2a5f8f;box-shadow:0 0 0 3px #2a5f8f22}
+
+/* 고른 업종 — 같이 쓰는 세부 업종 · 칸 수 */
+.lpx-ind-note{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 9px;margin-top:8px;padding:8px 11px;border-radius:9px;background:#f3f7fb;font-size:10px;line-height:1.6;color:#5f7689}
+.lpx-ind-note b{font-size:10.5px;color:#2a5f8f}
+.lpx-ind-note span{flex:1;min-width:220px}
+.lpx-ind-note i{font-style:normal;font-size:9.5px;font-weight:600;color:#2a5f8f;background:#e2ecf5;border-radius:5px;padding:1px 7px;white-space:nowrap}

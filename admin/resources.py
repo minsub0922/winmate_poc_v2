@@ -307,6 +307,12 @@ class Manifest:
         if 'layout:'+identifier in self.visited: return
         self.visited.add('layout:'+identifier)
         html = read_json(self.root / 'app/data/runtime/kb/layout_html.json.gz').get(identifier)
+        if not html:
+            from .composition_layouts import supplemental
+            html = supplemental(self.root)[1].get(identifier)
+        if html:
+            from app.api.layout_library import apply_html, load
+            html = apply_html(html, load()['items'].get(identifier, {}))
         if html:
             self.add('layout:'+identifier, identifier+' · 장표 미리보기', 'layout', kind='layout', _layout=html, primary=self.asset['kind']=='layout')
             parser = LayoutImages(self)
@@ -348,6 +354,8 @@ class Manifest:
         if kind == 'product': self.product(identifier, p)
         if kind == 'image':
             if identifier.startswith('app/'): self.pid(identifier[4:], 'primary', primary=True)
+            elif identifier.startswith('composer/'):
+                self.add(identifier.removeprefix('composer/'), a['title'], 'primary', width=p.get('w'), height=p.get('h'), primary=True)
             else: self.image_record(identifier, 'primary', primary=True)
         if kind in {'solution', 'case'}:
             self.media(kind, identifier); self.pid(p.get('img'), 'gallery')
@@ -451,9 +459,9 @@ class LayoutImages(HTMLParser):
     def handle_starttag(self, tag, attrs):
         attrs=dict(attrs)
         if tag=='img':
-            address=attrs.get('data-fill') or attrs.get('data-pid') or attrs.get('src')
-            if address and not address.startswith('data:image/gif;base64,R0lGODlhAQABA'):
-                self.manifest.pid(address,'layout',label=attrs.get('alt',''))
+            for address in dict.fromkeys([attrs.get('data-fill'), attrs.get('data-pid'), attrs.get('src')]):
+                if address and not address.startswith('data:image/gif;base64,R0lGODlhAQABA'):
+                    self.manifest.pid(address,'layout',label=attrs.get('alt',''))
 
 
 def layout_preview(html, manifest):
@@ -477,7 +485,7 @@ def layout_preview(html, manifest):
             if tag=='img':
                 address=attrs.get('data-fill') or attrs.get('data-pid') or attrs.get('src','')
                 attrs.pop('src',None)
-                url=source(address)
+                url=source(address) or source(attrs.get('src',''))
                 if url: attrs['src']=url
             if 'style' in attrs: attrs['style']=css(attrs['style'] or '')
             if tag=='style': self.in_style=True

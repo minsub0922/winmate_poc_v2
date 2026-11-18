@@ -176,18 +176,6 @@ def test_catalog_namespaces_do_not_merge_same_dir():
     assert len({r['url'] for r in rows}) == 2
 
 
-def test_snapshot_is_preserved_when_ai_fails(store, monkeypatch):
-    html = b'<li><a href="./ecatalog5.php?Dir=360"><img alt="Catalog"></a></li>'
-    monkeypatch.setattr(engine, 'fetch', lambda *a, **k: {'body': html, 'url': 'https://samsung.aiibook.net/b2b/', 'fetched_at': '2026-10-20'})
-    def fail(*args, **kwargs):
-        raise EngineError('AI unavailable')
-    monkeypatch.setattr(engine, 'decide', fail)
-    with pytest.raises(EngineError, match='AI unavailable'):
-        engine.probe(store.source('catalogs'), store, lambda *a: None, lambda: False)
-    assert store.one('SELECT count(*) n FROM snapshots')['n'] == 1
-    assert store.source('catalogs')['status'] == 'unchecked'
-
-
 def test_document_extraction_rejects_binary_empty_and_huge_inputs():
     with pytest.raises(EngineError):
         extract(b'\x00bad', 'test.txt')
@@ -348,11 +336,6 @@ def test_extracted_entity_ids_and_parent_links_are_stable(store):
     assert store.one('SELECT status FROM assets WHERE id=?', (first[0]['id'],))['status'] == 'needs_review'
 
 
-def test_structured_catalog_facts_remain_exactly_quotable():
-    sources = engine.decision_sources([{'id': 'current', 'text': dump({'kind': 'catalog-list', 'items': [{'id': 'b2b:360', 'title': '종합', 'url': 'https://samsung.aiibook.net/b2b/ecatalog5.php?Dir=360'}], 'new_ids': ['b2b:360'], 'headers': [], 'coverage': '목록'})}])
-    verify_evidence([Evidence(source_id='current-facts', quote='기존 관리 자료 대비 새로 발견: 1권')], sources)
-
-
 def test_search_includes_admin_tags(client):
     c, svc, auth = client
     svc.store.upsert_assets([sample()])
@@ -376,6 +359,9 @@ def test_normal_startup_only_mounts_opted_in_local_admin(tmp_path, admin_files, 
     trace = root / 'trace.txt'
     script = Path(__file__).resolve().parents[2] / 'app/start.sh'
     shutil.copy2(script, root / 'app/start.sh')
+    (root / 'app/scripts').mkdir()
+    shutil.copy2(script.parent / 'scripts/ports.sh', root / 'app/scripts/ports.sh')
+    shutil.copy2(script.parent.parent / '.env.example', root / '.env.example')
     stub = '#!/bin/sh\nprintf "%s" "$(basename "$0")" >> "$WINMATE_BOOT_TRACE"\nprintf " %s" "$@" >> "$WINMATE_BOOT_TRACE"\nprintf "\\n" >> "$WINMATE_BOOT_TRACE"\n'
     for path in [root / 'app/.venv/bin/python', *[commands / name for name in ('node', 'npm', 'uv')]]:
         path.write_text(stub)

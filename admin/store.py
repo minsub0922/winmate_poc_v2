@@ -1,5 +1,5 @@
 from __future__ import annotations
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
 from datetime import datetime, timezone
 import hashlib
 import json
@@ -107,10 +107,10 @@ class Store:
         with self.db() as db:
             db.execute('INSERT OR REPLACE INTO settings VALUES (?,?)', (key, dump(value)))
 
-    def upsert_assets(self, assets, analyzed_parent=None):
+    def upsert_assets(self, assets, analyzed_parent=None, connection=None):
         assets = list(assets)
         at = now()
-        with self.db(immediate=True) as db:
+        with (nullcontext(connection) if connection is not None else self.db(immediate=True)) as db:
             for a in assets:
                 value = a.get('payload', {})
                 payload = dict(value) if isinstance(value, dict) else {'items': value}

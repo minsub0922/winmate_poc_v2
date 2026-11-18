@@ -9,16 +9,24 @@ import uuid
 from contextvars import copy_context
 
 from .config import ROOT
-from .engine import Cancelled, EngineError, analyze, extract, fetch, probe
-from .inventory import diagnostics, index_repository, read
+from .engine import Cancelled, EngineError, analyze, extract, fetch
+from .inventory import diagnostics, index_repository, read, sync_composer_images, sync_spatial_assets
 from .refresh import catalog_refresh, custom_refresh, rollback, samsung_refresh, save_release
 from .store import Store, digest, dump, now
+from .dss import Dss
+from .origins import CHANNEL, PARALLEL, Origins
 
 
 class Service:
     def __init__(self, home):
         self.store = Store(home)
         self.pool = ThreadPoolExecutor(max_workers=1, thread_name_prefix='winmate-admin')
+        # 원천 소스 점검 · 업데이트 · 삭제는 오래 걸리고 실제 DSS DB 를 고치므로, 다른 관리 작업을 막지 않는 전용 대기열에서 하나씩 실행한다.
+        self.dss_pool = ThreadPoolExecutor(max_workers=1, thread_name_prefix='winmate-dss')
+        # 제품 · e-카탈로그 최신성 점검은 DB 를 읽기만 하고 채널마다 받는 폴더가 달라 동시에 돌 수 있다
+        self.check_pool = ThreadPoolExecutor(max_workers=len(PARALLEL), thread_name_prefix='winmate-check')
+        self.dss = Dss(self)
+        self.origins = Origins(self)  # 데이터 소스 최신성 — 실제 원본과 DB 대조
         self.lock = threading.Lock()
         self.stop = threading.Event()
         self.thread = None
@@ -26,8 +34,16 @@ class Service:
     def start(self):
         with self.store.db() as db:
             db.execute("UPDATE jobs SET status='interrupted',finished_at=?,error='서버가 재시작되었습니다. 다시 실행해 주세요.' WHERE status IN ('queued','running')", (now(),))
+            db.execute("UPDATE dss_runs SET status='interrupted',finished_at=? WHERE status='running'", (now(),))
         if not self.store.setting('indexed_at'):
             index_repository(self.store)
+        else:
+            sync_spatial_assets(self.store)
+            sync_composer_images(self.store)
+        try:
+            self.origins.sync()  # 일일 점검 등 이미 있는 대조 결과를 소스 상태에 맞춘다
+        except Exception as exc:
+            self.store.event('source.sync.error', detail={'error': self.safe_error(exc)}, actor='system')
         self.thread = threading.Thread(target=self.schedule_loop, daemon=True)
         self.thread.start()
 
@@ -36,15 +52,24 @@ class Service:
         with self.store.db() as db:
             db.execute("UPDATE jobs SET cancelled=1 WHERE status IN ('queued','running')")
         self.pool.shutdown(wait=True, cancel_futures=True)
+        self.dss_pool.shutdown(wait=True, cancel_futures=True)
+        self.check_pool.shutdown(wait=True, cancel_futures=True)
+        self.dss.agents.close()
         if self.thread:
             self.thread.join(timeout=2)
 
     def schedule_loop(self):
         while not self.stop.wait(30):
             try:
+                try:
+                    self.dss.tick()  # 매일 정한 시각의 원천 소스 변경 점검 — AI 자동 점검 설정과 별개
+                except EngineError:
+                    pass  # 다른 소스 작업이 끝나면 다음 주기에 다시 시도한다
                 if not self.store.setting('automatic_checks', False):
                     continue
                 for source in self.store.rows("SELECT * FROM sources WHERE enabled=1 AND kind NOT IN ('local','custom')"):
+                    if source['id'] in CHANNEL:
+                        continue
                     checked = source.get('checked_at')
                     due = not checked or datetime.fromisoformat(checked) + timedelta(days=source['interval_days']) <= datetime.now(timezone.utc)
                     if due:
@@ -59,8 +84,9 @@ class Service:
                     pass
 
     def submit(self, kind, source_id=None, extra=None, actor='admin'):
-        if kind not in ('check', 'refresh', 'reindex', 'diagnose', 'analyze', 'backup', 'rollback'):
+        if kind not in ('check', 'refresh', 'reindex', 'diagnose', 'analyze', 'backup', 'rollback', 'dss-check', 'dss-update', 'dss-delete', 'dss-review'):
             raise EngineError('지원하지 않는 작업입니다.')
+        dss = kind.startswith('dss-')
         if source_id and not self.store.source(source_id):
             raise EngineError('소스를 찾지 못했습니다.')
         if source_id and not self.store.source(source_id)['enabled']:
@@ -70,8 +96,20 @@ class Service:
                 existing = self.store.one("SELECT id FROM jobs WHERE kind='analyze' AND json_extract(result,'$.input.asset_id')=? AND status IN ('queued','running')", ((extra or {}).get('asset_id'),))
                 if existing:
                     return self.store.job(existing['id'])
+            if dss:
+                # 점검 · 업데이트 · 삭제는 서로 겹치지 않게 한다. 같은 요청이 이미 진행 중이면 그 작업을 돌려준다.
+                # 진행 중인 제품 · e-카탈로그 최신성 점검도 센다 — 대조 도중에 DB 를 고치지 않게
+                active = self.store.rows("SELECT id,kind,result FROM jobs WHERE (kind LIKE 'dss-%' OR (kind='check' AND source_id IN ('" + "','".join(sorted(PARALLEL)) + "'))) AND status IN ('queued','running')")
+                same = [j for j in active if j['kind'] == kind and json.loads(j['result']).get('input', {}) == (extra or {})]
+                if same:
+                    return self.store.job(same[0]['id'])
+                if active:
+                    raise EngineError('진행 중인 소스 점검 · 업데이트 작업이 끝난 뒤 실행해 주세요.')
+            parallel = kind == 'check' and source_id in PARALLEL
+            if parallel and self.store.one("SELECT id FROM jobs WHERE kind IN ('dss-update','dss-delete','dss-review') AND status IN ('queued','running')"):
+                raise EngineError('소스 업데이트 · 삭제 작업이 끝난 뒤 점검해 주세요. 진행 중에는 DB 가 바뀌고 있어 대조 결과가 정확하지 않습니다.')
             running = self.store.one("SELECT id FROM jobs WHERE kind=? AND COALESCE(source_id,'')=? AND status IN ('queued','running')", (kind, source_id or ''))
-            if running and kind not in ('analyze', 'rollback'):
+            if running and kind not in ('analyze', 'rollback') and not dss:
                 return self.store.job(running['id'])
             if self.store.one("SELECT count(*) n FROM jobs WHERE status IN ('queued','running')")['n'] >= 12:
                 raise EngineError('대기 작업이 많습니다. 완료 후 다시 실행해 주세요.')
@@ -82,7 +120,9 @@ class Service:
             def work():
                 with telemetry.scope(username=actor,feature='admin.'+kind,job_id=jid,parent_id=telemetry.current().get('span_id'),span_id='admin-job-'+jid):
                     return self.run(jid,kind,source_id,extra or {},actor)
-            self.pool.submit(context.run, work)
+            # 채널로 대조하는 소스(제품 · e-카탈로그 · 솔루션)의 최신성 점검은 원천 소스 점검과 같은 도구 · 같은 파일을 쓰므로 전용 대기열에서 하나씩 돈다
+            exclusive = dss or (kind == 'check' and (not source_id or source_id in CHANNEL))
+            (self.check_pool if parallel else self.dss_pool if exclusive else self.pool).submit(context.run, work)
             return self.store.job(jid)
 
     def run(self, jid, kind, sid, extra, actor):
@@ -122,14 +162,23 @@ class Service:
                 result = rollback(store, extra['release_id'])
             elif kind == 'analyze':
                 result = self.analyze_asset(extra['asset_id'], progress, cancel)
+            elif kind == 'dss-review':
+                from .source_promotion import publish_selection
+                result = publish_selection(self.origins, sid, extra['choices'], actor, jid, progress, cancel)
+            elif kind.startswith('dss-'):
+                result = self.dss.run(jid, kind, extra, progress, cancel, actor)
             else:
                 sources = [store.source(sid)] if sid else store.rows("SELECT * FROM sources WHERE enabled=1 AND kind NOT IN ('local','custom')")
                 results, errors = [], []
+                ran = None
+                if kind == 'check' and not sid:
+                    # 전체 점검 — 채널로 대조하는 소스들은 한 번의 실행으로 함께 확인한다
+                    ran = self.origins.run_channels(sources, jid, progress, cancel)
                 for source in sources:
                     if cancel():
                         raise Cancelled()
                     try:
-                        result = self.check(source, progress, cancel) if kind == 'check' else self.refresh(source, progress, cancel, jid)
+                        result = self.check(source, progress, cancel, jid, ran) if kind == 'check' else self.refresh(source, progress, cancel, jid)
                         results.append({'source_id': source['id'], **result})
                         completed_sources = list(results)
                     except Cancelled:
@@ -162,14 +211,9 @@ class Service:
         from app.api.poc.provider import redact
         return redact(str(exc))[:700] or type(exc).__name__
 
-    def check(self, source, progress, cancel):
-        evidence, decision = probe(source, self.store, progress, cancel)
-        if cancel():
-            raise Cancelled()
-        sid = source['id']
-        with self.store.db() as db:
-            db.execute('UPDATE sources SET checked_at=?,status=?,decision=?,error=NULL WHERE id=?', (now(), decision['status'], dump(decision), sid))
-        return {'decision': decision, 'evidence': evidence}
+    def check(self, source, progress, cancel, jid, ran=None):
+        """최신성 점검 — 실제 DB 기록을 그 자료를 받아 온 원본과 대조한다(admin/origins.py)."""
+        return {'decision': self.origins.check(source, jid, progress, cancel, ran)}
 
     def refresh(self, source, progress, cancel, jid):
         if source['kind'] == 'local':

@@ -1,0 +1,103 @@
+/* 「레이아웃 구성 관리」 전체 파트 팝업 (layout-parts.jsx) */
+.lpx,.lpx-pop{--lp-ink:#3d5866;--lp-line:#eaeff2}
+.lpx .h-slate{--hc:#5c6b78;--hb:#eef2f5}.lpx .h-blue{--hc:#3f6fa8;--hb:#eaf2fb}.lpx .h-teal{--hc:#137e71;--hb:#e6f4f0}.lpx .h-violet{--hc:#7359b0;--hb:#f1edfa}
+.lpx .h-green{--hc:#4c8a52;--hb:#ecf6ec}.lpx .h-amber{--hc:#a8782a;--hb:#fbf4e4}.lpx .h-red{--hc:#b0524e;--hb:#fbeeed}
+/* 흐름 표시 색 — 완전 고정(진한 청록) · 순서 고정(청록) · 장 수만 달라짐(호박) · 구성마다 다름(보라) · 정해진 흐름 없음(회색) */
+.lpx .k-fixed,.lpx-kind.k-fixed{--kc:#fff;--kb:#0f6a5f;--kl:#0f6a5f}
+.lpx .k-flow,.lpx-kind.k-flow{--kc:#137e71;--kb:#e6f4f0;--kl:#137e71}
+.lpx .k-repeat,.lpx-kind.k-repeat{--kc:#9a6a1c;--kb:#fbf2df;--kl:#b8862f}
+.lpx .k-template,.lpx-kind.k-template{--kc:#6a51a6;--kb:#f1edfa;--kl:#7d64b8}
+.lpx .k-free,.lpx-kind.k-free{--kc:#64737f;--kb:#f0f3f5;--kl:#8a98a3}
+
+/* 버튼 줄 — '추천 구성' 위 */
+.lpx-open{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:-8px 0 22px}
+.lpx-open p{font-size:10.5px;color:#8a9aa5;line-height:1.6}.lpx-open p b{color:#5c7482}
+
+/* 팝업 */
+.modal:has(.lpx){max-width:1360px;height:min(92vh,980px)}
+.lpx{display:flex;flex-direction:column;gap:14px}
+.lpx-bar{position:sticky;top:-24px;z-index:5;display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:-24px -29px 0;padding:14px 29px 12px;background:#ffffffef;backdrop-filter:blur(6px);border-bottom:1px solid #edf1f3}
+.lpx-chip{display:inline-flex;align-items:center;gap:6px;border:1px solid #e1e8ec;border-radius:999px;background:#fff;padding:6px 12px;font-size:10.5px;color:#5c7482;line-height:1.2}
+.lpx-chip b{font-weight:700;color:#3d5866;font-variant-numeric:tabular-nums}
+.lpx-chip svg{color:var(--kl,#8a98a3)}
+.lpx-chip:hover{border-color:#cfdcd8;background:#f8fbfa}
+.lpx-chip.on{border-color:var(--kl,var(--teal));background:var(--kb,var(--teal-bg));color:var(--kc,var(--teal))}
+.lpx-chip.on b{color:inherit}.lpx-chip.k-fixed.on{color:#0f6a5f;background:#e3f1ee}
+.lpx-list{display:flex;flex-direction:column;gap:14px}
+
+.lpx-kind{display:inline-flex;align-items:center;gap:5px;font-size:9.5px;font-weight:700;line-height:1.3;padding:4px 9px;border-radius:999px;white-space:nowrap;background:var(--kb);color:var(--kc)}
+.lpx-kind.k-template,.lpx-kind.k-free{font-weight:600}
+
+/* 파트 카드 */
+.lpx-card{border:1px solid var(--lp-line);border-radius:14px;background:#fff;padding:16px 18px 14px;scroll-margin-top:64px}
+.lpx-card[data-kind="fixed"]{border-color:#bfdcd5;box-shadow:inset 0 0 0 1px #d8ece7}
+.lpx-card>header{display:flex;align-items:flex-start;gap:13px}
+.lpx-node{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--hc);color:#fff;box-shadow:0 0 0 3px #fff,0 0 0 4.5px var(--hc);flex:none;margin:2px 2px 0}
+.lpx-node svg{width:17px;height:17px}
+.lpx-title{flex:1;min-width:0}
+.lpx-title h4{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13.5px;color:var(--lp-ink);letter-spacing:-.2px}
+.lpx-title h4 em{font-style:normal;font-size:9px;font-weight:600;color:var(--hc);background:var(--hb);border-radius:999px;padding:2px 8px}
+.lpx-title p{font-size:10.5px;color:#7f929d;margin-top:4px;line-height:1.55}
+.lpx-side{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex:none}
+.lpx-meta{font-size:10px;color:#93a2ad}.lpx-meta b{color:#5c7482;font-variant-numeric:tabular-nums}
+/* 순서 한 줄 — 01 간지 › 02 조감도 › 03 공간별 제품 × 제품 수 › 04 Map */
+.lpx-seq{display:flex;align-items:center;flex-wrap:wrap;gap:4px 0;list-style:none;margin:12px 0 0;padding:0}
+.lpx-seq li{display:inline-flex;align-items:center;gap:5px;font-size:10px;color:#5c7482;line-height:1.5}
+.lpx-seq li+li::before{content:'';width:5px;height:5px;margin:0 9px 0 7px;border-top:1.5px solid #b5c3cb;border-right:1.5px solid #b5c3cb;transform:rotate(45deg)}
+.lpx-seq span{font-size:9px;font-weight:700;color:#137e71;font-variant-numeric:tabular-nums}
+.lpx-card[data-kind="fixed"] .lpx-seq span{color:#0f6a5f}
+.lpx-seq em{font-style:normal;font-size:9px;font-weight:700;color:#9a6a1c;background:#fbf2df;border-radius:5px;padding:1px 6px}
+/* 장 3열 */
+.lpx-sheets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 14px;list-style:none;margin:13px 0 0;padding:0}
+.lpx-sheet>button{display:flex;flex-direction:column;gap:7px;width:100%;border:0;background:none;padding:0;text-align:left;outline:none}
+.lpx-frame-wrap{position:relative;display:block;isolation:isolate}
+.lpx-sheet>button:hover .lp-frame,.lpx-sheet>button:focus-visible .lp-frame{border-color:var(--teal);box-shadow:0 4px 14px #137e711c}
+.lpx-sheet>button:focus-visible .lp-frame{box-shadow:0 0 0 3px #137e7130}
+/* 같은 장이 이어지는 자리 — 뒤에 장이 겹쳐 쌓인 모양 */
+.lpx-sheet.repeat .lpx-frame-wrap{margin:0 8px 8px 0}
+.lpx-sheet.repeat .lpx-frame-wrap::before,.lpx-sheet.repeat .lpx-frame-wrap::after{content:'';position:absolute;inset:0;border:1px solid #e3d3b2;border-radius:7px;background:#fdf8ee}
+.lpx-sheet.repeat .lpx-frame-wrap::before{transform:translate(8px,8px)}.lpx-sheet.repeat .lpx-frame-wrap::after{transform:translate(4px,4px)}
+.lpx-sheet.repeat .lp-frame{z-index:1;border-color:#e3d3b2}
+.lpx-step{position:absolute;z-index:2;left:7px;top:7px;display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:700;line-height:1;padding:4px 6px;border-radius:5px;background:#ffffffeb;color:#137e71;box-shadow:0 1px 4px #17364c1f;font-variant-numeric:tabular-nums}
+.lpx-step.fixed{background:#0f6a5f;color:#fff}
+.lpx-times{position:absolute;z-index:2;right:7px;top:7px;font-size:9px;font-weight:700;line-height:1;padding:4px 7px;border-radius:5px;background:#9a6a1c;color:#fff;box-shadow:0 1px 4px #17364c1f}
+/* 내용 고정 표식(자물쇠) — 장 번호 칩(.lpx-step.fixed) · 순서 줄 · 상세 · 범례 */
+.lpx-lock{display:inline-flex;align-items:center;gap:3px;font-weight:700;color:#0f6a5f;font-style:normal}
+.lpx-seq i.lock{display:inline-grid;place-items:center;width:15px;height:15px;border-radius:4px;background:#0f6a5f;color:#fff;font-style:normal}
+.lpx-legend{display:inline-flex;align-items:center;gap:6px;margin-left:auto;font-size:10px;color:#7f929d}
+.lpx-legend .lpx-lock{display:inline-grid;place-items:center;width:17px;height:17px;border-radius:5px;background:#0f6a5f;color:#fff}
+/* 숫자 00 — 작성자가 직접 입력하는 장 */
+.lpx-zero{position:absolute;z-index:2;right:7px;bottom:7px;font-size:9px;font-weight:700;line-height:1;padding:4px 7px;border-radius:5px;background:#2f5f9e;color:#fff;box-shadow:0 1px 4px #17364c1f}
+.lpx-seq em.zero{color:#2f5f9e;background:#e9f1fb}
+.lpx-title h4 em.lpx-defined{color:#8a6a1f;background:#fbf2df}
+.lpx-cap{display:flex;flex-direction:column;gap:2px;min-width:0}
+.lpx-cap b{font-size:10.5px;font-weight:600;color:#465c6a;line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.lpx-cap small{font-size:9px;color:#9aa8b2;line-height:1.5;overflow-wrap:anywhere}
+.lpx-tpls{display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin-top:12px;padding-top:10px;border-top:1px dashed #e6ecef;font-size:9.5px;color:#93a2ad}
+.lpx-tpls span{margin-right:3px}
+.lpx-tpls i{font-style:normal;color:#5c7482;background:#f3f6f8;border-radius:5px;padding:2px 7px}
+
+/* 장 상세 — 마우스를 대면 옆에 뜬다(화면 위 고정, 마우스를 막지 않는다) */
+.lpx-pop{position:fixed;z-index:260;width:min(460px,calc(100vw - 16px));pointer-events:none;background:#fff;border:1px solid #dfe7ea;border-radius:12px;box-shadow:0 18px 50px #0e24233a;padding:12px}
+.lpx-detail .lp-frame{display:block;position:relative;width:100%;aspect-ratio:16/9;border:1px solid #e3e9ed;border-radius:7px;background:#f6f8fa;overflow:hidden}
+.lpx-detail .lp-frame iframe{position:absolute;top:0;left:0;width:1280px;height:720px;border:0;transform-origin:0 0;pointer-events:none;background:#fff}
+.lpx-detail-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:10px 2px 6px}
+.lpx-detail-h b{font-size:12px;color:var(--lp-ink);line-height:1.45}
+.lpx-detail-h small{font-size:9px;color:#9aa8b2;white-space:nowrap}
+.lpx-detail dl{display:flex;flex-direction:column;gap:4px;margin:0 2px}
+.lpx-detail dl>div{display:grid;grid-template-columns:62px 1fr;gap:8px;font-size:10px;line-height:1.55}
+.lpx-detail dt{color:#9aa8b2}.lpx-detail dd{margin:0;color:#465c6a;overflow-wrap:anywhere}
+.lpx-codes{display:block;color:#8a9aa5;font-size:9px;margin-top:1px}
+.lpx-when{margin:8px 2px 0;padding-top:8px;border-top:1px solid #edf1f3;font-size:9.5px;line-height:1.6;color:#7c8f9a}
+
+@media(max-width:900px){
+  .lpx-sheets{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lpx-card>header{flex-wrap:wrap}.lpx-side{flex-direction:row;align-items:center;width:100%;justify-content:space-between}
+  .lpx-bar{top:-20px;margin:-20px -18px 0;padding:12px 18px 10px}
+}
+/* 서비스 제안 — 고른 서비스에 따라 갈래(2026-11-17): 갈래의 첫 장 앞 머리 줄 */
+.lpx-branch-h{grid-column:1/-1;list-style:none;display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:4px 0 -4px;padding:7px 12px;border-radius:10px;background:#f3f6f8;font-size:11px;line-height:1.4;color:#5c7482}
+.lpx-branch-h+*{margin-top:0}
+.lpx-branch-h .lpx-branch-if{font-size:10px;font-weight:700;color:#8a5a12;background:#f8ecd2;border-radius:6px;padding:2px 8px;white-space:nowrap}
+.lpx-branch-h b{font-size:12px;font-weight:700;color:#24333d;white-space:nowrap}
+.lpx-branch-h em{font-style:normal;font-size:10px;color:#7d909b;white-space:nowrap}

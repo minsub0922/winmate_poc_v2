@@ -1,0 +1,8 @@
+/* 「전체 파트」 팝업 — 파트 카드의 기승전결 색 (part-arc.jsx) */
+/* 카드 — 왼쪽 띠와 옅은 테두리가 그 파트의 색(흐름 종류는 오른쪽 표식이 알려 준다 — 종류별 테두리는 쓰지 않는다) */
+.lpx .lpx-card[data-arc]{position:relative;overflow:hidden;border-color:var(--arc-line);box-shadow:none;padding-left:23px}
+.lpx .lpx-card[data-arc]::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--arc)}
+/* 파트 버블 귀퉁이 — 자리 표식 한 글자 */
+.lpx-node{position:relative}
+.lpx-arc{position:absolute;right:-9px;bottom:-7px;display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:#fff;color:var(--arc);
+  font-size:9px;font-weight:800;line-height:1;letter-spacing:0;box-shadow:0 0 0 1.5px var(--arc)}

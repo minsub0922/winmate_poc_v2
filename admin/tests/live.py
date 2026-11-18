@@ -42,8 +42,8 @@ check = submit('check', 'catalogs')
 save('live-catalog-freshness', check)
 assert check['status'] == 'succeeded', check['error']
 decision = check['result']['sources'][0]['decision']
-assert decision['engine']['model'] and decision['evidence']
-assert check['result']['sources'][0]['evidence']['items']
+assert decision['basis'] == 'origin' and decision['status'] in ('fresh', 'refresh', 'uncertain')
+assert decision['origins'][0]['id'] == 'channel:ecat' and decision['origins'][0]['counts']['db']
 
 text = '''이 자료는 Winmate 관리 기능 검증에만 사용하는 합성 문서입니다.
 실제 삼성 제품이나 판매 사양이 아닙니다.

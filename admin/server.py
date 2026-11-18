@@ -19,7 +19,7 @@ from starlette.concurrency import run_in_threadpool
 from starlette.routing import Mount, Route
 
 from app.api.main import app as winmate
-from app.api.auth import csrf_ok
+from app.api.auth import bootstrap_default_admin, csrf_ok
 from app.api.poc.settings import get_settings
 
 from .config import HOME, MAX_UPLOAD, ROOT, RUNTIME, ADMIN_WEB
@@ -30,12 +30,22 @@ from .store import digest, dump, now
 from .operations import Operations
 from .users import Accounts
 from .observability import RequestTracing, activity_router, admin_router
+from .activity import Activity, activity_router as user_activity_router
+from .providers import Providers, provider_router
 from .resources import resources_for, resource_bytes, layout_preview, https as resource_https
+from .dss import dss_router
+from .origins import origin_router
+from .layout_presets import layout_presets_router
+from .layout_library import layout_library_router
+from .source_browser import SPATIAL_KIND, source_browser_router
+from app.api import resource_switches
 from app.api import telemetry
 
 service = Service(RUNTIME)
 store = service.store
 operations = Operations(RUNTIME)
+activity = Activity(operations, lambda: winmate.state)
+providers = Providers(store, operations)
 api = FastAPI(title='Winmate Admin · Local', docs_url=None, redoc_url=None, openapi_url=None)
 
 
@@ -60,15 +70,25 @@ class AdminGuard:
             return await JSONResponse({'detail': '관리자 계정만 접근할 수 있습니다.'}, 403)(scope, receive, send)
         async def secured(message):
             if message['type'] == 'http.response.start':
-                message.setdefault('headers', []).extend([(b'cache-control', b'no-store'), (b'x-content-type-options', b'nosniff'),
-                    (b'x-frame-options', b'DENY'), (b'referrer-policy', b'same-origin')])
+                headers = message.setdefault('headers', [])
+                # 썸네일 · PDF 처럼 스스로 캐시 기간을 정한 응답만 그대로 두고, 나머지는 저장하지 않는다
+                if not any(k.lower() == b'cache-control' for k, _ in headers): headers.append((b'cache-control', b'no-store'))
+                headers.extend([(b'x-content-type-options', b'nosniff'), (b'x-frame-options', b'DENY'), (b'referrer-policy', b'same-origin')])
             await send(message)
         return await self.app(scope, receive, secured)
 
 
 api.add_middleware(AdminGuard)
-api.include_router(admin_router(operations,winmate.state.auth))
+api.include_router(admin_router(operations,winmate.state.auth,activity))
+api.include_router(user_activity_router(activity,winmate.state.auth))
+api.include_router(provider_router(lambda: providers))
 winmate.include_router(activity_router(operations))
+api.include_router(dss_router(lambda: service.dss, lambda: telemetry.current().get('username') or 'admin'))
+api.include_router(origin_router(lambda: service.origins, lambda: telemetry.current().get('username') or 'admin'))
+api.include_router(layout_presets_router(lambda: store, lambda: telemetry.current().get('username') or 'admin'))
+api.include_router(layout_library_router(lambda: store, lambda: telemetry.current().get('username') or 'admin'))
+api.include_router(source_browser_router(lambda: store, lambda: telemetry.current().get('username') or 'admin',
+                                         spatial_store=lambda: winmate.state.spatial_store))
 
 
 @api.exception_handler(EngineError)
@@ -118,9 +138,20 @@ def decoded_asset(identifier):
 @api.get('/api/overview')
 def overview(request:Request):
     sources = []
+    review_counts = service.origins.reviews.counts()
     for source in store.rows('SELECT s.*,count(a.id) asset_count FROM sources s LEFT JOIN assets a ON a.source_id=s.id GROUP BY s.id ORDER BY s.rowid'):
-        source['decision'] = json.loads(source['decision'])
+        # 목록에는 판정 요약만 싣는다 — 원본별 대조 내역은 소스 상세(/api/sources/{id})에서 받는다
+        source['decision'] = {key: value for key, value in json.loads(source['decision']).items() if key not in ('origins', 'evidence_sources', 'evidence')}
+        if source['id'] in ('samsung','catalogs','media'):
+            counts = review_counts.get(source['id'], {})
+            source['review'] = {'pending': counts.get('pending', 0), 'handled': counts.get('applied', 0) + counts.get('ignored', 0),
+                                'incomplete': source['status'] in ('uncertain','error','unchecked') or bool(source['decision'].get('counts', {}).get('unverified'))}
         sources.append(source)
+    # 소스별로 앱에서 끈 자원 수(데이터 소스 카드)
+    off = list(resource_switches.load()['off'])
+    off_counts = {r['source_id']: r['n'] for r in store.rows('SELECT source_id,count(*) n FROM assets WHERE id IN (SELECT value FROM json_each(?)) GROUP BY source_id', (json.dumps(off),))} if off else {}
+    for source in sources:
+        source['off_count'] = off_counts.get(source['id'], 0)
     stats = store.rows('SELECT kind,count(*) count FROM assets WHERE status!=? GROUP BY kind', ('archived',))
     jobs = store.rows('SELECT * FROM jobs ORDER BY created_at DESC LIMIT 6')
     for job in jobs:
@@ -136,7 +167,8 @@ def overview(request:Request):
             'ai': {'configured': settings.has_key, 'model': settings.model}, 'scope': 'local',
             'attention': sum(s['status'] in ('refresh', 'uncertain', 'error', 'review', 'unchecked') and s['kind'] != 'local' and s['id'] != 'uploads' for s in sources),
             'active_jobs': store.one("SELECT count(*) n FROM jobs WHERE status IN ('running','queued')")['n'],
-            'review_assets': store.one("SELECT count(*) n FROM assets WHERE status IN ('needs_review','analysis_failed','pending')")['n']}
+            'review_assets': store.one("SELECT count(*) n FROM assets WHERE status IN ('needs_review','analysis_failed','pending')")['n'],
+            'dss_attention': service.dss.attention()}
 
 
 @api.get('/api/sources/{sid}')
@@ -329,6 +361,8 @@ def job_action(body: Action):
     extra = body.model_dump(exclude_none=True)
     if body.kind == 'analyze' and not body.asset_id or body.kind == 'rollback' and not body.release_id:
         raise HTTPException(422, '작업 대상이 필요합니다.')
+    if body.kind.startswith('dss-'):
+        raise HTTPException(422, '소스 점검 · 업데이트 화면에서 실행해 주세요.')  # 채널 · 삭제 확인을 거치는 전용 API 만 쓴다
     return service.submit(body.kind, body.source_id, extra, actor=telemetry.current().get('username') or 'admin')
 
 
@@ -418,10 +452,18 @@ def export_assets(source: str = '', kind: str = ''):
     if source:
         conditions.append('source_id=?'); args.append(source)
     if kind:
-        conditions.append('kind=?'); args.append(kind)
-    assets = store.rows('SELECT * FROM assets' + (' WHERE ' + ' AND '.join(conditions) if conditions else ''), args)
+        conditions.append((SPATIAL_KIND if source == 'spatial' else 'a.kind') + '=?'); args.append(kind)
+    assets = store.rows('SELECT a.* FROM assets a' + (' WHERE ' + ' AND '.join(conditions) if conditions else ''), args)
+    spatial = getattr(winmate.state, 'spatial_store', None) if source in ('', 'spatial') else None
+    edits, buildings = (spatial.template_edits(), spatial.buildings.edits()) if spatial else ({}, {})
     for asset in assets:
         asset['payload'] = json.loads(asset['payload'])
+        if spatial and asset['kind'] == 'spatial':
+            section, _, ref = (asset.get('external_id') or '').partition('/')
+            tid = ref if section == 'templates' else spatial.library.case_templates.get(ref) if section == 'cases' else None
+            edited = spatial.template(tid) if tid in edits else buildings.get(ref) if section == 'buildings' else None
+            if edited:
+                asset.update(title=edited['scene']['title'], managed=edited)
     store.event('assets.export', source or 'all', {'count': len(assets)})
     return Response(dump({'exported_at': now(), 'scope': 'admin-managed', 'assets': assets}), media_type='application/json',
                     headers={'Content-Disposition': 'attachment; filename="winmate-admin-assets.json"'})
@@ -484,13 +526,17 @@ def page(path: str = ''):
 @asynccontextmanager
 async def lifespan(app):
     previous_accounts=winmate.state.auth.accounts
+    # Before Accounts reads the legacy credentials, so the default admin is registered as an admin user.
+    bootstrap_default_admin(winmate.state.auth)
     operations.accounts=Accounts(operations,winmate.state.auth)
     previous_sink=telemetry.install(operations.receive)
     try:
         with telemetry.scope(username='system',role='system',feature='startup',trace_id=uuid.uuid4().hex):
             async with winmate.router.lifespan_context(winmate):
                 await run_in_threadpool(service.start)
+                await run_in_threadpool(providers.start)
                 yield
+                await run_in_threadpool(providers.close)
                 await run_in_threadpool(service.close)
     finally:
         telemetry.install(previous_sink)

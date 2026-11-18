@@ -1,0 +1,36 @@
+.modal:has(.ll-detail)>.modal-footer{position:relative}
+.ll-experiment-open{position:absolute;left:50%;transform:translateX(-50%)}
+.modal.wide:has(.le-workspace){width:min(1560px,calc(100vw - 40px));max-width:calc(100vw - 40px);height:min(940px,calc(100dvh - 40px));max-height:calc(100dvh - 40px)}
+.modal:has(.le-workspace)>.modal-body{flex:1;min-height:0;overflow:hidden;padding:18px}
+.le-workspace{height:100%;display:grid;grid-template-columns:380px minmax(0,1fr);gap:20px;color:#334155}
+.le-left{min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr);gap:12px}
+.le-inputs{position:relative;min-width:0;display:flex;flex-direction:column;gap:10px;z-index:5}
+.le-input-bar{display:flex;align-items:center;gap:8px;min-width:0}
+.le-input-trigger{display:flex;align-items:center;gap:8px;flex:1;min-width:0;min-height:36px;padding:7px 10px;border:1px solid #dce3ed;border-radius:8px;background:#fff;color:#334155;font:inherit;font-size:12px;cursor:pointer;text-align:left}
+.le-input-trigger>strong,.le-input-trigger>svg{flex:none}
+.le-input-trigger>span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#64748b}
+.le-input-trigger:hover,.le-input-trigger[aria-expanded=true]{border-color:#a8bfe6;background:#f5f8ff}
+.le-input-bar>.button{flex:none;font-size:11px;padding:8px 10px}
+.le-input-pop{position:absolute;top:calc(100% + 8px);left:0;width:min(560px,calc(100vw - 80px));max-height:min(620px,calc(100dvh - 180px));overflow:auto;display:flex;flex-direction:column;gap:12px;padding:14px;border:1px solid #dce3ed;border-radius:12px;background:#fff;box-shadow:0 14px 42px #18365d2b}
+.le-input-head,.le-result-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-shrink:0}
+.le-workspace h3{font-size:13px;color:#334155;margin:0}
+.le-input-head select{max-width:calc(100% - 75px);min-width:0;margin-left:auto;padding:7px 9px;border:1px solid #dce3ed;border-radius:7px;font:inherit;font-size:12px;background:white;color:#334155}
+.le-samples{display:grid;gap:3px;flex-shrink:0}
+.le-samples>div{display:flex;align-items:center;padding:0 8px;border-radius:6px;background:#f5f7fa;border:1px solid transparent}
+.le-samples>div.active{background:#eef4ff;border-color:#b8cef3}
+.le-samples input{accent-color:#2563eb;flex:none}
+.le-samples button{border:0;background:none;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 8px;flex:1;color:#334155;font:inherit;font-size:12px;cursor:pointer;text-align:left}
+.le-samples small{font-size:10px;color:#5376a8;white-space:nowrap}
+.le-editor{flex:1 0 180px;min-height:120px;width:100%;resize:vertical;padding:10px;border:1px solid #dce3ed;border-radius:8px;background:#fafbfd;color:#334155;font:11px/1.65 ui-monospace,monospace;tab-size:2}
+.le-editor:focus{outline:2px solid #93b9f7;outline-offset:1px}
+.le-run{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-shrink:0}
+.le-run .button{font-size:11px;padding:7px 10px}
+.le-left>.lf-flow{height:100%;min-height:0}
+.le-left .lf-node:disabled,.le-left .lf-unit:disabled,.le-left .lf-toolbox:disabled{opacity:1;cursor:default}
+.le-output{display:flex;flex-direction:column;min-width:0;min-height:0;border:1px solid #e3e8f0;border-radius:12px;background:#f5f7fb;padding:18px;gap:16px}
+.le-result-head span{font-size:12px;color:#5376a8}
+.le-result-sheet{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;overflow:auto}
+.le-result-sheet>.ll-sheet{width:100%;flex:none;box-shadow:0 3px 18px #18365d18}
+.le-running{display:flex;align-items:center;gap:10px;font-size:13px;color:#64748b}
+@media(max-width:1000px){.le-workspace{grid-template-columns:320px minmax(0,1fr);gap:12px}.ll-save-state{max-width:30%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.le-output{padding:12px}}
+@media(max-width:760px){.modal:has(.le-workspace)>.modal-body{overflow:auto}.le-workspace{height:auto;grid-template-columns:1fr}.le-left{height:calc(100dvh - 190px);min-height:420px}.le-output{min-height:310px}.ll-experiment-open{position:static;transform:none;margin-right:auto}.le-result-sheet{min-height:200px}.ll-save-state{display:none}}

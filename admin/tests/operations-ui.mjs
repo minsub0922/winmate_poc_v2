@@ -86,9 +86,14 @@ try {
   assert.ok(dashboard.summary.actions>=1);
   await page.getByRole('textbox',{name:'사용자 검색'}).fill(alice);
   await page.getByRole('button',{name:alice+' 상세',exact:true}).click();
-  await page.getByRole('button',{name:'히스토리',exact:true}).click();
-  await page.getByRole('button',{name:record.title+' '+record.id,exact:false}).waitFor().catch(()=>page.getByText(record.title,{exact:true}).waitFor());
-  await screenshot(page,'user-history-dialog');
+  // 사용자 상세는 활동 내역부터, 사용자 정보는 맨 뒤 (admin/web/src/users.jsx)
+  assert.equal(await page.locator('.um-tabs [aria-selected=true]').innerText(),'활동 내역');
+  assert.equal((await page.locator('.um-tabs [role=tab]').allInnerTexts()).at(-1),'사용자 정보');
+  await page.locator('.um-card',{hasText:'제안서'}).first().waitFor();
+  await page.getByRole('tab',{name:'활동 로그',exact:true}).click();
+  await page.locator('.compact-metrics',{hasText:'제안서 생성'}).waitFor();
+  assert.match(await page.locator('.compact-metrics').innerText(),/제안서 생성\s*1건/);
+  await screenshot(page,'user-activity-dialog');
   await page.keyboard.press('Escape');
   await page.getByRole('link',{name:'사용 추적',exact:true}).click();
   await page.getByRole('combobox',{name:'추적 사용자'}).selectOption(alice);
@@ -97,7 +102,7 @@ try {
   await page.getByRole('button',{name:'trace 상세 보기'}).first().click();
   await page.getByRole('heading',{name:'요청 추적',exact:true}).waitFor();
   await screenshot(page,'failure-trace-dialog');await page.keyboard.press('Escape');
-  results.push('User history, screen visit totals, failure drilldown and filtered token charts are reachable');
+  results.push('User proposal count, failure drilldown and filtered charts are reachable');
   const exported=await (await context.request.get(base+'/admin/api/tracing/export')).text();
   assert.ok(!exported.includes(shared));assert.ok(!exported.includes(generated));
   assert.ok(!exported.includes('password_hash'));
