@@ -1,0 +1,103 @@
+== search.rerank
+  C01_L1:value             decision 285ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | decision_raw 0ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.25, "gold_rank": 4} | clef 5948ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.2, "gold_rank": 5} | clef_raw 0ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.2, "gold_rank": 5}
+  C02_L1:products          decision 201ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.3333333333333333, "gold_rank": 3} | decision_raw 0ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2} | clef 5761ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.1, "gold_rank": 10} | clef_raw 0ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.1, "gold_rank": 10}
+  C03_L1:value             decision 224ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | decision_raw 0ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef 6034ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.2, "gold_rank": 5} | clef_raw 0ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.16666666666666666, "gold_rank": 6}
+  C04_L3:requirements      decision 218ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | decision_raw 0ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.16666666666666666, "gold_rank": 6} | clef 6099ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2} | clef_raw 1ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+  C05_L1:products          decision 213ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.25, "gold_rank": 4} | decision_raw 0ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.25, "gold_rank": 4} | clef 5693ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.125, "gold_rank": 8} | clef_raw 0ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.125, "gold_rank": 8}
+  C06_L3:spec              decision 212ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | decision_raw 0ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef 5690ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.25, "gold_rank": 4} | clef_raw 0ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.25, "gold_rank": 4}
+  C07_L3:why               decision 211ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.16666666666666666, "gold_rank": 6} | decision_raw 0ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2} | clef 5843ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.07142857142857142, "gold_rank": 14} | clef_raw 0ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.07142857142857142, "gold_rank": 14}
+  C08_L1:value             decision 247ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.16666666666666666, "gold_rank": 6} | decision_raw 0ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.1, "gold_rank": 10} | clef 6419ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef_raw 0ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+  C09_L3:cost              decision 272ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | decision_raw 0ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2} | clef 6192ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.25, "gold_rank": 4} | clef_raw 0ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.25, "gold_rank": 4}
+  C10_L3:execution         decision 215ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2} | decision_raw 0ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.2, "gold_rank": 5} | clef 9375ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.16666666666666666, "gold_rank": 6} | clef_raw 0ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.16666666666666666, "gold_rank": 6}
+== catalog.rank
+  C01_L2                   decision 451ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | decision_raw 2ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef 57130ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2} | clef_raw 2ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+  C02_L2                   decision 440ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | decision_raw 0ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef 59439ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef_raw 8ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+  C03_L2                   decision 487ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | decision_raw 0ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef 56316ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2} | clef_raw 16ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+  C04_L2                   decision 382ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.3333333333333333, "gold_rank": 3} | decision_raw 0ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.3333333333333333, "gold_rank": 3} | clef 57354ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2} | clef_raw 6ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+  C05_L2                   decision 370ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | decision_raw 0ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef 61355ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2} | clef_raw 8ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+  C06_L2                   decision 339ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | decision_raw 1ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef 60907ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2} | clef_raw 18ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.25, "gold_rank": 4}
+budget reached — unfinished, run again with --resume (/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/decision.json)
+== search.rerank
+== catalog.rank
+  C07_L2                   decision 552ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | decision_raw 0ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef 56771ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef_raw 6ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+  C08_L2                   decision 389ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | decision_raw 0ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef 59038ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef_raw 2ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.3333333333333333, "gold_rank": 3}
+  C09_L2                   decision 384ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | decision_raw 1ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef 64125ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef_raw 50ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C10_L2                   decision 382ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | decision_raw 0ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef 99194ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2} | clef_raw 242ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.2, "gold_rank": 5}
+== catalog.rank:compact
+  C01_L2                   decision 856ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | decision_raw 0ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef 11010ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef_raw 3ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C02_L2                   decision 439ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | decision_raw 3ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef 10324ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef_raw 1ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+  C03_L2                   decision 972ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | decision_raw 0ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2} | clef 14388ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2} | clef_raw 0ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+  C04_L2                   decision 474ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.3333333333333333, "gold_rank": 3} | decision_raw 0ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.3333333333333333, "gold_rank": 3} | clef 15641ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2} | clef_raw 19ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+  C05_L2                   decision 1077ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | decision_raw 5ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef 20220ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef_raw 2ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C06_L2                   decision 441ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | decision_raw 5ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef 15610ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef_raw 0ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C07_L2                   decision 324ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | decision_raw 0ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef 11737ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef_raw 5ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C08_L2                   decision 301ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | decision_raw 0ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef 10872ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef_raw 0ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C09_L2                   decision 380ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | decision_raw 0ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef 10336ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef_raw 0ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C10_L2                   decision 233ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | decision_raw 0ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef 10524ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | clef_raw 0ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.2, "gold_rank": 5}
+== review.route
+budget reached — unfinished, run again with --resume (/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/decision.json)
+== search.rerank
+== catalog.rank
+== catalog.rank:compact
+== review.route
+  bs10:wrong_customer      decision 503ms {"target_recall": 0.5, "n_selected": 12} | clef 13939ms {"target_recall": 0.5, "n_selected": 11}
+  bs10:placeholders        decision 463ms {"target_recall": 0.0, "n_selected": 12} | clef 14352ms {"target_recall": 0.0, "n_selected": 12}
+  bs10:no_proof            decision 683ms {"target_recall": 1.0, "n_selected": 12} | clef 13654ms {"target_recall": 1.0, "n_selected": 12}
+  bs10:number_conflict     decision 450ms {"target_recall": 0.0, "n_selected": 12} | clef 13883ms {"target_recall": 0.0, "n_selected": 12}
+  bs10:strip_images        decision 543ms {"target_recall": 0.0, "n_selected": 12} | clef 14571ms {"target_recall": 0.0, "n_selected": 12}
+  bs01:wrong_customer      decision 2442ms {"target_recall": 0.5, "n_selected": 12} | clef 14215ms {"target_recall": 0.5, "n_selected": 10}
+  bs01:placeholders        decision 428ms {"target_recall": 0.0, "n_selected": 12} | clef 14240ms {"target_recall": 0.0, "n_selected": 11}
+  bs01:no_proof            decision 454ms {"target_recall": 0.5, "n_selected": 12} | clef 14788ms {"target_recall": 0.5, "n_selected": 12}
+  bs01:number_conflict     decision 417ms {"target_recall": 0.0, "n_selected": 12} | clef 15141ms {"target_recall": 0.0, "n_selected": 12}
+  bs01:strip_images        decision 454ms {"target_recall": 0.0, "n_selected": 12} | clef 15608ms {"target_recall": 0.0, "n_selected": 11}
+== layout.pick
+  C01_L1                   decision 209ms {"evaluable": 3, "hits": 2, "acc": 0.6666666666666666} | clef 10083ms {"evaluable": 3, "hits": 1, "acc": 0.3333333333333333}
+  C02_L1                   decision 207ms {"evaluable": 2, "hits": 1, "acc": 0.5} | clef 6776ms {"evaluable": 2, "hits": 1, "acc": 0.5}
+  C03_L1                   decision 202ms {"evaluable": 3, "hits": 0, "acc": 0.0} | clef 7361ms {"evaluable": 3, "hits": 1, "acc": 0.3333333333333333}
+  C04_L1                   decision 274ms {"evaluable": 1, "hits": 1, "acc": 1.0} | clef 6989ms {"evaluable": 1, "hits": 1, "acc": 1.0}
+  C05_L1                   decision 218ms {"evaluable": 1, "hits": 0, "acc": 0.0} | clef 6755ms {"evaluable": 1, "hits": 0, "acc": 0.0}
+  C06_L1                   decision 224ms {"evaluable": 1, "hits": 1, "acc": 1.0} | clef 6614ms {"evaluable": 1, "hits": 0, "acc": 0.0}
+  C07_L1                   decision 1249ms {"evaluable": 3, "hits": 1, "acc": 0.3333333333333333} | clef 7718ms {"evaluable": 3, "hits": 1, "acc": 0.3333333333333333}
+  C08_L1                   decision 209ms {"evaluable": 3, "hits": 2, "acc": 0.6666666666666666} | clef 7526ms {"evaluable": 3, "hits": 1, "acc": 0.3333333333333333}
+  C09_L1                   decision 201ms {"evaluable": 1, "hits": 1, "acc": 1.0} | clef 6559ms {"evaluable": 1, "hits": 1, "acc": 1.0}
+  C10_L1                   decision 247ms {"evaluable": 2, "hits": 2, "acc": 1.0} | clef 7791ms {"evaluable": 2, "hits": 1, "acc": 0.5}
+== layout.best_pick
+  C01_L2                   decision 256ms {"top1": 1.0, "top3": 1.0} | decision_raw 53ms {"top1": 0.0, "top3": 1.0} | clef 2066ms {"top1": 1.0, "top3": 1.0} | clef_raw 64ms {"top1": 1.0, "top3": 1.0}
+  C02_L2                   decision 240ms {"top1": 1.0, "top3": 1.0} | decision_raw 46ms {"top1": 1.0, "top3": 1.0} | clef 1868ms {"top1": 1.0, "top3": 1.0} | clef_raw 57ms {"top1": 1.0, "top3": 1.0}
+  C03_L2                   decision 256ms {"top1": 1.0, "top3": 1.0} | decision_raw 47ms {"top1": 1.0, "top3": 1.0} | clef 1944ms {"top1": 1.0, "top3": 1.0} | clef_raw 54ms {"top1": 1.0, "top3": 1.0}
+  C04_L2                   decision 265ms {"top1": 0.0, "top3": 0.0} | decision_raw 46ms {"top1": 0.0, "top3": 0.0} | clef 1738ms {"top1": 0.0, "top3": 1.0} | clef_raw 54ms {"top1": 0.0, "top3": 1.0}
+  C05_L2                   decision 289ms {"top1": 1.0, "top3": 1.0} | decision_raw 78ms {"top1": 1.0, "top3": 1.0} | clef 2073ms {"top1": 1.0, "top3": 1.0} | clef_raw 89ms {"top1": 1.0, "top3": 1.0}
+  C06_L2                   decision 237ms {"top1": 1.0, "top3": 1.0} | decision_raw 55ms {"top1": 1.0, "top3": 1.0} | clef 1786ms {"top1": 1.0, "top3": 1.0} | clef_raw 51ms {"top1": 1.0, "top3": 1.0}
+  C07_L2                   decision 223ms {"top1": 1.0, "top3": 1.0} | decision_raw 63ms {"top1": 1.0, "top3": 1.0} | clef 1878ms {"top1": 1.0, "top3": 1.0} | clef_raw 59ms {"top1": 1.0, "top3": 1.0}
+  C08_L2                   decision 241ms {"top1": 1.0, "top3": 1.0} | decision_raw 51ms {"top1": 1.0, "top3": 1.0} | clef 2026ms {"top1": 1.0, "top3": 1.0} | clef_raw 82ms {"top1": 1.0, "top3": 1.0}
+  C09_L2                   decision 269ms {"top1": 1.0, "top3": 1.0} | decision_raw 94ms {"top1": 1.0, "top3": 1.0} | clef 2292ms {"top1": 1.0, "top3": 1.0} | clef_raw 63ms {"top1": 1.0, "top3": 1.0}
+  C10_L2                   decision 240ms {"top1": 1.0, "top3": 1.0} | decision_raw 74ms {"top1": 1.0, "top3": 1.0} | clef 1862ms {"top1": 1.0, "top3": 1.0} | clef_raw 65ms {"top1": 1.0, "top3": 1.0}
+complete /private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/decision.json
+== search.rerank
+== catalog.rank
+== catalog.rank:compact
+== review.route
+== layout.pick
+== layout.best_pick
+complete /private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/decision.json
+== search.rerank
+== catalog.rank
+== catalog.rank:compact
+== review.route
+== layout.pick
+== layout.best_pick
+complete /private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/decision.json
+== search.rerank
+== catalog.rank
+== catalog.rank:compact
+== review.route
+== layout.pick
+== layout.best_pick
+complete /private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/decision.json
+== search.rerank
+== catalog.rank
+== catalog.rank:compact
+== review.route
+== layout.pick
+== layout.best_pick
+complete /private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/decision.json

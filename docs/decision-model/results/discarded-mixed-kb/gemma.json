@@ -1,0 +1,3566 @@
+{
+ "meta": {
+  "started": "2026-11-13T16:00:43",
+  "tc_per_task": 10,
+  "branches": {
+   "gemma": {
+    "kind": "llm",
+    "provider": "gemini",
+    "model": "gemma-4-31b-it",
+    "quick_model": "gemma-4-31b-it",
+    "reasoning": null
+   },
+   "_machine": {
+    "chip": "Apple M6",
+    "model": "Mac18,5",
+    "memory_gb": 24,
+    "os": "macOS-27.2-arm64-arm-64bit"
+   }
+  }
+ },
+ "tasks": {
+  "search.rerank": [
+   {
+    "tc": {
+     "id": "C01_L1:value",
+     "q": "카페 프랜차이즈 디지털 메뉴보드 Value Propositions 장표",
+     "part": "value",
+     "industry": "FB",
+     "strategy": "value",
+     "level": "minimal",
+     "gold": [
+      "L_VP_F2",
+      "L_VP_U"
+     ],
+     "gold_in_pool": true
+    },
+    "baseline": {
+     "final": [
+      "L_VP_F2",
+      "L_VP_F4",
+      "L_VP_F",
+      "L_VP_G",
+      "L_VP_J",
+      "L_PH_VP_U",
+      "L_VP_P",
+      "L_VP_T",
+      "L_VP_I",
+      "L_SUB_VALUE3"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 20216,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2314,
+      "output_tokens": 689,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_VP_F",
+       "why": "디지털 메뉴보드 제품과 핵심 가치를 다수 배치하기 적합함"
+      },
+      {
+       "f": "L_VP_F2",
+       "why": "2개 제품과 가치 기둥을 매칭하여 명확하게 전달 가능"
+      },
+      {
+       "f": "L_VP_F4",
+       "why": "2x2 매트릭스로 여러 가치를 체계적으로 보여주기 좋음"
+      },
+      {
+       "f": "L_VP_N",
+       "why": "카페 매장 설치 사례 사진과 함께 가치를 제시하기 적합함"
+      },
+      {
+       "f": "L_VP_G",
+       "why": "대표 메뉴보드 제품 하나를 강조하여 가치를 전달하기 좋음"
+      },
+      {
+       "f": "L_VP_M",
+       "why": "다양한 제품군과 가치를 매트릭스로 정리하여 보여주기 적합함"
+      },
+      {
+       "f": "L_VP_P",
+       "why": "메뉴보드 소프트웨어의 실제 구동 화면과 가치를 설명하기 좋음"
+      },
+      {
+       "f": "L_VP_J",
+       "why": "솔루션과 연결된 여러 기기를 통합적으로 보여주기 적합함"
+      },
+      {
+       "f": "L_TOC_VP3",
+       "why": "솔루션이 주는 3가지 핵심 가치를 카드로 명확히 제시함"
+      },
+      {
+       "f": "L_VP_I",
+       "why": "제품의 특정 기능이 곧 가치가 되는 경우에 효과적임"
+      },
+      {
+       "f": "L_VP_Q",
+       "why": "카페 프랜차이즈의 실제 도입 사례를 통해 신뢰도를 높임"
+      },
+      {
+       "f": "L_PH_VP_B2",
+       "why": "두 가지 핵심 가치를 큰 사진과 함께 시각적으로 강조함"
+      },
+      {
+       "f": "L_PH_VP_C",
+       "why": "한 문장의 강한 메시지와 근거를 통해 가치를 전달함"
+      },
+      {
+       "f": "L_VP_H",
+       "why": "점주와 고객의 이해관계자별 가치를 구분하여 보여주기 좋음"
+      },
+      {
+       "f": "L_VP_US",
+       "why": "매장 내 메뉴보드 설치 위치와 가치를 핀으로 짚어 설명함"
+      },
+      {
+       "f": "L_VP_UC",
+       "why": "현장 질문에 대한 답으로 제품과 가치를 제시하기 적합함"
+      }
+     ],
+     "final": [
+      "L_VP_F",
+      "L_VP_F2",
+      "L_VP_F4",
+      "L_VP_N",
+      "L_VP_G",
+      "L_VP_M",
+      "L_VP_P",
+      "L_VP_J",
+      "L_TOC_VP3",
+      "L_VP_I"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.5,
+      "gold_rank": 2
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C02_L1:products",
+     "q": "신축 AI Ready 오피스 공간별 제품 장표",
+     "part": "products",
+     "industry": "OF",
+     "strategy": "space",
+     "level": "minimal",
+     "gold": [
+      "L_P3B"
+     ],
+     "gold_in_pool": true
+    },
+    "baseline": {
+     "final": [
+      "L_SOL_09",
+      "L_SOL_10",
+      "L_SOL_04",
+      "L_SOL_07",
+      "L_SOL_05",
+      "L_P5B",
+      "L_P2B",
+      "L_P3B",
+      "L_P4B",
+      "L_SOL_03"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.125,
+      "gold_rank": 8
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 10775,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2298,
+      "output_tokens": 346,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_SOL_09",
+       "why": "라운지 공간의 제품 배치를 점과 카드로 명확히 보여줌"
+      },
+      {
+       "f": "L_SOL_07",
+       "why": "미팅룸 등 오피스 핵심 공간별 제품 구성에 최적화"
+      },
+      {
+       "f": "L_SOL_05",
+       "why": "업무 공간의 유형별(프라이빗/오픈형) 제품 비교 가능"
+      },
+      {
+       "f": "L_SOL_04",
+       "why": "로비/입구 공간의 사이니지 제품군을 효과적으로 제시"
+      },
+      {
+       "f": "L_SOL_14",
+       "why": "공간별 제안 제품 리스트를 한 장에 정리하여 보여줌"
+      },
+      {
+       "f": "L_SOL_10",
+       "why": "카페 공간의 제품 컨셉과 컬러 비교에 적합"
+      },
+      {
+       "f": "L_SOL_08",
+       "why": "AI Ready 오피스의 스마트 솔루션 도식과 제품 연결"
+      },
+      {
+       "f": "L_P5B",
+       "why": "공간 내 제품 설치 동선 중심의 레이아웃"
+      },
+      {
+       "f": "L_P2B",
+       "why": "공간 및 설치 중심의 일반적인 제품 장표"
+      },
+      {
+       "f": "L_P3B",
+       "why": "공간 및 설치 중심의 일반적인 제품 장표"
+      },
+      {
+       "f": "L_P4B",
+       "why": "why"
+      }
+     ],
+     "final": [
+      "L_SOL_09",
+      "L_SOL_07",
+      "L_SOL_05",
+      "L_SOL_04",
+      "L_SOL_14",
+      "L_SOL_10",
+      "L_SOL_08",
+      "L_P5B",
+      "L_P2B",
+      "L_P3B"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.1,
+      "gold_rank": 10
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C03_L1:value",
+     "q": "비즈니스 호텔 객실 리뉴얼 Value Propositions 장표",
+     "part": "value",
+     "industry": "HT",
+     "strategy": "pain",
+     "level": "minimal",
+     "gold": [
+      "L_VP_G",
+      "L_VP_U_HT"
+     ],
+     "gold_in_pool": true
+    },
+    "baseline": {
+     "final": [
+      "L_VP_U_HT",
+      "L_AIS_06",
+      "L_AIS_07",
+      "L_AIS_09",
+      "L_VP_F2",
+      "L_VP_US",
+      "L_VP_F4",
+      "L_VP_UC",
+      "L_VP_F",
+      "L_VP_G"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 47902,
+     "usage": {
+      "calls": 2,
+      "attempts": 2,
+      "failed": 0,
+      "rejected": 1,
+      "prompt_tokens": 4686,
+      "output_tokens": 1635,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_VP_U_HT",
+       "why": "호텔 업종 전용 레이아웃으로 가장 적합함"
+      },
+      {
+       "f": "L_PH_VP_U",
+       "why": "현장 질문 기반의 가치 제안으로 pain point 해결책 제시 가능"
+      },
+      {
+       "f": "L_PH_VP_L",
+       "why": "리뉴얼 전후 비교를 통해 리뉴얼의 가치를 명확히 전달"
+      },
+      {
+       "f": "L_PH_AIS_08",
+       "why": "객실 내 AI 맞춤 환경 시나리오를 시각적으로 잘 보여줌"
+      },
+      {
+       "f": "L_AIS_06",
+       "why": "니즈와 기술을 짝지어 가치 제안을 구성하기 좋음"
+      },
+      {
+       "f": "L_VP_F",
+       "why": "가치 기둥과 제품을 매칭하여 체계적으로 제안"
+      },
+      {
+       "f": "L_VP_F2",
+       "why": "가치 기둥 기반의 2개 제품 제안에 적합"
+      },
+      {
+       "f": "L_VP_F4",
+       "why": "가치 기둥 기반의 4개 제품 제품 제안에 적합"
+      },
+      {
+       "f": "L_VP_US",
+       "why": "실사 사진에 핀을 꽂아 구체적인 개선점 제시 가능"
+      },
+      {
+       "f": "L_VP_UC",
+       "why": "현장 질문과 제품 이미지를 강조하여 가치 전달"
+      },
+      {
+       "f": "L_VP_G",
+       "why": "대표 제품 하나로 핵심 가치를 강렬하게 전달"
+      },
+      {
+       "f": "L_VP_H",
+       "why": "이해관계자별 맞춤 가치 제안에 유용"
+      },
+      {
+       "f": "L_VP_Q",
+       "why": "리뉴얼 사례를 통해 신뢰도 확보"
+      },
+      {
+       "f": "L_VP_S",
+       "why": "L_PH_VP_L과 유사하게 도입 전후 실사로 가치 증명"
+      },
+      {
+       "f": "L_VP_P",
+       "why": "솔루션의 실제 화면을 통해 구체적인 가치 제시"
+      },
+      {
+       "f": "L_VP_J",
+       "why": "솔루션과 연결 제품의 관계를 시각화"
+      },
+      {
+       "f": "L_VP_T",
+       "why": "제품 실사와 스펙을 통해 기술적 근거 제시"
+      },
+      {
+       "f": "L_PH_OV_H",
+       "why": "제안의 핵심 약속을 요약하여 전달"
+      },
+      {
+       "f": "L_AIS_07",
+       "why": "가치 아래 시나리오 흐름을 보여주기에 적합"
+      },
+      {
+       "f": "L_AIS_09",
+       "why": "L_AIS_07과 유사하게 서비스 흐름을 보여주기에 장표 구성에표 적합"
+      }
+     ],
+     "final": [
+      "L_VP_U_HT",
+      "L_PH_VP_U",
+      "L_PH_VP_L",
+      "L_PH_AIS_08",
+      "L_AIS_06",
+      "L_VP_F",
+      "L_VP_F2",
+      "L_VP_F4",
+      "L_VP_US",
+      "L_VP_UC"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C04_L3:requirements",
+     "q": "은행 업무용 모니터 입찰 고객 요구 이해 장표",
+     "part": "requirements",
+     "industry": "FN",
+     "strategy": "rfp",
+     "level": "complex",
+     "gold": [
+      "L_RM_B",
+      "L_RM_C"
+     ],
+     "gold_in_pool": true
+    },
+    "baseline": {
+     "final": [
+      "L_RM_B",
+      "L_RM_C",
+      "L_PH_RQ_A",
+      "L_PH_RQ_C",
+      "L_PH_RQ_B",
+      "L_PH_RQ_G",
+      "L_PH_OV_A",
+      "L_SC_B",
+      "L_PH_RQ_F",
+      "L_PH_RQ_D"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 18588,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2619,
+      "output_tokens": 620,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_RM_B",
+       "why": "RFP 대응 요구사항 대응표로 가장 적합"
+      },
+      {
+       "f": "L_RM_C",
+       "why": "RFP 평가 항목과 배점 대응에 최적화"
+      },
+      {
+       "f": "L_TOC_RFP",
+       "why": "RFP 평가 항목별 대응 및 근거 제시 가능"
+      },
+      {
+       "f": "L_PH_RQ_A",
+       "why": "분야별 요구사항을 사진과 함께 시각적으로 제시"
+      },
+      {
+       "f": "L_PH_RQ_G",
+       "why": "필수/선택/가점 요구사항 구분 대응에 적합"
+      },
+      {
+       "f": "L_PH_RQ_F",
+       "why": "요구사항을 제품/솔루션 매핑으로 연결하여 제시"
+      },
+      {
+       "f": "L_PH_RQ_B",
+       "why": "배점 비례 사진 타일로 핵심 요구사항 강조"
+      },
+      {
+       "f": "L_PH_RQ_E",
+       "why": "명시적 요구와 잠재적 요구를 빙산 모델로 분석"
+      },
+      {
+       "f": "L_PH_RQ_C",
+       "why": "키맨별 관심사와 요구사항을 맞춤형으로 제시"
+      },
+      {
+       "f": "L_PH_RQ_D",
+       "why": "공간 사진 핀으로 현장 기반 요구사항 분석"
+      },
+      {
+       "f": "L_PH_IM_G",
+       "why": "결정 기준과 대응 방향을 증거 사진으로 증명"
+      },
+      {
+       "f": "L_PH_RQ_H",
+       "why": "현장 실사 기반의 요구사항 확인 및 설계 반영"
+      },
+      {
+       "f": "L_PH_MI_FN_B",
+       "why": "금융 업종 특화 운영 과제 분석 장표"
+      },
+      {
+       "f": "L_PH_MI_FN_C",
+       "why": "금융 고객 여정 기반의 요구사항 도출"
+      },
+      {
+       "f": "L_PH_IM_L",
+       "why": "현장 인터뷰 질문 기반의 요구사항 대응"
+      },
+      {
+       "f": "L_PH_OV_A",
+       "why": "사업 이해 및 추진 배경을 사진으로 정리"
+      },
+      {
+       "f": "L_SC_B",
+       "why": "제품 스펙 기반의 요구사항 충족 증명"
+      },
+      {
+       "f": "L_PH_US_L",
+       "why": "결정권자와 실사용자 간의 요구 차이 분석"
+      },
+      {
+       "f": "L_OV_C",
+       "why": "전제 조건 및 확인 요청 사항 정리"
+      },
+      {
+       "f": "L_PH_SO_P",
+       "why": "특정 솔루션 시나리오 기반의 요구 대응"
+      }
+     ],
+     "final": [
+      "L_RM_B",
+      "L_RM_C",
+      "L_TOC_RFP",
+      "L_PH_RQ_A",
+      "L_PH_RQ_G",
+      "L_PH_RQ_F",
+      "L_PH_RQ_B",
+      "L_PH_RQ_E",
+      "L_PH_RQ_C",
+      "L_PH_RQ_D"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C05_L1:products",
+     "q": "대학 스마트 캠퍼스 공간별 제품 장표",
+     "part": "products",
+     "industry": "ED",
+     "strategy": "space",
+     "level": "minimal",
+     "gold": [
+      "L_P2B"
+     ],
+     "gold_in_pool": true
+    },
+    "baseline": {
+     "final": [
+      "L_P5B",
+      "L_P3B",
+      "L_P4B",
+      "L_P2B",
+      "L_PH_P4_A",
+      "L_PH_P3_A",
+      "L_PH_P_I",
+      "L_PH_P_S",
+      "L_PH_P_L",
+      "L_P1A"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.25,
+      "gold_rank": 4
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 12543,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2099,
+      "output_tokens": 395,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_VS_SPACE",
+       "why": "공간별 대표 제품 제안에 최적화된 레이아웃"
+      },
+      {
+       "f": "L_P5B",
+       "why": "공간 및 설치 동선 중심의 제품 목록 구성에 적합"
+      },
+      {
+       "f": "L_P3B",
+       "why": "공간 및 설치 중심의 제품 구성에 적합"
+      },
+      {
+       "f": "L_P4B",
+       "why": "공간 및 설치 중심의 제품 구성에 적합"
+      },
+      {
+       "f": "L_P2B",
+       "why": "공간 또는 설치 중심의 제품 구성에 적합"
+      },
+      {
+       "f": "L_PH_P4_A",
+       "why": "설치 장면 위주의 제품 4개 구성에 적합"
+      },
+      {
+       "f": "L_PH_P3_A",
+       "why": "설치 장면과 제품 컷을 함께 보여주는 구성에 적합"
+      },
+      {
+       "f": "L_P_T",
+       "why": "한 공간에 많은 제품을 한 장으로 보여줄 때 적합"
+      },
+      {
+       "f": "L_PH_P5_A",
+       "why": "설치 장면과 위치, 수량을 함께 보여주는 구성에 적합"
+      },
+      {
+       "f": "L_P1A",
+       "why": "제품 이미지 중심의 히어로 장표로 활용 가능"
+      }
+     ],
+     "final": [
+      "L_VS_SPACE",
+      "L_P5B",
+      "L_P3B",
+      "L_P4B",
+      "L_P2B",
+      "L_PH_P4_A",
+      "L_PH_P3_A",
+      "L_P_T",
+      "L_PH_P5_A",
+      "L_P1A"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.2,
+      "gold_rank": 5
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C06_L3:spec",
+     "q": "물류센터 현장 모바일 제품 스펙 장표",
+     "part": "spec",
+     "industry": "MF",
+     "strategy": "pain",
+     "level": "complex",
+     "gold": [
+      "L_SC_B",
+      "L_SD_E"
+     ],
+     "gold_in_pool": true
+    },
+    "baseline": {
+     "final": [
+      "L_SD_E",
+      "L_SE_B",
+      "L_SPEC4",
+      "L_SD_B",
+      "L_SPEC5",
+      "L_SD_F",
+      "L_SPEC1",
+      "L_SC_B",
+      "L_TOC_SPEC",
+      "L_PH_SC_A"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 12893,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2168,
+      "output_tokens": 413,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_SD_E",
+       "why": "모바일 및 현장 단말 사양에 최적화된 레이아웃"
+      },
+      {
+       "f": "L_SPEC1",
+       "why": "그룹별 상세 사양 정리를 통해 전체 사양 제공 가능"
+      },
+      {
+       "f": "L_TOC_PSPEC",
+       "why": "단일 제품의 핵심 숫자와 사양을 강조하여 보여주기 적합"
+      },
+      {
+       "f": "L_SPEC4",
+       "why": "여러 모바일 제품군 간의 사양 비교표로 활용 가능"
+      },
+      {
+       "f": "L_SPEC5",
+       "why": "제품 5개까지의 상세한 사양 비교가 가능함"
+      },
+      {
+       "f": "L_TOC_SPEC",
+       "why": "핵심 제품 3종의 사양을 나란히 비교하기 좋음"
+      },
+      {
+       "f": "L_PH_SC_A",
+       "why": "제품 사진과 사양 비교표를 함께 배치하여 시각적 전달력 높음"
+      },
+      {
+       "f": "L_SC_B",
+       "why": "물류센터 요구사항에 대한 제품의 대응력을 증명하기 적합"
+      },
+      {
+       "f": "L_SE_B",
+       "why": "현장 단말기의 인증 및 규격 현황을 보여주기에 적합"
+      },
+      {
+       "f": "L_SC_E",
+       "why": "현장 설치 조건에 따른 모델 선택 가이드 제공 가능"
+      }
+     ],
+     "final": [
+      "L_SD_E",
+      "L_SPEC1",
+      "L_TOC_PSPEC",
+      "L_SPEC4",
+      "L_SPEC5",
+      "L_TOC_SPEC",
+      "L_PH_SC_A",
+      "L_SC_B",
+      "L_SE_B",
+      "L_SC_E"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C07_L3:why",
+     "q": "백화점 사이니지 공급사 전환 Why Samsung 장표",
+     "part": "why",
+     "industry": "RT",
+     "strategy": "compete",
+     "level": "complex",
+     "gold": [
+      "L_CM_B",
+      "L_CM_E",
+      "L_ST_E",
+      "L_WS01"
+     ],
+     "gold_in_pool": true
+    },
+    "baseline": {
+     "final": [
+      "L_PH_SV_B",
+      "L_PH_CM_A",
+      "L_ST_D",
+      "L_SV_C",
+      "L_PH_CP_W",
+      "L_PH_CP_X",
+      "L_VS_WHY_1",
+      "L_PH_ST_A",
+      "L_CM_C",
+      "L_VS_WHY_2"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.08333333333333333,
+      "gold_rank": 12
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 20582,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2313,
+      "output_tokens": 704,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_PH_CM_A",
+       "why": "공급사 전환을 위한 비교 기준별 현장 사진 제시로 설득력 강화"
+      },
+      {
+       "f": "L_PH_CP_X",
+       "why": "레이더 차트로 종합 비교하여 삼성의 우위를 한눈에 보여줌"
+      },
+      {
+       "f": "L_PH_ST_A",
+       "why": "리테일 현장 사진을 통해 삼성의 강점을 시각적으로 증명"
+      },
+      {
+       "f": "L_PH_SV_B",
+       "why": "백화점의 핵심인 유지보수 및 SLA로 공급사 전환의 안정성 강조"
+      },
+      {
+       "f": "L_TOC_CPWIN",
+       "why": "사진과 수치로 경쟁사 대비 차별점을 명확히 제시"
+      },
+      {
+       "f": "L_CM_C",
+       "why": "여러 기준을 종합한 레이더 비교로 객관적 우위 입증"
+      },
+      {
+       "f": "L_PH_CP_W",
+       "why": "열위 항목 보완 방안을 제시하여 신뢰도와 진정성 확보"
+      },
+      {
+       "f": "L_PH_IM_F",
+       "why": "제안의 핵심 메시지와 차별화 셋을 강렬하게 전달"
+      },
+      {
+       "f": "L_VS_WHY_1",
+       "why": "삼성 비즈니스의 종합적인 약속을 체계적으로 제시"
+      },
+      {
+       "f": "L_VS_WHY_3",
+       "why": "L_VS_WHY_1보다 구체적인 디바이스, 솔루션, 통합 오퍼링 강조"
+      },
+      {
+       "f": "L_VS_WHY_4",
+       "why": "배송, 설치, 유지보수 프로세스 전문성을 강조하여 전환 비용 리스크 감소"
+      },
+      {
+       "f": "L_VS_WHY_2",
+       "why": "삼성의 전문가 집단 역량을 강조하여 전문성 입증"
+      },
+      {
+       "f": "L_VS_WHY_5",
+       "why": "삼성의 글로벌 브랜드 가치와 디자인 수상 경력을 강조"
+      },
+      {
+       "f": "L_ST_D",
+       "why": "강점과 증거 사진을 매칭하여 시각적 신뢰도 제고"
+      },
+      {
+       "f": "L_SV_C",
+       "why": "L_PH_SV_B보다 구체적인 서비스 현장 4단계 프로세스 제시"
+      },
+      {
+       "f": "L_PH_CP_D",
+       "why": "차별 기능 넷을 시연 장면 사진으로 구체적으로 제시"
+      }
+     ],
+     "final": [
+      "L_PH_CM_A",
+      "L_PH_CP_X",
+      "L_PH_ST_A",
+      "L_PH_SV_B",
+      "L_TOC_CPWIN",
+      "L_CM_C",
+      "L_PH_CP_W",
+      "L_PH_IM_F",
+      "L_VS_WHY_1",
+      "L_VS_WHY_3"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.058823529411764705,
+      "gold_rank": 17
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C08_L1:value",
+     "q": "아파트 분양 빌트인 · 스마트홈 Value Propositions 장표",
+     "part": "value",
+     "industry": "RS",
+     "strategy": "value",
+     "level": "minimal",
+     "gold": [
+      "L_RV_A",
+      "L_VP_F"
+     ],
+     "gold_in_pool": true
+    },
+    "baseline": {
+     "final": [
+      "L_PH_RV_A",
+      "L_VP_F2",
+      "L_VP_F4",
+      "L_VP_F",
+      "L_VP_G",
+      "L_RV_B",
+      "L_VP_P",
+      "L_VP_J",
+      "L_VP_T",
+      "L_VP_I"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.25,
+      "gold_rank": 4
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 26723,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2336,
+      "output_tokens": 841,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_PH_RV_A",
+       "why": "분양 포인트와 공간 사진을 통해 주거 가치를 효과적으로 전달"
+      },
+      {
+       "f": "L_VP_F2",
+       "why": "가치 기둥과 제품을 매칭하여 빌트인 가전의 가치를 명확히 제시"
+      },
+      {
+       "f": "L_VP_F4",
+       "why": "2x2 매트릭스로 다양한 빌트인 제품군을 체계적으로 구성"
+      },
+      {
+       "f": "L_VP_F",
+       "why": "가치 기둥 기반의 제품 구성으로 스마트홈 가치 제안에 적합"
+      },
+      {
+       "f": "L_VP_J",
+       "why": "스마트홈 솔루션 화면과 연결 제품을 함께 보여주기에 최적"
+      },
+      {
+       "f": "L_VP_P",
+       "why": "솔루션의 실제 작동 화면과 주석으로 스마트홈 기능성 강조"
+      },
+      {
+       "f": "L_RV_B",
+       "why": "세대 타입별 옵션 패키지를 구분하여 분양 제안에 적합"
+      },
+      {
+       "f": "L_VP_N",
+       "why": "설치 사례 실사 사진으로 실제 입주 후의 모습을 시각화"
+      },
+      {
+       "f": "L_PH_VP_B2",
+       "why": "두 가지 핵심 가치를 큰 사진으로 강조하여 시각적 임팩트 부여"
+      },
+      {
+       "f": "L_VP_G",
+       "why": "대표 제품 하나를 히어로 이미지로 사용하여 가치 전달"
+      },
+      {
+       "f": "L_TOC_VP3",
+       "why": "제품과 솔루션이 결합된 세 가지 가치를 카드로 명확히 제시"
+      },
+      {
+       "f": "L_VP_I",
+       "why": "제품 콜아웃 방식으로 개별 빌트인 제품의 특장점 강조"
+      },
+      {
+       "f": "L_VP_T",
+       "why": "제품 실사와 스펙을 함께 제공하여 신뢰도 높은 가치 제안"
+      },
+      {
+       "f": "L_PH_VP_C",
+       "why": "강력한 메시지와 근거를 통해 주거 가치에 대한 확신 제공"
+      },
+      {
+       "f": "L_VP_H",
+       "why": ""
+      },
+      {
+       "f": "L_VP_UC",
+       "why": "현장 질문 기반의 구성으로 고객의 니즈를 해결하는 가치 제시"
+      },
+      {
+       "f": "L_PH_IM_N",
+       "why": "제안 메시지 구조를 한 장에 체계적으로 보여주기에 적합"
+      },
+      {
+       "f": "L_VP_US",
+       "why": "실사 사진 위 핀으로 공간별 스마트홈 적용 포인트 짚어주기"
+      },
+      {
+       "f": "L_PH_CP_M",
+       "why": "삼성 생태계 연결성을 경쟁 단지와 비교하여 차별화 강조"
+      },
+      {
+       "f": "L_SUB_VALUE3",
+       "why": "구독 서비스 가치를 제안하는 경우에 한정적으로 사용 가능"
+      }
+     ],
+     "final": [
+      "L_PH_RV_A",
+      "L_VP_F2",
+      "L_VP_F4",
+      "L_VP_F",
+      "L_VP_J",
+      "L_VP_P",
+      "L_RV_B",
+      "L_VP_N",
+      "L_PH_VP_B2",
+      "L_VP_G"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.25,
+      "gold_rank": 4
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C09_L3:cost",
+     "q": "무인 스터디카페 에너지 절감 비용 · 구매 장표",
+     "part": "cost",
+     "industry": "SV",
+     "strategy": "roi",
+     "level": "complex",
+     "gold": [
+      "L_CO_A",
+      "L_CO_B"
+     ],
+     "gold_in_pool": true
+    },
+    "baseline": {
+     "final": [
+      "L_CO_B",
+      "L_CO_A",
+      "L_PH_CO_A",
+      "L_PH_CO_B",
+      "L_TOC_TCO",
+      "L_PH_CO_E",
+      "L_PH_CO_D",
+      "L_PH_CO_C",
+      "L_SUB_VALUE3",
+      "L_PH_CO_F"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 22356,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2524,
+      "output_tokens": 760,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_PH_EF_B",
+       "why": "ROI 및 투자 회수 기간을 시각화하여 에너지 절감 비용을 효과적으로 제시"
+      },
+      {
+       "f": "L_PH_EF_G",
+       "why": "운영비 절감액을 워터폴 차트로 보여주어 에너지 비용 감소를 구체적으로 증명"
+      },
+      {
+       "f": "L_CO_B",
+       "why": "5년 총소유비용(TCO)을 통해 장기적인 비용 절감 효과를 비교 분석"
+      },
+      {
+       "f": "L_TOC_TCO",
+       "why": "구매 방식과 TCO를 한 장에 정리하여 구매 결정에 최적화된 장표"
+      },
+      {
+       "f": "L_CO_A",
+       "why": "일시불, 구독, 렌탈 등 다양한 구매 방식의 비용적 장점을 비교"
+      },
+      {
+       "f": "L_PH_CO_B",
+       "why": "제품 컷과 누적 막대를 통해 운영비 절감에 따른 TCO 변화를 시각화"
+      },
+      {
+       "f": "L_PH_CO_A",
+       "why": "지점 사진과 함께 누적 비용의 역전 시점을 보여주어 ROI로 접근"
+      },
+      {
+       "f": "L_PH_CO_D",
+       "why": "제품별 수량과 단가를 명시하여 구체적인 구매 견적 요약 제공"
+      },
+      {
+       "f": "L_PH_CO_E",
+       "why": "무인 매장 사진 위 기기별 월 비용을 표시하여 직관적인 비용 산출"
+      },
+      {
+       "f": "L_PH_CO_C",
+       "why": "단계별 투자 및 연도별 예산 계획을 통해 초기 투자 부담 완화"
+      },
+      {
+       "f": "L_SUB_COMPARE",
+       "why": "일시불 대비 구독의 비용적 가치와 5가지 핵심 비교 항목 제시"
+      },
+      {
+       "f": "L_PH_CP_C",
+       "why": "경쟁사 대비 전기료 및 유지보수비 절감액을 포함한 TCO 비교"
+      },
+      {
+       "f": "L_PH_CO_F",
+       "why": "보상 판매 및 교체 지원을 통한 초기 도입 비용 절감 방안 제시"
+      },
+      {
+       "f": "L_SUB_PAY3",
+       "why": "고객의 예산 구조에 맞는 맞춤형 납부 방안을 추천하여 구매 유도"
+      },
+      {
+       "f": "L_SUB_VALUE3",
+       "why": "비용, 시설 관리, 고객 만족이라는 세 가지 구독 가치를 강조"
+      },
+      {
+       "f": "L_SUB_TERMS",
+       "why": "구독 조건 및 AS 기간 등 구매 후 관리 비용에 대한 세부 조건 명시"
+      },
+      {
+       "f": "L_SUB_HERO",
+       "why": "B2B 구독 서비스의 전반적인 가치 제안을 위한 도입부 장표"
+      },
+      {
+       "f": "L_SUB_IND4",
+       "why": "타 업종 사례를 통해 무인 매장 운영 효율화 및 비용 절감 가치 증명"
+      },
+      {
+       "f": "L_PH_MT_B",
+       "why": "유지보수 등급별 서비스 범위와 비용을 비교하여 선택 유도"
+      },
+      {
+       "f": "L_SUB_PAIN",
+       "why": "초기 비용 및 관리 부담이라는 고객의 페인 포인트 짚어내기"
+      }
+     ],
+     "final": [
+      "L_PH_EF_B",
+      "L_PH_EF_G",
+      "L_CO_B",
+      "L_TOC_TCO",
+      "L_CO_A",
+      "L_PH_CO_B",
+      "L_PH_CO_A",
+      "L_PH_CO_D",
+      "L_PH_CO_E",
+      "L_PH_CO_C"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.3333333333333333,
+      "gold_rank": 3
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C10_L3:execution",
+     "q": "요양병원 병동 확산 실행 계획 장표",
+     "part": "execution",
+     "industry": "MD",
+     "strategy": "land",
+     "level": "complex",
+     "gold": [
+      "L_PL_A",
+      "L_PL_B",
+      "L_SV_A"
+     ],
+     "gold_in_pool": true
+    },
+    "baseline": {
+     "final": [
+      "L_PH_PL_A",
+      "L_PL_B",
+      "L_MT_B",
+      "L_TO_A",
+      "L_IP_A",
+      "L_PH_TO_B",
+      "L_PH_SE_C",
+      "L_PH_CU_B",
+      "L_CU_A",
+      "L_TO_B"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.5,
+      "gold_rank": 2
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 8747,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2328,
+      "output_tokens": 272,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_PH_PL_A",
+       "why": "파일럿에서 확산으로 이어지는 단계적 실행 계획에 최적"
+      },
+      {
+       "f": "L_TOC_PILOT",
+       "why": "파일럿에서 전체 확산까지의 범위와 기준을 명확히 제시"
+      },
+      {
+       "f": "L_TOC_ROADMAP",
+       "why": "실사부터 확산까지의 4단계 로드맵으로 실행 계획 구성 가능"
+      },
+      {
+       "f": "L_PH_PL_B",
+       "why": "시범 대상 선정 및 지표 설정 등 구체적 확산 설계에 적합"
+      },
+      {
+       "f": "L_PL_B",
+       "why": "확산 전 단계인 파일럿 설계 및 측정 지표 정의에 유용"
+      },
+      {
+       "f": "L_PH_IP_A",
+       "why": "구축 및 운영 단계별 현장 사진을 포함한 실행 계획에 적합"
+      }
+     ],
+     "final": [
+      "L_PH_PL_A",
+      "L_TOC_PILOT",
+      "L_TOC_ROADMAP",
+      "L_PH_PL_B",
+      "L_PL_B",
+      "L_PH_IP_A",
+      "L_MT_B",
+      "L_TO_A",
+      "L_IP_A",
+      "L_PH_TO_B"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.2,
+      "gold_rank": 5
+     }
+    }
+   }
+  ],
+  "catalog.rank": [
+   {
+    "tc": {
+     "id": "C01_L2",
+     "q": "C 커피가 매장 디지털 전환을 고민하고 있습니다. 매장 경험을 좀 더 세련되게 바꾸고 싶고, 본사 입장에서는 메뉴 운영이 편해졌으면 한다고 합니다. 아직 구체적인 범위는 정해지지 않았어요.",
+     "count": 10,
+     "gold": [
+      "bs01",
+      "bs16"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs01",
+      "bs_std_fb_qsr",
+      "bs_std_fb_cafe",
+      "bs_std_sv_unmanned",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_ai_store_1",
+      "bs_std_oe_telco",
+      "bs_v_ai_store_2",
+      "bs_std_sv_screen",
+      "bs_std_rt_flag",
+      "bs_std_rt_small",
+      "bs_std_ed_k12",
+      "bs_std_sv_laundry",
+      "bs_account_paulbassett",
+      "bs_std_rt_hyper",
+      "bs_std_sv_beauty",
+      "bs_std_fn_bank",
+      "bs_v_smart_retail_2",
+      "bs_std_rt_mall",
+      "bs_sub_std_ht_mid",
+      "bs_std_ht_mid",
+      "bs_sub_fn_bank",
+      "bs_v_smart_network_1",
+      "bs10",
+      "bs_std_ed_academy",
+      "bs_v_smart_retail_1",
+      "bs19",
+      "bs_std_pb_agency",
+      "bs_std_mi_military",
+      "bs_std_rs_apt",
+      "bs_std_ed_univ",
+      "bs_std_of_hq",
+      "bs13",
+      "bs_std_mf_logistics",
+      "bs_v_entertainment_1",
+      "bs_std_fb_rest",
+      "bs_v_smart_network_2",
+      "bs_std_tp_park",
+      "bs12",
+      "bs_std_md_hospital",
+      "bs_std_of_cowork",
+      "bs_std_rs_senior",
+      "bs_sub_std_of_sme",
+      "bs16",
+      "bs_v_smart_hospital_2",
+      "bs_std_tp_museum",
+      "bs_sub_std_pb_agency",
+      "bs_std_vn_cinema",
+      "bs_v_smart_transportation_1",
+      "bs_std_ad_ooh"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs01",
+      "bs_std_fb_qsr",
+      "bs_std_fb_cafe",
+      "bs_std_sv_unmanned",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_ai_store_1",
+      "bs_std_oe_telco",
+      "bs_v_ai_store_2",
+      "bs_std_sv_screen",
+      "bs_std_rt_flag"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.",
+     "trace": "Traceback (most recent call last):\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in run_branch\n    out, ms = timed(lambda: fn(client, tracker))\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 137, in timed\n    out = fn()\n          ^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 288, in task\n    order, model = catalog_rank.rank('scenarios', tc['q'], {}, tc['candidates'], tc['count'], provider=env.llm, decision=decision, tracker=tracker)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/catalog_rank.py\", line 104, in rank\n    return _rank_llm(kind, query, filters, candidates, count, provider, tracker)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/catalog_rank.py\", line 153, in _rank_llm\n    raise from_provider(STEP, exc) from None\napp.api.poc.jobs.ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C02_L2",
+     "q": "신축 업무시설이라 입주사들이 좋아할 만한 스마트한 오피스를 만들고 싶다고 합니다. 에너지도 아끼고 싶고요. 설계 단계라 구체적인 건 아직 미정입니다.",
+     "count": 10,
+     "gold": [
+      "bs02"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs02",
+      "bs_std_rs_officetel",
+      "bs_std_of_sme",
+      "bs_std_of_cowork",
+      "bs_std_of_hq",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_smart_office_1",
+      "bs_sub_std_of_sme",
+      "bs_std_mi_military",
+      "bs_sub_of_hq",
+      "bs_v_knowledge_industry_center_2",
+      "bs19",
+      "bs_v_ai_apartment_1",
+      "bs_v_senior_town_1",
+      "bs_std_pb_agency",
+      "bs_std_rs_apt",
+      "bs_sub_fn_bank",
+      "bs_v_ai_office_1",
+      "bs_std_rs_senior",
+      "bs_v_ai_office_2",
+      "bs_v_smart_office_2",
+      "bs_std_md_hospital",
+      "bs_std_fn_hq",
+      "bs_sub_std_pb_agency",
+      "bs_std_fb_qsr",
+      "bs_std_mf_logistics",
+      "bs_v_smart_home_2",
+      "bs_std_ed_univ",
+      "bs_std_ed_academy",
+      "bs_std_rt_mall",
+      "bs_std_id_partner",
+      "bs_std_ad_ooh",
+      "bs_std_mf_factory",
+      "bs_std_rt_hyper",
+      "bs_std_md_tertiary",
+      "bs_std_ht_mid",
+      "bs_std_ht_large",
+      "bs_v_entertainment_1",
+      "bs_std_sv_unmanned",
+      "bs_sub_std_md_clinic",
+      "bs_std_md_clinic",
+      "bs_sub_md_hospital",
+      "bs_v_smart_factory_2",
+      "bs_std_fb_cafe",
+      "bs_std_sv_laundry",
+      "bs_sub_std_ht_mid",
+      "bs_sub_ht_large",
+      "bs_std_vn_stadium",
+      "bs_std_ht_stay",
+      "bs_std_rg_church"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs02",
+      "bs_std_rs_officetel",
+      "bs_std_of_sme",
+      "bs_std_of_cowork",
+      "bs_std_of_hq",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_smart_office_1",
+      "bs_sub_std_of_sme",
+      "bs_std_mi_military",
+      "bs_sub_of_hq"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.",
+     "trace": "Traceback (most recent call last):\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in run_branch\n    out, ms = timed(lambda: fn(client, tracker))\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 137, in timed\n    out = fn()\n          ^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 288, in task\n    order, model = catalog_rank.rank('scenarios', tc['q'], {}, tc['candidates'], tc['count'], provider=env.llm, decision=decision, tracker=tracker)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/catalog_rank.py\", line 104, in rank\n    return _rank_llm(kind, query, filters, candidates, count, provider, tracker)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/catalog_rank.py\", line 153, in _rank_llm\n    raise from_provider(STEP, exc) from None\napp.api.poc.jobs.ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C03_L2",
+     "q": "객실 리뉴얼을 앞두고 TV와 에어컨 교체를 검토 중입니다. 투숙객 불만이 좀 있다고 하네요. 공사 일정이나 범위는 아직 정해지지 않았습니다.",
+     "count": 10,
+     "gold": [
+      "bs07"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs07",
+      "bs_v_smart_hotel_2",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_smart_hotel_1",
+      "bs_std_ht_mid",
+      "bs_std_ht_stay",
+      "bs_sub_std_ht_mid",
+      "bs_std_ht_large",
+      "bs_sub_ht_large",
+      "bs_v_smart_transportation_1",
+      "bs10",
+      "bs06",
+      "bs_v_smart_retail_2",
+      "bs08",
+      "bs_account_inspire",
+      "bs19",
+      "bs09",
+      "bs02",
+      "bs_v_ai_apartment_1",
+      "bs_v_entertainment_1",
+      "bs_std_mi_military",
+      "bs_sub_ed_univ",
+      "bs_v_smart_university_2",
+      "bs_v_smart_home_2",
+      "bs_v_senior_town_2",
+      "bs_std_rs_officetel",
+      "bs_sub_md_hospital",
+      "bs_v_ai_office_2",
+      "bs12",
+      "bs18",
+      "bs_v_smart_factory_1",
+      "bs04",
+      "bs_std_rs_apt",
+      "bs_std_id_partner",
+      "bs_v_smart_barracks_2",
+      "bs_account_episode",
+      "bs_sub_std_pb_agency",
+      "bs17",
+      "bs_account_paulbassett",
+      "bs_sub_std_of_sme",
+      "bs_std_fb_qsr",
+      "bs_v_smart_office_2",
+      "bs_v_smart_network_2",
+      "bs_sub_std_md_clinic",
+      "bs_std_rt_flag",
+      "bs_v_smart_factory_2",
+      "bs_std_sv_unmanned",
+      "bs_v_smart_public_1",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_ed_univ"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs07",
+      "bs_v_smart_hotel_2",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_smart_hotel_1",
+      "bs_std_ht_mid",
+      "bs_std_ht_stay",
+      "bs_sub_std_ht_mid",
+      "bs_std_ht_large",
+      "bs_sub_ht_large",
+      "bs_v_smart_transportation_1"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.",
+     "trace": "Traceback (most recent call last):\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in run_branch\n    out, ms = timed(lambda: fn(client, tracker))\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 137, in timed\n    out = fn()\n          ^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 288, in task\n    order, model = catalog_rank.rank('scenarios', tc['q'], {}, tc['candidates'], tc['count'], provider=env.llm, decision=decision, tracker=tracker)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/catalog_rank.py\", line 104, in rank\n    return _rank_llm(kind, query, filters, candidates, count, provider, tracker)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/catalog_rank.py\", line 153, in _rank_llm\n    raise from_provider(STEP, exc) from None\napp.api.poc.jobs.ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C04_L2",
+     "q": "은행 영업점 창구를 좀 더 디지털하게 바꾸고 싶다는 요청이 있었습니다. 고객 대기 경험도 개선하고 싶다고 하는데, 어디서부터 시작할지는 정하지 못했다고 합니다.",
+     "count": 10,
+     "gold": [
+      "bs17",
+      "bs16",
+      "bs19"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs_std_fn_bank",
+      "bs_sub_fn_bank",
+      "bs17",
+      "bs_v_smart_finance_1",
+      "bs_v_smart_public_1",
+      "bs_v_ai_store_2",
+      "bs_v_senior_town_2",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_rt_hyper",
+      "bs_std_rt_flag",
+      "bs_std_vn_stadium",
+      "bs10",
+      "bs_v_smart_school_2",
+      "bs_std_ed_k12",
+      "bs_std_pb_transport",
+      "bs07",
+      "bs12",
+      "bs01",
+      "bs_std_tp_park",
+      "bs_sub_std_md_clinic",
+      "bs_std_sv_screen",
+      "bs_std_mi_military",
+      "bs_std_ed_univ",
+      "bs_std_fb_cafe",
+      "bs_v_smart_barracks_2",
+      "bs06",
+      "bs_std_fb_qsr",
+      "bs_sub_std_pb_agency",
+      "bs_std_md_clinic",
+      "bs_std_ed_academy",
+      "bs_v_smart_retail_2",
+      "bs_std_ad_ooh",
+      "bs_v_smart_hospital_1",
+      "bs_std_vn_cinema",
+      "bs_std_tp_museum",
+      "bs_std_of_hq",
+      "bs_std_id_partner",
+      "bs_std_of_sme",
+      "bs_std_mf_logistics",
+      "bs_v_smart_school_1",
+      "bs_std_fb_rest",
+      "bs_sub_ed_univ",
+      "bs_std_fn_hq",
+      "bs_std_rt_mall",
+      "bs_sub_md_hospital",
+      "bs_std_md_hospital",
+      "bs05",
+      "bs_std_mb_studio",
+      "bs_std_oe_telco",
+      "bs_v_smart_academy_1"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs_std_fn_bank",
+      "bs_sub_fn_bank",
+      "bs17",
+      "bs_v_smart_finance_1",
+      "bs_v_smart_public_1",
+      "bs_v_ai_store_2",
+      "bs_v_senior_town_2",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_rt_hyper",
+      "bs_std_rt_flag"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.3333333333333333,
+      "gold_rank": 3
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.",
+     "trace": "Traceback (most recent call last):\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in run_branch\n    out, ms = timed(lambda: fn(client, tracker))\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 137, in timed\n    out = fn()\n          ^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 288, in task\n    order, model = catalog_rank.rank('scenarios', tc['q'], {}, tc['candidates'], tc['count'], provider=env.llm, decision=decision, tracker=tracker)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/catalog_rank.py\", line 104, in rank\n    return _rank_llm(kind, query, filters, candidates, count, provider, tracker)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/catalog_rank.py\", line 153, in _rank_llm\n    raise from_provider(STEP, exc) from None\napp.api.poc.jobs.ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C05_L2",
+     "q": "캠퍼스를 스마트하게 바꾸는 사업을 준비 중이라, 학생들이 체감할 수 있는 학습 경험 개선 방안을 알고 싶어 합니다.",
+     "count": 10,
+     "gold": [
+      "bs03"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs_std_ed_univ",
+      "bs_v_smart_academy_1",
+      "bs_sub_ed_univ",
+      "bs_v_smart_university_1",
+      "bs_v_smart_academy_2",
+      "bs03",
+      "bs_v_smart_school_1",
+      "bs_std_of_sme",
+      "bs_std_fb_qsr",
+      "bs_std_ed_k12",
+      "bs_v_smart_public_1",
+      "bs_std_ed_academy",
+      "bs_v_smart_school_2",
+      "bs_std_md_tertiary",
+      "bs_v_smart_university_2",
+      "bs_std_ad_ooh",
+      "bs_std_sv_laundry",
+      "bs_sub_std_md_clinic",
+      "bs_std_md_clinic",
+      "bs06",
+      "bs_std_of_hq",
+      "bs_v_ai_office_1",
+      "bs_std_rs_senior",
+      "bs01",
+      "bs_v_smart_barracks_2",
+      "bs_std_rt_flag",
+      "bs_sub_std_of_sme",
+      "bs_v_smart_office_1",
+      "bs_v_smart_retail_2",
+      "bs_sub_ht_large",
+      "bs10",
+      "bs_std_rt_hyper",
+      "bs_v_ai_office_2",
+      "bs_v_smart_factory_2",
+      "bs_v_entertainment_1",
+      "bs_std_rs_officetel",
+      "bs_std_md_ltc",
+      "bs_v_smart_retail_1",
+      "bs15",
+      "bs_sub_std_pb_agency",
+      "bs_sub_of_hq",
+      "bs20",
+      "bs_std_fb_cafe",
+      "bs_std_tp_park",
+      "bs_std_mi_military",
+      "bs_sub_std_ht_mid",
+      "bs_v_entertainment_2",
+      "bs_std_ht_mid",
+      "bs_std_rt_small",
+      "bs_std_ht_large"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs_std_ed_univ",
+      "bs_v_smart_academy_1",
+      "bs_sub_ed_univ",
+      "bs_v_smart_university_1",
+      "bs_v_smart_academy_2",
+      "bs03",
+      "bs_v_smart_school_1",
+      "bs_std_of_sme",
+      "bs_std_fb_qsr",
+      "bs_std_ed_k12"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.16666666666666666,
+      "gold_rank": 6
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.",
+     "trace": "Traceback (most recent call last):\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in run_branch\n    out, ms = timed(lambda: fn(client, tracker))\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 137, in timed\n    out = fn()\n          ^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 288, in task\n    order, model = catalog_rank.rank('scenarios', tc['q'], {}, tc['candidates'], tc['count'], provider=env.llm, decision=decision, tracker=tracker)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/catalog_rank.py\", line 104, in rank\n    return _rank_llm(kind, query, filters, candidates, count, provider, tracker)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/catalog_rank.py\", line 153, in _rank_llm\n    raise from_provider(STEP, exc) from None\napp.api.poc.jobs.ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C06_L2",
+     "q": "물류센터 현장 업무가 비효율적이라 디지털화하고 싶다고 합니다. 기기 관리도 골칫거리라고 하네요.",
+     "count": 10,
+     "gold": [
+      "bs14"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs_std_mf_logistics",
+      "bs14",
+      "bs_std_fn_bank",
+      "bs_sub_fn_bank",
+      "bs_std_ed_k12",
+      "bs_std_ed_academy",
+      "bs_std_mf_factory",
+      "bs_std_of_sme",
+      "bs_v_smart_transportation_2",
+      "bs_sub_std_of_sme",
+      "bs_std_rt_flag",
+      "bs_std_pb_agency",
+      "bs_sub_ed_univ",
+      "bs_v_smart_home_2",
+      "bs_std_mi_military",
+      "bs_std_rt_hyper",
+      "bs_std_ed_univ",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_rs_apt",
+      "bs_std_pb_transport",
+      "bs_v_smart_factory_1",
+      "bs_std_vn_cinema",
+      "bs_std_fn_hq",
+      "bs_std_md_hospital",
+      "bs_std_rt_mall",
+      "bs_std_of_hq",
+      "bs_v_smart_academy_1",
+      "bs_std_ad_ooh",
+      "bs_std_sf_fitness",
+      "bs_sub_of_hq",
+      "bs_v_smart_public_1",
+      "bs_std_of_cowork",
+      "bs_std_ht_mid",
+      "bs_std_md_tertiary",
+      "bs_std_fb_qsr",
+      "bs_std_md_clinic",
+      "bs_std_sv_unmanned",
+      "bs_v_knowledge_industry_center_1",
+      "bs_std_oe_telco",
+      "bs_std_sv_laundry",
+      "bs_std_fb_cafe",
+      "bs_std_sv_screen",
+      "bs_std_rs_officetel",
+      "bs_sub_std_ht_mid",
+      "bs_v_smart_factory_2",
+      "bs_std_rs_senior",
+      "bs_std_tp_park",
+      "bs_sub_std_md_clinic",
+      "bs_std_id_partner",
+      "bs17"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs_std_mf_logistics",
+      "bs14",
+      "bs_std_fn_bank",
+      "bs_sub_fn_bank",
+      "bs_std_ed_k12",
+      "bs_std_ed_academy",
+      "bs_std_mf_factory",
+      "bs_std_of_sme",
+      "bs_v_smart_transportation_2",
+      "bs_sub_std_of_sme"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.5,
+      "gold_rank": 2
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.",
+     "trace": "Traceback (most recent call last):\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in run_branch\n    out, ms = timed(lambda: fn(client, tracker))\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 137, in timed\n    out = fn()\n          ^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 288, in task\n    order, model = catalog_rank.rank('scenarios', tc['q'], {}, tc['candidates'], tc['count'], provider=env.llm, decision=decision, tracker=tracker)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/catalog_rank.py\", line 104, in rank\n    return _rank_llm(kind, query, filters, candidates, count, provider, tracker)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/catalog_rank.py\", line 153, in _rank_llm\n    raise from_provider(STEP, exc) from None\napp.api.poc.jobs.ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C07_L2",
+     "q": "백화점에서 지금 타사 사이니지를 쓰고 있는데, 재계약 시점이라 다른 공급사도 검토 중이라고 합니다.",
+     "count": 10,
+     "gold": [
+      "bs10",
+      "bs06",
+      "bs16"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs10",
+      "bs_std_rt_mall",
+      "bs_v_smart_retail_2",
+      "bs_account_paulbassett",
+      "bs16",
+      "bs02",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_rs_officetel",
+      "bs_v_smart_network_2",
+      "bs_v_smart_public_1",
+      "bs_v_smart_school_1",
+      "bs04",
+      "bs_std_of_cowork",
+      "bs_v_smart_school_2",
+      "bs_std_rs_apt",
+      "bs01",
+      "bs_v_smart_academy_2",
+      "bs_std_fb_qsr",
+      "bs_account_inspire",
+      "bs_v_smart_university_2",
+      "bs_std_ed_univ",
+      "bs06",
+      "bs_std_pb_agency",
+      "bs_v_ai_store_1",
+      "bs_account_episode",
+      "bs_v_smart_office_1",
+      "bs17",
+      "bs_sub_std_pb_agency",
+      "bs_v_smart_hospital_1",
+      "bs_v_entertainment_1",
+      "bs_std_rt_small",
+      "bs_v_knowledge_industry_center_1",
+      "bs_std_fn_bank",
+      "bs_sub_ed_univ",
+      "bs_v_ai_office_2",
+      "bs_v_smart_home_2",
+      "bs_std_md_tertiary",
+      "bs_std_ad_ooh",
+      "bs_v_smart_hotel_1",
+      "bs_std_ht_mid",
+      "bs03",
+      "bs_v_smart_home_1",
+      "bs_v_entertainment_2",
+      "bs_v_ai_office_1",
+      "bs_std_rs_senior",
+      "bs_sub_fn_bank",
+      "bs_v_smart_transportation_1",
+      "bs_v_smart_transportation_2",
+      "bs_v_smart_factory_1",
+      "bs_v_smart_barracks_1"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs10",
+      "bs_std_rt_mall",
+      "bs_v_smart_retail_2",
+      "bs_account_paulbassett",
+      "bs16",
+      "bs02",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_rs_officetel",
+      "bs_v_smart_network_2",
+      "bs_v_smart_public_1"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.",
+     "trace": "Traceback (most recent call last):\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in run_branch\n    out, ms = timed(lambda: fn(client, tracker))\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 137, in timed\n    out = fn()\n          ^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 288, in task\n    order, model = catalog_rank.rank('scenarios', tc['q'], {}, tc['candidates'], tc['count'], provider=env.llm, decision=decision, tracker=tracker)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/catalog_rank.py\", line 104, in rank\n    return _rank_llm(kind, query, filters, candidates, count, provider, tracker)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/catalog_rank.py\", line 153, in _rank_llm\n    raise from_provider(STEP, exc) from None\napp.api.poc.jobs.ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C08_L2",
+     "q": "분양을 앞둔 아파트 단지에서 차별화 포인트로 가전과 스마트홈을 검토하고 있습니다. 어떤 구성이 좋을지 제안해 달라고 합니다.",
+     "count": 10,
+     "gold": [
+      "bs04"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs04",
+      "bs_std_rs_apt",
+      "bs_v_ai_apartment_1",
+      "bs_v_smart_home_1",
+      "bs_v_smart_home_2",
+      "bs_v_ai_apartment_2",
+      "bs_account_episode",
+      "bs_v_knowledge_industry_center_1",
+      "bs_std_mb_studio",
+      "bs18",
+      "bs02",
+      "bs_std_rs_officetel",
+      "bs_v_smart_finance_2",
+      "bs_std_fb_qsr",
+      "bs_sub_std_pb_agency",
+      "bs_std_of_cowork",
+      "bs_std_id_partner",
+      "bs_v_smart_network_2",
+      "bs_v_smart_factory_1",
+      "bs_v_entertainment_2",
+      "bs_std_mf_logistics",
+      "bs_std_mi_military",
+      "bs_sub_std_of_sme",
+      "bs_sub_std_ht_mid",
+      "bs_sub_md_hospital",
+      "bs_sub_std_md_clinic",
+      "bs_v_ai_office_1",
+      "bs_std_tp_park",
+      "bs_std_ht_mid",
+      "bs_std_pb_agency",
+      "bs_std_ed_academy",
+      "bs_std_rs_senior",
+      "bs07",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_md_hospital",
+      "bs_std_fb_cafe",
+      "bs_sub_ht_large",
+      "bs_sub_ed_univ",
+      "bs_std_ed_univ",
+      "bs_std_of_hq",
+      "bs_std_of_sme",
+      "bs_v_ai_store_1",
+      "bs_std_vn_cinema",
+      "bs_std_oe_telco",
+      "bs_std_rt_hyper",
+      "bs_std_rt_flag",
+      "bs_sub_of_hq",
+      "bs_v_smart_factory_2",
+      "bs_std_md_clinic",
+      "bs_std_sv_laundry"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs04",
+      "bs_std_rs_apt",
+      "bs_v_ai_apartment_1",
+      "bs_v_smart_home_1",
+      "bs_v_smart_home_2",
+      "bs_v_ai_apartment_2",
+      "bs_account_episode",
+      "bs_v_knowledge_industry_center_1",
+      "bs_std_mb_studio",
+      "bs18"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.",
+     "trace": "Traceback (most recent call last):\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in run_branch\n    out, ms = timed(lambda: fn(client, tracker))\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 137, in timed\n    out = fn()\n          ^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 288, in task\n    order, model = catalog_rank.rank('scenarios', tc['q'], {}, tc['candidates'], tc['count'], provider=env.llm, decision=decision, tracker=tracker)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/catalog_rank.py\", line 104, in rank\n    return _rank_llm(kind, query, filters, candidates, count, provider, tracker)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/catalog_rank.py\", line 153, in _rank_llm\n    raise from_provider(STEP, exc) from None\napp.api.poc.jobs.ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C09_L2",
+     "q": "무인 매장을 여러 곳 운영하는데 전기료가 많이 나와서 고민이라고 합니다. 매장에 사람이 없어서 관리도 어렵다고 하네요.",
+     "count": 10,
+     "gold": [
+      "bs13"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs13",
+      "bs_std_sv_unmanned",
+      "bs_std_sv_laundry",
+      "bs_std_rt_small",
+      "bs01",
+      "bs_std_oe_telco",
+      "bs16",
+      "bs_std_sv_screen",
+      "bs_std_fb_cafe",
+      "bs_std_rg_church",
+      "bs_std_sv_beauty",
+      "bs_std_ht_stay",
+      "bs15",
+      "bs_std_fb_qsr",
+      "bs_std_ht_mid",
+      "bs_v_smart_network_1",
+      "bs_v_smart_transportation_2",
+      "bs_account_paulbassett",
+      "bs_std_rt_mall",
+      "bs_std_vn_cinema",
+      "bs_v_ai_store_1",
+      "bs_std_rt_flag",
+      "bs_std_rt_hyper",
+      "bs_v_ai_store_2",
+      "bs_v_smart_office_1",
+      "bs_v_smart_retail_2",
+      "bs_v_smart_retail_1",
+      "bs_v_smart_network_2",
+      "bs_std_mb_studio",
+      "bs_v_smart_public_2",
+      "bs_std_ad_ooh",
+      "bs20",
+      "bs_std_mf_factory",
+      "bs06",
+      "bs_v_ai_apartment_2",
+      "bs_v_smart_university_2",
+      "bs_std_of_cowork",
+      "bs_std_rs_apt",
+      "bs_v_smart_office_2",
+      "bs03",
+      "bs_v_smart_hotel_2",
+      "bs_std_mf_logistics",
+      "bs14",
+      "bs_std_fn_bank",
+      "bs_v_ai_office_1",
+      "bs_std_vn_stadium",
+      "bs_std_pb_transport",
+      "bs_std_pb_agency",
+      "bs_sub_std_ht_mid",
+      "bs_std_tp_park"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs13",
+      "bs_std_sv_unmanned",
+      "bs_std_sv_laundry",
+      "bs_std_rt_small",
+      "bs01",
+      "bs_std_oe_telco",
+      "bs16",
+      "bs_std_sv_screen",
+      "bs_std_fb_cafe",
+      "bs_std_rg_church"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.",
+     "trace": "Traceback (most recent call last):\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in run_branch\n    out, ms = timed(lambda: fn(client, tracker))\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 137, in timed\n    out = fn()\n          ^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 288, in task\n    order, model = catalog_rank.rank('scenarios', tc['q'], {}, tc['candidates'], tc['count'], provider=env.llm, decision=decision, tracker=tracker)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/catalog_rank.py\", line 104, in rank\n    return _rank_llm(kind, query, filters, candidates, count, provider, tracker)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/catalog_rank.py\", line 153, in _rank_llm\n    raise from_provider(STEP, exc) from None\napp.api.poc.jobs.ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C10_L2",
+     "q": "작년에 한 병동에서 파일럿을 했는데 반응이 좋아서 다른 병동으로도 넓힐지 고민이라고 합니다.",
+     "count": 10,
+     "gold": [
+      "bs08",
+      "bs17"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs17",
+      "bs13",
+      "bs08",
+      "bs_std_md_tertiary",
+      "bs14",
+      "bs01",
+      "bs_v_smart_hospital_2",
+      "bs_sub_md_hospital",
+      "bs_sub_std_md_clinic",
+      "bs_std_of_sme",
+      "bs_v_smart_network_2",
+      "bs_sub_std_of_sme",
+      "bs_std_md_hospital",
+      "bs_account_paulbassett",
+      "bs_v_knowledge_industry_center_2",
+      "bs15",
+      "bs_v_ai_office_2",
+      "bs_v_smart_university_2",
+      "bs_v_ai_store_2",
+      "bs_v_smart_school_2",
+      "bs_v_ai_apartment_2",
+      "bs_std_mi_military",
+      "bs_std_fb_qsr",
+      "bs_v_smart_barracks_2",
+      "bs16",
+      "bs_std_rt_small",
+      "bs_v_smart_hospital_1",
+      "bs18",
+      "bs04",
+      "bs_v_ai_store_1",
+      "bs_v_smart_retail_2",
+      "bs_std_oe_telco",
+      "bs_v_ai_apartment_1",
+      "bs_v_smart_hotel_2",
+      "bs_std_ht_large",
+      "bs_std_mf_logistics",
+      "bs_std_fb_cafe",
+      "bs_std_rt_flag",
+      "bs_std_id_partner",
+      "bs_std_sv_screen",
+      "bs_sub_ht_large",
+      "bs_v_smart_home_2",
+      "bs_std_ht_mid",
+      "bs_v_smart_public_2",
+      "bs_std_rt_hyper",
+      "bs_std_tp_park",
+      "bs_std_vn_cinema",
+      "bs_std_sv_unmanned",
+      "bs_std_md_clinic",
+      "bs_v_smart_office_1"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs_v_smart_hospital_2",
+      "bs17",
+      "bs_v_smart_hospital_1",
+      "bs08",
+      "bs13",
+      "bs_std_md_tertiary",
+      "bs14",
+      "bs_sub_md_hospital",
+      "bs01",
+      "bs_v_knowledge_industry_center_2"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.5,
+      "gold_rank": 2
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.",
+     "trace": "Traceback (most recent call last):\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in run_branch\n    out, ms = timed(lambda: fn(client, tracker))\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 137, in timed\n    out = fn()\n          ^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 288, in task\n    order, model = catalog_rank.rank('scenarios', tc['q'], {}, tc['candidates'], tc['count'], provider=env.llm, decision=decision, tracker=tracker)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/catalog_rank.py\", line 104, in rank\n    return _rank_llm(kind, query, filters, candidates, count, provider, tracker)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/catalog_rank.py\", line 153, in _rank_llm\n    raise from_provider(STEP, exc) from None\napp.api.poc.jobs.ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.\n"
+    }
+   }
+  ],
+  "catalog.rank:compact": [
+   {
+    "tc": {
+     "id": "C01_L2",
+     "q": "C 커피가 매장 디지털 전환을 고민하고 있습니다. 매장 경험을 좀 더 세련되게 바꾸고 싶고, 본사 입장에서는 메뉴 운영이 편해졌으면 한다고 합니다. 아직 구체적인 범위는 정해지지 않았어요.",
+     "count": 10,
+     "gold": [
+      "bs01",
+      "bs16"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs01",
+      "bs_std_fb_qsr",
+      "bs_std_fb_cafe",
+      "bs_v_ai_store_1",
+      "bs_std_sv_unmanned",
+      "bs_v_ai_store_2",
+      "bs_v_smart_retail_2",
+      "bs_v_smart_network_2",
+      "bs_v_smart_retail_1",
+      "bs_std_oe_telco",
+      "bs_std_sv_screen",
+      "bs_std_rt_flag",
+      "bs_std_rt_small",
+      "bs_std_ed_k12",
+      "bs_std_sv_laundry",
+      "bs_v_smart_hotel_1",
+      "bs_v_smart_network_1",
+      "bs_std_rt_hyper",
+      "bs_std_rt_mall",
+      "bs_account_paulbassett"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "baseline": {
+     "final": [
+      "bs01",
+      "bs_std_fb_qsr",
+      "bs_std_fb_cafe",
+      "bs_v_ai_store_1",
+      "bs_std_sv_unmanned",
+      "bs_v_ai_store_2",
+      "bs_v_smart_retail_2",
+      "bs_v_smart_network_2",
+      "bs_v_smart_retail_1",
+      "bs_std_oe_telco"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 16593,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4825,
+      "output_tokens": 553,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs_std_fb_cafe",
+       "reason": "카페 업종에 특화된 AI 메뉴 큐레이션 및 매장 운영 제안서로 고객의 니즈를 포괄적으로 해결"
+      },
+      {
+       "id": "bs_std_fb_qsr",
+       "reason": "외식 프랜차이즈 표준 제안서로 AI 메뉴 운영 및 매장 관리 효율화를 통한 디지털 전환 제안 가능"
+      },
+      {
+       "id": "bs_v_ai_store_1",
+       "reason": "본사 중심의 메뉴 화면 일괄 배포 및 운영 체계 구축 사례로 본사 운영 편의성 요구사항을 직접 해결"
+      },
+      {
+       "id": "bs01",
+       "reason": "인쇄 메뉴판을 디지털 메뉴보드로 전환하여 본사 일괄 운영 효율을 높이는 구체적인 전환 사례"
+      },
+      {
+       "id": "bs_account_paulbassett",
+       "reason": "카페 브랜드의 본사-직영점 간 브랜드 운영 및 디지털 제안 사례로 실제 운영 법인 협의에 적합"
+      },
+      {
+       "id": "bs_v_ai_store_2",
+       "reason": "주문 및 픽업 동선 개선을 통해 매장 경험을 세련되게 바꾸는 외식 매장 운영 개선 제안"
+      },
+      {
+       "id": "bs_v_smart_retail_2",
+       "reason": "본사 승인 및 원격 배포를 통해 여러 매장의 행사 및 가격 안내를 표준화하는 운영 효율화 사례"
+      },
+      {
+       "id": "bs_v_smart_network_2",
+       "reason": "원격 관리 솔루션으로 매장 프로모션 화면과 운영을 본사 기준으로 표준화하는 제안"
+      },
+      {
+       "id": "bs_std_rt_small",
+       "reason": "소형 매장의 AI 홍보 및 무인 운영 제안을 통해 디지털 전환의 초기 방향성 제시 가능"
+      },
+      {
+       "id": "bs_std_rt_flag",
+       "reason": "AI 브랜드 체험 및 스토어 운영 제안을 통해 매장 경험을 세련되게 고도화하는 방안 제시"
+      }
+     ],
+     "final": [
+      "bs_std_fb_cafe",
+      "bs_std_fb_qsr",
+      "bs_v_ai_store_1",
+      "bs01",
+      "bs_account_paulbassett",
+      "bs_v_ai_store_2",
+      "bs_v_smart_retail_2",
+      "bs_v_smart_network_2",
+      "bs_std_rt_small",
+      "bs_std_rt_flag"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.25,
+      "gold_rank": 4
+     },
+     "model": "gemma-4-31b-it"
+    }
+   },
+   {
+    "tc": {
+     "id": "C02_L2",
+     "q": "신축 업무시설이라 입주사들이 좋아할 만한 스마트한 오피스를 만들고 싶다고 합니다. 에너지도 아끼고 싶고요. 설계 단계라 구체적인 건 아직 미정입니다.",
+     "count": 10,
+     "gold": [
+      "bs02"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs02",
+      "bs_v_knowledge_industry_center_1",
+      "bs_std_rs_officetel",
+      "bs_std_of_sme",
+      "bs_v_smart_office_1",
+      "bs_std_of_cowork",
+      "bs_std_of_hq",
+      "bs_v_ai_office_1",
+      "bs_sub_std_of_sme",
+      "bs_std_mi_military",
+      "bs_v_ai_office_2",
+      "bs_sub_of_hq",
+      "bs_v_smart_home_1",
+      "bs_v_knowledge_industry_center_2",
+      "bs_v_smart_office_2",
+      "bs_v_ai_apartment_1",
+      "bs_std_pb_agency",
+      "bs_v_smart_retail_1",
+      "bs_sub_fn_bank",
+      "bs19"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "baseline": {
+     "final": [
+      "bs02",
+      "bs_v_knowledge_industry_center_1",
+      "bs_std_rs_officetel",
+      "bs_std_of_sme",
+      "bs_v_smart_office_1",
+      "bs_std_of_cowork",
+      "bs_std_of_hq",
+      "bs_v_ai_office_1",
+      "bs_sub_std_of_sme",
+      "bs_std_mi_military"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 16404,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4981,
+      "output_tokens": 525,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs02",
+       "reason": "신축 오피스 설계 단계에서 AI Ready 빌딩과 에너지 절감을 제안하는 최적의 자료입니다."
+      },
+      {
+       "id": "bs_v_smart_office_1",
+       "reason": "설계 확정 전 신축 업무 빌딩의 설비 연동과 운영 기준을 정하는 데 적합합니다."
+      },
+      {
+       "id": "bs_v_ai_office_1",
+       "reason": "신사옥 설계 단계부터 AI 오피스 및 공조 관제를 반영하여 에너지 효율을 높일 수 있습니다."
+      },
+      {
+       "id": "bs_std_of_hq",
+       "reason": "대기업 사옥 표준 제안서로 AI 빌딩 에너지 관리 니즈를 해결하는 내용을 포함합니다."
+      },
+      {
+       "id": "bs_std_of_sme",
+       "reason": "중소기업 오피스 표준 제안서로 스마트 오피스 구축을 위한 기본 가이드를 제공합니다."
+      },
+      {
+       "id": "bs_std_of_cowork",
+       "reason": "입주사들이 선호하는 스마트한 공유 오피스 환경 구축 제안에 활용 가능합니다."
+      },
+      {
+       "id": "bs19",
+       "reason": "구체적인 요구사항이 미정인 설계 단계의 경영진 첫 미팅용 브리프로 적합합니다."
+      },
+      {
+       "id": "bs_v_knowledge_industry_center_1",
+       "reason": "신축 지식산업센터의 공용 시설과 공조 관제를 차별화하여 입주사 만족도를 높입니다."
+      },
+      {
+       "id": "bs_sub_std_of_sme",
+       "reason": "초기 비용 부담을 줄이려는 신축 오피스 고객에게 구독 모델을 함께 제안할 수 있습니다."
+      },
+      {
+       "id": "bs_v_ai_office_2",
+       "reason": "임대 빌딩의 에너지 절감 효과 검증과 통합 관제 운영 개선에 유용한 자료입니다."
+      }
+     ],
+     "final": [
+      "bs02",
+      "bs_v_smart_office_1",
+      "bs_v_ai_office_1",
+      "bs_std_of_hq",
+      "bs_std_of_sme",
+      "bs_std_of_cowork",
+      "bs19",
+      "bs_v_knowledge_industry_center_1",
+      "bs_sub_std_of_sme",
+      "bs_v_ai_office_2"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "gemma-4-31b-it"
+    }
+   },
+   {
+    "tc": {
+     "id": "C03_L2",
+     "q": "객실 리뉴얼을 앞두고 TV와 에어컨 교체를 검토 중입니다. 투숙객 불만이 좀 있다고 하네요. 공사 일정이나 범위는 아직 정해지지 않았습니다.",
+     "count": 10,
+     "gold": [
+      "bs07"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs07",
+      "bs_v_smart_hotel_1",
+      "bs_v_smart_hotel_2",
+      "bs_std_ht_mid",
+      "bs_std_ht_stay",
+      "bs_sub_std_ht_mid",
+      "bs_std_ht_large",
+      "bs_sub_ht_large",
+      "bs08",
+      "bs10",
+      "bs_account_inspire",
+      "bs_v_smart_university_2",
+      "bs06",
+      "bs_v_smart_barracks_2",
+      "bs_v_smart_retail_2",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_smart_hospital_2",
+      "bs_v_smart_public_1",
+      "bs_v_senior_town_2",
+      "bs19"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "baseline": {
+     "final": [
+      "bs07",
+      "bs_v_smart_hotel_1",
+      "bs_v_smart_hotel_2",
+      "bs_std_ht_mid",
+      "bs_std_ht_stay",
+      "bs_sub_std_ht_mid",
+      "bs_std_ht_large",
+      "bs_sub_ht_large",
+      "bs08",
+      "bs10"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 14173,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4991,
+      "output_tokens": 478,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs07",
+       "reason": "객실 TV와 공조 교체 및 투숙객 불만 해결, 무중단 교체 전략이 일치함"
+      },
+      {
+       "id": "bs_v_smart_hotel_2",
+       "reason": "영업 중인 호텔의 TV와 공조를 층별로 단계적 교체하는 상황에 최적"
+      },
+      {
+       "id": "bs_std_ht_mid",
+       "reason": "비즈니스 호텔의 AI 쾌적 객실 등 표준 제안으로 기초 검토 가능"
+      },
+      {
+       "id": "bs_std_ht_large",
+       "reason": "대형 호텔의 맞춤 환경 및 서비스 제안으로 리뉴얼 방향 설정 가능"
+      },
+      {
+       "id": "bs_sub_std_ht_mid",
+       "reason": "리뉴얼 시 초기 비용 부담을 줄일 수 있는 구독 솔루션 제안 포함"
+      },
+      {
+       "id": "bs_sub_ht_large",
+       "reason": "대형 호텔 대상의 TV 및 에어컨 구독 패키지로 비용 효율적 교체 제안"
+      },
+      {
+       "id": "bs19",
+       "reason": "공사 일정과 범위가 미정인 초기 단계에서 경영진 설득용으로 적합"
+      },
+      {
+       "id": "bs10",
+       "reason": "기존 장비에 대한 투숙객 불만이 있는 경우 공급사 전환 전략으로 활용"
+      },
+      {
+       "id": "bs_v_smart_hotel_1",
+       "reason": "신규 구축 중심이나, 스마트 호텔의 객실 TV 활용 방안 참고 가능"
+      },
+      {
+       "id": "bs_account_inspire",
+       "reason": "복합 리조트의 서비스 통합 사례를 통해 리뉴얼 범위 확장 검토 가능"
+      }
+     ],
+     "final": [
+      "bs07",
+      "bs_v_smart_hotel_2",
+      "bs_std_ht_mid",
+      "bs_std_ht_large",
+      "bs_sub_std_ht_mid",
+      "bs_sub_ht_large",
+      "bs19",
+      "bs10",
+      "bs_v_smart_hotel_1",
+      "bs_account_inspire"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "gemma-4-31b-it"
+    }
+   },
+   {
+    "tc": {
+     "id": "C04_L2",
+     "q": "은행 영업점 창구를 좀 더 디지털하게 바꾸고 싶다는 요청이 있었습니다. 고객 대기 경험도 개선하고 싶다고 하는데, 어디서부터 시작할지는 정하지 못했다고 합니다.",
+     "count": 10,
+     "gold": [
+      "bs17",
+      "bs16",
+      "bs19"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs_v_smart_finance_1",
+      "bs_std_fn_bank",
+      "bs_sub_fn_bank",
+      "bs17",
+      "bs_v_smart_public_1",
+      "bs_v_ai_store_2",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_rt_hyper",
+      "bs_v_smart_hospital_1",
+      "bs_v_senior_town_2",
+      "bs_v_smart_barracks_2",
+      "bs_v_knowledge_industry_center_1",
+      "bs_std_rt_flag",
+      "bs_std_vn_stadium",
+      "bs_std_pb_transport",
+      "bs_v_smart_finance_2",
+      "bs10",
+      "bs_v_entertainment_1",
+      "bs_std_sv_screen",
+      "bs_std_ed_k12"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "baseline": {
+     "final": [
+      "bs_v_smart_finance_1",
+      "bs_std_fn_bank",
+      "bs_sub_fn_bank",
+      "bs17",
+      "bs_v_smart_public_1",
+      "bs_v_ai_store_2",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_rt_hyper",
+      "bs_v_smart_hospital_1",
+      "bs_v_senior_town_2"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.25,
+      "gold_rank": 4
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 14057,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4872,
+      "output_tokens": 458,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs_std_fn_bank",
+       "reason": "은행 영업점의 AI 객장 안내와 페이퍼리스 창구 등 전반적인 디지털 전환의 시작점을 제안하기에 가장 적합함"
+      },
+      {
+       "id": "bs_v_smart_finance_1",
+       "reason": "스마트 웨이팅과 전자서식 도입을 통해 고객 대기 경험과 창구 디지털화를 구체적으로 해결함"
+      },
+      {
+       "id": "bs17",
+       "reason": "파일럿 검증 후 전 지점 확산 단계의 전략을 제시하여 디지털 창구 구축의 실행 경로를 제공함"
+      },
+      {
+       "id": "bs_v_smart_finance_2",
+       "reason": "방문 상담 단말의 운영 효율화를 통해 디지털 상담 환경의 관리 체계를 제안함"
+      },
+      {
+       "id": "bs_v_smart_hospital_1",
+       "reason": "병원 원무 창구의 전자동의와 진료 대기 개선 사례를 통해 은행 창구의 대기 경험 개선에 참고 가능함"
+      },
+      {
+       "id": "bs_v_smart_public_1",
+       "reason": "민원 창구의 안내 사이니지와 동선 개선 사례를 통해 디지털 민원청사 구축 경험을 벤치마킹할 수 있음"
+      },
+      {
+       "id": "bs_v_ai_store_2",
+       "reason": "주문 및 픽업 동선 개선과 대기 줄 혼잡 완화 사례를 통해 고객 대기 경험 개선 아이디어를 제공함"
+      },
+      {
+       "id": "bs10",
+       "reason": "기존 장비 교체 및 공급사 전환 전략을 통해 디지털 전환 시 발생할 수 있는 리스크 관리 방안을 제시함"
+      },
+      {
+       "id": "bs_v_entertainment_1",
+       "reason": "로비 및 주문 동선 설계 사례를 통해 영업점 객장 내 고객 동선 및 대기 경험 최적화 방안을 제시함"
+      },
+      {
+       "id": "bs_std_pb_transport",
+       "reason": "교통 인프라의 AI 승객 안내 및 통합 관제 사례를 통해 대규모 고객 안내 시스템 구축의 표준을 제안함"
+      }
+     ],
+     "final": [
+      "bs_std_fn_bank",
+      "bs_v_smart_finance_1",
+      "bs17",
+      "bs_v_smart_finance_2",
+      "bs_v_smart_hospital_1",
+      "bs_v_smart_public_1",
+      "bs_v_ai_store_2",
+      "bs10",
+      "bs_v_entertainment_1",
+      "bs_std_pb_transport"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.3333333333333333,
+      "gold_rank": 3
+     },
+     "model": "gemma-4-31b-it"
+    }
+   },
+   {
+    "tc": {
+     "id": "C05_L2",
+     "q": "캠퍼스를 스마트하게 바꾸는 사업을 준비 중이라, 학생들이 체감할 수 있는 학습 경험 개선 방안을 알고 싶어 합니다.",
+     "count": 10,
+     "gold": [
+      "bs03"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs_std_ed_univ",
+      "bs_v_smart_academy_2",
+      "bs_v_smart_academy_1",
+      "bs_sub_ed_univ",
+      "bs_v_smart_university_1",
+      "bs_std_of_sme",
+      "bs03",
+      "bs_v_smart_school_1",
+      "bs_std_fb_qsr",
+      "bs_std_ed_k12",
+      "bs_std_ed_academy",
+      "bs_v_smart_university_2",
+      "bs_v_smart_school_2",
+      "bs_v_smart_office_1",
+      "bs_std_ad_ooh",
+      "bs_v_smart_retail_1",
+      "bs_std_sv_laundry",
+      "bs_std_md_tertiary",
+      "bs_sub_std_md_clinic",
+      "bs_std_md_clinic"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "baseline": {
+     "final": [
+      "bs_std_ed_univ",
+      "bs_v_smart_academy_2",
+      "bs_v_smart_academy_1",
+      "bs_sub_ed_univ",
+      "bs_v_smart_university_1",
+      "bs_std_of_sme",
+      "bs03",
+      "bs_v_smart_school_1",
+      "bs_std_fb_qsr",
+      "bs_std_ed_k12"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.14285714285714285,
+      "gold_rank": 7
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 16198,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4834,
+      "output_tokens": 531,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs_std_ed_univ",
+       "reason": "대학 캠퍼스 AI 표준 제안서로 학생과 교직원의 니즈를 반영한 공간별 솔루션을 제공합니다."
+      },
+      {
+       "id": "bs03",
+       "reason": "학생의 하루를 따라 강의실과 도서관을 바꾸는 공간 경험 중심의 캠퍼스 구축 제안입니다."
+      },
+      {
+       "id": "bs_v_smart_university_1",
+       "reason": "대학 교양교육관의 협업 강의 환경 구축을 통해 학생들의 학습 경험을 직접적으로 개선합니다."
+      },
+      {
+       "id": "bs_sub_ed_univ",
+       "reason": "초기 비용 부담을 줄인 구독형 AI 캠퍼스 도입 방안으로 실질적인 사업 준비를 돕습니다."
+      },
+      {
+       "id": "bs_v_smart_university_2",
+       "reason": "강의동과 도서관의 공조 운영 개선을 통해 학생들에게 쾌적한 학습 환경을 제공합니다."
+      },
+      {
+       "id": "bs_std_ed_academy",
+       "reason": "AI 아카데미 표준 제안서로 스마트 강의 및 집중 자습 등 학습 경험 개선 방안을 포함합니다."
+      },
+      {
+       "id": "bs_std_ed_k12",
+       "reason": "AI 스쿨 표준 제안서로 디지털 교실 등 학생 중심의 학습 환경 개선 사례를 제공합니다."
+      },
+      {
+       "id": "bs_v_smart_academy_1",
+       "reason": "상담부터 수업까지 이어지는 공간 경험 설계를 통해 학습자의 체감 만족도를 높입니다."
+      },
+      {
+       "id": "bs_v_smart_academy_2",
+       "reason": "다지점 학원의 학습 단말 및 콘텐츠 운영 개선을 통해 일관된 학습 경험을 보장합니다."
+      },
+      {
+       "id": "bs_v_smart_school_1",
+       "reason": "미래교실 구축을 통해 교실 내 연결 방식을 통일하고 수업 효율성을 높이는 방안을 제시합니다."
+      }
+     ],
+     "final": [
+      "bs_std_ed_univ",
+      "bs03",
+      "bs_v_smart_university_1",
+      "bs_sub_ed_univ",
+      "bs_v_smart_university_2",
+      "bs_std_ed_academy",
+      "bs_std_ed_k12",
+      "bs_v_smart_academy_1",
+      "bs_v_smart_academy_2",
+      "bs_v_smart_school_1"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.5,
+      "gold_rank": 2
+     },
+     "model": "gemma-4-31b-it"
+    }
+   },
+   {
+    "tc": {
+     "id": "C06_L2",
+     "q": "물류센터 현장 업무가 비효율적이라 디지털화하고 싶다고 합니다. 기기 관리도 골칫거리라고 하네요.",
+     "count": 10,
+     "gold": [
+      "bs14"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs_std_mf_logistics",
+      "bs14",
+      "bs_std_fn_bank",
+      "bs_sub_fn_bank",
+      "bs_std_ed_k12",
+      "bs_v_smart_public_1",
+      "bs_std_mf_factory",
+      "bs_std_of_sme",
+      "bs_std_ed_academy",
+      "bs_sub_std_of_sme",
+      "bs_std_pb_agency",
+      "bs_std_rt_flag",
+      "bs_sub_ed_univ",
+      "bs_v_smart_barracks_1",
+      "bs_std_rt_hyper",
+      "bs_std_ed_univ",
+      "bs_std_mi_military",
+      "bs_std_pb_transport",
+      "bs_std_rs_apt",
+      "bs_v_smart_finance_2"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "baseline": {
+     "final": [
+      "bs_std_mf_logistics",
+      "bs14",
+      "bs_std_fn_bank",
+      "bs_sub_fn_bank",
+      "bs_std_ed_k12",
+      "bs_v_smart_public_1",
+      "bs_std_mf_factory",
+      "bs_std_of_sme",
+      "bs_std_ed_academy",
+      "bs_sub_std_of_sme"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.5,
+      "gold_rank": 2
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 13107,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4589,
+      "output_tokens": 416,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs14",
+       "reason": "물류센터의 종이 기록과 기기 관리 문제를 갤럭시와 Knox로 해결하는 최적의 제안서입니다."
+      },
+      {
+       "id": "bs_std_mf_logistics",
+       "reason": "물류센터 AI 솔루션과 스마트 피킹 등 현장 업무 효율화를 위한 표준 제안서입니다."
+      },
+      {
+       "id": "bs_std_mf_factory",
+       "reason": "제조 및 물류 현장의 AI 안전 및 현장 업무 효율화를 다루는 표준 제안서입니다."
+      },
+      {
+       "id": "bs_v_smart_barracks_1",
+       "reason": "공용 단말 관리와 기록 입력 간소화를 통한 현장 업무 디지털화 사례로 참고 가능합니다."
+      },
+      {
+       "id": "bs_v_smart_finance_2",
+       "reason": "공용 단말 300대의 설정 및 분실 대응 등 기기 관리 효율화 방안을 제시합니다."
+      },
+      {
+       "id": "bs_std_pb_transport",
+       "reason": "교통 인프라 현장의 통합 관제와 현장 안전 및 운영 인력의 효율화를 다루며 유사성이 있습니다."
+      },
+      {
+       "id": "bs_std_of_sme",
+       "reason": "AI 스마트 오피스 내 업무 기기 관리 및 효율화를 다루어 일부 적용 가능합니다."
+      },
+      {
+       "id": "bs_sub_std_of_sme",
+       "reason": "기기 도입 시 관리 부담을 줄이는 구독 솔루션을 통해 기기 관리 고민을 해결합니다."
+      },
+      {
+       "id": "bs_std_pb_agency",
+       "reason": "공공기관의 보안 행정과 에너지 청사 운영 효율화를 다루는 표준 제안서입니다."
+      },
+      {
+       "id": "bs_std_rt_hyper",
+       "reason": "리테일 현장의 신선 관리 및 운영 효율화를 다루어 물류센터와 유사한 현장 특성을 가집니다."
+      }
+     ],
+     "final": [
+      "bs14",
+      "bs_std_mf_logistics",
+      "bs_std_mf_factory",
+      "bs_v_smart_barracks_1",
+      "bs_v_smart_finance_2",
+      "bs_std_pb_transport",
+      "bs_std_of_sme",
+      "bs_sub_std_of_sme",
+      "bs_std_pb_agency",
+      "bs_std_rt_hyper"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "gemma-4-31b-it"
+    }
+   },
+   {
+    "tc": {
+     "id": "C07_L2",
+     "q": "백화점에서 지금 타사 사이니지를 쓰고 있는데, 재계약 시점이라 다른 공급사도 검토 중이라고 합니다.",
+     "count": 10,
+     "gold": [
+      "bs10",
+      "bs06",
+      "bs16"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs10",
+      "bs_std_rt_mall",
+      "bs_v_smart_retail_2",
+      "bs_account_paulbassett",
+      "bs16",
+      "bs_v_smart_academy_2",
+      "bs_v_smart_office_1",
+      "bs_std_rs_officetel",
+      "bs04",
+      "bs_v_smart_network_2",
+      "bs_v_smart_transportation_1",
+      "bs02",
+      "bs_v_knowledge_industry_center_2",
+      "bs_account_inspire",
+      "bs_std_of_cowork",
+      "bs_v_ai_office_1",
+      "bs_account_episode",
+      "bs_v_entertainment_2",
+      "bs_std_rs_apt",
+      "bs_v_smart_barracks_1"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "baseline": {
+     "final": [
+      "bs10",
+      "bs_std_rt_mall",
+      "bs_v_smart_retail_2",
+      "bs_account_paulbassett",
+      "bs16",
+      "bs_v_smart_academy_2",
+      "bs_v_smart_office_1",
+      "bs_std_rs_officetel",
+      "bs04",
+      "bs_v_smart_network_2"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 15103,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4841,
+      "output_tokens": 496,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs10",
+       "reason": "타사 장비 사용 고객의 재계약 및 교체 시점에 최적화된 제안서입니다."
+      },
+      {
+       "id": "bs_std_rt_mall",
+       "reason": "백화점 및 쇼핑몰 대상의 표준 제안서로, 업종 특성에 맞는 솔루션을 제공합니다."
+      },
+      {
+       "id": "bs_v_smart_retail_2",
+       "reason": "리테일 매장의 운영 효율 개선 및 본사 중심의 원격 배포 제안이 적합합니다."
+      },
+      {
+       "id": "bs_v_smart_network_2",
+       "reason": "가맹 매장의 콘텐츠 및 운영 표준화 제안으로 리테일 환경에 적합합니다."
+      },
+      {
+       "id": "bs16",
+       "reason": "다점포 사이니지 통합 운영 모델 선택 제안으로 교체 검토 시 유용합니다."
+      },
+      {
+       "id": "bs_account_paulbassett",
+       "reason": "리테일 브랜드 운영을 이해하는 디지털 제안으로 실제 운영 사례 기반의 접근이 가능합니다."
+      },
+      {
+       "id": "bs_account_inspire",
+       "reason": "복합 리조트의 서비스 통합 제안으로 대규모 시설의 운영 효율을 강조합니다."
+      },
+      {
+       "id": "bs_v_entertainment_2",
+       "reason": "문화시설의 안내 화면 및 설비 운영 개선 제안으로 사이니지 운영 효율을 다룹니다."
+      },
+      {
+       "id": "bs_v_smart_transportation_1",
+       "reason": "여객 안내 디스플레이 구축 제안으로 대규모 안내 시스템 구축 경험을 보여줍니다."
+      },
+      {
+       "id": "bs_v_smart_academy_2",
+       "reason": "다지점 콘텐츠 및 단말 운영 개선 제안으로 통합 관리의 이점을으로 제시합니다."
+      }
+     ],
+     "final": [
+      "bs10",
+      "bs_std_rt_mall",
+      "bs_v_smart_retail_2",
+      "bs_v_smart_network_2",
+      "bs16",
+      "bs_account_paulbassett",
+      "bs_account_inspire",
+      "bs_v_entertainment_2",
+      "bs_v_smart_transportation_1",
+      "bs_v_smart_academy_2"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "gemma-4-31b-it"
+    }
+   },
+   {
+    "tc": {
+     "id": "C08_L2",
+     "q": "분양을 앞둔 아파트 단지에서 차별화 포인트로 가전과 스마트홈을 검토하고 있습니다. 어떤 구성이 좋을지 제안해 달라고 합니다.",
+     "count": 10,
+     "gold": [
+      "bs04"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs04",
+      "bs_std_rs_apt",
+      "bs_v_ai_apartment_1",
+      "bs_v_smart_home_2",
+      "bs_v_smart_home_1",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_ai_apartment_2",
+      "bs_account_episode",
+      "bs_v_smart_school_2",
+      "bs_v_entertainment_1",
+      "bs_std_mb_studio",
+      "bs_std_rs_officetel",
+      "bs02",
+      "bs18",
+      "bs_v_smart_barracks_1",
+      "bs_v_smart_finance_2",
+      "bs_v_smart_transportation_1",
+      "bs_std_id_partner",
+      "bs_sub_std_pb_agency",
+      "bs_std_of_cowork"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "baseline": {
+     "final": [
+      "bs04",
+      "bs_std_rs_apt",
+      "bs_v_ai_apartment_1",
+      "bs_v_smart_home_2",
+      "bs_v_smart_home_1",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_ai_apartment_2",
+      "bs_account_episode",
+      "bs_v_smart_school_2",
+      "bs_v_entertainment_1"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: bad_request: AI 서비스가 요청 형식을 거부했습니다. 입력 크기 · 이미지 형식을 확인하세요.",
+     "trace": "raceback (most recent call last):\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in run_branch\n    out, ms = timed(lambda: fn(client, tracker))\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 137, in timed\n    out = fn()\n          ^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 288, in task\n    order, model = catalog_rank.rank('scenarios', tc['q'], {}, tc['candidates'], tc['count'], provider=env.llm, decision=decision, tracker=tracker)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/catalog_rank.py\", line 104, in rank\n    return _rank_llm(kind, query, filters, candidates, count, provider, tracker)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/catalog_rank.py\", line 153, in _rank_llm\n    raise from_provider(STEP, exc) from None\napp.api.poc.jobs.ModelFailure: bad_request: AI 서비스가 요청 형식을 거부했습니다. 입력 크기 · 이미지 형식을 확인하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C09_L2",
+     "q": "무인 매장을 여러 곳 운영하는데 전기료가 많이 나와서 고민이라고 합니다. 매장에 사람이 없어서 관리도 어렵다고 하네요.",
+     "count": 10,
+     "gold": [
+      "bs13"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs13",
+      "bs_std_sv_unmanned",
+      "bs_std_sv_laundry",
+      "bs_std_rt_small",
+      "bs_v_smart_network_2",
+      "bs01",
+      "bs_v_ai_store_1",
+      "bs_v_ai_store_2",
+      "bs_std_oe_telco",
+      "bs_v_smart_retail_2",
+      "bs_std_sv_screen",
+      "bs16",
+      "bs_std_fb_cafe",
+      "bs_std_rg_church",
+      "bs_std_sv_beauty",
+      "bs_v_entertainment_2",
+      "bs_v_smart_network_1",
+      "bs_std_ht_mid",
+      "bs_std_ht_stay",
+      "bs_std_fb_qsr"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "baseline": {
+     "final": [
+      "bs13",
+      "bs_std_sv_unmanned",
+      "bs_std_sv_laundry",
+      "bs_std_rt_small",
+      "bs_v_smart_network_2",
+      "bs01",
+      "bs_v_ai_store_1",
+      "bs_v_ai_store_2",
+      "bs_std_oe_telco",
+      "bs_v_smart_retail_2"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 14212,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4741,
+      "output_tokens": 484,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs13",
+       "reason": "다점포 무인 매장의 전기료 절감 및 공조 자동화 해결책을 직접적으로 제안함"
+      },
+      {
+       "id": "bs_std_sv_unmanned",
+       "reason": "AI 무인 매장 표준 제안서로 원격 관리 및 무인 운영 효율을 제공함"
+      },
+      {
+       "id": "bs_std_sv_laundry",
+       "reason": "무인 세탁소 사례로 AI 무인 관리 솔루션을 통해 운영 효율을 높임"
+      },
+      {
+       "id": "bs_std_rt_small",
+       "reason": "소형 무인 매장의 AI 무인 운영 니즈를 해결하는 표준 제안서임"
+      },
+      {
+       "id": "bs_std_sv_screen",
+       "reason": "무인 스크린골프 매장의 AI 매장 관리 솔루션을 통해 관리 어려움을 해결함"
+      },
+      {
+       "id": "bs16",
+       "reason": "다점포 체인의 사이니지 통합 운영으로 원격 관리 효율을 높임"
+      },
+      {
+       "id": "bs_std_sv_beauty",
+       "reason": "무인 뷰티 살롱의 AI 살롱 운영 솔루션을 통해 관리 편의성을 제공함"
+      },
+      {
+       "id": "bs_std_ht_stay",
+       "reason": "레지던스의 AI 무인 체크인 및 원격 운영 솔루션을 제안함"
+      },
+      {
+       "id": "bs_v_smart_network_2",
+       "reason": "다점포 가맹 매장의 운영 표준화 및 원격 관리 솔루션을 제공함"
+      },
+      {
+       "id": "bs_v_smart_retail_2",
+       "reason": "유통 체인의 다점포 원격 배포 및 운영 개선 제안서임"
+      }
+     ],
+     "final": [
+      "bs13",
+      "bs_std_sv_unmanned",
+      "bs_std_sv_laundry",
+      "bs_std_rt_small",
+      "bs_std_sv_screen",
+      "bs16",
+      "bs_std_sv_beauty",
+      "bs_std_ht_stay",
+      "bs_v_smart_network_2",
+      "bs_v_smart_retail_2"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "gemma-4-31b-it"
+    }
+   },
+   {
+    "tc": {
+     "id": "C10_L2",
+     "q": "작년에 한 병동에서 파일럿을 했는데 반응이 좋아서 다른 병동으로도 넓힐지 고민이라고 합니다.",
+     "count": 10,
+     "gold": [
+      "bs08",
+      "bs17"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs_v_smart_hospital_2",
+      "bs17",
+      "bs_v_smart_hospital_1",
+      "bs08",
+      "bs13",
+      "bs_std_md_tertiary",
+      "bs14",
+      "bs_sub_md_hospital",
+      "bs01",
+      "bs_v_knowledge_industry_center_2",
+      "bs_sub_std_md_clinic",
+      "bs_v_smart_public_2",
+      "bs_v_smart_transportation_2",
+      "bs_v_smart_factory_1",
+      "bs_std_of_sme",
+      "bs_v_smart_retail_2",
+      "bs_sub_std_of_sme",
+      "bs_std_md_hospital",
+      "bs_v_smart_network_2",
+      "bs_v_smart_academy_2"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "baseline": {
+     "final": [
+      "bs_v_smart_hospital_2",
+      "bs17",
+      "bs_v_smart_hospital_1",
+      "bs08",
+      "bs13",
+      "bs_std_md_tertiary",
+      "bs14",
+      "bs_sub_md_hospital",
+      "bs01",
+      "bs_v_knowledge_industry_center_2"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.5,
+      "gold_rank": 2
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 13450,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 5039,
+      "output_tokens": 445,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs17",
+       "reason": "파일럿 성공 후 전 지점 확산 예산 심의를 위한 단계 확산형 제안서로 가장 적합함"
+      },
+      {
+       "id": "bs_v_smart_hospital_2",
+       "reason": "병동 단위의 시설 운영 개선 제안으로, 다른 병동으로의 확산 가능성이 높음"
+      },
+      {
+       "id": "bs08",
+       "reason": "요양병원 병동 리뉴얼 제안서로, 파일럿 병동의 긍정적 반응을 확산하는 데 유용함"
+      },
+      {
+       "id": "bs_std_md_hospital",
+       "reason": "중소 병원 대상의 AI 스마트 병원 표준 제안서로, 병동 확산 시 표준화된 모델 제시 가능"
+      },
+      {
+       "id": "bs_v_smart_hospital_1",
+       "reason": "환자 안내 및 전자동의 구축 제안서로, 특정 병동에서 검증된 효율성을 전 병원 확산에 제안하기 좋음"
+      },
+      {
+       "id": "bs_sub_md_hospital",
+       "reason": "초기 비용 부담을 줄여 다른 병동으로의 빠른 확산산을 위해 구독 모델 제안 가능"
+      },
+      {
+       "id": "bs_std_md_tertiary",
+       "reason": "상급종합병원 대상의 AI 호스피탈 표준 제안서로, 대규모 병동 확산 시의 가치 제안에 적합함"
+      },
+      {
+       "id": "bs_sub_std_md_clinic",
+       "reason": "y//clinc 병동 확산 시 구독 솔루션과 함께 제안하여 도입률을 높일 수 있음"
+      },
+      {
+       "id": "bs_v_smart_academy_2",
+       "reason": "파일럿 및 확산 요구사항을 포함하고 있어, 병동 확산 전략 수립에 참고 가능"
+      },
+      {
+       "id": "bs_v_smart_factory_1",
+       "reason": "단계 확산형 전략을 사용하는 제조 현장 제안서로, 병동 확산 프로세스에 적용 가능"
+      }
+     ],
+     "final": [
+      "bs17",
+      "bs_v_smart_hospital_2",
+      "bs08",
+      "bs_std_md_hospital",
+      "bs_v_smart_hospital_1",
+      "bs_sub_md_hospital",
+      "bs_std_md_tertiary",
+      "bs_sub_std_md_clinic",
+      "bs_v_smart_academy_2",
+      "bs_v_smart_factory_1"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "gemma-4-31b-it"
+    }
+   }
+  ],
+  "review.route": [
+   {
+    "tc": {
+     "id": "bs10:wrong_customer",
+     "pid": "bs10",
+     "kind": "wrong_customer"
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,93 @@
+== search.rerank
+  C01_L1:value             gemma 22315ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+  C02_L1:products          gemma 42781ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.09090909090909091, "gold_rank": 11}
+  C03_L1:value             gemma 47493ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C04_L3:requirements      gemma 20866ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C05_L1:products          gemma 12025ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.2, "gold_rank": 5}
+  C06_L3:spec              gemma 12321ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C07_L3:why               gemma 27156ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.09090909090909091, "gold_rank": 11}
+  C08_L1:value             gemma 13748ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.25, "gold_rank": 4}
+  C09_L3:cost              gemma 11731ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.3333333333333333, "gold_rank": 3}
+  C10_L3:execution         gemma 8008ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.16666666666666666, "gold_rank": 6}
+== catalog.rank
+  C01_L2                   gemma 0ms null ERR ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.
+  C02_L2                   gemma 0ms null ERR ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.
+budget reached — unfinished, run again with --resume (/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/gemma.json)
+== search.rerank
+== catalog.rank
+  C03_L2                   gemma 0ms null ERR ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.
+  C04_L2                   gemma 0ms null ERR ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.
+  C05_L2                   gemma 0ms null ERR ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.
+  C06_L2                   gemma 0ms null ERR ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.
+  C07_L2                   gemma 0ms null ERR ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.
+  C08_L2                   gemma 0ms null ERR ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.
+budget reached — unfinished, run again with --resume (/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/gemma.json)
+== search.rerank
+== catalog.rank
+  C09_L2                   gemma 0ms null ERR ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.
+  C10_L2                   gemma 0ms null ERR ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.
+== catalog.rank:compact
+  C01_L2                   gemma 16261ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.25, "gold_rank": 4}
+  C02_L2                   gemma 15563ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C03_L2                   gemma 14767ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C04_L2                   gemma 14812ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.3333333333333333, "gold_rank": 3}
+  C05_L2                   gemma 19926ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+  C06_L2                   gemma 0ms null ERR ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.
+  C07_L2                   gemma 16107ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+budget reached — unfinished, run again with --resume (/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/gemma.json)
+== search.rerank
+== catalog.rank
+== catalog.rank:compact
+  C08_L2                   gemma 0ms null ERR ModelFailure: bad_request: AI 서비스가 요청 형식을 거부했습니다. 입력 크기 · 이미지 형식을 확인하세요.
+  C09_L2                   gemma 14307ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C10_L2                   gemma 16575ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+== review.route
+  bs10:wrong_customer      gemma 43225ms {"target_recall": 0.5, "n_selected": 12}
+  bs10:placeholders        gemma 0ms null ERR ModelFailure: timeout: AI 요청 대기 또는 응답 시간이 한도를 넘었습니다. 잠시 뒤 다시 시도하세요.
+  bs10:no_proof            gemma 50223ms {"target_recall": 1.0, "n_selected": 12}
+budget reached — unfinished, run again with --resume (/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/gemma.json)
+== search.rerank
+== catalog.rank
+== catalog.rank:compact
+== review.route
+  bs10:number_conflict     gemma 0ms null ERR ModelFailure: timeout: AI 요청 대기 또는 응답 시간이 한도를 넘었습니다. 잠시 뒤 다시 시도하세요.
+  bs10:strip_images        gemma 59018ms {"target_recall": 0.0, "n_selected": 10}
+  bs01:wrong_customer      gemma 46760ms {"target_recall": 0.5, "n_selected": 10}
+  bs01:placeholders        gemma 42932ms {"target_recall": 0.0, "n_selected": 10}
+  bs01:no_proof            gemma 42312ms {"target_recall": 0.5, "n_selected": 11}
+budget reached — unfinished, run again with --resume (/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/gemma.json)
+== search.rerank
+== catalog.rank
+== catalog.rank:compact
+== review.route
+  bs01:number_conflict     gemma 64355ms {"target_recall": 0.0, "n_selected": 12}
+  bs01:strip_images        gemma 41559ms {"target_recall": 0.0, "n_selected": 12}
+== layout.pick
+  C01_L1                   gemma 18018ms {"evaluable": 3, "hits": 2, "acc": 0.6666666666666666}
+  C02_L1                   gemma 16066ms {"evaluable": 2, "hits": 1, "acc": 0.5}
+  C03_L1                   gemma 22287ms {"evaluable": 3, "hits": 2, "acc": 0.6666666666666666}
+  C04_L1                   gemma 16157ms {"evaluable": 1, "hits": 0, "acc": 0.0}
+  C05_L1                   gemma 15949ms {"evaluable": 1, "hits": 1, "acc": 1.0}
+  C06_L1                   gemma 15493ms {"evaluable": 1, "hits": 0, "acc": 0.0}
+budget reached — unfinished, run again with --resume (/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/gemma.json)
+== search.rerank
+== catalog.rank
+== catalog.rank:compact
+== review.route
+== layout.pick
+  C07_L1                   gemma 17211ms {"evaluable": 3, "hits": 2, "acc": 0.6666666666666666}
+  C08_L1                   gemma 21919ms {"evaluable": 3, "hits": 1, "acc": 0.3333333333333333}
+  C09_L1                   gemma 19167ms {"evaluable": 1, "hits": 1, "acc": 1.0}
+  C10_L1                   gemma 18035ms {"evaluable": 2, "hits": 2, "acc": 1.0}
+== layout.best_pick
+  C01_L2                   gemma 7782ms {"top1": 0.0, "top3": 1.0}
+  C02_L2                   gemma 7871ms {"top1": 1.0, "top3": 1.0}
+  C03_L2                   gemma 7068ms {"top1": 1.0, "top3": 1.0}
+  C04_L2                   gemma 4703ms {"top1": 0.0, "top3": 1.0}
+  C05_L2                   gemma 6046ms {"top1": 1.0, "top3": 1.0}
+  C06_L2                   gemma 7525ms {"top1": 1.0, "top3": 1.0}
+  C07_L2                   gemma 6113ms {"top1": 1.0, "top3": 1.0}
+  C08_L2                   gemma 7851ms {"top1": 1.0, "top3": 1.0}
+  C09_L2                   gemma 6271ms {"top1": 1.0, "top3": 1.0}
+  C10_L2                   gemma 7474ms {"top1": 1.0, "top3": 1.0}
+complete /private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/gemma.json

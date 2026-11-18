@@ -17,6 +17,9 @@ const forms = JSON.parse(fs.readFileSync(formsPath));
 const library = JSON.parse(fs.readFileSync(ROOT + '/app/data/spatial/library.json'));
 fs.mkdirSync(outDir, {recursive: true});
 const W = 1632, H = 992, port = 5197;
+// 핀 좌표 표(시트의 중앙형 · 살아 있는 핀) · 장면 파일(시트에서 3D로 돌려 보기) — OUT 을 주면 그 폴더에 쓴다
+const TABLE = process.env.OUT ? path.join(outDir, 'vertical_std_bird.json') : WEB + '/src/domain/templates/vertical_std_bird.json';
+const table = fs.existsSync(TABLE) ? JSON.parse(fs.readFileSync(TABLE)) : {};
 
 function pinSvg(points) {
   const pins = points.map(({n, x, y}) => {
@@ -85,7 +88,7 @@ try {
         const shot = renderer.snapshot({w: W, h: H, pixelRatio: 1, transparentBackground: true});
         const counts = {};
         for (const o of scene.objects) if (o.assetId.startsWith('product:')) counts[o.roomId] = (counts[o.roomId] || 0) + 1;
-        return {dropped, image: shot.image, rooms: scene.rooms.map(r => ({id: r.id, name: r.name, kind: r.kind, anchor: shot.anchors.rooms[r.id], products: counts[r.id] || 0})), size: [scene.width, scene.depth]};
+        return {dropped, scene, image: shot.image, rooms: scene.rooms.map(r => ({id: r.id, name: r.name, kind: r.kind, anchor: shot.anchors.rooms[r.id], products: counts[r.id] || 0})), size: [scene.width, scene.depth]};
       } finally { renderer.dispose(); host.remove(); }
     }, {form, W, H});
     // trim the transparent margin, fit the plan into the slot with a small pad, then pin each space
@@ -98,11 +101,14 @@ try {
     const plan = await sharp(trimmed).resize(tw, th).toBuffer();
     await sharp({create: {width: W, height: H, channels: 4, background: '#f3f5f3'}})
       .composite([{input: plan, top, left}, {input: pinSvg(points), top: 0, left: 0}]).flatten({background: '#f3f5f3'}).webp({quality: 84}).toFile(path.join(outDir, vid + '.webp'));
+    fs.writeFileSync(path.join(outDir, vid + '.scene.json'), JSON.stringify(res.scene));
+    table[vid] = {w: W, h: H, live: true, points};
     report[vid] = {dropped: res.dropped, rooms: res.rooms.map(r => ({name: r.name, kind: r.kind, products: r.products, x: points[res.rooms.indexOf(r)].x, y: points[res.rooms.indexOf(r)].y})), size: res.size, ms: Date.now() - t0};
     console.log(vid, res.rooms.map(r => `${r.name}:${r.products}`).join(' | '), `${Date.now() - t0}ms`, res.dropped.length ? 'dropped: ' + res.dropped.join(', ') : '');
     } catch (e) { console.log(vid, 'FAILED', String(e.message || e).slice(0, 300)); }
   }
 } finally {
   fs.writeFileSync(path.join(WORK, 'bird-report.json'), JSON.stringify(report, null, 1));
+  fs.writeFileSync(TABLE, JSON.stringify(Object.fromEntries(Object.entries(table).sort(([a], [b]) => a.localeCompare(b)))) + '\n');
   await browser?.close(); await server.close();
 }

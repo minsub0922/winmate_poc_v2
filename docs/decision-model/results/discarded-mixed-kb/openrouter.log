@@ -1,0 +1,75 @@
+== search.rerank
+  C01_L1:value             llm 14144ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | llm_think 0ms null ERR ModelFailure: network: AI 서비스에 연결하지 못했습니다(네트워크 · 시간 초과). 잠시 뒤 다시 시도하세요.
+  C02_L1:products          llm 6640ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.07142857142857142, "gold_rank": 14} | llm_think 5981ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.05263157894736842, "gold_rank": 19}
+  C03_L1:value             llm 1568ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | llm_think 0ms null ERR ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.
+  C04_L3:requirements      llm 4823ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | llm_think 0ms null ERR ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.
+  C05_L1:products          llm 3964ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.2, "gold_rank": 5} | llm_think 0ms null ERR ModelFailure: timeout: AI 요청 대기 또는 응답 시간이 한도를 넘었습니다. 잠시 뒤 다시 시도하세요.
+  C06_L3:spec              llm 4263ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1} | llm_think 0ms null ERR ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.
+  C07_L3:why               llm 5298ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.07142857142857142, "gold_rank": 14} | llm_think 0ms null ERR ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.
+budget reached — unfinished, run again with --resume (/Users/minseop/Dev/projects/sr_tasks/winmatev2/docs/decision-model/results/final/openrouter.json)
+== search.rerank
+  C08_L1:value             llm 9147ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.08333333333333333, "gold_rank": 12}
+  C09_L3:cost              llm 16260ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C10_L3:execution         llm 5382ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.16666666666666666, "gold_rank": 6}
+== catalog.rank
+  C01_L2                   llm 8290ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C02_L2                   llm 18793ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C03_L2                   llm 10525ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C04_L2                   llm 24191ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+  C05_L2                   llm 9131ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+  C06_L2                   llm 8124ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+  C07_L2                   llm 6919ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C08_L2                   llm 6695ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C09_L2                   llm 5714ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C10_L2                   llm 6149ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+== catalog.rank:compact
+  C01_L2                   llm 7971ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C02_L2                   llm 8731ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C03_L2                   llm 7396ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C04_L2                   llm 9769ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.25, "gold_rank": 4}
+  C05_L2                   llm 11845ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+  C06_L2                   llm 8454ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C07_L2                   llm 5362ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C08_L2                   llm 4432ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C09_L2                   llm 10340ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C10_L2                   llm 6278ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+== review.route
+  bs10:wrong_customer      llm 25156ms {"target_recall": 0.5, "n_selected": 10}
+  bs10:placeholders        llm 12577ms {"target_recall": 0.0, "n_selected": 10}
+  bs10:no_proof            llm 14470ms {"target_recall": 1.0, "n_selected": 10}
+  bs10:number_conflict     llm 13956ms {"target_recall": 0.0, "n_selected": 12}
+  bs10:strip_images        llm 15248ms {"target_recall": 0.0, "n_selected": 10}
+  bs01:wrong_customer      llm 19680ms {"target_recall": 0.5, "n_selected": 10}
+  bs01:placeholders        llm 24623ms {"target_recall": 0.0, "n_selected": 10}
+  bs01:no_proof            llm 24454ms {"target_recall": 0.5, "n_selected": 10}
+  bs01:number_conflict     llm 13063ms {"target_recall": 0.0, "n_selected": 10}
+  bs01:strip_images        llm 19901ms {"target_recall": 0.0, "n_selected": 10}
+== layout.pick
+budget reached — unfinished, run again with --resume (/Users/minseop/Dev/projects/sr_tasks/winmatev2/docs/decision-model/results/final/openrouter.json)
+== search.rerank
+== catalog.rank
+== catalog.rank:compact
+== review.route
+== layout.pick
+  C01_L1                   llm 3255ms {"evaluable": 3, "hits": 2, "acc": 0.6666666666666666}
+  C02_L1                   llm 5949ms {"evaluable": 2, "hits": 2, "acc": 1.0}
+  C03_L1                   llm 9483ms {"evaluable": 3, "hits": 1, "acc": 0.3333333333333333}
+  C04_L1                   llm 7163ms {"evaluable": 1, "hits": 0, "acc": 0.0}
+  C05_L1                   llm 7838ms {"evaluable": 1, "hits": 1, "acc": 1.0}
+  C06_L1                   llm 5190ms {"evaluable": 1, "hits": 1, "acc": 1.0}
+  C07_L1                   llm 7315ms {"evaluable": 3, "hits": 3, "acc": 1.0}
+  C08_L1                   llm 3691ms {"evaluable": 3, "hits": 1, "acc": 0.3333333333333333}
+  C09_L1                   llm 11019ms {"evaluable": 1, "hits": 1, "acc": 1.0}
+  C10_L1                   llm 10306ms {"evaluable": 2, "hits": 2, "acc": 1.0}
+== layout.best_pick
+  C01_L2                   llm 2677ms {"top1": 1.0, "top3": 1.0}
+  C02_L2                   llm 2162ms {"top1": 1.0, "top3": 1.0}
+  C03_L2                   llm 7797ms {"top1": 1.0, "top3": 1.0}
+  C04_L2                   llm 3308ms {"top1": 0.0, "top3": 1.0}
+  C05_L2                   llm 4235ms {"top1": 1.0, "top3": 1.0}
+  C06_L2                   llm 1690ms {"top1": 1.0, "top3": 1.0}
+  C07_L2                   llm 3121ms {"top1": 1.0, "top3": 1.0}
+  C08_L2                   llm 1930ms {"top1": 1.0, "top3": 1.0}
+  C09_L2                   llm 1092ms {"top1": 1.0, "top3": 1.0}
+  C10_L2                   llm 3027ms {"top1": 1.0, "top3": 1.0}
+complete /Users/minseop/Dev/projects/sr_tasks/winmatev2/docs/decision-model/results/final/openrouter.json

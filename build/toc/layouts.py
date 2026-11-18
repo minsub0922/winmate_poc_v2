@@ -1,6 +1,6 @@
 # L_TOC_* — 목차 템플릿 sheets. One function per sheet design; variants only where a count changes the drawing.
 # 표준 제안서와 이름이 같은 목차(Overview · AI 업종 · 공간별 제안 · 솔루션 · 도입사례 · Why Samsung)와 간지는 표준 제안서 장(L_VS_*)을 쓰므로 여기 없음.
-import sys, math
+import sys, math, json
 sys.path.insert(0, __import__('os').path.dirname(__import__('os').path.abspath(__file__)))
 from base import *
 from typed import TT  # 글자 역할을 구운 장(목차 사진 카드)
@@ -41,8 +41,8 @@ def round_arrow(s, x, y, d=36):
 # ------------------------------------------------------------------ 목차 (contents)
 def index(n):
     s = TT(f'L_TOC_INDEX{n}'); s.head2('CONTENTS', '목차')  # 샘플 시나리오(구독 도입)도 쓰는 장 — 글자 역할을 구움(typed.py)
-    names = ['Overview', '퀵서비스 핵심 기술', '공간별 가치 제안', '도입사례', 'Why Samsung', '실행 계획', '구성 · 수량', '기대 효과'][:n]
-    pics = [P['store'], P['counter'], P['hall'], P['kitchen'], P['office'], P['edu'], P['store'], P['hall']]
+    names = ['Overview', '퀵서비스 핵심 기술', '공간별 가치 제안', '도입사례', 'Why Samsung', '실행 계획', '구성 · 수량', '기대 효과', 'Spec', '서비스'][:n]
+    pics = [P['store'], P['counter'], P['hall'], P['kitchen'], P['office'], P['edu'], P['store'], P['hall'], P['counter'], P['kitchen']]
     rows = [n] if n <= 4 else [math.ceil(n / 2), n - math.ceil(n / 2)]
     k = 0; Y0 = 132; H = 516; G = 20
     rh = (H - G * (len(rows) - 1)) / len(rows)
@@ -138,6 +138,104 @@ def journey(m, ns):
             s.pic(ix + k * step, iy, d, d, src, '솔루션 기능 아이콘 (이 장에서 쓰는 기능만 색)', kind='icon', r=14, name=f'fi{j}_{k}')
     s.foot2(FOOT, 9)
     return reg(s, f'공간별 가치 제안 · 여정 {m}공간 + 솔루션 {ns} 기능 on/off', '공간 1~3곳을 이용자 여정으로 엮고, 이 장에서 쓰는 솔루션 기능만 켜서 보여 줄 때', 'scenario', 'solution', ['spaces', 'solutions', 'images'])
+
+# ------------------------------------------------------------------ 고객/공간 시나리오 (사용자 지시 2026-11-17)
+# 공간마다 한 장(그 공간에 놓이는 제품 0–4 + 그 공간에서 쓰는 솔루션 · 서비스, 다른 공간과 함께 쓰는지) + 활용 맵 한 장(솔루션 · 서비스 × 공간 2–10곳).
+# 어느 장을 몇 장 쓸지는 공간 구성으로 정한다 — app/web/src/domain/templates/scenario_plan.js. 빈 줄 · 빈 칸은 글이 없으면 보이지 않게(줄 배경 · 선 없음).
+SCN_SP = [('매장 입구·쇼윈도', P['store']), ('주문 카운터', P['counter']), ('객석', P['hall']), ('주방(BOH)', P['kitchen']), ('점주 사무 공간', P['office']),
+          ('본사 교육장', P['edu']), ('드라이브스루', P['store']), ('배달 픽업대', P['counter']), ('식자재 창고', P['kitchen']), ('직원 휴게실', P['office'])]
+SCN_USE = [('솔루션', 'VXT CMS', [1, 2, 6, 7]), ('솔루션', 'SmartThings Pro', [1, 3, 4, 5, 9]), ('솔루션', 'MagicINFO', [2, 7]), ('솔루션', '갤럭시 탭 POS', [2, 8]),
+           ('솔루션', 'Knox', [2, 5, 8]), ('서비스', '삼성케어플러스 SAC', [3, 4, 9]), ('서비스', '삼성케어플러스 비즈니스', [5, 8])]
+
+# 공간별 시나리오 (사용자 지시 2026-11-17 2차 · 3차) — 공간 3곳(나머지는 2곳)을 한 장에.
+#   2차: "공간 3개에 대해서 선택된 솔루션, 서비스를 … 고정하고 on/off … 공간별 이미지와 그 공간에 매칭될 제품들을 overlay 로 … 한 공간만 사용하는 경우는 없어"
+#   3차: "시트에 솔루션 / 서비스 구분을 하지마. 공간 이미지는 더 커야해. 제품도. 제품 이름은 제품 이미지에 overlay … 유저 시나리오는 공간별로 —
+#         어느 공간에서 뭘 하는지, 이 흐름을 자연스러운 → 로 연결 … 어느 공간에 매핑되는지 정보 필요없어 … 기능 표시: 아이콘 배경 없이 밑줄 + 그 밑에 텍스트, 아이콘은 더 크게"
+#   칸: 공간 i — ph<i> 사진 · sp<i>/sp<i>n 이름 · 번호 · pc<i>_<j> 제품 컷(3, 사진 아래 밝은 띠 위) · pn<i>_<j> 그 컷에 겹친 제품 이름 · sc<i> 그 공간 시나리오(공간 사이 → 화살표) /
+#       솔루션 · 서비스 줄 r(6, 두 칸씩 — 구분 없이 고른 차례) — un<r> 이름 · ui<r>_<k> 기능 아이콘(5, 선 아이콘 + 밑줄 — 켬 파랑 · 끔 회색) · ul<r>_<k> 기능 이름(짧게).
+#   빈 칸은 글 · 그림이 없으면 보이지 않는다(밑줄은 아이콘 그림에 들어 있다 — build/toc/icons/make_line_icons.mjs). 기능 이름: app/web/src/domain/templates/feature_labels.json
+FLABEL = json.load(open(__import__('os').path.join(__import__('os').path.dirname(__import__('os').path.abspath(__file__)), '..', '..', 'app', 'web', 'src', 'domain', 'templates', 'feature_labels.json'), encoding='utf-8'))
+LICO = lambda fid, on=True: f'/assets/toc/icons/{fid}.line-{"on" if on else "off"}.png'
+SCN_SET = {3: [('매장 입구·쇼윈도', P['store'], [(CUT['out'], '실외 사이니지'), (CUT['sig'], '윈도 사이니지')], '지나가는 손님에게 쇼윈도 화면이 시간대 프로모션을 보여 주며 매장 안으로 부릅니다.'),
+               ('주문 카운터', P['counter'], [(CUT['sig'], '스마트 사이니지'), (CUT['kiosk'], '키오스크'), (CUT['tab'], '갤럭시 탭')], '들어선 손님은 스스로 바뀌는 메뉴판을 보고 키오스크로 줄 없이 주문합니다.'),
+               ('객석', P['hall'], [(CUT['ac'], '시스템에어컨')], '자리에 앉으면 AI 쾌적 제어가 붐비는 시간에도 객석 온도를 알맞게 맞춥니다.')],
+           2: [('주방(BOH)', P['kitchen'], [(CUT['fridge'], '업소용 냉장고'), (CUT['ac'], '시스템에어컨')], '주방은 냉장고 온도와 공조를 한 앱으로 지켜 식자재와 직원을 함께 돌봅니다.'),
+               ('점주 사무 공간', P['office'], [(CUT['tab'], '갤럭시 탭')], '점주는 사무 공간에서 갤럭시 탭으로 매장 상태와 에너지 리포트를 확인합니다.')]}
+SCN_TITLE = {3: '매장 입구 → 주문 카운터 → 객석', 2: '주방(BOH) → 점주 사무 공간'}
+SCN_ROWS = [('VXT CMS', ['s_vxt.create.menu', 's_vxt.ops.schedule', 's_vxt.ops.deploy', 's_vxt.rm.alert', 's_vxt.apps.pos'], [1, 1, 1, 1, 0]),
+            ('SmartThings Pro', ['s_stp.auto.rule', 's_stp.aisave.comfort', 's_stp.auto.air', 's_stp.display.remote', 's_stp.energy.report'], [1, 1, 0, 1, 0]),
+            ('MagicINFO', ['s_magic.server.schedule', 's_magic.data.realtime', 's_magic.insight.pop', 's_magic.insight.sales', 's_magic.device.remote'], [0, 1, 0, 1, 0]),
+            ('갤럭시 탭 POS', ['s_pos.order.counter', 's_pos.order.table'], [1, 0]),
+            ('삼성케어플러스 SAC', ['svc_sac.maint.check', 'svc_sac.clean.basic', 'svc_sac.smart.remote', 'svc_sac.maint.repair', 'svc_sac.smart.energy'], [1, 0, 1, 0, 0]),
+            ('삼성케어플러스 비즈니스', ['svc_mobile.warranty.extend', 'svc_mobile.repair.center', 'svc_mobile.portal.dashboard'], [1, 0, 0])]
+
+def scn_set(m):
+    s = TT(f'L_TOC_SCN_S{m}'); s.head2('04 · 고객/공간 시나리오 · 공간별 시나리오 01', SCN_TITLE[m])
+    sps = SCN_SET[m]; first = 1 if m == 3 else 4
+    G = 44; W = (1152 - G * (m - 1)) / m; Y, PH = 116, 268
+    T_ = 96 if m == 3 else 108; GAP = 8  # 제품 컷 칸(정사각) — 사진 아래 밝은 띠에 3칸
+    for i, (nm, ph, cuts, line) in enumerate(sps):
+        x = 64 + i * (W + G)
+        s.pic(x, Y, W, PH, ph, '공간 사진', r=16, name=f'ph{i}')
+        pill(s, x + 12, Y + 12, first + i, nm, f'sp{i}')
+        bw = 3 * T_ + 2 * GAP + 12; by = Y + PH - 10 - (T_ + 12)
+        s.box(x + 10, by, bw, T_ + 12, bg='rgba(255,255,255,0.9)', r=12)  # 제품 컷을 얹는 띠(제품이 없으면 띠만)
+        for j in range(3):
+            tx = x + 16 + j * (T_ + GAP); ty = by + 6
+            cut, pname = cuts[j] if j < len(cuts) else (BLANK, '')
+            s.pic(tx, ty, T_, T_, cut, '이 공간의 제품 컷', kind='cut', r=8, bg='transparent', pad=4, name=f'pc{i}_{j}')
+            s.t(tx, ty + T_ - 18, T_, pname, 12, 800, INK, 1.35, name=f'pn{i}_{j}', nowrap=True, align='center',
+                extra='padding: 0 4px; box-sizing: border-box; text-shadow: 0 0 3px #ffffff, 0 0 3px #ffffff, 0 0 2px #ffffff')
+        s.t(x, Y + PH + 10, W, line, 16, 600, INK2, 1.4, name=f'sc{i}', clamp=3)
+        if i < m - 1: round_arrow(s, x + W + (G - 36) / 2, Y + PH / 2 - 18)  # 공간 → 다음 공간
+    # 고른 솔루션 · 서비스(구분 없이) — 두 칸씩 3줄, 모든 장이 같은 줄 · 이 장의 공간에서 쓰는 기능만 켬
+    BY = 470; s.box(64, BY, 1152, 190, bg=SURF, r=16)
+    CW = (1112 - 24) / 2; NW = 136; IW, IH, STEP = 68, 36, 78
+    for r in range(6):
+        cx = 84 + (r % 2) * (CW + 24); ry = BY + 10 + (r // 2) * 60
+        nm, fids, on = SCN_ROWS[r] if r < len(SCN_ROWS) else ('', [], [])
+        s.t(cx, ry + 6, NW, nm, 16, 800, INK, 1.4, name=f'un{r}', clamp=2)
+        for k in range(5):
+            fid = fids[k] if k < len(fids) else None
+            ix = cx + NW + 8 + k * STEP
+            s.pic(ix, ry, IW, IH, LICO(fid, bool(on[k])) if fid else BLANK, '기능 아이콘 (이 장의 공간에서 쓰는 기능만 색)', kind='icon', r=0, name=f'ui{r}_{k}')
+            s.t(ix - 4, ry + IH + 1, IW + 8, FLABEL.get(fid, '') if fid else '', 12, 700, GRAY, 1.35, name=f'ul{r}_{k}', nowrap=True, align='center')
+    s.vline(84 + CW + 12, BY + 18, 154)
+    s.foot2(FOOT, 6)
+    return reg(s, f'고객/공간 시나리오 · 공간별 시나리오 · 공간 {m}곳 — 공간 사진 + 제품 겹쳐 보기 + 공간마다 시나리오 → + 솔루션 · 서비스 기능 on/off',
+               f'공간 {m}곳을 한 장에 — 공간마다 놓이는 제품을 사진 위에 겹쳐 보이고, 공간마다 하는 일을 → 로 이어, 고른 솔루션 · 서비스에서 이 공간들이 쓰는 기능을 켜서 보여 줄 때',
+               'scenario', 'solution', ['spaces', 'products', 'solutions', 'images'], g='목차 템플릿 · 고객/공간 시나리오')
+
+def scn_map(n):
+    s = TT(f'L_TOC_SCN_MAP{n}'); s.head2('04 · 고객/공간 시나리오 · 활용 맵', '솔루션 · 서비스는 여러 공간에서 함께 씁니다')
+    X0, NW, CW0 = 64, (256 if n <= 7 else 220), 72  # 공간이 많으면 이름 칸을 줄여 공간 칸을 넓힌다
+    cx0, cx1 = X0 + NW + 8, 1216 - CW0 - 8
+    cw = (cx1 - cx0) / n
+    fs = 13 if n <= 7 else 12
+    s.label2(X0, 150, '솔루션 · 서비스')
+    s.t(1216 - CW0, 150, CW0, '공간 수', 13, 800, MUTE, 1.2, nowrap=True, align='center')
+    prods = [3, 4, 2, 4, 2, 3, 2, 1, 2, 1]
+    for j in range(n):
+        x = cx0 + j * cw
+        s.box(x + 3, 128, cw - 6, 512, bg=SURF, r=12)
+        s.num2(x + cw / 2 - 14, 140, j + 1, d=28, size=14, name=f'cn{j}')
+        # 낱말 안에서 줄을 바꾸지 않는다(글 깨짐 금지) — 두 줄을 넘거나 한 낱말이 칸보다 길면 잘라 숨긴다
+        s.t(x + 4, 176, cw - 8, SCN_SP[j][0], fs, 700, INK, 1.3, name=f'cs{j}', clamp=2, align='center', extra='overflow-wrap: normal; word-break: keep-all')
+        s.t(x + 6, 214, cw - 12, f'제품 {prods[j]}', 12, 700, MUTE, 1.3, name=f'cp{j}', nowrap=True, align='center')
+    s.hline(X0, 240, 1152)
+    rows = [(kd, nm, [x for x in nums if x <= n]) for kd, nm, nums in SCN_USE]
+    rows = [r for r in rows if r[2]]
+    for r in range(8):
+        y = 256 + r * 48
+        kd, nm, nums = rows[r] if r < len(rows) else ('', '', [])
+        s.t(X0, y - 4, NW, kd, 12, 800, BLUE, 1.3, name=f'rk{r}', nowrap=True)  # 종류(솔루션 · 서비스)는 이름 위 작은 줄 — 이름 칸을 넓게
+        s.t(X0, y + 12, NW, nm, 17, 800, INK, 1.3, name=f'rn{r}', nowrap=True)
+        for j in range(n):
+            s.t(cx0 + j * cw, y + 7, cw, '●' if (j + 1) in nums else '', 18, 800, BLUE, 1.3, name=f'rc{r}_{j}', align='center')
+        s.t(1216 - CW0, y + 8, CW0, f'{len(nums)}곳' if nm else '', 17, 800, BLUE, 1.3, name=f'rt{r}', nowrap=True, align='center')
+    s.foot2(FOOT, 5)
+    return reg(s, f'고객/공간 시나리오 · 활용 맵 · 공간 {n}곳 × 솔루션 · 서비스 8줄', '솔루션 · 서비스마다 어느 공간에서 함께 쓰는지 한눈에 — 공간 수에 맞는 장을 골라 쓸 때',
+               'scenario', 'solution', ['spaces', 'solutions'], g='목차 템플릿 · 고객/공간 시나리오')
 
 # ------------------------------------------------------------------ 당사의 이해 · 고객사 분석
 def ua_profile():
@@ -579,8 +677,60 @@ def product_spec():
     s.foot2(FOOT, 9)
     return reg(s, 'Spec · 제품 하나 (숫자 3 + 사양 8)', '제품 하나의 핵심 숫자와 사양을 한 장으로 보여 줄 때', 'spec', 'products', ['products', 'images'])
 
+# ------------------------------------------------------------------ 서비스 (내용 고정 — 사용자 지시 2026-11-16)
+# 솔루션 하위에 있던 서비스 두 가지를 파트로: 삼성케어플러스 SAC · 삼성케어플러스 비즈니스. 내용은 서비스 카탈로그(app/data/vertical_space_solution.json
+# solution_catalog svc_sac · svc_mobile — samsung.com/sec/business 원문)의 기능 전부를 그대로 싣는다. 업종마다 바뀌는 칸이 없다(장 번호 눈썹 · 바닥글만).
+SVC_PH = {'sac': 'img/media/g0.json#220', 'mobile': 'img/media/g0.json#213'}  # 표준 제안서 서비스 장과 같은 사진
+
+def svc_head(s, ph, hint, name, summary):
+    s.pic(64, 128, 400, 372, ph, hint, r=18, name='img')
+    s.t(64, 524, 400, name, 24, 800, INK, 1.25, name='nm', nowrap=True)
+    s.t(64, 564, 400, summary, 16, 400, INK2, 1.5, name='sm', clamp=3)
+
+def service_sac():
+    s = TT('L_TOC_SVC_SAC'); s.head2('07 · 서비스 · 삼성케어플러스 SAC', '삼성케어플러스 SAC — 점검 · 세척 · 원격케어로 공조를 지킵니다')
+    svc_head(s, SVC_PH['sac'], '천장 에어컨 점검하는 엔지니어', '삼성케어플러스 · 시스템에어컨',
+             '정기점검 · 수리 · 출동 · 단계별 세척 · 원격케어 · 에너지 진단을 묶은 공조 유지관리 서비스 (EHP · GHP · 덕트)')
+    groups = [('wrench', '유지보수', [('정기점검', '가동 전 전문 엔지니어 점검, 연 2회 권장'), ('방문수리', '공임 · 부품비 등 수리비 보장'), ('긴급 출동', '48시간 이내 바로출동 · 365 현장출동')]),
+              ('wind', '전문세척', [('기본세척', '필터 + 그릴'), ('핵심세척', '기본 + 판넬 + 드레인판'), ('종합세척', '핵심 + 송풍팬 + 열교환기')]),
+              ('remote', '스마트 케어', [('원격케어', 'SmartThings Pro 실시간 원격관제'), ('에너지 진단', '면허 보유 전문 인력 현장 정밀 진단')])]
+    W = (720 - 2 * 16) / 3
+    for gi, (ic, gname, feats) in enumerate(groups):
+        x = 496 + gi * (W + 16)
+        s.box(x, 128, W, 520, bg=SURF, r=16)
+        s.ico(x + 20, 148, ic, size=48, r=14)
+        s.t(x + 20, 210, W - 40, gname, 20, 800, BLUE, 1.25, name=f'g{gi}', nowrap=True)
+        for fi, (fname, fdesc) in enumerate(feats):
+            y = 258 + fi * 128
+            s.hline(x + 20, y, W - 40)
+            s.t(x + 20, y + 16, W - 40, fname, 18, 800, INK, 1.3, name=f'f{gi}_{fi}', nowrap=True)
+            s.t(x + 20, y + 46, W - 40, fdesc, 16, 400, INK2, 1.45, name=f'd{gi}_{fi}', clamp=3)
+    s.foot2(FOOT, 10)
+    return reg(s, '서비스 · 삼성케어플러스 SAC (유지보수 · 전문세척 · 스마트 케어)', '솔루션과 함께 쓰는 시스템에어컨 유지관리 서비스를 고정된 내용으로 보여 줄 때 — 업종과 상관없이 같은 장',
+               'solution', None, ['images'], g='목차 템플릿 · 서비스')
+
+def service_mobile():
+    s = TT('L_TOC_SVC_MOBILE'); s.head2('07 · 서비스 · 삼성케어플러스 비즈니스', '삼성케어플러스 비즈니스 — 업무 기기 수리 걱정을 덜어 줍니다')
+    svc_head(s, SVC_PH['mobile'], '엔지니어의 휴대폰 분해 수리', '삼성케어플러스 비즈니스',
+             '업무용 스마트폰 · 태블릿의 무상수리 보증 기간을 늘리고 수리 이력을 대시보드로 관리하는 서비스')
+    rows = [('보증', '무상수리 보증 기간 연장', '기본 보증 이후까지 무상수리 보증을 늘립니다 · 기간은 견적 때 확정'),
+            ('보증', '횟수 제한 없는 무상수리', '보증 기간 동안 횟수 제한 없이 무상수리 (고객 과실 · 침수 · 낙하 등 제외)'),
+            ('수리', '공인 서비스센터 정품 수리', '별도 서류 · 청구 절차 없이 공인 서비스센터에서 정품으로 수리'),
+            ('관리', '기기 현황 · 수리 이력 대시보드', '삼성녹스 닷컴에서 기기 현황과 수리 진행을 한눈에 확인')]
+    H = (520 - 3 * 12) / 4
+    for i, (grp, name, desc) in enumerate(rows):
+        y = 128 + i * (H + 12)
+        s.box(496, y, 720, H, bg=SURF, r=14)
+        s.t(520, y + 30, 64, f'{i + 1:02d}', 32, 800, BLUE, 1.0, name=f'no{i}', extra=f'font-family: {NUMF}')
+        s.chip(600, y + 18, grp, name=f'g{i}', size=14, h=28, pad=12)
+        s.t(600, y + 54, 592, name, 20, 800, INK, 1.3, name=f'f{i}', nowrap=True)
+        s.t(600, y + 84, 592, desc, 16, 400, INK2, 1.4, name=f'd{i}', nowrap=True)
+    s.foot2(FOOT, 11)
+    return reg(s, '서비스 · 삼성케어플러스 비즈니스 (보증 · 수리 · 관리)', '솔루션과 함께 쓰는 업무 기기 보증연장 서비스를 고정된 내용으로 보여 줄 때 — 업종과 상관없이 같은 장',
+               'solution', None, ['images'], g='목차 템플릿 · 서비스')
+
 def build():
-    for n in range(4, 9): index(n)
+    for n in range(4, 11): index(n)  # 목차 4–10칸 — 10칸은 상세 제안(파트 10개 · 서비스 파트를 더해, 2026-11-16)
     for n in (1, 2, 3, 4): tech(n)
     for m in (1, 2, 3):
         for ns in (1, 2): journey(m, ns)
@@ -590,6 +740,9 @@ def build():
     summary(); kpi(); pilot()
     value_props(); product_value(); product_spec()
     cp_score(); cp_win(); cp_pos()
+    service_sac(); service_mobile()
+    for m in (2, 3): scn_set(m)  # 고객/공간 시나리오 — 공간별 시나리오(공간 3곳 · 나머지 2곳) · 활용 맵(공간 2–10곳), 2026-11-17
+    for n in range(2, 11): scn_map(n)
     return META, HTML, SLOTS
 
 if __name__ == '__main__':

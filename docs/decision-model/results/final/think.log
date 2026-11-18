@@ -1,0 +1,24 @@
+== search.rerank
+  C01_L1:value             llm_think 53978ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C02_L1:products          llm_think 0ms null ERR ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.
+  C03_L1:value             llm_think 0ms null ERR ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.
+  C04_L3:requirements      llm_think 44961ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C05_L1:products          llm_think 3472ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.2, "gold_rank": 5}
+  C06_L3:spec              llm_think 0ms null ERR ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.
+  C07_L3:why               llm_think 0ms null ERR ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.
+  C08_L1:value             llm_think 0ms null ERR ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.
+budget reached — unfinished, run again with --resume (/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/think.json)
+== search.rerank
+  C09_L3:cost              llm_think 43368ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C10_L3:execution         llm_think 0ms null ERR ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.
+complete /private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/think.json
+== search.rerank
+complete /private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/think.json
+== search.rerank
+complete /private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/think.json
+== search.rerank
+complete /private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/think.json
+== search.rerank
+complete /private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/think.json
+== search.rerank
+complete /private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/think.json

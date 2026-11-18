@@ -107,9 +107,7 @@ def header(b, eb='03 · 공간별 제안', title='제목', sub='부제', sub_lin
 
 
 def footer(b, dark=False):
-    line = 'rgba(255,255,255,.22)' if dark else LINE
-    b.box(64, 668, 1152, 1, f'background: {line};')
-    b.text('utility', 64, 680, 72, '고객사 로고', f'height: 20px; border: 1px dashed {DASH if not dark else "rgba(255,255,255,.5)"}; border-radius: 4px; text-align: center; color: {GRAY if not dark else "rgba(255,255,255,.85)"}; white-space: nowrap; overflow: hidden; line-height: 18px; box-sizing: border-box;', h=20, fixed=True, key='cust')
+    b.text('utility', 64, 680, 72, '고객사 로고', f'height: 20px; border-radius: 4px; background: {SURF if not dark else "rgba(255,255,255,.14)"}; text-align: center; color: {GRAY if not dark else "rgba(255,255,255,.85)"}; white-space: nowrap; overflow: hidden; line-height: 20px; box-sizing: border-box;', h=20, fixed=True, key='cust')
     b.text('utility', 148, 682, 760, '업종 · AI 제안', f'color: {GRAY if not dark else "rgba(255,255,255,.8)"}; white-space: nowrap;', h=16, key='foot')
     b.text('utility', 996, 682, 220, 'CONFIDENTIAL · 1', f'font-family: {MAN}; color: {MUTE if not dark else "rgba(255,255,255,.7)"}; text-align: right; white-space: nowrap; letter-spacing: .04em;', h=16, key='page')
 
@@ -143,13 +141,13 @@ def toc():
     xs, ys = [64, 456, 848], [156, 404]
     for k in range(6):
         x, y = xs[k % 3], ys[k // 3]
+        # 사진 · 제목 · 설명 · 다루는 것(파란 글) — 설명과 다루는 것 사이 구분선 없음, 간격으로만 나눔
         b.img(x, y, 368, 120, 'space', '장 대표 사진', radius=12, key=f'c{k}img')
         b.text('heading', x, y + 134, 52, f'0{k + 1}', f'font-family: {MAN}; font-weight: 800; color: {BLUE}; white-space: nowrap;', h=26, key=f'c{k}no', label=True)
         b.text('heading', x + 36, y + 134, 252, '장 제목', f'font-weight: 800; color: {INK}; white-space: nowrap;', h=26, key=f'c{k}t')
         b.text('label', x + 288, y + 138, 80, 'p.4', f'color: {MUTE}; text-align: right; white-space: nowrap; font-family: {MAN};', h=19, key=f'c{k}p')
         b.text('dense', x, y + 166, 368, '장 설명 한 줄', f'color: {INK2}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;', h=22, key=f'c{k}s')
-        b.box(x, y + 196, 368, 1, f'background: {LINE};')
-        b.text('label', x, y + 208, 368, '다루는 것', f'color: {GRAY}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;', h=19, key=f'c{k}tags')
+        b.text('label', x, y + 202, 368, '다루는 것', f'font-weight: 700; color: {BLUE}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;', h=19, key=f'c{k}tags')
     footer(b)
     add(b, meta('L_VS_TOC', 'VS-TOC', '목차 · 사진 카드 6 (6장 고정)', '표준 제안서 둘째 장 — 여섯 장의 제목 · 쪽 · 다루는 것', 'overview', None, G.format('표지 · 목차'),
                 'CONTENTS', '목차', '6개 장', ['customer', 'images']))
@@ -162,18 +160,17 @@ def divider(n):
     b.img(0, 0, 1280, 720, 'space', '장 대표 사진 (풀블리드)', radius=0, key='bg')
     top = min(520, 622 - 36 * n)
     b.box(0, top, 1280, 720 - top, 'background: rgba(18,20,23,.80);')
-    b.text('utility', 64, 44, 96, '고객사 로고', 'height: 26px; border: 1px dashed rgba(255,255,255,.55); border-radius: 4px; background: rgba(255,255,255,.88); color: #3d4452; text-align: center; line-height: 24px; white-space: nowrap; box-sizing: border-box;', h=26, fixed=True, key='cust')
+    b.text('utility', 64, 44, 96, '고객사 로고', 'height: 26px; border-radius: 4px; background: rgba(255,255,255,.88); color: #3d4452; text-align: center; line-height: 26px; white-space: nowrap; box-sizing: border-box;', h=26, fixed=True, key='cust')
     b.text('heading', 64, top + 30, 300, '01 / 06', f'font-family: {MAN}; font-weight: 800; color: {LB}; white-space: nowrap;', h=26, key='chapter')
     b.text('cover', 64, top + 60, 700, '장 제목', 'font-weight: 800; color: #ffffff; letter-spacing: -0.02em; white-space: nowrap;', h=58, key='title')
     b.text('body', 64, top + 128, 700, '장 설명', 'color: rgba(255,255,255,.86);', h=25, key='sub')
     b.text('label', 820, top + 30, 396, '이 장에서 다루는 것', f'font-weight: 700; color: {LB}; white-space: nowrap;', h=19, label=True)
     for r in range(n):
         y = top + 58 + 36 * r
-        b.box(820, y, 396, 1, 'background: rgba(255,255,255,.2);')
-        b.text('label', 820, y + 8, 28, f'0{r + 1}', f'font-family: {MAN}; font-weight: 800; color: {LB}; white-space: nowrap;', h=19, label=True)
-        b.text('dense', 850, y + 6, 290, '항목', 'font-weight: 700; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;', h=22, key=f'r{r}')
-        b.text('dense', 1140, y + 6, 76, '4', f'font-family: {MAN}; font-weight: 700; color: rgba(255,255,255,.82); text-align: right; white-space: nowrap;', h=22, key=f'r{r}p')
-    b.box(820, top + 58 + 36 * n, 396, 1, 'background: rgba(255,255,255,.2);')
+        b.box(820, y + 2, 396, 32, 'border-radius: 8px; background: rgba(255,255,255,.1);')
+        b.text('label', 830, y + 8, 28, f'0{r + 1}', f'font-family: {MAN}; font-weight: 800; color: {LB}; white-space: nowrap;', h=19, label=True)
+        b.text('dense', 858, y + 6, 290, '항목', 'font-weight: 700; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;', h=22, key=f'r{r}')
+        b.text('dense', 1148, y + 6, 60, '4', f'font-family: {MAN}; font-weight: 700; color: rgba(255,255,255,.82); text-align: right; white-space: nowrap;', h=22, key=f'r{r}p')
     b.text('utility', 996, 696, 220, 'CONFIDENTIAL · 1', f'font-family: {MAN}; color: rgba(255,255,255,.7); text-align: right; white-space: nowrap; letter-spacing: .04em;', h=16, key='page')
     add(b, meta(f, f'VS-DIV-{n}', f'간지 · 풀블리드 사진 + 목록 {n}줄', f'장을 여는 간지 — 장 번호 · 제목 · 다루는 것 {n}줄과 쪽', 'cover', None, G.format('간지'),
                 '01 / 06', '장 제목', '', ['images']))
@@ -183,25 +180,25 @@ def divider(n):
 def dss():
     b = B('L_VS_DSS')
     header(b, '01 · OVERVIEW', '업종에 필요한 AI, Device · Solution · Service로 한 번에', '부제')
-    b.box(64, 156, 340, 420, f'border: 1px solid {LINE}; border-radius: 16px; background: #ffffff;')
+    b.box(64, 156, 340, 420, f'border-radius: 16px; background: {SURF};')
     b.text('label', 84, 174, 200, 'DEVICE', f'font-family: {MAN}; font-weight: 800; letter-spacing: .08em; color: {BLUE}; white-space: nowrap;', h=19, label=True)
     for r in range(5):
         y = 204 + 72 * r
-        if r: b.box(84, y - 6, 300, 1, f'background: {LINE};')
-        b.img(84, y + 2, 76, 58, 'cut', '대표 제품 컷', radius=8, bg=SURF, fit='contain', pad=6, key=f'd{r}img')
+        b.box(76, y - 2, 316, 66, 'border-radius: 10px; background: #ffffff;')
+        b.img(84, y + 2, 76, 58, 'cut', '대표 제품 컷', radius=8, bg='#ffffff', fit='contain', pad=6, key=f'd{r}img')
         b.text('body', 176, y + 18, 210, '디바이스', f'font-weight: 700; color: {INK}; white-space: nowrap;', h=25, key=f'd{r}')
-    b.box(876, 156, 340, 420, f'border: 1px solid {LINE}; border-radius: 16px; background: #ffffff;')
+    b.box(876, 156, 340, 420, f'border-radius: 16px; background: {SURF};')
     b.text('label', 896, 174, 200, 'SOLUTION', f'font-family: {MAN}; font-weight: 800; letter-spacing: .08em; color: {BLUE}; white-space: nowrap;', h=19, label=True)
     for r in range(5):
         y = 204 + 72 * r
-        if r: b.box(896, y - 6, 300, 1, f'background: {LINE};')
-        b.box(898, y + 27, 8, 8, f'border-radius: 50%; background: {BLUE};')
+        b.box(888, y - 2, 316, 66, 'border-radius: 10px; background: #ffffff;')
+        b.box(900, y + 27, 8, 8, f'border-radius: 50%; background: {BLUE};')
         b.text('body', 918, y + 18, 280, '솔루션', f'font-weight: 700; color: {INK}; white-space: nowrap;', h=25, key=f's{r}')
-    b.box(490, 216, 300, 300, f'border-radius: 50%; background: {TINT}; border: 1px dashed #c5cde6;')
+    b.box(490, 216, 300, 300, f'border-radius: 50%; background: {TINT};')
     b.box(536, 262, 208, 208, 'border-radius: 50%; background: #ffffff;')
     b.text('subheading', 546, 336, 188, '삼성\nAI 비즈니스', f'font-weight: 800; color: {INK}; text-align: center;', h=60, label=True)
     for (cx, cy) in [(476, 222), (724, 222), (600, 474)]:
-        b.box(cx, cy, 80, 80, f'border-radius: 50%; background: {BLUE}; border: 4px solid #ffffff;')
+        b.box(cx, cy, 80, 80, f'border-radius: 50%; background: {BLUE};')
     b.text('dense', 476, 250, 80, 'Device', f'font-family: {MAN}; font-weight: 800; color: #ffffff; text-align: center; white-space: nowrap;', h=22, label=True)
     b.text('dense', 724, 250, 80, 'Solution', f'font-family: {MAN}; font-weight: 800; color: #ffffff; text-align: center; white-space: nowrap;', h=22, label=True)
     b.text('dense', 600, 502, 80, 'Service', f'font-family: {MAN}; font-weight: 800; color: #ffffff; text-align: center; white-space: nowrap;', h=22, label=True)
@@ -211,7 +208,7 @@ def dss():
     b.text('label', 84, 610, 80, 'SERVICE', f'font-family: {MAN}; font-weight: 800; letter-spacing: .08em; color: {LB}; white-space: nowrap;', h=19, label=True)
     for k in range(3):
         x = 172 + 348 * k
-        b.box(x, 602, 336, 36, 'border: 1px solid rgba(255,255,255,.4); border-radius: 18px;')
+        b.box(x, 602, 336, 36, 'border-radius: 18px; background: rgba(255,255,255,.14);')
         b.text('dense', x, 609, 336, '서비스', 'font-weight: 700; color: #ffffff; text-align: center; white-space: nowrap;', h=22, key=f'v{k}')
     footer(b)
     add(b, meta('L_VS_DSS', 'VS-DSS', 'Device · Solution · Service 도식 (디바이스 컷 5 · 솔루션 5 · 서비스 3)', '01 Overview — 업종에 맞춘 삼성 AI 비즈니스 구성을 한 장에', 'dss', 'overview', G.format('01 Overview'),
@@ -225,7 +222,6 @@ def needs():
     cols = [(64, 396, '고객 니즈', 'h0'), (492, 280, 'AI 업종', 'h1'), (804, 412, '핵심 제안', 'h2')]
     for x, w, t, k in cols:
         b.text('subheading', x, 148, w, t, f'font-weight: 800; color: {INK}; white-space: nowrap;', h=30, key=k, label=(k != 'h1'))
-        b.box(x, 184, 36, 3, f'background: {BLUE}; border-radius: 2px;')
     for r in range(3):
         y = 200 + 150 * r
         acc, tint = ACC[r]
@@ -233,16 +229,16 @@ def needs():
         b.text('label', 88, y + 20, 60, f'Q{r + 1}', f'font-family: {MAN}; font-weight: 800; color: {acc}; white-space: nowrap;', h=19, label=True)
         b.text('heading', 88, y + 44, 348, '“고객의 목소리”', f'font-weight: 700; color: {INK};', h=78, key=f'q{r}')
         b.box(464, y + 58, 24, 22, 'display: flex; align-items: center; justify-content: center;', CHEV.format(s=22, c='#c5cde6'))
-        b.box(492, y, 280, 138, f'border: 1px solid {LINE}; border-radius: 14px; background: #ffffff;')
-        b.img(504, y + 12, 96, 114, 'cut', 'AI 기술 대표 제품 · 솔루션', radius=10, bg=SURF, fit='contain', pad=8, key=f't{r}img')
+        b.box(492, y, 280, 138, f'border-radius: 14px; background: {SURF};')
+        b.img(504, y + 12, 96, 114, 'cut', 'AI 기술 대표 제품 · 솔루션', radius=10, bg='#ffffff', fit='contain', pad=8, key=f't{r}img')
         b.text('heading', 612, y + 20, 150, 'AI 기술', f'font-family: {MAN}; font-weight: 800; color: {INK};', h=26, key=f't{r}')
         b.text('dense', 612, y + 74, 150, '※ 설명', f'color: {GRAY};', h=44, key=f't{r}n')
         b.box(776, y + 58, 24, 22, 'display: flex; align-items: center; justify-content: center;', CHEV.format(s=22, c='#c5cde6'))
-        b.box(804, y, 412, 138, f'border: 2px solid {acc}; border-radius: 14px; background: #ffffff;')
+        b.box(804, y, 412, 138, f'border-radius: 14px; background: {tint};')
         b.text('subheading', 826, y + 18, 370, '핵심 제안', f'font-weight: 800; color: {acc}; white-space: nowrap;', h=30, key=f'p{r}')
         for c in range(2):
             x = 826 + 190 * c
-            b.box(x, y + 62, 180, 56, f'border-radius: 10px; background: {tint};')
+            b.box(x, y + 62, 180, 56, 'border-radius: 10px; background: #ffffff;')
             b.box(x + 10, y + 70, 16, 16, 'display: flex;', CHECK.format(c=acc))
             b.text('dense', x + 32, y + 68, 140, '세부 제안', f'font-weight: 700; color: {INK};', h=44, key=f'p{r}c{c}')
     footer(b)
@@ -258,8 +254,7 @@ def core(k):
     header(b, '02 · AI 업종', '핵심 제안 제목', '부제')
     for r in range(2):
         y = 152 + 252 * r
-        b.box(64, y, 320, 240, f'border-radius: 14px; background: {SURF};')
-        b.box(64, y, 6, 240, f'background: {acc}; border-radius: 12px 0 0 12px;')
+        b.box(64, y, 320, 240, f'border-radius: 14px; background: {tint};')
         b.text('label', 90, y + 20, 60, f'0{r + 1}', f'font-family: {MAN}; font-weight: 800; color: {acc}; white-space: nowrap;', h=19, label=True)
         b.text('subheading', 90, y + 42, 272, '세부 제안', f'font-weight: 800; color: {INK};', h=60, key=f'r{r}t')
         b.text('dense', 90, y + 108, 272, '대표 제품', f'font-weight: 700; color: {acc}; white-space: nowrap; display: inline-block; width: auto; max-width: 272px; padding: 4px 12px; border-radius: 999px; background: #ffffff; box-sizing: border-box;', h=30, key=f'r{r}tag')
@@ -273,7 +268,7 @@ def core(k):
                 b.box(x + 206, y + 12, 36, 22, f'border-radius: 11px; background: {acc}; color: #ffffff; font-family: {MAN}; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center;', 'AI')
                 b.text('heading', x, y + 162, 254, '단계 2', f'font-weight: 700; color: {acc};', h=78, key=f'r{r}s1')
             else:
-                b.box(x, y, 254, 240, f'border: 1px solid {LINE}; border-radius: 14px; background: #ffffff;')
+                b.box(x, y, 254, 240, f'border-radius: 14px; background: {SURF};')
                 b.circle(x + 18, y + 18, 28, str(s + 1), bg=acc)
                 b.text('heading', x + 18, y + 62, 218, f'단계 {s + 1}', f'font-weight: 600; color: {INK};', h=78, key=f'r{r}s{s}')
             if s < 2:
@@ -298,8 +293,8 @@ def space_sheet():
     cy, bot = SPACE_BOX['card_y'], SPACE_BOX['bottom']
     b.text('label', 64, 44, 1000, '03 · 공간별 제안 · 01', f'font-weight: 700; letter-spacing: 0.06em; color: {BLUE}; white-space: nowrap;', h=19, key='eb')
     b.text('title', 64, 64, 1152, '공간 이름', f'font-weight: 700; letter-spacing: -0.02em; color: {INK}; white-space: nowrap;', h=40, key='title')
-    # key message — 이 공간에서 대표 제품이 하는 일 한두 문장(최대 세 줄). 왼쪽 파란 선은 글 높이만큼(border-left)
-    b.text('heading', rx, 210, rw, '이 공간에서 대표 제품이 하는 일 — 누가 무엇을 하고 무엇이 나아지는지 한두 문장으로', f'font-weight: 700; color: {INK}; border-left: 4px solid {BLUE}; padding-left: 16px; box-sizing: border-box;', h=52, key='msg')
+    # key message — 이 공간에서 대표 제품이 하는 일 한두 문장(최대 세 줄). 글 높이만큼 늘어나는 연한 파랑 카드(선 없음)
+    b.text('heading', rx, 200, rw, '이 공간에서 대표 제품이 하는 일 — 누가 무엇을 하고 무엇이 나아지는지 한두 문장으로', f'font-weight: 700; color: {INK}; background: {TINT}; border-radius: 12px; padding: 14px 18px; box-sizing: border-box;', h=80, key='msg')
     b.text('label', rx, py, 300, '대표 제품', f'font-weight: 700; letter-spacing: .04em; color: {BLUE}; white-space: nowrap;', h=19, label=True)
     b.text('subheading', rx, py + 22, rw, '제품 이름', f'font-weight: 800; color: {INK}; white-space: nowrap;', h=30, key='prod')
     # 제품 특징 영역 — 왼쪽 제품 컷, 오른쪽 특징 2(번호 · 제목 한 줄 · 설명 세 줄까지)
@@ -310,7 +305,6 @@ def space_sheet():
     fw = rx + rw - 20 - fx
     for r in range(2):
         y = cy + 36 + 152 * r
-        if r: b.box(fx, y - 22, fw, 1, f'background: {LINE};')
         b.circle(fx, y, 28, str(r + 1), fs=14)
         b.text('heading', fx + 38, y + 1, fw - 38, '제품 특징 한 줄 제목', f'font-weight: 800; color: {INK}; white-space: nowrap;', h=26, key=f'f{r}t')
         b.text('dense', fx, y + 38, fw, '이 특징이 공간 운영과 이용자에게 주는 효과를 한두 줄로 설명', f'color: {INK2};', h=67, key=f'f{r}d')
@@ -320,6 +314,66 @@ def space_sheet():
                 '03 공간별 제안 — 공간마다 한 장: 공간 사진 옆에 그 공간의 대표 제품 이름, 한두 문장 key message, 제품 컷과 두 가지 특징',
                 'products', 'scenario', G.format('03 공간별 제안'), '03 · 공간별 제안', '공간 이름', '', ['spaces', 'products', 'images'],
                 ik=['cut', 'space'], ih=['대표 제품 컷', '공간 사진']))
+
+
+# ------------------------------------------------------------------ 03 공간별 제품 — 한 공간에 제품이 여럿일 때
+# 사용자 지시(2026-11-17): 공간별 제품 장 수 = 공간 수, 장 안의 제품 수 = 조감도에서 그 공간에 놓인 제품 수.
+# 제품이 하나인 공간은 L_VS_SPACE, 둘 이상인 공간은 이 장(L_VS_SPACE_P<k>) 한 장에 그 공간의 제품 k개를 모두 놓는다.
+# 칸: 글 0 장 표식 · 1 공간 이름 · 2 key message(이 공간에서 제품들이 함께 하는 일), 제품마다 [이름 · 특징 nf개(제목 · 설명)], 꼬리말 3
+#     사진: 제품마다 제품 컷(0 … k-1), 마지막 칸 k = 공간 사진(왼쪽). 0~2 칸은 L_VS_SPACE 와 같은 뜻이다.
+SPACE_P = {2: (2, 1, 2), 3: (3, 1, 2), 4: (2, 2, 2), 5: (3, 2, 1), 6: (3, 2, 1), 7: (4, 2, 1), 8: (4, 2, 1)}  # k: (열, 줄, 제품마다 특징 수)
+SPACE_P_MAX = max(SPACE_P)
+
+
+def space_products(k):
+    f = f'L_VS_SPACE_P{k}'
+    cols, rows, nf = SPACE_P[k]
+    b = B(f)
+    px, py, pw, ph = 64, 136, 400, 512
+    rx, rw = 488, 728
+    b.text('label', 64, 44, 1000, '03 · 공간별 제안 · 01', f'font-weight: 700; letter-spacing: 0.06em; color: {BLUE}; white-space: nowrap;', h=19, key='eb')
+    b.text('title', 64, 64, 1152, '공간 이름', f'font-weight: 700; letter-spacing: -0.02em; color: {INK}; white-space: nowrap;', h=40, key='title')
+    b.text('heading', rx, py, rw, '이 공간에서 제품들이 함께 하는 일 — 누가 무엇을 하고 무엇이 나아지는지 한두 문장으로', f'font-weight: 700; color: {INK}; background: {TINT}; border-radius: 12px; padding: 14px 18px; box-sizing: border-box;', h=80, key='msg')
+    gap, top, bot = 16, 232, 648
+    cw = (rw - gap * (cols - 1)) // cols
+    chh = (bot - top - gap * (rows - 1)) // rows
+    for j in range(k):
+        r, c = divmod(j, cols)
+        in_row = min(cols, k - r * cols)
+        x = rx + c * (cw + gap) + (cols - in_row) * (cw + gap) // 2  # 덜 찬 마지막 줄은 가운데로
+        y = top + r * (chh + gap)
+        b.box(x, y, cw, chh, f'border-radius: 16px; background: {SURF};')
+        one = 'white-space: nowrap; overflow: hidden; text-overflow: ellipsis;'
+        if rows == 1:   # 한 줄(제품 2 · 3): 위에 제품 컷, 아래에 이름 · 특징 2
+            b.img(x + 16, y + 16, cw - 32, 150, 'cut', '제품 컷', radius=12, bg='#ffffff', fit='contain', pad=14, key=f'p{j}img')
+            nrole, nh = ('heading', 26) if k == 2 else ('dense', 22)
+            b.text(nrole, x + 16, y + 180, cw - 32, '제품 이름', f'font-weight: 800; color: {INK}; {one}', h=nh, key=f'p{j}n')
+            fy = y + 180 + nh + 12
+            for q in range(nf):
+                b.text('dense', x + 16, fy, cw - 32, '제품 특징 한 줄 제목', f'font-weight: 800; color: {BLUE}; {one}', h=22, key=f'p{j}f{q}t')
+                b.text('label', x + 16, fy + 24, cw - 32, '이 특징이 이 공간에 주는 효과를 한두 줄로 설명', f'color: {INK2};', h=57, key=f'p{j}f{q}d')
+                fy += 24 + 57 + 12
+        elif cols == 2:  # 2 × 2(제품 4): 왼쪽 제품 컷, 오른쪽 이름 · 특징 2
+            b.img(x + 12, y + 12, 128, chh - 24, 'cut', '제품 컷', radius=12, bg='#ffffff', fit='contain', pad=10, key=f'p{j}img')
+            tx, tw = x + 156, cw - 172
+            b.text('dense', tx, y + 14, tw, '제품 이름', f'font-weight: 800; color: {INK}; {one}', h=22, key=f'p{j}n')
+            fy = y + 46
+            for q in range(nf):
+                b.text('label', tx, fy, tw, '제품 특징 한 줄 제목', f'font-weight: 800; color: {BLUE}; {one}', h=19, key=f'p{j}f{q}t')
+                b.text('label', tx, fy + 21, tw, '이 특징이 주는 효과를 한두 줄로', f'color: {INK2};', h=38, key=f'p{j}f{q}d')
+                fy += 21 + 38 + 8
+        else:           # 두 줄(제품 5 ~ 8): 위에 제품 컷, 아래에 이름 · 특징 하나
+            b.img(x + 12, y + 12, cw - 24, 84, 'cut', '제품 컷', radius=10, bg='#ffffff', fit='contain', pad=8, key=f'p{j}img')
+            b.text('dense', x + 12, y + 106, cw - 24, '제품 이름', f'font-weight: 800; color: {INK}; {one}', h=22, key=f'p{j}n')
+            b.text('label', x + 12, y + 132, cw - 24, '제품 특징 한 줄 제목', f'font-weight: 800; color: {BLUE}; {one}', h=19, key=f'p{j}f0t')
+            b.text('label', x + 12, y + 153, cw - 24, '이 특징이 주는 효과를 한두 줄로', f'color: {INK2};', h=38, key=f'p{j}f0d')
+    b.img(px, py, pw, ph, 'space', '공간 사진', radius=16, bg=SURF, key='space')
+    footer(b)
+    what = '특징 2' if nf == 2 else '특징 하나'
+    add(b, meta(f, f'VS-SPACE-P{k}', f'공간별 제품 · 한 공간 제품 {k}개 — 왼쪽 공간 사진 + key message + 제품마다 컷 · 이름 · {what}',
+                f'03 공간별 제안 — 한 공간에 제품이 {k}개일 때 그 공간 한 장: 공간 사진 옆에 그 공간의 제품 {k}개를 모두(조감도에서 그 공간에 놓인 제품과 같은 수)',
+                'products', 'scenario', G.format('03 공간별 제안'), '03 · 공간별 제안', '공간 이름', '', ['spaces', 'products', 'images'],
+                ik=['cut'] * k + ['space'], ih=['제품 컷'] * k + ['공간 사진']))
 
 
 # ------------------------------------------------------------------ 03 조감도 (space / building)
@@ -343,7 +397,6 @@ def bird(n, building=False):
             b.text('label', 958, y + 22, 238, '제품', f'color: {GRAY}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;', h=19, key=f's{r}p')
     if n <= 4:  # room under a short legend: how the next pages follow the numbers
         ny = 200 + rh * n + 12
-        b.box(924, ny, 272, 1, f'background: {LINE};')
         b.text('label', 924, ny + 14, 272, '번호 순서대로 다음 장부터 소개합니다', f'color: {GRAY};', h=648 - 16 - ny - 14, key='note')
     footer(b)
     add(b, meta(f, f'VS-BIRD-{"B" if building else "S"}{n}', ('표준 건물 조감도 · 층별 ' if building else '공간 조감도 · ') + f'{n}개 공간 범례', '03 공간별 제안 첫 장 — ' + ('층마다 공간을 나눈 표준 건물 조감도와 공간 범례' if building else '한 층에 모든 공간을 놓은 공간 조감도와 범례'), 'birdseye', 'dss', G.format('03 공간별 제안'),
@@ -371,16 +424,15 @@ def map_sheet(n):
         for c in range(cnt):
             x = round(64 + c * (cw + gap))
             w = round(cw)
-            b.box(x, y, w, rh, f'border: 1px solid {LINE}; border-radius: 14px; background: #ffffff;')
+            b.box(x, y, w, rh, f'border-radius: 14px; background: {SURF};')
             b.circle(x + 14, y + 14, 24, str(k + 1), fs=12)
             b.text('dense', x + 46, y + 14, w - 58, '공간', f'font-weight: 800; color: {INK};', h=22, key=f's{k}')
             # one row (4 spaces or fewer): a taller picture and what the space does, so the card is not left half empty
             single = len(rows) == 1
             ih = min(240, rh - 200) if single else max(70, min(150, rh - 150))
-            b.img(x + 14, y + 66, w - 28, ih, 'cut', '대표 제품 컷', radius=10, bg=SURF, fit='contain', pad=8, key=f's{k}img')
+            b.img(x + 14, y + 66, w - 28, ih, 'cut', '대표 제품 컷', radius=10, bg='#ffffff', fit='contain', pad=8, key=f's{k}img')
             b.text('label', x + 14, y + 66 + ih + 10, w - 28, '제품 목록', f'color: {INK2};', h=40, key=f's{k}p')
             if single:
-                b.box(x + 14, y + 66 + ih + 56, w - 28, 1, f'background: {LINE};')
                 b.text('dense', x + 14, y + 66 + ih + 68, w - 28, '이 공간에서 하는 일', f'color: {INK};', h=88, key=f's{k}d')
             k += 1
     footer(b)
@@ -397,15 +449,15 @@ def case_sheet():
         x = 64 + 204 * k
         b.img(x, 464, 192, 184, 'case', f'적용 사진 {k + 1}', radius=12, key=f'img{k + 1}')
         b.circle(x + 10, 474, 24, str(k + 1), fs=12)
-    b.text('label', 688, 152, 300, '도입 포인트', f'font-weight: 700; color: {BLUE}; white-space: nowrap;', h=19, label=True)
+    b.text('label', 680, 152, 300, '도입 포인트', f'font-weight: 700; color: {BLUE}; white-space: nowrap;', h=19, label=True)
     for k in range(3):
         y = 184 + 140 * k
-        if k: b.box(688, y - 12, 528, 1, f'background: {LINE};')
-        b.circle(688, y + 2, 24, str(k + 1), fs=12)
-        b.text('heading', 722, y, 494, '도입 포인트', f'font-weight: 800; color: {INK};', h=52, key=f'p{k}t')
-        b.text('dense', 722, y + 58, 494, '설명', f'color: {INK2};', h=66, key=f'p{k}d')
-    b.box(688, 616, 528, 32, f'border-radius: 8px; background: {SURF};')
-    b.text('label', 704, 622, 500, '원문 · samsung.com 도입사례', f'color: {BLUE}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;', h=19, key='src')
+        b.box(680, y - 12, 536, 132, f'border-radius: 12px; background: {SURF};')
+        b.circle(696, y + 2, 24, str(k + 1), fs=12)
+        b.text('heading', 730, y, 470, '도입 포인트', f'font-weight: 800; color: {INK};', h=52, key=f'p{k}t')
+        b.text('dense', 730, y + 58, 470, '설명', f'color: {INK2};', h=66, key=f'p{k}d')
+    b.box(680, 616, 536, 32, f'border-radius: 8px; background: {TINT};')
+    b.text('label', 696, 622, 504, '원문 · samsung.com 도입사례', f'color: {BLUE}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;', h=19, key='src')
     footer(b)
     add(b, meta('L_VS_CASE', 'VS-CASE', '도입사례 · 대표 사진 + 적용 사진 3 + 도입 포인트 3', '05 도입사례 — 같은 업종 고객의 공식 도입사례 한 건', 'case', None, G.format('05 도입사례'),
                 '05 · 도입사례', '고객사 이름', '', ['cases', 'images']))
@@ -416,7 +468,7 @@ def write_module(path):
     htmls = {m['f']: h for m, h in OUT}
     head = ('// 표준 제안서 · 업종 공통 레이아웃 (L_VS_*) — vertical_space_product.json 44개 업종의 표준 제안서가 함께 쓰는 장표.\n'
             '// 목차 6장 고정(01 Overview · 02 AI 업종 · 03 공간별 제안 · 04 솔루션 · 05 도입사례 · 06 Why Samsung), 업종마다 내용 · 공간 수 · 솔루션만 다름.\n'
-            '// 호텔 AI 스테이(L_AIS_*)를 기준으로 개선: 니즈 열 사진 제거 · 제안별 색 테두리 · 하단 각주 없음 · 상세 장은 가운데 제품/솔루션 이미지만 · 공간별 장 = 왼쪽 공간 사진 + 오른쪽 제품 이름 · key message · 제품 컷과 특징 2.\n'
+            '// 호텔 AI 스테이(L_AIS_*)를 기준으로 개선: 니즈 열 사진 제거 · 제안별 색 카드 · 선(테두리 · 왼쪽 강조선 · 밑줄 · 구분선) 없이 채운 카드 · 하단 각주 없음 · 상세 장은 가운데 제품/솔루션 이미지만 · 공간별 장 = 왼쪽 공간 사진 + 오른쪽 제품 이름 · key message · 제품 컷과 특징 2.\n'
             '// 04 솔루션은 솔루션마다 다른 레이아웃(L_VS_SOL_*, 23종 — 업종이 달라도 같은 솔루션은 같은 레이아웃), 06 Why Samsung(L_VS_WHY_*)은 모든 업종 같은 내용.\n'
             '// 글자 크기는 PROPOSAL_TYPE 역할(data-type-role)을 미리 넣어 둠(data-proposal-typography="2"). 생성: app/scripts/vertical_standard/gen_layouts.py\n')
     with open(path, 'w', encoding='utf-8') as fh:

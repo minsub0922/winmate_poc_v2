@@ -15,6 +15,8 @@ const only = process.argv.slice(2), outDir = process.env.OUT || ASSETS;
 fs.mkdirSync(outDir, {recursive: true});
 const b64 = fs.readFileSync(WEB + '/src/building/bake.b64', 'utf8');
 const W = 1632, H = 992, port = 5199, SPREAD = Number(process.env.SPREAD || 1), ELEV = Number(process.env.ELEV || 24), AZ = Number(process.env.AZ || 28), GAP = Number(process.env.GAP || 0);
+const TABLE = process.env.OUT ? path.join(outDir, 'vertical_std_bird.json') : WEB + '/src/domain/templates/vertical_std_bird.json';
+const table = fs.existsSync(TABLE) ? JSON.parse(fs.readFileSync(TABLE)) : {};
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
 function overlay(pins, labels) {
@@ -98,6 +100,10 @@ try {
     await sharp({create: {width: W, height: H, channels: 4, background: '#f3f5f3'}})
       .composite([{input: plan, top, left}, {input: overlay(pins, labels), top: 0, left: 0}]).flatten({background: '#f3f5f3'}).webp({quality: 84})
       .toFile(path.join(outDir, p.vid + '.webp'));
+    table[p.vid] = {w: W, h: H, live: false, points: pins};
     console.log(p.vid, res.rooms.map(r => `${r.floor + 1}F#${r.n}`).join(' '), `${Date.now() - t0}ms`);
   }
-} finally { await browser?.close(); await server.close(); }
+} finally {
+  fs.writeFileSync(TABLE, JSON.stringify(Object.fromEntries(Object.entries(table).sort(([a], [b]) => a.localeCompare(b)))) + '\n');
+  await browser?.close(); await server.close();
+}

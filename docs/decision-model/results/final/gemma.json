@@ -1,0 +1,5715 @@
+{
+ "meta": {
+  "started": "2026-11-13T16:26:53",
+  "tc_per_task": 10,
+  "branches": {
+   "gemma": {
+    "kind": "llm",
+    "provider": "gemini",
+    "model": "gemma-4-31b-it",
+    "quick_model": "gemma-4-31b-it",
+    "reasoning": null
+   },
+   "_machine": {
+    "chip": "Apple M6",
+    "model": "Mac18,5",
+    "memory_gb": 24,
+    "os": "macOS-27.2-arm64-arm-64bit"
+   }
+  },
+  "finished": "2026-11-13T17:17:14"
+ },
+ "tasks": {
+  "search.rerank": [
+   {
+    "tc": {
+     "id": "C01_L1:value",
+     "q": "카페 프랜차이즈 디지털 메뉴보드 Value Propositions 장표",
+     "part": "value",
+     "industry": "FB",
+     "strategy": "value",
+     "level": "minimal",
+     "gold": [
+      "L_VP_F2",
+      "L_VP_U"
+     ],
+     "gold_in_pool": true
+    },
+    "tc_fp": "ffe86d4d05ef26bb",
+    "baseline": {
+     "final": [
+      "L_VP_F2",
+      "L_VP_F4",
+      "L_VP_F",
+      "L_VP_G",
+      "L_VP_J",
+      "L_PH_VP_U",
+      "L_VP_P",
+      "L_VP_T",
+      "L_VP_I",
+      "L_SUB_VALUE3"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 22315,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2314,
+      "output_tokens": 771,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_VP_F",
+       "why": "디지털 메뉴보드 가치와 제품을 다각도로 제시하기 적합"
+      },
+      {
+       "f": "L_VP_F2",
+       "why": "핵심 가치 2개를 제품과 연결하여 명확하게 전달"
+      },
+      {
+       "f": "L_VP_F4",
+       "why": "2x2 매트릭스로 여러 가치와 제품군을 체계적으로 정리"
+      },
+      {
+       "f": "L_VP_N",
+       "why": "카페 매장 설치 사례 실사와 함께 가치 전달 가능"
+      },
+      {
+       "f": "L_VP_G",
+       "why": "대표 메뉴보드 제품 하나를 강조하여 가치 전달"
+      },
+      {
+       "f": "L_VP_J",
+       "why": "솔루션 화면과 연결 제품을 통해 디지털 전환 가치 제시"
+      },
+      {
+       "f": "L_TOC_VP3",
+       "why": "솔루션이 주는 3가지 핵심 가치를 카드로 명확히 제시"
+      },
+      {
+       "f": "L_VP_P",
+       "why": "솔루션의 실제 구동 화면으로 실질적 가치 증명"
+      },
+      {
+       "f": "L_VP_M",
+       "why": "다양한 제품과 가치의 관계를 매트릭스로 정리"
+      },
+      {
+       "f": "L_VP_I",
+       "why": "제품의 특정 기능이 곧 가치가 되는 경우에 적합"
+      },
+      {
+       "f": "L_PH_VP_B2",
+       "why": "두 가지 핵심 가치를 큰 사진과 함께 시각적으로 강조"
+      },
+      {
+       "f": "L_VP_Q",
+       "why": "카페 프랜차이즈 레퍼런스 사례로 신뢰도 확보"
+      },
+      {
+       "f": "L_VP_T",
+       "why": "제품 실사와 스펙을 통해 기술적 가치 근거 제시"
+      },
+      {
+       "f": "L_VP_H",
+       "why": "점주와 고객의 이해관계자별 가치를 구분하여 제시"
+      },
+      {
+       "f": "L_PH_VP_C",
+       "why": "강력한 한 문장과 근거로 가치 제안의 핵심을 전달"
+      },
+      {
+       "f": "L_VP_US",
+       "why": "매장 내 메뉴보드 설치 위치별 가치 핀으로 설명"
+      },
+      {
+       "f": "L_VP_UC",
+       "why": "현장 질문에 대한 답으로 제품 가치 제시"
+      },
+      {
+       "f": "L_PH_VP_U",
+       "why": "현장 질문과 사진을 통해 실질적 해결책 제시"
+      },
+      {
+       "f": "L_SUB_VALUE3",
+       "why": "구독형 모델의 가치를 사진 카드로 제시할 때 적합"
+      },
+      {
+       "f": "L_PH_IM_N",
+       "why": "전체적인 제안 메시지 구조를 한 장에 요약"
+      }
+     ],
+     "final": [
+      "L_VP_F",
+      "L_VP_F2",
+      "L_VP_F4",
+      "L_VP_N",
+      "L_VP_G",
+      "L_VP_J",
+      "L_TOC_VP3",
+      "L_VP_P",
+      "L_VP_M",
+      "L_VP_I"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.5,
+      "gold_rank": 2
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C02_L1:products",
+     "q": "신축 AI Ready 오피스 공간별 제품 장표",
+     "part": "products",
+     "industry": "OF",
+     "strategy": "space",
+     "level": "minimal",
+     "gold": [
+      "L_P3B"
+     ],
+     "gold_in_pool": true
+    },
+    "tc_fp": "3ac9b5d4074519a8",
+    "baseline": {
+     "final": [
+      "L_SOL_09",
+      "L_SOL_10",
+      "L_SOL_04",
+      "L_SOL_07",
+      "L_SOL_05",
+      "L_P5B",
+      "L_P2B",
+      "L_P3B",
+      "L_P4B",
+      "L_SOL_03"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.125,
+      "gold_rank": 8
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 42781,
+     "usage": {
+      "calls": 2,
+      "attempts": 2,
+      "failed": 0,
+      "rejected": 1,
+      "prompt_tokens": 4666,
+      "output_tokens": 1458,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_SOL_09",
+       "why": "라운지 공간 사진과 여러 제품을 연결해 보여주기에 적합"
+      },
+      {
+       "f": "L_SOL_04",
+       "why": "입구/로비 공간의 제품 구성을 시각적으로 잘 보여줌"
+      },
+      {
+       "f": "L_SOL_07",
+       "why": "미팅룸 공간의 상황별 제품 구성을 효과적으로 제시"
+      },
+      {
+       "f": "L_SOL_05",
+       "why": "업무 공간의 유형별 제품 비교 구성에 최적화"
+      },
+      {
+       "f": "L_SOL_10",
+       "why": "카페 공간의 제품 컨셉과 컬러 비교에 적합"
+      },
+      {
+       "f": "L_VS_SPACE",
+       "why": "공간별 대표 제품과 핵심 메시지를 함께 전달 가능"
+      },
+      {
+       "f": "L_SOL_14",
+       "why": "공간별 제안 제품 리스트를 한 장에 정리하여 보여줌"
+      },
+      {
+       "f": "L_SOL_08",
+       "why": "업무 공간 사진과 솔루션 도식을 함께 제시 가능"
+      },
+      {
+       "f": "L_P5B",
+       "why": "공간 및 설치 중심의 레이아웃으로 범용적으로 사용 가능"
+      },
+      {
+       "f": "L_P2B",
+       "why": "공간 및 설치 중심의 기본 레이아웃"
+      },
+      {
+       "f": "L_P3B",
+       "why": "L_P2B와 유사한 공간 중심 레이아웃"
+      },
+      {
+       "f": "L_P4B",
+       "why": "L_P2B와 유사한 공간 공간 중심 레이아웃"
+      },
+      {
+       "f": "L_P_T",
+       "why": "한 공간에 많은 제품을 카탈로그 형태로 제시"
+      },
+      {
+       "f": "L_PH_P_I",
+       "why": "공간의 분위기와 제품 이름을 함께 강조하여 전달"
+      },
+      {
+       "f": "L_PH_P_S",
+       "why": "한 제품이 여러 공간에서 쓰이는 사례를 보여주기에 적합"
+      },
+      {
+       "f": "L_PH_P_L",
+       "why": "비디오월 등 대형 설치물 중심의 공간 구성 제시"
+      },
+      {
+       "f": "L_P1A",
+       "why": "제품 이미지 중심의 히어로 컷으로 강조"
+      },
+      {
+       "f": "L_PH_P_G",
+       "why": "공간 내 제품 설치 방식의 옵션을 시각적으로 비교"
+      },
+      {
+       "f": "L_PH_P2_C",
+       "why": "두 제품의 공간 배치 및 사양 비교에 적합"
+      },
+      {
+       "f": "L_SOL_03",
+       "why": "평면도 기반의 공간 가치 연결 레이아웃으로 제품 장표로서는 낮음"
+      }
+     ],
+     "final": [
+      "L_SOL_09",
+      "L_SOL_04",
+      "L_SOL_07",
+      "L_SOL_05",
+      "L_SOL_10",
+      "L_VS_SPACE",
+      "L_SOL_14",
+      "L_SOL_08",
+      "L_P5B",
+      "L_P2B"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.09090909090909091,
+      "gold_rank": 11
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C03_L1:value",
+     "q": "비즈니스 호텔 객실 리뉴얼 Value Propositions 장표",
+     "part": "value",
+     "industry": "HT",
+     "strategy": "pain",
+     "level": "minimal",
+     "gold": [
+      "L_VP_G",
+      "L_VP_U_HT"
+     ],
+     "gold_in_pool": true
+    },
+    "tc_fp": "fec62bae9c3a0e30",
+    "baseline": {
+     "final": [
+      "L_VP_U_HT",
+      "L_AIS_06",
+      "L_AIS_07",
+      "L_VP_F2",
+      "L_VP_US",
+      "L_VP_F4",
+      "L_VP_UC",
+      "L_VP_F",
+      "L_AIS_09",
+      "L_VP_G"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 47493,
+     "usage": {
+      "calls": 2,
+      "attempts": 2,
+      "failed": 0,
+      "rejected": 1,
+      "prompt_tokens": 4646,
+      "output_tokens": 1596,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_VP_U_HT",
+       "why": "호텔 업종 전용 레이아웃으로 가장 적합함"
+      },
+      {
+       "f": "L_PH_VP_U",
+       "why": "현장 질문 기반의 가치 제안으로 pain point 해결책 제시 가능"
+      },
+      {
+       "f": "L_PH_VP_L",
+       "why": "리뉴얼 전후 비교를 통해 리뉴얼 가치 시각화 가능"
+      },
+      {
+       "f": "L_VP_F",
+       "why": "가치 기둥과 제품을 매칭하여 체계적인 VP 제안 가능"
+      },
+      {
+       "f": "L_VP_F2",
+       "why": "가치 기둥 기반의 2개 제품 제안에 적합"
+      },
+      {
+       "f": "L_VP_F4",
+       "why": "가치 기둥 기반의 4개 제품 제안에 적합"
+      },
+      {
+       "f": "L_VP_US",
+       "why": "실사 사진에 핀을 꽂아 구체적인 개선점 제시 가능"
+      },
+      {
+       "f": "L_VP_UC",
+       "why": "현장 질문과 제품 이미지를 통해 가치 전달 가능"
+      },
+      {
+       "f": "L_AIS_06",
+       "why": "AI 기술을 통한 고객 니즈 해결책 제시 가능"
+      },
+      {
+       "f": "L_PH_AIS_08",
+       "why": "AI 맞춤 환경 제공이라는 호텔 객실 가치 제안에 적합"
+      },
+      {
+       "f": "L_VP_G",
+       "why": "대표 제품 하나로 강한 메시지 전달 가능"
+      },
+      {
+       "f": "L_VP_H",
+       "why": "이해관계자별 맞춤 가치 제안 가능"
+      },
+      {
+       "f": "L_VP_Q",
+       "why": "리뉴얼 레퍼런스 사례로 신뢰도 확보 가능"
+      },
+      {
+       "f": "L_PH_VP_C",
+       "why": "강한 메시지와 근거를 통해 가치 제안 가능"
+      },
+      {
+       "f": "L_AIS_07",
+       "why": "글로벌 응대 시나리오를 통한 가치 전달 가능"
+      },
+      {
+       "f": "L_AIS_09",
+       "why": "맞춤 서비스 흐름을 통해 가치 제안 가능"
+      },
+      {
+       "f": "L_VP_P",
+       "why": "솔루션 실제 화면으로 구체적인 가치 증명 가능"
+      },
+      {
+       "f": "L_VP_J",
+       "why": "솔루션과 연결 제품의 통합 가치 제안 가능"
+      },
+      {
+       "f": "L_VP_S",
+       "why": "L_PH_VP_L의 실사판으로 리뉴얼 전후 비교 가능"
+      },
+      {
+       "f": "L_VP_T",
+       "why": "제품 실사와 스펙 기반의 가치 제안 가능"
+      }
+     ],
+     "final": [
+      "L_VP_U_HT",
+      "L_PH_VP_U",
+      "L_PH_VP_L",
+      "L_VP_F",
+      "L_VP_F2",
+      "L_VP_F4",
+      "L_VP_US",
+      "L_VP_UC",
+      "L_AIS_06",
+      "L_PH_AIS_08"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C04_L3:requirements",
+     "q": "은행 업무용 모니터 입찰 고객 요구 이해 장표",
+     "part": "requirements",
+     "industry": "FN",
+     "strategy": "rfp",
+     "level": "complex",
+     "gold": [
+      "L_RM_B",
+      "L_RM_C"
+     ],
+     "gold_in_pool": true
+    },
+    "tc_fp": "2919440bac467c18",
+    "baseline": {
+     "final": [
+      "L_RM_B",
+      "L_RM_C",
+      "L_PH_RQ_A",
+      "L_PH_RQ_C",
+      "L_PH_RQ_B",
+      "L_PH_RQ_G",
+      "L_PH_OV_A",
+      "L_SC_B",
+      "L_PH_RQ_F",
+      "L_PH_RQ_D"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 20866,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2618,
+      "output_tokens": 688,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_RM_B",
+       "why": "RFP 대응 및 다수 요구사항을 표로 정리하는 데 최적"
+      },
+      {
+       "f": "L_RM_C",
+       "why": "RFP 평가 항목과 배점에 따른 대응 전략을 보여주기 좋음"
+      },
+      {
+       "f": "L_PH_RQ_A",
+       "why": "분야별 요구사항을 사진과 함께 시각적으로 전달 가능"
+      },
+      {
+       "f": "L_PH_RQ_G",
+       "why": "필수/선택/가점 항목으로 구분된 RFP 요구사항 대응에 적합"
+      },
+      {
+       "f": "L_PH_RQ_F",
+       "why": "요구사항을 구체적인 제품/솔루션 화면으로 매핑하여 증명"
+      },
+      {
+       "f": "L_TOC_RFP",
+       "why": "RFP 평가 항목별 대응 근거를 일대일로 매칭하여 정리"
+      },
+      {
+       "f": "L_PH_RQ_B",
+       "why": "배점이 높은 핵심 요구사항을 강조하여 시각적으로 표현"
+      },
+      {
+       "f": "L_PH_RQ_E",
+       "why": "고객의 명시적 요구와 잠재적 요구를 분석하여 통찰력 제시"
+      },
+      {
+       "f": "L_PH_RQ_D",
+       "why": "은행 현장 사진 위에 핵심 요구사항의 위치를 핀으로 표시"
+      },
+      {
+       "f": "L_PH_IM_G",
+       "why": "고객의 결정 기준과 우리 대응 방향을 증거 사진과 함께 제시"
+      },
+      {
+       "f": "L_PH_MI_FN_B",
+       "why": "금융 업종 특화 장표로 운영 과제와 현장 사진을 연결"
+      },
+      {
+       "f": "L_PH_RQ_C",
+       "why": "키맨별 관심사와 요구사항을 분석하여 맞춤형 대응"
+      },
+      {
+       "f": "L_PH_RQ_H",
+       "why": "은행 업무용 모니터 설치 현장 실사 결과 반영"
+      },
+      {
+       "f": "L_PH_IM_L",
+       "why": "고객 인터뷰 질문과 그에 대한 답을 현장 사진과 함께 제시"
+      },
+      {
+       "f": "L_PH_MI_FN_C",
+       "why": "금융 고객 여정 분석을 통해 사용자 경험 기반 요구 이해"
+      },
+      {
+       "f": "L_PH_OV_A",
+       "why": "사업 추진 배경과 목적을 현장 사진과 함께 개요로 정리"
+      },
+      {
+       "f": "L_SC_B",
+       "why": "제품 사양(Spec) 기반의 요구사항 충족 여부 증명"
+      },
+      {
+       "f": "L_PH_US_L",
+       "why": "은행 내 결정권자와 실사용자의 요구 차이를 분석"
+      },
+      {
+       "f": "L_OV_C",
+       "why": "사업 전제 조건 및 확인 요청 사항 정리"
+      },
+      {
+       "f": "L_PH_SO_P",
+       "why": "특정 보안 솔루션 대응 시나리오를 통한 요구 충족 증명"
+      }
+     ],
+     "final": [
+      "L_RM_B",
+      "L_RM_C",
+      "L_PH_RQ_A",
+      "L_PH_RQ_G",
+      "L_PH_RQ_F",
+      "L_TOC_RFP",
+      "L_PH_RQ_B",
+      "L_PH_RQ_E",
+      "L_PH_RQ_D",
+      "L_PH_IM_G"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C05_L1:products",
+     "q": "대학 스마트 캠퍼스 공간별 제품 장표",
+     "part": "products",
+     "industry": "ED",
+     "strategy": "space",
+     "level": "minimal",
+     "gold": [
+      "L_P2B"
+     ],
+     "gold_in_pool": true
+    },
+    "tc_fp": "ab9b20ca6fc7ff43",
+    "baseline": {
+     "final": [
+      "L_P5B",
+      "L_P3B",
+      "L_P4B",
+      "L_P2B",
+      "L_PH_P_I",
+      "L_VS_SPACE",
+      "L_PH_P_S",
+      "L_PH_P_L",
+      "L_P1A",
+      "L_PH_P4_A"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.25,
+      "gold_rank": 4
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 12025,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2099,
+      "output_tokens": 389,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_VS_SPACE",
+       "why": "공간별 대표 제품과 사진, 특징을 보여주기에 가장 적합함"
+      },
+      {
+       "f": "L_P5B",
+       "why": "공간 및 설치 중심의 동선 기반 제품 배치를 보여주기에 좋음"
+      },
+      {
+       "f": "L_P3B",
+       "why": "공간 및 설치 중심의 제품 목록을 구성하기에 적합함"
+      },
+      {
+       "f": "L_P4B",
+       "why": "L_P3B와 유사하게 공간 중심의 제품 제안에 적합함"
+      },
+      {
+       "f": "L_P2B",
+       "why": "공간 중심의 제품 구성으로 스마트 캠퍼스 제안에 적합함"
+      },
+      {
+       "f": "L_PH_P4_A",
+       "why": "여러 제품을 설치 장면 위주로 보여주어 공간감을 제공함"
+      },
+      {
+       "f": "L_PH_P_I",
+       "why": "공간의 분위기와 제품을 함께 보여주어 설득력이 높음"
+      },
+      {
+       "f": "L_PH_P3_A",
+       "why": "공식 제품 컷과 설치 장면을 병행하여 공간별 제품을 명확히 전달함"
+      },
+      {
+       "f": "L_P_T",
+       "why": "한 공간에 많은 제품이 들어갈 때 효율적으로 구성 가능함"
+      }
+     ],
+     "final": [
+      "L_VS_SPACE",
+      "L_P5B",
+      "L_P3B",
+      "L_P4B",
+      "L_P2B",
+      "L_PH_P4_A",
+      "L_PH_P_I",
+      "L_PH_P3_A",
+      "L_P_T",
+      "L_PH_P_S"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.2,
+      "gold_rank": 5
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C06_L3:spec",
+     "q": "물류센터 현장 모바일 제품 스펙 장표",
+     "part": "spec",
+     "industry": "MF",
+     "strategy": "pain",
+     "level": "complex",
+     "gold": [
+      "L_SC_B",
+      "L_SD_E"
+     ],
+     "gold_in_pool": true
+    },
+    "tc_fp": "498972e6847e7038",
+    "baseline": {
+     "final": [
+      "L_SD_E",
+      "L_SE_B",
+      "L_SPEC4",
+      "L_SD_B",
+      "L_SPEC5",
+      "L_SD_F",
+      "L_SPEC1",
+      "L_SC_B",
+      "L_TOC_SPEC",
+      "L_PH_SC_A"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 12321,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2158,
+      "output_tokens": 401,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_SD_E",
+       "why": "모바일 및 현장 단말 사양에 최적화된 레이아웃"
+      },
+      {
+       "f": "L_SPEC1",
+       "why": "그룹별 상세 사양 정리에 적합한 범용적 구성"
+      },
+      {
+       "f": "L_TOC_PSPEC",
+       "why": "단일 제품의 핵심 수치와 사양을 강조하기 좋음"
+      },
+      {
+       "f": "L_SPEC4",
+       "why": "여러 모바일 제품의 사양을 비교표로 제시 가능"
+      },
+      {
+       "f": "L_SPEC5",
+       "why": "L_SPEC4와 유사하게 다수 제품 사양 비교에 적합"
+      },
+      {
+       "f": "L_TOC_SPEC",
+       "why": "핵심 제품 3종의 사양을 나란히 비교하기 좋음"
+      },
+      {
+       "f": "L_PH_SC_A",
+       "why": "제품 사진과 사양 비교표를 함께 보여주기 적합"
+      },
+      {
+       "f": "L_SC_B",
+       "why": "물류센터 현장 요구사항 대응표로 활용 가능"
+      },
+      {
+       "f": "L_SE_B",
+       "why": "현장 단말의 인증 및 규격 현황 제시에 필요"
+      },
+      {
+       "f": "L_SC_E",
+       "why": "현장 설치 조건에 따른 모델 선택 가이드 제공"
+      }
+     ],
+     "final": [
+      "L_SD_E",
+      "L_SPEC1",
+      "L_TOC_PSPEC",
+      "L_SPEC4",
+      "L_SPEC5",
+      "L_TOC_SPEC",
+      "L_PH_SC_A",
+      "L_SC_B",
+      "L_SE_B",
+      "L_SC_E"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C07_L3:why",
+     "q": "백화점 사이니지 공급사 전환 Why Samsung 장표",
+     "part": "why",
+     "industry": "RT",
+     "strategy": "compete",
+     "level": "complex",
+     "gold": [
+      "L_CM_B",
+      "L_CM_E",
+      "L_ST_E",
+      "L_WS01"
+     ],
+     "gold_in_pool": true
+    },
+    "tc_fp": "483a8d5087995b9e",
+    "baseline": {
+     "final": [
+      "L_PH_SV_B",
+      "L_PH_CM_A",
+      "L_ST_D",
+      "L_SV_C",
+      "L_PH_CP_W",
+      "L_PH_CP_X",
+      "L_PH_ST_A",
+      "L_CM_C",
+      "L_VS_WHY_2",
+      "L_VS_WHY_1"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.09090909090909091,
+      "gold_rank": 11
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 27156,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2313,
+      "output_tokens": 918,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_PH_CM_A",
+       "why": "공급사 전환을 위한 비교 기준별 현장 사진 제시로 설득력 강화"
+      },
+      {
+       "f": "L_PH_CP_X",
+       "why": "레이더 차트로 삼성과 경쟁사의 종합적인 성능 비교를 시각화"
+      },
+      {
+       "f": "L_PH_CP_W",
+       "why": "경쟁사 대비 열위 항목 보완 방안을 사진과 수치로 제시하여 신뢰도 제고"
+      },
+      {
+       "f": "L_PH_ST_A",
+       "why": "삼성의 핵심 강점을 대형 현장 사진으로 증명하여 시각적 임팩트 부여"
+      },
+      {
+       "f": "L_ST_D",
+       "why": "강점과 증거 사진을 매칭하여 공급사 전환의 당위성 확보"
+      },
+      {
+       "f": "L_PH_SV_B",
+       "why": "전국 서비스망과 SLA로 리테일 매장 운영의 안정성 강조"
+      },
+      {
+       "f": "L_VS_WHY_3",
+       "why": "디바이스, 솔루션, 서비스 통합 오퍼링으로 전환 비용 및 관리 효율성 강조"
+      },
+      {
+       "f": "L_VS_WHY_1",
+       "why": "People, Product, Process, Brand의 4가지 약속으로 종합적인 가치 제안"
+      },
+      {
+       "f": "L_TOC_CPWIN",
+       "why": "사진, 숫자, 점수로 경쟁사와의 차별점을 명확히 비교"
+      },
+      {
+       "f": "L_CM_C",
+       "why": "여러 기준을 종합하여 삼성의 우위를 점하는 레이더 차트 활용"
+      },
+      {
+       "f": "L_ST_E",
+       "why": "경쟁사의 주장에 대한 반론과 근거를 제시하여 리스크 관리"
+      },
+      {
+       "f": "L_VS_WHY_4",
+       "why": "배송, 설치, 유지보수 서비스 프로세스로 리테일 현장 맞춤형 지원 강조"
+      },
+      {
+       "f": "L_VS_WHY_2",
+       "why": "산업 및 시공 전문가 집단으로 백화점 사이니지 구축의 전문성 입증"
+      },
+      {
+       "f": "L_VS_WHY_5",
+       "why": "삼성의 글로벌 브랜드 가치와 디자인 수상 경력을 통해 백화점의 프리미엄 이미지 제고"
+      },
+      {
+       "f": "L_WS03",
+       "why": "고객 요구사항과 삼성의 강점을 2x2 매트릭스로 매칭하여 최적의 솔루션 제시"
+      },
+      {
+       "f": "L_CM_E",
+       "why": "경쟁사 대비 열위 항목에 대한 정직한 보완 방안 제시"
+      },
+      {
+       "f": "L_PH_CP_D",
+       "why": "경쟁사 대비 차별화된 기능적 우위를 시연 장면 사진으로 증명"
+      },
+      {
+       "f": "L_SV_C",
+       "why": "L_PH_SV_B보다 구체적인 서비스 현장 4단계 프로세스로 사후 관리 강조"
+      },
+      {
+       "f": "L_CM_D",
+       "why": "경쟁사 프로파일링을 통해 전환 대상인 기존 공급사의 약점 분석"
+      },
+      {
+       "f": "L_PH_IM_F",
+       "why": "제안의 핵심 메시지를 풀블리드 사진으로 강렬하게 전달"
+      }
+     ],
+     "final": [
+      "L_PH_CM_A",
+      "L_PH_CP_X",
+      "L_PH_CP_W",
+      "L_PH_ST_A",
+      "L_ST_D",
+      "L_PH_SV_B",
+      "L_VS_WHY_3",
+      "L_VS_WHY_1",
+      "L_TOC_CPWIN",
+      "L_CM_C"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.09090909090909091,
+      "gold_rank": 11
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C08_L1:value",
+     "q": "아파트 분양 빌트인 · 스마트홈 Value Propositions 장표",
+     "part": "value",
+     "industry": "RS",
+     "strategy": "value",
+     "level": "minimal",
+     "gold": [
+      "L_RV_A",
+      "L_VP_F"
+     ],
+     "gold_in_pool": true
+    },
+    "tc_fp": "265a4edd4e0a26d9",
+    "baseline": {
+     "final": [
+      "L_PH_RV_A",
+      "L_VP_F2",
+      "L_VP_F4",
+      "L_VP_F",
+      "L_VP_G",
+      "L_RV_B",
+      "L_VP_P",
+      "L_VP_J",
+      "L_VP_T",
+      "L_VP_I"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.25,
+      "gold_rank": 4
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 13748,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2336,
+      "output_tokens": 429,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_PH_RV_A",
+       "why": "분양 포인트와 공간 사진을 통해 주거 가치를 효과적으로 전달"
+      },
+      {
+       "f": "L_VP_F2",
+       "why": "가치 기둥과 제품을 매칭하여 빌트인 가전의 가치를 명확히 제시"
+      },
+      {
+       "f": "L_VP_F4",
+       "why": "2x2 매트릭스로 다양한 스마트홈 제품군을 체계적으로 구성"
+      },
+      {
+       "f": "L_VP_F",
+       "why": "가치 기둥 수에 따라 유연하게 스마트홈 가치를 구성 가능"
+      },
+      {
+       "f": "L_VP_G",
+       "why": "대표 제품 하나로 스마트홈의 핵심 가치를 강렬하게 전달"
+      },
+      {
+       "f": "L_RV_B",
+       "why": "세대 타입별 옵션 패키지를 보여주기에 최적화된 레이아웃"
+      },
+      {
+       "f": "L_VP_J",
+       "why": "스마트홈 솔루션 화면과 연결 제품 간의 연결성을 시각화"
+      },
+      {
+       "f": "L_VP_P",
+       "why": "스마트홈 앱의 실제 구동 화면과 주석으로 실질적 가치 증명"
+      },
+      {
+       "f": "L_VP_N",
+       "why": "설치 사례 사진을 통해 실제 주거 공간에 적용된 모습 제시"
+      },
+      {
+       "f": "L_PH_VP_B2",
+       "why": "두 가지 핵심 가치를 큰 사진과 함께 직관적으로 전달"
+      }
+     ],
+     "final": [
+      "L_PH_RV_A",
+      "L_VP_F2",
+      "L_VP_F4",
+      "L_VP_F",
+      "L_VP_G",
+      "L_RV_B",
+      "L_VP_J",
+      "L_VP_P",
+      "L_VP_N",
+      "L_PH_VP_B2"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.25,
+      "gold_rank": 4
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C09_L3:cost",
+     "q": "무인 스터디카페 에너지 절감 비용 · 구매 장표",
+     "part": "cost",
+     "industry": "SV",
+     "strategy": "roi",
+     "level": "complex",
+     "gold": [
+      "L_CO_A",
+      "L_CO_B"
+     ],
+     "gold_in_pool": true
+    },
+    "tc_fp": "e69a06635340acfe",
+    "baseline": {
+     "final": [
+      "L_CO_B",
+      "L_CO_A",
+      "L_PH_CO_A",
+      "L_PH_CO_B",
+      "L_TOC_TCO",
+      "L_PH_CO_E",
+      "L_PH_CO_D",
+      "L_PH_CO_C",
+      "L_SUB_VALUE3",
+      "L_PH_CO_F"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 11731,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2523,
+      "output_tokens": 383,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_PH_EF_B",
+       "why": "ROI 및 투자 회수 기간을 시각화하여 에너지 절감 비용을 효과적으로 제시"
+      },
+      {
+       "f": "L_PH_EF_G",
+       "why": "운영비 절감액을 워터폴 차트로 보여주어 에너지 비용 감소를 구체적으로 증명"
+      },
+      {
+       "f": "L_CO_B",
+       "why": "5년 총소유비용(TCO)을 통해 장기적인 비용 절감 효과를 비교 분석"
+      },
+      {
+       "f": "L_TOC_TCO",
+       "why": "구매 방식과 TCO를 한 장에 정리하여 구매 결정에 최적화된 장표"
+      },
+      {
+       "f": "L_CO_A",
+       "why": "일시불, 구독, 렌탈 등 다양한 구매 방식의 비용 차이를 명확히 비교"
+      },
+      {
+       "f": "L_PH_CO_B",
+       "why": "제품 컷과 함께 누적 비용 막대를 통해 비용 변화를 시각적으로 전달"
+      },
+      {
+       "f": "L_PH_CO_A",
+       "why": "지점 사진과 함께 누적 비용의 역전 시점을 보여주어 ROI로 접근"
+      },
+      {
+       "f": "L_PH_CO_D",
+       "why": "제품별 수량과 단가를 포함한 구체적인 견적 요약 장표로 활용 가능"
+      }
+     ],
+     "final": [
+      "L_PH_EF_B",
+      "L_PH_EF_G",
+      "L_CO_B",
+      "L_TOC_TCO",
+      "L_CO_A",
+      "L_PH_CO_B",
+      "L_PH_CO_A",
+      "L_PH_CO_D",
+      "L_PH_CO_E",
+      "L_PH_CO_C"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.3333333333333333,
+      "gold_rank": 3
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C10_L3:execution",
+     "q": "요양병원 병동 확산 실행 계획 장표",
+     "part": "execution",
+     "industry": "MD",
+     "strategy": "land",
+     "level": "complex",
+     "gold": [
+      "L_PL_A",
+      "L_PL_B",
+      "L_SV_A"
+     ],
+     "gold_in_pool": true
+    },
+    "tc_fp": "b7766ce8ef79ee91",
+    "baseline": {
+     "final": [
+      "L_PH_PL_A",
+      "L_PH_IP_A",
+      "L_PL_B",
+      "L_MT_B",
+      "L_TO_A",
+      "L_IP_A",
+      "L_PH_TO_B",
+      "L_PH_SE_C",
+      "L_PH_CU_B",
+      "L_CU_A"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.3333333333333333,
+      "gold_rank": 3
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 8008,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2330,
+      "output_tokens": 218,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_PH_PL_A",
+       "why": "파일럿에서 확산으로 이어지는 단계적 실행 계획에 최적"
+      },
+      {
+       "f": "L_TOC_ROADMAP",
+       "why": "실사부터 확산까지의 전체 로드맵을 보여주기에 적합"
+      },
+      {
+       "f": "L_TOC_PILOT",
+       "why": "파일럿과 확산의 범위 및 성공 기준 제시 가능"
+      },
+      {
+       "f": "L_PH_IP_A",
+       "why": "구축 및 운영 단계의 현장 실행 계획 구체화 가능"
+      },
+      {
+       "f": "L_PH_PL_B",
+       "why": "시범 대상 선정 및 확산 지표 설정에 유용"
+      }
+     ],
+     "final": [
+      "L_PH_PL_A",
+      "L_TOC_ROADMAP",
+      "L_TOC_PILOT",
+      "L_PH_IP_A",
+      "L_PH_PL_B",
+      "L_PL_B",
+      "L_MT_B",
+      "L_TO_A",
+      "L_IP_A",
+      "L_PH_TO_B"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.16666666666666666,
+      "gold_rank": 6
+     }
+    }
+   }
+  ],
+  "catalog.rank": [
+   {
+    "tc": {
+     "id": "C01_L2",
+     "q": "C 커피가 매장 디지털 전환을 고민하고 있습니다. 매장 경험을 좀 더 세련되게 바꾸고 싶고, 본사 입장에서는 메뉴 운영이 편해졌으면 한다고 합니다. 아직 구체적인 범위는 정해지지 않았어요.",
+     "count": 10,
+     "gold": [
+      "bs01",
+      "bs16"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs01",
+      "bs_std_fb_qsr",
+      "bs_std_fb_cafe",
+      "bs_v_ai_store_1",
+      "bs_std_sv_unmanned",
+      "bs_v_ai_store_2",
+      "bs_v_smart_retail_2",
+      "bs_v_smart_network_2",
+      "bs_v_smart_retail_1",
+      "bs_std_oe_telco",
+      "bs_std_sv_screen",
+      "bs_std_rt_flag",
+      "bs_std_rt_small",
+      "bs_std_ed_k12",
+      "bs_std_sv_laundry",
+      "bs_v_smart_hotel_1",
+      "bs_v_smart_network_1",
+      "bs_std_rt_hyper",
+      "bs_std_rt_mall",
+      "bs_account_paulbassett",
+      "bs_std_sv_beauty",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_smart_finance_1",
+      "bs_std_ht_mid",
+      "bs_std_fn_bank",
+      "bs_sub_std_ht_mid",
+      "bs_sub_fn_bank",
+      "bs_std_pb_agency",
+      "bs13",
+      "bs_std_ed_academy",
+      "bs_std_mi_military",
+      "bs_v_entertainment_1",
+      "bs_v_smart_hospital_1",
+      "bs_std_ed_univ",
+      "bs_std_of_hq",
+      "bs_std_tp_park",
+      "bs_std_mf_logistics",
+      "bs_std_rs_apt",
+      "bs_std_fb_rest",
+      "bs10",
+      "bs_v_smart_office_1",
+      "bs19",
+      "bs_std_md_hospital",
+      "bs_std_of_cowork",
+      "bs_v_smart_home_1",
+      "bs_std_rs_senior",
+      "bs16",
+      "bs_std_tp_museum",
+      "bs_sub_std_of_sme",
+      "bs_std_ad_ooh"
+     ]
+    },
+    "tc_fp": "b3ddef36281775ce",
+    "baseline": {
+     "final": [
+      "bs01",
+      "bs_std_fb_qsr",
+      "bs_std_fb_cafe",
+      "bs_v_ai_store_1",
+      "bs_std_sv_unmanned",
+      "bs_v_ai_store_2",
+      "bs_v_smart_retail_2",
+      "bs_v_smart_network_2",
+      "bs_v_smart_retail_1",
+      "bs_std_oe_telco"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.",
+     "trace": "val.py\", line 138, in timed\n    out = fn()\n          ^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 177, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 289, in task\n    order, model = catalog_rank.rank('scenarios', tc['q'], {}, tc['candidates'], tc['count'], provider=env.llm, decision=decision, tracker=tracker)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/catalog_rank.py\", line 104, in rank\n    return _rank_llm(kind, query, filters, candidates, count, provider, tracker)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/catalog_rank.py\", line 153, in _rank_llm\n    raise from_provider(STEP, exc) from None\napp.api.poc.jobs.ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C02_L2",
+     "q": "신축 업무시설이라 입주사들이 좋아할 만한 스마트한 오피스를 만들고 싶다고 합니다. 에너지도 아끼고 싶고요. 설계 단계라 구체적인 건 아직 미정입니다.",
+     "count": 10,
+     "gold": [
+      "bs02"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs02",
+      "bs_v_knowledge_industry_center_1",
+      "bs_std_rs_officetel",
+      "bs_std_of_sme",
+      "bs_v_smart_office_1",
+      "bs_std_of_cowork",
+      "bs_std_of_hq",
+      "bs_v_ai_office_1",
+      "bs_sub_std_of_sme",
+      "bs_std_mi_military",
+      "bs_v_ai_office_2",
+      "bs_sub_of_hq",
+      "bs_v_smart_home_1",
+      "bs_v_knowledge_industry_center_2",
+      "bs_v_smart_office_2",
+      "bs_v_ai_apartment_1",
+      "bs_std_pb_agency",
+      "bs_v_smart_retail_1",
+      "bs_sub_fn_bank",
+      "bs19",
+      "bs_std_rs_apt",
+      "bs_v_senior_town_1",
+      "bs_std_rs_senior",
+      "bs_v_smart_public_1",
+      "bs_std_fn_hq",
+      "bs_std_md_hospital",
+      "bs_v_smart_school_1",
+      "bs_sub_std_pb_agency",
+      "bs_std_fb_qsr",
+      "bs_v_smart_home_2",
+      "bs_std_mf_logistics",
+      "bs_std_ed_univ",
+      "bs_v_smart_hotel_2",
+      "bs_std_mf_factory",
+      "bs_std_rt_mall",
+      "bs_std_id_partner",
+      "bs_v_smart_barracks_1",
+      "bs_v_ai_store_1",
+      "bs_std_ad_ooh",
+      "bs_v_smart_finance_1",
+      "bs_std_rt_hyper",
+      "bs_std_ht_mid",
+      "bs_std_md_tertiary",
+      "bs_std_ed_academy",
+      "bs_v_smart_network_2",
+      "bs_std_ht_large",
+      "bs_std_md_clinic",
+      "bs_sub_md_hospital",
+      "bs_v_smart_university_2",
+      "bs_v_smart_network_1"
+     ]
+    },
+    "tc_fp": "ceda5845f66349f7",
+    "baseline": {
+     "final": [
+      "bs02",
+      "bs_v_knowledge_industry_center_1",
+      "bs_std_rs_officetel",
+      "bs_std_of_sme",
+      "bs_v_smart_office_1",
+      "bs_std_of_cowork",
+      "bs_std_of_hq",
+      "bs_v_ai_office_1",
+      "bs_sub_std_of_sme",
+      "bs_std_mi_military"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.",
+     "trace": "val.py\", line 138, in timed\n    out = fn()\n          ^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 177, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 289, in task\n    order, model = catalog_rank.rank('scenarios', tc['q'], {}, tc['candidates'], tc['count'], provider=env.llm, decision=decision, tracker=tracker)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/catalog_rank.py\", line 104, in rank\n    return _rank_llm(kind, query, filters, candidates, count, provider, tracker)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/catalog_rank.py\", line 153, in _rank_llm\n    raise from_provider(STEP, exc) from None\napp.api.poc.jobs.ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C03_L2",
+     "q": "객실 리뉴얼을 앞두고 TV와 에어컨 교체를 검토 중입니다. 투숙객 불만이 좀 있다고 하네요. 공사 일정이나 범위는 아직 정해지지 않았습니다.",
+     "count": 10,
+     "gold": [
+      "bs07"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs07",
+      "bs_v_smart_hotel_1",
+      "bs_v_smart_hotel_2",
+      "bs_std_ht_mid",
+      "bs_std_ht_stay",
+      "bs_sub_std_ht_mid",
+      "bs_std_ht_large",
+      "bs_sub_ht_large",
+      "bs08",
+      "bs10",
+      "bs_account_inspire",
+      "bs_v_smart_university_2",
+      "bs06",
+      "bs_v_smart_barracks_2",
+      "bs_v_smart_retail_2",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_smart_hospital_2",
+      "bs_v_smart_public_1",
+      "bs_v_senior_town_2",
+      "bs19",
+      "bs_v_smart_academy_1",
+      "bs_v_smart_public_2",
+      "bs_v_smart_school_2",
+      "bs_v_ai_apartment_1",
+      "bs_sub_ed_univ",
+      "bs09",
+      "bs_std_mi_military",
+      "bs_v_smart_home_1",
+      "bs_v_smart_network_2",
+      "bs02",
+      "bs_v_entertainment_1",
+      "bs18",
+      "bs04",
+      "bs_std_id_partner",
+      "bs_std_rs_officetel",
+      "bs_v_smart_transportation_1",
+      "bs_account_paulbassett",
+      "bs_account_episode",
+      "bs_sub_md_hospital",
+      "bs_std_fb_qsr",
+      "bs_v_smart_retail_1",
+      "bs_sub_std_pb_agency",
+      "bs_v_smart_factory_1",
+      "bs_std_rs_apt",
+      "bs_v_smart_finance_1",
+      "bs_sub_std_of_sme",
+      "bs_std_rt_flag",
+      "bs_v_smart_home_2",
+      "bs_std_sv_unmanned",
+      "bs_v_smart_finance_2"
+     ]
+    },
+    "tc_fp": "3d56830fc0f3712f",
+    "baseline": {
+     "final": [
+      "bs07",
+      "bs_v_smart_hotel_1",
+      "bs_v_smart_hotel_2",
+      "bs_std_ht_mid",
+      "bs_std_ht_stay",
+      "bs_sub_std_ht_mid",
+      "bs_std_ht_large",
+      "bs_sub_ht_large",
+      "bs08",
+      "bs10"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.",
+     "trace": "val.py\", line 138, in timed\n    out = fn()\n          ^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 177, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 289, in task\n    order, model = catalog_rank.rank('scenarios', tc['q'], {}, tc['candidates'], tc['count'], provider=env.llm, decision=decision, tracker=tracker)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/catalog_rank.py\", line 104, in rank\n    return _rank_llm(kind, query, filters, candidates, count, provider, tracker)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/catalog_rank.py\", line 153, in _rank_llm\n    raise from_provider(STEP, exc) from None\napp.api.poc.jobs.ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C04_L2",
+     "q": "은행 영업점 창구를 좀 더 디지털하게 바꾸고 싶다는 요청이 있었습니다. 고객 대기 경험도 개선하고 싶다고 하는데, 어디서부터 시작할지는 정하지 못했다고 합니다.",
+     "count": 10,
+     "gold": [
+      "bs17",
+      "bs16",
+      "bs19"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs_v_smart_finance_1",
+      "bs_std_fn_bank",
+      "bs_sub_fn_bank",
+      "bs17",
+      "bs_v_smart_public_1",
+      "bs_v_ai_store_2",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_rt_hyper",
+      "bs_v_smart_hospital_1",
+      "bs_v_senior_town_2",
+      "bs_v_smart_barracks_2",
+      "bs_v_knowledge_industry_center_1",
+      "bs_std_rt_flag",
+      "bs_std_vn_stadium",
+      "bs_std_pb_transport",
+      "bs_v_smart_finance_2",
+      "bs10",
+      "bs_v_entertainment_1",
+      "bs_std_sv_screen",
+      "bs_std_ed_k12",
+      "bs_sub_std_md_clinic",
+      "bs_std_tp_park",
+      "bs_v_smart_hospital_2",
+      "bs12",
+      "bs07",
+      "bs_std_fb_cafe",
+      "bs_v_smart_retail_2",
+      "bs_std_mi_military",
+      "bs_std_fb_qsr",
+      "bs_sub_std_pb_agency",
+      "bs06",
+      "bs_v_ai_office_1",
+      "bs_std_id_partner",
+      "bs01",
+      "bs_v_senior_town_1",
+      "bs_std_ed_univ",
+      "bs_std_md_clinic",
+      "bs_std_fn_hq",
+      "bs_std_rt_mall",
+      "bs_std_tp_museum",
+      "bs_std_oe_telco",
+      "bs_std_ad_ooh",
+      "bs_std_vn_cinema",
+      "bs_std_rt_small",
+      "bs_std_of_sme",
+      "bs_std_ed_academy",
+      "bs_std_of_hq",
+      "bs_std_fb_rest",
+      "bs_v_smart_factory_2",
+      "bs_v_smart_university_2"
+     ]
+    },
+    "tc_fp": "288adba025bcc3ab",
+    "baseline": {
+     "final": [
+      "bs_v_smart_finance_1",
+      "bs_std_fn_bank",
+      "bs_sub_fn_bank",
+      "bs17",
+      "bs_v_smart_public_1",
+      "bs_v_ai_store_2",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_rt_hyper",
+      "bs_v_smart_hospital_1",
+      "bs_v_senior_town_2"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.25,
+      "gold_rank": 4
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.",
+     "trace": "val.py\", line 138, in timed\n    out = fn()\n          ^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 177, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 289, in task\n    order, model = catalog_rank.rank('scenarios', tc['q'], {}, tc['candidates'], tc['count'], provider=env.llm, decision=decision, tracker=tracker)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/catalog_rank.py\", line 104, in rank\n    return _rank_llm(kind, query, filters, candidates, count, provider, tracker)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/catalog_rank.py\", line 153, in _rank_llm\n    raise from_provider(STEP, exc) from None\napp.api.poc.jobs.ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C05_L2",
+     "q": "캠퍼스를 스마트하게 바꾸는 사업을 준비 중이라, 학생들이 체감할 수 있는 학습 경험 개선 방안을 알고 싶어 합니다.",
+     "count": 10,
+     "gold": [
+      "bs03"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs_std_ed_univ",
+      "bs_v_smart_academy_2",
+      "bs_v_smart_academy_1",
+      "bs_sub_ed_univ",
+      "bs_v_smart_university_1",
+      "bs_std_of_sme",
+      "bs03",
+      "bs_v_smart_school_1",
+      "bs_std_fb_qsr",
+      "bs_std_ed_k12",
+      "bs_std_ed_academy",
+      "bs_v_smart_university_2",
+      "bs_v_smart_school_2",
+      "bs_v_smart_office_1",
+      "bs_std_ad_ooh",
+      "bs_v_smart_retail_1",
+      "bs_std_sv_laundry",
+      "bs_std_md_tertiary",
+      "bs_sub_std_md_clinic",
+      "bs_std_md_clinic",
+      "bs_v_smart_factory_2",
+      "bs_std_of_hq",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_entertainment_2",
+      "bs06",
+      "bs_std_rs_senior",
+      "bs_std_rt_flag",
+      "bs_sub_std_of_sme",
+      "bs_v_smart_retail_2",
+      "bs_std_rt_hyper",
+      "bs_v_smart_public_1",
+      "bs_v_smart_office_2",
+      "bs_std_rs_officetel",
+      "bs01",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_md_ltc",
+      "bs_sub_ht_large",
+      "bs_sub_std_pb_agency",
+      "bs_v_smart_hospital_1",
+      "bs_sub_of_hq",
+      "bs_std_fb_cafe",
+      "bs10",
+      "bs_v_smart_barracks_1",
+      "bs_v_ai_store_2",
+      "bs_std_mi_military",
+      "bs_v_smart_transportation_2",
+      "bs_std_tp_park",
+      "bs_v_senior_town_1",
+      "bs20",
+      "bs_v_entertainment_1"
+     ]
+    },
+    "tc_fp": "9901b443130d6530",
+    "baseline": {
+     "final": [
+      "bs_std_ed_univ",
+      "bs_v_smart_academy_2",
+      "bs_v_smart_academy_1",
+      "bs_sub_ed_univ",
+      "bs_v_smart_university_1",
+      "bs_std_of_sme",
+      "bs03",
+      "bs_v_smart_school_1",
+      "bs_std_fb_qsr",
+      "bs_std_ed_k12"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.14285714285714285,
+      "gold_rank": 7
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.",
+     "trace": "val.py\", line 138, in timed\n    out = fn()\n          ^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 177, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 289, in task\n    order, model = catalog_rank.rank('scenarios', tc['q'], {}, tc['candidates'], tc['count'], provider=env.llm, decision=decision, tracker=tracker)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/catalog_rank.py\", line 104, in rank\n    return _rank_llm(kind, query, filters, candidates, count, provider, tracker)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/catalog_rank.py\", line 153, in _rank_llm\n    raise from_provider(STEP, exc) from None\napp.api.poc.jobs.ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C06_L2",
+     "q": "물류센터 현장 업무가 비효율적이라 디지털화하고 싶다고 합니다. 기기 관리도 골칫거리라고 하네요.",
+     "count": 10,
+     "gold": [
+      "bs14"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs_std_mf_logistics",
+      "bs14",
+      "bs_std_fn_bank",
+      "bs_sub_fn_bank",
+      "bs_std_ed_k12",
+      "bs_v_smart_public_1",
+      "bs_std_mf_factory",
+      "bs_std_of_sme",
+      "bs_std_ed_academy",
+      "bs_sub_std_of_sme",
+      "bs_std_pb_agency",
+      "bs_std_rt_flag",
+      "bs_sub_ed_univ",
+      "bs_v_smart_barracks_1",
+      "bs_std_rt_hyper",
+      "bs_std_ed_univ",
+      "bs_std_mi_military",
+      "bs_std_pb_transport",
+      "bs_std_rs_apt",
+      "bs_v_smart_finance_2",
+      "bs_v_smart_factory_1",
+      "bs_std_of_hq",
+      "bs_std_vn_cinema",
+      "bs_std_md_hospital",
+      "bs_v_smart_factory_2",
+      "bs_std_fn_hq",
+      "bs_std_rt_mall",
+      "bs_v_smart_transportation_2",
+      "bs_v_smart_office_2",
+      "bs_std_ad_ooh",
+      "bs_sub_of_hq",
+      "bs_v_smart_finance_1",
+      "bs_std_sf_fitness",
+      "bs_v_ai_office_2",
+      "bs_std_of_cowork",
+      "bs_v_knowledge_industry_center_1",
+      "bs_std_ht_mid",
+      "bs_std_rs_officetel",
+      "bs_std_fb_qsr",
+      "bs_std_md_clinic",
+      "bs_std_rs_senior",
+      "bs_std_md_tertiary",
+      "bs_std_oe_telco",
+      "bs_std_sv_unmanned",
+      "bs_std_sv_laundry",
+      "bs_std_fb_cafe",
+      "bs_std_tp_park",
+      "bs_std_sv_screen",
+      "bs_sub_std_ht_mid",
+      "bs_sub_std_md_clinic"
+     ]
+    },
+    "tc_fp": "f4c8dc18532aba99",
+    "baseline": {
+     "final": [
+      "bs_std_mf_logistics",
+      "bs14",
+      "bs_std_fn_bank",
+      "bs_sub_fn_bank",
+      "bs_std_ed_k12",
+      "bs_v_smart_public_1",
+      "bs_std_mf_factory",
+      "bs_std_of_sme",
+      "bs_std_ed_academy",
+      "bs_sub_std_of_sme"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.5,
+      "gold_rank": 2
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.",
+     "trace": "val.py\", line 138, in timed\n    out = fn()\n          ^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 177, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 289, in task\n    order, model = catalog_rank.rank('scenarios', tc['q'], {}, tc['candidates'], tc['count'], provider=env.llm, decision=decision, tracker=tracker)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/catalog_rank.py\", line 104, in rank\n    return _rank_llm(kind, query, filters, candidates, count, provider, tracker)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/catalog_rank.py\", line 153, in _rank_llm\n    raise from_provider(STEP, exc) from None\napp.api.poc.jobs.ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C07_L2",
+     "q": "백화점에서 지금 타사 사이니지를 쓰고 있는데, 재계약 시점이라 다른 공급사도 검토 중이라고 합니다.",
+     "count": 10,
+     "gold": [
+      "bs10",
+      "bs06",
+      "bs16"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs10",
+      "bs_std_rt_mall",
+      "bs_v_smart_retail_2",
+      "bs_account_paulbassett",
+      "bs16",
+      "bs_v_smart_academy_2",
+      "bs_v_smart_office_1",
+      "bs_std_rs_officetel",
+      "bs04",
+      "bs_v_smart_network_2",
+      "bs_v_smart_transportation_1",
+      "bs02",
+      "bs_v_knowledge_industry_center_2",
+      "bs_account_inspire",
+      "bs_std_of_cowork",
+      "bs_v_ai_office_1",
+      "bs_account_episode",
+      "bs_v_entertainment_2",
+      "bs_std_rs_apt",
+      "bs_v_smart_barracks_1",
+      "bs_v_senior_town_1",
+      "bs_v_entertainment_1",
+      "bs_v_smart_public_2",
+      "bs_v_smart_home_2",
+      "bs_v_smart_hotel_1",
+      "bs01",
+      "bs08",
+      "bs_std_fb_qsr",
+      "bs17",
+      "bs_std_ed_univ",
+      "bs_std_pb_agency",
+      "bs_v_smart_hotel_2",
+      "bs_v_smart_university_2",
+      "bs_v_ai_store_2",
+      "bs_v_smart_public_1",
+      "bs_std_fn_bank",
+      "bs_v_smart_finance_1",
+      "bs_sub_std_pb_agency",
+      "bs_v_smart_factory_2",
+      "bs_v_smart_home_1",
+      "bs_sub_fn_bank",
+      "bs_std_ad_ooh",
+      "bs_sub_ed_univ",
+      "bs_std_rt_small",
+      "bs_std_fn_hq",
+      "bs_v_smart_university_1",
+      "bs_std_ht_mid",
+      "bs06",
+      "bs_std_rs_senior",
+      "bs20"
+     ]
+    },
+    "tc_fp": "a5e863066dedeab1",
+    "baseline": {
+     "final": [
+      "bs10",
+      "bs_std_rt_mall",
+      "bs_v_smart_retail_2",
+      "bs_account_paulbassett",
+      "bs16",
+      "bs_v_smart_academy_2",
+      "bs_v_smart_office_1",
+      "bs_std_rs_officetel",
+      "bs04",
+      "bs_v_smart_network_2"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.",
+     "trace": "val.py\", line 138, in timed\n    out = fn()\n          ^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 177, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 289, in task\n    order, model = catalog_rank.rank('scenarios', tc['q'], {}, tc['candidates'], tc['count'], provider=env.llm, decision=decision, tracker=tracker)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/catalog_rank.py\", line 104, in rank\n    return _rank_llm(kind, query, filters, candidates, count, provider, tracker)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/catalog_rank.py\", line 153, in _rank_llm\n    raise from_provider(STEP, exc) from None\napp.api.poc.jobs.ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C08_L2",
+     "q": "분양을 앞둔 아파트 단지에서 차별화 포인트로 가전과 스마트홈을 검토하고 있습니다. 어떤 구성이 좋을지 제안해 달라고 합니다.",
+     "count": 10,
+     "gold": [
+      "bs04"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs04",
+      "bs_std_rs_apt",
+      "bs_v_ai_apartment_1",
+      "bs_v_smart_home_2",
+      "bs_v_smart_home_1",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_ai_apartment_2",
+      "bs_account_episode",
+      "bs_v_smart_school_2",
+      "bs_v_entertainment_1",
+      "bs_std_mb_studio",
+      "bs_std_rs_officetel",
+      "bs02",
+      "bs18",
+      "bs_v_smart_barracks_1",
+      "bs_v_smart_finance_2",
+      "bs_v_smart_transportation_1",
+      "bs_std_id_partner",
+      "bs_sub_std_pb_agency",
+      "bs_std_of_cowork",
+      "bs_std_mf_logistics",
+      "bs_std_mi_military",
+      "bs_std_fb_qsr",
+      "bs_sub_std_of_sme",
+      "bs_sub_std_ht_mid",
+      "bs07",
+      "bs_sub_md_hospital",
+      "bs_sub_std_md_clinic",
+      "bs_std_ht_mid",
+      "bs_v_senior_town_2",
+      "bs_std_pb_agency",
+      "bs_std_tp_park",
+      "bs_std_rs_senior",
+      "bs_std_md_hospital",
+      "bs_std_fb_cafe",
+      "bs_std_of_sme",
+      "bs_std_ed_univ",
+      "bs_v_smart_public_2",
+      "bs_std_rt_hyper",
+      "bs_std_vn_cinema",
+      "bs_std_of_hq",
+      "bs_v_smart_factory_2",
+      "bs_std_oe_telco",
+      "bs_std_rt_flag",
+      "bs_std_ed_academy",
+      "bs_std_fb_rest",
+      "bs_std_md_clinic",
+      "bs_std_sv_laundry",
+      "bs_sub_ht_large",
+      "bs_v_ai_office_1"
+     ]
+    },
+    "tc_fp": "228a69ea6ae4d966",
+    "baseline": {
+     "final": [
+      "bs04",
+      "bs_std_rs_apt",
+      "bs_v_ai_apartment_1",
+      "bs_v_smart_home_2",
+      "bs_v_smart_home_1",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_ai_apartment_2",
+      "bs_account_episode",
+      "bs_v_smart_school_2",
+      "bs_v_entertainment_1"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.",
+     "trace": "val.py\", line 138, in timed\n    out = fn()\n          ^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 177, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 289, in task\n    order, model = catalog_rank.rank('scenarios', tc['q'], {}, tc['candidates'], tc['count'], provider=env.llm, decision=decision, tracker=tracker)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/catalog_rank.py\", line 104, in rank\n    return _rank_llm(kind, query, filters, candidates, count, provider, tracker)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/catalog_rank.py\", line 153, in _rank_llm\n    raise from_provider(STEP, exc) from None\napp.api.poc.jobs.ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C09_L2",
+     "q": "무인 매장을 여러 곳 운영하는데 전기료가 많이 나와서 고민이라고 합니다. 매장에 사람이 없어서 관리도 어렵다고 하네요.",
+     "count": 10,
+     "gold": [
+      "bs13"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs13",
+      "bs_std_sv_unmanned",
+      "bs_std_sv_laundry",
+      "bs_std_rt_small",
+      "bs_v_smart_network_2",
+      "bs01",
+      "bs_v_ai_store_1",
+      "bs_v_ai_store_2",
+      "bs_std_oe_telco",
+      "bs_v_smart_retail_2",
+      "bs_std_sv_screen",
+      "bs16",
+      "bs_std_fb_cafe",
+      "bs_std_rg_church",
+      "bs_std_sv_beauty",
+      "bs_v_entertainment_2",
+      "bs_v_smart_network_1",
+      "bs_std_ht_mid",
+      "bs_std_ht_stay",
+      "bs_std_fb_qsr",
+      "bs15",
+      "bs_v_smart_public_2",
+      "bs_account_paulbassett",
+      "bs_std_rt_mall",
+      "bs_v_smart_transportation_1",
+      "bs_v_smart_university_2",
+      "bs_v_smart_retail_1",
+      "bs_std_vn_cinema",
+      "bs_std_rt_hyper",
+      "bs_std_rt_flag",
+      "bs_v_smart_hospital_2",
+      "bs_v_knowledge_industry_center_2",
+      "bs_v_smart_home_2",
+      "bs06",
+      "bs_v_smart_office_1",
+      "bs_v_smart_academy_2",
+      "bs_std_mb_studio",
+      "bs_std_ad_ooh",
+      "bs_v_ai_office_2",
+      "bs_std_mf_factory",
+      "bs_v_ai_apartment_2",
+      "bs_v_smart_barracks_2",
+      "bs_std_tp_park",
+      "bs_v_smart_school_1",
+      "bs20",
+      "bs14",
+      "bs_v_smart_factory_2",
+      "bs_std_of_cowork",
+      "bs_v_smart_hotel_2",
+      "bs03"
+     ]
+    },
+    "tc_fp": "a55d85cf86c01c93",
+    "baseline": {
+     "final": [
+      "bs13",
+      "bs_std_sv_unmanned",
+      "bs_std_sv_laundry",
+      "bs_std_rt_small",
+      "bs_v_smart_network_2",
+      "bs01",
+      "bs_v_ai_store_1",
+      "bs_v_ai_store_2",
+      "bs_std_oe_telco",
+      "bs_v_smart_retail_2"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.",
+     "trace": "val.py\", line 138, in timed\n    out = fn()\n          ^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 177, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 289, in task\n    order, model = catalog_rank.rank('scenarios', tc['q'], {}, tc['candidates'], tc['count'], provider=env.llm, decision=decision, tracker=tracker)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/catalog_rank.py\", line 104, in rank\n    return _rank_llm(kind, query, filters, candidates, count, provider, tracker)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/catalog_rank.py\", line 153, in _rank_llm\n    raise from_provider(STEP, exc) from None\napp.api.poc.jobs.ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C10_L2",
+     "q": "작년에 한 병동에서 파일럿을 했는데 반응이 좋아서 다른 병동으로도 넓힐지 고민이라고 합니다.",
+     "count": 10,
+     "gold": [
+      "bs08",
+      "bs17"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs_v_smart_hospital_2",
+      "bs17",
+      "bs_v_smart_hospital_1",
+      "bs08",
+      "bs13",
+      "bs_std_md_tertiary",
+      "bs14",
+      "bs_sub_md_hospital",
+      "bs01",
+      "bs_v_knowledge_industry_center_2",
+      "bs_sub_std_md_clinic",
+      "bs_v_smart_public_2",
+      "bs_v_smart_transportation_2",
+      "bs_v_smart_factory_1",
+      "bs_std_of_sme",
+      "bs_v_smart_retail_2",
+      "bs_sub_std_of_sme",
+      "bs_std_md_hospital",
+      "bs_v_smart_network_2",
+      "bs_v_smart_academy_2",
+      "bs_v_smart_barracks_2",
+      "bs_v_ai_store_1",
+      "bs_v_smart_barracks_1",
+      "bs_v_ai_office_2",
+      "bs_std_mi_military",
+      "bs15",
+      "bs_v_smart_school_2",
+      "bs_v_entertainment_1",
+      "bs_v_smart_home_2",
+      "bs_account_paulbassett",
+      "bs_std_fb_qsr",
+      "bs_std_rt_small",
+      "bs_v_smart_factory_2",
+      "bs18",
+      "bs_v_ai_apartment_2",
+      "bs_v_smart_university_2",
+      "bs_v_smart_university_1",
+      "bs16",
+      "bs_v_ai_office_1",
+      "bs_v_smart_office_1",
+      "bs_v_ai_store_2",
+      "bs_v_smart_hotel_1",
+      "bs_std_mf_logistics",
+      "bs_v_smart_home_1",
+      "bs_v_senior_town_2",
+      "bs_std_oe_telco",
+      "bs_v_smart_transportation_1",
+      "bs_v_senior_town_1",
+      "bs_v_knowledge_industry_center_1",
+      "bs_std_ht_large"
+     ]
+    },
+    "tc_fp": "42f65bb04a07d037",
+    "baseline": {
+     "final": [
+      "bs_v_smart_hospital_2",
+      "bs17",
+      "bs_v_smart_hospital_1",
+      "bs08",
+      "bs13",
+      "bs_std_md_tertiary",
+      "bs14",
+      "bs_sub_md_hospital",
+      "bs01",
+      "bs_v_knowledge_industry_center_2"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.5,
+      "gold_rank": 2
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.",
+     "trace": "val.py\", line 138, in timed\n    out = fn()\n          ^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 177, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 289, in task\n    order, model = catalog_rank.rank('scenarios', tc['q'], {}, tc['candidates'], tc['count'], provider=env.llm, decision=decision, tracker=tracker)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/catalog_rank.py\", line 104, in rank\n    return _rank_llm(kind, query, filters, candidates, count, provider, tracker)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/catalog_rank.py\", line 153, in _rank_llm\n    raise from_provider(STEP, exc) from None\napp.api.poc.jobs.ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.\n"
+    }
+   }
+  ],
+  "catalog.rank:compact": [
+   {
+    "tc": {
+     "id": "C01_L2",
+     "q": "C 커피가 매장 디지털 전환을 고민하고 있습니다. 매장 경험을 좀 더 세련되게 바꾸고 싶고, 본사 입장에서는 메뉴 운영이 편해졌으면 한다고 합니다. 아직 구체적인 범위는 정해지지 않았어요.",
+     "count": 10,
+     "gold": [
+      "bs01",
+      "bs16"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs01",
+      "bs_std_fb_qsr",
+      "bs_std_fb_cafe",
+      "bs_v_ai_store_1",
+      "bs_std_sv_unmanned",
+      "bs_v_ai_store_2",
+      "bs_v_smart_retail_2",
+      "bs_v_smart_network_2",
+      "bs_v_smart_retail_1",
+      "bs_std_oe_telco",
+      "bs_std_sv_screen",
+      "bs_std_rt_flag",
+      "bs_std_rt_small",
+      "bs_std_ed_k12",
+      "bs_std_sv_laundry",
+      "bs_v_smart_hotel_1",
+      "bs_v_smart_network_1",
+      "bs_std_rt_hyper",
+      "bs_std_rt_mall",
+      "bs_account_paulbassett"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "tc_fp": "36b679919140f71c",
+    "baseline": {
+     "final": [
+      "bs01",
+      "bs_std_fb_qsr",
+      "bs_std_fb_cafe",
+      "bs_v_ai_store_1",
+      "bs_std_sv_unmanned",
+      "bs_v_ai_store_2",
+      "bs_v_smart_retail_2",
+      "bs_v_smart_network_2",
+      "bs_v_smart_retail_1",
+      "bs_std_oe_telco"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 16261,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4825,
+      "output_tokens": 545,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs_std_fb_cafe",
+       "reason": "카페 업종에 특화된 AI 메뉴 큐레이션 및 매장 운영 제안서로 고객의 니즈에 가장 부합함"
+      },
+      {
+       "id": "bs_std_fb_qsr",
+       "reason": "외식 프랜차이즈 대상 AI 메뉴 운영 및 매장 관리 솔루션을 제공하여 본사 운영 편의성을 높임"
+      },
+      {
+       "id": "bs_v_ai_store_1",
+       "reason": "본사 승인 및 배포 체계를 통해 여러 매장의 메뉴 화면을 일괄 운영하는 구체적 사례로 적합함"
+      },
+      {
+       "id": "bs01",
+       "reason": "인쇄 메뉴판을 디지털 메뉴보드로 전환하여 본사 일괄 운영 효율을 높이는 실질적 방안 제시"
+      },
+      {
+       "id": "bs_account_paulbassett",
+       "reason": "카페 브랜드의 본사 및 직영점 브랜드 운영 효율화를 위한 디지털 제안서로 맥락이 일치함"
+      },
+      {
+       "id": "bs_v_ai_store_2",
+       "reason": "매장 경험을 세련되게 바꾸는 주문 및 픽업 동선 개선 제안으로 매장 경험 개선에 도움됨"
+      },
+      {
+       "id": "bs_v_smart_retail_2",
+       "reason": "여러 매장의 행사 및 가격 안내를 본사 기준으로 원격 배포하여 운영 편의성을 제공함"
+      },
+      {
+       "id": "bs_v_smart_network_2",
+       "reason": "가맹 매장의 콘텐츠 및 운영 표준화 제안으로 본사 중심의 일괄 관리를 지원함"
+      },
+      {
+       "id": "bs_std_rt_small",
+       "reason": "소형 매장의 AI 홍보 및 무인 운영 제안을 통해 디지털 전환의 기초적인 방향성 제시"
+      },
+      {
+       "id": "bs_std_rt_flag",
+       "reason": "브랜드 플래그십의 AI 브랜드 체험 및 스토어 운영 제안으로 세련된 매장 경험 설계 가능"
+      }
+     ],
+     "final": [
+      "bs_std_fb_cafe",
+      "bs_std_fb_qsr",
+      "bs_v_ai_store_1",
+      "bs01",
+      "bs_account_paulbassett",
+      "bs_v_ai_store_2",
+      "bs_v_smart_retail_2",
+      "bs_v_smart_network_2",
+      "bs_std_rt_small",
+      "bs_std_rt_flag"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.25,
+      "gold_rank": 4
+     },
+     "model": "gemma-4-31b-it"
+    }
+   },
+   {
+    "tc": {
+     "id": "C02_L2",
+     "q": "신축 업무시설이라 입주사들이 좋아할 만한 스마트한 오피스를 만들고 싶다고 합니다. 에너지도 아끼고 싶고요. 설계 단계라 구체적인 건 아직 미정입니다.",
+     "count": 10,
+     "gold": [
+      "bs02"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs02",
+      "bs_v_knowledge_industry_center_1",
+      "bs_std_rs_officetel",
+      "bs_std_of_sme",
+      "bs_v_smart_office_1",
+      "bs_std_of_cowork",
+      "bs_std_of_hq",
+      "bs_v_ai_office_1",
+      "bs_sub_std_of_sme",
+      "bs_std_mi_military",
+      "bs_v_ai_office_2",
+      "bs_sub_of_hq",
+      "bs_v_smart_home_1",
+      "bs_v_knowledge_industry_center_2",
+      "bs_v_smart_office_2",
+      "bs_v_ai_apartment_1",
+      "bs_std_pb_agency",
+      "bs_v_smart_retail_1",
+      "bs_sub_fn_bank",
+      "bs19"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "tc_fp": "05ce38aefea2dcc6",
+    "baseline": {
+     "final": [
+      "bs02",
+      "bs_v_knowledge_industry_center_1",
+      "bs_std_rs_officetel",
+      "bs_std_of_sme",
+      "bs_v_smart_office_1",
+      "bs_std_of_cowork",
+      "bs_std_of_hq",
+      "bs_v_ai_office_1",
+      "bs_sub_std_of_sme",
+      "bs_std_mi_military"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 15563,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4981,
+      "output_tokens": 510,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs02",
+       "reason": "신축 오피스 설계 단계에서 AI Ready 및 에너지 절감을 제안하는 최적의 자료입니다."
+      },
+      {
+       "id": "bs_v_smart_office_1",
+       "reason": "설계 확정 전 설비 연동과 운영 기준을 정하는 신축 업무 빌딩 제안서입니다."
+      },
+      {
+       "id": "bs_v_ai_office_1",
+       "reason": "설계 단계부터 공조와 시설 관리를 반영하는 신사옥 AI 오피스 구축 제안입니다."
+      },
+      {
+       "id": "bs_std_of_hq",
+       "reason": "대기업 사옥 대상 AI 빌딩 에너지 및 스마트 오피스 표준 제안서입니다."
+      },
+      {
+       "id": "bs_std_of_sme",
+       "reason": "중소기업 오피스를 위한 AI 스마트 오피스 및 쾌적 환경 표준 제안서입니다."
+      },
+      {
+       "id": "bs_std_of_cowork",
+       "reason": "입주사가 이용하는 공유오피스 형태의 AI 워크스페이스 표준 제안서입니다."
+      },
+      {
+       "id": "bs19",
+       "reason": "구체적인 요구사항이 미정인 설계 단계의 경영진 첫 미팅용 브리프입니다."
+      },
+      {
+       "id": "bs_v_knowledge_industry_center_1",
+       "reason": "신축 지식산업센터의 공용 시설과 공조 관제를 차별화하는 제안서입니다."
+      },
+      {
+       "id": "bs_v_ai_office_2",
+       "reason": "임대 빌딩의 공조 통합 관제를 통한 에너지 절감 효과 검증 제안입니다."
+      },
+      {
+       "id": "bs_sub_std_of_sme",
+       "reason": "중소기업 오피스 표준 제안에 구독 솔루션을 더해 초기 비용 부담을 낮춘 제안입니다."
+      }
+     ],
+     "final": [
+      "bs02",
+      "bs_v_smart_office_1",
+      "bs_v_ai_office_1",
+      "bs_std_of_hq",
+      "bs_std_of_sme",
+      "bs_std_of_cowork",
+      "bs19",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_ai_office_2",
+      "bs_sub_std_of_sme"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "gemma-4-31b-it"
+    }
+   },
+   {
+    "tc": {
+     "id": "C03_L2",
+     "q": "객실 리뉴얼을 앞두고 TV와 에어컨 교체를 검토 중입니다. 투숙객 불만이 좀 있다고 하네요. 공사 일정이나 범위는 아직 정해지지 않았습니다.",
+     "count": 10,
+     "gold": [
+      "bs07"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs07",
+      "bs_v_smart_hotel_1",
+      "bs_v_smart_hotel_2",
+      "bs_std_ht_mid",
+      "bs_std_ht_stay",
+      "bs_sub_std_ht_mid",
+      "bs_std_ht_large",
+      "bs_sub_ht_large",
+      "bs08",
+      "bs10",
+      "bs_account_inspire",
+      "bs_v_smart_university_2",
+      "bs06",
+      "bs_v_smart_barracks_2",
+      "bs_v_smart_retail_2",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_smart_hospital_2",
+      "bs_v_smart_public_1",
+      "bs_v_senior_town_2",
+      "bs19"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "tc_fp": "8f02990b3817c19a",
+    "baseline": {
+     "final": [
+      "bs07",
+      "bs_v_smart_hotel_1",
+      "bs_v_smart_hotel_2",
+      "bs_std_ht_mid",
+      "bs_std_ht_stay",
+      "bs_sub_std_ht_mid",
+      "bs_std_ht_large",
+      "bs_sub_ht_large",
+      "bs08",
+      "bs10"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 14767,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4991,
+      "output_tokens": 472,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs07",
+       "reason": "호텔 객실 TV와 공조 교체 및 투숙 경험 개선에 특화된 제안서입니다."
+      },
+      {
+       "id": "bs_v_smart_hotel_2",
+       "reason": "영업 중인 호텔의 TV와 공조를 단계적으로 교체하는 상황에 적합합니다."
+      },
+      {
+       "id": "bs_std_ht_mid",
+       "reason": "비즈니스 호텔의 AI 쾌적 객실 등 표준 솔루션을 제안하기 좋습니다."
+      },
+      {
+       "id": "bs_std_ht_large",
+       "reason": "대형 호텔의 맞춤 환경 및 서비스 표준 제안에 적합한 자료입니다."
+      },
+      {
+       "id": "bs_sub_std_ht_mid",
+       "reason": "초기 비용 부담이 있을 때 구독형 솔루션으로 제안 가능한 양식입니다."
+      },
+      {
+       "id": "bs_sub_ht_large",
+       "reason": "대형 호텔 대상의 AI 구독 패키지 및 시설 관리 제안에 적합합니다."
+      },
+      {
+       "id": "bs_std_ht_stay",
+       "reason": "레지던스나 풀빌라 형태의 숙박 시설 리뉴얼 시 활용 가능합니다."
+      },
+      {
+       "id": "bs10",
+       "reason": "기존 장비에 대한 투숙객 불만이 있을 때 공급사 전환 제안으로 유용합니다."
+      },
+      {
+       "id": "bs19",
+       "reason": "공사 일정과 범위가 미정인 초기 경영진 미팅 단계에 적합합니다."
+      },
+      {
+       "id": "bs_account_inspire",
+       "reason": "복합 리조트의 서비스 통합 및 객실 TV 운영 사례로 참고 가능합니다."
+      }
+     ],
+     "final": [
+      "bs07",
+      "bs_v_smart_hotel_2",
+      "bs_std_ht_mid",
+      "bs_std_ht_large",
+      "bs_sub_std_ht_mid",
+      "bs_sub_ht_large",
+      "bs_std_ht_stay",
+      "bs10",
+      "bs19",
+      "bs_account_inspire"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "gemma-4-31b-it"
+    }
+   },
+   {
+    "tc": {
+     "id": "C04_L2",
+     "q": "은행 영업점 창구를 좀 더 디지털하게 바꾸고 싶다는 요청이 있었습니다. 고객 대기 경험도 개선하고 싶다고 하는데, 어디서부터 시작할지는 정하지 못했다고 합니다.",
+     "count": 10,
+     "gold": [
+      "bs17",
+      "bs16",
+      "bs19"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs_v_smart_finance_1",
+      "bs_std_fn_bank",
+      "bs_sub_fn_bank",
+      "bs17",
+      "bs_v_smart_public_1",
+      "bs_v_ai_store_2",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_rt_hyper",
+      "bs_v_smart_hospital_1",
+      "bs_v_senior_town_2",
+      "bs_v_smart_barracks_2",
+      "bs_v_knowledge_industry_center_1",
+      "bs_std_rt_flag",
+      "bs_std_vn_stadium",
+      "bs_std_pb_transport",
+      "bs_v_smart_finance_2",
+      "bs10",
+      "bs_v_entertainment_1",
+      "bs_std_sv_screen",
+      "bs_std_ed_k12"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "tc_fp": "5fe63bb99add9cfc",
+    "baseline": {
+     "final": [
+      "bs_v_smart_finance_1",
+      "bs_std_fn_bank",
+      "bs_sub_fn_bank",
+      "bs17",
+      "bs_v_smart_public_1",
+      "bs_v_ai_store_2",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_rt_hyper",
+      "bs_v_smart_hospital_1",
+      "bs_v_senior_town_2"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.25,
+      "gold_rank": 4
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 14812,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4872,
+      "output_tokens": 451,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs_std_fn_bank",
+       "reason": "은행 영업점의 AI 객장 안내와 페이퍼리스 창구 등 전반적인 디지털 전환의 시작점을 제안하기에 가장 적합함"
+      },
+      {
+       "id": "bs_v_smart_finance_1",
+       "reason": "스마트 웨이팅과 전자서식 도입을 통해 고객 대기 경험과 창구 디지털화를 구체적으로 해결함"
+      },
+      {
+       "id": "bs17",
+       "reason": "파일럿 검증 후 전 지점 확산 단계의 전략을 제시하여 디지털 창구 구축의 실행 경로를 제공함"
+      },
+      {
+       "id": "bs_v_smart_finance_2",
+       "reason": "방문 상담 단말의 운영 효율화를 통해 디지털 창구 운영의 실질적인 관리 방안을 제안함"
+      },
+      {
+       "id": "bs_v_smart_hospital_1",
+       "reason": "의료원 로비 길안내와 전자동의 등 대기 경험 개선과 디지털 창구 전환 사례로 벤치마킹 가능함"
+      },
+      {
+       "id": "bs_v_smart_public_1",
+       "reason": "민원청사 안내 사이니지와 디지털 민원창구 구축 사례로 은행 창구 디지털화에 응용 가능함"
+      },
+      {
+       "id": "bs_v_ai_store_2",
+       "reason": "주문 및 픽업 동선 개선과 대기 줄 혼잡도 해결 사례로 고객 대기 경험 개선에 참고 가능함"
+      },
+      {
+       "id": "bs10",
+       "reason": "경쟁사 장비 교체 및 공급사 전환 전략을 통해 디지털 전환 시의 리스크 관리 방안을 제안함"
+      },
+      {
+       "id": "bs_v_entertainment_1",
+       "reason": "로비 경험과 주문 동선 설계 사례로 은행 객장 내 고객 동선 및 대기 경험 개선에 활용 가능함"
+      },
+      {
+       "id": "bs_std_pb_transport",
+       "reason": "교통 인프라의 AI 승객 안내 및 통합 관제 사례를 통해 객장 안내 디지털화의 표준 모델을 참고함"
+      }
+     ],
+     "final": [
+      "bs_std_fn_bank",
+      "bs_v_smart_finance_1",
+      "bs17",
+      "bs_v_smart_finance_2",
+      "bs_v_smart_hospital_1",
+      "bs_v_smart_public_1",
+      "bs_v_ai_store_2",
+      "bs10",
+      "bs_v_entertainment_1",
+      "bs_std_pb_transport"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.3333333333333333,
+      "gold_rank": 3
+     },
+     "model": "gemma-4-31b-it"
+    }
+   },
+   {
+    "tc": {
+     "id": "C05_L2",
+     "q": "캠퍼스를 스마트하게 바꾸는 사업을 준비 중이라, 학생들이 체감할 수 있는 학습 경험 개선 방안을 알고 싶어 합니다.",
+     "count": 10,
+     "gold": [
+      "bs03"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs_std_ed_univ",
+      "bs_v_smart_academy_2",
+      "bs_v_smart_academy_1",
+      "bs_sub_ed_univ",
+      "bs_v_smart_university_1",
+      "bs_std_of_sme",
+      "bs03",
+      "bs_v_smart_school_1",
+      "bs_std_fb_qsr",
+      "bs_std_ed_k12",
+      "bs_std_ed_academy",
+      "bs_v_smart_university_2",
+      "bs_v_smart_school_2",
+      "bs_v_smart_office_1",
+      "bs_std_ad_ooh",
+      "bs_v_smart_retail_1",
+      "bs_std_sv_laundry",
+      "bs_std_md_tertiary",
+      "bs_sub_std_md_clinic",
+      "bs_std_md_clinic"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "tc_fp": "30e05c3d91eec4f8",
+    "baseline": {
+     "final": [
+      "bs_std_ed_univ",
+      "bs_v_smart_academy_2",
+      "bs_v_smart_academy_1",
+      "bs_sub_ed_univ",
+      "bs_v_smart_university_1",
+      "bs_std_of_sme",
+      "bs03",
+      "bs_v_smart_school_1",
+      "bs_std_fb_qsr",
+      "bs_std_ed_k12"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.14285714285714285,
+      "gold_rank": 7
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 19926,
+     "usage": {
+      "calls": 1,
+      "attempts": 3,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4834,
+      "output_tokens": 533,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs_std_ed_univ",
+       "reason": "대학 캠퍼스 AI 표준 제안서로 학생과 교직원의 니즈를 반영한 공간별 솔루션을 제공합니다."
+      },
+      {
+       "id": "bs03",
+       "reason": "학생의 하루를 따라 강의실과 도서관을 바꾸는 공간 경험형 제안으로 학습 경험 개선에 최적입니다."
+      },
+      {
+       "id": "bs_v_smart_university_1",
+       "reason": "교양교육관의 협업 강의 환경 구축을 통해 학생들의 실질적인 학습 연결성을 개선합니다."
+      },
+      {
+       "id": "bs_sub_ed_univ",
+       "reason": "대학 캠퍼스 AI 구독 제안서로 초기 비용 부담 없이 스마트 캠퍼스 도입을 가능하게 합니다."
+      },
+      {
+       "id": "bs_v_smart_university_2",
+       "reason": "강의동과 도서관의 공조 운영 개선을 통해 학생들에게 쾌적한 학습 환경을 제공합니다."
+      },
+      {
+       "id": "bs_std_ed_k12",
+       "reason": "AI 스쿨 표준 제안서로 디지털 교실과 기기 관리를 통해 학습 경험을 개선하는 방안을 제시합니다."
+      },
+      {
+       "id": "bs_std_ed_academy",
+       "reason": "AI 아카데미 표준 제안서로 스마트 강의와 집중 자습 환경을 구축하여 학습 경험을 높입니다."
+      },
+      {
+       "id": "bs_v_smart_academy_1",
+       "reason": "상담부터 첫 수업까지의 기기 흐름을 통일하여 학생의 학습 경험을 일관되게 개선합니다."
+      },
+      {
+       "id": "bs_v_smart_academy_2",
+       "reason": "다지점 학원의 학습 단말 운영 개선을 통해 학생들에게 일관된 학습 콘텐츠를 제공합니다."
+      },
+      {
+       "id": "bs_v_smart_school_1",
+       "reason": "미래교실 구축을 통해 교실마다 다른 연결 방식을 통일하여 수업 효율과 학습 경험을 개선합니다."
+      }
+     ],
+     "final": [
+      "bs_std_ed_univ",
+      "bs03",
+      "bs_v_smart_university_1",
+      "bs_sub_ed_univ",
+      "bs_v_smart_university_2",
+      "bs_std_ed_k12",
+      "bs_std_ed_academy",
+      "bs_v_smart_academy_1",
+      "bs_v_smart_academy_2",
+      "bs_v_smart_school_1"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.5,
+      "gold_rank": 2
+     },
+     "model": "gemma-4-31b-it"
+    }
+   },
+   {
+    "tc": {
+     "id": "C06_L2",
+     "q": "물류센터 현장 업무가 비효율적이라 디지털화하고 싶다고 합니다. 기기 관리도 골칫거리라고 하네요.",
+     "count": 10,
+     "gold": [
+      "bs14"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs_std_mf_logistics",
+      "bs14",
+      "bs_std_fn_bank",
+      "bs_sub_fn_bank",
+      "bs_std_ed_k12",
+      "bs_v_smart_public_1",
+      "bs_std_mf_factory",
+      "bs_std_of_sme",
+      "bs_std_ed_academy",
+      "bs_sub_std_of_sme",
+      "bs_std_pb_agency",
+      "bs_std_rt_flag",
+      "bs_sub_ed_univ",
+      "bs_v_smart_barracks_1",
+      "bs_std_rt_hyper",
+      "bs_std_ed_univ",
+      "bs_std_mi_military",
+      "bs_std_pb_transport",
+      "bs_std_rs_apt",
+      "bs_v_smart_finance_2"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "tc_fp": "2c6dc6d2575043a5",
+    "baseline": {
+     "final": [
+      "bs_std_mf_logistics",
+      "bs14",
+      "bs_std_fn_bank",
+      "bs_sub_fn_bank",
+      "bs_std_ed_k12",
+      "bs_v_smart_public_1",
+      "bs_std_mf_factory",
+      "bs_std_of_sme",
+      "bs_std_ed_academy",
+      "bs_sub_std_of_sme"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.5,
+      "gold_rank": 2
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.",
+     "trace": "val.py\", line 138, in timed\n    out = fn()\n          ^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 177, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 289, in task\n    order, model = catalog_rank.rank('scenarios', tc['q'], {}, tc['candidates'], tc['count'], provider=env.llm, decision=decision, tracker=tracker)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/catalog_rank.py\", line 104, in rank\n    return _rank_llm(kind, query, filters, candidates, count, provider, tracker)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/catalog_rank.py\", line 153, in _rank_llm\n    raise from_provider(STEP, exc) from None\napp.api.poc.jobs.ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C07_L2",
+     "q": "백화점에서 지금 타사 사이니지를 쓰고 있는데, 재계약 시점이라 다른 공급사도 검토 중이라고 합니다.",
+     "count": 10,
+     "gold": [
+      "bs10",
+      "bs06",
+      "bs16"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs10",
+      "bs_std_rt_mall",
+      "bs_v_smart_retail_2",
+      "bs_account_paulbassett",
+      "bs16",
+      "bs_v_smart_academy_2",
+      "bs_v_smart_office_1",
+      "bs_std_rs_officetel",
+      "bs04",
+      "bs_v_smart_network_2",
+      "bs_v_smart_transportation_1",
+      "bs02",
+      "bs_v_knowledge_industry_center_2",
+      "bs_account_inspire",
+      "bs_std_of_cowork",
+      "bs_v_ai_office_1",
+      "bs_account_episode",
+      "bs_v_entertainment_2",
+      "bs_std_rs_apt",
+      "bs_v_smart_barracks_1"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "tc_fp": "2cc83d6c470194b0",
+    "baseline": {
+     "final": [
+      "bs10",
+      "bs_std_rt_mall",
+      "bs_v_smart_retail_2",
+      "bs_account_paulbassett",
+      "bs16",
+      "bs_v_smart_academy_2",
+      "bs_v_smart_office_1",
+      "bs_std_rs_officetel",
+      "bs04",
+      "bs_v_smart_network_2"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 16107,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4841,
+      "output_tokens": 522,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs10",
+       "reason": "타사 장비 사용 고객의 재계약 및 교체 시점에 최적화된 제안서입니다."
+      },
+      {
+       "id": "bs_std_rt_mall",
+       "reason": "백화점 및 쇼핑몰 업종에 특화된 표준 제안서로 기본 방향 설정에 적합합니다."
+      },
+      {
+       "id": "bs_v_smart_retail_2",
+       "reason": "리테일 매장의 운영 효율 개선 사례로, 타사 교체 시 운영 이점을 강조할 수 있습니다."
+      },
+      {
+       "id": "bs_v_smart_network_2",
+       "reason": "유통 체인의 콘텐츠 및 운영 표준화 제안으로 리테일 환경에 적합합니다."
+      },
+      {
+       "id": "bs16",
+       "reason": "다점포 사이니지 통합 운영 모델 선택지를 제공하여 교체 시 운영 효율을 제안하기 좋습니다."
+      },
+      {
+       "id": "bs_account_paulbassett",
+       "reason": "리테일 브랜드의 본사 및 직영점 운영 이해를 바탕으로 한 디지털 제안 사례입니다."
+      },
+      {
+       "id": "bs_account_inspire",
+       "reason": "복합 리조트의 기존 자산과 시스템을 대조하여 통합 제안하는 방식이 교체 제안에 유효합니다."
+      },
+      {
+       "id": "bs_v_entertainment_2",
+       "reason": "다목적 문화시설의 운영 개선 제안으로, 사이니지 운영 효율화를 통한 교체 명분을 제공합니다."
+      },
+      {
+       "id": "bs_v_smart_transportation_1",
+       "reason": "여러 안내 디스플레이를 통일하는 구축 제안으로, 공급사 전환 시의 통일성 강조에 활용 가능합니다."
+      },
+      {
+       "id": "bs_v_knowledge_industry_center_2",
+       "reason": "복합 시설의 운영 개선 제안으로, 타사 장비 교체 시의 관리 편의성을 소구할 수 있습니다."
+      }
+     ],
+     "final": [
+      "bs10",
+      "bs_std_rt_mall",
+      "bs_v_smart_retail_2",
+      "bs_v_smart_network_2",
+      "bs16",
+      "bs_account_paulbassett",
+      "bs_account_inspire",
+      "bs_v_entertainment_2",
+      "bs_v_smart_transportation_1",
+      "bs_v_knowledge_industry_center_2"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "gemma-4-31b-it"
+    }
+   },
+   {
+    "tc": {
+     "id": "C08_L2",
+     "q": "분양을 앞둔 아파트 단지에서 차별화 포인트로 가전과 스마트홈을 검토하고 있습니다. 어떤 구성이 좋을지 제안해 달라고 합니다.",
+     "count": 10,
+     "gold": [
+      "bs04"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs04",
+      "bs_std_rs_apt",
+      "bs_v_ai_apartment_1",
+      "bs_v_smart_home_2",
+      "bs_v_smart_home_1",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_ai_apartment_2",
+      "bs_account_episode",
+      "bs_v_smart_school_2",
+      "bs_v_entertainment_1",
+      "bs_std_mb_studio",
+      "bs_std_rs_officetel",
+      "bs02",
+      "bs18",
+      "bs_v_smart_barracks_1",
+      "bs_v_smart_finance_2",
+      "bs_v_smart_transportation_1",
+      "bs_std_id_partner",
+      "bs_sub_std_pb_agency",
+      "bs_std_of_cowork"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "tc_fp": "4408f52c40744fd1",
+    "baseline": {
+     "final": [
+      "bs04",
+      "bs_std_rs_apt",
+      "bs_v_ai_apartment_1",
+      "bs_v_smart_home_2",
+      "bs_v_smart_home_1",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_ai_apartment_2",
+      "bs_account_episode",
+      "bs_v_smart_school_2",
+      "bs_v_entertainment_1"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: bad_request: AI 서비스가 요청 형식을 거부했습니다. 입력 크기 · 이미지 형식을 확인하세요.",
+     "trace": "al.py\", line 138, in timed\n    out = fn()\n          ^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 177, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 289, in task\n    order, model = catalog_rank.rank('scenarios', tc['q'], {}, tc['candidates'], tc['count'], provider=env.llm, decision=decision, tracker=tracker)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/catalog_rank.py\", line 104, in rank\n    return _rank_llm(kind, query, filters, candidates, count, provider, tracker)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/catalog_rank.py\", line 153, in _rank_llm\n    raise from_provider(STEP, exc) from None\napp.api.poc.jobs.ModelFailure: bad_request: AI 서비스가 요청 형식을 거부했습니다. 입력 크기 · 이미지 형식을 확인하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C09_L2",
+     "q": "무인 매장을 여러 곳 운영하는데 전기료가 많이 나와서 고민이라고 합니다. 매장에 사람이 없어서 관리도 어렵다고 하네요.",
+     "count": 10,
+     "gold": [
+      "bs13"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs13",
+      "bs_std_sv_unmanned",
+      "bs_std_sv_laundry",
+      "bs_std_rt_small",
+      "bs_v_smart_network_2",
+      "bs01",
+      "bs_v_ai_store_1",
+      "bs_v_ai_store_2",
+      "bs_std_oe_telco",
+      "bs_v_smart_retail_2",
+      "bs_std_sv_screen",
+      "bs16",
+      "bs_std_fb_cafe",
+      "bs_std_rg_church",
+      "bs_std_sv_beauty",
+      "bs_v_entertainment_2",
+      "bs_v_smart_network_1",
+      "bs_std_ht_mid",
+      "bs_std_ht_stay",
+      "bs_std_fb_qsr"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "tc_fp": "4fb9e9790045ab20",
+    "baseline": {
+     "final": [
+      "bs13",
+      "bs_std_sv_unmanned",
+      "bs_std_sv_laundry",
+      "bs_std_rt_small",
+      "bs_v_smart_network_2",
+      "bs01",
+      "bs_v_ai_store_1",
+      "bs_v_ai_store_2",
+      "bs_std_oe_telco",
+      "bs_v_smart_retail_2"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 14307,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4741,
+      "output_tokens": 481,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs13",
+       "reason": "다점포 무인 매장의 전기료 절감과 공조 자동화 해결책을 직접적으로 제시함"
+      },
+      {
+       "id": "bs_std_sv_unmanned",
+       "reason": "무인 매장 표준 제안서로 AI 원격 관리 솔루션을 통해 관리 어려움을 해결함"
+      },
+      {
+       "id": "bs_std_rt_small",
+       "reason": "소형 무인 운영 니즈를 포함한 AI 스몰 스토어 표준 제안서임"
+      },
+      {
+       "id": "bs_std_sv_laundry",
+       "reason": "코인빨래방 등 무인 매장의 AI 무인 관리 솔루션을 제공함"
+      },
+      {
+       "id": "bs_std_sv_screen",
+       "reason": "스크린골프 등 무인 매장의 AI 매장 관리 솔루션을 포함함"
+      },
+      {
+       "id": "bs16",
+       "reason": "여러 지점의 사이니지를 통합 운영하여 관리 효율성을 높이는 제안임"
+      },
+      {
+       "id": "bs_v_smart_network_2",
+       "reason": "다수 가맹 매장의 운영 표준화 및 원격 관리를 통해 관리 부담을 줄임"
+      },
+      {
+       "id": "bs_v_smart_retail_2",
+       "reason": "여러 매장의 운영 개선 및 원격 배포로 관리 효율성을 제고함"
+      },
+      {
+       "id": "bs_std_fb_cafe",
+       "reason": "AI 매장 운영 솔루션을 통해 무인/효율적 매장 관리를 지원함"
+      },
+      {
+       "id": "bs_std_fb_qsr",
+       "reason": "외식 프랜차이즈의 AI 매장 관리 솔루션을 통해 운영 효율을 높임"
+      }
+     ],
+     "final": [
+      "bs13",
+      "bs_std_sv_unmanned",
+      "bs_std_rt_small",
+      "bs_std_sv_laundry",
+      "bs_std_sv_screen",
+      "bs16",
+      "bs_v_smart_network_2",
+      "bs_v_smart_retail_2",
+      "bs_std_fb_cafe",
+      "bs_std_fb_qsr"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "gemma-4-31b-it"
+    }
+   },
+   {
+    "tc": {
+     "id": "C10_L2",
+     "q": "작년에 한 병동에서 파일럿을 했는데 반응이 좋아서 다른 병동으로도 넓힐지 고민이라고 합니다.",
+     "count": 10,
+     "gold": [
+      "bs08",
+      "bs17"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs_v_smart_hospital_2",
+      "bs17",
+      "bs_v_smart_hospital_1",
+      "bs08",
+      "bs13",
+      "bs_std_md_tertiary",
+      "bs14",
+      "bs_sub_md_hospital",
+      "bs01",
+      "bs_v_knowledge_industry_center_2",
+      "bs_sub_std_md_clinic",
+      "bs_v_smart_public_2",
+      "bs_v_smart_transportation_2",
+      "bs_v_smart_factory_1",
+      "bs_std_of_sme",
+      "bs_v_smart_retail_2",
+      "bs_sub_std_of_sme",
+      "bs_std_md_hospital",
+      "bs_v_smart_network_2",
+      "bs_v_smart_academy_2"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "tc_fp": "3030ca07ca4ecca9",
+    "baseline": {
+     "final": [
+      "bs_v_smart_hospital_2",
+      "bs17",
+      "bs_v_smart_hospital_1",
+      "bs08",
+      "bs13",
+      "bs_std_md_tertiary",
+      "bs14",
+      "bs_sub_md_hospital",
+      "bs01",
+      "bs_v_knowledge_industry_center_2"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.5,
+      "gold_rank": 2
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 16575,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 5039,
+      "output_tokens": 564,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs17",
+       "reason": "파일럿 성공 후 전 지점 확산을 위한 예산 심의 및 단계적 확산 전략을 다루어 상황에 가장 적합함"
+      },
+      {
+       "id": "bs_v_smart_hospital_2",
+       "reason": "병동 내 냉난방 및 시설 운영 개선 사례로, 다른 병동으로의 확대 적용 가능성을 제시하기 좋음"
+      },
+      {
+       "id": "bs08",
+       "reason": "요양병원 병동 리뉴얼 및 환자 경험 개선 제안서로 병동 단위 확산 고민 해결에 적합함"
+      },
+      {
+       "id": "bs_std_md_hospital",
+       "reason": "중소 병원 대상 AI 스마트 병원 표준 제안서로, 병동 확산 시 표준 모델로 활용 가능함"
+      },
+      {
+       "id": "bs_sub_md_hospital",
+       "reason": "초기 비용 부담을 줄이는 구독형 제안으로, 타 병동 확산 시 예산 확보 전략으로 유용함"
+      },
+      {
+       "id": "bs_v_smart_hospital_1",
+       "reason": "환자 안내 및 전자동의 구축 제안으로, 병동 외 원무 및 로비까지 서비스 확장을 제안할 수 있음"
+      },
+      {
+       "id": "bs_std_md_tertiary",
+       "reason": "상급종합병원 대상 AI 호스피탈 표준 제안서로, 대규모 병원 내 병동 확산의 기준을 제시함"
+      },
+      {
+       "id": "bs_sub_std_md_clinic",
+       "reason": "의원 및 클리닉 대상 표준 및 구독 제안서로, 소규모 병동 단위의 확산 모델에 적용 가능함"
+      },
+      {
+       "id": "bs_v_smart_factory_1",
+       "reason": "단계 확산형 전략을 사용하는 제조 현장 사례로, 파일럿 후 확산이라는 논리 구조를 참고 가능함"
+      },
+      {
+       "id": "bs_v_smart_academy_2",
+       "reason": "다지점 운영 개선 및 파일럿/확산 요구사항을 포함하고 있어 확산 전략 수립에 참고가 됨"
+      }
+     ],
+     "final": [
+      "bs17",
+      "bs_v_smart_hospital_2",
+      "bs08",
+      "bs_std_md_hospital",
+      "bs_sub_md_hospital",
+      "bs_v_smart_hospital_1",
+      "bs_std_md_tertiary",
+      "bs_sub_std_md_clinic",
+      "bs_v_smart_factory_1",
+      "bs_v_smart_academy_2"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "gemma-4-31b-it"
+    }
+   }
+  ],
+  "review.route": [
+   {
+    "tc": {
+     "id": "bs10:wrong_customer",
+     "pid": "bs10",
+     "kind": "wrong_customer"
+    },
+    "tc_fp": "f88fdfc33f2e765e",
+    "targets": [
+     "CU1",
+     "WR1"
+    ],
+    "baseline": {
+     "selected": [
+      "CU1",
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "CU6"
+     ],
+     "mode": "rules",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 1,
+      "C_VS": 1,
+      "C_DQ": 1
+     },
+     "l2": {
+      "F_CU": 3
+     },
+     "priority": {
+      "CU1": 2,
+      "CU2": 2,
+      "CU3": 1,
+      "CU4": 2,
+      "CU5": 1,
+      "CU6": 1
+     },
+     "risk": [
+      "CU1",
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.5,
+      "n_selected": 6
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 43225,
+     "usage": {
+      "calls": 2,
+      "attempts": 2,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 8777,
+      "output_tokens": 1486,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "selected": [
+      "CU1",
+      "CU2",
+      "CU4",
+      "CU5",
+      "PR3",
+      "PR6",
+      "VS1",
+      "VS3",
+      "VS4",
+      "DQ3",
+      "DQ5",
+      "DQ6"
+     ],
+     "mode": "llm",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 2,
+      "C_VS": 3,
+      "C_DQ": 3
+     },
+     "l2": {
+      "F_CU": 3,
+      "F_PR": 2,
+      "F_VS": 3,
+      "F_DQ": 3
+     },
+     "priority": {
+      "CU1": 3,
+      "CU2": 3,
+      "CU4": 2,
+      "CU5": 2,
+      "PR3": 2,
+      "PR6": 2,
+      "VS1": 3,
+      "VS3": 3,
+      "VS4": 3,
+      "DQ3": 3,
+      "DQ5": 2,
+      "DQ6": 2
+     },
+     "risk": [
+      "CU1",
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.5,
+      "n_selected": 12
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "bs10:placeholders",
+     "pid": "bs10",
+     "kind": "placeholders"
+    },
+    "tc_fp": "2e527447fc9ad603",
+    "targets": [
+     "WR1"
+    ],
+    "baseline": {
+     "selected": [
+      "CU1",
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "CU6"
+     ],
+     "mode": "rules",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 1,
+      "C_VS": 1,
+      "C_DQ": 1
+     },
+     "l2": {
+      "F_CU": 3
+     },
+     "priority": {
+      "CU1": 1,
+      "CU2": 2,
+      "CU3": 1,
+      "CU4": 2,
+      "CU5": 1,
+      "CU6": 1
+     },
+     "risk": [
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.0,
+      "n_selected": 6
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 3172,
+      "output_tokens": 320,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "error": "ModelFailure: timeout: AI 요청 대기 또는 응답 시간이 한도를 넘었습니다. 잠시 뒤 다시 시도하세요.",
+     "trace": "                           ^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 326, in task\n    r = router.route(p, cs, tax, gates, F, backend, budget=12, min_k=10, temperature=None)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/poc/test/proposal_score/router.py\", line 190, in route\n    r = _route_llm(*args, backend=backend, temperature=temperature)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/poc/test/proposal_score/router.py\", line 262, in _route_llm\n    d2 = backend.complete('route_l2', SYS_ROUTE, u2, L2_SCHEMA, meta={'tag': p.id + p.variant}, temperature=temperature)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/backends.py\", line 268, in complete\n    raise _provider_failed(tracker, step, exc, job) from None\napp.api.poc.jobs.ModelFailure: timeout: AI 요청 대기 또는 응답 시간이 한도를 넘었습니다. 잠시 뒤 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "bs10:no_proof",
+     "pid": "bs10",
+     "kind": "no_proof"
+    },
+    "tc_fp": "a2e330168fedff6a",
+    "targets": [
+     "VS5",
+     "VS4"
+    ],
+    "baseline": {
+     "selected": [
+      "CU1",
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "CU6",
+      "VS3",
+      "VS4",
+      "VS5",
+      "VS6"
+     ],
+     "mode": "rules",
+     "l1": {
+      "C_CU": 3,
+      "C_VS": 2,
+      "C_PR": 1,
+      "C_DQ": 1
+     },
+     "l2": {
+      "F_CU": 3,
+      "F_VS": 3
+     },
+     "priority": {
+      "CU1": 1,
+      "CU2": 2,
+      "CU3": 1,
+      "CU4": 2,
+      "CU5": 1,
+      "CU6": 1,
+      "VS1": 1,
+      "VS2": 1,
+      "VS3": 1,
+      "VS4": 1,
+      "VS5": 2,
+      "VS6": 1
+     },
+     "risk": [
+      "CU2",
+      "VS5"
+     ],
+     "metrics": {
+      "target_recall": 1.0,
+      "n_selected": 10
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 50223,
+     "usage": {
+      "calls": 2,
+      "attempts": 2,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 8364,
+      "output_tokens": 1744,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "selected": [
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "PR3",
+      "PR4",
+      "PR6",
+      "VS1",
+      "VS3",
+      "VS4",
+      "VS5",
+      "DQ5"
+     ],
+     "mode": "llm",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 2,
+      "C_VS": 3,
+      "C_DQ": 2
+     },
+     "l2": {
+      "F_CU": 3,
+      "F_PR": 2
+     },
+     "priority": {
+      "CU1": 1,
+      "CU2": 3,
+      "CU3": 2,
+      "CU4": 3,
+      "CU5": 2,
+      "CU6": 1,
+      "PR1": 0,
+      "PR2": 1,
+      "PR3": 2,
+      "PR4": 2,
+      "PR5": 0,
+      "PR6": 3,
+      "VS1": 3,
+      "VS2": 2,
+      "VS3": 3,
+      "VS4": 3,
+      "VS5": 2,
+      "VS6": 1,
+      "DQ1": 2,
+      "DQ2": 2,
+      "DQ3": 1,
+      "DQ5": 3,
+      "DQ6": 1
+     },
+     "risk": [
+      "CU2",
+      "VS5"
+     ],
+     "metrics": {
+      "target_recall": 1.0,
+      "n_selected": 12
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "bs10:number_conflict",
+     "pid": "bs10",
+     "kind": "number_conflict"
+    },
+    "tc_fp": "1b556bdc0bff9720",
+    "targets": [
+     "MK4"
+    ],
+    "baseline": {
+     "selected": [
+      "CU1",
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "CU6"
+     ],
+     "mode": "rules",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 1,
+      "C_VS": 1,
+      "C_DQ": 1
+     },
+     "l2": {
+      "F_CU": 3
+     },
+     "priority": {
+      "CU1": 1,
+      "CU2": 2,
+      "CU3": 1,
+      "CU4": 2,
+      "CU5": 1,
+      "CU6": 1
+     },
+     "risk": [
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.0,
+      "n_selected": 6
+     }
+    },
+    "gemma": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 3174,
+      "output_tokens": 328,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "error": "ModelFailure: timeout: AI 요청 대기 또는 응답 시간이 한도를 넘었습니다. 잠시 뒤 다시 시도하세요.",
+     "trace": "                           ^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 326, in task\n    r = router.route(p, cs, tax, gates, F, backend, budget=12, min_k=10, temperature=None)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/poc/test/proposal_score/router.py\", line 190, in route\n    r = _route_llm(*args, backend=backend, temperature=temperature)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/poc/test/proposal_score/router.py\", line 262, in _route_llm\n    d2 = backend.complete('route_l2', SYS_ROUTE, u2, L2_SCHEMA, meta={'tag': p.id + p.variant}, temperature=temperature)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/backends.py\", line 268, in complete\n    raise _provider_failed(tracker, step, exc, job) from None\napp.api.poc.jobs.ModelFailure: timeout: AI 요청 대기 또는 응답 시간이 한도를 넘었습니다. 잠시 뒤 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "bs10:strip_images",
+     "pid": "bs10",
+     "kind": "strip_images"
+    },
+    "tc_fp": "d5b9212c19c324d1",
+    "targets": [
+     "DS6"
+    ],
+    "baseline": {
+     "selected": [
+      "CU1",
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "CU6"
+     ],
+     "mode": "rules",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 1,
+      "C_VS": 1,
+      "C_DQ": 1
+     },
+     "l2": {
+      "F_CU": 3
+     },
+     "priority": {
+      "CU1": 1,
+      "CU2": 2,
+      "CU3": 1,
+      "CU4": 2,
+      "CU5": 1,
+      "CU6": 1
+     },
+     "risk": [
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.0,
+      "n_selected": 6
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 59018,
+     "usage": {
+      "calls": 2,
+      "attempts": 2,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 9135,
+      "output_tokens": 2046,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "selected": [
+      "CU2",
+      "CU4",
+      "CU5",
+      "PR3",
+      "PR6",
+      "VS3",
+      "VS4",
+      "DQ1",
+      "DQ2",
+      "DQ5"
+     ],
+     "mode": "llm",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 2,
+      "C_VS": 3,
+      "C_DQ": 2
+     },
+     "l2": {
+      "F_CU": 3,
+      "F_PR": 2,
+      "F_VS": 3,
+      "F_DQ": 2
+     },
+     "priority": {
+      "CU1": 1,
+      "CU2": 3,
+      "CU4": 2,
+      "CU5": 2,
+      "PR1": 0,
+      "PR2": 1,
+      "PR3": 2,
+      "PR4": 1,
+      "PR5": 0,
+      "PR6": 3,
+      "VS1": 1,
+      "VS3": 3,
+      "VS4": 3,
+      "VS5": 1,
+      "VS6": 1,
+      "DQ1": 2,
+      "DQ2": 2,
+      "DQ3": 1,
+      "DQ4": 1,
+      "DQ5": 3,
+      "DQ6": 1
+     },
+     "risk": [
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.0,
+      "n_selected": 10
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "bs01:wrong_customer",
+     "pid": "bs01",
+     "kind": "wrong_customer"
+    },
+    "tc_fp": "c9f049f44aafd410",
+    "targets": [
+     "CU1",
+     "WR1"
+    ],
+    "baseline": {
+     "selected": [
+      "CU1",
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "CU6"
+     ],
+     "mode": "rules",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 1,
+      "C_VS": 1,
+      "C_DQ": 1
+     },
+     "l2": {
+      "F_CU": 3
+     },
+     "priority": {
+      "CU1": 2,
+      "CU2": 3,
+      "CU3": 2,
+      "CU4": 2,
+      "CU5": 1,
+      "CU6": 1
+     },
+     "risk": [
+      "CU1",
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.5,
+      "n_selected": 6
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 46760,
+     "usage": {
+      "calls": 2,
+      "attempts": 2,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 9472,
+      "output_tokens": 1608,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "selected": [
+      "CU1",
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "PR4",
+      "PR6",
+      "VS1",
+      "VS3",
+      "VS6"
+     ],
+     "mode": "llm",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 3,
+      "C_VS": 2,
+      "C_DQ": 3
+     },
+     "l2": {
+      "F_CU": 3,
+      "F_PR": 2,
+      "F_VS": 3,
+      "F_DQ": 0
+     },
+     "priority": {
+      "CU1": 3,
+      "CU2": 3,
+      "CU4": 3,
+      "PR4": 2,
+      "PR6": 2,
+      "VS1": 3,
+      "VS3": 2,
+      "VS6": 2,
+      "DQ3": 3,
+      "DQ5": 2
+     },
+     "risk": [
+      "CU1",
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.5,
+      "n_selected": 10
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "bs01:placeholders",
+     "pid": "bs01",
+     "kind": "placeholders"
+    },
+    "tc_fp": "40e4be4f21c2bbcf",
+    "targets": [
+     "WR1"
+    ],
+    "baseline": {
+     "selected": [
+      "CU1",
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "CU6",
+      "PR2",
+      "PR3",
+      "PR4",
+      "PR6"
+     ],
+     "mode": "rules",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 2,
+      "C_VS": 1,
+      "C_DQ": 1
+     },
+     "l2": {
+      "F_CU": 3,
+      "F_PR": 2
+     },
+     "priority": {
+      "CU1": 1,
+      "CU2": 3,
+      "CU3": 2,
+      "CU4": 2,
+      "CU5": 1,
+      "CU6": 1,
+      "PR1": 0,
+      "PR2": 1,
+      "PR3": 1,
+      "PR4": 1,
+      "PR5": 0,
+      "PR6": 1
+     },
+     "risk": [
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.0,
+      "n_selected": 10
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 42932,
+     "usage": {
+      "calls": 2,
+      "attempts": 2,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 9458,
+      "output_tokens": 1459,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "selected": [
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "PR2",
+      "PR4",
+      "VS1",
+      "VS3",
+      "VS6",
+      "DQ3"
+     ],
+     "mode": "llm",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 3,
+      "C_VS": 2,
+      "C_DQ": 3
+     },
+     "l2": {
+      "F_CU": 3,
+      "F_PR": 2,
+      "F_VS": 3,
+      "F_DQ": 3
+     },
+     "priority": {
+      "CU2": 3,
+      "CU4": 3,
+      "CU5": 2,
+      "PR2": 2,
+      "PR4": 2,
+      "PR6": 1,
+      "VS1": 3,
+      "VS3": 3,
+      "VS6": 2,
+      "DQ3": 3
+     },
+     "risk": [
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.0,
+      "n_selected": 10
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "bs01:no_proof",
+     "pid": "bs01",
+     "kind": "no_proof"
+    },
+    "tc_fp": "2ca3d2f719061eaf",
+    "targets": [
+     "VS5",
+     "VS4"
+    ],
+    "baseline": {
+     "selected": [
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "PR3",
+      "PR4",
+      "PR6",
+      "VS1",
+      "VS3",
+      "VS5"
+     ],
+     "mode": "rules",
+     "l1": {
+      "C_CU": 3,
+      "C_VS": 2,
+      "C_PR": 2,
+      "C_DQ": 1
+     },
+     "l2": {
+      "F_CU": 3,
+      "F_VS": 3,
+      "F_PR": 2
+     },
+     "priority": {
+      "CU1": 1,
+      "CU2": 3,
+      "CU3": 2,
+      "CU4": 2,
+      "CU5": 1,
+      "CU6": 1,
+      "PR1": 0,
+      "PR2": 1,
+      "PR3": 1,
+      "PR4": 1,
+      "PR5": 0,
+      "PR6": 1,
+      "VS1": 1,
+      "VS2": 1,
+      "VS3": 1,
+      "VS4": 1,
+      "VS5": 2,
+      "VS6": 1
+     },
+     "risk": [
+      "CU2",
+      "VS5"
+     ],
+     "metrics": {
+      "target_recall": 0.5,
+      "n_selected": 10
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 42312,
+     "usage": {
+      "calls": 2,
+      "attempts": 2,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 9386,
+      "output_tokens": 1432,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "selected": [
+      "CU2",
+      "CU4",
+      "CU5",
+      "PR4",
+      "PR6",
+      "VS1",
+      "VS3",
+      "VS5",
+      "VS6",
+      "DQ2",
+      "DQ5"
+     ],
+     "mode": "llm",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 3,
+      "C_VS": 2,
+      "C_DQ": 2
+     },
+     "l2": {
+      "F_CU": 3,
+      "F_PR": 2,
+      "F_VS": 3,
+      "F_DQ": 2
+     },
+     "priority": {
+      "CU2": 3,
+      "CU4": 3,
+      "CU5": 2,
+      "PR3": 1,
+      "PR4": 2,
+      "PR6": 3,
+      "VS1": 3,
+      "VS3": 2,
+      "VS5": 2,
+      "VS6": 2,
+      "DQ2": 3,
+      "DQ5": 3
+     },
+     "risk": [
+      "CU2",
+      "VS5"
+     ],
+     "metrics": {
+      "target_recall": 0.5,
+      "n_selected": 11
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "bs01:number_conflict",
+     "pid": "bs01",
+     "kind": "number_conflict"
+    },
+    "tc_fp": "331a9d216ea457d1",
+    "targets": [
+     "MK4"
+    ],
+    "baseline": {
+     "selected": [
+      "CU1",
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "CU6",
+      "PR2",
+      "PR3",
+      "PR4",
+      "PR6"
+     ],
+     "mode": "rules",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 2,
+      "C_VS": 1,
+      "C_DQ": 1
+     },
+     "l2": {
+      "F_CU": 3,
+      "F_PR": 2
+     },
+     "priority": {
+      "CU1": 1,
+      "CU2": 3,
+      "CU3": 2,
+      "CU4": 2,
+      "CU5": 1,
+      "CU6": 1,
+      "PR1": 0,
+      "PR2": 1,
+      "PR3": 1,
+      "PR4": 1,
+      "PR5": 0,
+      "PR6": 1
+     },
+     "risk": [
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.0,
+      "n_selected": 10
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 64355,
+     "usage": {
+      "calls": 2,
+      "attempts": 2,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 9546,
+      "output_tokens": 2021,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "selected": [
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "PR3",
+      "PR4",
+      "PR6",
+      "VS1",
+      "VS2",
+      "VS3",
+      "VS6",
+      "DQ1"
+     ],
+     "mode": "llm",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 3,
+      "C_VS": 2,
+      "C_DQ": 2
+     },
+     "l2": {
+      "F_CU": 3,
+      "F_PR": 2,
+      "F_VS": 3,
+      "F_DQ": 2
+     },
+     "priority": {
+      "CU1": 1,
+      "CU2": 3,
+      "CU3": 2,
+      "CU4": 3,
+      "CU5": 2,
+      "CU6": 1,
+      "PR1": 0,
+      "PR2": 1,
+      "PR3": 2,
+      "PR4": 2,
+      "PR5": 0,
+      "PR6": 3,
+      "VS1": 3,
+      "VS2": 2,
+      "VS3": 2,
+      "VS4": 1,
+      "VS5": 1,
+      "VS6": 2,
+      "DQ1": 3,
+      "DQ2": 1,
+      "DQ3": 1,
+      "DQ4": 1,
+      "DQ5": 2,
+      "DQ6": 1
+     },
+     "risk": [
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.0,
+      "n_selected": 12
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "bs01:strip_images",
+     "pid": "bs01",
+     "kind": "strip_images"
+    },
+    "tc_fp": "5485ccdbf13cddb2",
+    "targets": [
+     "DS6"
+    ],
+    "baseline": {
+     "selected": [
+      "CU1",
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "CU6",
+      "PR2",
+      "PR3",
+      "PR4",
+      "PR6"
+     ],
+     "mode": "rules",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 2,
+      "C_VS": 1,
+      "C_DQ": 1
+     },
+     "l2": {
+      "F_CU": 3,
+      "F_PR": 2
+     },
+     "priority": {
+      "CU1": 1,
+      "CU2": 3,
+      "CU3": 2,
+      "CU4": 2,
+      "CU5": 1,
+      "CU6": 1,
+      "PR1": 0,
+      "PR2": 1,
+      "PR3": 1,
+      "PR4": 1,
+      "PR5": 0,
+      "PR6": 1
+     },
+     "risk": [
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.0,
+      "n_selected": 10
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 41559,
+     "usage": {
+      "calls": 2,
+      "attempts": 2,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 9828,
+      "output_tokens": 1407,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "selected": [
+      "CU2",
+      "CU4",
+      "CU5",
+      "PR2",
+      "PR4",
+      "PR6",
+      "VS1",
+      "VS3",
+      "VS6",
+      "DQ3",
+      "DQ5",
+      "DQ6"
+     ],
+     "mode": "llm",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 3,
+      "C_VS": 2,
+      "C_DQ": 3
+     },
+     "l2": {
+      "F_CU": 3,
+      "F_PR": 2,
+      "F_VS": 3,
+      "F_DQ": 3
+     },
+     "priority": {
+      "CU2": 3,
+      "CU4": 3,
+      "CU5": 2,
+      "PR2": 2,
+      "PR4": 2,
+      "PR6": 2,
+      "VS1": 3,
+      "VS3": 3,
+      "VS6": 2,
+      "DQ3": 3,
+      "DQ5": 3,
+      "DQ6": 2
+     },
+     "risk": [
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.0,
+      "n_selected": 12
+     }
+    }
+   }
+  ],
+  "layout.pick": [
+   {
+    "tc": {
+     "id": "C01_L1",
+     "gold": {
+      "value": [
+       "L_VP_F2",
+       "L_VP_U"
+      ],
+      "products": [
+       "L_P2A",
+       "L_P2B"
+      ]
+     }
+    },
+    "tc_fp": "8c66cbc9c7a9a56b",
+    "baseline": {
+     "final": {
+      "S01#0": "L_C01",
+      "S02#0": "L_PH_MI_FB_A",
+      "S03#0": "L_VP_F2",
+      "S04#0": "L_PH_VP_U",
+      "S05#0": "L_SM_C",
+      "S06#0": "L_P2B",
+      "S07#0": "L_CS03",
+      "S08#0": "L_PH_ST_A",
+      "S09#0": "L_PH_SV_B",
+      "S10#0": "L_C07"
+     },
+     "metrics": {
+      "evaluable": 3,
+      "hits": 2,
+      "acc": 0.6666666666666666
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 18018,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 5614,
+      "output_tokens": 604,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "final": {
+      "S01#0": "L_C02",
+      "S02#0": "L_PH_MI_FB_A",
+      "S03#0": "L_VP_F2",
+      "S04#0": "L_PH_VP_U",
+      "S05#0": "L_SM_E",
+      "S06#0": "L_P2B",
+      "S07#0": "L_PH_CD_C",
+      "S08#0": "L_PH_ST_A",
+      "S09#0": "L_PH_SV_B",
+      "S10#0": "L_VS_END"
+     },
+     "metrics": {
+      "evaluable": 3,
+      "hits": 2,
+      "acc": 0.6666666666666666
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C02_L1",
+     "gold": {
+      "value": [
+       "L_VP_F"
+      ],
+      "products": [
+       "L_P3B"
+      ]
+     }
+    },
+    "tc_fp": "956ee35f1592f7c8",
+    "baseline": {
+     "final": {
+      "S01#0": "L_C01",
+      "S02#0": "L_PH_MI_OF_A",
+      "S03#0": "L_VP_F",
+      "S04#0": "L_SOL_03",
+      "S05#0": "L_P3B",
+      "S06#0": "L_SOL_12",
+      "S07#0": "L_PH_ST_A",
+      "S08#0": "L_SV_C",
+      "S09#0": "L_C07"
+     },
+     "metrics": {
+      "evaluable": 2,
+      "hits": 2,
+      "acc": 1.0
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 16066,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 5200,
+      "output_tokens": 527,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "final": {
+      "S01#0": "L_SOL_01",
+      "S02#0": "L_PH_MI_OF_A",
+      "S03#0": "L_VP_F",
+      "S04#0": "L_SOL_03",
+      "S05#0": "L_PH_P3_A",
+      "S06#0": "L_SOL_12",
+      "S07#0": "L_PH_ST_A",
+      "S08#0": "L_SV_C",
+      "S09#0": "L_PH_C13"
+     },
+     "metrics": {
+      "evaluable": 2,
+      "hits": 1,
+      "acc": 0.5
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C03_L1",
+     "gold": {
+      "products": [
+       "L_P1B"
+      ],
+      "value": [
+       "L_VP_G",
+       "L_VP_U_HT"
+      ]
+     }
+    },
+    "tc_fp": "2d526ca017ba482d",
+    "baseline": {
+     "final": {
+      "S01#0": "L_AIS_01",
+      "S02#0": "L_PH_MI_HT_A",
+      "S03#0": "L_VP_G",
+      "S04#0": "L_VP_U_HT",
+      "S05#0": "L_SM_E",
+      "S06#0": "L_PH_P_I",
+      "S07#0": "L_VS_CASE",
+      "S08#0": "L_AIS_32",
+      "S09#0": "L_SV_C",
+      "S10#0": "L_AIS_37"
+     },
+     "metrics": {
+      "evaluable": 3,
+      "hits": 2,
+      "acc": 0.6666666666666666
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 22287,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 5639,
+      "output_tokens": 770,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "final": {
+      "S01#0": "L_AIS_01",
+      "S02#0": "L_PH_MI_HT_A",
+      "S03#0": "L_VP_G",
+      "S04#0": "L_VP_U_HT",
+      "S05#0": "L_SM_E",
+      "S06#0": "L_PH_P_I",
+      "S07#0": "L_VS_CASE",
+      "S08#0": "L_PH_ST_A",
+      "S09#0": "L_SV_C",
+      "S10#0": "L_AIS_37"
+     },
+     "metrics": {
+      "evaluable": 3,
+      "hits": 2,
+      "acc": 0.6666666666666666
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C04_L1",
+     "gold": {
+      "products": [
+       "L_P1B"
+      ]
+     }
+    },
+    "tc_fp": "1ccf4cce70cbe793",
+    "baseline": {
+     "final": {
+      "S01#0": "L_C09",
+      "S02#0": "L_PH_MI_FN_A",
+      "S03#0": "L_VP_G",
+      "S04#0": "L_SM_E",
+      "S05#0": "L_PH_P_G",
+      "S06#0": "L_VS_CASE",
+      "S07#0": "L_PH_ST_A",
+      "S08#0": "L_PH_SV_B",
+      "S09#0": "L_C07"
+     },
+     "metrics": {
+      "evaluable": 1,
+      "hits": 0,
+      "acc": 0.0
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 16157,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 5027,
+      "output_tokens": 534,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "final": {
+      "S01#0": "L_C02",
+      "S02#0": "L_PH_MI_FN_A",
+      "S03#0": "L_VP_G",
+      "S04#0": "L_SM_E",
+      "S05#0": "L_PH_P_I",
+      "S06#0": "L_VS_CASE",
+      "S07#0": "L_PH_ST_A",
+      "S08#0": "L_PH_SV_B",
+      "S09#0": "L_PH_C13"
+     },
+     "metrics": {
+      "evaluable": 1,
+      "hits": 0,
+      "acc": 0.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C05_L1",
+     "gold": {
+      "products": [
+       "L_P2B"
+      ]
+     }
+    },
+    "tc_fp": "ff59de12d2ac0e87",
+    "baseline": {
+     "final": {
+      "S01#0": "L_C01",
+      "S02#0": "L_PH_MI_ED_A",
+      "S03#0": "L_VP_F2",
+      "S04#0": "L_SM_C",
+      "S05#0": "L_P2B",
+      "S06#0": "L_CS03",
+      "S07#0": "L_PH_ST_A",
+      "S08#0": "L_SV_C",
+      "S09#0": "L_C07"
+     },
+     "metrics": {
+      "evaluable": 1,
+      "hits": 1,
+      "acc": 1.0
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 15949,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4988,
+      "output_tokens": 530,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "final": {
+      "S01#0": "L_C02",
+      "S02#0": "L_PH_MI_ED_A",
+      "S03#0": "L_VP_F2",
+      "S04#0": "L_SM_E",
+      "S05#0": "L_P2B",
+      "S06#0": "L_PH_CD_C",
+      "S07#0": "L_PH_ST_A",
+      "S08#0": "L_SV_C",
+      "S09#0": "L_PH_C13"
+     },
+     "metrics": {
+      "evaluable": 1,
+      "hits": 1,
+      "acc": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C06_L1",
+     "gold": {
+      "products": [
+       "L_P2B",
+       "L_P_Q"
+      ]
+     }
+    },
+    "tc_fp": "674bb4006ae77385",
+    "baseline": {
+     "final": {
+      "S01#0": "L_C01",
+      "S02#0": "L_PH_MI_MF_A",
+      "S03#0": "L_VP_F2",
+      "S04#0": "L_SM_E",
+      "S05#0": "L_P2B",
+      "S06#0": "L_PH_CD_C",
+      "S07#0": "L_PH_ST_A",
+      "S08#0": "L_PH_SV_B",
+      "S09#0": "L_C07"
+     },
+     "metrics": {
+      "evaluable": 1,
+      "hits": 1,
+      "acc": 1.0
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 15493,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 5068,
+      "output_tokens": 513,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "final": {
+      "S01#0": "L_C02",
+      "S02#0": "L_PH_MI_MF_A",
+      "S03#0": "L_VP_F2",
+      "S04#0": "L_SM_E",
+      "S05#0": "L_PH_P2_C",
+      "S06#0": "L_PH_CD_C",
+      "S07#0": "L_PH_ST_A",
+      "S08#0": "L_PH_SV_B",
+      "S09#0": "L_PH_C13"
+     },
+     "metrics": {
+      "evaluable": 1,
+      "hits": 0,
+      "acc": 0.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C07_L1",
+     "gold": {
+      "products": [
+       "L_P3B"
+      ],
+      "value": [
+       "L_VP_F",
+       "L_VP_UC_RT"
+      ]
+     }
+    },
+    "tc_fp": "7246c1fb53287b31",
+    "baseline": {
+     "final": {
+      "S01#0": "L_C01",
+      "S02#0": "L_PH_MI_RT_A",
+      "S03#0": "L_VP_F",
+      "S04#0": "L_VP_UC_RT",
+      "S05#0": "L_SM_B",
+      "S06#0": "L_P3B",
+      "S07#0": "L_CS03",
+      "S08#0": "L_PH_ST_A",
+      "S09#0": "L_PH_SV_B",
+      "S10#0": "L_C07"
+     },
+     "metrics": {
+      "evaluable": 3,
+      "hits": 3,
+      "acc": 1.0
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 17211,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 5579,
+      "output_tokens": 573,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "final": {
+      "S01#0": "L_C02",
+      "S02#0": "L_PH_MI_RT_A",
+      "S03#0": "L_VP_F",
+      "S04#0": "L_VP_UC_RT",
+      "S05#0": "L_SM_E",
+      "S06#0": "L_PH_P3_A",
+      "S07#0": "L_PH_CD_C",
+      "S08#0": "L_PH_ST_A",
+      "S09#0": "L_PH_SV_B",
+      "S10#0": "L_PH_C13"
+     },
+     "metrics": {
+      "evaluable": 3,
+      "hits": 2,
+      "acc": 0.6666666666666666
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C08_L1",
+     "gold": {
+      "value": [
+       "L_RV_A",
+       "L_VP_F"
+      ],
+      "products": [
+       "L_P3B",
+       "L_P_R"
+      ]
+     }
+    },
+    "tc_fp": "82a16d2a38d1e1fb",
+    "baseline": {
+     "final": {
+      "S01#0": "L_C01",
+      "S02#0": "L_PH_MI_RS_A",
+      "S03#0": "L_VP_F",
+      "S04#0": "L_PH_RV_A",
+      "S05#0": "L_SM_B",
+      "S06#0": "L_PH_P_R",
+      "S07#0": "L_VS_CASE",
+      "S08#0": "L_PH_ST_A",
+      "S09#0": "L_SV_C",
+      "S10#0": "L_C07"
+     },
+     "metrics": {
+      "evaluable": 3,
+      "hits": 1,
+      "acc": 0.3333333333333333
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 21919,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 5572,
+      "output_tokens": 748,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "final": {
+      "S01#0": "L_C02",
+      "S02#0": "L_PH_MI_RS_A",
+      "S03#0": "L_VP_F",
+      "S04#0": "L_PH_RV_A",
+      "S05#0": "L_SM_E",
+      "S06#0": "L_PH_P_R",
+      "S07#0": "L_VS_CASE",
+      "S08#0": "L_PH_ST_A",
+      "S09#0": "L_SV_C",
+      "S10#0": "L_PH_C13"
+     },
+     "metrics": {
+      "evaluable": 3,
+      "hits": 1,
+      "acc": 0.3333333333333333
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C09_L1",
+     "gold": {
+      "products": [
+       "L_P2B"
+      ]
+     }
+    },
+    "tc_fp": "b9f51208798b28c1",
+    "baseline": {
+     "final": {
+      "S01#0": "L_C01",
+      "S02#0": "L_PH_MI_SV_A",
+      "S03#0": "L_VP_F2",
+      "S04#0": "L_SM_E",
+      "S05#0": "L_P2B",
+      "S06#0": "L_PH_CD_C",
+      "S07#0": "L_PH_ST_A",
+      "S08#0": "L_PH_SV_B",
+      "S09#0": "L_C07"
+     },
+     "metrics": {
+      "evaluable": 1,
+      "hits": 1,
+      "acc": 1.0
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 19167,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 5017,
+      "output_tokens": 643,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "final": {
+      "S01#0": "L_C01",
+      "S02#0": "L_PH_MI_SV_A",
+      "S03#0": "L_VP_F2",
+      "S04#0": "L_SM_E",
+      "S05#0": "L_P2B",
+      "S06#0": "L_PH_CD_C",
+      "S07#0": "L_PH_ST_A",
+      "S08#0": "L_PH_SV_B",
+      "S09#0": "L_VS_END"
+     },
+     "metrics": {
+      "evaluable": 1,
+      "hits": 1,
+      "acc": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C10_L1",
+     "gold": {
+      "value": [
+       "L_VP_F2",
+       "L_VP_U_MD"
+      ]
+     }
+    },
+    "tc_fp": "b5ff366684add029",
+    "baseline": {
+     "final": {
+      "S01#0": "L_C01",
+      "S02#0": "L_PH_MI_MD_A",
+      "S03#0": "L_VP_F2",
+      "S04#0": "L_VP_U_MD",
+      "S05#0": "L_SM_E",
+      "S06#0": "L_P2B",
+      "S07#0": "L_PH_CD_C",
+      "S08#0": "L_PH_ST_A",
+      "S09#0": "L_PH_SV_B",
+      "S10#0": "L_C07"
+     },
+     "metrics": {
+      "evaluable": 2,
+      "hits": 2,
+      "acc": 1.0
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 18035,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 5586,
+      "output_tokens": 597,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "final": {
+      "S01#0": "L_C02",
+      "S02#0": "L_PH_MI_MD_A",
+      "S03#0": "L_VP_F2",
+      "S04#0": "L_VP_U_MD",
+      "S05#0": "L_SM_E",
+      "S06#0": "L_P2B",
+      "S07#0": "L_PH_CD_C",
+      "S08#0": "L_PH_ST_A",
+      "S09#0": "L_PH_SV_B",
+      "S10#0": "L_PH_C13"
+     },
+     "metrics": {
+      "evaluable": 2,
+      "hits": 2,
+      "acc": 1.0
+     }
+    }
+   }
+  ],
+  "layout.best_pick": [
+   {
+    "tc": {
+     "id": "C01_L2",
+     "gold": [
+      "bs01",
+      "bs16"
+     ]
+    },
+    "tc_fp": "09dee0518d62b849",
+    "baseline": {
+     "final": [
+      "bs01",
+      "bs_v_ai_store_2",
+      "bs_std_fb_qsr"
+     ],
+     "chosen": "bs01",
+     "llm_used": false,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 7782,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 785,
+      "output_tokens": 243,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "final": [
+      "bs_v_ai_store_1",
+      "bs01",
+      "bs_std_fb_qsr"
+     ],
+     "chosen": "bs_v_ai_store_1",
+     "llm_used": true,
+     "metrics": {
+      "top1": 0.0,
+      "top3": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C02_L2",
+     "gold": [
+      "bs02"
+     ]
+    },
+    "tc_fp": "cbd02237aa5473ee",
+    "baseline": {
+     "final": [
+      "bs02",
+      "bs_v_ai_office_1",
+      "bs_v_smart_office_1"
+     ],
+     "chosen": "bs02",
+     "llm_used": false,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 7871,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 810,
+      "output_tokens": 246,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "final": [
+      "bs02",
+      "bs_v_ai_office_1",
+      "bs_v_smart_office_1"
+     ],
+     "chosen": "bs02",
+     "llm_used": true,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C03_L2",
+     "gold": [
+      "bs07"
+     ]
+    },
+    "tc_fp": "9794f978460ee1ef",
+    "baseline": {
+     "final": [
+      "bs07",
+      "bs_v_smart_hotel_2",
+      "bs_v_smart_hotel_1"
+     ],
+     "chosen": "bs07",
+     "llm_used": false,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 7068,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 783,
+      "output_tokens": 210,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "final": [
+      "bs07",
+      "bs_v_smart_hotel_2",
+      "bs_std_ht_mid"
+     ],
+     "chosen": "bs07",
+     "llm_used": true,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C04_L2",
+     "gold": [
+      "bs17",
+      "bs16",
+      "bs19"
+     ]
+    },
+    "tc_fp": "4d5b8d945e75cfba",
+    "baseline": {
+     "final": [
+      "bs_v_smart_finance_1",
+      "bs_std_fn_bank",
+      "bs17"
+     ],
+     "chosen": "bs_v_smart_finance_1",
+     "llm_used": false,
+     "metrics": {
+      "top1": 0.0,
+      "top3": 1.0
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 4703,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 737,
+      "output_tokens": 123,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "final": [
+      "bs_std_fn_bank",
+      "bs_v_smart_finance_1",
+      "bs17"
+     ],
+     "chosen": "bs_std_fn_bank",
+     "llm_used": true,
+     "metrics": {
+      "top1": 0.0,
+      "top3": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C05_L2",
+     "gold": [
+      "bs03"
+     ]
+    },
+    "tc_fp": "11e142b8499f6408",
+    "baseline": {
+     "final": [
+      "bs03",
+      "bs_v_smart_academy_1",
+      "bs_std_ed_univ"
+     ],
+     "chosen": "bs03",
+     "llm_used": false,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 6046,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 719,
+      "output_tokens": 178,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "final": [
+      "bs03",
+      "bs_std_ed_univ",
+      "bs_sub_ed_univ"
+     ],
+     "chosen": "bs03",
+     "llm_used": true,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C06_L2",
+     "gold": [
+      "bs14"
+     ]
+    },
+    "tc_fp": "351891c3a3279ab0",
+    "baseline": {
+     "final": [
+      "bs14",
+      "bs_v_smart_transportation_2",
+      "bs_std_mf_logistics"
+     ],
+     "chosen": "bs14",
+     "llm_used": false,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 7525,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 738,
+      "output_tokens": 229,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "final": [
+      "bs14",
+      "bs_v_smart_transportation_2",
+      "bs_std_mf_logistics"
+     ],
+     "chosen": "bs14",
+     "llm_used": true,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C07_L2",
+     "gold": [
+      "bs10",
+      "bs06",
+      "bs16"
+     ]
+    },
+    "tc_fp": "dd3c4ef95a4afaf1",
+    "baseline": {
+     "final": [
+      "bs10",
+      "bs_std_rt_mall",
+      "bs12"
+     ],
+     "chosen": "bs10",
+     "llm_used": false,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 6113,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 697,
+      "output_tokens": 185,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "final": [
+      "bs10",
+      "bs_std_rt_mall",
+      "bs_v_smart_retail_2"
+     ],
+     "chosen": "bs10",
+     "llm_used": true,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C08_L2",
+     "gold": [
+      "bs04"
+     ]
+    },
+    "tc_fp": "0c8b51faf7fe6b3e",
+    "baseline": {
+     "final": [
+      "bs04",
+      "bs_v_smart_home_1",
+      "bs_v_ai_apartment_1"
+     ],
+     "chosen": "bs04",
+     "llm_used": false,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 7851,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 747,
+      "output_tokens": 242,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "final": [
+      "bs04",
+      "bs_v_smart_home_1",
+      "bs_v_ai_apartment_1"
+     ],
+     "chosen": "bs04",
+     "llm_used": true,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C09_L2",
+     "gold": [
+      "bs13"
+     ]
+    },
+    "tc_fp": "3233443059e9ac2b",
+    "baseline": {
+     "final": [
+      "bs13",
+      "bs_std_sv_unmanned",
+      "bs16"
+     ],
+     "chosen": "bs13",
+     "llm_used": false,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 6271,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 730,
+      "output_tokens": 171,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "final": [
+      "bs13",
+      "bs_std_sv_unmanned",
+      "bs16"
+     ],
+     "chosen": "bs13",
+     "llm_used": true,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C10_L2",
+     "gold": [
+      "bs08",
+      "bs17"
+     ]
+    },
+    "tc_fp": "fb3b9ba4ccb206d5",
+    "baseline": {
+     "final": [
+      "bs_v_smart_hospital_2",
+      "bs08",
+      "bs_std_md_tertiary"
+     ],
+     "chosen": "bs_v_smart_hospital_2",
+     "llm_used": false,
+     "metrics": {
+      "top1": 0.0,
+      "top3": 1.0
+     }
+    },
+    "gemma": {
+     "ok": true,
+     "ms": 7474,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 705,
+      "output_tokens": 215,
+      "models": [
+       "gemma-4-31b-it"
+      ]
+     },
+     "final": [
+      "bs08",
+      "bs_v_smart_hospital_2",
+      "bs17"
+     ],
+     "chosen": "bs08",
+     "llm_used": true,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    }
+   }
+  ]
+ }
+}

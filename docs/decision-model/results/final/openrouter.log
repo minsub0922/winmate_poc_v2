@@ -1,0 +1,108 @@
+== search.rerank
+  C01_L1:value             llm 1277ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C02_L1:products          llm 5125ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.09090909090909091, "gold_rank": 11}
+  C03_L1:value             llm 2485ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+  C04_L3:requirements      llm 13092ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C05_L1:products          llm 6818ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.2, "gold_rank": 5}
+  C06_L3:spec              llm 1759ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C07_L3:why               llm 2732ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.08333333333333333, "gold_rank": 12}
+  C08_L1:value             llm 1861ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+  C09_L3:cost              llm 7248ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C10_L3:execution         llm 3068ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.16666666666666666, "gold_rank": 6}
+== catalog.rank
+  C01_L2                   llm 8713ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C02_L2                   llm 10305ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C03_L2                   llm 11413ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C04_L2                   llm 7617ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.3333333333333333, "gold_rank": 3}
+  C05_L2                   llm 10383ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.3333333333333333, "gold_rank": 3}
+  C06_L2                   llm 0ms null ERR ModelFailure: invalid_output: 모델 응답이 요구한 형식 · 후보 목록에 맞지 않았습니다. 다시 시도하세요.
+  C07_L2                   llm 6297ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C08_L2                   llm 9020ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C09_L2                   llm 7820ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C10_L2                   llm 6693ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+== catalog.rank:compact
+  C01_L2                   llm 9800ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C02_L2                   llm 5775ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C03_L2                   llm 6382ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+  C04_L2                   llm 6395ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.3333333333333333, "gold_rank": 3}
+  C05_L2                   llm 6855ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+  C06_L2                   llm 5314ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C07_L2                   llm 6971ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C08_L2                   llm 5512ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C09_L2                   llm 4033ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C10_L2                   llm 7256ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+== review.route
+  bs10:wrong_customer      llm 10665ms {"target_recall": 0.5, "n_selected": 10}
+  bs10:placeholders        llm 11648ms {"target_recall": 0.0, "n_selected": 10}
+  bs10:no_proof            llm 21290ms {"target_recall": 1.0, "n_selected": 10}
+  bs10:number_conflict     llm 15724ms {"target_recall": 0.0, "n_selected": 10}
+  bs10:strip_images        llm 10438ms {"target_recall": 0.0, "n_selected": 10}
+  bs01:wrong_customer      llm 16139ms {"target_recall": 0.5, "n_selected": 10}
+  bs01:placeholders        llm 18167ms {"target_recall": 0.0, "n_selected": 10}
+  bs01:no_proof            llm 12651ms {"target_recall": 0.5, "n_selected": 10}
+  bs01:number_conflict     llm 24265ms {"target_recall": 0.0, "n_selected": 10}
+  bs01:strip_images        llm 12813ms {"target_recall": 0.0, "n_selected": 10}
+== layout.pick
+  C01_L1                   llm 19532ms {"evaluable": 3, "hits": 2, "acc": 0.6666666666666666}
+  C02_L1                   llm 8673ms {"evaluable": 2, "hits": 2, "acc": 1.0}
+  C03_L1                   llm 5640ms {"evaluable": 3, "hits": 1, "acc": 0.3333333333333333}
+  C04_L1                   llm 8847ms {"evaluable": 1, "hits": 0, "acc": 0.0}
+  C05_L1                   llm 7451ms {"evaluable": 1, "hits": 1, "acc": 1.0}
+budget reached — unfinished, run again with --resume (/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/openrouter.json)
+== search.rerank
+== catalog.rank
+== catalog.rank:compact
+== review.route
+== layout.pick
+  C06_L1                   llm 6080ms {"evaluable": 1, "hits": 0, "acc": 0.0}
+  C07_L1                   llm 5761ms {"evaluable": 3, "hits": 3, "acc": 1.0}
+  C08_L1                   llm 5354ms {"evaluable": 3, "hits": 1, "acc": 0.3333333333333333}
+  C09_L1                   llm 5392ms {"evaluable": 1, "hits": 1, "acc": 1.0}
+  C10_L1                   llm 5470ms {"evaluable": 2, "hits": 2, "acc": 1.0}
+== layout.best_pick
+  C01_L2                   llm 2336ms {"top1": 1.0, "top3": 1.0}
+  C02_L2                   llm 1187ms {"top1": 1.0, "top3": 1.0}
+  C03_L2                   llm 4145ms {"top1": 1.0, "top3": 1.0}
+  C04_L2                   llm 3294ms {"top1": 0.0, "top3": 1.0}
+  C05_L2                   llm 2521ms {"top1": 1.0, "top3": 1.0}
+  C06_L2                   llm 1871ms {"top1": 1.0, "top3": 1.0}
+  C07_L2                   llm 3215ms {"top1": 1.0, "top3": 1.0}
+  C08_L2                   llm 3094ms {"top1": 1.0, "top3": 1.0}
+  C09_L2                   llm 1829ms {"top1": 1.0, "top3": 1.0}
+  C10_L2                   llm 3016ms {"top1": 0.0, "top3": 1.0}
+complete /private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/openrouter.json
+== search.rerank
+== catalog.rank
+== catalog.rank:compact
+== review.route
+== layout.pick
+== layout.best_pick
+complete /private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/openrouter.json
+== search.rerank
+== catalog.rank
+== catalog.rank:compact
+== review.route
+== layout.pick
+== layout.best_pick
+complete /private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/openrouter.json
+== search.rerank
+== catalog.rank
+== catalog.rank:compact
+== review.route
+== layout.pick
+== layout.best_pick
+complete /private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/openrouter.json
+== search.rerank
+== catalog.rank
+== catalog.rank:compact
+== review.route
+== layout.pick
+== layout.best_pick
+complete /private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/openrouter.json
+== search.rerank
+== catalog.rank
+== catalog.rank:compact
+== review.route
+== layout.pick
+== layout.best_pick
+complete /private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/results/openrouter.json

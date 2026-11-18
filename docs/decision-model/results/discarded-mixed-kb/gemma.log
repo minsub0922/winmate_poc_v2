@@ -1,0 +1,41 @@
+== search.rerank
+  C01_L1:value             gemma 20216ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+  C02_L1:products          gemma 10775ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.1, "gold_rank": 10}
+  C03_L1:value             gemma 47902ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C04_L3:requirements      gemma 18588ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C05_L1:products          gemma 12543ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.2, "gold_rank": 5}
+  C06_L3:spec              gemma 12893ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C07_L3:why               gemma 20582ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.058823529411764705, "gold_rank": 17}
+  C08_L1:value             gemma 26723ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.25, "gold_rank": 4}
+  C09_L3:cost              gemma 22356ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.3333333333333333, "gold_rank": 3}
+  C10_L3:execution         gemma 8747ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.2, "gold_rank": 5}
+== catalog.rank
+  C01_L2                   gemma 0ms null ERR ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.
+  C02_L2                   gemma 0ms null ERR ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.
+budget reached — unfinished, run again with --resume (/Users/minseop/Dev/projects/sr_tasks/winmatev2/docs/decision-model/results/final/gemma.json)
+== search.rerank
+== catalog.rank
+  C03_L2                   gemma 0ms null ERR ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.
+  C04_L2                   gemma 0ms null ERR ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.
+  C05_L2                   gemma 0ms null ERR ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.
+  C06_L2                   gemma 0ms null ERR ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.
+  C07_L2                   gemma 0ms null ERR ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.
+  C08_L2                   gemma 0ms null ERR ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.
+  C09_L2                   gemma 0ms null ERR ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.
+budget reached — unfinished, run again with --resume (/Users/minseop/Dev/projects/sr_tasks/winmatev2/docs/decision-model/results/final/gemma.json)
+== search.rerank
+== catalog.rank
+  C10_L2                   gemma 0ms null ERR ModelFailure: rate_limited: AI 요청 한도에 걸려 재시도 후에도 실패했습니다. 잠시 뒤 다시 시도하세요.
+== catalog.rank:compact
+  C01_L2                   gemma 16593ms {"hit1": 0.0, "hit3": 0.0, "mrr": 0.25, "gold_rank": 4}
+  C02_L2                   gemma 16404ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C03_L2                   gemma 14173ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C04_L2                   gemma 14057ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.3333333333333333, "gold_rank": 3}
+  C05_L2                   gemma 16198ms {"hit1": 0.0, "hit3": 1.0, "mrr": 0.5, "gold_rank": 2}
+  C06_L2                   gemma 13107ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C07_L2                   gemma 15103ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C08_L2                   gemma 0ms null ERR ModelFailure: bad_request: AI 서비스가 요청 형식을 거부했습니다. 입력 크기 · 이미지 형식을 확인하세요.
+  C09_L2                   gemma 14212ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+  C10_L2                   gemma 13450ms {"hit1": 1.0, "hit3": 1.0, "mrr": 1.0, "gold_rank": 1}
+== review.route
+budget reached — unfinished, run again with --resume (/Users/minseop/Dev/projects/sr_tasks/winmatev2/docs/decision-model/results/final/gemma.json)

@@ -165,8 +165,25 @@ def build_vertical(v):
             x['on'] = [f for f in x['on'] if has_icon(f)]
             x['all'] = [f for f in used_feats.get(x['sid'], []) if has_icon(f)]
     return dict(id=vid, nm=v['name'], g=g, gn=G[g]['nm'], seg=v['size_segment'], cover=needs[0]['ph'] or spaces[0]['ph'],
-                sp=[dict(n=s['n'], ph=s['ph']) for s in spaces], pains=pains, jr=jrs, tech=tech, spec=spec, bom=bom,
-                pp=pp, nsol=len({F_SOL[f] for _, f, _, _ in std_sheets(vid) if f in F_SOL}), sub=sub_of(v, spaces))
+                sp=[dict(n=s['n'], ph=s['ph'], **space_scenario(s)) for s in spaces], pains=pains, jr=jrs, tech=tech, spec=spec, bom=bom,
+                pp=pp, nsol=len({F_SOL[f] for _, f, _, _ in std_sheets(vid) if f in F_SOL}), sub=sub_of(v, spaces),
+                fx={sid: [f for f in fs if has_icon(f)] for sid, fs in used_feats.items() if any(has_icon(f) for f in fs)})  # 업종에서 쓰는 기능(카탈로그 순서) — 공간별 시나리오의 꺼진 기능
+
+# ---------- 고객/공간 시나리오 — 공간마다 놓이는 제품 · 그 공간에서 쓰는 솔루션 · 서비스 (사용자 지시 2026-11-17) ----------
+# id: 업종 공간 id · pr: [[제품 이름, 컷, 한 줄]] (공간마다 4개까지 — build_vertical) · us: [[솔루션/서비스 id, 그 공간에서의 장면 한 줄, [그 공간에서 쓰는 기능 id(아이콘 있는 것)]]]
+# ss: 그 공간의 짧은 장면(첫 솔루션 장면의 첫 절 — 공간 셋을 잇는 통합 시나리오 예시에 쓴다). 이름 · 종류는 맨 위 sx 표, 업종에서 쓰는 기능 전부는 v.fx(2026-11-17 2차: 공간 3곳 장 · 기능 on/off)
+SERVICE_NAME = {'svc_sac': '삼성케어플러스 SAC', 'svc_mobile': '삼성케어플러스 비즈니스'}  # 서비스 제안 파트의 장 이름과 같게
+def space_scenario(s):
+    us = [[sid, sc, [f for f in fs if has_icon(f)]] for sid, sc, fs in s['sols'] if sid in SOL or sid in SERVICE_NAME]
+    return dict(id=s['id'], pr=[[p[0], p[1], p[2]] for p in s['prods']], us=us, ss=scene(s['sols'][0][1], 40) if s['sols'] else '')
+def use_names():
+    """솔루션 · 서비스 id → [이름, 'sol' | 'svc'] — 시나리오 장 · 활용 맵이 쓴다"""
+    out = {}
+    for x in SOLJ['solution_catalog']:
+        sid = x['id']
+        if sid in SERVICE_NAME: out[sid] = [SERVICE_NAME[sid], 'svc']
+        elif sid in SOL: out[sid] = [SOL[sid][0], 'svc' if x.get('type') == 'service' else 'sol']
+    return out
 
 # ---------- 구독 — 업종마다 구독 패키지(공식 패키지 · 비슷한 업종 · 업종 공간 기준 추천) ----------
 PAY_ORDER = {'PB': ['sub_pay_annual', 'sub_pay_monthly', 'sub_pay_prepay'], 'ED': ['sub_pay_annual', 'sub_pay_monthly', 'sub_pay_prepay'],
@@ -203,6 +220,7 @@ def main():
         out['g'][k] = dict(x, cs=CMP[k])  # cs: 경쟁사 비교 예시(점수표 · 차별점)
     out['order'] = [v['id'] for v in PROD['verticals']]
     out['subs'] = subs_common()
+    out['sx'] = use_names()
     json.dump(out, open(OUT, 'w'), ensure_ascii=False, separators=(',', ':'))
     print('verticals', len(out['v']), 'bytes', os.path.getsize(OUT))
     return out

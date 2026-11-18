@@ -1,0 +1,6566 @@
+{
+ "meta": {
+  "started": "2026-11-13T16:00:43",
+  "tc_per_task": 10,
+  "branches": {
+   "llm": {
+    "kind": "llm",
+    "provider": "openrouter",
+    "model": "qwen/qwen3.6-35b-a3b",
+    "quick_model": "qwen/qwen3.6-35b-a3b",
+    "reasoning": "off"
+   },
+   "llm_think": {
+    "kind": "llm",
+    "provider": "openrouter",
+    "model": "qwen/qwen3.6-35b-a3b",
+    "quick_model": "qwen/qwen3.6-35b-a3b",
+    "reasoning": "on"
+   },
+   "_machine": {
+    "chip": "Apple M6",
+    "model": "Mac18,5",
+    "memory_gb": 24,
+    "os": "macOS-27.2-arm64-arm-64bit"
+   }
+  },
+  "finished": "2026-11-13T16:18:56"
+ },
+ "tasks": {
+  "search.rerank": [
+   {
+    "tc": {
+     "id": "C01_L1:value",
+     "q": "카페 프랜차이즈 디지털 메뉴보드 Value Propositions 장표",
+     "part": "value",
+     "industry": "FB",
+     "strategy": "value",
+     "level": "minimal",
+     "gold": [
+      "L_VP_F2",
+      "L_VP_U"
+     ],
+     "gold_in_pool": true
+    },
+    "baseline": {
+     "final": [
+      "L_VP_F2",
+      "L_VP_F4",
+      "L_VP_F",
+      "L_VP_G",
+      "L_VP_J",
+      "L_PH_VP_U",
+      "L_VP_P",
+      "L_VP_T",
+      "L_VP_I",
+      "L_SUB_VALUE3"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 14144,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2384,
+      "output_tokens": 718,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_VP_F2",
+       "why": "메뉴보드 2종류 가치 비교에 최적화된 2개 카드 레이아웃"
+      },
+      {
+       "f": "L_VP_F4",
+       "why": "다양한 메뉴보드 옵션과 가치를 2x2 그리드로 명확히 제시"
+      },
+      {
+       "f": "L_VP_F",
+       "why": "3개 가치 기둥으로 메뉴보드 핵심 이점을 균형 있게 설명"
+      },
+      {
+       "f": "L_VP_G",
+       "why": "대표 메뉴보드 이미지와 한 문장 메시지로 강렬한 임팩트"
+      },
+      {
+       "f": "L_VP_J",
+       "why": "디지털 메뉴보드 시스템과 연결된 기기들을 시각적으로 묶음"
+      },
+      {
+       "f": "L_VP_P",
+       "why": "메뉴보드 실제 UI 화면과 주석으로 기능적 가치 강조"
+      },
+      {
+       "f": "L_VP_T",
+       "why": "메뉴보드 실사 사진과 스펙 근거로 신뢰성 있는 가치 전달"
+      },
+      {
+       "f": "L_VP_I",
+       "why": "메뉴보드 단일 제품의 핵심 기능을 콜아웃으로 집중 설명"
+      },
+      {
+       "f": "L_VP_N",
+       "why": "도입 후 매장 모습(설치 사례)을 히어로 이미지로 보여줌"
+      },
+      {
+       "f": "L_PH_VP_C",
+       "why": "메뉴보드 매장 사진 위에 핵심 가치 문장과 근거 3개 배치"
+      },
+      {
+       "f": "L_TOC_VP3",
+       "why": "메뉴보드 솔루션이 주는 3가지 가치를 카드 형태로 정리"
+      },
+      {
+       "f": "L_VP_H",
+       "why": "가맹점주 등 이해관계자별 메뉴보드 활용 화면 제시"
+      },
+      {
+       "f": "L_VP_UC",
+       "why": "매장 내 자주 묻는 질문과 메뉴보드 해결책을 열형으로"
+      },
+      {
+       "f": "L_VP_US",
+       "why": "매장 실사 사진에 질문 핀을 달아 메뉴보드 필요성 강조"
+      },
+      {
+       "f": "L_PH_IM_N",
+       "why": "메뉴보드 도입 메시지를 지붕-기둥-바닥 구조로 구조화"
+      },
+      {
+       "f": "L_VP_M",
+       "why": "다양한 메뉴보드 제품과 가치를 매트릭스로 비교 분석"
+      },
+      {
+       "f": "L_PH_VP_B2",
+       "why": "두 가지 핵심 가치에 매장 사진을 매칭하여 강조"
+      },
+      {
+       "f": "L_VP_Q",
+       "why": "타 카페의 메뉴보드 도입 사례 사진으로 신뢰도 확보"
+      }
+     ],
+     "final": [
+      "L_VP_F2",
+      "L_VP_F4",
+      "L_VP_F",
+      "L_VP_G",
+      "L_VP_J",
+      "L_VP_P",
+      "L_VP_T",
+      "L_VP_I",
+      "L_VP_N",
+      "L_PH_VP_C"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm_think": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: network: AI 서비스에 연결하지 못했습니다(네트워크 · 시간 초과). 잠시 뒤 다시 시도하세요.",
+     "trace": "all last):\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in run_branch\n    out, ms = timed(lambda: fn(client, tracker))\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 137, in timed\n    out = fn()\n          ^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 222, in task\n    order = search._rerank(env.llm, env.llm.model_for('quick'), tracker, env.kb, tc['q'], tc['part'], tc['industry'], tc['strategy'],\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/search.py\", line 308, in _rerank\n    return _rerank_llm(provider, model, tracker, kb, q, part, industry, strategy, level, products, pool)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/search.py\", line 346, in _rerank_llm\n    raise from_provider('search:rerank', exc) from None\napp.api.poc.jobs.ModelFailure: network: AI 서비스에 연결하지 못했습니다(네트워크 · 시간 초과). 잠시 뒤 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C02_L1:products",
+     "q": "신축 AI Ready 오피스 공간별 제품 장표",
+     "part": "products",
+     "industry": "OF",
+     "strategy": "space",
+     "level": "minimal",
+     "gold": [
+      "L_P3B"
+     ],
+     "gold_in_pool": true
+    },
+    "baseline": {
+     "final": [
+      "L_SOL_09",
+      "L_SOL_10",
+      "L_SOL_04",
+      "L_SOL_07",
+      "L_SOL_05",
+      "L_P5B",
+      "L_P2B",
+      "L_P3B",
+      "L_P4B",
+      "L_SOL_03"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.125,
+      "gold_rank": 8
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 6640,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2420,
+      "output_tokens": 673,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_SOL_09",
+       "why": "라운지 등 공간별 제품 배치 시각화에 최적화됨"
+      },
+      {
+       "f": "L_SOL_07",
+       "why": "미팅룸 등 업무 공간별 제품 구성 설명에 적합"
+      },
+      {
+       "f": "L_SOL_05",
+       "why": "오피스 유형별 제품 비교 제시에 적합"
+      },
+      {
+       "f": "L_SOL_04",
+       "why": "입구 등 공간별 다양한 제품 형태 제시에 적합"
+      },
+      {
+       "f": "L_SOL_14",
+       "why": "공간별 제안 제품 리스트 정리용"
+      },
+      {
+       "f": "L_SOL_08",
+       "why": "공간 내 제품과 클라우드 솔루션 연계 시각화"
+      },
+      {
+       "f": "L_SOL_10",
+       "why": "공간별 제품 컨셉 비교에 활용 가능"
+      },
+      {
+       "f": "L_PH_P4_A",
+       "why": "공간 사진 위주 제품 설치 장면 제시"
+      },
+      {
+       "f": "L_PH_P3_A",
+       "why": "제품 컷과 설치 장면 동시 제시"
+      },
+      {
+       "f": "L_PH_P_S",
+       "why": "동일 제품 공간별 역할 차이 설명"
+      },
+      {
+       "f": "L_P_T",
+       "why": "공간 내 다수 제품 카탈로그식 정리"
+      },
+      {
+       "f": "L_P5B",
+       "why": "공간과 설치 중심의 간략한 시각화"
+      },
+      {
+       "f": "L_P2B",
+       "why": "공간 설치 중심 기본 레이아웃"
+      },
+      {
+       "f": "L_P3B",
+       "why": "공간 설치 중심 기본 레이아웃"
+      },
+      {
+       "f": "L_P4B",
+       "why": "공간 설치 중심 기본 레이아웃"
+      },
+      {
+       "f": "L_SOL_03",
+       "why": "공간 지도형 평면도 기반 가치 제시"
+      },
+      {
+       "f": "L_PH_P_I",
+       "why": "무드 중심의 공간 분위기 강조"
+      },
+      {
+       "f": "L_PH_P_L",
+       "why": "비디오월 등 특정 제품 구성 설명"
+      },
+      {
+       "f": "L_P1A",
+       "why": "제품 이미지 중심 히어로 레이아웃"
+      },
+      {
+       "f": "L_PH_P_G",
+       "why": "설치 방식 옵션 비교용"
+      }
+     ],
+     "final": [
+      "L_SOL_09",
+      "L_SOL_07",
+      "L_SOL_05",
+      "L_SOL_04",
+      "L_SOL_14",
+      "L_SOL_08",
+      "L_SOL_10",
+      "L_PH_P4_A",
+      "L_PH_P3_A",
+      "L_PH_P_S"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.07142857142857142,
+      "gold_rank": 14
+     }
+    },
+    "llm_think": {
+     "ok": true,
+     "ms": 5981,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2418,
+      "output_tokens": 772,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_SOL_09",
+       "why": "라운지 등 공간별 제품 배치 시각화, 검색어와 가장 부합"
+      },
+      {
+       "f": "L_SOL_07",
+       "why": "미팅룸 등 공간별 제품 구성을 사진과 함께 보여줌"
+      },
+      {
+       "f": "L_SOL_05",
+       "why": "업무 공간 유형별 제품 비교, 공간별 제품 장표에 적합"
+      },
+      {
+       "f": "L_SOL_04",
+       "why": "입구·로비 등 공간별 제품군을 사진과 라벨로 설명"
+      },
+      {
+       "f": "L_SOL_14",
+       "why": "공간별 제안 제품 리스트 정리, 맥락과 일치"
+      },
+      {
+       "f": "L_SOL_08",
+       "why": "공간 사진과 제품 카드 결합, 공간별 제품 설명에 적합"
+      },
+      {
+       "f": "L_PH_P4_A",
+       "why": "제품 설치 장면 위주, 공간별 제품 장표에 활용 가능"
+      },
+      {
+       "f": "L_PH_P3_A",
+       "why": "제품 컷과 설치 장면 결합, 공간별 제품 설명에 적합"
+      },
+      {
+       "f": "L_PH_P_S",
+       "why": "한 제품 여러 공간 사진, 공간별 제품 장표에 활용"
+      },
+      {
+       "f": "L_PH_P_I",
+       "why": "무드 컷으로 공간 분위기 강조, 제품 장표에 적합"
+      },
+      {
+       "f": "L_P_T",
+       "why": "카탈로그 형식, 공간별 제품 장표에 활용 가능"
+      },
+      {
+       "f": "L_P1A",
+       "why": "제품 이미지 중심, 공간별 제품 장표에 활용 가능"
+      },
+      {
+       "f": "L_PH_P_G",
+       "why": "설치 방식 옵션 사진, 공간별 제품 장표에 활용 가능"
+      },
+      {
+       "f": "L_PH_P_L",
+       "why": "비디오월 구성 정보, 공간별 제품 장표에 활용 가능"
+      },
+      {
+       "f": "L_SOL_10",
+       "why": "제품 컬러 비교, 공간별 제품 장표에 활용 가능"
+      },
+      {
+       "f": "L_SOL_03",
+       "why": "공간 지도와 가치 콜아웃, 공간별 제품 장표에 활용 가능"
+      },
+      {
+       "f": "L_P5B",
+       "why": "공간 설치 중심, 공간별 제품 장표에 활용 가능"
+      },
+      {
+       "f": "L_P2B",
+       "why": "공간 설치 중심, 공간별 제품 장표에 활용 가능"
+      },
+      {
+       "f": "L_P3B",
+       "why": "공간 설치 중심, 공간별 제품 장표에 활용 가능"
+      },
+      {
+       "f": "L_P4B",
+       "why": "공간 설치 중심, 공간별 제품 장표에 활용 가능"
+      }
+     ],
+     "final": [
+      "L_SOL_09",
+      "L_SOL_07",
+      "L_SOL_05",
+      "L_SOL_04",
+      "L_SOL_14",
+      "L_SOL_08",
+      "L_PH_P4_A",
+      "L_PH_P3_A",
+      "L_PH_P_S",
+      "L_PH_P_I"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.05263157894736842,
+      "gold_rank": 19
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C03_L1:value",
+     "q": "비즈니스 호텔 객실 리뉴얼 Value Propositions 장표",
+     "part": "value",
+     "industry": "HT",
+     "strategy": "pain",
+     "level": "minimal",
+     "gold": [
+      "L_VP_G",
+      "L_VP_U_HT"
+     ],
+     "gold_in_pool": true
+    },
+    "baseline": {
+     "final": [
+      "L_VP_U_HT",
+      "L_AIS_06",
+      "L_AIS_07",
+      "L_AIS_09",
+      "L_VP_F2",
+      "L_VP_US",
+      "L_VP_F4",
+      "L_VP_UC",
+      "L_VP_F",
+      "L_VP_G"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 1568,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2433,
+      "output_tokens": 203,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_VP_U_HT",
+       "why": "호텔 특화 레이아웃으로 맥락과 가장 부합합니다."
+      },
+      {
+       "f": "L_PH_VP_L",
+       "why": "리뉴얼의 전후 비교를 시각적으로 보여줘야 합니다."
+      },
+      {
+       "f": "L_AIS_09",
+       "why": "맞춤 서비스 흐름으로 호텔 가치 제안을 설명합니다."
+      },
+      {
+       "f": "L_VP_F",
+       "why": "다양한 제품과 가치를 구조적으로 정리하는 표준형입니다."
+      },
+      {
+       "f": "L_PH_AIS_08",
+       "why": "AI 기반 객실 환경 제어로 호텔 특화 가치를 강조합니다."
+      }
+     ],
+     "final": [
+      "L_VP_U_HT",
+      "L_PH_VP_L",
+      "L_AIS_09",
+      "L_VP_F",
+      "L_PH_AIS_08",
+      "L_AIS_06",
+      "L_AIS_07",
+      "L_VP_F2",
+      "L_VP_US",
+      "L_VP_F4"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm_think": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 1,
+      "attempts": 3,
+      "failed": 1,
+      "rejected": 1,
+      "prompt_tokens": 2431,
+      "output_tokens": 212,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "error": "ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.",
+     "trace": " recent call last):\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in run_branch\n    out, ms = timed(lambda: fn(client, tracker))\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 137, in timed\n    out = fn()\n          ^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 222, in task\n    order = search._rerank(env.llm, env.llm.model_for('quick'), tracker, env.kb, tc['q'], tc['part'], tc['industry'], tc['strategy'],\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/search.py\", line 308, in _rerank\n    return _rerank_llm(provider, model, tracker, kb, q, part, industry, strategy, level, products, pool)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/search.py\", line 346, in _rerank_llm\n    raise from_provider('search:rerank', exc) from None\napp.api.poc.jobs.ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C04_L3:requirements",
+     "q": "은행 업무용 모니터 입찰 고객 요구 이해 장표",
+     "part": "requirements",
+     "industry": "FN",
+     "strategy": "rfp",
+     "level": "complex",
+     "gold": [
+      "L_RM_B",
+      "L_RM_C"
+     ],
+     "gold_in_pool": true
+    },
+    "baseline": {
+     "final": [
+      "L_RM_B",
+      "L_RM_C",
+      "L_PH_RQ_A",
+      "L_PH_RQ_C",
+      "L_PH_RQ_B",
+      "L_PH_RQ_G",
+      "L_PH_OV_A",
+      "L_SC_B",
+      "L_PH_RQ_F",
+      "L_PH_RQ_D"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 4823,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2678,
+      "output_tokens": 755,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_RM_B",
+       "why": "RFP 대응 요구사항 대응표로 가장 표준적이고 명확한 매칭"
+      },
+      {
+       "f": "L_RM_C",
+       "why": "평가 항목 배점 대응은 RFP 입찰의 핵심 이해 요소"
+      },
+      {
+       "f": "L_PH_RQ_A",
+       "why": "분야별 요구사항 시각화로 복잡한 요구 이해에 적합"
+      },
+      {
+       "f": "L_PH_RQ_C",
+       "why": "키맨별 관심사 매칭으로 고객 요구의 다층적 이해 표현"
+      },
+      {
+       "f": "L_PH_RQ_B",
+       "why": "배점 비례 시각화로 평가 기준에 따른 요구 우선순위 이해"
+      },
+      {
+       "f": "L_PH_RQ_G",
+       "why": "필수·선택 구분으로 요구사항의 구조적 이해 제공"
+      },
+      {
+       "f": "L_PH_RQ_F",
+       "why": "요구와 솔루션 매핑으로 구체적 대응 방안 이해 용이"
+      },
+      {
+       "f": "L_PH_RQ_D",
+       "why": "핵심 요구 공간 시각화로 주요 요구사항의 집중 이해"
+      },
+      {
+       "f": "L_PH_RQ_E",
+       "why": "숨은 요구 발굴로 심층적인 고객 요구 이해 도모"
+      },
+      {
+       "f": "L_TOC_RFP",
+       "why": "평가 항목별 대응으로 체계적인 요구 이해 구조화"
+      },
+      {
+       "f": "L_PH_MI_FN_B",
+       "why": "금융 업종 특화 운영 과제 시각화로 맥락 적합"
+      },
+      {
+       "f": "L_PH_IM_G",
+       "why": "결정 기준 기반 대응으로 요구 이해의 근거 제시"
+      },
+      {
+       "f": "L_PH_RQ_H",
+       "why": "현장 실사 기반 요구 확인으로 구체적 이해 지원"
+      },
+      {
+       "f": "L_PH_MI_FN_C",
+       "why": "금융 고객 여정 시각화로 간접적 요구 이해 가능"
+      },
+      {
+       "f": "L_PH_IM_L",
+       "why": "고객 질문 기반 대응으로 요구 이해의 실증적 접근"
+      },
+      {
+       "f": "L_PH_OV_A",
+       "why": "사업 이해 장표로 요구사항의 배경적 맥락 제공"
+      },
+      {
+       "f": "L_SC_B",
+       "why": "요구사항 충족 증명용이지만 시각적 이해도 우수"
+      },
+      {
+       "f": "L_OV_C",
+       "why": "전제 조건 확인으로 요구 이해의 전제 사항 명시"
+      },
+      {
+       "f": "L_PH_US_L",
+       "why": "사용자 구분으로 요구 이해의 대상 명확화"
+      },
+      {
+       "f": "L_PH_SO_P",
+       "why": "구체적 솔루션 사례로 요구 이해의 결과물 제시"
+      }
+     ],
+     "final": [
+      "L_RM_B",
+      "L_RM_C",
+      "L_PH_RQ_A",
+      "L_PH_RQ_C",
+      "L_PH_RQ_B",
+      "L_PH_RQ_G",
+      "L_PH_RQ_F",
+      "L_PH_RQ_D",
+      "L_PH_RQ_E",
+      "L_TOC_RFP"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm_think": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 1,
+      "attempts": 2,
+      "failed": 1,
+      "rejected": 1,
+      "prompt_tokens": 2676,
+      "output_tokens": 613,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "error": "ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.",
+     "trace": " recent call last):\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in run_branch\n    out, ms = timed(lambda: fn(client, tracker))\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 137, in timed\n    out = fn()\n          ^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 222, in task\n    order = search._rerank(env.llm, env.llm.model_for('quick'), tracker, env.kb, tc['q'], tc['part'], tc['industry'], tc['strategy'],\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/search.py\", line 308, in _rerank\n    return _rerank_llm(provider, model, tracker, kb, q, part, industry, strategy, level, products, pool)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/search.py\", line 346, in _rerank_llm\n    raise from_provider('search:rerank', exc) from None\napp.api.poc.jobs.ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C05_L1:products",
+     "q": "대학 스마트 캠퍼스 공간별 제품 장표",
+     "part": "products",
+     "industry": "ED",
+     "strategy": "space",
+     "level": "minimal",
+     "gold": [
+      "L_P2B"
+     ],
+     "gold_in_pool": true
+    },
+    "baseline": {
+     "final": [
+      "L_P5B",
+      "L_P3B",
+      "L_P4B",
+      "L_P2B",
+      "L_PH_P4_A",
+      "L_PH_P3_A",
+      "L_PH_P_I",
+      "L_PH_P_S",
+      "L_PH_P_L",
+      "L_P1A"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.25,
+      "gold_rank": 4
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 3964,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2200,
+      "output_tokens": 207,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_VS_SPACE",
+       "why": "공간별 대표 제품 매칭으로 검색어와 목차에 가장 정확히 부합"
+      },
+      {
+       "f": "L_P5B",
+       "why": "공간과 제품 목록을 카드/플로우로 정리해 공간별 구성에 적합"
+      },
+      {
+       "f": "L_P3B",
+       "why": "공간 중심 설치 레이아웃으로 제품 소개의 기본 구조에 적합"
+      },
+      {
+       "f": "L_P4B",
+       "why": "공간과 제품 목록을 시각적으로 정리하는 표준 레이아웃"
+      },
+      {
+       "f": "L_P2B",
+       "why": "공간 중심의 간결한 제품 소개 레이아웃으로 보조적 역할"
+      }
+     ],
+     "final": [
+      "L_VS_SPACE",
+      "L_P5B",
+      "L_P3B",
+      "L_P4B",
+      "L_P2B",
+      "L_PH_P4_A",
+      "L_PH_P3_A",
+      "L_PH_P_I",
+      "L_PH_P_S",
+      "L_PH_P_L"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.2,
+      "gold_rank": 5
+     }
+    },
+    "llm_think": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: timeout: AI 요청 대기 또는 응답 시간이 한도를 넘었습니다. 잠시 뒤 다시 시도하세요.",
+     "trace": "nt call last):\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in run_branch\n    out, ms = timed(lambda: fn(client, tracker))\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 137, in timed\n    out = fn()\n          ^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 222, in task\n    order = search._rerank(env.llm, env.llm.model_for('quick'), tracker, env.kb, tc['q'], tc['part'], tc['industry'], tc['strategy'],\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/search.py\", line 308, in _rerank\n    return _rerank_llm(provider, model, tracker, kb, q, part, industry, strategy, level, products, pool)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/search.py\", line 346, in _rerank_llm\n    raise from_provider('search:rerank', exc) from None\napp.api.poc.jobs.ModelFailure: timeout: AI 요청 대기 또는 응답 시간이 한도를 넘었습니다. 잠시 뒤 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C06_L3:spec",
+     "q": "물류센터 현장 모바일 제품 스펙 장표",
+     "part": "spec",
+     "industry": "MF",
+     "strategy": "pain",
+     "level": "complex",
+     "gold": [
+      "L_SC_B",
+      "L_SD_E"
+     ],
+     "gold_in_pool": true
+    },
+    "baseline": {
+     "final": [
+      "L_SD_E",
+      "L_SE_B",
+      "L_SPEC4",
+      "L_SD_B",
+      "L_SPEC5",
+      "L_SD_F",
+      "L_SPEC1",
+      "L_SC_B",
+      "L_TOC_SPEC",
+      "L_PH_SC_A"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 4263,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2264,
+      "output_tokens": 215,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_SD_E",
+       "why": "모바일·현장 단말 사양으로 검색어와 맥락에 가장 정확히 부합"
+      },
+      {
+       "f": "L_SPEC1",
+       "why": "그룹별 상세 사양으로 제품 스펙 장표의 표준적인 레이아웃"
+      },
+      {
+       "f": "L_SPEC4",
+       "why": "사양 비교표로 여러 제품 스펙을 한눈에 비교할 때 적합"
+      },
+      {
+       "f": "L_SE_B",
+       "why": "인증·규격 현황은 현장 단말의 보안 및 내구성 검증에 필요"
+      },
+      {
+       "f": "L_SC_E",
+       "why": "모델 선택 가이드는 현장 환경에 따른 제품 선정에 도움"
+      }
+     ],
+     "final": [
+      "L_SD_E",
+      "L_SPEC1",
+      "L_SPEC4",
+      "L_SE_B",
+      "L_SC_E",
+      "L_SD_B",
+      "L_SPEC5",
+      "L_SD_F",
+      "L_SC_B",
+      "L_TOC_SPEC"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm_think": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.",
+     "trace": " recent call last):\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in run_branch\n    out, ms = timed(lambda: fn(client, tracker))\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 137, in timed\n    out = fn()\n          ^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 222, in task\n    order = search._rerank(env.llm, env.llm.model_for('quick'), tracker, env.kb, tc['q'], tc['part'], tc['industry'], tc['strategy'],\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/search.py\", line 308, in _rerank\n    return _rerank_llm(provider, model, tracker, kb, q, part, industry, strategy, level, products, pool)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/search.py\", line 346, in _rerank_llm\n    raise from_provider('search:rerank', exc) from None\napp.api.poc.jobs.ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C07_L3:why",
+     "q": "백화점 사이니지 공급사 전환 Why Samsung 장표",
+     "part": "why",
+     "industry": "RT",
+     "strategy": "compete",
+     "level": "complex",
+     "gold": [
+      "L_CM_B",
+      "L_CM_E",
+      "L_ST_E",
+      "L_WS01"
+     ],
+     "gold_in_pool": true
+    },
+    "baseline": {
+     "final": [
+      "L_PH_SV_B",
+      "L_PH_CM_A",
+      "L_ST_D",
+      "L_SV_C",
+      "L_PH_CP_W",
+      "L_PH_CP_X",
+      "L_VS_WHY_1",
+      "L_PH_ST_A",
+      "L_CM_C",
+      "L_VS_WHY_2"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.08333333333333333,
+      "gold_rank": 12
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 5298,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2422,
+      "output_tokens": 466,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_VS_WHY_1",
+       "why": "목차 'Why Samsung'과 정확히 일치하는 삼성 비즈니스 핵심 프레임워크 장표"
+      },
+      {
+       "f": "L_VS_WHY_2",
+       "why": "Why Samsung 섹션 내 전문가 집단을 강조하는 하위 장표로 맥락 부합"
+      },
+      {
+       "f": "L_VS_WHY_3",
+       "why": "Why Samsung 섹션 내 통합 오퍼링을 설명하는 하위 장표로 맥락 부합"
+      },
+      {
+       "f": "L_VS_WHY_4",
+       "why": "Why Samsung 섹션 내 맞춤 프로세스를 다루는 하위 장표로 맥락 부합"
+      },
+      {
+       "f": "L_VS_WHY_5",
+       "why": "Why Samsung 섹션 내 브랜드 가치를 다루는 하위 장표로 맥락 부합"
+      },
+      {
+       "f": "L_PH_CM_A",
+       "why": "공급사 전환의 핵심인 경쟁사 비교를 현장 사진과 함께 보여주는 최적의 Why 장표"
+      },
+      {
+       "f": "L_PH_SV_B",
+       "why": "백화점 사이니지 공급사 전환 시 필수인 전국 서비스망과 SLA를 증명하는 장표"
+      },
+      {
+       "f": "L_ST_D",
+       "why": "삼성의 강점을 시각적 증거로 입증하여 신뢰도를 높이는 Why 장표"
+      },
+      {
+       "f": "L_SV_C",
+       "why": "도입 후 지원 과정을 사람 중심으로 보여줘 서비스 경쟁력을 강조하는 Why 장표"
+      },
+      {
+       "f": "L_PH_ST_A",
+       "why": "강점 세 가지를 큰 사진으로 증명하여 직관적인 Why 메시지를 전달하는 장표"
+      }
+     ],
+     "final": [
+      "L_VS_WHY_1",
+      "L_VS_WHY_2",
+      "L_VS_WHY_3",
+      "L_VS_WHY_4",
+      "L_VS_WHY_5",
+      "L_PH_CM_A",
+      "L_PH_SV_B",
+      "L_ST_D",
+      "L_SV_C",
+      "L_PH_ST_A"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.07142857142857142,
+      "gold_rank": 14
+     }
+    },
+    "llm_think": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.",
+     "trace": " recent call last):\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in run_branch\n    out, ms = timed(lambda: fn(client, tracker))\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 137, in timed\n    out = fn()\n          ^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 176, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/tests/decision_eval.py\", line 222, in task\n    order = search._rerank(env.llm, env.llm.model_for('quick'), tracker, env.kb, tc['q'], tc['part'], tc['industry'], tc['strategy'],\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/search.py\", line 308, in _rerank\n    return _rerank_llm(provider, model, tracker, kb, q, part, industry, strategy, level, products, pool)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/minseop/Dev/projects/sr_tasks/winmatev2/app/api/poc/adapters/search.py\", line 346, in _rerank_llm\n    raise from_provider('search:rerank', exc) from None\napp.api.poc.jobs.ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C08_L1:value",
+     "q": "아파트 분양 빌트인 · 스마트홈 Value Propositions 장표",
+     "part": "value",
+     "industry": "RS",
+     "strategy": "value",
+     "level": "minimal",
+     "gold": [
+      "L_RV_A",
+      "L_VP_F"
+     ],
+     "gold_in_pool": true
+    },
+    "baseline": {
+     "final": [
+      "L_PH_RV_A",
+      "L_VP_F2",
+      "L_VP_F4",
+      "L_VP_F",
+      "L_VP_G",
+      "L_RV_B",
+      "L_VP_P",
+      "L_VP_J",
+      "L_VP_T",
+      "L_VP_I"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.25,
+      "gold_rank": 4
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 9147,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2397,
+      "output_tokens": 758,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_PH_RV_A",
+       "why": "분양 포인트와 공간 사진으로 빌트인 스마트홈 가치 시각화"
+      },
+      {
+       "f": "L_VP_F4",
+       "why": "2x2 그리드로 스마트홈 핵심 가치와 제품 매칭 명확히 제시"
+      },
+      {
+       "f": "L_VP_F2",
+       "why": "핵심 가치 기둥과 제품을 2개 항목으로 간결하게 연결"
+      },
+      {
+       "f": "L_VP_T",
+       "why": "스마트홈 제품 실사와 스펙 근거로 신뢰성 있는 가치 전달"
+      },
+      {
+       "f": "L_VP_P",
+       "why": "스마트홈 앱 화면과 주석으로 실제 사용자 경험 강조"
+      },
+      {
+       "f": "L_VP_J",
+       "why": "여러 기기를 연결하는 소프트웨어 중심의 통합 가치 표현"
+      },
+      {
+       "f": "L_VP_I",
+       "why": "주요 기능 하나를 집중 콜아웃하여 핵심 가치 부각"
+      },
+      {
+       "f": "L_VP_G",
+       "why": "대표 제품 히어로 이미지로 한 문장의 강력한 메시지 전달"
+      },
+      {
+       "f": "L_VP_N",
+       "why": "설치 후 실제 생활 모습을 보여주어 가치의 현실성 입증"
+      },
+      {
+       "f": "L_PH_VP_C",
+       "why": "강렬한 배경 사진 위에 핵심 가치와 근거를 명확히 제시"
+      },
+      {
+       "f": "L_VP_H",
+       "why": "입주민과 관리자의 역할에 따른 스마트홈 혜택 구분"
+      },
+      {
+       "f": "L_VP_F",
+       "why": "3개 항목으로 유연하게 가치 기둥과 제품 관계 설명"
+      },
+      {
+       "f": "L_TOC_VP3",
+       "why": "솔루션이 주는 3가지 가치를 카드 형태로 구조화"
+      },
+      {
+       "f": "L_PH_VP_B2",
+       "why": "두 가지 핵심 가치를 큰 사진과 함께 균형 있게 배치"
+      },
+      {
+       "f": "L_RV_B",
+       "why": "세대 타입별 옵션 패키지로 맞춤형 가치 제안"
+      },
+      {
+       "f": "L_VP_US",
+       "why": "현장 질문과 사진으로 고객 니즈와 솔루션 연결"
+      },
+      {
+       "f": "L_VP_UC",
+       "why": "짧은 질문과 제품 이미지로 직관적인 가치 전달"
+      },
+      {
+       "f": "L_PH_IM_N",
+       "why": "메시지 하우스 구조로 전략적 가치 체계 제시"
+      },
+      {
+       "f": "L_PH_CP_M",
+       "why": "경쟁사 대비 집 안 삼성 제품 통합 장점 강조"
+      },
+      {
+       "f": "L_SUB_VALUE3",
+       "why": "부동산 분양 맥락과 거리가 먼 구독형 가치 모델"
+      }
+     ],
+     "final": [
+      "L_PH_RV_A",
+      "L_VP_F4",
+      "L_VP_F2",
+      "L_VP_T",
+      "L_VP_P",
+      "L_VP_J",
+      "L_VP_I",
+      "L_VP_G",
+      "L_VP_N",
+      "L_PH_VP_C"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.08333333333333333,
+      "gold_rank": 12
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C09_L3:cost",
+     "q": "무인 스터디카페 에너지 절감 비용 · 구매 장표",
+     "part": "cost",
+     "industry": "SV",
+     "strategy": "roi",
+     "level": "complex",
+     "gold": [
+      "L_CO_A",
+      "L_CO_B"
+     ],
+     "gold_in_pool": true
+    },
+    "baseline": {
+     "final": [
+      "L_CO_B",
+      "L_CO_A",
+      "L_PH_CO_A",
+      "L_PH_CO_B",
+      "L_TOC_TCO",
+      "L_PH_CO_E",
+      "L_PH_CO_D",
+      "L_PH_CO_C",
+      "L_SUB_VALUE3",
+      "L_PH_CO_F"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 16260,
+     "usage": {
+      "calls": 2,
+      "attempts": 2,
+      "failed": 0,
+      "rejected": 1,
+      "prompt_tokens": 5154,
+      "output_tokens": 1278,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_CO_B",
+       "why": "에너지 절감 비용과 TCO를 함께 보여줘야 하므로 가장 적합함"
+      },
+      {
+       "f": "L_PH_CO_B",
+       "why": "제품 컷과 누적 막대로 비용 비교 시각화에 최적화됨"
+      },
+      {
+       "f": "L_TOC_TCO",
+       "why": "구매 방식과 5년 TCO를 한 장에 정리해 구매 장표로 적합"
+      },
+      {
+       "f": "L_PH_CO_A",
+       "why": "누적 비용 선 그래프로 구매 방식 비교 시점 시각화 가능"
+      },
+      {
+       "f": "L_CO_A",
+       "why": "구매 방식 비교가 핵심이므로 두 번째로 적합한 일반 레이아웃"
+      },
+      {
+       "f": "L_PH_CO_E",
+       "why": "매장당 월 비용 핀으로 구독형 에너지 절감 효과 강조 가능"
+      },
+      {
+       "f": "L_PH_CO_D",
+       "why": "수량과 단가, 총액 정리가 필요한 상세 견적 장표에 적합"
+      },
+      {
+       "f": "L_PH_CO_C",
+       "why": "단계별 투자 계획이 필요할 때 유용한 예산 배분 레이아웃"
+      },
+      {
+       "f": "L_PH_EF_G",
+       "why": "비용 절감 효과를 워터폴 차트로 시각적으로 명확히 보여줌"
+      },
+      {
+       "f": "L_PH_EF_B",
+       "why": "투자 회수 기간과 누적 효과를 함께 보여줘 ROI 전략 부합"
+      },
+      {
+       "f": "L_SUB_COMPARE",
+       "why": "일시불 vs 구독 비교 시 구매 결정 장벽을 낮춤"
+      },
+      {
+       "f": "L_PH_CP_C",
+       "why": "경쟁사 대비 총비용 우위를 보여줄 때 유용한 비교 레이아웃"
+      },
+      {
+       "f": "L_SUB_VALUE3",
+       "why": "비용 절감 외 부가 가치를 사진과 함께 제시할 때 적합"
+      },
+      {
+       "f": "L_PH_CO_F",
+       "why": "교체 지원 혜택을 강조해 구매 부담을 줄이는 장표"
+      },
+      {
+       "f": "L_SUB_PAY3",
+       "why": "맞춤형 납부안을 제시해 구매 장벽을 낮춤"
+      },
+      {
+       "f": "L_SUB_TERMS",
+       "why": "구독 조건을 명확히 해 신뢰도를 높이는 상세 장표"
+      },
+      {
+       "f": "L_SUB_HERO",
+       "why": "구독 서비스 개요를 소개하는 첫 장으로 적합"
+      },
+      {
+       "f": "L_SUB_IND4",
+       "why": "업종별 가치를 보여줄 때 유용하지만 본 질문에는 덜 적합"
+      },
+      {
+       "f": "L_PH_MT_B",
+       "why": "유지보수 등급 비교는 에너지 절감 비용 장표와 거리가 있음"
+      },
+      {
+       "f": "L_SUB_PAIN",
+       "why": "고민 제기용 장표로, 비용 비교 장표보다는 앞선 단계임"
+      }
+     ],
+     "final": [
+      "L_CO_B",
+      "L_PH_CO_B",
+      "L_TOC_TCO",
+      "L_PH_CO_A",
+      "L_CO_A",
+      "L_PH_CO_E",
+      "L_PH_CO_D",
+      "L_PH_CO_C",
+      "L_PH_EF_G",
+      "L_PH_EF_B"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C10_L3:execution",
+     "q": "요양병원 병동 확산 실행 계획 장표",
+     "part": "execution",
+     "industry": "MD",
+     "strategy": "land",
+     "level": "complex",
+     "gold": [
+      "L_PL_A",
+      "L_PL_B",
+      "L_SV_A"
+     ],
+     "gold_in_pool": true
+    },
+    "baseline": {
+     "final": [
+      "L_PH_PL_A",
+      "L_PL_B",
+      "L_MT_B",
+      "L_TO_A",
+      "L_IP_A",
+      "L_PH_TO_B",
+      "L_PH_SE_C",
+      "L_PH_CU_B",
+      "L_CU_A",
+      "L_TO_B"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.5,
+      "gold_rank": 2
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 5382,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2431,
+      "output_tokens": 238,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_PH_PL_A",
+       "why": "파일럿부터 확산까지 단계별 현장 변화를 사진으로 보여줘 실행 계획에 가장 적합함"
+      },
+      {
+       "f": "L_TOC_ROADMAP",
+       "why": "실사부터 확산까지 4단계 로드맵으로 전체 실행 계획을 구조화해 보여줌"
+      },
+      {
+       "f": "L_TOC_PILOT",
+       "why": "파일럿에서 전체 확산까지의 범위와 성공 기준을 계단식으로 명확히 제시함"
+      },
+      {
+       "f": "L_PH_PL_B",
+       "why": "시범 대상 선정부터 지표 측정까지 사진과 비교로 구체적인 설계 과정을 보여줌"
+      },
+      {
+       "f": "L_PH_IP_A",
+       "why": "설치부터 운영까지 전 과정의 현장 사진과 일정을 함께 보여줘 실행력을 강조함"
+      }
+     ],
+     "final": [
+      "L_PH_PL_A",
+      "L_TOC_ROADMAP",
+      "L_TOC_PILOT",
+      "L_PH_PL_B",
+      "L_PH_IP_A",
+      "L_PL_B",
+      "L_MT_B",
+      "L_TO_A",
+      "L_IP_A",
+      "L_PH_TO_B"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.16666666666666666,
+      "gold_rank": 6
+     }
+    }
+   }
+  ],
+  "catalog.rank": [
+   {
+    "tc": {
+     "id": "C01_L2",
+     "q": "C 커피가 매장 디지털 전환을 고민하고 있습니다. 매장 경험을 좀 더 세련되게 바꾸고 싶고, 본사 입장에서는 메뉴 운영이 편해졌으면 한다고 합니다. 아직 구체적인 범위는 정해지지 않았어요.",
+     "count": 10,
+     "gold": [
+      "bs01",
+      "bs16"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs01",
+      "bs_std_fb_qsr",
+      "bs_std_fb_cafe",
+      "bs_std_sv_unmanned",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_ai_store_1",
+      "bs_std_oe_telco",
+      "bs_v_ai_store_2",
+      "bs_std_sv_screen",
+      "bs_std_rt_flag",
+      "bs_std_rt_small",
+      "bs_std_ed_k12",
+      "bs_std_sv_laundry",
+      "bs_account_paulbassett",
+      "bs_std_rt_hyper",
+      "bs_std_sv_beauty",
+      "bs_std_fn_bank",
+      "bs_v_smart_retail_2",
+      "bs_std_rt_mall",
+      "bs_sub_std_ht_mid",
+      "bs_std_ht_mid",
+      "bs_sub_fn_bank",
+      "bs_v_smart_network_1",
+      "bs10",
+      "bs_std_ed_academy",
+      "bs_v_smart_retail_1",
+      "bs19",
+      "bs_std_pb_agency",
+      "bs_std_mi_military",
+      "bs_std_rs_apt",
+      "bs_std_ed_univ",
+      "bs_std_of_hq",
+      "bs13",
+      "bs_std_mf_logistics",
+      "bs_v_entertainment_1",
+      "bs_std_fb_rest",
+      "bs_v_smart_network_2",
+      "bs_std_tp_park",
+      "bs12",
+      "bs_std_md_hospital",
+      "bs_std_of_cowork",
+      "bs_std_rs_senior",
+      "bs_sub_std_of_sme",
+      "bs16",
+      "bs_v_smart_hospital_2",
+      "bs_std_tp_museum",
+      "bs_sub_std_pb_agency",
+      "bs_std_vn_cinema",
+      "bs_v_smart_transportation_1",
+      "bs_std_ad_ooh"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs01",
+      "bs_std_fb_qsr",
+      "bs_std_fb_cafe",
+      "bs_std_sv_unmanned",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_ai_store_1",
+      "bs_std_oe_telco",
+      "bs_v_ai_store_2",
+      "bs_std_sv_screen",
+      "bs_std_rt_flag"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 8290,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 39283,
+      "output_tokens": 551,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs01",
+       "reason": "본사 일괄 메뉴 운영과 10개 매장 파일럿으로, 세련된 매장 경험과 운영 편의성을 동시에 해결하는 가장 적합한 제안서입니다."
+      },
+      {
+       "id": "bs_std_fb_cafe",
+       "reason": "카페 특화 AI 메뉴 큐레이션과 매장 운영 솔루션으로, 매장 경험 세련화와 본사 운영 효율화를 포괄하는 표준안입니다."
+      },
+      {
+       "id": "bs_std_fb_qsr",
+       "reason": "AI 퀵서비스로 주문부터 운영까지 통합 제안하며, 매장 경험 개선과 본사 통제력 강화를 위한 포괄적인 솔루션입니다."
+      },
+      {
+       "id": "bs_v_ai_store_1",
+       "reason": "가맹점 메뉴 반영 지연과 품절 오류 문제를 해결하는 콘텐츠 배포 운영 프로세스에 초점을 맞춘 구체적인 사례입니다."
+      },
+      {
+       "id": "bs_v_ai_store_2",
+       "reason": "피크 시간 주문 집중과 직원 업무 중복 문제를 해결하여 매장 경험을 개선하고 운영 효율을 높이는 문제 해결형 제안입니다."
+      },
+      {
+       "id": "bs_account_paulbassett",
+       "reason": "본사 콘텐츠 승인부터 매장 화면 검수까지 연결하여 운영 효율성을 높이는 직영점 기반의 검증 가능한 제안입니다."
+      },
+      {
+       "id": "bs16",
+       "reason": "설치형과 구독형 중 선택할 수 있게 하여, 본사의 보안 요구와 현장의 편의성 요구를 모두 고려한 유연한 운영 모델입니다."
+      },
+      {
+       "id": "bs_std_rt_flag",
+       "reason": "브랜드 플래그십을 위한 AI 브랜드 체험과 맞춤 상담으로 매장 경험을 세련되게 만들고 본사 운영을 지원합니다."
+      },
+      {
+       "id": "bs_v_smart_retail_2",
+       "reason": "행사 반영 시간 편차와 수동 점검 문제를 해결하여 안내 품질을 높이고 본사 운영 효율을 개선하는 체인 운영안입니다."
+      },
+      {
+       "id": "bs_std_sv_unmanned",
+       "reason": "무인 매장 원격 관리와 쾌적한 환경 제공으로 운영 편의성을 높이며, 세련된 고객 경험을 지원하는 표준 제안서입니다."
+      }
+     ],
+     "final": [
+      "bs01",
+      "bs_std_fb_cafe",
+      "bs_std_fb_qsr",
+      "bs_v_ai_store_1",
+      "bs_v_ai_store_2",
+      "bs_account_paulbassett",
+      "bs16",
+      "bs_std_rt_flag",
+      "bs_v_smart_retail_2",
+      "bs_std_sv_unmanned"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "qwen/qwen3.6-35b-a3b"
+    }
+   },
+   {
+    "tc": {
+     "id": "C02_L2",
+     "q": "신축 업무시설이라 입주사들이 좋아할 만한 스마트한 오피스를 만들고 싶다고 합니다. 에너지도 아끼고 싶고요. 설계 단계라 구체적인 건 아직 미정입니다.",
+     "count": 10,
+     "gold": [
+      "bs02"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs02",
+      "bs_std_rs_officetel",
+      "bs_std_of_sme",
+      "bs_std_of_cowork",
+      "bs_std_of_hq",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_smart_office_1",
+      "bs_sub_std_of_sme",
+      "bs_std_mi_military",
+      "bs_sub_of_hq",
+      "bs_v_knowledge_industry_center_2",
+      "bs19",
+      "bs_v_ai_apartment_1",
+      "bs_v_senior_town_1",
+      "bs_std_pb_agency",
+      "bs_std_rs_apt",
+      "bs_sub_fn_bank",
+      "bs_v_ai_office_1",
+      "bs_std_rs_senior",
+      "bs_v_ai_office_2",
+      "bs_v_smart_office_2",
+      "bs_std_md_hospital",
+      "bs_std_fn_hq",
+      "bs_sub_std_pb_agency",
+      "bs_std_fb_qsr",
+      "bs_std_mf_logistics",
+      "bs_v_smart_home_2",
+      "bs_std_ed_univ",
+      "bs_std_ed_academy",
+      "bs_std_rt_mall",
+      "bs_std_id_partner",
+      "bs_std_ad_ooh",
+      "bs_std_mf_factory",
+      "bs_std_rt_hyper",
+      "bs_std_md_tertiary",
+      "bs_std_ht_mid",
+      "bs_std_ht_large",
+      "bs_v_entertainment_1",
+      "bs_std_sv_unmanned",
+      "bs_sub_std_md_clinic",
+      "bs_std_md_clinic",
+      "bs_sub_md_hospital",
+      "bs_v_smart_factory_2",
+      "bs_std_fb_cafe",
+      "bs_std_sv_laundry",
+      "bs_sub_std_ht_mid",
+      "bs_sub_ht_large",
+      "bs_std_vn_stadium",
+      "bs_std_ht_stay",
+      "bs_std_rg_church"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs02",
+      "bs_std_rs_officetel",
+      "bs_std_of_sme",
+      "bs_std_of_cowork",
+      "bs_std_of_hq",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_smart_office_1",
+      "bs_sub_std_of_sme",
+      "bs_std_mi_military",
+      "bs_sub_of_hq"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 18793,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 40480,
+      "output_tokens": 565,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs02",
+       "reason": "신축 오피스 설계 단계에 맞춰 로비·회의실 경험과 에너지 절감 실측 증명을 동시에 해결하는 최적의 안입니다."
+      },
+      {
+       "id": "bs_std_of_hq",
+       "reason": "대규모 오피스 기준안으로 에너지 관리와 스마트 회의 등 입주사 만족도를 높이는 표준 솔루션을 제시합니다."
+      },
+      {
+       "id": "bs_std_of_sme",
+       "reason": "중소기업 오피스 대상 안으로, 협업과 쾌적함, 에너지 절감을 균형 있게 해결하는 실용적인 제안입니다."
+      },
+      {
+       "id": "bs_std_of_cowork",
+       "reason": "공유오피스 특화 안으로, 입주사별 에너지 정산과 공간 예약 등 운영 효율성을 높여 입주사 선호도를 높입니다."
+      },
+      {
+       "id": "bs_v_smart_office_1",
+       "reason": "설계 단계의 책임 소재와 운영 인수 기준을 사전에 확정하여, 준공 후 발생할 수 있는 기술적 문제를 방지합니다."
+      },
+      {
+       "id": "bs_v_knowledge_industry_center_1",
+       "reason": "지식산업센터 특화 안으로, 입주사 맞춤형 공용 시설 경험과 준공 후 운영 주체 분리를 명확히 제시합니다."
+      },
+      {
+       "id": "bs_v_ai_office_1",
+       "reason": "재실 데이터 기반의 에너지 절감과 공간 활용도 분석을 통해, 입주사에게 실질적인 편의와 비용 절감을 약속합니다."
+      },
+      {
+       "id": "bs_v_ai_office_2",
+       "reason": "기존 빌딩 운영 효율화 안이지만, 날씨와 재실률 기반의 정밀 에너지 절감 검증 로직이 신축 설계에도 적용 가능합니다."
+      },
+      {
+       "id": "bs_v_smart_factory_2",
+       "reason": "생산 공장이 아닌 부대시설과 연구동부터 시작하는 점진적 운영 개선 전략으로, 리스크를 최소화하며 에너지 절감을 실현합니다."
+      },
+      {
+       "id": "bs19",
+       "reason": "설계 단계의 불확실성 속에서도 경영진의 빠른 결심을 유도하기 위한 간결한 브리핑 자료로, 다음 단계인 실사를 제안합니다."
+      }
+     ],
+     "final": [
+      "bs02",
+      "bs_std_of_hq",
+      "bs_std_of_sme",
+      "bs_std_of_cowork",
+      "bs_v_smart_office_1",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_ai_office_1",
+      "bs_v_ai_office_2",
+      "bs_v_smart_factory_2",
+      "bs19"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "qwen/qwen3.6-35b-a3b"
+    }
+   },
+   {
+    "tc": {
+     "id": "C03_L2",
+     "q": "객실 리뉴얼을 앞두고 TV와 에어컨 교체를 검토 중입니다. 투숙객 불만이 좀 있다고 하네요. 공사 일정이나 범위는 아직 정해지지 않았습니다.",
+     "count": 10,
+     "gold": [
+      "bs07"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs07",
+      "bs_v_smart_hotel_2",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_smart_hotel_1",
+      "bs_std_ht_mid",
+      "bs_std_ht_stay",
+      "bs_sub_std_ht_mid",
+      "bs_std_ht_large",
+      "bs_sub_ht_large",
+      "bs_v_smart_transportation_1",
+      "bs10",
+      "bs06",
+      "bs_v_smart_retail_2",
+      "bs08",
+      "bs_account_inspire",
+      "bs19",
+      "bs09",
+      "bs02",
+      "bs_v_ai_apartment_1",
+      "bs_v_entertainment_1",
+      "bs_std_mi_military",
+      "bs_sub_ed_univ",
+      "bs_v_smart_university_2",
+      "bs_v_smart_home_2",
+      "bs_v_senior_town_2",
+      "bs_std_rs_officetel",
+      "bs_sub_md_hospital",
+      "bs_v_ai_office_2",
+      "bs12",
+      "bs18",
+      "bs_v_smart_factory_1",
+      "bs04",
+      "bs_std_rs_apt",
+      "bs_std_id_partner",
+      "bs_v_smart_barracks_2",
+      "bs_account_episode",
+      "bs_sub_std_pb_agency",
+      "bs17",
+      "bs_account_paulbassett",
+      "bs_sub_std_of_sme",
+      "bs_std_fb_qsr",
+      "bs_v_smart_office_2",
+      "bs_v_smart_network_2",
+      "bs_sub_std_md_clinic",
+      "bs_std_rt_flag",
+      "bs_v_smart_factory_2",
+      "bs_std_sv_unmanned",
+      "bs_v_smart_public_1",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_ed_univ"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs07",
+      "bs_v_smart_hotel_2",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_smart_hotel_1",
+      "bs_std_ht_mid",
+      "bs_std_ht_stay",
+      "bs_sub_std_ht_mid",
+      "bs_std_ht_large",
+      "bs_sub_ht_large",
+      "bs_v_smart_transportation_1"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 10525,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 38063,
+      "output_tokens": 469,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs07",
+       "reason": "호텔 객실 TV·공조 교체와 투숙객 불만 해결, 공사 중 영업 유지 등 핵심 요구사항을 정확히 해결합니다."
+      },
+      {
+       "id": "bs_v_smart_hotel_2",
+       "reason": "영업 중인 호텔 객실 판매를 유지하며 TV와 공조를 교체하는 시범 운영 방안을 제시하여 리스크를 줄입니다."
+      },
+      {
+       "id": "bs_std_ht_mid",
+       "reason": "비즈니스 호텔 표준 제안으로 AI 웰컴, 쾌적 객실, 스마트 운영 등 전반적인 객실 환경 개선안을 제시합니다."
+      },
+      {
+       "id": "bs_sub_std_ht_mid",
+       "reason": "표준 제안에 구독 솔루션을 포함해 초기 비용 부담을 줄이고, 객실 리뉴얼 및 운영 효율화를 함께 제안합니다."
+      },
+      {
+       "id": "bs10",
+       "reason": "기존 장비 교체 시 총소유비용과 운영 리스크 관점에서 비교해 전환의 필요성과 안정성을 입증합니다."
+      },
+      {
+       "id": "bs_std_ht_large",
+       "reason": "대형 호텔 기준의 AI 스테이 표준 제안으로 객실 환경 개선과 운영 효율화를 체계적으로 제안합니다."
+      },
+      {
+       "id": "bs_sub_ht_large",
+       "reason": "대형 호텔 대상 구독 도입을 통해 초기 비용 부담을 덜어주며, 객실 환경 개선을 위한 패키지를 제안합니다."
+      },
+      {
+       "id": "bs_v_smart_hotel_1",
+       "reason": "신규 호텔 개발 시 객실 TV를 투숙 안내의 시작점으로 설정해 서비스 접점 통합과 불만 해소를 제안합니다."
+      },
+      {
+       "id": "bs_std_ht_stay",
+       "reason": "레지던스형 숙박 시설에 맞춰 무인 체크인과 원격 운영 등 장기 투숙객을 위한 AI 솔루션을 제안합니다."
+      },
+      {
+       "id": "bs08",
+       "reason": "병원 병동 리뉴얼 사례로, 24시간 운영 중 노후 설비 교체와 환자 쾌적성 개선 방안을 제시합니다."
+      }
+     ],
+     "final": [
+      "bs07",
+      "bs_v_smart_hotel_2",
+      "bs_std_ht_mid",
+      "bs_sub_std_ht_mid",
+      "bs10",
+      "bs_std_ht_large",
+      "bs_sub_ht_large",
+      "bs_v_smart_hotel_1",
+      "bs_std_ht_stay",
+      "bs08"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "qwen/qwen3.6-35b-a3b"
+    }
+   },
+   {
+    "tc": {
+     "id": "C04_L2",
+     "q": "은행 영업점 창구를 좀 더 디지털하게 바꾸고 싶다는 요청이 있었습니다. 고객 대기 경험도 개선하고 싶다고 하는데, 어디서부터 시작할지는 정하지 못했다고 합니다.",
+     "count": 10,
+     "gold": [
+      "bs17",
+      "bs16",
+      "bs19"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs_std_fn_bank",
+      "bs_sub_fn_bank",
+      "bs17",
+      "bs_v_smart_finance_1",
+      "bs_v_smart_public_1",
+      "bs_v_ai_store_2",
+      "bs_v_senior_town_2",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_rt_hyper",
+      "bs_std_rt_flag",
+      "bs_std_vn_stadium",
+      "bs10",
+      "bs_v_smart_school_2",
+      "bs_std_ed_k12",
+      "bs_std_pb_transport",
+      "bs07",
+      "bs12",
+      "bs01",
+      "bs_std_tp_park",
+      "bs_sub_std_md_clinic",
+      "bs_std_sv_screen",
+      "bs_std_mi_military",
+      "bs_std_ed_univ",
+      "bs_std_fb_cafe",
+      "bs_v_smart_barracks_2",
+      "bs06",
+      "bs_std_fb_qsr",
+      "bs_sub_std_pb_agency",
+      "bs_std_md_clinic",
+      "bs_std_ed_academy",
+      "bs_v_smart_retail_2",
+      "bs_std_ad_ooh",
+      "bs_v_smart_hospital_1",
+      "bs_std_vn_cinema",
+      "bs_std_tp_museum",
+      "bs_std_of_hq",
+      "bs_std_id_partner",
+      "bs_std_of_sme",
+      "bs_std_mf_logistics",
+      "bs_v_smart_school_1",
+      "bs_std_fb_rest",
+      "bs_sub_ed_univ",
+      "bs_std_fn_hq",
+      "bs_std_rt_mall",
+      "bs_sub_md_hospital",
+      "bs_std_md_hospital",
+      "bs05",
+      "bs_std_mb_studio",
+      "bs_std_oe_telco",
+      "bs_v_smart_academy_1"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs_std_fn_bank",
+      "bs_sub_fn_bank",
+      "bs17",
+      "bs_v_smart_finance_1",
+      "bs_v_smart_public_1",
+      "bs_v_ai_store_2",
+      "bs_v_senior_town_2",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_rt_hyper",
+      "bs_std_rt_flag"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.3333333333333333,
+      "gold_rank": 3
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 24191,
+     "usage": {
+      "calls": 2,
+      "attempts": 2,
+      "failed": 0,
+      "rejected": 1,
+      "prompt_tokens": 77978,
+      "output_tokens": 1084,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs_std_fn_bank",
+       "reason": "디지털 창구와 대기 경험 개선을 위한 AI 브랜치 표준안으로, 고객 니즈에 직접 대응하는 가장 적합한 제안서입니다."
+      },
+      {
+       "id": "bs17",
+       "reason": "시범 운영 결과를 바탕으로 전 지점 확산을 위한 보안 및 예산 심의용 제안으로, 디지털 전환의 구체적 실행 경로를 제시합니다."
+      },
+      {
+       "id": "bs_sub_fn_bank",
+       "reason": "초기 비용 부담을 줄이는 구독 모델을 제시하여, 디지털 도입의 진입 장벽을 낮추고 운영 효율성을 높입니다."
+      },
+      {
+       "id": "bs_v_smart_finance_1",
+       "reason": "가상 은행 사례를 통해 대기 안내와 전자서식 개선을 시연하며, 실제 적용 전 검증 가능한 구체적인 솔루션을 제안합니다."
+      },
+      {
+       "id": "bs_std_fn_hq",
+       "reason": "금융 본점의 디지털 브랜딩과 업무 효율화를 위한 표준안으로, 브랜드 이미지 제고와 내부 운영 개선 모두를 고려합니다."
+      },
+      {
+       "id": "bs_v_ai_store_2",
+       "reason": "외식 매장의 주문 집중 해소를 위한 키오스크 및 안내 솔루션은, 은행의 대기 줄 분산 및 창구 업무 효율화 전략에 적용 가능합니다."
+      },
+      {
+       "id": "bs_std_pb_transport",
+       "reason": "대규모 시설의 승객 안내 및 통합 관제 솔루션은, 은행 지점의 디지털 사이니지 및 보안 관리 체계 구축에 유용한 참고 사례입니다."
+      },
+      {
+       "id": "bs_std_of_hq",
+       "reason": "대기업 사옥의 스마트 오피스 솔루션은 은행 본점의 보안 워크 및 에너지 관리 측면에서 디지털 환경 조성에 적합합니다."
+      },
+      {
+       "id": "bs_std_tp_park",
+       "reason": "테마파크의 몰입형 대기열 경험 설계는, 은행의 대기 시간을 긍정적 경험으로 전환하는 콘텐츠 운영 전략에 영감을 줍니다."
+      },
+      {
+       "id": "bs_std_md_clinic",
+       "reason": "의료 클리닉의 대기실 안내 및 스마트 상담 솔루션은, 은행의 고객 대기 경험 개선 및 비대면 상담 프로세스 참고에 적합합니다."
+      }
+     ],
+     "final": [
+      "bs_std_fn_bank",
+      "bs17",
+      "bs_sub_fn_bank",
+      "bs_v_smart_finance_1",
+      "bs_std_fn_hq",
+      "bs_v_ai_store_2",
+      "bs_std_pb_transport",
+      "bs_std_of_hq",
+      "bs_std_tp_park",
+      "bs_std_md_clinic"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.5,
+      "gold_rank": 2
+     },
+     "model": "qwen/qwen3.6-35b-a3b"
+    }
+   },
+   {
+    "tc": {
+     "id": "C05_L2",
+     "q": "캠퍼스를 스마트하게 바꾸는 사업을 준비 중이라, 학생들이 체감할 수 있는 학습 경험 개선 방안을 알고 싶어 합니다.",
+     "count": 10,
+     "gold": [
+      "bs03"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs_std_ed_univ",
+      "bs_v_smart_academy_1",
+      "bs_sub_ed_univ",
+      "bs_v_smart_university_1",
+      "bs_v_smart_academy_2",
+      "bs03",
+      "bs_v_smart_school_1",
+      "bs_std_of_sme",
+      "bs_std_fb_qsr",
+      "bs_std_ed_k12",
+      "bs_v_smart_public_1",
+      "bs_std_ed_academy",
+      "bs_v_smart_school_2",
+      "bs_std_md_tertiary",
+      "bs_v_smart_university_2",
+      "bs_std_ad_ooh",
+      "bs_std_sv_laundry",
+      "bs_sub_std_md_clinic",
+      "bs_std_md_clinic",
+      "bs06",
+      "bs_std_of_hq",
+      "bs_v_ai_office_1",
+      "bs_std_rs_senior",
+      "bs01",
+      "bs_v_smart_barracks_2",
+      "bs_std_rt_flag",
+      "bs_sub_std_of_sme",
+      "bs_v_smart_office_1",
+      "bs_v_smart_retail_2",
+      "bs_sub_ht_large",
+      "bs10",
+      "bs_std_rt_hyper",
+      "bs_v_ai_office_2",
+      "bs_v_smart_factory_2",
+      "bs_v_entertainment_1",
+      "bs_std_rs_officetel",
+      "bs_std_md_ltc",
+      "bs_v_smart_retail_1",
+      "bs15",
+      "bs_sub_std_pb_agency",
+      "bs_sub_of_hq",
+      "bs20",
+      "bs_std_fb_cafe",
+      "bs_std_tp_park",
+      "bs_std_mi_military",
+      "bs_sub_std_ht_mid",
+      "bs_v_entertainment_2",
+      "bs_std_ht_mid",
+      "bs_std_rt_small",
+      "bs_std_ht_large"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs_std_ed_univ",
+      "bs_v_smart_academy_1",
+      "bs_sub_ed_univ",
+      "bs_v_smart_university_1",
+      "bs_v_smart_academy_2",
+      "bs03",
+      "bs_v_smart_school_1",
+      "bs_std_of_sme",
+      "bs_std_fb_qsr",
+      "bs_std_ed_k12"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.16666666666666666,
+      "gold_rank": 6
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 9131,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 39160,
+      "output_tokens": 539,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs_std_ed_univ",
+       "reason": "대학 캠퍼스 AI 표준 제안서로, 학습 경험 개선과 체감형 스마트 강의실 구축에 가장 적합한 표준안입니다."
+      },
+      {
+       "id": "bs03",
+       "reason": "학생의 하루를 따라 강의실과 도서관을 바꾸는 공간 경험형 제안으로, 참여형 수업 개선에 효과적입니다."
+      },
+      {
+       "id": "bs_sub_ed_univ",
+       "reason": "초기 비용 부담을 줄이는 B2B 구독 모델로, 대학의 AI 캠퍼스 구축을 비용 효율적으로 제안합니다."
+      },
+      {
+       "id": "bs_v_smart_university_1",
+       "reason": "교수·학생의 수업 시작 절차를 맞추는 가상 사례로, 원격 참여 및 단말 관리 등 학습 편의성을 높입니다."
+      },
+      {
+       "id": "bs_std_ed_academy",
+       "reason": "학원 대상 AI 아카데미 표준안으로, 강의 복습과 집중 자습 환경 개선을 통해 학습 경험을 향상시킵니다."
+      },
+      {
+       "id": "bs_std_ed_k12",
+       "reason": "초중고 대상 AI 스쿨 표준안으로, 끊김 없는 태블릿 수업과 기기 관리를 지원해 디지털 학습 환경을 개선합니다."
+      },
+      {
+       "id": "bs_v_smart_academy_1",
+       "reason": "상담부터 수업까지 이어지는 학원 신규 개원 사례로, 기기 연결 시간 단축 등 학습 준비 경험을 개선합니다."
+      },
+      {
+       "id": "bs_v_smart_school_1",
+       "reason": "중학교 미래교실 사례로, 교사 관점의 수업 준비 절차 표준화를 통해 학생 협업 학습 환경을 지원합니다."
+      },
+      {
+       "id": "bs_v_smart_academy_2",
+       "reason": "프랜차이즈 학원 운영 효율화 사례로, 콘텐츠와 단말 운영 기준 일관성을 통해 학습 품질을 유지합니다."
+      },
+      {
+       "id": "bs_v_smart_school_2",
+       "reason": "학교 시설 관리 사례로, 방학 점검과 학기 운영을 잇는 공조 관리로 쾌적한 학습 환경을 조성합니다."
+      }
+     ],
+     "final": [
+      "bs_std_ed_univ",
+      "bs03",
+      "bs_sub_ed_univ",
+      "bs_v_smart_university_1",
+      "bs_std_ed_academy",
+      "bs_std_ed_k12",
+      "bs_v_smart_academy_1",
+      "bs_v_smart_school_1",
+      "bs_v_smart_academy_2",
+      "bs_v_smart_school_2"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.5,
+      "gold_rank": 2
+     },
+     "model": "qwen/qwen3.6-35b-a3b"
+    }
+   },
+   {
+    "tc": {
+     "id": "C06_L2",
+     "q": "물류센터 현장 업무가 비효율적이라 디지털화하고 싶다고 합니다. 기기 관리도 골칫거리라고 하네요.",
+     "count": 10,
+     "gold": [
+      "bs14"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs_std_mf_logistics",
+      "bs14",
+      "bs_std_fn_bank",
+      "bs_sub_fn_bank",
+      "bs_std_ed_k12",
+      "bs_std_ed_academy",
+      "bs_std_mf_factory",
+      "bs_std_of_sme",
+      "bs_v_smart_transportation_2",
+      "bs_sub_std_of_sme",
+      "bs_std_rt_flag",
+      "bs_std_pb_agency",
+      "bs_sub_ed_univ",
+      "bs_v_smart_home_2",
+      "bs_std_mi_military",
+      "bs_std_rt_hyper",
+      "bs_std_ed_univ",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_rs_apt",
+      "bs_std_pb_transport",
+      "bs_v_smart_factory_1",
+      "bs_std_vn_cinema",
+      "bs_std_fn_hq",
+      "bs_std_md_hospital",
+      "bs_std_rt_mall",
+      "bs_std_of_hq",
+      "bs_v_smart_academy_1",
+      "bs_std_ad_ooh",
+      "bs_std_sf_fitness",
+      "bs_sub_of_hq",
+      "bs_v_smart_public_1",
+      "bs_std_of_cowork",
+      "bs_std_ht_mid",
+      "bs_std_md_tertiary",
+      "bs_std_fb_qsr",
+      "bs_std_md_clinic",
+      "bs_std_sv_unmanned",
+      "bs_v_knowledge_industry_center_1",
+      "bs_std_oe_telco",
+      "bs_std_sv_laundry",
+      "bs_std_fb_cafe",
+      "bs_std_sv_screen",
+      "bs_std_rs_officetel",
+      "bs_sub_std_ht_mid",
+      "bs_v_smart_factory_2",
+      "bs_std_rs_senior",
+      "bs_std_tp_park",
+      "bs_sub_std_md_clinic",
+      "bs_std_id_partner",
+      "bs17"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs_std_mf_logistics",
+      "bs14",
+      "bs_std_fn_bank",
+      "bs_sub_fn_bank",
+      "bs_std_ed_k12",
+      "bs_std_ed_academy",
+      "bs_std_mf_factory",
+      "bs_std_of_sme",
+      "bs_v_smart_transportation_2",
+      "bs_sub_std_of_sme"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.5,
+      "gold_rank": 2
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 8124,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 40273,
+      "output_tokens": 617,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs_std_mf_logistics",
+       "reason": "물류센터 AI 표준 제안서로, 기기 관리(Knox)와 업무 효율(AI 피킹/콜드체인)을 함께 해결해 요청 사항을 가장 포괄적으로 다룹니다."
+      },
+      {
+       "id": "bs14",
+       "reason": "종이 기록과 전용 스캐너 문제를 갤럭시 하나로 통합하고 Knox로 기기 관리를 해결하여, 현장 업무 디지털화와 기기 관리 골칫거리를 동시에 해결"
+      },
+      {
+       "id": "bs_std_mf_factory",
+       "reason": "제조 현장의 AI 안전과 업무 디지털화를 다루며, Knox Suite와 b.IoT를 통해 기기 관리와 안전 운영을 통합적으로 제안합니다."
+      },
+      {
+       "id": "bs_v_smart_transportation_2",
+       "reason": "물류 출고 및 배송 인계 업무의 비효율(중복 스캔, 공용 단말)을 Knox Capture로 해결하여, 구체적인 현장 업무 프로세스 개선에 적합합"
+      },
+      {
+       "id": "bs_v_smart_factory_1",
+       "reason": "생산 현장 기록의 재입력 문제와 공용 단말 관리 문제를 Knox Capture/Suite로 해결하여, 물류 및 제조 현장의 디지털화痛点을 타격합"
+      },
+      {
+       "id": "bs_std_pb_agency",
+       "reason": "공공기관 청사의 AI 보안 행정(Knox)과 에너지 관리(b.IoT)를 제안하여, 기기 보안 관리와 시설 운영 효율화를 함께 해결합니다."
+      },
+      {
+       "id": "bs_std_of_sme",
+       "reason": "중소기업 오피스의 AI 업무 기기 관리(Knox)와 스마트 협업(VXT)을 제안하여, 제한된 IT 인력으로 기기 관리를 효율화하는 해결책을 제시"
+      },
+      {
+       "id": "bs_std_rt_hyper",
+       "reason": "대형마트의 AI 신선 관리와 스마트 가격표(VXT)를 제안하며, Knox와 b.IoT를 통해 매장 기기 보안과 설비 관리를 통합 관리합니다."
+      },
+      {
+       "id": "bs_std_pb_transport",
+       "reason": "교통 인프라의 AI 통합 관제와 현장 안전(Knox Capture)을 제안하여, 승객 안내와 운영 인력의 안전 및 기기 관리 문제를 해결합니다."
+      },
+      {
+       "id": "bs_std_of_hq",
+       "reason": "대기업 사옥의 AI 보안 워크(Knox)와 스마트 회의(VXT)를 제안하여, 광범위한 기기 보안 관리와 업무 효율화를 동시에 달성할 수 있습니다"
+      }
+     ],
+     "final": [
+      "bs_std_mf_logistics",
+      "bs14",
+      "bs_std_mf_factory",
+      "bs_v_smart_transportation_2",
+      "bs_v_smart_factory_1",
+      "bs_std_pb_agency",
+      "bs_std_of_sme",
+      "bs_std_rt_hyper",
+      "bs_std_pb_transport",
+      "bs_std_of_hq"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.5,
+      "gold_rank": 2
+     },
+     "model": "qwen/qwen3.6-35b-a3b"
+    }
+   },
+   {
+    "tc": {
+     "id": "C07_L2",
+     "q": "백화점에서 지금 타사 사이니지를 쓰고 있는데, 재계약 시점이라 다른 공급사도 검토 중이라고 합니다.",
+     "count": 10,
+     "gold": [
+      "bs10",
+      "bs06",
+      "bs16"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs10",
+      "bs_std_rt_mall",
+      "bs_v_smart_retail_2",
+      "bs_account_paulbassett",
+      "bs16",
+      "bs02",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_rs_officetel",
+      "bs_v_smart_network_2",
+      "bs_v_smart_public_1",
+      "bs_v_smart_school_1",
+      "bs04",
+      "bs_std_of_cowork",
+      "bs_v_smart_school_2",
+      "bs_std_rs_apt",
+      "bs01",
+      "bs_v_smart_academy_2",
+      "bs_std_fb_qsr",
+      "bs_account_inspire",
+      "bs_v_smart_university_2",
+      "bs_std_ed_univ",
+      "bs06",
+      "bs_std_pb_agency",
+      "bs_v_ai_store_1",
+      "bs_account_episode",
+      "bs_v_smart_office_1",
+      "bs17",
+      "bs_sub_std_pb_agency",
+      "bs_v_smart_hospital_1",
+      "bs_v_entertainment_1",
+      "bs_std_rt_small",
+      "bs_v_knowledge_industry_center_1",
+      "bs_std_fn_bank",
+      "bs_sub_ed_univ",
+      "bs_v_ai_office_2",
+      "bs_v_smart_home_2",
+      "bs_std_md_tertiary",
+      "bs_std_ad_ooh",
+      "bs_v_smart_hotel_1",
+      "bs_std_ht_mid",
+      "bs03",
+      "bs_v_smart_home_1",
+      "bs_v_entertainment_2",
+      "bs_v_ai_office_1",
+      "bs_std_rs_senior",
+      "bs_sub_fn_bank",
+      "bs_v_smart_transportation_1",
+      "bs_v_smart_transportation_2",
+      "bs_v_smart_factory_1",
+      "bs_v_smart_barracks_1"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs10",
+      "bs_std_rt_mall",
+      "bs_v_smart_retail_2",
+      "bs_account_paulbassett",
+      "bs16",
+      "bs02",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_rs_officetel",
+      "bs_v_smart_network_2",
+      "bs_v_smart_public_1"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 6919,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 37961,
+      "output_tokens": 482,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs10",
+       "reason": "타사 장비 교체 시점의 핵심인 전환 리스크와 TCO를 해결하는 경쟁사 대비 제안서입니다."
+      },
+      {
+       "id": "bs_std_rt_mall",
+       "reason": "백화점 업종 특화 표준 제안서로, 사이니지 교체 시점의 종합적인 솔루션 검토에 적합합니다."
+      },
+      {
+       "id": "bs06",
+       "reason": "백화점 매장 리뉴얼 및 브랜드 경험 개선을 위한 공간별 시안 비교와 야간 시공 전략을 제시합니다."
+      },
+      {
+       "id": "bs_std_ad_ooh",
+       "reason": "옥외 사이니지 교체 및 미디어 운영 효율화를 위한 표준 제안서로 백화점 외부 광고 검토에 적합합니다."
+      },
+      {
+       "id": "bs16",
+       "reason": "다점포 사이니지 통합 운영 모델(설치형 vs 구독형) 비교를 통해 운영 효율성과 보안 정책을 고려합니다."
+      },
+      {
+       "id": "bs_v_smart_retail_2",
+       "reason": "체인 운영의 콘텐츠 품질과 운영 효율화를 위한 문제 해결형 사례로, 백화점 내부 운영 개선에 참고합니다."
+      },
+      {
+       "id": "bs_v_smart_network_2",
+       "reason": "다지점 콘텐츠 승인 및 점검 주체 명확화를 위한 운영 효율화 사례로, 백화점 내부 관리 프로세스 개선에 적합합니다."
+      },
+      {
+       "id": "bs_std_fb_qsr",
+       "reason": "외식 프랜차이즈 표준 제안서이나, 매장 운영과 메뉴/홍보 관리를 위한 사이니지 활용 전략을 참고할 수 있습니다."
+      },
+      {
+       "id": "bs_std_pb_agency",
+       "reason": "공공기관 청사 표준 제안서로, 대규모 시설의 안내 및 에너지 관리 사이니지 통합 운영 사례를 참고합니다."
+      },
+      {
+       "id": "bs_std_rs_apt",
+       "reason": "아파트 단지 운영 표준 제안서로, 대규모 커뮤니티의 안내 및 운영 효율화를 위한 사이니지 활용 전략을 참고합니다."
+      }
+     ],
+     "final": [
+      "bs10",
+      "bs_std_rt_mall",
+      "bs06",
+      "bs_std_ad_ooh",
+      "bs16",
+      "bs_v_smart_retail_2",
+      "bs_v_smart_network_2",
+      "bs_std_fb_qsr",
+      "bs_std_pb_agency",
+      "bs_std_rs_apt"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "qwen/qwen3.6-35b-a3b"
+    }
+   },
+   {
+    "tc": {
+     "id": "C08_L2",
+     "q": "분양을 앞둔 아파트 단지에서 차별화 포인트로 가전과 스마트홈을 검토하고 있습니다. 어떤 구성이 좋을지 제안해 달라고 합니다.",
+     "count": 10,
+     "gold": [
+      "bs04"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs04",
+      "bs_std_rs_apt",
+      "bs_v_ai_apartment_1",
+      "bs_v_smart_home_1",
+      "bs_v_smart_home_2",
+      "bs_v_ai_apartment_2",
+      "bs_account_episode",
+      "bs_v_knowledge_industry_center_1",
+      "bs_std_mb_studio",
+      "bs18",
+      "bs02",
+      "bs_std_rs_officetel",
+      "bs_v_smart_finance_2",
+      "bs_std_fb_qsr",
+      "bs_sub_std_pb_agency",
+      "bs_std_of_cowork",
+      "bs_std_id_partner",
+      "bs_v_smart_network_2",
+      "bs_v_smart_factory_1",
+      "bs_v_entertainment_2",
+      "bs_std_mf_logistics",
+      "bs_std_mi_military",
+      "bs_sub_std_of_sme",
+      "bs_sub_std_ht_mid",
+      "bs_sub_md_hospital",
+      "bs_sub_std_md_clinic",
+      "bs_v_ai_office_1",
+      "bs_std_tp_park",
+      "bs_std_ht_mid",
+      "bs_std_pb_agency",
+      "bs_std_ed_academy",
+      "bs_std_rs_senior",
+      "bs07",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_md_hospital",
+      "bs_std_fb_cafe",
+      "bs_sub_ht_large",
+      "bs_sub_ed_univ",
+      "bs_std_ed_univ",
+      "bs_std_of_hq",
+      "bs_std_of_sme",
+      "bs_v_ai_store_1",
+      "bs_std_vn_cinema",
+      "bs_std_oe_telco",
+      "bs_std_rt_hyper",
+      "bs_std_rt_flag",
+      "bs_sub_of_hq",
+      "bs_v_smart_factory_2",
+      "bs_std_md_clinic",
+      "bs_std_sv_laundry"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs04",
+      "bs_std_rs_apt",
+      "bs_v_ai_apartment_1",
+      "bs_v_smart_home_1",
+      "bs_v_smart_home_2",
+      "bs_v_ai_apartment_2",
+      "bs_account_episode",
+      "bs_v_knowledge_industry_center_1",
+      "bs_std_mb_studio",
+      "bs18"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 6695,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 40055,
+      "output_tokens": 550,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs04",
+       "reason": "분양 차별화, 옵션 계약률 상승, 입주 후 민원 감소를 위한 빌트인 가전과 스마트홈 패키지 제안으로 가장 적합함"
+      },
+      {
+       "id": "bs_v_ai_apartment_1",
+       "reason": "신축 단지 설계 단계에서 가전·공조·홈네트워크를 SmartThings로 통합해 견본주택 체험과 입주 후 서비스를 연결함"
+      },
+      {
+       "id": "bs_std_rs_apt",
+       "reason": "아파트 표준 제안서로 세대부터 커뮤니티까지 AI 제품과 솔루션을 공간별·솔루션별로 체계적으로 제시함"
+      },
+      {
+       "id": "bs_v_smart_home_1",
+       "reason": "가전 제어와 단지 서비스의 경계를 명확히 하고, 입주자 유형별 생활 장면 체험을 통해 분양 차별화를 도모함"
+      },
+      {
+       "id": "bs_std_rs_officetel",
+       "reason": "오피스텔·임대주택용 표준 제안서로 작은 공간의 효율적 사용과 AI 홈 제어, 공용 공간 관리를 제안함"
+      },
+      {
+       "id": "bs_std_id_partner",
+       "reason": "인테리어·빌트인 파트너를 위한 제안으로, 가전과 가구가 하나 되는 공간 디자인과 AI 키친·리빙 솔루션을 제시함"
+      },
+      {
+       "id": "bs_v_ai_apartment_2",
+       "reason": "임대주택 입퇴거 시 가전 점검과 계정 초기화를 SmartThings로 표준화하여 운영 효율성과 입주자 만족도를 높임"
+      },
+      {
+       "id": "bs_account_episode",
+       "reason": "임대 운영사의 인수 절차를 표준화하여 자산 측, 운영사, 입주자의 책임을 명확히 하고 운영 리스크를 줄임"
+      },
+      {
+       "id": "bs_v_smart_home_2",
+       "reason": "입주 후 스마트홈 사용 교육과 기기 교체 절차를 정착시켜 반복 문의를 줄이고 지속적 사용을 유도함"
+      },
+      {
+       "id": "bs_std_fb_cafe",
+       "reason": "외식 프랜차이즈의 메뉴 큐레이션과 매장 운영을 AI로 통합하여 고객 경험과 운영 효율을 동시에 개선함"
+      }
+     ],
+     "final": [
+      "bs04",
+      "bs_v_ai_apartment_1",
+      "bs_std_rs_apt",
+      "bs_v_smart_home_1",
+      "bs_std_rs_officetel",
+      "bs_std_id_partner",
+      "bs_v_ai_apartment_2",
+      "bs_account_episode",
+      "bs_v_smart_home_2",
+      "bs_std_fb_cafe"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "qwen/qwen3.6-35b-a3b"
+    }
+   },
+   {
+    "tc": {
+     "id": "C09_L2",
+     "q": "무인 매장을 여러 곳 운영하는데 전기료가 많이 나와서 고민이라고 합니다. 매장에 사람이 없어서 관리도 어렵다고 하네요.",
+     "count": 10,
+     "gold": [
+      "bs13"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs13",
+      "bs_std_sv_unmanned",
+      "bs_std_sv_laundry",
+      "bs_std_rt_small",
+      "bs01",
+      "bs_std_oe_telco",
+      "bs16",
+      "bs_std_sv_screen",
+      "bs_std_fb_cafe",
+      "bs_std_rg_church",
+      "bs_std_sv_beauty",
+      "bs_std_ht_stay",
+      "bs15",
+      "bs_std_fb_qsr",
+      "bs_std_ht_mid",
+      "bs_v_smart_network_1",
+      "bs_v_smart_transportation_2",
+      "bs_account_paulbassett",
+      "bs_std_rt_mall",
+      "bs_std_vn_cinema",
+      "bs_v_ai_store_1",
+      "bs_std_rt_flag",
+      "bs_std_rt_hyper",
+      "bs_v_ai_store_2",
+      "bs_v_smart_office_1",
+      "bs_v_smart_retail_2",
+      "bs_v_smart_retail_1",
+      "bs_v_smart_network_2",
+      "bs_std_mb_studio",
+      "bs_v_smart_public_2",
+      "bs_std_ad_ooh",
+      "bs20",
+      "bs_std_mf_factory",
+      "bs06",
+      "bs_v_ai_apartment_2",
+      "bs_v_smart_university_2",
+      "bs_std_of_cowork",
+      "bs_std_rs_apt",
+      "bs_v_smart_office_2",
+      "bs03",
+      "bs_v_smart_hotel_2",
+      "bs_std_mf_logistics",
+      "bs14",
+      "bs_std_fn_bank",
+      "bs_v_ai_office_1",
+      "bs_std_vn_stadium",
+      "bs_std_pb_transport",
+      "bs_std_pb_agency",
+      "bs_sub_std_ht_mid",
+      "bs_std_tp_park"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs13",
+      "bs_std_sv_unmanned",
+      "bs_std_sv_laundry",
+      "bs_std_rt_small",
+      "bs01",
+      "bs_std_oe_telco",
+      "bs16",
+      "bs_std_sv_screen",
+      "bs_std_fb_cafe",
+      "bs_std_rg_church"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 5714,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 38791,
+      "output_tokens": 569,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs13",
+       "reason": "무인 매장 공조 낭비와 전기료 절감, 원격 관리를 위한 자동화 솔루션을 직접 제시하여 핵심痛点을 해결합니다."
+      },
+      {
+       "id": "bs_std_sv_unmanned",
+       "reason": "무인 매장 원격 관리와 AI 집중 환경을 표준 제안하여 운영 효율성 및 고객 경험을 동시에 고려한 포괄적 해결책입니다."
+      },
+      {
+       "id": "bs_std_sv_screen",
+       "reason": "무인 스크린골프 등 생활 편의 매장의 AI 매장 관리와 쾌적한 환경 유지를 위한 표준 제안서로 관련도가 높습니다."
+      },
+      {
+       "id": "bs_std_sv_beauty",
+       "reason": "무인 또는 소규모 매장의 AI 쾌적 시술과 매장 운영 효율화를 다루어 무인 관리痛点에 부합하는 표준 제안서입니다."
+      },
+      {
+       "id": "bs_std_ht_stay",
+       "reason": "무인 체크인과 AI 원격 운영을 통해 적은 인력으로 매장을 관리하는 레지던스 표준 제안으로 무인 운영痛点 해결에 적합합니다."
+      },
+      {
+       "id": "bs_std_ht_mid",
+       "reason": "비즈니스 호텔의 AI 스마트 운영과 적은 인력 관리, 쾌적 객실 유지를 통해 무인 관리痛点을 해결하는 표준 제안서입니다."
+      },
+      {
+       "id": "bs_std_fb_qsr",
+       "reason": "외식 프랜차이즈의 AI 매장 관리와 에너지 관리를 통해 본사 차원의 운영 효율화를 제안하여 무인 관리痛点에 부합합니다."
+      },
+      {
+       "id": "bs_std_sv_laundry",
+       "reason": "무인 코인빨래방의 AI 무인 관리와 원격 고장 알림을 통해 운영 부담을 줄이는 표준 제안서로 무인 관리痛点 해결에 적합합니다."
+      },
+      {
+       "id": "bs_std_rt_small",
+       "reason": "소형 매장의 AI 무인 운영과 설비 안전 관리를 통해 적은 인력으로 효율적으로 운영하는 방안을 제시하는 표준 제안서입니다."
+      },
+      {
+       "id": "bs_std_of_cowork",
+       "reason": "공유오피스의 AI 지점 운영과 공간 예약 관리를 통해 무인 또는 반무인 환경에서의 효율적 운영을 제안하는 표준 제안서입니다."
+      }
+     ],
+     "final": [
+      "bs13",
+      "bs_std_sv_unmanned",
+      "bs_std_sv_screen",
+      "bs_std_sv_beauty",
+      "bs_std_ht_stay",
+      "bs_std_ht_mid",
+      "bs_std_fb_qsr",
+      "bs_std_sv_laundry",
+      "bs_std_rt_small",
+      "bs_std_of_cowork"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "qwen/qwen3.6-35b-a3b"
+    }
+   },
+   {
+    "tc": {
+     "id": "C10_L2",
+     "q": "작년에 한 병동에서 파일럿을 했는데 반응이 좋아서 다른 병동으로도 넓힐지 고민이라고 합니다.",
+     "count": 10,
+     "gold": [
+      "bs08",
+      "bs17"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs17",
+      "bs13",
+      "bs08",
+      "bs_std_md_tertiary",
+      "bs14",
+      "bs01",
+      "bs_v_smart_hospital_2",
+      "bs_sub_md_hospital",
+      "bs_sub_std_md_clinic",
+      "bs_std_of_sme",
+      "bs_v_smart_network_2",
+      "bs_sub_std_of_sme",
+      "bs_std_md_hospital",
+      "bs_account_paulbassett",
+      "bs_v_knowledge_industry_center_2",
+      "bs15",
+      "bs_v_ai_office_2",
+      "bs_v_smart_university_2",
+      "bs_v_ai_store_2",
+      "bs_v_smart_school_2",
+      "bs_v_ai_apartment_2",
+      "bs_std_mi_military",
+      "bs_std_fb_qsr",
+      "bs_v_smart_barracks_2",
+      "bs16",
+      "bs_std_rt_small",
+      "bs_v_smart_hospital_1",
+      "bs18",
+      "bs04",
+      "bs_v_ai_store_1",
+      "bs_v_smart_retail_2",
+      "bs_std_oe_telco",
+      "bs_v_ai_apartment_1",
+      "bs_v_smart_hotel_2",
+      "bs_std_ht_large",
+      "bs_std_mf_logistics",
+      "bs_std_fb_cafe",
+      "bs_std_rt_flag",
+      "bs_std_id_partner",
+      "bs_std_sv_screen",
+      "bs_sub_ht_large",
+      "bs_v_smart_home_2",
+      "bs_std_ht_mid",
+      "bs_v_smart_public_2",
+      "bs_std_rt_hyper",
+      "bs_std_tp_park",
+      "bs_std_vn_cinema",
+      "bs_std_sv_unmanned",
+      "bs_std_md_clinic",
+      "bs_v_smart_office_1"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs17",
+      "bs13",
+      "bs08",
+      "bs_std_md_tertiary",
+      "bs14",
+      "bs01",
+      "bs_v_smart_hospital_2",
+      "bs_sub_md_hospital",
+      "bs_sub_std_md_clinic",
+      "bs_std_of_sme"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 6149,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 38817,
+      "output_tokens": 534,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs17",
+       "reason": "파일럿 성공 결과를 바탕으로 보안과 확산 단계를 명확히 제시해 다른 병동으로의 예산 승인 및 확산을 직접적으로 지원"
+      },
+      {
+       "id": "bs_std_md_tertiary",
+       "reason": "파일럿 검증 후 전체 병원으로 확장하는 표준 AI 호스피탈 모델을 제공해 병동 확대의 체계성을 확보"
+      },
+      {
+       "id": "bs08",
+       "reason": "1개 병도 선도 리뉴얼로 성과를 확인한 뒤 확대하는 전략으로, 파일럿 병동의 성공 사례를 다른 병동으로 연결"
+      },
+      {
+       "id": "bs16",
+       "reason": "파일럿 결과를 바탕으로 운영 모델(설치/구독)을 선택하고 2개 지역에서 시범 전환해 확산의 기반을 마련"
+      },
+      {
+       "id": "bs_std_md_hospital",
+       "reason": "중소 병원용 표준 제안으로 파일럿 병동의 성과를 검증된 구성안으로 확장해 도입 부담을 줄임"
+      },
+      {
+       "id": "bs_sub_md_hospital",
+       "reason": "구독 모델을 통해 초기 비용을 낮추고 파일럿 병동의 성과를 바탕으로 전체 병동으로의 단계적 확대를 제안"
+      },
+      {
+       "id": "bs_v_smart_hospital_1",
+       "reason": "파일럿 병동에서 환자 동선에 맞춘 안내와 동의 절차를 검증해 다른 병동으로의 운영 효율화 확대 지원"
+      },
+      {
+       "id": "bs_v_smart_hospital_2",
+       "reason": "운영 영향이 작은 구역부터 시범 운영해 온열 민원을 줄이고, 검증된 결과를 다른 병동으로 단계적 확산"
+      },
+      {
+       "id": "bs_std_fb_qsr",
+       "reason": "외식 프랜차이즈의 파일럿 검증 후 전국 매장 확산을 위한 표준화된 AI 퀵서비스 모델을 제공"
+      },
+      {
+       "id": "bs01",
+       "reason": "10개 매장 파일럿으로 디지털 메뉴보드 전환 효과를 입증하고, 이를 전국 가맹점으로 단계적 확산하는 전략"
+      }
+     ],
+     "final": [
+      "bs17",
+      "bs_std_md_tertiary",
+      "bs08",
+      "bs16",
+      "bs_std_md_hospital",
+      "bs_sub_md_hospital",
+      "bs_v_smart_hospital_1",
+      "bs_v_smart_hospital_2",
+      "bs_std_fb_qsr",
+      "bs01"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "qwen/qwen3.6-35b-a3b"
+    }
+   }
+  ],
+  "catalog.rank:compact": [
+   {
+    "tc": {
+     "id": "C01_L2",
+     "q": "C 커피가 매장 디지털 전환을 고민하고 있습니다. 매장 경험을 좀 더 세련되게 바꾸고 싶고, 본사 입장에서는 메뉴 운영이 편해졌으면 한다고 합니다. 아직 구체적인 범위는 정해지지 않았어요.",
+     "count": 10,
+     "gold": [
+      "bs01",
+      "bs16"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs01",
+      "bs_std_fb_qsr",
+      "bs_std_fb_cafe",
+      "bs_std_sv_unmanned",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_ai_store_1",
+      "bs_std_oe_telco",
+      "bs_v_ai_store_2",
+      "bs_std_sv_screen",
+      "bs_std_rt_flag",
+      "bs_std_rt_small",
+      "bs_std_ed_k12",
+      "bs_std_sv_laundry",
+      "bs_account_paulbassett",
+      "bs_std_rt_hyper",
+      "bs_std_sv_beauty",
+      "bs_std_fn_bank",
+      "bs_v_smart_retail_2",
+      "bs_std_rt_mall",
+      "bs_sub_std_ht_mid"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "baseline": {
+     "final": [
+      "bs01",
+      "bs_std_fb_qsr",
+      "bs_std_fb_cafe",
+      "bs_std_sv_unmanned",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_ai_store_1",
+      "bs_std_oe_telco",
+      "bs_v_ai_store_2",
+      "bs_std_sv_screen",
+      "bs_std_rt_flag"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 7971,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4369,
+      "output_tokens": 482,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs01",
+       "reason": "카페 프랜차이즈 본사 일괄 메뉴 운영과 매장 디지털 전환을 직접적으로 해결하는 사례입니다."
+      },
+      {
+       "id": "bs_std_fb_cafe",
+       "reason": "카페 특화 AI 솔루션으로 메뉴 큐레이션과 매장 운영 효율화를 제안하는 표준안입니다."
+      },
+      {
+       "id": "bs_std_fb_qsr",
+       "reason": "외식 프랜차이즈 대상 AI 퀵서비스로 메뉴 운영과 주문 효율화를 아우르는 표준 제안서입니다."
+      },
+      {
+       "id": "bs_v_ai_store_1",
+       "reason": "카페 가맹점의 메뉴 반영 지연과 화면 관리를 해결한 실제 사례로 본사 운영 편이성을 보여줍니다."
+      },
+      {
+       "id": "bs_account_paulbassett",
+       "reason": "외식 브랜드의 본사 승인 및 직영점 검수 프로세스를 연결하여 운영 효율화를 제안합니다."
+      },
+      {
+       "id": "bs_std_rt_flag",
+       "reason": "매장 경험의 세련됨을 위한 브랜드 플래그십 AI 체험과 맞춤 상담 솔루션을 제안합니다."
+      },
+      {
+       "id": "bs_v_ai_store_2",
+       "reason": "외식 매장의 주문·픽업 동선과 대기 문제를 해결하여 매장 경험과 운영 효율을 동시에 개선합니다."
+      },
+      {
+       "id": "bs_std_rt_small",
+       "reason": "소형 매장 대상 AI 빠른 결제와 무인 운영으로 매장 경험과 본사 관리 부담을 줄입니다."
+      },
+      {
+       "id": "bs_std_sv_screen",
+       "reason": "AI 매장 관리와 공간 경험을 결합하여 세련된 매장 환경을 조성하는 솔루션을 제안합니다."
+      },
+      {
+       "id": "bs_std_sv_laundry",
+       "reason": "무인 관리와 스마트 라운지로 매장 운영 효율과 고객 경험을 동시에 향상시키는 표준안입니다."
+      }
+     ],
+     "final": [
+      "bs01",
+      "bs_std_fb_cafe",
+      "bs_std_fb_qsr",
+      "bs_v_ai_store_1",
+      "bs_account_paulbassett",
+      "bs_std_rt_flag",
+      "bs_v_ai_store_2",
+      "bs_std_rt_small",
+      "bs_std_sv_screen",
+      "bs_std_sv_laundry"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "qwen/qwen3.6-35b-a3b"
+    }
+   },
+   {
+    "tc": {
+     "id": "C02_L2",
+     "q": "신축 업무시설이라 입주사들이 좋아할 만한 스마트한 오피스를 만들고 싶다고 합니다. 에너지도 아끼고 싶고요. 설계 단계라 구체적인 건 아직 미정입니다.",
+     "count": 10,
+     "gold": [
+      "bs02"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs02",
+      "bs_std_rs_officetel",
+      "bs_std_of_sme",
+      "bs_std_of_cowork",
+      "bs_std_of_hq",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_smart_office_1",
+      "bs_sub_std_of_sme",
+      "bs_std_mi_military",
+      "bs_sub_of_hq",
+      "bs_v_knowledge_industry_center_2",
+      "bs19",
+      "bs_v_ai_apartment_1",
+      "bs_v_senior_town_1",
+      "bs_std_pb_agency",
+      "bs_std_rs_apt",
+      "bs_sub_fn_bank",
+      "bs_v_ai_office_1",
+      "bs_std_rs_senior",
+      "bs_v_ai_office_2"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "baseline": {
+     "final": [
+      "bs02",
+      "bs_std_rs_officetel",
+      "bs_std_of_sme",
+      "bs_std_of_cowork",
+      "bs_std_of_hq",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_smart_office_1",
+      "bs_sub_std_of_sme",
+      "bs_std_mi_military",
+      "bs_sub_of_hq"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 8731,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4438,
+      "output_tokens": 602,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs02",
+       "reason": "신축 오피스 설계 단계에서 AI Ready와 에너지 20% 절감을 강조하여 입주사 만족과 에너지 절약 요구를 동시에 해결합니다."
+      },
+      {
+       "id": "bs_std_of_hq",
+       "reason": "대규모 사옥용 표준안으로, AI 빌딩 에너지 관리와 스마트 회의 등 입주사 니즈를 포괄적으로 반영한 포괄적인 제안이 가능합니다."
+      },
+      {
+       "id": "bs_std_of_sme",
+       "reason": "중소기업 오피스용 표준안으로, AI 스마트 협업과 쾌적 오피스 환경을 제시하여 입주사의 업무 효율성과 쾌적함을 동시에 고려합니다."
+      },
+      {
+       "id": "bs_std_of_cowork",
+       "reason": "공유오피스 특화안으로, AI 공간 예약과 커뮤니티 라운지 등 입주사들의 유연한 공간 사용과 네트워킹을 지원합니다."
+      },
+      {
+       "id": "bs_v_ai_office_1",
+       "reason": "신축 사옥 사례로, 재실 기반 냉방 등 에너지 효율화와 예약 시스템 도입으로 입주사의 편의와 운영 효율을 동시에 개선합니다."
+      },
+      {
+       "id": "bs_v_smart_office_1",
+       "reason": "신축 빌딩 설계 단계의 운영 이관 사례로, 설계 초기부터 시설 관제와 운영 기준을 통합하여 준공 후 문제와 에너지 낭비를 예방합니다."
+      },
+      {
+       "id": "bs_sub_of_hq",
+       "reason": "대기업 사옥 구독형 제안으로, 초기 비용 부담을 줄이면서 에너지 절감 효과를 검증할 수 있어 신축 오피스의 경제적 타당성을 높입니다."
+      },
+      {
+       "id": "bs_std_pb_agency",
+       "reason": "공공기관 청사안으로, AI 에너지 청사 솔루션을 통해 공공 건물 특유의 광범위한 에너지 절감 요구와 민원인 편의를 동시에 충족합니다."
+      },
+      {
+       "id": "bs19",
+       "reason": "RFP 전 경영진 미팅용 브리프로, 구체적인 요구사항이 미정인 설계 초기 단계에서 핵심 가치와 다음 단계 워크숍을 제안하는 데 적합합니다."
+      },
+      {
+       "id": "bs_std_mi_military",
+       "reason": "군기관 병영안으로, AI 쾌적 생활관과 지휘통제 등 특수 환경에서의 에너지 효율과 편의성을 결합한 사례로 참고할 만합니다."
+      }
+     ],
+     "final": [
+      "bs02",
+      "bs_std_of_hq",
+      "bs_std_of_sme",
+      "bs_std_of_cowork",
+      "bs_v_ai_office_1",
+      "bs_v_smart_office_1",
+      "bs_sub_of_hq",
+      "bs_std_pb_agency",
+      "bs19",
+      "bs_std_mi_military"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "qwen/qwen3.6-35b-a3b"
+    }
+   },
+   {
+    "tc": {
+     "id": "C03_L2",
+     "q": "객실 리뉴얼을 앞두고 TV와 에어컨 교체를 검토 중입니다. 투숙객 불만이 좀 있다고 하네요. 공사 일정이나 범위는 아직 정해지지 않았습니다.",
+     "count": 10,
+     "gold": [
+      "bs07"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs07",
+      "bs_v_smart_hotel_2",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_smart_hotel_1",
+      "bs_std_ht_mid",
+      "bs_std_ht_stay",
+      "bs_sub_std_ht_mid",
+      "bs_std_ht_large",
+      "bs_sub_ht_large",
+      "bs_v_smart_transportation_1",
+      "bs10",
+      "bs06",
+      "bs_v_smart_retail_2",
+      "bs08",
+      "bs_account_inspire",
+      "bs19",
+      "bs09",
+      "bs02",
+      "bs_v_ai_apartment_1",
+      "bs_v_entertainment_1"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "baseline": {
+     "final": [
+      "bs07",
+      "bs_v_smart_hotel_2",
+      "bs_v_knowledge_industry_center_1",
+      "bs_v_smart_hotel_1",
+      "bs_std_ht_mid",
+      "bs_std_ht_stay",
+      "bs_sub_std_ht_mid",
+      "bs_std_ht_large",
+      "bs_sub_ht_large",
+      "bs_v_smart_transportation_1"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 7396,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4357,
+      "output_tokens": 575,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs07",
+       "reason": "객실 TV·공조 교체와 무중단 층별 공사를 직접 다루어 투숙객 불만 해소와 영업 유지라는 핵심 요구를 정확히 해결합니다."
+      },
+      {
+       "id": "bs_v_smart_hotel_2",
+       "reason": "영업 중 객실 리뉴얼 시범 전환 사례로, 공사 일정 미정 시 운영 효율과 교체 병행 전략을 제시해 실질적인 참고가 됩니다."
+      },
+      {
+       "id": "bs10",
+       "reason": "기존 장비 교체 및 공급사 전환 시 고려해야 할 총소유비용과 리스크 관리 방안을 제시하여 교체 검토에 유용합니다."
+      },
+      {
+       "id": "bs_std_ht_mid",
+       "reason": "비즈니스 호텔 표준 제안서로, 객실 리뉴얼 시 고려할 수 있는 AI 스마트 객실 및 공조 솔루션의 전반적인 방향성을 제시합니다."
+      },
+      {
+       "id": "bs_sub_std_ht_mid",
+       "reason": "구독 솔루션 포함 제안으로, 초기 비용 부담과 관리 편의성을 강조하여 교체 검토 시 재고할 수 있는 도입 모델을 제시합니다."
+      },
+      {
+       "id": "bs_account_inspire",
+       "reason": "실제 리조트 사례를 통해 기존 자산 활용과 서비스 통합 방안을 보여주어, 리뉴얼 시 기존 시스템과의 연계성을 고려하게 합니다."
+      },
+      {
+       "id": "bs06",
+       "reason": "영업 중단 없는 리뉴얼 전략과 시공 사례는, 투숙객 불편을 최소화하며 진행해야 하는 호텔 리뉴얼 상황에 적용 가능한 인사이트를 제공합니다."
+      },
+      {
+       "id": "bs09",
+       "reason": "노후 장비 교체 시 가독성 개선과 무중단 운영 요구사항을 다루어, 투숙객 불만 해소와 공사 제약 조건 해결에 참고가 됩니다."
+      },
+      {
+       "id": "bs08",
+       "reason": "24시간 운영 시설의 리뉴얼 시 환자(투숙객) 경험 개선과 공사 제약 조건을 다루어, 호텔 리뉴얼의 운영적 난제를 참고할 수 있습니다."
+      },
+      {
+       "id": "bs19",
+       "reason": "요구사항이 명확하지 않은 초기 단계에서 경영진의 관심을 끌고 다음 단계(실사 등)로 나아가기 위한 브리프 양식으로 적합합니다."
+      }
+     ],
+     "final": [
+      "bs07",
+      "bs_v_smart_hotel_2",
+      "bs10",
+      "bs_std_ht_mid",
+      "bs_sub_std_ht_mid",
+      "bs_account_inspire",
+      "bs06",
+      "bs09",
+      "bs08",
+      "bs19"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "qwen/qwen3.6-35b-a3b"
+    }
+   },
+   {
+    "tc": {
+     "id": "C04_L2",
+     "q": "은행 영업점 창구를 좀 더 디지털하게 바꾸고 싶다는 요청이 있었습니다. 고객 대기 경험도 개선하고 싶다고 하는데, 어디서부터 시작할지는 정하지 못했다고 합니다.",
+     "count": 10,
+     "gold": [
+      "bs17",
+      "bs16",
+      "bs19"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs_std_fn_bank",
+      "bs_sub_fn_bank",
+      "bs17",
+      "bs_v_smart_finance_1",
+      "bs_v_smart_public_1",
+      "bs_v_ai_store_2",
+      "bs_v_senior_town_2",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_rt_hyper",
+      "bs_std_rt_flag",
+      "bs_std_vn_stadium",
+      "bs10",
+      "bs_v_smart_school_2",
+      "bs_std_ed_k12",
+      "bs_std_pb_transport",
+      "bs07",
+      "bs12",
+      "bs01",
+      "bs_std_tp_park",
+      "bs_sub_std_md_clinic"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "baseline": {
+     "final": [
+      "bs_std_fn_bank",
+      "bs_sub_fn_bank",
+      "bs17",
+      "bs_v_smart_finance_1",
+      "bs_v_smart_public_1",
+      "bs_v_ai_store_2",
+      "bs_v_senior_town_2",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_rt_hyper",
+      "bs_std_rt_flag"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.3333333333333333,
+      "gold_rank": 3
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 9769,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4297,
+      "output_tokens": 520,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs_std_fn_bank",
+       "reason": "은행 영업점 디지털 전환의 표준 제안서로, 대기 경험 개선과 디지털 창구 도입의 첫 단계를 명확히 안내합니다."
+      },
+      {
+       "id": "bs_v_smart_finance_1",
+       "reason": "대기 시간 단축과 디지털 창구 경험을 구체적으로 시연하는 가상 사례로, 사용자의 고민을 직접적으로 해결합니다."
+      },
+      {
+       "id": "bs_sub_fn_bank",
+       "reason": "초기 비용 부담을 줄이는 구독 모델로, 디지털 전환의 진입 장벽을 낮추고 결정을 쉽게 도와줍니다."
+      },
+      {
+       "id": "bs17",
+       "reason": "파일럿을 통한 검증 후 확산 전략으로, 불확실성을 줄이고 단계적인 디지털 전환을 제안합니다."
+      },
+      {
+       "id": "bs_sub_std_md_clinic",
+       "reason": "지루한 대기 개선과 종이 업무 디지털화 등, 대기 경험 개선과 운영 효율화를 위한 구독형 솔루션을 제시합니다."
+      },
+      {
+       "id": "bs_std_pb_transport",
+       "reason": "승객 안내와 대기 편의를 위한 AI 솔루션을 제공하여, 공공 공간의 대기 경험 개선 사례로 참고할 수 있습니다."
+      },
+      {
+       "id": "bs_std_ed_k12",
+       "reason": "디지털 교실과 기기 관리를 통해 교육 공간의 효율성을 높이는 사례로, 대기 및 운영 개선에 참고가 됩니다."
+      },
+      {
+       "id": "bs_std_tp_park",
+       "reason": "몰입 대기열과 현장 운영 AI를 통해 긴 대기 시간을 줄이고 경험을 개선하는 방안을 제시합니다."
+      },
+      {
+       "id": "bs_std_rt_flag",
+       "reason": "맞춤 상담과 스토어 운영 AI를 통해 방문객 경험을 향상시키는 사례로, 은행 창구 서비스 개선에 적용 가능합니다."
+      },
+      {
+       "id": "bs_std_rt_hyper",
+       "reason": "스마트 가격표와 프로모션 AI로 매장 운영 효율을 높이는 사례로, 디지털 전환의 기본기를 이해하는 데 도움이 됩니다."
+      }
+     ],
+     "final": [
+      "bs_std_fn_bank",
+      "bs_v_smart_finance_1",
+      "bs_sub_fn_bank",
+      "bs17",
+      "bs_sub_std_md_clinic",
+      "bs_std_pb_transport",
+      "bs_std_ed_k12",
+      "bs_std_tp_park",
+      "bs_std_rt_flag",
+      "bs_std_rt_hyper"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.25,
+      "gold_rank": 4
+     },
+     "model": "qwen/qwen3.6-35b-a3b"
+    }
+   },
+   {
+    "tc": {
+     "id": "C05_L2",
+     "q": "캠퍼스를 스마트하게 바꾸는 사업을 준비 중이라, 학생들이 체감할 수 있는 학습 경험 개선 방안을 알고 싶어 합니다.",
+     "count": 10,
+     "gold": [
+      "bs03"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs_std_ed_univ",
+      "bs_v_smart_academy_1",
+      "bs_sub_ed_univ",
+      "bs_v_smart_university_1",
+      "bs_v_smart_academy_2",
+      "bs03",
+      "bs_v_smart_school_1",
+      "bs_std_of_sme",
+      "bs_std_fb_qsr",
+      "bs_std_ed_k12",
+      "bs_v_smart_public_1",
+      "bs_std_ed_academy",
+      "bs_v_smart_school_2",
+      "bs_std_md_tertiary",
+      "bs_v_smart_university_2",
+      "bs_std_ad_ooh",
+      "bs_std_sv_laundry",
+      "bs_sub_std_md_clinic",
+      "bs_std_md_clinic",
+      "bs06"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "baseline": {
+     "final": [
+      "bs_std_ed_univ",
+      "bs_v_smart_academy_1",
+      "bs_sub_ed_univ",
+      "bs_v_smart_university_1",
+      "bs_v_smart_academy_2",
+      "bs03",
+      "bs_v_smart_school_1",
+      "bs_std_of_sme",
+      "bs_std_fb_qsr",
+      "bs_std_ed_k12"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.16666666666666666,
+      "gold_rank": 6
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 11845,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4334,
+      "output_tokens": 546,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs_std_ed_univ",
+       "reason": "대학 캠퍼스 AI 표준안으로 학습·안내·운영 니즈를 해결해 학생 체감 학습 경험 개선에 가장 적합합니다."
+      },
+      {
+       "id": "bs03",
+       "reason": "강의실과 도서관 구축 사례로 참여형 수업과 무인 운영을 제안해 캠퍼스 스마트화와 학습 경험 향상을 돕습니다."
+      },
+      {
+       "id": "bs_sub_ed_univ",
+       "reason": "초기 비용 부담 없는 구독 모델로 캠퍼스 AI 도입을 용이하게 하여 학습 환경 개선의 진입 장벽을 낮춥니다."
+      },
+      {
+       "id": "bs_v_smart_university_1",
+       "reason": "가상 대학 사례로 교수 준비부터 학생 협업까지 이어지는 스마트 강의 환경을 설계해 학습 효율성을 높입니다."
+      },
+      {
+       "id": "bs_v_smart_university_2",
+       "reason": "캠퍼스 시설 관리 최적화를 통해 쾌적한 학습 환경을 유지하며, 건물별 운영 효율화로 간접적 학습 경험 개선합니다."
+      },
+      {
+       "id": "bs_std_ed_academy",
+       "reason": "학원 대상 AI 아카데미 표준으로 스마트 강의와 집중 자습 환경을 제공해 학습 몰입도를 높이는 방안을 제시합니다."
+      },
+      {
+       "id": "bs_std_ed_k12",
+       "reason": "초중고 AI 스쿨 표준으로 디지털 교실과 기기 관리를 제안하여 학생 중심의 스마트 학습 환경을 구축합니다."
+      },
+      {
+       "id": "bs_v_smart_academy_1",
+       "reason": "학원 신규 개원 사례로 상담부터 수업까지 이어지는 기기 흐름을 설계해 학습 시작의 편의성을 높입니다."
+      },
+      {
+       "id": "bs_v_smart_school_1",
+       "reason": "중학교 미래교실 사례로 교사 관점의 수업 준비와 학생 협업을 연결하여 수월한 학습 경험을 설계합니다."
+      },
+      {
+       "id": "bs_v_smart_academy_2",
+       "reason": "프랜차이즈 학원 사례로 다지점 콘텐츠와 단말 운영 기준을 통일하여 일관된 학습 품질을 유지합니다."
+      }
+     ],
+     "final": [
+      "bs_std_ed_univ",
+      "bs03",
+      "bs_sub_ed_univ",
+      "bs_v_smart_university_1",
+      "bs_v_smart_university_2",
+      "bs_std_ed_academy",
+      "bs_std_ed_k12",
+      "bs_v_smart_academy_1",
+      "bs_v_smart_school_1",
+      "bs_v_smart_academy_2"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.5,
+      "gold_rank": 2
+     },
+     "model": "qwen/qwen3.6-35b-a3b"
+    }
+   },
+   {
+    "tc": {
+     "id": "C06_L2",
+     "q": "물류센터 현장 업무가 비효율적이라 디지털화하고 싶다고 합니다. 기기 관리도 골칫거리라고 하네요.",
+     "count": 10,
+     "gold": [
+      "bs14"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs_std_mf_logistics",
+      "bs14",
+      "bs_std_fn_bank",
+      "bs_sub_fn_bank",
+      "bs_std_ed_k12",
+      "bs_std_ed_academy",
+      "bs_std_mf_factory",
+      "bs_std_of_sme",
+      "bs_v_smart_transportation_2",
+      "bs_sub_std_of_sme",
+      "bs_std_rt_flag",
+      "bs_std_pb_agency",
+      "bs_sub_ed_univ",
+      "bs_v_smart_home_2",
+      "bs_std_mi_military",
+      "bs_std_rt_hyper",
+      "bs_std_ed_univ",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_rs_apt",
+      "bs_std_pb_transport"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "baseline": {
+     "final": [
+      "bs_std_mf_logistics",
+      "bs14",
+      "bs_std_fn_bank",
+      "bs_sub_fn_bank",
+      "bs_std_ed_k12",
+      "bs_std_ed_academy",
+      "bs_std_mf_factory",
+      "bs_std_of_sme",
+      "bs_v_smart_transportation_2",
+      "bs_sub_std_of_sme"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.5,
+      "gold_rank": 2
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 8454,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4281,
+      "output_tokens": 496,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs14",
+       "reason": "물류센터 기기 관리와 디지털화 문제를 갤럭시 하나로 해결하는 구체적인 해법을 제시합니다."
+      },
+      {
+       "id": "bs_std_mf_logistics",
+       "reason": "물류센터 AI 도입을 위한 표준 제안서로, 현장 업무 효율화와 기기 관리 니즈를 포괄합니다."
+      },
+      {
+       "id": "bs_v_smart_transportation_2",
+       "reason": "물류 출고 및 배송 인계 업무의 재입력 문제를 해결하여 운영 효율성을 높이는 사례입니다."
+      },
+      {
+       "id": "bs_std_mf_factory",
+       "reason": "제조·물류 현장의 AI 안전 및 업무 관제 솔루션을 제공해 기기 관리 및 비효율 문제를 다룹니다."
+      },
+      {
+       "id": "bs_std_of_sme",
+       "reason": "중소기업 오피스의 AI 스마트 협업 및 업무 기기 관리 솔루션으로 간접적인 업무 효율화를 제안합니다."
+      },
+      {
+       "id": "bs_std_pb_agency",
+       "reason": "공공기관 청사의 AI 보안 행정 및 에너지 관리로, 대규모 기기 관리 및 운영 효율화를 다룹니다."
+      },
+      {
+       "id": "bs_std_ed_k12",
+       "reason": "학교의 AI 기기 관리 솔루션을 제공하여, 다수의 단말기 관리와 운영 효율화 문제를 해결합니다."
+      },
+      {
+       "id": "bs_std_ed_academy",
+       "reason": "학원의 AI 스마트 강의 및 집중 자습 솔루션으로 교육 현장의 운영 효율화와 기기 관리를 제안합니다."
+      },
+      {
+       "id": "bs_std_ed_univ",
+       "reason": "대학 캠퍼스의 AI 스마트 강의 및 캠퍼스 운영 솔루션으로 대규모 기기 관리와 효율화를 다룹니다."
+      },
+      {
+       "id": "bs_std_mi_military",
+       "reason": "군기관의 AI 지휘통제 및 보안 행정 솔루션으로, 복잡한 기기 관리와 운영 효율화를 제안합니다."
+      }
+     ],
+     "final": [
+      "bs14",
+      "bs_std_mf_logistics",
+      "bs_v_smart_transportation_2",
+      "bs_std_mf_factory",
+      "bs_std_of_sme",
+      "bs_std_pb_agency",
+      "bs_std_ed_k12",
+      "bs_std_ed_academy",
+      "bs_std_ed_univ",
+      "bs_std_mi_military"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "qwen/qwen3.6-35b-a3b"
+    }
+   },
+   {
+    "tc": {
+     "id": "C07_L2",
+     "q": "백화점에서 지금 타사 사이니지를 쓰고 있는데, 재계약 시점이라 다른 공급사도 검토 중이라고 합니다.",
+     "count": 10,
+     "gold": [
+      "bs10",
+      "bs06",
+      "bs16"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs10",
+      "bs_std_rt_mall",
+      "bs_v_smart_retail_2",
+      "bs_account_paulbassett",
+      "bs16",
+      "bs02",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_rs_officetel",
+      "bs_v_smart_network_2",
+      "bs_v_smart_public_1",
+      "bs_v_smart_school_1",
+      "bs04",
+      "bs_std_of_cowork",
+      "bs_v_smart_school_2",
+      "bs_std_rs_apt",
+      "bs01",
+      "bs_v_smart_academy_2",
+      "bs_std_fb_qsr",
+      "bs_account_inspire",
+      "bs_v_smart_university_2"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "baseline": {
+     "final": [
+      "bs10",
+      "bs_std_rt_mall",
+      "bs_v_smart_retail_2",
+      "bs_account_paulbassett",
+      "bs16",
+      "bs02",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_rs_officetel",
+      "bs_v_smart_network_2",
+      "bs_v_smart_public_1"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 5362,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4316,
+      "output_tokens": 551,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs10",
+       "reason": "타사 사이니지 재계약 시 전환 리스크와 가격 협상을 해결하는 경쟁사 대비 제안서로 가장 적합합니다."
+      },
+      {
+       "id": "bs16",
+       "reason": "다점포 사이니지 통합 운영 모델(설치형 vs 구독형)을 제시하여 운영 효율성 제안을 위한 기초 자료로 적합합니다."
+      },
+      {
+       "id": "bs_std_rt_mall",
+       "reason": "백화점 특화 AI 솔루션과 도입 사례를 포함하여, 백화점 환경에 맞는 삼성 사이니지 가치 제시에 적합합니다."
+      },
+      {
+       "id": "bs_v_smart_retail_2",
+       "reason": "체인 매장 화면 콘텐츠의 일관된 운영과 실시간 업데이트 사례를 통해 백화점 운영 효율성 개선안을 제시합니다."
+      },
+      {
+       "id": "bs_account_paulbassett",
+       "reason": "브랜드 운영과 콘텐츠 검수 프로세스를 연결한 사례로, 백화점 내 다양한 브랜드의 디지털 사이니지 관리 참고에 적합합니다."
+      },
+      {
+       "id": "bs01",
+       "reason": "프랜차이즈 매장 디지털 메뉴보드 전환 사례로, 다수 매장의 콘텐츠 일괄 관리 및 신속 반영 전략을 참고할 수 있습니다."
+      },
+      {
+       "id": "bs_std_fb_qsr",
+       "reason": "외식 프랜차이즈 AI 퀵서비스 표준 제안으로, 매장 내 디지털 사이니지와 고객 경험 연동 사례를 제공합니다."
+      },
+      {
+       "id": "bs_v_smart_network_2",
+       "reason": "다지점 통신 매장 콘텐츠 승인 및 단말 설정 표준화 사례로, 백화점 내 다양한 입점사의 디지털 운영 기준 수립에 참고합니다."
+      },
+      {
+       "id": "bs_v_knowledge_industry_center_2",
+       "reason": "입주사별 권한과 시설 이력 관리 사례로, 백화점 내 공용 공간 안내 및 관리 효율화 방안을 참고할 수 있습니다."
+      },
+      {
+       "id": "bs_std_of_cowork",
+       "reason": "공유오피스 AI 워크스페이스 표준 제안으로, 사무 공간 내 디지털 안내 및 예약 시스템 연동 사례를 제공합니다."
+      }
+     ],
+     "final": [
+      "bs10",
+      "bs16",
+      "bs_std_rt_mall",
+      "bs_v_smart_retail_2",
+      "bs_account_paulbassett",
+      "bs01",
+      "bs_std_fb_qsr",
+      "bs_v_smart_network_2",
+      "bs_v_knowledge_industry_center_2",
+      "bs_std_of_cowork"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "qwen/qwen3.6-35b-a3b"
+    }
+   },
+   {
+    "tc": {
+     "id": "C08_L2",
+     "q": "분양을 앞둔 아파트 단지에서 차별화 포인트로 가전과 스마트홈을 검토하고 있습니다. 어떤 구성이 좋을지 제안해 달라고 합니다.",
+     "count": 10,
+     "gold": [
+      "bs04"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs04",
+      "bs_std_rs_apt",
+      "bs_v_ai_apartment_1",
+      "bs_v_smart_home_1",
+      "bs_v_smart_home_2",
+      "bs_v_ai_apartment_2",
+      "bs_account_episode",
+      "bs_v_knowledge_industry_center_1",
+      "bs_std_mb_studio",
+      "bs18",
+      "bs02",
+      "bs_std_rs_officetel",
+      "bs_v_smart_finance_2",
+      "bs_std_fb_qsr",
+      "bs_sub_std_pb_agency",
+      "bs_std_of_cowork",
+      "bs_std_id_partner",
+      "bs_v_smart_network_2",
+      "bs_v_smart_factory_1",
+      "bs_v_entertainment_2"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "baseline": {
+     "final": [
+      "bs04",
+      "bs_std_rs_apt",
+      "bs_v_ai_apartment_1",
+      "bs_v_smart_home_1",
+      "bs_v_smart_home_2",
+      "bs_v_ai_apartment_2",
+      "bs_account_episode",
+      "bs_v_knowledge_industry_center_1",
+      "bs_std_mb_studio",
+      "bs18"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 4432,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4333,
+      "output_tokens": 526,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs04",
+       "reason": "분양 전 가전·스마트홈 사양 제안으로 모델하우스 체험과 옵션 계약 연계를 명확히 하여 차별화 포인트를 제시합니다."
+      },
+      {
+       "id": "bs_v_ai_apartment_1",
+       "reason": "신축 단지 설계 단계에서 가전·공조·홈네트워크를 통합해 상담 효율과 입주 후 편의성을 동시에 해결합니다."
+      },
+      {
+       "id": "bs_std_rs_apt",
+       "reason": "아파트 전용 표준 제안서로 AI 홈 연결, 라이프 가전, 단지 운영 등 입주민 니즈를 체계적으로 제시합니다."
+      },
+      {
+       "id": "bs_v_smart_home_1",
+       "reason": "제품 나열이 아닌 생활 장면 중심의 스마트홈 구성으로 세대와 커뮤니티 경험의 일관성을 확보합니다."
+      },
+      {
+       "id": "bs_std_of_cowork",
+       "reason": "공유오피스 공간 예약 및 커뮤니티 라운지 등 AI 워크스페이스 솔루션으로 업무 환경 차별화를 제안합니다."
+      },
+      {
+       "id": "bs_std_id_partner",
+       "reason": "인테리어 파트너와 협력해 AI 빌트인 키친과 리빙 솔루션을 결합한 맞춤형 주거 공간 디자인을 제안합니다."
+      },
+      {
+       "id": "bs_std_fb_qsr",
+       "reason": "외식 프랜차이즈의 AI 퀵서비스와 매장 관리 솔루션을 통해 고객 경험과 운영 효율을 동시에 개선합니다."
+      },
+      {
+       "id": "bs_std_rs_officetel",
+       "reason": "오피스텔과 임대주택 대상 AI 스마트 하우징 표준안으로 컴팩트 라이프와 공용 공간 제안을 통합합니다."
+      },
+      {
+       "id": "bs02",
+       "reason": "신축 오피스 설계 단계에 AI Ready 스마트 빌딩을 반영해 에너지 절감과 차별화된 업무 환경을 제안합니다."
+      },
+      {
+       "id": "bs_sub_std_pb_agency",
+       "reason": "공공기관 청사에 AI 스마트 청사 솔루션과 구독 모델을 결합해 보안과 에너지 목표 달성을 지원합니다."
+      }
+     ],
+     "final": [
+      "bs04",
+      "bs_v_ai_apartment_1",
+      "bs_std_rs_apt",
+      "bs_v_smart_home_1",
+      "bs_std_of_cowork",
+      "bs_std_id_partner",
+      "bs_std_fb_qsr",
+      "bs_std_rs_officetel",
+      "bs02",
+      "bs_sub_std_pb_agency"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "qwen/qwen3.6-35b-a3b"
+    }
+   },
+   {
+    "tc": {
+     "id": "C09_L2",
+     "q": "무인 매장을 여러 곳 운영하는데 전기료가 많이 나와서 고민이라고 합니다. 매장에 사람이 없어서 관리도 어렵다고 하네요.",
+     "count": 10,
+     "gold": [
+      "bs13"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs13",
+      "bs_std_sv_unmanned",
+      "bs_std_sv_laundry",
+      "bs_std_rt_small",
+      "bs01",
+      "bs_std_oe_telco",
+      "bs16",
+      "bs_std_sv_screen",
+      "bs_std_fb_cafe",
+      "bs_std_rg_church",
+      "bs_std_sv_beauty",
+      "bs_std_ht_stay",
+      "bs15",
+      "bs_std_fb_qsr",
+      "bs_std_ht_mid",
+      "bs_v_smart_network_1",
+      "bs_v_smart_transportation_2",
+      "bs_account_paulbassett",
+      "bs_std_rt_mall",
+      "bs_std_vn_cinema"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "baseline": {
+     "final": [
+      "bs13",
+      "bs_std_sv_unmanned",
+      "bs_std_sv_laundry",
+      "bs_std_rt_small",
+      "bs01",
+      "bs_std_oe_telco",
+      "bs16",
+      "bs_std_sv_screen",
+      "bs_std_fb_cafe",
+      "bs_std_rg_church"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 10340,
+     "usage": {
+      "calls": 2,
+      "attempts": 2,
+      "failed": 0,
+      "rejected": 1,
+      "prompt_tokens": 8660,
+      "output_tokens": 988,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs13",
+       "reason": "무인 매장 전기료 절감 및 공조 자동화로 에너지 비용과 관리 부담을 동시에 해결하는 최적의 솔루션입니다."
+      },
+      {
+       "id": "bs_std_sv_unmanned",
+       "reason": "무인 매장의 원격 관리 니즈를 충족하는 AI 솔루션으로, 다점포 운영의 효율성을 높여줍니다."
+      },
+      {
+       "id": "bs_std_sv_screen",
+       "reason": "스크린골프 등 무인 스포츠 매장의 AI 관리 솔루션으로, 에너지 효율과 원격 운영 편의성을 제공합니다."
+      },
+      {
+       "id": "bs16",
+       "reason": "다점포의 사이니지 통합 운영을 통해 분산된 관리 부담을 줄이고 본사 차원의 효율적인 운영을 지원합니다."
+      },
+      {
+       "id": "bs_std_sv_beauty",
+       "reason": "무인 또는 소규모 뷰티 매장의 AI 운영 솔루션으로, 에너지 관리와 원격 모니터링을 통해 운영 효율을 높입니다."
+      },
+      {
+       "id": "bs_std_sv_laundry",
+       "reason": "무인 세탁소의 AI 원격 관리 솔루션으로, 에너지 최적화와 자동화된 운영 효율을 제공합니다."
+      },
+      {
+       "id": "bs_std_rt_small",
+       "reason": "소형 무인 매장의 AI 자동 운영 솔루션으로, 인력 부족과 관리 어려움을 해결하는 표준 제안서입니다."
+      },
+      {
+       "id": "bs_std_ht_stay",
+       "reason": "무인 체크인 및 원격 운영 솔루션으로, 인력 없이도 효율적인 매장 관리와 에너지 절감을 가능하게 합니다."
+      },
+      {
+       "id": "bs_std_fb_qsr",
+       "reason": "무인 또는 최소 인력 운영이 가능한 퀵서비스 매장 솔루션으로, 운영 효율화와 에너지 절감 효과를 기대할 수 있습니다."
+      },
+      {
+       "id": "bs_std_fb_cafe",
+       "reason": "무인 카페 운영을 위한 AI 솔루션으로, 자동 주문 및 관리를 통해 에너지 비용 절감과 운영 편의성을 제공합니다."
+      }
+     ],
+     "final": [
+      "bs13",
+      "bs_std_sv_unmanned",
+      "bs_std_sv_screen",
+      "bs16",
+      "bs_std_sv_beauty",
+      "bs_std_sv_laundry",
+      "bs_std_rt_small",
+      "bs_std_ht_stay",
+      "bs_std_fb_qsr",
+      "bs_std_fb_cafe"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "qwen/qwen3.6-35b-a3b"
+    }
+   },
+   {
+    "tc": {
+     "id": "C10_L2",
+     "q": "작년에 한 병동에서 파일럿을 했는데 반응이 좋아서 다른 병동으로도 넓힐지 고민이라고 합니다.",
+     "count": 10,
+     "gold": [
+      "bs08",
+      "bs17"
+     ],
+     "gold_in_pool": true,
+     "retrieval_order": [
+      "bs17",
+      "bs13",
+      "bs08",
+      "bs_std_md_tertiary",
+      "bs14",
+      "bs01",
+      "bs_v_smart_hospital_2",
+      "bs_sub_md_hospital",
+      "bs_sub_std_md_clinic",
+      "bs_std_of_sme",
+      "bs_v_smart_network_2",
+      "bs_sub_std_of_sme",
+      "bs_std_md_hospital",
+      "bs_account_paulbassett",
+      "bs_v_knowledge_industry_center_2",
+      "bs15",
+      "bs_v_ai_office_2",
+      "bs_v_smart_university_2",
+      "bs_v_ai_store_2",
+      "bs_v_smart_school_2"
+     ],
+     "task": "catalog.rank:compact"
+    },
+    "baseline": {
+     "final": [
+      "bs17",
+      "bs13",
+      "bs08",
+      "bs_std_md_tertiary",
+      "bs14",
+      "bs01",
+      "bs_v_smart_hospital_2",
+      "bs_sub_md_hospital",
+      "bs_sub_std_md_clinic",
+      "bs_std_of_sme"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 6278,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4459,
+      "output_tokens": 571,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "id": "bs17",
+       "reason": "파일럿 검증 후 다른 병동으로 확대하는 단계적 확산 시나리오로, 예산 심의와 운영 이관 등 확장 과정의 핵심을 다룹니다."
+      },
+      {
+       "id": "bs_std_md_hospital",
+       "reason": "중소 병원의 AI 스마트 병동 솔루션을 소개하는 표준 제안서로, 파일럿 성공 후 표준화된 확장을 위한 기초 자료입니다."
+      },
+      {
+       "id": "bs_v_smart_hospital_2",
+       "reason": "병동 운영을 유지하며 시설을 개선하는 사례로, 기존 병동의 운영 리스크를 최소화하며 확장하는 실용적인 접근입니다."
+      },
+      {
+       "id": "bs08",
+       "reason": "병동 리뉴얼을 통해 환자 경험과 운영 효율을 동시에 개선하는 문제 해결형 제안으로, 파일럿의 구체적 성과를 보여줍니다."
+      },
+      {
+       "id": "bs_sub_std_md_clinic",
+       "reason": "초기 비용 부담이 적은 구독 모델을 제시하여, 병동 확대 시 재정부담을 줄이고 신속한 도입을 가능하게 합니다."
+      },
+      {
+       "id": "bs_sub_md_hospital",
+       "reason": "중소 병원의 AI 구독 패키지로, 초기 투자 부담을 줄이며 병동별 맞춤형 확장이 가능한 유연한 도입 방안을 제시합니다."
+      },
+      {
+       "id": "bs13",
+       "reason": "다점포 체인의 무인 운영 효율화 사례로, 파일럿 결과를 바탕으로 여러 병동(점포)으로의 자동화 확장을 논리적으로 지원합니다."
+      },
+      {
+       "id": "bs01",
+       "reason": "프랜차이즈의 디지털 메뉴보드 전환 사례로, 10개 매장 파일럿 후 전국 확장의 성공 모델을 제공하여 병동 확대의 참고가 됩니다."
+      },
+      {
+       "id": "bs14",
+       "reason": "모바일 업무 디지털화로 종이 기록을 없애는 사례로, 병동 내 업무 프로세스 개선 및 효율화 확장에 적용 가능한 해법입니다."
+      },
+      {
+       "id": "bs_std_md_tertiary",
+       "reason": "상급종합병원의 AI 호스피탈 표준 제안서로, 다양한 공간과 솔루션을 아우르는 포괄적인 확장을 위한 표준 프레임워크입니다."
+      }
+     ],
+     "final": [
+      "bs17",
+      "bs_std_md_hospital",
+      "bs_v_smart_hospital_2",
+      "bs08",
+      "bs_sub_std_md_clinic",
+      "bs_sub_md_hospital",
+      "bs13",
+      "bs01",
+      "bs14",
+      "bs_std_md_tertiary"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     },
+     "model": "qwen/qwen3.6-35b-a3b"
+    }
+   }
+  ],
+  "review.route": [
+   {
+    "tc": {
+     "id": "bs10:wrong_customer",
+     "pid": "bs10",
+     "kind": "wrong_customer"
+    },
+    "targets": [
+     "CU1",
+     "WR1"
+    ],
+    "baseline": {
+     "selected": [
+      "CU1",
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "CU6"
+     ],
+     "mode": "rules",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 1,
+      "C_VS": 1,
+      "C_DQ": 1
+     },
+     "l2": {
+      "F_CU": 3
+     },
+     "priority": {
+      "CU1": 2,
+      "CU2": 2,
+      "CU3": 1,
+      "CU4": 2,
+      "CU5": 1,
+      "CU6": 1
+     },
+     "risk": [
+      "CU1",
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.5,
+      "n_selected": 6
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 25156,
+     "usage": {
+      "calls": 2,
+      "attempts": 2,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 8437,
+      "output_tokens": 1538,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "selected": [
+      "CU1",
+      "CU2",
+      "CU4",
+      "CU5",
+      "PR3",
+      "PR6",
+      "VS1",
+      "VS3",
+      "VS4",
+      "DQ2"
+     ],
+     "mode": "llm",
+     "l1": {
+      "C_CU": 3,
+      "C_VS": 3,
+      "C_PR": 2,
+      "C_DQ": 2
+     },
+     "l2": {
+      "F_VS": 3,
+      "F_CU": 3,
+      "F_PR": 2,
+      "F_DQ": 2
+     },
+     "priority": {
+      "VS4": 3,
+      "VS3": 3,
+      "CU2": 3,
+      "CU4": 2,
+      "PR6": 2,
+      "DQ2": 2,
+      "VS1": 2,
+      "CU5": 2,
+      "PR3": 1,
+      "DQ1": 1,
+      "VS2": 1,
+      "PR1": 0
+     },
+     "risk": [
+      "CU1",
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.5,
+      "n_selected": 10
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "bs10:placeholders",
+     "pid": "bs10",
+     "kind": "placeholders"
+    },
+    "targets": [
+     "WR1"
+    ],
+    "baseline": {
+     "selected": [
+      "CU1",
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "CU6"
+     ],
+     "mode": "rules",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 1,
+      "C_VS": 1,
+      "C_DQ": 1
+     },
+     "l2": {
+      "F_CU": 3
+     },
+     "priority": {
+      "CU1": 1,
+      "CU2": 2,
+      "CU3": 1,
+      "CU4": 2,
+      "CU5": 1,
+      "CU6": 1
+     },
+     "risk": [
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.0,
+      "n_selected": 6
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 12577,
+     "usage": {
+      "calls": 2,
+      "attempts": 2,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 8476,
+      "output_tokens": 1248,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "selected": [
+      "CU2",
+      "CU4",
+      "PR2",
+      "PR3",
+      "PR6",
+      "VS1",
+      "VS3",
+      "VS4",
+      "DQ2",
+      "DQ3"
+     ],
+     "mode": "llm",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 3,
+      "C_VS": 3,
+      "C_DQ": 3
+     },
+     "l2": {},
+     "priority": {
+      "CU2": 3,
+      "VS3": 3,
+      "VS4": 3,
+      "PR6": 3,
+      "DQ3": 3,
+      "DQ2": 2,
+      "CU4": 2,
+      "PR3": 2,
+      "VS1": 2,
+      "PR2": 2,
+      "VS2": 1,
+      "CU5": 1
+     },
+     "risk": [
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.0,
+      "n_selected": 10
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "bs10:no_proof",
+     "pid": "bs10",
+     "kind": "no_proof"
+    },
+    "targets": [
+     "VS5",
+     "VS4"
+    ],
+    "baseline": {
+     "selected": [
+      "CU1",
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "CU6",
+      "VS3",
+      "VS4",
+      "VS5",
+      "VS6"
+     ],
+     "mode": "rules",
+     "l1": {
+      "C_CU": 3,
+      "C_VS": 2,
+      "C_PR": 1,
+      "C_DQ": 1
+     },
+     "l2": {
+      "F_CU": 3,
+      "F_VS": 3
+     },
+     "priority": {
+      "CU1": 1,
+      "CU2": 2,
+      "CU3": 1,
+      "CU4": 2,
+      "CU5": 1,
+      "CU6": 1,
+      "VS1": 1,
+      "VS2": 1,
+      "VS3": 1,
+      "VS4": 1,
+      "VS5": 2,
+      "VS6": 1
+     },
+     "risk": [
+      "CU2",
+      "VS5"
+     ],
+     "metrics": {
+      "target_recall": 1.0,
+      "n_selected": 10
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 14470,
+     "usage": {
+      "calls": 2,
+      "attempts": 2,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 8016,
+      "output_tokens": 1324,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "selected": [
+      "CU2",
+      "CU4",
+      "PR3",
+      "PR6",
+      "VS3",
+      "VS4",
+      "VS5",
+      "VS6",
+      "DQ1",
+      "DQ2"
+     ],
+     "mode": "llm",
+     "l1": {
+      "C_CU": 3,
+      "C_VS": 3,
+      "C_PR": 2,
+      "C_DQ": 2
+     },
+     "l2": {},
+     "priority": {
+      "CU2": 3,
+      "CU4": 3,
+      "VS3": 3,
+      "VS4": 3,
+      "VS5": 2,
+      "PR3": 2,
+      "PR6": 2,
+      "DQ1": 2,
+      "DQ2": 2,
+      "DQ3": 1,
+      "PR1": 1,
+      "PR5": 1
+     },
+     "risk": [
+      "CU2",
+      "VS5"
+     ],
+     "metrics": {
+      "target_recall": 1.0,
+      "n_selected": 10
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "bs10:number_conflict",
+     "pid": "bs10",
+     "kind": "number_conflict"
+    },
+    "targets": [
+     "MK4"
+    ],
+    "baseline": {
+     "selected": [
+      "CU1",
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "CU6"
+     ],
+     "mode": "rules",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 1,
+      "C_VS": 1,
+      "C_DQ": 1
+     },
+     "l2": {
+      "F_CU": 3
+     },
+     "priority": {
+      "CU1": 1,
+      "CU2": 2,
+      "CU3": 1,
+      "CU4": 2,
+      "CU5": 1,
+      "CU6": 1
+     },
+     "risk": [
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.0,
+      "n_selected": 6
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 13956,
+     "usage": {
+      "calls": 2,
+      "attempts": 2,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 8486,
+      "output_tokens": 1382,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "selected": [
+      "CU2",
+      "CU4",
+      "CU5",
+      "PR2",
+      "PR3",
+      "PR6",
+      "VS1",
+      "VS3",
+      "VS4",
+      "VS5",
+      "DQ1",
+      "DQ2"
+     ],
+     "mode": "llm",
+     "l1": {
+      "C_CU": 3,
+      "C_VS": 3,
+      "C_PR": 2,
+      "C_DQ": 2
+     },
+     "l2": {},
+     "priority": {
+      "VS3": 3,
+      "VS4": 3,
+      "CU2": 3,
+      "CU4": 3,
+      "DQ1": 3,
+      "DQ2": 3,
+      "PR3": 2,
+      "PR6": 2,
+      "VS1": 2,
+      "CU5": 2,
+      "VS5": 2,
+      "PR2": 2
+     },
+     "risk": [
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.0,
+      "n_selected": 12
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "bs10:strip_images",
+     "pid": "bs10",
+     "kind": "strip_images"
+    },
+    "targets": [
+     "DS6"
+    ],
+    "baseline": {
+     "selected": [
+      "CU1",
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "CU6"
+     ],
+     "mode": "rules",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 1,
+      "C_VS": 1,
+      "C_DQ": 1
+     },
+     "l2": {
+      "F_CU": 3
+     },
+     "priority": {
+      "CU1": 1,
+      "CU2": 2,
+      "CU3": 1,
+      "CU4": 2,
+      "CU5": 1,
+      "CU6": 1
+     },
+     "risk": [
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.0,
+      "n_selected": 6
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 15248,
+     "usage": {
+      "calls": 2,
+      "attempts": 2,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 8784,
+      "output_tokens": 1273,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "selected": [
+      "CU2",
+      "CU4",
+      "CU5",
+      "PR3",
+      "PR6",
+      "VS1",
+      "VS3",
+      "VS4",
+      "VS6",
+      "DQ2"
+     ],
+     "mode": "llm",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 3,
+      "C_VS": 3,
+      "C_DQ": 2
+     },
+     "l2": {},
+     "priority": {
+      "CU2": 3,
+      "VS3": 3,
+      "VS4": 3,
+      "PR3": 2,
+      "PR6": 2,
+      "DQ2": 2,
+      "VS1": 2,
+      "CU4": 2,
+      "DQ5": 1,
+      "DQ3": 1,
+      "VS2": 1,
+      "CU5": 1
+     },
+     "risk": [
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.0,
+      "n_selected": 10
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "bs01:wrong_customer",
+     "pid": "bs01",
+     "kind": "wrong_customer"
+    },
+    "targets": [
+     "CU1",
+     "WR1"
+    ],
+    "baseline": {
+     "selected": [
+      "CU1",
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "CU6"
+     ],
+     "mode": "rules",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 1,
+      "C_VS": 1,
+      "C_DQ": 1
+     },
+     "l2": {
+      "F_CU": 3
+     },
+     "priority": {
+      "CU1": 2,
+      "CU2": 3,
+      "CU3": 2,
+      "CU4": 2,
+      "CU5": 1,
+      "CU6": 1
+     },
+     "risk": [
+      "CU1",
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.5,
+      "n_selected": 6
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 19680,
+     "usage": {
+      "calls": 2,
+      "attempts": 2,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 9132,
+      "output_tokens": 1623,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "selected": [
+      "CU1",
+      "CU2",
+      "CU3",
+      "CU4",
+      "PR6",
+      "VS1",
+      "VS2",
+      "VS3",
+      "DQ2",
+      "DQ5"
+     ],
+     "mode": "llm",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 3,
+      "C_VS": 2,
+      "C_DQ": 2
+     },
+     "l2": {},
+     "priority": {
+      "CU2": 3,
+      "CU1": 3,
+      "VS2": 3,
+      "VS3": 3,
+      "PR6": 2,
+      "CU4": 2,
+      "DQ2": 2,
+      "DQ5": 2,
+      "VS1": 1,
+      "PR2": 1,
+      "VS5": 1,
+      "PR1": 0
+     },
+     "risk": [
+      "CU1",
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.5,
+      "n_selected": 10
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "bs01:placeholders",
+     "pid": "bs01",
+     "kind": "placeholders"
+    },
+    "targets": [
+     "WR1"
+    ],
+    "baseline": {
+     "selected": [
+      "CU1",
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "CU6",
+      "PR2",
+      "PR3",
+      "PR4",
+      "PR6"
+     ],
+     "mode": "rules",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 2,
+      "C_VS": 1,
+      "C_DQ": 1
+     },
+     "l2": {
+      "F_CU": 3,
+      "F_PR": 2
+     },
+     "priority": {
+      "CU1": 1,
+      "CU2": 3,
+      "CU3": 2,
+      "CU4": 2,
+      "CU5": 1,
+      "CU6": 1,
+      "PR1": 0,
+      "PR2": 1,
+      "PR3": 1,
+      "PR4": 1,
+      "PR5": 0,
+      "PR6": 1
+     },
+     "risk": [
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.0,
+      "n_selected": 10
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 24623,
+     "usage": {
+      "calls": 2,
+      "attempts": 2,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 9119,
+      "output_tokens": 1655,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "selected": [
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "PR6",
+      "VS2",
+      "VS4",
+      "VS6",
+      "DQ2",
+      "DQ3"
+     ],
+     "mode": "llm",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 3,
+      "C_VS": 2,
+      "C_DQ": 3
+     },
+     "l2": {
+      "F_CU": 3,
+      "F_PR": 2,
+      "F_VS": 3,
+      "F_DQ": 2
+     },
+     "priority": {
+      "CU2": 3,
+      "CU4": 3,
+      "VS2": 3,
+      "VS4": 3,
+      "PR6": 2,
+      "VS6": 2,
+      "DQ3": 2,
+      "DQ2": 2,
+      "DQ5": 1,
+      "CU1": 1,
+      "PR1": 0,
+      "PR5": 0
+     },
+     "risk": [
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.0,
+      "n_selected": 10
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "bs01:no_proof",
+     "pid": "bs01",
+     "kind": "no_proof"
+    },
+    "targets": [
+     "VS5",
+     "VS4"
+    ],
+    "baseline": {
+     "selected": [
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "PR3",
+      "PR4",
+      "PR6",
+      "VS1",
+      "VS3",
+      "VS5"
+     ],
+     "mode": "rules",
+     "l1": {
+      "C_CU": 3,
+      "C_VS": 2,
+      "C_PR": 2,
+      "C_DQ": 1
+     },
+     "l2": {
+      "F_CU": 3,
+      "F_VS": 3,
+      "F_PR": 2
+     },
+     "priority": {
+      "CU1": 1,
+      "CU2": 3,
+      "CU3": 2,
+      "CU4": 2,
+      "CU5": 1,
+      "CU6": 1,
+      "PR1": 0,
+      "PR2": 1,
+      "PR3": 1,
+      "PR4": 1,
+      "PR5": 0,
+      "PR6": 1,
+      "VS1": 1,
+      "VS2": 1,
+      "VS3": 1,
+      "VS4": 1,
+      "VS5": 2,
+      "VS6": 1
+     },
+     "risk": [
+      "CU2",
+      "VS5"
+     ],
+     "metrics": {
+      "target_recall": 0.5,
+      "n_selected": 10
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 24454,
+     "usage": {
+      "calls": 2,
+      "attempts": 2,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 9036,
+      "output_tokens": 1407,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "selected": [
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "PR3",
+      "PR6",
+      "VS1",
+      "VS3",
+      "VS5",
+      "DQ2"
+     ],
+     "mode": "llm",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 3,
+      "C_VS": 2,
+      "C_DQ": 3
+     },
+     "l2": {},
+     "priority": {
+      "CU2": 3,
+      "CU4": 2,
+      "VS5": 3,
+      "VS3": 3,
+      "VS1": 2,
+      "PR6": 2,
+      "DQ2": 2,
+      "DQ5": 1,
+      "PR1": 1,
+      "PR5": 1,
+      "CU1": 1,
+      "VS2": 1
+     },
+     "risk": [
+      "CU2",
+      "VS5"
+     ],
+     "metrics": {
+      "target_recall": 0.5,
+      "n_selected": 10
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "bs01:number_conflict",
+     "pid": "bs01",
+     "kind": "number_conflict"
+    },
+    "targets": [
+     "MK4"
+    ],
+    "baseline": {
+     "selected": [
+      "CU1",
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "CU6",
+      "PR2",
+      "PR3",
+      "PR4",
+      "PR6"
+     ],
+     "mode": "rules",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 2,
+      "C_VS": 1,
+      "C_DQ": 1
+     },
+     "l2": {
+      "F_CU": 3,
+      "F_PR": 2
+     },
+     "priority": {
+      "CU1": 1,
+      "CU2": 3,
+      "CU3": 2,
+      "CU4": 2,
+      "CU5": 1,
+      "CU6": 1,
+      "PR1": 0,
+      "PR2": 1,
+      "PR3": 1,
+      "PR4": 1,
+      "PR5": 0,
+      "PR6": 1
+     },
+     "risk": [
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.0,
+      "n_selected": 10
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 13063,
+     "usage": {
+      "calls": 2,
+      "attempts": 2,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 9207,
+      "output_tokens": 1474,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "selected": [
+      "CU2",
+      "CU4",
+      "PR4",
+      "PR6",
+      "VS1",
+      "VS2",
+      "VS3",
+      "VS6",
+      "DQ1",
+      "DQ2"
+     ],
+     "mode": "llm",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 3,
+      "C_VS": 2,
+      "C_DQ": 2
+     },
+     "l2": {
+      "F_CU": 3,
+      "F_PR": 2,
+      "F_VS": 3,
+      "F_DQ": 2
+     },
+     "priority": {
+      "CU2": 3,
+      "CU4": 3,
+      "VS1": 3,
+      "VS2": 3,
+      "VS3": 2,
+      "VS6": 2,
+      "PR6": 3,
+      "PR4": 2,
+      "DQ1": 3,
+      "DQ2": 2,
+      "DQ5": 1,
+      "PR1": 0
+     },
+     "risk": [
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.0,
+      "n_selected": 10
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "bs01:strip_images",
+     "pid": "bs01",
+     "kind": "strip_images"
+    },
+    "targets": [
+     "DS6"
+    ],
+    "baseline": {
+     "selected": [
+      "CU1",
+      "CU2",
+      "CU3",
+      "CU4",
+      "CU5",
+      "CU6",
+      "PR2",
+      "PR3",
+      "PR4",
+      "PR6"
+     ],
+     "mode": "rules",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 2,
+      "C_VS": 1,
+      "C_DQ": 1
+     },
+     "l2": {
+      "F_CU": 3,
+      "F_PR": 2
+     },
+     "priority": {
+      "CU1": 1,
+      "CU2": 3,
+      "CU3": 2,
+      "CU4": 2,
+      "CU5": 1,
+      "CU6": 1,
+      "PR1": 0,
+      "PR2": 1,
+      "PR3": 1,
+      "PR4": 1,
+      "PR5": 0,
+      "PR6": 1
+     },
+     "risk": [
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.0,
+      "n_selected": 10
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 19901,
+     "usage": {
+      "calls": 2,
+      "attempts": 2,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 9485,
+      "output_tokens": 1384,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "selected": [
+      "CU2",
+      "CU3",
+      "CU4",
+      "PR4",
+      "PR6",
+      "VS1",
+      "VS3",
+      "VS6",
+      "DQ2",
+      "DQ5"
+     ],
+     "mode": "llm",
+     "l1": {
+      "C_CU": 3,
+      "C_PR": 3,
+      "C_VS": 2,
+      "C_DQ": 2
+     },
+     "l2": {},
+     "priority": {
+      "CU2": 3,
+      "CU4": 3,
+      "VS1": 3,
+      "VS3": 3,
+      "PR4": 2,
+      "PR6": 2,
+      "VS6": 2,
+      "DQ2": 2,
+      "DQ5": 2,
+      "CU1": 1,
+      "CU5": 1,
+      "PR1": 0
+     },
+     "risk": [
+      "CU2"
+     ],
+     "metrics": {
+      "target_recall": 0.0,
+      "n_selected": 10
+     }
+    }
+   }
+  ],
+  "layout.pick": [
+   {
+    "tc": {
+     "id": "C01_L1",
+     "gold": {
+      "value": [
+       "L_VP_F2",
+       "L_VP_U"
+      ],
+      "products": [
+       "L_P2A",
+       "L_P2B"
+      ]
+     }
+    },
+    "baseline": {
+     "final": {
+      "S01#0": "L_C01",
+      "S02#0": "L_PH_MI_FB_A",
+      "S03#0": "L_VP_F2",
+      "S04#0": "L_PH_VP_U",
+      "S05#0": "L_SM_C",
+      "S06#0": "L_P2B",
+      "S07#0": "L_CS03",
+      "S08#0": "L_PH_ST_A",
+      "S09#0": "L_PH_SV_B",
+      "S10#0": "L_C07"
+     },
+     "metrics": {
+      "evaluable": 3,
+      "hits": 2,
+      "acc": 0.6666666666666666
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 3255,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 5545,
+      "output_tokens": 713,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "final": {
+      "S01#0": "L_C01",
+      "S02#0": "L_PH_MI_FB_A",
+      "S03#0": "L_VP_F2",
+      "S04#0": "L_PH_VP_U",
+      "S05#0": "L_SM_C",
+      "S06#0": "L_P2B",
+      "S07#0": "L_CS03",
+      "S08#0": "L_PH_ST_A",
+      "S09#0": "L_PH_SV_B",
+      "S10#0": "L_VS_END"
+     },
+     "metrics": {
+      "evaluable": 3,
+      "hits": 2,
+      "acc": 0.6666666666666666
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C02_L1",
+     "gold": {
+      "value": [
+       "L_VP_F"
+      ],
+      "products": [
+       "L_P3B"
+      ]
+     }
+    },
+    "baseline": {
+     "final": {
+      "S01#0": "L_C01",
+      "S02#0": "L_PH_MI_OF_A",
+      "S03#0": "L_VP_F",
+      "S04#0": "L_SOL_03",
+      "S05#0": "L_P3B",
+      "S06#0": "L_SOL_12",
+      "S07#0": "L_PH_ST_A",
+      "S08#0": "L_SV_C",
+      "S09#0": "L_C07"
+     },
+     "metrics": {
+      "evaluable": 2,
+      "hits": 2,
+      "acc": 1.0
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 5949,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 5136,
+      "output_tokens": 631,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "final": {
+      "S01#0": "L_SOL_01",
+      "S02#0": "L_PH_MI_OF_A",
+      "S03#0": "L_VP_F",
+      "S04#0": "L_SOL_03",
+      "S05#0": "L_P3B",
+      "S06#0": "L_CS03",
+      "S07#0": "L_PH_ST_A",
+      "S08#0": "L_SV_C",
+      "S09#0": "L_VS_END"
+     },
+     "metrics": {
+      "evaluable": 2,
+      "hits": 2,
+      "acc": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C03_L1",
+     "gold": {
+      "products": [
+       "L_P1B"
+      ],
+      "value": [
+       "L_VP_G",
+       "L_VP_U_HT"
+      ]
+     }
+    },
+    "baseline": {
+     "final": {
+      "S01#0": "L_AIS_01",
+      "S02#0": "L_PH_MI_HT_A",
+      "S03#0": "L_VP_G",
+      "S04#0": "L_VP_U_HT",
+      "S05#0": "L_SM_E",
+      "S06#0": "L_PH_P_I",
+      "S07#0": "L_VS_CASE",
+      "S08#0": "L_AIS_32",
+      "S09#0": "L_SV_C",
+      "S10#0": "L_AIS_37"
+     },
+     "metrics": {
+      "evaluable": 3,
+      "hits": 2,
+      "acc": 0.6666666666666666
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 9483,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 5576,
+      "output_tokens": 703,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "final": {
+      "S01#0": "L_AIS_01",
+      "S02#0": "L_PH_MI_HT_A",
+      "S03#0": "L_TOC_PFEAT",
+      "S04#0": "L_VP_U_HT",
+      "S05#0": "L_AIS_22",
+      "S06#0": "L_PH_P_I",
+      "S07#0": "L_VS_CASE",
+      "S08#0": "L_AIS_32",
+      "S09#0": "L_SV_C",
+      "S10#0": "L_AIS_37"
+     },
+     "metrics": {
+      "evaluable": 3,
+      "hits": 1,
+      "acc": 0.3333333333333333
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C04_L1",
+     "gold": {
+      "products": [
+       "L_P1B"
+      ]
+     }
+    },
+    "baseline": {
+     "final": {
+      "S01#0": "L_C09",
+      "S02#0": "L_PH_MI_FN_A",
+      "S03#0": "L_VP_G",
+      "S04#0": "L_SM_E",
+      "S05#0": "L_PH_P_G",
+      "S06#0": "L_VS_CASE",
+      "S07#0": "L_PH_ST_A",
+      "S08#0": "L_PH_SV_B",
+      "S09#0": "L_C07"
+     },
+     "metrics": {
+      "evaluable": 1,
+      "hits": 0,
+      "acc": 0.0
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 7163,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4969,
+      "output_tokens": 673,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "final": {
+      "S01#0": "L_C01",
+      "S02#0": "L_PH_MI_FN_A",
+      "S03#0": "L_VP_G",
+      "S04#0": "L_SM_E",
+      "S05#0": "L_PH_P_G",
+      "S06#0": "L_VS_CASE",
+      "S07#0": "L_PH_ST_A",
+      "S08#0": "L_PH_SV_B",
+      "S09#0": "L_PH_C13"
+     },
+     "metrics": {
+      "evaluable": 1,
+      "hits": 0,
+      "acc": 0.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C05_L1",
+     "gold": {
+      "products": [
+       "L_P2B"
+      ]
+     }
+    },
+    "baseline": {
+     "final": {
+      "S01#0": "L_C01",
+      "S02#0": "L_PH_MI_ED_A",
+      "S03#0": "L_VP_F2",
+      "S04#0": "L_SM_C",
+      "S05#0": "L_P2B",
+      "S06#0": "L_CS03",
+      "S07#0": "L_PH_ST_A",
+      "S08#0": "L_SV_C",
+      "S09#0": "L_C07"
+     },
+     "metrics": {
+      "evaluable": 1,
+      "hits": 1,
+      "acc": 1.0
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 7838,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4940,
+      "output_tokens": 715,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "final": {
+      "S01#0": "L_C01",
+      "S02#0": "L_PH_MI_ED_A",
+      "S03#0": "L_VP_F2",
+      "S04#0": "L_SM_C",
+      "S05#0": "L_P2B",
+      "S06#0": "L_CS03",
+      "S07#0": "L_PH_ST_A",
+      "S08#0": "L_SV_C",
+      "S09#0": "L_VS_END"
+     },
+     "metrics": {
+      "evaluable": 1,
+      "hits": 1,
+      "acc": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C06_L1",
+     "gold": {
+      "products": [
+       "L_P2B",
+       "L_P_Q"
+      ]
+     }
+    },
+    "baseline": {
+     "final": {
+      "S01#0": "L_C01",
+      "S02#0": "L_PH_MI_MF_A",
+      "S03#0": "L_VP_F2",
+      "S04#0": "L_SM_E",
+      "S05#0": "L_P2B",
+      "S06#0": "L_PH_CD_C",
+      "S07#0": "L_PH_ST_A",
+      "S08#0": "L_PH_SV_B",
+      "S09#0": "L_C07"
+     },
+     "metrics": {
+      "evaluable": 1,
+      "hits": 1,
+      "acc": 1.0
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 5190,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4997,
+      "output_tokens": 704,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "final": {
+      "S01#0": "L_C02",
+      "S02#0": "L_PH_MI_MF_A",
+      "S03#0": "L_VP_F2",
+      "S04#0": "L_SM_E",
+      "S05#0": "L_P2B",
+      "S06#0": "L_PH_CD_C",
+      "S07#0": "L_PH_ST_A",
+      "S08#0": "L_PH_SV_B",
+      "S09#0": "L_PH_C13"
+     },
+     "metrics": {
+      "evaluable": 1,
+      "hits": 1,
+      "acc": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C07_L1",
+     "gold": {
+      "products": [
+       "L_P3B"
+      ],
+      "value": [
+       "L_VP_F",
+       "L_VP_UC_RT"
+      ]
+     }
+    },
+    "baseline": {
+     "final": {
+      "S01#0": "L_C01",
+      "S02#0": "L_PH_MI_RT_A",
+      "S03#0": "L_VP_F",
+      "S04#0": "L_VP_UC_RT",
+      "S05#0": "L_SM_B",
+      "S06#0": "L_P3B",
+      "S07#0": "L_CS03",
+      "S08#0": "L_PH_ST_A",
+      "S09#0": "L_PH_SV_B",
+      "S10#0": "L_C07"
+     },
+     "metrics": {
+      "evaluable": 3,
+      "hits": 3,
+      "acc": 1.0
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 7315,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 5504,
+      "output_tokens": 756,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "final": {
+      "S01#0": "L_C01",
+      "S02#0": "L_PH_MI_RT_A",
+      "S03#0": "L_VP_F",
+      "S04#0": "L_VP_UC_RT",
+      "S05#0": "L_SM_B",
+      "S06#0": "L_P3B",
+      "S07#0": "L_CS03",
+      "S08#0": "L_PH_ST_A",
+      "S09#0": "L_PH_SV_B",
+      "S10#0": "L_VS_END"
+     },
+     "metrics": {
+      "evaluable": 3,
+      "hits": 3,
+      "acc": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C08_L1",
+     "gold": {
+      "value": [
+       "L_RV_A",
+       "L_VP_F"
+      ],
+      "products": [
+       "L_P3B",
+       "L_P_R"
+      ]
+     }
+    },
+    "baseline": {
+     "final": {
+      "S01#0": "L_C01",
+      "S02#0": "L_PH_MI_RS_A",
+      "S03#0": "L_VP_F",
+      "S04#0": "L_PH_RV_A",
+      "S05#0": "L_SM_B",
+      "S06#0": "L_PH_P_R",
+      "S07#0": "L_VS_CASE",
+      "S08#0": "L_PH_ST_A",
+      "S09#0": "L_SV_C",
+      "S10#0": "L_C07"
+     },
+     "metrics": {
+      "evaluable": 3,
+      "hits": 1,
+      "acc": 0.3333333333333333
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 3691,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 5481,
+      "output_tokens": 778,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "final": {
+      "S01#0": "L_C01",
+      "S02#0": "L_PH_MI_RS_A",
+      "S03#0": "L_VP_F",
+      "S04#0": "L_PH_RV_A",
+      "S05#0": "L_SM_B",
+      "S06#0": "L_PH_P_R",
+      "S07#0": "L_VS_CASE",
+      "S08#0": "L_PH_ST_A",
+      "S09#0": "L_SV_C",
+      "S10#0": "L_VS_END"
+     },
+     "metrics": {
+      "evaluable": 3,
+      "hits": 1,
+      "acc": 0.3333333333333333
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C09_L1",
+     "gold": {
+      "products": [
+       "L_P2B"
+      ]
+     }
+    },
+    "baseline": {
+     "final": {
+      "S01#0": "L_C01",
+      "S02#0": "L_PH_MI_SV_A",
+      "S03#0": "L_VP_F2",
+      "S04#0": "L_SM_E",
+      "S05#0": "L_P2B",
+      "S06#0": "L_PH_CD_C",
+      "S07#0": "L_PH_ST_A",
+      "S08#0": "L_PH_SV_B",
+      "S09#0": "L_C07"
+     },
+     "metrics": {
+      "evaluable": 1,
+      "hits": 1,
+      "acc": 1.0
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 11019,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 4959,
+      "output_tokens": 712,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "final": {
+      "S01#0": "L_C01",
+      "S02#0": "L_PH_MI_SV_A",
+      "S03#0": "L_VP_F2",
+      "S04#0": "L_SM_E",
+      "S05#0": "L_P2B",
+      "S06#0": "L_PH_CD_C",
+      "S07#0": "L_PH_ST_A",
+      "S08#0": "L_PH_SV_B",
+      "S09#0": "L_C07"
+     },
+     "metrics": {
+      "evaluable": 1,
+      "hits": 1,
+      "acc": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C10_L1",
+     "gold": {
+      "value": [
+       "L_VP_F2",
+       "L_VP_U_MD"
+      ]
+     }
+    },
+    "baseline": {
+     "final": {
+      "S01#0": "L_C01",
+      "S02#0": "L_PH_MI_MD_A",
+      "S03#0": "L_VP_F2",
+      "S04#0": "L_VP_U_MD",
+      "S05#0": "L_SM_E",
+      "S06#0": "L_P2B",
+      "S07#0": "L_PH_CD_C",
+      "S08#0": "L_PH_ST_A",
+      "S09#0": "L_PH_SV_B",
+      "S10#0": "L_C07"
+     },
+     "metrics": {
+      "evaluable": 2,
+      "hits": 2,
+      "acc": 1.0
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 10306,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 5509,
+      "output_tokens": 674,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "final": {
+      "S01#0": "L_C02",
+      "S02#0": "L_PH_MI_MD_A",
+      "S03#0": "L_VP_F2",
+      "S04#0": "L_VP_U_MD",
+      "S05#0": "L_SM_E",
+      "S06#0": "L_P2B",
+      "S07#0": "L_PH_CD_C",
+      "S08#0": "L_PH_ST_A",
+      "S09#0": "L_PH_SV_B",
+      "S10#0": "L_PH_C13"
+     },
+     "metrics": {
+      "evaluable": 2,
+      "hits": 2,
+      "acc": 1.0
+     }
+    }
+   }
+  ],
+  "layout.best_pick": [
+   {
+    "tc": {
+     "id": "C01_L2",
+     "gold": [
+      "bs01",
+      "bs16"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs01",
+      "bs_v_ai_store_2",
+      "bs_std_fb_qsr"
+     ],
+     "chosen": "bs01",
+     "llm_used": false,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 2677,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 876,
+      "output_tokens": 279,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "final": [
+      "bs01",
+      "bs_v_ai_store_1",
+      "bs_std_fb_qsr"
+     ],
+     "chosen": "bs01",
+     "llm_used": true,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C02_L2",
+     "gold": [
+      "bs02"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs02",
+      "bs_v_ai_office_1",
+      "bs_v_smart_office_1"
+     ],
+     "chosen": "bs02",
+     "llm_used": false,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 2162,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 897,
+      "output_tokens": 140,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "final": [
+      "bs02",
+      "bs_v_ai_office_1",
+      "bs_v_smart_office_1"
+     ],
+     "chosen": "bs02",
+     "llm_used": true,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C03_L2",
+     "gold": [
+      "bs07"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs07",
+      "bs_v_smart_hotel_2",
+      "bs_v_smart_hotel_1"
+     ],
+     "chosen": "bs07",
+     "llm_used": false,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 7797,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 829,
+      "output_tokens": 226,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "final": [
+      "bs07",
+      "bs_v_smart_hotel_2",
+      "bs_v_smart_hotel_1"
+     ],
+     "chosen": "bs07",
+     "llm_used": true,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C04_L2",
+     "gold": [
+      "bs17",
+      "bs16",
+      "bs19"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs_v_smart_finance_1",
+      "bs_std_fn_bank",
+      "bs17"
+     ],
+     "chosen": "bs_v_smart_finance_1",
+     "llm_used": false,
+     "metrics": {
+      "top1": 0.0,
+      "top3": 1.0
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 3308,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 833,
+      "output_tokens": 263,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "final": [
+      "bs_v_smart_finance_1",
+      "bs_std_fn_bank",
+      "bs17"
+     ],
+     "chosen": "bs_v_smart_finance_1",
+     "llm_used": true,
+     "metrics": {
+      "top1": 0.0,
+      "top3": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C05_L2",
+     "gold": [
+      "bs03"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs03",
+      "bs_v_smart_academy_1",
+      "bs_std_ed_univ"
+     ],
+     "chosen": "bs03",
+     "llm_used": false,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 4235,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 816,
+      "output_tokens": 131,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "final": [
+      "bs03",
+      "bs_std_ed_univ",
+      "bs_sub_ed_univ"
+     ],
+     "chosen": "bs03",
+     "llm_used": true,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C06_L2",
+     "gold": [
+      "bs14"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs14",
+      "bs_v_smart_transportation_2",
+      "bs_std_mf_logistics"
+     ],
+     "chosen": "bs14",
+     "llm_used": false,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 1690,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 806,
+      "output_tokens": 153,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "final": [
+      "bs14",
+      "bs_std_mf_logistics",
+      "bs_v_smart_transportation_2"
+     ],
+     "chosen": "bs14",
+     "llm_used": true,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C07_L2",
+     "gold": [
+      "bs10",
+      "bs06",
+      "bs16"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs10",
+      "bs_std_rt_mall",
+      "bs12"
+     ],
+     "chosen": "bs10",
+     "llm_used": false,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 3121,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 783,
+      "output_tokens": 224,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "final": [
+      "bs10",
+      "bs_std_rt_mall",
+      "bs_v_smart_retail_2"
+     ],
+     "chosen": "bs10",
+     "llm_used": true,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C08_L2",
+     "gold": [
+      "bs04"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs04",
+      "bs_v_smart_home_1",
+      "bs_v_ai_apartment_1"
+     ],
+     "chosen": "bs04",
+     "llm_used": false,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 1930,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 807,
+      "output_tokens": 156,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "final": [
+      "bs04",
+      "bs_v_smart_home_1",
+      "bs_v_ai_apartment_1"
+     ],
+     "chosen": "bs04",
+     "llm_used": true,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C09_L2",
+     "gold": [
+      "bs13"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs13",
+      "bs_std_sv_unmanned",
+      "bs16"
+     ],
+     "chosen": "bs13",
+     "llm_used": false,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 1092,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 821,
+      "output_tokens": 112,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "final": [
+      "bs13",
+      "bs_std_sv_unmanned"
+     ],
+     "chosen": "bs13",
+     "llm_used": true,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C10_L2",
+     "gold": [
+      "bs08",
+      "bs17"
+     ]
+    },
+    "baseline": {
+     "final": [
+      "bs_v_smart_hospital_2",
+      "bs08",
+      "bs_std_md_tertiary"
+     ],
+     "chosen": "bs_v_smart_hospital_2",
+     "llm_used": false,
+     "metrics": {
+      "top1": 0.0,
+      "top3": 1.0
+     }
+    },
+    "llm": {
+     "ok": true,
+     "ms": 3027,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 808,
+      "output_tokens": 231,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "final": [
+      "bs08",
+      "bs_v_smart_hospital_2",
+      "bs_std_md_ltc"
+     ],
+     "chosen": "bs08",
+     "llm_used": true,
+     "metrics": {
+      "top1": 1.0,
+      "top3": 1.0
+     }
+    }
+   }
+  ]
+ }
+}

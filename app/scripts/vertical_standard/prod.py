@@ -255,5 +255,16 @@ def image_of(cat):
     return src
 
 
+# device families of the 01 Overview sheet (Device · Solution · Service): (key, display name, category test) in tie-break order.
+# catgroup: category id → product_taxonomy group id (vertical_space_product.json) — kitchen · living appliances are told apart by group
+def families(catgroup):
+    return [('SAC', '시스템에어컨', lambda c: c.startswith('sac_')), ('LED', 'LED 사이니지', lambda c: c in ('led_in', 'led_out')),
+            ('SIG', '스마트 사이니지', lambda c: c in ('lcd_std', 'vwall', 'lcd_out', 'lcd_win', 'epaper', 'spatial', 'btv')), ('IWB', 'Flip Pro 전자칠판', lambda c: c == 'iwb'),
+            ('TV', 'Samsung AI TV', lambda c: c in ('htv', 'tv')), ('AUD', '하만 프로 오디오', lambda c: c == 'harman'),
+            ('KIT', 'Bespoke AI 주방가전', lambda c: catgroup.get(c) == 'KIT'), ('LIV', 'Bespoke AI 리빙가전', lambda c: catgroup.get(c) == 'LIV'),
+            ('MOB', 'Galaxy AI 모바일', lambda c: c in ('phone', 'tab', 'watch', 'buds', 'xr', 'g_rugged')), ('PC', '갤럭시 북 · 모니터', lambda c: c in ('nb', 'mon', 'desk', 'cb')),
+            ('PRT', '디지털 복합기', lambda c: c in ('dmfp', 'mfp')), ('KIO', '삼성 키오스크', lambda c: c == 'g_kiosk'), ('CIN', 'Onyx 시네마 LED', lambda c: c == 'g_cinema')]
+
+
 # images that are photos (cover the frame) rather than product cut-outs
 PHOTO = {'harman', 'g_cinema'}

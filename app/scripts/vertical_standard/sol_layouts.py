@@ -2,8 +2,15 @@
 """04 솔루션 — solution-specific layouts (one per solution, same across verticals). Item slots: i{n}t (title) · i{n}b (body),
 band slots: spaces · scene, images: img0.."""
 from layouts import *
+from sols import SOL
 
 SOLS = {}  # sid -> (f, item_mode, n_items)
+
+
+def catalog_sols(sid):
+    """layout meta 'sols' holds app catalog solution ids (catalog.json — filters, search, peek); the vertical sid
+    (s_stp …) is this generator's own key. A solution without a catalog entry has none."""
+    return [SOL[sid][3]] if SOL[sid][3] else []
 
 
 def band(b, x, y, w, h, vertical=False, bg=SURF):
@@ -12,14 +19,12 @@ def band(b, x, y, w, h, vertical=False, bg=SURF):
         lab(b, x + 20, y + 16, w - 40, '적용 공간')
         b.text('dense', x + 20, y + 40, w - 40, '공간 · 공간', f'font-weight: 700; color: {INK};', h=44, key='spaces')
         mid = y + 96
-        b.box(x + 20, mid, w - 40, 1, f'background: {LINE};')
         lab(b, x + 20, mid + 14, w - 40, '대표 장면')
         b.text('dense', x + 20, mid + 38, w - 40, '장면 설명', f'color: {INK2};', h=h - (mid - y) - 52, key='scene')
     else:
         wl = int(w * 0.34)
         lab(b, x + 20, y + 16, wl - 40, '적용 공간')
         b.text('dense', x + 20, y + 40, wl - 40, '공간 · 공간', f'font-weight: 700; color: {INK};', h=h - 56, key='spaces')
-        b.box(x + wl, y + 16, 1, h - 32, f'background: {LINE};')
         lab(b, x + wl + 20, y + 16, w - wl - 40, '대표 장면')
         b.text('dense', x + wl + 20, y + 40, w - wl - 40, '장면 설명', f'color: {INK2};', h=h - 56, key='scene')
 
@@ -29,8 +34,8 @@ def item_text(b, n, x, y, w, th=52, bh=66, trole='heading', brole='dense', tcolo
     b.text(brole, x, y + th + gap, w, '· 기능', f'color: {bcolor}; {bstyle}', h=bh, key=f'i{n}b')
 
 
-def card(b, n, x, y, w, h, acc=BLUE, icon=None, num=True, bg='#ffffff', border=True, th=52, bh=None, pad=20):
-    b.box(x, y, w, h, f'border-radius: 14px; background: {bg};' + (f' border: 1px solid {LINE};' if border else ''))
+def card(b, n, x, y, w, h, acc=BLUE, icon=None, num=True, bg=SURF, th=52, bh=None, pad=20):
+    b.box(x, y, w, h, f'border-radius: 14px; background: {bg};')
     ty = y + pad
     if icon:
         b.box(x + pad, ty, 40, 40, f'border-radius: 10px; background: {TINT}; display: flex; align-items: center; justify-content: center;', ICON(icon, acc))
@@ -51,7 +56,7 @@ def done(b, sid, name, when, mode, n):
     footer(b)
     f = b.f
     SOLS[sid] = (f, mode, n)
-    add(b, meta(f, 'VS-' + f[5:].replace('_', '-'), name, when, 'solution', 'scenario', G.format('04 솔루션'), '04 · 솔루션', name, '', ['solutions', 'spaces', 'images'], sols=[sid]))
+    add(b, meta(f, 'VS-' + f[5:].replace('_', '-'), name, when, 'solution', 'scenario', G.format('04 솔루션'), '04 · 솔루션', name, '', ['solutions', 'spaces', 'images'], sols=catalog_sols(sid)))
 
 
 def H(f):
@@ -89,7 +94,7 @@ def l_biot():
     b = H('L_VS_SOL_BIOT')
     b.img(448, 152, 384, 300, 'diagram', 'b.IoT 빌딩 통합 관제', radius=16, bg=SURF, key='img0')
     for n, (x, y) in enumerate([(64, 152), (64, 308), (848, 152), (848, 308)]):
-        b.box(x, y, 368, 144, f'border-radius: 14px; background: #ffffff; border: 1px solid {LINE};')
+        b.box(x, y, 368, 144, f'border-radius: 14px; background: {SURF};')
         b.circle(x + 18, y + 18, 28, str(n + 1), fs=13)
         item_text(b, n, x + 58, y + 18, 292, th=26, bh=80, tstyle='white-space: nowrap; overflow: hidden; text-overflow: ellipsis;')
     for (x1, y1) in [(432, 224), (432, 380), (832, 224), (832, 380)]:
@@ -103,7 +108,7 @@ def l_dms():
     b = H('L_VS_SOL_DMS')
     for n in range(5):
         y = 152 + n * 101
-        b.box(64, y, 720, 92, f'border-radius: 12px; background: {"#ffffff" if n % 2 else SURF}; border: 1px solid {LINE};')
+        b.box(64, y, 720, 92, f'border-radius: 12px; background: {SURF};')
         b.circle(84, y + 32, 28, str(n + 1), fs=13)
         b.text('heading', 128, y + 32, 210, '항목', f'font-weight: 800; color: {INK}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;', h=26, key=f'i{n}t')
         b.text('dense', 352, y + 14, 414, '· 기능', f'color: {INK2};', h=66, key=f'i{n}b')
@@ -132,7 +137,7 @@ def l_wifi():
         left = n < 3
         x = 64 if left else 840
         y = 152 + (n % 3) * 116
-        b.box(x, y, 376, 104, f'border-radius: 14px; background: #ffffff; border: 1px solid {LINE};')
+        b.box(x, y, 376, 104, f'border-radius: 14px; background: {SURF};')
         b.box(x + (376 if left else -2), y + 51, 22, 2, f'background: {DASH};')
         b.circle(x + 18, y + 18, 26, str(n + 1), fs=12)
         b.text('heading', x + 54, y + 16, 304, '기능', f'font-weight: 800; color: {INK}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;', h=26, key=f'i{n}t')
@@ -148,7 +153,7 @@ def l_sthome():
     w = (1152 - 4 * 16) / 5
     for n in range(5):
         x = round(64 + n * (w + 16))
-        b.box(x, 344, round(w), 192, f'border-radius: 14px; background: #ffffff; border: 1px solid {LINE}; border-top: 4px solid {BLUE};')
+        b.box(x, 344, round(w), 192, f'border-radius: 14px; background: {SURF};')
         b.text('label', x + 18, 360, 60, f'0{n + 1}', f'font-family: {MAN}; font-weight: 800; color: {BLUE}; white-space: nowrap;', h=19, label=True)
         item_text(b, n, x + 18, 384, round(w) - 36, th=52, bh=88)
     band(b, 64, 552, 1152, 96)
@@ -177,8 +182,7 @@ def l_magic():
     b.img(64, 152, 432, 496, 'photo', 'MagicINFO 사이니지 운영', radius=16, key='img0')
     for n in range(4):
         y = 152 + n * 96
-        b.box(520, y, 696, 86, f'border-radius: 12px; background: {"#ffffff" if n % 2 else TINT}; border: 1px solid {LINE};')
-        b.box(520, y, 6, 86, f'border-radius: 12px 0 0 12px; background: {BLUE};')
+        b.box(520, y, 696, 86, f'border-radius: 12px; background: {SURF};')
         b.text('utility', 542, y + 14, 60, f'0{n + 1}', f'font-family: {MAN}; font-weight: 800; color: {BLUE}; white-space: nowrap;', h=19, label=True)
         b.text('heading', 542, y + 38, 210, '항목', f'font-weight: 800; color: {INK}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;', h=26, key=f'i{n}t')
         b.text('dense', 770, y + 10, 428, '· 기능', f'color: {INK2};', h=66, key=f'i{n}b')
@@ -239,7 +243,7 @@ def l_class():
     band(b, 64, 498, 520, 150)
     for n in range(5):
         y = 152 + n * 101
-        b.box(608, y, 608, 91, f'border-radius: 12px; background: #ffffff; border: 1px solid {LINE};')
+        b.box(608, y, 608, 91, f'border-radius: 12px; background: {SURF};')
         b.box(628, y + 26, 36, 36, f'border-radius: 50%; background: {TINT}; display: flex; align-items: center; justify-content: center;', CHECK.format(c=BLUE))
         b.text('heading', 680, y + 14, 516, '기능', f'font-weight: 800; color: {INK}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;', h=26, key=f'i{n}t')
         b.text('dense', 680, y + 46, 516, '설명', f'color: {INK2}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;', h=22, key=f'i{n}b')
@@ -270,8 +274,8 @@ def l_dex():
     b = H('L_VS_SOL_DEX')
     for n in range(2):
         x = 64 + n * 604
-        b.box(x, 152, 548, 340, f'border-radius: 16px; background: #ffffff; border: 1px solid {LINE};')
-        b.img(x + 16, 168, 516, 200, 'photo', ['휴대폰 · 태블릿', '모니터 · 회의실 대화면'][n], radius=12, bg=SURF, key=f'img{n}')
+        b.box(x, 152, 548, 340, f'border-radius: 16px; background: {SURF};')
+        b.img(x + 16, 168, 516, 200, 'photo', ['휴대폰 · 태블릿', '모니터 · 회의실 대화면'][n], radius=12, bg='#ffffff', key=f'img{n}')
         item_text(b, n, x + 24, 384, 500, th=26, bh=66)
     b.box(616, 300, 48, 48, f'border-radius: 50%; background: {BLUE}; display: flex; align-items: center; justify-content: center;', CHEV.format(s=24, c='#ffffff'))
     band(b, 64, 508, 1152, 140)
@@ -298,7 +302,7 @@ def l_secuthru():
     w = 245
     for n in range(3):
         x = 64 + n * (w + 16)
-        b.box(x, 152, w, 288, f'border-radius: 14px; background: #ffffff; border: 1px solid {LINE};')
+        b.box(x, 152, w, 288, f'border-radius: 14px; background: {SURF};')
         b.box(x + w / 2 - 32, 172, 64, 64, f'border-radius: 50%; background: {BLUE}; display: flex; align-items: center; justify-content: center;', icon(['user', 'doc', 'lock'][n], '#ffffff', 28))
         b.text('heading', x + 18, 252, w - 36, '항목', f'font-weight: 800; color: {INK}; text-align: center;', h=52, key=f'i{n}t')
         b.text('dense', x + 18, 312, w - 36, '· 기능', f'color: {INK2}; text-align: center;', h=110, key=f'i{n}b')
@@ -312,7 +316,7 @@ def l_pos():
     b = H('L_VS_SOL_POS')
     for n in range(2):
         x = 64 + n * 592
-        b.box(x, 152, 560, 380, f'border-radius: 16px; background: #ffffff; border: 1px solid {LINE};')
+        b.box(x, 152, 560, 380, f'border-radius: 16px; background: {SURF};')
         b.img(x, 152, 560, 236, 'photo', ['카운터 POS 결제', '테이블 오더'][n], radius=16, key=f'img{n}')
         b.circle(x + 20, 404, 30, str(n + 1), fs=14)
         b.text('subheading', x + 62, 406, 478, '기능', f'font-weight: 800; color: {INK};', h=30, key=f'i{n}t')
@@ -328,7 +332,7 @@ def l_hospital():
     w = (1152 - 3 * 28) / 4
     for n in range(4):
         x = round(64 + n * (w + 28))
-        b.box(x, 338, round(w), 202, f'border-radius: 14px; background: #ffffff; border: 1px solid {LINE}; border-top: 4px solid {BLUE};')
+        b.box(x, 338, round(w), 202, f'border-radius: 14px; background: {SURF};')
         b.text('utility', x + 18, 354, 120, f'0{n + 1}', f'font-family: {MAN}; font-weight: 800; color: {BLUE}; white-space: nowrap;', h=19, label=True)
         item_text(b, n, x + 18, 378, round(w) - 36, th=52, bh=88)
         if n < 3:
@@ -367,7 +371,7 @@ def l_meeting():
 # 22 삼성케어플러스 SAC — care cycle (four cards around a round photo)
 def l_svcsac():
     b = H('L_VS_SOL_SVCSAC')
-    b.box(520, 160, 240, 240, f'border-radius: 50%; border: 10px solid {TINT};')
+    b.box(520, 160, 240, 240, f'border-radius: 50%; background: {TINT};')
     b.img(536, 176, 208, 208, 'photo', '시스템에어컨 점검 엔지니어', radius=104, key='img0')
     b.text('dense', 520, 416, 240, '연중 공조 케어', f'font-weight: 800; color: {BLUE}; text-align: center; white-space: nowrap;', h=22, label=True)
     for n, (x, y) in enumerate([(64, 152), (64, 344), (784, 152), (784, 344)]):
@@ -383,8 +387,8 @@ def l_svcmobile():
     band(b, 64, 428, 400, 220, vertical=True)
     for n in range(3):
         y = 152 + n * 168
-        b.box(488, y, 728, 160, f'border-radius: 14px; background: #ffffff; border: 1px solid {LINE};')
-        b.text('display', 512, y + 40, 90, f'0{n + 1}', f'font-family: {MAN}; font-weight: 800; color: {TINT}; white-space: nowrap; -webkit-text-stroke: 1px {BLUE};', h=64, label=True)
+        b.box(488, y, 728, 160, f'border-radius: 14px; background: {SURF};')
+        b.text('display', 512, y + 40, 90, f'0{n + 1}', f'font-family: {MAN}; font-weight: 800; color: {BLUE}; white-space: nowrap;', h=64, label=True)
         item_text(b, n, 620, y + 28, 572, th=26, bh=72, trole='subheading')
     done(b, 'svc_mobile', '삼성케어플러스 비즈니스 · 사진 + 혜택 3행', '모바일 보증연장 서비스 장 — 보증 연장 · 무상수리 · 수리 이력 관리와 적용 공간', 'feature', 3)
 

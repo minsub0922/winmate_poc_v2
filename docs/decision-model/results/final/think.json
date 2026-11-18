@@ -1,0 +1,905 @@
+{
+ "meta": {
+  "started": "2026-11-13T16:26:54",
+  "tc_per_task": 10,
+  "branches": {
+   "llm_think": {
+    "kind": "llm",
+    "provider": "openrouter",
+    "model": "qwen/qwen3.6-35b-a3b",
+    "quick_model": "qwen/qwen3.6-35b-a3b",
+    "reasoning": "on"
+   },
+   "_machine": {
+    "chip": "Apple M6",
+    "model": "Mac18,5",
+    "memory_gb": 24,
+    "os": "macOS-27.2-arm64-arm-64bit"
+   }
+  },
+  "finished": "2026-11-13T17:12:24"
+ },
+ "tasks": {
+  "search.rerank": [
+   {
+    "tc": {
+     "id": "C01_L1:value",
+     "q": "카페 프랜차이즈 디지털 메뉴보드 Value Propositions 장표",
+     "part": "value",
+     "industry": "FB",
+     "strategy": "value",
+     "level": "minimal",
+     "gold": [
+      "L_VP_F2",
+      "L_VP_U"
+     ],
+     "gold_in_pool": true
+    },
+    "tc_fp": "ffe86d4d05ef26bb",
+    "baseline": {
+     "final": [
+      "L_VP_F2",
+      "L_VP_F4",
+      "L_VP_F",
+      "L_VP_G",
+      "L_VP_J",
+      "L_PH_VP_U",
+      "L_VP_P",
+      "L_VP_T",
+      "L_VP_I",
+      "L_SUB_VALUE3"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm_think": {
+     "ok": true,
+     "ms": 53978,
+     "usage": {
+      "calls": 1,
+      "attempts": 3,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2382,
+      "output_tokens": 916,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_VP_F2",
+       "why": "2개 기둥으로 카페 프랜차이즈의 핵심 가치와 디지털 메뉴보드 제품을 명확히 매칭함"
+      },
+      {
+       "f": "L_VP_G",
+       "why": "단 한 문장으로 가치를 전달하며 제품 이미지만 강조해 단순한 제안에 적합함"
+      },
+      {
+       "f": "L_PH_VP_C",
+       "why": "한 문장 메시지 위에 세 가지 근거를 배치해 디지털 전환의 구체적 가치를 설득함"
+      },
+      {
+       "f": "L_VP_F4",
+       "why": "4개 기둥은カフェ 프랜차이즈의 다각적 가치를 보여주되 내용이 많을 때 적합함"
+      },
+      {
+       "f": "L_TOC_VP3",
+       "why": "제품과 솔루션을 함께 보여주며 3가지 가치를 카드 형태로 정리해 가독성이 좋음"
+      },
+      {
+       "f": "L_VP_N",
+       "why": "실제 매장 도입 사례 사진으로 신뢰성을 높이고 가치를 보여줌"
+      },
+      {
+       "f": "L_VP_P",
+       "why": "소프트웨어 화면을 보여줘 메뉴보드 시스템의 실제 가치를 시각적으로 전달함"
+      },
+      {
+       "f": "L_VP_I",
+       "why": "제품의 핵심 기능 하나에 집중한 콜아웃으로 단순한 제품 가치를 강조함"
+      },
+      {
+       "f": "L_PH_VP_B2",
+       "why": "2가지 가치에 초점을 맞춰 카페 프랜차이즈의 주요 페인 포인트를 해결함"
+      },
+      {
+       "f": "L_VP_F",
+       "why": "3개 기둥은 다양한 가치를 담되 내용이 복잡해질 수 있어 후반부에 적합함"
+      },
+      {
+       "f": "L_VP_J",
+       "why": "여러 기기를 묶는 솔루션에 적합하나 디지털 메뉴보드 단일 제품에는 과할 수 있음"
+      },
+      {
+       "f": "L_VP_T",
+       "why": "공식 연출과 스펙이 필요하나 프랜차이즈의 실무적 가치 전달에는 적합하지 않음"
+      },
+      {
+       "f": "L_VP_H",
+       "why": "역할별 제품 활용이 필요 없으므로 프랜차이즈 본사·가맹점 통합 가치에는 부적합"
+      },
+      {
+       "f": "L_PH_VP_U",
+       "why": "현장 질문 3개가 카페 프랜차이즈의 일반적 페인 포인트와 잘 맞지 않음"
+      },
+      {
+       "f": "L_VP_UC",
+       "why": "질문 기반 레이아웃은 Cafe 프랜차이즈의 단순한 가치 제안에는 부적합"
+      },
+      {
+       "f": "L_VP_US",
+       "why": "매장 실사 사진 위 질문 핀은 Cafe 프랜차이즈의 일반적 가치 전달과 거리가 있음"
+      },
+      {
+       "f": "L_VP_M",
+       "why": "매트릭스는 제품과 가치 모두 여럿일 때 필요하나 Cafe 프랜차이즈에는 적합하지 않음"
+      },
+      {
+       "f": "L_SUB_VALUE3",
+       "why": "구독 가치 레이아웃은 Cafe 프랜차이즈의 디지털 메뉴보드 제품 가치와 맞지 않음"
+      },
+      {
+       "f": "L_PH_IM_N",
+       "why": "메시지 하우스는 복잡한 메시지 구조에 적합하나 Cafe 프랜차이즈의 단순 가치에는 부적합"
+      },
+      {
+       "f": "L_VP_Q",
+       "why": "레퍼런스 사례는 신뢰성을 주나 Cafe 프랜차이즈의 직접적 가치 제안에는 부적합"
+      }
+     ],
+     "final": [
+      "L_VP_F2",
+      "L_VP_G",
+      "L_PH_VP_C",
+      "L_VP_F4",
+      "L_TOC_VP3",
+      "L_VP_N",
+      "L_VP_P",
+      "L_VP_I",
+      "L_PH_VP_B2",
+      "L_VP_F"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C02_L1:products",
+     "q": "신축 AI Ready 오피스 공간별 제품 장표",
+     "part": "products",
+     "industry": "OF",
+     "strategy": "space",
+     "level": "minimal",
+     "gold": [
+      "L_P3B"
+     ],
+     "gold_in_pool": true
+    },
+    "tc_fp": "3ac9b5d4074519a8",
+    "baseline": {
+     "final": [
+      "L_SOL_09",
+      "L_SOL_10",
+      "L_SOL_04",
+      "L_SOL_07",
+      "L_SOL_05",
+      "L_P5B",
+      "L_P2B",
+      "L_P3B",
+      "L_P4B",
+      "L_SOL_03"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.125,
+      "gold_rank": 8
+     }
+    },
+    "llm_think": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.",
+     "trace": "38, in timed\n    out = fn()\n          ^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 177, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 223, in task\n    order = search._rerank(env.llm, env.llm.model_for('quick'), tracker, env.kb, tc['q'], tc['part'], tc['industry'], tc['strategy'],\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/search.py\", line 308, in _rerank\n    return _rerank_llm(provider, model, tracker, kb, q, part, industry, strategy, level, products, pool)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/search.py\", line 346, in _rerank_llm\n    raise from_provider('search:rerank', exc) from None\napp.api.poc.jobs.ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C03_L1:value",
+     "q": "비즈니스 호텔 객실 리뉴얼 Value Propositions 장표",
+     "part": "value",
+     "industry": "HT",
+     "strategy": "pain",
+     "level": "minimal",
+     "gold": [
+      "L_VP_G",
+      "L_VP_U_HT"
+     ],
+     "gold_in_pool": true
+    },
+    "tc_fp": "fec62bae9c3a0e30",
+    "baseline": {
+     "final": [
+      "L_VP_U_HT",
+      "L_AIS_06",
+      "L_AIS_07",
+      "L_VP_F2",
+      "L_VP_US",
+      "L_VP_F4",
+      "L_VP_UC",
+      "L_VP_F",
+      "L_AIS_09",
+      "L_VP_G"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm_think": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.",
+     "trace": "38, in timed\n    out = fn()\n          ^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 177, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 223, in task\n    order = search._rerank(env.llm, env.llm.model_for('quick'), tracker, env.kb, tc['q'], tc['part'], tc['industry'], tc['strategy'],\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/search.py\", line 308, in _rerank\n    return _rerank_llm(provider, model, tracker, kb, q, part, industry, strategy, level, products, pool)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/search.py\", line 346, in _rerank_llm\n    raise from_provider('search:rerank', exc) from None\napp.api.poc.jobs.ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C04_L3:requirements",
+     "q": "은행 업무용 모니터 입찰 고객 요구 이해 장표",
+     "part": "requirements",
+     "industry": "FN",
+     "strategy": "rfp",
+     "level": "complex",
+     "gold": [
+      "L_RM_B",
+      "L_RM_C"
+     ],
+     "gold_in_pool": true
+    },
+    "tc_fp": "2919440bac467c18",
+    "baseline": {
+     "final": [
+      "L_RM_B",
+      "L_RM_C",
+      "L_PH_RQ_A",
+      "L_PH_RQ_C",
+      "L_PH_RQ_B",
+      "L_PH_RQ_G",
+      "L_PH_OV_A",
+      "L_SC_B",
+      "L_PH_RQ_F",
+      "L_PH_RQ_D"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm_think": {
+     "ok": true,
+     "ms": 44961,
+     "usage": {
+      "calls": 1,
+      "attempts": 3,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2675,
+      "output_tokens": 659,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_RM_B",
+       "why": "RFP 대응용 표로 검색어와 맥락 정확히 부합"
+      },
+      {
+       "f": "L_RM_C",
+       "why": "평가 항목 배점 대응도 RFP 필수 장표"
+      },
+      {
+       "f": "L_TOC_RFP",
+       "why": "평가 항목별 대응을 표로 정리 가능"
+      },
+      {
+       "f": "L_PH_RQ_B",
+       "why": "배점 비례 사진으로 RFP 시각화"
+      },
+      {
+       "f": "L_PH_RQ_A",
+       "why": "복잡한 요구사항을 분야별 사진으로 정리"
+      },
+      {
+       "f": "L_PH_RQ_F",
+       "why": "요구사항과 제품 화면 매핑으로 구체화"
+      },
+      {
+       "f": "L_PH_RQ_E",
+       "why": "말한 요구와 숨은 요구 구분 필요"
+      },
+      {
+       "f": "L_PH_RQ_D",
+       "why": "핵심 요구 5가지를 사진으로 강조"
+      },
+      {
+       "f": "L_PH_RQ_G",
+       "why": "필수선택 구분 카드 띠 구성"
+      },
+      {
+       "f": "L_PH_RQ_C",
+       "why": "키맨별 관심사 대응 카드"
+      },
+      {
+       "f": "L_PH_RQ_H",
+       "why": "현장 실사 결과 확인용"
+      },
+      {
+       "f": "L_SC_B",
+       "why": "요구사항 충족 증명 표"
+      },
+      {
+       "f": "L_PH_IM_G",
+       "why": "결정 기준별 증거 사진"
+      },
+      {
+       "f": "L_PH_MI_FN_B",
+       "why": "금융 과제별 사진 흐름"
+      },
+      {
+       "f": "L_PH_MI_FN_C",
+       "why": "금융 고객 여정 사진"
+      },
+      {
+       "f": "L_PH_IM_L",
+       "why": "고객 질문과 답 매칭"
+      },
+      {
+       "f": "L_PH_US_L",
+       "why": "결정자와 사용자 시각화"
+      },
+      {
+       "f": "L_PH_OV_A",
+       "why": "사업 이해 현장 사진"
+      },
+      {
+       "f": "L_OV_C",
+       "why": "전제 조건 확인용"
+      },
+      {
+       "f": "L_PH_SO_P",
+       "why": "제품 솔루션 단계"
+      }
+     ],
+     "final": [
+      "L_RM_B",
+      "L_RM_C",
+      "L_TOC_RFP",
+      "L_PH_RQ_B",
+      "L_PH_RQ_A",
+      "L_PH_RQ_F",
+      "L_PH_RQ_E",
+      "L_PH_RQ_D",
+      "L_PH_RQ_G",
+      "L_PH_RQ_C"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C05_L1:products",
+     "q": "대학 스마트 캠퍼스 공간별 제품 장표",
+     "part": "products",
+     "industry": "ED",
+     "strategy": "space",
+     "level": "minimal",
+     "gold": [
+      "L_P2B"
+     ],
+     "gold_in_pool": true
+    },
+    "tc_fp": "ab9b20ca6fc7ff43",
+    "baseline": {
+     "final": [
+      "L_P5B",
+      "L_P3B",
+      "L_P4B",
+      "L_P2B",
+      "L_PH_P_I",
+      "L_VS_SPACE",
+      "L_PH_P_S",
+      "L_PH_P_L",
+      "L_P1A",
+      "L_PH_P4_A"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.25,
+      "gold_rank": 4
+     }
+    },
+    "llm_think": {
+     "ok": true,
+     "ms": 3472,
+     "usage": {
+      "calls": 1,
+      "attempts": 1,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2198,
+      "output_tokens": 659,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_VS_SPACE",
+       "why": "공간별 대표 제품 장표에 가장 적합함"
+      },
+      {
+       "f": "L_P5B",
+       "why": "공간 중심 카드 레이아웃으로 적합함"
+      },
+      {
+       "f": "L_P3B",
+       "why": "공간별 제품 목록 정리용 레이아웃"
+      },
+      {
+       "f": "L_P4B",
+       "why": "공간별 제품 설치 중심 레이아웃"
+      },
+      {
+       "f": "L_P2B",
+       "why": "공간별 제품 목록 정리용 레이아웃"
+      },
+      {
+       "f": "L_PH_P_I",
+       "why": "공간 분위기 강조용 레이아웃"
+      },
+      {
+       "f": "L_PH_P_S",
+       "why": "한 제품 여러 공간 적용 레이아웃"
+      },
+      {
+       "f": "L_PH_P_L",
+       "why": "비디오월 등 대형 설치 공간용"
+      },
+      {
+       "f": "L_P1A",
+       "why": "제품 이미지 중심 레이아웃"
+      },
+      {
+       "f": "L_PH_P4_A",
+       "why": "제품 4개 설치 장면 레이아웃"
+      },
+      {
+       "f": "L_PH_P_G",
+       "why": "설치 방식 옵션 비교 레이아웃"
+      },
+      {
+       "f": "L_PH_P2_C",
+       "why": "두 제품 비교 레이아웃"
+      },
+      {
+       "f": "L_PH_P3_A",
+       "why": "제품 3개 컷+설치 장면 레이아웃"
+      },
+      {
+       "f": "L_P_T",
+       "why": "카탈로그식 제품 나열 레이아웃"
+      },
+      {
+       "f": "L_PH_P5_A",
+       "why": "제품 5개 설치 장면 레이아웃"
+      },
+      {
+       "f": "L_P3D",
+       "why": "주력+보조 제품 레이아웃"
+      },
+      {
+       "f": "L_PH_P_P",
+       "why": "사용자별 접점 레이아웃"
+      },
+      {
+       "f": "L_PH_P1_C",
+       "why": "단일 제품 설치+숫자 레이아웃"
+      },
+      {
+       "f": "L_P2D",
+       "why": "주력+보조 8:4 레이아웃"
+      },
+      {
+       "f": "L_P4D",
+       "why": "주력+보조 3개 레이아웃"
+      }
+     ],
+     "final": [
+      "L_VS_SPACE",
+      "L_P5B",
+      "L_P3B",
+      "L_P4B",
+      "L_P2B",
+      "L_PH_P_I",
+      "L_PH_P_S",
+      "L_PH_P_L",
+      "L_P1A",
+      "L_PH_P4_A"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.2,
+      "gold_rank": 5
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C06_L3:spec",
+     "q": "물류센터 현장 모바일 제품 스펙 장표",
+     "part": "spec",
+     "industry": "MF",
+     "strategy": "pain",
+     "level": "complex",
+     "gold": [
+      "L_SC_B",
+      "L_SD_E"
+     ],
+     "gold_in_pool": true
+    },
+    "tc_fp": "498972e6847e7038",
+    "baseline": {
+     "final": [
+      "L_SD_E",
+      "L_SE_B",
+      "L_SPEC4",
+      "L_SD_B",
+      "L_SPEC5",
+      "L_SD_F",
+      "L_SPEC1",
+      "L_SC_B",
+      "L_TOC_SPEC",
+      "L_PH_SC_A"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm_think": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.",
+     "trace": "38, in timed\n    out = fn()\n          ^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 177, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 223, in task\n    order = search._rerank(env.llm, env.llm.model_for('quick'), tracker, env.kb, tc['q'], tc['part'], tc['industry'], tc['strategy'],\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/search.py\", line 308, in _rerank\n    return _rerank_llm(provider, model, tracker, kb, q, part, industry, strategy, level, products, pool)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/search.py\", line 346, in _rerank_llm\n    raise from_provider('search:rerank', exc) from None\napp.api.poc.jobs.ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C07_L3:why",
+     "q": "백화점 사이니지 공급사 전환 Why Samsung 장표",
+     "part": "why",
+     "industry": "RT",
+     "strategy": "compete",
+     "level": "complex",
+     "gold": [
+      "L_CM_B",
+      "L_CM_E",
+      "L_ST_E",
+      "L_WS01"
+     ],
+     "gold_in_pool": true
+    },
+    "tc_fp": "483a8d5087995b9e",
+    "baseline": {
+     "final": [
+      "L_PH_SV_B",
+      "L_PH_CM_A",
+      "L_ST_D",
+      "L_SV_C",
+      "L_PH_CP_W",
+      "L_PH_CP_X",
+      "L_PH_ST_A",
+      "L_CM_C",
+      "L_VS_WHY_2",
+      "L_VS_WHY_1"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.09090909090909091,
+      "gold_rank": 11
+     }
+    },
+    "llm_think": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.",
+     "trace": "38, in timed\n    out = fn()\n          ^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 177, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 223, in task\n    order = search._rerank(env.llm, env.llm.model_for('quick'), tracker, env.kb, tc['q'], tc['part'], tc['industry'], tc['strategy'],\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/search.py\", line 308, in _rerank\n    return _rerank_llm(provider, model, tracker, kb, q, part, industry, strategy, level, products, pool)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/search.py\", line 346, in _rerank_llm\n    raise from_provider('search:rerank', exc) from None\napp.api.poc.jobs.ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C08_L1:value",
+     "q": "아파트 분양 빌트인 · 스마트홈 Value Propositions 장표",
+     "part": "value",
+     "industry": "RS",
+     "strategy": "value",
+     "level": "minimal",
+     "gold": [
+      "L_RV_A",
+      "L_VP_F"
+     ],
+     "gold_in_pool": true
+    },
+    "tc_fp": "265a4edd4e0a26d9",
+    "baseline": {
+     "final": [
+      "L_PH_RV_A",
+      "L_VP_F2",
+      "L_VP_F4",
+      "L_VP_F",
+      "L_VP_G",
+      "L_RV_B",
+      "L_VP_P",
+      "L_VP_J",
+      "L_VP_T",
+      "L_VP_I"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.25,
+      "gold_rank": 4
+     }
+    },
+    "llm_think": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.",
+     "trace": "38, in timed\n    out = fn()\n          ^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 177, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 223, in task\n    order = search._rerank(env.llm, env.llm.model_for('quick'), tracker, env.kb, tc['q'], tc['part'], tc['industry'], tc['strategy'],\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/search.py\", line 308, in _rerank\n    return _rerank_llm(provider, model, tracker, kb, q, part, industry, strategy, level, products, pool)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/search.py\", line 346, in _rerank_llm\n    raise from_provider('search:rerank', exc) from None\napp.api.poc.jobs.ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.\n"
+    }
+   },
+   {
+    "tc": {
+     "id": "C09_L3:cost",
+     "q": "무인 스터디카페 에너지 절감 비용 · 구매 장표",
+     "part": "cost",
+     "industry": "SV",
+     "strategy": "roi",
+     "level": "complex",
+     "gold": [
+      "L_CO_A",
+      "L_CO_B"
+     ],
+     "gold_in_pool": true
+    },
+    "tc_fp": "e69a06635340acfe",
+    "baseline": {
+     "final": [
+      "L_CO_B",
+      "L_CO_A",
+      "L_PH_CO_A",
+      "L_PH_CO_B",
+      "L_TOC_TCO",
+      "L_PH_CO_E",
+      "L_PH_CO_D",
+      "L_PH_CO_C",
+      "L_SUB_VALUE3",
+      "L_PH_CO_F"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    },
+    "llm_think": {
+     "ok": true,
+     "ms": 43368,
+     "usage": {
+      "calls": 1,
+      "attempts": 3,
+      "failed": 0,
+      "rejected": 0,
+      "prompt_tokens": 2574,
+      "output_tokens": 476,
+      "models": [
+       "qwen/qwen3.6-35b-a3b"
+      ]
+     },
+     "output": [
+      {
+       "f": "L_CO_A",
+       "why": "비용/구매 장표 및 구독/일시불 비교에 가장 적합합니다."
+      },
+      {
+       "f": "L_CO_B",
+       "why": "TCO와 운영비 비교는 ROI 전략에 핵심입니다."
+      },
+      {
+       "f": "L_SUB_COMPARE",
+       "why": "구매 vs 구독 비교가 목차 비용·구매와 직결됩니다."
+      },
+      {
+       "f": "L_PH_CO_A",
+       "why": "누적 비용 곡선으로 구매 시점과 비용 효율을 보여줍니다."
+      },
+      {
+       "f": "L_PH_CO_B",
+       "why": "TCO와 제품 컷을 함께 보여 투자 대비 효율을 명확히 합니다."
+      },
+      {
+       "f": "L_TOC_TCO",
+       "why": "구매 방식과 5년 비용을 한눈에 비교할 수 있습니다."
+      },
+      {
+       "f": "L_PH_CO_E",
+       "why": "매장별 월 비용을 시각화해 무인 카페 운영 효율을 보여줍니다."
+      },
+      {
+       "f": "L_PH_CO_D",
+       "why": "견적 내역을 상세히 정리해 구매 결정을 돕습니다."
+      },
+      {
+       "f": "L_PH_CO_C",
+       "why": "단계별 투자를 제시해 초기 비용 부담을 줄입니다."
+      },
+      {
+       "f": "L_PH_CO_F",
+       "why": "교체 지원 항목을 강조해 구매 장벽을 낮춥니다."
+      },
+      {
+       "f": "L_PH_EF_B",
+       "why": "투자 회수 기간과 누적 효과를 보여 ROI 전략을 뒷받침합니다."
+      },
+      {
+       "f": "L_PH_EF_G",
+       "why": "비용 절감 항목을 워터폴로 보여 구매 결정의 근거를 만듭니다."
+      }
+     ],
+     "final": [
+      "L_CO_A",
+      "L_CO_B",
+      "L_SUB_COMPARE",
+      "L_PH_CO_A",
+      "L_PH_CO_B",
+      "L_TOC_TCO",
+      "L_PH_CO_E",
+      "L_PH_CO_D",
+      "L_PH_CO_C",
+      "L_PH_CO_F"
+     ],
+     "metrics": {
+      "hit1": 1.0,
+      "hit3": 1.0,
+      "mrr": 1.0,
+      "gold_rank": 1
+     }
+    }
+   },
+   {
+    "tc": {
+     "id": "C10_L3:execution",
+     "q": "요양병원 병동 확산 실행 계획 장표",
+     "part": "execution",
+     "industry": "MD",
+     "strategy": "land",
+     "level": "complex",
+     "gold": [
+      "L_PL_A",
+      "L_PL_B",
+      "L_SV_A"
+     ],
+     "gold_in_pool": true
+    },
+    "tc_fp": "b7766ce8ef79ee91",
+    "baseline": {
+     "final": [
+      "L_PH_PL_A",
+      "L_PH_IP_A",
+      "L_PL_B",
+      "L_MT_B",
+      "L_TO_A",
+      "L_IP_A",
+      "L_PH_TO_B",
+      "L_PH_SE_C",
+      "L_PH_CU_B",
+      "L_CU_A"
+     ],
+     "metrics": {
+      "hit1": 0.0,
+      "hit3": 1.0,
+      "mrr": 0.3333333333333333,
+      "gold_rank": 3
+     }
+    },
+    "llm_think": {
+     "ok": false,
+     "ms": 0,
+     "usage": {
+      "calls": 0,
+      "attempts": 0,
+      "failed": 1,
+      "rejected": 0,
+      "prompt_tokens": 0,
+      "output_tokens": 0,
+      "models": []
+     },
+     "error": "ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.",
+     "trace": "38, in timed\n    out = fn()\n          ^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 177, in <lambda>\n    out, ms = timed(lambda: fn(client, tracker))\n                            ^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/tests/decision_eval.py\", line 223, in task\n    order = search._rerank(env.llm, env.llm.model_for('quick'), tracker, env.kb, tc['q'], tc['part'], tc['industry'], tc['strategy'],\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/search.py\", line 308, in _rerank\n    return _rerank_llm(provider, model, tracker, kb, q, part, industry, strategy, level, products, pool)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/tmp/claude-501/-Users-minseop-Dev-projects-sr-tasks-winmatev2/1fe9c331-7c0b-4ad2-aa70-48a16d1aa273/scratchpad/frozen/app/api/poc/adapters/search.py\", line 346, in _rerank_llm\n    raise from_provider('search:rerank', exc) from None\napp.api.poc.jobs.ModelFailure: max_tokens: 모델 출력이 한도를 넘었습니다. 입력을 줄이거나 다시 시도하세요.\n"
+    }
+   }
+  ]
+ }
+}

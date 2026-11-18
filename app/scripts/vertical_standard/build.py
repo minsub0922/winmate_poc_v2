@@ -452,12 +452,7 @@ def build_vertical(v):
     divider('div6', 5, 6, 'Why Samsung', '전문가 · 오퍼링 · 프로세스 · 브랜드로 끝까지 책임집니다', [(nm, str(pg(f'why{j}'))) for j, (nm, _) in enumerate(WHY_ROWS)], img(*TECHNICIAN))
 
     # ---------------- 01 DSS
-    fam = [('SAC', '시스템에어컨', lambda c: c.startswith('sac_')), ('LED', 'LED 사이니지', lambda c: c in ('led_in', 'led_out')),
-           ('SIG', '스마트 사이니지', lambda c: c in ('lcd_std', 'vwall', 'lcd_out', 'lcd_win', 'epaper', 'spatial', 'btv')), ('IWB', 'Flip Pro 전자칠판', lambda c: c == 'iwb'),
-           ('TV', 'Samsung AI TV', lambda c: c in ('htv', 'tv')), ('AUD', '하만 프로 오디오', lambda c: c == 'harman'),
-           ('KIT', 'Bespoke AI 주방가전', lambda c: CATGROUP.get(c) == 'KIT'), ('LIV', 'Bespoke AI 리빙가전', lambda c: CATGROUP.get(c) == 'LIV'),
-           ('MOB', 'Galaxy AI 모바일', lambda c: c in ('phone', 'tab', 'watch', 'buds', 'xr', 'g_rugged')), ('PC', '갤럭시 북 · 모니터', lambda c: c in ('nb', 'mon', 'desk', 'cb')),
-           ('PRT', '디지털 복합기', lambda c: c in ('dmfp', 'mfp')), ('KIO', '삼성 키오스크', lambda c: c == 'g_kiosk'), ('CIN', 'Onyx 시네마 LED', lambda c: c == 'g_cinema')]
+    fam = prod.families(CATGROUP)
     fscore = []
     for fi, (fk, fname, fn) in enumerate(fam):
         cnt = sum(1 for sp in vp['spaces'] if any(fn(c) for c in sp['products']))

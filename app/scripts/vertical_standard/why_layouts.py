@@ -46,8 +46,8 @@ def why1():
             ('shield', 'Brand', '품질과 기술로 입증된 글로벌 브랜드로서 비즈니스의 안정성을 제공합니다.')]
     for n, (ic, t, d) in enumerate(data):
         x, y = 608 + (n % 2) * 312, 152 + (n // 2) * 256
-        b.box(x, y, 296, 240, f'border-radius: 16px; background: #ffffff; border: 1px solid {LINE};')
-        b.box(x + 22, y + 22, 52, 52, f'border-radius: 12px; background: {TINT}; display: flex; align-items: center; justify-content: center;', icon(ic, BLUE, 24))
+        b.box(x, y, 296, 240, f'border-radius: 16px; background: {SURF};')
+        b.box(x + 22, y + 22, 52, 52, f'border-radius: 12px; background: #ffffff; display: flex; align-items: center; justify-content: center;', icon(ic, BLUE, 24))
         b.circle(x + 248, y + 24, 26, str(n + 1), fs=13)
         T(b, 'title', x + 22, y + 92, 252, t, f'font-family: {MAN}; font-weight: 800; color: {INK}; white-space: nowrap;')
         T(b, 'body', x + 22, y + 140, 252, d, f'color: {INK2};', h=76)
@@ -61,13 +61,13 @@ def why2():
             ('처음부터 끝까지 책임지는 전문가', '설계 – 배송/설치 – AS/유지보수', [('전문 시공 관리 조직 운영', '초기 도면 설계부터 구축 단계까지 안전하고 정확한 시공'), ('유지보수 지원', '지속적인 유지보수로 사용 효율 개선과 에너지 절감 실현'), ('배송 및 A/S 지원', '신속한 배송과 철저한 전문 A/S')])]
     for n, (t, s, rows) in enumerate(cols):
         x = 64 + n * 400
-        b.box(x, 152, 352, 496, f'border-radius: 16px; background: #ffffff; border: 1px solid {LINE};')
+        b.box(x, 152, 352, 496, f'border-radius: 16px; background: {SURF};')
         b.img(x, 152, 352, 160, 'photo', t, radius=16, extra='border-radius: 16px 16px 0 0;', key=f'img{n}')
         T(b, 'heading', x + 22, 328, 308, t, f'font-weight: 800; color: {BLUE}; white-space: nowrap;')
         if s: T(b, 'label', x + 22, 356, 308, s, f'color: {GRAY}; white-space: nowrap;')
         for r, (rt, rd) in enumerate(rows):
             y = 388 + r * 84
-            b.box(x + 22, y, 308, 1, f'background: {LINE};')
+            b.box(x + 12, y + 2, 328, 76, 'border-radius: 10px; background: #ffffff;')
             T(b, 'dense', x + 22, y + 12, 308, rt, f'font-weight: 800; color: {INK}; white-space: nowrap;')
             T(b, 'label', x + 22, y + 38, 308, rd, f'color: {GRAY};', h=38)
         if n < 2:
@@ -84,12 +84,11 @@ def why3():
     for n, (t, s, items) in enumerate(cols):
         x = 64 + n * 391
         mid = n == 1
-        b.box(x, 152, 370, 496, f'border-radius: 16px; background: {TINT if mid else "#ffffff"}; border: {2 if mid else 1}px solid {BLUE if mid else LINE};')
-        b.img(x + (2 if mid else 1), 152 + (2 if mid else 1), 370 - (4 if mid else 2), 150, 'photo', t, radius=14, extra='border-radius: 14px 14px 0 0;', key=f'img{n}')
+        b.box(x, 152, 370, 496, f'border-radius: 16px; background: {TINT if mid else SURF};')
+        b.img(x, 152, 370, 150, 'photo', t, radius=16, extra='border-radius: 16px 16px 0 0;', key=f'img{n}')
         T(b, 'heading', x + 24, 326, 40, f'0{n + 1}', f'font-family: {MAN}; font-weight: 800; color: {BLUE}; white-space: nowrap;')
         T(b, 'title', x + 60, 316, 280, t, f'font-family: {MAN}; font-weight: 800; color: {INK}; white-space: nowrap;')
         T(b, 'dense', x + 24, 362, 322, s, f'font-weight: 800; color: {BLUE if mid else INK2};', h=44)
-        b.box(x + 24, 416, 322, 1, f'background: {"#c5cde6" if mid else LINE};')
         for r, it in enumerate(items):
             y = 430 + r * 35
             b.box(x + 24, y + 3, 16, 16, 'display: flex;', CHECK.format(c=BLUE))
@@ -107,12 +106,11 @@ def why4():
     w = 270
     for n, (pill, t, rows) in enumerate(cols):
         x = 64 + n * (w + 24)
-        b.box(x, 152, w, 436, f'border-radius: 16px; background: #ffffff; border: 1px solid {LINE};')
+        b.box(x, 152, w, 436, f'border-radius: 16px; background: {SURF};')
         b.img(x, 152, w, 84, 'photo', pill, radius=16, extra='border-radius: 16px 16px 0 0;', key=f'img{n}')
         b.box(x + 14, 164, 88, 26, f'border-radius: 13px; background: {BLUE};')
         T(b, 'label', x + 14, 167, 88, pill, 'font-weight: 800; color: #ffffff; text-align: center; white-space: nowrap;')
         T(b, 'heading', x + 20, 250, w - 40, t, f'font-weight: 800; color: {INK};', h=52)
-        b.box(x + 20, 310, w - 40, 1, f'background: {LINE};')
         y = 322
         for rt, rd in rows:
             T(b, 'dense', x + 20, y, w - 40, rt, f'font-weight: 800; color: {INK}; white-space: nowrap;')
@@ -141,7 +139,7 @@ def why5():
     for n, (yr, val, v) in enumerate(years):
         x = 64 + n * 118
         hi = n == 0
-        b.box(x, 180, 108, 212, f'border-radius: 14px; background: {BLUE if hi else "#ffffff"}; border: 1px solid {BLUE if hi else LINE};')
+        b.box(x, 180, 108, 212, f'border-radius: 14px; background: {BLUE if hi else SURF};')
         T(b, 'dense', x, 194, 108, yr, f'font-family: {MAN}; font-weight: 800; color: {"#ffffff" if hi else INK}; text-align: center; white-space: nowrap;')
         bh = round(86 * v / 1008)
         b.box(x + 40, 312 - bh, 28, bh, f'border-radius: 6px 6px 0 0; background: {"#9db4ff" if hi else "#c5cde6"};')
@@ -162,7 +160,6 @@ def why5():
             ('Samsung Design', ['iF 디자인 어워드 2025 금상 2개 포함 총 58개 수상', 'IDEA 2025 금상 2개 수상 등 총 47개 수상'])]
     y = 176
     for si, (t, items) in enumerate(secs):
-        if si: b.box(812, y - 14, 378, 1, f'background: {LINE};')
         T(b, 'heading', 812, y, 378, t, f'font-family: {MAN}; font-weight: 800; color: {BLUE}; white-space: nowrap;')
         y += 36
         for it in items:
@@ -178,7 +175,7 @@ def end():
     b = B('L_VS_END', bg='#121417', dark=True)
     b.img(0, 0, 1280, 720, 'photo', '마무리 사진 (풀블리드)', radius=0, key='img0')
     b.box(0, 0, 1280, 720, 'background: linear-gradient(180deg, rgba(18,20,23,0) 40%, rgba(18,20,23,.82) 100%);')
-    b.text('utility', 64, 44, 96, '고객사 로고', 'height: 26px; border: 1px dashed rgba(255,255,255,.55); border-radius: 4px; background: rgba(255,255,255,.88); color: #3d4452; text-align: center; line-height: 24px; white-space: nowrap; box-sizing: border-box;', h=26, fixed=True, key='cust')
+    b.text('utility', 64, 44, 96, '고객사 로고', 'height: 26px; border-radius: 4px; background: rgba(255,255,255,.88); color: #3d4452; text-align: center; line-height: 26px; white-space: nowrap; box-sizing: border-box;', h=26, fixed=True, key='cust')
     b.text('display', 64, 560, 600, 'SAMSUNG', f'font-family: {MAN}; font-weight: 800; letter-spacing: .22em; color: #ffffff; white-space: nowrap;', h=64, label=True)
     b.text('body', 64, 640, 700, '업종 · AI 표준 제안서', 'color: rgba(255,255,255,.86); white-space: nowrap;', h=25, key='foot')
     b.text('label', 816, 646, 400, '삼성전자 한국총괄 B2B 영업팀', 'color: rgba(255,255,255,.75); text-align: right; white-space: nowrap;', h=19, label=True)
