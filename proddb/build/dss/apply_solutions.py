@@ -20,9 +20,20 @@ official = lambda u: any(urllib.parse.urlparse(u).netloc.endswith(d) for d in OF
 ok = lambda u: (extra.get(u) or pages.get(u, {}).get('status')) == 200
 STAGE = os.path.join(RUN_DIR, 'stage')
 os.makedirs(os.path.join(STAGE, 'app/data'), exist_ok=True); os.makedirs(os.path.join(STAGE, 'build/media/data'), exist_ok=True)
-report = {'vss': {}, 'app': {}, 'taxonomy': [], 'sol_urls': []}
+report = {'vss': {}, 'app': {}, 'taxonomy': [], 'sol_urls': [], 'vss_urls': []}
 
 vss = J(os.path.join(ROOT, 'app/data/vertical_space_solution.json'))
+URL_MOVES = CFG.get('sol_url_moves', {})  # 옮겨진 공식 URL(이번 run 에서 새 주소 확인) — 버티컬 솔루션의 대표 주소 · 출처 · 기능별 출처(feature.source)도 같이 바꾼다
+def move_urls(x, at=''):
+    """문자열 값이 옮겨진 URL 과 같으면 새 주소로 바꾸고, 어디를 바꿨는지(가장 가까운 솔루션 · 기능 id) report 에 남긴다."""
+    if isinstance(x, dict):
+        here = x.get('id') or at
+        return {k: move_urls(v, here) for k, v in x.items()}
+    if isinstance(x, list): return [move_urls(v, at) for v in x]
+    if isinstance(x, str) and x in URL_MOVES:
+        report['vss_urls'].append({'at': at, 'from': x, 'to': URL_MOVES[x]}); return URL_MOVES[x]
+    return x
+vss = move_urls(vss)
 for s in vss['solution_catalog']:
     srcs = [u for u in [s.get('url')] + list(s.get('sources') or []) if u]
     good = [u for u in srcs if official(u) and ok(u)]
@@ -69,6 +80,6 @@ json.dump(sol_urls, open(os.path.join(STAGE, 'build/media/data/sol_urls.json'), 
 json.dump(report, open(os.path.join(STAGE, 'review/solutions.json'), 'w'), ensure_ascii=False, indent=1)
 print('vss confirmed', sum(v['confirmed'] for v in report['vss'].values()), '/', len(report['vss']),
       '| app confirmed', sum(v['confirmed'] for v in report['app'].values()), '/', len(report['app']),
-      '| taxonomy', len(report['taxonomy']), '| sol_urls moved', len(report['sol_urls']))
+      '| taxonomy', len(report['taxonomy']), '| sol_urls moved', len(report['sol_urls']), '| vss urls moved', len(report['vss_urls']))
 for k, v in list(report['vss'].items()) + list(report['app'].items()):
     if not v['confirmed']: print('unconfirmed', k, v)

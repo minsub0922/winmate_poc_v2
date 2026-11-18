@@ -1,0 +1,33 @@
+{
+  "run_id": "dss-20261115-1657",
+  "run_at": "2026-11-15T16:57:37+09:00",
+  "about": "전체 run(site · e-카탈로그 · 솔루션 · 구독) — apply_run.py · apply_solutions.py · inventory.py · ledger.py 입력. 같은 제품이 다른 id 로 나오는 행(alias), 같은 제품을 대신하는 사이트 행(superseded), 새 행의 상세 pack 번호, URL 이동",
+  "previous_full_run": "dss-20261112-1445",
+  "alias": {
+    "ec_343_001": "sg_g000184016",
+    "ec_343_002": "sg_g000184018",
+    "ec_343_003": "sg_g000184020"
+  },
+  "alias_why": "지난 run(dss-20261112-1445)에서 이어짐 — 제트 핏 3종은 사이트 목록에 여전히 없고(siteListed false) e-카탈로그 343 에 있어 export 에는 카탈로그 행 ec_343_001~003 으로 나온다. 같은 제품이라 기존 sg 행을 유지한다",
+  "superseded": {
+    "ec_360_114": [
+      "sg_g000184305",
+      "sg_g000184308"
+    ]
+  },
+  "superseded_why": "지난 run 에서 이어짐 — '비즈니스(광시야각) 모니터' 카탈로그 행은 사이트 행 에센셜 모니터 G3 G31H · G32H(이번 수집에도 있음)가 대신한다. id 유지",
+  "new_pack": 3,
+  "taxonomy_url_moves": {},
+  "sol_url_moves": {
+    "https://vxt.samsung.com/uk/features": "https://vxt.samsung.com/features"
+  },
+  "sol_url_moves_why": "버티컬 솔루션 s_vxt 의 보조 출처 vxt.samsung.com/uk/features 가 307 로 /uk(영국 홈 — 'Digital Signage Cloud Software | FREE Trial - Samsung VXT')로 넘어간다. /uk 아래 하위 페이지(/uk/digital-signage-cms · /uk/digital-signage-remote-management)도 모두 /uk 로 넘어감. 이 주소를 출처로 적은 기능 2개(s_vxt.rm.control 전원·화면 방향·SW 업데이트 원격 제어, s_vxt.player.android Android 기기·웹 플레이어)의 원문 문장은 /uk 에는 없고 같은 사이트의 기능 페이지 vxt.samsung.com/features(200, 'Powerful Digital Signage Features | Samsung VXT Content Management')에 그대로 있다 — 'power on/off, screen orientation, software update … supported through remote connectivity', 'Any device with a Google Chrome browser can be a virtual VXT Player … devices running the Android OS can be used as a VXT Player', 'Web player supported by chrome browser'. 그래서 리디렉트 도착지(/uk)가 아니라 기능 페이지로 주소를 옮긴다. 1차 근거인 samsung.com/sec/business VXT CMS 페이지는 200 · 본문 해시 그대로.",
+  "solution_recheck": {
+    "https://vxt.samsung.com/features": 200
+  },
+  "solution_recheck_why": "수집 목록(fetch_solutions.py)에 없던 새 주소 — 2026-11-15 17:10 KST 에 직접 열어 200 · 제목 'Powerful Digital Signage Features | Samsung VXT Content Management' · 위 두 기능의 원문 문장 확인",
+  "ecat_gone": {},
+  "staged_at": "2026-11-15T17:16:55+09:00",
+  "finished_at": "2026-11-15T17:16:55+09:00",
+  "finished_at_note": "staging(수집 · 비교 · 재검토 · 3-way 반영 · 원장)까지 끝난 시각 — 활성 반영(promote.py)은 검토 뒤에 한다"
+}

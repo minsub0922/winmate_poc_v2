@@ -39,7 +39,8 @@ for (const tid of ['subs', 'subsl']) {
       sheets.push({ name: `${tid}__${vid}__${String(k + 1).padStart(2, '0')}_${o.f}`, f: o.f, module: 'app/web/src/domain/templates/subs_layouts.js', o });
     });
     const used = new Set(fills.map((o) => o.f));
-    const core = tid === 'subs' ? ['L_SUB_PAIN', 'L_SUB_VALUE3', 'L_SUB_TERMS', 'L_SUB_PAY3', 'L_SUB_FLOW', 'L_SUB_BLUEPASS'] : ['L_SUB_ONE', 'L_SUB_TERMS', 'L_SUB_PAY3', 'L_SUB_FLOW'];
+    // 구독 제안서 — 구독을 한 파트(구독 솔루션: 고민 · 효과 · 비교 · 제품 묶음 · 케어 1 · 케어 2 · 구독 조건 · 결제)로 합쳤다(2026-11-16). 구독 전환 제안서는 은퇴한 옛 구조 그대로 조립된다
+    const core = tid === 'subs' ? ['L_SUB_PAIN', 'L_SUB_VALUE3', 'L_SUB_COMPARE', 'L_SUB_CARE4', 'L_SUB_BLUEPASS', 'L_SUB_TERMS', 'L_SUB_PAY3'] : ['L_SUB_ONE', 'L_SUB_TERMS', 'L_SUB_PAY3', 'L_SUB_FLOW'];
     const miss = core.filter((f) => !used.has(f));
     if (miss.length || ![...used].some((f) => /^L_SUB_PKG[34]$/.test(f))) errors.push(`${tid}/${vid}: 구독 핵심 장 빠짐 ${miss.join(', ')}`);
   }

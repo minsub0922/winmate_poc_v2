@@ -18,6 +18,17 @@ DSS DB 업데이트 skill(`.agents/skills/winmate-update-dss-db` 8-S)이 run 마
 - 업종 패키지 PKG4 · PKG3(품목 수 변형) · 구독 조건 TERMS · 관리 옵션 CAREOPT · 납부 방법 5 PAY5 · 이 고객 납부안 3 PAY3(번호 01–03)
 - 예산 흐름 BUDGET · 혜택 PROMO(기간 지나면 retired) · 도입 절차 FLOW · FAQ · 업종별 가치 IND4 · 한 장 요약 ONE · 계약 전 확인 CHECK
 
+## 구독 솔루션 — 구독을 한 파트로 (2026-11-16)
+
+구독 목차 여섯(B2B 삼성 AI 구독 · 구독 패키지 · 구독 케어 · 구독 조건 · 결제 · 구독 요약 · 구독 솔루션 제안)을 **구독 솔루션(`subx`) 한 파트**로 합쳤다 — 아래 '목차' · 'add-on' 절은 은퇴한 옛 구조다(이미 만든 제안서 · 샘플 9종에서만).
+- 장: 간지(6줄) → 고민 `PAIN` → 효과 `VALUE3` → 비교 `COMPARE` → 제품 묶음 `PKG4/3` → 케어 1 `CARE4` → 케어 2 `BLUEPASS` → 구독 조건 `TERMS` → 결제 `PAY3`. 구독 품목 · 관리 옵션 · 도입 혜택 · 도입 절차 · 한 장 요약은 쓰지 않는다.
+- **케어 2 · 구독 조건 · 결제의 숫자는 `00`** — 계약마다 다른 값이라 제안서 작성자가 직접 넣는다(`zeroSheet` — 장의 기본 글과 채운 글에서 숫자를 찾아 바꾼다. 장 번호 눈썹 · 01–03 차례 번호 · 쪽 번호는 그대로).
+- 한 파트에 같은 사진을 두 번 쓰지 않는다 — 패키지 사진은 제품 묶음에만, 고민 · 효과 · 구독 조건의 사진 칸은 이 업종의 서로 다른 공간 사진, 간지 사진도 이 파트의 사진과 겹치지 않게 고른다.
+- 쓰는 구성: 구독 제안서 `subs`(Overview → 구독 솔루션 → 공간별 제안 → 도입사례 → Why Samsung), 그리고 요구사항에 구독 요구가 있으면 어느 구성에든 이 파트만 더한다(`ADDONS.sub.toc = 'subx'`, 자리 규칙은 그대로, Spec 뒤에는 오지 않는다).
+  구독 전환 제안서 `subsl` · 투자 효과형 + 구독 `roisub` 는 은퇴.
+- 샘플 시나리오 '구독 도입' 9종(`subscription_scenarios.json`)은 옛 구조로 만든 덱 그대로다 — `compose.mjs` 의 check · samples 는 아직 옛 구조를 기준으로 한다(다시 만들려면 그 스크립트부터 새 파트에 맞춘다).
+  서버의 목차 추천 add-on(`app/api/poc/subscription_addon.py` — 샘플 모듈 `bs_sub_std_<업종>`)도 아직 옛 '구독 솔루션 제안' 목차를 더한다.
+
 ## 목차 (toc_templates.js)
 - B2B 삼성 AI 구독(PAIN · VALUE3 · COMPARE) · {업종} 구독 패키지(PKG4/3 · ITEMS) · 구독 케어 · B2B 블루패스(CARE4 · BLUEPASS · CAREOPT) · 구독 조건 · 결제(TERMS · PAY3 · PROMO · FLOW) · B2B 삼성 AI 구독 요약(ONE)
 - 템플릿: 구독 제안서 `subs`(Overview · 구독 · 패키지 · 공간별 제안 · 케어 · 조건 · 도입사례 · Why Samsung) · 구독 전환 제안서 `subsl`(요약 · 패키지 · 조건 · Why Samsung)

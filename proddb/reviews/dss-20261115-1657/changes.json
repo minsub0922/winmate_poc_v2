@@ -1,0 +1,340 @@
+{
+ "run": "dss-20261115-1657",
+ "stats": {
+  "api_same": 1037,
+  "api_changed": 0,
+  "api_missing": 39,
+  "catalog_ok": 413,
+  "catalog_moved": 0,
+  "catalog_unverified": 0,
+  "quote_ok": 363,
+  "quote_moved": 0,
+  "quote_unverified": 27,
+  "not_rechecked": 201
+ },
+ "carried": {
+  "deprecated": [
+   "sg_g000183961",
+   "sg_g000183675",
+   "sg_g000183523",
+   "sg_g000183524",
+   "sg_g000183525",
+   "sg_g000183526",
+   "sg_g000183445",
+   "sg_g000183448",
+   "sg_g000183437",
+   "sg_g000183171",
+   "sg_g000183172",
+   "ec_203_003",
+   "sg_g000184110",
+   "sg_g000183550",
+   "ec_203_010",
+   "sg_g000181589",
+   "sg_g000180284"
+  ],
+  "siteListed": [
+   "sg_g000184016",
+   "sg_g000184018",
+   "sg_g000184020"
+  ],
+  "superseded": [
+   "ec_360_114"
+  ]
+ },
+ "changes": [
+  {
+   "kind": "specs-changed",
+   "id": "sg_g000181497",
+   "before": 55,
+   "after": 55
+  },
+  {
+   "kind": "curated-unresolved",
+   "id": "epaper"
+  },
+  {
+   "kind": "curated-unresolved",
+   "id": "kiosk"
+  },
+  {
+   "kind": "curated-unresolved",
+   "id": "led_outdoor"
+  },
+  {
+   "kind": "curated-unresolved",
+   "id": "led_indoor"
+  },
+  {
+   "kind": "curated-unresolved",
+   "id": "onyx"
+  },
+  {
+   "kind": "curated-unresolved",
+   "id": "hoteltv"
+  },
+  {
+   "kind": "curated-unresolved",
+   "id": "hoteltv43"
+  },
+  {
+   "kind": "curated-unresolved",
+   "id": "smartmonitor"
+  },
+  {
+   "kind": "curated-unresolved",
+   "id": "tabactive5"
+  },
+  {
+   "kind": "curated-unresolved",
+   "id": "galaxyA"
+  },
+  {
+   "kind": "curated-unresolved",
+   "id": "watch"
+  },
+  {
+   "kind": "curated-unresolved",
+   "id": "smarttag"
+  },
+  {
+   "kind": "source-changed",
+   "id": "sg_g000181497",
+   "fields": [
+    "specs"
+   ],
+   "goods": "G000181497"
+  },
+  {
+   "kind": "source-changed",
+   "id": "sg_g000184128",
+   "fields": [
+    "features"
+   ],
+   "goods": "G000184128"
+  },
+  {
+   "kind": "source-changed",
+   "id": "sg_g000184129",
+   "fields": [
+    "features"
+   ],
+   "goods": "G000184129"
+  },
+  {
+   "kind": "source-changed",
+   "id": "sg_g000184130",
+   "fields": [
+    "features"
+   ],
+   "goods": "G000184130"
+  },
+  {
+   "kind": "source-changed",
+   "id": "sg_g000184134",
+   "fields": [
+    "features"
+   ],
+   "goods": "G000184134"
+  },
+  {
+   "kind": "source-changed",
+   "id": "sg_g000184135",
+   "fields": [
+    "features"
+   ],
+   "goods": "G000184135"
+  },
+  {
+   "kind": "source-changed",
+   "id": "sg_g000184136",
+   "fields": [
+    "features"
+   ],
+   "goods": "G000184136"
+  },
+  {
+   "kind": "source-changed",
+   "id": "sg_g000184137",
+   "fields": [
+    "features"
+   ],
+   "goods": "G000184137"
+  },
+  {
+   "kind": "source-changed",
+   "id": "sg_g000184138",
+   "fields": [
+    "features"
+   ],
+   "goods": "G000184138"
+  },
+  {
+   "kind": "source-changed",
+   "id": "sg_g000184139",
+   "fields": [
+    "features"
+   ],
+   "goods": "G000184139"
+  }
+ ],
+ "fieldDiffs": [
+  {
+   "id": "sg_g000181497",
+   "goods": "G000181497",
+   "name": "흑백 레이저복합기 40 ppm",
+   "field": "specs",
+   "row": [
+    "기본 사양",
+    "인터페이스 (기본)"
+   ],
+   "before": "Hi-Speed USB 2.0 / Ethernet 10/100/1000 Base TX",
+   "after": "Hi-Speed USB 2.0 / Ethernet 10/100 Base TX",
+   "app": "product-details specs 의 같은 행을 새 값으로 바꿈(검토 사양 출처가 공식 사양 API 하나) · 출처 sha256 갱신"
+  },
+  {
+   "id": "sg_g000184128",
+   "goods": "G000184128",
+   "name": "Bespoke AI 정수기 (냉/온/정수)",
+   "field": "features[4].면책 문구",
+   "block": "(제목 없는 블록)",
+   "removedText": [
+    "안전한 수질관리를 위해 권장 교체주기(12개월)의 120%(438일)에 도달하거나 1,500L 사용 시 출수 기능이 제한됩니다. (두 조건 중 하나가 먼저 도래하는 시점에 출수 제한) * 필터 교체 가이드에 따라 주기적으로 필터를 교체해 사용하면 깨끗한 수질 관리가 가능합니다. 하루 4.1L 사용 시, 1년까지 사용할 수 있습니다. * "
+   ],
+   "addedText": [],
+   "firstDiffAt": 741,
+   "app": "앱 상세(product-details feats)는 제목 있는 블록 8개의 본문 240자 · 면책 200자까지만 싣는다 — 바뀐 곳이 그 범위 밖이라 앱 행 · 상세는 그대로이고 원본 DB(proddb/raw · SQLite feature_block)만 바뀐다"
+  },
+  {
+   "id": "sg_g000184129",
+   "goods": "G000184129",
+   "name": "Bespoke AI 정수기 (냉/온/정수)",
+   "field": "features[4].면책 문구",
+   "block": "(제목 없는 블록)",
+   "removedText": [
+    "안전한 수질관리를 위해 권장 교체주기(12개월)의 120%(438일)에 도달하거나 1,500L 사용 시 출수 기능이 제한됩니다. (두 조건 중 하나가 먼저 도래하는 시점에 출수 제한) * 필터 교체 가이드에 따라 주기적으로 필터를 교체해 사용하면 깨끗한 수질 관리가 가능합니다. 하루 4.1L 사용 시, 1년까지 사용할 수 있습니다. * "
+   ],
+   "addedText": [],
+   "firstDiffAt": 741,
+   "app": "앱 상세(product-details feats)는 제목 있는 블록 8개의 본문 240자 · 면책 200자까지만 싣는다 — 바뀐 곳이 그 범위 밖이라 앱 행 · 상세는 그대로이고 원본 DB(proddb/raw · SQLite feature_block)만 바뀐다"
+  },
+  {
+   "id": "sg_g000184130",
+   "goods": "G000184130",
+   "name": "Bespoke AI 정수기 (냉/온/정수)",
+   "field": "features[4].면책 문구",
+   "block": "(제목 없는 블록)",
+   "removedText": [
+    "안전한 수질관리를 위해 권장 교체주기(12개월)의 120%(438일)에 도달하거나 1,500L 사용 시 출수 기능이 제한됩니다. (두 조건 중 하나가 먼저 도래하는 시점에 출수 제한) * 필터 교체 가이드에 따라 주기적으로 필터를 교체해 사용하면 깨끗한 수질 관리가 가능합니다. 하루 4.1L 사용 시, 1년까지 사용할 수 있습니다. * "
+   ],
+   "addedText": [],
+   "firstDiffAt": 741,
+   "app": "앱 상세(product-details feats)는 제목 있는 블록 8개의 본문 240자 · 면책 200자까지만 싣는다 — 바뀐 곳이 그 범위 밖이라 앱 행 · 상세는 그대로이고 원본 DB(proddb/raw · SQLite feature_block)만 바뀐다"
+  },
+  {
+   "id": "sg_g000184134",
+   "goods": "G000184134",
+   "name": "Bespoke 정수기 일체형 (냉/온/정수)",
+   "field": "features[4].면책 문구",
+   "block": "미세플라스틱(Microplastics) 제거 NSF 인증받은 4단계 필터 시스템",
+   "removedText": [
+    "니다. * 하루 4.1L 사용 시, 1년까지 사용할 수 있습",
+    "하루 4.1L 사용 시, 1년까지 사용할 수 있습니다. * "
+   ],
+   "addedText": [],
+   "firstDiffAt": 322,
+   "app": "앱 상세(product-details feats)는 제목 있는 블록 8개의 본문 240자 · 면책 200자까지만 싣는다 — 바뀐 곳이 그 범위 밖이라 앱 행 · 상세는 그대로이고 원본 DB(proddb/raw · SQLite feature_block)만 바뀐다"
+  },
+  {
+   "id": "sg_g000184135",
+   "goods": "G000184135",
+   "name": "Bespoke 정수기 일체형 (냉/온/정수)",
+   "field": "features[4].면책 문구",
+   "block": "미세플라스틱(Microplastics) 제거 NSF 인증받은 4단계 필터 시스템",
+   "removedText": [
+    "니다. * 하루 4.1L 사용 시, 1년까지 사용할 수 있습",
+    "하루 4.1L 사용 시, 1년까지 사용할 수 있습니다. * "
+   ],
+   "addedText": [],
+   "firstDiffAt": 322,
+   "app": "앱 상세(product-details feats)는 제목 있는 블록 8개의 본문 240자 · 면책 200자까지만 싣는다 — 바뀐 곳이 그 범위 밖이라 앱 행 · 상세는 그대로이고 원본 DB(proddb/raw · SQLite feature_block)만 바뀐다"
+  },
+  {
+   "id": "sg_g000184136",
+   "goods": "G000184136",
+   "name": "Bespoke 정수기 일체형 (냉/온/정수)",
+   "field": "features[4].면책 문구",
+   "block": "미세플라스틱(Microplastics) 제거 NSF 인증받은 4단계 필터 시스템",
+   "removedText": [
+    "니다. * 하루 4.1L 사용 시, 1년까지 사용할 수 있습",
+    "하루 4.1L 사용 시, 1년까지 사용할 수 있습니다. * "
+   ],
+   "addedText": [],
+   "firstDiffAt": 322,
+   "app": "앱 상세(product-details feats)는 제목 있는 블록 8개의 본문 240자 · 면책 200자까지만 싣는다 — 바뀐 곳이 그 범위 밖이라 앱 행 · 상세는 그대로이고 원본 DB(proddb/raw · SQLite feature_block)만 바뀐다"
+  },
+  {
+   "id": "sg_g000184137",
+   "goods": "G000184137",
+   "name": "Bespoke 정수기 일체형 (냉/정수)",
+   "field": "features[4].면책 문구",
+   "block": "미세플라스틱(Microplastics) 제거 NSF 인증받은 4단계 필터 시스템",
+   "removedText": [
+    "니다. * 하루 4.1L 사용 시, 1년까지 사용할 수 있습",
+    "하루 4.1L 사용 시, 1년까지 사용할 수 있습니다. * "
+   ],
+   "addedText": [],
+   "firstDiffAt": 322,
+   "app": "앱 상세(product-details feats)는 제목 있는 블록 8개의 본문 240자 · 면책 200자까지만 싣는다 — 바뀐 곳이 그 범위 밖이라 앱 행 · 상세는 그대로이고 원본 DB(proddb/raw · SQLite feature_block)만 바뀐다"
+  },
+  {
+   "id": "sg_g000184138",
+   "goods": "G000184138",
+   "name": "Bespoke 정수기 일체형 (정수전용)",
+   "field": "features[4].면책 문구",
+   "block": "미세플라스틱(Microplastics) 제거 NSF 인증받은 4단계 필터 시스템",
+   "removedText": [
+    "니다. * 하루 4.1L 사용 시, 1년까지 사용할 수 있습",
+    "하루 4.1L 사용 시, 1년까지 사용할 수 있습니다. * "
+   ],
+   "addedText": [],
+   "firstDiffAt": 322,
+   "app": "앱 상세(product-details feats)는 제목 있는 블록 8개의 본문 240자 · 면책 200자까지만 싣는다 — 바뀐 곳이 그 범위 밖이라 앱 행 · 상세는 그대로이고 원본 DB(proddb/raw · SQLite feature_block)만 바뀐다"
+  },
+  {
+   "id": "sg_g000184139",
+   "goods": "G000184139",
+   "name": "Bespoke 정수기 일체형 (정수전용)",
+   "field": "features[4].면책 문구",
+   "block": "미세플라스틱(Microplastics) 제거 NSF 인증받은 4단계 필터 시스템",
+   "removedText": [
+    "니다. * 하루 4.1L 사용 시, 1년까지 사용할 수 있습",
+    "하루 4.1L 사용 시, 1년까지 사용할 수 있습니다. * "
+   ],
+   "addedText": [],
+   "firstDiffAt": 322,
+   "app": "앱 상세(product-details feats)는 제목 있는 블록 8개의 본문 240자 · 면책 200자까지만 싣는다 — 바뀐 곳이 그 범위 밖이라 앱 행 · 상세는 그대로이고 원본 DB(proddb/raw · SQLite feature_block)만 바뀐다"
+  }
+ ],
+ "solutions": {
+  "vss_urls": [
+   {
+    "at": "s_vxt",
+    "from": "https://vxt.samsung.com/uk/features",
+    "to": "https://vxt.samsung.com/features"
+   },
+   {
+    "at": "s_vxt.rm.control",
+    "from": "https://vxt.samsung.com/uk/features",
+    "to": "https://vxt.samsung.com/features"
+   },
+   {
+    "at": "s_vxt.player.android",
+    "from": "https://vxt.samsung.com/uk/features",
+    "to": "https://vxt.samsung.com/features"
+   }
+  ],
+  "taxonomy": [],
+  "sol_urls": []
+ },
+ "about": "changes = apply_run.py 의 변경 기록(stage/review/apply-changes.json 그대로). carried = 지난 run 에서 표시만 하고 남긴 행(이번 run 의 변경이 아님). fieldDiffs = 원문에서 바뀐 값(지난 원문 proddb/raw → 이번 원문). solutions = 솔루션 근거 URL 이동."
+}

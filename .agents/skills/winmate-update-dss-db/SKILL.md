@@ -1,6 +1,6 @@
 ---
 name: winmate-update-dss-db
-description: Winmate DSS(제품·솔루션·서비스·구독) DB를 samsung.com/business·e-카탈로그의 기존 소스 전부로 다시 받아 현재 DB와의 차이를 갱신하고, DSS별 확인 시점 표식·판매 종료 재검토와 바뀐 항목의 연관 자료(레이아웃·3D 오브젝트·구독 장 등) 갱신까지 할 때 사용한다.
+description: Winmate DSS(제품·솔루션·서비스·구독) DB를 samsung.com/business·e-카탈로그의 기존 소스 전부로 다시 받아 현재 DB와의 차이를 갱신하고, DSS별 확인 시점 표식·판매 종료 재검토(삭제 후보)와 바뀐·삭제된 항목의 연관 자료(샘플 시나리오·레이아웃·3D 오브젝트·구독 장 등) 갱신까지 할 때 사용한다. 관리자(admin)의 채널별 업데이트도 이 skill을 실행한다.
 ---
 
 # Winmate DSS DB 업데이트
@@ -10,8 +10,8 @@ DSS는 Device(제품) · Solution(솔루션) · Service(서비스) · Subscripti
 1. samsung.com/sec/business와 e-카탈로그(samsung.aiibook.net/b2b)에서 **기존에 쓴 소스 전부**(+ 같은 채널에 새로 생긴 것)를 다시 받아 **현재 DB와의 차이**를 찾는다 — 새 항목 · 바뀐 항목 · 사라진 항목.
 2. 이번 원문에서 확인된 DSS마다 실행 시점(`RUN_AT`)을 표식한다. 바뀐 게 없어도 찍는다.
 3. 차이가 난 항목만 DB를 갱신하고, 그 항목의 **연관 자료를 전부** 갱신한다 — 제품 행 · 상세 · 사진, 솔루션 레지스트리, PPT 레이아웃 템플릿, 3D 오브젝트(공간 조감도), 이미지 연결, 에이전트 KB. 바뀌지 않은 항목은 표식만 한다.
-4. 표식이 이전 시점에 머문 항목은 판매 종료(deprecated) 후보다. 다시 검토해 확정되면 **지우지 않고 판매 종료로 표시**한다 — 새로 고르는 곳에서만 빠지고, 레이아웃 템플릿 · 3D 오브젝트의 예시는 같은 제품군의 다른 제품으로 바꾼다.
-5. **기존 제안서 · 샘플 시나리오 · 히스토리는 바꾸지 않는다.** 대신 판매 종료 제품이 든 제안서를 PPT로 내보낼 때만 앱이 한 번 더 확인한다.
+4. 표식이 이전 시점에 머문 항목은 판매 종료(deprecated) 후보다. 다시 검토해 확정되면 **판매 종료로 표시**한다 — 이 표시가 곧 **삭제 후보**다. 이 skill은 표시까지만 하고, **삭제는 사람이 대상을 확인한 것만** `proddb/build/dss/deletions.py`로 한다(관리자 「소스 점검 · 업데이트」 화면의 삭제 후보 — 7-D).
+5. **바뀌거나 삭제된 항목은 연관 자료에 바로 반영한다** — 샘플 시나리오 · 레이아웃 템플릿 · 3D 오브젝트(공간 조감도) · 에이전트 KB가 옛 제품 정보를 들고 있지 않게 한다(8단계 · `cascade.py` · `refcheck.py`). 사용자가 저장한 제안서 · 히스토리는 바꾸지 않고, 삭제된 제품이 든 제안서를 PPT로 내보낼 때 앱이 한 번 더 확인한다.
 
 저장소는 `minsub0922/winmate_poc_v2`, 경로는 저장소 루트 기준이다. 시작 전에 `.agents/references/winmate-contracts.md`, `.agents/skills/winmate-refresh-samsung-db/`(SKILL.md, `references/refresh-workflow.md`의 '기존 크롤러가 보장하지 않는 것' · 삭제 후보 필수 열 · 빌드 순서), `proddb/README.md`, `proddb/build/dss/README.md`(도구 · 실행 순서), 지난 run의 `proddb/reviews/dss-*/REPORT.md`(남은 unresolved)를 읽는다. 저장소 안의 `.agents/skills/winmate-update-dss-db/SKILL.md`가 이 문서보다 새로우면 그것을 따른다. 실행할 때는 코드·데이터의 실제 상태가 이 문서의 경로·건수보다 우선한다.
 
@@ -32,16 +32,23 @@ DSS는 Device(제품) · Solution(솔루션) · Service(서비스) · Subscripti
 
 ## 바꾸는 것 · 바꾸지 않는 것
 
-| 바꾼다 (바뀐 · 새 · 판매 종료 항목에 한해) | 바꾸지 않는다 |
+| 바꾼다 (바뀐 · 새 · 판매 종료 · 삭제 항목에 한해) | 바꾸지 않는다 |
 |---|---|
-| `proddb/`(raw · ecat · sqlite · imglib · 원장) | 사용자 저장 문서(브라우저의 제안서 · 찜 · My 템플릿 · 백업) |
-| `app/data/` products_db · product-details · catalog(products · solutions) · images · media · vertical_space_* | 샘플 시나리오: `app/web/src/domain/templates/`의 scenarios · scenario_fills · scenario_story · vertical_scenarios · standard_vertical_scenarios · account_scenarios |
-| PPT 레이아웃 템플릿: `catalog.json` layouts(`prods`·`sols`·글) · `layouts.b64` · templates의 `*_layouts.js` · `spatial-layouts.js` | 히스토리 · 목차 템플릿: `sample-history.js` · `prior_proposal_revisions.json` · 목차 템플릿 덱 |
-| 3D 오브젝트: `app/data/spatial/product-objects.json`(`build_spatial_products.py`) · `product-evidence.json` · `library.json` · 썸네일 | 시나리오 생성기 입력: `app/scripts/vertical_standard/{prod,sols}.py` · `rebuild_*.py` · `app/data/*_briefs.json` |
-| 에이전트 KB(`export_agent_data.mjs`) · runtime projection(`prepare_data.py`) | `reference/live`(= `app/data/static`, 동결본) · 도입사례 원문(catalog.json cases) |
+| `proddb/`(raw · ecat · sqlite · imglib · 원장) | 사용자 저장 문서(브라우저 · 계정의 제안서 · 찜 · My 템플릿 · 백업) |
+| `app/data/` products_db · product-details · catalog(products · solutions) · images · media · vertical_space_* | 히스토리 · 목차 템플릿: `sample-history.js` · `prior_proposal_revisions.json` · 목차 템플릿 덱 |
+| PPT 레이아웃 템플릿: `catalog.json` layouts(`prods`·`sols`·글) · `layouts.b64` · templates의 `*_layouts.js` · `spatial-layouts.js` | `reference/live`(= `app/data/static`, 동결본) · 도입사례 원문(catalog.json cases) |
+| 3D 오브젝트: `app/data/spatial/product-objects.json`(`build_spatial_products.py`) · `product-evidence.json` · `library.json` · 썸네일 | 히스토리에 저장된 샘플 사본 |
+| 샘플 시나리오(바뀐 · 삭제된 항목을 가리키거나 그 이름 · 모델 · 사양을 적은 곳만): `app/web/src/domain/templates/`의 scenarios · scenario_fills · scenario_story · vertical_scenarios · standard_vertical_scenarios · account_scenarios — 생성물은 생성기 입력(`app/data/vertical_proposals/*.json` · `app/scripts/vertical_standard/{prod,sols}.py` · `app/data/*_briefs.json`)을 고친 뒤 `rebuild_*.py`로 다시 만든다 | 바뀐 항목과 무관한 샘플 시나리오의 문구 · 구성 |
+| 에이전트 KB(`export_agent_data.mjs`) · runtime projection(`prepare_data.py`) | |
 | 구독: `proddb/subs/*.json` · `proddb/raw/subs` · `app/data/subscriptions.json` · `app/web/public/assets/subs` · 구독 장 `subs_layouts.js`(L_SUB_*) · `toc_content.json`(v.sub · subs) · 구독 샘플 `subscription_scenarios.json`(이 skill의 생성물이라 다시 만든다) | 히스토리에 저장된 구독 샘플 사본 · 구독이 아닌 샘플 시나리오 |
 
-바꾸지 않는 쪽에 판매 종료 제품이 들어 있으면 고치지 말고 보고에 위치만 적는다 — 내보낼 때 앱이 확인한다(7단계).
+바꾸지 않는 쪽에 판매 종료 · 삭제 제품이 들어 있으면 고치지 말고 보고에 위치만 적는다 — 내보낼 때 앱이 확인한다(7단계). 바꾸는 쪽에 남은 참조는 `python3 proddb/build/dss/refcheck.py`가 찾아 준다 — 통과할 때까지 고친다.
+
+## 관리자(admin) 연동
+
+- 일일 점검: 관리자가 매일 09:00(KST)에 `python3 proddb/build/dss/watch.py --out output/dss/watch/<시각>`를 실행해 채널별 변경 여부를 본다(DB는 바꾸지 않는다). 채널: `site`(제품 — 실제 수집기로 staging에 받아 `diff_site.py`로 비교) · `solutions`(상태 · 주소 · 제목 · 본문 해시) · `ecat`(파일로 — 권 목록 · 쪽 수 · 뷰어 제목 · 쪽 이미지 파일 수정 시각) · `subs`. 결과는 `<out>/watch.json`. 범위 밖 권 · 목록 밖 유지 권은 `proddb/dss/watch-config.json`, 솔루션 본문 해시 기준은 `proddb/dss/watch-state.json`(전체 run 뒤 첫 점검에서 다시 잡힌다).
+- 채널별 업데이트: 관리자가 연결한 코드 에이전트(Claude Code · Codex, OAuth)에 채널마다 고정된 프롬프트(`admin/dss.py` `update_prompt`)로 이 skill을 실행시킨다. 그 프롬프트가 정한 것 — 범위는 그 채널만(0단계의 '일부 지정'), 같은 날 점검이 받은 staging 원문이 있으면 다시 받지 않고 쓴다(24시간 안), 판매 종료는 표시까지만, 끝에 `cascade.py` · `refcheck.py`, 커밋 · 푸시 여부(`WINMATE_AGENT_GIT`), 마지막 줄 `@@result {…}`.
+- 삭제: 7-D. 관리자가 삭제 후보를 확인해야만 실행된다.
 
 ## 0. run 열기
 
@@ -143,13 +150,23 @@ e-카탈로그 samsung.aiibook.net/b2b
 - 판정: `moved`(같은 항목 — 갱신 · 표식) / `still_listed`(대조 누락 — 표식) / `sold_out`(판매 중 — 표식) / `deprecated`(판매 종료 확정) / `unresolved`(근거 부족 — 그대로 두고 다음 run에 다시 본다). 근거가 애매하면 판매 종료로 표시하지 않는다.
 - 솔루션·서비스는 웬만하면 판매 종료로 보지 않는다. 메뉴에서 빠져도 공식 페이지·카탈로그·공식 보조 출처에 남아 있으면 유지하고 URL·이름만 갱신한다. 공식 종료 근거가 있을 때만 보고하고 사용자 확인을 받는다.
 
-## 7. 판매 종료 처리 — 지우지 않고 표시
+## 7. 판매 종료 처리 — 표시하고, 확인받은 것만 삭제
 
 - 표시: 제품 행(`products_db.json` 행 · curated, `catalog.json` products)에 `deprecated: { at: RUN_AT, run: RUN_ID, replacedBy, reason }`. 원장 `status: deprecated`. 사이트에서만 빠지고 일반 소비자몰에 남은 경우도 B2B 채널 기준으로 판매 종료이며, reason에 그 사실을 적는다.
 - 판매 종료가 아닌 사라짐은 따로 표시한다: 사이트 목록에서만 빠지고 e-카탈로그에 남은 사이트 행은 `siteListed: false`(+ `url` 비움 · `cdir`/`cpage`로 카탈로그 근거, 판매 중), 같은 제품의 사이트 행이 새로 생겨 대신하는 카탈로그 행은 `supersededBy: [사이트 행 id]`(id 유지 · 새로 고르는 목록에서만 뺌). 둘 다 내보내기 확인 대상이 아니다.
 - 앱 동작(구현됨): 새로 고르는 목록은 `ACTIVE_PRODUCTS`만 쓴다 — 탐색기 · @태그 · 추천 · 교체(`services/catalog.js`, `ctxexplorer.jsx`, `services/search.js`). 3D 오브젝트는 `catalogVisible: false`로 공간 조감도 제품 선택에서 빠진다(`build_spatial_products.py`). 데이터는 남아 기존 제안서 · 샘플 시나리오 · 히스토리 · 공간 장면은 그대로 그려진다. `prepare_data.py`는 판매 종료 · `siteListed: false` 행의 goodsId가 새 원본 DB에 없어도 통과시킨다. `ACTIVE_PRODUCTS`는 `supersededBy` 행도 뺀다.
 - 내보내기 확인(구현됨): `app/web/src/domain/products/deprecation.js` `deprecatedInDeck` — 연결 제품 · 장의 글(바꾼 칸은 바꾼 값) · 사진에서 판매 종료 제품을 찾아, 제안서 PPTX 내보내기(`viewer.jsx` ExportModal)는 목록과 대체 제품을 보여 주고 '확인했어요'를 체크해야 내보낸다. 샘플 시나리오 · 목차 템플릿 받기도 같은 확인을 띄운다.
-- 대체 제품(판매 종료 제품마다 하나, `replacements.json`에 이유와 함께): ① 같은 시리즈 후속 모델(예: 뷰피니티 S70D → S70H) ② 같은 세부 분류 `sc` ③ 같은 `cat` ④ 같은 제품군 `fam`에서 역할이 같은 것. 이번 run에 표식된 항목 · 사진 있음 · 사양이 장표 역할(크기·밝기·실내외·용량·공간)에 가까운 것 · 큐레이션 · 사이트 행 · 장표의 솔루션과 연동되는 것(solutions `with`) 우선. 큐레이션 id는 다른 모델에 재사용하지 않는다(대체가 필요하면 새 큐레이션 항목).
+- 대체 제품(판매 종료 제품마다 하나, `replacements.json`에 이유와 함께 — 삭제할 때 연관 자료의 참조가 이 제품으로 바뀐다): ① 같은 시리즈 후속 모델(예: 뷰피니티 S70D → S70H) ② 같은 세부 분류 `sc` ③ 같은 `cat` ④ 같은 제품군 `fam`에서 역할이 같은 것. 이번 run에 표식된 항목 · 사진 있음 · 사양이 장표 역할(크기·밝기·실내외·용량·공간)에 가까운 것 · 큐레이션 · 사이트 행 · 장표의 솔루션과 연동되는 것(solutions `with`) 우선. 큐레이션 id는 다른 모델에 재사용하지 않는다(대체가 필요하면 새 큐레이션 항목).
+
+### 7-D. 삭제 — 사람이 확인한 삭제 후보만
+
+- 삭제 후보 = 원장 `status: deprecated`이고 `deleted_at`이 없는 항목(제품 행 · 큐레이션 · 앱 솔루션 · 버티컬 솔루션). `python3 proddb/build/dss/deletions.py list`가 후보마다 근거 · 대체 제품 · 연관 자료(`refs`: 어디를 어떻게 바꾸는지)와 `blocked`(자동으로 못 지우는 이유)를 낸다.
+- 이 skill과 관리자의 업데이트 실행은 **삭제하지 않는다.** 관리자가 화면에서 대상을 고르고 확인하면 `deletions.py apply --ids <원장 키,…> --by <관리자>`가 실행된다: 레지스트리에서 행을 지우고(원장에는 `status: deleted` · `deleted_at` · `deleted_by`, `products_db.json` `removed`에 이름 · 모델 · 대체 제품을 남겨 저장된 제안서가 풀리게 한다) → 연관 자료의 id 참조를 대체 제품으로 바꾸고 → `cascade.py`로 샘플 시나리오 · 3D 오브젝트 · 에이전트 KB · runtime projection을 다시 만들고 → `refcheck.py`로 검증한다. 실패하면 건드린 파일을 모두 실행 전으로 되돌린다. 기록은 `proddb/reviews/deletions-<시각>/deletion.json`.
+- 삭제 후보의 모델코드 · 이름이 샘플 시나리오 · 레이아웃의 **글**에 남아 있으면 `blocked`다. 그 글을 대체 제품의 원문 사실로 먼저 고친다(8단계 규칙 — 관리자의 「연관 글 정리」가 이 일을 시킨다). `blocked`가 비어야 삭제할 수 있다.
+- 큐레이션 제품 · 솔루션 · 서비스는 생성기 원본(`scenarios.js` · `build/catalog_src.mjs` 등)이 id를 들고 있어 대개 `blocked`로 나온다 — 그 원본을 대체 항목으로 고쳐 다시 만든 뒤에 삭제한다. 솔루션 · 서비스는 6단계대로 공식 종료 근거와 사용자 확인이 있을 때만 판매 종료로 표시한다.
+- `depends_on`이 있는 후보(다른 후보가 대체 제품으로 삼은 항목)는 그 후보와 한 번에 지운다. 구독 패키지 · 분류의 대표 제품으로 쓰인 항목은 구독 대응(`proddb/subs/mapping.json`)을 먼저 바꾼다.
+- 지운 제품의 3D 오브젝트 썸네일과 사진 묶음 데이터는 저장된 공간 장면 · 제안서가 쓰므로 남긴다(새로 고르는 목록 · 색인에서만 빠진다).
+- 다음 run에서 삭제한 항목이 소스에 다시 나타나면 새 항목으로 들어오고, 보고에 적는다(예전 id를 되살리지 않는다 — `removed` 기록의 대체 제품 연결은 그대로 둔다).
 
 ## 8. 연관 자료 갱신
 
@@ -157,7 +174,9 @@ e-카탈로그 samsung.aiibook.net/b2b
 
 - PPT 레이아웃 템플릿: 바뀐 항목은 새 이름 · 모델 · 수치로, 판매 종료 항목은 대체 제품의 이름 · 모델 · 사양 글자 · 제품 사진 · `prods` 메타로 바꾼다. 문장이 옛 제품 고유의 기능 · 수치를 말하면 대체 제품 원문으로 다시 쓴다. `f` · `data-tb` · `data-img` · 칸 번호는 그대로 둔다(저장 문서 overrides 호환). 이 작업으로 레이아웃을 새로 만들거나 retired로 돌리지 않는다.
 - 3D 오브젝트: 제품 데이터를 반영한 뒤 `prepare_data.py --force` → `app/.venv/bin/python -B app/scripts/build_spatial_products.py` → `node app/scripts/build_spatial_library.mjs` → `node app/scripts/build_spatial_object_previews.mjs`(없는 썸네일만 렌더)로 바뀐 · 새 항목의 형상(치수 · 색 · 이미지 근거)과 썸네일을 다시 만든다. 새 항목의 치수 표기(예: 'L × W × H', 원문 오탈자 '외형지수')가 축 순서대로 읽혔는지 보고, 형상을 고친 뒤 처음 렌더한 썸네일 중 쓰이지 않는 것은 지운다. 라이브러리 새 버전(`app/data/spatial/versions/<hash>.json`)은 저장된 공간 장면 호환용이라 지난 버전과 함께 커밋한다. 손으로 고친 치수 근거(`product-evidence.json`)가 바뀐 원문과 맞지 않으면 고친다.
+- 샘플 시나리오: 바뀐 항목을 가리키는 장은 새 이름 · 모델 · 사양으로, 판매 종료 항목을 가리키는 장은 대체 제품으로 바꾼다. 생성물(`vertical_scenarios.json` 등)은 손으로 고치지 않고 생성기 입력을 고친 뒤 다시 만든다. 히스토리에 저장된 사본은 그대로 둔다.
 - 솔루션 연결: `catalog.json` solutions `with`에서 판매 종료 제품을 대체 제품으로, `vertical_space_solution.json` devices · sources를 새 원문으로.
+- 반영을 마치면 `python3 proddb/build/dss/cascade.py`(runtime projection · 3D 오브젝트 · 샘플 시나리오 · 에이전트 KB를 현재 DB로 다시 만든다)와 `python3 proddb/build/dss/refcheck.py`(없는 id 참조 · 삭제된 제품의 이름 · 모델이 남은 글 · 오브젝트와 제품의 불일치 · 건수 계약)를 실행한다. refcheck가 통과하지 않으면 run을 끝내지 않는다.
 - 이미지: 판매 종료 제품의 컷을 쓰던 레이아웃 칸은 대체 제품 컷으로. images.json · imglib의 판매 종료 제품 연결은 남긴다(기존 문서용).
 - 바꾸지 않는 쪽(위 표)에서 찾은 참조는 고치지 않고 `REPORT.md`에 위치만 적는다.
 - 바꾼 장은 1280×720으로 렌더해 넘침·잘림·빈 사진·엉뚱한 제품 사진이 없는지 보고, `layout-fixes.json`(장·칸·전/후)을 남긴다.
@@ -184,13 +203,14 @@ e-카탈로그 samsung.aiibook.net/b2b
 
 ## 10. 보고
 
-`proddb/reviews/<RUN_ID>/REPORT.md`와 대화 요약: RUN_ID·RUN_AT, 소스별 완전성(새 권 · 빠진 권 · 새 호 · 구독 소스), device·solution·service·subscription별 표식 · new · changed · moved · unresolved · deprecated 건수(구독은 + inferred · expired), 종류 재분류, 판매 종료 표(근거 · 대체 제품), 고친 레이아웃 · 3D 오브젝트, 바꾸지 않은 쪽(시나리오 · 히스토리)에 남은 판매 종료 제품 위치, 남은 unresolved와 다음 run에서 볼 것, 실행한 검사. 다음 run은 이 원장의 `checked_at`을 기준으로 시작한다.
+`proddb/reviews/<RUN_ID>/REPORT.md`와 대화 요약: RUN_ID·RUN_AT, 소스별 완전성(새 권 · 빠진 권 · 새 호 · 구독 소스), device·solution·service·subscription별 표식 · new · changed · moved · unresolved · deprecated 건수(구독은 + inferred · expired), 종류 재분류, 판매 종료 표(근거 · 대체 제품), 삭제 후보(원장 키), 고친 레이아웃 · 샘플 시나리오 · 3D 오브젝트, 바꾸지 않은 쪽(히스토리 · 저장 문서)에 남은 판매 종료 제품 위치, `refcheck.py` 결과, 남은 unresolved와 다음 run에서 볼 것, 실행한 검사. 다음 run은 이 원장의 `checked_at`을 기준으로 시작한다.
 
 ## 하지 말 것
 
 - 캐시·지난 원문으로 표식 찍기, 수집 실패·빈 응답을 판매 종료로 읽기
-- 판매 종료 제품 행을 지우기(기존 제안서 · 시나리오가 참조한다)
-- 기존 제안서 · 샘플 시나리오 · 히스토리 · 시나리오 생성기 입력을 고치기
+- 판매 종료 항목을 확인 없이 지우기, `deletions.py`를 거치지 않고 행 · 레지스트리 항목을 손으로 지우기(연관 자료 반영 · 삭제 기록 · 되돌리기가 빠진다)
+- 저장된 제안서 · 히스토리를 고치기, 바뀐 항목과 무관한 샘플 시나리오를 고치기
+- 관리자 일일 점검(`watch.py`) 결과만으로 DB를 고치기 — 점검은 바뀐 곳을 알려 줄 뿐이고, 반영은 이 절차로 한다
 - `ec_*` id를 Dir·순번으로 다시 매기기, 큐레이션 id를 다른 모델에 재사용하기
 - 원문에 없는 수치·기능을 레이아웃 · key message에 쓰기, `app/data/static`(동결본) 아래에 쓰기, 생성 파일을 손으로 고치기
 - 근거와 사용자 확인 없이 솔루션·서비스를 판매 종료로 표시하기

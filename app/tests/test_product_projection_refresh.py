@@ -15,7 +15,7 @@ def test_reviewed_model_change_invalidates_projection_and_updates_runtime_ledger
         (data/'static/img/prod').mkdir(parents=True);(data/'product-details').mkdir();source.parent.mkdir()
         products=[{'id':f'p{i}','name':f'Product {i}','model':f'M{i}','d':0} for i in range(1084)]
         (data/'catalog.json').write_text(json.dumps({'products':products[:40]}))
-        (data/'products_db.json').write_text(json.dumps({'curated':{},'products':products[40:]}))
+        (data/'products_db.json').write_text(json.dumps({'curated':{},'products':products[40:],'counts':{'total':len(products)}}))
         (data/'layouts.b64').write_text('fixture');(data/'static/index.html').write_text('fixture')
         before={'specProductId':'p0','specModel':'75-inch','specReviewedAt':'2026-10-19','specs':[['Size','W × H × D','1774.8 × 1053.4 × 130 mm']]}
         after={**before,'specModel':'55-inch','specReviewedAt':'2026-10-20','specs':[['Size','W × H × D','1260.6 × 731.4 × 85 mm']]}

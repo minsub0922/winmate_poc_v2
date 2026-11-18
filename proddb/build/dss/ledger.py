@@ -24,11 +24,13 @@ prev = J(prev_path) if os.path.exists(prev_path) else {'version': 1, 'runs': [],
 changed, moved = {}, {}
 EVIDENCE_ONLY = {'cdir', 'cpage', 'ec', 'ecat', 'ecatN', 'cprod'}  # e-카탈로그 근거(권 · 쪽) 이동 — 제품 사실이 바뀐 것은 아니다
 for c in apply['changes']:
-    if c['kind'] not in ('row-changed', 'detail-changed', 'specs-changed', 'curated-changed'): continue
+    if c['kind'] not in ('row-changed', 'detail-changed', 'specs-changed', 'curated-changed', 'source-changed'): continue  # source-changed: 원문(raw)에서만 바뀐 사실
     fields = set(c.get('fields') or ['specs'])
     if fields <= EVIDENCE_ONLY: moved.setdefault(c['id'], set()).update(fields)
     else: changed.setdefault(c['id'], []).append(c['kind'] + ':' + ','.join(sorted(fields - EVIDENCE_ONLY)))
 newids = {c['id'] for c in apply['changes'] if c['kind'] == 'new'}
+# 상세에서 바뀐 사실(사양 · USP · 특장점 · 옵션 모델)은 행 사실 해시(FACT)에 들어 있지 않다 — 아래 '해시가 같으면 바뀐 것이 아니다' 판정에서 뺀다
+detail_fact = {c['id'] for c in apply['changes'] if c['kind'] in ('detail-changed', 'specs-changed', 'source-changed') and not set(c.get('fields') or ['specs']) <= EVIDENCE_ONLY}
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from subs_ledger import kind_of, subscription_items  # 종류 판정(식기세척기는 제품) · 구독(subscription) 항목 — 구독만 확인하는 run 과 같은 규칙
 FACT = ('name', 'model', 'models', 'opt', 'cat', 'sc', 'fam', 'url', 'spec', 'gid', 'cdir', 'cpage')
@@ -38,7 +40,8 @@ def put(key, rec):
     old = prev['items'].get(key, {})
     rec.setdefault('first_seen', old.get('first_seen') or RUN_AT)
     # 지난 run 과 사실 해시가 같으면 바뀐 것이 아니다(같은 run 을 다시 돌린 경우는 비교하지 않는다)
-    if old.get('checked_run') != RUN_ID and old.get('hash') and rec.get('hash') and old['hash'] == rec['hash'] and rec['status'] == 'changed': rec['status'] = 'active'
+    if old.get('checked_run') != RUN_ID and old.get('hash') and rec.get('hash') and old['hash'] == rec['hash'] and rec['status'] == 'changed' and rec['id'] not in detail_fact:
+        rec['status'] = 'active'; rec['changed_at'] = old.get('changed_at')  # 색인(ind · kw · spaces …)만 달라진 행 — 사실은 그대로
     items[key] = rec
 
 rows = [dict(c, **pdb['curated'].get(c['id'], {}), _cur=True) for c in catalog['products']] + pdb['products']
@@ -65,25 +68,35 @@ for p in rows:
 
 spec = importlib.util.spec_from_file_location('sols', os.path.join(ROOT, 'app/scripts/vertical_standard/sols.py'))
 sols = importlib.util.module_from_spec(spec); spec.loader.exec_module(sols)
+def sol_state(key, stamped, urls):
+    """솔루션 · 서비스의 표식 · 변경. 확인 못 한 run 에서는 지난 표식을 그대로 둔다. 근거 URL 집합이 지난 원장과 다르면(주소 이동) changed."""
+    old = prev['items'].get(key, {})
+    was, now = set((old.get('keys') or {}).get('urls') or []), set(urls)
+    moved = bool(old) and old.get('checked_run') != RUN_ID and was != now
+    if old.get('checked_run') == RUN_ID and old.get('status') == 'changed' and old.get('changed_at') == RUN_AT: moved = True  # 같은 run 을 다시 돌려도 남긴다
+    return {'checked_at': RUN_AT if stamped else old.get('checked_at'), 'checked_run': RUN_ID if stamped else old.get('checked_run'),
+            'changed_at': RUN_AT if moved else old.get('changed_at'), 'hash': None, 'status': ('changed' if moved else 'active') if stamped else 'unresolved'}, \
+           ('근거 URL 변경: ' + ' · '.join(['- ' + u for u in sorted(was - now)] + ['+ ' + u for u in sorted(now - was)])) if moved and was != now else (old.get('note', '') if moved else '')
 for s in catalog['solutions']:
     r = solrep['app'][s['id']]; stamped = sol_stage[s['id']].get('checkedAt') == RUN_AT
+    state, moved_note = sol_state('solution:' + s['id'], stamped, r['ok'] + r['notOk'])
     put('solution:' + s['id'], {'kind': 'service' if s.get('cat') == '서비스' else 'solution', 'registry': 'catalog.solutions', 'id': s['id'], 'name': s['name'],
-        'keys': {'urls': r['ok'] + r['notOk']}, 'family': {'cat': s.get('cat')}, 'checked_at': RUN_AT if stamped else None, 'checked_run': RUN_ID if stamped else None,
-        'changed_at': None, 'hash': None, 'status': 'active' if stamped else 'unresolved',
+        'keys': {'urls': r['ok'] + r['notOk']}, 'family': {'cat': s.get('cat')}, **state,
         'evidence': [{'source': 'official-page', 'url': u, 'run': RUN_ID} for u in r['ok']] + [{'source': 'vertical-solution', 'id': v, 'run': RUN_ID} for v in r['viaVertical']],
         'aliases': [sid for sid, row in sols.SOL.items() if row[3] == s['id']], 'replaced_by': None, 'deleted_at': None,
-        'note': '' if stamped else '기록된 공식 근거 URL 이 없음 — 다음 run 전에 근거 페이지를 정해야 함'})
+        'note': moved_note if stamped else '기록된 공식 근거 URL 이 없음 — 다음 run 전에 근거 페이지를 정해야 함'})
 for s in vss['solution_catalog']:
     r = solrep['vss'][s['id']]; stamped = s.get('checkedAt') == RUN_AT
+    urls = [u for u in [s.get('url')] + list(s.get('sources') or []) if u]
+    state, moved_note = sol_state('vss:' + s['id'], stamped, urls)
     put('vss:' + s['id'], {'kind': 'service' if s.get('type') == 'service' else 'solution', 'registry': 'vertical_space_solution.solution_catalog', 'id': s['id'], 'name': s['name'],
-        'keys': {'urls': [u for u in [s.get('url')] + list(s.get('sources') or []) if u]}, 'family': {'type': s.get('type'), 'parent': s.get('parent')},
-        'checked_at': RUN_AT if stamped else None, 'checked_run': RUN_ID if stamped else None, 'changed_at': None, 'hash': None,
-        'status': 'active' if stamped else 'unresolved', 'evidence': [{'source': 'official-page', 'url': u, 'run': RUN_ID} for u in r['ok']],
+        'keys': {'urls': urls}, 'family': {'type': s.get('type'), 'parent': s.get('parent')}, **state,
+        'evidence': [{'source': 'official-page', 'url': u, 'run': RUN_ID} for u in r['ok']],
         'aliases': [sols.SOL[s['id']][3]] if s['id'] in sols.SOL and sols.SOL[s['id']][3] else [], 'replaced_by': None, 'deleted_at': None,
-        'note': ('공식 출처 중 열리지 않은 URL: ' + ', '.join(r['notOk'])) if r['notOk'] else ''})
-# 구독(subscription) — app/data/subscriptions.json(proddb/build/subs/build.py 가 이번 run 원문으로 만든 레지스트리)
-SUBS_REG = os.path.join(ROOT, 'app/data/subscriptions.json')
-if os.path.exists(SUBS_REG): items.update(subscription_items(prev['items'], J(SUBS_REG), RUN_ID, RUN_AT))
+        'note': '; '.join(x for x in [moved_note, ('공식 출처 중 열리지 않은 URL: ' + ', '.join(r['notOk'])) if r['notOk'] else ''] if x)})
+# 구독(subscription) — proddb/build/subs/build.py 가 이번 run 원문으로 만든 레지스트리. staging 에 만든 것(build.py --out)이 있으면 그것, 없으면 활성 app/data/subscriptions.json
+SUBS_REG = next((p for p in (os.path.join(STAGE, 'app/data/subscriptions.json'), os.path.join(ROOT, 'app/data/subscriptions.json')) if os.path.exists(p)), None)
+if SUBS_REG: items.update(subscription_items(prev['items'], J(SUBS_REG), RUN_ID, RUN_AT))
 for k, v in prev['items'].items():  # 지난 원장에만 있는 항목은 지우지 않는다
     if k not in items: items[k] = v
 

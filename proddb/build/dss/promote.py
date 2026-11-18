@@ -46,13 +46,25 @@ shutil.copy2(os.path.join(STAGE, 'app/data/vertical_space_solution.json'), P('ap
 shutil.copy2(os.path.join(STAGE, 'build/media/data/sol_urls.json'), P('build/media/data/sol_urls.json'))
 # 분류 파일은 손으로 맞춘 줄 형식 — 해당 분류 줄과 meta 만 고친다
 vp = P('app/data/vertical_space_product.json'); s = open(vp).read()
-for cid, url in CFG['taxonomy_url_moves'].items():
+for cid, url in CFG.get('taxonomy_url_moves', {}).items():
     pat = re.compile(r'(\{"id": "' + re.escape(cid) + r'", "name": "[^"]*", "url": ")[^"]*(", "verified": )(true|false)')
     s, n = pat.subn(lambda m: m.group(1) + url + m.group(2) + 'true', s)
     assert n == 1, cid
-if '"checkedAt"' not in s.split('"product_taxonomy"')[0]:
-    s = s.replace('    "version": "2026-11-11",', f'    "version": "2026-11-11",\n    "checkedAt": "{CFG["run_at"]}",\n    "checkedRun": "{CFG["run_id"]}",', 1)
+head, mark, rest = s.partition('"product_taxonomy"')
+if '"checkedAt"' not in head:
+    head = head.replace('    "version": "2026-11-11",', f'    "version": "2026-11-11",\n    "checkedAt": "{CFG["run_at"]}",\n    "checkedRun": "{CFG["run_id"]}",', 1)
+elif not [t for t in J(os.path.join(STAGE, 'review/solutions.json'))['taxonomy'] if t.get('action') == 'unresolved']:  # 분류 URL 이 이번 run 에서 모두 열렸을 때만 표식을 새로 찍는다
+    head, n1 = re.subn(r'("checkedAt": ")[^"]*(")', lambda m: m.group(1) + CFG['run_at'] + m.group(2), head, count=1)
+    head, n2 = re.subn(r'("checkedRun": ")[^"]*(")', lambda m: m.group(1) + CFG['run_id'] + m.group(2), head, count=1)
+    assert n1 == n2 == 1
+s = head + mark + rest
 json.loads(s); open(vp, 'w').write(s)
+# 구독(subscription) — staging 에서 만든 레지스트리(proddb/build/subs/build.py --out)와 이번 run 원문(이미지 바이트 제외)
+subs = os.path.join(STAGE, 'app/data/subscriptions.json')
+if os.path.exists(subs):
+    shutil.copy2(subs, P('app/data/subscriptions.json'))
+    os.makedirs(P('proddb/raw/subs'), exist_ok=True)
+    for n in ('pages.json', 'images.json', 'models.json', 'discover.json', 'inventory.json'): shutil.copy2(os.path.join(RUN_DIR, 'subs/raw', n), P('proddb/raw/subs', n))
 
 # ── 원본 SQLite 재빌드 ──
 db_path = P('proddb/winmate_products.sqlite')

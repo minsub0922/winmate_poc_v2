@@ -1,8 +1,11 @@
 """Prepare a read-only API snapshot and its materialized artifact UI projection.
 
-The 1,084 display rows include editorial labels, search indexes and frozen pack addresses
-that are not raw product_family columns. Preserve those fields explicitly; validate source
-entities against the real database. The API reads the resulting SQLite tables, not JSON.
+The display rows (curated products + product DB rows) include editorial labels, search indexes
+and frozen pack addresses that are not raw product_family columns. Preserve those fields explicitly;
+validate source entities against the real database. The API reads the resulting SQLite tables, not JSON.
+
+The expected number of rows is products_db.json counts.total — the one declared total. Only the DSS
+update / deletion tools (proddb/build/dss) change it; a mismatch means rows were lost or added by accident.
 """
 from __future__ import annotations
 import hashlib
@@ -44,7 +47,14 @@ def prepare(force: bool = False) -> Path:
         catalog = json.loads((DATA / 'catalog.json').read_text())
         exported = json.loads((DATA / 'products_db.json').read_text())
         rows = [dict(p, **exported['curated'].get(p['id'], {}), cur=True) for p in catalog['products']] + exported['products']
-        assert len(rows) == 1084 and len({p['id'] for p in rows}) == 1084
+        declared = (exported.get('counts') or {}).get('total')
+        if declared is None:
+            raise ValueError('products_db.json counts.total(전체 제품 수의 기준값)이 없습니다.')
+        if len(rows) != declared or len({p['id'] for p in rows}) != declared:
+            raise ValueError(f'제품 수가 기준값과 다릅니다: 행 {len(rows)} · 고유 id {len({p["id"] for p in rows})} · counts.total {declared}')
+        removed = {t['id'] for t in exported.get('removed', [])}
+        if removed & {p['id'] for p in rows}:
+            raise ValueError('지운 제품(removed)이 제품 행에 남아 있습니다: ' + ', '.join(sorted(removed & {p['id'] for p in rows})[:8]))
         goods = {row[0] for row in db.execute('SELECT id FROM product_family')}
         # product_family.id and goods_id differ in some collected snapshots.
         goods.update(row[0] for row in db.execute('SELECT goods_id FROM product_family'))
@@ -67,7 +77,8 @@ def prepare(force: bool = False) -> Path:
         for file in sorted((DATA / 'static/img/prod').glob('d[0-9][0-9].json')):
             pack = int(file.stem[1:])
             items = json.loads(file.read_text())['items']
-            db.executemany('INSERT OR REPLACE INTO wm_ui_detail VALUES (?,?,?,?)', [(key,pack,i,dump(value)) for i,(key,value) in enumerate(items.items())])
+            # The frozen packs still hold the details of products deleted since (DSS deletions) — serve existing products only.
+            db.executemany('INSERT OR REPLACE INTO wm_ui_detail VALUES (?,?,?,?)', [(key,pack,i,dump(value)) for i,(key,value) in enumerate(items.items()) if key in known_products])
         # App-owned reviewed details override the immutable reference snapshot.
         # Reject wrong IDs/pack addresses rather than silently serving another model.
         for file in sorted((DATA / 'product-details').glob('d[0-9][0-9].json')):
@@ -90,7 +101,8 @@ def prepare(force: bool = False) -> Path:
             ('products',dump(metadata)),
             ('source_sha256',dump(hashlib.file_digest(source.open('rb'),'sha256').hexdigest())),
             ('projection_inputs_sha256',dump(fingerprint)),
-            ('projection_contract',dump('reference/live artifact display schema; 40 curated + 1044 database rows')),
+            ('projection_contract',dump(f"reference/live artifact display schema; {len(catalog['products'])} curated + {len(exported['products'])} database rows")),
+            ('curated_rows',dump(len(catalog['products']))),
         ])
         db.commit()
     finally:

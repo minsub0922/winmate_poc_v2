@@ -1,8 +1,8 @@
 {
  "version": 1,
  "about": "B2B 삼성 AI 구독 레지스트리 — DSS 의 구독(subscription) 종류. 원문 사실(basis official) · 추론 결제안(basis inferred, 장표에는 협의안으로) · 기간 한정 혜택(validTo 지나면 expired). proddb/build/subs/build.py 가 만들고 DSS DB 업데이트 skill 이 run 마다 갱신한다 — 손으로 고치지 말고 proddb/subs/*.json 을 고친다.",
- "generated": "2026-11-13T09:40:17+09:00",
- "run": "dss-20261113-0940",
+ "generated": "2026-11-15T16:57:37+09:00",
+ "run": "dss-20261115-1657",
  "types": {
   "program": "구독 프로그램",
   "care": "구독 케어(블루패스)",
@@ -20,7 +20,7 @@
    "title": "B2B 삼성 AI 구독 | Samsung Business 대한민국",
    "status": "complete",
    "textHash": "sha256:947bc915f4d9bb47f53c209f1dabd3c7225ebe42695f1ca8efe2eb896afb257c",
-   "checkedAt": "2026-11-13T09:40:17+09:00"
+   "checkedAt": "2026-11-15T16:57:37+09:00"
   },
   {
    "id": "site:b2b-ai-subs-festival",
@@ -30,7 +30,7 @@
    "title": "B2B 삼성 AI 구독 페스티벌",
    "status": "complete",
    "textHash": "sha256:523d60295d800c11fa3e53516857107838968cc4406803acbf9368f2df87fb30",
-   "checkedAt": "2026-11-13T09:40:17+09:00"
+   "checkedAt": "2026-11-15T16:57:37+09:00"
   },
   {
    "id": "news:20260928",
@@ -40,7 +40,7 @@
    "title": "삼성전자, ‘삼성 AI 구독’ 새단장… 신혼·시니어·기업까지 맞춤 케어 서비스 강화 – 삼성전자 뉴스룸",
    "status": "complete",
    "textHash": "sha256:eb7c4751162e91689124fea5c9388ed5958cad247ba5fcc3497fd9ecf09e8a47",
-   "checkedAt": "2026-11-13T09:40:17+09:00"
+   "checkedAt": "2026-11-15T16:57:37+09:00"
   },
   {
    "id": "news:20261027",
@@ -50,7 +50,7 @@
    "title": "[삼성 AI 구독①] 구매 이후까지 책임진다…배송·설치·서비스 ‘삼박자’로 완성한 맞춤형 케어 – 삼성전자 뉴스룸",
    "status": "complete",
    "textHash": "sha256:d0f78db575d66ffb51667e185b9ceccda9695f677eb7c9b53d60253607970131",
-   "checkedAt": "2026-11-13T09:40:17+09:00"
+   "checkedAt": "2026-11-15T16:57:37+09:00"
   }
  ],
  "items": [
@@ -466,8 +466,8 @@
     "sub_pay_stage"
    ],
    "status": "active",
-   "checkedAt": "2026-11-13T09:40:17+09:00",
-   "checkedRun": "dss-20261113-0940",
+   "checkedAt": "2026-11-15T16:57:37+09:00",
+   "checkedRun": "dss-20261115-1657",
    "firstSeen": "2026-11-13T09:40:17+09:00"
   },
   {
@@ -549,8 +549,8 @@
     }
    ],
    "status": "active",
-   "checkedAt": "2026-11-13T09:40:17+09:00",
-   "checkedRun": "dss-20261113-0940",
+   "checkedAt": "2026-11-15T16:57:37+09:00",
+   "checkedRun": "dss-20261115-1657",
    "firstSeen": "2026-11-13T09:40:17+09:00"
   },
   {
@@ -582,8 +582,8 @@
     }
    ],
    "status": "active",
-   "checkedAt": "2026-11-13T09:40:17+09:00",
-   "checkedRun": "dss-20261113-0940",
+   "checkedAt": "2026-11-15T16:57:37+09:00",
+   "checkedRun": "dss-20261115-1657",
    "firstSeen": "2026-11-13T09:40:17+09:00"
   },
   {
@@ -616,8 +616,8 @@
     }
    ],
    "status": "active",
-   "checkedAt": "2026-11-13T09:40:17+09:00",
-   "checkedRun": "dss-20261113-0940",
+   "checkedAt": "2026-11-15T16:57:37+09:00",
+   "checkedRun": "dss-20261115-1657",
    "firstSeen": "2026-11-13T09:40:17+09:00"
   },
   {
@@ -648,8 +648,8 @@
     }
    ],
    "status": "active",
-   "checkedAt": "2026-11-13T09:40:17+09:00",
-   "checkedRun": "dss-20261113-0940",
+   "checkedAt": "2026-11-15T16:57:37+09:00",
+   "checkedRun": "dss-20261115-1657",
    "firstSeen": "2026-11-13T09:40:17+09:00"
   },
   {
@@ -678,8 +678,8 @@
     }
    ],
    "status": "active",
-   "checkedAt": "2026-11-13T09:40:17+09:00",
-   "checkedRun": "dss-20261113-0940",
+   "checkedAt": "2026-11-15T16:57:37+09:00",
+   "checkedRun": "dss-20261115-1657",
    "firstSeen": "2026-11-13T09:40:17+09:00"
   },
   {
@@ -776,8 +776,8 @@
     }
    ],
    "status": "active",
-   "checkedAt": "2026-11-13T09:40:17+09:00",
-   "checkedRun": "dss-20261113-0940",
+   "checkedAt": "2026-11-15T16:57:37+09:00",
+   "checkedRun": "dss-20261115-1657",
    "firstSeen": "2026-11-13T09:40:17+09:00"
   },
   {
@@ -870,8 +870,8 @@
     }
    ],
    "status": "active",
-   "checkedAt": "2026-11-13T09:40:17+09:00",
-   "checkedRun": "dss-20261113-0940",
+   "checkedAt": "2026-11-15T16:57:37+09:00",
+   "checkedRun": "dss-20261115-1657",
    "firstSeen": "2026-11-13T09:40:17+09:00"
   },
   {
@@ -965,8 +965,8 @@
     }
    ],
    "status": "active",
-   "checkedAt": "2026-11-13T09:40:17+09:00",
-   "checkedRun": "dss-20261113-0940",
+   "checkedAt": "2026-11-15T16:57:37+09:00",
+   "checkedRun": "dss-20261115-1657",
    "firstSeen": "2026-11-13T09:40:17+09:00"
   },
   {
@@ -1064,8 +1064,8 @@
     }
    ],
    "status": "active",
-   "checkedAt": "2026-11-13T09:40:17+09:00",
-   "checkedRun": "dss-20261113-0940",
+   "checkedAt": "2026-11-15T16:57:37+09:00",
+   "checkedRun": "dss-20261115-1657",
    "firstSeen": "2026-11-13T09:40:17+09:00"
   },
   {
@@ -1159,8 +1159,8 @@
     }
    ],
    "status": "active",
-   "checkedAt": "2026-11-13T09:40:17+09:00",
-   "checkedRun": "dss-20261113-0940",
+   "checkedAt": "2026-11-15T16:57:37+09:00",
+   "checkedRun": "dss-20261115-1657",
    "firstSeen": "2026-11-13T09:40:17+09:00",
    "state": "active"
   },
@@ -1213,8 +1213,8 @@
     }
    ],
    "status": "active",
-   "checkedAt": "2026-11-13T09:40:17+09:00",
-   "checkedRun": "dss-20261113-0940",
+   "checkedAt": "2026-11-15T16:57:37+09:00",
+   "checkedRun": "dss-20261115-1657",
    "firstSeen": "2026-11-13T09:40:17+09:00"
   },
   {

@@ -19,9 +19,12 @@ ASSETS = J(P('proddb/subs/assets.out.json'))['items']
 PAGES = {p['id']: p for p in J(os.path.join(RAW, 'pages.json'))}
 IMAGES = J(os.path.join(RAW, 'images.json')); MODELS = J(os.path.join(RAW, 'models.json'))
 INV = {x['id']: x for x in J(os.path.join(RAW, 'inventory.json'))['sources']}
-PDB = J(P('app/data/products_db.json')); CAT = J(P('app/data/catalog.json')); VSP = J(P('app/data/vertical_space_product.json'))
-OUT = P('app/data/subscriptions.json')
-PREV = J(OUT) if os.path.exists(OUT) else {'items': []}
+# --out <파일> · --products-db <파일>: 전체 DSS run 이 반영 전에 staging 에서 만들 때 쓴다(활성 레지스트리는 그대로 두고, 이번 run 의 staging 제품 DB 로 대응).
+OPT = lambda name: sys.argv[sys.argv.index(name) + 1] if name in sys.argv else None
+PDB = J(OPT('--products-db') or P('app/data/products_db.json')); CAT = J(P('app/data/catalog.json')); VSP = J(P('app/data/vertical_space_product.json'))
+ACTIVE = P('app/data/subscriptions.json')
+OUT = OPT('--out') or ACTIVE
+PREV = J(ACTIVE) if os.path.exists(ACTIVE) else {'items': []}  # 지난 레지스트리는 언제나 활성본
 PREV_ITEMS = {x['id']: x for x in PREV['items']}
 
 # ---------------------------------------------------------------- 원문 대조
@@ -245,6 +248,7 @@ reg = {
             'verticals': {k: sum(1 for v in verticals.values() if v['match'] == k) for k in ('direct', 'similar', 'derived', 'fallback')}},
  'issues': issues,
 }
+os.makedirs(os.path.dirname(os.path.abspath(OUT)), exist_ok=True)
 tmp = OUT + '.tmp'
 json.dump(reg, open(tmp, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 os.replace(tmp, OUT)

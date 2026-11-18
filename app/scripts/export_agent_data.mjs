@@ -2,7 +2,7 @@
 // Canonical app-side knowledge snapshot for the PoC agents → app/data/runtime/kb (only).
 //
 //   node app/scripts/export_agent_data.mjs [--out app/data/runtime/kb] [--allow-count-drift]
-//        [--expect-total 960] [--expect-active 669] [--expect-products 1084] [--expect-scenarios 116]
+//        [--expect-total 960] [--expect-active 669] [--expect-products <products_db.json counts.total>] [--expect-scenarios 116]
 //
 // Sources (read-only):
 //   app/data/{catalog.json, images.json, products_db.json, layouts.b64, subscriptions.json(구독 DSS 레지스트리)}
@@ -34,9 +34,12 @@ const argv = process.argv.slice(2);
 const arg = (name, dflt) => { const i = argv.indexOf('--' + name); return i >= 0 && argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[i + 1] : dflt; };
 const flag = (name) => argv.includes('--' + name);
 const OUT = path.resolve(ROOT, arg('out', path.join(RUNTIME, 'kb')));
+// 제품 수의 기준값은 products_db.json counts.total 하나다 — DSS 업데이트 · 삭제 도구(proddb/build/dss)만 바꾼다.
+const DECLARED_PRODUCTS = (JSON.parse(fs.readFileSync(path.join(DATA, 'products_db.json'), 'utf8')).counts || {}).total;
+if (!Number.isInteger(DECLARED_PRODUCTS)) { console.error('✗ products_db.json counts.total(전체 제품 수의 기준값)이 없습니다.'); process.exit(1); }
 const EXPECT = {
   layouts_total: Number(arg('expect-total', 960)), layouts_active: Number(arg('expect-active', 669)), // 669 = 활성 717(구독 장 21 포함) - 같은 레이아웃 묶음의 업종 후보 48 (layout_variants.json)
-  products: Number(arg('expect-products', 1084)), curated_products: 40, scenarios: Number(arg('expect-scenarios', 116)),
+  products: Number(arg('expect-products', DECLARED_PRODUCTS)), curated_products: 40, scenarios: Number(arg('expect-scenarios', 116)),
 };
 const LAYOUT_KEYS = ['f', 'c', 'code', 'name', 'when', 'g', 'p', 'p2', 'ind', 'sol', 'pc', 'req', 'prods', 'sols', 'phs', 'ph', 'hl', 'txt', 'eb', 'foot', 'sample'];
 const PRODUCT_KEYS = ['id', 'name', 'model', 'cat', 'spec', 'spaces', 'ind', 'kw'];

@@ -39,22 +39,33 @@ OLDS = J(os.path.join(ROOT, 'proddb/raw/wkb_specs.json'))
 texts = {}
 for f in glob.glob(os.path.join(RUN_DIR, 'ecat/text/*.json')):
     d = J(f); texts[str(d['dir'])] = {int(k): v for k, v in d['text'].items()}
-remap = J(os.path.join(RUN_DIR, 'review/remap-360-364.json'))
-PAGEMAP = {('360', int(k)): ('364', v) for k, v in remap['pageMap'].items()}
-DEC = J(os.path.join(REVIEW, 'extract-decisions.json'))
-REPOINT = DEC['a_light_dacor_harman.json']['repoint']
-DEPREV = J(os.path.join(REVIEW, 'deprecation-review.json'))
-PHOTOS = J(os.path.join(REVIEW, 'new-photos.json'))
+# 정기 호 교체가 있는 run 만 쪽 대응(remap_issue.py 결과 review/remap-<지난 Dir>-<새 Dir>.json)을 쓴다. 판정 파일도 해당 사항이 있는 run 에만 있다.
+PAGEMAP = {}
+for f in glob.glob(os.path.join(RUN_DIR, 'review/remap-*-*.json')):
+    o, n = re.match(r'remap-(\d+)-(\d+)\.json$', os.path.basename(f)).groups()
+    PAGEMAP.update({(o, int(k)): (n, v) for k, v in J(f)['pageMap'].items()})
+OLD_ISSUES = {o for o, _ in PAGEMAP}  # 이번 run 에서 새 호로 바뀐 지난 호 Dir
+JO = lambda p, d: J(p) if os.path.exists(p) else d
+DEC = JO(os.path.join(REVIEW, 'extract-decisions.json'), {})
+REPOINT = {i: r for d in DEC.values() if isinstance(d, dict) for i, r in (d.get('repoint') or {}).items()}  # 권이 사라져 근거를 다른 권으로 옮긴 추출 항목
+DEPREV = JO(os.path.join(REVIEW, 'deprecation-review.json'), {'items': []})
+PHOTOS = JO(os.path.join(REVIEW, 'new-photos.json'), {})
 EX_OLD = {it['id']: it for f in glob.glob(os.path.join(ROOT, 'proddb/ecat/extract/*.json')) for it in J(f)}
 EX_NEW = {it['id']: it for f in glob.glob(os.path.join(RUN_DIR, 'ecat-build/extract/*.json')) for it in J(f)}
-ALIAS = CFG['alias']            # new export id → 유지할 기존 id (같은 제품)
-SUPERSEDED = CFG['superseded']  # 기존 id → 같은 제품을 대신하는 사이트 행들
-NEW_PACK = CFG['new_pack']
+ALIAS = CFG.get('alias', {})            # new export id → 유지할 기존 id (같은 제품)
+SUPERSEDED = CFG.get('superseded', {})  # 기존 id → 같은 제품을 대신하는 사이트 행들
+NEW_PACK = CFG.get('new_pack', max(pack_of.values()))
 
 A = {p['id']: p for p in act['products']}
 B = {p['id']: p for p in base['products']}
 N = {p['id']: p for p in new['products']}
-assert set(A) == set(B), 'base export 가 현재 앱 행과 다르다 — 지난 원문 재현부터 확인'
+# 재현 기준: base export 의 행 = 활성 행. 다만 지난 run 들이 지우지 않고 표시만 한 행은 활성에만 있다 —
+#   판매 종료(deprecated) · 사이트 목록 이탈(siteListed false — export 에는 같은 제품의 카탈로그 행(alias)으로 나온다) · 다른 행으로 대체(supersededBy).
+#   그 밖의 차이는 지난 원문 재현이 안 된 것이다.
+marked = lambda p: bool(p.get('deprecated')) or p.get('siteListed') is False or bool(p.get('supersededBy'))
+bad = [i for i in A if i not in B and not marked(A[i])] + [i for i in B if i not in A and ALIAS.get(i) not in A]
+assert not bad, 'base export 가 현재 앱 행과 다르다 — 지난 원문 재현부터 확인: ' + ', '.join(bad[:20])
+carried = {'deprecated': [], 'siteListed': [], 'superseded': []}  # 표시만 하고 남겨 둔 행(이번 run 의 변경이 아니다)
 changes = []
 def log(kind, pid, **kw): changes.append(dict(kind=kind, id=pid, **kw))
 
@@ -75,6 +86,26 @@ still = {x['id']: x for x in DEPREV['items'] if x['verdict'] == 'still_listed'}
 rows = []
 for p in act['products']:
     pid = p['id']; cur = copy.deepcopy(p)
+    if pid not in B:  # 지난 run 에서 표시만 하고 남긴 행 — 그대로 둔다. 원문에 다시 나타났으면 표시를 풀지 사람이 판정해야 하므로 멈춘다
+        if pid in N: raise SystemExit('표시해 둔 행(판매 종료 · 목록 이탈 · 대체)이 원문에 다시 나타남 — 표시를 풀지 판정 필요: ' + pid)
+        src = next((k for k, v in ALIAS.items() if v == pid), None)
+        if p.get('deprecated'): carried['deprecated'].append(pid)
+        elif p.get('siteListed') is False:
+            if src is None: raise SystemExit('사이트 목록 이탈 행(siteListed false)의 카탈로그 행 대응(alias)이 run.json 에 없음 — 지난 전체 run 의 alias 를 이어 적는다: ' + pid)
+            n = N.get(src)
+            if n is None:  # 카탈로그 근거도 사라짐 → 판정이 있어야 한다
+                if pid not in dep: raise SystemExit('판정 없이 사라진 행(사이트 목록 이탈 뒤 카탈로그 근거도 없어짐): ' + pid)
+                x = dep[pid]
+                cur['deprecated'] = {'at': RUN_AT, 'run': RUN_ID, 'replacedBy': x['replacedBy'], 'reason': x['reason']}
+                log('deprecated', pid, replacedBy=x['replacedBy'])
+            else:  # 카탈로그 근거(권 · 쪽)만 따라간다. 카탈로그 쪽 내용이 바뀌었으면 사이트 행 내용과 섞지 않고 사람이 보게 남긴다
+                carried['siteListed'].append(pid)
+                if (cur.get('cdir'), cur.get('cpage')) != (n['cdir'], n['cpage']):
+                    cur.update(cdir=n['cdir'], cpage=n['cpage']); log('row-changed', pid, fields=['cdir', 'cpage'], via=src)
+                f = [k for k in sorted(set(B[src]) | set(n)) if k not in ('id', 'd', 'cdir', 'cpage') and B[src].get(k) != n.get(k)]
+                if f: log('still-listed-source-changed', pid, fields=f, via=src)
+        else: carried['superseded'].append(pid)
+        rows.append(cur); continue
     if pid in N:
         f = merge3(cur, B[pid], N[pid])
         if f: log('row-changed', pid, fields=f)
@@ -90,8 +121,8 @@ for p in act['products']:
             log('still-listed', pid, catalog=f"Dir {n['cdir']} p.{n['cpage']}", via=src)
         elif pid in SUPERSEDED:
             cur['supersededBy'] = SUPERSEDED[pid]
-            if str(cur.get('cdir')) == '360' and ('360', int(cur.get('cpage') or 0)) in PAGEMAP:
-                cur['cdir'], cur['cpage'] = PAGEMAP[('360', int(cur['cpage']))]
+            if (str(cur.get('cdir')), int(cur.get('cpage') or 0)) in PAGEMAP:
+                cur['cdir'], cur['cpage'] = PAGEMAP[(str(cur['cdir']), int(cur['cpage']))]
             log('superseded', pid, by=SUPERSEDED[pid])
         else:
             raise SystemExit('판정 없이 사라진 행: ' + pid)
@@ -185,13 +216,14 @@ def recheck_source(pid, s, rows_out):
     d = str(s.get('dir') or '')
     if k == 'catalog' and d:
         pages = s.get('pages') or ([s['page']] if s.get('page') else [])
-        if d in texts and d != '360':
+        if d in texts and d not in OLD_ISSUES:
             stats['catalog_ok'] += 1; s['checkedAt'] = DATE; return True
-        if d == '360':
-            np = sorted({PAGEMAP[('360', int(p))][1] for p in pages if ('360', int(p)) in PAGEMAP})
+        if d in OLD_ISSUES:
+            hit = [PAGEMAP[(d, int(p))] for p in pages if (d, int(p)) in PAGEMAP]
+            np = sorted({h[1] for h in hit})
             if np:
-                s.update(dir='364', pages=np, url=ecat_url('364', np[0]), checkedAt=DATE); stats['catalog_moved'] += 1; return True
-        if d == '203' and pid.startswith('ec_203_') and ('ec' + pid[3:]) in REPOINT:
+                s.update(dir=hit[0][0], pages=np, url=ecat_url(hit[0][0], np[0]), checkedAt=DATE); stats['catalog_moved'] += 1; return True
+        if d not in texts and pid.startswith('ec_') and ('ec' + pid[3:]) in REPOINT:
             r = REPOINT['ec' + pid[3:]]
             s.update(dir=r['dir'], pages=r['pages'], url=ecat_url(r['dir'], r['pages'][0]), checkedAt=DATE); stats['catalog_moved'] += 1; return True
         stats['catalog_unverified'] += 1; return False
@@ -204,7 +236,7 @@ def recheck_source(pid, s, rows_out):
                 s['checkedAt'] = DATE; stats['quote_ok'] += 1; return True
             stats['quote_unverified'] += 1; return False
         page = int(s.get('page') or 0)
-        prefer = PAGEMAP.get(('360', page)) if d == '360' else (d, page)
+        prefer = PAGEMAP.get((d, page)) if d in OLD_ISSUES else (d, page)
         hit = find_quote(s['quote'], prefer)
         if hit:
             if hit != (d, page):
@@ -307,6 +339,15 @@ for cid in cur_ids:
     else:
         log('curated-unresolved', cid)
 
+# 원문에서 사실이 바뀐 상품 카드(diff_site.py) — 앱 상세에 싣는 범위(특장점 8개 · 본문 240자 · 면책 200자) 밖의 문구처럼 위에서 잡히지 않는 변경도
+# 원본 DB(raw · SQLite)는 바뀌므로 변경으로 남긴다. 품절 상태 · 상품 유형 코드는 사실 변경으로 보지 않는다.
+SITE_FACT = {'goodsNm': 'name', 'mdlCode': 'model', 'goodsDetailUrl': 'url', 'uspDescList': 'usp', 'dlgtDispClsfEnNm': 'cat', 'models': 'models', 'options': 'options',
+             'cardImages': 'images', 'specs': 'specs', 'features': 'features'}
+for x in JO(os.path.join(RUN_DIR, 'review/site-diff.json'), {'changed': []})['changed']:
+    f = sorted(SITE_FACT[k] for k in x['diff'] if k in SITE_FACT)
+    for pid in x['app'] if f else []:
+        if pid in details: log('source-changed', pid, fields=f, goods=x['gid'])
+
 # ── 4. 출력 ──
 assert len(rows) + len(cur_ids) == len(details) == len(spec_ledger)
 packs = {}
@@ -317,13 +358,16 @@ for n in sorted(set(packs.values())):
 total = len(rows) + len(cur_ids)
 out = dict(act)
 out.update(generated=new['generated'], source=new['source'], famOrder=new['famOrder'], catOrder=new['catOrder'], curated=cur_out, products=rows)
+# 지운 제품의 흔적(removed — proddb/build/dss/deletions.py)은 그대로 두되, 같은 id 가 원문에 다시 나타나 행이 생겼으면 흔적을 뺀다
+out['removed'] = [t for t in act.get('removed', []) if t['id'] not in {p['id'] for p in rows} | set(cur_ids)]
 out['counts'] = dict(new['counts'], site_rows=sum(1 for p in rows if p.get('src') == 'site'), catalog_rows=sum(1 for p in rows if p.get('src') == 'catalog'),
-                     deprecated=sum(1 for p in rows if p.get('deprecated')), superseded=sum(1 for p in rows if p.get('supersededBy')))
+                     deprecated=sum(1 for p in rows if p.get('deprecated')), superseded=sum(1 for p in rows if p.get('supersededBy')),
+                     total=total, removed=len(out['removed']))  # total = 전체 제품 수의 기준값(prepare_data · KB · 테스트가 이 값과 비교한다)
 out['specReview'] = dict(date=DATE, total=total, ledger=f'proddb/reviews/{RUN_ID}/product-review.json', previous=act.get('specReview'))
 out['dss'] = dict(run=RUN_ID, checkedAt=RUN_AT, ledger='proddb/dss/ledger.json')
 json.dump(out, open(os.path.join(STAGE, 'app/data/products_db.json'), 'w'), ensure_ascii=False, separators=(',', ':'))
 json.dump(spec_ledger, open(os.path.join(STAGE, 'review/product-review.json'), 'w'), ensure_ascii=False, separators=(',', ':'))
-json.dump({'stats': stats, 'changes': changes}, open(os.path.join(STAGE, 'review/apply-changes.json'), 'w'), ensure_ascii=False, indent=0)
+json.dump({'stats': stats, 'carried': carried, 'changes': changes}, open(os.path.join(STAGE, 'review/apply-changes.json'), 'w'), ensure_ascii=False, indent=0)
 json.dump({'evidence': evidence, 'total': total}, open(os.path.join(STAGE, 'review/row-evidence.json'), 'w'), ensure_ascii=False)
 from collections import Counter
 print('rows', len(rows), 'curated', len(cur_ids), 'total', total, 'stamped', len(evidence), Counter(c['kind'] for c in changes), stats)

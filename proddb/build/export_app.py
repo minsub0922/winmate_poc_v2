@@ -427,7 +427,7 @@ meta = {r['key']: r['value'] for r in q('SELECT * FROM meta')}
 out = {'generated': meta.get('site_finished_at') or meta.get('site_fetched_at'), 'source': meta.get('source'),
        'counts': {'families': len(fams), 'models': sum(len(v) for v in models.values()), 'site_rows': sum(1 for p in PROD if p['src'] == 'site'),
                   'catalog_rows': sum(1 for p in PROD if p['src'] == 'catalog'), 'curated_linked': sum(1 for k, x in CURX.items() if x.get('gid')),
-                  'catalog_docs': len(cdocs)},
+                  'catalog_docs': len(cdocs), 'total': len(PROD) + len(CURX)},  # total = 전체 제품 수의 기준값(큐레이션 + 행)
        'famOrder': FAM_ORDER, 'catOrder': cat_order + sorted({p['sc'] for p in PROD if p['sc'] not in cat_order}),
        'curated': CURX, 'products': PROD}
 json.dump(out, open(os.path.join(APP, 'data/products_db.json'), 'w'), ensure_ascii=False, separators=(',', ':'))
