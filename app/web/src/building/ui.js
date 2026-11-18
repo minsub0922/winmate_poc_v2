@@ -3,7 +3,7 @@ import { data, ready, tplOf, tplsOf, registerFloors } from './data.js';
 import { store, uid } from './store.js';
 import { Stage, thumbnail } from './render.js';
 import { variantsOf, kitOf, swatchOf, signOfInd } from './facade.js';
-import { PRESETS } from './presets.js';
+import { PRESETS, presetFloors } from './presets.js';
 import { STD_PRESETS } from './presets-standard.js';
 import { h, icon, SVG } from './dom.js';
 import { exportDoc } from './viewer.js';
@@ -69,6 +69,11 @@ const THUMB_V = 4; // 썸네일 판 — 3: 외벽 변형 · 크기가 다른 층
 const modeOf = (b) => (b && b.view && b.view.mode === 'spread' ? 'spread' : 'exterior');
 function buildingThumb(b) {
   return thumbnail({ floors: items(b.floors), spread: modeOf(b) === 'spread' ? 1 : 0, title: b.title });
+}
+function editedThumb(p) {
+  const {scene, revision} = p.published;
+  return cachedThumb('pre:' + p.id + ':' + revision, () => thumbnail({ floors: items(scene.floors), title: scene.title,
+    spread: Number(modeOf(scene) === 'spread'), camera: scene.camera, type: 'image/webp', wanted: wantPick }));
 }
 const indNames = (codes) => codes.map((c) => data().indName[c] || c);
 const shortInd = (code) => (data().indName[code] || code).split(' · ')[0];
@@ -177,7 +182,7 @@ function lazyImg(src, alt, io) {
 // ---------- 고르기 창 ----------
 // start: 건물 템플릿 하나 → 층마다 공간은 비운 채로 스튜디오 · add: 이 건물에 맞는(맨 위층과 같은 크기) 공간 여러 개 또는 빈 층 ·
 // fill: 이 층에 맞는 공간 하나. 위: (공간 수 · 크기 표시) / 업종 칩. 가운데: 업종별 카드. 아래: 고른 것 + 확인 — 설명 글 없이
-function openPicker({ mode = 'start', onDone, onCancel = null, base = 0, ind = null, current = null, floor = 0 }) {
+function openPicker({ mode = 'start', onDone, onCancel = null, base = 0, ind = null, current = null, floor = 0, personal = true, edits = {} }) {
   const D = data();
   const cap = Math.max(1, MAX_FLOORS - base);
   const pre = mode === 'start';
@@ -194,7 +199,8 @@ function openPicker({ mode = 'start', onDone, onCancel = null, base = 0, ind = n
 
   // 고를 수 있는 것 — 공간은 크기와 상관없이 모두(층 크기는 넣은 공간을 따른다), 템플릿은 건물 템플릿
   const tplsIn = (code) => tplsOf(code);
-  const presIn = (code) => PRESETS.filter((p) => p.ind === code && p.floors.every((f) => tplOf(f.tpl)));
+  const published = p => edits[p.id] ? {...p, title: edits[p.id].scene.title, published: edits[p.id]} : p;
+  const presIn = (code) => PRESETS.filter((p) => p.ind === code && p.floors.every((f) => tplOf(f.tpl))).map(published);
   const codes = D.industries.map((x) => x.code).filter((c) => (pre ? presIn(c) : tplsIn(c)).length);
   if (ind && codes.includes(ind)) selInd.add(ind);
 
@@ -222,15 +228,16 @@ function openPicker({ mode = 'start', onDone, onCancel = null, base = 0, ind = n
   const panel = h('div', { class: 'bd-groups' });
   const cards = new Map(), groups = new Map();
   // 표준 건물 조감도 — 건물 템플릿(빈 층)과 따로 맨 위에. 층마다 그 업종의 공간이 모두 한 번씩 들어 있는 건물
-  const stds = pre ? STD_PRESETS.filter((p) => p.floors.every((f) => tplOf(f.tpl))) : [];
+  const stds = pre ? STD_PRESETS.filter((p) => p.floors.every((f) => tplOf(f.tpl))).map(published) : [];
   let stdSec = null;
   if (stds.length) {
     const grid = h('div', { class: 'bd-tpl-grid bd-pre-grid' });
     stdSec = h('section', { class: 'bd-group bd-std-group', 'aria-label': '표준 건물 조감도' }, h('h4', { class: 'bd-group-head', text: '표준 건물 조감도' }), grid);
     for (const p of stds) {
-      const rooms = p.floors.reduce((n, f) => n + tplOf(f.tpl).rooms.length, 0);
-      const card = h('button', { class: 'bd-tpl bd-std', type: 'button', 'aria-pressed': 'false', title: p.floors.map((f, i) => `${i + 1}F ${f.name}`).join(' · '), onclick: () => { selPre = selPre === p.id ? null : p.id; refresh(); } },
-        lazyImg(() => stdThumb(p), p.title + ' 3D 건물', io),
+      const floors = p.published?.scene.floors || p.floors;
+      const rooms = floors.reduce((n, f) => n + (tplOf(f.tpl)?.rooms.length || 0), 0);
+      const card = h('button', { class: 'bd-tpl bd-std', type: 'button', 'aria-pressed': 'false', title: floors.map((f, i) => `${i + 1}F ${f.name || ''}`).join(' · '), onclick: () => { selPre = selPre === p.id ? null : p.id; refresh(); } },
+        lazyImg(() => p.published ? editedThumb(p) : stdThumb(p), p.title + ' 3D 건물', io),
         h('span', { class: 'bd-tpl-check', 'aria-hidden': 'true' }, icon('check', 13, 3)),
         h('span', { class: 'bd-tpl-copy' }, h('b', { text: p.title }), h('span', { class: 'bd-tpl-meta', text: `${rooms}개 공간 · ${kitOf(p.ind, p.fv).label}` })));
       cards.set(p.id, { card, p, inds: [p.ind], code: p.ind, std: true });
@@ -240,7 +247,7 @@ function openPicker({ mode = 'start', onDone, onCancel = null, base = 0, ind = n
   }
   // 내 조감도 — 내가 만든 공간 조감도(앱의 조감도 히스토리)를 층으로 넣는다. 앱이 window.__wmBldSpaceHook = { list(), bake(id) }를 준다:
   // list()는 [{ id, title, rooms, image }], bake(id)는 그 장면을 층 기록으로 바꾼 묶음({ assets, recipes, tpl })을 돌려준다.
-  const spaceHook = !pre && typeof window !== 'undefined' && window.__wmBldSpaceHook || null;
+  const spaceHook = personal && !pre && typeof window !== 'undefined' && window.__wmBldSpaceHook || null;
   const myItems = new Map();
   if (spaceHook) {
     const grid = h('div', { class: 'bd-tpl-grid' });
@@ -271,9 +278,9 @@ function openPicker({ mode = 'start', onDone, onCancel = null, base = 0, ind = n
     if (pre) for (const p of presIn(code)) {
       // 건물 템플릿 = 건물 모양(층마다 크기 · 셋백) + 외벽. 층 수는 고른 뒤 스튜디오에서 마음대로
       const inds = [...new Set(p.floors.map((f) => tplOf(f.tpl).ind))];
-      const t0 = tplOf(p.floors[0].tpl);
+      const t0 = p.published?.scene.floors[0].shell || tplOf(p.floors[0].tpl);
       const card = h('button', { class: 'bd-tpl bd-pre', type: 'button', 'aria-pressed': 'false', onclick: () => { selPre = selPre === p.id ? null : p.id; refresh(); } },
-        lazyImg(() => presetThumb(p), p.title + ' 3D 건물', io),
+        lazyImg(() => p.published ? editedThumb(p) : presetThumb(p), p.title + ' 3D 건물', io),
         h('span', { class: 'bd-tpl-check', 'aria-hidden': 'true' }, icon('check', 13, 3)),
         h('span', { class: 'bd-tpl-copy' }, h('b', { text: p.title }), h('span', { class: 'bd-tpl-meta', text: `${kitOf(p.ind, p.fv).label} · ${sizeText(t0)}` })));
       cards.set(p.id, { card, p, inds, code });
@@ -492,15 +499,14 @@ function listView(ctx) {
 // 표준 건물 조감도(p.std)는 층마다 공간 · 층 이름까지, 버티컬 건물 템플릿(p.vertical)은 그 버티컬의 공간 조합 층으로 채운 채로 연다.
 async function putBuilding(b) {
   const now = Date.now();
-  Object.assign(b, { id: uid('bld'), industries: indsOf(b.floors), view: { mode: 'exterior' }, camera: null, createdAt: now, contentAt: now, updatedAt: now });
+  Object.assign(b, { id: uid('bld'), industries: indsOf(b.floors), view: b.view || { mode: 'exterior' }, camera: b.camera || null, createdAt: now, contentAt: now, updatedAt: now });
   await store.put(b, { touch: false });
   return b.id;
 }
 function createFromPreset(p) {
-  const floors = p.std
-    ? p.floors.map((f) => { const t = tplOf(f.tpl); return { key: uid('f'), tpl: f.tpl, fv: f.fv, name: f.name, shell: { ind: p.ind, w: t.w, d: t.d } }; })
-    : presetShells(p).map((x, i) => ({ key: uid('f'), tpl: p.vertical ? p.floors[i].tpl : null, fv: x.fv, shell: { ind: x.ind, w: x.w, d: x.d } }));
-  return putBuilding({ title: p.title, template: p.id, floors });
+  const edited = p.published?.scene;
+  if (edited) return putBuilding({...structuredClone(edited), floors: edited.floors.map(f => ({...structuredClone(f), key: uid('f')}))});
+  return putBuilding({ title: p.title, template: p.id, floors: presetFloors(p, tplOf, () => uid('f')) });
 }
 // 빈 건물 — 빈 층 하나. 층은 스튜디오에서 내 조감도 · 템플릿 공간으로 채운다(층 크기는 넣은 공간을 따른다)
 const BLANK_SHELL = { ind: 'OF', w: 24, d: 15 };
@@ -520,8 +526,9 @@ function createFromSpaces({ title, floors, vertical }) {
   if (!list.length) return createBlank(title);
   return putBuilding({ title: title || autoTitle(indsOf(list)), floors: list, spaces });
 }
-function start(ctx) {
-  openPicker({ mode: 'start', onDone: async ({ preset: p }) => { ctx.go({ name: 'building', id: await createFromPreset(p) }); } });
+async function start(ctx) {
+  try { const id = await app.pickPreset(); if (id) ctx.go({ name: 'building', id }); }
+  catch (e) { ctx.toast?.(e.message, 'warn'); }
 }
 // 건물 기록에 함께 저장된 내 공간 층 묶음을 데이터에 등록한다 — 열기 · 썸네일 · 요약 전에 부른다
 function ensureSpaces(b) {
@@ -529,7 +536,11 @@ function ensureSpaces(b) {
 }
 
 // ---------- 스튜디오 ----------
+// 이 모듈은 앱과 따로 묶이는 IIFE라 세션 상태를 직접 읽지 않는다 — 앱이 mount(root, { requireDownload })로 넘긴다.
+// 게스트면 false를 돌려주고 로그인 창을 띄운다.
+let requireDownload = () => true;
 async function saveBlob(blob, filename) {
+  if (!requireDownload()) return { err: '로그인 후 파일을 받을 수 있어요.' };
   try {
     if (window.claude && window.claude.use) {
       const d = await window.claude.use('downloads');
@@ -585,7 +596,7 @@ function downloadMenu(items) {
   });
   async function pick(it) {
     close();
-    if (busy) return;
+    if (busy || !requireDownload()) return;
     busy = true;
     btn.disabled = true;
     btn.replaceChildren(h('span', { class: 'spin', 'aria-hidden': 'true' }));
@@ -602,6 +613,8 @@ const fvOf = (f) => { const n = variantsOf(shellOf(f).ind).length; return (((f.f
 function studioView(ctx, id) {
   const el = h('div', { class: 'bd-page-in' });
   let b = null, stage = null, alive = true, saveT = 0, thumbT = 0, camT = 0, dirtyThumb = false;
+  let revision = 0, edits = 0, publishing = false;
+  const publishButton = ctx.managed && h('button', {class:'btn btn-primary btn-sm', type:'button', disabled:true, onclick: publish}, '변경 사항 저장');
   const disposers = [];
   const loading = h('div', { class: 'bd-render-state', role: 'status' }, h('span', { class: 'spin' }), '건물을 구성하는 중…');
   const host = h('div', { class: 'bd-render-host' });
@@ -619,9 +632,9 @@ function studioView(ctx, id) {
   const spreadBtn = h('button', { type: 'button', 'aria-pressed': 'false', title: '층 사이를 벌려 층마다 내부를 보기' }, '펼쳐 보기');
   sw.append(extBtn, spreadBtn);
   const actions = h('div', { class: 'bd-canvas-actions' },
-    h('button', { class: 'btn btn-ghost btn-icon', type: 'button', 'aria-label': '왼쪽으로 돌리기', title: '왼쪽으로 돌리기', onclick: () => stage && stage.rotate(-45) }, icon('rotL', 17)),
-    h('button', { class: 'btn btn-ghost btn-icon', type: 'button', 'aria-label': '오른쪽으로 돌리기', title: '오른쪽으로 돌리기', onclick: () => stage && stage.rotate(45) }, icon('rotR', 17)),
-    h('button', { class: 'btn btn-ghost btn-icon', type: 'button', 'aria-label': '처음 시점으로', title: '처음 시점으로', onclick: () => stage && stage.resetView() }, icon('refresh', 16)));
+    h('button', { class: 'btn btn-ghost btn-icon', type: 'button', 'aria-label': '왼쪽으로 돌리기', title: '왼쪽으로 돌리기', onclick: () => cameraAction(() => stage.rotate(-45)) }, icon('rotL', 17)),
+    h('button', { class: 'btn btn-ghost btn-icon', type: 'button', 'aria-label': '오른쪽으로 돌리기', title: '오른쪽으로 돌리기', onclick: () => cameraAction(() => stage.rotate(45)) }, icon('rotR', 17)),
+    h('button', { class: 'btn btn-ghost btn-icon', type: 'button', 'aria-label': '처음 시점으로', title: '처음 시점으로', onclick: () => cameraAction(() => stage.resetView()) }, icon('refresh', 16)));
   const dl = downloadMenu([
     { icon: 'image', label: '이미지 저장', tag: 'PNG', run: () => savePng() },
     { icon: 'code', label: 'HTML 추출', tag: '3D', run: () => saveHtml() },
@@ -630,14 +643,19 @@ function studioView(ctx, id) {
     h('div', { class: 'bd-topbar' },
       h('header', { class: 'bd-header bd-studio-header' },
         h('div', { class: 'bd-header-heading' },
-          h('button', { class: 'bd-back', type: 'button', title: '조감도 목록으로', onclick: () => leave() }, icon('arrowL', 20), h('span', { text: '뒤로 가기' })),
+          !ctx.managed && h('button', { class: 'bd-back', type: 'button', title: '조감도 목록으로', onclick: () => leave() }, icon('arrowL', 20), h('span', { text: '뒤로 가기' })),
           h('span', { class: 'bd-beta', text: 'BETA' })),
-        h('div', { class: 'bd-header-actions' }, dl.el))),
+        h('div', { class: 'bd-header-actions' }, publishButton, dl.el))),
     h('section', { class: 'bd-workspace', 'aria-label': '건물 조감도 편집' },
       h('div', { class: 'bd-canvas-toolbar' }, sw, actions),
       h('div', { class: 'bd-canvas-title' }, h('div', { class: 'bd-canvas-spec' }, title, spec), saved),
       view, strip));
 
+  function cameraAction(change) {
+    if (!stage) return;
+    change();
+    if (ctx.managed) save();
+  }
   function setSaved(state) {
     saved.replaceChildren(state === 'saving' ? h('span', { class: 'spin' }) : icon('check', 13, 2.6), state === 'saving' ? '저장하는 중' : '저장됨');
     saved.dataset.state = state;
@@ -649,6 +667,11 @@ function studioView(ctx, id) {
     // 더는 쓰지 않는 내 공간 층 묶음은 기록에서 뺀다
     if (b.spaces) { for (const k of Object.keys(b.spaces)) if (!b.floors.some((f) => f.tpl === k)) delete b.spaces[k]; if (!Object.keys(b.spaces).length) delete b.spaces; }
     if (content) { b.contentAt = Date.now(); dirtyThumb = true; }
+    if (ctx.managed) {
+      edits++; publishButton.disabled = publishing; saved.textContent = '';
+      ctx.managed.dirty(id, true);
+      return;
+    }
     setSaved('saving');
     clearTimeout(saveT);
     const run = async () => {
@@ -658,6 +681,18 @@ function studioView(ctx, id) {
     };
     if (now) return run();
     saveT = setTimeout(run, 450);
+  }
+  async function publish() {
+    if (publishing || !b || !await confirmBox({ title:'건물 조감도 변경 사항을 저장할까요?', message:'공유 템플릿의 층 구성과 시점을 저장합니다.', ok:'저장' })) return;
+    publishing = true; publishButton.disabled = true;
+    const snapshot = structuredClone(b), generation = edits;
+    if (stage) snapshot.camera = stage.cameraState();
+    try {
+      const result = await ctx.managed.save(id, snapshot, revision);
+      revision = result.revision;
+      if (alive && edits === generation) { setSaved('saved'); ctx.managed.dirty(id, false); }
+    } catch (e) { if (alive) { ctx.toast?.(e.message, 'warn'); publishButton.disabled = false; } }
+    finally { publishing = false; if (alive && edits !== generation) { publishButton.disabled = false; ctx.managed.dirty(id, true); } }
   }
   async function makeThumb() {
     if (!b || !dirtyThumb) return;
@@ -699,7 +734,7 @@ function studioView(ctx, id) {
     // 층 추가 — 맨 위층과 같은 크기 · 외벽으로(건물 모양 그대로). 공간은 그 크기에 맞는 것만 고르거나 빈 층으로
     const top = b.floors[b.floors.length - 1];
     const add = h('button', { type: 'button', class: 'bd-floor-add', disabled: b.floors.length >= MAX_FLOORS, title: b.floors.length >= MAX_FLOORS ? `${MAX_FLOORS}층까지 쌓을 수 있어요` : null,
-      onclick: () => openPicker({ mode: 'add', base: b.floors.length, ind: floorInd(top), onDone: addFloors }) }, icon('plus', 14, 2.4), '층 추가');
+      onclick: () => openPicker({ mode: 'add', personal: !ctx.managed, base: b.floors.length, ind: floorInd(top), onDone: addFloors }) }, icon('plus', 14, 2.4), '층 추가');
     strip.replaceChildren(all, ...items, add);
     const cur = strip.querySelector('.bd-floor-chip.is-on');
     cur && cur.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -909,7 +944,7 @@ function studioView(ctx, id) {
   }
   function pickSpace(i) {
     const f = b.floors[i], t = tplOf(f.tpl), s = shellOf(f);
-    openPicker({ mode: 'fill', ind: t ? t.ind : s.ind, current: f.tpl, floor: i + 1, onDone: ({ tpl, spaces }) => setTpl(i, tpl, spaces) });
+    openPicker({ mode: 'fill', personal: !ctx.managed, ind: t ? t.ind : s.ind, current: f.tpl, floor: i + 1, onDone: ({ tpl, spaces }) => setTpl(i, tpl, spaces) });
   }
 
   // 층 정보 카드 — 공간(고르기 · 바꾸기 · 비우기) · 공간 목록 (외벽은 외벽을 눌러 고른다)
@@ -1009,7 +1044,10 @@ function studioView(ctx, id) {
   }
 
   (async () => {
-    b = await store.get(id);
+    if (ctx.managed) {
+      try { const doc = await ctx.managed.load(id); b = doc.scene; revision = doc.revision; }
+      catch (e) { if (alive) loading.replaceChildren(e.message); return; }
+    } else b = await store.get(id);
     if (!alive) return;
     if (!b) {
       ctx.toast && ctx.toast('건물을 찾지 못했어요', 'warn');
@@ -1020,6 +1058,7 @@ function studioView(ctx, id) {
     b.view = b.view || {};
     const mode = modeOf(b);
     b.floors = (b.floors || []).map(normFloor).filter(Boolean).slice(0, MAX_FLOORS);
+    b.industries = indsOf(b.floors);
     title.value = b.title;
     updateSpec(); setSaved('saved');
     extBtn.setAttribute('aria-pressed', String(mode === 'exterior'));
@@ -1046,7 +1085,13 @@ function studioView(ctx, id) {
       const cam = b.view.mode ? b.camera || {} : {};
       stage.aim({ azimuth: cam.azimuth ?? 40, elevation: cam.elevation ?? (mode === 'spread' ? 30 : 22), i: null, zoom: cam.zoom || 1 }, false);
       if (!b.view.mode) b.view = { mode };
+      let beforeCamera;
+      if (ctx.managed) stage.controls.addEventListener('start', () => { beforeCamera = JSON.stringify(stage.cameraState()); });
       stage.controls.addEventListener('end', () => {
+        if (ctx.managed) {
+          if (beforeCamera !== JSON.stringify(stage.cameraState())) save();
+          return;
+        }
         clearTimeout(camT);
         camT = setTimeout(() => { if (b && stage) { b.camera = stage.cameraState(); save(); } }, 900);
       });
@@ -1074,7 +1119,7 @@ function studioView(ctx, id) {
       alive = false;
       closeFacade();
       clearTimeout(saveT); clearTimeout(camT); clearTimeout(titleT);
-      if (b) { store.put(b).catch(() => {}); if (dirtyThumb) { clearTimeout(thumbT); makeThumb(); } }
+      if (b && !ctx.managed) { store.put(b).catch(() => {}); if (dirtyThumb) { clearTimeout(thumbT); makeThumb(); } }
       disposers.forEach((f) => f());
       dl.destroy();
       if (stage) stage.dispose();
@@ -1120,18 +1165,20 @@ export const app = {
   /** 건물 템플릿 고르기 창을 열고, 고르면 만든 건물 id(닫으면 null) */
   async pickPreset() {
     await ready();
-    return new Promise((resolve) => openPicker({ mode: 'start', onDone: ({ preset }) => resolve(createFromPreset(preset)), onCancel: () => resolve(null) }));
+    const edits = await window.__wmBldTemplatesHook?.() || {};
+    return new Promise((resolve) => openPicker({ mode: 'start', edits, onDone: ({ preset }) => resolve(createFromPreset(preset)), onCancel: () => resolve(null) }));
   },
 };
 
 export function mount(root, opts) {
-  const ctx = { go: opts.go, toast: opts.toast };
+  const ctx = { go: opts.go, toast: opts.toast, managed: opts.managed };
+  if (typeof opts.requireDownload === 'function') requireDownload = opts.requireDownload;
   root.classList.add('bd-page');
   let cur = null, curId, alive = true, booted = false, pending = null; // pending = { id } (목록이면 id 없음)
   root.replaceChildren(h('div', { class: 'bd-boot', role: 'status' }, h('span', { class: 'spin' }), '건물 조감도를 여는 중…'));
   ready().then(() => {
     booted = true;
-    if (!pruned) { pruned = true; store.pruneCache(`@${CACHE_V}.${data().v}`); }
+    if (!pruned && !ctx.managed) { pruned = true; store.pruneCache(`@${CACHE_V}.${data().v}`); }
     if (alive && pending) show(pending.id);
   }, (e) => {
     if (alive) root.replaceChildren(h('div', { class: 'bd-boot is-error', role: 'alert' }, h('b', { text: '건물 조감도를 열지 못했어요' }), h('span', { text: e.message || String(e) })));

@@ -204,7 +204,7 @@ footer { margin-top: var(--space-20px); color: var(--auth-muted); font-size: var
         pass.value = '';
         if (r.status === 429) {
           var wait = parseInt(r.headers.get('Retry-After') || '0', 10);
-          show('error', '로그인 실패가 너무 많습니다. ' + (wait ? Math.ceil(wait / 60) + '분 뒤에 ' : '잠시 뒤에 ') + '다시 시도하세요.');
+          show('error', '로그인 실패가 너무 많습니다. ' + (wait ? (wait < 60 ? wait + '초' : Math.ceil(wait / 60) + '분') + ' 뒤에 ' : '잠시 뒤에 ') + '다시 시도하세요.');
         } else if (r.status === 401) {
           show('error', '아이디 또는 비밀번호가 맞지 않습니다.');
         } else if (r.status === 503) {

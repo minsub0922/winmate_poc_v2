@@ -2,12 +2,12 @@ import {fetchResource} from '../api/client.js';
 import {myList,myPersistent,myMeta,newF,saveTemplates,storeImage,imgUrl,dropImages} from '../repositories/templates.js';
 import {spatialLayoutHtml,spatialLayoutStructure} from '../domain/spatial/my-layout.js';
 import {createSpatialLayout,createRoomLabel,validSpatialLayout} from '../domain/spatial/layout.js';
-import {createScene,planAnchors} from '../domain/spatial/scene.js';
+import {planAnchors} from '../domain/spatial/scene.js';
 import {planSvg,svgData} from '../domain/spatial/plan-svg.js';
-import {captureSpatial} from './spatial.js';
+import {captureSpatial,loadSpatialTemplateWithAssets} from './spatial.js';
 
-export async function spatialMyLayoutFromTemplate(template,library,view='2d'){
-  const scene=createScene({templateId:template.id},library);
+export async function spatialMyLayoutFromTemplate(template,baseLibrary,view='2d'){
+  const {scene,assets:library}=await loadSpatialTemplateWithAssets(template,baseLibrary);
   const snapshot=view==='3d'?await captureSpatial(scene,library):{image:svgData(planSvg(scene,library,{labels:false,productPins:false,dimensions:false,transparentBackground:true})),anchors:{width:1280,height:820,...planAnchors(scene)}};
   const layout=createSpatialLayout(scene,library,snapshot,view);
   layout.nodes=layout.targets.filter(target=>target.kind==='room').map(target=>createRoomLabel(layout,target));

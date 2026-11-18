@@ -1,18 +1,18 @@
-import { requireLogin } from '../api/session.js';
-import React, { useState, useMemo } from 'react';
+import { requireDownload, requireLogin } from '../api/session.js';
+import React, { useState, useMemo, useRef, useEffect, useLayoutEffect } from 'react';
 import { searchScenarioKeywords, AI_SEARCH_TOP } from '../services/catalog-search.js';
 
 import { loadUi, createProposal, update, uid, segPlain } from '../repositories/proposals.js';
 import { Icon, Modal, toast, confirmDelete } from '../components/common.jsx';
 import { PARTS, REQ_LABEL } from '../domain/proposals/parts.js';
-import { L, IND, P, S, C, IND_KW, INDUSTRIES, SOLUTIONS, PRODUCTS } from '../services/catalog.js';
-import { FitSlide } from '../domain/slides/Slide.jsx';
+import { L, IND, P, S, INDUSTRIES, SOLUTIONS, PRODUCTS } from '../services/catalog.js';
+import { FitSlide, Slide } from '../domain/slides/Slide.jsx';
 import { exportPptx } from '../domain/slides/export-pptx.js';
 import { deprecatedInDeck, deprecatedLine } from '../domain/products/deprecation.js';
 import { SCENARIOS, SC, REQ_TYPES, REQ_ORDER, STRATEGIES, ENDINGS, STAGES, slidesOfScenario } from '../domain/templates/scenarios.js';
 import { TemplateDetail, saveBlob, safeName } from '../components/tplkit.jsx';
 import { FavButton } from '../components/fav.jsx';
-import { ovOf, storyboardOf, scenarioStoryboard, slideOfUid } from '../domain/templates/scenario_storyboard.js';
+import { ovOf, storyboardOf, scenarioStoryboard, slideOfUid, viewUid } from '../domain/templates/scenario_storyboard.js';
 import { StoryCanvas } from '../components/storyboard.jsx';
 import { BubblePopup } from '../components/bubblepop.jsx';
 import { partIcon } from '../components/parteditor.jsx';
@@ -20,6 +20,7 @@ import { reqSig } from '../components/ctxconfirm.jsx';
 import { flatSlides } from '../components/viewer.jsx';
 import { TagChip, TagCard, tagMeta, tagHoverProps } from '../components/tagcard.jsx';
 import { useDetailPeek } from '../components/reference-detail.jsx';
+import { matchRefs } from '../components/match-area.jsx';
 import { Thumb } from '../components/Thumbs.jsx';
 import { usePickPeek } from '../components/pickpeek.jsx';
 import { FilterPopup, FStep, FChip, FAll, FProducts, idList, SCENARIO_UNIT } from '../components/filterpop.jsx';
@@ -39,8 +40,15 @@ const indName = (code) => (code && IND[code] ? IND[code].name : '범용 · 업�
 const indShort = (code) => (code && IND[code] ? IND[code].name : '범용');
 
 
+/** hover detail for one sheet of a scenario — big filled preview + the layout's metadata + its role here */
+const peekProps = (hc, s, x, k) => {
+  const show = (e) => hc.show(L[x.f], e.currentTarget, { ov: ovOf(s.id, k, x.f), scene: { page: k + 1, stage: x.stageName || (x.stage && x.stage.name), role: x.role } });
+  return { onMouseEnter: show, onMouseLeave: hc.hide, onFocus: show, onBlur: hc.hide };
+};
+
 /* ---------- shared actions ---------- */
 async function downloadScenario(s) {
+  if (!requireDownload()) return;
   const slides = slidesOfScenario(s);
   const deck = slides.map((x, k) => ({ f: x.f, ov: ovOf(s.id, k, x.f), part: x.stage.name }));
   // 샘플 시나리오는 그대로 두고, 판매 종료 제품(DSS DB 업데이트에서 확정)이 들어 있으면 받기 전에 한 번 더 확인
@@ -59,7 +67,7 @@ export function activateScenario(s, go) {
   const sb = storyboardOf(s, { pid: () => uid('s'), kid: () => uid('k'), lid: () => uid('l') });
   const id = createProposal();
   update(id, (d) => { Object.assign(d, sb); d.reqSaved = reqSig(d); });
-  toast('“' + s.title + '”을 히스토리에 추가했어요 · 이제 고치고 넣을 수 있어요');
+  toast('“' + s.title + '”을 히스토리에 추가했어요');
   go && go({ name: 'proposal', id });
 }
 /** 활용하기 확인 — 확인하면 바로 히스토리에 추가되고 내 제안서로 열린다 */
@@ -71,7 +79,7 @@ function UseConfirm({ s, onCancel, onConfirm }) {
       footer={<><span className="sp" /><button className="btn" onClick={onCancel}>취소</button><button className="btn btn-primary" data-autofocus onClick={onConfirm} data-login-required><Icon name="check" size={15} stroke={2.6} />활용하기</button></>}>
       <div className="bsu">
         <p className="bsu-t"><b>{s.title}</b></p>
-        <p className="bsu-d">이 구성 그대로 <b>내 제안서 히스토리</b>에 추가하고 바로 열어요. 추가한 제안서에서는 요구사항 · 매칭 · 목차를 고치고 레이아웃을 넣거나 바꿀 수 있어요. 원본 샘플 버티컬 시나리오는 바뀌지 않아요.</p>
+        <p className="bsu-d">이 구성 그대로 <b>내 제안서 히스토리</b>에 추가하고 바로 열어요.</p>
         <ul className="bsu-list">
           <li><Icon name="clip" size={14} />고객 요구사항 · 키맨 {p.req.form.keymen.length}명</li>
           <li><Icon name="link" size={14} />제품 {p.ctx.products.length} · 솔루션 {p.ctx.solutions.length} · 유관사례 {p.ctx.cases.length}</li>
@@ -284,16 +292,18 @@ function GroupCard({ k, n, onOpen }) {
 function GroupItem({ s, eyebrow, onOpen }) {
   const x = slidesOfScenario(s)[0];
   return (
-    <button type="button" className="bsx-item" onClick={() => onOpen(s.id)} aria-label={s.title + ' 상세 보기'}>
-      <span className="bsx-thumb"><FitSlide f={x.f} ov={ovOf(s.id, 0, x.f)} lazy /></span>
-      <span className="bsx-meta">
-        {eyebrow && <span className="bsx-eb">{eyebrow}</span>}
-        <b>{s.title}</b>
-        <span className="bsx-sub">{s.vs && s.vs.size ? s.vs.size : s.short}</span>
-        <span className="bsx-facts">{itemFacts(s)}</span>
-      </span>
-      <Icon name="chev" size={16} stroke={2.4} className="bsx-go" />
-    </button>
+    <li>
+      <button type="button" className="bsx-item" onClick={() => onOpen(s.id)} aria-label={s.title + ' 상세 보기'}>
+        <span className="bsx-thumb"><FitSlide f={x.f} ov={ovOf(s.id, 0, x.f)} lazy /></span>
+        <span className="bsx-meta">
+          {eyebrow && <span className="bsx-eb">{eyebrow}</span>}
+          <b className="bsx-title">{s.title}</b>
+          <span className="bsx-sub">{s.vs && s.vs.size ? s.vs.size : s.short}</span>
+          <span className="bsx-facts">{itemFacts(s)}</span>
+        </span>
+        <Icon name="chev" size={16} stroke={2.4} className="bsx-go" />
+      </button>
+    </li>
   );
 }
 function GroupListPopup({ k, items, onOpen, onClose }) {
@@ -307,7 +317,7 @@ function GroupListPopup({ k, items, onOpen, onClose }) {
     for (const s of shown) { const g = indGroupOf(s); let e = groups.find((x) => x.k === g); if (!e) groups.push(e = { k: g, label: indGroupName(s), items: [] }); e.items.push(s); }
   } else groups = [{ k: '_all', items: [...shown].sort((a, b) => (IND_RANK[a.ind] ?? 99) - (IND_RANK[b.ind] ?? 99)) }]; // stable: authored order within an industry
   return (
-    <Modal size="wide" title={t.label} sub={std ? '업종 ' + items.length + '개 · 01 Overview → 02 AI 업종 → 03 공간별 제안 → 04 솔루션 → 05 도입사례 → 06 Why Samsung' : t.desc} onClose={onClose}
+    <Modal size="bsx-modal" title={t.label} sub={std ? '업종 ' + items.length + '개 · 01 Overview → 02 AI 업종 → 03 공간별 제안 → 04 솔루션 → 05 도입사례 → 06 Why Samsung' : t.desc} onClose={onClose}
       footer={<><span className="note">{shown.length === items.length ? items.length + '개' : shown.length + ' / ' + items.length + '개'}</span><span className="sp" /><button className="btn" onClick={onClose}>닫기</button></>}>
       <div className="bsx">
         <label className="bsx-q"><Icon name="search" size={15} /><input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={std ? '업종 · 공간 이름으로 찾기 · 예) 병원, 객실, 강의실' : '제목 · 업종 · 제품 · 솔루션으로 찾기'} aria-label={t.label + ' 찾기'} data-autofocus /></label>
@@ -315,13 +325,17 @@ function GroupListPopup({ k, items, onOpen, onClose }) {
         {shown.length > 0 && groups.map((g) => (
           <section key={g.k} className="bsx-grp" aria-label={g.label || t.label}>
             {g.label && <h3>{g.label}<span className="num">{g.items.length}</span></h3>}
-            <div className="bsx-grid">{g.items.map((s) => <GroupItem key={s.id} s={s} eyebrow={std ? null : indName(s.ind)} onOpen={onOpen} />)}</div>
+            <ul className="bsx-list" role="list">
+              {g.items.map((s) => <GroupItem key={s.id} s={s} eyebrow={std ? null : indName(s.ind)} onOpen={onOpen} />)}
+            </ul>
           </section>
         ))}
       </div>
     </Modal>
   );
 }
+
+export function ScenarioList(props) { return <ScenarioView {...props} />; }
 
 /** one sheet of a scenario, big — the same detail popup as in the scenario's layout list (prev / next through the whole deck) */
 function SheetDetail({ s, index, onNav, onClose }) {
@@ -374,19 +388,90 @@ export function ScenarioView({ go, list, query, ai = false, hitOf = {}, mark = {
   );
 }
 
-/* ---------- 상세 보기: the scenario's Storyboard, read-only ----------
+/* ---------- 상세 보기 · 시트 탭: 왼쪽 세로 썸네일 목록 + 오른쪽 큰 시트 ----------
+   The popup opens here. The big sheet turns left / right — the arrows beside it, ← → (↑ ↓) keys, or a sideways swipe — and a
+   thumbnail jumps to its sheet. The sheet fits the room left of the popup's fixed size (both width and height); a click on it
+   opens the usual sheet detail popup. active = no popup is open above this one (the keys belong to the top popup). */
+function SheetBrowser({ s, slides, pages, index, onIndex, onZoom, active = true }) {
+  const fit = useRef(null); const rail = useRef(null);
+  const drag = useRef(null); // { x, y } where a press on the sheet began; swiped = that press turned the sheet, so its click is not a zoom
+  const swiped = useRef(false);
+  const [w, setW] = useState(0);
+  useLayoutEffect(() => {
+    const el = fit.current; if (!el) return;
+    const size = () => setW(Math.max(0, Math.floor(Math.min(el.clientWidth, el.clientHeight * 16 / 9))));
+    const ro = new ResizeObserver(size); ro.observe(el); size();
+    return () => ro.disconnect();
+  }, []);
+  useEffect(() => { const el = rail.current && rail.current.querySelector('[aria-current="true"]'); if (el) el.scrollIntoView({ block: 'nearest' }); }, [index]);
+  const pageOf = (k) => pages[viewUid(s.id, k)] || k + 1;
+  const can = (d) => index + d >= 0 && index + d < slides.length;
+  const go = (d) => { if (can(d)) onIndex(index + d); };
+  const goRef = useRef(go); goRef.current = go;
+  useEffect(() => {
+    if (!active) return undefined;
+    const onKey = (e) => {
+      if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+      const t = e.target;
+      if (t && (/^(INPUT|SELECT|TEXTAREA)$/.test(t.tagName) || t.isContentEditable)) return;
+      const d = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+      if (!d) return;
+      e.preventDefault(); goRef.current(d);
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [active]);
+  const onDown = (e) => { swiped.current = false; drag.current = { x: e.clientX, y: e.clientY }; };
+  const onUp = (e) => {
+    const from = drag.current; drag.current = null;
+    if (!from) return;
+    const dx = e.clientX - from.x; const dy = e.clientY - from.y;
+    if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+    swiped.current = true; go(dx < 0 ? 1 : -1);
+  };
+  const x = slides[index];
+  return (
+    <div className="sbs" role="tabpanel" aria-label="시트">
+      <div className="sbs-rail" ref={rail} role="list" aria-label="시트 목록">
+        {slides.map((z, k) => (
+          <button key={k} type="button" role="listitem" className="sbs-th" aria-current={k === index ? 'true' : undefined} onClick={() => onIndex(k)}
+            aria-label={pageOf(k) + '쪽 ' + (L[z.f] ? L[z.f].name : '')}>
+            <span className="n num">{pageOf(k)}</span>
+            <span className="pv"><FitSlide f={z.f} ov={ovOf(s.id, k, z.f)} pageNo={pageOf(k)} lazy /></span>
+          </button>
+        ))}
+      </div>
+      <div className="sbs-main">
+        <button type="button" className="sbs-nav" disabled={!can(-1)} onClick={() => go(-1)} aria-label="이전 장"><Icon name="chevL" size={20} stroke={2.2} /></button>
+        <div className="sbs-fit" ref={fit}>
+          {x && w > 0 && (
+            <button type="button" className="sbs-sheet" aria-label={pageOf(index) + '쪽 ' + (L[x.f] ? L[x.f].name : '') + ' 크게 보기'}
+              onPointerDown={onDown} onPointerUp={onUp} onPointerCancel={() => { drag.current = null; }} onDragStart={(e) => e.preventDefault()}
+              onClick={() => { if (swiped.current) { swiped.current = false; return; } onZoom(); }}>
+              <Slide key={index} f={x.f} ov={ovOf(s.id, index, x.f)} width={w} pageNo={pageOf(index)} />
+            </button>
+          )}
+        </div>
+        <button type="button" className="sbs-nav" disabled={!can(1)} onClick={() => go(1)} aria-label="다음 장"><Icon name="chev" size={20} stroke={2.2} /></button>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- 상세 보기 · Storyboard 탭: the scenario's Storyboard, read-only ----------
    The same bubbles as a proposal's Storyboard screen (storyboard.jsx StoryCanvas readOnly): 고객 요구사항 → 제품 · 솔루션 매칭 → 목차,
    every part with its layouts already filled. Bubbles open view-only popups beside them, a layout card opens that sheet big
    (prev / next through the deck). Nothing can be edited or inserted here — 활용하기 copies it into the history as my proposal. */
-export function ScenarioStoryboard({ s, go, onClose }) {
+export function ScenarioStoryboard({ s, go, onClose, ownId = null }) {
   const p = useMemo(() => scenarioStoryboard(s.id), [s.id]);
   const slides = useMemo(() => slidesOfScenario(s), [s.id]);
   const pages = useMemo(() => Object.fromEntries(flatSlides(p).map((z) => [z.x.uid, z.n])), [p]);
   const [pop, setPop] = useState(null); // { t: 'req' } | { t: 'match' } | { t: 'part', id }
   const [sheet, setSheet] = useState(null);
+  const [view, setView] = useState('sheet'); // 'sheet' (시트 — first) | 'story' (Storyboard); the popup keeps one size for both
+  const [cur, setCur] = useState(0); // the sheet shown big in the 시트 tab
   const [ask, setAsk] = useState(false);
   const [busy, run] = useBusy();
-  const req = REQ_TYPES[s.req]; const strat = STRATEGIES[s.strategy];
   const parts = p.parts.filter((x) => !x.deck);
   const nL = slides.length;
   // a part's popup opens to the right of its bubble — bring the bubble to the left first when there is no room beside it
@@ -407,21 +492,25 @@ export function ScenarioStoryboard({ s, go, onClose }) {
       title={<span className="bsd-t">{s.title}</span>}
       sub={indShort(s.ind) + ' · ' + s.short}
       footer={<>
-        <button className="btn" onClick={() => setSheet(0)}><Icon name="layers" size={15} />전체 PPT 보기</button>
+        <button className="btn" onClick={() => setSheet(view === 'sheet' ? cur : 0)}><Icon name="layers" size={15} />전체 PPT 보기</button>
         <span className="note sbv-note">목차 {parts.length}개 · 레이아웃 {nL}장</span>
         <span className="sp" />
         <button className="btn" onClick={onClose}>닫기</button>
         <button className="btn" disabled={busy} onClick={() => run(() => downloadScenario(s))}>{busy ? <span className="spin" /> : <Icon name="download" size={15} />}{busy ? '만드는 중…' : 'PPTX로 받기'}</button>
-        <button className="btn btn-primary" onClick={() => setAsk(true)}><Icon name="plus" size={15} stroke={2.4} />활용하기</button>
+        {/* opened from a [샘플] history card (ownId): that copy is already in the history — open it instead of adding another */}
+        {ownId
+          ? <button className="btn btn-primary" onClick={() => { onClose(); go({ name: 'proposal', id: ownId }); }}><Icon name="route" size={15} />내 제안서 열기</button>
+          : <button className="btn btn-primary" onClick={() => setAsk(true)}><Icon name="plus" size={15} stroke={2.4} />활용하기</button>}
       </>}>
       <div className="sbv-bar">
-        <span className={'tag pt h-' + req.hue}>{req.label}</span>
-        <span className="tag">{strat.label}</span>
-        <span className="tag">결말 · {ENDINGS[s.ending]}</span>
-        <span className="sbv-thesis" title={s.thesis}>{s.thesis}</span>
-        <span className="sbv-ro"><Icon name="eye" size={14} />보기 전용<span className="l"> · <b>활용하기</b>를 누르면 내 제안서로 고치고 넣을 수 있어요</span></span>
+        <div className="sbv-tabs" role="tablist" aria-label="보기">
+          {[['sheet', '시트'], ['story', 'Storyboard']].map(([k, label]) => (
+            <button key={k} type="button" role="tab" className="sbv-tab" aria-selected={view === k} onClick={() => { setPop(null); setView(k); }}>{label}</button>
+          ))}
+        </div>
       </div>
-      <div className="story sbv-story">
+      {view === 'sheet' && <SheetBrowser s={s} slides={slides} pages={pages} index={cur} onIndex={setCur} onZoom={() => setSheet(cur)} active={sheet == null && !ask} />}
+      {view === 'story' && <div className="story sbv-story" role="tabpanel" aria-label="Storyboard">
         <StoryCanvas p={p} open={open} stage="story" readOnly activePart={part ? part.id : null} pop={pop && pop.t !== 'part' ? pop : null}
           onReq={() => setPop((v) => (v && v.t === 'req' ? null : { t: 'req' }))} onMatch={() => setPop((v) => (v && v.t === 'match' ? null : { t: 'match' }))}
           pageOf={(u) => pages[u] || ''}>
@@ -429,14 +518,14 @@ export function ScenarioStoryboard({ s, go, onClose }) {
           {pop && pop.t === 'match' && <MatchView s={s} p={p} onClose={close} />}
           {part && <PartView p={p} part={part} pages={pages} onClose={close} onSheet={(u) => { const k = slideOfUid(s.id, u); if (k >= 0) setSheet(k); }} />}
         </StoryCanvas>
-      </div>
-      {sheet != null && <SheetDetail s={s} index={sheet} onNav={setSheet} onClose={() => setSheet(null)} />}
+      </div>}
+      {sheet != null && <SheetDetail s={s} index={sheet} onNav={setSheet} onClose={() => { if (view === 'sheet') setCur(sheet); setSheet(null); }} />}
       {ask && <UseConfirm s={s} onCancel={() => setAsk(false)} onConfirm={() => { setAsk(false); onClose(); activateScenario(s, go); }} />}
     </Modal>
   );
 }
 
-const RO_NOTE = <span className="bp-note"><Icon name="eye" size={13} />보기 전용 · 활용하기를 누르면 내 제안서로 고칠 수 있어요</span>;
+const RO_NOTE = <span className="bp-note"><Icon name="eye" size={13} />보기 전용</span>;
 /** 고객 요구사항 — view only (the same content a proposal's requirements popup holds: 자유형식 · 입력 폼 키맨별 요구 · 메모) */
 export function ReqView({ s, p, onClose }) {
   const f = p.req.form; const plain = (segs) => segPlain(segs, ref => tagMeta(ref)?.label || ref);
@@ -475,15 +564,16 @@ export function ReqView({ s, p, onClose }) {
 /** 제품 · 솔루션 매칭 — view only */
 export function MatchView({ s, p, onClose }) {
   const peek = useDetailPeek(p);
-  const groups = [['products', 'product', '제품'], ['solutions', 'solution', '솔루션'], ['cases', 'case', '유관 사례']];
+  const groups = [['products', 'product', '제품'], ['solutions', 'solution', '솔루션'], ['services', 'shield', '서비스'], ['cases', 'case', '유관 사례']];
+  const refs = matchRefs(p); // 서비스 = 서비스 분류 솔루션 + 구독
   return (
-    <BubblePopup cls="mt" extra="ro" anchor=".match-node .node" beside=".match-node .match-card" icon={<Icon name="link" size={17} />} title="제품 · 솔루션 매칭" onClose={onClose}
+    <BubblePopup cls="mt" extra="ro" anchor=".match-node .node" beside=".match-node .match-card" icon={<Icon name="link" size={17} />} title="제품 · 솔루션 · 서비스" onClose={onClose}
       sub={<span className="bp-sub"><span>{p.indName || indName(p.ind)}</span></span>}
       footer={<>{RO_NOTE}<span className="sp" /><button className="btn btn-sm" onClick={onClose}>닫기</button></>}>
       {groups.map(([k, t, label]) => (
         <section key={k} className="rov">
-          <h4><Icon name={t} size={14} />{label}<span className="num">{p.ctx[k].length}</span></h4>
-          {p.ctx[k].length ? <div className="rov-tags">{p.ctx[k].map((id) => <TagCard key={id} r={t + ':' + id} peek={t === 'case' ? undefined : peek} />)}</div>
+          <h4><Icon name={t} size={14} />{label}<span className="num">{refs[k].length}</span></h4>
+          {refs[k].length ? <div className="rov-tags">{refs[k].map((r) => <TagCard key={r} r={r} peek={/^(case|subscription):/.test(r) ? undefined : peek} />)}</div>
             : <p className="muted rov-none">{t === 'case' ? '고객이 정해지면 업종 · 관심사에 맞춰 채워요' : '연결된 항목이 없어요'}</p>}
         </section>
       ))}
@@ -588,7 +678,6 @@ export function ScenarioDetail({ s, go, onClose, onSwitch }) {
         <section className="bsd-flow" aria-labelledby="bsd-flow-h">
           <div className="bsd-flow-h">
             <h3 id="bsd-flow-h">흐름</h3>
-            <span className="faint" style={{ fontSize: "var(--text-12px)" }}>장표를 누르면 크게 보고 이 시나리오에서의 역할을 확인할 수 있어요</span>
           </div>
           <ol className="bsd-steps-bar">
             {s.flow.map((g, i) => (

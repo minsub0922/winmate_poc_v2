@@ -38,7 +38,8 @@ try{
    if(mode==='forbidden')return route.fulfill({status:403,json:{code:'csrf_rejected',detail:'검증용 요청 출처 거부'}});
    if(mode==='hold')await new Promise(resolve=>held.push({resolve,input}));
    const data=response(input);
-   if(mode==='invalid')data.blocks[1].s='OH55A-S';
+   // every answer for block 1 — the first one and each repair of that block alone — names a product that is not selected
+   if(mode==='invalid'){const bad=data.blocks.find(b=>b.i===1);if(bad)Object.assign(bad,{action:'replace',s:'OH55A-S'});}
    if(mode==='clear')data.images=data.images.map(im=>({...im,action:'clear',n:-1}));
    try{return await route.fulfill({json:{mode:'real',data}});}catch{/* a cancelled stale request */}
    return;
@@ -54,12 +55,23 @@ try{
  page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));page.setDefaultTimeout(20000);
  await page.goto('http://127.0.0.1:'+server.httpServer.address().port);await page.waitForFunction(()=>document.querySelector('.app')&&!document.querySelector('.boot'));
  const audit=await page.evaluate(async()=>{
-  const {ALL_LAYOUTS}=await import('/src/services/catalog.js');const {readBlocks,readImageSlots}=await import('/src/domain/slides/Slide.jsx');
+  const {ALL_LAYOUTS,loadLayoutHtml}=await import('/src/services/catalog.js');const {readBlocks,readImageSlots}=await import('/src/domain/slides/Slide.jsx');
+  await loadLayoutHtml(); // the shell (.app) can be on screen before the layout bodies have arrived
   const problems=[];
   for(const l of ALL_LAYOUTS){try{const t=readBlocks(l.f,undefined,true),im=readImageSlots(l.f);if(new Set(t.map(x=>x.i)).size!==t.length||new Set(im.map(x=>x.i)).size!==im.length)problems.push(l.f);}catch(e){problems.push(l.f+': '+e.message);}}
   return {count:ALL_LAYOUTS.length,problems};
  });
  assert.deepEqual(audit.problems,[]);pass('All '+audit.count+' registered layout structures expose unambiguous text/image slots');
+ const blankPolicy=await page.evaluate(async()=>{
+  const {layoutHtml}=await import('/src/services/catalog.js');const {applyOverrides}=await import('/src/domain/slides/Slide.jsx');
+  const host=document.createElement('div');host.innerHTML=layoutHtml('L_VS_DIV_R1');
+  applyOverrides(host.firstElementChild,{img:{0:{hidden:true,intentional:true}}});
+  const intentional=host.innerText||host.textContent;
+  applyOverrides(host.firstElementChild,{img:{0:{hidden:true}}});
+  return {intentional,missing:host.innerText||host.textContent};
+ });
+ assert.doesNotMatch(blankPolicy.intentional,/이미지 확인 필요/);assert.match(blankPolicy.missing,/이미지 확인 필요/);
+ pass('Intentionally unused image slots are blank; missing evidence still asks for review');
  const ranking=await page.evaluate(async()=>{
   const {loadImageLibrary,imagePool}=await import('/src/services/image-library.js');const {relatedImages}=await import('/src/services/images.js');
   const images=imagePool({products:['qm55c','oh55a']},await loadImageLibrary());
@@ -85,10 +97,12 @@ try{
  },{productId:selectedId});
  const state=()=>page.evaluate(async()=>{const {getProposal}=await import('/src/repositories/proposals.js');return getProposal(window.__contextPid).parts[0].layouts[0];});
  if(!process.env.WINMATE_CONTEXT_LIVE){
-  await page.getByRole('status',{name:'고객 맥락에 맞게 레이아웃을 채우는 중'}).waitFor();
+  // While the model is working the sheet is announced as loading (작업 알림) and the card is a shimmer only — no badge, no icon,
+  // even for this My template with saved text (2026-11-17) — and never counts as done.
+  await page.getByRole('status').filter({hasText:'레이아웃을 채우는 중'}).first().waitFor();
+  await page.locator('.lcard[data-layout-uid="ctx-sheet"] .context-slide.shimmer').waitFor();assert.equal(await page.locator('.lcard[data-layout-uid="ctx-sheet"] .stbadge, .lcard[data-layout-uid="ctx-sheet"] .context-slide svg').count(),0);
   const loading=await state();assert.notEqual(loading.status,'done');
   await page.screenshot({path:path.join(out,'shimmer.png'),animations:'disabled'});
-  await page.waitForFunction(()=>document.querySelector('.context-slide[aria-busy="true"]'));
   while(!held.length)await new Promise(resolve=>setTimeout(resolve,20));
   mode='normal';held.splice(0).forEach(h=>h.resolve());
  }
@@ -97,7 +111,7 @@ try{
  assert.ok(JSON.stringify(done.ov.t).includes(selectedModel));assert.ok(!JSON.stringify(done.ov.t).includes('OH55A-S'));
  const completion=await page.evaluate(async()=>{const {getProposal}=await import('/src/repositories/proposals.js');const {layoutIsComplete}=await import('/src/services/layout-context.js');const p=getProposal(window.__contextPid);return layoutIsComplete(p,p.parts[0].layouts[0]);});
  if(!process.env.WINMATE_CONTEXT_LIVE)assert.equal(completion,true);
- pass(process.env.WINMATE_CONTEXT_LIVE?'Real Gemini reviewed/replaced example products with selected '+selectedModel:'Every added layout starts in shimmer; example values are replaced and only reviewed content completes');
+ pass(process.env.WINMATE_CONTEXT_LIVE?'Real Gemini reviewed/replaced example products with selected '+selectedModel:'Every added layout is announced as loading and is not done until reviewed; example values are replaced and only reviewed content completes');
  await page.locator('.lcard[data-layout-uid="ctx-sheet"]').click();
  await page.locator('.detail-left [data-img="0"]').click();
  const imagePop=page.getByRole('dialog',{name:'대체 이미지 고르기',exact:true});
@@ -116,9 +130,11 @@ try{
   const forbidden=await state();assert.equal(forbidden.adaptation.errorStatus,403);assert.equal(forbidden.adaptation.errorCode,'csrf_rejected');
   assert.deepEqual(forbidden.ov,beforeForbidden.ov);assert.deepEqual(forbidden.ev,beforeForbidden.ev);
   await page.locator('.lcard[data-layout-uid="ctx-sheet"]').click();
-  assert((await page.locator('.modal.sheet .context-preserved-note').innerText()).includes('검증용 요청 출처 거부'));
+  // The failure is reported in the 작업 알림 layer (FeedbackPopup) with the server's own words and a retry; the saved sheet stays on screen.
+  const refused=page.getByRole('alert').filter({hasText:'검증용 요청 출처 거부'}).first();await refused.waitFor();
+  assert.ok((await page.locator('.modal.sheet .detail-left').innerText()).includes(selectedModel),'saved content stays visible behind the error');
   assert.equal(await page.getByRole('button',{name:'현재 맥락으로 다시 채우기',exact:true}).count(),0);
-  mode='normal';await page.locator('.modal.sheet .context-preserved-note').getByRole('button',{name:'다시 시도',exact:true}).click();
+  mode='normal';await refused.getByRole('button',{name:'다시 시도',exact:true}).click();
   await page.waitForFunction(()=>window.__ctxRepo.getProposal(window.__contextPid).parts[0].layouts[0].adaptation.phase==='ready');
   await page.locator('.modal').filter({has:page.locator('.detail')}).getByRole('button',{name:'닫기',exact:true}).last().click();
   pass('403 retains exact server code and saved content; unchanged context hides refill and the error retry still recovers');
@@ -136,7 +152,10 @@ try{
    const original=getProposal(window.__contextPid),copy=cloneProposal(original);return {fav:original.parts[0].layouts[1].adaptation.phase,clone:getProposal(copy).parts[0].layouts.map(x=>x.adaptation.phase),id:copy};});
   assert.equal(created.fav,'queued');assert.ok(created.clone.every(x=>x==='queued'));pass('Filled favorites/My templates/whole-proposal copies cannot bypass context review');
   await page.waitForFunction(()=>{const {getProposal}=window.__ctxRepo;return getProposal(window.__contextPid).parts[0].layouts.every(x=>x.adaptation.phase==='ready');});
-  mode='clear';await page.evaluate(async()=>{const {retryLayoutContext}=await import('/src/services/layout-context.js');retryLayoutContext(window.__contextPid,'ctx-sheet');});
+  // Back to the template's own sample photo (another product's cut). A picture that already shows the named product is kept even
+  // when the model asks to clear it (personalizeLayout: tied), so the case that must end in review is the sample photo itself.
+  mode='clear';await page.evaluate(async()=>{const {update}=await import('/src/repositories/proposals.js');const {retryLayoutContext}=await import('/src/services/layout-context.js');
+   update(window.__contextPid,p=>{delete p.parts[0].layouts[0].ov.img[0];});retryLayoutContext(window.__contextPid,'ctx-sheet');});
   await page.waitForFunction(()=>window.__ctxRepo.getProposal(window.__contextPid).parts[0].layouts[0].adaptation.phase==='review');
   assert.equal((await state()).ov.img[0].hidden,true);assert.notEqual((await state()).status,'done');
   pass('An unresolved image is explicitly cleared and requires review, never completed using the sample photo');

@@ -1,18 +1,20 @@
 import { requireLogin } from '../api/session.js';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { searchCatalogKeywords, searchCatalogAI } from '../services/catalog-search.js';
+import { layoutLibrary } from '../domain/templates/layout_library.js';
 
 /** AI search is always opt-in; only submit freezes a draft as an AI query. */
 export function useCatalogSearch(kind, draft, context = {}, items) {
+  const libraryRevision = layoutLibrary().rev; // Scenario flow names also use current layout metadata.
   const [aiEnabled, setEnabled] = useState(false);
   const [request, setRequest] = useState(null);
   const [state, setState] = useState(null);
   const controller = useRef(null), sequence = useRef(0);
   const query = aiEnabled ? request?.query || '' : draft.trim();
   const contextKey = JSON.stringify(context);
-  const sourceKey = items ? JSON.stringify(items) : '';
-  const requestKey = JSON.stringify([kind, request, contextKey, sourceKey]);
-  const keywordHits = useMemo(() => aiEnabled || !query ? null : searchCatalogKeywords(kind, query, items), [kind, query, aiEnabled, items]);
+  const sourceKey = useMemo(() => items ? JSON.stringify(items) : '', [items]);
+  const requestKey = JSON.stringify([kind, request, contextKey, sourceKey, libraryRevision]);
+  const keywordHits = useMemo(() => aiEnabled || !query ? null : searchCatalogKeywords(kind, query, items), [kind, query, aiEnabled, items, libraryRevision]);
   const clear = () => { sequence.current++; controller.current?.abort(); setRequest(null); setState(null); };
   const setAIEnabled = enabled => { clear(); setEnabled(enabled); };
   const submit = text => {

@@ -1,7 +1,7 @@
 // Real catalog thumbnails. Loading and failures use the shared image state, never mock artwork.
 import React from 'react';
 import IMAGES from '../../../data/images.json' with { type: 'json' };
-import { P, S, C } from '../services/catalog.js';
+import { P, S, C, SUB } from '../services/catalog.js';
 import { PImg } from '../services/products.js';
 import { mediaThumb } from '../services/media.js';
 
@@ -15,10 +15,13 @@ export function photoOf(type, id) {
   return { src: v.file, cut: v.kind === 'cut', white: v.kind === 'cut' && /\.jpe?g$/i.test(v.file), desc: v.desc };
 }
 
+// 구독 — 패키지는 제 사진, 나머지는 유형마다 구독 장의 기본 사진(app/web/public/assets/subs)
+const SUB_PHOTO = { program: 'kv-grid', care: 'val-dorm', 'care-option': 'care-2', promotion: 'kv-grid', payment: 'val-office' };
+const subPhoto = (id) => { const x = SUB[id]; if (!x) return null; const src = x.photo || (SUB_PHOTO[x.type] ? '/assets/subs/' + SUB_PHOTO[x.type] + '.webp' : null); return src ? { src, cut: false, white: false, desc: x.name } : null; };
 export function Thumb({ r, mini = false, className = '' }) {
   const [type, id] = String(r).split(':');
-  const photo = photoOf(type, id);
-  const product = type === 'product' ? P[id] : null;
+  const photo = type === 'subscription' ? subPhoto(id) : photoOf(type, id);
+  const product = type === 'product' ? P[id] : type === 'solution' && S[id] && S[id].row ? P[id] : null;   // (제품 DB 의 솔루션 · 서비스 행 — 그 행의 사진)
   const source = photo?.src || product?.th || product?.gal?.[0] || ((type === 'solution' || type === 'case') ? mediaThumb(type, id) : null);
   const kind = photo ? photo.cut ? 'cut' : 'photo' : product ? product.thK === 's' ? 'photo' : 'cut' : 'photo';
   const name = photo?.desc || product?.name || S[id]?.name || C[id]?.cust || '';

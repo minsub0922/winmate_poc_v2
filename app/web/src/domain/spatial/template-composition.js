@@ -1,5 +1,6 @@
 // Presentation templates keep real object dimensions while reducing empty floor.
-export const TEMPLATE_COMPOSITION_VERSION=4;
+// 5 (2026-11-16): each space gets its own character — furniture plan, props and people by space name and industry.
+export const TEMPLATE_COMPOSITION_VERSION=5;
 export const TEMPLATE_ROOM={width:8,depth:6.8,referenceWidth:10.5,referenceDepth:9};
 export const DEFAULT_TEMPLATE_ROOMS=6;
 export function roomGridColumns(count){

@@ -10,7 +10,7 @@ import {
   HemisphereLight, DirectionalLight, ShadowMaterial, Raycaster, Line, LineSegments, EdgesGeometry,
   MeshBasicMaterial, SRGBColorSpace, ACESFilmicToneMapping, PCFShadowMap, OrbitControls,
 } from './lib3.js';
-import { data, tplOf } from './data.js';
+import { data, tplOf, thumbnailData } from './data.js';
 import { colorOf, keyOf, cachedPart, partPos, Collector, meshesOf } from './mesh.js';
 import { buildFacade, buildRoof, buildSite, buildTerrace, setFont, kitOf, signOfInd, SLAB } from './facade.js';
 
@@ -839,9 +839,14 @@ export class Stage {
 // single: 공간 조감도 한 장(외벽 없이 위에서), 아니면 건물(기본 외관). floors: id 또는 { tpl, fv }
 // wanted: 차례가 왔을 때 아직 필요한지 — 아니면 그리지 않고 'skip'으로 끝낸다(고르기 창을 닫은 뒤 남은 줄)
 let thumbStage = null, thumbHost = null, thumbQueue = Promise.resolve();
-export function thumbnail({ floors, spread = 0, w = 640, h = 410, single = false, title = '', type = 'image/png', quality, wanted = null }) {
+export function thumbnail({ floors, spread = 0, w = 640, h = 410, single = false, title = '', type = 'image/png', quality, wanted = null, camera = null }) {
   const job = thumbQueue.then(async () => {
     if (wanted && !wanted()) throw Object.assign(new Error('skip'), { skip: true });
+    if (window.__wmBldThumbnailHook) {
+      const result = await window.__wmBldThumbnailHook({ data: thumbnailData(floors), options: { floors, spread, w, h, single, title, type, quality, ...(camera ? {camera} : {}) } });
+      if (wanted && !wanted()) throw Object.assign(new Error('skip'), { skip: true });
+      if (result) return result;
+    }
     if (!thumbStage) {
       thumbHost = document.createElement('div');
       thumbHost.style.cssText = `position:fixed;left:-10000px;top:0;width:${w}px;height:${h}px;pointer-events:none;opacity:0`;
@@ -859,7 +864,7 @@ export function thumbnail({ floors, spread = 0, w = 640, h = 410, single = false
     S.setFloors(floors, { title, facades: !single });
     // 그림자 판은 그리지 않아 밝은 · 어두운 화면 어디에 놓여도 어울리게
     if (S.ground) S.ground.visible = false;
-    S.aim({ azimuth: 40, elevation: single ? 48 : S.spread > 0.5 ? 30 : 22, i: null, pad: single ? 1.02 : 1.0 }, false);
+    S.aim({ azimuth: 40, elevation: single ? 48 : S.spread > 0.5 ? 30 : 22, ...camera, i: null, pad: single ? 1.02 : 1.0 }, false);
     return S.snapshot({ w, h, type, quality });
   });
   thumbQueue = job.catch(() => {});

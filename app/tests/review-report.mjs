@@ -162,7 +162,7 @@ try {
     const { sameReviewDocument } = await import('/src/domain/review/preview.js');
     return sameReviewDocument({ units: [{ title: '원본 제안서' }] }, { units: [{ text: '다른 제안서' }] });
   }); assert.equal(mismatch, false); pass('Unrelated source documents are rejected when restoring historical previews');
-  await page.locator('.rv-radar-card').first().screenshot({ path: path.join(out, 'criteria-radar.png') });
+  await page.locator('.rv-score-cat').first().screenshot({ path: path.join(out, 'criteria-radar.png') });
   await page.locator('.rv-priorities').screenshot({ path: path.join(out, 'priority-grid.png') });
   for (const [width, mode] of [[900, 'light'], [390, 'light'], [1500, 'dark']]) {
     await page.setViewportSize({ width, height: 1050 }); await page.emulateMedia({ colorScheme: mode });
@@ -290,7 +290,7 @@ try {
   assert.equal(await page.locator('.rv-score-summary>div').count(),4);
   assert.equal(await page.locator('.rv-radar-key').count(),0);
   assert.ok(!(await page.locator('.rv-report').innerText()).includes('이전 7개 영역'));
-  await page.locator('.rv-radar-card').last().screenshot({path:path.join(out,'current-quality-radar.png')});
+  await page.locator('.rv-score-cat').last().screenshot({path:path.join(out,'current-quality-radar.png')});
   pass('New review reports render four categories and 24 criteria; historical reports and scores retain their original schema');
   // Existing proposal layouts, not files, are the source when a review has a link.
   const linked = await page.evaluate(async () => {

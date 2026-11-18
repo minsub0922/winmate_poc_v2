@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "build": "node ../scripts/export_guide_context.mjs && node ../scripts/build_image_ranges.mjs && vite build && node scripts/build-exporter.mjs",
+    "build": "node ../scripts/export_guide_context.mjs && node ../scripts/build_image_ranges.mjs && node ../scripts/build_building_catalog.mjs && vite build && node scripts/build-exporter.mjs",
     "build:backgrounds": "node ../scripts/build_backgrounds.mjs",
     "build:guides": "node ../scripts/build_guide_gifs.mjs",
     "test:guides": "node ../tests/guide-gifs.mjs && node ../tests/guides.mjs",
@@ -25,10 +25,12 @@
     "test:spatial:drawer": "node ../tests/spatial-selection.mjs && node ../tests/spatial-object-drawer-ui.mjs",
     "test:spatial:editor-ui": "node ../tests/spatial-editor-ui.mjs",
     "test:spatial:naturalness": "node ../tests/spatial-naturalness.mjs",
+    "test:spatial:characters": "node ../tests/spatial-space-characters.mjs",
     "test:spatial:ui": "node ../tests/spatial-command-ui.mjs && node ../tests/spatial-manipulate-ui.mjs && node ../tests/spatial-popup-ui.mjs",
     "test:spatial:command": "node ../tests/spatial-commands.mjs && node ../tests/spatial-room-ops.mjs && node ../tests/spatial-mention-options.mjs",
     "test:birdseye": "node ../tests/birdseye-history.mjs && node ../tests/birdseye-home-ui.mjs",
     "test:spatial:layout": "node ../tests/spatial-layout.mjs && node ../tests/spatial-my-layout.mjs",
+    "test:birdseye:sheet": "node ../tests/birdseye-sheet.mjs && node ../tests/birdseye-sheet-ui.mjs",
     "test:spatial:storyboard": "node ../tests/spatial-storyboard-layout.mjs && node ../tests/spatial-storyboard-ui.mjs && node ../tests/storyboard-birdseye-layout-ui.mjs",
     "preview": "vite preview --host 127.0.0.1",
     "test:e2e": "node ../tests/real-functional-e2e.mjs",
@@ -60,10 +62,12 @@
     "test:layout-prompt:live": "node ../tests/layout-prompt.mjs",
     "test:layout-actions": "node --test ../tests/layout-actions.mjs",
     "test:layout-reflow:vision": "../.venv/bin/python -B ../tests/layout-reflow-vision.py",
-    "test:layout-counts": "node ../tests/layout-repeat-counts.mjs --ui"
+    "test:layout-counts": "node ../tests/layout-repeat-counts.mjs --ui",
+    "test:scenario-images": "node ../scripts/audit_scenario_images.mjs"
   },
   "dependencies": {
     "gifuct-js": "2.1.2",
+    "immer": "10.1.1",
     "jszip": "3.10.1",
     "pdfjs-dist": "3.11.174",
     "pptxgenjs": "3.12.0",

@@ -4,7 +4,7 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createServer} from '../web/node_modules/vite/dist/node/index.js';
 import {chromium} from '../web/node_modules/playwright/index.mjs';
-import {startBlankStudio} from './fixtures/birdseye/entry.mjs';
+import {startStudio} from './fixtures/birdseye/entry.mjs';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),output=path.join(root,'app/tests/output/spatial-history-loading');fs.mkdirSync(output,{recursive:true});
 const apiPort=Number(process.env.SPATIAL_TEST_API_PORT||8993),webPort=Number(process.env.SPATIAL_TEST_WEB_PORT||5293),base='http://127.0.0.1:'+webPort;
@@ -53,8 +53,8 @@ try{
   const page=await context.newPage();await page.setViewportSize({width:1500,height:960});page.on('pageerror',e=>errors.push(e.message));
   await page.addInitScript(()=>{window.__wmBldMod_={app:{list:async()=>[],onChange:()=>()=>{},thumb:async()=>null,remove:async()=>{}}};});
   let release,requests=0,staleDelivered;const gate=new Promise(resolve=>release=resolve),staleDone=new Promise(resolve=>staleDelivered=resolve);
-  await page.route(url=>url.pathname==='/api/spatial/history',async route=>{if(++requests===1){await gate;await route.fulfill({json:{items:[]}}).catch(()=>{});staleDelivered();}else await route.fulfill({json:history});});
-  await page.goto(base+'/spatial');await page.locator('.sp-studio-launch').waitFor({timeout:120000});await startBlankStudio(page);await page.getByRole('button',{name:'뒤로 가기',exact:true}).click();await page.locator('.sp-history .sp-map-card').first().waitFor();assert.equal(await page.locator('.sp-history .sp-map-card').count(),history.items.length);
+  await page.route(url=>url.pathname==='/api/spatial/history',async route=>{if(route.request().method()!=='GET')return route.continue();if(++requests===1){await gate;await route.fulfill({json:{items:[]}}).catch(()=>{});staleDelivered();}else await route.fulfill({json:history});});
+  await page.goto(base+'/spatial');await page.locator('.sp-studio-launch').waitFor({timeout:120000});await startStudio(page);await page.getByRole('button',{name:'뒤로 가기',exact:true}).click();await page.locator('.sp-history .sp-map-card').first().waitFor();assert.equal(await page.locator('.sp-history .sp-map-card').count(),history.items.length);
   release();await staleDone;await frames(page);assert.equal(await page.locator('.sp-history .sp-map-card').count(),history.items.length);assert.equal(await page.locator('.sp-history').getAttribute('aria-busy'),'false');await page.close();pass('a late empty response cannot replace the newer history after returning from the studio');
   // 뒤쪽을 보는 동안 건물이 늘면(다른 기기 저장 · 계정 동기화) 그 쪽에 필요한 구간만 다시 읽어 합친다 — 그 사이 빈 목록 안내는 보이지 않는다
   {

@@ -2,7 +2,7 @@
 // Canonical app-side knowledge snapshot for the PoC agents → app/data/runtime/kb (only).
 //
 //   node app/scripts/export_agent_data.mjs [--out app/data/runtime/kb] [--allow-count-drift]
-//        [--expect-total 960] [--expect-active 669] [--expect-products <products_db.json counts.total>] [--expect-scenarios 116]
+//        [--expect-total 960] [--expect-active 666] [--expect-products <products_db.json counts.total>] [--expect-scenarios 116]
 //
 // Sources (read-only):
 //   app/data/{catalog.json, images.json, products_db.json, layouts.b64, subscriptions.json(구독 DSS 레지스트리)}
@@ -38,7 +38,7 @@ const OUT = path.resolve(ROOT, arg('out', path.join(RUNTIME, 'kb')));
 const DECLARED_PRODUCTS = (JSON.parse(fs.readFileSync(path.join(DATA, 'products_db.json'), 'utf8')).counts || {}).total;
 if (!Number.isInteger(DECLARED_PRODUCTS)) { console.error('✗ products_db.json counts.total(전체 제품 수의 기준값)이 없습니다.'); process.exit(1); }
 const EXPECT = {
-  layouts_total: Number(arg('expect-total', 960)), layouts_active: Number(arg('expect-active', 669)), // 669 = 활성 717(구독 장 21 포함) - 같은 레이아웃 묶음의 업종 후보 48 (layout_variants.json)
+  layouts_total: Number(arg('expect-total', 985)), layouts_active: Number(arg('expect-active', 357)), // 691 - 324 unused - 10 duplicate representatives; original HTML stays available.
   products: Number(arg('expect-products', DECLARED_PRODUCTS)), curated_products: 40, scenarios: Number(arg('expect-scenarios', 116)),
 };
 const LAYOUT_KEYS = ['f', 'c', 'code', 'name', 'when', 'g', 'p', 'p2', 'ind', 'sol', 'pc', 'req', 'prods', 'sols', 'phs', 'ph', 'hl', 'txt', 'eb', 'foot', 'sample'];
@@ -60,8 +60,10 @@ const INPUTS = {
   std: path.join(SRC, 'domain', 'templates', 'std_layouts.js'), retired: path.join(SRC, 'domain', 'templates', 'retired.js'),
   spatial: path.join(SRC, 'domain', 'templates', 'spatial-layouts.js'), toc: path.join(SRC, 'domain', 'templates', 'toc_layouts.js'),
   layoutCleanup: path.join(SRC, 'domain', 'templates', 'layout_cleanup.js'),
+  layoutCleanupManifest: path.join(SRC, 'domain', 'templates', 'layout_cleanup_manifest.json'),
   layoutRedesign: path.join(SRC, 'domain', 'templates', 'layout_redesign.js'),
   layoutSlotModes: path.join(SRC, 'domain', 'templates', 'layout_slot_modes.js'),
+  layoutLibrary: path.join(SRC, 'domain', 'templates', 'layout_library.js'),
   slotModes: path.join(SRC, 'domain', 'templates', 'slot_modes.json'),
   layoutVariants: path.join(SRC, 'domain', 'templates', 'layout_variants.js'),
   layoutVariantGroups: path.join(SRC, 'domain', 'templates', 'layout_variants.json'),
@@ -71,6 +73,8 @@ const INPUTS = {
   verticalScenarios: path.join(SRC, 'domain', 'templates', 'vertical_scenarios.json'),
   proposalBriefs: path.join(DATA, 'vertical_proposal_briefs.json'),
   proposalBuilder: path.join(ROOT, 'app', 'scripts', 'rebuild_vertical_proposals.py'),
+  customerProposalBuilder: path.join(ROOT, 'app', 'scripts', 'rebuild_vertical_best.py'),
+  layoutRegistry: path.join(ROOT, 'app', 'scripts', 'layout_registry.mjs'),
   proposalContent: path.join(ROOT, 'app', 'scripts', 'proposal_content.py'),
   proposalVisuals: path.join(ROOT, 'app', 'scripts', 'proposal_visuals.py'),
   proposalPhotos: path.join(SRC, 'domain', 'templates', 'proposal_photo_assets.json'),
@@ -94,12 +98,16 @@ const INPUTS = {
   standardScenarios: path.join(SRC, 'domain', 'templates', 'standard_vertical_scenarios.json'),
   standardLayouts: path.join(SRC, 'domain', 'templates', 'vertical_std_layouts.js'),
   scenarioFills: path.join(SRC, 'domain', 'templates', 'scenario_fills.js'),
+  legacyImages: path.join(SRC, 'domain', 'templates', 'legacy_img.js'),
   scenarioStory: path.join(SRC, 'domain', 'templates', 'scenario_story.js'),
   scenarioBackgrounds: path.join(SRC, 'domain', 'templates', 'scenario_bg.json'),
   scenarios: path.join(SRC, 'domain', 'templates', 'scenarios.js'), parts: path.join(SRC, 'domain', 'proposals', 'parts.js'),
   standard: path.join(POC, 'layout_agent', 'data', 'standard_scenarios.json'),
   reviewSchema: path.join(SRC, 'domain', 'review', 'schema.json'),
 };
+// Authored content of the 40 customer proposals — one file per vertical.
+const proposalDirectory = path.join(DATA, 'vertical_proposals');
+if (fs.existsSync(proposalDirectory)) for (const file of fs.readdirSync(proposalDirectory).filter(name => /^[a-z_]+\.json$/.test(name)).sort()) INPUTS['customerProposal_' + file.slice(0, -5)] = path.join(proposalDirectory, file);
 const detailDirectory = path.join(DATA, 'product-details');
 if (fs.existsSync(detailDirectory)) for (const file of fs.readdirSync(detailDirectory).filter(name => /^d\d\d\.json$/.test(name)).sort()) INPUTS['specs_' + file.slice(0, -5)] = path.join(detailDirectory, file);
 for (const [k, p] of Object.entries(INPUTS)) if (!fs.existsSync(p)) die(`입력 파일이 없습니다 (${k}): ${rel(p)}`);
@@ -169,6 +177,9 @@ import { fillHoles } from ${spec(INPUTS.layoutVariants)};
 import { parseLayout, textOf } from ${spec(INPUTS.layoutCleanup)};
 import * as parts from ${spec(INPUTS.parts)};
 import * as scenarios from ${spec(INPUTS.scenarios)};
+import { FILLS } from ${spec(INPUTS.scenarioFills)};
+import { LEGACY_IMG } from ${spec(INPUTS.legacyImages)};
+export { FILLS, LEGACY_IMG };
 export { catalog, COVERS, PHOTO_META, PHOTO_HTML, STD_META, STD_HTML, VSTD_META, VSTD_HTML, SPATIAL_META, SPATIAL_HTML, ACCOUNT_META, ACCOUNT_HTML, TOC_META, TOC_HTML, SUBS_META, SUBS_HTML, RETIRED_R4, repairLayoutHtml, repairLayoutUnmarked, markSlotModes, fillHoles, parseLayout, textOf, parts, scenarios };
 `;
 const primer = {
@@ -225,8 +236,8 @@ for (const [f, h] of Object.entries(html)) {
   const e = { lock: (L[f] && L[f].fx) || null, fixed: {}, change: {}, img: {} };
   for (const n of nodes) {
     const fix = / data-fix="([a-z]+)"/.exec(n.tag)?.[1] || 'ai';
-    if (n.tb != null && e.fixed[n.tb] == null && e.change[n.tb] == null) { const s = mod.textOf(h, n); if (!s) continue; if (fix === 'fixed' || fix === 'section') e.fixed[n.tb] = s; else e.change[n.tb] = [fix, s]; }
-    else if (n.img != null && e.img[n.img] == null) e.img[n.img] = fix;
+    if (n.img != null && e.img[n.img] == null) e.img[n.img] = fix;
+    else if (n.tb != null && e.fixed[n.tb] == null && e.change[n.tb] == null) { const s = mod.textOf(h, n); if (!s) continue; if (fix === 'fixed' || fix === 'section') e.fixed[n.tb] = s; else e.change[n.tb] = [fix, s]; }
   }
   if (CANON_OF[f]) { e.group = CANON_OF[f]; e.key = (C.VARIANTS[CANON_OF[f]].members.find(([x]) => x === f) || [])[1] || null; }
   sheetSlots[f] = e;
@@ -267,7 +278,7 @@ const missingLayoutKeys = [...new Set(ALL.flatMap((l) => LAYOUT_KEYS.filter((k) 
 if (missingLayoutKeys.length) errors.push('레이아웃 메타 필수 필드 없음: ' + missingLayoutKeys.join(', '));
 const missingProductKeys = [...new Set(PRODUCTS.flatMap((p) => PRODUCT_KEYS.filter((k) => !(k in p))))];
 if (missingProductKeys.length) errors.push('제품 필수 필드 없음: ' + missingProductKeys.join(', '));
-const badRetired = Object.entries(RETIRED).filter(([a, t]) => allSet.has(a) && (!allSet.has(t) || L[t].retired)).map(([a, t]) => `${a}→${t}`);
+const badRetired = Object.entries(RETIRED).filter(([a, t]) => allSet.has(a) && (!allSet.has(t) || (!L[a].removed && L[t].retired))).map(([a, t]) => `${a}→${t}`);
 if (badRetired.length) errors.push('retired 대상(사진 버전)이 없거나 그 자체가 retired: ' + badRetired.slice(0, 8).join(', '));
 const unusedRetired = Object.keys(RETIRED).filter((a) => !allSet.has(a));
 if (unusedRetired.length) warnings.push('레지스트리에 없는 retired 원본(앱도 무시): ' + unusedRetired.slice(0, 8).join(', '));
@@ -309,6 +320,7 @@ write('layout_variants.json', fs.readFileSync(INPUTS.layoutVariantGroups)); // �
 write('sheet_slots.json', json(sheetSlots)); // 장 id → 고정 대상 · 변경 대상 (+ 같은 레이아웃 묶음 · 후보 키)
 write('parts.json', json(partsOut));
 write('best_scenarios.json', json(scenariosOut));
+write('layout_examples.json.gz', zlib.gzipSync(json({ fills: mod.FILLS, backgrounds: readJson(INPUTS.scenarioBackgrounds), legacy_images: mod.LEGACY_IMG }), { level: 9 }));
 const scenarioPhotos = [...readJson(INPUTS.proposalPhotos),...readJson(INPUTS.accountPhotos)];
 const exportedImages = readJson(INPUTS.images);
 for (const photo of scenarioPhotos) exportedImages.pids[photo.pid] = {file:photo.src,src:'case',model:photo.model,desc:photo.desc,w:photo.w,h:photo.h,page:photo.page,owner:photo.owner};

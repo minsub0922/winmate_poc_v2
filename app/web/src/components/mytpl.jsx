@@ -1,4 +1,4 @@
-import { requireLogin } from '../api/session.js';
+import { requireDownload, requireLogin } from '../api/session.js';
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { DeleteButton,confirmDelete,Icon, Modal, toast, partHue } from './common.jsx';
 import { EditorHelp } from './editor-help.jsx';
@@ -9,7 +9,6 @@ import { FavButton } from './fav.jsx';
 import { SheetView } from './sheetview.jsx';
 import { saveBlob, safeName } from './tplkit.jsx';
 import { exportPptx } from '../domain/slides/export-pptx.js';
-import { convertPptx } from '../domain/slides/import/pptx2html.js';
 import { myMeta, newF, saveTemplates, putImages, deleteTemplates, dropImages, updateMeta, tokenize, isMy, storeImage, imgUrl, measure, myPersistent, myAccountStorage, previewRegister } from '../repositories/templates.js';
 import { useWorkContext } from '../services/customer-voice-context.js';
 import { ImagePicker } from './imagepick.jsx';
@@ -55,7 +54,7 @@ export function MyUpload({ onFile, onBrowse, empty }) {
         <span className="my-drop-ic" aria-hidden="true"><Icon name="upload" size={22} /></span>
         <div className="my-drop-t">
           <b>PPTX를 올려 내 템플릿 만들기</b>
-          <span>장마다 원본과 최대한 같게 복원해요. 글자는 고칠 수 있는 글 칸, 사진은 바꿀 수 있는 이미지 칸이 돼요.</span>
+          <span>장마다 원본 그대로 복원해 고쳐 쓸 수 있는 템플릿으로 저장해요.</span>
         </div>
         <button type="button" className="btn btn-primary my-pick" onClick={() => { if (requireLogin()) ref.current?.click(); }}><Icon name="file" size={15} />PPTX 고르기</button>
         <input ref={ref} type="file" accept=".pptx,.potx,.ppsx,.pptm,application/vnd.openxmlformats-officedocument.presentationml.presentation" hidden data-my-file onChange={(e) => { take(e.target.files); e.target.value = ''; }} />
@@ -115,7 +114,8 @@ export function ImportDialog({ file, onClose, onSaved }) {
     let alive = true;
     (async () => {
       try {
-        const buf = await file.arrayBuffer();
+        const [buf, { convertPptx }] = await Promise.all([file.arrayBuffer(), import('../domain/slides/import/pptx2html.js')]);
+        if (!alive) return;
         const prefix = 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
         const r = await convertPptx(buf, { prefix, onProgress: (n, total, what) => { if (alive) setSt({ phase: what, n, total }); } });
         if (!alive) return;
@@ -168,7 +168,6 @@ export function ImportDialog({ file, onClose, onSaved }) {
           <span className="spin" />
           <b>{st.phase === 'image' ? '사진을 정리하는 중…' : st.phase === 'slide' ? '장표를 복원하는 중…' : '파일을 읽는 중…'}</b>
           {st.total ? <><div className="progress"><i style={{ width: pct + '%' }} /></div><span className="faint num">{st.n} / {st.total}{st.phase === 'image' ? '개' : '장'}</span></> : null}
-          <span className="faint">테마 색 · 글꼴, 마스터 · 레이아웃, 도형 · 표 · 차트 · 사진 자르기까지 읽어 1280×720 레이아웃으로 그려요.</span>
         </div>
       )}
       {st.phase === 'error' && <div className="tl-empty"><b>이 파일은 가져오지 못했어요</b><span>{st.err}</span></div>}
@@ -183,7 +182,6 @@ export function ImportDialog({ file, onClose, onSaved }) {
           <div className="my-imp-bar">
             <button className="btn btn-sm" onClick={() => setPages((ps) => ps.map((p) => ({ ...p, on: true })))}>모두 선택</button>
             <button className="btn btn-sm" onClick={() => setPages((ps) => ps.map((p) => ({ ...p, on: false })))}>모두 해제</button>
-            <span className="faint">글자는 템플릿의 예시 문구가 돼요. 저장한 뒤에도 ‘고치기’로 바꿀 수 있어요.</span>
           </div>
           <div className="my-imp-grid">
             {pages.map((p, i) => (
@@ -221,6 +219,7 @@ export function MyDetail({ list, index, onNav, onClose, onEdit }) {
   const patchMeta = async patch => { try { await updateMeta(l.f, patch); } catch (error) { setName(l.name); toast('템플릿 정보를 저장하지 못했어요: ' + error.message, 'warn'); } };
   const commitName = () => { const v = name.trim(); if (v && v !== l.name) void patchMeta({ name: v }); else setName(l.name); };
   const download = async () => {
+    if (!requireDownload()) return;
     setBusy(true);
     try {
       const blob = await exportPptx([{ f: l.f, ov: { t: {}, img: {} }, part: PARTS[l.p] ? PARTS[l.p].label : '' }], { title: l.name });
@@ -253,8 +252,8 @@ export function MyDetail({ list, index, onNav, onClose, onEdit }) {
           <dt>칸</dt><dd>글 {l.nT}칸 · 이미지 {l.nI}칸</dd>
           <dt>만든 날</dt><dd className="num">{fmtDate(l.my.at)}{l.my.up && fmtDate(l.my.up) !== fmtDate(l.my.at) ? ' · 고친 날 ' + fmtDate(l.my.up) : ''}</dd>
           <dt>쓰는 곳</dt><dd>{used ? '제안서 ' + used + '곳' : '아직 없음'}</dd>
+          <dt>저장 위치</dt><dd>{myAccountStorage() ? '로그인한 계정' : '이 브라우저'}</dd>
         </dl>
-        <p className="hint"><Icon name="info" size={14} /><span>제안서에서 쓰려면 Storyboard 목차의 ‘레이아웃 추가’ 팝업 맨 위 <b>My 템플릿</b>에서 고르면 돼요. {myAccountStorage() ? '로그인한 계정에 저장되어 다른 브라우저에서도 사용할 수 있어요.' : '이 브라우저에만 저장돼요.'}</span></p>
       </>}
       actions={<>
         <DeleteButton className="btn btn-ghost" confirmation={{title:'템플릿을 삭제할까요?',message:l.name+'을 삭제합니다.'+(used?' 현재 제안서 '+used+'곳에서 사용 중입니다.':'')}} onClick={remove}><Icon name="trash" size={14}/>지우기</DeleteButton>
@@ -752,7 +751,7 @@ export function LayoutEditor({ f, ov: vals = null, asCopy = false, context = {},
           <button className="btn btn-sm" onClick={addText}><Icon name="type" size={14} />글 상자</button>
           <button className="btn btn-sm" onClick={addImage}><Icon name="image" size={14} />이미지 칸</button>
           <span className="sp" />
-          {sel ? <span className="ed-selname"><b>{KIND(sel)}</b> 선택됨{editing ? ' · 입력 중' : ''}</span> : <span className="faint ed-selname">요소를 눌러 고르세요</span>}
+          {sel ? <span className="ed-selname"><b>{KIND(sel)}</b> 선택됨{editing ? ' · 입력 중' : ''}</span> : <span className="faint ed-selname">선택 없음</span>}
         </div>
         <div ref={fitRef} className="ed-fit">
           <div ref={boxRef} className={'ed-box' + (editing ? ' typing' : '') + (hover ? ' has-hover' : '')} style={{ width: Math.round(1280 * scale), height: Math.round(720 * scale) }}

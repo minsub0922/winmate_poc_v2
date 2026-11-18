@@ -1,0 +1,14 @@
+/* '샘플 자료' 띠 (components/sample-ribbon.jsx) — 장의 오른쪽 위 모서리를 가로지르는 빨간 대각선 띠.
+   장은 테마와 상관없이 늘 밝은 종이라 띠 색도 테마를 따르지 않는다. --sr: 장 너비에 맞춘 배율(1 = 너비 1000px) */
+.sample-mark { position: relative; display: flex; flex-shrink: 0; width: fit-content; max-width: 100%; }
+.sample-host { position: relative; }
+.sample-ribbon { --s: var(--sr, 1); position: absolute; z-index: 6; top: 0; right: 0; width: calc(140px * var(--s)); height: calc(140px * var(--s));
+  overflow: hidden; pointer-events: none; border-top-right-radius: 6px; }
+.sample-ribbon > span { position: absolute; top: calc(37px * var(--s)); right: calc(-48px * var(--s)); width: calc(200px * var(--s));
+  padding: calc(5px * var(--s)) 0; transform: rotate(45deg); background: #d92d20; color: #fff; text-align: center; white-space: nowrap;
+  font-size: max(10px, calc(13px * var(--s))); font-weight: 800; letter-spacing: .08em; line-height: 1.3;
+  box-shadow: 0 1px 5px rgb(0 0 0 / .22); }
+/* 감싼 칸 안의 장도 감싸지 않은 장과 같은 테두리 · 그림자(시트 상세 sheetview.jsx) */
+.sv-fit > .sample-mark > .slide { flex-shrink: 0; box-shadow: var(--shadow); border-radius: var(--radius-6px); border: var(--stroke-1px) solid var(--line); }
+/* 레이아웃 전체 보기: 장 위 찜 버튼은 띠를 피해 왼쪽 위로 */
+.vslide:has(> .sample-ribbon) > .fav-btn { right: auto; left: 10px; }

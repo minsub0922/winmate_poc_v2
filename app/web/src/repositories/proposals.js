@@ -1,18 +1,24 @@
 import { requireLogin } from '../api/session.js';
 import { browserStorage, openDatabase } from './browser.js';
 import { useSyncExternalStore } from 'react';
+import { changeProposal } from './proposal-update.js';
+import { readRequirementDraft, discardRequirementDraft } from './requirement-drafts.js';
+import { recordsJson } from './record-json.js';
 import { normalizeCovers, isCoverSheet } from '../services/catalog.js';
 import { bgUrl } from '../services/packs.js';
 import { legacySrc } from '../domain/templates/legacy_img.js';
 import { getBootstrap } from '../api/bootstrap.js';
 import { mergeSampleHistory } from './sample-history.js';
 import { mergeReviewExampleProposals } from './sample-reviews.js';
+import { refreshProposalCover } from '../domain/templates/refresh_proposal_cover.js';
 import { scenarioStoryboard } from '../domain/templates/scenario_storyboard.js';
 import { markLayoutChanges, retainHistoryLayouts } from '../domain/slides/context-policy.js';
 import { forgetHistory, historyRemoved, restoreHistory } from './history-preferences.js';
-import { historyPath, sharedIdentity } from '../services/shared-path.js';
+import { historyId, historyPath, sharedIdentity, sharedToken } from '../services/shared-path.js';
 import { migrateRemovedLayouts } from '../domain/templates/migrate_removed_layouts.js';
 import { fillSpacePhotos } from '../domain/templates/migrate_space_sheet.js';
+import { migrateRemovedProducts } from '../domain/products/removed.js';
+import { registerCollection, noteChange, accountSyncActive, blobUrl, putBlob, missingBlobs, dataUrlBlob } from './account-sync.js';
 
 const KEY = 'winmate.v2.proposals';
 const UKEY = 'winmate.v2.ui';
@@ -37,6 +43,7 @@ function emptyProposal() {
 // Only the explicitly configured admin account receives requested sample copies, once per browser.
 // The same storage key and proposal format preserve existing history and backups.
 function load() {
+  if (!browserStorage.accountHistory) return [];
   let list = [];
   try {
     const raw = browserStorage.getItem(KEY);
@@ -48,7 +55,7 @@ function load() {
   } catch (e) { return []; }
   const user = getBootstrap().user;
   const merged = mergeSampleHistory(list, user, browserStorage, scenarioStoryboard);
-  const proposals = migrateCovers(mergeReviewExampleProposals(merged, user, browserStorage));
+  const proposals = migrateCovers(mergeReviewExampleProposals(merged, user, browserStorage, refreshProposalCover));
   let migrated = false;
   for (const p of proposals) {
     const endPath = historyPath(p.id);
@@ -71,6 +78,7 @@ function migrateCovers(list) {
   for (const p of list) {
     if (migrateRemovedLayouts(p, {pid:()=>uid('s'),kid:()=>uid('k'),lid:()=>uid('l')})) n++;
     if (fillSpacePhotos(p)) n++; // 공간별 제안 장의 새 공간 사진 칸(사진 1)
+    if (migrateRemovedProducts(p)) n++; // 지운 제품(DSS 삭제)이 연결돼 있으면 대체 제품으로
     if (normalizeCovers(p, true)) n++;
     if (retainHistoryLayouts(p)) n++;
   }
@@ -82,11 +90,47 @@ const subs = new Set();
 const changes = new Set();
 export function onProposalChange(fn) { changes.add(fn); return () => changes.delete(fn); }
 let saveT = null;
-function persist() {
+function writeCache() {
   clearTimeout(saveT);
-  saveT = setTimeout(() => { try { browserStorage.setItem(KEY, JSON.stringify(state.proposals)); } catch (e) {} }, 250);
+  saveT = null;
+  try { browserStorage.setItem(KEY, recordsJson(state.proposals)); }
+  catch (e) {
+    // A stale copy left after a quota failure would open instead of the account's records.
+    if (accountSyncActive()) { try { browserStorage.removeItem(KEY); } catch { /* nothing more to free */ } }
+  }
 }
+function persist(removedId, replacedRecord) {
+  clearTimeout(saveT);
+  saveT = setTimeout(writeCache, 250);
+  noteChange('proposals', removedId, replacedRecord);
+}
+window.addEventListener('pagehide', () => { if (saveT !== null) writeCache(); });
 function emit() { for (const f of subs) f(); }
+// The account copy on the server is authoritative; records changed in another browser arrive here.
+registerCollection('proposals', {
+  list: () => state.proposals,
+  isReplaceable: isEmptyDraft,
+  apply(records, removed) {
+    // Sync fingerprints refer to received records. Migration must create a new record identity.
+    records = records.map(p => { const next = {...p,ctx:{...p.ctx}}; return migrateRemovedProducts(next) ? next : p; });
+    const gone = new Set(removed), incoming = new Map(records.map(p => [p.id, p])), previous = new Map(state.proposals.map(p => [p.id, p]));
+    const proposals = state.proposals.filter(p => !gone.has(p.id)).map(p => incoming.get(p.id) || p);
+    for (const p of records) {
+      if (!previous.has(p.id)) proposals.push(p);
+      // A revision conflict can return work saved elsewhere during replacement.
+      if (historyRemoved(p.id, p._share?.token) && !isEmptyDraft(p)) restoreHistory(p.id, p._share?.token);
+    }
+    proposals.sort((a, b) => b.updatedAt - a.updatedAt);
+    const shared = { ...state.shared };
+    for (const id of gone) {
+      const token = (previous.get(id) || shared[id])?._share?.token;
+      if (!historyRemoved(id, token)) forgetHistory(id, token);
+      delete shared[id];
+    }
+    state = { proposals, shared }; persist(); emit();
+    for (const p of records) for (const fn of changes) fn(p, previous.get(p.id) || null, { remote: true });
+  },
+});
 export function useStore(sel) {
   return useSyncExternalStore((f) => { subs.add(f); return () => subs.delete(f); }, () => sel(state));
 }
@@ -106,7 +150,9 @@ export function sharedProposal(snapshot, preferredId) {
   let migratedId = 0;
   migrateRemovedLayouts(proposal, {pid:()=>id+'-mp'+migratedId++,kid:()=>id+'-mk'+migratedId++,lid:()=>id+'-ml'+migratedId++});
   fillSpacePhotos(proposal);
-  const history = !historyRemoved(id, snapshot.token) && (state.proposals.some(p => p.id === id) || snapshot.isOwner || snapshot.hasEdited);
+  migrateRemovedProducts(proposal);
+  const removed = historyRemoved(id, snapshot.token);
+  const history = !removed && (state.proposals.some(p => p.id === id) || snapshot.isOwner || snapshot.hasEdited);
   const adaptation = new Map((previous?.parts || []).flatMap(s => s.layouts.map(x => [x.uid, x.adaptation])));
   for (const part of proposal.parts) for (const layout of part.layouts) {
     if (adaptation.get(layout.uid)) layout.adaptation = structuredClone(adaptation.get(layout.uid));
@@ -118,46 +164,69 @@ export function sharedProposal(snapshot, preferredId) {
   const proposals = state.proposals.filter(p => p.id !== id && p._share?.token !== snapshot.token);
   if (history) proposals.push(proposal);
   proposals.sort((a, b) => b.updatedAt - a.updatedAt);
-  state = { proposals, shared: { ...state.shared, [id]: proposal } };
+  const shared = { ...state.shared };
+  // A late poll for a discarded draft must not put it back in the repository.
+  // Opening its existing link explicitly can still display the shared document.
+  if (!removed || historyId() === id || sharedToken() === snapshot.token) shared[id] = proposal;
+  else delete shared[id];
+  state = { proposals, shared };
   if (history) persist();
   emit();
   if (snapshot.isOwner) for (const fn of changes) fn(proposal, previous, { remote: true });
   return proposal;
 }
-/** Only a blank draft is reusable; even a title, attachment or linked item is work. */
+// IDs, timestamps and editor preferences are assigned even to never-edited records.
+// Check every other field for content, including fields added by newer editors.
+const draftMetadata = new Set(['id', 'endPath', 'createdAt', 'updatedAt', 'reqTab', 'title', 'stage', '_share', 'req']);
+function hasInput(value) {
+  if (typeof value === 'string') return value.trim() !== '';
+  if (value && typeof value === 'object') return Object.values(value).some(hasInput);
+  return value != null && value !== false;
+}
 function isEmptyDraft(p) {
-  const text = value => String(value ?? '').trim().length > 0;
-  const segments = value => Array.isArray(value)
-    ? value.some(s => text(s?.t) || !!s?.ref || !!s?.link)
-    : text(value);
-  if (!p || p._share || p.sample || p.agent || p.bg || p.exportedAt || p.reqSaved
-    || (p.stage && p.stage !== 'req') || (text(p.title) && p.title.trim() !== '새 제안서')
-    || text(p.customer) || text(p.ind) || text(p.indName) || p.parts?.length) return false;
-  if (Object.values(p.ctx || {}).some(items => items?.length)) return false;
-  const req = p.req || {}, form = req.form || {}, keymen = form.keymen || [];
-  if (segments(req.free) || req.files?.length
-    || ['project', 'customer', 'target', 'note'].some(key => text(form[key]))
-    || segments(form.noteSegs) || keymen.length > 1) return false;
-  return !keymen.some(k => text(k.name) || (k.weight != null && Number(k.weight) !== 100)
-    || k.reqs?.length > 1 || (k.reqs || []).some(segments));
+  if (!p || p.parts?.length || (p.stage && p.stage !== 'req')
+    || (hasInput(p.title) && String(p.title).trim() !== '새 제안서')) return false;
+  // Opening one's own proposal automatically creates a read-only link at revision 1.
+  const share = p._share;
+  if (share && !(share.isOwner === true && share.permission === 'view' && share.revision === 1)) return false;
+  if (Object.entries(p).some(([key, value]) => !draftMetadata.has(key) && hasInput(value))) return false;
+
+  const { form, files, ...requirements } = p.req || {};
+  const { keymen, ...fields } = form || {};
+  if (files?.length || hasInput(requirements) || hasInput(fields) || keymen?.length > 1) return false;
+  if (keymen != null && (!Array.isArray(keymen) || keymen.some(person => !person || typeof person !== 'object'))) return false;
+  if (keymen?.some(({ id, weight, reqs, ...person }) => hasInput(person) || (weight != null && Number(weight) !== 100)
+    || reqs?.length > 1 || hasInput(reqs))) return false;
+
+  const draft = readRequirementDraft(p.id);
+  return !draft || !(draft.reading || draft.files.length || hasInput(draft.customer) || hasInput(draft.free) || hasInput(draft.meta));
+}
+
+function withoutHistoryEntry(proposal) {
+  const { id } = proposal;
+  forgetHistory(id, proposal._share?.token);
+  discardRequirementDraft(id);
+  const shared = { ...state.shared };
+  delete shared[id];
+  return { proposals: state.proposals.filter(p => p.id !== id), shared };
 }
 
 export function createProposal() {
   if (!requireLogin()) return null;
-  // Match the first (most recent) history entry. Never search older drafts or
-  // remove existing history: repeat clicks simply reopen the same blank draft.
   const latest = state.proposals[0];
-  if (isEmptyDraft(latest)) return latest.id;
+  const replaced = isEmptyDraft(latest) ? latest : null;
   const p = emptyProposal();
-  state = { ...state, proposals: [p, ...state.proposals] }; persist(); emit();
+  const kept = replaced ? withoutHistoryEntry(replaced) : state;
+  state = { ...kept, proposals: [p, ...kept.proposals] };
+  persist(replaced?.id, replaced);
+  emit();
   return p.id;
 }
 export function deleteProposal(id) { if (!requireLogin()) return false;
   const proposal = getProposal(id);
   if (!proposal) return false;
-  forgetHistory(id, proposal._share?.token);
-  const shared = { ...state.shared }; delete shared[id];
-  state = { ...state, proposals: state.proposals.filter(p => p.id !== id), shared }; persist(); emit();
+  state = withoutHistoryEntry(proposal);
+  persist(id); emit();
   return true;
 }
 /** Remove one selected instance, preserving its part and other copies of the same template. */
@@ -209,13 +278,9 @@ export function update(id, fn, { touch = true } = {}) { if (!requireLogin()) ret
   const original = getProposal(id);
   if (!original || (original._share && !original._share.canEdit)) return false;
   const i = state.proposals.findIndex((p) => p.id === id);
-  const draft = structuredClone(original);
-  fn(draft);
+  const draft = changeProposal(original, fn, { normalize: normalizeCovers, backgrounds: syncBg, mark: markLayoutChanges, touch, now });
+  if (draft === original) return true;
   if (touch && original._share) restoreHistory(id, original._share.token);
-  normalizeCovers(draft); // a 표지 added anywhere goes to the deck part — never a Storyboard bubble
-  syncBg(draft);
-  markLayoutChanges(draft, original);
-  if (touch) draft.updatedAt = now();
   const list = state.proposals.slice(); if (i >= 0) list[i] = draft;
   list.sort((a, b) => b.updatedAt - a.updatedAt);
   state = { proposals: list, shared: original._share ? { ...state.shared, [id]: draft } : state.shared };
@@ -253,10 +318,20 @@ function idb() {
   });
   return dbp;
 }
+// Uploads are stored in the account on the server (blobs); IndexedDB/memory keep a copy for instant display.
+// Uploads run one at a time in the background; anything not confirmed is retried by loadImages() on the next visit.
+let uploads = Promise.resolve();
+function uploadImage(id, dataUrl) {
+  const blob = dataUrlBlob(dataUrl);
+  if (!blob || !accountSyncActive()) return uploads;
+  uploads = uploads.then(() => putBlob(id, blob)).catch(error => console.warn('업로드 이미지를 서버에 저장하지 못했어요', error));
+  return uploads;
+}
 export async function putImage(dataUrl) {
   const id = uid('u');
   IMG_CACHE.set(id, dataUrl);
   try { const db = await idb(); if (db) db.transaction('img', 'readwrite').objectStore('img').put(dataUrl, id); } catch (e) {}
+  void uploadImage(id, dataUrl);
   return 'u:' + id;
 }
 export async function loadImages() {
@@ -269,11 +344,15 @@ export async function loadImages() {
       rq.onerror = () => res();
     });
   } catch (e) {}
+  // One-time (then incremental) move of this browser's uploads to the account; never blocks the first render.
+  if (accountSyncActive() && IMG_CACHE.size) void missingBlobs([...IMG_CACHE.keys()].filter(id => /^[A-Za-z0-9_.:-]{1,200}$/.test(id)))
+    .then(ids => { for (const id of ids) void uploadImage(id, IMG_CACHE.get(id)); }).catch(() => {});
 }
+export const imageUploads = () => uploads;
 export function resolveImg(src) {
   if (!src) return '';
   src = legacySrc(src); // an old img/bs path now packed (legacy_img.js)
-  if (src.startsWith('u:')) return IMG_CACHE.get(src.slice(2)) || '';
+  if (src.startsWith('u:')) return IMG_CACHE.get(src.slice(2)) || (accountSyncActive() ? blobUrl(src.slice(2)) : '');
   if (/\.json#\d+$/.test(src)) return bgUrl(src) || ''; // a packed picture (img/fill/*.json#k) — its blob url once the pack is in
   return src;
 }

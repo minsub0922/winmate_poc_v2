@@ -1,6 +1,8 @@
 // 건물 히스토리 저장소 — 이 브라우저의 IndexedDB(winmate-building)
 // 건물: { id, title, industries, floors:[{key, tpl, fv(외벽 변형 번호)}](아래층부터), view:{mode: 'exterior'|'spread'}, camera, createdAt, updatedAt, example?, template?(건물 템플릿 id) }
 // 썸네일은 따로(thumb) — 목록을 빨리 읽기 위해. 같은 저장소에 고르기 창 썸네일 캐시('tpl:…@판' · 'pre:…@판')도 둔다
+// 앱 안에서는 window.__wmBldStoreHook(app/web/src/services/building-sync.js)이 건물 기록을 계정 서버와 맞춘다 —
+// 이 IndexedDB는 그 계정 기록의 캐시가 된다. 훅이 없는 곳(HTML 추출 파일 등)에서는 예전처럼 브라우저에만 저장한다
 
 const DB = 'winmate-building';
 let dbp = null;
@@ -12,7 +14,8 @@ function open() {
   if (dbp) return dbp;
   dbp = new Promise((res) => {
     try {
-      const r = indexedDB.open(DB, 1);
+      // 관리자 열람 탭(app/web/src/api/inspect.js)은 이 브라우저의 건물 기록과 섞이지 않게 탭 전용 DB를 쓴다
+      const r = indexedDB.open((typeof window !== 'undefined' && typeof window.__winmateInspect === 'string' ? window.__winmateInspect : '') + DB, 1);
       r.onupgradeneeded = () => {
         const d = r.result;
         if (!d.objectStoreNames.contains('b')) d.createObjectStore('b', { keyPath: 'id' });
@@ -81,7 +84,8 @@ async function seed() {
   await tx('meta', 'readwrite', (s, m) => (s ? s.put(1, 'seeded') : m.set('seeded', 1)));
 }
 let seeded = null;
-const ready = () => (seeded ||= seed().catch(() => {}));
+const hook = () => (typeof window !== 'undefined' && window.__wmBldStoreHook) || null;
+const ready = () => (seeded ||= seed().catch(() => {}).then(() => hook() && hook().ready(open, emit)).catch(() => {}));
 
 export const store = {
   get persistent() { return persistent; },
@@ -97,12 +101,14 @@ export const store = {
   async put(b, { touch = true } = {}) {
     if (touch) b.updatedAt = Date.now();
     await tx('b', 'readwrite', (s, m) => (s ? s.put(b) : m.set(b.id, b)));
+    if (hook()) hook().put(b);
     emit();
     return b;
   },
   async remove(id) {
     await tx('b', 'readwrite', (s, m) => (s ? s.delete(id) : m.delete(id)));
     await tx('thumb', 'readwrite', (s, m) => (s ? s.delete(id) : m.delete(id))).catch(() => {});
+    if (hook()) hook().remove(id);
     emit();
   },
   async thumb(id) {

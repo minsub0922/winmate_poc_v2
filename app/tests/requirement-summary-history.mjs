@@ -24,7 +24,7 @@ proposals[1].requirementSummary = { status: 'error', sourceKey: requirementSourc
 const requests = [], jobs = new Map(); let active = 0, peak = 0, browser;
 const vite = await createServer({ root: path.join(root, 'app/web'), configFile: path.join(root, 'app/web/vite.config.js'), logLevel: 'error', server: { host: '127.0.0.1', port: 0, strictPort: false, hmr: false } });
 try {
-  await vite.listen(); browser = await chromium.launch({ headless: true });
+  await vite.listen(); browser = await chromium.launch(process.env.CHROME ? { executablePath: process.env.CHROME, headless: true } : { headless: true });
   const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
   await context.addInitScript(proposals => {
     if (!localStorage.getItem('history-test-initialized')) { localStorage.setItem('winmate.v2.proposals', JSON.stringify(proposals)); localStorage.setItem('history-test-initialized', '1'); }

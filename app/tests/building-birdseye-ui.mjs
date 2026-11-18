@@ -39,11 +39,11 @@ const saved = (page) => page.evaluate(async () => {
 });
 const labels = (page) => page.evaluate(() => [...document.querySelectorAll('.bd-floor-label')].map((x) => { const r = x.getBoundingClientRect(); return Math.round(r.left) + ',' + Math.round(r.top); }).join(' '));
 
-// 건물 스튜디오에서 목록으로 돌아가 시작 팝업 › 건물 조감도 › 건물 템플릿 창을 연다(예전의 건물 목록 「시작」 버튼 자리)
+// 건물 스튜디오에서 목록으로 돌아가 시작 팝업 › 건물 탭 › 「건물 템플릿에서 시작」 창을 연다(예전의 건물 목록 「시작」 버튼 자리)
 async function openPresets(page) {
   await page.locator('.bd-back').click(); await page.getByRole('button', { name: /조감도 스튜디오 시작/ }).click();
   const start = page.getByRole('dialog', { name: '조감도 스튜디오 시작', exact: true });
-  await start.getByRole('button', { name: /^건물 조감도/ }).click(); await start.getByRole('button', { name: /^건물 템플릿/ }).click();
+  await start.getByRole('tab', { name: /건물/ }).click(); await start.getByRole('button', { name: '건물 템플릿에서 시작', exact: true }).click();
   await page.locator('.bd-pick-modal').waitFor();
 }
 const login = async (context) => { if (process.env.WINMATE_TEST_PASSWORD) assert.equal((await context.request.post(origin + '/api/auth/login', { data: { username: 'admin', password: process.env.WINMATE_TEST_PASSWORD } })).status(), 200); };
@@ -135,7 +135,7 @@ try {
   assert.equal(await page.locator('.bd-pick-modal .bd-tabs').count(), 0);
   assert.equal(await page.locator('.bd-pick-modal .bd-pre').count(), PRESET_COUNT);
   assert.equal(await page.locator('.bd-pick-modal .bd-tpl-meta', { hasText: /\d+층/ }).count(), 0);
-  await page.locator('.bd-pre', { hasText: '블루 글라스 오피스' }).click(); await page.locator('.mfoot .btn-primary').click();
+  await page.locator('.bd-pre', { hasText: '블루 글라스 오피스' }).click(); await page.locator('.bd-pick-modal .mfoot .btn-primary').click();
   await page.locator('.bd-workspace').waitFor(); await page.waitForFunction(() => !document.querySelector('.bd-render-state'), null, { timeout: LONG }); await page.waitForTimeout(3000);
   assert.deepEqual((await page.locator('.bd-floor-pick').allInnerTexts()).map((t) => t.replace(/\s+/g, ' ')), ['1F 빈 층', '2F 빈 층', '3F 빈 층', '4F 빈 층']);
   let bld = await latest();
@@ -151,7 +151,7 @@ try {
   const sizes = new Set((await sized.locator('.bd-tpl-meta').allInnerTexts()).map((t) => t.split(' · ').pop()));
   assert(sizes.size > 1 && sizes.has('24×15m'), 'spaces of every size are offered, not only this floor\'s');
   const other = sized.filter({ hasNot: page.locator('.bd-tpl-meta', { hasText: '24×15m' }) }).first(), picked = (await other.locator('.bd-tpl-meta').innerText()).split(' · ').pop();
-  await other.click(); await page.locator('.mfoot .btn-primary').click(); await page.waitForTimeout(2500);
+  await other.click(); await page.locator('.bd-pick-modal .mfoot .btn-primary').click(); await page.waitForTimeout(2500);
   assert.equal(await page.locator('.bd-fc-acts').count(), 1);
   bld = await latest();
   assert.equal(sizeOf(bld.floors[0].shell), picked); assert.notEqual(picked, '24×15m'); assert.equal(bld.floors[0].shell.ind, 'OF');
@@ -162,7 +162,7 @@ try {
   await page.locator('.bd-floor-add').click(); await page.locator('.bd-pick-modal').waitFor();
   await page.locator('.bd-pick-modal .bd-chip', { hasText: '전체' }).click(); await page.locator('.bd-pick-modal .bd-chip', { hasText: '외식' }).click();
   // 「내 조감도」 묶음은 업종 필터와 상관없이 맨 위에 남는다 — 여기서는 외식 템플릿 공간을 고른다
-  await page.locator('.bd-pick-modal .bd-tpl:not(.bd-my):not([hidden])').first().click(); await page.locator('.mfoot .btn-primary').click(); await page.waitForTimeout(2500);
+  await page.locator('.bd-pick-modal .bd-tpl:not(.bd-my):not([hidden])').first().click(); await page.locator('.bd-pick-modal .mfoot .btn-primary').click(); await page.waitForTimeout(2500);
   await page.locator('.bd-floor-add').click(); await page.locator('.bd-pick-blank').click(); await page.waitForTimeout(2500);
   bld = await latest();
   assert.equal(bld.floors.length, 6);
@@ -202,7 +202,7 @@ try {
   // 버티컬 건물 템플릿 — 고르면 그 버티컬의 공간 조합 층으로 채운 채로 열린다(새 업종 SF 외벽 · 층 이름 = 버티컬 층 이름)
   const vp = VERTICAL_PRESETS.find((p) => p.vertical === 'sf_fitness'), vl = VERTICAL_LAYOUTS.verticals.find((v) => v.id === vp.vertical);
   await openPresets(page);
-  await page.locator('.bd-pick-modal .bd-pre').filter({ has: page.getByText(vp.title, { exact: true }) }).click(); await page.locator('.mfoot .btn-primary').click();
+  await page.locator('.bd-pick-modal .bd-pre').filter({ has: page.getByText(vp.title, { exact: true }) }).click(); await page.locator('.bd-pick-modal .mfoot .btn-primary').click();
   await page.locator('.bd-workspace').waitFor(); await page.waitForFunction(() => !document.querySelector('.bd-render-state'), null, { timeout: LONG }); await page.waitForTimeout(3000);
   bld = await latest();
   assert.equal(bld.template, vp.id);

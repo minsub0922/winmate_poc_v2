@@ -424,14 +424,16 @@ export function DetailCard({ r, p, children, preview }) {
   return (
     <article className={'dpk-card ' + type} aria-label={info.label + ' 상세'}>
       <header className="dpk-head">
-        <span className={'dpk-type ' + type}><Icon name={type} size={12} />{TYPE_LABEL[type]}</span>
+        <span className={'dpk-type ' + type}><Icon name={type} size={12} />{type === 'solution' && S[id].row ? S[id].dssLabel : TYPE_LABEL[type]}</span>
         <span className="dpk-crumb">{crumb}</span>
         <span className={'dpk-state' + (linked ? ' on' : '')}>{linked ? <><Icon name="check" size={11} stroke={3} />이 제안서에 연결됨</> : '아직 연결 전'}</span>
       </header>
       <div className="dpk-scroll">
         {preview}
         {type === 'product' && <ProductBody x={P[id]} r={r} p={p} ind={ind} linked={linked}>{children}</ProductBody>}
-        {type === 'solution' && <SolutionBody x={S[id]} r={r} p={p} ind={ind} />}
+        {type === 'solution' && (S[id].row && P[id]   // (제품 DB 에서 솔루션 · 서비스로 판정된 행: 그 행의 특장점 · 사양)
+          ? <ProductBody x={P[id]} r={'product:' + id} p={p} ind={ind} linked={linked} />
+          : <SolutionBody x={S[id]} r={r} p={p} ind={ind} />)}
         {type === 'case' && <CaseBody c={C[id]} r={r} p={p} ind={ind} />}
         {type !== 'product' && children}
       </div>

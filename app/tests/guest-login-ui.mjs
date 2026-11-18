@@ -25,7 +25,7 @@ try {
       if(credentials.password!=='fixture-password')return route.fulfill({status:401,json:{code:'invalid_credentials',detail:'아이디 또는 비밀번호를 확인해 주세요.'}});
       signedIn=true;return route.fulfill({json:{ok:true}});
     }
-    if(url.pathname==='/api/spatial/library')return route.fulfill({json:library});
+    if(url.pathname==='/api/spatial/library'||url.pathname==='/api/spatial/library/'+library.sourceHash)return route.fulfill({json:library});
     if(req.method()!=='GET')blockedWrites++;
     return route.fulfill({json:{items:[],jobs:[]}});
   });
@@ -53,6 +53,11 @@ try {
   // The favorite is a write even though it uses local browser storage.
   await page.locator('.mback .fav-btn').last().click();await page.getByRole('dialog',{name:'로그인하고 이어서 시작하세요'}).waitFor();
   assert.equal(await surface.count(),1);await page.keyboard.press('Escape');
+  // Guests browse previews but cannot take files away: the PPTX button prompts login and saves nothing.
+  let downloads=0;page.on('download',()=>downloads++);
+  await page.locator('.mback').getByRole('button',{name:'PPTX로 받기'}).click();await page.getByRole('dialog',{name:'로그인하고 이어서 시작하세요'}).waitFor();
+  await page.waitForTimeout(800);assert.equal(downloads,0);assert.equal(await page.locator('.mback .spin').count(),0);await page.keyboard.press('Escape');
+  pass('guest PPTX download prompts login without building or saving a file');
   await page.evaluate(()=>localStorage.removeItem('winmate.v2.ui'));await page.goto(base);await page.locator('.home').waitFor({timeout:15000}).catch(async e=>{console.error((await page.locator('body').innerText()).slice(0,1500));throw e;});
   await browse('.sb-spatial');await page.locator('.sp-studio-launch').waitFor();await page.locator('.sp-studio-launch').click();await page.getByRole('dialog',{name:'로그인하고 이어서 시작하세요'}).waitFor();await page.keyboard.press('Escape');
   await browse('.sb-rv');await page.locator('.rvh-go').click();await page.getByRole('dialog',{name:'로그인하고 이어서 시작하세요'}).waitFor();await page.keyboard.press('Escape');

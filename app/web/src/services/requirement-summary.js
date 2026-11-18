@@ -13,9 +13,19 @@ export const visibleRequirementSources = p => requirementSources(p, cachedAttach
 export const taskRequirementContext = (p, purpose) => requirementContext(p, purpose, visibleRequirementSources(p));
 export const taskRequirementContextText = (p, purpose) => requirementContextText(p, purpose, visibleRequirementSources(p));
 
-const waiting = new Map(), timers = new Map();
+const waiting = new Map();
 let historyBackfill;
 const writable = p => p && !getBootstrap().user?.guest && p._share?.canEdit !== false;
+
+/** A summary job for the requirements as they are now is running (queued · started · waiting for its result). */
+export const requirementSummaryBusy = p => p?.requirementSummary?.status === 'pending' && p.requirementSummary.sourceKey === requirementSourceKey(p);
+/** A finished summary exists — also when the requirements changed after it (re-summarising is optional) — and none is being made. */
+export const requirementSummaryDone = p => !!savedRequirementSummary(p) && !requirementSummaryBusy(p);
+/** 다시 요약 has something to do: the requirements changed since the summary, or the last attempt failed. */
+export function requirementSummaryStale(p) {
+  const result = savedRequirementSummary(p), key = requirementSourceKey(p);
+  return !!requirementSources(p).length && !requirementSummaryBusy(p) && (!result || result.source_key !== key || (p.requirementSummary?.status === 'error' && p.requirementSummary.sourceKey === key));
+}
 
 registerJobHandler('requirements-summary', {
   trim: result => result,
@@ -44,8 +54,11 @@ export function resumeRequirementSummaryJob(p) {
   if (!getJobRecord(summary.jobId)) adoptJob(summary.jobId, { purpose: 'requirements-summary', owner: { type: 'proposal', id: p.id }, meta: { sourceKey: summary.sourceKey } });
 }
 
+/**
+ * Summarise the saved requirements — never called while typing. Without `force` it only starts the first summary
+ * (저장 in the requirements popup): a finished summary of older input stays until the person presses 다시 요약 (force).
+ */
 export async function ensureRequirementSummary(id, { force = false } = {}) {
-  clearTimeout(timers.get(id)); timers.delete(id);
   let p = getProposal(id);
   if (!writable(p) || !requirementSources(p).length) return null;
   const key = requirementSourceKey(p), token = id + ':' + key;
@@ -72,7 +85,8 @@ export async function ensureRequirementSummary(id, { force = false } = {}) {
       p = getProposal(id);
       if (!p || requirementSourceKey(p) !== key) return null;
       const sources = visibleRequirementSources(p);
-      const missing_sources = (p.req.files || []).filter(file => !cachedAttachmentSource(file).trim() && (file.size || file.readError)).map(file => file.name);
+      // read into the free-form text (inlined) = already among the sources; only files nobody could read are missing
+      const missing_sources = (p.req.files || []).filter(file => !file.inlined && !cachedAttachmentSource(file).trim() && (file.size || file.readError)).map(file => file.name);
       const snap = await submitPocJob({ kind: 'requirements', source_key: key, sources, missing_sources });
       trackJob(snap, { purpose: 'requirements-summary', owner: { type: 'proposal', id }, title: '고객 요구사항 · 제안 전략 요약', meta: { sourceKey: key } });
       if (requirementSourceKey(getProposal(id)) === key) update(id, d => {
@@ -90,53 +104,45 @@ export async function ensureRequirementSummary(id, { force = false } = {}) {
   return request;
 }
 
-/** Consumers wait for this exact input version; an old summary is never silently substituted. */
-export async function withRequirementSummary(p, { signal, debounce = false } = {}) {
+/**
+ * Consumers get the proposal once its summary is settled: the summary of the current input when one exists, is being
+ * made, or can be made (first summary); otherwise the last finished one. Re-summarising after an edit is the person's
+ * choice (다시 요약), so a summary of older input never blocks a task — requirementContext marks it stale and the originals win.
+ */
+export async function withRequirementSummary(p, { signal } = {}) {
   if (!p?.id || !getProposal(p.id) || !requirementSources(p).length || !writable(p)) return p;
   // Older servers can still process the original requirements; never invent a substitute summary.
   if (!pocCapabilities()?.functions?.requirements) return p;
   const key = requirementSourceKey(p);
   await hydrateAttachmentSources(p);
-  if (debounce && timers.has(p.id)) await new Promise((resolve, reject) => {
-    const finish = () => { signal?.removeEventListener('abort', abort); resolve(); };
-    const timer = setTimeout(finish, 1200);
-    const abort = () => { clearTimeout(timer); signal?.removeEventListener('abort', abort); reject(Object.assign(new Error('요약 대기를 취소했습니다.'), { code: 'cancelled' })); };
-    signal?.addEventListener('abort', abort, { once: true });
-    if (signal?.aborted) abort();
-  });
-  if (!getProposal(p.id) || requirementSourceKey(getProposal(p.id)) !== key) throw Object.assign(new Error('요구사항이 바뀌었습니다. 새 요약을 확인한 뒤 다시 실행해 주세요.'), { code: 'context_changed' });
+  if (!getProposal(p.id) || requirementSourceKey(getProposal(p.id)) !== key) throw Object.assign(new Error('요구사항이 바뀌었습니다. 다시 실행해 주세요.'), { code: 'context_changed' });
   await ensureRequirementSummary(p.id);
-  const current = getProposal(p.id);
-  if (savedRequirementSummary(current) && !currentRequirementSummary(current)
-    && !(current.requirementSummary.status === 'pending' && current.requirementSummary.sourceKey === key)) {
-    throw Object.assign(new Error('요구사항이 변경됐어요. ‘다시 요약’에서 확인 후 새 요약을 만들어 주세요.'), { code: 'summary_confirmation_required' });
-  }
   return new Promise((resolve, reject) => {
     let unsubscribe, timer;
     const finish = (error, value) => { unsubscribe?.(); clearTimeout(timer); signal?.removeEventListener('abort', abort); error ? reject(error) : resolve(value); };
     const abort = () => finish(Object.assign(new Error('요약 대기를 취소했습니다.'), { code: 'cancelled' }));
     const check = () => {
       const current = getProposal(p.id);
-      if (!current || requirementSourceKey(current) !== key) return finish(Object.assign(new Error('요구사항이 바뀌었습니다. 새 요약을 확인한 뒤 다시 실행해 주세요.'), { code: 'context_changed' }));
+      if (!current || requirementSourceKey(current) !== key) return finish(Object.assign(new Error('요구사항이 바뀌었습니다. 다시 실행해 주세요.'), { code: 'context_changed' }));
       if (currentRequirementSummary(current)) return finish(null, current);
+      if (requirementSummaryBusy(current)) return undefined;
+      if (savedRequirementSummary(current)) return finish(null, current);
       if (current.requirementSummary?.status === 'error') return finish(Object.assign(new Error(current.requirementSummary.error), { code: 'summary_failed' }));
+      return undefined;
     };
     unsubscribe = onProposalChange(d => { if (d.id === p.id) check(); });
-    timer = setTimeout(() => finish(Object.assign(new Error('요구사항 요약이 계속 진행 중입니다. 완료 후 다시 실행해 주세요.'), { code: 'summary_pending' })), 90000);
+    timer = setTimeout(() => {
+      const current = getProposal(p.id);
+      if (current && savedRequirementSummary(current)) finish(null, current);
+      else finish(Object.assign(new Error('요구사항 요약이 계속 진행 중입니다. 완료 후 다시 실행해 주세요.'), { code: 'summary_pending' }));
+    }, 90000);
     signal?.addEventListener('abort', abort, { once: true });
     if (signal?.aborted) abort(); else check();
   });
 }
 
-export function startRequirementSummarySync() {
-  const off = onProposalChange((p, before) => {
-    if (!before || !writable(p) || requirementSourceKey(p) === requirementSourceKey(before)) return;
-    clearTimeout(timers.get(p.id));
-    if (savedRequirementSummary(p)) { timers.delete(p.id); return; }
-    if (requirementSources(p).length) timers.set(p.id, setTimeout(() => { timers.delete(p.id); void ensureRequirementSummary(p.id); }, 1200));
-  });
-  return () => { off(); for (const timer of timers.values()) clearTimeout(timer); timers.clear(); };
-}
+/** Kept for App.jsx: requirements are no longer summarised when they change — only on 저장 (first summary) or 다시 요약. */
+export function startRequirementSummarySync() { return () => {}; }
 
 /** Fill saved histories without opening each board or changing its original content. */
 export function backfillRequirementSummaries({ concurrency = 2, forceErrors = true } = {}) {

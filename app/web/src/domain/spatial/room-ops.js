@@ -2,7 +2,10 @@
 // 공간 수가 바뀌면 전체 배치(격자)가 달라지므로 입력 폼으로 장면을 다시 만든 뒤, 기존 공간의 오브젝트를 새 위치로
 // 그대로 옮겨 붙인다(크기가 같으므로 평행 이동). 옮겨 붙인 결과가 검증에 걸리는 공간만 새 배치를 쓴다(relaid).
 import {round,sceneHash,validateScene} from './scene.js';
+import {STYLES} from './geometry.js';
 import {SPACE_TYPES,createSceneFromForm,newStudioRoom,studioFormFromScene,studioFormKey} from './studio-form.js';
+import {namedRoomComposition} from './space-characters.js';
+import {defaultCells,placeRoomCell,sameCells,sceneRoomCells} from './room-arrangement.js';
 
 const typeName=kind=>SPACE_TYPES.find(([key])=>key===kind)?.[1];
 const same=(a,b)=>Math.abs(a-b)<.001;
@@ -73,6 +76,7 @@ export function addRoom({scene,form},{kind,name}={},library,options={}){
   const inputs=baseForm(scene,form),given=typeof name==='string'?name.trim():'';
   if(given.length>100)throw new Error('공간 이름은 100자 이내로 입력해 주세요.');
   const room={...newStudioRoom(given||label),kind,kindEdited:true};room.name=uniqueName(room.name,inputs.rooms);
+  Object.assign(room,namedRoomComposition(room.name,kind,inputs.industry)); // 이름에 공간 성격이 있으면 그 구성으로
   const result=rebuild(scene,{...inputs,rooms:[...inputs.rooms,room]},library,options);
   return {...result,roomId:room.id};
 }
@@ -98,3 +102,40 @@ export function updateRoom({scene,form},roomId,{name,purpose}={}){
   next.formKey=studioFormKey(inputs);next.contentHash=sceneHash(next);
   return {scene:next,form:inputs};
 }
+
+/** 두 공간의 자리를 맞바꾼다 — 공간 이름표를 끌어 다른 공간 위에 놓을 때. 공간 크기 · 안의 오브젝트는 그대로 옮겨 붙는다. */
+export function swapRooms({scene,form},roomId,targetId,library,options={}){
+  if(!scene?.rooms.some(room=>room.id===roomId)||!scene.rooms.some(room=>room.id===targetId))throw new Error('옮길 공간을 찾지 못했습니다.');
+  if(roomId===targetId)return {scene,form,relaid:[]};
+  const inputs=baseForm(scene,form),rooms=[...inputs.rooms],a=rooms.findIndex(room=>room.id===roomId),b=rooms.findIndex(room=>room.id===targetId);
+  [rooms[a],rooms[b]]=[rooms[b],rooms[a]];
+  // 끌어 옮긴 배치(칸)가 있으면 칸은 자리에 남는다 — 두 공간이 서로의 칸을 쓴다
+  if(rooms[a].cell||rooms[b].cell){const {cell:first,...one}=rooms[a],{cell:second,...two}=rooms[b];rooms[a]={...one,...(second?{cell:second}:{})};rooms[b]={...two,...(first?{cell:first}:{})};}
+  return rebuild(scene,{...inputs,rooms},library,options);
+}
+
+/**
+ * 공간을 칸(cell = {row, col})으로 옮긴다 — 빈 칸이면 그 자리로(배치 자체가 바뀐다), 다른 공간이 있는 칸이면 둘의 자리를 바꾼다.
+ * 칸은 지금 배치 기준이고 바깥쪽 한 줄(-1 · 끝+1)도 된다(roomDropSlots). 공간 순서(번호)는 그대로다.
+ */
+export function moveRoom({scene,form},roomId,cell,library,options={}){
+  const index=scene?.rooms.findIndex(room=>room.id===roomId)??-1;if(index<0)throw new Error('옮길 공간을 찾지 못했습니다.');
+  const cells=placeRoomCell(sceneRoomCells(scene),index,cell);if(!cells)return {scene,form,relaid:[]};
+  const inputs=baseForm(scene,form),plain=sameCells(cells,defaultCells(cells.length)),at=Object.fromEntries(scene.rooms.map((room,i)=>[room.id,cells[i]]));
+  const rooms=inputs.rooms.map(room=>{const {cell:_,...rest}=room;return plain?rest:{...rest,cell:at[room.id]};});
+  const previous=plain?{...scene,rooms:scene.rooms.map(room=>{const {cell:_,...rest}=room;return rest;})}:scene;
+  return rebuild(previous,{...inputs,rooms},library,options);
+}
+
+/** 한 공간의 바닥 · 벽 · 가구 마감 스타일을 바꾼다(전체 스타일과 같으면 공간 스타일을 지운다). 배치는 그대로다. */
+export function setRoomStyle({scene,form},roomId,style){
+  if(!scene?.rooms.some(room=>room.id===roomId))throw new Error('공간을 찾지 못했습니다.');
+  if(!STYLES[style])throw new Error('등록되지 않은 공간 스타일입니다.');
+  const apply=room=>{if(room.id!==roomId)return room;const {style:_,...rest}=room;return style===scene.style?rest:{...rest,style};};
+  const next={...scene,rooms:scene.rooms.map(apply),revision:(scene.revision||0)+1};
+  const inputs={...form,rooms:form.rooms.map(apply)};
+  next.formKey=studioFormKey(inputs);next.contentHash=sceneHash(next);
+  return {scene:next,form:inputs};
+}
+/** 공간에 보이는 스타일 — 공간 스타일이 없으면 전체 스타일. */
+export const roomStyle=(scene,room)=>STYLES[room?.style]?room.style:scene.style;

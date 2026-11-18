@@ -3,9 +3,11 @@ import { getProposal, onProposalChange, resolveImg, sharedProposal } from '../re
 import { documentChanges, applyDocumentChanges } from './share-patch.js';
 import { packSharedAssets, registerSharedAssets } from './shared-assets.js';
 import { getBootstrap } from '../api/bootstrap.js';
-import { sharedIdentity } from './shared-path.js';
+import { sharedIdentity, sharedToken } from './shared-path.js';
 import { createShareHttp } from './share-http.js';
 import { browserStorage } from '../repositories/browser.js';
+import { historyRemoved } from '../repositories/history-preferences.js';
+import { accountSyncReady, accountSyncSettled } from '../repositories/account-sync.js';
 import { isRemovedLayout, isPriorDefaultProposal } from '../domain/templates/migrate_removed_layouts.js';
 import { needsCoverRefresh } from '../domain/templates/refresh_proposal_cover.js';
 
@@ -42,13 +44,24 @@ class SharedSession {
   }
   subscribe(fn) { this.listeners.add(fn); fn(this.state); return () => this.listeners.delete(fn); }
   publish(patch) { this.state = { ...this.state, ...patch }; for (const fn of this.listeners) fn(this.state); }
-  dirty() { return this.base && this.desired && documentChanges(this.base, this.desired).length > 0; }
+  dirty() { return this.base && this.desired && this.base !== this.desired && documentChanges(this.base, this.desired).length > 0; }
   remember() {
     if (this.dirty()) outbox[this.token] = { base: this.base, document: this.desired, id: this.id };
     else delete outbox[this.token];
     saveOutbox();
   }
   install(snapshot) {
+    // The shared document carries no fill state; the account record does. Until the account's records reach memory the
+    // local copy may be an old one, and comparing the server document with it reads every sheet it lacks as newly
+    // added (all of them filled again on every reload). Install once the account copy is in place.
+    if (!accountSyncSettled()) {
+      this.deferred = snapshot;
+      if (!this.deferring) this.deferring = accountSyncReady().then(() => {
+        const next = this.deferred; this.deferred = null; this.deferring = null;
+        if (next && next.revision >= (this.state.snapshot?.revision || 0)) this.install(next);
+      });
+      return;
+    }
     const document = this.desired || snapshot.document;
     registerSharedAssets(document);
     const current = this.id && getProposal(this.id);
@@ -77,6 +90,9 @@ class SharedSession {
     this.timer = setTimeout(() => this.flush(), 350);
   }
   changed(proposal) {
+    // Before the account's records arrive the copy in memory may be an old one that is about to be replaced — never
+    // send it over the shared document.
+    if (!accountSyncSettled()) return;
     this.desired = portableDocument(proposal); this.remember();
     if (!this.state.snapshot) {
       if (this.state.status !== 'offline') this.publish({ status: 'loading' });
@@ -148,6 +164,11 @@ class SharedSession {
     if (snapshot) this.accept(snapshot); else this.refresh();
     if (!this.interval) this.interval = setInterval(() => {
       if (this.listeners.size || this.dirty()) void this.refresh();
+      else if (!this.sending && historyRemoved(this.id, this.token)) {
+        clearInterval(this.interval);
+        this.interval = null;
+        if (sessions.get(this.token) === this) sessions.delete(this.token);
+      }
     }, 1500);
   }
   async permission(permission) {
@@ -177,6 +198,9 @@ export function connectShared(token, { id, snapshot, recoveredDraft } = {}) {
       session.remember();
     }
     session.start(snapshot);
+  } else if (session.state.snapshot && !getProposal(session.id) && sharedToken() === token) {
+    // The owner can follow an existing link immediately after removing its history entry.
+    session.install(session.state.snapshot);
   }
   return session;
 }

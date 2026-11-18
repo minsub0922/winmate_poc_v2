@@ -1,4 +1,4 @@
-.PHONY: up restart stop prepare test test-browser test-live smoke tunnel
+.PHONY: up restart stop prepare test test-browser test-live smoke tunnel llm-redis cache-redis
 up:
 	./start.sh
 restart:
@@ -7,6 +7,10 @@ stop:
 	bash app/scripts/restart.sh --stop
 tunnel:
 	bash app/scripts/cloudflare.sh
+llm-redis:
+	bash -c '. app/scripts/ports.sh && winmate_env LLM_REDIS_BIND LLM_REDIS_PORT && docker compose -f app/compose.llm.yml up -d'
+cache-redis:
+	bash app/scripts/cache_redis.sh up
 prepare:
 	node app/scripts/export_agent_data.mjs
 	app/.venv/bin/python -B app/scripts/prepare_data.py
@@ -14,6 +18,7 @@ test:
 	PYTHONDONTWRITEBYTECODE=1 app/.venv/bin/python -B -m pytest app/tests -q
 	node app/tests/catalog-metrics.mjs
 	node app/tests/requirement-summary.mjs
+	node app/tests/match-extract.mjs
 	node app/tests/layout-usage.mjs
 	node app/tests/transport.mjs
 	node app/tests/sample-history.mjs
@@ -21,12 +26,14 @@ test:
 	node app/tests/review-criteria.mjs
 	node app/tests/simulation-skills.mjs
 	node app/tests/space-sheet-migration.mjs
+	node --test app/tests/account-sync.mjs
 	app/.venv/bin/python -B app/tests/strict_contracts.py
 test-browser:
 	node app/tests/functional-contracts.mjs
 	node app/tests/real-functional-e2e.mjs
 	node app/tests/input_readers.mjs
 	node app/tests/explorers.mjs
+	node app/tests/account-data-e2e.mjs
 test-live:
 	app/.venv/bin/python -B app/tests/run_live_suite.py
 smoke:

@@ -1,4 +1,5 @@
-import React, { useLayoutEffect, useRef, useEffect, useState } from 'react';
+import React, { useLayoutEffect, useRef, useEffect, useState, useMemo } from 'react';
+import { redrawChart } from './charts.js';
 import { layoutHtml } from '../../services/catalog.js';
 import { resolveImg } from '../../repositories/proposals.js';
 import { markUnits } from './evidence.js';
@@ -6,6 +7,8 @@ import { bgUrl, loadBg } from '../../services/packs.js';
 import { hydrateFill } from '../../services/fill.js';
 import { legacySrc } from '../templates/legacy_img.js';
 import { applySpatialBinding } from '../spatial/slide-binding.js';
+import { applyBirdseyeSheet } from '../spatial/birdseye-sheet.js';
+import { useNearViewport } from '../../hooks/useNearViewport.js';
 
 const ALLOWED_TAGS = new Set(['SPAN', 'B', 'STRONG', 'EM', 'I', 'BR', 'SUP', 'SUB', 'SMALL']);
 export function sanitizeInline(html) {
@@ -64,6 +67,7 @@ export function applyOverrides(root, ov, pageNo) {
   for (const [i, v] of Object.entries(t)) {
     const el = root.querySelector(`[data-tb="${i}"]`);
     if (!el || v == null) continue;
+    if (v === '' && /고객사\s*로고|CUSTOMER\s*LOGO/i.test(el.textContent)) el.style.visibility = 'hidden';
     if (typeof v === 'object' && v.html != null) el.innerHTML = sanitizeInline(v.html);
     else el.textContent = String(v);
   }
@@ -78,12 +82,13 @@ export function applyOverrides(root, ov, pageNo) {
     // a packed picture ("img/fill/<묶음>.json#k") goes in as data-fill — hydrateFill below loads it like the layout's own
     if (v?.hidden && el) {
       el.replaceChildren(); el.removeAttribute('src'); el.removeAttribute('data-fill');
-      if (el.tagName !== 'IMG') { el.textContent = v.name || '이미지 확인 필요'; el.style.fontSize = '14px'; }
+      if (el.tagName !== 'IMG') { el.textContent = v.intentional ? (v.name || '') : (v.name || '이미지 확인 필요'); el.style.fontSize = '14px'; }
       continue;
     }
     const packed = !!(v && PACKED.test(v.src || ''));
     const src = v && (packed ? (bgUrl(v.src) || BLANK) : resolveImg(v.src));
     if (!el || !src) continue;
+    el.style.visibility = 'visible';
     const identity = node => {
       if (v.pid) node.setAttribute('data-pid', v.pid); else node.removeAttribute('data-pid');
       if (v.products?.length) node.setAttribute('data-products', v.products.join(',')); else node.removeAttribute('data-products');
@@ -123,6 +128,7 @@ export function applyOverrides(root, ov, pageNo) {
       loadBg(src).then((u) => { if (u && root.getAttribute('data-bg-wait') === src) { root.removeAttribute('data-bg-wait'); paintBg(root, u); } });
     }
   }
+  redrawChart(root); // 차트 장: 값 칸의 숫자대로 막대 · 도넛을 다시 그린다 (charts.js)
   // r: [[from, to]] — replace words in the layout's fixed text (outside editable blocks)
   const rep = (ov && ov.r) || null;
   if (rep && rep.length) {
@@ -135,6 +141,7 @@ export function applyOverrides(root, ov, pageNo) {
     }
   }
   applySpatialBinding(root, ov?.spatial, ov?.t);
+  applyBirdseyeSheet(root, ov); // 조감도 시트: 가운데 형태(ov.spatialMode) · 번호 핀
   // 쪽 번호 — 기본 레이아웃은 하단 바닥글을 지우고 쪽 번호만 [data-pgno]로 남깁니다(layout_cleanup.js).
   // 저장된 칸 값(ov.t)이 무엇이든 [data-pgno]에는 숫자만 들어갑니다. 사용자가 만든 My 템플릿의 'CONFIDENTIAL · N' 칸은 그대로 둡니다.
   root.querySelectorAll('[data-pgno]').forEach((e) => {
@@ -202,22 +209,22 @@ export function readImageSlots(f, ov) {
  * editable: text blocks become editable in place; image slots become clickable / droppable.
  */
 export function Slide({ f, ov, width = 320, pageNo, editable = false, onText, onImage, onImageDrop, onSpatial, className = '', lazy = false, focusImg = null, selUnit = null, hiUnits = null, onSelect }) {
+  const [libraryRevision, setLibraryRevision] = useState(0);
+  useEffect(() => {
+    const changed = e => setLibraryRevision(e.detail);
+    window.addEventListener('winmate:layout-library', changed);
+    return () => window.removeEventListener('winmate:layout-library', changed);
+  }, []);
   const inner = useRef(null);
   const box = useRef(null);
-  const [visible, setVisible] = useState(!lazy);
+  const visible = useNearViewport(box, lazy && !editable, true);
   const scale = width / 1280;
-  useEffect(() => {
-    if (!lazy || visible) return;
-    const el = box.current; if (!el) return;
-    const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { setVisible(true); io.disconnect(); } }, { rootMargin: '200px' });
-    io.observe(el);
-    return () => io.disconnect();
-  }, [lazy, visible]);
-  const ovKey = JSON.stringify(ov || {});
+  const ovKey = useMemo(() => JSON.stringify(ov || {}), [ov]);
   useLayoutEffect(() => {
     const el = inner.current; if (!el || !visible) return;
     el.innerHTML = layoutHtml(f);
     applyOverrides(el.firstElementChild, ov, pageNo);
+    if (!editable) el.querySelectorAll('img').forEach(image => { image.decoding = 'async'; });
     if (editable) {
       el.querySelectorAll('[data-tb]').forEach((t) => { t.setAttribute('tabindex', '0'); t.setAttribute('title', '클릭해서 수정'); });
       el.querySelectorAll('[data-img]').forEach((t) => { t.setAttribute('tabindex', '0'); t.setAttribute('title', onSelect ? '클릭해서 다른 이미지로 바꾸기 · 파일을 끌어다 놓아도 돼요' : '클릭해서 이미지 넣기 · 파일을 끌어다 놓아도 돼요'); });
@@ -225,7 +232,7 @@ export function Slide({ f, ov, width = 320, pageNo, editable = false, onText, on
       if (onSelect) markUnits(el.firstElementChild);
     }
     if (focusImg != null) { const t = el.querySelector(`[data-img="${focusImg}"]`); if (t) t.classList.add('wm-focus'); }
-  }, [f, ovKey, pageNo, editable, visible, focusImg]);
+  }, [f, ovKey, pageNo, editable, visible, focusImg, libraryRevision]);
   // selection / highlight marks only — never re-render the slide (an inline edit may be open)
   const hiKey = (hiUnits || []).join(',');
   useLayoutEffect(() => {
@@ -288,7 +295,7 @@ export function Slide({ f, ov, width = 320, pageNo, editable = false, onText, on
     if (img && e.dataTransfer.files && e.dataTransfer.files[0]) { e.preventDefault(); img.classList.remove('wm-drop'); onImageDrop && onImageDrop(Number(img.getAttribute('data-img')), e.dataTransfer.files[0]); }
   };
   return (
-    <div ref={box} className={'slide ' + (editable ? 'slide-edit ' : '') + className} style={{ width, height: Math.round(width * 9 / 16) }}
+    <div ref={box} className={'slide ' + (editable ? 'slide-edit ' : '') + className} style={{ width, height: Math.round(width * 9 / 16), ...(!editable ? { contain: 'strict', ...(lazy ? { contentVisibility: 'auto' } : {}) } : {}) }}
       onClick={onClick} onKeyDown={onKey} onFocus={onFocus} onDragOver={onDragOver} onDragLeave={onDragLeave} onDrop={onDrop}>
       {visible ? <div ref={inner} className={'slide-inner' + (onSelect && editable ? ' slide-units' : '')} style={{ transform: `scale(${scale})`, '--k': scale }} /> : <div className="slide-wait" />}
     </div>
@@ -296,20 +303,22 @@ export function Slide({ f, ov, width = 320, pageNo, editable = false, onText, on
 }
 
 /** Measure available width for a fit-to-container slide. */
-export function useWidth(ref, fallback = 640) {
+export function useWidth(ref, fallback = 640, enabled = true) {
   const [w, setW] = useState(fallback);
   useLayoutEffect(() => {
-    const el = ref.current; if (!el) return;
+    const el = ref.current; if (!el || !enabled) return;
     const ro = new ResizeObserver(() => setW(el.clientWidth));
     ro.observe(el); setW(el.clientWidth);
     return () => ro.disconnect();
-  }, []);
+  }, [enabled]);
   return w;
 }
 
 /** Slide that fills its container width. */
 export function FitSlide({ max = 4000, ...props }) {
   const ref = useRef(null);
-  const w = useWidth(ref, 300);
-  return <div ref={ref} style={{ width: '100%' }}>{w > 0 && <Slide {...props} width={Math.min(max, w)} />}</div>;
+  const sleeping = props.lazy && !props.editable;
+  const visible = useNearViewport(ref, sleeping, true);
+  const w = useWidth(ref, 300, visible);
+  return <div ref={ref} style={{ width: '100%', ...(sleeping ? { maxWidth: max, aspectRatio: '16 / 9', position: 'relative', contain: 'strict', contentVisibility: 'auto' } : {}) }}>{visible && w > 0 ? <Slide {...props} lazy={false} width={Math.min(max, w)} /> : <div className="slide-wait" />}</div>;
 }

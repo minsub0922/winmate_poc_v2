@@ -19,7 +19,7 @@ def start(args,env,path):
 
 def main():
  settings=load_settings()
- if not settings.has_key:print(f'선택한 LLM({settings.provider})의 인증 키가 없습니다. app/.env를 확인하세요.');return 2
+ if not settings.has_key:print(f'선택한 LLM({settings.provider})의 인증 키가 없습니다. 루트 .env를 확인하세요.');return 2
  stamp=datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ');output=ROOT/'app/tests/output/strict/runs'/stamp;output.mkdir(parents=True)
  api_port=free_port();web_port=free_port();api=f'http://127.0.0.1:{api_port}';web=f'http://127.0.0.1:{web_port}'
  env={**os.environ,'PYTHONDONTWRITEBYTECODE':'1','WINMATE_AUTH':'off','WINMATE_LLM_CACHE':'off','WINMATE_GEMINI_RPM':os.environ.get('WINMATE_GEMINI_RPM','42'),'WINMATE_API_PORT':str(api_port),'WINMATE_WEB_PORT':str(web_port),'WINMATE_LIVE_URL':api,'WINMATE_LIVE_WEB':web,'LIVE_RUN':stamp,'LIVE_LIMIT':'10','LANGSMITH_TRACING':'false'}
@@ -31,10 +31,10 @@ def main():
    if p.poll() is not None:raise RuntimeError('실제 API 기동 실패: '+str(output/'api.log'))
    try:
     with urllib.request.urlopen(api+'/api/health',timeout=2)as r:health=json.load(r)
-    if health.get('gemini',{}).get('verified'):break
+    if (health.get('llm') or health.get('gemini') or {}).get('verified'):break
    except Exception:pass
    time.sleep(.5)
-  else:raise TimeoutError('Gemini 연결 확인을 포함한 서버 기동 시간이 초과되었습니다.')
+  else:raise TimeoutError('LLM 연결 확인을 포함한 서버 기동 시간이 초과되었습니다.')
   p,f=start(['npm','--prefix','app/web','run','dev'],env,output/'vite.log');services.append(p);files.append(f)
   for script,name in [([sys.executable,'-B','app/tests/live_backend.py'],'backend'),(['node','app/tests/live_frontend.mjs'],'frontend')]:
    p,f=start(script,env,output/(name+'.log'));tests.append((name,p));files.append(f)

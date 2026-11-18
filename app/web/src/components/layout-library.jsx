@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ungroupCountLayouts } from '../domain/templates/layout_count_groups.js';
 import { Icon, partHue } from './common.jsx';
 import { PARTS, REQ_LABEL } from '../domain/proposals/parts.js';
 import { LAYOUTS, IND, INDUSTRIES, S, SOLUTIONS, P, isPhotoFirst, indsOf } from '../services/catalog.js';
@@ -30,6 +31,7 @@ const prodIds = idList;
 const USED_PROD = [...new Set(LAYOUTS.flatMap((l) => l.prods || []))].filter((id) => P[id]);
 export const NO_FILTER = Object.fromEntries(FKEYS.map((k) => [k, '']));
 export function pass(l, f, skip) {
+  if (l.countVariants) return l.countVariants.some(member => pass(member, f, skip));
   if (skip !== 'part') { if (f.part && l.p !== f.part) return false; if (!f.part && f.grp && GROUP_OF[l.p] !== f.grp) return false; }
   if (skip !== 'deck' && f.deck && l.c !== f.deck) return false;
   if (skip !== 'prod' && f.prod) { const ids = prodIds(f.prod); if (ids.length && !(l.prods || []).some((id) => ids.includes(id))) return false; }
@@ -71,6 +73,7 @@ export function activeFilters(f) {
 /** One popup, read top to bottom: 목차 유형 → 업종 → 솔루션 → 제품 → 이미지 칸 → 필요한 정보 → 원본 장표.
  *  Every choice shows how many layouts stay with the other choices kept; nothing applies until "N장 보기". */
 export function LayoutFilterPopup({ f, base, onApply, onClose }) {
+  base = ungroupCountLayouts(base); // facet counts are physical sheets (장), including every size variant
   const [d, setD] = useState(() => ({ ...NO_FILTER, ...Object.fromEntries(FKEYS.map((k) => [k, f[k]])) }));
   const put = (patch) => setD((x) => ({ ...x, ...patch }));
   const n = base.filter((l) => pass(l, d)).length;
@@ -100,7 +103,7 @@ export function LayoutFilterPopup({ f, base, onApply, onClose }) {
 
   return (
     <FilterFrame unit={LAYOUT_UNIT} n={n} canReset={on} onReset={() => setD({ ...NO_FILTER })} onApply={() => onApply(d)} onClose={onClose}>
-      <FStep no={1} title="목차 유형" hint="구분 이름을 누르면 그 구분 전체">
+      <FStep no={1} title="목차 유형">
         <div className="tlf-parts">
           <div className="tlf-prow">{all('part', partPool.length, { grp: '' })}</div>
           {PART_GROUPS.map((g) => (
@@ -185,7 +188,6 @@ export function LayoutSections({ groups, card, cols, query = false }) {
                       </div>
                     </div>
                   )}
-                  {query && <div className="tl-hint"><Icon name="info" size={13} />레이아웃 이름 · 용도 · 예시 문구 · 업종 · 솔루션에서 찾았어요. 필터로 더 좁힐 수 있어요.</div>}
                   <div className="tl-grid" style={cols ? { gridTemplateColumns: 'repeat(' + cols + ', minmax(0, 1fr))' } : undefined}>{s.items.map(card)}</div>
                 </section>
               );

@@ -32,6 +32,5 @@ export function BackgroundEffects({ value, onChange, onStart, onEnd, disabled = 
     {range('overlayOpacity', '색상 덮기', 0, 100, '%', '배경 덮개 투명도')}
     <label className="ed-effects-toggle"><input type="checkbox" disabled={disabled} checked={value.dots > 0} onChange={e => choose({ dots: e.target.checked ? 100 : 0 })} />도트 효과</label>
     {value.dots > 0 && <>{range('dots', '도트 강도', 0, 100)}{range('dotSize', '도트 크기', 4, 32, 'px')}</>}
-    <p className="ed-help">효과를 함께 적용할 수 있어요. ‘원본’을 누르면 모든 효과가 초기화돼요.</p>
   </div>;
 }

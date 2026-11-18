@@ -96,7 +96,7 @@ try{
   await editor.click();await tag('회의','space','회의실');await editor.pressSequentially(' 추가하고 수목 하나 놓아줘');
   await Promise.all([page.waitForResponse(r=>r.url().includes('/api/spatial/command')),editor.press('Enter')]);
   await page.locator('.sp-view[data-ready=true]').waitFor({timeout:120000});
-  await page.locator('.sp-room-strip button',{hasText:'대회의실'}).waitFor();
+  await page.locator('[data-room-label]',{hasText:'대회의실'}).waitFor();
   await page.screenshot({path:output+'/first-room.png',fullPage:true});
   pass('a blank studio keeps the command input on and builds its first room from a command');
 
@@ -104,7 +104,7 @@ try{
   const room={...newStudioRoom('예전 회의실'),kind:'meeting'};
   const legacy=await api.post('/api/spatial/drafts',{form:{...emptyStudioForm(),industry:'OF',title:'예전 초안',rooms:[room]},view:'3d'});
   await page.goto(base+'/spatial/'+legacy.id);await page.locator('.sp-view[data-ready=true]').waitFor({timeout:120000});
-  await page.locator('.sp-room-strip button',{hasText:'예전 회의실'}).waitFor();
+  await page.locator('[data-room-label]',{hasText:'예전 회의실'}).waitFor();
   pass('an old draft that only had typed inputs opens with its scene built from them');
 
   // 예전 초안 가운데 입력이 불완전해 장면을 만들 수 없는 것 — 빈 스튜디오로 열리고, 숨은 예전 입력이 첫 공간을 막지 않는다
@@ -113,8 +113,8 @@ try{
   next=()=>[{type:'room_add',kind:'lounge',name:'새 라운지'}];
   await editor.click();await editor.pressSequentially('라운지 하나 만들어줘');
   await Promise.all([page.waitForResponse(r=>r.url().includes('/api/spatial/command')),editor.press('Enter')]);
-  await page.locator('.sp-view[data-ready=true]').waitFor({timeout:120000});await page.locator('.sp-room-strip button',{hasText:'새 라운지'}).waitFor();
-  assert.equal(await page.locator('.sp-room-strip button').count(),2,'only the new room exists — the unusable old input is gone');
+  await page.locator('.sp-view[data-ready=true]').waitFor({timeout:120000});await page.locator('[data-room-label]',{hasText:'새 라운지'}).waitFor();
+  assert.equal(await page.locator('[data-room-label]').count(),1,'only the new room exists — the unusable old input is gone');
   pass('an old draft whose inputs cannot build a scene opens blank and takes its first room from a command');
 
   assert.deepEqual(app.errors,[]);

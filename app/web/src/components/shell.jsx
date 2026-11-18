@@ -1,3 +1,4 @@
+import { groupCountLayouts } from '../domain/templates/layout_count_groups.js';
 import React, { useState } from 'react';
 import { useStore, stageOf } from '../repositories/proposals.js';
 import { Icon, fmtWhen, partHue, toast } from './common.jsx';
@@ -10,12 +11,12 @@ import { TemplateIcon } from '../pages/LibraryPage.jsx';
 import { SCENARIOS, SC, FEATURED } from '../domain/templates/scenarios.js';
 import { scenarioStoryboard } from '../domain/templates/scenario_storyboard.js';
 import { ScenarioStoryboard } from '../pages/ScenariosPage.jsx';
-import { ReviewEntry } from '../pages/ReviewPage.jsx';
+import { ReviewEntry } from './review-entry.jsx';
 import { useReviews } from '../repositories/reviews.js';
 import { useMy } from '../repositories/templates.js';
 import { useFavs, liveFavs } from '../repositories/favorites.js';
 import { reqText, inferIndustry } from '../services/search.js';
-import { SimIcon } from '../pages/SimulationPage.jsx';
+import { SimIcon } from './sim-icon.jsx';
 import { useHomeEntry } from '../hooks/useHomeEntry.js';
 import { useCatalogMetrics } from '../hooks/useCatalogMetrics.js';
 import { ProfileButton } from './ProfileButton.jsx';
@@ -27,7 +28,7 @@ export function StepDots({ p }) {
   const nodes = [{ c: 'n-req', i: 'clip', n: '고객 요구사항' }];
   if (stageOf(p) !== 'req') {
     const low = KIND.some(([k, , , min]) => p.ctx[k].length < min);
-    nodes.push({ c: 'n-match' + (low ? ' is-low' : ''), i: 'link', n: '제품 · 솔루션 매칭' });
+    nodes.push({ c: 'n-match' + (low ? ' is-low' : ''), i: 'link', n: '제품 · 솔루션 · 서비스' });
     for (const s of storyParts(p)) { const t = s.type || classifyPart(s.name); nodes.push({ c: 'n-part ' + partHue(t) + (s.done ? ' is-done' : ' is-draft'), i: partIcon(s), n: s.name || '이름 없는 목차' }); }
   }
   const label = nodes.map((x) => x.n).join(' → ');
@@ -73,8 +74,8 @@ export function Sidebar({ route, go, onNew, open, setOpen }) {
       </button>
       <button className="sb-new" onClick={onNew}><Icon name="plus" size={16} stroke={2.4} />{tx('새 제안서 시작')}</button>
       {/* 템플릿 라이브러리 — 샘플 버티컬 시나리오 + PPT 레이아웃 시트 in one page (TemplateHubPage) */}
-      <button className="sb-home sb-tpl" aria-current={route.name === 'library' || route.name === 'scenarios' ? 'page' : undefined} onClick={() => go({ name: 'library' })}><TemplateIcon />{tx('템플릿 라이브러리')}<span className="sb-count num sb-tx">{SCENARIOS.length + LAYOUTS.length}</span></button>
-      <button className="sb-home sb-spatial" aria-label="조감도" aria-current={route.name === 'spatial' || route.name === 'building' ? 'page' : undefined} onClick={() => go({ name: 'spatial' })}><Icon name="building" />{tx('조감도')}<span className="sb-spatial-format sb-tx">2D · 3D</span><span className="sb-beta sb-tx">BETA</span></button>
+      <button className="sb-home sb-tpl" aria-current={route.name === 'library' || route.name === 'scenarios' ? 'page' : undefined} onClick={() => go({ name: 'library' })}><TemplateIcon />{tx('템플릿 라이브러리')}<span className="sb-count num sb-tx">{SCENARIOS.length + groupCountLayouts(LAYOUTS).length}</span></button>
+      <button className="sb-home sb-spatial" aria-label="공간 조감도" aria-current={route.name === 'spatial' || route.name === 'building' ? 'page' : undefined} onClick={() => go({ name: 'spatial' })}><Icon name="building" />{tx('공간 조감도')}<span className="sb-spatial-format sb-tx">2D · 3D</span><span className="sb-beta sb-tx">BETA</span></button>
       {/* 견적서 · 제안서 검토 — one row split left / right. 견적서 has no screen yet, so it only says so. */}
       <div className="sb-pair" role="group" aria-label="견적서 · 제안서 검토">
         <button type="button" className="sb-pair-button sb-quote" aria-disabled="true" aria-label="견적서 (준비 중)" title="견적서 — 준비 중" onClick={() => toast('견적서는 준비 중이에요.')}>
@@ -108,6 +109,10 @@ function firstLayout(p) { for (const s of p.parts) if (s.layouts.length) return 
 
 // Cover all requirement types and strategies across a range of industries.
 const HOME_SCENARIOS = [...new Set([...FEATURED,'bs_std_ht_large','bs_std_of_cowork','bs01','bs03','bs06','bs08','bs11','bs12','bs13','bs14','bs17','bs19'])].slice(0,12).map(id=>SC[id]).filter(Boolean);
+
+/** a [샘플] history card (sample-history.js seeds the curated 샘플 버티컬 시나리오 into the history) → that scenario.
+ *  Copies made with 활용하기 are the user's own proposals and are not samples. */
+const sampleScenarioOf = (p) => (p.sample && p.sample.source === 'best-scenario' && SC[p.sample.scenario]) || null;
 
 const HOME_METRICS = [
   { icon: 'panel', label: '준비된 PPT layout', key: 'layouts' },
@@ -148,7 +153,7 @@ export function Home({ go, onNew }) {
   const [homeRef, entryReady] = useHomeEntry();
   const counts = useCatalogMetrics(INITIAL_METRICS);
   const list = useStore((s) => s.proposals);
-  const [scenario, setScenario] = useState(null);
+  const [scenario, setScenario] = useState(null); // { s, own } — the sample popup; own = the history copy it was opened from
   return (
     <div className="home" ref={homeRef} data-home-ready={entryReady} aria-busy={!entryReady}>
       <div className="home-in">
@@ -187,8 +192,10 @@ export function Home({ go, onNew }) {
               let ind = p.ind || inferIndustry(reqText(p));
               if (ind && !IND[ind]) ind = null;
               const cover = cardCover(p, ind);
+              // a 샘플 버티컬 시나리오 always opens its detail popup (시트 first) — from the sample section and from a [샘플] history card alike
+              const sample = scenario || sampleScenarioOf(p);
               return (
-                <button key={p.id} className="hcard" onClick={() => scenario ? setScenario(scenario) : go({ name: 'proposal', id: p.id })}>
+                <button key={p.id} className="hcard" aria-haspopup={sample ? 'dialog' : undefined} onClick={() => sample ? setScenario({ s: sample, own: scenario ? null : p.id }) : go({ name: 'proposal', id: p.id })}>
                   <div className="hcard-thumb"><FitSlide f={cover.f} ov={cover.ov} lazy /></div>
                   <div className="hcard-body">
                     <div className="stepbar"><StepDots p={p} /></div>
@@ -205,13 +212,13 @@ export function Home({ go, onNew }) {
             </section>
           ) : (
             <section aria-label="샘플 버티컬 시나리오">
-              <div className="sec-head"><h2 style={{ flexShrink: 0 }}>샘플 버티컬 시나리오</h2><span className="faint" style={{ fontSize: "var(--text-12-5px)" }}>대표 시나리오 {HOME_SCENARIOS.length}개 · 클릭해 구성을 살펴보세요</span></div>
+              <div className="sec-head"><h2 style={{ flexShrink: 0 }}>샘플 버티컬 시나리오</h2><span className="faint" style={{ fontSize: "var(--text-12-5px)" }}>대표 시나리오 {HOME_SCENARIOS.length}개</span></div>
               <div className="hgrid">{HOME_SCENARIOS.map((s) => card(scenarioStoryboard(s.id), s))}</div>
             </section>
           );
         })()}
       </div>
-      {scenario && <ScenarioStoryboard key={scenario.id} s={scenario} go={go} onClose={() => setScenario(null)} />}
+      {scenario && <ScenarioStoryboard key={scenario.s.id} s={scenario.s} ownId={scenario.own} go={go} onClose={() => setScenario(null)} />}
     </div>
   );
 }

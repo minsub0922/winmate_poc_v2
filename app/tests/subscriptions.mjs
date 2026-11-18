@@ -108,8 +108,11 @@ test('원장 — 레지스트리 항목마다 subscription:<id>(kind subscriptio
     if (x.basis === 'official' && x.status === 'active') assert.ok(['new', 'active', 'changed'].includes(it.status) && it.checked_run === REG.run, x.id + ' 확인 표식');
   }
   const run = LEDGER.runs.find((r) => r.run_id === REG.run);
-  assert.ok(run && run.scope.includes('subscriptions'), '구독 run 기록');
-  assert.equal(run.sources.failed + run.sources.partial, 0);
+  // 구독을 본 run 이어야 한다 — 구독만 본 run(scope 에 subscriptions) 또는 전체 run(scope 없음)
+  assert.ok(run && (!run.scope || run.scope.includes('subscriptions')), '구독 run 기록');
+  // 구독 소스는 모두 받았어야 한다. 구독만 본 run 은 run 의 소스 집계가 곧 구독 소스이고, 전체 run 은 다른 채널의 알려진 수집 오류가 섞이므로 레지스트리의 소스 상태로 본다
+  if (run.scope) assert.equal(run.sources.failed + run.sources.partial, 0);
+  assert.ok(REG.sources.every((x) => !['failed', 'partial'].includes(x.status)), '구독 소스 수집 완료');
   const dish = Object.values(LEDGER.items).filter((x) => /식기세척기/.test(x.name) && x.kind !== 'subscription');
   assert.ok(dish.length >= 10 && dish.every((x) => x.kind === 'device'), '식기세척기 = 제품(device)');
 });
@@ -154,8 +157,10 @@ test('파트 — 구독 도입(subscription) 타입과 이름 규칙', () => {
   assert.ok(M.NEXT.cost.includes('subscription') && M.NEXT.subscription.length >= 2, '비용 → 구독 → 실행');
 });
 
-test('목차 템플릿 — 구독 제안서 · 구독 전환 제안서가 업종 44 모두 구독 장으로 조립된다', () => {
-  for (const [tid, core] of [['subs', ['L_SUB_PAIN', 'L_SUB_VALUE3', 'L_SUB_BLUEPASS', 'L_SUB_TERMS', 'L_SUB_PAY3', 'L_SUB_FLOW']], ['subsl', ['L_SUB_ONE', 'L_SUB_TERMS', 'L_SUB_PAY3']]]) {
+// 구독은 한 파트(구독 솔루션 — subx)로 합쳤다(사용자 지시 2026-11-16): 고민 → 효과 → 비교 → 제품 묶음 → 케어 1 → 케어 2 → 구독 조건 → 결제.
+//   구독 전환 제안서(subsl)는 은퇴 — 이미 만든 제안서를 위해 조립만 된다(옛 장 그대로).
+test('목차 템플릿 — 구독 제안서(구독 솔루션 한 파트) · 은퇴한 구독 전환 제안서가 업종 44 모두 구독 장으로 조립된다', () => {
+  for (const [tid, core] of [['subs', ['L_SUB_PAIN', 'L_SUB_VALUE3', 'L_SUB_COMPARE', 'L_SUB_CARE4', 'L_SUB_BLUEPASS', 'L_SUB_TERMS', 'L_SUB_PAY3']], ['subsl', ['L_SUB_ONE', 'L_SUB_TERMS', 'L_SUB_PAY3']]]) {
     for (const vid of Object.keys(REG.verticals)) {
       const s = M.ensureTocScenario(tid, vid); assert.ok(s, tid + '/' + vid);
       const fs_ = new Set(M.FILLS[s.id].map((o) => o.f));
@@ -211,8 +216,9 @@ test('구독 요구 판정 규칙 — 레지스트리 addon = 목차 내용(toc_
   assert.equal(part.name, '구독 솔루션 제안'); assert.ok(part.items[0].startsWith('요구사항: ') && part.items[0].includes('렌탈'));
 });
 
-test('어느 템플릿이든 구독 요구가 있으면 구독 솔루션 제안만 더한다 — 자리 · 장 · 번호', () => {
-  const tpls = M.TOC_TEMPLATES.filter((t) => !t.addons && t.kind !== 'subs');
+test('어느 템플릿이든 구독 요구가 있으면 구독 솔루션 파트만 더한다 — 자리 · 장 · 번호 · Spec 은 맨 마지막', () => {
+  // 이미 구독을 담는 구성(구독 제안서 · 서비스 제안이 있는 기본 제안 · 고객/공간 시나리오가 있는 상세 제안 — 2026-11-17)은 아래에서 따로
+  const tpls = M.TOC_TEMPLATES.filter((t) => !t.addons && t.kind !== 'subs' && !t.tocs.includes('subx') && !t.tocs.includes('svc') && !t.tocs.includes('value'));
   let n = 0;
   for (const t of tpls) {
     for (const vid of Object.keys(REG.verticals)) {
@@ -220,24 +226,27 @@ test('어느 템플릿이든 구독 요구가 있으면 구독 솔루션 제안�
       const named = M.TOC_TEMPLATES.find((x) => x.base === t.id && (x.addons || []).join() === 'sub');
       if (named) assert.equal(s.id, `toc_${named.id}__${vid}`, `${t.id} + 구독 = ${named.id}`); else assert.equal(s.id, `toc_${t.id}+sub__${vid}`);
       const names = s.flow.slice(1).map((g) => g.name.slice(3));
-      const k = names.indexOf('구독 솔루션 제안'); assert.ok(k >= 0, s.id);
+      const k = names.indexOf('구독 솔루션'); assert.ok(k >= 0, s.id);
+      assert.ok(!names.includes('Spec') || names[names.length - 1] === 'Spec', s.id + ' Spec 은 맨 마지막');
       assert.equal(names.length, t.tocs.length + 1, s.id + ' 목차 하나만 더함');
       const types = t.tocs.map((x) => M.TOCS[x].type); const want = (() => { const a = types.lastIndexOf(AFTER[0]); if (a >= 0) return a + 1; const b = types.findIndex((x) => BEFORE.includes(x)); return b >= 0 ? b : types.length; })();
       assert.equal(k, want, `${s.id} 자리 ${k} ≠ ${want}`);
       const g = s.flow[k + 1];
       assert.match(g.slides[0].f, /^L_VS_DIV_R\d$/);
-      assert.deepEqual(g.slides.slice(1).map((x) => x.f.replace(/\d$/, '')), ['L_SUB_VALUE', 'L_SUB_PKG', 'L_SUB_PAY', ...(REG.items.some((x) => x.type === 'promotion' && x.status === 'active') ? ['L_SUB_PROMO'] : [])], s.id);
+      assert.deepEqual(g.slides.slice(1).map((x) => x.f.replace(/\d$/, '')), ['L_SUB_PAIN', 'L_SUB_VALUE', 'L_SUB_COMPARE', 'L_SUB_PKG', 'L_SUB_CARE', 'L_SUB_BLUEPASS', 'L_SUB_TERMS', 'L_SUB_PAY'], s.id);
       assert.equal(M.STORY[s.id].parts[g.name].type, 'subscription');
       const fills = M.FILLS[s.id];
       fills.forEach((o, i) => { for (const v of Object.values(o.t || {})) { const m = /^CONFIDENTIAL · (\d+)$/.exec(v); if (m) assert.equal(+m[1], i + 1, `${s.id} #${i + 1} 쪽 번호`); } });
       const start = s.flow.slice(0, k + 1).reduce((a, x) => a + x.slides.length, 0);
-      for (let j = 1; j < g.slides.length; j++) assert.ok(String(fills[start + j].t[0]).startsWith(String(k + 1).padStart(2, '0') + ' · 구독 솔루션 제안'), `${s.id} 눈썹 ${fills[start + j].t[0]}`);
+      for (let j = 1; j < g.slides.length; j++) assert.ok(String(fills[start + j].t[0]).startsWith(String(k + 1).padStart(2, '0') + ' · 구독 솔루션'), `${s.id} 눈썹 ${fills[start + j].t[0]}`);
     }
   }
   assert.equal(n, tpls.length * 44);
   // 이미 구독 목차가 있는 구성은 그대로 · 요구가 없으면 템플릿 그대로
   assert.equal(M.ensureTocScenario('subs', 'ht_large', { addons: ['sub'] }).id, 'toc_subs__ht_large');
-  assert.equal(M.ensureTocScenarioFor('std', 'ht_large', '객실 TV 교체').id, 'bs_std_ht_large');
+  assert.equal(M.ensureTocScenario('basic', 'ht_large', { addons: ['sub'] }).id, 'toc_basic__ht_large', 'basic — 서비스 제안의 구독 갈래가 있다');
+  for (const id of ['detail', 'space', 'pain']) assert.equal(M.ensureTocScenario(id, 'ht_large', { addons: ['sub'] }).id, `toc_${id}__ht_large`, id + ' — 구독은 고객/공간 시나리오의 서비스 줄로');
+  assert.equal(M.ensureTocScenarioFor('std', 'ht_large', '객실 TV 교체').id, 'toc_std__ht_large'); // 표준 제안서도 조립한다(끝에 Spec)
   assert.equal(M.ensureTocScenarioFor('std', 'ht_large', '렌탈로 도입하고 싶다').id, 'toc_stdsub__ht_large');
   assert.equal(M.ensureTocScenarioFor('build', 'of_sme', '초기 비용 부담 · 정기 점검 포함').id, 'toc_build+sub__of_sme');
 });

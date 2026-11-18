@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
-import {openIndustryTemplates} from './fixtures/birdseye/entry.mjs';
+import {openIndustryTemplates,templatePreviewReady,confirmTemplate} from './fixtures/birdseye/entry.mjs';
+import {industryTemplates} from '../web/src/domain/birdseye/start.js';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -7,7 +8,6 @@ import {spawn} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {createServer} from '../web/node_modules/vite/dist/node/index.js';
 import {chromium} from '../web/node_modules/playwright/index.mjs';
-import {spatialTemplateCatalog} from '../web/src/domain/spatial/template-catalog.js';
 import {TEMPLATE_ROOM} from '../web/src/domain/spatial/template-composition.js';
 import {createScene,focusScene} from '../web/src/domain/spatial/scene.js';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),out=path.join(root,process.env.SPATIAL_DENSITY_OUTPUT||'app/tests/output/spatial-density');fs.mkdirSync(out,{recursive:true});
@@ -27,13 +27,14 @@ try{
  await context.route(u=>['/api/llm','/api/jobs'].includes(u.pathname),route=>route.request().method()==='POST'?route.fulfill({status:503,json:{detail:'isolated density test'}}):route.continue());
  page=await context.newPage();page.setDefaultTimeout(30000);page.on('pageerror',e=>errors.push(e.message));await page.goto(base+'/spatial',{waitUntil:'domcontentloaded'});
  const header=page.locator('.sp-header');await header.waitFor();const loadingBox=await header.boundingBox();const open=page.getByRole('button',{name:/조감도 스튜디오 시작/});await open.waitFor({timeout:120000});const loadedBox=await header.boundingBox();for(const k of ['x','y','width','height'])assert(Math.abs(loadingBox[k]-loadedBox[k])<2,k+' stable through delayed library loading');
- const modal=await openIndustryTemplates(page),cards=modal.locator('.sp-template-card'),scope=modal.getByLabel('템플릿 범위',{exact:true});assert.equal(await scope.inputValue(),'full');assert.equal(await cards.count(),24);
- for(const card of (await cards.all()).slice(0,16)){assert.match(await card.locator('.sp-map-caption').innerText(),/6개 공간/);const svg=decodeURIComponent((await card.locator('img').getAttribute('src')).split(',').slice(1).join(','));assert.equal((svg.match(/data-room-id=/g)||[]).length,6);}
+ // 업종 템플릿은 시작 팝업에서 업종을 고른 뒤 드롭다운으로 고른다 — 그 업종의 표준 전체 맵만 나온다(대표 맵이 맨 앞).
+ const menu=await openIndustryTemplates(page,'FB'),cards=menu.locator('.be-template-item');assert.deepEqual(await cards.evaluateAll(nodes=>nodes.map(n=>n.dataset.templateId)),industryTemplates(library,'FB').map(t=>t.id));assert.match(await cards.first().innerText(),/공간 6개/);
+ for(const industry of library.industries.slice(0,16)){const first=industryTemplates(library,industry.code)[0];assert.equal(first.id,industry.code.toLowerCase()+'-full-standard');assert.equal(createScene({templateId:first.id},library).rooms.length,6,industry.name);}
  assert(revisionRequests>0);assert.equal(oldLatestRequests,0,'published revision bypasses a stale API process');await page.screenshot({path:out+'/six-room-defaults.png'});pass('default overview shows six rooms for all 16 industries, even when latest API data is stale; delayed loading keeps header stable');
- const body=modal.locator('.mbody');while(await cards.count()<spatialTemplateCatalog(library).length){await body.evaluate(el=>el.scrollTop=el.scrollHeight);await page.waitForTimeout(150);}assert.equal(await cards.count(),spatialTemplateCatalog(library).length);for(const card of await cards.all()){const text=await card.locator('.sp-map-caption').innerText(),id=await card.getAttribute('data-template-id');assert.match(text,id.startsWith('v-')?/[2-6]개 공간/:/[246]개 공간/,id);}
- await scope.selectOption('single');assert((await cards.first().locator('.sp-map-caption').innerText()).includes('1개 공간'));await scope.selectOption('full');await modal.getByLabel('템플릿 업종',{exact:true}).selectOption('FB');await modal.getByLabel('공간 크기',{exact:true}).selectOption('standard');
- const selected=modal.locator('[data-template-id="fb-full-standard"]');await selected.getByRole('button',{name:'3D 보기',exact:true}).click();await page.waitForFunction(()=>document.querySelector('[data-template-id="fb-full-standard"] img')?.src.match(/^data:image\/png|\/preview\.webp\?/),null,{timeout:120000});await selected.locator('img').evaluate(img=>img.decode());await page.screenshot({path:out+'/six-room-3d.png'});pass('overview choices use 2/4/6 rooms (vertical zone maps 2–6); individual rooms are explicit; real 3D preview uses the smaller layout');
- await selected.getByRole('button',{name:'활용하기',exact:true}).click();/* 시작 팝업에서 고르면 바로 스튜디오로 간다 */await page.waitForURL(/\/spatial\/sp-/);await page.locator('.sp-view[data-ready=true]').waitFor({timeout:120000});
+ for(const industry of library.industries)for(const template of industryTemplates(library,industry.code)){const rooms=createScene({templateId:template.id},library).rooms.length;assert(template.id.startsWith('v-')?rooms>=2&&rooms<=6:[2,4,6].includes(rooms),template.id);}
+ for(const card of await cards.all())assert.match(await card.innerText(),/공간 [2-6]개/);
+ const selected=menu.locator('[data-template-id="fb-full-standard"]');await templatePreviewReady(page,'fb-full-standard');assert((await selected.locator('.be-template-thumb').boundingBox()).width>=300);await page.screenshot({path:out+'/six-room-3d.png'});pass('overview choices use 2/4/6 rooms (vertical zone maps 2–6); real 3D preview uses the smaller layout');
+ await confirmTemplate(page,'fb-full-standard');/* 고르고 확인하면 바로 스튜디오로 간다 */
  const id=page.url().split('/').at(-1),record=await(await context.request.get(base+'/api/spatial/history/'+id)).json(),expected=createScene({templateId:'fb-full-standard'},library);assert.deepEqual(record.scene.objects,expected.objects);assert.equal(record.scene.rooms.length,6);assert(record.scene.rooms.every(r=>record.scene.objects.some(o=>o.roomId===r.id&&o.people?.length)),'every persisted template room has occupants');assert(record.scene.rooms.every(r=>Math.abs(r.width-TEMPLATE_ROOM.width)<.0001&&Math.abs(r.depth-TEMPLATE_ROOM.depth)<.0001));
  await page.getByRole('button',{name:'2D 평면도',exact:true}).click();await page.locator('.sp-plan-image svg').waitFor();await page.waitForTimeout(900);await page.reload();await page.locator('.sp-plan-image svg').waitFor({timeout:120000});assert.equal(await page.locator('.sp-plan-image [data-room-id]').count(),6);pass(`using and reopening a template preserves six rooms, true ${TEMPLATE_ROOM.width} × ${TEMPLATE_ROOM.depth} m dimensions and its exact object placements`);
  const focused=focusScene(expected,expected.rooms.find(r=>r.id===(process.env.SPATIAL_DENSITY_EXPORT_ROOM||'fb-6')).id),capture=await page.evaluate(async({scene,library})=>{const{createSpatialRenderer}=await import('/src/domain/spatial/render-three.js');const host=document.createElement('div');host.style.cssText='width:1280px;height:840px;position:fixed;left:-20000px';document.body.append(host);const r=createSpatialRenderer(host);try{r.setScene(scene,library);await r.ready();const png=r.snapshot().image,b=await r.exportGlb();let s='';for(const n of new Uint8Array(b))s+=String.fromCharCode(n);return{png,glb:btoa(s)};}finally{r.dispose();host.remove();}},{scene:focused,library});

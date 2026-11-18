@@ -1,0 +1,23 @@
+/* 구성 대표 샘플 덱 시트 보기 — /?toc=<구성>&embed=sheets (components/toc-sheets.jsx). 다른 화면(iframe) 안에서 화면을 다 채운다. */
+.tsx { position: fixed; inset: 0; z-index: 50; display: grid; grid-template-columns: 228px minmax(0, 1fr); gap: 14px; padding: 12px; background: var(--surface); }
+.tsx-empty, .tsx-wait { margin: 0; padding: 8px; font-size: 13px; color: var(--muted); }
+.tsx-rail { min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding: 2px 8px 14px 2px; scrollbar-width: thin; }
+.tsx-th { display: block; width: fit-content; cursor: pointer; }
+.tsx-th.first:not(:first-child) { margin-top: 8px; } /* 파트가 바뀌는 자리만 조금 띄운다 */
+.tsx-th:hover .slide { box-shadow: var(--shadow); }
+.tsx-th:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* 장이 속한 파트 — Storyboard 버블과 같은 채운 원 + 아이콘 */
+.tsx-pi { position: absolute; top: 5px; left: 5px; z-index: 1; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--hc); color: var(--surface); box-shadow: 0 0 0 2px var(--surface); pointer-events: none; }
+.tsx-stage { min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 10px; padding: 14px 18px 12px; border-radius: 12px; background: var(--surface-2); }
+.tsx-info { flex-shrink: 0; flex-wrap: nowrap; min-height: 30px; }
+.tsx-info .pt { flex-shrink: 0; display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px 3px 7px; }
+.tsx-info .nm { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tsx-fit { flex: 1; min-height: 0; min-width: 0; display: flex; align-items: center; justify-content: center; }
+.tsx-fit .slide { box-shadow: var(--shadow); border-radius: 6px; border: 1px solid var(--line); }
+.tsx-nav { flex-shrink: 0; justify-content: center; }
+.tsx-pg { min-width: 84px; text-align: center; font-size: 12.5px; font-weight: 700; }
+@media (max-width: 700px) {
+  .tsx { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; }
+  .tsx-rail { order: 2; flex-direction: row; overflow-x: auto; overflow-y: hidden; }
+  .tsx-th.first:not(:first-child) { margin: 0 0 0 8px; }
+}

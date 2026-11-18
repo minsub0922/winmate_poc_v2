@@ -11,7 +11,7 @@ const fixture = {
  'parts.js': `export const PARTS={cost:{label:'비용'}},REQ_LABEL={};`,
  'scenarios.js': `export const SCENARIOS=Array.from({length:15},(_,i)=>({id:'scenario_'+i,title:'비용 검토 '+i,short:'투자 회수',req:'new',strategy:'value',ending:'pilot',audience:{lead:'대표',others:[]},objections:[],flow:[],signals:['비용 비교'],criteria:[],kpis:[],products:[],solutions:[],cases:[]}));export const REQ_TYPES={new:{label:'신규'}},STRATEGIES={value:{label:'가치',desc:'비용 투자'}},ENDINGS={pilot:'파일럿'};export const slidesOfScenario=()=>[];`,
 };
-const built = await build({ stdin: { contents: `export * from './services/catalog-search.js';export {setTransport} from './api/client.js';`, resolveDir: root }, bundle: true, write: false, platform: 'node', format: 'esm',
+const built = await build({ stdin: { contents: `export * from './services/catalog-search.js';export {setTransport} from './api/client.js';export {configureLayoutLibrary} from './domain/templates/layout_library.js';`, resolveDir: root }, bundle: true, write: false, platform: 'node', format: 'esm',
  plugins: [{ name: 'catalog-fixtures', setup(b) {
   b.onResolve({ filter: /\/(catalog|parts|scenarios)\.js$/ }, args => ({ path: args.path.split('/').at(-1), namespace: 'fixture' }));
   b.onLoad({ filter: /.*/, namespace: 'fixture' }, args => ({ contents: fixture[args.path] }));
@@ -20,13 +20,12 @@ const built = await build({ stdin: { contents: `export * from './services/catalo
 const service = await import('data:text/javascript;base64,' + Buffer.from(built.outputFiles[0].text).toString('base64'));
 const doc = (id, fields) => ({ id, item: { id }, fields: searchFields(fields) });
 const response = data => Response.json({ mode: 'real', data });
+// Intent expansion stays a browser LLM call (/api/llm); ranking is the server task catalog.rank (/api/catalog/rank).
 function modelTransport({ queries = ['비용 투자 회수'], rank, calls = [] } = {}) {
- let step = 0;
- service.setTransport(async (_url, init) => {
-  const body = JSON.parse(init.body); calls.push(body);
-  if (step++ === 0) return response({ queries });
-  const spec = body.response_schema.properties.order;
-  return response({ order: rank ? rank(spec) : spec.items.properties.id.enum.slice(0, spec.minItems).reverse().map(id => ({ id, reason: '고객의 투자 비용 검토에 맞는 자료' })) });
+ service.setTransport(async (url, init) => {
+  const body = JSON.parse(init.body); calls.push({ url: String(url), ...body });
+  if (!String(url).includes('/api/catalog/rank')) return response({ queries });
+  return response({ order: rank ? rank(body) : body.candidates.map(c => c.id).slice(0, body.count).reverse().map(id => ({ id, reason: '고객의 투자 비용 검토에 맞는 자료' })) });
  });
  return calls;
 }
@@ -59,7 +58,8 @@ test('AI reranks exactly ten, keeps all remaining keyword and RAG results withou
  assert.equal(calls.length, 2); assert.equal(out.length, 80); assert.equal(new Set(out.map(x => x.id)).size, 80);
  assert.equal(out.filter(x => x.ai).length, 10); assert(out.slice(0, 10).every(x => x.aiWhy && x.rank));
  assert(out.slice(10).every(x => !x.ai)); assert.equal(phases.length, 3);
- assert.equal(calls[1].response_schema.properties.order.minItems, 10);
+ assert(calls[1].url.endsWith('/api/catalog/rank')); assert.equal(calls[1].count, 10); assert.equal(calls[1].kind, 'layouts');
+ assert(calls[1].candidates.every(c => c.id && Array.isArray(c.fields) && c.fields.every(f => f.length === 2)));
 });
 test('context expansion finds catalog content even without literal input-word matches', async () => {
  assert.equal(service.searchCatalogKeywords('layouts', '이사회에서돈걱정').length, 0);
@@ -75,15 +75,45 @@ test('filters restrict candidate IDs before ranking, and fewer than ten returns 
  const calls = modelTransport(); const allowedIds = ['layout_2', 'layout_3', 'layout_4'];
  const out = await service.searchCatalogAI('layouts', '비용', { context: { allowedIds, filters: ['예산'] } });
  assert.equal(out.length, 3); assert(out.every(x => allowedIds.includes(x.id)));
- assert.equal(calls[1].response_schema.properties.order.minItems, 3);
+ assert.equal(calls[1].count, 3); assert.deepEqual(calls[1].candidates.map(c => c.id).sort(), allowedIds);
 });
-test('invalid or repeated model IDs fail after a bounded repair, never become AI results', async () => {
- const calls = modelTransport({ rank: spec => Array.from({ length: spec.minItems }, () => ({ id: 'invented', reason: 'invalid' })) });
+test('invalid or repeated ranking IDs from the server task are rejected, never become AI results', async () => {
+ const calls = modelTransport({ rank: body => Array.from({ length: body.count }, () => ({ id: 'invented', reason: 'invalid' })) });
  await assert.rejects(service.searchCatalogAI('layouts', '비용'), { code: 'invalid_output' });
- assert.equal(calls.length, 3);
+ assert.equal(calls.length, 2);
 });
 test('aborted searches never call the model; missing matches do not invent catalog items', async () => {
  const calls = modelTransport({ queries: ['zzzz'] }); const c = new AbortController(); c.abort();
  await assert.rejects(service.searchCatalogAI('layouts', '비용', { signal: c.signal }), { name: 'AbortError' });
  assert.equal(calls.length, 0); assert.deepEqual(await service.searchCatalogAI('layouts', 'zzzz'), []); assert.equal(calls.length, 1);
+});
+
+// Explicit lists back My/favourites and must invalidate alongside the admin catalog.
+test('cached catalog documents follow replaced lists and library revisions', () => {
+ const defaults = service.catalogDocuments('layouts');
+ const items = defaults.slice(0, 4).map(d => ({ ...d.item }));
+ const first = service.catalogDocuments('layouts', items);
+ assert.equal(service.catalogDocuments('layouts', items), first);
+ const updated = items.map((item, i) => i ? item : { ...item, name: '갱신된 제품 근거' });
+ const second = service.catalogDocuments('layouts', updated);
+ assert.notEqual(second, first);
+ assert.equal(service.searchCatalogKeywords('layouts', '갱신된 제품', updated)[0].id, items[0].f);
+ items[0].name = '관리자 변경 근거';
+ const scenarios = service.catalogDocuments('scenarios');
+ service.configureLayoutLibrary({ v: 1, rev: 100, items: {} });
+ assert.notEqual(service.catalogDocuments('scenarios'), scenarios);
+ assert.notEqual(service.catalogDocuments('layouts'), defaults);
+ assert.notEqual(service.catalogDocuments('layouts', items), first);
+ assert.equal(service.searchCatalogKeywords('layouts', '관리자 변경', items)[0].id, items[0].f);
+});
+
+test('cached corpus keeps exact ranks/scores and recomputes statistics for a filtered list', () => {
+ const docs = [doc('a', [['제목', ['메뉴보드 원격 운영 운영'], 6]]), doc('b', [['제목', ['원격 운영 비용'], 6]]), doc('c', [['제목', ['객실 에너지 절감'], 6]])];
+ for (const query of ['원격 운영', '에너지', '메뉴보드 비용']) {
+   const fresh = retrieveDocuments(query, structuredClone(docs));
+   assert.deepEqual(retrieveDocuments(query, docs), fresh);
+   assert.deepEqual(retrieveDocuments(query, docs), fresh);
+   const subset = docs.slice(1);
+   assert.deepEqual(retrieveDocuments(query, subset), retrieveDocuments(query, structuredClone(subset)));
+ }
 });

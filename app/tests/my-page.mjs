@@ -101,6 +101,7 @@ try {
  assert.equal(await previewTools.locator('.fav-btn.lbl').count(), 1);
  assert.equal(await page.locator('.modal.sheet .mfoot').getByRole('button', { name: '수정하기', exact: true }).count(), 0);
  await page.getByRole('button', { name: '수정하기', exact: true }).click();
+ await page.locator('.feedback-popup.error .feedback-close').first().click();
  await page.locator('.modal.sheet').getByRole('button', { name: '저장', exact: true }).click();
  await page.locator('.modal.sheet').waitFor({ state: 'detached' });
  await page.getByRole('heading', { name: '템플릿 라이브러리', exact: true }).waitFor();
@@ -127,20 +128,20 @@ try {
  pass('My and favourite buttons count only their own repository records');
  const footerGeometry = async () => page.locator('.sb-personal').evaluate(nav => {
   const [my, fav] = [...nav.children].map(el => el.getBoundingClientRect());
-  const row = nav.getBoundingClientRect(), profile = nav.nextElementSibling.getBoundingClientRect(), sidebar = nav.closest('.sidebar').getBoundingClientRect();
-  return { my: { left: my.left, right: my.right, top: my.top, width: my.width }, fav: { left: fav.left, right: fav.right, top: fav.top, width: fav.width }, row: { top: row.top, bottom: row.bottom }, profile: { top: profile.top }, sidebar: { top: sidebar.top, height: sidebar.height }, nextIsProfile: nav.nextElementSibling.classList.contains('sb-foot') };
+  const row = nav.getBoundingClientRect(), profile = nav.closest('.sidebar').querySelector('.sb-foot').getBoundingClientRect(), sidebar = nav.closest('.sidebar').getBoundingClientRect();
+  return { my: { left: my.left, right: my.right, top: my.top, width: my.width }, fav: { left: fav.left, right: fav.right, top: fav.top, width: fav.width }, row: { top: row.top, bottom: row.bottom }, profile: { top: profile.top }, sidebar: { top: sidebar.top, height: sidebar.height }, beforeProfile: !!(nav.compareDocumentPosition(nav.closest('.sidebar').querySelector('.sb-foot')) & Node.DOCUMENT_POSITION_FOLLOWING) };
  });
  const checkFooter = async () => {
   const g = await footerGeometry();
   assert(Math.abs(g.my.width - g.fav.width) < 1 && Math.abs(g.my.top - g.fav.top) < 1 && Math.abs(g.fav.left - g.my.right) < 1);
-  assert(g.nextIsProfile && g.row.bottom <= g.profile.top && g.profile.top - g.row.bottom < 18);
+  assert(g.beforeProfile && g.row.bottom <= g.profile.top);
   assert(g.row.top > g.sidebar.top + g.sidebar.height * .6);
  };
  await page.locator('.sidebar').hover({ position: { x: 20, y: 20 } }); await sleep(300); await checkFooter();
  await page.locator('.sidebar').screenshot({ path: output + '/sidebar-expanded.png' });
  await page.mouse.move(1496, 2); await sleep(300); await checkFooter();
  await page.locator('.sidebar').screenshot({ path: output + '/sidebar-collapsed.png' });
- pass('both sidebar buttons occupy equal horizontal halves directly above the profile, expanded or collapsed');
+ pass('both sidebar buttons occupy equal horizontal halves above the guide/feedback/profile controls, expanded or collapsed');
  await page.setViewportSize({ width: 390, height: 844 }); await sleep(400); await navigate('.sb-my');
  assert.equal(await page.locator('.sidebar.open').count(), 0);
  assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));

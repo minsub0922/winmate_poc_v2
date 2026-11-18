@@ -1,5 +1,6 @@
 import {peopleObjectError,peopleRenderGroups,partsBounds,furnitureBounds,peopleInScene,PEOPLE_LAYOUT_VERSION} from './people-placement-geometry.js';
 import {faceRotation} from './natural-layout.js';
+import {characterPeople} from './space-characters.js';
 
 const hash=s=>[...s].reduce((n,c)=>Math.imul(n^c.charCodeAt(0),16777619)>>>0,2166136261);
 // +0 stores a signed zero as 0, so a regenerated scene equals its saved JSON.
@@ -71,14 +72,19 @@ function mealFor(source,target,owner,assets){
  if(!source.parts.some(p=>p.component==='tool'&&['meal','ricebowl','lunchtray','pasta','salad','breakfast'].includes(p.objectType)))return null;
  const a=assets[target.assetId],angle=target.rotation*Math.PI/180,dx=owner.x-target.x,dz=owner.z-target.z;
  const local=[dx*Math.cos(angle)-dz*Math.sin(angle),dx*Math.sin(angle)+dz*Math.cos(angle)],len=Math.hypot(...local)||1;
- const edge=Math.min(a.size[0],a.size[2])/2-.18,offset=[local[0]/len*Math.max(0,edge),round((a.supportSurfaceHeight||a.size[1])+.006),local[1]/len*Math.max(0,edge)];
+ const edge=Math.min(a.size[0],a.size[2])/2-.18,height=round((a.supportSurfaceHeight||a.size[1])+.006),clamp=(n,limit)=>Math.max(-limit,Math.min(limit,n));
+ // Round or square tables: toward the diner. Rectangular tables: straight in front of the diner, so neighbours on one side keep their own place.
+ const offset=Math.abs(a.size[0]-a.size[2])<.05?[local[0]/len*Math.max(0,edge),height,local[1]/len*Math.max(0,edge)]
+  :Math.abs(local[1])/a.size[2]>=Math.abs(local[0])/a.size[0]?[clamp(local[0],Math.max(0,a.size[0]/2-.24)),height,Math.sign(local[1])*Math.max(0,a.size[2]/2-.19)]
+  :[Math.sign(local[0])*Math.max(0,a.size[0]/2-.19),height,clamp(local[1],Math.max(0,a.size[2]/2-.24))];
  return {sourceAssetId:source.id,offset:offset.map(round),scale:.72};
 }
-function populateSeats(scene,room,type,library,assets){
+function populateSeats(scene,room,type,library,assets,{role:roleOverride,character=false}={}){
  const hosts=scene.objects.filter(o=>o.roomId===room.id&&seats.has(assets[o.assetId].kind)&&o.elevation<.06&&!o.people?.length);
  const usable=hosts.filter(o=>{
   const t=scene.objects.find(t=>t.id===o.facing?.targetId),ta=t&&assets[t.assetId];
-  if(ta&&['counter','reception'].includes(ta.kind)&&ta.size[1]>1)return false; // High counters get standing staff.
+  if(ta&&['counter','reception'].includes(ta.kind)&&ta.size[1]>1&&!(character&&ta.kind==='counter'&&assets[o.assetId].kind==='stool'))return false; // High counters get standing staff; bar stools seat guests.
+  if(character&&ta?.kind==='reception')return false; // The staff side of a desk is filled by the character itself.
   if(['ward','nurse','warehouse','lab','kitchen','home-kitchen','fitness','facility','laundry','garment','coldstore','media','selfservice','field','park','school-route','sport-outdoor','entry'].includes(type))return false;
   if(type==='reception'&&assets[o.assetId].kind==='taskchair')return false;
   return true;
@@ -89,13 +95,14 @@ function populateSeats(scene,room,type,library,assets){
  const pending=[...usable];
  while(pending.length&&added<max){
   pending.sort((a,b)=>(usedTargets.get(a.facing?.targetId)||0)-(usedTargets.get(b.facing?.targetId)||0)||hash(seed+a.id)-hash(seed+b.id));
-  const owner=pending.shift(),a=assets[owner.assetId],target=scene.objects.find(t=>t.id===owner.facing?.targetId),role=type==='clinic'&&room.spaceProfile==='clinic'&&a.kind==='taskchair'?'doctor':seatRole(type,scene.industry);
+  const owner=pending.shift(),a=assets[owner.assetId],target=scene.objects.find(t=>t.id===owner.facing?.targetId),role=type==='clinic'&&room.spaceProfile==='clinic'&&a.kind==='taskchair'?'doctor':roleOverride||seatRole(type,scene.industry);
   let actions=seatActions(type,added,owner,target,assets);
   if(target&&.79*Math.min(1.06,(a.supportSurfaceHeight||.47)/.495)+.035<assets[target.assetId].size[1]&&actions.includes('write'))actions=added%4===2?['raise','read','listen']:['read','listen','raise'];
   const pool=candidates(library,role,'sit',actions,seed+owner.id);
   const sourcePool=pool.length?pool:candidates(library,'customer','sit',['read','listen','rest'],seed+owner.id);
   const top=a.supportSurfaceHeight||(a.kind==='bench'?.45:.47),scale=Math.min(1.06,Math.max(.72,top/.495));
-  for(const {source,actor}of sourcePool){
+  // A character room never leaves a seat empty because the first choice (a meal that does not fit) failed.
+  for(const {source,actor}of character?[...sourcePool,...candidates(library,role,'sit',['drink','snack','read','listen','rest'],seed+owner.id),...candidates(library,'customer','sit',['drink','read','snack'],seed+owner.id)]:sourcePool){
    const descriptor={version:1,sourceAssetId:source.id,actorId:actor.id,mode:'seat',offset:[0,round(top-.495*scale),0],rotation:0,scale:round(scale),...(target?{targetId:target.id}:{})};
    if(['eat','chopsticks'].includes(actor.action)){
     if(!target||!tables.has(assets[target.assetId].kind))continue;
@@ -113,11 +120,17 @@ function populateSeats(scene,room,type,library,assets){
  }
  return added;
 }
-function standAt(scene,room,host,role,actions,library,assets,{side='front',stage=false}={}){
- const a=assets[host.assetId],seed=scene.industry+room.id+host.id;
+function standAt(scene,room,host,role,actions,library,assets,{side='front',stage=false,seed:salt=''}={}){
+ const a=assets[host.assetId],seed=scene.industry+room.id+host.id+salt;
  const pool=candidates(library,role,'stand',actions,seed);
  const offsets=stage?[0,-.65,.65,-1,1].flatMap(x=>[0,-.25,.25].map(z=>[x,a.size[1]+.006,z,0])):side==='visible-side'?[
   [a.size[0]/2+.42,0,.2,90],[0,0,a.size[2]/2+.42,180],[a.size[0]/2+.56,0,.2,90],[-a.size[0]/2-.42,0,.3,270],
+ ]:side==='customer'?[ // a visitor in front of the piece, facing it
+  [0,0,a.size[2]/2+.42,180],[-a.size[0]*.3,0,a.size[2]/2+.44,180],[a.size[0]*.3,0,a.size[2]/2+.44,180],[a.size[0]/2+.45,0,0,90],[-a.size[0]/2-.45,0,0,270],[0,0,a.size[2]/2+.7,180],
+ ]:side==='queue'?[ // the next visitor in line
+  [0,0,a.size[2]/2+1.25,180],[a.size[0]*.3,0,a.size[2]/2+1.3,180],[-a.size[0]*.3,0,a.size[2]/2+1.3,180],[0,0,a.size[2]/2+2,180],
+ ]:side==='on'?[ // standing on a floor mat
+  [0,.035,.15,180],[0,.035,0,180],[.2,.035,.2,180],
  ]:side==='side'?[
   [-a.size[0]/2-.42,0,-.12,270],[a.size[0]/2+.42,0,-.12,90],[-a.size[0]/2-.44,0,.3,270],[-a.size[0]/2-.56,0,-.12,270],[a.size[0]/2+.56,0,-.12,90],
  ]:[
@@ -129,6 +142,40 @@ function standAt(scene,room,host,role,actions,library,assets,{side='front',stage
  }
  return false;
 }
+// People of a space character (domain/spatial/space-characters.js): named seats, the remaining seats, a stage, standing roles.
+function seatPerson(scene,room,owner,role,actions,library,assets){
+ const a=assets[owner.assetId],target=scene.objects.find(t=>t.id===owner.facing?.targetId);
+ const top=a.supportSurfaceHeight||(a.kind==='bench'?.45:.47),scale=Math.min(1.06,Math.max(.72,top/.495));
+ for(const {source,actor}of candidates(library,role,'sit',actions,scene.industry+room.id+owner.id)){
+  if(['eat','chopsticks'].includes(actor.action))continue;
+  const descriptor={version:1,sourceAssetId:source.id,actorId:actor.id,mode:'seat',offset:[0,round(top-.495*scale),0],rotation:0,scale:round(scale),...(target?{targetId:target.id}:{})};
+  for(const z of [0,-.04,.025,-.07,-.085]){descriptor.offset[2]=z;if(addPerson(owner,room,scene,assets,descriptor))return true;}
+ }
+ return false;
+}
+function populateCharacter(scene,room,plan,type,library,assets){
+ const inRoom=()=>scene.objects.filter(o=>o.roomId===room.id&&!assets[o.assetId].productId);
+ const match=key=>o=>o.assetId==='furniture:'+key||assets[o.assetId].kind===key;
+ for(const [role,actions,names,max=1]of plan.sit||[]){
+  let seated=0;
+  for(const owner of inRoom().filter(o=>names.some(name=>match(name)(o))&&!o.people?.length&&o.elevation<.06)){if(seated>=max)break;if(seatPerson(scene,room,owner,role,actions,library,assets))seated++;}
+ }
+ if(plan.fill!==false)populateSeats(scene,room,plan.fill?.type||type,library,assets,{role:plan.fill?.roleBy?.[scene.industry]||plan.fill?.role,character:true});
+ const patientSource=assets['people:doctor-bed-round'],patient=patientSource?.actors.find(a=>a.roleId==='patient');
+ for(const name of plan.bed||[]){
+  const bed=inRoom().find(match(name));
+  if(bed&&patient)addPerson(bed,room,scene,assets,{version:1,sourceAssetId:patientSource.id,actorId:patient.id,mode:'bed',offset:[0,round((assets[bed.assetId].supportSurfaceHeight||.61)+.13),.83],rotation:0,scale:1});
+ }
+ for(const [role,actions]of plan.stage||[]){
+  const stage=inRoom().find(o=>assets[o.assetId].kind==='stage');
+  if(stage&&!standAt(scene,room,stage,role,actions,library,assets,{stage:true}))standAt(scene,room,stage,role,actions,library,assets,{side:'customer'});
+ }
+ // The planned side first; a smaller room or a product in the way falls back to the other sides of the same piece.
+ for(const [index,[role,actions,key,side='front']]of (plan.stand||[]).entries()){
+  const hosts=inRoom().filter(match(key)).toSorted((a,b)=>(a.people?.length||0)-(b.people?.length||0));
+  place:for(const attempt of [...new Set([side,'customer','visible-side','side','front'])])for(const host of hosts)if(standAt(scene,room,host,role,actions,library,assets,{side:attempt,seed:String(index)}))break place;
+ }
+}
 export function populateScenePeople(scene,library){
  if(![1,PEOPLE_LAYOUT_VERSION].includes(library.peopleLayoutVersion))return scene;
  const allRooms=library.peopleLayoutVersion>=2;
@@ -137,6 +184,8 @@ export function populateScenePeople(scene,library){
  for(const room of scene.rooms){
   if(scene.objects.some(o=>o.roomId===room.id&&(o.people?.length||assets[o.assetId].assetGroup==='people')))continue;
   const type=context(room,scene.industry,allRooms);if(!type)continue;
+  const special=allRooms&&characterPeople(room);
+  if(special){populateCharacter(scene,room,special,type,library,assets);continue;}
   populateSeats(scene,room,type,library,assets);
   const hosts=scene.objects.filter(o=>o.roomId===room.id&&!o.autoDressing&&!assets[o.assetId].productId),find=kinds=>hosts.find(o=>kinds.includes(assets[o.assetId].kind)&&!o.people?.length);
   const addStaff=(role,actions,kinds,options)=>{const host=find(kinds);return host&&standAt(scene,room,host,role,actions,library,assets,options);};

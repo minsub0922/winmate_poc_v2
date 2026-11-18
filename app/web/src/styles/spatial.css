@@ -690,3 +690,10 @@
 .sp-storyboard-picker .sp-filterbar{margin-bottom:0}
 .sp-storyboard-picker .sp-filterbar select{min-width:140px}
 @media(max-width:520px){.sp-storyboard-picker .sp-filterbar input{flex-basis:100%;min-width:0}.sp-storyboard-picker .mfoot .note{max-width:210px;font-size:10px}.sp-storyboard-picker .sp-map-grid{gap:12px}}
+
+/* 조감도 스튜디오 팝업 (components/spatial-studio-popup.jsx) — Storyboard 위에 거의 전체 화면으로 */
+.mback.sp-studio-back{padding:20px}
+.modal.sp-studio-modal{width:min(1660px,100%);height:100%;max-height:none}
+.sp-studio-modal>.sp-page{flex:1;min-height:0}
+.sp-studio-modal .sp-studio-page .sp-page-in{padding-top:16px}
+@media(max-width:760px){.mback.sp-studio-back{padding:0}.modal.sp-studio-modal{border-radius:0}}

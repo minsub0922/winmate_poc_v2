@@ -11,6 +11,7 @@ import { legacySrc } from '../domain/templates/legacy_img.js';
 // so a proposal, the detail popup, PPTX export … draw it like any other layout.
 import { useSyncExternalStore } from 'react';
 import { registerLayout, unregisterLayout } from '../services/catalog.js';
+import { withInspect } from '../api/inspect.js';
 
 const DBN = 'winmate-my';
 const BLANK = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
@@ -44,7 +45,7 @@ const REMOTE_IMAGES = new Set();
 let storeId = '', writeQueue = Promise.resolve();
 function account() { try { const user = getBootstrap().user; return user?.template_sync && user.username && !user.guest ? user.username : null; } catch { return null; } }
 export const myAccountStorage = () => !!account();
-const imagePath = id => '/api/my-templates/images/' + encodeURIComponent(id);
+const imagePath = id => withInspect('/api/my-templates/images/' + encodeURIComponent(id)); // 관리자 열람 탭: <img>도 그 사용자 것
 const queued = fn => { const result = writeQueue.then(fn); writeQueue = result.catch(() => {}); return result; };
 const subs = new Set();
 let ok = true; // false: no IndexedDB here — kept for this visit only

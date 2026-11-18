@@ -1,4 +1,4 @@
-// Isolated browser storage: recommendations exclude used templates; manual selection remains available.
+// Isolated browser storage: recommendations exclude used templates; manual selection remains available (a pick closes the picker).
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -32,7 +32,7 @@ try {
     const id = repo.createProposal();
     repo.update(id, p => { p.parts = [{ id: 'existing', type: 'value', name: '기존 가치', items: [], layouts: [{ uid: 'manual-one', f: used, status: 'empty', ov: { t: {}, img: {} } }] }, target]; });
     const host = document.createElement('div'); document.body.appendChild(host);
-    function Harness() { const p = repo.useStore(s => s.proposals.find(p => p.id === id)); return React.createElement(LayoutPicker, { p, partId: 'target', onClose: () => {} }); }
+    function Harness() { const p = repo.useStore(s => s.proposals.find(p => p.id === id)); const [open, setOpen] = React.useState(true); window.__reopenPicker = () => setOpen(true); return open ? React.createElement(LayoutPicker, { p, partId: 'target', onClose: () => setOpen(false) }) : null; }
     createRoot(host).render(React.createElement(Harness));
     return { id, used };
   });
@@ -40,14 +40,15 @@ try {
   assert.equal(await page.locator(`.pk-rec .pcard[data-f="${fixture.used}"]`).count(), 0);
   const manual = page.locator(`.pk-all .pcard[data-f="${fixture.used}"]`);
   assert.equal(await manual.count(), 1);
-  await manual.click();
+  const reopen = async () => { await page.locator('.modal.xwide').waitFor({ state: 'detached' }); await page.evaluate(() => window.__reopenPicker()); await page.locator('.pk-rec .pcard').first().waitFor(); };
+  await manual.click(); await reopen();
   await page.waitForFunction(({ id, used }) => JSON.parse(localStorage.getItem('winmate.v2.proposals')).find(p => p.id === id)?.parts.find(p => p.id === 'target')?.layouts.some(x => x.f === used), fixture);
   assert.equal(await page.locator(`.pk-rec .pcard[data-f="${fixture.used}"]`).count(), 0);
-  assert.equal(await manual.getAttribute('aria-pressed'), 'true');
+  assert.match(await manual.innerText(), /추가됨/);
   const fresh = await page.locator('.pk-rec .pcard').first().getAttribute('data-f');
-  await page.locator('.pk-rec .pcard').first().click();
+  await page.locator('.pk-rec .pcard').first().click(); await reopen();
   await page.locator(`.pk-all .pcard[data-f="${fresh}"]`).waitFor();
   assert.equal(await page.locator(`.pk-rec .pcard[data-f="${fresh}"]`).count(), 0);
-  assert.equal(await page.locator(`.pk-all .pcard[data-f="${fresh}"]`).getAttribute('aria-pressed'), 'true');
+  assert.match(await page.locator(`.pk-all .pcard[data-f="${fresh}"]`).innerText(), /추가됨/);
   console.log('PASS recommendations omit layouts used anywhere in the deck; the same layout can still be added manually to another part.');
 } finally { await browser?.close(); await vite.close(); }

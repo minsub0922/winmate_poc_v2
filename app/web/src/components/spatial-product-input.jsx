@@ -39,7 +39,7 @@ export function SpatialProductInput({library,products,onAdd,label,disabled,previ
         if(open&&choices.length&&['ArrowDown','ArrowUp','Enter','Tab'].includes(e.key)){e.preventDefault();if(e.key==='ArrowDown'||e.key==='ArrowUp'){const next=(active+(e.key==='ArrowDown'?1:-1)+choices.length)%choices.length;setActive(next);requestAnimationFrame(()=>point(next,true));}else choose(choices[active]||choices[0]);}
       }}/></div>
     <span className="sp-product-mention-feedback" role="status" aria-live="polite">{message}</span>
-    {open&&position&&createPortal(<div ref={menu} className="sp-product-mention-menu" style={position}><div className="sp-product-mention-title">제품 추가 <span>↑↓ 선택 · Enter 추가 · Esc 닫기</span></div><div ref={list} id={id} role="listbox" aria-label="공간 제품 @ 검색">{choices.map((asset,index)=>{
+    {open&&position&&createPortal(<div ref={menu} className="sp-product-mention-menu" style={position}><div className="sp-product-mention-title">제품 추가</div><div ref={list} id={id} role="listbox" aria-label="공간 제품 @ 검색">{choices.map((asset,index)=>{
       const chosen=products.some(p=>p.productId===asset.productId);return <button type="button" key={asset.id} id={id+'-'+index} data-option-index={index} role="option" aria-label={spatialAssetLabel(asset)} aria-selected={active===index} onPointerDown={e=>e.preventDefault()} onMouseEnter={e=>{setActive(index);preview.show(asset,e.currentTarget);}} onMouseLeave={preview.hide} onClick={()=>choose(asset)}><SpatialObjectThumb asset={asset}/><span><strong>{asset.name}</strong><small>{asset.model}</small></span><em>{chosen?'선택됨':<Icon name="plus" size={14}/>}</em></button>;
     })}</div>{!choices.length&&<p className="sp-empty-results">일치하는 제품이 없어요. 제품명·모델명으로 검색해 주세요.</p>}</div>,document.body)}
   </div>;

@@ -3,6 +3,7 @@ import { browserStorage, openDatabase } from './browser.js';
 import { fetchResource } from '../api/client.js';
 import { getBootstrap } from '../api/bootstrap.js';
 import { mergeSampleReviews, sampleReviewDoc } from './sample-reviews.js';
+import { refreshProposalCover } from '../domain/templates/refresh_proposal_cover.js';
 // Review history (localStorage) + parsed documents (IndexedDB) + the evaluation runner.
 // The evaluation is the server review (proposal_score, AI): the browser parses the file, reads the profile, picks the
 // criteria that apply (criteria.js `when`) and measures the layout geometry — all deterministic — then submits one server
@@ -18,6 +19,9 @@ import { CR, CAT, CATS, CRITERIA, verdictOf, REVIEW_CRITERIA_VERSION, normalizeC
 import { planForFresh, submitPocJob, cancelPocJob, requestErrorText, modelFailed, MODEL_FAILED_TEXT } from '../services/poc-client.js';
 import { trackJob, registerJobHandler, cancelJob, getJobRecord } from './jobs.js';
 import { withRequirementSummary, taskRequirementContext } from '../services/requirement-summary.js';
+import { registerCollection, noteChange, accountSyncActive, putDocument, getDocument, deleteDocument, documentIds, putBlob, blobUrl } from './account-sync.js';
+import { changeRecord } from './record-update.js';
+import { recordsJson } from './record-json.js';
 
 const KEY = 'winmate.v2.reviews';
 const MAX = 20;
@@ -33,13 +37,14 @@ function onLoad(r) {
   return pocOnLoad({ ...r, status: 'interrupted' });
 }
 function load() {
+  if (!browserStorage.accountHistory) return [];
   let list = [];
   try {
     const v = JSON.parse(browserStorage.getItem(KEY) || '[]');
     if (!Array.isArray(v)) return [];
     list = v.filter((r) => r && r.id).map(onLoad);
   } catch { return []; }
-  return mergeSampleReviews(list, getBootstrap().user, browserStorage, getProposals());
+  return mergeSampleReviews(list, getBootstrap().user, browserStorage, getProposals(), refreshProposalCover);
 }
 let state = { reviews: load() };
 const subs = new Set();
@@ -49,15 +54,27 @@ function persist() {
   saveT = setTimeout(() => {
     let list = state.reviews.slice(0, MAX);
     for (let k = 0; k < 6; k++) {
-      try { browserStorage.setItem(KEY, JSON.stringify(list)); return; } catch (e) {
+      try { browserStorage.setItem(KEY, recordsJson(list)); return; } catch (e) {
         // quota: thin out the oldest records first
         if (list.length > 3) list = list.slice(0, list.length - 2);
         else list = list.map((r) => ({ ...r, rules: undefined }));
       }
     }
   }, 300);
+  noteChange('reviews');
 }
 function emit() { for (const f of subs) f(); }
+registerCollection('reviews', {
+  list: () => state.reviews,
+  apply(records, removed) {
+    const gone = new Set(removed), incoming = new Map(records.map(r => [r.id, onLoad(r)])), known = new Set(state.reviews.map(r => r.id));
+    const reviews = state.reviews.filter(r => !gone.has(r.id)).map(r => incoming.get(r.id) || r);
+    for (const r of incoming.values()) if (!known.has(r.id)) reviews.push(r);
+    reviews.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+    for (const id of gone) DOCS.delete(id);
+    state = { reviews }; persist(); emit();
+  },
+});
 export function useReviews(sel) {
   return useSyncExternalStore((f) => { subs.add(f); return () => subs.delete(f); }, () => sel(state));
 }
@@ -65,7 +82,8 @@ export function getReview(id) { return state.reviews.find((r) => r.id === id); }
 function put(r) { state = { reviews: [r, ...state.reviews.filter((x) => x.id !== r.id)].slice(0, MAX + 5) }; persist(); emit(); }
 export function patch(id, fn) {
   const i = state.reviews.findIndex((r) => r.id === id); if (i < 0) return;
-  const d = { ...state.reviews[i] }; fn(d);
+  const d = changeRecord(state.reviews[i], fn);
+  if (d === state.reviews[i]) return;
   const list = state.reviews.slice(); list[i] = d; state = { reviews: list }; persist(); emit();
 }
 export function connectReviewProposal(id, proposalId) {
@@ -93,6 +111,43 @@ function idb() {
   return dbp;
 }
 const DOCS = new Map();
+// The account keeps parsed documents too (collection review-docs): page images become account files, the rest is JSON.
+const digest = async blob => [...new Uint8Array(await crypto.subtle.digest('SHA-256', await blob.arrayBuffer()))].slice(0, 12).map(n => n.toString(16).padStart(2, '0')).join('');
+async function portableDoc(id, doc) {
+  const images = [];
+  for (const image of doc.images || []) {
+    if (!(image?.blob instanceof Blob)) continue;
+    const blobId = 'rdoc-' + id + '-' + image.n + '-' + await digest(image.blob);
+    await putBlob(blobId, image.blob);
+    images.push({ n: image.n, blobId });
+  }
+  return { ...doc, images };
+}
+async function browserDoc(doc) {
+  const images = await Promise.all((doc.images || []).map(async image => {
+    const response = await fetchResource(blobUrl(image.blobId));
+    if (!response.ok) throw new Error('검토 원본 화면을 불러오지 못했습니다.');
+    return { n: image.n, blob: await response.blob() };
+  }));
+  return { ...doc, images };
+}
+async function uploadDoc(id, doc) {
+  if (!accountSyncActive()) return;
+  try { await putDocument('review-docs', id, await portableDoc(id, doc)); }
+  catch (error) { console.warn('검토 원본을 계정에 저장하지 못했어요', error); }
+}
+async function localDocIds() {
+  const db = await idb(); if (!db) return [];
+  return new Promise(res => { const rq = db.transaction('docs', 'readonly').objectStore('docs').getAllKeys(); rq.onsuccess = () => res(rq.result || []); rq.onerror = () => res([]); });
+}
+/** Move parsed documents that only exist in this browser to the account (background, once per visit). */
+export async function migrateReviewDocs() {
+  if (!accountSyncActive()) return 0;
+  const remote = await documentIds('review-docs'), local = (await localDocIds()).filter(id => typeof id === 'string' && !remote.has(id) && getReview(id));
+  let moved = 0;
+  for (const id of local) { const doc = await loadDoc(id); if (doc && !doc.sample) { await uploadDoc(id, doc); moved++; } }
+  return moved;
+}
 async function saveDoc(id, doc, { required = false } = {}) {
   try {
     const db = await idb();
@@ -103,9 +158,10 @@ async function saveDoc(id, doc, { required = false } = {}) {
       tx.oncomplete = resolve; tx.onerror = tx.onabort = () => reject(tx.error);
     });
   } catch (error) {
-    if (required) throw new Error('원본 화면을 저장하지 못했습니다. 브라우저 저장 공간을 확인해 주세요.');
+    if (required && !accountSyncActive()) throw new Error('원본 화면을 저장하지 못했습니다. 브라우저 저장 공간을 확인해 주세요.');
   }
   DOCS.set(id, doc);
+  if (required) await uploadDoc(id, doc); else void uploadDoc(id, doc);
 }
 export async function loadDoc(id) {
   if (DOCS.has(id)) return DOCS.get(id);
@@ -114,6 +170,15 @@ export async function loadDoc(id) {
     const v = db && await new Promise((res) => { const rq = db.transaction('docs', 'readonly').objectStore('docs').get(id); rq.onsuccess = () => res(rq.result || null); rq.onerror = () => res(null); });
     if (v) { DOCS.set(id, v); return v; }
   } catch (e) { /* Sample documents remain available when IndexedDB is unavailable. */ }
+  try {
+    const remote = await getDocument('review-docs', id);
+    if (remote) {
+      const doc = await browserDoc(remote);
+      DOCS.set(id, doc);
+      try { const db = await idb(); if (db) db.transaction('docs', 'readwrite').objectStore('docs').put(doc, id); } catch { /* Cache only. */ }
+      return doc;
+    }
+  } catch (e) { console.warn('계정의 검토 원본을 불러오지 못했어요', e); }
   const sample = sampleReviewDoc(getReview(id), getBootstrap().user);
   if (sample) DOCS.set(id, sample);
   return sample;
@@ -130,7 +195,11 @@ export async function attachReviewPreview(id, files) {
   patch(id, d => { d.previewAt = Date.now(); });
   return candidate;
 }
-async function delDoc(id) { DOCS.delete(id); try { const db = await idb(); if (db) db.transaction('docs', 'readwrite').objectStore('docs').delete(id); } catch (e) {} }
+async function delDoc(id) {
+  DOCS.delete(id);
+  try { const db = await idb(); if (db) db.transaction('docs', 'readwrite').objectStore('docs').delete(id); } catch (e) {}
+  if (accountSyncActive()) deleteDocument('review-docs', id).catch(() => {});
+}
 
 // ---------- runner ----------
 const RUNNING = new Map(); // local phase only (parse · profile · submit)

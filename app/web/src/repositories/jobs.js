@@ -97,9 +97,12 @@ function trimPartial(p) {
 }
 function applySnapshot(id, snap) {
   if (!snap || typeof snap !== 'object') return;
+  const extra = []; // progress events with data (e.g. one finished part) — handed to the purpose handler's onEvent, once each
   patchJob(id, (d) => {
     const have = new Set(d.events.map((e) => e.seq));
+    const from = d.since || 0;
     for (const e of snap.events || []) {
+      if (e && e.type !== 'text' && e.type !== 'state' && typeof e.seq === 'number' && e.seq > from) extra.push(e);
       if (!e || have.has(e.seq) || (e.type !== 'text' && e.type !== 'state')) continue;
       const message = e.type === 'text' ? String(e.message || '') : e.status === 'error' ? '실패 — ' + String((e.error && e.error.message) || '') : STATE_MSG[e.status] || String(e.status || '');
       d.events.push({ seq: e.seq, t: e.t, type: e.type, message, level: e.level || (e.status === 'error' ? 'error' : 'info'), status: e.status || null });
@@ -122,6 +125,10 @@ function applySnapshot(id, snap) {
     if (TERMINAL.has(d.status) && !d.finishedAt) d.finishedAt = Date.now();
     d.net = null; d.updatedAt = Date.now();
   });
+  if (extra.length) {
+    const rec = getJobRecord(id); const h = rec && HANDLERS.get(rec.purpose);
+    if (h && h.onEvent) for (const e of extra) { try { h.onEvent(rec, e); } catch (err) { console.error(err); } }
+  }
 }
 
 // ---------------------------------------------------------------- user actions

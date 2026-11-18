@@ -67,7 +67,7 @@ export function addNativePlan(slide,binding,stage,shapeType){
     slide.addShape(shapeType.custGeom||'custGeom',{...box(x,z,w,d),points:[...points.map(p=>({x:(p[0]-x)*scale*px,y:(p[1]-z)*scale*px})),{close:true}],fill:{color:color.replace('#',''),...(object.mount==='ceiling'?{transparency:35}:{})},line:{color:'788B83',width},objectName:name});
   };
   for(const room of scene.rooms){
-    slide.addShape(shapeType.rect,{...box(room.x,room.z,room.width,room.depth),fill:{color:room.outdoor?'DCE4D2':colors[scene.style]},line:{color:'647877',width:1.5},objectName:'space:'+room.id});
+    slide.addShape(shapeType.rect,{...box(room.x,room.z,room.width,room.depth),fill:{color:room.outdoor?'DCE4D2':colors[STYLES[room.style]?room.style:scene.style]},line:{color:'647877',width:1.5},objectName:'space:'+room.id});
     slide.addText(room.name,{...box(room.x+.16,room.z+.18,room.width-.32,.45),fontSize:8,fontFace:'Noto Sans KR',bold:true,color:'254B48',margin:0,objectName:'room-label:'+room.id});
     slide.addShape(shapeType.rect,{...box(room.x+room.width/2-.6,room.z+room.depth-.04,1.2,.08),fill:{color:colors[scene.style]},line:{transparency:100}});
   }

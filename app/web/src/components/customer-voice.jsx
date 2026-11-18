@@ -47,16 +47,27 @@ export function CustomerVoiceButton({ route }) {
   useEffect(watchWorkFocus, []);
   // Keep the same sidebar button reachable while a full-screen work/editor dialog is open.
   useLayoutEffect(() => {
+    let frame;
     const place = () => {
+      frame = null;
       const box = slot.current?.getBoundingClientRect(); if (!box) return;
       const side = slot.current.closest('.sidebar').getBoundingClientRect(), width = Math.max(0, Math.min(box.width, side.right - box.left - 12));
-      setRect(previous => previous && previous.left === box.left && previous.top === box.top && previous.width === width ? previous : { left: box.left, top: box.top, width, height: box.height });
+      setRect(previous => previous && previous.left === box.left && previous.top === box.top && previous.width === width && previous.height === box.height ? previous : { left: box.left, top: box.top, width, height: box.height });
       setLift(!!document.querySelector('.mback,.guide-overlay'));
     };
-    place(); const observer = new ResizeObserver(place); observer.observe(slot.current.closest('.sidebar')); observer.observe(slot.current);
-    const mutations = new MutationObserver(place); mutations.observe(document.body, { childList: true, subtree: true });
-    window.addEventListener('resize', place); window.addEventListener('scroll', place, true);
-    return () => { observer.disconnect(); mutations.disconnect(); window.removeEventListener('resize', place); window.removeEventListener('scroll', place, true); };
+    const schedule = () => { if (frame == null) frame = requestAnimationFrame(place); };
+    const sidebar = slot.current.closest('.sidebar');
+    place(); const observer = new ResizeObserver(schedule); observer.observe(sidebar); observer.observe(slot.current);
+    // Thumbnail hydration/scrolling does not move this sidebar control. Reading
+    // its geometry on every document mutation used to flush the whole page layout.
+    const overlay = node => node.nodeType === 1 && (node.matches('.mback,.guide-overlay') || node.querySelector('.mback,.guide-overlay'));
+    const mutations = new MutationObserver(records => {
+      if (records.some(record => sidebar.contains(record.target) || [...record.addedNodes, ...record.removedNodes].some(overlay))) schedule();
+    });
+    mutations.observe(document.body, { childList: true, subtree: true });
+    const scroll = event => { if (event.target === document || event.target?.contains?.(slot.current)) schedule(); };
+    window.addEventListener('resize', schedule); window.addEventListener('scroll', scroll, true);
+    return () => { cancelAnimationFrame(frame); observer.disconnect(); mutations.disconnect(); window.removeEventListener('resize', schedule); window.removeEventListener('scroll', scroll, true); };
   }, []);
   const close = restore => { setOpen(false); if (restore) requestAnimationFrame(() => anchor.current?.focus({ preventScroll: true })); };
   const send = async event => {

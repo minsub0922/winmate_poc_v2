@@ -1,4 +1,4 @@
-// 표준 건물 조감도 — 조감도 스튜디오 시작 › 건물 조감도 › 건물 템플릿 창의 「표준 건물 조감도」 묶음(건물 템플릿 — 샘플 버티컬 시나리오 54 · 버티컬 44 — 과 따로) · 고르면 층마다 공간 · 층 이름이 채워진 채로 열림.
+// 표준 건물 조감도 — 조감도 스튜디오 시작 › 건물 탭 › 「건물 템플릿에서 시작」 창의 「표준 건물 조감도」 묶음(건물 템플릿 — 샘플 버티컬 시나리오 54 · 버티컬 44 — 과 따로) · 고르면 층마다 공간 · 층 이름이 채워진 채로 열림.
 // 앱 서버 없이 Vite + /api/bootstrap 대역으로 검사한다: node app/tests/building-standard-ui.mjs
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -43,7 +43,7 @@ try {
   await page.goto('http://127.0.0.1:' + server.httpServer.address().port + '/');
   await page.getByRole('button', { name: /조감도 스튜디오 시작/ }).click();
   const start = page.getByRole('dialog', { name: '조감도 스튜디오 시작', exact: true });
-  await start.getByRole('button', { name: /^건물 조감도/ }).click(); await start.getByRole('button', { name: /^건물 템플릿/ }).click();
+  await start.getByRole('tab', { name: /건물/ }).click(); await start.getByRole('button', { name: '건물 템플릿에서 시작', exact: true }).click();
   await page.locator('.bd-pick-modal').waitFor();
   const head = page.locator('.bd-pick-modal .bd-std-group .bd-group-head');
   assert.equal((await head.innerText()).trim(), '표준 건물 조감도');
@@ -63,7 +63,7 @@ try {
   const hotel = STD_PRESETS.find((p) => p.vid === 'ht_large');
   await page.locator('.bd-pick-modal .bd-std', { hasText: hotel.title }).click();
   assert.equal((await page.locator('.bd-pick-sum').innerText()).trim(), hotel.title);
-  await page.locator('.mfoot .btn-primary').click();
+  await page.locator('.bd-pick-modal .mfoot .btn-primary').click();
   await page.locator('.bd-workspace').waitFor();
   await page.waitForFunction(() => !document.querySelector('.bd-render-state'), null, { timeout: LONG }); await page.waitForTimeout(2500);
   const strip = (await page.locator('.bd-floor-pick').allInnerTexts()).map((t) => t.replace(/\s+/g, ' ').trim());

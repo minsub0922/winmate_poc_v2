@@ -46,7 +46,7 @@ export function FilterBar({ active, onOpen, onRemove, onClearAll, extra = null }
 /** the popup frame — title, how to read it, steps (children), 모두 지우기 · 닫기 · N장 보기 */
 export function FilterPopup({ unit = LAYOUT_UNIT, n, canReset, onReset, onApply, onClose, children }) {
   return (
-    <Modal size="tlf" title="필터" sub={'위에서부터 차례로 골라 보세요. 숫자는 다른 조건을 그대로 둘 때 남는 ' + unit.noun + ' 수예요.'} onClose={onClose}
+    <Modal size="tlf" title="필터" onClose={onClose}
       footer={<>
         <button className="btn btn-ghost" disabled={!canReset} onClick={onReset}><Icon name="refresh" size={14} />모두 지우기</button>
         <span className="sp" />

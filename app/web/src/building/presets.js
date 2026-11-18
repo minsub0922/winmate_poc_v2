@@ -82,3 +82,11 @@ const SCENARIO_PRESETS = [
 ];
 export const PRESETS = [...SCENARIO_PRESETS, ...VERTICAL_PRESETS];
 export const presetOf = (id) => PRESETS.find((p) => p.id === id) || null;
+
+export function presetFloors(preset, templateOf, makeKey) {
+  return preset.floors.map((floor, i) => {
+    const t = templateOf(floor.tpl);
+    return { key: makeKey(i), tpl: preset.std || preset.vertical ? floor.tpl : null, fv: floor.fv || 0,
+      ...(floor.name ? { name: floor.name } : {}), shell: { ind: preset.std ? preset.ind : t.ind, w: t.w, d: t.d } };
+  });
+}

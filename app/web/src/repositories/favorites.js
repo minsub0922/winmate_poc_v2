@@ -7,6 +7,7 @@ import { useSyncExternalStore } from 'react';
 import { L } from '../services/catalog.js';
 import { migrateRemovedLayoutItem, isRemovedLayout } from '../domain/templates/migrate_removed_layouts.js';
 import { fillSpacePhoto } from '../domain/templates/migrate_space_sheet.js';
+import { registerCollection, noteChange } from './account-sync.js';
 
 const KEY = 'winmate.v2.favs';
 let LIST = load();
@@ -20,7 +21,16 @@ function load() {
     return migrated;
   } catch (e) { return []; }
 }
-function save() { try { browserStorage.setItem(KEY, JSON.stringify(LIST)); } catch (e) {} for (const f of subs) f(); }
+function save() { try { browserStorage.setItem(KEY, JSON.stringify(LIST)); } catch (e) {} for (const f of subs) f(); noteChange('favorites'); }
+registerCollection('favorites', {
+  list: () => LIST,
+  apply(records, removed) {
+    const gone = new Set(removed), incoming = new Map(records.map(x => [x.id, x])), known = new Set(LIST.map(x => x.id));
+    LIST = LIST.filter(x => !gone.has(x.id)).map(x => incoming.get(x.id) || x);
+    for (const x of records) if (!known.has(x.id)) LIST.push(x);
+    LIST.sort((a, b) => (b.at || 0) - (a.at || 0)); save();
+  },
+});
 export const useFavs = () => useSyncExternalStore((f) => { subs.add(f); return () => subs.delete(f); }, () => LIST);
 export const favList = () => LIST;
 

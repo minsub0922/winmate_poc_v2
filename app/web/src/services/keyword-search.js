@@ -59,22 +59,38 @@ function tokens(text) {
   return (String(text).toLowerCase().match(/[a-z0-9][a-z0-9.+#_-]*|[가-힣]+/g) || []).flatMap(w => /^[가-힣]+$/.test(w) ? w.length > 1 ? bigrams(w) : [w] : [w]);
 }
 const frequencies = terms => { const tf = new Map(); for (const term of terms) tf.set(term, (tf.get(term) || 0) + 1); return tf; };
-export function retrieveDocuments(query, documents) {
-  if (!documents.length) return [];
+// Catalog document arrays are immutable until their library/source revision changes.
+// Keep corpus work out of repeated queries; WeakMaps release discarded My/filter lists.
+const corpora = new WeakMap(), vectors = new WeakMap();
+function corpus(documents) {
+  const cached = corpora.get(documents);
+  if (cached) return cached;
   const docs = documents.map(doc => {
-    const terms = tokens(doc.fields.map(f => f.items.join(' ')).join(' '));
-    return { doc, tf: frequencies(terms), len: terms.length };
+    let vector = vectors.get(doc);
+    if (!vector) {
+      const terms = tokens(doc.fields.map(f => f.items.join(' ')).join(' '));
+      vector = { tf: frequencies(terms), len: terms.length }; vectors.set(doc, vector);
+    }
+    return { doc, ...vector };
   });
   const df = new Map();
   for (const d of docs) for (const term of d.tf.keys()) df.set(term, (df.get(term) || 0) + 1);
   const n = docs.length, average = Math.max(1, docs.reduce((sum, d) => sum + d.len, 0) / n);
   const idf = term => Math.log(1 + (n - (df.get(term) || 0) + .5) / ((df.get(term) || 0) + .5));
+  for (const d of docs) {
+    d.norm = 0;
+    for (const [term, freq] of d.tf) d.norm += ((1 + Math.log(freq)) * idf(term)) ** 2;
+  }
+  const result = { docs, average, idf }; corpora.set(documents, result); return result;
+}
+export function retrieveDocuments(query, documents) {
+  if (!documents.length) return [];
+  const { docs, average, idf } = corpus(documents);
   const qt = frequencies(tokens(query));
   let qnorm = 0;
   for (const [term, freq] of qt) qnorm += ((1 + Math.log(freq)) * idf(term)) ** 2;
-  const ranked = docs.map(({ doc, tf, len }) => {
-    let bm25 = 0, dot = 0, norm = 0;
-    for (const [term, freq] of tf) norm += ((1 + Math.log(freq)) * idf(term)) ** 2;
+  const ranked = docs.map(({ doc, tf, len, norm }) => {
+    let bm25 = 0, dot = 0;
     for (const [term, freq] of qt) {
       const f = tf.get(term); if (!f) continue;
       const w = idf(term);

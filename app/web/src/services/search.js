@@ -1,5 +1,6 @@
 import { ALL_LAYOUTS, ACTIVE_PRODUCTS, SOLUTIONS, CASES, IND, IND_KW, P, S, C, libraryOf } from './catalog.js';
 import { PARTS, RELATED, classifyPart, partText, effectiveType } from '../domain/proposals/parts.js';
+import { groupCountResults } from '../domain/templates/layout_count_groups.js';
 
 // ---------- tokenizer: latin words + Hangul bigrams ----------
 export function toks(s) {
@@ -53,11 +54,15 @@ function docText(l) {
   return [l.name, l.name, l.name, l.when, l.when, l.g, pn, pn, l.hl, l.hl, l.sub, l.code, ind, ind, sol, sol, prods, l.txt].join(' ');
 }
 // 라이브러리에서 뺀 레이아웃(l.retired)도 점수는 매겨, 대체한 사진 버전이 물려받게 하고 결과에서만 뺍니다
-const DOCS = ALL_LAYOUTS.map((l) => { const t = toks(docText(l)); const tf = new Map(); for (const x of t) tf.set(x, (tf.get(x) || 0) + 1); return { l, tf, len: t.length }; });
-const AVG = DOCS.reduce((a, d) => a + d.len, 0) / DOCS.length;
+let DOCS, AVG, N;
 const DF = new Map();
-for (const d of DOCS) for (const k of d.tf.keys()) DF.set(k, (DF.get(k) || 0) + 1);
-const N = DOCS.length;
+function indexLayouts() {
+  DOCS = ALL_LAYOUTS.map(l => { const t = toks(docText(l)), tf = new Map(); for (const x of t) tf.set(x, (tf.get(x) || 0) + 1); return { l, tf, len: t.length }; });
+  AVG = DOCS.reduce((a, d) => a + d.len, 0) / DOCS.length; N = DOCS.length;
+  DF.clear(); for (const d of DOCS) for (const k of d.tf.keys()) DF.set(k, (DF.get(k) || 0) + 1);
+}
+indexLayouts();
+if (typeof window !== 'undefined') window.addEventListener('winmate:layout-library', indexLayouts);
 function bm25(qt, d) {
   let s = 0;
   for (const [t, w] of qt) {
@@ -107,7 +112,7 @@ export function searchLayouts(query, ctx = {}, opts = {}) {
     const rep = t && byF[t];
     if (rep && r.score > rep.score) { rep.score = r.score; rep.why = [...new Set([...r.why.filter((w) => w !== '사진 중심'), ...rep.why])]; if (!rep.snip) rep.snip = r.snip; }
   }
-  return res.filter((r) => !r.l.retired && !r.l.variantOf && r.score > 0.4).sort((a, b) => b.score - a.score).slice(0, opts.limit || 30);
+  return groupCountResults(res.filter((r) => !r.l.retired && !r.l.variantOf && r.score > 0.4).sort((a, b) => b.score - a.score), 'l').slice(0, opts.limit || 30);
 }
 
 /** Recommend up to 20 layouts for a storyboard part. */
@@ -120,6 +125,10 @@ export function recommendLayouts(part, ctx = {}, limit = 20) {
   const qtext = [part.name, partText(part)].join(' ');
   const qt = qmap(qtext, 1);
   if (type && PARTS[type]) qmap(PARTS[type].label + ' ' + PARTS[type].desc, 0.5, qt);
+  // 시장 · 경쟁 · 고객 이해처럼 바깥 사실을 담는 목차: 목차 이름만으로는 어느 장이 맞는지 가릴 수 없다 — 고객 요구사항의 낱말도 함께 본다
+  const research = ['market', 'competition', 'insight', 'customer'].includes(type || hint || '');
+  const reqWords = research && ctx.req ? String(ctx.req).slice(0, 900) : '';
+  if (reqWords) qmap(reqWords, 0.4, qt);
   const raw = DOCS.map((d) => ({ d, b: bm25(qt, d) }));
   const maxB = Math.max(1, ...raw.map((r) => r.b));
   const nProd = Math.max(0, Math.min(5, (ctx.products || []).length));
@@ -144,6 +153,12 @@ export function recommendLayouts(part, ctx = {}, limit = 20) {
     if (sharedProd.length) { s += Math.min(1.5, sharedProd.length * 0.5); why.push(sharedProd.map((id) => P[id].model).slice(0, 2).join(' · ') + ' 포함'); }
     const mt = matchedTerms(l, partText(part) + ' ' + part.name);
     if (mt.length) why.push('"' + mt[0] + '" 내용 일치');
+    if (reqWords && (l.p === type || l.p2 === type)) {
+      const rq = matchedTerms(l, reqWords);
+      if (rq.length) { s += Math.min(1.2, rq.length * 0.5); why.push('요구사항 "' + rq[0] + '" 일치'); }
+    }
+    // 업종 트렌드 장(추이 · 구성비 · 지표 · 키워드): 값이 실제 웹 검색 · 원문 대조로 검증된 근거로 채워지는 장 — 시장 목차에서는 먼저 권한다
+    if (type === 'market' && /^L_TOC_TR(LINE|SHARE|STAT|KEY)$/.test(l.f)) { s += 2.5; why.unshift('검색 근거로 값 채움 · 출처 기록'); }
     // 사진으로 요소가 채워지는 레이아웃을 우선 — 사진 비율만큼 가산
     const pf = l.pf || 0;
     if (pf >= 0.3) { s += Math.min(1.2, pf * 1.6); why.push('사진 중심'); }
@@ -164,7 +179,19 @@ export function recommendLayouts(part, ctx = {}, limit = 20) {
     if (rep && r.score > rep.score) { rep.score = r.score; rep.why = [...new Set([...r.why, ...rep.why])]; }
   }
   const usedLib = new Set([...used].map(libraryOf));
-  return out.filter((r) => !r.l.retired && !r.l.variantOf && !usedLib.has(r.l.f)).sort((a, b) => b.score - a.score).slice(0, limit);
+  return groupCountResults(out.filter((r) => !r.l.retired && !r.l.variantOf && !usedLib.has(r.l.f)).sort((a, b) => b.score - a.score), 'l').slice(0, limit);
+}
+
+/**
+ * PPT 레이아웃 추가 팝업의 추천 — 목차가 미리 정한 유형(PARTS, 자유 주제 제외)이면 그 목차에 속하는 레이아웃(l.p)을 먼저,
+ * 다음으로 그 목차와 연관된 레이아웃(l.p2), 나머지는 그 뒤에 둔다. 각 묶음 안의 순서는 recommendLayouts 점수 그대로.
+ * 미리 정한 유형이 아닌 목차(유형 없음 · 자유 주제)는 recommendLayouts 그대로.
+ */
+export function recommendForPart(part, ctx = {}, limit = 3) {
+  const type = part && part.type;
+  if (!type || !PARTS[type] || PARTS[type].free) return recommendLayouts(part, ctx, limit);
+  const tier = (r) => (r.l.p === type ? 0 : r.l.p2 === type ? 1 : 2);
+  return recommendLayouts(part, ctx, Infinity).map((r, i) => ({ r, i })).sort((a, b) => tier(a.r) - tier(b.r) || a.i - b.i).slice(0, limit).map((x) => x.r);
 }
 
 // ---------- mention / context search ----------

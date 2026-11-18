@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "note": "같은 목적·내용에서 항목 수만 다른 실제 시트의 표시 묶음. f·칸 번호·AI 정책·업종 내용 후보는 각 시트에 보존한다.",
+  "groups": [
+    {"id":"vp-products","name":"가치 기둥 × 제품","preferred":"L_VP_F","members":[["L_VP_F2","제품 2개"],["L_VP_F","제품 3개"],["L_VP_F4","제품 4개"]]},
+    {"id":"vp-photo","name":"가치 기둥 · 포토","preferred":"L_PH_VP_B","members":[["L_PH_VP_B2","기둥 2개"],["L_PH_VP_B","기둥 3개"],["L_PH_VP_B4","기둥 4개"]]},
+    {"id":"space-solutions","name":"공간 × 솔루션 시나리오","preferred":"L_VC_22","members":[["L_VC_21","공간 2 · 솔루션 1"],["L_VC_22","공간 2 · 솔루션 2"],["L_VC_31","공간 3 · 솔루션 1"],["L_VC_32","공간 3 · 솔루션 2"],["L_VC_33","공간 3 · 솔루션 3"],["L_VC_42","공간 4 · 솔루션 2"]]},
+    {"id":"hero-supporting","name":"주력 제품 + 보조 제품","preferred":"L_P3D","members":[["L_P2D","주력 1 · 보조 1"],["L_P3D","주력 1 · 보조 2"],["L_P4D","주력 1 · 보조 3"]]},
+    {"id":"spec-compare","name":"사양 비교표","preferred":"L_SPEC4","members":[["L_SPEC4","제품 4개"],["L_SPEC5","제품 5개"]]},
+    {"id":"product-scenes","name":"제품 · 설치 장면","preferred":"L_PH_P3_A","members":[["L_PH_P3_A","제품 3개"],["L_PH_P4_A","제품 4개"],["L_PH_P5_A","제품 5개"]]},
+    {"id":"section-rows","name":"간지 · 풀블리드 사진 + 목록","preferred":"L_VS_DIV_R3","members":[["L_VS_DIV_R1","목록 1줄"],["L_VS_DIV_R2","목록 2줄"],["L_VS_DIV_R3","목록 3줄"],["L_VS_DIV_R4","목록 4줄"],["L_VS_DIV_R5","목록 5줄"],["L_VS_DIV_R6","목록 6줄"]]},
+    {"id":"bird-spaces","name":"공간 조감도 · 공간 범례","preferred":"L_VS_BIRD_S3","members":[["L_VS_BIRD_S1","공간 1개"],["L_VS_BIRD_S2","공간 2개"],["L_VS_BIRD_S3","공간 3개"],["L_VS_BIRD_S4","공간 4개"],["L_VS_BIRD_S5","공간 5개"],["L_VS_BIRD_S6","공간 6개"]]},
+    {"id":"bird-building","name":"표준 건물 조감도 · 층별 공간 범례","preferred":"L_VS_BIRD_B7","members":[["L_VS_BIRD_B7","공간 7개"],["L_VS_BIRD_B8","공간 8개"],["L_VS_BIRD_B9","공간 9개"],["L_VS_BIRD_B10","공간 10개"]]},
+    {"id":"industry-map","name":"업종 Map · 공간 × 제품","preferred":"L_VS_MAP_3","members":[["L_VS_MAP_2","공간 2개"],["L_VS_MAP_3","공간 3개"],["L_VS_MAP_4","공간 4개"],["L_VS_MAP_5","공간 5개"],["L_VS_MAP_6","공간 6개"],["L_VS_MAP_7","공간 7개"],["L_VS_MAP_8","공간 8개"],["L_VS_MAP_9","공간 9개"],["L_VS_MAP_10","공간 10개"]]},
+    {"id":"space-products","name":"공간별 제품 · 공간 사진 + 제품 특징","preferred":"L_VS_SPACE","members":[["L_VS_SPACE","제품 1개"],["L_VS_SPACE_P2","제품 2개"],["L_VS_SPACE_P3","제품 3개"],["L_VS_SPACE_P4","제품 4개"],["L_VS_SPACE_P5","제품 5개"],["L_VS_SPACE_P6","제품 6개"],["L_VS_SPACE_P7","제품 7개"],["L_VS_SPACE_P8","제품 8개"]]},
+    {"id":"toc-cards","name":"목차 · 사진 카드","preferred":"L_TOC_INDEX6","members":[["L_TOC_INDEX4","목차 4개"],["L_TOC_INDEX5","목차 5개"],["L_TOC_INDEX6","목차 6개"],["L_TOC_INDEX7","목차 7개"],["L_TOC_INDEX8","목차 8개"],["L_TOC_INDEX9","목차 9개"],["L_TOC_INDEX10","목차 10개"]]},
+    {"id":"technology-solutions","name":"핵심 기술 · 솔루션 × 키워드","preferred":"L_TOC_TECH2","members":[["L_TOC_TECH1","솔루션 1개"],["L_TOC_TECH2","솔루션 2개"],["L_TOC_TECH3","솔루션 3개"],["L_TOC_TECH4","솔루션 4개"]]},
+    {"id":"journey-spaces","name":"공간별 가치 제안 · 여정 + 솔루션 기능","preferred":"L_TOC_JOURNEY2","members":[["L_TOC_JOURNEY1S","공간 1 · 솔루션 1"],["L_TOC_JOURNEY2S","공간 2 · 솔루션 1"],["L_TOC_JOURNEY3S","공간 3 · 솔루션 1"],["L_TOC_JOURNEY1","공간 1 · 솔루션 2"],["L_TOC_JOURNEY2","공간 2 · 솔루션 2"],["L_TOC_JOURNEY3","공간 3 · 솔루션 2"]]},
+    {"id":"bom-spaces","name":"구성 · 수량표 · 공간 × 제품","preferred":"L_TOC_BOM4","members":[["L_TOC_BOM3","공간 3개"],["L_TOC_BOM4","공간 4개"],["L_TOC_BOM5","공간 5개"],["L_TOC_BOM6","공간 6개"],["L_TOC_BOM7","공간 7개"],["L_TOC_BOM8","공간 8개"]]},
+    {"id":"scenario-spaces","name":"고객/공간 시나리오 · 공간별 시나리오","preferred":"L_TOC_SCN_S3","members":[["L_TOC_SCN_S2","공간 2곳"],["L_TOC_SCN_S3","공간 3곳"]]},
+    {"id":"scenario-map","name":"고객/공간 시나리오 · 활용 맵","preferred":"L_TOC_SCN_MAP3","members":[["L_TOC_SCN_MAP2","공간 2곳"],["L_TOC_SCN_MAP3","공간 3곳"],["L_TOC_SCN_MAP4","공간 4곳"],["L_TOC_SCN_MAP5","공간 5곳"],["L_TOC_SCN_MAP6","공간 6곳"],["L_TOC_SCN_MAP7","공간 7곳"],["L_TOC_SCN_MAP8","공간 8곳"],["L_TOC_SCN_MAP9","공간 9곳"],["L_TOC_SCN_MAP10","공간 10곳"]]},
+    {"id":"subscription-items","name":"업종 구독 패키지 상세","preferred":"L_SUB_PKG4","members":[["L_SUB_PKG3","품목 3개"],["L_SUB_PKG4","품목 4개"]]}
+  ]
+}

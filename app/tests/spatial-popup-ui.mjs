@@ -31,7 +31,7 @@ try{
   pass('the Storyboard’s 3D birdseye opens the studio as a popup: simulator + command input, “닫기” instead of “뒤로 가기”');
 
   // 팝업 안에서 명령
-  await popup.getByRole('button',{name:/2D 평면도/}).click();await popup.locator('.sp-view[data-view="2d"]').waitFor();
+  await popup.getByRole('tab',{name:'2D',exact:true}).click();await popup.locator('.sp-view[data-view="2d"]').waitFor();
   const ids=()=>popup.locator('.sp-plan-image [data-object-id]').evaluateAll(nodes=>[...new Set(nodes.map(n=>n.getAttribute('data-object-id')))]),existing=await ids(),before=existing.length;
   next=body=>[{type:'add',assetId:'furniture:plant',roomId:body.scene.rooms[0].id,quantity:2}];
   await editor.click();await editor.pressSequentially('수목 2개 추가해');

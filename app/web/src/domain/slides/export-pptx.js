@@ -1,5 +1,4 @@
 import { fetchResource } from '../../api/client.js';
-import PptxGenJS from 'pptxgenjs';
 import JSZip from 'jszip';
 import { addNativePlan } from '../spatial/slide-binding.js';
 import { layoutHtml, L } from '../../services/catalog.js';
@@ -208,7 +207,7 @@ async function addSlide(pptx, root, opts) {
         if (fit === 'contain') {
           const k = Math.min(r.width / nw, r.height / nh); const w = nw * k, h = nh * k;
           s.addImage({ data: d, x: b.x + (r.width - w) / 2 * PX, y: b.y + (r.height - h) / 2 * PX, w: w * PX, h: h * PX });
-        } else s.addImage({ data: d, ...b, rounding, sizing: { type: 'cover', w: b.w, h: b.h } });
+        } else s.addImage({ data: d, x: b.x, y: b.y, w: nw * PX, h: nh * PX, rounding, sizing: { type: 'cover', w: b.w, h: b.h } });
       }
       continue;
     }
@@ -276,6 +275,12 @@ async function addSlide(pptx, root, opts) {
     let x, w;
     if (multi) { x = r.left + parseFloat(cs.paddingLeft); w = r.width - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight); }
     else { const pad = Math.max(6, (R0 - L0) * 0.06); w = R0 - L0 + pad; x = align === 'center' ? L0 - pad / 2 : align === 'right' ? L0 - pad : L0; }
+    // A substituted desktop font can be wider than the web font. The old
+    // wrap:none/fit:none shape painted past a cover column or into the next
+    // table cell. Keep the editable shape inside the actual browser slot.
+    const slotLeft = r.left + (parseFloat(cs.paddingLeft) || 0);
+    const slotRight = r.right - (parseFloat(cs.paddingRight) || 0);
+    x = Math.max(slotLeft, x); w = Math.min(w, slotRight - x);
     const vert = /vertical/.test(cs.writingMode);
     const tt = turn(el);
     if (tt) { // rotated text: its upright block (one line stays one line)
@@ -285,8 +290,8 @@ async function addSlide(pptx, root, opts) {
       continue;
     }
     s.addText(runs, {
-      x: (x - R.left) * PX, y: (T0 - R.top) * PX, w: Math.max(0.05, w * PX), h: Math.max(0.05, (B0 - T0) * PX),
-      margin: 0, valign: 'top', align: multi ? align : align, wrap: multi, fit: 'none', isTextBox: true,
+      x: (x - R.left) * PX, y: (T0 - R.top) * PX, w: Math.max(0.05, w * PX), h: Math.max(0.05, Math.max(B0 - T0, r.bottom - T0 - (parseFloat(cs.paddingBottom) || 0)) * PX),
+      margin: 0, valign: 'top', align, wrap: true, fit: 'shrink', isTextBox: true,
       lineSpacing: lh && !isNaN(lh) && multi ? lh * 0.75 : undefined,
       charSpacing: parseFloat(cs.letterSpacing) ? parseFloat(cs.letterSpacing) * 0.75 : undefined,
       vert: vert ? 'eaVert' : undefined,
@@ -299,6 +304,7 @@ async function addSlide(pptx, root, opts) {
  * Export slides: [{f, ov, part, name}] → Blob (.pptx)
  */
 export async function exportPptx(slides, { title = 'Winmate 제안서', font = 'Noto Sans KR', onProgress } = {}) {
+  const { default: PptxGenJS } = await import('pptxgenjs');
   const pptx = new PptxGenJS();
   pptx.layout = 'LAYOUT_WIDE';
   pptx.title = title; pptx.company = 'Samsung Electronics'; pptx.author = 'Winmate';
@@ -318,7 +324,16 @@ export async function exportPptx(slides, { title = 'Winmate 제안서', font = '
       const s = await addSlide(pptx, root, { font });
       const meta = L[sl.f];
       const sourceNotes = sl.ov?.notes != null ? [String(sl.ov.notes)] : [...root.querySelectorAll('[data-proposal-note]')].map(el => el.textContent.trim()).filter(Boolean);
-      s.addNotes(`${sl.part ? '[' + sl.part + '] ' : ''}${meta ? meta.name : ''}${meta && meta.when ? ' — ' + meta.when : ''}${sourceNotes.length ? '\n\n[제품 사양 · 지원 조건 원문]\n' + sourceNotes.join('\n\n') : ''}`);
+      // 웹 근거(시장조사 등): 이 장의 값이 기댄 출처 · 인용 원문을 발표자 노트에 남긴다 — PPT만 받은 사람도 근거를 확인할 수 있게
+      const webNotes = []; const seenWeb = new Set();
+      for (const e of Object.values(sl.ev || {})) for (const src of (e && e.src) || []) {
+        if (!src || src.k !== 'web' || !src.url) continue;
+        const key = src.url + '|' + (src.sub || '');
+        if (seenWeb.has(key)) continue;
+        seenWeb.add(key); webNotes.push(`- ${src.title || src.url}${src.sub ? ' ' + src.sub : ''}\n  ${src.url}${src.checked ? ' (원문 확인 ' + src.checked + ')' : ''}`);
+      }
+      const researched = sl.research && sl.research.ok && sl.research.at ? ` (조사일 ${String(sl.research.at).slice(0, 10)})` : '';
+      s.addNotes(`${sl.part ? '[' + sl.part + '] ' : ''}${meta ? meta.name : ''}${meta && meta.when ? ' — ' + meta.when : ''}${sourceNotes.length ? '\n\n[제품 사양 · 지원 조건 원문]\n' + sourceNotes.join('\n\n') : ''}${webNotes.length ? `\n\n[근거 자료 · 웹${researched}]\n` + webNotes.slice(0, 12).join('\n') : ''}`);
       onProgress && onProgress(i + 1, slides.length);
       await new Promise((r) => setTimeout(r, 0));
     }

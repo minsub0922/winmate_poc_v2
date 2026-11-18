@@ -4,14 +4,23 @@
 // 그 업종 표준 제안서의 장(L_VS_*)을 그대로 옮기고 장 번호 · 간지 쪽 · 덱 이름만 바꾼다.
 // 표준에 없는 목차(당사의 이해 · 핵심 기술 · 공간별 가치 제안 · 실행 계획 …)는 L_TOC_* 장이고, 모든 목차는 표준과 같은 간지(L_VS_DIV_R*)로 연다.
 // 같은 템플릿이면 장(레이아웃)은 같고, 업종마다 내용과 같은 장을 쓰는 횟수만 다르다(공간 수 · 여정 수 · 솔루션 수).
+// 추천 구성(TOC_TEMPLATES)은 관리자 「전체 파트」 목록에 있는 파트만 쓴다(사용자 지시 2026-11-16) — Overview · 당사의 이해 · AI {업종}(3 Value Props) · 공간별 제안 ·
+//   공간별 가치 제안 · {업종} 솔루션 · 도입사례 · Why Samsung · 유관사례 · Spec · 구독 솔루션.
+//   Spec 은 모든 구성의 맨 끝에 고정으로 들어간다(사용자 지시 2026-11-16 — 표준 제안서도). 그래서 표준 제안서도 업종 표준 제안서(bs_std_<업종>)를 그대로 쓰지 않고
+//   그 장을 옮겨 조립한다(표지는 그대로 · keepCover). 업종 표준 제안서 44종은 샘플 시나리오로 그대로 남는다.
+//   목록에서 뺀 목차(제안 요약 · 기대 효과 · 비용 · 구매 …)와 그 목차로만 서던 구성(투자 효과형 · 경쟁 비교형 · 요구사항 대응형)은 은퇴 — 이미 만든 제안서가 다시 열릴 때만 쓴다(RETIRED_TEMPLATES · TPL).
 // 내용: toc_content.json (build/toc/build_content.py — 업종별 과제 · 여정 · 핵심 기술 · 사양 · 구성, 업종 묶음별 당사의 이해 데이터)
 // 장: toc_layouts.js (L_TOC_*) — 칸 이름 → 번호는 TOC_SLOTS. 간지 칸 번호는 L_VS_DIV_R<n> 규칙(아래 divider).
 import { TOC_SLOTS } from './toc_layouts.js';
-import { SUBS_SLOTS } from './subs_layouts.js';
+import { SUBS_SLOTS, SUBS_HTML } from './subs_layouts.js';
 import { SC } from './scenarios.js';
 import { FILLS, FILL_CUSTOMER } from './scenario_fills.js';
 import { STORY } from './scenario_story.js';
 import { subscriptionNeed, addonIndex } from '../proposals/addons.js';
+import { applyCustomPresets, customTemplateHint } from './custom_compositions.js';
+import { scenarioPlan, SCN } from './scenario_plan.js';
+import FEATURE_LABEL from './feature_labels.json' with { type: 'json' };
+import { SERVICE_BRANCHES } from './service_branches.js';
 
 // 콘텐츠(toc_content.json, 지연 로딩) — 템플릿 정의(add-on 자리 규칙)보다 먼저 선언
 let CONTENT = null; let LOADING = null;
@@ -24,7 +33,8 @@ export const TOCS = {
   needs: { name: 'AI {업종}', type: 'value', std: 'needs', goal: '고객 니즈 셋을 삼성 AI 기술과 핵심 제안으로 잇는다' },
   tech: { name: '{업종} 핵심 기술', type: 'solution', goal: '솔루션마다 핵심 키워드 셋으로 기술을 소개한다' },
   space: { name: '공간별 제안', type: 'products', std: 'space', goal: '조감도로 공간을 펼치고 공간마다 놓일 대표 제품을 보여 준다' },
-  value: { name: '공간별 가치 제안', type: 'scenario', goal: '공간을 이용자 여정으로 엮고 쓰이는 기능만 켜서 보여 준다' },
+  // 고객/공간 시나리오(관리자 목록 이름, 2026-11-17 다시 짬) — 조감도 → 활용 맵(솔루션 · 서비스 × 공간) → 공간마다 한 장(그 공간의 제품 + 그 공간에서 쓰는 솔루션 · 서비스). 장 고르기: scenario_plan.js
+  value: { name: '공간별 가치 제안', type: 'scenario', goal: '공간마다 놓이는 제품과 그 공간에서 쓰는 솔루션 · 서비스를 보여 주고, 여러 공간이 함께 쓰는 솔루션 · 서비스를 활용 맵으로 묶는다' },
   sol: { name: '{업종} 솔루션', type: 'solution', std: 'sol', goal: '솔루션마다 기능 · 적용 공간 · 대표 장면을 보여 준다' },
   case: { name: '도입사례', type: 'case', std: 'case', goal: '같은 업종의 삼성 공식 도입사례로 믿음을 더한다' },
   why: { name: 'Why Samsung', type: 'why', std: 'why', goal: '전문가 · 오퍼링 · 프로세스 · 브랜드로 닫는다' },
@@ -46,23 +56,37 @@ export const TOCS = {
   subcare: { name: '구독 케어 · B2B 블루패스', type: 'subscription', goal: '정기 케어 4단계 · B2B 블루패스 · 관리 옵션으로 관리 부담을 덜어 준다', sub: '정기 케어 4단계와 B2B 블루패스' },
   subterm: { name: '구독 조건 · 결제', type: 'subscription', goal: '기간 · 방문 주기 · 대상 · 납부 방법을 정하고 문의로 닫는다', sub: '기간 · 방문 주기 · 대상 · 납부 방법' },
   subone: { name: 'B2B 삼성 AI 구독 요약', type: 'subscription', goal: '구독 가치 · 조건 · 패키지 · 문의처를 한 장으로', sub: '구독 제안을 한 장으로' },
-  // 요구사항에 따라 다른 구성에 더하는 목차(add-on) — 구독 가치 · 업종 패키지 · 납부 방법(+ 기간 한정 혜택)
-  subsol: { name: '구독 솔루션 제안', type: 'subscription', addon: 'sub', goal: '구독 · 렌탈 · 월 납부 요구에 답해 이 고객의 구독 가치 · 업종 패키지 · 납부 방법을 제안한다', sub: '같은 제품을 구독으로 — 가치 · 패키지 · 납부 방법' },
+  // 구독 솔루션 — 구독을 한 파트로(사용자 지시 2026-11-16): 고민 → 효과 → 비교 → 제품 묶음 → 케어 1 → 케어 2 → 구독 조건 → 결제. 케어 2 · 구독 조건 · 결제의 숫자는 00(작성자가 직접 입력).
+  //   구독 구성(구독 제안서 · 구독 전환 제안서)의 파트이자, 요구사항에 따라 다른 구성에 더하는 목차(add-on)다. 아래 구독 목차 여섯은 이 파트로 합쳐져 은퇴(이미 만든 제안서에서만).
+  // 서비스(관리자 목록 이름 '서비스 제안') — 솔루션 하위에 있던 서비스 두 가지(삼성케어플러스 SAC · 삼성케어플러스 비즈니스)를 내용이 고정된 장으로(사용자 지시 2026-11-16).
+  //   2026-11-17: 구독 상품 제안도 이 파트의 한 갈래 — 고른 서비스에 따라 갈래가 나뉜다(B.svc · SVC_BRANCHES): 케어 서비스 → 삼성케어플러스 SAC · 비즈니스 장, 구독 → 구독 흐름 8장.
+  //   유형은 솔루션(파트 유형 표를 늘리지 않는다). 이 파트가 있는 구성에서는 {업종} 솔루션 파트에서 서비스 장을 뺀다(composeDeck · solWithoutServices).
+  svc: { name: '서비스', type: 'solution', goal: '고른 서비스에 따라 — 삼성케어플러스 SAC · 비즈니스(고정된 내용)와 B2B 삼성 AI 구독(고민 → 효과 → 비교 → 제품 묶음 → 케어 → 구독 조건 · 결제)을 보여 준다', sub: '설치 뒤까지 삼성이 챙기는 서비스' },
+  subx: { name: '구독 솔루션', type: 'subscription', addon: 'sub', goal: '현장의 고민에서 출발해 구독의 효과 · 일시불과의 비교 · 제품 묶음 · 케어 · 구독 조건과 결제까지 한 파트로 보여 준다', sub: '초기 비용은 낮추고, 관리는 삼성이' },
+  // (은퇴) 요구사항에 따라 다른 구성에 더하던 목차 — 구독 가치 · 업종 패키지 · 납부 방법(+ 기간 한정 혜택)
+  subsol: { name: '구독 솔루션 제안', type: 'subscription', goal: '구독 · 렌탈 · 월 납부 요구에 답해 이 고객의 구독 가치 · 업종 패키지 · 납부 방법을 제안한다', sub: '같은 제품을 구독으로 — 가치 · 패키지 · 납부 방법' },
 };
 /* ---------------- 요구사항에 따라 더하는 목차 (add-on) ---------------- */
-// 고객 요구에 구독 · 렌탈 · 월 납부(또는 초기 비용 · 관리 부담 둘 이상)가 있으면 어느 템플릿에든 '구독 솔루션 제안'만 더한다.
-// 자리: 마지막 '비용 · 구매' 바로 뒤, 없으면 첫 실행(파일럿 · 실행 계획) · 사례 · Why Samsung 앞(구독 레지스트리 addon.place).
+// 고객 요구에 구독 · 렌탈 · 월 납부(또는 초기 비용 · 관리 부담 둘 이상)가 있으면 어느 템플릿에든 '구독 솔루션' 파트만 더한다.
+// 자리: 마지막 '비용 · 구매' 바로 뒤, 없으면 첫 실행(파일럿 · 실행 계획) · 사례 · Why Samsung 앞(구독 레지스트리 addon.place). Spec 뒤에는 오지 않는다(specLast).
 // 이미 구독 목차가 있는 구성(구독 제안서 · 구독 전환 제안서)에는 더하지 않는다.
-export const ADDONS = { sub: { toc: 'subsol', label: '구독 솔루션 제안' } };
+export const ADDONS = { sub: { toc: 'subx', label: '구독 솔루션' } };
+/** Spec(제품 사양) 파트는 구성의 맨 마지막에만 온다 — 뒤에 다른 목차가 있으면 맨 뒤로 옮긴다 */
+export const SPEC_TOC = 'pspec';
+export function specLast(tocs) {
+  const i = tocs.indexOf(SPEC_TOC);
+  return i < 0 || i === tocs.length - 1 ? tocs : [...tocs.slice(0, i), ...tocs.slice(i + 1), SPEC_TOC];
+}
 const addonRules = () => (CONTENT && CONTENT.subs && CONTENT.subs.addon) || null;
 /** 목차 키 목록에 add-on 목차를 알맞은 자리에 — 같은 유형 목차가 이미 있으면 그대로 */
 export function withAddons(tocs, addons) {
   const out = [...tocs];
   for (const a of addons || []) {
-    const A = ADDONS[a]; if (!A || out.includes(A.toc) || out.some((k) => TOCS[k].type === TOCS[A.toc].type)) continue;
+    // 서비스 제안(svc)이 있으면 구독은 그 파트의 갈래로, 고객/공간 시나리오(value)가 있으면 공간마다 쓰는 서비스 줄로 들어간다(2026-11-17) — 구독 솔루션 파트를 따로 더하지 않는다
+    const A = ADDONS[a]; if (!A || out.includes(A.toc) || out.some((k) => TOCS[k].type === TOCS[A.toc].type) || (a === 'sub' && (out.includes('svc') || out.includes('value')))) continue;
     out.splice(addonIndex(out.map((k) => ({ type: TOCS[k].type })), addonRules()), 0, A.toc);
   }
-  return out;
+  return specLast(out);
 }
 /** 고객 요구 문장 → 더할 목차 — 구독 요구가 있으면 ['sub'] (판정은 구독 레지스트리 addon 규칙, 서버와 같음) */
 export function addonsForRequirement(text) { return subscriptionNeed(text, addonRules()).need ? ['sub'] : []; }
@@ -72,51 +96,128 @@ const VX_PAIN = VX_STD.map((x) => x.replace(/_1$/, '_2'));
 /* ---------------- 템플릿 ---------------- */
 // ua: 당사의 이해에 고르는 장 — 고객사 분석(prof · pain) · 업종 트렌드(line · share · stat · key) · 경쟁 비교(matrix 점수표 · win 차별점 3 · map 포지셔닝)
 export const TOC_TEMPLATES = [
-  { id: 'std', name: '표준 제안서', badge: '대표 · 업종별 표준 제안서', deck: '표준 제안', hue: 'slate', req: 'std', strategy: 'value', ending: 'workshop',
-    desc: '고객 니즈별 AI 제안 · 공간별 대표 제품 · 솔루션을 표준 순서로 보여 주는 기본 양식', tocs: ['overview', 'needs', 'space', 'sol', 'case', 'why'],
+  // ── 기본 제안 · 상세 제안 (사용자 지시 2026-11-16) — 추천에 쓰는 구성은 이 둘. 아래 구성들은 운영 값으로 '추천에 사용'을 꺼 두었다(app/data/runtime/layout_presets.json).
+  //   when: 추천 모델에게 주는 '맞는 상황' 기본 문구(관리자가 고치면 그 문구)
+  { id: 'basic', name: '기본 제안', deck: '기본 제안', hue: 'blue', req: 'std', strategy: 'value', ending: 'workshop',
+    // 2026-11-17: 구독 상품 제안은 서비스 제안의 갈래로 들어갔다(구독을 고르면 서비스 제안 안에 구독 흐름)
+    desc: '개요 → 가치 제안 → 제품 제안 → 솔루션 제안 → 서비스 제안(케어 · 구독) → 유관 사례 → 제품 스펙 순서의 기본 양식', tocs: ['overview', 'needs', 'space', 'sol', 'svc', 'case', 'pspec'],
+    sub: '가치에서 제품 스펙까지 한 흐름으로', when: '처음 만나는 고객 · 폭넓은 소개 — 가치 · 제품 · 솔루션 · 서비스(케어 · 구독) · 사례 · 제품 스펙을 한 흐름으로', related: [] },
+  { id: 'detail', name: '상세 제안', deck: '상세 제안', hue: 'violet', req: 'std', strategy: 'value', ending: 'workshop',
+    // 2026-11-17(사용자 지시): 상세 제안에는 제품 제안 · 솔루션 제안 · 서비스 제안 대신 고객/공간 시나리오 — 공간마다 제품이 놓이고 솔루션 · 서비스는 여러 공간이 함께 쓴다
+    desc: '시장 분석과 고객/공간 시나리오로 짚는 양식 — 개요 → 시장 분석 → 가치 제안 → 고객/공간 시나리오(공간마다 제품 · 솔루션 · 서비스) → 유관 사례 → Why Samsung → 제품 스펙',
+    tocs: ['overview', 'ua', 'needs', 'value', 'case', 'why', 'pspec'], ua: ['line', 'share', 'stat', 'key'],
+    sub: '시장에서 출발해 제품 스펙까지', when: '시장 근거와 삼성을 골라야 할 이유까지 필요한 제안 — 의사결정자 보고 · 경쟁 · 투자 검토', related: [] },
+  { id: 'std', name: '표준 제안서', deck: '표준 제안', hue: 'slate', req: 'std', strategy: 'value', ending: 'workshop',
+    keepCover: true, desc: '고객 니즈별 AI 제안 · 공간별 대표 제품 · 솔루션을 표준 순서로 보여 주고 제품 사양으로 닫는 기본 양식', tocs: ['overview', 'needs', 'space', 'sol', 'case', 'why', 'pspec'],
     sub: '업종 표준 구성 그대로', related: [] },
-  { id: 'stdx', name: '표준 제안서 확장형', badge: '당사의 이해 포함', deck: '표준 제안', hue: 'blue', req: 'std', strategy: 'value', ending: 'workshop', keepCover: true,
-    desc: '표준 제안서의 Overview 자리에 당사의 이해(고객사 · 트렌드 · 경쟁)를 넣은 양식', tocs: ['ua', 'needs', 'space', 'sol', 'case', 'why'], ua: ['prof', 'line', 'key', 'matrix'],
-    sub: '고객을 먼저 이해하고, 공간마다 답합니다', related: ['bs_account_inspire', 'bs_account_paulbassett', 'bs_account_episode'] },
-  { id: 'space', name: '공간 가치형 제안서', badge: '솔루션 1개 이상', deck: '공간 가치 제안', hue: 'teal', req: 'std', strategy: 'space', ending: 'workshop',
-    desc: '공간을 이용자 여정으로 엮고, 장마다 쓰이는 솔루션 기능만 켜서 보여 주는 양식', tocs: ['overview', 'tech', 'value', 'case', 'why'],
-    sub: '공간마다 이어지는 이용자의 하루', related: VX_STD },
-  { id: 'spacex', name: '공간 가치형 제안서 확장형', badge: '당사의 이해 포함', deck: '공간 가치 제안', hue: 'teal', req: 'std', strategy: 'space', ending: 'workshop',
-    desc: '공간 가치형 제안서의 Overview 자리에 당사의 이해를 넣은 양식', tocs: ['ua', 'tech', 'value', 'case', 'why'], ua: ['pain', 'share', 'key', 'map'],
-    sub: '업종의 흐름에서 출발한 공간 경험', related: ['bs02', 'bs05', 'bs06'] },
-  { id: 'pain', name: '과제 해결형 제안서', badge: '기존 샘플에서 추출', deck: '과제 해결 제안', hue: 'violet', req: 'renew', strategy: 'pain', ending: 'pilot',
-    desc: '고객 과제에서 출발해 핵심 제안 · 공간 장면 · 실행 계획으로 닫는 양식', tocs: ['ua', 'needs', 'value', 'plan', 'case', 'why'], ua: ['pain', 'prof'],
-    sub: '현장의 과제에서 출발한 해법', related: ['bs07', 'bs08', 'bs09', 'bs14', 'bs15', ...VX_PAIN] },
-  { id: 'build', name: '구축 실행형 제안서', badge: '기존 샘플에서 추출', deck: '구축 실행 제안', hue: 'teal', req: 'new', strategy: 'space', ending: 'scope',
-    desc: '공간별 구성 · 수량 · 사양 · 일정으로 구축 범위를 확정하는 양식', tocs: ['summary', 'space', 'bom', 'spec', 'plan', 'case', 'why'],
-    sub: '공간별 구성부터 실행 일정까지', related: ['bs03', 'bs04', 'bs18'] },
-  { id: 'roi', name: '투자 효과형 제안서', badge: '기존 샘플에서 추출', deck: '투자 효과 제안', hue: 'green', req: 'ops', strategy: 'roi', ending: 'pilot',
+  { id: 'stdx', name: '표준 제안서 확장형', deck: '표준 제안', hue: 'blue', req: 'std', strategy: 'value', ending: 'workshop', keepCover: true,
+    desc: '표준 제안서의 Overview 자리에 당사의 이해(고객사 · 트렌드 · 경쟁)를 넣은 양식', tocs: ['ua', 'needs', 'space', 'sol', 'case', 'why', 'pspec'], ua: ['prof', 'line', 'key', 'matrix'],
+    sub: '고객을 먼저 이해하고, 공간마다 답합니다', related: ['bs_account_inspire', 'bs_account_episode'] },
+  // ── 아래 구성은 「전체 파트」 목록의 파트만으로 다시 짰다(사용자 지시 2026-11-16). 표준 제안서 · 확장형은 그대로.
+  { id: 'space', name: '공간 가치형 제안서', deck: '공간 가치 제안', hue: 'teal', req: 'std', strategy: 'space', ending: 'workshop',
+    desc: '공간을 이용자 여정으로 엮어 장면마다 쓰이는 솔루션 기능을 보여 주고, 이어서 그 솔루션을 하나씩 풀어 주는 양식', tocs: ['overview', 'value', 'sol', 'case', 'why', 'pspec'],
+    sub: '공간마다 이어지는 이용자의 하루', related: [] },
+  { id: 'spacex', name: '공간 가치형 제안서 확장형', deck: '공간 가치 제안', hue: 'teal', req: 'std', strategy: 'space', ending: 'workshop',
+    desc: '공간 가치형 제안서의 Overview 자리에 당사의 이해를 넣은 양식', tocs: ['ua', 'value', 'sol', 'case', 'why', 'pspec'], ua: ['pain', 'share', 'key', 'map'],
+    sub: '업종의 흐름에서 출발한 공간 경험', related: [] },
+  { id: 'pain', name: '과제 해결형 제안서', deck: '과제 해결 제안', hue: 'violet', req: 'renew', strategy: 'pain', ending: 'pilot',
+    desc: '고객 과제에서 출발해 세 가지 핵심 제안으로 답하고, 그 제안이 공간에서 이어지는 장면으로 보여 주는 양식', tocs: ['ua', 'needs', 'value', 'case', 'why', 'pspec'], ua: ['pain', 'prof'],
+    sub: '현장의 과제에서 출발한 해법', related: [] },
+  { id: 'build', name: '구축형 제안서', deck: '구축 제안', hue: 'teal', req: 'new', strategy: 'space', ending: 'scope',
+    desc: '공간마다 놓일 대표 제품과 함께 쓰는 솔루션으로 구축 범위를 보여 주고, 제품 사양으로 닫는 양식', tocs: ['space', 'sol', 'case', 'why', 'pspec'],
+    sub: '공간별 구성부터 제품 사양까지', related: [] },
+  // 제품 제안서 = 표준 제안서에서 Overview · {업종} 솔루션 · 도입사례만 뺀 것(사용자 지시 2026-11-16). 제품이 하나 이상이고 솔루션이 없을 때 쓰던 첫 칸(2026-11-16부터 Storyboard 구성 생성은 켜 둔 관리자 구성에서 DSS 파트만 뺀다 — services/layout-compose.js generatedTemplates).
+  { id: 'prod', name: '제품 제안서', deck: '제품 제안', hue: 'blue', req: 'new', strategy: 'value', ending: 'pilot',
+    desc: '솔루션 없이 제품만 제안할 때 — 표준 제안서에서 Overview · 업종 솔루션 · 도입사례를 뺀 양식(세 가지 핵심 제안 · 공간별 제안 · Why Samsung · 제품 사양)', tocs: ['needs', 'space', 'why', 'pspec'],
+    sub: '솔루션 없이, 제품으로 시작하는 변화', related: [] },
+  { id: 'subs', name: '구독 제안서', deck: '구독 제안', hue: 'green', req: 'subs', strategy: 'roi', ending: 'budget', kind: 'subs',
+    desc: '초기 비용 부담 없이 B2B 삼성 AI 구독으로 도입하자는 양식 — 구독 솔루션(고민 · 효과 · 비교 · 제품 묶음 · 케어 · 조건 · 결제)을 먼저 보여 주고 공간별 제안 · 도입사례로 잇는 양식',
+    tocs: ['overview', 'subx', 'space', 'case', 'why', 'pspec'], sub: '초기 비용은 낮추고, 관리는 삼성이', related: [] },
+  // 구독 솔루션이 포함된 구성 — 다른 양식에 '구독 솔루션' 파트만 더한 것(base + addons). 요구사항에 따라 어느 양식에든 같은 방식으로 더한다.
+  { id: 'stdsub', base: 'std', addons: ['sub'], name: '표준 제안서 + 구독 솔루션', deck: '표준 제안', hue: 'green', req: 'subs', strategy: 'value', ending: 'budget',
+    desc: '표준 제안서 순서는 그대로 두고 도입사례 앞에 구독 솔루션 파트를 더한 양식 — 고객이 구독 · 렌탈 · 월 납부를 원하거나 초기 비용 · 관리 부담을 말할 때',
+    tocs: withAddons(['overview', 'needs', 'space', 'sol', 'case', 'why', 'pspec'], ['sub']), sub: '업종 표준 구성 + 구독 솔루션', related: [] },
+];
+// 은퇴한 구성 — 목록에서 뺀 목차(제안 요약 · 기대 효과 · 비용 · 구매 · 파일럿 · 확산 · 요구사항 대응 · 제품 사양 · 구성 · 수량 · 실행 계획 · 구독 한 장 요약)가 뼈대여서 지금 파트로는 나타낼 수 없다.
+//   구독 전환 제안서는 한 장 요약이 빠지면 구독 솔루션 + Why Samsung 두 파트뿐이라(목차 장은 4칸부터) 구독 제안서 · 요구사항에 따라 더하는 구독 솔루션 파트로 갈음한다.
+//   추천 · 전체 구성 보기 · 목차 템플릿 목록 · 관리자 화면에는 나오지 않는다(TOC_TEMPLATES 에 없다). 이 구성으로 이미 만든 제안서가 구성 이름 · 견본 장을 찾을 때만 쓴다(TPL).
+export const RETIRED_TEMPLATES = [
+  { id: 'roi', name: '투자 효과형 제안서', deck: '투자 효과 제안', hue: 'green', req: 'ops', strategy: 'roi', ending: 'pilot',
     desc: '현황 숫자 → 핵심 기술 → 기대 효과 → 비용 · 파일럿으로 결정을 쉽게 하는 양식', tocs: ['summary', 'ua', 'tech', 'effect', 'cost', 'pilot', 'why'], ua: ['prof', 'stat'],
     sub: '숫자로 확인하는 도입 효과', related: ['bs01', 'bs13', 'bs16', 'bs17', 'bs19', 'bs20'] },
-  { id: 'compete', name: '경쟁 비교형 제안서', badge: '기존 샘플에서 추출', deck: '경쟁 비교 제안', hue: 'amber', req: 'compete', strategy: 'compete', ending: 'shortlist',
+  { id: 'compete', name: '경쟁 비교형 제안서', deck: '경쟁 비교 제안', hue: 'amber', req: 'compete', strategy: 'compete', ending: 'shortlist',
     desc: '같은 기준으로 공급사를 비교하고 사양 · 비용으로 선택을 굳히는 양식', tocs: ['summary', 'ua', 'needs', 'spec', 'cost', 'case', 'why'], ua: ['matrix', 'win', 'map'],
     sub: '같은 기준으로 비교한 선택', related: ['bs10', 'bs12'] },
-  { id: 'prod', name: '제품 제안서', badge: '제품 1 + 관련 솔루션', deck: '제품 제안', hue: 'blue', req: 'new', strategy: 'value', ending: 'pilot',
-    desc: '제품 하나와 함께 쓰는 솔루션으로 가치 셋 · 가치별 상세 · 유관사례 · Spec을 보여 주는 양식', tocs: ['vp', 'vpd', 'pcase', 'pspec'],
-    sub: '제품 하나로 시작하는 변화', related: [] },
-  { id: 'rfp', name: '요구사항 대응형 제안서', badge: '기존 샘플에서 추출', deck: '요구사항 대응 제안', hue: 'blue', req: 'new', strategy: 'rfp', ending: 'shortlist',
+  { id: 'rfp', name: '요구사항 대응형 제안서', deck: '요구사항 대응 제안', hue: 'blue', req: 'new', strategy: 'rfp', ending: 'shortlist',
     desc: '평가 항목 순서대로 대응 · 사양 · 수량 · 일정을 빠짐없이 답하는 양식', tocs: ['ua', 'rfp', 'spec', 'bom', 'plan', 'case', 'why'], ua: ['prof', 'key'],
     sub: '요구사항마다 빠짐없이 답합니다', related: ['bs11'] },
-  { id: 'subs', name: '구독 제안서', badge: 'B2B 삼성 AI 구독', deck: '구독 제안', hue: 'green', req: 'subs', strategy: 'roi', ending: 'budget', kind: 'subs',
-    desc: '초기 비용 부담 없이 B2B 삼성 AI 구독으로 도입하자는 양식 — 구독 가치 · 업종 패키지 · 공간별 제안 · 케어 · 조건 · 결제 순서',
-    tocs: ['overview', 'subs', 'subpkg', 'space', 'subcare', 'subterm', 'case', 'why'], sub: '초기 비용은 낮추고, 관리는 삼성이', related: ['bs_sub_ed_univ', 'bs_sub_ht_large', 'bs_sub_md_hospital', 'bs_sub_of_hq'] },
-  { id: 'subsl', name: '구독 전환 제안서', badge: '한 장 요약 + 조건', deck: '구독 전환 제안', hue: 'green', req: 'subs', strategy: 'roi', ending: 'budget', kind: 'subs',
+  { id: 'roisub', base: 'roi', addons: ['sub'], name: '투자 효과형 + 구독 솔루션', deck: '투자 효과 제안', hue: 'green', req: 'ops', strategy: 'roi', ending: 'budget',
+    desc: '기대 효과 · 비용(5년 총소유비용) 다음에 같은 제품을 구독으로 들이는 길(구독 가치 · 업종 패키지 · 납부 방법)을 더한 양식 — 일시불과 구독을 함께 저울질하는 고객',
+    tocs: ['summary', 'ua', 'tech', 'effect', 'cost', 'subsol', 'pilot', 'why'], ua: ['prof', 'stat'], sub: '숫자로 확인하는 도입 효과 + 구독 솔루션', related: [] },
+  { id: 'subsl', name: '구독 전환 제안서', deck: '구독 전환 제안', hue: 'green', req: 'subs', strategy: 'roi', ending: 'budget', kind: 'subs',
     desc: '제품을 정한 고객에게 같은 제품을 구독으로 들이자고 짧게 제안하는 양식 — 한 장 요약 · 업종 패키지 · 조건 · 결제',
     tocs: ['subone', 'subpkg', 'subterm', 'why'], sub: '같은 제품, 구독으로 가볍게', related: ['bs_sub_fn_bank'] },
-  // 구독 솔루션이 포함된 구성 — 다른 양식에 '구독 솔루션 제안' 목차만 더한 것(base + addons). 요구사항에 따라 어느 양식에든 같은 방식으로 더한다.
-  { id: 'stdsub', base: 'std', addons: ['sub'], name: '표준 제안서 + 구독 솔루션', badge: '표준 제안서에 구독 솔루션 제안', deck: '표준 제안', hue: 'green', req: 'subs', strategy: 'value', ending: 'budget',
-    desc: '표준 제안서 순서는 그대로 두고 도입사례 앞에 구독 솔루션 제안(구독 가치 · 업종 패키지 · 납부 방법)을 더한 양식 — 고객이 구독 · 렌탈 · 월 납부를 원하거나 초기 비용 · 관리 부담을 말할 때',
-    tocs: withAddons(['overview', 'needs', 'space', 'sol', 'case', 'why'], ['sub']), sub: '업종 표준 구성 + 구독 솔루션 제안', related: ['bs_sub_std_ht_mid', 'bs_sub_std_md_clinic', 'bs_sub_std_of_sme', 'bs_sub_std_pb_agency'] },
-  { id: 'roisub', base: 'roi', addons: ['sub'], name: '투자 효과형 + 구독 솔루션', badge: '비용 · 구매 다음에 구독 솔루션', deck: '투자 효과 제안', hue: 'green', req: 'ops', strategy: 'roi', ending: 'budget',
-    desc: '기대 효과 · 비용(5년 총소유비용) 다음에 같은 제품을 구독으로 들이는 길(구독 가치 · 업종 패키지 · 납부 방법)을 더한 양식 — 일시불과 구독을 함께 저울질하는 고객',
-    tocs: withAddons(['summary', 'ua', 'tech', 'effect', 'cost', 'pilot', 'why'], ['sub']), ua: ['prof', 'stat'], sub: '숫자로 확인하는 도입 효과 + 구독 솔루션', related: [] },
-];
-export const TPL = Object.fromEntries(TOC_TEMPLATES.map((t) => [t.id, t]));
+].map((t) => ({ ...t, retired: true, off: true, related: [] }));
+/** 구성 id → 구성 — 은퇴한 구성도 들어 있다(이미 만든 제안서용). 목록은 TOC_TEMPLATES 를 쓴다 */
+export const TPL = Object.fromEntries([...TOC_TEMPLATES, ...RETIRED_TEMPLATES].map((t) => [t.id, t]));
+// 다시 짠 구성의 옛 목차 — 예전에 그 구성으로 만든 제안서의 목차(agent.toc)가 지금 구성에 없으면 견본 장을 자리(ti)로 찾지 않는다(services/layout-compose.js)
+export const tocInTemplate = (tid, key) => !!(TPL[tid] && key && TPL[tid].tocs.includes(key));
+// 구성 규칙 — Spec 은 맨 마지막에만(모듈을 읽을 때 한 번 확인한다: 어기는 구성을 올리면 바로 드러나게)
+//   파트는 4–10개(목차 장 L_TOC_INDEX4–10 — 3개 이하면 빈 칸이 남고, 11개부터는 목차 장에 다 실리지 않는다)
+//   모든 구성의 끝은 Spec(고정) — 사용자 지시 2026-11-16 "모든 템플릿에 spec 파트는 고정으로 끝에 넣어"
+for (const t of TOC_TEMPLATES) {
+  if (specLast(t.tocs) !== t.tocs) throw new Error(`목차 템플릿 ${t.id}: Spec 은 구성의 맨 마지막에만 올 수 있습니다 — ${t.tocs.join(' → ')}`);
+  if (t.tocs[t.tocs.length - 1] !== SPEC_TOC) throw new Error(`목차 템플릿 ${t.id}: 모든 구성은 Spec 으로 끝납니다 — ${t.tocs.join(' → ')}`);
+  if (t.tocs.length < 4) throw new Error(`목차 템플릿 ${t.id}: 파트가 4개보다 적습니다 — ${t.tocs.join(' → ')}`);
+  if (t.tocs.length > 10) throw new Error(`목차 템플릿 ${t.id}: 파트가 10개보다 많습니다(목차 장이 10칸까지) — ${t.tocs.join(' → ')}`);
+}
+
+/* ---------------- 운영 값 (관리자 「레이아웃 구성 관리」) ---------------- */
+// 서버에 저장한 값(app/api/layout_presets.py → /api/bootstrap 의 layout_presets)을 템플릿 위에 덮는다. 구조(tocs · 장)는 바꾸지 않는다.
+//   { rev, fixed, order: [id …], items: { id: { enabled, name, desc, hint, related } } }
+//   enabled:false → t.off (Storyboard 추천 · 전체 구성 · 목차 템플릿 목록에서 빠진다. 이미 그 구성으로 만든 제안서는 그대로 — TPL 에는 남는다)
+//   hint → 추천 모델에게 주는 '맞는 상황' 문구(없으면 req · strategy 로 만든 기본 문구) · fixed → 추천 첫 칸(기본 구성)
+// 다른 구성에 add-on 만 더한 변형(base)은 요구사항에 따라 자동으로 쓰이므로 끄거나 순서를 바꾸지 않는다(글 · 샘플만 바꾼다).
+const REQ_HINT = { std: '업종 표준 소개 · 폭넓은 제안', renew: '기존 설비 교체 · 현장 과제 해결', new: '신규 구축 · 범위 확정', ops: '운영 효율 · 투자 효과(ROI) 입증', compete: '경쟁사 비교 · 공급사 선정', subs: '구독 · 렌탈 · 월 납부 · 초기 비용 부담' };
+const STRATEGY_HINT = { value: '가치 제안', space: '공간 · 동선 중심', pain: '과제 해결', roi: '숫자 · 효과', compete: '비교 우위', rfp: '평가 항목 대응' };
+/** 추천 모델에게 주는 '맞는 상황' — 코드 기본값(req · strategy) */
+export const defaultTemplateHint = (t) => (t.custom ? customTemplateHint(t) : t.when || [REQ_HINT[t.req], STRATEGY_HINT[t.strategy]].filter(Boolean).join(' · '));
+/** 추천 모델에게 주는 '맞는 상황' — 관리자가 쓴 문구가 있으면 그 문구 */
+export const templateHint = (t) => t.hint || defaultTemplateHint(t);
+const PRESET_DEFAULTS = TOC_TEMPLATES.map((t, index) => ({ t, index, name: t.name, desc: t.desc, related: t.related }));
+const presetText = (v) => (typeof v === 'string' ? v.replace(/\s+/g, ' ').trim() : '');
+let PRESET = { rev: 0, fixed: 'std' };
+/** 기본 구성으로 쓸 수 있는가 — 켜져 있고, add-on 변형 · 제품 제안서(제품이 있고 솔루션이 없을 때만 첫 칸)가 아니다 */
+export const canBeFixedTemplate = (t) => !!t && !t.base && !t.off && t.id !== 'prod';
+/** 운영 값을 템플릿에 덮는다(다시 부르면 코드 기본값에서 새로 덮는다). → { rev, fixed } */
+export function applyTocPresets(presets) {
+  const P = presets && typeof presets === 'object' ? presets : {};
+  const items = P.items && typeof P.items === 'object' ? P.items : {};
+  for (const d of PRESET_DEFAULTS) {
+    const { t } = d; const o = (items[t.id] && typeof items[t.id] === 'object' && items[t.id]) || {};
+    t.name = presetText(o.name) || d.name; t.desc = presetText(o.desc) || d.desc;
+    t.related = Array.isArray(o.related) ? o.related.filter((x) => typeof x === 'string') : d.related;
+    if (presetText(o.hint)) t.hint = presetText(o.hint); else delete t.hint;
+    if (!t.base && o.enabled === false) t.off = true; else delete t.off;
+  }
+  // 다른 구성에 add-on 만 더한 변형은 따로 끄지 않고 그 구성을 따른다 — 그 구성이 꺼지면 변형도 목록에서 빠진다(2026-11-16: 이전 구성을 모두 끄자 변형만 남았다)
+  for (const { t } of PRESET_DEFAULTS) if (t.base && TPL[t.base] && TPL[t.base].off) t.off = true;
+  // 직접 만든 파트 · 구성(관리자 「구성 추가하기」 — custom_compositions.js) — 파트는 TOCS 에, 구성은 TPL 에 올리고 코드 구성 뒤(순서를 정했으면 그 자리)에 놓는다
+  const custom = applyCustomPresets(P, { TOCS, TPL, SC, FILLS, STORY, FILL_CUSTOMER });
+  for (const { t } of custom) { const o = items[t.id]; if (o && typeof o === 'object' && o.enabled === false) t.off = true; else delete t.off; }
+  const rank = new Map((Array.isArray(P.order) ? P.order : []).map((id, i) => [id, i]));
+  const key = (d) => (d.t.base ? 2e6 + d.index : rank.has(d.t.id) ? rank.get(d.t.id) : 1e6 + d.index);
+  TOC_TEMPLATES.splice(0, TOC_TEMPLATES.length, ...[...PRESET_DEFAULTS, ...custom].sort((a, b) => key(a) - key(b)).map((d) => d.t));
+  // 기본 구성 — 정한 구성이 없거나 쓸 수 없으면 표준 제안서, 그것도 꺼져 있으면 켜진 첫 구성. 하나도 없으면 표준 제안서를 다시 켠다.
+  const fixed = [TPL[P.fixed], TPL.std, ...TOC_TEMPLATES].find(canBeFixedTemplate) || TPL.std;
+  delete fixed.off;
+  PRESET = { rev: Number.isInteger(P.rev) && P.rev > 0 ? P.rev : 0, fixed: fixed.id };
+  return PRESET;
+}
+/** 지금 적용된 운영 값 — { rev, fixed } */
+export const tocPresetState = () => PRESET;
+/** 코드에 적힌 기본값(순서 · 이름 · 설명 · 연결 샘플) — 관리자 화면이 바꾼 값과 견준다 */
+export const tocTemplateDefaults = () => PRESET_DEFAULTS.map((d) => ({ id: d.t.id, index: d.index, name: d.name, desc: d.desc, related: d.related }));
 /** 목차 이름 — {업종}은 그 업종 표준 제안서의 AI 업종 이름(AI 퀵서비스 → 퀵서비스). 업종이 없으면 '업종'. */
 export const tocName = (key, short) => TOCS[key].name.replace('{업종}', short || '업종');
 
@@ -166,6 +267,8 @@ export function stdDeck(vid) {
 /* ---------------- 장 조립 도구 ---------------- */
 const ICO = (fid, on = true) => (fid ? `/assets/toc/icons/${fid}.${on ? 'on' : 'off'}.png` : '/assets/toc/icons/blank.png');
 const BLANK = '/assets/toc/icons/blank.png';
+/** 선 아이콘 + 밑줄(배경 없음 — 공간별 시나리오 기능 칸, build/toc/icons/make_line_icons.mjs) */
+const LICO = (fid, on = true) => (fid ? `/assets/toc/icons/${fid}.line-${on ? 'on' : 'off'}.png` : BLANK);
 function sheet(f, role, row) {
   const S = TOC_SLOTS[f] || SUBS_SLOTS[f] || { t: {}, img: {} };
   const o = { f, t: {}, img: {} };
@@ -224,12 +327,13 @@ B.tech = (V, G, T, c, D) => {
   return [s];
 };
 const jrLabel = (t) => (t.length > 16 && t.includes(', ') ? t.split(', ').pop() : t);
-B.value = (V, G, T, c, D) => {
-  const bird = D.st.space.items.find((x) => /^L_VS_BIRD_/.test(x.f));
-  const out = [];
-  if (bird) out.push({ std: bird, rename: ['공간별 제안', c.name], role: '공간 조감도 · 공간 번호', row: (/_B\d+$/.test(bird.f) ? '건물 조감도' : '공간 조감도') + ` · ${V.sp.length}개 공간`,
-    patch: { 2: `${V.sp.length}개 공간을 잇는 이용자 여정 ${V.jr.length}가지` } });
-  V.jr.forEach((j) => {
+/* 고객/공간 시나리오 (목록 이름 · 사용자 지시 2026-11-17) — 조감도 → 활용 맵 → 공간별 시나리오(공간 3곳씩 한 장).
+   2차 지시(같은 날): 공간 3곳마다 한 장 — 공간 사진에 그 공간 제품을 겹쳐 보이고 · 세 공간을 잇는 통합 시나리오 · 아래 왼쪽 솔루션 · 오른쪽 서비스를 고정으로 두고
+   이 장의 공간에서 쓰는 기능만 켠다(on/off). 한 공간만 쓰는 장은 없다(3곳씩 나누고 한 곳만 남지 않게 — 4 → 2 + 2).
+   시트는 공간 · 솔루션 수로 고른다(scenario_plan.js). 예시 자료는 업종 공간 자료(toc_content.json 공간마다 pr · us(기능 포함) · ss, 이름 표 sx, 업종 기능 fx).
+   이용자 여정 장(L_TOC_JOURNEY*)은 이 파트에서 쓰지 않는다 — 공간별 시나리오가 같은 공간 사진을 쓴다(한 제안서에 같은 사진 한 번). journeySheets 는 남겨 둔다. */
+function journeySheets(V, c) {
+  return V.jr.map((j) => {
     const m = Math.min(3, j.sp.length); const ns = Math.min(2, j.sol.length) || 1;
     const s = sheet(`L_TOC_JOURNEY${m}${ns === 2 ? '' : 'S'}`, j.t, jrLabel(j.t)).t('eb', c.eb()).t('title', j.t);
     j.sp.slice(0, m).forEach((si, i) => { s.t('st' + i, V.sp[si].n).t('st' + i + 'n', String(si + 1)).t('sc' + i, j.scenes[i]).img('ph' + i, V.sp[si].ph); });
@@ -242,8 +346,48 @@ B.value = (V, G, T, c, D) => {
       pick.sort((x, y) => (order.get(x) ?? 99) - (order.get(y) ?? 99));
       for (let i = 0; i < per; i++) s.img(`fi${k}_${i}`, pick[i] ? ICO(pick[i], on.has(pick[i])) : null, 'icon');
     });
-    out.push(s);
+    return s;
   });
+}
+/** 업종 예시 자료 → 시나리오 공간 [{ name, photo, short, products: [{ name, cut, line }], uses: [{ id, scene, features }] }] */
+const scnSpaces = (V) => V.sp.map((s) => ({ name: s.n, photo: s.ph, short: s.ss || '', products: (s.pr || []).map(([name, cut, line]) => ({ name, cut, line })),
+  uses: (s.us || []).map(([id, scene, features]) => ({ id, scene, features: features || [] })) }));
+/** 공간 이름을 제목용으로 짧게 — '주문 카운터·디지털 메뉴보드' → '주문 카운터' · '객석(식음 공간)' → '객석' */
+const spShort = (n) => String(n || '').split(/[·(]/)[0].trim() || n;
+B.value = (V, G, T, c, D) => {
+  const bird = D.st.space.items.find((x) => /^L_VS_BIRD_/.test(x.f));
+  const out = [];
+  const spaces = scnSpaces(V);
+  const plan = scenarioPlan(spaces, (CONTENT && CONTENT.sx) || {}, (id) => (V.fx && V.fx[id]) || []);
+  if (bird) out.push({ std: bird, rename: ['공간별 제안', c.name], role: '공간 조감도 · 공간 번호', row: (/_B\d+$/.test(bird.f) ? '건물 조감도' : '공간 조감도') + ` · ${V.sp.length}개 공간`,
+    patch: { 2: `${V.sp.length}개 공간 — 공간마다 놓이는 제품과 함께 쓰는 솔루션 · 서비스` } });
+  for (const m of plan.maps) {
+    const shared = m.rows.filter((r) => r.spaces.length > 1).length;
+    const s = sheet(m.f, `활용 맵 · 공간 ${m.spaces.length}곳 × 솔루션 · 서비스 ${m.rows.length}`, '솔루션 · 서비스 활용 맵').t('eb', c.eb('활용 맵'))
+      .t('title', shared ? `솔루션 · 서비스 ${shared}가지는 여러 공간에서 함께 씁니다` : '공간마다 쓰는 솔루션 · 서비스');
+    m.spaces.forEach((i, j) => s.t('cn' + j, String(i + 1)).t('cs' + j, V.sp[i].n).t('cp' + j, `제품 ${spaces[i].products.length}`));
+    for (let r = 0; r < SCN.rows; r++) {
+      const x = m.rows[r];
+      s.t('rk' + r, x ? x.kind : '').t('rn' + r, x ? x.name : '').t('rt' + r, x ? `${x.count}곳` : '');
+      m.spaces.forEach((_, j) => s.t(`rc${r}_${j}`, x && x.cells[j] ? '●' : ''));
+    }
+    out.push(s);
+  }
+  for (const p of plan.sets) {
+    const names = p.spaces.map((i) => spShort(spaces[i].name));
+    const s = sheet(p.f, `공간별 시나리오 ${p.no} · ${names.join(' · ')} — 제품 겹쳐 보기 · 공간마다 시나리오 → · 솔루션 · 서비스 기능 on/off`, '공간별 시나리오')
+      .t('eb', c.eb('공간별 시나리오 ' + p.no)).t('title', names.join(' → '));
+    p.spaces.forEach((i, j) => {
+      s.t('sp' + j, spaces[i].name).t(`sp${j}n`, String(i + 1)).t('sc' + j, spaces[i].short).img('ph' + j, spaces[i].photo);
+      for (let k = 0; k < SCN.cuts; k++) { const x = p.cuts[j][k]; s.img(`pc${j}_${k}`, x ? x.cut : null, 'cut').t(`pn${j}_${k}`, x ? x.name : ''); }
+    });
+    for (let r = 0; r < SCN.useRows; r++) {
+      const x = p.use[r];
+      s.t('un' + r, x ? x.name : '');
+      for (let k = 0; k < SCN.useIcons; k++) { const ic = x && x.icons[k]; s.img(`ui${r}_${k}`, ic ? LICO(ic.f, ic.on) : null, 'icon').t(`ul${r}_${k}`, ic ? FEATURE_LABEL[ic.f] || '' : ''); }
+    }
+    out.push(s);
+  }
   return out;
 };
 const UA = {
@@ -437,11 +581,101 @@ B.subsol = (V, G, T, c, D) => [
   pkgSheet(V, c), pay3Sheet(V, c, D), promoSheet(c),
 ].filter(Boolean);
 B.subone = (V, G, T, c) => [sheet('L_SUB_ONE', '구독 한 장 요약', '구독 한 장 요약').t('eb', c.eb())];
+/* 서비스 제안 — 고른 서비스에 따라 갈래가 나뉜다(사용자 지시 2026-11-17: "구독 상품 제안은 서비스 하위로 넣기. 서비스 2개가 선택에 따라 분류되듯,
+   구독 상품 선택시 구독 상품 제안의 흐름이 나오도록").
+     sac    삼성케어플러스 SAC — 내용 고정 한 장(build/toc/layouts.py service_sac)
+     mobile 삼성케어플러스 비즈니스 — 내용 고정 한 장(service_mobile)
+     sub    구독 상품 — 고민 → 효과 → 비교 → 제품 묶음 → 케어 1 → 케어 2 → 구독 조건 → 결제(B.subx 그대로, 숫자 00)
+   어느 갈래를 쓸지는 DSS 로 정한 구성 변형이 갖고 있다(part_catalog.js SERVICE_BRANCHES · T.dss.svc — 고르는 규칙은 services/dss.js serviceBranches).
+   변형이 아니면(관리자 목록 · 샘플 · 코드 구성) 세 갈래 모두. 케어 갈래가 함께 있으면 구독 장 여덟은 간지에서 한 줄('구독 상품')로 묶는다. */
+export const SVC_BRANCHES = SERVICE_BRANCHES.map((b) => b.id);
+B.svc = (V, G, T, c, D) => {
+  const on = (T.dss && Array.isArray(T.dss.svc) && T.dss.svc.length && T.dss.svc) || SVC_BRANCHES;
+  const out = [];
+  if (on.includes('sac')) out.push(sheet('L_TOC_SVC_SAC', '삼성케어플러스 SAC — 유지보수 · 전문세척 · 스마트 케어', '삼성케어플러스 SAC').t('eb', c.eb('삼성케어플러스 SAC')));
+  if (on.includes('mobile')) out.push(sheet('L_TOC_SVC_MOBILE', '삼성케어플러스 비즈니스 — 보증 · 수리 · 관리', '삼성케어플러스 비즈니스').t('eb', c.eb('삼성케어플러스 비즈니스')));
+  if (on.includes('sub')) {
+    const sub = B.subx(V, G, T, c, D);
+    if (out.length) for (const x of sub) x.row = '구독 상품';
+    out.push(...sub);
+  }
+  return out;
+};
+// 서비스 파트가 있는 구성 — {업종} 솔루션 파트(표준 장)에서 서비스 장을 뺀다(서비스 파트에 고정 장으로 따로 있다).
+//   간지는 남은 솔루션으로 다시 만들고(행 = 솔루션 이름, 넷 이상이면 둘씩 · 'N개 솔루션' 숫자도) 솔루션 장의 눈썹 번호(· 01 …)도 다시 매긴다. 간지 사진은 표준 간지 사진 그대로.
+const SERVICE_SHEET = /^L_VS_SOL_SVC/;
+function solWithoutServices(D, c) {
+  const items = D.st.sol.items; const div = items.find((x) => isDiv(x.f));
+  const keep = items.filter((x) => x.f !== 'L_VS_TOC' && !isDiv(x.f) && !SERVICE_SHEET.test(x.f));
+  const names = keep.map((x) => String(x.role || '').split(' — ')[0]);
+  const pair = keep.length > 3;
+  const sheets = keep.map((x, j) => ({ std: x, role: x.role, eb: `${pad(c.no)} · ${c.name} · ${pad(j + 1)}`,
+    row: pair ? names.slice(j - (j % 2), j - (j % 2) + 2).join(' · ') : names[j] }));
+  const sub0 = div && div.o.t && typeof div.o.t[3] === 'string' ? div.o.t[3] : '';
+  return { sheets, divSub: sub0.replace(/\d+개 솔루션/, `${keep.length}개 솔루션`), divPhoto: (div && div.o.img && div.o.img[0] && div.o.img[0].src) || null };
+}
+
+/* 구독 솔루션(subx) — 구독을 한 파트로 (사용자 지시 2026-11-16)
+   고민 → 효과 → 비교 → 제품 묶음 → 케어 1 → 케어 2 → 구독 조건 → 결제. 그 밖의 구독 장(구독 품목 · 관리 옵션 · 도입 혜택 · 도입 절차 · 한 장 요약)은 쓰지 않는다.
+   케어 2 · 구독 조건 · 결제의 숫자는 00 — 계약마다 다른 값이라 제안서 작성자가 직접 넣는다(대괄호 자리표시 [00] 이 아니므로 자리표시 걷어 내기에 걸리지 않는다 — slides/placeholders.js).
+   한 파트에 같은 사진을 두 번 쓰지 않는다 — 패키지 사진은 제품 묶음에만, 나머지 사진 칸은 이 업종의 서로 다른 공간 사진(모자라면 구독 기본 사진)으로. */
+const NUMBER_TOKEN = /(?<![A-Za-z\d])\d(?:[\d~·.,:–-]*\d)?(?![A-Za-z\d])/g; // 3~6 · 6·12·36 · 48 … (B2B 처럼 낱말 속 숫자는 아니다)
+/** 글의 숫자를 00 으로 */
+export const zeroText = (v) => String(v).replace(NUMBER_TOKEN, '00');
+const ZERO_SKIP = /^(eb|title|foot|conf|logo|no\d+)$/; // 장 번호 눈썹 · 제목 · 꼬리말 · 차례 번호(01–03)는 그대로
+const ENTITY = { '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"', '&#39;': "'" };
+const SUB_DEFAULTS = {};
+/** 구독 장의 칸 번호 → 기본 글(장에 구워 둔 원문 사실) */
+function subDefaults(f) {
+  if (!SUB_DEFAULTS[f]) {
+    const m = {};
+    for (const x of String(SUBS_HTML[f] || '').matchAll(/data-tb="(\d+)"[^>]*>([^<]*)</g)) m[x[1]] = x[2].replace(/&(amp|lt|gt|quot|#39);/g, (e) => ENTITY[e]);
+    SUB_DEFAULTS[f] = m;
+  }
+  return SUB_DEFAULTS[f];
+}
+/** 장의 숫자를 00 으로 — 채운 칸은 그 값에서, 채우지 않은 칸은 장의 기본 글에서 숫자를 찾아 바꾼다 */
+export function zeroSheet(s) {
+  const S = SUBS_SLOTS[s.o.f]; const base = subDefaults(s.o.f);
+  if (!S) return s;
+  for (const [name, i] of Object.entries(S.t)) {
+    if (ZERO_SKIP.test(name)) continue;
+    const cur = s.o.t[i]; const text = cur == null ? base[i] : (typeof cur === 'string' ? cur : null);
+    if (text == null) continue;
+    const z = zeroText(text);
+    if (z !== text) s.o.t[i] = z;
+  }
+  return s;
+}
+// 구독 장이 기본으로 쓰는 사진 — 이 파트 안에서 겹치지 않게 고를 때 견준다
+const SUB_PIC = { grid: '/assets/subs/kv-grid.webp', care: ['/assets/subs/care-1.webp', '/assets/subs/care-2.webp', '/assets/subs/care-3.webp', '/assets/subs/care-4.webp'], engineer: '/assets/subs/val-dorm.webp',
+  spare: ['/assets/subs/pkg-office.webp', '/assets/subs/pkg-stay.webp', '/assets/subs/pkg-public.webp', '/assets/subs/pkg-medical.webp'] };
+B.subx = (V, G, T, c, D) => {
+  // 이 파트에 이미 있는 사진(구독 가치의 품목 사진 · 케어 4단계 · 블루패스 엔지니어 · 패키지 사진)을 뺀, 이 업종의 공간 사진부터(간지가 앞쪽 사진을 먼저 쓰므로 뒤에서부터) → 모자라면 구독 기본 사진
+  const used = new Set([SUB_PIC.grid, ...SUB_PIC.care, SUB_PIC.engineer, V.sub.ph]);
+  const pool = [...new Set([...V.sp.map((x) => x.ph).reverse(), V.cover, ...SUB_PIC.spare].filter(Boolean))];
+  const take = () => { const hit = pool.find((x) => !used.has(x)); if (hit) used.add(hit); return hit || null; };
+  const put = (s, name) => { const src = take(); return src ? s.img(name, src) : s; }; // 고를 사진이 없으면 장의 기본 사진 그대로
+  const pkg = pkgSheet(V, c); pkg.role = `제품 묶음 · ${V.sub.name}`; pkg.row = '제품 묶음';
+  const value = put(put(sheet('L_SUB_VALUE3', '효과 · 구독 가치 3(비용 · 관리 · 만족)', '구독 효과').t('eb', c.eb('구독 효과')).t('title', `${D.cust}에 B2B 삼성 AI 구독이 맞는 세 가지 이유`), 'img1'), 'img2');
+  const pain = put(sheet('L_SUB_PAIN', '고민 · 현장의 고민 4 → 전문 케어로 해결', '현장의 고민').t('eb', c.eb('현장의 고민')), 'img');
+  const terms = put(sheet('L_SUB_TERMS', '구독 조건 · 숫자 00(작성자가 직접 입력)', '구독 조건 · 결제').t('eb', c.eb('구독 조건')), 'img');
+  const pay = pay3Sheet(V, c, D) || sheet('L_SUB_PAY3', '맞춤 납부안 3', '납부 방법').t('eb', c.eb('납부 방법'));
+  pay.role = '결제 · 납부 방법 3 · 숫자 00(작성자가 직접 입력)'; pay.row = '구독 조건 · 결제';
+  return [
+    pain, value,
+    sheet('L_SUB_COMPARE', '비교 · 일시불 구매 vs 구독 5', '일시불 vs 구독').t('eb', c.eb('구매 방식 비교')),
+    pkg,
+    sheet('L_SUB_CARE4', '케어 1 · 전문 케어 4단계', '전문 케어').t('eb', c.eb('전문 케어')),
+    zeroSheet(sheet('L_SUB_BLUEPASS', '케어 2 · B2B 블루패스 · 숫자 00(작성자가 직접 입력)', '전문 케어').t('eb', c.eb('B2B 블루패스'))),
+    zeroSheet(terms), zeroSheet(pay),
+  ];
+};
 const divSub = (key, V, T, D) => {
   if (key === 'pcase') { const n = V.pp.cmatch ? V.pp.nm : V.pp.cfam || '같은 제품군'; return `${n}${josa(n, '을', '를')} 먼저 도입한 고객`; }
   if (key === 'ua') { const g = [...new Set((T.ua || ['prof']).map((k) => UA_GROUP[k]))]; const w = g.join(' · '); return `${w}${ro(w)} 먼저 이해합니다`; }
   if (key === 'tech') return `${V.tech.length}개 솔루션, 키워드 셋으로 보는 ${D.ai}`;
-  if (key === 'value') return `${V.sp.length}개 공간을 잇는 이용자 여정 ${V.jr.length}가지`;
+  if (key === 'value') return `${V.sp.length}개 공간 — 공간마다 제품과 솔루션 · 서비스`;
   if (key === 'subpkg') return `${V.sub.place} · ${V.sub.items.map((x) => x[0]).join(' · ')}`;
   if (key === 'subsol') return `${V.sub.name} · 케어 포함 · 납부 방법`;
   return TOCS[key].sub || TOCS[key].goal;
@@ -456,21 +690,28 @@ function ctxOf(key, no, D) {
 const renum = (role, no) => String(role || '').replace(/(^|· |— )\d{2}(?= )/, (m, p) => p + pad(no));
 /** 덱 한 벌: 표지 · 목차(숨은 목차) + 목차마다 [간지, 장 …] — 쪽 번호를 매긴 뒤 간지 행 · 표준 장 번호를 맞춘다 */
 const CASE_SLOT = { eb: 0, foot: 12, page: 13 }; // L_VS_CASE
-const deckName = (T, V, D) => (T.id === 'prod' ? `${V.pp.nm} ${T.deck}서` : `${D.ai} ${T.deck}서`);
+const deckName = (T, V, D) => `${D.ai} ${T.deck}서`;
 function composeDeck(T, V, G, D) {
   const total = T.tocs.length; const foot = `${D.cust} · ${deckName(T, V, D)}`;
   const plan = T.tocs.map((key, i) => {
     const c = ctxOf(key, i + 1, D);
+    // 서비스 파트를 DSS 로 뺀 구성(part_catalog.js 변형 — 고른 서비스가 없음)도 솔루션 파트에 서비스 장을 다시 넣지 않는다
+    if (key === 'sol' && (T.tocs.includes('svc') || (T.dss && T.dss.drop.includes('svc'))) && D.st.sol && D.st.sol.items.some((x) => SERVICE_SHEET.test(x.f))) return { c, ...solWithoutServices(D, c) };
     if (TOCS[key].std && D.st[TOCS[key].std]) return { c, std: D.st[TOCS[key].std].items.filter((x) => x.f !== 'L_VS_TOC') };
-    return { c, sheets: B[key](V, G, T, c, D) };
+    return { c, sheets: (B[key] || TOCS[key].build)(V, G, T, c, D) }; // 직접 만든 파트는 제 build(고른 레이아웃을 그 순서대로)
   });
   // 간지 사진 — 표준 목차는 표준 간지 사진, 새 목차는 이 업종 공간 사진 중 덱에서 아직 안 쓴 것
   const used = new Set([D.cover.o.img && D.cover.o.img[0] && D.cover.o.img[0].src]);
   // 표준 목차가 목차 장에 쓰는 사진(표준 목차 장 L_VS_TOC 의 칸)도 미리 넣어 — 새 목차가 같은 사진을 골라 목차 장에 두 번 나오지 않게
+  plan.forEach((p) => { if (p.divPhoto) used.add(p.divPhoto); }); // 다시 만든 솔루션 간지 — 표준 간지 사진을 먼저 잡아 둔다
   plan.forEach((p, i) => { if (p.std) { const d = p.std.find((x) => isDiv(x.f)); if (d && d.o.img && d.o.img[0]) used.add(d.o.img[0].src); const ti = D.tocImg(T.tocs[i]); if (ti) used.add(ti); } });
   const pool = [V.cover, ...V.sp.map((x) => x.ph)].filter(Boolean);
   // spare: 공간 사진이 다 쓰였을 때 pool[0](표지 사진)으로 되돌아가기 전에 쓰는 사진 — 목차 장에 같은 사진이 두 번 나오지 않게
-  const pickPhoto = (pref, spare = []) => { const hit = [...pref, ...pool, ...spare].find((x) => x && !used.has(x)) || pool[0]; used.add(hit); return hit; };
+  // avoid: 그 파트의 장이 이미 쓰는 사진 — 간지가 제 파트의 사진을 되풀이하지 않게(구독 솔루션)
+  const pickPhoto = (pref, spare = [], avoid = null) => {
+    const all = [...pref, ...pool, ...spare].filter(Boolean); const free = (x) => !(avoid && avoid.has(x));
+    const hit = all.find((x) => !used.has(x) && free(x)) || all.find(free) || pool[0]; used.add(hit); return hit;
+  };
   // 새 목차가 남은 공간 사진보다 많으면 구독 솔루션 제안은 처음부터 패키지 사진 · 구독 품목 대표 이미지를 써서 공간 사진을 다른 목차에 남긴다
   const subSpare = [V.sub && !pool.includes(V.sub.ph) ? V.sub.ph : null, '/assets/subs/kv-grid.webp']; // 패키지 사진이 공간 사진이면(업종 공간 기준 구성) 대표 이미지
   const tight = plan.filter((p) => !p.std).length > new Set(pool.filter((x) => !used.has(x))).size;
@@ -489,11 +730,17 @@ function composeDeck(T, V, G, D) {
     for (const s of sheets) { const last = rows[rows.length - 1]; if (last && last.label === s.row) last.to = s.pg; else rows.push({ label: s.row, from: s.pg, to: s.pg }); }
     while (rows.length > 6) { const b = rows.pop(); rows[rows.length - 1].to = b.to; }
     const P = V.pp; const sp = (i) => (V.sp[i] ? V.sp[i].ph : null);
-    const pref = c.key === 'value' && V.jr[0] ? [sp(V.jr[0].sp[0])] : c.key === 'ua' ? [V.cover] : c.key === 'subsol' ? [] // 구독 솔루션 제안 — 안 쓴 공간 사진, 다 쓰였으면 패키지 사진 · 구독 품목 대표 이미지(spare)
+    // 고객/공간 시나리오 — 공간 사진은 공간마다 한 장이 모두 쓰므로 간지는 표준 제안서 공간별 제안 간지 사진(이 구성에 그 파트가 없을 때)부터
+    const pref = c.key === 'value' ? [TOCS.space.std && !T.tocs.includes('space') ? D.divImg('space') : null] : c.key === 'ua' ? [V.cover] : c.key === 'subsol' || c.key === 'subx' ? [] // 구독 솔루션 제안 — 안 쓴 공간 사진, 다 쓰였으면 패키지 사진 · 구독 품목 대표 이미지(spare)
       : c.key === 'vp' ? [sp(P.rep[0]), sp(P.where[0])] : c.key === 'vpd' ? P.where.slice(1).map(sp)
         : c.key === 'pcase' && P.cases[0] ? [P.cases[0].o.img[0] && P.cases[0].o.img[0].src] : c.key === 'pspec' ? P.where.map(sp) : [];
-    const photo = c.key === 'subsol' ? pickPhoto(tight ? subSpare : [], subSpare) : pickPhoto(pref);
-    const items = [divider({ no: c.no, total, title: c.name, sub: divSub(c.key, V, T, D), rows, photo, page: divPage })];
+    // 구독 솔루션 — 간지 사진은 이 파트의 장이 쓰는 사진(채운 사진 + 장에 구워 둔 기본 사진: 품목 · 케어 4단계 · 엔지니어)과 겹치지 않게.
+    //   서비스 제안에 구독 갈래가 들어 있으면(2026-11-17) 같은 규칙. 고객/공간 시나리오도 제 장이 쓰는 공간 사진을 피한다.
+    const sheetPics = () => sheets.flatMap((x) => Object.values((x.o && x.o.img) || {}).map((im) => im && im.src).filter(Boolean));
+    const subLike = c.key === 'subx' || (c.key === 'svc' && sheets.some((x) => x.o && /^L_SUB_/.test(x.o.f)));
+    const own = subLike ? new Set([SUB_PIC.grid, ...SUB_PIC.care, SUB_PIC.engineer, ...sheetPics()]) : c.key === 'value' ? new Set(sheetPics()) : null;
+    const photo = p.divPhoto ? p.divPhoto : subLike ? pickPhoto(tight ? subSpare : [], [...subSpare, ...SUB_PIC.spare], own) : c.key === 'subsol' ? pickPhoto(tight ? subSpare : [], subSpare) : pickPhoto(pref, [], own);
+    const items = [divider({ no: c.no, total, title: c.name, sub: p.divSub || divSub(c.key, V, T, D), rows, photo, page: divPage })];
     for (const s of sheets) {
       if (s.std) {
         const o = retag(s.std.o, { no: c.no, total, off: 0, foot0: D.foot, foot, page: s.pg, rename: s.rename });
@@ -513,9 +760,10 @@ function composeDeck(T, V, G, D) {
   });
   // 표지 · 목차 — 표지는 표준 제안서 표지(확장형은 그대로, 나머지는 양식 이름 · 한 줄만 바꿈)
   const cover = structuredClone(D.cover.o);
-  const coverSub = T.id === 'prod' ? [...new Set(VPN(V.pp))].join(' · ') : T.sub;
+  // 직접 만든 구성은 한 줄 소개가 없다 — 앞 파트 이름 셋(Spec 빼고)
+  const coverSub = T.custom ? stages.filter((st) => st.c.key !== SPEC_TOC).slice(0, 3).map((st) => st.c.name).join(' · ') : T.sub;
   if (!T.keepCover) cover.t = { ...cover.t, 3: `${D.cust}\n${T.deck}서`, 4: coverSub };
-  const idx = sheet('L_TOC_INDEX' + Math.min(8, Math.max(4, total)), '목차 · 목차 ' + total + '개');
+  const idx = sheet('L_TOC_INDEX' + Math.min(10, Math.max(4, total)), '목차 · 목차 ' + total + '개');
   stages.forEach((st, i) => {
     const key = st.c.key; const img = TOCS[key].std ? D.tocImg(key) || st.photo : st.photo;
     idx.t('no' + i, pad(i + 1)).t('nm' + i, st.c.name).img('img' + i, img);
@@ -526,9 +774,9 @@ function composeDeck(T, V, G, D) {
 
 export function tocScenarioId(tid, vid, addons = []) {
   const a = (addons || []).filter((x) => ADDONS[x]);
-  return tid === 'std' && !a.length ? STD_ID(vid) : `toc_${tid}${a.map((x) => '+' + x).join('')}__${vid}`;
+  return `toc_${tid}${a.map((x) => '+' + x).join('')}__${vid}`; // 표준 제안서도 조립한다(Spec 이 붙어 업종 표준 제안서와 같은 덱이 아니다)
 }
-/** 템플릿 × 업종 시나리오 — 표준 제안서는 업종 표준 제안서 그대로, 나머지는 조립해 시나리오 레지스트리(SC · FILLS · FILL_CUSTOMER · STORY)에 올린다.
+/** 템플릿 × 업종 시나리오 — 조립해 시나리오 레지스트리(SC · FILLS · FILL_CUSTOMER · STORY)에 올린다(표준 제안서도 — 표준 장을 옮기고 끝에 Spec).
  *  opts.addons: 더할 목차(['sub'] = 구독 솔루션 제안) — 템플릿에 이미 있거나 같은 유형 목차가 있으면 그 템플릿 그대로.
  *  콘텐츠(loadTocContent)가 먼저 로드돼 있어야 함 */
 export function ensureTocScenario(tid, vid, opts = {}) {
@@ -538,7 +786,6 @@ export function ensureTocScenario(tid, vid, opts = {}) {
   if (extra.length && tocs.length === T0.tocs.length) return ensureTocScenario(tid, vid); // 더할 자리가 없음(이미 구독 목차)
   const named = extra.length && TOC_TEMPLATES.find((t) => t.base === tid && (t.addons || []).join() === [...(T0.addons || []), ...extra].join());
   if (named) return ensureTocScenario(named.id, vid); // 같은 구성의 템플릿이 있으면 그 덱(예: 표준 제안서 + 구독 → 표준 제안서 + 구독 솔루션)
-  if (tid === 'std' && !extra.length) return SC[STD_ID(vid)] || null;
   const id = tocScenarioId(tid, vid, extra);
   if (SC[id]) return SC[id];
   const T = extra.length ? { ...T0, tocs, addons: [...(T0.addons || []), ...extra], sub: `${T0.sub} + 구독 솔루션 제안` } : T0;
@@ -550,25 +797,25 @@ export function ensureTocScenario(tid, vid, opts = {}) {
   const push = (key, name, goal, list, extra) => { flow.push({ key, name, goal, slides: list.map((x) => ({ f: x.o.f, role: x.role })), ...extra }); list.forEach((x) => fills.push(x.o)); };
   push('open', '표지', '제안 전체를 먼저 보여 준다', deck, { deck: true });
   const STAGE_KEY = { overview: 'context', ua: 'context', summary: 'context', needs: 'value', tech: 'value', space: 'space', value: 'space', sol: 'build', bom: 'build', spec: 'build', rfp: 'value', effect: 'proof', cost: 'plan', pilot: 'plan', plan: 'plan', case: 'proof', why: 'close',
-    vp: 'value', vpd: 'value', pcase: 'proof', pspec: 'build', subs: 'value', subpkg: 'build', subcare: 'build', subterm: 'plan', subone: 'context', subsol: 'plan' };
+    vp: 'value', vpd: 'value', pcase: 'proof', pspec: 'build', subs: 'value', subpkg: 'build', subcare: 'build', subterm: 'plan', subone: 'context', subsol: 'plan', subx: 'value', svc: 'build' };
   stages.forEach(({ c, items }) => {
     const name = `${pad(c.no)} ${c.name}`;
-    push(STAGE_KEY[c.key] || 'value', name, TOCS[c.key].goal, items);
+    push(STAGE_KEY[c.key] || TOCS[c.key].stage || 'value', name, TOCS[c.key].goal, items);
     parts[name] = { type: TOCS[c.key].type, items: items.map((x) => x.role) };
   });
   const s0 = D.s; const names = stages.map((x) => x.c.name);
   const needs = D.needs.map((n) => n.v);
   const P = V.pp; const prod = tid === 'prod'; const vpt = P.vps.map((x) => x.t); const sub = T.kind === 'subs';
-  const withSub = (T.addons || []).includes('sub') && T.tocs.includes('subsol');
-  const subLine = withSub ? ` 고객 요구에 구독 · 렌탈 · 월 납부(초기 비용 · 관리 부담)가 있어, 같은 제품을 B2B 삼성 AI 구독(${V.sub.name})으로 들이는 길을 '구독 솔루션 제안'으로 함께 보여 줍니다.` : '';
+  const withSub = (T.addons || []).includes('sub') && (T.tocs.includes('subx') || T.tocs.includes('subsol'));
+  const subLine = withSub ? ` 고객 요구에 구독 · 렌탈 · 월 납부(초기 비용 · 관리 부담)가 있어, 같은 제품을 B2B 삼성 AI 구독(${V.sub.name})으로 들이는 길을 '구독 솔루션' 파트로 함께 보여 줍니다.` : '';
   const s = {
     ...s0, id, std: false, toc: tid, tocV: vid, req: T.req, strategy: T.strategy, ending: T.ending,
     title: `${D.cust} · ${deckName(T, V, D)}${withSub ? ' · 구독 솔루션 포함' : ''}`, short: names.join(' → '),
-    situation: prod ? `${D.cust}에 ${P.nm}${josa(P.nm, '과', '와')} 함께 쓰는 솔루션을 제안하는 자리입니다. 가치 셋을 먼저 보여 주고 가치마다 장면 · 사례 · 사양으로 뒷받침합니다.`
+    situation: prod ? `${D.cust}에 솔루션 없이 제품을 제안하는 자리입니다. 세 가지 핵심 제안을 먼저 보여 주고, 공간마다 놓일 제품 · Why Samsung · 제품 사양으로 답합니다.`
       : sub ? `${D.cust}에 제품을 일시불 대신 B2B 삼성 AI 구독으로 도입하자고 제안하는 자리입니다. 초기 비용 · 시설 관리 부담을 먼저 짚고, ${V.sub.name}(${V.sub.items.map((x) => x[0]).join(' · ')}) · 케어 · 조건 · 납부 방법으로 답합니다.`
         : `${D.cust}에 ${T.name} 양식으로 제안하는 자리입니다. ${V.pains.map((p) => p[0]).join(' · ')}을(를) 함께 짚고, ${names.slice(1, -1).join(' · ')} 순서로 답합니다.${subLine}`,
-    thesis: prod ? `${vpt.join(' · ')} — ${[...new Set(VPN(P))].join(' · ')}` : sub ? `초기 비용은 낮추고, 관리는 삼성이 — ${V.sub.name}` : `${needs.join(' · ')} — ${T.sub}`, logic: names, tone: '한 줄 메시지 · 사진과 아이콘 중심',
-    messages: prod ? [vpt.join(' · '), P.nm] : sub ? [T.sub, '월 분할 납부 · 최대 6년 무상 AS · B2B 블루패스', `${V.sub.name} — ${V.sub.title}`]
+    thesis: sub ? `초기 비용은 낮추고, 관리는 삼성이 — ${V.sub.name}` : `${needs.join(' · ')} — ${T.sub}`, logic: names, tone: '한 줄 메시지 · 사진과 아이콘 중심',
+    messages: sub ? [T.sub, '월 분할 납부 · 최대 6년 무상 AS · B2B 블루패스', `${V.sub.name} — ${V.sub.title}`]
       : [T.sub, needs.join(' · '), ...(s0.messages || []).slice(2, withSub ? 3 : undefined), ...(withSub ? [`구독 솔루션 — ${V.sub.name} · 월 구독료 + 예산에 맞춘 납부 협의안`] : [])],
     flow, ask: G.ask || s0.ask, kpis: G.kp[1].map((x) => x[0]), fit: T.desc, avoid: s0.avoid || '',
     minutes: Math.max(10, Math.round((fills.length * 1.2) / 5) * 5),

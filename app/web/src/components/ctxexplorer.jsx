@@ -1,5 +1,7 @@
-// Full-list explorer for 제품 · 솔루션 · 유관사례. Opened inside the 제품 · 솔루션 매칭 popup (ctxconfirm.jsx, live: a click links
-// or unlinks right away — the 매칭 카드 beside the popup shows the result) and from the layout detail (product swap) as a modal.
+// Full-list explorer for 제품 · 솔루션 · 유관사례. ContextExplorer (one kind) opens from the layout detail (product swap) and the
+// template filters as a modal; MatchExplorer (all three kinds as top folders, live: a click links or unlinks right away — the
+// 매칭 카드 beside the popup shows the result) fills the 제품 · 솔루션 · 서비스 popup (ctxconfirm.jsx).
+// 서비스 폴더 = 솔루션 카탈로그의 서비스 분류(케어 · 콘텐츠 제작 지원) + B2B 삼성 AI 구독(구독 레지스트리) — 솔루션 폴더에서는 서비스 분류를 뺀다(services/dss.js).
 // Directory-explorer layout (web-app home common component): search → breadcrumb → folder tree | item list → selection tray.
 // The '추천' folder shows the recommendations as a grid of large image cards; other folders show rows.
 // Click an item to select it, then '연결' links every selected item at once.
@@ -7,7 +9,8 @@
 // layouts (or scenarios — filter.noun / filter.unit) it is in.
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Icon, Modal, toast } from './common.jsx';
-import { ACTIVE_PRODUCTS, SOLUTIONS, CASES, INDUSTRIES, IND, P, PRODUCT_DB } from '../services/catalog.js';
+import { ACTIVE_PRODUCTS, SOLUTIONS, CASES, INDUSTRIES, IND, P, PRODUCT_DB, SUBSCRIPTIONS, SUBSCRIPTION_DB } from '../services/catalog.js';
+import { SERVICE_CAT, dssOf } from '../services/dss.js';
 import { useDetailPeek } from './reference-detail.jsx';
 import { recommendContext } from '../services/search.js';
 import { Thumb } from './Thumbs.jsx';
@@ -25,8 +28,15 @@ const FAM = {
     ['모바일 · 보안', ['모바일 기기 관리 · 보안', '바코드 스캔', '모바일 PC 환경']],
     ['서비스 · 파트너', ['서비스', '파트너 솔루션']],
   ],
+  // 서비스(매칭 팝업) — 솔루션의 서비스 분류 · B2B 삼성 AI 구독(유형 순서: 구독 레지스트리 types)
+  services: [
+    ['서비스', [SERVICE_CAT]],
+    ['B2B 삼성 AI 구독', Object.values(SUBSCRIPTION_DB.types || {})],
+  ],
 };
 const ETC = '기타';
+// 제품 DB 에서 솔루션으로 판정된 행(services/catalog.js ROW_SOLUTIONS)은 제품군(fam)으로 솔루션 폴더의 묶음에 — 분류는 사이트 분류(sc)
+const ROW_FAM = { '디스플레이': '사이니지 · 객실 TV', '공조 · 에어컨': 'IoT · 공조 · 에너지', '모바일 · PC': '모바일 · 보안' };
 export const REC_MAX = 40;
 const indShort = (code) => (IND[code] ? IND[code].name.split(' · ')[0] : '');
 const more = (arr, n) => { const a = (arr || []).filter(Boolean); return a.length > n ? a.slice(0, n).join(' · ') + ' +' + (a.length - n) : a.join(' · '); };
@@ -41,12 +51,21 @@ function itemsOf(kind) {
   if (CACHE[kind]) return CACHE[kind];
   let list;
   if (kind === 'products') {
-    list = ACTIVE_PRODUCTS.map((x) => ({ kind, ref: 'product:' + x.id, // 판매 종료 제품은 새로 고르지 않게 뺌 id: x.id, name: x.name, code: x.model, f: x.fam || ETC, c: x.sc || x.cat, ind: x.ind, x,
+    // 판매 종료 제품은 새로 고르지 않게 뺌 (ACTIVE_PRODUCTS)
+    list = ACTIVE_PRODUCTS.map((x) => ({ kind, ref: 'product:' + x.id, id: x.id, name: x.name, code: x.model, f: x.fam || ETC, c: x.sc || x.cat, ind: x.ind, x,
       hay: [x.name, x.model, x.cat, x.sc, x.spec, x.opt, ...x.kw, ...x.spaces, ...(x.models || [])].join(' ').toLowerCase() }));
     list.sort((a, b) => catRank(kind, a.c) - catRank(kind, b.c) || srcRank(a.x) - srcRank(b.x));
   } else if (kind === 'solutions') {
-    list = SOLUTIONS.map((x) => ({ kind, ref: 'solution:' + x.id, id: x.id, name: x.name, code: x.cat, f: famOf(kind, x.cat), c: x.cat, ind: x.ind, x,
-      hay: [x.name, x.cat, x.desc, ...x.kw].join(' ').toLowerCase() }));
+    list = SOLUTIONS.map((x) => ({ kind, ref: 'solution:' + x.id, id: x.id, name: x.name, code: x.cat, f: x.row && x.cat !== SERVICE_CAT ? ROW_FAM[x.fam] || ETC : famOf(kind, x.cat),
+      c: x.cat, ind: x.ind, x, hay: [x.name, x.cat, x.sc, x.desc, ...x.kw].filter(Boolean).join(' ').toLowerCase() }));
+  } else if (kind === 'services') {
+    const types = SUBSCRIPTION_DB.types || {};
+    list = [
+      ...SOLUTIONS.filter((x) => x.cat === SERVICE_CAT).map((x) => ({ kind, ref: 'solution:' + x.id, id: x.id, name: x.name, code: x.row ? [x.dssLabel, x.sc].filter(Boolean).join(' · ') : x.cat,
+        f: famOf(kind, x.cat), c: x.cat, ind: x.ind, x, line: x.desc || (x.row ? x.sc : ''), hay: [x.name, x.cat, x.sc, x.desc, ...x.kw].filter(Boolean).join(' ').toLowerCase() })),
+      ...SUBSCRIPTIONS.map((x) => { const c = types[x.type] || '구독'; return { kind, ref: 'subscription:' + x.id, id: x.id, name: x.name, code: c, f: famOf(kind, c), c, ind: [], x,
+        line: x.tagline || x.line || x.summary || x.title || '', hay: [x.name, x.short, c, x.tagline, x.line, x.summary, x.title, x.place].filter(Boolean).join(' ').toLowerCase() }; }),
+    ];
   } else {
     list = [...CASES].sort((a, b) => String(b.date || '').localeCompare(String(a.date || ''))).map((x) => ({ kind, ref: 'case:' + x.id, id: String(x.id), name: x.cust, code: x.sub || x.title,
       f: x.ind && IND[x.ind] ? x.ind : '_', c: (x.prod || [])[0] || ETC, ind: x.ind ? [x.ind] : [], x,
@@ -110,6 +129,18 @@ function Row({ it, st, n, fu, onToggle, ind, peek }) {
         <span className="ex-c">{more(x.spaces, 3)}</span>
         <span className="ex-c">{fit ? <span className="ex-fit">{indShort(ind)} 맞춤</span> : more(x.ind.map(indShort), 2)}</span>
         <StateTag st={st} n={n} fu={fu} />
+      </button>
+    );
+  }
+  if (it.kind === 'services') {
+    const sub = it.ref.startsWith('subscription:');
+    return (
+      <button {...common} className={common.className.replace('ex-row services', 'ex-row solutions services')} aria-label={it.name + (st === 'on' ? ' · 연결됨 · 누르면 해제' : st === 'sel' ? ' · 선택됨' : ' · 고르기')}>
+        <Thumb r={it.ref} />
+        <span className="ex-nm"><b>{it.name}</b><span>{it.line}</span></span>
+        <span className="ex-c"><span className="ex-k">분류</span>{it.c}</span>
+        <span className="ex-c">{sub && x.basis === 'inferred' ? '협의안' : sub && x.place ? x.place : '—'}</span>
+        <StateTag st={st} />
       </button>
     );
   }
@@ -256,12 +287,12 @@ export function ContextExplorer({ p, kind, start = 'all', ind, onClose, pick = n
 
   const parts = {
     title: filter ? label + '으로 거르기' : pick ? label + ' 바꾸기' : frame ? (cur === 'rec' && !query ? '추천 ' + label : label + ' 추가') : label + ' 탐색',
-    sub: filter ? '폴더를 눌러 찾거나 검색해서 고르세요. 여러 개 고르면 그중 하나라도 들어간 ' + fu.noun + (fu.noun === '시나리오' ? '를' : '을') + ' 보여 줘요. 숫자는 지금 고른 다른 조건에서 그 ' + label + '이 든 ' + fu.noun + ' 수예요.' : pick ? '바꿀 ' + label + '을 하나 고른 다음 ‘바꾸기’를 누르세요. 요소의 모델명 · 이름 · 사양 · 이미지가 함께 바뀌어요.' : frame ? '폴더를 눌러 찾고, 항목을 골라 ‘연결’을 누르세요' : '폴더를 눌러 찾고, 항목을 눌러 고른 다음 ‘연결’을 누르세요. 이미 연결된 항목은 ‘연결됨’으로 보여요.',
+    sub: pick ? '요소의 모델명 · 이름 · 사양 · 이미지가 함께 바뀌어요.' : undefined,
     footer: (<>
         <span className="ex-tray-n num">선택 {sel.size}</span>
         <div className="ex-tray" aria-label="고른 항목">
           {selList.length ? selList.map((r) => { const it = byRef.get(r); return <span key={r} className="ex-pick" title={it ? it.name : r}><Thumb r={r} mini className="ex-pick-th" /><span className="ex-pick-t">{it ? (kind === 'products' ? it.code : it.name) : r}</span><button type="button" onClick={() => toggle(r)} aria-label={(it ? it.name : r) + ' 선택 해제'}><Icon name="x" size={11} stroke={2.6} /></button></span>; })
-            : <span className="faint">항목을 눌러 고르세요</span>}
+            : null}
         </div>
         <button className="btn" onClick={onClose}>{closeLabel}</button>
         {filter ? <button className="btn btn-primary ex-apply" disabled={!sel.size && !(filter.selected || []).length} onClick={commit}><Icon name="funnel" size={15} />{sel.size ? sel.size + '개로 거르기' : (filter.selected || []).length ? label + ' 필터 빼기' : '거르기'}</button>
@@ -331,8 +362,158 @@ export function ContextExplorer({ p, kind, start = 'all', ind, onClose, pick = n
   );
 }
 
+// ---------- 매칭 팝업: 제품 · 솔루션 · 서비스(+ 사례)를 한 탐색기에 ----------
+// 왼쪽 트리의 최상위 폴더가 제품 → 솔루션 → 서비스 → 사례. 솔루션 폴더에는 서비스 분류가 없다(서비스 폴더로 옮겼다). 최상위 폴더(전체 제품 …)를 고르면 오른쪽 맨 위에 추천을 따로 구분해 보여 주고
+// 그 아래 전체 목록. 검색은 오른쪽 위에서 세 종류를 한꺼번에 찾는다. live: 누르는 즉시 연결 · 다시 누르면 해제.
+// nav key: '<kind>|all' · '<kind>|f:<fam>' · '<kind>|c:<fam>/<cat>'
+const MKINDS = ['products', 'solutions', 'services', 'cases'];
+const MLABEL = { products: '제품', solutions: '솔루션', services: '서비스', cases: '사례' };
+const MICON = { products: 'product', solutions: 'solution', services: 'shield', cases: 'case' };
+const MCLS = { products: 'product', solutions: 'solution', services: 'service', cases: 'case' };
+/** 매칭 팝업의 폴더 항목 — 솔루션 폴더는 서비스 분류를 뺀다 */
+const mItems = (k) => (k === 'solutions' ? itemsOf(k).filter((it) => it.c !== SERVICE_CAT) : itemsOf(k));
+const REC_TOP = 12;
+const splitKey = (key) => { const i = key.indexOf('|'); return [key.slice(0, i), key.slice(i + 1)]; };
+
+/** focus: { k: 'products' | 'solutions' | 'services' | 'cases', n } — the top folder to show (매칭 카드의 그 칸을 눌러 열었을 때) */
+export function MatchExplorer({ p, ind, focus }) {
+  const first = (focus && focus.k) || 'products';
+  const [q, setQ] = useState('');
+  const [cur, setCur] = useState(first + '|all');
+  const [open, setOpen] = useState(() => new Set([first + '|all']));
+  useEffect(() => {
+    if (!focus || !focus.k) return;
+    setQ(''); setCur(focus.k + '|all'); setOpen((o) => new Set(o).add(focus.k + '|all'));
+  }, [focus && focus.k, focus && focus.n]);
+  const listRef = useRef(null);
+  const peek = useDetailPeek(p, { delay: 420 });
+  const dd = dssOf(p);   // (제품으로 골랐던 행이 솔루션 · 서비스면 그 폴더에서 연결됨으로)
+  const linked = new Set([...dd.products.map((id) => 'product:' + id), ...[...dd.solutions, ...dd.services].map((id) => 'solution:' + id), ...p.ctx.solutions.map((id) => 'solution:' + id), ...p.ctx.cases.map((id) => 'case:' + id), ...(p.ctx.subscriptions || []).map((id) => 'subscription:' + id)]);
+  const trees = useMemo(() => Object.fromEntries(MKINDS.map((k) => [k, buildTree(k, mItems(k))])), []);
+  const byRef = useMemo(() => new Map(MKINDS.flatMap((k) => mItems(k).map((it) => [it.ref, it]))), []);
+  const [kind, sub] = splitKey(cur);
+  const top = sub === 'all';
+  // 추천: 제품 · 솔루션 · 사례 — 서비스 폴더는 항목이 적어 추천 없이 전부 보여 준다
+  const recs = useMemo(() => (top && kind !== 'services' ? recommendContext(p, ind, kind, REC_TOP + 4).filter((r) => !(kind === 'solutions' && byRef.get(r.ref) == null)).slice(0, REC_TOP) : []), [p, ind, kind, top]);
+  useEffect(() => { if (listRef.current) listRef.current.scrollTop = 0; }, [cur, q]);
+
+  const toggle = (r) => { if (linked.has(r)) removeRef(p.id, r); else addRef(p.id, r); };
+  const stOf = (r) => (linked.has(r) ? 'on' : 'add');
+  const go = (key) => {
+    setQ('');
+    const [k, s] = splitKey(key);
+    setOpen((o) => {
+      const n = new Set(o);
+      if (s === 'all' || s.startsWith('f:')) { if (cur === key && n.has(key)) n.delete(key); else n.add(key); }
+      if (s !== 'all') n.add(k + '|all');
+      if (s.startsWith('c:')) n.add(k + '|f:' + s.slice(2).split('/')[0]);
+      return n;
+    });
+    setCur(key);
+  };
+
+  // what the right pane shows
+  const query = q.trim().toLowerCase();
+  let crumbs = [], sections = [];
+  if (query) {
+    const words = query.split(/\s+/);
+    crumbs = [{ label: '검색 · “' + q.trim() + '” · 제품 · 솔루션 · 서비스 · 사례' }];
+    sections = MKINDS.map((k) => ({ label: MLABEL[k], kind: k, key: k + '|all', items: mItems(k).filter((it) => words.every((w) => it.hay.includes(w))) }));
+  } else {
+    const tree = trees[kind];
+    crumbs = [{ key: kind + '|all', label: '전체 ' + MLABEL[kind] }];
+    const fk = top ? null : sub.slice(2).split('/')[0];
+    const fam = fk != null ? tree.find((fm) => fm.f === fk) : null;
+    if (!fam) {
+      sections = tree.map((fm) => ({ label: fm.label, key: kind + '|' + fm.key, items: fm.cats.flatMap((c) => c.items) }));
+    } else {
+      crumbs.push({ key: kind + '|' + fam.key, label: fam.label });
+      const cat = sub.startsWith('c:') ? fam.cats.find((c) => c.key === sub) : null;
+      if (cat) { crumbs.push({ label: cat.label }); sections = [{ items: cat.items }]; }
+      else sections = fam.cats.map((c) => ({ label: c.label, key: kind + '|' + c.key, items: c.items }));
+    }
+  }
+  const shown = sections.reduce((n, s) => n + s.items.length, 0);
+  const showRec = !query && top && kind !== 'services';
+
+  const navBtn = (key, depth, lab, count, opts = {}) => {
+    const on = cur === key && !query;
+    return (
+      <button key={key} type="button" className={'ex-nd' + (on ? ' on' : '') + (opts.kind ? ' top ' + MCLS[opts.kind] : '')} style={{ paddingLeft: 8 + depth * 14 }} onClick={() => go(key)}
+        aria-current={on ? 'true' : undefined} aria-expanded={opts.fold != null ? opts.fold : undefined}>
+        {opts.fold != null ? <Icon name={opts.fold ? 'chevD' : 'chev'} size={11} stroke={2.6} /> : <span className="ex-sp" />}
+        {opts.kind ? <Icon name={MICON[opts.kind]} size={14} /> : <Folder open={on || !!opts.fold} />}
+        <span className="ex-nl">{lab}</span><span className="ex-cnt num">{count}</span>
+      </button>
+    );
+  };
+
+  return (
+    <div className="mt-panel ex-pbody">
+      <div className="ex-body">
+        <nav className="ex-nav" aria-label="제품 · 솔루션 · 서비스 · 사례 폴더">
+          {MKINDS.map((k, i) => {
+            const topKey = k + '|all';
+            const topOpen = open.has(topKey);
+            return (
+              <React.Fragment key={k}>
+                {i > 0 && <i className="ex-div" />}
+                {navBtn(topKey, 0, MLABEL[k], mItems(k).length, { kind: k, fold: topOpen })}
+                {topOpen && trees[k].map((fm) => {
+                  const fKey = k + '|' + fm.key;
+                  const isOpen = open.has(fKey) || cur.startsWith(k + '|c:' + fm.f + '/');
+                  const leafOnly = fm.cats.length === 1 && fm.cats[0].label === fm.label;
+                  return (
+                    <React.Fragment key={fKey}>
+                      {navBtn(fKey, 1, fm.label, fm.count, { fold: leafOnly ? undefined : isOpen })}
+                      {isOpen && !leafOnly && fm.cats.map((c) => navBtn(k + '|' + c.key, 2, c.label, c.count))}
+                    </React.Fragment>
+                  );
+                })}
+              </React.Fragment>
+            );
+          })}
+        </nav>
+        <div className="ex-main">
+          <div className="ex-bar">
+            <div className="ex-q">
+              <Icon name="search" size={15} />
+              <label htmlFor="ex-q-in" className="sr">제품 · 솔루션 · 서비스 · 사례 검색</label>
+              <input id="ex-q-in" value={q} onChange={(e) => setQ(e.target.value)} autoComplete="off" placeholder="제품 · 솔루션 · 서비스 · 사례 검색 (제품명 · 모델명 · 구독 · 고객사 · 공간)" />
+              {q && <button type="button" className="ex-qx" onClick={() => setQ('')} aria-label="검색어 지우기"><Icon name="x" size={13} /></button>}
+            </div>
+          </div>
+          <div className="ex-crumb">
+            <nav aria-label="경로">{crumbs.map((c, i) => <React.Fragment key={i}>{i > 0 && <Icon name="chev" size={11} />}{c.key && i < crumbs.length - 1 ? <button type="button" onClick={() => go(c.key)}>{c.label}</button> : <b>{c.label}</b>}</React.Fragment>)}</nav>
+            <span className="num">{shown}개</span>
+          </div>
+          <div className="ex-list" ref={listRef}>
+            {showRec && (
+              <section className={'ex-recsec ' + MCLS[kind]} aria-label={'추천 ' + MLABEL[kind]}>
+                <h4 className="ex-rh"><Icon name="sparkle" size={13} />추천 {MLABEL[kind]}<span className="num">{recs.length}</span><span className="ex-rnote">요구사항 기준</span></h4>
+                {recs.length
+                  ? <div className="ex-tiles">{recs.map((rec) => <RecTile key={rec.ref} rec={rec} it={byRef.get(rec.ref)} st={stOf(rec.ref)} onToggle={toggle} />)}</div>
+                  : <p className="ex-rempty">추천할 {MLABEL[kind]}{kind === 'cases' ? '가' : '이'} 아직 없어요. 요구사항을 더 쓰면 추천이 생겨요.</p>}
+              </section>
+            )}
+            {showRec && <h3 className="ex-allh">전체 {MLABEL[kind]}<span className="num">{shown}</span></h3>}
+            {shown === 0 ? (
+              <div className="ex-empty"><Icon name="search" size={18} />{query ? '찾는 제품 · 솔루션 · 서비스 · 사례가 없어요. 다른 말로 검색해 보세요.' : '이 폴더에는 항목이 없어요.'}</div>
+            ) : sections.map((s, i) => s.items.length > 0 && (
+              <section key={s.key || i} className={'ex-sec' + (s.kind ? ' ex-ksec' : '')} aria-label={s.label || MLABEL[kind]}>
+                {s.label && <h4 className="ex-sh">{s.key ? <button type="button" onClick={() => go(s.key)}>{s.kind ? <Icon name={MICON[s.kind]} size={14} /> : <Folder />}{s.label}</button> : s.label}<span className="num">{s.items.length}</span></h4>}
+                {s.items.map((it) => <Row key={it.ref} it={it} st={stOf(it.ref)} onToggle={toggle} ind={ind} peek={it.kind === 'products' ? peek : null} />)}
+              </section>
+            ))}
+          </div>
+        </div>
+      </div>
+      {peek.node}
+    </div>
+  );
+}
+
 /** how many items the catalog has for a kind (for the add card) */
 export const totalOf = (kind) => itemsOf(kind).length;
 /** folder key holding a catalog item (e.g. 'c:디스플레이/LCD 사이니지') — opens the explorer next to similar items */
 export function folderOf(kind, id) { const it = itemsOf(kind).find((x) => x.id === id); return it ? 'c:' + it.f + '/' + it.c : 'all'; }
-export const startFor = (kind, ind) => (kind === 'cases' && ind && IND[ind] ? 'f:' + ind : 'all');

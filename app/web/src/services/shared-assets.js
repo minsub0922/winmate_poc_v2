@@ -17,7 +17,8 @@ export async function packSharedAssets(document) {
   const walk = async node => {
     if (!node || typeof node !== 'object') return;
     await Promise.all(Object.entries(node).map(async ([key, value]) => {
-      if (typeof value === 'string' && value.startsWith('blob:')) node[key] = await dataUrl(value);
+      // Account uploads are private to their owner: a shared copy embeds the bytes, like a blob: URL.
+      if (typeof value === 'string' && (value.startsWith('blob:') || value.startsWith('/api/account-data/blobs/'))) node[key] = await dataUrl(value);
       else if (typeof value === 'string' && value.startsWith('u:')) throw new Error('이 브라우저에서 찾을 수 없는 업로드 이미지가 있어요. 이미지를 다시 넣어 주세요.');
       else if (value && typeof value === 'object') await walk(value);
     }));

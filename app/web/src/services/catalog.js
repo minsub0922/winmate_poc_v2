@@ -2,6 +2,8 @@ import { getBootstrap } from '../api/bootstrap.js';
 const { catalog: CATALOG, images: IMAGES, products: PDB, subscriptions: SUBS_DB } = getBootstrap();
 import { RETIRED_R4 } from '../domain/templates/retired.js';
 import { RETIRED_EXTRA } from '../domain/templates/retired_extra.js';
+import { REMOVED_LAYOUTS } from '../domain/templates/removed_layouts.js';
+import LAYOUT_CLEANUP from '../domain/templates/layout_cleanup_manifest.json' with { type: 'json' };
 import { COVERS } from '../domain/templates/covers.js';
 import { PHOTO_META, PHOTO_HTML } from '../domain/templates/photo_layouts.js';
 import { STD_META, STD_HTML } from '../domain/templates/std_layouts.js';
@@ -16,14 +18,31 @@ import { repairLayoutHtml, repairLayoutUnmarked } from '../domain/templates/layo
 import { slotModes, markSlotModes } from '../domain/templates/layout_slot_modes.js';
 import VARIANT_DATA from '../domain/templates/layout_variants.json' with {type:'json'};
 import { fillHoles } from '../domain/templates/layout_variants.js';
+import { markChart } from '../domain/slides/charts.js';
+import { offSet } from '../api/resource-switches.js';
+import { configureLayoutLibrary, onLayoutLibrary, layoutLibraryEntry, layoutDeleted, registerLibraryGroups, applyLibraryHtml } from '../domain/templates/layout_library.js';
+configureLayoutLibrary(getBootstrap().layout_library);
 
 // 사진 중심 버전이 내용을 빠짐없이 담아, 라이브러리에서 뺀 텍스트 레이아웃 (텍스트 f → 대체한 사진 중심 f).
 // 고르기 · 검색 · 추천 · 개수에서는 빠지고, 이미 만든 제안서 · 샘플 버티컬 시나리오 · 히스토리 예시에 들어 있는 장은 그대로 그립니다.
 // 검색 · 추천 점수는 계속 매겨, 이 장과 잘 맞는 내용이면 대체한 사진 버전이 그 점수를 물려받습니다 (search.js).
-export const RETIRED = { ...RETIRED_R4, ...RETIRED_EXTRA }; // retired_extra.js — 4차 생성분 밖에서 더한 것
+// 아예 삭제한 레이아웃(removed_layouts.js) — 대체 장이 없다. 그 장을 사진 버전으로 삼던 예전 글 레이아웃도 함께 삭제된 것으로 본다.
+const REMOVED_SET = new Set(REMOVED_LAYOUTS);
+const RETIRED_ALL = { ...RETIRED_R4, ...RETIRED_EXTRA }; // retired_extra.js — 4차 생성분 밖에서 더한 것
+for (const [f, to] of Object.entries(RETIRED_ALL)) if (REMOVED_SET.has(to)) REMOVED_SET.add(f);
+export const REMOVED_LAYOUT_SET = REMOVED_SET;
+export const RETIRED = Object.fromEntries(Object.entries(RETIRED_ALL).filter(([f]) => !REMOVED_SET.has(f)));
 export const ALL_LAYOUTS = [...CATALOG.layouts, ...PHOTO_META, ...STD_META, ...VSTD_META, ...SPATIAL_META, ...ACCOUNT_META, ...TOC_META, ...SUBS_META];
 for(const layout of ALL_LAYOUTS){if(layout.f==='L_C01')layout.name='표지 A · 대표 이미지';if(layout.f==='L_C02')layout.name='표지 B · 와이드 이미지';}
 for (const l of ALL_LAYOUTS) if (RETIRED[l.f]) l.retired = RETIRED[l.f];
+// 삭제한 장은 뺀 장과 같은 길로 목록 · 검색 · 추천 · 개수에서 빠진다 ('removed'는 대체 장 id가 아니다)
+for (const l of ALL_LAYOUTS) if (REMOVED_SET.has(l.f)) { l.removed = true; l.retired = 'removed'; }
+// Library cleanup is not the old proposal migration: saved sheets keep their
+// original ids, HTML and overrides, and are never dropped from a stored deck.
+for (const l of ALL_LAYOUTS) if (LAYOUT_CLEANUP.removed[l.f] && !LAYOUT_CLEANUP.protected[l.f]) {
+  l.removed = true; l.retired = LAYOUT_CLEANUP.removed[l.f].replacement || 'removed';
+  if (LAYOUT_CLEANUP.removed[l.f].replacement) l.mergedInto = LAYOUT_CLEANUP.removed[l.f].replacement;
+}
 // 칸 구분 요약 — 'fixed' 전부 고정 · 'data' 고정 + 데이터 교체만 · 'mostly' AI 칸 적음 · 'ai' AI 작성 위주 (layout_slot_modes.js)
 for (const l of ALL_LAYOUTS) { const m = slotModes(l.f); if (m) l.fx = m.lock; }
 // 같은 레이아웃 · 다른 내용 (layout_variants.json · app/scripts/layout_variants.mjs) — 구조가 같고 내용만 다른 장은 대표 장 하나만 라이브러리에 둔다.
@@ -46,19 +65,45 @@ for (const [c, g] of Object.entries(VARIANTS)) for (const [f] of g.members) CANO
 }
 export const LAYOUTS = ALL_LAYOUTS.filter((l) => !l.retired && !l.variantOf);
 export const L = Object.fromEntries(ALL_LAYOUTS.map((l) => [l.f, l]));
+// Keep merged structures discoverable for every original industry. Search also
+// inherits each retired alias's terms; saved sheets still render their own HTML.
+for (const l of ALL_LAYOUTS) if (l.mergedInto && L[l.mergedInto]) {
+  const representative = L[l.mergedInto];
+  representative.inds = [...new Set([...(representative.inds || [representative.ind]), ...(l.inds || [l.ind])].filter(Boolean))];
+}
 /** the library layout a sheet belongs to — itself, or the representative of its content candidates */
-export const libraryOf = (f) => CANON_OF[f] || f;
+export const libraryOf = (f) => LAYOUT_CLEANUP.removed[f]?.replacement || CANON_OF[f] || f;
 /** a layout's candidate for an industry (or the given sheet when there is none) — what goes into a deck for that industry */
 export function variantFor(f, ind) {
   const g = VARIANTS[CANON_OF[f]];
   if (!g || !ind) return f;
-  const m = g.members.find(([, k]) => k === ind);
+  const m = g.members.find(([id, k]) => k === ind && !L[id]?.removed && !layoutDeleted(id));
   return m ? m[0] : f;
 }
 /** industries a layout serves — its own, or every candidate's of a merged layout */
 export const indsOf = (l) => (l && (l.inds || (l.ind ? [l.ind] : []))) || [];
 // 업종별 기본 표지(covers.js L_IND_*)도 장으로 그릴 수 있게 — 목록 · 검색에는 넣지 않고 L에만 (예전 히스토리에 들어 있을 수 있음)
 for (const f of Object.keys(COVERS)) if (!L[f]) L[f] = { f, code: f.slice(2), name: '표지 · 업종 기본', when: '업종 사진 위에 제안서 제목 · 고객사 · 날짜', g: '', p: 'cover', p2: null, ind: f.slice(6) && f.slice(6) !== '_' ? f.slice(6) : null, sol: null, c: 'CM', req: [], ik: [], ih: [], phs: [], prods: [], sols: [] };
+registerLibraryGroups(CANON_OF);
+const LIBRARY_BASE = Object.fromEntries(Object.entries(L).map(([f, m]) => [f, { ...m }]));
+function refreshLibrary() {
+  for (const [f, base] of Object.entries(LIBRARY_BASE)) {
+    const m = L[f], item = layoutLibraryEntry(f);
+    if (!m) continue;
+    // Only restore fields managed here. Other registries add relationships (pv,
+    // shared asset info, etc.) after initialization and keep owning those fields.
+    for (const key of ['name', 'when', 'g', 'p', 'retired', 'removed', 'txt', 'fx']) {
+      if (Object.hasOwn(base, key)) m[key] = base[key]; else delete m[key];
+    }
+    Object.assign(m, item.meta || {});
+    if (layoutDeleted(f)) { m.removed = true; m.retired = 'removed'; }
+    if (item.t) m.txt = [base.txt || '', ...Object.values(item.t)].join(' ');
+    const modes = slotModes(f); if (modes) m.fx = modes.lock;
+  }
+  LAYOUTS.splice(0, LAYOUTS.length, ...ALL_LAYOUTS.filter(m => !m.retired && !m.variantOf));
+}
+refreshLibrary();
+onLayoutLibrary(() => { REPAIRED.clear(); UNMARKED.clear(); refreshLibrary(); });
 
 /** 표지 sheets (표지 A–E · 업종 기본 표지 — not 목차 · 간지). They open the deck and live only in the PPT 레이아웃 panel. */
 export const isCoverSheet = (f) => { const l = L[f]; return !!l && l.p === 'cover' && /^표지/.test(l.name || ''); };
@@ -123,12 +168,31 @@ export const IND = Object.fromEntries(INDUSTRIES.map((i) => [i.code, i]));
 // 모든 제품에 탐색기 분류(fam 제품군 · sc 사이트 분류)가 붙는다. cur = 큐레이션 항목.
 for (const p of CATALOG.products) Object.assign(p, PDB.curated[p.id] || {}, { cur: true });
 export const PRODUCTS = [...CATALOG.products, ...PDB.products];
+const P0 = Object.fromEntries(PRODUCTS.map((p) => [p.id, p]));
 // 판매 종료 제품(p.deprecated — DSS DB 업데이트가 공식 소스 재검토로 확정)은 기존 제안서 · 샘플 시나리오를 그리려고 P · PRODUCTS에 남기고,
 // 새로 고르는 목록(탐색기 · @태그 · 추천 · 교체)은 ACTIVE_PRODUCTS만 쓴다. 내보내기 확인은 domain/products/deprecation.js.
 // 같은 제품의 사이트 행이 생겨 대체된 카탈로그 행(p.supersededBy)도 id 는 유지하되 새 선택 목록에서는 뺀다(판매 종료 아님).
-export const ACTIVE_PRODUCTS = PRODUCTS.filter((p) => !p.deprecated && !p.supersededBy);
+// 관리자가 끈 제품(api/resource-switches.js)도 판매 종료처럼 새 선택 목록에서만 뺀다.
+// DSS 종류 — 제품 DB 행마다 dssKind(proddb/build/dss/classify.py: 수집한 뒤 LLM 이 판정 — device 제품 · solution · service · subscription).
+// samsung.com/business 제품 목록에 섞인 솔루션 · 서비스 · 구독은 제품으로 고르지 않는다: 새로 고르는 제품 목록(ACTIVE_PRODUCTS)은 제품만이고,
+// 나머지는 솔루션 카탈로그 모양(ROW_SOLUTIONS)으로 솔루션 · 서비스 폴더 · @태그 · 매칭 추출에 들어간다. 앱 솔루션의 판매 단위인 행(dssSame,
+// 예: MagicINFO™ → magicinfo)은 따로 보이지 않고 그 솔루션으로 잇는다. 행은 P · PRODUCTS 에 남아 지난 제안서를 그린다.
+export const dssKindOf = (p) => (p && p.dssKind) || 'device';
+export const ACTIVE_PRODUCTS = PRODUCTS.filter((p) => !p.deprecated && !p.supersededBy && !offSet('product').has(p.id) && dssKindOf(p) === 'device');
+// 지운 제품의 흔적 — 판매 종료로 확인된 뒤 관리자가 삭제를 확정한 제품(proddb/build/dss/deletions.py → products_db.json removed).
+// 행은 P · PRODUCTS 에 없다. 저장된 제안서가 그 id 를 아직 갖고 있으면 대체 제품으로 잇고(domain/products/removed.js),
+// 장의 글 · 사진에 남아 있으면 내보낼 때 확인받는다(domain/products/deprecation.js). { id, name, model, models, photos, replacedBy, at, reason }
+export const REMOVED_PRODUCTS = PDB.removed || [];
+export const REMOVED = Object.fromEntries(REMOVED_PRODUCTS.map((t) => [t.id, t]));
 export const PRODUCT_DB = { generated: PDB.generated, source: PDB.source, counts: PDB.counts, famOrder: PDB.famOrder, catOrder: PDB.catOrder };
-export const SOLUTIONS = CATALOG.solutions;
+// 관리자가 끈 솔루션 · 사례는 목록 · 검색 · 추천에서 빠지고, S · C(id 로 찾기)에는 남아 저장된 제안서를 그린다.
+const DSS_LABEL_OF = { solution: '솔루션', service: '서비스', subscription: '구독' };
+const rowSolution = (p) => ({ id: p.id, name: p.name, cat: p.dssKind === 'solution' ? p.sc || '솔루션' : '서비스', kw: p.kw || [], desc: '', with: [], ind: p.ind || [],
+  row: true, dssKind: p.dssKind, dssLabel: DSS_LABEL_OF[p.dssKind], fam: p.fam, sc: p.sc, url: p.url, deprecated: p.deprecated });
+/** 제품 DB 행 중 제품이 아닌 것(솔루션 · 서비스 · 구독) — 솔루션 카탈로그 모양. 서비스 · 구독은 cat '서비스'(서비스 폴더) */
+export const ROW_SOLUTIONS_ALL = PRODUCTS.filter((p) => dssKindOf(p) !== 'device').map(rowSolution);
+export const ROW_SOLUTIONS = ROW_SOLUTIONS_ALL.filter((s) => !s.deprecated && !P0[s.id].supersededBy && !P0[s.id].dssSame);
+export const SOLUTIONS = [...CATALOG.solutions, ...ROW_SOLUTIONS].filter((s) => !offSet('solution').has(s.id));
 // 구독(subscription) — DSS 의 네 번째 종류(제품 · 솔루션 · 서비스와 따로). app/data/subscriptions.json(B2B 삼성 AI 구독 레지스트리)을 /api/bootstrap 이 함께 보낸다.
 // 항목 유형: program · care · care-option · package · promotion · payment. basis 'inferred'(추론 결제안)는 '협의안'으로만, status 'expired'(끝난 혜택)는 새로 고르는 곳에서 뺀다.
 export const SUBSCRIPTION_DB = SUBS_DB || { items: [], categories: [], verticals: {}, types: {} };
@@ -137,11 +201,11 @@ export const SUBSCRIPTIONS = SUBSCRIPTIONS_ALL.filter((x) => x.status !== 'expir
 export const SUB = Object.fromEntries(SUBSCRIPTIONS_ALL.map((x) => [x.id, x]));
 /** 업종(버티컬 id) → 구독 구성 { pkg, match: direct | similar | derived | fallback, cats, space } */
 export const subscriptionFor = (vid) => (SUBSCRIPTION_DB.verticals || {})[vid] || null;
-export const CASES = CATALOG.cases;
+export const CASES = CATALOG.cases.filter((c) => !offSet('case').has(String(c.id)));
 export const IND_KW = CATALOG.indKw;
 export const P = Object.fromEntries(PRODUCTS.map((p) => [p.id, p]));
-export const S = Object.fromEntries(SOLUTIONS.map((s) => [s.id, s]));
-export const C = Object.fromEntries(CASES.map((c) => [String(c.id), c]));
+export const S = Object.fromEntries([...CATALOG.solutions, ...ROW_SOLUTIONS_ALL].map((s) => [s.id, s]));
+export const C = Object.fromEntries(CATALOG.cases.map((c) => [String(c.id), c]));
 
 export const CANVAS = {
   MI: { name: 'PPT · 01 MI (업종별)', url: 'https://claude.ai/artifact/XnbECsMCvmCsHTsJtfeQUV' },
@@ -161,7 +225,7 @@ export const CANVAS = {
 
 // Image DB (catalog images published with the app)
 const KINDNAME = { cut: '제품 컷', case: '설치 사례', life: '공식 연출', ui: '솔루션 화면', gen: '생성 이미지' };
-export const IMAGE_DB = Object.entries(IMAGES.pids).map(([pid, v]) => ({
+export const IMAGE_DB = Object.entries(IMAGES.pids).filter(([pid]) => !offSet('image').has('app/' + pid)).map(([pid, v]) => ({
   pid, src: v.file, group: v.src, groupName: KINDNAME[v.src] || v.src, model: v.model, desc: v.desc, w: v.w, h: v.h,
 })).concat([...PROPOSAL_PHOTOS,...ACCOUNT_PHOTOS].map(v => ({pid:v.pid,src:v.src,group:'case',groupName:KINDNAME.case,model:v.model,desc:v.desc,w:v.w,h:v.h,source:v.page})));
 
@@ -207,6 +271,7 @@ function repaired(f) {
       if (u == null) { u = repairLayoutUnmarked(c, HTML[c]); UNMARKED.set(c, u); }
       h = markSlotModes(f, fillHoles(u, PIECES[f])); // 후보 = 대표 장의 틀 + 이 장의 내용
     } else h = repairLayoutHtml(f, HTML[f]);
+    h = markChart(f, applyLibraryHtml(f, h)); // 관리자의 글 · 그림 · AI 칸 구분도 화면/채우기/PPTX에 함께 반영
     REPAIRED.set(f, h);
   }
   return h;

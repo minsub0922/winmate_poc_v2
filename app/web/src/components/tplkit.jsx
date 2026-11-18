@@ -1,4 +1,5 @@
 import { getDownloads as runtimeDownloads } from '../platform/runtime.js';
+import { requireDownload } from '../api/session.js';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Icon, toast, LayoutMeta } from './common.jsx';
 import { SheetView } from './sheetview.jsx';
@@ -9,6 +10,9 @@ import { VARIANTS, IND, L } from '../services/catalog.js';
 import { exportPptx } from '../domain/slides/export-pptx.js';
 import { FavButton } from './fav.jsx';
 import { useDetailPeek } from './reference-detail.jsx';
+import { BirdseyeStage } from './birdseye-live.jsx';
+import { birdseyeSheetInfo, birdseyeFrame } from '../domain/spatial/birdseye-sheet.js';
+import { birdseyeSceneKey } from '../services/birdseye-sheet.js';
 
 /* Shared pieces for the layout template library and 샘플 버티컬 시나리오: source decks, file saving, big preview. */
 
@@ -29,7 +33,7 @@ export const DECK = Object.fromEntries(DECKS.map((d) => [d.k, d]));
 
 /* ---------- downloads ---------- */
 const getDownloads = runtimeDownloads;
-export const DL_ERR = { declined: '저장을 취소했어요.', rate_limited: '저장 창이 이미 열려 있어요. 잠시 뒤 다시 눌러 주세요.', too_large: '파일이 너무 커요. 장 수를 줄여 보세요.', extension_not_enabled: '이 화면에서는 PPTX 저장을 쓸 수 없어요.' };
+export const DL_ERR = { declined: '저장을 취소했어요.', rate_limited: '저장 창이 이미 열려 있어요. 잠시 뒤 다시 눌러 주세요.', too_large: '파일이 너무 커요. 장 수를 줄여 보세요.', extension_not_enabled: '이 화면에서는 PPTX 저장을 쓸 수 없어요.', login_required: '로그인 후 파일을 받을 수 있어요.' };
 export const safeName = (s) => String(s || 'Winmate 레이아웃').replace(/[\\/:*?"<>|]+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 80);
 export async function saveBlob(blob, filename) {
   try { const downloads = await getDownloads(); await downloads.save({ filename, data: blob }); return { ok: true }; }
@@ -39,7 +43,7 @@ export const slidesOf = (list) => list.map((l) => ({ f: l.f, ov: { t: {}, img: {
 
 /* =========================================================
    Detail — the shared sheet popup (sheetview.jsx) with a read-only panel: role · example title · metadata
-   (PPT 레이아웃 템플릿 · 샘플 버티컬 시나리오). PPTX of this one sheet.
+   (PPT 레이아웃 템플릿 · 샘플 버티컬 시나리오). The panel stays collapsed until ‘레이아웃 정보’ is pressed. PPTX of this one sheet.
    ========================================================= */
 /* 칸 구분 — 고정 / 교체 / 후보 선택 / AI 작성 (layout_slot_modes.js). 슬라이드 위 표시는 .slide-fix (styles.css) */
 const FIX_ORDER = ['fixed', 'section', 'pick', 'product', 'solution', 'case', 'ai'];
@@ -75,9 +79,8 @@ export function SlotModePanel({ f, show, onToggle, group = null }) {
       <details className="fix-list">
         <summary>칸 목록 · 고정 대상 <b className="num">{keep.length}</b> · 변경 대상 <b className="num">{change.length}</b></summary>
         {keep.length ? <><span className="fix-h">고정 대상</span><ul>{keep.map(row)}</ul></> : null}
-        {change.length ? <><span className="fix-h">변경 대상{cands ? ' · 후보를 누르면 업종마다 이 칸에 들어가는 값' : ''}</span><ul>{change.map(row)}</ul></> : null}
+        {change.length ? <><span className="fix-h">변경 대상</span><ul>{change.map(row)}</ul></> : null}
       </details>
-      <span className="faint" style={{ fontSize: 'var(--text-12px)' }}>AI 채우기는 고정 · 목차 번호 · 후보 선택 칸을 새로 쓰지 않아요. 제품 · 솔루션 · 사례 칸은 고른 항목의 공식 정보로만, 후보 선택 칸은 업종 후보 값으로 바꿔요. 직접 수정은 모든 칸에서 할 수 있어요.</span>
     </div>
   );
 }
@@ -93,16 +96,17 @@ export function VariantPanel({ l, vf, onPick }) {
   const name = (v) => variantName(group, v.key, v.label);
   return (
     <div className="tl-ex tl-var">
-      <span className="lbl">{byInd ? '업종 후보' : '내용 후보'} <b className="num">{l.variants.length}</b> · 같은 레이아웃, 내용만 달라요</span>
+      <span className="lbl">{byInd ? '업종 후보' : '내용 후보'} <b className="num">{l.variants.length}</b></span>
       <div className="var-chips">
         {l.variants.map((v) => <button key={v.f} type="button" className={'var-chip' + (v.f === vf ? ' on' : '')} aria-pressed={v.f === vf} title={(v.label || '') + ' · ' + v.f} onClick={() => onPick(v.f)}>{name(v)}</button>)}
       </div>
-      <span className="faint" style={{ fontSize: 'var(--text-12px)' }}>후보마다 바뀌는 칸 · 글 <span className="num">{group.vary.t.length}</span> · 사진 <span className="num">{group.vary.img.length}</span>{group.vary.frame ? ' · 도표' : ''}. 제안서에 넣으면 그 제안서 업종의 후보로 들어가요.</span>
+      <span className="faint" style={{ fontSize: 'var(--text-12px)' }}>후보마다 바뀌는 칸 · 글 <span className="num">{group.vary.t.length}</span> · 사진 <span className="num">{group.vary.img.length}</span>{group.vary.frame ? ' · 도표' : ''}</span>
     </div>
   );
 }
 
-export function TemplateDetail({ list, index, onNav, onClose, notes = null, noteLabel = '이 장의 역할', ovs = null, onEdit = null, favFrom = '템플릿 라이브러리' }) {
+// sample: 추천 구성 상세에서 크게 본 업종 샘플 덱의 장 — '샘플 자료' 띠 (템플릿 라이브러리 화면은 넘기지 않는다)
+export function TemplateDetail({ list, index, onNav, onClose, notes = null, noteLabel = '이 장의 역할', ovs = null, onEdit = null, favFrom = '템플릿 라이브러리', sample }) {
   const l = list[index];
   const ov = ovs ? ovs[index] : null; // filled sample values (샘플 버티컬 시나리오)
   const [busy, setBusy] = useState(false);
@@ -110,13 +114,20 @@ export function TemplateDetail({ list, index, onNav, onClose, notes = null, note
   const [pick, setPick] = useState(null); // 합친 레이아웃에서 보고 있는 내용 후보
   const vf = !ov && pick && (l.variants || []).some((v) => v.f === pick) ? pick : l.f;
   const peek = useDetailPeek();
-  useEffect(() => { peek.hide(); setPick(null); }, [l.f, index, peek.hide]);
+  // 조감도 시트: 좌우 ↔ 가운데 형태를 바꿔 본다 (읽기 전용 — 저장하지 않고 이 팝업에서만)
+  const [center, setCenter] = useState(null);
+  const bird = ov ? birdseyeSheetInfo(l.f) : null;
+  const birdCenter = !!bird && (center ?? ov.spatialMode === 'center');
+  const viewOv = bird ? { ...ov, spatialMode: birdCenter ? 'center' : undefined } : ov;
+  const birdCan = !!bird && !!(birdseyeFrame(bird, ov) || birdseyeSceneKey(ov));
+  useEffect(() => { peek.hide(); setPick(null); setCenter(null); }, [l.f, index, peek.hide]);
   const close = () => { peek.hide(); onClose(); };
   const navigate = i => { peek.hide(); onNav(i); };
   const download = async () => {
+    if (!requireDownload()) return;
     setBusy(true);
     try {
-      const blob = await exportPptx(ov ? [{ f: l.f, ov, part: PARTS[l.p] ? PARTS[l.p].label : '' }] : slidesOf([{ ...l, f: vf }]), { title: l.name });
+      const blob = await exportPptx(ov ? [{ f: l.f, ov: viewOv, part: PARTS[l.p] ? PARTS[l.p].label : '' }] : slidesOf([{ ...l, f: vf }]), { title: l.name });
       const r = await saveBlob(blob, safeName('Winmate ' + l.name) + '.pptx');
       if (r.ok) toast(l.name + ' PPTX를 저장했어요'); else toast(r.err, 'warn');
     } catch (e) { console.error(e); toast('PPTX를 만들지 못했어요: ' + (e && e.message ? e.message : e), 'warn'); }
@@ -126,20 +137,20 @@ export function TemplateDetail({ list, index, onNav, onClose, notes = null, note
   return (
     <><SheetView onClose={close} index={index} total={list.length} onNav={onNav ? navigate : undefined}
       title={<span className="tl-dt">{l.name}</span>}
-      sub={[l.when || l.g, pt && pt.label, DECK[l.c] && DECK[l.c].label].filter(Boolean).join(' · ')}
-      bodyClass="tl-detail" panelClass="tl-dr"
+      sub={[pt && pt.label, DECK[l.c] && DECK[l.c].label].filter(Boolean).join(' · ')}
+      bodyClass="tl-detail" panelClass="tl-dr" panelLabel="레이아웃 정보" sample={sample}
       stageActions={<>
         {onEdit && <button className="btn btn-primary sv-edit" onClick={() => { peek.hide(); onEdit((vf !== l.f && L[vf]) || l, ov); onClose(); }} title="레이아웃 수정하기"><Icon name="edit" size={17} />수정하기</button>}
         <FavButton f={vf} ov={ov} from={favFrom} label />
+        {birdCan && <button type="button" className="btn birdseye-mode-toggle" aria-pressed={birdCenter} onClick={() => setCenter(!birdCenter)} title="같은 내용을 다른 배치로 봅니다"><Icon name="swap" size={15} />{birdCenter ? '좌우 배치로 보기' : '중앙 조감도로 보기'}</button>}
       </>}
-      stage={(w) => <Slide key={vf} f={vf} ov={ov || undefined} pageNo={ov ? index + 1 : undefined} width={w} className={showFix ? 'slide-fix' : ''} />}
+      stage={(w) => <BirdseyeStage key={index + ':' + vf} f={vf} ov={viewOv} width={w}>{(o) => <Slide key={vf} f={vf} ov={o || undefined} pageNo={ov ? index + 1 : undefined} width={w} className={showFix ? 'slide-fix' : ''} />}</BirdseyeStage>}
       panel={<>
         {notes && notes[index] ? <div className="tl-ex tl-role"><span className="lbl">{noteLabel}</span><p>{notes[index]}</p></div> : null}
         {l.hl && !ov && <div className="tl-ex"><span className="lbl">예시 제목</span><p>{l.hl}</p>{l.sample ? <span className="faint" style={{ fontSize: "var(--text-12px)" }}>예시 고객 · {l.sample}</span> : null}</div>}
         <LayoutMeta l={l} peek={peek} />
         {!ov && <VariantPanel l={l} vf={vf} onPick={setPick} />}
         <SlotModePanel f={vf} show={showFix} onToggle={setShowFix} group={(!ov && VARIANTS[l.f]) || null} />
-        <p className="hint"><Icon name="info" size={14} /><span>제안서에서 쓰려면 Storyboard 목차의 ‘레이아웃 추가’ → 검색에서 “{l.name}”로 찾으면 돼요.</span></p>
       </>}
       actions={<>
         <button className="btn" onClick={close}>닫기</button>

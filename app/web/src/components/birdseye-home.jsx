@@ -1,4 +1,4 @@
-// 조감도 통합 목록 — 사이드바 「조감도」. 시작 버튼 하나(→ 시작 팝업)와, 공간 조감도 · 건물을 최근 수정순으로 섞은 히스토리 한 구역.
+// 조감도 통합 목록 — 사이드바 「공간 조감도」. 시작 버튼 하나(→ 시작 팝업)와, 공간 조감도 · 건물을 최근 수정순으로 섞은 히스토리 한 구역(카드는 3D 미리보기가 기본).
 // 공간 조감도는 서버(/api/spatial/history, 페이지), 건물은 건물 모듈의 저장소(services/building-bridge.js)에서 읽어 합친다.
 import React,{useEffect,useMemo,useRef,useState} from 'react';
 import {Icon,Modal,toast} from './common.jsx';
@@ -104,7 +104,7 @@ export function BirdseyeHome({go}){
 
   return <div className="sp-page be-home" ref={root}><div className="sp-page-in">
     <div className="sp-topbar"><header className="tl-head sp-header">
-      <div className="tl-title"><span className="eyebrow">WINMATE · 공간 제안</span><h1>조감도<span className="sp-beta">BETA</span></h1><p>공간과 건물 조감도를 새로 만들거나, 저장한 조감도를 이어서 편집하세요.</p></div>
+      <div className="tl-title"><span className="eyebrow">WINMATE · 공간 제안</span><h1>공간 조감도<span className="sp-beta">BETA</span></h1><p>공간과 건물 조감도를 새로 만들거나, 저장한 조감도를 이어서 편집하세요.</p></div>
       {/* 보기 전용 카탈로그 — 고르고 넣는 것은 스튜디오 안에서 한다 */}
       <div className="sp-header-actions"><button type="button" className="btn btn-primary sp-object-trigger" disabled={!library} aria-haspopup="dialog" onClick={()=>setCatalogue(true)}><Icon name="product" size={19}/><span>제품 · 가구 오브젝트</span></button></div>
     </header></div>
@@ -112,7 +112,7 @@ export function BirdseyeHome({go}){
     {!library&&!error&&<div className="boot" role="status" aria-live="polite"><span className="spin"/>조감도를 준비하는 중…</div>}
     {library&&<>
       <div className="sp-home-launches be-launch"><button type="button" className="sp-studio-launch" aria-haspopup="dialog" onClick={()=>{if(requireLogin())setStarting(true);}}>
-        <span className="sp-launch-icon"><StudioIcon/></span><span className="sp-launch-copy"><strong>조감도 스튜디오 시작</strong><small>공간인지 건물인지, 빈 화면 · 내 Storyboard · 템플릿 중 어디에서 시작할지 고르고 스튜디오로 넘어가요.</small></span></button></div>
+        <span className="sp-launch-icon"><StudioIcon/></span><span className="sp-launch-copy"><strong>조감도 스튜디오 시작</strong><small>업종과 공간을 정하면 스튜디오가 바로 열려요. 제안서에서 불러올 수도 있어요.</small></span></button></div>
       <section className="sp-library sp-history" aria-label="조감도 히스토리" aria-busy={pending}>
         <div className="sp-library-intro"><div><h2>조감도 히스토리 {!pending&&!historyError&&<span className="sp-history-count">{view.total}</span>}</h2></div></div>
         <FeedbackPopup message={historyError} title="히스토리를 불러오지 못했어요" actionLabel="다시 불러오기" onAction={()=>latest.current(asked.current)}/>
@@ -121,7 +121,7 @@ export function BirdseyeHome({go}){
             <span className="be-type" aria-label={entry.type==='building'?'건물 조감도':'공간 조감도'}>{entry.type==='building'?'건물':'공간'}</span>
             {entry.type==='building'
               ?<BuildingCard item={entry.source} onOpen={()=>go({name:'building',id:entry.id})} onDelete={()=>setDeleting(entry)}/>
-              :<SpatialHistoryCard item={entry.source} library={library} onOpen={()=>go({name:'spatial',id:entry.id})} onDelete={()=>setDeleting(entry)}/>}
+              :<SpatialHistoryCard item={entry.source} library={library} defaultView="3d" onOpen={()=>go({name:'spatial',id:entry.id})} onDelete={()=>setDeleting(entry)}/>}
           </div>)}</div>
           <SpatialHistoryPagination page={view.page} total={view.total} pageSize={BIRDSEYE_PAGE_SIZE} loading={loading} onChange={next=>{if(next!==view.page&&!loading)void latest.current(next,{scroll:true});}}/>
         </>:pending?<div className="sp-empty" role="status"><span className="spin"/><p>조감도 히스토리를 불러오는 중…</p></div>

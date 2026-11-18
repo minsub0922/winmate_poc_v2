@@ -1,5 +1,6 @@
 """Isolated sharing UI fixture: real app/auth/data, no model responses or production state."""
 import os
+os.environ.setdefault('WINMATE_ACCOUNT_DATA_DB', os.path.join(os.environ['WINMATE_AUTH_DIR'], 'account_data.sqlite'))  # 계정 자료도 격리 — 없으면 실제 app/data/runtime/account_data.sqlite에 쓴다
 from pathlib import Path
 import sys
 

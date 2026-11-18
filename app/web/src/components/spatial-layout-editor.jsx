@@ -3,6 +3,7 @@ import {confirmDelete,Icon} from './common.jsx';
 import {FeedbackPopup} from './feedback-popup.jsx';
 import {describeSpatialTarget} from '../services/spatial.js';
 import {SpatialLayoutCamera} from './spatial-layout-camera.jsx';
+import {requireDownload} from '../api/session.js';
 import {createDescriptionNodes,createRoomLabel,roomLabelMetrics,moveLayoutNode,layoutConnector,layoutTextLines} from '../domain/spatial/layout.js';
 
 export const SpatialLayoutEditor=forwardRef(function SpatialLayoutEditor({layout,scene,library,onChange,disabled=false},ref){
@@ -58,13 +59,14 @@ export const SpatialLayoutEditor=forwardRef(function SpatialLayoutEditor({layout
   const finish=(event,cancel=false)=>{const d=drag.current;if(!d||d.pointer!==event.pointerId)return;drag.current=null;setDraft(null);if(svg.current.hasPointerCapture(event.pointerId))svg.current.releasePointerCapture(event.pointerId);if(!cancel&&d.next)onChange(d.next);};
   const menu=(event,n)=>{if(disabled)return;event.preventDefault();event.stopPropagation();const r=canvas.current.getBoundingClientRect();setSelected(n.id);setContext({id:n.id,x:Math.max(0,Math.min(r.width-120,event.clientX-r.left)),y:Math.max(0,Math.min(r.height-44,event.clientY-r.top))});};
   const exportSvg=async()=>{
+    if(!requireDownload())return;
     await camera.current?.prepareSave();await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
     const copy=svg.current.cloneNode(true);copy.querySelectorAll('[data-editor-only]').forEach(el=>el.remove());copy.setAttribute('xmlns','http://www.w3.org/2000/svg');copy.setAttribute('width','1280');copy.setAttribute('height','720');
     const url=URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(copy)],{type:'image/svg+xml'})),a=document.createElement('a');a.href=url;a.download=(latest.current.title||'조감도').replace(/[<>:"/\\|?*]/g,'_')+'-layout.svg';a.click();setTimeout(()=>URL.revokeObjectURL(url),5000);
   };
   const named=new Set(display.nodes.filter(n=>n.type==='room-label').map(n=>n.targets[0]));
   return <section className="sp-layout-editor" aria-label="조감도 레이아웃 편집">
-    <div className="sp-layout-tools"><span>공간·제품을 선택하고 AI 설명을 추가하세요</span><button type="button" className="btn btn-sm" disabled={disabled} onClick={exportSvg}>레이아웃 SVG 다운로드</button></div>
+    <div className="sp-layout-tools"><span /><button type="button" className="btn btn-sm" disabled={disabled} onClick={exportSvg}>레이아웃 SVG 다운로드</button></div>
     <div className="sp-layout-body"><div className="sp-layout-canvas" ref={canvas}>
       <div className="sp-layout-canvas-header">
         <button type="button" className="btn btn-primary btn-sm sp-layout-add-callout" disabled={disabled||generating||!target||layout.nodes.length>=100} title={target?target.label+' 설명 추가':'공간이나 제품을 먼저 선택하세요'} aria-busy={generating} onClick={addCallout}><Icon name="sparkle" size={15}/><span>{target?target.label+' 설명 추가':'공간·제품을 선택하세요'}</span><small>AI</small></button>
@@ -92,7 +94,6 @@ export const SpatialLayoutEditor=forwardRef(function SpatialLayoutEditor({layout
 
         {node&&!disabled&&<rect data-editor-only="resize" aria-label="설명 영역 크기 조절" x={node.x+node.w-(node.type==='room-label'?5:8)} y={node.y+node.h-(node.type==='room-label'?5:8)} width={node.type==='room-label'?10:16} height={node.type==='room-label'?10:16} fill="#1428a0" stroke="white" strokeWidth="2" className="sp-layout-resize" onPointerDown={e=>start(e,node,true)}/>}
       </svg>
-      <p className="sp-layout-help">{placingNames?'공간 이름을 눌러 배치하세요. 원형 포인팅 버튼으로 돌아갈 수 있어요.':'대상 선택 후 AI 설명 추가 · Shift+클릭으로 선택한 설명에 연결 · 드래그로 이동'}</p>
       {context&&<div className="sp-layout-context" role="menu" style={{left:context.x,top:context.y}} onPointerDown={e=>e.stopPropagation()}><button type="button" role="menuitem" onClick={()=>remove(context.id)}>삭제</button></div>}
     </div><aside className="sp-layout-inspector" aria-label="설명 영역 속성">
       <SpatialLayoutCamera ref={camera} layout={layout} scene={scene} library={library} onChange={onChange} disabled={disabled} previewCanvas={livePreview} onPreviewChange={setPreviewing}/>

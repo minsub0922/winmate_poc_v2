@@ -148,7 +148,11 @@ uiCase('U02', 'title edit persists; clearing it falls back to “새 제안서�
   d.final = p.title;
 });
 
-uiCase('U03', 'free requirement text with a keyboard @ mention stores text + product segment and links the product', async (page, d) => {
+// 고객 요구사항은 자유형식 하나다. 쓰는 동안에는 초안일 뿐 — 저장을 눌러야 제안서에 들어가고, 태그한 제품 · 솔루션이 그때 연결된다.
+const reqDialog = (page) => page.getByRole('dialog', { name: '고객 요구사항', exact: true });
+const saveReq = (page) => reqDialog(page).getByRole('button', { name: '저장', exact: true }).click();
+
+uiCase('U03', 'free requirement text with a keyboard @ mention: nothing is stored while typing; 저장 stores text + product segment and links the product', async (page, d) => {
   const id = await newProposal(page);
   const editor = page.locator('#free-ed');
   await editor.fill('WMSTRICT-U03 전국 매장 메뉴보드 교체. 카운터에는 ');
@@ -157,69 +161,68 @@ uiCase('U03', 'free requirement text with a keyboard @ mention stores text + pro
   await page.locator('.mmenu').waitFor();
   await page.keyboard.press('Enter');
   await page.waitForFunction(() => document.querySelector('#free-ed .mention[data-ref]'));
-  const p = await until(page, id, (p) => p.req.free.some((s) => s.ref) && p.ctx.products.length > 0, 'mention persisted');
+  await sleep(600);
+  const before = await persisted(page, id);
+  eq([before.req.free.length, before.ctx.products.length, before.stage], [0, 0, 'req'], 'typing and tagging do not write the proposal');
+  await saveReq(page);
+  const p = await until(page, id, (p) => p.req.free.some((s) => s.ref) && p.ctx.products.length > 0, 'mention persisted on 저장');
   const ref = p.req.free.find((s) => s.ref).ref;
   eq(ref, 'product:qm55c', 'mentioned product');
   ok(p.req.free.some((s) => s.t && s.t.includes('WMSTRICT-U03')), 'typed text kept as a text segment');
-  ok(p.ctx.products.includes('qm55c'), 'mention linked the product to the proposal context');
-  ok((await page.getByRole('dialog', { name: '고객 요구사항', exact: true }).innerText()).includes('태그 1개'), 'tag counter shows one tag');
+  ok(p.ctx.products.includes('qm55c'), '저장 linked the tagged product to the proposal context');
+  eq(p.stage, 'match', '저장 moves the board on');
+  await page.locator('.layout-node').waitFor();
+  ok(await page.locator('.match-node').count() === 1, '매칭 · 레이아웃 구성 bubbles appear together after 저장');
   d.segments = p.req.free;
 });
 
-uiCase('U04', 'pasted product link becomes a link chip, resolves locally to the product and links it', async (page, d) => {
+uiCase('U04', 'pasted product link becomes a link chip, resolves locally to the product and links it on 저장', async (page, d) => {
   const n = await names(page);
   ok(n.fromUrl, 'qm55c has a product URL');
   const id = await newProposal(page);
   await page.locator('#free-ed').fill('WMSTRICT-U04 참고 링크 ');
   await paste(page, '#free-ed', ' ' + n.fromUrl + ' ');
   await page.waitForFunction(() => document.querySelector('#free-ed .mlink[data-link]'));
-  const p = await until(page, id, (p) => p.req.free.some((s) => s.link && s.link.ref), 'resolved link persisted');
+  ok((await page.locator('#free-ed .mlink[data-link]').first().getAttribute('aria-label')).includes(n.from), 'chip names the product');
+  await saveReq(page);
+  const p = await until(page, id, (p) => p.req.free.some((s) => s.link && s.link.ref), 'resolved link persisted on 저장');
   const seg = p.req.free.find((s) => s.link);
   eq([seg.t, seg.link.ref, seg.link.title], [n.fromUrl, 'product:qm55c', n.from], 'link segment');
   ok(p.ctx.products.includes('qm55c'), 'resolved link linked the product');
-  ok((await page.locator('#free-ed .mlink[data-link]').first().getAttribute('aria-label')).includes(n.from), 'chip names the product');
   d.segment = seg;
 });
 
-uiCase('U05', 'form tab fields mirror into the proposal and the creator note keeps an @solution tag', async (page, d) => {
+uiCase('U05', 'customer field in the popup header and an @solution tag in the text are committed by 저장; there is no form tab', async (page, d) => {
   const id = await newProposal(page);
-  await page.getByRole('tab', { name: /^입력 폼/ }).click();
-  await page.getByRole('textbox', { name: '프로젝트명', exact: true }).fill('WMSTRICT U05 프로젝트');
-  await page.getByRole('textbox', { name: '고객사', exact: true }).fill('WMSTRICT U05 고객');
-  await page.getByRole('textbox', { name: '최종 제안대상', exact: true }).fill('운영본부장');
-  const note = page.getByRole('textbox', { name: '제작자 의견', exact: true });
-  await note.fill('WMSTRICT-U05 파일럿부터 단계 도입. ');
-  await note.press('End');
+  eq(await page.getByRole('tab', { name: /입력 폼/ }).count(), 0, 'the 입력 폼 tab is gone');
+  await reqDialog(page).getByRole('textbox', { name: '고객사', exact: true }).fill('WMSTRICT U05 고객');
+  const editor = page.locator('#free-ed');
+  await editor.fill('WMSTRICT-U05 파일럿부터 단계 도입. ');
+  await editor.press('End');
   await page.keyboard.type('@Magic');
   await page.locator('.mmenu').waitFor();
   await page.locator('.mmenu .mopt.solution').first().click();
-  const p = await until(page, id, (p) => (p.req.form.noteSegs || []).some((s) => s.ref), 'creator note tag persisted');
-  eq([p.req.form.project, p.req.form.customer, p.req.form.target], ['WMSTRICT U05 프로젝트', 'WMSTRICT U05 고객', '운영본부장'], 'form fields');
-  eq([p.customer, p.title, p.reqTab], ['WMSTRICT U05 고객', 'WMSTRICT U05 프로젝트', 'form'], 'customer/title mirrored, tab remembered');
-  eq(p.req.form.noteSegs.find((s) => s.ref).ref, 'solution:magicinfo', 'creator note solution tag');
-  ok(p.req.form.note.includes('WMSTRICT-U05') && p.req.form.note.includes('@'), 'note text keeps the words and the @label');
-  ok(p.ctx.solutions.includes('magicinfo'), 'tag linked the solution');
-  d.note = p.req.form.note;
+  await saveReq(page);
+  const p = await until(page, id, (p) => p.req.free.some((s) => s.ref) && p.customer, 'customer and tag persisted on 저장');
+  eq(p.customer, 'WMSTRICT U05 고객', 'customer');
+  eq(p.req.free.find((s) => s.ref).ref, 'solution:magicinfo', 'solution tag in the free-form text');
+  ok(p.ctx.solutions.includes('magicinfo'), '저장 linked the tagged solution');
+  d.customer = p.customer;
 });
 
-uiCase('U06', 'key-person weights: sum indicator flags ≠100%, added key person and requirement persist', async (page, d) => {
+uiCase('U06', 'requirements draft: closing the popup keeps what was typed without saving it; 저장 commits it', async (page, d) => {
   const id = await newProposal(page);
-  await page.getByRole('tab', { name: /^입력 폼/ }).click();
-  await page.locator('.km input[id^="km-"]').nth(0).fill('운영본부장');
-  await page.locator('.km input[id^="kw-"]').nth(0).fill('60');
-  await page.getByRole('textbox', { name: '운영본부장 요구사항 1', exact: true }).fill('WMSTRICT-U06 신메뉴 당일 반영');
-  await page.waitForTimeout(200);
-  eq((await page.locator('.wsum').innerText()).trim(), '가중치 합 60%', 'sum after first weight');
-  ok(await page.locator('.wsum.bad').count() === 1, 'sum ≠ 100% is flagged');
-  await page.getByRole('button', { name: '키맨 추가' }).click();
-  await page.locator('.km input[id^="km-"]').nth(1).fill('시설팀장');
-  await page.locator('.km input[id^="kw-"]').nth(1).fill('40');
-  await page.waitForTimeout(200);
-  eq((await page.locator('.wsum').innerText()).trim(), '가중치 합 100%', 'sum after second weight');
-  eq(await page.locator('.wsum.bad').count(), 0, 'balanced sum is not flagged');
-  const p = await until(page, id, (p) => p.req.form.keymen.length === 2 && p.req.form.keymen[1].weight === 40, 'key people persisted');
-  eq(p.req.form.keymen.map((k) => [k.name, k.weight]), [['운영본부장', 60], ['시설팀장', 40]], 'key people');
-  ok(JSON.stringify(p.req.form.keymen[0].reqs[0]).includes('WMSTRICT-U06'), 'requirement line persisted');
+  await page.locator('#free-ed').fill('WMSTRICT-U06 신메뉴 당일 반영');
+  await reqDialog(page).getByRole('button', { name: /닫기/ }).first().click();
+  await page.locator('#free-ed').waitFor({ state: 'detached' });
+  const closed = await persisted(page, id);
+  eq([closed.req.free.length, closed.stage], [0, 'req'], 'closing does not save');
+  await page.getByRole('button', { name: /^고객 요구사항 열기/ }).first().click();
+  await page.locator('#free-ed').waitFor();
+  ok((await page.locator('#free-ed').innerText()).includes('WMSTRICT-U06'), 'the draft is still there after reopening');
+  await saveReq(page);
+  const p = await until(page, id, (p) => JSON.stringify(p.req.free).includes('WMSTRICT-U06'), 'draft persisted on 저장');
+  eq(p.stage, 'match', 'saved');
 });
 
 uiCase('U07', 'layout detail: replace the database product QM55C with QM65C — slide text and overrides change', async (page, d) => {
@@ -310,8 +313,7 @@ uiCase('U11', 'layout picker: search failure is explicit; clearing it allows cho
   await page.getByRole('button',{name:'다시 시도',exact:true}).waitFor();
   ok((await page.getByRole('dialog').last().innerText()).includes('검색'),'failed query is shown explicitly');
   await page.locator('#pk-q').fill('');
-  await page.locator('.pcard[data-f="L_PH_P3_A"]').first().click();
-  await page.getByRole('dialog').last().getByRole('button', { name: '완료', exact: true }).click();
+  await page.locator('.pcard[data-f="L_PH_P3_A"]').first().click(); // a pick closes the picker
   const p = await until(page, id, (p) => (p.parts.find((s) => s.id === 's_strict_pick') || { layouts: [] }).layouts.length > 0, 'picked layout persisted');
   const layouts = p.parts.find((s) => s.id === 's_strict_pick').layouts;
   eq(layouts.map((l) => l.f), ['L_PH_P3_A'], 'part layouts');

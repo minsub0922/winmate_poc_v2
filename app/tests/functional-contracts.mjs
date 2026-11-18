@@ -50,7 +50,7 @@ if (wanted.includes('catalog')) {
   if (!setupError) try { ({ page } = await fresh()); } catch (e) { setupError = e.message; }
   const inPage = (fn, arg) => page.evaluate(fn, arg);
 
-  cat.case('C01', 'collection sizes: 17 solutions · 218 cases · 82 scenarios · 596 active layouts · 1084 products', async (d) => {
+  cat.case('C01', 'collection sizes: 17 solutions · 218 cases · 116 scenarios · 357 active layouts · products = products_db.json counts.total', async (d) => {
     const r = await inPage(async () => {
       const c = await import('/src/services/catalog.js'); const s = await import('/src/domain/templates/scenarios.js');
       const b = (await import('/src/api/bootstrap.js')).getBootstrap();
@@ -59,7 +59,8 @@ if (wanted.includes('catalog')) {
         boot: { solutions: b.catalog.solutions.length, cases: b.catalog.cases.length, industries: b.catalog.industries.length } };
     });
     Object.assign(d, r);
-    eq(r.solutions, 17, 'solutions'); eq(r.cases, 218, 'cases'); eq(r.scenarios, 82, '샘플 버티컬 시나리오'); eq(r.active, 596, 'active layouts'); eq(r.products, 1084, 'products');
+    eq(r.solutions, 17, 'solutions'); eq(r.cases, 218, 'cases'); eq(r.scenarios, 116, '샘플 버티컬 시나리오'); eq(r.active, 357, 'active layouts');
+    eq(r.products, JSON.parse(fs.readFileSync(new URL('../data/products_db.json', import.meta.url), 'utf8')).counts.total, 'products (declared total)');
     eq(r.boot.solutions, r.solutions, 'bootstrap solutions'); eq(r.boot.cases, r.cases, 'bootstrap cases'); eq(r.boot.industries, r.industries, 'bootstrap industries');
     ok(r.industries > 0 && r.all > r.active, 'industries present and retired layouts excluded from the active list');
   });
@@ -159,7 +160,7 @@ if (wanted.includes('catalog')) {
       });
     });
     d.checked = r.length;
-    eq(r.length, 82, 'scenarios checked');
+    eq(r.length, 116, 'scenarios checked');
     eq(r.filter((x) => x.problems.length), [], 'scenario enum problems');
   });
 
@@ -182,7 +183,7 @@ if (wanted.includes('catalog')) {
     eq(r.problems, [], 'unresolved scenario references');
   });
 
-  cat.case('C08', 'layouts: unique f, known canvas and part, retired layouts point at active replacements', async (d) => {
+  cat.case('C08', 'layouts: unique f, known canvas and part, retired layouts point at active replacements (or their merged library layout)', async (d) => {
     const r = await inPage(async () => {
       const c = await import('/src/services/catalog.js'); const parts = (await import('/src/domain/proposals/parts.js')).PARTS;
       const bad = [];
@@ -191,7 +192,9 @@ if (wanted.includes('catalog')) {
         if (l.p && !parts[l.p]) bad.push(l.f + ' part ' + l.p);
         if (!l.name) bad.push(l.f + ' name');
       }
-      const retired = Object.entries(c.RETIRED).filter(([f]) => c.L[f]).map(([f, to]) => ({ f, to, ok: !!c.L[to] && !c.L[to].retired && c.LAYOUTS.includes(c.L[to]) && !c.LAYOUTS.includes(c.L[f]) }));
+      const retired = Object.entries(c.RETIRED).filter(([f]) => c.L[f]).map(([f, to]) => ({ f, to,
+        ok: !!c.L[to] && !c.LAYOUTS.includes(c.L[f]) && (c.L[f].removed || (!c.L[c.libraryOf(to)].retired && c.LAYOUTS.includes(c.L[c.libraryOf(to)]))) }));
+      // a replacement that is a content candidate of a merged layout (같은 레이아웃 · 다른 내용) is reached through libraryOf, as search.js does
       return { bad, retired: retired.filter((x) => !x.ok), retiredCount: retired.length, noPart: c.LAYOUTS.filter((l) => !l.p).length };
     });
     Object.assign(d, { retiredCount: r.retiredCount, noPart: r.noPart });
@@ -380,12 +383,13 @@ if (wanted.includes('pptx') || wanted.includes('pptx-negative')) {
 
   if (wanted.includes('pptx-negative')) {
     const neg = suite('pptx-negative', FILE);
+    const layoutsBefore = page ? await page.evaluate(() => window.__strict.layoutCount()).catch(() => null) : null;
     const expectRejected = async (b64, d) => {
       const r = await page.evaluate(([b]) => window.__strict.importError(b), [b64]);
       d.result = r;
       ok(!r.ok, 'malformed input was accepted as a deck');
       ok(r.message && r.message.length > 3, 'rejection carries a message');
-      eq(await page.evaluate(() => window.__strict.layoutCount()), 596, 'app catalog intact after the rejection');
+      eq(await page.evaluate(() => window.__strict.layoutCount()), layoutsBefore, 'app catalog intact after the rejection');
     };
     neg.case('N01', 'plain text renamed .pptx is rejected', async (d) => expectRejected(Buffer.from('this is not a presentation, just text').toString('base64'), d));
     neg.case('N02', 'empty file is rejected', async (d) => expectRejected('', d));

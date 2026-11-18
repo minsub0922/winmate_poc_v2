@@ -3,14 +3,30 @@ let backend = {
   local: { getItem: key => window.localStorage.getItem(key), setItem: (key, value) => window.localStorage.setItem(key, value), removeItem: key => window.localStorage.removeItem(key) },
   open: (name, version) => window.indexedDB.open(name, version),
 };
-let namespace = '', observer = null;
+let namespace = '', observer = null, inspection = false, accountHistory = true;
 const scoped = key => namespace ? namespace + key : key;
 export function configureUserStorage(user) {
+  if (inspection) return;
   namespace = user?.tracking_enabled && user?.username !== user?.storage_legacy_owner
     ? 'winmate.account.' + encodeURIComponent(user?.username || 'guest') + ':' : '';
 }
+/**
+ * 관리자 읽기 전용 열람 탭 (api/inspect.js): the inspected account never touches this browser's own storage. Records
+ * live in memory for this tab; documents go to a per-tab IndexedDB namespace that is removed when the tab closes.
+ */
+export function useInspectStorage(prefix, { includeAccountHistory = true } = {}) {
+  const memory = new Map();
+  backend = { ...backend, local: { getItem: key => (memory.has(key) ? memory.get(key) : null), setItem: (key, value) => { memory.set(key, String(value)); }, removeItem: key => { memory.delete(key); } } };
+  namespace = prefix;
+  inspection = true;
+  accountHistory = includeAccountHistory;
+  window.addEventListener('pagehide', () => {
+    for (const name of [...Object.keys(DATABASES), 'winmate-building']) { try { window.indexedDB.deleteDatabase(scoped(name)); } catch { /* best effort */ } }
+  });
+}
 export const onStorageWrite = handler => { observer = handler; };
 export const browserStorage = {
+  get accountHistory() { return accountHistory; },
   getItem: key => backend.local.getItem(scoped(key)),
   setItem: (key, value) => { backend.local.setItem(scoped(key), value); observer?.(key,value); },
   removeItem: key => { backend.local.removeItem(scoped(key)); observer?.(key,null); },

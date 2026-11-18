@@ -105,23 +105,7 @@
 /* ---------- requirements: single column (the context side panel moved into the 저장 / 다음 popup — src/ui/ctxconfirm.jsx) ---------- */
 .req.one { grid-template-columns: minmax(0, var(--measure-1fr)); }
 .req.one .req-main { width: var(--measure-100); max-width: var(--measure-1000px); margin: 0 auto; }
-.req-saved { display: inline-flex; align-items: center; gap: var(--space-4px); padding: 0 var(--space-8px); font-size: var(--text-12-5px); font-weight: var(--weight-600); color: var(--faint); white-space: nowrap; }
-.req-saved.on { color: var(--ok); }
 
-.cc-top { display: grid; grid-template-columns: minmax(0, var(--measure-560px)); gap: var(--space-14px); align-items: start; padding: var(--space-14px); border-radius: var(--radius-14px); background: var(--surface-2); border: var(--stroke-1px) solid var(--line); }
-.cc-ind { display: flex; flex-direction: column; gap: var(--space-6px); min-width: 0; }
-.cc-combo { position: relative; display: flex; align-items: center; }
-.cc-combo > svg { position: absolute; left: var(--measure-11px); color: var(--faint); pointer-events: none; }
-.cc-combo .input { padding-left: var(--space-34px); padding-right: var(--space-34px); height: var(--measure-38px); min-height: var(--measure-38px); font-weight: var(--weight-600); }
-.cc-x { position: absolute; right: var(--measure-6px); width: var(--measure-26px); height: var(--measure-26px); border: 0; border-radius: var(--radius-7px); background: none; color: var(--muted); display: grid; place-items: center; }
-.cc-x:hover { background: var(--surface-3); color: var(--ink); }
-.cc-list { position: absolute; left: 0; right: 0; top: calc(var(--measure-100) + var(--measure-4px)); z-index: 30; max-height: var(--measure-280px); overflow: auto; padding: var(--space-6px); display: flex; flex-direction: column; gap: var(--space-1px); background: var(--surface); border: var(--stroke-1px) solid var(--line-2); border-radius: var(--radius-12px); box-shadow: var(--shadow-lg); }
-.cc-list button { display: flex; align-items: center; justify-content: space-between; gap: var(--space-10px); padding: var(--space-7px) var(--space-10px); border: 0; border-radius: var(--radius-8px); background: none; text-align: left; font-size: var(--text-13px); color: var(--ink); }
-.cc-list button.act, .cc-list button:hover { background: var(--surface-3); }
-.cc-list button[aria-selected="true"]:not(.act) { color: var(--accent); font-weight: var(--weight-700); }
-.cc-list .faint { font-size: var(--text-11-5px); }
-.cc-note { font-size: var(--text-12px); color: var(--muted); }
-.cc-guess { align-self: flex-start; display: inline-flex; align-items: center; gap: var(--space-5px); height: var(--measure-26px); padding: 0 var(--space-10px); border-radius: var(--radius-999px); border: var(--stroke-1px) solid var(--accent-line); background: var(--accent-soft); color: var(--accent); font-size: var(--text-12px); font-weight: var(--weight-700); }
 
 /* ---------- full-list explorer (src/ui/ctxexplorer.jsx) — directory-explorer layout ---------- */
 .modal.ex-modal { height: min(var(--measure-820px), calc(var(--measure-100vh) - var(--measure-40px))); }
@@ -225,7 +209,6 @@
 .cc-peek { position: fixed; z-index: 95; width: var(--measure-280px); pointer-events: none; animation: rise var(--measure-12s) ease; }
 .cc-peek .rcard { box-shadow: var(--shadow-lg); border-color: var(--line-2); }
 @media (max-width: 760px) {
-  .cc-top { grid-template-columns: minmax(0, var(--measure-1fr)); }
   .modal.ex-modal { height: calc(var(--measure-100vh) - var(--measure-24px)); }
   .ex-bar { flex-wrap: wrap; padding: var(--space-10px) var(--space-14px); }
   .ex-q { flex-basis: var(--measure-100); }
@@ -240,7 +223,6 @@
   .ex-case .ex-side { grid-column: 2; flex-direction: row; align-items: center; justify-content: space-between; }
   .ex-tiles { grid-template-columns: repeat(auto-fill, minmax(var(--measure-150px), var(--measure-1fr))); gap: var(--space-10px); }
   .ex-tray { flex-basis: var(--measure-100); order: -1; }
-  .req-saved { display: none; }
 }
 
 /* ---------- 목차 설명 — 목차를 고르는 모든 곳(첫 번째 목차 후보 · 목차 팝업 추천 · 이름 자동완성 · 전체 보기) ----------

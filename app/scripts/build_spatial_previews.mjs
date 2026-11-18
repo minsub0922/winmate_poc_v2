@@ -6,11 +6,12 @@ import {fileURLToPath} from 'node:url';
 import {createRequire} from 'node:module';
 import {createServer} from '../web/node_modules/vite/dist/node/index.js';
 import {chromium} from '../web/node_modules/playwright/index.mjs';
+import {envPort} from '../web/ports.js';
 const sharp=createRequire(new URL('../web/package.json',import.meta.url))('sharp');
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const library=JSON.parse(fs.readFileSync(path.join(root,'app/data/spatial/library.json'))),examples=JSON.parse(fs.readFileSync(path.join(root,'app/data/spatial/examples.json')));
 const output=path.join(root,'app/web/public/assets/spatial-examples');fs.mkdirSync(output,{recursive:true});
-const port=Number(process.env.SPATIAL_EXAMPLE_PREVIEW_PORT||5194);
+const port=envPort('SPATIAL_EXAMPLE_PREVIEW_PORT');
 const server=await createServer({root:path.join(root,'app/web'),configFile:path.join(root,'app/web/vite.config.js'),logLevel:'error',server:{host:'127.0.0.1',port,strictPort:true,hmr:false}});
 let browser;
 try{

@@ -1,5 +1,5 @@
 import { PARTS, partText, effectiveType } from '../domain/proposals/parts.js';
-import { P, S, C, IND, L, storyParts } from './catalog.js';
+import { P, S, C, IND, L, storyParts, SUB, SUBSCRIPTION_DB } from './catalog.js';
 import { reqText } from './search.js';
 import { LOCKED_FIX as LOCKED } from '../domain/slides/evidence.js';
 import { withRequirementSummary, taskRequirementContextText } from './requirement-summary.js';
@@ -20,6 +20,13 @@ export const AI_ERR = {
   rate_limited: 'AI 요청이 많아요. 잠시 뒤 다시 시도해 주세요.', invalid_json: 'AI 답을 읽지 못했어요. 다시 시도해 주세요.', invalid_output: 'AI 답에 쓸 수 있는 내용이 없었어요. 다시 시도해 주세요.',
   no_changes: '실제 변경안이 없어요. 다른 요소를 선택하거나 요구사항을 보완해 주세요.', cancelled: '취소했어요.', upstream_error: 'AI 응답을 받지 못했어요. 다시 시도해 주세요.',
 };
+/** Short digest of one question (prompt + attached images) — part of a step key, so a changed question is asked again. */
+function promptDigest(text, images) {
+  const value = String(text) + '\n' + (images || []).map((x) => (typeof x === 'string' ? x : JSON.stringify(x)).slice(0, 4096)).join('\n');
+  let h = 2166136261;
+  for (let i = 0; i < value.length; i++) h = Math.imul(h ^ value.charCodeAt(i), 16777619);
+  return (h >>> 0).toString(36) + value.length.toString(36);
+}
 /** Readable message for an askJson error code. */
 export const aiErrorText = (code) => AI_ERR[code] || AI_ERR.upstream_error;
 
@@ -28,15 +35,16 @@ export const aiErrorText = (code) => AI_ERR[code] || AI_ERR.upstream_error;
  * `validate(data)` decides whether the answer is usable; when it is not, the result is {ok:false, err:'invalid_output'} —
  * callers stop there (no canned items, no rule-made text).
  */
-export async function askJson(prompt, { tier = 'default', signal, onText, images, feature = 'llm', validate, responseSchema, stream } = {}) {
+export async function askJson(prompt, { tier = 'default', signal, onText, images, feature = 'llm', validate, responseSchema, stream, stepKey } = {}) {
   const sample = await getSample(feature);
   if (!sample) return { ok: false, err: 'unavailable' };
   let problem = '';
   for (let attempt = 0; attempt < 2; attempt++) {
     let data;
     try {
-      const o = { modelTier: tier, signal, onText, images, responseSchema, stream };
       const input = attempt ? prompt + '\n\n이전 응답 검증 오류: ' + problem + '\n내용을 새로 지어내지 말고 위 자료를 바탕으로 이 오류를 고친 JSON만 다시 답하세요.' : prompt;
+      // stepKey: a step of resumable work — the server keeps its answer (same step + same question → the recorded answer)
+      const o = { modelTier: tier, signal, onText, images, responseSchema, stream, ...(stepKey ? { stepKey: stepKey + ':' + (attempt ? 'r' + attempt + ':' : '') + promptDigest(input, images) } : {}) };
       data = await sample.json(input, o);
     } catch (e) {
       return { ok: false, err: signal?.aborted ? 'cancelled' : e?.code || 'upstream_error', detail: e?.message, status: e?.status, text: e?.text };
@@ -55,11 +63,14 @@ export function ctxSummary(pr, purpose = 'strategy') {
   const prods = (pr.ctx.products || []).map((id) => P[id]).filter(Boolean).map((p) => `${p.name} (${p.model}, ${p.cat}, ${p.spec})`);
   const sols = (pr.ctx.solutions || []).map((id) => S[id]).filter(Boolean).map((s) => `${s.name} — ${s.desc}`);
   const cases = (pr.ctx.cases || []).map((id) => C[id]).filter(Boolean).map((c) => `${c.cust}: ${c.sub || c.title}${c.proof && c.proof.length ? ' · 성과: ' + c.proof.join('; ') : ''}`);
+  // 구독(서비스) — 연결한 것이 있을 때만 한 칸 더(이전 제안서의 글은 그대로)
+  const subs = (pr.ctx.subscriptions || []).map((id) => SUB[id]).filter(Boolean).map((x) => `${x.name} (${(SUBSCRIPTION_DB.types || {})[x.type] || '구독'})`);
   return [
     `제안서: ${pr.title}`, `고객사: ${pr.customer || '(미정)'}`, `업종: ${pr.ind && IND[pr.ind] ? IND[pr.ind].name : '(미정)'}`,
     taskRequirementContextText(pr, purpose),
     '--- 고객 요구사항 원문 ---', reqText(pr).slice(0, 5000),
     '--- 연결된 제품 ---', prods.join('\n') || '(없음)', '--- 연결된 솔루션 ---', sols.join('\n') || '(없음)', '--- 유관 사례 ---', cases.join('\n') || '(없음)',
+    ...(subs.length ? ['--- 연결된 구독 ---', subs.join('\n')] : []),
   ].join('\n');
 }
 const fence = (s) => `<<<DATA\n${s}\nDATA>>>`;
@@ -164,8 +175,8 @@ export async function aiFill(meta, blocks, pr, answers, opts = {}) {
 레이아웃 용도: ${meta.g}
 원래 샘플 고객: ${meta.sample || '(없음)'} → 실제 고객으로 바꿀 것
 ${focus ? '이번에 고칠 범위: ' + focus + '\n' : ''}규칙:
-- 각 텍스트 칸(i)의 역할(제목, 라벨, 수치, 설명)을 유지하고, 글자 수는 공백 포함 max를 넘기지 마세요.\n- 원본 텍스트는 배치 예시이며 고객 사실의 근거가 아닙니다. 예시 고객·날짜·수치·조건을 확인된 정보처럼 복사하지 말고 미확정 정보는 [확인 필요]로 표시하세요.\n- max가 10자 미만인 짧은 라벨은 가능하면 유지하고, 변경할 때는 max 이내의 짧은 명사로 씁니다.\n- 고객 맥락에 맞게 실제로 바뀌는 칸만 blocks에 넣으세요. 변경이 필요한 샘플 문구를 그대로 돌려주지 마세요.
-- 수치는 확인 정보나 근거 자료에 있을 때만 넣고, 없으면 [00] 같은 자리표시를 그대로 두세요. 출처 칸도 지어내지 마세요.
+- 각 텍스트 칸(i)의 역할(제목, 라벨, 수치, 설명)을 유지하고, 글자 수는 공백 포함 max를 넘기지 마세요.\n- 원본 텍스트는 배치 예시이며 고객 사실의 근거가 아닙니다. 예시 고객·날짜·수치·조건을 확인된 정보처럼 복사하지 말고, 확인되지 않은 정보는 쓰지 마세요.\n- max가 10자 미만인 짧은 라벨은 가능하면 유지하고, 변경할 때는 max 이내의 짧은 명사로 씁니다.\n- 고객 맥락에 맞게 실제로 바뀌는 칸만 blocks에 넣으세요. 변경이 필요한 샘플 문구를 그대로 돌려주지 마세요.
+- 수치는 확인 정보나 근거 자료에 있을 때만 넣습니다. 없으면 수치 없이 같은 뜻으로 쓰고, [00] · [확인 필요] 같은 자리표시를 새로 쓰거나 남기지 마세요(숫자만 들어가는 칸은 그대로 두면 됩니다 — 화면이 그 장을 숫자가 필요 없는 레이아웃으로 바꾸거나 칸을 비웁니다). 출처 칸도 지어내지 마세요.
 - 'CONFIDENTIAL' · '고객사 로고' 같은 고정 문구와 바꿀 필요 없는 칸은 빼고 답하세요.
 - kind가 있는 칸(제품 · 솔루션 · 사례 정보)은 근거 자료에 있는 그 항목의 공식 이름 · 모델 · 사양 · 기능 · 사례 내용으로만 바꾸고, 고객 맞춤 문장을 새로 쓰지 마세요. 맞는 항목이 없으면 그대로 두세요.
 - 칸마다 실제로 기대어 쓴 근거 자료의 id를 src에 넣으세요(S1 형식, 최대 3개). 근거 없이 일반 문구로 쓴 칸은 빈 배열.

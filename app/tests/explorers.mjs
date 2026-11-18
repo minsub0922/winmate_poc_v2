@@ -29,7 +29,7 @@ try{
  for(const [index,input]of scenarios.entries())tests.case(String(index+1).padStart(2,'0'),input.title,async d=>{
   await page.locator('.bsg-card[data-req="'+input.req+'"]').click();const list=page.getByRole('dialog').last();await list.waitFor();
   await list.getByRole('button',{name:input.title+' 상세 보기',exact:true}).click();
-  const dialog=page.locator('.modal.sbv');await dialog.waitFor();ok((await dialog.innerText()).includes(input.title),'scenario title shown');ok(await dialog.locator('.node').count()>0,'real storyboard shown');
+  const dialog=page.locator('.modal.sbv');await dialog.waitFor();ok((await dialog.innerText()).includes(input.title),'scenario title shown');ok(await dialog.locator('.sbs-th').count()>0&&await dialog.locator('.sbs-sheet .slide').count()===1,'sheets shown first');await dialog.getByRole('tab',{name:'Storyboard',exact:true}).click();await dialog.locator('.node').first().waitFor();ok(await dialog.locator('.node').count()>0,'real storyboard shown');
   await dialog.getByRole('button',{name:'닫기',exact:true}).first().click();await dialog.waitFor({state:'detached'});await list.getByRole('button',{name:'닫기',exact:true}).first().click();d.id=input.id;
  });
  const report=await tests.run();if(!report.meetsMinimum)bad=true;

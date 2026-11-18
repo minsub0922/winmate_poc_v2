@@ -1,14 +1,17 @@
-import React, { useEffect, useRef, useState, useLayoutEffect, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useLayoutEffect, useCallback, useId } from 'react';
 import { createPortal } from 'react-dom';
 import { mentionSearch } from '../services/search.js';
 import { refInfo, TYPE_LABEL, IND, S, P, C, CANVAS } from '../services/catalog.js';
 import { linkTags, configureLinkTags } from '../services/links.js';
 import { PARTS, REQ_LABEL } from '../domain/proposals/parts.js';
+import { PART_ICON_PATHS } from '../domain/templates/part_looks.js';
 import { Slide } from '../domain/slides/Slide.jsx';
 import { Thumb } from './Thumbs.jsx';
-import {NotificationHost} from './feedback-popup.jsx';
+import {NotificationHost,StatusSlot,useCoversStatusSlot} from './feedback-popup.jsx';
 import {notify} from '../services/notifications.js';
 import { TagChip, tagMeta, mentionThumbHtml, mentionShort, mentionTitle } from './tagcard.jsx';
+import { tableRows, tableMarkdown, isTextSeg } from '../domain/proposals/table-seg.js';
+import '../styles/mention-table.css';
 
 // ---------- icons ----------
 const PATHS = {
@@ -29,7 +32,14 @@ const PATHS = {
   building: 'M5 21V4h10v17 M15 9h4v12 M8 8h4 M8 12h4 M8 16h4 M3 21h18', users: 'M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M2 21c.8-4 3.6-6 7-6s6.2 2 7 6 M16 4a4 4 0 0 1 0 7 M18 15c2 .6 3.4 2.6 4 6',
   target: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z M12 11.5v1', funnel: 'M3 5h18l-7 8v6l-4 2v-8z', alert: 'M12 3l10 18H2z M12 10v5 M12 18v.5',
   gem: 'M6 4h12l3 5-9 11L3 9z M3 9h18 M9.5 9L12 20l2.5-11', trend: 'M3 17l6-6 4 4 8-8 M15 7h6v6', map: 'M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z M9 3v15 M15 6v15',
-  monitor: 'M3 4h18v12H3z M8 20h8 M12 16v4', list: 'M8 6h12 M8 12h12 M8 18h12 M4 6h.5 M4 12h.5 M4 18h.5', route: 'M6 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z M18 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4z M8 17h7a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h7',
+  monitor: 'M3 4h18v12H3z M8 20h8 M12 16v4',
+  stack: 'M7 2h10 M5 6h14 M5 10h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2z',
+  buildPlus: 'M3 21h12 M5 21V5a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v16 M8.5 7.5h2 M8.5 11.5h2 M8.5 15.5h2 M19 13v6 M16 16h6',
+  renew: 'M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8 M21 3v5h-5 M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16 M8 16H3v5',
+  medal: 'M7.21 15L2.66 7.14a2 2 0 0 1 .13-2.2L4.4 2.8A2 2 0 0 1 6 2h12a2 2 0 0 1 1.6.8l1.6 2.14a2 2 0 0 1 .14 2.2L16.79 15 M11 12L5.12 2.2 M13 12l5.88-9.8 M8 7h8 M12 12a5 5 0 1 0 0 10 5 5 0 0 0 0-10z M12 18v-2h-.5',
+  gauge: 'M12 14l4-4 M3.34 19a10 10 0 1 1 17.32 0',
+  rocket: 'M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0 M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5',
+  easel: 'M2 3h20 M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3 M7 21l5-5 5 5', list: 'M8 6h12 M8 12h12 M8 18h12 M4 6h.5 M4 12h.5 M4 18h.5', route: 'M6 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z M18 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4z M8 17h7a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h7',
   cube: 'M12 3l8 4.5v9L12 21l-8-4.5v-9z M12 12l8-4.5 M12 12v9 M12 12L4 7.5', layers: 'M12 3l9 5-9 5-9-5z M3 13l9 5 9-5', star: 'M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.5 2.9 1-6.1L3.2 9.5l6.1-.9z',
   shield: 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z M8.5 12l2.5 2.5 4.5-5', sliders: 'M4 6h10 M18 6h2 M4 12h4 M12 12h8 M4 18h12 M20 18h0 M16 4v4 M10 10v4 M18 16v4',
   calendar: 'M4 5h16v16H4z M4 10h16 M9 3v4 M15 3v4', coin: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M9 9.5c0-1.4 1.3-2 3-2s3 .7 3 2-1.5 1.8-3 2.2-3 .9-3 2.3 1.3 2 3 2 3-.6 3-2 M12 6v1.5 M12 16.5V18',
@@ -48,21 +58,13 @@ const PATHS = {
   history: 'M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8 M3 3v5h5 M12 7v5l4 2',
   pin: 'm16 3 5 5-4 1-4 4 1 3-2 2-6-6 2-2 3 1 4-4z M8 16l-5 5',
   form: 'M5 4h14v16H5z M8 8h8 M8 12h8 M8 16h5',
-  // 샘플 버티컬 시나리오 — 요구사항 타입 카드의 상징 아이콘 (REQ_TYPES[k].icon). buildPlus 외에는 Lucide(ISC):
-  // gallery-vertical-end · refresh-cw · medal · gauge · rocket · presentation
-  stack: 'M7 2h10 M5 6h14 M5 10h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2z',
-  buildPlus: 'M3 21h12 M5 21V5a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v16 M8.5 7.5h2 M8.5 11.5h2 M8.5 15.5h2 M19 13v6 M16 16h6',
-  renew: 'M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8 M21 3v5h-5 M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16 M8 16H3v5',
-  medal: 'M7.21 15L2.66 7.14a2 2 0 0 1 .13-2.2L4.4 2.8A2 2 0 0 1 6 2h12a2 2 0 0 1 1.6.8l1.6 2.14a2 2 0 0 1 .14 2.2L16.79 15 M11 12L5.12 2.2 M13 12l5.88-9.8 M8 7h8 M12 12a5 5 0 1 0 0 10 5 5 0 0 0 0-10z M12 18v-2h-.5',
-  gauge: 'M12 14l4-4 M3.34 19a10 10 0 1 1 17.32 0',
-  rocket: 'M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0 M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5',
-  easel: 'M2 3h20 M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3 M7 21l5-5 5 5',
   // My 템플릿 · 레이아웃 편집기
   user: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M4 21c1-4 4-6 8-6s7 2 8 6', undo: 'M9 14L4 9l5-5 M4 9h10a6 6 0 0 1 0 12h-3', redo: 'M15 14l5-5-5-5 M20 9H10a6 6 0 0 0 0 12h3',
   copy: 'M9 9h11v11H9z M5 15H4V4h11v1', front: 'M9 9h11v11H9z M4 15V4h11', back: 'M4 4h11v11H4z M9 20h11V9', type: 'M5 7V4h14v3 M12 4v16 M9 20h6',
   palette: 'M12 3a9 9 0 1 0 0 18c1 0 1.5-.8 1.5-1.5 0-1-.9-1.4-.9-2.3 0-.9.7-1.4 1.6-1.4H17a4 4 0 0 0 4-4c0-4.9-4-8.8-9-8.8z M7.5 11h.01 M10 7.5h.01 M14.5 7.5h.01',
   bold: 'M7 4h6a4 4 0 0 1 0 8H7z M7 12h7a4 4 0 0 1 0 8H7z', italic: 'M10 4h8 M6 20h8 M14 4l-4 16', alignL: 'M4 6h16 M4 10h10 M4 14h16 M4 18h10', alignC: 'M4 6h16 M7 10h10 M4 14h16 M7 18h10', alignR: 'M4 6h16 M10 10h10 M4 14h16 M10 18h10',
   parent: 'M4 4h16v16H4z M8 8h8v8H8z', move: 'M12 3v18 M3 12h18 M9 6l3-3 3 3 M9 18l3 3 3-3 M6 9l-3 3 3 3 M18 9l3 3-3 3', text: 'M5 6h14 M5 12h14 M5 18h9', refresh: 'M20 11a8 8 0 0 0-14.9-3.5 M4 5v3h3 M4 13a8 8 0 0 0 14.9 3.5 M20 19v-3h-3', wand: 'M15 4V2 M15 10V8 M11 6h2 M17 6h2 M3 21l12-12 M13 7l4 4',
+  ...PART_ICON_PATHS, // 관리자가 직접 만든 파트의 아이콘(pi-*, domain/templates/part_looks.js)
 };
 export function Icon({ name, size = 16, stroke = 2, className = '', title }) {
   return (
@@ -113,6 +115,7 @@ export function Modal({ title, sub, onClose, children, footer, size = '', labell
   const ref = useRef(null);
   const closeRef = useRef(onClose);
   closeRef.current = onClose;
+  const statusHere = useCoversStatusSlot(ref); // 화면의 작업 상태 자리(Storyboard 상단 바 가운데)를 덮으면 머리줄 가운데로 옮겨 온다
   useLayoutEffect(() => {
     const prev = document.activeElement;
     const me = {};
@@ -133,6 +136,7 @@ export function Modal({ title, sub, onClose, children, footer, size = '', labell
         {title != null && (
           <div className="mhead">
             <div style={{ minWidth: 0 }}><h2>{title}</h2>{sub && <p>{sub}</p>}</div>
+            {statusHere && <StatusSlot className="mhead-status" />}
             {headerActions ? <div className="mhead-actions">{headerActions}<button className="btn btn-ghost btn-icon x" onClick={onClose} aria-label="닫기"><Icon name="x" /></button></div>
               : <button className="btn btn-ghost btn-icon x" onClick={onClose} aria-label="닫기"><Icon name="x" /></button>}
           </div>
@@ -141,6 +145,30 @@ export function Modal({ title, sub, onClose, children, footer, size = '', labell
         {footer && <div className="mfoot">{footer}</div>}
       </div>
     </div>, document.body);
+}
+
+// ---------- disclosure ----------
+// One collapsible block — closed until its header button is pressed. `id` keeps what the user opened while the page stays loaded
+// (e.g. the same section on the next sheet); nothing is stored, so a reload starts collapsed again.
+const DISCLOSURE_OPEN = new Map();
+export function Disclosure({ title, icon = null, count = null, sub = null, defaultOpen = false, id = null, as: Tag = 'section', heading: Heading = 'h4', className = '', children }) {
+  const [open, setOpen] = useState(() => (id && DISCLOSURE_OPEN.has(id) ? DISCLOSURE_OPEN.get(id) : defaultOpen));
+  const bodyId = useId();
+  const toggle = () => { const next = !open; if (id) DISCLOSURE_OPEN.set(id, next); setOpen(next); };
+  return (
+    <Tag className={('disc ' + className + (open ? ' open' : '')).trim()}>
+      <Heading className="disc-h">
+        <button type="button" className="disc-toggle" aria-expanded={open} aria-controls={open ? bodyId : undefined} onClick={toggle}>
+          {icon && <Icon name={icon} size={14} />}
+          <span className="disc-t">{title}</span>
+          {count != null && <span className="num cnt">{count}</span>}
+          {sub && <span className="sub">{sub}</span>}
+          <Icon className="disc-chev" name={open ? 'chevU' : 'chevD'} size={14} />
+        </button>
+      </Heading>
+      {open && <div id={bodyId} className="disc-body">{children}</div>}
+    </Tag>
+  );
 }
 
 // ---------- chips ----------
@@ -224,20 +252,57 @@ function chipEl(ref) {
 }
 // 링크 태그(src/linktag.js)가 앱 제품 · 썸네일을 쓰도록 열어 둠
 configureLinkTags({ tag: () => ({ info: refInfo, thumb: mentionThumbHtml, short: mentionShort, title: mentionTitle }), data: () => ({ P, S, C }) });
+// 표 · 첨부 출처 (domain/proposals/table-seg.js): { t: 마크다운 표, table: true } → 편집칸 안의 진짜 표(칸마다 고칠 수 있고 통째로 뺄 수 있음),
+// { t: '[첨부] 파일명', src: 파일 id } → 그 파일에서 읽은 글 위의 작은 제목. 읽을 때는 다시 같은 세그먼트로 돌아간다.
+const TABLE_ROWS = 30; // 처음 그리는 행 수 — 나머지는 세그먼트에 그대로 있고 한 번 눌러 펼친다
+function tableRowEl(cells, head) {
+  const tr = document.createElement('tr');
+  for (const value of cells) { const cell = document.createElement(head ? 'th' : 'td'); cell.contentEditable = 'true'; cell.textContent = value; tr.appendChild(cell); }
+  return tr;
+}
+function tableEl(markdown) {
+  const rows = tableRows(markdown);
+  const box = document.createElement('div'); box.className = 'me-table'; box.contentEditable = 'false'; box.dataset.table = '1';
+  const scroll = document.createElement('div'); scroll.className = 'me-table-scroll';
+  const table = document.createElement('table'), body = document.createElement('tbody');
+  rows.slice(0, TABLE_ROWS + 1).forEach((cells, i) => body.appendChild(tableRowEl(cells, i === 0)));
+  table.appendChild(body); scroll.appendChild(table); box.appendChild(scroll);
+  box._rest = rows.slice(TABLE_ROWS + 1);
+  const button = (act, text, label) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'me-table-' + act; b.dataset.tableAct = act; b.tabIndex = -1; b.textContent = text; if (label) { b.title = label; b.setAttribute('aria-label', label); } return b; };
+  box.appendChild(button('x', '×', '표 빼기'));
+  if (box._rest.length) box.appendChild(button('more', `나머지 ${box._rest.length.toLocaleString()}행 펼치기`));
+  return box;
+}
+// 편집칸(contentEditable)은 태그 옆 · 줄 끝의 공백을 줄바꿈 없는 공백(U+00A0)으로 바꿔 둔다 — 쓴 사람이 넣은 글자가 아니라 편집 중에 생기는 것이다.
+// 그대로 저장하면 요구사항 원문에 보이지 않는 글자가 남아, 그 문장을 보통 공백으로 옮겨 적은 요약 인용이 원문과 맞지 않게 된다. 읽을 때 보통 공백으로 돌려 놓는다.
+const typedText = (s) => s.replace(/\u00a0/g, ' ');
+const cellValue = (n) => Array.from(n.childNodes).map((c) => (c.nodeType === 3 ? typedText(c.data) : c.nodeType === 1 ? (c.tagName === 'BR' ? '\n' : cellValue(c)) : '')).join('');
+const readTable = (box) => [...Array.from(box.querySelectorAll('tr')).map((tr) => Array.from(tr.cells).map(cellValue)), ...(box._rest || [])];
+function sourceEl(s) {
+  const sp = document.createElement('span'); sp.className = 'me-src'; sp.contentEditable = 'false'; sp.dataset.src = s.src; sp.dataset.t = s.t;
+  sp.innerHTML = '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l5 5v13H7z M14 3v5h5"/></svg>';
+  sp.appendChild(document.createTextNode(s.t.replace(/^\[첨부\]\s*/, '')));
+  return sp;
+}
 function renderSegs(el, segs) {
   el.innerHTML = '';
   for (const s of segs || []) {
     if (s.ref) el.appendChild(chipEl(s.ref));
     else if (s.link && linkTags) el.appendChild(linkTags.chip(s.t, s.link)); // { t: url, link: { title, site, img, ref } }
+    else if (s.table) el.appendChild(tableEl(s.t));
+    else if (s.src) el.appendChild(sourceEl(s));
     else el.appendChild(document.createTextNode(s.t));
   }
+  if (segs && segs.length && segs[segs.length - 1].table) el.appendChild(document.createTextNode('\n')); // 표 뒤에 커서를 둘 자리
 }
-function readSegs(el) {
+export function readSegs(el) {
   const out = [];
-  const push = (t) => { if (!t) return; const l = out[out.length - 1]; if (l && l.t != null && !l.link) l.t += t; else out.push({ t }); };
+  const push = (t) => { if (!t) return; const l = out[out.length - 1]; if (isTextSeg(l)) l.t += t; else out.push({ t }); };
   const walk = (n) => {
     for (const c of n.childNodes) {
-      if (c.nodeType === 3) push(c.data);
+      if (c.nodeType === 3) push(typedText(c.data));
+      else if (c.nodeType === 1 && c.dataset && c.dataset.table) out.push({ t: '\n' + tableMarkdown(readTable(c)) + '\n', table: true });
+      else if (c.nodeType === 1 && c.dataset && c.dataset.src) out.push({ t: c.dataset.t, src: c.dataset.src });
       else if (c.nodeType === 1 && c.dataset && c.dataset.link && linkTags) out.push({ t: c.dataset.link, link: linkTags.meta(c) });
       else if (c.nodeType === 1 && c.dataset && c.dataset.ref) out.push({ ref: c.dataset.ref });
       else if (c.nodeType === 1 && c.tagName === 'BR') push('\n');
@@ -261,7 +326,7 @@ export function MentionEditor({ value, onChange, onMention, placeholder, single 
   const detect = () => {
     const sel = window.getSelection(); if (!sel.rangeCount) return setM(null);
     const r = sel.getRangeAt(0); const n = r.startContainer;
-    if (n.nodeType !== 3 || !el.current.contains(n)) return setM(null);
+    if (n.nodeType !== 3 || !el.current.contains(n) || n.parentElement.closest('[data-table]')) return setM(null); // 표 칸 안은 글만
     const before = n.data.slice(0, r.startOffset);
     const mm = before.match(/(^|[\s(])@([^\s@]{0,20}(?: [^\s@]{0,14})?)$/);
     if (!mm) return setM(null);
@@ -290,12 +355,20 @@ export function MentionEditor({ value, onChange, onMention, placeholder, single 
       if (!single) document.execCommand('insertText', false, '\n');
     }
   };
-  const onPaste = (e) => { e.preventDefault(); const t = e.clipboardData.getData('text/plain'); if (linkTags && linkTags.paste(t, el.current, single, emit, onMention)) return; document.execCommand('insertText', false, single ? t.replace(/\n+/g, ' ') : t); };
+  const inTable = (n) => !!(n && n.closest && n.closest('[data-table]'));
+  const onPaste = (e) => { e.preventDefault(); const t = e.clipboardData.getData('text/plain'); if (!inTable(e.target) && linkTags && linkTags.paste(t, el.current, single, emit, onMention)) return; document.execCommand('insertText', false, single ? t.replace(/\n+/g, ' ') : t); };
+  // 표의 × · 「나머지 행 펼치기」 — 표는 편집칸 DOM이라 여기서 받아 처리하고 세그먼트를 다시 읽는다
+  const onTableAct = async (b) => {
+    const box = b.closest('[data-table]'); if (!box) return;
+    if (b.dataset.tableAct === 'more') { const body = box.querySelector('tbody'); for (const cells of box._rest || []) body.appendChild(tableRowEl(cells, false)); box._rest = []; b.remove(); return; }
+    if (!(await confirmDelete({ title: '표를 뺄까요?', message: '자유형식에서 이 표를 지웁니다.', confirmLabel: '빼기' }))) return;
+    box.replaceWith(document.createTextNode('\n')); emit(); // 표가 나누던 앞뒤 글이 한 줄로 붙지 않게
+  };
   return (
     <div className="mention-editor">
       <div ref={el} id={id} className={'me-area' + (single ? ' single' : '')} contentEditable suppressContentEditableWarning role="textbox" aria-multiline={!single} aria-label={label || placeholder} aria-describedby={describedBy}
         data-ph={placeholder} onInput={() => { emit(); detect(); }} onKeyDown={onKeyDown} onKeyUp={(e) => { if (!['ArrowDown', 'ArrowUp', 'Enter', 'Tab', 'Escape'].includes(e.key)) detect(); }}
-        onClick={detect} onBlur={() => setTimeout(() => setM(null), 120)} onPaste={onPaste}
+        onClick={(e) => { const b = e.target.closest && e.target.closest('[data-table-act]'); if (b && el.current.contains(b)) { e.preventDefault(); onTableAct(b); } else detect(); }} onBlur={() => setTimeout(() => setM(null), 120)} onPaste={onPaste}
         onMouseOver={peek ? (e) => { const c = e.target.closest && e.target.closest('.mention[data-ref]'); if (c && el.current.contains(c) && !m) peek.show(c.dataset.ref, c); } : undefined}
         onMouseOut={peek ? (e) => { const c = e.target.closest && e.target.closest('.mention[data-ref]'); if (c && !(e.relatedTarget && c.contains(e.relatedTarget))) peek.hide(e); } : undefined} />
       {m && <MentionMenu {...mentionOptions} query={m.q} anchor={m.anchor} onPick={pick} onClose={() => setM(null)} activeRef={menuKeys} exclude={exclude} />}
@@ -359,12 +432,13 @@ export function LayoutMeta({ l, compact = false, peek }) {
 export function useHoverCard() {
   const [hc, setHc] = useState(null);
   const t = useRef(null);
-  const show = useCallback((l, el) => { clearTimeout(t.current); t.current = setTimeout(() => { const r = el.getBoundingClientRect(); setHc({ l, r }); }, 260); }, []);
+  // o: 카드가 보여 주는 내용 그대로 — { ov, pageNo }(채워진 장) · { render(width) }(카드와 같은 컴포넌트를 크게). 없으면 빈 레이아웃 원본.
+  const show = useCallback((l, el, o) => { clearTimeout(t.current); t.current = setTimeout(() => { const r = el.getBoundingClientRect(); setHc({ l, r, o: o || null }); }, 260); }, []);
   const hide = useCallback(() => { clearTimeout(t.current); setHc(null); }, []);
-  const node = hc ? <HoverCard l={hc.l} r={hc.r} /> : null;
+  const node = hc ? <HoverCard l={hc.l} r={hc.r} o={hc.o} /> : null;
   return { show, hide, node };
 }
-function HoverCard({ l, r }) {
+function HoverCard({ l, r, o }) {
   const ref = useRef(null);
   const [height, setHeight] = useState(0);
   const W = Math.min(720, window.innerWidth - 24);
@@ -374,9 +448,8 @@ function HoverCard({ l, r }) {
   return createPortal(
     <div ref={ref} className="hovercard" style={{ left, top, width: W }} role="tooltip">
       <div style={{ display: 'flex', gap: "var(--space-8px)", alignItems: 'baseline' }}><b style={{ fontSize: "var(--text-15px)" }}>{l.name}</b></div>
-      <Slide f={l.f} width={W - 26} />
-      {l.hl && <div style={{ fontSize: "var(--text-12-5px)", color: 'var(--ink-2)' }}>예시 제목 · {l.hl}</div>}
-      <LayoutMeta l={l} compact />
+      {/* 미리보기는 카드에 들어 있는 장과 같아야 한다 — 채운 글 · 사진(ov) · 쪽 번호까지 그대로 크게 */}
+      {o && o.render ? o.render(W - 26) : <Slide f={l.f} ov={o && o.ov} pageNo={o && o.pageNo} width={W - 26} />}
     </div>, document.body);
 }
 

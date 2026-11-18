@@ -150,15 +150,14 @@
 .bp-sub > span b { color: var(--accent); font-weight: var(--weight-800); }
 .bp-sub em { flex-shrink: 0; font-style: normal; font-size: var(--text-10-5px); font-weight: var(--weight-700); line-height: var(--leading-16px); padding: 0 var(--space-5px); border-radius: var(--radius-4px); background: var(--accent-soft); color: var(--accent); }
 .bp-x { flex-shrink: 0; }
+.bp-actions { display: flex; align-items: center; gap: var(--space-6px); flex-shrink: 0; }
 .bp-body { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: var(--space-14px) var(--space-16px) var(--space-18px); display: flex; flex-direction: column; gap: var(--space-14px); background: var(--bg); }
-.bp-intro { margin: 0; font-size: var(--text-12-5px); line-height: var(--leading-1-55); color: var(--muted); }
 .bp-body .panel { padding: var(--space-16px); }
 .bp-f { display: flex; align-items: center; gap: var(--space-8px); padding: var(--space-10px) var(--space-12px) var(--space-12px) var(--space-16px); border-top: var(--stroke-1px) solid var(--line); border-radius: 0 0 var(--radius-16px) var(--radius-16px); background: var(--surface); }
 .bp-f .sp { flex: 1; min-width: 0; }
 .bp-note { flex: 0 1 auto; min-width: 0; font-size: var(--text-12px); line-height: var(--leading-1-4); color: var(--muted); }
 /* 매칭 팝업 — 업종 칸을 팝업 폭에 맞춤 (탭 · 탐색 배치는 match-space.css) */
 .mt-body { gap: var(--space-18px); background: var(--surface); }
-.mt-body .cc-top { grid-template-columns: minmax(0, var(--measure-1fr)); }
 @container (max-width: 620px) {
   .bp-body .form-grid { grid-template-columns: minmax(0, var(--measure-1fr)); }
   .bp-body .km { grid-template-columns: minmax(0, var(--measure-1fr)); }

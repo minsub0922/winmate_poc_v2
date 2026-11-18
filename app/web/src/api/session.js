@@ -12,3 +12,8 @@ export function requireLogin() {
   if (!state.ready || !state.guest) return true;
   showLogin(); return false;
 }
+// Guests may browse everything but cannot take files away (PPTX · report · image · HTML exports).
+export function requireDownload() { return requireLogin(); }
+export function loginRequiredError() {
+  return Object.assign(new Error('로그인 후 파일을 받을 수 있어요.'), { code: 'login_required' });
+}

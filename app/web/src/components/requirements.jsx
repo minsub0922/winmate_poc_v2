@@ -1,34 +1,39 @@
 import {FeedbackPopup} from './feedback-popup.jsx';
-import { readAttachments } from '../services/attachments.js';
+import { extractAttachments, INLINE_MAX } from '../services/attachments.js';
 import { linkTags } from '../services/links.js';
-import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { planForFresh, modeLabel } from '../services/poc-client.js';
-import { startRfpJob, attachmentsText, clearRfpPending, usefulForm } from '../services/poc-workflows.js';
-import { isTerminal } from '../repositories/jobs.js';
-import { AgentJobControl, useOwnerJobs } from './AgentJobControl.jsx';
-import { update, uid, segRefs } from '../repositories/proposals.js';
+import React, { useState, useRef, useEffect } from 'react';
+import { update, uid, segRefs, getProposal } from '../repositories/proposals.js';
+import { readRequirementDraft, keepRequirementDraft, discardRequirementDraft } from '../repositories/requirement-drafts.js';
 import { DeleteButton, Icon, MentionEditor, RefChip, AddRefInput, Modal, toast } from './common.jsx';
-import { INDUSTRIES, IND, refInfo } from '../services/catalog.js';
+import { INDUSTRIES, IND, P, refInfo, dssKindOf } from '../services/catalog.js';
 import { inferIndustry, recommendContext, reqText } from '../services/search.js';
-import { aiExtract, aiErrorText } from '../services/ai.js';
-import { isReqSaved, reqSig, industryLabel } from './ctxconfirm.jsx';
+import { reqSig, industryLabel } from './ctxconfirm.jsx';
 import { BubblePopup } from './bubblepop.jsx';
 import { TagStrip } from './tagcard.jsx';
 import { useDetailPeek } from './reference-detail.jsx';
 import { HistoryReuse } from './history-reuse.jsx';
 import { ensureRequirementSummary } from '../services/requirement-summary.js';
+import { ensureMatchExtract } from '../services/match-extract.js';
+import { sourceDigest, savedRequirementSummary } from '../domain/proposals/requirement-summary.js';
+import { isTextSeg, segsText } from '../domain/proposals/table-seg.js';
 
 const KIND = [['products', 'product', '제품', 2], ['solutions', 'solution', '솔루션', 1], ['cases', 'case', '유관사례', 1]];
 export function refsOf(p) { return [...p.ctx.products.map((x) => 'product:' + x), ...p.ctx.solutions.map((x) => 'solution:' + x), ...p.ctx.cases.map((x) => 'case:' + x)]; }
+// 구독(subscription:<id>)은 p.ctx.subscriptions — 이전 제안서에는 없는 칸이라 처음 연결할 때 만든다
+const ctxKey = (t) => (t === 'product' ? 'products' : t === 'solution' ? 'solutions' : t === 'subscription' ? 'subscriptions' : 'cases');
 export function addRef(pid, ref) {
   const [t, id] = ref.split(':');
-  const k = t === 'product' ? 'products' : t === 'solution' ? 'solutions' : 'cases';
-  update(pid, (d) => { if (!d.ctx[k].includes(id)) d.ctx[k].push(id); });
+  const k = ctxKey(t);
+  update(pid, (d) => { d.ctx[k] = d.ctx[k] || []; if (!d.ctx[k].includes(id)) d.ctx[k].push(id); });
 }
 export function removeRef(pid, ref) {
   const [t, id] = ref.split(':');
-  const k = t === 'product' ? 'products' : t === 'solution' ? 'solutions' : 'cases';
-  update(pid, (d) => { d.ctx[k] = d.ctx[k].filter((x) => x !== id); });
+  const k = ctxKey(t);
+  update(pid, (d) => {
+    d.ctx[k] = (d.ctx[k] || []).filter((x) => x !== id);
+    // 솔루션 · 서비스로 보이는 제품 DB 행(지난 제안서가 제품으로 고른 것 — services/dss.js dssOf)은 제품 칸에서도 뺀다
+    if (t === 'solution' && d.ctx.products) d.ctx.products = d.ctx.products.filter((x) => !(P[x] && dssKindOf(P[x]) !== 'device' && (x === id || P[x].dssSame === id)));
+  });
 }
 export function lacking(p) { return KIND.filter(([k, , , min]) => p.ctx[k].length < min).map(([k]) => k); }
 
@@ -87,219 +92,172 @@ function IndustryPicker({ p }) {
         <option value="">{guess ? '자동 · ' + IND[guess].name : '업종 선택'}</option>
         {INDUSTRIES.map((i) => <option key={i.code} value={i.code}>{i.name}</option>)}
       </select>
-      <span className="faint" style={{ fontSize: "var(--text-11-5px)" }}>업종에 맞춘 레이아웃 · 제품 · 사례를 먼저 추천해요</span>
     </div>
   );
 }
 
-// ---------- tabs ----------
-/** linked-state helpers for tags written in the requirements */
-const linkedIn = (p) => (r) => { const [t, id] = r.split(':'); const k = t === 'product' ? 'products' : t === 'solution' ? 'solutions' : 'cases'; return p.ctx[k].includes(id); };
-const relink = (p) => (r) => { addRef(p.id, r); toast(refInfo(r).label + ' 다시 연결했어요'); };
-
-function FreeTab({ p, peek }) {
-  const tags = segRefs(p.req.free);
-  return (
-    <div className="panel">
-      <div className="hint"><Icon name="info" size={14} /><span>고객이 한 말, 메일, 회의 메모를 그대로 붙여 넣어도 돼요. <b>@</b>를 입력하면 제품 · 솔루션 · 유관사례를 바로 찾아 연결하고, 링크를 붙여 넣으면 제목 · 썸네일로 태그돼요.</span></div>
-      <MentionEditor id="free-ed" label="자유형식 요구사항" value={p.req.free} placeholder="예) 전국 320개 매장 메뉴판을 디지털로 바꾸고 싶다. 본사에서 한 번에 바꾸는 구조… @QM55C"
-        onChange={(segs) => update(p.id, (d) => { d.req.free = segs; })} onMention={(r) => addRef(p.id, r)} peek={peek} />
-      <div className="faint" style={{ fontSize: "var(--text-12px)" }}>{reqText({ req: { free: p.req.free } }).length}자 · 태그 {new Set(tags).size}개</div>
-      <TagStrip refs={tags} peek={peek} title="본문에서 태그한 제품 · 솔루션 · 유관사례" linkedOf={linkedIn(p)} onLink={relink(p)} className="req-tags" />
-    </div>
-  );
-}
-
-function FormTab({ p, peek }) {
-  const f = p.req.form;
-  const set = (fn) => update(p.id, (d) => fn(d.req.form, d));
-  const sum = (f.keymen || []).reduce((a, k) => a + Number(k.weight || 0), 0);
-  return (
-    <div className="panel">
-      <div className="form-grid">
-        {[['project', '프로젝트명', '예) 전국 매장 디지털 메뉴보드 전환'], ['customer', '고객사', '예) A 커피 프랜차이즈'], ['target', '최종 제안대상', '예) 운영본부장']].map(([k, l, ph]) => (
-          <div className="field" key={k}><label htmlFor={'f-' + k}>{l}</label>
-            <input id={'f-' + k} className="input" value={f[k] || ''} placeholder={ph} onChange={(e) => { const v = e.target.value; set((ff, d) => { ff[k] = v; if (k === 'customer') d.customer = v; if (k === 'project' && (!d.title || d.title === '새 제안서')) d.title = v; }); }} />
-          </div>
-        ))}
-      </div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: "var(--space-10px)" }}>
-        <span style={{ fontWeight: "var(--weight-700)", fontSize: "var(--text-14px)" }}>키맨별 요구사항</span>
-        <span className={'wsum num' + (sum !== 100 ? ' bad' : '')}>가중치 합 {sum}%</span>
-        <span style={{ flex: 1 }} />
-        <button className="btn btn-soft btn-sm" onClick={() => set((ff) => { ff.keymen.push({ id: uid('k'), name: '', weight: 0, reqs: [[]] }); })}><Icon name="plus" size={14} />키맨 추가</button>
-      </div>
-      <div className="hint"><Icon name="info" size={14} />요구사항을 한 줄에 하나씩 나눠 적으면 Storyboard 추천과 AI 채우기가 더 정확해져요. 여기서도 @로 제품 · 솔루션 · 유관사례를 연결하고, 링크를 붙여 넣으면 제목 · 썸네일로 태그돼요.</div>
-      {(f.keymen || []).map((k, ki) => (
-        <div className="km" key={k.id}>
-          <div className="km-side">
-            <label className="sr" htmlFor={'km-' + k.id}>키맨 직책</label>
-            <input id={'km-' + k.id} className="input" style={{ fontWeight: "var(--weight-700)" }} value={k.name} placeholder="키맨 · 예) 대표이사" onChange={(e) => { const v = e.target.value; set((ff) => { ff.keymen[ki].name = v; }); }} />
-            <span className="weight"><label htmlFor={'kw-' + k.id}>가중치</label><input id={'kw-' + k.id} className="input" inputMode="numeric" value={k.weight} onChange={(e) => { const v = e.target.value.replace(/[^\d]/g, '').slice(0, 3); set((ff) => { ff.keymen[ki].weight = Number(v || 0); }); }} />%</span>
-            {f.keymen.length > 1 && <DeleteButton className="btn btn-ghost btn-sm btn-danger" style={{ alignSelf: 'flex-start' }} onClick={() => set((ff) => { ff.keymen.splice(ki, 1); })}><Icon name="trash" size={14} />키맨 빼기</DeleteButton>}
-          </div>
-          <div className="km-reqs">
-            {(k.reqs || []).map((r, ri) => (
-              <div className="km-req" key={ri}>
-                <span className="n">{ri + 1}</span>
-                <MentionEditor single label={(k.name || '키맨') + ' 요구사항 ' + (ri + 1)} value={r} placeholder="요구사항 · 예) 에너지 사용량 20% 절감" onChange={(segs) => set((ff) => { ff.keymen[ki].reqs[ri] = segs; })} onMention={(ref) => addRef(p.id, ref)} peek={peek} />
-                <DeleteButton className="btn btn-ghost btn-sm btn-icon" aria-label={'요구사항 ' + (ri + 1) + ' 빼기'} onClick={() => set((ff) => { ff.keymen[ki].reqs.splice(ri, 1); if (!ff.keymen[ki].reqs.length) ff.keymen[ki].reqs.push([]); })}><Icon name="x" size={13} /></DeleteButton>
-                <TagStrip refs={segRefs(r)} peek={peek} size="sm" className="km-tags" linkedOf={linkedIn(p)} onLink={relink(p)} />
-              </div>
-            ))}
-            <button className="btn btn-ghost btn-sm" style={{ alignSelf: 'flex-start', color: 'var(--accent)' }} onClick={() => set((ff) => { ff.keymen[ki].reqs.push([]); })}><Icon name="plus" size={13} />요구사항</button>
-          </div>
-        </div>
-      ))}
-      <div className="field"><label htmlFor="f-note">제작자 의견 <span className="faint" style={{ fontWeight: "var(--weight-500)" }}>· 고객 문서에는 들어가지 않아요</span></label>
-        {/* 세그먼트는 noteSegs, 글은 note(문자열 — reqText · AI가 읽음)에 같이 저장. 다른 곳에서 note만 바뀌면 글을 그대로 보여 줌 */}
-        <div className="note-ed">
-          <MentionEditor id="f-note" label="제작자 의견" value={f.noteSegs && linkTags && linkTags.text(f.noteSegs) === (f.note || '') ? f.noteSegs : f.note ? [{ t: f.note }] : []}
-            placeholder="제안 방향 · 강조할 점 — @로 제품 · 솔루션 · 유관사례 연결, 링크를 붙여 넣으면 바로 태그돼요"
-            onChange={(segs) => set((ff) => { ff.noteSegs = segs; ff.note = linkTags ? linkTags.text(segs) : segs.map((x) => x.t || '').join(''); })} onMention={(ref) => addRef(p.id, ref)} peek={peek} />
-          <TagStrip refs={segRefs(f.noteSegs)} peek={peek} size="sm" className="km-tags" linkedOf={linkedIn(p)} onLink={relink(p)} />
-        </div>
-      </div>
-      <span className="faint" style={{ fontSize: "var(--text-11-5px)" }}>모두 선택 항목이에요 · 비어 있어도 다음 단계로 갈 수 있어요</span>
-    </div>
-  );
-}
-
-const FKIND = { pdf: 'pdf', ppt: 'ppt', pptx: 'ppt', doc: 'doc', docx: 'doc', hwp: 'doc', hwpx: 'doc', xls: 'xls', xlsx: 'xls', csv: 'xls', eml: 'mail', msg: 'mail' };
-const hasInput = (p) => {
-  const f = p.req.form || {};
-  return (p.req.free || []).some((s) => (s.t && s.t.trim()) || s.ref)
-    || !!(f.project || f.customer || f.target)
-    || (f.keymen || []).some((k) => (k.name || '').trim() || (k.reqs || []).some((r) => r.length));
+// ---------- draft ----------
+// What the popup edits. Nothing here reaches the proposal store until 저장 — typing, attaching and 이전 불러오기 change the
+// draft only, so no save and no summary happens while writing. One draft per proposal is kept for this tab: closing the
+// popup by accident and opening it again shows what was typed. It is dropped when saved, or when the saved
+// requirements changed underneath it (another tab · 시뮬레이션 등).
+const draftSubs = new Set();
+const notifyDraft = (id) => { for (const f of draftSubs) f(id); };
+const blankForm = () => ({ project: '', customer: '', target: '', keymen: [{ id: uid('k'), name: '', weight: 100, reqs: [[]] }], note: '' });
+const filled = (v) => (Array.isArray(v) ? v.some((s) => (s.t && s.t.trim()) || s.ref) : !!String(v || '').trim());
+/** Merge neighbouring text and drop empty text — the shape MentionEditor reads back. */
+const tidySegs = (segs) => {
+  const out = [];
+  for (const s of segs || []) { if (!isTextSeg(s)) out.push(s); else if (s.t) { const l = out[out.length - 1]; if (isTextSeg(l)) out[out.length - 1] = { t: l.t + s.t }; else out.push({ t: s.t }); } }
+  return out;
 };
-const filesText = (files) => files.filter((f) => (f.text || '').trim() || (f.memo || '').trim()).map((f) => `# ${f.name}\n${f.memo || ''}\n${f.text || ''}`).join('\n\n');
+/** b under a, one empty line between them. */
+const joinSegs = (a, b) => {
+  const text = segsText(a);
+  return tidySegs([...a, ...(!text.trim() || !b.length ? [] : [{ t: text.endsWith('\n\n') ? '' : text.endsWith('\n') ? '\n' : '\n\n' }]), ...b]);
+};
+/**
+ * 입력 폼(자유형식만 남기기 전의 방식 · 샘플 버티컬 시나리오)에 적힌 내용 → 읽을 수 있는 글. 태그는 태그로 남는다.
+ * head = 프로젝트 · 고객사 · 제안대상 줄, tail = 키맨별 요구사항(가중치 포함) · 제작자 의견.
+ */
+export function formSegs(form) {
+  const f = form || {}, head = [], tail = [];
+  const put = (into, value) => { for (const s of Array.isArray(value) ? value : [{ t: String(value) }]) into.push(isTextSeg(s) ? { t: s.t } : { ...s }); };
+  for (const [label, key] of [['프로젝트', 'project'], ['고객사', 'customer'], ['최종 제안대상', 'target']]) if (filled(f[key])) put(head, label + ': ' + String(f[key]).trim() + '\n');
+  const keymen = (f.keymen || []).filter((k) => filled(k.name) || (k.reqs || []).some(filled));
+  if (keymen.length) {
+    put(tail, '키맨별 요구사항\n');
+    for (const k of keymen) {
+      put(tail, '■ ' + (String(k.name || '').trim() || '키맨') + (k.weight != null && k.weight !== '' ? ' (가중치 ' + Number(k.weight) + '%)' : '') + '\n');
+      for (const r of (k.reqs || []).filter(filled)) { put(tail, '- '); put(tail, r); put(tail, '\n'); }
+    }
+  }
+  const note = f.noteSegs && linkTags.text(f.noteSegs) === (f.note || '') ? f.noteSegs : f.note;
+  if (filled(note)) { put(tail, (tail.length ? '\n' : '') + '제작자 의견\n'); put(tail, note); put(tail, '\n'); }
+  return { head: tidySegs(head), tail: tidySegs(tail) };
+}
+/** Requirements of a proposal as one free-form text: its free text, with whatever the old form holds folded around it. */
+function foldReq(req) {
+  const { head, tail } = formSegs(req.form);
+  const free = structuredClone(req.free || []);
+  return { folded: head.length + tail.length > 0, free: joinSegs(joinSegs(head, free), tail) };
+}
+function getDraft(p) {
+  const kept = readRequirementDraft(p.id), base = reqSig(p);
+  if (kept && kept.base === base) return kept;
+  const draft = { base, ...foldReq(p.req), files: structuredClone(p.req.files || []), customer: p.customer || (p.req.form && p.req.form.customer) || '', meta: null, reading: kept?.reading || 0 };
+  keepRequirementDraft(p.id, draft);
+  return draft;
+}
+function patchDraft(id, fn) {
+  const draft = readRequirementDraft(id);
+  if (!draft) return;
+  keepRequirementDraft(id, { ...draft, ...fn(draft) });
+  notifyDraft(id);
+}
+function useDraft(p) {
+  const [, bump] = useState(0);
+  useEffect(() => { const f = (id) => { if (id === p.id) bump((n) => n + 1); }; draftSubs.add(f); return () => { draftSubs.delete(f); }; }, [p.id]);
+  const draft = getDraft(p);
+  return [draft, (fn) => patchDraft(p.id, fn), draft.reading > 0];
+}
+/** Tags written in the requirements: @제품 · @솔루션 · @유관사례, and pasted links that matched a catalog item. */
+const taggedRefs = (segs) => [...new Set([...segRefs(segs), ...(segs || []).map((s) => s.link && s.link.ref).filter(Boolean)])].filter((r) => /^(product|solution|case):/.test(r));
 
-// Attachments: compact name chips; details behind a small "!" button. Requirements are read from the files automatically —
-// straight into the form when it is empty, after a "덮어쓰시겠습니까?" check when something is already written.
-function FilesTab({ p }) {
+// ---------- attachments ----------
+const FKIND = { pdf: 'pdf', ppt: 'ppt', pptx: 'ppt', doc: 'doc', docx: 'doc', hwp: 'doc', hwpx: 'doc', xls: 'xls', xlsx: 'xls', xlsm: 'xls', csv: 'xls', tsv: 'xls', eml: 'mail', msg: 'mail' };
+const TOTAL_MAX = 150000; // characters the free-form text may hold after attaching — what does not fit stays with the attachment
+const num = (n) => Number(n || 0).toLocaleString();
+/** What happened to an attachment, in one line (chip tooltip · info panel · the note under the chips). */
+function fileState(f) {
+  if (f.readError) return { bad: true, text: f.readError };
+  if (f.inlined && f.tailChars) return { part: true, text: `앞 ${num(f.inlineChars)}자만 자유형식에 넣었어요. 나머지 ${num(f.tailChars)}자는 첨부 원문으로 보관하고 요약에 그대로 반영해요.` };
+  if (f.inlined) return { text: `본문 ${num(f.inlineChars)}자를 자유형식에 넣었어요` };
+  if (f.tailChars) return { part: true, text: `자유형식이 길어 본문에 넣지 못했어요. ${num(f.tailChars)}자를 첨부 원문으로 보관하고 요약에 그대로 반영해요.` };
+  return f.text ? { text: `본문 ${num(f.extractedChars || f.text.length)}자 · 첨부 원문으로 요약에 반영해요` } : { bad: true, text: '본문을 읽을 수 없는 형식이에요. 내용을 직접 적어 주세요.' };
+}
+/** [start, end) of what was written under this attachment's heading: up to the next attachment heading or the end. */
+function sourceSpan(segs, id) {
+  const start = segs.findIndex((s) => s.src === id); if (start < 0) return null;
+  const next = segs.findIndex((s, i) => i > start && s.src);
+  return [start, next < 0 ? segs.length : next];
+}
+const untouched = (segs, f) => { const span = sourceSpan(segs, f.id); return !!(span && f.inlineKey && sourceDigest(segsText(segs.slice(span[0], span[1])).trimEnd()) === f.inlineKey); };
+/** Read files into the draft: their content goes into the free-form text under a heading per file. Keeps going if the popup closes. */
+async function attachFiles(pid, list) {
+  const files = Array.from(list || []); if (!files.length || !readRequirementDraft(pid)) return;
+  patchDraft(pid, draft => ({ reading: draft.reading + 1 }));
+  const done = [];
+  try {
+    for (const file of files) {
+      const draft = readRequirementDraft(pid); if (!draft) break;
+      const room = Math.max(0, Math.min(INLINE_MAX, TOTAL_MAX - segsText(draft.free).length));
+      let item;
+      try { [item] = await extractAttachments([file], { room }); }
+      catch (error) { item = { record: { id: uid('f'), name: file.name, size: file.size, type: (file.name.split('.').pop() || '').toLowerCase(), text: '', memo: '', readError: error.message || '파일 본문을 읽지 못했습니다.' }, segs: [] }; }
+      patchDraft(pid, (d) => ({ files: [...d.files, item.record], free: item.segs.length ? joinSegs(d.free, item.segs) : d.free }));
+      done.push(item.record);
+    }
+  } finally { patchDraft(pid, draft => ({ reading: Math.max(0, draft.reading - 1) })); }
+  // what was cut or could not be read stays written under the chips (fileState); the toast only says it happened
+  const bad = done.filter((f) => f.readError), ok = done.filter((f) => f.inlined);
+  if (ok.length) toast(ok.length > 1 ? `첨부 ${ok.length}개의 내용을 자유형식에 넣었어요` : '첨부 내용을 자유형식에 넣었어요');
+  if (bad.length) toast((bad.length > 1 ? `첨부 ${bad.length}개` : bad[0].name) + '의 본문을 읽지 못했어요', 'warn');
+}
+
+// Attachments: a drop area and compact name chips. What a file says is read at once (no model) into the free-form text
+// below — headings, lists and tables as they are — under a small heading per file. The chips stay as the list of files.
+function Files({ pid, draft, setDraft, reading }) {
   const [over, setOver] = useState(false);
   const [info, setInfo] = useState(null); // file id whose details are open
   const [full, setFull] = useState(false);
-  const [busy, setBusy] = useState(false);
-  const [ask, setAsk] = useState(null); // extracted data waiting for an overwrite answer
   const inp = useRef(null);
-  const pRef = useRef(p); pRef.current = p;
-  const run = useRef(0);
-  const memo0 = useRef('');
-  const fullRef = useRef({}); // file id → full text read this session (PDF · PPTX · DOCX can be longer than the stored excerpt)
-  const [fbNote, setFbNote] = useState(''); // why the original extraction ran although the server is configured (no key …)
-  const [pick, setPick] = useState(null); // requirement forms waiting for a choice / overwrite answer (server job or its fallback)
-  const seenPending = useRef(null);
-  const rfpJobs = useOwnerJobs('proposal', p.id, 'rfp');
-  const activeJob = rfpJobs.find((r) => !isTerminal(r.status));
-  const last = rfpJobs[0];
-  const failedJob = last && !last.hidden && (['error', 'lost'].includes(last.status) || (last.status === 'done' && last.outcome === 'failed')) ? last : null; // newest job failed → 다시 시도
-
-  const applyData = (d0, overwrite) => {
-    update(p.id, (d) => {
-      const f = d.req.form;
-      for (const k of ['project', 'customer', 'target']) if (d0[k] && (overwrite || !f[k])) f[k] = d0[k];
-      if (d0.customer && (overwrite || !d.customer)) d.customer = d0.customer;
-      if ((d0.note || '').trim() && (overwrite || !(f.note || '').trim())) { f.note = d0.note.trim(); f.noteSegs = [{ t: f.note }]; }
-      const km = (d0.keymen || []).filter((k) => k && (k.reqs || []).some(Boolean))
-        .map((k) => ({ id: uid('k'), name: k.name || '담당자', weight: Number(k.weight || 0), reqs: (k.reqs || []).filter(Boolean).map((r) => [{ t: String(r) }]) }));
-      if (km.length) f.keymen = overwrite ? km : [...(f.keymen || []).filter((x) => x.name || x.reqs.some((r) => r.length)), ...km];
-      if ((d0.summary || '').trim()) {
-        const seg = { t: '[첨부에서 읽음] ' + d0.summary.trim() };
-        d.req.free = overwrite || !(d.req.free || []).length ? [seg] : [...d.req.free, { t: '\n\n' + seg.t }];
-      }
+  const files = draft.files;
+  const cur = files.find((f) => f.id === info);
+  const patchFile = (id, fn) => setDraft((d) => ({ files: d.files.map((f) => (f.id === id ? { ...f, ...fn(f) } : f)) }));
+  // the text stays unless it is exactly what was read from the file — whatever the person wrote or changed is never removed
+  const remove = (f) => {
+    setDraft((d) => {
+      const span = sourceSpan(d.free, f.id);
+      const free = !span ? d.free : untouched(d.free, f) ? tidySegs([...d.free.slice(0, span[0]), ...d.free.slice(span[1])]) : tidySegs(d.free.map((s) => (s.src === f.id ? { t: s.t } : s)));
+      return { files: d.files.filter((x) => x.id !== f.id), free };
     });
+    if (info === f.id) setInfo(null);
   };
-  const extract = async (files) => {
-    const text = filesText(files);
-    if (!text.trim()) return;
-    const my = ++run.current;
-    setFbNote('');
-    // the server RFP pipeline (AI); its result comes back as choices (p.agent.rfpPending) — never written silently
-    const plan = await planForFresh('rfp');
-    if (my !== run.current) return;
-    if (!plan.job) { setFbNote(plan.note); return; }
-    if(files.some(f=>(f.extractedChars||0)>(f.text||'').length&&!fullRef.current[f.id])){setFbNote('긴 원문은 작업 카드의 다시 시도로 재실행하거나 파일을 다시 첨부하세요. 일부 본문으로 실행하지 않습니다.');return;}
-    const allText = attachmentsText(files, fullRef.current);
-    if (allText.trim().length >= 50) {
-      if (activeJob) { toast('첨부를 정리하는 작업이 이미 진행 중이에요'); return; }
-      setBusy(true); setAsk(null);
-      const sub = await startRfpJob(pRef.current, allText);
-      if (my !== run.current) return;
-      setBusy(false);
-      if (sub.ok) { toast('서버에서 첨부를 정리해요 · 다른 화면으로 가도 계속돼요'); return; }
-      setFbNote(sub.message);
-      return;
-    }
-    // a few words only (memo · very short text) — the RFP pipeline needs more, ask the model directly
-    setBusy(true); setAsk(null);
-    const r = await aiExtract(allText);
-    if (my !== run.current) return;
-    setBusy(false);
-    if (!r.ok) {
-      if (r.err === 'invalid_output') toast('첨부에서 요구사항을 찾지 못했어요. 파일의 ! 를 눌러 핵심 메모를 남기면 다시 읽어요', 'warn');
-      else setFbNote(aiErrorText(r.err));
-      return;
-    }
-    const data = r.data;
-    if (hasInput(pRef.current)) setAsk(data);
-    else { applyData(data, false); toast('첨부에서 읽은 요구사항을 입력 폼과 자유형식에 채웠어요'); }
-  };
-  const addFiles = async (list) => {
-    // PDF · PPTX · DOCX are always read in full (the whole text goes to the server)
-    const read = await readAttachments(list, { full: true, rich: true });
-    if (!read.length) return;
-    const arr = read.map(({ fullText, ...rec }) => { if (fullText && fullText.length > (rec.text || '').length) fullRef.current[rec.id] = fullText; return rec; });
-    update(p.id, (d) => { d.req.files.push(...arr); });
-    const all = [...pRef.current.req.files, ...arr];
-    if (filesText(all).trim()) extract(all);
-    else toast(arr.length + '개 파일을 붙였어요 · 본문을 읽을 수 없는 형식이라 ! 에서 핵심 메모를 남기면 요구사항을 읽어요');
-  };
-  const remove = (i, id) => { update(p.id, (d) => { d.req.files.splice(i, 1); }); if (info === id) setInfo(null); delete fullRef.current[id]; };
-  // a server result (or its visible fallback) arrived for this proposal — possibly while another screen was open
-  const pending = p.agent && p.agent.rfpPending;
-  const pendingKey = pending ? String(pending.jobId || pending.at || '') : null;
-  useEffect(() => {
-    if (!pending || seenPending.current === pendingKey) return;
-    seenPending.current = pendingKey;
-    const choices = (pending.choices || []).filter(usefulForm);
-    if (!choices.length) { clearRfpPending(p.id); toast('첨부에서 요구사항을 찾지 못했어요', 'warn'); return; }
-    if (choices.length === 1 && !hasInput(pRef.current)) {
-      applyData(choices[0], false); clearRfpPending(p.id);
-      toast('첨부에서 정리한 요구사항을 입력 폼과 자유형식에 채웠어요');
-      return;
-    }
-    setPick({ ...pending, choices, sel: 0 }); // several projects, or something is already written: the person decides
-  }, [pendingKey]);
-  const pickChoices = pending ? (pending.choices || []).filter(usefulForm) : [];
-  const cur = p.req.files.find((f) => f.id === info);
-  const ci = cur ? p.req.files.indexOf(cur) : -1;
-  const nReq = ask ? (ask.keymen || []).reduce((n, k) => n + ((k && k.reqs) || []).filter(Boolean).length, 0) : 0;
-
+  const notes = files.map((f) => [f, fileState(f)]).filter(([, s]) => s.bad || s.part);
   return (
     <div className="req-files">
-      <div className={'dropzone req-drop' + (p.req.files.length ? ' has' : '') + (over ? ' over' : '')} role="button" tabIndex={0}
-        aria-label={(p.req.files.length ? '파일 더 붙이기' : '첨부파일 붙이기') + ' — 눌러서 고르거나 파일을 끌어다 놓으세요'}
+      <div className={'dropzone req-drop' + (files.length ? ' has' : '') + (over ? ' over' : '')} role="button" tabIndex={0}
+        aria-label={(files.length ? '파일 더 붙이기' : '첨부파일 붙이기') + ' — 눌러서 고르거나 파일을 끌어다 놓으세요'}
         onClick={() => inp.current.click()}
         onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); inp.current.click(); } }}
-        onDragOver={(e) => { e.preventDefault(); setOver(true); }} onDragLeave={() => setOver(false)} onDrop={(e) => { e.preventDefault(); setOver(false); addFiles(e.dataTransfer.files); }}>
-        <Icon name="upload" size={16} />
-        <b>{p.req.files.length ? '파일 더 붙이기' : 'RFP · 회의록 · 메일 첨부'}</b>
-        <span className="dz-sub">{p.req.files.length ? '눌러서 고르거나 끌어다 놓기' : '눌러서 고르거나 끌어다 놓으면 요구사항을 자동으로 읽어 아래에 채워요'}</span>
+        onDragOver={(e) => { e.preventDefault(); setOver(true); }} onDragLeave={() => setOver(false)} onDrop={(e) => { e.preventDefault(); setOver(false); attachFiles(pid, e.dataTransfer.files); }}>
+        <Icon name="upload" size={18} />
+        <span className="dz-copy">
+          <b>{files.length ? '파일 더 붙이기' : 'RFP · 회의록 · 메일 첨부'}</b>
+          <span className="dz-sub">PPTX · DOCX · Excel · TXT — 내용과 표를 아래 자유형식에 그대로 넣어요</span>
+        </span>
       </div>
-      <input ref={inp} type="file" multiple hidden onChange={(e) => { addFiles(e.target.files); e.target.value = ''; }} />
-      {p.req.files.length > 0 && (
+      <input ref={inp} type="file" multiple hidden onChange={(e) => { attachFiles(pid, e.target.files); e.target.value = ''; }} />
+      {files.length > 0 && (
         <ul className="fchips" aria-label="첨부한 파일">
-          {p.req.files.map((f, i) => (
-            <li key={f.id} className={'fchip' + (info === f.id ? ' open' : '')}>
-              <span className={'fic k-' + (FKIND[f.type] || 'etc')} aria-hidden="true"><Icon name="file" size={14} /></span>
-              <span className="fchip-name" title={f.name}>{f.name}</span>
-              <button type="button" className="fchip-info" aria-label={f.name + ' 정보 보기'} aria-expanded={info === f.id} title="파일 정보" onClick={() => { setInfo(info === f.id ? null : f.id); setFull(false); }}>!</button>
-              <DeleteButton type="button" className="fchip-x" aria-label={f.name + ' 빼기'} title="빼기" onClick={() => remove(i, f.id)}><Icon name="x" size={11} stroke={2.6} /></DeleteButton>
-            </li>
-          ))}
+          {files.map((f) => {
+            const state = fileState(f);
+            return (
+              <li key={f.id} className={'fchip' + (info === f.id ? ' open' : '') + (state.bad ? ' bad' : state.part ? ' part' : '')}>
+                <span className={'fic k-' + (FKIND[f.type] || 'etc')} aria-hidden="true"><Icon name="file" size={14} /></span>
+                <span className="fchip-name" title={f.name}>{f.name}</span>
+                <button type="button" className="fchip-info" aria-label={f.name + ' 정보 보기'} aria-expanded={info === f.id} title={state.text} onClick={() => { setInfo(info === f.id ? null : f.id); setFull(false); }}>!</button>
+                <DeleteButton type="button" className="fchip-x" aria-label={f.name + ' 빼기'} title="빼기" onClick={() => remove(f)}
+                  confirmation={{ title: '첨부를 뺄까요?', confirmLabel: '빼기', message: !f.inlined ? '첨부 목록에서 이 파일을 뺍니다.' : untouched(draft.free, f) ? '이 파일과, 자유형식에 넣은 이 파일의 내용을 함께 뺍니다.' : '첨부 목록에서만 뺍니다. 자유형식에 넣은 내용은 고친 부분이 있어 그대로 둡니다.' }}>
+                  <Icon name="x" size={11} stroke={2.6} />
+                </DeleteButton>
+              </li>
+            );
+          })}
         </ul>
       )}
+      {notes.map(([f, s]) => <p key={f.id} className={'req-file-note' + (s.bad ? ' bad' : '')} role="note"><b>{f.name}</b> {s.text}</p>)}
       {cur && (
         <div className="finfo" role="region" aria-label={cur.name + ' 정보'}>
           <div className="finfo-h">
@@ -307,82 +265,17 @@ function FilesTab({ p }) {
             <b className="fname">{cur.name}</b>
             <button type="button" className="btn btn-ghost btn-sm btn-icon" aria-label="정보 닫기" onClick={() => setInfo(null)}><Icon name="x" size={13} /></button>
           </div>
-          <FeedbackPopup message={cur.readError}/>
-          <span className="fmeta num">{(cur.type || 'file').toUpperCase()} · {(cur.size / 1024).toFixed(0)} KB · {cur.text ? '본문 ' + cur.text.length.toLocaleString() + '자 읽음' : '본문을 읽을 수 없는 형식 · 메모로 핵심을 남겨 주세요'}</span>
-          <label className="sr" htmlFor={'fm-' + cur.id}>메모</label>
-          <input id={'fm-' + cur.id} className="input" style={{ minHeight: 30, height: 30, fontSize: "var(--text-12-5px)" }} value={cur.memo || ''} placeholder="이 파일의 핵심 메모 (예: 객실 300실 · 연회장 3) — 적으면 요구사항을 다시 읽어요"
-            onFocus={(e) => { memo0.current = e.target.value; }}
-            onChange={(e) => { const v = e.target.value; update(p.id, (d) => { if (d.req.files[ci]) d.req.files[ci].memo = v; }); }}
-            onBlur={(e) => { if (e.target.value.trim() && e.target.value !== memo0.current) extract(pRef.current.req.files); }}
-            onKeyDown={(e) => { if (e.key === 'Enter' && !e.nativeEvent.isComposing) e.currentTarget.blur(); }} />
-          {cur.text && <div className="fpre" style={full ? { maxHeight: 460 } : null}>{full ? cur.text : cur.text.slice(0, 1200)}</div>}
-          {cur.text && cur.text.length > 1200 && <button className="btn btn-ghost btn-sm" style={{ alignSelf: 'flex-start', color: 'var(--accent)' }} aria-expanded={full} onClick={() => setFull((v) => !v)}><Icon name={full ? 'x' : 'text'} size={13} />{full ? '원문 접기' : '원문 전체 보기 · ' + cur.text.length.toLocaleString() + '자'}</button>}
+          <span className="fmeta num">{(cur.type || 'file').toUpperCase()} · {(cur.size / 1024).toFixed(0)} KB · {fileState(cur).text}{cur.note ? ' · ' + cur.note : ''}</span>
+          {(cur.memo || cur.readError) && <>
+            <label className="sr" htmlFor={'fm-' + cur.id}>메모</label>
+            <input id={'fm-' + cur.id} className="input" style={{ minHeight: 30, height: 30, fontSize: "var(--text-12-5px)" }} value={cur.memo || ''} placeholder="이 파일의 핵심 메모 (예: 객실 300실 · 연회장 3)"
+              onChange={(e) => { const v = e.target.value; patchFile(cur.id, () => ({ memo: v })); }} />
+          </>}
+          {!cur.inlined && cur.text && <div className="fpre" style={full ? { maxHeight: 460 } : null}>{full ? cur.text : cur.text.slice(0, 1200)}</div>}
+          {!cur.inlined && cur.text && cur.text.length > 1200 && <button className="btn btn-ghost btn-sm" style={{ alignSelf: 'flex-start', color: 'var(--accent)' }} aria-expanded={full} onClick={() => setFull((v) => !v)}><Icon name={full ? 'x' : 'text'} size={13} />{full ? '원문 접기' : '원문 전체 보기 · ' + cur.text.length.toLocaleString() + '자'}</button>}
         </div>
       )}
-      <FeedbackPopup message={busy?"첨부 내용을 읽고 요구사항을 정리하는 중…":""} kind="progress"/>
-      {activeJob && <AgentJobControl id={activeJob.id} compact title="첨부 RFP 정리 (서버)" />}
-      {fbNote && !busy && !activeJob && (
-        <FeedbackPopup message={fbNote} actionLabel="다시 시도" onAction={()=>extract(pRef.current.req.files)}/>
-      )}
-      {!activeJob && !busy && !fbNote && failedJob && (
-        <FeedbackPopup message={failedJob.error?.message || failedJob.outcomeNote || "첨부 정리가 실패했어요."} actionLabel="다시 시도" onAction={()=>extract(pRef.current.req.files)}/>
-      )}
-      {pending && !pick && pickChoices.length > 0 && (
-        <button type="button" className="btn btn-soft btn-sm" style={{ alignSelf: 'flex-start' }} onClick={() => setPick({ ...pending, choices: pickChoices, sel: 0 })}>
-          <Icon name="form" size={13} />첨부에서 읽은 요구사항 확인{pickChoices.length > 1 ? ' · ' + pickChoices.length + '건' : ''}
-        </button>
-      )}
-      {pick && (() => {
-        const hi = hasInput(p);
-        const c = pick.choices[pick.sel] || pick.choices[0];
-        const m = pick.source === 'poc' ? modeLabel(pick.llm) : null;
-        const gr = pick.guards && typeof pick.guards.grounded_rate === 'number' ? Math.round(pick.guards.grounded_rate * 100) : null;
-        const finish = (overwrite) => { applyData(c, overwrite); clearRfpPending(p.id); setPick(null); toast(overwrite ? '고른 내용으로 덮어썼어요' : '고른 내용으로 채웠어요'); };
-        return (
-          <Modal size="wide" onClose={() => setPick(null)} title={pick.choices.length > 1 ? `첨부에서 사업 ${pick.choices.length}건을 찾았어요` : '덮어쓰시겠습니까?'}
-            sub={hi ? '이미 입력한 요구사항이 있어요. 고른 내용으로 덮어쓰거나, 비어 있는 칸만 채울 수 있어요.' : '하나를 고르면 입력 폼과 자유형식에 채워요.'}
-            footer={<>
-              <span className="note">{pick.source === 'poc' ? `서버 RFP 정리${m ? ' · ' + m.label : ''}${gr != null ? ' · 근거 인용 확인 ' + gr + '%' : ''}` : (pick.reason || 'AI가 첨부에서 읽었어요')}</span>
-              <span className="sp" />
-              <button className="btn" onClick={() => { clearRfpPending(p.id); setPick(null); toast('입력한 내용을 그대로 뒀어요'); }}>그대로 두기</button>
-              {hi && <button className="btn" onClick={() => finish(false)}>빈 칸만 채우기</button>}
-              <button className="btn btn-primary" data-autofocus onClick={() => finish(hi)}>{hi ? '덮어쓰기' : '고른 내용으로 채우기'}</button>
-            </>}>
-            <div className="rfp-choices" role="radiogroup" aria-label="첨부에서 읽은 사업">
-              {pick.choices.map((x, i) => {
-                const nk = (x.keymen || []).filter((k) => k && (k.reqs || []).some(Boolean)).length;
-                const nr = (x.keymen || []).reduce((s, k) => s + ((k && k.reqs) || []).filter(Boolean).length, 0);
-                return (
-                  <label key={i} className={'rfp-choice' + (i === pick.sel ? ' on' : '')}>
-                    <input type="radio" name="rfp-pick" checked={i === pick.sel} onChange={() => setPick({ ...pick, sel: i })} />
-                    <span className="c-t">
-                      <b>{[x.customer, x.project].filter(Boolean).join(' · ') || '사업 ' + (i + 1)}</b>
-                      <span className="c-m num">키맨 {nk}명 · 요구사항 {nr}개{x.target ? ' · 제안대상 ' + x.target : ''}</span>
-                      {(x.summary || '').trim() && <p className="c-s">{x.summary}</p>}
-                    </span>
-                  </label>
-                );
-              })}
-            </div>
-          </Modal>
-        );
-      })()}
-      {ask && (
-        <Modal onClose={() => setAsk(null)} title="덮어쓰시겠습니까?"
-          sub="이미 입력한 요구사항이 있어요. 첨부에서 읽은 내용으로 입력 폼과 자유형식을 덮어써요."
-          footer={<>
-            <span className="sp" />
-            <button className="btn" onClick={() => { setAsk(null); toast('입력한 내용을 그대로 뒀어요'); }}>그대로 두기</button>
-            <button className="btn btn-primary" data-autofocus onClick={() => { applyData(ask, true); setAsk(null); toast('첨부에서 읽은 내용으로 덮어썼어요'); }}>덮어쓰기</button>
-          </>}>
-          <div className="fx-sum">
-            <span className="lbl">첨부에서 읽은 내용</span>
-            {[ask.customer, ask.project, ask.target].filter(Boolean).length > 0 && <b style={{ fontSize: "var(--text-13-5px)" }}>{[ask.customer, ask.project, ask.target].filter(Boolean).join(' · ')}</b>}
-            {(ask.keymen || []).length > 0 && <span className="muted" style={{ fontSize: "var(--text-13px)" }}>키맨 <b className="num">{(ask.keymen || []).filter((k) => k && (k.reqs || []).some(Boolean)).length}</b>명 · 요구사항 <b className="num">{nReq}</b>개</span>}
-            {(ask.summary || '').trim() && <p>{ask.summary}</p>}
-          </div>
-        </Modal>
-      )}
+      <FeedbackPopup message={reading ? '첨부 내용을 읽어 자유형식에 넣는 중…' : ''} kind="progress" />
     </div>
   );
 }
@@ -393,7 +286,7 @@ export function SufficiencyModal({ p, onClose, onGo }) {
   const ind = p.ind || inferIndustry(reqText(p));
   return (
     <Modal size="wide" onClose={onClose} title={low.length ? '제품 · 솔루션 · 유관사례를 조금 더 채워 주세요' : '연결된 제품 · 솔루션 · 유관사례'}
-      sub={low.length ? '이 세 가지가 Storyboard 추천 · 레이아웃 추천 · AI 채우기의 근거가 돼요. 지금 상태로 진행해도 됩니다.' : '이대로 Storyboard를 만들어도 충분해요.'}
+      sub={low.length ? '지금 상태로 진행해도 됩니다.' : undefined}
       footer={<>
         <span className="note">{ind && IND[ind] ? '업종 · ' + IND[ind].name : '업종 미정'}</span><span className="sp" />
         <button className="btn" onClick={onGo}>이대로 진행</button>
@@ -422,54 +315,73 @@ export function SufficiencyModal({ p, onClose, onGo }) {
 }
 
 // ---------- popup (Storyboard 고객 요구사항 버블 오른쪽) ----------
-// The whole requirements editor lives in a popover to the right of the 고객 요구사항 bubble (bubblepop.jsx), so the proposal
-// is one screen (Storyboard). 저장 closes it at once and opens the 제품 · 솔루션 매칭 popup beside the next bubble.
+// The requirements editor lives in a popover to the right of the 고객 요구사항 bubble (bubblepop.jsx), so the proposal is one
+// screen (Storyboard). It is free-form only: attachments are read into the text, tags are @mentions. Editing changes a
+// draft (above); 저장 commits it, links every tagged 제품 · 솔루션 · 유관사례, starts the first summary in the background,
+// closes the popup at once and opens the 제품 · 솔루션 매칭 popup beside the next bubble. Later saves never summarise by
+// themselves — the summary card's 다시 요약 turns on instead.
+// Alongside the summary, 저장 also reads the saved text for 제품 · 솔루션 · 공간 written in plain words (not tagged) and links
+// them (services/match-extract.js) — while that runs the 매칭 card shows only a shimmer and 「매칭 추론 중」.
 export function ReqPopup({ p, onClose, onSaved }) {
   const peek = useDetailPeek(p); // hover on a tag (본문 @태그 · 태그 카드) → big detail card
-  const tab = p.reqTab === 'form' ? 'form' : 'free';
-  const filled = {
-    free: (p.req.free || []).some((s) => (s.t && s.t.trim()) || s.ref),
-    form: !!(p.req.form.project || p.req.form.customer || (p.req.form.keymen || []).some((k) => k.reqs.some((r) => r.length))),
-  };
-  const saved = isReqSaved(p);
+  const [draft, setDraft, reading] = useDraft(p);
   const close = () => { peek.hide(); onClose(); };
   const save = () => {
     peek.hide();
-    // 요구사항 단계 → 저장하면 제품 · 솔루션 매칭 버블이 생김
-    update(p.id, (d) => { d.reqSaved = reqSig(d); if (!d.parts.length && d.stage !== 'story') d.stage = 'match'; });
-    void ensureRequirementSummary(p.id);
+    const d0 = getDraft(getProposal(p.id) || p);
+    const saved = update(p.id, (d) => {
+      const form = d.req.form || {};
+      d.req.free = tidySegs(d0.free); d.req.files = d0.files;
+      if (d0.folded) { // the old form is now part of the text — empty it so nothing is read twice
+        if ((!d.title || d.title === '새 제안서') && filled(form.project)) d.title = String(form.project).trim();
+        d.req.form = blankForm();
+      }
+      d.customer = d0.customer.trim(); // seeded from the saved value, so untouched = unchanged
+      if (d0.meta) { d.ind = d0.meta.ind; d.indName = d0.meta.indName; }
+      if (d.agent && d.agent.rfpPending) d.agent = { ...d.agent, rfpPending: null }; // 첨부 → 입력 폼 선택(이전 방식)의 남은 대기 건은 더 묻지 않음
+      // 본문에 태그한 제품 · 솔루션 · 유관사례는 매칭에 자동으로 연결 (직접 연결한 것은 그대로)
+      for (const ref of taggedRefs(d0.free)) { const [t, id] = ref.split(':'); const k = t === 'product' ? 'products' : t === 'solution' ? 'solutions' : 'cases'; if (!d.ctx[k].includes(id)) d.ctx[k].push(id); }
+      // 요구사항 단계 → 저장하면 제품 · 솔루션 매칭 버블이 생김
+      d.reqSaved = reqSig(d); if (!d.parts.length && d.stage !== 'story') d.stage = 'match';
+    });
+    if (!saved) return; // not signed in (the login prompt is up) — keep the popup and the draft
+    discardRequirementDraft(p.id);
+    // the first summary only — a finished one waits for 다시 요약. If the first summary failed, saving retries it.
+    const now = getProposal(p.id);
+    void ensureRequirementSummary(p.id, { force: !!now && now.requirementSummary?.status === 'error' && !savedRequirementSummary(now) });
+    // 요약과 나란히: 원문에 글로 적힌 제품 · 솔루션 · 공간을 찾아 매칭에 넣는다(그동안 매칭 카드는 '매칭 추론 중')
+    void ensureMatchExtract(p.id);
     toast('고객 요구사항을 저장했어요');
     onSaved();
   };
-  const indSet = industryLabel(p);
-  const guess = indSet ? null : inferIndustry(reqText(p));
+  // 이전 불러오기: the chosen proposal's requirements replace the draft (its old form folded into the text); 저장 commits it
+  const load = (source) => setDraft(() => {
+    const ids = new Map();
+    const files = structuredClone(source.req.files || []).map((f) => { const id = uid('f'); ids.set(f.id, id); return { ...f, id }; });
+    return { free: foldReq(source.req).free.map((s) => (s.src ? { ...s, src: ids.get(s.src) || s.src } : s)), files, folded: true,
+      customer: source.customer || (source.req.form && source.req.form.customer) || '', meta: { ind: source.ind || null, indName: source.indName || null } };
+  });
+  const tags = segRefs(draft.free);
+  const guess = industryLabel(p) ? null : inferIndustry(reqText(p));
+  const industry = industryLabel(p) || (guess && IND[guess] ? IND[guess].name : '');
   return (
     <BubblePopup cls="rq" anchor=".start-node .node" icon={<Icon name="clip" size={17} />} title="고객 요구사항" onClose={close}
-      sub={<span className="bp-sub">
-        <b>{p.customer || '고객사 미정'}</b>
-        {indSet ? <span>{indSet}</span> : guess && IND[guess] ? <span>{IND[guess].name}<em>추론</em></span> : <span className="faint">업종 미정</span>}
+      sub={<span className="bp-sub rq-sub">
+        <input className="rq-customer" aria-label="고객사" placeholder="고객사 입력" value={draft.customer} size={Math.max(8, draft.customer.length * 2)} autoComplete="off" onChange={(e) => { const v = e.target.value; setDraft(() => ({ customer: v })); }} />
+        {industry && <span>{industry}</span>}
       </span>}
-      status={<span className={'req-saved' + (saved ? ' on' : '')}>{saved ? <><Icon name="check" size={13} stroke={2.6} />저장됨</> : p.reqSaved ? '바뀐 내용이 있어요' : '아직 저장 전'}</span>}
+      headerActions={<HistoryReuse p={p} kind="req" compact onApply={load} />}
       footer={<>
-        <span className="bp-note">고친 내용은 바로 반영돼요 · 저장하면 제품 · 솔루션 매칭으로 이어져요</span>
         <span className="sp" />
-        <button className="btn btn-primary" onClick={save}><Icon name="check" size={15} />저장</button>
+        <button className="btn btn-primary" onClick={save} disabled={reading}><Icon name="check" size={15} />저장</button>
       </>}>
-      <HistoryReuse p={p} kind="req" />
-      <p className="bp-intro">자료가 있으면 먼저 첨부하고, 자유형식이나 입력 폼으로 채우거나 보완하세요. 입력한 내용은 모두 Storyboard의 맥락이 돼요.</p>
       <section className="req-sec" aria-label="첨부파일">
-        <FilesTab p={p} />
+        <Files pid={p.id} draft={draft} setDraft={setDraft} reading={reading} />
       </section>
-      <section className="req-sec" aria-label="직접 입력">
-        <div className="tabs" role="tablist" aria-label="입력 방식">
-          {[['free', 'text', '자유형식'], ['form', 'form', '입력 폼']].map(([k, ic, l]) => (
-            <button key={k} role="tab" className="tab" aria-selected={tab === k} onClick={() => update(p.id, (d) => { d.reqTab = k; }, { touch: false })}>
-              <Icon name={ic} size={15} />{l}<span className={'dot' + (filled[k] ? ' on' : '')} aria-label={filled[k] ? '입력됨' : '비어 있음'} />
-            </button>
-          ))}
-        </div>
-        {tab === 'free' && <FreeTab p={p} peek={peek} />}
-        {tab === 'form' && <FormTab p={p} peek={peek} />}
+      <section className="req-sec req-free" aria-label="요구사항">
+        <MentionEditor id="free-ed" label="자유형식 요구사항" value={draft.free} placeholder="예) 전국 320개 매장 메뉴판을 디지털로 바꾸고 싶다. 본사에서 한 번에 바꾸는 구조… @QM55C"
+          onChange={(segs) => setDraft(() => ({ free: segs }))} peek={peek} />
+        <TagStrip refs={tags} peek={peek} title="본문에서 태그한 제품 · 솔루션 · 유관사례" className="req-tags" />
       </section>
       {peek.node}
     </BubblePopup>

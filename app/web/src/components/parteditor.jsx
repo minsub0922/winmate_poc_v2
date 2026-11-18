@@ -215,7 +215,7 @@ export function PartEditor({ p, part, onClose, isNew }) {
           <div className="pe-name-box" ref={boxRef}>
             <input id="pe-name" data-autofocus={isNew ? '' : undefined} className="input" autoComplete="off" role="combobox" aria-expanded={opts.length > 0} aria-controls="pe-sugs" aria-autocomplete="list"
               aria-activedescendant={sug.i >= 0 && opts[sug.i] ? 'pe-o-' + sug.i : undefined}
-              style={{ fontWeight: "var(--weight-700)", fontSize: "var(--text-15px)" }} value={name} placeholder="눌러서 기존 목차를 고르거나 직접 입력 · 예) 왜 지금 바꿔야 하나"
+              style={{ fontWeight: "var(--weight-700)", fontSize: "var(--text-15px)" }} value={name} placeholder="목차 이름 · 예) 왜 지금 바꿔야 하나"
               onChange={(e) => { setName(e.target.value); setType(labelType(e.target.value)); setSug({ open: true, i: -1 }); }}
               onClick={openList} onBlur={() => setTimeout(() => setSug({ open: false, i: -1 }), 120)} onKeyDown={onNameKey} />
             {listOpen && pos && createPortal(
@@ -246,12 +246,12 @@ export function PartEditor({ p, part, onClose, isNew }) {
         <label htmlFor="pe-text">내용</label>
         <div className="pe-text-box">
           <textarea id="pe-text" className="textarea pe-text" value={text} onChange={(e) => setText(e.target.value)}
-            placeholder={'한 줄에 하나씩 적어 주세요. 메모나 문장을 그대로 붙여 넣어도 돼요.\n\n예)\n' + ex.join('\n')} />
+            placeholder={'한 줄에 하나씩 · 예)\n' + ex.join('\n')} />
           <button type="button" className="btn btn-soft btn-sm pe-ai" onClick={suggest} disabled={busy} aria-busy={busy} title="이 목차에 넣을 내용을 AI가 제안해요">
             {busy ? <span className="spin" /> : <Icon name="sparkle" size={14} />}{busy ? '제안 중…' : 'AI 제안'}
           </button>
         </div>
-        <span className="pe-hint"><Icon name="info" size={13} /><span>{isFree ? '긴 문장은 문장 단위로 나눠서 써요' : '한 줄이 한 항목이 돼요 · 나눠 적을수록 레이아웃 추천과 AI 채우기가 정확해져요'}{items.length ? <b className="num"> · 지금 {items.length}개 항목</b> : null}</span></span>
+        {items.length ? <span className="pe-hint"><span><b className="num">{items.length}개 항목</b></span></span> : null}
       </div>
 
       {prop && (

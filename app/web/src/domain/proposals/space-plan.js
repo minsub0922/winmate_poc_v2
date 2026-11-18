@@ -1,15 +1,18 @@
 // 공간 구성 — Storyboard 제품 · 솔루션 매칭에서 고른 제품을 업종(버티컬)의 공간별로 묶는다. 순수 함수만 두고,
 // 자료(app/data/vertical_space_product.json: 버티컬 → 공간 → 배치 가능 제품군)는 부르는 쪽이 넘긴다.
-//   p.spacePlan = { v:1, vertical:{id,name,group}, title, summary, spaces:[{id,name,kind,note,products:[제품 id]}], at,
+//   p.spacePlan = { v:1, vertical:{id,name,group}, title, summary, spaces:[{id,name,kind,note,color?,products:[제품 id]}], at,
 //                   birdseye?:{status:'running'|'done'|'error', token, at, by?, historyId?, image?, rooms?, products?, skipped?, sig?, error?} }
 // 제품은 여러 공간에 둘 수 있고(같은 사이니지를 로비와 대기실에), 어느 공간에도 없으면 '미배치'다. 표시는 언제나 지금 연결된
 // 제품(p.ctx.products) 기준 — 매칭에서 뺀 제품은 사라지고, 새로 넣은 제품은 미배치로 보인다.
+// 공간 후보는 '연결된 제품 · 솔루션(DSS)을 하나 이상 담을 수 있는 공간'으로만 만든다(spaceFit) — 후보마다 공간 1~6개.
+// 공간 색(color)은 공간마다 따로 기억해, 공간을 넣고 빼도 남은 공간의 테두리 색이 바뀌지 않는다(withColors).
 
 /** 조감도(공간 스튜디오)의 공간 용도 — domain/spatial/studio-form.js SPACE_TYPES 와 같은 키 */
 export const SPACE_KINDS = ['reception', 'office', 'meeting', 'lounge', 'dining', 'kitchen', 'classroom', 'study', 'bedroom', 'medical', 'retail', 'warehouse', 'utility', 'theatre', 'fitness', 'outdoor'];
 /** 공간 테두리 색 개수(styles/match-space.css .spl-c0 … .spl-c7) */
 export const SPACE_COLORS = 8;
-export const MIN_SPACES = 2, MAX_SPACES = 8;
+/** 구성 하나의 공간 수 — 예전에 저장한 구성(최대 8개)은 그대로 열리고, 6개를 넘으면 더 넣을 수만 없다 */
+export const MIN_SPACES = 1, MAX_SPACES = 6;
 
 /** 자료 색인: 버티컬 · 공간 · 제품군 이름 · 그룹 이름 */
 export function indexTaxonomy(data) {
@@ -139,9 +142,45 @@ export function spacePool(index, verticalId) {
 
 /** 공간들 중 하나에라도 제품군이 들어가는 선택 제품 수 */
 export function fitCount(spaces, productIds, catsOf) {
-  const allowed = new Set(spaces.flatMap((s) => s.products || []));
+  const allowed = new Set(spaces.flatMap((s) => (s && s.products) || []));
   return productIds.filter((id) => catsOf(id).some((c) => allowed.has(c))).length;
 }
+
+// ---------- DSS가 들어가는 공간 ----------
+/**
+ * 앱 솔루션(catalog.json solutions) → 버티컬 자료의 제품군 id. 솔루션 분류(s_magic · s_vxt · s_stp …)와, 설비에 붙는 솔루션의
+ * 설비 제품군(콜드체인 · 중앙공조)까지. 자료에 짝이 없는 서비스 · 파트너 솔루션(케어 · 콘텐츠 제작 …)은 [] — 공간을 고르는 근거가 되지 않는다.
+ */
+export function solutionCats(s) {
+  if (!s) return [];
+  const t = [s.name, s.cat, ...(s.kw || [])].filter(Boolean).join(' ');
+  const out = new Set(productCats({ name: [s.name, ...(s.kw || [])].filter(Boolean).join(' ') }).filter((c) => c.startsWith('s_') || c.startsWith('sac_')));
+  if (/안전/.test(t) && /관제|알림/.test(t)) out.add('s_safety');
+  if (/SAC 제어|공조 제어/.test(t)) { out.add('s_dms'); out.add('s_touch'); out.add('s_wifi'); }
+  return [...out];
+}
+/** 지금 연결된 DSS의 제품군: { products:[[제품 id, 제품군[]]], solutions:[[솔루션 id, 제품군[]]] } — 제품군을 모르는 항목은 뺀다 */
+export function dssCats(productIds, solutionIds, catsOf, solCatsOf) {
+  const rows = (ids, f) => [...new Set(ids || [])].map((id) => [id, f(id) || []]).filter(([, c]) => c.length);
+  return { products: rows(productIds, catsOf), solutions: rows(solutionIds, solCatsOf) };
+}
+/** 이 공간이 담을 수 있는 연결 항목: { products:[제품 id], solutions:[솔루션 id] } (공간의 '배치 가능 제품군'에 그 항목의 제품군이 있다) */
+export function spaceFit(space, dss) {
+  const allowed = new Set((space && space.products) || []);
+  const hit = (rows) => rows.filter(([, cats]) => cats.some((c) => allowed.has(c))).map(([id]) => id);
+  return { products: hit(dss.products), solutions: hit(dss.solutions) };
+}
+/**
+ * 후보에 쓸 수 있는 공간 — 연결된 제품 · 솔루션을 하나 이상 담는 공간만, 좋은 순서로(주 업종 먼저 · 담는 제품이 많은 순 · 자료 순서).
+ * 각 공간에 fit(spaceFit)과 order(자료 순서 = 동선 순서)를 붙인다.
+ */
+export function fitSpaces(pool, dss) {
+  return pool.map((s, i) => ({ ...s, order: i, fit: spaceFit(s, dss) }))
+    .filter((s) => s.fit.products.length + s.fit.solutions.length > 0)
+    .sort((a, b) => (a.aux ? 1 : 0) - (b.aux ? 1 : 0) || b.fit.products.length - a.fit.products.length || b.fit.solutions.length - a.fit.solutions.length || a.order - b.order);
+}
+/** 맞는 공간 n개로 만들 수 있는 서로 다른 후보 수(최대 3) — 1개면 1, 2개 이상이면 3 */
+export const candidateCount = (n) => (n <= 0 ? 0 : n === 1 ? 1 : 3);
 
 // ---------- AI 답 검증 (askJson validate: true | 고칠 점 문자열) ----------
 export function checkVertical(d, ids) {
@@ -154,23 +193,68 @@ export function cleanVertical(d, ids) {
   const alt = [...new Set((d.alternatives || []).filter((x) => typeof x === 'string' && ids.includes(x) && x !== d.vertical))].slice(0, 2);
   return { vertical: d.vertical, reason: clip(d.reason, 90), alternatives: alt };
 }
-export function checkCandidates(d, poolIds) {
+/**
+ * 후보 답 검증 — fitIds: 쓸 수 있는 공간 id(= DSS가 들어가는 공간). 모델이 고칠 수 있는 것만 돌려보낸다
+ * (후보 수 · 이름 · 쓸 수 있는 공간이 하나도 없는 후보). 목록에 없는 공간 · 6개 초과 · 겹치는 조합은 repairCandidates가 고친다.
+ */
+export function checkCandidates(d, fitIds) {
   const list = d && d.candidates;
-  if (!Array.isArray(list) || list.length < 3) return 'candidates에 후보 3개가 필요합니다.';
-  const seen = new Set();
-  for (const [i, c] of list.slice(0, 3).entries()) {
-    if (!c || typeof c.title !== 'string' || !c.title.trim()) return `후보 ${i + 1}의 title이 필요합니다.`;
+  const want = candidateCount(fitIds.length);
+  if (!Array.isArray(list) || list.length < want) return `candidates에 후보 ${want}개가 필요합니다.`;
+  for (const [i, c] of list.slice(0, want).entries()) {
+    if (!c || !realTitle(c.title)) return `후보 ${i + 1}의 title에 후보 이름이 필요합니다('title' 같은 자리표시 말고).`;
     if (!Array.isArray(c.spaces)) return `후보 ${i + 1}의 spaces는 공간 id 배열이어야 합니다.`;
-    const ids = [...new Set(c.spaces)];
-    const bad = ids.filter((x) => !poolIds.includes(x));
-    if (bad.length) return `후보 ${i + 1}에 공간 후보에 없는 id가 있습니다: ${bad.slice(0, 3).join(', ')}`;
-    if (ids.length < Math.min(MIN_SPACES, poolIds.length) || ids.length > MAX_SPACES) return `후보 ${i + 1}의 공간은 ${MIN_SPACES}~${MAX_SPACES}개여야 합니다.`;
-    const key = [...ids].sort().join('|');
-    if (seen.has(key)) return '세 후보의 공간 조합이 서로 달라야 합니다.';
-    seen.add(key);
+    if (!c.spaces.some((x) => fitIds.includes(x))) return `후보 ${i + 1}에 '공간 후보' 목록의 id가 하나도 없습니다. 목록의 id만 쓰세요.`;
   }
   return true;
 }
+/** 후보 이름으로 쓸 수 있는 글자인가 — 빈 값 · 'title' · '...' 같은 자리표시는 아니다 */
+const realTitle = (t) => typeof t === 'string' && /[가-힣A-Za-z0-9]/.test(t) && !/^\s*(title|summary|후보 이름|\.+)\s*$/i.test(t);
+const PRESETS = [['핵심 공간', '선택한 제품이 가장 많이 들어가는 공간만 추린 구성'], ['표준 구성', '주요 동선의 공간을 고르게 담은 구성'], ['확장 구성', '제품이 들어가는 공간을 넓게 담은 구성']];
+/**
+ * AI 후보 → 규칙을 지킨 후보. fit: fitSpaces()의 결과(좋은 순서).
+ *   - DSS가 들어가지 않는 공간 · 목록에 없는 공간은 뺀다 · 후보마다 1~MAX_SPACES개 · 세 후보의 조합은 서로 다르다.
+ *   - 고친 후보는 fixed, 모델 답으로 만들 수 없어 규칙으로 채운 후보는 rule 표시를 단다.
+ * 맞는 공간이 1개뿐이면 후보도 1개다(candidateCount).
+ */
+export function repairCandidates(d, fit, { max = MAX_SPACES } = {}) {
+  const rank = new Map(fit.map((s, i) => [s.id, i]));
+  const flow = (ids) => [...ids].sort((a, b) => fit[rank.get(a)].order - fit[rank.get(b)].order);
+  const want = candidateCount(fit.length);
+  const seen = new Set(), out = [];
+  const key = (ids) => [...ids].sort().join('|');
+  /** 이미 나온 조합이면 공간 하나를 더하거나(좋은 순) 빼서(덜 좋은 순) 다른 조합으로 */
+  const vary = (ids) => {
+    if (!seen.has(key(ids))) return ids;
+    if (ids.length < max) for (const s of fit) { if (ids.includes(s.id)) continue; const next = [...ids, s.id]; if (!seen.has(key(next))) return next; }
+    if (ids.length > MIN_SPACES) for (const x of [...ids].sort((a, b) => rank.get(b) - rank.get(a))) { const next = ids.filter((y) => y !== x); if (!seen.has(key(next))) return next; }
+    for (const s of fit) if (!seen.has(s.id)) return [s.id];
+    return null;
+  };
+  // 코드로 고친 후보는 모델의 설명이 더는 맞지 않는다 — 지금 공간으로 사실만 적는다
+  const factual = (ids) => { const names = ids.map((id) => fit[rank.get(id)].name); return (names.length > 2 ? names.slice(0, 2).join(' · ') + ' 등 ' + names.length + '곳' : names.join(' · ')) + '에 연결한 제품을 담는 구성'; };
+  const push = (c, ids, flags) => { seen.add(key(ids)); out.push({ id: 'c' + (out.length + 1), title: clip(c.title, 24), summary: flags.fixed ? factual(ids) : clip(c.summary, 110), spaces: ids, ...flags }); };
+  for (const c of ((d && d.candidates) || []).slice(0, 3)) {
+    if (out.length >= want) break;
+    const raw = [...new Set((c && Array.isArray(c.spaces) ? c.spaces : []).filter((x) => typeof x === 'string'))];
+    let ids = raw.filter((x) => rank.has(x));
+    let fixed = ids.length !== raw.length;
+    if (ids.length > max) { const top = new Set([...ids].sort((a, b) => rank.get(a) - rank.get(b)).slice(0, max)); ids = ids.filter((x) => top.has(x)); fixed = true; } // 모델이 준 순서(동선)는 지킨다
+    if (!ids.length || !realTitle(c.title)) continue;
+    const next = vary(ids);
+    if (!next) continue;
+    push(c, next, fixed || next !== ids ? { fixed: true } : {});
+  }
+  const sizes = [Math.min(2, fit.length), Math.min(4, fit.length), Math.min(max, fit.length)];
+  for (let k = 0; out.length < want && k < 9; k++) {
+    const i = out.length;
+    const ids = vary(fit.slice(0, sizes[Math.min(i, 2)]).map((s) => s.id));
+    if (!ids) break;
+    push({ title: PRESETS[Math.min(i, 2)][0], summary: PRESETS[Math.min(i, 2)][1] }, flow(ids), { rule: true });
+  }
+  return out;
+}
+/** @deprecated repairCandidates를 쓴다 — 검증 없이 모양만 맞춘다 */
 export function cleanCandidates(d) {
   return d.candidates.slice(0, 3).map((c, i) => ({ id: 'c' + (i + 1), title: clip(c.title, 24), summary: clip(c.summary, 110), spaces: [...new Set(c.spaces)] }));
 }
@@ -190,7 +274,28 @@ export function cleanMapping(d, spaces, fallbackKind) {
   const byId = new Map(d.spaces.map((s) => [s.id, s]));
   return spaces.map((s) => {
     const a = byId.get(s.id) || {};
-    return { id: s.id, name: s.name, kind: SPACE_KINDS.includes(a.kind) ? a.kind : fallbackKind(s.name), note: clip(a.note, 80), products: [...new Set(a.products || [])] };
+    return { id: s.id, name: s.name, kind: SPACE_KINDS.includes(a.kind) ? a.kind : fallbackKind(s.name), note: cleanNote(a.note), products: [...new Set(a.products || [])] };
+  });
+}
+/** 공간 설명 한 문장 — 한글 문장이 아니거나(코드 주석 · JSON 이야기 같은 모델의 혼잣말) 형식 이야기면 버린다 */
+export function cleanNote(note) {
+  const t = clip(note, 80);
+  return !/[가-힣]/.test(t) || /^\s*(\/\/|\/\*|#|\{|\[)/.test(t) || /JSON|\bid\b|배열|products|unplaced/i.test(t) ? '' : t;
+}
+/**
+ * 배치 보정 — 제품이 하나도 없는 공간에, 그 공간의 제품군과 맞는 선택 제품을 넣는다(아직 어디에도 없는 제품 먼저, 없으면 맞는 제품 하나).
+ * pool: 공간 id → 자료의 공간(배치 가능 제품군). 모델이 놓은 자리는 바꾸지 않는다.
+ */
+export function completeMapping(spaces, pool, productIds, catsOf) {
+  const placed = new Set(spaces.flatMap((s) => s.products));
+  return spaces.map((s) => {
+    if (s.products.length) return s;
+    const allowed = new Set((pool.get(s.id) || {}).products || []);
+    const fits = productIds.filter((id) => catsOf(id).some((c) => allowed.has(c)));
+    const free = fits.filter((id) => !placed.has(id));
+    const add = free.length ? free : fits.slice(0, 1);
+    for (const id of add) placed.add(id);
+    return add.length ? { ...s, products: add, note: '' } : s; // 모델이 '둘 제품 없음'이라고 쓴 설명은 맞지 않게 된다
   });
 }
 
@@ -199,11 +304,16 @@ export function cleanMapping(d, spaces, fallbackKind) {
 export function planGroups(plan, productIds) {
   if (!plan || !Array.isArray(plan.spaces) || !plan.spaces.length) return null;
   const linked = new Set(productIds);
-  const groups = plan.spaces.map((s, i) => ({ id: s.id, name: s.name, kind: s.kind, note: s.note, color: i % SPACE_COLORS, products: (s.products || []).filter((id) => linked.has(id)) }));
+  const groups = withColors(plan.spaces).map((s) => ({ id: s.id, name: s.name, kind: s.kind, note: s.note, color: s.color, products: (s.products || []).filter((id) => linked.has(id)) }));
   const placed = new Set(groups.flatMap((g) => g.products));
   return { groups, rest: productIds.filter((id) => !placed.has(id)) };
 }
 /** 공간 사이 이동 — from/to: 공간 id 또는 null(미배치). 같은 공간에 이미 있으면 그대로. */
+/** 다른 공간에 같은 제품을 배치하고 원래 배치는 유지한다. 공간별로 같은 제품은 한 번만 둔다. */
+export function copyProduct(spaces, pid, to) {
+  return spaces.map((s) => s.id === to && !s.products.includes(pid)
+    ? { ...s, products: [...s.products, pid] } : s);
+}
 export function moveProduct(spaces, pid, from, to) {
   if (from === to) return spaces;
   return spaces.map((s) => {
@@ -213,6 +323,117 @@ export function moveProduct(spaces, pid, from, to) {
     return list === s.products ? s : { ...s, products: list };
   });
 }
+/**
+ * 끌어 놓기(매칭 카드의 공간 묶음) — 제품 pid를 from 공간(null = 미배치)에서 빼 to 공간(null = 미배치로 빼기)의 before 제품 앞에 둔다.
+ * before가 없거나 그 공간에 없으면 맨 끝. 같은 공간 안에서는 순서만 바꾼다. 다른 공간의 같은 제품(여러 공간 배치)은 건드리지 않는다.
+ */
+export function placeProduct(spaces, pid, from, to, before = null) {
+  if (from === to && before === pid) return spaces;
+  return spaces.map((s) => {
+    let list = s.products;
+    if (s.id === from || s.id === to) list = list.filter((x) => x !== pid);
+    if (s.id === to) {
+      const at = before ? list.indexOf(before) : -1;
+      list = at < 0 ? [...list, pid] : [...list.slice(0, at), pid, ...list.slice(at)];
+    }
+    return list.length === s.products.length && list.every((x, i) => x === s.products[i]) ? s : { ...s, products: list };
+  });
+}
+/**
+ * 공간 색 — 기억해 둔 color를 지키고, 없거나 겹치는 공간에는 비어 있는 가장 작은 번호를 준다.
+ * color가 없는 예전 구성은 순서대로 0, 1, 2 …(예전과 같은 색).
+ */
+export function withColors(spaces) {
+  const used = new Set();
+  const own = spaces.map((s) => { const c = s.color; if (!Number.isInteger(c) || c < 0 || c >= SPACE_COLORS || used.has(c)) return null; used.add(c); return c; });
+  return spaces.map((s, i) => {
+    let c = own[i];
+    if (c == null) { c = 0; while (used.has(c) && c < SPACE_COLORS - 1) c++; used.add(c); }
+    return s.color === c ? s : { ...s, color: c };
+  });
+}
+/** 공간 빼기 — 그 공간의 제품은 미배치가 된다. 마지막 한 공간은 뺄 수 없다. */
+export function removeSpace(spaces, id) {
+  return spaces.length <= MIN_SPACES || !spaces.some((s) => s.id === id) ? spaces : spaces.filter((s) => s.id !== id);
+}
+/** 공간 넣기 — 이미 있거나 MAX_SPACES개면 그대로. 새 공간은 남은 색 중 가장 작은 번호를 받는다. */
+export function addSpace(spaces, space) {
+  if (spaces.length >= MAX_SPACES || spaces.some((s) => s.id === space.id)) return spaces;
+  return withColors([...withColors(spaces), { id: space.id, name: space.name, kind: space.kind, note: space.note || '', products: [...new Set(space.products || [])] }]);
+}
+
+// ---------- 조감도를 받을 Storyboard 칸 ----------
+const SLOT_CACHE = new Map();
+/** 레이아웃 HTML의 조감도 칸: { spatial: 'L_SPATIAL_*'식 장면 연결 칸이 있는가, images: [조감도 그림 칸 번호] } — htmlOf(f)는 처음 한 번만 부른다 */
+export function birdseyeSlotsOf(f, htmlOf) {
+  if (SLOT_CACHE.has(f)) return SLOT_CACHE.get(f);
+  const text = String(htmlOf(f) || '');
+  const images = [];
+  for (const m of text.matchAll(/<[^>]*\bdata-img=\\?"(\d+)\\?"[^>]*>/g)) {
+    if (/\bdata-spatial-slot=/.test(m[0])) continue;
+    if (/\bdata-kind=\\?"aerial\\?"/.test(m[0]) || /\bdata-hint=\\?"[^"\\]*조감도/.test(m[0])) images.push(Number(m[1]));
+  }
+  // 그림 칸이 여럿인 장(시점 투어 · 시안 비교)은 조감도 한 장으로 채울 자리가 아니다
+  const info = { spatial: /\bdata-spatial-template=/.test(text), images: images.length === 1 ? images : [] };
+  if (text) SLOT_CACHE.set(f, info);
+  return info;
+}
+/**
+ * 조감도(historyId)를 넣을 칸 목록 — [{ part, uid, f, type:'spatial', view } | { part, uid, f, type:'image', i }].
+ * 사람이 고른 그림(selectedBy · ev.by가 'user') · 직접 고른 조감도 레이아웃 · 손으로 연결한 장면은 건드리지 않는다.
+ * 이 기능이 예전 조감도로 채운 칸(birdseye 표시가 다른 historyId)은 다시 채울 칸이다.
+ * 표준 범례 조감도 장(L_VS_BIRD_*)은 그림과 함께 그 장면(ov.spatial — 번호 핀 · 3D로 돌려 보기)도 이 조감도의 것이어야 한다:
+ * 업종 표준 조감도 장면(시트 팝업에서 돌려 보고 저장한 견본 · documentId 'vstd')이나 장면 없이 그림만 받은 장도 다시 채운다(사용자 지시 2026-11-17).
+ * historyId 가 없으면(null — 아직 조감도가 없음) 사람이 고르지 않은 조감도 칸이 모두 나온다.
+ */
+export function birdseyeSlots(p, historyId, htmlOf) {
+  const out = [];
+  for (const part of (p && p.parts) || []) for (const x of part.layouts || []) {
+    if (!x || !x.f || /^L_MY_/.test(x.f)) continue;
+    const info = birdseyeSlotsOf(x.f, htmlOf);
+    const ov = x.ov || {}, img = ov.img || {}, ev = x.ev || {};
+    const manual = (i) => (img[i] && img[i].selectedBy === 'user') || (ev['i' + i] && ev['i' + i].by === 'user');
+    if (info.spatial) {
+      const view = /2D$/.test(x.f) ? '2d' : '3d';
+      if (ov.spatial ? !!x.birdseye && x.birdseye !== historyId : !manual(0) && !img[0]) out.push({ part: part.id, uid: x.uid, f: x.f, type: 'spatial', view });
+      continue;
+    }
+    // 이 제안서의 조감도 장면이 붙은 표준 범례 장 — 이 기능이 채웠거나(x.birdseye) 사람이 이 조감도를 돌려 보고 저장한 장(공간 구성 조감도의 documentId 'sb-…')
+    const ownScene = !BIRD_SHEET.test(x.f) || (!!ov.spatial && (x.birdseye === historyId || /^sb-/.test((ov.spatial.scene && ov.spatial.scene.source && ov.spatial.scene.source.documentId) || '')));
+    for (const i of info.images) if (!manual(i) && !(img[i] && img[i].birdseye === historyId && ownScene)) out.push({ part: part.id, uid: x.uid, f: x.f, type: 'image', i });
+  }
+  return out;
+}
+/** 표준 범례 조감도 장(공간 조감도 L_VS_BIRD_S* · 건물 조감도 L_VS_BIRD_B*) */
+export const BIRD_SHEET = /^L_VS_BIRD_[SB]\d+$/;
+
+/**
+ * 조감도를 지금 (다시) 만들어야 하는가 — 사용자 지시 2026-11-17: "DSS 단계에서 조감도를 뽑았으면 그걸 활용하고 그렇지 않으면 즉각 생성".
+ *   · 공간 구성(공간 1곳 이상)이 있고 · 고칠 수 있는 제안서이고 · 이 탭에서 만드는 중이 아니고 · 조감도를 받을 칸이 있을 때(sheets)만.
+ *   · 조감도가 없다 · 실패했다 · 중단됐다(저장은 running 인데 이 탭에서 돌지 않음) · 만든 뒤 구성이 바뀌었다(sig) → 만든다.
+ *   · 다른 계정이 만든 조감도(공유 Storyboard)는 이 계정이 열 수 없어 칸을 채우지 못한다 → 채울 칸이 남아 있으면 만든다.
+ * sheets: 조감도를 받을 칸이 있는가(birdseyeSlots) — 레이아웃 자동 구성 직전에는 장이 아직 없으므로 true. me: 지금 계정 이름.
+ */
+export function birdseyeNeeded(p, { me = null, running = false, sheets = true } = {}) {
+  const plan = p && p.spacePlan;
+  if (running || !sheets || !plan || !Array.isArray(plan.spaces) || !plan.spaces.length) return false;
+  if (p._share && !p._share.canEdit) return false;
+  const b = plan.birdseye;
+  if (!b || b.status !== 'done' || !b.historyId) return true;
+  if (b.sig && b.sig !== planSig(plan, (p.ctx && p.ctx.products) || [])) return true;
+  return !!b.by && !!me && b.by !== me;
+}
+/**
+ * 업종 기준으로 자동으로 공간 구성을 만들 때 고를 후보 — 연결한 제품이 가장 많이 들어가는 후보(fit),
+ * 같으면 '표준'(둘째 · 주요 동선을 고르게) → '핵심'(첫째) → 나머지 순. 후보가 없으면 null.
+ */
+export function pickCandidate(candidates) {
+  const list = (candidates || []).map((c, i) => ({ c, i })).filter((x) => x.c && Array.isArray(x.c.spaces) && x.c.spaces.length);
+  if (!list.length) return null;
+  const pref = (i) => (i === 1 ? 0 : i === 0 ? 1 : i + 1);
+  return list.sort((a, b) => (Number(b.c.fit) || 0) - (Number(a.c.fit) || 0) || pref(a.i) - pref(b.i))[0].c;
+}
+
 /** 구성 지문 — 조감도를 만든 뒤 구성이 바뀌었는지 */
 export function planSig(plan, productIds) {
   const g = planGroups(plan, productIds);

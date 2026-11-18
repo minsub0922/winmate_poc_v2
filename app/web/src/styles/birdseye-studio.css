@@ -1,0 +1,109 @@
+/* 공간 조감도 스튜디오 — 세로 스크롤 없이 한 화면: [시뮬레이션 + 명령 입력] | 손잡이 | [제품 · 가구 오브젝트 목록]
+   (pages/SpatialStudioPage.jsx). styles/spatial.css · birdseye.css는 다른 작업과 겹쳐 이 파일에서만 덮어쓴다. */
+
+/* 화면 높이에 맞춘다 — 머리(뒤로 가기)와 스튜디오만 */
+.sp-page.be-studio-page{overflow:hidden;display:flex;flex-direction:column}
+.be-studio-page>.sp-page-in{flex:1;min-height:0;width:100%;max-width:none;display:flex;flex-direction:column;padding:12px 20px 16px;box-sizing:border-box}
+.be-studio-page .sp-topbar{position:static;flex:none;margin:0 0 10px;padding:0 0 10px}
+.be-studio-page .sp-header-heading{flex:1;min-width:0}
+.be-studio-title{flex:1;min-width:0;max-width:440px;margin-left:6px;padding:5px 8px;border:1px solid transparent;border-radius:6px;background:transparent;color:var(--ink);font:inherit;font-size:14px;font-weight:800;text-overflow:ellipsis;outline:none}
+.be-studio-title:hover{border-color:var(--line)}
+.be-studio-title:focus{border-color:var(--accent);background:var(--surface)}
+.be-studio-page .boot{flex:1}
+
+.sp-studio.be-studio{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 14px auto;gap:0;align-items:stretch}
+.be-studio>.sp-workspace{display:flex;flex-direction:column;min-height:0}
+.be-studio .sp-prompt{flex:none;padding:10px 14px}
+
+/* 시뮬레이션 — 남는 높이를 모두 쓴다 */
+.be-canvas{position:relative;flex:1;min-height:220px;background:var(--surface-2)}
+.be-studio .be-canvas>.sp-view{position:absolute;inset:0;width:auto;height:auto;min-height:0;max-height:none;aspect-ratio:auto}
+.be-studio .be-canvas>.sp-blank-canvas{position:absolute;inset:0;min-height:0}
+/* 2D 평면도는 위 도구 줄 아래부터 — 도구가 도면 · 이름표를 가리지 않게 */
+.be-studio .be-canvas>.sp-view-2d{top:56px}
+
+/* 시뮬레이션 위 도구 — 왼쪽 위: 2D/3D · 실행 취소, 오른쪽 위: 회전/이동 · 공간 추가 */
+.be-canvas-tools{position:absolute;top:12px;z-index:13;display:flex;align-items:center;gap:8px;pointer-events:none}
+.be-canvas-tools>*{pointer-events:auto}
+.be-canvas-left{left:12px}
+.be-canvas-right{right:12px}
+.be-tabs{display:flex;align-items:center;gap:2px;padding:3px;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow)}
+.be-tabs button{border:0;background:none;padding:6px 12px;border-radius:5px;color:var(--muted);font:inherit;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap}
+.be-tabs button:hover:not(:disabled):not([aria-selected=true]){color:var(--ink)}
+.be-tabs button[aria-selected=true]{background:var(--ink);color:var(--surface)}
+.be-tabs button:focus-visible,.be-icon-tab:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.be-icon-tab{display:grid;place-items:center;width:28px;height:28px;padding:0!important;border:0;border-radius:5px;background:none;color:var(--ink);cursor:pointer}
+.be-icon-tab:disabled{opacity:.35;cursor:default}
+.be-add-room{position:relative}
+.be-add-room>.btn{gap:5px;min-height:34px;box-shadow:var(--shadow)}
+.be-add-room-menu{position:absolute;right:0;top:calc(100% + 6px);z-index:20;display:flex;flex-direction:column;min-width:170px;max-height:min(380px,55vh);overflow:auto;padding:6px;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow-lg)}
+.be-add-room-menu button{border:0;border-radius:6px;background:none;padding:8px 10px;text-align:left;color:var(--ink);font:inherit;font-size:12px;cursor:pointer;white-space:nowrap}
+.be-add-room-menu button:hover,.be-add-room-menu button:focus-visible{background:var(--surface-2);outline:none}
+.be-assets-update{position:absolute;left:12px;bottom:12px;z-index:13;max-width:calc(100% - 24px);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow)}
+
+/* 공간 이름표 — 누르면 메뉴, 끌어서 다른 공간과 자리 바꾸기 */
+.be-studio .sp-room-labels button{cursor:grab;touch-action:none;user-select:none}
+.be-studio .sp-room-labels button:hover{border-color:var(--accent-line);color:var(--ink)}
+.sp-room-labels button.is-corner{transform:none}
+.be-studio .sp-room-labels button.is-active{border-color:var(--accent);color:var(--accent)}
+.be-studio .sp-room-labels button.is-dragged{opacity:.35}
+.be-studio .sp-room-labels button.is-drop-target{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+.be-studio .sp-room-labels.is-room-dragging,.be-studio .sp-room-labels.is-room-dragging button{cursor:grabbing}
+.sp-room-drag-ghost{position:absolute;z-index:3;display:flex;align-items:center;gap:5px;transform:translate(-50%,-50%);padding:4px 7px;border:1px solid var(--accent);border-radius:5px;background:var(--surface);color:var(--accent);box-shadow:var(--shadow-lg);font-size:10px;font-weight:700;white-space:nowrap;pointer-events:none}
+.sp-room-drag-ghost b{font:800 8px var(--num)}
+.sp-room-menu-layer{position:absolute;inset:0;z-index:5;overflow:hidden;pointer-events:none}
+.sp-room-menu{position:absolute;z-index:4;transform:translateX(-50%);display:flex;flex-direction:column;gap:2px;min-width:200px;padding:6px;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow-lg);pointer-events:auto}
+.sp-room-menu-heading{display:flex;align-items:center;gap:6px;padding:3px 6px 7px;margin-bottom:3px;border-bottom:1px solid var(--line)}
+.sp-room-menu-heading strong{font-size:12px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sp-room-menu-heading small{margin-left:auto;font-size:10px;color:var(--muted);white-space:nowrap}
+.sp-room-menu>button{display:flex;align-items:center;gap:8px;border:0;border-radius:6px;background:none;padding:8px 10px;text-align:left;color:var(--ink);font:inherit;font-size:12px;cursor:pointer}
+.sp-room-menu>button:hover:not(:disabled),.sp-room-menu>button:focus-visible{background:var(--surface-2);outline:none}
+.sp-room-menu>button:disabled{cursor:default}
+.sp-room-menu>button[aria-checked=true]{color:var(--accent);font-weight:700}
+.sp-room-menu>button>svg:last-child:not(:first-child){margin-left:auto}
+.sp-room-menu>button.is-danger{color:var(--danger)}
+.be-style-swatch{flex:0 0 18px;width:18px;height:18px;border:1px solid var(--line);border-radius:5px}
+
+/* 시뮬레이션 | 오브젝트 목록 사이 손잡이 */
+.be-panel-resizer{display:flex;align-items:center;justify-content:center;cursor:col-resize;touch-action:none;outline:none}
+.be-panel-resizer>span{width:4px;height:48px;border-radius:4px;background:var(--line-2,var(--line));transition:background .15s,height .15s}
+.be-panel-resizer:hover>span,.be-panel-resizer:focus-visible>span,.be-panel-resizer:active>span{height:72px;background:var(--accent)}
+
+/* 오른쪽 고정 오브젝트 목록 — 열 수(--be-cols 1~3)에 맞춘 폭. 계산은 SpatialStudioPage.jsx의 PANEL_* 값과 같다. */
+.sp-objects-panel.sp-objects-popup{height:auto;max-height:none}
+.sp-objects-panel{--be-cols:2;width:calc(var(--be-cols) * 150px + (var(--be-cols) - 1) * 8px + 26px);display:flex;flex-direction:column;min-height:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:width .12s ease}
+.sp-objects-panel-body{flex:1;min-height:0;display:flex;flex-direction:column}
+.sp-objects-panel.sp-object-drawer .sp-popup-scroll{flex:1;min-height:0;overflow:auto;padding:10px 12px}
+.sp-objects-panel.sp-object-drawer.sp-objects-popup .sp-filterbar{position:sticky;top:-10px;flex-wrap:wrap;gap:6px;margin-bottom:8px;padding:2px 0 8px}
+.sp-objects-panel.sp-object-drawer.sp-objects-popup .sp-filterbar select{flex:1 1 0;min-width:0;max-width:none}
+.sp-objects-panel.sp-object-drawer.sp-objects-popup .sp-filterbar input{flex:1 1 100%;min-width:0;width:100%}
+.sp-objects-panel.sp-object-drawer.sp-objects-popup .sp-filterbar>span{display:block;font-size:10px}
+.sp-objects-panel.sp-object-drawer.sp-objects-popup .sp-object-grid{grid-template-columns:repeat(var(--be-cols),minmax(0,1fr));gap:8px}
+.sp-objects-panel.sp-object-drawer.sp-objects-popup .sp-object-card{padding:7px;gap:5px}
+.sp-objects-panel.sp-object-drawer.sp-objects-popup .sp-object-image{height:92px}
+.sp-objects-panel .sp-drawer-preview{padding:8px 12px}
+.sp-objects-panel .sp-drawer-preview select{max-width:100%}
+.sp-objects-panel .sp-drawer-error{padding:8px 12px}
+.sp-objects-panel-foot{flex:none;padding:10px 12px;border-top:1px solid var(--line);background:var(--surface)}
+.sp-objects-panel .sp-drawer-footer{gap:8px}
+.sp-objects-panel .sp-drawer-add{flex-direction:column;align-items:stretch;gap:8px}
+.sp-objects-panel .sp-drawer-add select{padding:7px}
+.sp-objects-panel .sp-drawer-add>.btn{min-height:34px;font-size:11px}
+.sp-objects-panel .sp-drawer-selected{max-height:72px}
+
+/* 좁은 화면 — 목록을 아래로 내리고 페이지 스크롤을 허용한다 */
+@media(max-width:760px){
+  .sp-page.be-studio-page{overflow-y:auto}
+  .be-studio-page>.sp-page-in{flex:none;min-height:100%;padding:10px 12px 16px}
+  .sp-studio.be-studio{flex:none;grid-template-columns:minmax(0,1fr);gap:12px}
+  .be-canvas{flex:none;height:62dvh}
+  .be-panel-resizer{display:none}
+  .sp-objects-panel{width:auto;height:70dvh}
+  .be-studio-title{max-width:none}
+  .be-tabs button{padding:6px 9px}
+}
+/* 공간을 끌어 놓을 수 있는 빈 칸 (공간 이름표를 끄는 동안) */
+.sp-room-slot{position:absolute;z-index:2;transform:translate(-50%,-50%);padding:5px 9px;border:1.5px dashed var(--accent);border-radius:6px;background:color-mix(in srgb,var(--surface) 82%,transparent);color:var(--accent);font-size:10px;font-weight:700;white-space:nowrap;pointer-events:none}
+.sp-room-slot.is-drop-target{border-style:solid;background:var(--accent);color:#fff;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+
+.sp-template-studio{height:100dvh;display:flex;flex-direction:column}

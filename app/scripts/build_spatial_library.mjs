@@ -17,6 +17,9 @@ import { PHOTO_META } from '../web/src/domain/templates/photo_layouts.js';
 import { STD_META } from '../web/src/domain/templates/std_layouts.js';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),dir=path.join(root,'app/data/spatial');
+// WINMATE_SPATIAL_OUT: write a trial build (library · scenes · examples · version · current marker) to another folder
+// and leave the published data untouched. Inputs still come from app/data/spatial.
+const out=process.env.WINMATE_SPATIAL_OUT?path.resolve(process.env.WINMATE_SPATIAL_OUT):dir;if(out!==dir)fs.mkdirSync(out,{recursive:true});
 const read=name=>JSON.parse(fs.readFileSync(path.join(dir,name),'utf8'));
 const catalog=JSON.parse(fs.readFileSync(path.join(root,'app/data/catalog.json'),'utf8'));
 const products=read('product-objects.json'),sources=read('industry-sources.json'),verticalLayouts=read('vertical-layouts.json');
@@ -83,6 +86,11 @@ for(const variant of ['compact','standard','spacious'])for(const rooms of [offic
   ...templateDimensions(rooms.length),compositionVersion:TEMPLATE_COMPOSITION_VERSION,roomReference:TEMPLATE_ROOM,style:'modern',source:{layoutId:'L_SOL_03',scenarioId:'bs22',type:'reference-reconstruction',note:'공유오피스 Lite 공간 지도와 공간별 제품 장표 기반 · 개념 재구성'},
 });
 
+// Rooms people ask for by name that neither the best-scenario maps nor the taxonomy list (임원실 · 대표실 are taxonomy spaces).
+const namedRooms=[{key:'of-director',name:'실장실',kind:'office',capacity:1,productIds:['smartmonitor','wf1way'],purpose:'부서 · 실 책임자 집무 · 보고'}].map(r=>equipSpace(r,'OF'));
+for(const room of namedRooms)for(const variant of ['compact','standard','spacious'])templates.push({id:`${room.key}-${variant}`,name:room.name,industry:'OF',scope:'single',variant,rooms:[room],
+  ...templateDimensions(1),compositionVersion:TEMPLATE_COMPOSITION_VERSION,roomReference:TEMPLATE_ROOM,style:'modern',source:{type:'named-space',note:'이름으로 찾는 공간 · 개념 구성'}});
+
 // Every existing spatial/product layout has a traceable scene, never an anonymous image.
 const metas=[...catalog.layouts,...PHOTO_META,...STD_META];
 const cases=[];
@@ -128,20 +136,20 @@ library.counts={industries:industries.length,products:products.assets.length,fur
   verticals:vertical.verticals.length,verticalSpaces:vertical.verticals.reduce((n,v)=>n+v.spaces.length,0),verticalTemplates:vertical.templates.length,
   measured:products.assets.filter(a=>a.dimensionSource==='catalog-spec').length,logical:products.assets.filter(a=>!a.physical).length};
 library.sourceHash=fingerprint([products.catalogSha256,sources,verticalLayouts,library.verticals,metas.map(m=>[m.f,m.prods,m.name]),RECIPES,assets,templates,library.templateCatalog,
-  fs.readFileSync(path.join(root,'app/web/src/domain/spatial/scene.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/space-dressing.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/slide-binding.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/space-equipment.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/natural-layout.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/furniture-catalog.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/detail-objects.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/detail-placement.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/template-composition.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/people-layout.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/people-placement-geometry.js'),'utf8'),fs.readFileSync(path.join(root,'app/scripts/spatial_verticals.mjs'),'utf8')]);
+  fs.readFileSync(path.join(root,'app/web/src/domain/spatial/scene.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/space-dressing.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/slide-binding.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/space-equipment.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/natural-layout.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/furniture-catalog.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/detail-objects.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/detail-placement.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/template-composition.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/people-layout.js'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/people-placement-geometry.js'),'utf8'),fs.readFileSync(path.join(root,'app/scripts/spatial_verticals.mjs'),'utf8'),fs.readFileSync(path.join(root,'app/web/src/domain/spatial/space-characters.js'),'utf8')]);
 for(const scene of Object.values(scenes)){scene.assetRevision=library.sourceHash;scene.contentHash=sceneHash(scene);}
-fs.writeFileSync(path.join(dir,'library.json'),JSON.stringify(library)+'\n');
-const versionDirectory=path.join(dir,'versions');fs.mkdirSync(versionDirectory,{recursive:true});
+fs.writeFileSync(path.join(out,'library.json'),JSON.stringify(library)+'\n');
+const versionDirectory=path.join(out,'versions');fs.mkdirSync(versionDirectory,{recursive:true});
 const versionPath=path.join(versionDirectory,library.sourceHash+'.json');
 const frozen=JSON.stringify(library)+'\n';
 if(fs.existsSync(versionPath)&&fs.readFileSync(versionPath,'utf8')!==frozen)throw new Error('Immutable spatial asset revision collision');
 if(!fs.existsSync(versionPath))fs.writeFileSync(versionPath,frozen);
-fs.writeFileSync(path.join(dir,'scenes.json'),JSON.stringify(scenes)+'\n');
+fs.writeFileSync(path.join(out,'scenes.json'),JSON.stringify(scenes)+'\n');
 const exampleIds=['cowork-full-standard','fb-full-standard','ht-hero-standard','rt-full-standard','ed-hero-standard','md-full-standard','fn-hero-standard','rs-full-standard','mf-full-standard','cowork-cowork-meet-standard'];
 const examples=exampleIds.map((templateId,i)=>({id:`spatial-example-${i+1}`,title:['공유오피스 · 공간별 맞춤 제안','카페 · 고객 동선과 제품 배치','호텔 객실 · 프리미엄 스테이','리테일 · 브랜드 플래그십','캠퍼스 · 스마트 강의실','의료 · 요양 케어 환경','금융 · 디지털 창구','주거 · 세대 전체 가전 구성','제조 · 물류 운영 맵','공유오피스 · 협업 미팅룸'][i],view:i%2?'2d':'3d',scene:{...scenes[templateId],title:['공유오피스 · 공간별 맞춤 제안','카페 · 고객 동선과 제품 배치','호텔 객실 · 프리미엄 스테이','리테일 · 브랜드 플래그십','캠퍼스 · 스마트 강의실','의료 · 요양 케어 환경','금융 · 디지털 창구','주거 · 세대 전체 가전 구성','제조 · 물류 운영 맵','공유오피스 · 협업 미팅룸'][i]}}));
 for(const e of examples){if(!e.scene.rooms)throw new Error('Missing example '+e.id);e.scene.contentHash=sceneHash(e.scene);}
-fs.writeFileSync(path.join(dir,'examples.json'),JSON.stringify(examples)+'\n');
-const published=path.join(root,'app/web/public/assets/spatial-current.json');
+fs.writeFileSync(path.join(out,'examples.json'),JSON.stringify(examples)+'\n');
+const published=out===dir?path.join(root,'app/web/public/assets/spatial-current.json'):path.join(out,'spatial-current.json');
 fs.mkdirSync(path.dirname(published),{recursive:true});
 fs.writeFileSync(published+'.'+process.pid+'.tmp',JSON.stringify({sourceHash:library.sourceHash})+'\n');fs.renameSync(published+'.'+process.pid+'.tmp',published);
 console.log(JSON.stringify({...library.counts,...appearance,sceneBytes:fs.statSync(path.join(dir,'scenes.json')).size,sourceHash:library.sourceHash}));

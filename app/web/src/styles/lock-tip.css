@@ -1,0 +1,19 @@
+/* 꺼진 버튼의 이유 말풍선 (components/lock-tip.jsx) — 마우스를 대거나 Tab으로 오면 뜬다 */
+.lock-tip { position: relative; display: inline-flex; }
+.lock-tip.block { display: flex; width: 100%; }
+.lock-tip.block > .btn { flex: 1; }
+.lock-tip.locked { cursor: not-allowed; border-radius: 10px; }
+.lock-tip.locked > .btn:disabled { pointer-events: none; } /* 꺼진 버튼 대신 감싼 칸이 마우스를 받는다 */
+.lock-tip.locked:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* 숨김은 opacity로 — 화면에는 안 보여도 글은 남아 있다(보조 기술 · 테스트가 이유를 읽는다) */
+.lock-tip-msg { position: absolute; z-index: 120; left: 50%; top: calc(100% + 10px); width: max-content; max-width: min(280px, calc(100vw - 32px));
+  box-sizing: border-box; padding: 8px 11px; border-radius: 9px; background: var(--ink); color: var(--surface); box-shadow: var(--shadow-lg);
+  font-size: 12px; font-weight: 500; line-height: 1.55; text-align: center; white-space: normal; word-break: keep-all;
+  transform: translate(-50%, -2px); opacity: 0; pointer-events: none; transition: opacity .12s, transform .12s; }
+.lock-tip-msg:empty { display: none; }
+.lock-tip-msg::before { content: ''; position: absolute; left: calc(50% - 4px); top: -4px; width: 8px; height: 8px; transform: rotate(45deg); background: var(--ink); }
+.lock-tip.up .lock-tip-msg { top: auto; bottom: calc(100% + 10px); left: auto; right: 0; transform: translateY(2px); text-align: left; }
+.lock-tip.up .lock-tip-msg::before { top: auto; bottom: -4px; left: auto; right: 22px; }
+.lock-tip.locked:hover .lock-tip-msg, .lock-tip.locked:focus-visible .lock-tip-msg { opacity: 1; transform: translate(-50%, 0); }
+.lock-tip.up.locked:hover .lock-tip-msg, .lock-tip.up.locked:focus-visible .lock-tip-msg { transform: none; }
+@media (prefers-reduced-motion: reduce) { .lock-tip-msg { transition: none; } }

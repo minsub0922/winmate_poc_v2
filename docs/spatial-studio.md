@@ -41,6 +41,20 @@
 
 레이아웃 검증은 `node app/tests/spatial-layout.mjs`로 실행한다. 브라우저 검증은 8817 포트의 독립 시험 서버(시험 전용 인증·DB)를 띄운 뒤 `node app/tests/spatial-layout-ui.mjs`로 실행한다. 3D/2D 추출, 복수 공간·제품 연결, 이동·크기 조절, 실행 취소/다시 실행, SVG, 저장·재열기, 모바일을 검사한다.
 
+## 공간 성격 — 같은 용도라도 공간마다 다른 구성 (2026-11-16 · 공간 구성 5)
+
+용도(`spaceProfile`)는 그 공간의 제품을 정하지만, 여러 공간이 한 용도를 같이 쓴다 — 카페 주문대 · 호텔 프런트 · 병원 원무 · 민원실이 모두 `reception`이라 가구 배치가 같았다(이름이 다른 단독 공간 339개가 배치 83가지, 가장 큰 묶음은 39개 공간이 완전히 같은 배치). 공간 구성 5부터는 **공간 이름 + 업종**으로 「공간 성격」을 정해 가구 배치 · 소품 · 사람을 달리한다(배치 183가지, 가장 큰 묶음 15개 — 남은 묶음은 업무석 열 · 주방 · 교실처럼 실제로 같은 종류의 공간).
+
+- **규칙 · 정의** `app/web/src/domain/spatial/space-characters.js` — `RULES`(업종 · 공간 종류 · 용도 · 이름 패턴 → 성격, 위에서부터 첫 일치)와 성격 138종의 정의. 정의 하나는 `plan`(용도의 가구 배치를 대체) 또는 `extra`(용도 배치에 더함 — 좌석 수가 제품 수량을 정하는 업무 · 회의 · 교실 공간), `swap`(가구 바꾸기), `seating`(`near` = 가장 가까운 테이블 · 책상 · 카운터를 봄, 닿는 것이 없으면 놓인 방향 유지 · `fixed` = 놓인 방향 유지), `dress`(제품을 놓은 **뒤에** 올리는 소품 — 제품 자리를 뺏지 않음), `people`(이름으로 고른 좌석 · 남은 좌석 · 단상 · 서 있는 직종)로 이루어진다. 좌표는 방의 뒤 왼쪽 모서리에서 잰 미터이고, 작은 방에 들어가지 않는 가구는 건너뛴다(짝 테이블이 빠진 의자도 같이 빠짐).
+- **새 가구 · 소품 73종** `space-character-objects.js` — 파라솔 테이블과 캐노피, 버스 정류장 쉘터, 가로수, 자전거 거치대, 회전 게이트, 매표 부스, 러기지 카트, 연회 원탁, 뷔페 · 배식대, 바 카운터와 병 선반, 곤돌라 · 청과 진열대, 쇼핑 카트, 계산대, 빵 진열 선반, 분양 모형, 수술대, 미용 경대 · 의자, 마사지 베드, 분장 화장대, 스피닝 자전거, 농구 골대, 타석 매트, 미끄럼틀 · 볼풀, 장의자 · 단상 탁자 · 피아노, 뉴스 데스크 · 카메라 삼각대(소품), 전시 가벽 · 좌대, 롤러 컨베이어 · 롤 케이지 · 핸드 팔레트 트럭, 배관 헤더 · 탱크, 엘리베이터 문 연출 등. 모두 제조사 CAD가 아닌 설계 자산이며 삼성 제품을 대신하는 기기가 아니다.
+- **연결** `scene.js`(방에 `character` 기록 · 배치 · 소품), `natural-layout.js`(좌석 관계), `people-layout.js`(사람). 캐노피처럼 떠 있는 소품은 높이(`elevation`)로, 단상 위 강연대 · 탁자는 단상을 받침으로 놓는다. 성격이 있는 방에서는 기기를 대기 벤치나 높은 수납장 위가 아니라 책상 · 카운터 · 테이블에 먼저 올린다. 식사하는 사람의 그릇은 사각 테이블에서 그 사람 바로 앞에 놓인다.
+- **집무실 세 가지** 대표실(큰 책상 · 소파 세트 · 진열장 · 비서) · 임원실(큰 책상 · 4인 회의 테이블 · 보드) · 실장실(책상과 옆 수납 · 문서 캐비닛 · 작은 원형 테이블)은 책상 하나의 1인실이다(`capacity` — 좌석 수를 주지 않으면 1석, 그 구성보다 많은 좌석을 요구하면 용도의 책상 열로 돌아감). 사장실 · 본부장실 · 팀장실 같은 이름도 같은 규칙에 걸린다. 실장실은 분류에 없는 공간이라 오피스의 대표 공간 템플릿(`of-director-*`, `build_spatial_library.mjs`의 `namedRooms`)으로 넣었다.
+- **이름으로 넣은 공간** 시작 팝업의 추천 공간은 템플릿의 좌석 수도 따른다(전에는 임원실 1석 · 대회의실 12석이 빠져 기본 좌석 수로 만들어졌다). 템플릿에 없는 이름을 직접 입력하거나 스튜디오에서 공간을 추가할 때, 그 이름에 성격이 있으면(`namedRoomComposition`) 구성 5로 만들어 그 성격을 적용하고, 없으면 예전처럼 용도만 짐작한다. 용도 짐작(`roomKind`)은 대표실 · 임원실 · 실장실 계열 이름을 업무 공간으로 본다.
+- **버전** 구성 4 이하의 방(저장된 조감도 · 예전 라이브러리)은 `character`가 없고 예전 배치 그대로다. 제품은 그대로다 — 제품군 결정 832 배치 · 1 생략이 같고, 달라진 수량은 테이블 수를 따르는 주문 태블릿과 창구 수를 따르는 창구 모니터뿐이다.
+- **시험 빌드** `WINMATE_SPATIAL_OUT=<폴더> node app/scripts/build_spatial_library.mjs` — 라이브러리 · 장면 · 예시 · 버전 파일을 그 폴더에만 쓰고 게시된 데이터는 건드리지 않는다.
+
+검사: `node app/tests/spatial-space-characters.mjs`(성격 규칙 · 성격별 대표 가구와 직종을 세 크기에서 · 배치 가짓수 · 입력 폼 왕복 · 예전 구성 보존), 기존 `spatial-scenes` · `spatial-naturalness` · `spatial-density` · `spatial-people-layout` · `spatial-verticals` · `spatial-furniture`. `spatial-character` · `spatial-purpose` · `spatial-all-rooms`는 끝의 「예전 버전 제품 치수 유지」 줄에서 멈춘다 — 제품 DB 갱신으로 예전 버전에만 있는 제품 17개와 치수가 바뀐 제품 때문이며, 그 줄을 가구만 비교하게 하면 모두 통과한다. 새 가구를 넣거나 형상을 바꾸면 `build_spatial_object_previews.mjs`로 썸네일을 굽고, `build_spatial_previews.mjs`(예시) · `build_building_bake.mjs`(건물 층)를 다시 돌린다.
+
 ## 준비된 자산
 
 사람과 가구·도구를 묶은 정적 연출 **144종 / 9개 분류 / 37개 직종·역할**을 추가했다. `people-scenes.js`는 인체 자세·복장 표지와 의자·책상·교탁·비전원 칠판·침상·카트 등을 실제 미터 좌표로 조합하며, 생성기가 묶음의 정확한 외곽을 계산한다. 의사·환자 문진/진찰/회진, 교탁 앞 교사, 높고 낮은 위치 판서, 필기/독서/손들기 학생, 카페·호텔·매장·현장·공공 등의 직종을 구분한다. 의상은 `people-costumes.js`에서 직종별로 관리한다. 진료복·스크럽·재킷·가디건·포켓 앞치마·작업복·반사 조끼와 안경·보호 안경·명찰·스카프·청진기·공구 벨트·직종별 모자를 실제 부품으로 조합한다. 피부톤 5가지와 머리 형태 6가지를 복장과 별도로 바꾸며 실제 인물 자료는 사용하지 않는다. 사서·약사·연구원·치과 의료진·제빵사·미술 강사·정원 관리사·정비사를 포함한다.
@@ -253,3 +267,15 @@ Storyboard의 레이아웃 상세에서는 조감도 영역을 클릭하거나 *
 오른쪽 각도 슬라이더는 input 이벤트를 프레임별로 처리한다. 조작 중에는 PNG 인코딩 대신 WebGL 결과를 편집 전용 캔버스에 복사하며 공간명과 연결선 투영도 동시에 갱신한다. 포인터를 놓으면 최종 PNG와 카메라를 저장하고 하나의 실행 취소 단위를 만든다. 편집 전용 캔버스는 SVG·PPTX에 포함하지 않는다. 원래 각도 복원·실행 취소·저장 후 재열기도 유지한다.
 
 검증: `app.tests.test_spatial_descriptions`, `app.tests.test_spatial`, `spatial-layout.mjs`, `spatial-my-layout.mjs`, `spatial-layout-ui.mjs`, `spatial-layout-my-ui.mjs`, 웹 빌드. 실제 LLM 공간·제품 응답은 `output/spatial-layout-description-20261020/live-ai.json`, 브라우저·내보내기 결과는 `app/tests/output/spatial-layout/`와 `app/tests/output/spatial-layout-my/`에 남긴다. 각 브라우저 시험은 별도 API·인증·장면·레이아웃 DB를 사용한다.
+
+### Storyboard·스튜디오의 서버 계산과 캡처
+
+`POST /api/spatial/compute`는 입력·템플릿의 장면 생성, 명령 적용, 공간 재배치, 오브젝트 추가, 이전 배치 보정, 건물 층 변환을 처리한다. `domain/spatial/compute.js`를 서버 Chromium worker와 호환 경로에서 함께 실행해 배치 규칙이 갈라지지 않는다. 직접 드래그·회전과 각도 슬라이더의 즉시 미리보기는 브라우저에서 유지한다.
+
+`POST /api/spatial/snapshot`은 같은 렌더에서 이미지·투영 좌표·카메라를 함께 반환한다. Storyboard 자동 조감도, 시트 안의 3D 편집 저장, 공간 탭·스튜디오의 공통 캡처와 My Layout 생성이 이 경로를 사용한다. 캐시 키는 서버가 계산한 장면·옵션 digest와 자산 revision이다. 같은 요청은 한 번만 렌더하며 메모리/Redis와 파일 캐시를 공유한다. 표준 장표·히스토리는 저장된 `assetRevision`의 라이브러리를 사용하며, 입력 버전과 장면 버전이 다르면 422로 거부한다. 생성 중 입력이나 장면이 바뀌면 예전 응답을 적용하지 않는다.
+
+건물 목록·템플릿의 썸네일은 `POST /api/spatial/building-snapshot`을 사용한다. 현재 탭에 불러온 층·자산·레시피를 묶어 보내므로 저장된 사용자 층을 서버의 최신 카탈로그로 대체하지 않는다. 동일한 건물 렌더러와 로컬 글꼴을 사용한다. 독립 HTML 추출본은 기존 자체 렌더를 유지한다.
+
+서버 worker에는 Node, `app/web` 의존성, Playwright Chromium 또는 설치된 Chrome이 필요하다. 기존 `WINMATE_SPATIAL_RENDERER`, `WINMATE_SPATIAL_RENDER_CONCURRENCY`, `WINMATE_SPATIAL_RENDER_TIMEOUT`, `WINMATE_SPATIAL_PREVIEW_DIR` 설정을 공유한다. API가 없거나 renderer를 사용할 수 없는 404/503에서만 기존 브라우저 계산·캡처로 호환하며 인증·검증 오류를 우회하지 않는다. 프런트와 API/worker를 함께 갱신해야 서버 경로가 적용된다.
+
+검증: `test_spatial_previews.py`(캐시·버전·인증·worker 복구), `proposal-update.mjs`(부분 변경·맥락 검증·기존 JSON 계약), 격리 API에 연결하는 `spatial-backend-ui.mjs`(서버/브라우저 이미지·좌표 비교, 클라이언트 WebGL 생성 여부, 늦은 결과 거부·여러 공간 한 시트). UI 실행에는 fixture와 동일한 `BIRDSEYE_TEST_API_PORT`, `BIRDSEYE_TEST_WEB_PORT`를 지정한다. 결과는 `app/tests/output/spatial-backend/`에 남긴다.

@@ -7,8 +7,8 @@ import '../styles/catalog-search.css';
 export function CatalogSearchBar({ id, label, value, onChange, search, placeholder, autoFocus }) {
   const clear = () => { search.clear(); onChange(''); };
   const description = search.aiEnabled
-    ? '고객 상황을 입력한 뒤 보내기 또는 Enter를 누르면 관련 자료를 찾아 추천해요. 버튼을 다시 누르면 기본 키워드 검색으로 바뀌어요.'
-    : 'AI 검색을 켜면 고객 상황과 의도에 맞는 자료를 찾아 추천해요. 입력 후 보내기 또는 Enter로 검색할 수 있어요.';
+    ? 'AI 추천 검색 켜짐 · 보내기 또는 Enter로 검색'
+    : 'AI 추천 검색 꺼짐 · 켜면 보내기 또는 Enter로 검색';
   return (
     <form className={'catalog-search' + (search.aiEnabled ? ' ai-on' : '')} role="search" aria-label={label}
       onSubmit={e => { e.preventDefault(); search.submit(); }}>

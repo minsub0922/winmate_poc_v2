@@ -61,14 +61,14 @@ try {
     patchSim(window.__simTestId, x => { x.cur.suggest = x.cur.suggest.slice(0, 2); });
   });
   await page.getByRole('button', { name: /추천 답변 다시 받기/ }).waitFor();
-  assert.equal(await page.locator('.sim-sug').count(), 3);
+  assert.equal(await page.locator('.sim-sug').count(), 2);
   assert.equal(await page.locator('.sim-sug-go').count(), 2);
   await page.evaluate(async () => {
     const { patchSim } = await import('/src/repositories/simulations.js');
     patchSim(window.__simTestId, x => { x.cur.suggest = window.__completeSuggestions; });
   });
   await page.waitForFunction(() => document.querySelectorAll('.sim-sug-go').length === 3);
-  checks.push('incomplete saved suggestions are repaired with an explicit retry slot on model failure');
+  checks.push('incomplete saved suggestions keep both answers and expose the retry popup on model failure');
   assert.match(await page.locator('#sim-mention-hint').innerText(), /@.*제품.*솔루션.*유관사례/);
   assert.equal(await page.locator('#sim-ed').getAttribute('aria-describedby'), 'sim-mention-hint');
   await page.locator('#sim-ed').fill('@'); await page.getByRole('listbox', { name: '제품 · 솔루션 · 유관사례 · 스킬 찾기' }).waitFor();
@@ -79,7 +79,7 @@ try {
   checks.push('@ menu starts with products, removes All and exposes the skills tab');
   const thumb = await page.locator('.ssc').first().evaluate(el => [el.clientWidth, el.querySelector('.ssc-th').clientWidth]);
   assert(Math.abs(thumb[0] - thumb[1]) <= 2);
-  await page.locator('.ssc').first().click(); await page.locator('.modal.sbv .story').waitFor();
+  await page.locator('.ssc').first().click(); await page.locator('.modal.sbv .sbs').waitFor();
   assert.equal(await page.locator('.modal.sbv').getByRole('button', { name: '전체 PPT 보기', exact: true }).count(), 1);
   await page.locator('.modal.sbv').getByRole('button', { name: '닫기', exact: true }).last().click();
   checks.push('full-width thumbnail opens shared 샘플 버티컬 시나리오 Storyboard');

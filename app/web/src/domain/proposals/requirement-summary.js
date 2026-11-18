@@ -29,7 +29,8 @@ export function requirementSources(p, fileText = file => file.text || '', refTex
   add('author-note', '제작자 의견', 'author', f.note);
   (r.files || []).forEach((file, i) => {
     const id = file.id || String(i), text = fileText(file);
-    add('file-' + id, file.name || `첨부파일 ${i + 1}`, 'attachment', text, { file_id: id, partial: (file.extractedChars || 0) > text.length || !!file.readError });
+    // inlined: the file was read into the free-form text (source `free`); what is kept here is only the part that did not fit
+    add('file-' + id, (file.name || `첨부파일 ${i + 1}`) + (file.inlined ? ' · 이어지는 원문' : ''), 'attachment', text, { file_id: id, partial: (file.extractedChars || 0) > text.length || !!file.readError });
     add('file-note-' + id, (file.name || '첨부파일') + ' · 작성 메모', 'author', file.memo);
   });
   return sources;
@@ -63,12 +64,17 @@ const PURPOSES = {
   fill: ['requirements', 'goals', 'constraints', 'decision_criteria', 'strategy', 'questions'],
   review: ['goals', 'requirements', 'constraints', 'decision_criteria', 'questions'],
 };
+/**
+ * Summary context for a task. Re-summarising after an edit is optional, so the last finished summary keeps serving;
+ * when it describes older input it is marked `stale` and the (always current) originals win wherever the two disagree.
+ */
 export function requirementContext(p, purpose = 'strategy', originals = requirementSources(p)) {
-  const result = currentRequirementSummary(p);
+  const current = currentRequirementSummary(p), result = current || savedRequirementSummary(p);
   if (!result) return null;
   const context = { source_key: result.source_key, overview: result.summary.overview,
     sections: Object.fromEntries((PURPOSES[purpose] || PURPOSES.strategy).map(key => [key, result.summary[key] || []])),
     sources: result.sources, coverage: result.coverage };
+  if (!current) { context.stale = true; context.note = '이 요약은 요구사항이 수정되기 전에 작성됐습니다. 원문과 다르면 원문을 따르세요.'; }
   const refs = [context.overview, ...Object.values(context.sections).flat()].flatMap(item => item.refs);
   let budget = 8000;
   context.originals = [...new Set(refs.map(ref => ref.source_id))].map(id => {
@@ -88,7 +94,7 @@ export function requirementContextText(p, purpose, originals) {
   if (!context) return '';
   const kind = { fact: '원문 사실', inference: 'AI 해석·제안', question: '확인 필요' };
   const row = item => `[${kind[item.kind] || item.kind}] ${item.text} ${item.refs.map(ref => `(${ref.source_id}: “${ref.quote}”)`).join(' ')}`;
-  return ['--- 원문 근거가 연결된 요구사항 요약 · 원문 우선 ---', row(context.overview),
+  return ['--- 원문 근거가 연결된 요구사항 요약 · 원문 우선 ---', context.stale ? '주의: ' + context.note : '', row(context.overview),
     ...SUMMARY_SECTIONS.filter(([key]) => context.sections[key]?.length).map(([key, label]) => label + '\n' + context.sections[key].map(row).join('\n')),
     context.originals.length ? '--- 해당 작업과 관련된 원문 · 발췌 여부는 excerpt/partial ---\n' + JSON.stringify(context.originals) : '',
     context.coverage?.complete === false ? '주의: 일부 첨부 원문은 저장된 발췌만 포함합니다. 원문 전체를 확인해야 합니다.' : ''].filter(Boolean).join('\n');

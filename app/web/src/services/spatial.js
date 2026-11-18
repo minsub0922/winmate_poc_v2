@@ -2,7 +2,8 @@ import { sessionSnapshot } from '../api/session.js';
 import { requestJson,postJson,fetchResource } from '../api/client.js';
 import { embedSpatial } from '../domain/spatial/slide-binding.js';
 import { createProposal,update,uid,getProposals } from '../repositories/proposals.js';
-import { loadSpatialRenderer } from './spatial-renderer.js';
+import { captureSpatialLocal } from './spatial-capture.js';
+import { withInspect } from '../api/inspect.js';
 
 let libraryPromise;
 const revisions=new Map();
@@ -36,22 +37,80 @@ export const saveSpatialHistory=(scene,view,record,extra={})=>record?requestJson
 export const createSpatialDraft=(form,view='3d')=>postJson('/api/spatial/drafts',{form,view});
 export const saveSpatialForm=(form,view,record,extra={})=>requestJson('/api/spatial/drafts/'+encodeURIComponent(record.id),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({form,view,revision:record.revision,...extra})});
 export async function deleteSpatialHistory(id){const response=await fetchResource('/api/spatial/history/'+encodeURIComponent(id),{method:'DELETE'});if(!response.ok)throw new Error('조감도를 삭제하지 못했습니다.');}
-export async function captureSpatial(scene,library){
-  const {createSpatialRenderer}=await loadSpatialRenderer();
-  const host=document.createElement('div');host.style.cssText='position:fixed;left:-20000px;top:0;width:1600px;height:1025px;';document.body.appendChild(host);
-  let renderer;
-  try{renderer=createSpatialRenderer(host);renderer.setScene(scene,library);await renderer.ready();return renderer.snapshot();}
-  finally{renderer?.dispose();host.remove();}
+const computeFallback = error => error?.status === 404 || error?.status === 503;
+const templateScenes = new WeakMap();
+/** The published scene is the same createScene result used for server previews.
+ * Browse cards never solve furniture placement on the main thread. Frozen libraries
+ * and older servers use the existing revision-aware compute compatibility path. */
+export function loadSpatialTemplate(template,library){
+  let entries=templateScenes.get(library);if(!entries){entries=new Map();templateScenes.set(library,entries);}
+  if(!entries.has(template.id)){
+    const pending=requestJson('/api/spatial/templates/'+encodeURIComponent(template.id)+'?managed=1&rev='+encodeURIComponent(library.sourceHash))
+      .catch(async error=>{if(!computeFallback(error))throw error;return computeSpatial({kind:'template',templateId:template.id},library);})
+      .then(({scene,revision})=>{
+        if(scene?.templateId!==template.id||!scene.assetRevision||(scene.assetRevision!==library.sourceHash&&!(revision>0)))throw new Error('템플릿과 오브젝트 버전이 일치하지 않습니다.');
+        return scene;
+      }).finally(()=>{if(entries.get(template.id)===pending)entries.delete(template.id);});
+    entries.set(template.id,pending);if(entries.size>48)entries.delete(entries.keys().next().value);
+  }
+  return entries.get(template.id);
 }
-
-// Cards share snapshots and render one scene at a time to avoid exhausting WebGL contexts.
+export async function loadSpatialTemplateWithAssets(template, library) {
+  const scene = await loadSpatialTemplate(template, library);
+  const assets = scene.assetRevision === library.sourceHash ? library : await loadSpatialLibrary(scene.assetRevision);
+  return { scene, assets };
+}
+export async function computeSpatial(input,library,{signal}={}){
+  const revision=library.sourceHash;
+  try{
+    const result=await postJson('/api/spatial/compute',{...input,revision},signal);
+    if(result.assetRevision!==revision || result.scene?.assetRevision && result.scene.assetRevision!==revision)throw new Error('공간 작업의 오브젝트 버전이 일치하지 않습니다.');
+    return result;
+  }catch(error){
+    if(signal?.aborted||!computeFallback(error))throw error;
+    const {computeSpatial:local}=await import('../domain/spatial/compute.js');
+    return local(input,library);
+  }
+}
+const captures=new WeakMap();
+export async function captureSpatial(scene,library,options={}){
+  let variants=captures.get(scene);if(!variants){variants=new Map();captures.set(scene,variants);}
+  const key=JSON.stringify([library.sourceHash,options]);
+  if(!variants.has(key)){
+    const pending=postJson('/api/spatial/snapshot',{scene,revision:library.sourceHash,options}).then(result=>{
+      if(result.revision!==library.sourceHash||!result.snapshot?.image||!result.snapshot?.anchors||!result.snapshot?.camera)throw new Error('조감도 이미지와 좌표를 함께 불러오지 못했습니다.');
+      return result.snapshot;
+    }).catch(error=>{variants.delete(key);if(!computeFallback(error))throw error;return captureSpatialLocal(scene,library,options);});
+    variants.set(key,pending);if(variants.size>4)variants.delete(variants.keys().next().value);
+  }
+  return variants.get(key);
+}
+// 3D card previews are rendered by the server (app/api/spatial_previews.py) and cached there (Redis · files) and by
+// the browser (content-addressed, immutable URLs). Only when the server renderer is unavailable does this browser
+// render the scene itself — one scene at a time, so WebGL contexts are never exhausted.
+let serverPreviewsDownUntil=0;
+export function spatialPreviewUrl(scene,library,{templateId,historyId}={}){
+  if(historyId)return withInspect('/api/spatial/history/'+encodeURIComponent(historyId)+'/preview.webp?v='+encodeURIComponent(scene.contentHash||''));
+  if(templateId&&(!scene.assetRevision||scene.assetRevision===library.sourceHash))return '/api/spatial/templates/'+encodeURIComponent(templateId)+'/preview.webp?rev='+encodeURIComponent(library.sourceHash)+'&managed=1&v='+encodeURIComponent(scene.contentHash||'');
+  return null;
+}
+async function serverPreview(url){
+  if(!url||Date.now()<serverPreviewsDownUntil)return null;
+  try{
+    const response=await fetchResource(url);
+    if(response.ok){await response.blob();return url;} // the <img> below reads the same response from the HTTP cache
+    if(response.status===503)serverPreviewsDownUntil=Date.now()+30000;
+  }catch(error){if(error?.code==='cancelled')throw error;}
+  return null;
+}
 const previewImages=new Map();
 let previewQueue=Promise.resolve();
-export function spatialPreviewImage(scene,library){
-  const key=library.sourceHash+':'+scene.contentHash;
+export function spatialPreviewImage(scene,library,source={}){
+  const url=spatialPreviewUrl(scene,library,source),key=url||library.sourceHash+':'+scene.contentHash;
   if(!previewImages.has(key)){
-    const pending=previewQueue.then(()=>captureSpatial(scene,library)).then(snapshot=>snapshot.image).catch(error=>{previewImages.delete(key);throw error;});
-    previewQueue=pending.catch(()=>{});previewImages.set(key,pending);
+    const local=()=>{const next=previewQueue.then(()=>captureSpatial(scene,library)).then(snapshot=>snapshot.image);previewQueue=next.catch(()=>{});return next;};
+    const pending=serverPreview(url).then(src=>src||local()).catch(error=>{previewImages.delete(key);throw error;});
+    previewImages.set(key,pending);
     if(previewImages.size>48)previewImages.delete(previewImages.keys().next().value);
   }
   return previewImages.get(key);

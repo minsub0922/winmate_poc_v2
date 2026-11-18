@@ -2,11 +2,27 @@
    + 활용하기 확인 (UseConfirm). build.mjs가 CSS 목록 맨 뒤에 이어 붙임. */
 .modal.sbv { width: min(var(--measure-1640px), var(--measure-100)); height: min(var(--measure-1000px), calc(var(--measure-100vh) - var(--measure-40px))); max-height: none; }
 .mbody.sbv-body { padding: 0; gap: 0; overflow: hidden; flex: 1; }
-.sbv-bar { display: flex; align-items: center; gap: var(--space-8px); min-width: 0; padding: var(--space-10px) var(--space-22px); border-bottom: var(--stroke-1px) solid var(--line); background: var(--surface); }
-.sbv-bar .tag { flex-shrink: 0; font-size: var(--text-12px); padding: var(--space-2px) var(--space-8px); }
-.sbv-thesis { flex: 1 1 auto; min-width: 0; font-size: var(--text-12-5px); color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.sbv-ro { flex-shrink: 0; margin-left: auto; display: inline-flex; align-items: center; gap: var(--space-6px); height: var(--measure-28px); padding: 0 var(--space-11px); border-radius: var(--radius-999px); background: var(--surface-3); color: var(--muted); font-size: var(--text-12px); white-space: nowrap; }
-.sbv-ro b { color: var(--accent); font-weight: var(--weight-800); }
+.sbv-bar { flex-shrink: 0; display: flex; align-items: stretch; min-width: 0; padding: 0 var(--space-22px); border-bottom: var(--stroke-1px) solid var(--line); background: var(--surface); }
+.sbv-tabs { display: flex; gap: var(--space-4px); }
+.sbv-tab { height: var(--measure-44px); padding: 0 var(--space-14px); border: 0; background: none; font-size: var(--text-13px); font-weight: var(--weight-700); color: var(--muted); cursor: pointer; }
+.sbv-tab:hover { color: var(--ink); }
+.sbv-tab[aria-selected="true"] { color: var(--accent); box-shadow: inset 0 calc(-1 * var(--measure-2px)) 0 var(--accent); }
+/* 시트 탭 — 왼쪽 세로 썸네일 · 오른쪽 큰 시트 (팝업 크기는 탭과 상관없이 .modal.sbv 그대로) */
+.sbs { flex: 1; min-height: 0; display: grid; grid-template-columns: var(--measure-200px) minmax(0, var(--measure-1fr)); background: var(--bg); }
+.sbs-rail { min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: var(--space-6px); padding: var(--space-12px) var(--space-10px); border-right: var(--stroke-1px) solid var(--line); background: var(--surface); }
+.sbs-th { flex-shrink: 0; display: flex; align-items: flex-start; gap: var(--space-6px); padding: var(--space-4px); border: 0; border-radius: var(--radius-8px); background: none; text-align: left; color: var(--muted); cursor: pointer; }
+.sbs-th .n { flex-shrink: 0; width: var(--measure-18px); padding-top: var(--space-2px); text-align: right; font-size: var(--text-11-5px); font-weight: var(--weight-700); }
+.sbs-th .pv { flex: 1; min-width: 0; display: block; border-radius: var(--radius-5px); overflow: hidden; outline: var(--stroke-1px) solid var(--line); pointer-events: none; }
+.sbs-th:hover .pv { outline-color: var(--accent-line); }
+.sbs-th[aria-current="true"] { background: var(--accent-soft); color: var(--accent); }
+.sbs-th[aria-current="true"] .pv { outline: var(--stroke-2px) solid var(--accent); }
+.sbs-main { min-width: 0; min-height: 0; display: flex; align-items: center; gap: var(--space-12px); padding: var(--space-20px) var(--space-12px); }
+.sbs-fit { flex: 1; align-self: stretch; min-width: 0; min-height: 0; display: grid; place-items: center; overflow: hidden; }
+.sbs-sheet { display: block; padding: 0; border: 0; background: none; line-height: 0; text-align: left; border-radius: var(--radius-8px); overflow: hidden; box-shadow: var(--shadow); cursor: zoom-in; touch-action: pan-y; user-select: none; }
+/* 좌우로 넘기기 — 시트 양옆 화살표 (키보드 ← → · 옆으로 밀기도 같은 동작) */
+.sbs-nav { flex-shrink: 0; width: var(--measure-40px); height: var(--measure-40px); display: grid; place-items: center; padding: 0; border-radius: var(--radius-999px); border: var(--stroke-1px) solid var(--line-2); background: var(--surface); color: var(--ink-2); box-shadow: var(--shadow); cursor: pointer; }
+.sbs-nav:hover:not(:disabled) { border-color: var(--accent-line); color: var(--accent); }
+.sbs-nav:disabled { opacity: .35; box-shadow: none; cursor: default; }
 .sbv-story { flex: 1; min-height: 0; }
 .sbv-note { font-family: var(--num); }
 
@@ -64,9 +80,10 @@
 
 @media (max-width: 760px) {
   .modal.sbv { height: calc(var(--measure-100vh) - var(--measure-24px)); }
-  .sbv-bar { flex-wrap: wrap; padding: var(--space-8px) var(--space-14px); }
-  .sbv-thesis { flex-basis: var(--measure-100); order: 5; white-space: normal; }
-  .sbv-ro { margin-left: 0; }
-  .sbv-ro .l { display: none; }
+  .sbv-bar { padding: 0 var(--space-14px); }
+  .sbs { grid-template-columns: var(--measure-96px) minmax(0, var(--measure-1fr)); }
+  .sbs-th .n { display: none; }
+  .sbs-main { gap: var(--space-4px); padding: var(--space-10px) var(--space-4px); }
+  .sbs-nav { width: var(--measure-28px); height: var(--measure-28px); }
   .sbv-note { display: none; }
 }

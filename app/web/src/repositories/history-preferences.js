@@ -32,4 +32,7 @@ export function restoreHistory(id, token) {
   if (!historyRemoved(id, token)) return;
   save({ ...state, removed: state.removed.filter(value => value !== id), removedShares: state.removedShares.filter(value => value !== token) });
 }
-window.addEventListener('storage', event => { if (event.key === KEY || event.key === null) { state = read(); emit(); } });
+window.addEventListener('storage', event => {
+  // Member accounts prefix their storage keys; read() resolves this tab's own account.
+  if (event.key === null || event.key === KEY || event.key.endsWith(':' + KEY)) { state = read(); emit(); }
+});

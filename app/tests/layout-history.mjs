@@ -60,7 +60,11 @@ try{
  pass('Old eager-sweep error/running records recover their saved previews');
  const failureCard=page.locator('[data-layout-uid="current-error"]');
  await failureCard.getByText('보관 원문 current-error',{exact:true}).waitFor();
- await failureCard.getByRole('status',{name:'저장된 레이아웃 유지'}).waitFor();
+ // the failure is reported in the 작업 알림 layer with its own words — on Storyboard that is the top bar's status line (the newest
+ // failure on the line, the others behind '+n' in its list); the card keeps showing the saved slide
+ const failBar=page.locator('.pr-top .ts-bar[role=alert]');await failBar.waitFor();
+ if(!(await failBar.innerText()).includes('AI 서비스 연결 시간 초과')){await failBar.locator('.ts-text').click();await page.locator('.ts-panel .ts-row').filter({hasText:'AI 서비스 연결 시간 초과'}).first().waitFor();await page.keyboard.press('Escape');}
+ assert.equal(await failureCard.locator('.context-slide').count(),0);
  assert.equal(await failureCard.locator('.stbadge.done').count(),0);
  pass('A genuine new failure keeps the saved slide visible without marking it complete');
  for(const uid of ['obsolete-image','obsolete-shared']){
@@ -75,7 +79,8 @@ try{
  assert.equal(await page.locator('[data-layout-uid="obsolete-image"] .layout-complete').getAttribute('aria-pressed'),'false');
  assert.equal(await page.locator('[data-layout-uid="obsolete-image"] .layout-complete').isEnabled(),false);
  await page.screenshot({path:path.join(out,'obsolete-error-recovered.png'),animations:'disabled'});
- await page.locator('.modal').filter({has:page.locator('.detail')}).getByRole('button',{name:'닫기',exact:true}).last().click();
+ // closed from the header: the two genuine failures stay reported in the 작업 알림 layer, which sits over the footer's 닫기
+ await page.locator('.modal').filter({has:page.locator('.detail')}).getByRole('button',{name:'닫기',exact:true}).first().click();
  const migration=await page.evaluate(async()=>{const {retainHistoryLayouts}=await import('/src/domain/slides/context-policy.js');return retainHistoryLayouts(structuredClone(window.__historyRepo.getProposal('history-fixture')));});
  assert.equal(migration,false);assert.equal(calls.length,0);
  pass('Obsolete image-edit and sharing jobs recover saved content without error banners, AI calls or false completion; genuine failures remain errors');
@@ -118,7 +123,8 @@ try{
   assert.deepEqual(batch.ov,before.ov);assert.deepEqual(batch.ev,before.ev);assert.equal(batch.adaptation.errorCode,'network');
   assert.equal(batch.adaptation.error,'AI 서비스 연결 시간 초과');assert.equal(batch.adaptation.progress.done,1);
   pass('A later batch failure leaves all saved values intact and preserves the actual server error');
-  mode='normal';await page.locator('[data-layout-uid="batch"]').getByRole('button',{name:'다시 시도',exact:true}).click();
+  // two sheets now report the same error text in the 작업 알림 layer, so this sheet's retry is requested by its id (the popup's own retry button: layout-context.mjs)
+  mode='normal';await page.evaluate(async()=>{const {retryLayoutContext}=await import('/src/services/layout-context.js');retryLayoutContext('history-fixture','batch');});
   await page.waitForFunction(()=>window.__historyRepo.getProposal('history-fixture').parts[0].layouts.find(x=>x.uid==='batch')?.adaptation.phase==='ready');
   batch=await page.evaluate(()=>window.__historyRepo.getProposal('history-fixture').parts[0].layouts.find(x=>x.uid==='batch'));
   assert.equal(Object.keys(batch.ov.t).length,50);assert.equal(batch.adaptation.progress.done,5);

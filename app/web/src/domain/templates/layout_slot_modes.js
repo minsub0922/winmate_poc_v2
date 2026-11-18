@@ -9,11 +9,13 @@
 //   (없음)   AI 작성 — 고객 · 업종 · 요구에 맞춰 AI가 쓰는 칸
 // AI 채우기(services/ai.js · 레이아웃 Agent)는 data-fix 칸을 고쳐 쓰지 않는다. 사람은 편집기에서 모든 칸을 그대로 고칠 수 있다.
 import MODES from './slot_modes.json' with { type: 'json' };
+import { layoutLibraryEntry, onLayoutLibrary } from './layout_library.js';
 
 export const SLOT_MODE_LABEL = { fixed: '고정', product: '제품 교체', solution: '솔루션 교체', case: '사례 교체', pick: '후보 선택', section: '목차 번호', ai: 'AI 작성' };
 export const LAYOUT_LOCK_LABEL = { fixed: '전부 고정', data: '고정 · 교체 · 후보만', mostly: '대부분 고정', ai: 'AI 작성 위주' };
 
 const BY = new Map();
+onLayoutLibrary(() => BY.clear());
 function table(f) {
   if (BY.has(f)) return BY.get(f);
   const e = MODES.layouts[f];
@@ -22,6 +24,15 @@ function table(f) {
     v = { t: {}, img: {}, lock: e.lock || 'ai' };
     for (const [m, ids] of Object.entries(e)) if (Array.isArray(ids)) for (const i of ids) v.t[i] = m;
     for (const [m, ids] of Object.entries(e.img || {})) for (const i of ids) v.img[i] = m;
+  }
+  const item = layoutLibraryEntry(f);
+  if (item.modes || item.fill === 'fixed') {
+    v ||= { t: {}, img: {}, lock: 'ai' };
+    for (const kind of ['t', 'img']) for (const [i, mode] of Object.entries(item.modes?.[kind] || {})) {
+      if (mode === 'ai') delete v[kind][i]; else v[kind][i] = mode;
+    }
+    if (item.fill === 'fixed') v.lock = 'fixed';
+    else if (Object.values(item.modes?.t || {}).includes('ai')) v.lock = 'ai';
   }
   BY.set(f, v);
   return v;
@@ -46,7 +57,8 @@ export function markSlotModes(f, html) {
   const v = table(f);
   if (!v || !html || html.includes('data-fix=')) return html;
   return html.replace(TAG, (tag, name, a, kind, i, b) => {
-    const m = kind === 'tb' ? v.t[i] : v.img[i];
+    const image = /\bdata-img="(\d+)"/.exec(tag);
+    const m = image ? v.img[image[1]] : v.t[i];
     return m ? `<${name}${a}data-${kind}="${i}" data-fix="${m}"${b}>` : tag;
   });
 }

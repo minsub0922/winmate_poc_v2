@@ -13,14 +13,14 @@ const legacy = read('app/web/src/domain/review/sample-reviews.json');
 const previous = read('app/web/src/domain/review/linked-review-examples-v2.json');
 const boot = { catalog: read('app/data/catalog.json'), products: read('app/data/products_db.json'), images: read('app/data/images.json'), capabilities: null, user: { username: 'admin', auth_enabled: true } };
 const out = path.join(root, 'app/tests/output/linked-review-examples-ui'); fs.mkdirSync(out, { recursive: true });
-const vite = await createServer({ root: path.join(root, 'app/web'), configFile: path.join(root, 'app/web/vite.config.js'), logLevel: 'error', server: { host: '127.0.0.1', port: 0, strictPort: false, hmr: false } });
+const vite = await createServer({ root: path.join(root, 'app/web'), configFile: path.join(root, 'app/web/vite.config.js'), logLevel: 'error', cacheDir: path.join(out, '.vite'), server: { host: '127.0.0.1', port: 0, strictPort: false, hmr: false } });
 const passed = [], errors = []; let browser, page, modelRequests = 0;
 const pass = s => { passed.push(s); console.log('PASS ' + s); };
 async function contextFor(seed = {}, admin = true) {
   const context = await browser.newContext({ viewport: { width: 1500, height: 1050 } });
   await context.route(url => url.pathname.startsWith('/api/'), route => {
     const u = new URL(route.request().url());
-    if (route.request().method() === 'POST' && /poc|review|jobs/.test(u.pathname)) modelRequests++;
+    if (route.request().method() === 'POST' && /^\/api\/(?:llm|jobs|poc\/jobs|review)(?:\/|$)/.test(u.pathname)) modelRequests++;
     if (u.pathname === '/api/bootstrap') return route.fulfill({ json: { ...boot, user: admin ? boot.user : { username: 'member', auth_enabled: true } } });
     if (u.pathname === '/api/auth/status') return route.fulfill({ json: { enabled: false, configured: true, authenticated: true } });
     if (u.pathname.startsWith('/api/product-packs/')) return route.fulfill({ json: read('reference/live/img/prod/d00.json') });
@@ -123,7 +123,7 @@ try {
     pass(e.scenario+': actual native layout hover shows grounded checkpoint scores below; full dialog scores sit on the right and match this page only');
     const last = page.locator('.rv-slide-card').last(); await last.scrollIntoViewIfNeeded(); await last.click();
     await page.getByRole('dialog', { name: new RegExp('^' + e.doc.units.length + '장') }).waitFor();
-    await page.locator('.rv-page-dialog .slide-inner').waitFor();
+    await page.locator('.rv-page-dialog .rv-page-stage .slide-inner').waitFor();
     await page.getByRole('button', { name: '이전 장', exact: true }).click();
     await page.getByRole('dialog', { name: new RegExp('^' + (e.doc.units.length - 1) + '장') }).waitFor();
     await page.getByRole('dialog').getByRole('button', { name: '닫기', exact: true }).first().click();
@@ -146,7 +146,7 @@ try {
           assert.ok(!(Math.min(a.x+a.width,b.x+b.width)-Math.max(a.x,b.x)>1&&Math.min(a.y+a.height,b.y+b.height)-Math.max(a.y,b.y)>1),'new hover covers chart');
           assert.ok(b.x>=0&&b.x+b.width<=width+1);await page.keyboard.press('Escape');
         }
-        await page.locator('.rv-radar-card').first().scrollIntoViewIfNeeded();
+        await page.locator('.rv-score-cat').first().scrollIntoViewIfNeeded();
         await page.screenshot({ animations: 'disabled',path:path.join(out,`criteria-v3-${width}.png`)});
       }
       await page.setViewportSize({width:1500,height:1050});
@@ -176,14 +176,14 @@ try {
   assert.equal(state.reviews.length, 5); assert.equal(state.proposals.length, 4);
   assert.deepEqual(state.reviews.find(r => r.id === own.id), own);
   assert.deepEqual(state.reviews.find(r => r.id === edited.id), edited);
-  assert.deepEqual(state.proposals.find(p => p.id === ownProposal.id), ownProposal);
+  assert.deepEqual(state.proposals.find(p => p.id === ownProposal.id), { ...ownProposal, endPath: '/storyboard/' + ownProposal.id });
   assert.equal(state.reviews.some(r => ['r_demo_f', 'r_demo_d'].includes(r.id)), false);
   pass('One-time replacement removes only untouched unlinked defaults and preserves personal work and edited examples');
   await page.reload(); await page.locator('.rvh-card').first().waitFor();
   assert.equal((await stored(page)).reviews.length, 5);
   const deleted = bundle.examples[0].review;
   await page.getByRole('button', { name: deleted.title + ' 평가 지우기', exact: true }).click();
-  await page.getByRole('button', { name: '지우기', exact: true }).click();
+  await page.getByRole('dialog', { name: '평가 기록을 삭제할까요?', exact: true }).getByRole('button', { name: '삭제', exact: true }).click();
   await page.waitForFunction(id => !JSON.parse(localStorage.getItem('winmate.v2.reviews')).some(r => r.id === id), deleted.id);
   await page.reload(); await page.locator('.rvh-card').first().waitFor();
   assert.equal((await stored(page)).reviews.some(r => r.id === deleted.id), false);
@@ -198,9 +198,16 @@ try {
   assert.equal(state.reviews.filter(r => r.criteriaVersion === 5).length, 3);
   for (const e of prior.slice(0, 2)) {
     assert.deepEqual(state.reviews.find(r => r.id === e.review.id), e.review);
-    const expectedSource=structuredClone(e.proposal);
+    const expectedSource=structuredClone(e.proposal), actualSource=state.proposals.find(p => p.id === e.proposal.id);
+    expectedSource.endPath='/storyboard/'+e.proposal.id;
+    if(actualSource.coverRevision){
+      assert.equal(actualSource.coverRevision,'single-photo-cover-v1');
+      assert.deepEqual(actualSource.coverArchive.layout,e.proposal.parts[0].layouts[0]);
+      expectedSource.coverRevision=actualSource.coverRevision;expectedSource.coverArchive=actualSource.coverArchive;
+      expectedSource.parts[0].layouts[0]=actualSource.parts[0].layouts[0];
+    }
     for(const part of expectedSource.parts)for(const layout of part.layouts)if(layout.adaptation)layout.adaptation.version=LAYOUT_CONTEXT_VERSION;
-    assert.deepEqual(state.proposals.find(p => p.id === e.proposal.id), expectedSource);
+    assert.deepEqual(actualSource, expectedSource);
   }
   assert.equal(state.reviews.some(r => r.id === prior[2].review.id), false);
   await page.getByRole('button', { name: prior[0].review.title + ' 평가 열기', exact: true }).click();

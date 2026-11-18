@@ -3,6 +3,7 @@ import { browserStorage } from './browser.js';
 // 직접 만든 고객 프로필 (localStorage). 기본 6명(PERSONAS)은 고칠 수 없고, 고쳐서 '새 프로필로 저장'하면 여기 들어온다.
 import { useSyncExternalStore } from 'react';
 import { uid } from './proposals.js';
+import { registerCollection, noteChange } from './account-sync.js';
 
 const KEY = 'winmate.v2.simPersonas';
 const MAX = 40;
@@ -12,8 +13,18 @@ function load() {
 }
 let state = { list: load() };
 const subs = new Set();
-function save() { try { browserStorage.setItem(KEY, JSON.stringify(state.list.slice(0, MAX))); } catch (e) {} }
+function save() { try { browserStorage.setItem(KEY, JSON.stringify(state.list.slice(0, MAX))); } catch (e) {} noteChange('personas'); }
 function emit() { for (const f of subs) f(); }
+registerCollection('personas', {
+  list: () => state.list,
+  apply(records, removed) {
+    const gone = new Set(removed), incoming = new Map(records.map(p => [p.key, p])), known = new Set(state.list.map(p => p.key));
+    const list = state.list.filter(p => !gone.has(p.key)).map(p => incoming.get(p.key) || p);
+    for (const p of records) if (!known.has(p.key)) list.push(p);
+    list.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+    state = { list: list.slice(0, MAX) }; save(); emit();
+  },
+});
 export function usePersonas() {
   return useSyncExternalStore((f) => { subs.add(f); return () => subs.delete(f); }, () => state.list);
 }

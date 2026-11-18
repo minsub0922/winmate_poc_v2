@@ -95,14 +95,25 @@ function prep(raw) {
 }
 
 // 한 번만 풀어 둔다
-export function ready() {
+export function ready(packed) {
   if (D) return Promise.resolve(D);
-  return (P ||= Promise.all([load(), unzip(STANDARD_BAKE)]).then(([raw, std]) => (D = prep(withStandard(raw, std)))).catch((e) => { P = null; throw e; }));
+  return (P ||= Promise.all([packed ? unzip(packed) : load(), unzip(STANDARD_BAKE)]).then(([raw, std]) => (D = prep(withStandard(raw, std)))).catch((e) => { P = null; throw e; }));
 }
 export function data() {
   if (!D) throw new Error('공간 조감도 데이터를 아직 읽지 않았어요.');
   return D;
 }
+// A thumbnail carries the exact floor/assets already loaded in this tab, including saved custom floors.
+// It does not resolve floor IDs against a possibly newer server catalog.
+export function thumbnailData(floors) {
+  const raw=data().raw,ids=new Set(floors.map(f=>typeof f==='string'?f:f.tpl).filter(Boolean));
+  const templates=[...ids].map(id=>{const t=raw.tpl.find(t=>t.id===id);if(!t)throw new Error('공간 조감도를 찾지 못했어요: '+id);return t;});
+  const used=[...new Set(templates.flatMap(t=>t.objs.map(o=>o[0])))],map=new Map(used.map((index,i)=>[index,i]));
+  const assets=used.map(i=>raw.assets[i]),recipes=Object.fromEntries(assets.filter(a=>a.r).map(a=>[a.r,raw.recipes[a.r]]));
+  return {v:raw.v,styles:raw.styles,ind:raw.ind,assets,recipes,tpl:templates.map(t=>({...t,objs:t.objs.map(o=>[map.get(o[0]),...o.slice(1)])}))};
+}
+// Server worker only: install a self-contained snapshot before each render.
+export function setRenderData(raw) { D=prep(raw);P=null; }
 export const tplOf = (id) => (D && D.tplById[id]) || null;
 // 내 공간 조감도를 층으로 — 앱(app/web/src/domain/building/floor-bake.js)이 만든 묶음 { assets, recipes, tpl }을 데이터에 더한다.
 // 묶음의 자산은 지금 표에 있으면 그것을 쓰고 없는 것만 뒤에 붙인다(withStandard와 같은 방식). 같은 id의 층은 바꿔 끼운다.

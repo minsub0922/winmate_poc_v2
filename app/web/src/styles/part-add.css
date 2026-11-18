@@ -1,0 +1,55 @@
+/* Storyboard 목차 — 목차 추가 팝업(part-add.jsx) · 버블 끌어서 옮기기 · 버블 지우기(storyboard.jsx) */
+
+/* ---- 목차 버블 끌어서 옮기기 · 지우기 */
+.col .node.movable { cursor: grab; }
+.col .node.movable:active { cursor: grabbing; }
+.col.pdragging { opacity: .4; }
+.conn.pdrop::after { content: ''; position: absolute; left: calc(50% - 2px); top: 2px; bottom: 2px; width: 4px; border-radius: 2px; background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.col:has(> .part-del) { position: relative; }
+.part-del { position: absolute; top: -8px; left: calc(50% + 26px); z-index: 2; width: 22px; height: 22px; padding: 0; border-radius: 50%; border: 1px solid var(--line-2); background: var(--surface); color: var(--muted);
+  display: grid; place-items: center; cursor: pointer; opacity: 0; transition: opacity .12s; box-shadow: 0 1px 3px rgba(0, 0, 0, .08); }
+.col:hover > .part-del, .part-del:focus-visible { opacity: 1; }
+.part-del:hover { color: var(--danger, #c62828); border-color: currentColor; }
+.part-del:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* ---- 목차 추가 팝업 — 줄을 누르면 펼쳐져 장이 보인다 · 오른쪽 큰 '추가' / '추가됨' */
+.pa-body { padding-top: 4px; }
+.pa-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.pa-list.has-open { padding-bottom: 360px; } /* 펼친 줄이 맨 아래 줄이어도 팝업 위쪽으로 올라올 수 있게 — 장 아래로 상세가 뜰 자리 */
+.pa-row { padding: 6px 0; border-bottom: 1px solid var(--line); }
+.pa-row:last-child { border-bottom: 0; }
+.pa-main { display: flex; align-items: center; gap: 12px; }
+.pa-head { flex: 1; min-width: 0; display: flex; align-items: center; gap: 14px; padding: 10px 12px; border: 0; border-radius: 10px; background: none; color: var(--ink); font: inherit; text-align: left; cursor: pointer; }
+.pa-head:hover:not(:disabled) { background: var(--surface-2); }
+.pa-row.open .pa-head { background: var(--surface-2); }
+.pa-head:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.pa-head:disabled { cursor: progress; }
+.pa-bubble { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--hc); color: var(--surface);
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 3.5px var(--hc); }
+.pa-tx { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.pa-tx b { font-size: 15px; font-weight: 800; }
+.pa-d { font-size: 12.5px; line-height: 1.45; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pa-chev { flex-shrink: 0; color: var(--muted); }
+.pa-row.added .pa-bubble, .pa-row.lack .pa-bubble { opacity: .45; }
+.pa-row.added .pa-tx b, .pa-row.lack .pa-tx b { color: var(--ink-2); }
+/* 추가 · 추가됨 · {DSS} 필요 — 같은 크기로 크게 */
+.pa-add { flex-shrink: 0; min-width: 112px; height: 40px; padding: 0 18px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; border-radius: 10px; font-size: 15px; font-weight: 800; white-space: nowrap; }
+.pa-add .spin { width: 15px; height: 15px; }
+.pa-add.done { border: 1px solid var(--line-2); background: var(--surface-3); color: var(--ink-2); }
+.pa-add.done svg { color: var(--accent); }
+.pa-add.lack { border: 1px solid color-mix(in srgb, var(--h-amber) 45%, transparent); background: var(--h-amber-bg); color: var(--h-amber); font: inherit; font-size: 14px; font-weight: 800; cursor: pointer; }
+.pa-add.lack:hover:not(:disabled) { border-color: var(--h-amber); }
+.pa-add.lack:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.pa-lack { display: flex; align-items: center; gap: 8px; margin: 4px 0 4px 66px; padding: 8px 10px; border-radius: 8px; background: var(--h-amber-bg); font-size: 12.5px; font-weight: 600; color: var(--ink); }
+.pa-lack > svg { flex-shrink: 0; color: var(--h-amber); }
+.pa-lack .btn { margin-left: auto; flex-shrink: 0; }
+/* 펼친 줄의 장 — 크게(248px) · 마우스를 대면 아래로 상세 */
+.pa-sheets { display: grid; grid-template-columns: repeat(auto-fill, 248px); gap: 14px 12px; margin: 8px 4px 10px 66px; }
+.pa-sheet { margin: 0; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+.pa-sheet-s { border: 1px solid var(--line); border-radius: 6px; overflow: hidden; cursor: zoom-in; transition: border-color .12s, box-shadow .12s; }
+.pa-sheet:hover .pa-sheet-s { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
+.pa-sheet figcaption { font-size: 11.5px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pa-none { margin: 4px 0 8px 66px; font-size: 12px; color: var(--muted); }
+.pa-count { font-size: 12px; color: var(--muted); }
+.hovercard.pa-hover { z-index: 95; }
+.pa-hover-t { display: flex; align-items: baseline; gap: 8px; min-width: 0; font-size: 14px; }

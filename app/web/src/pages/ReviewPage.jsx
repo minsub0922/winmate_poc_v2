@@ -1,5 +1,5 @@
 import {FeedbackPopup} from '../components/feedback-popup.jsx';
-import { requireLogin } from '../api/session.js';
+import { requireDownload, requireLogin } from '../api/session.js';
 import '../styles/review-report.css';
 import { CriteriaInfo } from '../components/CriteriaInfo.jsx';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
@@ -14,7 +14,7 @@ import { useReviews, startReview, rerunReview, retryReview, deleteReview, stopRe
 import { getDownloads, DL_ERR, safeName } from '../components/viewer.jsx';
 import { partHue } from '../components/common.jsx';
 import { TagChip } from '../components/tagcard.jsx';
-import { ReviewHover, CriterionDetail, ReviewRadar, ReviewSlides, ReviewPreview, ReviewSlideScores, CheckpointScores, useReviewAssets, useReviewDeck } from '../components/review-report.jsx';
+import { ReviewHover, CriterionDetail, ReviewCategoryScores, ReviewSlides, ReviewPreview, ReviewSlideScores, ReviewFilmstrip, ReviewSplitView, previewAspect, CheckpointScores, useReviewAssets, useReviewDeck } from '../components/review-report.jsx';
 import { PRODUCTS, SOLUTIONS } from '../services/catalog.js';
 import { AgentJobControl, useAdopt } from '../components/AgentJobControl.jsx';
 import { modeLabel } from '../services/poc-client.js';
@@ -27,60 +27,8 @@ const fmtSize = (b) => (b > 1048576 ? (b / 1048576).toFixed(1) + ' MB' : Math.ma
 // how the criterion scores of a review were made (older records in this browser keep their own label)
 const scoringLabel = (r) => (r.scoring === 'server' ? '서버 AI' : r.demo ? '예시' : r.ai ? 'AI + 자동 점검 (이전 방식)' : '자동 점검 (이전 방식)');
 
-function useFileDrop(onFiles) {
-  const [over, setOver] = useState(false);
-  const depth = useRef(0);
-  return {
-    over,
-    bind: {
-      onDragEnter: (e) => { if (!Array.from(e.dataTransfer.types || []).includes('Files')) return; e.preventDefault(); depth.current++; setOver(true); },
-      onDragOver: (e) => { if (!Array.from(e.dataTransfer.types || []).includes('Files')) return; e.preventDefault(); },
-      onDragLeave: () => { depth.current = Math.max(0, depth.current - 1); if (!depth.current) setOver(false); },
-      onDrop: (e) => { e.preventDefault(); depth.current = 0; setOver(false); if (e.dataTransfer.files && e.dataTransfer.files.length) onFiles(e.dataTransfer.files); },
-    },
-  };
-}
-function checkFiles(files) {
-  const list = Array.from(files || []);
-  const ok = list.filter((f) => ['pptx', 'pdf', 'docx', 'txt'].includes(fileKind(f.name)));
-  if (!ok.length) {
-    const lg = list.find((f) => fileKind(f.name) === 'legacy');
-    toast(lg ? `${lg.name} 형식은 읽을 수 없어요 · PPTX · PDF · DOCX로 저장해서 올려 주세요` : 'PPTX · PDF · DOCX · TXT 파일을 올려 주세요', 'warn');
-    return null;
-  }
-  const big = ok.find((f) => f.size > 150 * 1048576);
-  if (big) { toast(big.name + ' 파일이 너무 커요 (150MB 이하)', 'warn'); return null; }
-  return ok.slice(0, 2);
-}
-
-// ---------------------------------------------------------------- home entry
-export function ReviewEntry({ go }) {
-  const n = useReviews((s) => s.reviews.length);
-  const last = useReviews((s) => s.reviews[0]);
-  const inp = useRef(null);
-  const onFiles = (files) => { if (!requireLogin()) return; const ok = checkFiles(files); if (!ok) return; const id = startReview(ok); go({ name: 'review', id }); };
-  const { over, bind } = useFileDrop(onFiles);
-  return (
-    <div className={'rv-entry' + (over ? ' over' : '')} {...bind}>
-      <button className="rv-entry-hit" onClick={() => { if (requireLogin()) inp.current.click(); }} aria-label="제안서 검토 — 파일을 골라 평가 시작">
-        <span className="rv-entry-ic"><Icon name="clipCheck" size={22} /></span>
-        <span className="rv-entry-t">
-          <b>제안서 검토</b>
-          <span>{over ? '여기에 놓으면 바로 평가를 시작해요' : `완성한 제안서를 끌어다 놓거나 눌러서 올리면, ${NCRIT}개 검토 기준 중 이 제안서에 맞는 기준으로 점수와 근거를 매겨요`}</span>
-          <span className="rv-entry-fmt">PPTX · PDF · DOCX · PPTX와 같은 내용의 PDF를 함께 올리면 실제 화면 최대 4장을 함께 봐요</span>
-        </span>
-        <span className="rv-entry-cta"><Icon name="upload" size={16} />파일 올리기</span>
-      </button>
-      <button className="rv-hist-btn" onClick={() => go({ name: 'reviews' })} title="검토한 제안서 보기">
-        <Icon name="clock" size={15} />평가 내역<span className="num">{n}</span>
-      </button>
-      {last && last.status === 'done' && last.agg && !over && (
-        <span className="sr">최근 평가 {last.title} {last.agg.overall}점</span>
-      )}
-      <input ref={inp} type="file" accept={ACCEPT} multiple hidden onChange={(e) => { onFiles(e.target.files); e.target.value = ''; }} />
-    </div>
-  );
-}
+import { useFileDrop, checkFiles } from '../components/review-entry.jsx';
+export { ReviewEntry } from '../components/review-entry.jsx';
 
 // ---------------------------------------------------------------- history page (sidebar · 제안서 검토)
 function MiniScore({ r }) {
@@ -131,7 +79,7 @@ export function ReviewHistory({ go }) {
 
         <div className={'rvh-cta' + (over ? ' over' : '')}>
           <button className="rvh-go" onClick={() => { if (requireLogin()) inp.current.click(); }}><Icon name="upload" size={20} stroke={2.2} />{over ? '여기에 놓으면 바로 검토를 시작해요' : '제안서 검토하기'}</button>
-          <span className="rvh-cta-sub">PPTX · PDF · DOCX 파일을 눌러서 고르거나 이 화면에 끌어다 놓으세요</span>
+          <span className="rvh-cta-sub">PPTX · PDF · DOCX · 파일 선택 또는 끌어다 놓기</span>
           <input ref={inp} type="file" accept={ACCEPT} multiple hidden onChange={(e) => { onFiles(e.target.files); e.target.value = ''; }} />
         </div>
 
@@ -444,9 +392,8 @@ function Report({ r }) {
           <div className="rv-overview-facts"><span>평가 기준 <b>{agg.nApplied}</b>개</span><span>보완 필요 <b>{nFix}</b>개</span><span>{r.units?.length || 0}{ul}</span><span>{scoringLabel(r)}</span></div>
         </div>
       </div>
-      <dl className="rv-score-summary" aria-label="영역별 점수" style={{ '--review-category-count': CATS.length }}>{CATS.map(c => <div key={c.id}><dt>{c.name}</dt><dd className={'num b-' + band(agg.cats[c.id]).k}>{agg.cats[c.id] ?? '—'}<small>{agg.cats[c.id] == null ? '미평가' : '/ 100'}</small></dd></div>)}</dl>
+      <ReviewCategoryScores review={r} scores={agg.cats} onUnit={openUnit} />
     </section>
-    <ReviewSlides review={r} doc={doc} deck={deck} onLink={link} assets={assets} perUnit={perUnit} onUnit={openUnit} onAttach={attach} attaching={attaching} />
     <section className="rv-card rv-priorities" aria-label="먼저 고칠 것">
       <div className="rv-card-h"><div><span className="rv-eyebrow">NEXT ACTIONS</span><h3>먼저 고칠 것 <span className="rv-count num">{agg.priorities.length}</span></h3></div><span className="faint">점수 · 중요도 · 영역 가중치를 반영한 수정 순서</span></div>
       <ol className="rv-priority-grid">{agg.priorities.filter(id => CR[id] && res[id]).map((id, i) => {
@@ -456,9 +403,9 @@ function Report({ r }) {
           <footer>{units.map(n => <UnitChip key={n} n={n} label={ul} onOpen={openUnit} />)}</footer>
         </li>;
       })}</ol>
-      {!agg.priorities.length && <p className="muted">우선 수정할 항목이 없어요. 기준별 평가에서 세부 근거를 확인해 주세요.</p>}
+      {!agg.priorities.length && <p className="muted">우선 수정할 항목이 없어요. 종합평의 영역별 차트에서 세부 근거를 확인해 주세요.</p>}
     </section>
-    <ReviewRadar review={r} onUnit={openUnit} />
+    <ReviewSlides review={r} doc={doc} deck={deck} onLink={link} assets={assets} perUnit={perUnit} onUnit={openUnit} onAttach={attach} attaching={attaching} />
     {r.poc && <details className="rv-server-details"><summary>서버 AI 채점 원문 보기</summary><PocSection r={r} ul={ul} onUnit={openUnit} /></details>}
     {criteriaOpen && <CriteriaInfo r={r} onClose={() => setCriteriaOpen(false)} />}
     {unit != null && <UnitModal r={r} doc={doc} deck={deck} assets={assets} n={unit} setN={setUnit} onClose={() => setUnit(null)} />}
@@ -492,12 +439,13 @@ function UnitModal({ r, doc, deck, assets, n, setN, onClose }) {
   if (!u) return null;
   return <Modal size="sheet" onClose={onClose} title={`${n}${ul} · ${u.title || '제목 없음'}`} sub={u.part && PARTS[u.part] ? PARTS[u.part].label : undefined} bodyClass="rv-page-dialog"
     footer={<><div className="sv-nav"><button className="btn btn-sm btn-icon" disabled={n <= 1} onClick={() => setN(n - 1)} aria-label="이전 장"><Icon name="chevL" size={15} /></button><span className="num">{n} / {total}</span><button className="btn btn-sm btn-icon" disabled={n >= total} onClick={() => setN(n + 1)} aria-label="다음 장"><Icon name="chev" size={15} /></button></div><span className="sp" /><button className="btn" onClick={onClose}>닫기</button></>}>
-    <div className="rv-page-columns">
-      <div className="rv-page-layout-column"><div className="rv-page-stage"><ReviewPreview key={n} doc={doc} unit={du} assets={assets} title={`${n}${ul} ${deck.proposal ? '제안서 레이아웃' : '원본 장표'} 확대`} /></div>
-        {du?.text && <details className="rv-page-text"><summary>읽은 본문 보기</summary><p>{du.text}</p></details>}
-      </div>
-      <aside className="rv-page-score-column" aria-label="장표 오른쪽 세부 평가"><ReviewSlideScores review={r} n={n} sourceMatches={deck.scoreSourceMatches} /></aside>
-    </div>
+    <ReviewSplitView notesLabel="장표 오른쪽 세부 평가" sheet={<div className="rv-page-layout-column">
+      <div className="rv-page-stage-frame" style={{ '--rv-aspect': previewAspect(doc, du, assets) }}><div className="rv-page-stage"><ReviewPreview key={n} doc={doc} unit={du} assets={assets} title={`${n}${ul} ${deck.proposal ? '제안서 레이아웃' : '원본 장표'} 확대`} /></div></div>
+      <ReviewFilmstrip deck={deck} doc={doc} assets={assets} ul={ul} current={n} onPick={setN} />
+    </div>} notes={<>
+      <ReviewSlideScores review={r} n={n} sourceMatches={deck.scoreSourceMatches} />
+      {du?.text && <details className="rv-page-text"><summary>읽은 본문 보기</summary><p>{du.text}</p></details>}
+    </>} />
   </Modal>;
 }
 
@@ -562,6 +510,7 @@ function RerunModal({ r, go, onClose }) {
 
 // ---------------------------------------------------------------- export
 async function exportMd(r) {
+  if (!requireDownload()) return;
   const { CR, CAT, CATS, CRITERIA } = criteriaForReview(r);
   const NCRIT = CRITERIA.length;
   const ul = r.unitLabel || '장'; const res = r.results || {}; const agg = r.agg;

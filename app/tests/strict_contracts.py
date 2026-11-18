@@ -32,8 +32,9 @@ sys.dont_write_bytecode = True
 OUT = ROOT / 'app/tests/output/strict'
 MIN_CASES = 10
 FAKE_KEY = 'AIzaSySTRICTFAKEKEY00000000000000000000'
-TOTAL_PRODUCTS = 1084
-CURATED = 40
+# 제품 수의 기준값은 products_db.json counts.total 하나다(DSS 업데이트 · 삭제 도구만 바꾼다). 큐레이션은 catalog.json products.
+TOTAL_PRODUCTS = json.loads((ROOT / 'app/data/products_db.json').read_text(encoding='utf-8'))['counts']['total']
+CURATED = len(json.loads((ROOT / 'app/data/catalog.json').read_text(encoding='utf-8'))['products'])
 
 
 def scrub_provider_env() -> None:
@@ -168,7 +169,7 @@ def pack_ref(ref: str) -> tuple[str, int]:
 
 
 # ================================================================ group 1 · products
-@case('products', 'P01', 'count is 1084 across list, health and bootstrap')
+@case('products', 'P01', 'count is the declared total (products_db.json counts.total) across list, health and bootstrap')
 def p01(ctx, d):
     items = ctx.all_products
     body = ctx.client.get('/api/products').json()

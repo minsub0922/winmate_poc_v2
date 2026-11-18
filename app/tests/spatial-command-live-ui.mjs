@@ -54,9 +54,9 @@ try{
   pass(`"@세탁기 3개 추가해" → ${call.source}: three washers were added to ${washerRoom.name}`);
 
   // 3D로도 확인하고, 실행 취소 세 번으로 처음으로 돌아가는지 본다
-  await page.getByRole('button',{name:/3D 조감도/}).click();await page.locator('.sp-view[data-ready=true][data-view="3d"]').waitFor({timeout:120000});await page.waitForTimeout(1500);
+  await page.getByRole('tab',{name:'3D',exact:true}).click();await page.locator('.sp-view[data-ready=true][data-view="3d"]').waitFor({timeout:120000});await page.waitForTimeout(1500);
   await page.screenshot({path:output+'/4-3d.png',fullPage:true});
-  await page.getByRole('button',{name:/2D 평면도/}).click();await page.locator('.sp-view[data-view="2d"]').waitFor();
+  await page.getByRole('tab',{name:'2D',exact:true}).click();await page.locator('.sp-view[data-view="2d"]').waitFor();
   for(let i=0;i<3;i++)await page.getByRole('button',{name:'실행 취소'}).click();
   await page.waitForFunction(n=>document.querySelectorAll('.sp-plan-image [data-object-id]').length===n,scene.objects.length);
   for(let i=0;i<3;i++)await page.getByRole('button',{name:'다시 실행'}).click();

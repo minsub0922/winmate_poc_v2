@@ -103,7 +103,9 @@ try {
   checks.push(name + ': mobile controls fit and AI mode defaults off on reload');
  }
  await page.evaluate(async () => {
-  const React = (await import('/node_modules/.vite/deps/react.js')).default; const { createRoot } = (await import('/node_modules/.vite/deps/react-dom_client.js')).default;
+  const urls = performance.getEntriesByType('resource').map(r => r.name);
+  const React = (await import(urls.find(u => /\/react\.js\?/.test(u)))).default;
+  const { createRoot } = (await import(urls.find(u => /\/react-dom_client\.js\?/.test(u)))).default;
   const { LayoutPicker } = await import('/src/components/layouts.jsx');
   const { scenarioStoryboard } = await import('/src/domain/templates/scenario_storyboard.js');
   const proposal = scenarioStoryboard('bs01'); const part = proposal.parts.find(p => !p.deck);

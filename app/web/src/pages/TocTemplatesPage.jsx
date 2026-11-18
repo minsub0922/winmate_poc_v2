@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Icon, Modal, toast, partHue, confirmDelete } from '../components/common.jsx';
+import { LockTip } from '../components/lock-tip.jsx';
+import { SampleRibbon } from '../components/sample-ribbon.jsx';
 import { PartBubble } from '../components/part-bubble.jsx';
 import { useFitWidth } from '../components/sheetview.jsx';
 import { FavButton } from '../components/fav.jsx';
@@ -12,31 +14,48 @@ import { SC, slidesOfScenario } from '../domain/templates/scenarios.js';
 import { ovOf, partTypeOf } from '../domain/templates/scenario_storyboard.js';
 import { TOC_TEMPLATES, TOCS, tocName, loadTocContent, ensureTocScenario, tocVerticals, tocUaSheets, UA_KINDS } from '../domain/templates/toc_templates.js';
 import { ScenarioStoryboard, activateScenario } from './ScenariosPage.jsx';
+import { TocSheets } from '../components/toc-sheets.jsx';
+import { lookStyle } from '../domain/templates/part_looks.js';
+import { partLook } from '../domain/templates/part_colors.js'; // 파트 색 — 버블마다 다른 색이 흐름 앞에서 뒤로
+import { partLabel } from '../domain/templates/part_catalog.js'; // 목차 이름 = 관리자 「전체 파트」 목록 이름
+import '../services/layout-presets.js'; // 관리자가 바꾼 운영 값(끄기 · 순서 · 글 · 연결 샘플)
 import '../styles/toc.css';
 
 /* =========================================================
    목차 템플릿 — 목차(= Storyboard 버블) 흐름이 정해진 제안서 양식.
    목록: 템플릿 카드가 세로로 · 카드마다 큰 이름 + 목차마다 한 칸(작은 목차 버블 + 그 목차의 대표 장, 흐름 순서 그대로).
-   카드를 누르면 상세 팝업 — 헤더의 드롭다운으로 업종(44, 이 양식이 다루는 기존 샘플 포함)을 고르면 그 덱을
+   카드를 누르면 상세 팝업 — 왼쪽 장 목록 맨 위(고정)의 드롭다운으로 업종(44, 이 양식이 다루는 기존 샘플 포함)을 고르면 그 덱을
    목차 버블 흐름 + 왼쪽 장 썸네일 세로 목록(목차마다 버블로 묶음) + 오른쪽 큰 장으로 본다 · Storyboard · PPTX · 활용하기.
+   보이는 덱은 업종 샘플이라 큰 장에는 '샘플 자료' 띠(components/sample-ribbon.jsx).
    ========================================================= */
 const DEMO_V = 'fb_qsr';
 const isDeck = (g) => !!g.deck || g.key === 'open'; // 표지(+ 목차) — 버블 없는 앞장
 const isDiv = (f) => /^L_VS_DIV_R\d$/.test(f);
 const stageLabel = (name) => name.replace(/^(목차 · )?\d{2}\s+/, '');
 const pad = (n) => String(n).padStart(2, '0');
-const tplParts = (t, short) => t.tocs.map((k) => ({ type: TOCS[k].type, name: tocName(k, short) }));
+const tplParts = (t, short) => t.tocs.map((k) => ({ type: TOCS[k].type, name: partLabel(k, short), look: partLook(k, TOCS[k].look) })); // look: 관리자가 직접 만든 파트의 색 · 아이콘, 아니면 파트 색
+/** 주소로 바로 열기 — /?toc=<구성 id>&v=<업종 id> 또는 &sample=<기존 샘플 id> (관리자 「레이아웃 구성 관리」의 '샘플 시나리오 보기').
+ *  embed=1 이면 다른 화면 안(iframe)에서 덱만 본다 — 메뉴를 숨기고, 닫아도 같은 덱에 머문다.
+ *  embed=sheets 면 시트만(왼쪽 썸네일 + 큰 장) — 업종 · 샘플을 주지 않으면 이 구성과 파트 구성이 같은 대표 샘플 덱(관리자 구성 상세 팝업). */
+function tocLink() {
+  const q = new URLSearchParams(window.location.search);
+  const t = TOC_TEMPLATES.find((x) => x.id === q.get('toc'));
+  if (!t) return null;
+  const sample = q.get('sample');
+  const embed = q.get('embed');
+  return { tpl: t.id, sel: sample && SC[sample] ? { kind: 'rel', id: sample } : q.get('v') ? { kind: 'ind', id: q.get('v') } : null, embed: embed === '1' || embed === 'sheets', sheets: embed === 'sheets' };
+}
 
 /** 목차 흐름 — Storyboard 목차 버블(PartBubble)을 작게: 유형 아이콘 원 + 순서 + 이름, 점선으로 잇는다.
  *  parts: [{ type, name, n? }] · on: 지금 보는 목차(0부터) · onPick(i): 그 목차의 첫 장으로 */
-function Flow({ parts, label, on = -1, onPick }) {
+export function Flow({ parts, label, on = -1, onPick, numbered = true }) {
   return (
     <ol className="tocmf" aria-label={label}>
       {parts.map((x, i) => (
         <React.Fragment key={i}>
           {i > 0 && <li className="tocmf-conn" aria-hidden="true" />}
-          <li className={'tocmf-i pb-mini ' + partHue(x.type) + (i === on ? ' on' : '')} aria-current={i === on ? 'step' : undefined}>
-            <PartBubble part={{ type: x.type, name: x.name, done: true }} no={i + 1} onClick={onPick ? () => onPick(i) : undefined} label={onPick ? x.name + ' 장 보기' : undefined} />
+          <li className={'tocmf-i pb-mini ' + partHue(x.type) + (i === on ? ' on' : '')} style={lookStyle(x.look)} aria-current={i === on ? 'step' : undefined}>
+            <PartBubble part={{ type: x.type, name: x.name, done: true, look: x.look }} no={numbered ? i + 1 : null} onClick={onPick ? () => onPick(i) : undefined} label={onPick ? x.name + ' 장 보기' : undefined} />
             {x.n != null && <span className="tocmf-c num">{x.n}장</span>}
           </li>
         </React.Fragment>
@@ -69,8 +88,8 @@ function TocColumns({ t, ready }) {
   return (
     <ol className="tocc-cols" aria-label={t.name + ' 목차와 대표 장'}>
       {tplParts(t).map((x, i) => (
-        <li key={i} className={'tocc-col ' + partHue(x.type)}>
-          <div className="tocc-colh pb-mini"><PartBubble part={{ type: x.type, name: x.name, done: true }} no={i + 1} /></div>
+        <li key={i} className={'tocc-col ' + partHue(x.type)} style={lookStyle(x.look)}>
+          <div className="tocc-colh pb-mini"><PartBubble part={{ type: x.type, name: x.name, done: true, look: x.look }} no={i + 1} /></div>
           <div className={'tocc-sheet' + (picks[i] ? '' : ' sk')}>{picks[i] && <FitSlide f={picks[i].f} ov={ovOf(s.id, picks[i].k, picks[i].f)} lazy />}</div>
         </li>
       ))}
@@ -86,7 +105,6 @@ function TocCard({ t, i, ready, onOpen }) {
       <div className="tocc-top">
         <span className="tocc-no num">{pad(i + 1)}</span>
         <h3 className="tocc-nm">{t.name}</h3>
-        <span className="tocc-badge">{t.badge}</span>
         <span className="tocc-more">업종별 시나리오 보기<Icon name="chev" size={16} stroke={2.4} /></span>
       </div>
       <div className="tocc-sub">
@@ -104,29 +122,34 @@ function TocCard({ t, i, ready, onOpen }) {
 
 export function TocTemplatesPage({ go }) {
   const [ready, setReady] = useState(false);
-  const [open, setOpen] = useState(null);
+  const [link] = useState(tocLink);
+  const [open, setOpen] = useState(link ? link.tpl : null);
+  useEffect(() => { if (!link || !link.embed) return undefined; document.documentElement.classList.add('toc-embed'); return () => document.documentElement.classList.remove('toc-embed'); }, []);
   useEffect(() => { let on = true; loadTocContent().then(() => on && setReady(true)).catch((e) => { console.error(e); toast('목차 템플릿 콘텐츠를 불러오지 못했어요', 'warn'); }); return () => { on = false; }; }, []);
   const t = open ? TOC_TEMPLATES.find((x) => x.id === open) : null;
+  const list = TOC_TEMPLATES.filter((x) => !x.off); // 관리자가 끈 구성은 목록에서 뺀다(주소로 연 구성은 그대로 본다)
+  if (t && link && link.sheets) return <TocSheets t={t} ready={ready} start={link.sel} />;
   return (
     <div className="tl tocp">
       <div className="tl-in">
         <header className="tl-head">
           <div className="tl-title">
             <span className="eyebrow">WINMATE · 목차 템플릿</span>
-            <h1>목차 템플릿 <span className="num">{TOC_TEMPLATES.length}</span></h1>
+            <h1>목차 템플릿 <span className="num">{list.length}</span></h1>
             <p>목차 흐름이 정해진 제안서 양식이에요. 같은 양식이면 장은 같고 업종마다 내용과 장 수만 달라요. 이름이 같은 목차는 표준 제안서의 장을 그대로 써요.</p>
           </div>
         </header>
         <div className="tocp-list">
-          {TOC_TEMPLATES.map((x, i) => <TocCard key={x.id} t={x} i={i} ready={ready} onOpen={setOpen} />)}
+          {list.map((x, i) => <TocCard key={x.id} t={x} i={i} ready={ready} onOpen={setOpen} />)}
         </div>
       </div>
-      {t && <TocDetail key={t.id} t={t} ready={ready} go={go} onClose={() => setOpen(null)} />}
+      {t && <TocDetail key={t.id} t={t} ready={ready} go={go} onClose={() => { if (!(link && link.embed)) setOpen(null); }} start={link && link.tpl === t.id ? link.sel : null} />}
     </div>
   );
 }
 
-/* ---------- 업종 드롭다운: 업종 그룹별 44개 + 이 양식이 다루는 기존 샘플 · 찾기 · ↑↓ · Enter · Esc ---------- */
+/* ---------- 업종 드롭다운: 업종 그룹별 44개 + 이 양식이 다루는 기존 샘플 · 찾기 · ↑↓ · Enter · Esc ----------
+   상세 팝업 왼쪽 장 목록 맨 위에 고정 — 좁은 칸이라 '업종' · 이름 · 설명을 세 줄로 쌓는다 */
 const norm = (x) => String(x || '').toLowerCase().replace(/\s/g, '');
 function DeckMenu({ t, verts, rel, sel, onPick }) {
   const [open, setOpen] = useState(false);
@@ -173,8 +196,11 @@ function DeckMenu({ t, verts, rel, sel, onPick }) {
     <div className="tocm" ref={box}>
       <button ref={btn} type="button" className="tocm-btn" aria-haspopup="listbox" aria-expanded={open} onClick={() => (open ? hide(false) : show())}
         aria-label={(curR ? '기존 샘플 ' + curR.title : '업종 ' + (curV ? curV.nm : '')) + ' — 다른 업종 고르기'}>
-        <span className="lbl">{curR ? '기존 샘플' : '업종'}</span>
-        <span className="tx"><span className="nm">{curR ? curR.title : curV ? curV.nm : '불러오는 중…'}</span>{curV && <span className="cu">{subOf(curV)}</span>}</span>
+        <span className="tx">
+          <span className="lbl">{curR ? '기존 샘플' : '업종'}</span>
+          <span className="nm" title={curR ? curR.title : curV ? curV.nm : undefined}>{curR ? curR.title : curV ? curV.nm : '불러오는 중…'}</span>
+          {curV && <span className="cu" title={subOf(curV)}>{subOf(curV)}</span>}
+        </span>
         <Icon name="chevD" size={16} stroke={2.4} />
       </button>
       {open && (
@@ -206,15 +232,20 @@ function DeckMenu({ t, verts, rel, sel, onPick }) {
   );
 }
 
-/* ---------- 상세 팝업: 업종(드롭다운) · 목차 흐름 · 장 썸네일 세로 목록 + 큰 장 ---------- */
-function TocDetail({ t, ready, go, onClose }) {
-  const [sel, setSel] = useState({ kind: 'ind', id: DEMO_V });
+/* ---------- 상세 팝업: 목차 흐름 · 왼쪽 업종(드롭다운, 위에 고정) + 장 썸네일 세로 목록 · 오른쪽 큰 장('샘플 자료' 띠 — 업종 샘플 덱이다) ---------- */
+// pick: Storyboard '레이아웃 구성'에서 구성을 고를 때 — { vertical, label, closeLabel, note, lock(고를 수 없는 이유 · 마우스를 대면 말풍선), onPick({ t, s, vid }) }. 업종은 그 고객의 업종으로 열리고,
+//   아래 버튼은 '이 구성으로 시작' 하나만 둔다(기존 샘플 덱은 고를 수 없다 — 업종 덱만).
+// start: 처음 보여 줄 덱 { kind: 'ind' | 'rel', id } — 주소로 바로 열 때
+export function TocDetail({ t, ready, go, onClose, pick = null, start = null }) {
+  const [sel, setSel] = useState(start || { kind: 'ind', id: (pick && pick.vertical) || DEMO_V });
   const [pos, setPos] = useState({ g: 0, j: 0 }); // 묶음(표지 · 목차마다) · 그 안의 장 — 업종을 바꿔도 같은 목차 자리에 머문다
   const [sb, setSb] = useState(null); // scenario id for the Storyboard view
   const [big, setBig] = useState(null); // { list, ovs, notes, index, ua }
   const [busy, setBusy] = useState(false);
   const verts = ready ? tocVerticals() : [];
-  const rel = useMemo(() => (t.related || []).map((id) => SC[id]).filter(Boolean), [t.id]);
+  // 이 양식에 연결된 기존 샘플(+ 주소로 바로 연 샘플 — 아직 연결을 저장하기 전에도 볼 수 있게)
+  const rel = useMemo(() => (pick ? [] : [...new Set([...(t.related || []), ...(start && start.kind === 'rel' ? [start.id] : [])])].map((id) => SC[id]).filter(Boolean)), [t.id, !!pick]);
+  useEffect(() => { if (ready && sel.kind === 'ind' && !verts.some((x) => x.id === sel.id)) setSel({ kind: 'ind', id: DEMO_V }); }, [ready]); // 주소로 받은 업종이 없으면 대표 업종
   const isRel = sel.kind === 'rel';
   const s = !ready ? null : isRel ? SC[sel.id] || null : ensureTocScenario(t.id, sel.id);
   const v = !isRel ? verts.find((x) => x.id === sel.id) : null;
@@ -235,9 +266,10 @@ function TocDetail({ t, ready, go, onClose }) {
       const key = isRel ? null : t.tocs[no];
       no += 1; g.no = no;
       g.type = key && TOCS[key] ? TOCS[key].type : partTypeOf(g.stage, s.id);
-      g.label = key && TOCS[key] ? tocName(key, v ? v.short : null) : stageLabel(g.stage.name);
+      g.label = key && TOCS[key] ? partLabel(key, v ? v.short : null) : stageLabel(g.stage.name);
+      g.look = key && TOCS[key] ? partLook(key, TOCS[key].look) : undefined;
     }
-    if (ua.length) out.push({ ua: true, type: TOCS.ua.type, label: '당사의 이해 · 업종별 시트', items: ua.map((y, i) => ({ k: null, i, f: y.f, ov: y.ov, role: UA_KINDS[y.kind] })) });
+    if (ua.length) out.push({ ua: true, type: TOCS.ua.type, look: partLook('ua', TOCS.ua.look), label: '당사의 이해 · 업종별 시트', items: ua.map((y, i) => ({ k: null, i, f: y.f, ov: y.ov, role: UA_KINDS[y.kind] })) });
     return out;
   }, [s && s.id, ua]);
   const parts = groups.filter((g) => !g.deck && !g.ua);
@@ -290,27 +322,30 @@ function TocDetail({ t, ready, go, onClose }) {
   const where = G ? (G.deck ? G.label : G.ua ? G.label : `${pad(G.no)} ${G.label}`) : '';
   return (
     <Modal size="tocd" bodyClass="mbody tocd-body" onClose={() => { if (big) setBig(null); else onClose(); }}
-      title={<span className="tocd-t">{t.name}<span className={'tocd-badge h-' + t.hue}>{t.badge}</span></span>} sub={t.desc}
-      headerActions={<DeckMenu t={t} verts={verts} rel={rel} sel={sel} onPick={setSel} />}
+      title={<span className="tocd-t">{t.name}</span>} sub={t.desc}
       footer={<>
-        <span className="note">{s ? `${s.title} · 목차 ${parts.length}개 · 장 ${slides.length}장` : '불러오는 중…'}</span>
+        <span className="note">{pick && pick.note ? pick.note : s ? `${s.title} · 목차 ${parts.length}개 · 장 ${slides.length}장` : '불러오는 중…'}</span>
         <span className="sp" />
-        <button className="btn" onClick={onClose}>닫기</button>
-        <button className="btn" disabled={!s} onClick={() => setSb(s.id)}><Icon name="route" size={15} />Storyboard 보기</button>
-        <button className="btn" disabled={!s || busy} onClick={run}>{busy ? <span className="spin" /> : <Icon name="download" size={15} />}{busy ? '만드는 중…' : 'PPTX로 받기'}</button>
-        <button className="btn btn-primary" disabled={!s} onClick={() => { onClose(); activateScenario(s, go); }} data-login-required><Icon name="plus" size={15} stroke={2.4} />활용하기</button>
+        <button className="btn" onClick={onClose}>{pick ? pick.closeLabel || '다른 구성 보기' : '닫기'}</button>
+        {!pick && <button className="btn" disabled={!s} onClick={() => setSb(s.id)}><Icon name="route" size={15} />Storyboard 보기</button>}
+        {!pick && <button className="btn" disabled={!s || busy} onClick={run}>{busy ? <span className="spin" /> : <Icon name="download" size={15} />}{busy ? '만드는 중…' : 'PPTX로 받기'}</button>}
+        {/* pick.onPick 이 없으면(Storyboard 구성 상자의 '샘플 보기' — 시작은 '제안서 작성하기') 보기만 */}
+        {pick ? pick.onPick && <LockTip lock={pick.lock} id="tocd-pick-lock" up><button className="btn btn-primary" disabled={!s || isRel || !!pick.lock} data-autofocus onClick={() => pick.onPick({ t, s, vid: sel.id })} data-login-required><Icon name="sparkle" size={15} />{pick.label || '이 구성으로 시작'}</button></LockTip>
+          : <button className="btn btn-primary" disabled={!s} onClick={() => { onClose(); activateScenario(s, go); }} data-login-required><Icon name="plus" size={15} stroke={2.4} />활용하기</button>}
       </>}>
       <div className="tocd-flow">
-        <Flow parts={(parts.length ? parts : isRel ? [] : tplParts(t, v ? v.short : null)).map((g) => ({ type: g.type, name: g.label || g.name, n: g.items ? g.items.length : null }))}
-          label={(s ? s.title : t.name) + ' 목차 흐름'} on={on} onPick={parts.length ? pickPart : undefined} />
+        <Flow parts={(parts.length ? parts : isRel ? [] : tplParts(t, v ? v.short : null)).map((g) => ({ type: g.type, name: g.label || g.name, n: g.items ? g.items.length : null, look: g.look }))}
+          label={(s ? s.title : t.name) + ' 목차 흐름'} on={on} onPick={parts.length ? pickPart : undefined} numbered={!pick} />
       </div>
       <div className="tocv">
+        <div className="tocv-side">
+        <DeckMenu t={t} verts={verts} rel={rel} sel={sel} onPick={setSel} />
         <nav className="tocv-rail" ref={rail} aria-label="장 목록">
           {!s && <p className="faint tocv-wait">장을 불러오는 중…</p>}
           {groups.map((g, gn) => (
             <section key={(g.ua ? 'ua' : g.stage.name) + gn} className={'tocv-g' + (g.deck ? ' deck' : '') + (g.ua ? ' ua' : '')}>
-              <div className={'tocv-gh ' + (g.deck ? 'h-slate' : 'pb-mini ' + partHue(g.type))}>
-                {g.deck ? <span className="tocv-gl">{g.label}</span> : <PartBubble part={{ type: g.type, name: g.label, done: true }} no={g.ua ? t.tocs.indexOf('ua') + 1 : g.no} />}
+              <div className={'tocv-gh ' + (g.deck ? 'h-slate' : 'pb-mini ' + partHue(g.type))} style={g.deck ? undefined : lookStyle(g.look)}>
+                {g.deck ? <span className="tocv-gl">{g.label}</span> : <PartBubble part={{ type: g.type, name: g.label, done: true, look: g.look }} no={pick ? null : g.ua ? t.tocs.indexOf('ua') + 1 : g.no} />}
                 <span className="tocv-gc num">{g.items.length}장</span>
               </div>
               <div className="tocv-ths">
@@ -328,6 +363,7 @@ function TocDetail({ t, ready, go, onClose }) {
             </section>
           ))}
         </nav>
+        </div>
         <div className="tocv-stage">
           <div className={'vinfo tocv-info ' + (G && !G.deck ? partHue(G.type) : 'h-slate')}>
             {G && <span className="pt">{where}</span>}
@@ -338,9 +374,9 @@ function TocDetail({ t, ready, go, onClose }) {
           <div className="tocv-fit" ref={fit}>
             {cur && bw > 0 && (
               <div className="vslide" role="button" tabIndex={0} onClick={openBig} onKeyDown={(e) => { if (e.target === e.currentTarget && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); openBig(); } }}
-                title="눌러서 크게 보기" aria-label={(cur.page ? cur.page + '쪽 ' : '') + cur.role + ' — 눌러서 크게 보기'}>
+                aria-label={(cur.page ? cur.page + '쪽 ' : '') + cur.role + ' 크게 보기'}>
                 <Slide key={(s ? s.id : '') + ':' + ci} f={cur.f} ov={cur.ov} pageNo={cur.page || undefined} width={bw} />
-                <span className="vslide-hint" aria-hidden="true"><Icon name="eye" size={13} />눌러서 크게 보기</span>
+                <SampleRibbon />
               </div>
             )}
           </div>
@@ -348,11 +384,10 @@ function TocDetail({ t, ready, go, onClose }) {
             <button className="btn btn-sm btn-icon" disabled={ci <= 0} onClick={() => step(-1)} aria-label="이전 장"><Icon name="chevL" size={15} /></button>
             <span className="num tocv-pg">{cur ? (cur.page ? `${cur.page} / ${slides.length}` : `덱 밖 · ${cur.i + 1} / ${ua.length}`) : '–'}</span>
             <button className="btn btn-sm btn-icon" disabled={ci < 0 || ci >= flat.length - 1} onClick={() => step(1)} aria-label="다음 장"><Icon name="chev" size={15} /></button>
-            <span className="faint tocv-keys">← → 로 넘기기</span>
           </div>
         </div>
       </div>
-      {big && <TemplateDetail list={big.list} ovs={big.ovs} index={big.index} onNav={navBig} onClose={() => setBig(null)} notes={big.notes} noteLabel="이 시나리오에서의 역할" favFrom={'목차 템플릿 · ' + t.name} />}
+      {big && <TemplateDetail list={big.list} ovs={big.ovs} index={big.index} onNav={navBig} onClose={() => setBig(null)} notes={big.notes} noteLabel="이 시나리오에서의 역할" favFrom={'목차 템플릿 · ' + t.name} sample />}
       {sb && SC[sb] && <ScenarioStoryboard key={'sb-' + sb} s={SC[sb]} go={go} onClose={() => setSb(null)} />}
     </Modal>
   );

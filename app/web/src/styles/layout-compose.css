@@ -1,0 +1,204 @@
+/* Storyboard '레이아웃 구성' 버블 · 버블 아래 구성 추천(버튼 → 목록) · 전체 구성(2열) · 버블 테두리 로딩 · 목차 자동 구성 shimmer (components/layout-compose.jsx) */
+
+/* shimmer 색 — .shimmer(part.css)는 --sh · --sh-hi 를 쓰는데 .ghost 밖에서는 정의돼 있지 않아 투명해진다 */
+.layout-node, .lyt-all-body, .lay-pending { --sh: var(--line); --sh-hi: var(--surface); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) :is(.layout-node, .lyt-all-body, .lay-pending) { --sh-hi: var(--line-2); } }
+:root[data-theme="dark"] :is(.layout-node, .lyt-all-body, .lay-pending) { --sh-hi: var(--line-2); }
+@media (prefers-reduced-motion: reduce) { :is(.layout-node, .lay-pending) .shimmer { animation: none; } }
+
+/* ---------- 공통: 작업 중인 버블 — 테두리를 따라 도는 고리 ---------- */
+.node.is-busy { cursor: progress; }
+.node.is-busy:hover { transform: none; }
+.node.is-busy::after { content: ''; position: absolute; inset: -11px; border-radius: 50%; border: 3px solid transparent; border-top-color: var(--accent); border-right-color: color-mix(in srgb, var(--accent) 40%, transparent); animation: spin .9s linear infinite; pointer-events: none; }
+.col .node.is-busy::after { border-top-color: var(--hc); border-right-color: color-mix(in srgb, var(--hc) 40%, transparent); }
+.start-node .node.is-busy::after { border-top-color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { .node.is-busy::after { animation-duration: 2.6s; } }
+
+/* ---------- 레이아웃 구성 버블 ---------- */
+.layout-node { width: var(--measure-300px); flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: var(--space-10px); }
+.layout-node > .node-top > .node { background: var(--h-violet-bg); color: var(--h-violet); box-shadow: 0 0 0 var(--measure-6px) var(--bg), 0 0 0 var(--measure-7px) color-mix(in srgb, var(--h-violet) 38%, transparent); }
+.layout-node.on > .node-top > .node { box-shadow: 0 0 0 var(--measure-6px) var(--bg), 0 0 0 var(--measure-9px) var(--h-violet); }
+.layout-node.on > .node-name { color: var(--h-violet); }
+.layout-node > .node-top > .node.is-busy::after { border-top-color: var(--h-violet); border-right-color: color-mix(in srgb, var(--h-violet) 40%, transparent); }
+.lyt-under { width: 100%; display: flex; flex-direction: column; gap: 8px; }
+.lyt-under .lyt-all-btn { width: 100%; height: 36px; font-size: 13px; justify-content: center; }
+/* 구성 추천받기 — 버블 바로 아래 버튼 하나. 고객 요구사항 요약이 끝날 때까지 꺼져 있고 마우스를 대면 이유가 뜬다(lock-tip.css) */
+.lyt-rec-btn { height: 36px; font-size: 13px; font-weight: 700; justify-content: center; }
+
+/* ---------- 버블 아래 구성 추천 영역 ---------- */
+/* 목록은 구성마다 테두리 없이 영역 폭을 다 쓰고(목차 흐름이 한 줄에 들어가게) 가는 선으로만 나눈다 */
+.lyt-area { display: flex; flex-direction: column; gap: 8px; padding: 10px 0 0; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; }
+.lyt-area-h { display: flex; align-items: center; gap: 6px; min-width: 0; padding: 0 12px; }
+.lyt-area-h > b { flex-shrink: 0; font-size: 12.5px; font-weight: 800; color: var(--ink); }
+.lyt-area-v { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11px; font-weight: 700; color: var(--muted); }
+.lyt-re { margin-left: auto; flex-shrink: 0; display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 7px; border: 0; border-radius: 6px; background: none; color: var(--muted); font: inherit; font-size: 11.5px; font-weight: 700; cursor: pointer; }
+.lyt-re:hover:not(:disabled) { background: var(--surface-2); color: var(--accent); }
+.lyt-re:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.lyt-re:disabled { opacity: .45; cursor: default; }
+.lyt-note { display: flex; align-items: center; gap: 6px; margin: 0; padding: 0 12px; font-size: 11.5px; color: var(--muted); word-break: keep-all; }
+.lyt-note .spin { width: 12px; height: 12px; }
+.lyt-note svg { flex-shrink: 0; }
+.lyt-list { display: flex; flex-direction: column; gap: 10px; }
+.lyt-area .lyt-list { gap: 0; }
+.lyt-card { position: relative; display: flex; flex-direction: column; gap: 6px; min-width: 0; padding: 13px 14px 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); text-align: left; transition: border-color .12s ease, box-shadow .12s ease; }
+.lyt-card:not(.sk):hover, .lyt-card:focus-within { border-color: var(--accent); box-shadow: var(--shadow); }
+.lyt-hit { position: absolute; inset: 0; z-index: 1; border: 0; padding: 0; border-radius: inherit; background: none; cursor: pointer; }
+.lyt-hit:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.lyt-card-h { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.lyt-card-h b { font-size: 15px; font-weight: 800; color: var(--ink); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lyt-tag { flex-shrink: 0; height: 20px; padding: 0 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: 11px; font-weight: 800; font-style: normal; line-height: 20px; }
+.lyt-tag.base { background: var(--surface-3); color: var(--ink-2); }
+.lyt-go { margin-left: auto; flex-shrink: 0; color: var(--faint); }
+.lyt-card:hover .lyt-go { color: var(--accent); }
+.lyt-card-d { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--ink-2); word-break: keep-all; }
+/* 목차 흐름 — 버블은 구성 상세 위쪽 흐름(toc.css .pb-mini)과 같은 모양, 이름은 버블 아래(가로 폭을 아껴 한 줄에 다 보이게).
+   버블 사이 점선은 칸마다 반씩 그어 버블 뒤로 잇는다(.tocmf-conn 은 쓰지 않는다). 흐름은 .lyt-hit 아래에 있어 어디를 눌러도 구성이 열린다 */
+.lyt-card .tocmf { isolation: isolate; --b: 34px; --pt: 5px; padding: 6px 0 0; align-items: flex-start; justify-content: flex-start; flex-wrap: nowrap; overflow: visible; --bg: var(--surface); }
+.lyt-card .tocmf-conn { display: none; }
+.lyt-card .tocmf-i { position: relative; flex: 1 1 0; min-width: 0; max-width: 104px; flex-direction: column; align-items: center; gap: 8px; padding: var(--pt) 2px 0; border-radius: 0; --bg: var(--surface); }
+.lyt-card .tocmf-i::before { content: ''; position: absolute; z-index: -1; top: calc(var(--pt) + var(--b) / 2 - 1px); left: 0; right: 0; border-top: var(--stroke-2px) dotted var(--line-2); }
+.lyt-card .tocmf-i:first-child::before { left: 50%; }
+.lyt-card .tocmf-i:last-child::before { right: 50%; }
+.lyt-card .pb-mini .node { width: var(--b); height: var(--b); }
+/* 이름 칸은 가장 긴 낱말만큼은 넓어진다(max-width 없음) — 칸보다 긴 낱말('Samsung')도 버블 가운데에 맞춰 양쪽으로 고르게 넘친다 */
+.lyt-card .pb-mini .node-name { max-width: none; padding: 0; font-size: 12.5px; line-height: 1.3; text-align: center; white-space: normal; overflow: visible; text-overflow: clip; word-break: keep-all; }
+/* 버블 아래 추천 목록의 구성 — 테두리 · 꼬리표 없이, 구성 사이만 가는 선. 설명 두 줄 · 목차 흐름은 영역 폭을 다 쓴다(가로 스크롤 없음) */
+.lyt-card.compact { gap: 4px; padding: 11px 0 11px; border: 0; border-radius: 0; background: none; transition: background-color .12s ease; }
+.lyt-area .lyt-card + .lyt-card { border-top: 1px solid var(--line); }
+.lyt-card.compact:not(.sk):hover, .lyt-card.compact:focus-within { border-color: var(--line); box-shadow: none; background: var(--surface-2); }
+.lyt-card.compact:not(.sk):hover .tocmf-i, .lyt-card.compact:focus-within .tocmf-i { --bg: var(--surface-2); }
+.lyt-card.compact .lyt-hit:focus-visible { outline-offset: -2px; }
+.lyt-card.compact .lyt-card-h { gap: 6px; padding: 0 12px; }
+.lyt-card.compact .lyt-card-h b { font-size: 13.5px; }
+.lyt-card.compact .lyt-card-d { margin: 0 12px; font-size: 11.5px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+/* 버블 아래 결과 상자 — 레이아웃 구성 버블(300px 칸)과 다른 버블 · 목차 버블은 제자리에 두고 이 상자만 오른쪽으로 넓힌다: 가장 긴 구성(지금은 상세 제안)이
+   한 줄에 다 들어가는 폭(--lyt-n = 그 구성의 버블 수, 파트가 늘면 따라 넓어진다). 칸 하나(--lyt-slot)는 모든 구성에서 같아 버블 사이 간격이 같고, 구성이 짧으면 왼쪽부터 놓인다.
+   구성을 고른 뒤 '다른 구성으로 바꾸기'로 펼치면 오른쪽 목차 열 위에 겹쳐 뜬다(사용자 지시 2026-11-16) */
+/* 넓어진 결과 상자가 칸(300px) 밖으로 나간 만큼 레이아웃 구성 칸이 오른쪽 자리를 잡는다 — 버블 자리는 그대로, Storyboard 를 오른쪽 끝까지 굴릴 수 있게 */
+.layout-node:has(> .lyt-under > .lyt-area.wide) { margin-right: max(0px, calc(80px * var(--lyt-n-node, 1) + 16px * 2 + 23px - var(--measure-300px))); }
+.lyt-area.wide { --lyt-slot: 80px; --lyt-pad: 16px; align-self: flex-start; position: relative; z-index: 5; width: max(100%, calc(var(--lyt-slot) * var(--lyt-n, 1) + var(--lyt-pad) * 2 + 23px)); box-shadow: var(--shadow); } /* 23px = 목록 안쪽 여백 10 × 2 + 카드 테두리 1.5 × 2 */
+.lyt-area.wide { padding: 0; }
+.lyt-area.wide .lyt-area-h { padding: 10px var(--lyt-pad) 0; }
+.lyt-card.compact .lyt-card-h { padding: 0 var(--lyt-pad, 12px); }
+.lyt-card.compact { padding: 13px 0 14px; }
+.lyt-card.compact .tocmf { --b: 40px; --pt: 5px; padding: 8px var(--lyt-pad, 12px) 0; flex-wrap: nowrap; }
+.lyt-card.compact .tocmf-i { flex: 0 0 var(--lyt-slot, 64px); min-width: 0; max-width: none; gap: 8px; padding: var(--pt) 0 0; }
+.lyt-card.compact .pb-mini .node { box-shadow: 0 0 0 3px var(--bg), 0 0 0 4.5px var(--hc); }
+.lyt-card.compact .pb-mini .node svg { width: 19px; height: 19px; }
+.lyt-card.compact .pb-mini .node-name { padding: 0 4px; font-size: 11.5px; line-height: 1.3; letter-spacing: -.02em; } /* 옆 이름과 붙지 않게 칸보다 조금 좁게 */
+/* 전체 구성 보기(2열) — 칸 폭 = 카드 폭 ÷ 가장 긴 구성의 버블 수: 카드마다 버블 간격이 같다 */
+.lyt-all .lyt-card .tocmf-i { flex: 0 0 calc(100% / var(--lyt-n, 7)); max-width: none; }
+/* 버블 hover — 관리자 추천 구성 목록과 같이: 흐름은 카드 버튼(.lyt-hit) 위에 놓되 버블 · 이름 칸만 마우스를 받고, 마우스를 댄 버블은 커지고 이름은 파트 색 */
+.lyt-card .lyt-flow { position: relative; z-index: 2; pointer-events: none; }
+.lyt-card .lyt-flow .tocmf-i { pointer-events: auto; cursor: pointer; }
+.lyt-card .lyt-flow .node { transition: transform .12s ease; }
+.lyt-card .lyt-flow .tocmf-i.peeking .node { transform: scale(1.1); } /* .on(구성 상세의 고른 목차 — 바탕 · 굵은 테두리)과 다른 표시 */
+.lyt-card .lyt-flow .tocmf-i.peeking .node-name { color: var(--hc); }
+@media (prefers-reduced-motion: reduce) { .lyt-card .lyt-flow .node { transition: none; } }
+/* 구성 고르기 — 기본 · 상세는 고르는 버튼(라디오 카드): 카드 · 버블 어디를 눌러도 고르고(.lyt-hit role=radio), 고른 카드는 강조 테두리 · 옅은 바탕 · 채운 동그라미.
+   상세(샘플)는 카드 오른쪽 위 '샘플 보기'로만 연다. 상자 아래 '제안서 작성하기'는 고른 구성이 있어야 켜진다(사용자 지시 2026-11-16) */
+.lyt-area.wide .lyt-list { gap: 8px; padding: 10px; }
+.lyt-area .lyt-card.pickable { --pk-bg: var(--surface); padding: 12px 0 14px; border: 1.5px solid var(--line); border-radius: 12px; background: var(--pk-bg); transition: border-color .12s ease, background-color .12s ease, box-shadow .12s ease; }
+.lyt-area .lyt-card.pickable + .lyt-card.pickable { border-top: 1.5px solid var(--line); }
+.lyt-card.compact.pickable:not(.sk):hover, .lyt-card.compact.pickable:focus-within { background: var(--pk-bg); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.lyt-card.pickable .tocmf-i, .lyt-card.compact.pickable:not(.sk):hover .tocmf-i, .lyt-card.compact.pickable:focus-within .tocmf-i { --bg: var(--pk-bg); }
+.lyt-area .lyt-card.pickable.on, .lyt-area .lyt-card.pickable.on + .lyt-card.pickable, .lyt-area .lyt-card.pickable + .lyt-card.pickable.on { border-color: var(--line); }
+.lyt-area .lyt-card.pickable.on { --pk-bg: color-mix(in srgb, var(--accent) 6%, var(--surface)); border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.lyt-card.compact.pickable.on:hover, .lyt-card.compact.pickable.on:focus-within { border-color: var(--accent); }
+.lyt-radio { flex: none; width: 18px; height: 18px; box-sizing: border-box; display: grid; place-items: center; border: 2px solid var(--line-2); border-radius: 50%; background: var(--surface); color: #fff; transition: border-color .12s ease, background-color .12s ease; }
+.lyt-card.pickable:hover .lyt-radio { border-color: var(--accent); }
+.lyt-card.pickable.on .lyt-radio { border-color: var(--accent); background: var(--accent); }
+.lyt-card.pickable.on .lyt-card-h b { color: var(--accent); }
+.lyt-card .lyt-flow:not(.pick) .tocmf-i { cursor: default; }
+.lyt-sample { position: relative; z-index: 2; margin-left: auto; flex-shrink: 0; height: 28px; padding: 0 10px; gap: 5px; font-size: 12px; font-weight: 700; }
+.lyt-card:not(.pickable):not(.sk):hover { border-color: var(--line); box-shadow: none; } /* 전체 구성 보기 카드는 누르는 곳이 '샘플 보기'뿐 */
+.lyt-start-btn { width: 100%; height: 40px; justify-content: center; font-size: 13.5px; font-weight: 800; }
+.lyt-start-btn .spin { width: 14px; height: 14px; }
+/* 그 목차의 레이아웃 구성 — 버블 아래에 뜨는 목록(장 썸네일 + 이름, 반복 장은 「공간마다 × n」), 넘치면 안에서 굴린다. 팝업(전체 구성 보기) 위에도 뜬다 */
+.lyt-peek { position: fixed; z-index: 100; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line-2); border-radius: 12px; box-shadow: var(--shadow-lg); overflow: hidden; animation: rise .12s ease; }
+.lyt-peek > header { display: flex; align-items: center; gap: 10px; min-width: 0; padding: 11px 14px; border-bottom: 1px solid var(--line); background: var(--hb, var(--surface-2)); flex: none; }
+.lyt-peek-node { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--hc); color: #fff; flex: none; }
+.lyt-peek > header b { font-size: 13px; font-weight: 800; color: var(--ink); white-space: nowrap; }
+.lyt-peek > header small { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11.5px; font-weight: 700; color: var(--muted); }
+.lyt-peek-n { margin-left: auto; flex-shrink: 0; font-size: 11.5px; font-weight: 700; color: var(--muted); }
+.lyt-peek-list { list-style: none; margin: 0; padding: 8px; overflow-y: auto; overscroll-behavior: contain; min-height: 0; display: flex; flex-direction: column; gap: 4px; scrollbar-width: thin; }
+.lyt-peek-list > li { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 12px; align-items: center; padding: 6px; border-radius: 8px; }
+.lyt-peek-list > li:hover { background: var(--surface-2); }
+.lyt-peek-th { border: 1px solid var(--line); border-radius: 5px; overflow: hidden; background: var(--surface-2); line-height: 0; }
+.lyt-peek-list li > div:last-child { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; min-width: 0; }
+.lyt-peek-list b { font-size: 12px; font-weight: 700; color: var(--ink-2); line-height: 1.45; overflow-wrap: anywhere; }
+.lyt-peek-rep { font-style: normal; font-size: 11px; font-weight: 800; color: var(--hc); background: var(--hb, var(--surface-2)); padding: 2px 8px; border-radius: 999px; }
+.lyt-peek-list > li.lyt-peek-none { display: block; padding: 14px; color: var(--faint); text-align: center; }
+
+/* 로딩(shimmer) 카드 */
+.lyt-card.sk { gap: 10px; padding-bottom: 14px; }
+.lyt-sk { display: block; height: 14px; border-radius: 7px; }
+.lyt-sk.w30 { width: 52px; height: 20px; border-radius: 999px; } .lyt-sk.w45 { width: 38%; height: 18px; } .lyt-sk.w80 { width: 78%; }
+.lyt-sk-flow { display: flex; gap: 22px; padding-top: 2px; }
+.lyt-sk.dot { width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0; position: relative; overflow: visible; }
+.lyt-area .lyt-card.sk { gap: 9px; padding: 13px 0 14px; border-width: 0; border-radius: 0; }
+.lyt-area .lyt-card.sk > .lyt-card-h { padding: 0 var(--lyt-pad, 12px); }
+.lyt-area .lyt-card.sk + .lyt-card, .lyt-area .lyt-card + .lyt-card.sk { border-top-width: 1px; }
+.lyt-area .lyt-sk-flow { gap: 0; overflow: hidden; padding: 4px var(--lyt-pad, 12px) 0; }
+.lyt-sk-slot { flex: 0 0 var(--lyt-slot, 48px); display: grid; place-items: center; }
+.lyt-area .lyt-sk.dot { width: 40px; height: 40px; }
+.lyt-list .lyt-card.sk:nth-child(2) .shimmer { animation-delay: .12s; } .lyt-list .lyt-card.sk:nth-child(3) .shimmer { animation-delay: .24s; } .lyt-list .lyt-card.sk:nth-child(4) .shimmer { animation-delay: .36s; }
+.lyt-err { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 12px 14px; border: 1px solid color-mix(in srgb, var(--danger) 30%, var(--line)); border-radius: 12px; background: var(--danger-soft); color: var(--danger); font-size: 12.5px; }
+.lyt-err > span { display: flex; align-items: center; gap: 6px; }
+.lyt-all-btn { font-weight: 700; }
+.lyt-area .lyt-err { margin: 0 10px 10px; padding: 10px 12px; border-radius: 10px; }
+.lyt-area .lyt-list .lyt-err { margin-top: 2px; }
+
+/* ---------- 전체 구성 — 2열 ---------- */
+.mbody.lyt-all-body { background: var(--bg); }
+.lyt-all { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 860px) { .lyt-all { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- 시작 확인 ---------- */
+/* 제안서 작성하기 확인 — 고른 구성의 목차 흐름(카드와 같은 버블 · 같은 간격) */
+.modal.lyt-go-modal { width: min(760px, 100%); }
+.lyt-card.lyt-go-flow { padding: 14px 12px 12px; background: var(--surface-2); --bg: var(--surface-2); }
+.lyt-card.lyt-go-flow:hover { border-color: var(--line); box-shadow: none; }
+.lyt-card.lyt-go-flow .tocmf-i { flex: 0 0 calc(100% / var(--lyt-n, 7)); max-width: none; --bg: var(--surface-2); }
+
+.lyt-ask { display: flex; flex-direction: column; gap: 12px; font-size: 13.5px; line-height: 1.6; color: var(--ink-2); }
+.lyt-ask p { margin: 0; word-break: keep-all; }
+.lyt-ask-n { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+.lyt-ask-n li { display: flex; align-items: center; gap: 6px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); font-size: 12.5px; font-weight: 700; color: var(--ink-2); }
+.lyt-ask-n li b { margin-left: auto; color: var(--ink); font-size: 13px; }
+.lyt-ask-w { display: flex; align-items: flex-start; gap: 6px; padding: 8px 10px; border-radius: 10px; background: var(--warn-soft); color: var(--warn); font-size: 12.5px; }
+.lyt-ask-w svg { flex-shrink: 0; margin-top: 3px; }
+
+/* ---------- 목차: 자동 구성 중(장 모양 shimmer) · 실패 ---------- */
+.lay-pending { width: 100%; display: flex; flex-direction: column; gap: 8px; }
+.lay-pending-card { width: 100%; display: flex; flex-direction: column; gap: 6px; padding: 6px; box-sizing: border-box; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); box-shadow: var(--shadow); }
+.lay-pending-card.next > * { opacity: .5; }
+.lay-pending-card i { display: block; border-radius: 4px; }
+.lp-slide { aspect-ratio: 16 / 9; display: flex; flex-direction: column; gap: 9px; padding: 14px 16px; box-sizing: border-box; overflow: hidden; border-radius: 6px; background: var(--surface-2); }
+.lp-t { width: 58%; height: 12px; flex-shrink: 0; }
+.lp-s { width: 36%; height: 7px; flex-shrink: 0; margin-top: -3px; }
+.lp-b { flex: 1; min-height: 0; display: flex; gap: 12px; margin-top: 4px; }
+.lay-pending-card .lp-img { flex: 0 0 46%; border-radius: 6px; }
+.lp-lines { flex: 1; display: flex; flex-direction: column; gap: 9px; padding-top: 4px; }
+.lp-lines i { height: 8px; }
+.lp-lines i:nth-child(2) { width: 82%; } .lp-lines i:nth-child(3) { width: 58%; }
+.lp-name { width: 46%; height: 12px; margin: 2px 2px 3px; }
+.lay-pending .lp-s, .lay-pending .lp-lines i:nth-child(1) { animation-delay: .08s; }
+.lay-pending .lp-img, .lay-pending .lp-lines i:nth-child(2) { animation-delay: .16s; }
+.lay-pending .lp-lines i:nth-child(3), .lay-pending .lp-name { animation-delay: .24s; }
+.lay-pending-card.next .shimmer { animation-delay: .3s; }
+.lay-pending-t { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px; font-weight: 700; color: var(--muted); }
+.lay-pending-t .spin { width: 13px; height: 13px; }
+.lay-failed { width: 100%; display: flex; flex-direction: column; gap: 8px; padding: 12px; border: 1px dashed color-mix(in srgb, var(--danger) 45%, var(--line-2)); border-radius: 12px; background: var(--surface); font-size: 12.5px; color: var(--ink-2); line-height: 1.5; }
+.lay-failed > span { display: flex; align-items: flex-start; gap: 6px; color: var(--danger); font-weight: 700; word-break: keep-all; }
+.lay-failed > span svg { flex-shrink: 0; margin-top: 2px; }
+.lay-failed .row { display: flex; flex-wrap: wrap; gap: 6px; }
+.lay-failed .btn { flex: 1 1 auto; }
+
+/* ---------- 목차 직접 추가(구성을 고르지 않는 길) — 구성 버블보다 눈에 덜 띄게 ---------- */
+.end-node.manual { width: 150px; }
+.end-node.manual .end-plus { border-color: var(--line-2); color: var(--muted); }
+.end-node.manual .end-plus:hover { border-color: var(--accent); color: var(--accent); }
+.end-manual { color: var(--muted); font-size: 13px; font-weight: 700; }
+.lay-failed.lay-skipped { border-color: var(--line-2); }
+.lay-failed.lay-skipped > span { color: var(--ink-2); font-weight: 600; }

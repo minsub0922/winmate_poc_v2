@@ -1,0 +1,30 @@
+/* 직접 넣은 장의 방향 — Storyboard 카드의 '!' 버튼 · 확인 팝업 (components/layout-brief.jsx · storyboard.jsx) */
+.lcard.brief-wait > :first-child { opacity: .42; filter: saturate(.4); transition: opacity .15s; }
+.lcard.brief-wait:is(:hover, :focus-within) > :first-child { opacity: .55; }
+.lcard .brief-mark {
+  position: absolute; left: 50%; z-index: 3; width: 52px; height: 52px; margin: -26px 0 0 -26px; padding: 0;
+  display: grid; place-items: center; border: 0; border-radius: 50%; cursor: pointer;
+  background: var(--accent); color: #fff; box-shadow: 0 6px 18px rgb(0 0 0 / .22), 0 0 0 4px var(--surface);
+  font: 800 28px/1 var(--num, inherit);
+}
+.lcard .brief-mark::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid var(--accent); opacity: 0; animation: lb-ring 1.8s ease-out infinite; pointer-events: none; }
+.lcard .brief-mark:hover { transform: scale(1.06); }
+.lcard .brief-mark:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+@keyframes lb-ring { 0% { transform: scale(1); opacity: .55; } 100% { transform: scale(1.45); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .lcard .brief-mark::after { animation: none; } }
+.stbadge.brief { background: var(--accent); color: #fff; }
+
+.modal.lb-modal { width: min(940px, 100%); }
+.lb-title { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.lb-title .tag { font-size: 12.5px; }
+.lb-grid { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 20px; align-items: start; }
+.lb-slide { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.lb-thumb { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface-2); }
+.lb-slide figcaption { display: flex; flex-direction: column; gap: 2px; font-size: 12px; color: var(--ink-2); line-height: 1.5; }
+.lb-slide figcaption b { color: var(--ink); font-size: 13px; }
+.lb-edit { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.lb-edit .mention-editor:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.lb-edit .me-area { min-height: 220px; max-height: 46vh; overflow-y: auto; }
+.lb-err { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 8px; background: var(--danger-soft); color: var(--danger); font-size: 12.5px; }
+.lb-err span { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 760px) { .lb-grid { grid-template-columns: minmax(0, 1fr); } .lb-slide { max-width: 360px; } }

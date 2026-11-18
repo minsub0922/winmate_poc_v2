@@ -49,6 +49,9 @@ export async function startVite() {
   const { createServer } = await import(pathToFileURL(path.join(webDir, 'node_modules/vite/dist/node/index.js')).href);
   const server = await createServer({
     configFile: path.join(webDir, 'vite.config.js'), root: webDir, logLevel: 'warn', clearScreen: false,
+    // own dependency cache per port: another Vite on the shared node_modules/.vite re-optimizing deps mid-run makes this
+    // app fail to load ("Failed to fetch dynamically imported module")
+    cacheDir: path.join(webDir, 'node_modules', '.vite-strict-' + port),
     server: { host: '127.0.0.1', port, strictPort: true, hmr: false },
     optimizeDeps: { include: ['react', 'react-dom', 'react-dom/client', 'react-dom/server', 'react/jsx-runtime', 'react/jsx-dev-runtime', 'jszip', 'pptxgenjs'] },
   });

@@ -1,6 +1,6 @@
 // Preserve the same full PPTX renderer used by My imports, including embedded pictures.
-import { convertPptx } from '../slides/import/pptx2html.js';
 export async function addPptxPreviews(doc, buffer, onStep) {
+  const { convertPptx } = await import('../slides/import/pptx2html.js');
   const rendered = await convertPptx(buffer, {
     maxSlides: doc.units.length,
     onProgress: (i, n, phase) => onStep?.(`${i}/${n}${phase === 'image' ? '개 이미지' : '장'} 원본 화면을 준비하는 중`),

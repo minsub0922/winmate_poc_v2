@@ -4,11 +4,15 @@ import { browserStorage } from './browser.js';
 import { useSyncExternalStore } from 'react';
 import { uid } from './proposals.js';
 import { LV, buildProfile, personaForLevel } from '../domain/simulation/profile.js';
+import { registerCollection, noteChange } from './account-sync.js';
+import { changeRecord } from './record-update.js';
+import { recordsJson } from './record-json.js';
 
 const KEY = 'winmate.v2.sims';
 const MAX = 15;
 
 function load() {
+  if (!browserStorage.accountHistory) return [];
   let list = [];
   try { const v = JSON.parse(browserStorage.getItem(KEY) || '[]'); if (Array.isArray(v)) list = v.filter((x) => x && x.id && x.profile).map(s => ({ ...s, ...(s.skillRuns ? { skillRuns:(Array.isArray(s.skillRuns) ? s.skillRuns : []).filter(run=>run&&typeof run==='object').map(run => run.status === 'running' ? { ...run,status:'interrupted',error:'페이지를 다시 열어 스킬 실행이 중단됐어요. 현재 맥락으로 다시 실행할 수 있어요.' } : run) } : {}) })); } catch (e) {}
   return list;
@@ -21,11 +25,22 @@ function persist() {
   saveT = setTimeout(() => {
     let list = state.sims.slice(0, MAX);
     for (let k = 0; k < 5; k++) {
-      try { browserStorage.setItem(KEY, JSON.stringify(list)); return; } catch (e) { list = list.slice(0, Math.max(1, list.length - 3)); }
+      try { browserStorage.setItem(KEY, recordsJson(list)); return; } catch (e) { list = list.slice(0, Math.max(1, list.length - 3)); }
     }
   }, 250);
+  noteChange('simulations');
 }
 function emit() { for (const f of subs) f(); }
+registerCollection('simulations', {
+  list: () => state.sims,
+  apply(records, removed) {
+    const gone = new Set(removed), incoming = new Map(records.map(s => [s.id, s])), known = new Set(state.sims.map(s => s.id));
+    const sims = state.sims.filter(s => !gone.has(s.id)).map(s => incoming.get(s.id) || s);
+    for (const s of records) if (!known.has(s.id)) sims.push(s);
+    sims.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+    state = { sims }; persist(); emit();
+  },
+});
 export function useSims(sel) {
   return useSyncExternalStore((f) => { subs.add(f); return () => subs.delete(f); }, () => sel(state));
 }
@@ -33,7 +48,8 @@ export function getSim(id) { return state.sims.find((s) => s.id === id) || null;
 export function putSim(s) { state = { sims: [s, ...state.sims.filter((x) => x.id !== s.id)].slice(0, MAX + 3) }; persist(); emit(); return s; }
 export function patchSim(id, fn) {
   const i = state.sims.findIndex((s) => s.id === id); if (i < 0) return null;
-  const d = structuredClone(state.sims[i]); fn(d); d.updatedAt = Date.now();
+  const d = changeRecord(state.sims[i], fn, { touch: true });
+  if (d === state.sims[i]) return d;
   const list = state.sims.slice(); list[i] = d; state = { sims: list }; persist(); emit();
   return d;
 }

@@ -177,11 +177,11 @@ export function ContextCards({ p, kind }) {
           {list.map((id) => { const r = t + ':' + id; return <CTile key={r} r={r} p={p} peek={peek} mentioned={mentioned.has(r)} onRemove={(x) => { removeRef(p.id, x); toast(refInfo(x).label + ' 연결을 해제했어요'); }} />; })}
         </div>
       ) : (
-        <div className="rc-empty"><Icon name={t} size={20} /><span>아직 연결된 {label}{kind === 'cases' ? '가' : '이'} 없어요. 위에서 찾거나 아래 추천을 눌러 연결해 주세요.</span></div>
+        <div className="rc-empty"><Icon name={t} size={20} /><span>아직 연결된 {label}{kind === 'cases' ? '가' : '이'} 없어요.</span></div>
       )}
       {recs.length > 0 && (
         <section className="ctxc-recs" aria-label={'추천 ' + label}>
-          <h4 className="ctxc-sh"><Icon name="sparkle" size={13} />추천 {label}<span className="faint">누르면 바로 연결돼요 · 마우스를 올리면 상세</span></h4>
+          <h4 className="ctxc-sh"><Icon name="sparkle" size={13} />추천 {label}</h4>
           <div className="ct-grid">{recs.map((rec) => <CTile key={rec.ref} r={rec.ref} p={p} rec={rec} peek={peek} onAdd={(x) => { addRef(p.id, x.ref); toast(x.label + ' 연결했어요'); }} />)}</div>
         </section>
       )}

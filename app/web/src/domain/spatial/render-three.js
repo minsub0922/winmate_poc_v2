@@ -24,7 +24,7 @@ function texture(kind,style) {
   t.anisotropy=4;return t;
 }
 
-export function createSpatialRenderer(host,{onSelect,onMove,onDrag,onChange,onError,objectOnly=false,transparentBackground=false,pixelRatio=Math.min(window.devicePixelRatio||1,2)}={}) {
+export function createSpatialRenderer(host,{onSelect,onMove,onDrag,onChange,onCameraEdit,onError,objectOnly=false,transparentBackground=false,pixelRatio=Math.min(window.devicePixelRatio||1,2)}={}) {
   let renderer;
   try{renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true,powerPreference:'high-performance'});}
   catch(error){onError?.(error);throw new Error('이 브라우저에서 WebGL을 사용할 수 없습니다. 2D 평면도로 전환해 주세요.');}
@@ -53,17 +53,24 @@ export function createSpatialRenderer(host,{onSelect,onMove,onDrag,onChange,onEr
   const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();
   const render=()=>{if(!disposed)renderer.render(world,camera);};
   const changed=()=>{render();onChange?.();};controls.addEventListener('change',changed);
+  if(onCameraEdit){
+    let start;
+    const pose=()=>[...camera.position.toArray(),...controls.target.toArray(),camera.zoom].join(',');
+    controls.addEventListener('start',()=>{start=pose();});
+    controls.addEventListener('end',()=>{if(start!==pose())onCameraEdit();});
+  }
   world.add(new THREE.HemisphereLight('#ffffff','#b8baa9',1.2));
   const sun=new THREE.DirectionalLight('#fff5df',3.4);sun.position.set(-14,26,18);sun.castShadow=!objectOnly;sun.shadow.mapSize.set(2048,2048);sun.shadow.bias=-.0003;sun.shadow.normalBias=.025;sun.shadow.radius=3;world.add(sun);
   const fillLight=new THREE.DirectionalLight('#dcecff',.8);fillLight.position.set(20,15,-12);world.add(fillLight);
+  // 공간마다 스타일이 다를 수 있다 — 재질은 (재질 키 · 스타일)로 나눠 둔다.
   const mat=(key,style)=>{
-    if(materials[key])return materials[key];
+    const id=key+'@'+style.name;if(materials[id])return materials[id];
     const colors={wood:style.wood,fabric:style.fabric,cushion:style.cushion,body:'#f5f5f1',black:'#172b34',metal:'#606c72',silver:'#b3bfc5',screen:'#ffffff',screenOff:'#090c10',paper:'#e8e5db',leaf:'#4e7958',grille:'#b2b7b2',linen:'#f9f5eb',stone:'#dfdacd',rug:'#bdbeb1',pot:'#c9bda7',cardboard:'#b19474',glass:'#748c91',light:'#fff8d4',floor:style.floor,wall:style.wall,window:'#91bec7'};
     const opts={color:colors[key]||key,roughness:.65,metalness:['silver','metal'].includes(key)?.5:.04};
     if(['wood','floor','grille','fabric','screen'].includes(key)){opts.map=texture(key,style);materialResources.push(opts.map);if(key!=='screen')opts.color='#ffffff';}
     if(key==='glass'||key==='window'){opts.transparent=true;opts.opacity=key==='window'?.35:.55;opts.roughness=.2;opts.depthWrite=false;}
     if(key==='screen'||key==='light'){opts.emissive=new THREE.Color(key==='screen'?'#3d7590':'#fff1bf');opts.emissiveIntensity=.18;}
-    return materials[key]=new THREE.MeshStandardMaterial(opts);
+    return materials[id]=new THREE.MeshStandardMaterial(opts);
   };
   const geometry=(shape,size,rotate)=>{
     let g;if(shape==='sphere')g=new THREE.SphereGeometry(size[0],10,8);
@@ -77,11 +84,12 @@ export function createSpatialRenderer(host,{onSelect,onMove,onDrag,onChange,onEr
   const observer=new ResizeObserver(resize);observer.observe(host);
   function setScene(scene,lib,{reset=true,selectedId=null}={}) {
     current=scene;library=lib;selected=selectedId;clearModel();pendingTextures=[];textureErrors=[];const generation=++sceneGeneration;model=new THREE.Group();world.add(model);
-    const style=STYLES[scene.style],assets=Object.fromEntries(lib.assets.map(a=>[a.id,a]));
+    const style=STYLES[scene.style],assets=Object.fromEntries(lib.assets.map(a=>[a.id,a])),roomStyles=Object.fromEntries(scene.rooms.map(r=>[r.id,STYLES[r.style]||style]));
     if(!objectOnly)meshBox(model,scene.width/2,-.24,scene.depth/2,scene.width+.7,.42,scene.depth+.7,'body',style);
     // Ground receives soft shadows from the floor slab and objects.
     if(!objectOnly&&!transparentBackground)meshBox(model,scene.width/2,-.5,scene.depth/2,scene.width*3,.06,scene.depth*3,'#edf0ec',style).userData.outsideGround=true;
     for(const r of scene.rooms){
+      const style=roomStyles[r.id];
       meshBox(model,r.x+r.width/2,-.015,r.z+r.depth/2,r.width,.07,r.depth,r.outdoor?'#aebf9d':'floor',style);
       if(!r.outdoor){
         const wallHeight=1.15,door=1.2,cx=r.x+r.width/2;
@@ -110,7 +118,7 @@ export function createSpatialRenderer(host,{onSelect,onMove,onDrag,onChange,onEr
         const shape=modern?spatialPartGeometry(part,asset.size,asset.geometryTransform):geometry(part.shape,part.size.map((n,i)=>Math.max(.001,n*asset.size[i])));
         if(modern)resources.push(shape);
         const material=asset.productId&&part.material==='screen'&&lib.geometryVersion>=6?'screenOff':asset.productId&&part.material==='body'&&asset.appearance?.bodyColor?asset.appearance.bodyColor:part.material;
-        const mesh=new THREE.Mesh(shape,mat(material,style));mesh.position.set(...pos);if(!modern&&part.rotate)mesh.rotation.set(...part.rotate);
+        const mesh=new THREE.Mesh(shape,mat(material,roomStyles[object.roomId]||style));mesh.position.set(...pos);if(!modern&&part.rotate)mesh.rotation.set(...part.rotate);
         mesh.castShadow=object.mount!=='ceiling';mesh.receiveShadow=true;mesh.userData={objectId:object.id};group.add(mesh);
         if(part.material==='screen')screens.push(mesh);
       }
@@ -145,7 +153,7 @@ export function createSpatialRenderer(host,{onSelect,onMove,onDrag,onChange,onEr
       for(const occupant of peopleRenderGroups(object,scene,assets)){
         const person=new THREE.Group();person.userData={objectId:object.id,occupantRole:occupant.actor.role,roleId:occupant.actor.roleId,sourceAssetId:occupant.person.sourceAssetId,actorId:occupant.person.actorId,peopleLayoutVersion:occupant.person.version};
         for(const part of occupant.parts){
-          const shape=spatialPartGeometry(part,[1,1,1]),mesh=new THREE.Mesh(shape,mat(part.material,style));
+          const shape=spatialPartGeometry(part,[1,1,1]),mesh=new THREE.Mesh(shape,mat(part.material,roomStyles[object.roomId]||style));
           mesh.position.set(...part.position);mesh.castShadow=true;mesh.receiveShadow=true;mesh.userData={objectId:object.id};person.add(mesh);resources.push(shape);
         }
         group.add(person);
@@ -238,7 +246,11 @@ export function createSpatialRenderer(host,{onSelect,onMove,onDrag,onChange,onEr
     const xs=points.map(p=>p.x),ys=points.map(p=>p.y);fit=Math.max(Math.max(...ys)-Math.min(...ys),(Math.max(...xs)-Math.min(...xs))/(width/height))*1.12;resize();
   };
   const setCameraState=state=>{if(!state?.position||!state?.target)return;camera.position.fromArray(state.position);controls.target.fromArray(state.target);camera.zoom=state.zoom||1;fit=state.fit||fit;controls.update();resize();};
-  return {setScene,setHighlighted,setCameraAngles,setCameraState,render,anchors,ready,setEditable:value=>{editable=value;},
+  // 마우스 왼쪽 끌기 = 회전(rotate) 또는 이동(pan). 오른쪽 끌기는 그 반대, 휠은 확대 · 축소다. 오브젝트를 끌면 어느 쪽이든 오브젝트를 옮긴다.
+  const setPointerMode=mode=>{const pan=mode==='pan';controls.mouseButtons.LEFT=pan?THREE.MOUSE.PAN:THREE.MOUSE.ROTATE;controls.mouseButtons.RIGHT=pan?THREE.MOUSE.ROTATE:THREE.MOUSE.PAN;controls.touches.ONE=pan?THREE.TOUCH.PAN:THREE.TOUCH.ROTATE;};
+  return {setScene,setHighlighted,setCameraAngles,setCameraState,setPointerMode,render,anchors,ready,setEditable:value=>{editable=value;},
+    // 바닥 위 점들(장면 좌표 x · z)의 화면 좌표 — 공간을 끌어 놓을 빈 칸 표시에 쓴다
+    projectGround:points=>{camera.updateMatrixWorld();return points.map(p=>project(new THREE.Vector3(p.x,.08,p.z)));},
     cameraState:()=>({position:camera.position.toArray(),target:controls.target.toArray(),zoom:camera.zoom,fit}),
     async exportGlb(){await ready();const {GLTFExporter}=await import('three/addons/exporters/GLTFExporter.js');return new GLTFExporter().parseAsync(model,{binary:true});},
     snapshot({w=1600,h=1025,type='image/png',quality,transparentBackground:clearBackground=false,encode=true,onRender,pixelRatio=renderer.getPixelRatio()}={}){

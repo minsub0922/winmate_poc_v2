@@ -49,6 +49,14 @@ try {
   await page.locator('[data-layout-uid="first"]').click(); await page.locator('.modal.sheet .detail').waitFor();
   const original = await page.evaluate(async () => (await import('/src/repositories/proposals.js')).getProposal('sources-test'));
   const panel = page.locator('.detail-right');
+  await page.getByRole('button', { name: '레이아웃 정보', exact: true }).click();
+  // every reference section is a collapsed disclosure until its header is pressed
+  const collapsed = panel.locator('.disc-toggle[aria-expanded="false"]');
+  assert(await collapsed.count() >= 4); assert.equal(await panel.locator('.disc-body').count(), 0);
+  assert.equal(await panel.locator('.sheet-source-card, .sheet-web-link').count(), 0);
+  while (await collapsed.count()) await collapsed.first().click();
+  assert.equal(await panel.locator('.disc-toggle[aria-expanded="true"]').count(), await panel.locator('.disc-body').count());
+  pass('reference sections start collapsed with title and count, and expand from their header button');
   assert(await panel.locator('.sheet-web-loading').count() > 0);
   metadataReleased = true; while (waiting.length) waiting.shift()();
   const products = panel.locator('.sheet-source-grid.product .sheet-source-card');

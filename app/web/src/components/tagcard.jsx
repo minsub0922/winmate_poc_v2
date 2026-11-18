@@ -8,7 +8,7 @@
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { DeleteButton, Icon } from './common.jsx';
-import { P, S, C, IND, TYPE_LABEL } from '../services/catalog.js';
+import { P, S, C, IND, TYPE_LABEL, SUB, SUBSCRIPTION_DB } from '../services/catalog.js';
 import { Thumb } from './Thumbs.jsx';
 
 const indShort = (code) => (IND[code] ? IND[code].name.split(' · ')[0] : '');
@@ -52,6 +52,17 @@ export function tagMeta(r) {
       sub: [ym(x.date), x.type].filter(Boolean).join(' · ') || x.sub || x.title,
       line: [ind, ym(x.date)].filter(Boolean).join(' · '),
       facts: [['내용', x.sub || x.title], res, ['공간', more(x.space, 2)], ['제공', more((x.offer || []).length ? x.offer : x.prod, 2)]].filter((f) => f && f[1]),
+      url: x.url,
+    };
+  }
+  if (type === 'subscription') {
+    const x = SUB[id]; if (!x) return null;
+    const kind = (SUBSCRIPTION_DB.types || {})[x.type] || '구독';
+    const line = x.tagline || x.line || x.summary || x.title || '';
+    return {
+      type, id, ref: r, name: x.name, short: x.short || x.name, kind,
+      sub: line, line: [kind, x.basis === 'inferred' ? '협의안' : ''].filter(Boolean).join(' · '),
+      facts: [['분류', kind], x.place ? ['공간', x.place] : null, line ? ['내용', line] : null].filter(Boolean),
       url: x.url,
     };
   }
@@ -111,7 +122,7 @@ export function TagStrip({ refs, peek, title, size = 'md', linkedOf, onLink, men
   if (!list.length) return null;
   return (
     <div className={'tagstrip ' + size + ' ' + className}>
-      {title && <span className="ts-h">{title}<b className="num">{list.length}</b>{peek && hint && size === 'md' && <span className="ts-hint">마우스를 올리면 상세</span>}</span>}
+      {title && <span className="ts-h">{title}<b className="num">{list.length}</b></span>}
       <div className="ts-list">
         {list.map((r) => <TagCard key={r} r={r} peek={peek} size={size} facts={facts} mentioned={mentioned ? mentioned.has(r) : false}
           state={linkedOf ? (linkedOf(r) ? 'linked' : 'unlinked') : null} onLink={onLink} />)}

@@ -3,6 +3,7 @@ import fs from 'node:fs';import path from 'node:path';import {launch,settle,root
 const url=process.env.WINMATE_LIVE_WEB||'http://127.0.0.1:5177';const folder=path.join(output,'strict/visual-review',process.env.LIVE_RUN||'final');fs.mkdirSync(folder,{recursive:true});const cases=JSON.parse(fs.readFileSync(path.join(root,'app/tests/fixtures/strict/live-cases.json')));const browser=await launch();const page=await browser.newPage({viewport:{width:1500,height:900}});let rows=[];const errors=[];page.on('pageerror',e=>errors.push(String(e)));
 try{
  for(let i=0;;i++){try{const r=await fetch(url+'/api/health');if(r.ok&&(await r.json()).llm_mode==='real')break;}catch{}if(i>200)throw Error('API not ready');await new Promise(r=>setTimeout(r,250));}
+ const visionModel=(await(await fetch(url+'/api/poc/capabilities')).json()).settings.vision_model;
  await page.goto(url);await settle(page);
  for(let offset=0;offset<cases.length;offset+=2)await Promise.all(cases.slice(offset,offset+2).map(async(c,index)=>{
   const start=Date.now();let row={case:c.id,pass:false};
@@ -18,7 +19,7 @@ try{
     const snap=await postJson('/api/jobs',{kind:'review',doc:c.review_doc,images,criteria,context:{title:c.proposal.title,customer:c.company},budget:4,min_k:4});
     for(let n=0;n<600;n++){const job=await requestJson('/api/jobs/'+snap.id);if(job.status==='error')throw Error(JSON.stringify(job.error));if(job.status==='done')return{job,criteria};await new Promise(r=>setTimeout(r,250));}throw Error('visual review timeout');
    },{c,index:offset+index});
-   const result=r.job.result;assert(result.llm.effective==='llm','actual score mode');assert(result.llm.models_used.includes('gemini-3.8-flash'),'vision model actually used');assert(result.conversion.visual.llm_calls>0,'pixels reviewed');assert(result.llm.steps['review:score_vision']>0,'visual criteria scored using pixels, not just text');assert(result.evaluation.route.mode==='forced','user criteria honored');const ids=result.evaluation.scores.map(s=>s.id);assert(JSON.stringify([...ids].sort())===JSON.stringify([...r.criteria].sort()),'selected criteria exactly match');assert(result.evaluation.scores.every(s=>s.mode==='llm'&&[1,2,3].includes(s.score)),'no rule scores');
+   const result=r.job.result;assert(result.llm.effective==='llm','actual score mode');assert(result.llm.models_used.includes(visionModel),'vision model actually used');assert(result.conversion.visual.llm_calls>0,'pixels reviewed');assert(result.llm.steps['review:score_vision']>0,'visual criteria scored using pixels, not just text');assert(result.evaluation.route.mode==='forced','user criteria honored');const ids=result.evaluation.scores.map(s=>s.id);assert(JSON.stringify([...ids].sort())===JSON.stringify([...r.criteria].sort()),'selected criteria exactly match');assert(result.evaluation.scores.every(s=>s.mode==='llm'&&[1,2,3].includes(s.score)),'no rule scores');
    fs.writeFileSync(path.join(folder,c.id+'.json'),JSON.stringify(result,null,2));row={...row,pass:true,seconds:(Date.now()-start)/1000,criteria:r.criteria,models:result.llm.models_used,visual:result.conversion.visual};
   }catch(e){row={...row,error:String(e.stack||e),seconds:(Date.now()-start)/1000};}
   rows.push(row);fs.writeFileSync(path.join(folder,'progress.json'),JSON.stringify(rows,null,2));console.log(JSON.stringify(row));

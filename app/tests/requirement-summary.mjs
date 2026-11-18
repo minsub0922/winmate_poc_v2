@@ -22,12 +22,18 @@ test('an untouched empty form never triggers a fabricated summary', () => {
   const p = { req: { free: [], form: { keymen: [{ name: '', weight: 100, reqs: [[]] }] }, files: [] } };
   assert.deepEqual(requirementSources(p), []);
 });
-test('input edits invalidate context immediately; title or layout edits do not', () => {
+test('input edits mark the context stale immediately; title or layout edits do not', () => {
   const p = ready(proposal()), key = requirementSourceKey(p);
   p.title = '변경한 제목'; p.parts = [{ layouts: [{ f: 'new' }] }];
   assert.equal(requirementSourceKey(p), key); assert(currentRequirementSummary(p));
+  assert.equal(requirementContext(p).stale, undefined); assert(!requirementContextText(p).includes('주의: 이 요약은'));
   p.req.form.note += ' 추가 의견';
-  assert.equal(currentRequirementSummary(p), null); assert.equal(requirementContext(p), null); assert.equal(requirementContextText(p), '');
+  // Re-summarising is optional: the finished summary keeps serving, marked stale so the originals win.
+  assert.equal(currentRequirementSummary(p), null);
+  assert.equal(requirementContext(p).stale, true); assert.equal(requirementContext(p).source_key, key);
+  assert(requirementContextText(p).includes('주의: 이 요약은 요구사항이 수정되기 전에 작성됐습니다.'));
+  delete p.requirementSummary;
+  assert.equal(requirementContext(p), null); assert.equal(requirementContextText(p), '');
 });
 test('each downstream purpose gets relevant sections and keeps evidence and original priority', () => {
   const p = ready(proposal());
@@ -37,13 +43,17 @@ test('each downstream purpose gets relevant sections and keeps evidence and orig
   assert(requirementContextText(p, 'fill').includes('원문 우선'));
   assert(requirementContextText(p, 'fill').includes('매장 320곳'));
 });
-test('changed requirements keep the previous summary visible without reusing it as current context', () => {
+test('changed requirements keep the previous summary visible and usable, never as the current one', () => {
   const p = ready(proposal()), original = structuredClone(p.req), result = p.requirementSummary.result;
   p.req.free = [{ t: '매장 500곳을 관리합니다.' }];
   assert.equal(savedRequirementSummary(p), result);
   assert.notEqual(result.source_key, requirementSourceKey(p));
   assert.equal(currentRequirementSummary(p), null);
-  assert.equal(requirementContext(p), null);
+  const stale = requirementContext(p);
+  assert.equal(stale.stale, true);
+  // the originals handed to the task are the current ones; a quote that no longer exists is flagged, not invented
+  assert.equal(stale.originals.find(source => source.source_id === 'free').text, '매장 500곳을 관리합니다.');
+  assert.equal(stale.originals.find(source => source.source_id === 'free').partial, true);
   p.requirementSummary = { ...p.requirementSummary, status: 'pending', sourceKey: requirementSourceKey(p) };
   assert.equal(savedRequirementSummary(p), result);
   assert.equal(currentRequirementSummary(p), null);
@@ -78,4 +88,17 @@ test('task context retrieves the relevant original window beyond the stored atta
   const original = context.originals.find(source => source.source_id === 'file-long');
   assert(original.text.includes(quote));assert(original.excerpt);assert.equal(original.partial, false);
   assert(context.originals.reduce((n, source) => n + source.text.length, 0) <= 8000);
+});
+test('an attachment read into the free-form text is one source; only the part that did not fit stays with the file', () => {
+  const p = proposal();
+  p.req.free = [{ t: '직접 적은 요구.\n' }, { t: '[첨부] 요구사항.xlsx', src: 'in' }, { t: '\n| 구분 | 수량 |\n| --- | --- |\n| 객실 | 300 |\n', table: true }];
+  p.req.files = [{ id: 'in', name: '요구사항.xlsx', size: 900, text: '', inlined: true, inlineChars: 40 }];
+  let rows = requirementSources(p);
+  assert(rows.find(row => row.id === 'free').text.includes('| 객실 | 300 |'), 'table rows reach the summary as text');
+  assert(!rows.some(row => row.kind === 'attachment'), 'inlined content is not sent twice');
+  const tail = '뒤쪽 원문의 필수 요구';
+  p.req.files = [{ id: 'in', name: '요구사항.xlsx', size: 900, text: tail, inlined: true, inlineChars: 40, tailChars: tail.length, extractedChars: tail.length, sourceKey: sourceDigest(tail) }];
+  rows = requirementSources(p);
+  const rest = rows.find(row => row.file_id === 'in');
+  assert.equal(rest.label, '요구사항.xlsx · 이어지는 원문'); assert.equal(rest.text, tail); assert.equal(rest.partial, false);
 });

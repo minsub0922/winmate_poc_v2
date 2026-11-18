@@ -20,7 +20,6 @@
 .tocc-top { display: flex; align-items: center; gap: var(--space-12px); min-width: 0; }
 .tocc-no { flex-shrink: 0; display: inline-grid; place-items: center; min-width: 40px; height: 32px; padding: 0 var(--space-8px); border-radius: var(--radius-8px); background: var(--hb); color: var(--hc); font-size: var(--text-15px); font-weight: var(--weight-800); }
 .tocc-nm { margin: 0; min-width: 0; font-size: 28px; font-weight: var(--weight-800); line-height: 1.25; letter-spacing: -0.02em; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.tocc-badge, .tocd-badge { flex-shrink: 0; display: inline-flex; align-items: center; height: var(--measure-26px, 26px); padding: 0 var(--space-10px); border-radius: var(--radius-999px); background: var(--hb); color: var(--hc); font-size: var(--text-12-5px); font-weight: var(--weight-800); white-space: nowrap; }
 .tocc-more { margin-left: auto; flex-shrink: 0; display: inline-flex; align-items: center; gap: var(--space-4px); font-size: var(--text-13-5px); font-weight: var(--weight-800); color: var(--accent); white-space: nowrap; }
 .tocc-sub { display: flex; align-items: baseline; gap: var(--space-8px) var(--space-24px); flex-wrap: wrap; }
 .tocc-d { margin: 0; font-size: var(--text-14px); color: var(--ink-2, var(--muted)); }
@@ -51,17 +50,17 @@
 .tocd-t { display: inline-flex; align-items: center; gap: var(--space-10px); flex-wrap: wrap; font-size: 22px; font-weight: var(--weight-800); letter-spacing: -0.01em; }
 .tocd-flow { flex-shrink: 0; padding: 0 var(--space-6px); border-radius: var(--radius-12px); background: var(--surface-2); }
 
-/* 업종 드롭다운 (헤더 오른쪽) */
+/* 업종 드롭다운 — 상세 팝업 왼쪽 장 목록 맨 위에 고정(목록만 굴러간다). 좁은 칸이라 '업종' · 이름 · 설명을 세 줄로 쌓고 넘치면 말줄임 */
 .tocm { position: relative; }
-.tocm-btn { display: inline-flex; align-items: center; gap: var(--space-10px); height: var(--measure-46px, 46px); max-width: min(440px, 46vw); padding: 0 var(--space-12px) 0 var(--space-14px); border: var(--stroke-1px) solid var(--line-2); border-radius: var(--radius-10px); background: var(--surface); color: var(--ink); text-align: left; cursor: pointer; }
+.tocm-btn { display: flex; align-items: center; gap: var(--space-8px); width: var(--measure-100); padding: var(--space-8px) var(--space-10px) var(--space-8px) var(--space-12px); border: var(--stroke-1px) solid var(--line-2); border-radius: var(--radius-10px); background: var(--surface); color: var(--ink); text-align: left; cursor: pointer; }
 .tocm-btn:hover, .tocm-btn[aria-expanded="true"] { border-color: var(--accent); }
 .tocm-btn:focus-visible { outline: var(--stroke-2px) solid var(--accent); outline-offset: var(--space-2px); }
-.tocm-btn .lbl { flex-shrink: 0; font-size: var(--text-11-5px); font-weight: var(--weight-800); color: var(--muted); padding-right: var(--space-10px); border-right: var(--stroke-1px) solid var(--line); line-height: 1.9; }
-.tocm-btn .tx { display: flex; flex-direction: column; min-width: 0; line-height: 1.3; }
+.tocm-btn .tx { flex: 1; display: flex; flex-direction: column; gap: 1px; min-width: 0; line-height: 1.3; }
+.tocm-btn .lbl { font-size: var(--text-11px, 11px); font-weight: var(--weight-800); color: var(--muted); }
 .tocm-btn .nm { font-size: var(--text-14px); font-weight: var(--weight-800); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .tocm-btn .cu { font-size: var(--text-11-5px); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .tocm-btn > svg { flex-shrink: 0; color: var(--muted); }
-.tocm-pop { position: absolute; right: 0; top: calc(100% + 6px); z-index: 30; width: min(440px, 80vw); max-height: min(600px, 64vh); display: flex; flex-direction: column; border: var(--stroke-1px) solid var(--line-2); border-radius: var(--radius-12px); background: var(--surface); box-shadow: var(--shadow-lg); overflow: hidden; }
+.tocm-pop { position: absolute; left: 0; top: calc(100% + 6px); z-index: 30; width: min(400px, calc(100vw - 48px)); max-height: max(240px, min(600px, calc(100vh - 360px))); display: flex; flex-direction: column; border: var(--stroke-1px) solid var(--line-2); border-radius: var(--radius-12px); background: var(--surface); box-shadow: var(--shadow-lg); overflow: hidden; }
 .tocm-q { flex-shrink: 0; display: flex; align-items: center; gap: var(--space-8px); height: var(--measure-46px, 46px); padding: 0 var(--space-14px); border-bottom: var(--stroke-1px) solid var(--line); color: var(--faint); }
 .tocm-q input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; font: inherit; font-size: var(--text-13-5px); color: var(--ink); }
 .tocm-list { overflow-y: auto; padding: var(--space-4px) var(--space-6px) var(--space-8px); display: flex; flex-direction: column; }
@@ -77,6 +76,9 @@
 
 /* 장 보기 — 왼쪽 썸네일 세로 목록(목차마다 버블 머리) + 오른쪽 큰 장 (제안서 PPT 패널의 썸네일 · 큰 장 · 넘기기를 그대로) */
 .tocv { flex: 1; min-height: 0; display: grid; grid-template-columns: var(--measure-236px, 236px) minmax(0, var(--measure-1fr)); gap: var(--space-14px); }
+.tocv-side { min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: var(--space-10px); }
+.tocv-side > .tocm { flex-shrink: 0; margin: 0 var(--space-8px) 0 var(--space-2px); }
+.tocv-side > .tocv-rail { flex: 1; }
 .tocv-rail { min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: var(--space-14px); padding: var(--space-4px) var(--space-8px) var(--space-14px) var(--space-2px); --bg: var(--surface); scrollbar-width: thin; }
 .tocv-wait { margin: 0; padding: var(--space-8px); font-size: var(--text-13px); }
 .tocv-g { display: flex; flex-direction: column; gap: var(--space-8px); }
@@ -97,16 +99,23 @@
 .tocv-fit .vslide .slide { box-shadow: var(--shadow); border-radius: var(--radius-6px); border: var(--stroke-1px) solid var(--line); }
 .tocv-nav { flex-shrink: 0; justify-content: center; }
 .tocv-pg { min-width: var(--measure-84px, 84px); text-align: center; font-size: var(--text-12-5px); font-weight: var(--weight-700); }
-.tocv-keys { font-size: var(--text-12px); }
 @media (max-width: 1100px) {
   .tocd-body { overflow-y: auto; }
   .tocv { flex: none; grid-template-columns: minmax(0, var(--measure-1fr)); grid-template-rows: auto auto; }
-  .tocv-stage { min-height: auto; }
+  .tocv-side { display: contents; } /* 좁은 화면: 업종 → 큰 장 → 가로 썸네일 */
+  .tocv-side > .tocm { order: 0; width: min(360px, var(--measure-100)); margin: 0; }
+  .tocv-stage { order: 1; min-height: auto; }
   .tocv-fit { flex: none; }
   .tocv-rail { order: 2; flex-direction: row; overflow-x: auto; overflow-y: hidden; padding: var(--space-2px) var(--space-2px) var(--space-8px); }
   .tocv-g { flex-direction: row; align-items: flex-start; flex-shrink: 0; }
   .tocv-gh { flex-direction: column; width: var(--measure-84px, 84px); padding: var(--space-6px) 0 0; text-align: center; }
   .tocv-gh .node-name { padding: 0; text-align: center; }
   .tocv-ths { flex-direction: row; padding-left: 0; }
-  .tocm-btn { max-width: 52vw; }
 }
+
+/* 다른 화면 안(iframe)에서 덱만 볼 때 — /?toc=<구성>&embed=1 (관리자 「레이아웃 구성 관리」의 샘플 시나리오 보기). 메뉴를 숨기고 상세 팝업이 화면을 채운다. */
+.toc-embed .sidebar, .toc-embed .mob-top, .toc-embed .sb-scrim { display: none; }
+.toc-embed .app { grid-template-columns: minmax(0, var(--measure-1fr)); }
+.toc-embed .mback:has(> .modal.tocd) { padding: 0; background: var(--surface); animation: none; }
+.toc-embed .modal.tocd { width: var(--measure-100); height: var(--measure-100vh); border-radius: 0; box-shadow: none; }
+.toc-embed .modal.tocd > .mhead .x, .toc-embed .modal.tocd > .mfoot > .btn:first-of-type, .toc-embed .modal.tocd > .mfoot > .btn-primary { display: none; }

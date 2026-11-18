@@ -42,9 +42,8 @@ export function useHistoryHover(kind) {
     const top=Math.max(12,Math.min(entry.rect.top,window.innerHeight-height-12));
     node=createPortal(<aside ref={card} id={id} role="dialog" aria-modal="false" aria-label={entry.source.title+' 상세 미리보기'} className="history-hover-card" style={{left,top,width,maxHeight:height}}
       onMouseEnter={keep} onMouseLeave={leave} onFocusCapture={keep} onKeyDown={event=>event.stopPropagation()} onClick={event=>event.stopPropagation()}>
-      <header><div><span>상세 미리보기</span><h3>{entry.source.title}</h3><p>{entry.source.customer || '고객사 미정'} · 마우스를 올려 확인 중</p></div><button type="button" className="btn btn-ghost btn-icon" aria-label="히스토리 미리보기 닫기" onClick={()=>hide(true)}><Icon name="x" size={16}/></button></header>
+      <header><div><span>상세 미리보기</span><h3>{entry.source.title}</h3><p>{entry.source.customer || '고객사 미정'}</p></div><button type="button" className="btn btn-ghost btn-icon" aria-label="히스토리 미리보기 닫기" onClick={()=>hide(true)}><Icon name="x" size={16}/></button></header>
       <div className="history-hover-body">{kind==='req'?<HistoryRequirementsPreview source={entry.source}/>:<HistoryContextPreview source={entry.source}/>}</div>
-      <footer>불러오려면 목록에서 히스토리를 클릭해 선택하세요.</footer>
     </aside>,document.body);
   }
   return {bind,hide,node};

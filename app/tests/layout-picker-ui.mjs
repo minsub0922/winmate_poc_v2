@@ -1,4 +1,4 @@
-// Storyboard picker: shared catalog filters, selection, and the anchored full favorites list.
+// Storyboard picker: shared catalog filters, pick-and-close (the same layout again too), and the anchored full favorites list.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -28,6 +28,7 @@ try {
     const repo = await import('/src/repositories/proposals.js');
     const { LayoutPicker } = await import('/src/components/layouts.jsx');
     const { LAYOUTS } = await import('/src/services/catalog.js');
+    const { groupCountLayouts } = await import('/src/domain/templates/layout_count_groups.js');
     const { PARTS } = await import('/src/domain/proposals/parts.js');
     const { toggleFav } = await import('/src/repositories/favorites.js');
     const { searchCatalogKeywords } = await import('/src/services/catalog-search.js');
@@ -37,9 +38,11 @@ try {
     repo.update(id, p => { p.parts = [{ id: 'target', type: 'value', name: '운영 가치', items: ['수업 준비와 운영 개선'], layouts: [] }]; });
     const host = document.createElement('div'); document.body.appendChild(host);
     const pickerRoot = createRoot(host);
-    function Harness() { const p = repo.useStore(s => s.proposals.find(p => p.id === id)); return React.createElement(LayoutPicker, { p, partId: 'target', onClose: () => pickerRoot.unmount() }); }
+    // a pick closes the picker (onClose) — the test opens it again through window.__reopenPicker
+    function Harness() { const p = repo.useStore(s => s.proposals.find(p => p.id === id)); const [open, setOpen] = React.useState(true); window.__reopenPicker = () => setOpen(true); return open ? React.createElement(LayoutPicker, { p, partId: 'target', onClose: () => setOpen(false) }) : null; }
     pickerRoot.render(React.createElement(Harness));
-    return { id, total: LAYOUTS.length, valueLabel: PARTS.value.label, valueGeneral: LAYOUTS.filter(l => l.p === 'value' && !l.ind).map(l => l.f), keyword: searchCatalogKeywords('layouts', '설치').map(h => h.item.f), filled: LAYOUTS[0].f };
+    const valueSheets = LAYOUTS.filter(l => l.p === 'value' && !l.ind);
+    return { id, total: groupCountLayouts(LAYOUTS).length, valueLabel: PARTS.value.label, valueGeneral: groupCountLayouts(valueSheets).map(l => l.f), valueGeneralSheets: valueSheets.length, keyword: searchCatalogKeywords('layouts', '설치').map(h => h.item.f), filled: LAYOUTS[0].f };
   });
   const picker = page.locator('.modal.xwide'); await picker.locator('.pk-rec .pcard').first().waitFor();
   assert.equal(await picker.locator('.pk-jump, .seg, .pk-favcard').count(), 0);
@@ -58,7 +61,7 @@ try {
   await filter.click();
   await popup.locator('.tlf-step').first().getByRole('button', { name: new RegExp('^' + fixture.valueLabel + '\\s+\\d+$') }).click();
   await popup.locator('.tlf-step').nth(1).getByRole('button', { name: /^범용\s+\d+$/ }).click();
-  assert.equal(Number(await popup.locator('.tlf-go b').innerText()), fixture.valueGeneral.length);
+  assert.equal(Number(await popup.locator('.tlf-go b').innerText()), fixture.valueGeneralSheets);
   await popup.locator('.tlf-go').click();
   assert.deepEqual((await picker.locator('.pk-all .tl-card').evaluateAll(es => es.map(e => e.dataset.f))).sort(), [...fixture.valueGeneral].sort());
   assert.equal(await picker.locator('.tl-onchip').count(), 2);
@@ -69,11 +72,20 @@ try {
 
   await picker.locator('#pk-q').fill('설치');
   assert.deepEqual(await picker.locator('.pk-all .tl-card').evaluateAll(es => es.map(e => e.dataset.f)), fixture.keyword);
-  const chosen = picker.locator('.pk-all .pcard').first();
+  const chosen = picker.locator('.pk-all .pcard:not([data-count-group])').first();
   const chosenId = await chosen.getAttribute('data-f'); await chosen.click();
-  await page.waitForFunction(f => document.querySelector('.pk-all .pcard[data-f="' + f + '"]')?.getAttribute('aria-pressed') === 'true', chosenId);
-  await chosen.press('Enter'); assert.equal(await chosen.getAttribute('aria-pressed'), 'false');
-  pass('instant keyword results match the library and support mouse selection and keyboard deselection');
+  await picker.waitFor({ state: 'detached' });
+  const copies = () => page.evaluate(async ({ id, f }) => { const { libraryOf } = await import('/src/services/catalog.js'); return (await import('/src/repositories/proposals.js')).getProposal(id).parts.find(p => p.id === 'target').layouts.filter(x => libraryOf(x.f) === f).map(x => x.adaptation?.phase); }, { id: fixture.id, f: chosenId });
+  // the added sheet is not filled at once — it waits for its direction (layout-brief.js); this harness has no model, so the inference ends as 'brief' with an error
+  assert.equal((await copies()).length, 1); assert((await copies()).every(phase => ['briefing', 'brief'].includes(phase)));
+  const reopen = async () => { await page.evaluate(() => window.__reopenPicker()); await picker.locator('.pk-rec .pcard').first().waitFor(); };
+  await reopen(); await picker.locator('#pk-q').fill('설치');
+  const again = picker.locator('.pk-all .pcard[data-f="' + chosenId + '"]');
+  assert.match(await again.innerText(), /추가됨/); assert.equal(await again.getAttribute('aria-pressed'), null);
+  await again.press('Enter'); await picker.waitFor({ state: 'detached' });
+  assert.equal((await copies()).length, 2);
+  await reopen();
+  pass('instant keyword results match the library; a pick (mouse or keyboard) adds the layout and closes the picker at once, and the same layout can be added again');
 
   await picker.locator('#pk-q').fill('결과가없는검색어');
   const favorites = picker.locator('.pk-fav-toggle'); await favorites.click();
@@ -88,14 +100,17 @@ try {
   assert(await saved.locator('.pk-favcard').last().isVisible());
   await saved.locator('.pk-fav-body').evaluate(e => { e.scrollTop = 0; });
   await page.screenshot({ path: output + '/favorites.png' });
-  await saved.locator('.pk-favcard').first().click();
-  const values = await page.evaluate(async id => (await import('/src/repositories/proposals.js')).getProposal(id).parts.find(p => p.id === 'target').layouts.map(l => l.ov?.t?.[0]), fixture.id);
-  assert(values.includes('찜에 저장한 실제 문구'));
   await page.keyboard.press('Escape'); await saved.waitFor({ state: 'detached' });
   assert(await picker.isVisible()); assert.equal(await favorites.getAttribute('aria-expanded'), 'false');
   assert(await favorites.evaluate(e => e === document.activeElement));
   await favorites.click(); await picker.locator('#pk-q').click({ position: { x: 10, y: 10 } }); await saved.waitFor({ state: 'detached' });
-  pass('favorites opens at the header button, lists all 19 despite search, scrolls, preserves saved values and closes independently');
+  await favorites.click(); await saved.waitFor();
+  await saved.locator('.pk-favcard').first().click();
+  await picker.waitFor({ state: 'detached' }); await saved.waitFor({ state: 'detached' });
+  const values = await page.evaluate(async id => (await import('/src/repositories/proposals.js')).getProposal(id).parts.find(p => p.id === 'target').layouts.map(l => l.ov?.t?.[0]), fixture.id);
+  assert(values.includes('찜에 저장한 실제 문구'));
+  await reopen();
+  pass('favorites opens at the header button, lists all 19 despite search, scrolls, closes independently, and a pick keeps its saved values and closes the picker');
 
   await picker.locator('#pk-q').fill('');
   for (const width of [760, 390]) {

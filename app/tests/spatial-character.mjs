@@ -14,7 +14,8 @@ let rooms=0;const coverage=[];
 function checkCharacter(scene){
  for(const room of scene.rooms){
   const ids=scene.objects.filter(o=>o.roomId===room.id).map(o=>o.assetId),has=id=>ids.includes('furniture:'+id);
-  if(['garment','laundry'].includes(room.spaceProfile))assert(has('wardrobe-clothes')&&has('coat-rack-loaded'),room.name+' clothes, wardrobe and hanging rack');
+  // A space with its own character (coin laundry · linen room · fitting room · locker room …) shows its own furnishings — spatial-space-characters.mjs.
+  if(['garment','laundry'].includes(room.spaceProfile)&&!room.character)assert(has('wardrobe-clothes')&&has('coat-rack-loaded'),room.name+' clothes, wardrobe and hanging rack');
   if(room.spaceProfile==='kitchen')assert(has('food-prep-board')&&has('food-stew-pot'),room.name+' actual food and preparation');
   if(room.spaceProfile==='coldstore')assert(has('food-stock-shelf')&&has('food-produce-basket')&&!has('food-stew-pot'),'cold storage holds ingredients, no cooking');
   if(room.kind==='fitness'){

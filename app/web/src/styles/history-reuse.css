@@ -7,6 +7,8 @@
 .reuse-trigger-copy { display: grid; gap: var(--space-4px); min-width: 0; }
 .reuse-trigger-copy b { font-size: var(--text-13px); }
 .reuse-trigger-copy small { font-size: var(--text-12px); font-weight: normal; color: var(--muted); line-height: 1.5; }
+.btn.reuse-compact { gap: var(--space-5px); white-space: nowrap; }
+@container (max-width: 460px) { .btn.reuse-compact { width: var(--measure-30px); padding: 0; justify-content: center; } .btn.reuse-compact > span { display: none; } }
 .modal.history-reuse { width: min(var(--measure-1320px), 100%); height: min(var(--reuse-dialog-height), calc(100vh - var(--measure-40px))); }
 .history-reuse .mhead, .history-reuse .mfoot { flex-shrink: 0; }
 .history-reuse .reuse-body { flex: 1; min-height: 0; overflow: hidden; }

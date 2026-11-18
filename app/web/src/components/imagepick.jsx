@@ -1,4 +1,4 @@
-import { GROUPS, KIND_GROUP, KIND_NAME, rankImages, relatedImages, imageProducts, fileToStoredImage, suggestImages } from '../services/images.js';
+import { GROUPS, KIND_GROUP, KIND_NAME, rankImages, relatedImages, imageProducts, fileToStoredImage, suggestImages, useImageWeights } from '../services/images.js';
 export { GROUPS, KIND_GROUP, KIND_NAME, rankImages, fileToStoredImage, suggestImages };
 import React, { useEffect, useMemo, useState, useRef } from 'react';
 import { DeleteButton, Icon, Modal, toast } from './common.jsx';
@@ -24,8 +24,9 @@ export function ImagePicker({ slot, current, models = [], context = {}, contextT
   const [over, setOver] = useState(false);
   const fileRef = useRef(null);
   const gridRef = useRef(null), sentinelRef = useRef(null);
-  const related = useMemo(() => relatedImages(library.images, { current, models, productIds: context.products || [], kind: slot?.kind, hint: slot?.hint, contextText }),
-    [library.images, current, modelKey, contextKey, slot?.kind, slot?.hint, contextText]);
+  const weights = useImageWeights();
+  const related = useMemo(() => relatedImages(library.images, { current, models, productIds: context.products || [], kind: slot?.kind, hint: slot?.hint, contextText, weights }),
+    [library.images, current, modelKey, contextKey, slot?.kind, slot?.hint, contextText, weights]);
   const ordered = useMemo(() => {
     const first = new Set(related.map(image => image.src));
     return [...related, ...library.images.filter(image => !first.has(image.src))];
@@ -63,7 +64,7 @@ export function ImagePicker({ slot, current, models = [], context = {}, contextT
   };
   const take = async (file) => { const r = await fileToStoredImage(file); if (!r) { toast('이미지 파일만 넣을 수 있어요', 'warn'); return; } onPick({ ...r, fit }); };
   return (
-    <Modal size="wide image-picker" onClose={onClose} title="이미지 넣기" sub={((current?.name || slot?.hint) ? '“' + (current?.name || slot?.hint) + '” 자리 · ' : '') + (slot && KIND_NAME[slot.kind] ? KIND_NAME[slot.kind] + ' 칸' : '이미지 칸') + ' — 라이브러리에서 고르거나 파일을 끌어다 놓으세요.'}
+    <Modal size="wide image-picker" onClose={onClose} title="이미지 넣기" sub={((current?.name || slot?.hint) ? '“' + (current?.name || slot?.hint) + '” 자리 · ' : '') + (slot && KIND_NAME[slot.kind] ? KIND_NAME[slot.kind] + ' 칸' : '이미지 칸')}
       footer={<>
         <div className="seg" role="group" aria-label="맞춤">
           <button aria-pressed={fit === 'cover'} onClick={() => setFit('cover')}>칸 채우기</button>

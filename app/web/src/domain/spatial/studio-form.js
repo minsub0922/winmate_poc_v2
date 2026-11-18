@@ -2,6 +2,7 @@ import { addAsset,createScene,roomKind,fingerprint,sceneHash } from './scene.js'
 import { STYLES } from './geometry.js';
 import {roomGridColumns,TEMPLATE_ROOM} from './template-composition.js';
 import {populateScenePeople} from './people-layout.js';
+import {studioRoomCells} from './room-arrangement.js';
 
 export const SPACE_TYPES=[['reception','로비 · 접수'],['office','업무 공간'],['meeting','회의실'],['lounge','라운지 · 휴게'],['dining','식당 · 카페'],['kitchen','주방'],['classroom','강의실'],['study','학습 · 열람'],['bedroom','객실 · 침실'],['medical','의료 · 케어'],['retail','매장 · 쇼룸'],['warehouse','생산 · 물류'],['utility','설비 · 관리'],['theatre','공연 · 강당'],['fitness','운동 · 재활'],['outdoor','야외 공간']];
 export const emptyStudioForm=()=>({version:1,title:'',industry:'',style:'modern',templateId:null,rooms:[]});
@@ -35,6 +36,7 @@ export function validateStudioForm(form,library,{complete=false}={}){
     if(!r||typeof r.id!=='string'||ids.has(r.id)){errors.push('공간 ID가 올바르지 않습니다.');continue;}ids.add(r.id);
     if(typeof r.name!=='string'||r.name.length>100||complete&&!r.name.trim())errors.push(`공간 ${index+1}의 이름을 입력해 주세요.`);
     if(!SPACE_TYPES.some(([k])=>k===r.kind))errors.push(`공간 ${index+1}의 용도를 선택해 주세요.`);
+    if(r.style!=null&&!STYLES[r.style])errors.push(`${r.name||'공간 '+(index+1)}의 스타일이 올바르지 않습니다.`);
     if(r.customPurpose!=null&&(typeof r.customPurpose!=='string'||r.customPurpose.length>100||complete&&!r.customPurpose.trim()))errors.push(`공간 ${index+1}의 용도를 1~100자로 입력해 주세요.`);
     const size=roomDimensions(r);if(![size.width,size.depth].every(n=>Number.isFinite(n)&&n>=(complete?4:0)&&n<=150))errors.push(`${r.name||'공간 '+(index+1)}의 가로·세로는 4~150m로 입력해 주세요.`);
     if(r.capacity!==''&&r.capacity!=null&&(!Number.isFinite(Number(r.capacity))||Number(r.capacity)<0||Number(r.capacity)>60||complete&&(!Number.isInteger(Number(r.capacity))||Number(r.capacity)<1||r.kind==='meeting'&&(Number(r.capacity)<2||Number(r.capacity)>14))))errors.push(`${r.name||'공간 '+(index+1)}의 좌석 수를 확인해 주세요.`);
@@ -56,26 +58,31 @@ export function validateStudioForm(form,library,{complete=false}={}){
   }
   return [...new Set(errors)];
 }
+// 공간은 행 · 열 칸에 놓인다 — 기본은 공간 수에 따른 격자, 끌어 옮긴 공간은 기억해 둔 칸(room.cell)에 (room-arrangement.js).
 export function packStudioRooms(rooms){
-  const cols=roomGridColumns(rooms.length),rows=Math.ceil(rooms.length/cols),sizes=rooms.map(roomDimensions);
-  const widths=Array.from({length:cols},(_,c)=>Math.max(...sizes.filter((_,i)=>i%cols===c).map(s=>s.width)));
-  const depths=Array.from({length:rows},(_,r)=>Math.max(...sizes.slice(r*cols,(r+1)*cols).map(s=>s.depth)));
+  const cells=studioRoomCells(rooms),cols=Math.max(0,...cells.map(c=>c.col))+1,rows=Math.max(0,...cells.map(c=>c.row))+1,sizes=rooms.map(roomDimensions);
+  const widths=Array.from({length:cols},(_,c)=>Math.max(...sizes.filter((_,i)=>cells[i].col===c).map(s=>s.width)));
+  const depths=Array.from({length:rows},(_,r)=>Math.max(...sizes.filter((_,i)=>cells[i].row===r).map(s=>s.depth)));
   const sum=values=>values.reduce((a,b)=>a+b,0);
-  return {width:sum(widths)+(cols-1)*.22,depth:sum(depths)+(rows-1)*1.8,
-    rectangles:sizes.map((s,i)=>({...s,x:sum(widths.slice(0,i%cols))+(i%cols)*.22,z:sum(depths.slice(0,Math.floor(i/cols)))+Math.floor(i/cols)*1.8}))};
+  return {width:sum(widths)+(cols-1)*.22,depth:sum(depths)+(rows-1)*1.8,cells,
+    rectangles:sizes.map((s,i)=>({...s,x:sum(widths.slice(0,cells[i].col))+cells[i].col*.22,z:sum(depths.slice(0,cells[i].row))+cells[i].row*1.8}))};
 }
 export function createSceneFromForm(form,library,{documentId='draft'}={}){
   const errors=validateStudioForm(form,library,{complete:true});if(errors.length)throw new Error(errors[0]);
   const packed=packStudioRooms(form.rooms);if(packed.width>150||packed.depth>150)throw new Error('전체 공간이 150m를 넘습니다. 공간 크기나 수를 줄여 주세요.');
   const template={id:'studio-'+documentId,name:form.title.trim()||library.industries.find(i=>i.code===form.industry).name+' 공간 제안',
     industry:form.industry,scope:form.rooms.length>1?'full':'single',variant:'standard',custom:true,style:form.style,width:packed.width,depth:packed.depth,
-    rooms:form.rooms.map((r,i)=>({key:r.id,name:r.name.trim(),kind:r.kind,purpose:r.customPurpose?.trim()||'',geometry:packed.rectangles[i],productIds:r.products.map(p=>p.productId),...(r.equipmentPolicyVersion?{spaceProfile:r.spaceProfile,equipmentPolicyVersion:r.equipmentPolicyVersion,...(r.layoutCompositionVersion?{layoutCompositionVersion:r.layoutCompositionVersion}:{}),...(r.includedSpaces?{includedSpaces:structuredClone(r.includedSpaces)}:{})}:{})})),
+    rooms:form.rooms.map((r,i)=>({key:r.id,name:r.name.trim(),kind:r.kind,purpose:r.customPurpose?.trim()||'',geometry:packed.rectangles[i],productIds:r.products.map(p=>p.productId),...(r.equipmentPolicyVersion?{spaceProfile:r.spaceProfile,equipmentPolicyVersion:r.equipmentPolicyVersion,...(r.layoutCompositionVersion?{layoutCompositionVersion:r.layoutCompositionVersion}:{}),...(r.includedSpaces?{includedSpaces:structuredClone(r.includedSpaces)}:{})}:r.layoutCompositionVersion?{layoutCompositionVersion:r.layoutCompositionVersion}:{})})),
     source:{type:'studio-input',documentId,templateId:form.templateId||null}};
   let scene=createScene({templateId:template.id,style:form.style,variant:'standard',populatePeople:false,
     roomSettings:form.rooms.filter(r=>r.capacity!==''&&r.capacity!=null).map(r=>({roomId:r.id,capacity:Number(r.capacity)})),
     placements:form.rooms.flatMap(r=>r.products.map(p=>({roomId:r.id,productId:p.productId,quantity:Number(p.quantity),placementMode:'auto'}))),
     provenance:{kind:'structured-input'}}, {...library,templates:[...library.templates,template]});
   for(const input of form.rooms)if(input.customPurpose!=null){const room=scene.rooms.find(r=>r.id===input.id);room.customPurpose=input.customPurpose.trim();}
+  for(const input of form.rooms)if(input.sourceSpaceId)scene.rooms.find(r=>r.id===input.id).sourceSpaceId=input.sourceSpaceId;
+  if(form.scope==='sites')scene.conceptSites=true;
+  for(const input of form.rooms)if(input.style&&input.style!==form.style)scene.rooms.find(r=>r.id===input.id).style=input.style;
+  if(form.rooms.some(r=>r.cell))for(const [i,input] of form.rooms.entries())scene.rooms.find(r=>r.id===input.id).cell=packed.cells[i];
   const furniture=form.rooms.flatMap(room=>(room.furniture||[]).map(item=>({...item,roomId:room.id}))),byId=Object.fromEntries(library.assets.map(a=>[a.id,a]));
   furniture.sort((a,b)=>Number(byId[a.assetId].placement?.mode==='surface')-Number(byId[b.assetId].placement?.mode==='surface'));
   for(const item of furniture)for(let i=0;i<Number(item.quantity);i++){
@@ -89,7 +96,7 @@ export function studioFormFromScene(scene){
     rooms:scene.rooms.map(r=>{
       const quantities=new Map();for(const object of scene.objects.filter(o=>o.roomId===r.id&&o.assetId.startsWith('product:')))quantities.set(object.assetId.slice(8),(quantities.get(object.assetId.slice(8))||0)+1);
       const furniture=new Map();for(const object of scene.objects.filter(o=>o.roomId===r.id&&o.studioFurniture))furniture.set(object.assetId,(furniture.get(object.assetId)||0)+1);
-      return {id:r.id,name:r.name,kind:r.kind,kindEdited:true,...(r.equipmentPolicyVersion?{spaceProfile:r.spaceProfile,equipmentPolicyVersion:r.equipmentPolicyVersion,...(r.layoutCompositionVersion?{layoutCompositionVersion:r.layoutCompositionVersion}:{}),...(r.includedSpaces?{includedSpaces:structuredClone(r.includedSpaces)}:{})}:{}),...(r.customPurpose!=null?{customPurpose:r.customPurpose}:{}),width:r.width,depth:r.depth,capacity:r.capacity||'',products:[...quantities].map(([productId,quantity])=>({productId,quantity})),...(furniture.size?{furniture:[...furniture].map(([assetId,quantity])=>({assetId,quantity}))}:{})};
+      return {id:r.id,name:r.name,kind:r.kind,kindEdited:true,...(r.equipmentPolicyVersion?{spaceProfile:r.spaceProfile,equipmentPolicyVersion:r.equipmentPolicyVersion,...(r.layoutCompositionVersion?{layoutCompositionVersion:r.layoutCompositionVersion}:{}),...(r.includedSpaces?{includedSpaces:structuredClone(r.includedSpaces)}:{})}:r.layoutCompositionVersion?{layoutCompositionVersion:r.layoutCompositionVersion}:{}),...(r.customPurpose!=null?{customPurpose:r.customPurpose}:{}),...(STYLES[r.style]?{style:r.style}:{}),...(r.cell?{cell:{row:r.cell.row,col:r.cell.col}}:{}),width:r.width,depth:r.depth,capacity:r.capacity||'',products:[...quantities].map(([productId,quantity])=>({productId,quantity})),...(furniture.size?{furniture:[...furniture].map(([assetId,quantity])=>({assetId,quantity}))}:{})};
     })};
 }
 export function studioDocumentFromTemplate(template,library){

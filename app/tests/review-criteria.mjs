@@ -34,3 +34,19 @@ console.log('PASS requested 4/24 labels, equal weights, source check restored, v
 assert.equal(criteriaForReview({criteriaVersion:4}).scoring.level_points,undefined);
 assert.deepEqual(criteriaForReview({criteriaVersion:5}).scoring.level_points,{'0':0,'1':40,'2':65,'3':85,'4':100});
 assert.deepEqual(normalizeCriteriaIds(['CU2','DQ1'],4),['CU2','DQ1']);
+
+// Spider-chart axis labels: every rubric version gets short, unique labels made of words from the full name.
+const { criterionShortNames } = await import('../web/src/domain/review/criteria-short.js');
+for (const version of [1, 2, 3, 4, 5]) {
+  const { CRITERIA: list } = criteriaForReview(version === 1 ? {} : { criteriaVersion: version });
+  const short = criterionShortNames(list), labels = Object.values(short);
+  assert.equal(new Set(labels).size, list.length, `unique short labels in v${version}`);
+  for (const c of list) {
+    const label = short[c.id];
+    assert.ok([...label.replace(/\s/g, '')].length <= 7 || label === 'Why Samsung', `short label v${version} ${c.id}: ${label}`);
+    assert.ok(label.length < c.name.length || label === c.name, `label shorter than ${c.name}`);
+    for (const word of label.split(/[\s·]+/)) assert.ok(c.name.includes(word), `${label} is guessable from ${c.name}`);
+  }
+}
+assert.equal(criterionShortNames(CRITERIA).VS3, '투자 효과');
+console.log('PASS every rubric version has unique short axis labels taken from its full criterion names');

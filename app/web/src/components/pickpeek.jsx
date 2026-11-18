@@ -1,13 +1,15 @@
 // Layout hover detail (big slide on top, full metadata below) placed beside the hovered card, never over it —
 // used by the layout picker, the PPT 레이아웃 템플릿 page and 샘플 버티컬 시나리오 (sheets with filled values: extra.ov · extra.scene).
-import React, { useState, useRef, useEffect, useLayoutEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useLayoutEffect, useCallback, useMemo, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
 import { Icon, partHue } from './common.jsx';
 import { PARTS, REQ_LABEL } from '../domain/proposals/parts.js';
 import { IND, P, S } from '../services/catalog.js';
-import { Slide } from '../domain/slides/Slide.jsx';
+import { Slide, FitSlide } from '../domain/slides/Slide.jsx';
+import { CountGroupPeek } from './layout-count-group.jsx';
 import { TagChip } from './tagcard.jsx';
 import { layoutPeekPlacement } from '../services/layout-peek-placement.js';
+import { SampleRibbon } from './sample-ribbon.jsx';
 
 const indShort = (code) => (IND[code] ? IND[code].name.split(' · ')[0] : '');
 /** the one-line message a layout argues, when its group says it (“…”) */
@@ -30,24 +32,44 @@ export function CardMeta({ l }) {
 /** match reasons worth showing — photo-version markers (사진 중심 · …의 사진 버전) stay out of the UI */
 export const shownWhy = (why) => (why || []).filter((w) => w !== '사진 중심' && !/사진 (중심 )?버전/.test(w));
 
-/** Large hover preview (show(l, el, { why, aiWhy, rank, snip, ov, scene: { page, stage, role } })) — hides on any scroll */
+/** Large hover preview (show(l, el, { why, aiWhy, rank, snip, ov, scene: { page, stage, role }, sample })) — hides on any scroll.
+ *  sample: Storyboard 레이아웃 추가에서 — 이 제안서 값이 아닌 견본이라 '샘플 자료' 띠 (sample-ribbon.jsx) */
 export function usePickPeek() {
-  const [pk, setPk] = useState(null);
+  // Hover changes only the floating preview. Re-rendering the owning library
+  // used to rebuild every card/search/filter even when none of them changed.
+  const store = useMemo(() => {
+    let value = null; const listeners = new Set();
+    return { get: () => value, subscribe: fn => { listeners.add(fn); return () => listeners.delete(fn); },
+      set: next => { if (value === next) return; value = next; for (const fn of listeners) fn(); } };
+  }, []);
+  const setPk = store.set;
   const t = useRef(null);
   const seq = useRef(0); // a new card per hover — the same layout can sit on several cards (샘플 버티컬 시나리오)
   const show = useCallback((l, el, extra) => {
     clearTimeout(t.current);
     if (window.matchMedia && window.matchMedia('(hover: none)').matches) return; // touch: a tap selects, no preview
-    t.current = setTimeout(() => setPk({ l, r: el.getBoundingClientRect(), extra: extra || {}, k: ++seq.current }), 380);
+    t.current = setTimeout(() => { if (el.isConnected) setPk({ l, r: el.getBoundingClientRect(), extra: extra || {}, k: ++seq.current }); }, 380);
   }, []);
   const hide = useCallback(() => { clearTimeout(t.current); setPk(null); }, []);
+  const leave = useCallback(() => { clearTimeout(t.current); t.current = setTimeout(() => setPk(null), 180); }, []);
+  const hold = useCallback(() => clearTimeout(t.current), []);
   useEffect(() => {
-    const onScroll = () => { clearTimeout(t.current); setPk(null); }; // the card moved — a peek placed for the old spot would cover the page
+    const onScroll = e => { if (e?.target?.closest?.('.count-variant-peek')) return; clearTimeout(t.current); setPk(null); };
     window.addEventListener('scroll', onScroll, { capture: true, passive: true });
     window.addEventListener('resize', onScroll);
     return () => { clearTimeout(t.current); window.removeEventListener('scroll', onScroll, { capture: true }); window.removeEventListener('resize', onScroll); };
   }, []);
-  return { show, hide, node: pk ? <PickPeek key={'peek-' + pk.k} {...pk} /> : null };
+  const onLeave = useCallback(() => { if (isGroupPeek(store.get())) leave(); else hide(); }, [store, leave, hide]);
+  return { show, hide: onLeave, dismiss: hide, node: <PickPeekSurface store={store} hold={hold} leave={leave} hide={hide}/> };
+}
+
+const isGroupPeek = pk => pk?.l.countVariants?.length > 1 && !pk.extra.ov && !pk.extra.scene;
+function PickPeekSurface({store,hold,leave,hide}) {
+  const pk = useSyncExternalStore(store.subscribe, store.get);
+  if (!pk) return null;
+  return isGroupPeek(pk)
+    ? <CountGroupPeek key={'peek-' + pk.k} layout={pk.l} rect={pk.r} render={l => <FitSlide f={l.f}/>} onEnter={hold} onLeave={leave} onSelect={pk.extra.onCountPick ? l => { hide(); pk.extra.onCountPick(l); } : undefined} actionLabel={pk.extra.countAction}/>
+    : <PickPeek key={'peek-' + pk.k} {...pk} />;
 }
 
 /** A wide, shallow region uses a slide beside its metadata; tall regions stack them. */
@@ -89,7 +111,7 @@ function PickPeek({ l, r, extra }) {
         {l.when && <span className="pp-when"><Icon name="info" size={13} />언제 쓰나 · {l.when}</span>}
       </div>
       <div className="pp-body">
-        <div className="pp-slide"><Slide f={l.f} ov={ov || undefined} pageNo={ov && sc ? sc.page : undefined} width={slideW} /></div>
+        <div className={'pp-slide' + (extra.sample ? ' sample-host' : '')}><Slide f={l.f} ov={ov || undefined} pageNo={ov && sc ? sc.page : undefined} width={slideW} />{extra.sample && <SampleRibbon />}</div>
         <dl className="pp-meta">
           {sc && sc.role && <><dt>이 시나리오에서</dt><dd className="pp-msg">{sc.role}</dd></>}
           {msg && <><dt>핵심 메시지</dt><dd className={sc ? '' : 'pp-msg'}>“{msg}”</dd></>}

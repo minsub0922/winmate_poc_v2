@@ -1,0 +1,32 @@
+/* 조감도 시트 — 팝업에서 3D로 돌려 보기 (components/birdseye-live.jsx) */
+.birdseye-stage{isolation:isolate}
+.birdseye-live-host{position:absolute;z-index:2;touch-action:none;cursor:grab}
+.birdseye-live-host:active{cursor:grabbing}
+.birdseye-live-host canvas{display:block;width:100%;height:100%;outline:none}
+.birdseye-live-marks{position:absolute;left:0;top:0;z-index:3;pointer-events:none;overflow:visible}
+.birdseye-live-marks polyline{fill:none;stroke:#1428a0;stroke-width:2;stroke-linejoin:miter}
+.birdseye-live-marks path{fill:#1428a0}
+.birdseye-live-straight{stroke:#446f96;stroke-width:1.5}
+.birdseye-live-pin circle{fill:#1428a0;stroke:#fff;stroke-width:2}
+.birdseye-live-pin text{fill:#fff;font:700 11px Manrope,'Noto Sans KR',sans-serif;text-anchor:middle}
+.birdseye-live-chip{position:absolute;z-index:4;pointer-events:none;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:20px;padding:4px 10px;font-size:11px;white-space:nowrap;box-shadow:var(--shadow)}
+.birdseye-live-chip.birdseye-live-selected{color:var(--ink);font-weight:700}
+/* 3D가 떠 있는 동안 시트의 정적인 조감도 그림 · 핀 · 선은 가린다 (덧씌움이 지금 각도로 다시 그린다) */
+.birdseye-live-on [data-birdseye-overlay="link"],.birdseye-live-on [data-birdseye-overlay="pin"],.birdseye-live-on [data-spatial-overlay],
+.birdseye-live-on [data-birdseye-sheet] [data-img="0"] img{visibility:hidden}
+/* 번호 핀을 끌어 공간 자리 바꾸기 · 가운데 형태의 버블 끌어 옮기기 */
+.birdseye-live-pin.movable{pointer-events:auto;cursor:grab}
+.birdseye-live-grab{fill:transparent!important;stroke:none!important}
+.birdseye-live-pin.dragging{opacity:.35}
+.birdseye-live-pin.over circle:not(.birdseye-live-grab){stroke:#f5a524;stroke-width:4}
+.birdseye-live-roomdrag line{stroke:#1428a0;stroke-width:1.5;stroke-dasharray:5 4}
+.birdseye-live-roomdrag circle{fill:#1428a0;stroke:#fff;stroke-width:2}
+.birdseye-live-roomdrag text{fill:#fff;font:700 11px Manrope,'Noto Sans KR',sans-serif;text-anchor:middle}
+.birdseye-dragging,.birdseye-dragging *{user-select:none;cursor:grabbing!important}
+.birdseye-live-ghost{position:absolute;z-index:5;pointer-events:none;box-sizing:border-box;border:2px dashed #1428a0;border-radius:10px;background:rgba(20,40,160,.08);color:#1428a0;font-size:12px;padding:6px 8px}
+.birdseye-live-reset{position:absolute;z-index:4;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:20px;padding:4px 10px;font-size:11px;cursor:pointer;box-shadow:var(--shadow)}
+.birdseye-live-note{transform:translateX(-50%);color:var(--ink);font-weight:700}
+.birdseye-live-slot rect{fill:rgba(255,255,255,.85);stroke:#1428a0;stroke-width:1.5;stroke-dasharray:4 3}
+.birdseye-live-slot text{fill:#1428a0;font:700 10px 'Noto Sans KR',sans-serif;text-anchor:middle}
+.birdseye-live-slot.over rect{fill:#1428a0;stroke-dasharray:none}
+.birdseye-live-slot.over text{fill:#fff}

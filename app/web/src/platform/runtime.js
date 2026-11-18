@@ -1,6 +1,8 @@
 import { requestCompletion } from '../api/client.js';
+import { loginRequiredError, requireDownload } from '../api/session.js';
 
 export async function downloadBlob({ filename, data }) {
+  if (!requireDownload()) throw loginRequiredError();
   const url = URL.createObjectURL(data instanceof Blob ? data : new Blob([data]));
   const anchor = document.createElement('a');
   anchor.href = url; anchor.download = filename;
@@ -52,6 +54,9 @@ function makeSample(feature) {
   sample.json = async (prompt, options = {}) => {
     const body = { kind: 'json', prompt, feature, model_tier: options.images?.length ? 'vision' : options.modelTier, images: options.images, stream: options.stream !== false };
     if (options.responseSchema) body.response_schema = options.responseSchema;
+    // A step of resumable work (장 채우기): the server records the answer under this key and answers the same step again
+    // from that record (app/api/poc/steps.py) — a reload or leaving the app does not ask the model twice.
+    if (options.stepKey) { body.step_key = options.stepKey; body.stream = false; }
     const result = unwrap(await requestCompletion(body, options));
     if (options.onText) options.onText({ text: JSON.stringify(result.data) });
     return result.data;

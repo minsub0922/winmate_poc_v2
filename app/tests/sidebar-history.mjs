@@ -9,11 +9,11 @@ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const read=name=>JSON.parse(fs.readFileSync(path.join(root,'app/data',name+'.json'),'utf8'));
 const boot={catalog:read('catalog'),products:read('products_db'),images:read('images'),capabilities:null,user:{username:'history-menu-test',auth_enabled:false}};
 const titles=['최근 제안서 · 전국 매장 디지털 메뉴보드 운영 개선','고정할 제안서 · 호텔 AI 스테이','이전 제안서 · 스마트 캠퍼스'];
-const documents=titles.map((title,i)=>({id:'history-'+i,title,customer:'검증 고객',ind:'HT',stage:'req',createdAt:Date.now()-1000*(i+1),updatedAt:Date.now()-1000*(i+1),
+const documents=titles.map((title,i)=>({id:'history-'+i,endPath:'/storyboard/history-'+i,title,customer:'검증 고객',ind:'HT',stage:'req',createdAt:Date.now()-1000*(i+1),updatedAt:Date.now()-1000*(i+1),
  reqTab:'form',req:{free:[{t:'저장된 고객 요구사항 '+i}],form:{project:'검증',customer:'검증 고객',keymen:[],note:''},files:[]},ctx:{products:[],solutions:[],cases:[]},parts:[]}));
 const out=path.join(root,'app/tests/output/sidebar-history');fs.mkdirSync(out,{recursive:true});
 const server=await createServer({root:path.join(root,'app/web'),configFile:path.join(root,'app/web/vite.config.js'),logLevel:'error',server:{host:'127.0.0.1',port:0,strictPort:false,hmr:false}});
-const checks=[],errors=[],snapshots=new Map();let browser,page,modelCalls=0,failNextShare=false;
+const checks=[],errors=[],snapshots=new Map();let browser,page,modelCalls=0,sharingUnavailable=false;
 const pass=message=>{checks.push(message);console.log('PASS '+message);};
 try{
  await server.listen();browser=await chromium.launch({headless:true});const context=await browser.newContext({viewport:{width:1500,height:950},permissions:['clipboard-read','clipboard-write']});
@@ -23,7 +23,7 @@ try{
   if(url.pathname==='/api/bootstrap')return route.fulfill({json:boot});
   if(url.pathname==='/api/llm'){modelCalls++;return route.fulfill({status:503,json:{code:'test_no_model'}});}
   if(url.pathname==='/api/storyboards'&&method==='POST'){
-   if(failNextShare){failNextShare=false;return route.fulfill({status:503,json:{detail:'공유 연결 테스트 오류'}});}
+   if(sharingUnavailable)return route.fulfill({status:503,json:{detail:'공유 연결 테스트 오류'}});
    const body=route.request().postDataJSON(),token=('sidebar-test-'+body.source).padEnd(43,'x');
    const snapshot={token,sourceId:body.source,document:body.document,isOwner:true,canEdit:true,hasEdited:false,permission:'view',revision:1};snapshots.set(token,snapshot);return route.fulfill({json:snapshot});
   }
@@ -95,7 +95,8 @@ try{
  await page.locator('.sidebar').hover({position:{x:20,y:20}});await row('history-0').locator('.sb-item').click();await page.locator('#pr-title').waitFor();
  await more('history-0');await menu().getByRole('menuitem',{name:'삭제',exact:true}).click();await confirm().getByRole('button',{name:'삭제',exact:true}).click();await page.locator('.home').waitFor();assert.equal(await row('history-0').count(),0);
  pass('Deletion survives reload and deleting the currently open proposal returns to Home');
- failNextShare=true;await more(fresh);await menu().getByRole('menuitem',{name:'공유',exact:true}).click();await share().getByRole('alert').waitFor();assert.ok((await share().innerText()).includes('공유 연결 테스트 오류'));
+ sharingUnavailable=true;await more(fresh);await menu().getByRole('menuitem',{name:'공유',exact:true}).click();await share().getByRole('alert').waitFor();assert.ok((await share().innerText()).includes('공유 연결 테스트 오류'));
+ sharingUnavailable=false;
  await share().getByRole('button',{name:'다시 시도',exact:true}).click();await page.waitForFunction(()=>document.querySelector('[aria-label="공유 링크"]')?.value.includes('/s/'));
  assert.equal(await share().getByRole('button',{name:'링크 복사',exact:true}).isEnabled(),true);await share().getByRole('button',{name:'닫기',exact:true}).last().click();
  pass('Share failures stay in the dialog and retry creates a usable link');

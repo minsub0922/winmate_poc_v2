@@ -1,0 +1,70 @@
+/* 작업 상태 자리 — Storyboard 상단 바 가운데(그 바를 덮는 모달은 머리줄). 테두리 없는 한 줄 · 글은 절대 줄바꿈되지 않는다
+   (좁으면 지금 단계 → 제목 순으로 말줄임, 아주 좁으면 '진행 중' 같은 짧은 말 · 전체 글은 펼친 목록에). */
+
+/* Storyboard 상단 바: 제목 | 상태 | 버튼 — 가운데 칸은 늘 같은 너비를 잡아 두어 상태가 나타나도 다른 것이 움직이지 않는다 */
+.topbar.pr-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, min(520px, 40%)) minmax(max-content, 1fr); flex-wrap: nowrap; column-gap: 12px; row-gap: 6px; }
+.pr-top .pr-title { min-width: 0; display: flex; align-items: center; }
+.pr-top .title-in { min-width: 0; max-width: 420px; text-overflow: ellipsis; white-space: nowrap; }
+.pr-top .pr-status { min-width: 0; align-self: stretch; display: flex; pointer-events: none; }
+.pr-top .top-right { margin-left: 0; justify-self: end; flex-wrap: nowrap; }
+@media (max-width: 900px) {
+  .topbar.pr-top { grid-template-columns: minmax(0, 1fr) max-content; grid-template-areas: "title title" "status actions"; }
+  .pr-top .pr-title { grid-area: title; }
+  .pr-top .pr-status { grid-area: status; }
+  .pr-top .top-right { grid-area: actions; }
+  .pr-top .title-in { max-width: none; width: 100%; }
+}
+
+.top-status { min-width: 0; display: flex; align-items: center; justify-content: center; }
+.top-status.root { flex: 1; container-type: inline-size; position: relative; z-index: 61; /* 상단 바를 덮지 않는 모달이 열려도 어둡게 가려지지 않고 누를 수 있다(.mback 60) */ }
+@media (max-width: 900px) { .top-status.root { justify-content: flex-start; } }
+.ts-bar { pointer-events: auto; min-width: 0; max-width: 100%; display: flex; align-items: center; gap: 6px; height: 32px; padding: 0 2px 0 4px; color: var(--ink); font-size: 13px; line-height: 1; white-space: nowrap; }
+.ts-text { min-width: 0; display: flex; align-items: center; gap: 6px; height: 100%; padding: 0 6px; border: 0; border-radius: 8px; background: none; color: inherit; font: inherit; cursor: pointer; }
+.ts-text:hover { background: var(--surface-2); }
+.ts-full { min-width: 0; display: flex; align-items: baseline; gap: 6px; }
+.ts-head { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; font-weight: 700; }
+.ts-sub { flex: 0 1000 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; color: var(--muted); font-weight: 500; }
+.ts-sub::before { content: '·'; margin-right: 6px; color: var(--muted); }
+.ts-short { display: none; font-weight: 700; }
+.ts-more { flex-shrink: 0; color: var(--muted); font-weight: 700; font-size: 12px; }
+.ts-chev { flex-shrink: 0; color: var(--muted); }
+.ts-text[aria-expanded="true"] .ts-chev { transform: rotate(180deg); }
+.ts-act { flex-shrink: 0; height: 28px; padding: 0 8px; border: 0; border-radius: 8px; background: none; color: var(--accent); font: inherit; font-size: 13px; font-weight: 700; white-space: nowrap; cursor: pointer; }
+.ts-act:hover { background: var(--accent-soft); }
+.ts-x { flex-shrink: 0; width: 24px; height: 24px; display: grid; place-items: center; border: 0; border-radius: 50%; background: none; color: var(--muted); cursor: pointer; }
+.ts-x:hover { background: var(--surface-2); color: var(--ink); }
+.ts-bar.k-error .ts-head, .ts-bar.k-warn .ts-head { color: var(--danger); }
+.ts-spin { flex-shrink: 0; width: 14px; height: 14px; border-radius: 50%; border: 2px solid color-mix(in srgb, var(--accent) 22%, transparent); border-top-color: var(--accent); animation: ts-spin .8s linear infinite; }
+@keyframes ts-spin { to { transform: rotate(360deg); } }
+.ts-mark { flex-shrink: 0; width: 16px; height: 16px; display: grid; place-items: center; border-radius: 50%; font-size: 11px; font-weight: 900; line-height: 1; color: #fff; background: var(--accent); }
+.ts-mark.bad { background: var(--danger); }
+.ts-mark.ask { background: var(--warn); }
+/* 좁은 자리: 단계 · 단추를 접고 짧은 말만 — 누르면 펼친 목록에 모두 */
+@container (max-width: 400px) { .ts-sub { display: none; } }
+@container (max-width: 240px) { .ts-full, .ts-act, .ts-x { display: none; } .ts-short { display: inline; } }
+@container (max-width: 132px) { .ts-short { display: none; } } /* 휴대폰: 아이콘 · 개수만 — 누르면 펼친 목록 */
+
+/* 상단 바를 덮는 모달: 머리줄 가운데 */
+.mhead > .mhead-status { flex: 0 100 auto; align-self: center; margin: 0 auto; }
+.mhead:has(> .mhead-status) > .x, .mhead:has(> .mhead-status) > .mhead-actions { margin-left: 0; }
+@media (max-width: 640px) { .mhead-status .ts-full, .mhead-status .ts-act, .mhead-status .ts-x { display: none; } .mhead-status .ts-short { display: inline; } }
+
+/* 펼친 목록 — 테두리 없이 그림자만 · 글은 단어 단위로 줄바꿈 */
+.ts-panel { position: fixed; z-index: 125; overflow: auto; overscroll-behavior: contain; display: flex; flex-direction: column; gap: 2px; padding: 8px; border-radius: 14px; background: var(--surface); color: var(--ink); box-shadow: var(--shadow-lg); font-size: 13px; line-height: 1.55; word-break: keep-all; overflow-wrap: anywhere; animation: rise .12s ease; }
+.ts-row { display: flex; align-items: flex-start; gap: 10px; padding: 10px 10px; border-radius: 10px; }
+.ts-row > .ts-spin, .ts-row > .ts-mark { margin-top: 2px; }
+.ts-row-t { flex: 1; min-width: 0; }
+.ts-row-t b { display: block; font-weight: 700; }
+.ts-row.k-error .ts-row-t b, .ts-row.k-warn .ts-row-t b { color: var(--danger); }
+.ts-row-t p { margin: 2px 0 0; color: var(--ink-2); font-size: 12.5px; white-space: pre-wrap; }
+.ts-row-a { flex-shrink: 0; display: flex; align-items: center; gap: 2px; margin-top: -4px; }
+.ts-row:hover { background: var(--surface-2); }
+.ts-card:hover { background: none; }
+.ts-card { display: block; padding: 4px; }
+.ts-card > .ajc { margin: 0; max-width: 100%; border: 0; box-shadow: none; background: none; }
+.ts-card .ajc-h { flex-wrap: wrap; }
+.ts-card .ajc-t { flex: 1 1 200px; }
+.ts-card .ajc-t b, .ts-card .ajc-s { white-space: normal; overflow: visible; text-overflow: clip; } /* 펼친 목록은 전체 글을 보여 주는 곳 — 자르지 않고 줄바꿈 */
+.ts-card .ajc-acts { margin-left: auto; }
+.ts-card .ajc-acts { flex-wrap: wrap; }
+.ts-card .ajc-log { max-height: 240px; }

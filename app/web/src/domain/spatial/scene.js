@@ -6,6 +6,7 @@ import {populateScenePeople} from './people-layout.js';
 import {SPACE_EQUIPMENT_VERSION,equipmentSupports} from './space-equipment.js';
 import {spaceFurniturePlan,characterFurniture,essentialCharacterFurniture,dressSpace} from './space-dressing.js';
 import {peopleObjectError,objectBlocksPeople} from './people-placement-geometry.js';
+import {spaceCharacter,characterPlan,characterExtras,characterSwap,characterCapacity,dressCharacter} from './space-characters.js';
 import { NATURAL_LAYOUT_VERSION, CLEARANCE, bindNaturalRelations, orientNaturalRelations, inspectNaturalLayout, reflowNaturalSeating, frontVector, faceRotation, facingTarget } from './natural-layout.js';
 export { inspectNaturalLayout, NATURAL_LAYOUT_VERSION } from './natural-layout.js';
 
@@ -19,7 +20,7 @@ export function fingerprint(value) {
   return (h>>>0).toString(16).padStart(8,'0');
 }
 export function roomKind(name) {
-  const rules=[['dining',/홀 테이블|레스토랑|식당/],['kitchen',/주방|키친|냉장|다이닝|식품관/],['fitness',/피트니스|체력|재활|스파/],
+  const rules=[['office',/대표실|대표이사실|사장실|회장실|임원실|이사실|부사장실|전무실|상무실|본부장실|실장실|팀장실|부장실|센터장실|소장실|국장실|지점장실|집무실/],['dining',/홀 테이블|레스토랑|식당/],['kitchen',/주방|키친|냉장|다이닝|식품관/],['fitness',/피트니스|체력|재활|스파/],
     ['bedroom',/객실|침실|기숙사|생활관/],['medical',/병실|호실|간호|진료/],['warehouse',/생산|물류|창고|출하|작업장|검사|클린룸/],
     ['utility',/기계실|열원|설비|실외기|천장|세탁|드레스|케어 존/],['meeting',/회의|협업|미팅|상담실/],
     ['classroom',/강의|교실|모둠|학원|학교|가정 학습/],['study',/스터디|집중실|도서관|전산실|출력/],
@@ -186,12 +187,15 @@ export function createScene(config, library) {
       ...(spec.equipmentPolicyVersion?{equipmentPolicyVersion:spec.equipmentPolicyVersion,spaceProfile:spec.spaceProfile}:{}),
       ...(template.compositionVersion>=3||spec.layoutCompositionVersion>=3?{layoutCompositionVersion:template.compositionVersion||spec.layoutCompositionVersion}:{}),
       floor:spec.floor||'1F',outdoor:spec.kind==='outdoor',sourceNumber:spec.sourceNumber||String(index+1)};
-    const explicit=setting?.capacity??spec.capacity;
+    // The space's own character (café counter · hotel front desk · operating room …) — domain/spatial/space-characters.js
+    const character=spaceCharacter(room,scene.industry);if(character)room.character=character;
+    const explicit=setting?.capacity??spec.capacity??characterCapacity(room);
     const capacity=explicit??(['office','study'].includes(room.kind)?Math.min(12,Math.max(4,Math.floor((room.layoutReference?room.layoutReference.width*room.layoutReference.depth:rw*rd)/11))):room.kind==='meeting'?8:0);
     if(!Number.isInteger(capacity)||capacity<0||capacity>60)throw new Error('좌석 수는 공간별 1~60석으로 입력해 주세요.');
     room.capacity=capacity;
     scene.rooms.push(room);
-    let plan=furniturePlan(room,capacity);
+    const ownPlan=characterPlan(room);
+    let plan=ownPlan||furniturePlan(room,capacity);
     if(room.equipmentPolicyVersion===SPACE_EQUIPMENT_VERSION){
       const office=['office','study'].includes(room.kind),learning=['library','study','focus','homestudy'].includes(room.spaceProfile);
       plan=plan.map(([kind,x,z,rotation=0])=>[kind==='desk'?(learning?'desk-reading':room.kind==='classroom'?'desk-student':office?'desk-office':kind):kind==='taskchair'&&office?(learning?'library-chair':'office-mesh'):kind==='shelf'&&learning?'shelf-library':kind==='stage'&&room.kind==='classroom'?'stage-teaching':kind,x,z,rotation]);
@@ -200,7 +204,15 @@ export function createScene(config, library) {
       if(room.spaceProfile==='ward'&&spec.includedSpaces?.some(s=>s.spaceProfile==='nursing'))plan.push(['desk-office',.84,.62],['office-mesh',.84,.62+.805/rd,180]);
     }
     if(room.layoutCompositionVersion>=4)plan=plan.map(([kind,...position])=>[characterFurniture(kind,room),...position]);
-    for(const [i,[kind,x,z,rotation=0]] of plan.entries()) {
+    if(room.character){
+      // In a character's own plan and in its additions, tables · desks · counters go in before the seats, so every seat is
+      // bound to its own table rather than to the only one placed so far. A profile plan keeps its order and its priority.
+      const seat=([kind])=>['chair','taskchair','sofa','stool'].includes(assets['furniture:'+kind]?.kind),tablesFirst=list=>[...list.filter(entry=>!seat(entry)),...list.filter(seat)];
+      const base=plan.map(([kind,...position])=>[characterSwap(kind,room),...position]).filter(([kind])=>kind);
+      plan=[...(ownPlan?tablesFirst(base):base),...tablesFirst(characterExtras(room))];
+    }
+    // A character entry may list several spots ([kind,[[x,z,rotation],…]]): the first one that fits is used.
+    for(const [i,entry] of plan.entries())for(const [kind,x,z,rotation=0] of Array.isArray(entry[1])?entry[1].map(spot=>[entry[0],...spot]):[entry]) {
       const o={id:`${room.id}-f${i}`,assetId:`furniture:${kind}`,roomId:room.id,x:round(room.x+rw*x),z:round(room.z+rd*z),elevation:0,rotation};
       const preferred=contextFurniture(kind,room,scene.industry,assets);
       if(preferred!==o.assetId&&canPlace({...o,assetId:preferred},room,scene.objects,assets))o.assetId=preferred;
@@ -208,7 +220,8 @@ export function createScene(config, library) {
       if(kind==='rug'||canPlace(o,room,scene.objects,assets)){
         scene.objects.push(o);
         if(room.equipmentPolicyVersion===SPACE_EQUIPMENT_VERSION)bindNaturalRelations(scene,assets);
-      }else if(room.layoutCompositionVersion>=4&&essentialCharacterFurniture(kind))throw new Error(`${room.name}: ${assets[o.assetId].name}을 배치할 공간이 부족합니다.`);
+        break;
+      }else if(room.layoutCompositionVersion>=4&&!room.character&&essentialCharacterFurniture(kind))throw new Error(`${room.name}: ${assets[o.assetId].name}을 배치할 공간이 부족합니다.`);
     }
     if(explicit&&['office','study','classroom','meeting'].includes(room.kind)){
       const seats=scene.objects.filter(o=>o.roomId===room.id&&['chair','taskchair'].includes(assets[o.assetId].kind)).length;
@@ -245,6 +258,7 @@ export function createScene(config, library) {
     }else for(let i=existing;i<quantity;i++)placeProduct(scene,room,{...asset,productId:asset.productId||asset.kind},assets,scene.objects.length);
   }
   for(const room of scene.rooms)if(room.layoutCompositionVersion>=4)dressSpace(scene,room,assets,canPlace);
+  for(const room of scene.rooms)if(room.character)dressCharacter(scene,room,assets,canPlace);
   naturalPlacement(scene,assets);
   if(config.populatePeople!==false)populateScenePeople(scene,library);
   scene.layoutPolicy={version:NATURAL_LAYOUT_VERSION,frontAxis:'+Z',workRowPitch:CLEARANCE.workRowPitch,chairBackClearance:CLEARANCE.chairBack};
@@ -277,7 +291,10 @@ function placeProduct(scene,room,asset,assets,index,{supportId,reason,autoSuppor
     // A range hood hangs above the cooking counter; screens and controls sit at eye level.
     for(const f of [.5,.23,.76])candidates.push({...base,x:room.x+room.width*f,z:room.z+d/2+.14,elevation:Math.min(asset.kind==='hood'?1.75:1.2,room.height-h-.15),mount:'wall'});
   }else if(asset.placementSurface==='surface'||asset.placementSurface!=='floor'&&surfaceKind(asset)){
-    for(const support of scene.objects.filter(o=>o.roomId===room.id&&(!supportId||o.id===supportId)&&['desk','counter','table','roundtable','conference','island','reception','bench','cabinet','stage'].includes(assets[o.assetId]?.kind))){
+    let supports=scene.objects.filter(o=>o.roomId===room.id&&(!supportId||o.id===supportId)&&['desk','counter','table','roundtable','conference','island','reception','bench','cabinet','stage'].includes(assets[o.assetId]?.kind));
+    // A character room has waiting benches and tall storage: devices go to its desks, counters and tables first.
+    if(room.character&&!supportId){const tops=supports.filter(o=>assets[o.assetId].kind!=='bench'&&assets[o.assetId].size[1]<=1.25);if(tops.length)supports=tops;}
+    for(const support of supports){
       const s=assets[support.assetId],worker=scene.objects.find(o=>o.facing?.targetId===support.id&&o.facing.activity==='work');
       const rotation=worker?faceRotation(support,worker,asset):support.rotation||0,direction=frontVector({rotation},asset);
       if(w<s.size[0]&&d<s.size[2]){
@@ -340,6 +357,7 @@ export function validateScene(scene,library) {
   for(const room of scene.rooms){
     if(!room||typeof room.id!=='string'||typeof room.name!=='string'||room.name.length>150){errors.push('공간 이름·ID가 올바르지 않습니다.');continue;}
     if(ids.has(room.id))errors.push('공간 ID가 중복되었습니다.');ids.add(room.id);
+    if(room.style!=null&&!STYLES[room.style])errors.push(`${room.name}: 공간 스타일이 올바르지 않습니다.`);
     if(![room.x,room.z,room.width,room.depth,room.height].every(Number.isFinite)||room.width<2||room.depth<2||room.height<2||room.height>20||room.x<0||room.z<0||room.x+room.width>scene.width+.01||room.z+room.depth>scene.depth+.01)errors.push(`${room.name}: 공간이 전체 맵 경계를 벗어납니다.`);
   }
   let estimated=0;

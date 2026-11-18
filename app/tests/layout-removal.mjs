@@ -6,25 +6,55 @@ const browser=await launch();const rows=[];const folder='app/tests/output/layout
 let context,page,errors;
 const instance=(uid,f='L_PH_P3_A')=>({uid,f,status:'done',ov:{t:{1:'회귀 검사 장표'},img:{}}});
 const part=(id,type,layouts)=>({id,type,name:type==='products'?'제품 제안':'가치 제안',done:true,form:'list',text:'',items:['원격 메뉴 운영을 제안합니다.'],layouts});
-const fixture=()=>({id:'removal-fixture',title:'선택 해제 검증',createdAt:1,updatedAt:1,stage:'story',reqTab:'free',req:{free:[{t:'메뉴보드 제안 검증'}],form:{project:'메뉴보드',customer:'합성 고객',target:'운영팀',keymen:[],note:''},files:[]},ctx:{products:['qm55c'],solutions:[],cases:[]},parts:[{...part('cover','cover',[instance('cover-1','L_C03')]),deck:true,name:'표지'},part('part-a','products',[instance('a1'),instance('a2')]),part('part-b','value',[instance('b1')])],exportedAt:null});
+const fixture=()=>({id:FIXTURE,title:'선택 해제 검증',createdAt:1,updatedAt:1,stage:'story',reqTab:'free',req:{free:[{t:'메뉴보드 제안 검증'}],form:{project:'메뉴보드',customer:'합성 고객',target:'운영팀',keymen:[],note:''},files:[]},ctx:{products:['qm55c'],solutions:[],cases:[]},parts:[{...part('cover','cover',[instance('cover-1','L_C03')]),deck:true,name:'표지'},part('part-a','products',[instance('a1'),instance('a2')]),part('part-b','value',[instance('b1')])],exportedAt:null});
+const FIXTURE='removal-fixture';
+// A signed-in browser syncs proposals with the account store, and the server copy wins over a stale localStorage one,
+// so a previous run's removals (or a deleted record) would replace the fixture. Put the exact fixture on the server first,
+// and delete it again when the run ends (the deletion stays as a tombstone; the next run writes over it).
+async function accountFixture(request,data){
+ const url=base+'/api/account-data/proposals',headers={Origin:base};
+ const found=await request.post(url+'/fetch',{headers,data:{ids:[FIXTURE]}});if(!found.ok())return; // no account store on this server
+ const item=(await found.json()).items[0]||{missing:true},revision=item.missing?0:item.revision;
+ if(!data&&(item.missing||item.deleted))return;
+ const r=await request.post(url,{headers,data:data?{items:[{id:FIXTURE,data,base_revision:revision,updated_at:data.updatedAt}]}:{deletes:[{id:FIXTURE,base_revision:revision}]}});
+ assert.equal(r.status(),200,'account fixture write');assert.deepEqual((await r.json()).conflicts,[],'account fixture conflicts');
+}
+// The owner's shared Storyboard of this proposal (/api/history/<id>) is also authoritative: opening the proposal installs
+// its document (sharing.js), so a previous run's removals would come back from there too. Reset it to the fixture.
+async function historyFixture(request,data){
+ const found=await request.get(base+'/api/history/'+FIXTURE,{headers:{Origin:base}});if(found.status()===404)return;
+ assert.equal(found.status(),200,'history lookup');const snapshot=await found.json(),doc=snapshot.document||{};
+ const skip=new Set(['id','endPath','_share','share','sample','updatedAt','exportedAt']),same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+ const operations=[...new Set([...Object.keys(doc),...Object.keys(data)])].filter(k=>!skip.has(k)&&!same(doc[k],data[k])).map(k=>!(k in data)?{path:[k],exists:true,before:doc[k],delete:true}:{path:[k],exists:k in doc,...(k in doc?{before:doc[k]}:{}),value:data[k]});
+ if(!operations.length)return;
+ const r=await request.patch(base+'/api/storyboards/'+snapshot.token,{headers:{Origin:base},data:{operations}});assert.equal(r.status(),200,'history reset');
+}
+async function signIn(ctx){
+ const password=process.env.WINMATE_TEST_PASSWORD;if(!password)throw Error('WINMATE_TEST_PASSWORD is required');
+ const response=await ctx.request.post(base+'/api/auth/login',{headers:{Origin:base},data:{username:process.env.WINMATE_TEST_USER||'admin',password}});assert.equal(response.status(),200);
+}
 async function setup(options={}) {
  context=web?await browser.newContext({viewport:{width:1500,height:900},...options}):await isolatedContext(browser,base,options);errors=[];
  if(web){
-  const password=process.env.WINMATE_TEST_PASSWORD;if(!password)throw Error('WINMATE_TEST_PASSWORD is required');
-  const response=await context.request.post(base+'/api/auth/login',{headers:{Origin:base},data:{username:process.env.WINMATE_TEST_USER||'admin',password}});assert.equal(response.status(),200);
+  await signIn(context);
   await context.route(url=>url.origin===new URL(base).origin&&['/api/llm','/api/jobs','/api/layouts/search'].includes(url.pathname),route=>route.request().method()==='GET'?route.continue():route.fulfill({status:503,contentType:'application/json',body:'{"code":"test_model_blocked"}'}));
  }
+ await accountFixture(context.request,fixture());await historyFixture(context.request,fixture());
  await context.addInitScript(p=>{if(sessionStorage.getItem('removal-test'))return;localStorage.setItem('winmate.v2.proposals',JSON.stringify([p]));localStorage.setItem('winmate.v2.seedv','admin-samples-1');localStorage.setItem('winmate.v2.ui',JSON.stringify({route:{name:'proposal',id:p.id}}));sessionStorage.setItem('removal-test','1');},fixture());
  page=await context.newPage();page.setDefaultTimeout(15000);page.on('pageerror',e=>errors.push(String(e)));await page.goto(base+'/');await page.locator('.lcard[data-layout-uid="a1"]').waitFor({timeout:60000});await page.locator('.boot').waitFor({state:'detached'});
+ // opening the proposal connects its shared Storyboard and installs it (endPath · _share · layout adaptation) — let that
+ // settle so a case's "before" snapshot is not taken halfway through
+ await page.waitForFunction(id=>!!JSON.parse(localStorage.getItem('winmate.v2.proposals')||'[]').find(p=>p.id===id)?._share,FIXTURE,{timeout:30000});
 }
 const card=(id='a1')=>page.locator(`.lcard[data-layout-uid="${id}"]`);
 const confirm=()=>page.getByRole('alertdialog',{name:'레이아웃 선택을 해제할까요?',exact:true});
 const sheet=()=>page.locator('.modal.sheet');
-const read=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('winmate.v2.proposals')).find(p=>p.id==='removal-fixture'));
+// _share is the share link the app attaches on its own after opening a proposal (sharing.js) — connection metadata, not content
+const read=()=>page.evaluate(id=>{const p=JSON.parse(localStorage.getItem('winmate.v2.proposals')).find(p=>p.id===id);if(p)delete p._share;return p;},FIXTURE);
 const ids=p=>p.parts.flatMap(s=>s.layouts.map(l=>l.uid));
 async function detail(id='a1'){await card(id).click();await sheet().waitFor();await sheet().getByRole('button',{name:'선택 해제',exact:true}).click();await confirm().waitFor();await page.waitForFunction(()=>document.activeElement?.textContent==='취소');}
 async function ask(id='a1'){await card(id).hover();await card(id).locator('.layout-remove').click();await confirm().waitFor();await page.waitForFunction(()=>document.activeElement?.textContent==='취소');}
-async function removed(id){await page.waitForFunction(id=>!JSON.parse(localStorage.getItem('winmate.v2.proposals')).find(p=>p.id==='removal-fixture').parts.some(s=>s.layouts.some(x=>x.uid===id)),id);}
+async function removed(id){await page.waitForFunction(([id,pid])=>!JSON.parse(localStorage.getItem('winmate.v2.proposals')).find(p=>p.id===pid).parts.some(s=>s.layouts.some(x=>x.uid===id)),[id,FIXTURE]);}
 async function run(group,name,fn,options={}){
  if(filter&&!name.includes(filter))return;
  const start=Date.now();try{await setup(options);await fn();assert.deepEqual(errors,[]);rows.push({group,name,passed:true,ms:Date.now()-start});console.log('PASS',group,name);}
@@ -56,5 +86,9 @@ try{
  await run('card','removal is persistent after reload',async()=>{await ask();await confirm().getByRole('button',{name:'선택 해제',exact:true}).click();await removed('a1');await page.reload();await card('a2').waitFor();assert.deepEqual(ids(await read()),['cover-1','a2','b1']);});
  await run('card','clicking normal card still opens detail',async()=>{await card().click();await sheet().waitFor();assert.equal(await confirm().count(),0);});
  await run('card','샘플 버티컬 시나리오 read-only board has no removal control',async()=>{await page.locator('.sidebar').hover({position:{x:20,y:20}});await page.locator('.sb-tpl').click();await page.locator('.bsg-card[data-req="new"]').click();await page.locator('.bsx-item').first().click();await page.locator('.canvas-wrap.ro .lcard').first().waitFor({state:'attached'});assert.equal(await page.locator('.canvas-wrap.ro .layout-remove').count(),0);});
-}finally{await browser.close();await vite?.close();const report={base,cases:rows,groups:Object.fromEntries(['detail','card'].map(group=>[group,{total:rows.filter(r=>r.group===group).length,passed:rows.filter(r=>r.group===group&&r.passed).length}]))};fs.writeFileSync(folder+(filter?'/retest.json':web?'/production-report.json':'/report.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report.groups));}
+}finally{
+ // leave no test proposal in the signed-in account's history
+ const cleanup=web?await browser.newContext():await isolatedContext(browser,base).catch(()=>null);
+ if(cleanup){try{if(web)await signIn(cleanup);await accountFixture(cleanup.request,null);}catch(e){console.log('CLEANUP',String(e));process.exitCode=1;}finally{await cleanup.close();}}
+ await browser.close();await vite?.close();const report={base,cases:rows,groups:Object.fromEntries(['detail','card'].map(group=>[group,{total:rows.filter(r=>r.group===group).length,passed:rows.filter(r=>r.group===group&&r.passed).length}]))};fs.writeFileSync(folder+(filter?'/retest.json':web?'/production-report.json':'/report.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report.groups));}
 if(rows.some(r=>!r.passed))process.exitCode=1;

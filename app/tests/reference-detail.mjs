@@ -47,13 +47,13 @@ try{
  await page.locator('#tl-q').fill(scenario.title);const row=page.getByRole('article',{name:scenario.title,exact:true});
  const tag=row.locator('[data-reference-detail="product:qm55c"]');await hoverCheck(tag,'Scenario list');await popupCheck(tag,'Scenario list');
  await row.getByRole('button',{name:scenario.title+' 상세 보기',exact:true}).click({position:{x:24,y:24}});await page.locator('.modal.sbv').waitFor();
- await page.locator('.modal.sbv .match-node .node').click();const match=page.locator('.modal.sbv .mt-pop');await match.waitFor();
+ await page.locator('.modal.sbv').getByRole('tab',{name:'Storyboard',exact:true}).click();await page.locator('.modal.sbv .match-node .node').click();const match=page.locator('.modal.sbv .mt-pop');await match.waitFor();
  const matched=match.locator('[data-reference-detail="product:qm55c"]');await hoverCheck(matched,'Scenario Storyboard');await popupCheck(matched,'Scenario Storyboard');
  assert.equal(await page.locator('.modal.sbv').count(),1);assert.equal(await match.count(),1);await page.keyboard.press('Escape');await page.locator('.modal.sbv .mfoot').getByRole('button',{name:'닫기',exact:true}).click();
  const route=async name=>{await page.evaluate(async name=>{const repo=await import('/src/repositories/proposals.js');repo.saveUi({...repo.loadUi(),route:{name}});},name);await page.reload();};
  await route('library');await page.locator('#tl-q').waitFor();
  const layout=await page.evaluate(async()=>{const {LAYOUTS}=await import('/src/services/catalog.js');const layout=LAYOUTS.find(l=>l.prods?.includes('qm55c'));return {f:layout.f,name:layout.name};});
- await page.locator('#tl-q').fill(layout.f);await page.locator(`[data-f="${layout.f}"]`).first().click();await page.locator('.modal.sheet .tl-dr').waitFor();
+ await page.locator('#tl-q').fill(layout.f);await page.locator(`[data-f="${layout.f}"]`).first().click();const info=page.locator('.modal.sheet').getByRole('button',{name:'레이아웃 정보'});assert.equal(await info.getAttribute('aria-expanded'),'false');assert.equal(await page.locator('.modal.sheet .tl-dr').isVisible(),false);await info.click();await page.locator('.modal.sheet .tl-dr').waitFor();
  const templateTag=page.locator('.modal.sheet .tl-dr [data-reference-detail="product:qm55c"]');await hoverCheck(templateTag,'Template detail');
  const before=await page.locator('.modal.sheet .mhead').innerText();await popupCheck(templateTag,'Template detail');assert.equal(await page.locator('.modal.sheet .mhead').innerText(),before);
  await page.locator('.modal.sheet .mfoot').getByRole('button',{name:'닫기',exact:true}).click();

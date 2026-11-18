@@ -118,7 +118,7 @@ export async function startTelemetry(user) {
     globalThis.fetch=async(input,options={})=>{
       let target;try{target=new URL(typeof input==='string' ? input : input.url,location.origin);}catch{return originalFetch(input,options);}
       if(target.origin!==location.origin || !target.pathname.startsWith('/api/') && !target.pathname.startsWith('/admin/api/'))return originalFetch(input,options);
-      const internal=target.pathname.startsWith('/api/activity/');
+      const internal=target.pathname.startsWith('/api/activity/') || /^\/admin\/api\/layout-library\/[^/]+\/experiments\/(samples|run)$/.test(target.pathname);
       if(target.pathname==='/api/auth/logout' || target.pathname==='/api/auth/login') {
         await Promise.race([Promise.all([flushEvents(),flushHistory()]),new Promise(resolve=>setTimeout(resolve,750))]);
       }
@@ -146,7 +146,10 @@ export async function startTelemetry(user) {
       const href=target.getAttribute('href') || '';
       enqueue('action',sanitized(label || target.tagName.toLowerCase()),{metadata:{element:target.tagName.toLowerCase(),id:target.id || '',href:href.startsWith('/') ? href.replace(/(\/s\/)[^/]+/,'$1[shared]') : ''}});
     },true);
-    document.addEventListener('keydown',event=>{if(event.key==='Escape' && document.querySelector('[role="dialog"]'))enqueue('action','dialog.close.keyboard');},true);
+    document.addEventListener('keydown',event=>{
+      const dialog=[...document.querySelectorAll('[role="dialog"]')].at(-1);
+      if(event.key==='Escape' && dialog && !dialog.closest('[data-telemetry-private]'))enqueue('action','dialog.close.keyboard');
+    },true);
     document.addEventListener('change',event=>{
       const target=event.target;
       if(!target?.matches?.('input,select,textarea') || target.type==='password'||target.closest('[data-telemetry-private]'))return;

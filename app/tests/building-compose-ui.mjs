@@ -9,20 +9,20 @@ try{
   const scene=createScene({templateId:'cowork-full-standard'},library),stamp=Date.now().toString(36),mine='층으로 쓸 조감도 '+stamp;
   const record=await api.post('/api/spatial/history',{scene:{...scene,title:mine},view:'3d',form:{...studioFormFromScene(scene),title:mine}});
   const home=async()=>{await page.goto(base+'/spatial');await page.locator('.be-home .sp-history').waitFor({timeout:120000});};
-  const start=async()=>{await home();await page.getByRole('button',{name:/조감도 스튜디오 시작/}).click();const dialog=page.getByRole('dialog',{name:'조감도 스튜디오 시작'});await dialog.getByRole('button',{name:/^건물 조감도/}).click();return dialog;};
+  const start=async()=>{await home();await page.getByRole('button',{name:/조감도 스튜디오 시작/}).click();const dialog=page.getByRole('dialog',{name:'조감도 스튜디오 시작'});await dialog.getByRole('tab',{name:/건물/}).click();return dialog;};
   const floors=()=>page.locator('.bd-floor-strip .bd-floor-chip').count();
   const summary=async id=>page.evaluate(async id=>(await window.__wmBldMod_.app.list()).find(b=>b.id===id),id);
   const stored=id=>page.evaluate(id=>new Promise((resolve,reject)=>{const open=indexedDB.open('winmate-building');open.onerror=()=>reject(open.error);open.onsuccess=()=>{const request=open.result.transaction('b').objectStore('b').get(id);request.onsuccess=()=>resolve(request.result||null);request.onerror=()=>reject(request.error);};}),id);
   const newest=()=>page.evaluate(async()=>(await window.__wmBldMod_.app.list())[0].id);
 
-  // 직접 구성 — 빈 건물로 스튜디오가 열리고, 명령 입력창은 없다
-  let dialog=await start();
-  assert.deepEqual(await dialog.getByRole('group',{name:'시작 방법'}).getByRole('button').evaluateAll(nodes=>nodes.map(n=>n.querySelector('strong').textContent)),['직접 구성','내 Storyboard에서','건물 템플릿']);
-  await dialog.getByRole('button',{name:/^직접 구성/}).click();await page.locator('.bd-view').waitFor({timeout:120000});await page.locator('.bd-floor-strip .bd-floor-chip').first().waitFor();
-  assert.equal(await floors(),1);const id=await newest();
+  // 빈 건물 — 시작 팝업은 업종 · 공간을 받는다. 빈 건물은 건물 모듈로 만들어 목록에서 연다. 건물 스튜디오에 명령 입력창은 없다
+  await home();
+  const id=await page.evaluate(()=>window.__wmBldMod_.app.create({blank:true}));
+  await page.locator(`.sp-history [data-building-id="${id}"] .sp-history-open`).click();await page.locator('.bd-view').waitFor({timeout:120000});await page.locator('.bd-floor-strip .bd-floor-chip').first().waitFor();
+  assert.equal(await floors(),1);assert.equal(await newest(),id);
   assert.equal(await page.locator('.sp-prompt,.sp-mention-editor').count(),0);assert.equal(await page.getByRole('combobox',{name:'조감도 편집 프롬프트'}).count(),0);
   assert.equal(await page.locator('.bd-page [contenteditable],.bd-page textarea').count(),0);
-  pass('start › 건물 › 직접 구성 opens a one-floor building; the building studio has no command input');
+  pass('a blank building opens with one floor; the building studio has no command input');
 
   // 빈 층 채우기 — 고르기 창에 "내 조감도"가 있고 크기 제한이 없다
   await page.locator('.bd-floor-strip .bd-floor-pick').first().click();await page.locator('.bd-fc-fill').click();
@@ -77,16 +77,16 @@ try{
   const card=page.locator(`.sp-history [data-building-id="${id}"]`);await card.waitFor();assert.equal(await card.locator('xpath=..').locator('.be-type').textContent(),'건물');
   pass('back returns to the unified list where the building has its own card');
 
-  // 건물 템플릿 — 건물 모듈의 고르기 창에서 고른다. 닫으면 목록에 머문다
-  dialog=await start();await dialog.getByRole('button',{name:/^건물 템플릿/}).click();
+  // 건물 템플릿에서 시작 — 건물 모듈의 고르기 창에서 고른다. 닫으면 목록에 머문다
+  let dialog=await start();await dialog.getByRole('button',{name:'건물 템플릿에서 시작',exact:true}).click();
   let presets=page.getByRole('dialog',{name:'건물 스튜디오 시작'});await presets.locator('.bd-tpl').first().waitFor({timeout:60000});
   await presets.getByRole('button',{name:'취소'}).click();await page.waitForTimeout(400);assert.equal(await page.locator('.bd-view').count(),0);await page.locator('.be-home').waitFor();
-  dialog=await start();await dialog.getByRole('button',{name:/^건물 템플릿/}).click();presets=page.getByRole('dialog',{name:'건물 스튜디오 시작'});await presets.locator('.bd-tpl').first().waitFor({timeout:60000});
+  dialog=await start();await dialog.getByRole('button',{name:'건물 템플릿에서 시작',exact:true}).click();presets=page.getByRole('dialog',{name:'건물 스튜디오 시작'});await presets.locator('.bd-tpl').first().waitFor({timeout:60000});
   await presets.locator('.bd-tpl').first().click();await presets.getByRole('button',{name:'스튜디오 열기'}).click();
   await page.locator('.bd-view').waitFor({timeout:120000});assert(await floors()>=1);
-  pass('start › 건물 › 건물 템플릿 picks from the building template window; cancelling stays on the list');
+  pass('start › 건물 › 건물 템플릿에서 시작 picks from the building template window; cancelling stays on the list');
 
-  // 내 Storyboard — 공간 구성의 공간 하나가 한 층
+  // 업종 · 공간 입력 — 공간 하나가 한 층. 제안서 불러오기로 그 제안서의 업종 · 공간 구성을 채운다
   await home();
   const pid=await page.evaluate(async()=>{
     const store=await import('/src/repositories/proposals.js');const id=store.createProposal();
@@ -94,12 +94,15 @@ try{
       d.spacePlan={v:1,vertical:{id:'test-vertical',name:'대기업 사옥',group:'OF'},title:'표준',summary:'세 공간',at:Date.now(),spaces:[{id:'s1',name:'로비',kind:'reception',note:'',products:['qm65c']},{id:'s2',name:'회의실',kind:'meeting',note:'',products:['qm65c']},{id:'s3',name:'라운지',kind:'lounge',note:'',products:['qm65c']}]};});
     return id;});
   await app.saved();
-  dialog=await start();await dialog.getByRole('button',{name:/^내 Storyboard에서/}).click();await dialog.locator(`[data-proposal-id="${pid}"]`).click();
+  dialog=await start();assert(await dialog.getByRole('button',{name:'시작',exact:true}).isDisabled());
+  await dialog.getByRole('button',{name:/제안서 불러오기/}).click();await dialog.locator(`[data-proposal-id="${pid}"]`).click();
+  assert.deepEqual(await dialog.locator('.be-space-bubble').allTextContents(),['로비','회의실','라운지']);
+  assert.equal(await dialog.getByRole('group',{name:'업종 선택'}).locator('button[aria-pressed=true]').textContent(),library.industries.find(i=>i.code==='OF').name);
   await dialog.getByRole('button',{name:'시작',exact:true}).click();await page.locator('.bd-view').waitFor({timeout:120000});
   await page.waitForFunction(()=>document.querySelectorAll('.bd-floor-strip .bd-floor-chip').length===3);
   assert.deepEqual(await page.locator('.bd-floor-strip .bd-floor-pick').evaluateAll(nodes=>nodes.map(n=>n.textContent.replace(/^\d+F/,''))),['로비','회의실','라운지']);
   await page.screenshot({path:output+'/from-storyboard.png'});
-  pass('start › 건물 › 내 Storyboard stacks one floor per planned space, bottom to top');
+  pass('start › 건물 stacks one floor per entered space, bottom to top; a proposal fills the industry and spaces');
 
   assert.deepEqual(app.errors,[]);
   console.log(JSON.stringify({ok:true,checks:app.checks.length,output}));

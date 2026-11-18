@@ -6,13 +6,14 @@ import {createRequire} from 'node:module';
 import {createServer} from '../web/node_modules/vite/dist/node/index.js';
 import {chromium} from '../web/node_modules/playwright/index.mjs';
 import {spatialObjectThumbnail} from '../web/src/domain/spatial/catalog.js';
+import {envPort} from '../web/ports.js';
 const sharp=createRequire(new URL('../web/package.json',import.meta.url))('sharp');
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const library=JSON.parse(fs.readFileSync(path.join(root,'app/data/spatial/library.json')));
 const selected=process.argv.includes('--people-only')?library.assets.filter(a=>a.assetGroup==='people'):process.argv.includes('--details-only')?library.assets.filter(a=>a.recipe?.startsWith('detail-')):library.assets;
 const assets=[...new Map(selected.map(a=>[spatialObjectThumbnail(a),a])).entries()];
 const output=path.join(root,'app/web/public/assets/spatial-objects');fs.mkdirSync(output,{recursive:true});
-const port=Number(process.env.SPATIAL_PREVIEW_PORT||5195);
+const port=envPort('SPATIAL_PREVIEW_PORT');
 const server=await createServer({root:path.join(root,'app/web'),configFile:path.join(root,'app/web/vite.config.js'),logLevel:'error',server:{host:'127.0.0.1',port,strictPort:true,hmr:false}});
 let browser;
 try{

@@ -14,7 +14,6 @@
 .tagstrip { display: flex; flex-direction: column; gap: var(--space-8px); min-width: 0; }
 .ts-h { display: flex; align-items: center; gap: var(--space-6px); font-size: var(--text-12px); font-weight: var(--weight-700); color: var(--ink-2); }
 .ts-h b { color: var(--accent); font-weight: var(--weight-800); }
-.ts-hint { margin-left: auto; font-size: var(--text-11px); font-weight: var(--weight-500); color: var(--faint); }
 .tagstrip.md .ts-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--measure-268px), var(--measure-1fr))); gap: var(--space-8px); }
 .tagstrip.sm .ts-list { display: flex; flex-wrap: wrap; gap: var(--space-6px); }
 .req-tags { padding-top: var(--space-12px); border-top: var(--stroke-1px) dashed var(--line-2); }
@@ -116,7 +115,6 @@ button.tagchip { cursor: pointer; }
   .tagstrip.md .ts-list { grid-template-columns: minmax(0, var(--measure-1fr)); }
   .tagc { grid-template-columns: var(--measure-84px) minmax(0, var(--measure-1fr)); }
   .tagc.sm { max-width: var(--measure-100); }
-  .ts-hint { display: none; }
 }
 .ex-pick:has(.ex-pick-th) { padding-left: var(--space-3px-x); gap: var(--space-5px); max-width: var(--measure-200px); }
 .rqv-lbl { display: flex; align-items: center; gap: var(--space-6px); }

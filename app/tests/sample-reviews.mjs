@@ -1,16 +1,34 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { mergeSampleReviews, sampleReviewDoc, mergeReviewExampleProposals } from '../web/src/repositories/sample-reviews.js';
+import { loadSampleReviews, mergeSampleReviews, sampleReviewDoc, mergeReviewExampleProposals } from '../web/src/repositories/sample-reviews.js';
 import { criteriaForReview } from '../web/src/domain/review/criteria.js';
 const legacy=JSON.parse(fs.readFileSync(new URL('../web/src/domain/review/sample-reviews.json',import.meta.url)));
 const previous=JSON.parse(fs.readFileSync(new URL('../web/src/domain/review/linked-review-examples-v2.json',import.meta.url)));
 const previousV3=JSON.parse(fs.readFileSync(new URL('../web/src/domain/review/linked-review-examples-v3.json',import.meta.url)));
 const previousV4=JSON.parse(fs.readFileSync(new URL('../web/src/domain/review/linked-review-examples-v4.json',import.meta.url)));
 const admin={username:'admin',auth_enabled:true};
+await loadSampleReviews(admin);
 const marker='winmate.v2.reviews.seedv',key='winmate.v2.reviews',pkey='winmate.v2.proposals';
 function storage(){const data=new Map();return{data,getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,v)};}
 function seed(s=storage(),oldReviews=[],oldProposals=[]){const proposals=mergeReviewExampleProposals(oldProposals,admin,s);return{s,proposals,reviews:mergeSampleReviews(oldReviews,admin,s,proposals)};}
 const tests=[
+ ['automatic cover comparison preserves later edits without mutating either source',()=>{
+  const normalize=p=>{if(p.coverRevision)return;const x=p.parts[0].layouts[0];p.coverArchive={layout:structuredClone(x)};p.coverRevision='test-cover';x.ov={t:{0:'자동 표지'},img:{}};delete x.adaptation;};
+  const old=structuredClone(previous.examples);old.forEach(e=>normalize(e.proposal));old[0].proposal.parts[0].layouts[0].ov.t[0]='사용자가 편집한 표지';
+  const unchanged=structuredClone(old),s=storage();
+  const proposals=mergeReviewExampleProposals(old.map(e=>e.proposal),admin,s,normalize);
+  const reviews=mergeSampleReviews(old.map(e=>e.review),admin,s,proposals,normalize);
+  assert.equal(reviews.length,4);assert(reviews.some(r=>r.id===old[0].review.id));assert(!reviews.some(r=>r.id===old[1].review.id));assert.deepEqual(old,unchanged);
+ }],
+ ['derived history URLs do not preserve an otherwise untouched archived example',()=>{
+  const old=structuredClone(previous.examples);
+  for(const e of old)e.proposal.endPath='/storyboard/'+encodeURIComponent(e.proposal.id);
+  old[0].review.title='사용자 수정';old[1].proposal.title='사용자 수정 원본';
+  const a=seed(storage(),old.map(e=>e.review),old.map(e=>e.proposal));
+  assert.equal(a.reviews.length,5);assert(!a.reviews.some(r=>r.id===old[2].review.id));
+  assert(a.reviews.some(r=>r.id===old[0].review.id));assert(a.reviews.some(r=>r.id===old[1].review.id));
+  for(const e of old)assert.equal(a.proposals.find(p=>p.id===e.proposal.id).endPath,e.proposal.endPath);
+ }],
  ['shared history without local sample metadata is repaired without changing its link',()=>{
   const old=JSON.parse(fs.readFileSync(new URL('../web/src/domain/review/linked-review-examples-v5.json',import.meta.url))).examples[2].proposal;
   delete old.sample;old._share={token:'existing-share',isOwner:true};

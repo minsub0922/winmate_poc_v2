@@ -61,8 +61,15 @@ try {
   const modal = page.locator('.modal.sheet'), panel = modal.locator('.detail-right');
   const close = () => modal.getByRole('button', { name: '닫기', exact: true }).last().click();
   await page.locator('[data-layout-uid="unchanged"]').click(); await modal.locator('.detail').waitFor();
+  const panelToggle = modal.getByRole('button', { name: '레이아웃 정보', exact: true });
+  assert.equal(await panelToggle.getAttribute('aria-expanded'), 'false'); assert.equal(await panel.isVisible(), false);
+  const collapsedWidth = (await modal.locator('.detail-left').boundingBox()).width;
+  await panelToggle.click(); assert.equal(await panelToggle.getAttribute('aria-expanded'), 'true'); assert(await panel.isVisible());
+  assert((await modal.locator('.detail-left').boundingBox()).width < collapsedWidth);
   assert.equal(await panel.locator('.fillcard, .fc-row, .layout-context-refill').count(), 0);
   assert(!(await panel.innerText()).includes('요소 채움'));
+  await panelToggle.click(); assert.equal(await panel.isVisible(), false);
+  pass('layout information starts collapsed, expands with the shared template control, and collapses again');
   const toolbar = modal.getByRole('toolbar', { name: '레이아웃 작업', exact: true });
   const editButton = toolbar.getByRole('button', { name: '수정하기', exact: true });
   assert(await editButton.isVisible()); assert.equal(await modal.locator('.mfoot').getByRole('button', { name: '수정하기', exact: true }).count(), 0);
@@ -84,8 +91,13 @@ try {
   await page.screenshot({ path: output + '/stage-actions-mobile.png' }); await page.setViewportSize({ width: 1500, height: 1000 });
   await deselect.click(); const removal = page.getByRole('alertdialog', { name: '레이아웃 선택을 해제할까요?', exact: true }); await removal.waitFor(); await removal.getByRole('button', { name: '취소', exact: true }).click(); assert(await modal.isVisible());
   await editButton.click(); await page.locator('.myed').waitFor(); assert.equal(await page.locator('.detail').count(), 0);
+  // The mocked recommendation failure opens a notice over the footer; dismiss it as a user would.
+  const noticeClose = page.getByRole('button', { name: '알림 닫기', exact: true });
+  await noticeClose.first().waitFor();
+  for (const button of await noticeClose.all()) await button.click();
   await page.locator('.modal').filter({ has: page.locator('.myed') }).getByRole('button', { name: '닫기', exact: true }).last().click();
   await page.locator('[data-layout-uid="unchanged"]').click(); await modal.locator('.detail').waitFor();
+  assert.equal(await panelToggle.getAttribute('aria-expanded'), 'false'); await panelToggle.click();
   pass('Edit and favorite are adjacent at the preview top-right on desktop/mobile; edit is primary and functional; deselect sits beside Close and retains confirmation');
   await modal.locator('.detail-left [data-img="0"]').click();
   const alternatives = page.getByRole('dialog', { name: '대체 이미지 고르기', exact: true }); await alternatives.waitFor();
@@ -93,12 +105,17 @@ try {
   await panel.locator('.unitcard').waitFor();
   assert.equal(await panel.getByRole('button', { name: /대체 이미지|자동으로 고르기|자동 채우기/ }).count(), 0);
   assert.equal(await panel.locator('.btn-primary').count(), 0);
-  assert(await panel.getByRole('heading', { name: '이미지 출처', exact: true }).isVisible());
+  const imageSource = panel.getByRole('heading', { name: '이미지 출처', exact: true }); assert(await imageSource.isVisible());
+  const imageSourceToggle = imageSource.getByRole('button'); assert.equal(await imageSourceToggle.getAttribute('aria-expanded'), 'false');
+  assert.equal(await panel.locator('.ev-empty').count(), 0); await imageSourceToggle.click();
+  assert.equal(await imageSourceToggle.getAttribute('aria-expanded'), 'true'); assert(await panel.locator('.ev-empty').isVisible());
+  assert.equal(await modal.locator('.edit-hint, .sv-keys').count(), 0);
   await page.screenshot({ path: output + '/image-panel.png' });
   await close();
   pass('element-fill section and image footer actions are removed; unchanged context stays hidden despite missing details/history review');
 
   await page.locator('[data-layout-uid="changed"]').click(); await modal.locator('.detail').waitFor();
+  assert.equal(await panelToggle.getAttribute('aria-expanded'), 'false'); await panelToggle.click();
   const refill = panel.getByRole('button', { name: '현재 맥락으로 다시 채우기', exact: true }); await refill.waitFor();
   assert(await panel.evaluate(el => el.firstElementChild.classList.contains('layout-context-action')));
   const action = await panel.locator('.layout-context-action').boundingBox(), button = await refill.boundingBox();

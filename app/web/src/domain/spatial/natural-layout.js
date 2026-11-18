@@ -1,5 +1,6 @@
 // Design policy, not a building-code certificate. All distances are metres.
 // The same rotation convention is used by SVG and Three.js: +90 turns +Z toward -X.
+import {characterSeating} from './space-characters.js';
 export const NATURAL_LAYOUT_VERSION=2;
 export const CLEARANCE={workGap:.12,diningGap:.13,sofaGap:.45,chairBack:.7,workRowPitch:2.25};
 const seats=new Set(['chair','taskchair','sofa','stool']);
@@ -26,7 +27,15 @@ export function bindNaturalRelations(scene,assets,{refresh=false}={}){
     if(!refresh&&object.facing?.targetId&&scene.objects.some(o=>o.id===object.facing.targetId&&o.roomId===object.roomId))continue;
     let target,activity,carry=false,alignment;
     if(seats.has(asset.kind)){
-      if(room.kind==='theatre'){target=nearest(object,scene.objects,['stage'],assets);activity='presentation';alignment='parallel';}
+      // A character states how its seats relate: 'fixed' keeps the planned direction, 'near' faces the nearest table · desk · counter.
+      const seating=room.character?characterSeating(room):null;
+      if(seating==='fixed')continue;
+      if(seating==='near'){
+        target=nearest(object,scene.objects,asset.kind==='sofa'?['coffeetable','roundtable','table']:['roundtable','table','coffeetable','conference','desk','reception','counter','island'],assets);carry=true;
+        // Nothing within reach (a waiting sofa, a wheelchair): the seat keeps its planned direction.
+        if(!target||targetGap(object,target,assets)>(asset.kind==='sofa'?.85:.65))continue;
+        const kind=target&&assets[target.assetId].kind;activity=['desk','reception'].includes(kind)?'work':kind==='coffeetable'?'conversation':'dine';
+      }else if(room.kind==='theatre'){target=nearest(object,scene.objects,['stage'],assets);activity='presentation';alignment='parallel';}
       else if(room.kind==='medical'){target=nearest(object,scene.objects,room.spaceProfile==='clinic'?['desk']:['hospitalbed','bed'],assets);activity=room.spaceProfile==='clinic'?'work':'visit';carry=room.spaceProfile==='clinic';}
       else if(asset.kind==='sofa'||room.kind==='lounge'&&asset.kind==='chair'||room.kind==='reception'&&asset.kind==='chair'){
         target=nearest(object,scene.objects,['coffeetable','roundtable'],assets);activity='conversation';carry=true;

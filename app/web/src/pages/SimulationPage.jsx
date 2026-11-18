@@ -29,14 +29,8 @@ import { SIMULATION_SKILLS, SIMULATION_SKILL, skillRequest, runSimulationSkill, 
 import { SimulationSkillResult, SimulationSkillModal } from '../components/simulation-skill.jsx';
 import { useSims, getSim, putSim, patchSim, deleteSim, newSim } from '../repositories/simulations.js';
 
-// ---------- icons (sim only) ----------
-const SP = {
-  chat: 'M4 5h16v11H10l-5 4v-4H4z M8 9.5h8 M8 12.5h5', send: 'M4 12L20 4l-5 16-3-6.5z M12 13.5L20 4', stop: 'M7 7h10v10H7z',
-  at: 'M16 12a4 4 0 1 1-1.2-2.8 M16 8v5a2.5 2.5 0 0 0 5 0v-1a9 9 0 1 0-3.6 7.2', flag: 'M5 21V4 M5 4h11l-2 4 2 4H5', up: 'M12 19V5 M6 11l6-6 6 6', down: 'M12 5v14 M6 13l6 6 6-6',
-};
-export function SimIcon({ name, size = 16, stroke = 2, className = '' }) {
-  return <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill={name === 'stop' ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={SP[name]} /></svg>;
-}
+import { SimIcon } from '../components/sim-icon.jsx';
+export { SimIcon };
 const indName = (code) => (code && IND[code] ? IND[code].name : '');
 const plainLen = (segs) => (segs || []).map((s) => (s.t != null ? s.t : 'x')).join('').trim().length;
 
@@ -833,7 +827,6 @@ function Suggestion({ sg, sim, busy, onPick, onSend }) {
         {confident && <p className="tp-p"><span className="k">추천 근거</span>{sg.confidence.reason}</p>}
         {concern && <p className="tp-p"><span className="k">고객 우려</span>{concern.text}</p>}
         {(sg.crit || []).length > 0 && <p className="tp-p"><span className="k">채우는 기준</span>{sg.crit.map(critName).join(' · ')}</p>}
-        <p className="tp-hint">누르면 입력창에 넣어 고쳐 쓸 수 있어요</p>
       </div>
     )}>
       <button className="sim-sug-b" disabled={busy} onClick={onPick}>
@@ -860,7 +853,6 @@ const PersonCard = React.memo(function PersonCard({ sim, busy }) {
         </span>
       </div>
       <p className="spc-q">{busy ? '듣고 있어요…' : '“' + (pf.quote || per.quote) + '”'}</p>
-      <span className="sc-hint">마우스를 올리면 프로필 전체</span>
     </Tip>
   );
 });
@@ -983,7 +975,6 @@ const SatCard = React.memo(function SatCard({ sim, busy }) {
       <div className="sc-cc">
         {sim.profile.concerns.map((x) => <span key={x.id} className={'sc-c ' + (x.resolved ? 'ok' : x.revealed ? 'open' : 'hidden')} title={x.revealed ? x.text : '아직 드러나지 않은 우려'}>{x.resolved ? <Icon name="check" size={10} stroke={3} /> : x.revealed ? <Icon name="alert" size={10} stroke={2.4} /> : <b>?</b>}{x.revealed ? x.short : '숨은 우려'}</span>)}
       </div>
-      <span className="sc-hint">마우스를 올리면 상세</span>
     </Tip>
   );
 });
@@ -1007,7 +998,6 @@ const QualityCard = React.memo(function QualityCard({ sim, agg, busy }) {
           </Tip>
         ))}
       </div>
-      <span className="sc-hint">기준마다 마우스를 올리면 세부 점수 · 근거</span>
     </section>
   );
 });

@@ -1,0 +1,22 @@
+/* 관리자 읽기 전용 열람 표시 (components/inspect-bar.jsx). Borderless; one line that never wraps. */
+.inspect-bar{position:fixed;z-index:300;left:8px;bottom:218px;width:calc(var(--sb-c, 65px) - 16px);outline:none;transition:opacity .12s}
+.inspect-tag{display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 0 8px;border-radius:12px;background:var(--warn-soft);color:var(--warn);box-shadow:var(--shadow);font-size:11px;font-weight:700;white-space:nowrap;cursor:default}
+.inspect-bar:focus-visible .inspect-tag{box-shadow:0 0 0 2px var(--warn)}
+.inspect-pop{position:absolute;left:calc(100% + 10px);bottom:0;display:flex;align-items:center;gap:10px;padding:7px 8px 7px 13px;border-radius:999px;background:var(--surface);box-shadow:var(--shadow-lg);font-size:12px;color:var(--warn);white-space:nowrap;opacity:0;visibility:hidden;transform:translateX(-4px);transition:opacity .12s,transform .12s,visibility .12s}
+.inspect-pop::before{content:'';position:absolute;left:-12px;top:0;bottom:0;width:12px}
+.inspect-bar:hover .inspect-pop,.inspect-bar:focus-within .inspect-pop,.inspect-bar.expired .inspect-pop{opacity:1;visibility:visible;transform:none}
+.inspect-pop b{color:var(--ink);font-weight:600;max-width:180px;overflow:hidden;text-overflow:ellipsis}
+.inspect-mark{font-weight:700;letter-spacing:-.2px}
+.inspect-state{color:var(--ink-2)}
+.inspect-pop button{flex:none;border:0;border-radius:999px;padding:5px 11px;background:var(--warn-soft);color:var(--warn);font:inherit;font-size:11px;font-weight:600;cursor:pointer}
+.inspect-pop button:hover{filter:brightness(.97)}
+.inspect-bar.expired .inspect-tag,.inspect-bar.expired .inspect-pop button{background:var(--danger-soft);color:var(--danger)}
+.inspect-bar.expired .inspect-pop{color:var(--danger)}
+/* The rail widens over the page on hover — the badge steps aside instead of covering its list. */
+.app:has(.sidebar:hover) .inspect-bar:not(:hover){opacity:0;pointer-events:none}
+@media (max-width:760px){
+  .inspect-bar{left:12px;bottom:12px;width:auto}
+  .inspect-tag{flex-direction:row;gap:6px;padding:7px 12px;border-radius:999px}
+  .inspect-pop{left:0;bottom:calc(100% + 8px);max-width:calc(100vw - 24px)}
+  .inspect-pop::before{display:none}
+}

@@ -59,7 +59,7 @@ def one(feature,c,index):
   if feature=='search':
    r=call('/api/layouts/search',{'q':c['queries'],'industry':c['industry'],'products':[c['product']],'k':8})
    assert r.get('mode')=='real',r
-   assert 'gemini' in r.get('engine','').lower(),r
+   assert r.get('engine','').startswith('bm25+tfidf+'),r
    assert r.get('items') and len({x['f']for x in r['items']})==len(r['items']),r
    assert all(x.get('why')for x in r['items']),r
    llm=r.get('llm') or {};assert llm.get('llm_used') or r.get('model'),r

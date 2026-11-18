@@ -5,6 +5,7 @@
 // src/building을 아티팩트와 같은 esbuild 설정으로 묶은 IIFE 원문). 「HTML 추출」은 #wm-bld-js 원문을 그대로 담는다.
 import React, { useEffect, useRef } from 'react';
 import { toast } from '../components/common.jsx';
+import { requireDownload } from '../api/session.js';
 import { ensureBuildingCss as ensureCss, loadBuildingModule as loadModule } from '../services/building-bridge.js';
 
 // 모듈 싣기 · 계정 동기화 훅은 services/building-bridge.js에 있다(통합 조감도 목록 · 시작 팝업과 함께 쓴다).
@@ -18,7 +19,7 @@ function bootState(root) {
   root.replaceChildren(box);
 }
 
-export function BuildingPage({ go, id }) {
+export function BuildingPage({ go, id, managed }) {
   const root = useRef(null), inst = useRef(null), latest = useRef({ go, id });
   latest.current = { go, id };
   // 건물 목록은 통합 조감도 목록(경로 spatial)에 합쳐졌다 — id 없이 들어오면 그쪽으로 보낸다.
@@ -30,7 +31,7 @@ export function BuildingPage({ go, id }) {
     if (!window.__wmBldMod_) bootState(root.current);
     loadModule().then((m) => {
       if (!alive) return;
-      view = m.mount(root.current, { go: latest.current.go, toast });
+      view = m.mount(root.current, { go: latest.current.go, toast, requireDownload, managed });
       view.route(latest.current.id);
       inst.current = view;
     }).catch((error) => {

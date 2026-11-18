@@ -46,7 +46,7 @@ export function LoginPrompt({ home }) {
       {modal && <button className="login-close" aria-label="로그인 닫기" onClick={closeLogin}>×</button>}
       <span className="login-eyebrow">WELCOME TO WINMATE</span>
       <h2 id="login-prompt-title">{modal ? '로그인하고 이어서 시작하세요' : '로그인하고 제안을 시작하세요'}</h2>
-      <p>모든 기능을 자유롭게 둘러보세요.<br />제안서 작성과 AI 작업은 로그인 후 이용할 수 있어요.</p>
+      <p>모든 기능을 자유롭게 둘러보세요.<br />제안서 작성 · AI 작업 · 파일 다운로드는 로그인 후 이용할 수 있어요.</p>
       <form onSubmit={submit}>
         <label htmlFor="login-username">아이디</label>
         <input id="login-username" name="username" autoComplete="username" required maxLength={128} value={username} onChange={e => setUsername(e.target.value)} />

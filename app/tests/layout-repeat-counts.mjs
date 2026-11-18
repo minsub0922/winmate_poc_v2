@@ -80,6 +80,11 @@ try {
   await page.locator('.ed-host [data-reflow-card]').last().evaluate(el => { el.style.display = 'none'; }); await expectUnits('사진 카드 5개');
   await page.locator('.ed-host [data-reflow-card]').last().evaluate(el => { el.style.display = ''; }); await expectUnits('사진 카드 6개');
   await page.locator('.ed-host [data-reflow-card]').last().evaluate(el => el.remove()); await expectUnits('사진 카드 5개');
+  // The manual DOM fixture bypasses editor actions; select a real element before checking the save contract.
+  await page.locator('.ed-host [data-tb]').first().click();
+  // This isolated test deliberately rejects model suggestions; dismiss that
+  // error using the real control before using the editor's save button.
+  while (await page.locator('.feedback-close').count()) await page.locator('.feedback-close').first().click();
   await page.getByRole('button', { name: '새 My 템플릿으로 저장', exact: true }).click(); await page.waitForFunction(() => window.__counterSaved);
   const saved = await page.evaluate(async f => ({ ...window.__counterSaved, prior: (await import('/src/repositories/templates.js')).rawHtml(f), expectedPrior: window.__counterPrior }), ids.my);
   assert.equal(saved.meta.repeat.count, 5); assert.equal(saved.meta.pc, 0); assert.equal(saved.keep, false); assert.notEqual(saved.meta.f, ids.my); assert.equal(saved.prior, saved.expectedPrior);

@@ -25,13 +25,9 @@
 .ic-state.warn { color: var(--warn); }
 .infochk .qa { padding: 0 var(--space-10px) var(--space-10px); }
 
-.evsec { display: flex; flex-direction: column; gap: var(--space-7px); padding-top: var(--space-4px); }
-.evsec h4 { margin: 0; display: flex; align-items: center; gap: var(--space-6px); font-size: var(--text-12-5px); font-weight: var(--weight-800); color: var(--ink); }
-.evsec h4 .cnt { font-size: var(--text-11px); font-weight: var(--weight-800); color: var(--muted); background: var(--surface-3); border-radius: var(--radius-99px); padding: 0 var(--space-7px); }
-.evsec h4 .sub { margin-left: auto; font-size: var(--text-11px); font-weight: var(--weight-600); color: var(--muted); }
+/* reference / evidence sections are disclosures (.disc in styles.css) — a tight stack of header rows until one is opened */
+.evpanel > .evsec + .evsec { margin-top: calc(var(--space-6px) - var(--space-12px)); }
 .ev-empty { font-size: var(--text-12px); color: var(--muted); background: var(--surface-2); border-radius: var(--radius-9px); padding: var(--space-10px) var(--space-11px); line-height: var(--leading-1-55); }
-.ev-hint { background: var(--warn-soft); color: var(--warn); border-radius: var(--radius-9px); padding: var(--space-8px) var(--space-10px); font-size: var(--text-11-5px); line-height: var(--leading-1-5); }
-.ev-hint b { font-weight: var(--weight-700); }
 
 /* source kind badge */
 .evk { display: inline-flex; align-items: center; gap: var(--space-3px-x); flex-shrink: 0; height: var(--measure-19px); padding: 0 var(--space-6px); border-radius: var(--radius-5px); font-family: var(--num); font-size: var(--text-10-5px); font-weight: var(--weight-800); letter-spacing: var(--measure-0-02em); background: var(--surface-3); color: var(--ink-2); white-space: nowrap; }
@@ -178,3 +174,17 @@ a.evh:hover { text-decoration: underline; }
 .csrc .cs-imgs { grid-column: 1 / -1; margin-top: var(--space-4px); }
 .cs-more { grid-column: 1 / -1; justify-self: start; border: 0; background: none; padding: var(--space-2px) 0; font-size: var(--text-12px); font-weight: var(--weight-600); color: var(--accent); cursor: pointer; }
 .cs-more:hover { text-decoration: underline; }
+
+/* 시장조사 근거 (detail.jsx ResearchSection) — 업종 트렌드 장을 웹 검색 근거로 채웠을 때 */
+.rsr { display: flex; flex-direction: column; gap: 8px; }
+.rsr-why { margin: 0; font-size: 12.5px; line-height: 1.55; color: var(--ink); }
+.rsr-why b { font-weight: 800; }
+.rsr-why span { color: var(--muted); }
+.rsr-why.warn { display: flex; gap: 6px; align-items: flex-start; padding: 8px 10px; border-radius: 9px; background: var(--surface-2); color: var(--ink); }
+.rsr-why.warn svg { flex-shrink: 0; margin-top: 2px; color: var(--h-amber); }
+.rsr-note { margin: 0; padding-left: 10px; border-left: 2px solid var(--line-2); font-size: 12px; line-height: 1.5; color: var(--muted); }
+.rsr-src { display: flex; flex-direction: column; gap: 4px; }
+.rsr-q { font-size: 12px; color: var(--muted); }
+.rsr-q summary { cursor: pointer; }
+.rsr-q ul { margin: 6px 0 0; padding-left: 16px; display: flex; flex-direction: column; gap: 2px; }
+.rsr-foot { margin: 0; font-size: 11.5px; color: var(--faint); }

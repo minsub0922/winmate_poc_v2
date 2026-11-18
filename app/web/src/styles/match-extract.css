@@ -1,0 +1,26 @@
+/* Storyboard 매칭 카드의 원문 매칭 상태(components/match-area.jsx · services/match-extract.js)
+   요구사항 원문에서 제품 · 솔루션 · 공간을 찾는 동안 카드에는 shimmer와 '매칭 추론 중'만 보인다. */
+
+/* shimmer 색 — .shimmer(part.css)는 --sh · --sh-hi 를 쓰는데 .ghost 밖에서는 정의돼 있지 않아 투명해진다 */
+.mx-loading { --sh: var(--line); --sh-hi: var(--surface); cursor: progress; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .mx-loading { --sh-hi: var(--line-2); } }
+:root[data-theme="dark"] .mx-loading { --sh-hi: var(--line-2); }
+@media (prefers-reduced-motion: reduce) { .mx-loading .shimmer { animation: none; } }
+
+.mx-load-t { display: inline-flex; align-items: center; gap: 7px; min-height: 24px; padding: 0 2px; font-size: 12.5px; font-weight: 800; color: var(--accent); }
+.mx-load-t .spin { width: 13px; height: 13px; flex-shrink: 0; }
+.mx-sk { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.mx-sk i { display: block; border-radius: 8px; }
+.mx-sk-h { width: 38%; height: 12px; border-radius: 6px; }
+.mx-sk-h:not(:first-child) { margin-top: 6px; }
+/* 제품 3칸(이미지 + 이름) 자리 */
+.mx-sk-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.mx-sk-grid i { aspect-ratio: 1 / 1.28; border-radius: 10px; }
+.mx-sk-grid i:nth-child(2) { animation-delay: .12s; } .mx-sk-grid i:nth-child(3) { animation-delay: .24s; }
+/* 솔루션 · 유관사례 칩 자리 */
+.mx-sk-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.mx-sk-chips i { width: 44%; height: 26px; border-radius: 999px; animation-delay: .18s; }
+.mx-sk-chips i:nth-child(2) { width: 32%; animation-delay: .3s; }
+
+/* 실패 · 중단 — 카드 아래 한 줄과 다시 시도 */
+.mx-err { align-items: flex-start; }

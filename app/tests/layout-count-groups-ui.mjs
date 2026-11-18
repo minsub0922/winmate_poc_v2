@@ -1,0 +1,126 @@
+// Run only against an isolated admin/app server (temporary WINMATE_LAYOUT_LIBRARY,
+// auth/admin/account/storyboard paths). Edits/deletes one count variant, no model calls.
+// WINMATE_TEST_URL=http://127.0.0.1:8799 WINMATE_TEST_PASSWORD=... node app/tests/layout-count-groups-ui.mjs
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import { launch, startVite, isolatedContext, openApp, apiOrigin, root } from './fixtures/strict/harness.mjs';
+const output = path.join(root, 'app/tests/output/layout-count-groups'); fs.mkdirSync(output, { recursive: true });
+const vite = await startVite(), browser = await launch(), errors = [];
+let app, admin;
+try {
+  const context = await isolatedContext(browser, vite.url, { viewport: { width: 1512, height: 1000 } });
+  app = await openApp(context, vite.url, { helpers: false });
+  app.on('pageerror', e => errors.push(e.message));
+  await app.locator('.sb-tpl').click();
+  await app.locator('.hub-scope').getByRole('button', { name: /^시트/ }).click();
+  await app.locator('#tl-q').fill('VP-F');
+  const card = app.locator('.tl-card[data-count-group="vp-products"]');
+  await card.waitFor();
+  assert.equal(await card.count(), 1);
+  assert.equal(await card.locator('.count-group-badge').innerText(), '3종');
+  assert.equal(await app.locator('.tl-card[data-f="L_VP_F2"],.tl-card[data-f="L_VP_F4"]').count(), 0);
+  await card.hover();
+  let peek = app.getByRole('region', { name: '수량별 레이아웃 미리보기' });
+  await peek.waitFor();
+  assert.equal(await peek.locator('.count-group-option').count(), 3);
+  assert.deepEqual(await peek.locator('.count-option-label').evaluateAll(es => es.map(e => e.firstChild.textContent)), ['제품 2개', '제품 3개', '제품 4개']);
+  await peek.hover(); await app.waitForTimeout(250); assert.equal(await peek.count(), 1);
+  await app.screenshot({ path: output + '/app-hover.png' });
+  await peek.locator('[data-count-layout="L_VP_F4"] button').click();
+  let detail = app.getByRole('dialog').filter({ has: app.getByRole('heading', { name: /가치 기둥 × 제품 · 4개/ }) });
+  await detail.waitFor();
+  await detail.getByRole('button', { name: '닫기', exact: true }).first().click();
+  await card.click();
+  let choice = app.getByRole('dialog', { name: /가치 기둥 × 제품 · 수량별 버전 3종/ });
+  await choice.waitFor();
+  await choice.locator('[data-count-layout="L_VP_F2"] button').click();
+  detail = app.getByRole('dialog').filter({ has: app.getByRole('heading', { name: /가치 기둥 × 제품 · 2개/ }) });
+  await detail.waitFor(); await detail.getByRole('button', { name: '닫기', exact: true }).first().click();
+  await app.locator('#tl-q').fill('L_VP_F4'); await card.waitFor();
+  assert.equal(await card.locator('.count-group-badge').innerText(), '3종');
+  console.log('PASS grouped library, member-code search, hover and exact-variant details');
+
+  await app.locator('#tl-q').fill('L_VS_MAP_10');
+  const map = app.locator('.tl-card[data-count-group="industry-map"]'); await map.waitFor(); await map.hover();
+  await peek.waitFor(); assert.equal(await peek.locator('.count-group-option').count(), 9);
+  await peek.hover();
+  const bounds = await peek.boundingBox(); assert.ok(bounds.x >= 0 && bounds.y >= 0 && bounds.x + bounds.width <= 1513 && bounds.y + bounds.height <= 1001);
+  await peek.locator('[data-count-layout="L_VS_MAP_10"]').scrollIntoViewIfNeeded(); assert.equal(await peek.count(), 1);
+  await app.screenshot({ path: output + '/nine-variants.png' });
+  await app.mouse.move(2, 2); await peek.waitFor({ state: 'detached' });
+  await app.setViewportSize({ width: 390, height: 844 });
+  await app.locator('#tl-q').fill('VP-F'); await card.waitFor(); await card.click();
+  choice = app.getByRole('dialog', { name: /가치 기둥 × 제품 · 수량별 버전 3종/ }); await choice.waitFor();
+  assert.equal(await choice.locator('.count-group-option').count(), 3);
+  assert.ok(await app.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
+  await app.screenshot({ path: output + '/mobile-choices.png', animations: 'disabled' });
+  await choice.getByRole('button', { name: '닫기', exact: true }).first().click();
+  await app.setViewportSize({ width: 1512, height: 1000 });
+  console.log('PASS large count families and mobile variant chooser');
+
+  // Use the real proposal screen and picker; model endpoints stay blocked by the strict context.
+  const id = await app.evaluate(async () => {
+    const repo = await import('/src/repositories/proposals.js');
+    const { historyPath } = await import('/src/services/shared-path.js');
+    const id = repo.createProposal();
+    repo.update(id, p => { p.title = '수량별 시트 선택 검증'; p.stage = 'story'; p.parts = [{ id: 'count-test', type: 'value', name: '가치 제안', items: ['제품별 가치'], form: 'list', text: '', done: true, layouts: [] }]; });
+    history.pushState({ winmateRoute: { name: 'proposal', id } }, '', historyPath(id)); window.dispatchEvent(new PopStateEvent('popstate'));
+    return id;
+  });
+  await app.getByRole('button', { name: 'PPT 레이아웃 추가', exact: true }).click();
+  const picker = app.locator('.modal.xwide'); await picker.locator('#pk-q').fill('VP-F');
+  const pickCard = picker.locator('.pk-all .pcard[data-count-group="vp-products"]'); await pickCard.waitFor();
+  assert.equal(await pickCard.count(), 1); await pickCard.click();
+  choice = app.getByRole('dialog', { name: /가치 기둥 × 제품 · 수량별 버전 3종/ }); await choice.waitFor();
+  await choice.locator('[data-count-layout="L_VP_F4"] button').click();
+  await picker.waitFor({ state: 'detached' });
+  const inserted = await app.evaluate(async id => (await import('/src/repositories/proposals.js')).getProposal(id).parts.find(p => p.id === 'count-test').layouts.map(l => l.f), id);
+  assert.deepEqual(inserted, ['L_VP_F4']);
+  console.log('PASS Storyboard inserts the selected 4-product sheet');
+
+  admin = await context.newPage(); admin.on('pageerror', e => errors.push(e.message));
+  await admin.goto(apiOrigin + '/admin/layout-library');
+  await admin.getByLabel('레이아웃 검색', { exact: true }).fill('VP-F');
+  const adminCard = admin.locator('.ll-card[data-count-group="vp-products"]'); await adminCard.waitFor();
+  assert.equal(await adminCard.count(), 1); assert.equal(await adminCard.locator('.count-group-badge').innerText(), '3종');
+  await adminCard.hover(); peek = admin.getByRole('region', { name: '수량별 레이아웃 미리보기' }); await peek.waitFor();
+  assert.equal(await peek.locator('.count-group-option').count(), 3);
+  await peek.locator('[data-count-layout="L_VP_F4"] iframe').waitFor();
+  await admin.screenshot({ path: output + '/admin-hover.png' });
+  await peek.locator('[data-count-layout="L_VP_F2"] button').click();
+  detail = admin.getByRole('dialog').filter({ has: admin.locator('.ll-detail') }); await detail.waitFor();
+  assert.ok((await detail.locator('.modal-header').innerText()).includes('L_VP_F2'));
+  const before4 = await (await context.request.get(apiOrigin + '/admin/api/layout-library/L_VP_F4')).json();
+  await detail.getByLabel('레이아웃 이름', { exact: true }).fill('수량 2개 버전 수정 검증');
+  await detail.getByRole('button', { name: '수정 반영', exact: true }).click();
+  await admin.getByRole('dialog', { name: '레이아웃 수정을 반영할까요?' }).getByRole('button', { name: '수정 반영', exact: true }).click();
+  await admin.getByText('레이아웃 수정을 반영했습니다.', { exact: true }).waitFor();
+  const after4 = await (await context.request.get(apiOrigin + '/admin/api/layout-library/L_VP_F4')).json();
+  assert.deepEqual(after4.layout, before4.layout);
+  await detail.getByRole('button', { name: '닫기', exact: true }).last().click();
+  await adminCard.locator('.ll-card-delete').click();
+  choice = admin.getByRole('dialog', { name: /가치 기둥 × 제품 · 수량별 버전 3종/ }); await choice.waitFor();
+  await choice.locator('[data-count-layout="L_VP_F4"]').getByRole('button', { name: '삭제', exact: true }).click();
+  let confirm = admin.getByRole('dialog', { name: '레이아웃을 삭제할까요?' }); await confirm.waitFor();
+  await confirm.getByRole('button', { name: '취소', exact: true }).click();
+  assert.equal(await adminCard.locator('.count-group-badge').innerText(), '3종');
+  await adminCard.locator('.ll-card-delete').click(); await choice.waitFor();
+  await choice.locator('[data-count-layout="L_VP_F4"]').getByRole('button', { name: '삭제', exact: true }).click();
+  await confirm.getByRole('button', { name: '삭제', exact: true }).click();
+  await admin.getByText('레이아웃을 삭제했습니다.', { exact: true }).waitFor();
+  await adminCard.locator('.count-group-badge', { hasText: '2종' }).waitFor();
+  await app.bringToFront(); await app.locator('.sb-tpl').click();
+  await app.locator('.hub-scope').getByRole('button', { name: /^시트/ }).click();
+  await app.locator('#tl-q').fill('VP-F'); await card.locator('.count-group-badge', { hasText: '2종' }).waitFor({ timeout: 12000 });
+  const state = await (await context.request.get(apiOrigin + '/api/layout-library')).json();
+  assert.equal(state.items.L_VP_F4.deleted, true);
+  assert.ok(!state.items.L_VP_F?.deleted && !state.items.L_VP_F2.deleted);
+  assert.deepEqual(errors, []);
+  console.log('PASS per-variant admin editing, confirmed deletion and live grouped app sync');
+  fs.writeFileSync(output + '/report.json', JSON.stringify({ checks: 5, errors, physicalSelection: inserted, remaining: 2 }, null, 2));
+} catch (error) {
+  await app?.screenshot({ path: output + '/app-failure.png' }).catch(() => {});
+  await admin?.screenshot({ path: output + '/admin-failure.png' }).catch(() => {});
+  throw error;
+} finally { await browser.close(); await vite.close(); }

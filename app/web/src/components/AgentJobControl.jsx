@@ -131,7 +131,11 @@ export function AgentJobControl({ id, title, defaultOpen = false, compact = fals
   };
   const icon = job.status === 'done' ? <Icon name="check" size={12} stroke={3} /> : job.status === 'waiting' ? <Icon name="notice" size={13} stroke={2.8} />
     : term ? <Icon name="alert" size={12} /> : <span className="spin" />;
-  return <FeedbackPopup message={title || job.title || '서버 작업'} kind={failed?'error':term?'info':'progress'} content={
+  // 상단 상태 자리 한 줄: 제목 · 지금 단계(또는 상태) · 단추 하나(멈추기 · 질문에 답하기 · 다시 시도) — 카드 전체는 펼친 목록에
+  const step = job.status === 'running' && last ? last.message : (STATUS[job.status] || job.status);
+  const slotAction = job.status === 'waiting' ? { label: '질문에 답하기', panel: true } : !term ? { label: '멈추기', run: cancel }
+    : (failed || job.status === 'cancelled') && onRetry ? { label: '다시 시도', run: retry } : null;
+  return <FeedbackPopup message={title || job.title || '서버 작업'} kind={failed?'error':term?'info':'progress'} detail={step} slotAction={slotAction} attention={job.status === 'waiting'} onDismiss={term ? onClose : undefined} content={
     <section className={'ajc st-' + job.status + (compact ? ' compact' : '')} aria-label={(title || job.title || '서버 작업') + ' · ' + (STATUS[job.status] || job.status)}>
       <div className="ajc-h">
         <span className="ajc-ic" aria-hidden="true">{icon}</span>

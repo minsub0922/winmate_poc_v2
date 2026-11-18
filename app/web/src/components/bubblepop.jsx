@@ -33,7 +33,8 @@ function placeBeside(el, anchor, beside) {
 
 // back: { label, onClick } — a ← button before the icon (a view opened from inside the popup, e.g. 추가 · 추천 탐색)
 // fill: take the full height beside the bubble (lists that scroll inside) · onEsc: what Esc does (default: close)
-export function BubblePopup({ cls, extra = '', anchor, beside, icon, title, sub, status, closeLabel, onClose, onEsc, back, fill = false, footer, footerClass = '', bodyClass = '', bodyRef, children }) {
+// headerActions: compact controls shown immediately left of the × (e.g. 이전 불러오기) — nothing is rendered without it
+export function BubblePopup({ cls, extra = '', anchor, beside, icon, title, sub, status, headerActions, closeLabel, onClose, onEsc, back, fill = false, footer, footerClass = '', bodyClass = '', bodyRef, children }) {
   const ref = useRef(null);
   const [pos, setPos] = useState(null);
   useLayoutEffect(() => {
@@ -83,6 +84,7 @@ export function BubblePopup({ cls, extra = '', anchor, beside, icon, title, sub,
         <span className="bp-ic" aria-hidden="true">{icon}</span>
         <div className="bp-t"><h2 id={hid}>{title}</h2>{sub}</div>
         {status}
+        {headerActions && <div className="bp-actions">{headerActions}</div>}
         <button type="button" className={'btn btn-ghost btn-icon btn-sm bp-x ' + cls + '-x'} onClick={onClose} aria-label={closeLabel || title + ' 닫기'} title="닫기"><Icon name="x" size={16} /></button>
       </header>
       <div ref={bodyRef} className={'bp-body ' + cls + '-body' + (bodyClass ? ' ' + bodyClass : '')}>{children}</div>

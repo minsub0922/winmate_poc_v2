@@ -50,9 +50,10 @@ try{
   const editor=page.getByRole('combobox',{name:'조감도 편집 프롬프트'});await editor.click();await editor.pressSequentially('r');
   assert.match(await editor.textContent(),/r/);
   await select(plant.id);assert.equal((await readout()).rotation,typed.rotation);
-  await page.getByRole('button',{name:'제품 · 가구 오브젝트'}).click();await page.getByRole('dialog').first().waitFor();
+  // 다른 창 — 공간 이름표 메뉴의 스타일 변경 확인 팝업
+  await page.locator('[data-room-label]').first().click();await page.getByRole('menuitem',{name:'공간 스타일 변경'}).click();await page.locator('.sp-room-menu [role=menuitemradio]:not([disabled])').first().click();await page.getByRole('dialog').first().waitFor();
   await page.keyboard.press('r');await settle();
-  await page.keyboard.press('Escape');await page.locator('.sp-view[data-ready=true]').waitFor();
+  await page.keyboard.press('Escape');await page.getByRole('dialog').waitFor({state:'detached'});await page.locator('.sp-view[data-ready=true]').waitFor();
   await select(plant.id);assert.equal((await readout()).rotation,typed.rotation);
   pass('shortcuts stay off while typing a command or while another dialog is open');
   // 입력창의 태그 칩에 포커스가 있으면 Backspace는 칩을 지운다 — 선택한 오브젝트가 아니라

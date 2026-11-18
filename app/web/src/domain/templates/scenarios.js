@@ -2,22 +2,23 @@
 // Each scenario answers three questions: which requirement it fits (req), which strategy it argues with (strategy),
 // and how the deck flows from opening to the ask (flow → ending). Slides reference layout files (`f`).
 import VERTICAL from './vertical_scenarios.json' with { type: 'json' };
+import { offSet } from '../../api/resource-switches.js';
 import STANDARD from './standard_vertical_scenarios.json' with { type: 'json' };
 import SCENARIO_COVERS from './scenario_covers.json' with { type: 'json' };
 import ACCOUNT from './account_scenarios.json' with {type:'json'};
 import SUBSCRIPTION from './subscription_scenarios.json' with { type: 'json' }; // 구독 도입 — build/subs/compose.mjs samples
 // icon = 샘플 버티컬 시나리오 목록(검색 전) 카드의 상징 아이콘 — common.jsx Icon 이름
 export const REQ_TYPES = {
-  std: { label: '표준 제안서', desc: '업종별 공간·제품·솔루션·운영의 표준 구성을 함께 검토할 때', hue: 'slate', icon: 'stack' },
+  std: { label: '버티컬 표준제안서', desc: '업종별 표준 제안서 양식 그대로. 표지부터 Why Samsung까지 빠짐없는 기본 구성에서 출발할 때', hue: 'slate', icon: 'stack' },
   new: { label: '신규 구축 · RFP', desc: '새 공간 · 첫 도입. 범위와 사양을 처음부터 함께 정해야 할 때', hue: 'blue', icon: 'buildPlus' },
   renew: { label: '교체 · 리뉴얼', desc: '쓰던 장비 · 공간을 바꿀 때. 영업 중단 최소화와 전후 비교가 핵심', hue: 'teal', icon: 'renew' },
   compete: { label: '경쟁 입찰 · 공급사 전환', desc: '다른 공급사와 나란히 평가받을 때. 비교 기준을 먼저 잡는 쪽이 이김', hue: 'amber', icon: 'medal' },
   ops: { label: '운영 효율 · 솔루션', desc: '기기보다 운영 방식(원격 관리 · 에너지 · 현장 단말)을 바꿀 때. 숫자로 증명', hue: 'violet', icon: 'gauge' },
-  subs: { label: '구독 도입', desc: '초기 비용 부담 없이 B2B 삼성 AI 구독으로 들일 때. 업종 패키지 · 케어 · 납부 방법이 핵심', hue: 'green', icon: 'p-subs' },
+  subs: { label: '서비스 제안', desc: '초기 비용 부담 없이 B2B 삼성 AI 구독으로 들일 때. 업종 패키지 · 케어 · 납부 방법이 핵심', hue: 'green', icon: 'p-subs' },
   scale: { label: '파일럿 · 확산 · 공동 개발', desc: '검증한 것을 넓히거나 파트너와 함께 만들 때. 성공 기준과 단계가 핵심', hue: 'green', icon: 'rocket' },
   brief: { label: '첫 미팅 · 경영진 · 투자 심의', desc: '짧은 시간, 결정권자 앞. 한 줄 메시지와 다음 단계 합의가 목표', hue: 'slate', icon: 'easel' },
 };
-export const REQ_ORDER = ['std', 'new', 'renew', 'compete', 'ops', 'subs', 'scale', 'brief'];
+export const REQ_ORDER = ['brief', 'std', 'compete', 'ops', 'subs', 'scale', 'new', 'renew'];
 
 export const STRATEGIES = {
   value: { label: '가치 선도형', desc: '가치 기둥을 먼저 세우고 제품 · 효과로 받친다' },
@@ -94,7 +95,7 @@ export const SCENARIOS = [
       st("context", "오피스 시장과 이용자", "왜 지금, 왜 이 건물인지", [["L_PH_MI_OF_A", "오피스 시장의 스마트 빌딩 경쟁"], ["L_PH_MI_OF_B", "임대 수익과 운영 경쟁력 구조"], ["L_PH_MI_OF_C", "로비 · 자리 · 회의실, 이용자 평가의 세 순간"]]),
       st("space", "공간별 경험", "네 이해관계자가 얻는 것을 준공 후 공간 장면으로", [["L_PH_VP_D", "이해관계자별 가치 — 브랜드 · 공간 경험 · 시공 부담"], ["L_PH_SS_OF_A", "여섯 공간 맵 — 제품은 다르고 관리는 하나"], ["L_PH_SS_OF_D", "거리에서 업무층 입구까지 끊기지 않는 안내"], ["L_PH_SS_OF_B", "예약부터 뒷정리까지 저절로 움직이는 회의실"]]),
       st("build", "층별 구성과 하나의 관제", "층마다 무엇이 들어가고 어떻게 하나로 운영하는지", [["L_PH_SM_D", "층별 단면 — 층마다 들어가는 것"], ["L_BIT_D", "b.IoT 구성도 — 층별 설비 → 게이트웨이 → 관리 화면"], ["L_STP_S_OF", "SmartThings Pro 오피스 — 출근부터 퇴근까지 자동 운전"]]),
-      st("plan", "에너지 효과와 설계 반영", "20%를 탄소로 잇고, 공사 범위 · 일정을 지금 나눈다", [["L_PH_EF_I", "에너지 절감 → 탄소 감축 · 공시 지표"], ["L_PH_IP_B", "설계 · 전기 · 기계 · 삼성 공사 범위 R&R"], ["L_PH_IP_A", "설계 반영 → 시공 → 시운전 → 운영 로드맵"]]),
+      st("plan", "에너지 효과와 설계 반영", "20%를 탄소로 잇고, 공사 범위를 지금 나눈다", [["L_PH_EF_I", "에너지 절감 → 탄소 감축 · 공시 지표"], ["L_PH_IP_B", "설계 · 전기 · 기계 · 삼성 공사 범위 R&R"]]),
       st("proof", "Why Samsung", "끝까지 책임지는 공급사로 닫는다", [["L_AIS_32", "Samsung Business 4P — 사옥 사진 + 네 가지 강점"], ["L_AIS_37", "사진 + SAMSUNG 브랜드 띠 마감 — 로비 기둥형 LED"]]),
     ],
     ask: '설계 도면 반영 범위 확정 + 실측 증빙 방식 합의',
@@ -363,7 +364,7 @@ export const SCENARIOS = [
       st("context", "목차 · 사업 이해", "평가표 순서 목차와 사업 목적 · 범위", [["L_C10", "목차 — 평가 항목 순서"], ["L_PH_OV_A", "사업 이해 — 배경 · 목적 · 범위 · 일정"]]),
       st("proof", "평가 배점 · 요구사항 대응", "배점 순서대로, ID 단위로 빠짐없이", [["L_PH_RQ_B", "평가 항목 · 배점 대응"], ["L_PH_RQ_A", "요구사항 대응표(요구 ID별)"]]),
       st("build", "기술 · 보안", "구성 · 사양 · 증빙 · 보안 요건", [["L_PH_SA_B", "통합 계층형 아키텍처"], ["L_SC_B", "사양 요구사항 대응표"], ["L_SE_B", "인증 · 규격 현황"], ["L_PH_SE_A", "보안 요건 대응표"]]),
-      st("plan", "사업관리", "수행 체계 · 일정 · 교육 · 점검", [["L_PH_OG_A", "추진 체계"], ["L_PH_IP_A", "도입 로드맵 · 책임"], ["L_PH_TO_A", "교육 계획"], ["L_PH_MT_A", "유지보수 점검 캘린더"]]),
+      st("plan", "사업관리", "수행 체계 · 교육 · 점검", [["L_PH_OG_A", "추진 체계"], ["L_PH_TO_A", "교육 계획"], ["L_PH_MT_A", "유지보수 점검 캘린더"]]),
       st("close", "질의 대비 · 마무리", "예상 질문에 근거로 답하고 브랜드로 닫는다", [["L_PH_QA_A", "예상 질문 · 답변"], ["L_AIS_37", "사진 + SAMSUNG 브랜드 띠 마감 — 역사 안내 화면"]]),
     ],
     ask: '기술평가 통과 · 우선협상대상자 선정',
@@ -544,7 +545,7 @@ export const SCENARIOS = [
       st("context", "고객 불편과 시범점 성과", "불편이 몰린 순간과 시범 10곳의 숫자", [["L_PH_MI_FN_C", "기다림과 서식, 두 순간에 몰린 불편"], ["L_PH_CD_C", "시범점 성과 수치 + 현장 코멘트"]]),
       st("space", "창구와 방문 상담", "태블릿 창구와 방문 상담 장면", [["L_PH_SS_FN_B", "태블릿 한 대로 끝나는 창구 상담"], ["L_PH_SS_FN_E", "시범부터 확인하며 넓히는 방문 상담"], ["L_VC_21", "지점 데스크 · 고객 현장 × DeX 미러형"]]),
       st("build", "보안 · 개인정보", "보안성 심의를 통과할 근거", [["L_PH_SE_A", "금융 보안 요건 대응표"], ["L_PH_SE_C", "개인정보 처리 흐름"]]),
-      st("plan", "확산 실행 계획", "기준을 넘을 때만 넓히고, 멈추지 않게 넘긴다", [["L_PH_PL_A", "파일럿 → 확산 단계와 성공 기준"], ["L_PH_CB_E", "지역별 물량 · 설치 일정"], ["L_PH_TO_B", "운영 이관 체크리스트"], ["L_PH_EF_B", "연차별 누적 효과"]]),
+      st("plan", "확산 실행 계획", "기준을 넘을 때만 넓히고, 멈추지 않게 넘긴다", [["L_PH_CB_E", "지역별 물량 · 설치 일정"], ["L_PH_TO_B", "운영 이관 체크리스트"], ["L_PH_EF_B", "연차별 누적 효과"]]),
       st("proof", "Why Samsung", "끝까지 책임지는 공급사로 닫는다", [["L_AIS_32", "Samsung Business 4P — 사옥 사진 + 네 가지 강점"], ["L_AIS_37", "사진 + SAMSUNG 브랜드 띠 마감 — 디지털 창구"]]),
     ],
     ask: '전 지점 확산 1차(수도권 120개점) 예산 승인 + 보안성 심의 일정',
@@ -602,7 +603,7 @@ export const SCENARIOS = [
     flow: [
       st("open", "표지", "사업장 장면으로 연다", [["L_C02", "타이포 표지"]]),
       st("context", "제안 개요 · 배경", "답을 먼저, 이어서 업계와 그룹의 과제", [["L_PH_ES_A", "제안 요약 4단 — 과제 · 제안 · 효과 · 왜 삼성"], ["L_PH_IM_A", "시장 4분면 요약 + 결론"], ["L_PH_CB_B", "고객 전략 목표 → 실행 과제"]]),
-      st("value", "가치와 로드맵", "한 문장 가치, 도입 후 모습, 16주 로드맵", [["L_PH_VP_C", "한 문장 + 근거 3"], ["L_BV_C", "도입 후 전경 + 한 장 요약"], ["L_PH_IP_A", "실사 → 워크숍 → 제안 → 파일럿 로드맵"]]),
+      st("value", "가치와 도입 후 모습", "한 문장 가치와 도입 후 모습", [["L_PH_VP_C", "한 문장 + 근거 3"], ["L_BV_C", "도입 후 전경 + 한 장 요약"]]),
       st("proof", "사례 · Why Samsung", "업계 사례와 숫자로 닫는다", [["L_CL_D", "업계 사례 사진 카드 6"], ["L_PH_ST_A", "강점 + 증거 수치"], ["L_AIS_37", "사진 + SAMSUNG 브랜드 띠 마감 — 그룹 사업장"]]),
     ],
     ask: '현장 실사(2주 내) + 요구사항 워크숍 일정 합의',
@@ -654,13 +655,15 @@ SCENARIOS.push(...STANDARD.scenarios);
 SCENARIOS.push(...ACCOUNT.scenarios);
 SCENARIOS.push(...SUBSCRIPTION.scenarios);
 export const SC = Object.fromEntries(SCENARIOS.map((s) => [s.id, s]));
+// 관리자 데이터 소스에서 끈 Best Scenario — 목록 · 검색 · 추천에서 빠지고 SC(id 로 찾기)에는 남는다
+for (let i = SCENARIOS.length - 1; i >= 0; i--) if (offSet('scenario').has(SCENARIOS[i].id)) SCENARIOS.splice(i, 1);
 
 // Shown first on the template page — three different requirement types and strategies.
 export const FEATURED = [...ACCOUNT.scenarios.map(s=>s.id), 'bs01', 'bs07', 'bs10'].slice(0,3);
 // Four representative sheets per featured scenario: problem → answer → scene/proof → ask, in deck order.
 const REPS = {
   bs_account_inspire:['L_PH_CB_P','L_PH_CB_M','L_AC_GOV_01','L_PH_SO_B'],
-  bs_account_paulbassett:['L_PH_CB_P','L_PH_CB_M','L_AC_GOV_01','L_PH_SO_B'],
+  bs_account_paulbassett:['L_TOC_UAPAIN','L_TOC_TECH2','L_TOC_JOURNEY3','L_VS_MAP_5'],
   bs_account_episode:['L_PH_CB_P','L_PH_CB_M','L_AC_GOV_01','L_PH_SO_B'],
   bs01: ['L_PH_CB_C', 'L_VP_F', 'L_PH_SS_FB_A', 'L_PH_PL_B'],
   bs07: ['L_PH_MI_HT_C', 'L_PH_CH_C', 'L_LYN_S_HT', 'L_PH_P_N'],

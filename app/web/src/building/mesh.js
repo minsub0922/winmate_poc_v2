@@ -52,7 +52,7 @@ export function texture(kind, style) {
 }
 
 // ---------- 부품 형상 (로컬 렌더러 Fl · I_ 규칙, 건물 단위라 분할 수만 낮춤) ----------
-const geoCache = new Map();
+const geoCache = new WeakMap();
 const _m4 = new Matrix4();
 export function partGeometry(p, size, gt) {
   const gs = (i) => (gt && gt.scale ? gt.scale[i] : 1);
@@ -79,9 +79,10 @@ export function partGeometry(p, size, gt) {
   return g.scale(...size.map((v, i) => v * gs(i)));
 }
 export function cachedPart(a, p, pi) {
-  const ck = a.id + '|' + pi;
-  let g = geoCache.get(ck);
-  if (!g) { g = partGeometry(p, a.s, a.gt); geoCache.set(ck, g); }
+  let parts = geoCache.get(a);
+  if (!parts) { parts = new Map(); geoCache.set(a, parts); }
+  let g = parts.get(pi);
+  if (!g) { g = partGeometry(p, a.s, a.gt); parts.set(pi, g); }
   return g;
 }
 export const partPos = (p, a) => p.position.map((v, i) => (v + (a.gt && a.gt.offset ? a.gt.offset[i] : 0)) * (a.gt && a.gt.scale ? a.gt.scale[i] : 1) * a.s[i]);
